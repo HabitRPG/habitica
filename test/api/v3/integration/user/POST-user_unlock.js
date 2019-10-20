@@ -5,9 +5,9 @@ import {
 
 describe('POST /user/unlock', () => {
   let user;
-  let unlockPath = 'shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie';
-  let unlockCost = 1.25;
-  let usersStartingGems = 5;
+  const unlockPath = 'shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie';
+  const unlockCost = 1.25;
+  const usersStartingGems = 5;
 
   beforeEach(async () => {
     user = await generateUser();
@@ -28,7 +28,7 @@ describe('POST /user/unlock', () => {
     await user.update({
       balance: usersStartingGems,
     });
-    let response = await user.post(`/user/unlock?path=${unlockPath}`);
+    const response = await user.post(`/user/unlock?path=${unlockPath}`);
     await user.sync();
 
     expect(response.message).to.equal(t('unlocked'));

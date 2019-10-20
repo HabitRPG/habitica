@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "<%= type %>를 가지고 있지 않습니다.",
+  "foodItemType": "먹이",
+  "eggsItemType": "알",
+  "hatchingPotionsItemType": "부화 물약",
+  "specialItemType": "스페셜 아이템",
+  "lockedItem": "잠긴아이템"
+}

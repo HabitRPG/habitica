@@ -11,7 +11,7 @@ describe('GET /shops/quests', () => {
   });
 
   it('returns a valid shop object', async () => {
-    let shop = await user.get('/shops/quests');
+    const shop = await user.get('/shops/quests');
 
     expect(shop.identifier).to.equal('questShop');
     expect(shop.text).to.eql(t('quests'));
@@ -19,7 +19,7 @@ describe('GET /shops/quests', () => {
     expect(shop.imageName).to.be.a('string');
     expect(shop.categories).to.be.an('array');
 
-    let categories = shop.categories.map(cat => cat.identifier);
+    const categories = shop.categories.map(cat => cat.identifier);
 
     expect(categories).to.include('unlockable');
     expect(categories).to.include('gold');

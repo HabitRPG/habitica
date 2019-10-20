@@ -14,8 +14,8 @@ import {
 
 describe('shared.ops.rebirth', () => {
   let user;
-  let animal = 'Wolf-Base';
-  let userStats = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
+  const animal = 'Wolf-Base';
+  const userStats = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
   let tasks = [];
 
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('shared.ops.rebirth', () => {
     tasks = [generateHabit(), generateDaily(), generateTodo(), generateReward()];
   });
 
-  it('returns an error when user balance is too low and user is less than max level', (done) => {
+  it('returns an error when user balance is too low and user is less than max level', done => {
     user.balance = 0;
 
     try {
@@ -37,7 +37,7 @@ describe('shared.ops.rebirth', () => {
   });
 
   it('rebirths a user with enough gems', () => {
-    let [, message] = rebirth(user);
+    const [, message] = rebirth(user);
 
     expect(message).to.equal(i18n.t('rebirthComplete'));
   });
@@ -46,7 +46,7 @@ describe('shared.ops.rebirth', () => {
     user.balance = 0;
     user.stats.lvl = MAX_LEVEL;
 
-    let [, message] = rebirth(user);
+    const [, message] = rebirth(user);
 
     expect(message).to.equal(i18n.t('rebirthComplete'));
     expect(user.flags.lastFreeRebirth).to.exist;
@@ -56,7 +56,7 @@ describe('shared.ops.rebirth', () => {
     user.balance = 0;
     user.stats.lvl = MAX_LEVEL + 1;
 
-    let [, message] = rebirth(user);
+    const [, message] = rebirth(user);
 
     expect(message).to.equal(i18n.t('rebirthComplete'));
   });
@@ -65,7 +65,7 @@ describe('shared.ops.rebirth', () => {
     user.stats.lvl = MAX_LEVEL + 1;
     user.flags.lastFreeRebirth = new Date();
 
-    let [, message] = rebirth(user);
+    const [, message] = rebirth(user);
 
     expect(message).to.equal(i18n.t('rebirthComplete'));
     expect(user.balance).to.equal(0);
@@ -86,15 +86,19 @@ describe('shared.ops.rebirth', () => {
   });
 
   it('resets user\'s daily streaks to 0', () => {
+    tasks[0].counterDown = 1; // Habit
+    tasks[0].counterUp = 1; // Habit
     tasks[1].streak = 1; // Daily
 
     rebirth(user, tasks);
 
+    expect(tasks[0].counterDown).to.equal(0);
+    expect(tasks[0].counterUp).to.equal(0);
     expect(tasks[1].streak).to.equal(0);
   });
 
   it('resets a user\'s buffs', () => {
-    user.stats.buffs = {test: 'test'};
+    user.stats.buffs = { test: 'test' };
 
     rebirth(user);
 
@@ -119,21 +123,21 @@ describe('shared.ops.rebirth', () => {
 
   it('resets a user\'s stats', () => {
     user.stats.class = 'rouge';
-    _.each(userStats, function setUsersStats (value) {
+    _.each(userStats, value => {
       user.stats[value] = 10;
     });
 
     rebirth(user);
 
-    _.each(userStats, function resetUserStats (value) {
+    _.each(userStats, value => {
       user.stats[value] = 0;
     });
   });
 
   it('retains a user\'s gear', () => {
-    let prevGearEquipped = user.items.gear.equipped;
-    let prevGearCostume = user.items.gear.costume;
-    let prevPrefCostume = user.preferences.costume;
+    const prevGearEquipped = user.items.gear.equipped;
+    const prevGearCostume = user.items.gear.costume;
+    const prevPrefCostume = user.preferences.costume;
 
     rebirth(user);
 
@@ -144,7 +148,7 @@ describe('shared.ops.rebirth', () => {
 
   it('retains a user\'s gear owned', () => {
     user.items.gear.owned.weapon_warrior_1 = true; // eslint-disable-line camelcase
-    let prevGearOwned = user.items.gear.owned;
+    const prevGearOwned = user.items.gear.owned;
 
     rebirth(user);
 
@@ -172,7 +176,7 @@ describe('shared.ops.rebirth', () => {
     user.flags.dropsEnabled = true;
     user.flags.classSelected = true;
     user.flags.rebirthEnabled = true;
-    user.flags.levelDrops = {test: 'test'};
+    user.flags.levelDrops = { test: 'test' };
 
     rebirth(user);
 
@@ -224,7 +228,8 @@ describe('shared.ops.rebirth', () => {
   it('always increments rebirth achievements when level is MAX_LEVEL', () => {
     user.stats.lvl = MAX_LEVEL;
     user.achievements.rebirths = 1;
-    user.achievements.rebirthLevel = MAX_LEVEL + 1; // this value is not actually possible (actually capped at MAX_LEVEL) but makes a good test
+    // this value is not actually possible (actually capped at MAX_LEVEL) but makes a good test
+    user.achievements.rebirthLevel = MAX_LEVEL + 1;
 
     rebirth(user);
 
@@ -235,7 +240,8 @@ describe('shared.ops.rebirth', () => {
   it('always increments rebirth achievements when level is greater than MAX_LEVEL', () => {
     user.stats.lvl = MAX_LEVEL + 1;
     user.achievements.rebirths = 1;
-    user.achievements.rebirthLevel = MAX_LEVEL + 2; // this value is not actually possible (actually capped at MAX_LEVEL) but makes a good test
+    // this value is not actually possible (actually capped at MAX_LEVEL) but makes a good test
+    user.achievements.rebirthLevel = MAX_LEVEL + 2;
 
     rebirth(user);
 

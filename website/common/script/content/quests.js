@@ -6,9 +6,9 @@ import {
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
-let userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
+const userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
-let quests = {
+const quests = {
   dilatory: {
     text: t('questDilatoryText'),
     notes: t('questDilatoryNotes'),
@@ -257,7 +257,7 @@ let quests = {
   },
   evilsanta: {
     canBuy () {
-      return true;
+      return false;
     },
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -283,7 +283,7 @@ let quests = {
   },
   evilsanta2: {
     canBuy () {
-      return true;
+      return false;
     },
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
@@ -2261,7 +2261,7 @@ let quests = {
     unlockCondition: {
       condition: 'party invite',
       incentiveThreshold: 7,
-      text: t('loginReward', {count: 7}),
+      text: t('loginReward', { count: 7 }),
     },
     collect: {
       shard: {
@@ -2292,7 +2292,7 @@ let quests = {
     unlockCondition: {
       condition: 'party invite',
       incentiveThreshold: 22,
-      text: t('loginReward', {count: 22}),
+      text: t('loginReward', { count: 22 }),
     },
     boss: {
       name: t('questMoon2Boss'),
@@ -2322,7 +2322,7 @@ let quests = {
     unlockCondition: {
       condition: 'party invite',
       incentiveThreshold: 40,
-      text: t('loginReward', {count: 40}),
+      text: t('loginReward', { count: 40 }),
     },
     boss: {
       name: t('questMoon3Boss'),
@@ -3417,24 +3417,110 @@ let quests = {
       unlock: t('questDolphinUnlockText'),
     },
   },
+  silver: {
+    text: t('questSilverText'),
+    notes: t('questSilverNotes'),
+    completion: t('questSilverCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      silverIngot: {
+        text: t('questSilverCollectSilverIngots'),
+        count: 20,
+      },
+      moonRune: {
+        text: t('questSilverCollectMoonRunes'),
+        count: 15,
+      },
+      cancerRune: {
+        text: t('questSilverCollectCancerRunes'),
+        count: 15,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questSilverUnlockText'),
+    },
+  },
+  robot: {
+    text: t('questRobotText'),
+    notes: t('questRobotNotes'),
+    completion: t('questRobotCompletion'),
+    value: 1,
+    category: 'timeTravelers',
+    canBuy () {
+      return false;
+    },
+    collect: {
+      bolt: {
+        text: t('questRobotCollectBolts'),
+        count: 15,
+      },
+      gear: {
+        text: t('questRobotCollectGears'),
+        count: 10,
+      },
+      spring: {
+        text: t('questRobotCollectSprings'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        },
+      ],
+      gp: 40,
+      exp: 75,
+      unlock: t('questRobotUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {
-  let b;
   defaults(v, {
     key,
     canBuy () {
       return true;
     },
   });
-  b = v.boss;
+
+  const b = v.boss;
+
   if (b) {
     defaults(b, {
       str: 1,
       def: 1,
     });
     if (b.rage) {
-      return defaults(b.rage, {
+      defaults(b.rage, {
         title: t('bossRageTitle'),
         description: t('bossRageDescription'),
       });
@@ -3442,11 +3528,9 @@ each(quests, (v, key) => {
   }
 });
 
-let questsByLevel = sortBy(quests, (quest) => {
-  return quest.lvl || 0;
-});
+const questsByLevel = sortBy(quests, quest => quest.lvl || 0);
 
-module.exports = {
+export {
   quests,
   questsByLevel,
   userCanOwnQuestCategories,

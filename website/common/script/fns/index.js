@@ -6,7 +6,7 @@ import autoAllocate from './autoAllocate';
 import updateStats from './updateStats';
 import ultimateGear from './ultimateGear';
 
-module.exports = {
+export default {
   handleTwoHanded,
   predictableRandom,
   crit,

@@ -1,4 +1,4 @@
-let api = {};
+const api = {};
 
 /**
  * @api {get} /api/v3/status Get Habitica's API status
@@ -22,4 +22,4 @@ api.getStatus = {
   },
 };
 
-module.exports = api;
+export default api;

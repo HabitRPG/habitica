@@ -1,6 +1,6 @@
 import t from '../../translation';
 
-let armor = {
+const armor = {
   1: {
     text: t('armorRogue1Text'),
     notes: t('armorRogue1Notes', { per: 6 }),
@@ -34,7 +34,7 @@ let armor = {
   },
 };
 
-let head = {
+const head = {
   1: {
     text: t('headRogue1Text'),
     notes: t('headRogue1Notes', { per: 2 }),
@@ -68,7 +68,7 @@ let head = {
   },
 };
 
-let weapon = {
+const weapon = {
   0: {
     text: t('weaponRogue0Text'),
     notes: t('weaponRogue0Notes'),
@@ -114,7 +114,7 @@ let weapon = {
   },
 };
 
-let shield = {
+const shield = {
   0: {
     text: t('weaponRogue0Text'),
     notes: t('weaponRogue0Notes'),
@@ -160,11 +160,9 @@ let shield = {
   },
 };
 
-let rogueSet = {
+export {
   armor,
   head,
   shield,
   weapon,
 };
-
-module.exports = rogueSet;

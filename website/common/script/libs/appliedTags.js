@@ -4,11 +4,7 @@ Are there tags applied?
 
 // TODO move to client
 
-module.exports = function appliedTags (userTags, taskTags = []) {
-  let arr = userTags.filter(tag => {
-    return taskTags.indexOf(tag.id) !== -1;
-  }).map(tag => {
-    return tag.name;
-  });
+export default function appliedTags (userTags, taskTags = []) {
+  const arr = userTags.filter(tag => taskTags.indexOf(tag.id) !== -1).map(tag => tag.name);
   return arr.join(', ');
-};
+}

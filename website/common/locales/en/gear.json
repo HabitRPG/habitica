@@ -122,6 +122,8 @@
   "weaponSpecialTachiNotes": "This light and curved sword will shred your tasks to ribbons! Increases Strength by <%= str %>.",
   "weaponSpecialAetherCrystalsText": "Aether Crystals",
   "weaponSpecialAetherCrystalsNotes": "These bracers and crystals once belonged to the Lost Masterclasser herself. Increases all Stats by <%= attrs %>.",
+  "weaponSpecialKS2019Text": "Mythic Gryphon Glaive",
+  "weaponSpecialKS2019Notes": "Curved as a gryphon's beak and talons, this ornate polearm reminds you to power through when the task ahead feels daunting. Increases Strength by <%= str %>.",
 
   "weaponSpecialYetiText": "Yeti-Tamer Spear",
   "weaponSpecialYetiNotes": "This spear allows its user to command any yeti. Increases Strength by <%= str %>. Limited Edition 2013-2014 Winter Gear.",
@@ -330,6 +332,15 @@
   "weaponSpecialSummer2019HealerText": "Bubble Wand",
   "weaponSpecialSummer2019HealerNotes": "The bubbles from this wand capture healing energy and ancient oceanic magic. Increases Intelligence by <%= int %>. Limited Edition 2019 Summer Gear.",
 
+  "weaponSpecialFall2019RogueText": "Music Stand",
+  "weaponSpecialFall2019RogueNotes": "Whether you're conducting the orchestra or singing an aria, this helpful device keeps your hands free for dramatic gestures! Increases Strength by <%= str %>. Limited Edition 2019 Autumn Gear.",
+  "weaponSpecialFall2019WarriorText": "Talon Trident",
+  "weaponSpecialFall2019WarriorNotes": "Prepare to rend your foes with the talons of a raven! Increases Strength by <%= str %>. Limited Edition 2019 Autumn Gear.",
+  "weaponSpecialFall2019MageText": "One-Eyed Staff",
+  "weaponSpecialFall2019MageNotes": "Be it forging thunderbolts, raising fortifications, or simply striking terror into the hearts of mortals, this staff lends the power of giants to work wonders. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2019 Autumn Gear.",
+  "weaponSpecialFall2019HealerText": "Fearsome Phylactery",
+  "weaponSpecialFall2019HealerNotes": "This phylactery can call on the spirits of tasks long slain and use their healing power. Increases Intelligence by <%= int %>. Limited Edition 2019 Autumn Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -439,6 +450,12 @@
   "weaponArmoireAstronomersTelescopeNotes": "An instrument that will allow you to observe the stars' ancient dance. Increases Perception by <%= per %>. Enchanted Armoire: Astronomer Mage Set (Item 3 of 3).",
   "weaponArmoireMagnifyingGlassText": "Magnifying Glass",
   "weaponArmoireMagnifyingGlassNotes": "Aha! A piece of evidence! Examine it closely with this fine magnifier. Increases Perception by <%= per %>. Enchanted Armoire: Detective Set (Item 3 of 4).",
+  "weaponArmoireFloridFanText": "Florid Fan",
+  "weaponArmoireFloridFanNotes": "This lovely silk fan folds when not in use. Increases Constitution by <%= con %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireResplendentRapierText": "Resplendent Rapier",
+  "weaponArmoireResplendentRapierNotes": "Demonstrate your swordsmanship with this sharply pointed weapon. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
+  "weaponArmoireShadowMastersMaceText": "Shadow Master's Mace",
+  "weaponArmoireShadowMastersMaceNotes": "Creatures of darkness will obey your every command when you wave this glowing mace. Increases Perception by <%= per %>. Enchanted Armoire: Shadow Master Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -526,6 +543,8 @@
   "armorSpecialTurkeyArmorBaseNotes": "Keep your drumsticks warm and cozy in this feathery armor! Confers no benefit.",
   "armorSpecialTurkeyArmorGildedText": "Gilded Turkey Armor",
   "armorSpecialTurkeyArmorGildedNotes": "Strut your stuff in this seasonally shiny armor! Confers no benefit.",
+  "armorSpecialKS2019Text": "Mythic Gryphon Armor",
+  "armorSpecialKS2019Notes": "Glowing from within like a gryphon's noble heart, this resplendent armor encourages you to take pride in your accomplishments. Increases Constitution by <%= con %>.",
 
   "armorSpecialYetiText": "Yeti-Tamer Robe",
   "armorSpecialYetiNotes": "Fuzzy and fierce. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
@@ -740,6 +759,15 @@
   "armorSpecialSummer2019HealerText": "Tropical Tides Tail",
   "armorSpecialSummer2019HealerNotes": "Glide sleekly through warm coastal waters with this elegant tail. Increases Constitution by <%= con %>. Limited Edition 2019 Summer Gear.",
 
+  "armorSpecialFall2019RogueText": "Caped Opera Coat",
+  "armorSpecialFall2019RogueNotes": "This outfit comes complete with white gloves, and is ideal for brooding in your private box above the stage or making startling entrances down grand staircases. Increases Perception by <%= per %>. Limited Edition 2019 Autumn Gear.",
+  "armorSpecialFall2019WarriorText": "Wings of Night",
+  "armorSpecialFall2019WarriorNotes": "These feathered robes grant the power of flight, allowing you to soar over any battle. Increases Constitution by <%= con %>. Limited Edition 2019 Autumn Gear.",
+  "armorSpecialFall2019MageText": "Smock of Polyphemus",
+  "armorSpecialFall2019MageNotes": "Its namesake met a terrible fate. But you will not be so easily tricked! Garb yourself in this mantle of legend and nobody will surpass you. Increases Intelligence by <%= int %>. Limited Edition 2019 Autumn Gear.",
+  "armorSpecialFall2019HealerText": "Robes of Darkness",
+  "armorSpecialFall2019HealerNotes": "It's said these robes are made of pure night. Use the dark power wisely! Increases Constitution by <%= con %>. Limited Edition 2019 Autumn Gear.",
+
   "armorSpecialSpring2019RogueText": "Cloud Armor",
   "armorSpecialSpring2019RogueNotes": "Some very tuff fluff. Increases Perception by <%= per %>. Limited Edition 2019 Spring Gear.",
   "armorSpecialSpring2019WarriorText": "Orchid Armor",
@@ -831,6 +859,10 @@
   "armorMystery201906Notes": "We will spare you a pun about “playing koi.” Oh wait, oops. Confers no benefit. June 2019 Subscriber Item.",
   "armorMystery201907Text": "Flowery Shirt",
   "armorMystery201907Notes": "Stay cool and look cool on even the hottest summer day. Confers no benefit. July 2019 Subscriber Item.",
+  "armorMystery201908Text": "Footloose Faun Costume",
+  "armorMystery201908Notes": "These legs were made for dancing! And that's just what they'll do. Confers no benefit. August 2019 Subscriber Item.",
+  "armorMystery201909Text": "Affable Acorn Armor",
+  "armorMystery201909Notes": "Your tough exterior is protective, but it's still best to keep an eye out for squirrels... Confers no benefit. September 2019 Subscriber Item.",
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -950,6 +982,8 @@
   "armorArmoireAstronomersRobeNotes": "Turns out silk and starlight make a fabric that is not only magical, but very breathable. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Astronomer Mage Set (Item 1 of 3).",
   "armorArmoireInvernessCapeText": "Inverness Cape",
   "armorArmoireInvernessCapeNotes": "This sturdy garment will let you search for clues in any type of weather. Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Detective Set (Item 2 of 4).",
+  "armorArmoireShadowMastersRobeText": "Shadow Master's Robe",
+  "armorArmoireShadowMastersRobeNotes": "The fabric of this flowy robe is woven from the darkest shadows in the deepest caves of Habitica. Increases Constitution by <%= con %>. Enchanted Armoire: Shadow Master Set (Item 1 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1041,6 +1075,8 @@
   "headSpecialTurkeyHelmGildedNotes": "Gobble gobble! Bling bling! Confers no benefit.",
   "headSpecialPiDayText": "Pi Hat",
   "headSpecialPiDayNotes": "Try to balance this slice of delicious pie on your head while walking in a circle. Or throw it at a red Daily! Or you could just eat it. Your choice! Confers no benefit.",
+  "headSpecialKS2019Text": "Mythic Gryphon Helm",
+  "headSpecialKS2019Notes": "Adorned with a gryphon's likeness and plumage, this glorious helmet symbolizes the way your skills and bearing stand as an example to others. Increases Intelligence by <%= int %>.",
 
   "headSpecialNyeText": "Absurd Party Hat",
   "headSpecialNyeNotes": "You've received an Absurd Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
@@ -1261,6 +1297,15 @@
   "headSpecialSummer2019HealerText": "Conch Crown",
   "headSpecialSummer2019HealerNotes": "The spiraling structure of this shell will help you hear any cry for help across the seven seas. Increases Intelligence by <%= int %>. Limited Edition 2019 Summer Gear.",
 
+  "headSpecialFall2019RogueText": "Antique Opera Hat",
+  "headSpecialFall2019RogueNotes": "Did you find this headpiece at an auction of possibly-cursed costume pieces, or in the attic of an eccentric grandparent? Whatever its origin, its age and wear add to your air of mystery. Increases Perception by <%= per %>. Limited Edition 2019 Autumn Gear.",
+  "headSpecialFall2019WarriorText": "Obsidian Skull Helmet",
+  "headSpecialFall2019WarriorNotes": "The dark eye-sockets of this skull helmet will daunt the bravest of your enemies. Increases Strength by <%= str %>. Limited Edition 2019 Autumn Gear.",
+  "headSpecialFall2019MageText": "Cyclops Mask",
+  "headSpecialFall2019MageNotes": "Its single baleful eye does inhibit depth perception, but that is a small price to pay for the way it hones your focus to a single, intense point. Increases Perception by <%= per %>. Limited Edition 2019 Autumn Gear.",
+  "headSpecialFall2019HealerText": "Dark Miter",
+  "headSpecialFall2019HealerNotes": "Don this dark miter to harness the powers of the fearsome Lich. Increases Intelligence by <%= int %>. Limited Edition 2019 Autumn Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1352,6 +1397,8 @@
   "headMystery201904Notes": "The opals in this circlet shine in every color of the rainbow, giving it a variety of magical properties. Confers no benefit. April 2019 Subscriber Item.",
   "headMystery201907Text": "Backwards Cap",
   "headMystery201907Notes": "Nothing says “I'm relaxing here!” like a backwards cap. Confers no benefit. July 2019 Subscriber Item.",
+  "headMystery201909Text": "Affable Acorn Hat",
+  "headMystery201909Notes": "Every acorn needs a hat! Er, cupule, if you want to get technical about it. Confers no benefit. September 2019 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -1473,6 +1520,8 @@
   "headArmoireAstronomersHatNotes": "A perfect hat for celestial observation or a fancy wizard brunch. Increases Constitution by <%= con %>. Enchanted Armoire: Astronomer Mage Set (Item 2 of 3).",
   "headArmoireDeerstalkerCapText": "Deerstalker Cap",
   "headArmoireDeerstalkerCapNotes": "This cap is perfect for rural excursions, but also is acceptable gear for mystery-solving! Increases Intelligence by <%= int %>. Enchanted Armoire: Detective Set (Item 1 of 4).",
+  "headArmoireShadowMastersHoodText": "Shadow Master's Hood",
+  "headArmoireShadowMastersHoodNotes": "This hood grants you the power to see through even the deepest darkness. It may occasionally require eyedrops, though. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Shadow Master Set (Item 2 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1526,6 +1575,8 @@
   "shieldSpecialWakizashiNotes": "This short sword is perfect for close-quarters battles with your Dailies! Increases Constitution by <%= con %>.",
   "shieldSpecialPiDayText": "Pi Shield",
   "shieldSpecialPiDayNotes": "We dare you to calculate the ratio of this shield's circumference to its deliciousness! Confers no benefit.",
+  "shieldSpecialKS2019Text": "Mythic Gryphon Shield",
+  "shieldSpecialKS2019Notes": "Sparkling like the shell of a gryphon egg, this magnificent shield shows you how to stand ready to help when your own burdens are light. Increases Perception by <%= per %>.",
 
   "shieldSpecialYetiText": "Yeti-Tamer Shield",
   "shieldSpecialYetiNotes": "This shield reflects light from the snow. Increases Constitution by <%= con %>. Limited Edition 2013-2014 Winter Gear.",
@@ -1678,6 +1729,11 @@
   "shieldSpecialSummer2019MageText": "Drops of Pure Water",
   "shieldSpecialSummer2019MageNotes": "Sweating in the summer sun? No! Performing a simple elemental conjuration to fill the lily pond. Increases Perception by <%= per %>. Limited Edition 2019 Summer Gear.",
 
+  "shieldSpecialFall2019WarriorText": "Raven-Dark Shield",
+  "shieldSpecialFall2019WarriorNotes": "The dark sheen of a raven's feather made solid, this shield will frustrate all attacks. Increases Constitution by <%= con %>. Limited Edition 2019 Autumn Gear.",
+  "shieldSpecialFall2019HealerText": "Grotesque Grimoire",
+  "shieldSpecialFall2019HealerNotes": "Harness the dark side of the Healer's arts with this Grimoire! Increases Constitution by <%= con %>. Limited Edition 2019 Autumn Gear.",
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
@@ -1757,6 +1813,10 @@
   "shieldArmoireMightyPizzaNotes": "Sure, it's a pretty good shield, but we strongly suggest you eat this fine, fine pizza. Increases Perception by <%= per %>. Enchanted Armoire: Chef Set (Item 4 of 4).",
   "shieldArmoireTrustyUmbrellaText": "Trusty Umbrella",
   "shieldArmoireTrustyUmbrellaNotes": "Mysteries are often accompanied by inclement weather, so be prepared! Increases Intelligence by <%= int %>. Enchanted Armoire: Detective Set (Item 4 of 4).",
+  "shieldArmoirePolishedPocketwatchText": "Polished Pocketwatch",
+  "shieldArmoirePolishedPocketwatchNotes": "You've got the time. And it looks very nice on you. Increases Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
+  "shieldArmoireMasteredShadowText": "Mastered Shadow",
+  "shieldArmoireMasteredShadowNotes": "Your powers have brought these swirling shadows to your side to do your bidding. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Shadow Master Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
@@ -1972,6 +2032,8 @@
   "headAccessoryMystery201905Notes": "These horns are as sharp as they are shimmery. Confers no benefit. May 2019 Subscriber Item.",
   "headAccessoryMystery201906Text": "Kindly Koi Ears",
   "headAccessoryMystery201906Notes": "Legend has it these finny ears help merfolk hear the calls and songs of all the denizens of the deep! Confers no benefit. June 2019 Subscriber Item.",
+  "headAccessoryMystery201908Text": "Footloose Faun Horns",
+  "headAccessoryMystery201908Notes": "If wearing horns floats your goat, you're in luck! Confers no benefit. August 2019 Subscriber Item.",
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 
@@ -2017,6 +2079,8 @@
 
   "eyewearSpecialAetherMaskText": "Aether Mask",
   "eyewearSpecialAetherMaskNotes": "This mask has a mysterious history. Increases Intelligence by <%= int %>.",
+  "eyewearSpecialKS2019Text": "Mythic Gryphon Visor",
+  "eyewearSpecialKS2019Notes": "Bold as a gryphon's... hmm, gryphons don't have visors. It reminds you to... oh, who are we kidding, it just looks cool! Confers no benefit.",
 
   "eyewearSpecialSummerRogueText": "Roguish Eyepatch",
   "eyewearSpecialSummerRogueNotes": "It doesn't take a scallywag to see how stylish this is! Confers no benefit. Limited Edition 2014 Summer Gear.",
@@ -2027,6 +2091,11 @@
   "eyewearSpecialWonderconRedNotes": "What a powerful face accessory! Confers no benefit. Special Edition Convention Item.",
   "eyewearSpecialWonderconBlackText": "Sneaky Mask",
   "eyewearSpecialWonderconBlackNotes": "Your motives are definitely legitimate. Confers no benefit. Special Edition Convention Item.",
+
+  "eyewearSpecialFall2019RogueText": "Bone-White Half Mask",
+  "eyewearSpecialFall2019RogueNotes": "You'd think a full mask would protect your identity better, but people tend to be too awestruck by its stark design to take note of any identifying features left revealed. Confers no benefit. Limited Edition 2019 Autumn Gear.",
+  "eyewearSpecialFall2019HealerText": "Dark Visage",
+  "eyewearSpecialFall2019HealerNotes": "Steel yourself against the toughest foes with this inscrutable mask. Confers no benefit. Limited Edition 2019 Autumn Gear.",
 
   "eyewearMystery201503Text": "Aquamarine Eyewear",
   "eyewearMystery201503Notes": "Don't get poked in the eye by these shimmering gems! Confers no benefit. March 2015 Subscriber Item.",

@@ -6,14 +6,14 @@ import content from '../../../../../website/common/script/content/index';
 
 describe('POST /user/release-mounts', () => {
   let user;
-  let animal = 'Wolf-Base';
+  const animal = 'Wolf-Base';
 
   const loadMounts = () => {
-    let mounts = {};
-    for (let m in content.pets) {
+    const mounts = {};
+    Object.keys(content.pets).forEach(m => {
       mounts[m] = content.pets[m];
       mounts[m] = true;
-    }
+    });
     return mounts;
   };
 
@@ -40,7 +40,7 @@ describe('POST /user/release-mounts', () => {
       balance: 1,
     });
 
-    let response = await user.post('/user/release-mounts');
+    const response = await user.post('/user/release-mounts');
     await user.sync();
 
     expect(response.message).to.equal(t('mountsReleased'));

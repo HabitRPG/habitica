@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "Nemaš nimalo <%= type %>.",
+  "foodItemType": "hrane",
+  "eggsItemType": "jaja",
+  "hatchingPotionsItemType": "čarobnih napitaka za izlijeganje",
+  "specialItemType": "Posebnih predmeta",
+  "lockedItem": "Zaključani predmet"
+}

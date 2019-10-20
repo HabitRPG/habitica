@@ -1,11 +1,11 @@
 import content from '../content/index';
-import {mountMasterProgress} from '../count';
+import { mountMasterProgress } from '../count';
 import i18n from '../i18n';
 import {
   NotAuthorized,
 } from '../libs/errors';
 
-module.exports = function releaseMounts (user, req = {}, analytics) {
+export default function releaseMounts (user, req = {}, analytics) {
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
@@ -18,25 +18,26 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
 
   let giveMountMasterAchievement = true;
 
-  let mountInfo = content.mountInfo[user.items.currentMount];
+  const mountInfo = content.mountInfo[user.items.currentMount];
 
   if (mountInfo && mountInfo.type === 'drop') {
     user.items.currentMount = '';
   }
 
-  for (let mount in content.pets) {
+  for (const mount of Object.keys(content.pets)) {
     if (user.items.mounts[mount] === null || user.items.mounts[mount] === undefined) {
       giveMountMasterAchievement = false;
     }
     user.items.mounts[mount] = null;
   }
+
   if (user.markModified) user.markModified('items.mounts');
 
   if (giveMountMasterAchievement) {
     if (!user.achievements.mountMasterCount) {
       user.achievements.mountMasterCount = 0;
     }
-    user.achievements.mountMasterCount++;
+    user.achievements.mountMasterCount += 1;
   }
 
   if (analytics) {
@@ -53,4 +54,4 @@ module.exports = function releaseMounts (user, req = {}, analytics) {
     user.items.mounts,
     i18n.t('mountsReleased'),
   ];
-};
+}

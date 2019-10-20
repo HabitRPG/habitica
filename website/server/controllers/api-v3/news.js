@@ -1,9 +1,11 @@
 import { authWithHeaders } from '../../middlewares/auth';
 
-let api = {};
+const api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BACK-TO-SCHOOL CHALLENGE, NEW BACKGROUNDS, AND NEW ARMOIRE ITEMS';
+// @TODO export this const, cannot export it
+// from here because only routes are exported from controllers
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA HIRING ANDROID DEVELOPER! AND BLOG POST ON THE QUEST SHOP';
+
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,19 +32,17 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/6/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/17/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_reading center-block"></div>
-        <h3>Official Challenge: Back-to-School Preparation</h3>
-        <p>The school year is looming large for many scholarly Habiticans, so we've prepared a special <a href='/challenges/b050c6be-8e99-4b12-922b-a6bb7e2e18e3'>Back-to-School Challenge</a> to help with the transition between summer and semester. Check it out now for a chance to win: five lucky winners will get a badge for their profile and their choice of a <a href='https://habitica.wikia.com/wiki/Subscription' target='_blank'>gift subscription</a> or Gems!</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_armoire_backgrounds_201908 center-block"></div>
-        <h3>August Backgrounds and Armoire Items!</h3>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can dally among Giant Dandelions, explore mysterious Ancient Ruins, and relax in a woodsy Tree House. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Detective Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by Vikte, Tigergurke, Maans, QuartzFox, GeraldThePixel, and Izel</div>
+        <h3>Habitica is Hiring! Android Developer Position</h3>
+        <p>Want to join the Habitica team? We’re looking to hire a new developer to help with our Android app! Our ideal candidate is a mobile developer with experience in Kotlin who is capable of supporting existing legacy code and working with our team to continue improving the user experience. You'll make major contributions that help serve and grow an audience of millions of users!</p>
+        <p>If this sounds like a job you'll love, check out the <a href='https://forms.gle/rdyDPTRD8ZjE2qLG8' target='_blank'>full job posting</a> for more information and to fill out an application. </p>
+        <div class="scene_quest_shop center-block"></div>
+        <h3>Blog Post: Quest Shop</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/10/16/quest-shop/' target='_blank'>featured Wiki article</a> is about the Quest Shop! We hope that it will help you as you look for additional ways to keep your Habitica adventure fun and motivating. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
@@ -63,13 +63,11 @@ api.tellMeLaterNews = {
   middlewares: [authWithHeaders()],
   url: '/news/tell-me-later',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     user.flags.newStuff = false;
 
-    const existingNotificationIndex = user.notifications.findIndex(n => {
-      return n && n.type === 'NEW_STUFF';
-    });
+    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
     if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
     user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
 
@@ -78,4 +76,4 @@ api.tellMeLaterNews = {
   },
 };
 
-module.exports = api;
+export default api;

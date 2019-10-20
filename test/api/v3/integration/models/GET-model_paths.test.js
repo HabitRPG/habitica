@@ -18,10 +18,10 @@ describe('GET /models/:model/paths', () => {
     });
   });
 
-  let models = ['habit', 'daily', 'todo', 'reward', 'user', 'tag', 'challenge', 'group'];
+  const models = ['habit', 'daily', 'todo', 'reward', 'user', 'tag', 'challenge', 'group'];
   models.forEach(model => {
     it(`returns the model paths for ${model}`, async () => {
-      let res = await user.get(`/models/${model}/paths`);
+      const res = await user.get(`/models/${model}/paths`);
 
       if (model !== 'tag') expect(res._id).to.equal('String');
       if (model === 'tag') expect(res.id).to.equal('String');

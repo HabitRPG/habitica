@@ -22,7 +22,7 @@ describe('POST /reorder-tags', () => {
   });
 
   it('returns error when tag is not found', async () => {
-    await expect(user.post('/reorder-tags', {tagId: 'fake-id', to: 3}))
+    await expect(user.post('/reorder-tags', { tagId: 'fake-id', to: 3 }))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
@@ -31,13 +31,13 @@ describe('POST /reorder-tags', () => {
   });
 
   it('updates tags', async () => {
-    let tag1Name = 'Tag 1';
-    let tag2Name = 'Tag 2';
-    await user.post('/tags', {name: tag1Name});
-    await user.post('/tags', {name: tag2Name});
+    const tag1Name = 'Tag 1';
+    const tag2Name = 'Tag 2';
+    await user.post('/tags', { name: tag1Name });
+    await user.post('/tags', { name: tag2Name });
     await user.sync();
 
-    await user.post('/reorder-tags', {tagId: user.tags[0].id, to: 1});
+    await user.post('/reorder-tags', { tagId: user.tags[0].id, to: 1 });
     await user.sync();
 
     expect(user.tags[0].name).to.equal(tag2Name);

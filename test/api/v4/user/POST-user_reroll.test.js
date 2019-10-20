@@ -28,24 +28,24 @@ describe('POST /user/reroll', () => {
       balance: 2,
     });
 
-    let daily = await generateDaily({
+    const daily = await generateDaily({
       text: 'test habit',
       type: 'daily',
       userId: user._id,
     });
 
-    let reward = await generateReward({
+    const reward = await generateReward({
       text: 'test reward',
       type: 'reward',
       value: 1,
       userId: user._id,
     });
 
-    let response = await user.post('/user/reroll');
+    const response = await user.post('/user/reroll');
     await user.sync();
 
-    let updatedDaily = await user.get(`/tasks/${daily._id}`);
-    let updatedReward = await user.get(`/tasks/${reward._id}`);
+    const updatedDaily = await user.get(`/tasks/${daily._id}`);
+    const updatedReward = await user.get(`/tasks/${reward._id}`);
 
     expect(response.message).to.equal(t('fortifyComplete'));
     expect(updatedDaily.value).to.equal(0);

@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Znovuzrodenie: Čas na nové dobrodružstvo!",
-    "rebirthUnlock": "Odomkol si znovuzrodenie! Toto je špeciálna položka na trhu, ktorá ti umožňuje začať hru od 1. levelu, pričom ti zachová úlohy, odznaky, zvieratká, a ďalšie. Použi ho, ak máš pocit, že si už všetko dosiahol, a chceš do Habitica vdýchnuť nový život, alebo chceš zažiť nové funkcie očami nováčika.",
+    "rebirthUnlock": "Odomkol si znovuzrodenie! Toto je špeciálna položka na trhu, ktorá ti umožňuje začať hru od 1. levelu, pričom ti zachová úlohy, odznaky, zvieratká, a ďalšie. Použi ho, ak máš pocit, že si už všetko dosiahol, a chceš do Habitica vdýchnuť nový život, alebo chceš zažiť nové funkcie očami nováčika!",
     "rebirthBegin": "Znovuzrodenie: Začni nové dobrodružstvo",
     "rebirthStartOver": "Znovuzrodením začneš znova hrať s postavou od 1. levelu.",
     "rebirthAdvList1": "Vráti sa ti plné zdravie.",
@@ -19,7 +19,7 @@
     "rebirthBegan": "Začal nové dobrodružstvo",
     "rebirthText": "Začal niekoľko nových dobrodružstiev: <%= rebirths %>",
     "rebirthOrb": "Použil Orb znovuzrodenia, aby začal odznovu, po dosiahnutí levelu <%= level %>.",
-    "rebirthOrb100": "Použil Orb znovuzrodenia, aby začal odznovu, po dosiahnutí levelu 100 alebo vyššieho",
+    "rebirthOrb100": "Použil Orb znovuzrodenia, aby začal odznovu, po dosiahnutí levelu 100 alebo vyššieho.",
     "rebirthOrbNoLevel": "Použil Orb znovuzrodenia, aby začal odznovu.",
     "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
     "rebirthName": "Orb znovuzrodenia",

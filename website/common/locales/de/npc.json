@@ -1,6 +1,6 @@
 {
-    "npc": "NSC",
-    "npcAchievementName": "<%= key %> NSC",
+    "npc": "NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Hat die Kickstarter-Kampagne auf dem höchsten Level mitgetragen!",
     "welcomeTo": "Willkommen in",
     "welcomeBack": "Willkommen zurück!",
@@ -29,9 +29,9 @@
     "communityGuidelinesIntro": "Habitica versucht, eine einladende Umgebung für Benutzer aller Alterstufen zu schaffen, vor allem an öffentlichen Plätzen wie der Taverne. Wenn Du unsicher bist oder noch Fragen hast, lies bitte  unsere <a href='/static/community-guidelines' target='_blank'>Community-Richtlinien</a>.",
     "acceptCommunityGuidelines": "Ich stimme zu, mich an die Community-Richtlinien zu halten",
     "daniel": "Daniel",
-    "danielText": "Willkommen in der Taverne! Setz Dich und triff die Einheimischen. Willst Du Dich ausruhen (Urlaub? Krankheit?), dann besorge ich Dir ein schönes Zimmer. Solange Du dort eingecheckt bist, werden Deine Tagesaufgaben Dir am Ende des Tages keinen Schaden zufügen, Du kannst sie trotzdem noch abhaken.",
+    "danielText": "Willkommen in der Taverne! Setz Dich und triff die Einheimischen. Willst Du Dich ausruhen (Urlaub? Krankheit?), dann besorge ich Dir ein schönes Zimmer. Solange Du dort eingecheckt bist, werden Dir Deine Tagesaufgaben am Ende des Tages keinen Schaden zufügen, Du kannst sie trotzdem noch abhaken.",
     "danielText2": "Sei gewarnt: Falls Du an einer Boss-Quest teilnimmst, wird Dir der Boss immer noch Schaden für die nicht abgehakten Tagesaufgaben Deiner Gruppenmitglieder zufügen! Außerdem wird der Schaden, den Du dem Boss zufügst (sowie gefundene Gegenstände) erst angerechnet, wenn Du das Gasthaus verlässt.",
-    "danielTextBroken": "Willkommen in der Taverne ... schätze ich ... Wenn Du Dich ausruhen möchtest, dann besorge ich Dir ein schönes Zimmer ... Solange Du dort eingecheckt bist, werden Deine Tagesaufgaben Dir am Ende des Tages keinen Schaden zufügen, Du kannst sie trotzdem noch abhaken ... wenn Du die Kraft dazu hast ...",
+    "danielTextBroken": "Willkommen in der Taverne ... schätze ich ... Wenn Du Dich ausruhen möchtest, dann besorge ich Dir ein schönes Zimmer ... Solange Du dort eingecheckt bist, werden Dir Deine Tagesaufgaben am Ende des Tages keinen Schaden zufügen, Du kannst sie trotzdem noch abhaken ... wenn Du die Kraft dazu hast ...",
     "danielText2Broken": "Oh ... Falls Du an einer Boss-Quest teilnimmst, wird Dir der Boss immer noch Schaden für die nicht abgehakten Aufgaben Deiner Gruppenmitglieder zufügen ... Außerdem wird der Schaden, den Du dem Boss zufügst (sowie gefundene Gegenstände) erst angerechnet, wenn Du das Gasthaus verlässt ...",
     "worldBossEvent": "Weltboss-Ereignis",
     "worldBossDescription": "Weltboss-Beschreibung",
@@ -91,7 +91,7 @@
     "unlocked": "Gegenstände wurden freigeschaltet",
     "alreadyUnlocked": "Komplettes Set ist bereits freigeschaltet.",
     "alreadyUnlockedPart": "Set ist bereits teilweise freigeschaltet.",
-    "invalidQuantity": "Die zu kaufende Menge muss eine Zahl sein.",
+    "invalidQuantity": "Die zu kaufende Menge muss eine positive ganze Zahl sein.",
     "USD": "(USD)",
     "newStuff": "Neuigkeiten von Bailey",
     "newBaileyUpdate": "Neues Update von Bailey!",
@@ -168,5 +168,6 @@
     "welcome5": "Jetzt kannst Du Deinen Avatar anpassen und Deine Aufgaben einrichten ...",
     "imReady": "Betrete Habitica",
     "limitedOffer": "Verfügbar bis <%= date %>",
-    "paymentAutoRenew": "Dieses Abonnement wird automatisch erneuert bis es gekündigt wird. Wenn Du dieses Abonnement kündigen musst, kannst Du dies in Deinen Einstellungen tun."
+    "paymentAutoRenew": "Dieses Abonnement wird automatisch erneuert bis es gekündigt wird. Wenn Du dieses Abonnement kündigen musst, kannst Du dies in Deinen Einstellungen tun.",
+    "paymentCanceledDisputes": "Wir haben eine Bestätigung der Kündigung an Deine E-Mailadresse gesendet. Falls Du die E-Mail nicht erhältst, kontaktiere uns bitte um zu verhindern, dass es zu Zahlungsstreitigkeiten kommt."
 }

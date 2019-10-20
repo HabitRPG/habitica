@@ -52,7 +52,7 @@
     "toAndFromCard": "To: <%= toName %>, From: <%= fromName %>",
     "nyeCard": "Новорічна листівка",
     "nyeCardExplanation": "For celebrating the new year together, you both receive the \"Auld Acquaintance\" badge!",
-    "nyeCardNotes": "Відправити Новорічну листівку члену гурту",
+    "nyeCardNotes": "Відправити Новорічну листівку члену гурту.",
     "seasonalItems": "Seasonal Items",
     "nyeCardAchievementTitle": "Auld Acquaintance",
     "nyeCardAchievementText": "Happy New Year! Sent or received <%= count %> New Year's cards.",
