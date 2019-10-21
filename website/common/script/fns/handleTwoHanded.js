@@ -1,9 +1,9 @@
 import content from '../content/index';
 import i18n from '../i18n';
 
-module.exports = function handleTwoHanded (user, item, type = 'equipped', req = {}) {
-  let currentShield = content.gear.flat[user.items.gear[type].shield];
-  let currentWeapon = content.gear.flat[user.items.gear[type].weapon];
+export default function handleTwoHanded (user, item, type = 'equipped', req = {}) {
+  const currentShield = content.gear.flat[user.items.gear[type].shield];
+  const currentWeapon = content.gear.flat[user.items.gear[type].weapon];
 
   let message;
 
@@ -20,4 +20,4 @@ module.exports = function handleTwoHanded (user, item, type = 'equipped', req = 
   }
 
   return message;
-};
+}

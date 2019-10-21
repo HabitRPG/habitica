@@ -1,6 +1,6 @@
+import { v4 as generateUUID } from 'uuid';
 import { model as Webhook } from '../../../../website/server/models/webhook';
 import { BadRequest } from '../../../../website/server/libs/errors';
-import { v4 as generateUUID } from 'uuid';
 import apiError from '../../../../website/server/libs/apiError';
 
 describe('Webhook Model', () => {
@@ -33,7 +33,7 @@ describe('Webhook Model', () => {
         it('it provides default values for options', () => {
           delete config.options;
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -49,7 +49,7 @@ describe('Webhook Model', () => {
         it('provides missing task options', () => {
           delete config.options.created;
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -65,7 +65,7 @@ describe('Webhook Model', () => {
         it('discards additional options', () => {
           config.options.foo = 'another option';
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -79,12 +79,12 @@ describe('Webhook Model', () => {
           });
         });
 
-        ['created', 'updated', 'deleted', 'scored', 'checklistScored'].forEach((option) => {
-          it(`validates that ${option} is a boolean`, (done) => {
+        ['created', 'updated', 'deleted', 'scored', 'checklistScored'].forEach(option => {
+          it(`validates that ${option} is a boolean`, done => {
             config.options[option] = 'not a boolean';
 
             try {
-              let wh = new Webhook(config);
+              const wh = new Webhook(config);
 
               wh.formatOptions(res);
             } catch (err) {
@@ -115,7 +115,7 @@ describe('Webhook Model', () => {
         it('it provides default values for options', () => {
           delete config.options;
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -129,7 +129,7 @@ describe('Webhook Model', () => {
         it('provides missing user options', () => {
           delete config.options.petHatched;
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -143,7 +143,7 @@ describe('Webhook Model', () => {
         it('discards additional options', () => {
           config.options.foo = 'another option';
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -155,12 +155,12 @@ describe('Webhook Model', () => {
           });
         });
 
-        ['petHatched', 'petHatched', 'leveledUp'].forEach((option) => {
-          it(`validates that ${option} is a boolean`, (done) => {
+        ['petHatched', 'petHatched', 'leveledUp'].forEach(option => {
+          it(`validates that ${option} is a boolean`, done => {
             config.options[option] = 'not a boolean';
 
             try {
-              let wh = new Webhook(config);
+              const wh = new Webhook(config);
 
               wh.formatOptions(res);
             } catch (err) {
@@ -190,7 +190,7 @@ describe('Webhook Model', () => {
         it('it provides default values for options', () => {
           delete config.options;
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -203,7 +203,7 @@ describe('Webhook Model', () => {
         it('provides missing user options', () => {
           delete config.options.questStarted;
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -216,7 +216,7 @@ describe('Webhook Model', () => {
         it('discards additional options', () => {
           config.options.foo = 'another option';
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -227,12 +227,12 @@ describe('Webhook Model', () => {
           });
         });
 
-        ['questStarted', 'questFinished'].forEach((option) => {
-          it(`validates that ${option} is a boolean`, (done) => {
+        ['questStarted', 'questFinished'].forEach(option => {
+          it(`validates that ${option} is a boolean`, done => {
             config.options[option] = 'not a boolean';
 
             try {
-              let wh = new Webhook(config);
+              const wh = new Webhook(config);
 
               wh.formatOptions(res);
             } catch (err) {
@@ -259,7 +259,7 @@ describe('Webhook Model', () => {
         });
 
         it('creates options', () => {
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -269,7 +269,7 @@ describe('Webhook Model', () => {
         it('discards additional objects', () => {
           config.options.foo = 'another thing';
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 
@@ -279,11 +279,11 @@ describe('Webhook Model', () => {
           });
         });
 
-        it('requires groupId option to be a uuid', (done) => {
+        it('requires groupId option to be a uuid', done => {
           config.options.groupId = 'not a uuid';
 
           try {
-            let wh = new Webhook(config);
+            const wh = new Webhook(config);
 
             wh.formatOptions(res);
           } catch (err) {
@@ -310,7 +310,7 @@ describe('Webhook Model', () => {
         it('discards additional objects', () => {
           config.options.foo = 'another thing';
 
-          let wh = new Webhook(config);
+          const wh = new Webhook(config);
 
           wh.formatOptions(res);
 

@@ -65,7 +65,7 @@
     "equipment": "Uitrusting",
     "equipmentBonus": "Uitrusting",
     "equipmentBonusText": "Door je gevechtsuitrusting geleverde bonuspunten voor je eigenschappen. Zie het Uitrustings-tabblad onder Boedel om je gevechtsuitrusting te selecteren.",
-    "classBonusText": "Jouw klasse (Krijger, als je nog geen andere klasse hebt vrijgespeeld of geselecteerd) gebruikt zijn eigen uitrusting effectiever dan de uitrusting van een andere klasse. Uitrustingsstukken die horen bij je huidige klasse geven een 50% bonus bovenop de eigenschapsbonus die het normaal al verleent.",
+    "classBonusText": "Jouw klasse (Krijger, als je nog geen andere klasse hebt vrijgespeeld of geselecteerd) gebruikt zijn eigen uitrusting effectiever dan de uitrusting van een andere klasse. Uitrustingsstukken die horen bij je huidige klasse geven een 50% bonus bovenop de eigenschapsbonus die ze normaal verlenen.",
     "classEquipBonus": "Klassebonus",
     "battleGear": "Strijduitrusting",
     "gear": "Uitrusting",

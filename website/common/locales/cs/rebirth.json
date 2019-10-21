@@ -25,5 +25,6 @@
     "rebirthName": "Koule znovuzrození",
     "reborn": "Znovuzrozen, maximální úroveň <%= reLevel %>",
     "confirmReborn": "Jsi si jistý?",
-    "rebirthComplete": "Byl jste znovuzrozen!"
+    "rebirthComplete": "Byl jste znovuzrozen!",
+    "nextFreeRebirth": "<strong><%= days %> dni</strong> do <strong>bezplatného</strong> Koule znovuzrození"
 }

@@ -22,8 +22,8 @@ const featuredItems = {
   ],
   quests: [
     {
-      type: 'quests',
-      path: 'quests.bronze',
+      type: 'bundles',
+      path: 'bundles.witchyFamiliars',
     },
     {
       type: 'quests',

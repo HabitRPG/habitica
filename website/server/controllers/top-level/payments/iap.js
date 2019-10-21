@@ -7,7 +7,7 @@ import {
 import googlePayments from '../../../libs/payments/google';
 import applePayments from '../../../libs/payments/apple';
 
-let api = {};
+const api = {};
 
 // TODO missing tests
 
@@ -16,14 +16,14 @@ let api = {};
  * @api {post} /iap/android/verify Android Verify IAP
  * @apiName IapAndroidVerify
  * @apiGroup Payments
- **/
+ * */
 api.iapAndroidVerify = {
   method: 'POST',
   url: '/iap/android/verify',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     if (!req.body.transaction) throw new BadRequest(res.t('missingReceipt'));
-    let googleRes = await googlePayments.verifyGemPurchase({
+    const googleRes = await googlePayments.verifyGemPurchase({
       user: res.locals.user,
       receipt: req.body.transaction.receipt,
       signature: req.body.transaction.signature,
@@ -39,14 +39,20 @@ api.iapAndroidVerify = {
  * @api {post} /iap/android/subscription Android Subscribe
  * @apiName IapAndroidSubscribe
  * @apiGroup Payments
- **/
+ * */
 api.iapSubscriptionAndroid = {
   method: 'POST',
   url: '/iap/android/subscribe',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     if (!req.body.sku) throw new BadRequest(res.t('missingSubscriptionCode'));
-    await googlePayments.subscribe(req.body.sku, res.locals.user, req.body.transaction.receipt, req.body.transaction.signature, req.headers);
+    await googlePayments.subscribe(
+      req.body.sku,
+      res.locals.user,
+      req.body.transaction.receipt,
+      req.body.transaction.signature,
+      req.headers,
+    );
 
     res.respond(200);
   },
@@ -57,7 +63,7 @@ api.iapSubscriptionAndroid = {
  * @api {post} /iap/android/norenew-subscribe Android non-renewing subscription IAP
  * @apiName iapSubscriptionAndroidNoRenew
  * @apiGroup Payments
- **/
+ * */
 api.iapSubscriptionAndroidNoRenew = {
   method: 'POST',
   url: '/iap/android/norenew-subscribe',
@@ -84,13 +90,13 @@ api.iapSubscriptionAndroidNoRenew = {
  * @api {get} /iap/android/subscribe/cancel Google Payments: subscribe cancel
  * @apiName AndroidSubscribeCancel
  * @apiGroup Payments
- **/
+ * */
 api.iapCancelSubscriptionAndroid = {
   method: 'GET',
   url: '/iap/android/subscribe/cancel',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     await googlePayments.cancelSubscribe(user, req.headers);
 
@@ -107,14 +113,14 @@ api.iapCancelSubscriptionAndroid = {
  * @api {post} /iap/ios/verify iOS Verify IAP
  * @apiName IapiOSVerify
  * @apiGroup Payments
- **/
+ * */
 api.iapiOSVerify = {
   method: 'POST',
   url: '/iap/ios/verify',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     if (!req.body.transaction) throw new BadRequest(res.t('missingReceipt'));
-    let appleRes = await applePayments.verifyGemPurchase({
+    const appleRes = await applePayments.verifyGemPurchase({
       user: res.locals.user,
       receipt: req.body.transaction.receipt,
       gift: req.body.gift,
@@ -129,7 +135,7 @@ api.iapiOSVerify = {
  * @api {post} /iap/android/subscription iOS Subscribe
  * @apiName IapiOSSubscribe
  * @apiGroup Payments
- **/
+ * */
 api.iapSubscriptioniOS = {
   method: 'POST',
   url: '/iap/ios/subscribe',
@@ -149,13 +155,13 @@ api.iapSubscriptioniOS = {
  * @api {get} /iap/android/subscribe/cancel Apple Payments: subscribe cancel
  * @apiName iOSSubscribeCancel
  * @apiGroup Payments
- **/
+ * */
 api.iapCancelSubscriptioniOS = {
   method: 'GET',
   url: '/iap/ios/subscribe/cancel',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     await applePayments.cancelSubscribe(user, req.headers);
 
@@ -172,7 +178,7 @@ api.iapCancelSubscriptioniOS = {
  * @api {post} /iap/ios/norenew-subscribe iOS Verify IAP
  * @apiName IapiOSVerify
  * @apiGroup Payments
- **/
+ * */
 api.iapSubscriptioniOSNoRenew = {
   method: 'POST',
   url: '/iap/ios/norenew-subscribe',
@@ -186,10 +192,11 @@ api.iapSubscriptioniOSNoRenew = {
       user: res.locals.user,
       receipt: req.body.transaction.receipt,
       gift: req.body.gift,
-      headers: req.headers});
+      headers: req.headers,
+    });
 
     res.respond(200);
   },
 };
 
-module.exports = api;
+export default api;

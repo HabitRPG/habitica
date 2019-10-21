@@ -20,19 +20,19 @@ describe('shared.ops.allocate', () => {
     });
   });
 
-  it('throws an error if an invalid attribute is supplied', (done) => {
+  it('throws an error if an invalid attribute is supplied', done => {
     try {
       allocate(user, {
-        query: {stat: 'notValid'},
+        query: { stat: 'notValid' },
       });
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
-      expect(err.message).to.equal(errorMessage('invalidAttribute', {attr: 'notValid'}));
+      expect(err.message).to.equal(errorMessage('invalidAttribute', { attr: 'notValid' }));
       done();
     }
   });
 
-  it('throws an error if the user is below lvl 10', (done) => {
+  it('throws an error if the user is below lvl 10', done => {
     user.stats.lvl = 9;
     try {
       allocate(user);
@@ -43,7 +43,7 @@ describe('shared.ops.allocate', () => {
     }
   });
 
-  it('throws an error if the user hasn\'t selected class', (done) => {
+  it('throws an error if the user hasn\'t selected class', done => {
     user.flags.classSelected = false;
     try {
       allocate(user);
@@ -54,7 +54,7 @@ describe('shared.ops.allocate', () => {
     }
   });
 
-  it('throws an error if the user has disabled classes', (done) => {
+  it('throws an error if the user has disabled classes', done => {
     user.preferences.disableClasses = true;
     try {
       allocate(user);
@@ -65,7 +65,7 @@ describe('shared.ops.allocate', () => {
     }
   });
 
-  it('throws an error if the user doesn\'t have attribute points', (done) => {
+  it('throws an error if the user doesn\'t have attribute points', done => {
     try {
       allocate(user);
     } catch (err) {
@@ -85,7 +85,7 @@ describe('shared.ops.allocate', () => {
   it('allocates attribute points', () => {
     expect(user.stats.con).to.equal(0);
     user.stats.points = 1;
-    allocate(user, {query: {stat: 'con'}});
+    allocate(user, { query: { stat: 'con' } });
     expect(user.stats.con).to.equal(1);
     expect(user.stats.points).to.equal(0);
   });
@@ -94,7 +94,7 @@ describe('shared.ops.allocate', () => {
     expect(user.stats.int).to.equal(0);
     expect(user.stats.mp).to.equal(10);
     user.stats.points = 1;
-    allocate(user, {query: {stat: 'int'}});
+    allocate(user, { query: { stat: 'int' } });
     expect(user.stats.int).to.equal(1);
     expect(user.stats.mp).to.equal(11);
   });

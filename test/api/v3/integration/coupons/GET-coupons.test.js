@@ -28,9 +28,9 @@ describe('GET /coupons/', () => {
       'contributor.sudo': true,
     });
 
-    let coupons = await user.post('/coupons/generate/wondercon?count=11');
-    let res = await user.get('/coupons');
-    let splitRes = res.split('\n');
+    const coupons = await user.post('/coupons/generate/wondercon?count=11');
+    const res = await user.get('/coupons');
+    const splitRes = res.split('\n');
 
     expect(splitRes.length).to.equal(13);
     expect(splitRes[0]).to.equal('code,event,date,user');

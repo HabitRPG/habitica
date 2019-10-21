@@ -1,8 +1,8 @@
-import {generateUser, translate as t} from '../../../../../helpers/api-integration/v3';
+import { generateUser, translate as t } from '../../../../../helpers/api-integration/v3';
 import applePayments from '../../../../../../website/server/libs/payments/apple';
 
 describe('payments : apple #verify', () => {
-  let endpoint = '/iap/ios/verify';
+  const endpoint = '/iap/ios/verify';
   let user;
 
   beforeEach(async () => {
@@ -36,7 +36,8 @@ describe('payments : apple #verify', () => {
       await user.post(endpoint, {
         transaction: {
           receipt: 'receipt',
-        }});
+        },
+      });
 
       expect(verifyStub).to.be.calledOnce;
       expect(verifyStub.args[0][0].user._id).to.eql(user._id);
@@ -56,7 +57,8 @@ describe('payments : apple #verify', () => {
         },
         gift: {
           uuid: '1',
-        }});
+        },
+      });
 
       expect(verifyStub).to.be.calledOnce;
       expect(verifyStub.args[0][0].user._id).to.eql(user._id);

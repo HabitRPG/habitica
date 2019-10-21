@@ -2,18 +2,19 @@ import cc from 'coupon-code';
 
 import {
   generateGroup,
-} from '../../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 import { model as Coupon } from '../../../../../../website/server/models/coupon';
 import amzLib from '../../../../../../website/server/libs/payments/amazon';
 import payments from '../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../website/common';
 
-const i18n = common.i18n;
+const { i18n } = common;
 
 describe('Amazon Payments - Subscribe', () => {
   const subKey = 'basic_3mo';
-  let user, group, amount, billingAgreementId, sub, coupon, groupId, headers;
+  let user; let group; let amount; let billingAgreementId; let sub; let coupon; let groupId; let
+    headers;
   let amazonSetBillingAgreementDetailsSpy;
   let amazonConfirmBillingAgreementSpy;
   let amazonAuthorizeOnBillingAgreementSpy;
@@ -60,7 +61,7 @@ describe('Amazon Payments - Subscribe', () => {
     sinon.stub(common, 'uuid').returns('uuid-generated');
   });
 
-  afterEach(function () {
+  afterEach(() => {
     amzLib.setBillingAgreementDetails.restore();
     amzLib.confirmBillingAgreement.restore();
     amzLib.authorizeOnBillingAgreement.restore();
@@ -168,7 +169,7 @@ describe('Amazon Payments - Subscribe', () => {
     sub.key = 'google_6mo';
     coupon = 'example-coupon';
 
-    let couponModel = new Coupon();
+    const couponModel = new Coupon();
     couponModel.event = 'google_6mo';
     await couponModel.save();
 
@@ -195,9 +196,9 @@ describe('Amazon Payments - Subscribe', () => {
     sub.key = 'google_6mo';
     coupon = 'example-coupon';
 
-    let couponModel = new Coupon();
+    const couponModel = new Coupon();
     couponModel.event = 'google_6mo';
-    let updatedCouponModel = await couponModel.save();
+    const updatedCouponModel = await couponModel.save();
 
     sinon.stub(cc, 'validate').returns(updatedCouponModel._id);
 

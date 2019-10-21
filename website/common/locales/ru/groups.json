@@ -277,10 +277,10 @@
     "confirmRemoveTag": "Вы точно хотите удалить \"<%= tag %>\"?",
     "groupHomeTitle": "Главная",
     "assignTask": "Назначить задачу",
-    "claim": "Заявить",
+    "claim": "Требовать назначения задания",
     "removeClaim": "Удалить претензию",
     "onlyGroupLeaderCanManageSubscription": "Только лидер группы может управлять общей подпиской",
-    "yourTaskHasBeenApproved": "Ваше задание <span class=\"notification-green\"><%= taskText %></span> было одобрено.",
+    "yourTaskHasBeenApproved": "Ваше задание <span class=\"notification-green notification-bold\"><%= taskText %></span> было одобрено.",
     "taskNeedsWork": "<span class=\"notification-bold\"><%= managerName %></span> отметил <span class=\"notification-bold\"><%= taskText %></span> как требующей дополнительной работы.",
     "userHasRequestedTaskApproval": "<span class=\"notification-bold\"><%= user %></span> просит одобрить <span class=\"notification-bold\"><%= taskName %></span>",
     "approve": "Одобрить",
@@ -341,7 +341,7 @@
     "leaderCannotLeaveGroupWithActiveGroup": "Лидер не может покинуть группу, пока группа имеет активный групповой тариф",
     "youHaveGroupPlan": "Вы получили бесплатную подписку, став участником группы с групповым тарифом. Подписка закончится, когда вы перестанете быть участником этой группы. Все время предварительно оплаченной подписки вернется по истечении группового тарифа.",
     "cancelGroupSub": "Отменить групповой тариф",
-    "confirmCancelGroupPlan": "Вы уверены, что хотите отказаться от группового тарифа и снять его бонусы со всех членов группы, включая их право бесплатной подписки?",
+    "confirmCancelGroupPlan": "Вы уверены, что хотите отказаться от группового тарифа? Все члены группы потеряют право бесплатной подписки и бонусы.",
     "canceledGroupPlan": "Групповой тариф отменен",
     "groupPlanCanceled": "Групповой тариф перестанет действовать",
     "purchasedGroupPlanPlanExtraMonths": "У вас остается <%= months %> мес. оплаченного группового тарифа.",
@@ -480,5 +480,9 @@
     "recurringCompletion": "Никто - Групповое задание не выполняется",
     "singleCompletion": "Один - Выполняется, когда любой из назначенных игроков завершает задание",
     "allAssignedCompletion": "Все - Выполняется, когда все назначенные игроки завершают задание",
-    "pmReported": "Спасибо, что сообщили об этом сообщении."
+    "pmReported": "Спасибо, что сообщили об этом сообщении.",
+    "suggestedGroup": "Предложено, потому что вы новечок в Habitica.",
+    "groupActivityNotificationTitle": "Есть сообщение в <%= group %> от <%= user %>",
+    "taskClaimed": "<%= userName %> требует назначения задания <span class=\"notification-bold\"><%= taskText %></span>.",
+    "youHaveBeenAssignedTask": "<%= managerName %> поручил вам задание <span class=\"notification-bold\"><%= taskText %></span>."
 }

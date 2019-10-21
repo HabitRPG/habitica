@@ -9,8 +9,8 @@ describe('shared.fns.autoAllocate', () => {
   beforeEach(() => {
     user = generateUser();
     // necessary to test task training reset behavior
-    user.stats.toObject = function () {
-      let obj = JSON.parse(JSON.stringify(this));
+    user.stats.toObject = function toObject () {
+      const obj = JSON.parse(JSON.stringify(this));
 
       return obj;
     };

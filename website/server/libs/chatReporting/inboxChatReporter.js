@@ -5,16 +5,16 @@ import ChatReporter from './chatReporter';
 import {
   BadRequest,
 } from '../errors';
-import { getUserInfo, sendTxn} from '../email';
-import slack from '../slack';
+import { getUserInfo, sendTxn } from '../email';
+import * as slack from '../slack';
 import apiError from '../apiError';
 
 import * as inboxLib from '../inbox';
-import {getAuthorEmailFromMessage} from '../chat';
+import { getAuthorEmailFromMessage } from '../chat';
 
-const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map((email) => {
-  return { email, canSend: true };
-});
+const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL')
+  .split(',')
+  .map(email => ({ email, canSend: true }));
 
 export default class InboxChatReporter extends ChatReporter {
   constructor (req, res) {
@@ -27,11 +27,11 @@ export default class InboxChatReporter extends ChatReporter {
   async validate () {
     this.req.checkParams('messageId', apiError('messageIdRequired')).notEmpty();
 
-    let validationErrors = this.req.validationErrors();
+    const validationErrors = this.req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     if (this.user.contributor.admin && this.req.query.userId) {
-      this.inboxUser = await User.findOne({_id: this.req.query.userId});
+      this.inboxUser = await User.findOne({ _id: this.req.query.userId });
     }
 
     const message = await inboxLib.getUserInboxMessage(this.inboxUser, this.req.params.messageId);
@@ -39,7 +39,7 @@ export default class InboxChatReporter extends ChatReporter {
 
     const userComment = this.req.body.comment;
 
-    return {message, userComment};
+    return { message, userComment };
   }
 
   async notify (message, userComment) {
@@ -51,7 +51,7 @@ export default class InboxChatReporter extends ChatReporter {
 
     let emailVariables = await this.getMessageVariables(group, message);
     emailVariables = emailVariables.concat([
-      {name: 'REPORTER_COMMENT', content: userComment || ''},
+      { name: 'REPORTER_COMMENT', content: userComment || '' },
     ]);
 
     sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', emailVariables);
@@ -91,7 +91,7 @@ export default class InboxChatReporter extends ChatReporter {
     ];
   }
 
-  updateMessageAndSave (message, ...changedFields) {
+  updateMessageAndSave (message, ...changedFields) { // eslint-disable-line class-methods-use-this
     for (const changedField of changedFields) {
       message.markModified(changedField);
     }
@@ -120,7 +120,7 @@ export default class InboxChatReporter extends ChatReporter {
   }
 
   async flag () {
-    let {message, userComment} = await this.validate();
+    const { message, userComment } = await this.validate();
     await this.flagInboxMessage(message);
     await this.notify(message, userComment);
     await this.markMessageAsReported(message);
