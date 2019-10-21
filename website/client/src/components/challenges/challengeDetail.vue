@@ -68,7 +68,7 @@
               class="svg-icon gem-icon"
               v-html="icons.gemIcon"
             ></div>
-            {{ challenge.prize || 0}}
+            {{ challenge.prize || 0 }}
             <div
               v-once
               class="details"
