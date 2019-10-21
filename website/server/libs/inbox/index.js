@@ -1,4 +1,4 @@
-import { mapInboxMessage, inboxModel as Inbox } from '../../models/message';
+import { mapInboxMessage, inboxModel as Inbox, setUserStyles } from '../../models/message';
 import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../pushNotifications';
 import { model as User } from '../../models/user';
