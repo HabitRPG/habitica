@@ -460,14 +460,14 @@ import axios from 'axios';
 import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import userLabel from '../userLabel';
+import userLabel from '@/components/userLabel';
 
-import privateMessages from './messageList';
+import privateMessages from '@/components/messages/messageList';
 import messageIcon from '@/assets/svg/message.svg';
 import svgClose from '@/assets/svg/close.svg';
 import mail from '@/assets/svg/mail.svg';
-import conversationItem from './conversationItem';
-import faceAvatar from '../faceAvatar';
+import conversationItem from '@/components/messages/conversationItem';
+import faceAvatar from '@/components/faceAvatar';
 
 export default {
   components: {
