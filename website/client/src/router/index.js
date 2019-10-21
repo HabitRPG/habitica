@@ -75,7 +75,7 @@ const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ '@/com
 const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/taskInformation');
 const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/billing');
 
-const MessagesIndex = () => import(/* webpackChunkName: "group-plans" */ 'client/components/messages/index');
+const MessagesIndex = () => import(/* webpackChunkName: "group-plans" */ '@/components/messages/index');
 
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/index');

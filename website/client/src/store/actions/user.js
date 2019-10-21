@@ -167,7 +167,7 @@ export function block (store, params) {
 }
 
 export function unblock (store, params) {
-  let index = store.state.user.data.inbox.blocks.indexOf(params.uuid);
+  const index = store.state.user.data.inbox.blocks.indexOf(params.uuid);
   store.state.user.data.inbox.blocks.splice(index, 1);
   return axios.post(`/api/v4/user/block/${params.uuid}`);
 }

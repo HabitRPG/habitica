@@ -1,31 +1,44 @@
-<template lang="pug">
-.face-avatar(:style="{width, height}")
-  .character-sprites
-    // Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc
-    template(v-for="(klass, item) in visualBuffs")
-      span(v-if="member.stats.buffs[item] && showVisualBuffs", :class="klass")
-
-    // Show flower ALL THE TIME!!!
-    // See https://github.com/HabitRPG/habitica/issues/7133
-    span(:class="'hair_flower_' + member.preferences.hair.flower")
-
-    // Show avatar only if not currently affected by visual buff
-    template(v-if="showAvatar()")
-      span(:class="[skinClass]")
-      span(:class="['head_0']")
-      template(v-for="type in ['bangs', 'base', 'mustache', 'beard']")
-        span(:class="['hair_' + type + '_' + member.preferences.hair[type] + '_' + member.preferences.hair.color]")
-      span(:class="[getGearClass('eyewear')]")
-      span(:class="[getGearClass('head')]")
-      span(:class="[getGearClass('headAccessory')]")
-      span(:class="['hair_flower_' + member.preferences.hair.flower]")
-
-    // Resting
-    span.zzz(v-if="member.preferences.sleep")
+<template>
+  <div
+    class="face-avatar"
+    :style="{width, height}"
+  >
+    <div class="character-sprites">
+      <!-- Buffs that cause visual changes to avatar: Snowman, Ghost, Flower, etc-->
+      <template v-for="(klass, item) in visualBuffs">
+        <span
+          v-if="member.stats.buffs[item] && showVisualBuffs"
+          :key="klass"
+          :class="klass"
+        ></span>
+      </template>
+      <!-- Show flower ALL THE TIME!!!-->
+      <!-- See https://github.com/HabitRPG/habitica/issues/7133-->
+      <span :class="'hair_flower_' + member.preferences.hair.flower"></span>
+      <!-- Show avatar only if not currently affected by visual buff-->
+      <template v-if="showAvatar()">
+        <span :class="[skinClass]"></span><span :class="['head_0']"></span>
+        <template v-for="type in ['bangs', 'base', 'mustache', 'beard']">
+          <span
+            :key="type"
+            :class="[getHairClass(type)]"
+          ></span>
+        </template>
+        <span :class="[getGearClass('eyewear')]"></span>
+        <span :class="[getGearClass('head')]"></span>
+        <span :class="[getGearClass('headAccessory')]"></span>
+        <span :class="['hair_flower_' + member.preferences.hair.flower]"></span>
+      </template>
+      <!-- Resting--><span
+        v-if="member.preferences.sleep"
+        class="zzz"
+      ></span>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .face-avatar {
     width: 36px;
@@ -49,7 +62,7 @@
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { mapState } from '@/libs/store';
 
 export default {
   components: {
@@ -104,9 +117,9 @@ export default {
       return this.$store.getters['members:isBuffed'](this.member);
     },
     backgroundClass () {
-      let background = this.member.preferences.background;
+      const { background } = this.member.preferences;
 
-      let allowToShowBackground = !this.avatarOnly || this.withBackground;
+      const allowToShowBackground = !this.avatarOnly || this.withBackground;
 
       if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
         return `background_${this.overrideAvatarGear.background}`;
@@ -127,7 +140,7 @@ export default {
       };
     },
     skinClass () {
-      let baseClass = `skin_${this.member.preferences.skin}`;
+      const baseClass = `skin_${this.member.preferences.skin}`;
 
       return `${baseClass}${this.member.preferences.sleep ? '_sleep' : ''}`;
     },
@@ -146,12 +159,16 @@ export default {
       return result;
     },
     showAvatar () {
-      if (!this.showVisualBuffs)
-        return true;
+      if (!this.showVisualBuffs) return true;
 
-      let buffs = this.member.stats.buffs;
+      const { buffs } = this.member.stats;
 
       return !buffs.snowball && !buffs.spookySparkles && !buffs.shinySeed && !buffs.seafoam;
+    },
+    getHairClass (type) {
+      const hairPref = this.member.preferences.hair;
+
+      return `hair_${type}_${hairPref[type]}_${hairPref.color}`;
     },
   },
 };
