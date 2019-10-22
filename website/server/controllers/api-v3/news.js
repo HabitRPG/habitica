@@ -2,7 +2,8 @@ import { authWithHeaders } from '../../middlewares/auth';
 
 const api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from controllers
+// @TODO export this const, cannot export it from here because only routes are exported from
+// controllers
 const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
 const worldDmg = { // @TODO
   bailey: false,
@@ -35,8 +36,12 @@ api.getNews = {
         </div>
         <hr/>
         <div class="promo_zombie_achievements center-block"></div>
-        <p>We're releasing a new achievement so you can celebrate your successes in the world of Habitican pet collecting! Earn the Monster Magus and Undead Undertaker achievements by collecting Zombie pets and mounts and you'll earn a nifty badge for your profile.</p>
-        <p>If you already have all the Zombie pets and/or mounts in your stable, you'll receive the badge automatically! Check your profile and celebrate your new achievement with pride.</p>
+        <p>We're releasing a new achievement so you can celebrate your successes in the world of
+        Habitican pet collecting! Earn the Monster Magus and Undead Undertaker achievements by
+        collecting Zombie pets and mounts and you'll earn a nifty badge for your profile.</p>
+        <p>If you already have all the Zombie pets and/or mounts in your stable, you'll receive
+        the badge automatically! Check your profile and celebrate your new achievement with
+        pride.</p>
         <div class="small mb-3">By OuttaMyMind and SabreCat</div>
       </div>
       `,
