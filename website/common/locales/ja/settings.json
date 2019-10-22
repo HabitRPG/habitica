@@ -204,5 +204,7 @@
     "usernameVerifiedConfirmation": "あなたのユーザー名、<%= username %>、は承認されました！",
     "usernameNotVerified": "あなたのユーザー名を承認してください。",
     "changeUsernameDisclaimer": "私たちはもうすぐログイン名を、固有の、公開のユーザー名に移行します。このユーザー名は、招待、チャットでの＠返信、メッセージのやりとりなどで使用されます。",
-    "verifyUsernameVeteranPet": "あなたが承認を終えたあとには、百戦練磨のペットのうち１匹があなたを待っていることでしょう！"
+    "verifyUsernameVeteranPet": "あなたが承認を終えたあとには、百戦練磨のペットのうち１匹があなたを待っていることでしょう！",
+    "subscriptionReminders": "寄付についての通知",
+    "newPMNotificationTitle": "<%= name %>からの新しいメッセージ"
 }

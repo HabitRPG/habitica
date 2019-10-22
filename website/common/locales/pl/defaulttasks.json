@@ -1,16 +1,16 @@
 {
-    "defaultHabit1Text": "Produktywna praca (kliknij ołówek aby edytować)",
+    "defaultHabit1Text": "Produktywna praca (kliknij ołówek, aby edytować)",
     "defaultHabit1Notes": "Przykładowe dobre nawyki: + Zjedz warzywo + 15 minut produktywnej pracy",
-    "defaultHabit2Text": "Jedz śmieciowe jedzenie (kliknij ołówek aby edytować)",
+    "defaultHabit2Text": "Jedzenie śmieciowego jedzenia (kliknij ołówek aby edytować)",
     "defaultHabit2Notes": "Przykładowe złe Nawyki: - Palenie - Odkładanie na później",
     "defaultHabit3Text": "Wybierz schody/windę (kliknij ołówek aby edytować)",
     "defaultHabit3Notes": "Przykładowe dobre i złe Nawyki: +/- Użyj schodów/windy ; +/- Wypij wodę/napój gazowany",
     "defaultHabit4Text": "Dodaj zadanie do Habitiki",
     "defaultHabit4Notes": "Nawyk, Codzienne lub Do-Zrobienia",
-    "defaultHabit5Text": "Kliknij tutaj aby zrobić z tego zły nawyk, z którym chcesz skończyć",
+    "defaultHabit5Text": "Kliknij tutaj, aby zrobić z tego zły nawyk, z którym chcesz skończyć",
     "defaultHabit5Notes": "Lub usuń z ekranu edycji",
     "defaultDaily1Text": "Użyj Habitiki, aby kontrolować swoje zadania",
-    "defaultTodo1Text": "Dołączyć do Habitica (Odhacz mnie!)",
+    "defaultTodo1Text": "Dołączyć do Habitiki (Odhacz mnie!)",
     "defaultTodoNotes": "Możesz wypełnić to zadanie Do-Zrobienia, zedytować je lub usunąć.",
     "defaultTodo2Text": "Skończ przewodnik Justina o zadaniach",
     "defaultTodo2Notes": "Odwiedź wszystkie sekcje na dolnym pasku",
@@ -24,5 +24,11 @@
     "defaultTag4": "Szkoła",
     "defaultTag5": "Zespoły",
     "defaultTag6": "Prace domowe",
-    "defaultTag7": "Twórczość"
+    "defaultTag7": "Twórczość",
+    "choresDailyText": "Umyj naczynia",
+    "choresHabit": "10 minut sprzątania",
+    "selfCareHabit": "Zrób sobie krótką przerwę",
+    "schoolDailyText": "Skończ zadania domowe",
+    "exerciseDailyText": "Rozciąganie>>Codzienne ćwiczenia",
+    "workHabitMail": "Sprawdź e-mail"
 }
