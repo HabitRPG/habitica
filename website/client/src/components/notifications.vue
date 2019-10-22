@@ -214,12 +214,12 @@ const NOTIFICATIONS = {
   },
   ACHIEVEMENT_MONSTER_MAGUS: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
     modalId: 'generic-achievement',
   },
   ACHIEVEMENT_UNDEAD_UNDERTAKER: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
+    label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
     modalId: 'generic-achievement',
   },
 };
