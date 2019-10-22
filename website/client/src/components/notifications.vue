@@ -175,6 +175,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
     modalId: 'generic-achievement',
   },
+<<<<<<< HEAD:website/client/src/components/notifications.vue
   ACHIEVEMENT_PARTY_UP: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementPartyUp')}`,
@@ -212,6 +213,18 @@ const NOTIFICATIONS = {
       modalText: $t => $t('triadBingoAchievement'),
     },
   },
+=======
+  ACHIEVEMENT_MONSTER_MAGUS: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_UNDEAD_UNDERTAKER: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
+    modalId: 'generic-achievement',
+  },
+>>>>>>> release:website/client/components/notifications.vue
 };
 
 export default {
@@ -266,8 +279,14 @@ export default {
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
+<<<<<<< HEAD:website/client/src/components/notifications.vue
       'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
       'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
+=======
+      'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
+      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+      'GENERIC_ACHIEVEMENT',
+>>>>>>> release:website/client/components/notifications.vue
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -666,11 +685,16 @@ export default {
           case 'ACHIEVEMENT_BACK_TO_BASICS':
           case 'ACHIEVEMENT_DUST_DEVIL':
           case 'ACHIEVEMENT_ARID_AUTHORITY':
+<<<<<<< HEAD:website/client/src/components/notifications.vue
           case 'ACHIEVEMENT_PARTY_UP':
           case 'ACHIEVEMENT_PARTY_ON':
           case 'ACHIEVEMENT_BEAST_MASTER':
           case 'ACHIEVEMENT_MOUNT_MASTER':
           case 'ACHIEVEMENT_TRIAD_BINGO':
+=======
+          case 'ACHIEVEMENT_MONSTER_MAGUS':
+          case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
+>>>>>>> release:website/client/components/notifications.vue
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

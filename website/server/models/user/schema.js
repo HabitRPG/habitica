@@ -130,6 +130,8 @@ export default new Schema({
     dustDevil: Boolean,
     aridAuthority: Boolean,
     kickstarter2019: Boolean,
+    monsterMagus: Boolean,
+    undeadUndertaker: Boolean,
   },
 
   backer: {

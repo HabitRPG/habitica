@@ -12,7 +12,7 @@
 }
 .promo_desert_pet_achievements {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -930px -592px;
+  background-position: -373px -395px;
   width: 204px;
   height: 102px;
 }
@@ -54,13 +54,13 @@
 }
 .promo_shadow_spooky_potions {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -737px 0px;
+  background-position: -737px -148px;
   width: 423px;
   height: 147px;
 }
 .promo_spooky_sparkles {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -737px -148px;
+  background-position: -737px -296px;
   width: 423px;
   height: 147px;
 }
@@ -72,9 +72,15 @@
 }
 .promo_witchy_familiars {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -737px -296px;
+  background-position: -737px 0px;
   width: 423px;
   height: 147px;
+}
+.promo_zombie_achievements {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -930px -592px;
+  width: 204px;
+  height: 102px;
 }
 .scene_quest_shop {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
