@@ -175,6 +175,16 @@ const NOTIFICATIONS = {
     label: ($t) => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
     modalId: 'generic-achievement',
   },
+  ACHIEVEMENT_MONSTER_MAGUS: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_UNDEAD_UNDERTAKER: {
+    achievement: true,
+    label: ($t) => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
+    modalId: 'generic-achievement',
+  },
 };
 
 export default {
@@ -230,7 +240,9 @@ export default {
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
-      'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY', 'GENERIC_ACHIEVEMENT',
+      'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
+      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+      'GENERIC_ACHIEVEMENT',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -607,6 +619,8 @@ export default {
           case 'ACHIEVEMENT_BACK_TO_BASICS':
           case 'ACHIEVEMENT_DUST_DEVIL':
           case 'ACHIEVEMENT_ARID_AUTHORITY':
+          case 'ACHIEVEMENT_MONSTER_MAGUS':
+          case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

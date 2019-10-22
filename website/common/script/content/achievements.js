@@ -157,6 +157,16 @@ let basicAchievs = {
     titleKey: 'achievementAridAuthority',
     textKey: 'achievementAridAuthorityText',
   },
+  monsterMagus: {
+    icon: 'achievement-monsterMagus',
+    titleKey: 'achievementMonsterMagus',
+    textKey: 'achievementMonsterMagusText',
+  },
+  undeadUndertaker: {
+    icon: 'achievement-undeadUndertaker',
+    titleKey: 'achievementUndeadUndertaker',
+    textKey: 'achievementUndeadUndertakerText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
