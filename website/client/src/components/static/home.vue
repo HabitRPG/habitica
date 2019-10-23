@@ -88,8 +88,17 @@
                 class="form-control"
                 type="password"
                 :placeholder="$t('password')"
-                :class="{'input-valid': password.length > 3}"
+                :class="{
+                  'input-valid': passwordValid,
+                  'input-invalid': passwordInvalid,
+                }"
               >
+              <div
+                v-if="passwordInvalid"
+                class="input-error"
+              >
+                {{ $t('minPasswordLength') }}
+              </div>
               <input
                 v-model="passwordConfirm"
                 class="form-control"
@@ -99,6 +108,12 @@
                   'input-invalid': passwordConfirmInvalid,
                   'input-valid': passwordConfirmValid}"
               >
+              <div
+                v-if="passwordConfirmInvalid"
+                class="input-error"
+              >
+                {{ $t('passwordConfirmationMatch') }}
+              </div>
               <p
                 v-once
                 class="form-text"
@@ -796,6 +811,7 @@ import lifehacker from '@/assets/images/home/lifehacker.svg';
 import makeuseof from '@/assets/images/home/make-use-of.svg';
 import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg';
 import * as Analytics from '@/libs/analytics';
+import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 
 export default {
   data () {
@@ -843,6 +859,14 @@ export default {
     usernameInvalid () {
       if (this.username.length < 1) return false;
       return !this.usernameValid;
+    },
+    passwordValid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
+    },
+    passwordInvalid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length < MINIMUM_PASSWORD_LENGTH;
     },
     passwordConfirmValid () {
       if (this.passwordConfirm.length <= 3) return false;
