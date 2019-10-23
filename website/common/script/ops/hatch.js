@@ -53,7 +53,7 @@ export default function hatch (user, req = {}) {
     if (!user.achievements[achievement.petAchievement]) {
       const petIndex = findIndex(
         keys(content.dropEggs),
-        animal => Number.isNaN(user.items.pets[`${animal}-${achievement.color}`]) || user.items.pets[`${animal}-${achievement.color}`] <= 0,
+        animal => !user.items.pets[`${animal}-${achievement.color}`] || user.items.pets[`${animal}-${achievement.color}`] <= 0,
       );
       if (petIndex === -1) {
         user.achievements[achievement.petAchievement] = true;
