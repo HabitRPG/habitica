@@ -2,6 +2,7 @@
   <perfect-scrollbar
     ref="container"
     class="container-fluid"
+    :options="psOptions"
   >
     <div class="row loadmore">
       <div v-if="canLoadMore && !isLoading">
@@ -98,13 +99,35 @@
 
   .card {
     border: 0px;
-    margin-bottom: 0.5em;
+    margin-bottom: 1rem;
     padding: 0rem;
-    width: 100%;
+    width: 684px;
+  }
+  .message-row {
+    margin-left: 12px;
+    margin-right: 12px;
+
+    &:not(.margin-right) {
+      .d-flex {
+        justify-content: flex-end;
+      }
+    }
+  }
+  @media only screen and (max-width: 1200px) {
+    .card {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (min-width: 1400px) {
+    .message-row {
+      margin-left: -15px;
+      margin-right: -30px;
+    }
   }
 
   .card-left {
-    border: 1px solid $header-color;
+    border: 1px solid $purple-500;
   }
 
   .card-right {
@@ -168,10 +191,7 @@
     margin-bottom: 1rem;
   }
 
-  .message-row {
-    margin-left: 12px;
-    margin-right: 12px;
-  }
+
 </style>
 
 <script>
@@ -222,6 +242,11 @@ export default {
     messages () {
       this.loadProfileCache();
       return this.chat;
+    },
+    psOptions () {
+      return {
+        suppressScrollX: true,
+      };
     },
   },
   methods: {

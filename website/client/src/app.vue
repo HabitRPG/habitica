@@ -66,7 +66,7 @@
           </div>
           <notifications-display />
           <app-menu />
-          <div class="container-fluid">
+          <div class="container-fluid" :class="{'no-margin': noMargin}">
             <app-header />
             <buyModal
               :item="selectedItemToBuy || {}"
@@ -137,6 +137,13 @@
 
   .container-fluid {
     flex: 1 0 auto;
+  }
+
+  .no-margin {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .notification {
@@ -299,6 +306,9 @@ export default {
     },
     showRestingBanner () {
       return !this.bannerHidden && this.user.preferences.sleep;
+    },
+    noMargin () {
+      return ['privateMessages'].includes(this.$route.name);
     },
   },
   created () {

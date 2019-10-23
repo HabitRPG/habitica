@@ -27,8 +27,7 @@
           class="mr-1"
         >•</span>
         <span
-          v-b-tooltip
-          :title="msg.timestamp | date"
+          v-b-tooltip.hover="messageDate"
         >{{ msg.timestamp | timeAgo }}&nbsp;</span>
         <span v-if="msg.client && user.contributor.level >= 4">({{ msg.client }})</span>
       </p>
@@ -300,6 +299,10 @@ export default {
       if (this.msg.flagCount < CHAT_FLAG_LIMIT_FOR_HIDING) return 'Message flagged once, not hidden';
       if (this.msg.flagCount < CHAT_FLAG_FROM_SHADOW_MUTE) return 'Message hidden';
       return 'Message hidden (shadow-muted)';
+    },
+    messageDate () {
+      const date = moment(this.msg.timestamp).toDate();
+      return date.toString();
     },
   },
   mounted () {

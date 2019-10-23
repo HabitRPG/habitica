@@ -213,9 +213,6 @@
 
   .header-bar {
     height: 64px;
-    margin-top: 1rem;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
     box-shadow: 0 3px 12px 0 rgba(26, 24, 29, 0.24);
     background-color: $white;
     padding-left: 1.5rem;

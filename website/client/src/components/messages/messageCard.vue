@@ -15,8 +15,7 @@
         class="mr-1"
       >•</span>
       <span
-        v-b-tooltip=""
-        :title="msg.timestamp | date"
+        v-b-tooltip.hover="messageDate"
       >{{ msg.timestamp | timeAgo }}&nbsp;</span>
       <span v-if="msg.client && user.contributor.level >= 4"> ({{ msg.client }})</span>
     </p>
@@ -156,10 +155,6 @@ export default {
     timeAgo (value) {
       return moment(value).fromNow();
     },
-    date (value) {
-      // @TODO: Vue doesn't support this so we cant user preference
-      return moment(value).toDate();
-    },
   },
   props: {
     msg: {},
@@ -177,6 +172,10 @@ export default {
     ...mapState({ user: 'user.data' }),
     isMessageReported () {
       return (this.msg.flags && this.msg.flags[this.user.id]) || this.reported;
+    },
+    messageDate () {
+      const date = moment(this.msg.timestamp).toDate();
+      return date.toString();
     },
   },
   mounted () {
