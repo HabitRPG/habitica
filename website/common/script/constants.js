@@ -25,6 +25,8 @@ export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when u
 
 export const PARTY_LIMIT_MEMBERS = 30;
 
+export const MINIMUM_PASSWORD_LENGTH = 8;
+
 export const TRANSFORMATION_DEBUFFS_LIST = {
   snowball: 'salt',
   spookySparkles: 'opaquePotion',

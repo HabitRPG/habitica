@@ -177,35 +177,35 @@ function _addUltimateGear (result, user, data) {
 function _getBasicAchievements (user, language) {
   const result = {};
 
-  _addPlural(result, user, {path: 'streak', language});
-  _addPlural(result, user, {path: 'perfect', language});
+  _addPlural(result, user, { path: 'streak', language });
+  _addPlural(result, user, { path: 'perfect', language });
 
-  _addSimple(result, user, {path: 'partyUp', language});
-  _addSimple(result, user, {path: 'partyOn', language});
-  _addSimple(result, user, {path: 'joinedGuild', language});
-  _addSimple(result, user, {path: 'royallyLoyal', language});
-  _addSimple(result, user, {path: 'joinedChallenge', language});
-  _addSimple(result, user, {path: 'invitedFriend', language});
-  _addSimple(result, user, {path: 'lostMasterclasser', language});
-  _addSimple(result, user, {path: 'mindOverMatter', language});
-  _addSimple(result, user, {path: 'justAddWater', language});
-  _addSimple(result, user, {path: 'backToBasics', language});
-  _addSimple(result, user, {path: 'allYourBase', language});
-  _addSimple(result, user, {path: 'dustDevil', language});
-  _addSimple(result, user, {path: 'aridAuthority', language});
-  _addSimple(result, user, {path: 'monsterMagus', language});
-  _addSimple(result, user, {path: 'undeadUndertaker', language});
+  _addSimple(result, user, { path: 'partyUp', language });
+  _addSimple(result, user, { path: 'partyOn', language });
+  _addSimple(result, user, { path: 'joinedGuild', language });
+  _addSimple(result, user, { path: 'royallyLoyal', language });
+  _addSimple(result, user, { path: 'joinedChallenge', language });
+  _addSimple(result, user, { path: 'invitedFriend', language });
+  _addSimple(result, user, { path: 'lostMasterclasser', language });
+  _addSimple(result, user, { path: 'mindOverMatter', language });
+  _addSimple(result, user, { path: 'justAddWater', language });
+  _addSimple(result, user, { path: 'backToBasics', language });
+  _addSimple(result, user, { path: 'allYourBase', language });
+  _addSimple(result, user, { path: 'dustDevil', language });
+  _addSimple(result, user, { path: 'aridAuthority', language });
+  _addSimple(result, user, { path: 'monsterMagus', language });
+  _addSimple(result, user, { path: 'undeadUndertaker', language });
 
-  _addSimpleWithMasterCount(result, user, {path: 'beastMaster', language});
-  _addSimpleWithMasterCount(result, user, {path: 'mountMaster', language});
-  _addSimpleWithMasterCount(result, user, {path: 'triadBingo', language});
+  _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
+  _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });
+  _addSimpleWithMasterCount(result, user, { path: 'triadBingo', language });
 
-  _addUltimateGear(result, user, {path: 'healer', language});
-  _addUltimateGear(result, user, {path: 'rogue', language});
-  _addUltimateGear(result, user, {path: 'warrior', language});
-  _addUltimateGear(result, user, {path: 'mage', altPath: 'wizard', language});
+  _addUltimateGear(result, user, { path: 'healer', language });
+  _addUltimateGear(result, user, { path: 'rogue', language });
+  _addUltimateGear(result, user, { path: 'warrior', language });
+  _addUltimateGear(result, user, { path: 'mage', altPath: 'wizard', language });
 
-  let cardAchievements = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell', 'goodluck'];
+  const cardAchievements = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell', 'goodluck'];
   cardAchievements.forEach(path => {
     _addSimpleWithCount(result, user, { path, key: `${path}Cards`, language });
   });

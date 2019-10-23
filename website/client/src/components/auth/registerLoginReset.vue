@@ -132,7 +132,14 @@
           class="form-control"
           type="password"
           :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
+          :class="{'input-invalid': passwordInvalid, 'input-valid': passwordValid}"
         >
+        <div
+          v-if="passwordInvalid && registering"
+          class="input-error"
+        >
+          {{ $t('minPasswordLength') }}
+        </div>
       </div>
       <div
         v-if="registering"
@@ -150,6 +157,12 @@
           :placeholder="$t('confirmPasswordPlaceholder')"
           :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
         >
+        <div
+          v-if="passwordConfirmInvalid"
+          class="input-error"
+        >
+          {{ $t('passwordConfirmationMatch') }}
+        </div>
         <small
           v-once
           class="form-text"
@@ -522,6 +535,7 @@ import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 
+import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
@@ -579,6 +593,14 @@ export default {
     usernameInvalid () {
       if (this.username.length < 1) return false;
       return !this.usernameValid;
+    },
+    passwordValid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
+    },
+    passwordInvalid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length < MINIMUM_PASSWORD_LENGTH;
     },
     passwordConfirmValid () {
       if (this.passwordConfirm.length <= 3) return false;
