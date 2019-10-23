@@ -767,7 +767,6 @@ export default {
         case 'sortByHatchable': {
           if (isPetList) {
             const sortFunc = i => (i.isHatchable() ? 0 : 1);
-
             animals = _sortBy(animals, [sortFunc]);
           }
           break;
@@ -800,6 +799,8 @@ export default {
         groupKey = 'potionKey';
       } else if (sortBy === 'AZ') {
         groupKey = '';
+      } else if (sortBy === 'sortByHatchable') {
+        groupKey = i => i.isHatchable();
       }
 
       return groupBy(pets, groupKey);
