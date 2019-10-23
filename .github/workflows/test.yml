@@ -22,7 +22,7 @@ jobs:
         npm ci
       env:
         CI: true
-    - run: npm run lint
+    - run: npm run lint-no-fix
   apidoc:
     runs-on: ubuntu-latest
     strategy:
