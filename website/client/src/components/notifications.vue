@@ -39,9 +39,15 @@
   }
 
   .introjs-tooltip {
-    background-image: url('~@/assets/svg/for-css/tutorial-border.svg');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #FFA623;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: #B36213;
+    margin: 2px;
+    position: relative;
+
     height: 131px;
     min-height: 131px !important;
     width: 400px;
