@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js",
-    "lint": "vue-cli-service lint",
-    "postinstall": "if [ -n \"$npm_config_production\" ]; then npm run build; fi"
+    "lint": "vue-cli-service lint .",
+    "postinstall": "node ./scripts/npm-postinstall.js"
   },
   "dependencies": {
     "@vue/cli-plugin-babel": "^4.0.4",
