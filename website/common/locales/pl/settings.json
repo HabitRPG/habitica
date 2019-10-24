@@ -203,8 +203,12 @@
     "goToSettings": "Przejdź do ustawień",
     "usernameVerifiedConfirmation": "Twoja nazwa użytkownika, <%= username %>, została potwierdzona!",
     "usernameNotVerified": "Prosimy potwierdzić swoją nazwę użytkownika.",
-    "changeUsernameDisclaimer": "Wkrótce będziemy zmieniać nazwy logowania na unikalne, publiczne nazwy użytkowników. Nowe nazwy użytkowników będą używane do: zaproszeń, wywoływania innych osób na czacie poprzez @nazwę oraz w korespondencji.",
+    "changeUsernameDisclaimer": "Nowe nazwy użytkowników będą używane do: zaproszeń, wywoływania innych osób na czacie poprzez @nazwę oraz w korespondencji.",
     "verifyUsernameVeteranPet": "Jedno zwierzątko z oddziału Weteranów będzie czekało na ciebie po potwierdzeniu!",
     "subscriptionReminders": "Przypomnienia o subskrypcji",
-    "newPMNotificationTitle": "Nowa wiadomość od <%= name %>"
+    "newPMNotificationTitle": "Nowa wiadomość od <%= name %>",
+    "onlyPrivateSpaces": "Tylko w przestrzeniach prywatnych",
+    "everywhere": "Gdziekolwiek",
+    "suggestMyUsername": "Podpowiedz nazwę użytkownika",
+    "mentioning": "Wspomnienia"
 }
