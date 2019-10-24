@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint .",
     "postinstall": "node ./scripts/npm-postinstall.js"
   },
   "dependencies": {
