@@ -800,9 +800,9 @@ export default {
       } else if (sortBy === 'AZ') {
         groupKey = '';
       } else if (sortBy === 'sortByHatchable') {
-        groupKey = i => i.isHatchable();
+        groupKey = i => (i.isHatchable() ? 0 : 1);
       }
-
+      
       return groupBy(pets, groupKey);
     },
     mounts (animalGroup, hideMissing, sortBy, searchText) {
