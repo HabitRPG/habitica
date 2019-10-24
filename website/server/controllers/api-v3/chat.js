@@ -228,7 +228,7 @@ api.postChat = {
     }
 
     const newChatMessage = group.sendChat({
-      message: req.body.message,
+      message,
       user,
       flagCount,
       metaData: null,

@@ -10,7 +10,7 @@ export async function highlightMentions (text) { // eslint-disable-line import/p
     const usernames = mentions.map(mention => mention.substr(1));
     members = await User
       .find({ 'auth.local.username': { $in: usernames }, 'flags.verifiedUsername': true })
-      .select(['auth.local.username', '_id', 'preferences.pushNotifications', 'pushDevices'])
+      .select(['auth.local.username', '_id', 'preferences.pushNotifications', 'pushDevices', 'party', 'guilds'])
       .lean()
       .exec();
     members.forEach(member => {
