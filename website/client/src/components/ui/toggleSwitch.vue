@@ -53,8 +53,6 @@
   }
 
   .toggle-switch-description {
-    height: 20px;
-
     &.hasPopOver {
       border-bottom: 1px dashed $gray-200;
     }

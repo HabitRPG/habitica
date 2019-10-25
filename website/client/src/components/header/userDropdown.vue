@@ -33,7 +33,7 @@
       <a
         class="nav-link dropdown-item
          dropdown-separated d-flex justify-content-between align-items-center"
-        @click.prevent="showInbox()"
+        @click.prevent="showPrivateMessages()"
       >
         <div>{{ $t('messages') }}</div>
         <message-count
@@ -163,10 +163,10 @@ export default {
       this.$store.state.avatarEditorOptions.subpage = subpage;
       this.$root.$emit('bv::show::modal', 'avatar-modal');
     },
-    showInbox () {
+    showPrivateMessages () {
       markPMSRead(this.user);
       axios.post('/api/v4/user/mark-pms-read');
-      this.$root.$emit('bv::show::modal', 'inbox-modal');
+      this.$router.push('/private-messages');
     },
     showProfile (startingPage) {
       this.$router.push({ name: startingPage });

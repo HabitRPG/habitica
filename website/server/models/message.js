@@ -105,7 +105,10 @@ export function setUserStyles (newMessage, user) {
 
   newMessage.contributor = contributorCopy;
   newMessage.userStyles = userStyles;
-  newMessage.markModified('userStyles contributor');
+
+  if (newMessage.markModified) {
+    newMessage.markModified('userStyles contributor');
+  }
 }
 
 export function messageDefaults (msg, user, client, flagCount = 0, info = {}) {

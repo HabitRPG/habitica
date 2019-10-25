@@ -75,6 +75,8 @@ const GroupPlanIndex = () => import(/* webpackChunkName: "group-plans" */ '@/com
 const GroupPlanTaskInformation = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/taskInformation');
 const GroupPlanBilling = () => import(/* webpackChunkName: "group-plans" */ '@/components/group-plans/billing');
 
+const MessagesIndex = () => import(/* webpackChunkName: "group-plans" */ '@/pages/private-messages');
+
 // Challenges
 const ChallengeIndex = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/index');
 const MyChallenges = () => import(/* webpackChunkName: "challenges" */ '@/components/challenges/myChallenges');
@@ -193,6 +195,7 @@ const router = new VueRouter({
         },
       ],
     },
+    { path: '/private-messages', name: 'privateMessages', component: MessagesIndex },
     {
       name: 'challenges',
       path: '/challenges',
