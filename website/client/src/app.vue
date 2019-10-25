@@ -66,7 +66,10 @@
           </div>
           <notifications-display />
           <app-menu />
-          <div class="container-fluid" :class="{'no-margin': noMargin}">
+          <div
+            class="container-fluid"
+            :class="{'no-margin': noMargin}"
+          >
             <app-header />
             <buyModal
               :item="selectedItemToBuy || {}"

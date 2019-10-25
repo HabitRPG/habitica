@@ -103,7 +103,7 @@
     "chai-as-promised": "^7.1.1",
     "chalk": "^2.4.1",
     "eslint": "^6.5.1",
-    "eslint-config-habitrpg": "^6.1.0",
+    "eslint-config-habitrpg": "^6.2.0",
     "eslint-plugin-mocha": "^5.0.0",
     "expect.js": "^0.3.1",
     "istanbul": "^1.1.0-alpha.1",
