@@ -525,7 +525,6 @@
     color: #fff;
     font-size: 90%;
     width: 100%;
-    margin-left: 1em;
   }
 </style>
 

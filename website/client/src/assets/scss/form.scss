@@ -65,6 +65,7 @@ input, textarea, input.form-control, textarea.form-control {
     padding-right: 40px;
     background-image: url(~@/assets/svg/for-css/alert.svg);
     background-size: 16px 16px;
+    border-color: $red-100 !important;
   }
 }
 

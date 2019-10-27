@@ -785,7 +785,6 @@
     font-size: 90%;
     width: 100%;
     margin-bottom: 1em;
-    margin-left: 1em;
   }
 </style>
 
