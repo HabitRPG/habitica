@@ -46,6 +46,13 @@
         :placeholder="$t('usernamePlaceholder')"
         :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
       >
+      <div
+        v-for="issue in usernameIssues"
+        :key="issue"
+        class="input-error"
+      >
+        {{ issue }}
+      </div>
     </div>
     <div
       v-if="!registering"
@@ -102,6 +109,12 @@
           'input-invalid': registering ? passwordInvalid: false,
         }"
       >
+      <div
+        v-if="passwordInvalid && registering"
+        class="input-error"
+      >
+        {{ $t('minPasswordLength') }}
+      </div>
     </div>
     <div
       v-if="registering"
@@ -119,6 +132,12 @@
         :placeholder="$t('confirmPasswordPlaceholder')"
         :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
       >
+      <div
+        v-if="passwordConfirmInvalid"
+        class="input-error"
+      >
+        {{ $t('passwordConfirmationMatch') }}
+      </div>
       <small
         v-once
         class="form-text"
