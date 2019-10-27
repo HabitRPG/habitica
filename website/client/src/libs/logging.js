@@ -1,5 +1,6 @@
 import Vue from 'vue';
 
+/* eslint-disable no-console */
 export function setUpLogging () { // eslint-disable-line import/prefer-default-export
   window.onerror = function windowOnError (message, source, lineno, colno, error) {
     console.error('Unhandled error JS code.');
@@ -9,8 +10,8 @@ export function setUpLogging () { // eslint-disable-line import/prefer-default-e
     console.error('Error;', error);
   };
 
-  let _LTracker = window._LTracker || []; // eslint-disable-line
-  _LTracker.push({ // eslint-disable-line
+  const _LTracker = window._LTracker || [];
+  _LTracker.push({
     logglyKey: process.env.LOGGLY_CLIENT_TOKEN, // eslint-disable-line no-process-env
     sendConsoleErrors: true,
     tag: 'ClientJS',
@@ -38,3 +39,4 @@ export function setUpLogging () { // eslint-disable-line import/prefer-default-e
     });
   };
 }
+/* eslint-enable no-console */
