@@ -1275,7 +1275,9 @@ export default {
       });
 
       this.$root.$emit('bv::hide::modal', 'avatar-modal');
-      this.$router.push('/');
+      if (this.$route.path !== '/') {
+        this.$router.push('/');
+      }
       this.$store.dispatch('user:set', {
         'flags.welcomed': true,
       });
