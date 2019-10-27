@@ -330,7 +330,7 @@ function _getMembersForItem (type) {
       }
 
       if (req.query.search) {
-        query['profile.name'] = { $regex: req.query.search };
+        query['auth.local.username'] = { $regex: req.query.search };
       }
     } else if (type === 'group-members') {
       if (group.type === 'guild') {
@@ -389,7 +389,7 @@ function _getMembersForItem (type) {
       .lean()
       .exec();
 
-    // manually call toJSON with minimize: true so empty paths aren't returned
+      // manually call toJSON with minimize: true so empty paths aren't returned
     members.forEach(member => User.transformJSONUser(member, addComputedStats));
     res.respond(200, members);
   };
