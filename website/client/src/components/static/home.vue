@@ -784,7 +784,6 @@
     color: #fff;
     font-size: 90%;
     width: 100%;
-    text-align: center;
     margin-bottom: 1em;
   }
 </style>

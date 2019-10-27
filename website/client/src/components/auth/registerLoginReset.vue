@@ -439,7 +439,7 @@
       color: $white;
     }
 
-    #usernameInput.input-invalid {
+    #usernameInput.input-invalid, #passwordInput.input-invalid {
       margin-bottom: 0.5em;
     }
 
@@ -525,7 +525,6 @@
     color: #fff;
     font-size: 90%;
     width: 100%;
-    text-align: center;
   }
 </style>
 
