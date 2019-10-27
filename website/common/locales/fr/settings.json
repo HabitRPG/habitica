@@ -203,8 +203,12 @@
     "goToSettings": "Voir les paramètres",
     "usernameVerifiedConfirmation": "Votre nom d'utilisateur, <%= username %>, est confirmé !",
     "usernameNotVerified": "Veuillez confirmer votre nom d'utilisateur.",
-    "changeUsernameDisclaimer": "Nous allons effectuer une transition des noms de connexion à des noms d'utilisateur publics très bientôt. Ce nom d'utilisateur sera utilisé pour les invitations, les @mentions dans les discussion, et les messages.",
+    "changeUsernameDisclaimer": "Ce nom d'utilisateur sera utilisé pour les invitations, les @mentions dans les discussion, et les messages.",
     "verifyUsernameVeteranPet": "Un de ces Familiers Vétéran t'attendra quand tu auras validé !",
     "subscriptionReminders": "Rappels d'abonnements",
-    "newPMNotificationTitle": "Nouveau message de <%= name %>"
+    "newPMNotificationTitle": "Nouveau message de <%= name %>",
+    "onlyPrivateSpaces": "Seulement sur les espaces privés",
+    "everywhere": "Partout",
+    "suggestMyUsername": "Suggérer mon identifiant",
+    "mentioning": "Mentions"
 }

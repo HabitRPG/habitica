@@ -48,7 +48,6 @@
     margin: 2px;
     position: relative;
 
-    height: 131px;
     min-height: 131px !important;
     width: 400px;
     max-width: 400px;
