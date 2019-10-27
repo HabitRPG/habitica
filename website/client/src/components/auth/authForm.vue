@@ -205,6 +205,13 @@
     small.form-text {
       text-align: center;
     }
+
+    .input-error {
+      margin-top: 0.25em;
+      font-weight: normal;
+      font-size: 90%;
+      width: 100%;
+    }
   }
 </style>
 
