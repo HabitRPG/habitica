@@ -97,6 +97,10 @@
         class="form-control"
         type="password"
         :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
+        :class="{
+          'input-valid': registering ? passwordValid : false,
+          'input-invalid': registering ? passwordInvalid: false,
+        }"
       >
     </div>
     <div
@@ -182,10 +186,6 @@
     small.form-text {
       text-align: center;
     }
-
-    .input-valid {
-      color: #fff;
-    }
   }
 </style>
 
@@ -194,7 +194,7 @@ import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 import { setUpAxios } from '@/libs/auth';
-
+import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
 
@@ -223,6 +223,7 @@ export default {
       return isEmail(this.email);
     },
     emailInvalid () {
+      if (this.email.length <= 3) return false;
       return !this.emailValid;
     },
     usernameValid () {
@@ -230,13 +231,23 @@ export default {
       return this.usernameIssues.length === 0;
     },
     usernameInvalid () {
+      if (this.username.length < 1) return false;
       return !this.usernameValid;
+    },
+    passwordValid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
+    },
+    passwordInvalid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length < MINIMUM_PASSWORD_LENGTH;
     },
     passwordConfirmValid () {
       if (this.passwordConfirm.length <= 3) return false;
       return this.passwordConfirm === this.password;
     },
     passwordConfirmInvalid () {
+      if (this.passwordConfirm.length <= 3) return false;
       return !this.passwordConfirmValid;
     },
   },
