@@ -69,7 +69,7 @@
         <input
           id="usernameInput"
           v-model="username"
-          class="form-control"
+          class="form-control input-with-error"
           type="text"
           :placeholder="$t('usernamePlaceholder')"
           :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
@@ -132,7 +132,10 @@
           class="form-control"
           type="password"
           :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
-          :class="{'input-invalid': passwordInvalid, 'input-valid': passwordValid}"
+          :class="{
+            'input-invalid input-with-error': passwordInvalid,
+            'input-valid': passwordValid
+          }"
         >
         <div
           v-if="passwordInvalid && registering"
@@ -152,7 +155,7 @@
         <input
           id="confirmPasswordInput"
           v-model="passwordConfirm"
-          class="form-control"
+          class="form-control input-with-error"
           type="password"
           :placeholder="$t('confirmPasswordPlaceholder')"
           :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
@@ -439,8 +442,12 @@
       color: $white;
     }
 
-    #usernameInput.input-invalid, #passwordInput.input-invalid {
+    .input-with-error.input-invalid {
       margin-bottom: 0.5em;
+    }
+
+    #confirmPasswordInput + .input-error {
+      margin-bottom: 2em;
     }
 
     .form-text {

@@ -63,7 +63,7 @@
               <input
                 id="usernameInput"
                 v-model="username"
-                class="form-control"
+                class="form-control input-with-error"
                 type="text"
                 :placeholder="$t('username')"
                 :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
@@ -85,7 +85,7 @@
               >
               <input
                 v-model="password"
-                class="form-control"
+                class="form-control input-with-error"
                 type="password"
                 :placeholder="$t('password')"
                 :class="{
@@ -101,7 +101,7 @@
               </div>
               <input
                 v-model="passwordConfirm"
-                class="form-control"
+                class="form-control input-with-error"
                 type="password"
                 :placeholder="$t('confirmPassword')"
                 :class="{
@@ -534,7 +534,7 @@
       transition: border .5s, color .5s;
     }
 
-    #usernameInput.input-invalid {
+    .input-invalid.input-with-error {
       margin-bottom: 0.5em;
     }
 
