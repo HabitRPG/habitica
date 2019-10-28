@@ -1,37 +1,34 @@
-import content from '../../content/index';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
+import content from '../../content/index';
 import splitWhitespace from '../../libs/splitWhitespace';
 import {
   BadRequest,
   NotFound,
 } from '../../libs/errors';
-import {AbstractGoldItemOperation} from './abstractBuyOperation';
+import { AbstractGoldItemOperation } from './abstractBuyOperation';
 import errorMessage from '../../libs/errorMessage';
 
-export class BuySpellOperation extends AbstractGoldItemOperation {
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
+export class BuySpellOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
   getItemKey () {
     return this.key;
   }
 
-  getItemType () {
+  getItemType () { // eslint-disable-line class-methods-use-this
     return 'spell';
   }
 
-  multiplePurchaseAllowed () {
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return true;
   }
 
   extractAndValidateParams (user, req) {
-    let key = this.key = get(req, 'params.key');
+    this.key = get(req, 'params.key');
+    const { key } = this;
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
-    let item = content.special[key];
-    if (!item) throw new NotFound(errorMessage('spellNotFound', {spellId: key}));
+    const item = content.special[key];
+    if (!item) throw new NotFound(errorMessage('spellNotFound', { spellId: key }));
 
     this.canUserPurchase(user, item);
   }

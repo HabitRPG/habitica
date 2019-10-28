@@ -1,4 +1,4 @@
-module.exports = function corsMiddleware (req, res, next) {
+export default function corsMiddleware (req, res, next) {
   res.set({
     'Access-Control-Allow-Origin': req.header('origin') || '*',
     'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,PUT,HEAD,DELETE',
@@ -6,4 +6,4 @@ module.exports = function corsMiddleware (req, res, next) {
   });
   if (req.method === 'OPTIONS') return res.sendStatus(200);
   return next();
-};
+}

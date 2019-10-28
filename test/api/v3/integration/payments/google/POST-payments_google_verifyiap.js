@@ -1,8 +1,8 @@
-import {generateUser, translate as t} from '../../../../../helpers/api-integration/v3';
+import { generateUser, translate as t } from '../../../../../helpers/api-integration/v3';
 import googlePayments from '../../../../../../website/server/libs/payments/google';
 
 describe('payments : google #verify', () => {
-  let endpoint = '/iap/android/verify';
+  const endpoint = '/iap/android/verify';
   let user;
 
   beforeEach(async () => {
@@ -34,7 +34,7 @@ describe('payments : google #verify', () => {
       });
 
       await user.post(endpoint, {
-        transaction: {receipt: 'receipt', signature: 'signature'},
+        transaction: { receipt: 'receipt', signature: 'signature' },
       });
 
       expect(verifyStub).to.be.calledOnce;
@@ -51,8 +51,8 @@ describe('payments : google #verify', () => {
       });
 
       await user.post(endpoint, {
-        transaction: {receipt: 'receipt', signature: 'signature'},
-        gift: {uuid: '1'},
+        transaction: { receipt: 'receipt', signature: 'signature' },
+        gift: { uuid: '1' },
       });
 
       expect(verifyStub).to.be.calledOnce;

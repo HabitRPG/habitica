@@ -203,19 +203,19 @@ export const GEAR_TYPES = [
 ];
 
 export const ITEM_LIST = {
-  weapon:          { localeKey: 'weapon',         isEquipment: true  },
-  armor:           { localeKey: 'armor',          isEquipment: true  },
-  head:            { localeKey: 'headgear',       isEquipment: true  },
-  shield:          { localeKey: 'offhand',        isEquipment: true  },
-  back:            { localeKey: 'back',           isEquipment: true  },
-  body:            { localeKey: 'body',           isEquipment: true  },
-  headAccessory:   { localeKey: 'headAccessory',  isEquipment: true  },
-  eyewear:         { localeKey: 'eyewear',        isEquipment: true  },
+  weapon:          { localeKey: 'weapon', isEquipment: true },
+  armor:           { localeKey: 'armor', isEquipment: true },
+  head:            { localeKey: 'headgear', isEquipment: true },
+  shield:          { localeKey: 'offhand', isEquipment: true },
+  back:            { localeKey: 'back', isEquipment: true },
+  body:            { localeKey: 'body', isEquipment: true },
+  headAccessory:   { localeKey: 'headAccessory', isEquipment: true },
+  eyewear:         { localeKey: 'eyewear', isEquipment: true },
   hatchingPotions: { localeKey: 'hatchingPotion', isEquipment: false },
   premiumHatchingPotions: { localeKey: 'hatchingPotion', isEquipment: false },
-  eggs:            { localeKey: 'eggSingular',    isEquipment: false },
-  quests:          { localeKey: 'quest',          isEquipment: false },
-  food:            { localeKey: 'foodTextThe',    isEquipment: false },
+  eggs:            { localeKey: 'eggSingular', isEquipment: false },
+  quests:          { localeKey: 'quest', isEquipment: false },
+  food:            { localeKey: 'foodTextThe', isEquipment: false },
   Saddle:          { localeKey: 'foodSaddleText', isEquipment: false },
   bundles:         { localeKey: 'discountBundle', isEquipment: false },
 };
@@ -264,6 +264,13 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
 };
 
 export const ANIMAL_COLOR_ACHIEVEMENTS = [
-  {color: 'Base', petAchievement: 'backToBasics', petNotificationType: 'ACHIEVEMENT_BACK_TO_BASICS', mountAchievement: 'allYourBase', mountNotificationType: 'ACHIEVEMENT_ALL_YOUR_BASE'},
-  {color: 'Desert', petAchievement: 'dustDevil', petNotificationType: 'ACHIEVEMENT_DUST_DEVIL', mountAchievement: 'aridAuthority', mountNotificationType: 'ACHIEVEMENT_ARID_AUTHORITY'},
+  {
+    color: 'Base', petAchievement: 'backToBasics', petNotificationType: 'ACHIEVEMENT_BACK_TO_BASICS', mountAchievement: 'allYourBase', mountNotificationType: 'ACHIEVEMENT_ALL_YOUR_BASE',
+  },
+  {
+    color: 'Desert', petAchievement: 'dustDevil', petNotificationType: 'ACHIEVEMENT_DUST_DEVIL', mountAchievement: 'aridAuthority', mountNotificationType: 'ACHIEVEMENT_ARID_AUTHORITY',
+  },
+  {
+    color: 'Zombie', petAchievement: 'monsterMagus', petNotificationType: 'ACHIEVEMENT_MONSTER_MAGUS', mountAchievement: 'undeadUndertaker', mountNotificationType: 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+  },
 ];

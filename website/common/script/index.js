@@ -1,20 +1,16 @@
 // When using a common module from the website or the server NEVER import the module directly
-// but access it through `api` (the main common) module, otherwise you would require the non transpiled version of the file in production.
-let api = module.exports = {};
-
+// but access it through `api` (the main common) module,
+// otherwise you would require the non transpiled version of the file in production.
 import content from './content/index';
-api.content = content;
 
 import * as errors from './libs/errors';
-api.errors = errors;
 import i18n from './i18n';
-api.i18n = i18n;
+
+import commonErrors from './errors/commonErrorMessages';
+import apiErrors from './errors/apiErrorMessages';
 
 // TODO under api.libs.cron?
 import { shouldDo, daysSince, DAY_MAPPING } from './cron';
-api.shouldDo = shouldDo;
-api.daysSince = daysSince;
-api.DAY_MAPPING = DAY_MAPPING;
 
 import {
   MAX_HEALTH,
@@ -34,48 +30,20 @@ import {
   CHAT_FLAG_FROM_SHADOW_MUTE,
 } from './constants';
 
-api.constants = {
-  MAX_INCENTIVES,
-  LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
-  MAX_SUMMARY_SIZE_FOR_GUILDS,
-  MAX_SUMMARY_SIZE_FOR_CHALLENGES,
-  MIN_SHORTNAME_SIZE_FOR_CHALLENGES,
-  SUPPORTED_SOCIAL_NETWORKS,
-  GUILDS_PER_PAGE,
-  PARTY_LIMIT_MEMBERS,
-  CHAT_FLAG_LIMIT_FOR_HIDING,
-  CHAT_FLAG_FROM_MOD,
-  CHAT_FLAG_FROM_SHADOW_MUTE,
-};
-// TODO Move these under api.constants
-api.maxLevel = MAX_LEVEL;
-api.maxHealth = MAX_HEALTH;
-api.maxStatPoints = MAX_STAT_POINTS;
-api.TAVERN_ID = TAVERN_ID;
-
 // TODO under api.libs.statHelpers?
 import * as statHelpers from './statHelpers';
-api.capByLevel = statHelpers.capByLevel;
-api.tnl = statHelpers.toNextLevel;
-api.diminishingReturns = statHelpers.diminishingReturns;
 
 import splitWhitespace from './libs/splitWhitespace';
-api.$w = splitWhitespace;
 
 import refPush from './libs/refPush';
-api.refPush = refPush;
 
 import planGemLimits from './libs/planGemLimits';
-api.planGemLimits = planGemLimits;
 
 import preenTodos from './libs/preenTodos';
-api.preenTodos = preenTodos;
 
 import updateStore from './libs/updateStore';
-api.updateStore = updateStore;
 
 import inAppRewards from './libs/inAppRewards';
-api.inAppRewards = inAppRewards;
 
 import setDebuffPotionItems from './libs/setDebuffPotionItems';
 api.setDebuffPotionItems = setDebuffPotionItems;
@@ -84,46 +52,32 @@ import getDebuffPotionItems from './libs/getDebuffPotionItems';
 api.getDebuffPotionItems = getDebuffPotionItems;
 
 import uuid from './libs/uuid';
-api.uuid = uuid;
 
 import taskDefaults from './libs/taskDefaults';
-api.taskDefaults = taskDefaults;
 
 import percent from './libs/percent';
-api.percent = percent;
 
 import gold from './libs/gold';
-api.gold = gold;
 
 import silver from './libs/silver';
-api.silver = silver;
 
 import noTags from './libs/noTags';
-api.noTags = noTags;
 
 import appliedTags from './libs/appliedTags';
-api.appliedTags = appliedTags;
 
 import pickDeep from './libs/pickDeep';
-api.pickDeep = pickDeep;
 
-import count from './count';
-api.count = count;
+import * as count from './count';
 
 import statsComputed from './libs/statsComputed';
-api.statsComputed = statsComputed;
 
 import shops from './libs/shops';
-api.shops = shops;
 
 import achievements from './libs/achievements';
-api.achievements = achievements;
 
 import randomVal from './libs/randomVal';
-api.randomVal = randomVal;
 
 import hasClass from './libs/hasClass';
-api.hasClass = hasClass;
 
 import autoAllocate from './fns/autoAllocate';
 import crit from './fns/crit';
@@ -133,17 +87,6 @@ import randomDrop from './fns/randomDrop';
 import resetGear from './fns/resetGear';
 import ultimateGear from './fns/ultimateGear';
 import updateStats from './fns/updateStats';
-
-api.fns = {
-  autoAllocate,
-  crit,
-  handleTwoHanded,
-  predictableRandom,
-  randomDrop,
-  resetGear,
-  ultimateGear,
-  updateStats,
-};
 
 import scoreTask from './ops/scoreTask';
 import sleep from './ops/sleep';
@@ -170,7 +113,68 @@ import blockUser from './ops/blockUser';
 import reroll from './ops/reroll';
 import reset from './ops/reset';
 import markPmsRead from './ops/markPMSRead';
-import pinnedGearUtils from './ops/pinnedGearUtils';
+import * as pinnedGearUtils from './ops/pinnedGearUtils';
+
+const api = {};
+api.content = content;
+api.errors = errors;
+api.i18n = i18n;
+api.shouldDo = shouldDo;
+api.daysSince = daysSince;
+api.DAY_MAPPING = DAY_MAPPING;
+
+api.constants = {
+  MAX_INCENTIVES,
+  LARGE_GROUP_COUNT_MESSAGE_CUTOFF,
+  MAX_SUMMARY_SIZE_FOR_GUILDS,
+  MAX_SUMMARY_SIZE_FOR_CHALLENGES,
+  MIN_SHORTNAME_SIZE_FOR_CHALLENGES,
+  SUPPORTED_SOCIAL_NETWORKS,
+  GUILDS_PER_PAGE,
+  PARTY_LIMIT_MEMBERS,
+  CHAT_FLAG_LIMIT_FOR_HIDING,
+  CHAT_FLAG_FROM_MOD,
+  CHAT_FLAG_FROM_SHADOW_MUTE,
+};
+// TODO Move these under api.constants
+api.maxLevel = MAX_LEVEL;
+api.maxHealth = MAX_HEALTH;
+api.maxStatPoints = MAX_STAT_POINTS;
+api.TAVERN_ID = TAVERN_ID;
+api.capByLevel = statHelpers.capByLevel;
+api.tnl = statHelpers.toNextLevel;
+api.diminishingReturns = statHelpers.diminishingReturns;
+api.$w = splitWhitespace;
+api.refPush = refPush;
+api.planGemLimits = planGemLimits;
+api.preenTodos = preenTodos;
+api.updateStore = updateStore;
+api.inAppRewards = inAppRewards;
+api.uuid = uuid;
+api.taskDefaults = taskDefaults;
+api.percent = percent;
+api.gold = gold;
+api.silver = silver;
+api.noTags = noTags;
+api.appliedTags = appliedTags;
+api.pickDeep = pickDeep;
+api.count = count;
+api.statsComputed = statsComputed;
+api.shops = shops;
+api.achievements = achievements;
+api.randomVal = randomVal;
+api.hasClass = hasClass;
+
+api.fns = {
+  autoAllocate,
+  crit,
+  handleTwoHanded,
+  predictableRandom,
+  randomDrop,
+  resetGear,
+  ultimateGear,
+  updateStats,
+};
 
 api.ops = {
   scoreTask,
@@ -200,3 +204,10 @@ api.ops = {
   markPmsRead,
   pinnedGearUtils,
 };
+
+api.errorMessages = {
+  common: commonErrors,
+  api: apiErrors,
+};
+
+export default api;

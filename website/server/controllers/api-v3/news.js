@@ -1,9 +1,10 @@
 import { authWithHeaders } from '../../middlewares/auth';
 
-let api = {};
+const api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SPOOKY SPARKLES AND COSTUME CHALLENGE!';
+// @TODO export this const, cannot export it from here because only routes are exported from
+// controllers
+const LAST_ANNOUNCEMENT_TITLE = 'OCTOBER SUBSCRIBER ITEMS AND BLOG POSTS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,21 +31,43 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/3/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/24/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_spooky_sparkles center-block"></div>
-        <h3>Spooky Sparkles in the Seasonal Shop</h3>
-        <p>There's a new Gold-purchasable item in the Seasonal Shop: <a href='/shops/seasonal'>Spooky Sparkles</a>! Buy some and then cast it on your friends. I wonder what it will do?</p>
-        <p>If you have Spooky Sparkles cast on you, you will receive the "Alarming Friends" badge! Don't worry, any mysterious effects will wear off the next day.... or you can cancel them early by buying an Opaque Potion!</p>
-        <p>While you're at it, be sure to check out all the other items in the Seasonal Shop! There are lots of equipment items from the previous Fall Festivals. The Seasonal Shop will only be open until October 31st, so stock up now.</p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
-        <div class="promo_costume_achievement center-block"></div>
-        <h3>Costume Challenge</h3>
-        <p>The Community Costume Challenge has begun! Between now and October 31st, dress up as your avatar in real life and post a photo on social media to get the coveted Costume Challenge badge! <a href='/challenges/b2b4b952-c79e-47ff-9c5d-ae72d04aa8ee'>Read the full rules on the Challenge page</a>.</p>
-        <p>Looking for inspiration? Check out the <a href='https://blog.habitrpg.com/cosplay' target='_blank'>Cosplay hashtag on our Tumblr</a> to see past entries!</p>
+        <div class="promo_mystery_201910 center-block"></div>
+        <h3>October Subscriber Items Revealed!</h3>
+        <p>The October Subscriber Item has been revealed: the Cryptic Flame Item Set! You only
+          have until October 31 to <a href='/user/settings/subscription'>receive the item set when
+          you subscribe</a>. If you're already an active subscriber, reload the site and then head
+          to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe,
+          the more Gems you can buy per month! There are other perks as well, such as longer
+          access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us
+          keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
         <div class="small mb-3">by Beffymaroo</div>
+        <div class="scene_arts_crafts center-block"></div>
+        <h3>Use Case Spotlight: Habitica Events!</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/10/24/
+          use-case-spotlight-using-habitican-events-for-motivation/' target='_blank'>Use Case
+          Spotlight</a> is about Using Habitica Events for Motivation! It features a number of
+          great suggestions submitted by Habiticans in the
+          <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights
+            Guild</a>. We hope it helps any of you who might be looking for new ways to
+            incentivize yourselves.</p>
+        <p>Plus, we're collecting user submissions for the next spotlight! How do you gamify your
+          tasks? We’ll be featuring player-submitted examples in Use Case Spotlights on the
+          Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now.
+          We look forward to learning more about how you use Habitica to improve your life and get
+          things done!</p>
+        <div class="small mb-3">by shanaqui</div>
+        <h3>Guild Spotlight: More New and Notable Guilds!</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/10/24/
+          new-and-notable-guild-spotlight-10/' target='_blank'>Guild Spotlight on the blog</a>
+          that highlights yet another selection of the upcoming Guilds in Habitica dedicated to a
+          variety of topics! Check it out now to find some of Habitica's best new communities.</p>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="promo_seasonal_shop_fall center-block"></div>
       </div>
       `,
     });
@@ -65,13 +88,11 @@ api.tellMeLaterNews = {
   middlewares: [authWithHeaders()],
   url: '/news/tell-me-later',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     user.flags.newStuff = false;
 
-    const existingNotificationIndex = user.notifications.findIndex(n => {
-      return n && n.type === 'NEW_STUFF';
-    });
+    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
     if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
     user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
 
@@ -80,4 +101,4 @@ api.tellMeLaterNews = {
   },
 };
 
-module.exports = api;
+export default api;

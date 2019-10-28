@@ -3,12 +3,13 @@
 // - literature guilds (quoting of passages containing words banned as oaths);
 // - food/drink/lifestyle/perfume guilds (alcohol allowed);
 // - guilds dealing with traumatic life events (must be allowed to describe them);
-// - foreign language guilds using the Roman alphabet (avoid accidental banning of non-English words).
+// - foreign language guilds using the Roman alphabet
+// (avoid accidental banning of non-English words).
 //
 // This is for a short-term, partial solution to the need for swearword blocking in guilds.
 // Later, it will be replaced with customised lists of disallowed words based on the guilds' tags.
 
-let guildsAllowingBannedWords = {
+const guildsAllowingBannedWords = {
   'f646bc11-e330-482c-982a-843cd018373c': true, // Abuse Victims and Survivors
   'b5843474-07e6-4af2-9bd0-b8a00fe7fe52': true, // Alcoholics Anonymous - One Day at a Time!
   'd3339c3d-6744-4c17-b9d3-a16bdcfb5d53': true, // Am Yisrael Chai
@@ -140,4 +141,4 @@ let guildsAllowingBannedWords = {
   '14ae3965-0536-4b63-bc55-3dbd6660e3af': true, // Purely Positive Dog Trainers
 };
 
-module.exports = guildsAllowingBannedWords;
+export default guildsAllowingBannedWords;

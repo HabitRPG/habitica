@@ -18,7 +18,7 @@ describe('shared.ops.allocateNow', () => {
     user.stats.str = 9;
     user.preferences.allocationMode = 'flat';
 
-    let [data] = allocateNow(user);
+    const [data] = allocateNow(user);
 
     expect(user.stats.points).to.equal(0);
     expect(user.stats.con).to.equal(9);

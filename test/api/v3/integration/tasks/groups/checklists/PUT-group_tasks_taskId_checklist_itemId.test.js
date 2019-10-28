@@ -1,14 +1,15 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('PUT group /tasks/:taskId/checklist/:itemId', () => {
-  let user, guild, task;
+  let user; let guild; let
+    task;
 
   before(async () => {
-    let {group, groupLeader} = await createAndPopulateGroup({
+    const { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
         type: 'guild',
@@ -44,7 +45,7 @@ describe('PUT group /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on habits', async () => {
-    let habit = await user.post(`/tasks/group/${guild._id}`, {
+    const habit = await user.post(`/tasks/group/${guild._id}`, {
       type: 'habit',
       text: 'habit with checklist',
     });
@@ -57,7 +58,7 @@ describe('PUT group /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on rewards', async () => {
-    let reward = await user.post(`/tasks/group/${guild._id}`, {
+    const reward = await user.post(`/tasks/group/${guild._id}`, {
       type: 'reward',
       text: 'reward with checklist',
     });
@@ -78,7 +79,7 @@ describe('PUT group /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on checklist item not found', async () => {
-    let createdTask = await user.post(`/tasks/group/${guild._id}`, {
+    const createdTask = await user.post(`/tasks/group/${guild._id}`, {
       type: 'daily',
       text: 'daily with checklist',
     });

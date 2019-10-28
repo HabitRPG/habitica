@@ -15,7 +15,9 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
   let adminUser;
 
   beforeEach(async () => {
-    let { group, groupLeader, invitees, members } = await createAndPopulateGroup({
+    const {
+      group, groupLeader, invitees, members,
+    } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
         type: 'guild',
@@ -27,15 +29,15 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
     guild = group;
     leader = groupLeader;
-    invitedUser = invitees[0];
-    member = members[0];
-    member2 = members[1];
+    invitedUser = invitees[0]; // eslint-disable-line prefer-destructuring
+    member = members[0]; // eslint-disable-line prefer-destructuring
+    member2 = members[1]; // eslint-disable-line prefer-destructuring
     adminUser = await generateUser({ 'contributor.admin': true });
   });
 
   context('All Groups', () => {
     it('returns an error when user is not member of the group', async () => {
-      let nonMember = await generateUser();
+      const nonMember = await generateUser();
 
       expect(nonMember.post(`/groups/${guild._id}/removeMember/${member._id}`))
         .to.eventually.be.rejected.and.eql({
@@ -74,13 +76,13 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
     it('can remove other members', async () => {
       await leader.post(`/groups/${guild._id}/removeMember/${member._id}`);
-      let memberRemoved = await member.get('/user');
+      const memberRemoved = await member.get('/user');
 
       expect(memberRemoved.guilds.indexOf(guild._id)).eql(-1);
     });
 
     it('updates memberCount', async () => {
-      let oldMemberCount = guild.memberCount;
+      const oldMemberCount = guild.memberCount;
       await leader.post(`/groups/${guild._id}/removeMember/${member._id}`);
       await expect(leader.get(`/groups/${guild._id}`)).to.eventually.have.property('memberCount', oldMemberCount - 1);
     });
@@ -88,14 +90,14 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     it('can remove other invites', async () => {
       await leader.post(`/groups/${guild._id}/removeMember/${invitedUser._id}`);
 
-      let invitedUserWithoutInvite = await invitedUser.get('/user');
+      const invitedUserWithoutInvite = await invitedUser.get('/user');
 
       expect(_.findIndex(invitedUserWithoutInvite.invitations.guilds, { id: guild._id })).eql(-1);
     });
 
     it('allows an admin to remove other members', async () => {
       await adminUser.post(`/groups/${guild._id}/removeMember/${member._id}`);
-      let memberRemoved = await member.get('/user');
+      const memberRemoved = await member.get('/user');
 
       expect(memberRemoved.guilds.indexOf(guild._id)).eql(-1);
     });
@@ -103,7 +105,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     it('allows an admin to remove other invites', async () => {
       await adminUser.post(`/groups/${guild._id}/removeMember/${invitedUser._id}`);
 
-      let invitedUserWithoutInvite = await invitedUser.get('/user');
+      const invitedUserWithoutInvite = await invitedUser.get('/user');
 
       expect(_.findIndex(invitedUserWithoutInvite.invitations.guilds, { id: guild._id })).eql(-1);
     });
@@ -141,7 +143,9 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     let removedMember;
 
     beforeEach(async () => {
-      let { group, groupLeader, invitees, members } = await createAndPopulateGroup({
+      const {
+        group, groupLeader, invitees, members,
+      } = await createAndPopulateGroup({
         groupDetails: {
           name: 'Test Party',
           type: 'party',
@@ -153,9 +157,9 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
       party = group;
       partyLeader = groupLeader;
-      partyInvitedUser = invitees[0];
-      partyMember = members[0];
-      removedMember = members[1];
+      partyInvitedUser = invitees[0]; // eslint-disable-line prefer-destructuring
+      partyMember = members[0]; // eslint-disable-line prefer-destructuring
+      removedMember = members[1]; // eslint-disable-line prefer-destructuring
       sandbox.spy(email, 'sendTxn');
     });
 
@@ -166,13 +170,13 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     it('can remove other members', async () => {
       await partyLeader.post(`/groups/${party._id}/removeMember/${partyMember._id}`);
 
-      let memberRemoved = await partyMember.get('/user');
+      const memberRemoved = await partyMember.get('/user');
 
       expect(memberRemoved.party._id).eql(undefined);
     });
 
     it('updates memberCount', async () => {
-      let oldMemberCount = party.memberCount;
+      const oldMemberCount = party.memberCount;
       await partyLeader.post(`/groups/${party._id}/removeMember/${partyMember._id}`);
       await expect(partyLeader.get(`/groups/${party._id}`)).to.eventually.have.property('memberCount', oldMemberCount - 1);
     });
@@ -182,7 +186,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
       await partyLeader.post(`/groups/${party._id}/removeMember/${partyInvitedUser._id}`);
 
-      let invitedUserWithoutInvite = await partyInvitedUser.get('/user');
+      const invitedUserWithoutInvite = await partyInvitedUser.get('/user');
 
       expect(invitedUserWithoutInvite.invitations.parties[0]).to.be.undefined;
     });
@@ -192,22 +196,18 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       await sleep(0.5);
       await removedMember.sync();
 
-      expect(removedMember.notifications.find(n => {
-        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === party._id;
-      })).to.exist;
+      expect(removedMember.notifications.find(n => n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === party._id)).to.exist;
       expect(removedMember.newMessages[party._id]).to.not.be.empty;
 
       await partyLeader.post(`/groups/${party._id}/removeMember/${removedMember._id}`);
       await removedMember.sync();
 
-      expect(removedMember.notifications.find(n => {
-        return n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === party._id;
-      })).to.not.exist;
+      expect(removedMember.notifications.find(n => n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === party._id)).to.not.exist;
       expect(removedMember.newMessages[party._id]).to.be.undefined;
     });
 
     it('removes user from quest when removing user from party after quest starts', async () => {
-      let petQuest = 'whale';
+      const petQuest = 'whale';
       await partyLeader.update({
         [`items.quests.${petQuest}`]: 1,
       });
@@ -229,7 +229,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
     });
 
     it('removes user from quest when removing user from party before quest starts', async () => {
-      let petQuest = 'whale';
+      const petQuest = 'whale';
       await partyLeader.update({
         [`items.quests.${petQuest}`]: 1,
       });

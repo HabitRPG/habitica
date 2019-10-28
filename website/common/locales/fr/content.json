@@ -350,5 +350,6 @@
     "questEggRobotAdjective": "un futuriste",
     "questEggRobotMountText": "Robot",
     "questEggRobotText": "Robot",
-    "hatchingPotionShadow": "d'ombre"
+    "hatchingPotionShadow": "d'ombre",
+    "premiumPotionUnlimitedNotes": "Ne peut pas être utilisé sur des œufs de familiers de quête."
 }

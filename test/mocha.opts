@@ -2,7 +2,6 @@
 --reporter spec
 --timeout 8000
 --check-leaks
---globals io
---require babel-register
+--require @babel/register
 --require ./test/helpers/globals.helper
 --exit

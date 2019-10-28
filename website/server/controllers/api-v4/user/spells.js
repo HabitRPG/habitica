@@ -3,7 +3,7 @@ import {
   castSpell,
 } from '../../../libs/spells';
 
-let api = {};
+const api = {};
 
 /*
 * NOTE most spells routes are still in the v3 controller
@@ -19,8 +19,13 @@ let api = {};
  * @apiGroup User
  *
 
- * @apiParam (Path) {String=fireball, mpheal, earth, frost, smash, defensiveStance, valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade, stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
- * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell is cast on a party member or task. Not used if the spell is case on the user or the user's current party.
+ * @apiParam (Path) {String=fireball, mpheal, earth, frost, smash,
+ *                   defensiveStance, valorousPresence, intimidate, pickPocket,
+ *                   backStab, toolsOfTrade, stealth, heal, protectAura, brightness,
+ *                   healAll} spellId The skill to cast.
+ * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell
+ *                          is cast on a party member or task.
+ *                          Not used if the spell is case on the user or the user's current party.
  * @apiParamExample {json} Query example:
  * Cast "Pickpocket" on a task:
  *  https://habitica.com/api/v3/user/class/cast/pickPocket?targetId=fd427623...
@@ -28,7 +33,9 @@ let api = {};
  * Cast "Tools of the Trade" on the party:
  *  https://habitica.com/api/v3/user/class/cast/toolsOfTrade
  *
- * @apiSuccess data Will return the modified targets. For party members only the necessary fields will be populated. The user is always returned.
+ * @apiSuccess data Will return the modified targets.
+ *                  For party members only the necessary fields will be populated.
+ *                  The user is always returned.
  *
  * @apiDescription Skill Key to Name Mapping
  * Mage
@@ -71,4 +78,4 @@ api.castSpell = {
   },
 };
 
-module.exports = api;
+export default api;

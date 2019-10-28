@@ -77,8 +77,8 @@
     "questEggBunnyText": "Kaninchen",
     "questEggBunnyMountText": "Kaninchen",
     "questEggBunnyAdjective": "ein knuddeliges",
-    "questEggSlimeText": "Marshmallow-Jungtier",
-    "questEggSlimeMountText": "Marshmallow-Reittier",
+    "questEggSlimeText": "Marshmallow-Schleim-Jungtier",
+    "questEggSlimeMountText": "Marshmallow-Schleim-Reittier",
     "questEggSlimeAdjective": "ein süßes",
     "questEggSheepText": "Schaf",
     "questEggSheepMountText": "Schaf",
@@ -350,5 +350,6 @@
     "questEggRobotAdjective": "ein futuristischer",
     "questEggRobotMountText": "Roboter",
     "questEggRobotText": "Roboter",
-    "hatchingPotionShadow": "Schatten"
+    "hatchingPotionShadow": "Schatten",
+    "premiumPotionUnlimitedNotes": "Nicht auf Eier von Quest-Haustieren anwendbar."
 }

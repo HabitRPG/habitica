@@ -16,7 +16,7 @@ describe('GET /groups', () => {
   const NUMBER_OF_USERS_PRIVATE_GUILDS = 1;
   const NUMBER_OF_GROUPS_USER_CAN_VIEW = 5;
   const GUILD_PER_PAGE = 30;
-  let categories = [{
+  const categories = [{
     slug: 'newCat',
     name: 'New Category',
   }];
@@ -26,15 +26,15 @@ describe('GET /groups', () => {
   before(async () => {
     await resetHabiticaDB();
 
-    let leader = await generateUser({ balance: 10 });
-    user = await generateUser({balance: 4});
+    const leader = await generateUser({ balance: 10 });
+    user = await generateUser({ balance: 4 });
 
-    let publicGuildUserIsMemberOf = await generateGroup(leader, {
+    const publicGuildUserIsMemberOf = await generateGroup(leader, {
       name: 'public guild - is member',
       type: 'guild',
       privacy: 'public',
     });
-    await leader.post(`/groups/${publicGuildUserIsMemberOf._id}/invite`, { uuids: [user._id]});
+    await leader.post(`/groups/${publicGuildUserIsMemberOf._id}/invite`, { uuids: [user._id] });
     await user.post(`/groups/${publicGuildUserIsMemberOf._id}/join`);
 
     publicGuildNotMember = await generateGroup(leader, {
@@ -50,7 +50,7 @@ describe('GET /groups', () => {
       privacy: 'private',
       categories,
     });
-    await leader.post(`/groups/${privateGuildUserIsMemberOf._id}/invite`, { uuids: [user._id]});
+    await leader.post(`/groups/${privateGuildUserIsMemberOf._id}/invite`, { uuids: [user._id] });
     await user.post(`/groups/${privateGuildUserIsMemberOf._id}/join`);
 
     await generateGroup(leader, {
@@ -110,13 +110,13 @@ describe('GET /groups', () => {
 
   describe('filters', () => {
     it('returns public guilds filtered by category', async () => {
-      let guilds = await user.get(`/groups?type=publicGuilds&categories=${categories[0].slug}`);
+      const guilds = await user.get(`/groups?type=publicGuilds&categories=${categories[0].slug}`);
 
       expect(guilds[0]._id).to.equal(publicGuildNotMember._id);
     });
 
     it('returns private guilds filtered by category', async () => {
-      let guilds = await user.get(`/groups?type=privateGuilds&categories=${categories[0].slug}`);
+      const guilds = await user.get(`/groups?type=privateGuilds&categories=${categories[0].slug}`);
 
       expect(guilds[0]._id).to.equal(privateGuildUserIsMemberOf._id);
     });
@@ -131,7 +131,7 @@ describe('GET /groups', () => {
 
       // @TODO: anyway to set higher memberCount in tests right now?
 
-      let guilds = await user.get('/groups?type=publicGuilds&minMemberCount=3');
+      const guilds = await user.get('/groups?type=publicGuilds&minMemberCount=3');
 
       expect(guilds.length).to.equal(0);
     });
@@ -146,7 +146,7 @@ describe('GET /groups', () => {
 
       // @TODO: anyway to set higher memberCount in tests right now?
 
-      let guilds = await user.get('/groups?type=privateGuilds&minMemberCount=3');
+      const guilds = await user.get('/groups?type=privateGuilds&minMemberCount=3');
 
       expect(guilds.length).to.equal(0);
     });
@@ -181,26 +181,24 @@ describe('GET /groups', () => {
     });
 
     it('returns 30 guilds per page ordered by number of members', async () => {
-      await user.update({balance: 9000});
-      let groups = await Promise.all(_.times(60, (i) => {
-        return generateGroup(user, {
-          name: `public guild ${i} - is member`,
-          type: 'guild',
-          privacy: 'public',
-        });
-      }));
+      await user.update({ balance: 9000 });
+      const groups = await Promise.all(_.times(60, i => generateGroup(user, {
+        name: `public guild ${i} - is member`,
+        type: 'guild',
+        privacy: 'public',
+      })));
 
       // update group number 32 and not the first to make sure sorting works
-      await groups[32].update({name: 'guild with most members', memberCount: 199});
-      await groups[33].update({name: 'guild with less members', memberCount: -100});
+      await groups[32].update({ name: 'guild with most members', memberCount: 199 });
+      await groups[33].update({ name: 'guild with less members', memberCount: -100 });
 
-      let page0 = await expect(user.get('/groups?type=publicGuilds&paginate=true'))
+      const page0 = await expect(user.get('/groups?type=publicGuilds&paginate=true'))
         .to.eventually.have.a.lengthOf(GUILD_PER_PAGE);
       expect(page0[0].name).to.equal('guild with most members');
 
       await expect(user.get('/groups?type=publicGuilds&paginate=true&page=1'))
         .to.eventually.have.a.lengthOf(GUILD_PER_PAGE);
-      let page2 = await expect(user.get('/groups?type=publicGuilds&paginate=true&page=2'))
+      const page2 = await expect(user.get('/groups?type=publicGuilds&paginate=true&page=2'))
         .to.eventually.have.a.lengthOf(1 + 4); // 1 created now, 4 by other tests
       expect(page2[4].name).to.equal('guild with less members');
     }).timeout(10000);
@@ -208,7 +206,8 @@ describe('GET /groups', () => {
 
   it('returns all the user\'s guilds when guilds passed in as query', async () => {
     await expect(user.get('/groups?type=guilds'))
-      .to.eventually.have.a.lengthOf(NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER + NUMBER_OF_USERS_PRIVATE_GUILDS);
+      .to.eventually.have.a
+      .lengthOf(NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER + NUMBER_OF_USERS_PRIVATE_GUILDS);
   });
 
   it('returns all private guilds user is a part of when privateGuilds passed in as query', async () => {
@@ -222,7 +221,7 @@ describe('GET /groups', () => {
   });
 
   it('returns a list of groups user has access to', async () => {
-    let group = await generateGroup(user, {
+    const group = await generateGroup(user, {
       name: 'c++ coders',
       type: 'guild',
       privacy: 'public',
