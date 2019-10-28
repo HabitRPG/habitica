@@ -23,13 +23,8 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.4",
     "chai": "^4.1.2",
-<<<<<<< HEAD
-    "core-js": "^3.3.2",
-    "eslint": "^6.5.1",
-=======
     "core-js": "^3.3.4",
     "eslint": "^6.6.0",
->>>>>>> develop
     "eslint-config-habitrpg": "^6.2.0",
     "eslint-plugin-mocha": "^5.3.0",
     "eslint-plugin-vue": "^5.0.0",
