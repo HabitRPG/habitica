@@ -187,7 +187,7 @@
           class="btn btn-flat btn-show-more"
           @click="setShowMore(petGroup.key)"
         >
-          {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
+          {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') + getTextOwnedAnimals(petGroup, $t('pets')) }}
         </div>
       </div>
       <h2>
@@ -246,7 +246,7 @@
           class="btn btn-flat btn-show-more"
           @click="setShowMore(mountGroup.key)"
         >
-          {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
+          {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') + getTextOwnedAnimals(mountGroup, $t('mounts')) }}
         </div>
       </div>
       <inventoryDrawer>
@@ -778,14 +778,21 @@ export default {
 
       return animals;
     },
-    countOwnedAnimals (animalGroup, type) {
+    getTextOwnedAnimals (petGroup, pets) {
+      return ` (${this.getCountOwnedAnimals(petGroup, 'pet')} ${petGroup.label} ${pets})`;
+    },
+    getCountOwnedAnimals (animalGroup, type) {
       const animals = this.getAnimalList(animalGroup, type);
 
-      const countAll = animals.length;
       // when counting pets, include those that have been raised into mounts
       const countOwned = _filter(animals, a => a.isOwned() || a.mountOwned());
+      return countOwned.length;
+    },
+    countOwnedAnimals (animalGroup, type) {
+      const animals = this.getAnimalList(animalGroup, type);
+      const count = animals.length;
 
-      return `${countOwned.length}/${countAll}`;
+      return `${this.getCountOwnedAnimals(animalGroup, type)}/${count}`;
     },
     pets (animalGroup, hideMissing, sortBy, searchText) {
       const pets = this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
