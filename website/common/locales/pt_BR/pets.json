@@ -68,7 +68,7 @@
     "mountMasterText2": " e libetou todas as suas 90 montarias um total de <%= count %> vez(es)",
     "beastMountMasterName": "Mestre das Bestas e Mestre das Montarias",
     "triadBingoName": "Bingo Tríade",
-    "triadBingoText": "Encontrou todos os 90 mascotes, todas as 90 montarias e encontrou todos os 90 mascotes NOVAMENTE (COMO VOCÊ FEZ ISSO!)",
+    "triadBingoText": "Encontrou todos os 90 mascotes, todas as 90 montarias e encontrou todos os 90 mascotes NOVAMENTE (COMO VOCÊ FEZ ISSO?! UAU!)",
     "triadBingoText2": " e libertou um estábulo cheio um total de <%= count %> vez(es)",
     "triadBingoAchievement": "Você ganhou a conquista \"Bingo Tríade\" por ter encontrado todos os mascotes, domado todas as montarias e encontrado todos os mascotes de novo!",
     "dropsEnabled": "Drops Habilitados!",
@@ -125,7 +125,7 @@
     "welcomeStable": "Boas vindas de volta ao Estábulo!",
     "welcomeStableText": "Eu sou Matt, o Mestre das Bestas. A partir do nível 3, você poderá chocar Mascotes a partir de ovos usando Poções que você encontrar! Quando você chocar um Mascote do seu Inventário, ele aparecerá aqui! Clique na imagem de um Mascote para adicioná-lo ao seu avatar. Alimente-o aqui com Comida que encontrar após o nível 3 e eles crescerão em incríveis Montarias.",
     "petLikeToEat": "O que meu mascote gosta de comer?",
-    "petLikeToEatText": "Mascotes crescerão não importa com o que você os alimentar, mas eles crescerão ainda mais rápido se você alimentá-los com a comida que eles prefere. Experimente até encontrar o padrão ou veja a resposta aqui: <br/><a href=\"http://habitica.fandom.com/wiki/Food_Preferences\" target=\"_blank\">http://pt-br.habitica.fandom.com/wiki/Food_Preferences</a>",
+    "petLikeToEatText": "Mascotes crescerão não importa com o que você os alimentar, mas eles crescerão ainda mais rápido se você alimentá-los com a comida que eles prefere. Experimente até encontrar o padrão ou veja a resposta aqui: <br/><a href=\"http://habitica.fandom.com/wiki/Food_Preferences\" target=\"_blank\">https://habitica.fandom.com/pt-br/wiki/Food_Preferences</a>",
     "filterByStandard": "Base",
     "filterByMagicPotion": "Poção Mágica",
     "filterByQuest": "Missão",
@@ -144,5 +144,6 @@
     "notEnoughMounts": "Você AINDA não coletou montarias suficientes",
     "notEnoughPetsMounts": "Você AINDA não coletou mascotes e montarias suficientes",
     "wackyPets": "Mascotes Malucos",
-    "filterByWacky": "Maluco"
+    "filterByWacky": "Maluco",
+    "gryphatrice": "Grifoatrice"
 }

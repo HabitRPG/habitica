@@ -1,10 +1,10 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
   server,
   sleep,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /user/hatch/:egg/:hatchingPotion', () => {
   let user;
@@ -20,11 +20,12 @@ describe('POST /user/hatch/:egg/:hatchingPotion', () => {
       'items.eggs.Wolf': 1,
       'items.hatchingPotions.Base': 1,
     });
-    let res = await user.post('/user/hatch/Wolf/Base');
+    const res = await user.post('/user/hatch/Wolf/Base');
     await user.sync();
     expect(user.items.pets['Wolf-Base']).to.equal(5);
     expect(user.items.eggs.Wolf).to.equal(0);
     expect(user.items.hatchingPotions.Base).to.equal(0);
+    expect(user.achievements.backToBasics).to.not.equal(true);
 
     expect(res).to.eql({
       message: t('messageHatched'),
@@ -42,7 +43,7 @@ describe('POST /user/hatch/:egg/:hatchingPotion', () => {
     });
 
     it('sends user activity webhook when a new pet is hatched', async () => {
-      let uuid = generateUUID();
+      const uuid = generateUUID();
 
       await user.post('/user/webhook', {
         url: `http://localhost:${server.port}/webhooks/${uuid}`,
@@ -57,11 +58,11 @@ describe('POST /user/hatch/:egg/:hatchingPotion', () => {
         'items.eggs.Wolf': 1,
         'items.hatchingPotions.Base': 1,
       });
-      let res = await user.post('/user/hatch/Wolf/Base');
+      const res = await user.post('/user/hatch/Wolf/Base');
 
       await sleep();
 
-      let body = server.getWebhookData(uuid);
+      const body = server.getWebhookData(uuid);
 
       expect(body.type).to.eql('petHatched');
       expect(body.pet).to.eql('Wolf-Base');

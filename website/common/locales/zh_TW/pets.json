@@ -138,11 +138,12 @@
     "clickOnPetToFeed": "點擊寵物以餵食<%= foodName %>並看著它成長！",
     "dragThisPotion": "拖曳這個<%= potionName %>到蛋上並孵化一隻新寵物！",
     "clickOnEggToHatch": "點擊蛋以使用<%= potionName %>孵化藥水並孵化一隻新寵物！",
-    "hatchDialogText": "倒你的<%= potionName %>孵化藥水在你的<%= eggName %>蛋上，它將會孵化出一隻<%= petName %>。",
-    "clickOnPotionToHatch": "點擊孵化藥水以用它在<%= eggName %>上並孵化一隻新寵物！",
+    "hatchDialogText": "將你的<%= potionName %>孵化藥水倒在你的<%= eggName %>蛋上，它就會孵化出一隻<%= petName %>。",
+    "clickOnPotionToHatch": "點擊孵化藥水來將它倒在<%= eggName %>上並孵化一隻新寵物！",
     "notEnoughPets": "你還未收集足夠的寵物",
     "notEnoughMounts": "你還未收集足夠的坐騎",
     "notEnoughPetsMounts": "你還未收集足夠的寵物和坐騎",
     "wackyPets": "古怪寵物",
-    "filterByWacky": "古怪"
+    "filterByWacky": "古怪",
+    "gryphatrice": "獅鷲"
 }

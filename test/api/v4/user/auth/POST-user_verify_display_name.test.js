@@ -13,8 +13,8 @@ describe('POST /user/auth/verify-display-name', async () => {
   });
 
   it('successfully verifies display name including funky characters', async () => {
-    let newDisplayName = 'Sabé 🤬';
-    let response = await user.post(ENDPOINT, {
+    const newDisplayName = 'Sabé 🤬';
+    const response = await user.post(ENDPOINT, {
       displayName: newDisplayName,
     });
     expect(response).to.eql({ isUsable: true });

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { MAX_LEVEL } from '../constants';
 
-module.exports = function isFreeRebirth (user) {
+export default function isFreeRebirth (user) {
   let daysFromLastFreeRebirth = user.flags.lastFreeRebirth;
 
   if (daysFromLastFreeRebirth) {
@@ -11,4 +11,4 @@ module.exports = function isFreeRebirth (user) {
   }
 
   return user.stats.lvl >= MAX_LEVEL && daysFromLastFreeRebirth > 45;
-};
+}

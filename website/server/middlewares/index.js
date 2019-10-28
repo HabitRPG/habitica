@@ -1,18 +1,20 @@
 // This module is only used to attach middlewares to the express app
-import errorHandler from './errorHandler';
 import bodyParser from 'body-parser';
-import notFoundHandler from './notFound';
 import nconf from 'nconf';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
+import mongoose from 'mongoose';
+import compression from 'compression';
+import methodOverride from 'method-override';
+import passport from 'passport';
+import basicAuth from 'express-basic-auth';
+import helmet from 'helmet';
+import errorHandler from './errorHandler';
+import notFoundHandler from './notFound';
 import cors from './cors';
 import staticMiddleware from './static';
 import domainMiddleware from './domain';
-import mongoose from 'mongoose';
-import compression from 'compression';
 // import favicon from 'serve-favicon';
-import methodOverride from 'method-override';
-import passport from 'passport';
 // import path from 'path';
 import maintenanceMode from './maintenanceMode';
 import {
@@ -26,7 +28,6 @@ import responseHandler from './response';
 import {
   attachTranslateFunction,
 } from './language';
-import basicAuth from 'express-basic-auth';
 
 const IS_PROD = nconf.get('IS_PROD');
 const DISABLE_LOGGING = nconf.get('DISABLE_REQUEST_LOGGING') === 'true';
@@ -36,13 +37,15 @@ const ENABLE_HTTP_AUTH = nconf.get('SITE_HTTP_AUTH_ENABLED') === 'true';
 const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
-module.exports = function attachMiddlewares (app, server) {
+export default function attachMiddlewares (app, server) {
   app.set('view engine', 'pug');
   app.set('views', `${__dirname}/../../views`);
 
   app.use(domainMiddleware(server, mongoose));
 
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
+
+  app.use(helmet()); // See https://helmetjs.github.io/ for the list of headers enabled by default
 
   // add res.respond and res.t
   app.use(responseHandler);
@@ -101,4 +104,4 @@ module.exports = function attachMiddlewares (app, server) {
 
   // Error handler middleware, define as the last one.
   app.use(errorHandler);
-};
+}

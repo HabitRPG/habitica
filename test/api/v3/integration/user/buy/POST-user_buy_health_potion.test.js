@@ -4,7 +4,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import shared from '../../../../../../website/common/script';
 
-let content = shared.content;
+const { content } = shared;
 
 describe('POST /user/buy-health-potion', () => {
   let user;
@@ -31,12 +31,12 @@ describe('POST /user/buy-health-potion', () => {
       'stats.gp': 400,
     });
 
-    let potion = content.potion;
-    let res = await user.post('/user/buy-health-potion');
+    const { potion } = content;
+    const res = await user.post('/user/buy-health-potion');
     await user.sync();
 
     expect(user.stats.hp).to.equal(50);
     expect(res.data).to.eql(user.stats);
-    expect(res.message).to.equal(t('messageBought', {itemText: potion.text()}));
+    expect(res.message).to.equal(t('messageBought', { itemText: potion.text() }));
   });
 });

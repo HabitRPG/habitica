@@ -16,10 +16,10 @@
     "rareMounts": "稀有坐骑",
     "etherealLion": "灵狮",
     "veteranWolf": "退伍军狼",
-    "veteranTiger": "退伍老虎",
-    "veteranLion": "老兵狮子",
+    "veteranTiger": "退伍军虎",
+    "veteranLion": "退伍军狮",
     "veteranBear": "退伍军熊",
-    "veteranFox": "退伍狐狸",
+    "veteranFox": "退伍军狐",
     "cerberusPup": "地狱小狗",
     "hydra": "三头蛇",
     "mantisShrimp": "虾蛄",
@@ -143,5 +143,7 @@
     "notEnoughPets": "您还没有收集足够的宠物",
     "notEnoughMounts": "您还没有收集足够的坐骑",
     "notEnoughPetsMounts": "您还没有收集足够的宠物和坐骑",
-    "filterByWacky": "古怪"
+    "filterByWacky": "古怪",
+    "wackyPets": "古怪宠物",
+    "gryphatrice": "狮鹫"
 }

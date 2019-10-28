@@ -8,7 +8,11 @@ describe('GET /inbox/conversations', () => {
   let thirdUser;
 
   beforeEach(async () => {
-    [user, otherUser, thirdUser] = await Promise.all([generateUser(), generateUser(), generateUser()]);
+    [user, otherUser, thirdUser] = await Promise.all([
+      generateUser(),
+      generateUser(),
+      generateUser(),
+    ]);
 
     await otherUser.post('/members/send-private-message', {
       toUserId: user.id,
@@ -40,6 +44,7 @@ describe('GET /inbox/conversations', () => {
     expect(result.length).to.be.equal(3);
     expect(result[0].user).to.be.equal(user.profile.name);
     expect(result[0].username).to.be.equal(user.auth.local.username);
+    expect(result[0].text).to.be.not.empty;
   });
 
   it('returns the user inbox messages as an array of ordered messages (from most to least recent)', async () => {
@@ -61,7 +66,7 @@ describe('GET /inbox/conversations', () => {
   it('returns four messages when using page-query ', async () => {
     const promises = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i += 1) {
       promises.push(user.post('/members/send-private-message', {
         toUserId: user.id,
         message: 'fourth',

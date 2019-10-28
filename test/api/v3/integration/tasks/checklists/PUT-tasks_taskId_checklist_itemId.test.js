@@ -1,8 +1,8 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   let user;
@@ -12,7 +12,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('updates a checklist item', async () => {
-    let task = await user.post('/tasks/user', {
+    const task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
     });
@@ -35,7 +35,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('updates a checklist item using task alias', async () => {
-    let task = await user.post('/tasks/user', {
+    const task = await user.post('/tasks/user', {
       type: 'daily',
       text: 'Daily with checklist',
       alias: 'daily-with-shortname',
@@ -59,7 +59,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on habits', async () => {
-    let habit = await user.post('/tasks/user', {
+    const habit = await user.post('/tasks/user', {
       type: 'habit',
       text: 'habit with checklist',
     });
@@ -72,7 +72,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on rewards', async () => {
-    let reward = await user.post('/tasks/user', {
+    const reward = await user.post('/tasks/user', {
       type: 'reward',
       text: 'reward with checklist',
     });
@@ -93,7 +93,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on checklist item not found', async () => {
-    let createdTask = await user.post('/tasks/user', {
+    const createdTask = await user.post('/tasks/user', {
       type: 'daily',
       text: 'daily with checklist',
     });

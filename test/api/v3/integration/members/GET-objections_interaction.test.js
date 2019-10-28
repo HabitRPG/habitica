@@ -1,8 +1,8 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('GET /members/:toUserId/objections/:interaction', () => {
   let user;
@@ -13,7 +13,7 @@ describe('GET /members/:toUserId/objections/:interaction', () => {
 
   it('validates req.params.memberId', async () => {
     await expect(
-      user.get('/members/invalidUUID/objections/send-private-message')
+      user.get('/members/invalidUUID/objections/send-private-message'),
     ).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -22,21 +22,21 @@ describe('GET /members/:toUserId/objections/:interaction', () => {
   });
 
   it('handles non-existing members', async () => {
-    let dummyId = generateUUID();
+    const dummyId = generateUUID();
     await expect(
-      user.get(`/members/${dummyId}/objections/send-private-message`)
+      user.get(`/members/${dummyId}/objections/send-private-message`),
     ).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('userWithIDNotFound', {userId: dummyId}),
+      message: t('userWithIDNotFound', { userId: dummyId }),
     });
   });
 
   it('handles non-existing interactions', async () => {
-    let receiver = await generateUser();
+    const receiver = await generateUser();
 
     await expect(
-      user.get(`/members/${receiver._id}/objections/hug-a-whole-forest-of-trees`)
+      user.get(`/members/${receiver._id}/objections/hug-a-whole-forest-of-trees`),
     ).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
@@ -45,18 +45,18 @@ describe('GET /members/:toUserId/objections/:interaction', () => {
   });
 
   it('returns an empty array if there are no objections', async () => {
-    let receiver = await generateUser();
+    const receiver = await generateUser();
 
     await expect(
-      user.get(`/members/${receiver._id}/objections/send-private-message`)
+      user.get(`/members/${receiver._id}/objections/send-private-message`),
     ).to.eventually.be.fulfilled.and.eql([]);
   });
 
   it('returns an array of objections if any exist', async () => {
-    let receiver = await generateUser({'inbox.blocks': [user._id]});
+    const receiver = await generateUser({ 'inbox.blocks': [user._id] });
 
     await expect(
-      user.get(`/members/${receiver._id}/objections/send-private-message`)
+      user.get(`/members/${receiver._id}/objections/send-private-message`),
     ).to.eventually.be.fulfilled.and.eql([
       t('notAuthorizedToSendMessageToThisUser'),
     ]);

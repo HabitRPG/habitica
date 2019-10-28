@@ -1,3 +1,4 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   generateChallenge,
@@ -6,11 +7,10 @@ import {
   checkExistence,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /challenges/:challengeId/winner/:winnerId', () => {
   it('returns error when challengeId is not a valid UUID', async () => {
-    let user = await generateUser();
+    const user = await generateUser();
 
     await expect(user.post(`/challenges/test/selectWinner/${user._id}`)).to.eventually.be.rejected.and.eql({
       code: 400,
@@ -20,7 +20,7 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
   });
 
   it('returns error when winnerId is not a valid UUID', async () => {
-    let user = await generateUser();
+    const user = await generateUser();
 
     await expect(user.post(`/challenges/${generateUUID()}/selectWinner/test`)).to.eventually.be.rejected.and.eql({
       code: 400,
@@ -30,7 +30,7 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
   });
 
   it('returns error when challengeId is not for a valid challenge', async () => {
-    let user = await generateUser();
+    const user = await generateUser();
 
     await expect(user.post(`/challenges/${generateUUID()}/selectWinner/${user._id}`)).to.eventually.be.rejected.and.eql({
       code: 404,
@@ -44,16 +44,16 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
     let group;
     let challenge;
     let winningUser;
-    let taskText = 'A challenge task text';
+    const taskText = 'A challenge task text';
 
     beforeEach(async () => {
-      let populatedGroup = await createAndPopulateGroup({
+      const populatedGroup = await createAndPopulateGroup({
         members: 1,
       });
 
       groupLeader = populatedGroup.groupLeader;
       group = populatedGroup.group;
-      winningUser = populatedGroup.members[0];
+      winningUser = populatedGroup.members[0]; // eslint-disable-line prefer-destructuring
 
       challenge = await generateChallenge(groupLeader, group, {
         prize: 1,
@@ -61,7 +61,7 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
       await groupLeader.post(`/challenges/${challenge._id}/join`);
 
       await groupLeader.post(`/tasks/challenge/${challenge._id}`, [
-        {type: 'habit', text: taskText},
+        { type: 'habit', text: taskText },
       ]);
 
       await winningUser.post(`/challenges/${challenge._id}/join`);
@@ -78,12 +78,12 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
     });
 
     it('returns an error when winning user isn\'t part of the challenge', async () => {
-      let notInChallengeUser = await generateUser();
+      const notInChallengeUser = await generateUser();
 
       await expect(groupLeader.post(`/challenges/${challenge._id}/selectWinner/${notInChallengeUser._id}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: t('winnerNotFound', {userId: notInChallengeUser._id}),
+        message: t('winnerNotFound', { userId: notInChallengeUser._id }),
       });
     });
 
@@ -101,12 +101,13 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
       await sleep(0.5);
 
       await expect(winningUser.sync()).to.eventually.have.nested.property('achievements.challenges').to.include(challenge.name);
-      expect(winningUser.notifications.length).to.equal(2); // 2 because winningUser just joined the challenge, which now awards an achievement
+      // 2 because winningUser just joined the challenge, which now awards an achievement
+      expect(winningUser.notifications.length).to.equal(2);
       expect(winningUser.notifications[1].type).to.equal('WON_CHALLENGE');
     });
 
     it('gives winner gems as reward', async () => {
-      let oldBalance = winningUser.balance;
+      const oldBalance = winningUser.balance;
 
       await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
 
@@ -116,8 +117,8 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
     });
 
     it('doesn\'t gives winner gems if group policy prevents it', async () => {
-      let oldBalance = winningUser.balance;
-      let oldLeaderBalance = (await groupLeader.sync()).balance;
+      const oldBalance = winningUser.balance;
+      const oldLeaderBalance = (await groupLeader.sync()).balance;
 
       await winningUser.update({
         'purchased.plan.customerId': 'group-plan',
@@ -136,7 +137,7 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
     });
 
     it('doesn\'t refund gems to group leader', async () => {
-      let oldBalance = (await groupLeader.sync()).balance;
+      const oldBalance = (await groupLeader.sync()).balance;
 
       await groupLeader.post(`/challenges/${challenge._id}/selectWinner/${winningUser._id}`);
 
@@ -151,14 +152,10 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
       await sleep(0.5);
 
       const tasks = await winningUser.get('/tasks/user');
-      const testTask = _.find(tasks, (task) => {
-        return task.text === taskText;
-      });
+      const testTask = _.find(tasks, task => task.text === taskText);
 
       const updatedUser = await winningUser.sync();
-      const challengeTag = updatedUser.tags.find(tags => {
-        return tags.id === challenge._id;
-      });
+      const challengeTag = updatedUser.tags.find(tags => tags.id === challenge._id);
 
       expect(testTask.challenge.broken).to.eql('CHALLENGE_CLOSED');
       expect(testTask.challenge.winner).to.eql(winningUser.profile.name);

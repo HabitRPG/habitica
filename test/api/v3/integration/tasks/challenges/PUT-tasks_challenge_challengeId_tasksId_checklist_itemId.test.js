@@ -1,10 +1,10 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   generateGroup,
   generateChallenge,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   let user;
@@ -19,7 +19,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on task not found', async () => {
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       type: 'todo',
       text: 'Todo with checklist',
     });
@@ -37,17 +37,17 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('returns error when user is not a member of the challenge', async () => {
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       type: 'todo',
       text: 'Todo with checklist',
     });
 
-    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {
+    const savedTask = await user.post(`/tasks/${task._id}/checklist`, {
       text: 'Checklist Item 1',
       completed: false,
     });
 
-    let anotherUser = await generateUser();
+    const anotherUser = await generateUser();
 
     await expect(anotherUser.put(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`, {
       text: 'updated',
@@ -62,7 +62,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('updates a checklist item on dailies', async () => {
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       type: 'daily',
       text: 'Daily with checklist',
     });
@@ -85,7 +85,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('updates a checklist item on todos', async () => {
-    let task = await user.post(`/tasks/challenge/${challenge._id}`, {
+    const task = await user.post(`/tasks/challenge/${challenge._id}`, {
       type: 'todo',
       text: 'Todo with checklist',
     });
@@ -108,7 +108,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on habits', async () => {
-    let habit = await user.post('/tasks/user', {
+    const habit = await user.post('/tasks/user', {
       type: 'habit',
       text: 'habit with checklist',
     });
@@ -121,7 +121,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on rewards', async () => {
-    let reward = await user.post('/tasks/user', {
+    const reward = await user.post('/tasks/user', {
       type: 'reward',
       text: 'reward with checklist',
     });
@@ -142,7 +142,7 @@ describe('PUT /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on checklist item not found', async () => {
-    let createdTask = await user.post('/tasks/user', {
+    const createdTask = await user.post('/tasks/user', {
       type: 'daily',
       text: 'daily with checklist',
     });

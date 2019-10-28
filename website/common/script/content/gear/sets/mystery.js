@@ -1,6 +1,6 @@
 import t from '../../translation';
 
-let armor = {
+const armor = {
   201402: {
     text: t('armorMystery201402Text'),
     notes: t('armorMystery201402Notes'),
@@ -253,6 +253,18 @@ let armor = {
     mystery: '201908',
     value: 0,
   },
+  201909: {
+    text: t('armorMystery201909Text'),
+    notes: t('armorMystery201909Notes'),
+    mystery: '201909',
+    value: 0,
+  },
+  201910: {
+    text: t('armorMystery201910Text'),
+    notes: t('armorMystery201910Notes'),
+    mystery: '201910',
+    value: 0,
+  },
   301404: {
     text: t('armorMystery301404Text'),
     notes: t('armorMystery301404Notes'),
@@ -273,7 +285,7 @@ let armor = {
   },
 };
 
-let back = {
+const back = {
   201402: {
     text: t('backMystery201402Text'),
     notes: t('backMystery201402Notes'),
@@ -384,7 +396,7 @@ let back = {
   },
 };
 
-let body = {
+const body = {
   201705: {
     text: t('bodyMystery201705Text'),
     notes: t('bodyMystery201705Notes'),
@@ -411,7 +423,7 @@ let body = {
   },
 };
 
-let eyewear = {
+const eyewear = {
   201503: {
     text: t('eyewearMystery201503Text'),
     notes: t('eyewearMystery201503Notes'),
@@ -468,7 +480,7 @@ let eyewear = {
   },
 };
 
-let head = {
+const head = {
   201402: {
     text: t('headMystery201402Text'),
     notes: t('headMystery201402Notes'),
@@ -733,6 +745,18 @@ let head = {
     mystery: '201907',
     value: 0,
   },
+  201909: {
+    text: t('headMystery201909Text'),
+    notes: t('headMystery201909Notes'),
+    mystery: '201909',
+    value: 0,
+  },
+  201910: {
+    text: t('headMystery201910Text'),
+    notes: t('headMystery201910Notes'),
+    mystery: '201910',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -759,7 +783,7 @@ let head = {
   },
 };
 
-let headAccessory = {
+const headAccessory = {
   201403: {
     text: t('headAccessoryMystery201403Text'),
     notes: t('headAccessoryMystery201403Notes'),
@@ -834,7 +858,7 @@ let headAccessory = {
   },
 };
 
-let shield = {
+const shield = {
   201601: {
     text: t('shieldMystery201601Text'),
     notes: t('shieldMystery201601Notes'),
@@ -885,7 +909,7 @@ let shield = {
   },
 };
 
-let weapon = {
+const weapon = {
   201411: {
     text: t('weaponMystery201411Text'),
     notes: t('weaponMystery201411Notes'),
@@ -930,7 +954,7 @@ let weapon = {
   },
 };
 
-let mysterySet = {
+export {
   armor,
   back,
   body,
@@ -940,5 +964,3 @@ let mysterySet = {
   shield,
   weapon,
 };
-
-module.exports = mysterySet;

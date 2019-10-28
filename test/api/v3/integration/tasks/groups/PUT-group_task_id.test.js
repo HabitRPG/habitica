@@ -1,17 +1,18 @@
+import { find } from 'lodash';
 import {
   createAndPopulateGroup, translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import {find} from 'lodash';
 
 describe('PUT /tasks/:id', () => {
-  let user, guild, member, member2, task;
+  let user; let guild; let member; let member2; let
+    task;
 
   function findAssignedTask (memberTask) {
     return memberTask.group.id === guild._id;
   }
 
   beforeEach(async () => {
-    let {group, members, groupLeader} = await createAndPopulateGroup({
+    const { group, members, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
         type: 'guild',
@@ -21,8 +22,8 @@ describe('PUT /tasks/:id', () => {
 
     guild = group;
     user = groupLeader;
-    member = members[0];
-    member2 = members[1];
+    member = members[0]; // eslint-disable-line prefer-destructuring
+    member2 = members[1]; // eslint-disable-line prefer-destructuring
 
     task = await user.post(`/tasks/group/${guild._id}`, {
       text: 'test habit',
@@ -37,7 +38,7 @@ describe('PUT /tasks/:id', () => {
   });
 
   it('updates a group task', async () => {
-    let savedHabit = await user.put(`/tasks/${task._id}`, {
+    const savedHabit = await user.put(`/tasks/${task._id}`, {
       notes: 'some new notes',
     });
 
@@ -56,11 +57,11 @@ describe('PUT /tasks/:id', () => {
       requiresApproval: true,
     });
 
-    let memberTasks = await member.get('/tasks/user');
-    let syncedTask = find(memberTasks, (memberTask) => memberTask.group.taskId === task._id);
+    const memberTasks = await member2.get('/tasks/user');
+    const syncedTask = find(memberTasks, memberTask => memberTask.group.taskId === task._id);
 
     // score up to trigger approval
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
+    await expect(member2.post(`/tasks/${syncedTask._id}/score/up`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -107,8 +108,8 @@ describe('PUT /tasks/:id', () => {
     });
 
 
-    let memberTasks = await member.get('/tasks/user');
-    let syncedTask = find(memberTasks, findAssignedTask);
+    const memberTasks = await member.get('/tasks/user');
+    const syncedTask = find(memberTasks, findAssignedTask);
 
     expect(syncedTask.text).to.eql('some new text');
     expect(syncedTask.up).to.eql(false);
@@ -123,11 +124,11 @@ describe('PUT /tasks/:id', () => {
       notes: 'some new notes',
     });
 
-    let memberTasks = await member.get('/tasks/user');
-    let syncedTask = find(memberTasks, findAssignedTask);
+    const memberTasks = await member.get('/tasks/user');
+    const syncedTask = find(memberTasks, findAssignedTask);
 
-    let member2Tasks = await member2.get('/tasks/user');
-    let member2SyncedTask = find(member2Tasks, findAssignedTask);
+    const member2Tasks = await member2.get('/tasks/user');
+    const member2SyncedTask = find(member2Tasks, findAssignedTask);
 
     expect(syncedTask.text).to.eql('some new text');
     expect(syncedTask.up).to.eql(false);
@@ -151,8 +152,8 @@ describe('PUT /tasks/:id', () => {
     });
 
 
-    let memberTasks = await member.get('/tasks/user');
-    let syncedTask = find(memberTasks, findAssignedTask);
+    const memberTasks = await member.get('/tasks/user');
+    const syncedTask = find(memberTasks, findAssignedTask);
 
     expect(syncedTask.text).to.eql('some new text');
     expect(syncedTask.up).to.eql(false);

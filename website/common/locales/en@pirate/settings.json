@@ -204,5 +204,7 @@
     "usernameVerifiedConfirmation": "Yer seaname, <%= username %>, be confirm'd!",
     "usernameNotVerified": "Please confirm yer seaname.",
     "changeUsernameDisclaimer": "We shall be transitionin' login names t' unique, public seanames soon. This seaname will be used fer invitations, @mentions in chat, 'n messagin'.",
-    "verifyUsernameVeteranPet": "One o' these Veteran Pets will be waitin' fer ye after ye've finish'd confirmin'!"
+    "verifyUsernameVeteranPet": "One o' these Veteran Pets will be waitin' fer ye after ye've finish'd confirmin'!",
+    "subscriptionReminders": "Don' ferget about yer Subscriptions",
+    "newPMNotificationTitle": "New Message from <%= name %>"
 }

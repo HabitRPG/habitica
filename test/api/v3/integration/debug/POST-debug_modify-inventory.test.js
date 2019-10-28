@@ -6,7 +6,8 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /debug/modify-inventory', () => {
-  let user, originalItems;
+  let user; let
+    originalItems;
 
   before(async () => {
     originalItems = {
@@ -43,7 +44,7 @@ describe('POST /debug/modify-inventory', () => {
   });
 
   it('sets equipment', async () => {
-    let gear = {
+    const gear = {
       weapon_healer_2: true,
       weapon_wizard_1: true,
       weapon_special_critical: true,
@@ -59,7 +60,7 @@ describe('POST /debug/modify-inventory', () => {
   });
 
   it('sets special spells', async () => {
-    let special = {
+    const special = {
       shinySeed: 3,
     };
 
@@ -73,7 +74,7 @@ describe('POST /debug/modify-inventory', () => {
   });
 
   it('sets mounts', async () => {
-    let mounts = {
+    const mounts = {
       'Orca-Base': true,
       'Mammoth-Base': true,
     };
@@ -88,7 +89,7 @@ describe('POST /debug/modify-inventory', () => {
   });
 
   it('sets eggs', async () => {
-    let eggs = {
+    const eggs = {
       Gryphon: 3,
       Hedgehog: 7,
     };
@@ -103,7 +104,7 @@ describe('POST /debug/modify-inventory', () => {
   });
 
   it('sets hatching potions', async () => {
-    let hatchingPotions = {
+    const hatchingPotions = {
       White: 7,
       Spooky: 2,
     };
@@ -118,7 +119,7 @@ describe('POST /debug/modify-inventory', () => {
   });
 
   it('sets food', async () => {
-    let food = {
+    const food = {
       Meat: 5,
       Candy_Red: 7,
     };
@@ -133,7 +134,7 @@ describe('POST /debug/modify-inventory', () => {
   });
 
   it('sets quests', async () => {
-    let quests = {
+    const quests = {
       whale: 5,
       cheetah: 10,
     };

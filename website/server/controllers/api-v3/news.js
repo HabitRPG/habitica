@@ -1,9 +1,10 @@
 import { authWithHeaders } from '../../middlewares/auth';
 
-let api = {};
+const api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA OFFICIAL CHALLENGES, NEW BACKGROUNDS, NEW ARMOIRE ITEMS';
+// @TODO export this const, cannot export it from here because only routes are exported from
+// controllers
+const LAST_ANNOUNCEMENT_TITLE = 'OCTOBER SUBSCRIBER ITEMS AND BLOG POSTS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,24 +31,43 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/3/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/24/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_medal center-block"></div>
-        <h3>September 2019 Resolution Success Challenge and New Take This Challenge</h3>
-        <p>The Habitica team has launched a special official Challenge series hosted in the <a href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain goals that are destined for success and then stick with them as the year progresses. For this month's Challenge, <a href='/challenges/375de4a2-1050-4886-8eaf-1de25ed2ee02'>Celebrate Your Triumphs</a>, we're focusing on celebrating your positive outcomes so far! It has a 15 Gem prize, which will be awarded to five lucky winners on October 1st.</p>
-        <p>Congratulations to the winners of August's Challenge, @rcgwriter, @silverivy, @dontanticipate, @Namida2u, and @Frowldrees!</p>
-        <div class="promo_take_this center-block"></div>
-      <p>The next Take This Challenge has also launched, "<a href='/challenges/41b9de95-67aa-4609-a4b9-216c3c613018'>It's Dangerous to Go Alone!</a>", with a focus on strengthening social connections. Be sure to check it out to earn additional pieces of the Take This armor set!</p>
-        <p><a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that seeks to inform the gamer community about mental health issues, to provide education about mental disorders and mental illness prevention, and to reduce the stigma of mental illness.</p>
-        <p>Congratulations to the winners of the last Take This Challenge, "Enter Sandman!": grand prize winner Weatherwax (@Weatherwax1), and runners-up TacoDanger (@hb-3b58tnlhnzgixkj49), Mis (@Ellaiyn), @GodofTroll, @ellie_ivanova, and @agateAngel! Plus, all participants in that Challenge have received a piece of the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target='_blank'>Take This item set</a> if they hadn't completed it already. It is located in your Rewards column. Enjoy!</p>
-        <div class="small mb-3">by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat</div>
-        <div class="promo_armoire_backgrounds_201909 center-block"></div>
-        <h3>September Backgrounds and Armoire Items</h3>
-        <p>We’ve added three new backgrounds to the Background Shop! Now your avatar can take in the warmth of an Autumn Flower Garden, brave the mysteries of an Ancient Tomb, and absorb knowledge in a Classroom. Check them out under User Icon > Backgrounds!</p>
-        <p>Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the Florid Fan, a Polished Pocketwatch, and a Resplendent Rapier. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)</p>
-        <div class="small mb-3">by Vikte, aspiring_advocate, Tigergurke, AnnDeLune, Katy133, ravenlune, QuartzFox, and GeraldThePixel.</div>
+        <div class="promo_mystery_201910 center-block"></div>
+        <h3>October Subscriber Items Revealed!</h3>
+        <p>The October Subscriber Item has been revealed: the Cryptic Flame Item Set! You only
+          have until October 31 to <a href='/user/settings/subscription'>receive the item set when
+          you subscribe</a>. If you're already an active subscriber, reload the site and then head
+          to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe,
+          the more Gems you can buy per month! There are other perks as well, such as longer
+          access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us
+          keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="scene_arts_crafts center-block"></div>
+        <h3>Use Case Spotlight: Habitica Events!</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/10/24/
+          use-case-spotlight-using-habitican-events-for-motivation/' target='_blank'>Use Case
+          Spotlight</a> is about Using Habitica Events for Motivation! It features a number of
+          great suggestions submitted by Habiticans in the
+          <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights
+            Guild</a>. We hope it helps any of you who might be looking for new ways to
+            incentivize yourselves.</p>
+        <p>Plus, we're collecting user submissions for the next spotlight! How do you gamify your
+          tasks? We’ll be featuring player-submitted examples in Use Case Spotlights on the
+          Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now.
+          We look forward to learning more about how you use Habitica to improve your life and get
+          things done!</p>
+        <div class="small mb-3">by shanaqui</div>
+        <h3>Guild Spotlight: More New and Notable Guilds!</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/10/24/
+          new-and-notable-guild-spotlight-10/' target='_blank'>Guild Spotlight on the blog</a>
+          that highlights yet another selection of the upcoming Guilds in Habitica dedicated to a
+          variety of topics! Check it out now to find some of Habitica's best new communities.</p>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="promo_seasonal_shop_fall center-block"></div>
       </div>
       `,
     });
@@ -68,13 +88,11 @@ api.tellMeLaterNews = {
   middlewares: [authWithHeaders()],
   url: '/news/tell-me-later',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     user.flags.newStuff = false;
 
-    const existingNotificationIndex = user.notifications.findIndex(n => {
-      return n && n.type === 'NEW_STUFF';
-    });
+    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
     if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
     user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
 
@@ -83,4 +101,4 @@ api.tellMeLaterNews = {
   },
 };
 
-module.exports = api;
+export default api;

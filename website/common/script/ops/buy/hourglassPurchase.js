@@ -1,19 +1,19 @@
-import content from '../../content/index';
-import i18n from '../../i18n';
 import get from 'lodash/get';
 import includes from 'lodash/includes';
 import keys from 'lodash/keys';
+import i18n from '../../i18n';
+import content from '../../content/index';
 import {
   BadRequest,
   NotAuthorized,
 } from '../../libs/errors';
 import errorMessage from '../../libs/errorMessage';
 
-module.exports = function purchaseHourglass (user, req = {}, analytics, quantity = 1) {
-  let key = get(req, 'params.key');
+export default function purchaseHourglass (user, req = {}, analytics, quantity = 1) {
+  const key = get(req, 'params.key');
   if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
-  let type = get(req, 'params.type');
+  const type = get(req, 'params.type');
   if (!type) throw new BadRequest(errorMessage('missingTypeParam'));
 
   if (type === 'quests') {
@@ -29,7 +29,7 @@ module.exports = function purchaseHourglass (user, req = {}, analytics, quantity
     if (user.markModified) user.markModified('items.quests');
   } else {
     if (!content.timeTravelStable[type]) {
-      throw new NotAuthorized(i18n.t('typeNotAllowedHourglass', {allowedTypes: keys(content.timeTravelStable).toString()}, req.language));
+      throw new NotAuthorized(i18n.t('typeNotAllowedHourglass', { allowedTypes: keys(content.timeTravelStable).toString() }, req.language));
     }
 
     if (!includes(keys(content.timeTravelStable[type]), key)) {
@@ -44,7 +44,7 @@ module.exports = function purchaseHourglass (user, req = {}, analytics, quantity
       throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
     }
 
-    user.purchased.plan.consecutive.trinkets--;
+    user.purchased.plan.consecutive.trinkets -= 1;
 
     if (type === 'pets') {
       user.items.pets[key] = 5;
@@ -72,4 +72,4 @@ module.exports = function purchaseHourglass (user, req = {}, analytics, quantity
     { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },
     i18n.t('hourglassPurchase', req.language),
   ];
-};
+}

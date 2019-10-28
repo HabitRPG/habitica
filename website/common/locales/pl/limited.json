@@ -160,6 +160,12 @@
     "summer2019WaterLilyMageSet": "Lilia Wodna (Mag)",
     "summer2019ConchHealerSet": "Muszla (Medyk)",
     "summer2019HammerheadRogueSet": "Rekin Młot (Łotrzyk)",
-    "eventAvailabilityReturning": "Możliwość zakupu do <%= availableDate(locale) %>. Ten eliksir został wprowadzony w <%= previousDate(locale) %>.",
-    "june2018": "Czerwiec 2018"
+    "eventAvailabilityReturning": "Możliwość zakupu do <%= availableDate(locale) %>. Ten eliksir był ostatnio dostępny w  dniu <%= previousDate(locale) %>.",
+    "june2018": "Czerwiec 2018",
+    "september2018": "Wrzesień 2018",
+    "september2017": "Wrzesień 2017",
+    "fall2019RavenSet": "Kruk (Wojownik)",
+    "fall2019LichSet": "Nieumarły (Medyk)",
+    "fall2019CyclopsSet": "Cyklop (Mag)",
+    "fall2019OperaticSpecterSet": "Upiór w operze (Łotrzyk)"
 }

@@ -100,14 +100,23 @@ describe('Items Utils', () => {
     });
 
     it('converts values for mounts paths to numbers', () => {
-      expect(castItemVal('items.mounts.Cactus-Base', '5')).to.equal(5);
-      expect(castItemVal('items.mounts.Aether-Invisible', '5')).to.equal(5);
-      expect(castItemVal('items.mounts.Aether-Invalid', '5')).to.equal(5);
+      expect(castItemVal('items.mounts.Cactus-Base', 'true')).to.equal(true);
+      expect(castItemVal('items.mounts.Aether-Invisible', 'false')).to.equal(false);
+      expect(castItemVal('items.mounts.Aether-Invalid', 'true')).to.equal(true);
+      expect(castItemVal('items.mounts.Aether-Invalid', 'truish')).to.equal(true);
+      expect(castItemVal('items.mounts.Aether-Invalid', 0)).to.equal(false);
     });
 
     it('converts values for quests paths to numbers', () => {
       expect(castItemVal('items.quests.atom3', '5')).to.equal(5);
       expect(castItemVal('items.quests.invalid', '5')).to.equal(5);
+    });
+
+    it('converts values for owned gear', () => {
+      expect(castItemVal('items.gear.owned.shield_warrior_0', 'true')).to.equal(true);
+      expect(castItemVal('items.gear.owned.invalid', 'false')).to.equal(false);
+      expect(castItemVal('items.gear.owned.invalid', 'thruthy')).to.equal(true);
+      expect(castItemVal('items.gear.owned.invalid', 0)).to.equal(false);
     });
   });
 });

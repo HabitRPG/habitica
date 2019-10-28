@@ -293,5 +293,6 @@
     "contactForm": "モデレーターチームに連絡する",
     "options": "オプション",
     "demo": "デモ",
-    "loadEarlierMessages": "以前のメッセージを読み込む"
+    "loadEarlierMessages": "以前のメッセージを読み込む",
+    "finish": "終了"
 }

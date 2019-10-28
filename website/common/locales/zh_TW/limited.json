@@ -154,6 +154,6 @@
     "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!",
     "spring2019OrchidWarriorSet": "蘭花 (戰士)",
     "spring2019AmberMageSet": "琥珀 (法師)",
-    "eventAvailabilityReturning": "<%= availableDate(locale) %>前仍可購買。這瓶藥水上次在 <%= previousDate(locale) %>上市。",
+    "eventAvailabilityReturning": "<%= availableDate(locale) %>前仍可購買。這瓶藥水上次在<%= previousDate(locale) %>上市。",
     "june2018": "2018 年 6 月"
 }

@@ -21,7 +21,7 @@
     "titleGuilds": "公会",
     "titleChallenges": "挑战",
     "titleDrops": "市场",
-    "titleQuests": "任务",
+    "titleQuests": "副本",
     "titlePets": "宠物",
     "titleMounts": "坐骑",
     "titleEquipment": "装备",
@@ -79,7 +79,7 @@
     "continue": "继续",
     "accept": "接受",
     "reject": "拒绝",
-    "neverMind": "算了",
+    "neverMind": "无须在意",
     "buyMoreGems": "买更多宝石",
     "notEnoughGems": "宝石不足",
     "alreadyHave": "你已经有这个物品了。不用再买了！",
@@ -95,7 +95,7 @@
     "showMoreMore": "(显示更多)",
     "showMoreLess": "(显示更少)",
     "gemsWhatFor": "单击购买宝石！宝石能让你购置特殊道具如任务，自定义头像，和应季装备。",
-    "veteran": "老兵",
+    "veteran": "退伍",
     "veteranText": "经历过 Habit The Grey (原来的网站) ，身上带着多处其bug带来的伤疤。",
     "originalUser": "原始用户！",
     "originalUserText": "<em>最</em>原始的用户之一，来跟 Alpha 测试者打个招呼吧！",
@@ -291,5 +291,8 @@
     "howManyToBuy": "你想买多少呢？",
     "habiticaHasUpdated": "有一個新的Habitica更新。刷新以獲取最新版本！",
     "contactForm": "联系管理员小组",
-    "options": "选项"
+    "options": "选项",
+    "demo": "样本",
+    "loadEarlierMessages": "载入早期信息",
+    "finish": "完成"
 }
