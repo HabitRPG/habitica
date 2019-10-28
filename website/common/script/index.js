@@ -46,10 +46,8 @@ import updateStore from './libs/updateStore';
 import inAppRewards from './libs/inAppRewards';
 
 import setDebuffPotionItems from './libs/setDebuffPotionItems';
-api.setDebuffPotionItems = setDebuffPotionItems;
 
 import getDebuffPotionItems from './libs/getDebuffPotionItems';
-api.getDebuffPotionItems = getDebuffPotionItems;
 
 import uuid from './libs/uuid';
 
@@ -164,6 +162,9 @@ api.shops = shops;
 api.achievements = achievements;
 api.randomVal = randomVal;
 api.hasClass = hasClass;
+api.setDebuffPotionItems = setDebuffPotionItems;
+api.getDebuffPotionItems = getDebuffPotionItems;
+
 
 api.fns = {
   autoAllocate,

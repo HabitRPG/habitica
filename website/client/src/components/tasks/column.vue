@@ -335,7 +335,6 @@ import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
 import notifications from '@/mixins/notifications';
 import { shouldDo } from '@/../../common/script/cron';
 import inAppRewards from '@/../../common/script/libs/inAppRewards';
-import spells from '@/../../common/script/content/spells';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 
 import {

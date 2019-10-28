@@ -191,7 +191,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         currency: 'gold',
         locked: false,
         purchaseType: 'debuffPotion',
-        class: `inventory_special_${item.key}`,
+        class: `shop_${item.key}`,
         path: `spells.special.${item.key}`,
         pinType: 'debuffPotion',
       };

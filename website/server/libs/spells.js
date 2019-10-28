@@ -11,7 +11,7 @@ import {
 } from '../models/group';
 import apiError from './apiError';
 
-const partyMembersFields = 'profile.name stats achievements items.special notifications flags';
+const partyMembersFields = 'profile.name stats achievements items.special notifications flags pinnedItems';
 // Excluding notifications and flags from the list of public fields to return.
 const partyMembersPublicFields = 'profile.name stats achievements items.special';
 
@@ -98,7 +98,7 @@ async function castPartySpell (req, party, partyMembers, user, spell, quantity =
   return partyMembers;
 }
 
-async function castUserSpell (res, req, party, partyMember, targetId, user, spell, quantity = 1) {
+async function castUserSpell (res, req, party, partyMembers, targetId, user, spell, quantity = 1) {
   if (!party && (!targetId || user._id === targetId)) {
     partyMembers = user; // eslint-disable-line no-param-reassign
   } else {

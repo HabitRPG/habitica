@@ -1,7 +1,13 @@
 import getDebuffPotionItems from './getDebuffPotionItems';
 
+function clearDebuffPotion (user) {
+  return user.pinnedItems.filter(item => item.type !== 'debuffPotion');
+}
 
-module.exports = function setDebuffPotionItems (user) {
+
+export default function setDebuffPotionItems (user) {
+  user.pinnedItems = clearDebuffPotion(user);
+
   const debuffPotionItems = getDebuffPotionItems(user);
 
   if (debuffPotionItems.length) {
@@ -18,13 +24,7 @@ module.exports = function setDebuffPotionItems (user) {
     if (!isUserHaveDebuffInPinnedItems) {
       user.pinnedItems.push(...debuffPotionItems);
     }
-  } else {
-    user.pinnedItems = user.pinnedItems.filter(item => {
-      return item.type !== 'debuffPotion';
-    });
   }
 
   return user;
-};
-
-
+}
