@@ -255,7 +255,7 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
-
+    padding-right: 24px;
   }
 
   .buttons-wrapper {

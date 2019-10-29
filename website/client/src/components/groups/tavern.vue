@@ -510,11 +510,15 @@
 
   .sidebar {
     background-color: $gray-600;
-    padding: 0em;
+    padding: 0em 24px 0em 0em;
 
     .below-header-sections {
-      padding: 1em 1.75em 1em 1.75em;
+      padding: 1em 24px 1em 1.75em;
     }
+  }
+
+  .px-3 {
+    padding-right: 24px !important;
   }
 
   .pause-button {
