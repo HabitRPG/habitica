@@ -6,8 +6,7 @@
     <form
       v-if="!forgotPassword && !resetPasswordSetNewOne"
       id="login-form"
-      @submit.prevent="handleSubmit"
-      @keyup.enter="handleSubmit"
+      @submit.prevent.stop="handleSubmit"
     >
       <div class="text-center">
         <div>
@@ -133,8 +132,8 @@
           type="password"
           :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
           :class="{
-            'input-invalid input-with-error': passwordInvalid,
-            'input-valid': passwordValid
+            'input-invalid input-with-error': registering && passwordInvalid,
+            'input-valid': registering && passwordValid
           }"
         >
         <div
@@ -173,22 +172,22 @@
         ></small>
       </div>
       <div class="text-center">
-        <div
+        <button
           v-if="registering"
-          v-once
+          type="submit"
           class="btn btn-info"
-          @click="register()"
+          :disabled="signupFormInvalid"
         >
           {{ $t('joinHabitica') }}
-        </div>
-        <div
+        </button>
+        <button
           v-if="!registering"
           v-once
+          type="submit"
           class="btn btn-info"
-          @click="login()"
         >
           {{ $t('login') }}
-        </div>
+        </button>
         <div class="toggle-links">
           <router-link
             v-if="registering"
@@ -500,7 +499,7 @@
       background-image: url('~@/assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
       width: 100%;
-      height: 500px;
+      height: 300px;
       position: absolute;
       z-index: 0;
       bottom: 0;
@@ -615,6 +614,16 @@ export default {
     passwordConfirmInvalid () {
       if (this.passwordConfirm.length <= 3) return false;
       return !this.passwordConfirmValid;
+    },
+    signupFormInvalid () {
+      console.log(
+        this.usernameInvalid,
+        this.emailInvalid, this.passwordInvalid, this.passwordConfirmInvalid,
+      );
+      return this.usernameInvalid
+        || this.emailInvalid
+        || this.passwordInvalid
+        || this.passwordConfirmInvalid;
     },
   },
   watch: {
