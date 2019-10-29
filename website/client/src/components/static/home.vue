@@ -53,9 +53,9 @@
             <div class="strike">
               <span>{{ $t('or') }}</span>
             </div>
-            <div
+            <form
               class="form"
-              @keyup.enter="register()"
+              @submit.prevent.stop="register()"
             >
               <p class="form-text">
                 {{ $t('usernameLimitations') }}
@@ -120,12 +120,14 @@
                 v-html="$t('termsAndAgreement')"
               ></p>
               <button
-                class="sign-up"
+                class="btn btn-block btn-info sign-up"
+                :disabled="signupFormInvalid"
+                type="submit"
                 @click="register()"
               >
                 {{ $t('signup') }}
               </button>
-            </div>
+            </form>
           </div>
           <div class="col-12">
             <div
@@ -552,21 +554,9 @@
       background-color: #36205d;
     }
 
-    button.sign-up {
-      width: 100%;
-      height: 48px;
-      color: #fff;
-      border: none;
-      border-radius: 2px;
-      background-color: #2995cd;
-      font-size: 16px;
-      transition: all .5s ease;
-    }
-
-    .sign-up:hover {
-      background-color: #50b5e9;
-      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
-      cursor: pointer;
+    .sign-up {
+      padding-top: 11px;
+      padding-bottom: 11px;
     }
 
     ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -874,6 +864,12 @@ export default {
     passwordConfirmInvalid () {
       if (this.passwordConfirm.length <= 3) return false;
       return this.passwordConfirm !== this.password;
+    },
+    signupFormInvalid () {
+      return this.usernameInvalid
+        || this.emailInvalid
+        || this.passwordInvalid
+        || this.passwordConfirmInvalid;
     },
   },
   watch: {
