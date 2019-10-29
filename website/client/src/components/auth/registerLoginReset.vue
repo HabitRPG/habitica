@@ -616,10 +616,6 @@ export default {
       return !this.passwordConfirmValid;
     },
     signupFormInvalid () {
-      console.log(
-        this.usernameInvalid,
-        this.emailInvalid, this.passwordInvalid, this.passwordConfirmInvalid,
-      );
       return this.usernameInvalid
         || this.emailInvalid
         || this.passwordInvalid
