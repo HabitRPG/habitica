@@ -19,5 +19,8 @@ export default function staticMiddleware (expressApp) {
   expressApp.use('/static', express.static(`${BASE_DIR}/website/client/dist/static`));
 
   // Apidoc
+  expressApp.use('/storybook', express.static(`${BASE_DIR}/website/client/dist/storybook`));
+
+  // Storybook
   expressApp.use('/apidoc', express.static(`${BASE_DIR}/apidoc_build`));
 }
