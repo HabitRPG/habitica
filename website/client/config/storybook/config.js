@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { configure } from '@storybook/vue';
 import '../../src/assets/scss/index.scss';
 
