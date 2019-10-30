@@ -160,7 +160,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="below-header-sections">
         <quest-sidebar-section
           v-if="isParty"
           :group="group"
@@ -255,11 +255,14 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
-    padding-right: 24px;
+
+    .below-header-sections {
+        padding: 1em 24px 1em 24px;
+      }
   }
 
   .buttons-wrapper {
-    padding-top: 2.8em;
+    padding: 2.8em 24px 0em 24px;
   }
 
   .card {
