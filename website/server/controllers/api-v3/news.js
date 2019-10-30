@@ -2,10 +2,9 @@ import { authWithHeaders } from '../../middlewares/auth';
 
 const api = {};
 
-// @TODO export this const, cannot export it
-// from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA HIRING ANDROID DEVELOPER! AND BLOG POST ON THE QUEST SHOP';
-
+// @TODO export this const, cannot export it from here because only routes are exported from
+// controllers
+const LAST_ANNOUNCEMENT_TITLE = 'OCTOBER SUBSCRIBER ITEMS AND BLOG POSTS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,17 +31,43 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/17/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/24/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <h3>Habitica is Hiring! Android Developer Position</h3>
-        <p>Want to join the Habitica team? We’re looking to hire a new developer to help with our Android app! Our ideal candidate is a mobile developer with experience in Kotlin who is capable of supporting existing legacy code and working with our team to continue improving the user experience. You'll make major contributions that help serve and grow an audience of millions of users!</p>
-        <p>If this sounds like a job you'll love, check out the <a href='https://forms.gle/rdyDPTRD8ZjE2qLG8' target='_blank'>full job posting</a> for more information and to fill out an application. </p>
-        <div class="scene_quest_shop center-block"></div>
-        <h3>Blog Post: Quest Shop</h3>
-        <p>This month's <a href='https://habitica.wordpress.com/2019/10/16/quest-shop/' target='_blank'>featured Wiki article</a> is about the Quest Shop! We hope that it will help you as you look for additional ways to keep your Habitica adventure fun and motivating. Be sure to check it out, and let us know what you think by reaching out on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.</p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <div class="promo_mystery_201910 center-block"></div>
+        <h3>October Subscriber Items Revealed!</h3>
+        <p>The October Subscriber Item has been revealed: the Cryptic Flame Item Set! You only
+          have until October 31 to <a href='/user/settings/subscription'>receive the item set when
+          you subscribe</a>. If you're already an active subscriber, reload the site and then head
+          to Inventory > Items to claim your gear!</p>
+        <p>Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe,
+          the more Gems you can buy per month! There are other perks as well, such as longer
+          access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us
+          keep Habitica running. Thank you very much for your support -- it means a lot to us.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="scene_arts_crafts center-block"></div>
+        <h3>Use Case Spotlight: Habitica Events!</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/10/24/
+          use-case-spotlight-using-habitican-events-for-motivation/' target='_blank'>Use Case
+          Spotlight</a> is about Using Habitica Events for Motivation! It features a number of
+          great suggestions submitted by Habiticans in the
+          <a href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights
+            Guild</a>. We hope it helps any of you who might be looking for new ways to
+            incentivize yourselves.</p>
+        <p>Plus, we're collecting user submissions for the next spotlight! How do you gamify your
+          tasks? We’ll be featuring player-submitted examples in Use Case Spotlights on the
+          Habitica Blog next month, so post your suggestions in the Use Case Spotlight Guild now.
+          We look forward to learning more about how you use Habitica to improve your life and get
+          things done!</p>
+        <div class="small mb-3">by shanaqui</div>
+        <h3>Guild Spotlight: More New and Notable Guilds!</h3>
+        <p>There's a new <a href='https://habitica.wordpress.com/2019/10/24/
+          new-and-notable-guild-spotlight-10/' target='_blank'>Guild Spotlight on the blog</a>
+          that highlights yet another selection of the upcoming Guilds in Habitica dedicated to a
+          variety of topics! Check it out now to find some of Habitica's best new communities.</p>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="promo_seasonal_shop_fall center-block"></div>
       </div>
       `,
     });

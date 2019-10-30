@@ -30,6 +30,7 @@ import {
   CHAT_FLAG_LIMIT_FOR_HIDING,
   CHAT_FLAG_FROM_MOD,
   CHAT_FLAG_FROM_SHADOW_MUTE,
+  MINIMUM_PASSWORD_LENGTH,
 } from './constants';
 
 // TODO under api.libs.statHelpers?
@@ -133,6 +134,7 @@ api.constants = {
   CHAT_FLAG_LIMIT_FOR_HIDING,
   CHAT_FLAG_FROM_MOD,
   CHAT_FLAG_FROM_SHADOW_MUTE,
+  MINIMUM_PASSWORD_LENGTH,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;

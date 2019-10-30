@@ -39,10 +39,15 @@
   }
 
   .introjs-tooltip {
-    background-image: url('~@/assets/svg/for-css/tutorial-border.svg');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    height: 131px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #FFA623;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: #B36213;
+    margin: 2px;
+    position: relative;
+
     min-height: 131px !important;
     width: 400px;
     max-width: 400px;
@@ -212,6 +217,16 @@ const NOTIFICATIONS = {
       modalText: $t => $t('triadBingoAchievement'),
     },
   },
+  ACHIEVEMENT_MONSTER_MAGUS: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_UNDEAD_UNDERTAKER: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
+    modalId: 'generic-achievement',
+  },
 };
 
 export default {
@@ -268,6 +283,7 @@ export default {
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
       'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
       'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
+      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'GENERIC_ACHIEVEMENT',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -674,6 +690,8 @@ export default {
           case 'ACHIEVEMENT_BEAST_MASTER':
           case 'ACHIEVEMENT_MOUNT_MASTER':
           case 'ACHIEVEMENT_TRIAD_BINGO':
+          case 'ACHIEVEMENT_MONSTER_MAGUS':
+          case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

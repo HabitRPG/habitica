@@ -180,6 +180,7 @@ export default {
         exitOnOverlayClick: false,
         steps: opts.steps,
         doneLabel: this.$t('letsgo'),
+        buttonClass: 'btn btn-small btn-primary',
       });
       intro.start();
       intro.oncomplete(() => {

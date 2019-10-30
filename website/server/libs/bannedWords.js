@@ -132,8 +132,10 @@ const bannedWords = [
   'arse',
   'asshole',
   'badass',
+  'kickass',
   'arsehole',
   'badarse',
+  'kickarse',
   'lmao',
   'lmfao',
 

@@ -245,6 +245,10 @@ api.updatePassword = {
       },
       newPassword: {
         notEmpty: { errorMessage: res.t('missingNewPassword') },
+        isLength: {
+          options: { min: common.constants.MINIMUM_PASSWORD_LENGTH },
+          errorMessage: res.t('minPasswordLength'),
+        },
       },
       confirmPassword: {
         notEmpty: { errorMessage: res.t('missingNewPassword') },
