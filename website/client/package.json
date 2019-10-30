@@ -7,7 +7,6 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint .",
     "postinstall": "node ./scripts/npm-postinstall.js",
-    "postbuild": "npm run storybook:build",
     "storybook:build": "vue-cli-service storybook:build -c config/storybook -o dist/storybook",
     "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook",
     "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js"
