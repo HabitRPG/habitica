@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { storiesOf } from '@storybook/vue';
 
 import CountBadge from './countBadge.vue';
