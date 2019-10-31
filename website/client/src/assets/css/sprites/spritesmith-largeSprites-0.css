@@ -1,6 +1,6 @@
 .promo_armoire_backgrounds_201910 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -576px;
+  background-position: 0px -576px;
   width: 423px;
   height: 147px;
 }
@@ -40,6 +40,12 @@
   width: 60px;
   height: 60px;
 }
+.promo_habitoween_2019 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -373px -395px;
+  width: 279px;
+  height: 147px;
+}
 .promo_mystery_201910 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -376px -190px;
@@ -48,25 +54,25 @@
 }
 .promo_seasonal_shop_fall {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -373px -395px;
+  background-position: -994px 0px;
   width: 162px;
   height: 138px;
 }
 .promo_shadow_spooky_potions {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -576px;
+  background-position: -424px -724px;
   width: 423px;
   height: 147px;
 }
 .promo_spooky_sparkles {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -724px;
+  background-position: -424px -576px;
   width: 423px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -882px -387px;
+  background-position: -994px -139px;
   width: 96px;
   height: 69px;
 }
