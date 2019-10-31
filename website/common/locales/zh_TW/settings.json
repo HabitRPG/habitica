@@ -203,7 +203,7 @@
     "goToSettings": "前往設定",
     "usernameVerifiedConfirmation": "您的使用者名稱 <%= username %> 已確認！",
     "usernameNotVerified": "請確認您的使用者名稱。",
-    "changeUsernameDisclaimer": "我們即將將登入名稱改為獨一無二的公開使用者名稱。此使用者名稱將用於邀請、聊天中的 @標記、和訊息。",
+    "changeUsernameDisclaimer": "此使用者名稱將用於邀請、聊天中的 @ 標記、和訊息。",
     "verifyUsernameVeteranPet": "完成確認後，其中一隻將領寵物將會等您前來領養！",
     "subscriptionReminders": "訂閱提醒",
     "newPMNotificationTitle": "來自 <%= name %> 的新訊息"
