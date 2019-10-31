@@ -20,7 +20,6 @@ RUN mkdir -p /usr/src/habitrpg
 WORKDIR /usr/src/habitrpg
 RUN git clone --branch release --depth 1 https://github.com/HabitRPG/habitica.git /usr/src/habitrpg
 RUN npm install
-RUN gulp build:prod --force
 
 # Start Habitica
 EXPOSE 3000
