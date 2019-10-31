@@ -127,10 +127,13 @@ function _setUpNewUser (user) {
   const iterableFlags = user.flags.toObject();
 
   user.items.quests.dustbunnies = 1;
-  user.markModified('items.quests');
-
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
+  user.items.pets['JackOLantern-Base'] = 5;
+  user.items.currentPet = 'JackOLantern-Base';
+  user.migration = '20191031_habitoween_ladder';
+
+  user.markModified('items');
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
