@@ -26,7 +26,7 @@
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Number of dailies avoided: <%= number %>.",
     "spellRogueStealthMaxedOut": "You have already avoided all your dailies; there's no need to cast this again.",
-    "spellHealerHealText": "Genesende Lig\n",
+    "spellHealerHealText": "Genesende Lig",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
     "spellHealerBrightnessText": "Searing Brightness",
     "spellHealerBrightnessNotes": "A burst of light makes your tasks more blue/less red! (Based on: INT)",
