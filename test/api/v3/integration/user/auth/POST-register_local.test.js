@@ -326,24 +326,6 @@ describe('POST /user/auth/local/register', () => {
       });
     });
 
-    it('requires minimum length for the password', async () => {
-      const username = generateRandomUserName();
-      const email = `${username}@example.com`;
-      const password = '1234567';
-      const confirmPassword = '1234567';
-
-      await expect(api.post('/user/auth/local/register', {
-        username,
-        email,
-        password,
-        confirmPassword,
-      })).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('invalidReqParams'),
-      });
-    });
-
     it('requires a username', async () => {
       const email = `${generateRandomUserName()}@example.com`;
       const password = 'password';

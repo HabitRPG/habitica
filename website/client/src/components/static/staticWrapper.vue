@@ -85,6 +85,10 @@
     }
   }
 
+  #bottom-wrap.purple-4 {
+    background-color: #271b3d;
+  }
+
   #purple-footer {
     background-color: #271b3d;
 
@@ -108,6 +112,33 @@
       .svg-icon {
         color: #bda8ff;
       }
+    }
+  }
+
+  #bottom-wrap {
+    padding-top: 10em;
+  }
+
+  #bottom-background {
+    position: relative;
+
+    .seamless_mountains_demo_repeat {
+      background-image: url('~@/assets/images/auth/seamless_mountains_demo.png');
+      background-repeat: repeat-x;
+      width: 100%;
+      height: 300px;
+      position: absolute;
+      z-index: 0;
+      bottom: 0;
+    }
+
+    .midground_foreground_extended2 {
+      background-image: url('~@/assets/images/auth/midground_foreground_extended2.png');
+      position: relative;
+      width: 1500px;
+      max-width: 100%;
+      height: 150px;
+      margin: 0 auto;
     }
   }
 
@@ -136,39 +167,6 @@
 
     .strong {
       font-weight: bold;
-    }
-  }
-</style>
-
-<style lang="scss" scoped>
-  #bottom-wrap.purple-4 {
-    background-color: #271b3d;
-  }
-
-  #bottom-wrap {
-    padding-top: 10em;
-  }
-
-  #bottom-background {
-    position: relative;
-
-    .seamless_mountains_demo_repeat {
-      background-image: url('~@/assets/images/auth/seamless_mountains_demo.png');
-      background-repeat: repeat-x;
-      width: 100%;
-      height: 300px;
-      position: absolute;
-      z-index: 0;
-      bottom: 0;
-    }
-
-    .midground_foreground_extended2 {
-      background-image: url('~@/assets/images/auth/midground_foreground_extended2.png');
-      position: relative;
-      width: 1500px;
-      max-width: 100%;
-      height: 150px;
-      margin: 0 auto;
     }
   }
 </style>

@@ -53,9 +53,9 @@
             <div class="strike">
               <span>{{ $t('or') }}</span>
             </div>
-            <form
+            <div
               class="form"
-              @submit.prevent.stop="register()"
+              @keyup.enter="register()"
             >
               <p class="form-text">
                 {{ $t('usernameLimitations') }}
@@ -63,7 +63,7 @@
               <input
                 id="usernameInput"
                 v-model="username"
-                class="form-control input-with-error"
+                class="form-control"
                 type="text"
                 :placeholder="$t('username')"
                 :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
@@ -85,49 +85,32 @@
               >
               <input
                 v-model="password"
-                class="form-control input-with-error"
+                class="form-control"
                 type="password"
                 :placeholder="$t('password')"
-                :class="{
-                  'input-valid': passwordValid,
-                  'input-invalid': passwordInvalid,
-                }"
+                :class="{'input-valid': password.length > 3}"
               >
-              <div
-                v-if="passwordInvalid"
-                class="input-error"
-              >
-                {{ $t('minPasswordLength') }}
-              </div>
               <input
                 v-model="passwordConfirm"
-                class="form-control input-with-error"
+                class="form-control"
                 type="password"
                 :placeholder="$t('confirmPassword')"
                 :class="{
                   'input-invalid': passwordConfirmInvalid,
                   'input-valid': passwordConfirmValid}"
               >
-              <div
-                v-if="passwordConfirmInvalid"
-                class="input-error"
-              >
-                {{ $t('passwordConfirmationMatch') }}
-              </div>
               <p
                 v-once
                 class="form-text"
                 v-html="$t('termsAndAgreement')"
               ></p>
               <button
-                class="btn btn-block btn-info sign-up"
-                :disabled="signupFormInvalid"
-                type="submit"
+                class="sign-up"
                 @click="register()"
               >
                 {{ $t('signup') }}
               </button>
-            </form>
+            </div>
           </div>
           <div class="col-12">
             <div
@@ -536,7 +519,7 @@
       transition: border .5s, color .5s;
     }
 
-    .input-invalid.input-with-error {
+    #usernameInput.input-invalid {
       margin-bottom: 0.5em;
     }
 
@@ -554,9 +537,21 @@
       background-color: #36205d;
     }
 
-    .sign-up {
-      padding-top: 11px;
-      padding-bottom: 11px;
+    button.sign-up {
+      width: 100%;
+      height: 48px;
+      color: #fff;
+      border: none;
+      border-radius: 2px;
+      background-color: #2995cd;
+      font-size: 16px;
+      transition: all .5s ease;
+    }
+
+    .sign-up:hover {
+      background-color: #50b5e9;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+      cursor: pointer;
     }
 
     ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -774,6 +769,7 @@
     color: #fff;
     font-size: 90%;
     width: 100%;
+    text-align: center;
     margin-bottom: 1em;
   }
 </style>
@@ -800,7 +796,6 @@ import lifehacker from '@/assets/images/home/lifehacker.svg';
 import makeuseof from '@/assets/images/home/make-use-of.svg';
 import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg';
 import * as Analytics from '@/libs/analytics';
-import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 
 export default {
   data () {
@@ -849,14 +844,6 @@ export default {
       if (this.username.length < 1) return false;
       return !this.usernameValid;
     },
-    passwordValid () {
-      if (this.password.length <= 0) return false;
-      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
-    },
-    passwordInvalid () {
-      if (this.password.length <= 0) return false;
-      return this.password.length < MINIMUM_PASSWORD_LENGTH;
-    },
     passwordConfirmValid () {
       if (this.passwordConfirm.length <= 3) return false;
       return this.passwordConfirm === this.password;
@@ -864,12 +851,6 @@ export default {
     passwordConfirmInvalid () {
       if (this.passwordConfirm.length <= 3) return false;
       return this.passwordConfirm !== this.password;
-    },
-    signupFormInvalid () {
-      return this.usernameInvalid
-        || this.emailInvalid
-        || this.passwordInvalid
-        || this.passwordConfirmInvalid;
     },
   },
   watch: {

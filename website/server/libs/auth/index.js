@@ -93,13 +93,8 @@ async function registerLocal (req, res, { isV3 = false }) {
     },
     password: {
       notEmpty: true,
-
       errorMessage: res.t('missingPassword'),
       equals: { options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch') },
-      isLength: {
-        options: { min: common.constants.MINIMUM_PASSWORD_LENGTH },
-        errorMessage: res.t('minPasswordLength'),
-      },
     },
   });
 
