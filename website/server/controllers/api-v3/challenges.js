@@ -270,7 +270,7 @@ api.joinChallenge = {
     addUserJoinChallengeNotification(user);
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    const results = await Promise.all([challenge.syncToUser(user), challenge.save()]);
+    const results = await Promise.all([challenge.syncTasksToUser(user), challenge.save()]);
 
     const response = results[1].toJSON();
     response.group = getChallengeGroupResponse(group);

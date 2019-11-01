@@ -119,9 +119,9 @@ schema.methods.canView = function canViewChallenge (user, group) {
   return this.canJoin(user, group);
 };
 
-// Sync challenge to user, including tasks and tags.
+// Sync challenge tasks to user, including tags.
 // Used when user joins the challenge or to force sync.
-schema.methods.syncToUser = async function syncChallengeToUser (user) {
+schema.methods.syncTasksToUser = async function syncChallengeTasksToUser (user) {
   const challenge = this;
   challenge.shortName = challenge.shortName || challenge.name;
 
