@@ -94,6 +94,23 @@ schema.methods.canJoin = function canJoinChallenge (user, group) {
   return user.getGroups().indexOf(this.group) !== -1;
 };
 
+// Returns true if the challenge was successfully added to the user
+// or false if the user already in the challenge
+schema.methods.addToUser = async function addChallengeToUser (user) {
+  // Add challenge to users challenges atomically (with a condition that checks that it
+  // is not there already) to prevent multiple concurrent requests from passing through
+  // see https://github.com/HabitRPG/habitica/issues/11295
+  const result = await User.update(
+    {
+      _id: user._id,
+      challenges: { $nin: [ this._id ] }
+    },
+    { $push: { challenges: this._id } }
+  ).exec();
+
+  return !!result.nModified;
+};
+
 // Returns true if user can view the challenge
 // Different from canJoin because you can see challenges of groups
 // you've been removed from if you're participating in them
@@ -108,13 +125,6 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   const challenge = this;
   challenge.shortName = challenge.shortName || challenge.name;
 
-  // Add challenge to user.challenges
-  if (!_.includes(user.challenges, challenge._id)) {
-    // using concat because mongoose's protection against
-    // concurrent array modification isn't working as expected.
-    // see https://github.com/HabitRPG/habitica/pull/7787#issuecomment-232972394
-    user.challenges = user.challenges.concat([challenge._id]);
-  }
   // Sync tags
   const userTags = user.tags;
   const i = _.findIndex(userTags, { id: challenge._id });
