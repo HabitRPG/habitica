@@ -254,12 +254,27 @@ api.joinChallenge = {
 
     const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (challenge.isMember(user)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
 
     const group = await Group.getGroup({
       user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
     });
     if (!group || !challenge.canJoin(user, group)) throw new NotFound(res.t('challengeNotFound'));
+
+    // Add challenge to users challenges atomically (with condition that checks that it is not there already)
+    // to prevent multiple concurrent requests from passing through
+    // see https://github.com/HabitRPG/habitica/issues/11295
+    const result = await User.update(
+      {
+        _id: user._id,
+        challenges: { $nin: [ challenge._id ] }
+      },
+      { $push: { challenges: challenge._id } }
+    ).exec();
+
+    // if query did not modify, it means user already in the challenge
+    if (!result.nModified) {
+      throw new NotAuthorized(res.t('userAlreadyInChallenge'));
+    }
 
     challenge.memberCount += 1;
 
