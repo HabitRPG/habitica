@@ -330,7 +330,7 @@ function _getMembersForItem (type) {
       }
 
       if (req.query.search) {
-        query['profile.name'] = { $regex: req.query.search };
+        query['auth.local.username'] = { $regex: req.query.search };
       }
     } else if (type === 'group-members') {
       if (group.type === 'guild') {
