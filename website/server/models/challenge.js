@@ -103,9 +103,9 @@ schema.methods.addToUser = async function addChallengeToUser (user) {
   const result = await User.update(
     {
       _id: user._id,
-      challenges: { $nin: [ this._id ] }
+      challenges: { $nin: [this._id] },
     },
-    { $push: { challenges: this._id } }
+    { $push: { challenges: this._id } },
   ).exec();
 
   return !!result.nModified;
