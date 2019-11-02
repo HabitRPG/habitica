@@ -591,22 +591,21 @@ api.exportChallengeCsv = {
     // computation on MongoDB but then iterated through all
     // results on the server so the perf difference isn't that big (hopefully)
 
-    const members = await User
-      .find({ challenges: challengeId })
-      .select(nameFields)
-      .sort({ _id: 1 })
-      .lean() // so we don't involve mongoose
-      .exec();
+    const [members, tasks] = await Promise.all([
+      User.find({ challenges: challengeId })
+        .select(nameFields)
+        .sort({ _id: 1 })
+        .lean() // so we don't involve mongoose
+        .exec(),
 
-    const tasks = Tasks.Task
-      .find({
+      Tasks.Task.find({
         'challenge.id': challengeId,
         userId: { $exists: true },
-      })
-      .sort({ userId: 1, text: 1 })
-      .select('userId type text value notes streak')
-      .lean() // so we don't involve mongoose
-      .exec();
+      }).sort({ userId: 1, text: 1 })
+        .select('userId type text value notes streak')
+        .lean()
+        .exec(),
+    ]);
 
     let resArray = members
       .map(member => [member._id, member.profile.name, member.auth.local.username]);
