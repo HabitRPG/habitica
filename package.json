@@ -79,7 +79,7 @@
   },
   "scripts": {
     "lint": "eslint --ext .js --fix . && cd website/client && npm run lint",
-    "lint-no-fix": "eslint --ext .js . && cd website/client && npm run lint --no-fix",
+    "lint-no-fix": "eslint --ext .js . && cd website/client && npm run lint-no-fix",
     "test": "npm run lint && gulp test && gulp apidoc",
     "test:build": "gulp test:prepare:build",
     "test:api-v3": "gulp test:api-v3",
