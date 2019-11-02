@@ -8,22 +8,22 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Glow',
+      type: 'eggs',
+      path: 'eggs.PandaCub',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Spooky',
+      type: 'hatchingPotions',
+      path: 'hatchingPotions.Shade',
     },
     {
-      type: 'premiumHatchingPotion',
-      path: 'premiumHatchingPotions.Shadow',
+      type: 'food',
+      path: 'food.Potatoe',
     },
   ],
   quests: [
     {
-      type: 'bundles',
-      path: 'bundles.witchyFamiliars',
+      type: 'quests',
+      path: 'quests.sloth',
     },
     {
       type: 'quests',
