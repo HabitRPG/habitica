@@ -1,11 +1,9 @@
 <template>
   <span>
     <span class="dropdown-label">{{ label }}</span>
-    <b-dropdown
-    :text="(selectedItem.id.includes('sortBy')) ? selectedItem.id.substring(6) : selectedItem.id"
-    right="right">
+    <b-dropdown right="right">
       <span
-        slot="text"
+        slot="button-content"
         :class="{'dropdown-icon-item': withIcon}"
       >
         <slot
