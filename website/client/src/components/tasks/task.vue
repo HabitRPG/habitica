@@ -99,8 +99,8 @@
                 </div>
                 <div slot="dropdown-content">
                   <div
-                    ref="editTaskItem"
                     v-if="showEdit"
+                    ref="editTaskItem"
                     class="dropdown-item edit-task-item"
                   >
                     <span class="dropdown-icon-item">
@@ -944,7 +944,7 @@ export default {
       return !isEmpty(this.task.challenge);
     },
     isGroupTask () {
-      return !isEmpty(this.task.group) && (this.task.group.taskId || this.task.group.id);
+      return this.task.group.taskId || this.task.group.id;
     },
     taskCategory () {
       let taskCategory = 'default';
