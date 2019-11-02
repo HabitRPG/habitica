@@ -8,7 +8,7 @@ import * as takeThisGear from './special-takeThis';
 import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
-const CURRENT_SEASON = 'fall';
+const CURRENT_SEASON = '_NONE_';
 
 const armor = {
   0: backerGear.armorSpecial0,

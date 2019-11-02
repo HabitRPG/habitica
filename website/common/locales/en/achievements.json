@@ -28,5 +28,11 @@
   "achievementAridAuthorityModalText": "You tamed all the Desert Mounts!",
   "achievementKickstarter2019": "Pin Kickstarter Backer",
   "achievementKickstarter2019Text": "Backed the 2019 Pin Kickstarter Project",
-  "achievementPartyOn": "Your party grew to 4 members!"
+  "achievementPartyOn": "Your party grew to 4 members!",
+  "achievementMonsterMagus": "Monster Magus",
+  "achievementMonsterMagusText": "Has collected all Zombie Pets.",
+  "achievementMonsterMagusModalText": "You collected all the Zombie Pets!",
+  "achievementUndeadUndertaker": "Undead Undertaker",
+  "achievementUndeadUndertakerText": "Has tamed all Zombie Mounts.",
+  "achievementUndeadUndertakerModalText": "You tamed all the Zombie Mounts!"
 }

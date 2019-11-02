@@ -49,7 +49,7 @@
     "code": "`コード`",
     "achievements": "実績",
     "basicAchievs": "基本の実績",
-    "seasonalAchievs": "季節限定の実績",
+    "seasonalAchievs": "季節の実績",
     "specialAchievs": "特別な実績",
     "modalAchievement": "実績を解除!",
     "special": "スペシャル",
@@ -60,7 +60,7 @@
     "groupPlansTitle": "グループプラン",
     "newGroupTitle": "新しいグループ",
     "subscriberItem": "ミステリー アイテム",
-    "newSubscriberItem": "新しい<span class=\"notification-bold-blue\">ミステリー アイテム</span>",
+    "newSubscriberItem": "新しい<span class=\"notification-bold-blue\">ミステリー アイテム</span>があります",
     "subscriberItemText": "毎月、寄付会員にはミステリー アイテムが贈られます。通常、月の終わりの1週間前ごろにお届けします。詳しくはWiki の「ミステリー アイテム」のページをご覧ください。",
     "all": "すべて",
     "none": "なし",
@@ -124,7 +124,7 @@
     "menu": "メニュー",
     "notifications": "通知",
     "noNotifications": "全ての通知をチェックしました！",
-    "noNotificationsText": "通知の妖精はパチパチとあなたに拍手を送っています！  えらい！",
+    "noNotificationsText": "通知の妖精はパチパチとあなたに拍手を送っています！ えらい！",
     "clear": "クリア",
     "endTour": "ツアーを終える",
     "audioTheme": "BGMテーマ",
@@ -293,5 +293,6 @@
     "contactForm": "モデレーターチームに連絡する",
     "options": "オプション",
     "demo": "デモ",
-    "loadEarlierMessages": "以前のメッセージを読み込む"
+    "loadEarlierMessages": "以前のメッセージを読み込む",
+    "finish": "終了"
 }

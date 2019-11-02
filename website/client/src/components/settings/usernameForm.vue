@@ -110,7 +110,7 @@
     border: solid 1px $gray-500;
   }
 
-  input {
+  input.form-control:not(:focus):not(:active) {
     border: 0px;
   }
 

@@ -1,6 +1,4 @@
-<!-- eslint-disable -->
 <template>
-  <!-- eslint-disable -->
   <b-modal
     id="avatar-modal"
     title
@@ -9,114 +7,184 @@
     :hide-footer="true"
     :modal-class="{'page-2':modalPage > 1 && !editing}"
   >
-    <div class="section row welcome-section" v-if="modalPage === 1 && !editing">
+    <div
+      v-if="modalPage === 1 && !editing"
+      class="section row welcome-section"
+    >
       <div class="col-6 offset-3 text-center">
-        <h3 v-once>{{$t('welcomeTo')}}</h3>
-        <div class="svg-icon logo" v-html="icons.logoPurple"></div>
+        <h3 v-once>
+          {{ $t('welcomeTo') }}
+        </h3>
+        <div
+          class="svg-icon logo"
+          v-html="icons.logoPurple"
+        ></div>
       </div>
     </div>
-    <div class="avatar-section row" v-if="modalPage > 1" :class="{'page-2': modalPage === 2}">
+    <div
+      v-if="modalPage > 1"
+      class="avatar-section row"
+      :class="{'page-2': modalPage === 2}"
+    >
       <div class="col-6 offset-3">
-        <div class="user-creation-bg" v-if="!editing"></div>
-        <avatar :member="user" :avatarOnly="!editing" :class="{'edit-avatar': editing}"></avatar>
+        <div
+          v-if="!editing"
+          class="user-creation-bg"
+        ></div>
+        <avatar
+          :member="user"
+          :avatar-only="!editing"
+          :class="{'edit-avatar': editing}"
+        />
       </div>
     </div>
-    <div class="section" v-if="modalPage === 2" :class="{'edit-modal': editing}">
+    <div
+      v-if="modalPage === 2"
+      class="section"
+      :class="{'edit-modal': editing}"
+    >
       <!-- @TODO Implement in V2 .section.row.col-12.text-center
       button.btn.btn-secondary(v-once) {{$t('randomize')}}-->
-      <div class="container section text-center customize-menu" id="options-nav">
+      <div
+        id="options-nav"
+        class="container section text-center customize-menu"
+      >
         <div class="row">
           <div
             class="menu-container"
+            :class="{
+              'col-3': !editing,
+              'col-2 offset-1': editing,
+              active: activeTopPage === 'body'}"
             @click="changeTopPage('body', 'size')"
-            :class="{'col-3': !editing, 'col-2 offset-1': editing, active: activeTopPage === 'body'}"
           >
             <div class="menu-item">
-              <div class="svg-icon" v-html="icons.bodyIcon"></div>
+              <div
+                class="svg-icon"
+                v-html="icons.bodyIcon"
+              ></div>
             </div>
-            <strong v-once>{{$t('bodyBody')}}</strong>
+            <strong v-once>{{ $t('bodyBody') }}</strong>
             <div class="indicator"></div>
           </div>
           <div
             class="menu-container"
-            @click="changeTopPage('skin', 'color')"
             :class="{'col-3': !editing, 'col-2': editing, active: activeTopPage === 'skin'}"
+            @click="changeTopPage('skin', 'color')"
           >
             <div class="menu-item">
-              <div class="svg-icon" v-html="icons.skinIcon"></div>
+              <div
+                class="svg-icon"
+                v-html="icons.skinIcon"
+              ></div>
             </div>
-            <strong v-once>{{$t('skin')}}</strong>
+            <strong v-once>{{ $t('skin') }}</strong>
             <div class="indicator"></div>
           </div>
           <div
             class="menu-container"
-            @click="changeTopPage('hair', 'color')"
             :class="{'col-3': !editing, 'col-2': editing, active: activeTopPage === 'hair'}"
+            @click="changeTopPage('hair', 'color')"
           >
             <div class="menu-item">
-              <div class="svg-icon" v-html="icons.hairIcon"></div>
+              <div
+                class="svg-icon"
+                v-html="icons.hairIcon"
+              ></div>
             </div>
-            <strong v-once>{{$t('hair')}}</strong>
+            <strong v-once>{{ $t('hair') }}</strong>
             <div class="indicator"></div>
           </div>
           <div
             class="menu-container"
-            @click="changeTopPage('extra', 'glasses')"
             :class="{'col-3': !editing, 'col-2': editing, active: activeTopPage === 'extra'}"
+            @click="changeTopPage('extra', 'glasses')"
           >
             <div class="menu-item">
-              <div class="svg-icon" v-html="icons.accessoriesIcon"></div>
+              <div
+                class="svg-icon"
+                v-html="icons.accessoriesIcon"
+              ></div>
             </div>
-            <strong v-once>{{$t('extra')}}</strong>
+            <strong v-once>{{ $t('extra') }}</strong>
             <div class="indicator"></div>
           </div>
           <div
-            class="menu-container col-2"
-            @click="changeTopPage('backgrounds', '2019')"
             v-if="editing"
+            class="menu-container col-2"
             :class="{active: activeTopPage === 'backgrounds'}"
+            @click="changeTopPage('backgrounds', '2019')"
           >
             <div class="menu-item">
-              <div class="svg-icon" v-html="icons.backgroundsIcon"></div>
+              <div
+                class="svg-icon"
+                v-html="icons.backgroundsIcon"
+              ></div>
             </div>
-            <strong v-once>{{$t('backgrounds')}}</strong>
+            <strong v-once>{{ $t('backgrounds') }}</strong>
             <div class="indicator"></div>
           </div>
         </div>
       </div>
-      <body-settings v-if="activeTopPage === 'body'" :editing="editing"></body-settings>
-      <skin-settings v-if="activeTopPage === 'skin'" :editing="editing"></skin-settings>
-      <hairSettings v-if="activeTopPage === 'hair'" :editing="editing"></hairSettings>
-      <extraSettings v-if="activeTopPage === 'extra'" :editing="editing"></extraSettings>
+      <body-settings
+        v-if="activeTopPage === 'body'"
+        :editing="editing"
+      />
+      <skin-settings
+        v-if="activeTopPage === 'skin'"
+        :editing="editing"
+      />
+      <hairSettings
+        v-if="activeTopPage === 'hair'"
+        :editing="editing"
+      />
+      <extraSettings
+        v-if="activeTopPage === 'extra'"
+        :editing="editing"
+      />
       <div
-        class="section container customize-section"
-        id="backgrounds"
         v-if="activeTopPage === 'backgrounds'"
+        id="backgrounds"
+        class="section container customize-section"
       >
         <div class="row title-row">
           <toggle-switch
+            v-model="filterBackgrounds"
             class="backgroundFilterToggle"
             :label="'Hide locked backgrounds'"
-            v-model="filterBackgrounds"
-          ></toggle-switch>
+          />
         </div>
-        <div class="row text-center title-row" v-if="!filterBackgrounds">
-          <strong>{{backgroundShopSets[0].text}}</strong>
+        <div
+          v-if="!filterBackgrounds"
+          class="row text-center title-row"
+        >
+          <strong>{{ backgroundShopSets[0].text }}</strong>
         </div>
-        <div class="row title-row" v-if="!filterBackgrounds">
+        <div
+          v-if="!filterBackgrounds"
+          class="row title-row"
+        >
           <div
+            v-if="showPlainBackgroundBlurb(
+              backgroundShopSets[0].identifier, backgroundShopSets[0].items
+            )"
             class="col-12"
-            v-if="showPlainBackgroundBlurb(backgroundShopSets[0].identifier, backgroundShopSets[0].items)"
-          >{{ $t('incentiveBackgroundsUnlockedWithCheckins') }}</div>
+          >
+            {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
+          </div>
           <div
-            class="col-2"
             v-for="bg in backgroundShopSets[0].items"
-            @click="unlock('background.' + bg.key)"
+            :key="bg.key"
+            class="col-2"
             :popover-title="bg.text"
             :popover="bg.notes"
             popover-trigger="mouseenter"
+            @click="unlock('background.' + bg.key)"
           >
-            <div class="incentive-background" :class="[`background_${bg.key}`]">
+            <div
+              class="incentive-background"
+              :class="[`background_${bg.key}`]"
+            >
               <div class="small-rectangle"></div>
             </div>
           </div>
@@ -124,63 +192,96 @@
         <sub-menu
           class="text-center"
           :items="bgSubMenuItems"
-          :activeSubPage="activeSubPage"
+          :active-sub-page="activeSubPage"
           @changeSubPage="changeSubPage($event)"
-        ></sub-menu>
+        />
+        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
         <div
-          class="row customize-menu"
-          v-if="!filterBackgrounds"
           v-for="(sets, key) in backgroundShopSetsByYear"
+          v-if="!filterBackgrounds"
+          :key="key"
+          class="row customize-menu"
         >
-          <div class="row background-set" v-for="set in sets" v-if="activeSubPage === key">
+          <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+          <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+          <div
+            v-for="set in sets"
+            v-if="activeSubPage === key"
+            :key="set.identifier"
+            class="row background-set"
+          >
+            <!-- eslint-enable vue/no-use-v-if-with-v-for -->
             <div class="col-8 offset-2 text-center set-title">
-              <strong>{{set.text}}</strong>
+              <strong>{{ set.text }}</strong>
             </div>
             <div
-              class="col-4 text-center customize-option background-button"
               v-for="bg in set.items"
-              @click="!user.purchased.background[bg.key] ? backgroundSelected(bg) : unlock('background.' + bg.key)"
+              :key="bg.key"
+              class="col-4 text-center customize-option background-button"
               :popover-title="bg.text"
               :popover="bg.notes"
               popover-trigger="mouseenter"
+              @click="!user.purchased.background[bg.key]
+                ? backgroundSelected(bg) : unlock('background.' + bg.key)"
             >
               <div
                 class="background"
                 :class="[`background_${bg.key}`, backgroundLockedStatus(bg.key)]"
               ></div>
-              <i class="glyphicon glyphicon-lock" v-if="!user.purchased.background[bg.key]"></i>
-              <div class="purchase-background single" v-if="!user.purchased.background[bg.key]">
-                <div class="svg-icon gem" v-html="icons.gem"></div>
+              <i
+                v-if="!user.purchased.background[bg.key]"
+                class="glyphicon glyphicon-lock"
+              ></i>
+              <div
+                v-if="!user.purchased.background[bg.key]"
+                class="purchase-background single"
+              >
+                <div
+                  class="svg-icon gem"
+                  v-html="icons.gem"
+                ></div>
                 <span class="price">7</span>
               </div>
               <span
-                class="badge badge-pill badge-item badge-svg"
-                :class="{'item-selected-badge': isBackgroundPinned(bg), 'hide': !isBackgroundPinned(bg)}"
-                @click.prevent.stop="togglePinned(bg)"
                 v-if="!user.purchased.background[bg.key]"
+                class="badge badge-pill badge-item badge-svg"
+                :class="{
+                  'item-selected-badge': isBackgroundPinned(bg),
+                  'hide': !isBackgroundPinned(bg)}"
+                @click.prevent.stop="togglePinned(bg)"
               >
-                <span class="svg-icon inline icon-12 color" v-html="icons.pin"></span>
+                <span
+                  class="svg-icon inline icon-12 color"
+                  v-html="icons.pin"
+                ></span>
               </span>
             </div>
             <div
-              class="purchase-background set"
               v-if="!ownsSet('background', set.items) && set.identifier !== 'incentiveBackgrounds'"
+              class="purchase-background set"
               @click="unlock(setKeys('background', set.items))"
             >
               <span class="label">{{ $t('purchaseAll') }}</span>
-              <div class="svg-icon gem" v-html="icons.gem"></div>
+              <div
+                class="svg-icon gem"
+                v-html="icons.gem"
+              ></div>
               <span class="price">15</span>
             </div>
           </div>
         </div>
-        <div class="row customize-menu" v-if="filterBackgrounds">
+        <div
+          v-if="filterBackgrounds"
+          class="row customize-menu"
+        >
           <div
-            class="col-4 text-center customize-option background-button"
             v-for="(bg) in ownedBackgrounds"
-            @click="unlock('background.' + bg.key)"
+            :key="bg.key"
+            class="col-4 text-center customize-option background-button"
             :popover-title="bg.text"
             :popover="bg.notes"
             popover-trigger="mouseenter"
+            @click="unlock('background.' + bg.key)"
           >
             <div
               class="background"
@@ -190,7 +291,10 @@
         </div>
       </div>
     </div>
-    <div class="container interests-section" v-if="modalPage === 3 && !editing">
+    <div
+      v-if="modalPage === 3 && !editing"
+      class="container interests-section"
+    >
       <div class="section row">
         <div class="col-12 text-center">
           <h2>{{ $t('wantToWorkOn') }}</h2>
@@ -201,39 +305,47 @@
           <div class="task-option">
             <div class="custom-control custom-checkbox">
               <input
-                class="custom-control-input"
                 id="work"
+                v-model="taskCategories"
+                class="custom-control-input"
                 type="checkbox"
                 value="work"
-                v-model="taskCategories"
-              />
-              <label class="custom-control-label" v-once for="work">{{ $t('work') }}</label>
+              >
+              <label
+                v-once
+                class="custom-control-label"
+                for="work"
+              >{{ $t('work') }}</label>
             </div>
           </div>
           <div class="task-option">
             <div class="custom-control custom-checkbox">
               <input
-                class="custom-control-input"
                 id="excercise"
+                v-model="taskCategories"
+                class="custom-control-input"
                 type="checkbox"
                 value="exercise"
-                v-model="taskCategories"
-              />
-              <label class="custom-control-label" v-once for="excercise">{{ $t('exercise') }}</label>
+              >
+              <label
+                v-once
+                class="custom-control-label"
+                for="excercise"
+              >{{ $t('exercise') }}</label>
             </div>
           </div>
           <div class="task-option">
             <div class="custom-control custom-checkbox">
               <input
-                class="custom-control-input"
                 id="health_wellness"
+                v-model="taskCategories"
+                class="custom-control-input"
                 type="checkbox"
                 value="health_wellness"
-                v-model="taskCategories"
-              />
+              >
               <label
-                class="custom-control-label"
                 v-once
+                class="custom-control-label"
                 for="health_wellness"
               >{{ $t('health_wellness') }}</label>
             </div>
@@ -241,13 +353,17 @@
           <div class="task-option">
             <div class="custom-control custom-checkbox">
               <input
-                class="custom-control-input"
                 id="school"
+                v-model="taskCategories"
+                class="custom-control-input"
                 type="checkbox"
                 value="school"
-                v-model="taskCategories"
-              />
-              <label class="custom-control-label" v-once for="school">{{ $t('school') }}</label>
+              >
+              <label
+                v-once
+                class="custom-control-label"
+                for="school"
+              >{{ $t('school') }}</label>
             </div>
           </div>
         </div>
@@ -255,46 +371,58 @@
           <div class="task-option">
             <div class="custom-control custom-checkbox">
               <input
-                class="custom-control-input"
                 id="chores"
+                v-model="taskCategories"
+                class="custom-control-input"
                 type="checkbox"
                 value="chores"
-                v-model="taskCategories"
-              />
-              <label class="custom-control-label" v-once for="chores">{{ $t('chores') }}</label>
+              >
+              <label
+                v-once
+                class="custom-control-label"
+                for="chores"
+              >{{ $t('chores') }}</label>
             </div>
           </div>
           <div class="task-option">
             <div class="custom-control custom-checkbox">
               <input
-                class="custom-control-input"
                 id="creativity"
+                v-model="taskCategories"
+                class="custom-control-input"
                 type="checkbox"
                 value="creativity"
-                v-model="taskCategories"
-              />
-              <label class="custom-control-label" v-once for="creativity">{{ $t('creativity') }}</label>
+              >
+              <label
+                v-once
+                class="custom-control-label"
+                for="creativity"
+              >{{ $t('creativity') }}</label>
             </div>
           </div>
           <div class="task-option">
             <div class="custom-control custom-checkbox">
               <input
-                class="custom-control-input"
                 id="self_care"
+                v-model="taskCategories"
+                class="custom-control-input"
                 type="checkbox"
                 value="self_care"
-                v-model="taskCategories"
-              />
-              <label class="custom-control-label" v-once for="self_care">{{ $t('self_care') }}</label>
+              >
+              <label
+                v-once
+                class="custom-control-label"
+                for="self_care"
+              >{{ $t('self_care') }}</label>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div
+      v-if="!editing"
       class="section d-flex justify-content-center justin-outer-section"
       :class="{top: modalPage > 1}"
-      v-if="!editing"
     >
       <div class="justin-section d-flex align-items-center">
         <div class="featured-label">
@@ -303,53 +431,125 @@
           <span class="rectangle"></span>
         </div>
         <div class="justin-message">
-          <div class="corner-decoration" :style="{top: '-2px', right: '-2px'}"></div>
-          <div class="corner-decoration" :style="{top: '-2px', left: '-2px'}"></div>
-          <div class="corner-decoration" :style="{bottom: '-2px', right: '-2px'}"></div>
-          <div class="corner-decoration" :style="{bottom: '-2px', left: '-2px'}"></div>
+          <div
+            class="corner-decoration"
+            :style="{top: '-2px', right: '-2px'}"
+          ></div>
+          <div
+            class="corner-decoration"
+            :style="{top: '-2px', left: '-2px'}"
+          ></div>
+          <div
+            class="corner-decoration"
+            :style="{bottom: '-2px', right: '-2px'}"
+          ></div>
+          <div
+            class="corner-decoration"
+            :style="{bottom: '-2px', left: '-2px'}"
+          ></div>
           <div v-if="modalPage === 1">
-            <p v-once v-html="$t('justinIntroMessage1')"></p>
-            <p v-once>{{ $t('justinIntroMessageUsername') }}</p>
+            <p
+              v-once
+              v-html="$t('justinIntroMessage1')"
+            ></p>
+            <p v-once>
+              {{ $t('justinIntroMessageUsername') }}
+            </p>
           </div>
           <div v-if="modalPage === 2">
             <p>{{ $t('justinIntroMessageAppearance') }}</p>
           </div>
           <div v-if="modalPage === 3">
-            <p v-once>{{ $t('justinIntroMessage3') }}</p>
+            <p v-once>
+              {{ $t('justinIntroMessage3') }}
+            </p>
           </div>
         </div>
         <div class="npc-justin-textbox"></div>
       </div>
     </div>
-    <div class="section mr-5 ml-5 first-page-footer" v-if="modalPage === 1">
-      <username-form @usernameConfirmed="modalPage += 1" :avatarIntro="true"></username-form>
-      <div class="small text-center" v-html="$t('usernameTOSRequirements')"></div>
+    <div
+      v-if="modalPage === 1"
+      class="section mr-5 ml-5 first-page-footer"
+    >
+      <username-form
+        :avatar-intro="true"
+        @usernameConfirmed="modalPage += 1"
+      />
+      <div
+        class="small text-center"
+        v-html="$t('usernameTOSRequirements')"
+      ></div>
     </div>
-    <div class="section container footer" v-if="!editing && !(modalPage === 1)">
+    <div
+      v-if="!editing && !(modalPage === 1)"
+      class="section container footer"
+    >
       <div class="footer-left">
-        <div class="prev-outer" v-if="modalPage > 1" @click="prev()">
-          <div class="prev-arrow svg-icon" v-html="icons.arrowLeft"></div>
-          <div class="prev" v-once>{{ $t('prev') }}</div>
+        <div
+          v-if="modalPage > 1"
+          class="prev-outer"
+          @click="prev()"
+        >
+          <div
+            class="prev-arrow svg-icon"
+            v-html="icons.arrowLeft"
+          ></div>
+          <div
+            v-once
+            class="prev"
+          >
+            {{ $t('prev') }}
+          </div>
         </div>
       </div>
       <div class="footer-center text-center circles">
-        <div class="circle" :class="{active: modalPage === 1}"></div>
-        <div class="circle" :class="{active: modalPage === 2}"></div>
-        <div class="circle" :class="{active: modalPage === 3}"></div>
+        <div
+          class="circle"
+          :class="{active: modalPage === 1}"
+        ></div>
+        <div
+          class="circle"
+          :class="{active: modalPage === 2}"
+        ></div>
+        <div
+          class="circle"
+          :class="{active: modalPage === 3}"
+        ></div>
       </div>
       <div class="footer-right">
-        <div class="next-outer" v-if="modalPage < 3" @click="next()">
-          <div class="next" v-once>{{$t('next')}}</div>
-          <div class="next-arrow svg-icon" v-html="icons.arrowRight"></div>
+        <div
+          v-if="modalPage < 3"
+          class="next-outer"
+          @click="next()"
+        >
+          <div
+            v-once
+            class="next"
+          >
+            {{ $t('next') }}
+          </div>
+          <div
+            class="next-arrow svg-icon"
+            v-html="icons.arrowRight"
+          ></div>
         </div>
         <div
-          class="next-outer"
           v-if="modalPage === 3 && !loading"
-          @click="done()"
+          class="next-outer"
           :class="{disabled: taskCategories.length === 0}"
+          @click="done()"
         >
-          <div class="next" v-once>{{$t('finish')}}</div>
-          <div class="next-arrow svg-icon" v-html="icons.arrowRight"></div>
+          <div
+            v-once
+            class="next"
+          >
+            {{ $t('finish') }}
+          </div>
+          <div
+            class="next-arrow svg-icon"
+            v-html="icons.arrowRight"
+          ></div>
         </div>
       </div>
     </div>
@@ -1075,7 +1275,9 @@ export default {
       });
 
       this.$root.$emit('bv::hide::modal', 'avatar-modal');
-      this.$router.push('/');
+      if (this.$route.path !== '/') {
+        this.$router.push('/');
+      }
       this.$store.dispatch('user:set', {
         'flags.welcomed': true,
       });

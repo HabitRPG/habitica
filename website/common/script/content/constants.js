@@ -270,4 +270,7 @@ export const ANIMAL_COLOR_ACHIEVEMENTS = [
   {
     color: 'Desert', petAchievement: 'dustDevil', petNotificationType: 'ACHIEVEMENT_DUST_DEVIL', mountAchievement: 'aridAuthority', mountNotificationType: 'ACHIEVEMENT_ARID_AUTHORITY',
   },
+  {
+    color: 'Zombie', petAchievement: 'monsterMagus', petNotificationType: 'ACHIEVEMENT_MONSTER_MAGUS', mountAchievement: 'undeadUndertaker', mountNotificationType: 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+  },
 ];
