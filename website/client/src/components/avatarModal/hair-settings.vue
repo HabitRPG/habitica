@@ -256,12 +256,18 @@ export default {
         none: true,
       };
 
+      sets.push({
+        options: [
+          emptyHairBase,
+          ...this.baseHair1.map(key => this.mapKeysToFreeOption(key, 'hair', 'base')),
+        ],
+      });
+
       if (this.editing) {
         sets.push({
           fullSet: !this.userOwnsSet('hair', this.baseHair3Keys, 'base'),
           unlock: () => this.unlock(`hair.base.${this.baseHair3Keys.join(',hair.base.')}`),
           options: [
-            emptyHairBase,
             ...this.baseHair3,
           ],
         });
@@ -274,13 +280,6 @@ export default {
           ],
         });
       }
-
-      sets.push({
-        options: [
-          emptyHairBase,
-          ...this.baseHair1.map(key => this.mapKeysToFreeOption(key, 'hair', 'base')),
-        ],
-      });
 
       if (this.editing) {
         sets.push({

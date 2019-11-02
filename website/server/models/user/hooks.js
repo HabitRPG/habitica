@@ -129,9 +129,6 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  user.items.pets['JackOLantern-Base'] = 5;
-  user.items.currentPet = 'JackOLantern-Base';
-  user.migration = '20191031_habitoween_ladder';
 
   user.markModified('items');
 
