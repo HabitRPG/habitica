@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import { defaults } from 'lodash';
-import baseModel from '../libs/baseModel';
 import removeMd from 'remove-markdown';
+import baseModel from '../libs/baseModel';
 
 const defaultSchema = () => ({
   id: String,
   timestamp: Date,
   text: String,
-  unformattedText: String,  
+  unformattedText: String,
   info: { $type: mongoose.Schema.Types.Mixed },
 
   // sender properties
