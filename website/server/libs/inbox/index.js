@@ -24,7 +24,6 @@ export async function sentMessage (sender, receiver, message, translate) {
           receiver.preferences.language,
         ),
         message,
-        isUserGenerated: true, 
         identifier: 'newPM',
         category: 'newPM',
         payload: { replyTo: sender._id, senderName, message },

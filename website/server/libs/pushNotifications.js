@@ -3,7 +3,6 @@ import nconf from 'nconf';
 import apn from 'apn';
 import gcmLib from 'node-gcm'; // works with FCM notifications too
 import logger from './logger';
-import md from 'habitica-markdown';
 
 const FCM_API_KEY = nconf.get('PUSH_CONFIGS_FCM_SERVER_API_KEY');
 
@@ -33,13 +32,6 @@ function sendNotification (user, details = {}) {
   if (!details.title) throw new Error('details.title is required.');
   if (!details.message) throw new Error('details.message is required.');
 
-  let title = details.title
-  let message = details.message
-  if (details.isUserGenerated) {
-    title = md.render(title).replace(/<[^>]+>/g, '').replace(/\n$/, '')
-    message = md.render(details.message).replace(/<[^>]+>/g, '').replace(/\n$/, '')
-  }
-  
   const payload = details.payload ? details.payload : {};
   payload.identifier = details.identifier;
 
@@ -47,8 +39,8 @@ function sendNotification (user, details = {}) {
     switch (pushDevice.type) { // eslint-disable-line default-case
       case 'android':
         // Required for fcm to be received in background
-        payload.title = title;
-        payload.body = message;
+        payload.title = details.title;
+        payload.body = details.message;
 
         if (fcmSender) {
           const message = new gcmLib.Message({
@@ -65,8 +57,8 @@ function sendNotification (user, details = {}) {
         if (apnProvider) {
           const notification = new apn.Notification({
             alert: {
-              title: title,
-              body: message,
+              title: details.title,
+              body: details.message,
             },
             sound: 'default',
             category: details.category,
