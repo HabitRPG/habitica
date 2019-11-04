@@ -179,6 +179,7 @@ api.updateWebhook = {
       webhook.url = url;
     }
 
+    // using this check to allow the setting of empty labels
     if (label !== null && label !== undefined) {
       webhook.label = label;
     }
