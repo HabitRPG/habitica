@@ -120,7 +120,7 @@
     "giftedSubscriptionFull": "你好 <%= username %>，<%= sender %> 赠送给你 <%= monthCount %> 个月的订阅者！",
     "giftedSubscriptionWinterPromo": "<%= username %>你好，！你已受到了我们假期计划的礼物 - <%= monthCount %>个月的订阅！",
     "invitedParty": "你收到了组队邀请",
-    "invitedGuild": "公会邀请",
+    "invitedGuild": "您被邀请进入一个工会",
     "importantAnnouncements": "提醒：别忘记来签到完成任务并得到奖励",
     "weeklyRecaps": "过去一周内你的活跃账号总结 (注意: 由于性能的问题，当前不可用，但我们希望有一个备份并很快再次发送电子邮件！)",
     "onboarding": "设置你的Habitica账户",
@@ -203,7 +203,8 @@
     "goToSettings": "前往设置",
     "usernameVerifiedConfirmation": "您的登录名，<%= username %>，已确认！",
     "usernameNotVerified": "请确认您的登录名。",
-    "changeUsernameDisclaimer": "我们很快就会将登录名转换为唯一的公共用户名。 此用户名将用于邀请，聊天中的提到他人的@和消息。",
+    "changeUsernameDisclaimer": "此用户名将用于收发邀请、私信消息，和版聊中@他人。",
     "verifyUsernameVeteranPet": "当你完成确认后，其中一个退伍军宠物将等着你！",
-    "newPMNotificationTitle": "来自<%= name %>的新消息"
+    "newPMNotificationTitle": "来自<%= name %>的新消息",
+    "subscriptionReminders": "订阅提醒"
 }

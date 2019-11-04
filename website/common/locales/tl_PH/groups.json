@@ -180,7 +180,7 @@
     "inviteMembersHowTo": "Invite people via a valid email or 36-digit User ID. If an email isn't registered yet, we'll invite them to join Habitica.",
     "inviteFriendsNow": "Magimbita ng mga Kaibigan Ngayon",
     "inviteFriendsLater": "Magimbita ng mga Kaibigan Mamaya",
-    "inviteAlertInfo": "Kung ikaw ay mayroon nang mga kaibigan na gumagamit na ng Habitica, imbitahan sila gamit ang a href='http://habitica.wikia.com/wiki/API_Options' target='_blank'>User ID</a> dito.",
+    "inviteAlertInfo": "Kung ikaw ay mayroon nang mga kaibigan na gumagamit na ng Habitica, imbitahan sila gamit ang <a href='http://habitica.wikia.com/wiki/API_Options' target='_blank'>User ID</a> dito.",
     "inviteExistUser": "Magimbita ng mga mga Lumang User",
     "byColon": "Takda ni:",
     "inviteNewUsers": "Magimbita ng mga Bagong User",

@@ -2,6 +2,8 @@
   <b-modal
     id="challenge-modal"
     :title="title"
+    :no-close-on-esc="true"
+    :no-close-on-backdrop="true"
     size="lg"
     @shown="shown"
   >

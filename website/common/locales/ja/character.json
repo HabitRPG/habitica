@@ -217,12 +217,16 @@
     "latestCheckin": "最新チェックイン",
     "editProfile": "プロフィールを編集",
     "challengesWon": "優勝したチャレンジ",
-    "questsCompleted": "完了したクエスト",
+    "questsCompleted": "達成したクエスト",
     "headAccess": "頭部アクセ",
     "backAccess": "背のアクセ",
     "bodyAccess": "胴のアクセ",
     "mainHand": "利き手",
     "offHand": "反対の手",
     "statPoints": "ステータスポイント",
-    "pts": "ポイント"
+    "pts": "ポイント",
+    "purchaseForGold": "<%= cost %> ゴールドで購入しますか？",
+    "chatCastSpellParty": "<%= username %> がパーティーに<%= spell %> をかけました。",
+    "chatCastSpellUser": "<%= username %> が<%= target %>に<%= spell %>をかけました。",
+    "purchasePetItemConfirm": "この購入は、<%= itemText %>ペットを全てかえすために必要なアイテム数より多いようです。よろしいですか？"
 }

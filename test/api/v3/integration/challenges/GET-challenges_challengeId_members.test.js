@@ -206,16 +206,16 @@ describe('GET /challenges/:challengeId/members', () => {
     for (let i = 0; i < 3; i += 1) {
       usersToGenerate.push(generateUser({
         challenges: [challenge._id],
-        'profile.name': `${i}profilename`,
+        'auth.local.username': `${i}username`,
       }));
     }
     const generatedUsers = await Promise.all(usersToGenerate);
-    const profileNames = generatedUsers.map(generatedUser => generatedUser.profile.name);
+    const usernames = generatedUsers.map(generatedUser => generatedUser.auth.local.username);
 
-    const firstProfileName = profileNames[0];
-    const nameToSearch = firstProfileName.substring(0, 4);
+    const firstUsername = usernames[0];
+    const nameToSearch = firstUsername.substring(0, 4);
 
     const response = await user.get(`/challenges/${challenge._id}/members?search=${nameToSearch}`);
-    expect(response[0].profile.name).to.eql(firstProfileName);
+    expect(response[0].auth.local.username).to.eql(firstUsername);
   });
 });

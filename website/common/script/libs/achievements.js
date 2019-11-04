@@ -193,6 +193,8 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'allYourBase', language });
   _addSimple(result, user, { path: 'dustDevil', language });
   _addSimple(result, user, { path: 'aridAuthority', language });
+  _addSimple(result, user, { path: 'monsterMagus', language });
+  _addSimple(result, user, { path: 'undeadUndertaker', language });
 
   _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
   _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });

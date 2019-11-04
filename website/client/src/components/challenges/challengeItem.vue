@@ -6,7 +6,7 @@
           class="svg-icon"
           v-html="icons.gemIcon"
         ></span>
-        <span class="value">{{ challenge.prize }}</span>
+        <span class="value">{{ challenge.prize || 0 }}</span>
       </div>
       <div class="label">
         {{ $t('prize') }}

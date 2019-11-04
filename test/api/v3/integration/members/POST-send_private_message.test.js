@@ -135,6 +135,17 @@ describe('POST /members/send-private-message', () => {
     expect(sendersMessageInSendersInbox).to.exist;
   });
 
+  it('sends a private message with mentions to a user', async () => {
+    const receiver = await generateUser();
+
+    const response = await userToSendMessage.post('/members/send-private-message', {
+      message: `hi @${receiver.auth.local.username}`,
+      toUserId: receiver._id,
+    });
+
+    expect(response.message.text).to.include(`[@${receiver.auth.local.username}](/profile/${receiver._id})`);
+  });
+
   // @TODO waiting for mobile support
   xit('creates a notification with an excerpt if the message is too long', async () => {
     const receiver = await generateUser();

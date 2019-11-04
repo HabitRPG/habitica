@@ -19,7 +19,7 @@
       :key="member._id"
       @click="selectMember(member)"
     >
-      {{ member.profile.name }}
+      @{{ member.auth.local.username }}
     </b-dropdown-item>
   </b-dropdown>
 </template>
