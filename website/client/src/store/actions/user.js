@@ -171,3 +171,15 @@ export function unblock (store, params) {
   store.state.user.data.inbox.blocks.splice(index, 1);
   return axios.post(`/api/v4/user/block/${params.uuid}`);
 }
+
+export function newPrivateMessageTo (store, params) {
+  const { member } = params;
+
+  store.state.privateMessageOptions = {
+    userIdToMessage: member._id,
+    displayName: member.profile.name,
+    username: member.auth.local.username,
+    backer: member.backer,
+    contributor: member.contributor,
+  };
+}

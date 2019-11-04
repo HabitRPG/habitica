@@ -3,7 +3,7 @@
     <span class="dropdown-label">{{ label }}</span>
     <b-dropdown right="right">
       <span
-        slot="text"
+        slot="button-content"
         :class="{'dropdown-icon-item': withIcon}"
       >
         <slot

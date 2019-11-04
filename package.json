@@ -14,7 +14,7 @@
     "amplitude": "^3.5.0",
     "apidoc": "^0.17.5",
     "apn": "^2.2.0",
-    "aws-sdk": "^2.556.0",
+    "aws-sdk": "^2.562.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "compression": "^1.7.4",
@@ -79,7 +79,7 @@
   },
   "scripts": {
     "lint": "eslint --ext .js --fix . && cd website/client && npm run lint",
-    "lint-no-fix": "eslint --ext .js . && cd website/client && npm run lint --no-fix",
+    "lint-no-fix": "eslint --ext .js . && cd website/client && npm run lint-no-fix",
     "test": "npm run lint && gulp test && gulp apidoc",
     "test:build": "gulp test:prepare:build",
     "test:api-v3": "gulp test:api-v3",

@@ -30,13 +30,6 @@
     <div class="d-flex content">
       <div class="w-25 sidebar d-flex flex-column">
         <div class="disable-background">
-          <div
-            v-once
-            class="svg-icon close"
-            aria-hidden="true"
-            @click="close()"
-            v-html="icons.svgClose"
-          ></div>
           <toggle-switch
             :label="optTextSet.switchDescription"
             :checked="this.user.inbox.optOut"
@@ -168,7 +161,13 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        flex: 1;
       }
+
+      .toggle-switch-outer {
+        display: flex;
+      }
+
     }
 
     .modal-body {
@@ -461,7 +460,6 @@ import userLabel from '@/components/userLabel';
 
 import privateMessages from '@/components/messages/messageList';
 import messageIcon from '@/assets/svg/message.svg';
-import svgClose from '@/assets/svg/close.svg';
 import mail from '@/assets/svg/mail.svg';
 import conversationItem from '@/components/messages/conversationItem';
 import faceAvatar from '@/components/faceAvatar';
@@ -484,7 +482,6 @@ export default {
     return {
       icons: Object.freeze({
         messageIcon,
-        svgClose,
         mail,
       }),
       displayCreate: true,
@@ -740,9 +737,6 @@ export default {
       });
 
       this.newMessage = '';
-    },
-    close () {
-      this.$root.$emit('bv::hide::modal', 'messages-modal');
     },
     removeTags (html) {
       const tmp = document.createElement('DIV');
