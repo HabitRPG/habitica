@@ -634,7 +634,10 @@ schema.methods.sendChat = function sendChat (options = {}) {
           return;
         }
       }
-      sendPushNotification(member, { identifier: 'chatMention', title: `${user.profile.name} mentioned you in ${this.name}`, message });
+      sendPushNotification(member, { identifier: 'chatMention',
+                                     title: `${user.profile.name} mentioned you in ${this.name}`,
+                                     message,
+                                     payload: { type: this.type },});
     });
   }
   return newChatMessage;
