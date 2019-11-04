@@ -82,6 +82,20 @@ describe('PUT /user/auth/update-password', async () => {
     });
   });
 
+  it('returns an error when newPassword is too short', async () => {
+    const body = {
+      password,
+      newPassword: '1234567',
+      confirmPassword: '1234567',
+    };
+
+    await expect(user.put(ENDPOINT, body)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
   it('returns an error when confirmPassword is missing', async () => {
     const body = {
       password,
