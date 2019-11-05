@@ -1924,6 +1924,11 @@
     "armorSpecialFall2019WarriorText": "暗夜之翼",
     "armorSpecialKS2019Notes": "这个在内部像狮鹫高贵的内心一样闪闪发光的护甲，鼓励你为获得的成就而感到自豪。增加 <%= con %>点体质。",
     "armorSpecialKS2019Text": "史诗狮鹫护甲",
-    "weaponArmoireShadowMastersMaceNotes": "当你挥舞这个发光的权杖时，黑暗生物将服从你的每一个指令。增加<%= per %>点感知。魔法衣橱：暗影大师套装（3/4）",
-    "weaponArmoireShadowMastersMaceText": "暗影大师的权杖"
+    "weaponArmoireShadowMastersMaceNotes": "当你挥舞这个发光的权杖时，黑暗生物将服从你的每一个指令。增加<%= per %>点感知。魔法衣橱：暗影大师套装（3/4）。",
+    "weaponArmoireShadowMastersMaceText": "暗影大师的权杖",
+    "armorSpecialFall2019MageText": "波吕斐摩斯的罩衫",
+    "armorMystery201910Text": "隐秘的护甲",
+    "armorMystery201909Notes": "你的强硬的外壳会保护你，可是你还应该留意￼松鼠… 没有增益效果。2019 年 9 月订阅赠品。",
+    "armorMystery201909Text": "友好的橡子护甲",
+    "armorSpecialFall2019MageNotes": "它的同名遇到一个悲惨的结果。但是，你不会这么容易被骗！带了这个传奇的罩衫，没人会超过你。增加 <%= int %>点体质。2019年秋季限定装备。"
 }
