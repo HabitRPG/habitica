@@ -413,6 +413,10 @@ api.getUserChallenges = {
       });
     }));
 
+    challenges = await Promise.all(challenges.map((chal) => {
+      return new Challenge(chal)
+    }));
+
     res.respond(200, challenges);
   },
 };
