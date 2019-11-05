@@ -913,6 +913,20 @@ const backgrounds = {
       notes: t('backgroundPumpkinCarriageNotes'),
     },
   },
+  backgrounds112019: {
+    farmers_market: {
+      text: t('backgroundFarmersMarketText'),
+      notes: t('backgroundFarmersMarketNotes'),
+    },
+    flying_in_a_thunderstorm: {
+      text: t('backgroundFlyingInAThunderstormText'),
+      notes: t('backgroundFlyingInAThunderstormNotes'),
+    },
+    potion_shop: {
+      text: t('backgroundPotionShopText'),
+      notes: t('backgroundPotionShopNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
