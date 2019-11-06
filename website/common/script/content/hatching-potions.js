@@ -3,7 +3,7 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import t from './translation';
 
-const CURRENT_SEASON = 'October';
+const CURRENT_SEASON = '_NONE_';
 
 function hasQuestAchievementFunction (key) {
   return user => user.achievements.quests
@@ -105,7 +105,7 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSpooky'),
     limited: true,
-    _season: 'October',
+    _season: '_PENDING_',
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndOctober'),
       previousDate: t('september2017'),
@@ -155,7 +155,7 @@ const premium = {
     value: 2,
     text: t('hatchingPotionGlow'),
     limited: true,
-    _season: 'October',
+    _season: '_PENDING_',
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndOctober'),
       previousDate: t('september2018'),
@@ -215,7 +215,7 @@ const premium = {
     value: 2,
     text: t('hatchingPotionShadow'),
     limited: true,
-    _season: 'October',
+    _season: '_PENDING_',
   },
 };
 

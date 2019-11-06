@@ -9,7 +9,7 @@
     "keepThem": "保留任务",
     "removeThem": "移除任务",
     "challengeCompleted": "这个挑战已被完成，赢家是<span class=\"badge\"><%= user %></span>！你想怎么处理这项任务？",
-    "unsubChallenge": "无效的挑战链接：这项任务本来是一个挑战的一部分，可是你取消了该挑战。你想怎么处理这项任务？",
+    "unsubChallenge": "无效的挑战链接：这项任务本来是一个挑战的一部分，可是你退出了该挑战。你想怎么处理这项任务？",
     "challengeWinner": "赢得了以下挑战",
     "challenges": "挑战",
     "challengesLink": "<a href='http://habitica.fandom.com/wiki/Challenges' target='_blank'>挑戰</a>",
