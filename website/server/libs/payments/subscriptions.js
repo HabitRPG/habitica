@@ -324,4 +324,5 @@ async function cancelSubscription (data) {
 export {
   createSubscription,
   cancelSubscription,
+  revealMysteryItems,
 };
