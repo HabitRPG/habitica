@@ -565,7 +565,7 @@ export default {
             contributor: recentMessage.contributor,
             userStyles: recentMessage.userStyles,
             backer: recentMessage.backer,
-            canLoadMore: true,
+            canLoadMore: false,
             page: 0,
           };
 
