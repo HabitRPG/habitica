@@ -54,7 +54,6 @@
     "uuid": "^3.3.3",
     "validator": "^11.1.0",
     "vue": "^2.6.10",
-
     "vue-cli-plugin-storybook": "^0.6.1",
     "vue-mugen-scroll": "^0.2.6",
     "vue-router": "^3.0.6",
