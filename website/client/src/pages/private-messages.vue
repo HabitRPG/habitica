@@ -210,6 +210,8 @@
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/tiers.scss';
 
+  $contentHeight: 33.5rem;
+
   .header-bar {
     height: 64px;
     box-shadow: 0 3px 12px 0 rgba(26, 24, 29, 0.24);
@@ -257,10 +259,7 @@
   }
 
   #private-message {
-    border-radius: 8px;
-    box-shadow: 0 2px 16px 0 rgba(26, 24, 29, 0.32);
     background-color: #ffffff;
-    margin-bottom: 1rem;
   }
 
   .disable-background {
@@ -279,6 +278,8 @@
   }
 
   .empty-messages {
+    height: $contentHeight;
+
     h3, h4, p {
       color: $gray-400;
       margin: 0rem;
@@ -334,7 +335,7 @@
   }
 
   .message-scroll {
-    height: 33.5rem;
+    height: $contentHeight;
     overflow-x: hidden;
     padding-top: 0.5rem;
 
@@ -384,7 +385,6 @@
     }
 
     button {
-      width: 65px;
       height: 40px;
       border-radius: 2px;
       margin-left: 1.5rem;
@@ -565,7 +565,7 @@ export default {
             contributor: recentMessage.contributor,
             userStyles: recentMessage.userStyles,
             backer: recentMessage.backer,
-            canLoadMore: true,
+            canLoadMore: false,
             page: 0,
           };
 
