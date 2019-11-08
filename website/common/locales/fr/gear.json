@@ -1963,5 +1963,13 @@
     "headMystery201910Notes": "Ces flammes révèlent les secrets arcaniques à vos yeux ! Ne confère aucun bonus. Équipement d'abonnement d'octobre 2019.",
     "headMystery201910Text": "Flamme cryptique",
     "armorMystery201910Notes": "Cette armure énigmatique vous protégera des terreurs visibles e invisibles. Ne confère aucun bonus.Équipement d'abonnement d'octobre 2019.",
-    "armorMystery201910Text": "Armure cryptique"
+    "armorMystery201910Text": "Armure cryptique",
+    "shieldArmoireAlchemistsScaleNotes": "Assurez-vous que vos ingrédients mystiques sont proprement mesurés à l'aide de ce précieux équipement. Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble d'alchimie (objet 4 de 4).",
+    "shieldArmoireAlchemistsScaleText": "Balance d'alchimiste",
+    "headArmoireAlchemistsHatNotes": "Si les chapeaux ne sont pas vraiment nécessaires pour la pratique de l'alchimie, avoir l'air cool ne fera certainement pas de mal ! Augmente la perception de <%= per %>. Armoire enchantée : ensemble d'alchimie (objet 2 de 4).",
+    "headArmoireAlchemistsHatText": "Chapeau d'alchimiste",
+    "armorArmoireAlchemistsRobeNotes": "Nombre d'élixirs dangereux sont nécessaires à la fabrication de métaux et de gemmes arcaniques, et ces lourdes robes vous protégeront du danger et des effets secondaires indésirables ! Augmente la constitution de <%= con %> et la perception de <%= per %>. Armoire enchantée : ensemble d'alchimie (objet 1 de 4).",
+    "armorArmoireAlchemistsRobeText": "Robe d'alchimiste",
+    "weaponArmoireAlchemistsDistillerNotes": "Purifiez les métaux et d'autres composants magiques avec cet instrument en laiton brillant. Augmente la force de <%= str %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'alchimie (objet 3 de 4).",
+    "weaponArmoireAlchemistsDistillerText": "Alambic d'alchimiste"
 }

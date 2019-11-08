@@ -156,7 +156,7 @@
     "optOutOfClasses": "Removeri Opta",
     "optOutOfPMs": "Removeri Opta",
     "chooseClass": "Choose your Class",
-    "chooseClassLearnMarkdown": "[Learn more about Habitica's class system](http://habitica.wikia.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Learn more about Habitica's class system](https://habitica.fandom.com/wiki/Class_System)",
     "optOutOfClassesText": "Can't be bothered with classes? Want to choose later? Opt out - you'll be a warrior with no special abilities. You can read about the class system later on the wiki and enable classes at any time under User Icon > Settings.",
     "selectClass": "Select <%= heroClass %>",
     "select": "Lege",
@@ -224,5 +224,7 @@
     "mainHand": "Main-Hand",
     "offHand": "Off-Hand",
     "statPoints": "Stat Points",
-    "pts": "pts"
+    "pts": "pts",
+    "chatCastSpellParty": "<%= username %> <%= spell %> conturbernio incantat.",
+    "chatCastSpellUser": "<%= username %> <%= spell %> super <%= target %> incantat."
 }
