@@ -175,7 +175,7 @@ async function inviteByEmail (invite, group, inviter, req, res) {
       sentAt: Date.now(), // so we can let it expire
       cancelledPlan,
     });
-    const link = `/static/front?groupInvite=${encrypt(groupQueryString)}`;
+    const link = `/static/home?groupInvite=${encrypt(groupQueryString)}`;
 
     const variables = [
       { name: 'LINK', content: link },
