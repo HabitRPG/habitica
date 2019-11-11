@@ -170,6 +170,35 @@ const basicAchievs = {
 };
 Object.assign(achievementsData, basicAchievs);
 
+const onboardingAchievs = {
+  createdTask: {
+    icon: 'achievement-createdTask',
+    titleKey: 'createdTaskName',
+    textKey: 'createdTaskText',
+  },
+  completedTask: {
+    icon: 'achievement-completedTask',
+    titleKey: 'completedTaskName',
+    textKey: 'completedTaskText',
+  },
+  hatchedPet: {
+    icon: 'achievement-hatchedPet',
+    titleKey: 'hatchedPetName',
+    textKey: 'hatchedPetText',
+  },
+  fedPet: {
+    icon: 'achievement-fedPet',
+    titleKey: 'fedPetName',
+    textKey: 'fedPetText',
+  },
+  purchasedEquipment: {
+    icon: 'achievement-purchasedEquipment',
+    titleKey: 'purchasedEquipmentName',
+    textKey: 'purchasedEquipmentText',
+  },
+};
+Object.assign(achievementsData, onboardingAchievs);
+
 const specialAchievs = {
   contributor: {
     icon: 'achievement-boot',
