@@ -35,4 +35,20 @@
   "achievementUndeadUndertaker": "Undead Undertaker",
   "achievementUndeadUndertakerText": "Has tamed all Zombie Mounts.",
   "achievementUndeadUndertakerModalText": "You tamed all the Zombie Mounts!"
+
+  "achievementCreatedTask": "Created Task",
+  "achievementCreatedTaskText": "Created Task Text",
+  "achievementCreatedTaskModalText": "Created Task Model Text",
+  "achievementCompletedTask": "Completed Task",
+  "achievementCompletedTaskText": "Completed Task Text",
+  "achievementCompletedTaskModalText": "Completed Task Model Text",
+  "achievementHatchedPet": "Hatched Pet",
+  "achievementHatchedPetText": "Hatched Pet Text",
+  "achievementHatchedPetModalText": "Hatched Pet Model Text",
+  "achievementFedPet": "Fed Pet",
+  "achievementFedPetText": "Fed Pet Text",
+  "achievementFedPetModalText": "Fed Pet Model Text",
+  "achievementPurchasedEquipment": "Purchased Equipment",
+  "achievementPurchasedEquipmentText": "Purchased Equipment Text",
+  "achievementPurchasedEquipmentModalText": "Purchased Equipment Model Text"
 }
