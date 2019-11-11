@@ -132,6 +132,13 @@ export default new Schema({
     kickstarter2019: Boolean,
     monsterMagus: Boolean,
     undeadUndertaker: Boolean,
+
+    // Onboarding Guide
+    createdTask: Boolean,
+    completedTask: Boolean,
+    hatchedPet: Boolean,
+    fedPet: Boolean,
+    purchasedEquipment: Boolean,
   },
 
   backer: {
