@@ -8,16 +8,16 @@ const featuredItems = {
       path: 'armoire',
     },
     {
-      type: 'eggs',
-      path: 'eggs.PandaCub',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Ember',
     },
     {
-      type: 'hatchingPotions',
-      path: 'hatchingPotions.Shade',
+      type: 'premiumHatchingPotion',
+      path: 'premiumHatchingPotions.Thunderstorm',
     },
     {
       type: 'food',
-      path: 'food.Potatoe',
+      path: 'food.Saddle',
     },
   ],
   quests: [
