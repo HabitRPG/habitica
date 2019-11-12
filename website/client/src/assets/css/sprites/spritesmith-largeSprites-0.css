@@ -6,19 +6,25 @@
 }
 .promo_costume_achievement {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -365px;
+  background-position: 0px -513px;
   width: 144px;
   height: 156px;
 }
-.promo_mystery_201910 {
+.promo_ember_thunderstorm_potions {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -477px -148px;
+  width: 423px;
+  height: 147px;
+}
+.promo_mystery_201910 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -365px;
   width: 282px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -760px -148px;
+  background-position: -283px -365px;
   width: 96px;
   height: 69px;
 }
