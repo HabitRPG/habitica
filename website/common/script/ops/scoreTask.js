@@ -341,6 +341,11 @@ export default function scoreTask (options = {}, req = {}) {
     }
   }
 
+  if (!user.achievements.completedTask && cron === false) {
+    user.achievements.completedTask = true;
+    if (user.addNotification) user.addNotification('ACHIEVEMENT_COMPLETED_TASK');
+  }
+
   req.yesterDailyScored = task.yesterDailyScored;
   updateStats(user, stats, req);
   return [delta];

@@ -49,6 +49,11 @@ export default function hatch (user, req = {}) {
     user.markModified('items.hatchingPotions');
   }
 
+  if (!user.achievements.hatchedPet) {
+    user.achievements.hatchedPet = true;
+    if (user.addNotification) user.addNotification('ACHIEVEMENT_HATCHED_PET');
+  }
+
   forEach(content.animalColorAchievements, achievement => {
     if (!user.achievements[achievement.petAchievement]) {
       const petIndex = findIndex(

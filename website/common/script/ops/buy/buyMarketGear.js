@@ -67,6 +67,11 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslin
       message = handleTwoHanded(user, item, undefined, req);
     }
 
+    if (!user.achievements.purchasedEquipment) {
+      user.achievements.purchasedEquipment = true;
+      if (user.addNotification) user.addNotification('ACHIEVEMENT_PURCHASED_EQUIPMENT');
+    }
+
     removePinnedGearAddPossibleNewOnes(user, `gear.flat.${item.key}`, item.key);
 
     if (item.last) ultimateGear(user);

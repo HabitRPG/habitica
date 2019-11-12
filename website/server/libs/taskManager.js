@@ -103,6 +103,11 @@ export async function createTasks (req, res, options = {}) {
       newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.default;
     } else {
       newTask.userId = user._id;
+
+      if (!user.achievements.createdTask) {
+        user.achievements.createdTask = true;
+        user.addNotification('ACHIEVEMENT_CREATED_TASK');
+      }
     }
 
     setNextDue(newTask, user);
