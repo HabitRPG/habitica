@@ -227,6 +227,31 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
     modalId: 'generic-achievement',
   },
+  ACHIEVEMENT_CREATED_TASK: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementCreatedTask')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_COMPLETED_TASK: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementCompletedTask')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_HATCHED_PET: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementHatchedPet')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_FED_PET: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementFedPet')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_PURCHASED_EQUIPMENT: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPurchasedEquipment')}`,
+    modalId: 'generic-achievement',
+  },
 };
 
 export default {
