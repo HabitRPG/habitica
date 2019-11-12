@@ -104,7 +104,7 @@
     "allocatePerPop": "增加一点感知",
     "allocateInt": "分配到智力的点数：",
     "allocateIntPop": "增加一点智力",
-    "noMoreAllocate": "现在你已经达到了100级，你不会再获得任何属性点。你可以继续升级，或者使用 <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>重生球</a>从1级开始新的冒险。现在重生球在市场免费提供。",
+    "noMoreAllocate": "现在你已经达到了100级，你不会再获得任何属性点。你可以继续升级，或者使用 <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>重生球</a>从1级开始新的冒险！",
     "stats": "状态",
     "achievs": "成就",
     "strength": "力量",
