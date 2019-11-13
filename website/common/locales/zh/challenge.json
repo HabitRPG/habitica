@@ -134,5 +134,6 @@
     "viewProgress": "查看进度",
     "selectMember": "选择成员",
     "confirmKeepChallengeTasks": "你要保留这个挑战嗎?",
-    "selectParticipant": "选择一个参与者"
+    "selectParticipant": "选择一个参与者",
+    "createChallengeCloneTasks": "复制挑战任务"
 }

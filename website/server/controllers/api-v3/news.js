@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NOVEMBER BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'THUNDERSTORM AND EMBER HATCHING POTIONS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,24 +31,23 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/5/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/12/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_201911 center-block"></div>
+        <div class="promo_ember_thunderstorm_potions center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can fly
-          through a Tumultuous Thunderstorm, find only the strongest elixirs at the Potion Shop,
-          and wander through a colorful Farmer's Market. Check them out under User Icon >
-          Backgrounds!
+          Two of your favorite Magic Hatching Potions are back! Between now and November 30, you
+          can buy Thunderstorm and Ember Hatching Potions from
+          <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg.
+          (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets
+          aren't picky, so they'll happily eat any kind of food that you feed them!
         </p>
         <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Alchemist Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
+          After they're gone, it will be at least a year before the Ember or Thunderstorm Hatching
+          Potions are available again, so be sure to get them now!
         </p>
-        <div class="small mb-3">
-          by Vikte, QuartzFox, Gully, Aspiring Advocate, Lt. Cabel, and SabreCat
-        </div>
+        <div class="small mb-3">by Balduranne and SabreCat</div>
       </div>
       `,
     });
