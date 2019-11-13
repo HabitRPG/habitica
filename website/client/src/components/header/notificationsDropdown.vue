@@ -41,6 +41,9 @@
         >{{ $t('dismissAll') }}</a>
       </div>
       <world-boss />
+      <onboarding-guide
+        v-if="showOnboardingGuide"
+      />
       <component
         :is="notification.type"
         v-for="notification in notifications"
@@ -132,6 +135,7 @@ import VERIFY_USERNAME from './notifications/verifyUsername';
 import ACHIEVEMENT_JUST_ADD_WATER from './notifications/justAddWater';
 import ACHIEVEMENT_LOST_MASTERCLASSER from './notifications/lostMasterclasser';
 import ACHIEVEMENT_MIND_OVER_MATTER from './notifications/mindOverMatter';
+import OnboardingGuide from './onboardingGuide';
 
 export default {
   components: {
@@ -158,6 +162,7 @@ export default {
     ACHIEVEMENT_MIND_OVER_MATTER,
     WorldBoss: WORLD_BOSS,
     VERIFY_USERNAME,
+    OnboardingGuide,
   },
   data () {
     return {
@@ -274,6 +279,15 @@ export default {
     },
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
+    },
+    showOnboardingGuide () {
+      return (
+        !this.user.achievements.createdTask
+        || !this.user.achievements.completedTask
+        || !this.user.achievements.hatchedPet
+        || !this.user.achievements.fedPet
+        || !this.user.achievements.purchasedEquipment
+      );
     },
   },
   methods: {

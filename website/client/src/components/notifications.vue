@@ -231,26 +231,46 @@ const NOTIFICATIONS = {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementCreatedTask')}`,
     modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementCreatedTask'),
+    },
   },
   ACHIEVEMENT_COMPLETED_TASK: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementCompletedTask')}`,
     modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementCompletedTask'),
+    },
   },
   ACHIEVEMENT_HATCHED_PET: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementHatchedPet')}`,
     modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementHatchedPet'),
+    },
   },
   ACHIEVEMENT_FED_PET: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementFedPet')}`,
     modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementFedPet'),
+    },
   },
   ACHIEVEMENT_PURCHASED_EQUIPMENT: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementPurchasedEquipment')}`,
     modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementPurchasedEquipment'),
+    },
   },
 };
 
