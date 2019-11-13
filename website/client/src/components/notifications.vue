@@ -204,7 +204,7 @@ const NOTIFICATIONS = {
     modalId: 'generic-achievement',
     data: {
       message: $t => $t('achievement'),
-      modalText: $t => $t('mountAchievement'),
+      modalText: $t => $t('beastAchievement'),
     },
   },
   ACHIEVEMENT_MOUNT_MASTER: {
