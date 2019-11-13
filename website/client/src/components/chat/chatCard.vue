@@ -5,7 +5,7 @@
       class="mentioned-icon"
     ></div>
     <div
-      v-if="!inbox && user.contributor.admin && msg.flagCount"
+      v-if="user.contributor.admin && msg.flagCount"
       class="message-hidden"
     >
       {{ flagCountDescription }}
@@ -36,21 +36,12 @@
         class="text"
         v-html="atHighlight(parseMarkdown(msg.text))"
       ></div>
-      <div
-        v-if="isMessageReported && (inbox === true)"
-        class="reported"
-      >
-        <span v-once>{{ $t('reportedMessage') }}</span>
-        <br>
-        <span v-once>{{ $t('canDeleteNow') }}</span>
-      </div>
       <hr>
       <div
         v-if="msg.id"
         class="d-flex"
       >
         <div
-          v-if="!inbox"
           class="action d-flex align-items-center"
           @click="copyAsTodo(msg)"
         >
@@ -61,7 +52,7 @@
           <div>{{ $t('copyAsTodo') }}</div>
         </div>
         <div
-          v-if="(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== 'system'))
+          v-if="(user.flags.communityGuidelinesAccepted && msg.uuid !== 'system')
             && (!isMessageReported || user.contributor.admin)"
           class="action d-flex align-items-center"
           @click="report(msg)"
@@ -76,7 +67,7 @@
           </div>
         </div>
         <div
-          v-if="msg.uuid === user._id || inbox || user.contributor.admin"
+          v-if="msg.uuid === user._id || user.contributor.admin"
           class="action d-flex align-items-center"
           @click="remove()"
         >
@@ -90,7 +81,6 @@
           </div>
         </div>
         <div
-          v-if="!inbox"
           v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}"
           class="ml-auto d-flex"
         >
@@ -120,7 +110,7 @@
             ></div>
           </div>
         </div>
-        <span v-if="!msg.likes[user._id] && !inbox">{{ $t('like') }}</span>
+        <span v-if="!msg.likes[user._id]">{{ $t('like') }}</span>
       </div>
     </div>
   </div>
