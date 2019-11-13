@@ -151,7 +151,13 @@ export default {
         'blackTopFrame', 'blueTopFrame', 'greenTopFrame', 'pinkTopFrame', 'redTopFrame', 'whiteTopFrame', 'yellowTopFrame',
         'blackHalfMoon', 'blueHalfMoon', 'greenHalfMoon', 'pinkHalfMoon', 'redHalfMoon', 'whiteHalfMoon', 'yellowHalfMoon',
       ];
-      const options = keys.map(key => {
+      const noneOption = this.createGearItem(0, 'eyewear', 'base');
+      noneOption.none = true;
+      const options = [
+        noneOption,
+      ];
+
+      for (const key of keys) {
         const newKey = `eyewear_special_${key}`;
         const option = {};
         option.key = key;
@@ -164,8 +170,9 @@ export default {
 
           return this.equip(newKey, type);
         };
-        return option;
-      });
+        options.push(option);
+      }
+
       return options;
     },
     freeShirts () {
@@ -179,20 +186,18 @@ export default {
     },
     headbands () {
       const keys = ['blackHeadband', 'blueHeadband', 'greenHeadband', 'pinkHeadband', 'redHeadband', 'whiteHeadband', 'yellowHeadband'];
-      const options = keys.map(key => {
-        const newKey = `headAccessory_special_${key}`;
-        const option = {};
-        option.key = key;
-        option.active = this.user.preferences.costume
-          ? this.user.items.gear.costume.headAccessory === newKey
-          : this.user.items.gear.equipped.headAccessory === newKey;
-        option.class = `headAccessory_special_${option.key} headband`;
-        option.click = () => {
-          const type = this.user.preferences.costume ? 'costume' : 'equipped';
-          return this.equip(newKey, type);
-        };
-        return option;
-      });
+      const noneOption = this.createGearItem(0, 'headAccessory', 'base', 'headband');
+      noneOption.none = true;
+      const options = [
+        noneOption,
+      ];
+
+      for (const key of keys) {
+        const option = this.createGearItem(key, 'headAccessory', 'special', 'headband');
+
+        options.push(option);
+      }
+
       return options;
     },
     chairs () {
@@ -234,7 +239,14 @@ export default {
       // user purchases object, this is not recomputed. Hack for now
         let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
       const keys = this.animalItemKeys[category];
-      const options = keys.map(key => {
+
+      const noneOption = this.createGearItem(0, category, 'base', category);
+      noneOption.none = true;
+      const options = [
+        noneOption,
+      ];
+
+      for (const key of keys) {
         const newKey = `${category}_special_${key}`;
         const userPurchased = this.user.items.gear.owned[newKey];
 
@@ -265,8 +277,10 @@ export default {
           const type = this.user.preferences.costume ? 'costume' : 'equipped';
           return this.equip(newKey, type);
         };
-        return option;
-      });
+
+        options.push(option);
+      }
+
       return options;
     },
     animalItemsUnlockString (category) {
@@ -284,6 +298,36 @@ export default {
         if (this.user.items.gear.owned[`${category}_special_${key}`] === undefined) own = false;
       });
       return own;
+    },
+    createGearItem (key, gearType, subGearType, additionalClass) {
+      const newKey = `${gearType}_${subGearType ? `${subGearType}_` : ''}${key}`;
+      const option = {};
+      option.key = key;
+      option.active = this.user.preferences.costume
+        ? this.user.items.gear.costume[gearType] === newKey
+        : this.user.items.gear.equipped[gearType] === newKey;
+      option.class = `${newKey} ${additionalClass}`;
+      option.click = () => {
+        const type = this.user.preferences.costume ? 'costume' : 'equipped';
+        const currentlyEquipped = this.user.items.gear[type][gearType];
+
+        // no need to call api/equip-op if its already selected
+        if (currentlyEquipped === newKey) {
+          return;
+        }
+
+        let keyToEquip = newKey;
+
+        if (option.none) {
+          // you need to "equip" the current selected AGAIN in order to un-equip it
+          // the "none-key" isn't allowed to be sent
+          keyToEquip = currentlyEquipped;
+        }
+
+        this.equip(keyToEquip, type);
+      };
+
+      return option;
     },
   },
 };
