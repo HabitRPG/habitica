@@ -1751,5 +1751,16 @@
     "weaponSpecialSpring2019HealerText": "Jarní píseň",
     "weaponSpecialSpring2019MageText": "Jantarová hůl",
     "weaponSpecialSpring2019WarriorText": "Stonkový meč",
-    "weaponSpecialSpring2019RogueText": "Blesk"
+    "weaponSpecialSpring2019RogueText": "Blesk",
+    "weaponSpecialSummer2019MageText": "Výjimečný výkvět",
+    "weaponSpecialSummer2019WarriorNotes": "Teď bojuješ se střepinami! Zvyšuje sílu o <%= str %>. Limitovaná edice Letní výzbroj 2019.",
+    "weaponSpecialSummer2019WarriorText": "Červený korál",
+    "weaponSpecialSummer2019RogueNotes": "Tato starověká a impozantní zbraň ti pomůže vyhrát každou podvodní bitvu. Zvyšuje sílu o <%= str %>. Limitovaná edice Letní výzbroj 2019.",
+    "weaponSpecialSummer2019RogueText": "Kmetská kotva",
+    "weaponSpecialSpring2019HealerNotes": "Tvá píseň a květinách a dešti uklidní duše těch, jež poslouchají. Zvyšuje inteligenci o <%= int %>. Limitovaná edice Jarní výzbroj 2019.",
+    "weaponSpecialSpring2019MageNotes": "V kameni na konci této hole je moskyt! Možná obsahuje DNA dinosaurů. Zvyšuje inteligenci o <%= int %> a vnímání o <%= per %>. Limitovaná edice Jarní výzbroj 2019.",
+    "weaponSpecialSpring2019WarriorNotes": "Špatné návyky se schovávají před tímto zeleným ostřím. Zvýší sílu o <%= str %>. Limitovaná edice Jarní výzbroj 2019.",
+    "weaponSpecialSpring2019RogueNotes": "Tyto zbraně obsahují sílu nebe a deště. Doporučujeme, že je nebudeš používat ve vodě. Zvýší sílu o <%= str %>. Limitovaná edice Jarní výstroj 2019.",
+    "weaponSpecialKS2019Notes": "Zakulacená jako zobák a drápy gryfona, ti tato zbraň připomene Tvou sílu, když se úkol před tebou zdá skličujicí. Zvýší tvou sílu o <%= str %>.",
+    "weaponSpecialKS2019Text": "Mytická gryfonní halapartna"
 }
