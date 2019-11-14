@@ -30,7 +30,7 @@ shops.getMarketShop = function getMarketShop (user, language) {
     categories: shops.getMarketCategories(user, language),
     featured: {
       text: i18n.t('featuredItems'),
-      items: featuredItems.market.map(i => getItemInfo(user, i.type, get(content, i.path))),
+      items: featuredItems.market().map(i => getItemInfo(user, i.type, get(content, i.path))),
     },
   };
 };
