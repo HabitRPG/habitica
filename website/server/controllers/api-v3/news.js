@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'THUNDERSTORM AND EMBER HATCHING POTIONS';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW DINOSAUR PET QUEST BUNDLE AND WIKI SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,23 +31,38 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/12/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_ember_thunderstorm_potions center-block"></div>
+        <div class="promo_delightful_dinos center-block"></div>
+        <h3>New Pet Quest Bundle: Delightful Dinos</h3>
         <p>
-          Two of your favorite Magic Hatching Potions are back! Between now and November 30, you
-          can buy Thunderstorm and Ember Hatching Potions from
-          <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg.
-          (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets
-          aren't picky, so they'll happily eat any kind of food that you feed them!
+          If you are looking to add some dinosaur pets to your Habitica stable, life, uh, finds a
+          way! From now until November 30, you can purchase the Delightful Dinos Pet Quest Bundle
+          and receive the Pterodactyl, Triceratops, and T-Rex (The Dinosaur Unearthed) quests, all
+          for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them
+          separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!
         </p>
-        <p>
-          After they're gone, it will be at least a year before the Ember or Thunderstorm Hatching
-          Potions are available again, so be sure to get them now!
+        <div class="small">by SabreCat and Beffymaroo</div>
+        <div class="small">Art by Baconsaur, Eevachu, UncommonCriminal, Kiwibot, McCoyly,
+          plumilla, Seraphina, PainterProphet, Stefalupagus, Katy133, Edge, Willow The Witty,
+          Lilith of Alfheim, Procyon, GeraldThePixel, and Archeia
+        </div>
+        <div class="small mb-3">Writing by Lemoness, Daniel the Bard, Lilith of Alfheim, and Ali
+          Stewart
+        </div>
+        <div class="scene_habitica_map center-block"></div>
+        <h3>Blog Post: Places in Habitica</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/11/14/places-in-habitica/'
+          target='_blank'>featured Wiki article</a> is about Places in Habitica! We hope that it
+          will help you as you gamify your tasks. Be sure to check it out, and let us know what 
+          you think by reaching out on <a href='https://twitter.com/habitica'
+          target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com'
+          target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica'
+          target='_blank'>Facebook</a>.
         </p>
-        <div class="small mb-3">by Balduranne and SabreCat</div>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
