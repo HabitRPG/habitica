@@ -1278,6 +1278,9 @@ export default {
       if (this.$route.path !== '/') {
         this.$router.push('/');
       }
+
+      // NOTE: it's important this flag is set AFTER the onboarding default tasks
+      // have been created or it'll break the onboarding guide achievement for creating a task
       this.$store.dispatch('user:set', {
         'flags.welcomed': true,
       });
