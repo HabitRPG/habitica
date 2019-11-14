@@ -11,6 +11,7 @@ import {
   NotFound,
 } from '../libs/errors';
 import errorMessage from '../libs/errorMessage';
+import { checkOnboardingStatus } from '../libs/onboarding';
 
 function evolve (user, pet, req) {
   user.items.pets[pet.key] = -1;
@@ -92,6 +93,7 @@ export default function feed (user, req = {}) {
     if (!user.achievements.fedPet) {
       user.achievements.fedPet = true;
       if (user.addNotification) user.addNotification('ACHIEVEMENT_FED_PET');
+      checkOnboardingStatus(user);
     }
   }
 

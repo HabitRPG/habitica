@@ -11,6 +11,7 @@ import {
   NotFound,
 } from '../libs/errors';
 import errorMessage from '../libs/errorMessage';
+import { checkOnboardingStatus } from '../libs/onboarding';
 
 export default function hatch (user, req = {}) {
   const egg = get(req, 'params.egg');
@@ -52,6 +53,7 @@ export default function hatch (user, req = {}) {
   if (!user.achievements.hatchedPet) {
     user.achievements.hatchedPet = true;
     if (user.addNotification) user.addNotification('ACHIEVEMENT_HATCHED_PET');
+    checkOnboardingStatus(user);
   }
 
   forEach(content.animalColorAchievements, achievement => {

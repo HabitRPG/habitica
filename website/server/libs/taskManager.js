@@ -109,6 +109,7 @@ export async function createTasks (req, res, options = {}) {
       if (!user.achievements.createdTask && user.flags.welcomed) {
         user.achievements.createdTask = true;
         user.addNotification('ACHIEVEMENT_CREATED_TASK');
+        shared.onboarding.checkOnboardingStatus(user);
       }
     }
 

@@ -32,45 +32,26 @@ import {
 
 // TODO under api.libs.statHelpers?
 import * as statHelpers from './statHelpers';
-
+import * as onboarding from './libs/onboarding';
 import splitWhitespace from './libs/splitWhitespace';
-
 import refPush from './libs/refPush';
-
 import planGemLimits from './libs/planGemLimits';
-
 import preenTodos from './libs/preenTodos';
-
 import updateStore from './libs/updateStore';
-
 import inAppRewards from './libs/inAppRewards';
-
 import uuid from './libs/uuid';
-
 import taskDefaults from './libs/taskDefaults';
-
 import percent from './libs/percent';
-
 import gold from './libs/gold';
-
 import silver from './libs/silver';
-
 import noTags from './libs/noTags';
-
 import appliedTags from './libs/appliedTags';
-
 import pickDeep from './libs/pickDeep';
-
 import * as count from './count';
-
 import statsComputed from './libs/statsComputed';
-
 import shops from './libs/shops';
-
 import achievements from './libs/achievements';
-
 import randomVal from './libs/randomVal';
-
 import hasClass from './libs/hasClass';
 
 import autoAllocate from './fns/autoAllocate';
@@ -158,6 +139,7 @@ api.shops = shops;
 api.achievements = achievements;
 api.randomVal = randomVal;
 api.hasClass = hasClass;
+api.onboarding = onboarding;
 
 api.fns = {
   autoAllocate,

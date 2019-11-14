@@ -1,12 +1,12 @@
 .Pet-TRex-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -82px 0px;
+  background-position: 0px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-TRex-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: 0px -700px;
+  background-position: -82px 0px;
   width: 81px;
   height: 99px;
 }
@@ -420,7 +420,7 @@
 }
 .Pet-Wolf-Ghost {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: 0px 0px;
+  background-position: 0px -700px;
   width: 81px;
   height: 99px;
 }
@@ -630,13 +630,13 @@
 }
 .Pet_HatchingPotion_Aquatic {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -902px -669px;
+  background-position: -902px -600px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -984px 0px;
+  background-position: -902px -669px;
   width: 68px;
   height: 68px;
 }
@@ -738,7 +738,7 @@
 }
 .Pet_HatchingPotion_Peppermint {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -902px -600px;
+  background-position: -984px 0px;
   width: 68px;
   height: 68px;
 }

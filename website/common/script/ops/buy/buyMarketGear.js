@@ -2,6 +2,7 @@ import get from 'lodash/get';
 import pick from 'lodash/pick';
 import content from '../../content/index';
 import splitWhitespace from '../../libs/splitWhitespace';
+import { checkOnboardingStatus } from '../../libs/onboarding';
 import {
   BadRequest,
   NotAuthorized,
@@ -70,6 +71,7 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslin
     if (!user.achievements.purchasedEquipment) {
       user.achievements.purchasedEquipment = true;
       if (user.addNotification) user.addNotification('ACHIEVEMENT_PURCHASED_EQUIPMENT');
+      checkOnboardingStatus(user);
     }
 
     removePinnedGearAddPossibleNewOnes(user, `gear.flat.${item.key}`, item.key);
