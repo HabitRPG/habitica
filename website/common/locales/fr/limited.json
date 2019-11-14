@@ -143,7 +143,7 @@
     "dateEndAugust": "31 août",
     "dateEndSeptember": "21 septembre",
     "dateEndOctober": "31 octobre",
-    "dateEndNovember": "3 décembre",
+    "dateEndNovember": "30 novembre",
     "dateEndJanuary": "31 janvier",
     "dateEndFebruary": "28 février",
     "winterPromoGiftHeader": "OFFREZ UN ABONNEMENT ET OBTENEZ-EN UN GRATUIT !",
@@ -167,5 +167,6 @@
     "september2018": "Septembre 2018",
     "september2017": "Septembre 2017",
     "fall2019LichSet": "Licher (Guérisseur)",
-    "fall2019OperaticSpecterSet": "Fantôme de l'opéra (Voleur)"
+    "fall2019OperaticSpecterSet": "Fantôme de l'opéra (Voleur)",
+    "augustYYYY": "Août <%= year %>"
 }
