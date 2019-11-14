@@ -491,10 +491,14 @@ export default {
     },
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
+      this.challenge.memberCount += 1;
+      this.members = [this.user, ...this.members];
       await this.$store.dispatch('challenges:joinChallenge', { challengeId: this.searchId });
       await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
     },
     async leaveChallenge () {
+      this.challenge.memberCount -= 1;
+      this.members = this.members.filter(member => member._id !== this.user._id);
       this.$root.$emit('bv::show::modal', 'leave-challenge-modal');
     },
     closeChallenge () {
