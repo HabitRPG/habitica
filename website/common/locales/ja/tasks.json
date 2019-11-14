@@ -49,7 +49,7 @@
     "attributeAllocation": "能力値の割り当て",
     "attributeAllocationHelp": "能力値の自動割り当ては、レベルアップで入手した能力値ポイントを、Habitica独自の手法によって自動的にステータスに割り振るオプションです。<br/><br/>プロフィールのデータ＞ステータスの項目で、自動割り当てを設定することが可能です。",
     "progress": "進捗",
-    "daily": "日間",
+    "daily": "日課",
     "dailies": "日課",
     "newDaily": "新しい日課",
     "newDailyBulk": "新しい日課 (1行に1つ)",
