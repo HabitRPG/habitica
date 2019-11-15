@@ -129,7 +129,8 @@ export async function update (req, res, { isV3 = false }) {
 
       const requestTags = val;
       const currentTags = user.tags;
-      const currentPartyTag = user.party.id && user.tags.find(tag => tag.group && tag.id === user.party.id);
+      const tagFilter = tag => tag.group && tag.id === user.party._id;
+      const currentPartyTag = user.party._id && user.tags.find(tagFilter);
       // Force currentPartyTag in tag list if it was ommited, can not remove current party tag
       let nextTags = currentPartyTag ? _.unionBy(requestTags, [currentPartyTag], 'id') : requestTags;
       // Remove duplicate ids
