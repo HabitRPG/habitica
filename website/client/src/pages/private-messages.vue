@@ -1,5 +1,6 @@
 <template>
   <div id="private-message">
+    <div class="floating-header-shadow"></div>
     <div class="header-bar d-flex w-100">
       <div class="d-flex w-25 left-header">
         <div
@@ -46,19 +47,21 @@
         </div>
         <div
           v-if="filtersConversations.length === 0"
-          class="empty-messages m-auto text-center"
+          class="empty-messages m-auto text-center empty-sidebar"
         >
-          <div
-            v-once
-            class="svg-icon envelope"
-            v-html="icons.messageIcon"
-          ></div>
-          <h4 v-once>
-            {{ $t('emptyMessagesLine1') }}
-          </h4>
-          <p v-if="!user.flags.chatRevoked">
-            {{ $t('emptyMessagesLine2') }}
-          </p>
+          <div>
+            <div
+              v-once
+              class="svg-icon envelope"
+              v-html="icons.messageIcon"
+            ></div>
+            <h4 v-once>
+              {{ $t('emptyMessagesLine1') }}
+            </h4>
+            <p v-if="!user.flags.chatRevoked">
+              {{ $t('emptyMessagesLine2') }}
+            </p>
+          </div>
         </div>
         <div
           v-if="filtersConversations.length > 0"
@@ -117,35 +120,37 @@
           <h4>{{ $t('PMDisabledCaptionTitle') }}</h4>
           <p>{{ $t('PMDisabledCaptionText') }}</p>
         </div>
-        <div
-          v-if="selectedConversation.key && !user.flags.chatRevoked"
-          class="new-message-row d-flex align-items-center"
-        >
-          <textarea
-            v-model="newMessage"
-            class="flex-fill"
-            :placeholder="$t('needsTextPlaceholder')"
-            maxlength="3000"
-            :class="{'has-content': newMessage !== ''}"
-            @keyup.ctrl.enter="sendPrivateMessage()"
-          ></textarea>
-        </div>
-        <div
-          v-if="selectedConversation.key && !user.flags.chatRevoked"
-          class="sub-new-message-row d-flex"
-        >
+        <div class="floating-message-input w-75">
           <div
-            v-once
-            class="guidelines flex-fill"
-            v-html="$t('communityGuidelinesIntro')"
-          ></div>
-          <button
-            class="btn btn-primary"
-            :class="{'disabled':newMessage === ''}"
-            @click="sendPrivateMessage()"
+            v-if="selectedConversation.key && !user.flags.chatRevoked"
+            class="new-message-row d-flex align-items-center"
           >
-            {{ $t('send') }}
-          </button>
+            <textarea
+              v-model="newMessage"
+              class="flex-fill"
+              :placeholder="$t('needsTextPlaceholder')"
+              maxlength="3000"
+              :class="{'has-content': newMessage !== ''}"
+              @keyup.ctrl.enter="sendPrivateMessage()"
+            ></textarea>
+          </div>
+          <div
+            v-if="selectedConversation.key && !user.flags.chatRevoked"
+            class="sub-new-message-row d-flex"
+          >
+            <div
+              v-once
+              class="guidelines flex-fill"
+              v-html="$t('communityGuidelinesIntro')"
+            ></div>
+            <button
+              class="btn btn-primary"
+              :class="{'disabled':newMessage === ''}"
+              @click="sendPrivateMessage()"
+            >
+              {{ $t('send') }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -211,10 +216,10 @@
   @import '~@/assets/scss/tiers.scss';
 
   $contentHeight: 33.5rem;
+  $background: $white;
 
   .header-bar {
     height: 64px;
-    box-shadow: 0 3px 12px 0 rgba(26, 24, 29, 0.24);
     background-color: $white;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -259,14 +264,14 @@
   }
 
   #private-message {
-    background-color: #ffffff;
+    background-color: $background;
+    position: relative;
   }
 
   .disable-background {
     height: 44px;
     background-color: $gray-600;
     padding: 0.75rem 1.5rem;
-    box-shadow: inset 0px 8px 12px -9px rgba(26,24,29,0.24);
   }
 
 
@@ -442,6 +447,29 @@
     width: 60%;
     display: inline-block;
     margin-left: 1em;
+  }
+
+  .empty-sidebar {
+    display: flex;
+    align-items: center;
+  }
+
+  .floating-message-input {
+    background: $background;
+    position: fixed;
+    bottom: 0;
+  }
+
+  .floating-header-shadow {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 64px;
+    right: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    box-shadow: 0 3px 12px 0 rgba(26, 24, 29, 0.24);
   }
 </style>
 

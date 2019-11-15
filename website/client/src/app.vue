@@ -86,7 +86,7 @@
               <router-view />
             </div>
           </div>
-          <app-footer />
+          <app-footer v-if="!hideFooter" />
           <audio
             id="sound"
             ref="sound"
@@ -311,6 +311,9 @@ export default {
       return !this.bannerHidden && this.user.preferences.sleep;
     },
     noMargin () {
+      return ['privateMessages'].includes(this.$route.name);
+    },
+    hideFooter () {
       return ['privateMessages'].includes(this.$route.name);
     },
   },
