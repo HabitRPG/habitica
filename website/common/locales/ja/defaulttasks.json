@@ -25,5 +25,8 @@
     "defaultTag5": "チーム",
     "defaultTag6": "家事",
     "defaultTag7": "クリエイティブ",
-    "healthTodoNotes": "タップしてチェックリストを追加しましょう！"
+    "healthTodoNotes": "タップしてチェックリストを追加しましょう！",
+    "workHabitMail": "メールを処理する",
+    "defaultHabitNotes": "または編集画面から削除しましょう",
+    "defaultHabitText": "ここをクリックして、あなたがやめたい悪い習慣に編集しましょう"
 }

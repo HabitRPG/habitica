@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NOVEMBER BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW DINOSAUR PET QUEST BUNDLE AND WIKI SPOTLIGHT';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,24 +31,38 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/5/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_201911 center-block"></div>
+        <div class="promo_delightful_dinos center-block"></div>
+        <h3>New Pet Quest Bundle: Delightful Dinos</h3>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can fly
-          through a Tumultuous Thunderstorm, find only the strongest elixirs at the Potion Shop,
-          and wander through a colorful Farmer's Market. Check them out under User Icon >
-          Backgrounds!
+          If you are looking to add some dinosaur pets to your Habitica stable, life, uh, finds a
+          way! From now until November 30, you can purchase the Delightful Dinos Pet Quest Bundle
+          and receive the Pterodactyl, Triceratops, and T-Rex (The Dinosaur Unearthed) quests, all
+          for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them
+          separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!
         </p>
-        <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Alchemist Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
-        </p>
-        <div class="small mb-3">
-          by Vikte, QuartzFox, Gully, Aspiring Advocate, Lt. Cabel, and SabreCat
+        <div class="small">by SabreCat and Beffymaroo</div>
+        <div class="small">Art by Baconsaur, Eevachu, UncommonCriminal, Kiwibot, McCoyly,
+          plumilla, Seraphina, PainterProphet, Stefalupagus, Katy133, Edge, Willow The Witty,
+          Lilith of Alfheim, Procyon, GeraldThePixel, and Archeia
         </div>
+        <div class="small mb-3">Writing by Lemoness, Daniel the Bard, Lilith of Alfheim, and Ali
+          Stewart
+        </div>
+        <div class="scene_habitica_map center-block"></div>
+        <h3>Blog Post: Places in Habitica</h3>
+        <p>This month's <a href='https://habitica.wordpress.com/2019/11/14/places-in-habitica/'
+          target='_blank'>featured Wiki article</a> is about Places in Habitica! We hope that it
+          will help you as you gamify your tasks. Be sure to check it out, and let us know what 
+          you think by reaching out on <a href='https://twitter.com/habitica'
+          target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com'
+          target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica'
+          target='_blank'>Facebook</a>.
+        </p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });

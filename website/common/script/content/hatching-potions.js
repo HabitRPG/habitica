@@ -1,6 +1,7 @@
 import assign from 'lodash/assign';
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
+import moment from 'moment';
 import t from './translation';
 
 const CURRENT_SEASON = '_NONE_';
@@ -93,13 +94,25 @@ const premium = {
     value: 2,
     text: t('hatchingPotionEmber'),
     limited: true,
-    _season: '_PENDING_',
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndNovember'),
+      previousDate: t('augustYYYY', { year: 2017 }),
+    }),
+    canBuy () {
+      return moment().isBetween('2019-11-12', '2019-12-02');
+    },
   },
   Thunderstorm: {
     value: 2,
     text: t('hatchingPotionThunderstorm'),
     limited: true,
-    _season: '_PENDING_',
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndNovember'),
+      previousDate: t('augustYYYY', { year: 2016 }),
+    }),
+    canBuy () {
+      return moment().isBetween('2019-11-12', '2019-12-02');
+    },
   },
   Spooky: {
     value: 2,
