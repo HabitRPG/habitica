@@ -127,38 +127,23 @@ export async function update (req, res, { isV3 = false }) {
     } else if (key === 'tags') {
       if (!Array.isArray(val)) throw new BadRequest('mustBeArray');
 
-      const removedTagsIds = [];
-
-      const oldTags = [];
-
-      // Keep challenge and group tags
-      user.tags.forEach(t => {
-        if (t.group) {
-          oldTags.push(t);
-        } else {
-          removedTagsIds.push(t.id);
-        }
-      });
-
-      user.tags = oldTags;
-
-      val.forEach(t => {
-        const oldI = removedTagsIds.findIndex(id => id === t.id);
-        if (oldI > -1) {
-          removedTagsIds.splice(oldI, 1);
-        }
-
-        user.tags.push(t);
-      });
+      const requestTags = val;
+      const currentTags = user.tags;
+      const currentPartyTag = user.party.id && user.tags.find(tag => tag.group && tag.id === user.party.id);
+      // Force currentPartyTag in tag list if it was ommited, can not remove current party tag
+      let nextTags = currentPartyTag ? _.unionBy(requestTags, [currentPartyTag], 'id') : requestTags;
+      // Remove duplicate ids
+      nextTags = _.uniqBy(nextTags, 'id');
+      const removedTags = _.differenceBy(currentTags, nextTags, 'id');
+      user.tags = nextTags;
 
       // Remove from all the tasks
       // NOTE each tag to remove requires a query
-
-      promisesForTagsRemoval = removedTagsIds.map(tagId => Tasks.Task.update({
+      promisesForTagsRemoval = removedTags.map(tag => Tasks.Task.update({
         userId: user._id,
       }, {
         $pull: {
-          tags: tagId,
+          tags: tag.id,
         },
       }, { multi: true }).exec());
     } else {

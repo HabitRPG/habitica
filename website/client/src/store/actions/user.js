@@ -24,10 +24,7 @@ export async function set (store, changes) {
 
   for (const key of Object.keys(changes)) {
     if (key === 'tags') {
-      // Keep challenge and group tags
-      const oldTags = user.tags.filter(t => t.group);
-
-      user.tags = changes[key].concat(oldTags);
+      user.tags = changes[key];
 
       // Remove deleted tags from tasks
       const userTasksByType = (await store.dispatch('tasks:fetchUserTasks')).data; // eslint-disable-line no-await-in-loop

@@ -46,7 +46,7 @@
               <div class="tags-header">
                 <strong v-once>{{ $t(tagsType.key) }}</strong>
                 <a
-                  v-if="tagsType.key !== 'groups' && !editingTags"
+                  v-if="!editingTags"
                   class="d-block"
                   @click="editTags(tagsType.key)"
                 >{{ $t('editTags2') }}</a>
@@ -99,7 +99,7 @@
                       </div>
                     </draggable>
                   </template>
-                  <template v-if="editingTags && tagsType.key === 'challenges'">
+                  <template v-if="editingTags && tagsType.key !== 'tags'">
                     <div
                       v-for="(tag, tagIndex) in tagsSnap[tagsType.key]"
                       :key="tag.id"
@@ -112,6 +112,7 @@
                           type="text"
                         >
                         <div
+                          v-if="!isCurrentPartyTag(tag)"
                           class="input-group-append"
                           @click="removeTag(tagIndex, tagsType.key)"
                         >
@@ -123,7 +124,7 @@
                       </div>
                     </div>
                   </template>
-                  <template v-if="!editingTags || tagsType.key === 'groups'">
+                  <template v-if="!editingTags">
                     <div
                       v-for="(tag) in tagsType.tags"
                       :key="tag.id"
@@ -452,6 +453,7 @@ export default {
       tagsSnap: {
         tags: [],
         challenges: [],
+        groups: [],
       }, // tags snapshot when being edited
       editingTags: false,
       newTag: null,
@@ -506,6 +508,8 @@ export default {
       // clone the arrays being edited so that we can revert if needed
       this.tagsSnap.tags = this.tagsByType.user.tags.slice();
       this.tagsSnap.challenges = this.tagsByType.challenges.tags.slice();
+      this.tagsSnap.groups = this.tagsByType.groups.tags.slice();
+
       this.editingTags = true;
     },
     addTag (eventObj, key) {
@@ -523,8 +527,10 @@ export default {
 
       this.tagsByType.user.tags = this.tagsSnap.tags;
       this.tagsByType.challenges.tags = this.tagsSnap.challenges;
+      this.tagsByType.groups.tags = this.tagsSnap.groups;
 
-      this.setUser({ tags: this.tagsSnap.tags.concat(this.tagsSnap.challenges) });
+      const { tags, challenges, groups } = this.tagsSnap;
+      this.setUser({ tags: tags.concat(challenges, groups) });
       this.cancelTagsEditing();
     },
     cancelTagsEditing () {
@@ -532,6 +538,7 @@ export default {
       this.tagsSnap = {
         tags: [],
         challenges: [],
+        groups: [],
       };
       this.newTag = null;
     },
@@ -594,6 +601,9 @@ export default {
       const tagId = tag.id;
       if (this.temporarilySelectedTags.indexOf(tagId) !== -1) return true;
       return false;
+    },
+    isCurrentPartyTag (tag) {
+      return tag.group && this.user.party._id && tag.group === this.user.party._id;
     },
     openBuyDialog (item) {
       this.$root.$emit('buyModal::showItem', item);
