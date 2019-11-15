@@ -46,19 +46,21 @@
         </div>
         <div
           v-if="filtersConversations.length === 0"
-          class="empty-messages m-auto text-center"
+          class="empty-messages m-auto text-center empty-sidebar"
         >
-          <div
-            v-once
-            class="svg-icon envelope"
-            v-html="icons.messageIcon"
-          ></div>
-          <h4 v-once>
-            {{ $t('emptyMessagesLine1') }}
-          </h4>
-          <p v-if="!user.flags.chatRevoked">
-            {{ $t('emptyMessagesLine2') }}
-          </p>
+          <div>
+            <div
+              v-once
+              class="svg-icon envelope"
+              v-html="icons.messageIcon"
+            ></div>
+            <h4 v-once>
+              {{ $t('emptyMessagesLine1') }}
+            </h4>
+            <p v-if="!user.flags.chatRevoked">
+              {{ $t('emptyMessagesLine2') }}
+            </p>
+          </div>
         </div>
         <div
           v-if="filtersConversations.length > 0"
@@ -442,6 +444,11 @@
     width: 60%;
     display: inline-block;
     margin-left: 1em;
+  }
+
+  .empty-sidebar {
+    display: flex;
+    align-items: center;
   }
 </style>
 
