@@ -254,7 +254,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
         <button
           v-if="workingGroup.id"
           class="btn btn-primary btn-md"
-          :disabled="!workingGroup.name || !workingGroup.description"
+          :disabled="!workingGroup.name"
         >
           {{ isParty ? $t('updateParty') : $t('updateGuild') }}
         </button>
