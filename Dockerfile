@@ -19,12 +19,9 @@ RUN npm install -g gulp-cli mocha
 RUN mkdir -p /usr/src/habitrpg
 WORKDIR /usr/src/habitrpg
 RUN git clone --branch release --depth 1 https://github.com/HabitRPG/habitica.git /usr/src/habitrpg
+RUN npm set unsafe-perm true
 RUN npm install
-RUN gulp build:prod --force
-
-# Create Build dir
-RUN mkdir -p ./website/build
 
 # Start Habitica
-EXPOSE 3000
+EXPOSE 80 8080 36612
 CMD ["node", "./website/transpiled-babel/index.js"]

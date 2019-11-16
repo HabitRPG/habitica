@@ -3,17 +3,19 @@ import paypalPayments from '../../../../../../website/server/libs/payments/paypa
 import payments from '../../../../../../website/server/libs/payments/payments';
 import {
   generateGroup,
-} from '../../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 import common from '../../../../../../website/common';
 import { createNonLeaderGroupMember } from '../paymentHelpers';
 
-const i18n = common.i18n;
+const { i18n } = common;
 
 describe('subscribeCancel', () => {
   const subKey = 'basic_3mo';
-  let user, group, groupId, customerId, groupCustomerId, nextBillingDate;
-  let paymentCancelSubscriptionSpy, paypalBillingAgreementCancelStub, paypalBillingAgreementGetStub;
+  let user; let group; let groupId; let customerId; let groupCustomerId; let
+    nextBillingDate;
+  let paymentCancelSubscriptionSpy; let paypalBillingAgreementCancelStub; let
+    paypalBillingAgreementGetStub;
 
   beforeEach(async () => {
     customerId = 'customer-id';
@@ -49,7 +51,7 @@ describe('subscribeCancel', () => {
     paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').resolves({});
   });
 
-  afterEach(function () {
+  afterEach(() => {
     paypalPayments.paypalBillingAgreementGet.restore();
     paypalPayments.paypalBillingAgreementCancel.restore();
     payments.cancelSubscription.restore();
@@ -58,7 +60,7 @@ describe('subscribeCancel', () => {
   it('should throw an error if we are missing a subscription', async () => {
     user.purchased.plan.customerId = undefined;
 
-    await expect(paypalPayments.subscribeCancel({user}))
+    await expect(paypalPayments.subscribeCancel({ user }))
       .to.eventually.be.rejected.and.to.eql({
         httpCode: 401,
         name: 'NotAuthorized',
@@ -67,7 +69,7 @@ describe('subscribeCancel', () => {
   });
 
   it('should throw an error if group is not found', async () => {
-    await expect(paypalPayments.subscribeCancel({user, groupId: 'fake-id'}))
+    await expect(paypalPayments.subscribeCancel({ user, groupId: 'fake-id' }))
       .to.eventually.be.rejected.and.to.eql({
         httpCode: 404,
         name: 'NotFound',
@@ -76,9 +78,9 @@ describe('subscribeCancel', () => {
   });
 
   it('should throw an error if user is not group leader', async () => {
-    let nonLeader = await createNonLeaderGroupMember(group);
+    const nonLeader = await createNonLeaderGroupMember(group);
 
-    await expect(paypalPayments.subscribeCancel({user: nonLeader, groupId: group._id}))
+    await expect(paypalPayments.subscribeCancel({ user: nonLeader, groupId: group._id }))
       .to.eventually.be.rejected.and.to.eql({
         httpCode: 401,
         name: 'NotAuthorized',
@@ -87,7 +89,7 @@ describe('subscribeCancel', () => {
   });
 
   it('should cancel a user subscription', async () => {
-    await paypalPayments.subscribeCancel({user});
+    await paypalPayments.subscribeCancel({ user });
 
     expect(paypalBillingAgreementGetStub).to.be.calledOnce;
     expect(paypalBillingAgreementGetStub).to.be.calledWith(customerId);
@@ -105,7 +107,7 @@ describe('subscribeCancel', () => {
   });
 
   it('should cancel a group subscription', async () => {
-    await paypalPayments.subscribeCancel({user, groupId: group._id});
+    await paypalPayments.subscribeCancel({ user, groupId: group._id });
 
     expect(paypalBillingAgreementGetStub).to.be.calledOnce;
     expect(paypalBillingAgreementGetStub).to.be.calledWith(groupCustomerId);

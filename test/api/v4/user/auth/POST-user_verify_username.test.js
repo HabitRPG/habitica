@@ -13,16 +13,16 @@ describe('POST /user/auth/verify-username', async () => {
   });
 
   it('successfully verifies username', async () => {
-    let newUsername = 'new-username';
-    let response = await user.post(ENDPOINT, {
+    const newUsername = 'new-username';
+    const response = await user.post(ENDPOINT, {
       username: newUsername,
     });
     expect(response).to.eql({ isUsable: true });
   });
 
   it('successfully verifies username with allowed characters', async () => {
-    let newUsername = 'new-username_123';
-    let response = await user.post(ENDPOINT, {
+    const newUsername = 'new-username_123';
+    const response = await user.post(ENDPOINT, {
       username: newUsername,
     });
     expect(response).to.eql({ isUsable: true });

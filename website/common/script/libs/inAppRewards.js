@@ -1,10 +1,10 @@
+import compactArray from 'lodash/compact';
 import getItemInfo from './getItemInfo';
 import shops from './shops';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
-import compactArray from 'lodash/compact';
 
 import getItemByPathAndType from './getItemByPathAndType';
-import {checkPinnedAreasForNullEntries} from '../ops/pinnedGearUtils';
+import { checkPinnedAreasForNullEntries } from '../ops/pinnedGearUtils';
 
 /**
  * Orders the pinned items so we always get our inAppRewards in the order
@@ -15,12 +15,12 @@ import {checkPinnedAreasForNullEntries} from '../ops/pinnedGearUtils';
  * @return items of ordered inAppRewards
  */
 function sortInAppRewards (user, items) {
-  let pinnedItemsOrder = user.pinnedItemsOrder;
+  const { pinnedItemsOrder } = user;
   let orderedItems = [];
-  let unorderedItems = []; // what we want to add later
+  const unorderedItems = []; // what we want to add later
 
   items.forEach((item, index) => {
-    let i = pinnedItemsOrder[index] === item.path ? index : pinnedItemsOrder.indexOf(item.path);
+    const i = pinnedItemsOrder[index] === item.path ? index : pinnedItemsOrder.indexOf(item.path);
     if (i === -1) {
       unorderedItems.push(item);
     } else {
@@ -32,27 +32,28 @@ function sortInAppRewards (user, items) {
   return orderedItems;
 }
 
-module.exports = function getPinnedItems (user) {
+export default function getPinnedItems (user) {
   checkPinnedAreasForNullEntries(user);
 
-  let officialPinnedItems = getOfficialPinnedItems(user);
+  const officialPinnedItems = getOfficialPinnedItems(user);
 
   const officialPinnedItemsNotUnpinned = officialPinnedItems.filter(officialPin => {
-    const isUnpinned = user.unpinnedItems.findIndex(unpinned => unpinned.path === officialPin.path) > -1;
+    const isUnpinned = user.unpinnedItems
+      .findIndex(unpinned => unpinned.path === officialPin.path) > -1;
     return !isUnpinned;
   });
 
   const pinnedItems = officialPinnedItemsNotUnpinned.concat(user.pinnedItems);
 
-  let items = pinnedItems
-    .map(({type, path}) => {
-      let item = getItemByPathAndType(type, path);
+  const items = pinnedItems
+    .map(({ type, path }) => {
+      const item = getItemByPathAndType(type, path);
 
       return getItemInfo(user, type, item, officialPinnedItems);
     });
 
   shops.checkMarketGearLocked(user, items);
 
-  let orderedItems = sortInAppRewards(user, items);
+  const orderedItems = sortInAppRewards(user, items);
   return orderedItems;
-};
+}

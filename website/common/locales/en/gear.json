@@ -456,6 +456,8 @@
   "weaponArmoireResplendentRapierNotes": "Demonstrate your swordsmanship with this sharply pointed weapon. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
   "weaponArmoireShadowMastersMaceText": "Shadow Master's Mace",
   "weaponArmoireShadowMastersMaceNotes": "Creatures of darkness will obey your every command when you wave this glowing mace. Increases Perception by <%= per %>. Enchanted Armoire: Shadow Master Set (Item 3 of 4).",
+  "weaponArmoireAlchemistsDistillerText": "Alchemist's Distiller",
+  "weaponArmoireAlchemistsDistillerNotes": "Purify metals and other magical compounds with this shiny brass instrument. Increases Strength by <%= str %> and Intelligence by <%= int %>. Enchanted Armoire: Alchemist Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -863,6 +865,8 @@
   "armorMystery201908Notes": "These legs were made for dancing! And that's just what they'll do. Confers no benefit. August 2019 Subscriber Item.",
   "armorMystery201909Text": "Affable Acorn Armor",
   "armorMystery201909Notes": "Your tough exterior is protective, but it's still best to keep an eye out for squirrels... Confers no benefit. September 2019 Subscriber Item.",
+  "armorMystery201910Text": "Cryptic Armor",
+  "armorMystery201910Notes": "This enigmatic armor will protect you from terrors seen and unseen. Confers no benefit. October 2019 Subscriber Item.",
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -984,6 +988,8 @@
   "armorArmoireInvernessCapeNotes": "This sturdy garment will let you search for clues in any type of weather. Increases Perception and Intelligence by <%= attrs %> each. Enchanted Armoire: Detective Set (Item 2 of 4).",
   "armorArmoireShadowMastersRobeText": "Shadow Master's Robe",
   "armorArmoireShadowMastersRobeNotes": "The fabric of this flowy robe is woven from the darkest shadows in the deepest caves of Habitica. Increases Constitution by <%= con %>. Enchanted Armoire: Shadow Master Set (Item 1 of 4).",
+  "armorArmoireAlchemistsRobeText": "Alchemist's Robe",
+  "armorArmoireAlchemistsRobeNotes": "Any number of dangerous elixirs are involved in creating arcane metals and gems, and these heavy robes will protect you from harm and unintended side effects! Increases Constitution by <%= con %> and Perception by <%= per %>. Enchanted Armoire: Alchemist Set (Item 1 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1399,6 +1405,8 @@
   "headMystery201907Notes": "Nothing says “I'm relaxing here!” like a backwards cap. Confers no benefit. July 2019 Subscriber Item.",
   "headMystery201909Text": "Affable Acorn Hat",
   "headMystery201909Notes": "Every acorn needs a hat! Er, cupule, if you want to get technical about it. Confers no benefit. September 2019 Subscriber Item.",
+  "headMystery201910Text": "Cryptic Flame",
+  "headMystery201910Notes": "These flames reveal arcane secrets before your very eyes! Confers no benefit. October 2019 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -1522,6 +1530,8 @@
   "headArmoireDeerstalkerCapNotes": "This cap is perfect for rural excursions, but also is acceptable gear for mystery-solving! Increases Intelligence by <%= int %>. Enchanted Armoire: Detective Set (Item 1 of 4).",
   "headArmoireShadowMastersHoodText": "Shadow Master's Hood",
   "headArmoireShadowMastersHoodNotes": "This hood grants you the power to see through even the deepest darkness. It may occasionally require eyedrops, though. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Shadow Master Set (Item 2 of 4).",
+  "headArmoireAlchemistsHatText": "Alchemist's Hat",
+  "headArmoireAlchemistsHatNotes": "While hats are not strictly necessary for alchemical practice, looking cool certainly doesn't hurt anything! Increases Perception by <%= per %>. Enchanted Armoire: Alchemist Set (Item 2 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1817,6 +1827,8 @@
   "shieldArmoirePolishedPocketwatchNotes": "You've got the time. And it looks very nice on you. Increases Intelligence by <%= int %>. Enchanted Armoire: Independent Item.",
   "shieldArmoireMasteredShadowText": "Mastered Shadow",
   "shieldArmoireMasteredShadowNotes": "Your powers have brought these swirling shadows to your side to do your bidding. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Shadow Master Set (Item 4 of 4).",
+  "shieldArmoireAlchemistsScaleText": "Alchemist's Scale",
+  "shieldArmoireAlchemistsScaleNotes": "Ensure that your mystical ingredients are properly measured using this fine piece of equipment. Increases Intelligence by <%= int %>. Enchanted Armoire: Alchemist Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",

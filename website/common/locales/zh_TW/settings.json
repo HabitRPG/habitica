@@ -119,8 +119,8 @@
     "giftedSubscriptionInfo": "<%= name %> 贈送您 <%= months %> 個月的訂閱資格",
     "giftedSubscriptionFull": "哈囉 <%= username %>，<%= sender %> 送您 <%= monthCount %> 個月的訂閱資格！",
     "giftedSubscriptionWinterPromo": "哈囉 <%= username %>，您收到了 <%= monthCount %> 個月的訂閱資格以作為我們的假期送禮升級活動的一部份！",
-    "invitedParty": "邀請至隊伍",
-    "invitedGuild": "受邀至公會",
+    "invitedParty": "您受邀加入隊伍",
+    "invitedGuild": "您受邀加入公會",
     "importantAnnouncements": "提醒：登入以完成任務以及獲得獎勵",
     "weeklyRecaps": "您的帳號上星期的活動彙整 (注意：這個彙整目前因為伺服器效能問題而暫時關閉，但是我們會盡快修復並再一次定期發送電子郵件！)",
     "onboarding": "引導設定您的 Habitica 帳號",
@@ -203,6 +203,8 @@
     "goToSettings": "前往設定",
     "usernameVerifiedConfirmation": "您的使用者名稱 <%= username %> 已確認！",
     "usernameNotVerified": "請確認您的使用者名稱。",
-    "changeUsernameDisclaimer": "我們即將將登入名稱改為獨一無二的公開使用者名稱。此使用者名稱將用於邀請、聊天中的 @標記、和訊息。",
-    "verifyUsernameVeteranPet": "完成確認後，其中一隻將領寵物將會等您前來領養！"
+    "changeUsernameDisclaimer": "此使用者名稱將用於邀請、聊天中的 @ 標記、和訊息。",
+    "verifyUsernameVeteranPet": "完成確認後，其中一隻將領寵物將會等您前來領養！",
+    "subscriptionReminders": "訂閱提醒",
+    "newPMNotificationTitle": "來自 <%= name %> 的新訊息"
 }

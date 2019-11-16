@@ -127,7 +127,7 @@
     "weaponSpecialSpringWarriorText": "Morkos Kardas",
     "weaponSpecialSpringWarriorNotes": "Šis galingas Kardas lengvai pjausto priešus! Taip pat tinka skaniems tarp-koviniams užkandžiams. Padidina Jėgą <%= str %> taškais. Riboto 2014 metų Pavasario Tiražo ginklas.",
     "weaponSpecialSpringMageText": "Šveicariško Sūrio Lazda",
-    "weaponSpecialSpringMageNotes": " Tik patys stipriausi graužikai gali nugalėti savo alkį ir naudotis šia ypatinga lazda. Padidina protą <%= int %> taškais ir Įžvalgumą <%= per %> taškais. Riboto 2014 metų Pavasario Tiražo ginklas.",
+    "weaponSpecialSpringMageNotes": "Tik patys stipriausi graužikai gali nugalėti savo alkį ir naudotis šia ypatinga lazda. Padidina protą <%= int %> taškais ir Įžvalgumą <%= per %> taškais. Riboto 2014 metų Pavasario Tiražo ginklas.",
     "weaponSpecialSpringHealerText": "Mielas Kauliukas",
     "weaponSpecialSpringHealerNotes": "ATNEŠK! Padidina protą <%= int %> taškais.  Riboto 2014 metų Pavasario Tiražo ginklas.",
     "weaponSpecialSummerRogueText": "Pirato Kardas",

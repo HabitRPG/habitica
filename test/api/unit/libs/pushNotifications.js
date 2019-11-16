@@ -1,19 +1,19 @@
-import { model as User } from '../../../../website/server/models/user';
 import requireAgain from 'require-again';
 import apn from 'apn/mock';
 import nconf from 'nconf';
 import gcmLib from 'node-gcm'; // works with FCM notifications too
+import { model as User } from '../../../../website/server/models/user';
 
 describe('pushNotifications', () => {
   let user;
   let sendPushNotification;
-  let pathToPushNotifications = '../../../../website/server/libs/pushNotifications';
+  const pathToPushNotifications = '../../../../website/server/libs/pushNotifications';
   let fcmSendSpy;
   let apnSendSpy;
 
-  let identifier = 'identifier';
-  let title = 'title';
-  let message = 'message';
+  const identifier = 'identifier';
+  const title = 'title';
+  const message = 'message';
 
   beforeEach(() => {
     user = new User();
@@ -93,7 +93,7 @@ describe('pushNotifications', () => {
       regId: '123',
     });
 
-    let details = {
+    const details = {
       identifier,
       title,
       message,

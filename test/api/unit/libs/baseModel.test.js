@@ -1,5 +1,5 @@
-import baseModel from '../../../../website/server/libs/baseModel';
 import mongoose from 'mongoose';
+import baseModel from '../../../../website/server/libs/baseModel';
 
 describe('Base model plugin', () => {
   let schema;
@@ -25,7 +25,7 @@ describe('Base model plugin', () => {
   });
 
   it('can add timestamps fields', () => {
-    schema.plugin(baseModel, {timestamps: true});
+    schema.plugin(baseModel, { timestamps: true });
 
     expect(schema.add).to.be.calledTwice;
   });
@@ -36,7 +36,7 @@ describe('Base model plugin', () => {
     });
 
     expect(schema.statics.sanitize).to.exist;
-    let sanitized = schema.statics.sanitize({ok: true, noUpdateForMe: true});
+    const sanitized = schema.statics.sanitize({ ok: true, noUpdateForMe: true });
 
     expect(sanitized).to.have.property('ok');
     expect(sanitized).not.to.have.property('noUpdateForMe');
@@ -49,7 +49,7 @@ describe('Base model plugin', () => {
     });
 
     expect(schema.statics.sanitize).to.exist;
-    let sanitized = schema.statics.sanitize({ok: true, noUpdateForMe: true, usuallySettable: true}, ['usuallySettable']);
+    const sanitized = schema.statics.sanitize({ ok: true, noUpdateForMe: true, usuallySettable: true }, ['usuallySettable']);
 
     expect(sanitized).to.have.property('ok');
     expect(sanitized).not.to.have.property('noUpdateForMe');
@@ -63,31 +63,31 @@ describe('Base model plugin', () => {
     });
 
     expect(schema.options.toJSON.transform).to.exist;
-    let objToTransform = {ok: true, amPrivate: true};
-    let privatized = schema.options.toJSON.transform({}, objToTransform);
+    const objToTransform = { ok: true, amPrivate: true };
+    const privatized = schema.options.toJSON.transform({}, objToTransform);
 
     expect(privatized).to.have.property('ok');
     expect(privatized).not.to.have.property('amPrivate');
   });
 
   it('accepts a further transform function for toJSON', () => {
-    let options = {
+    const options = {
       private: ['amPrivate'],
       toJSONTransform: sandbox.stub().returns(true),
     };
 
     schema.plugin(baseModel, options);
 
-    let objToTransform = {ok: true, amPrivate: true};
-    let doc = {doc: true};
-    let privatized = schema.options.toJSON.transform(doc, objToTransform);
+    const objToTransform = { ok: true, amPrivate: true };
+    const doc = { doc: true };
+    const privatized = schema.options.toJSON.transform(doc, objToTransform);
 
     expect(privatized).to.equals(true);
     expect(options.toJSONTransform).to.be.calledWith(objToTransform, doc);
   });
 
   it('accepts a transform function for sanitize', () => {
-    let options = {
+    const options = {
       private: ['amPrivate'],
       sanitizeTransform: sandbox.stub().returns(true),
     };
@@ -95,8 +95,8 @@ describe('Base model plugin', () => {
     schema.plugin(baseModel, options);
 
     expect(schema.options.toJSON.transform).to.exist;
-    let objToSanitize = {ok: true, noUpdateForMe: true};
-    let sanitized = schema.statics.sanitize(objToSanitize);
+    const objToSanitize = { ok: true, noUpdateForMe: true };
+    const sanitized = schema.statics.sanitize(objToSanitize);
 
     expect(sanitized).to.equals(true);
     expect(options.sanitizeTransform).to.be.calledWith(objToSanitize);

@@ -2,7 +2,7 @@ import winston from 'winston';
 import logger from '../../../../website/server/libs/logger';
 import {
   NotFound,
-} from '../../../../website/server/libs//errors';
+} from '../../../../website/server/libs/errors';
 
 describe('logger', () => {
   let logSpy;
@@ -34,7 +34,7 @@ describe('logger', () => {
 
     context('error object', () => {
       it('logs the stack and the err data', () => {
-        let errInstance = new Error('An error.');
+        const errInstance = new Error('An error.');
         logger.error(errInstance, {
           data: 1,
         }, 2, 3);
@@ -45,13 +45,13 @@ describe('logger', () => {
           errInstance.stack,
           { data: 1, fullError: errInstance },
           2,
-          3
+          3,
         );
       });
 
       it('logs the stack and the err data with it\'s own fullError property', () => {
-        let errInstance = new Error('An error.');
-        let anotherError = new Error('another error');
+        const errInstance = new Error('An error.');
+        const anotherError = new Error('another error');
 
         logger.error(errInstance, {
           data: 1,
@@ -64,12 +64,12 @@ describe('logger', () => {
           errInstance.stack,
           { data: 1, fullError: anotherError },
           2,
-          3
+          3,
         );
       });
 
       it('logs the error when errorData is null', () => {
-        let errInstance = new Error('An error.');
+        const errInstance = new Error('An error.');
 
         logger.error(errInstance, null, 2, 3);
 
@@ -79,12 +79,12 @@ describe('logger', () => {
           errInstance.stack,
           null,
           2,
-          3
+          3,
         );
       });
 
       it('logs the error when errorData is not an object', () => {
-        let errInstance = new Error('An error.');
+        const errInstance = new Error('An error.');
 
         logger.error(errInstance, true, 2, 3);
 
@@ -94,12 +94,12 @@ describe('logger', () => {
           errInstance.stack,
           true,
           2,
-          3
+          3,
         );
       });
 
       it('logs the error when errorData does not include isHandledError property', () => {
-        let errInstance = new Error('An error.');
+        const errInstance = new Error('An error.');
 
         logger.error(errInstance, { httpCode: 400 }, 2, 3);
 
@@ -109,12 +109,12 @@ describe('logger', () => {
           errInstance.stack,
           { httpCode: 400, fullError: errInstance },
           2,
-          3
+          3,
         );
       });
 
       it('logs the error when errorData includes isHandledError property but is a 500 error', () => {
-        let errInstance = new Error('An error.');
+        const errInstance = new Error('An error.');
 
         logger.error(errInstance, {
           isHandledError: true,
@@ -127,12 +127,12 @@ describe('logger', () => {
           errInstance.stack,
           { httpCode: 502, isHandledError: true, fullError: errInstance },
           2,
-          3
+          3,
         );
       });
 
       it('logs a warning when errorData includes isHandledError property and is not a 500 error', () => {
-        let errInstance = new Error('An error.');
+        const errInstance = new Error('An error.');
 
         logger.error(errInstance, {
           isHandledError: true,
@@ -145,12 +145,12 @@ describe('logger', () => {
           errInstance.stack,
           { httpCode: 403, isHandledError: true, fullError: errInstance },
           2,
-          3
+          3,
         );
       });
 
       it('logs additional data from a CustomError', () => {
-        let errInstance = new NotFound('An error.');
+        const errInstance = new NotFound('An error.');
 
         errInstance.customField = 'Some interesting data';
 
@@ -166,7 +166,7 @@ describe('logger', () => {
             },
           },
           2,
-          3
+          3,
         );
       });
     });

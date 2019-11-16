@@ -1,0 +1,48 @@
+.promo_armoire_backgrounds_201911 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -451px;
+  width: 423px;
+  height: 147px;
+}
+.promo_costume_achievement {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -747px;
+  width: 144px;
+  height: 156px;
+}
+.promo_delightful_dinos {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -451px;
+  width: 423px;
+  height: 147px;
+}
+.promo_ember_thunderstorm_potions {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -599px;
+  width: 423px;
+  height: 147px;
+}
+.promo_mystery_201910 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -599px;
+  width: 282px;
+  height: 147px;
+}
+.promo_take_this {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -451px -365px;
+  width: 96px;
+  height: 69px;
+}
+.scene_habitica_map {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 450px;
+  height: 450px;
+}
+.scene_seaserpent {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -451px 0px;
+  width: 476px;
+  height: 364px;
+}

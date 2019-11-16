@@ -77,8 +77,8 @@
     "questEggBunnyText": "兔子",
     "questEggBunnyMountText": "兔子",
     "questEggBunnyAdjective": "一只暖洋洋的",
-    "questEggSlimeText": "棉花糖烂泥",
-    "questEggSlimeMountText": "棉花糖果冻",
+    "questEggSlimeText": "棉花糖史莱姆",
+    "questEggSlimeMountText": "棉花糖史莱姆",
     "questEggSlimeAdjective": "一只甜蜜的",
     "questEggSheepText": "羊",
     "questEggSheepMountText": "羊",
@@ -153,7 +153,7 @@
     "questEggButterflyMountText": "蝴蝶",
     "questEggButterflyAdjective": "一个可爱的",
     "questEggNudibranchText": "海蛞蝓",
-    "questEggNudibranchMountText": "裸鳃亚目动物",
+    "questEggNudibranchMountText": "海蛞蝓",
     "questEggNudibranchAdjective": "一个俏皮的",
     "questEggHippoText": "河马",
     "questEggHippoMountText": "河马",
@@ -209,8 +209,8 @@
     "hatchingPotionRainbow": "彩虹",
     "hatchingPotionGlass": "玻璃",
     "hatchingPotionGlow": "荧光",
-    "hatchingPotionFrost": "冰霜",
-    "hatchingPotionIcySnow": "冰霜",
+    "hatchingPotionFrost": "霜",
+    "hatchingPotionIcySnow": "冰雪",
     "hatchingPotionNotes": "把它倒在宠物蛋上可以孵化出一只<%= potText(locale) %>宠物。",
     "premiumPotionAddlNotes": "无法用于副本宠物蛋。在<%= date(locale) %>前可购买。",
     "foodMeat": "肉",
@@ -350,5 +350,6 @@
     "questEggDolphinAdjective": "一只活泼的",
     "questEggDolphinMountText": "海豚",
     "questEggDolphinText": "海豚",
-    "hatchingPotionShadow": "阴影"
+    "hatchingPotionShadow": "阴影",
+    "premiumPotionUnlimitedNotes": "无法用于副本宠物蛋。"
 }

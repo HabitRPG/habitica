@@ -1,5 +1,7 @@
+import forEach from 'lodash/forEach';
+import moment from 'moment';
 import purchase from '../../../../website/common/script/ops/buy/purchase';
-import pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
+import * as pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
 import {
   BadRequest,
   NotAuthorized,
@@ -9,17 +11,15 @@ import i18n from '../../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import forEach from 'lodash/forEach';
-import moment from 'moment';
 
 describe('shared.ops.purchase', () => {
   const SEASONAL_FOOD = 'Meat';
   let user;
-  let goldPoints = 40;
-  let analytics = {track () {}};
+  const goldPoints = 40;
+  const analytics = { track () {} };
 
   before(() => {
-    user = generateUser({'stats.class': 'rogue'});
+    user = generateUser({ 'stats.class': 'rogue' });
   });
 
   beforeEach(() => {
@@ -33,9 +33,9 @@ describe('shared.ops.purchase', () => {
   });
 
   context('failure conditions', () => {
-    it('returns an error when type is not provided', (done) => {
+    it('returns an error when type is not provided', done => {
       try {
-        purchase(user, {params: {}});
+        purchase(user, { params: {} });
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('typeRequired'));
@@ -44,9 +44,9 @@ describe('shared.ops.purchase', () => {
     });
 
 
-    it('returns error when unknown type is provided', (done) => {
+    it('returns error when unknown type is provided', done => {
       try {
-        purchase(user, {params: {type: 'randomType', key: 'gem'}});
+        purchase(user, { params: { type: 'randomType', key: 'gem' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(i18n.t('notAccteptedType'));
@@ -54,11 +54,11 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-    it('returns error when user attempts to purchase a piece of gear they own', (done) => {
+    it('returns error when user attempts to purchase a piece of gear they own', done => {
       user.items.gear.owned['shield_rogue_1'] = true; // eslint-disable-line dot-notation
 
       try {
-        purchase(user, {params: {type: 'gear', key: 'shield_rogue_1'}});
+        purchase(user, { params: { type: 'gear', key: 'shield_rogue_1' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('alreadyHave'));
@@ -66,19 +66,19 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-    it('returns error when unknown item is requested', (done) => {
+    it('returns error when unknown item is requested', done => {
       try {
-        purchase(user, {params: {type: 'gear', key: 'randomKey'}});
+        purchase(user, { params: { type: 'gear', key: 'randomKey' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
-        expect(err.message).to.equal(i18n.t('contentKeyNotFound', {type: 'gear'}));
+        expect(err.message).to.equal(i18n.t('contentKeyNotFound', { type: 'gear' }));
         done();
       }
     });
 
-    it('returns error when user does not have permission to buy an item', (done) => {
+    it('returns error when user does not have permission to buy an item', done => {
       try {
-        purchase(user, {params: {type: 'gear', key: 'eyewear_mystery_301405'}});
+        purchase(user, { params: { type: 'gear', key: 'eyewear_mystery_301405' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageNotAvailable'));
@@ -86,9 +86,9 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-    it('returns error when user does not have enough gems to buy an item', (done) => {
+    it('returns error when user does not have enough gems to buy an item', done => {
       try {
-        purchase(user, {params: {type: 'gear', key: 'headAccessory_special_wolfEars'}});
+        purchase(user, { params: { type: 'gear', key: 'headAccessory_special_wolfEars' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('notEnoughGems'));
@@ -97,11 +97,11 @@ describe('shared.ops.purchase', () => {
     });
 
 
-    it('returns error when item is not found', (done) => {
-      let params = {key: 'notExisting', type: 'food'};
+    it('returns error when item is not found', done => {
+      const params = { key: 'notExisting', type: 'food' };
 
       try {
-        purchase(user, {params});
+        purchase(user, { params });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(i18n.t('contentKeyNotFound', params));
@@ -109,12 +109,12 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-    it('returns error when user supplies a non-numeric quantity', (done) => {
-      let type = 'eggs';
-      let key = 'Wolf';
+    it('returns error when user supplies a non-numeric quantity', done => {
+      const type = 'eggs';
+      const key = 'Wolf';
 
       try {
-        purchase(user, {params: {type, key}, quantity: 'jamboree'}, analytics);
+        purchase(user, { params: { type, key }, quantity: 'jamboree' }, analytics);
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('invalidQuantity'));
@@ -122,13 +122,13 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-    it('returns error when user supplies a negative quantity', (done) => {
-      let type = 'eggs';
-      let key = 'Wolf';
+    it('returns error when user supplies a negative quantity', done => {
+      const type = 'eggs';
+      const key = 'Wolf';
       user.balance = 10;
 
       try {
-        purchase(user, {params: {type, key}, quantity: -2}, analytics);
+        purchase(user, { params: { type, key }, quantity: -2 }, analytics);
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('invalidQuantity'));
@@ -136,13 +136,13 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-    it('returns error when user supplies a decimal quantity', (done) => {
-      let type = 'eggs';
-      let key = 'Wolf';
+    it('returns error when user supplies a decimal quantity', done => {
+      const type = 'eggs';
+      const key = 'Wolf';
       user.balance = 10;
 
       try {
-        purchase(user, {params: {type, key}, quantity: 2.9}, analytics);
+        purchase(user, { params: { type, key }, quantity: 2.9 }, analytics);
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(i18n.t('invalidQuantity'));
@@ -152,25 +152,25 @@ describe('shared.ops.purchase', () => {
   });
 
   context('successful purchase', () => {
-    let userGemAmount = 10;
+    const userGemAmount = 10;
 
     before(() => {
       user.balance = userGemAmount;
       user.stats.gp = goldPoints;
       user.purchased.plan.gemsBought = 0;
       user.purchased.plan.customerId = 'customer-id';
-      user.pinnedItems.push({type: 'eggs', key: 'Wolf'});
-      user.pinnedItems.push({type: 'hatchingPotions', key: 'Base'});
-      user.pinnedItems.push({type: 'food', key: SEASONAL_FOOD});
-      user.pinnedItems.push({type: 'gear', key: 'headAccessory_special_tigerEars'});
-      user.pinnedItems.push({type: 'bundles', key: 'featheredFriends'});
+      user.pinnedItems.push({ type: 'eggs', key: 'Wolf' });
+      user.pinnedItems.push({ type: 'hatchingPotions', key: 'Base' });
+      user.pinnedItems.push({ type: 'food', key: SEASONAL_FOOD });
+      user.pinnedItems.push({ type: 'gear', key: 'headAccessory_special_tigerEars' });
+      user.pinnedItems.push({ type: 'bundles', key: 'featheredFriends' });
     });
 
     it('purchases eggs', () => {
-      let type = 'eggs';
-      let key = 'Wolf';
+      const type = 'eggs';
+      const key = 'Wolf';
 
-      purchase(user, {params: {type, key}}, analytics);
+      purchase(user, { params: { type, key } }, analytics);
 
       expect(user.items[type][key]).to.equal(1);
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
@@ -178,50 +178,50 @@ describe('shared.ops.purchase', () => {
     });
 
     it('purchases hatchingPotions', () => {
-      let type = 'hatchingPotions';
-      let key = 'Base';
+      const type = 'hatchingPotions';
+      const key = 'Base';
 
-      purchase(user, {params: {type, key}});
+      purchase(user, { params: { type, key } });
 
       expect(user.items[type][key]).to.equal(1);
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
 
     it('purchases food', () => {
-      let type = 'food';
-      let key = SEASONAL_FOOD;
+      const type = 'food';
+      const key = SEASONAL_FOOD;
 
-      purchase(user, {params: {type, key}});
+      purchase(user, { params: { type, key } });
 
       expect(user.items[type][key]).to.equal(1);
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
     });
 
     it('purchases gear', () => {
-      let type = 'gear';
-      let key = 'headAccessory_special_tigerEars';
+      const type = 'gear';
+      const key = 'headAccessory_special_tigerEars';
 
-      purchase(user, {params: {type, key}});
+      purchase(user, { params: { type, key } });
 
       expect(user.items.gear.owned[key]).to.be.true;
       expect(pinnedGearUtils.removeItemByPath.calledOnce).to.equal(true);
     });
 
     it('purchases quest bundles', () => {
-      let startingBalance = user.balance;
-      let clock = sandbox.useFakeTimers(moment('2019-05-20').valueOf());
-      let type = 'bundles';
-      let key = 'featheredFriends';
-      let price = 1.75;
-      let questList = [
+      const startingBalance = user.balance;
+      const clock = sandbox.useFakeTimers(moment('2019-05-20').valueOf());
+      const type = 'bundles';
+      const key = 'featheredFriends';
+      const price = 1.75;
+      const questList = [
         'falcon',
         'harpy',
         'owl',
       ];
 
-      purchase(user, {params: {type, key}});
+      purchase(user, { params: { type, key } });
 
-      forEach(questList, (bundledKey) => {
+      forEach(questList, bundledKey => {
         expect(user.items.quests[bundledKey]).to.equal(1);
       });
 
@@ -233,7 +233,7 @@ describe('shared.ops.purchase', () => {
   });
 
   context('bulk purchase', () => {
-    let userGemAmount = 10;
+    const userGemAmount = 10;
 
     beforeEach(() => {
       user.balance = userGemAmount;
@@ -242,14 +242,14 @@ describe('shared.ops.purchase', () => {
       user.purchased.plan.customerId = 'customer-id';
     });
 
-    it('errors when user does not have enough gems', (done) => {
+    it('errors when user does not have enough gems', done => {
       user.balance = 1;
-      let type = 'eggs';
-      let key = 'TigerCub';
+      const type = 'eggs';
+      const key = 'TigerCub';
 
       try {
         purchase(user, {
-          params: {type, key},
+          params: { type, key },
           quantity: 2,
         });
       } catch (err) {
@@ -260,11 +260,11 @@ describe('shared.ops.purchase', () => {
     });
 
     it('makes bulk purchases of eggs', () => {
-      let type = 'eggs';
-      let key = 'TigerCub';
+      const type = 'eggs';
+      const key = 'TigerCub';
 
       purchase(user, {
-        params: {type, key},
+        params: { type, key },
         quantity: 2,
       });
 

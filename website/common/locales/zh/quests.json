@@ -38,9 +38,9 @@
     "questCollection": "即将寻找到+<%= val %>个任务探索物品",
     "questDamage": "即将对Boss造成+<%= val %>点伤害",
     "begin": "开始",
-    "bossHP": "Boss 的血量",
-    "bossStrength": "Boss的力量",
-    "rage": "愤怒值",
+    "bossHP": "Boss 血量",
+    "bossStrength": "Boss攻击力",
+    "rage": "怒气值",
     "collect": "收集",
     "collected": "已收集",
     "collectionItems": "<%= number %> <%= items %>",
@@ -71,8 +71,8 @@
     "scrollsText1": "任务需要团队去完成。如果你想单独做任务，",
     "scrollsText2": "你可以建立一个空团队",
     "scrollsPre": "你还没有解锁这项任务！",
-    "alreadyEarnedQuestLevel": "你通过升到等级<%= level %>获得了这个任务。 ",
-    "alreadyEarnedQuestReward": "你已经通过完成<%= priorQuest %>获得了这个任务 ",
+    "alreadyEarnedQuestLevel": "你由于升到<%= level %>级，获得了这个任务。 ",
+    "alreadyEarnedQuestReward": "由于你完成<%= priorQuest %>，而获得了这个任务 。 ",
     "completedQuests": "已完成任务",
     "mustComplete": "你要先完成<%= quest %>。",
     "mustLevel": "要开始这个任务，你需要达到等级<%= level %> 。",
@@ -136,5 +136,6 @@
     "chatBossDontAttack": "<%= username %>对<%= bossName %>造成了<%= userDamage %>点伤害。<%= bossName %>没有反击，因为它考虑到目前有些需要修复的错误，他不想不公平地伤害到任何人。但很快它将继续横冲直撞！",
     "chatBossDamage": "<%= username %>对<%= bossName %>造成了<%= userDamage %>点伤害。<%= bossName %>对队伍造成了<%= bossDamage %>点伤害。",
     "chatQuestStarted": "你们的任务<%= questName %>已经开始啦。",
-    "hatchingPotionQuests": "魔法孵化药水副本"
+    "hatchingPotionQuests": "魔法孵化药水副本",
+    "questInvitationNotificationInfo": "您受邀参与副本"
 }

@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import baseModel from '../libs/baseModel';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
 import _ from 'lodash';
+import baseModel from '../libs/baseModel';
 
 const NOTIFICATION_TYPES = [
   'DROPS_ENABLED',
@@ -40,11 +40,18 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_MIND_OVER_MATTER',
   'ACHIEVEMENT_DUST_DEVIL',
   'ACHIEVEMENT_ARID_AUTHORITY',
+  'ACHIEVEMENT_PARTY_UP',
+  'ACHIEVEMENT_PARTY_ON',
+  'ACHIEVEMENT_BEAST_MASTER',
+  'ACHIEVEMENT_MOUNT_MASTER',
+  'ACHIEVEMENT_TRIAD_BINGO',
+  'ACHIEVEMENT_MONSTER_MAGUS',
+  'ACHIEVEMENT_UNDEAD_UNDERTAKER',
 ];
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-export let schema = new Schema({
+export const schema = new Schema({
   id: {
     $type: String,
     default: uuid,
@@ -60,9 +67,10 @@ export let schema = new Schema({
     // required: true,
     enum: NOTIFICATION_TYPES,
   },
-  data: {$type: Schema.Types.Mixed, default: () => {
-    return {};
-  }},
+  data: {
+    $type: Schema.Types.Mixed,
+    default: () => ({}),
+  },
   // A field to mark the notification as seen without deleting it, optional use
   seen: {
     $type: Boolean,
@@ -82,7 +90,7 @@ export let schema = new Schema({
  * @TODO Remove once https://github.com/HabitRPG/habitica/issues/9923
  * is fixed
  */
-schema.statics.convertNotificationsToSafeJson = function convertNotificationsToSafeJson (notifications) {
+schema.statics.convertNotificationsToSafeJson = function convNotifsToSafeJson (notifications) {
   if (!notifications) return notifications;
 
   let filteredNotifications = notifications.filter(n => {
@@ -100,9 +108,7 @@ schema.statics.convertNotificationsToSafeJson = function convertNotificationsToS
     return false;
   });
 
-  return filteredNotifications.map(n => {
-    return n.toJSON();
-  });
+  return filteredNotifications.map(n => n.toJSON());
 };
 
 schema.plugin(baseModel, {
@@ -111,4 +117,4 @@ schema.plugin(baseModel, {
   _id: false, // use id instead of _id
 });
 
-export let model = mongoose.model('UserNotification', schema);
+export const model = mongoose.model('UserNotification', schema);

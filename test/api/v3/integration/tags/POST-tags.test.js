@@ -10,13 +10,13 @@ describe('POST /tags', () => {
   });
 
   it('creates a tag correctly', async () => {
-    let tagName = 'Tag 1';
-    let createdTag = await user.post('/tags', {
+    const tagName = 'Tag 1';
+    const createdTag = await user.post('/tags', {
       name: tagName,
       ignored: false,
     });
 
-    let tag = await user.get(`/tags/${createdTag.id}`);
+    const tag = await user.get(`/tags/${createdTag.id}`);
 
     expect(tag.name).to.equal(tagName);
     expect(tag.ignored).to.not.exist;

@@ -143,7 +143,7 @@
     "dateEndAugust": "31 de Agosto",
     "dateEndSeptember": "21 de Setembro",
     "dateEndOctober": "31 de Outubro",
-    "dateEndNovember": "Dia 3 de Dezembro",
+    "dateEndNovember": "30 de Novembro",
     "dateEndJanuary": "31 de Janeiro",
     "dateEndFebruary": "28 de fevereiro",
     "winterPromoGiftHeader": "Presenteie alguém com uma assinatura e ganhe outra grátis !",
@@ -167,5 +167,6 @@
     "fall2019CyclopsSet": "Ciclope (Mago)",
     "fall2019OperaticSpecterSet": "Fantasma da Ópera (Ladino)",
     "september2018": "Setembro de 2018",
-    "september2017": "Setembro de 2017"
+    "september2017": "Setembro de 2017",
+    "augustYYYY": "Agosto <%= year %>"
 }

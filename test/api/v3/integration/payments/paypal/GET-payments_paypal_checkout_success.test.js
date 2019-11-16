@@ -5,7 +5,7 @@ import paypalPayments from '../../../../../../website/server/libs/payments/paypa
 import apiError from '../../../../../../website/server/libs/apiError';
 
 describe('payments : paypal #checkoutSuccess', () => {
-  let endpoint = '/paypal/checkout/success';
+  const endpoint = '/paypal/checkout/success';
   let user;
 
   beforeEach(async () => {
@@ -42,8 +42,8 @@ describe('payments : paypal #checkoutSuccess', () => {
     });
 
     it('makes a purchase', async () => {
-      let paymentId = 'test-paymentid';
-      let customerId = 'test-customerId';
+      const paymentId = 'test-paymentid';
+      const customerId = 'test-customerId';
 
       user = await generateUser({
         'profile.name': 'sender',
