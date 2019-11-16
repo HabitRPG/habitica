@@ -42,9 +42,8 @@
             <br>
             {{ $t('dataToolDesc') }}
           </li>
-          <li v-html="$t('otherExtensions')">
-            {{ $t('otherDesc') }}
-          </li>
+          <li v-html="$t('otherExtensions')"></li>
+          <span>{{ $t('otherDesc') }}</span>
         </ul>
         <hr>
       </div>
