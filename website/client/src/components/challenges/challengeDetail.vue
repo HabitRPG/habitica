@@ -417,7 +417,12 @@ export default {
       return cleansedTask;
     },
     async loadChallenge () {
-      this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
+      try {
+        this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
+      } catch (e) {
+        this.$router.push('/challenges/findChallenges');
+        return;
+      }
       this.members = await this
         .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
       const tasks = await this.$store.dispatch('tasks:getChallengeTasks', { challengeId: this.searchId });
