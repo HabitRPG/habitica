@@ -123,7 +123,7 @@
           class="col-12 col-sm-6"
           :type="column"
           :task-list-override="tasksByType[column]"
-          :show-options="showOptions"
+          :challenge="challenge"
           @editTask="editTask"
           @taskDestroyed="taskDestroyed"
         />
@@ -385,9 +385,6 @@ export default {
     },
     canJoin () {
       return !this.isMember;
-    },
-    showOptions () {
-      return this.isLeader;
     },
   },
   mounted () {

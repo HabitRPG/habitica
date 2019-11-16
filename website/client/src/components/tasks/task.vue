@@ -99,6 +99,7 @@
                 </div>
                 <div slot="dropdown-content">
                   <div
+                    v-if="showEdit"
                     ref="editTaskItem"
                     class="dropdown-item edit-task-item"
                   >
@@ -137,7 +138,7 @@
                     </span>
                   </div>
                   <div
-                    v-if="canDelete(task)"
+                    v-if="showDelete"
                     class="dropdown-item"
                     @click="destroy"
                   >
@@ -789,6 +790,7 @@ import moment from 'moment';
 import axios from 'axios';
 import Vue from 'vue';
 import uuid from 'uuid';
+import isEmpty from 'lodash/isEmpty';
 import { mapState, mapGetters, mapActions } from '@/libs/store';
 import scoreTask from '@/../../common/script/ops/scoreTask';
 import * as Analytics from '@/libs/analytics';
@@ -825,7 +827,7 @@ export default {
     markdown: markdownDirective,
   },
   mixins: [notifications],
-  props: ['task', 'isUser', 'group', 'dueDate', 'showOptions'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'challenge', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       random: uuid.v4(), // used to avoid conflicts between checkboxes ids
@@ -859,6 +861,7 @@ export default {
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
       canDelete: 'tasks:canDelete',
+      canEdit: 'tasks:canEdit',
     }),
     hasChecklist () {
       return this.task.checklist && this.task.checklist.length > 0;
@@ -937,6 +940,27 @@ export default {
 
       return this.task.challenge.shortName ? this.task.challenge.shortName.toString() : '';
     },
+    isChallangeTask () {
+      return !isEmpty(this.task.challenge);
+    },
+    isGroupTask () {
+      return this.task.group.taskId || this.task.group.id;
+    },
+    taskCategory () {
+      let taskCategory = 'default';
+      if (this.isGroupTask) taskCategory = 'group';
+      else if (this.isChallangeTask) taskCategory = 'challenge';
+      return taskCategory;
+    },
+    showDelete () {
+      return this.canDelete(this.task, this.taskCategory, this.isUser, this.group, this.challenge);
+    },
+    showEdit () {
+      return this.canEdit(this.task, this.taskCategory, this.isUser, this.group, this.challenge);
+    },
+    showOptions () {
+      return this.showEdit || this.showDelete || this.isUser;
+    },
   },
   methods: {
     ...mapActions({
@@ -950,7 +974,7 @@ export default {
       this.scoreChecklistItem({ taskId: this.task._id, itemId: item.id });
     },
     edit (e, task) {
-      if (this.isRunningYesterdailies) return;
+      if (this.isRunningYesterdailies || !this.showEdit) return;
 
       // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
