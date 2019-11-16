@@ -32,14 +32,8 @@
             <br>
             {{ $t('beeminderDesc') }}
           </li>
-          <li>
-            <a
-              target="_blank"
-              href="https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb"
-            >{{ $t('chromeChatExtension') }}</a>
-            <br>
-            {{ $t('chromeChatExtensionDesc') }}
-          </li>
+          <li v-html="$t('chatExtension')"></li>
+          <span>{{ $t('chatExtensionDesc') }}</span>
           <li>
             <a
               target="_blank"
@@ -48,10 +42,8 @@
             <br>
             {{ $t('dataToolDesc') }}
           </li>
-          <li v-html="$t('otherExtensions')">
-            <br>
-            {{ $t('otherDesc') }}
-          </li>
+          <li v-html="$t('otherExtensions')"></li>
+          <span>{{ $t('otherDesc') }}</span>
         </ul>
         <hr>
       </div>
