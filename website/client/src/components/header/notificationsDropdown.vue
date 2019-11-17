@@ -282,7 +282,7 @@ export default {
       return this.$store.getters['members:hasClass'](this.user);
     },
     showOnboardingGuide () {
-      return hasCompletedOnboarding(this.user);
+      return !hasCompletedOnboarding(this.user);
     },
   },
   methods: {
