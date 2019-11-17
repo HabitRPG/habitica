@@ -1,6 +1,12 @@
 <template>
   <div class="onboarding-guide-panel d-flex align-items-center flex-column p-4">
     <div
+      class="svg-icon onboarding-toggle"
+      :class="{'onboarding-toggle-open': open}"
+      @click="openPanel"
+      v-html="icons.down"
+    ></div>
+    <div
       class="svg-icon onboarding-guide-banner"
       v-html="icons.onboardingGuideBanner"
     ></div>
@@ -11,32 +17,34 @@
       class="getting-started-desc"
       v-html="$t('gettingStartedDesc')"
     ></span>
-    <div
-      class="onboarding-progress-box d-flex flex-row justify-content-between small-text mb-2"
-    >
-      <strong>Your Progress</strong>
-      <span :class="{'has-progress': progress > 0}">{{ progressText }}</span>
-    </div>
-    <div class="onboarding-progress-bar mb-3">
+    <div v-if="open">
       <div
-        class="onboarding-progress-bar-fill"
-        :style="{width: `${progress}%`}"
-      ></div>
-    </div>
-    <div
-      v-for="(achievement, key) in onboardingAchievements"
-      :key="key"
-      :class="{
-        'achievement-earned': achievement.earned
-      }"
-      class="achievement-box d-flex flex-row"
-    >
-      <div class="achievement-icon-wrapper">
-        <div :class="`achievement-icon ${getAchievementIcon(achievement)}`"></div>
+        class="onboarding-progress-box d-flex flex-row justify-content-between small-text mb-2"
+      >
+        <strong>Your Progress</strong>
+        <span :class="{'has-progress': progress > 0}">{{ progressText }}</span>
       </div>
-      <div class="achievement-info d-flex flex-column">
-        <strong class="achievement-title">{{ achievement.title }}</strong>
-        <span class="small-text achievement-desc">{{ achievement.text }}</span>
+      <div class="onboarding-progress-bar mb-3">
+        <div
+          class="onboarding-progress-bar-fill"
+          :style="{width: `${progress}%`}"
+        ></div>
+      </div>
+      <div
+        v-for="(achievement, key) in onboardingAchievements"
+        :key="key"
+        :class="{
+          'achievement-earned': achievement.earned
+        }"
+        class="achievement-box d-flex flex-row"
+      >
+        <div class="achievement-icon-wrapper">
+          <div :class="`achievement-icon ${getAchievementIcon(achievement)}`"></div>
+        </div>
+        <div class="achievement-info d-flex flex-column">
+          <strong class="achievement-title">{{ achievement.title }}</strong>
+          <span class="small-text achievement-desc">{{ achievement.text }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -48,6 +56,21 @@
   .onboarding-guide-panel {
     white-space: normal;
     text-align: center;
+  }
+
+  .onboarding-toggle {
+    cursor: pointer;
+    position: absolute;
+    top: 75px;
+    right: 24px;
+    width: 20px;
+    & ::v-deep svg path {
+      stroke: $gray-100;
+    }
+
+    &-open {
+      transform: rotate(-180deg);
+    }
   }
 
   .onboarding-guide-banner {
@@ -64,10 +87,6 @@
   .getting-started-desc {
     font-size: 14px;
     padding-bottom: 12px;
-
-    & >>> .gold-amount {
-      color: $yellow-5;
-    }
   }
 
   .getting-started-desc ::v-deep .gold-amount {
@@ -149,16 +168,20 @@
 </style>
 
 <script>
-import onboardingGuideBanner from '@/assets/svg/onboarding-guide-banner.svg';
 import achievs from '@/../../common/script/libs/achievements';
 import { mapState } from '@/libs/store';
+
+import onboardingGuideBanner from '@/assets/svg/onboarding-guide-banner.svg';
+import downIcon from '@/assets/svg/down.svg';
 
 export default {
   data () {
     return {
       icons: Object.freeze({
         onboardingGuideBanner,
+        down: downIcon,
       }),
+      open: false,
     };
   },
   computed: {
@@ -191,6 +214,11 @@ export default {
       }
 
       return 'achievement-unearned2x';
+    },
+    openPanel (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.open = !this.open;
     },
   },
 };
