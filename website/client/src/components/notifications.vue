@@ -235,6 +235,51 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
     modalId: 'generic-achievement',
   },
+  ACHIEVEMENT_CREATED_TASK: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementCreatedTask')}`,
+    modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementCreatedTask'),
+    },
+  },
+  ACHIEVEMENT_COMPLETED_TASK: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementCompletedTask')}`,
+    modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementCompletedTask'),
+    },
+  },
+  ACHIEVEMENT_HATCHED_PET: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementHatchedPet')}`,
+    modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementHatchedPet'),
+    },
+  },
+  ACHIEVEMENT_FED_PET: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementFedPet')}`,
+    modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementFedPet'),
+    },
+  },
+  ACHIEVEMENT_PURCHASED_EQUIPMENT: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPurchasedEquipment')}`,
+    modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementPurchasedEquipment'),
+    },
+  },
 };
 
 export default {
@@ -290,8 +335,11 @@ export default {
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
       'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
-      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
-      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'GENERIC_ACHIEVEMENT',
+      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL',
+      'ACHIEVEMENT_ARID_AUTHORITY',
+      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+      'ACHIEVEMENT_CREATED_TASK', 'ACHIEVEMENT_COMPLETED_TASK', 'ACHIEVEMENT_HATCHED_PET',
+      'ACHIEVEMENT_FED_PET', 'ACHIEVEMENT_PURCHASED_EQUIPMENT',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -700,6 +748,11 @@ export default {
           case 'ACHIEVEMENT_TRIAD_BINGO':
           case 'ACHIEVEMENT_MONSTER_MAGUS':
           case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
+          case 'ACHIEVEMENT_CREATED_TASK':
+          case 'ACHIEVEMENT_COMPLETED_TASK':
+          case 'ACHIEVEMENT_HATCHED_PET':
+          case 'ACHIEVEMENT_FED_PET':
+          case 'ACHIEVEMENT_PURCHASED_EQUIPMENT':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

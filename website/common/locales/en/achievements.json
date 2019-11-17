@@ -4,6 +4,9 @@
   "onwards": "Onwards!",
   "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
   "reachedLevel": "You Reached Level <%= level %>",
+  "gettingStartedDesc": "Let’s create a task, complete it, then check out your rewards. You’ll earn <strong>5 achievements</strong> and <strong class=\"gold-amount\">100 gold</strong> once you’re done!",
+  "onboardingProgress": "<%= percentage %>% progress",
+  "letsGetStarted": "Let's get started!",
   "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
   "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
   "achievementLostMasterclasserModalText": "You completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
@@ -34,5 +37,21 @@
   "achievementMonsterMagusModalText": "You collected all the Zombie Pets!",
   "achievementUndeadUndertaker": "Undead Undertaker",
   "achievementUndeadUndertakerText": "Has tamed all Zombie Mounts.",
-  "achievementUndeadUndertakerModalText": "You tamed all the Zombie Mounts!"
+  "achievementUndeadUndertakerModalText": "You tamed all the Zombie Mounts!",
+
+  "achievementCreatedTask": "Create your first task",
+  "achievementCreatedTaskText": "Add a task for something you would like to accomplish this week",
+  "achievementCreatedTaskModalText": "Add a task for something you would like to accomplish this week",
+  "achievementCompletedTask": "Complete a task",
+  "achievementCompletedTaskText": "Check off any of your tasks to earn rewards",
+  "achievementCompletedTaskModalText": "Check off any of your tasks to earn rewards",
+  "achievementHatchedPet": "Hatch a pet",
+  "achievementHatchedPetText": "Head over to your inventory and try combining a hatching potion and an egg",
+  "achievementHatchedPetModalText": "Head over to your inventory and try combining a hatching potion and an egg",
+  "achievementFedPet": "Feed a pet",
+  "achievementFedPetText": "There are many different types of food, but pets can be picky",
+  "achievementFedPetModalText": "There are many different types of food, but pets can be picky",
+  "achievementPurchasedEquipment": "Purchase a piece of equipment",
+  "achievementPurchasedEquipmentText": "Equipment is a way to customize your avatar and improve your stats",
+  "achievementPurchasedEquipmentModalText": "Equipment is a way to customize your avatar and improve your stats"
 }

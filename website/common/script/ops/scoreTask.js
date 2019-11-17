@@ -10,6 +10,7 @@ import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
 import statsComputed from '../libs/statsComputed';
 import { sanitizeOptions, startOfDay } from '../cron';
+import { checkOnboardingStatus } from '../libs/onboarding';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
@@ -361,6 +362,12 @@ export default function scoreTask (options = {}, req = {}) {
       stats.hp += stats.gp;
       stats.gp = 0;
     }
+  }
+
+  if (!user.achievements.completedTask && cron === false) {
+    user.achievements.completedTask = true;
+    if (user.addNotification) user.addNotification('ACHIEVEMENT_COMPLETED_TASK');
+    checkOnboardingStatus(user);
   }
 
   req.yesterDailyScored = task.yesterDailyScored;

@@ -41,6 +41,9 @@
         >{{ $t('dismissAll') }}</a>
       </div>
       <world-boss />
+      <onboarding-guide
+        v-if="showOnboardingGuide"
+      />
       <component
         :is="notification.type"
         v-for="notification in notifications"
@@ -49,7 +52,7 @@
         :can-remove="!isActionable(notification)"
       />
       <div
-        v-if="notificationsCount === 0"
+        v-if="notificationsCount === 0 && !showOnboardingGuide"
         class="dropdown-item dropdown-separated
          d-flex justify-content-center dropdown-inactive no-notifications flex-column"
       >
@@ -106,6 +109,7 @@
 <script>
 import { mapState, mapActions } from '@/libs/store';
 import * as quests from '@/../../common/script/content/quests';
+import { hasCompletedOnboarding } from '@/../../common/script/libs/onboarding';
 import notificationsIcon from '@/assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
@@ -132,6 +136,7 @@ import VERIFY_USERNAME from './notifications/verifyUsername';
 import ACHIEVEMENT_JUST_ADD_WATER from './notifications/justAddWater';
 import ACHIEVEMENT_LOST_MASTERCLASSER from './notifications/lostMasterclasser';
 import ACHIEVEMENT_MIND_OVER_MATTER from './notifications/mindOverMatter';
+import OnboardingGuide from './onboardingGuide';
 
 export default {
   components: {
@@ -158,6 +163,7 @@ export default {
     ACHIEVEMENT_MIND_OVER_MATTER,
     WorldBoss: WORLD_BOSS,
     VERIFY_USERNAME,
+    OnboardingGuide,
   },
   data () {
     return {
@@ -274,6 +280,9 @@ export default {
     },
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
+    },
+    showOnboardingGuide () {
+      return hasCompletedOnboarding(this.user);
     },
   },
   methods: {
