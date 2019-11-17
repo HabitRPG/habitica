@@ -1,10 +1,10 @@
 export function hasCompletedOnboarding (user) {
   return (
-    !user.achievements.createdTask
-    || !user.achievements.completedTask
-    || !user.achievements.hatchedPet
-    || !user.achievements.fedPet
-    || !user.achievements.purchasedEquipment
+    user.achievements.createdTask === true
+    && user.achievements.completedTask === true
+    && user.achievements.hatchedPet === true
+    && user.achievements.fedPet === true
+    && user.achievements.purchasedEquipment === true
   );
 }
 
