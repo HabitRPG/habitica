@@ -1963,5 +1963,13 @@
     "headMystery201910Notes": "Essas chamas revelam segredos arcanos diante de seus olhos! Não confere benefícios. Item de Assinante de Outubro de 2019.",
     "headMystery201910Text": "Chama Críptica",
     "armorMystery201910Notes": "Essa armadura enigmática irá te proteger dos terrores visíveis e invisíveis. Não confere benefícios. Item de Assinante de Outubro de 2019.",
-    "armorMystery201910Text": "Armadura Críptica"
+    "armorMystery201910Text": "Armadura Críptica",
+    "shieldArmoireAlchemistsScaleNotes": "Assegure-se de que seus ingredientes místicos sejam medidos corretamente usando este equipamento fino. Aumenta a Inteligência em <%= int %>. Armário Encantado: Conjunto Alquimista (Item 4 de 4).",
+    "shieldArmoireAlchemistsScaleText": "Escala de Alquimista",
+    "headArmoireAlchemistsHatNotes": "Embora os chapéus não sejam estritamente necessários para a prática da alquimia, parecer descolado certamente não faz mal a nada! Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto Alquimista (Item 2 de 4).",
+    "headArmoireAlchemistsHatText": "Chapéu de Alquimista",
+    "armorArmoireAlchemistsRobeNotes": "Inúmeros elixires perigosos estão envolvidos na criação de metais arcanos e pedras preciosas, e essas roupas pesadas o protegerão de danos e efeitos colaterais indesejados! Aumenta a Constituição em <%= con %> e a Percepção em <%= per %>. Armário Encantado: Conjunto Alquimista (Item 1 de 4).",
+    "armorArmoireAlchemistsRobeText": "Vestes de Alquimista",
+    "weaponArmoireAlchemistsDistillerNotes": "Purifique metais e outros compostos mágicos com este instrumento de latão brilhante. Aumenta a Força em <%= str %> e a Inteligência em <%= int %>. Armário Encantado: Conjunto Alquimista (Item 3 de 4).",
+    "weaponArmoireAlchemistsDistillerText": "Destilador do Alquimista"
 }

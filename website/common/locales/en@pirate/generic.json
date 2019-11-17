@@ -79,7 +79,7 @@
     "continue": "Sail On",
     "accept": "Aye",
     "reject": "Yea",
-    "neverMind": "Ne'er mind",
+    "neverMind": "Ne'ermind",
     "buyMoreGems": "Trade Fer More Sapphires",
     "notEnoughGems": "Not enough Sapphires",
     "alreadyHave": "Ahoy! Ye already be havin' this item. Save yer Doubloons!",
@@ -291,5 +291,8 @@
     "howManyToBuy": "How many would you like to buy?",
     "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
     "contactForm": "Contact th' Moderation Team",
-    "options": "Options"
+    "options": "Options",
+    "demo": "emo",
+    "loadEarlierMessages": "Load Earlyer Messages",
+    "finish": "Finish"
 }

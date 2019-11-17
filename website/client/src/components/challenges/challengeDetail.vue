@@ -123,7 +123,7 @@
           class="col-12 col-sm-6"
           :type="column"
           :task-list-override="tasksByType[column]"
-          :show-options="showOptions"
+          :challenge="challenge"
           @editTask="editTask"
           @taskDestroyed="taskDestroyed"
         />
@@ -386,9 +386,6 @@ export default {
     canJoin () {
       return !this.isMember;
     },
-    showOptions () {
-      return this.isLeader;
-    },
   },
   mounted () {
     if (!this.searchId) this.searchId = this.challengeId;
@@ -417,7 +414,12 @@ export default {
       return cleansedTask;
     },
     async loadChallenge () {
-      this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
+      try {
+        this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
+      } catch (e) {
+        this.$router.push('/challenges/findChallenges');
+        return;
+      }
       this.members = await this
         .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
       const tasks = await this.$store.dispatch('tasks:getChallengeTasks', { challengeId: this.searchId });
