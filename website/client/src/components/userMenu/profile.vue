@@ -756,6 +756,7 @@ export default {
   },
   mounted () {
     this.loadUser();
+    this.selectPage(this.startingPage);
   },
   methods: {
     async loadUser () {

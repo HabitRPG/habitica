@@ -21,7 +21,7 @@
     "sleepDescription": "需要休息吗？来逛逛Daniel的酒店，当你遇到困难时，能暂停Habitica的游戏机制:",
     "sleepBullet1": "错过每日任务不会对你造成伤害",
     "sleepBullet2": "任务不会失去连击数或褪色",
-    "sleepBullet3": "怪物们不会对你错过的每日任务造成伤害",
+    "sleepBullet3": "Boss不会因你错过每日而任务造成伤害",
     "sleepBullet4": "结算前这里会预测你对boss造成的伤害以及收集到的物品数量",
     "pauseDailies": "暂停伤害",
     "unpauseDailies": "解除暂停",
@@ -109,8 +109,8 @@
     "paymentSuccessful": "支付成功！",
     "paymentYouReceived": "你收到了：",
     "paymentYouSentGems": "您送给<strong><%= name %></strong>了：",
-    "paymentYouSentSubscription": "您送给<strong><%= name %></strong>了<%= months %>个月的Habitica捐助。",
-    "paymentSubBilling": "您的捐助费用为每<strong><%= months %>月</strong><strong><%= amount %> 美元</strong> 。",
+    "paymentYouSentSubscription": "您已赠送<strong><%= name %></strong>为期<%= months %>个月的Habitica订阅。",
+    "paymentSubBilling": "您的订阅费用为每<strong><%= months %>月</strong><strong><%= amount %> 美元</strong> 。",
     "success": "成功！",
     "classGear": "职业装备",
     "classGearText": "祝贺你选了一个职业！我已经将你的的基本武器放到物品栏了。看看下面来装备它吧！",
@@ -169,5 +169,5 @@
     "imReady": "进入Habitica",
     "limitedOffer": "有效期至<%= date %>",
     "paymentCanceledDisputes": "我们已为您的电子邮件发送了取消确认。如果您没有看到电子邮件，请联系我们，以防止将来发生账单纠纷。",
-    "paymentAutoRenew": "此订阅在被取消前会自动订阅。你可以在设置里取消订阅。"
+    "paymentAutoRenew": "此订阅在被取消前会自动续订。你可以在设置里取消订阅。"
 }
