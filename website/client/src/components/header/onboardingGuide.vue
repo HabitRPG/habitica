@@ -63,7 +63,7 @@
     position: absolute;
     top: 75px;
     right: 24px;
-    width: 20px;
+    width: 16px;
     & ::v-deep svg path {
       stroke: $gray-100;
     }
