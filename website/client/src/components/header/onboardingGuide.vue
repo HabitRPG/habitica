@@ -1,3 +1,197 @@
 <template>
-  <span>Test</span>
+  <div class="onboarding-guide-panel d-flex align-items-center flex-column p-4">
+    <div
+      class="svg-icon onboarding-guide-banner"
+      v-html="icons.onboardingGuideBanner"
+    ></div>
+    <h3 class="getting-started">
+      {{ $t('gettingStarted') }}
+    </h3>
+    <span
+      class="getting-started-desc"
+      v-html="$t('gettingStartedDesc')"
+    ></span>
+    <div
+      class="onboarding-progress-box d-flex flex-row justify-content-between small-text mb-2"
+    >
+      <strong>Your Progress</strong>
+      <span :class="{'has-progress': progress > 0}">{{ progressText }}</span>
+    </div>
+    <div class="onboarding-progress-bar mb-3">
+      <div
+        class="onboarding-progress-bar-fill"
+        :style="{width: `${progress}%`}"
+      ></div>
+    </div>
+    <div
+      v-for="(achievement, key) in onboardingAchievements"
+      :key="key"
+      :class="{
+        'achievement-earned': achievement.earned
+      }"
+      class="achievement-box d-flex flex-row"
+    >
+      <div class="achievement-icon-wrapper">
+        <div :class="`achievement-icon ${getAchievementIcon(achievement)}`"></div>
+      </div>
+      <div class="achievement-info d-flex flex-column">
+        <strong class="achievement-title">{{ achievement.title }}</strong>
+        <span class="small-text achievement-desc">{{ achievement.text }}</span>
+      </div>
+    </div>
+  </div>
 </template>
+
+<style lang='scss' scoped>
+  @import '~@/assets/scss/colors.scss';
+
+  .onboarding-guide-panel {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .onboarding-guide-banner {
+    margin-top: -8px;
+    margin-bottom: 12px;
+    width: 154px;
+    height: 48px;
+  }
+
+  .getting-started {
+    margin-bottom: 4px;
+  }
+
+  .getting-started-desc {
+    font-size: 14px;
+    padding-bottom: 12px;
+
+    & >>> .gold-amount {
+      color: $yellow-5;
+    }
+  }
+
+  .getting-started-desc ::v-deep .gold-amount {
+    color: $yellow-5;
+  }
+
+  .onboarding-progress-box {
+    width: 100%;
+    font-style: normal;
+
+    strong {
+      color: $gray-50;
+    }
+
+    .has-progress {
+      color: $yellow-5;
+    }
+  }
+
+  .onboarding-progress-bar {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: $gray-600;
+
+    .onboarding-progress-bar-fill {
+      height: 100%;
+      background: $yellow-5;
+    }
+  }
+
+  .achievement-box {
+    padding-top: 11px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed $gray-500;
+    width: 100%;
+
+    &:last-child {
+      padding-bottom: 0px;
+      border-bottom: none;
+    }
+  }
+
+  .achievement-earned {
+    .achievement-icon-wrapper {
+      opacity: 1;
+    }
+
+    color: $gray-200;
+
+    .achievement-title {
+      text-decoration: line-through;
+    }
+  }
+
+  .achievement-icon-wrapper {
+    opacity: 0.5;
+    width: 40px;
+
+    .achievement-icon {
+      margin-left: -12px;
+      transform: scale(0.5);
+    }
+  }
+
+  .achievement-info {
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .achievement-title {
+    margin-bottom: 4px;
+  }
+
+  .achievement-desc {
+    font-style: normal;
+  }
+</style>
+
+<script>
+import onboardingGuideBanner from '@/assets/svg/onboarding-guide-banner.svg';
+import achievs from '@/../../common/script/libs/achievements';
+import { mapState } from '@/libs/store';
+
+export default {
+  data () {
+    return {
+      icons: Object.freeze({
+        onboardingGuideBanner,
+      }),
+    };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    onboardingAchievements () {
+      return achievs.getAchievementsForProfile(this.user).onboarding.achievements;
+    },
+    progress () {
+      const keys = Object.keys(this.onboardingAchievements);
+      let nEarned = 0;
+
+      keys.forEach(key => {
+        if (this.onboardingAchievements[key].earned) nEarned += 1;
+      });
+
+      return (nEarned / keys.length) * 100;
+    },
+    progressText () {
+      if (this.progress === 0) {
+        return this.$t('letsGetStarted');
+      }
+
+      return this.$t('onboardingProgress', { percentage: this.progress });
+    },
+  },
+  methods: {
+    getAchievementIcon (achievement) {
+      if (achievement.earned) {
+        return `${achievement.icon}2x`;
+      }
+
+      return 'achievement-unearned2x';
+    },
+  },
+};
+</script>
