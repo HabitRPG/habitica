@@ -290,10 +290,17 @@
         <input
           id="passwordInput"
           v-model="password"
-          class="form-control"
+          class="form-control input-with-error"
           type="password"
           :placeholder="$t('password')"
+          :class="{'input-invalid': passwordInvalid, 'input-valid': passwordValid}"
         >
+        <div
+          v-if="passwordInvalid"
+          class="input-error"
+        >
+          {{ $t('minPasswordLength') }}
+        </div>
       </div>
       <div class="form-group">
         <label
@@ -303,10 +310,17 @@
         <input
           id="confirmPasswordInput"
           v-model="passwordConfirm"
-          class="form-control"
+          class="form-control input-with-error"
           type="password"
           :placeholder="$t('confirmPasswordPlaceholder')"
+          :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
         >
+        <div
+          v-if="passwordConfirmInvalid"
+          class="input-error"
+        >
+          {{ $t('passwordConfirmationMatch') }}
+        </div>
       </div>
       <div class="text-center">
         <div

@@ -391,13 +391,23 @@ api.resetPasswordSetNewOne = {
 
     if (!isValidCode) throw new NotAuthorized(res.t('invalidPasswordResetCode'));
 
-    req.checkBody('newPassword', res.t('missingNewPassword')).notEmpty();
-    req.checkBody('confirmPassword', res.t('missingNewPassword')).notEmpty();
+    req.checkBody({
+      newPassword: {
+        notEmpty: { errorMessage: res.t('missingNewPassword') },
+        isLength: {
+          options: { min: common.constants.MINIMUM_PASSWORD_LENGTH },
+          errorMessage: res.t('minPasswordLength'),
+        },
+      },
+      confirmPassword: {
+        notEmpty: { errorMessage: res.t('missingNewPassword') },
+      },
+    });
+
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const { newPassword } = req.body;
-    const { confirmPassword } = req.body;
+    const { newPassword, confirmPassword } = req.body;
 
     if (newPassword !== confirmPassword) {
       throw new BadRequest(res.t('passwordConfirmationMatch'));
