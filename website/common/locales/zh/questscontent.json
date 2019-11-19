@@ -646,5 +646,11 @@
     "questRobotDropRobotEgg": "机器人 (宠物蛋)",
     "questSilverCollectSilverIngots": "银锭",
     "questDolphinUnlockText": "在市场上解锁海豚蛋以购买",
-    "questDolphinDropDolphinEgg": "海豚 (宠物蛋)"
+    "questDolphinDropDolphinEgg": "海豚 (宠物蛋)",
+    "questSilverCollectCancerRunes": "巨蟹座卢恩",
+    "questSilverCollectMoonRunes": "月亮卢恩",
+    "questSilverUnlockText": "在市场上解锁银孵化药水以购买",
+    "questSilverDropSilverPotion": "银孵化药水",
+    "delightfulDinosText": "愉快的恐龙副本集",
+    "delightfulDinosNotes": "包含“翼龙”，“那只跺脚的三角龙”，以及“出土恐龙化石”副本。11月30日前有效。"
 }

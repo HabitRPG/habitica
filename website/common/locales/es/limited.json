@@ -143,7 +143,7 @@
     "dateEndAugust": "Agosto 31",
     "dateEndSeptember": "21 de septiembre",
     "dateEndOctober": "31 de octubre",
-    "dateEndNovember": "3 de diciembre",
+    "dateEndNovember": "30 de noviembre",
     "dateEndJanuary": "31 de enero",
     "dateEndFebruary": "28 de febrero",
     "winterPromoGiftHeader": "¡REGALA UNA SUSCRIPCIÓN Y RECIBE OTRA GRATIS!",
@@ -167,5 +167,6 @@
     "summer2019HammerheadRogueSet": "Cabeza de Martillo (Pícaro)",
     "summer2019ConchHealerSet": "Caracola (Sanador)",
     "summer2019WaterLilyMageSet": "Nenúfar (Mago)",
-    "summer2019SeaTurtleWarriorSet": "Tortuga Marina (Guerrero)"
+    "summer2019SeaTurtleWarriorSet": "Tortuga Marina (Guerrero)",
+    "augustYYYY": "Agosto del <%= year %>"
 }
