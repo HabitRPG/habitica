@@ -18,9 +18,8 @@
       <h3>{{ $t('congraturations') }}</h3>
       <p
         class="onboarding-complete-text"
-      >
-        You earned 5 achievements and 100 gold for completing the list.
-      </p>
+        v-html="$t('onboardingCompleteDesc')"
+      ></p>
       <div class="notifications-buttons">
         <div
           class="btn btn-small btn-primary btn-block"
