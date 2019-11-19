@@ -271,8 +271,6 @@ export default {
         if (aOrder < bOrder) return -1; // a is higher
       });
 
-      console.log('seen in notifications habdler');
-      console.log(notifications);
       return notifications;
     },
     // The total number of notification, shown inside the dropdown

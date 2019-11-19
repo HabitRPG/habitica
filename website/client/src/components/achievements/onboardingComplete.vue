@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    id="level-up"
+    id="onboarding-complete"
     :title="$t('levelUpShare')"
     size="sm"
     :hide-footer="true"

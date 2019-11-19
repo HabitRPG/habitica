@@ -30,6 +30,7 @@
     <just-add-water />
     <lost-masterclasser />
     <mind-over-matter />
+    <onboarding-complete />
   </div>
 </template>
 
@@ -132,6 +133,7 @@ import justAddWater from './achievements/justAddWater';
 import lostMasterclasser from './achievements/lostMasterclasser';
 import mindOverMatter from './achievements/mindOverMatter';
 import loginIncentives from './achievements/login-incentives';
+import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
 
 const NOTIFICATIONS = {
@@ -311,6 +313,7 @@ export default {
     lostMasterclasser,
     mindOverMatter,
     justAddWater,
+    onboardingComplete,
   },
   mixins: [notifications, guide],
   data () {
@@ -783,17 +786,15 @@ export default {
             }
             break;
           case 'ONBOARDING_COMPLETE':
-            console.log('seen in modals habdler');
-            markAsRead = false;
             // If the user cronned in the last 3 minutes
             // Don't show too many modals on app load
             // Use notification panel
-            /* if (moment().diff(this.user.lastCron, 'minutes') < 3) {
+            if (moment().diff(this.user.lastCron, 'minutes') < 3) {
               markAsRead = false;
             } else {
               // Otherwise use the modal
               this.$root.$emit('bv::show::modal', 'onboarding-complete');
-            } */
+            }
             break;
         }
 
