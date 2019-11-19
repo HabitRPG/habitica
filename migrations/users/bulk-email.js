@@ -20,7 +20,7 @@ async function updateUser (user) {
     user,
     EMAIL_SLUG,
     [{ name: 'BASE_URL', content: BASE_URL }], // Add variables from template
-  ).catch(err => console.error(err));
+  );
 
   return User.update({ _id: user._id }, { $set: { migration: MIGRATION_NAME } }).exec();
 }

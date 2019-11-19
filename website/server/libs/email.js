@@ -149,4 +149,6 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
       },
     }).catch(err => logger.error(err));
   }
+
+  return null;
 }
