@@ -95,7 +95,10 @@ export function removePinnedGearAddPossibleNewOnes (user, itemPath, newItemKey) 
   // remove the old pinned gear items and add the new gear back
   removePinnedGearByClass(user);
 
-  user.items.gear.owned[newItemKey] = true;
+  const oldOwnedUserItems = { ...user.items.gear.owned };
+  const newOwnedUserItems = { ...oldOwnedUserItems, [newItemKey]: true };
+
+  user.items.gear.owned = newOwnedUserItems;
   if (user.markModified) user.markModified('items.gear.owned');
 
   addPinnedGearByClass(user);
