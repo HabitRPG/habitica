@@ -4,6 +4,7 @@
     :has-icon="false"
     :read-after-click="true"
     :notification="notification"
+    :has-text="false"
     @click="action"
   >
     <div

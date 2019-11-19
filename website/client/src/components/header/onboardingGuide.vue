@@ -114,6 +114,7 @@
 
     .onboarding-progress-bar-fill {
       height: 100%;
+      border-radius: 2px;
       background: $yellow-5;
     }
   }
