@@ -339,7 +339,7 @@ export default {
       'ACHIEVEMENT_ARID_AUTHORITY',
       'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
       'ACHIEVEMENT_CREATED_TASK', 'ACHIEVEMENT_COMPLETED_TASK', 'ACHIEVEMENT_HATCHED_PET',
-      'ACHIEVEMENT_FED_PET', 'ACHIEVEMENT_PURCHASED_EQUIPMENT',
+      'ACHIEVEMENT_FED_PET', 'ACHIEVEMENT_PURCHASED_EQUIPMENT', 'ONBOARDING_COMPLETE',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -781,6 +781,19 @@ export default {
               this.notificationData = notification.data;
               this.$root.$emit('bv::show::modal', 'login-incentives');
             }
+            break;
+          case 'ONBOARDING_COMPLETE':
+            console.log('seen in modals habdler');
+            markAsRead = false;
+            // If the user cronned in the last 3 minutes
+            // Don't show too many modals on app load
+            // Use notification panel
+            /* if (moment().diff(this.user.lastCron, 'minutes') < 3) {
+              markAsRead = false;
+            } else {
+              // Otherwise use the modal
+              this.$root.$emit('bv::show::modal', 'onboarding-complete');
+            } */
             break;
         }
 

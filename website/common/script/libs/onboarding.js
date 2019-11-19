@@ -14,7 +14,7 @@ export function checkOnboardingStatus (user) {
     user.stats.gp += 100;
     // Add notification
     if (user.addNotification) {
-      user.addNotification('ONBOARDING_COMPLETED');
+      user.addNotification('ONBOARDING_COMPLETE');
     }
   }
 }
