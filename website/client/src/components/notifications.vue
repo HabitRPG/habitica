@@ -30,6 +30,7 @@
     <just-add-water />
     <lost-masterclasser />
     <mind-over-matter />
+    <onboarding-complete />
   </div>
 </template>
 
@@ -132,6 +133,7 @@ import justAddWater from './achievements/justAddWater';
 import lostMasterclasser from './achievements/lostMasterclasser';
 import mindOverMatter from './achievements/mindOverMatter';
 import loginIncentives from './achievements/login-incentives';
+import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
 
 const NOTIFICATIONS = {
@@ -311,6 +313,7 @@ export default {
     lostMasterclasser,
     mindOverMatter,
     justAddWater,
+    onboardingComplete,
   },
   mixins: [notifications, guide],
   data () {
@@ -339,7 +342,7 @@ export default {
       'ACHIEVEMENT_ARID_AUTHORITY',
       'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
       'ACHIEVEMENT_CREATED_TASK', 'ACHIEVEMENT_COMPLETED_TASK', 'ACHIEVEMENT_HATCHED_PET',
-      'ACHIEVEMENT_FED_PET', 'ACHIEVEMENT_PURCHASED_EQUIPMENT',
+      'ACHIEVEMENT_FED_PET', 'ACHIEVEMENT_PURCHASED_EQUIPMENT', 'ONBOARDING_COMPLETE',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -783,6 +786,17 @@ export default {
             if (this.user.flags.tour.intro === this.TOUR_END && this.user.flags.welcomed) {
               this.notificationData = notification.data;
               this.$root.$emit('bv::show::modal', 'login-incentives');
+            }
+            break;
+          case 'ONBOARDING_COMPLETE':
+            // If the user cronned in the last 3 minutes
+            // Don't show too many modals on app load
+            // Use notification panel
+            if (moment().diff(this.user.lastCron, 'minutes') < 3) {
+              markAsRead = false;
+            } else {
+              // Otherwise use the modal
+              this.$root.$emit('bv::show::modal', 'onboarding-complete');
             }
             break;
         }

@@ -136,6 +136,7 @@ import VERIFY_USERNAME from './notifications/verifyUsername';
 import ACHIEVEMENT_JUST_ADD_WATER from './notifications/justAddWater';
 import ACHIEVEMENT_LOST_MASTERCLASSER from './notifications/lostMasterclasser';
 import ACHIEVEMENT_MIND_OVER_MATTER from './notifications/mindOverMatter';
+import ONBOARDING_COMPLETE from './notifications/onboardingComplete';
 import OnboardingGuide from './onboardingGuide';
 
 export default {
@@ -164,6 +165,7 @@ export default {
     WorldBoss: WORLD_BOSS,
     VERIFY_USERNAME,
     OnboardingGuide,
+    ONBOARDING_COMPLETE,
   },
   data () {
     return {
@@ -183,11 +185,11 @@ export default {
       handledNotifications: [
         'NEW_STUFF', 'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
-        'QUEST_INVITATION', 'GROUP_TASK_ASSIGNED', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED', 'GROUP_TASK_CLAIMED',
-        'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
+        'QUEST_INVITATION', 'GROUP_TASK_ASSIGNED', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
+        'GROUP_TASK_CLAIMED', 'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
         'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE', 'UNALLOCATED_STATS_POINTS',
         'ACHIEVEMENT_JUST_ADD_WATER', 'ACHIEVEMENT_LOST_MASTERCLASSER', 'ACHIEVEMENT_MIND_OVER_MATTER',
-        'VERIFY_USERNAME',
+        'VERIFY_USERNAME', 'ONBOARDING_COMPLETE',
       ],
     };
   },

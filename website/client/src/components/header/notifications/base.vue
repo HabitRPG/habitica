@@ -107,17 +107,16 @@
   line-height: 1.43;
   color: $gray-50;
 
-  max-width: calc(100% - 26px); // to make space for the close icon
+  max-width: 100%;
 }
 
 .notification-remove {
-  // total distance from the notification top edge is 20 pixels
-  margin-top: 7px;
-
+  position: absolute;
   width: 18px;
   height: 18px;
   margin-left: 12px;
   padding: 4px;
+  right: 24px;
 
   .svg-icon {
     width: 10px;
