@@ -518,7 +518,7 @@ export default {
         this.text(config.label(this.$t), () => {
           this.notificationData = data;
           this.$root.$emit('bv::show::modal', config.modalId);
-        }, false);
+        }, true, 10000);
       }
     },
     debounceCheckUserAchievements: debounce(function debounceCheck () {
@@ -789,16 +789,21 @@ export default {
             }
             break;
           case 'ONBOARDING_COMPLETE':
+            markAsRead = false;
+            break;
+
             // If the user cronned in the last 3 minutes
             // Don't show too many modals on app load
             // Use notification panel
-            if (moment().diff(this.user.lastCron, 'minutes') < 3) {
+            /* if (moment().diff(this.user.lastCron, 'minutes') < 3) {
               markAsRead = false;
             } else {
+              markAsRead = false;
+              console.log('REMOVE markAsRead');
               // Otherwise use the modal
               this.$root.$emit('bv::show::modal', 'onboarding-complete');
             }
-            break;
+            break; */
         }
 
         if (markAsRead) notificationsToRead.push(notification.id);
