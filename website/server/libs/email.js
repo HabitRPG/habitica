@@ -66,7 +66,7 @@ export function getGroupUrl (group) {
 }
 
 // Send a transactional email using Mandrill through the external email server
-export function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
+export async function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
   mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray]; // eslint-disable-line no-param-reassign, max-len
 
   variables = [ // eslint-disable-line no-param-reassign, max-len
@@ -130,7 +130,7 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
   }
 
   if (IS_PROD && mailingInfoArray.length > 0) {
-    got.post(`${EMAIL_SERVER.url}/job`, {
+    return got.post(`${EMAIL_SERVER.url}/job`, {
       auth: `${EMAIL_SERVER.auth.user}:${EMAIL_SERVER.auth.password}`,
       json: true,
       body: {
