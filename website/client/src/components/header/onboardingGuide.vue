@@ -68,6 +68,10 @@
       stroke: $gray-100;
     }
 
+    &:hover ::v-deep svg path {
+      stroke: $gray-200;
+    }
+
     &-open {
       transform: rotate(-180deg);
     }
