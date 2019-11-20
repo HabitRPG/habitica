@@ -17,7 +17,10 @@
       class="getting-started-desc"
       v-html="$t('gettingStartedDesc')"
     ></span>
-    <div v-if="open">
+    <b-collapse
+      id="onboardingPanelCollapse"
+      v-model="open"
+    >
       <div
         class="onboarding-progress-box d-flex flex-row justify-content-between small-text mb-2"
       >
@@ -46,7 +49,7 @@
           <span class="small-text achievement-desc">{{ achievement.text }}</span>
         </div>
       </div>
-    </div>
+    </b-collapse>
   </div>
 </template>
 
