@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW DINOSAUR PET QUEST BUNDLE AND WIKI SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG POSTS: NEW GUILDS AND GAMIFYING TASKS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,38 +31,39 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/19/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_delightful_dinos center-block"></div>
-        <h3>New Pet Quest Bundle: Delightful Dinos</h3>
+        <div class="scene_yarn_boss center-block"></div>
+        <h3>Guild Spotlight: New and Notable Guilds for November!</h3>
         <p>
-          If you are looking to add some dinosaur pets to your Habitica stable, life, uh, finds a
-          way! From now until November 30, you can purchase the Delightful Dinos Pet Quest Bundle
-          and receive the Pterodactyl, Triceratops, and T-Rex (The Dinosaur Unearthed) quests, all
-          for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them
-          separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!
+          There's a new <a
+          href='https://habitica.wordpress.com/2019/11/19/new-and-notable-guild-spotlight-11/'
+          target='_blank'>Guild Spotlight on the blog</a> that highlights yet another selection
+          of the upcoming Guilds in Habitica dedicated to a variety of topics! Check it out now to
+          find some of Habitica's best new communities.
         </p>
-        <div class="small">by SabreCat and Beffymaroo</div>
-        <div class="small">Art by Baconsaur, Eevachu, UncommonCriminal, Kiwibot, McCoyly,
-          plumilla, Seraphina, PainterProphet, Stefalupagus, Katy133, Edge, Willow The Witty,
-          Lilith of Alfheim, Procyon, GeraldThePixel, and Archeia
-        </div>
-        <div class="small mb-3">Writing by Lemoness, Daniel the Bard, Lilith of Alfheim, and Ali
-          Stewart
-        </div>
-        <div class="scene_habitica_map center-block"></div>
-        <h3>Blog Post: Places in Habitica</h3>
-        <p>This month's <a href='https://habitica.wordpress.com/2019/11/14/places-in-habitica/'
-          target='_blank'>featured Wiki article</a> is about Places in Habitica! We hope that it
-          will help you as you gamify your tasks. Be sure to check it out, and let us know what 
-          you think by reaching out on <a href='https://twitter.com/habitica'
-          target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com'
-          target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica'
-          target='_blank'>Facebook</a>.
+        <div class="small mb-3">by shanaqui</div>
+        <div class="scene_office center-block"></div>
+        <h3>Use Case Spotlight: Gamifying Your Tasks</h3>
+        <p>
+          This month's <a
+          href='https://habitica.wordpress.com/2019/11/19/use-case-spotlight-gamifying-your-tasks/'
+          target='_blank'>Use Case Spotlight</a> is about Gamifying Your Tasks! It features a
+          number of great suggestions submitted by Habiticans in the <a
+          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
+          We hope it helps any of you who might be looking for ways to add more fun and adventure
+          to your tasks.
         </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <p>
+          Plus, we're collecting user submissions for the next spotlight! How do you use
+          Habitica's social spaces to help motivate yourself? We’ll be featuring player-submitted
+          examples in Use Case Spotlights on the Habitica Blog next month, so post your
+          suggestions in the Use Case Spotlight Guild now. We look forward to learning more about
+          how you use Habitica to improve your life and get things done!
+        </p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });
