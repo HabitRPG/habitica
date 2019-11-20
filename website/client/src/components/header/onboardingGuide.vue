@@ -1,5 +1,5 @@
 <template>
-  <div class="onboarding-guide-panel d-flex align-items-center flex-column p-4">
+  <div class="onboarding-guide-panel d-flex align-items-center flex-column p-4 dropdown-separated">
     <div
       class="svg-icon onboarding-toggle"
       :class="{'onboarding-toggle-open': open}"
@@ -17,7 +17,10 @@
       class="getting-started-desc"
       v-html="$t('gettingStartedDesc')"
     ></span>
-    <div v-if="open">
+    <b-collapse
+      id="onboardingPanelCollapse"
+      v-model="open"
+    >
       <div
         class="onboarding-progress-box d-flex flex-row justify-content-between small-text mb-2"
       >
@@ -46,7 +49,7 @@
           <span class="small-text achievement-desc">{{ achievement.text }}</span>
         </div>
       </div>
-    </div>
+    </b-collapse>
   </div>
 </template>
 
@@ -66,6 +69,10 @@
     width: 16px;
     & ::v-deep svg path {
       stroke: $gray-100;
+    }
+
+    &:hover ::v-deep svg path {
+      stroke: $gray-200;
     }
 
     &-open {
@@ -169,6 +176,7 @@
 </style>
 
 <script>
+import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 import achievs from '@/../../common/script/libs/achievements';
 import { mapState } from '@/libs/store';
 
@@ -207,6 +215,17 @@ export default {
 
       return this.$t('onboardingProgress', { percentage: this.progress });
     },
+  },
+  mounted () {
+    const onboardingPanelState = getLocalSetting(CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE);
+    if (onboardingPanelState !== CONSTANTS.onboardingPanelValues.PANEL_OPENED) {
+      // The first time the panel should be automatically opened
+      this.open = true;
+      setLocalSetting(
+        CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE,
+        CONSTANTS.onboardingPanelValues.PANEL_OPENED,
+      );
+    }
   },
   methods: {
     getAchievementIcon (achievement) {
