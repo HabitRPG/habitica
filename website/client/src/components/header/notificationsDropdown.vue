@@ -22,7 +22,10 @@
         ></div>
       </div>
     </div>
-    <div slot="dropdown-content">
+    <div
+      v-if="openStatus === 1"
+      slot="dropdown-content"
+    >
       <div
         class="dropdown-item dropdown-separated
          d-flex justify-content-between dropdown-inactive align-items-center"

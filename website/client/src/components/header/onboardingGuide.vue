@@ -176,6 +176,7 @@
 </style>
 
 <script>
+import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 import achievs from '@/../../common/script/libs/achievements';
 import { mapState } from '@/libs/store';
 
@@ -214,6 +215,17 @@ export default {
 
       return this.$t('onboardingProgress', { percentage: this.progress });
     },
+  },
+  mounted () {
+    const onboardingPanelState = getLocalSetting(CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE);
+    if (onboardingPanelState !== CONSTANTS.onboardingPanelValues.PANEL_OPENED) {
+      // The first time the panel should be automatically opened
+      this.open = true;
+      setLocalSetting(
+        CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE,
+        CONSTANTS.onboardingPanelValues.PANEL_OPENED,
+      );
+    }
   },
   methods: {
     getAchievementIcon (achievement) {
