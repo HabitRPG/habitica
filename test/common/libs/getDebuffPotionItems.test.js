@@ -13,23 +13,21 @@ describe('getDebuffPotionItems', () => {
     user = generateUser();
   });
 
-  for (const key in TRANSFORMATION_DEBUFFS_LIST) {
-    if (Object.prototype.hasOwnProperty.call(TRANSFORMATION_DEBUFFS_LIST, key)) {
-      const debuff = TRANSFORMATION_DEBUFFS_LIST[key];
-      // Here we itterate whole object to dynamicaly create test suites as
-      // it described in dock of mocha
-      // https://mochajs.org/#dynamically-generating-tests
-      // That's why we have eslint-disable here
-      // eslint-disable-next-line no-loop-func
-      it(`Should return the ${debuff} on ${key} buff`, () => {
-        user.stats.buffs[key] = true;
+  for (const key of Object.keys(TRANSFORMATION_DEBUFFS_LIST)) {
+    const debuff = TRANSFORMATION_DEBUFFS_LIST[key];
+    // Here we itterate whole object to dynamicaly create test suites as
+    // it described in dock of mocha
+    // https://mochajs.org/#dynamically-generating-tests
+    // That's why we have eslint-disable here
+    // eslint-disable-next-line no-loop-func
+    it(`Should return the ${debuff} on ${key} buff`, () => {
+      user.stats.buffs[key] = true;
 
-        const result = getDebuffPotionItems(user);
+      const result = getDebuffPotionItems(user);
 
-        expect(result).to.be.an('array').that.deep
-          .includes({ path: `spells.special.${debuff}`, type: 'debuffPotion' });
-      });
-    }
+      expect(result).to.be.an('array').that.deep
+        .includes({ path: `spells.special.${debuff}`, type: 'debuffPotion' });
+    });
   }
 
   it('Should return all debuff potions for all buffs', () => {
