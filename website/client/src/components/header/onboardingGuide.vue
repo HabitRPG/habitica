@@ -1,5 +1,5 @@
 <template>
-  <div class="onboarding-guide-panel d-flex align-items-center flex-column p-4">
+  <div class="onboarding-guide-panel d-flex align-items-center flex-column p-4 dropdown-separated">
     <div
       class="svg-icon onboarding-toggle"
       :class="{'onboarding-toggle-open': open}"
