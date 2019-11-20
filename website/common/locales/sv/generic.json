@@ -290,5 +290,9 @@
     "selected": "Valda",
     "howManyToBuy": "Hur många vill du köpa?",
     "habiticaHasUpdated": "Det finns en ny Habitica uppdatering. Ladda om sidan för att få den senaste versionen!",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Contact the Moderation Team",
+    "loadEarlierMessages": "Ladda tidigare Meddelanden",
+    "demo": "Demo",
+    "options": "Alternativ",
+    "finish": "Klar"
 }

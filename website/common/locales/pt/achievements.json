@@ -1,9 +1,11 @@
 {
-  "achievement": "Conquista",
-  "share": "Partilhar",
-  "onwards": "Em frente!",
-  "levelup": "Ao concretizar os seus objetivos de vida real, você ganhou um nível e está agora completamente curado!",
-  "reachedLevel": "Alcançou o nível <%= level %>",
-  "achievementLostMasterclasser": "Completar de Missões: Série de Mestre de Classes",
-  "achievementLostMasterclasserText": "Completou as dezasseis missões na série de Missões de Mestre de Classes e resolveu o mistério do Mestre de Classes Perdido!"
+    "achievement": "Conquista",
+    "share": "Partilhar",
+    "onwards": "Em frente!",
+    "levelup": "Ao concretizar os seus objetivos de vida real, você ganhou um nível e está agora completamente curado!",
+    "reachedLevel": "Alcançou o nível <%= level %>",
+    "achievementLostMasterclasser": "Completar de Missões: Série de Mestre de Classes",
+    "achievementLostMasterclasserText": "Completou as dezasseis missões na série de Missões de Mestre de Classes e resolveu o mistério do Mestre de Classes Perdido!",
+    "achievementJustAddWater": "Só adicionar água",
+    "achievementMindOverMatter": "A mente sobre a matéria"
 }
