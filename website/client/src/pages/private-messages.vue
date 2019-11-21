@@ -25,6 +25,7 @@
           :backer="selectedConversation.backer"
           :contributor="selectedConversation.contributor"
           :name="selectedConversation.name"
+          :hide-tooltip="true"
         />
       </div>
     </div>
@@ -83,7 +84,7 @@
           />
         </div>
       </div>
-      <div class="w-75 messages d-flex flex-column align-items-center">
+      <div class="w-75 messages-column d-flex flex-column align-items-center">
         <div
           v-if="!selectedConversation.key"
           class="empty-messages full-height m-auto text-center"
@@ -120,7 +121,7 @@
           <h4>{{ $t('PMDisabledCaptionTitle') }}</h4>
           <p>{{ $t('PMDisabledCaptionText') }}</p>
         </div>
-        <div class="floating-message-input w-75">
+        <div>
           <div
             v-if="selectedConversation.key && !user.flags.chatRevoked"
             class="new-message-row d-flex align-items-center"
@@ -159,6 +160,36 @@
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
+
+  $pmHeaderHeight: 56px;
+
+  // Content of Private Message should be always full-size (minus the toolbar/resting banner)
+  #app {
+    &.resting {
+      #private-message {
+        height: calc(100vh - #{$restingToolbarHeight} - #{$menuToolbarHeight});
+
+        .content {
+          flex: 1;
+          height: calc(100vh - #{$restingToolbarHeight} -
+            #{$menuToolbarHeight} - #{$pmHeaderHeight});
+        }
+      }
+    }
+
+    &:not(.resting) {
+      #private-message {
+        height: calc(100vh - #{$menuToolbarHeight});
+
+        .content {
+          flex: 1;
+          height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight});
+        }
+      }
+    }
+  }
+
 
   #private-message {
     .disable-background {
@@ -214,12 +245,13 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/tiers.scss';
+  @import '~@/assets/scss/variables.scss';
 
-  $contentHeight: 33.5rem;
+  $pmHeaderHeight: 56px;
   $background: $white;
 
   .header-bar {
-    height: 64px;
+    height: 56px;
     background-color: $white;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -283,8 +315,6 @@
   }
 
   .empty-messages {
-    height: $contentHeight;
-
     h3, h4, p {
       color: $gray-400;
       margin: 0rem;
@@ -335,12 +365,17 @@
     word-break: break-word;
   }
 
-  .messages {
+  .messages-column {
     padding: 0rem;
+    display: flex;
+    flex-direction: column;
+
+    .empty-messages, .message-scroll {
+      flex: 1;
+    }
   }
 
   .message-scroll {
-    height: $contentHeight;
     overflow-x: hidden;
     padding-top: 0.5rem;
 
@@ -464,7 +499,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: 64px;
+    height: 56px;
     right: 0;
     z-index: 1;
     pointer-events: none;

@@ -407,6 +407,7 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/utils.scss';
+  @import '~@/assets/scss/variables.scss';
 
   @media only screen and (max-width: 1200px) {
     .chevron {
@@ -437,7 +438,7 @@
     }
 
     .topbar {
-      max-height: 56px;
+      max-height: $menuToolbarHeight;
 
       .currency-tray {
         margin-left: auto;

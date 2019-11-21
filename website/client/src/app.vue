@@ -28,7 +28,7 @@
     </div>
     <div
       id="app"
-      :class="{'casting-spell': castingSpell}"
+      :class="{'casting-spell': castingSpell, 'resting': showRestingBanner}"
     >
       <banned-account-modal />
       <amazon-payments-modal v-if="!isStaticPage" />
@@ -100,12 +100,11 @@
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
 
   #app {
-    height: calc(100% - 56px); /* 56px is the menu */
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     overflow-x: hidden;
   }
 
@@ -161,7 +160,7 @@
 
   .resting-banner {
     width: 100%;
-    min-height: 40px;
+    height: $restingToolbarHeight;
     background-color: $blue-10;
     top: 0;
     z-index: 1300;
@@ -308,7 +307,7 @@ export default {
       return this.$t(`tip${tipNumber}`);
     },
     showRestingBanner () {
-      return !this.bannerHidden && this.user.preferences.sleep;
+      return !this.bannerHidden && this.user && this.user.preferences.sleep;
     },
     noMargin () {
       return ['privateMessages'].includes(this.$route.name);
