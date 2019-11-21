@@ -52,7 +52,7 @@ import tierNPC from '@/assets/svg/tier-npc.svg';
 
 export default {
   mixins: [styleHelper],
-  props: ['user', 'name', 'backer', 'contributor'],
+  props: ['user', 'name', 'backer', 'contributor', 'hideTooltip'],
   data () {
     return {
       icons: Object.freeze({
@@ -105,7 +105,7 @@ export default {
       return this.icons[`tier${this.level}`];
     },
     tierTitle () {
-      return achievementsLib.getContribText(this.contributor, this.isNPC) || '';
+      return !this.hideTooltip ? '' : achievementsLib.getContribText(this.contributor, this.isNPC) || '';
     },
     levelStyle () {
       return this.userLevelStyleFromLevel(this.level, this.isNPC);
