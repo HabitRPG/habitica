@@ -1930,5 +1930,6 @@
     "armorMystery201910Text": "隐秘的护甲",
     "armorMystery201909Notes": "你的强硬的外壳会保护你，可是你还应该留意￼松鼠… 没有增益效果。2019 年 9 月订阅赠品。",
     "armorMystery201909Text": "友好的橡子护甲",
-    "armorSpecialFall2019MageNotes": "它的同名遇到一个悲惨的结果。但是，你不会这么容易被骗！带了这个传奇的罩衫，没人会超过你。增加 <%= int %>点体质。2019年秋季限定装备。"
+    "armorSpecialFall2019MageNotes": "它的同名遇到一个悲惨的结果。但是，你不会这么容易被骗！带了这个传奇的罩衫，没人会超过你。增加 <%= int %>点体质。2019年秋季限定装备。",
+    "eyewearSpecialKS2019Text": "神话的狮鹫面罩"
 }
