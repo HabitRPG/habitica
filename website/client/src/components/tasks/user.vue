@@ -246,6 +246,8 @@
   @import '~@/assets/scss/create-task.scss';
 
   .user-tasks-page {
+    padding-left: 12px;
+    padding-right: 12px;
     padding-top: 16px;
   }
 

@@ -160,7 +160,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="px-3 py-3">
         <quest-sidebar-section
           v-if="isParty"
           :group="group"
@@ -255,11 +255,10 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
-
   }
 
   .buttons-wrapper {
-    padding-top: 2.8em;
+    padding: 2.8em 24px 0em 24px;
   }
 
   .card {
