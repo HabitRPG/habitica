@@ -303,16 +303,24 @@ export default {
       const newKey = `${gearType}_${subGearType ? `${subGearType}_` : ''}${key}`;
       const option = {};
       option.key = key;
-      option.active = this.user.preferences.costume
-        ? this.user.items.gear.costume[gearType] === newKey
-        : this.user.items.gear.equipped[gearType] === newKey;
+      const visibleGearType = this.user.preferences.costume ? 'costume' : 'equipped';
+      const currentlyEquippedValue = this.user.items.gear[visibleGearType][gearType];
+
+      option.active = currentlyEquippedValue === newKey;
+
+      if (key === 0) {
+        // if key is the "none" option check if a property
+        // doesn't have a value and mark it as active
+        option.active = option.active || !currentlyEquippedValue;
+      }
+
       option.class = `${newKey} ${additionalClass}`;
       option.click = () => {
         const type = this.user.preferences.costume ? 'costume' : 'equipped';
         const currentlyEquipped = this.user.items.gear[type][gearType];
 
         // no need to call api/equip-op if its already selected
-        if (currentlyEquipped === newKey) {
+        if (currentlyEquipped === newKey || (key === 0 && !currentlyEquipped)) {
           return;
         }
 
