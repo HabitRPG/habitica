@@ -1,5 +1,8 @@
 <template>
-  <div class="onboarding-guide-panel d-flex align-items-center flex-column p-4 dropdown-separated">
+  <div
+    class="onboarding-guide-panel d-flex align-items-center flex-column p-4 dropdown-separated"
+    @click.stop.prevent="action"
+  >
     <div
       class="svg-icon onboarding-toggle"
       :class="{'onboarding-toggle-open': open}"
@@ -17,22 +20,22 @@
       class="getting-started-desc"
       v-html="$t('gettingStartedDesc')"
     ></span>
+    <div
+      class="onboarding-progress-box d-flex flex-row justify-content-between small-text mb-2"
+    >
+      <strong>Your Progress</strong>
+      <span :class="{'has-progress': progress > 0}">{{ progressText }}</span>
+    </div>
+    <div class="onboarding-progress-bar mb-3">
+      <div
+        class="onboarding-progress-bar-fill"
+        :style="{width: `${progress}%`}"
+      ></div>
+    </div>
     <b-collapse
       id="onboardingPanelCollapse"
       v-model="open"
     >
-      <div
-        class="onboarding-progress-box d-flex flex-row justify-content-between small-text mb-2"
-      >
-        <strong>Your Progress</strong>
-        <span :class="{'has-progress': progress > 0}">{{ progressText }}</span>
-      </div>
-      <div class="onboarding-progress-bar mb-3">
-        <div
-          class="onboarding-progress-bar-fill"
-          :style="{width: `${progress}%`}"
-        ></div>
-      </div>
       <div
         v-for="(achievement, key) in onboardingAchievements"
         :key="key"
@@ -68,11 +71,11 @@
     right: 24px;
     width: 16px;
     & ::v-deep svg path {
-      stroke: $gray-100;
+      stroke: $gray-200;
     }
 
     &:hover ::v-deep svg path {
-      stroke: $gray-200;
+      stroke: $gray-100;
     }
 
     &-open {
@@ -239,6 +242,9 @@ export default {
       e.preventDefault();
       e.stopPropagation();
       this.open = !this.open;
+    },
+    action () {
+      // Do nothing, used to prevent closure on click.
     },
   },
 };
