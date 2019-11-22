@@ -1,12 +1,16 @@
 <template>
   <b-modal
     id="onboarding-complete"
-    :title="$t('levelUpShare')"
     size="sm"
     :hide-footer="true"
     :hide-header="true"
   >
     <div class="content text-center">
+      <span
+        class="close-icon svg-icon inline icon-10"
+        @click="close()"
+        v-html="icons.close"
+      ></span>
       <h2>{{ $t('congratulations') }}</h2>
       <img
         class="onboarding-complete-banner d-block"
@@ -18,7 +22,7 @@
       ></p>
       <button
         class="btn btn-primary"
-        @click="close()"
+        @click="closeWithAction()"
       >
         {{ $t('viewAchievements') }}
       </button>
@@ -54,6 +58,22 @@ h2 {
 
 .content {
   padding: 0 8px;
+  margin-top: 18px;
+}
+
+.close-icon {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  cursor: pointer;
+
+  & ::v-deep svg path {
+    stroke: $gray-200;
+  }
+
+  &:hover ::v-deep svg path {
+    stroke: $gray-100;
+  }
 }
 
 .onboarding-complete-banner {
@@ -76,10 +96,22 @@ button {
 </style>
 
 <script>
+import svgClose from '@/assets/svg/close.svg';
+
 export default {
+  data () {
+    return {
+      icons: Object.freeze({
+        close: svgClose,
+      }),
+    };
+  },
   methods: {
     close () {
       this.$root.$emit('bv::hide::modal', 'onboarding-complete');
+    },
+    closeWithAction () {
+      this.close();
       this.$router.push({ name: 'achievements' });
     },
   },
