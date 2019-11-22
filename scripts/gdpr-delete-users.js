@@ -72,15 +72,19 @@ async function processEmailAddress (email) {
   const emailRegex = new RegExp(`^${email}$`, 'i');
   const localUsers = await User.find(
     { 'auth.local.email': emailRegex },
-    { _id: 1, apiToken: 1, auth: 1 }
+    { _id: 1, apiToken: 1, auth: 1 },
   ).exec();
 
   const socialUsers = await User.find(
-    { $or: [
-      { 'auth.facebook.emails.value': email },
-      { 'auth.google.emails.value': email },
-    ]},
-    { _id: 1, apiToken: 1, auth: 1 }
+    {
+      $or: [
+        { 'auth.facebook.emails.value': email },
+        { 'auth.google.emails.value': email },
+      ]
+    },
+    {
+      _id: 1, apiToken: 1, auth: 1
+    },
   ).collation(
     { locale: 'en', strength: 1 }
   ).exec();
@@ -89,12 +93,12 @@ async function processEmailAddress (email) {
 
   if (users.length < 1) {
     return console.log(`No users found with email address ${email}`);
-  } else {
-    return Promise.all(users.map(user => (async () => {
-      await deleteAmplitudeData(user._id, email); // eslint-disable-line no-await-in-loop
-      await deleteHabiticaData(user, email); // eslint-disable-line no-await-in-loop
-    })()));
   }
+
+  return Promise.all(users.map(user => (async () => {
+    await deleteAmplitudeData(user._id, email); // eslint-disable-line no-await-in-loop
+    await deleteHabiticaData(user, email); // eslint-disable-line no-await-in-loop
+  })()));
 }
 
 export default function deleteUserData (emails) {
