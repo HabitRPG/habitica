@@ -68,11 +68,11 @@
     right: 24px;
     width: 16px;
     & ::v-deep svg path {
-      stroke: $gray-100;
+      stroke: $gray-200;
     }
 
     &:hover ::v-deep svg path {
-      stroke: $gray-200;
+      stroke: $gray-100;
     }
 
     &-open {
