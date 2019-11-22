@@ -17,22 +17,22 @@
       class="getting-started-desc"
       v-html="$t('gettingStartedDesc')"
     ></span>
+    <div
+      class="onboarding-progress-box d-flex flex-row justify-content-between small-text mb-2"
+    >
+      <strong>Your Progress</strong>
+      <span :class="{'has-progress': progress > 0}">{{ progressText }}</span>
+    </div>
+    <div class="onboarding-progress-bar mb-3">
+      <div
+        class="onboarding-progress-bar-fill"
+        :style="{width: `${progress}%`}"
+      ></div>
+    </div>
     <b-collapse
       id="onboardingPanelCollapse"
       v-model="open"
     >
-      <div
-        class="onboarding-progress-box d-flex flex-row justify-content-between small-text mb-2"
-      >
-        <strong>Your Progress</strong>
-        <span :class="{'has-progress': progress > 0}">{{ progressText }}</span>
-      </div>
-      <div class="onboarding-progress-bar mb-3">
-        <div
-          class="onboarding-progress-bar-fill"
-          :style="{width: `${progress}%`}"
-        ></div>
-      </div>
       <div
         v-for="(achievement, key) in onboardingAchievements"
         :key="key"
