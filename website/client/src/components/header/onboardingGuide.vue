@@ -1,5 +1,8 @@
 <template>
-  <div class="onboarding-guide-panel d-flex align-items-center flex-column p-4 dropdown-separated">
+  <div
+    class="onboarding-guide-panel d-flex align-items-center flex-column p-4 dropdown-separated"
+    @click.stop.prevent="action"
+  >
     <div
       class="svg-icon onboarding-toggle"
       :class="{'onboarding-toggle-open': open}"
@@ -239,6 +242,9 @@ export default {
       e.preventDefault();
       e.stopPropagation();
       this.open = !this.open;
+    },
+    action () {
+      // Do nothing, used to prevent closure on click.
     },
   },
 };
