@@ -180,7 +180,7 @@ export default {
       openStatus: undefined,
       actionableNotifications: [
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
-        'QUEST_INVITATION', 'GROUP_TASK_NEEDS_WORK', 'GROUP_TASK_APPROVAL',
+        'QUEST_INVITATION', 'GROUP_TASK_NEEDS_WORK',
       ],
       // A list of notifications handled by this component,
       // listed in the order they should appear in the notifications panel.

@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG POSTS: NEW GUILDS AND GAMIFYING TASKS';
+const LAST_ANNOUNCEMENT_TITLE = 'NOVEMBER SUBSCRIBER ITEMS AVAILABLE! AND UPCOMING CHANGES TO MYSTERY ITEM DISTRIBUTION';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,39 +31,34 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/19/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/21/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_yarn_boss center-block"></div>
-        <h3>Guild Spotlight: New and Notable Guilds for November!</h3>
+        <h3>November Subscriber Items Revealed!</h3>
         <p>
-          There's a new <a
-          href='https://habitica.wordpress.com/2019/11/19/new-and-notable-guild-spotlight-11/'
-          target='_blank'>Guild Spotlight on the blog</a> that highlights yet another selection
-          of the upcoming Guilds in Habitica dedicated to a variety of topics! Check it out now to
-          find some of Habitica's best new communities.
-        </p>
-        <div class="small mb-3">by shanaqui</div>
-        <div class="scene_office center-block"></div>
-        <h3>Use Case Spotlight: Gamifying Your Tasks</h3>
-        <p>
-          This month's <a
-          href='https://habitica.wordpress.com/2019/11/19/use-case-spotlight-gamifying-your-tasks/'
-          target='_blank'>Use Case Spotlight</a> is about Gamifying Your Tasks! It features a
-          number of great suggestions submitted by Habiticans in the <a
-          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
-          We hope it helps any of you who might be looking for ways to add more fun and adventure
-          to your tasks.
+          The November Subscriber Item has been revealed: the Crystal Charmer Item Set! You only
+          have until November 30 to <a href='/user/settings/subscription'>receive the item set
+          when you subscribe</a>. If you're already an active subscriber, reload the site and then
+          head to Inventory > Items to claim your gear!
         </p>
         <p>
-          Plus, we're collecting user submissions for the next spotlight! How do you use
-          Habitica's social spaces to help motivate yourself? We’ll be featuring player-submitted
-          examples in Use Case Spotlights on the Habitica Blog next month, so post your
-          suggestions in the Use Case Spotlight Guild now. We look forward to learning more about
-          how you use Habitica to improve your life and get things done!
+          Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe,
+          the more Gems you can buy per month! There are other perks as well, such as longer
+          access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us
+          keep Habitica running. Thank you very much for your support -- it means a lot to us.
         </p>
-        <div class="small mb-3">by shanaqui</div>
+        <div class="promo_mystery_201911 center-block"></div>
+        <h3>Subscriber Gear Release Changes</h3>
+        <p>
+          Starting next month, we're changing the way Subscriber sets are released! We'll be
+          releasing the outfits at the beginning of the month. With this change, subscribers can
+          enjoy their new gear all month long, and new subscribers will receive the latest gear
+          set as soon as they sign up, any day of that month. The gear will come out around the
+          first of the month, with a little wiggle room for time zones much like when Gem-buying
+          caps reset. We hope this change helps you enjoy your subscription even more!
+        </p>
+        <div class="small mb-3">by Beffymaroo and SabreCat</div>
       </div>
       `,
     });
