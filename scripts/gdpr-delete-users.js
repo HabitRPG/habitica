@@ -80,13 +80,11 @@ async function processEmailAddress (email) {
       $or: [
         { 'auth.facebook.emails.value': email },
         { 'auth.google.emails.value': email },
-      ]
+      ],
     },
-    {
-      _id: 1, apiToken: 1, auth: 1
-    },
+    { _id: 1, apiToken: 1, auth: 1 },
   ).collation(
-    { locale: 'en', strength: 1 }
+    { locale: 'en', strength: 1 },
   ).exec();
 
   const users = localUsers.concat(socialUsers);
