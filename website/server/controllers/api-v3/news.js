@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW DINOSAUR PET QUEST BUNDLE AND WIKI SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'NOVEMBER SUBSCRIBER ITEMS AVAILABLE! AND UPCOMING CHANGES TO MYSTERY ITEM DISTRIBUTION';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,38 +31,34 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/21/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_delightful_dinos center-block"></div>
-        <h3>New Pet Quest Bundle: Delightful Dinos</h3>
+        <h3>November Subscriber Items Revealed!</h3>
         <p>
-          If you are looking to add some dinosaur pets to your Habitica stable, life, uh, finds a
-          way! From now until November 30, you can purchase the Delightful Dinos Pet Quest Bundle
-          and receive the Pterodactyl, Triceratops, and T-Rex (The Dinosaur Unearthed) quests, all
-          for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them
-          separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!
+          The November Subscriber Item has been revealed: the Crystal Charmer Item Set! You only
+          have until November 30 to <a href='/user/settings/subscription'>receive the item set
+          when you subscribe</a>. If you're already an active subscriber, reload the site and then
+          head to Inventory > Items to claim your gear!
         </p>
-        <div class="small">by SabreCat and Beffymaroo</div>
-        <div class="small">Art by Baconsaur, Eevachu, UncommonCriminal, Kiwibot, McCoyly,
-          plumilla, Seraphina, PainterProphet, Stefalupagus, Katy133, Edge, Willow The Witty,
-          Lilith of Alfheim, Procyon, GeraldThePixel, and Archeia
-        </div>
-        <div class="small mb-3">Writing by Lemoness, Daniel the Bard, Lilith of Alfheim, and Ali
-          Stewart
-        </div>
-        <div class="scene_habitica_map center-block"></div>
-        <h3>Blog Post: Places in Habitica</h3>
-        <p>This month's <a href='https://habitica.wordpress.com/2019/11/14/places-in-habitica/'
-          target='_blank'>featured Wiki article</a> is about Places in Habitica! We hope that it
-          will help you as you gamify your tasks. Be sure to check it out, and let us know what 
-          you think by reaching out on <a href='https://twitter.com/habitica'
-          target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com'
-          target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica'
-          target='_blank'>Facebook</a>.
+        <p>
+          Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe,
+          the more Gems you can buy per month! There are other perks as well, such as longer
+          access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us
+          keep Habitica running. Thank you very much for your support -- it means a lot to us.
         </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <div class="promo_mystery_201911 center-block"></div>
+        <h3>Subscriber Gear Release Changes</h3>
+        <p>
+          Starting next month, we're changing the way Subscriber sets are released! We'll be
+          releasing the outfits at the beginning of the month. With this change, subscribers can
+          enjoy their new gear all month long, and new subscribers will receive the latest gear
+          set as soon as they sign up, any day of that month. The gear will come out around the
+          first of the month, with a little wiggle room for time zones much like when Gem-buying
+          caps reset. We hope this change helps you enjoy your subscription even more!
+        </p>
+        <div class="small mb-3">by Beffymaroo and SabreCat</div>
       </div>
       `,
     });

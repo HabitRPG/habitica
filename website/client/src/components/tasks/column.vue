@@ -90,8 +90,8 @@
           :key="task.id"
           :task="task"
           :is-user="isUser"
-          :show-options="showOptions"
           :group="group"
+          :challenge="challenge"
           @editTask="editTask"
           @moveTo="moveTo"
           @taskDestroyed="taskDestroyed"
@@ -372,10 +372,7 @@ export default {
     selectedTags: {},
     taskListOverride: {},
     group: {},
-    showOptions: {
-      type: Boolean,
-      default: true,
-    },
+    challenge: {},
   }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({

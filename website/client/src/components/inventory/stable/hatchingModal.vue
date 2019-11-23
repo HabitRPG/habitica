@@ -70,7 +70,8 @@
     }
 
     .text {
-      height: 60px;
+      height: auto;
+      min-height: 60px;
       font-size: 14px;
       line-height: 1.43;
       text-align: center;
