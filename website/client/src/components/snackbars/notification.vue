@@ -215,8 +215,12 @@ export default {
     },
   },
   created () {
-    const timeout = this.notification && this.notification.timeout
-      ? this.notification.timeout : true;
+    const timeout = (
+      this.notification
+      && this.notification.timeout !== undefined
+      && this.notification.timeout !== null
+    ) ? this.notification.timeout : true;
+
     if (timeout) {
       let delay = this.notification.delay || 1500;
       delay += this.$store.state.notificationStore.length * 1000;

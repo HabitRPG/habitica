@@ -21,7 +21,7 @@
     "rebirthOrb": "Used an Orb of Rebirth to start over after attaining Level <%= level %>.",
     "rebirthOrb100": "Used an Orb of Rebirth to start over after attaining Level 100 or higher.",
     "rebirthOrbNoLevel": "Used an Orb of Rebirth to start over.",
-    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
+    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from tasks belonging to active Challenges and Group Plans. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
     "rebirthName": "Orb of Rebirth",
     "reborn": "Reborn, max level <%= reLevel %>",
     "confirmReborn": "Are you sure?",

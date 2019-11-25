@@ -33,8 +33,9 @@
             v-model="user.preferences.suppressModals.streak"
             type="checkbox"
             @change="suppressModals"
+            id="user-preferences-suppressModals-streak"
           >
-          <label>{{ $t('dontShowAgain') }}</label>
+          <label for="user-preferences-suppressModals-streak">{{ $t('dontShowAgain') }}</label>
         </div>
       </div>
     </div>

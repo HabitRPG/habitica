@@ -10,5 +10,5 @@ export default function isFreeRebirth (user) {
     daysFromLastFreeRebirth = 999;
   }
 
-  return user.stats.lvl >= MAX_LEVEL && daysFromLastFreeRebirth > 45;
+  return user.stats.lvl >= MAX_LEVEL && daysFromLastFreeRebirth >= 45;
 }
