@@ -19,7 +19,7 @@
         <face-avatar
           v-if="selectedConversation.userStyles"
           :member="selectedConversation.userStyles"
-          :class="'tier'+selectedConversation.contributor.level"
+          :class="selectedConversationFaceAvatarClass"
         />
         <user-label
           :backer="selectedConversation.backer"
@@ -101,6 +101,12 @@
           v-if="selectedConversation.key && selectedConversationMessages.length === 0"
           class="empty-messages full-height mt-auto text-center"
         >
+          <avatar v-if="selectedConversation.userStyles"
+                  :member="selectedConversation.userStyles"
+                  :avatar-only="true"
+                  spritesMargin="0 0 0 -45px"
+                  class="center-avatar"
+          />
           <h3>{{ $t('beginningOfConversation', {userName: selectedConversation.name}) }}</h3>
           <p>{{ $t('beginningOfConversationReminder') }}</p>
         </div>
@@ -506,6 +512,10 @@
 
     box-shadow: 0 3px 12px 0 rgba(26, 24, 29, 0.24);
   }
+
+  .center-avatar {
+    margin: 0 auto;
+  }
 </style>
 
 <script>
@@ -526,9 +536,11 @@ import messageIcon from '@/assets/svg/message.svg';
 import mail from '@/assets/svg/mail.svg';
 import conversationItem from '@/components/messages/conversationItem';
 import faceAvatar from '@/components/faceAvatar';
+import Avatar from '@/components/avatar';
 
 export default {
   components: {
+    Avatar,
     privateMessages,
     toggleSwitch,
     conversationItem,
@@ -579,6 +591,7 @@ export default {
         username: data.username,
         backer: data.backer,
         contributor: data.contributor,
+        userStyles: data.userStyles,
       };
 
       this.$store.state.privateMessageOptions = {};
@@ -697,6 +710,12 @@ export default {
         switchDescription: this.$t('PMDisabled'),
         popoverText: this.$t('PMDisabledOptPopoverText'),
       };
+    },
+    selectedConversationFaceAvatarClass () {
+      if (this.selectedConversation && this.selectedConversation.contributor) {
+        return `tier${this.selectedConversation.contributor.level}`;
+      }
+      return '';
     },
   },
 
