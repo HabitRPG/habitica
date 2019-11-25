@@ -41,7 +41,7 @@
   "achievementUndeadUndertakerText": "Has tamed all Zombie Mounts.",
   "achievementUndeadUndertakerModalText": "You tamed all the Zombie Mounts!",
 
-  "achievementCreatedTask": "Create your first task",
+  "achievementCreatedTask": "Create a task",
   "achievementCreatedTaskText": "Add a task for something you would like to accomplish this week",
   "achievementCreatedTaskModalText": "Add a task for something you would like to accomplish this week",
   "achievementCompletedTask": "Complete a task",
@@ -53,7 +53,7 @@
   "achievementFedPet": "Feed a pet",
   "achievementFedPetText": "There are many different types of food, but pets can be picky",
   "achievementFedPetModalText": "There are many different types of food, but pets can be picky",
-  "achievementPurchasedEquipment": "Purchase a piece of equipment",
+  "achievementPurchasedEquipment": "Purchase equipment",
   "achievementPurchasedEquipmentText": "Equipment is a way to customize your avatar and improve your stats",
   "achievementPurchasedEquipmentModalText": "Equipment is a way to customize your avatar and improve your stats"
 }
