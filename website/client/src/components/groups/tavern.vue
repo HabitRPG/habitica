@@ -236,6 +236,9 @@
               {{ $t('sleepBullet1') }}
             </li>
             <li v-once>
+              {{ $t('sleepBullet2') }}
+            </li>
+            <li v-once>
               {{ $t('sleepBullet3') }}
             </li>
             <li v-once>
