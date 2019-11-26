@@ -54,6 +54,7 @@ export default {
       this.close();
     },
     close () {
+      this.$emit('update-challenge');
       this.$root.$emit('bv::hide::modal', 'leave-challenge-modal');
     },
   },

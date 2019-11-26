@@ -16,7 +16,7 @@ async function updateUser (user) {
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  sendTxn(
+  await sendTxn(
     user,
     EMAIL_SLUG,
     [{ name: 'BASE_URL', content: BASE_URL }], // Add variables from template
