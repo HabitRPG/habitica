@@ -49,7 +49,7 @@
         </div>
         <div class="achievement-info d-flex flex-column">
           <strong class="achievement-title">{{ achievement.title }}</strong>
-          <span class="small-text achievement-desc">{{ achievement.text }}</span>
+          <span class="small-text achievement-desc">{{ getAchievementText(key) }}</span>
         </div>
       </div>
     </b-collapse>
@@ -237,6 +237,13 @@ export default {
       }
 
       return 'achievement-unearned2x';
+    },
+    getAchievementText (key) {
+      let stringKey = 'achievement';
+      stringKey += key.charAt(0).toUpperCase() + key.slice(1);
+      stringKey += 'ModalText';
+
+      return this.$t(stringKey);
     },
     openPanel (e) {
       e.preventDefault();

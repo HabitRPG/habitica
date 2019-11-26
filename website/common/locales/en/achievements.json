@@ -42,18 +42,18 @@
   "achievementUndeadUndertakerModalText": "You tamed all the Zombie Mounts!",
 
   "achievementCreatedTask": "Create a task",
-  "achievementCreatedTaskText": "Add a task for something you would like to accomplish this week",
+  "achievementCreatedTaskText": "Created their first task.",
   "achievementCreatedTaskModalText": "Add a task for something you would like to accomplish this week",
   "achievementCompletedTask": "Complete a task",
-  "achievementCompletedTaskText": "Check off any of your tasks to earn rewards",
+  "achievementCompletedTaskText": "Completed their first task.",
   "achievementCompletedTaskModalText": "Check off any of your tasks to earn rewards",
   "achievementHatchedPet": "Hatch a pet",
-  "achievementHatchedPetText": "Head over to your inventory and try combining a hatching potion and an egg",
+  "achievementHatchedPetText": "Hatched their first pet.",
   "achievementHatchedPetModalText": "Head over to your inventory and try combining a hatching potion and an egg",
   "achievementFedPet": "Feed a pet",
-  "achievementFedPetText": "There are many different types of food, but pets can be picky",
+  "achievementFedPetText": "Fed their first pet.",
   "achievementFedPetModalText": "There are many different types of food, but pets can be picky",
   "achievementPurchasedEquipment": "Purchase equipment",
-  "achievementPurchasedEquipmentText": "Equipment is a way to customize your avatar and improve your stats",
+  "achievementPurchasedEquipmentText": "Purchased their first piece of equipment.",
   "achievementPurchasedEquipmentModalText": "Equipment is a way to customize your avatar and improve your stats"
 }
