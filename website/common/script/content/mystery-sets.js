@@ -27,7 +27,9 @@ const mysterySets = {
 };
 const FIRST_MYSTERY_SET = moment('2014-02-01');
 
-for (let mysteryMonth = FIRST_MYSTERY_SET; moment(mysteryMonth).startOf('month').isSameOrBefore(moment()); mysteryMonth = moment(mysteryMonth).add(1, 'months')) {
+for (let mysteryMonth = FIRST_MYSTERY_SET;
+  moment(mysteryMonth).startOf('month').isSameOrBefore(moment().add(1, 'months'));
+  mysteryMonth = moment(mysteryMonth).add(1, 'months')) {
   const setKey = moment(mysteryMonth).format('YYYYMM');
   mysterySets[setKey] = {
     start: moment(mysteryMonth).startOf('month').format('YYYY-MM-DD'),
