@@ -21,14 +21,13 @@ import { sendNotification as sendPushNotification } from '../pushNotifications';
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
 
-function revealMysteryItems (user) {
+function _findMysteryItems (user, dateMoment) {
   const pushedItems = [];
-
   _.each(shared.content.gear.flat, item => {
     if (
       item.klass === 'mystery'
-        && moment().isAfter(shared.content.mystery[item.mystery].start)
-        && moment().isBefore(shared.content.mystery[item.mystery].end)
+        && dateMoment.isAfter(shared.content.mystery[item.mystery].start)
+        && dateMoment.isBefore(shared.content.mystery[item.mystery].end)
         && !user.items.gear.owned[item.key]
         && user.purchased.plan.mysteryItems.indexOf(item.key) === -1
     ) {
@@ -36,6 +35,19 @@ function revealMysteryItems (user) {
       pushedItems.push(item.key);
     }
   });
+  return pushedItems;
+}
+
+function revealMysteryItems (user, elapsedMonths = 1) {
+  let monthsToCheck = elapsedMonths;
+  let pushedItems = [];
+
+  do {
+    monthsToCheck -= 1;
+    pushedItems = pushedItems.concat(_findMysteryItems(user, moment().subtract(monthsToCheck, 'months')));
+  }
+  while (monthsToCheck > 0);
+
   if (pushedItems.length > 0) {
     user.addNotification('NEW_MYSTERY_ITEMS', { items: pushedItems });
   }

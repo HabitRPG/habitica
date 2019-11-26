@@ -77,7 +77,7 @@ function grantEndOfTheMonthPerks (user, now) {
     });
 
     // Award mystery items
-    revealMysteryItems(user);
+    revealMysteryItems(user, elapsedMonths);
 
     // 1 for one-month recurring or gift subscriptions; later set to 3 for 3-month recurring, etc.
     let planMonthsLength = 1;
