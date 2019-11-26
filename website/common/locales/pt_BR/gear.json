@@ -1971,5 +1971,9 @@
     "armorArmoireAlchemistsRobeNotes": "Inúmeros elixires perigosos estão envolvidos na criação de metais arcanos e pedras preciosas, e essas roupas pesadas o protegerão de danos e efeitos colaterais indesejados! Aumenta a Constituição em <%= con %> e a Percepção em <%= per %>. Armário Encantado: Conjunto Alquimista (Item 1 de 4).",
     "armorArmoireAlchemistsRobeText": "Vestes de Alquimista",
     "weaponArmoireAlchemistsDistillerNotes": "Purifique metais e outros compostos mágicos com este instrumento de latão brilhante. Aumenta a Força em <%= str %> e a Inteligência em <%= int %>. Armário Encantado: Conjunto Alquimista (Item 3 de 4).",
-    "weaponArmoireAlchemistsDistillerText": "Destilador do Alquimista"
+    "weaponArmoireAlchemistsDistillerText": "Destilador do Alquimista",
+    "headMystery201911Notes": "Cada um dos pontos de cristal anexados a este chapéu lhe confere um poder especial: clarividência místico, sabedoria arcana e... pratos enfeitiçados giratórios? Tudo bem, então. Não confere benefícios. Item de assinante, Dezembro de 2019.",
+    "headMystery201911Text": "Chapéu de cristal encantado",
+    "weaponMystery201911Notes": "A bola de cristal no topo deste cajado pode te mostrar o futuro,  mas tenha cuidado! Usar esse conhecimento perigoso pode mudar uma pessoa de maneiras inesperadas. Não confere benefícios. Item de assinante, Dezembro de 2019.",
+    "weaponMystery201911Text": "Cajado de cristal encantado"
 }
