@@ -206,5 +206,6 @@
     "changeUsernameDisclaimer": "此用户名将用于收发邀请、私信消息，和版聊中@他人。",
     "verifyUsernameVeteranPet": "当你完成确认后，其中一个退伍军宠物将等着你！",
     "newPMNotificationTitle": "来自<%= name %>的新消息",
-    "subscriptionReminders": "订阅提醒"
+    "subscriptionReminders": "订阅提醒",
+    "suggestMyUsername": "建议您的登录名"
 }

@@ -757,6 +757,12 @@ const head = {
     mystery: '201910',
     value: 0,
   },
+  201911: {
+    text: t('headMystery201911Text'),
+    notes: t('headMystery201911Notes'),
+    mystery: '201911',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -944,6 +950,12 @@ const weapon = {
     text: t('weaponMystery201811Text'),
     notes: t('weaponMystery201811Notes'),
     mystery: '201811',
+    value: 0,
+  },
+  201911: {
+    text: t('weaponMystery201911Text'),
+    notes: t('weaponMystery201911Notes'),
+    mystery: '201911',
     value: 0,
   },
   301404: {

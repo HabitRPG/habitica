@@ -143,7 +143,7 @@
     "dateEndAugust": "8月31日",
     "dateEndSeptember": "9月21日",
     "dateEndOctober": "10月31日",
-    "dateEndNovember": "12月3日",
+    "dateEndNovember": "11月30日",
     "dateEndJanuary": "1月31日",
     "dateEndFebruary": "2月28日",
     "winterPromoGiftHeader": "赠送其他用户订阅服务的同时，您自己也能免费得到订阅者身份！",
@@ -167,5 +167,6 @@
     "fall2019CyclopsSet": "独眼巨人（法师）",
     "fall2019OperaticSpecterSet": "歌剧幽灵（盗贼）",
     "september2018": "2018年9月",
-    "september2017": "2017年9月"
+    "september2017": "2017年9月",
+    "augustYYYY": "8月<%= year %>年"
 }

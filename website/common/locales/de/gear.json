@@ -1963,5 +1963,13 @@
     "headMystery201910Notes": "Diese Flammen offenbaren obskure Geheimnisse vor Deinen Augen! Gewährt keinen Attributbonus. Oktober 2019 Abonnentengegenstand.",
     "headMystery201910Text": "Rätselhafte Flamme",
     "armorMystery201910Notes": "Diese schillernde Rüstung wird Dich vor sichtbaren und unsichtbaren Schrecken schützen. Gewährt keinen Attributbonus. Oktober 2019 Abonnentengegenstand.",
-    "armorMystery201910Text": "Rätselhafte Rüstung"
+    "armorMystery201910Text": "Rätselhafte Rüstung",
+    "shieldArmoireAlchemistsScaleNotes": "Mit dieser feinen Gerätschaft stellst Du sicher, dass alle Deine mystischen Zutaten ordentlich richtig gemessen werden. Erhöht Intelligenz um <%= int%>. Verzauberter Schrank: Alchemisten-Set (Gegenstand 4 von 4).",
+    "shieldArmoireAlchemistsScaleText": "Waage der Alchemisten",
+    "headArmoireAlchemistsHatNotes": "Während Hüte für die alchemistische Praxis nicht unbedingt erforderlich sind, schadet es keineswegs, cool auszusehen! Erhöht Wahrnehmung um <%= per%>. Verzauberter Schrank: Alchemisten-Set (Gegenstand 2 von 4).",
+    "headArmoireAlchemistsHatText": "Hut der Alchemisten",
+    "armorArmoireAlchemistsRobeNotes": "Jede Menge gefährlicher Elixiere sind an der Herstellung arkaner Metalle und Edelsteine beteiligt. Diese schwere Robe schützt Dich vor Schaden und unbeabsichtigter Nebenwirkungen! Erhöht Konstitution um <%= con%> und Wahrnehmung um <%= per%>. Verzauberter Schrank: Alchemisten-Set (Gegenstand 1 von 4).",
+    "weaponArmoireAlchemistsDistillerText": "Distilliergerät der Alchemisten",
+    "armorArmoireAlchemistsRobeText": "Robe der Alchemisten",
+    "weaponArmoireAlchemistsDistillerNotes": "Reinige Metalle und andere magische Verbindungen mit diesem glänzenden Messinginstrument. Erhöht Stärke um <%= str%> und Intelligenz um <%= int%>. Verzauberter Schrank: Alchemisten-Set (Gegenstand 3 von 4)."
 }

@@ -63,6 +63,26 @@ describe('PUT /user/webhook/:id', () => {
     expect(webhook.options).to.eql(options);
   });
 
+  it('updates a webhook with empty label', async () => {
+    const url = 'http://a-new-url.com';
+    const type = 'groupChatReceived';
+    const label = '';
+    const options = { groupId: generateUUID() };
+
+    await user.put(`/user/webhook/${webhookToUpdate.id}`, {
+      url, type, options, label,
+    });
+
+    await user.sync();
+
+    const webhook = user.webhooks.find(hook => webhookToUpdate.id === hook.id);
+
+    expect(webhook.url).to.equal(url);
+    expect(webhook.label).to.equal(label);
+    expect(webhook.type).to.equal(type);
+    expect(webhook.options).to.eql(options);
+  });
+
   it('returns the updated webhook', async () => {
     const url = 'http://a-new-url.com';
     const type = 'groupChatReceived';

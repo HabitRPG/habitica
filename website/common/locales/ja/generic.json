@@ -238,7 +238,7 @@
     "hatchPetShare": "実生活でタスクを達成して、たまごから新しいペットが生まれました!",
     "raisePetShare": "実生活でタスクを達成して、ペットが乗れるほど大きくなったよ!",
     "wonChallengeShare": "Habitica のチャレンジに成功したよ!",
-    "achievementShare": "Habiticaで新しい実績を獲得したよ！",
+    "achievementShare": "Habiticaで新しい実績を解除したよ！",
     "orderBy": "並び順 : <%= item %>",
     "you": "( あなた )",
     "enableDesktopNotifications": "デスクトップ通知を有効にする",

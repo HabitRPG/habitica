@@ -2,8 +2,8 @@
 import { model as User } from '../../website/server/models/user';
 import { model as UserNotification } from '../../website/server/models/userNotification';
 
-const MIGRATION_NAME = 'mystery_items_201910';
-const MYSTERY_ITEMS = ['armor_mystery_201910', 'head_mystery_201910'];
+const MIGRATION_NAME = 'mystery_items_201911';
+const MYSTERY_ITEMS = ['weapon_mystery_201911', 'head_mystery_201911'];
 
 const progressCount = 1000;
 let count = 0;
