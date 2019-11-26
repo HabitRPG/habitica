@@ -24,11 +24,12 @@ export default {
   components: {
     profile,
   },
-  props: ['userId'],
-  data () {
-    return {
-      startingPage: 'profile',
-    };
+  props: {
+    userId: String,
+    startingPage: {
+      type: String,
+      default: 'profile',
+    },
   },
 };
 </script>
