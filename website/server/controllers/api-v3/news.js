@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NOVEMBER SUBSCRIBER ITEMS AVAILABLE! AND UPCOMING CHANGES TO MYSTERY ITEM DISTRIBUTION';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW QUEST FOR AMBER MAGIC HATCHING POTIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,34 +31,18 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/21/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/26/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <h3>November Subscriber Items Revealed!</h3>
+        <div class="quest_amber center-block"></div>
         <p>
-          The November Subscriber Item has been revealed: the Crystal Charmer Item Set! You only
-          have until November 30 to <a href='/user/settings/subscription'>receive the item set
-          when you subscribe</a>. If you're already an active subscriber, reload the site and then
-          head to Inventory > Items to claim your gear!
+          Won't you stay a while--a few epochs, perhaps, preserved perfectly and beautifully?
+          Get the latest Magic Hatching Potion quest, "The Amber Alliance," and defeat the Trerezin
+          to earn Amber Magic Hatching Potions by completing your real-life tasks!
         </p>
-        <p>
-          Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe,
-          the more Gems you can buy per month! There are other perks as well, such as longer
-          access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us
-          keep Habitica running. Thank you very much for your support -- it means a lot to us.
-        </p>
-        <div class="promo_mystery_201911 center-block"></div>
-        <h3>Subscriber Gear Release Changes</h3>
-        <p>
-          Starting next month, we're changing the way Subscriber sets are released! We'll be
-          releasing the outfits at the beginning of the month. With this change, subscribers can
-          enjoy their new gear all month long, and new subscribers will receive the latest gear
-          set as soon as they sign up, any day of that month. The gear will come out around the
-          first of the month, with a little wiggle room for time zones much like when Gem-buying
-          caps reset. We hope this change helps you enjoy your subscription even more!
-        </p>
-        <div class="small mb-3">by Beffymaroo and SabreCat</div>
+        <div class="small">Art by Vikte, -Tyr-, and beffymaroo</div>
+        <div class="small mb-3">Writing by Rain</div>
       </div>
       `,
     });

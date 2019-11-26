@@ -230,6 +230,13 @@ const premium = {
     limited: true,
     _season: '_PENDING_',
   },
+  Amber: {
+    value: 2,
+    text: t('hatchingPotionAmber'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('amber'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {

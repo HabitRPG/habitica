@@ -778,5 +778,12 @@
   "rockingReptilesNotes": "Contains 'The Insta-Gator,' 'The Serpent of Distraction,' and 'The Veloci-Rapper.' Available until September 30.",
 
   "delightfulDinosText": "Delightful Dinos Quest Bundle",
-  "delightfulDinosNotes": "Contains 'The Pterror-dactyl,' 'The Trampling Triceratops,' and 'The Dinosaur Unearthed.' Available until November 30."
+  "delightfulDinosNotes": "Contains 'The Pterror-dactyl,' 'The Trampling Triceratops,' and 'The Dinosaur Unearthed.' Available until November 30.",
+
+  "questAmberText": "The Amber Alliance",
+  "questAmberNotes": "You’re sitting in the Tavern with @beffymaroo and @-Tyr- when @Vikte bursts through the door and excitedly tells you about the rumors of another type of Magic Hatching Potion hidden in the Taskwoods. Having completed your Dailies, the three of you immediately agree to help @Vikte on their search. After all, what’s the harm in a little adventure?<br><br>After walking through the Taskwoods for hours, you’re beginning to regret joining such a wild chase. You’re about to head home, when you hear a surprised yelp and turn to see a huge lizard with shiny amber scales coiled around a tree, clutching @Vikte in her claws. @beffymaroo reaches for her sword.<br><br>“Wait!” cries @-Tyr-. “It’s the Trerezin! She’s not dangerous, just dangerously clingy!”",
+  "questAmberCompletion": "“Trerezin?” @-Tyr- says calmly. “Could you let @Vikte go? I don’t think they’re enjoying being so high up.”<br><br>The Trerezin’s amber skin blushes crimson and she gently lowers @Vikte to the ground. “My apologies! It’s been so long since I’ve had any guests that I’ve forgotten my manners!” She slithers forward to greet you properly before disappearing into her treehouse, and returning with an armful of Amber Hatching Potions as thank-you gifts!<br><br>“Magic Potions!” @Vikte gasps.<br><br>“Oh, these old things?” The Trerezin's tongue flickers as she thinks. “How about this? I’ll give you this whole stack if you promise to visit me every so often...”<br><br>And so you leave the Taskwoods, excited to tell everyone about the new potions--and your new friend!",
+  "questAmberBoss": "Trerezin",
+  "questAmberDropAmberPotion": "Amber Hatching Potion",
+  "questAmberUnlockText": "Unlocks Amber Hatching Potions for purchase in the Market"
 }
