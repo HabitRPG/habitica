@@ -24,5 +24,4 @@ storiesOf('Count Badge', module)
         count: 3,
       };
     },
-  }))
-;
+  }));
