@@ -207,5 +207,8 @@
     "verifyUsernameVeteranPet": "当你完成确认后，其中一个退伍军宠物将等着你！",
     "newPMNotificationTitle": "来自<%= name %>的新消息",
     "subscriptionReminders": "订阅提醒",
-    "suggestMyUsername": "建议您的登录名"
+    "suggestMyUsername": "建议您的登录名",
+    "onlyPrivateSpaces": "只在私人空间",
+    "everywhere": "每个地方",
+    "mentioning": "回复"
 }
