@@ -7,6 +7,7 @@ import { model as User } from '../models/user';
 import common from '../../common';
 import { preenUserHistory } from './preening';
 import sleep from './sleep';
+import { revealMysteryItems } from './payments/subscriptions';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -75,6 +76,9 @@ function grantEndOfTheMonthPerks (user, now) {
     _.defaults(plan.consecutive, {
       count: 0, offset: 0, trinkets: 0, gemCapExtra: 0,
     });
+
+    // Award mystery items
+    revealMysteryItems(user, elapsedMonths);
 
     // 1 for one-month recurring or gift subscriptions; later set to 3 for 3-month recurring, etc.
     let planMonthsLength = 1;

@@ -185,7 +185,7 @@
     "weaponSpecialWinter2016MageText": "妖术滑雪板",
     "weaponSpecialWinter2016MageNotes": "你的行为就像慢动作一样，这一定是魔法！提升<%= int %>点智力和<%= per %>点感知。2015-1016冬季限定装备。",
     "weaponSpecialWinter2016HealerText": "彩纸炮",
-    "weaponSpecialWinter2016HealerNotes": "爽歪歪！！！！！仙境迎来快乐的冬天！！！！\n提升<%= int %>点智力。2015-2016 冬季限量版装备。",
+    "weaponSpecialWinter2016HealerNotes": "爽歪歪！！！！！冬季仙境盛典快乐！！！！\n提升<%= int %>点智力。2015-2016 冬季限量版装备。",
     "weaponSpecialSpring2016RogueText": "烈焰流星锤",
     "weaponSpecialSpring2016RogueNotes": "你精通了锤球、棍棒和小刀。现在你提高到杂耍火焰！嗷呜！增加 <%= str %>点力量。2016年春季限定版装备。",
     "weaponSpecialSpring2016WarriorText": "奶酪锤",

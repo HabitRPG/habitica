@@ -206,5 +206,9 @@
     "changeUsernameDisclaimer": "此使用者名稱將用於邀請、聊天中的 @ 標記、和訊息。",
     "verifyUsernameVeteranPet": "完成確認後，其中一隻將領寵物將會等您前來領養！",
     "subscriptionReminders": "訂閱提醒",
-    "newPMNotificationTitle": "來自 <%= name %> 的新訊息"
+    "newPMNotificationTitle": "來自 <%= name %> 的新訊息",
+    "suggestMyUsername": "建議我的使用者名稱",
+    "mentioning": "回覆",
+    "chatExtensionDesc": "Habitica 的聊天室擴充功能會在 habitica.com 的網頁附加聊天視窗。讓用戶在酒館、加入的隊伍或公會聊天。",
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome 聊天室擴充功能</a>與<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox 聊天室附加元件</a>"
 }
