@@ -67,7 +67,7 @@
   "newGroupTitle": "New Group",
   "subscriberItem": "Mystery Item",
   "newSubscriberItem": "You have new <span class=\"notification-bold-blue\">Mystery Items</span>",
-  "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for more information.",
+  "subscriberItemText": "Each month, subscribers will receive a mystery item. It becomes available at the beginning of the month. See the wiki's 'Mystery Item' page for more information.",
   "all": "All",
   "none": "None",
   "more": "<%= count %> more",
