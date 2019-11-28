@@ -107,8 +107,7 @@ export async function createTasks (req, res, options = {}) {
       // user.flags.welcomed is checked because when false it means the tasks being created
       // are the onboarding ones
       if (!user.achievements.createdTask && user.flags.welcomed) {
-        user.achievements.createdTask = true;
-        user.addNotification('ACHIEVEMENT_CREATED_TASK');
+        user.addAchievement('createdTask');
         shared.onboarding.checkOnboardingStatus(user);
       }
     }

@@ -68,9 +68,8 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslin
       message = handleTwoHanded(user, item, undefined, req);
     }
 
-    if (!user.achievements.purchasedEquipment) {
-      user.achievements.purchasedEquipment = true;
-      if (user.addNotification) user.addNotification('ACHIEVEMENT_PURCHASED_EQUIPMENT');
+    if (!user.achievements.purchasedEquipment && user.addAchievement) {
+      user.addAchievement('purchasedEquipment');
       checkOnboardingStatus(user);
     }
 

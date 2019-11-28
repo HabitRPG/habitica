@@ -90,9 +90,8 @@ export default function feed (user, req = {}) {
       message = evolve(user, pet, req);
     }
 
-    if (!user.achievements.fedPet) {
-      user.achievements.fedPet = true;
-      if (user.addNotification) user.addNotification('ACHIEVEMENT_FED_PET');
+    if (!user.achievements.fedPet && user.addAchievement) {
+      user.addAchievement('fedPet');
       checkOnboardingStatus(user);
     }
   }
