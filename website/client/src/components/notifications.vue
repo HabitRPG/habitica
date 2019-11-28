@@ -244,7 +244,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('achievementCreatedTask'),
-    } // TODO
+    }, // TODO
   },
 };
 
