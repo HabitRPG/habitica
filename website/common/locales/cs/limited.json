@@ -143,7 +143,7 @@
     "dateEndAugust": "Srpen 31",
     "dateEndSeptember": "21. Září",
     "dateEndOctober": "Říjen 31",
-    "dateEndNovember": "December 3",
+    "dateEndNovember": "30. listopadu",
     "dateEndJanuary": "Leden 31",
     "dateEndFebruary": "Únor 28",
     "winterPromoGiftHeader": "DARUJ PŘEDPLATNÉ A ZÍSKEJ JEDNO ZDARMA!",
@@ -167,5 +167,6 @@
     "spring2019CloudRogueSet": "Mrak (Tulák)",
     "spring2019RobinHealerSet": "Červenka (Léčitel)",
     "spring2019AmberMageSet": "Jantar (Mág)",
-    "spring2019OrchidWarriorSet": "Orchidej (válečník)"
+    "spring2019OrchidWarriorSet": "Orchidej (válečník)",
+    "augustYYYY": "Srpen <%=rok %>"
 }

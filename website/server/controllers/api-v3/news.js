@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NOVEMBER SUBSCRIBER ITEMS AVAILABLE! AND UPCOMING CHANGES TO MYSTERY ITEM DISTRIBUTION';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA HARVEST FEAST! AND LAST CHANCE FOR NOVEMBER LIMITED TIME ITEMS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,34 +31,62 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/21/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/27/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <h3>November Subscriber Items Revealed!</h3>
+        <div class="promo_harvest_feast center-block"></div>
+        <h3>Happy Harvest!</h3>
         <p>
-          The November Subscriber Item has been revealed: the Crystal Charmer Item Set! You only
-          have until November 30 to <a href='/user/settings/subscription'>receive the item set
-          when you subscribe</a>. If you're already an active subscriber, reload the site and then
-          head to Inventory > Items to claim your gear!
+          It's time for Habitica's Harvest Feast! On this day Habiticans celebrate by spending
+          time with loved ones, giving thanks, enjoying their favorite foods, and riding their
+          glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the
+          occasion!
         </p>
+        <h3>Turkey Pet, Mount, Costumes... and Pie!</h3>
         <p>
-          Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe,
-          the more Gems you can buy per month! There are other perks as well, such as longer
-          access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us
-          keep Habitica running. Thank you very much for your support -- it means a lot to us.
+          Those of you who weren't around for all of our previous Harvest Feasts have received an
+          adorable Turkey! What kind of Turkey? It all depends on how many harvests you've
+          celebrated with us. If you've completed your Turkey collection, you'll receive a feast
+          of delicious pie for your pets!
         </p>
+        <p>Thank you for using Habitica - we really love you all <3</p>
+        <div class="small mb-3">by Lemoness and Beffymaroo</div>
         <div class="promo_mystery_201911 center-block"></div>
-        <h3>Subscriber Gear Release Changes</h3>
+        <h3>Last Chance for Crystal Charmer Subscriber Set</h3>
         <p>
-          Starting next month, we're changing the way Subscriber sets are released! We'll be
-          releasing the outfits at the beginning of the month. With this change, subscribers can
-          enjoy their new gear all month long, and new subscribers will receive the latest gear
-          set as soon as they sign up, any day of that month. The gear will come out around the
-          first of the month, with a little wiggle room for time zones much like when Gem-buying
-          caps reset. We hope this change helps you enjoy your subscription even more!
+          Reminder: the end of November is the last chance to receive the Crystal Charmer Set when
+          you <a href='/user/settings/subscription'>sign up for a Habitica subscription!</a>
+          Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems
+          you can get!
+        <p>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_ember_thunderstorm_potions center-block"></div>
+        <h3>Last Chance for Ember and Thunderstorm Potions</h3>
+        <p>
+          Reminder: time is running out to <a href='/shops/market'>buy Thunderstorm and Ember
+          Hatching Potions!</a> If they come back, it won't be until next year at the earliest, so
+          don't delay!
         </p>
-        <div class="small mb-3">by Beffymaroo and SabreCat</div>
+        <div class="small mb-3">by Balduranne and SabreCat</div>
+        <div class="promo_delightful_dinos center-block"></div>
+        <h3>Last Chance for Delightful Dinos Pet Quest Bundle</h3>
+        <p>
+          There's also only a few days left to buy the discounted Delightful Dinos Pet Quest
+          Bundle, featuring the Pterodactyl, Triceratops, and T-Rex quests all for seven Gems! Be
+          sure to get yours from the <a href='/shops/quests'>Quest Shop</a> before this deal goes
+          extinct!
+        </p>
+        <div class="small">By SabreCat and Beffymaroo</div>
+        <div class="small">
+          Art by Baconsaur, Eevachu, UncommonCriminal, Kiwibot, McCoyly, plumilla, Seraphina,
+          PainterProphet, Stefalupagus, Katy133, Edge, Willow The Witty, Lilith of Alfheim,
+          Procyon, GeraldThePixel, and Archeia
+        </div>
+        <div class="small mb-3">
+          Writing by Lemoness, Daniel the Bard, Lilith of Alfheim, and Ali Stewart
+        </div>
       </div>
       `,
     });
