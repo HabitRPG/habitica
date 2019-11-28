@@ -237,14 +237,14 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
     modalId: 'generic-achievement',
   },
-  ACHIEVEMENT: {
+  ACHIEVEMENT: { // data filled in handleUserNotifications
     achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementCreatedTask')}`,
     modalId: 'generic-achievement',
+    label: null, // data filled in handleUserNotifications
     data: {
       message: $t => $t('achievement'),
-      modalText: $t => $t('achievementCreatedTask'),
-    }, // TODO
+      modalText: null, // data filled in handleUserNotifications
+    },
   },
 };
 
@@ -711,9 +711,17 @@ export default {
           case 'ACHIEVEMENT_TRIAD_BINGO':
           case 'ACHIEVEMENT_MONSTER_MAGUS':
           case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
-          case 'ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
+          case 'ACHIEVEMENT': { // generic achievement
+            const { achievement } = notification.data;
+            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
+            const achievementTitleKey = `achievement${upperCaseAchievement}`;
+            NOTIFICATIONS.ACHIEVEMENT.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+            NOTIFICATIONS.ACHIEVEMENT.data.modalText = $t => $t(achievementTitleKey);
+            this.showNotificationWithModal(notification);
+            break;
+          }
           case 'CRON':
             if (notification.data) {
               if (notification.data.hp) this.hp(notification.data.hp, 'hp');
