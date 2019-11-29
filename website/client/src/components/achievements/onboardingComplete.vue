@@ -112,7 +112,9 @@ export default {
     },
     closeWithAction () {
       this.close();
-      this.$router.push({ name: 'achievements' });
+      setTimeout(() => {
+        this.$router.push({ name: 'achievements' });
+      }, 200);
     },
   },
 };

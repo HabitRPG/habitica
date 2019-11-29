@@ -100,9 +100,11 @@ import axios from 'axios';
 import moment from 'moment';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
+import Vue from 'vue';
 
 import { toNextLevel } from '@/../../common/script/statHelpers';
 import { shouldDo } from '@/../../common/script/cron';
+import { onOnboardingComplete } from '@/../../common/script/libs/onboarding';
 import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
@@ -720,6 +722,9 @@ export default {
             NOTIFICATIONS.ACHIEVEMENT.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
             NOTIFICATIONS.ACHIEVEMENT.data.modalText = $t => $t(achievementTitleKey);
             this.showNotificationWithModal(notification);
+
+            // Set the achievement as it's not defined in the user schema
+            Vue.set(this.user.achievements, achievement, true);
             break;
           }
           case 'CRON':
@@ -752,6 +757,9 @@ export default {
             }
             break;
           case 'ONBOARDING_COMPLETE':
+            // Award rewards
+            onOnboardingComplete(this.user);
+
             // If the user cronned in the last 3 minutes
             // Don't show too many modals on app load
             // Use notification panel

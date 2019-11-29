@@ -8,13 +8,15 @@ export function hasCompletedOnboarding (user) {
   );
 }
 
+export function onOnboardingComplete (user) {
+  // Award gold
+  user.stats.gp += 100;
+}
+
+// Add notification and awards (server)
 export function checkOnboardingStatus (user) {
-  if (hasCompletedOnboarding(user)) {
-    // Award gold
-    user.stats.gp += 100;
-    // Add notification
-    if (user.addNotification) {
-      user.addNotification('ONBOARDING_COMPLETE');
-    }
+  if (hasCompletedOnboarding(user) && user.addNotification) {
+    user.addNotification('ONBOARDING_COMPLETE');
+    onOnboardingComplete(user);
   }
 }

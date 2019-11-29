@@ -342,12 +342,13 @@ export default function scoreTask (options = {}, req = {}) {
     }
   }
 
+  req.yesterDailyScored = task.yesterDailyScored;
+  updateStats(user, stats, req);
+
   if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
     user.addAchievement('completedTask');
     checkOnboardingStatus(user);
   }
 
-  req.yesterDailyScored = task.yesterDailyScored;
-  updateStats(user, stats, req);
   return [delta];
 }
