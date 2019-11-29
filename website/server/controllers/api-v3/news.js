@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITOWEEN! AND LAST CHANCE FOR OCTOBER AND FALL FESTIVAL ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA HARVEST FEAST! AND LAST CHANCE FOR NOVEMBER LIMITED TIME ITEMS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,49 +31,62 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/31/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>11/27/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <h3>Happy Habitoween!</h3>
-        <p>It's the last day of the Fall Festival, and all the NPCs are looking monstrous. Plus,
-        we have lots of fun things in store...</p>
-        <div class="promo_habitoween_2019 center-block"></div>
-        <h3>Jack O' Lantern Pets and Mounts!</h3>
-        <p>The Flourishing Fields are full of cute carved pumpkins - and it looks like
-        <a href='/inventory/stable'>one has followed you home</a>! What kind of pumpkin? It all
-        depends on how many Habitoweens you've celebrated with us. Each Habitoween, you'll get a
-        new and exciting pumpkin variety!</p>
+        <div class="promo_harvest_feast center-block"></div>
+        <h3>Happy Harvest!</h3>
+        <p>
+          It's time for Habitica's Harvest Feast! On this day Habiticans celebrate by spending
+          time with loved ones, giving thanks, enjoying their favorite foods, and riding their
+          glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the
+          occasion!
+        </p>
+        <h3>Turkey Pet, Mount, Costumes... and Pie!</h3>
+        <p>
+          Those of you who weren't around for all of our previous Harvest Feasts have received an
+          adorable Turkey! What kind of Turkey? It all depends on how many harvests you've
+          celebrated with us. If you've completed your Turkey collection, you'll receive a feast
+          of delicious pie for your pets!
+        </p>
+        <p>Thank you for using Habitica - we really love you all <3</p>
         <div class="small mb-3">by Lemoness and Beffymaroo</div>
-        <h3>Candy for Everyone!</h3>
-        <p>It's a feast for your pets and mounts! In honor of the end of the Fall Festival, we've
-        given everyone an assortment of candy. You can feed it to your pets in the
-        <a href='/inventory/stable'>Stable</a>! Enjoy.</p>
-        <div class="small mb-3">by SabreCat and Lemoness</div>
-        <div class="promo_fall_festival_2019 center-block"></div>
-        <h3>Last Chance for Fall Festival Items, Witchy Familiars Pet Quest Bundle, and Cryptic
-        Flame Set</h3>
-        <p>This is your last chance to get all Fall Festival items before they vanish at the end
-        of October 31st! This includes Limited-Edition Outfits, Seasonal Shop purchases, Seasonal
-        Edition Skins and Hair Colors, and yes, even Glow-in-the-Dark, Spooky, and Shadow Hatching
-        Potions. Grab them all while you still can!</p>
-        <div class="small mb-3">by gawrone, jjgame83, AnnDeLune, ʂʈєƒąʃųƥągųʂ, Katy133, Lilith of
-        Alfheim, Definitely not a villain, ShoGirlGeek. cataclysms, maxpendragon, Vikte, mariahm,
-        crystalphoenix, AaronTheTwin, tricksy.fox, QuartzFox, Lemoness, Beffymaroo and
-        SabreCat</div>
-        <p>It's also the last day to get the Witchy Familiars Pet Quest Bundle and receive the
-        Rat, Spider, and Frog quests, all for only 7 Gems! That's a discount of 5 Gems from the
-        price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest
-        Shop</a> before it crawls away!</p>
-        <div class="small">by Lemoness and SabreCat</div>
-        <div class="small">Art by Pandah, UncommonCriminal, Arcosine, starsystemic, RosemonkeyCT,
-        Jon Arjinborn, and Breadstrings</div>
-        <div class="small mb-3">Writing by Token, Arcosine, and Fluitare</div>
-        <p>Plus, today is the final day to <a href='/user/settings/subscription'>subscribe</a> and
-        receive the Cryptic Flame set along with other rad subscriber perks!</p>
-        <p>Thanks so much for your supporting the site -- you're helping us keep Habitica alive.
-        Happy Habitoween!</p>
+        <div class="promo_mystery_201911 center-block"></div>
+        <h3>Last Chance for Crystal Charmer Subscriber Set</h3>
+        <p>
+          Reminder: the end of November is the last chance to receive the Crystal Charmer Set when
+          you <a href='/user/settings/subscription'>sign up for a Habitica subscription!</a>
+          Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems
+          you can get!
+        <p>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
         <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_ember_thunderstorm_potions center-block"></div>
+        <h3>Last Chance for Ember and Thunderstorm Potions</h3>
+        <p>
+          Reminder: time is running out to <a href='/shops/market'>buy Thunderstorm and Ember
+          Hatching Potions!</a> If they come back, it won't be until next year at the earliest, so
+          don't delay!
+        </p>
+        <div class="small mb-3">by Balduranne and SabreCat</div>
+        <div class="promo_delightful_dinos center-block"></div>
+        <h3>Last Chance for Delightful Dinos Pet Quest Bundle</h3>
+        <p>
+          There's also only a few days left to buy the discounted Delightful Dinos Pet Quest
+          Bundle, featuring the Pterodactyl, Triceratops, and T-Rex quests all for seven Gems! Be
+          sure to get yours from the <a href='/shops/quests'>Quest Shop</a> before this deal goes
+          extinct!
+        </p>
+        <div class="small">By SabreCat and Beffymaroo</div>
+        <div class="small">
+          Art by Baconsaur, Eevachu, UncommonCriminal, Kiwibot, McCoyly, plumilla, Seraphina,
+          PainterProphet, Stefalupagus, Katy133, Edge, Willow The Witty, Lilith of Alfheim,
+          Procyon, GeraldThePixel, and Archeia
+        </div>
+        <div class="small mb-3">
+          Writing by Lemoness, Daniel the Bard, Lilith of Alfheim, and Ali Stewart
+        </div>
       </div>
       `,
     });

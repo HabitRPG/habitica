@@ -8,8 +8,8 @@
     "stickyHeaderPop": "Pegar la cabecera a la parte superior de la ventana. Si no está seleccionada significa que la cabecera se perderá de vista al bajar por la página.",
     "newTaskEdit": "Abrir nuevas tareas en el modo de edición",
     "newTaskEditPop": "Con esta opción marcada, las nuevas tareas se abrirán inmediatamente para poder añadirles detalles como notas o etiquetas.",
-    "dailyDueDefaultView": "En la columna Tareas diarias, mostrar de forma predeterminada la pestaña debido",
-    "dailyDueDefaultViewPop": "Si esta opción está activada, la columna Tareas diarias mostrará la pestaña Por vencer en lugar de Todo",
+    "dailyDueDefaultView": "Marcar Tareas Diarias como 'Por hacer' por defecto",
+    "dailyDueDefaultViewPop": "Si esta opción está activada, las Tareas Diarias por defecto aparecerán en 'Por hacer' en lugar de 'Todas'",
     "reverseChatOrder": "Mostrar mensajes del chat en orden inverso",
     "startAdvCollapsed": "Los ajustes avanzados en las tareas no se muestran automáticamente",
     "startAdvCollapsedPop": "Con esta opción marcada, los ajustes avanzados estarán escondidos al abrir la tarea para editarla.",
@@ -203,12 +203,14 @@
     "goToSettings": "Ir a Ajustes",
     "usernameVerifiedConfirmation": "¡Tu nombre de usuario, <%= username %>, está confirmado!",
     "usernameNotVerified": "Por favor, confirma tu nombre de usuario.",
-    "changeUsernameDisclaimer": "Eate usuario sera usado para las invitaciones @menciones en el chat y mensajes.",
+    "changeUsernameDisclaimer": "Este nombre de usuario será usado para invitaciones, @menciones en el chat y mensajes.",
     "verifyUsernameVeteranPet": "¡Una de estas Mascotas Veteranas te estará esperando cuando hayas terminado de confirmar!",
     "subscriptionReminders": "Recordatorios de Suscripciones",
     "newPMNotificationTitle": "Nuevo mensaje de <%= name %>",
     "onlyPrivateSpaces": "Solo en espacios privados",
     "everywhere": "Por todas partes",
-    "suggestMyUsername": "Guardar mi usuario",
-    "mentioning": "Menciones"
+    "suggestMyUsername": "Sugerir mi nombre de usuario",
+    "mentioning": "Menciones",
+    "chatExtensionDesc": "La Extensión de Chat para Habitica añade un intuitivo cuadro de chat a habitica.com. Permite a los usuarios conversar en la Taberna, su equipo, y cualquier gremio en el que estén.",
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Extensión de Chat para Chrome</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Extension de Chat para Firefox</a>"
 }

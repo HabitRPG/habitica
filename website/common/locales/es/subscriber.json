@@ -157,7 +157,7 @@
     "mysterySet301405": "Accesorios Steampunk",
     "mysterySet301703": "Conjunto de Pavo real Steampunk",
     "mysterySet301704": "Conjunto de Faisán Steampunk",
-    "mysterySetwondercon": "Wondercon",
+    "mysterySetwondercon": "WonderCon",
     "subUpdateCard": "Actualiza la tarjeta",
     "subUpdateTitle": "Actualización",
     "subUpdateDescription": "Actualiza la tarjeta para poder cobrar.",
@@ -225,5 +225,6 @@
     "mysterySet201903": "Conjunto Egg-quisito",
     "subWillBecomeInactive": "Dejará de estar activa",
     "confirmCancelSub": "¿Seguro que quieres cancelar tu suscripción? Perderás todos los beneficios asociados a ella.",
-    "mysterySet201909": "Conjunto Bellota Adorable"
+    "mysterySet201909": "Conjunto Bellota Adorable",
+    "mysterySet201910": "Conjunto de Llama Críptica"
 }

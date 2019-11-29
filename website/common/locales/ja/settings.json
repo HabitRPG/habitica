@@ -118,7 +118,7 @@
     "giftedSubscription": "寄付会員特典を贈られました",
     "giftedSubscriptionInfo": "<%= name %> から <%= months %> カ月分の寄付会員特典をプレゼントされました",
     "giftedSubscriptionFull": "こんにちは、<%= userName %>。<%= sender %> から <%= monthCount %> カ月分の寄付会員特典をプレゼントされました！",
-    "giftedSubscriptionWinterPromo": "こんにちは、<%= username %>。祭日の贈り物を送るキャンペーンの一環で、あなたには<%= monthCount %> カ月分の寄付会員特典が与えられました！",
+    "giftedSubscriptionWinterPromo": "こんにちは、<%= username %>。祭日の贈り物を送るキャンペーンの一環として、あなたは<%= monthCount %> カ月分の寄付会員特典を受け取りました！",
     "invitedParty": "パーティーへ招待されました",
     "invitedGuild": "ギルドへ招待されました",
     "importantAnnouncements": "タスクを完了して賞品を受け取るためのチェックイン通知です",
@@ -210,5 +210,7 @@
     "mentioning": "返信する",
     "onlyPrivateSpaces": "プライベートな空間のみ",
     "everywhere": "どこでも",
-    "suggestMyUsername": "ユーザー名を提案してもらう"
+    "suggestMyUsername": "ユーザー名を提案してもらう",
+    "chatExtensionDesc": "Habiticaのチャット拡張機能は、すべてのhabitica.comに直感的なチャットボックスを追加します。キャンプ場や参加しているパーティー・ギルドでユーザーがチャットできます。",
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chromeのチャット拡張機能</a>と<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefoxのチャット拡張機能</a>"
 }

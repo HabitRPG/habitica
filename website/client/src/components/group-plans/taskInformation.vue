@@ -75,7 +75,6 @@
         class="col-12 col-md-3"
         :type="column"
         :task-list-override="tasksByType[column]"
-        :show-options="showOptions"
         :group="group"
         :search-text="searchText"
         @editTask="editTask"
@@ -198,9 +197,6 @@ export default {
       if (!this.group) return false;
       return (this.group.leader && this.group.leader._id === this.user._id)
         || (this.group.managers && Boolean(this.group.managers[this.user._id]));
-    },
-    showOptions () {
-      return this.canCreateTasks;
     },
   },
   watch: {

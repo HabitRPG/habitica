@@ -18,5 +18,21 @@
     "achievementMindOverMatterModalText": "岩、スライム、毛糸のペットクエストを完了しました！",
     "achievementJustAddWater": "水を注ぐだけ",
     "achievementJustAddWaterText": "タコ、タツノオトシゴ、コウイカ、クジラ、カメ、ウミウシ、シーサーペント、イルカのペットクエストを完了しました。",
-    "achievementJustAddWaterModalText": "タコ、タツノオトシゴ、コウイカ、クジラ、カメ、ウミウシ、シーサーペント、イルカのペットクエストを完了しました！"
+    "achievementJustAddWaterModalText": "タコ、タツノオトシゴ、コウイカ、クジラ、カメ、ウミウシ、シーサーペント、イルカのペットクエストを完了しました！",
+    "achievementPartyOn": "４人のメンバーがいるパーティーに発展しました！",
+    "achievementPartyUp": "仲間たちとパーティーを組みました！",
+    "achievementMonsterMagusModalText": "ゾンビのペットをすべて集めました！",
+    "achievementMonsterMagusText": "ゾンビのペットをすべて集めました。",
+    "achievementMonsterMagus": "魔物使い",
+    "achievementAridAuthorityModalText": "砂漠の乗騎をすべて手なずけました！",
+    "achievementAridAuthorityText": "砂漠の乗騎をすべて手なずけました。",
+    "achievementAridAuthority": "不毛の大家",
+    "achievementDustDevilModalText": "砂漠のペットをすべて集めました！",
+    "achievementDustDevilText": "砂漠のペットをすべて集めました。",
+    "achievementDustDevil": "塵旋風",
+    "achievementKickstarter2019": "Pin Kickstarter支援者",
+    "achievementKickstarter2019Text": "2019年のPin Kickstarterプロジェクトで支援しました",
+    "achievementUndeadUndertaker": "不死の葬儀屋",
+    "achievementUndeadUndertakerModalText": "ゾンビの乗騎をすべて手なずけました！",
+    "achievementUndeadUndertakerText": "ゾンビの乗騎をすべて手なずけました。"
 }
