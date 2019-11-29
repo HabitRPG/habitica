@@ -23,7 +23,7 @@ export async function sentMessage (sender, receiver, message, translate) {
           { name: getUserInfo(sender, ['name']).name },
           receiver.preferences.language,
         ),
-        message,
+        message: messageSent.unformattedText,
         identifier: 'newPM',
         category: 'newPM',
         payload: { replyTo: sender._id, senderName, message },
