@@ -26,7 +26,10 @@
     <quest-completed />
     <quest-invitation />
     <verify-username />
-    <generic-achievement :data="notificationData" />
+    <generic-achievement
+      v-if="notificationData && notificationData.achievement"
+      :data="notificationData"
+    />
     <just-add-water />
     <lost-masterclasser />
     <mind-over-matter />
@@ -143,46 +146,74 @@ const NOTIFICATIONS = {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('joinedChallenge')}`,
     modalId: 'joined-challenge',
+    data: {
+      achievement: 'joinedChallenge', // defined manually until the server sends all the necessary data
+    },
   },
   ULTIMATE_GEAR_ACHIEVEMENT: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
     modalId: 'ultimate-gear',
+    data: {
+      // TODO
+      achievement: '', // defined manually until the server sends all the necessary data
+    },
   },
   GUILD_JOINED_ACHIEVEMENT: {
     label: $t => `${$t('achievement')}: ${$t('joinedGuild')}`,
     achievement: true,
     modalId: 'joined-guild',
+    data: {
+      achievement: 'joinedGuid', // defined manually until the server sends all the necessary data
+    },
   },
   INVITED_FRIEND_ACHIEVEMENT: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('invitedFriend')}`,
     modalId: 'invited-friend',
+    data: {
+      achievement: 'invitedFriend', // defined manually until the server sends all the necessary data
+    },
   },
   NEW_CONTRIBUTOR_LEVEL: {
     achievement: true,
     label: $t => $t('modalContribAchievement'),
     modalId: 'contributor',
+    data: {
+      achievement: 'contributor', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_ALL_YOUR_BASE: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementAllYourBase')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'allYourBase', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_BACK_TO_BASICS: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'backToBasics', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_DUST_DEVIL: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'dustDevil', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_ARID_AUTHORITY: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'aridAuthority', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_PARTY_UP: {
     achievement: true,
@@ -191,6 +222,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('achievementPartyUp'),
+      achievement: 'partyUp', // defined manually until the server sends all the necessary data
     },
   },
   ACHIEVEMENT_PARTY_ON: {
@@ -200,6 +232,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('achievementPartyOn'),
+      achievement: 'partyOn', // defined manually until the server sends all the necessary data
     },
   },
   ACHIEVEMENT_BEAST_MASTER: {
@@ -209,6 +242,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('beastAchievement'),
+      achievement: 'beastMaster', // defined manually until the server sends all the necessary data
     },
   },
   ACHIEVEMENT_MOUNT_MASTER: {
@@ -218,6 +252,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('mountAchievement'),
+      achievement: 'mountMaster', // defined manually until the server sends all the necessary data
     },
   },
   ACHIEVEMENT_TRIAD_BINGO: {
@@ -227,17 +262,24 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('triadBingoAchievement'),
+      achievement: 'triadBingo', // defined manually until the server sends all the necessary data
     },
   },
   ACHIEVEMENT_MONSTER_MAGUS: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'monsterMagus', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_UNDEAD_UNDERTAKER: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'undeadUndertaker', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT: { // data filled in handleUserNotifications
     achievement: true,

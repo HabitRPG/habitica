@@ -7,10 +7,14 @@
   >
     <div class="modal-body">
       <div class="col-12">
-        <achievement-avatar class="avatar" />
+        <div
+          class="icon"
+          :class="achievementClass"
+        ></div>
       </div>
       <div class="col-6 offset-3 text-center">
-        <p v-html="data.modalText"></p>
+        <strong v-html="$t(achievement.titleKey)"></strong>
+        <p v-html="$t(achievement.textKey)"></p>
         <button
           class="btn btn-primary"
           @click="close()"
@@ -23,29 +27,38 @@
   </b-modal>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   .avatar {
     width: 140px;
     margin: 0 auto;
     margin-bottom: 1.5em;
     margin-top: 1.5em;
   }
+
+  .icon {
+    margin: 0 auto;
+  }
 </style>
 
 <script>
 import achievementFooter from './achievementFooter';
-import achievementAvatar from './achievementAvatar';
 
 import { mapState } from '@/libs/store';
+import achievements from '@/../../common/script/content/achievements';
 
 export default {
   components: {
     achievementFooter,
-    achievementAvatar,
   },
   props: ['data'],
   computed: {
     ...mapState({ user: 'user.data' }),
+    achievement () {
+      return achievements[this.data.achievement];
+    },
+    achievementClass () {
+      return `${this.achievement.icon}2x`;
+    },
   },
   methods: {
     close () {
