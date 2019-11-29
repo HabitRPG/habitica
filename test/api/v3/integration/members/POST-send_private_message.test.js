@@ -111,7 +111,9 @@ describe('POST /members/send-private-message', () => {
 
     const sendersMessageInReceiversInbox = _.find(
       updatedReceiver.inbox.messages,
-      message => message.uuid === userToSendMessage._id && message.text === messageToSend && message.unformattedText === unformattedMessage,
+      message => message.uuid === userToSendMessage._id
+        && message.text === messageToSend
+        && message.unformattedText === unformattedMessage,
     );
 
     const sendersMessageInSendersInbox = _.find(
