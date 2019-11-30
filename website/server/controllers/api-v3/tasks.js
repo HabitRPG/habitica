@@ -76,7 +76,7 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                         include: a UUID, startDate and time.
  *                                         For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3",
  *                                         "startDate":"1/16/17","time":"1/16/17" }
- * @apiParam (Body) {String="weekly","daily"} [frequency=weekly] Value "weekly" enables
+ * @apiParam (Body) {String="daily","weekly","monthly","yearly"} [frequency=weekly] Values "weekly" and
  *                                                               "On days of the week", value
  *                                                               "daily" enables "EveryX Days".
  *                                                               Only valid for type "daily".
@@ -240,7 +240,7 @@ api.createUserTasks = {
  *                                         include: a UUID, startDate and time.
  *                                         For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3",
  *                                         "startDate":"1/16/17","time":"1/16/17" }
- * @apiParam (Body) {String="weekly","daily"} [frequency=weekly] Value "weekly" enables
+ * @apiParam (Body) {String="daily","weekly","monthly","yearly"} [frequency=weekly] Values "weekly" and
  *                                                               "On days of the week", value
  *                                                               "daily" enables "EveryX Days".
  *                                                               Only valid for type "daily".
@@ -544,7 +544,7 @@ api.getTask = {
  *                                                            Easy, Medium, Hard.
  * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must include:
  *                                         a UUID, startDate and time.
- * @apiParam (Body) {String="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days
+ * @apiParam (Body) {String="daily","weekly","monthly","yearly"} [frequency=weekly] Values "weekly" and
  *                                                               of the week", value "daily"
  *                                                               enables "EveryX Days".
  *                                                               Only valid for type "daily".
