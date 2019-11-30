@@ -77,9 +77,11 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                         For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3",
  *                                         "startDate":"1/16/17","time":"1/16/17" }
  * @apiParam (Body) {String="daily","weekly","monthly","yearly"} [frequency=weekly] Values "weekly" and
- *                                                               "On days of the week", value
- *                                                               "daily" enables "EveryX Days".
- *                                                               Only valid for type "daily".
+ *                                                               "monthly" enable use of the "repeat" field.
+ *                                                               All frequency values enable use of the "everyX" field.
+ *                                                               Value "monthly" enables use of the
+ *                                                               "weeksOfMonth" and "daysOfMonth" fields.
+ *                                                               Frequency is only valid for type "daily".
  * @apiParam (Body) {String} [repeat=true] List of objects for days of the week,
  *                                         Days that are true will be repeated upon.
  *                                         Only valid for type "daily". Any days not specified
@@ -241,9 +243,11 @@ api.createUserTasks = {
  *                                         For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3",
  *                                         "startDate":"1/16/17","time":"1/16/17" }
  * @apiParam (Body) {String="daily","weekly","monthly","yearly"} [frequency=weekly] Values "weekly" and
- *                                                               "On days of the week", value
- *                                                               "daily" enables "EveryX Days".
- *                                                               Only valid for type "daily".
+ *                                                               "monthly" enable use of the "repeat" field.
+ *                                                               All frequency values enable use of the "everyX" field.
+ *                                                               Value "monthly" enables use of the
+ *                                                               "weeksOfMonth" and "daysOfMonth" fields.
+ *                                                               Frequency is only valid for type "daily".
  * @apiParam (Body) {String} [repeat=true] List of objects for days of the week,
  *                                         Days that are true will be repeated upon.
  *                                         Only valid for type "daily". Any days not
@@ -545,9 +549,11 @@ api.getTask = {
  * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must include:
  *                                         a UUID, startDate and time.
  * @apiParam (Body) {String="daily","weekly","monthly","yearly"} [frequency=weekly] Values "weekly" and
- *                                                               of the week", value "daily"
- *                                                               enables "EveryX Days".
- *                                                               Only valid for type "daily".
+ *                                                               "monthly" enable use of the "repeat" field.
+ *                                                               All frequency values enable use of the "everyX" field.
+ *                                                               Value "monthly" enables use of the
+ *                                                               "weeksOfMonth" and "daysOfMonth" fields.
+ *                                                               Frequency is only valid for type "daily".
  * @apiParam (Body) {String} [repeat=true] List of objects for days of the week,  Days that
  *                                         are true will be repeated upon. Only valid for type
  *                                         "daily". Any days not specified will be marked as true.
