@@ -94,6 +94,10 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                      task is available again.
  * @apiParam (Body) {Number} [streak=0] Number of days that the task has consecutively
  *                                      been checked off. Only valid for type "daily"
+ * @apiParam (Body) {Integer[]} daysOfMonth Array of integers.
+ *                                      Only valid for type "daily"
+ * @apiParam (Body) {Integer[]} weeksOfMonth Array of integers.
+ *                                      Only valid for type "daily"
  * @apiParam (Body) {Date} [startDate] Date when the task will first become available.
  *                                     Only valid for type "daily"
  * @apiParam (Body) {Boolean} [up=true] Only valid for type "habit"
@@ -259,6 +263,10 @@ api.createUserTasks = {
  *                                      of days until this daily task is available again.
  * @apiParam (Body) {Number} [streak=0] Number of days that the task has consecutively
  *                                      been checked off. Only valid for type "daily"
+ * @apiParam (Body) {Integer[]} daysOfMonth Array of integers.
+ *                                      Only valid for type "daily"
+ * @apiParam (Body) {Integer[]} weeksOfMonth Array of integers.
+ *                                      Only valid for type "daily"
  * @apiParam (Body) {Date} [startDate] Date when the task will first become available.
  *                                     Only valid for type "daily"
  * @apiParam (Body) {Boolean} [up=true] Only valid for type "habit" If true,
@@ -564,6 +572,10 @@ api.getTask = {
  *                                      of days until this daily task is available again.
  * @apiParam (Body) {Number} [streak=0] Number of days that the task has consecutively
  *                                      been checked off. Only valid for type "daily",
+ * @apiParam (Body) {Integer[]} daysOfMonth Array of integers.
+ *                                      Only valid for type "daily"
+ * @apiParam (Body) {Integer[]} weeksOfMonth Array of integers.
+ *                                      Only valid for type "daily"
  * @apiParam (Body) {Date} [startDate] Date when the task will first become available.
  *                                     Only valid for type "daily".
  * @apiParam (Body) {Boolean} [up=true] Only valid for type "habit" If true, enables
