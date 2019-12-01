@@ -479,11 +479,17 @@ export default {
 
       if (!isEmpty(this.sortOption)) {
         // Use the memberlist filtered by searchTerm
-        sortedMembers = orderBy(
-          sortedMembers,
-          [this.sortOption.value],
-          [this.sortOption.direction],
-        );
+        if (this.sortOption.value === 'profile.name') {
+          sortedMembers.sort(
+            (a, b) => a.profile.name.localeCompare(b.profile.name),
+          );
+        } else {
+          sortedMembers = orderBy(
+            sortedMembers,
+            [this.sortOption.value],
+            [this.sortOption.direction],
+          );
+        }
       }
 
       return sortedMembers;
