@@ -11,7 +11,7 @@
     "postinstall": "node ./scripts/npm-postinstall.js"
   },
   "dependencies": {
-    "@vue/cli-plugin-babel": "^4.0.5",
+    "@vue/cli-plugin-babel": "^4.1.1",
     "@vue/cli-plugin-eslint": "^4.0.5",
     "@vue/cli-plugin-router": "^4.0.5",
     "@vue/cli-plugin-unit-mocha": "^4.0.5",
