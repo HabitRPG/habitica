@@ -61,7 +61,7 @@
     "regenerator-runtime": "^0.13.3",
     "rimraf": "^3.0.0",
     "short-uuid": "^3.0.0",
-    "stripe": "^7.13.1",
+    "stripe": "^7.14.0",
     "superagent": "^5.1.2",
     "universal-analytics": "^0.4.17",
     "useragent": "^2.1.9",
