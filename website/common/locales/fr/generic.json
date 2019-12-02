@@ -61,7 +61,7 @@
     "newGroupTitle": "Nouveau groupe",
     "subscriberItem": "Objet mystère",
     "newSubscriberItem": "Vous avez de nouveaux <span class=\"notification-bold-blue\">objets mystère</span>",
-    "subscriberItemText": "Les personnes abonnées recevront chaque mois un objet mystère. Celui-ci est généralement dévoilé environ une semaine avant la fin du mois. Consultez la page \"Objet mystère\" du wiki pour avoir plus d'information.",
+    "subscriberItemText": "Les personnes abonnées recevront chaque mois un objet mystère. Il est disponible au début du mois. Consultez la page \"Objet mystère\" du wiki pour avoir plus d'information.",
     "all": "Tous",
     "none": "Aucun",
     "more": "<%= count %> de plus",
