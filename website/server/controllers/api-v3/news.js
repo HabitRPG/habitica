@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA HARVEST FEAST! AND LAST CHANCE FOR NOVEMBER LIMITED TIME ITEMS';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW SUBSCRIBER SET AND OFFICIAL HABITICA CHALLENGES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,61 +31,62 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/27/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>12/2/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_harvest_feast center-block"></div>
-        <h3>Happy Harvest!</h3>
+        <div class="promo_mystery_201912 center-block"></div>
+        <h3>December Subscriber Items Revealed!</h3>
         <p>
-          It's time for Habitica's Harvest Feast! On this day Habiticans celebrate by spending
-          time with loved ones, giving thanks, enjoying their favorite foods, and riding their
-          glorious turkeys into the magnificent sunset. Some of the NPCs are celebrating the
-          occasion!
+          The December Subscriber Item Set has been revealed: the Polar Pixie Item Set! <a
+          href='/user/settings/subscription'>Subscribe to Habitica</a> by December 31 to receive this
+          exciting set! If you're already an active subscriber, reload the site and then head to
+          Inventory > Items to claim your gear.
         </p>
-        <h3>Turkey Pet, Mount, Costumes... and Pie!</h3>
         <p>
-          Those of you who weren't around for all of our previous Harvest Feasts have received an
-          adorable Turkey! What kind of Turkey? It all depends on how many harvests you've
-          celebrated with us. If you've completed your Turkey collection, you'll receive a feast
-          of delicious pie for your pets!
+          Subscribers also receive the ability to buy Gems for Gold -- the longer you subscribe,
+          the more Gems you can buy per month! There are other perks as well, such as longer access
+          to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep
+          Habitica running. Thank you very much for your support -- it means a lot to us.
         </p>
-        <p>Thank you for using Habitica - we really love you all <3</p>
-        <div class="small mb-3">by Lemoness and Beffymaroo</div>
-        <div class="promo_mystery_201911 center-block"></div>
-        <h3>Last Chance for Crystal Charmer Subscriber Set</h3>
-        <p>
-          Reminder: the end of November is the last chance to receive the Crystal Charmer Set when
-          you <a href='/user/settings/subscription'>sign up for a Habitica subscription!</a>
-          Subscribing also lets you buy Gems for Gold. The longer your subscription, the more Gems
-          you can get!
-        <p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
         <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_ember_thunderstorm_potions center-block"></div>
-        <h3>Last Chance for Ember and Thunderstorm Potions</h3>
+        <div class="promo_take_this center-block"></div>
+        <h3>December 2019 Resolution Success Challenge and Take This Challenge</h3>
         <p>
-          Reminder: time is running out to <a href='/shops/market'>buy Thunderstorm and Ember
-          Hatching Potions!</a> If they come back, it won't be until next year at the earliest, so
-          don't delay!
+          The Habitica team has launched a special official Challenge series hosted in the <a
+          href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New
+          Year's Resolution Guild</a>. These Challenges are designed to help you build and
+          maintain goals that are destined for success and then stick with them as the year
+          progresses. For this month's Challenge, "<a
+          href='/challenges/b83f3995-f7c9-4424-8728-be7dee8b52bc'>Journey's End and New
+          Beginnings</a>", we're focusing on sharing our successes and reviewing the year!
+          It has a 15 Gem prize, which will be awarded to five lucky winners on January 1st.
         </p>
-        <div class="small mb-3">by Balduranne and SabreCat</div>
-        <div class="promo_delightful_dinos center-block"></div>
-        <h3>Last Chance for Delightful Dinos Pet Quest Bundle</h3>
         <p>
-          There's also only a few days left to buy the discounted Delightful Dinos Pet Quest
-          Bundle, featuring the Pterodactyl, Triceratops, and T-Rex quests all for seven Gems! Be
-          sure to get yours from the <a href='/shops/quests'>Quest Shop</a> before this deal goes
-          extinct!
+          Congratulations to the winners of November's Challenge, @LuxInWonderland, @noblegeas,
+          @thebadhobbit, @Slardibarfast, and @yasaminnb!
         </p>
-        <div class="small">By SabreCat and Beffymaroo</div>
-        <div class="small">
-          Art by Baconsaur, Eevachu, UncommonCriminal, Kiwibot, McCoyly, plumilla, Seraphina,
-          PainterProphet, Stefalupagus, Katy133, Edge, Willow The Witty, Lilith of Alfheim,
-          Procyon, GeraldThePixel, and Archeia
-        </div>
+        <p>
+          The next Take This Challenge has also launched, "<a
+          href='/challenges/d969932e-887d-45eb-9f7d-312f2173c059'>Test Thy Courage!</a>", with a
+          focus on positive social interactions. Be sure to check it out to earn additional pieces
+          of the Take This armor set!
+        </p>
+        <p>
+          <a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that
+          seeks to inform the gamer community about mental health issues, to provide education
+          about mental disorders and mental illness prevention, and to reduce the stigma of mental
+          illness.
+        <p>
+          Congratulations to the winners of the last Take This Challenge, "Cast of Characters!":
+          grand prize winner Geomiceman, and runners-up Christen, no_robot, 🔥 KidSlazy 🔥,
+          marek13, and Nova Rose! Plus, all participants in that Challenge have received a piece of
+          the <a href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set'
+          target='_blank'>Take This item set</a> if they hadn't completed it already. It is located
+           in your Rewards column. Enjoy!
+        </p>
         <div class="small mb-3">
-          Writing by Lemoness, Daniel the Bard, Lilith of Alfheim, and Ali Stewart
+          by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat
         </div>
       </div>
       `,
