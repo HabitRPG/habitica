@@ -298,7 +298,10 @@ export default {
   },
   mounted () {
     const onboardingPanelState = getLocalSetting(CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE);
-    if (onboardingPanelState !== CONSTANTS.onboardingPanelValues.PANEL_OPENED) {
+    if (
+      onboardingPanelState !== CONSTANTS.onboardingPanelValues.PANEL_OPENED
+      && this.showOnboardingGuide
+    ) {
       // The first time the onboarding panel is opened a special
       // badge for notifications should be used
       this.hasSpecialBadge = true;
