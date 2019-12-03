@@ -11,10 +11,11 @@
         :aria-label="$t('notifications')"
       >
         <message-count
-          v-if="notificationsCount > 0"
+          v-if="notificationsCount > 0 || hasSpecialBadge"
           :count="notificationsCount"
           :top="true"
-          :gray="!hasUnseenNotifications"
+          :gray="!hasUnseenNotifications && !hasSpecialBadge"
+          :badge="icons.starBadge"
         />
         <div
           class="top-menu-icon svg-icon notifications"
@@ -46,6 +47,7 @@
       <world-boss />
       <onboarding-guide
         v-if="showOnboardingGuide"
+        :never-seen="hasSpecialBadge"
       />
       <component
         :is="notification.type"
@@ -116,7 +118,9 @@ import { hasCompletedOnboarding } from '@/../../common/script/libs/onboarding';
 import notificationsIcon from '@/assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
+import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 import successImage from '@/assets/svg/success.svg';
+import starBadge from '@/assets/svg/star-badge.svg';
 
 // Notifications
 import NEW_STUFF from './notifications/newStuff';
@@ -175,7 +179,9 @@ export default {
       icons: Object.freeze({
         notifications: notificationsIcon,
         success: successImage,
+        starBadge,
       }),
+      hasSpecialBadge: false,
       quests,
       openStatus: undefined,
       actionableNotifications: [
@@ -290,6 +296,14 @@ export default {
       return !hasCompletedOnboarding(this.user);
     },
   },
+  mounted () {
+    const onboardingPanelState = getLocalSetting(CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE);
+    if (onboardingPanelState !== CONSTANTS.onboardingPanelValues.PANEL_OPENED) {
+      // The first time the onboarding panel is opened a special
+      // badge for notifications should be used
+      this.hasSpecialBadge = true;
+    }
+  },
   methods: {
     ...mapActions({
       readNotifications: 'notifications:readNotifications',
@@ -300,6 +314,18 @@ export default {
 
       // Mark notifications as seen when the menu is opened
       if (openStatus) this.markAllAsSeen();
+
+      // Reset the special notification badge as soon as it's opened
+      if (this.hasSpecialBadge) {
+        setLocalSetting(
+          CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE,
+          CONSTANTS.onboardingPanelValues.PANEL_OPENED,
+        );
+
+        setTimeout(() => {
+          this.hasSpecialBadge = false;
+        }, 100);
+      }
     },
     markAllAsSeen () {
       const idsToSee = this.notifications.map(notification => {
@@ -332,5 +358,6 @@ export default {
       return this.actionableNotifications.indexOf(notification.type) !== -1;
     },
   },
+
 };
 </script>
