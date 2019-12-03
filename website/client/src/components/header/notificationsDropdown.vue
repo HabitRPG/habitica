@@ -15,7 +15,7 @@
           :count="notificationsCount"
           :top="true"
           :gray="!hasUnseenNotifications && !hasSpecialBadge"
-          :badge="icons.starBadge"
+          :badge="hasSpecialBadge ? icons.starBadge : null"
         />
         <div
           class="top-menu-icon svg-icon notifications"
