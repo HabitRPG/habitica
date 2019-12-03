@@ -3,6 +3,11 @@
     id="hatchedPet-modal"
     :hide-header="true"
   >
+    <span
+      class="close-icon svg-icon inline icon-10"
+      @click="close()"
+      v-html="icons.close"
+    ></span>
     <div
       v-if="pet != null"
       class="content"
@@ -97,6 +102,7 @@
 
 <script>
 import markdownDirective from '@/directives/markdown';
+import svgClose from '@/assets/svg/close.svg';
 
 export default {
   directives: {
@@ -110,6 +116,9 @@ export default {
   data () {
     return {
       pet: null,
+      icons: Object.freeze({
+        close: svgClose,
+      }),
     };
   },
   mounted () {
