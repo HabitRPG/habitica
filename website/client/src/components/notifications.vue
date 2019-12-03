@@ -146,42 +146,26 @@ const NOTIFICATIONS = {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('joinedChallenge')}`,
     modalId: 'joined-challenge',
-    data: {
-      achievement: 'joinedChallenge', // defined manually until the server sends all the necessary data
-    },
   },
   ULTIMATE_GEAR_ACHIEVEMENT: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
     modalId: 'ultimate-gear',
-    data: {
-      // TODO
-      achievement: '', // defined manually until the server sends all the necessary data
-    },
   },
   GUILD_JOINED_ACHIEVEMENT: {
     label: $t => `${$t('achievement')}: ${$t('joinedGuild')}`,
     achievement: true,
     modalId: 'joined-guild',
-    data: {
-      achievement: 'joinedGuid', // defined manually until the server sends all the necessary data
-    },
   },
   INVITED_FRIEND_ACHIEVEMENT: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('invitedFriend')}`,
     modalId: 'invited-friend',
-    data: {
-      achievement: 'invitedFriend', // defined manually until the server sends all the necessary data
-    },
   },
   NEW_CONTRIBUTOR_LEVEL: {
     achievement: true,
     label: $t => $t('modalContribAchievement'),
     modalId: 'contributor',
-    data: {
-      achievement: 'contributor', // defined manually until the server sends all the necessary data
-    },
   },
   ACHIEVEMENT_ALL_YOUR_BASE: {
     achievement: true,
