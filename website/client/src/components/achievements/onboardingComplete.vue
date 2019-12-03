@@ -61,21 +61,6 @@ h2 {
   margin-top: 18px;
 }
 
-.close-icon {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  cursor: pointer;
-
-  & ::v-deep svg path {
-    stroke: $gray-200;
-  }
-
-  &:hover ::v-deep svg path {
-    stroke: $gray-100;
-  }
-}
-
 .onboarding-complete-banner {
   width: 282px;
   margin: 0 auto;

@@ -5,6 +5,11 @@
     size="md"
     :hide-header="true"
   >
+    <span
+      class="close-icon svg-icon inline icon-10"
+      @click="close()"
+      v-html="icons.close"
+    ></span>
     <div class="content">
       <div
         v-once
@@ -24,10 +29,6 @@
           v-html="$t(achievement.titleKey)"
         >
         </h4>
-        <div
-          class="text"
-          v-html="$t(achievement.textKey)"
-        ></div>
         <button
           class="btn btn-primary"
           @click="close()"
@@ -85,9 +86,8 @@
     color: $purple-200 !important;
   }
 
-  .text {
+  .title {
     margin-bottom: 24px !important;
-    min-height: 0 !important;
   }
 
   .icon {
@@ -98,9 +98,17 @@
 <script>
 import { mapState } from '@/libs/store';
 import achievements from '@/../../common/script/content/achievements';
+import svgClose from '@/assets/svg/close.svg';
 
 export default {
   props: ['data'],
+  data () {
+    return {
+      icons: Object.freeze({
+        close: svgClose,
+      }),
+    };
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
     achievement () {
