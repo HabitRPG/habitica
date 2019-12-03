@@ -507,6 +507,15 @@ const armor = {
     set: 'alchemist',
     canOwn: ownsItem('armor_armoire_alchemistsRobe'),
   },
+  duffleCoat: {
+    text: t('armorArmoireDuffleCoatText'),
+    notes: t('armorArmoireDuffleCoatNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    per: 7,
+    set: 'duffle',
+    canOwn: ownsItem('armor_armoire_duffleCoat'),
+  },
 };
 
 const body = {
@@ -1036,6 +1045,15 @@ const head = {
     per: 7,
     set: 'alchemist',
     canOwn: ownsItem('head_armoire_alchemistsHat'),
+  },
+  earflapHat: {
+    text: t('headArmoireEarflapHatText'),
+    notes: t('headArmoireEarflapHatNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    str: 7,
+    set: 'duffle',
+    canOwn: ownsItem('head_armoire_earflapHat'),
   },
 };
 

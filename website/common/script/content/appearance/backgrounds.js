@@ -927,6 +927,20 @@ const backgrounds = {
       notes: t('backgroundPotionShopNotes'),
     },
   },
+  backgrounds122019: {
+    holiday_market: {
+      text: t('backgroundHolidayMarketText'),
+      notes: t('backgroundHolidayMarketNotes'),
+    },
+    holiday_wreath: {
+      text: t('backgroundHolidayWreathText'),
+      notes: t('backgroundHolidayWreathNotes'),
+    },
+    winter_nocturne: {
+      text: t('backgroundWinterNocturneText'),
+      notes: t('backgroundWinterNocturneNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
