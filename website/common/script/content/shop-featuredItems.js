@@ -46,8 +46,8 @@ const featuredItems = {
   },
   quests: [
     {
-      type: 'bundles',
-      path: 'bundles.delightfulDinos',
+      type: 'quests',
+      path: 'quests.badger',
     },
     {
       type: 'quests',

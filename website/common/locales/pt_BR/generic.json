@@ -61,7 +61,7 @@
     "newGroupTitle": "Novo Grupo",
     "subscriberItem": "Item Misterioso",
     "newSubscriberItem": "Você possui novos <span class=\"notification-bold-blue\">Itens Surpresa</span>",
-    "subscriberItemText": "A cada mês, assinantes receberão um item misterioso. Ele normalmente é liberado cerca de uma semana antes do final do mês. Veja a página \"Item Misterioso\" da wiki para mais informações.",
+    "subscriberItemText": "A cada mês, assinantes receberão um item misterioso. Este item estará disponível no início de cada mês. Veja a página \"Item Misterioso\" da wiki para mais informações.",
     "all": "Todos",
     "none": "Nenhum",
     "more": "<%= count %> a mais",
