@@ -6,6 +6,8 @@
     :hide-header="true"
     :hide-footer="true"
     :modal-class="{'page-2':modalPage > 1 && !editing}"
+    :no-close-on-esc="true"
+    :no-close-on-backdrop="true"
   >
     <div
       v-if="modalPage === 1 && !editing"

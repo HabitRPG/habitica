@@ -8,6 +8,7 @@
   "onboardingProgress": "<%= percentage %>% progress",
   "letsGetStarted": "Let's get started!",
   "viewAchievements": "View Achievements",
+  "earnedAchievement": "You earned an achievement!",
   "onboardingCompleteDesc": "You earned <strong>5 achievements</strong> and <strong class=\"gold-amount\">100</strong> gold for completing the list.",
   "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
   "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",

@@ -14,7 +14,7 @@
         {{ $t('hatchedPetGeneric') }}
       </div>
       <div class="inner-content">
-        <div class="pet-background">
+        <div class="pet-background d-flex align-items-center">
           <div :class="pet.class"></div>
         </div>
         <h4 class="title">
@@ -51,6 +51,10 @@
       width: 330px;
     }
 
+    .modal-footer {
+      padding-top: 0px;
+    }
+
     .content {
       text-align: center;
     }
@@ -75,6 +79,18 @@
 
     .dialog-header {
       color: $purple-200;
+      margin-top: 16px;
+    }
+
+    .text {
+      margin-bottom: 24px;
+      min-height: 0;
+
+      &.markdown {
+        p {
+          margin-bottom: 0px;
+        }
+      }
     }
   }
 </style>

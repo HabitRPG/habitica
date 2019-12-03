@@ -179,7 +179,6 @@
 </style>
 
 <script>
-import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 import achievs from '@/../../common/script/libs/achievements';
 import { mapState } from '@/libs/store';
 
@@ -187,6 +186,12 @@ import onboardingGuideBanner from '@/assets/svg/onboarding-guide-banner.svg';
 import downIcon from '@/assets/svg/down.svg';
 
 export default {
+  props: {
+    neverSeen: { // whether it's ever been seen by the user
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -219,15 +224,11 @@ export default {
       return this.$t('onboardingProgress', { percentage: this.progress });
     },
   },
-  mounted () {
-    const onboardingPanelState = getLocalSetting(CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE);
-    if (onboardingPanelState !== CONSTANTS.onboardingPanelValues.PANEL_OPENED) {
+  created () {
+    // null means it's never been automatically toggled
+    if (this.neverSeen === true) {
       // The first time the panel should be automatically opened
       this.open = true;
-      setLocalSetting(
-        CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE,
-        CONSTANTS.onboardingPanelValues.PANEL_OPENED,
-      );
     }
   },
   methods: {

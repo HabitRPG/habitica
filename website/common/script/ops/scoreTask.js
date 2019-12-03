@@ -364,13 +364,13 @@ export default function scoreTask (options = {}, req = {}) {
     }
   }
 
-  if (!user.achievements.completedTask && cron === false && direction === 'up') {
-    user.achievements.completedTask = true;
-    if (user.addNotification) user.addNotification('ACHIEVEMENT_COMPLETED_TASK');
+  req.yesterDailyScored = task.yesterDailyScored;
+  updateStats(user, stats, req);
+
+  if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
+    user.addAchievement('completedTask');
     checkOnboardingStatus(user);
   }
 
-  req.yesterDailyScored = task.yesterDailyScored;
-  updateStats(user, stats, req);
   return [delta];
 }
