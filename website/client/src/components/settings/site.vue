@@ -870,7 +870,7 @@ export default {
       this.soundIndex = (this.soundIndex + 1) % sounds.length;
     },
     reloadPage () {
-    window.location.reload();
+      window.location.reload();
     },
   },
 };
