@@ -443,7 +443,7 @@
             <button
               class="btn btn-primary"
               type="submit"
-              @click="changeUser('email', emailUpdates)"
+              @click="changeUser('email', emailUpdates); reloadPage();"
             >
               {{ $t('submit') }}
             </button>
