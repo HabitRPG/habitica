@@ -869,6 +869,9 @@ export default {
       this.$root.$emit('playSound', sounds[this.soundIndex]);
       this.soundIndex = (this.soundIndex + 1) % sounds.length;
     },
+    reloadPage () {
+    window.location.reload();
+    },
   },
 };
 </script>
