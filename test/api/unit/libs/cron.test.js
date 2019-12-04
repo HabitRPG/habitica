@@ -95,8 +95,8 @@ describe('cron', () => {
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.mysteryItems.length).to.eql(2);
-      expect(user.notifications.length).to.eql(3);
-      expect(user.notifications[0].type).to.eql('NEW_MYSTERY_ITEMS');
+      const filteredNotifications = user.notifications.filter(n => n.type === 'NEW_MYSTERY_ITEMS');
+      expect(filteredNotifications.length).to.equal(1);
     });
 
     it('awards multiple mystery item sets if user skipped months between logins', () => {
@@ -106,8 +106,8 @@ describe('cron', () => {
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.mysteryItems.length).to.eql(4);
-      expect(user.notifications.length).to.eql(3);
-      expect(user.notifications[0].type).to.eql('NEW_MYSTERY_ITEMS');
+      const filteredNotifications = user.notifications.filter(n => n.type === 'NEW_MYSTERY_ITEMS');
+      expect(filteredNotifications.length).to.equal(1);
     });
 
     it('resets plan.gemsBought on a new month', () => {
