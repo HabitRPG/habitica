@@ -44,7 +44,8 @@ This will start the storybook process, every `*.stories.js`-File is searched and
 
 Usually when you working on `component-name.vue` you also create a `component-name.stories.js` file.
 
-Example of the stories structure - [Storybook Docs][StorybookDocsExample] [CountBadge][CountBadgeExample]
+Example of the stories structure - [Storybook Docs][StorybookDocsExample] - [CountBadge][CountBadgeExample]
+
 [StorybookDocsExample]: https://storybook.js.org/docs/guides/guide-vue/#step-4-write-your-stories
 [CountBadgeExample]: src/components/ui/countBadge.stories.js
 
