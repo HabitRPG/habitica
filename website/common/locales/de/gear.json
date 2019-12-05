@@ -1960,7 +1960,7 @@
     "headSpecialFall2019WarriorNotes": "Die dunklen Augenhöhlen dieses Schädelhelms werden auch die Mutigsten Deiner Feinde abschrecken.Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
     "headSpecialKS2019Notes": "Dieser glorreiche Helm, der mit einem Greifenbild und Gefieder geschmückt ist, symbolisiert die Art und Weise, wie Deine Fähigkeiten und Deine Haltung als Vorbild für andere stehen. Erhöht Intelligenz um <%= int %>.",
     "armorSpecialFall2019RogueNotes": "Dieses Outfit wird komplett mit weißen Handschuhen geliefert und ist ideal, um in Deiner Privatloge über der Bühne zu brüten oder überraschende Auftritte auf der großen Treppe zu machen. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Herbstausrüstung.",
-    "headMystery201910Notes": "Diese Flammen offenbaren obskure Geheimnisse vor Deinen Augen! Gewährt keinen Attributbonus. Oktober 2019 Abonnentengegenstand.",
+    "headMystery201910Notes": "Diese Flammen offenbaren obskure Geheimnisse vor Deinen Augen! Gewährt keinen Attributbonus. Abonnentengegenstand, Oktober 2019.",
     "headMystery201910Text": "Rätselhafte Flamme",
     "armorMystery201910Notes": "Diese schillernde Rüstung wird Dich vor sichtbaren und unsichtbaren Schrecken schützen. Gewährt keinen Attributbonus. Oktober 2019 Abonnentengegenstand.",
     "armorMystery201910Text": "Rätselhafte Rüstung",
@@ -1971,5 +1971,13 @@
     "armorArmoireAlchemistsRobeNotes": "Jede Menge gefährlicher Elixiere sind an der Herstellung arkaner Metalle und Edelsteine beteiligt. Diese schwere Robe schützt Dich vor Schaden und unbeabsichtigter Nebenwirkungen! Erhöht Konstitution um <%= con%> und Wahrnehmung um <%= per%>. Verzauberter Schrank: Alchemisten-Set (Gegenstand 1 von 4).",
     "weaponArmoireAlchemistsDistillerText": "Distilliergerät der Alchemisten",
     "armorArmoireAlchemistsRobeText": "Robe der Alchemisten",
-    "weaponArmoireAlchemistsDistillerNotes": "Reinige Metalle und andere magische Verbindungen mit diesem glänzenden Messinginstrument. Erhöht Stärke um <%= str%> und Intelligenz um <%= int%>. Verzauberter Schrank: Alchemisten-Set (Gegenstand 3 von 4)."
+    "weaponArmoireAlchemistsDistillerNotes": "Reinige Metalle und andere magische Verbindungen mit diesem glänzenden Messinginstrument. Erhöht Stärke um <%= str%> und Intelligenz um <%= int%>. Verzauberter Schrank: Alchemisten-Set (Gegenstand 3 von 4).",
+    "headMystery201911Text": "Verzauberter Kristallhut",
+    "weaponMystery201911Text": "Verzauberter Kristallstab",
+    "weaponMystery201911Notes": "Die Kristallkugel auf der Spitze dieses Stabes kann Dir die Zukunft zeigen, aber pass auf! Derart gefährliches Wissen zu nutzen kann einen in unerwarteter Weise verändern. Gewährt keinen Attributbonus. Abonnentengegenstand, November 2019.",
+    "headMystery201911Notes": "Jede Kristallspitze an diesem Hut verleiht Dir eine besondere Kraft: mystisches Hellsehen, arkane Weisheit und... hexerisches Tellerdrehen? Na dann... Gewährt keinen Attributbonus. Abonnentengegenstand, November 2019.",
+    "backMystery201912Notes": "Gleite leise über glänzende Schneefelder und schimmernde Berge mit diesen eisigen Flügeln. Gewährt keinen Attributbonus. Abonnentengegenstand, Dezember 2019.",
+    "backMystery201912Text": "Frostige Feenflügel",
+    "headMystery201912Notes": "Diese glitzernde Schneeflocke verleiht Dir Resistenz gegen die beißende Kälte, unabhängig davon wie hoch Du fliegst! Gewährt keinen Attributbonus. Abonnentengegenstand, Dezember 2019.",
+    "headMystery201912Text": "Frostige Feenkrone"
 }

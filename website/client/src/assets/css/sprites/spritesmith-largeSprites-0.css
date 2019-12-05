@@ -1,4 +1,4 @@
-.promo_armoire_backgrounds_201911 {
+.promo_armoire_backgrounds_201912 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -752px;
   width: 423px;
@@ -6,7 +6,7 @@
 }
 .promo_costume_achievement {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -928px -296px;
+  background-position: -1175px -296px;
   width: 144px;
   height: 156px;
 }
@@ -22,7 +22,13 @@
   width: 423px;
   height: 147px;
 }
-.promo_mystery_201911 {
+.promo_harvest_feast {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -928px -296px;
+  width: 246px;
+  height: 168px;
+}
+.promo_mystery_201912 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -928px -148px;
   width: 282px;

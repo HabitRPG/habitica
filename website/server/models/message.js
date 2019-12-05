@@ -1,12 +1,14 @@
 import mongoose from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import { defaults } from 'lodash';
+import removeMd from 'remove-markdown';
 import baseModel from '../libs/baseModel';
 
 const defaultSchema = () => ({
   id: String,
   timestamp: Date,
   text: String,
+  unformattedText: String,
   info: { $type: mongoose.Schema.Types.Mixed },
 
   // sender properties
@@ -110,10 +112,12 @@ export function setUserStyles (newMessage, user) {
 
 export function messageDefaults (msg, user, client, flagCount = 0, info = {}) {
   const id = uuid();
+  const trimmedMessage = msg.substring(0, 3000);
   const message = {
     id,
     _id: id,
-    text: msg.substring(0, 3000),
+    text: trimmedMessage,
+    unformattedText: removeMd(trimmedMessage),
     info,
     timestamp: Number(new Date()),
     likes: {},

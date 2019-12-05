@@ -5,5 +5,7 @@
     "levelup": "Gerçek hayattaki hedeflerini tamamlayarak seviye atladın ve sağlığın tamamen yenilendi!",
     "reachedLevel": "Seviye <%= level %> oldun!",
     "achievementLostMasterclasser": "Görev Tamamlayıcısı: Büyük Usta Serisi",
-    "achievementLostMasterclasserText": "Büyük Usta görev serisindeki on altı görevin hepsini tamamladı ve kayıp Büyük Usta'nın gizemini çözdü!"
+    "achievementLostMasterclasserText": "Büyük Usta görev serisindeki on altı görevin hepsini tamamladı ve kayıp Büyük Usta'nın gizemini çözdü!",
+    "achievementJustAddWaterText": "Ahtapot, Denizatı, Mürekkep Balığı, Balina, Kaplumbağa, Deniz Tavşanı, Deniz Yılanı ve Yunus evcil hayvan görevlerini tamamladı.",
+    "achievementJustAddWater": "Yalnızca Su Ekle"
 }

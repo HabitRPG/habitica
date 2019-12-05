@@ -1971,5 +1971,13 @@
     "armorArmoireAlchemistsRobeNotes": "Nombre d'élixirs dangereux sont nécessaires à la fabrication de métaux et de gemmes arcaniques, et ces lourdes robes vous protégeront du danger et des effets secondaires indésirables ! Augmente la constitution de <%= con %> et la perception de <%= per %>. Armoire enchantée : ensemble d'alchimie (objet 1 de 4).",
     "armorArmoireAlchemistsRobeText": "Robe d'alchimiste",
     "weaponArmoireAlchemistsDistillerNotes": "Purifiez les métaux et d'autres composants magiques avec cet instrument en laiton brillant. Augmente la force de <%= str %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'alchimie (objet 3 de 4).",
-    "weaponArmoireAlchemistsDistillerText": "Alambic d'alchimiste"
+    "weaponArmoireAlchemistsDistillerText": "Alambic d'alchimiste",
+    "headMystery201911Notes": "Chaque morceau de cristal attaché à ce chapeau vous confère un pouvoir spécial : clairvoyance mystique, sagesse des arcanes, et ... sorcellerie de rotation des plats ? Oui, bon... Ne confère aucun bonus. Équipement d'abonnement de novembre 2019.",
+    "headMystery201911Text": "Chapeau en cristal charmé",
+    "weaponMystery201911Notes": "La boule de cristal au bout de ce bâton peut vous montrer l'avenir, mais attention ! Utiliser un savoir si dangereux peut changer une personne de façon inattendue. Ne confère aucun bonus. Équipement d'abonnement de novembre 2019.",
+    "weaponMystery201911Text": "Bâton en cristal charmé",
+    "backMystery201912Notes": "Glissez en silence au-dessus des champs de neige étincelants et des montagnes scintillantes avec ces ailes glacées. Ne confère aucun bonus. Équipement d'abonnement de décembre 2019.",
+    "backMystery201912Text": "Ailes de lutine polaire",
+    "headMystery201912Notes": "Ce flocon de neige scintillant vous garantit une résistance au froid mordant quelle que soit la hauteur de votre vol ! Ne confère aucun bonus. Équipement d'abonnement de décembre 2019.",
+    "headMystery201912Text": "Couronne de lutine polaire"
 }

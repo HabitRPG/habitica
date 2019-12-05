@@ -992,6 +992,8 @@
   "armorArmoireShadowMastersRobeNotes": "The fabric of this flowy robe is woven from the darkest shadows in the deepest caves of Habitica. Increases Constitution by <%= con %>. Enchanted Armoire: Shadow Master Set (Item 1 of 4).",
   "armorArmoireAlchemistsRobeText": "Alchemist's Robe",
   "armorArmoireAlchemistsRobeNotes": "Any number of dangerous elixirs are involved in creating arcane metals and gems, and these heavy robes will protect you from harm and unintended side effects! Increases Constitution by <%= con %> and Perception by <%= per %>. Enchanted Armoire: Alchemist Set (Item 1 of 4).",
+  "armorArmoireDuffleCoatText": "Duffle Coat",
+  "armorArmoireDuffleCoatNotes": "Travel frosty realms in style with this cozy wool coat. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Duffle Coat Set (Item 1 of 2).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1411,6 +1413,8 @@
   "headMystery201910Notes": "These flames reveal arcane secrets before your very eyes! Confers no benefit. October 2019 Subscriber Item.",
   "headMystery201911Text": "Charmed Crystal Hat",
   "headMystery201911Notes": "Each of the crystal points attached to this hat endows you with a special power: mystic clairvoyance, arcane wisdom, and... sorcerous plate spinning? All right then. Confers no benefit. November 2019 Subscriber Item.",
+  "headMystery201912Text": "Polar Pixie Crown",
+  "headMystery201912Notes": "This glittering snowflake grants you resistance to the biting cold no matter how high you fly! Confers no benefit. December 2019 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -1536,6 +1540,8 @@
   "headArmoireShadowMastersHoodNotes": "This hood grants you the power to see through even the deepest darkness. It may occasionally require eyedrops, though. Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Shadow Master Set (Item 2 of 4).",
   "headArmoireAlchemistsHatText": "Alchemist's Hat",
   "headArmoireAlchemistsHatNotes": "While hats are not strictly necessary for alchemical practice, looking cool certainly doesn't hurt anything! Increases Perception by <%= per %>. Enchanted Armoire: Alchemist Set (Item 2 of 4).",
+  "headArmoireEarflapHatText": "Earflap Hat",
+  "headArmoireEarflapHatNotes": "If you're looking to keep your head toasty warm, this hat has you covered! Increases Intelligence and Strength by <%= attrs %> each. Enchanted Armoire: Duffle Coat Set (Item 2 of 2).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1876,6 +1882,8 @@
   "backMystery201805Notes": "This gorgeous feathery tail is perfect for a strut down a lovely garden path! Confers no benefit. May 2018 Subscriber Item.",
   "backMystery201905Text": "Dazzling Dragon Wings",
   "backMystery201905Notes": "Fly to untold realms with these iridescent wings. Confers no benefit. May 2019 Subscriber Item.",
+  "backMystery201912Text": "Polar Pixie Wings",
+  "backMystery201912Notes": "Glide silently across sparkling snowfields and shimmering mountains with these icy wings. Confers no benefit. December 2019 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
