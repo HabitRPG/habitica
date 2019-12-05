@@ -1,7 +1,10 @@
 <template>
   <div class="row">
     <challenge-modal @updatedChallenge="updatedChallenge" />
-    <leave-challenge-modal :challenge-id="challenge._id" @update-challenge="updateChallenge" />
+    <leave-challenge-modal
+      :challenge-id="challenge._id"
+      @update-challenge="updateChallenge"
+    />
     <close-challenge-modal
       :members="members"
       :challenge-id="challenge._id"

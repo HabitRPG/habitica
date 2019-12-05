@@ -5,10 +5,12 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js",
     "lint": "vue-cli-service lint .",
     "lint-no-fix": "vue-cli-service lint --no-fix .",
-    "postinstall": "node ./scripts/npm-postinstall.js"
+    "postinstall": "node ./scripts/npm-postinstall.js",
+    "storybook:build": "vue-cli-service storybook:build -c config/storybook -o dist/storybook",
+    "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook",
+    "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js"
   },
   "dependencies": {
     "@vue/cli-plugin-babel": "^4.1.1",
@@ -16,6 +18,11 @@
     "@vue/cli-plugin-router": "^4.1.1",
     "@vue/cli-plugin-unit-mocha": "^4.1.1",
     "@vue/cli-service": "^4.1.1",
+    "@storybook/addon-actions": "^5.0.0",
+    "@storybook/addon-knobs": "^5.0.0",
+    "@storybook/addon-links": "^5.0.0",
+    "@storybook/addon-notes": "^5.0.0",
+    "@storybook/vue": "^5.2.5",
     "@vue/test-utils": "1.0.0-beta.29",
     "amplitude-js": "^5.7.0",
     "axios": "^0.19.0",
@@ -47,6 +54,7 @@
     "uuid": "^3.3.3",
     "validator": "^11.1.0",
     "vue": "^2.6.10",
+    "vue-cli-plugin-storybook": "^0.6.1",
     "vue-mugen-scroll": "^0.2.6",
     "vue-router": "^3.0.6",
     "vue-template-compiler": "^2.6.10",
