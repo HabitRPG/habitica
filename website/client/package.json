@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "postbuild": "npm run storybook:build",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint .",
     "lint-no-fix": "vue-cli-service lint --no-fix .",
