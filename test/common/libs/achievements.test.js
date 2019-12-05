@@ -239,6 +239,47 @@ describe('achievements', () => {
     });
   });
 
+  describe('unearned onboarding achievements', () => {
+    const user = generateUser();
+    const onboardingAchievs = shared
+      .achievements.getAchievementsForProfile(user).onboarding.achievements;
+
+    it('created task achievement exists with no count', () => {
+      const { createdTask } = onboardingAchievs;
+
+      expect(createdTask).to.exist;
+      expect(createdTask.optionalCount).to.be.undefined;
+    });
+
+    it('completed task achievement exists with no count', () => {
+      const { completedTask } = onboardingAchievs;
+
+      expect(completedTask).to.exist;
+      expect(completedTask.optionalCount).to.be.undefined;
+    });
+
+    it('hatched pet achievement exists with no count', () => {
+      const { hatchedPet } = onboardingAchievs;
+
+      expect(hatchedPet).to.exist;
+      expect(hatchedPet.optionalCount).to.be.undefined;
+    });
+
+    it('fed pet achievement exists with no count', () => {
+      const { fedPet } = onboardingAchievs;
+
+      expect(fedPet).to.exist;
+      expect(fedPet.optionalCount).to.be.undefined;
+    });
+
+    it('purchased equipment achievement exists with no count', () => {
+      const { purchasedEquipment } = onboardingAchievs;
+
+      expect(purchasedEquipment).to.exist;
+      expect(purchasedEquipment.optionalCount).to.be.undefined;
+    });
+  });
+
   describe('earned seasonal achievements', () => {
     const user = generateUser();
     const quests = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
