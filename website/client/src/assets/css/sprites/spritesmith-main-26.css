@@ -1,12 +1,12 @@
 .Pet-Spider-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -82px 0px;
+  background-position: 0px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Spider-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -902px -500px;
+  background-position: -82px 0px;
   width: 81px;
   height: 99px;
 }
@@ -624,7 +624,7 @@
 }
 .Pet-Velociraptor-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: 0px 0px;
+  background-position: -902px -500px;
   width: 81px;
   height: 99px;
 }
@@ -1032,13 +1032,13 @@
 }
 .Pet_HatchingPotion_Amber {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -643px -1100px;
+  background-position: -574px -1100px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Aquatic {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -1230px -621px;
+  background-position: -643px -1100px;
   width: 68px;
   height: 68px;
 }
@@ -1140,7 +1140,7 @@
 }
 .Pet_HatchingPotion_IcySnow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -574px -1100px;
+  background-position: -1230px -621px;
   width: 68px;
   height: 68px;
 }

@@ -96,6 +96,10 @@
     background-color: #4f2a93 !important;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12) !important;
   }
+
+  .introjs-skipbutton.btn-primary, .introjs-donebutton.btn-primary {
+    color: #fff;
+  }
 </style>
 
 <script>
