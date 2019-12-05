@@ -25,6 +25,9 @@ npm run test:unit
 npm run lint
 ```
 
+### Customize configuration	## Storybook
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
 ## Storybook
 
 Storybook is mainly used while working on UI-Components to see changes faster instead of using the website.
