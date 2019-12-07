@@ -7,6 +7,7 @@ module.exports = {
   extends: [
     'habitrpg/lib/vue',
   ],
+  ignorePatterns: ['dist/', 'node_modules/'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',

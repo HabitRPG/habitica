@@ -210,5 +210,7 @@
     "mentioning": "返信する",
     "onlyPrivateSpaces": "プライベートな空間のみ",
     "everywhere": "どこでも",
-    "suggestMyUsername": "ユーザー名を提案してもらう"
+    "suggestMyUsername": "ユーザー名を提案してもらう",
+    "chatExtensionDesc": "Habiticaのチャット拡張機能は、すべてのhabitica.comに直感的なチャットボックスを追加します。キャンプ場や参加しているパーティー・ギルドでユーザーがチャットできます。",
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chromeのチャット拡張機能</a>と<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefoxのチャット拡張機能</a>"
 }

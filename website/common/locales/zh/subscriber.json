@@ -9,7 +9,7 @@
     "reachedGoldToGemCap": "你已经达到了每月金币=>钻石的兑换上限<%= convCap %>。这是为了防止滥用情况的出现。该上限在每月的前三天内重置。",
     "reachedGoldToGemCapQuantity": "你请求的兑换数量<%= quantity %>超过了本月金币=>宝石的兑换上限<%= convCap %>。这是为了防止滥用情况的出现。该上限在每月的前三天内重置。",
     "retainHistory": "保留额外的历史条目",
-    "retainHistoryText": "使完成的待办事项和任务的历史纪录更长时间保留。",
+    "retainHistoryText": "使完成的待办事项和任务的历史记录更长时间保留。",
     "doubleDrops": "每日掉落上限翻倍",
     "doubleDropsText": "更快的集齐坐骑！",
     "mysteryItem": "绝无仅有的每月装备",
@@ -203,10 +203,10 @@
     "gemBenefit4": "重置角色属性值，并改变职业。",
     "subscriptionBenefitLeadin": "通过成为订阅者支持Habitica，您将获得这些有益的好处！",
     "subscriptionBenefit1": "商人亚历山大会卖给你宝石，每个20金币！",
-    "subscriptionBenefit2": "完成的待办事项和任务的历史纪录会更长时间保留。",
-    "subscriptionBenefit3": "在Habitica发现更多的物品，每天享受双倍的物品掉落率。",
+    "subscriptionBenefit2": "完成的待办事项和任务的历史记录会更长时间保留。",
+    "subscriptionBenefit3": "在Habitica发现更多的物品，每天享受双倍的物品掉落上限。",
     "subscriptionBenefit4": "您的角色每个月会有独特的装备。",
-    "subscriptionBenefit5": "获得独有的皇家紫鹿角兔宠物！",
+    "subscriptionBenefit5": "获得独有的紫御鹿角兔宠物！",
     "subscriptionBenefit6": "获得神秘沙漏在时间旅行者的商店购买物品！",
     "haveCouponCode": "你有优惠券代码吗？",
     "subscriptionAlreadySubscribedLeadIn": "感谢订阅！",
@@ -226,5 +226,7 @@
     "subWillBecomeInactive": "将会失效",
     "confirmCancelSub": "你确定要取消订阅嘛？你会失去所有的订阅福利。",
     "mysterySet201909": "和蔼橡子套装",
-    "mysterySet201910": "秘匿火焰套装"
+    "mysterySet201910": "秘匿火焰套装",
+    "mysterySet201911": "水晶魔术师套装",
+    "mysterySet201912": "北极小精灵套装"
 }
