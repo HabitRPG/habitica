@@ -25,5 +25,7 @@
     "petsFound": "Animalia Inventa",
     "activePet": "Animal Electum",
     "pets": "Animalia",
-    "stable": "Stabulum"
+    "stable": "Stabulum",
+    "noActiveMount": "Sonipedes Non Electum",
+    "noActivePet": "Animal Non Electum"
 }
