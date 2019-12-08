@@ -295,8 +295,9 @@
       justify-content: space-evenly;
       background-color: $gray-700;
       text-align: center;
-      padding: 16px;
+      padding: 8px;
       border-radius: .25em;
+      flex-wrap: wrap;
 
       > div {
         .value {
@@ -327,6 +328,8 @@
       }
 
       > div.muted {
+        margin: 8px;
+
         .value {
           opacity: 0.5;
           font-size: 20px;
