@@ -88,6 +88,28 @@ describe('cron', () => {
       user.purchased.plan.dateUpdated = moment().subtract(1, 'months').toDate();
     });
 
+    it('awards current mystery items to subscriber', () => {
+      user.purchased.plan.dateUpdated = new Date('2018-12-11');
+      clock = sinon.useFakeTimers(new Date('2019-01-29'));
+      cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+      expect(user.purchased.plan.mysteryItems.length).to.eql(2);
+      const filteredNotifications = user.notifications.filter(n => n.type === 'NEW_MYSTERY_ITEMS');
+      expect(filteredNotifications.length).to.equal(1);
+    });
+
+    it('awards multiple mystery item sets if user skipped months between logins', () => {
+      user.purchased.plan.dateUpdated = new Date('2018-11-11');
+      clock = sinon.useFakeTimers(new Date('2019-01-29'));
+      cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+      expect(user.purchased.plan.mysteryItems.length).to.eql(4);
+      const filteredNotifications = user.notifications.filter(n => n.type === 'NEW_MYSTERY_ITEMS');
+      expect(filteredNotifications.length).to.equal(1);
+    });
+
     it('resets plan.gemsBought on a new month', () => {
       user.purchased.plan.gemsBought = 10;
       cron({

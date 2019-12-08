@@ -1,29 +1,53 @@
+import moment from 'moment';
+
 // Magic Hatching Potions are configured like this:
 // type: 'premiumHatchingPotion',  // note no "s" at the end
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
-  market: [
-    {
-      type: 'armoire',
-      path: 'armoire',
-    },
-    {
-      type: 'eggs',
-      path: 'eggs.PandaCub',
-    },
-    {
-      type: 'hatchingPotions',
-      path: 'hatchingPotions.Shade',
-    },
-    {
-      type: 'food',
-      path: 'food.Potatoe',
-    },
-  ],
+  market () {
+    if (moment().isBetween('2019-11-01', '2019-12-02')) {
+      return [
+        {
+          type: 'armoire',
+          path: 'armoire',
+        },
+        {
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Ember',
+        },
+        {
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Thunderstorm',
+        },
+        {
+          type: 'food',
+          path: 'food.Saddle',
+        },
+      ];
+    }
+    return [
+      {
+        type: 'armoire',
+        path: 'armoire',
+      },
+      {
+        type: 'hatchingPotions',
+        path: 'hatchingPotions.Skeleton',
+      },
+      {
+        type: 'eggs',
+        path: 'eggs.Fox',
+      },
+      {
+        type: 'food',
+        path: 'food.Saddle',
+      },
+    ];
+  },
   quests: [
     {
       type: 'quests',
-      path: 'quests.sloth',
+      path: 'quests.badger',
     },
     {
       type: 'quests',
@@ -31,7 +55,7 @@ const featuredItems = {
     },
     {
       type: 'quests',
-      path: 'quests.silver',
+      path: 'quests.amber',
     },
   ],
   seasonal: 'fall2018Rogue',

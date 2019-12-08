@@ -34,7 +34,7 @@ export async function sendChatPushNotifications (user, group, message, mentions,
         member,
         {
           title: translate('groupActivityNotificationTitle', { user: message.user, group: group.name }, member.preferences.language),
-          message: message.text,
+          message: message.unformattedText,
           identifier: 'groupActivity',
           category: 'groupActivity',
           payload: {

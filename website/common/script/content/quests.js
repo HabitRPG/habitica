@@ -3502,6 +3502,38 @@ const quests = {
       unlock: t('questRobotUnlockText'),
     },
   },
+  amber: {
+    text: t('questAmberText'),
+    notes: t('questAmberNotes'),
+    completion: t('questAmberCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questAmberBoss'),
+      hp: 300,
+      str: 1.25,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Amber',
+          text: t('questAmberDropAmberPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Amber',
+          text: t('questAmberDropAmberPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Amber',
+          text: t('questAmberDropAmberPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questAmberUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

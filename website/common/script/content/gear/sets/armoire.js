@@ -498,6 +498,24 @@ const armor = {
     set: 'shadowMaster',
     canOwn: ownsItem('armor_armoire_shadowMastersRobe'),
   },
+  alchemistsRobe: {
+    text: t('armorArmoireAlchemistsRobeText'),
+    notes: t('armorArmoireAlchemistsRobeNotes', { con: 8, per: 5 }),
+    value: 100,
+    con: 8,
+    per: 5,
+    set: 'alchemist',
+    canOwn: ownsItem('armor_armoire_alchemistsRobe'),
+  },
+  duffleCoat: {
+    text: t('armorArmoireDuffleCoatText'),
+    notes: t('armorArmoireDuffleCoatNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    per: 7,
+    set: 'duffle',
+    canOwn: ownsItem('armor_armoire_duffleCoat'),
+  },
 };
 
 const body = {
@@ -1020,6 +1038,23 @@ const head = {
     set: 'shadowMaster',
     canOwn: ownsItem('head_armoire_shadowMastersHood'),
   },
+  alchemistsHat: {
+    text: t('headArmoireAlchemistsHatText'),
+    notes: t('headArmoireAlchemistsHatNotes', { per: 7 }),
+    value: 100,
+    per: 7,
+    set: 'alchemist',
+    canOwn: ownsItem('head_armoire_alchemistsHat'),
+  },
+  earflapHat: {
+    text: t('headArmoireEarflapHatText'),
+    notes: t('headArmoireEarflapHatNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    str: 7,
+    set: 'duffle',
+    canOwn: ownsItem('head_armoire_earflapHat'),
+  },
 };
 
 const shield = {
@@ -1298,6 +1333,14 @@ const shield = {
     con: 5,
     set: 'shadowMaster',
     canOwn: ownsItem('shield_armoire_masteredShadow'),
+  },
+  alchemistsScale: {
+    text: t('shieldArmoireAlchemistsScaleText'),
+    notes: t('shieldArmoireAlchemistsScaleNotes', { int: 7 }),
+    value: 100,
+    int: 7,
+    set: 'alchemist',
+    canOwn: ownsItem('shield_armoire_alchemistsScale'),
   },
 };
 
@@ -1744,6 +1787,15 @@ const weapon = {
     per: 12,
     set: 'shadowMaster',
     canOwn: ownsItem('weapon_armoire_shadowMastersMace'),
+  },
+  alchemistsDistiller: {
+    text: t('weaponArmoireAlchemistsDistillerText'),
+    notes: t('weaponArmoireAlchemistsDistillerNotes', { str: 8, int: 5 }),
+    value: 100,
+    str: 8,
+    int: 5,
+    set: 'alchemist',
+    canOwn: ownsItem('weapon_armoire_alchemistsDistiller'),
   },
 };
 

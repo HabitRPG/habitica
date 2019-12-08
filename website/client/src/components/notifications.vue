@@ -184,11 +184,19 @@ const NOTIFICATIONS = {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementPartyUp')}`,
     modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementPartyUp'),
+    },
   },
   ACHIEVEMENT_PARTY_ON: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementPartyOn')}`,
     modalId: 'generic-achievement',
+    data: {
+      message: $t => $t('achievement'),
+      modalText: $t => $t('achievementPartyOn'),
+    },
   },
   ACHIEVEMENT_BEAST_MASTER: {
     achievement: true,
@@ -196,7 +204,7 @@ const NOTIFICATIONS = {
     modalId: 'generic-achievement',
     data: {
       message: $t => $t('achievement'),
-      modalText: $t => $t('mountAchievement'),
+      modalText: $t => $t('beastAchievement'),
     },
   },
   ACHIEVEMENT_MOUNT_MASTER: {
@@ -445,10 +453,10 @@ export default {
         data = notification.data;
       }
 
-      if (!data.modalText && config.data.modalText) {
+      if (!data.modalText && config && config.data && config.data.modalText) {
         data.modalText = config.data.modalText(this.$t);
       }
-      if (!data.message && config.data.message) {
+      if (!data.message && config && config.data && config.data.message) {
         data.message = config.data.message(this.$t);
       }
 
