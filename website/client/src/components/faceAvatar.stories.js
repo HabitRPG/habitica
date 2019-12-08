@@ -44,5 +44,4 @@ storiesOf('Face Avatar', module)
         content,
       },
     },
-  }))
-;
+  }));
