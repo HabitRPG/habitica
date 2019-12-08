@@ -71,7 +71,7 @@
           <option v-for="group in authorizedCreateChallenge"
             :key="group._id"
             :value="group._id"
-            >
+           >
             {{ group.name }}
           </option>
         </select>
@@ -534,10 +534,8 @@ export default {
       if (!this.workingChallenge.summary) errors.push(this.$t('summaryRequired'));
       if (this.workingChallenge.summary.length > MAX_SUMMARY_SIZE_FOR_CHALLENGES) errors.push(this.$t('summaryTooLong'));
       if (!this.workingChallenge.description) errors.push(this.$t('descriptionRequired'));
-
       if (!this.workingChallenge.group) errors.push(this.$t('locationRequired'));
       if (!this.workingChallenge.categories || this.workingChallenge.categories.length === 0) errors.push(this.$t('categoiresRequired'));
-
       if (errors.length > 0) {
         window.alert(errors.join('\n'));
         this.loading = false;
