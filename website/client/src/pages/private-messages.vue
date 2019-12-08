@@ -16,11 +16,11 @@
         </h2>
       </div>
       <div class="d-flex w-75 selected-conversion">
-        <!--<face-avatar
+        <face-avatar
           v-if="selectedConversation.userStyles"
           :member="selectedConversation.userStyles"
           :class="selectedConversationFaceAvatarClass"
-        />-->
+        />
         <user-label
           :backer="selectedConversation.backer"
           :contributor="selectedConversation.contributor"
@@ -535,7 +535,7 @@ import privateMessages from '@/components/messages/messageList';
 import messageIcon from '@/assets/svg/message.svg';
 import mail from '@/assets/svg/mail.svg';
 import conversationItem from '@/components/messages/conversationItem';
-// import faceAvatar from '@/components/faceAvatar';
+import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
 
 export default {
@@ -545,7 +545,7 @@ export default {
     toggleSwitch,
     conversationItem,
     userLabel,
-    // faceAvatar,
+    faceAvatar,
   },
   filters: {
     timeAgo (value) {
@@ -845,14 +845,18 @@ export default {
     async loadMessages () {
       this.messagesLoading = true;
 
-      const requestUrl = `/api/v4/inbox/paged-messages?conversation=${this.selectedConversation.key}&page=${this.selectedConversation.page}`;
+      // use local vars if the loading takes longer
+      // and the user switches the conversation while loading
+      const conversationKey = this.selectedConversation.key;
+
+      const requestUrl = `/api/v4/inbox/paged-messages?conversation=${conversationKey}&page=${this.selectedConversation.page}`;
       const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data;
 
-      this.messagesByConversation[this.selectedConversation.key] = this.messagesByConversation[this.selectedConversation.key] || [];
+      this.messagesByConversation[conversationKey] = this.messagesByConversation[conversationKey] || [];
       const loadedMessagesToAdd = loadedMessages
-        .filter(m => this.messagesByConversation[this.selectedConversation.key].findIndex(mI => mI.id === m.id) === -1);
-      this.messagesByConversation[this.selectedConversation.key].push(...loadedMessagesToAdd);
+        .filter(m => this.messagesByConversation[conversationKey].findIndex(mI => mI.id === m.id) === -1);
+      this.messagesByConversation[conversationKey].push(...loadedMessagesToAdd);
 
       // only show the load more Button if the max count was returned
       this.selectedConversation.canLoadMore = loadedMessages.length === 10;
