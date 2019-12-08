@@ -16,11 +16,11 @@
         </h2>
       </div>
       <div class="d-flex w-75 selected-conversion">
-        <!--<face-avatar
+        <face-avatar
           v-if="selectedConversation.userStyles"
           :member="selectedConversation.userStyles"
           :class="selectedConversationFaceAvatarClass"
-        />-->
+        />
         <user-label
           :backer="selectedConversation.backer"
           :contributor="selectedConversation.contributor"
@@ -535,7 +535,7 @@ import privateMessages from '@/components/messages/messageList';
 import messageIcon from '@/assets/svg/message.svg';
 import mail from '@/assets/svg/mail.svg';
 import conversationItem from '@/components/messages/conversationItem';
-// import faceAvatar from '@/components/faceAvatar';
+import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
 
 export default {
@@ -545,7 +545,7 @@ export default {
     toggleSwitch,
     conversationItem,
     userLabel,
-    // faceAvatar,
+    faceAvatar,
   },
   filters: {
     timeAgo (value) {

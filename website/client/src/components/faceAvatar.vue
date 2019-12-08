@@ -24,6 +24,7 @@
             :class="[getHairClass(type)]"
           ></span>
         </template>
+        <span :class="[getGearClass('body')]"></span>
         <span :class="[getGearClass('eyewear')]"></span>
         <span :class="[getGearClass('head')]"></span>
         <span :class="[getGearClass('headAccessory')]"></span>
@@ -94,13 +95,6 @@ export default {
       type: Number,
       default: 147,
     },
-    spritesMargin: {
-      type: String,
-      default: '0 auto 0 24px',
-    },
-    overrideTopPadding: {
-      type: String,
-    },
     showVisualBuffs: {
       type: Boolean,
       default: true,
@@ -115,21 +109,6 @@ export default {
     },
     isBuffed () {
       return this.$store.getters['members:isBuffed'](this.member);
-    },
-    backgroundClass () {
-      const { background } = this.member.preferences;
-
-      const allowToShowBackground = !this.avatarOnly || this.withBackground;
-
-      if (this.overrideAvatarGear && this.overrideAvatarGear.background) {
-        return `background_${this.overrideAvatarGear.background}`;
-      }
-
-      if (background && allowToShowBackground) {
-        return `background_${this.member.preferences.background}`;
-      }
-
-      return '';
     },
     visualBuffs () {
       return {
