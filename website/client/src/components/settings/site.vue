@@ -813,7 +813,7 @@ export default {
         this.user.flags.verifiedUsername = true;
       } else if (attribute === 'email') {
         this.user.auth.local.email = updates[attribute];
-        reloadPage();
+        window.location.reload();
       }
     },
     async changeDisplayName (newName) {
@@ -869,9 +869,6 @@ export default {
     playAudio () {
       this.$root.$emit('playSound', sounds[this.soundIndex]);
       this.soundIndex = (this.soundIndex + 1) % sounds.length;
-    },
-    reloadPage () {
-      window.location.reload();
     },
   },
 };
