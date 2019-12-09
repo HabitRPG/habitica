@@ -443,7 +443,7 @@
             <button
               class="btn btn-primary"
               type="submit"
-              @click="changeUser('email', emailUpdates); reloadPage();"
+              @click="changeUser('email', emailUpdates)"
             >
               {{ $t('submit') }}
             </button>
@@ -813,6 +813,7 @@ export default {
         this.user.flags.verifiedUsername = true;
       } else if (attribute === 'email') {
         this.user.auth.local.email = updates[attribute];
+        reloadPage();
       }
     },
     async changeDisplayName (newName) {
