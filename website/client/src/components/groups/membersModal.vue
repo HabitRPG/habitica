@@ -480,6 +480,8 @@ export default {
       if (!isEmpty(this.sortOption)) {
         // Use the memberlist filtered by searchTerm
         if (this.sortOption.value === 'profile.name') {
+          // If members are to be sorted by name, use localeCompare for case-
+          // insensitive sort
           sortedMembers.sort(
             (a, b) => a.profile.name.localeCompare(b.profile.name),
           );
