@@ -34,5 +34,11 @@
   "achievementMonsterMagusModalText": "You collected all the Zombie Pets!",
   "achievementUndeadUndertaker": "Undead Undertaker",
   "achievementUndeadUndertakerText": "Has tamed all Zombie Mounts.",
-  "achievementUndeadUndertakerModalText": "You tamed all the Zombie Mounts!"
+  "achievementUndeadUndertakerModalText": "You tamed all the Zombie Mounts!",
+  "achievementPrimedForPainting": "Primed for Painting",
+  "achievementPrimedForPaintingText": "Has collected all White Pets.",
+  "achievementPrimedForPaintingModalText": "You collected all the White Pets!",
+  "achievementPearlyPro": "Pearly Pro",
+  "achievementPearlyProText": "Has tamed all White Mounts.",
+  "achievementPearlyProModalText": "You tamed all the White Mounts!"
 }
