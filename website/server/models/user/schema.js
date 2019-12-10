@@ -132,6 +132,8 @@ export default new Schema({
     kickstarter2019: Boolean,
     monsterMagus: Boolean,
     undeadUndertaker: Boolean,
+    primedForPainting: Boolean,
+    pearlyPro: Boolean,
   },
 
   backer: {

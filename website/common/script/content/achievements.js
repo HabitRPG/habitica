@@ -167,6 +167,16 @@ const basicAchievs = {
     titleKey: 'achievementUndeadUndertaker',
     textKey: 'achievementUndeadUndertakerText',
   },
+  primedForPainting: {
+    icon: 'achievement-primedForPainting',
+    titleKey: 'achievementPrimedForPainting',
+    textKey: 'achievementPrimedForPaintingText',
+  },
+  pearlyPro: {
+    icon: 'achievement-pearlyPro',
+    titleKey: 'achievementPearlyPro',
+    textKey: 'achievementPearlyProText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

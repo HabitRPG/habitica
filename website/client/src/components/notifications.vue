@@ -235,6 +235,16 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
     modalId: 'generic-achievement',
   },
+  ACHIEVEMENT_PRIMED_FOR_PAINTING: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPrimedForPainting')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_PEARLY_PRO: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPearlyPro')}`,
+    modalId: 'generic-achievement',
+  },
 };
 
 export default {
@@ -291,7 +301,8 @@ export default {
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
       'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
       'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
-      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'GENERIC_ACHIEVEMENT',
+      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
+      'ACHIEVEMENT_PEARLY_PRO', 'GENERIC_ACHIEVEMENT',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -697,6 +708,8 @@ export default {
           case 'ACHIEVEMENT_TRIAD_BINGO':
           case 'ACHIEVEMENT_MONSTER_MAGUS':
           case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
+          case 'ACHIEVEMENT_PRIMED_FOR_PAINTING':
+          case 'ACHIEVEMENT_PEARLY_PRO':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
