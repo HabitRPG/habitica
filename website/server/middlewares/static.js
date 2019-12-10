@@ -18,6 +18,9 @@ export default function staticMiddleware (expressApp) {
   // Hash their file names and cache the entire /static folder
   expressApp.use('/static', express.static(`${BASE_DIR}/website/client/dist/static`));
 
+  // Storybook
+  expressApp.use('/storybook', express.static(`${BASE_DIR}/website/client/dist/storybook`));
+
   // Apidoc
   expressApp.use('/apidoc', express.static(`${BASE_DIR}/apidoc_build`));
 }
