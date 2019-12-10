@@ -132,7 +132,8 @@ export default new Schema({
     kickstarter2019: Boolean,
     monsterMagus: Boolean,
     undeadUndertaker: Boolean,
-
+    primedForPainting: Boolean,
+    pearlyPro: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

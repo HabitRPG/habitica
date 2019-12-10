@@ -278,6 +278,16 @@ const NOTIFICATIONS = {
       modalText: null, // data filled in handleUserNotifications
     },
   },
+  ACHIEVEMENT_PRIMED_FOR_PAINTING: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPrimedForPainting')}`,
+    modalId: 'generic-achievement',
+  },
+  ACHIEVEMENT_PEARLY_PRO: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPearlyPro')}`,
+    modalId: 'generic-achievement',
+  },
 };
 
 export default {
@@ -337,6 +347,7 @@ export default {
       'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL',
       'ACHIEVEMENT_ARID_AUTHORITY',
       'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+      'ACHIEVEMENT_PRIMED_FOR_PAINTING', 'ACHIEVEMENT_PEARLY_PRO',
       'ACHIEVEMENT', 'ONBOARDING_COMPLETE',
     ].forEach(type => {
       handledNotifications[type] = true;
@@ -746,6 +757,8 @@ export default {
           case 'ACHIEVEMENT_TRIAD_BINGO':
           case 'ACHIEVEMENT_MONSTER_MAGUS':
           case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
+          case 'ACHIEVEMENT_PRIMED_FOR_PAINTING':
+          case 'ACHIEVEMENT_PEARLY_PRO':
             this.showNotificationWithModal(notification);
             break;
           case 'ACHIEVEMENT': { // generic achievement
