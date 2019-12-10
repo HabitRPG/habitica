@@ -1807,5 +1807,7 @@
     "shieldArmoireMightyPizzaText": "Mäktig pizza",
     "shieldArmoireMightyPizzaNotes": "Visst, den är en ganska bra sköld, men vi föreslår hellre att du äter denna läckra, läckra pizza. Ökar Uppmärksamhet med <%= per %>. Förtrollat vapenskåp: Kock-set (Föremål 4 av 4). ",
     "eyewearMystery201902Text": "Hemlighetsfull mask",
-    "eyewearMystery201902Notes": "Denna mystiska mask döljer din identitet men inte ditt vinnande leende. Medför inga ökningar. Februari 2019 Abonnentföremål."
+    "eyewearMystery201902Notes": "Denna mystiska mask döljer din identitet men inte ditt vinnande leende. Medför inga ökningar. Februari 2019 Abonnentföremål.",
+    "headArmoireEarflapHatText": "Öronlapp Hatt",
+    "armorArmoireDuffleCoatText": "Duffelrock"
 }
