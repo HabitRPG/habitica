@@ -60,6 +60,7 @@ export default function hatch (user, req = {}) {
         if (user.addNotification) {
           const achievementString = `achievement${upperFirst(achievement.petAchievement)}`;
           user.addNotification(achievement.petNotificationType, {
+            label: `${'achievement'}: ${achievementString}`,
             achievement: achievement.petAchievement,
             message: `${i18n.t('modalAchievement')} ${i18n.t(achievementString)}`,
             modalText: i18n.t(`${achievementString}ModalText`),

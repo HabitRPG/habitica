@@ -195,7 +195,11 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.beastMaster !== true
     ) {
       this.achievements.beastMaster = true;
-      this.addNotification('ACHIEVEMENT_BEAST_MASTER');
+      this.addNotification('ACHIEVEMENT', {
+        label: $t => `${$t('achievement')}: ${$t('beastAchievement')}`,
+        message: $t => $t('achievement'),
+        modalText: $t => $t('beastAchievement'),
+      });
     }
 
     // Determines if Mount Master should be awarded
@@ -206,7 +210,11 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.mountMaster !== true
     ) {
       this.achievements.mountMaster = true;
-      this.addNotification('ACHIEVEMENT_MOUNT_MASTER');
+      this.addNotification('ACHIEVEMENT', {
+        label: $t => `${$t('achievement')}: ${$t('mountAchievement')}`,
+        message: $t => $t('achievement'),
+        modalText: $t => $t('mountAchievement'),
+      });
     }
 
     // Determines if Triad Bingo should be awarded
@@ -218,7 +226,11 @@ schema.pre('save', true, function preSaveUser (next, done) {
       && this.achievements.triadBingo !== true
     ) {
       this.achievements.triadBingo = true;
-      this.addNotification('ACHIEVEMENT_TRIAD_BINGO');
+      this.addNotification('ACHIEVEMENT', {
+        label: $t => `${$t('achievement')}: ${$t('triadBingoAchievement')}`,
+        message: $t => $t('achievement'),
+        modalText: $t => $t('triadBingoAchievement'),
+      });
     }
 
     // EXAMPLE CODE for allowing all existing and new players to be

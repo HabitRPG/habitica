@@ -160,81 +160,85 @@ const NOTIFICATIONS = {
     label: $t => $t('modalContribAchievement'),
     modalId: 'contributor',
   },
-  ACHIEVEMENT_ALL_YOUR_BASE: {
+  ACHIEVEMENT: {
     achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementAllYourBase')}`,
     modalId: 'generic-achievement',
   },
-  ACHIEVEMENT_BACK_TO_BASICS: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
-    modalId: 'generic-achievement',
-  },
-  ACHIEVEMENT_DUST_DEVIL: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
-    modalId: 'generic-achievement',
-  },
-  ACHIEVEMENT_ARID_AUTHORITY: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
-    modalId: 'generic-achievement',
-  },
-  ACHIEVEMENT_PARTY_UP: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementPartyUp')}`,
-    modalId: 'generic-achievement',
-    data: {
-      message: $t => $t('achievement'),
-      modalText: $t => $t('achievementPartyUp'),
-    },
-  },
-  ACHIEVEMENT_PARTY_ON: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementPartyOn')}`,
-    modalId: 'generic-achievement',
-    data: {
-      message: $t => $t('achievement'),
-      modalText: $t => $t('achievementPartyOn'),
-    },
-  },
-  ACHIEVEMENT_BEAST_MASTER: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('beastAchievement')}`,
-    modalId: 'generic-achievement',
-    data: {
-      message: $t => $t('achievement'),
-      modalText: $t => $t('beastAchievement'),
-    },
-  },
-  ACHIEVEMENT_MOUNT_MASTER: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('mountAchievement')}`,
-    modalId: 'generic-achievement',
-    data: {
-      message: $t => $t('achievement'),
-      modalText: $t => $t('mountAchievement'),
-    },
-  },
-  ACHIEVEMENT_TRIAD_BINGO: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('triadBingoAchievement')}`,
-    modalId: 'generic-achievement',
-    data: {
-      message: $t => $t('achievement'),
-      modalText: $t => $t('triadBingoAchievement'),
-    },
-  },
-  ACHIEVEMENT_MONSTER_MAGUS: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
-    modalId: 'generic-achievement',
-  },
-  ACHIEVEMENT_UNDEAD_UNDERTAKER: {
-    achievement: true,
-    label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
-    modalId: 'generic-achievement',
-  },
+  // ACHIEVEMENT_ALL_YOUR_BASE: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementAllYourBase')}`,
+  //   modalId: 'generic-achievement',
+  // },
+  // ACHIEVEMENT_BACK_TO_BASICS: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
+  //   modalId: 'generic-achievement',
+  // },
+  // ACHIEVEMENT_DUST_DEVIL: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
+  //   modalId: 'generic-achievement',
+  // },
+  // ACHIEVEMENT_ARID_AUTHORITY: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
+  //   modalId: 'generic-achievement',
+  // },
+  // ACHIEVEMENT_PARTY_UP: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementPartyUp')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     message: $t => $t('achievement'),
+  //     modalText: $t => $t('achievementPartyUp'),
+  //   },
+  // },
+  // ACHIEVEMENT_PARTY_ON: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementPartyOn')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     message: $t => $t('achievement'),
+  //     modalText: $t => $t('achievementPartyOn'),
+  //   },
+  // },
+  // ACHIEVEMENT_BEAST_MASTER: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('beastAchievement')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     message: $t => $t('achievement'),
+  //     modalText: $t => $t('beastAchievement'),
+  //   },
+  // },
+  // ACHIEVEMENT_MOUNT_MASTER: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('mountAchievement')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     message: $t => $t('achievement'),
+  //     modalText: $t => $t('mountAchievement'),
+  //   },
+  // },
+  // ACHIEVEMENT_TRIAD_BINGO: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('triadBingoAchievement')}`,
+  //   modalId: 'generic-achievement',
+  //   data: {
+  //     message: $t => $t('achievement'),
+  //     modalText: $t => $t('triadBingoAchievement'),
+  //   },
+  // },
+  // ACHIEVEMENT_MONSTER_MAGUS: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
+  //   modalId: 'generic-achievement',
+  // },
+  // ACHIEVEMENT_UNDEAD_UNDERTAKER: {
+  //   achievement: true,
+  //   label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
+  //   modalId: 'generic-achievement',
+  // },
 };
 
 export default {
@@ -289,9 +293,7 @@ export default {
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
-      'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
-      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
-      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'GENERIC_ACHIEVEMENT',
+      'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -458,6 +460,9 @@ export default {
       }
       if (!data.message && config && config.data && config.data.message) {
         data.message = config.data.message(this.$t);
+      }
+      if (!config.label && data.label) {
+        config.label = data.label;
       }
 
       this.notificationData = data;
@@ -686,18 +691,8 @@ export default {
           case 'CHALLENGE_JOINED_ACHIEVEMENT':
           case 'INVITED_FRIEND_ACHIEVEMENT':
           case 'NEW_CONTRIBUTOR_LEVEL':
-          case 'ACHIEVEMENT_ALL_YOUR_BASE':
-          case 'ACHIEVEMENT_BACK_TO_BASICS':
-          case 'ACHIEVEMENT_DUST_DEVIL':
-          case 'ACHIEVEMENT_ARID_AUTHORITY':
-          case 'ACHIEVEMENT_PARTY_UP':
-          case 'ACHIEVEMENT_PARTY_ON':
-          case 'ACHIEVEMENT_BEAST_MASTER':
-          case 'ACHIEVEMENT_MOUNT_MASTER':
-          case 'ACHIEVEMENT_TRIAD_BINGO':
-          case 'ACHIEVEMENT_MONSTER_MAGUS':
-          case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
           case 'GENERIC_ACHIEVEMENT':
+          case 'ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
           case 'CRON':

@@ -631,8 +631,14 @@ api.joinGroup = {
 
     if (group.type === 'party' && inviter) {
       if (group.memberCount > 1) {
-        const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_UP' });
-
+        const notification = new UserNotification({
+          type: 'ACHIEVEMENT',
+          data: {
+            label: $t => `${$t('achievement')}: ${$t('achievementPartyUp')}`,
+            message: $t => $t('achievement'),
+            modalText: $t => $t('achievementPartyUp'),
+          },
+        });
         promises.push(User.update(
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
@@ -649,13 +655,24 @@ api.joinGroup = {
           if (inviter.achievements.partyUp !== true) {
             // Since the notification list of the inviter is already
             // updated in this save we need to add the notification here
-            inviter.addNotification('ACHIEVEMENT_PARTY_UP');
+            inviter.addNotification('ACHIEVEMENT', {
+              label: $t => `${$t('achievement')}: ${$t('achievementPartyUp')}`,
+              message: $t => $t('achievement'),
+              modalText: $t => $t('achievementPartyUp'),
+            });
           }
         }
       }
 
       if (group.memberCount > 3) {
-        const notification = new UserNotification({ type: 'ACHIEVEMENT_PARTY_ON' });
+        const notification = new UserNotification({
+          type: 'ACHIEVEMENT',
+          data: {
+            label: $t => `${$t('achievement')}: ${$t('achievementPartyOm')}`,
+            message: $t => $t('achievement'),
+            modalText: $t => $t('achievementPartyOn'),
+          },
+        });
 
         promises.push(User.update(
           {
@@ -673,7 +690,11 @@ api.joinGroup = {
           if (inviter.achievements.partyOn !== true) {
             // Since the notification list of the inviter is already
             //  updated in this save we need to add the notification here
-            inviter.addNotification('ACHIEVEMENT_PARTY_ON');
+            inviter.addNotification('ACHIEVEMENT', {
+              label: $t => `${$t('achievement')}: ${$t('achievementPartyOn')}`,
+              message: $t => $t('achievement'),
+              modalText: $t => $t('achievementPartyOn'),
+            });
           }
         }
       }

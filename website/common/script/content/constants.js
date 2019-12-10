@@ -265,12 +265,12 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
 
 export const ANIMAL_COLOR_ACHIEVEMENTS = [
   {
-    color: 'Base', petAchievement: 'backToBasics', petNotificationType: 'ACHIEVEMENT_BACK_TO_BASICS', mountAchievement: 'allYourBase', mountNotificationType: 'ACHIEVEMENT_ALL_YOUR_BASE',
+    color: 'Base', petAchievement: 'backToBasics', petNotificationType: 'ACHIEVEMENT', mountAchievement: 'allYourBase', mountNotificationType: 'ACHIEVEMENT',
   },
   {
-    color: 'Desert', petAchievement: 'dustDevil', petNotificationType: 'ACHIEVEMENT_DUST_DEVIL', mountAchievement: 'aridAuthority', mountNotificationType: 'ACHIEVEMENT_ARID_AUTHORITY',
+    color: 'Desert', petAchievement: 'dustDevil', petNotificationType: 'ACHIEVEMENT', mountAchievement: 'aridAuthority', mountNotificationType: 'ACHIEVEMENT',
   },
   {
-    color: 'Zombie', petAchievement: 'monsterMagus', petNotificationType: 'ACHIEVEMENT_MONSTER_MAGUS', mountAchievement: 'undeadUndertaker', mountNotificationType: 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+    color: 'Zombie', petAchievement: 'monsterMagus', petNotificationType: 'ACHIEVEMENT', mountAchievement: 'undeadUndertaker', mountNotificationType: 'ACHIEVEMENT',
   },
 ];
