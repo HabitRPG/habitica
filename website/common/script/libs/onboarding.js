@@ -1,3 +1,12 @@
+import moment from 'moment';
+
+const BEGIN_DATE = moment('2019-12-10');
+
+// Only users that signed up after the BEGIN DATE should see the onboarding
+export function hasActiveOnboarding (user) {
+  return BEGIN_DATE.isBefore(user.auth.timestamps.created);
+}
+
 export function hasCompletedOnboarding (user) {
   return (
     user.achievements.createdTask === true
@@ -15,7 +24,7 @@ export function onOnboardingComplete (user) {
 
 // Add notification and awards (server)
 export function checkOnboardingStatus (user) {
-  if (hasCompletedOnboarding(user) && user.addNotification) {
+  if (hasActiveOnboarding(user) && hasCompletedOnboarding(user) && user.addNotification) {
     user.addNotification('ONBOARDING_COMPLETE');
     onOnboardingComplete(user);
   }

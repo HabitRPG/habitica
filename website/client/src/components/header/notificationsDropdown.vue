@@ -114,7 +114,10 @@
 <script>
 import { mapState, mapActions } from '@/libs/store';
 import * as quests from '@/../../common/script/content/quests';
-import { hasCompletedOnboarding } from '@/../../common/script/libs/onboarding';
+import {
+  hasCompletedOnboarding,
+  hasActiveOnboarding,
+} from '@/../../common/script/libs/onboarding';
 import notificationsIcon from '@/assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
@@ -293,7 +296,7 @@ export default {
       return this.$store.getters['members:hasClass'](this.user);
     },
     showOnboardingGuide () {
-      return !hasCompletedOnboarding(this.user);
+      return hasActiveOnboarding(this.user) && !hasCompletedOnboarding(this.user);
     },
   },
   mounted () {
