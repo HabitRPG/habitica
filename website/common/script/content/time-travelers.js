@@ -13,6 +13,7 @@ each(mystery, (v, k) => {
   v.items = filter(gear.flat, {
     mystery: k,
   });
+  if (v.items.length === 0) delete mystery[k];
 });
 
 const timeTravelerStore = user => {

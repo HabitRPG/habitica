@@ -61,7 +61,7 @@
     "newGroupTitle": "Neue Gruppe",
     "subscriberItem": "Überraschungsgegenstand",
     "newSubscriberItem": "Du hast einen neuen <span class=\"notification-bold-blue\">Überraschungsgegenstand</span>",
-    "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Dieser wird üblicherweise ungefähr eine Woche vor Monatsende herausgegeben. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
+    "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Er wird Anfang des Monats verfügbar. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
     "all": "Alle",
     "none": "Keine",
     "more": "<%= count %> mehr",

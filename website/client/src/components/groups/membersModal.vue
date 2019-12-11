@@ -655,7 +655,7 @@ export default {
         memberId: member._id,
         groupId: this.groupId,
       });
-      this.viewMembers();
+      if (this.invites.length === 0) this.viewMembers();
     },
     async promoteToLeader (member) {
       const groupData = { ...this.group };
