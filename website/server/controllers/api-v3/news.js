@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,23 +31,22 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>12/3/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>12/10/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_201912 center-block"></div>
+        <div class="promo_achievement_white center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can shop a
-          cheerful Holiday Market, enjoy the scent of a Holiday Wreath and bask in the starlight
-          of a Winter Nocturne. Check them out under User Icon > Backgrounds!
+          We're releasing a new achievement so you can celebrate your successes in the world of
+          Habitican pet collecting! Earn the Primed for Painting and Pearly Pro achievements by
+          collecting White pets and mounts and you'll earn a nifty badge for your profile.
         </p>
         <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Duffle Coat and Ear-Flap Hat. Better work hard on your real-life tasks to earn all
-          the pieces! Enjoy :)
+          If you already have all the White pets and/or mounts in your stable, you'll receive the
+          badge automatically! Check your profile and celebrate your new achievement with pride.
         </p>
         <div class="small mb-3">
-          by Katy133, gawrone, Vikte, Maans, GeraldThePixel, QuartzFox, KatieSlug, and SabreCat
+          by Piyowo and SabreCat
         </div>
       </div>
       `,

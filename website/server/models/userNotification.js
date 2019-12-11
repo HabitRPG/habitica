@@ -1,7 +1,7 @@
+import _ from 'lodash';
 import mongoose from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
-import _ from 'lodash';
 import baseModel from '../libs/baseModel';
 
 const NOTIFICATION_TYPES = [
@@ -48,6 +48,8 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_TRIAD_BINGO',
   'ACHIEVEMENT_MONSTER_MAGUS',
   'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+  'ACHIEVEMENT_PRIMED_FOR_PAINTING',
+  'ACHIEVEMENT_PEARLY_PRO',
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
 ];
 

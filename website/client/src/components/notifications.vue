@@ -278,6 +278,22 @@ const NOTIFICATIONS = {
       modalText: null, // data filled in handleUserNotifications
     },
   },
+  ACHIEVEMENT_PRIMED_FOR_PAINTING: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPrimedForPainting')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'primedForPainting', // defined manually until the server sends all the necessary data
+    },
+  },
+  ACHIEVEMENT_PEARLY_PRO: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPearlyPro')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'pearlyPro', // defined manually until the server sends all the necessary data
+    },
+  },
 };
 
 export default {
@@ -333,11 +349,10 @@ export default {
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
-      'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
-      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL',
-      'ACHIEVEMENT_ARID_AUTHORITY',
-      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
-      'ACHIEVEMENT', 'ONBOARDING_COMPLETE',
+      'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
+      'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
+      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
+      'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT', 'ONBOARDING_COMPLETE',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -743,6 +758,9 @@ export default {
           case 'ACHIEVEMENT_TRIAD_BINGO':
           case 'ACHIEVEMENT_MONSTER_MAGUS':
           case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
+          case 'ACHIEVEMENT_PRIMED_FOR_PAINTING':
+          case 'ACHIEVEMENT_PEARLY_PRO':
+          case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
           case 'ACHIEVEMENT': { // generic achievement

@@ -1,420 +1,432 @@
 .achievement-alien {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1659px -1480px;
+  background-position: -1656px -1480px;
   width: 24px;
   height: 26px;
 }
 .achievement-alien2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1512px -1480px;
+  background-position: -1460px -1480px;
   width: 48px;
   height: 52px;
 }
 .achievement-allYourBase2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1039px -1480px;
+  background-position: -759px -1480px;
   width: 64px;
   height: 56px;
 }
 .achievement-alpha2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1561px -1480px;
+  background-position: -1509px -1480px;
   width: 48px;
   height: 52px;
 }
 .achievement-aridAuthority2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -710px -1480px;
-  width: 68px;
-  height: 68px;
+  background-position: -824px -1480px;
+  width: 64px;
+  height: 56px;
 }
 .achievement-armor2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1610px -1480px;
+  background-position: -1558px -1480px;
   width: 48px;
   height: 52px;
 }
 .achievement-backToBasics2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1169px -1480px;
+  background-position: -1019px -1480px;
   width: 48px;
   height: 56px;
 }
 .achievement-bewilder2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -710px -1549px;
+  background-position: -1607px -1480px;
   width: 48px;
   height: 52px;
 }
 .achievement-birthday2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -759px -1549px;
+  background-position: -568px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-boot2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -808px -1549px;
+  background-position: -617px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-bow2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -857px -1549px;
+  background-position: -666px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-burnout2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -906px -1549px;
+  background-position: -715px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-cactus2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -955px -1549px;
+  background-position: -764px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-cake2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1004px -1549px;
+  background-position: -813px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-cave2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1053px -1549px;
+  background-position: -862px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-challenge2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1102px -1549px;
+  background-position: -911px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-comment2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1151px -1549px;
+  background-position: -960px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-completedTask2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1218px -1480px;
+  background-position: -1068px -1480px;
   width: 48px;
   height: 56px;
 }
 .achievement-congrats2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1200px -1549px;
+  background-position: -1009px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-costumeContest2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1249px -1549px;
+  background-position: -1058px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-createdTask2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1267px -1480px;
+  background-position: -1117px -1480px;
   width: 48px;
   height: 56px;
 }
 .achievement-dilatory2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1298px -1549px;
+  background-position: -1107px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-dustDevil2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -779px -1480px;
-  width: 68px;
-  height: 68px;
+  background-position: -1166px -1480px;
+  width: 48px;
+  height: 56px;
 }
 .achievement-dysheartener2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1347px -1549px;
+  background-position: -1156px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-fedPet2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1316px -1480px;
+  background-position: -1215px -1480px;
   width: 48px;
   height: 56px;
 }
 .achievement-friends2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1396px -1549px;
+  background-position: -1205px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-getwell2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1445px -1549px;
+  background-position: -1254px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-goodluck2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1494px -1549px;
+  background-position: -1303px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-greeting2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1543px -1549px;
+  background-position: -1352px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-guild2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1592px -1549px;
+  background-position: -1401px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-habitBirthday2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1641px -1549px;
+  background-position: -1450px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-habiticaDay2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: 0px -1628px;
+  background-position: -1499px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-hatchedPet2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1365px -1480px;
+  background-position: -1264px -1480px;
   width: 48px;
   height: 56px;
 }
 .achievement-heart2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -49px -1628px;
+  background-position: -1548px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-justAddWater2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -917px -1480px;
+  background-position: -637px -1480px;
   width: 60px;
   height: 64px;
 }
 .achievement-karaoke-2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -98px -1628px;
+  background-position: -1597px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-karaoke {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1519px -1628px;
+  background-position: -1323px -1628px;
   width: 24px;
   height: 26px;
 }
 .achievement-kickstarter20192x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -848px -1480px;
+  background-position: -568px -1480px;
   width: 68px;
   height: 68px;
 }
 .achievement-lostMasterclasser2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -147px -1628px;
+  background-position: -1646px -1549px;
   width: 48px;
   height: 52px;
 }
 .achievement-mindOverMatter2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -978px -1480px;
+  background-position: -698px -1480px;
   width: 60px;
   height: 64px;
 }
 .achievement-monsterMagus2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1414px -1480px;
+  background-position: -1313px -1480px;
   width: 48px;
   height: 56px;
 }
 .achievement-ninja2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -196px -1628px;
+  background-position: 0px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-npc2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -245px -1628px;
+  background-position: -49px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-nye2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -294px -1628px;
+  background-position: -98px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-partyOn2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -343px -1628px;
+  background-position: -147px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-partyUp2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -392px -1628px;
+  background-position: -196px -1628px;
   width: 48px;
   height: 52px;
+}
+.achievement-pearlyPro2x {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
+  background-position: -889px -1480px;
+  width: 64px;
+  height: 56px;
 }
 .achievement-perfect2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -441px -1628px;
+  background-position: -245px -1628px;
   width: 48px;
   height: 52px;
 }
+.achievement-primedForPainting2x {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
+  background-position: -1362px -1480px;
+  width: 48px;
+  height: 56px;
+}
 .achievement-purchasedEquipment2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1463px -1480px;
+  background-position: -1411px -1480px;
   width: 48px;
   height: 56px;
 }
 .achievement-rat2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -490px -1628px;
+  background-position: -294px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-royally-loyal2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -539px -1628px;
+  background-position: -343px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-seafoam2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -588px -1628px;
+  background-position: -392px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-shield2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -637px -1628px;
+  background-position: -441px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-shinySeed2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -686px -1628px;
+  background-position: -490px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-snowball2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -735px -1628px;
+  background-position: -539px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-spookySparkles2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -784px -1628px;
+  background-position: -588px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-stoikalm2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -833px -1628px;
+  background-position: -637px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-sun2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -882px -1628px;
+  background-position: -686px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-sword2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -931px -1628px;
+  background-position: -735px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-thankyou2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -980px -1628px;
+  background-position: -784px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-thermometer2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1029px -1628px;
+  background-position: -833px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-tree2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1078px -1628px;
+  background-position: -882px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-triadbingo2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1127px -1628px;
+  background-position: -931px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-ultimate-healer2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1176px -1628px;
+  background-position: -980px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-ultimate-mage2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1225px -1628px;
+  background-position: -1029px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-ultimate-rogue2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1274px -1628px;
+  background-position: -1078px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-ultimate-warrior2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1323px -1628px;
+  background-position: -1127px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-undeadUndertaker2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1104px -1480px;
+  background-position: -954px -1480px;
   width: 64px;
   height: 56px;
 }
 .achievement-unearned2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1372px -1628px;
+  background-position: -1176px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-valentine2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1421px -1628px;
+  background-position: -1225px -1628px;
   width: 48px;
   height: 52px;
 }
 .achievement-wolf2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -1470px -1628px;
+  background-position: -1274px -1628px;
   width: 48px;
   height: 52px;
 }
@@ -1177,12 +1189,6 @@
 .background_mountain_lake {
   background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
   background-position: -426px -1480px;
-  width: 141px;
-  height: 147px;
-}
-.background_mountain_pyramid {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-0.png');
-  background-position: -568px -1480px;
   width: 141px;
   height: 147px;
 }

@@ -41,7 +41,6 @@
   "achievementUndeadUndertaker": "Undead Undertaker",
   "achievementUndeadUndertakerText": "Has tamed all Zombie Mounts.",
   "achievementUndeadUndertakerModalText": "You tamed all the Zombie Mounts!",
-
   "achievementCreatedTask": "Create a Task",
   "achievementCreatedTaskText": "Created their first task.",
   "achievementCreatedTaskModalText": "Add a task for something you would like to accomplish this week",
@@ -56,5 +55,11 @@
   "achievementFedPetModalText": "There are many different types of food, but pets can be picky",
   "achievementPurchasedEquipment": "Purchase Equipment",
   "achievementPurchasedEquipmentText": "Purchased their first piece of equipment.",
-  "achievementPurchasedEquipmentModalText": "Equipment is a way to customize your avatar and improve your stats"
+  "achievementPurchasedEquipmentModalText": "Equipment is a way to customize your avatar and improve your stats",
+  "achievementPrimedForPainting": "Primed for Painting",
+  "achievementPrimedForPaintingText": "Has collected all White Pets.",
+  "achievementPrimedForPaintingModalText": "You collected all the White Pets!",
+  "achievementPearlyPro": "Pearly Pro",
+  "achievementPearlyProText": "Has tamed all White Mounts.",
+  "achievementPearlyProModalText": "You tamed all the White Mounts!"
 }
