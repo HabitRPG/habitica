@@ -166,7 +166,12 @@ export default {
     showPrivateMessages () {
       markPMSRead(this.user);
       axios.post('/api/v4/user/mark-pms-read');
-      this.$router.push('/private-messages');
+
+      if (this.$router.history.current.name === 'privateMessages') {
+        this.$root.$emit('pm::refresh');
+      } else {
+        this.$router.push('/private-messages');
+      }
     },
     showProfile (startingPage) {
       this.$router.push({ name: startingPage });
