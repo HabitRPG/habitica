@@ -25,7 +25,7 @@ export default {
   props: ['notification', 'canRemove'],
   methods: {
     action () {
-      this.$root.$emit('bv::show::modal', 'inbox-modal');
+      this.$router.push('/private-messages');
     },
   },
 };

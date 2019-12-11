@@ -574,13 +574,13 @@ export default {
     };
   },
   async mounted () {
-    this.loaded = false;
+    this.$root.$on('pm::refresh', async () => {
+      await this.reload();
 
-    const conversationRes = await axios.get('/api/v4/inbox/conversations');
-    this.loadedConversations = conversationRes.data.data;
+      this.selectConversation(this.loadedConversations[0].uuid);
+    });
 
-    this.loaded = true;
-
+    await this.reload();
 
     const data = this.$store.state.privateMessageOptions;
 
@@ -720,14 +720,14 @@ export default {
   },
 
   methods: {
-
-    onModalHide () {
-      // reset everything
-      this.loadedConversations = [];
+    async reload () {
       this.loaded = false;
-      this.initiatedConversation = null;
-      this.messagesByConversation = {};
+
+      const conversationRes = await axios.get('/api/v4/inbox/conversations');
+      this.loadedConversations = conversationRes.data.data;
       this.selectedConversation = {};
+
+      this.loaded = true;
     },
     messageRemoved (message) {
       const messages = this.messagesByConversation[this.selectedConversation.key];
