@@ -24,6 +24,12 @@ export default {
   components: {
     profile,
   },
-  props: ['userId', 'startingPage'],
+  props: {
+    userId: String,
+    startingPage: {
+      type: String,
+      default: 'profile',
+    },
+  },
 };
 </script>

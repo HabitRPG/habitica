@@ -273,4 +273,7 @@ export const ANIMAL_COLOR_ACHIEVEMENTS = [
   {
     color: 'Zombie', petAchievement: 'monsterMagus', petNotificationType: 'ACHIEVEMENT_MONSTER_MAGUS', mountAchievement: 'undeadUndertaker', mountNotificationType: 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
   },
+  {
+    color: 'White', petAchievement: 'primedForPainting', petNotificationType: 'ACHIEVEMENT_PRIMED_FOR_PAINTING', mountAchievement: 'pearlyPro', mountNotificationType: 'ACHIEVEMENT_PEARLY_PRO',
+  },
 ];

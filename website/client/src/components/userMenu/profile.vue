@@ -789,7 +789,7 @@ export default {
       this.user = user;
     },
     selectPage (page) {
-      this.selectedPage = page;
+      this.selectedPage = page || 'profile';
       window.history.replaceState(null, null, '');
     },
     sendMessage () {

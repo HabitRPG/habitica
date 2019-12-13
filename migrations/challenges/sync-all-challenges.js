@@ -10,7 +10,7 @@ async function syncChallengeToMembers (challenges) {
 
     const promises = [];
     users.forEach(user => {
-      promises.push(challenge.syncToUser(user));
+      promises.push(challenge.syncTasksToUser(user));
       promises.push(challenge.save());
       promises.push(user.save());
     });

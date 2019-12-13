@@ -21,7 +21,7 @@
     "rebirthOrb": "Usó un Orbe de Renacimiento para comenzar de nuevo después de alcanzar el Nivel <%= level %>.",
     "rebirthOrb100": "Usó un Orbe de Renacimiento para comenzar de nuevo después de alcanzar el Nivel 100 o superior.",
     "rebirthOrbNoLevel": "Usó un Orbe de Renacimiento para comenzar de nuevo.",
-    "rebirthPop": "Reinicia instantáneamente tu personaje como un Guerrero de Nivel 1, manteniendo logros, colecciones y equipamiento. Tus tareas y su historial se mantendrán, pero volverán a ser amarillas. Tus rachas desaparecerán excepto en las tareas de los desafíos. Tu Oro, Experiencia, Maná y los efectos de todas tus habilidades desaparecerán. Todo esto tendrá efecto inmediato. Para más información, mirar la página de <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de Renacimiento</a> de la wiki.",
+    "rebirthPop": "Reinicia instantáneamente tu personaje como un Guerrero de Nivel 1, manteniendo logros, colecciones y equipamiento. Tus tareas y su historial se mantendrán, pero volverán a ser amarillas. Tus rachas desaparecerán excepto por tareas pertenecientes a Desafíos y Planes Grupales activos. Tu Oro, Experiencia, Maná y los efectos de todas tus habilidades desaparecerán. Todo esto tendrá efecto inmediato. Para más información, mirar la página de <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de Renacimiento</a> de la wiki.",
     "rebirthName": "Esfera de Renacimiento",
     "reborn": "Renacido, nivel máximo <%= reLevel %>",
     "confirmReborn": "¿Está seguro?",
