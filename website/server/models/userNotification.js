@@ -1,7 +1,7 @@
+import _ from 'lodash';
 import mongoose from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
-import _ from 'lodash';
 import baseModel from '../libs/baseModel';
 
 const NOTIFICATION_TYPES = [
