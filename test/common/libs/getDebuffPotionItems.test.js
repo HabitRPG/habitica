@@ -15,13 +15,8 @@ describe('getDebuffPotionItems', () => {
 
   for (const key of Object.keys(TRANSFORMATION_DEBUFFS_LIST)) {
     const debuff = TRANSFORMATION_DEBUFFS_LIST[key];
-<<<<<<< HEAD
-    // Here we itterate whole object to dynamicaly create
-    // test suites as it described in dock of mocha
-=======
-    // Here we itterate whole object to dynamicaly create test suites as
-    // it described in dock of mocha
->>>>>>> develop
+    // Here we iterate the whole object to dynamicaly create test suites as
+    // is described in mocha's docs
     // https://mochajs.org/#dynamically-generating-tests
     // That's why we have eslint-disable here
     // eslint-disable-next-line no-loop-func
@@ -30,12 +25,8 @@ describe('getDebuffPotionItems', () => {
 
       const result = getDebuffPotionItems(user);
 
-<<<<<<< HEAD
-      expect(result).to.be.an('array').that.deep.includes({ path: `spells.special.${debuff}`, type: 'debuffPotion' });
-=======
       expect(result).to.be.an('array').that.deep
         .includes({ path: `spells.special.${debuff}`, type: 'debuffPotion' });
->>>>>>> develop
     });
   }
 
