@@ -26,7 +26,7 @@ stories
     `,
     props: {
       count: {
-        default: number('Count', 3)
-      }
+        default: number('Count', 3),
+      },
     },
   }));
