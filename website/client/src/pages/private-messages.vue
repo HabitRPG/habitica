@@ -101,11 +101,12 @@
           v-if="selectedConversation.key && selectedConversationMessages.length === 0"
           class="empty-messages full-height mt-auto text-center"
         >
-          <avatar v-if="selectedConversation.userStyles"
-                  :member="selectedConversation.userStyles"
-                  :avatar-only="true"
-                  spritesMargin="0 0 0 -45px"
-                  class="center-avatar"
+          <avatar
+            v-if="selectedConversation.userStyles"
+            :member="selectedConversation.userStyles"
+            :avatar-only="true"
+            sprites-margin="0 0 0 -45px"
+            class="center-avatar"
           />
           <h3>{{ $t('beginningOfConversation', {userName: selectedConversation.name}) }}</h3>
           <p>{{ $t('beginningOfConversationReminder') }}</p>
