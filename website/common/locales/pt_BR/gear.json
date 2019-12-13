@@ -1979,5 +1979,9 @@
     "backMystery201912Notes": "Deslize silenciosamente pelos campos de neve e montanhas cintilantes com essas asas geladas. Não confere benefícios. Item de Assinante, Dezembro de 2019.",
     "backMystery201912Text": "Asas do(a) Duende Polar",
     "headMystery201912Notes": "Este floco de neve cintilante garante resistência ao frio cortante, não importa o quão alto você voe. Não confere benefícios. Item de Assinante, Dezembro de 2019.",
-    "headMystery201912Text": "Coroa do(a) Duende Polar"
+    "headMystery201912Text": "Coroa do(a) Duende Polar",
+    "headArmoireEarflapHatNotes": "Se você deseja manter a cabeça quentinha, este chapéu irá te cobrir! Aumenta tanto a Inteligência quanto a Força em <%= attrs %>. Armário Encantado: Conjunto Casaco de lã (Item 2 de 2).",
+    "headArmoireEarflapHatText": "Toca com aba",
+    "armorArmoireDuffleCoatNotes": "Viaje reinos gelados em grande estilo com este aconchegante casaco de lã. Aumenta tanto a Constituição quanto a Percepção em  <%= attrs %>. Armário Encantado: Conjunto Casaco de lã (Item 1 de 2).",
+    "armorArmoireDuffleCoatText": "Casaco de lã"
 }

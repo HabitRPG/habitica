@@ -2,6 +2,7 @@ import each from 'lodash/each';
 import t from './translation';
 import { NotAuthorized } from '../libs/errors';
 import statsComputed from '../libs/statsComputed'; // eslint-disable-line import/no-cycle
+import setDebuffPotionItems from '../libs/setDebuffPotionItems'; // eslint-disable-line import/no-cycle
 import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
 import updateStats from '../fns/updateStats';
 
@@ -287,6 +288,7 @@ spells.special = {
       if (!target.achievements.snowball) target.achievements.snowball = 0;
       target.achievements.snowball += 1;
       user.items.special.snowball -= 1;
+      setDebuffPotionItems(user);
     },
   },
   salt: {
@@ -300,8 +302,7 @@ spells.special = {
     cast (user) {
       user.stats.buffs.snowball = false;
       user.stats.gp -= 5;
-      // Remove antidote from pinned items
-      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('spells.special.salt'));
+      setDebuffPotionItems(user);
     },
   },
   spookySparkles: {
@@ -320,6 +321,7 @@ spells.special = {
       if (!target.achievements.spookySparkles) target.achievements.spookySparkles = 0;
       target.achievements.spookySparkles += 1;
       user.items.special.spookySparkles -= 1;
+      setDebuffPotionItems(user);
     },
   },
   opaquePotion: {
@@ -333,8 +335,7 @@ spells.special = {
     cast (user) {
       user.stats.buffs.spookySparkles = false;
       user.stats.gp -= 5;
-      // Remove antidote from pinned items
-      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('spells.special.opaquePotion'));
+      setDebuffPotionItems(user);
     },
   },
   shinySeed: {
@@ -353,6 +354,7 @@ spells.special = {
       if (!target.achievements.shinySeed) target.achievements.shinySeed = 0;
       target.achievements.shinySeed += 1;
       user.items.special.shinySeed -= 1;
+      setDebuffPotionItems(user);
     },
   },
   petalFreePotion: {
@@ -366,8 +368,7 @@ spells.special = {
     cast (user) {
       user.stats.buffs.shinySeed = false;
       user.stats.gp -= 5;
-      // Remove antidote from pinned items
-      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('spells.special.petalFreePotion'));
+      setDebuffPotionItems(user);
     },
   },
   seafoam: {
@@ -386,6 +387,7 @@ spells.special = {
       if (!target.achievements.seafoam) target.achievements.seafoam = 0;
       target.achievements.seafoam += 1;
       user.items.special.seafoam -= 1;
+      setDebuffPotionItems(user);
     },
   },
   sand: {
@@ -399,7 +401,7 @@ spells.special = {
     cast (user) {
       user.stats.buffs.seafoam = false;
       user.stats.gp -= 5;
-      user.pinnedItems = user.pinnedItems.filter(item => !item.path.includes('spells.special.sand'));
+      setDebuffPotionItems(user);
     },
   },
   nye: {

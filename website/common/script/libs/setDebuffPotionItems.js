@@ -1,7 +1,13 @@
 import getDebuffPotionItems from './getDebuffPotionItems';
 
+function clearDebuffPotion (user) {
+  return user.pinnedItems.filter(item => item.type !== 'debuffPotion');
+}
+
 
 export default function setDebuffPotionItems (user) {
+  user.pinnedItems = clearDebuffPotion(user);
+
   const debuffPotionItems = getDebuffPotionItems(user);
 
   if (debuffPotionItems.length) {

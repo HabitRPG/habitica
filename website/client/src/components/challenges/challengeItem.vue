@@ -215,7 +215,6 @@
     }
 
     .meta-info {
-      height: 24px;
       margin-bottom: 8px;
     }
 

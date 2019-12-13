@@ -153,6 +153,8 @@ api.achievements = achievements;
 api.randomVal = randomVal;
 api.hasClass = hasClass;
 api.onboarding = onboarding;
+api.setDebuffPotionItems = setDebuffPotionItems;
+api.getDebuffPotionItems = getDebuffPotionItems;
 
 api.fns = {
   autoAllocate,
