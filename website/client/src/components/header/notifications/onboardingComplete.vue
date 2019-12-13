@@ -15,7 +15,7 @@
         class="onboarding-complete-banner d-block"
         src="~@/assets/images/onboarding-complete-banner@2x.png"
       >
-      <h3>{{ $t('congraturations') }}</h3>
+      <h3>{{ $t('congratulations') }}</h3>
       <p
         class="onboarding-complete-text"
         v-html="$t('onboardingCompleteDesc')"

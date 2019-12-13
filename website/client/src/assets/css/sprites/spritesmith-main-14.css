@@ -1,162 +1,180 @@
+.Pet_Food_Candy_CottonCandyBlue {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
+  background-position: -636px -1550px;
+  width: 68px;
+  height: 68px;
+}
+.Pet_Food_Candy_CottonCandyPink {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
+  background-position: -705px -1550px;
+  width: 68px;
+  height: 68px;
+}
+.Pet_Food_Candy_Desert {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
+  background-position: -774px -1550px;
+  width: 68px;
+  height: 68px;
+}
 .Pet_Food_Candy_Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -742px -1550px;
+  background-position: -843px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Candy_Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -811px -1550px;
+  background-position: -912px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Candy_Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -880px -1550px;
+  background-position: -981px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Candy_Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -949px -1550px;
+  background-position: -1050px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Candy_White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -1018px -1550px;
+  background-position: -1119px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Candy_Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -1087px -1550px;
+  background-position: -1188px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Chocolate {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -1156px -1550px;
+  background-position: -1257px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -1225px -1550px;
+  background-position: -1326px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -1294px -1550px;
+  background-position: -1395px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Fish {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -1363px -1550px;
+  background-position: -1464px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Honey {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -1432px -1550px;
+  background-position: -1533px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Meat {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -1501px -1550px;
+  background-position: -1602px -1550px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Milk {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -1570px -1550px;
+  background-position: 0px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Pie_Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -1639px -1550px;
+  background-position: -69px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Pie_CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: 0px -1656px;
+  background-position: -138px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Pie_CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -69px -1656px;
+  background-position: -207px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Pie_Desert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -138px -1656px;
+  background-position: -276px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Pie_Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -207px -1656px;
+  background-position: -345px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Pie_Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -276px -1656px;
+  background-position: -414px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Pie_Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -345px -1656px;
+  background-position: -483px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Pie_Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -414px -1656px;
+  background-position: -552px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Pie_White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -483px -1656px;
+  background-position: -621px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Pie_Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -552px -1656px;
+  background-position: -690px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Potatoe {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -621px -1656px;
+  background-position: -759px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_RottenMeat {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -690px -1656px;
+  background-position: -828px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Saddle {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -759px -1656px;
+  background-position: -897px -1656px;
   width: 68px;
   height: 68px;
 }
 .Pet_Food_Strawberry {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -828px -1656px;
+  background-position: -966px -1656px;
   width: 68px;
   height: 68px;
 }
@@ -1537,12 +1555,6 @@
 .Mount_Body_Egg-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
   background-position: -530px -1550px;
-  width: 105px;
-  height: 105px;
-}
-.Mount_Body_Egg-CottonCandyBlue {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-14.png');
-  background-position: -636px -1550px;
   width: 105px;
   height: 105px;
 }
