@@ -308,7 +308,7 @@
         <div class="col-12">
           <div class="row achievements-row justify-content-center">
             <div
-              v-for="(achievement, achievKey) in category.achievements"
+              v-for="(achievement, achievKey) in achievementsCategory(key, category)"
               :key="achievKey"
               class="achievement-wrapper col text-center"
             >
@@ -347,6 +347,16 @@
                   class="achievement achievement-unearned achievement-unearned2x"
                 ></div>
               </div>
+            </div>
+            <div
+              v-if="achievementsCategories[key].number > 5"
+              class="btn btn-flat btn-show-more"
+              @click="toggleAchievementsCategory(key)"
+            >
+              {{ achievementsCategories[key].open ?
+                $t('showAllAchievements', {category: $t(key+'Achievs')}) :
+                $t('hideAchievements', {category: $t(key+'Achievs')})
+              }}
             </div>
           </div>
         </div>
@@ -744,6 +754,7 @@ export default {
       },
       selectedPage: 'profile',
       achievements: {},
+      achievementsCategories: {}, // number, open
       content: Content,
       user: undefined,
     };
@@ -827,6 +838,16 @@ export default {
       if (!user.achievements.challenges) user.achievements.challenges = {};
       // @TODO: this common code should handle the above
       this.achievements = achievementsLib.getAchievementsForProfile(user);
+
+      const achievementsCategories = {};
+      Object.keys(this.achievements).forEach(category => {
+        achievementsCategories[category] = {
+          open: false,
+          number: Object.keys(this.achievements[category].achievements).length,
+        };
+      });
+
+      this.achievementsCategories = achievementsCategories;
 
       // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
       user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
@@ -949,6 +970,27 @@ export default {
     },
     showAllocation () {
       return this.user._id === this.userLoggedIn._id && this.hasClass;
+    },
+    achievementsCategory (categoryKey, category) {
+      const achievementsKeys = Object.keys(category.achievements);
+
+      if (this.achievementsCategories[categoryKey].open === true) {
+        return category.achievements;
+      }
+
+      const fiveAchievements = achievementsKeys.slice(0, 5);
+
+      const categoryAchievements = {};
+
+      fiveAchievements.forEach(key => {
+        categoryAchievements[key] = category.achievements[key];
+      });
+
+      return categoryAchievements;
+    },
+    toggleAchievementsCategory (categoryKey) {
+      const status = this.achievementsCategories[categoryKey].open;
+      this.achievementsCategories[categoryKey].open = !status;
     },
   },
 };
