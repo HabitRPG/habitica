@@ -354,8 +354,8 @@
               @click="toggleAchievementsCategory(key)"
             >
               {{ achievementsCategories[key].open ?
-                $t('showAllAchievements', {category: $t(key+'Achievs')}) :
-                $t('hideAchievements', {category: $t(key+'Achievs')})
+                $t('hideAchievements', {category: $t(key+'Achievs')}) :
+                $t('showAllAchievements', {category: $t(key+'Achievs')})
               }}
             </div>
           </div>
