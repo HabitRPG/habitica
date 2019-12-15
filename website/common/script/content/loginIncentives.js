@@ -9,7 +9,10 @@ export default function getLoginIncentives (api) {
       rewardKey: ['armor_special_bardRobes'],
       reward: [api.gear.flat.armor_special_bardRobes],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.armor_special_bardRobes = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          armor_special_bardRobes: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -30,7 +33,10 @@ export default function getLoginIncentives (api) {
       rewardKey: ['head_special_bardHat'],
       reward: [api.gear.flat.head_special_bardHat],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.head_special_bardHat = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          head_special_bardHat: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -91,7 +97,10 @@ export default function getLoginIncentives (api) {
       rewardKey: ['weapon_special_bardInstrument'],
       reward: [api.gear.flat.weapon_special_bardInstrument],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.weapon_special_bardInstrument = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          weapon_special_bardInstrument: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -177,7 +186,10 @@ export default function getLoginIncentives (api) {
       rewardKey: ['slim_armor_special_pageArmor'],
       reward: [api.gear.flat.armor_special_pageArmor],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.armor_special_pageArmor = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          armor_special_pageArmor: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -194,7 +206,10 @@ export default function getLoginIncentives (api) {
       rewardKey: ['head_special_pageHelm'],
       reward: [api.gear.flat.head_special_pageHelm],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.head_special_pageHelm = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          head_special_pageHelm: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -211,7 +226,10 @@ export default function getLoginIncentives (api) {
       rewardKey: ['weapon_special_pageBanner'],
       reward: [api.gear.flat.weapon_special_pageBanner],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.weapon_special_pageBanner = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          weapon_special_pageBanner: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -228,7 +246,10 @@ export default function getLoginIncentives (api) {
       rewardKey: ['shield_special_diamondStave'],
       reward: [api.gear.flat.shield_special_diamondStave],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.shield_special_diamondStave = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          shield_special_diamondStave: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -389,8 +410,14 @@ export default function getLoginIncentives (api) {
       rewardKey: ['shop_weapon_special_skeletonKey', 'shop_shield_special_lootBag'],
       reward: [api.gear.flat.weapon_special_skeletonKey, api.gear.flat.shield_special_lootBag],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.weapon_special_skeletonKey = true; // eslint-disable-line camelcase
-        user.items.gear.owned.shield_special_lootBag = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          weapon_special_skeletonKey: true,
+        }; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          shield_special_lootBag: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -410,8 +437,14 @@ export default function getLoginIncentives (api) {
         api.gear.flat.armor_special_sneakthiefRobes,
       ],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.head_special_clandestineCowl = true; // eslint-disable-line camelcase
-        user.items.gear.owned.armor_special_sneakthiefRobes = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          head_special_clandestineCowl: true,
+        }; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          armor_special_sneakthiefRobes: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -431,8 +464,14 @@ export default function getLoginIncentives (api) {
         api.gear.flat.armor_special_snowSovereignRobes,
       ],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.head_special_snowSovereignCrown = true; // eslint-disable-line camelcase, max-len
-        user.items.gear.owned.armor_special_snowSovereignRobes = true; // eslint-disable-line camelcase, max-len
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          head_special_snowSovereignCrown: true,
+        }; // eslint-disable-line camelcase, max-len
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          armor_special_snowSovereignRobes: true,
+        }; // eslint-disable-line camelcase, max-len
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -449,8 +488,14 @@ export default function getLoginIncentives (api) {
       rewardKey: ['shop_shield_special_wintryMirror', 'shop_back_special_snowdriftVeil'],
       reward: [api.gear.flat.shield_special_wintryMirror, api.gear.flat.back_special_snowdriftVeil],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.shield_special_wintryMirror = true; // eslint-disable-line camelcase
-        user.items.gear.owned.back_special_snowdriftVeil = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          shield_special_wintryMirror: true,
+        }; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          back_special_snowdriftVeil: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -479,8 +524,14 @@ export default function getLoginIncentives (api) {
         api.gear.flat.armor_special_nomadsCuirass,
       ],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.weapon_special_nomadsScimitar = true; // eslint-disable-line camelcase
-        user.items.gear.owned.armor_special_nomadsCuirass = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          weapon_special_nomadsScimitar: true,
+        }; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          armor_special_nomadsCuirass: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -488,7 +539,10 @@ export default function getLoginIncentives (api) {
       rewardKey: ['shop_head_special_spikedHelm'],
       reward: [api.gear.flat.head_special_spikedHelm],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.head_special_spikedHelm = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          head_special_spikedHelm: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -557,7 +611,10 @@ export default function getLoginIncentives (api) {
       rewardKey: ['shop_head_special_dandyHat'],
       reward: [api.gear.flat.head_special_dandyHat],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.head_special_dandyHat = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          head_special_dandyHat: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -565,8 +622,14 @@ export default function getLoginIncentives (api) {
       rewardKey: ['shop_weapon_special_fencingFoil', 'shop_armor_special_dandySuit'],
       reward: [api.gear.flat.weapon_special_fencingFoil, api.gear.flat.armor_special_dandySuit],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.weapon_special_fencingFoil = true; // eslint-disable-line camelcase
-        user.items.gear.owned.armor_special_dandySuit = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          weapon_special_fencingFoil: true,
+        }; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          armor_special_dandySuit: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -655,8 +718,14 @@ export default function getLoginIncentives (api) {
       rewardKey: ['shop_weapon_special_tachi', 'shop_armor_special_samuraiArmor'],
       reward: [api.gear.flat.weapon_special_tachi, api.gear.flat.armor_special_samuraiArmor],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.weapon_special_tachi = true; // eslint-disable-line camelcase
-        user.items.gear.owned.armor_special_samuraiArmor = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          weapon_special_tachi: true,
+        }; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          armor_special_samuraiArmor: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },
@@ -664,8 +733,14 @@ export default function getLoginIncentives (api) {
       rewardKey: ['shop_head_special_kabuto', 'shop_shield_special_wakizashi'],
       reward: [api.gear.flat.head_special_kabuto, api.gear.flat.shield_special_wakizashi],
       assignReward: function assignReward (user) {
-        user.items.gear.owned.head_special_kabuto = true; // eslint-disable-line camelcase
-        user.items.gear.owned.shield_special_wakizashi = true; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          head_special_kabuto: true,
+        }; // eslint-disable-line camelcase
+        user.items.gear.owned = {
+          ...user.items.gear.owned,
+          shield_special_wakizashi: true,
+        }; // eslint-disable-line camelcase
         if (user.markModified) user.markModified('items.gear.owned');
       },
     },

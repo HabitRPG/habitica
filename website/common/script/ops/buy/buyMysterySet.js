@@ -25,7 +25,10 @@ export default function buyMysterySet (user, req = {}, analytics) {
   }
 
   each(mysterySet.items, item => {
-    user.items.gear.owned[item.key] = true;
+    user.items.gear.owned = {
+      ...user.items.gear.owned,
+      [item.key]: true,
+    };
     if (analytics) {
       analytics.track('acquire item', {
         uuid: user._id,

@@ -89,7 +89,10 @@ export default function revive (user, req = {}, analytics) {
   if (item) {
     removePinnedGearByClass(user);
 
-    user.items.gear.owned[lostItem] = false;
+    user.items.gear.owned = {
+      ...user.items.gear.owned,
+      [lostItem]: false,
+    };
     if (user.markModified) user.markModified('items.gear.owned');
 
     addPinnedGearByClass(user);

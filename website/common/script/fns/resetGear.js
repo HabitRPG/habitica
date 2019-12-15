@@ -16,7 +16,10 @@ export default function resetGear (user) {
   // The content.gear.flat[k] check should prevent this causing an error
   each(gear.owned, (v, k) => {
     if (gear.owned[k] && content.gear.flat[k] && content.gear.flat[k].value) {
-      gear.owned[k] = false;
+      gear.owned = {
+        ...gear.owned,
+        [k]: false,
+      };
     }
   });
 
