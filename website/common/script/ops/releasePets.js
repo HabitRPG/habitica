@@ -28,7 +28,10 @@ export default function releasePets (user, req = {}, analytics) {
     if (!user.items.pets[pet]) {
       giveBeastMasterAchievement = false;
     }
-    user.items.pets[pet] = 0;
+    user.items.pets = {
+      ...user.items.pets,
+      [pet]: 0,
+    };
   }
 
   if (user.markModified) user.markModified('items.pets');

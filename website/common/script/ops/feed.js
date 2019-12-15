@@ -13,7 +13,10 @@ import {
 import errorMessage from '../libs/errorMessage';
 
 function evolve (user, pet, req) {
-  user.items.pets[pet.key] = -1;
+  user.items.pets = {
+    ...user.items.pets,
+    [pet.key]: -1,
+  };
   user.items.mounts[pet.key] = true;
 
   if (user.markModified) {

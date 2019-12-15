@@ -60,7 +60,10 @@ export default function releaseBoth (user, req = {}) {
       giveMountMasterAchievement = false;
     }
 
-    user.items.pets[animal] = 0;
+    user.items.pets = {
+      ...user.items.pets,
+      [animal]: 0,
+    };
     user.items.mounts[animal] = null;
   }
 
