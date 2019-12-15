@@ -91,8 +91,14 @@ export default function randomDrop (user, options, req = {}, analytics) {
     } else if (rarity > 0.3) { // eggs 30% chance
       drop = cloneDropItem(randomVal(content.dropEggs));
 
-      user.items.eggs[drop.key] = user.items.eggs[drop.key] || 0;
-      user.items.eggs[drop.key] += 1;
+      user.items.eggs = {
+        ...user.items.eggs,
+        [drop.key]: user.items.eggs[drop.key] || 0,
+      };
+      user.items.eggs = {
+        ...user.items.eggs,
+        [drop.key]: drop.key += 1,
+      };
       if (user.markModified) user.markModified('items.eggs');
 
       drop.type = 'Egg';

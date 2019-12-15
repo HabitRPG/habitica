@@ -44,7 +44,10 @@ export default function hatch (user, req = {}) {
     ...user.items.pets,
     [pet]: 5,
   };
-  user.items.eggs[egg] -= 1;
+  user.items.eggs = {
+    ...user.items.eggs,
+    [egg]: user.items.eggs - 1,
+  };
   user.items.hatchingPotions[hatchingPotion] -= 1;
   if (user.markModified) {
     user.markModified('items.pets');

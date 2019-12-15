@@ -71,9 +71,15 @@ export default function updateStats (user, stats, req = {}, analytics) {
     if (user.addNotification) user.addNotification('DROPS_ENABLED');
 
     if (user.items.eggs.Wolf > 0) {
-      user.items.eggs.Wolf += 1;
+      user.items.eggs = {
+        ...user.items.eggs,
+        Wolf: user.items.eggs.Wolf + 1,
+      };
     } else {
-      user.items.eggs.Wolf = 1;
+      user.items.eggs = {
+        ...user.items.eggs,
+        Wolf: 1,
+      };
     }
 
     if (user.markModified) user.markModified('items.eggs');

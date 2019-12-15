@@ -289,23 +289,50 @@ export default function getLoginIncentives (api) {
       rewardName: 'oneOfAllPetEggs',
       assignReward: function assignReward (user) {
         if (!user.items.eggs.BearCub) user.items.eggs.BearCub = 0;
-        user.items.eggs.BearCub += 1;
+        user.items.eggs = {
+          ...user.items.eggs,
+          BearCub: user.items.eggs.BearCub + 1,
+        };
         if (!user.items.eggs.Cactus) user.items.eggs.Cactus = 0;
-        user.items.eggs.Cactus += 1;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Cactus: user.items.eggs.Cactus + 1,
+        };
         if (!user.items.eggs.Dragon) user.items.eggs.Dragon = 0;
-        user.items.eggs.Dragon += 1;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Dragon: user.items.eggs.Dragon + 1,
+        };
         if (!user.items.eggs.FlyingPig) user.items.eggs.FlyingPig = 0;
-        user.items.eggs.FlyingPig += 1;
+        user.items.eggs = {
+          ...user.items.eggs,
+          FlyingPig: user.items.eggs.FlyingPig + 1,
+        };
         if (!user.items.eggs.Fox) user.items.eggs.Fox = 0;
-        user.items.eggs.Fox += 1;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Fox: user.items.eggs.Fox + 1,
+        };
         if (!user.items.eggs.LionCub) user.items.eggs.LionCub = 0;
-        user.items.eggs.LionCub += 1;
+        user.items.eggs = {
+          ...user.items.eggs,
+          LionCub: user.items.eggs.LionCub + 1,
+        };
         if (!user.items.eggs.PandaCub) user.items.eggs.PandaCub = 0;
-        user.items.eggs.PandaCub += 1;
+        user.items.eggs = {
+          ...user.items.eggs,
+          PandaCub: user.items.eggs.PandaCub + 1,
+        };
         if (!user.items.eggs.TigerCub) user.items.eggs.TigerCub = 0;
-        user.items.eggs.TigerCub += 1;
+        user.items.eggs = {
+          ...user.items.eggs,
+          TigerCub: user.items.eggs.TigerCub + 1,
+        };
         if (!user.items.eggs.Wolf) user.items.eggs.Wolf = 0;
-        user.items.eggs.Wolf += 1;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Wolf: user.items.eggs.Wolf + 1,
+        };
         if (user.markModified) user.markModified('items.eggs');
       },
     },
@@ -587,23 +614,50 @@ export default function getLoginIncentives (api) {
       rewardName: 'twoOfAllPetEggs',
       assignReward: function assignReward (user) {
         if (!user.items.eggs.BearCub) user.items.eggs.BearCub = 0;
-        user.items.eggs.BearCub += 2;
+        user.items.eggs = {
+          ...user.items.eggs,
+          BearCub: user.items.eggs.BearCub + 2,
+        };
         if (!user.items.eggs.Cactus) user.items.eggs.Cactus = 0;
-        user.items.eggs.Cactus += 2;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Cactus: user.items.eggs.Cactus + 2,
+        };
         if (!user.items.eggs.Dragon) user.items.eggs.Dragon = 0;
-        user.items.eggs.Dragon += 2;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Dragon: user.items.eggs.Dragon + 2,
+        };
         if (!user.items.eggs.FlyingPig) user.items.eggs.FlyingPig = 0;
-        user.items.eggs.FlyingPig += 2;
+        user.items.eggs = {
+          ...user.items.eggs,
+          FlyingPig: user.items.eggs.FlyingPig + 2,
+        };
         if (!user.items.eggs.Fox) user.items.eggs.Fox = 0;
-        user.items.eggs.Fox += 2;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Fox: user.items.eggs.Fox + 2,
+        };
         if (!user.items.eggs.LionCub) user.items.eggs.LionCub = 0;
-        user.items.eggs.LionCub += 2;
+        user.items.eggs = {
+          ...user.items.eggs,
+          LionCub: user.items.eggs.LionCub + 2,
+        };
         if (!user.items.eggs.PandaCub) user.items.eggs.PandaCub = 0;
-        user.items.eggs.PandaCub += 2;
+        user.items.eggs = {
+          ...user.items.eggs,
+          PandaCub: user.items.eggs.PandaCub + 2,
+        };
         if (!user.items.eggs.TigerCub) user.items.eggs.TigerCub = 0;
-        user.items.eggs.TigerCub += 2;
+        user.items.eggs = {
+          ...user.items.eggs,
+          TigerCub: user.items.eggs.TigerCub + 2,
+        };
         if (!user.items.eggs.Wolf) user.items.eggs.Wolf = 0;
-        user.items.eggs.Wolf += 2;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Wolf: user.items.eggs.Wolf + 2,
+        };
         if (user.markModified) user.markModified('items.eggs');
       },
     },
@@ -652,23 +706,50 @@ export default function getLoginIncentives (api) {
       rewardName: 'threeOfAllPetEggs',
       assignReward: function assignReward (user) {
         if (!user.items.eggs.BearCub) user.items.eggs.BearCub = 0;
-        user.items.eggs.BearCub += 3;
+        user.items.eggs = {
+          ...user.items.eggs,
+          BearCub: user.items.eggs.BearCub + 3,
+        };
         if (!user.items.eggs.Cactus) user.items.eggs.Cactus = 0;
-        user.items.eggs.Cactus += 3;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Cactus: user.items.eggs.Cactus + 3,
+        };
         if (!user.items.eggs.Dragon) user.items.eggs.Dragon = 0;
-        user.items.eggs.Dragon += 3;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Dragon: user.items.eggs.Dragon + 3,
+        };
         if (!user.items.eggs.FlyingPig) user.items.eggs.FlyingPig = 0;
-        user.items.eggs.FlyingPig += 3;
+        user.items.eggs = {
+          ...user.items.eggs,
+          FlyingPig: user.items.eggs.FlyingPig + 3,
+        };
         if (!user.items.eggs.Fox) user.items.eggs.Fox = 0;
-        user.items.eggs.Fox += 3;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Fox: user.items.eggs.Fox + 3,
+        };
         if (!user.items.eggs.LionCub) user.items.eggs.LionCub = 0;
-        user.items.eggs.LionCub += 3;
+        user.items.eggs = {
+          ...user.items.eggs,
+          LionCub: user.items.eggs.LionCub + 3,
+        };
         if (!user.items.eggs.PandaCub) user.items.eggs.PandaCub = 0;
-        user.items.eggs.PandaCub += 3;
+        user.items.eggs = {
+          ...user.items.eggs,
+          PandaCub: user.items.eggs.PandaCub + 3,
+        };
         if (!user.items.eggs.TigerCub) user.items.eggs.TigerCub = 0;
-        user.items.eggs.TigerCub += 3;
+        user.items.eggs = {
+          ...user.items.eggs,
+          TigerCub: user.items.eggs.TigerCub + 3,
+        };
         if (!user.items.eggs.Wolf) user.items.eggs.Wolf = 0;
-        user.items.eggs.Wolf += 3;
+        user.items.eggs = {
+          ...user.items.eggs,
+          Wolf: user.items.eggs.Wolf + 3,
+        };
         if (user.markModified) user.markModified('items.eggs');
       },
     },
