@@ -45,7 +45,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -76,7 +79,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -118,7 +124,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -142,7 +151,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -160,7 +172,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -178,7 +193,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -198,7 +216,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -218,7 +239,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -238,7 +262,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -258,7 +285,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -276,7 +306,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -341,7 +374,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -357,29 +393,59 @@ export default function getLoginIncentives (api) {
       rewardName: 'oneOfAllHatchingPotions',
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.Base) user.items.hatchingPotions.Base = 0;
-        user.items.hatchingPotions.Base += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          Base: user.items.hatchingPotions.Base + 1,
+        };
         if (!user.items.hatchingPotions.CottonCandyBlue) {
           user.items.hatchingPotions.CottonCandyBlue = 0;
         }
-        user.items.hatchingPotions.CottonCandyBlue += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          CottonCandyBlue: user.items.hatchingPotions.CottonCandyBlue + 1,
+        };
         if (!user.items.hatchingPotions.CottonCandyPink) {
           user.items.hatchingPotions.CottonCandyPink = 0;
         }
-        user.items.hatchingPotions.CottonCandyPink += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          CottonCandyPink: user.items.hatchingPotions.CottonCandyPink + 1,
+        };
         if (!user.items.hatchingPotions.Desert) user.items.hatchingPotions.Desert = 0;
-        user.items.hatchingPotions.Desert += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          Desert: user.items.hatchingPotions.Desert + 1,
+        };
         if (!user.items.hatchingPotions.Golden) user.items.hatchingPotions.Golden = 0;
-        user.items.hatchingPotions.Golden += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          Golden: user.items.hatchingPotions.Golden + 1,
+        };
         if (!user.items.hatchingPotions.Red) user.items.hatchingPotions.Red = 0;
-        user.items.hatchingPotions.Red += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          Red: user.items.hatchingPotions.Red + 1,
+        };
         if (!user.items.hatchingPotions.Shade) user.items.hatchingPotions.Shade = 0;
-        user.items.hatchingPotions.Shade += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          Shade: user.items.hatchingPotions.Shade + 1,
+        };
         if (!user.items.hatchingPotions.Skeleton) user.items.hatchingPotions.Skeleton = 0;
-        user.items.hatchingPotions.Skeleton += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          Skeleton: user.items.hatchingPotions.Skeleton + 1,
+        };
         if (!user.items.hatchingPotions.White) user.items.hatchingPotions.White = 0;
-        user.items.hatchingPotions.White += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          White: user.items.hatchingPotions.White + 1,
+        };
         if (!user.items.hatchingPotions.Zombie) user.items.hatchingPotions.Zombie = 0;
-        user.items.hatchingPotions.Zombie += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          Zombie: user.items.hatchingPotions.Zombie + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -388,7 +454,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -429,7 +498,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -453,7 +525,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -480,7 +555,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -507,7 +585,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },
@@ -531,7 +612,10 @@ export default function getLoginIncentives (api) {
       reward: [api.hatchingPotions.RoyalPurple],
       assignReward: function assignReward (user) {
         if (!user.items.hatchingPotions.RoyalPurple) user.items.hatchingPotions.RoyalPurple = 0;
-        user.items.hatchingPotions.RoyalPurple += 1;
+        user.items.hatchingPotions = {
+          ...user.items.hatchingPotions,
+          RoyalPurple: user.items.hatchingPotions.RoyalPurple + 1,
+        };
         if (user.markModified) user.markModified('items.hatchingPotions');
       },
     },

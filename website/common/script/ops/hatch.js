@@ -48,7 +48,11 @@ export default function hatch (user, req = {}) {
     ...user.items.eggs,
     [egg]: Number.isInteger(user.items.eggs) ? user.items.eggs - 1 : 0,
   };
-  user.items.hatchingPotions[hatchingPotion] -= 1;
+  user.items.hatchingPotions = {
+    ...user.items.hatchingPotions,
+    [hatchingPotion]:
+      Number.isInteger(user.items.hatchingPotion) ? user.items.hatchingPotion - 1 : 0,
+  };
   if (user.markModified) {
     user.markModified('items.pets');
     user.markModified('items.eggs');

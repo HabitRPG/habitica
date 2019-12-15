@@ -120,8 +120,14 @@ export default function randomDrop (user, options, req = {}, analytics) {
         randomVal(pickBy(content.hatchingPotions, (v, k) => acceptableDrops.indexOf(k) >= 0)),
       );
 
-      user.items.hatchingPotions[drop.key] = user.items.hatchingPotions[drop.key] || 0;
-      user.items.hatchingPotions[drop.key] += 1;
+      user.items.hatchingPotions = {
+        ...user.items.hatchingPotions,
+        [drop.key]: user.items.hatchingPotions[drop.key] || 0,
+      };
+      user.items.hatchingPotions = {
+        ...user.items.hatchingPotions,
+        [drop.key]: drop.key + 1,
+      };
       if (user.markModified) user.markModified('items.hatchingPotions');
 
       drop.type = 'HatchingPotion';
