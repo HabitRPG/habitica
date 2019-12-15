@@ -79,8 +79,14 @@ export default function randomDrop (user, options, req = {}, analytics) {
         canDrop: true,
       })));
 
-      user.items.food[drop.key] = user.items.food[drop.key] || 0;
-      user.items.food[drop.key] += 1;
+      user.items.food = {
+        ...user.items.food,
+        [drop.key]: user.items.food[drop.key] || 0,
+      };
+      user.items.food = {
+        ...user.items.food,
+        [drop.key]: +1,
+      };
       if (user.markModified) user.markModified('items.food');
 
       drop.type = 'Food';

@@ -57,11 +57,20 @@ export default function getLoginIncentives (api) {
       reward: [api.food.Chocolate, api.food.Meat, api.food.CottonCandyPink],
       assignReward: function assignReward (user) {
         if (!user.items.food.Chocolate) user.items.food.Chocolate = 0;
-        user.items.food.Chocolate += 1;
+        user.items.food = {
+          ...user.items.food,
+          Chocolate: user.items.food.Chocolate + 1,
+        };
         if (!user.items.food.Meat) user.items.food.Meat = 0;
-        user.items.food.Meat += 1;
+        user.items.food = {
+          ...user.items.food,
+          Meat: user.items.food.Meat + 1,
+        };
         if (!user.items.food.CottonCandyPink) user.items.food.CottonCandyPink = 0;
-        user.items.food.CottonCandyPink += 1;
+        user.items.food = {
+          ...user.items.food,
+          CottonCandyPink: user.items.food.CottonCandyPink + 1,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },
@@ -91,11 +100,20 @@ export default function getLoginIncentives (api) {
       reward: [api.food.Strawberry, api.food.Potatoe, api.food.CottonCandyBlue],
       assignReward: function assignReward (user) {
         if (!user.items.food.Strawberry) user.items.food.Strawberry = 0;
-        user.items.food.Strawberry += 1;
+        user.items.food = {
+          ...user.items.food,
+          Strawberry: user.items.food.Strawberry + 1,
+        };
         if (!user.items.food.Potatoe) user.items.food.Potatoe = 0;
-        user.items.food.Potatoe += 1;
+        user.items.food = {
+          ...user.items.food,
+          Potatoe: user.items.food.Potatoe + 1,
+        };
         if (!user.items.food.CottonCandyBlue) user.items.food.CottonCandyBlue = 0;
-        user.items.food.CottonCandyBlue += 1;
+        user.items.food = {
+          ...user.items.food,
+          CottonCandyBlue: user.items.food.CottonCandyBlue + 1,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },
@@ -136,13 +154,25 @@ export default function getLoginIncentives (api) {
       reward: [api.food.Fish, api.food.Milk, api.food.RottenMeat, api.food.Honey],
       assignReward: function assignReward (user) {
         if (!user.items.food.Fish) user.items.food.Fish = 0;
-        user.items.food.Fish += 1;
+        user.items.food = {
+          ...user.items.food,
+          Fish: user.items.food.Fish + 1,
+        };
         if (!user.items.food.Milk) user.items.food.Milk = 0;
-        user.items.food.Milk += 1;
+        user.items.food = {
+          ...user.items.food,
+          Milk: user.items.food.Milk + 1,
+        };
         if (!user.items.food.RottenMeat) user.items.food.RottenMeat = 0;
-        user.items.food.RottenMeat += 1;
+        user.items.food = {
+          ...user.items.food,
+          RottenMeat: user.items.food.RottenMeat + 1,
+        };
         if (!user.items.food.Honey) user.items.food.Honey = 0;
-        user.items.food.Honey += 1;
+        user.items.food = {
+          ...user.items.food,
+          Honey: user.items.food.Honey + 1,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },
@@ -184,7 +214,10 @@ export default function getLoginIncentives (api) {
       reward: [api.food.Saddle],
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
-        user.items.food.Saddle += 1;
+        user.items.food = {
+          ...user.items.food,
+          Saddle: user.items.food.Saddle + 1,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },
@@ -297,7 +330,10 @@ export default function getLoginIncentives (api) {
       reward: [api.food.Saddle],
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
-        user.items.food.Saddle += 1;
+        user.items.food = {
+          ...user.items.food,
+          Saddle: user.items.food.Saddle + 1,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },
@@ -471,25 +507,55 @@ export default function getLoginIncentives (api) {
       rewardName: 'threeOfEachFood',
       assignReward: function assignReward (user) {
         if (!user.items.food.Meat) user.items.food.Meat = 0;
-        user.items.food.Meat += 3;
+        user.items.food = {
+          ...user.items.food,
+          Meat: user.items.food.Meat + 3,
+        };
         if (!user.items.food.CottonCandyBlue) user.items.food.CottonCandyBlue = 0;
-        user.items.food.CottonCandyBlue += 3;
+        user.items.food = {
+          ...user.items.food,
+          CottonCandyBlue: user.items.food.CottonCandyBlue + 3,
+        };
         if (!user.items.food.CottonCandyPink) user.items.food.CottonCandyPink = 0;
-        user.items.food.CottonCandyPink += 3;
+        user.items.food = {
+          ...user.items.food,
+          CottonCandyPink: user.items.food.CottonCandyPink + 3,
+        };
         if (!user.items.food.Potatoe) user.items.food.Potatoe = 0;
-        user.items.food.Potatoe += 3;
+        user.items.food = {
+          ...user.items.food,
+          Potatoe: user.items.food.Potatoe + 3,
+        };
         if (!user.items.food.Honey) user.items.food.Honey = 0;
-        user.items.food.Honey += 3;
+        user.items.food = {
+          ...user.items.food,
+          Honey: user.items.food.Honey + 3,
+        };
         if (!user.items.food.Strawberry) user.items.food.Strawberry = 0;
-        user.items.food.Strawberry += 3;
+        user.items.food = {
+          ...user.items.food,
+          Strawberry: user.items.food.Strawberry + 3,
+        };
         if (!user.items.food.Chocolate) user.items.food.Chocolate = 0;
-        user.items.food.Chocolate += 3;
+        user.items.food = {
+          ...user.items.food,
+          Chocolate: user.items.food.Chocolate + 3,
+        };
         if (!user.items.food.Fish) user.items.food.Fish = 0;
-        user.items.food.Fish += 3;
+        user.items.food = {
+          ...user.items.food,
+          Fish: user.items.food.Fish + 3,
+        };
         if (!user.items.food.Milk) user.items.food.Milk = 0;
-        user.items.food.Milk += 3;
+        user.items.food = {
+          ...user.items.food,
+          Milk: user.items.food.Milk + 3,
+        };
         if (!user.items.food.RottenMeat) user.items.food.RottenMeat = 0;
-        user.items.food.RottenMeat += 3;
+        user.items.food = {
+          ...user.items.food,
+          RottenMeat: user.items.food.RottenMeat + 3,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },
@@ -624,7 +690,10 @@ export default function getLoginIncentives (api) {
       reward: [api.food.Saddle],
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
-        user.items.food.Saddle += 1;
+        user.items.food = {
+          ...user.items.food,
+          Saddle: user.items.food.Saddle + 1,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },
@@ -667,25 +736,55 @@ export default function getLoginIncentives (api) {
       rewardName: 'threeOfEachFood',
       assignReward: function assignReward (user) {
         if (!user.items.food.Meat) user.items.food.Meat = 0;
-        user.items.food.Meat += 3;
+        user.items.food = {
+          ...user.items.food,
+          Meat: user.items.food.Meat + 3,
+        };
         if (!user.items.food.CottonCandyBlue) user.items.food.CottonCandyBlue = 0;
-        user.items.food.CottonCandyBlue += 3;
+        user.items.food = {
+          ...user.items.food,
+          CottonCandyBlue: user.items.food.CottonCandyBlue + 3,
+        };
         if (!user.items.food.CottonCandyPink) user.items.food.CottonCandyPink = 0;
-        user.items.food.CottonCandyPink += 3;
+        user.items.food = {
+          ...user.items.food,
+          CottonCandyPink: user.items.food.CottonCandyPink + 3,
+        };
         if (!user.items.food.Potatoe) user.items.food.Potatoe = 0;
-        user.items.food.Potatoe += 3;
+        user.items.food = {
+          ...user.items.food,
+          Potatoe: user.items.food.Potatoe + 3,
+        };
         if (!user.items.food.Honey) user.items.food.Honey = 0;
-        user.items.food.Honey += 3;
+        user.items.food = {
+          ...user.items.food,
+          Honey: user.items.food.Honey + 3,
+        };
         if (!user.items.food.Strawberry) user.items.food.Strawberry = 0;
-        user.items.food.Strawberry += 3;
+        user.items.food = {
+          ...user.items.food,
+          Strawberry: user.items.food.Strawberry + 3,
+        };
         if (!user.items.food.Chocolate) user.items.food.Chocolate = 0;
-        user.items.food.Chocolate += 3;
+        user.items.food = {
+          ...user.items.food,
+          Chocolate: user.items.food.Chocolate + 3,
+        };
         if (!user.items.food.Fish) user.items.food.Fish = 0;
-        user.items.food.Fish += 3;
+        user.items.food = {
+          ...user.items.food,
+          Fish: user.items.food.Fish + 3,
+        };
         if (!user.items.food.Milk) user.items.food.Milk = 0;
-        user.items.food.Milk += 3;
+        user.items.food = {
+          ...user.items.food,
+          Milk: user.items.food.Milk + 3,
+        };
         if (!user.items.food.RottenMeat) user.items.food.RottenMeat = 0;
-        user.items.food.RottenMeat += 3;
+        user.items.food = {
+          ...user.items.food,
+          RottenMeat: user.items.food.RottenMeat + 3,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },
@@ -777,7 +876,10 @@ export default function getLoginIncentives (api) {
       rewardName: 'twoSaddles',
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
-        user.items.food.Saddle += 2;
+        user.items.food = {
+          ...user.items.food,
+          Saddle: user.items.food.Saddle + 2,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },
@@ -847,25 +949,55 @@ export default function getLoginIncentives (api) {
       rewardName: 'fourOfEachFood',
       assignReward: function assignReward (user) {
         if (!user.items.food.Meat) user.items.food.Meat = 0;
-        user.items.food.Meat += 4;
+        user.items.food = {
+          ...user.items.food,
+          Meat: user.items.food.Meat + 4,
+        };
         if (!user.items.food.CottonCandyBlue) user.items.food.CottonCandyBlue = 0;
-        user.items.food.CottonCandyBlue += 4;
+        user.items.food = {
+          ...user.items.food,
+          CottonCandyBlue: user.items.food.CottonCandyBlue + 4,
+        };
         if (!user.items.food.CottonCandyPink) user.items.food.CottonCandyPink = 0;
-        user.items.food.CottonCandyPink += 4;
+        user.items.food = {
+          ...user.items.food,
+          CottonCandyPink: user.items.food.CottonCandyPink + 4,
+        };
         if (!user.items.food.Potatoe) user.items.food.Potatoe = 0;
-        user.items.food.Potatoe += 4;
+        user.items.food = {
+          ...user.items.food,
+          Potatoe: user.items.food.Potatoe + 4,
+        };
         if (!user.items.food.Honey) user.items.food.Honey = 0;
-        user.items.food.Honey += 4;
+        user.items.food = {
+          ...user.items.food,
+          Honey: user.items.food.Honey + 4,
+        };
         if (!user.items.food.Strawberry) user.items.food.Strawberry = 0;
-        user.items.food.Strawberry += 4;
+        user.items.food = {
+          ...user.items.food,
+          Strawberry: user.items.food.Strawberry + 4,
+        };
         if (!user.items.food.Chocolate) user.items.food.Chocolate = 0;
-        user.items.food.Chocolate += 4;
+        user.items.food = {
+          ...user.items.food,
+          Chocolate: user.items.food.Chocolate + 4,
+        };
         if (!user.items.food.Fish) user.items.food.Fish = 0;
-        user.items.food.Fish += 4;
+        user.items.food = {
+          ...user.items.food,
+          Fish: user.items.food.Fish + 4,
+        };
         if (!user.items.food.Milk) user.items.food.Milk = 0;
-        user.items.food.Milk += 4;
+        user.items.food = {
+          ...user.items.food,
+          Milk: user.items.food.Milk + 4,
+        };
         if (!user.items.food.RottenMeat) user.items.food.RottenMeat = 0;
-        user.items.food.RottenMeat += 4;
+        user.items.food = {
+          ...user.items.food,
+          RottenMeat: user.items.food.RottenMeat + 4,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },
@@ -875,7 +1007,10 @@ export default function getLoginIncentives (api) {
       rewardName: 'threeSaddles',
       assignReward: function assignReward (user) {
         if (!user.items.food.Saddle) user.items.food.Saddle = 0;
-        user.items.food.Saddle += 3;
+        user.items.food = {
+          ...user.items.food,
+          Saddle: user.items.food.Saddle + 3,
+        };
         if (user.markModified) user.markModified('items.food');
       },
     },

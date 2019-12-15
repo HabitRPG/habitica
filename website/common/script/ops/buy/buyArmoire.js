@@ -129,8 +129,13 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
       canDrop: true,
     }));
 
-    user.items.food[drop.key] = user.items.food[drop.key] || 0;
-    user.items.food[drop.key] += 1;
+    user.items.food = {
+      ...user.items.food,
+      [drop.key]: user.items.food[drop.key] || 0,
+    };
+    user.items.food = {
+      [drop.key]: drop.key + 1,
+    };
     if (user.markModified) user.markModified('items.food');
 
     if (this.analytics) {
