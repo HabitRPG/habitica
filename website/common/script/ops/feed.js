@@ -17,6 +17,7 @@ function evolve (user, pet, req) {
     ...user.items.pets,
     [pet.key]: -1,
   };
+
   user.items.mounts = {
     ...user.items.mounts,
     [pet.key]: true,
@@ -52,9 +53,8 @@ export default function feed (user, req = {}) {
     throw new NotFound(errorMessage('invalidFoodName', req.language));
   }
 
-  const userPets = user.items.pets;
 
-  if (!userPets[pet.key]) {
+  if (!user.items.pets[pet.key]) {
     throw new NotFound(i18n.t('messagePetNotFound', req.language));
   }
 
@@ -81,16 +81,16 @@ export default function feed (user, req = {}) {
     };
 
     if (food.target === pet.potion || pet.type === 'premium') {
-      userPets[pet.key] += 5;
+      user.items.pets[pet.key] += 5;
       message = i18n.t('messageLikesFood', messageParams, req.language);
     } else {
-      userPets[pet.key] += 2;
+      user.items.pets[pet.key] += 2;
       message = i18n.t('messageDontEnjoyFood', messageParams, req.language);
     }
 
     if (user.markModified) user.markModified('items.pets');
 
-    if (userPets[pet.key] >= 50 && !user.items.mounts[pet.key]) {
+    if (user.items.pets[pet.key] >= 50 && !user.items.mounts[pet.key]) {
       message = evolve(user, pet, req);
     }
   }
@@ -116,7 +116,7 @@ export default function feed (user, req = {}) {
   });
 
   return [
-    userPets[pet.key],
+    user.items.pets[pet.key],
     message,
   ];
 }
