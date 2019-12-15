@@ -55,7 +55,10 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
     }
 
     if (type === 'mounts') {
-      user.items.mounts[key] = true;
+      user.items.mounts = {
+        ...user.items.mounts,
+        [key]: true,
+      };
       if (user.markModified) user.markModified('items.mounts');
     }
   }

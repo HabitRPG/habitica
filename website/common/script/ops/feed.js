@@ -17,8 +17,10 @@ function evolve (user, pet, req) {
     ...user.items.pets,
     [pet.key]: -1,
   };
-  user.items.mounts[pet.key] = true;
-
+  user.items.mounts = {
+    ...user.items.mounts,
+    [pet.key]: true,
+  };
   if (user.markModified) {
     user.markModified('items.pets');
     user.markModified('items.mounts');

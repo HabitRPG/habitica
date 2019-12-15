@@ -64,7 +64,10 @@ export default function releaseBoth (user, req = {}) {
       ...user.items.pets,
       [animal]: 0,
     };
-    user.items.mounts[animal] = null;
+    user.items.mounts = {
+      ...user.items.mounts,
+      [animal]: null,
+    };
   }
 
   if (user.markModified) {
