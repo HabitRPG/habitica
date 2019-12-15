@@ -79,7 +79,10 @@ export default function getLoginIncentives (api) {
       reward: [api.quests.moon1],
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon1) user.items.quests.moon1 = 0;
-        user.items.quests.moon1 += 1;
+        user.items.quests = {
+          ...user.items.quests,
+          moon1: user.items.quests.moon1 + 1,
+        };
         if (user.markModified) user.markModified('items.quests');
       },
     },
@@ -133,7 +136,10 @@ export default function getLoginIncentives (api) {
       reward: [api.quests.moon2],
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon2) user.items.quests.moon2 = 0;
-        user.items.quests.moon2 += 1;
+        user.items.quests = {
+          ...user.items.quests,
+          moon2: user.items.quests.moon2 + 1,
+        };
         if (user.markModified) user.markModified('items.quests');
       },
     },
@@ -193,7 +199,10 @@ export default function getLoginIncentives (api) {
       reward: [api.quests.moon3],
       assignReward: function assignReward (user) {
         if (!user.items.quests.moon3) user.items.quests.moon3 = 0;
-        user.items.quests.moon3 += 1;
+        user.items.quests = {
+          ...user.items.quests,
+          moon3: user.items.quests.moon3 + 1,
+        };
         if (user.markModified) user.markModified('items.quests');
       },
     },

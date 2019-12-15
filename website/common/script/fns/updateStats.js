@@ -95,7 +95,10 @@ export default function updateStats (user, stats, req = {}, analytics) {
       if (user.markModified) user.markModified('flags.levelDrops');
 
       if (!user.items.quests[k]) user.items.quests[k] = 0;
-      user.items.quests[k] += 1;
+      user.items.quests = {
+        ...user.items.quests,
+        [k]: user.items.quests[k] + 1,
+      };
       if (user.markModified) user.markModified('items.quests');
 
       if (analytics) {
