@@ -40,9 +40,9 @@ async function updateUser (user) {
   }
 
   const hasGear = Object.keys(user.items.gear.owned).find(gearKey => {
-    const gear = user.items.pets[gearKey];
+    const gear = user.items.gear.owned[gearKey];
 
-    if (gear === true) return true;
+    if (gear === true && gearKey.indexOf('_special_') === -1) return true;
     return false;
   });
 
@@ -86,7 +86,7 @@ module.exports = async function processUsers () { // eslint-disable-line import/
   while (true) { // eslint-disable-line no-constant-condition
     const users = await User // eslint-disable-line no-await-in-loop
       .find(query)
-      .limit(250)
+      .limit(100)
       .sort({ _id: 1 })
       .select(fields)
       .lean()
