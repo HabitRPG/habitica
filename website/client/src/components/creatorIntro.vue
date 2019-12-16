@@ -6,9 +6,15 @@
     :hide-header="true"
     :hide-footer="true"
     :modal-class="{'page-2':modalPage > 1 && !editing}"
-    :no-close-on-esc="true"
-    :no-close-on-backdrop="true"
+    :no-close-on-esc="!editing"
+    :no-close-on-backdrop="!editing"
   >
+    <span
+      v-if="editing"
+      class="close-icon svg-icon inline icon-10"
+      @click="close()"
+      v-html="icons.close"
+    ></span>
     <div
       v-if="modalPage === 1 && !editing"
       class="section row welcome-section"
@@ -1101,6 +1107,7 @@ import gold from '@/assets/svg/gold.svg';
 import pin from '@/assets/svg/pin.svg';
 import arrowRight from '@/assets/svg/arrow_right.svg';
 import arrowLeft from '@/assets/svg/arrow_left.svg';
+import svgClose from '@/assets/svg/close.svg';
 import isPinned from '@/../../common/script/libs/isPinned';
 import { avatarEditorUtilies } from '../mixins/avatarEditUtilities';
 
@@ -1140,6 +1147,7 @@ export default {
         gold,
         arrowRight,
         arrowLeft,
+        close: svgClose,
       }),
       modalPage: 1,
       activeTopPage: 'body',
@@ -1160,8 +1168,6 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-
-
     editing () {
       return this.$store.state.avatarEditorOptions.editingUser;
     },
@@ -1230,6 +1236,9 @@ export default {
     this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
   },
   methods: {
+    close () {
+      this.$root.$emit('bv::hide::modal', 'avatar-modal');
+    },
     purchase (type, key) {
       this.$store.dispatch('shops:purchase', {
         type,
