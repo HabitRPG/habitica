@@ -59,6 +59,10 @@ async function updateUser (user) {
 
   if (hasTask) {
     set['achievements.createdTask'] = true;
+  }
+
+  const hasExperience = user.stats && user.stats.exp && user.stats.exp > 0;
+  if (hasTask && hasExperience) {
     set['achievements.completedTask'] = true;
   }
 
@@ -73,6 +77,7 @@ module.exports = async function processUsers () { // eslint-disable-line import/
 
   const fields = {
     _id: 1,
+    stats: 1,
     items: 1,
     achievements: 1,
     tasksOrder: 1,
