@@ -14,7 +14,7 @@ describe('onboarding', () => {
     user = generateUser();
     user.addNotification = sinon.spy();
     // Make sure the onboarding is active
-    user.auth.timestamps.created = moment('2019-12-11').toDate();
+    user.auth.timestamps.created = moment('2019-12-20').toDate();
   });
 
   describe('hasActiveOnboarding', () => {

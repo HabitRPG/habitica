@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-const BEGIN_DATE = moment('2019-12-10');
+const BEGIN_DATE = moment('2019-12-18');
 
 // Only users that signed up after the BEGIN DATE should see the onboarding
 export function hasActiveOnboarding (user) {
