@@ -5,7 +5,7 @@
 
 import { model as User } from '../../website/server/models/user';
 
-const MIGRATION_NAME = '20191125_onboarding_achievements';
+const MIGRATION_NAME = '20191218_onboarding_achievements';
 
 const progressCount = 1000;
 let count = 0;
@@ -59,9 +59,8 @@ async function updateUser (user) {
 
   if (hasTask) {
     set['achievements.createdTask'] = true;
+    set['achievements.completedTask'] = true;
   }
-
-  // TODO completedTask
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
   return User.update({ _id: user._id }, { $set: set }).exec();
