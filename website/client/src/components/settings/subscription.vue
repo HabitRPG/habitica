@@ -1,6 +1,20 @@
 <template>
-  <div class="standard-page">
-    <div class="row">
+  <div class="standard-page pt-0 px-0">
+    <div class="banner-g1g1 mx-n3 d-flex justify-content-center">
+      <div
+        class="svg-icon svg-gifts gifts-left my-auto mr-5 ml-auto"
+        v-html="icons.giftsVertical">
+      </div>
+      <div class="my-auto text-center">
+        <strong> {{ $t('g1g1Announcement') }} </strong>
+        <div class="mt-1"> {{ $t('g1g1Details') }} </div>
+      </div>
+      <div
+        class="svg-icon svg-gifts gifts-right my-auto ml-5 mr-auto"
+        v-html="icons.giftsVertical">
+      </div>
+    </div>
+    <div class="row mt-3">
       <div class="block-header mx-auto">
         {{ $t('support') }}
       </div>
@@ -73,29 +87,55 @@
       </div>
       <div class="flex-spacer"></div>
       <div>
-        <div class="subscribe-card">
-          <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-          <div
-            v-for="block in subscriptionBlocksOrdered"
-            v-if="block.target !== 'group' && block.canSubscribe === true"
-            :key="block.key"
-          >
-          <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-            <span
-              v-if="block.original"
-              class="label label-success line-through">
-              ${{ block.original }}
-            </span>
-            <span
-              v-html="$t('subscriptionRateText', {price: block.price, months: block.months})">
-            </span>
+        <div class="subscribe-card d-flex flex-column">
+          <div>
+            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+            <div
+              v-for="block in subscriptionBlocksOrdered"
+              v-if="block.target !== 'group' && block.canSubscribe === true"
+              :key="block.key"
+            >
+            <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+              <span
+                v-html="$t('subscriptionRateText', {price: block.price, months: block.months})">
+              </span>
+            </div>
+          </div>
+          <div class="payments-column mx-auto mt-auto mb-3">
+            <button
+              class="purchase btn btn-primary payment-button payment-item"
+              :disabled="!subscription.key"
+              @click="showStripe({subscription:subscription.key, coupon:subscription.coupon})"
+            >
+              <div
+                class="svg-icon credit-card-icon"
+                v-html="icons.creditCardIcon"
+              ></div>
+              {{ $t('card') }}
+            </button>
+            <button
+              class="btn payment-item paypal-checkout payment-button"
+              :disabled="!subscription.key"
+              @click="openPaypal(paypalPurchaseLink, 'subscription')"
+            >
+              &nbsp;
+              <img
+                src="~@/assets/images/paypal-checkout.png"
+                :alt="$t('paypal')"
+              >&nbsp;
+            </button>
+            <amazon-button
+              class="payment-item"
+              :class="{'payments-disabled': !subscription.key}"
+              :disabled="!subscription.key"
+              :amazon-data="{
+                type: 'subscription',
+                subscription: subscription.key,
+                coupon: subscription.coupon
+              }"
+            />
           </div>
         </div>
-      </div>
-      <div class="col-6">
-        <h2 v-once> {{ $t('winterPromoGiftHeader') }} </h2>
-        <p v-once> {{ $t('winterPromoGiftDetails1') }} </p>
-        <p v-once> {{ $t('winterPromoGiftDetails2') }} </p>
       </div>
     </div>
   </div>
@@ -112,6 +152,16 @@
     max-width: 21rem;
   }
 
+  strong {
+    font-size: 16px;
+  }
+
+  .banner-g1g1 {
+    height: 5.75rem;
+    background-color: $teal-50;
+    color: $white;
+  }
+
   .block-header {
     color: $purple-200;
     letter-spacing: 0.25rem;
@@ -122,11 +172,25 @@
     width: 4rem;
   }
 
+  .gifts-right {
+    filter: flipH;
+    transform: scaleX(-1);
+  }
+
   .image-foods {
     background: url(~@/assets/images/subscriber-food.png);
     background-size: contain;
     width: 46px;
     height: 49px;
+  }
+
+  .payments-disabled {
+    opacity: 0.64;
+
+    .btn, .btn:hover, .btn:active {
+      box-shadow: none;
+      cursor: default !important;
+    }
   }
 
   .Pet-Jackalope-RoyalPurple {
@@ -140,15 +204,16 @@
     border-radius: 4px;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     background-color: $white;
-
-    .row {
-      border-bottom: 1px $gray-600;
-    }
   }
 
   .svg-gems {
     width: 42px;
     height: 52px;
+  }
+
+  .svg-gifts {
+    width: 55px;
+    height: 65px;
   }
 
   .svg-hourglasses {
@@ -175,15 +240,16 @@ import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 
-// import amazonButton from '@/components/payments/amazonButton';
+import amazonButton from '@/components/payments/amazonButton';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+import giftsVertical from '@/assets/svg/gifts-vertical.svg';
 import logo from '@/assets/svg/habitica-logo-purple.svg';
 import subscriberGems from '@/assets/svg/subscriber-gems.svg';
 import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
 
 export default {
   components: {
-    // amazonButton,
+    amazonButton,
   },
   mixins: [paymentsMixin, notificationsMixin],
   data () {
@@ -194,7 +260,7 @@ export default {
         gemLimit: planGemLimits.convRate,
       },
       subscription: {
-        key: 'basic_earned',
+        key: null,
       },
       // @TODO: Remove the need for this or move it to mixin
       amazonPayments: {},
@@ -208,6 +274,7 @@ export default {
       },
       icons: Object.freeze({
         creditCardIcon,
+        giftsVertical,
         logo,
         subscriberGems,
         subscriberHourglasses,
