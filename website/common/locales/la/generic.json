@@ -125,10 +125,10 @@
     "notifications": "Notificationes",
     "noNotifications": "Omnia perfecisti!",
     "noNotificationsText": "Divae nuntiorum valde tibi plaudunt. Optime fecisti!",
-    "clear": "Clear",
-    "endTour": "End Tour",
+    "clear": "Vaca",
+    "endTour": "Fini iter",
     "audioTheme": "Thema quod auditur",
-    "audioTheme_off": "Audire nolo.",
+    "audioTheme_off": "Audire nolo",
     "audioTheme_danielTheBard": "Bardus Daniel",
     "audioTheme_wattsTheme": "Thema Watts",
     "audioTheme_gokulTheme": "Thema Gokul",
@@ -293,5 +293,6 @@
     "contactForm": "Contact the Moderation Team",
     "options": "Optiones",
     "finish": "Finias",
-    "loadEarlierMessages": "Demonstra nuntios priores"
+    "loadEarlierMessages": "Demonstra nuntios priores",
+    "demo": "Demonstratio"
 }

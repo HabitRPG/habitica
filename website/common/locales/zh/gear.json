@@ -444,7 +444,7 @@
     "armorSpecialSneakthiefRobesNotes": "这些长袍将帮助你在深夜里隐藏你，但也会让你在悄然潜行时自由行动！增加<%= int %>点智力.",
     "armorSpecialSnowSovereignRobesText": "雪之主长袍",
     "armorSpecialSnowSovereignRobesNotes": "这些长袍很优雅，可以在法庭上穿，但在最冷的冬日里却暖和得很。增加<%= per %>点感知。",
-    "armorSpecialNomadsCuirassText": "Nomad的胸甲",
+    "armorSpecialNomadsCuirassText": "牧民的胸甲",
     "armorSpecialNomadsCuirassNotes": "这种护甲有一个坚固的护胸板来保护你的小心脏！增加 <%= con %>.点体质。",
     "armorSpecialDandySuitText": "花花公子套装",
     "armorSpecialDandySuitNotes": "你的穿着毋庸置疑地成功！增加 <%= per %>点感知。",
