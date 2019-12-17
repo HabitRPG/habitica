@@ -629,10 +629,11 @@
     "oddballsNotes": "Contains 'The Jelly Regent,' 'Escape the Cave Creature,' and 'A Tangled Yarn.' Available until December 3.",
     "birdBuddiesText": "Bird Buddies Quest Bundle",
     "birdBuddiesNotes": "Contains 'The Fowl Frost,' 'Rooster Rampage,' and 'The Push-and-Pull Peacock.' Available until December 31.",
-    "questVelociraptorText": "The Veloci-Rapper",
-    "questVelociraptorNotes": "You’re sharing honey cakes with @*~Seraphina~*, @Procyon P, and @Lilith of Alfheim by a lake in the Stoïkalm Steppes. Suddenly, a mournful voice interrupts your picnic.<br><br><em>My Habits took a hit, I missed my Dailies,<br>I’m losing it, sinking with doubt and maybes,<br>At the top of my game I used to be so fly,<br>But now I just let my Due Dates go by.</em><br><br>@*~Seraphina~* peers behind a stand of grass. “It’s the Veloci-Rapper. It seems... distraught?”<br><br>You pump a fist in determination. “There's only one thing to do. Rap battle time!”",
-    "questVelociraptorCompletion": "You burst through the grass, confronting the Veloci-Rapper.<br><br><em>See here, rapper, you’re no quitter,<br>You’re Bad Habits' hardest hitter!<br>Check off your To-Dos like a boss,<br>Don’t mourn over one day’s loss!</em><br><br>Filled with renewed confidence, it bounds off to freestyle another day, leaving behind three eggs where it sat.",
-    "questVelociraptorBoss": "Veloci-Rapper",
-    "questVelociraptorDropVelociraptorEgg": "Velociraptor (Egg)",
-    "questVelociraptorUnlockText": "Unlocks purchasable Velociraptor eggs in the Market"
+    "questVelociraptorText": "迅猛龍王",
+    "questVelociraptorNotes": "你正在和@*~Seraphina~*、@Procyon P還有@Lilith of Alfheim在Stoïkalm Steppes的湖畔享用蜂蜜蛋糕。 突然間，一陣哀傷的聲音打斷了你們的野餐。<br><br><em>我的習慣給了我重擊，我完成不了我的每日任務，<br>全都結束了，只剩下了自我懷疑和困惑。<br>在我的巔峰期時，我的效率飛快。<br>但現在我只能讓我的期限過期。</em><br><br>@*~Seraphina~*從草叢裡探頭出來看。\"那是迅猛龍王。但牠看起來......很懊惱的樣子?\"<br><br>你握緊了拳頭，充滿了決心： \"現在能做的只有一件事———Rap battle time!\"",
+    "questVelociraptorCompletion": "你從草叢跳出來，並站在迅猛龍王面前。<br><br><em>看這兒，迅猛龍王，你沒有時間休息，<br>你可是打擊壞習慣的好手阿!<br>別為一天的損失唉聲嘆氣了，<br>給我像個高手般的解決你的待辦事項!</em><br><br>對自己重新充滿了自信，牠邁著有力的步伐，迎向全新的一天，並在原地留下了三顆蛋做為謝禮。",
+    "questVelociraptorBoss": "迅猛龍王",
+    "questVelociraptorDropVelociraptorEgg": "迅猛龍 (蛋)",
+    "questVelociraptorUnlockText": "解鎖迅猛龍蛋購買功能",
+    "mythicalMarvelsText": "\"神話傳說\"系列任務"
 }

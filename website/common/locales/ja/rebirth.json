@@ -21,9 +21,10 @@
     "rebirthOrb": "レベル<%= level %>に到達した後で、「転生のオーブ」を使って再スタートしました。",
     "rebirthOrb100": "レベル100以上に到達したので「転生のオーブ」を使って再スタートしました。",
     "rebirthOrbNoLevel": "「転生のオーブ」を使って再スタートしました。",
-    "rebirthPop": "あなたのキャラクターを「即座に」レベル１から再スタートさせます。実績と収集したアイテム、装備は失われません。タスクとその履歴は残りますが、黄色にリセットされます。あなたのゴールド、経験値、マナ、スキルの効果はなくなります。【警告】この効果は購入ボタンを押すとすぐに発動します！　詳しくは、Wikiで <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>転生のオーブ</a>の 記事をご覧ください。",
+    "rebirthPop": "実績、収集したアイテムやペット、装備などは保持したまま、あなたのキャラクターを今すぐにレベル１の戦士から再スタートさせます。タスクとその履歴は残りますが、黄色にリセットされます。チャレンジとグループプランの活動に属するタスク以外は、連続実行回数がなくなります。あなたのゴールド、経験値、マナ、スキルの効果はなくなります。このすべてがすぐに実施されます。詳しくは、Wikiの<a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth（転生のオーブ）</a>のページをご覧ください。",
     "rebirthName": "転生のオーブ",
     "reborn": "転生しました、最大レベル<%= reLevel %>",
     "confirmReborn": "本当によろしいですか？",
-    "rebirthComplete": "復活しました!"
+    "rebirthComplete": "復活しました!",
+    "nextFreeRebirth": "転生のオーブが<strong>無料</strong>になるまで残り<strong><%= days %> 日</strong>"
 }

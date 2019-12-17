@@ -126,5 +126,8 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
     "rageAttack": "Rage Attack:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "rageStrikes": "Rage Strikes",
+    "chatItemQuestFinish": "Všechny položky byly nalezeny! Družina získala své odměny.",
+    "questInvitationNotificationInfo": "Byli jste pozváni, abyste se připojili k výpravě",
+    "hatchingPotionQuests": "Výpravy pro kouzelný lektvar"
 }
