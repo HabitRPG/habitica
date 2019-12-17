@@ -64,6 +64,30 @@
               ></span>
             </div>
           </div>
+          <div
+            class="g1g1-banner d-flex justify-content-center align-items-center"
+            v-if="!giftingHidden">
+            <div
+              class="svg-icon svg-gifts left-gift"
+              v-html="icons.gifts">
+            </div>
+            <router-link class="g1g1-link" to="/user/settings/subscription">
+               {{ $t('g1g1Announcement') }}
+            </router-link>
+            <div
+              class="svg-icon svg-gifts right-gift"
+              v-html="icons.gifts">
+            </div>
+            <div
+              class="closepadding"
+              @click="hideGiftingBanner()">
+              <span
+                class="svg-icon inline-icon icon-10"
+                aria-hidden="true"
+                v-html="icons.close">
+              </span>
+            </div>
+          </div>
           <notifications-display />
           <app-menu />
           <div class="container-fluid">
@@ -135,8 +159,41 @@
     cursor: crosshair;
   }
 
+  .closepadding {
+    margin: 11px 24px;
+    display: inline-block;
+    position: relative;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+
   .container-fluid {
     flex: 1 0 auto;
+  }
+
+  .g1g1-banner {
+    width: 100%;
+    min-height: 2.5rem;
+    background-color: $teal-50;
+  }
+
+  .g1g1-link {
+    color: $white;
+  }
+
+  .left-gift {
+    margin: auto 1rem auto auto;
+  }
+
+  .right-gift {
+    margin: auto auto auto 1rem;
+    filter: flipH;
+    transform: scaleX(-1);
+  }
+
+  .svg-gifts {
+    width: 4.6rem;
   }
 
   .notification {
@@ -163,15 +220,6 @@
       color: $white;
       padding: 8px 38px 8px 8px;
       margin: auto;
-    }
-
-    .closepadding {
-      margin: 11px 24px;
-      display: inline-block;
-      position: relative;
-      right: 0;
-      top: 0;
-      cursor: pointer;
     }
 
     @media only screen and (max-width: 768px) {
@@ -239,8 +287,14 @@ import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
 import subCanceledModal from '@/components/payments/canceledModal';
 
 import spellsMixin from '@/mixins/spells';
-import { CONSTANTS, getLocalSetting, removeLocalSetting } from '@/libs/userlocalManager';
+import {
+  CONSTANTS,
+  getLocalSetting,
+  removeLocalSetting,
+  setLocalSetting,
+} from '@/libs/userlocalManager';
 
+import gifts from '@/assets/svg/gifts.svg';
 import svgClose from '@/assets/svg/close.svg';
 import bannedAccountModal from '@/components/bannedAccountModal';
 
@@ -267,6 +321,7 @@ export default {
     return {
       icons: Object.freeze({
         close: svgClose,
+        gifts,
       }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
@@ -277,6 +332,7 @@ export default {
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
+      giftingHidden: getLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY) === 'dismissed',
     };
   },
   computed: {
@@ -669,6 +725,10 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
+    },
+    hideGiftingBanner () {
+      setLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY, 'dismissed');
+      this.giftingHidden = true;
     },
     resumeDamage () {
       this.$store.dispatch('user:sleep');

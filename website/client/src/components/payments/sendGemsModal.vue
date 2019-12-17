@@ -76,7 +76,7 @@
         </h3>
         <div class="panel-body">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
               <div class="form-group">
                 <!-- eslint-disable vue/no-use-v-if-with-v-for -->
                 <div
@@ -97,6 +97,11 @@
                   </label>
                 </div>
               </div>
+            </div>
+            <div class="col-md-8">
+              <h4 v-once> {{ $t('winterPromoGiftHeader') }} </h4>
+              <p v-once> {{ $t('winterPromoGiftDetails1') }} </p>
+              <p v-once> {{ $t('winterPromoGiftDetails2') }} </p>
             </div>
           </div>
         </div>
