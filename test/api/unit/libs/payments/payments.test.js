@@ -211,7 +211,7 @@ describe('payments/index', () => {
         await api.createSubscription(data);
         const msg = '`Hello recipient, sender has sent you 3 months of subscription!`';
 
-        expect(user.sendMessage).to.be.calledOnce;
+        expect(user.sendMessage).to.be.calledTwice;
         expect(user.sendMessage).to.be.calledWith(
           recipient,
           { receiverMsg: msg, senderMsg: msg, save: false },
