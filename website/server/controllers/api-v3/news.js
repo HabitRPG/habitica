@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
+const LAST_ANNOUNCEMENT_TITLE = 'GIFT ONE, GET ONE PROMOTION! AND BLOG POST ON RUNNING CHALLENGES';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,23 +31,46 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>12/10/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>12/17/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_achievement_white center-block"></div>
+        <div class="promo_g1g1_2019 center-block"></div>
+        <h3>Gift a Subscription and Get One Free!</h3>
         <p>
-          We're releasing a new achievement so you can celebrate your successes in the world of
-          Habitican pet collecting! Earn the Primed for Painting and Pearly Pro achievements by
-          collecting White pets and mounts and you'll earn a nifty badge for your profile.
+          In honor of the season of giving--and due to popular demand!--we're bringing back a very
+          special promotion from now until January 6. Now when you gift somebody a subscription,
+          you get the same subscription for yourself for free!
         </p>
         <p>
-          If you already have all the White pets and/or mounts in your stable, you'll receive the
-          badge automatically! Check your profile and celebrate your new achievement with pride.
+          Subscribers get tons of perks every month, including exclusive equipment, the ability to
+          buy Gems with Gold, a special Jackalope Pet, and increased data history. Plus, it helps
+          keep Habitica running :)
         </p>
-        <div class="small mb-3">
-          by Piyowo and SabreCat
-        </div>
+        <p>
+          To gift a subscription to someone on our mobile apps, just go to Menu and tap the Gift
+          One Get One banner. On web, just open their profile and click the present icon in the
+          upper right. You can open their profile by clicking their avatar in your party header or
+          their name in chat.
+        </p>
+        <p>
+          Please note that this promotion only applies when you gift to another Habitican. If you
+          or your gift recipient already have a recurring subscription, the gifted subscription
+          will only start after that subscription is cancelled or has expired.
+        </p>
+        <p>Thanks so much for your support! <3</p>
+        <div class="scene_todos center-block"></div>
+        <h3>Blog Post: Running a Challenge</h3>
+        <p>
+          This month's <a href="https://habitica.wordpress.com/2019/12/11/running-a-challenge/"
+          target="_blank">featured Wiki article</a> is about Running a Challenge! We hope that it
+          will help you as look for exciting ways to motivate yourself and others. Be sure to check
+          it out, and let us know what you think by reaching out on <a
+          href="https://twitter.com/habitica" target="_blank">Twitter</a>, <a
+          href="http://blog.habitrpg.com" target="_blank">Tumblr</a>, and <a
+          href='https://facebook.com/habitica' target="_blank">Facebook</a>.
+        </p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
