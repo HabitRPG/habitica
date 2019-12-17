@@ -227,7 +227,10 @@
     "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
     "subscriptionAlreadySubscribed1": "To see your subscription details and cancel, renew, or change your subscription, please go to <a href='/user/settings/subscription'>User icon &gt; Settings &gt; Subscription</a>.",
     "purchaseAll": "Purchase Set",
-    "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
-    "gemsRemaining": "gems remaining",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "gemsPurchaseNote": "Subscribers can buy Gems for Gold in the Market! For easy access, you can also pin the Gem to your Rewards column.",
+    "gemsRemaining": "Gems remaining",
+    "notEnoughGemsToBuy": "You are unable to buy that amount of Gems",
+    "subscribersReceiveBenefits": "Subscribers receive these useful benefits!",
+    "monthlyMysteryItems": "Monthly Mystery Items",
+    "doubleDropCap": "Double the Drops"
 }
