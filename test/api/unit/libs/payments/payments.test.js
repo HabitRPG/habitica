@@ -253,7 +253,7 @@ describe('payments/index', () => {
         });
       });
 
-      context('Winter 2018-19 Gift-1-Get-1 Promotion', async () => {
+      context('Winter 2019-20 Gift-1-Get-1 Promotion', async () => {
         it('creates a gift subscription for purchaser and recipient if none exist', async () => {
           await api.createSubscription(data);
 
