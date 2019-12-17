@@ -182,7 +182,7 @@ function sendSubscriptionNotification ({
   let text;
   const timestamp = new Date();
   if (recipient.id) {
-    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} using ${paymentMethod} on ${timestamp}`;
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} and got a promo using ${paymentMethod} on ${timestamp}`;
   } else if (groupId) {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a 1-month recurring group-plan for ${groupId} using ${paymentMethod} on ${timestamp}`;
   } else {

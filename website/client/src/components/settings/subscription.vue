@@ -92,6 +92,11 @@
           </div>
         </div>
       </div>
+      <div class="col-6">
+        <h2 v-once> {{ $t('winterPromoGiftHeader') }} </h2>
+        <p v-once> {{ $t('winterPromoGiftDetails1') }} </p>
+        <p v-once> {{ $t('winterPromoGiftDetails2') }} </p>
+      </div>
     </div>
   </div>
 </template>
