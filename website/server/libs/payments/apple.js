@@ -198,8 +198,8 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
 
   for (const purchaseData of purchaseDataList) {
     if (purchaseData.productId === sku) {
-      const transactionId = purchaseData.transactionId;
-      const existingReceipt = await IapPurchaseReceipt.findOne({
+      const { transactionId } = purchaseData;
+      const existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
         _id: transactionId,
       }).exec();
       if (existingReceipt) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
@@ -219,13 +219,14 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
       };
 
       if (gift) {
-        gift.member = await User.findById(gift.uuid).exec();
+        gift.member = await User.findById(gift.uuid).exec(); // eslint-disable-line no-await-in-loop
         gift.subscription = sub;
         data.gift = gift;
         data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
       }
 
-      await payments.createSubscription(data);
+      await payments.createSubscription(data); // eslint-disable-line no-await-in-loop
+      correctReceipt = true;
       break;
     }
   }
