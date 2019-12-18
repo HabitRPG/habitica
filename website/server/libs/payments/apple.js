@@ -196,15 +196,16 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
 
   let correctReceipt = false;
 
+  /* eslint-disable no-await-in-loop */
   for (const purchaseData of purchaseDataList) {
     if (purchaseData.productId === sku) {
       const { transactionId } = purchaseData;
-      const existingReceipt = await IapPurchaseReceipt.findOne({ // eslint-disable-line no-await-in-loop
+      const existingReceipt = await IapPurchaseReceipt.findOne({
         _id: transactionId,
       }).exec();
       if (existingReceipt) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
 
-      await IapPurchaseReceipt.create({ // eslint-disable-line no-await-in-loop
+      await IapPurchaseReceipt.create({
         _id: transactionId,
         consumed: true,
         // This should always be the buying user even for a gift.
@@ -219,13 +220,13 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
       };
 
       if (gift) {
-        gift.member = await User.findById(gift.uuid).exec(); // eslint-disable-line no-await-in-loop
+        gift.member = await User.findById(gift.uuid).exec();
         gift.subscription = sub;
         data.gift = gift;
         data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
       }
 
-      await payments.createSubscription(data); // eslint-disable-line no-await-in-loop
+      await payments.createSubscription(data);
       correctReceipt = true;
       break;
     }
@@ -234,6 +235,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
 
   return appleRes;
 };
+/* eslint-enable no-await-in-loop */
 
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   const { plan } = user.purchased;
