@@ -104,6 +104,7 @@
           <div class="payments-column mx-auto mt-auto mb-3">
             <button
               class="purchase btn btn-primary payment-button payment-item"
+              :class="{disabled: !subscription.key}"
               :disabled="!subscription.key"
               @click="showStripe({subscription:subscription.key, coupon:subscription.coupon})"
             >
@@ -115,6 +116,7 @@
             </button>
             <button
               class="btn payment-item paypal-checkout payment-button"
+              :class="{disabled: !subscription.key}"
               :disabled="!subscription.key"
               @click="openPaypal(paypalPurchaseLink, 'subscription')"
             >
@@ -126,7 +128,7 @@
             </button>
             <amazon-button
               class="payment-item"
-              :class="{'payments-disabled': !subscription.key}"
+              :class="{disabled: !subscription.key}"
               :disabled="!subscription.key"
               :amazon-data="{
                 type: 'subscription',
@@ -140,6 +142,12 @@
     </div>
   </div>
 </template>
+
+<style lang="scss">
+  .disabled > #OffAmazonPaymentsWidgets0 {
+    cursor: default !important;
+  }
+</style>
 
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
@@ -184,7 +192,7 @@
     height: 49px;
   }
 
-  .payments-disabled {
+  .disabled {
     opacity: 0.64;
 
     .btn, .btn:hover, .btn:active {
