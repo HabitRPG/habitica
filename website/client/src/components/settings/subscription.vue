@@ -144,7 +144,7 @@
 </template>
 
 <style lang="scss">
-  .disabled > #OffAmazonPaymentsWidgets0 {
+  .disabled > .amazonpay-button-inner-image {
     cursor: default !important;
   }
 </style>
