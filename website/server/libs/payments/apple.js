@@ -194,47 +194,44 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
     throw new NotAuthorized(api.constants.RESPONSE_NO_ITEM_PURCHASED);
   }
 
-  let transactionId;
+  let correctReceipt = false;
 
   for (const purchaseData of purchaseDataList) {
-    const dateTerminated = new Date(Number(purchaseData.expirationDate));
-    if (purchaseData.productId === sku && dateTerminated > new Date()) {
-      transactionId = purchaseData.transactionId;
+    if (purchaseData.productId === sku) {
+      const transactionId = purchaseData.transactionId;
+      const existingReceipt = await IapPurchaseReceipt.findOne({
+        _id: transactionId,
+      }).exec();
+      if (existingReceipt) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
+
+      await IapPurchaseReceipt.create({ // eslint-disable-line no-await-in-loop
+        _id: transactionId,
+        consumed: true,
+        // This should always be the buying user even for a gift.
+        userId: user._id,
+      });
+      const data = {
+        user,
+        paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
+        headers,
+        sub,
+        autoRenews: false,
+      };
+
+      if (gift) {
+        gift.member = await User.findById(gift.uuid).exec();
+        gift.subscription = sub;
+        data.gift = gift;
+        data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
+      }
+
+      await payments.createSubscription(data);
       break;
     }
   }
+  if (!correctReceipt) throw new NotAuthorized(api.constants.RESPONSE_INVALID_ITEM);
 
-  if (transactionId) {
-    const existingReceipt = await IapPurchaseReceipt.findOne({
-      _id: transactionId,
-    }).exec();
-    if (existingReceipt) throw new NotAuthorized(this.constants.RESPONSE_ALREADY_USED);
-
-    await IapPurchaseReceipt.create({ // eslint-disable-line no-await-in-loop
-      _id: transactionId,
-      consumed: true,
-      // This should always be the buying user even for a gift.
-      userId: user._id,
-    });
-    const data = {
-      user,
-      paymentMethod: this.constants.PAYMENT_METHOD_APPLE,
-      headers,
-      sub,
-      autoRenews: false,
-    };
-
-    if (gift) {
-      gift.member = await User.findById(gift.uuid).exec();
-      gift.subscription = sub;
-      data.gift = gift;
-      data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
-    }
-
-    await payments.createSubscription(data);
-  } else {
-    throw new NotAuthorized(api.constants.RESPONSE_INVALID_RECEIPT);
-  }
+  return appleRes;
 };
 
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
