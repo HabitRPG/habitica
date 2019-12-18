@@ -653,7 +653,7 @@ export default {
         return;
       }
 
-      // @TODO: implement langauge and invite accepting
+      // @TODO: implement language and invite accepting
       // var url = ApiUrl.get() + "/api/v4/user/auth/local/register";
       // if (location.search && location.search.indexOf('Invite=') !== -1)
       // { // matches groupInvite and partyInvite
