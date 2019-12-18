@@ -2,6 +2,7 @@
   <perfect-scrollbar
     ref="container"
     class="container-fluid"
+    :class="{'disable-perfect-scroll': disablePerfectScroll}"
     :options="psOptions"
   >
     <div class="row loadmore">
@@ -81,6 +82,10 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   @import '~vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css';
+
+  .disable-perfect-scroll {
+    overflow-y: inherit !important;
+  }
 
   .avatar {
     width: 15%;
@@ -224,13 +229,21 @@ export default {
       loading: false,
       handleScrollBack: false,
       lastOffset: -1,
+      disablePerfectScroll: false,
     };
   },
   mounted () {
     this.loadProfileCache();
+
+    this.$el.addEventListener('selectstart', () => this.handleSelectStart());
+    this.$el.addEventListener('mouseup', () => this.handleSelectChange());
   },
   created () {
     window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy () {
+    this.$el.removeEventListener('selectstart', () => this.handleSelectStart());
+    this.$el.removeEventListener('mouseup', () => this.handleSelectChange());
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
@@ -375,6 +388,12 @@ export default {
     }, 50),
     messageRemoved (message) {
       this.$emit('message-removed', message);
+    },
+    handleSelectStart () {
+      this.disablePerfectScroll = true;
+    },
+    handleSelectChange () {
+      this.disablePerfectScroll = false;
     },
   },
 };
