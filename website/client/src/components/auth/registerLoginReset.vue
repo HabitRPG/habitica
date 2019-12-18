@@ -6,8 +6,7 @@
     <form
       v-if="!forgotPassword && !resetPasswordSetNewOne"
       id="login-form"
-      @submit.prevent="handleSubmit"
-      @keyup.enter="handleSubmit"
+      @submit.prevent.stop="handleSubmit"
     >
       <div class="text-center">
         <div>
@@ -69,7 +68,7 @@
         <input
           id="usernameInput"
           v-model="username"
-          class="form-control"
+          class="form-control input-with-error"
           type="text"
           :placeholder="$t('usernamePlaceholder')"
           :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
@@ -132,7 +131,17 @@
           class="form-control"
           type="password"
           :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
+          :class="{
+            'input-invalid input-with-error': registering && passwordInvalid,
+            'input-valid': registering && passwordValid
+          }"
         >
+        <div
+          v-if="passwordInvalid && registering"
+          class="input-error"
+        >
+          {{ $t('minPasswordLength') }}
+        </div>
       </div>
       <div
         v-if="registering"
@@ -145,11 +154,17 @@
         <input
           id="confirmPasswordInput"
           v-model="passwordConfirm"
-          class="form-control"
+          class="form-control input-with-error"
           type="password"
           :placeholder="$t('confirmPasswordPlaceholder')"
           :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
         >
+        <div
+          v-if="passwordConfirmInvalid"
+          class="input-error"
+        >
+          {{ $t('passwordConfirmationMatch') }}
+        </div>
         <small
           v-once
           class="form-text"
@@ -157,22 +172,22 @@
         ></small>
       </div>
       <div class="text-center">
-        <div
+        <button
           v-if="registering"
-          v-once
+          type="submit"
           class="btn btn-info"
-          @click="register()"
+          :disabled="signupFormInvalid"
         >
           {{ $t('joinHabitica') }}
-        </div>
-        <div
+        </button>
+        <button
           v-if="!registering"
           v-once
+          type="submit"
           class="btn btn-info"
-          @click="login()"
         >
           {{ $t('login') }}
-        </div>
+        </button>
         <div class="toggle-links">
           <router-link
             v-if="registering"
@@ -275,10 +290,17 @@
         <input
           id="passwordInput"
           v-model="password"
-          class="form-control"
+          class="form-control input-with-error"
           type="password"
           :placeholder="$t('password')"
+          :class="{'input-invalid': passwordInvalid, 'input-valid': passwordValid}"
         >
+        <div
+          v-if="passwordInvalid"
+          class="input-error"
+        >
+          {{ $t('minPasswordLength') }}
+        </div>
       </div>
       <div class="form-group">
         <label
@@ -288,10 +310,17 @@
         <input
           id="confirmPasswordInput"
           v-model="passwordConfirm"
-          class="form-control"
+          class="form-control input-with-error"
           type="password"
           :placeholder="$t('confirmPasswordPlaceholder')"
+          :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
         >
+        <div
+          v-if="passwordConfirmInvalid"
+          class="input-error"
+        >
+          {{ $t('passwordConfirmationMatch') }}
+        </div>
       </div>
       <div class="text-center">
         <div
@@ -426,8 +455,12 @@
       color: $white;
     }
 
-    #usernameInput.input-invalid {
+    .input-with-error.input-invalid {
       margin-bottom: 0.5em;
+    }
+
+    #confirmPasswordInput + .input-error {
+      margin-bottom: 2em;
     }
 
     .form-text {
@@ -480,7 +513,7 @@
       background-image: url('~@/assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
       width: 100%;
-      height: 500px;
+      height: 300px;
       position: absolute;
       z-index: 0;
       bottom: 0;
@@ -512,7 +545,6 @@
     color: #fff;
     font-size: 90%;
     width: 100%;
-    text-align: center;
   }
 </style>
 
@@ -522,6 +554,7 @@ import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 
+import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
@@ -580,6 +613,14 @@ export default {
       if (this.username.length < 1) return false;
       return !this.usernameValid;
     },
+    passwordValid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
+    },
+    passwordInvalid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length < MINIMUM_PASSWORD_LENGTH;
+    },
     passwordConfirmValid () {
       if (this.passwordConfirm.length <= 3) return false;
       return this.passwordConfirm === this.password;
@@ -587,6 +628,12 @@ export default {
     passwordConfirmInvalid () {
       if (this.passwordConfirm.length <= 3) return false;
       return !this.passwordConfirmValid;
+    },
+    signupFormInvalid () {
+      return this.usernameInvalid
+        || this.emailInvalid
+        || this.passwordInvalid
+        || this.passwordConfirmInvalid;
     },
   },
   watch: {

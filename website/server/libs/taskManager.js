@@ -103,6 +103,13 @@ export async function createTasks (req, res, options = {}) {
       newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.default;
     } else {
       newTask.userId = user._id;
+
+      // user.flags.welcomed is checked because when false it means the tasks being created
+      // are the onboarding ones
+      if (!user.achievements.createdTask && user.flags.welcomed) {
+        user.addAchievement('createdTask');
+        shared.onboarding.checkOnboardingStatus(user);
+      }
     }
 
     setNextDue(newTask, user);

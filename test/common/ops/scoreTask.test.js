@@ -12,6 +12,7 @@ import {
   NotAuthorized,
 } from '../../../website/common/script/libs/errors';
 import crit from '../../../website/common/script/fns/crit';
+import shared from '../../../website/common/script';
 
 const EPSILON = 0.0001; // negligible distance between datapoints
 
@@ -338,6 +339,50 @@ describe('shared.ops.scoreTask', () => {
         scoreTask({ user: ref.afterUser, task: todo, direction: 'up' });
         scoreTask({ user: ref.afterUser, task: todo, direction: 'down' });
         expectClosePoints(ref.beforeUser, ref.afterUser, freshTodo, todo);
+      });
+    });
+
+    context('onboarding', () => {
+      beforeEach(() => {
+        ref.afterUser.addAchievement = sinon.spy();
+        sinon.stub(shared.onboarding, 'checkOnboardingStatus');
+      });
+
+      afterEach(() => {
+        shared.onboarding.checkOnboardingStatus.restore();
+      });
+
+      it('adds the achievement to the user and checks the onboarding status', () => {
+        scoreTask({ user: ref.afterUser, task: todo, direction: 'up' });
+        expect(ref.afterUser.addAchievement).to.be.calledOnce;
+        expect(ref.afterUser.addAchievement).to.be.calledWith('completedTask');
+
+        expect(shared.onboarding.checkOnboardingStatus).to.be.calledOnce;
+        expect(shared.onboarding.checkOnboardingStatus).to.be.calledWith(ref.afterUser);
+      });
+
+      it('does not add the onboarding achievement to the user if it\'s already been awarded', () => {
+        ref.afterUser.achievements.completedTask = true;
+        scoreTask({ user: ref.afterUser, task: todo, direction: 'up' });
+
+        expect(ref.afterUser.addAchievement).to.not.be.called;
+      });
+
+      it('does not add the onboarding achievement to the user if it\'s scored down', () => {
+        scoreTask({ user: ref.afterUser, task: todo, direction: 'down' });
+
+        expect(ref.afterUser.addAchievement).to.not.be.called;
+      });
+
+      it('does not add the onboarding achievement to the user if cron is running', () => {
+        scoreTask({
+          user: ref.afterUser,
+          task: todo,
+          direction: 'up',
+          cron: true,
+        });
+
+        expect(ref.afterUser.addAchievement).to.not.be.called;
       });
     });
   });

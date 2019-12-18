@@ -30,6 +30,7 @@ describe('shops actions', () => {
         preferences: {
           autoEquip: true,
         },
+        achievements: {},
       };
 
       store.state.user.data = user;

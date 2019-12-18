@@ -41,7 +41,10 @@ describe('shared.ops.buyMarketGear', () => {
       },
     });
 
+    user.addAchievement = sinon.spy();
+
     sinon.stub(shared, 'randomVal');
+    sinon.stub(shared.onboarding, 'checkOnboardingStatus');
     sinon.stub(shared.fns, 'predictableRandom');
     sinon.stub(analytics, 'track');
   });
@@ -49,6 +52,7 @@ describe('shared.ops.buyMarketGear', () => {
   afterEach(() => {
     shared.randomVal.restore();
     shared.fns.predictableRandom.restore();
+    shared.onboarding.checkOnboardingStatus.restore();
     analytics.track.restore();
   });
 
@@ -84,6 +88,27 @@ describe('shared.ops.buyMarketGear', () => {
         eyewear_special_yellowHalfMoon: true,
       });
       expect(analytics.track).to.be.calledOnce;
+    });
+
+    it('adds the onboarding achievement to the user and checks the onboarding status', () => {
+      user.stats.gp = 31;
+
+      buyGear(user, { params: { key: 'armor_warrior_1' } }, analytics);
+
+      expect(user.addAchievement).to.be.calledOnce;
+      expect(user.addAchievement).to.be.calledWith('purchasedEquipment');
+
+      expect(shared.onboarding.checkOnboardingStatus).to.be.calledOnce;
+      expect(shared.onboarding.checkOnboardingStatus).to.be.calledWith(user);
+    });
+
+    it('does not add the onboarding achievement to the user if it\'s already been awarded', () => {
+      user.stats.gp = 31;
+      user.achievements.purchasedEquipment = true;
+
+      buyGear(user, { params: { key: 'armor_warrior_1' } }, analytics);
+
+      expect(user.addAchievement).to.not.be.called;
     });
 
     it('deducts gold from user', () => {

@@ -1,7 +1,7 @@
+import _ from 'lodash';
 import mongoose from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
-import _ from 'lodash';
 import baseModel from '../libs/baseModel';
 
 const NOTIFICATION_TYPES = [
@@ -33,6 +33,7 @@ const NOTIFICATION_TYPES = [
   'NEW_STUFF',
   'NEW_CHAT_MESSAGE',
   'LEVELED_UP',
+  'ONBOARDING_COMPLETE',
   'ACHIEVEMENT_ALL_YOUR_BASE',
   'ACHIEVEMENT_BACK_TO_BASICS',
   'ACHIEVEMENT_JUST_ADD_WATER',
@@ -49,6 +50,7 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_UNDEAD_UNDERTAKER',
   'ACHIEVEMENT_PRIMED_FOR_PAINTING',
   'ACHIEVEMENT_PEARLY_PRO',
+  'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
 ];
 
 const { Schema } = mongoose;
