@@ -21,14 +21,13 @@ import { sendNotification as sendPushNotification } from '../pushNotifications';
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
 
-function revealMysteryItems (user) {
+function _findMysteryItems (user, dateMoment) {
   const pushedItems = [];
-
   _.each(shared.content.gear.flat, item => {
     if (
       item.klass === 'mystery'
-        && moment().isAfter(shared.content.mystery[item.mystery].start)
-        && moment().isBefore(shared.content.mystery[item.mystery].end)
+        && dateMoment.isSameOrAfter(shared.content.mystery[item.mystery].start)
+        && dateMoment.isSameOrBefore(moment(shared.content.mystery[item.mystery].end).endOf('day'))
         && !user.items.gear.owned[item.key]
         && user.purchased.plan.mysteryItems.indexOf(item.key) === -1
     ) {
@@ -36,6 +35,19 @@ function revealMysteryItems (user) {
       pushedItems.push(item.key);
     }
   });
+  return pushedItems;
+}
+
+function revealMysteryItems (user, elapsedMonths = 1) {
+  let monthsToCheck = elapsedMonths;
+  let pushedItems = [];
+
+  do {
+    monthsToCheck -= 1;
+    pushedItems = pushedItems.concat(_findMysteryItems(user, moment().subtract(monthsToCheck, 'months')));
+  }
+  while (monthsToCheck > 0);
+
   if (pushedItems.length > 0) {
     user.addNotification('NEW_MYSTERY_ITEMS', { items: pushedItems });
   }
@@ -153,56 +165,89 @@ async function createSubscription (data) {
     txnEmail(data.user, emailType);
   }
 
-  analytics.trackPurchase({
-    uuid: data.user._id,
-    groupId,
-    itemPurchased,
-    sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-    purchaseType,
-    paymentMethod: data.paymentMethod,
-    quantity: 1,
-    gift: Boolean(data.gift),
-    purchaseValue: block.price,
-    headers: data.headers,
-  });
+  if (!data.promo) {
+    analytics.trackPurchase({
+      uuid: data.user._id,
+      groupId,
+      itemPurchased,
+      sku: `${data.paymentMethod.toLowerCase()}-subscription`,
+      purchaseType,
+      paymentMethod: data.paymentMethod,
+      quantity: 1,
+      gift: Boolean(data.gift),
+      purchaseValue: block.price,
+      headers: data.headers,
+    });
+  }
 
-  if (!group) data.user.purchased.txnCount += 1;
+  if (!group && !data.promo) data.user.purchased.txnCount += 1;
 
   if (data.gift) {
     const byUserName = getUserInfo(data.user, ['name']).name;
 
     // generate the message in both languages, so both users can understand it
     const languages = [data.user.preferences.language, data.gift.member.preferences.language];
-    let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
-      username: data.gift.member.profile.name,
-      sender: byUserName,
-      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
-    }, languages[0]);
-    senderMsg = `\`${senderMsg}\``;
+    if (data.promo) {
+      let senderMsg = shared.i18n.t(`giftedSubscription${data.promo}Promo`, {
+        username: data.gift.member.profile.name,
+        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+      }, languages[0]);
 
-    let receiverMsg = shared.i18n.t('giftedSubscriptionFull', {
-      username: data.gift.member.profile.name,
-      sender: byUserName,
-      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
-    }, languages[1]);
-    receiverMsg = `\`${receiverMsg}\``;
+      senderMsg = `\`${senderMsg}\``;
+      data.user.sendMessage(data.gift.member, { senderMsg });
+    } else {
+      let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
+        username: data.gift.member.profile.name,
+        sender: byUserName,
+        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+      }, languages[0]);
+      senderMsg = `\`${senderMsg}\``;
 
-    if (data.gift.message) {
-      receiverMsg += ` ${data.gift.message}`;
-      senderMsg += ` ${data.gift.message}`;
+      let receiverMsg = shared.i18n.t('giftedSubscriptionFull', {
+        username: data.gift.member.profile.name,
+        sender: byUserName,
+        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+      }, languages[1]);
+      receiverMsg = `\`${receiverMsg}\``;
+
+      if (data.gift.message) {
+        receiverMsg += ` ${data.gift.message}`;
+        senderMsg += ` ${data.gift.message}`;
+      }
+
+      data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg, save: false });
     }
 
-    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg, save: false });
-
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
-      txnEmail(data.gift.member, 'gifted-subscription', [
-        { name: 'GIFTER', content: byUserName },
-        { name: 'X_MONTHS_SUBSCRIPTION', content: months },
-      ]);
+      if (data.promo) {
+        txnEmail(data.gift.member, 'gift-one-get-one', [
+          { name: 'GIFTEE_USERNAME', content: data.promoUsername },
+          { name: 'X_MONTHS_SUBSCRIPTION', content: months },
+        ]);
+      } else {
+        txnEmail(data.gift.member, 'gifted-subscription', [
+          { name: 'GIFTER', content: byUserName },
+          { name: 'X_MONTHS_SUBSCRIPTION', content: months },
+        ]);
+      }
     }
 
     // Only send push notifications if sending to a user other than yourself
     if (data.gift.member._id !== data.user._id) {
+      const promoData = {
+        user: data.user,
+        gift: {
+          member: data.user,
+          subscription: {
+            key: data.gift.subscription.key,
+          },
+        },
+        paymentMethod: data.paymentMethod,
+        promo: 'Winter',
+        promoUsername: data.gift.member.auth.local.username,
+      };
+      await this.createSubscription(promoData);
+
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
         sendPushNotification(data.gift.member,
           {
@@ -324,4 +369,5 @@ async function cancelSubscription (data) {
 export {
   createSubscription,
   cancelSubscription,
+  revealMysteryItems,
 };

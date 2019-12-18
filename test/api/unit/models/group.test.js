@@ -1317,7 +1317,7 @@ describe('Group Model', () => {
 
       it('formats message', () => {
         const chatMessage = party.sendChat({
-          message: 'a new message',
+          message: 'a _new_ message with *markdown*',
           user: {
             _id: 'user-id',
             profile: { name: 'user name' },
@@ -1336,7 +1336,8 @@ describe('Group Model', () => {
 
         const chat = chatMessage;
 
-        expect(chat.text).to.eql('a new message');
+        expect(chat.text).to.eql('a _new_ message with *markdown*');
+        expect(chat.unformattedText).to.eql('a new message with markdown');
         expect(validator.isUUID(chat.id)).to.eql(true);
         expect(chat.timestamp).to.be.a('date');
         expect(chat.likes).to.eql({});
@@ -1877,6 +1878,8 @@ describe('Group Model', () => {
         };
         await questLeader.save();
         await party.finishQuest(quest);
+
+        await sleep(0.5);
 
         const [
           updatedLeader,

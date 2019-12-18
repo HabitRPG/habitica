@@ -90,8 +90,8 @@
           :key="task.id"
           :task="task"
           :is-user="isUser"
-          :show-options="showOptions"
           :group="group"
+          :challenge="challenge"
           @editTask="editTask"
           @moveTo="moveTo"
           @taskDestroyed="taskDestroyed"
@@ -335,7 +335,6 @@ import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
 import notifications from '@/mixins/notifications';
 import { shouldDo } from '@/../../common/script/cron';
 import inAppRewards from '@/../../common/script/libs/inAppRewards';
-import spells from '@/../../common/script/content/spells';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 
 import {
@@ -372,10 +371,7 @@ export default {
     selectedTags: {},
     taskListOverride: {},
     group: {},
-    showOptions: {
-      type: Boolean,
-      default: true,
-    },
+    challenge: {},
   }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({
@@ -435,26 +431,6 @@ export default {
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
       const rewards = inAppRewards(this.user);
-
-      // Add season rewards if user is affected
-      // @TODO: Add buff conditional
-      const seasonalSkills = {
-        snowball: 'salt',
-        spookySparkles: 'opaquePotion',
-        shinySeed: 'petalFreePotion',
-        seafoam: 'sand',
-      };
-
-      for (const key in seasonalSkills) {
-        if (this.getUserBuffs(key)) {
-          const debuff = seasonalSkills[key];
-          const item = { ...spells.special[debuff] };
-          item.text = item.text();
-          item.notes = item.notes();
-          item.class = `shop_${key}`;
-          rewards.push(item);
-        }
-      }
 
       return rewards;
     },

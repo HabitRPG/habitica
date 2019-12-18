@@ -1,7 +1,7 @@
 {
-    "achievement": "Bounty",
+    "achievement": "Medal",
     "share": "Share",
-    "onwards": "Onwards, towards the ship!",
+    "onwards": "Onward, t'ward th' ship!",
     "levelup": "By accomplishin' yer real life goals, ye leveled up n' are now fully healed!",
     "reachedLevel": "Ye Be Level <%= level %>",
     "achievementLostMasterclasser": "Adventurer At Large: Masterclasser Series",
@@ -25,6 +25,20 @@
     "achievementMindOverMatterText": "Vanquished yon Rock, Slime, n' Yarn beasties.",
     "achievementMindOverMatter": "Mind O'er Matter",
     "achievementLostMasterclasserModalText": "Ye've vanquished all sixteen Adventures in th' Masterclasser series n' found th' Hidden Treasure o' th' Lost Masterclasser!",
-    "achievementKickstarter2019": "Pin Kickstarter Backer",
-    "achievementKickstarter2019Text": "Backed the 2019 Pin Kickstarter Project"
+    "achievementKickstarter2019": "Kickstarter Pin Deckhand",
+    "achievementKickstarter2019Text": "Ye Support'd yonder 2019 Pin Kickstarter Quest",
+    "achievementUndeadUndertakerModalText": "Ye mastered all th' Undead Steeds!",
+    "achievementUndeadUndertakerText": "Mastered all the Undead Steeds.",
+    "achievementMonsterMagusModalText": "Ye found all th' Undead Beasties!",
+    "achievementMonsterMagusText": "Found all th' Undead Beasties.",
+    "achievementMonsterMagus": "Undead Cap'n",
+    "achievementPartyOn": "Ye crew be grown to 4 maties!",
+    "achievementPartyUp": "Ye be signed on with a crew!",
+    "achievementUndeadUndertaker": "Undead Undarrrtaker",
+    "achievementPearlyProModalText": "Ye tamed all th' White Steeds!",
+    "achievementPearlyProText": "'as tamed all White Steeds.",
+    "achievementPearlyPro": "Pearlie Pro",
+    "achievementPrimedForPaintingModalText": "Ye 'ave collected all th' White Critters!",
+    "achievementPrimedForPaintingText": "'as collected all the White Critters.",
+    "achievementPrimedForPainting": "Plann'd fer Paintin'"
 }

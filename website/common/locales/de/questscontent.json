@@ -1,6 +1,6 @@
 {
     "questEvilSantaText": "Wildernder Weihnachtswichtel",
-    "questEvilSantaNotes": "Tief im Eisfeld hörst Du gequältes Brüllen. Du folgst dem Knurren - unterstrichen von einem Schnattern - zu einer Waldlichtung, auf welcher Du eine ausgewachsene Polarbärin siehst. Sie kämpft um ihr Leben, gefesselt und eingesperrt. Oben auf dem Käfig tanzt ein bösartiger kleiner Kobold, der kostümiert wie ein Schiffbrüchiger ist. Bezwinge den Wildernden Weihnachtswichtel und rette das Tier!",
+    "questEvilSantaNotes": "Tief im Eisfeld hörst Du gequältes Brüllen. Du folgst dem Knurren – unterstrichen von einem Schnattern – zu einer Waldlichtung, auf welcher Du eine ausgewachsene Polarbärin siehst. Sie kämpft um ihr Leben, gefesselt und eingesperrt. Oben auf dem Käfig tanzt ein bösartiger kleiner Kobold, der als Schiffbrüchiger verkleidet ist. Bezwinge den Wildernden Weihnachtswichtel und rette das Tier!",
     "questEvilSantaCompletion": "Vor Wut kreischend springt der Wildernde Weihnachtswichtel in den dunklen Wald davon. Die Bärin versucht Dir mit Brüllen und Knurren etwas zu verstehen zu geben. Du nimmst sie mit zurück zu den Ställen, wo Matt Boch, der Bestienmeister, der Bärin zuhört. Mit Schrecken vernimmst Du, dass die Bärin ein Junges hat! Als sie gefangen genommen wurde, lief es in die Eissteppe davon.",
     "questEvilSantaBoss": "Wildernder Weihnachtswichtel",
     "questEvilSantaDropBearCubPolarMount": "Eisbär (Reittier)",
@@ -414,7 +414,7 @@
     "questMoon2Boss": "Überschattender Stress",
     "questMoon2DropArmor": "Mondkriegerrüstung (Rüstung)",
     "questMoon3Text": "Mondkampf, Teil 3: Der Monströse Mond",
-    "questMoon3Notes": "Ihr erhaltet @Starsystemics dringende Schriftrolle um Punkt Mitternacht und galoppiert zu Ihrem Turm. \"Das Monster nutzt den Vollmond um in unsere Sphäre zu gelangen,\" erklärt sie. \"Sollte es Erfolg haben, wird die Schockwelle des Stresses überwältigend sein!\"<br><br>Zu Eurem Schrecken könnt Ihr erkennen, dass das Ungeheuer tatsächlich den Mond zu seiner Manifestation verwendet. Ein glühendes Auge öffnet sich auf dessen felsigen Oberfläche, und eine lange Zunge rollt sich aus einem klaffenden, fängenbesetzen Maul. Ihr werdet ihm nicht erlauben sich vollständig zu manifestieren!",
+    "questMoon3Notes": "Ihr erhaltet @Starsystemics dringende Schriftrolle um Punkt Mitternacht und galoppiert zu ihrem Turm. \"Das Monster nutzt den Vollmond, um in unsere Sphäre zu gelangen,\" erklärt sie. \"Sollte es Erfolg haben, wird die Schockwelle des Stresses überwältigend sein!\"<br><br>Zu Eurem Schrecken könnt Ihr erkennen, dass das Ungeheuer tatsächlich die Gestalt des Mondes ausgewählt hat, um sich zu manifestieren. Ein glühendes Auge öffnet sich auf dessen felsigen Oberfläche und eine lange Zunge rollt aus einem klaffenden, mit Fängen besetzten Maul. Ihr werdet dem Monster nicht erlauben, sich vollständig zu manifestieren!",
     "questMoon3Completion": "Die eindringenden Monster zerbersten in Schatten und der Mond wird silbern als die Gefahr vorbei ist. Die Drachen beginnen wieder zu singen und die Sterne funkeln in erleichtertem Licht. @Starsystemic die Seherin bückt sich und hebt einen Mondsplitter auf. Er scheint silbern in ihrer Hand, bevor er sich in eine prachtvolle Kristallsense verwandelt.",
     "questMoon3Boss": "Monströser Mond",
     "questMoon3DropWeapon": "Mondsense (Zweihändige Waffe)",
@@ -666,5 +666,13 @@
     "questRobotCollectSprings": "Federn",
     "questRobotCollectGears": "Zahnräder",
     "questRobotCollectBolts": "Schrauben",
-    "questRobotText": "Myteriöse Mechanische Merkwürdigkeiten!"
+    "questRobotText": "Myteriöse Mechanische Merkwürdigkeiten!",
+    "delightfulDinosNotes": "Enthält den \"Pterror-dactyl\", \"Trampelnden Triceratops\" und \"Ausgegrabenen Dinosaurier\". Verfügbar bis zum 30. November.",
+    "delightfulDinosText": "\"Dufte Dinos\" Quest-Paket",
+    "questAmberCompletion": "\"Trerezin?\" sagt @-Tyr- mit ruhiger Stimme. \"Würdest Du @Vikte loslassen? Ich glaube nicht, dass es ihm so hoch oben wohl ist.\"<br><br>Trerezins Haut wird hochrot und sie setzt @Vikte sanft auf dem Boden ab. \"Bitte entschuldigt! Es ist schon so lange her, dass ich Gäste hatte. Dabei habe ich meine guten Manieren vergessen!\" Sie gleitet vorwärts um euch standesgemäss zu begrüssen, bevor sie in ihrem Baumhaus verschwindet. Gleich darauf kehrt Sie zurück mit einem Arm voll Bernsteinfarbener Schlüpfelixiere als Dankeschön!<br><br>\"Magische Tränke!\" haucht @Vikte.<br><br>\"Ach, diese alten Dinger?\" Trerezins Zunge zittert während sie nachdenkt. \"Wie wär's damit: Ich gebe euch den ganzen Stapel, wenn ihr versprecht, mich ab und zu besuchen zu kommen...\"<br><br>So lasst ihr die Aufgabenwälder hinter euch, um allen über die neuen Schlüpfelixieren zu berichten – und natürlich über eure neue Freundin!",
+    "questAmberNotes": "Du sitzt mit @beffymaroo und @-Tyr- in der Taverne als @Vikte zur Tür hereinplatzt und aufgeregt von Gerüchten über eine neue Art von Magischem Schlüpfelixier erzählt, die in den Aufgabenwälder versteckt seien. Da Deine Tagesaufgaben bereits erledigt sind, beschliesst ihr drei ohne zu zögern, @Vikte bei der Suche zu helfen. Was kann ein kleines Abenteuer schon schaden?<br><br>Nach stundenlangem Marsch durch die Aufgabenwälder fängst Du an, den spontanen Aufbruch zur Jagd zu bereuen. Ihr seid gerade am umkehren als ihr einen überraschten Ausruf hört. Ihr dreht euch um und erblickt eine riesige Echse mit glänzenden, bernsteinfarbenen Schuppen, die sich um einen Baum windet, @Vikte in ihren Krallen haltend. @beffymaroo greift nach ihrem Schwert.<br><br>\"Wartet!\" ruft @-Tyr-. \"Das ist Trerezin! Sie ist nicht gefährlich, nur gefährlich anhänglich!\"",
+    "questAmberText": "Der Bernstein-Bund",
+    "questAmberBoss": "Trerezin",
+    "questAmberUnlockText": "Schaltet den Kauf von Bernsteinfarbenen Schlüpfelixieren auf dem Marktplatz frei",
+    "questAmberDropAmberPotion": "Bernsteinfarbenes Schlüpfelixier"
 }

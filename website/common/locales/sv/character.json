@@ -104,7 +104,7 @@
     "allocatePerPop": "Lägg till ett poäng till Uppmärksamhet",
     "allocateInt": "Poäng tilldelade till intelligens:",
     "allocateIntPop": "Lägg till ett poäng till Intelligens",
-    "noMoreAllocate": "Nu när du har nått nivå 100 kommer du inte få mer egenskapspoäng. Du kan fortsätta att nå högre nivåer eller så kan du starta ett nytt äventyr på nivå 1 genom att använda <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Återfödelsens sfär</a> som nu finns gratis på Marknaden.",
+    "noMoreAllocate": "Nu när du har nått nivå 100 kommer du inte få mer egenskapspoäng. Du kan fortsätta att nå högre nivåer eller så kan du starta ett nytt äventyr på nivå 1 genom att använda <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Återfödelsens sfär</a>!",
     "stats": "Statistik",
     "achievs": "Prestationer",
     "strength": "Styrka",
@@ -224,5 +224,9 @@
     "mainHand": "Huvudhand",
     "offHand": "Andra handen",
     "statPoints": "Stat Points",
-    "pts": "poäng"
+    "pts": "poäng",
+    "chatCastSpellUser": "<%= username %> kastar <%= spell %> på <%= target %>.",
+    "chatCastSpellParty": "<%= username %> kastar <%= spell %> för sällskapet.",
+    "purchasePetItemConfirm": "Detta köp kommer överstiga antalet föremål som du behvöer för att kläcka alla möjliga <%= itemText %> djur. Är du säker?",
+    "purchaseForGold": "Köp för <%= cost %> Guld?"
 }

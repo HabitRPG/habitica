@@ -11,6 +11,7 @@ import { model as User } from '../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../website/server/models/group';
 import {
   generateGroup,
+  sleep,
 } from '../../../../../helpers/api-unit.helper';
 
 describe('Purchasing a group plan for group', () => {
@@ -307,6 +308,7 @@ describe('Purchasing a group plan for group', () => {
     data.groupId = group._id;
 
     await api.createSubscription(data);
+    await sleep(0.5);
 
     expect(sender.sendTxn).to.have.callCount(4);
     expect(sender.sendTxn.args[0][0]._id).to.equal(TECH_ASSISTANCE_EMAIL);
@@ -340,6 +342,7 @@ describe('Purchasing a group plan for group', () => {
     data.groupId = group._id;
 
     await api.createSubscription(data);
+    await sleep(0.5);
 
     expect(sender.sendTxn).to.have.callCount(4);
     expect(sender.sendTxn.args[0][0]._id).to.equal(TECH_ASSISTANCE_EMAIL);
