@@ -105,7 +105,7 @@ export default {
       return this.icons[`tier${this.level}`];
     },
     tierTitle () {
-      return !this.hideTooltip ? '' : achievementsLib.getContribText(this.contributor, this.isNPC) || '';
+      return this.hideTooltip ? '' : achievementsLib.getContribText(this.contributor, this.isNPC) || '';
     },
     levelStyle () {
       return this.userLevelStyleFromLevel(this.level, this.isNPC);

@@ -10,7 +10,7 @@
         ></div>
         <h2
           v-once
-          class="flex-fill text-center"
+          class="flex-fill text-center mail-icon-label"
         >
           {{ $t('messages') }}
         </h2>
@@ -111,7 +111,7 @@
           <h3>{{ $t('beginningOfConversation', {userName: selectedConversation.name}) }}</h3>
           <p>{{ $t('beginningOfConversationReminder') }}</p>
         </div>
-        <private-messages
+        <messageList
           v-if="selectedConversation && selectedConversationMessages.length > 0"
           ref="chatscroll"
           class="message-scroll"
@@ -262,12 +262,16 @@
     background-color: $white;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    padding-top: 13px;
+    align-items: center;
 
     .mail-icon {
       width: 32px;
       height: 24px;
       object-fit: contain;
+    }
+
+    .mail-icon-label {
+      margin-bottom: 0;
     }
   }
 
@@ -278,12 +282,7 @@
     justify-content: center;
   }
 
-  .left-header {
-    padding-top: 7px;
-  }
-
   .user-label {
-    margin-top: 9px;
     margin-left: 12px;
   }
 
@@ -300,6 +299,7 @@
 
   .selected-conversion {
     justify-content: center;
+    align-items: center;
   }
 
   #private-message {
@@ -532,7 +532,7 @@ import styleHelper from '@/mixins/styleHelper';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import userLabel from '@/components/userLabel';
 
-import privateMessages from '@/components/messages/messageList';
+import messageList from '@/components/messages/messageList';
 import messageIcon from '@/assets/svg/message.svg';
 import mail from '@/assets/svg/mail.svg';
 import conversationItem from '@/components/messages/conversationItem';
@@ -542,7 +542,7 @@ import Avatar from '@/components/avatar';
 export default {
   components: {
     Avatar,
-    privateMessages,
+    messageList,
     toggleSwitch,
     conversationItem,
     userLabel,
