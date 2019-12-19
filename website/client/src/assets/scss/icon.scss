@@ -50,3 +50,18 @@
     width: 20px;
   }
 }
+
+.close-icon {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  cursor: pointer;
+
+  & svg path {
+    stroke: $gray-200;
+  }
+
+  &:hover svg path {
+    stroke: $gray-100;
+  }
+}

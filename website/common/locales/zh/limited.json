@@ -29,7 +29,7 @@
     "seasonalShop": "季度商店",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>季节魔女<%= linkEnd %>",
-    "seasonalShopClosedText": "季度商店现在关门了！！只有在habitica四大盛会时间才会再次出现。。",
+    "seasonalShopClosedText": "季度商店现在关门了！！只有在Habitica四大盛典期间才会开张。",
     "seasonalShopSummerText": "快乐夏季泼水节！你想买些稀罕东西吗？7月31日前购买！",
     "seasonalShopFallText": "快乐秋季节日！你想买些稀罕东西吗？10月31日前购买！",
     "seasonalShopWinterText": "快乐冬季仙境！你想买些稀罕东西吗？1月31日前购买！",

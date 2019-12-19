@@ -16,7 +16,7 @@
     "magicMounts": "Sonipedes Magici",
     "questMounts": "Sonipedes Investigationum",
     "mountsTamed": "Sonipedes Domiti",
-    "activeMount": "Sonipedis Electus",
+    "activeMount": "Sonipes Electus",
     "mounts": "Sonipedes",
     "wackyPets": "Animalia Peregrina",
     "questPets": "Animalia Investigationum",
@@ -25,5 +25,17 @@
     "petsFound": "Animalia Inventa",
     "activePet": "Animal Electum",
     "pets": "Animalia",
-    "stable": "Stabulum"
+    "stable": "Stabulum",
+    "noActiveMount": "Nullus Sonipes Electus",
+    "noActivePet": "Nullus Animal Electum",
+    "hatchingPotions": "Pōtiōnes Incubantes",
+    "potion": "",
+    "egg": "",
+    "hatchingPotion": "pōtiō incubans",
+    "magicHatchingPotions": "Pōtiōnes Incubantes Magicae",
+    "royalPurpleJackalope": "Lepus Cornutus Purpureus Regalis",
+    "royalPurpleGryphon": "Gryphus Purpureus Regius",
+    "noEggs": "Nihil ōva non habes.",
+    "eggSingular": "ōvum",
+    "eggs": "ōva"
 }

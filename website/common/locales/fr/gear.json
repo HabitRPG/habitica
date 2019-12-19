@@ -1972,8 +1972,16 @@
     "armorArmoireAlchemistsRobeText": "Robe d'alchimiste",
     "weaponArmoireAlchemistsDistillerNotes": "Purifiez les métaux et d'autres composants magiques avec cet instrument en laiton brillant. Augmente la force de <%= str %> et l'intelligence de <%= int %>. Armoire enchantée : ensemble d'alchimie (objet 3 de 4).",
     "weaponArmoireAlchemistsDistillerText": "Alambic d'alchimiste",
-    "headMystery201911Notes": "Chaque morceau de cristal attaché à ce chapeau vous confère un pouvoir spécial : clairvoyance mystique, sagesse des arcanes, et ... sorcellerie de rotation des plats ? Oui, bon... Ne confère aucun bonus. Équipement d'abonnement de décembre 2019.",
+    "headMystery201911Notes": "Chaque morceau de cristal attaché à ce chapeau vous confère un pouvoir spécial : clairvoyance mystique, sagesse des arcanes, et ... sorcellerie de rotation des plats ? Oui, bon... Ne confère aucun bonus. Équipement d'abonnement de novembre 2019.",
     "headMystery201911Text": "Chapeau en cristal charmé",
-    "weaponMystery201911Notes": "La boule de cristal au bout de ce bâton peut vous montrer l'avenir, mais attention ! Utiliser un savoir si dangereux peut changer une personne de façon inattendue. Ne confère aucun bonus. Équipement d'abonnement de décembre 2019.",
-    "weaponMystery201911Text": "Bâton en cristal charmé"
+    "weaponMystery201911Notes": "La boule de cristal au bout de ce bâton peut vous montrer l'avenir, mais attention ! Utiliser un savoir si dangereux peut changer une personne de façon inattendue. Ne confère aucun bonus. Équipement d'abonnement de novembre 2019.",
+    "weaponMystery201911Text": "Bâton en cristal charmé",
+    "backMystery201912Notes": "Glissez en silence au-dessus des champs de neige étincelants et des montagnes scintillantes avec ces ailes glacées. Ne confère aucun bonus. Équipement d'abonnement de décembre 2019.",
+    "backMystery201912Text": "Ailes de lutine polaire",
+    "headMystery201912Notes": "Ce flocon de neige scintillant vous garantit une résistance au froid mordant quelle que soit la hauteur de votre vol ! Ne confère aucun bonus. Équipement d'abonnement de décembre 2019.",
+    "headMystery201912Text": "Couronne de lutine polaire",
+    "headArmoireEarflapHatNotes": "Si vous cherchez à garder la tête au chaud, ce chapeau vous couvre ! Augmente l'intelligence et la force de <%= attrs %> chacune. Armoire enchantée : ensemble du duffel-coat (objet 2 de 2).",
+    "headArmoireEarflapHatText": "Chapeau à rabats",
+    "armorArmoireDuffleCoatNotes": "Voyagez dans des royaumes givrés avec style grâce à ce manteau en laine douillet. Augmente la constitution et la perception de <%= attrs %> chacune. Armoire enchantée : ensemble du duffel-coat (objet 1 de 2).",
+    "armorArmoireDuffleCoatText": "Duffel-coat"
 }

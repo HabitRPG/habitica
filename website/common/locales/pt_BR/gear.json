@@ -1972,8 +1972,16 @@
     "armorArmoireAlchemistsRobeText": "Vestes de Alquimista",
     "weaponArmoireAlchemistsDistillerNotes": "Purifique metais e outros compostos mágicos com este instrumento de latão brilhante. Aumenta a Força em <%= str %> e a Inteligência em <%= int %>. Armário Encantado: Conjunto Alquimista (Item 3 de 4).",
     "weaponArmoireAlchemistsDistillerText": "Destilador do Alquimista",
-    "headMystery201911Notes": "Cada um dos pontos de cristal anexados a este chapéu lhe confere um poder especial: clarividência místico, sabedoria arcana e... pratos enfeitiçados giratórios? Tudo bem, então. Não confere benefícios. Item de assinante, Dezembro de 2019.",
+    "headMystery201911Notes": "Cada um dos pontos de cristal anexados a este chapéu lhe confere um poder especial: clarividência místico, sabedoria arcana e... pratos enfeitiçados giratórios? Tudo bem, então. Não confere benefícios. Item de assinante, Novembro de 2019.",
     "headMystery201911Text": "Chapéu de cristal encantado",
-    "weaponMystery201911Notes": "A bola de cristal no topo deste cajado pode te mostrar o futuro,  mas tenha cuidado! Usar esse conhecimento perigoso pode mudar uma pessoa de maneiras inesperadas. Não confere benefícios. Item de assinante, Dezembro de 2019.",
-    "weaponMystery201911Text": "Cajado de cristal encantado"
+    "weaponMystery201911Notes": "A bola de cristal no topo deste cajado pode te mostrar o futuro,  mas tenha cuidado! Usar esse conhecimento perigoso pode mudar uma pessoa de maneiras inesperadas. Não confere benefícios. Item de assinante, Novembro de 2019.",
+    "weaponMystery201911Text": "Cajado de cristal encantado",
+    "backMystery201912Notes": "Deslize silenciosamente pelos campos de neve e montanhas cintilantes com essas asas geladas. Não confere benefícios. Item de Assinante, Dezembro de 2019.",
+    "backMystery201912Text": "Asas do(a) Duende Polar",
+    "headMystery201912Notes": "Este floco de neve cintilante garante resistência ao frio cortante, não importa o quão alto você voe. Não confere benefícios. Item de Assinante, Dezembro de 2019.",
+    "headMystery201912Text": "Coroa do(a) Duende Polar",
+    "headArmoireEarflapHatNotes": "Se você deseja manter a cabeça quentinha, este chapéu irá te cobrir! Aumenta tanto a Inteligência quanto a Força em <%= attrs %>. Armário Encantado: Conjunto Casaco de lã (Item 2 de 2).",
+    "headArmoireEarflapHatText": "Toca com aba",
+    "armorArmoireDuffleCoatNotes": "Viaje reinos gelados em grande estilo com este aconchegante casaco de lã. Aumenta tanto a Constituição quanto a Percepção em  <%= attrs %>. Armário Encantado: Conjunto Casaco de lã (Item 1 de 2).",
+    "armorArmoireDuffleCoatText": "Casaco de lã"
 }

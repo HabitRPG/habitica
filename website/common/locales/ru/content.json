@@ -197,7 +197,7 @@
     "hatchingPotionPeppermint": "Мятный",
     "hatchingPotionFloral": "Цветочный",
     "hatchingPotionAquatic": "Водный",
-    "hatchingPotionEmber": "Янтарный",
+    "hatchingPotionEmber": "Тлеющий",
     "hatchingPotionThunderstorm": "Грозовой",
     "hatchingPotionGhost": "Призрачный",
     "hatchingPotionRoyalPurple": "Королевский пурпурный",
@@ -351,5 +351,6 @@
     "questEggRobotMountText": "Робот",
     "questEggRobotText": "Робот",
     "hatchingPotionShadow": "Теневой",
-    "premiumPotionUnlimitedNotes": "Нельзя применить на квестовых яйцах питомцев."
+    "premiumPotionUnlimitedNotes": "Нельзя применить на квестовых яйцах питомцев.",
+    "hatchingPotionAmber": "Янтарный"
 }

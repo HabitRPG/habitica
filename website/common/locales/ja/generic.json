@@ -61,7 +61,7 @@
     "newGroupTitle": "新しいグループ",
     "subscriberItem": "ミステリー アイテム",
     "newSubscriberItem": "新しい<span class=\"notification-bold-blue\">ミステリー アイテム</span>があります",
-    "subscriberItemText": "毎月、寄付会員にはミステリー アイテムが贈られます。通常、月の終わりの1週間前ごろにお届けします。詳しくはWiki の「ミステリー アイテム」のページをご覧ください。",
+    "subscriberItemText": "毎月、寄付会員はミステリーアイテムを受け取れます。月初めに入手可能になります。詳しくはWiki の「Mystery Item（ミステリーアイテム）」のページをご覧ください。",
     "all": "すべて",
     "none": "なし",
     "more": "あと <%= count %>",

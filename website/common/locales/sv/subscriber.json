@@ -216,5 +216,8 @@
     "gemsRemaining": "resterande juveler",
     "notEnoughGemsToBuy": "Du kan inte köpa den mängden juveler",
     "mysterySet201902": "Hemlighetsfull förälskelse-set",
-    "mysterySet201903": "Ägg-straordinärt set"
+    "mysterySet201903": "Ägg-straordinärt set",
+    "mysterySet201912": "Polär Pixie Set",
+    "subWillBecomeInactive": "Kommer att bli innaktiv",
+    "confirmCancelSub": "Är du säker på att du vill avsluta ditt abonnemang? Du kommer förlora alla av dina abonnentfördelar."
 }

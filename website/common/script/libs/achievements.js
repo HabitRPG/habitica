@@ -241,6 +241,18 @@ function _getBasicAchievements (user, language) {
   return result;
 }
 
+function _getOnboardingAchievements (user, language) {
+  const result = {};
+
+  _addSimple(result, user, { path: 'createdTask', language });
+  _addSimple(result, user, { path: 'completedTask', language });
+  _addSimple(result, user, { path: 'hatchedPet', language });
+  _addSimple(result, user, { path: 'fedPet', language });
+  _addSimple(result, user, { path: 'purchasedEquipment', language });
+
+  return result;
+}
+
 function _getSeasonalAchievements (user, language) {
   const result = {};
 
@@ -320,6 +332,10 @@ achievs.getAchievementsForProfile = function getAchievementsForProfile (user, la
     basic: {
       label: 'Basic',
       achievements: _getBasicAchievements(user, language),
+    },
+    onboarding: {
+      label: 'Onboarding',
+      achievements: _getOnboardingAchievements(user, language),
     },
     seasonal: {
       label: 'Seasonal',
