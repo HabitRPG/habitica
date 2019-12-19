@@ -8,7 +8,7 @@ import * as takeThisGear from './special-takeThis';
 import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
-const CURRENT_SEASON = '_NONE_';
+const CURRENT_SEASON = 'winter';
 
 const armor = {
   0: backerGear.armorSpecial0,
@@ -956,6 +956,7 @@ const armor = {
     notes: t('armorSpecialWinter2019RogueNotes', { per: 15 }),
     value: 90,
     per: 15,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Warrior: {
     event: EVENTS.winter2019,
@@ -965,6 +966,7 @@ const armor = {
     notes: t('armorSpecialWinter2019WarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Mage: {
     event: EVENTS.winter2019,
@@ -974,6 +976,7 @@ const armor = {
     notes: t('armorSpecialWinter2019MageNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Healer: {
     event: EVENTS.winter2019,
@@ -983,6 +986,7 @@ const armor = {
     notes: t('armorSpecialWinter2019HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   birthday2019: {
     text: t('armorSpecialBirthday2019Text'),
@@ -1104,6 +1108,42 @@ const armor = {
     value: 0,
     con: 20,
     canOwn: ownsItem('armor_special_ks2019'),
+  },
+  winter2020Rogue: {
+    event: EVENTS.winter2020,
+    specialClass: 'rogue',
+    set: 'winter2020LanternSet',
+    text: t('armorSpecialWinter2020RogueText'),
+    notes: t('armorSpecialWinter2020RogueNotes', { per: 15 }),
+    value: 90,
+    per: 15,
+  },
+  winter2020Warrior: {
+    event: EVENTS.winter2020,
+    specialClass: 'warrior',
+    set: 'winter2020EvergreenSet',
+    text: t('armorSpecialWinter2020WarriorText'),
+    notes: t('armorSpecialWinter2020WarriorNotes', { con: 9 }),
+    value: 90,
+    con: 9,
+  },
+  winter2020Mage: {
+    event: EVENTS.winter2020,
+    specialClass: 'wizard',
+    set: 'winter2020CarolOfTheMageSet',
+    text: t('armorSpecialWinter2020MageText'),
+    notes: t('armorSpecialWinter2020MageNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  winter2020Healer: {
+    event: EVENTS.winter2020,
+    specialClass: 'healer',
+    set: 'winter2020WinterSpiceSet',
+    text: t('armorSpecialWinter2020HealerText'),
+    notes: t('armorSpecialWinter2020HealerNotes', { con: 15 }),
+    value: 90,
+    con: 15,
   },
 };
 
@@ -2379,6 +2419,7 @@ const head = {
     notes: t('headSpecialWinter2019RogueNotes', { per: 9 }),
     value: 60,
     per: 9,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Warrior: {
     event: EVENTS.winter2019,
@@ -2388,6 +2429,7 @@ const head = {
     notes: t('headSpecialWinter2019WarriorNotes', { str: 9 }),
     value: 60,
     str: 9,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Mage: {
     event: EVENTS.winter2019,
@@ -2397,6 +2439,7 @@ const head = {
     notes: t('headSpecialWinter2019MageNotes', { per: 7 }),
     value: 60,
     per: 7,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Healer: {
     event: EVENTS.winter2019,
@@ -2406,6 +2449,7 @@ const head = {
     notes: t('headSpecialWinter2019HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   nye2018: {
     text: t('headSpecialNye2018Text'),
@@ -2533,6 +2577,42 @@ const head = {
     value: 0,
     int: 20,
     canOwn: ownsItem('head_special_ks2019'),
+  },
+  winter2020Rogue: {
+    event: EVENTS.winter2020,
+    specialClass: 'rogue',
+    set: 'winter2020LanternSet',
+    text: t('headSpecialWinter2020RogueText'),
+    notes: t('headSpecialWinter2020RogueNotes', { per: 9 }),
+    value: 60,
+    per: 9,
+  },
+  winter2020Warrior: {
+    event: EVENTS.winter2020,
+    specialClass: 'warrior',
+    set: 'winter2020EvergreenSet',
+    text: t('headSpecialWinter2020WarriorText'),
+    notes: t('headSpecialWinter2020WarriorNotes', { str: 9 }),
+    value: 60,
+    str: 9,
+  },
+  winter2020Mage: {
+    event: EVENTS.winter2020,
+    specialClass: 'wizard',
+    set: 'winter2020CarolOfTheMageSet',
+    text: t('headSpecialWinter2020MageText'),
+    notes: t('headSpecialWinter2020MageNotes', { per: 7 }),
+    value: 60,
+    per: 7,
+  },
+  winter2020Healer: {
+    event: EVENTS.winter2020,
+    specialClass: 'healer',
+    set: 'winter2020WinterSpiceSet',
+    text: t('headSpecialWinter2020HealerText'),
+    notes: t('headSpecialWinter2020HealerNotes', { int: 7 }),
+    value: 60,
+    int: 7,
   },
 };
 
@@ -3465,6 +3545,7 @@ const shield = {
     notes: t('weaponSpecialWinter2019RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Warrior: {
     event: EVENTS.winter2019,
@@ -3474,6 +3555,7 @@ const shield = {
     notes: t('shieldSpecialWinter2019WarriorNotes', { con: 7 }),
     value: 70,
     con: 7,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Healer: {
     event: EVENTS.winter2019,
@@ -3483,6 +3565,7 @@ const shield = {
     notes: t('shieldSpecialWinter2019HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   piDay: {
     text: t('shieldSpecialPiDayText'),
@@ -3586,6 +3669,33 @@ const shield = {
     value: 0,
     per: 20,
     canOwn: ownsItem('shield_special_ks2019'),
+  },
+  winter2020Rogue: {
+    event: EVENTS.winter2020,
+    specialClass: 'rogue',
+    set: 'winter2020LanternSet',
+    text: t('weaponSpecialWinter2020RogueText'),
+    notes: t('weaponSpecialWinter2020RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  winter2020Warrior: {
+    event: EVENTS.winter2020,
+    specialClass: 'warrior',
+    set: 'winter2020EvergreenSet',
+    text: t('shieldSpecialWinter2020WarriorText'),
+    notes: t('shieldSpecialWinter2020WarriorNotes', { con: 7 }),
+    value: 70,
+    con: 7,
+  },
+  winter2020Healer: {
+    event: EVENTS.winter2020,
+    specialClass: 'healer',
+    set: 'winter2020WinterSpiceSet',
+    text: t('shieldSpecialWinter2020HealerText'),
+    notes: t('shieldSpecialWinter2020HealerNotes', { con: 9 }),
+    value: 70,
+    con: 9,
   },
 };
 
@@ -4538,6 +4648,7 @@ const weapon = {
     notes: t('weaponSpecialWinter2019RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Warrior: {
     event: EVENTS.winter2019,
@@ -4547,6 +4658,7 @@ const weapon = {
     notes: t('weaponSpecialWinter2019WarriorNotes', { str: 15 }),
     value: 90,
     str: 15,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Mage: {
     event: EVENTS.winter2019,
@@ -4558,6 +4670,7 @@ const weapon = {
     value: 170,
     int: 15,
     per: 7,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   winter2019Healer: {
     event: EVENTS.winter2019,
@@ -4567,6 +4680,7 @@ const weapon = {
     notes: t('weaponSpecialWinter2019HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => CURRENT_SEASON === 'winter',
   },
   spring2019Rogue: {
     event: EVENTS.spring2019,
@@ -4686,6 +4800,44 @@ const weapon = {
     value: 0,
     str: 20,
     canOwn: ownsItem('weapon_special_ks2019'),
+  },
+  winter2020Rogue: {
+    event: EVENTS.winter2020,
+    specialClass: 'rogue',
+    set: 'winter2020LanternSet',
+    text: t('weaponSpecialWinter2020RogueText'),
+    notes: t('weaponSpecialWinter2020RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  winter2020Warrior: {
+    event: EVENTS.winter2020,
+    specialClass: 'warrior',
+    set: 'winter2020EvergreenSet',
+    text: t('weaponSpecialWinter2020WarriorText'),
+    notes: t('weaponSpecialWinter2020WarriorNotes', { str: 15 }),
+    value: 90,
+    str: 15,
+  },
+  winter2020Mage: {
+    event: EVENTS.winter2020,
+    specialClass: 'wizard',
+    set: 'winter2020CarolOfTheMageSet',
+    twoHanded: true,
+    text: t('weaponSpecialWinter2020MageText'),
+    notes: t('weaponSpecialWinter2020MageNotes', { int: 15, per: 7 }),
+    value: 170,
+    int: 15,
+    per: 7,
+  },
+  winter2020Healer: {
+    event: EVENTS.winter2020,
+    specialClass: 'healer',
+    set: 'winter2020WinterSpiceSet',
+    text: t('weaponSpecialWinter2020HealerText'),
+    notes: t('weaponSpecialWinter2020HealerNotes', { int: 9 }),
+    value: 90,
+    int: 9,
   },
 };
 

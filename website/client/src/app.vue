@@ -341,7 +341,7 @@ export default {
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
-      giftingHidden: getLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY) === 'dismissed',
+      giftingHidden: getLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY) === 'dismissed2019',
     };
   },
   computed: {
@@ -742,7 +742,7 @@ export default {
       this.bannerHidden = true;
     },
     hideGiftingBanner () {
-      setLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY, 'dismissed');
+      setLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY, 'dismissed2019');
       this.giftingHidden = true;
     },
     resumeDamage () {

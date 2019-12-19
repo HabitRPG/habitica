@@ -1,5 +1,6 @@
 import each from 'lodash/each';
 import defaults from 'lodash/defaults';
+import moment from 'moment';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
 import {
@@ -257,7 +258,7 @@ const quests = {
   },
   evilsanta: {
     canBuy () {
-      return false;
+      return moment().isBetween('2019-12-19', '2020-02-02');
     },
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
@@ -283,7 +284,7 @@ const quests = {
   },
   evilsanta2: {
     canBuy () {
-      return false;
+      return moment().isBetween('2019-12-19', '2020-02-02');
     },
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
