@@ -578,7 +578,7 @@ export default {
     this.$root.$on('pm::refresh', async () => {
       await this.reload();
 
-      this.selectConversation(this.loadedConversations[0].uuid);
+      this.selectConversation(this.loadedConversations[0].uuid, true);
     });
 
     await this.reload();
@@ -751,12 +751,12 @@ export default {
     toggleOpt () {
       this.$store.dispatch('user:togglePrivateMessagesOpt');
     },
-    async selectConversation (key) {
+    async selectConversation (key, forceLoadMessage = false) {
       const convoFound = this.conversations.find(conversation => conversation.key === key);
 
       this.selectedConversation = convoFound || {};
 
-      if (!this.messagesByConversation[this.selectedConversation.key]) {
+      if (!this.messagesByConversation[this.selectedConversation.key] || forceLoadMessage) {
         await this.loadMessages();
       }
 
