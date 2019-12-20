@@ -40,5 +40,18 @@
     "achievementPrimedForPaintingText": "Hat alle weißen Haustiere gesammelt.",
     "achievementPearlyProText": "Hat alle weißen Reittiere gezähmt.",
     "achievementPearlyPro": "Perlweiß-Profi",
-    "achievementPrimedForPainting": "Grundierung gemalt"
+    "achievementPrimedForPainting": "Grundierung gemalt",
+    "achievementCreatedTask": "Erstelle eine Aufgabe",
+    "onboardingCompleteDesc": "Du hast durch das Abschließen der Liste <strong>5 Erfolge</strong> freigeschaltet und <strong class=\"gold-amount\">100</strong> Goldstücke verdient.",
+    "earnedAchievement": "Du hast einen Erfolg freigeschaltet!",
+    "achievementPurchasedEquipmentModalText": "Durch Ausrüstung kann Dein Avatar personalisiert und die Attributswerte erhöht werden",
+    "achievementPurchasedEquipment": "Erwerbe Ausrüstung",
+    "achievementFedPetModalText": "Es gibt viele verschiedene Arten an Futter, aber Haustiere können wählerisch sein",
+    "achievementFedPet": "Füttere ein Haustier",
+    "achievementHatchedPet": "Schlüpfe ein Haustier",
+    "hideAchievements": "<%= category %> ausblenden",
+    "showAllAchievements": "Alle <%= category %> anzeigen",
+    "viewAchievements": "Erfolge ansehen",
+    "letsGetStarted": "Los geht's!",
+    "onboardingProgress": "<%= percentage %>% Fortschritt"
 }

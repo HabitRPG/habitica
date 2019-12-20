@@ -24,5 +24,13 @@
     "achievementAridAuthority": "Autoridad Árida",
     "achievementDustDevilModalText": "¡Has coleccionado todas las Mascotas Desierto!",
     "achievementDustDevilText": "Ha coleccionado todas las Mascotas Desierto.",
-    "achievementDustDevil": "Diablo de Polvo"
+    "achievementDustDevil": "Diablo de Polvo",
+    "hideAchievements": "Ocultar <%= category %>",
+    "showAllAchievements": "Ver todo <%= category %>",
+    "onboardingCompleteDesc": "Obtuviste <strong>5 logros</strong> y <strong class=\"gold-amount\">100</strong> monedas de oro por completar la lista.",
+    "earnedAchievement": "¡Has completado un logro!",
+    "viewAchievements": "Ver los logros",
+    "letsGetStarted": "¡Comencemos!",
+    "onboardingProgress": "<%= percentage %>% de progreso",
+    "gettingStartedDesc": "Creemos una tarea, completémosla y luego mira tus recompensas. ¡Completarás <strong>5 logros</strong> y ganarás <strong class=\"gold-amount\">100 monedas de oro</strong> cuando acabes!"
 }
