@@ -272,6 +272,9 @@ each(premium, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
+    _addlNotes: t('eventAvailability', {
+      date: t(`dateEnd${pot._season}`),
+    }),
     premium: true,
     limited: false,
     canBuy () {
