@@ -50,20 +50,22 @@ async function updateUser (user) {
     set['achievements.purchasedEquipment'] = true;
   }
 
-  const hasTask = Object.keys(user.tasksOrder).find(tasksOrderType => {
-    const order = user.tasksOrder[tasksOrderType];
+  if (user.tasksOrder) {
+    const hasTask = Object.keys(user.tasksOrder).find(tasksOrderType => {
+      const order = user.tasksOrder[tasksOrderType];
 
-    if (order && order.length > 0) return true;
-    return false;
-  });
+      if (order && order.length > 0) return true;
+      return false;
+    });
 
-  if (hasTask) {
-    set['achievements.createdTask'] = true;
-  }
+    if (hasTask) {
+      set['achievements.createdTask'] = true;
+    }
 
-  const hasExperience = user.stats && user.stats.exp && user.stats.exp > 0;
-  if (hasTask && hasExperience) {
-    set['achievements.completedTask'] = true;
+    const hasExperience = user.stats && user.stats.exp && user.stats.exp > 0;
+    if (hasTask && hasExperience) {
+      set['achievements.completedTask'] = true;
+    }
   }
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);

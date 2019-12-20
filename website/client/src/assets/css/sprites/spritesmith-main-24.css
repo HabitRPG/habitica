@@ -478,25 +478,25 @@
   width: 81px;
   height: 99px;
 }
-.Pet-Bear-Aurora {
+.Pet-Bear-Veteran {
   background-image: url('~@/assets/images/sprites/spritesmith-main-24.png');
   background-position: -820px 0px;
   width: 81px;
   height: 99px;
 }
-.Pet-Bear-Veteran {
+.Pet-BearCub-Amber {
   background-image: url('~@/assets/images/sprites/spritesmith-main-24.png');
   background-position: -820px -100px;
   width: 81px;
   height: 99px;
 }
-.Pet-BearCub-Amber {
+.Pet-BearCub-Aquatic {
   background-image: url('~@/assets/images/sprites/spritesmith-main-24.png');
   background-position: -820px -200px;
   width: 81px;
   height: 99px;
 }
-.Pet-BearCub-Aquatic {
+.Pet-BearCub-Aurora {
   background-image: url('~@/assets/images/sprites/spritesmith-main-24.png');
   background-position: -820px -300px;
   width: 81px;
