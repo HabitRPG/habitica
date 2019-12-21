@@ -3,15 +3,19 @@
     <div class="banner-g1g1 mx-n3 d-flex justify-content-center">
       <div
         class="svg-icon svg-gifts my-auto mr-5 ml-auto"
-        v-html="icons.giftsVertical">
+        v-html="icons.giftsVertical"
+      >
       </div>
       <div class="my-auto text-center">
         <strong> {{ $t('g1g1Announcement') }} </strong>
-        <div class="mt-1"> {{ $t('g1g1Details') }} </div>
+        <div class="mt-1">
+          {{ $t('g1g1Details') }}
+        </div>
       </div>
       <div
         class="svg-icon svg-gifts gifts-right my-auto ml-5 mr-auto"
-        v-html="icons.giftsVertical">
+        v-html="icons.giftsVertical"
+      >
       </div>
     </div>
     <h1>{{ $t('subscription') }}</h1>

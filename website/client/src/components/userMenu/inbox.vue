@@ -418,6 +418,7 @@ export default {
           id: '',
           text: '',
           timestamp: new Date(),
+          backer: this.initiatedConversation.backer,
         }];
       }
       // Create conversation objects
@@ -435,6 +436,7 @@ export default {
           lastMessageText: recentMessage.text,
           canLoadMore: true,
           page: 0,
+          backer: recentMessage.backer,
         };
 
         convos.push(convoModel);
