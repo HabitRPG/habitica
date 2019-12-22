@@ -2,6 +2,7 @@
   <div id="private-message">
     <div class="floating-header-shadow"></div>
     <div class="header-bar d-flex w-100">
+      <!-- changing w-25 would also need changes in .left-header.w-25 -->
       <div class="d-flex w-25 left-header">
         <div
           v-once
@@ -14,6 +15,9 @@
         >
           {{ $t('messages') }}
         </h2>
+        <div class="placeholder svg-icon">
+          <!-- placeholder -->
+        </div>
       </div>
       <div class="d-flex w-75 selected-conversion">
         <face-avatar
@@ -272,6 +276,14 @@
 
     .mail-icon-label {
       margin-bottom: 0;
+    }
+
+    .placeholder.svg-icon {
+      width: 32px;
+    }
+
+    .left-header.w-25 {
+      width: calc(25% - 2rem) !important;
     }
   }
 
