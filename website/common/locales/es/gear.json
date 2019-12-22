@@ -1816,5 +1816,7 @@
     "weaponArmoireNephriteBowText": "Arco de Nerfita",
     "armorSpecialKS2019Text": "Armadura Mítica de Grifo",
     "weaponMystery201911Notes": "La bola de cristal encima del  báculo puede revelarte el futuro, ¡Pero cuidado! Usando esa peligrosa sabiduría puede cambiar una persona de maneras inesperadas. No otorga ningún beneficio Artículo de Suscriptor de noviembre de 2019.",
-    "weaponMystery201911Text": "Báculo de cristal atractivo"
+    "weaponMystery201911Text": "Báculo de cristal atractivo",
+    "weaponArmoireFloridFanNotes": "Te encariñan los pliegues de seda cuando no están en uso. Incrementa la Constitución en <%= con %>. Armario Encantado: Objeto Independiente.",
+    "weaponArmoireFloridFanText": "Abanico Florido"
 }

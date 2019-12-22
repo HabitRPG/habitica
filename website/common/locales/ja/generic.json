@@ -294,5 +294,7 @@
     "options": "オプション",
     "demo": "デモ",
     "loadEarlierMessages": "以前のメッセージを読み込む",
-    "finish": "終了"
+    "finish": "終了",
+    "congratulations": "おめでとうございます！",
+    "onboardingAchievs": "初心者入門の実績"
 }

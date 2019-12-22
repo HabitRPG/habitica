@@ -169,5 +169,6 @@
     "imReady": "进入Habitica",
     "limitedOffer": "有效期至<%= date %>",
     "paymentCanceledDisputes": "我们已为您的电子邮件发送了取消确认。如果您没有看到电子邮件，请联系我们，以防止将来发生账单纠纷。",
-    "paymentAutoRenew": "此订阅在被取消前会自动续订。你可以在设置里取消订阅。"
+    "paymentAutoRenew": "此订阅在被取消前会自动续订。你可以在设置里取消订阅。",
+    "cannotUnpinItem": "您不能取消这个物品的固定。"
 }

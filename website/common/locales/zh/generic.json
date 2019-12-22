@@ -294,5 +294,7 @@
     "options": "选项",
     "demo": "样本",
     "loadEarlierMessages": "载入早期信息",
-    "finish": "完成"
+    "finish": "完成",
+    "congratulations": "恭喜你！",
+    "onboardingAchievs": "到职成就"
 }
