@@ -1,5 +1,19 @@
 <template>
-  <div class="standard-page">
+  <div class="standard-page pt-0 px-0">
+    <div class="banner-g1g1 mx-n3 d-flex justify-content-center">
+      <div
+        class="svg-icon svg-gifts my-auto mr-5 ml-auto"
+        v-html="icons.giftsVertical">
+      </div>
+      <div class="my-auto text-center">
+        <strong> {{ $t('g1g1Announcement') }} </strong>
+        <div class="mt-1"> {{ $t('g1g1Details') }} </div>
+      </div>
+      <div
+        class="svg-icon svg-gifts gifts-right my-auto ml-5 mr-auto"
+        v-html="icons.giftsVertical">
+      </div>
+    </div>
     <h1>{{ $t('subscription') }}</h1>
     <div class="row">
       <div class="col-6">
@@ -247,12 +261,30 @@
 </template>
 
 <style scoped lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
   .badge.badge-success {
-    color: #fff;
+    color: $white;
+  }
+
+  .banner-g1g1 {
+    height: 5.75rem;
+    background-color: $teal-50;
+    color: $white;
+  }
+
+  .gifts-right {
+    filter: flipH;
+    transform: scaleX(-1);
   }
 
   .subscribe-pay {
     margin-top: 1em;
+  }
+
+  .svg-gifts {
+    width: 55px;
+    height: 65px;
   }
 </style>
 
@@ -270,6 +302,7 @@ import notificationsMixin from '../../mixins/notifications';
 
 import amazonButton from '@/components/payments/amazonButton';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+import giftsVertical from '@/assets/svg/gifts-vertical.svg';
 
 export default {
   components: {
@@ -298,6 +331,7 @@ export default {
       },
       icons: Object.freeze({
         creditCardIcon,
+        giftsVertical,
       }),
     };
   },

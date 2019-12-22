@@ -5,7 +5,7 @@ import moment from 'moment';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween('2019-11-01', '2019-12-02')) {
+    if (moment().isBetween('2019-12-19', '2020-02-02')) {
       return [
         {
           type: 'armoire',
@@ -13,15 +13,15 @@ const featuredItems = {
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Ember',
+          path: 'premiumHatchingPotions.Aurora',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Thunderstorm',
+          path: 'premiumHatchingPotions.Holly',
         },
         {
-          type: 'food',
-          path: 'food.Saddle',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.StarryNight',
         },
       ];
     }
@@ -32,11 +32,11 @@ const featuredItems = {
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Skeleton',
+        path: 'hatchingPotions.White',
       },
       {
         type: 'eggs',
-        path: 'eggs.Fox',
+        path: 'eggs.PandaCub',
       },
       {
         type: 'food',
@@ -44,21 +44,39 @@ const featuredItems = {
       },
     ];
   },
-  quests: [
-    {
-      type: 'quests',
-      path: 'quests.badger',
-    },
-    {
-      type: 'quests',
-      path: 'quests.taskwoodsTerror1',
-    },
-    {
-      type: 'quests',
-      path: 'quests.amber',
-    },
-  ],
-  seasonal: 'fall2018Rogue',
+  quests () {
+    if (moment().isBetween('2019-12-19', '2020-02-02')) {
+      return [
+        {
+          type: 'bundles',
+          path: 'bundles.winterQuests',
+        },
+        {
+          type: 'quests',
+          path: 'quests.evilsanta',
+        },
+        {
+          type: 'quests',
+          path: 'quests.evilsanta2',
+        },
+      ];
+    }
+    return [
+      {
+        type: 'quests',
+        path: 'quests.treeling',
+      },
+      {
+        type: 'quests',
+        path: 'quests.stoikalmCalamity1',
+      },
+      {
+        type: 'quests',
+        path: 'quests.silver',
+      },
+    ];
+  },
+  seasonal: 'winter2019Warrior',
   timeTravelers: [
     // TODO
   ],

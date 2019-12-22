@@ -200,7 +200,7 @@ shops.getQuestShop = function getQuestShop (user, language) {
     categories: shops.getQuestShopCategories(user, language),
     featured: {
       text: i18n.t('featuredQuests'),
-      items: featuredItems.quests.map(i => getItemInfo(user, i.type, get(content, i.path))),
+      items: featuredItems.quests().map(i => getItemInfo(user, i.type, get(content, i.path))),
     },
   };
 };

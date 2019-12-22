@@ -169,5 +169,6 @@
     "imReady": "Entre no Habitica",
     "limitedOffer": "Disponível até <%= date %>",
     "paymentAutoRenew": "Esta assinatura será renovada automaticamente até ser cancelada. Se você precisar cancelar, poderá fazê-lo através da configurações.",
-    "paymentCanceledDisputes": "Enviamos uma confirmação de cancelamento para o seu e-mail. Se você não está vendo o e-mail, entre em contato para evitar cobranças futuras."
+    "paymentCanceledDisputes": "Enviamos uma confirmação de cancelamento para o seu e-mail. Se você não está vendo o e-mail, entre em contato para evitar cobranças futuras.",
+    "cannotUnpinItem": "Este item não pode ser desfixado."
 }

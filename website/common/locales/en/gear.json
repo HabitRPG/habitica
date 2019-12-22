@@ -310,7 +310,7 @@
   "weaponSpecialWinter2019WarriorText": "Snowflake Halberd",
   "weaponSpecialWinter2019WarriorNotes": "This snowflake was grown, ice crystal by ice crystal, into a diamond-hard blade! Increases Strength by <%= str %>. Limited Edition 2018-2019 Winter Gear.",
   "weaponSpecialWinter2019MageText": "Fiery Dragon Staff",
-  "weaponSpecialWinter2019MageNotes": "Watch out! This explosive staff is ready to help you take on all comers. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2018-2019 Winter Gear",
+  "weaponSpecialWinter2019MageNotes": "Watch out! This explosive staff is ready to help you take on all comers. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2018-2019 Winter Gear.",
   "weaponSpecialWinter2019HealerText": "Wand of Winter",
   "weaponSpecialWinter2019HealerNotes": "Winter can be a time of rest and healing, and so this wand of winter magic can help to soothe the most grievous hurts. Increases Intelligence by <%= int %>. Limited Edition 2018-2019 Winter Gear.",
 
@@ -340,6 +340,15 @@
   "weaponSpecialFall2019MageNotes": "Be it forging thunderbolts, raising fortifications, or simply striking terror into the hearts of mortals, this staff lends the power of giants to work wonders. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2019 Autumn Gear.",
   "weaponSpecialFall2019HealerText": "Fearsome Phylactery",
   "weaponSpecialFall2019HealerNotes": "This phylactery can call on the spirits of tasks long slain and use their healing power. Increases Intelligence by <%= int %>. Limited Edition 2019 Autumn Gear.",
+
+  "weaponSpecialWinter2020RogueText": "Lantern Rod",
+  "weaponSpecialWinter2020RogueNotes": "Darkness is a Rogue's element. Who better, then, to light the way in the darkest time of year? Increases Strength by <%= str %>. Limited Edition 2019-2020 Winter Gear.",
+  "weaponSpecialWinter2020WarriorText": "Pointy Conifer Cone",
+  "weaponSpecialWinter2020WarriorNotes": "Back, squirrels! You will take no piece of this! ...But if you all want to hang out and have cocoa, that's cool. Increases Strength by <%= str %>. Limited Edition 2019-2020 Winter Gear.",
+  "weaponSpecialWinter2020MageText": "Rippling Sound Waves",
+  "weaponSpecialWinter2020MageNotes": "With practice, you can project this aural magic at any desired frequency: a meditative hum, a festive chime, or a RED TASK OVERDUE ALARM. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2019-2020 Winter Gear.",
+  "weaponSpecialWinter2020HealerText": "Clove Scepter",
+  "weaponSpecialWinter2020HealerNotes": "Wave it about, and its aroma will summon your friends and helpers to begin cooking and baking! Increases Intelligence by <%= int %>. Limited Edition 2019-2020 Winter Gear.",
 
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
@@ -754,6 +763,15 @@
   "armorSpecialWinter2019HealerText": "Midnight Robe",
   "armorSpecialWinter2019HealerNotes": "Without darkness, there wouldn't be any light. These dark robes help bring peace and rest to promote healing. Increases Constitution by <%= con %>. Limited Edition 2018-2019 Winter Gear.",
 
+  "armorSpecialSpring2019RogueText": "Cloud Armor",
+  "armorSpecialSpring2019RogueNotes": "Some very tuff fluff. Increases Perception by <%= per %>. Limited Edition 2019 Spring Gear.",
+  "armorSpecialSpring2019WarriorText": "Orchid Armor",
+  "armorSpecialSpring2019WarriorNotes": "Steely armor of reinforced petals protects your heart and also looks pretty snazzy. Increases Constitution by <%= con %>. Limited Edition 2019 Spring Gear.",
+  "armorSpecialSpring2019MageText": "Amber Robes",
+  "armorSpecialSpring2019MageNotes": "These robes gather power from magic resin embedded in the fibers of ancient bark that compose the cloth. Increases Intelligence by <%= int %>. Limited Edition 2019 Spring Gear.",
+  "armorSpecialSpring2019HealerText": "Robin Costume",
+  "armorSpecialSpring2019HealerNotes": "Your bright feathers will let everyone know that the cold and dark of winter has passed. Increases Constitution by <%= con %>. Limited Edition 2019 Spring Gear.",
+
   "armorSpecialSummer2019RogueText": "Hammerhead Tail",
   "armorSpecialSummer2019RogueNotes": "This sinuous tail is perfect for making tight turns during daring aquatic escapes. Increases Perception by <%= per %>. Limited Edition 2019 Summer Gear.",
   "armorSpecialSummer2019WarriorText": "Carapace Armor",
@@ -772,14 +790,14 @@
   "armorSpecialFall2019HealerText": "Robes of Darkness",
   "armorSpecialFall2019HealerNotes": "It's said these robes are made of pure night. Use the dark power wisely! Increases Constitution by <%= con %>. Limited Edition 2019 Autumn Gear.",
 
-  "armorSpecialSpring2019RogueText": "Cloud Armor",
-  "armorSpecialSpring2019RogueNotes": "Some very tuff fluff. Increases Perception by <%= per %>. Limited Edition 2019 Spring Gear.",
-  "armorSpecialSpring2019WarriorText": "Orchid Armor",
-  "armorSpecialSpring2019WarriorNotes": "Steely armor of reinforced petals protects your heart and also looks pretty snazzy. Increases Constitution by <%= con %>. Limited Edition 2019 Spring Gear.",
-  "armorSpecialSpring2019MageText": "Amber Robes",
-  "armorSpecialSpring2019MageNotes": "These robes gather power from magic resin embedded in the fibers of ancient bark that compose the cloth. Increases Intelligence by <%= int %>. Limited Edition 2019 Spring Gear.",
-  "armorSpecialSpring2019HealerText": "Robin Costume",
-  "armorSpecialSpring2019HealerNotes": "Your bright feathers will let everyone know that the cold and dark of winter has passed. Increases Constitution by <%= con %>. Limited Edition 2019 Spring Gear.",
+  "armorSpecialWinter2020RogueText": "Poofy Parka",
+  "armorSpecialWinter2020RogueNotes": "While no doubt you can brave storms with the inner warmth of your drive and devotion, it doesn't hurt to dress for the weather. Increases Perception by <%= per %>. Limited Edition 2019-2020 Winter Gear.",
+  "armorSpecialWinter2020WarriorText": "Bark Armor",
+  "armorSpecialWinter2020WarriorNotes": "O mighty pine, o towering fir, lend your strength. Or rather, your Constitution! Increases Constitution by <%= con %>. Limited Edition 2019-2020 Winter Gear.",
+  "armorSpecialWinter2020MageText": "Curvy Coat",
+  "armorSpecialWinter2020MageNotes": "Ring in the new year warm, comfy, and buffered against excessive vibration. Increases Intelligence by <%= int %>. Limited Edition 2019-2020 Winter Gear.",
+  "armorSpecialWinter2020HealerText": "Orange Peel Gown",
+  "armorSpecialWinter2020HealerNotes": "An opulent gown for those with festive zest! Increases Constitution by <%= con %>. Limited Edition 2019-2020 Winter Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1316,6 +1334,15 @@
   "headSpecialFall2019HealerText": "Dark Miter",
   "headSpecialFall2019HealerNotes": "Don this dark miter to harness the powers of the fearsome Lich. Increases Intelligence by <%= int %>. Limited Edition 2019 Autumn Gear.",
 
+  "headSpecialWinter2020RogueText": "Floofy Stocking Cap",
+  "headSpecialWinter2020RogueNotes": "A Rogue walks down the street in that hat, people know they're not afraid of anything. Increases Perception by <%= per %>. Limited Edition 2019-2020 Winter Gear.",
+  "headSpecialWinter2020WarriorText": "Snow-Dusted Headdress",
+  "headSpecialWinter2020WarriorNotes": "A prickly feeling on your scalp is a small price to pay for seasonal magnificence. Increases Strength by <%= str %>. Limited Edition 2019-2020 Winter Gear.",
+  "headSpecialWinter2020MageText": "Bell Crown",
+  "headSpecialWinter2020MageNotes": "Oh! How the bells / Sweet golden bells / All seem to say, / “Cast ‘Burst of Flames’” Increases Perception by <%= per %>. Limited Edition 2019-2020 Winter Gear.",
+  "headSpecialWinter2020HealerText": "Star Anise Emblem",
+  "headSpecialWinter2020HealerNotes": "Please remove it from your head before attempting to brew chai or coffee with it. Increases Intelligence by <%= int %>. Limited Edition 2019-2020 Winter Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1753,6 +1780,11 @@
   "shieldSpecialFall2019WarriorNotes": "The dark sheen of a raven's feather made solid, this shield will frustrate all attacks. Increases Constitution by <%= con %>. Limited Edition 2019 Autumn Gear.",
   "shieldSpecialFall2019HealerText": "Grotesque Grimoire",
   "shieldSpecialFall2019HealerNotes": "Harness the dark side of the Healer's arts with this Grimoire! Increases Constitution by <%= con %>. Limited Edition 2019 Autumn Gear.",
+
+  "shieldSpecialWinter2020WarriorText": "Round Conifer Cone",
+  "shieldSpecialWinter2020WarriorNotes": "Use it as a shield until the seeds drop, and then you can put it on a wreath! Increases Constitution by <%= con %>. Limited Edition 2019-2020 Winter Gear.",
+  "shieldSpecialWinter2020HealerText": "Giant Cinnamon Stick",
+  "shieldSpecialWinter2020HealerNotes": "Do you feel you are too good for this world, too pure? Only this beauty of a spice will do. Increases Constitution by <%= con %>. Limited Edition 2019-2020 Winter Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
