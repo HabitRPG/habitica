@@ -208,6 +208,7 @@ export default {
   .preview-row {
     display: flex;
     flex-direction: row;
+    position: relative;
 
     .messagePreview {
       flex: 1;
@@ -216,6 +217,8 @@ export default {
   }
 
   .actions {
+    position: absolute;
+    right: 0;
     display: none;
     width: 16px;
     margin-top: 4px;
