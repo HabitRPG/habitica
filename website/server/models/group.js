@@ -158,7 +158,7 @@ schema.plugin(baseModel, {
 
 schema.pre('init', group => {
   // The Vue website makes the summary be mandatory for all new groups, but the
-  // Angular website did not, and the API does not yet for backwards-compatibilty.
+  // Angular website did not, and the API does not yet for backwards-compatibility.
   // When any guild without a summary is fetched from the database, this code
   // supplies the name as the summary. This can be removed when all guilds have
   // a summary and the API makes it mandatory (a breaking change!)

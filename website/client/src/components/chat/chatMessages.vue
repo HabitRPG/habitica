@@ -253,7 +253,7 @@ export default {
       const promises = [];
       const noProfilesLoaded = Object.keys(this.cachedProfileData).length === 0;
 
-      // @TODO: write an explination
+      // @TODO: write an explanation
       // @TODO: Remove this after enough messages are cached
       if (
         !noProfilesLoaded

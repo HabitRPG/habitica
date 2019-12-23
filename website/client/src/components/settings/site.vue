@@ -812,7 +812,8 @@ export default {
         this.localAuth.username = this.user.auth.local.username;
         this.user.flags.verifiedUsername = true;
       } else if (attribute === 'email') {
-        this.user.auth.local.email = updates[attribute];
+        this.user.auth.local.email = updates.newEmail;
+        window.alert(this.$t('emailSuccess'));
       }
     },
     async changeDisplayName (newName) {

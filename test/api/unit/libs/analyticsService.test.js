@@ -155,7 +155,7 @@ describe('analyticsService', () => {
             });
         });
 
-        it('sets Unkown if headers are not passed in', () => {
+        it('sets Unknown if headers are not passed in', () => {
           delete data.headers;
 
           return analyticsService.track(eventType, data)
@@ -476,7 +476,7 @@ describe('analyticsService', () => {
             });
         });
 
-        it('sets Unkown if headers are not passed in', () => {
+        it('sets Unknown if headers are not passed in', () => {
           delete data.headers;
 
           return analyticsService.trackPurchase(data)
