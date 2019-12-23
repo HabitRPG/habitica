@@ -168,5 +168,10 @@
     "fall2019OperaticSpecterSet": "歌剧幽灵（盗贼）",
     "september2018": "2018年9月",
     "september2017": "2017年9月",
-    "augustYYYY": "8月<%= year %>年"
+    "augustYYYY": "8月<%= year %>年",
+    "decemberYYYY": "12月<%= year %>年",
+    "winter2020LanternSet": "灯笼（盗贼）",
+    "winter2020WinterSpiceSet": "冬季香料（医者）",
+    "winter2020CarolOfTheMageSet": "法师的颂歌（法师）",
+    "winter2020EvergreenSet": "常绿（战士）"
 }

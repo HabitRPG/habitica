@@ -331,5 +331,6 @@
     "getStarted": "Comece já!",
     "mobileApps": "Aplicativos Móveis",
     "learnMore": "Aprenda Mais",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "Senhas devem possuir 8 caracteres ou mais."
 }
