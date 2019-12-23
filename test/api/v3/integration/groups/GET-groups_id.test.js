@@ -177,7 +177,7 @@ describe('GET /groups/:id', () => {
         });
     });
 
-    it('removes non-existant guild from user\'s guild list', async () => {
+    it('removes non-existent guild from user\'s guild list', async () => {
       const guildId = generateUUID();
 
       await user.update({
@@ -197,7 +197,7 @@ describe('GET /groups/:id', () => {
       expect(user.guilds).to.not.include(guildId);
     });
 
-    it('removes non-existant party from user\'s party object', async () => {
+    it('removes non-existent party from user\'s party object', async () => {
       const partyId = generateUUID();
 
       await user.update({

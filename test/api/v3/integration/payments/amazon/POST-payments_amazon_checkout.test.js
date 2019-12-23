@@ -29,7 +29,7 @@ describe('payments - amazon - #checkout', () => {
       amzLib.checkout.restore();
     });
 
-    it('makes a purcahse with amazon checkout', async () => {
+    it('makes a purchase with amazon checkout', async () => {
       user = await generateUser({
         'profile.name': 'sender',
         'purchased.plan.customerId': 'customer-id',

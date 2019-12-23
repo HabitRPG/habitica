@@ -27,7 +27,7 @@ describe('DELETE /tasks/:id', () => {
     });
   });
 
-  it('cannot delete a non-existant task', async () => {
+  it('cannot delete a non-existent task', async () => {
     await expect(user.del(`/tasks/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',

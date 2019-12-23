@@ -540,7 +540,7 @@
     "armorSpecialWinter2016MageNotes": "The wisest wizard keeps well-bundled in the winter wind. Increases Intelligence by <%= int %>. Limited Edition 2015-2016 Winter Gear.",
     "armorSpecialWinter2016HealerText": "Festive Fairy Cloak",
     "armorSpecialWinter2016HealerNotes": "Festive Fairies wrap their body wings around themselves for protection as they use their head wings to catch headwinds and fly around Habitica at speeds of up to 100 mph, delivering gifts and spraying everyone with confetti. How droll. Increases Constitution by <%= con %>. Limited Edition 2015-2016 Winter Gear.",
-    "armorSpecialSpring2016RogueText": "Canine Camouflauge Suit",
+    "armorSpecialSpring2016RogueText": "Canine Camouflage Suit",
     "armorSpecialSpring2016RogueNotes": "A clever pup knows to choose a brighter guise for concealment when everything is green and vibrant. Increases Perception by <%= per %>. Limited Edition 2016 Spring Gear.",
     "armorSpecialSpring2016WarriorText": "Mighty Mail",
     "armorSpecialSpring2016WarriorNotes": "Though you be but little, you are fierce! Increases Constitution by <%= con %>. Limited Edition 2016 Spring Gear.",

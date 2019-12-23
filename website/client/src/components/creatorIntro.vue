@@ -329,7 +329,7 @@
           <div class="task-option">
             <div class="custom-control custom-checkbox">
               <input
-                id="excercise"
+                id="exercise"
                 v-model="taskCategories"
                 class="custom-control-input"
                 type="checkbox"
@@ -338,7 +338,7 @@
               <label
                 v-once
                 class="custom-control-label"
-                for="excercise"
+                for="exercise"
               >{{ $t('exercise') }}</label>
             </div>
           </div>
