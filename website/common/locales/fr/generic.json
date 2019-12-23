@@ -294,5 +294,7 @@
     "options": "Options",
     "demo": "Démo",
     "loadEarlierMessages": "Charger les messages précédents",
-    "finish": "Terminer"
+    "finish": "Terminer",
+    "congratulations": "Félicitations !",
+    "onboardingAchievs": "Succès de démarrage"
 }
