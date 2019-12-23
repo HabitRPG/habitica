@@ -70,7 +70,7 @@
     "validator": "^11.0.0",
     "vinyl-buffer": "^1.0.1",
     "winston": "^2.4.3",
-    "winston-loggly-bulk": "^2.0.2",
+    "winston-loggly-bulk": "^3.0.1",
     "xml2js": "^0.4.23"
   },
   "private": true,
