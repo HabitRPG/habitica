@@ -74,6 +74,7 @@ const bundles = {
     key: 'winterQuests',
     text: t('winterQuestsText'),
     notes: t('winterQuestsNotes'),
+    addlNotes: t('evilSantaAddlNotes'),
     bundleKeys: [
       'evilsanta',
       'evilsanta2',
