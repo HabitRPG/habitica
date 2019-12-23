@@ -16,7 +16,7 @@ describe('getDebuffPotionItems', () => {
   for (const key of Object.keys(TRANSFORMATION_DEBUFFS_LIST)) {
     const debuff = TRANSFORMATION_DEBUFFS_LIST[key];
     // Here we iterate the whole object to dynamically create test suites as
-    // it described in mocha's docs
+    // described in mocha's docs
     // https://mochajs.org/#dynamically-generating-tests
     // That's why we have eslint-disable here
     // eslint-disable-next-line no-loop-func
