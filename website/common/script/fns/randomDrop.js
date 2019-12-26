@@ -83,10 +83,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
         ...user.items.food,
         [drop.key]: user.items.food[drop.key] || 0,
       };
-      user.items.food = {
-        ...user.items.food,
-        [drop.key]: +1,
-      };
+      user.items.food[drop.key] += 1;
       if (user.markModified) user.markModified('items.food');
 
       drop.type = 'Food';
@@ -101,10 +98,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
         ...user.items.eggs,
         [drop.key]: user.items.eggs[drop.key] || 0,
       };
-      user.items.eggs = {
-        ...user.items.eggs,
-        [drop.key]: drop.key += 1,
-      };
+      user.items.eggs[drop.key] += 1;
       if (user.markModified) user.markModified('items.eggs');
 
       drop.type = 'Egg';

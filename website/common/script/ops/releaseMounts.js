@@ -28,10 +28,7 @@ export default function releaseMounts (user, req = {}, analytics) {
     if (user.items.mounts[mount] === null || user.items.mounts[mount] === undefined) {
       giveMountMasterAchievement = false;
     }
-    user.items.mounts = {
-      ...user.items.mounts,
-      [mount]: null,
-    };
+    user.items.mounts[mount] = null;
   }
 
   if (user.markModified) user.markModified('items.mounts');
