@@ -207,7 +207,7 @@
     "hatchingPotionFairy": "Hada",
     "hatchingPotionStarryNight": "Noche Estrellada",
     "hatchingPotionRainbow": "Arco-iris",
-    "hatchingPotionGlass": "El Vidrio",
+    "hatchingPotionGlass": "Vidrio",
     "hatchingPotionGlow": "que brilla en la oscuridad",
     "hatchingPotionFrost": "Escarcha",
     "hatchingPotionIcySnow": "Nieve Glacial",
@@ -352,5 +352,6 @@
     "questEggRobotMountText": "Robot",
     "questEggRobotText": "Robot",
     "premiumPotionUnlimitedNotes": "No puede usarse en huevos de Mascotas de Misiones.",
-    "hatchingPotionAmber": "Ámbar"
+    "hatchingPotionAmber": "Ámbar",
+    "hatchingPotionAurora": "Aurora"
 }

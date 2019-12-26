@@ -1,11 +1,11 @@
 {
     "questEvilSantaText": "圣诞陷阱猎手",
-    "questEvilSantaNotes": "冰原深处传来声声痛苦的嘶吼，其中夹杂着刺耳的咯咯笑声。你循声来到了一片林中空地，发现了一头成年北极熊。它被镣铐锁在笼子里，挣扎着想要逃出生天。一个妖精身穿破烂的圣诞装，正踩在笼子顶上开心地手舞足蹈。你决定战胜圣诞陷阱猎手，救出这头北极熊！",
+    "questEvilSantaNotes": "冰原深处传来声声痛苦的嘶吼，其中夹杂着刺耳的咯咯笑声。你循声来到了一片林中空地，发现了一头成年北极熊。它被镣铐锁在笼子里，挣扎着想要逃出生天。一个妖精身穿破烂的圣诞装，正踩在笼子顶上开心地手舞足蹈。你决定战胜圣诞陷阱猎手，救出这头北极熊！<br><br><strong>注意</strong>：“圣诞陷阱猎手”奖励可堆叠的副本成就，但会奖励的稀有坐骑只能添加到你的马厩一次。",
     "questEvilSantaCompletion": "圣诞陷阱猎手气得尖叫起来，纵身跃入夜幕之中。母熊低沉的吼声中充满了感激，似乎在诉说着什么。你把她带回马厩，驯兽师Matt Boch聆听着她带着恐惧的喘息讲述的故事。她还有个熊宝宝！小熊在母熊被陷阱抓住的时候跑入了冰原。",
     "questEvilSantaBoss": "圣诞陷阱猎手",
     "questEvilSantaDropBearCubPolarMount": "北极熊（坐骑）",
     "questEvilSanta2Text": "找熊崽",
-    "questEvilSanta2Notes": "在北极熊坐骑被圣诞陷阱猎手抓住的时候，她的宝宝跑进了冰原。树枝咔嚓折断，踏雪嘎吱作响，清脆的声音回荡在森林中。这儿有爪印！你们开始追踪着这些足迹前进。只要不漏掉这些爪印和踩断的树枝，应该能找回北极熊的崽！",
+    "questEvilSanta2Notes": "在北极熊坐骑被圣诞陷阱猎手抓住的时候，她的宝宝跑进了冰原。树枝咔嚓折断，踏雪嘎吱作响，清脆的声音回荡在森林中。这儿有爪印！你们开始追踪着这些足迹前进。只要不漏掉这些爪印和踩断的树枝，应该能找回北极熊的崽！<br><br><strong>注意</strong>：“找熊崽”奖励可堆叠的副本成就，但会奖励的稀有宠物只能添加到你的马厩一次。",
     "questEvilSanta2Completion": "恭喜你找到了熊崽！它将永远陪着你。",
     "questEvilSanta2CollectTracks": "爪印",
     "questEvilSanta2CollectBranches": "踩断的树枝",
@@ -559,7 +559,7 @@
     "questYarnDropYarnEgg": "毛线（宠物蛋）",
     "questYarnUnlockText": "在市场中解锁毛线蛋以购买",
     "winterQuestsText": "“冬天”副本集",
-    "winterQuestsNotes": "包括“圣诞陷阱猎手”、“找熊仔”和“冰霜禽类”。12月31日前可购买。",
+    "winterQuestsNotes": "包括“圣诞陷阱猎手”、“找熊仔”和“冰霜禽类”。12月31日前可购买。注意，圣诞陷阱猎手和找熊崽奖励可堆叠的副本成就，但会奖励的稀有宠物和坐骑只能添加到你的马厩一次。",
     "questPterodactylText": "翼龙",
     "questPterodactylNotes": "你在Stoïkalm悬崖边散步时，一声邪恶的尖啸划破长空。你转过头来，看到一只丑陋的生物向着你从天而降，你立刻为巨大的恐惧所支配。当你扭头想逃跑时，@Lilith of Alfheim 一把抓住了你，说道：“别害怕！那只是一只翼龙。”<br><br>@Procyon P 点头赞同道：“它们的巢在附近，翼龙会被坏习惯和完不成的每日任务的气味吸引过来。”<br><br>“不用担心，”@Katy133 说，“我们只要提高效率多干活，就能战胜它！”你重新充满了决心，摆出了接敌的架势。",
     "questPterodactylCompletion": "伴随着翼龙的最后一声惨叫，它从悬崖边上跌了下去。你跑到悬崖边向下看去，看见翼龙展翅重新飞上天空，掠过广袤的大草原。你松了口气：“嚯，可算是完事了。”@GeraldThePixel 回了句话：“我也这么觉得。”@Edge 递给你3个蛋：“看！它给咱们留下了几个蛋。”在好习惯和蓝色的每日任务的围绕下，你发誓要把它们平安养大。",
@@ -674,5 +674,6 @@
     "questBronzeUnlockText": "在市场中解锁青铜孵化药水以购买",
     "questBronzeDropBronzePotion": "青铜孵化药水",
     "questBronzeBoss": "青铜甲虫",
-    "questBronzeText": "青铜甲虫战斗"
+    "questBronzeText": "青铜甲虫战斗",
+    "evilSantaAddlNotes": "注意，圣诞陷阱猎手和找熊崽奖励可堆叠的副本成就，但会奖励的稀有宠物和坐骑只能添加到你的马厩一次。"
 }
