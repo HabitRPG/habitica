@@ -1,60 +1,72 @@
 .promo_achievement_white {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -524px -444px;
+  background-position: -910px 0px;
   width: 204px;
   height: 102px;
 }
 .promo_armoire_backgrounds_201912 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -148px;
+  background-position: -424px -327px;
   width: 423px;
   height: 147px;
 }
 .promo_g1g1_2019 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -469px -296px;
+  background-position: -403px -475px;
   width: 357px;
   height: 144px;
 }
 .promo_mystery_201912 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -241px -444px;
+  background-position: -462px -623px;
   width: 282px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -729px -444px;
+  background-position: -910px -103px;
   width: 96px;
   height: 69px;
 }
 .promo_winter_potions_2020 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -296px;
+  background-position: 0px -327px;
   width: 423px;
   height: 147px;
 }
 .promo_winter_quests_bundle {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -469px 0px;
+  background-position: -441px -148px;
   width: 423px;
   height: 147px;
 }
 .promo_winter_wonderland_2019 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -469px -148px;
+  background-position: 0px -475px;
   width: 402px;
   height: 147px;
 }
 .promo_winter_wonderland_2020 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
+  background-position: -441px 0px;
   width: 468px;
   height: 147px;
 }
+.scene_studying_hard {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -623px;
+  width: 220px;
+  height: 232px;
+}
+.scene_tavern {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 440px;
+  height: 326px;
+}
 .scene_todos {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -444px;
+  background-position: -221px -623px;
   width: 240px;
   height: 195px;
 }
