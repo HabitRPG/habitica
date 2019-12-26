@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'WINTER WONDERLAND BEGINS! CLASS OUTFITS, QUESTS, AND HATCHING POTIONS';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG POSTS: NEW GUILDS AND USING HABITICA’S SOCIAL SPACES';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -35,63 +35,34 @@ api.getNews = {
           </div>
         </div>
         <hr/>
+        <div class="scene_studying_hard center-block"></div>
+        <h3>Monthly Guild Spotlight</h3>
         <p>
-          A wintery breeze is blowing in from the Stoïkalm Steppes, and the snow is gently drifting
-          down over Habit City. The Winter Wonderland event has begun!
+          There's a new <a
+          href='https://habitica.wordpress.com/2019/12/26/new-and-notable-guild-spotlight-12/'
+          target='_blank'>Guild Spotlight on the blog</a> that highlights yet another selection of
+          the upcoming Guilds in Habitica dedicated to a variety of topics! Check it out now to
+          find some of Habitica's best new communities.
         </p>
-        <div class="promo_winter_wonderland_2020 center-block"></div>
-        <h3>Winter Class Outfits</h3>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="scene_tavern center-block"></div>
+        <h3>Use Case Spotlight: Habitica's Social Spaces</h3>
         <p>
-          From now until January 31st, limited edition outfits are available in the Rewards column.
-          Depending on your class, you can be an Evergreen Warrior, Bell Mage, Winter Spice Healer,
-          or Lantern Rogue! You'd better get productive to earn enough Gold before they disappear.
-          Good luck!
-        </p>
-        <div class="small mb-3">by Vikte, gawrone, jjgame83, Aspiring Advocate, and SabreCat</div>
-        <div class="promo_winter_wonderland_2019 center-block"></div>
-        <h3>Seasonal Shop is Open!</h3>
-        <p>
-          The <a href='/shops/seasonal'>Seasonal Shop</a> has opened! The Seasonal Sorceress is
-          stocking the seasonal edition versions of previous winter outfits, now available for Gems
-          instead of Gold, and the Winter Quest Chain. Plus, there will be more fun things in the
-          shop as the event progresses. The Seasonal Shop will only be open until January 31st, so
-          don't wait!
-        </p>
-        <div class="small mb-3">
-          by Lt Cabel, Vikte, AnnDeLune, Persephone, WeeWitch, katy133, yayannabelle, Stefalupagus,
-          Io Breese, foreverender, Podcod, Beffymaroo, SabreCat, and Lemoness
-        </div>
-        <div class="promo_winter_quests_bundle center-block"></div>
-        <h3>Discounted Quest Bundle: Winter Quests</h3>
-        <p>
-          If you're looking to add some cold weather friends to your Habitica stable, you're in
-          luck! From now until January 31, you can purchase the Winter Quest Bundle and receive the
-          Trapper Santa, Find the Cub, and Penguin quests, all for only 7 Gems! That's a discount
-          of 5 Gems from the price of purchasing them separately. Check it out in the <a
-          href='/shops/quests'>Quest Shop</a> today!
-        </p>
-        <div class="small">by Lemoness and SabreCat</div>
-        <div class="small">
-          Art by UncommonCriminal, Shaner, Eevachu, Pandoro, melynnrose, Breadstrings, Rattify, and
-          PainterProphet
-        </div>
-        <div class="small mb-3">Writing by Lefnire, Leephon, and Daniel the Bard</div>
-        <div class="promo_winter_potions_2020 center-block"></div>
-        <h3>New Aurora Hatching Potions and the Return of Holly and Starry Night!</h3>
-        <p>
-          There's a new pet breed in town! Check out the brand-new Aurora Potions and the return
-          of Holly and Starry Night Potions to brighten your Winter Wonderland avatar look. Buy
-          them from <a href='/shops/market'>the Market</a> and use them to hatch any standard pet
-          egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets
-          aren't picky, so they'll happily eat any kind of food that you feed them!
+          This month's <a href='https://habitica.wordpress.com/2019/12/26/
+use-case-spotlight-using-habiticas-social-spaces-to-motivate-yourself/' target='_blank'>
+          Use Case Spotlight</a> is about Using Habitica's Social Spaces for Motivation! It
+          features a number of great suggestions submitted by Habiticans in the <a href=
+          '/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>. We
+          hope it helps any of you who might be looking for support and camaraderie as you pursue your goals.
         </p>
         <p>
-          After they're gone, it will be at least a year before these three Hatching Potions are
-          available again, so be sure to get them now!
+          Plus, we're collecting user submissions for the next spotlight! How do you customize
+          Habitica to add extra excitement and motivation? We’ll be featuring player-submitted
+          examples in Use Case Spotlights on the Habitica Blog next month, so post your suggestions
+          in the Use Case Spotlight Guild now. We look forward to learning more about how you use
+          Habitica to improve your life and get things done!
         </p>
-        <div class="small mb-3">
-          by QuartzFox, Archeia, Willow The Witty, JinjooHat, Tyche Alba, and SabreCat
-        </div>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });

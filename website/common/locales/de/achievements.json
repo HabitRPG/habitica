@@ -53,5 +53,6 @@
     "showAllAchievements": "Alle <%= category %> anzeigen",
     "viewAchievements": "Erfolge ansehen",
     "letsGetStarted": "Los geht's!",
-    "onboardingProgress": "<%= percentage %>% Fortschritt"
+    "onboardingProgress": "<%= percentage %>% Fortschritt",
+    "gettingStartedDesc": "Erstelle eine Aufgabe, schließe sie ab und prüfe dann Deine Belohnungen. Du schaltest <strong>5 Erfolge</strong> frei und erhältst <strong class=\"gold-amount\">100 Goldstücke</strong>, sobald Du fertig bist!"
 }

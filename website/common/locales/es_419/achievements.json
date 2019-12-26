@@ -32,5 +32,20 @@
     "viewAchievements": "Ver los logros",
     "letsGetStarted": "¡Comencemos!",
     "onboardingProgress": "<%= percentage %>% de progreso",
-    "gettingStartedDesc": "Creemos una tarea, completémosla y luego mira tus recompensas. ¡Completarás <strong>5 logros</strong> y ganarás <strong class=\"gold-amount\">100 monedas de oro</strong> cuando acabes!"
+    "gettingStartedDesc": "Creemos una tarea, completémosla y luego mira tus recompensas. ¡Completarás <strong>5 logros</strong> y ganarás <strong class=\"gold-amount\">100 monedas de oro</strong> cuando acabes!",
+    "achievementCompletedTaskText": "Completó su primera tarea.",
+    "achievementCompletedTask": "Completa una tarea",
+    "achievementCreatedTaskModalText": "Agrega una tarea por algo que te gustaría lograr esta semana",
+    "achievementCreatedTaskText": "Creó su primera tarea.",
+    "achievementCreatedTask": "Crea una tarea",
+    "achievementUndeadUndertakerModalText": "¡Domesticaste todas las monturas zombis!",
+    "achievementUndeadUndertakerText": "Ha domesticado todas las monturas zombis.",
+    "achievementUndeadUndertaker": "El desenterrador muerto viviente",
+    "achievementMonsterMagusModalText": "¡Coleccionaste todas las mascotas zombis!",
+    "achievementMonsterMagusText": "Ha coleccionado todas las mascotas zombis.",
+    "achievementMonsterMagus": "Mago de los monstruos",
+    "achievementPartyOn": "¡Tu equipo ha crecido a 4 miembros!",
+    "achievementKickstarter2019Text": "Patrocinó el proyecto kickstarter de Pin de 2019",
+    "achievementKickstarter2019": "Patrocinador del kickstarter de Pin",
+    "achievementPartyUp": "¡Te uniste con un miembro de equipo!"
 }

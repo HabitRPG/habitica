@@ -1983,5 +1983,21 @@
     "headArmoireEarflapHatText": "Uschanka",
     "armorArmoireDuffleCoatNotes": "Reise stilsicher durch eisige Gefilde mit diesem lauschigen Wollmantel. Erhöht Ausdauer und Wahrnehmung um jeweils <%= attrs %>. Verzauberter Schrank: Düffelmantel-Set (Gegenstand 1 von 2).",
     "armorArmoireDuffleCoatText": "Düffelmantel",
-    "headArmoireEarflapHatNotes": "Wenn Du etwas suchst, um Deinen Kopf wohlig warm zu halten, ist dieser Hut genau Dein Ding! Erhöht Intelligenz und Stärke um je <%= attrs %>. Verzauberter Schrank: Düffelmantel-Set (Gegenstand 2 von 2)."
+    "headArmoireEarflapHatNotes": "Wenn Du etwas suchst, um Deinen Kopf wohlig warm zu halten, ist dieser Hut genau Dein Ding! Erhöht Intelligenz und Stärke um je <%= attrs %>. Verzauberter Schrank: Düffelmantel-Set (Gegenstand 2 von 2).",
+    "shieldSpecialWinter2020HealerText": "Gigantische Zimtstange",
+    "shieldSpecialWinter2020WarriorText": "Zirkulärer Tannenzapfen",
+    "headSpecialWinter2020HealerText": "Sternanisabzeichen",
+    "headSpecialWinter2020MageText": "Glockenkrone",
+    "armorSpecialWinter2020HealerText": "Orangenschalenumhang",
+    "armorSpecialWinter2020WarriorNotes": "Oh mächtige Kiefer, oh überragende Tanne, leiht mir eure Kraft. Oder besser gesagt, eure Ausdauer! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "armorSpecialWinter2020WarriorText": "Borkenrüstung",
+    "armorSpecialWinter2020RogueText": "Puscheliger Parka",
+    "weaponSpecialWinter2020HealerNotes": "Schwinge es und sein Aroma wird Deine Freunde und Helfer herbeirufen, um mit dem Kochen und Backen zu beginnen! Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "weaponSpecialWinter2020HealerText": "Gewürznelkenzepter",
+    "weaponSpecialWinter2020MageNotes": "Mit etwas Übung, kannst Du diese akustische Magie in jeder gewünschten Frequenz generieren: ein meditatives Summen, ein festliches Läuten oder ein ROTE AUFGABE ÜBERFÄLLIG-ALARM. Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "weaponSpecialWinter2020MageText": "Ringelige Schallwellen",
+    "weaponSpecialWinter2020WarriorNotes": "Zurück, Eichhörnchen! Ihr bekommt kein einziges Stück davon! ...Aber wenn Ihr alle bei einer Tasse Kakao abhängen wollt, geht das klar. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "weaponSpecialWinter2020WarriorText": "Zackiger Tannenzapfen",
+    "weaponSpecialWinter2020RogueNotes": "Dunkelheit ist des Schurken Element. Wer eigne sich da besser, den Weg zu leuchten in der dunkelsten Jahreszeit? Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "weaponSpecialWinter2020RogueText": "Laternenstab"
 }
