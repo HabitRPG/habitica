@@ -1999,5 +1999,15 @@
     "weaponSpecialWinter2020WarriorNotes": "Zurück, Eichhörnchen! Ihr bekommt kein einziges Stück davon! ...Aber wenn Ihr alle bei einer Tasse Kakao abhängen wollt, geht das klar. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
     "weaponSpecialWinter2020WarriorText": "Zackiger Tannenzapfen",
     "weaponSpecialWinter2020RogueNotes": "Dunkelheit ist des Schurken Element. Wer eigne sich da besser, den Weg zu leuchten in der dunkelsten Jahreszeit? Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
-    "weaponSpecialWinter2020RogueText": "Laternenstab"
+    "weaponSpecialWinter2020RogueText": "Laternenstab",
+    "shieldSpecialWinter2020HealerNotes": "Hast Du das Gefühl, Du seist zu gut für diese Welt, zu unverfälscht? Nur diese Schönheit unter den Gewürzen ist Deiner würdig. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "headSpecialWinter2020HealerNotes": "Bitte nimm es ab, bevor Du versuchst damit einen Chai oder Kaffee aufzubrühen. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "headSpecialWinter2020MageNotes": "Oh! Süßer die Glocken nie klingen / als zu der Weihnachtszeit, / ’s ist, als ob Engelein singen, / \"Wende 'Flammenstoß' an\". Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "headSpecialWinter2020WarriorNotes": "Ein stechendes Gefühl auf Deinem Kopf ist ein kleiner Preis für saisonale Pracht. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2019-202 Winterausrüstung.",
+    "headSpecialWinter2020WarriorText": "Schneegekrönter Kopfschmuck",
+    "headSpecialWinter2020RogueNotes": "Ein Schurke geht in dieser Mütze die Straße entlang, die Leute wissen, so jemand fürchtet nichts. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "headSpecialWinter2020RogueText": "Flauschige Bommelmütze",
+    "armorSpecialWinter2020HealerNotes": "Ein opulenter Umhang für jene, mit festlichem Geschmack! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "armorSpecialWinter2020MageText": "Rundliche Robe",
+    "armorSpecialWinter2020RogueNotes": "Es besteht kein Zweifel, dass Du Stürmen mit der inneren Wärme Deines Elans und Deiner Hingabe trotzen kannst, aber es kann nicht schaden, sich dem Wetter entsprechend anzuziehen. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019-2020 Winterausrüstung."
 }

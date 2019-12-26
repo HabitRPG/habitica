@@ -54,5 +54,14 @@
     "viewAchievements": "Erfolge ansehen",
     "letsGetStarted": "Los geht's!",
     "onboardingProgress": "<%= percentage %>% Fortschritt",
-    "gettingStartedDesc": "Erstelle eine Aufgabe, schließe sie ab und prüfe dann Deine Belohnungen. Du schaltest <strong>5 Erfolge</strong> frei und erhältst <strong class=\"gold-amount\">100 Goldstücke</strong>, sobald Du fertig bist!"
+    "gettingStartedDesc": "Erstelle eine Aufgabe, schließe sie ab und prüfe dann Deine Belohnungen. Du schaltest <strong>5 Erfolge</strong> frei und erhältst <strong class=\"gold-amount\">100 Goldstücke</strong>, sobald Du fertig bist!",
+    "achievementCreatedTaskModalText": "Füge eine Aufgabe hinzu, für etwas, das Du diese Woche erreichen willst",
+    "achievementPurchasedEquipmentText": "Hat den ersten Rüstungsgegenstand gekauft.",
+    "achievementFedPetText": "Hat das erste Haustier gefüttert.",
+    "achievementHatchedPetModalText": "Schau in Dein Inventar und versuche ein Schlüpfelixier mit einem Ei zu kombinieren",
+    "achievementHatchedPetText": "Hat das erste Haustier geschlüpft.",
+    "achievementCompletedTaskModalText": "Hake Deine Aufgaben ab, um Belohnungen zu verdienen",
+    "achievementCompletedTaskText": "Hat die erste Aufgabe erledigt.",
+    "achievementCompletedTask": "Erledige eine Aufgabe",
+    "achievementCreatedTaskText": "Hat die erste Aufgabe erstellt."
 }

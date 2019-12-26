@@ -52,7 +52,7 @@
     "messageGroupChatNotFound": "Mensagem não encontrada!",
     "messageGroupChatAdminClearFlagCount": "Somente um administrador pode remover o contador de denúncias!",
     "messageCannotFlagSystemMessages": "Você não pode reportar uma mensagem do sistema. Caso precise relatar uma violação das Diretrizes de Comunidade relacionada a esta mensagem, por favor envie uma captura de tela e a explicação para o nosso Administrador da Comunidade através do e-mail <%= communityManagerEmail %>.",
-    "messageGroupChatSpam": "Ops, parece que você está postando mensagens demais! Por favor aguarde um minuto e tente novamente. O chat da Taverna só suporta 200 mensagens por vez, então a Habitica recomenda postar mensagens longas e mais profundas e respostas consolidadoras. Mal posso esperar para ouvir o que você tem a dizer. :)",
+    "messageGroupChatSpam": "Ops, parece que você está postando mensagens demais! Por favor, aguarde um minuto e tente novamente. O bate-papo da Taverna suporta apenas 200 mensagens por vez, então o Habitica recomenda postar mensagens longas e mais profundas e respostas consolidadoras. Mal posso esperar para ouvir o que você tem a dizer. :)",
     "messageCannotLeaveWhileQuesting": "Você não pode aceitar o convite deste grupo enquanto está em uma missão. Se você quiser entrar nesse grupo, deve primeiro abortar sua missão. Você poderá fazê-la a partir da página do grupo. Você receberá de volta o pergaminho de missão.",
     "messageUserOperationProtected": "caminho `<%= operation %>` não foi salvo, já que é um caminho protegido.",
     "messageUserOperationNotFound": "<%= operation %> operação não encontrada",

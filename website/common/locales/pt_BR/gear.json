@@ -2,7 +2,7 @@
     "set": "Conjunto",
     "equipmentType": "Tipo",
     "klass": "Classe",
-    "groupBy": "Organizar Por <%= type %>",
+    "groupBy": "Organizar por <%= type %>",
     "classBonus": "(Este item foi feito para sua classe, então tem um multiplicador de atributos adicional de 1.5x.)",
     "classArmor": "Armadura da Classe",
     "featuredset": "Conjunto em Destaque: <%= name %>",
@@ -2010,5 +2010,6 @@
     "weaponSpecialWinter2020WarriorNotes": "Voltem, esquilos! Vocês não pegarão nada disso!... Mas, se vocês querem tomar um chocolate quente, tudo bem. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Inverno de 2019-2020.",
     "weaponSpecialWinter2020WarriorText": "Cone pontudo de coníferas",
     "weaponSpecialWinter2020RogueNotes": "A escuridão é o elemento de um ladino. Quem melhor, então, para iluminar o caminho na época mais escura do ano? Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Inverno de 2019-2020.",
-    "weaponSpecialWinter2020RogueText": "Haste de lanterna"
+    "weaponSpecialWinter2020RogueText": "Haste de lanterna",
+    "armorSpecialWinter2020RogueText": "Jaqueta aerada"
 }
