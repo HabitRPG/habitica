@@ -4,7 +4,7 @@
     "accept1Terms": "我同意接受",
     "accept2Terms": "和",
     "alexandraQuote": "忍不住在马德里做演讲时提到了[Habitica]，对依然需要一个老板管着的自由职业者来说，这个工具你必须拥有。",
-    "althaireQuote": "持续地去完成任务真的能鼓励我去完成我每天要做的事和其他所有待办事项，我最大的动力是我不能辜负我的战友。",
+    "althaireQuote": "持续地去完成副本真的能鼓励我去完成我每天要做的事和其他所有待办事项，我最大的动力是我不能辜负我的战友。",
     "andeeliaoQuote": "超赞的东西，前几天刚开始尝试，现在已经让我的生活变得更加充实丰富！",
     "autumnesquirrelQuote": "我在工作，做家务，付账的时候已经不会那么拖延了。",
     "businessSample1": "确认1页库存清单",
@@ -218,7 +218,7 @@
     "zelahQuote": "因为 [Habitica] 的帮助，我能够准时上床休息了，因为我老想着早睡能挣经验，晚睡会掉血！",
     "reportAccountProblems": "报告账户问题",
     "reportCommunityIssues": "报告社区问题",
-    "subscriptionPaymentIssues": "捐助和支付问题",
+    "subscriptionPaymentIssues": "订阅和支付问题",
     "generalQuestionsSite": "关于本站的常见问题",
     "businessInquiries": "业务/市场咨询",
     "merchandiseInquiries": "实体商品(T恤，贴纸)询问",
@@ -266,7 +266,7 @@
     "missingNewPassword": "缺少新密码。",
     "invalidEmailDomain": "你不能使用下列邮件供应商提供的邮箱注册 Habitica: <%= domains %>",
     "wrongPassword": "密码错误。",
-    "incorrectDeletePhrase": "請用大写輸入<%= magicWord %>來删除你的账号。",
+    "incorrectDeletePhrase": "请用大写字母输入<%= magicWord %>来删除你的账号。",
     "notAnEmail": "无效的电子邮件地址。",
     "emailTaken": "邮件地址已经和其他账户关联。",
     "newEmailRequired": "未输入新的邮件地址。",
@@ -283,7 +283,7 @@
     "passwordResetEmailHtml": "如果你在Habitica的用户  <strong><%= username %> </strong>希望重置密码，<a href=\"<%= passwordResetLink %>\">点击这里</a> 去设置一个新的密码。这个链接会在24小时后到期。<br/><br>如果你没有请求重置密码，请忽略这封邮件。",
     "invalidLoginCredentialsLong": "噢，糟了 - 您的电子邮箱/登录名或密码错误。\n- 确保您的用户名或电子邮箱输入正确。您的登录名和密码注意区分大小写。\n- 您可能使用Facebook或Google登录，而不是电子邮箱，所以再次检查尝试用Facebook或Google登陆。\n- 如果您忘记了密码，点击 \"忘记密码\"。",
     "invalidCredentials": "没有运用那些授权证书的账号。",
-    "accountSuspended": "该帐户，用户ID为“<%= userId %>”因违反[社区准则](https://habitica.com/static/community-guidelines)或[服务条款](https：//habitica.com/static/terms)已被冻结。有关详细信息或要求解除封禁，请发送电子邮件给我们的社区管理员<%= communityManagerEmail %> 或要求您的家长或监护人通过电子邮件发送。 请将您的用户ID复制到电子邮件中并包含您的登录名。",
+    "accountSuspended": "此账号<%= userId %>”因违反社区准则(https://habitica.com/static/community-guidelines)或服务条款(https://habitica.com/static/terms)已被冻结。若要询问细节或要求解冻，请您或者请您的家长、监护人协助发送电子邮件给我们的社区管理员<%= communityManagerEmail %> 。 请记得在电子邮件中附上您的用户名。",
     "accountSuspendedTitle": "账户已被暂停使用",
     "unsupportedNetwork": "当前网络不支持。",
     "cantDetachSocial": "帐户缺少另一个认证方式；无法分离此认证方式。",
@@ -331,5 +331,6 @@
     "getStarted": "现在加入我们！",
     "mobileApps": "手机客户端",
     "learnMore": "了解更多",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "密码至少需要8个字符。"
 }

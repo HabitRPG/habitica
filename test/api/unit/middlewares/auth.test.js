@@ -5,7 +5,8 @@ import {
 import { authWithHeaders as authWithHeadersFactory } from '../../../../website/server/middlewares/auth';
 
 describe('auth middleware', () => {
-  let res, req, user;
+  let res; let req; let
+    user;
 
   beforeEach(async () => {
     res = generateRes();
@@ -14,7 +15,7 @@ describe('auth middleware', () => {
   });
 
   describe('auth with headers', () => {
-    it('allows to specify a list of user field that we do not want to load', (done) => {
+    it('allows to specify a list of user field that we do not want to load', done => {
       const authWithHeaders = authWithHeadersFactory({
         userFieldsToExclude: ['items'],
       });
@@ -22,18 +23,18 @@ describe('auth middleware', () => {
       req.headers['x-api-user'] = user._id;
       req.headers['x-api-key'] = user.apiToken;
 
-      authWithHeaders(req, res, (err) => {
+      authWithHeaders(req, res, err => {
         if (err) return done(err);
 
         const userToJSON = res.locals.user.toJSON();
         expect(userToJSON.items).to.not.exist;
         expect(userToJSON.auth).to.exist;
 
-        done();
+        return done();
       });
     });
 
-    it('makes sure some fields are always included', (done) => {
+    it('makes sure some fields are always included', done => {
       const authWithHeaders = authWithHeadersFactory({
         userFieldsToExclude: [
           'items', 'auth.timestamps',
@@ -44,7 +45,7 @@ describe('auth middleware', () => {
       req.headers['x-api-user'] = user._id;
       req.headers['x-api-key'] = user.apiToken;
 
-      authWithHeaders(req, res, (err) => {
+      authWithHeaders(req, res, err => {
         if (err) return done(err);
 
         const userToJSON = res.locals.user.toJSON();
@@ -56,7 +57,7 @@ describe('auth middleware', () => {
         expect(userToJSON._id).to.exist;
         expect(userToJSON.flags).to.exist;
 
-        done();
+        return done();
       });
     });
   });

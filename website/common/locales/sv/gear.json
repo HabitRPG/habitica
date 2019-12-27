@@ -1805,7 +1805,19 @@
     "shieldMystery201902Text": "Kryptisk konfetti",
     "shieldMystery201902Notes": "Detta glittriga papper bildar magiska hjärtan som långsamt driver och dansar i luften. Ger ingen fördel. Februari 2019 Abonnentföremål",
     "shieldArmoireMightyPizzaText": "Mäktig pizza",
-    "shieldArmoireMightyPizzaNotes": "Visst, den är en ganska bra sköld, men vi föreslår hellre att du äter denna läckra, läckra pizza. Ökar Uppmärksamhet med <%= per %>. Förtrollat vapenskåp: Kock-set (Föremål 4 av 4). ",
+    "shieldArmoireMightyPizzaNotes": "Visst, det är en ganska bra sköld, men vi föreslår att du äter denna läckra, läckra pizza. Ökar Uppmärksamhet med <%= per %>. Förtrollat vapenskåp: Kock-set (Föremål 4 av 4).",
     "eyewearMystery201902Text": "Hemlighetsfull mask",
-    "eyewearMystery201902Notes": "Denna mystiska mask döljer din identitet men inte ditt vinnande leende. Medför inga ökningar. Februari 2019 Abonnentföremål."
+    "eyewearMystery201902Notes": "Denna mystiska mask döljer din identitet men inte ditt vinnande leende. Medför inga ökningar. Februari 2019 Abonnentföremål.",
+    "headArmoireEarflapHatText": "Öronlapp Hatt",
+    "armorArmoireDuffleCoatText": "Duffelrock",
+    "eyewearSpecialKS2019Notes": "Djärv som en grips... hmm, gripar har inte visirer. Det påminner dig att... oh, vem försöker vi lura, det ser bara coolt ut! Ger ingen fördel.",
+    "eyewearSpecialKS2019Text": "Mystisk Grip-Visir",
+    "shieldSpecialKS2019Notes": "Gnistrande som skalet av en grips ägg, visar denna magnifika sköld dig hur man står redo att hjälpa andra när dina egna bördor är lätta. Ökar Uppmärksamhet med <%= per %>.",
+    "shieldSpecialKS2019Text": "Mystisk Grip-Sköld",
+    "headSpecialKS2019Notes": "Prydd med en grips avbildning och fjäderdräkt, symboliserar denna strålande hjälm sättet dina förmågor och uppförande ger ett ledande exempel för andra. Ökar Intelligens med <%= int %>.",
+    "headSpecialKS2019Text": "Mystisk Grip-Hjälm",
+    "armorSpecialKS2019Notes": "Glödande inifrån likt en grips ädla hjärta, uppmuntrar denna glänsande rustning dig till att vara stolt över dina framgångar. Ökar Tålighet med <%= con %>.",
+    "armorSpecialKS2019Text": "Mystisk Grip-Rustning",
+    "weaponSpecialKS2019Notes": "Böjd som en grips näbb och klor, påminner denna utsmyckade polarm om att kämpa vidare när uppgiften framför dig är skrämmande. Ökar Styrka med <%= str %>.",
+    "weaponSpecialKS2019Text": "Mystisk Grip-Galv"
 }

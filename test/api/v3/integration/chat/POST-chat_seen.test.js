@@ -5,10 +5,11 @@ import {
 
 describe('POST /groups/:id/chat/seen', () => {
   context('Guild', () => {
-    let guild, guildLeader, guildMember, guildMessage;
+    let guild; let guildLeader; let guildMember; let
+      guildMessage;
 
     before(async () => {
-      let { group, groupLeader, members } = await createAndPopulateGroup({
+      const { group, groupLeader, members } = await createAndPopulateGroup({
         groupDetails: {
           type: 'guild',
           privacy: 'public',
@@ -18,7 +19,7 @@ describe('POST /groups/:id/chat/seen', () => {
 
       guild = group;
       guildLeader = groupLeader;
-      guildMember = members[0];
+      guildMember = members[0]; // eslint-disable-line prefer-destructuring
 
       guildMessage = await guildLeader.post(`/groups/${guild._id}/chat`, { message: 'Some guild message' });
       guildMessage = guildMessage.message;
@@ -32,7 +33,7 @@ describe('POST /groups/:id/chat/seen', () => {
 
       await sleep(1);
 
-      let guildThatHasSeenChat = await guildMember.get('/user');
+      const guildThatHasSeenChat = await guildMember.get('/user');
 
       expect(guildThatHasSeenChat.notifications.length).to.equal(initialNotifications - 1);
       expect(guildThatHasSeenChat.newMessages).to.be.empty;
@@ -40,10 +41,11 @@ describe('POST /groups/:id/chat/seen', () => {
   });
 
   context('Party', () => {
-    let party, partyLeader, partyMember, partyMessage;
+    let party; let partyLeader; let partyMember; let
+      partyMessage;
 
     before(async () => {
-      let { group, groupLeader, members } = await createAndPopulateGroup({
+      const { group, groupLeader, members } = await createAndPopulateGroup({
         groupDetails: {
           type: 'party',
           privacy: 'private',
@@ -53,7 +55,7 @@ describe('POST /groups/:id/chat/seen', () => {
 
       party = group;
       partyLeader = groupLeader;
-      partyMember = members[0];
+      partyMember = members[0]; // eslint-disable-line prefer-destructuring
 
       partyMessage = await partyLeader.post(`/groups/${party._id}/chat`, { message: 'Some party message' });
       partyMessage = partyMessage.message;
@@ -67,7 +69,7 @@ describe('POST /groups/:id/chat/seen', () => {
 
       await sleep(1);
 
-      let partyMemberThatHasSeenChat = await partyMember.get('/user');
+      const partyMemberThatHasSeenChat = await partyMember.get('/user');
 
       expect(partyMemberThatHasSeenChat.notifications.length).to.equal(initialNotifications - 1);
       expect(partyMemberThatHasSeenChat.newMessages).to.be.empty;

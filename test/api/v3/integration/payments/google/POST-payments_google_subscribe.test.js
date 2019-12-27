@@ -1,8 +1,8 @@
-import {generateUser, translate as t} from '../../../../../helpers/api-integration/v3';
+import { generateUser, translate as t } from '../../../../../helpers/api-integration/v3';
 import googlePayments from '../../../../../../website/server/libs/payments/google';
 
 describe('payments : google #subscribe', () => {
-  let endpoint = '/iap/android/subscribe';
+  const endpoint = '/iap/android/subscribe';
   let user;
 
   beforeEach(async () => {
@@ -37,11 +37,11 @@ describe('payments : google #subscribe', () => {
         balance: 2,
       });
 
-      let sku = 'com.habitrpg.android.habitica.subscription.3month';
+      const sku = 'com.habitrpg.android.habitica.subscription.3month';
 
       await user.post(endpoint, {
         sku,
-        transaction: {receipt: 'receipt', signature: 'signature'},
+        transaction: { receipt: 'receipt', signature: 'signature' },
       });
 
       expect(subscribeStub).to.be.calledOnce;

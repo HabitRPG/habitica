@@ -11,9 +11,9 @@ import {
   NotAuthorized,
   NotFound,
 } from '../errors';
-import payments from './payments';
-import { model as User } from '../../models/user';
-import {
+import payments from './payments'; // eslint-disable-line import/no-cycle
+import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../models/group';
@@ -21,10 +21,10 @@ import { model as Coupon } from '../../models/coupon';
 
 // TODO better handling of errors
 
-const i18n = common.i18n;
+const { i18n } = common;
 const IS_SANDBOX = nconf.get('AMAZON_PAYMENTS_MODE') === 'sandbox';
 
-let amzPayment = amazonPayments.connect({
+const amzPayment = amazonPayments.connect({
   environment: amazonPayments.Environment[IS_SANDBOX ? 'Sandbox' : 'Production'],
   sellerId: nconf.get('AMAZON_PAYMENTS_SELLER_ID'),
   mwsAccessKey: nconf.get('AMAZON_PAYMENTS_MWS_KEY'),
@@ -32,7 +32,7 @@ let amzPayment = amazonPayments.connect({
   clientId: nconf.get('AMAZON_PAYMENTS_CLIENT_ID'),
 });
 
-let api = {};
+const api = {};
 
 api.constants = {
   CURRENCY_CODE: 'USD',
@@ -52,14 +52,30 @@ api.constants = {
 };
 
 api.getTokenInfo = util.promisify(amzPayment.api.getTokenInfo).bind(amzPayment.api);
-api.createOrderReferenceId = util.promisify(amzPayment.offAmazonPayments.createOrderReferenceForId).bind(amzPayment.offAmazonPayments);
-api.setOrderReferenceDetails = util.promisify(amzPayment.offAmazonPayments.setOrderReferenceDetails).bind(amzPayment.offAmazonPayments);
-api.confirmOrderReference = util.promisify(amzPayment.offAmazonPayments.confirmOrderReference).bind(amzPayment.offAmazonPayments);
-api.closeOrderReference = util.promisify(amzPayment.offAmazonPayments.closeOrderReference).bind(amzPayment.offAmazonPayments);
-api.setBillingAgreementDetails = util.promisify(amzPayment.offAmazonPayments.setBillingAgreementDetails).bind(amzPayment.offAmazonPayments);
-api.getBillingAgreementDetails = util.promisify(amzPayment.offAmazonPayments.getBillingAgreementDetails).bind(amzPayment.offAmazonPayments);
-api.confirmBillingAgreement = util.promisify(amzPayment.offAmazonPayments.confirmBillingAgreement).bind(amzPayment.offAmazonPayments);
-api.closeBillingAgreement = util.promisify(amzPayment.offAmazonPayments.closeBillingAgreement).bind(amzPayment.offAmazonPayments);
+api.createOrderReferenceId = util
+  .promisify(amzPayment.offAmazonPayments.createOrderReferenceForId)
+  .bind(amzPayment.offAmazonPayments);
+api.setOrderReferenceDetails = util
+  .promisify(amzPayment.offAmazonPayments.setOrderReferenceDetails)
+  .bind(amzPayment.offAmazonPayments);
+api.confirmOrderReference = util
+  .promisify(amzPayment.offAmazonPayments.confirmOrderReference)
+  .bind(amzPayment.offAmazonPayments);
+api.closeOrderReference = util
+  .promisify(amzPayment.offAmazonPayments.closeOrderReference)
+  .bind(amzPayment.offAmazonPayments);
+api.setBillingAgreementDetails = util
+  .promisify(amzPayment.offAmazonPayments.setBillingAgreementDetails)
+  .bind(amzPayment.offAmazonPayments);
+api.getBillingAgreementDetails = util
+  .promisify(amzPayment.offAmazonPayments.getBillingAgreementDetails)
+  .bind(amzPayment.offAmazonPayments);
+api.confirmBillingAgreement = util
+  .promisify(amzPayment.offAmazonPayments.confirmBillingAgreement)
+  .bind(amzPayment.offAmazonPayments);
+api.closeBillingAgreement = util
+  .promisify(amzPayment.offAmazonPayments.closeBillingAgreement)
+  .bind(amzPayment.offAmazonPayments);
 
 api.authorizeOnBillingAgreement = function authorizeOnBillingAgreement (inputSet) {
   return new Promise((resolve, reject) => {
@@ -93,7 +109,9 @@ api.authorize = function authorize (inputSet) {
  * @return undefined
  */
 api.checkout = async function checkout (options = {}) {
-  let {gift, user, orderReferenceId, headers} = options;
+  const {
+    gift, user, orderReferenceId, headers,
+  } = options;
   let amount = 5;
 
   if (gift) {
@@ -149,14 +167,16 @@ api.checkout = async function checkout (options = {}) {
   // execute payment
   let method = this.constants.METHOD_BUY_GEMS;
 
-  let data = {
+  const data = {
     user,
     paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
   };
 
   if (gift) {
-    if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) method = this.constants.METHOD_CREATE_SUBSCRIPTION;
+    if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) {
+      method = this.constants.METHOD_CREATE_SUBSCRIPTION;
+    }
     gift.member = await User.findById(gift.uuid).exec();
     data.gift = gift;
     data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
@@ -177,15 +197,19 @@ api.checkout = async function checkout (options = {}) {
  * @return undefined
  */
 api.cancelSubscription = async function cancelSubscription (options = {}) {
-  let {user, groupId, headers, cancellationReason} = options;
+  const {
+    user, groupId, headers, cancellationReason,
+  } = options;
 
   let billingAgreementId;
   let planId;
   let lastBillingDate;
 
   if (groupId) {
-    let groupFields = basicGroupFields.concat(' purchased');
-    let group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+    const groupFields = basicGroupFields.concat(' purchased');
+    const group = await Group.getGroup({
+      user, groupId, populateLeader: false, groupFields,
+    });
 
     if (!group) {
       throw new NotFound(i18n.t('groupNotFound'));
@@ -206,23 +230,25 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
 
   if (!billingAgreementId) throw new NotAuthorized(i18n.t('missingSubscription'));
 
-  let details = await this.getBillingAgreementDetails({
+  const details = await this.getBillingAgreementDetails({
     AmazonBillingAgreementId: billingAgreementId,
-  }).catch(function errorCatch (err) {
-    return err;
-  });
+  }).catch(err => err);
 
-  let badBAStates = ['Canceled', 'Closed', 'Suspended'];
-  if (details && details.BillingAgreementDetails && details.BillingAgreementDetails.BillingAgreementStatus &&
-      badBAStates.indexOf(details.BillingAgreementDetails.BillingAgreementStatus.State) === -1) {
+  const badBAStates = ['Canceled', 'Closed', 'Suspended'];
+  if (
+    details
+    && details.BillingAgreementDetails
+    && details.BillingAgreementDetails.BillingAgreementStatus
+    && badBAStates.indexOf(details.BillingAgreementDetails.BillingAgreementStatus.State) === -1
+  ) {
     await this.closeBillingAgreement({
       AmazonBillingAgreementId: billingAgreementId,
     });
   }
 
 
-  let subscriptionBlock = common.content.subscriptionBlocks[planId];
-  let subscriptionLength = subscriptionBlock.months * 30;
+  const subscriptionBlock = common.content.subscriptionBlocks[planId];
+  const subscriptionLength = subscriptionBlock.months * 30;
 
   await payments.cancelSubscription({
     user,
@@ -247,7 +273,7 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
  * @return undefined
  */
 api.subscribe = async function subscribe (options) {
-  let {
+  const {
     billingAgreementId,
     sub,
     coupon,
@@ -261,17 +287,19 @@ api.subscribe = async function subscribe (options) {
 
   if (sub.discount) { // apply discount
     if (!coupon) throw new BadRequest(i18n.t('couponCodeRequired'));
-    let result = await Coupon.findOne({_id: cc.validate(coupon), event: sub.key}).exec();
+    const result = await Coupon.findOne({ _id: cc.validate(coupon), event: sub.key }).exec();
     if (!result) throw new NotAuthorized(i18n.t('invalidCoupon'));
   }
 
   let amount = sub.price;
-  let leaderCount = 1;
-  let priceOfSingleMember = 3;
+  const leaderCount = 1;
+  const priceOfSingleMember = 3;
 
   if (groupId) {
     const groupFields = basicGroupFields.concat(' purchased');
-    const group = await Group.getGroup({user, groupId, populateLeader: false, groupFields});
+    const group = await Group.getGroup({
+      user, groupId, populateLeader: false, groupFields,
+    });
     const membersCount = await group.getMemberCount();
     amount = sub.price + (membersCount - leaderCount) * priceOfSingleMember;
   }
@@ -322,7 +350,7 @@ api.subscribe = async function subscribe (options) {
 
 api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMember (group) {
   // @TODO: Can we get this from the content plan?
-  let priceForNewMember = 3;
+  const priceForNewMember = 3;
 
   // @TODO: Prorate?
 
@@ -344,4 +372,4 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
   });
 };
 
-module.exports = api;
+export default api;

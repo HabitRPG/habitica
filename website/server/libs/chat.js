@@ -1,18 +1,52 @@
-import { model as User } from '../models/user';
-import { getUserInfo } from './email';
+import { model as User } from '../models/user'; // eslint-disable-line import/no-cycle
+import { getUserInfo } from './email'; // eslint-disable-line import/no-cycle
+import { sendNotification as sendPushNotification } from './pushNotifications';
 
 export async function getAuthorEmailFromMessage (message) {
-  let authorId = message.uuid;
+  const authorId = message.uuid;
 
   if (authorId === 'system') {
     return 'system';
   }
 
-  let author = await User.findOne({_id: authorId}, {auth: 1}).exec();
+  const author = await User.findOne({ _id: authorId }, { auth: 1 }).exec();
 
   if (author) {
     return getUserInfo(author, ['email']).email;
-  } else {
-    return 'Author Account Deleted';
   }
+  return 'Author Account Deleted';
+}
+
+export async function sendChatPushNotifications (user, group, message, mentions, translate) {
+  const members = await User.find({
+    'party._id': group._id,
+    _id: { $ne: user._id },
+  })
+    .select('preferences.pushNotifications preferences.language profile.name pushDevices auth.local.username')
+    .exec();
+
+  members.forEach(member => {
+    if (member.preferences.pushNotifications.partyActivity !== false) {
+      if (mentions && mentions.includes(`@${member.auth.local.username}`) && member.preferences.pushNotifications.mentionParty !== false) {
+        return;
+      }
+      sendPushNotification(
+        member,
+        {
+          title: translate('groupActivityNotificationTitle', { user: message.user, group: group.name }, member.preferences.language),
+          message: message.unformattedText,
+          identifier: 'groupActivity',
+          category: 'groupActivity',
+          payload: {
+            groupID: group._id,
+            type: group.type,
+            groupName: group.name,
+            message: message.text,
+            timestamp: message.timestamp,
+            senderName: message.user,
+          },
+        },
+      );
+    }
+  });
 }

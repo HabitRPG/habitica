@@ -1,9 +1,9 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
   translate as t,
   generateUser,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /groups/:groupId/quests/leave', () => {
   let questingGroup;
@@ -14,7 +14,7 @@ describe('POST /groups/:groupId/quests/leave', () => {
   const PET_QUEST = 'whale';
 
   beforeEach(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
       members: 2,
     });
@@ -49,7 +49,7 @@ describe('POST /groups/:groupId/quests/leave', () => {
     });
 
     it('returns an error when group is a guild', async () => {
-      let { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
+      const { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'private' },
       });
 
@@ -102,7 +102,7 @@ describe('POST /groups/:groupId/quests/leave', () => {
     await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
     await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
 
-    let leaveResult = await partyMembers[0].post(`/groups/${questingGroup._id}/quests/leave`);
+    const leaveResult = await partyMembers[0].post(`/groups/${questingGroup._id}/quests/leave`);
     await Promise.all([
       partyMembers[0].sync(),
       questingGroup.sync(),

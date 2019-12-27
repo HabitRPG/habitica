@@ -3,7 +3,7 @@
     "stringNotFound": "No se encontró la cadena '<%= string %>'.",
     "titleIndex": "Habitica | El juego de rol de tu vida",
     "habitica": "Habitica",
-    "habiticaLink": "<a href='http://es.habitica.fandom.com/wiki/Habitica_Wiki' target='_blank'>Habitica</a>",
+    "habiticaLink": "<a href='https://habitica.fandom.com/es/wiki/Habitica_Wiki' target='_blank'>Habitica</a>",
     "onward": "¡Adelante!",
     "done": "Hecho",
     "gotIt": "¡Recibido!",
@@ -61,7 +61,7 @@
     "newGroupTitle": "Nuevo Grupo",
     "subscriberItem": "Objeto misterioso",
     "newSubscriberItem": "Tienes <span class=\"notification-bold-blue\">Objetos Misteriosos</span> nuevos",
-    "subscriberItemText": "Cada mes, los suscriptores reciben un objeto misterioso, que se suele publicar una semana antes de cada fin de mes, aproximadamente. Para más información, consulta la página de la wiki sobre los objetos misteriosos.",
+    "subscriberItemText": "Cada mes, los suscriptores recibirán un objeto misterioso, que estará disponible al comienzo del mes. Para más información, consulta la página de la wiki sobre los objetos misteriosos.",
     "all": "Todo",
     "none": "Ninguno",
     "more": "<%= count %> más",
@@ -291,5 +291,8 @@
     "howManyToBuy": "¿Cuántos te gustaría comprar?",
     "habiticaHasUpdated": "Hay una nueva actualización de Habitica. ¡Recarga para conseguir la última versión!",
     "contactForm": "Contacta al Equipo de Moderadores",
-    "options": "Opciones"
+    "options": "Opciones",
+    "demo": "Demo",
+    "loadEarlierMessages": "Cargar Mensajes Anteriores",
+    "finish": "Terminar"
 }

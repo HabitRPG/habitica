@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import each from 'lodash/each';
 
-let subscriptionBlocks = {
+const subscriptionBlocks = {
   basic_earned: {
     target: 'user',
     canSubscribe: true,
@@ -50,8 +50,6 @@ let subscriptionBlocks = {
   },
 };
 
-each(subscriptionBlocks, function createKeys (b, k) {
-  return b.key = k;
-});
+each(subscriptionBlocks, (b, k) => { b.key = k; });
 
-module.exports = subscriptionBlocks;
+export default subscriptionBlocks;

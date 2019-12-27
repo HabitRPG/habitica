@@ -11,19 +11,21 @@ import content from '../content/index';
 function markNotificationAsRead (user, cardType) {
   const indexToRemove = user.notifications.findIndex(notification => {
     if (
-      notification &&
-      notification.type === 'CARD_RECEIVED' &&
-      notification.data &&
-      notification.data.card === cardType
+      notification
+      && notification.type === 'CARD_RECEIVED'
+      && notification.data
+      && notification.data.card === cardType
     ) return true;
+
+    return false;
   });
 
   if (indexToRemove !== -1) user.notifications.splice(indexToRemove, 1);
 }
 
 
-module.exports = function readCard (user, req = {}) {
-  let cardType = get(req.params, 'cardType');
+export default function readCard (user, req = {}) {
+  const cardType = get(req.params, 'cardType');
 
   if (!cardType) {
     throw new BadRequest(i18n.t('cardTypeRequired', req.language));
@@ -40,6 +42,6 @@ module.exports = function readCard (user, req = {}) {
 
   return [
     { specialItems: user.items.special, cardReceived: user.flags.cardReceived },
-    i18n.t('readCard', {cardType}, req.language),
+    i18n.t('readCard', { cardType }, req.language),
   ];
-};
+}

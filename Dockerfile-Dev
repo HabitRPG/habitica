@@ -1,5 +1,11 @@
-FROM node:10
-WORKDIR /code
-COPY package*.json /code/
-RUN npm install
+FROM node:12
+
+# Install global packages
 RUN npm install -g gulp-cli mocha
+
+# Copy Habitica code into container and install dependencies
+WORKDIR /usr/src/habitica
+COPY . /usr/src/habitica
+
+RUN npm install
+RUN npm run postinstall

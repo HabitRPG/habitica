@@ -10,7 +10,8 @@ import { NotAuthorized } from '../../../../website/server/libs/errors';
 import apiError from '../../../../website/server/libs/apiError';
 
 describe('ensure access middlewares', () => {
-  let res, req, next;
+  let res; let req; let
+    next;
 
   beforeEach(() => {
     res = generateRes();
@@ -20,7 +21,7 @@ describe('ensure access middlewares', () => {
 
   context('ensure admin', () => {
     it('returns not authorized when user is not an admin', () => {
-      res.locals = {user: {contributor: {admin: false}}};
+      res.locals = { user: { contributor: { admin: false } } };
 
       ensureAdmin(req, res, next);
 
@@ -30,7 +31,7 @@ describe('ensure access middlewares', () => {
     });
 
     it('passes when user is an admin', () => {
-      res.locals = {user: {contributor: {admin: true}}};
+      res.locals = { user: { contributor: { admin: true } } };
 
       ensureAdmin(req, res, next);
 
@@ -41,7 +42,7 @@ describe('ensure access middlewares', () => {
 
   context('ensure sudo', () => {
     it('returns not authorized when user is not a sudo user', () => {
-      res.locals = {user: {contributor: {sudo: false}}};
+      res.locals = { user: { contributor: { sudo: false } } };
 
       ensureSudo(req, res, next);
 
@@ -51,7 +52,7 @@ describe('ensure access middlewares', () => {
     });
 
     it('passes when user is a sudo user', () => {
-      res.locals = {user: {contributor: {sudo: true}}};
+      res.locals = { user: { contributor: { sudo: true } } };
 
       ensureSudo(req, res, next);
 

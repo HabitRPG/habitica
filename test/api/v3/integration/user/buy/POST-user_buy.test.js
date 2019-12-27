@@ -7,7 +7,7 @@ import {
 import shared from '../../../../../../website/common/script';
 import apiError from '../../../../../../website/server/libs/apiError';
 
-let content = shared.content;
+const { content } = shared;
 
 describe('POST /user/buy/:key', () => {
   let user;
@@ -25,7 +25,7 @@ describe('POST /user/buy/:key', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: apiError('itemNotFound', {key: 'notExisting'}),
+        message: apiError('itemNotFound', { key: 'notExisting' }),
       });
   });
 
@@ -35,13 +35,13 @@ describe('POST /user/buy/:key', () => {
       'stats.hp': 40,
     });
 
-    let potion = content.potion;
-    let res = await user.post('/user/buy/potion');
+    const { potion } = content;
+    const res = await user.post('/user/buy/potion');
     await user.sync();
 
     expect(user.stats.hp).to.equal(50);
     expect(res.data).to.eql(user.stats);
-    expect(res.message).to.equal(t('messageBought', {itemText: potion.text()}));
+    expect(res.message).to.equal(t('messageBought', { itemText: potion.text() }));
   });
 
   it('returns an error if user tries to buy a potion with full health', async () => {
@@ -59,7 +59,7 @@ describe('POST /user/buy/:key', () => {
   });
 
   it('buys a piece of gear', async () => {
-    let key = 'armor_warrior_1';
+    const key = 'armor_warrior_1';
 
     await user.post(`/user/buy/${key}`);
     await user.sync();
@@ -68,11 +68,11 @@ describe('POST /user/buy/:key', () => {
   });
 
   it('buys a special spell', async () => {
-    let key = 'spookySparkles';
-    let item = content.special[key];
+    const key = 'spookySparkles';
+    const item = content.special[key];
 
-    await user.update({'stats.gp': 250});
-    let res = await user.post(`/user/buy/${key}`);
+    await user.update({ 'stats.gp': 250 });
+    const res = await user.post(`/user/buy/${key}`);
     await user.sync();
 
     expect(res.data).to.eql({
@@ -90,12 +90,12 @@ describe('POST /user/buy/:key', () => {
       'stats.hp': 20,
     });
 
-    let potion = content.potion;
-    let res = await user.post('/user/buy/potion', {quantity: 2});
+    const { potion } = content;
+    const res = await user.post('/user/buy/potion', { quantity: 2 });
     await user.sync();
 
     expect(user.stats.hp).to.equal(50);
     expect(res.data).to.eql(user.stats);
-    expect(res.message).to.equal(t('messageBought', {itemText: potion.text()}));
+    expect(res.message).to.equal(t('messageBought', { itemText: potion.text() }));
   });
 });

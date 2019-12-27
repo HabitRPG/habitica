@@ -2,7 +2,7 @@ import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
 
-import getOfficialPinnedItems from '../../../../../website/common/script/libs/getOfficialPinnedItems.js';
+import getOfficialPinnedItems from '../../../../../website/common/script/libs/getOfficialPinnedItems';
 
 describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
   let user;
@@ -14,14 +14,15 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     officialPinnedItems = getOfficialPinnedItems(user);
 
     officialPinnedItemPaths = [];
-    // officialPinnedItems are returned in { type: ..., path:... } format but we just need the paths for testPinnedItemsOrder
+    // officialPinnedItems are returned in { type: ..., path:... } format
+    // but we just need the paths for testPinnedItemsOrder
     if (officialPinnedItems.length > 0) {
       officialPinnedItemPaths = officialPinnedItems.map(item => item.path);
     }
   });
 
   it('adjusts the order of pinned items with no order mismatch', async () => {
-    let testPinnedItems = [
+    const testPinnedItems = [
       { type: 'armoire', path: 'armoire' },
       { type: 'potion', path: 'potion' },
       { type: 'marketGear', path: 'gear.flat.weapon_warrior_1' },
@@ -56,7 +57,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       pinnedItemsOrder: testPinnedItemsOrder,
     });
 
-    let res = await user.post('/user/move-pinned-item/armoire/move/to/5');
+    const res = await user.post('/user/move-pinned-item/armoire/move/to/5');
     await user.sync();
 
     expect(user.pinnedItemsOrder[5]).to.equal('armoire');
@@ -83,14 +84,14 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
   });
 
   it('adjusts the order of pinned items with order mismatch', async () => {
-    let testPinnedItems = [
+    const testPinnedItems = [
       { type: 'card', path: 'cardTypes.thankyou' },
       { type: 'card', path: 'cardTypes.greeting' },
       { type: 'potion', path: 'potion' },
       { type: 'armoire', path: 'armoire' },
     ];
 
-    let testPinnedItemsOrder = [
+    const testPinnedItemsOrder = [
       'armoire',
       'potion',
     ];
@@ -100,7 +101,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       pinnedItemsOrder: testPinnedItemsOrder,
     });
 
-    let res = await user.post('/user/move-pinned-item/armoire/move/to/1');
+    const res = await user.post('/user/move-pinned-item/armoire/move/to/1');
     await user.sync();
 
     // The basic test
@@ -115,7 +116,8 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
       'cardTypes.greeting',
       'potion',
     ];
-    // inAppRewards is used here and will by default put these seasonal items in the front like this:
+    // inAppRewards is used here and will by default
+    // put these seasonal items in the front like this:
     expectedResponse = officialPinnedItemPaths.concat(expectedResponse);
     // now put "armoire" in where we moved it:
     expectedResponse.splice(1, 0, 'armoire');
@@ -124,12 +126,12 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
   });
 
   it('cannot move pinned item that you do not have pinned', async () => {
-    let testPinnedItems = [
+    const testPinnedItems = [
       { type: 'potion', path: 'potion' },
       { type: 'armoire', path: 'armoire' },
     ];
 
-    let testPinnedItemsOrder = [
+    const testPinnedItemsOrder = [
       'armoire',
       'potion',
     ];

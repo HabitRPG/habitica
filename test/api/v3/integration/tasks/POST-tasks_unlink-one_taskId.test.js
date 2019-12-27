@@ -1,16 +1,16 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   generateGroup,
   generateChallenge,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /tasks/unlink-one/:taskId', () => {
   let user;
   let guild;
   let challenge;
-  let tasksToTest = {
+  const tasksToTest = {
     habit: {
       text: 'test habit',
       type: 'habit',
@@ -70,7 +70,7 @@ describe('POST /tasks/unlink-one/:taskId', () => {
   });
 
   it('fails on task unlinked to challenge', async () => {
-    let daily = await user.post('/tasks/user', tasksToTest.daily);
+    const daily = await user.post('/tasks/user', tasksToTest.daily);
     await expect(user.post(`/tasks/unlink-one/${daily._id}?keep=keep`))
       .to.eventually.be.rejected.and.eql({
         code: 400,
@@ -81,7 +81,7 @@ describe('POST /tasks/unlink-one/:taskId', () => {
 
   it('fails on unbroken challenge', async () => {
     await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
-    let [daily] = await user.get('/tasks/user');
+    const [daily] = await user.get('/tasks/user');
     await expect(user.post(`/tasks/unlink-one/${daily._id}?keep=keep`))
       .to.eventually.be.rejected.and.eql({
         code: 400,
@@ -101,7 +101,7 @@ describe('POST /tasks/unlink-one/:taskId', () => {
 
   it('unlinks a task from a challenge and deletes it on keep=remove', async () => {
     await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
-    let [, daily] = await user.get('/tasks/user');
+    const [, daily] = await user.get('/tasks/user');
     await user.del(`/challenges/${challenge._id}`);
     await user.post(`/tasks/unlink-one/${daily._id}?keep=remove`);
     const tasks = await user.get('/tasks/user');

@@ -15,7 +15,7 @@
     "titleProfile": "Profil",
     "titleInbox": "Posteingang",
     "titleTavern": "Taverne",
-    "titleParty": "Gruppe",
+    "titleParty": "Party",
     "titleHeroes": "Halle der Helden",
     "titlePatrons": "Halle der Schirmherren",
     "titleGuilds": "Gilden",
@@ -61,7 +61,7 @@
     "newGroupTitle": "Neue Gruppe",
     "subscriberItem": "Überraschungsgegenstand",
     "newSubscriberItem": "Du hast einen neuen <span class=\"notification-bold-blue\">Überraschungsgegenstand</span>",
-    "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Dieser wird üblicherweise ungefähr eine Woche vor Monatsende herausgegeben. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
+    "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Er wird Anfang des Monats verfügbar. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
     "all": "Alle",
     "none": "Keine",
     "more": "<%= count %> mehr",
@@ -91,7 +91,7 @@
     "needMoreGemsInfo": "Kaufe jetzt Edelsteine. Oder werde ein Abonnent, um Edelsteine mit Gold zu kaufen, monatlich mysteriöse Gegenstände zu erhalten, Dich über mehr Beute zu freuen und noch mehr!",
     "moreInfo": "Mehr Informationen",
     "moreInfoChallengesURL": "http://habitica.fandom.com/wiki/Challenges",
-    "moreInfoTagsURL": "http://de.habitica.fandom.com/wiki/Tags",
+    "moreInfoTagsURL": "https://habitica.fandom.com/de/wiki/Tags",
     "showMoreMore": "(mehr anzeigen)",
     "showMoreLess": "(weniger anzeigen)",
     "gemsWhatFor": "Klicke hier um Edelsteine zu kaufen! Edelsteine kannst Du gegen besondere Gegestände wie Quests, Avataranpassungen oder saisonale Ausrüstung eintauschen.",
@@ -291,5 +291,9 @@
     "howManyToBuy": "Wie viele möchtest Du kaufen?",
     "habiticaHasUpdated": "Es gibt ein Update von Habitica. Aktualisiere, um die neueste Version zu bekommen!",
     "contactForm": "Kontaktiere das Moderatoren-Team",
-    "options": "Optionen"
+    "options": "Optionen",
+    "loadEarlierMessages": "Lade ältere Nachrichten",
+    "demo": "Demo",
+    "finish": "Abschliessen",
+    "congratulations": "Gratulation!"
 }

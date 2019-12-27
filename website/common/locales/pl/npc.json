@@ -21,7 +21,7 @@
     "sleepDescription": "Potrzebujesz przerwy? Odwiedź Gospodę Daniela by zatrzymać bardziej skomplikowane elementy Habitiki:",
     "sleepBullet1": "Pominięte Codziennie nie zadadzą Ci obrażeń",
     "sleepBullet2": "Zadania nie stracą serii ani nie osłabią się w kolorze",
-    "sleepBullet3": "Bossowie nie zadadzą ci obrażeń za ominięte Codziennie",
+    "sleepBullet3": "Bossowie nie zadadzą ci obrażeń za ominięte, własne Codziennie",
     "sleepBullet4": "Twoje obrażenia dla bossa albo zebranie przedmiotów zostaną jako oczekujące do końca dnia",
     "pauseDailies": "Wstrzymaj obrażenia",
     "unpauseDailies": "Wznów otrzymywanie obrażeń",
@@ -70,7 +70,7 @@
     "wrongItemType": "Typ przedmiotu \"<%= type %>\" nie jest prawidłowy.",
     "wrongItemPath": "Ścieżka przedmiotu \"<%= path %>\" nie jest prawidłowa.",
     "unpinnedItem": "Odpiąłeś <%= item %>! Przedmiot nie będzie już dłużej pokazywany w kolumnie Nagrody.",
-    "cannotUnpinArmoirPotion": "Eliksir uzdrawiający oraz Zaczarowana szafa nie mogą zostać odpięte.",
+    "cannotUnpinArmoirPotion": "Eliksir uzdrawiający oraz Zaczarowana Skrzynia nie mogą zostać odpięte.",
     "purchasedItem": "Kupiłeś <%= itemName %>",
     "ian": "Ian",
     "ianText": "Witaj w sklepie z misjami! Możesz tutaj wykorzystać zwoje misji, by wraz z przyjaciółmi toczyć boje z potworami. Już teraz koniecznie sprawdź naszą wspaniałą tablicę ze zwojami misji możliwymi do zakupu!",
@@ -91,7 +91,7 @@
     "unlocked": "Przedmioty zostały odblokowane",
     "alreadyUnlocked": "Pełen zestaw jest już odblokowany.",
     "alreadyUnlockedPart": "Zestaw jest już częściowo odblokowany.",
-    "invalidQuantity": "Ilość do kupienia musi być numerem.",
+    "invalidQuantity": "Ilość do kupienia musi być liczbą dodatnią.",
     "USD": "(USD)",
     "newStuff": "Nowości od Bailey",
     "newBaileyUpdate": "Nowości od Bailey!",
@@ -155,7 +155,7 @@
     "tourHabitsBrief": "<strong>Dobre i złe nawyki</strong><ul><li>Dobre nawyki są nagradzane złotem i punktami doświadczenia.</li><li>Złe nawyki odbierają Ci punkty zdrowia.</li></ul>",
     "tourHabitsProceed": "Brzmi sensownie!",
     "tourRewardsBrief": "<strong>Lista nagród</strong><ul><li>Wydaj tutaj swoje zarobione z trudem złoto!</li><li>Kup wyposażenie dla Twojego awatara, albo wybierz którąś z utworzonych przez siebie nagród.</li></ul>",
-    "tourRewardsArmoire": "<strong>Lista nagród</strong><ul><li>Wydaj tutaj swoje zarobione z trudem złoto!</li><li>Kup wyposażenie dla Twojego awatara, zdobądź losową zdobycz z Zaczarowanej Szafy albo wybierz którąś z utworzonych przez siebie nagród.</li></ul>",
+    "tourRewardsArmoire": "<strong>Lista nagród</strong><ul><li>Wydaj tutaj swoje zarobione z trudem złoto!</li><li>Kup wyposażenie dla Twojego awatara, zdobądź losową zdobycz z Zaczarowanej Skrzyni albo wybierz którąś z utworzonych przez siebie nagród.</li></ul>",
     "tourRewardsProceed": "To wszystko!",
     "welcomeToHabit": "Witaj w Habitice!",
     "welcome1": "Stwórz podstawowy awatar.",
@@ -168,5 +168,6 @@
     "welcome5": "Teraz spersonalizujesz swój awatar i ustawisz swoje zadania...",
     "imReady": "Wejdź do Habitiki",
     "limitedOffer": "Dostępne do <%= date %>",
-    "paymentAutoRenew": "Subskrypcja odnowi się automatycznie dopóki nie zostanie anulowana. Jeśli chcesz anulować subskrypcję, możesz zrobić to w ustawieniach."
+    "paymentAutoRenew": "Subskrypcja odnowi się automatycznie dopóki nie zostanie anulowana. Jeśli chcesz anulować subskrypcję, możesz zrobić to w ustawieniach.",
+    "paymentCanceledDisputes": "Potwierdzenie anulowania zostało przesłane na Twój e-mail. Jeśli nie możesz go znaleźć, skontaktuj się z nami, aby zapobiec ewentualnym sporom w sprawie rozliczeń."
 }

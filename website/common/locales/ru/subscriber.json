@@ -80,7 +80,7 @@
     "buyGemsAllow1": "Вы можете купить еще",
     "buyGemsAllow2": "Самоцветов в этом месяце",
     "purchaseGemsSeparately": "Купить дополнительные Самоцветы",
-    "subFreeGemsHow": "Игроки могут бесплатно зарабатывать Самоцветы, выигрывая <a href=\"/challenges/findChallenges\">испытания</a>, награждающие победителей Самоцветами. Помимо того существует <a href=\"http://ru.habitica.fandom.com/wiki/Вклад\">награда за помощь в разработке Habitica.</a>",
+    "subFreeGemsHow": "Игроки могут бесплатно зарабатывать Самоцветы, выигрывая <a href=\"/challenges/findChallenges\">испытания</a>, награждающие победителей Самоцветами. Помимо того существует <a href=\"https://habitica.fandom.com/ru/wiki/Вклад\">награда за помощь в разработке Habitica.</a>",
     "seeSubscriptionDetails": "Перейдите в <a href='/user/settings/subscription'>Настройки -> Подписка</a> для просмотра информации о ней!",
     "timeTravelers": "Путешественники во времени",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> и <%= linkStartVicky %>Vicky<%= linkEnd %>",
@@ -215,5 +215,18 @@
     "gemsPurchaseNote": "Подписчики могут купить кристаллы за золото! Чтобы было проще, вы можете просто добавить кристалл в колонку наград.",
     "gemsRemaining": "самоцветов осталось",
     "notEnoughGemsToBuy": "Вы не можете купить это количество",
-    "mysterySet201902": "Набор Таинственного поклонника"
+    "mysterySet201902": "Набор Таинственного поклонника",
+    "confirmCancelSub": "Вы уверены, что хотите отменить свою подписку? Вы потеряете все свои преимущества подписки.",
+    "subWillBecomeInactive": "Станет неактивной",
+    "mysterySet201903": "Набор Пасхальное яйцо",
+    "mysterySet201904": "Набор Роскошный опал",
+    "mysterySet201905": "Набор Ослепительного дракона",
+    "mysterySet201906": "Набор Дружелюбного карпа кои",
+    "mysterySet201907": "Набор Пляжного приятеля",
+    "subCanceledTitle": "Подписка отменена",
+    "mysterySet201908": "Набор Вольного фавна",
+    "mysterySet201909": "Набор Учтивого желудя",
+    "mysterySet201910": "Набор Загадочного пламени",
+    "mysterySet201911": "Набор Хрустального обольстителя",
+    "mysterySet201912": "Набор Полярной феи"
 }

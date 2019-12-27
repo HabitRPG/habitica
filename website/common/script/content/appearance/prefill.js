@@ -1,11 +1,11 @@
 import forOwn from 'lodash/forOwn';
 
-module.exports = function prefillAppearances (obj) {
-  forOwn(obj, function prefillAppearance (value, key) {
+export default function prefillAppearances (obj) {
+  forOwn(obj, (value, key) => {
     value.key = key;
     if (!value.price) {
       value.price = 0;
     }
   });
   return obj;
-};
+}

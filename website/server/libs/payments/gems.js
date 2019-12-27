@@ -1,5 +1,5 @@
-import analytics from '../analyticsService';
-import {
+import * as analytics from '../analyticsService';
+import { // eslint-disable-line import/no-cycle
   getUserInfo,
   sendTxn as txnEmail,
 } from '../email';
@@ -27,25 +27,28 @@ async function buyGemGift (data) {
   const languages = [data.user.preferences.language, data.gift.member.preferences.language];
 
   const senderMsg = getGiftMessage(data, byUsername, gemAmount, languages[0]);
-  const receiverMsg = getGiftMessage(data, byUsername, gemAmount,  languages[1]);
+  const receiverMsg = getGiftMessage(data, byUsername, gemAmount, languages[1]);
   data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg, save: false });
 
   if (data.gift.member.preferences.emailNotifications.giftedGems !== false) {
     txnEmail(data.gift.member, 'gifted-gems', [
-      {name: 'GIFTER', content: byUsername},
-      {name: 'X_GEMS_GIFTED', content: gemAmount},
+      { name: 'GIFTER', content: byUsername },
+      { name: 'X_GEMS_GIFTED', content: gemAmount },
     ]);
   }
 
   // Only send push notifications if sending to a user other than yourself
-  if (data.gift.member._id !== data.user._id && data.gift.member.preferences.pushNotifications.giftedGems !== false) {
+  if (
+    data.gift.member._id !== data.user._id
+    && data.gift.member.preferences.pushNotifications.giftedGems !== false
+  ) {
     sendPushNotification(
       data.gift.member,
       {
         title: shared.i18n.t('giftedGems', languages[1]),
-        message: shared.i18n.t('giftedGemsInfo', {amount: gemAmount, name: byUsername}, languages[1]),
+        message: shared.i18n.t('giftedGemsInfo', { amount: gemAmount, name: byUsername }, languages[1]),
         identifier: 'giftedGems',
-      }
+      },
     );
   }
 
@@ -73,7 +76,7 @@ async function buyGems (data) {
   const amt = getAmountForGems(data);
 
   updateUserBalance(data, amt);
-  data.user.purchased.txnCount++;
+  data.user.purchased.txnCount += 1;
 
   if (!data.gift) txnEmail(data.user, 'donation');
 
@@ -94,4 +97,4 @@ async function buyGems (data) {
   await data.user.save();
 }
 
-module.exports = { buyGems };
+export { buyGems }; // eslint-disable-line import/prefer-default-export

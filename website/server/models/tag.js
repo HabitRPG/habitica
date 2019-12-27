@@ -1,20 +1,20 @@
 import mongoose from 'mongoose';
-import baseModel from '../libs/baseModel';
 import { v4 as uuid } from 'uuid';
 import validator from 'validator';
+import baseModel from '../libs/baseModel';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-export let schema = new Schema({
+export const schema = new Schema({
   id: {
     $type: String,
     default: uuid,
     validate: [v => validator.isUUID(v), 'Invalid uuid.'],
     required: true,
   },
-  name: {$type: String, required: true},
-  challenge: {$type: String},
-  group: {$type: String},
+  name: { $type: String, required: true },
+  challenge: { $type: String },
+  group: { $type: String },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -33,4 +33,4 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   return this.sanitize(updateObj, noUpdate);
 };
 
-export let model = mongoose.model('Tag', schema);
+export const model = mongoose.model('Tag', schema);

@@ -1,0 +1,244 @@
+<template>
+  <transition name="fade">
+    <div
+      v-if="show"
+      class="notification callout animated"
+      :class="classes"
+      @click="handleOnClick()"
+    >
+      <div
+        v-if="notification.type === 'error'"
+        class="row"
+      >
+        <div class="text col-12">
+          <div v-html="notification.text"></div>
+        </div>
+      </div>
+      <div
+        v-if="notification.type === 'streak'"
+        class="row"
+      >
+        <div class="text col-7 offset-1">
+          <div>{{ message }}</div>
+        </div>
+        <div class="icon col-4">
+          <div
+            class="svg-icon"
+            v-html="icons.gold"
+          ></div>
+          <div v-html="notification.text"></div>
+        </div>
+      </div>
+      <div
+        v-if="['hp', 'gp', 'xp', 'mp'].indexOf(notification.type) !== -1"
+        class="row"
+      >
+        <div class="text col-7 offset-1">
+          <div>{{ message }}</div>
+        </div>
+        <div class="icon col-4 d-flex align-items-center">
+          <div
+            v-if="notification.type === 'hp'"
+            class="svg-icon"
+            v-html="icons.health"
+          ></div>
+          <div
+            v-if="notification.type === 'gp'"
+            class="svg-icon"
+            v-html="icons.gold"
+          ></div>
+          <div
+            v-if="notification.type === 'xp'"
+            class="svg-icon"
+            v-html="icons.star"
+          ></div>
+          <div
+            v-if="notification.type === 'mp'"
+            class="svg-icon"
+            v-html="icons.mana"
+          ></div>
+          <div v-html="notification.text"></div>
+        </div>
+      </div>
+      <div
+        v-if="['info', 'success', 'crit', 'lvl'].indexOf(notification.type) !== -1"
+        class="row"
+      >
+        <div class="text col-12">
+          <div v-html="notification.text"></div>
+        </div>
+      </div>
+      <div
+        v-if="notification.type === 'drop'"
+        class="row"
+      >
+        <div class="col-3">
+          <div class="icon-item">
+            <div :class="notification.icon"></div>
+          </div>
+        </div>
+        <div class="text col-8">
+          <div v-html="notification.text"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</template>
+
+<style lang="scss" scoped>
+  .notification {
+    border-radius: 30px;
+    background-color: #24cc8f;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    color: white;
+    width: 300px;
+    margin-left: 1em;
+    margin-bottom: 1em;
+  }
+
+  .info {
+    background-color: #46a7d9;
+    padding-top: .5em;
+  }
+
+  .error {
+    background-color: #f74e52;
+    border-radius: 60px;
+    width: 320px !important;
+    padding: 10px 5px;
+    margin-left: 0;
+    color: #fff;
+  }
+
+  .negative {
+    background-color: #f74e52;
+  }
+
+  .text {
+    text-align: center;
+    padding: .5em 1.5em;
+  }
+
+  .svg-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: .5em;
+  }
+
+  .hp .icon {
+    color: #f74e52;
+  }
+
+  .mp .icon {
+    color: #2995cd;
+  }
+
+  .icon {
+    background: #fff;
+    color: #ffa623;
+    border-radius: 0 1000px 1000px 0;
+    padding: .5em;
+
+    div {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+  }
+
+  .drop {
+    background-color: #4e4a57;
+  }
+
+  .icon-item {
+    width: 64px;
+    height: 64px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    border-radius: 50%;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0
+  }
+</style>
+
+<script>
+import health from '@/assets/svg/health.svg';
+import gold from '@/assets/svg/gold.svg';
+import star from '@/assets/svg/star.svg';
+import mana from '@/assets/svg/mana.svg';
+
+export default {
+  props: ['notification'],
+  data () {
+    return {
+      timer: null,
+      icons: Object.freeze({
+        health,
+        gold,
+        star,
+        mana,
+      }),
+      show: true,
+    };
+  },
+  computed: {
+    message () {
+      if (this.notification.flavorMessage) {
+        return this.notification.flavorMessage;
+      }
+      let localeKey = this.negative === 'negative' ? 'lost' : 'gained';
+      if (this.notification.type === 'hp') localeKey += 'Health';
+      if (this.notification.type === 'mp') localeKey += 'Mana';
+      if (this.notification.type === 'xp') localeKey += 'Experience';
+      if (this.notification.type === 'gp') localeKey += 'Gold';
+      if (this.notification.type === 'streak') localeKey = 'streakCoins';
+      return this.$t(localeKey);
+      // This requires eight translatable strings, but that gives the
+      // translators the most flexibility for matching gender/number
+      // and for using idioms for lost/spent/used/gained.
+    },
+    negative () {
+      return this.notification.sign === '-' ? 'negative' : 'positive';
+    },
+    classes () {
+      return `${this.notification.type} ${this.negative}`;
+    },
+  },
+  watch: {
+    show () {
+      this.$store.dispatch('snackbars:remove', this.notification);
+    },
+  },
+  created () {
+    const timeout = (
+      this.notification
+      && this.notification.timeout !== undefined
+      && this.notification.timeout !== null
+    ) ? this.notification.timeout : true;
+
+    if (timeout) {
+      let delay = this.notification.delay || 1500;
+      delay += this.$store.state.notificationStore.length * 1000;
+      this.timer = setTimeout(() => {
+        this.show = false;
+      }, delay);
+    }
+  },
+  beforeDestroy () {
+    clearTimeout(this.timer);
+  },
+  methods: {
+    handleOnClick () {
+      if (typeof this.notification.onClick === 'function') {
+        this.notification.onClick();
+      }
+      this.show = false;
+    },
+  },
+};
+</script>

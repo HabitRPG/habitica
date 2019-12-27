@@ -1,29 +1,30 @@
 import { SEASONAL_SETS } from '../content/constants';
 
-module.exports = {
+export default {
   opened: true,
 
-  currentSeason: 'Summer',
+  currentSeason: 'Winter',
 
-  dateRange: { start: '2019-06-18', end: '2019-07-31' },
+  dateRange: { start: '2019-12-19', end: '2020-01-31' },
 
   availableSets: [
-    ...SEASONAL_SETS.summer,
+    ...SEASONAL_SETS.winter,
   ],
 
   pinnedSets: {
-    wizard: 'summer2019WaterLilyMageSet',
-    warrior: 'summer2019SeaTurtleWarriorSet',
-    rogue: 'summer2019HammerheadRogueSet',
-    healer: 'summer2019ConchHealerSet',
+    healer: 'winter2020WinterSpiceSet',
+    rogue: 'winter2020LanternSet',
+    warrior: 'winter2020EvergreenSet',
+    wizard: 'winter2020CarolOfTheMageSet',
   },
 
   availableSpells: [
-    'seafoam',
   ],
 
   availableQuests: [
+    'evilsanta',
+    'evilsanta2',
   ],
 
-  featuredSet: 'summer2018BettaFishWarriorSet',
+  featuredSet: 'winter2018GiftWrappedSet',
 };

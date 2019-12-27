@@ -1,8 +1,8 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('GET /tasks/:id', () => {
   let user;
@@ -23,13 +23,13 @@ describe('GET /tasks/:id', () => {
     });
 
     it('gets specified task', async () => {
-      let getTask = await user.get(`/tasks/${task._id}`);
+      const getTask = await user.get(`/tasks/${task._id}`);
 
       expect(getTask).to.eql(task);
     });
 
     it('can use alias to retrieve task', async () => {
-      let getTask = await user.get(`/tasks/${task.alias}`);
+      const getTask = await user.get(`/tasks/${task.alias}`);
 
       expect(getTask).to.eql(task);
     });
@@ -39,8 +39,8 @@ describe('GET /tasks/:id', () => {
   });
 
   context('task cannot be accessed', () => {
-    it('cannot get a non-existant task', async () => {
-      let dummyId = generateUUID();
+    it('cannot get a non-existent task', async () => {
+      const dummyId = generateUUID();
 
       await expect(user.get(`/tasks/${dummyId}`)).to.eventually.be.rejected.and.eql({
         code: 404,
@@ -50,8 +50,8 @@ describe('GET /tasks/:id', () => {
     });
 
     it('cannot get a task owned by someone else', async () => {
-      let anotherUser = await generateUser();
-      let task = await user.post('/tasks/user', {
+      const anotherUser = await generateUser();
+      const task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });

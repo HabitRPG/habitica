@@ -10,16 +10,16 @@ import {
 } from './hatching-potions';
 import t from './translation';
 
-let petInfo = {};
-let mountInfo = {};
+const petInfo = {};
+const mountInfo = {};
 
 function constructSet (type, eggs, potions) {
-  let pets = {};
-  let mounts = {};
+  const pets = {};
+  const mounts = {};
 
-  each(eggs, (egg) => {
-    each(potions, (potion) => {
-      let key = `${egg.key}-${potion.key}`;
+  each(eggs, egg => {
+    each(potions, potion => {
+      const key = `${egg.key}-${potion.key}`;
 
       function getAnimalData (text) {
         return {
@@ -49,11 +49,11 @@ function constructSet (type, eggs, potions) {
 }
 
 function constructPetOnlySet (type, eggs, potions) {
-  let pets = {};
+  const pets = {};
 
-  each(eggs, (egg) => {
-    each(potions, (potion) => {
-      let key = `${egg.key}-${potion.key}`;
+  each(eggs, egg => {
+    each(potions, potion => {
+      const key = `${egg.key}-${potion.key}`;
 
       function getAnimalData (text) {
         return {
@@ -76,12 +76,12 @@ function constructPetOnlySet (type, eggs, potions) {
   return pets;
 }
 
-let [dropPets, dropMounts] = constructSet('drop', dropEggs, dropPotions);
-let [premiumPets, premiumMounts] = constructSet('premium', dropEggs, premiumPotions);
-let [questPets, questMounts] = constructSet('quest', questEggs, dropPotions);
-let wackyPets = constructPetOnlySet('wacky', dropEggs, wackyPotions);
+const [dropPets, dropMounts] = constructSet('drop', dropEggs, dropPotions);
+const [premiumPets, premiumMounts] = constructSet('premium', dropEggs, premiumPotions);
+const [questPets, questMounts] = constructSet('quest', questEggs, dropPotions);
+const wackyPets = constructPetOnlySet('wacky', dropEggs, wackyPotions);
 
-let specialPets = {
+const specialPets = {
   'Wolf-Veteran': 'veteranWolf',
   'Wolf-Cerberus': 'cerberusPup',
   'Dragon-Hydra': 'hydra',
@@ -103,9 +103,10 @@ let specialPets = {
   'Hippogriff-Hopeful': 'hopefulHippogriffPet',
   'Fox-Veteran': 'veteranFox',
   'JackOLantern-Glow': 'glowJackolantern',
+  'Gryphon-Gryphatrice': 'gryphatrice',
 };
 
-let specialMounts = {
+const specialMounts = {
   'BearCub-Polar': 'polarBear',
   'LionCub-Ethereal': 'etherealLion',
   'MantisShrimp-Base': 'mantisShrimp',
@@ -121,6 +122,8 @@ let specialMounts = {
   'Aether-Invisible': 'invisibleAether',
   'JackOLantern-Ghost': 'ghostJackolantern',
   'Hippogriff-Hopeful': 'hopefulHippogriffMount',
+  'Gryphon-Gryphatrice': 'gryphatrice',
+  'JackOLantern-Glow': 'glowJackolantern',
 };
 
 each(specialPets, (translationString, key) => {
@@ -139,7 +142,7 @@ each(specialMounts, (translationString, key) => {
   };
 });
 
-module.exports = {
+export {
   dropPets,
   premiumPets,
   questPets,

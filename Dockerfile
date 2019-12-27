@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:12
 
 ENV ADMIN_EMAIL admin@habitica.com
 ENV AMAZON_PAYMENTS_CLIENT_ID amzn1.application-oa2-client.68ed9e6904ef438fbc1bf86bf494056e
@@ -18,13 +18,10 @@ RUN npm install -g gulp-cli mocha
 # Clone Habitica repo and install dependencies
 RUN mkdir -p /usr/src/habitrpg
 WORKDIR /usr/src/habitrpg
-RUN git clone --branch release https://github.com/HabitRPG/habitica.git /usr/src/habitrpg
+RUN git clone --branch release --depth 1 https://github.com/HabitRPG/habitica.git /usr/src/habitrpg
+RUN npm set unsafe-perm true
 RUN npm install
-RUN gulp build:prod --force
-
-# Create Build dir
-RUN mkdir -p ./website/build
 
 # Start Habitica
-EXPOSE 3000
+EXPOSE 80 8080 36612
 CMD ["node", "./website/transpiled-babel/index.js"]

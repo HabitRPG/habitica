@@ -11,8 +11,6 @@
   ],
   "plugins": [
     "transform-object-rest-spread",
-    "syntax-async-functions",
-    "transform-regenerator",
   ],
   "comments": false,
 }

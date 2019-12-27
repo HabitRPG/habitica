@@ -1,13 +1,17 @@
-import content from '../content/index';
-import i18n from '../i18n';
+import forEach from 'lodash/forEach';
 import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
+import keys from 'lodash/keys';
+import upperFirst from 'lodash/upperFirst';
+import i18n from '../i18n';
+import content from '../content/index';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
 } from '../libs/errors';
 import errorMessage from '../libs/errorMessage';
+import { checkOnboardingStatus } from '../libs/onboarding';
 
 function evolve (user, pet, req) {
   user.items.pets[pet.key] = -1;
@@ -27,9 +31,9 @@ function evolve (user, pet, req) {
   }, req.language);
 }
 
-module.exports = function feed (user, req = {}) {
+export default function feed (user, req = {}) {
   let pet = get(req, 'params.pet');
-  let foodK = get(req, 'params.food');
+  const foodK = get(req, 'params.food');
 
   if (!pet || !foodK) throw new BadRequest(errorMessage('missingPetFoodFeed'));
 
@@ -39,12 +43,12 @@ module.exports = function feed (user, req = {}) {
     throw new BadRequest(errorMessage('invalidPetName'));
   }
 
-  let food = content.food[foodK];
+  const food = content.food[foodK];
   if (!food) {
     throw new NotFound(errorMessage('invalidFoodName', req.language));
   }
 
-  let userPets = user.items.pets;
+  const userPets = user.items.pets;
 
   if (!userPets[pet.key]) {
     throw new NotFound(i18n.t('messagePetNotFound', req.language));
@@ -67,7 +71,7 @@ module.exports = function feed (user, req = {}) {
   if (food.key === 'Saddle') {
     message = evolve(user, pet, req);
   } else {
-    let messageParams = {
+    const messageParams = {
       egg: pet.text(req.language),
       foodText: food.textThe(req.language),
     };
@@ -85,29 +89,35 @@ module.exports = function feed (user, req = {}) {
     if (userPets[pet.key] >= 50 && !user.items.mounts[pet.key]) {
       message = evolve(user, pet, req);
     }
-  }
 
-  user.items.food[food.key]--;
-  if (user.markModified) user.markModified('items.food');
-
-  if (!user.achievements.allYourBase) {
-    const mountIndex = findIndex(content.basePetsMounts, (animal) => {
-      return !user.items.mounts[animal];
-    });
-    if (mountIndex === -1) {
-      user.achievements.allYourBase = true;
-      if (user.addNotification) {
-        user.addNotification('ACHIEVEMENT_ALL_YOUR_BASE', {
-          achievement: 'allYourBase',
-          message: `${i18n.t('modalAchievement')} ${i18n.t('achievementAllYourBase')}`,
-          modalText: i18n.t('achievementAllYourBaseModalText'),
-        });
-      }
+    if (!user.achievements.fedPet && user.addAchievement) {
+      user.addAchievement('fedPet');
+      checkOnboardingStatus(user);
     }
   }
+
+  user.items.food[food.key] -= 1;
+  if (user.markModified) user.markModified('items.food');
+
+  forEach(content.animalColorAchievements, achievement => {
+    if (!user.achievements[achievement.mountAchievement]) {
+      const mountIndex = findIndex(keys(content.dropEggs), animal => !user.items.mounts[`${animal}-${achievement.color}`]);
+      if (mountIndex === -1) {
+        user.achievements[achievement.mountAchievement] = true;
+        if (user.addNotification) {
+          const achievementString = `achievement${upperFirst(achievement.mountAchievement)}`;
+          user.addNotification(achievement.mountNotificationType, {
+            achievement: achievement.mountAchievement,
+            message: `${i18n.t('modalAchievement')} ${i18n.t(achievementString)}`,
+            modalText: i18n.t(`${achievementString}ModalText`),
+          });
+        }
+      }
+    }
+  });
 
   return [
     userPets[pet.key],
     message,
   ];
-};
+}

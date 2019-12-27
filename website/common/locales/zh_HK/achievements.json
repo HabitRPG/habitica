@@ -1,0 +1,9 @@
+{
+  "achievement": "Achievement",
+  "share": "分享",
+  "onwards": "繼續！",
+  "levelup": "\n在完成你的任務後，你將升級並且恢復滿你的生命值！",
+  "reachedLevel": "你達到第<%= level %>級",
+  "achievementLostMasterclasser": "完成任務的專家：大師鑑別者係列",
+  "achievementLostMasterclasserText": "完成大師鑑別者係列任務的全部6個任務，解開失傳的大師鑑別者的神秘面紗！"
+}

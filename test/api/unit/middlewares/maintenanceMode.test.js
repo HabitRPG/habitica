@@ -1,14 +1,15 @@
+import nconf from 'nconf';
+import requireAgain from 'require-again';
 import {
   generateRes,
   generateReq,
   generateNext,
 } from '../../../helpers/api-unit.helper';
-import nconf from 'nconf';
-import requireAgain from 'require-again';
 
 describe('maintenance mode middleware', () => {
-  let res, req, next;
-  let pathToMaintenanceModeMiddleware = '../../../../website/server/middlewares/maintenanceMode';
+  let res; let req; let
+    next;
+  const pathToMaintenanceModeMiddleware = '../../../../website/server/middlewares/maintenanceMode';
 
   beforeEach(() => {
     res = generateRes();
@@ -18,7 +19,7 @@ describe('maintenance mode middleware', () => {
   it('does not return 503 error when maintenance mode is off', () => {
     req = generateReq();
     sandbox.stub(nconf, 'get').withArgs('MAINTENANCE_MODE').returns('false');
-    let attachMaintenanceMode = requireAgain(pathToMaintenanceModeMiddleware);
+    const attachMaintenanceMode = requireAgain(pathToMaintenanceModeMiddleware).default;
 
     attachMaintenanceMode(req, res, next);
 
@@ -29,7 +30,7 @@ describe('maintenance mode middleware', () => {
   it('returns 503 error when maintenance mode is on', () => {
     req = generateReq();
     sandbox.stub(nconf, 'get').withArgs('MAINTENANCE_MODE').returns('true');
-    let attachMaintenanceMode = requireAgain(pathToMaintenanceModeMiddleware);
+    const attachMaintenanceMode = requireAgain(pathToMaintenanceModeMiddleware).default;
 
     attachMaintenanceMode(req, res, next);
 
@@ -39,18 +40,18 @@ describe('maintenance mode middleware', () => {
   });
 
   it('renders maintenance page when request type is HTML', () => {
-    req = generateReq({headers: {accept: 'text/html'}});
+    req = generateReq({ headers: { accept: 'text/html' } });
     sandbox.stub(nconf, 'get').withArgs('MAINTENANCE_MODE').returns('true');
-    let attachMaintenanceMode = requireAgain(pathToMaintenanceModeMiddleware);
+    const attachMaintenanceMode = requireAgain(pathToMaintenanceModeMiddleware).default;
 
     attachMaintenanceMode(req, res, next);
     expect(res.render).to.have.been.calledOnce;
   });
 
   it('sends error message when request type is JSON', () => {
-    req = generateReq({headers: {accept: 'application/json'}});
+    req = generateReq({ headers: { accept: 'application/json' } });
     sandbox.stub(nconf, 'get').withArgs('MAINTENANCE_MODE').returns('true');
-    let attachMaintenanceMode = requireAgain(pathToMaintenanceModeMiddleware);
+    const attachMaintenanceMode = requireAgain(pathToMaintenanceModeMiddleware).default;
 
     attachMaintenanceMode(req, res, next);
     expect(res.send).to.have.been.calledOnce;
