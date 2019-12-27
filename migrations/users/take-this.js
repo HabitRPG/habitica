@@ -19,6 +19,9 @@ async function updateUser (user) {
   const newMigration = {
     name: MIGRATION_NAME,
     processed: new Date(),
+    data: {
+      item: '',
+    },
   };
 
   let push;
@@ -26,27 +29,27 @@ async function updateUser (user) {
     push = false;
   } else if (typeof user.items.gear.owned.body_special_takeThis !== 'undefined') {
     set['items.gear.owned.back_special_takeThis'] = false;
-    newMigration.item = 'back_special_takeThis';
+    newMigration.data.item = 'back_special_takeThis';
     push = { pinnedItems: { type: 'marketGear', path: 'gear.flat.back_special_takeThis', _id: uuid() } };
   } else if (typeof user.items.gear.owned.head_special_takeThis !== 'undefined') {
     set['items.gear.owned.body_special_takeThis'] = false;
-    newMigration.item = 'body_special_takeThis';
+    newMigration.data.item = 'body_special_takeThis';
     push = { pinnedItems: { type: 'marketGear', path: 'gear.flat.body_special_takeThis', _id: uuid() } };
   } else if (typeof user.items.gear.owned.armor_special_takeThis !== 'undefined') {
     set['items.gear.owned.head_special_takeThis'] = false;
-    newMigration.item = 'head_special_takeThis';
+    newMigration.data.item = 'head_special_takeThis';
     push = { pinnedItems: { type: 'marketGear', path: 'gear.flat.head_special_takeThis', _id: uuid() } };
   } else if (typeof user.items.gear.owned.weapon_special_takeThis !== 'undefined') {
     set['items.gear.owned.armor_special_takeThis'] = false;
-    newMigration.item = 'armor_special_takeThis';
+    newMigration.data.item = 'armor_special_takeThis';
     push = { pinnedItems: { type: 'marketGear', path: 'gear.flat.armor_special_takeThis', _id: uuid() } };
   } else if (typeof user.items.gear.owned.shield_special_takeThis !== 'undefined') {
     set['items.gear.owned.weapon_special_takeThis'] = false;
-    newMigration.item = 'weapon_special_takeThis';
+    newMigration.data.item = 'weapon_special_takeThis';
     push = { pinnedItems: { type: 'marketGear', path: 'gear.flat.weapon_special_takeThis', _id: uuid() } };
   } else {
     set['items.gear.owned.shield_special_takeThis'] = false;
-    newMigration.item = 'shield_special_takeThis';
+    newMigration.data.item = 'shield_special_takeThis';
     push = { pinnedItems: { type: 'marketGear', path: 'gear.flat.shield_special_takeThis', _id: uuid() } };
   }
 

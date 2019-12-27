@@ -72,7 +72,11 @@ export default new Schema({
   // have been updated (http://goo.gl/gQLz41), but we want *every* update
   _v: { $type: Number, default: 0 },
   migration: String, // deprecated
-  migrations: Array, // {name: '20190801_take_this', processed: new Date(), item: 'shield_special_takeThis'}
+  migrations: [{
+    name: { $type: String },
+    processed: { $type: Date },
+    data: { $type: Schema.Types.Mixed },
+  }],
   achievements: {
     originalUser: Boolean,
     habitSurveys: Number,
