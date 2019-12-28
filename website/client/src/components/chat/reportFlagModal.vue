@@ -23,7 +23,7 @@
     </div>
     <div class="footer text-center">
       <button
-        v-if="user.contributor.admin && abuseObject.flagCount > 0"
+        v-if="user.contributor.admin"
         class="pull-left btn btn-danger"
         @click="clearFlagCount()"
       >
