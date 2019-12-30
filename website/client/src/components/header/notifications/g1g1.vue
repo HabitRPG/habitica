@@ -1,19 +1,19 @@
 <template>
-  <base-notification
-    :can-remove="true"
-    :has-icon="false"
+  <div
+    class="notification d-flex flex-column justify-content-center text-center"
   >
+    <strong class="mx-auto mb-2"> {{ $t('g1g1Announcement') }} </strong>
+    <p class="mx-4"> {{ $t('g1g1Details') }} </p>
+    <btn class="btn-secondary mx-auto d-flex">
+      <div class="m-auto"> {{ $t('sendGift') }} </div>
+    </btn>
     <div
-      slot="content"
-      class="background d-flex flex-column justify-content-center text-center"
+      class="notification-remove"
+      @click.stop="remove()"
     >
-      <strong class="mx-5 mb-3"> {{ $t('g1g1Announcement') }} </strong>
-      <p> {{ $t('g1g1Details') }} </p>
-      <btn class="btn-secondary mx-auto d-flex">
-        <div class="m-auto"> {{ $t('sendGift') }} </div>
-      </btn>
+      <div class="svg-icon" v-html="icons.close"></div>
     </div>
-  </base-notification>
+  </div>
 </template>
 
 <style lang='scss' scoped>
@@ -24,55 +24,65 @@
   }
 
   p {
-    margin-left: 5rem;
-    margin-right: 5rem;
+    font-size: 14px;
   }
 
-  strong {
-    font-size: 16px;
-  }
-
-  .background {
-    position: relative;
+  .notification {
     background-image: url('~@/assets/images/g1g1-notif.png');
     background-size: 378px 204px;
     width: 378px;
     height: 204px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    white-space: normal;
+    cursor: pointer;
+  }
+
+  .notification-remove {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    padding: 4px;
+    right: 24px;
+    top: 24px;
+
+    .svg-icon {
+      width: 10px;
+      height: 10px;
+    }
   }
 
   .btn-secondary {
     width: 5.75rem;
-    height: 1.5rem;
+    min-height: 1.5rem;
     border-radius: 2px;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     font-size: 12px;
     font-weight: bold;
   }
-
-  .notification {
-    padding: 0 !important;
-  }
-
-  .notification ::v-deep .notification-content {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-  }
 </style>
 
 <script>
-import BaseNotification from './base';
-import { mapState } from '@/libs/store';
+import closeIcon from '@/assets/svg/close-teal.svg';
+import { mapActions } from '@/libs/store';
 
 export default {
-  components: {
-    BaseNotification,
-  },
   props: ['notification'],
-  computed: {
-    ...mapState({ user: 'user.data' }),
+  data () {
+    return {
+      icons: Object.freeze({
+        close: closeIcon,
+      }),
+    };
   },
   methods: {
-
+    ...mapActions({
+      readNotification: 'notifications:readNotification',
+    }),
+    remove () {
+      this.readNotification({ notificationId: this.notification.id });
+    },
   },
 };
 </script>

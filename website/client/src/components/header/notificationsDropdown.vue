@@ -262,11 +262,6 @@ export default {
         });
       }
 
-      notifications.push({
-        type: 'GIFT_ONE_GET_ONE',
-        id: 'g1g1',
-      });
-
       const orderMap = this.notificationsOrder;
 
       // Push the notifications stored in user.notifications
