@@ -19,6 +19,7 @@ export default {
   },
 
   availableSpells: [
+    'snowball',
   ],
 
   availableQuests: [
