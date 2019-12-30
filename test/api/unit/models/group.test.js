@@ -1164,6 +1164,23 @@ describe('Group Model', () => {
         });
       });
 
+      it('unlink group tag', async () => {
+        participatingMember.tags.push({
+          name: party.name,
+          id: party._id,
+          group: party._id,
+        });
+
+        await participatingMember.save();
+        await party.leave(participatingMember);
+
+        participatingMember = await User.findOne({ _id: participatingMember._id });
+        const groupTag = participatingMember.tags.find(tag => tag.id === party._id);
+
+        expect(groupTag).to.not.be.undefined;
+        expect(groupTag.group).to.be.undefined;
+      });
+
       it('deletes a private party when the last member leaves', async () => {
         await party.leave(participatingMember);
         await party.leave(sleepingParticipatingMember);
