@@ -8,8 +8,8 @@ const featuredItems = {
     if (moment().isBetween('2019-12-19', '2020-02-02')) {
       return [
         {
-          type: 'armoire',
-          path: 'armoire',
+          type: 'card',
+          path: 'cardTypes.nye',
         },
         {
           type: 'premiumHatchingPotion',
