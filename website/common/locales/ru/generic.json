@@ -295,5 +295,6 @@
     "demo": "Демо",
     "loadEarlierMessages": "Загрузить предыдущие сообщения",
     "finish": "Завершить",
-    "congratulations": "Поздравляем!"
+    "congratulations": "Поздравляем!",
+    "onboardingAchievs": "Достижения освоения"
 }
