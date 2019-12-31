@@ -125,13 +125,13 @@ context('avatar.vue', () => {
     it('returns an array of buffs', () => {
       vm.member = {
         stats: {
-          class: 'Warrior',
+          class: 'warrior',
         },
       };
 
-      expect(vm.visualBuffs).to.include({ snowball: 'snowman' });
+      expect(vm.visualBuffs).to.include({ snowball: 'avatar_snowball_warrior' });
       expect(vm.visualBuffs).to.include({ spookySparkles: 'ghost' });
-      expect(vm.visualBuffs).to.include({ shinySeed: 'avatar_floral_Warrior' });
+      expect(vm.visualBuffs).to.include({ shinySeed: 'avatar_floral_warrior' });
       expect(vm.visualBuffs).to.include({ seafoam: 'seafoam_star' });
     });
   });
