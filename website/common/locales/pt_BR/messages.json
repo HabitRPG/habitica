@@ -59,7 +59,7 @@
     "messageNotificationNotFound": "Notificação não encontrada.",
     "messageNotAbleToBuyInBulk": "Esse item não pode ser adquirido em quantidades maiores que 1.",
     "notificationsRequired": "Os IDs de notificação são obrigatórios.",
-    "unallocatedStatsPoints": "Você tem <span class=\"notification-bold-blue\"><%= points %></span> Pontos de Atributos não distribuidos",
+    "unallocatedStatsPoints": "Você tem <span class=\"notification-bold-blue\"><%= points %></span> Ponto(s) de Atributos não distribuídos",
     "beginningOfConversation": "Este é o começo de sua conversa com <%= userName %>. Lembre-se da gentileza, respeito e de seguir as Diretrizes da Comunidade!",
     "messageDeletedUser": "Desculpe, esse usuário deletou sua conta.",
     "messageMissingDisplayName": "Faltando nome de exibição.",
