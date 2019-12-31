@@ -294,5 +294,6 @@
     "options": "Настройки",
     "demo": "Демо",
     "loadEarlierMessages": "Загрузить предыдущие сообщения",
-    "finish": "Завершить"
+    "finish": "Завершить",
+    "congratulations": "Поздравляем!"
 }

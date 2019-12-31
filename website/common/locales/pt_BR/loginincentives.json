@@ -9,7 +9,7 @@
     "totalCheckins": "<%= count %> Check-Ins",
     "checkinEarned": "Seu Contador de Check-In aumentou!",
     "unlockedCheckInReward": "Você desbloqueou uma recompensa de Check-In!",
-    "totalCheckinsTitle": "Total de Check-Ins",
+    "totalCheckinsTitle": "Total de check-ins",
     "checkinProgressTitle": "Progresso até o próximo",
     "incentiveBackgroundsUnlockedWithCheckins": "Você pode conseguir os Cenários Simples Bloqueados logando diariamente.",
     "checkinReceivedAllRewardsMessage": "Você recebeu todos os prêmios de Check-In disponíveis! Parabéns!",
