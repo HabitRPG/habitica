@@ -1819,5 +1819,9 @@
     "armorSpecialKS2019Notes": "Glödande inifrån likt en grips ädla hjärta, uppmuntrar denna glänsande rustning dig till att vara stolt över dina framgångar. Ökar Tålighet med <%= con %>.",
     "armorSpecialKS2019Text": "Mystisk Grip-Rustning",
     "weaponSpecialKS2019Notes": "Böjd som en grips näbb och klor, påminner denna utsmyckade polarm om att kämpa vidare när uppgiften framför dig är skrämmande. Ökar Styrka med <%= str %>.",
-    "weaponSpecialKS2019Text": "Mystisk Grip-Galv"
+    "weaponSpecialKS2019Text": "Mystisk Grip-Galv",
+    "backMystery201912Notes": "Glid tyst genom glittrande snöfält och skimrande berg med dessa isiga vingar. Medför inga ökningar. December 2019 Abonnentföremål.",
+    "headMystery202001Notes": "Denna glittrande snöflinga ger dig motståndskraft till den bitande kylan oavsett hur högt du flyger! Medför inga ökningar. December 2019 Abonnentföremål.",
+    "headMystery202001Text": "Polär Pixie Krona",
+    "backMystery201912Text": "Poläg Pixie Vingar"
 }
