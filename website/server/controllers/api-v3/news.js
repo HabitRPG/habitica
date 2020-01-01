@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'DECEMBER LAST CHANCE, SNOWBALLS, NEW YEAR’S RESOLUTION BLOG POST, AND NEW YEAR’S HAT AND CARDS!';
+const LAST_ANNOUNCEMENT_TITLE = 'JANUARY SUBSCRIBER ITEMS AND OFFICIAL HABITICA CHALLENGES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,54 +31,69 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>12/31/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/1/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="npc_justin center-block"></div>
-        <h3>Party Hats</h3>
+        <div class="promo_mystery_202001 center-block"></div>
+        <h3>January Subscriber Items Revealed!</h3>
         <p>
-          In honor of the new year, some free Party Hats are available in your Rewards! Each year
-          you celebrate New Year's with Habitica, you unlock a new hat. Enjoy, and stay tuned for
-          the matching robes in late January during our annual Habitica Birthday Bash!
+          The January Subscriber Items have been revealed: the Fabled Fox Item Set! You'll receive
+          this set if you <a href='/user/settings/subscription'>subscribe to Habitica</a> by
+          January 31. If you're already an active subscriber, reload the site and then head to
+          Inventory > Items to claim your gear!
         </p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
-        <div class="inventory_special_nye center-block"></div>
-        <h3>New Year's Cards</h3>
         <p>
-          Until January 1st only, the <a href='/shops/market'>Market</a> is stocking New Year's
-          Cards! Now you can send cards to your friends (and yourself) to wish them a Happy Habit
-          New Year. All senders and recipients will receive the Auld Acquaintance badge!
+          Subscribers also receive the ability to buy Gems with Gold and other awesome perks! Plus,
+          our Gift-One-Get-One promotion is running now, so it's the perfect time to check it out.
+          Gift-One-Get-One runs until January 6.
         </p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
-        <h3>Blog Post: Jumpstart your 2020 Resolution with Habitica!</h3>
-        <p>
-          Do you have a special resolution or goal for the coming year? Check out a new post on the
-          <a href='https://habitica.wordpress.com/2019/12/26/jump-starting-your-2020-new-years-
-resolution-with-habitica/' target='_blank'>Habitica Blog</a> with our best tips and resources to
-          help you make and keep your 2020 resolution!
-        </p>
+        <p>Thank you very much for your support -- it means a lot to us.</p>
         <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_snowballs center-block"></div>
-        <h3>Snowballs!</h3>
+        <div class="scene_list center-block"></div>
+        <h3>January 2020 Resolution Success Challenge and Take This Challenge</h3>
         <p>
-          The <a href='/shops/seasonal'>Seasonal Shop</a> is also stocking Snowballs for Gold!
-          Throw them at your friends to have an exciting effect. If you get hit with a snowball,
-          you earn the Annoying Friends badge. The results of being hit with a Snowball will last
-          until the end of your day, but you can also reverse them early by buying Salt from the
-          Rewards column. Snowballs are available until January 31st.
+          The Habitica team has launched a special official Challenge series hosted in the <a
+          href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New
+          Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain
+          goals that are destined for success and then stick with them as 2020 progresses.
         </p>
-        <div class="small mb-3">by Shaner and Lemoness</div>
-        <div class="promo_mystery_201912 center-block"></div>
-        <h3>Last Chance for Polar Pixie Set</h3>
         <p>
-          Reminder: the 31st is the final day to <a href='/user/settings/subscription'>
-          subscribe</a> and receive the Polar Pixie item set! Subscribers also get a cute Jackalope
-          pet, and the ability to buy Gems with Gold. The longer your subscription, the more Gems
-          you can get!
+          Check out the first New Year's Resolution Challenge of the year to start your path to
+          resolution success! In <a href='/challenges/463efbbf-8d98-413d-9bdc-708ab336414e'>Begin
+          Your Quest</a>, we're focusing on choosing realistic and achievable resolutions! One
+          grand-prize winner will receive their choice of a one-month gift subscription to Habitica
+          or 25 Gems when it closes on February 3rd. Four lucky runners-up will get a 15 Gem prize.
         </p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <p>
+          Congratulations to the winners of December's Challenge, @AndoJun, @SilverSquirrel,
+          @CathB, @IntegrationAsh, and @DerRue!
+        </p>
+        <div class="promo_take_this center-block"></div>
+        <p>
+          The next Take This Challenge has also launched, <a
+          href='/challenges/8a4beff7-ce41-48de-b963-7194f85b656e'>Hero's Triumph</a>, with a focus
+          on volunteering. Be sure to check it out to earn additional pieces of the Take This armor
+          set!
+        </p>
+        <p>
+          <a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that
+          seeks to inform the gamer community about mental health issues, to provide education
+          about mental disorders and mental illness prevention, and to reduce the stigma of mental
+          illness.
+        </p>
+        <p>
+          Congratulations to the winners of the last Take This Challenge, "Test Thy Courage!":
+          grand prize winner @r-flan2020, and runners-up @SPLOOean, @Bobette37, @WizardGnome,
+          @pearlygeek, and @drilcipher! Plus, all participants in that Challenge have received a
+          piece of the <a
+          href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set' target=
+          '_blank'>Take This item set</a> if they hadn't completed it already. It is located in
+          your Rewards column. Enjoy!
+        </p>
+        <div class="small mb-3">
+          by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat
+        </div>
       </div>
       `,
     });
