@@ -326,6 +326,25 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   }
   categories.push(questCategory);
 
+  const backgroundCategory = {
+    identifier: 'backgrounds',
+    text: i18n.t('backgrounds', language),
+    items: [],
+  };
+  for (const bg in content.backgrounds.timeTravelBackgrounds) {
+    if (!user.purchased.background[bg]) {
+      const item = getItemInfo(
+        user,
+        'background',
+        content.backgroundsFlat[bg],
+        officialPinnedItems,
+        language,
+      );
+      backgroundCategory.items.push(item);
+    }
+  }
+  categories.push(backgroundCategory);
+
   for (const type of Object.keys(stable)) {
     const category = {
       identifier: type,
