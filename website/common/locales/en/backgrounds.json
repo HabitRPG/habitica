@@ -553,5 +553,13 @@
   "backgroundHolidayWreathText": "Holiday Wreath",
   "backgroundHolidayWreathNotes": "Festoon your avatar with a fragrant Holiday Wreath.",
   "backgroundWinterNocturneText": "Winter Nocturne",
-  "backgroundWinterNocturneNotes": "Bask in the starlight of a Winter Nocturne."
+  "backgroundWinterNocturneNotes": "Bask in the starlight of a Winter Nocturne.",
+
+  "timeTravelBackgrounds": "Steampunk Backgrounds",
+  "backgroundAirshipText": "Airship",
+  "backgroundAirshipNotes": "Become a sky sailor on board your very own Airship.",
+  "backgroundSteamworksText": "Steamworks",
+  "backgroundSteamworksNotes": "Build mighty contraptions of vapor and steel in a Steamworks.",
+  "backgroundClocktowerText": "Clock Tower",
+  "backgroundClocktowerNotes": "Situate your secret lair behind the face of a Clock Tower."
 }
