@@ -180,6 +180,7 @@
     "notEnoughHourglasses": "You don't have enough Mystic Hourglasses.",
     "hourglassBuyEquipSetConfirm": "Buy this full set of items for 1 Mystic Hourglass?",
     "hourglassBuyItemConfirm": "Buy this item for 1 Mystic Hourglass?",
+    "backgroundsAlreadyOwned": "Background already owned.",
     "petsAlreadyOwned": "Pet already owned.",
     "mountsAlreadyOwned": "Mount already owned.",
     "typeNotAllowedHourglass": "Item type not supported for purchase with Mystic Hourglass. Allowed types: <%= allowedTypes %>",

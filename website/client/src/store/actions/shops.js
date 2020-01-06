@@ -160,6 +160,9 @@ export async function genericPurchase (store, params) {
       // resetting type to pinType only here
       return buyItem(store, { ...params, type: params.pinType });
     case 'background':
+      if (params.currency === 'hourglasses') {
+        return purchaseHourglassItem(store, params);
+      }
       return unlock(store, {
         query: {
           path: `background.${params.key}`,
