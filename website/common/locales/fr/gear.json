@@ -2011,5 +2011,11 @@
     "shieldSpecialWinter2020WarriorText": "Pomme de pin ronde",
     "headSpecialWinter2020HealerNotes": "Veuillez l'enlever de votre tête avant d'infuser du thé ou du café avec. Augmente l'intelligence de <%= int %>. Équipement en édition limitée de l'hiver 2019-2020.",
     "headSpecialWinter2020HealerText": "Emblème anis étoilé",
-    "headSpecialWinter2020MageNotes": "Oh comme les cloches / De toute leur âme / Semble me dire / “Lance ‘Explosion de flammes’” Augmente la perception de <%= per %>.  Équipement en édition limitée de l'hiver 2019-2020."
+    "headSpecialWinter2020MageNotes": "Oh comme les cloches / De toute leur âme / Semble me dire / “Lance ‘Explosion de flammes’” Augmente la perception de <%= per %>.  Équipement en édition limitée de l'hiver 2019-2020.",
+    "headSpecialNye2019Notes": "Vous avez reçu un chapeau de fête outrageux ! Portez-le avec fierté en fêtant la nouvelle année ! Ne confère aucun bonus.",
+    "backMystery202001Notes": "Ces queues touffues contiennent un pouvoir céleste, et aussi un haut niveau de mignonnerie ! Ne confère aucun bonus. Équipement d'abonnement de janvier 2020.",
+    "backMystery202001Text": "Les cinq queues de la légende",
+    "headMystery202001Notes": "Votre ouïe sera si fine que vous entendrez les étoiles scintiller et la lune tourner. Ne confère aucun bonus. Équipement d'abonnement de janvier 2020.",
+    "headMystery202001Text": "Oreilles de renard légendaire",
+    "headSpecialNye2019Text": "Chapeau de fête outrageux"
 }
