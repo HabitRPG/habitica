@@ -8,7 +8,7 @@
     "featuredset": "Thesaurus favorabilis <%= name %>",
     "mysterySets": "Thesauri Arcani",
     "gearNotOwned": "Hoc tibi non est.",
-    "noGearItemsOfType": "Nullae res tibi sunt",
+    "noGearItemsOfType": "Nullae res tibi sunt.",
     "noGearItemsOfClass": "You already have all your class equipment! More will be released during the Grand Galas, near the solstices and equinoxes.",
     "classLockedItem": "This item is only available to a specific class. Change your class under the User icon > Settings > Character Build!",
     "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",

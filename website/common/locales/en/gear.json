@@ -1334,6 +1334,8 @@
   "headSpecialFall2019HealerText": "Dark Miter",
   "headSpecialFall2019HealerNotes": "Don this dark miter to harness the powers of the fearsome Lich. Increases Intelligence by <%= int %>. Limited Edition 2019 Autumn Gear.",
 
+  "headSpecialNye2019Text": "Outrageous Party Hat",
+  "headSpecialNye2019Notes": "You've received an Outrageous Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
   "headSpecialWinter2020RogueText": "Floofy Stocking Cap",
   "headSpecialWinter2020RogueNotes": "A Rogue walks down the street in that hat, people know they're not afraid of anything. Increases Perception by <%= per %>. Limited Edition 2019-2020 Winter Gear.",
   "headSpecialWinter2020WarriorText": "Snow-Dusted Headdress",
@@ -1442,6 +1444,8 @@
   "headMystery201911Notes": "Each of the crystal points attached to this hat endows you with a special power: mystic clairvoyance, arcane wisdom, and... sorcerous plate spinning? All right then. Confers no benefit. November 2019 Subscriber Item.",
   "headMystery201912Text": "Polar Pixie Crown",
   "headMystery201912Notes": "This glittering snowflake grants you resistance to the biting cold no matter how high you fly! Confers no benefit. December 2019 Subscriber Item.",
+  "headMystery202001Text": "Fabled Fox Ears",
+  "headMystery202001Notes": "Your hearing will be so sharp, you'll hear the stars twinkling and the moon spinning. Confers no benefit. January 2020 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -1916,6 +1920,8 @@
   "backMystery201905Notes": "Fly to untold realms with these iridescent wings. Confers no benefit. May 2019 Subscriber Item.",
   "backMystery201912Text": "Polar Pixie Wings",
   "backMystery201912Notes": "Glide silently across sparkling snowfields and shimmering mountains with these icy wings. Confers no benefit. December 2019 Subscriber Item.",
+  "backMystery202001Text": "Five Tails of Fable",
+  "backMystery202001Notes": "These fluffy tails contain celestial power, and also a high level of cuteness! Confers no benefit. January 2020 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",

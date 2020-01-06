@@ -2614,6 +2614,12 @@ const head = {
     value: 60,
     int: 7,
   },
+  nye2019: {
+    text: t('headSpecialNye2019Text'),
+    notes: t('headSpecialNye2019Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_nye2019'),
+  },
 };
 
 const headAccessory = {

@@ -27,7 +27,7 @@ const api = {};
  * @apiDefine DataExport Data Export
  * These routes allow you to download backups of your data.
  *
- * **Note:** They are intented to be used on the website only and as such are part
+ * **Note:** They are intended to be used on the website only and as such are part
  * of the private API and may change at any time.
  */
 

@@ -54,7 +54,7 @@ describe('shared.ops.unlock', () => {
     }
   });
 
-  // disabled untill fully implemente
+  // disabled until fully implemente
   xit('returns an error when user already owns items in a full set', done => {
     try {
       unlock(user, { query: { path: unlockPath } });

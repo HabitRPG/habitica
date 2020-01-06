@@ -486,7 +486,7 @@ api.getInvitesForGroup = {
  * until you get less than 30 results.
  * BETA You can also use ?includeAllMembers=true. This option is currently in BETA
  * and may be removed in future.
- * Its use is discouraged and its performaces are not optimized especially for large challenges.
+ * Its use is discouraged and its performances are not optimized especially for large challenges.
  *
  * @apiName GetMembersForChallenge
  * @apiGroup Member

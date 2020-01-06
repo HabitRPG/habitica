@@ -169,5 +169,6 @@
     "imReady": "Betrete Habitica",
     "limitedOffer": "Verfügbar bis <%= date %>",
     "paymentAutoRenew": "Dieses Abonnement wird automatisch erneuert bis es gekündigt wird. Wenn Du dieses Abonnement kündigen musst, kannst Du dies in Deinen Einstellungen tun.",
-    "paymentCanceledDisputes": "Wir haben eine Bestätigung der Kündigung an Deine E-Mailadresse gesendet. Falls Du die E-Mail nicht erhältst, kontaktiere uns bitte um zu verhindern, dass es zu Zahlungsstreitigkeiten kommt."
+    "paymentCanceledDisputes": "Wir haben eine Bestätigung der Kündigung an Deine E-Mailadresse gesendet. Falls Du die E-Mail nicht erhältst, kontaktiere uns bitte um zu verhindern, dass es zu Zahlungsstreitigkeiten kommt.",
+    "cannotUnpinItem": "Dieser Gegenstand kann nicht von der Pinnwand entfernt werden."
 }

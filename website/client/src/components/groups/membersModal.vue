@@ -499,7 +499,7 @@ export default {
   },
   watch: {
     groupId () {
-      // @TOOD: We might not need this since groupId is computed now
+      // @TODO: We might not need this since groupId is computed now
       this.getMembers();
     },
     challengeId () {
