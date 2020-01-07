@@ -1,32 +1,10 @@
 <template>
   <div class="row">
-    <secondary-menu class="col-12">
-      <router-link
-        class="nav-link"
-        :to="{name: 'market'}"
-        exact="exact"
-      >
-        {{ $t('market') }}
-      </router-link>
-      <router-link
-        class="nav-link"
-        :to="{name: 'quests'}"
-      >
-        {{ $t('quests') }}
-      </router-link>
-      <router-link
-        class="nav-link"
-        :to="{name: 'seasonal'}"
-      >
-        {{ $t('titleSeasonalShop') }}
-      </router-link>
-      <router-link
-        class="nav-link"
-        :to="{name: 'time'}"
-      >
-        {{ $t('titleTimeTravelers') }}
-      </router-link>
-    </secondary-menu>
+    <navbar
+      class="secondary-menu col-12"
+      :items="tabs"
+      router-links
+    />
     <div class="col-12">
       <router-view />
     </div>
@@ -34,12 +12,34 @@
 </template>
 
 <script>
-import SecondaryMenu from '@/components/secondaryMenu';
+import Navbar from '@/components/ui/simpleNavbar';
 
 export default {
   components: {
-    SecondaryMenu,
+    Navbar,
   },
-  methods: {},
+  computed: {
+    tabs () {
+      // get tabs from routes?
+      return [
+        {
+          title: 'market',
+          name: 'market',
+        },
+        {
+          title: 'quests',
+          name: 'quests',
+        },
+        {
+          title: 'titleSeasonalShop',
+          name: 'seasonal',
+        },
+        {
+          title: 'titleTimeTravelers',
+          name: 'time',
+        },
+      ];
+    },
+  },
 };
 </script>

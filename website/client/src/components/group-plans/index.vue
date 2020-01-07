@@ -1,33 +1,11 @@
 <template>
   <div class="row">
     <group-form-modal />
-    <secondary-menu class="col-12">
-      <router-link
-        class="nav-link"
-        :to="{name: 'groupPlanDetailTaskInformation', params: {groupId}}"
-        exact="exact"
-        :class="{'active': $route.name === 'groupPlanDetailTaskInformation'}"
-      >
-        {{ $t('groupTaskBoard') }}
-      </router-link>
-      <router-link
-        class="nav-link"
-        :to="{name: 'groupPlanDetailInformation', params: {groupId}}"
-        exact="exact"
-        :class="{'active': $route.name === 'groupPlanDetailInformation'}"
-      >
-        {{ $t('groupInformation') }}
-      </router-link>
-      <router-link
-        v-if="isLeader"
-        class="nav-link"
-        :to="{name: 'groupPlanBilling', params: {groupId}}"
-        exact="exact"
-        :class="{'active': $route.name === 'groupPlanBilling'}"
-      >
-        {{ $t('groupBilling') }}
-      </router-link>
-    </secondary-menu>
+    <navbar
+      class="secondary-menu col-12"
+      :items="tabs"
+      router-links
+    />
     <div class="col-12">
       <router-view />
     </div>
@@ -35,14 +13,14 @@
 </template>
 
 <script>
-import groupFormModal from '@/components/groups/groupFormModal';
-import SecondaryMenu from '@/components/secondaryMenu';
+import GroupFormModal from '@/components/groups/groupFormModal';
+import Navbar from '@/components/ui/simpleNavbar';
 import { mapState } from '@/libs/store';
 
 export default {
   components: {
-    SecondaryMenu,
-    groupFormModal,
+    Navbar,
+    GroupFormModal,
   },
   props: ['groupId'],
   computed: {
@@ -58,6 +36,28 @@ export default {
     isLeader () {
       if (!this.currentGroup) return false;
       return this.currentGroup.leader === this.user._id;
+    },
+    tabs () {
+      // groupId - unnecessary param in this case
+      const tabs = [
+        {
+          title: 'groupTaskBoard',
+          name: 'groupPlanDetailTaskInformation',
+        },
+        {
+          title: 'groupInformation',
+          name: 'groupPlanDetailInformation',
+        },
+      ];
+
+      if (this.isLeader) {
+        tabs.push({
+          title: 'groupBilling',
+          name: 'groupPlanBilling',
+        });
+      }
+
+      return tabs;
     },
   },
 };

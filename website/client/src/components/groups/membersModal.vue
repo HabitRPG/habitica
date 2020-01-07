@@ -71,19 +71,20 @@
           </div>
         </div>
       </div>
-      <div
-        v-if="sortDirty && group.type === 'party'"
-        class="row apply-options d-flex justify-content-center"
-      >
-        <a @click="applySortOptions()">{{ $t('applySortToHeader') }}</a>
+      <div class="mt-n3 mb-3">
+        <div
+          v-if="sortDirty && group.type === 'party'"
+          class="row apply-options d-flex justify-content-center"
+        >
+          <a @click="applySortOptions()">{{ $t('applySortToHeader') }}</a>
+        </div>
+        <navbar
+          v-if="invites.length > 0"
+          :items="['members', 'invites']"
+          :active="selectedPage"
+          @change="selectedPage = $event"
+        />
       </div>
-      <navbar
-        v-if="invites.length > 0"
-        class="mt-n3 mb-3"
-        :items="['members', 'invites']"
-        :active="selectedPage"
-        @change="selectedPage = $event"
-      />
       <div v-if="selectedPage === 'members'">
         <div
           v-for="(member, index) in sortedMembers"

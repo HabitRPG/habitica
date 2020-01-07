@@ -1,35 +1,41 @@
 <template>
   <div class="row">
-    <secondary-menu class="col-12">
-      <router-link
-        class="nav-link"
-        :to="{name: 'items'}"
-        exact="exact"
-      >
-        {{ $t('items') }}
-      </router-link><router-link
-        class="nav-link"
-        :to="{name: 'equipment'}"
-      >
-        {{ $t('equipment') }}
-      </router-link><router-link
-        class="nav-link"
-        :to="{name: 'stable'}"
-      >
-        {{ $t('stable') }}
-      </router-link>
-    </secondary-menu><div class="col-12">
+    <navbar
+      class="secondary-menu col-12"
+      :items="tabs"
+      router-links
+    />
+    <div class="col-12">
       <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import SecondaryMenu from '@/components/secondaryMenu';
+import Navbar from '@/components/ui/simpleNavbar';
 
 export default {
   components: {
-    SecondaryMenu,
+    Navbar,
+  },
+  computed: {
+    tabs () {
+      // get tabs from routes?
+      return [
+        {
+          title: 'items',
+          name: 'items',
+        },
+        {
+          title: 'equipment',
+          name: 'equipment',
+        },
+        {
+          title: 'stable',
+          name: 'stable',
+        },
+      ];
+    },
   },
 };
 </script>

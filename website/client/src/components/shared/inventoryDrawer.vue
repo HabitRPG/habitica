@@ -6,7 +6,9 @@
   >
     <div slot="drawer-header">
       <drawer-header-tabs
-        :tabs="filteredTabs"
+        :tabs="filteredTabsLabels"
+        :active="selectedDrawerTab"
+        no-translate
         @changedPosition="tabSelected($event)"
       >
         <div slot="right-item">
@@ -58,6 +60,15 @@
     </drawer-slider>
   </drawer>
 </template>
+
+<style>
+  .drawer-help-text {
+    position: relative;
+    right: -11px;
+    text-align: right;
+    top: -2px;
+  }
+</style>
 
 <script>
 import _filter from 'lodash/filter';
@@ -130,6 +141,9 @@ export default {
     },
     filteredTabs () {
       return this.drawerTabs.filter(t => t.show());
+    },
+    filteredTabsLabels () {
+      return this.filteredTabs.map(tab => tab.label);
     },
   },
   methods: {

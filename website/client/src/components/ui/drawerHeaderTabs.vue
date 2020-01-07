@@ -1,19 +1,14 @@
 <template>
   <div class="header-tabs">
-    <ul class="drawer-tab-container">
-      <li
-        v-for="(tab, index) in tabs"
-        :key="tab.key"
-        class="drawer-tab"
-      >
-        <a
-          class="drawer-tab-text"
-          :class="{'drawer-tab-text-active': selectedTabPosition === index}"
-          :title="tab.label"
-          @click="changeTab(index)"
-        >{{ tab.label }}</a>
-      </li>
-    </ul>
+    <div class="drawer-tab-container">
+      <navbar
+        class="drawer"
+        :items="tabs"
+        :active="tabs[selectedTabPosition]"
+        :no-translate="noTranslate"
+        @change="changeTab"
+      />
+    </div>
     <aside class="help-item">
       <slot name="right-item"></slot>
     </aside>
@@ -21,18 +16,6 @@
 </template>
 
 <style lang="scss" scoped>
-  .drawer-tab-text {
-    display: block;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .drawer-tab {
-    flex: inherit;
-    overflow-x: hidden;
-    white-space: nowrap;
-  }
-
   .drawer-tab-container {
     grid-column-start: 2;
     grid-column-end: 3;
@@ -43,10 +26,6 @@
 
   .help-item {
     grid-column-start: 3;
-    position: relative;
-    right: -11px;
-    text-align: right;
-    top: -2px;
   }
 
   .header-tabs {
@@ -64,11 +43,26 @@
 </style>
 
 <script>
+import Navbar from '@/components/ui/simpleNavbar';
+
 export default {
+  components: {
+    Navbar,
+  },
   props: {
     tabs: {
       type: Array,
       required: true,
+    },
+
+    active: {
+      type: Number,
+      default: 0,
+    },
+
+    noTranslate: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {
@@ -76,8 +70,16 @@ export default {
       selectedTabPosition: 0,
     };
   },
+  watch: {
+    active: {
+      immediate: true,
+      handler (value) {
+        this.selectedTabPosition = value;
+      },
+    },
+  },
   methods: {
-    changeTab (newIndex) {
+    changeTab (tab, newIndex) {
       this.selectedTabPosition = newIndex;
       this.$emit('changedPosition', newIndex);
     },

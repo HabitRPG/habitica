@@ -1,29 +1,10 @@
 <template>
   <div class="row">
-    <secondary-menu class="col-12">
-      <router-link
-        class="nav-link"
-        :to="{name: 'tavern'}"
-        exact="exact"
-        :class="{'active': $route.name === 'tavern'}"
-      >
-        {{ $t('tavern') }}
-      </router-link>
-      <router-link
-        class="nav-link"
-        :to="{name: 'myGuilds'}"
-        :class="{'active': $route.name === 'myGuilds'}"
-      >
-        {{ $t('myGuilds') }}
-      </router-link>
-      <router-link
-        class="nav-link"
-        :to="{name: 'guildsDiscovery'}"
-        :class="{'active': $route.name === 'guildsDiscovery'}"
-      >
-        {{ $t('guildsDiscovery') }}
-      </router-link>
-    </secondary-menu>
+    <navbar
+      class="secondary-menu col-12"
+      :items="tabs"
+      router-links
+    />
     <div class="col-12">
       <router-view />
     </div>
@@ -32,13 +13,32 @@
 </template>
 
 <script>
-import groupFormModal from './groupFormModal';
-import SecondaryMenu from '@/components/secondaryMenu';
+import GroupFormModal from './groupFormModal';
+import Navbar from '@/components/ui/simpleNavbar';
 
 export default {
   components: {
-    groupFormModal,
-    SecondaryMenu,
+    GroupFormModal,
+    Navbar,
+  },
+  computed: {
+    tabs () {
+      // get tabs from routes?
+      return [
+        {
+          title: 'tavern',
+          name: 'tavern',
+        },
+        {
+          title: 'myGuilds',
+          name: 'myGuilds',
+        },
+        {
+          title: 'guildsDiscovery',
+          name: 'guildsDiscovery',
+        },
+      ];
+    },
   },
 };
 </script>

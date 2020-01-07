@@ -21,17 +21,12 @@
       >
         {{ badgeCount }}
       </div>
-      <div class="filters d-flex justify-content-end">
-        <div
-          v-for="filter in typeFilters"
-          :key="filter"
-          class="filter small-text"
-          :class="{active: activeFilter.label === filter}"
-          @click="activateFilter(type, filter)"
-        >
-          {{ $t(filter) }}
-        </div>
-      </div>
+      <navbar
+        class="small justify-content-end flex-shrink-0 ml-auto"
+        :items="typeFilters"
+        :active="activeFilter.label"
+        @change="activateFilter(type, $event)"
+      />
     </div>
     <div
       ref="tasksWrapper"
@@ -331,6 +326,7 @@ import buyMixin from '@/mixins/buy';
 import { mapState, mapActions, mapGetters } from '@/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
+import Navbar from '@/components/ui/simpleNavbar';
 
 import notifications from '@/mixins/notifications';
 import { shouldDo } from '@/../../common/script/cron';
@@ -356,6 +352,7 @@ export default {
     BuyQuestModal,
     shopItem,
     draggable,
+    Navbar,
   },
   mixins: [buyMixin, notifications],
   // Set default values for props

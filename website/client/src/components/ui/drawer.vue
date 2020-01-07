@@ -92,31 +92,6 @@
     padding-right: 24px;
   }
 
-  .drawer-tab {
-    &-container {
-      display: flex;
-      margin-left: 24px;
-
-      & > div {
-        flex: 1;
-      }
-    }
-
-    &-text {
-      font-size: 12px;
-      font-weight: bold;
-      line-height: 1.67;
-      text-align: center;
-      color: $white;
-      border-bottom: 2px solid transparent;
-      padding: 0px 8px 8px 8px;
-
-      &-active {
-        border-color: $purple-400;
-      }
-    }
-  }
-
   .drawer-help-text {
     cursor: pointer;
     float: right;

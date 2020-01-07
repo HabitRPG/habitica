@@ -87,22 +87,12 @@
         @toggled="drawerToggled"
       >
         <div slot="drawer-header">
-          <div class="drawer-tab-container">
-            <div class="drawer-tab text-right">
-              <a
-                class="drawer-tab-text"
-                :class="{'drawer-tab-text-active': !costumeMode}"
-                @click="selectDrawerTab('equipment')"
-              >{{ $t('equipment') }}</a>
-            </div>
-            <div class="clearfix">
-              <div class="drawer-tab float-left">
-                <a
-                  class="drawer-tab-text"
-                  :class="{'drawer-tab-text-active': costumeMode}"
-                  @click="selectDrawerTab('costume')"
-                >{{ $t('costume') }}</a>
-              </div>
+          <drawer-header-tabs
+            :tabs="['equipment', 'costume']"
+            :active="costumeMode ? 1 : 0"
+            @changedPosition="selectDrawerTab"
+          >
+            <template slot="right-item">
               <toggle-switch
                 class="float-right align-with-tab"
                 :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
@@ -110,8 +100,8 @@
                 :hover-text="$t(drawerPreference+'PopoverText')"
                 @change="changeDrawerPreference"
               />
-            </div>
-          </div>
+            </template>
+          </drawer-header-tabs>
         </div>
         <div
           slot="drawer-slider"
@@ -222,10 +212,6 @@
 .align-with-tab {
   margin-top: 3px;
 }
-
-.drawer-tab-text {
-  display: inline-block;
-}
 </style>
 
 <script>
@@ -244,6 +230,7 @@ import ItemRows from '@/components/ui/itemRows';
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 import StarBadge from '@/components/ui/starBadge';
 import Drawer from '@/components/ui/drawer';
+import DrawerHeaderTabs from '@/components/ui/drawerHeaderTabs';
 
 import i18n from '@/../../common/script/i18n';
 
@@ -267,6 +254,7 @@ export default {
     EquipmentAttributesPopover,
     StarBadge,
     Drawer,
+    DrawerHeaderTabs,
     toggleSwitch,
     EquipGearModal,
   },
@@ -442,9 +430,9 @@ export default {
     ) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
   },
   methods: {
-    selectDrawerTab (tabName) {
+    selectDrawerTab (index) {
       let tabNameValue;
-      if (tabName === 'costume') {
+      if (index) {
         tabNameValue = CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
         this.costumeMode = true;
       } else {
