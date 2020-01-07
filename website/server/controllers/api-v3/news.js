@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE TO GIFT A SUBSCRIPTION AND GET ONE FREE!';
+const LAST_ANNOUNCEMENT_TITLE = 'JANUARY BACKGROUNDS AND ARMOIRE ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -35,27 +35,20 @@ api.getNews = {
           </div>
         </div>
         <hr/>
-        <div class="promo_g1g1_2019 center-block"></div>
+        <div class="promo_armoire_backgrounds_202001 center-block"></div>
         <p>
-          Today is your last chance to take advantage of our promotion where if you gift somebody
-          a subscription, you get the same subscription for yourself for free!
+          We’ve added three new backgrounds to the Background Shop! Now your avatar can celebrate
+          at a Birthday Party, gaze at the quiet beauty of a Snowy Desert, and strike a festive
+          pose In A Snowglobe. Check them out under User Icon > Backgrounds!
         </p>
         <p>
-          Subscribers get tons of perks every month, including exclusive items, the ability to buy
-          Gems with Gold, and a cute exclusive Jackalope Pet. Plus, it helps keep Habitica running
-          :) To gift a subscription to someone, just open their profile and click on the present
-          icon in the upper right.
+          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
+          Birthday Cake set. Better work hard on your real-life tasks to earn all the pieces!
+          Enjoy :)
         </p>
-        <p>
-          If you've been curious about trying out a subscription, now's the time! Make a friend
-          happy and use all your new Gems to go questing together.
-        </p>
-        <p>
-          Please note that if you or your gift recipient already have a recurring subscription,
-          the gifted subscription will only start after that subscription is cancelled or has
-          expired. Thanks so much for your support! <3
-        </p>
-        <div class="small mb-3">by the Habitica Team</div>
+        <div class="small mb-3">
+          by FolleMente, Shine Caramia, Aspiring Advocate, gawrone, katieslug, and SabreCat
+        </div>
       </div>
       `,
     });
