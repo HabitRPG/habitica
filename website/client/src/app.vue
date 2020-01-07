@@ -30,8 +30,7 @@
       id="app"
       :class="{
        'casting-spell': castingSpell,
-       'resting': showRestingBanner,
-       'giftingBanner': !giftingHidden
+       'resting': showRestingBanner
       }"
     >
       <banned-account-modal />
