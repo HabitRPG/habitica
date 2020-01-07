@@ -118,7 +118,7 @@
     "loginIncentiveQuestObtained": "Você ganhou essa missão por fazer check-in no Habitica <%= count %> vezes!",
     "loginReward": "<%= count %> Check-ins",
     "createAccountQuest": "Você recebeu esta missão quando se juntou ao Habitica! Se um amigo se juntar, ele também terá um.",
-    "questBundles": "Pacotes de Missões com Desconto",
+    "questBundles": "Pacotes de Missões com cesconto",
     "buyQuestBundle": "Comprar Pacote de Missões",
     "noQuestToStart": "Não consegue achar uma missão? Experimente visitar a Loja de Missões no Mercado e veja os novos lançamentos!",
     "pendingDamage": "<%= damage %> de dano acumulado",
