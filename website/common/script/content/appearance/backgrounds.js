@@ -941,6 +941,20 @@ const backgrounds = {
       notes: t('backgroundWinterNocturneNotes'),
     },
   },
+  backgrounds012020: {
+    birthday_party: {
+      text: t('backgroundBirthdayPartyText'),
+      notes: t('backgroundBirthdayPartyNotes'),
+    },
+    desert_with_snow: {
+      text: t('backgroundDesertWithSnowText'),
+      notes: t('backgroundDesertWithSnowNotes'),
+    },
+    snowglobe: {
+      text: t('backgroundSnowglobeText'),
+      notes: t('backgroundSnowglobeNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
