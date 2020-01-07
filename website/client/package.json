@@ -44,7 +44,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "nconf": "^0.10.0",
-    "sass": "^1.24.0",
+    "sass": "^1.24.2",
     "sass-loader": "^8.0.0",
     "smartbanner.js": "^1.15.0",
     "svg-inline-loader": "^0.8.0",
