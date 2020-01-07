@@ -29,13 +29,16 @@
   .nav-item:hover, .nav-item.active {
     color: $purple-300;
     border-bottom-color: $purple-300;
-    cursor: pointer;
   }
 
   .nav {
     display: flex;
     font-weight: bold;
     justify-content: center;
+
+    &.gray {
+      background-color: $gray-600;
+    }
 
     &.large .nav-item {
       font-size: 16px;
@@ -46,10 +49,6 @@
     &.split-words .nav-item {
       flex-basis: 0;
     }
-  }
-
-  .nav.gray {
-    background-color: $gray-600;
   }
 </style>
 
