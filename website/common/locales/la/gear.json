@@ -872,7 +872,7 @@
     "headSpecialPyromancersTurbanNotes": "This magical turban will help you breathe even in the thickest smoke! Plus it's extremely cozy! Increases Strength by <%= str %>.",
     "headSpecialBardHatText": "Bardic Cap",
     "headSpecialBardHatNotes": "Stick a feather in your cap and call it \"productivity\"! Increases Intelligence by <%= int %>.",
-    "headSpecialLunarWarriorHelmText": "Lunar Warrior Helm",
+    "headSpecialLunarWarriorHelmText": "Cassis Lunaris Bellatoris",
     "headSpecialLunarWarriorHelmNotes": "The power of the moon will strengthen you in battle! Increases Strength and Intelligence by <%= attrs %> each.",
     "headSpecialMammothRiderHelmText": "Cassis Equitis Mammuthi",
     "headSpecialMammothRiderHelmNotes": "Don't let its fluffiness fool you--this hat will grant you piercing powers of perception! Increases Perception by <%= per %>.",
@@ -1076,7 +1076,7 @@
     "headSpecialWinter2019MageNotes": "Stand well back and watch the sparks fly! Your tasks cannot stand against this might! Increases Perception by <%= per %>. Limited Edition 2018-2019 Winter Gear.",
     "headSpecialWinter2019HealerText": "Starry Crown",
     "headSpecialWinter2019HealerNotes": "On the darkest, coldest winter night, one particular star shines its brightest. This crown is made from metal from that star, to help you shine! Increases Intelligence by <%= int %>. Limited Edition 2018-2019 Winter Gear.",
-    "headSpecialGaymerxText": "Rainbow Warrior Helm",
+    "headSpecialGaymerxText": "Cassis Arcta Bellatoris",
     "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
     "headMystery201402Text": "Alata Cassis",
     "headMystery201402Notes": "This winged circlet imbues the wearer with the speed of the wind! Confers no benefit. February 2014 Subscriber Item.",
@@ -1741,5 +1741,8 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
     "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
-    "twoHandedItem": "Two-handed item."
+    "twoHandedItem": "Two-handed item.",
+    "shieldSpecialKS2019Text": "Scutum Gryphi Mythicis",
+    "headSpecialKS2019Text": "Cassis Gryphi Mythicis",
+    "armorSpecialKS2019Text": "Arma Gryphi Mythicis"
 }
