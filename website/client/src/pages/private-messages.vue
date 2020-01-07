@@ -176,33 +176,20 @@
   $pmHeaderHeight: 56px;
 
   // Content of Private Message should be always full-size (minus the toolbar/resting banner)
-  #app {
-    &.resting {
-      #private-message {
-        height: calc(100vh - #{$restingToolbarHeight} - #{$menuToolbarHeight});
-
-        .content {
-          flex: 1;
-          height: calc(100vh - #{$restingToolbarHeight} -
-            #{$menuToolbarHeight} - #{$pmHeaderHeight});
-        }
-      }
-    }
-
-    &:not(.resting) {
-      #private-message {
-        height: calc(100vh - #{$menuToolbarHeight});
-
-        .content {
-          flex: 1;
-          height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight});
-        }
-      }
-    }
-  }
-
 
   #private-message {
+    height: calc(100vh - #{$menuToolbarHeight} -
+      var(--banner-gifting-height, 0px) -
+      var(--banner-resting-height, 0px)); // css variable magic :), must be 0px, 0 alone won't work
+
+    .content {
+      flex: 1;
+      height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
+      var(--banner-gifting-height, 0px) -
+      var(--banner-resting-height, 0px)
+      );
+    }
+
     .disable-background {
       .toggle-switch-description {
         white-space: nowrap;
