@@ -10,7 +10,6 @@
       id="members-modal"
       :title="$t('createGuild')"
       size="md"
-      :hide-footer="true"
     >
       <div
         slot="modal-header"
@@ -78,27 +77,13 @@
       >
         <a @click="applySortOptions()">{{ $t('applySortToHeader') }}</a>
       </div>
-      <div
+      <navbar
         v-if="invites.length > 0"
-        class="row"
-      >
-        <div class="col-6 offset-3 nav">
-          <div
-            class="nav-item"
-            :class="{active: selectedPage === 'members'}"
-            @click="viewMembers()"
-          >
-            {{ $t('members') }}
-          </div>
-          <div
-            class="nav-item"
-            :class="{active: selectedPage === 'invites'}"
-            @click="viewInvites()"
-          >
-            {{ $t('invites') }}
-          </div>
-        </div>
-      </div>
+        class="mt-n3 mb-3"
+        :items="['members', 'invites']"
+        :active="selectedPage"
+        @change="selectedPage = $event"
+      />
       <div v-if="selectedPage === 'members'">
         <div
           v-for="(member, index) in sortedMembers"
@@ -234,7 +219,7 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
+      <div slot="modal-footer">
         <button
           class="btn btn-primary"
           @click="close()"
@@ -350,26 +335,6 @@
   .dropdown-icon-item .svg-icon {
     width: 20px;
   }
-
-  .nav {
-    font-weight: bold;
-    margin-bottom: .5em;
-    margin-top: .5em;
-  }
-
-  .nav-item {
-    display: inline-block;
-    font-size: 16px;
-    margin: 0 auto;
-    padding: .5em;
-    color: #878190;
-  }
-
-  .nav-item:hover, .nav-item.active {
-    color: #4f2a93;
-    border-bottom: 2px solid #4f2a93;
-    cursor: pointer;
-  }
 </style>
 
 <script>
@@ -379,6 +344,8 @@ import { mapState } from '@/libs/store';
 
 import removeMemberModal from '@/components/members/removeMemberModal';
 import MemberDetails from '../memberDetails';
+import Navbar from '@/components/ui/simpleNavbar';
+
 import removeIcon from '@/assets/members/remove.svg';
 import messageIcon from '@/assets/members/message.svg';
 import starIcon from '@/assets/members/star.svg';
@@ -388,6 +355,7 @@ export default {
   components: {
     MemberDetails,
     removeMemberModal,
+    Navbar,
   },
   props: ['hideBadge'],
   data () {
@@ -650,12 +618,6 @@ export default {
       });
 
       this.members = this.members.concat(newMembers);
-    },
-    viewMembers () {
-      this.selectedPage = 'members';
-    },
-    viewInvites () {
-      this.selectedPage = 'invites';
     },
     async removeInvite (member, index) {
       this.invites.splice(index, 1);

@@ -367,7 +367,7 @@
               class="top-menu-icon svg-icon gem"
               :aria-label="$t('gems')"
               href="#buy-gems"
-              @click.prevent="showBuyGemsModal('gems')"
+              @click.prevent="showBuyGemsModal('buyGems')"
               v-html="icons.gem"
             ></a>
             <span>{{ userGems }}</span>

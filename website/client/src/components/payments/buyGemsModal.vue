@@ -23,23 +23,13 @@
           </div>
         </div>
       </div>
-      <div class="d-flex nav justify-content-center">
-        <div
-          class="nav-item text-center"
-          :class="{active: selectedPage === 'subscribe'}"
-          @click="selectedPage = 'subscribe'"
-        >
-          {{ $t('subscribe') }}
-        </div>
-        <div
-          class="nav-item text-center"
-          :class="{active: selectedPage === 'gems'}"
-          @click="selectedPage = 'gems'"
-        >
-          {{ $t('buyGems') }}
-        </div>
-      </div>
-      <div v-show="selectedPage === 'gems'">
+      <navbar
+        :items="['subscribe', 'buyGems']"
+        class="gray large split-words"
+        :active="selectedPage"
+        @change="selectedPage = $event"
+      />
+      <div v-show="selectedPage === 'buyGems'">
         <div v-if="hasSubscription">
           <div class="row text-center">
             <h2 class="mx-auto text-leadin">
@@ -583,26 +573,6 @@
     color: #c3c0c7;
   }
 
-  .nav {
-    font-weight: bold;
-    background-color: $gray-600;
-  }
-
-  .nav-item {
-    box-sizing: border-box;
-    display: inline-block;
-    font-size: 16px;
-    margin: 0rem;
-    padding: 1rem;
-    width: 7.5rem;
-  }
-
-  .nav-item:hover, .nav-item.active {
-    color: #4f2a93;
-    border-bottom: 4px solid $purple-300;
-    cursor: pointer;
-  }
-
   .spacer {
     height: 4em;
   }
@@ -655,6 +625,7 @@ import { mapState } from '@/libs/store';
 import markdown from '@/directives/markdown';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import paymentsMixin from '@/mixins/payments';
+import Navbar from '@/components/ui/simpleNavbar';
 
 import checkIcon from '@/assets/svg/check.svg';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
@@ -671,6 +642,7 @@ import amazonButton from '@/components/payments/amazonButton';
 export default {
   components: {
     amazonButton,
+    Navbar,
   },
   directives: {
     markdown,

@@ -108,31 +108,11 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12 col-md-6 offset-md-3 text-center nav">
-        <div
-          class="nav-item"
-          :class="{active: selectedPage === 'profile'}"
-          @click="selectPage('profile')"
-        >
-          {{ $t('profile') }}
-        </div>
-        <div
-          class="nav-item"
-          :class="{active: selectedPage === 'stats'}"
-          @click="selectPage('stats')"
-        >
-          {{ $t('stats') }}
-        </div>
-        <div
-          class="nav-item"
-          :class="{active: selectedPage === 'achievements'}"
-          @click="selectPage('achievements')"
-        >
-          {{ $t('achievements') }}
-        </div>
-      </div>
-    </div>
+    <navbar
+      :items="['profile', 'stats', 'achievements']"
+      :active="selectedPage"
+      @change="selectPage"
+    />
     <div
       v-show="selectedPage === 'profile'"
       v-if="user.profile"
@@ -516,24 +496,6 @@
     }
   }
 
-  .nav {
-    font-weight: bold;
-    min-height: 40px;
-    justify-content: center;
-  }
-
-  .nav-item {
-    display: inline-block;
-    margin: 0 1.2em;
-    padding: 1em;
-  }
-
-  .nav-item:hover, .nav-item.active {
-    color: #4f2a93;
-    border-bottom: 2px solid #4f2a93;
-    cursor: pointer;
-  }
-
   .name {
     color: $gray-200;
     font-size: 16px;
@@ -702,6 +664,7 @@ import markdown from '@/directives/markdown';
 import achievementsLib from '@/../../common/script/libs/achievements';
 import Content from '@/../../common/script/content';
 import profileStats from './profileStats';
+import Navbar from '@/components/ui/simpleNavbar';
 
 
 import message from '@/assets/svg/message.svg';
@@ -724,6 +687,7 @@ export default {
   components: {
     MemberDetails,
     profileStats,
+    Navbar,
   },
   props: ['userId', 'startingPage'],
   data () {
