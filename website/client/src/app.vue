@@ -28,7 +28,11 @@
     </div>
     <div
       id="app"
-      :class="{'casting-spell': castingSpell, 'resting': showRestingBanner}"
+      :class="{
+       'casting-spell': castingSpell,
+       'resting': showRestingBanner,
+       'giftingBanner': !giftingHidden
+      }"
     >
       <banned-account-modal />
       <amazon-payments-modal v-if="!isStaticPage" />
@@ -130,6 +134,14 @@
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+
+    &.resting {
+      --banner-resting-height: #{$restingToolbarHeight};
+    }
+
+    &.giftingBanner {
+      --banner-gifting-height: 2.5rem;
+    }
   }
 
   #loading-screen-inapp {
