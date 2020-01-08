@@ -409,4 +409,12 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
   Promise.all(backgroundTasks);
 };
 
+schema.methods.sanitizeUpdate = function challangeSanitizeUpdate (updateObj) {
+  // _.assign(this, schema.static.sanitizeUpdate(updateObj)); ?
+  const sanitizedUpdateObj = schema.statics.sanitizeUpdate(updateObj);
+
+  _.merge(this, sanitizedUpdateObj);
+  _.assign(this, { categories: sanitizedUpdateObj.categories });
+};
+
 export const model = mongoose.model('Challenge', schema); // eslint-disable-line import/prefer-default-export

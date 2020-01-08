@@ -1686,6 +1686,17 @@ schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember)
   }
 };
 
+schema.methods.sanitizeUpdate = function groupSanitizeUpdate (updateObj) {
+  // _.assign(this, schema.static.sanitizeUpdate(updateObj)); ?
+  const sanitizedUpdateObj = schema.statics.sanitizeUpdate(updateObj);
+
+  _.assign(
+    this,
+    _.merge(this.toObject(), sanitizedUpdateObj),
+    { categories: sanitizedUpdateObj.categories },
+  );
+};
+
 export const model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)

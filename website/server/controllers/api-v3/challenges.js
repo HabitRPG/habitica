@@ -710,7 +710,7 @@ api.updateChallenge = {
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
 
-    _.merge(challenge, Challenge.sanitizeUpdate(req.body));
+    challenge.sanitizeUpdate(req.body);
 
     const savedChal = await challenge.save();
     const response = savedChal.toJSON();

@@ -475,7 +475,7 @@ api.updateGroup = {
 
     if (req.body.leader !== user._id && group.hasNotCancelled()) throw new NotAuthorized(res.t('cannotChangeLeaderWithActiveGroupPlan'));
 
-    _.assign(group, _.merge(group.toObject(), Group.sanitizeUpdate(req.body)));
+    group.sanitizeUpdate(req.body);
 
     const savedGroup = await group.save();
     const response = await Group.toJSONCleanChat(savedGroup, user);
