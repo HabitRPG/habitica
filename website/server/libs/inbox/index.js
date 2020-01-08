@@ -94,6 +94,7 @@ async function usersMapByConversations (owner, users) {
           _id: '$uuid',
           userStyles: { $last: '$userStyles' },
           contributor: { $last: '$contributor' },
+          backer: { $last: '$backer' },
         },
       },
     ]);
@@ -125,7 +126,6 @@ export async function listConversations (owner) {
           username: { $last: '$username' },
           timestamp: { $last: '$timestamp' },
           text: { $last: '$text' },
-          npc: { $addToSet: '$backer.npc' },
           count: { $sum: 1 },
         },
       },
@@ -142,7 +142,7 @@ export async function listConversations (owner) {
   const conversations = conversationsList.map(res => ({
     uuid: res._id,
     ...res,
-    backer: Array.isArray(res.npc) && res.npc.length > 0 ? { npc: res.npc[0] } : { npc: null },
+    backer: usersMap[res._id].backer,
     userStyles: usersMap[res._id].userStyles,
     contributor: usersMap[res._id].contributor,
   }));
