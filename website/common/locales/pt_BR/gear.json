@@ -1978,7 +1978,7 @@
     "weaponMystery201911Text": "Cajado de cristal encantado",
     "backMystery201912Notes": "Deslize silenciosamente pelos campos de neve e montanhas cintilantes com essas asas geladas. Não confere benefícios. Item de Assinante, Dezembro de 2019.",
     "backMystery201912Text": "Asas do(a) Duende Polar",
-    "headMystery201912Notes": "Este floco de neve cintilante garante resistência ao frio cortante, não importa o quão alto você voe. Não confere benefícios. Item de Assinante, Dezembro de 2019.",
+    "headMystery201912Notes": "Este floco de neve cintilante garante resistência ao frio cortante, não importa o quão alto você voe. Não confere benefícios. Item de assinante, Dezembro de 2019.",
     "headMystery201912Text": "Coroa do(a) Duende Polar",
     "headArmoireEarflapHatNotes": "Se você deseja manter a cabeça quentinha, este chapéu irá te cobrir! Aumenta tanto a Inteligência quanto a Força em <%= attrs %>. Armário Encantado: Conjunto Casaco de lã (Item 2 de 2).",
     "headArmoireEarflapHatText": "Toca com aba",
@@ -2011,5 +2011,11 @@
     "weaponSpecialWinter2020WarriorText": "Cone pontudo de coníferas",
     "weaponSpecialWinter2020RogueNotes": "A escuridão é o elemento de um ladino. Quem melhor, então, para iluminar o caminho na época mais escura do ano? Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Inverno de 2019-2020.",
     "weaponSpecialWinter2020RogueText": "Haste de lanterna",
-    "armorSpecialWinter2020RogueText": "Jaqueta aerada"
+    "armorSpecialWinter2020RogueText": "Jaqueta aerada",
+    "backMystery202001Notes": "Essas caudas macias contêm poderes celestiais e também um alto nível de fofura! Não confere benefícios. Item de assinante, Janeiro de 2020.",
+    "backMystery202001Text": "Cinco caudas de fábula",
+    "headMystery202001Notes": "Sua audição será tão nítida que você ouvirá as estrelas brilhando e a lua girando. Não confere benefícios. Item de assinante, Janeiro de 2020.",
+    "headMystery202001Text": "Orelhas da Raposa Fabulosa",
+    "headSpecialNye2019Notes": "Você recebeu um chapéu de festa escandaloso! Vista isso com orgulho ao tocar no Ano Novo! Não confere benefícios.",
+    "headSpecialNye2019Text": "Chapéu de festa escandaloso"
 }

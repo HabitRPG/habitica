@@ -639,5 +639,12 @@
     "questBronzeDropBronzePotion": "Bronzový líhnoucí lektvar",
     "questBronzeBoss": "Brazen Brouk",
     "questBronzeText": "Bitva s Brazenem Broukem",
-    "mythicalMarvelsText": "Balíček mýtických zázraků"
+    "mythicalMarvelsText": "Balíček mýtických zázraků",
+    "questRobotCollectBolts": "Šrouby",
+    "questRobotCollectGears": "Ozubená kola",
+    "questRobotCollectSprings": "Pružiny",
+    "questRobotDropRobotEgg": "Robot (Vejce)",
+    "questAmberText": "Jantarová Aliance",
+    "questAmberBoss": "Trerezin",
+    "questAmberDropAmberPotion": "Jantarový líhnoucí lektvar"
 }
