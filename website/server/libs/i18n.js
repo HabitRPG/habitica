@@ -10,7 +10,7 @@ export const translations = {};
 // Store MomentJS localization files
 export const momentLangs = {};
 
-// Handle differencies in language codes between MomentJS and /locales
+// Handle differences in language codes between MomentJS and /locales
 const momentLangsMapping = {
   en: 'en-gb',
   en_GB: 'en-gb', // eslint-disable-line camelcase

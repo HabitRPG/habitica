@@ -157,7 +157,7 @@ export function togglePinnedItem (user, { item, type, path }, req = {}) {
   }
 
   if (isOfficialPinned) {
-    // if an offical item is also present in the user.pinnedItems array
+    // if an official item is also present in the user.pinnedItems array
     const itemInUserItems = pathExistsInArray(user.pinnedItems, path);
 
     if (itemInUserItems !== -1) {

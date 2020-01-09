@@ -989,7 +989,7 @@ api.purchase = {
       if (!canGetGems) throw new NotAuthorized(res.t('groupPolicyCannotGetGems'));
     }
 
-    // Req is currently used as options. Slighly confusing, but this will solve that for now.
+    // Req is currently used as options. Slightly confusing, but this will solve that for now.
     let quantity = 1;
     if (req.body.quantity) quantity = req.body.quantity;
     req.quantity = quantity;

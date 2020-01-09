@@ -39,7 +39,7 @@ describe('GET /tasks/:id', () => {
   });
 
   context('task cannot be accessed', () => {
-    it('cannot get a non-existant task', async () => {
+    it('cannot get a non-existent task', async () => {
       const dummyId = generateUUID();
 
       await expect(user.get(`/tasks/${dummyId}`)).to.eventually.be.rejected.and.eql({

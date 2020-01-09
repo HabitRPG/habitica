@@ -626,7 +626,7 @@ describe('payments/index', () => {
           .calledWith(recipient, { receiverMsg: msg, senderMsg: msg, save: false });
       });
 
-      it('sends a message from purchaser to recipient wtih custom message', async () => {
+      it('sends a message from purchaser to recipient with custom message', async () => {
         data.gift.message = 'giftmessage';
 
         await api.buyGems(data);
