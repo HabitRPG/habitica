@@ -1,5 +1,18 @@
 <template>
   <div class="form-wrapper">
+    <div class="warning-banner d-flex" v-if="forgotPassword && preOutage">
+      <div class="warning-box ml-auto my-auto mr-2 d-flex">
+        <div
+          class="svg-icon exclamation m-auto"
+          v-html="icons.exclamation"
+        >
+        </div>
+      </div>
+      <div class="mr-auto my-auto">
+        Habitica emails will be temporarily unavailable on <strong>January 11, 2020</strong> from
+        <strong>1:00 - 7:00 AM EST</strong>.
+      </div>
+    </div>
     <div id="top-background">
       <div class="seamless_stars_varied_opacity_repeat"></div>
     </div>
@@ -546,15 +559,36 @@
     font-size: 90%;
     width: 100%;
   }
+
+  .warning-banner {
+    color: $white;
+    background-color: $maroon-100;
+    height: 2.5rem;
+    width: 100%;
+  }
+
+  .warning-box {
+    font-weight: bold;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid;
+    border-radius: 2px;
+  }
+
+  .exclamation {
+    width: 2px;
+  }
 </style>
 
 <script>
 import axios from 'axios';
 import hello from 'hellojs';
+import moment from 'moment';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
+import exclamation from '@/assets/svg/exclamation.svg';
 import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
@@ -576,6 +610,7 @@ export default {
     };
 
     data.icons = Object.freeze({
+      exclamation,
       gryphon,
       habiticaIcon,
       facebookIcon: facebookSquareIcon,
@@ -634,6 +669,9 @@ export default {
         || this.emailInvalid
         || this.passwordInvalid
         || this.passwordConfirmInvalid;
+    },
+    preOutage () {
+      return moment.utc().isBefore('2020-01-12');
     },
   },
   watch: {
