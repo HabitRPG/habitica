@@ -2017,5 +2017,13 @@
     "headMystery202001Notes": "Sua audição será tão nítida que você ouvirá as estrelas brilhando e a lua girando. Não confere benefícios. Item de assinante, Janeiro de 2020.",
     "headMystery202001Text": "Orelhas da Raposa Fabulosa",
     "headSpecialNye2019Notes": "Você recebeu um chapéu de festa escandaloso! Vista isso com orgulho ao tocar no Ano Novo! Não confere benefícios.",
-    "headSpecialNye2019Text": "Chapéu de festa escandaloso"
+    "headSpecialNye2019Text": "Chapéu de festa escandaloso",
+    "shieldArmoireBirthdayBannerNotes": "Celebre o seu dia especial, o dia especial de alguém que você ama ou termine isso no aniversário da Habitica no dia 31 de janeiro! Aumenta Força em <%= str %>. Armário Encantado: Conjunto Feliz Aniversário (Item 4 de 4).",
+    "shieldArmoireBirthdayBannerText": "Banner de aniversário",
+    "headArmoireFrostedHelmNotes": "O capacete perfeito para qualquer celebração! Aumenta Inteligência em <%= int %>. Armário Encantado: Conjunto Feliz Aniversário (Item 1 de 4).",
+    "headArmoireFrostedHelmText": "Elmo polvilhado",
+    "armorArmoireLayerCakeArmorNotes": "É protetor e saboroso! Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto Feliz Aniversário (Item 2 de 4).",
+    "armorArmoireLayerCakeArmorText": "Armadura Bolo de Camada",
+    "weaponArmoireHappyBannerNotes": "É um \"H\" para 'Happy' ou 'Habitica'? Você decide! Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto Feliz Aniversário (Item 3 de 4).",
+    "weaponArmoireHappyBannerText": "Banner feliz"
 }
