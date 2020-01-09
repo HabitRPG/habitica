@@ -2017,5 +2017,13 @@
     "backMystery202001Text": "Les cinq queues de la légende",
     "headMystery202001Notes": "Votre ouïe sera si fine que vous entendrez les étoiles scintiller et la lune tourner. Ne confère aucun bonus. Équipement d'abonnement de janvier 2020.",
     "headMystery202001Text": "Oreilles de renard légendaire",
-    "headSpecialNye2019Text": "Chapeau de fête outrageux"
+    "headSpecialNye2019Text": "Chapeau de fête outrageux",
+    "shieldArmoireBirthdayBannerNotes": "Célébrez votre jour spécial, le jour spécial de quelqu'un que vous aimez, ou sortez la pour l'anniversaire d'Habitica le 31 Janvier ! Augmente la force de <%= str %>. Armoire enchantée : ensemble de joyeux anniversaire (objet 4 de 4).",
+    "shieldArmoireBirthdayBannerText": "Bannière d'anniversaire",
+    "headArmoireFrostedHelmNotes": "Le parfait couvre-chef pour n'importe quelle fête ! Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble de joyeux anniversaire (objet 1 de 4).",
+    "headArmoireFrostedHelmText": "Casque glaçé",
+    "armorArmoireLayerCakeArmorNotes": "Ça protège et c'est délicieux ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de joyeux anniversaire (objet 2 de 4).",
+    "armorArmoireLayerCakeArmorText": "Armure de gâteau en couches",
+    "weaponArmoireHappyBannerNotes": "Est ce que le \"H\" est pour Heureuse, ou Habitica ? A vous de choisir ! Augmente la perception de <%= per %>. Armoire enchantée : ensemble de joyeux anniversaire (objet 3 de 4).",
+    "weaponArmoireHappyBannerText": "Heureuse bannière"
 }
