@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JANUARY BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'WINTERY SKINS AND HAIR COLORS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,24 +31,26 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/6/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/14/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_202001 center-block"></div>
+        <div class="promo_wintery_skins center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can celebrate
-          at a Birthday Party, gaze at the quiet beauty of a Snowy Desert, and strike a festive
-          pose In A Snowglobe. Check them out under User Icon > Backgrounds!
+          The Seasonal Edition Wintery Hair Colors are now available for purchase! Now you can dye
+          your avatar's hair Snowy, Peppermint, Holly Green, Aurora, Winter Star, or Festive.
         </p>
         <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Birthday Cake set. Better work hard on your real-life tasks to earn all the pieces!
-          Enjoy :)
+          Plus, the Seasonal Edition Wintery Skins are available, too! You can complete your winter
+          avatar look with Aurora, Dapper, Festive, Holly, Polar, Sugar, or Winter Star Skins.
         </p>
-        <div class="small mb-3">
-          by FolleMente, Shine Caramia, Aspiring Advocate, gawrone, katieslug, and SabreCat
-        </div>
+        <p>
+          Both of these Seasonal Edition customization sets will only be available to purchase
+          until January 31st, after which they'll be gone until next year, so be sure to scoop them
+          up now! You can find them in User>Edit Avatar!
+        </p>
+        <div class="small mb-3">by Lemoness and tricksy.fox</div>
+        <div class="promo_wintery_hair center-block"></div>
       </div>
       `,
     });
