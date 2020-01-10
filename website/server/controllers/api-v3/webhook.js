@@ -35,8 +35,8 @@ const api = {};
  * @apiParam (Body) {String} [label] A label to remind you what this webhook does
  * @apiParam (Body) {Boolean} [enabled=true] If the webhook should be enabled
  * @apiParam (Body) {String="taskActivity","groupChatReceived",
-                    "userActivity"} [type="taskActivity"] The webhook's type.
- * @apiParam (Body) {Object} [options] The webhook's options. Wil differ depending on type.
+                    "userActivity","questActivity"} [type="taskActivity"] The webhook's type.
+ * @apiParam (Body) {Object} [options] The webhook's options. Will differ depending on type.
  *                                     Required for `groupChatReceived` type.
  *                                     If a webhook supports options, the default values
  *                                     are displayed in the examples below
@@ -61,6 +61,30 @@ const api = {};
  *     "type": "groupChatReceived",
  *     "options": {
  *       "groupId": "required-uuid-of-group"
+ *     }
+ *   }
+ * @apiParamExample {json} User Activity Example
+ *   {
+ *     "enabled": true,
+ *     "url": "http://some-webhook-url.com",
+ *     "label": "My Activity Webhook",
+ *     "type": "userActivity",
+ *     "options": { // set at least one to true
+ *       "petHatched": false,  // default
+ *       "mountRaised": false, // default
+ *       "leveledUp": false,   // default
+ *     }
+ *   }
+ * @apiParamExample {json} Quest Activity Example
+ *   {
+ *     "enabled": true,
+ *     "url": "http://some-webhook-url.com",
+ *     "label": "My Quest Webhook",
+ *     "type": "questActivity",
+ *     "options": { // set at least one to true
+ *       "questStarted": false,  // default
+ *       "questFinished": false, // default
+ *       "questInvited": false,  // default
  *     }
  *   }
  * @apiParamExample {json} Minimal Example
@@ -131,8 +155,9 @@ api.getWebhook = {
  * @apiParam (Body) {String} [url] The webhook's URL
  * @apiParam (Body) {String} [label] A label to remind you what this webhook does
  * @apiParam (Body) {Boolean} [enabled] If the webhook should be enabled
- * @apiParam (Body) {String="taskActivity","groupChatReceived"} [type] The webhook's type.
- * @apiParam (Body) {Object} [options] The webhook's options. Wil differ depending on type.
+ * @apiParam (Body) {String="taskActivity","groupChatReceived",
+ *                  "userActivity","questActivity"} [type] The webhook's type.
+ * @apiParam (Body) {Object} [options] The webhook's options. Will differ depending on type.
  *                                     The options are enumerated in the
  *                                     [add webhook examples](#api-Webhook-UserAddWebhook).
  * @apiParamExample {json} Update Enabled and Type Properties
