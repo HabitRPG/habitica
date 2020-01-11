@@ -41,7 +41,7 @@
     "messageAuthEmailTaken": "Email se již používá",
     "messageAuthNoUserFound": "Uživatel nenalezen.",
     "messageAuthMustBeLoggedIn": "Musíš být přihlášen.",
-    "messageAuthMustIncludeTokens": "Ve svém požadavku musíš uvést token a uid (uživatelské id)",
+    "messageAuthMustIncludeTokens": "Ve svém požadavku musíš uvést token a uid (Uživatelské Id)",
     "messageGroupAlreadyInParty": "Již jsi ve skupině, zkus znovu načíst stránku.",
     "messageGroupOnlyLeaderCanUpdate": "Pouze velitel družiny může jí může upravovat!",
     "messageGroupRequiresInvite": "Nemůžeš se přidat do družiny, do které nejsi pozván.",
@@ -62,5 +62,7 @@
     "unallocatedStatsPoints": "Máš <span class=\"notification-bold-blue\"><%= points %>nepřidělených vlastnostních bodů</span>",
     "beginningOfConversation": "Toto je začátek tvé konverzace s uživatelem <%= userName %>. Nezapomeň být milý, ucitvý a drž se směrnic komunity!",
     "messageDeletedUser": "Omlouváme se, ale tento uživatel smazal svůj účet.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Chybí zobrazované jméno.",
+    "canDeleteNow": "Nyní můžete zprávu smazat.",
+    "reportedMessage": "Tuto zprávu jste nahlásili moderátorům."
 }

@@ -1821,7 +1821,9 @@
     "weaponSpecialKS2019Notes": "Böjd som en grips näbb och klor, påminner denna utsmyckade polarm om att kämpa vidare när uppgiften framför dig är skrämmande. Ökar Styrka med <%= str %>.",
     "weaponSpecialKS2019Text": "Mystisk Grip-Galv",
     "backMystery201912Notes": "Glid tyst genom glittrande snöfält och skimrande berg med dessa isiga vingar. Medför inga ökningar. December 2019 Abonnentföremål.",
-    "headMystery202001Notes": "Denna glittrande snöflinga ger dig motståndskraft till den bitande kylan oavsett hur högt du flyger! Medför inga ökningar. December 2019 Abonnentföremål.",
-    "headMystery202001Text": "Polär Pixie Krona",
-    "backMystery201912Text": "Poläg Pixie Vingar"
+    "headMystery202001Notes": "Din hörsel kommer vara så skarp att du hör stjärnorna gnistra och månen snurra. Medför inga ökningar. Januari 2020 Abonnentföremål.",
+    "headMystery202001Text": "Berömd Räv Öron",
+    "backMystery201912Text": "Poläg Pixie Vingar",
+    "backMystery202001Notes": "Dessa fluffiga svansar innehåller himmelns kraft och har en hög nivå av gullighet! Medför inga ökningar. Januari 2020 Abonnentföremål.",
+    "backMystery202001Text": "Fem Svansar av Berömmelse"
 }

@@ -1820,5 +1820,5 @@
     "weaponArmoireFloridFanNotes": "Te encariñan los pliegues de seda cuando no están en uso. Incrementa la Constitución en <%= con %>. Armario Encantado: Objeto Independiente.",
     "weaponArmoireFloridFanText": "Abanico Florido",
     "eyewearMystery201907Notes": "¡Luce asombroso mientras proteges tus ojos de los dañinos rayos UV! No confiere beneficios. Equipamiento de suscripción de julio del 2019.",
-    "weaponSpecialWinter2020WarriorNotes": "¡Atrás, ardillas! ¡No os llevaréis ni un poco de esto! ... Pero si todas vosotras queréis pasar el rato y tomar chocolate caliente, está guay. Aumenta la fuerza en <%=str%>. Edición limitada del invierno 2019-2020."
+    "weaponSpecialWinter2020WarriorNotes": "¡Atrás, ardillas! ¡No os llevaréis ni un poco de esto! ... Pero si todas vosotras queréis pasar el rato y tomar chocolate caliente, está guay. Aumenta la fuerza en <%= str %>. Edición limitada del invierno 2019-2020."
 }

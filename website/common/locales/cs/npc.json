@@ -20,7 +20,7 @@
     "welcomeToTavern": "Vítej v Krčmě!",
     "sleepDescription": "Potřebuješ pauzu? Ubytuj se v Danielově krčmě pro pauznutí některých z těžších herních mechanismů země Habitica:",
     "sleepBullet1": "Promeškané denní úkoly tě nezraní",
-    "sleepBullet2": "Úkoly neztratí sérii a barva zůstane nezměněna",
+    "sleepBullet2": "Úkoly neztratí sérii",
     "sleepBullet3": "Bossové ti neublíží za tvé vlastní zmeškané denní úkoly",
     "sleepBullet4": "Tvé poškození bossům nebo sbírka předmětů na Výpravě zůstanou vypnuty, dokud se z krčmy neodhlásíš",
     "pauseDailies": "Pauznout poškození",
@@ -169,5 +169,6 @@
     "imReady": "Vstup do země Habitica",
     "limitedOffer": "Dostupné do <%= date %>",
     "paymentCanceledDisputes": "Na váš e-mail jsme zaslali potvrzení o zrušení. Pokud e-mail nevidíte, kontaktujte nás, abychom předešli budoucím sporům o fakturaci.",
-    "paymentAutoRenew": "Toto předplatné se automaticky obnoví, dokud nebude zrušeno. Pokud potřebujete předplatné zrušit, můžete tak učinit z nastavení."
+    "paymentAutoRenew": "Toto předplatné se automaticky obnoví, dokud nebude zrušeno. Pokud potřebujete předplatné zrušit, můžete tak učinit z nastavení.",
+    "cannotUnpinItem": "Tuto položku nelze odepnout."
 }
