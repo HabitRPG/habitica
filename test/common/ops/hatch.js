@@ -9,12 +9,19 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 import errorMessage from '../../../website/common/script/libs/errorMessage';
+import shared from '../../../website/common/script';
 
 describe('shared.ops.hatch', () => {
   let user;
 
   beforeEach(() => {
     user = generateUser();
+    user.addAchievement = sinon.spy();
+    sinon.stub(shared.onboarding, 'checkOnboardingStatus');
+  });
+
+  afterEach(() => {
+    shared.onboarding.checkOnboardingStatus.restore();
   });
 
   context('Pet Hatching', () => {
@@ -194,6 +201,30 @@ describe('shared.ops.hatch', () => {
         user.items.hatchingPotions = { Spooky: 1 };
         hatch(user, { params: { egg: 'Wolf', hatchingPotion: 'Spooky' } });
         expect(user.achievements.dustDevil).to.eql(true);
+      });
+
+      it('adds the onboarding achievement to the user and checks the onboarding status', () => {
+        user.items.eggs = { Wolf: 1 };
+        user.items.hatchingPotions = { Base: 1 };
+        user.items.pets = {};
+        hatch(user, { params: { egg: 'Wolf', hatchingPotion: 'Base' } });
+
+        expect(user.addAchievement).to.be.calledOnce;
+        expect(user.addAchievement).to.be.calledWith('hatchedPet');
+
+        expect(shared.onboarding.checkOnboardingStatus).to.be.calledOnce;
+        expect(shared.onboarding.checkOnboardingStatus).to.be.calledWith(user);
+      });
+
+      it('does not add the onboarding achievement to the user if it\'s already been awarded', () => {
+        user.items.eggs = { Wolf: 1 };
+        user.items.hatchingPotions = { Base: 1 };
+        user.items.pets = {};
+        user.achievements.hatchedPet = true;
+
+        hatch(user, { params: { egg: 'Wolf', hatchingPotion: 'Base' } });
+
+        expect(user.addAchievement).to.not.be.called;
       });
     });
   });

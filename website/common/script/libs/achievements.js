@@ -195,6 +195,8 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'aridAuthority', language });
   _addSimple(result, user, { path: 'monsterMagus', language });
   _addSimple(result, user, { path: 'undeadUndertaker', language });
+  _addSimple(result, user, { path: 'primedForPainting', language });
+  _addSimple(result, user, { path: 'pearlyPro', language });
 
   _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
   _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });
@@ -235,6 +237,18 @@ function _getBasicAchievements (user, language) {
     earned: Boolean(user.achievements.rebirths),
     optionalCount: user.achievements.rebirths,
   });
+
+  return result;
+}
+
+function _getOnboardingAchievements (user, language) {
+  const result = {};
+
+  _addSimple(result, user, { path: 'createdTask', language });
+  _addSimple(result, user, { path: 'completedTask', language });
+  _addSimple(result, user, { path: 'hatchedPet', language });
+  _addSimple(result, user, { path: 'fedPet', language });
+  _addSimple(result, user, { path: 'purchasedEquipment', language });
 
   return result;
 }
@@ -318,6 +332,10 @@ achievs.getAchievementsForProfile = function getAchievementsForProfile (user, la
     basic: {
       label: 'Basic',
       achievements: _getBasicAchievements(user, language),
+    },
+    onboarding: {
+      label: 'Onboarding',
+      achievements: _getOnboardingAchievements(user, language),
     },
     seasonal: {
       label: 'Seasonal',

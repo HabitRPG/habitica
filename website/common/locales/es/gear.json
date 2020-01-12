@@ -279,7 +279,7 @@
     "weaponSpecialWinter2019WarriorText": "Alabarda Copo de Nieve",
     "weaponSpecialWinter2019WarriorNotes": "Este copo de nieve se hizo crecer, cristal a cristal, hasta convertirlo en una hoja dura como el diamante. Aumenta la Fuerza en <%= str %>. Equipamiento de Invierno Edición Limitada de 2018-2019.",
     "weaponSpecialWinter2019MageText": "Vara de Dragón de Fuego",
-    "weaponSpecialWinter2019MageNotes": "¡Cuidado! Esta vara explosiva está lista para ayudarte a recibir a cualquiera que venga. Aumenta la Inteligencia en <%= int %> y la Percepción en <%= per %>. Equipamiento Invernal Edición Limitada 2018-2019",
+    "weaponSpecialWinter2019MageNotes": "¡Cuidado! Esta vara explosiva está lista para ayudarte a recibir a cualquiera que venga. Aumenta la Inteligencia en <%= int %> y la Percepción en <%= per %>. Equipamiento Invernal Edición Limitada 2018-2019.",
     "weaponSpecialWinter2019HealerText": "Varita Invernal",
     "weaponSpecialWinter2019HealerNotes": "El invierno puede ser un tiempo de descanso y curación, y por eso esta varita de magia invernal puede ayudar a calmar la más dolorosa herida. Aumenta la Inteligencia en <%= int %>. Equipamiento Invernal Edición Limitada 2018-2019.",
     "weaponMystery201411Text": "Horca de Banquete",
@@ -1814,5 +1814,11 @@
     "weaponArmoireBambooCaneText": "Caña de Bambú",
     "weaponArmoireNephriteBowNotes": "¡Este arco dispara flechas con punta de jade que derrotan incluso a los malos habitos más obstinados! Aumenta la Inteligencia por <%= int %> y la Fuerza por <%= str %>. Armario Encantado: Conjunto de Arquero de Nefrita (Objeto 1 de 3).",
     "weaponArmoireNephriteBowText": "Arco de Nerfita",
-    "armorSpecialKS2019Text": "Armadura Mítica de Grifo"
+    "armorSpecialKS2019Text": "Armadura Mítica de Grifo",
+    "weaponMystery201911Notes": "La bola de cristal encima del  báculo puede revelarte el futuro, ¡Pero cuidado! Usando esa peligrosa sabiduría puede cambiar una persona de maneras inesperadas. No otorga ningún beneficio Artículo de Suscriptor de noviembre de 2019.",
+    "weaponMystery201911Text": "Báculo de cristal atractivo",
+    "weaponArmoireFloridFanNotes": "Te encariñan los pliegues de seda cuando no están en uso. Incrementa la Constitución en <%= con %>. Armario Encantado: Objeto Independiente.",
+    "weaponArmoireFloridFanText": "Abanico Florido",
+    "eyewearMystery201907Notes": "¡Luce asombroso mientras proteges tus ojos de los dañinos rayos UV! No confiere beneficios. Equipamiento de suscripción de julio del 2019.",
+    "weaponSpecialWinter2020WarriorNotes": "¡Atrás, ardillas! ¡No os llevaréis ni un poco de esto! ... Pero si todas vosotras queréis pasar el rato y tomar chocolate caliente, está guay. Aumenta la fuerza en <%= str %>. Edición limitada del invierno 2019-2020."
 }

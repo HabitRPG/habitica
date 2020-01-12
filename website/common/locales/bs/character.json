@@ -134,7 +134,6 @@
     "changeClass": "Change Class, Refund Stat Points",
     "lvl10ChangeClass": "To change class you must be at least level 10.",
     "changeClassConfirmCost": "Are you sure you want to change your class for 3 Gems?",
-    "invalidClass": "Invalid class. Please specify 'warrior', 'rogue', 'wizard', or 'healer'.",
     "levelPopover": "Each level earns you one Point to assign to a Stat of your choice. You can do so manually, or let the game decide for you using one of the Automatic Allocation options.",
     "unallocated": "Unallocated Stat Points",
     "haveUnallocated": "You have <%= points %> unallocated Stat Point(s)",

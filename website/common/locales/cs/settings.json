@@ -120,7 +120,7 @@
     "giftedSubscriptionFull": "Ahoj <%= username %>, <%= sender %> ti poslal <%= monthCount %> měsíce předplatného!",
     "giftedSubscriptionWinterPromo": "Hello <%= username %>, you received <%= monthCount %> months of subscription as part of our holiday gift-giving promotion!",
     "invitedParty": "Byli jste pozváni do Družiny",
-    "invitedGuild": "Byli jste pozváni do  Cechu",
+    "invitedGuild": "Byli jste pozváni do Cechu",
     "importantAnnouncements": "Reminders to check in to complete tasks and receive prizes",
     "weeklyRecaps": "Shrnutí aktivity tvého účtu za poslední týden (Poznámka: momentálně vypnuto kvůli problémům s výkonem, ale doufáme že se to vyřeší a budeme brzy znovu posílat e-maily!)",
     "onboarding": "Guidance with setting up your Habitica account",

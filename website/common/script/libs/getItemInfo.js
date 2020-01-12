@@ -115,6 +115,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
+        addlNotes: item.addlNotes ? item.addlNotes(language) : null,
         value: item.value,
         currency: 'gems',
         class: `quest_bundle_${item.key}`,
@@ -130,6 +131,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
+        addlNotes: item.addlNotes ? item.addlNotes(language) : null,
         group: item.group,
         value: item.goldValue ? item.goldValue : item.value,
         locked,
@@ -175,6 +177,25 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `inventory_special_${item.key}`,
         path: `spells.special.${item.key}`,
         pinType: 'seasonalSpell',
+      };
+      break;
+    case 'debuffPotion':
+      itemInfo = {
+        key: item.key,
+        mana: item.mana,
+        cast: item.cast,
+        immediateUse: item.immediateUse,
+        target: item.target,
+        text: item.text(language),
+        notes: item.notes(language),
+        value: item.value,
+        type: 'debuffPotion',
+        currency: 'gold',
+        locked: false,
+        purchaseType: 'debuffPotion',
+        class: `shop_${item.key}`,
+        path: `spells.special.${item.key}`,
+        pinType: 'debuffPotion',
       };
       break;
     case 'seasonalQuest':

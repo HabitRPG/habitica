@@ -927,6 +927,34 @@ const backgrounds = {
       notes: t('backgroundPotionShopNotes'),
     },
   },
+  backgrounds122019: {
+    holiday_market: {
+      text: t('backgroundHolidayMarketText'),
+      notes: t('backgroundHolidayMarketNotes'),
+    },
+    holiday_wreath: {
+      text: t('backgroundHolidayWreathText'),
+      notes: t('backgroundHolidayWreathNotes'),
+    },
+    winter_nocturne: {
+      text: t('backgroundWinterNocturneText'),
+      notes: t('backgroundWinterNocturneNotes'),
+    },
+  },
+  backgrounds012020: {
+    birthday_party: {
+      text: t('backgroundBirthdayPartyText'),
+      notes: t('backgroundBirthdayPartyNotes'),
+    },
+    desert_with_snow: {
+      text: t('backgroundDesertWithSnowText'),
+      notes: t('backgroundDesertWithSnowNotes'),
+    },
+    snowglobe: {
+      text: t('backgroundSnowglobeText'),
+      notes: t('backgroundSnowglobeNotes'),
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),

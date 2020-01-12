@@ -1,5 +1,5 @@
 <template>
-  <div class="standard-page">
+  <div class="standard-page pt-0 px-0">
     <h1>{{ $t('subscription') }}</h1>
     <div class="row">
       <div class="col-6">
@@ -242,8 +242,10 @@
 </template>
 
 <style scoped lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
   .badge.badge-success {
-    color: #fff;
+    color: $white;
   }
 
   .subscribe-pay {

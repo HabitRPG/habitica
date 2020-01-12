@@ -331,5 +331,6 @@
     "getStarted": "Get Started!",
     "mobileApps": "Mobilní aplikace",
     "learnMore": "Zjisti více",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "Heslo musí mít 8 nebo více znaků."
 }

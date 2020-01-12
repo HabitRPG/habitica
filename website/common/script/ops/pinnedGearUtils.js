@@ -143,8 +143,9 @@ export function togglePinnedItem (user, { item, type, path }, req = {}) {
   }
 
 
-  if (path === 'armoire' || path === 'potion') {
-    throw new BadRequest(i18n.t('cannotUnpinArmoirPotion', req.language));
+  if (path === 'armoire' || path === 'potion' || type === 'debuffPotion') {
+    // @TODO: take into considertation debuffPotion type in message
+    throw new BadRequest(i18n.t('cannotUnpinItem', req.language));
   }
 
   const isOfficialPinned = pathExistsInArray(officialPinnedItems, path) !== -1;
@@ -156,7 +157,7 @@ export function togglePinnedItem (user, { item, type, path }, req = {}) {
   }
 
   if (isOfficialPinned) {
-    // if an offical item is also present in the user.pinnedItems array
+    // if an official item is also present in the user.pinnedItems array
     const itemInUserItems = pathExistsInArray(user.pinnedItems, path);
 
     if (itemInUserItems !== -1) {

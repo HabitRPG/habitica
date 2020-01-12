@@ -27,7 +27,7 @@ function uploadFile (buffer, fileName) {
       if (error) {
         reject(error);
       } else {
-        // console.info(`${fileName} uploaded to ${BUCKET_NAME} succesfully.`);
+        // console.info(`${fileName} uploaded to ${BUCKET_NAME} successfully.`);
         resolve(fileName);
       }
     });

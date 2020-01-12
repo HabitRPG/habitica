@@ -1,48 +1,78 @@
-.promo_armoire_backgrounds_201911 {
+.promo_armoire_backgrounds_202001 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -451px;
+  background-position: -424px -175px;
   width: 423px;
   height: 147px;
 }
-.promo_costume_achievement {
+.promo_g1g1_2019 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -747px;
-  width: 144px;
-  height: 156px;
+  background-position: -403px -471px;
+  width: 357px;
+  height: 144px;
 }
-.promo_delightful_dinos {
+.promo_mystery_202001 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -451px;
-  width: 423px;
+  background-position: -241px -619px;
+  width: 279px;
   height: 147px;
 }
-.promo_ember_thunderstorm_potions {
+.promo_snowballs {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -599px;
-  width: 423px;
-  height: 147px;
-}
-.promo_mystery_201910 {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -599px;
-  width: 282px;
-  height: 147px;
+  background-position: 0px 0px;
+  width: 420px;
+  height: 174px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -451px -365px;
+  background-position: -761px -471px;
   width: 96px;
   height: 69px;
 }
-.scene_habitica_map {
+.promo_winter_potions_2020 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
-  width: 450px;
-  height: 450px;
+  background-position: 0px -323px;
+  width: 423px;
+  height: 147px;
 }
-.scene_seaserpent {
+.promo_winter_quests_bundle {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -451px 0px;
-  width: 476px;
-  height: 364px;
+  background-position: 0px -175px;
+  width: 423px;
+  height: 147px;
+}
+.promo_winter_wonderland_2019 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -471px;
+  width: 402px;
+  height: 147px;
+}
+.promo_winter_wonderland_2020 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -421px 0px;
+  width: 468px;
+  height: 147px;
+}
+.promo_wintery_hair {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -521px -619px;
+  width: 152px;
+  height: 75px;
+}
+.promo_wintery_skins {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -323px;
+  width: 420px;
+  height: 147px;
+}
+.customize-option.promo_wintery_skins {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -449px -338px;
+  width: 60px;
+  height: 60px;
+}
+.scene_list {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -619px;
+  width: 240px;
+  height: 195px;
 }

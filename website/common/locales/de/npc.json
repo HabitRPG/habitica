@@ -20,7 +20,7 @@
     "welcomeToTavern": "Willkommen in der Taverne!",
     "sleepDescription": "Brauchst Du eine Pause? Checke in Daniels Gasthaus ein, um ein paar der kniffligeren  Habitica-Spielmechanismen zu unterbrechen:",
     "sleepBullet1": "Verpasste Tagesaufgaben werden Dir nicht schaden",
-    "sleepBullet2": "Aufgaben verlieren weder ihre Strähnen noch Farben",
+    "sleepBullet2": "Aufgaben verlieren ihre Strähnen nicht",
     "sleepBullet3": "Bosse fügen keinen Schaden für Deine eigenen verpassten Tagesaufgaben zu",
     "sleepBullet4": "Dein ausstehender Boss-Schaden oder gefundene Sammelquest-Gegenstände werden bis zum Check-Out zurückgehalten",
     "pauseDailies": "Schaden pausieren",
@@ -169,5 +169,6 @@
     "imReady": "Betrete Habitica",
     "limitedOffer": "Verfügbar bis <%= date %>",
     "paymentAutoRenew": "Dieses Abonnement wird automatisch erneuert bis es gekündigt wird. Wenn Du dieses Abonnement kündigen musst, kannst Du dies in Deinen Einstellungen tun.",
-    "paymentCanceledDisputes": "Wir haben eine Bestätigung der Kündigung an Deine E-Mailadresse gesendet. Falls Du die E-Mail nicht erhältst, kontaktiere uns bitte um zu verhindern, dass es zu Zahlungsstreitigkeiten kommt."
+    "paymentCanceledDisputes": "Wir haben eine Bestätigung der Kündigung an Deine E-Mailadresse gesendet. Falls Du die E-Mail nicht erhältst, kontaktiere uns bitte um zu verhindern, dass es zu Zahlungsstreitigkeiten kommt.",
+    "cannotUnpinItem": "Dieser Gegenstand kann nicht von der Pinnwand entfernt werden."
 }

@@ -479,5 +479,7 @@
     "sharedCompletion": "Shared Completion",
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned user finishes",
-    "allAssignedCompletion": "All - Completes when all assigned users finish"
+    "allAssignedCompletion": "All - Completes when all assigned users finish",
+    "suggestedGroup": "நீங்கள் ஹபிடிகாவிற்கு புதிது என்பதால் இது உங்களுக்கு பரிந்துரைக்கப்பட்டிருக்கிறது.",
+    "pmReported": "இந்த செய்தியை புகாரளித்ததற்கு நன்றி."
 }

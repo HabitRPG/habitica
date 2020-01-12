@@ -85,7 +85,7 @@
     "landingend": "Inte övertalad än?",
     "landingend2": "Se en mer detaljerad lista av [våra funktioner](/static/overview). Letar du efter ett mer privat närmande? Kolla in våra [administrativa paket](/static/plans), som är perfekt för familjer, lärare, stödgrupper, och företag.",
     "landingp1": "Problemet med de flesta produktivitetsappar på marknaden är att de inte ger en något incitament för att fortsätta använda dem. Habitica fixar detta genom att göra det roligt att bygga vanor! Genom att belöna dig när du lyckas och straffa dig när du gör misstag, ger Habitica dig extern motivation för att klara av dina dagliga aktiviteter.",
-    "landingp2": "Whenever you reinforce a positive habit, complete a daily task, or take care of an old to-do, Habitica immediately rewards you with Experience points and Gold. As you gain experience, you can level up, increasing your Stats and unlocking more features, like classes and pets. Gold can be spent on in-game items that change your experience or personalized rewards you've created for motivation. When even the smallest successes provide you with an immediate reward, you're less likely to procrastinate.",
+    "landingp2": "När du förstärker en positiv vana, slutför en daglig uppgift, eller tar hand om en gammal att-göra-uppgift, belönar Habitica dig med en gång med Erfarenhetspoäng och Guld. När du har fått tillräckligt med erfarenhet når du nästa nivå, ökar dina Egenskaper och låser upp nya funktioner, som klasser och husdjur. Guld kan spenderas på objekt i spelet som ändrar din upplevelse eller på personliga belöningar som du skapat för motivation. När även de minsta framgångarna ger dig en omedelbar belöning är det mindre troligt att du skjuter upp dem.",
     "landingp2header": "Omedelbar tillfredställelse",
     "landingp3": "När du ger efter för en dålig vana eller misslyckas med att göra klart någon av dina dagliga uppgifter så förlorar du hälsa. Om din hälsa sjunker för lågt så förlorar du en del av de framsteg du gjort. Genom att ge omedelbara konsekvenser kan Habitica hjälpa till att bryta dåliga vanor och uppskjutningsmönster innan de blir till problem i verkligheten.",
     "landingp3header": "Konsekvenser",
@@ -283,7 +283,7 @@
     "passwordResetEmailHtml": "Om du har begärt en lösenordsåterställning för <strong><%= username %></strong> på Habitica, <a href=\"<%= passwordResetLink %>\">klicka här</a> för att skriva in ett nytt. Länken kommer att gå ut efter 24 timmar.<br/><br>Om du inte har begärt en lösenordsåterställning, var god ignorera detta mail.",
     "invalidLoginCredentialsLong": "Uh-oh - your email address / username or password is incorrect.\n- Make sure they are typed correctly. Your username and password are case-sensitive.\n- You may have signed up with Facebook or Google-sign-in, not email so double-check by trying them.\n- If you forgot your password, click \"Forgot Password\".",
     "invalidCredentials": "Det finns inget konto som använder de uppgifterna.",
-    "accountSuspended": "This account, User ID \"<%= userId %>\", has been blocked for breaking the [Community Guidelines](https://habitica.com/static/community-guidelines) or [Terms of Service](https://habitica.com/static/terms). For details or to ask to be unblocked, please email our Community Manager at <%= communityManagerEmail %> or ask your parent or guardian to email them. Please copy your User ID into the email and include your username.",
+    "accountSuspended": "Detta kontot, Användar ID \"<%= userId %>\", har blivit blockerat för att ha brutit mot Gemenskapens Riktlinjer (https://habitica.com/static/community-guidelines) eller Användarvillkor (https://habitica.com/static/terms). För detaljer eller för att bli oblockerad, var snäll och mejla vår Community Manager på <%= communityManagerEmail %>  eller fråga din förälder eller vårdnadshavare att mejla dem. Var snäll och inkludera @Användarnamn i mejlet.",
     "accountSuspendedTitle": "Account has been suspended",
     "unsupportedNetwork": "Detta nätverk stöds inte för tillfället.",
     "cantDetachSocial": "Account lacks another authentication method; can't detach this authentication method.",
@@ -330,5 +330,6 @@
     "signup": "Bli Medlem",
     "getStarted": "Get Started!",
     "mobileApps": "Mobil Appar",
-    "learnMore": "Lär Dig Mer"
+    "learnMore": "Lär Dig Mer",
+    "communityInstagram": "Instagram"
 }

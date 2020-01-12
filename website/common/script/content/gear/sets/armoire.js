@@ -507,6 +507,23 @@ const armor = {
     set: 'alchemist',
     canOwn: ownsItem('armor_armoire_alchemistsRobe'),
   },
+  duffleCoat: {
+    text: t('armorArmoireDuffleCoatText'),
+    notes: t('armorArmoireDuffleCoatNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    per: 7,
+    set: 'duffle',
+    canOwn: ownsItem('armor_armoire_duffleCoat'),
+  },
+  layerCakeArmor: {
+    text: t('armorArmoireLayerCakeArmorText'),
+    notes: t('armorArmoireLayerCakeArmorNotes', { con: 13 }),
+    value: 100,
+    con: 13,
+    set: 'birthday',
+    canOwn: ownsItem('armor_armoire_layerCakeArmor'),
+  },
 };
 
 const body = {
@@ -1037,6 +1054,23 @@ const head = {
     set: 'alchemist',
     canOwn: ownsItem('head_armoire_alchemistsHat'),
   },
+  earflapHat: {
+    text: t('headArmoireEarflapHatText'),
+    notes: t('headArmoireEarflapHatNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    str: 7,
+    set: 'duffle',
+    canOwn: ownsItem('head_armoire_earflapHat'),
+  },
+  frostedHelm: {
+    text: t('headArmoireFrostedHelmText'),
+    notes: t('headArmoireFrostedHelmNotes', { int: 13 }),
+    value: 100,
+    int: 13,
+    set: 'birthday',
+    canOwn: ownsItem('head_armoire_frostedHelm'),
+  },
 };
 
 const shield = {
@@ -1323,6 +1357,14 @@ const shield = {
     int: 7,
     set: 'alchemist',
     canOwn: ownsItem('shield_armoire_alchemistsScale'),
+  },
+  birthdayBanner: {
+    text: t('shieldArmoireBirthdayBannerText'),
+    notes: t('shieldArmoireBirthdayBannerNotes', { str: 7 }),
+    value: 100,
+    str: 7,
+    set: 'birthday',
+    canOwn: ownsItem('shield_armoire_birthdayBanner'),
   },
 };
 
@@ -1778,6 +1820,14 @@ const weapon = {
     int: 5,
     set: 'alchemist',
     canOwn: ownsItem('weapon_armoire_alchemistsDistiller'),
+  },
+  happyBanner: {
+    text: t('weaponArmoireHappyBannerText'),
+    notes: t('weaponArmoireHappyBannerNotes', { per: 7 }),
+    value: 100,
+    per: 7,
+    set: 'birthday',
+    canOwn: ownsItem('weapon_armoire_happyBanner'),
   },
 };
 

@@ -3,7 +3,7 @@
     "stringNotFound": "String '<%= string %>' nicht gefunden.",
     "titleIndex": "Habitica | Dein Leben, das Rollenspiel",
     "habitica": "Habitica",
-    "habiticaLink": "<a href='http://habitica.fandom.com/wiki/Habitica' target='_blank'>Habitica</a>",
+    "habiticaLink": "<a href='http://habitica.fandom.com/de/wiki/Habitica' target='_blank'>Habitica</a>",
     "onward": "Vorwärts!",
     "done": "Erledigt",
     "gotIt": "Verstanden!",
@@ -61,7 +61,7 @@
     "newGroupTitle": "Neue Gruppe",
     "subscriberItem": "Überraschungsgegenstand",
     "newSubscriberItem": "Du hast einen neuen <span class=\"notification-bold-blue\">Überraschungsgegenstand</span>",
-    "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Dieser wird üblicherweise ungefähr eine Woche vor Monatsende herausgegeben. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
+    "subscriberItemText": "Abonnenten bekommen jeden Monat einen Überraschungsgegenstand. Er wird Anfang des Monats verfügbar. Schaue auf der 'Überraschungsgegenstand'-Seite des Wikis für mehr Informationen nach.",
     "all": "Alle",
     "none": "Keine",
     "more": "<%= count %> mehr",
@@ -294,5 +294,7 @@
     "options": "Optionen",
     "loadEarlierMessages": "Lade ältere Nachrichten",
     "demo": "Demo",
-    "finish": "Abschliessen"
+    "finish": "Abschliessen",
+    "congratulations": "Gratulation!",
+    "onboardingAchievs": "Einstiegserfolge"
 }

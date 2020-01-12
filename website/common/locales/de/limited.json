@@ -147,7 +147,7 @@
     "dateEndJanuary": "31. Januar",
     "dateEndFebruary": "28. Februar",
     "winterPromoGiftHeader": "Verschenke ein Abonnement und bekomme eins umsonst!",
-    "winterPromoGiftDetails1": "Nur bis zum 15. Januar: wenn Du jemandem ein Abonnement schenkst, erhältst Du das gleiche Abonnement gratis für Dich!",
+    "winterPromoGiftDetails1": "Nur bis zum 6. Januar: wenn Du jemandem ein Abonnement schenkst, erhältst Du das gleiche Abonnement gratis für Dich!",
     "winterPromoGiftDetails2": "Bitte bedenke, dass das geschenkte Abonnement, falls Du oder Deine beschenkte Person bereits über ein sich wiederholendes Abonnement verfügen, erst dann startet, wenn das alte Abonnement gekündigt wird oder ausläuft. Herzlichen Dank für Deine Unterstützung! <3",
     "discountBundle": "Paket",
     "g1g1Announcement": "Die \"Schenke ein Abo, bekomm ein Abo Gratis\" Aktion läuft jetzt!",
@@ -168,5 +168,10 @@
     "fall2019RavenSet": "Rabe (Krieger)",
     "fall2019CyclopsSet": "Zyklop (Magier)",
     "fall2019OperaticSpecterSet": "Opernhaftes Gespenst (Schurke)",
-    "augustYYYY": "August <%= year %>"
+    "augustYYYY": "August <%= year %>",
+    "winter2020LanternSet": "Laterne (Schurke)",
+    "winter2020WinterSpiceSet": "Wintergewürz (Heiler)",
+    "winter2020CarolOfTheMageSet": "Weihnachtslied des Magiers (Magier)",
+    "winter2020EvergreenSet": "Immergrün (Krieger)",
+    "decemberYYYY": "Dezember <%= year %>"
 }

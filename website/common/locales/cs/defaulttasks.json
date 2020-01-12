@@ -55,5 +55,9 @@
     "workTodoProject": "Práce na projektu >> ukončena",
     "workDailyImportantTaskNotes": "Klikni k upřesnění tvého nejdůležitějšího úkolu",
     "workDailyImportantTask": "Nejdůležitější úkol >> pracoval(a) jsem na dnešním nejdůležitějším úkolu",
-    "workHabitMail": "Zpracuj e-maily"
+    "workHabitMail": "Zpracuj e-maily",
+    "exerciseDailyText": "Protahování >> Každodenní cvičební rutina",
+    "exerciseTodoText": "Nastavte rozvrh cvičení",
+    "exerciseTodoNotes": "Klepnutím přidáte kontrolní seznam!",
+    "healthHabit": "Jezte zdravé/nezdravé jídlo"
 }

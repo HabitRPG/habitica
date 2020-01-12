@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW DINOSAUR PET QUEST BUNDLE AND WIKI SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'WINTERY SKINS AND HAIR COLORS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,38 +31,26 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>11/14/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/14/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_delightful_dinos center-block"></div>
-        <h3>New Pet Quest Bundle: Delightful Dinos</h3>
+        <div class="promo_wintery_skins center-block"></div>
         <p>
-          If you are looking to add some dinosaur pets to your Habitica stable, life, uh, finds a
-          way! From now until November 30, you can purchase the Delightful Dinos Pet Quest Bundle
-          and receive the Pterodactyl, Triceratops, and T-Rex (The Dinosaur Unearthed) quests, all
-          for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them
-          separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!
+          The Seasonal Edition Wintery Hair Colors are now available for purchase! Now you can dye
+          your avatar's hair Snowy, Peppermint, Holly Green, Aurora, Winter Star, or Festive.
         </p>
-        <div class="small">by SabreCat and Beffymaroo</div>
-        <div class="small">Art by Baconsaur, Eevachu, UncommonCriminal, Kiwibot, McCoyly,
-          plumilla, Seraphina, PainterProphet, Stefalupagus, Katy133, Edge, Willow The Witty,
-          Lilith of Alfheim, Procyon, GeraldThePixel, and Archeia
-        </div>
-        <div class="small mb-3">Writing by Lemoness, Daniel the Bard, Lilith of Alfheim, and Ali
-          Stewart
-        </div>
-        <div class="scene_habitica_map center-block"></div>
-        <h3>Blog Post: Places in Habitica</h3>
-        <p>This month's <a href='https://habitica.wordpress.com/2019/11/14/places-in-habitica/'
-          target='_blank'>featured Wiki article</a> is about Places in Habitica! We hope that it
-          will help you as you gamify your tasks. Be sure to check it out, and let us know what 
-          you think by reaching out on <a href='https://twitter.com/habitica'
-          target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com'
-          target='_blank'>Tumblr</a>, and <a href='https://facebook.com/habitica'
-          target='_blank'>Facebook</a>.
+        <p>
+          Plus, the Seasonal Edition Wintery Skins are available, too! You can complete your winter
+          avatar look with Aurora, Dapper, Festive, Holly, Polar, Sugar, or Winter Star Skins.
         </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <p>
+          Both of these Seasonal Edition customization sets will only be available to purchase
+          until January 31st, after which they'll be gone until next year, so be sure to scoop them
+          up now! You can find them in User>Edit Avatar!
+        </p>
+        <div class="small mb-3">by Lemoness and tricksy.fox</div>
+        <div class="promo_wintery_hair center-block"></div>
       </div>
       `,
     });

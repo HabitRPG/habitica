@@ -65,6 +65,8 @@ function _populateDefaultTasks (user, taskTypes) {
   // @TODO: default tasks are handled differently now, and not during registration.
   // We should move this code
 
+  // TODO why isn't this using createTasks from libs/tasksManager?
+
   const tasksToCreate = [];
   if (user.registeredThrough === 'habitica-web') return Promise.all(tasksToCreate);
 
@@ -129,6 +131,8 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
+  user.items.gear.owned.head_special_nye = true;
+  user.items.gear.equipped.head = 'head_special_nye';
 
   user.markModified('items');
 

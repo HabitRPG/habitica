@@ -135,6 +135,15 @@
     cursor: crosshair;
   }
 
+  .closepadding {
+    margin: 11px 24px;
+    display: inline-block;
+    position: relative;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+
   .container-fluid {
     flex: 1 0 auto;
   }
@@ -163,15 +172,6 @@
       color: $white;
       padding: 8px 38px 8px 8px;
       margin: auto;
-    }
-
-    .closepadding {
-      margin: 11px 24px;
-      display: inline-block;
-      position: relative;
-      right: 0;
-      top: 0;
-      cursor: pointer;
     }
 
     @media only screen and (max-width: 768px) {
@@ -239,7 +239,11 @@ import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
 import subCanceledModal from '@/components/payments/canceledModal';
 
 import spellsMixin from '@/mixins/spells';
-import { CONSTANTS, getLocalSetting, removeLocalSetting } from '@/libs/userlocalManager';
+import {
+  CONSTANTS,
+  getLocalSetting,
+  removeLocalSetting,
+} from '@/libs/userlocalManager';
 
 import svgClose from '@/assets/svg/close.svg';
 import bannedAccountModal from '@/components/bannedAccountModal';

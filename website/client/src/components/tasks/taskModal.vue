@@ -1437,6 +1437,10 @@ export default {
         this.task.group.sharedCompletion = this.sharedCompletion;
       }
 
+      if (this.task.type === 'reward' && this.task.value === '') {
+        this.task.value = 0;
+      }
+
       if (this.purpose === 'create') {
         if (this.challengeId) {
           const response = await this.$store.dispatch('tasks:createChallengeTasks', {

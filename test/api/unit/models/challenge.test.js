@@ -90,7 +90,37 @@ describe('Challenge Model', () => {
         expect(syncedTask.tags[0]).to.eql(challenge._id);
       });
 
-      it('syncs a challenge to a user', async () => {
+      it('adds a challenge to a user', async () => {
+        const newMember = new User({
+          guilds: [guild._id],
+        });
+        await newMember.save();
+
+        const addedSuccessfully = await challenge.addToUser(newMember);
+
+        const updatedNewMember = await User.findById(newMember._id);
+
+        expect(addedSuccessfully).to.eql(true);
+        expect(updatedNewMember.challenges).to.contain(challenge._id);
+      });
+
+      it('does not add a challenge to a user that already in the challenge', async () => {
+        const newMember = new User({
+          guilds: [guild._id],
+          challenges: [challenge._id],
+        });
+        await newMember.save();
+
+        const addedSuccessfully = await challenge.addToUser(newMember);
+
+        const updatedNewMember = await User.findById(newMember._id);
+
+        expect(addedSuccessfully).to.eql(false);
+        expect(updatedNewMember.challenges).to.contain(challenge._id);
+        expect(updatedNewMember.challenges.length).to.eql(1);
+      });
+
+      it('syncs challenge tasks to a user', async () => {
         await challenge.addTasks([task]);
 
         const newMember = new User({
@@ -98,7 +128,7 @@ describe('Challenge Model', () => {
         });
         await newMember.save();
 
-        await challenge.syncToUser(newMember);
+        await challenge.syncTasksToUser(newMember);
 
         const updatedNewMember = await User.findById(newMember._id);
         const updatedNewMemberTasks = await Tasks.Task.find({ _id: { $in: updatedNewMember.tasksOrder[`${taskType}s`] } });
@@ -110,14 +140,13 @@ describe('Challenge Model', () => {
           ),
         );
 
-        expect(updatedNewMember.challenges).to.contain(challenge._id);
         expect(updatedNewMember.tags[7].id).to.equal(challenge._id);
         expect(updatedNewMember.tags[7].name).to.equal(challenge.shortName);
         expect(syncedTask).to.exist;
         expect(syncedTask.attribute).to.eql('str');
       });
 
-      it('syncs a challenge to a user with the existing task', async () => {
+      it('syncs challenge tasks to a user with the existing task', async () => {
         await challenge.addTasks([task]);
 
         let updatedLeader = await User.findOne({ _id: leader._id });
@@ -134,7 +163,7 @@ describe('Challenge Model', () => {
         task.text = newTitle;
         task.attribute = 'int';
         await task.save();
-        await challenge.syncToUser(leader);
+        await challenge.syncTasksToUser(leader);
 
         updatedLeader = await User.findOne({ _id: leader._id });
         updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });

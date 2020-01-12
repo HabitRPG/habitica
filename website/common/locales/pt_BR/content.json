@@ -235,10 +235,10 @@
     "foodRottenMeatThe": "a Carne Estragada",
     "foodRottenMeatA": "Carne Estragada",
     "foodCottonCandyPink": "Algodão-Doce Rosa",
-    "foodCottonCandyPinkThe": "a Bala de Algodão-Doce Rosa",
-    "foodCottonCandyPinkA": "Bala de Algodão-Doce Rosa",
-    "foodCottonCandyBlue": "Algodão-Doce Azul",
-    "foodCottonCandyBlueThe": "a Bala de Algodão-Doce Azul",
+    "foodCottonCandyPinkThe": "a bala de algodão-doce rosa",
+    "foodCottonCandyPinkA": "Bala de algodão-doce rosa",
+    "foodCottonCandyBlue": "Algodão-doce azul",
+    "foodCottonCandyBlueThe": "a bala de algodão-doce azul",
     "foodCottonCandyBlueA": "Bala de Algodão-Doce Azul",
     "foodHoney": "Mel",
     "foodHoneyThe": "o Mel",
@@ -351,5 +351,7 @@
     "questEggRobotText": "Robô",
     "questEggDolphinMountText": "Golfinho",
     "hatchingPotionShadow": "Sombra",
-    "premiumPotionUnlimitedNotes": "Não utilizável em ovos de mascotes adquiridos em missões."
+    "premiumPotionUnlimitedNotes": "Não utilizável em ovos de mascotes adquiridos em missões.",
+    "hatchingPotionAmber": "Âmbar",
+    "hatchingPotionAurora": "Aurora"
 }
