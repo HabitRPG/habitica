@@ -1,9 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { storiesOf } from '@storybook/vue';
+import { withKnobs, number } from '@storybook/addon-knobs';
 
 import CountBadge from './countBadge.vue';
 
-storiesOf('Count Badge', module)
+const stories = storiesOf('Count Badge', module);
+
+stories.addDecorator(withKnobs);
+
+stories
   .add('simple', () => ({
     components: { CountBadge },
     template: `
@@ -19,9 +24,9 @@ storiesOf('Count Badge', module)
         <count-badge :count="count" :show="true"></count-badge>
       </div>
     `,
-    data () {
-      return {
-        count: 3,
-      };
+    props: {
+      count: {
+        default: number('Count', 3),
+      },
     },
   }));
