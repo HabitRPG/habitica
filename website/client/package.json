@@ -22,7 +22,7 @@
     "@storybook/addon-knobs": "^5.3.1",
     "@storybook/addon-links": "^5.0.0",
     "@storybook/addon-notes": "^5.3.1",
-    "@storybook/vue": "^5.2.5",
+    "@storybook/vue": "^5.3.1",
     "@vue/test-utils": "1.0.0-beta.29",
     "amplitude-js": "^5.8.0",
     "axios": "^0.19.0",
