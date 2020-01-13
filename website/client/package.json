@@ -45,7 +45,7 @@
     "moment": "^2.24.0",
     "nconf": "^0.10.0",
     "sass": "^1.24.4",
-    "sass-loader": "^8.0.0",
+    "sass-loader": "^8.0.1",
     "smartbanner.js": "^1.15.0",
     "svg-inline-loader": "^0.8.0",
     "svg-url-loader": "^3.0.3",
