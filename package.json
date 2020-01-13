@@ -5,7 +5,7 @@
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.8.0",
-    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-env": "^7.8.2",
     "@babel/register": "^7.7.7",
     "@google-cloud/trace-agent": "^4.2.5",
     "@slack/client": "^3.8.1",
