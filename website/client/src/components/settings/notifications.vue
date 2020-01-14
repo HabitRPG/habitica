@@ -28,39 +28,38 @@
       <small>{{ $t('unsubscribeAllEmailsText') }}</small>
     </div>
     <div class="col-8">
-      <table class="table"></table>
-      <tr>
-        <td></td>
-        <th>
-          <span>{{ $t('email') }}</span>
-        </th>
-        <th>
-          <span>{{ $t('push') }}</span>
-        </th>
-      </tr>
-      <tr
-        v-for="notification in notificationsIds"
-        :key="notification"
-      >
-        <td>
-          <span>{{ $t(notification) }}</span>
-        </td>
-        <td>
-          <input
-            v-model="user.preferences.emailNotifications[notification]"
-            type="checkbox"
-            @change="set('emailNotifications', notification)"
-          >
-        </td>
-        <td v-if="onlyEmailsIds.indexOf(notification) === -1">
-          <input
-            v-model="user.preferences.pushNotifications[notification]"
-            type="checkbox"
-            @change="set('pushNotifications', notification)"
-          >
-          <hr>
-        </td>
-      </tr>
+      <table class="table">
+        <tr>
+          <td></td>
+          <th>
+            <span>{{ $t('email') }}</span>
+          </th>
+          <th>
+            <span>{{ $t('push') }}</span>
+          </th>
+        </tr>
+        <tr v-for="notification in notificationsIds" :key="notification">
+          <td>
+            <span>{{ $t(notification) }}</span>
+          </td>
+          <td>
+            <input
+              v-model="user.preferences.emailNotifications[notification]"
+              type="checkbox"
+              @change="set('emailNotifications', notification)"
+            >
+          </td>
+          <td v-if="onlyEmailsIds.indexOf(notification) === -1">
+            <input
+              v-model="user.preferences.pushNotifications[notification]"
+              type="checkbox"
+              @change="set('pushNotifications', notification)"
+            >
+          <td v-else>
+            &nbsp;
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
@@ -74,6 +73,8 @@ export default {
   data () {
     return {
       notificationsIds: Object.freeze([
+        'majorUpdates',
+        'onboarding',
         'newPM',
         'wonChallenge',
         'giftedGems',
@@ -85,8 +86,6 @@ export default {
         'invitedQuest',
         'importantAnnouncements',
         'weeklyRecaps',
-        'onboarding',
-        'majorUpdates',
         'subscriptionReminders',
       ]),
       // list of email-only notifications

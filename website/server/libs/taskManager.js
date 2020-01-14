@@ -268,7 +268,7 @@ export function syncableAttrs (task) {
  *
  * @param  order  The list of ordered tasks
  * @param  taskId  The Task._id of the task to move
- * @param  to A integer specifiying the index to move the task to
+ * @param  to A integer specifying the index to move the task to
  *
  * @return Empty
  */

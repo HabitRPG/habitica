@@ -71,8 +71,8 @@ export default {
       this.$root.$emit('bv::hide::modal', 'streak');
     },
     suppressModals () {
-      const surpress = !!this.user.preferences.suppressModals.streak;
-      this.$store.dispatch('user:set', { 'preferences.suppressModals.streak': surpress });
+      const suppress = !!this.user.preferences.suppressModals.streak;
+      this.$store.dispatch('user:set', { 'preferences.suppressModals.streak': suppress });
     },
   },
 };

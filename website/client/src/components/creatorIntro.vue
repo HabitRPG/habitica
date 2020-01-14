@@ -121,7 +121,7 @@
             v-if="editing"
             class="menu-container col-2"
             :class="{active: activeTopPage === 'backgrounds'}"
-            @click="changeTopPage('backgrounds', '2019')"
+            @click="changeTopPage('backgrounds', '2020')"
           >
             <div class="menu-item">
               <div
@@ -329,7 +329,7 @@
           <div class="task-option">
             <div class="custom-control custom-checkbox">
               <input
-                id="excercise"
+                id="exercise"
                 v-model="taskCategories"
                 class="custom-control-input"
                 type="checkbox"
@@ -338,7 +338,7 @@
               <label
                 v-once
                 class="custom-control-label"
-                for="excercise"
+                for="exercise"
               >{{ $t('exercise') }}</label>
             </div>
           </div>
@@ -1160,7 +1160,7 @@ export default {
         },
       ],
 
-      bgSubMenuItems: ['2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
+      bgSubMenuItems: ['2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
         id: y,
         label: y,
       })),
@@ -1183,6 +1183,7 @@ export default {
         2017: [],
         2018: [],
         2019: [],
+        2020: [],
       };
 
       // Hack to force update for now until we restructure the data

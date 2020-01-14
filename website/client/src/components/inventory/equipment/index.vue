@@ -341,7 +341,7 @@ export default {
             const { firstRender } = viewOptions;
             const { itemsInFirstPosition } = viewOptions;
 
-            // Render selected items in first postion only for the first render
+            // Render selected items in first position only for the first render
             if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
               gearItemsByType[type].unshift(ownedItem);
             } else if (isEquipped === true && firstRender === true) {
@@ -382,7 +382,7 @@ export default {
             const { firstRender } = viewOptions;
             const { itemsInFirstPosition } = viewOptions;
 
-            // Render selected items in first postion only for the first render
+            // Render selected items in first position only for the first render
             if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
               gearItemsByClass[klass].unshift(ownedItem);
             } else if (isEquipped === true && firstRender === true) {

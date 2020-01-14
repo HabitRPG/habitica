@@ -147,7 +147,7 @@
     "dateEndJanuary": "1月31日",
     "dateEndFebruary": "2月28日",
     "winterPromoGiftHeader": "赠送其他用户订阅服务的同时，您自己也能免费得到订阅者身份！",
-    "winterPromoGiftDetails1": "本活动持续到1月15日，当你送给你的朋友一份订阅时，你可以免费得到相同的订阅时长！",
+    "winterPromoGiftDetails1": "本活动持续到1月6日，当你送给你的朋友一份订阅时，你可以免费得到相同的订阅时长！",
     "winterPromoGiftDetails2": "请注意，如果您或您的礼物收件人已经有一个订阅了，作为礼物的订阅只会在原来的订阅取消后或者过期后开始生效。非常感谢你的支持！(*^_^*)",
     "discountBundle": "一批",
     "g1g1Announcement": "赠送他人一份订阅，免费享受一份相同订阅，活动正在进行中！",
@@ -168,5 +168,10 @@
     "fall2019OperaticSpecterSet": "歌剧幽灵（盗贼）",
     "september2018": "2018年9月",
     "september2017": "2017年9月",
-    "augustYYYY": "8月<%= year %>年"
+    "augustYYYY": "8月<%= year %>年",
+    "decemberYYYY": "12月<%= year %>年",
+    "winter2020LanternSet": "灯笼（盗贼）",
+    "winter2020WinterSpiceSet": "冬季香料（医者）",
+    "winter2020CarolOfTheMageSet": "法师的颂歌（法师）",
+    "winter2020EvergreenSet": "常绿（战士）"
 }

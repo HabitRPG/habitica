@@ -120,7 +120,7 @@ describe('DELETE /tasks/:id', () => {
   });
 
   context('task cannot be deleted', () => {
-    it('cannot delete a non-existant task', async () => {
+    it('cannot delete a non-existent task', async () => {
       await expect(user.del('/tasks/550e8400-e29b-41d4-a716-446655440000')).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',

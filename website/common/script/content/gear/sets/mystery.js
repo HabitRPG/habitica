@@ -400,6 +400,12 @@ const back = {
     mystery: '201912',
     value: 0,
   },
+  202001: {
+    text: t('backMystery202001Text'),
+    notes: t('backMystery202001Notes'),
+    mystery: '202001',
+    value: 0,
+  },
 };
 
 const body = {
@@ -773,6 +779,12 @@ const head = {
     text: t('headMystery201912Text'),
     notes: t('headMystery201912Notes'),
     mystery: '201912',
+    value: 0,
+  },
+  202001: {
+    text: t('headMystery202001Text'),
+    notes: t('headMystery202001Notes'),
+    mystery: '202001',
     value: 0,
   },
   301404: {

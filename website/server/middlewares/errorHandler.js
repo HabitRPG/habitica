@@ -84,7 +84,7 @@ export default function errorHandler (err, req, res, next) { // eslint-disable-l
     jsonRes.errors = responseErr.errors;
   }
 
-  // In some occasions like when invalid JSON is supplied `res.respond` might be not yet avalaible,
+  // In some occasions like when invalid JSON is supplied `res.respond` might be not yet available,
   // in this case we use the standard res.status(...).json(...)
   return res.status(responseErr.httpCode).json(jsonRes);
 }

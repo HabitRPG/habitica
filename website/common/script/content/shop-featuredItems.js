@@ -5,6 +5,26 @@ import moment from 'moment';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
+    if (moment().isBetween('2019-12-19', '2020-01-02')) {
+      return [
+        {
+          type: 'card',
+          path: 'cardTypes.nye',
+        },
+        {
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Aurora',
+        },
+        {
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Holly',
+        },
+        {
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.StarryNight',
+        },
+      ];
+    }
     if (moment().isBetween('2019-12-19', '2020-02-02')) {
       return [
         {

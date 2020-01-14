@@ -234,20 +234,6 @@ async function createSubscription (data) {
 
     // Only send push notifications if sending to a user other than yourself
     if (data.gift.member._id !== data.user._id) {
-      const promoData = {
-        user: data.user,
-        gift: {
-          member: data.user,
-          subscription: {
-            key: data.gift.subscription.key,
-          },
-        },
-        paymentMethod: data.paymentMethod,
-        promo: 'Winter',
-        promoUsername: data.gift.member.auth.local.username,
-      };
-      await this.createSubscription(promoData);
-
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
         sendPushNotification(data.gift.member,
           {
