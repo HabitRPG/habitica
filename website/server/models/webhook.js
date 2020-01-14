@@ -28,6 +28,7 @@ const USER_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
 const QUEST_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
   questStarted: false,
   questFinished: false,
+  questInvited: false,
 });
 
 export const schema = new Schema({
