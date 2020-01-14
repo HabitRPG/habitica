@@ -5,6 +5,7 @@
     <profileModal />
     <report-flag-modal />
     <send-gems-modal />
+    <select-user-modal />
     <b-navbar
       class="topbar navbar-inverse static-top"
       toggleable="lg"
@@ -726,6 +727,7 @@ import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
 import sendGemsModal from '@/components/payments/sendGemsModal';
+import selectUserModal from '@/components/shared/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
 
@@ -738,6 +740,7 @@ export default {
     profileModal,
     reportFlagModal,
     sendGemsModal,
+    selectUserModal,
     userDropdown,
   },
   mixins: [sync],

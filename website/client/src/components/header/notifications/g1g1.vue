@@ -4,9 +4,12 @@
   >
     <strong class="mx-auto mb-2"> {{ $t('g1g1Announcement') }} </strong>
     <p class="mx-4"> {{ $t('g1g1Details') }} </p>
-    <btn class="btn-secondary mx-auto d-flex">
+    <div
+      class="btn-secondary mx-auto d-flex"
+      @click="showSelectUser()"
+    >
       <div class="m-auto"> {{ $t('sendGift') }} </div>
-    </btn>
+    </div>
     <div
       class="notification-remove"
       @click.stop="remove()"
@@ -57,6 +60,7 @@
     width: 5.75rem;
     min-height: 1.5rem;
     border-radius: 2px;
+    border-color: $white;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     font-size: 12px;
     font-weight: bold;
@@ -82,6 +86,9 @@ export default {
     }),
     remove () {
       this.readNotification({ notificationId: this.notification.id });
+    },
+    showSelectUser () {
+      this.$root.$emit('bv::show::modal', 'select-user-modal');
     },
   },
 };
