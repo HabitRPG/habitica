@@ -18,6 +18,7 @@ import {
 import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import apiError from '../../libs/apiError';
+import { questActivityWebhook } from '../../libs/webhook';
 
 const questScrolls = common.content.quests;
 
@@ -79,7 +80,7 @@ api.inviteToQuest = {
       'party._id': group._id,
       _id: { $ne: user._id },
     })
-      .select('auth.facebook auth.google auth.local preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices')
+      .select('auth.facebook auth.google auth.local preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices webhooks')
       .exec();
 
     group.markModified('quest');
@@ -131,6 +132,13 @@ api.inviteToQuest = {
           },
         );
       }
+
+      // Send webhooks
+      questActivityWebhook.send(member, {
+        type: 'questInvited',
+        group,
+        quest,
+      });
 
       return member.preferences.emailNotifications.invitedQuest !== false;
     });

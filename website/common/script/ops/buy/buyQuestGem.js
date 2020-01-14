@@ -47,7 +47,10 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // esli
       !user.items.quests[item.key]
       || user.items.quests[item.key] < 0
     ) user.items.quests[item.key] = 0;
-    user.items.quests[item.key] += this.quantity;
+    user.items.quests = {
+      ...user.items.quests,
+      [item.key]: user.items.quests[item.key] + this.quantity,
+    };
     if (user.markModified) user.markModified('items.quests');
 
     this.subtractCurrency(user, item, this.quantity);

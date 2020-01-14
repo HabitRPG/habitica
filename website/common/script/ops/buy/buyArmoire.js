@@ -90,7 +90,10 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
       throw new NotAuthorized(this.i18n('equipmentAlreadyOwned'));
     }
 
-    user.items.gear.owned[drop.key] = true;
+    user.items.gear.owned = {
+      ...user.items.gear.owned,
+      [drop.key]: true,
+    };
     if (user.markModified) user.markModified('items.gear.owned');
 
     user.flags.armoireOpened = true;
@@ -126,7 +129,10 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
       canDrop: true,
     }));
 
-    user.items.food[drop.key] = user.items.food[drop.key] || 0;
+    user.items.food = {
+      ...user.items.food,
+      [drop.key]: user.items.food[drop.key] || 0,
+    };
     user.items.food[drop.key] += 1;
     if (user.markModified) user.markModified('items.food');
 

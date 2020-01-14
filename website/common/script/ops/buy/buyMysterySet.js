@@ -38,6 +38,11 @@ export default function buyMysterySet (user, req = {}, analytics) {
     }
   });
 
+  // Here we need to trigger vue reactivity through reassign object
+  user.items.gear.owned = {
+    ...user.items.gear.owned,
+  };
+
   if (user.markModified) user.markModified('items.gear.owned');
 
   user.purchased.plan.consecutive.trinkets -= 1;

@@ -61,12 +61,18 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
     user.purchased.plan.consecutive.trinkets -= 1;
 
     if (type === 'pets') {
-      user.items.pets[key] = 5;
+      user.items.pets = {
+        ...user.items.pets,
+        [key]: 5,
+      };
       if (user.markModified) user.markModified('items.pets');
     }
 
     if (type === 'mounts') {
-      user.items.mounts[key] = true;
+      user.items.mounts = {
+        ...user.items.mounts,
+        [key]: true,
+      };
       if (user.markModified) user.markModified('items.mounts');
     }
   }

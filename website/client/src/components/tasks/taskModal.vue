@@ -1,8 +1,8 @@
 <template>
   <b-modal
     id="task-modal"
-    :no-close-on-esc="showTagsSelect"
-    :no-close-on-backdrop="showTagsSelect"
+    :no-close-on-esc="true"
+    :no-close-on-backdrop="true"
     size="sm"
     @hidden="onClose()"
     @show="handleOpen()"

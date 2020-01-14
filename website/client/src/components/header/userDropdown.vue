@@ -43,7 +43,7 @@
       </a>
       <a
         class="dropdown-item"
-        @click="showAvatar('backgrounds', '2019')"
+        @click="showAvatar('backgrounds', '2020')"
       >{{ $t('backgrounds') }}</a>
       <a
         class="dropdown-item"

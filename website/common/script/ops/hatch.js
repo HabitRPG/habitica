@@ -41,7 +41,10 @@ export default function hatch (user, req = {}) {
     throw new NotAuthorized(i18n.t('messageAlreadyPet', req.language));
   }
 
-  user.items.pets[pet] = 5;
+  user.items.pets = {
+    ...user.items.pets,
+    [pet]: 5,
+  };
   user.items.eggs[egg] -= 1;
   user.items.hatchingPotions[hatchingPotion] -= 1;
   if (user.markModified) {

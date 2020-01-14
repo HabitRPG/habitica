@@ -183,6 +183,7 @@ describe('Webhook Model', () => {
             options: {
               questStarted: true,
               questFinished: true,
+              questInvited: true,
             },
           };
         });
@@ -197,6 +198,7 @@ describe('Webhook Model', () => {
           expect(wh.options).to.eql({
             questStarted: false,
             questFinished: false,
+            questInvited: false,
           });
         });
 
@@ -210,6 +212,7 @@ describe('Webhook Model', () => {
           expect(wh.options).to.eql({
             questStarted: false,
             questFinished: true,
+            questInvited: true,
           });
         });
 
@@ -224,6 +227,7 @@ describe('Webhook Model', () => {
           expect(wh.options).to.eql({
             questStarted: true,
             questFinished: true,
+            questInvited: true,
           });
         });
 

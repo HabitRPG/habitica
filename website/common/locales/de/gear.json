@@ -2017,5 +2017,13 @@
     "headMystery202001Text": "Fabelhafte Fuchsohren",
     "headSpecialNye2019Notes": "Du hast einen Frevelhaften Fetenhut erhalten! Trage ihn mit Stolz während Du das neue Jahr einläutest! Gewährt keinen Attributbonus.",
     "headSpecialNye2019Text": "Frevelhafter Fetenhut",
-    "armorSpecialWinter2020MageNotes": "Läute das neue Jahr in dieser warmen, gemütlichen Robe ein, die Dich gegen übermässige Erschütterungen puffert. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2019-2020 Winterausrüstung."
+    "armorSpecialWinter2020MageNotes": "Läute das neue Jahr in dieser warmen, gemütlichen Robe ein, die Dich gegen übermässige Erschütterungen puffert. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2019-2020 Winterausrüstung.",
+    "shieldArmoireBirthdayBannerNotes": "Feiere Deinen besonderen Tag, den besonderen Tag von jemandem, den Du liebst, oder trage es zum Geburtstag von Habitica am 31. Januar! Erhöht Stärke um <%= str %>. Verzauberter Schrank: Herzlichen Glückwunsch zum Geburtstag-Set (Gegenstand 4 von 4).",
+    "shieldArmoireBirthdayBannerText": "Geburtstagsgösch",
+    "headArmoireFrostedHelmNotes": "Der perfekte Kopfschutz für jede Feier! Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Herzlichen Glückwunsch zum Geburtstag-Set (Gegenstand 1 von 4).",
+    "headArmoireFrostedHelmText": "Glasierter Helm",
+    "armorArmoireLayerCakeArmorNotes": "Sie ist schützend und lecker! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Herzlichen Glückwunsch zum Geburtstag-Set (Gegenstand 2 von 4).",
+    "armorArmoireLayerCakeArmorText": "Schichttortenrüstung",
+    "weaponArmoireHappyBannerNotes": "Steht das \"H\" für Herzlich oder für Habitica? Entscheide selbst! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Herzlichen Glückwunsch zum Geburtstag-Set (Gegenstand 3 von 4).",
+    "weaponArmoireHappyBannerText": "Herzliche Gösch"
 }
