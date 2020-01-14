@@ -34,7 +34,10 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
   }
 
   executeChanges (user) {
-    user.items.mounts[this.key] = true;
+    user.items.mounts = {
+      ...user.items.mounts,
+      [this.key]: true,
+    };
 
     if (user.markModified) user.markModified('items.mounts');
 
