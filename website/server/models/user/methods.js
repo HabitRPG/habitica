@@ -61,7 +61,7 @@ const INTERACTION_CHECKS = Object.freeze({
 
     // Direct user blocks prevent all interactions
     (sndr, rcvr) => rcvr.inbox.blocks.includes(sndr._id) && 'notAuthorizedToSendMessageToThisUser',
-    (sndr, rcvr) => sndr.inbox.blocks.includes(rcvr._id) && 'notAuthorizedToSendMessageToThisUser',
+    (sndr, rcvr) => sndr.inbox.blocks.includes(rcvr._id) && 'blockedToSendToThisUser',
   ],
 
   'send-private-message': [

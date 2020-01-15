@@ -168,5 +168,10 @@
     "summer2019ConchHealerSet": "Caracola (Sanador)",
     "summer2019WaterLilyMageSet": "Nenúfar (Mago)",
     "summer2019SeaTurtleWarriorSet": "Tortuga Marina (Guerrero)",
-    "augustYYYY": "Agosto del <%= year %>"
+    "augustYYYY": "Agosto del <%= year %>",
+    "decemberYYYY": "Diciembre  <%= year %>",
+    "winter2020LanternSet": "Linterna (Pícaro)",
+    "winter2020WinterSpiceSet": "Especia de Invierno (Sanador)",
+    "winter2020CarolOfTheMageSet": "Villancico del Mago",
+    "winter2020EvergreenSet": "Siempre Joven (Guerrero)"
 }

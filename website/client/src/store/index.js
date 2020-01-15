@@ -127,6 +127,13 @@ export default function () {
       equipmentDrawerOpen: true,
       groupPlans: [],
       isRunningYesterdailies: false,
+      privateMessageOptions: {
+        userIdToMessage: '',
+        displayName: '',
+        username: '',
+        backer: {},
+        contributor: {},
+      },
     },
   });
 

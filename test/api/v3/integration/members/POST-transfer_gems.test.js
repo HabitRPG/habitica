@@ -89,7 +89,7 @@ describe('POST /members/transfer-gems', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('notAuthorizedToSendMessageToThisUser'),
+      message: t('blockedToSendToThisUser'),
     });
   });
 

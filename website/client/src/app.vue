@@ -28,7 +28,10 @@
     </div>
     <div
       id="app"
-      :class="{'casting-spell': castingSpell}"
+      :class="{
+        'casting-spell': castingSpell,
+        'resting': showRestingBanner
+      }"
     >
       <banned-account-modal />
       <amazon-payments-modal v-if="!isStaticPage" />
@@ -66,7 +69,10 @@
           </div>
           <notifications-display />
           <app-menu />
-          <div class="container-fluid">
+          <div
+            class="container-fluid"
+            :class="{'no-margin': noMargin}"
+          >
             <app-header />
             <buyModal
               :item="selectedItemToBuy || {}"
@@ -83,7 +89,7 @@
               <router-view />
             </div>
           </div>
-          <app-footer />
+          <app-footer v-if="!hideFooter" />
           <audio
             id="sound"
             ref="sound"
@@ -97,13 +103,20 @@
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
 
   #app {
-    height: calc(100% - 56px); /* 56px is the menu */
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     overflow-x: hidden;
+
+    &.resting {
+      --banner-resting-height: #{$restingToolbarHeight};
+    }
+
+    &.giftingBanner {
+      --banner-gifting-height: 2.5rem;
+    }
   }
 
   #loading-screen-inapp {
@@ -148,6 +161,13 @@
     flex: 1 0 auto;
   }
 
+  .no-margin {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .notification {
     border-radius: 1000px;
     background-color: $green-10;
@@ -160,7 +180,7 @@
 
   .resting-banner {
     width: 100%;
-    min-height: 40px;
+    height: $restingToolbarHeight;
     background-color: $blue-10;
     top: 0;
     z-index: 1300;
@@ -302,7 +322,13 @@ export default {
       return this.$t(`tip${tipNumber}`);
     },
     showRestingBanner () {
-      return !this.bannerHidden && this.user.preferences.sleep;
+      return !this.bannerHidden && this.user && this.user.preferences.sleep;
+    },
+    noMargin () {
+      return ['privateMessages'].includes(this.$route.name);
+    },
+    hideFooter () {
+      return ['privateMessages'].includes(this.$route.name);
     },
   },
   created () {

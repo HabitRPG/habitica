@@ -266,24 +266,8 @@
     color: $white;
   }
 
-  .banner-g1g1 {
-    height: 5.75rem;
-    background-color: $teal-50;
-    color: $white;
-  }
-
-  .gifts-right {
-    filter: flipH;
-    transform: scaleX(-1);
-  }
-
   .subscribe-pay {
     margin-top: 1em;
-  }
-
-  .svg-gifts {
-    width: 55px;
-    height: 65px;
   }
 </style>
 
@@ -301,7 +285,6 @@ import notificationsMixin from '../../mixins/notifications';
 
 import amazonButton from '@/components/payments/amazonButton';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
-import giftsVertical from '@/assets/svg/gifts-vertical.svg';
 
 export default {
   components: {
@@ -330,7 +313,6 @@ export default {
       },
       icons: Object.freeze({
         creditCardIcon,
-        giftsVertical,
       }),
     };
   },

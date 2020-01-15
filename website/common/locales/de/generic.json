@@ -3,7 +3,7 @@
     "stringNotFound": "String '<%= string %>' nicht gefunden.",
     "titleIndex": "Habitica | Dein Leben, das Rollenspiel",
     "habitica": "Habitica",
-    "habiticaLink": "<a href='http://habitica.fandom.com/wiki/Habitica' target='_blank'>Habitica</a>",
+    "habiticaLink": "<a href='http://habitica.fandom.com/de/wiki/Habitica' target='_blank'>Habitica</a>",
     "onward": "Vorwärts!",
     "done": "Erledigt",
     "gotIt": "Verstanden!",
