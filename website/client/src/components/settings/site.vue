@@ -561,6 +561,8 @@ import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import changeClass from '@/../../common/script/ops/changeClass';
 import notificationsMixin from '../../mixins/notifications';
 import sounds from '../../libs/sounds';
+import { appleAuthProvider } from '../../libs/auth';
+
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
 
@@ -687,6 +689,7 @@ export default {
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
+      apple: appleAuthProvider,
     }, {
       redirect_uri: '', // eslint-disable-line
     });

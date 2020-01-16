@@ -21,3 +21,18 @@ export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefe
 
   return false;
 }
+
+export const appleAuthProvider = {
+  oauth: {
+    version: '2',
+    auth: 'https://appleid.apple.com/auth/authorize?response_mode=form_post',
+    grant: 'https://appleid.apple.com/auth/token',
+    response_type: 'code',
+  },
+  scope: {
+    name: 'name',
+    email: 'email',
+  },
+  scope_delim: ' ',
+  id: process.env.APPLE_AUTH_CLIENT_ID,
+};

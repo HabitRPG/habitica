@@ -1,7 +1,7 @@
 <template>
   <div class="form">
     <div class="form-group row text-center">
-      <div class="col-12 col-md-6">
+      <div class="col-12">
         <div
           class="btn btn-secondary social-button"
           @click="socialAuth('facebook')"
@@ -15,7 +15,9 @@
             : $t('loginWithSocial', {social: 'Facebook'}) }}</span>
         </div>
       </div>
-      <div class="col-12 col-md-6">
+    </div>
+    <div class="form-group row text-center">
+      <div class="col-12">
         <div
           class="btn btn-secondary social-button"
           @click="socialAuth('google')"
@@ -27,6 +29,22 @@
           <span>{{ registering
             ? $t('signUpWithSocial', {social: 'Google'})
             : $t('loginWithSocial', {social: 'Google'}) }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row text-center">
+      <div class="col-12">
+        <div
+          class="btn btn-secondary social-button"
+          @click="socialAuth('apple')"
+        >
+          <div
+            class="svg-icon social-icon"
+            v-html="icons.appleIcon"
+          ></div>
+          <span>{{ registering
+            ? $t('signUpWithSocial', {social: 'Apple'})
+            : $t('loginWithSocial', {social: 'Apple'}) }}</span>
         </div>
       </div>
     </div>
@@ -219,10 +237,11 @@
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
-import { setUpAxios } from '@/libs/auth';
+import { setUpAxios, appleAuthProvider } from '@/libs/auth';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
+import appleIcon from '@/assets/svg/apple.svg';
 
 export default {
   name: 'AuthForm',
@@ -239,6 +258,7 @@ export default {
     data.icons = Object.freeze({
       facebookIcon: facebookSquareIcon,
       googleIcon,
+      appleIcon,
     });
 
     return data;
@@ -287,6 +307,7 @@ export default {
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
       // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+      apple: appleAuthProvider,
     });
   },
   methods: {

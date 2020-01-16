@@ -24,10 +24,10 @@ function _passportProfile (network, accessToken) {
   });
 }
 
-let applePrivateKey = nconf.get('APPLE_AUTH_PRIVATE_KEY');
-let applePublicKey = nconf.get('APPLE_AUTH_PUBLIC_KEY');
+const applePrivateKey = nconf.get('APPLE_AUTH_PRIVATE_KEY');
+const applePublicKey = nconf.get('APPLE_AUTH_PUBLIC_KEY');
 
-let auth = new AppleAuth(JSON.stringify({
+const auth = new AppleAuth(JSON.stringify({
   client_id: nconf.get('APPLE_AUTH_CLIENT_ID'), // eslint-disable-line camelcase
   team_id: nconf.get('APPLE_TEAM_ID'), // eslint-disable-line camelcase
   key_id: nconf.get('APPLE_AUTH_KEY_ID'), // eslint-disable-line camelcase
@@ -41,7 +41,6 @@ async function _appleProfile (req) {
     const response = await auth.accessToken(req.body.code);
     idToken = jwt.decode(response.id_token);
   } else if (req.body.id_token) {
-    console.log("SLFJKSDF", req.body, applePublicKey);
     idToken = await jwt.verify(req.body.id_token, applePublicKey, { algorithms: ['RS256'] });
   }
   const { name } = JSON.parse(req.body.user);
@@ -54,8 +53,6 @@ async function _appleProfile (req) {
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
   const existingUser = res.locals.user;
-  const network = req.body.network;
-  const accessToken = req.body.authResponse.access_token;
   const { network } = req.body;
 
   const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
