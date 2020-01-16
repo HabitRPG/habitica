@@ -484,5 +484,7 @@
     "suggestedGroup": "Vorgeschlagen weil Du bei Habitica neu bist.",
     "taskClaimed": "<%= userName %> hat die Aufgabe <span class=\"notification-bold\"><%= taskText %></span> übernommen.",
     "youHaveBeenAssignedTask": "<%= managerName %> hat Dir die Aufgabe <span class=\"notification-bold\"><%= taskText %></span> zugeteilt.",
-    "groupActivityNotificationTitle": "<%= user %> hat in <%= group %> gepostet"
+    "groupActivityNotificationTitle": "<%= user %> hat in <%= group %> gepostet",
+    "blockedToSendToThisUser": "Du kannst dieser Person nicht schreiben, weil Du diese Person blockiert hast.",
+    "PMDisabled": "Private Nachrichten deaktivieren"
 }

@@ -1857,5 +1857,8 @@
     "weaponSpecialWinter2020MageNotes": "Con práctica, puedes proyecta tu aura mágica con la frecuencia que quieras: un mantra meditativo, una campanada festiva or una ALARMA DE TAREA SIN FINALIZAR. Aumenta la Inteligencia por  <%= int %> y la Percepción por by <%= per %>. Edición Limitada Equipamiento de Invierno 2019-2020.",
     "weaponSpecialWinter2020MageText": "Ondas de Sonido",
     "weaponSpecialWinter2020WarriorText": "Cono de Conífera Puntiagudo",
-    "weaponSpecialWinter2020RogueNotes": "La oscuridad es el elemento del Pícaro. ¿Quién mejor que él para iluminar la época más oscura del año? Aumenta la Fuerza por <%= str %>. Edición Limitada. Equipamiento de Invierno 2019-2020."
+    "weaponSpecialWinter2020RogueNotes": "La oscuridad es el elemento del Pícaro. ¿Quién mejor que él para iluminar la época más oscura del año? Aumenta la Fuerza por <%= str %>. Edición Limitada. Equipamiento de Invierno 2019-2020.",
+    "weaponArmoireAlchemistsDistillerNotes": "Purifica metales y otros elementos mágicos con este instrumento brillante de latón. Aumenta la Fuerza un <%= str %> y la Inteligencia un  <%= int %>. Armario Encantado: Equipo de Alquimista (Artículo 3 of 4).",
+    "weaponArmoireAlchemistsDistillerText": "Destilador de Alquimista",
+    "weaponArmoireShadowMastersMaceNotes": "Las criaturas de la oscuridad obedecerán tus órdenes al agitar esta brillante maza. Aumenta la Percepción un <%= per %>. Armario Encantado: Colección del Maestro de las Sombras (Artículo 3 de 4)."
 }

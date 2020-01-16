@@ -484,5 +484,7 @@
     "groupActivityNotificationTitle": "<%= user %> posted in <%= group %>",
     "suggestedGroup": "Suggest'd because ye be new t' Habitica.",
     "taskClaimed": "<%= userName %> 'as claimed th' task <span class=\"notification-bold\"><%= taskText %></span>.",
-    "youHaveBeenAssignedTask": "<%= managerName %> 'as assign'd ye th' task <span class=\"notification-bold\"><%= taskText %></span>."
+    "youHaveBeenAssignedTask": "<%= managerName %> 'as assign'd ye th' task <span class=\"notification-bold\"><%= taskText %></span>.",
+    "blockedToSendToThisUser": "Ye canna send t' this player since ye've blocked this player.",
+    "PMDisabled": "Turn off yer Private Messages"
 }
