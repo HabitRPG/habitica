@@ -197,13 +197,13 @@ export default {
       // listed in the order they should appear in the notifications panel.
       // NOTE: Those not listed here won't be shown in the notification panel!
       handledNotifications: [
-        'NEW_STUFF', 'GROUP_TASK_NEEDS_WORK',
+        'NEW_STUFF', 'GIFT_ONE_GET_ONE', 'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
         'QUEST_INVITATION', 'GROUP_TASK_ASSIGNED', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
         'GROUP_TASK_CLAIMED', 'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
         'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE', 'UNALLOCATED_STATS_POINTS',
         'ACHIEVEMENT_JUST_ADD_WATER', 'ACHIEVEMENT_LOST_MASTERCLASSER', 'ACHIEVEMENT_MIND_OVER_MATTER',
-        'VERIFY_USERNAME', 'ONBOARDING_COMPLETE', 'GIFT_ONE_GET_ONE',
+        'VERIFY_USERNAME', 'ONBOARDING_COMPLETE',
       ],
     };
   },
