@@ -166,7 +166,7 @@
           v-if="!filterBackgrounds"
           class="row text-center title-row"
         >
-          <strong>{{ backgroundShopSets[1].text }}</strong>
+          <strong>{{ backgroundShopSets[0].text }}</strong>
         </div>
         <div
           v-if="!filterBackgrounds"
@@ -174,14 +174,14 @@
         >
           <div
             v-if="showPlainBackgroundBlurb(
-              backgroundShopSets[1].identifier, backgroundShopSets[1].items
+              backgroundShopSets[0].identifier, backgroundShopSets[0].items
             )"
             class="col-12"
           >
             {{ $t('incentiveBackgroundsUnlockedWithCheckins') }}
           </div>
           <div
-            v-for="bg in backgroundShopSets[1].items"
+            v-for="bg in backgroundShopSets[0].items"
             :key="bg.key"
             class="col-2"
             :popover-title="bg.text"
@@ -201,14 +201,14 @@
           v-if="!filterBackgrounds"
           class="row text-center title-row"
         >
-          <strong>{{ backgroundShopSets[0].text }}</strong>
+          <strong>{{ backgroundShopSets[1].text }}</strong>
         </div>
         <div
           v-if="!filterBackgrounds"
           class="row title-row"
         >
           <div
-            v-for="bg in backgroundShopSets[0].items"
+            v-for="bg in backgroundShopSets[1].items"
             :key="bg.key"
             class="col-4 text-center customize-option background-button"
             :popover-title="bg.text"
