@@ -198,6 +198,8 @@ export default {
       this.foundUser = result.data.data;
     }, 500),
     selectUser () {
+      const removeIndex = this.$store.state.modalStack.map(modal => modal.modalId).indexOf('select-user-modal');
+      if (removeIndex >= 0) this.$store.state.modalStack.splice(removeIndex, 1);
       this.$root.$emit('habitica::send-gems', this.foundUser);
       this.close();
     },
