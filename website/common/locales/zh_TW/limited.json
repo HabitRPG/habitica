@@ -29,7 +29,7 @@
     "seasonalShop": "季節限定商店",
     "seasonalShopClosedTitle": "<%= linkStart %>萊絲莉<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>季節魔女<%= linkEnd %>",
-    "seasonalShopClosedText": "季節商店現在關閉中！！只有 Habitica 的四個盛大慶典中才會開啟。",
+    "seasonalShopClosedText": "季節商店現在關閉中！！只有Habitica的四個盛大慶典中才會開啟。",
     "seasonalShopSummerText": "夏日潑水慶典快樂！！你想要買些稀有的物品嗎？期限只到 7 月 31 日喔！",
     "seasonalShopFallText": "秋日豐饒節慶快樂！！你想要買些稀有的物品嗎？期限只到 10 月 30 日喔！",
     "seasonalShopWinterText": "冬日奇境慶典快樂！！你想要買些稀有的物品嗎？期限只到 1 月 31 日喔！",

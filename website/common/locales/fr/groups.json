@@ -484,5 +484,7 @@
     "suggestedGroup": "Suggérer parce que vous venez d'arriver sur Habitica.",
     "taskClaimed": "<%= userName %> a revendiqué la tâche <span class=\"notification-bold\"><%= taskText %></span>.",
     "youHaveBeenAssignedTask": "<%= managerName %> vous a assigné la tâche <span class=\"notification-bold\"><%= taskText %></span>.",
-    "groupActivityNotificationTitle": "<%= user %> a écrit dans <%= group %>"
+    "groupActivityNotificationTitle": "<%= user %> a écrit dans <%= group %>",
+    "blockedToSendToThisUser": "Vous ne pouvez pas envoyer de message à ce membre, car vous l'avez bloqué.",
+    "PMDisabled": "Désactiver les messages privés"
 }

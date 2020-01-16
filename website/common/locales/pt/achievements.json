@@ -7,5 +7,13 @@
     "achievementLostMasterclasser": "Completar de Missões: Série de Mestre de Classes",
     "achievementLostMasterclasserText": "Completou as dezasseis missões na série de Missões de Mestre de Classes e resolveu o mistério do Mestre de Classes Perdido!",
     "achievementJustAddWater": "Só adicionar água",
-    "achievementMindOverMatter": "A mente sobre a matéria"
+    "achievementMindOverMatter": "A mente sobre a matéria",
+    "hideAchievements": "Esconder <%= category %>",
+    "showAllAchievements": "Mostrar todas <%= category %>",
+    "onboardingCompleteDesc": "Você recebeu <strong>5 conquistas</strong> e <strong class=\"gold-amount\">100</strong> de ouro completando a lista.",
+    "earnedAchievement": "Você recebeu uma conquista!",
+    "viewAchievements": "Ver Conquistas",
+    "letsGetStarted": "Vamos começar!",
+    "onboardingProgress": "<%= percentage %>% concluído",
+    "gettingStartedDesc": "Vamos criar uma tarefa, completar e depois verificar sua recompensa. Você irá a receber <strong>5 conquistas</strong> e <strong class=\"gold-amount\">100 de ouro</strong> quando completar!"
 }
