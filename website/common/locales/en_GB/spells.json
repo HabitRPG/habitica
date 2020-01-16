@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Tools of the Trade",
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Stealth",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
+    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colours won't change. (Based on: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Number of dailies avoided: <%= number %>.",
     "spellRogueStealthMaxedOut": " You have already avoided all your dailies; there's no need to cast this again.",
     "spellHealerHealText": "Healing Light",

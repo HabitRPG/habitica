@@ -331,5 +331,6 @@
     "getStarted": "現在就加入我們！",
     "mobileApps": "行動版 APP",
     "learnMore": "了解更多",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "密碼至少需要8個字符。"
 }
