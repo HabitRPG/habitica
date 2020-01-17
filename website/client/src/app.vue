@@ -29,8 +29,8 @@
     <div
       id="app"
       :class="{
-       'casting-spell': castingSpell,
-       'resting': showRestingBanner
+        'casting-spell': castingSpell,
+        'resting': showRestingBanner
       }"
     >
       <banned-account-modal />

@@ -6,7 +6,9 @@
     @hide="onHide()"
   >
     <div class="g1g1 mb-4 text-center">
-      <div class="heading">Gift a Subscription, Get a Subscription</div>
+      <div class="heading">
+        Gift a Subscription, Get a Subscription
+      </div>
       <div class="details">
         Enter your friend's @ username and choose a subscription package.
         You'll receive the same one in return!
@@ -15,12 +17,15 @@
         class="modal-close"
         @click="close()"
       >
-        <div class="svg-icon" v-html="icons.close"></div>
+        <div
+          class="svg-icon"
+          v-html="icons.close"
+        ></div>
       </div>
     </div>
     <div class="d-flex flex-column align-items-center">
       <div class="mb-2">
-        <strong> {{ $t('sendGiftToWhom')}} </strong>
+        <strong> {{ $t('sendGiftToWhom') }} </strong>
       </div>
       <div
         class="form"

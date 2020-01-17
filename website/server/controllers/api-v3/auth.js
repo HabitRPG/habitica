@@ -155,7 +155,7 @@ api.loginApple = {
   url: '/user/auth/apple',
   async handler (req, res) {
     req.body.network = 'apple';
-    return await loginSocial(req, res);
+    return loginSocial(req, res);
   },
 };
 

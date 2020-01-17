@@ -1,6 +1,9 @@
 <template>
   <div class="form-wrapper">
-    <div class="warning-banner d-flex" v-if="forgotPassword && preOutage">
+    <div
+      v-if="forgotPassword && preOutage"
+      class="warning-banner d-flex"
+    >
       <div class="warning-box ml-auto my-auto mr-2 d-flex">
         <div
           class="svg-icon exclamation m-auto"
@@ -89,7 +92,8 @@
                 ? $t('signUpWithSocial', {social: 'Apple'})
                 : $t('loginWithSocial', {social: 'Apple'}) }}
             </div>
-          </div>        </div>
+          </div>
+        </div>
       </div>
       <div class="strike">
         <span>{{ $t('or') }}</span>
