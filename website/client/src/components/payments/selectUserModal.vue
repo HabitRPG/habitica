@@ -27,29 +27,32 @@
         name="selectUser"
         novalidate="novalidate"
       >
-        <div class="form-group mb-3">
+        <div class="input-group">
           <input
             id="selectUser"
             v-model="userSearchTerm"
             class="form-control"
             type="text"
             :placeholder="$t('usernameOrUserId')"
-            :class="{'is-invalid input-invalid': userNotFound}"
+            :class="{
+              'input-valid': foundUser._id,
+              'is-invalid input-invalid': userNotFound,
+            }"
           >
-          <div
-            v-if="userSearchTerm.length > 0 && userNotFound"
-            class="input-error"
-          >
-            {{ $t('userWithUsernameOrUserIdNotFound') }}
-          </div>
         </div>
-        <div class="d-flex justify-content-center align-items-middle">
-          <div
+        <div
+          v-if="userSearchTerm.length > 0 && userNotFound"
+          class="input-error text-center mt-2"
+        >
+          {{ $t('userWithUsernameOrUserIdNotFound') }}
+        </div>
+        <div class="d-flex justify-content-center align-items-middle mt-3">
+          <a
             class="my-auto ml-auto mr-3 cancel-link"
             @click="close()"
           >
             {{ $t('cancel') }}
-          </div>
+          </a>
           <button
             class="btn btn-primary my-auto mr-auto"
             type="submit"
@@ -72,6 +75,7 @@
 
     .modal-dialog {
       width: 29.5rem;
+      margin-top: 25vh;
     }
   }
 </style>
@@ -79,14 +83,15 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .cancel-link {
-    cursor: pointer;
-    font-size: 16px;
+  a:not([href]) {
     color: $blue-10;
+    font-size: 16px;
   }
 
   .form-control {
     width: 26.5rem;
+    border: 0px;
+    color: $gray-50;
   }
 
   .g1g1 {
@@ -114,7 +119,16 @@
     color: $red-50;
     font-size: 90%;
     width: 100%;
-    margin-top: 5px;
+  }
+
+  .input-group {
+    border-radius: 2px;
+    border: solid 1px $gray-400;
+    margin-top: 0.5rem;
+  }
+
+  .input-group:focus-within {
+    border-color: $purple-500;
   }
 
   .modal-close {
@@ -198,8 +212,7 @@ export default {
       this.foundUser = result.data.data;
     }, 500),
     selectUser () {
-      const removeIndex = this.$store.state.modalStack.map(modal => modal.modalId).indexOf('select-user-modal');
-      if (removeIndex >= 0) this.$store.state.modalStack.splice(removeIndex, 1);
+      this.$root.$emit('habitica::dismiss-modal', 'select-user-modal');
       this.$root.$emit('habitica::send-gems', this.foundUser);
       this.close();
     },
