@@ -35,13 +35,11 @@
       v-for="msg in messages"
       v-if="chat && canViewFlag(msg)"
       :key="msg.id"
-      :class="{row: inbox}"
     >
       <!-- eslint-enable vue/no-use-v-if-with-v-for -->
       <div
         v-if="user._id !== msg.uuid"
         class="d-flex"
-        :class="{'flex-grow-1': inbox}"
       >
         <avatar
           v-if="msg.userStyles
@@ -51,16 +49,13 @@
           :avatar-only="true"
           :override-top-padding="'14px'"
           :hide-class-badge="true"
-          :class="{'inbox-avatar-left': inbox}"
           @click.native="showMemberModal(msg.uuid)"
         />
         <div
           class="card"
-          :class="{'col-10': inbox}"
         >
           <chat-card
             :msg="msg"
-            :inbox="inbox"
             :group-id="groupId"
             @message-liked="messageLiked"
             @message-removed="messageRemoved"
@@ -72,15 +67,12 @@
       <div
         v-if="user._id === msg.uuid"
         class="d-flex"
-        :class="{'flex-grow-1': inbox}"
       >
         <div
           class="card"
-          :class="{'col-10': inbox}"
         >
           <chat-card
             :msg="msg"
-            :inbox="inbox"
             :group-id="groupId"
             @message-liked="messageLiked"
             @message-removed="messageRemoved"
@@ -95,7 +87,6 @@
           :avatar-only="true"
           :hide-class-badge="true"
           :override-top-padding="'14px'"
-          :class="{'inbox-avatar-right': inbox}"
           @click.native="showMemberModal(msg.uuid)"
         />
       </div>
@@ -142,16 +133,6 @@
   .avatar-left {
     margin-left: -1.5rem;
     margin-right: 2rem;
-  }
-
-  .inbox-avatar-left {
-    margin-left: -1rem;
-    margin-right: 2.5rem;
-    min-width: 5rem;
-  }
-
-  .inbox-avatar-right {
-    margin-left: -3.5rem;
   }
 
   .hr {
@@ -209,10 +190,6 @@ export default {
   },
   props: {
     chat: {},
-    inbox: {
-      type: Boolean,
-      default: false,
-    },
     groupType: {},
     groupId: {},
     groupName: {},
@@ -260,12 +237,6 @@ export default {
       this.lastOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
       // disable scroll
       container.style.overflowY = 'hidden';
-
-      const canLoadMore = this.inbox && !this.isLoading && this.canLoadMore;
-      if (canLoadMore) {
-        await this.$emit('triggerLoad');
-        this.handleScrollBack = true;
-      }
     },
     canViewFlag (message) {
       if (message.uuid === this.user._id) return true;
@@ -380,11 +351,6 @@ export default {
       this.chat.splice(chatIndex, 1, message);
     },
     messageRemoved (message) {
-      if (this.inbox) {
-        this.$emit('message-removed', message);
-        return;
-      }
-
       const chatIndex = findIndex(this.chat, chatMessage => chatMessage.id === message.id);
       this.chat.splice(chatIndex, 1);
     },

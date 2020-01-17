@@ -20,7 +20,7 @@
     "welcomeToTavern": "歡迎來到酒館！",
     "sleepDescription": "需要休息一會兒？在 Daniel 的酒館登記住宿將暫停 Habitica 一些較為艱難的遊戲機制：",
     "sleepBullet1": "未完成的每日任務不會對你造成傷害",
-    "sleepBullet2": "任務不會中斷連擊或改變顏色",
+    "sleepBullet2": "任務不會失去連擊數",
     "sleepBullet3": "Boss 不會因為你自己未完成的任務造成傷害",
     "sleepBullet4": "您對 Boss 造成的傷害或收集到的副本道具將維持直到退房離開",
     "pauseDailies": "入住酒館",
@@ -169,5 +169,6 @@
     "imReady": "進入 Habitica 的世界",
     "limitedOffer": "<%= date %> 前可購入",
     "paymentAutoRenew": "直至被取消前，您的訂閱將會在訂閱期滿時自動延長。如果需要，你能在設定裡將它取消。",
-    "paymentCanceledDisputes": "我們已發送取消訂閱的確認信到你的電子郵件信箱。若你沒看到該信，請聯絡我們以避免不必要的帳單疑慮。"
+    "paymentCanceledDisputes": "我們已發送取消訂閱的確認信到你的電子郵件信箱。若你沒看到該信，請聯絡我們以避免不必要的帳單疑慮。",
+    "cannotUnpinItem": "您不能取消這個物品的固定。"
 }

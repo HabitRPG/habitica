@@ -116,6 +116,7 @@ module.exports = {
   },
 
   devServer: {
+    disableHostCheck: true,
     proxy: {
       // proxy all requests to the server at IP:PORT as specified in the top-level config
       '^/api/v3': {

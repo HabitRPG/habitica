@@ -1,6 +1,5 @@
 <template>
   <div>
-    <inbox-modal />
     <creator-intro />
     <profileModal />
     <report-flag-modal />
@@ -409,6 +408,7 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/utils.scss';
+  @import '~@/assets/scss/variables.scss';
 
   @media only screen and (max-width: 1200px) {
     .chevron {
@@ -439,7 +439,7 @@
     }
 
     .topbar {
-      max-height: 56px;
+      max-height: $menuToolbarHeight;
 
       .currency-tray {
         margin-left: auto;
@@ -722,7 +722,6 @@ import chevronDownIcon from '@/assets/svg/chevron-down.svg';
 import logo from '@/assets/svg/logo.svg';
 
 import creatorIntro from '../creatorIntro';
-import InboxModal from '../userMenu/inbox.vue';
 import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
@@ -735,7 +734,6 @@ import userDropdown from './userDropdown';
 export default {
   components: {
     creatorIntro,
-    InboxModal,
     notificationMenu,
     profileModal,
     reportFlagModal,

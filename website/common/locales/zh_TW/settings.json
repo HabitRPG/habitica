@@ -120,7 +120,7 @@
     "giftedSubscriptionFull": "哈囉 <%= username %>，<%= sender %> 送您 <%= monthCount %> 個月的訂閱資格！",
     "giftedSubscriptionWinterPromo": "哈囉 <%= username %>，您收到了 <%= monthCount %> 個月的訂閱資格以作為我們的假期送禮升級活動的一部份！",
     "invitedParty": "您受邀加入隊伍",
-    "invitedGuild": "您受邀加入公會",
+    "invitedGuild": "您收到了加入公會的邀請",
     "importantAnnouncements": "提醒：登入以完成任務以及獲得獎勵",
     "weeklyRecaps": "您的帳號上星期的活動彙整 (注意：這個彙整目前因為伺服器效能問題而暫時關閉，但是我們會盡快修復並再一次定期發送電子郵件！)",
     "onboarding": "引導設定您的 Habitica 帳號",
@@ -210,5 +210,7 @@
     "suggestMyUsername": "建議我的使用者名稱",
     "mentioning": "回覆",
     "chatExtensionDesc": "Habitica 的聊天室擴充功能會在 habitica.com 的網頁附加聊天視窗。讓用戶在酒館、加入的隊伍或公會聊天。",
-    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome 聊天室擴充功能</a>與<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox 聊天室附加元件</a>"
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome 聊天室擴充功能</a>與<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox 聊天室附加元件</a>",
+    "onlyPrivateSpaces": "只在私人空間",
+    "everywhere": "每個地方"
 }

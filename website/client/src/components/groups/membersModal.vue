@@ -536,13 +536,12 @@ export default {
   },
   methods: {
     sendMessage (member) {
-      this.$root.$emit('habitica::new-inbox-message', {
-        userIdToMessage: member._id,
-        displayName: member.profile.name,
-        username: member.auth.local.username,
-        backer: member.backer,
-        contributor: member.contributor,
+      this.$store.dispatch('user:newPrivateMessageTo', {
+        member,
       });
+
+      this.$root.$emit('bv::hide::modal', 'members-modal');
+      this.$router.push('/private-messages');
     },
     async searchMembers (searchTerm = '') {
       this.members = await this.$store.state.memberModalOptions.fetchMoreMembers({

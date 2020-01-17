@@ -79,7 +79,10 @@ export default function randomDrop (user, options, req = {}, analytics) {
         canDrop: true,
       })));
 
-      user.items.food[drop.key] = user.items.food[drop.key] || 0;
+      user.items.food = {
+        ...user.items.food,
+        [drop.key]: user.items.food[drop.key] || 0,
+      };
       user.items.food[drop.key] += 1;
       if (user.markModified) user.markModified('items.food');
 
@@ -91,7 +94,10 @@ export default function randomDrop (user, options, req = {}, analytics) {
     } else if (rarity > 0.3) { // eggs 30% chance
       drop = cloneDropItem(randomVal(content.dropEggs));
 
-      user.items.eggs[drop.key] = user.items.eggs[drop.key] || 0;
+      user.items.eggs = {
+        ...user.items.eggs,
+        [drop.key]: user.items.eggs[drop.key] || 0,
+      };
       user.items.eggs[drop.key] += 1;
       if (user.markModified) user.markModified('items.eggs');
 
@@ -114,8 +120,12 @@ export default function randomDrop (user, options, req = {}, analytics) {
         randomVal(pickBy(content.hatchingPotions, (v, k) => acceptableDrops.indexOf(k) >= 0)),
       );
 
-      user.items.hatchingPotions[drop.key] = user.items.hatchingPotions[drop.key] || 0;
+      user.items.hatchingPotions = {
+        ...user.items.hatchingPotions,
+        [drop.key]: user.items.hatchingPotions[drop.key] || 0,
+      };
       user.items.hatchingPotions[drop.key] += 1;
+
       if (user.markModified) user.markModified('items.hatchingPotions');
 
       drop.type = 'HatchingPotion';
