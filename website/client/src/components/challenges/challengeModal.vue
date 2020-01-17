@@ -101,7 +101,7 @@
           </div>
         </div>
         <div
-          v-if="showCategorySelect && creating"
+          v-if="showCategorySelect"
           class="category-box"
         >
           <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -592,7 +592,7 @@ export default {
       this.$emit('createChallenge', challenge);
       this.resetWorkingChallenge();
 
-      this.$root.$emit('bv::hide::modal', 'challenge-modal');
+      this.$root.$emit('habitica::dismiss-modal', 'challenge-modal');
       this.$router.push(`/challenges/${challenge._id}`);
     },
     async updateChallenge () {
@@ -613,6 +613,7 @@ export default {
       const challenge = await this.$store.dispatch('challenges:updateChallenge', { challenge: challengeDetails });
       this.$emit('updatedChallenge', { challenge });
       this.resetWorkingChallenge();
+      this.$root.$emit('habitica::dismiss-modal', 'challenge-modal');
       this.$root.$emit('bv::hide::modal', 'challenge-modal');
     },
     toggleCategorySelect () {

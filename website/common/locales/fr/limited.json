@@ -147,7 +147,7 @@
     "dateEndJanuary": "31 janvier",
     "dateEndFebruary": "28 février",
     "winterPromoGiftHeader": "OFFREZ UN ABONNEMENT ET OBTENEZ-EN UN GRATUIT !",
-    "winterPromoGiftDetails1": "Jusqu'au 15 janvier seulement, lorsque vous offrez un abonnement, vous recevez le même abonnement pour vous gratuitement !",
+    "winterPromoGiftDetails1": "Jusqu'au 6 janvier seulement, lorsque vous offrez un abonnement, vous recevez le même abonnement pour vous gratuitement !",
     "winterPromoGiftDetails2": "Merci de noter que si vous, ou la personne à qui vous faites ce cadeau, détenez un abonnement récurrent, l'abonnement offert ne commencera qu'après que cet abonnement sera annulé ou expirera. Merci infiniment pour votre soutien <3",
     "discountBundle": "lot",
     "g1g1Announcement": "Un événement \"Offrez un abonnement, recevez un abonnement gratuit\" est actuellement en cours !",
@@ -168,5 +168,10 @@
     "september2017": "Septembre 2017",
     "fall2019LichSet": "Liche (Guérisseur)",
     "fall2019OperaticSpecterSet": "Fantôme de l'opéra (Voleur)",
-    "augustYYYY": "Août <%= year %>"
+    "augustYYYY": "Août <%= year %>",
+    "winter2020WinterSpiceSet": "Épice hivernale (Guérisseur)",
+    "decemberYYYY": "Décembre <%= year %>",
+    "winter2020LanternSet": "Lanterne (Voleur)",
+    "winter2020CarolOfTheMageSet": "Chant du mage (Mage)",
+    "winter2020EvergreenSet": "Sempervirent (Guerrier)"
 }

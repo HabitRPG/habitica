@@ -61,7 +61,7 @@ const INTERACTION_CHECKS = Object.freeze({
 
     // Direct user blocks prevent all interactions
     (sndr, rcvr) => rcvr.inbox.blocks.includes(sndr._id) && 'notAuthorizedToSendMessageToThisUser',
-    (sndr, rcvr) => sndr.inbox.blocks.includes(rcvr._id) && 'notAuthorizedToSendMessageToThisUser',
+    (sndr, rcvr) => sndr.inbox.blocks.includes(rcvr._id) && 'blockedToSendToThisUser',
   ],
 
   'send-private-message': [
@@ -329,7 +329,7 @@ schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
 // This creates some odd Dependency Injection issues. To counter that,
 // we use the user as the third layer
 // To negotiate between the payment providers and the payment helper
-// (which probably has too many responsiblities)
+// (which probably has too many responsibilities)
 // In summary, currently is is best practice to use this method to cancel a user subscription,
 // rather than calling the
 // payment helper.

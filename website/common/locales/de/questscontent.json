@@ -1,11 +1,11 @@
 {
     "questEvilSantaText": "Wildernder Weihnachtswichtel",
-    "questEvilSantaNotes": "Tief im Eisfeld hörst Du gequältes Brüllen. Du folgst dem Knurren – unterstrichen von einem Schnattern – zu einer Waldlichtung, auf welcher Du eine ausgewachsene Polarbärin siehst. Sie kämpft um ihr Leben, gefesselt und eingesperrt. Oben auf dem Käfig tanzt ein bösartiger kleiner Kobold, der als Schiffbrüchiger verkleidet ist. Bezwinge den Wildernden Weihnachtswichtel und rette das Tier!",
+    "questEvilSantaNotes": "Tief im Eisfeld hörst Du gequältes Brüllen. Du folgst dem Knurren – unterstrichen von einem Schnattern – zu einer Waldlichtung, auf welcher Du eine ausgewachsene Polarbärin siehst. Sie kämpft um ihr Leben, gefesselt und eingesperrt. Oben auf dem Käfig tanzt ein bösartiger kleiner Kobold, der als Schiffbrüchiger verkleidet ist. Bezwinge den Wildernden Weihnachtswichtel und rette das Tier!<br><br><strong>Hinweis</strong>: \"Wildernder Weihnachtswichtel\" gewährt einen stapelbaren Questerfolg, aber verleiht nur einmalig ein seltenes Reittier.",
     "questEvilSantaCompletion": "Vor Wut kreischend springt der Wildernde Weihnachtswichtel in den dunklen Wald davon. Die Bärin versucht Dir mit Brüllen und Knurren etwas zu verstehen zu geben. Du nimmst sie mit zurück zu den Ställen, wo Matt Boch, der Bestienmeister, der Bärin zuhört. Mit Schrecken vernimmst Du, dass die Bärin ein Junges hat! Als sie gefangen genommen wurde, lief es in die Eissteppe davon.",
     "questEvilSantaBoss": "Wildernder Weihnachtswichtel",
     "questEvilSantaDropBearCubPolarMount": "Eisbär (Reittier)",
     "questEvilSanta2Text": "Finde das Jungtier",
-    "questEvilSanta2Notes": "Mama Bärs Jungtier ist geflohen, als sie vom Wildernden Weihnachtswichtel gefangen wurde. Du hörst Zweige knacken und Schneestapfen in der Tiefe des stillen Waldes. Pfotenabdrücke! Mama Bär und Du laufen los, um der Spur zu folgen. Finde alle Spuren und abgeknickten Zweige, um das Jungtier aufzuspüren!",
+    "questEvilSanta2Notes": "Mama Bärs Jungtier ist geflohen, als sie vom Wildernden Weihnachtswichtel gefangen wurde. Du hörst Zweige knacken und Schneestapfen in der Tiefe des stillen Waldes. Pfotenabdrücke! Mama Bär und Du laufen los, um der Spur zu folgen. Finde alle Spuren und abgeknickten Zweige, um das Jungtier aufzuspüren!<br><br><strong>Hinweis</strong>: \"Finde das Jungtier\" gewährt einen stapelbaren Questerfolg, aber verleiht nur einmalig ein seltenes Haustier.",
     "questEvilSanta2Completion": "Du hast das Jungtier gefunden! Es wird Dir für immer Gesellschaft leisten.",
     "questEvilSanta2CollectTracks": "Spuren",
     "questEvilSanta2CollectBranches": "Abgebrochene Zweige",
@@ -559,7 +559,7 @@
     "questYarnDropYarnEgg": "Wollknäuel (Ei)",
     "questYarnUnlockText": "Schaltet den Kauf von Wollknäueleiern auf dem Marktplatz frei",
     "winterQuestsText": "\"Winter\" Quest-Paket",
-    "winterQuestsNotes": "Beinhaltet 'Wildernder Weihnachtswichtel', 'Finde das Jungtier' und 'Der Federvieh-Frost'. Verfügbar bis zum 31. Dezember.",
+    "winterQuestsNotes": "Beinhaltet 'Wildernder Weihnachtswichtel', 'Finde das Jungtier' und 'Der Federvieh-Frost'. Verfügbar bis zum 31. Januar. Beachte, dass Wildernder Weihnachtswichtel und Finde das Jungtier stapelbare Questerfolge haben, aber nur einmalig ein seltenes Haus- und Reittier verleihen.",
     "questPterodactylText": "Der Pterror-Dactylus",
     "questPterodactylNotes": "Du machst einen Spaziergang entlang der friedlichen Stoïstillen Klippen, als ein böses Kreischen die Luft zerreißt. Du drehst Dich um, siehst eine schreckliche Kreatur auf Dich zufliegen und wirst von einem mächtigen Schrecken überwältigt. Als Du Dich zur Flucht wendest, packt Dich @Lilith of Alfheim. \"Keine Panik! Es ist nur ein Pterror-Dactylus.\"<br><br>@Procyon P nickt. \"Sie nisten in der Nähe, aber sie fühlen sich angezogen vom Geruch negativer Gewohnheiten und unerledigter Tagesaufgaben.\"<br><br>Keine Sorge\", sagt @Katy133. \"Wir müssen nur besonders produktiv sein, um ihn zu besiegen!\" Du bist erfüllt von einem erneuerten Sinn für Zielstrebigkeit und wendest Dich Deinem Feind zu.",
     "questPterodactylCompletion": "Mit einem letzten Kreischen stürzt der Pterror-Dactylus über die Klippe. Du rennst nach vorn, um zu sehen, wie er über die entfernten Steppen hinwegfliegt. \"Puh, ich bin froh, dass das vorbei ist\", sagst Du. \"Ich auch\", antwortet @GeraldThePixel. \"Aber seht doch! Er hat ein paar Eier für uns zurückgelassen.\" @Edge gibt Dir drei Eier, und Du gelobst, sie in friedlicher Ruhe aufzuziehen, umgeben von positiven Gewohnheiten und blauen Tagesaufgaben.",
@@ -674,5 +674,6 @@
     "questAmberText": "Der Bernstein-Bund",
     "questAmberBoss": "Trerezin",
     "questAmberUnlockText": "Schaltet den Kauf von Bernsteinfarbenen Schlüpfelixieren auf dem Marktplatz frei",
-    "questAmberDropAmberPotion": "Bernsteinfarbenes Schlüpfelixier"
+    "questAmberDropAmberPotion": "Bernsteinfarbenes Schlüpfelixier",
+    "evilSantaAddlNotes": "Beachte, dass Wildernder Weihnachtswichtel und Finde das Jungtier stapelbare Questerfolge haben, aber nur einmalig ein seltenes Haus- und Reittier verleihen."
 }

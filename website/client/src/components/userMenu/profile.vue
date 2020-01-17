@@ -859,13 +859,12 @@ export default {
       window.history.replaceState(null, null, '');
     },
     sendMessage () {
-      this.$root.$emit('habitica::new-inbox-message', {
-        userIdToMessage: this.user._id,
-        displayName: this.user.profile.name,
-        username: this.user.auth.local.username,
-        backer: this.user.backer,
-        contributor: this.user.contributor,
+      this.$store.dispatch('user:newPrivateMessageTo', {
+        member: this.user,
       });
+
+      this.$router.push('/private-messages');
+      this.$root.$emit('bv::hide::modal', 'profile');
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];

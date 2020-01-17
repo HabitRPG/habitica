@@ -125,6 +125,10 @@
     "pendingDamageLabel": "pending damage",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
     "rageAttack": "Rage Attack:",
-    "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "bossRage": "<%= currentRage %> / <%= maxRage %> Cuồng nộ",
+    "rageStrikes": "Rage Strikes",
+    "chatBossDamage": "<%= username %> tấn công <%= bossName %> với <%= userDamage %> sát thương. <%= bossName %> tấn công tổ đội với <%= bossDamage %> sát thương.",
+    "chatQuestStarted": "Nhiệm vụ của bạn, <%= questName %>, đã bắt đầu.",
+    "questInvitationNotificationInfo": "Bạn đã được mời tham gia một Nhiệm vụ",
+    "hatchingPotionQuests": "Nhiệm vụ Lọ thuốc Ấp trứng Ma thuật"
 }

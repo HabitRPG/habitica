@@ -3,7 +3,7 @@
     :can-remove="canRemove"
     :has-icon="true"
     :notification="notification"
-    :read-after-click="true"
+    :read-after-click="false"
     @click="action"
   >
     <div

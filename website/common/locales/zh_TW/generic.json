@@ -61,7 +61,7 @@
     "newGroupTitle": "新群組",
     "subscriberItem": "神秘裝備",
     "newSubscriberItem": "您有新的<span class=\"notification-bold-blue\">神秘裝備</span>",
-    "subscriberItemText": "每個月，訂閱者將會收到一份神秘禮物。依照慣例將於月底前一個星期公佈。詳情請看 wiki 中的「神秘裝備」頁面。",
+    "subscriberItemText": "每月，定期捐款者會收到一個神秘物品。這件物品一般是在月頭推出。查看Wiki裡的“神秘物品”頁面以獲得更多信息。",
     "all": "全部",
     "none": "無",
     "more": "<%= count %>更多",
@@ -294,5 +294,7 @@
     "options": "選項",
     "loadEarlierMessages": "載入先前訊息",
     "demo": "演示",
-    "finish": "完成"
+    "finish": "完成",
+    "congratulations": "恭喜你！",
+    "onboardingAchievs": "到職成就"
 }

@@ -3,9 +3,12 @@ FROM node:12
 # Install global packages
 RUN npm install -g gulp-cli mocha
 
-# Copy Habitica code into container and install dependencies
+# Copy package.json and package-lock.json into image, then install
+# dependencies.
 WORKDIR /usr/src/habitica
-COPY . /usr/src/habitica
-
+COPY ["package.json", "package-lock.json", "./"]
 RUN npm install
+
+# Copy the remaining source files in.
+COPY . /usr/src/habitica
 RUN npm run postinstall

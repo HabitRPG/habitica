@@ -165,7 +165,7 @@ export default {
       }
 
       return null;
-      // @TOOD: User.sync();
+      // @TODO: User.sync();
     },
     castCancel () {
       this.potionClickMode = false;
