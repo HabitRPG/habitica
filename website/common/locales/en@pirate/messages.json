@@ -60,9 +60,10 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "Ye've <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
-    "beginningOfConversation": "This is th' beginning o' yer conversation with <%= userName %>. Remember t' be kind, respectful, an' follow th' Community Guidelines!",
+    "beginningOfConversation": "This is th' beginning o' yer conversation with <%= userName %>.",
     "messageDeletedUser": "Sorry, this user has deleted their account.",
     "messageMissingDisplayName": "Missin' display name.",
     "reportedMessage": "Ye 'ave reported this message t' fleet captains.",
-    "canDeleteNow": "Ye can now scuttle th' message if ye wish."
+    "canDeleteNow": "Ye can now scuttle th' message if ye wish.",
+    "beginningOfConversationReminder": "Remember ta be kind, respeckful, an' follow th' Code o' Conduct!"
 }
