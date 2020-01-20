@@ -19,7 +19,7 @@
     "@vue/cli-plugin-unit-mocha": "^4.1.2",
     "@vue/cli-service": "^4.1.2",
     "@storybook/addon-actions": "^5.3.1",
-    "@storybook/addon-knobs": "^5.3.1",
+    "@storybook/addon-knobs": "^5.3.7",
     "@storybook/addon-links": "^5.3.7",
     "@storybook/addon-notes": "^5.3.1",
     "@storybook/vue": "^5.3.1",
