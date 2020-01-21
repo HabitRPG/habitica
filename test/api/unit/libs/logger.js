@@ -141,7 +141,7 @@ describe('logger', () => {
 
         expect(logSpy).to.be.calledOnce;
         expect(logSpy).to.be.calledWith(
-          'warn',
+          'error',
           errInstance.stack,
           { httpCode: 403, isHandledError: true, fullError: errInstance },
           2,
