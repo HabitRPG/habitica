@@ -97,14 +97,14 @@
               >{{ item.value }}</span>
             </span>
           </div>
-          <div v-else>
+          <div v-else class="d-flex align-items-middle">
             <span
-              class="svg-icon inline icon-32"
+              class="svg-icon inline icon-32 ml-auto my-auto"
               aria-hidden="true"
               v-html="icons[getPriceClass()]"
             ></span>
             <span
-              class="cost"
+              class="cost mr-auto my-auto"
               :class="getPriceClass()"
             >{{ item.value }}</span>
           </div>
@@ -643,8 +643,19 @@ export default {
     },
     viewSubscriptions (item) {
       if (item.purchaseType === 'backgrounds') {
-        this.$root.$emit('habitica::dismiss-modal', 'avatar-modal');
         this.$root.$emit('bv::hide::modal', 'avatar-modal');
+        let removeIndex = this.$store.state.modalStack
+          .map(modal => modal.modalId)
+          .indexOf('avatar-modal');
+        if (removeIndex >= 0) {
+          this.$store.state.modalStack.splice(removeIndex, 1);
+        }
+        removeIndex = this.$store.state.modalStack
+          .map(modal => modal.prev)
+          .indexOf('avatar-modal');
+        if (removeIndex >= 0) {
+          delete this.$store.state.modalStack[removeIndex].prev;
+        }
       }
       this.$router.push('/user/settings/subscription');
       this.hideDialog();
