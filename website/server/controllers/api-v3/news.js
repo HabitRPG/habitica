@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: SEASONAL SHOP';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW STEAMPUNK BACKGROUNDS FROM THE TIME TRAVELERS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,21 +31,29 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/21/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_seasonal_shop center-block"></div>
+        <div class="d-flex justify-content-center mb-3">
+          <img src="https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_steamworks_demo.gif" />
+          <img src="https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_clocktower_demo.gif" />
+          <img src="https://habitica-assets.s3.amazonaws.com/mobileApp/images/background_airship_demo.gif" />
+        </div>
         <p>
-          This month's <a href='https://habitica.wordpress.com/2020/01/15/seasonal-shop/'
-          target='_blank'>featured Wiki article</a> is about the Seasonal Shop! We hope that it
-          will help you get the most out of the Winter Wonderland Gala and many Galas to come. Be
-          sure to check it out, and let us know what you think by reaching out on <a
-          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href=
-          'http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href=
-          'https://facebook.com/habitica' target='_blank'>Facebook</a>.
+          Hello Habiticans! We've released brand-new backgrounds in the Time Travelers' shop! Show
+          off your retrofuturistic outfits at the Clocktower, Steamworks, and even in an Airship!
+          These will be available at the cost of one <a
+          href='https://habitica.fandom.com/wiki/Mystic_Hourglass' target='_blank'>Mystic
+          Hourglass</a> each.
         </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <p>
+          Check out the <a href='/shops/time'>Time Travelers' shop</a> to find these cool
+          backgrounds, as well as past subscriber gear, the Robot pet quest, and even rare pets and
+          mounts!
+        </p>
+        <p>Thanks for supporting Habitica! We hope that you enjoy your new backgrounds.</p>
+        <div class="small mb-3">by gawrone, annetiger, SabreCat, and Viirus</div>
       </div>
       `,
     });

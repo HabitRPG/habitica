@@ -97,14 +97,14 @@
               >{{ item.value }}</span>
             </span>
           </div>
-          <div v-else>
+          <div v-else class="d-flex align-items-middle">
             <span
-              class="svg-icon inline icon-32"
+              class="svg-icon inline icon-32 ml-auto my-auto"
               aria-hidden="true"
               v-html="icons[getPriceClass()]"
             ></span>
             <span
-              class="cost"
+              class="cost mr-auto my-auto"
               :class="getPriceClass()"
             >{{ item.value }}</span>
           </div>

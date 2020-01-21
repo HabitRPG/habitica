@@ -163,7 +163,11 @@
       }
 
       &.gold {
-        color: $yellow-10
+        color: $yellow-10;
+      }
+
+      &.hourglasses {
+        color: $hourglass-color;
       }
     }
 
