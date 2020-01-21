@@ -21,7 +21,7 @@
     "rebirthOrb": "Wykorzystano Kulę Odrodzenia aby rozpocząć grę od nowa po osiągnięciu <%= level %> Poziomu.",
     "rebirthOrb100": "Wykorzystano Kulę Odrodzenia, aby rozpocząć grę od nowa po osiągnięciu Poziomu 100 lub wyższego.",
     "rebirthOrbNoLevel": "Wykorzystano Kulę Odrodzenia aby rozpocząć grę od nowa.",
-    "rebirthPop": "Natychmiastowo odtworzy twoją postać jako Wojownika na 1 poziomie, z równoczesnym zachowaniem osiągnięć, przedmiotów kolekcjonerskich i ekwipunku. Twoje zadania i ich historia będą zachowane, ale zostaną zresetowane do żółtego poziomu. Twoje serie zostaną usunięte poza tymi w zadaniach z wyzwań. Twoje Złoto, Punkty Doświadczenia, Mana i Umiejętności zostaną usunięte. Wszystkie te efekty zajdą natychmiastowo. Szczegółowe informacje znajdziesz na stronie wiki <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Kula Odrodzenia</a>.",
+    "rebirthPop": "Natychmiastowo odtworzy twoją postać jako Wojownika na 1 poziomie, z równoczesnym zachowaniem osiągnięć, przedmiotów kolekcjonerskich i ekwipunku. Twoje zadania i ich historia będą zachowane, ale zostaną zresetowane do żółtego poziomu. Twoje serie zostaną usunięte z wyjątkiem zadań pochodzących z aktywnych wyzwań oraz planów grupowych. Twoje Złoto, Punkty Doświadczenia, Mana i Umiejętności zostaną usunięte. Wszystkie te efekty zajdą natychmiastowo. Szczegółowe informacje znajdziesz na stronie wiki <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Kula Odrodzenia</a>.",
     "rebirthName": "Kula Odrodzenia",
     "reborn": "Odrodzony, najwyższy poziom <%= reLevel %>",
     "confirmReborn": "Na pewno?",
