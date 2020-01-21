@@ -30,5 +30,12 @@
     "selfCareHabit": "Zrób sobie krótką przerwę",
     "schoolDailyText": "Skończ zadania domowe",
     "exerciseDailyText": "Rozciąganie>>Codzienne ćwiczenia",
-    "workHabitMail": "Sprawdź e-mail"
+    "workHabitMail": "Sprawdź e-mail",
+    "defaultHabitNotes": "Lub usuń z widoku edycji",
+    "defaultHabitText": "Kliknij tutaj, by zmienić to w zły nawyk, którego chcesz się pozbyć",
+    "selfCareDailyText": "5 minut spokojengo oddychania",
+    "schoolHabit": "Nauka/Prokrastynacja",
+    "healthHabit": "Jem zdrowo/niezdrowo",
+    "exerciseTodoText": "Ustaw plan ćwiczeń",
+    "exerciseHabit": "10 min cardio >> + 10 minut cardio"
 }

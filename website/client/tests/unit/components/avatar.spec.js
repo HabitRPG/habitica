@@ -112,7 +112,7 @@ context('avatar.vue', () => {
       };
     });
 
-    it('returns if showing equiped gear', () => {
+    it('returns if showing equipped gear', () => {
       expect(vm.costumeClass).to.equal('equipped');
     });
     it('returns if wearing a costume', () => {

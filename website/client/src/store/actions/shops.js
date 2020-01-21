@@ -60,7 +60,10 @@ async function buyArmoire (store, params) {
 
     const isExperience = item.type === 'experience';
     if (item.type === 'gear') {
-      store.state.user.data.items.gear.owned[item.dropKey] = true;
+      store.state.user.data.items.gear.owned = {
+        ...store.state.user.data.items.gear.owned,
+        [item.dropKey]: true,
+      };
     }
 
     if (item.type === 'food') {

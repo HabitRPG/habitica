@@ -160,3 +160,65 @@ export async function userLookup (store, params) {
   }
   return response;
 }
+
+export function block (store, params) {
+  store.state.user.data.inbox.blocks.push(params.uuid);
+  return axios.post(`/api/v4/user/block/${params.uuid}`);
+}
+
+export function unblock (store, params) {
+  const index = store.state.user.data.inbox.blocks.indexOf(params.uuid);
+  store.state.user.data.inbox.blocks.splice(index, 1);
+  return axios.post(`/api/v4/user/block/${params.uuid}`);
+}
+
+export function newPrivateMessageTo (store, params) {
+  const { member } = params;
+
+  const userStyles = {};
+  userStyles.items = { gear: {} };
+
+  if (member.items) {
+    userStyles.items.gear = {};
+    userStyles.items.gear.costume = { ...member.items.gear.costume };
+    userStyles.items.gear.equipped = { ...member.items.gear.equipped };
+
+    userStyles.items.currentMount = member.items.currentMount;
+    userStyles.items.currentPet = member.items.currentPet;
+  }
+
+  if (member.preferences) {
+    userStyles.preferences = {};
+    if (member.preferences.style) userStyles.preferences.style = member.preferences.style;
+    userStyles.preferences.hair = member.preferences.hair;
+    userStyles.preferences.skin = member.preferences.skin;
+    userStyles.preferences.shirt = member.preferences.shirt;
+    userStyles.preferences.chair = member.preferences.chair;
+    userStyles.preferences.size = member.preferences.size;
+    userStyles.preferences.chair = member.preferences.chair;
+    userStyles.preferences.background = member.preferences.background;
+    userStyles.preferences.costume = member.preferences.costume;
+  }
+
+  if (member.stats) {
+    userStyles.stats = {};
+    userStyles.stats.class = member.stats.class;
+    if (member.stats.buffs) {
+      userStyles.stats.buffs = {
+        seafoam: member.stats.buffs.seafoam,
+        shinySeed: member.stats.buffs.shinySeed,
+        spookySparkles: member.stats.buffs.spookySparkles,
+        snowball: member.stats.buffs.snowball,
+      };
+    }
+  }
+
+  store.state.privateMessageOptions = {
+    userIdToMessage: member._id,
+    displayName: member.profile.name,
+    username: member.auth.local.username,
+    backer: member.backer,
+    contributor: member.contributor,
+    userStyles,
+  };
+}

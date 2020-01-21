@@ -20,7 +20,7 @@
     "welcomeToTavern": "Bienvenue dans la taverne !",
     "sleepDescription": "Besoin d'une pause ? Prenez une chambre à l'auberge de Daniel pour mettre en veille les aspects d'Habitica les plus complexes :",
     "sleepBullet1": "Les tâches quotidiennes non validées ne feront plus de dommages",
-    "sleepBullet2": "Les combos ne seront pas interrompus et leur couleur n'évoluera plus",
+    "sleepBullet2": "Les combos ne seront pas interrompus",
     "sleepBullet3": "Les boss ne vous infligeront pas de dégâts pour vos propres tâches quotidiennes manquées",
     "sleepBullet4": "Les dommages aux boss et la collecte des objets de quête resteront en instance jusqu'à la sortie de la taverne",
     "pauseDailies": "Désactiver les dégâts",
@@ -169,5 +169,6 @@
     "imReady": "Entrez dans Habitica",
     "limitedOffer": "Disponible jusqu'au <%= date %>",
     "paymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez annuler cet abonnement, vous pouvez le faire depuis les paramètres.",
-    "paymentCanceledDisputes": "Nous avons envoyé la confirmation d'annulation à votre adresse email. Si vous ne recevez pas cet email, veuillez nous contacter pour éviter de futurs problèmes de facturation."
+    "paymentCanceledDisputes": "Nous avons envoyé la confirmation d'annulation à votre adresse email. Si vous ne recevez pas cet email, veuillez nous contacter pour éviter de futurs problèmes de facturation.",
+    "cannotUnpinItem": "Cet objet ne peut pas être désépinglé."
 }

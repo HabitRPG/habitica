@@ -23,11 +23,11 @@
     "communityBug": "Reportar Bug",
     "communityExtensions": "<a href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Add-ons e Extensões</a>",
     "communityFacebook": "Facebook",
-    "communityFeature": "Solicitar Funcionalidade",
+    "communityFeature": "Solicitar funcionalidade",
     "communityForum": "<a target='_blank' href='http://habitica.fandom.com/wiki/Special:Forum'>Fórum</a>",
     "communityKickstarter": "Kickstarter",
     "communityReddit": "Reddit",
-    "companyAbout": "Como Funciona",
+    "companyAbout": "Como  funciona",
     "companyBlog": "Blog",
     "devBlog": "Blog do Desenvolvedor",
     "companyContribute": "Contribua",
@@ -331,5 +331,6 @@
     "getStarted": "Comece já!",
     "mobileApps": "Aplicativos Móveis",
     "learnMore": "Aprenda Mais",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "Senhas devem possuir 8 caracteres ou mais."
 }

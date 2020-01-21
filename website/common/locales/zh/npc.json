@@ -73,10 +73,10 @@
     "cannotUnpinArmoirPotion": "治疗药水和魔法衣橱不能被取消固定。",
     "purchasedItem": "您购买了<%= itemName %>",
     "ian": "岚",
-    "ianText": "欢迎来到副本商店！在这里你可以购买任务卷轴，和你的朋友一起与怪物战斗。快在右边挑选一个任务带走吧！",
-    "ianTextMobile": "我可以向你推荐一些任务卷轴吗？和你的队伍一起，激活他们与怪物战斗吧！",
-    "ianBrokenText": "欢迎来到任务商店……这里你可以使用任务卷轴来同你的朋友一起与怪物战斗……请一定要到右边栏来看看我们为您精心准备的任务卷轴……",
-    "featuredQuests": "特色任务！",
+    "ianText": "欢迎来到副本商店！在这里你可以购买副本卷轴，和你的朋友一起与怪物战斗。快在右边挑选一个副本带走吧！",
+    "ianTextMobile": "我可以向你推荐一些副本卷轴吗？和你的队伍一起，激活他们与怪物战斗吧！",
+    "ianBrokenText": "欢迎来到副本商店……这里你可以使用副本卷轴来同你的朋友一起与怪物战斗……请一定要到右边栏来看看我们为您精心准备的副本卷轴……",
+    "featuredQuests": "特色副本！",
     "cannotBuyItem": "你不能购买这个物品。",
     "mustPurchaseToSet": "必须购买 <%= val %>来把它使用在<%= key %>上。",
     "typeRequired": "需要Type",
@@ -113,7 +113,7 @@
     "paymentSubBilling": "您的订阅费用为每<strong><%= months %>月</strong><strong><%= amount %> 美元</strong> 。",
     "success": "成功！",
     "classGear": "职业装备",
-    "classGearText": "祝贺你选了一个职业！我已经将你的的基本武器放到物品栏了。看看下面来装备它吧！",
+    "classGearText": "祝贺你选了一个职业！我已经将你的基本武器放到物品栏了。看看下面来装备它吧！",
     "classStats": "这是你职业的属性点：它们会影响游戏的操作和过程。每次升级时，你将获得一点自由分配点，用来给某一特定属性加成。将鼠标悬停在每个属性上来查看更多信息。",
     "autoAllocate": "自动分配",
     "autoAllocateText": "如果“自动分配”被选中，你的人物会自动根据你的任务的属性获得属性点，你可以在<strong>任务>编辑>高级设置>属性分配</strong>中找到它。例如，如果你经常点健身房任务，并且你的“健身房”每日任务设置为“力量”，你就会自动获得力量点数。",
@@ -169,5 +169,6 @@
     "imReady": "进入Habitica",
     "limitedOffer": "有效期至<%= date %>",
     "paymentCanceledDisputes": "我们已为您的电子邮件发送了取消确认。如果您没有看到电子邮件，请联系我们，以防止将来发生账单纠纷。",
-    "paymentAutoRenew": "此订阅在被取消前会自动续订。你可以在设置里取消订阅。"
+    "paymentAutoRenew": "此订阅在被取消前会自动续订。你可以在设置里取消订阅。",
+    "cannotUnpinItem": "您不能取消这个物品的固定。"
 }

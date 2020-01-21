@@ -331,5 +331,6 @@
     "getStarted": "Commencez !",
     "mobileApps": "Applications mobiles",
     "learnMore": "En savoir plus",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "Le mot de passe doit faire au moins 8 caractères."
 }

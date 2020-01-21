@@ -331,5 +331,6 @@
     "getStarted": "Начать!",
     "mobileApps": "Мобильные приложения",
     "learnMore": "Подробнее",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "Пароль должен состоять из 8 или более символов."
 }

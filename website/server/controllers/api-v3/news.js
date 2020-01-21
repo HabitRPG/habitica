@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JANUARY BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: SEASONAL SHOP';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,24 +31,21 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/6/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_202001 center-block"></div>
+        <div class="promo_seasonal_shop center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can celebrate
-          at a Birthday Party, gaze at the quiet beauty of a Snowy Desert, and strike a festive
-          pose In A Snowglobe. Check them out under User Icon > Backgrounds!
+          This month's <a href='https://habitica.wordpress.com/2020/01/15/seasonal-shop/'
+          target='_blank'>featured Wiki article</a> is about the Seasonal Shop! We hope that it
+          will help you get the most out of the Winter Wonderland Gala and many Galas to come. Be
+          sure to check it out, and let us know what you think by reaching out on <a
+          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href=
+          'http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href=
+          'https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
-        <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Birthday Cake set. Better work hard on your real-life tasks to earn all the pieces!
-          Enjoy :)
-        </p>
-        <div class="small mb-3">
-          by FolleMente, Shine Caramia, Aspiring Advocate, gawrone, katieslug, and SabreCat
-        </div>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });

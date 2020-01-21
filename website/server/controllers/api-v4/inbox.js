@@ -1,9 +1,10 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import apiError from '../../libs/apiError';
-import * as inboxLib from '../../libs/inbox';
 import {
   NotFound,
 } from '../../libs/errors';
+import { listConversations } from '../../libs/inbox/conversation.methods';
+import { clearPMs, deleteMessage, getUserInbox } from '../../libs/inbox';
 
 const api = {};
 
@@ -40,7 +41,7 @@ api.deleteMessage = {
     const { messageId } = req.params;
     const { user } = res.locals;
 
-    const deleted = await inboxLib.deleteMessage(user, messageId);
+    const deleted = await deleteMessage(user, messageId);
     if (!deleted) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     res.respond(200);
@@ -66,7 +67,7 @@ api.clearMessages = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    await inboxLib.clearPMs(user);
+    await clearPMs(user);
 
     res.respond(200, {});
   },
@@ -101,7 +102,7 @@ api.conversations = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    const result = await inboxLib.listConversations(user);
+    const result = await listConversations(user);
 
     res.respond(200, result);
   },
@@ -128,7 +129,7 @@ api.getInboxMessages = {
     const { page } = req.query;
     const { conversation } = req.query;
 
-    const userInbox = await inboxLib.getUserInbox(user, {
+    const userInbox = await getUserInbox(user, {
       page, conversation, mapProps: true,
     });
 

@@ -101,7 +101,7 @@
           </div>
         </div>
         <div
-          v-if="showCategorySelect && creating"
+          v-if="showCategorySelect"
           class="category-box"
         >
           <!-- eslint-disable vue/no-use-v-if-with-v-for -->
