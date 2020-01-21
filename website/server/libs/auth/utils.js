@@ -19,12 +19,16 @@ export function loginRes (user, req, res) {
     ));
   }
 
+  if (req.headers['x-client'] === 'habitica-android' && req.url.contains('apple')) {
+    // This is a workaround for android not being able to handle sign in with apple better.
+    return res.redirect(`/?id=${user._id}&key=${user.apiToken}&newUser=${user.newUser || false}`);
+  }
+
   const responseData = {
     id: user._id,
     apiToken: user.apiToken,
     newUser: user.newUser || false,
     username: user.auth.local.username,
   };
-
   return res.respond(200, responseData);
 }

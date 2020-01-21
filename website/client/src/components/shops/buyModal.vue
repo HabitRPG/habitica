@@ -119,7 +119,10 @@
         <div v-if="attemptingToPurchaseMoreGemsThanAreLeft">
           {{ $t('notEnoughGemsToBuy') }}
         </div>
-        <div v-if="nonSubscriberHourglasses" class="hourglass-nonsub mt-3">
+        <div
+          v-if="nonSubscriberHourglasses"
+          class="hourglass-nonsub mt-3"
+        >
           {{ $t('mysticHourglassNeededNoSub') }}
         </div>
         <button

@@ -114,7 +114,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     user.newUser = true;
   }
 
-  loginRes(user, req, res);
+  const response = loginRes(user, req, res);
 
   // Clean previous email preferences
   if (
@@ -147,5 +147,5 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     });
   }
 
-  return null;
+  return response;
 }
