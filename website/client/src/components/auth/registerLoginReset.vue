@@ -871,7 +871,7 @@ export default {
 
       const redirectUrl = `${window.location.protocol}//${window.location.host}`;
       const auth = await hello(network).login({
-        scope: 'email',
+        scope: network === 'apple' ? 'name email' : 'email',
         // explicitly pass the redirect url or it might redirect to /home
         redirect_uri: redirectUrl, // eslint-disable-line camelcase
       });

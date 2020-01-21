@@ -965,9 +965,9 @@ export default {
         await hello(network).logout();
         } catch (e) {} // eslint-disable-line
 
-      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
+      const redirectUrl = 'https://habitrpg-delta.herokuapp.com/api/v4/user/auth/apple';
       const auth = await hello(network).login({
-        scope: 'email',
+        scope: network === 'apple' ? 'name email' : 'email',
         // explicitly pass the redirect url or it might redirect to /home
         redirect_uri: redirectUrl, // eslint-disable-line camelcase
       });

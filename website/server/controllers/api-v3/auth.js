@@ -146,7 +146,7 @@ api.loginSocial = {
   },
 };
 
-// Called as a callback by Facebook (or other social providers). Internal route
+// Called as a callback by Apple. Internal route
 api.loginApple = {
   method: 'POST',
   middlewares: [authWithHeaders({
