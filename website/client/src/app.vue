@@ -610,8 +610,11 @@ export default {
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, { fromRoot: true });
       });
 
+      // Dismiss modal aggressively. Pass a modal ID to remove a modal instance from the stack
+      // (both the stack entry itself and its "prev" reference) so we don't reopen it
       this.$root.$on('habitica::dismiss-modal', oldModal => {
         if (!oldModal) return;
+        this.$root.$emit('bv::hide::modal', oldModal);
         let removeIndex = this.$store.state.modalStack
           .map(modal => modal.modalId)
           .indexOf(oldModal);
