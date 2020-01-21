@@ -178,7 +178,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('bv::hide::modal', 'select-user-modal');
+      this.$root.$emit('habitica::dismiss-modal', 'select-user-modal');
     },
     searchUser: debounce(async function userSearch (searchTerm) {
       this.foundUser = {};
@@ -212,7 +212,6 @@ export default {
       this.foundUser = result.data.data;
     }, 500),
     selectUser () {
-      this.$root.$emit('habitica::dismiss-modal', 'select-user-modal');
       this.$root.$emit('habitica::send-gems', this.foundUser);
       this.close();
     },
