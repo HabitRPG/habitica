@@ -104,7 +104,7 @@
     "allocatePerPop": "Adicionar um Ponto a Percepção",
     "allocateInt": "Pontos alocados a Inteligência:",
     "allocateIntPop": "Adicionar um Ponto a Inteligência",
-    "noMoreAllocate": "Agora que atingiste o nível 100, já não vais ganhar mais Pontos de Características. Podes continuar a subir de nível ou começar uma nova aventura no nível 1 usando  a <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de Renascimento</a>, agora disponível gratuitamente na Loja.",
+    "noMoreAllocate": "Agora que você atingiu o nível 100, não irá mais ganhar Pontos de Atributos. Você poderá continuar a subir de nível ou começar uma nova aventura no nível 1 usando  a <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de Renascimento</a>.",
     "stats": "Estatísticas",
     "achievs": "Conquistas",
     "strength": "Força",
@@ -224,5 +224,7 @@
     "mainHand": "Mão Principal",
     "offHand": "Mão Oposta",
     "statPoints": "Pontos de Atributo",
-    "pts": "pts"
+    "pts": "pts",
+    "purchasePetItemConfirm": "Essa compra excederá o número que você precisa para capturar todos os <%= itemText %> pets disponíveis. Você tem certeza?",
+    "purchaseForGold": "Comprar por <%= cost %> de Ouro?"
 }

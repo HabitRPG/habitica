@@ -403,14 +403,6 @@
       vertical-align: bottom;
       border-radius: 2px;
       z-index: 5;
-      border: solid 1px $gray-400;
-      opacity: 0.64;
-      background-color: $gray-500;
-
-      &:focus, &.has-content {
-        opacity: 1;
-        background-color: $white;
-      }
     }
   }
 

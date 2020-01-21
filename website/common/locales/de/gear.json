@@ -1864,7 +1864,7 @@
     "shieldSpecialSummer2019WarriorText": "Panzerhälften-Schild",
     "shieldSpecialSummer2019WarriorNotes": "Mach es wie die Schildkröte hinter diesem kräftigen runden Schild, geprägt im Muster Deines Lieblingsreptils. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2019 Sommerausrüstung.",
     "shieldSpecialSummer2019HealerText": "Muscheltrompete",
-    "shieldSpecialSummer2019HealerNotes": "Lasse diejenigen, die Hilfe brauchen, mit dem lauten Klang dieser Muschel-Trompete wissen, dass Du kommst. Limitierte Ausgabe 2019 Sommerausrüstung. Erhöht Ausdauer um 9. ",
+    "shieldSpecialSummer2019HealerNotes": "Lasse diejenigen, die Hilfe brauchen, mit dem lauten Klang dieser Muschel-Trompete wissen, dass Du kommst. Erhöht Ausdauer um 9. Limitierte Ausgabe 2019 Sommerausrüstung. ",
     "shieldSpecialSummer2019MageNotes": "Schwitzen in der Sommersonne? Nein! Du rezitierst eine einfache elementare Beschwörung, um den Seerosenteich zu füllen. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2019 Sommerausrüstung.",
     "shieldArmoireTrustyUmbrellaNotes": "Mysterien werden oft von schlechtem Wetter begleitet, also sei vorbereitet! Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Detektiv-Set (Gegenstand 4 von 4).",
     "backMystery201905Notes": "Fliege mit diesen irisierenden Flügeln in unbekannte Sphären. Gewährt keinen Attributbonus. Abonnentengegenstand, Mai 2019.",
