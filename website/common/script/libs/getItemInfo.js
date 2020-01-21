@@ -243,6 +243,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'backgrounds',
         path: `backgrounds.${item.set}.${item.key}`,
         pinType: 'background',
+        locked: false,
       };
       break;
     case 'mystery_set':

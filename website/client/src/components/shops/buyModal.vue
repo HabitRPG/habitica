@@ -11,13 +11,13 @@
       @click.prevent.stop="togglePinned()"
     >
       <span
-        class="svg-icon inline color icon-10"
+        class="svg-icon inline color icon-16"
         v-html="icons.pin"
       ></span>
     </span>
-    <div class="close">
+    <div>
       <span
-        class="svg-icon inline icon-10"
+        class="svg-icon icon-12 close-icon"
         aria-hidden="true"
         @click="hideDialog()"
         v-html="icons.close"
@@ -54,10 +54,7 @@
         <h4 class="title">
           {{ itemText }}
         </h4>
-        <div
-          class="text"
-          v-html="itemNotes"
-        ></div>
+        <div v-html="itemNotes"></div>
         <slot
           name="additionalInfo"
           :item="item"
@@ -100,14 +97,14 @@
               >{{ item.value }}</span>
             </span>
           </div>
-          <div v-else>
+          <div v-else class="d-flex align-items-middle">
             <span
-              class="svg-icon inline icon-32"
+              class="svg-icon inline icon-32 ml-auto my-auto"
               aria-hidden="true"
               v-html="icons[getPriceClass()]"
             ></span>
             <span
-              class="cost"
+              class="cost mr-auto my-auto"
               :class="getPriceClass()"
             >{{ item.value }}</span>
           </div>
@@ -122,6 +119,9 @@
         <div v-if="attemptingToPurchaseMoreGemsThanAreLeft">
           {{ $t('notEnoughGemsToBuy') }}
         </div>
+        <div v-if="nonSubscriberHourglasses" class="hourglass-nonsub mt-3">
+          {{ $t('mysticHourglassNeededNoSub') }}
+        </div>
         <button
           v-if="getPriceClass() === 'gems'
             && !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
@@ -129,6 +129,13 @@
           @click="purchaseGems()"
         >
           {{ $t('purchaseGems') }}
+        </button>
+        <button
+          v-else-if="nonSubscriberHourglasses"
+          class="btn btn-primary"
+          @click="viewSubscriptions(item)"
+        >
+          {{ $t('viewSubscriptions') }}
         </button>
         <button
           v-else
@@ -167,12 +174,11 @@
     </div>
     <div
       slot="modal-footer"
-      class="clearfix"
+      class="d-flex"
     >
-      <span class="balance float-left">{{ $t('yourBalance') }}</span>
+      <span class="balance mr-auto">{{ $t('yourBalance') }}</span>
       <balanceInfo
-        class="float-right"
-        :with-hourglass="getPriceClass() === 'hourglasses'"
+        class="ml-auto"
         :currency-needed="getPriceClass()"
         :amount-needed="item.value"
       />
@@ -186,6 +192,10 @@
 
   #buy-modal {
     @include centeredModal();
+
+    .modal-body {
+      padding-bottom: 0px;
+    }
 
     .modal-dialog {
       width: 330px;
@@ -274,6 +284,7 @@
     button.btn.btn-primary {
       margin-top: 24px;
       margin-bottom: 24px;
+      min-width: 6rem;
     }
 
     .balance {
@@ -357,6 +368,21 @@
     .pt-015 {
       padding-top: 0.15rem;
     }
+  }
+</style>
+
+<style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
+  .close-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .hourglass-nonsub {
+    color: $yellow-5;
+    font-size: 12px;
   }
 </style>
 
@@ -488,6 +514,9 @@ export default {
     nextFreeRebirth () {
       return 45 - moment().diff(moment(this.user.flags.lastFreeRebirth), 'days');
     },
+    nonSubscriberHourglasses () {
+      return (!this.user.purchased.plan.customerId && this.getPriceClass() === 'hourglasses');
+    },
   },
   watch: {
     item: function itemChanged () {
@@ -611,6 +640,25 @@ export default {
       }
 
       return {};
+    },
+    viewSubscriptions (item) {
+      if (item.purchaseType === 'backgrounds') {
+        this.$root.$emit('bv::hide::modal', 'avatar-modal');
+        let removeIndex = this.$store.state.modalStack
+          .map(modal => modal.modalId)
+          .indexOf('avatar-modal');
+        if (removeIndex >= 0) {
+          this.$store.state.modalStack.splice(removeIndex, 1);
+        }
+        removeIndex = this.$store.state.modalStack
+          .map(modal => modal.prev)
+          .indexOf('avatar-modal');
+        if (removeIndex >= 0) {
+          delete this.$store.state.modalStack[removeIndex].prev;
+        }
+      }
+      this.$router.push('/user/settings/subscription');
+      this.hideDialog();
     },
   },
 };

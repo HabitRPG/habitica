@@ -197,6 +197,59 @@
             </div>
           </div>
         </div>
+        <div
+          v-if="!filterBackgrounds"
+          class="row text-center title-row"
+        >
+          <strong>{{ backgroundShopSets[1].text }}</strong>
+        </div>
+        <div
+          v-if="!filterBackgrounds"
+          class="row title-row"
+        >
+          <div
+            v-for="bg in backgroundShopSets[1].items"
+            :key="bg.key"
+            class="col-4 text-center customize-option background-button"
+            :popover-title="bg.text"
+            :popover="bg.notes"
+            popover-trigger="mouseenter"
+            @click="!user.purchased.background[bg.key]
+              ? backgroundSelected(bg) : unlock('background.' + bg.key)"
+          >
+            <div
+              class="background"
+              :class="[`background_${bg.key}`, backgroundLockedStatus(bg.key)]"
+            ></div>
+            <i
+              v-if="!user.purchased.background[bg.key]"
+              class="glyphicon glyphicon-lock"
+            ></i>
+            <div
+              v-if="!user.purchased.background[bg.key]"
+              class="purchase-background single"
+            >
+              <div
+                class="svg-icon hourglass"
+                v-html="icons.hourglass"
+              ></div>
+              <span class="price">1</span>
+            </div>
+            <span
+              v-if="!user.purchased.background[bg.key]"
+              class="badge badge-pill badge-item badge-svg"
+              :class="{
+                'item-selected-badge': isBackgroundPinned(bg),
+                'hide': !isBackgroundPinned(bg)}"
+              @click.prevent.stop="togglePinned(bg)"
+            >
+              <span
+                class="svg-icon inline icon-12 color"
+                v-html="icons.pin"
+              ></span>
+            </span>
+          </div>
+        </div>
         <sub-menu
           class="text-center"
           :items="bgSubMenuItems"
@@ -923,7 +976,7 @@
           color: #24cc8f;
         }
 
-        .gem, .coin {
+        .gem, .coin, .hourglass {
           width: 16px;
         }
 
@@ -944,7 +997,7 @@
         }
       }
 
-      .gem, .coin {
+      .gem, .coin, .hourglass {
         margin: 0 .5em;
         display: inline-block;
         vertical-align: bottom;
@@ -1103,6 +1156,7 @@ import skinIcon from '@/assets/svg/skin.svg';
 import hairIcon from '@/assets/svg/hair.svg';
 import backgroundsIcon from '@/assets/svg/backgrounds.svg';
 import gem from '@/assets/svg/gem.svg';
+import hourglass from '@/assets/svg/hourglass.svg';
 import gold from '@/assets/svg/gold.svg';
 import pin from '@/assets/svg/pin.svg';
 import arrowRight from '@/assets/svg/arrow_right.svg';
@@ -1143,6 +1197,7 @@ export default {
         hairIcon,
         backgroundsIcon,
         gem,
+        hourglass,
         pin,
         gold,
         arrowRight,
