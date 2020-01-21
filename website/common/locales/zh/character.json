@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "请注意您的角色名、头像和简介，必须遵从<a href='https://habitica.com/static/community-guidelines' target='_blank'>社区指南</a>(例如，不能包含亵渎言论、成人话题及侮辱言论)。如果您对某件事是否适当有任何问题，欢迎发送电子邮件到 <%= hrefBlankCommunityManagerEmail %>！",
+    "communityGuidelinesWarning": "请注意您的角色名，头像和个人简介必须遵守<a href='https://habitica.com/static/community-guidelines' target='_blank'>社区指南</a>（例如，不能包含亵渎言论、成人话题及侮辱言论）。如果您对某件事是否适当有任何问题，欢迎发送电子邮件到 <%= hrefBlankCommunityManagerEmail %>！",
     "profile": "角色信息",
     "avatar": "自定义形象",
     "editAvatar": "编辑角色形象",

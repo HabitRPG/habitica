@@ -1,6 +1,6 @@
 {
     "habiticaBackSoon": "別擔心。Habitica 一會兒就回來！",
-    "importantMaintenance": "我們在大約臺灣時區下午一點 (5am UTC) 前會完成一些重要的維護。",
+    "importantMaintenance": "我們正在做重要的維護，我們估計維護將會一直持續到太平洋時間晚上10點（5am UTC）。",
     "maintenance": "維護",
     "maintenanceMoreInfo": "想知道更多關於維護的資訊？<%= linkStart %>請瀏覽我們的資訊頁面面<%= linkEnd %>。",
     "noDamageKeepStreaks": "你不會受到傷害或失去連擊！",
