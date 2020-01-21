@@ -88,18 +88,18 @@
   }
 
   .avatar {
-    width: 15%;
+    width: 170px;
     min-width: 8rem;
     height: 120px;
     padding-top: 0 !important;
   }
 
-  .avatar-left {
-    margin-left: -1rem;
-  }
-
   .avatar-right {
     margin-left: -1rem;
+
+    ::v-deep .character-sprites {
+      margin-right: 1rem !important;
+    }
   }
 
   .card {
