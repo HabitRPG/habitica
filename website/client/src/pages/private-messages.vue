@@ -3,7 +3,7 @@
     <div class="floating-header-shadow"></div>
     <div class="header-bar d-flex w-100">
       <!-- changing w-25 would also need changes in .left-header.w-25 -->
-      <div class="d-flex w-25 left-header">
+      <div class="d-flex left-header">
         <div
           v-once
           class="mail-icon svg-icon"
@@ -19,7 +19,7 @@
           <!-- placeholder -->
         </div>
       </div>
-      <div class="d-flex w-75 selected-conversion">
+      <div class="d-flex selected-conversion">
         <face-avatar
           v-if="selectedConversation.userStyles"
           :member="selectedConversation.userStyles"
@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="d-flex content">
-      <div class="w-25 sidebar d-flex flex-column">
+      <div class="sidebar d-flex flex-column">
         <div class="disable-background">
           <toggle-switch
             :label="optTextSet.switchDescription"
@@ -88,7 +88,7 @@
           />
         </div>
       </div>
-      <div class="w-75 messages-column d-flex flex-column align-items-center">
+      <div class="messages-column d-flex flex-column align-items-center">
         <div
           v-if="!selectedConversation.key"
           class="empty-messages full-height m-auto text-center"
@@ -138,13 +138,17 @@
             class="new-message-row d-flex align-items-center"
           >
             <textarea
+              ref="textarea"
               v-model="newMessage"
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
               maxlength="3000"
               :class="{'has-content': newMessage !== ''}"
+              :style="{'--textarea-auto-height': textareaAutoHeight}"
               @keyup.ctrl.enter="sendPrivateMessage()"
-            ></textarea>
+              @input="autoSize()"
+            >
+            </textarea>
           </div>
           <div
             v-if="selectedConversation.key && !user.flags.chatRevoked"
@@ -268,10 +272,6 @@
     .placeholder.svg-icon {
       width: 32px;
     }
-
-    .left-header.w-25 {
-      width: calc(25% - 2rem) !important;
-    }
   }
 
   .full-height {
@@ -314,7 +314,6 @@
 
 
   .conversations {
-    max-height: 35rem;
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
@@ -371,7 +370,12 @@
     word-break: break-word;
   }
 
+  .selected-conversion {
+    flex: 1;
+  }
+
   .messages-column {
+    flex: 1;
     padding: 0rem;
     display: flex;
     flex-direction: column;
@@ -398,11 +402,19 @@
     padding-right: 1.5rem;
 
     textarea {
-      height: 5.5rem;
+      min-height: 1rem;
       display: inline-block;
       vertical-align: bottom;
       border-radius: 2px;
       z-index: 5;
+
+      &:not(.has-content):not(:focus-within) {  // :hidden not working with the binding
+        max-height: 2.5rem;
+      }
+
+      &.has-content {
+        min-height: var(--textarea-auto-height, 1rem);
+      }
     }
   }
 
@@ -457,10 +469,14 @@
     }
   }
 
+  .left-header {
+    max-width: calc(330px - 2rem); // minus the left padding
+    flex: 1;
+  }
+
   .sidebar {
-    background-color: $gray-700;
-    min-height: 540px;
     max-width: 330px;
+    background-color: $gray-700;
     padding: 0;
     border-bottom-left-radius: 8px;
 
@@ -530,6 +546,8 @@ import conversationItem from '@/components/messages/conversationItem';
 import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
 
+const MAX_TEXTAREA_HEIGHT = 80;
+
 export default {
   components: {
     Avatar,
@@ -563,6 +581,7 @@ export default {
       messagesLoading: false,
       initiatedConversation: null,
       updateConversationsCounter: 0,
+      textareaAutoHeight: undefined,
     };
   },
   async mounted () {
@@ -853,6 +872,16 @@ export default {
       // only show the load more Button if the max count was returned
       this.selectedConversation.canLoadMore = loadedMessages.length === 10;
       this.messagesLoading = false;
+    },
+    autoSize () {
+      const { textarea } = this.$refs;
+      let { scrollHeight } = textarea;
+
+      if (scrollHeight > MAX_TEXTAREA_HEIGHT) {
+        scrollHeight = MAX_TEXTAREA_HEIGHT;
+      }
+
+      this.textareaAutoHeight = `${scrollHeight}px`;
     },
   },
 };
