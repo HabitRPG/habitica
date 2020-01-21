@@ -614,7 +614,6 @@ export default {
       this.$emit('updatedChallenge', { challenge });
       this.resetWorkingChallenge();
       this.$root.$emit('habitica::dismiss-modal', 'challenge-modal');
-      this.$root.$emit('bv::hide::modal', 'challenge-modal');
     },
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;

@@ -295,7 +295,6 @@ export default {
     },
     close () {
       this.$root.$emit('habitica::dismiss-modal', 'send-gems');
-      this.$root.$emit('bv::hide::modal', 'send-gems');
     },
   },
 };
