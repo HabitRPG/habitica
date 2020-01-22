@@ -20,15 +20,20 @@
         </div>
       </div>
       <div class="d-flex selected-conversion">
-        <face-avatar
-          v-if="selectedConversation.userStyles"
-          :member="selectedConversation.userStyles"
-          :class="selectedConversationFaceAvatarClass"
-        />
-        <user-label
+        <router-link
+          :to="{'name': 'userProfile', 'params': {'userId': selectedConversation.id}}"
+        >
+          <face-avatar
+            v-if="selectedConversation.userStyles"
+            :member="selectedConversation.userStyles"
+            :class="selectedConversationFaceAvatarClass"
+          />
+        </router-link>
+        <user-link
           :backer="selectedConversation.backer"
           :contributor="selectedConversation.contributor"
           :name="selectedConversation.name"
+          :user="selectedConversation"
           :hide-tooltip="true"
         />
       </div>
@@ -281,7 +286,7 @@
     justify-content: center;
   }
 
-  .user-label {
+  .user-link {
     margin-left: 12px;
   }
 
@@ -408,10 +413,6 @@
       border-radius: 2px;
       z-index: 5;
 
-      &:not(.has-content):not(:focus-within) {  // :hidden not working with the binding
-        max-height: 2.5rem;
-      }
-
       &.has-content {
         min-height: var(--textarea-auto-height, 1rem);
       }
@@ -537,7 +538,7 @@ import axios from 'axios';
 import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import userLabel from '@/components/userLabel';
+import userLink from '@/components/userLink';
 
 import messageList from '@/components/messages/messageList';
 import messageIcon from '@/assets/svg/message.svg';
@@ -554,7 +555,7 @@ export default {
     messageList,
     toggleSwitch,
     conversationItem,
-    userLabel,
+    userLink,
     faceAvatar,
   },
   filters: {

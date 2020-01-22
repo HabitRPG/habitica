@@ -10,10 +10,7 @@
         :backer="backer"
         :contributor="contributor"
         :name="displayName"
-      /><span
-        v-if="username"
-        class="username"
-      >@{{ username }}</span>
+      />
       <div
         v-if="lastMessageDate"
         class="time"
@@ -21,6 +18,10 @@
         {{ lastMessageDate | timeAgo }}
       </div>
     </div>
+    <span
+      v-if="username"
+      class="username"
+    >@{{ username }}</span>
     <div class="preview-row">
       <div class="messagePreview">
         {{ lastMessageText }}
@@ -172,11 +173,6 @@ export default {
         white-space: nowrap;
       }
 
-      .username {
-        flex: 1;
-        flex-grow: 0;
-      }
-
       .time {
         flex: 2;
         text-align: end;
@@ -185,6 +181,12 @@ export default {
         white-space: nowrap;
         margin-left: 1rem;
       }
+    }
+
+    .username {
+      flex: 1;
+      flex-grow: 0;
+      font-size: 12px;
     }
 
     .messagePreview {
