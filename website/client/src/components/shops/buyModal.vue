@@ -515,7 +515,7 @@ export default {
       return 45 - moment().diff(moment(this.user.flags.lastFreeRebirth), 'days');
     },
     nonSubscriberHourglasses () {
-      return (!this.user.purchased.plan.customerId && this.getPriceClass() === 'hourglasses');
+      return (!this.user.purchased.plan.customerId && !this.user.purchased.plan.consecutive.trinkets && this.getPriceClass() === 'hourglasses');
     },
   },
   watch: {
