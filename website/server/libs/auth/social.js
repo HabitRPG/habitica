@@ -40,12 +40,12 @@ async function _appleProfile (req) {
   let idToken = {};
   logger.info('BEGINNING APPLE AUTH');
   if (req.body.code) {
-    logger.warn(req.body.code);
-    logger.warn(applePublicKey);
+    logger.info(req.body.code);
+    logger.info(applePublicKey);
     const response = await auth.accessToken(req.body.code);
-    logger.warn(response);
+    logger.info(response);
     idToken = jwt.decode(response.id_token, { algorithms: ['RS256'] });
-    logger.warn(idToken);
+    logger.info(idToken);
   } else if (req.body.id_token) {
     idToken = jwt.verify(req.body.id_token, applePublicKey, { algorithms: ['RS256'] });
   }
