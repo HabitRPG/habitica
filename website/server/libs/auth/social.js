@@ -11,6 +11,7 @@ import {
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../email';
+import logger from '../logger';
 
 function _passportProfile (network, accessToken) {
   return new Promise((resolve, reject) => {
@@ -39,7 +40,9 @@ async function _appleProfile (req) {
   let idToken = {};
   if (req.body.code) {
     const response = await auth.accessToken(req.body.code);
+    logger.info(response);
     idToken = jwt.decode(response.id_token, { algorithms: ['RS256'] });
+    logger.info(idToken);
   } else if (req.body.id_token) {
     idToken = jwt.verify(req.body.id_token, applePublicKey, { algorithms: ['RS256'] });
   }
