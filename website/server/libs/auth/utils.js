@@ -1,5 +1,6 @@
 import nconf from 'nconf';
 import shortid from 'short-uuid';
+import url from 'url';
 
 import { NotAuthorized } from '../errors';
 
@@ -18,8 +19,8 @@ export function loginRes (user, req, res) {
       { communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id },
     ));
   }
-
-  if (req.headers['x-client'] === 'habitica-android' && req.url.contains('apple')) {
+  const urlPath = url.parse(req.url).pathname;
+  if (req.headers['x-client'] === 'habitica-android' && urlPath.contains('apple')) {
     // This is a workaround for android not being able to handle sign in with apple better.
     return res.redirect(`/?id=${user._id}&key=${user.apiToken}&newUser=${user.newUser || false}`);
   }

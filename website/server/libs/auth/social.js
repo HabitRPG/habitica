@@ -32,7 +32,7 @@ const auth = new AppleAuth(JSON.stringify({
   team_id: nconf.get('APPLE_TEAM_ID'), // eslint-disable-line camelcase
   key_id: nconf.get('APPLE_AUTH_KEY_ID'), // eslint-disable-line camelcase
   redirect_uri: 'https://habitica.com/api/v4/user/auth/apple', // eslint-disable-line camelcase
-  scope: 'name email',
+  scope: 'email',
 }), applePrivateKey.toString(), 'text');
 
 async function _appleProfile (req) {
