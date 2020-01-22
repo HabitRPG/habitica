@@ -24,5 +24,14 @@
     "defaultTag4": "학교",
     "defaultTag5": "팀",
     "defaultTag6": "집안일",
-    "defaultTag7": "창조적인 작업"
+    "defaultTag7": "창조적인 작업",
+    "workTodoProject": "업무 프로젝트 >> 업무 프로젝트를 완성해라",
+    "workDailyImportantTask": "가장 중요한 할 일 >> 오늘의 가장 중요한 할 일로 일해라",
+    "workHabitMail": "이메일 과정",
+    "choresDailyText": "설거지 하기",
+    "selfCareDailyText": "5분 심호흡하기",
+    "healthTodoNotes": "눌러서 체크리스트를 추가하세요!",
+    "healthDailyNotes": "눌러서 수정하세요!",
+    "workTodoProjectNotes": "눌러서 현재 프로젝트의 이름이나 마감일을 정하세요",
+    "exerciseTodoNotes": "눌러서 체크리스트를 추가하세요"
 }

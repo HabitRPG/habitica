@@ -98,7 +98,7 @@
     "findChallenges": "Inveni Provocationes",
     "noChallengeTitle": "Ullas provocationes non habes.",
     "challengeDescription1": "Provocationes sunt eventus communitati in quibus ludiones perficiente collectionem munerum colluctuntur et merent praemiis.",
-    "challengeDescription2": "Find recommended Challenges based on your interests, browse Habitica's public Challenges, or create your own Challenges.",
+    "challengeDescription2": "Inveni Provocationes commendati secundum studia tua, circumspice Provocationes publicas de Habitica, vel crea Provocationes suas.",
     "noChallengeMatchFilters": "Non possunt invenire ullas Provocationes compares.",
     "createdBy": "Facta Ab",
     "joinChallenge": "Provocationem Adi",
@@ -110,9 +110,9 @@
     "awardWinners": "Victori/Victrici Addice",
     "doYouWantedToDeleteChallenge": "Visne hanc Provocationem delere?",
     "deleteChallenge": "Dele Provocationem",
-    "challengeNamePlaceholder": "What is your Challenge name?",
+    "challengeNamePlaceholder": "Quid est nomen Provocationis?",
     "challengeSummary": "Summarium",
-    "challengeSummaryPlaceholder": "Write a short description advertising your Challenge to other Habiticans. What is the main purpose of your Challenge and why should people join it? Try to include useful keywords in the description so that Habiticans can easily find it when they search!",
+    "challengeSummaryPlaceholder": "Scribe descriptionem breviem ut divulges Provocatio tuam Habiticanos alios. Quid est finem primorem Provocationis tuae et quare oportet populum associare eam? Conare includere verba quaerentis utilia in descriptionem ut Habiticani eam facile possint invenire quando circumspiciunt!",
     "challengeDescriptionPlaceholder": "Use this section to go into more detail about everything that Challenge participants should know about your Challenge.",
     "challengeGuild": "Adde ad",
     "challengeMinimum": "Minimum 1 Gem for public Challenges (helps prevent spam, it really does).",
@@ -122,7 +122,7 @@
     "updateChallenge": "Update Challenge",
     "haveNoChallenges": "This group has no Challenges",
     "loadMore": "Plura Lege",
-    "exportChallengeCsv": "Export Challenge",
+    "exportChallengeCsv": "Exporta Provocationem",
     "editingChallenge": "Recensens Provocationem",
     "nameRequired": "Nomen requiritur",
     "tagTooShort": "Nomen appendiculae subter longitudinem requisitam est",
@@ -135,5 +135,5 @@
     "viewProgress": "View Progress",
     "selectMember": "Elige Sodalem",
     "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
-    "selectParticipant": "Select a Participant"
+    "selectParticipant": "Eligo Participantem"
 }

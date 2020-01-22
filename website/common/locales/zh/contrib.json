@@ -34,7 +34,7 @@
     "contribName": "贡献者",
     "contribText": "为Habitica在代码，艺术，音乐，写作或其他方面作出了贡献。想知道更多，请加入Aspiring Legends公会！",
     "readMore": "阅读更多",
-    "kickstartName": "Kickstarter<%= key %>级赞助者",
+    "kickstartName": "Kickstarter<%= key %>级支持者",
     "kickstartText": "支持了Kickstarter项目",
     "helped": "帮助Habitica发展壮大",
     "helpedText1": "填写以帮助Habitica成長",
