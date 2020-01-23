@@ -97,7 +97,10 @@
               >{{ item.value }}</span>
             </span>
           </div>
-          <div v-else class="d-flex align-items-middle">
+          <div
+            v-else
+            class="d-flex align-items-middle"
+          >
             <span
               class="svg-icon inline icon-32 ml-auto my-auto"
               aria-hidden="true"
