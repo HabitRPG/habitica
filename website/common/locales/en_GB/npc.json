@@ -43,7 +43,7 @@
     "displayPotionForGold": "Do you want to sell a <strong><%= itemType %> Potion</strong>?",
     "sellForGold": "Sell it for <%= gold %> Gold",
     "howManyToSell": "How many would you like to sell?",
-    "yourBalance": "Your balance",
+    "yourBalance": "Your balance:",
     "sell": "Sell",
     "buyNow": "Buy Now",
     "sortByNumber": "Number",

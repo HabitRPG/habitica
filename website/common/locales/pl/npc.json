@@ -43,7 +43,7 @@
     "displayPotionForGold": "Czy chcesz sprzedać <strong><%= itemType %> Eliksir</strong>?",
     "sellForGold": "Sprzedaj za <%= gold %> szt. złota",
     "howManyToSell": "Ile chcesz sprzedać?",
-    "yourBalance": "Twoja saldo",
+    "yourBalance": "Twoje saldo:",
     "sell": "Sprzedaj",
     "buyNow": "Kup",
     "sortByNumber": "Numer",
