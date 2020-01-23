@@ -11,7 +11,7 @@
     "rebirthInList1": "任务、历史、装备和设置都将被保留。",
     "rebirthInList2": "挑战，公会和组队关系保留下来。",
     "rebirthInList3": "宝石，赞助者级别，和贡献者级别保留下来。",
-    "rebirthInList4": "用钻石购买或者掉落得到的物品（比如宠物和坐骑）保留。",
+    "rebirthInList4": "用宝石购买或者掉落得到的物品（比如宠物和坐骑）保留。",
     "rebirthEarnAchievement": "你会因为开始一段新冒险而获得一个成就！",
     "beReborn": "重生",
     "rebirthAchievement": "你开始了一段新冒险！这是你的第<%= number %>次冒险，你曾经获得的最高级别是<%= level %>级。有这个成就加持，当你开始下一次新冒险会达到更高的水平！",
