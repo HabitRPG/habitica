@@ -1,4 +1,7 @@
 import passport from 'passport';
+import jwt from 'jsonwebtoken';
+import AppleAuth from 'apple-auth';
+import nconf from 'nconf';
 import common from '../../../common';
 import { BadRequest } from '../errors';
 import {
@@ -8,6 +11,7 @@ import {
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../email';
+import logger from '../logger';
 
 function _passportProfile (network, accessToken) {
   return new Promise((resolve, reject) => {
@@ -21,6 +25,31 @@ function _passportProfile (network, accessToken) {
   });
 }
 
+const applePrivateKey = nconf.get('APPLE_AUTH_PRIVATE_KEY');
+const applePublicKey = nconf.get('APPLE_AUTH_PUBLIC_KEY');
+
+const auth = new AppleAuth(JSON.stringify({
+  client_id: nconf.get('APPLE_AUTH_CLIENT_ID'), // eslint-disable-line camelcase
+  team_id: nconf.get('APPLE_TEAM_ID'), // eslint-disable-line camelcase
+  key_id: nconf.get('APPLE_AUTH_KEY_ID'), // eslint-disable-line camelcase
+  redirect_uri: `${nconf.get('BASE_URL')}/api/v4/user/auth/apple`, // eslint-disable-line camelcase
+  scope: 'email',
+}), applePrivateKey.toString(), 'text');
+
+async function _appleProfile (req) {
+  let idToken = {};
+  logger.info('BEGINNING APPLE AUTH');
+  if (req.body.code) {
+    const response = await auth.accessToken(req.body.code);
+    idToken = jwt.decode(response.id_token, { algorithms: ['RS256'] });
+  } else if (req.body.id_token) {
+    idToken = jwt.verify(req.body.id_token, applePublicKey, { algorithms: ['RS256'] });
+  }
+  return {
+    id: idToken.sub,
+    emails: [idToken.email],
+  };
+}
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
   const existingUser = res.locals.user;
@@ -32,11 +61,11 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
 
   let profile = {};
   if (network === 'apple') {
-    return res.respond(200, req.body);
+    profile = await _appleProfile(req);
+  } else {
+    const accessToken = req.body.authResponse.access_token;
+    profile = await _passportProfile(network, accessToken);
   }
-  const accessToken = req.body.authResponse.access_token;
-  profile = await _passportProfile(network, accessToken);
-
 
   let user = await User.findOne({
     [`auth.${network}.id`]: profile.id,
