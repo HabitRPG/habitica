@@ -609,6 +609,14 @@ export default {
 
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, { fromRoot: true });
       });
+
+      this.$root.$on('habitica::dismiss-modal', oldModal => {
+        if (!oldModal) return;
+        const removeIndex = this.$store.state.modalStack
+          .map(modal => modal.modalId)
+          .indexOf(oldModal);
+        if (removeIndex >= 0) this.$store.state.modalStack.splice(removeIndex, 1);
+      });
     },
     validStack (modalStack) {
       const modalsThatCanShowTwice = ['profile'];
