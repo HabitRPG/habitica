@@ -43,7 +43,7 @@
     "displayPotionForGold": "Voulez-vous vendre une <strong>potion <%= itemType %></strong> ?",
     "sellForGold": "Vendre pour <%= gold %> pièces d'or",
     "howManyToSell": "Combien voulez-vous en vendre ?",
-    "yourBalance": "Votre solde",
+    "yourBalance": "Votre solde :",
     "sell": "Vendre",
     "buyNow": "Acheter",
     "sortByNumber": "Quantité",

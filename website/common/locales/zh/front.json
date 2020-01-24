@@ -200,7 +200,7 @@
     "terms": "使用条款",
     "testimonialHeading": "看看大家怎么说……",
     "tumblr": "Tumblr",
-    "localStorageTryFirst": "如果你在使用Habitica中遇到了问题，点击下方的按钮清除这个网站的本地存储和cookies(不影响其他网站)。在这之后你需要重新登录，所以在此之前你需要知道你的登录信息，可以在设置-> <%= linkStart %>网站<%= linkEnd %>中找到。",
+    "localStorageTryFirst": "如果你在使用Habitica中遇到了问题，点击下方的按钮清除这个网站的本地存储和cookies（不影响其他网站）。在这之后你需要重新登录，所以在此之前你需要知道你的登录信息，可以在设置-> <%= linkStart %>网站<%= linkEnd %>中找到。",
     "localStorageTryNext": "如果问题持续发生，如果你还没上报这个错误，请使用<%= linkStart %>报告一个错误<%= linkEnd %>。",
     "localStorageClearing": "正在清除数据",
     "localStorageClearingExplanation": "您的浏览器上的Habitica存储数据已被清除。您将被注销并且定向去主页。请稍等。",
