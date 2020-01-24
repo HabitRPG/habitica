@@ -28,7 +28,10 @@
     </div>
     <div
       id="app"
-      :class="{'casting-spell': castingSpell}"
+      :class="{
+       'casting-spell': castingSpell,
+       'resting': showRestingBanner
+      }"
     >
       <banned-account-modal />
       <amazon-payments-modal v-if="!isStaticPage" />
@@ -64,33 +67,12 @@
               ></span>
             </div>
           </div>
-          <div
-            class="g1g1-banner d-flex justify-content-center align-items-center"
-            v-if="!giftingHidden">
-            <div
-              class="svg-icon svg-gifts left-gift"
-              v-html="icons.gifts">
-            </div>
-            <router-link class="g1g1-link" to="/user/settings/subscription">
-               {{ $t('g1g1Announcement') }}
-            </router-link>
-            <div
-              class="svg-icon svg-gifts right-gift"
-              v-html="icons.gifts">
-            </div>
-            <div
-              class="closepadding"
-              @click="hideGiftingBanner()">
-              <span
-                class="svg-icon inline-icon icon-10"
-                aria-hidden="true"
-                v-html="icons.close">
-              </span>
-            </div>
-          </div>
           <notifications-display />
           <app-menu />
-          <div class="container-fluid">
+          <div
+            class="container-fluid"
+            :class="{'no-margin': noMargin}"
+          >
             <app-header />
             <buyModal
               :item="selectedItemToBuy || {}"
@@ -107,7 +89,7 @@
               <router-view />
             </div>
           </div>
-          <app-footer />
+          <app-footer v-if="!hideFooter" />
           <audio
             id="sound"
             ref="sound"
@@ -121,13 +103,20 @@
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
 
   #app {
-    height: calc(100% - 56px); /* 56px is the menu */
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     overflow-x: hidden;
+
+    &.resting {
+      --banner-resting-height: #{$restingToolbarHeight};
+    }
+
+    &.giftingBanner {
+      --banner-gifting-height: 2.5rem;
+    }
   }
 
   #loading-screen-inapp {
@@ -172,28 +161,11 @@
     flex: 1 0 auto;
   }
 
-  .g1g1-banner {
-    width: 100%;
-    min-height: 2.5rem;
-    background-color: $teal-50;
-  }
-
-  .g1g1-link {
-    color: $white;
-  }
-
-  .left-gift {
-    margin: auto 1rem auto auto;
-  }
-
-  .right-gift {
-    margin: auto auto auto 1rem;
-    filter: flipH;
-    transform: scaleX(-1);
-  }
-
-  .svg-gifts {
-    width: 4.6rem;
+  .no-margin {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .notification {
@@ -208,7 +180,7 @@
 
   .resting-banner {
     width: 100%;
-    min-height: 40px;
+    height: $restingToolbarHeight;
     background-color: $blue-10;
     top: 0;
     z-index: 1300;
@@ -291,10 +263,8 @@ import {
   CONSTANTS,
   getLocalSetting,
   removeLocalSetting,
-  setLocalSetting,
 } from '@/libs/userlocalManager';
 
-import gifts from '@/assets/svg/gifts.svg';
 import svgClose from '@/assets/svg/close.svg';
 import bannedAccountModal from '@/components/bannedAccountModal';
 
@@ -321,7 +291,6 @@ export default {
     return {
       icons: Object.freeze({
         close: svgClose,
-        gifts,
       }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
@@ -332,7 +301,6 @@ export default {
       loading: true,
       currentTipNumber: 0,
       bannerHidden: false,
-      giftingHidden: getLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY) === 'dismissed',
     };
   },
   computed: {
@@ -354,7 +322,13 @@ export default {
       return this.$t(`tip${tipNumber}`);
     },
     showRestingBanner () {
-      return !this.bannerHidden && this.user.preferences.sleep;
+      return !this.bannerHidden && this.user && this.user.preferences.sleep;
+    },
+    noMargin () {
+      return ['privateMessages'].includes(this.$route.name);
+    },
+    hideFooter () {
+      return ['privateMessages'].includes(this.$route.name);
     },
   },
   created () {
@@ -725,10 +699,6 @@ export default {
     },
     hideBanner () {
       this.bannerHidden = true;
-    },
-    hideGiftingBanner () {
-      setLocalSetting(CONSTANTS.keyConstants.GIFTING_BANNER_DISPLAY, 'dismissed');
-      this.giftingHidden = true;
     },
     resumeDamage () {
       this.$store.dispatch('user:sleep');

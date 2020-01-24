@@ -120,12 +120,12 @@
     "giftedSubscriptionFull": "Ahoy <%= username %>, <%= sender %> has sent ye <%= monthCount %> months o' subscr'ption!",
     "giftedSubscriptionWinterPromo": "Ahoy <%= username %>, ye rece'ved <%= monthCount %> months of subscr'ption as part o' our holiday gift-givin' promotion!",
     "invitedParty": "Invit'd t' Crew",
-    "invitedGuild": "Invit'd t' Ship",
+    "invitedGuild": "Ye be Invited t' a Ship",
     "importantAnnouncements": "Remind'rs t' check in t' complete tasks 'n rece've prizes",
     "weeklyRecaps": "Summaries o' ye account activity in th' past week (Note: this be currently disabled due t' performance issues, but we hope t' have this back up an' sendin' e-mails again soon!)",
     "onboarding": "Guidance wit' settin' up yer Habitica account",
     "majorUpdates": "Import'nt announcem'nts",
-    "questStarted": "Yer Adventure be Underway!",
+    "questStarted": "Yer Adventure be Underway",
     "invitedQuest": "Invited t' Adventure",
     "kickedGroup": "Kick'd from crew",
     "remindersToLogin": "Reminders t' check in t' Habitica",
@@ -206,9 +206,11 @@
     "changeUsernameDisclaimer": "This seaname will be used fer invitations, @mentions in chat, 'n messagin'.",
     "verifyUsernameVeteranPet": "One o' these Veteran Pets will be waitin' fer ye after ye've finish'd confirmin'!",
     "subscriptionReminders": "Don' ferget about yer Subscriptions",
-    "newPMNotificationTitle": "New Message from <%= name %>",
+    "newPMNotificationTitle": "There be a Message from <%= name %>",
     "onlyPrivateSpaces": "'nly in private spaces",
     "everywhere": "Ev'rywhere",
     "suggestMyUsername": "Suggest me seaname",
-    "mentioning": "Mentionin'"
+    "mentioning": "Mentionin'",
+    "chatExtensionDesc": "Th' Chat Extension fer Habitica adds an intuitive chat box t' all o' habitica.com. It allows pirates t' chat in th' Pub, their crew, and any ships they 'ave boarded.",
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chat Extension</a> n' <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox Chat Extension</a>"
 }

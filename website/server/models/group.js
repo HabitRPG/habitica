@@ -158,7 +158,7 @@ schema.plugin(baseModel, {
 
 schema.pre('init', group => {
   // The Vue website makes the summary be mandatory for all new groups, but the
-  // Angular website did not, and the API does not yet for backwards-compatibilty.
+  // Angular website did not, and the API does not yet for backwards-compatibility.
   // When any guild without a summary is fetched from the database, this code
   // supplies the name as the summary. This can be removed when all guilds have
   // a summary and the API makes it mandatory (a breaking change!)
@@ -634,7 +634,12 @@ schema.methods.sendChat = function sendChat (options = {}) {
           return;
         }
       }
-      sendPushNotification(member, { identifier: 'chatMention', title: `${user.profile.name} mentioned you in ${this.name}`, message });
+      sendPushNotification(member, {
+        identifier: 'chatMention',
+        title: `${user.profile.name} mentioned you in ${this.name}`,
+        message: newChatMessage.unformattedText,
+        payload: { type: this.type },
+      });
     });
   }
   return newChatMessage;
@@ -1340,6 +1345,8 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     .map(task => this.unlinkTask(task, user, keep, false));
   await Promise.all(assignedTasksToRemoveUserFrom);
 
+  this.unlinkTags(user);
+
   // the user could be modified by calls to `unlinkTask` for challenge and group tasks
   // it has not been saved before to avoid multiple saves in parallel
   const promises = user.isModified() ? [user.save()] : [];
@@ -1400,6 +1407,15 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   promises.push(group.update(update).exec());
 
   return Promise.all(promises);
+};
+
+schema.methods.unlinkTags = function unlinkTags (user) {
+  const group = this;
+  user.tags.forEach(tag => {
+    if (tag.group && tag.group === group._id) {
+      tag.group = undefined;
+    }
+  });
 };
 
 /**

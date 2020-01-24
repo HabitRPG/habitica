@@ -210,7 +210,7 @@ describe('POST /groups/:groupId/leave', () => {
         expect(userWithoutInvitation.invitations.guilds).to.not.be.empty;
       });
 
-      it('deletes non existant guild from user when user tries to leave', async () => {
+      it('deletes non existent guild from user when user tries to leave', async () => {
         const nonExistentGuildId = generateUUID();
         const userWithNonExistentGuild = await generateUser({ guilds: [nonExistentGuildId] });
         expect(userWithNonExistentGuild.guilds).to.contain(nonExistentGuildId);
@@ -258,7 +258,7 @@ describe('POST /groups/:groupId/leave', () => {
       });
     });
 
-    it('deletes non existant party from user when user tries to leave', async () => {
+    it('deletes non existent party from user when user tries to leave', async () => {
       const nonExistentPartyId = generateUUID();
       const userWithNonExistentParty = await generateUser({ 'party._id': nonExistentPartyId });
       expect(userWithNonExistentParty.party._id).to.eql(nonExistentPartyId);

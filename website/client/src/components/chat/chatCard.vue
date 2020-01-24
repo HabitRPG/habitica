@@ -5,7 +5,7 @@
       class="mentioned-icon"
     ></div>
     <div
-      v-if="!inbox && user.contributor.admin && msg.flagCount"
+      v-if="user.contributor.admin && msg.flagCount"
       class="message-hidden"
     >
       {{ flagCountDescription }}
@@ -27,8 +27,7 @@
           class="mr-1"
         >•</span>
         <span
-          v-b-tooltip
-          :title="msg.timestamp | date"
+          v-b-tooltip.hover="messageDate"
         >{{ msg.timestamp | timeAgo }}&nbsp;</span>
         <span v-if="msg.client && user.contributor.level >= 4">({{ msg.client }})</span>
       </p>
@@ -37,21 +36,12 @@
         class="text"
         v-html="atHighlight(parseMarkdown(msg.text))"
       ></div>
-      <div
-        v-if="isMessageReported && (inbox === true)"
-        class="reported"
-      >
-        <span v-once>{{ $t('reportedMessage') }}</span>
-        <br>
-        <span v-once>{{ $t('canDeleteNow') }}</span>
-      </div>
       <hr>
       <div
         v-if="msg.id"
         class="d-flex"
       >
         <div
-          v-if="!inbox"
           class="action d-flex align-items-center"
           @click="copyAsTodo(msg)"
         >
@@ -62,7 +52,7 @@
           <div>{{ $t('copyAsTodo') }}</div>
         </div>
         <div
-          v-if="(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== 'system'))
+          v-if="(user.flags.communityGuidelinesAccepted && msg.uuid !== 'system')
             && (!isMessageReported || user.contributor.admin)"
           class="action d-flex align-items-center"
           @click="report(msg)"
@@ -77,7 +67,7 @@
           </div>
         </div>
         <div
-          v-if="msg.uuid === user._id || inbox || user.contributor.admin"
+          v-if="msg.uuid === user._id || user.contributor.admin"
           class="action d-flex align-items-center"
           @click="remove()"
         >
@@ -91,7 +81,6 @@
           </div>
         </div>
         <div
-          v-if="!inbox"
           v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}"
           class="ml-auto d-flex"
         >
@@ -121,7 +110,7 @@
             ></div>
           </div>
         </div>
-        <span v-if="!msg.likes[user._id] && !inbox">{{ $t('like') }}</span>
+        <span v-if="!msg.likes[user._id]">{{ $t('like') }}</span>
       </div>
     </div>
   </div>
@@ -205,15 +194,9 @@
       color: $purple-400;
     }
   }
-
-  .reported {
-    margin-top: 18px;
-    color: $red-50;
-  }
 </style>
 
 <script>
-import axios from 'axios';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
@@ -244,10 +227,6 @@ export default {
   },
   props: {
     msg: {},
-    inbox: {
-      type: Boolean,
-      default: false,
-    },
     groupId: {},
   },
   data () {
@@ -311,6 +290,10 @@ export default {
       if (this.msg.flagCount < CHAT_FLAG_FROM_SHADOW_MUTE) return 'Message hidden';
       return 'Message hidden (shadow-muted)';
     },
+    messageDate () {
+      const date = moment(this.msg.timestamp).toDate();
+      return date.toString();
+    },
   },
   mounted () {
     const links = this.$refs.markdownContainer.getElementsByTagName('a');
@@ -371,11 +354,6 @@ export default {
 
       const message = this.msg;
       this.$emit('message-removed', message);
-
-      if (this.inbox) {
-        await axios.delete(`/api/v4/inbox/messages/${message.id}`);
-        return;
-      }
 
       await this.$store.dispatch('chat:deleteChat', {
         groupId: this.groupId,

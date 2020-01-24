@@ -33,6 +33,9 @@
           <div class="how-many-to-buy">
             <strong>{{ $t('howManyToBuy') }}</strong>
           </div>
+          <div class="mb-3" v-if="item.addlNotes">
+            {{ item.addlNotes }}
+          </div>
           <div class="box">
             <input
               v-model.number="selectedAmountToBuy"
@@ -157,7 +160,11 @@
       }
 
       &.gold {
-        color: $yellow-10
+        color: $yellow-10;
+      }
+
+      &.hourglasses {
+        color: $hourglass-color;
       }
     }
 

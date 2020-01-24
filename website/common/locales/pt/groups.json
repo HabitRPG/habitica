@@ -23,8 +23,8 @@
     "glossary": "<a target='_blank' href='http://habitica.fandom.com/wiki/Glossary'>Glossário</a>",
     "wiki": "Wiki",
     "wikiLink": "<a target='_blank' href='http://habitica.fandom.com/'>Wiki</a>",
-    "reportAP": "Reportar um Problema",
-    "requestAF": "Solicitar uma Funcionalidade",
+    "reportAP": "Reportar um problema",
+    "requestAF": "Solicitar uma funcionalidade",
     "community": "<a target='_blank' href='http://habitica.fandom.com/wiki/Special:Forum'>Fórum da Comunidade</a>",
     "dataTool": "Ferramenta de Exibição de Dados",
     "resources": "Recursos",
@@ -479,5 +479,7 @@
     "sharedCompletion": "Compartilhar Completos",
     "recurringCompletion": "Nenhuma - Tarefa do Grupo não finalizada",
     "singleCompletion": "Única - Completa quando qualquer usuário responsável terminar",
-    "allAssignedCompletion": "Todos - Completa quando todos os usuários finalizarem"
+    "allAssignedCompletion": "Todos - Completa quando todos os usuários finalizarem",
+    "blockedToSendToThisUser": "Você não pode enviar mensagem para esse jogador porque você o bloqueou.",
+    "PMDisabled": "Desabilitar Mensagens Privadas"
 }

@@ -84,6 +84,103 @@ describe('User Model', () => {
     expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
   });
 
+  context('achievements', () => {
+    it('can add an achievement', () => {
+      const user = new User();
+      const originalUserToJSON = user.toJSON({ minimize: false });
+      expect(originalUserToJSON.achievements.createdTask).to.not.eql(true);
+      const notificationsN = originalUserToJSON.notifications.length;
+
+      user.addAchievement('createdTask');
+
+      const userToJSON = user.toJSON();
+      expect(user.notifications.length).to.equal(notificationsN + 1);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+      expect(userToJSON.notifications[0].type).to.equal('ACHIEVEMENT');
+      expect(userToJSON.notifications[0].data).to.eql({
+        achievement: 'createdTask',
+      });
+      expect(userToJSON.notifications[0].seen).to.eql(false);
+
+      expect(userToJSON.achievements.createdTask).to.eql(true);
+    });
+
+    it('throws an error if the achievement is not valid', () => {
+      const user = new User();
+      expect(() => user.addAchievement('notAnAchievement')).to.throw;
+    });
+
+    context('static push method', () => {
+      it('throws an error if the achievement is not valid', async () => {
+        const user = new User();
+        await user.save();
+
+        await expect(User.addAchievementUpdate({ _id: user._id }, 'notAnAchievement'))
+          .to.eventually.be.rejected;
+
+        expect(() => user.addAchievement('notAnAchievement')).to.throw;
+      });
+
+      it('adds an achievement for a single member via static method', async () => {
+        let user = new User();
+        await user.save();
+
+        const originalUserToJSON = user.toJSON({ minimize: false });
+        expect(originalUserToJSON.achievements.createdTask).to.not.eql(true);
+        const notificationsN = originalUserToJSON.notifications.length;
+
+        await User.addAchievementUpdate({ _id: user._id }, 'createdTask');
+
+        user = await User.findOne({ _id: user._id }).exec();
+
+        const userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(notificationsN + 1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+        expect(userToJSON.notifications[0].type).to.equal('ACHIEVEMENT');
+        expect(userToJSON.notifications[0].data).to.eql({
+          achievement: 'createdTask',
+        });
+        expect(userToJSON.notifications[0].seen).to.eql(false);
+
+        expect(userToJSON.achievements.createdTask).to.eql(true);
+      });
+
+      it('adds an achievement for all given users via static method', async () => {
+        let user = new User();
+        const otherUser = new User();
+        await Promise.all([user.save(), otherUser.save()]);
+
+        await User.addAchievementUpdate({ _id: { $in: [user._id, otherUser._id] } }, 'createdTask');
+
+        user = await User.findOne({ _id: user._id }).exec();
+
+        let userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+        expect(userToJSON.notifications[0].type).to.equal('ACHIEVEMENT');
+        expect(userToJSON.notifications[0].data).to.eql({
+          achievement: 'createdTask',
+        });
+        expect(userToJSON.notifications[0].seen).to.eql(false);
+
+        expect(userToJSON.achievements.createdTask).to.eql(true);
+
+        user = await User.findOne({ _id: otherUser._id }).exec();
+
+        userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+        expect(userToJSON.notifications[0].type).to.equal('ACHIEVEMENT');
+        expect(userToJSON.notifications[0].data).to.eql({
+          achievement: 'createdTask',
+        });
+        expect(userToJSON.notifications[0].seen).to.eql(false);
+
+        expect(userToJSON.achievements.createdTask).to.eql(true);
+      });
+    });
+  });
+
   context('notifications', () => {
     it('can add notifications without data', () => {
       const user = new User();

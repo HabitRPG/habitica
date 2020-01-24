@@ -33,7 +33,7 @@
       <a
         class="nav-link dropdown-item
          dropdown-separated d-flex justify-content-between align-items-center"
-        @click.prevent="showInbox()"
+        @click.prevent="showPrivateMessages()"
       >
         <div>{{ $t('messages') }}</div>
         <message-count
@@ -43,7 +43,7 @@
       </a>
       <a
         class="dropdown-item"
-        @click="showAvatar('backgrounds', '2019')"
+        @click="showAvatar('backgrounds', '2020')"
       >{{ $t('backgrounds') }}</a>
       <a
         class="dropdown-item"
@@ -163,10 +163,15 @@ export default {
       this.$store.state.avatarEditorOptions.subpage = subpage;
       this.$root.$emit('bv::show::modal', 'avatar-modal');
     },
-    showInbox () {
+    showPrivateMessages () {
       markPMSRead(this.user);
       axios.post('/api/v4/user/mark-pms-read');
-      this.$root.$emit('bv::show::modal', 'inbox-modal');
+
+      if (this.$router.history.current.name === 'privateMessages') {
+        this.$root.$emit('pm::refresh');
+      } else {
+        this.$router.push('/private-messages');
+      }
     },
     showProfile (startingPage) {
       this.$router.push({ name: startingPage });

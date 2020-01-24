@@ -23,7 +23,7 @@ export async function sentMessage (sender, receiver, message, translate) {
           { name: getUserInfo(sender, ['name']).name },
           receiver.preferences.language,
         ),
-        message,
+        message: messageSent.unformattedText,
         identifier: 'newPM',
         category: 'newPM',
         payload: { replyTo: sender._id, senderName, message },
@@ -78,74 +78,6 @@ export async function getUserInbox (user, options = {
   messages.forEach(msg => { messagesObj[msg._id] = msg; });
 
   return messagesObj;
-}
-
-async function usersMapByConversations (owner, users) {
-  const query = Inbox
-    .aggregate([
-      {
-        $match: {
-          ownerId: owner._id,
-          uuid: { $in: users },
-        },
-      },
-      {
-        $group: {
-          _id: '$uuid',
-          userStyles: { $last: '$userStyles' },
-          contributor: { $last: '$contributor' },
-        },
-      },
-    ]);
-
-
-  const usersAr = await query.exec();
-  const usersMap = {};
-
-  for (const usr of usersAr) {
-    usersMap[usr._id] = usr;
-  }
-
-  return usersMap;
-}
-
-export async function listConversations (owner) {
-  // group messages by user owned by logged-in user
-  const query = Inbox
-    .aggregate([
-      {
-        $match: {
-          ownerId: owner._id,
-        },
-      },
-      {
-        $group: {
-          _id: '$uuid',
-          user: { $last: '$user' },
-          username: { $last: '$username' },
-          timestamp: { $last: '$timestamp' },
-          text: { $last: '$text' },
-          count: { $sum: 1 },
-        },
-      },
-      { $sort: { timestamp: -1 } }, // sort by latest message
-    ]);
-
-  const conversationsList = await query.exec();
-
-  const userIdList = conversationsList.map(c => c._id);
-
-  // get user-info based on conversations
-  const usersMap = await usersMapByConversations(owner, userIdList);
-
-  const conversations = conversationsList.map(res => ({
-    uuid: res._id,
-    ...res,
-    userStyles: usersMap[res._id].userStyles,
-    contributor: usersMap[res._id].contributor,
-  }));
-
-  return conversations;
 }
 
 export async function getUserInboxMessage (user, messageId) {

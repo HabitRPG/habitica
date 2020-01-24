@@ -46,7 +46,10 @@ function purchaseItem (user, item, price, type, key) {
   user.balance -= price;
 
   if (type === 'gear') {
-    user.items.gear.owned[key] = true;
+    user.items.gear.owned = {
+      ...user.items.gear.owned,
+      [key]: true,
+    };
     if (user.markModified) user.markModified('items.gear.owned');
   } else if (type === 'bundles') {
     const subType = item.type;

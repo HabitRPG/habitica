@@ -101,7 +101,7 @@
           </div>
         </div>
         <div
-          v-if="showCategorySelect && creating"
+          v-if="showCategorySelect"
           class="category-box"
         >
           <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -595,7 +595,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'challenge-modal');
       this.$router.push(`/challenges/${challenge._id}`);
     },
-    updateChallenge () {
+    async updateChallenge () {
       const categoryKeys = this.workingChallenge.categories;
       const serverCategories = [];
       categoryKeys.forEach(key => {
@@ -610,10 +610,8 @@ export default {
       const challengeDetails = clone(this.workingChallenge);
       challengeDetails.categories = serverCategories;
 
-      this.$emit('updatedChallenge', {
-        challenge: challengeDetails,
-      });
-      this.$store.dispatch('challenges:updateChallenge', { challenge: challengeDetails });
+      const challenge = await this.$store.dispatch('challenges:updateChallenge', { challenge: challengeDetails });
+      this.$emit('updatedChallenge', { challenge });
       this.resetWorkingChallenge();
       this.$root.$emit('bv::hide::modal', 'challenge-modal');
     },

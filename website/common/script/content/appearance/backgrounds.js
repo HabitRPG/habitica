@@ -941,6 +941,40 @@ const backgrounds = {
       notes: t('backgroundWinterNocturneNotes'),
     },
   },
+  backgrounds012020: {
+    birthday_party: {
+      text: t('backgroundBirthdayPartyText'),
+      notes: t('backgroundBirthdayPartyNotes'),
+    },
+    desert_with_snow: {
+      text: t('backgroundDesertWithSnowText'),
+      notes: t('backgroundDesertWithSnowNotes'),
+    },
+    snowglobe: {
+      text: t('backgroundSnowglobeText'),
+      notes: t('backgroundSnowglobeNotes'),
+    },
+  },
+  timeTravelBackgrounds: {
+    airship: {
+      text: t('backgroundAirshipText'),
+      notes: t('backgroundAirshipNotes'),
+      price: 1,
+      currency: 'hourglasses',
+    },
+    clocktower: {
+      text: t('backgroundClocktowerText'),
+      notes: t('backgroundClocktowerNotes'),
+      price: 1,
+      currency: 'hourglasses',
+    },
+    steamworks: {
+      text: t('backgroundSteamworksText'),
+      notes: t('backgroundSteamworksNotes'),
+      price: 1,
+      currency: 'hourglasses',
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
@@ -982,7 +1016,7 @@ forOwn(backgrounds, (backgroundsInSet, set) => {
   forOwn(backgroundsInSet, (background, bgKey) => {
     background.key = bgKey;
     background.set = set;
-    background.price = 7;
+    background.price = background.price || 7;
 
     flat[bgKey] = background;
   });

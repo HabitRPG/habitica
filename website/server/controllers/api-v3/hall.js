@@ -267,7 +267,7 @@ api.updateHero = {
       while (tierDiff) {
         hero.balance += gemsPerTier[newTier] / 4; // balance is in $
         tierDiff -= 1;
-        newTier -= 1; // give them gems for the next tier down if they weren't aready that tier
+        newTier -= 1; // give them gems for the next tier down if they weren't already that tier
       }
 
       hero.addNotification('NEW_CONTRIBUTOR_LEVEL');

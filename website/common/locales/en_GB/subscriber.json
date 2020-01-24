@@ -215,5 +215,19 @@
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
     "gemsRemaining": "gems remaining",
     "notEnoughGemsToBuy": "You are unable to buy that amount of gems",
-    "mysterySet201902": "Cryptic Crush Set"
+    "mysterySet201902": "Cryptic Crush Set",
+    "mysterySet201908": "Footloose Faun Set",
+    "mysterySet201907": "Beach Buddy Set",
+    "mysterySet201906": "Kindly Koi Set",
+    "mysterySet201905": "Dazzling Dragon Set",
+    "mysterySet201904": "Opulent Opal Set",
+    "mysterySet201903": "Egg-squisite Set",
+    "subWillBecomeInactive": "Will become inactive",
+    "confirmCancelSub": "Are you sure you want to cancel your subscription? You will lose all of your subscription benefits.",
+    "mysterySet201909": "Affable Acorn Set",
+    "mysterySet201910": "Cryptic Flame Set",
+    "mysterySet201911": "Crystal Charmer Set",
+    "mysterySet201912": "Polar Pixie Set",
+    "mysterySet202001": "Fabled Fox Set",
+    "subCanceledTitle": "Subscription Cancelled"
 }

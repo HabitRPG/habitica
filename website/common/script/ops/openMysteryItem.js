@@ -23,7 +23,10 @@ export default function openMysteryItem (user, req = {}, analytics) {
 
   item = cloneDeep(content.gear.flat[item]);
   item.text = content.gear.flat[item.key].text(user.preferences.language);
-  user.items.gear.owned[item.key] = true;
+  user.items.gear.owned = {
+    ...user.items.gear.owned,
+    [item.key]: true,
+  };
 
   if (user.markModified) {
     user.markModified('purchased.plan.mysteryItems');

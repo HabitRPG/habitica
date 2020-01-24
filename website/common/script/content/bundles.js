@@ -74,13 +74,14 @@ const bundles = {
     key: 'winterQuests',
     text: t('winterQuestsText'),
     notes: t('winterQuestsNotes'),
+    addlNotes: t('evilSantaAddlNotes'),
     bundleKeys: [
       'evilsanta',
       'evilsanta2',
       'penguin',
     ],
     canBuy () {
-      return moment().isBetween('2017-12-14', '2018-01-01');
+      return moment().isBetween('2019-12-19', '2020-02-02');
     },
     type: 'quests',
     value: 7,

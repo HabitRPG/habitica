@@ -2,6 +2,7 @@ import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
   translate as t,
+  server,
   sleep,
 } from '../../../../helpers/api-integration/v3';
 import { quests as questScrolls } from '../../../../../website/common/script/content/quests';
@@ -209,6 +210,40 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
 
       const returnedGroup = await groupLeader.get(`/groups/${group._id}`);
       expect(returnedGroup.chat[0]._meta).to.be.undefined;
+    });
+
+    context('sending quest activity webhooks', () => {
+      before(async () => {
+        await server.start();
+      });
+
+      after(async () => {
+        await server.close();
+      });
+
+      it('sends quest invited webhook', async () => {
+        const uuid = generateUUID();
+
+        await member.post('/user/webhook', {
+          url: `http://localhost:${server.port}/webhooks/${uuid}`,
+          type: 'questActivity',
+          enabled: true,
+          options: {
+            questInvited: true,
+          },
+        });
+
+        await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+
+        await sleep();
+
+        const body = server.getWebhookData(uuid);
+
+        expect(body.type).to.eql('questInvited');
+        expect(body.group.id).to.eql(questingGroup.id);
+        expect(body.group.name).to.eql(questingGroup.name);
+        expect(body.quest.key).to.eql(PET_QUEST);
+      });
     });
   });
 });

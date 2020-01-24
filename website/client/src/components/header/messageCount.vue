@@ -1,8 +1,9 @@
 <template functional>
   <span
-    class="message-count"
+    class="message-count d-flex align-items-center justify-content-center"
     :class="{'top-count': props.top === true, 'top-count-gray': props.gray === true}"
-  > {{ props.count }} </span>
+    v-html="props.badge || props.count"
+  ></span>
 </template>
 
 <style lang="scss">
@@ -18,6 +19,11 @@
   text-align: center;
   font-weight: bold;
   font-size: 12px;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 .message-count.top-count {

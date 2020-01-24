@@ -204,5 +204,6 @@
     "usernameVerifiedConfirmation": "Seu nome de utilizador, <%= username %>, está confirmado!",
     "usernameNotVerified": "Por favor, confirme seu nome de utilizador.",
     "changeUsernameDisclaimer": "Em breve, nós estaremos mudando os nomes de login para únicos nomes de utilizadores públicos. Este nome de utilizador irá ser usado para convites, @menções em conversa e mensagens.",
-    "verifyUsernameVeteranPet": "Um desses Mascotes Veteranos estará esperando por você depois que finalizar a confirmação!"
+    "verifyUsernameVeteranPet": "Um desses Mascotes Veteranos estará esperando por você depois que finalizar a confirmação!",
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Extensão de conversa Chrome</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Extensão de conversa Firefox</a>"
 }

@@ -63,9 +63,9 @@ export default {
     streak (val, onClick) {
       this.notify(`${val}`, 'streak', null, null, onClick, typeof onClick === 'undefined');
     },
-    text (val, onClick, timeout) {
+    text (val, onClick, timeout, delay) {
       if (!val) return;
-      this.notify(val, 'info', null, null, onClick, timeout);
+      this.notify(val, 'info', null, null, onClick, timeout, delay);
     },
     sign (number) {
       return getSign(number);
@@ -73,7 +73,7 @@ export default {
     round (number, nDigits) {
       return round(number, nDigits);
     },
-    notify (html, type, icon, sign, onClick, timeout = true) {
+    notify (html, type, icon, sign, onClick, timeout = true, delay) {
       this.$store.dispatch('snackbars:add', {
         title: '',
         text: html,
@@ -82,6 +82,7 @@ export default {
         sign,
         onClick,
         timeout,
+        delay,
       });
     },
   },

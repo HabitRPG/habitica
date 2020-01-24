@@ -46,6 +46,13 @@
         :placeholder="$t('usernamePlaceholder')"
         :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
       >
+      <div
+        v-for="issue in usernameIssues"
+        :key="issue"
+        class="input-error"
+      >
+        {{ issue }}
+      </div>
     </div>
     <div
       v-if="!registering"
@@ -97,7 +104,17 @@
         class="form-control"
         type="password"
         :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
+        :class="{
+          'input-valid': registering ? passwordValid : false,
+          'input-invalid': registering ? passwordInvalid: false,
+        }"
       >
+      <div
+        v-if="passwordInvalid && registering"
+        class="input-error"
+      >
+        {{ $t('minPasswordLength') }}
+      </div>
     </div>
     <div
       v-if="registering"
@@ -115,6 +132,12 @@
         :placeholder="$t('confirmPasswordPlaceholder')"
         :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
       >
+      <div
+        v-if="passwordConfirmInvalid"
+        class="input-error"
+      >
+        {{ $t('passwordConfirmationMatch') }}
+      </div>
       <small
         v-once
         class="form-text"
@@ -183,8 +206,11 @@
       text-align: center;
     }
 
-    .input-valid {
-      color: #fff;
+    .input-error {
+      margin-top: 0.25em;
+      font-weight: normal;
+      font-size: 90%;
+      width: 100%;
     }
   }
 </style>
@@ -194,7 +220,7 @@ import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 import { setUpAxios } from '@/libs/auth';
-
+import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
 
@@ -223,6 +249,7 @@ export default {
       return isEmail(this.email);
     },
     emailInvalid () {
+      if (this.email.length <= 3) return false;
       return !this.emailValid;
     },
     usernameValid () {
@@ -230,13 +257,23 @@ export default {
       return this.usernameIssues.length === 0;
     },
     usernameInvalid () {
+      if (this.username.length < 1) return false;
       return !this.usernameValid;
+    },
+    passwordValid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
+    },
+    passwordInvalid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length < MINIMUM_PASSWORD_LENGTH;
     },
     passwordConfirmValid () {
       if (this.passwordConfirm.length <= 3) return false;
       return this.passwordConfirm === this.password;
     },
     passwordConfirmInvalid () {
+      if (this.passwordConfirm.length <= 3) return false;
       return !this.passwordConfirmValid;
     },
   },

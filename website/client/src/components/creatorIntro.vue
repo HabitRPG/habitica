@@ -6,7 +6,15 @@
     :hide-header="true"
     :hide-footer="true"
     :modal-class="{'page-2':modalPage > 1 && !editing}"
+    :no-close-on-esc="!editing"
+    :no-close-on-backdrop="!editing"
   >
+    <span
+      v-if="editing"
+      class="close-icon svg-icon inline icon-10"
+      @click="close()"
+      v-html="icons.close"
+    ></span>
     <div
       v-if="modalPage === 1 && !editing"
       class="section row welcome-section"
@@ -113,7 +121,7 @@
             v-if="editing"
             class="menu-container col-2"
             :class="{active: activeTopPage === 'backgrounds'}"
-            @click="changeTopPage('backgrounds', '2019')"
+            @click="changeTopPage('backgrounds', '2020')"
           >
             <div class="menu-item">
               <div
@@ -187,6 +195,59 @@
             >
               <div class="small-rectangle"></div>
             </div>
+          </div>
+        </div>
+        <div
+          v-if="!filterBackgrounds"
+          class="row text-center title-row"
+        >
+          <strong>{{ backgroundShopSets[1].text }}</strong>
+        </div>
+        <div
+          v-if="!filterBackgrounds"
+          class="row title-row"
+        >
+          <div
+            v-for="bg in backgroundShopSets[1].items"
+            :key="bg.key"
+            class="col-4 text-center customize-option background-button"
+            :popover-title="bg.text"
+            :popover="bg.notes"
+            popover-trigger="mouseenter"
+            @click="!user.purchased.background[bg.key]
+              ? backgroundSelected(bg) : unlock('background.' + bg.key)"
+          >
+            <div
+              class="background"
+              :class="[`background_${bg.key}`, backgroundLockedStatus(bg.key)]"
+            ></div>
+            <i
+              v-if="!user.purchased.background[bg.key]"
+              class="glyphicon glyphicon-lock"
+            ></i>
+            <div
+              v-if="!user.purchased.background[bg.key]"
+              class="purchase-background single"
+            >
+              <div
+                class="svg-icon hourglass"
+                v-html="icons.hourglass"
+              ></div>
+              <span class="price">1</span>
+            </div>
+            <span
+              v-if="!user.purchased.background[bg.key]"
+              class="badge badge-pill badge-item badge-svg"
+              :class="{
+                'item-selected-badge': isBackgroundPinned(bg),
+                'hide': !isBackgroundPinned(bg)}"
+              @click.prevent.stop="togglePinned(bg)"
+            >
+              <span
+                class="svg-icon inline icon-12 color"
+                v-html="icons.pin"
+              ></span>
+            </span>
           </div>
         </div>
         <sub-menu
@@ -321,7 +382,7 @@
           <div class="task-option">
             <div class="custom-control custom-checkbox">
               <input
-                id="excercise"
+                id="exercise"
                 v-model="taskCategories"
                 class="custom-control-input"
                 type="checkbox"
@@ -330,7 +391,7 @@
               <label
                 v-once
                 class="custom-control-label"
-                for="excercise"
+                for="exercise"
               >{{ $t('exercise') }}</label>
             </div>
           </div>
@@ -915,7 +976,7 @@
           color: #24cc8f;
         }
 
-        .gem, .coin {
+        .gem, .coin, .hourglass {
           width: 16px;
         }
 
@@ -936,7 +997,7 @@
         }
       }
 
-      .gem, .coin {
+      .gem, .coin, .hourglass {
         margin: 0 .5em;
         display: inline-block;
         vertical-align: bottom;
@@ -1095,10 +1156,12 @@ import skinIcon from '@/assets/svg/skin.svg';
 import hairIcon from '@/assets/svg/hair.svg';
 import backgroundsIcon from '@/assets/svg/backgrounds.svg';
 import gem from '@/assets/svg/gem.svg';
+import hourglass from '@/assets/svg/hourglass.svg';
 import gold from '@/assets/svg/gold.svg';
 import pin from '@/assets/svg/pin.svg';
 import arrowRight from '@/assets/svg/arrow_right.svg';
 import arrowLeft from '@/assets/svg/arrow_left.svg';
+import svgClose from '@/assets/svg/close.svg';
 import isPinned from '@/../../common/script/libs/isPinned';
 import { avatarEditorUtilies } from '../mixins/avatarEditUtilities';
 
@@ -1134,10 +1197,12 @@ export default {
         hairIcon,
         backgroundsIcon,
         gem,
+        hourglass,
         pin,
         gold,
         arrowRight,
         arrowLeft,
+        close: svgClose,
       }),
       modalPage: 1,
       activeTopPage: 'body',
@@ -1150,7 +1215,7 @@ export default {
         },
       ],
 
-      bgSubMenuItems: ['2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
+      bgSubMenuItems: ['2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
         id: y,
         label: y,
       })),
@@ -1158,8 +1223,6 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-
-
     editing () {
       return this.$store.state.avatarEditorOptions.editingUser;
     },
@@ -1175,6 +1238,7 @@ export default {
         2017: [],
         2018: [],
         2019: [],
+        2020: [],
       };
 
       // Hack to force update for now until we restructure the data
@@ -1228,6 +1292,9 @@ export default {
     this.$root.$on('buyModal::boughtItem', this.backgroundPurchased);
   },
   methods: {
+    close () {
+      this.$root.$emit('bv::hide::modal', 'avatar-modal');
+    },
     purchase (type, key) {
       this.$store.dispatch('shops:purchase', {
         type,
@@ -1278,6 +1345,9 @@ export default {
       if (this.$route.path !== '/') {
         this.$router.push('/');
       }
+
+      // NOTE: it's important this flag is set AFTER the onboarding default tasks
+      // have been created or it'll break the onboarding guide achievement for creating a task
       this.$store.dispatch('user:set', {
         'flags.welcomed': true,
       });

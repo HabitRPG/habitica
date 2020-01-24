@@ -60,9 +60,10 @@
     "messageNotAbleToBuyInBulk": "Cet objet ne peut être acheté en quantités supérieures à 1.",
     "notificationsRequired": "Les identifiants de notification sont requis.",
     "unallocatedStatsPoints": "Vous avez <span class=\"notification-bold-blue\"><%= points %> points d'attribut non alloués</span>",
-    "beginningOfConversation": "Ceci marque le commencement de votre conversation avec <%= userName %>. N'oubliez pas de communiquer avec politesse et respect, tout en suivant les règles de vie en communauté !",
+    "beginningOfConversation": "Ceci marque le commencement de votre conversation avec <%= userName %>.",
     "messageDeletedUser": "Désolé, ce compte a été supprimé.",
     "messageMissingDisplayName": "Il manque le pseudo.",
     "reportedMessage": "Vous avez signalé ce message à l'équipe de modération.",
-    "canDeleteNow": "Vous pouvez maintenant supprimer ce message si vous le souhaitez."
+    "canDeleteNow": "Vous pouvez maintenant supprimer ce message si vous le souhaitez.",
+    "beginningOfConversationReminder": "N'oubliez pas de communiquer avec politesse et respect, tout en suivant les règles de vie en communauté !"
 }

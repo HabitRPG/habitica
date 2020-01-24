@@ -1,5 +1,6 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
+import moment from 'moment';
 import t from './translation';
 import { tasksByCategory } from './tasks';
 
@@ -117,6 +118,7 @@ api.cardTypes = {
   nye: {
     key: 'nye',
     messageOptions: 5,
+    yearRound: moment().isBefore('2020-01-02'),
   },
   thankyou: {
     key: 'thankyou',

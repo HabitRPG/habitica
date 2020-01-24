@@ -351,5 +351,7 @@
     "questEggRobotMountText": "Roboter-Reittier",
     "questEggRobotText": "Roboter-Haustier",
     "hatchingPotionShadow": "Schatten",
-    "premiumPotionUnlimitedNotes": "Nicht auf Eier von Quest-Haustieren anwendbar."
+    "premiumPotionUnlimitedNotes": "Nicht auf Eier von Quest-Haustieren anwendbar.",
+    "hatchingPotionAmber": "Bernstein",
+    "hatchingPotionAurora": "Polarlicht"
 }
