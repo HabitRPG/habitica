@@ -1,19 +1,5 @@
 <template>
   <div class="standard-page pt-0 px-0">
-    <div class="banner-g1g1 mx-n3 d-flex justify-content-center">
-      <div
-        class="svg-icon svg-gifts gifts-left my-auto mr-5 ml-auto"
-        v-html="icons.giftsVertical">
-      </div>
-      <div class="my-auto text-center">
-        <strong> {{ $t('g1g1Announcement') }} </strong>
-        <div class="mt-1"> {{ $t('g1g1Details') }} </div>
-      </div>
-      <div
-        class="svg-icon svg-gifts gifts-right my-auto ml-5 mr-auto"
-        v-html="icons.giftsVertical">
-      </div>
-    </div>
     <div class="row mt-3">
       <div class="block-header mx-auto">
         {{ $t('support') }}
@@ -88,19 +74,31 @@
       <div class="flex-spacer"></div>
       <div>
         <div class="subscribe-card d-flex flex-column">
-          <div>
+          <b-form-group class="my-auto mr-auto w-100 h-100" id="subscription-form">
             <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-            <div
+            <b-form-radio
               v-for="block in subscriptionBlocksOrdered"
               v-if="block.target !== 'group' && block.canSubscribe === true"
+              :value="block.key"
               :key="block.key"
+              v-model="subscription.key"
+              class="subscribe-option pt-2 pl-5 pb-3 mb-0"
+              :class="{selected: subscription.key === block.key}"
+              @click.native="subscription.key = block.key"
             >
             <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-              <span
-                v-html="$t('subscriptionRateText', {price: block.price, months: block.months})">
-              </span>
-            </div>
-          </div>
+              <div
+                v-html="$t('subscriptionRateText', {price: block.price, months: block.months})"
+                class="subscription-text ml-2 mb-1"
+              >
+              </div>
+              <div
+                v-html="subscriptionBubbles(block.key)"
+                class="ml-2"
+              >
+              </div>
+            </b-form-radio>
+          </b-form-group>
           <div class="payments-column mx-auto mt-auto mb-3">
             <button
               class="purchase btn btn-primary payment-button payment-item"
@@ -140,17 +138,69 @@
         </div>
       </div>
     </div>
+    <div class="d-flex flex-column align-items-middle mt-5">
+      <div class="svg-icon svg-gift-box m-auto" v-html="icons.giftBox">
+      </div>
+      <div class="muted mx-auto mt-3 mb-1">
+        {{ $t('giftSubscription') }}
+      </div>
+      <a
+        class="mx-auto"
+        @click="showSelectUser()"
+      >
+        {{ $t('giftASubscription') }}
+      </a>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
-  .disabled > .amazonpay-button-inner-image {
-    cursor: default !important;
+  @import '~@/assets/scss/colors.scss';
+  #subscription-form {
+    .disabled > .amazonpay-button-inner-image {
+      cursor: default !important;
+    }
+
+    .custom-control .custom-control-label::before,
+    .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+      margin-top: 0.75rem;
+    }
+
+    .selected {
+      background-color: rgba(213, 200, 255, 0.32);
+
+      .subscription-bubble {
+        background-color: $purple-300;
+        color: $white;
+      }
+      .subscription-text {
+        color: $purple-200;
+      }
+    }
+
+    .subscription-bubble, .discount-bubble {
+      border-radius: 100px;
+      font-size: 12px;
+    }
+
+    .subscription-bubble {
+      background-color: $gray-600;
+      color: $gray-200;
+    }
+
+    .discount-bubble {
+      background-color: $green-10;
+      color: $white;
+    }
   }
 </style>
 
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
+
+  a {
+    color: $purple-300;
+  }
 
   h2 {
     color: $purple-200;
@@ -164,32 +214,10 @@
     font-size: 16px;
   }
 
-  .banner-g1g1 {
-    height: 5.75rem;
-    background-color: $teal-50;
-    color: $white;
-  }
-
   .block-header {
     color: $purple-200;
     letter-spacing: 0.25rem;
     font-size: 20px;
-  }
-
-  .flex-spacer {
-    width: 4rem;
-  }
-
-  .gifts-right {
-    filter: flipH;
-    transform: scaleX(-1);
-  }
-
-  .image-foods {
-    background: url(~@/assets/images/subscriber-food.png);
-    background-size: contain;
-    width: 46px;
-    height: 49px;
   }
 
   .disabled {
@@ -199,6 +227,22 @@
       box-shadow: none;
       cursor: default !important;
     }
+  }
+
+  .flex-spacer {
+    width: 4rem;
+  }
+
+  .image-foods {
+    background: url(~@/assets/images/subscriber-food.png);
+    background-size: contain;
+    width: 46px;
+    height: 49px;
+  }
+
+  .muted {
+    color: $gray-200;
+    font-size: 14px;
   }
 
   .Pet-Jackalope-RoyalPurple {
@@ -214,14 +258,18 @@
     background-color: $white;
   }
 
+  .subscribe-option {
+    border-bottom: 1px solid $gray-600;
+  }
+
   .svg-gems {
     width: 42px;
     height: 52px;
   }
 
-  .svg-gifts {
-    width: 55px;
-    height: 65px;
+  .svg-gift-box {
+    width: 32px;
+    height: 32px;
   }
 
   .svg-hourglasses {
@@ -250,10 +298,10 @@ import notificationsMixin from '../../mixins/notifications';
 
 import amazonButton from '@/components/payments/amazonButton';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
-import giftsVertical from '@/assets/svg/gifts-vertical.svg';
 import logo from '@/assets/svg/habitica-logo-purple.svg';
 import subscriberGems from '@/assets/svg/subscriber-gems.svg';
 import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
+import giftBox from '@/assets/svg/gift-purple.svg';
 
 export default {
   components: {
@@ -282,10 +330,10 @@ export default {
       },
       icons: Object.freeze({
         creditCardIcon,
-        giftsVertical,
         logo,
         subscriberGems,
         subscriberHourglasses,
+        giftBox,
       }),
     };
   },
@@ -399,6 +447,21 @@ export default {
       let payMethod = this.user.purchased.plan.paymentMethod || '';
       if (payMethod === 'Group Plan') payMethod = 'GroupPlan';
       return this.$t(`cancelSubInfo${payMethod}`);
+    },
+    showSelectUser () {
+      this.$root.$emit('bv::show::modal', 'select-user-modal');
+    },
+    subscriptionBubbles (subscription) {
+      switch (subscription) {
+        case 'basic_3mo':
+          return '<span class="subscription-bubble px-2 py-1 mr-1">Gem cap raised to 30</span><span class="subscription-bubble px-2 py-1">+1 Mystic Hourglass</span>';
+        case 'basic_6mo':
+          return '<span class="subscription-bubble px-2 py-1 mr-1">Gem cap raised to 35</span><span class="subscription-bubble px-2 py-1">+2 Mystic Hourglass</span>';
+        case 'basic_12mo':
+          return '<span class="discount-bubble px-2 py-1 mr-1">Save 20%</span><span class="subscription-bubble px-2 py-1 mr-1">Gem cap raised to 45</span><span class="subscription-bubble px-2 py-1">+4 Mystic Hourglass</span>';
+        default:
+          return '<span class="subscription-bubble px-2 py-1">Gem cap at 25</span>';
+      }
     },
   },
 };
