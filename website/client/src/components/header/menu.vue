@@ -811,9 +811,7 @@ export default {
       }
     },
     dropdownMobile (click) {
-      this.dropdown(click.currentTarget.parentElement);
-    },
-    dropdown (element) {
+      const element = click.currentTarget.parentElement;
       const droppedElement = document.getElementsByClassName('down')[0];
       if (droppedElement && droppedElement !== element) {
         droppedElement.classList.remove('down');
@@ -821,9 +819,11 @@ export default {
           droppedElement.lastChild.style.maxHeight = 0;
         }
       }
-
-      element.classList.toggle('down');
-      element.lastChild.style.maxHeight = element.classList.contains('down') ? `${element.lastChild.scrollHeight}px` : 0;
+      if (element.classList.contains('down')) {
+        this.closeDropdown(element);
+      } else {
+        this.openDropdown(element);
+      }
     },
     closeDropdown (element) {
       element.classList.remove('down');
