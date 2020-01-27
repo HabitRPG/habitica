@@ -146,6 +146,18 @@ api.loginSocial = {
   },
 };
 
+// Called by apple for web authentication.
+api.redirectApple = {
+  method: 'POST',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  url: '/user/auth/apple-redirect',
+  async handler (req, res) {
+    return res.redirect(200, `/static/apple-auth?code=${req.body.code}`);
+  },
+};
+
 // Called as a callback by Apple. Internal route
 api.loginApple = {
   method: 'POST',

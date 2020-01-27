@@ -82,6 +82,24 @@ export async function socialAuth (store, params) {
   localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
 }
 
+export async function appleAuth (store, params) {
+  const url = '/api/v4/user/auth/apple';
+  const result = await axios.post(url, {
+    code: params.code,
+  });
+
+  const user = result.data.data;
+
+  const userLocalData = JSON.stringify({
+    auth: {
+      apiId: user.id,
+      apiToken: user.apiToken,
+    },
+  });
+
+  localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
+}
+
 export function logout () {
   localStorage.clear();
   window.location.href = '/logout-server';

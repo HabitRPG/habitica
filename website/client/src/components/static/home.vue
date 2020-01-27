@@ -792,7 +792,7 @@
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
-import { appleAuthProvider } from '../../libs/auth';
+import { buildAppleAuthUrl } from '../../libs/auth';
 import googlePlay from '@/assets/images/home/google-play-badge.svg';
 import iosAppStore from '@/assets/images/home/ios-app-store.svg';
 import iphones from '@/assets/images/home/iphones.svg';
@@ -902,7 +902,6 @@ export default {
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
       // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
-      apple: appleAuthProvider,
     });
   },
   methods: {
@@ -961,22 +960,26 @@ export default {
     },
     // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
-      try {
-        await hello(network).logout();
-        } catch (e) {} // eslint-disable-line
+      if (network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
+      } else {
+        try {
+          await hello(network).logout();
+          } catch (e) {} // eslint-disable-line
 
-      const redirectUrl = 'https://habitrpg-delta.herokuapp.com/api/v4/user/auth/apple';
-      const auth = await hello(network).login({
-        scope: network === 'apple' ? 'email' : 'email',
-        // explicitly pass the redirect url or it might redirect to /home
-        redirect_uri: redirectUrl, // eslint-disable-line camelcase
-      });
+        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
+        const auth = await hello(network).login({
+          scope: 'email',
+          // explicitly pass the redirect url or it might redirect to /home
+          redirect_uri: redirectUrl, // eslint-disable-line camelcase
+        });
 
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
 
-      window.location.href = '/';
+        window.location.href = '/';
+      }
     },
   },
 };
