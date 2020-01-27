@@ -69,6 +69,8 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     const accessToken = req.body.authResponse.access_token;
     profile = await _passportProfile(network, accessToken);
   }
+  logger.info('AUTH SUCCESSFUL!');
+  logger.info(profile);
 
   let user = await User.findOne({
     [`auth.${network}.id`]: profile.id,
@@ -76,6 +78,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
 
   // User already signed up
   if (user) {
+    logger.info(`FOUND USER ${user._id}`);
     return loginRes(user, req, res);
   }
 
