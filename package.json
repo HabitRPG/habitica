@@ -103,7 +103,7 @@
     "apidoc": "gulp apidoc"
   },
   "devDependencies": {
-    "axios": "^0.19.1",
+    "axios": "^0.19.2",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chalk": "^2.4.1",
