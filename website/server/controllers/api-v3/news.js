@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG POSTS! FAVORITE GUILDS AND USE CASE SPOTLIGHT';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BIRTHDAY PARTY!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,43 +31,33 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/23/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>1/31/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_beffymaroo center-block"></div>
-        <h3>Guild Spotlight: Beffymaroo's Favorites</h3>
+        <div class="promo_birthday_2020 center-block"></div>
+        <h3>Habitica Birthday Bash</h3>
         <p>
-          For this year's Guild Spotlight series, we're highlighting some favorites from Habitica's
-          staff, moderators, and maybe some high-level contributors!
+          January 31st is Habitica's Birthday! Thank you so much for being a part of our
+          community - it means a lot.
         </p>
+        <p>Now come join us and the NPCs as we celebrate!</p>
+        <h3>Cake for Everybody!</h3>
         <p>
-          This month we're kicking things off with some <a
-          href='https://habitica.wordpress.com/2020/01/23/guild-spotlight-our-favourites/' target=
-          '_blank'>picks from Beffymaroo!</a> If you want to curate your Habitica experience and
-          join active, positive Guilds, this is a great way to pick up some new ideas for Guilds
-          to join.
+          In honor of the festivities, everyone has been awarded an assortment of yummy cake to
+          feed to your pets! Plus, for the next two days <a href='/shops/market'>Alexander the
+          Merchant</a> is selling cake in his shop, and cake will sometimes drop when you complete
+          your tasks. Cake works just like normal pet food, but if you want to know what type of
+          pet likes each slice, <a href='http://habitica.wikia.com/wiki/Food' target='_blank'>the
+          wiki has spoilers</a>.
         </p>
-        <div class="small mb-3">by Beffymaroo and shanaqui</div>
-        <div class="scene_rewards center-block"></div>
-        <h3>Use Case Spotlight: Custom Habitica Mechanics</h3>
+        <h3>Party Robes</h3>
+        <p>There are Party Robes available for free in the Rewards column! Don them with pride.</p>
+        <h3>Birthday Bash Achievement</h3>
         <p>
-          This month's <a href=
-          'https://habitica.wordpress.com/2020/01/23/use-case-spotlight-custom-habitica-mechanics/'
-          target='_blank'>Use Case Spotlight</a> is about Custom Habitica Mechanics! It features a
-          number of great suggestions submitted by Habiticans in the <a href=
-          '/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>. We
-          hope it helps any of you who might be looking for ways to enhance your Habitica
-          experience.
+          In honor of Habitica's birthday, everyone has been awarded the Habitica Birthday Bash
+          achievement! This achievement stacks for each Birthday Bash you celebrate with us.
         </p>
-        <p>
-          Plus, we're collecting user submissions for the next spotlight! How do you maximize
-          participation in your quest party? We’ll be featuring player-submitted examples in Use
-          Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case
-          Spotlight Guild now. We look forward to learning more about how you use Habitica to
-          improve your life and get things done!
-        </p>
-        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });

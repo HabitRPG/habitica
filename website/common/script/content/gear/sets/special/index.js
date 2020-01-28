@@ -1145,6 +1145,12 @@ const armor = {
     value: 90,
     con: 15,
   },
+  birthday2020: {
+    text: t('armorSpecialBirthday2020Text'),
+    notes: t('armorSpecialBirthday2020Notes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_birthday2020'),
+  },
 };
 
 const back = {
