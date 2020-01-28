@@ -33,24 +33,21 @@ const auth = new AppleAuth(JSON.stringify({
   team_id: nconf.get('APPLE_TEAM_ID'), // eslint-disable-line camelcase
   key_id: nconf.get('APPLE_AUTH_KEY_ID'), // eslint-disable-line camelcase
   redirect_uri: `${nconf.get('BASE_URL')}/api/v4/user/auth/apple`, // eslint-disable-line camelcase
-  scope: 'email',
+  scope: 'name email',
 }), applePrivateKey.toString(), 'text');
 
 async function _appleProfile (req) {
   let idToken = {};
-  logger.info('BEGINNING APPLE AUTH');
   if (req.body.id_token) {
     idToken = jwt.verify(req.body.id_token, applePublicKey, { algorithms: ['RS256'] });
   } else if (req.body.code) {
-    logger.info(req.body.code);
     const response = await auth.accessToken(req.body.code);
-    logger.info(response);
     idToken = jwt.decode(response.id_token, { algorithms: ['RS256'] });
-    logger.info(idToken);
   }
   return {
     id: idToken.sub,
     emails: [idToken.email],
+    name: idToken.name,
   };
 }
 
@@ -69,8 +66,6 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     const accessToken = req.body.authResponse.access_token;
     profile = await _passportProfile(network, accessToken);
   }
-  logger.info('AUTH SUCCESSFUL!');
-  logger.info(profile);
 
   let user = await User.findOne({
     [`auth.${network}.id`]: profile.id,

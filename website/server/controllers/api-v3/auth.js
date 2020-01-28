@@ -154,7 +154,12 @@ api.redirectApple = {
   })],
   url: '/user/auth/apple',
   async handler (req, res) {
-    return res.redirect(303, `/static/apple-redirect?code=${req.body.code}`);
+    if (req.body.id_token) {
+      req.body.network = 'apple';
+      return loginSocial(req, res);
+    } else {
+      return res.redirect(303, `/static/apple-redirect?code=${req.body.code}`);
+    }
   },
 };
 
