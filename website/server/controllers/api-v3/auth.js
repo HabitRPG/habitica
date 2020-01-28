@@ -157,9 +157,8 @@ api.redirectApple = {
     if (req.body.id_token) {
       req.body.network = 'apple';
       return loginSocial(req, res);
-    } else {
-      return res.redirect(303, `/static/apple-redirect?code=${req.body.code}`);
     }
+    return res.redirect(303, `/static/apple-redirect?code=${req.body.code}`);
   },
 };
 
