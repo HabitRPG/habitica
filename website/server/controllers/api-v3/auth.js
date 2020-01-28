@@ -152,15 +152,15 @@ api.redirectApple = {
   middlewares: [authWithHeaders({
     optional: true,
   })],
-  url: '/user/auth/apple-redirect',
+  url: '/user/auth/apple',
   async handler (req, res) {
-    return res.redirect(200, `/static/apple-redirect?code=${req.body.code}`);
+    return res.redirect(303, `/static/apple-redirect?code=${req.body.code}`);
   },
 };
 
 // Called as a callback by Apple. Internal route
 api.loginApple = {
-  method: 'POST',
+  method: 'GET',
   middlewares: [authWithHeaders({
     optional: true,
   })],
