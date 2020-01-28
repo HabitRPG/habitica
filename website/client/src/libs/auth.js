@@ -38,6 +38,6 @@ export const appleAuthProvider = {
 };
 
 export function buildAppleAuthUrl () {
-  const redirectUrl = 'https://habitrpg-delta.herokuapp.com/api/v4/user/auth/apple';
+  const redirectUrl = 'https://habitrpg-delta.herokuapp.com/api/v4/user/auth/apple-redirect';
   return `https://appleid.apple.com/auth/authorize?response_mode=form_post&scope=email&response_type=code&version=2&redirect_uri=${redirectUrl}&client_id=${process.env.APPLE_AUTH_CLIENT_ID}`;
 }

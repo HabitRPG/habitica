@@ -154,7 +154,7 @@ api.redirectApple = {
   })],
   url: '/user/auth/apple-redirect',
   async handler (req, res) {
-    return res.redirect(200, `/static/apple-auth?code=${req.body.code}`);
+    return res.redirect(200, `/static/apple-redirect?code=${req.body.code}`);
   },
 };
 
