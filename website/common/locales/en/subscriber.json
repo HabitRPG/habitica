@@ -237,5 +237,8 @@
     "notEnoughGemsToBuy": "You are unable to buy that amount of Gems",
     "subscribersReceiveBenefits": "Subscribers receive these useful benefits!",
     "monthlyMysteryItems": "Monthly Mystery Items",
-    "doubleDropCap": "Double the Drops"
+    "doubleDropCap": "Double the Drops",
+    "youAreSubscribed": "You are subscribed to Habitica",
+    "subscriptionStats": "Subscription Stats",
+    "subMonths": "Sub Months"
 }

@@ -1,145 +1,248 @@
 <template>
   <div class="standard-page pt-0 px-0">
-    <div class="row mt-3">
-      <div class="block-header mx-auto">
-        {{ $t('support') }}
-      </div>
-    </div>
-    <div class="row mb-5">
-      <div
-        class="svg-icon svg-logo mx-auto mt-1"
-        v-html="icons.logo"
-      ></div>
-    </div>
-    <div class="d-flex justify-content-center">
-      <div>
-        <div class="row col-12 ml-1">
-          <h2> {{ $t('subscribersReceiveBenefits') }} </h2>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <div
-              class="svg-icon svg-gems ml-3 mt-1"
-              v-html="icons.subscriberGems"
-            ></div>
-          </div>
-          <div class="col-10">
-            <h3> {{ $t('buyGemsGold') }} </h3>
-            <p> {{ $t('subscriptionBenefit1') }} </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <div
-              class="svg-icon svg-hourglasses ml-3 mt-1"
-              v-html="icons.subscriberHourglasses"
-            ></div>
-          </div>
-          <div class="col-10">
-            <h3> {{ $t('mysticHourglassesTooltip') }} </h3>
-            <p> {{ $t('subscriptionBenefit6') }} </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <div
-              :class="currentMysterySet"
-              class="mt-n1"
-            ></div>
-          </div>
-          <div class="col-10">
-            <h3> {{ $t('monthlyMysteryItems') }} </h3>
-            <p> {{ $t('subscriptionBenefit4') }} </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <div class="Pet-Jackalope-RoyalPurple"></div>
-          </div>
-          <div class="col-10">
-            <h3> {{ $t('exclusiveJackalopePet') }} </h3>
-            <p> {{ $t('subscriptionBenefit5') }} </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <div class="image-foods ml-2 mt-2"></div>
-          </div>
-          <div class="col-10">
-            <h3> {{ $t('doubleDropCap') }} </h3>
-            <p> {{ $t('subscriptionBenefit3') }} </p>
-          </div>
+    <div v-if="!hasSubscription && !hasCanceledSubscription">
+      <div class="row mt-3">
+        <div class="block-header mx-auto">
+          {{ $t('support') }}
         </div>
       </div>
-      <div class="flex-spacer"></div>
-      <div>
-        <div class="subscribe-card d-flex flex-column">
-          <b-form-group class="my-auto mr-auto w-100 h-100" id="subscription-form">
-            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-            <b-form-radio
-              v-for="block in subscriptionBlocksOrdered"
-              v-if="block.target !== 'group' && block.canSubscribe === true"
-              :value="block.key"
-              :key="block.key"
-              v-model="subscription.key"
-              class="subscribe-option pt-2 pl-5 pb-3 mb-0"
-              :class="{selected: subscription.key === block.key}"
-              @click.native="subscription.key = block.key"
-            >
-            <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+      <div class="row mb-5">
+        <div
+          v-once
+          class="svg-icon svg-logo mx-auto mt-1"
+          v-html="icons.logo"
+        ></div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div>
+          <div class="row col-12 ml-1">
+            <h2> {{ $t('subscribersReceiveBenefits') }} </h2>
+          </div>
+          <div class="row">
+            <div class="col-2">
               <div
-                v-html="$t('subscriptionRateText', {price: block.price, months: block.months})"
-                class="subscription-text ml-2 mb-1"
-              >
-              </div>
-              <div
-                v-html="subscriptionBubbles(block.key)"
-                class="ml-2"
-              >
-              </div>
-            </b-form-radio>
-          </b-form-group>
-          <div class="payments-column mx-auto mt-auto mb-3">
-            <button
-              class="purchase btn btn-primary payment-button payment-item"
-              :class="{disabled: !subscription.key}"
-              :disabled="!subscription.key"
-              @click="showStripe({subscription:subscription.key, coupon:subscription.coupon})"
-            >
-              <div
-                class="svg-icon credit-card-icon"
-                v-html="icons.creditCardIcon"
+                v-once
+                class="svg-icon svg-gems ml-3 mt-1"
+                v-html="icons.subscriberGems"
               ></div>
-              {{ $t('card') }}
-            </button>
-            <button
-              class="btn payment-item paypal-checkout payment-button"
-              :class="{disabled: !subscription.key}"
-              :disabled="!subscription.key"
-              @click="openPaypal(paypalPurchaseLink, 'subscription')"
-            >
-              &nbsp;
-              <img
-                src="~@/assets/images/paypal-checkout.png"
-                :alt="$t('paypal')"
-              >&nbsp;
-            </button>
-            <amazon-button
-              class="payment-item"
-              :class="{disabled: !subscription.key}"
-              :disabled="!subscription.key"
-              :amazon-data="{
-                type: 'subscription',
-                subscription: subscription.key,
-                coupon: subscription.coupon
-              }"
-            />
+            </div>
+            <div class="col-10">
+              <h3> {{ $t('buyGemsGold') }} </h3>
+              <p> {{ $t('subscriptionBenefit1') }} </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <div
+                v-once
+                class="svg-icon svg-hourglasses ml-3 mt-1"
+                v-html="icons.subscriberHourglasses"
+              ></div>
+            </div>
+            <div class="col-10">
+              <h3> {{ $t('mysticHourglassesTooltip') }} </h3>
+              <p> {{ $t('subscriptionBenefit6') }} </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <div
+                :class="currentMysterySet"
+                class="mt-n1"
+              ></div>
+            </div>
+            <div class="col-10">
+              <h3> {{ $t('monthlyMysteryItems') }} </h3>
+              <p> {{ $t('subscriptionBenefit4') }} </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <div class="Pet-Jackalope-RoyalPurple"></div>
+            </div>
+            <div class="col-10">
+              <h3> {{ $t('exclusiveJackalopePet') }} </h3>
+              <p> {{ $t('subscriptionBenefit5') }} </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              <div class="image-foods ml-2 mt-2"></div>
+            </div>
+            <div class="col-10">
+              <h3> {{ $t('doubleDropCap') }} </h3>
+              <p> {{ $t('subscriptionBenefit3') }} </p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-spacer"></div>
+        <div>
+          <div class="subscribe-card d-flex flex-column">
+            <b-form-group class="my-auto mr-auto w-100 h-100" id="subscription-form">
+              <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+              <b-form-radio
+                v-for="block in subscriptionBlocksOrdered"
+                v-if="block.target !== 'group' && block.canSubscribe === true"
+                :value="block.key"
+                :key="block.key"
+                v-model="subscription.key"
+                class="subscribe-option pt-2 pl-5 pb-3 mb-0"
+                :class="{selected: subscription.key === block.key}"
+                @click.native="subscription.key = block.key"
+              >
+              <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+                <div
+                  v-html="$t('subscriptionRateText', {price: block.price, months: block.months})"
+                  class="subscription-text ml-2 mb-1"
+                >
+                </div>
+                <div
+                  v-html="subscriptionBubbles(block.key)"
+                  class="ml-2"
+                >
+                </div>
+              </b-form-radio>
+            </b-form-group>
+            <div class="payments-column mx-auto mt-auto mb-3">
+              <button
+                class="purchase btn btn-primary payment-button payment-item"
+                :class="{disabled: !subscription.key}"
+                :disabled="!subscription.key"
+                @click="showStripe({subscription:subscription.key, coupon:subscription.coupon})"
+              >
+                <div
+                  v-once
+                  class="svg-icon credit-card-icon"
+                  v-html="icons.creditCardIcon"
+                ></div>
+                {{ $t('card') }}
+              </button>
+              <button
+                class="btn payment-item paypal-checkout payment-button"
+                :class="{disabled: !subscription.key}"
+                :disabled="!subscription.key"
+                @click="openPaypal(paypalPurchaseLink, 'subscription')"
+              >
+                &nbsp;
+                <img
+                  src="~@/assets/images/paypal-checkout.png"
+                  :alt="$t('paypal')"
+                >&nbsp;
+              </button>
+              <amazon-button
+                class="payment-item"
+                :class="{disabled: !subscription.key}"
+                :disabled="!subscription.key"
+                :amazon-data="{
+                  type: 'subscription',
+                  subscription: subscription.key,
+                  coupon: subscription.coupon
+                }"
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="d-flex flex-column align-items-middle mt-5">
-      <div class="svg-icon svg-gift-box m-auto" v-html="icons.giftBox">
+    <div
+      v-if="hasSubscription"
+      class="d-flex flex-column align-items-center"
+    >
+      <h1 class="mt-4 mx-auto">{{ $t('subscription') }}</h1>
+      <div class="subscribe-card mx-auto">
+        <div
+          v-if="hasSubscription && !hasCanceledSubscription"
+          class="d-flex flex-column align-items-center my-4"
+        >
+          <div class="check-container d-flex align-items-center justify-content-center">
+            <div
+              v-once
+              class="svg-icon svg-check"
+              v-html="icons.checkmarkIcon"
+            ></div>
+          </div>
+          <h2 class="green-10 mx-auto">{{ $t('youAreSubscribed') }}</h2>
+          <div
+            v-if="hasGroupPlan"
+            class="mx-5 text-center"
+          >
+            {{ $t('youHaveGroupPlan') }}
+          </div>
+          <div
+            v-else
+            class="w-50 text-center"
+            v-html="$t('paymentSubBillingWithMethod', {
+              amount: purchasedPlanIdInfo.price,
+              months: purchasedPlanIdInfo.months,
+              paymentMethod: purchasedPlanIdInfo.plan
+            })"
+          >
+          </div>
+          <div
+            v-if="purchasedPlanExtraMonthsDetails.months"
+            class="extra-months green-10 py-2 px-3 mt-4"
+            v-html="$t('purchasedPlanExtraMonths',
+            {months: purchasedPlanExtraMonthsDetails.months})"
+          >
+          </div>
+        </div>
+        <div
+          v-if="hasSubscription"
+          class="bg-gray-700 p-2 text-center"
+        >
+          <div class="header-mini mb-3">{{ $t('subscriptionStats') }}</div>
+          <div class="d-flex justify-content-around">
+            <div>
+              <div class="d-flex justify-content-around align-items-center">
+                <div
+                  v-once
+                  class="svg-icon svg-calendar mr-2"
+                  v-html="icons.calendarIcon"
+                >
+                </div>
+                <div class="number-heavy">
+                  {{ user.purchased.plan.consecutive.count +
+                    user.purchased.plan.consecutive.offset }}
+                </div>
+              </div>
+              <div class="stats-label">{{ $t('subMonths') }}</div>
+            </div>
+            <div>
+              <div class="d-flex justify-content-around align-items-center">
+                <div
+                  v-once
+                  class="svg-icon svg-gem mr-2"
+                  v-html="icons.gemIcon"
+                >
+                </div>
+                <div class="number-heavy">
+                  {{ user.purchased.plan.consecutive.gemCapExtra }}
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="d-flex justify-content-around align-items-center">
+                <div
+                  v-once
+                  class="svg-icon svg-hourglass mt-1 mr-2"
+                  v-html="icons.hourglassIcon"
+                >
+                </div>
+                <div class="number-heavy">
+                  {{ user.purchased.plan.consecutive.trinkets }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column align-items-center mt-5">
+      <div
+        v-once
+        class="svg-icon svg-gift-box m-auto"
+        v-html="icons.giftBox"
+      >
       </div>
       <div class="muted mx-auto mt-3 mb-1">
         {{ $t('giftSubscription') }}
@@ -202,7 +305,7 @@
     color: $purple-300;
   }
 
-  h2 {
+  h1, h2 {
     color: $purple-200;
   }
 
@@ -214,10 +317,23 @@
     font-size: 16px;
   }
 
+  .bg-gray-700 {
+    background-color: $gray-700;
+  }
+
   .block-header {
     color: $purple-200;
     letter-spacing: 0.25rem;
     font-size: 20px;
+  }
+
+  .check-container {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: $green-10;
+    margin: 0 auto;
+    margin-bottom: 16px;
   }
 
   .disabled {
@@ -229,8 +345,22 @@
     }
   }
 
+  .extra-months {
+    border-radius: 2px;
+    border: 1px solid $green-50;
+  }
+
   .flex-spacer {
     width: 4rem;
+  }
+
+  .green-10 {
+    color: $green-10;
+  }
+
+  .header-mini {
+    font-size: 12px;
+    font-weight: bold;
   }
 
   .image-foods {
@@ -241,13 +371,22 @@
   }
 
   .muted {
-    color: $gray-200;
     font-size: 14px;
+    color: $gray-200;
+  }
+
+  .number-heavy {
+    font-size: 24px;
   }
 
   .Pet-Jackalope-RoyalPurple {
     margin-top: -1.75rem;
     transform: scale(0.75);
+  }
+
+  .stats-label {
+    font-size: 12px;
+    color: $gray-200;
   }
 
   .subscribe-card {
@@ -262,9 +401,30 @@
     border-bottom: 1px solid $gray-600;
   }
 
+  .svg-calendar {
+    width: 24px;
+    height: 24px;
+  }
+
+  .svg-check {
+    width: 35.1px;
+    height: 28px;
+    color: white;
+  }
+
+  .svg-gem {
+    width: 32px;
+    height: 28px;
+  }
+
   .svg-gems {
     width: 42px;
     height: 52px;
+  }
+
+  .svg-hourglass {
+    width: 28px;
+    height: 28px;
   }
 
   .svg-gift-box {
@@ -297,11 +457,16 @@ import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 
 import amazonButton from '@/components/payments/amazonButton';
+
+import calendarIcon from '@/assets/svg/calendar-purple.svg';
+import checkmarkIcon from '@/assets/svg/check.svg';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+import gemIcon from '@/assets/svg/gem.svg';
+import giftBox from '@/assets/svg/gift-purple.svg';
+import hourglassIcon from '@/assets/svg/hourglass.svg';
 import logo from '@/assets/svg/habitica-logo-purple.svg';
 import subscriberGems from '@/assets/svg/subscriber-gems.svg';
 import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
-import giftBox from '@/assets/svg/gift-purple.svg';
 
 export default {
   components: {
@@ -329,11 +494,15 @@ export default {
         GIFT: 'Gift',
       },
       icons: Object.freeze({
+        calendarIcon,
+        checkmarkIcon,
         creditCardIcon,
+        gemIcon,
+        giftBox,
+        hourglassIcon,
         logo,
         subscriberGems,
         subscriberHourglasses,
-        giftBox,
       }),
     };
   },

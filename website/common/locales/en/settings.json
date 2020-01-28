@@ -180,7 +180,7 @@
     "mysticHourglass": "<%= amount %> Mystic Hourglass",
     "mysticHourglassText": "Mystic Hourglasses allow purchasing a previous month's Mystery Item set.",
     "purchasedPlanId": "Recurring $<%= price %> USD each <%= months %> Month(s) (<%= plan %>)",
-    "purchasedPlanExtraMonths": "You have <%= months %> months of extra subscription credit.",
+    "purchasedPlanExtraMonths": "You have <strong><%= months %> months</strong> of extra subscription credit.",
     "consecutiveSubscription": "Consecutive Subscription",
     "consecutiveMonths": "Consecutive Months:",
     "gemCapExtra": "Gem Cap Extra:",
