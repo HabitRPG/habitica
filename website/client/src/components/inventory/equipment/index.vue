@@ -45,6 +45,7 @@
         >
           {{ $t('equipment') }}
         </h1>
+
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
           <b-dropdown
@@ -80,29 +81,49 @@
           </b-dropdown>
         </div>
       </div>
+
+      <button
+        class="btn"
+        :class="{'btn-primary': !costumeMode, 'btn-light': costumeMode}"
+        @click="selectDrawerTab('equipment')"
+      >
+        {{ $t('battleGear') }}
+      </button>
+      <button
+        class="btn"
+        :class="{'btn-primary': costumeMode, 'btn-light': !costumeMode}"
+        @click="selectDrawerTab('costume')"
+      >
+        {{ $t('costume') }}
+      </button>
+      <button class="btn btn-danger">
+        Cancel
+      </button>
       <drawer
-        :title="$t('equipment')"
+        :no-title-bottom-padding="true"
         :error-message="(costumeMode && !user.preferences.costume) ? $t('costumeDisabled') : null"
         :open-status="openStatus"
         @toggled="drawerToggled"
       >
+        <div slot="drawer-title-row" class="title-row-tabs">
+          <div class="drawer-tab">
+            <a
+              class="drawer-tab-text"
+              :class="{'drawer-tab-text-active': !costumeMode}"
+              @click.prevent.stop="selectDrawerTab('equipment')"
+            >{{ $t('battleGear') }}</a>
+          </div>
+          <div class="drawer-tab">
+            <a
+              class="drawer-tab-text"
+              :class="{'drawer-tab-text-active': costumeMode}"
+              @click.prevent.stop="selectDrawerTab('costume')"
+            >{{ $t('costume') }}</a>
+          </div>
+        </div>
         <div slot="drawer-header">
           <div class="drawer-tab-container">
-            <div class="drawer-tab text-right">
-              <a
-                class="drawer-tab-text"
-                :class="{'drawer-tab-text-active': !costumeMode}"
-                @click="selectDrawerTab('equipment')"
-              >{{ $t('equipment') }}</a>
-            </div>
             <div class="clearfix">
-              <div class="drawer-tab float-left">
-                <a
-                  class="drawer-tab-text"
-                  :class="{'drawer-tab-text-active': costumeMode}"
-                  @click="selectDrawerTab('costume')"
-                >{{ $t('costume') }}</a>
-              </div>
               <toggle-switch
                 class="float-right align-with-tab"
                 :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
@@ -225,6 +246,23 @@
 
 .drawer-tab-text {
   display: inline-block;
+}
+</style>
+
+<style lang="scss" scoped>
+@import '~@/assets/scss/colors.scss';
+
+.btn-light {
+  color: $gray-50
+}
+
+.title-row-tabs {
+  display: flex;
+  justify-content: center;
+
+  .drawer-tab {
+    background: transparent;
+  }
 }
 </style>
 
