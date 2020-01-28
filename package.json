@@ -55,6 +55,8 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "1.0.0",
+    "apple-auth": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
     "paypal-ipn": "3.0.0",
     "paypal-rest-sdk": "^1.8.1",
     "ps-tree": "^1.0.0",

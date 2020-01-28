@@ -146,6 +146,31 @@ api.loginSocial = {
   },
 };
 
+// Called by apple for web authentication.
+api.redirectApple = {
+  method: 'POST',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  url: '/user/auth/apple-redirect',
+  async handler (req, res) {
+    return res.redirect(200, `/static/apple-auth?code=${req.body.code}`);
+  },
+};
+
+// Called as a callback by Apple. Internal route
+api.loginApple = {
+  method: 'POST',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  url: '/user/auth/apple',
+  async handler (req, res) {
+    req.body.network = 'apple';
+    return loginSocial(req, res);
+  },
+};
+
 /**
  * @api {put} /api/v3/user/auth/update-username Update username
  * @apiDescription Update the username of a local user

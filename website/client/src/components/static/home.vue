@@ -28,31 +28,6 @@
             <h3 class="text-center">
               {{ $t('singUpForFree') }}
             </h3>
-            <div class="text-center">
-              <button
-                class="social-button"
-                @click="socialAuth('facebook')"
-              >
-                <div
-                  class="svg-icon social-icon"
-                  v-html="icons.facebookIcon"
-                ></div>
-                <span>{{ $t('signUpWithSocial', {social: 'Facebook'}) }}</span>
-              </button>
-              <button
-                class="social-button"
-                @click="socialAuth('google')"
-              >
-                <div
-                  class="svg-icon social-icon"
-                  v-html="icons.googleIcon"
-                ></div>
-                <span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
-              </button>
-            </div>
-            <div class="strike">
-              <span>{{ $t('or') }}</span>
-            </div>
             <form
               class="form"
               @submit.prevent.stop="register()"
@@ -128,6 +103,41 @@
                 {{ $t('signup') }}
               </button>
             </form>
+            <div class="strike">
+              <span>{{ $t('or') }}</span>
+            </div>
+            <div class="text-center">
+              <button
+                class="social-button"
+                @click="socialAuth('facebook')"
+              >
+                <div
+                  class="svg-icon social-icon"
+                  v-html="icons.facebookIcon"
+                ></div>
+                <span>{{ $t('signUpWithSocial', {social: 'Facebook'}) }}</span>
+              </button>
+              <button
+                class="social-button"
+                @click="socialAuth('google')"
+              >
+                <div
+                  class="svg-icon social-icon"
+                  v-html="icons.googleIcon"
+                ></div>
+                <span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
+              </button>
+              <button
+                class="social-button"
+                @click="socialAuth('apple')"
+              >
+                <div
+                  class="svg-icon social-icon"
+                  v-html="icons.appleIcon"
+                ></div>
+                <span>{{ $t('signUpWithSocial', {social: 'Apple'}) }}</span>
+              </button>
+            </div>
           </div>
           <div class="col-12">
             <div
@@ -457,11 +467,11 @@
     .social-button {
       border-radius: 2px;
       border: solid 2px #bda8ff;
-      width: 48%;
+      width: 100%;
       min-height: 40px;
       padding: .5em;
       background: transparent;
-      margin-right: .5em;
+      margin-bottom: .5em;
       color: #bda8ff;
       transition: .5s;
 
@@ -782,6 +792,7 @@
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
+import { buildAppleAuthUrl } from '../../libs/auth';
 import googlePlay from '@/assets/images/home/google-play-badge.svg';
 import iosAppStore from '@/assets/images/home/ios-app-store.svg';
 import iphones from '@/assets/images/home/iphones.svg';
@@ -791,6 +802,7 @@ import pixelHorizontal2 from '@/assets/images/home/pixel-horizontal-2.svg';
 import pixelHorizontal3 from '@/assets/images/home/pixel-horizontal-3.svg';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
+import appleIcon from '@/assets/svg/apple.svg';
 import cnet from '@/assets/svg/cnet.svg';
 import fastCompany from '@/assets/svg/fast-company.svg';
 import discover from '@/assets/images/home/discover.svg';
@@ -815,6 +827,7 @@ export default {
         pixelHorizontal3,
         facebookIcon: facebookSquareIcon,
         googleIcon,
+        appleIcon,
         cnet,
         fastCompany,
         discover,
@@ -886,9 +899,9 @@ export default {
     });
 
     hello.init({
-        facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
+      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
       // windows: WINDOWS_CLIENT_ID,
-        google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },
   methods: {
@@ -947,22 +960,26 @@ export default {
     },
     // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
-      try {
-        await hello(network).logout();
-        } catch (e) {} // eslint-disable-line
+      if (network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
+      } else {
+        try {
+          await hello(network).logout();
+          } catch (e) {} // eslint-disable-line
 
-      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-      const auth = await hello(network).login({
-        scope: 'email',
-        // explicitly pass the redirect url or it might redirect to /home
-        redirect_uri: redirectUrl, // eslint-disable-line camelcase
-      });
+        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
+        const auth = await hello(network).login({
+          scope: 'email',
+          // explicitly pass the redirect url or it might redirect to /home
+          redirect_uri: redirectUrl, // eslint-disable-line camelcase
+        });
 
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
 
-      window.location.href = '/';
+        window.location.href = '/';
+      }
     },
   },
 };
