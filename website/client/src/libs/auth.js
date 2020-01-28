@@ -23,6 +23,6 @@ export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefe
 }
 
 export function buildAppleAuthUrl () {
-  const redirectUrl = `${window.location.protocol}//${window.location.host}/api/v4/user/auth/apple`;
+  const redirectUrl = `${window.location.protocol}//${window.location.host}/api/v4/user/auth/apple-redirect`;
   return `https://appleid.apple.com/auth/authorize?response_mode=form_post&scope=email&response_type=code&version=2&redirect_uri=${redirectUrl}&client_id=${process.env.APPLE_AUTH_CLIENT_ID}`;
 }
