@@ -561,7 +561,7 @@ import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import changeClass from '@/../../common/script/ops/changeClass';
 import notificationsMixin from '../../mixins/notifications';
 import sounds from '../../libs/sounds';
-import { appleAuthProvider } from '../../libs/auth';
+import { buildAppleAuthUrl } from '../../libs/auth';
 
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
@@ -689,7 +689,6 @@ export default {
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
-      apple: appleAuthProvider,
     }, {
       redirect_uri: '', // eslint-disable-line
     });
@@ -839,6 +838,9 @@ export default {
       this.text(this.$t('detachedSocial', { network: network.name }));
     },
     async socialAuth (network) {
+      if (network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
+      } else {
       const auth = await hello(network).login({ scope: 'email' });
 
       await this.$store.dispatch('auth:socialAuth', {
@@ -846,6 +848,7 @@ export default {
       });
 
       window.location.href = '/';
+      }
     },
     async changeClassForUser (confirmationNeeded) {
       if (confirmationNeeded && !window.confirm(this.$t('changeClassConfirmCost'))) return;
