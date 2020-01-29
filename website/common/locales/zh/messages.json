@@ -15,7 +15,7 @@
     "messageEquipped": " 已装备<%= itemText %>。",
     "messageUnEquipped": "取下<%= itemText %>。",
     "messageMissingEggPotion": "你没选择药水或者宠物蛋",
-    "messageInvalidEggPotionCombo": "你不能用孵化药水孵化这个宠物蛋,试试其他的蛋。",
+    "messageInvalidEggPotionCombo": "你不能用孵化药水孵化副本宠物蛋，试试其他的蛋。",
     "messageAlreadyPet": "你已经拥有这种宠物了，试着用另一种组合方式孵化吧！",
     "messageHatched": "你的蛋孵化了，造访你的马厩来装备你的宠物吧。",
     "messageNotEnoughGold": "金币不够",
@@ -60,9 +60,10 @@
     "messageNotAbleToBuyInBulk": "这件物品只能买1个。",
     "notificationsRequired": "需要“消息id”。",
     "unallocatedStatsPoints": "你有<span class=\"notification-bold-blue\"><%= points %>点没分配的属性点</span>",
-    "beginningOfConversation": "现在开始和<%= userName %>愉快的聊天吧！记住要善待和尊重他人并遵守社区准则！",
+    "beginningOfConversation": "现在开始和<%= userName %>愉快的聊天吧。",
     "messageDeletedUser": "抱歉，此用户已删除其帐户。",
     "messageMissingDisplayName": "缺少角色名。",
     "reportedMessage": "你已将此信息上报给管理员。",
-    "canDeleteNow": "请确认你确实想要删除此信息。"
+    "canDeleteNow": "请确认你确实想要删除此信息。",
+    "beginningOfConversationReminder": "记住要善待和尊重他人并遵守社区准则！"
 }

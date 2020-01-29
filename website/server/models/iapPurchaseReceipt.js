@@ -8,7 +8,7 @@ export const schema = new Schema({
   _id: { $type: String, required: true }, // Use a custom string as _id
   consumed: { $type: Boolean, default: false, required: true },
   userId: {
-    $type: String, ref: 'User', required: true, validate: [v => validator.isUUID(v), 'Invalid uuid.'],
+    $type: String, ref: 'User', required: true, validate: [v => validator.isUUID(v), 'Invalid uuid for iapPurchaseReceipt.'],
   },
 }, {
   strict: true,

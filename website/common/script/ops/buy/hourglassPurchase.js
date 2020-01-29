@@ -8,6 +8,8 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import errorMessage from '../../libs/errorMessage';
+import getItemInfo from '../../libs/getItemInfo';
+import { removeItemByPath } from '../pinnedGearUtils';
 
 export default function purchaseHourglass (user, req = {}, analytics, quantity = 1) {
   const key = get(req, 'params.key');
@@ -16,7 +18,24 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
   const type = get(req, 'params.type');
   if (!type) throw new BadRequest(errorMessage('missingTypeParam'));
 
-  if (type === 'quests') {
+  if (type === 'backgrounds') {
+    if (!content.backgroundsFlat[key] || content.backgroundsFlat[key].currency !== 'hourglasses') {
+      throw new NotAuthorized(i18n.t('notAllowedHourglass', req.language));
+    }
+    if (user.purchased.background[key]) {
+      throw new NotAuthorized(i18n.t('backgroundAlreadyOwned', req.language));
+    }
+    if (user.purchased.plan.consecutive.trinkets <= 0) {
+      throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
+    }
+
+    user.purchased.background[key] = true;
+    user.purchased.plan.consecutive.trinkets -= 1;
+    const itemInfo = getItemInfo(user, 'background', content.backgroundsFlat[key]);
+    removeItemByPath(user, itemInfo.path);
+
+    if (user.markModified) user.markModified('purchased.background');
+  } else if (type === 'quests') {
     if (!content.quests[key] || content.quests[key].category !== 'timeTravelers') throw new NotAuthorized(i18n.t('notAllowedHourglass', req.language));
     if (user.purchased.plan.consecutive.trinkets < quantity) {
       throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));

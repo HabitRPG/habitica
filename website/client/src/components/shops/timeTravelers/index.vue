@@ -390,9 +390,9 @@ export default {
       // force update for now until we restructure the data
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
-      const normalGroups = _filter(apiCategories, c => c.identifier === 'mounts' || c.identifier === 'pets' || c.identifier === 'quests');
+      const normalGroups = _filter(apiCategories, c => c.identifier === 'mounts' || c.identifier === 'pets' || c.identifier === 'quests' || c.identifier === 'backgrounds');
 
-      const setGroups = _filter(apiCategories, c => c.identifier !== 'mounts' && c.identifier !== 'pets' && c.identifier !== 'quests');
+      const setGroups = _filter(apiCategories, c => c.identifier !== 'mounts' && c.identifier !== 'pets' && c.identifier !== 'quests' && c.identifier !== 'backgrounds');
 
       const setCategory = {
         identifier: 'sets',

@@ -120,7 +120,7 @@
     "giftedSubscriptionFull": "Ahoy <%= username %>, <%= sender %> has sent ye <%= monthCount %> months o' subscr'ption!",
     "giftedSubscriptionWinterPromo": "Ahoy <%= username %>, ye rece'ved <%= monthCount %> months of subscr'ption as part o' our holiday gift-givin' promotion!",
     "invitedParty": "Invit'd t' Crew",
-    "invitedGuild": "Invit'd t' Ship",
+    "invitedGuild": "Ye be Invited t' a Ship",
     "importantAnnouncements": "Remind'rs t' check in t' complete tasks 'n rece've prizes",
     "weeklyRecaps": "Summaries o' ye account activity in th' past week (Note: this be currently disabled due t' performance issues, but we hope t' have this back up an' sendin' e-mails again soon!)",
     "onboarding": "Guidance wit' settin' up yer Habitica account",

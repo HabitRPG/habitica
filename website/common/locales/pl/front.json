@@ -331,5 +331,6 @@
     "getStarted": "Zaczynamy!",
     "mobileApps": "Aplikacje mobilne",
     "learnMore": "Dowiedz się więcej",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "Hasło musi zawierać co najmniej 8 znaków."
 }

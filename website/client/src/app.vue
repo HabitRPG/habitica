@@ -29,8 +29,8 @@
     <div
       id="app"
       :class="{
-       'casting-spell': castingSpell,
-       'resting': showRestingBanner
+        'casting-spell': castingSpell,
+        'resting': showRestingBanner
       }"
     >
       <banned-account-modal />
@@ -610,12 +610,23 @@ export default {
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, { fromRoot: true });
       });
 
+      // Dismiss modal aggressively. Pass a modal ID to remove a modal instance from the stack
+      // (both the stack entry itself and its "prev" reference) so we don't reopen it
       this.$root.$on('habitica::dismiss-modal', oldModal => {
         if (!oldModal) return;
-        const removeIndex = this.$store.state.modalStack
+        this.$root.$emit('bv::hide::modal', oldModal);
+        let removeIndex = this.$store.state.modalStack
           .map(modal => modal.modalId)
           .indexOf(oldModal);
-        if (removeIndex >= 0) this.$store.state.modalStack.splice(removeIndex, 1);
+        if (removeIndex >= 0) {
+          this.$store.state.modalStack.splice(removeIndex, 1);
+        }
+        removeIndex = this.$store.state.modalStack
+          .map(modal => modal.prev)
+          .indexOf(oldModal);
+        if (removeIndex >= 0) {
+          delete this.$store.state.modalStack[removeIndex].prev;
+        }
       });
     },
     validStack (modalStack) {

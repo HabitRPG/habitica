@@ -169,5 +169,6 @@
     "imReady": "Entrar en Habitica",
     "limitedOffer": "Disponible hasta <%= date %>",
     "paymentAutoRenew": "Esta suscripción se renovará automáticamente hasta que sea cancelada. Si necesitas cancelar está suscripción, puedes hacerlo desde tus Configuraciones.",
-    "paymentCanceledDisputes": "Hemos enviado una confirmación de cancelación a tu correo electrónico. Si no ves el correo, por favor contáctanos para prevenir futuros problemas de facturación."
+    "paymentCanceledDisputes": "Hemos enviado una confirmación de cancelación a tu correo electrónico. Si no ves el correo, por favor contáctanos para prevenir futuros problemas de facturación.",
+    "cannotUnpinItem": "Este objeto no puede desanclarse."
 }

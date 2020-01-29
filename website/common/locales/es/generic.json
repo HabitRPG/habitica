@@ -294,5 +294,7 @@
     "options": "Opciones",
     "demo": "Demo",
     "loadEarlierMessages": "Cargar Mensajes Anteriores",
-    "finish": "Terminar"
+    "finish": "Terminar",
+    "congratulations": "¡Enhorabuena!",
+    "onboardingAchievs": "Logros de incorporación"
 }

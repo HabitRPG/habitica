@@ -20,7 +20,7 @@
     "welcomeToTavern": "Witaj w Karczmie!",
     "sleepDescription": "Potrzebujesz przerwy? Odwiedź Gospodę Daniela by zatrzymać bardziej skomplikowane elementy Habitiki:",
     "sleepBullet1": "Pominięte Codziennie nie zadadzą Ci obrażeń",
-    "sleepBullet2": "Zadania nie stracą serii ani nie osłabią się w kolorze",
+    "sleepBullet2": "Zadania nie stracą serii",
     "sleepBullet3": "Bossowie nie zadadzą ci obrażeń za ominięte, własne Codziennie",
     "sleepBullet4": "Twoje obrażenia dla bossa albo zebranie przedmiotów zostaną jako oczekujące do końca dnia",
     "pauseDailies": "Wstrzymaj obrażenia",
@@ -43,7 +43,7 @@
     "displayPotionForGold": "Czy chcesz sprzedać <strong><%= itemType %> Eliksir</strong>?",
     "sellForGold": "Sprzedaj za <%= gold %> szt. złota",
     "howManyToSell": "Ile chcesz sprzedać?",
-    "yourBalance": "Twoja saldo",
+    "yourBalance": "Twoje saldo:",
     "sell": "Sprzedaj",
     "buyNow": "Kup",
     "sortByNumber": "Numer",
@@ -169,5 +169,6 @@
     "imReady": "Wejdź do Habitiki",
     "limitedOffer": "Dostępne do <%= date %>",
     "paymentAutoRenew": "Subskrypcja odnowi się automatycznie dopóki nie zostanie anulowana. Jeśli chcesz anulować subskrypcję, możesz zrobić to w ustawieniach.",
-    "paymentCanceledDisputes": "Potwierdzenie anulowania zostało przesłane na Twój e-mail. Jeśli nie możesz go znaleźć, skontaktuj się z nami, aby zapobiec ewentualnym sporom w sprawie rozliczeń."
+    "paymentCanceledDisputes": "Potwierdzenie anulowania zostało przesłane na Twój e-mail. Jeśli nie możesz go znaleźć, skontaktuj się z nami, aby zapobiec ewentualnym sporom w sprawie rozliczeń.",
+    "cannotUnpinItem": "Ten przedmiot nie może być odpięty."
 }

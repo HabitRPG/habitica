@@ -492,5 +492,12 @@
     "backgroundHalflingsHouseText": "Halfling's House",
     "backgroundBirchForestNotes": "Dally in a peaceful Birch Forest.",
     "backgroundBirchForestText": "Birch Forest",
-    "backgrounds042019": "SET 59: Released April 2019"
+    "backgrounds042019": "SET 59: Released April 2019",
+    "backgroundClocktowerNotes": "Situate your secret lair behind the face of a Clock Tower.",
+    "backgroundClocktowerText": "Clock Tower",
+    "backgroundSteamworksNotes": "Build mighty contraptions of vapour and steel in a Steamworks.",
+    "backgroundSteamworksText": "Steamworks",
+    "backgroundAirshipNotes": "Become a sky sailor on board your very own Airship.",
+    "backgroundAirshipText": "Airship",
+    "timeTravelBackgrounds": "Steampunk Backgrounds"
 }

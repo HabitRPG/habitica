@@ -1,6 +1,7 @@
 {
     "subscription": "Subscription",
     "subscriptions": "Subscriptions",
+    "viewSubscriptions": "View Subscriptions",
     "subDescription": "Buy Gems with gold, get monthly mystery items, retain progress history, double daily drop-caps, support the devs. Click for more info.",
     "sendGems": "Send Gems",
     "buyGemsGold": "Buy Gems with Gold",
@@ -91,6 +92,7 @@
     "timeTravelersPopover": "Your Mystic Hourglass has opened our time portal! Choose what you’d like us to fetch from the past or future.",
     "timeTravelersAlreadyOwned": "Congratulations! You already own everything the Time Travelers currently offer. Thanks for supporting the site!",
     "mysticHourglassPopover": "A Mystic Hourglass allows you to purchase certain limited-time items, such as monthly Mystery Item Sets and awards from world bosses, from the past!",
+    "mysticHourglassNeededNoSub": "This item requires a Mystic Hourglass. You earn Mystic Hourglasses by being a Habitica subscriber.",
     "mysterySetNotFound": "Mystery set not found, or set already owned.",
     "mysteryItemIsEmpty": "Mystery items are empty",
     "mysteryItemOpened": "Mystery item opened.",
@@ -180,6 +182,7 @@
     "notEnoughHourglasses": "You don't have enough Mystic Hourglasses.",
     "hourglassBuyEquipSetConfirm": "Buy this full set of items for 1 Mystic Hourglass?",
     "hourglassBuyItemConfirm": "Buy this item for 1 Mystic Hourglass?",
+    "backgroundAlreadyOwned": "Background already owned.",
     "petsAlreadyOwned": "Pet already owned.",
     "mountsAlreadyOwned": "Mount already owned.",
     "typeNotAllowedHourglass": "Item type not supported for purchase with Mystic Hourglass. Allowed types: <%= allowedTypes %>",

@@ -342,7 +342,7 @@
     "foodPieCottonCandyBlue": "Blueberry Pie",
     "foodPieBase": "Basic Apple Pie",
     "premiumPotionUnlimitedNotes": "Ye canna use this on adventure pet eggs.",
-    "hatchingPotionShadow": "Shadow",
+    "hatchingPotionShadow": "Shadowy",
     "hatchingPotionSilver": "Silv'r",
     "hatchingPotionWatery": "o' the Deep",
     "hatchingPotionBronze": "Bronze",
@@ -351,5 +351,7 @@
     "hatchingPotionCelestial": "o' the Stars",
     "questEggDolphinAdjective": "a chipp'r",
     "questEggDolphinMountText": "Dolfin",
-    "questEggDolphinText": "Dolfin"
+    "questEggDolphinText": "Dolfin",
+    "hatchingPotionAmber": "Amberrr",
+    "hatchingPotionAurora": "Arrrora"
 }

@@ -561,5 +561,13 @@
   "backgroundDesertWithSnowText": "Snowy Desert",
   "backgroundDesertWithSnowNotes": "Witness the rare and quiet beauty of a Snowy Desert.",
   "backgroundSnowglobeText": "Snowglobe",
-  "backgroundSnowglobeNotes": "Shake up a Snowglobe and take your place in a microcosm of a winter landscape."
+  "backgroundSnowglobeNotes": "Shake up a Snowglobe and take your place in a microcosm of a winter landscape.",
+
+  "timeTravelBackgrounds": "Steampunk Backgrounds",
+  "backgroundAirshipText": "Airship",
+  "backgroundAirshipNotes": "Become a sky sailor on board your very own Airship.",
+  "backgroundSteamworksText": "Steamworks",
+  "backgroundSteamworksNotes": "Build mighty contraptions of vapor and steel in a Steamworks.",
+  "backgroundClocktowerText": "Clock Tower",
+  "backgroundClocktowerNotes": "Situate your secret lair behind the face of a Clock Tower."
 }
