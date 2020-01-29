@@ -43,11 +43,10 @@ async function _appleProfile (req) {
   } else if (req.body.id_token) {
     idToken = await jwt.verify(req.body.id_token, applePublicKey, { algorithms: ['RS256'] });
   }
-  const { name } = JSON.parse(req.body.user);
   return {
     id: idToken.sub,
     emails: [idToken.email],
-    name,
+    name: idToken.name || req.body.name,
   };
 }
 
