@@ -546,6 +546,7 @@ import mail from '@/assets/svg/mail.svg';
 import conversationItem from '@/components/messages/conversationItem';
 import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
+import { EVENTS } from '@/libs/events';
 
 const MAX_TEXTAREA_HEIGHT = 80;
 
@@ -586,7 +587,15 @@ export default {
     };
   },
   async mounted () {
+    // notification click to refresh
     this.$root.$on('pm::refresh', async () => {
+      await this.reload();
+
+      this.selectConversation(this.loadedConversations[0].uuid, true);
+    });
+
+    // header sync button
+    this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
       await this.reload();
 
       this.selectConversation(this.loadedConversations[0].uuid, true);
@@ -612,7 +621,7 @@ export default {
     }
   },
   destroyed () {
-    this.$root.$off('habitica::new-private-message');
+    this.$root.$off(EVENTS.RESYNC_COMPLETED);
   },
   computed: {
     ...mapState({ user: 'user.data' }),
