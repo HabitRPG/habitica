@@ -170,7 +170,7 @@
           </div>
           <div
             v-else
-            class="w-50 text-center"
+            class="w-55 text-center"
             v-html="$t('paymentSubBillingWithMethod', {
               amount: purchasedPlanIdInfo.price,
               months: purchasedPlanIdInfo.months,
@@ -179,7 +179,32 @@
           >
           </div>
           <div
-            v-if="purchasedPlanExtraMonthsDetails.months"
+            v-if="canEditCardDetails"
+            class="mt-4 text-center"
+          >
+            <div class="font-weight-bold gray-10 mb-2">{{ $t('needToUpdateCard') }}</div>
+            <button
+              class="btn btn-primary btn-update-card
+              d-flex justify-content-center align-items-center"
+              @click="showStripeEdit()"
+            >
+              <div
+                v-once
+                class="svg-icon svg-credit-card mr-2"
+                v-html="icons.creditCardIcon"
+              ></div>
+              <div>{{ $t('subUpdateCard') }}</div>
+            </button>
+          </div>
+          <div
+            v-else
+            class="svg-icon"
+            :class="paymentMethodLogo.class"
+            v-html="paymentMethodLogo.icon"
+          >
+          </div>
+          <div
+            v-if="purchasedPlanExtraMonthsDetails.months > 0"
             class="extra-months green-10 py-2 px-3 mt-4"
             v-html="$t('purchasedPlanExtraMonths',
             {months: purchasedPlanExtraMonthsDetails.months})"
@@ -192,8 +217,8 @@
         >
           <div class="header-mini mb-3">{{ $t('subscriptionStats') }}</div>
           <div class="d-flex justify-content-around">
-            <div>
-              <div class="d-flex justify-content-around align-items-center">
+            <div class="ml-4 mr-3">
+              <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
                   class="svg-icon svg-calendar mr-2"
@@ -207,8 +232,9 @@
               </div>
               <div class="stats-label">{{ $t('subMonths') }}</div>
             </div>
+            <div class="stats-spacer"></div>
             <div>
-              <div class="d-flex justify-content-around align-items-center">
+              <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
                   class="svg-icon svg-gem mr-2"
@@ -219,9 +245,11 @@
                   {{ user.purchased.plan.consecutive.gemCapExtra }}
                 </div>
               </div>
+              <div class="stats-label">{{ $t('gemCapExtra') }}</div>
             </div>
+            <div class="stats-spacer"></div>
             <div>
-              <div class="d-flex justify-content-around align-items-center">
+              <div class="d-flex justify-content-center align-items-center">
                 <div
                   v-once
                   class="svg-icon svg-hourglass mt-1 mr-2"
@@ -232,8 +260,18 @@
                   {{ user.purchased.plan.consecutive.trinkets }}
                 </div>
               </div>
+              <div class="stats-label">{{ $t('mysticHourglassesTooltip') }}</div>
             </div>
           </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center mt-4 mb-3">
+          <div
+          v-once
+          class="svg-icon svg-heart mb-1"
+          v-html="icons.heartIcon"
+          >
+          </div>
+          <div class="stats-label">{{ $t('giftSubscriptionText4') }}</div>
         </div>
       </div>
     </div>
@@ -327,6 +365,13 @@
     font-size: 20px;
   }
 
+  .btn-update-card {
+    width: 12.5rem;
+    height: 2.5rem;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
   .check-container {
     width: 64px;
     height: 64px;
@@ -352,6 +397,10 @@
 
   .flex-spacer {
     width: 4rem;
+  }
+
+  .gray-10 {
+    color: $gray-10;
   }
 
   .green-10 {
@@ -389,9 +438,15 @@
     color: $gray-200;
   }
 
+  .stats-spacer {
+    width: 1px;
+    height: 3rem;
+    background-color: $gray-500;
+  }
+
   .subscribe-card {
     width: 28rem;
-    height: 31.25rem;
+    min-height: 31.25rem;
     border-radius: 4px;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     background-color: $white;
@@ -401,7 +456,16 @@
     border-bottom: 1px solid $gray-600;
   }
 
-  .svg-calendar {
+  .svg-amazon-pay {
+    width: 208px;
+  }
+
+  .svg-apple-pay {
+    width: 97.1px;
+    height: 40px;
+  }
+
+  .svg-calendar, .svg-heart {
     width: 24px;
     height: 24px;
   }
@@ -412,6 +476,11 @@
     color: white;
   }
 
+  .svg-credit-card {
+    width: 21.3px;
+    height: 16px;
+  }
+
   .svg-gem {
     width: 32px;
     height: 28px;
@@ -420,6 +489,11 @@
   .svg-gems {
     width: 42px;
     height: 52px;
+  }
+
+  .svg-google-pay {
+    width: 99.7px;
+    height: 40px;
   }
 
   .svg-hourglass {
@@ -441,6 +515,15 @@
     width: 256px;
     height: 56px;
   }
+
+  .svg-paypal {
+    width: 148px;
+    height: 40px;
+  }
+
+  .w-55 {
+    width: 55%;
+  }
 </style>
 
 <script>
@@ -458,13 +541,18 @@ import notificationsMixin from '../../mixins/notifications';
 
 import amazonButton from '@/components/payments/amazonButton';
 
+import amazonPayLogo from '@/assets/svg/amazonpay.svg';
+import applePayLogo from '@/assets/svg/apple-pay-logo.svg';
 import calendarIcon from '@/assets/svg/calendar-purple.svg';
 import checkmarkIcon from '@/assets/svg/check.svg';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 import gemIcon from '@/assets/svg/gem.svg';
 import giftBox from '@/assets/svg/gift-purple.svg';
+import googlePayLogo from '@/assets/svg/google-pay-logo.svg';
+import heartIcon from '@/assets/svg/health.svg';
 import hourglassIcon from '@/assets/svg/hourglass.svg';
 import logo from '@/assets/svg/habitica-logo-purple.svg';
+import paypalLogo from '@/assets/svg/paypal-logo.svg';
 import subscriberGems from '@/assets/svg/subscriber-gems.svg';
 import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
 
@@ -494,13 +582,18 @@ export default {
         GIFT: 'Gift',
       },
       icons: Object.freeze({
+        amazonPayLogo,
+        applePayLogo,
         calendarIcon,
         checkmarkIcon,
         creditCardIcon,
         gemIcon,
         giftBox,
+        googlePayLogo,
+        heartIcon,
         hourglassIcon,
         logo,
+        paypalLogo,
         subscriberGems,
         subscriberHourglasses,
       }),
@@ -601,6 +694,35 @@ export default {
     },
     currentMysterySet () {
       return `shop_set_mystery_${moment().format('YYYYMM')}`;
+    },
+    paymentMethodLogo () {
+      switch (this.user.purchased.plan.paymentMethod) {
+        case this.paymentMethods.AMAZON_PAYMENTS:
+          return {
+            icon: this.icons.amazonPayLogo,
+            class: 'svg-amazon-pay mt-3',
+          };
+        case this.paymentMethods.APPLE:
+          return {
+            icon: this.icons.applePayLogo,
+            class: 'svg-apple-pay mt-4',
+          };
+        case this.paymentMethods.GOOGLE:
+          return {
+            icon: this.icons.googlePayLogo,
+            class: 'svg-google-pay mt-4',
+          };
+        case this.paymentMethods.PAYPAL:
+          return {
+            icon: this.icons.paypalLogo,
+            class: 'svg-paypal mt-4',
+          };
+        default:
+          return {
+            icon: null,
+            class: null,
+          };
+      }
     },
   },
   methods: {

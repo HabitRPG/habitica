@@ -177,7 +177,7 @@
 
     "mysterySetwondercon": "Wondercon",
 
-    "subUpdateCard": "Update Card",
+    "subUpdateCard": "Update Credit Card",
     "subUpdateTitle": "Update",
     "subUpdateDescription": "Update the card to be charged.",
     "notEnoughHourglasses": "You don't have enough Mystic Hourglasses.",
@@ -240,5 +240,6 @@
     "doubleDropCap": "Double the Drops",
     "youAreSubscribed": "You are subscribed to Habitica",
     "subscriptionStats": "Subscription Stats",
-    "subMonths": "Sub Months"
+    "subMonths": "Sub Months",
+    "needToUpdateCard": "Need to update your card?"
 }
