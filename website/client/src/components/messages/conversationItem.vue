@@ -12,21 +12,6 @@
         :name="displayName"
       />
       <div
-        v-if="lastMessageDate"
-        class="time"
-      >
-        {{ lastMessageDate | timeAgo }}
-      </div>
-    </div>
-    <span
-      v-if="username"
-      class="username"
-    >@{{ username }}</span>
-    <div class="preview-row">
-      <div class="messagePreview">
-        {{ lastMessageText }}
-      </div>
-      <div
         v-if="userLoggedIn.id !== uuid"
         class="actions"
       >
@@ -54,6 +39,24 @@
           </b-dropdown-item>
         </b-dropdown>
       </div>
+    </div>
+    <span class="username-row">
+      <span
+        v-if="username"
+        class="username"
+      >@{{ username }}</span> • <span
+      v-if="lastMessageDate"
+      class="time"
+    >
+        {{ lastMessageDate | timeAgo }}
+      </span>
+    </span>
+
+    <div class="preview-row">
+      <div class="messagePreview">
+        {{ lastMessageText }}
+      </div>
+
     </div>
   </div>
 </template>
@@ -134,6 +137,12 @@ export default {
       height: 16px;
       width: 4px;
 
+      &:not(:hover) {
+        svg path {
+          fill: $gray-200;
+        }
+      }
+
       svg path {
         fill: $purple-300
       }
@@ -165,6 +174,7 @@ export default {
       display: flex;
       flex-direction: row;
       height: 20px;
+      position: relative;
 
       .user-label {
         flex: 1;
@@ -183,10 +193,11 @@ export default {
       }
     }
 
-    .username {
+    .username-row {
       flex: 1;
       flex-grow: 0;
       font-size: 12px;
+      color: $gray-200;
     }
 
     .messagePreview {
@@ -223,7 +234,6 @@ export default {
     right: 0;
     display: none;
     width: 16px;
-    margin-top: 4px;
 
     .dots {
       height: 16px;

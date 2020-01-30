@@ -56,24 +56,6 @@
           />
         </div>
         <div
-          v-if="filtersConversations.length === 0"
-          class="empty-messages m-auto text-center empty-sidebar"
-        >
-          <div>
-            <div
-              v-once
-              class="svg-icon envelope"
-              v-html="icons.messageIcon"
-            ></div>
-            <h4 v-once>
-              {{ $t('emptyMessagesLine1') }}
-            </h4>
-            <p v-if="!user.flags.chatRevoked">
-              {{ $t('emptyMessagesLine2') }}
-            </p>
-          </div>
-        </div>
-        <div
           v-if="filtersConversations.length > 0"
           class="conversations"
         >
@@ -95,16 +77,36 @@
       </div>
       <div class="messages-column d-flex flex-column align-items-center">
         <div
-          v-if="!selectedConversation.key"
+          v-if="filtersConversations.length === 0"
+          class="empty-messages m-auto text-center empty-sidebar"
+        >
+          <div class="no-messages-box">
+            <div
+              v-once
+              class="svg-icon envelope"
+              v-html="icons.messageIcon"
+            ></div>
+            <h2 v-once>
+              {{ $t('emptyMessagesLine1') }}
+            </h2>
+            <p v-if="!user.flags.chatRevoked">
+              {{ $t('emptyMessagesLine2') }}
+            </p>
+          </div>
+        </div>
+        <div
+          v-if="filtersConversations.length !== 0 && !selectedConversation.key"
           class="empty-messages full-height m-auto text-center"
         >
-          <div
-            v-once
-            class="svg-icon envelope"
-            v-html="icons.messageIcon"
-          ></div>
-          <h4>{{ placeholderTexts.title }}</h4>
-          <p v-html="placeholderTexts.description"></p>
+          <div class="no-messages-box">
+            <div
+              v-once
+              class="svg-icon envelope"
+              v-html="icons.messageIcon"
+            ></div>
+            <h2>{{ placeholderTexts.title }}</h2>
+            <p v-html="placeholderTexts.description"></p>
+          </div>
         </div>
         <div
           v-if="selectedConversation.key && selectedConversationMessages.length === 0"
@@ -139,7 +141,7 @@
         </div>
         <div>
           <div
-            v-if="selectedConversation.key && !user.flags.chatRevoked"
+            v-if="!user.flags.chatRevoked"
             class="new-message-row d-flex align-items-center"
           >
             <textarea
@@ -148,7 +150,7 @@
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
               maxlength="3000"
-              :class="{'has-content': newMessage !== ''}"
+              :class="{'has-content': newMessage !== '', 'disabled': newMessageDisabled}"
               :style="{'--textarea-auto-height': textareaAutoHeight}"
               @keyup.ctrl.enter="sendPrivateMessage()"
               @input="autoSize()"
@@ -156,7 +158,7 @@
             </textarea>
           </div>
           <div
-            v-if="selectedConversation.key && !user.flags.chatRevoked"
+            v-if="!user.flags.chatRevoked"
             class="sub-new-message-row d-flex"
           >
             <div
@@ -325,25 +327,36 @@
   }
 
   .empty-messages {
-    h3, h4, p {
+    h3, p {
       color: $gray-400;
       margin: 0rem;
+    }
+
+    h2 {
+      color: $gray-400;
+      margin-bottom: 1rem;
     }
 
     p {
       font-size: 12px;
     }
 
-    .envelope {
-      width: 30px;
-      margin: 0 auto 0.5rem;
+    .no-messages-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 330px;
     }
-  }
 
-  .envelope {
-    color: $gray-500 !important;
-    margin: 0rem;
-    max-width: 2rem;
+    .envelope {
+      color: $gray-400 !important;
+      margin-bottom: 1.5rem;
+
+      ::v-deep svg {
+        width: 64px;
+        height: 48px;
+      }
+    }
   }
 
   h3 {
@@ -407,20 +420,29 @@
     padding-right: 1.5rem;
 
     textarea {
-      min-height: 1rem;
       display: inline-block;
       vertical-align: bottom;
       border-radius: 2px;
       z-index: 5;
+      color: $gray-300;
+
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.64;
+        background-color: $gray-500;
+      }
 
       &.has-content {
         min-height: var(--textarea-auto-height, 1rem);
+      }
+      &:not(.has-content) {
+        max-height: 40px;
       }
     }
   }
 
   .sub-new-message-row {
-    padding: 1rem 1.5rem 1.5rem;
+    padding: 1.5rem;
 
     .guidelines {
       height: 32px;
@@ -446,6 +468,7 @@
         pointer-events: none;
         opacity: 0.64;
         background-color: $gray-500;
+        color: $gray-100;
       }
     }
   }
@@ -546,6 +569,7 @@ import mail from '@/assets/svg/mail.svg';
 import conversationItem from '@/components/messages/conversationItem';
 import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
+import { EVENTS } from '@/libs/events';
 
 const MAX_TEXTAREA_HEIGHT = 80;
 
@@ -586,10 +610,18 @@ export default {
     };
   },
   async mounted () {
-    this.$root.$on('pm::refresh', async () => {
+    // notification click to refresh
+    this.$root.$on(EVENTS.PM_REFRESH, async () => {
       await this.reload();
 
-      this.selectConversation(this.loadedConversations[0].uuid, true);
+      this.selectFirstConversation();
+    });
+
+    // header sync button
+    this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
+      await this.reload();
+
+      this.selectFirstConversation();
     });
 
     await this.reload();
@@ -612,7 +644,7 @@ export default {
     }
   },
   destroyed () {
-    this.$root.$off('habitica::new-private-message');
+    this.$root.$off(EVENTS.RESYNC_COMPLETED);
   },
   computed: {
     ...mapState({ user: 'user.data' }),
@@ -729,6 +761,9 @@ export default {
       }
       return '';
     },
+    newMessageDisabled () {
+      return !this.selectedConversation || !this.selectedConversation.key;
+    },
   },
 
   methods: {
@@ -738,6 +773,8 @@ export default {
       const conversationRes = await axios.get('/api/v4/inbox/conversations');
       this.loadedConversations = conversationRes.data.data;
       this.selectedConversation = {};
+
+      await this.$store.dispatch('user:markPrivMessagesRead');
 
       this.loaded = true;
     },
@@ -883,6 +920,11 @@ export default {
       }
 
       this.textareaAutoHeight = `${scrollHeight}px`;
+    },
+    selectFirstConversation () {
+      if (this.loadedConversations.length > 0) {
+        this.selectConversation(this.loadedConversations[0].uuid, true);
+      }
     },
   },
 };
