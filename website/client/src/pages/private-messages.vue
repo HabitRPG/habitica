@@ -611,7 +611,7 @@ export default {
   },
   async mounted () {
     // notification click to refresh
-    this.$root.$on('pm::refresh', async () => {
+    this.$root.$on(EVENTS.PM_REFRESH, async () => {
       await this.reload();
 
       this.selectFirstConversation();
@@ -773,6 +773,8 @@ export default {
       const conversationRes = await axios.get('/api/v4/inbox/conversations');
       this.loadedConversations = conversationRes.data.data;
       this.selectedConversation = {};
+
+      await this.$store.dispatch('user:markPrivMessagesRead');
 
       this.loaded = true;
     },
