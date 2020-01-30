@@ -841,13 +841,13 @@ export default {
       if (network === 'apple') {
         window.location.href = buildAppleAuthUrl();
       } else {
-      const auth = await hello(network).login({ scope: 'email' });
+        const auth = await hello(network).login({ scope: 'email' });
 
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
 
-      window.location.href = '/';
+        window.location.href = '/';
       }
     },
     async changeClassForUser (confirmationNeeded) {
