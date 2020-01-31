@@ -10,9 +10,15 @@
   width: 498px;
   height: 144px;
 }
+.promo_mystery_022020 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -619px;
+  width: 282px;
+  height: 147px;
+}
 .promo_mystery_202001 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -283px -619px;
+  background-position: -566px -619px;
   width: 279px;
   height: 147px;
 }
@@ -36,13 +42,13 @@
 }
 .promo_winter_potions_2020 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -323px;
+  background-position: -469px -175px;
   width: 423px;
   height: 147px;
 }
 .promo_winter_quests_bundle {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -469px -175px;
+  background-position: -424px -323px;
   width: 423px;
   height: 147px;
 }
@@ -78,7 +84,7 @@
 }
 .scene_beffymaroo {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -619px;
+  background-position: -283px -619px;
   width: 282px;
   height: 147px;
 }

@@ -35,10 +35,10 @@ const schema = new Schema({
     rewards: [{ $type: String, ref: 'Task' }],
   },
   leader: {
-    $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true,
+    $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for challenge leader.'], required: true,
   },
   group: {
-    $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true,
+    $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for challenge group.'], required: true,
   },
   memberCount: { $type: Number, default: 0 },
   prize: { $type: Number, default: 0, min: 0 },

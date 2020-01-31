@@ -364,6 +364,8 @@
   "weaponMystery201811Notes": "This magical stave is as powerful as it is elegant. Confers no benefit. November 2018 Subscriber Item.",
   "weaponMystery201911Text": "Charmed Crystal Staff",
   "weaponMystery201911Notes": "The crystal ball atop this staff can show you the future, but beware! Using such dangerous knowledge can change a person in unexpected ways. Confers no benefit. November 2019 Subscriber Item.",
+  "weaponMystery202002Text": "Stylish Sweetheart Parasol",
+  "weaponMystery202002Notes": "An accessory that lends you an air of mystery and romance. Sun protection is a bonus! Confers no benefit. February 2020 Subscriber Item.",
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
 
@@ -2005,6 +2007,8 @@
   "bodyMystery201711Notes": "This soft knitted scarf looks quite majestic blowing in the wind. Confers no benefit. November 2017 Subscriber Item.",
   "bodyMystery201901Text": "Polaris Pauldrons",
   "bodyMystery201901Notes": "These shimmering pauldrons are strong, but will rest on your shoulders as weightlessly as a ray of dancing light. Confers no benefit. January 2019 Subscriber Item.",
+  "bodyMystery202002Text": "Stylish Sweetheart Scarf",
+  "bodyMystery202002Notes": "For when your heart is warm but the breezes of February are brisk. Confers no benefit. February 2020 Subscriber Item.",
 
   "bodyArmoireCozyScarfText": "Cozy Scarf",
   "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Lamplighter's Set (Item 4 of 4).",

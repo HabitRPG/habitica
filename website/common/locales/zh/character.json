@@ -116,7 +116,7 @@
     "intelligence": "智力",
     "intText": "\"智力\"属性能提高你的经验值，解锁职业系统后，决定了你的最大魔法值。",
     "levelBonus": "等级加成",
-    "levelBonusText": "等级加成等于 (你的等级减1) 的一半.",
+    "levelBonusText": "等级加成等于（你的等级减1）的一半.",
     "allocatedPoints": "分配的属性点",
     "allocatedPointsText": "你获得了属性点并已经分配。使用角色设定栏目来分配你的点数。",
     "allocated": "分配",

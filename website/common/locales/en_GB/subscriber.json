@@ -229,5 +229,8 @@
     "mysterySet201911": "Crystal Charmer Set",
     "mysterySet201912": "Polar Pixie Set",
     "mysterySet202001": "Fabled Fox Set",
-    "subCanceledTitle": "Subscription Cancelled"
+    "subCanceledTitle": "Subscription Cancelled",
+    "backgroundAlreadyOwned": "Background already owned.",
+    "mysticHourglassNeededNoSub": "This item requires a Mystic Hourglass. You earn Mystic Hourglasses by being a Habitica subscriber.",
+    "viewSubscriptions": "View Subscriptions"
 }

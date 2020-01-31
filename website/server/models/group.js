@@ -77,7 +77,7 @@ export const schema = new Schema({
   summary: { $type: String, maxlength: MAX_SUMMARY_SIZE_FOR_GUILDS },
   description: String,
   leader: {
-    $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true,
+    $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group leader.'], required: true,
   },
   type: { $type: String, enum: ['guild', 'party'], required: true },
   privacy: {
