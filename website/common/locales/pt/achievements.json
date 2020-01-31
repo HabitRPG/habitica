@@ -32,5 +32,18 @@
     "achievementJustAddWaterModalText": "Você completou as missões dos mascotes Polvo, Cavalo-Marinho, Lula, Baleia, Tartaruga, Lesma Marinha, Serpente Marinha e Golfinho!",
     "achievementJustAddWaterText": "Completou as missões dos mascotes Polvo, Cavalo-Marinho, Lula, Baleia, Tartaruga, Lesma Marinha, Serpente Marinha e Golfinho.",
     "achievementMindOverMatterModalText": "Você completou as missões dos mascotes Pedra, Gosma e Novelo!",
-    "achievementMindOverMatterText": "Completou as missões dos mascotes  Pedra, Gosma e Novelo."
+    "achievementMindOverMatterText": "Completou as missões dos mascotes  Pedra, Gosma e Novelo.",
+    "achievementFedPetText": "Alimentou seu primeiro mascote.",
+    "achievementFedPet": "Alimente um Mascote",
+    "achievementHatchedPetModalText": "Vá para seu inventário e tente combinar uma poção de eclosão e um ovo",
+    "achievementHatchedPetText": "Chocou o primeiro mascote.",
+    "achievementHatchedPet": "Choque um Mascote",
+    "achievementCompletedTaskModalText": "Marque qualquer uma de suas tarefas para receber recompensas",
+    "achievementCompletedTaskText": "Completou a primeira tarefa.",
+    "achievementCompletedTask": "Complete uma Tarefa",
+    "achievementCreatedTaskModalText": "Adicione uma tarefa que você gostaria de realizar essa semana",
+    "achievementCreatedTaskText": "Criou a primeira tarefa.",
+    "achievementCreatedTask": "Crie uma Tarefa",
+    "achievementUndeadUndertakerModalText": "Você domou todas as montarias Zumbis!",
+    "achievementUndeadUndertakerText": "Domou todas as montarias Zumbis."
 }
