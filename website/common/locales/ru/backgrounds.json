@@ -496,5 +496,8 @@
     "backgroundClocktowerText": "Часовая башня",
     "backgroundSteamworksText": "Паровой цех",
     "backgroundAirshipText": "Воздушный корабль",
-    "timeTravelBackgrounds": "Фоны в стиле стимпанк"
+    "timeTravelBackgrounds": "Фоны в стиле стимпанк",
+    "backgroundClocktowerNotes": "Обустройте свое тайное логово внутри часовой башни.",
+    "backgroundSteamworksNotes": "Создайте хитроумные изобретения из пара и стали на паровом цехе.",
+    "backgroundAirshipNotes": "Станьте небесным моряком на борту собственного воздушного корабля."
 }

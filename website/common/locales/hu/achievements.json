@@ -9,5 +9,16 @@
     "achievementMindOverMatter": "Elme az anyag felett",
     "achievementJustAddWater": "Egy vízcsepp elég",
     "achievementBackToBasics": "Vissza az alapokhoz",
-    "achievementBackToBasicsText": "Begyűjtötted az összes alap szintű állatot."
+    "achievementBackToBasicsText": "Begyűjtötted az összes alap szintű állatot.",
+    "achievementMindOverMatterModalText": "Teljesítetted a Kő, Nyálka, és Fonál háziállat küldetéseket!",
+    "achievementMindOverMatterText": "Teljesítette a Kő, Nyálka, és Fonál háziállat küldetéseket.",
+    "achievementLostMasterclasserModalText": "Mind a tizenhat küldetést a Kasztmester sorozatban teljesítette, és feltárta az Elveszett Kasztmester rejtélyét!",
+    "hideAchievements": " <%= category %> elrejtése",
+    "showAllAchievements": "Minden <%= category %> megtekintése",
+    "onboardingCompleteDesc": "<strong>5  Teljesítményt</strong> és <strong class=\"gold-amount\">100</strong> Aranyat szerzett a lista befejezéséért.",
+    "earnedAchievement": "Teljesítményt szerzett!",
+    "viewAchievements": "Teljesítmények megtekintése",
+    "letsGetStarted": "Kezdjük el!",
+    "onboardingProgress": "<%= percentage %>% haladás",
+    "gettingStartedDesc": "Tűzzünk ki egy feladatot, végezzük el, majd ellenőrizd jutalmaidat. <strong> 5 kitüntetést </strong> és <strong class=\"gold-anount\">száz aranyat</strong> fogsz ezzel megszerezni!"
 }

@@ -43,7 +43,7 @@
     "displayPotionForGold": "<strong><%= itemType %>薬</strong>を売りますか?",
     "sellForGold": "<%= gold %> ゴールドで売る",
     "howManyToSell": "いくつ売ってくれますか？",
-    "yourBalance": "あなたの残高",
+    "yourBalance": "あなたの残高：",
     "sell": "売る",
     "buyNow": "今すぐ買う",
     "sortByNumber": "数",

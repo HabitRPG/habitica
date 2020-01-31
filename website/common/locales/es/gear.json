@@ -1860,5 +1860,11 @@
     "weaponSpecialWinter2020RogueNotes": "La oscuridad es el elemento del Pícaro. ¿Quién mejor que él para iluminar la época más oscura del año? Aumenta la Fuerza por <%= str %>. Edición Limitada. Equipamiento de Invierno 2019-2020.",
     "weaponArmoireAlchemistsDistillerNotes": "Purifica metales y otros elementos mágicos con este instrumento brillante de latón. Aumenta la Fuerza un <%= str %> y la Inteligencia un  <%= int %>. Armario Encantado: Equipo de Alquimista (Artículo 3 of 4).",
     "weaponArmoireAlchemistsDistillerText": "Destilador de Alquimista",
-    "weaponArmoireShadowMastersMaceNotes": "Las criaturas de la oscuridad obedecerán tus órdenes al agitar esta brillante maza. Aumenta la Percepción un <%= per %>. Armario Encantado: Colección del Maestro de las Sombras (Artículo 3 de 4)."
+    "weaponArmoireShadowMastersMaceNotes": "Las criaturas de la oscuridad obedecerán tus órdenes al agitar esta brillante maza. Aumenta la Percepción un <%= per %>. Armario Encantado: Colección del Maestro de las Sombras (Artículo 3 de 4).",
+    "armorSpecialFall2019HealerText": "Bata de la Oscuridad",
+    "armorSpecialFall2019RogueText": "Abrigo de Ópera con Capa",
+    "armorSpecialSummer2019MageText": "Vestido Floral",
+    "armorSpecialSpring2019HealerNotes": "Tus plumas brillantes son prueba de que el frío y la oscuridad del invierno se han acabado. Incrementa la Constitución un <%= con %>. Equipamiento de Primavera 2019 Edición Limitada.",
+    "armorSpecialSpring2019MageText": "Bata de Ámbar",
+    "weaponArmoireHappyBannerText": "Cartel Feliz"
 }
