@@ -433,6 +433,12 @@ const body = {
     mystery: '201901',
     value: 0,
   },
+  202002: {
+    text: t('bodyMystery202002Text'),
+    notes: t('bodyMystery202002Notes'),
+    mystery: '202002',
+    value: 0,
+  },
 };
 
 const eyewear = {
@@ -980,6 +986,12 @@ const weapon = {
     text: t('weaponMystery201911Text'),
     notes: t('weaponMystery201911Notes'),
     mystery: '201911',
+    value: 0,
+  },
+  202002: {
+    text: t('weaponMystery202002Text'),
+    notes: t('weaponMystery202002Notes'),
+    mystery: '202002',
     value: 0,
   },
   301404: {
