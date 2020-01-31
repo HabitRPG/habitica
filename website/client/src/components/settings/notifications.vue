@@ -38,7 +38,10 @@
             <span>{{ $t('push') }}</span>
           </th>
         </tr>
-        <tr v-for="notification in notificationsIds" :key="notification">
+        <tr
+          v-for="notification in notificationsIds"
+          :key="notification"
+        >
           <td>
             <span>{{ $t(notification) }}</span>
           </td>
@@ -55,7 +58,7 @@
               type="checkbox"
               @change="set('pushNotifications', notification)"
             >
-          <td v-else>
+          </td><td v-else>
             &nbsp;
           </td>
         </tr>
