@@ -57,8 +57,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/inventory'),
-              'down': $route.path.startsWith('/inventory') && isDesktop()}"
+              'active': $route.path.startsWith('/inventory')}"
           >
             <div
               class="chevron rotate"
@@ -101,8 +100,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/shop'),
-              'down': $route.path.startsWith('/shop') && isDesktop()}"
+              'active': $route.path.startsWith('/shop')}"
           >
             <div
               class="chevron rotate"
@@ -168,8 +166,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/groups'),
-              'down': $route.path.startsWith('/groups') && isDesktop()}"
+              'active': $route.path.startsWith('/groups')}"
           >
             <div
               class="chevron rotate"
@@ -211,8 +208,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/group-plans'),
-              'down': $route.path.startsWith('/group-plans') && isDesktop()}"
+              'active': $route.path.startsWith('/group-plans')}"
           >
             <div
               v-if="groupPlans.length > 0"
@@ -245,8 +241,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/challenges'),
-              'down': $route.path.startsWith('/challenges') && isDesktop()}"
+              'active': $route.path.startsWith('/challenges')}"
           >
             <div
               class="chevron rotate"
@@ -282,8 +277,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/help'),
-              'down': $route.path.startsWith('/help') && isDesktop()}"
+              'active': $route.path.startsWith('/help')}"
           >
             <div
               class="chevron rotate"
@@ -807,13 +801,15 @@ export default {
     },
     dropdownDesktop (hover) {
       if (this.isDesktop() && hover.target.classList.contains('droppable')) {
-        this.dropdown(hover.target);
+        if (hover.type === 'mouseenter') {
+          this.openDropdown(hover.target);
+        } else {
+          this.closeDropdown(hover.target);
+        }
       }
     },
     dropdownMobile (click) {
-      this.dropdown(click.currentTarget.parentElement);
-    },
-    dropdown (element) {
+      const element = click.currentTarget.parentElement;
       const droppedElement = document.getElementsByClassName('down')[0];
       if (droppedElement && droppedElement !== element) {
         droppedElement.classList.remove('down');
@@ -821,10 +817,21 @@ export default {
           droppedElement.lastChild.style.maxHeight = 0;
         }
       }
-
-      element.classList.toggle('down');
-      element.lastChild.style.maxHeight = element.classList.contains('down') ? `${element.lastChild.scrollHeight}px` : 0;
+      if (element.classList.contains('down')) {
+        this.closeDropdown(element);
+      } else {
+        this.openDropdown(element);
+      }
     },
+    closeDropdown (element) {
+      element.classList.remove('down');
+      element.lastChild.style.maxHeight = 0;
+    },
+    openDropdown (element) {
+      element.classList.add('down');
+      element.lastChild.style.maxHeight = `${element.lastChild.scrollHeight}px`;
+    },
+
     closeMenu () {
       if (this.isMobile()) {
         this.menuIsOpen = false;
