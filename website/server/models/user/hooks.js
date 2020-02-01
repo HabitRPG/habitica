@@ -131,7 +131,7 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2020-02-03')) {
+  if (moment().isBefore('2020-02-02')) {
     user.achievements.habitBirthdays = 1;
     user.items.gear.owned.armor_special_birthday = true;
     user.items.gear.equipped.armor = 'armor_special_birthday';
