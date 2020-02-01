@@ -24,7 +24,7 @@
         />
         <div class="d-flex flex-column profile-name-character">
           <h3 class="character-name">
-            <span v-if="member.contributor.level > 0">
+            <span v-if="member.contributor.level > 0 && !disableNameStyling">
               <user-link
                 :user-id="member._id"
                 :name="member.profile.name"
@@ -32,7 +32,7 @@
                 :contributor="member.contributor"
               />
             </span>
-             <span v-if="!member.contributor.level">{{ member.profile.name }}</span>
+            <span v-else>{{ member.profile.name }}</span>
             <div
               v-if="isBuffed"
               v-b-tooltip.hover.bottom="$t('buffed')"
@@ -223,6 +223,10 @@ export default {
       default: 'under-avatar', // next-to-name or hidden
     },
     isHeader: {
+      type: Boolean,
+      default: false,
+    },
+    disableNameStyling: {
       type: Boolean,
       default: false,
     },
