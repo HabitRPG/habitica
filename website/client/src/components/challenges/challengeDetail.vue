@@ -18,7 +18,10 @@
           <div>
             <span class="mr-1 ml-0 d-block">
               <strong v-once>{{ $t('createdBy') }}:</strong>
-              <user-link
+              <span v-if="challenge.leader === null">
+                {{ $t('noChallengeOwner') }}
+              </span>
+              <user-link v-else
                 class="mx-1"
                 :user="challenge.leader"
               />
