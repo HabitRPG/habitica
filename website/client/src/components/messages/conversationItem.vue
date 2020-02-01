@@ -44,10 +44,10 @@
       <span
         v-if="username"
         class="username"
-      >@{{ username }}</span> • <span
+      >@{{ username }}</span> <span
       v-if="lastMessageDate"
       class="time"
-    >
+    >•
         {{ lastMessageDate | timeAgo }}
       </span>
     </span>
@@ -154,7 +154,7 @@ export default {
   @import '~@/assets/scss/colors.scss';
 
   .conversation {
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     border-bottom: 1px solid $gray-500;
 
     &:hover {
@@ -203,7 +203,6 @@ export default {
     .messagePreview {
       //width: 100%;
       height: 30px;
-      margin-right: 40px;
       margin-top: 4px;
       font-size: 12px;
       font-weight: normal;

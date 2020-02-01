@@ -77,7 +77,7 @@
       </div>
       <div class="messages-column d-flex flex-column align-items-center">
         <div
-          v-if="filtersConversations.length === 0"
+          v-if="filtersConversations.length === 0 && !selectedConversation"
           class="empty-messages m-auto text-center empty-sidebar"
         >
           <div class="no-messages-box">
@@ -424,7 +424,6 @@
       vertical-align: bottom;
       border-radius: 2px;
       z-index: 5;
-      color: $gray-300;
 
       &.disabled {
         pointer-events: none;
@@ -432,12 +431,8 @@
         background-color: $gray-500;
       }
 
-      &.has-content {
-        min-height: var(--textarea-auto-height, 1rem);
-      }
-      &:not(.has-content) {
-        max-height: 40px;
-      }
+      min-height: var(--textarea-auto-height, 40px);
+      max-height: var(--textarea-auto-height, 40px);
     }
   }
 
@@ -913,7 +908,13 @@ export default {
     },
     autoSize () {
       const { textarea } = this.$refs;
+      // weird issue: browser only removing the scrollHeight / clientHeight per key event - 56-54-52
       let { scrollHeight } = textarea;
+
+      if (this.newMessage === '') {
+        // reset height when the message was removed again
+        scrollHeight = 40;
+      }
 
       if (scrollHeight > MAX_TEXTAREA_HEIGHT) {
         scrollHeight = MAX_TEXTAREA_HEIGHT;
