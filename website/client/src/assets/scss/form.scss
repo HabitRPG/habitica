@@ -23,7 +23,7 @@ input, textarea, input.form-control, textarea.form-control {
   border-radius: 2px;
   font-size: 14px;
   line-height: 1.43;
-  color: $gray-200;
+  color: $gray-50;
   border: 1px solid $gray-400;
 
   &:hover:not(:disabled) {
@@ -32,7 +32,6 @@ input, textarea, input.form-control, textarea.form-control {
 
   &:active:not(:disabled), &:focus:not(:disabled) {
     border-color: $purple-500;
-    color: $gray-50;
     outline: 0;
     box-shadow: none;
   }
