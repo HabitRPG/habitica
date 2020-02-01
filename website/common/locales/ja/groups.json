@@ -149,7 +149,7 @@
     "messageRequired": "メッセージが必要です。",
     "toUserIDRequired": "ユーザー ID が必要です。",
     "gemAmountRequired": "ジェムが必要です。",
-    "notAuthorizedToSendMessageToThisUser": "このユーザーはメッセージをブロックすることを選択しているため、メッセージは送れません。",
+    "notAuthorizedToSendMessageToThisUser": "このユーザーはメッセージを受け取らない設定にしているため、メッセージは送れません。",
     "privateMessageGiftGemsMessage": "こんにちは、<%= receiverName %>。<%= senderName %> から <%= gemAmount %> 個のジェムのプレゼントが届きました!",
     "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> カ月分の寄付（有料利用）が届きました!",
     "cannotSendGemsToYourself": "自分自身にジェムを送ることは出来ません。代わりの寄付を再試行してください。",
@@ -484,5 +484,7 @@
     "suggestedGroup": "あなたはHabiticaを始めたばかりのため、提案しました。",
     "youHaveBeenAssignedTask": "<%= managerName %>は、あなたにタスク<span class=\"notification-bold\"><%= taskText %></span>を割り当てました。",
     "taskClaimed": "<%= userName %> は、タスク<span class=\"notification-bold\"><%= taskText %></span>を担当しています。",
-    "groupActivityNotificationTitle": "<%= user %>が<%= group %>に投稿しました"
+    "groupActivityNotificationTitle": "<%= user %>が<%= group %>に投稿しました",
+    "blockedToSendToThisUser": "このユーザーにブロックされているため、メッセージは送れません。",
+    "PMDisabled": "プライベートメッセージを無効にする"
 }
