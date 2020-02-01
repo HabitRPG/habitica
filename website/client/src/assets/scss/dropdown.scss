@@ -35,7 +35,6 @@
   line-height: 1.71;
   color: $gray-50;
   cursor: pointer;
-  background-color: $purple-200;
 
   &:focus {
     outline: none;
@@ -44,7 +43,7 @@
 
 
   &:active, &:hover, &.active {
-    background-color: #6133B4;
+    background-color: rgba(#d5c8ff, 0.32);
     color: $purple-200;
   }
 
@@ -52,7 +51,7 @@
     cursor: default;
 
     &:active, &:hover, &.active {
-      background-color: $purple-200;
+      background-color: inherit;
       color: inherit;
     }
   }
