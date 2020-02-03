@@ -131,8 +131,25 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
+  if (moment().isBefore('2020-02-02')) {
+    user.achievements.habitBirthdays = 1;
+    user.items.gear.owned.armor_special_birthday = true;
+    user.items.gear.equipped.armor = 'armor_special_birthday';
+    user.items.food = {
+      Cake_Skeleton: 1,
+      Cake_Base: 1,
+      Cake_CottonCandyBlue: 1,
+      Cake_CottonCandyPink: 1,
+      Cake_Shade: 1,
+      Cake_White: 1,
+      Cake_Golden: 1,
+      Cake_Zombie: 1,
+      Cake_Desert: 1,
+      Cake_Red: 1,
+    };
+  }
 
-  user.markModified('items');
+  user.markModified('items achievements');
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];

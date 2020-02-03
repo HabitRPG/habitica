@@ -24,7 +24,15 @@
         />
         <div class="d-flex flex-column profile-name-character">
           <h3 class="character-name">
-            {{ member.profile.name }}
+            <span v-if="member.contributor.level > 0 && !disableNameStyling">
+              <user-link
+                :user-id="member._id"
+                :name="member.profile.name"
+                :backer="member.backer"
+                :contributor="member.contributor"
+              />
+            </span>
+            <span v-else>{{ member.profile.name }}</span>
             <div
               v-if="isBuffed"
               v-b-tooltip.hover.bottom="$t('buffed')"
@@ -171,6 +179,7 @@ import Avatar from './avatar';
 import ClassBadge from './members/classBadge';
 import { mapState } from '@/libs/store';
 import StatsBar from './ui/statsbar';
+import userLink from './userLink';
 
 import { toNextLevel } from '@/../../common/script/statHelpers';
 import statsComputed from '@/../../common/script/libs/statsComputed';
@@ -186,6 +195,7 @@ export default {
     Avatar,
     ClassBadge,
     StatsBar,
+    userLink,
   },
   filters: {
     statFloor (value) {
@@ -213,6 +223,10 @@ export default {
       default: 'under-avatar', // next-to-name or hidden
     },
     isHeader: {
+      type: Boolean,
+      default: false,
+    },
+    disableNameStyling: {
       type: Boolean,
       default: false,
     },
