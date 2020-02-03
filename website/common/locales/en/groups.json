@@ -143,6 +143,8 @@
   "PMDisabledOptPopoverText": "Private Messages are disabled. Enable this option to allow users to contact you via your profile.",
   "PMDisabledCaptionTitle": "Private Messages are disabled",
   "PMDisabledCaptionText": "You can still send messages, but no one can send them to you.",
+  "PMCanNotReply": "You can not reply to this conversation",
+  "PMUserDoesNotReceiveMessages": "This user is no longer receiving private messages",
   "block": "Block",
   "unblock": "Un-block",
   "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
@@ -490,5 +492,5 @@
   "singleCompletion": "Single - Completes when any assigned user finishes",
   "allAssignedCompletion": "All - Completes when all assigned users finish",
   "suggestedGroup": "Suggested because you’re new to Habitica.",
-  "groupActivityNotificationTitle": "<%= user %> posted in <%= group %>" 
+  "groupActivityNotificationTitle": "<%= user %> posted in <%= group %>"
 }
