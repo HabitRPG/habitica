@@ -40,7 +40,7 @@
     "helmet": "^3.21.2",
     "image-size": "^0.8.3",
     "in-app-purchase": "^1.11.3",
-    "js2xmlparser": "^4.0.0",
+    "js2xmlparser": "^4.0.1",
     "lodash": "^4.17.15",
     "merge-stream": "^2.0.0",
     "method-override": "^3.0.0",
