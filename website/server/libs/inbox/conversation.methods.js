@@ -68,6 +68,23 @@ async function usersMapByConversations (owner, users) {
     }
   }
 
+  const allUserIdList = Object.keys(usersMap);
+
+  const usersQuery = {
+    _id: { $in: allUserIdList },
+  };
+
+  const usersExtraInfo = await User.find(usersQuery, {
+    _id: 1,
+    flags: 1,
+    inbox: 1,
+  }).exec();
+
+  for (const usr of usersExtraInfo) {
+    usersMap[usr._id].optOut = usr.inbox.optOut;
+    usersMap[usr._id].chatRevoked = usr.inbox.chatRevoked;
+  }
+
   return usersMap;
 }
 
@@ -112,6 +129,8 @@ export async function listConversations (owner) {
       conversation.userStyles = usersMap[uuid].userStyles;
       conversation.contributor = usersMap[uuid].contributor;
       conversation.backer = usersMap[uuid].backer;
+      conversation.optOut = usersMap[uuid].optOut;
+      conversation.chatRevoked = usersMap[uuid].chatRevoked;
     }
 
     return conversation;

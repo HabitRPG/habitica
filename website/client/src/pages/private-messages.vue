@@ -133,15 +133,14 @@
           @triggerLoad="infiniteScrollTrigger"
         />
         <div
-          v-if="user.inbox.optOut"
+          v-if="disabledTexts"
           class="pm-disabled-caption text-center"
         >
-          <h4>{{ $t('PMDisabledCaptionTitle') }}</h4>
-          <p>{{ $t('PMDisabledCaptionText') }}</p>
+          <h4>{{ disabledTexts.title }}</h4>
+          <p>{{ disabledTexts.description }}</p>
         </div>
         <div>
           <div
-            v-if="!user.flags.chatRevoked"
             class="new-message-row d-flex align-items-center"
           >
             <textarea
@@ -158,7 +157,6 @@
             </textarea>
           </div>
           <div
-            v-if="!user.flags.chatRevoked"
             class="sub-new-message-row d-flex"
           >
             <div
@@ -168,7 +166,7 @@
             ></div>
             <button
               class="btn btn-primary"
-              :class="{'disabled':newMessage === ''}"
+              :class="{'disabled':newMessageDisabled || newMessage === ''}"
               @click="sendPrivateMessage()"
             >
               {{ $t('send') }}
@@ -470,7 +468,6 @@
 
   .pm-disabled-caption {
     padding-top: 1em;
-    background-color: $gray-700;
     z-index: 2;
 
     h4, p {
@@ -680,6 +677,8 @@ export default {
             contributor: recentMessage.contributor,
             userStyles: recentMessage.userStyles,
             backer: recentMessage.backer,
+            optOut: recentMessage.optOut,
+            chatRevoked: recentMessage.chatRevoked,
             canLoadMore: false,
             page: 0,
           };
@@ -737,6 +736,31 @@ export default {
         title: this.$t('PMPlaceholderTitle'),
         description: this.$t('PMPlaceholderDescription'),
       };
+    },
+    disabledTexts () {
+      if (this.user.flags.chatRevoked) {
+        return {
+          title: this.$t('PMPlaceholderTitleRevoked'),
+          description: this.$t('chatPrivilegesRevoked'),
+        };
+      }
+
+      if (this.user.inbox.optOut) {
+        return {
+          title: this.$t('PMDisabledCaptionTitle'),
+          description: this.$t('PMDisabledCaptionText'),
+        };
+      }
+
+      console.info(this.selectedConversation);
+      if (this.selectedConversation && this.selectedConversation.optOut) {
+        return {
+          title: this.$t('PMCanNotReply'),
+          description: this.$t('PMUserDoesNotReceiveMessages'),
+        };
+      }
+
+      return null;
     },
     optTextSet () {
       if (!this.user.inbox.optOut) {
