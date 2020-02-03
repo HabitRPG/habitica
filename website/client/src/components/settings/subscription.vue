@@ -78,68 +78,7 @@
         <div class="flex-spacer"></div>
         <div>
           <div class="subscribe-card d-flex flex-column">
-            <b-form-group class="my-auto mr-auto w-100 h-100" id="subscription-form">
-              <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-              <b-form-radio
-                v-for="block in subscriptionBlocksOrdered"
-                v-if="block.target !== 'group' && block.canSubscribe === true"
-                :value="block.key"
-                :key="block.key"
-                v-model="subscription.key"
-                class="subscribe-option pt-2 pl-5 pb-3 mb-0"
-                :class="{selected: subscription.key === block.key}"
-                @click.native="subscription.key = block.key"
-              >
-              <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-                <div
-                  v-html="$t('subscriptionRateText', {price: block.price, months: block.months})"
-                  class="subscription-text ml-2 mb-1"
-                >
-                </div>
-                <div
-                  v-html="subscriptionBubbles(block.key)"
-                  class="ml-2"
-                >
-                </div>
-              </b-form-radio>
-            </b-form-group>
-            <div class="payments-column mx-auto mt-auto mb-3">
-              <button
-                class="purchase btn btn-primary payment-button payment-item"
-                :class="{disabled: !subscription.key}"
-                :disabled="!subscription.key"
-                @click="showStripe({subscription:subscription.key, coupon:subscription.coupon})"
-              >
-                <div
-                  v-once
-                  class="svg-icon credit-card-icon"
-                  v-html="icons.creditCardIcon"
-                ></div>
-                {{ $t('card') }}
-              </button>
-              <button
-                class="btn payment-item paypal-checkout payment-button"
-                :class="{disabled: !subscription.key}"
-                :disabled="!subscription.key"
-                @click="openPaypal(paypalPurchaseLink, 'subscription')"
-              >
-                &nbsp;
-                <img
-                  src="~@/assets/images/paypal-checkout.png"
-                  :alt="$t('paypal')"
-                >&nbsp;
-              </button>
-              <amazon-button
-                class="payment-item"
-                :class="{disabled: !subscription.key}"
-                :disabled="!subscription.key"
-                :amazon-data="{
-                  type: 'subscription',
-                  subscription: subscription.key,
-                  coupon: subscription.coupon
-                }"
-              />
-            </div>
+            <subscription-options />
           </div>
         </div>
       </div>
@@ -154,7 +93,7 @@
           v-if="hasSubscription && !hasCanceledSubscription"
           class="d-flex flex-column align-items-center my-4"
         >
-          <div class="check-container d-flex align-items-center justify-content-center">
+          <div class="round-container bg-green-10 d-flex align-items-center justify-content-center">
             <div
               v-once
               class="svg-icon svg-check"
@@ -210,6 +149,25 @@
             {months: purchasedPlanExtraMonthsDetails.months})"
           >
           </div>
+        </div>
+        <div
+          v-if="hasCanceledSubscription"
+          class="d-flex flex-column align-items-center my-4"
+        >
+          <div class="round-container bg-gray-300 d-flex align-items-center justify-content-center">
+            <div
+              v-once
+              class="svg-icon svg-close"
+              v-html="icons.closeIcon"
+            ></div>
+          </div>
+          <div
+            class="w-75 text-center mb-4"
+            v-html="$t('subscriptionInactiveDate', {date: subscriptionEndDate})"
+          >
+          </div>
+          <h2>{{ $t('readyToResubscribe') }}</h2>
+          <subscription-options class="w-100"/>
         </div>
         <div
           v-if="hasSubscription"
@@ -275,7 +233,34 @@
         </div>
       </div>
     </div>
-    <div class="d-flex flex-column align-items-center mt-5">
+    <div
+      v-if="hasSubscription && !hasCanceledSubscription"
+      class="d-flex flex-column align-items-center mt-3"
+    >
+      <div class="cancel-card p-4 text-center">
+        <h2 class="maroon-50">{{ $t('cancelYourSubscription') }}</h2>
+        <div v-if="hasGroupPlan">{{ $t('cancelSubInfoGroupPlan') }}</div>
+        <div
+          v-if="!hasGroupPlan && !canCancelSubscription"
+          v-html="$t(`cancelSubInfo${user.purchased.plan.paymentMethod}`)"
+        >
+        </div>
+        <div
+          v-if="canCancelSubscription"
+          v-html="$t('cancelSubAlternatives')"
+        >
+        </div>
+        <div
+          class="btn btn-danger mt-4"
+          :class="{disabled: !canCancelSubscription}"
+          :disabled="!canCancelSubscription"
+          @click="cancelSubscriptionConfirm({canCancel: canCancelSubscription})"
+        >
+          {{ $t('cancelSub') }}
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column align-items-center mt-4">
       <div
         v-once
         class="svg-icon svg-gift-box m-auto"
@@ -355,6 +340,14 @@
     font-size: 16px;
   }
 
+  .bg-green-10 {
+    background-color: $green-10;
+  }
+
+  .bg-gray-300 {
+    background-color: $gray-300;
+  }
+
   .bg-gray-700 {
     background-color: $gray-700;
   }
@@ -372,13 +365,10 @@
     font-size: 14px;
   }
 
-  .check-container {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: $green-10;
-    margin: 0 auto;
-    margin-bottom: 16px;
+  .cancel-card {
+    width: 28rem;
+    border: 2px solid $gray-500;
+    border-radius: 4px;
   }
 
   .disabled {
@@ -419,6 +409,10 @@
     height: 49px;
   }
 
+  .maroon-50 {
+    color: $maroon-50;
+  }
+
   .muted {
     font-size: 14px;
     color: $gray-200;
@@ -431,6 +425,14 @@
   .Pet-Jackalope-RoyalPurple {
     margin-top: -1.75rem;
     transform: scale(0.75);
+  }
+
+  .round-container {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-bottom: 16px;
   }
 
   .stats-label {
@@ -446,7 +448,6 @@
 
   .subscribe-card {
     width: 28rem;
-    min-height: 31.25rem;
     border-radius: 4px;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     background-color: $white;
@@ -473,7 +474,17 @@
   .svg-check {
     width: 35.1px;
     height: 28px;
-    color: white;
+    color: $white;
+  }
+
+  .svg-close {
+    width: 26px;
+    height: 26px;
+
+    & ::v-deep svg path {
+      stroke: $white;
+      stroke-width: 3;
+    }
   }
 
   .svg-credit-card {
@@ -528,8 +539,6 @@
 
 <script>
 import axios from 'axios';
-import filter from 'lodash/filter';
-import sortBy from 'lodash/sortBy';
 import min from 'lodash/min';
 import moment from 'moment';
 import { mapState } from '@/libs/store';
@@ -539,12 +548,13 @@ import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import paymentsMixin from '../../mixins/payments';
 import notificationsMixin from '../../mixins/notifications';
 
-import amazonButton from '@/components/payments/amazonButton';
+import subscriptionOptions from './subscriptionOptions.vue';
 
 import amazonPayLogo from '@/assets/svg/amazonpay.svg';
 import applePayLogo from '@/assets/svg/apple-pay-logo.svg';
 import calendarIcon from '@/assets/svg/calendar-purple.svg';
 import checkmarkIcon from '@/assets/svg/check.svg';
+import closeIcon from '@/assets/svg/close.svg';
 import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 import gemIcon from '@/assets/svg/gem.svg';
 import giftBox from '@/assets/svg/gift-purple.svg';
@@ -558,7 +568,7 @@ import subscriberHourglasses from '@/assets/svg/subscriber-hourglasses.svg';
 
 export default {
   components: {
-    amazonButton,
+    subscriptionOptions,
   },
   mixins: [paymentsMixin, notificationsMixin],
   data () {
@@ -586,6 +596,7 @@ export default {
         applePayLogo,
         calendarIcon,
         checkmarkIcon,
+        closeIcon,
         creditCardIcon,
         gemIcon,
         giftBox,
@@ -601,11 +612,6 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data', credentials: 'credentials' }),
-    subscriptionBlocksOrdered () {
-      const subscriptions = filter(subscriptionBlocks, o => o.discount !== true);
-
-      return sortBy(subscriptions, [o => o.months]);
-    },
     purchasedPlanIdInfo () {
       if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
         // @TODO: find which subs are in the common
@@ -724,6 +730,9 @@ export default {
           };
       }
     },
+    subscriptionEndDate () {
+      return moment(this.user.purchased.plan.dateTerminated).format('MM/DD/YYYY');
+    },
   },
   methods: {
     async applyCoupon (coupon) {
@@ -741,18 +750,6 @@ export default {
     },
     showSelectUser () {
       this.$root.$emit('bv::show::modal', 'select-user-modal');
-    },
-    subscriptionBubbles (subscription) {
-      switch (subscription) {
-        case 'basic_3mo':
-          return '<span class="subscription-bubble px-2 py-1 mr-1">Gem cap raised to 30</span><span class="subscription-bubble px-2 py-1">+1 Mystic Hourglass</span>';
-        case 'basic_6mo':
-          return '<span class="subscription-bubble px-2 py-1 mr-1">Gem cap raised to 35</span><span class="subscription-bubble px-2 py-1">+2 Mystic Hourglass</span>';
-        case 'basic_12mo':
-          return '<span class="discount-bubble px-2 py-1 mr-1">Save 20%</span><span class="subscription-bubble px-2 py-1 mr-1">Gem cap raised to 45</span><span class="subscription-bubble px-2 py-1">+4 Mystic Hourglass</span>';
-        default:
-          return '<span class="subscription-bubble px-2 py-1">Gem cap at 25</span>';
-      }
     },
   },
 };

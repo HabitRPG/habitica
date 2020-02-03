@@ -44,7 +44,7 @@
     "cancelSub": "Cancel Subscription",
     "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple's official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
-    "cancelSubInfoGroupPlan": "Because you have a free subscription from a Group Plan, you cannot cancel it. It will end when you are no longer in the Group. If you are the Group leader and want to cancel the entire Group Plan, you can do that from the group's \"Payment Details\" tab.",
+    "cancelSubInfoGroupPlan": "Because you have a free subscription from a Group Plan, you cannot cancel it. It will end when you are no longer a member of the Group Plan. If you are the Group leader and want to cancel the Group Plan, you can do that from the Group Plan’s “Group Billing” tab.",
     "canceledSubscription": "Canceled Subscription",
     "cancelingSubscription": "Canceling the subscription",
     "adminSub": "Administrator Subscriptions",
@@ -240,7 +240,12 @@
     "monthlyMysteryItems": "Monthly Mystery Items",
     "doubleDropCap": "Double the Drops",
     "youAreSubscribed": "You are subscribed to Habitica",
+    "subscriptionCanceled": "Your subscription is canceled",
+    "subscriptionInactiveDate": "Your subscription benefits will become inactive on <strong><%= date %></strong>",
     "subscriptionStats": "Subscription Stats",
     "subMonths": "Sub Months",
-    "needToUpdateCard": "Need to update your card?"
+    "needToUpdateCard": "Need to update your card?",
+    "readyToResubscribe": "Are you ready to resubscribe?",
+    "cancelYourSubscription": "Cancel your subscription?",
+    "cancelSubAlternatives": "If you're having technical problems or Habitica doesn't seem to be working out for you, please consider <a href='mailto:admin@habitica.com'>contacting us</a>. We want to help you get the most from Habitica."
 }
