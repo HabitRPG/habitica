@@ -16,6 +16,7 @@
           v-model="workingChallenge.name"
           type="text"
           :placeholder="$t('challengeNamePlaceholder')"
+          @keydown="enableSubmit"
         />
       </div>
       <div class="form-group">
@@ -26,6 +27,7 @@
           v-model="workingChallenge.shortName"
           type="text"
           :placeholder="$t('shortNamePlaceholder')"
+          @keydown="enableSubmit"
         />
       </div>
       <div class="form-group">
@@ -41,6 +43,7 @@
           v-model="workingChallenge.summary"
           class="summary-textarea form-control"
           :placeholder="$t('challengeSummaryPlaceholder')"
+          @keydown="enableSubmit"
         ></textarea>
       </div>
       <div class="form-group">
@@ -55,6 +58,7 @@
           v-model="workingChallenge.description"
           class="description-textarea form-control"
           :placeholder="$t('challengeDescriptionPlaceholder')"
+          @keydown="enableSubmit"
         ></textarea>
       </div>
       <div
@@ -67,6 +71,7 @@
         <select
           v-model="workingChallenge.group"
           class="form-control"
+          @change="enableSubmit"
         >
           <option
             v-for="group in groups"
@@ -119,6 +124,7 @@
                 class="custom-control-input"
                 type="checkbox"
                 :value="group.key"
+                @change="enableSubmit"
               >
               <label
                 v-once
@@ -150,6 +156,7 @@
           type="number"
           :min="minPrize"
           :max="maxPrize"
+          @change="enableSubmit"
         >
       </div>
       <div class="row footer-wrap">
@@ -570,7 +577,6 @@ export default {
       } catch (e) {
         // creating the challenge failed. Most probably due to server-side errors.
         console.error(e);
-        this.loading = false;
         return;
       }
 
@@ -625,6 +631,12 @@ export default {
     },
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;
+    },
+    enableSubmit () {
+      /* Enables the submit button if it was disabled */
+      if (this.loading) {
+        this.loading = false;
+      }
     },
   },
 };
