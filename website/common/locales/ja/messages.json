@@ -51,7 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "このメッセージは報告済みです",
     "messageGroupChatNotFound": "メッセージが見つかりません!",
     "messageGroupChatAdminClearFlagCount": "フラグ数をクリアーできるのは管理者だけです!",
-    "messageCannotFlagSystemMessages": "システムメッセージを報告することはできません。このメッセージに関してコミュニティガイドラインの違反を報告する必要がある場合は、スクリーンショットと説明をLemoness（<%= communityManagerEmail %>）にメールで送ってください。",
+    "messageCannotFlagSystemMessages": "システムメッセージを報告することはできません。このメッセージに関してコミュニティガイドラインの違反を報告する必要がある場合は、スクリーンショットと説明をコミュニティー管理者（<%= communityManagerEmail %>）にメールで送ってください。",
     "messageGroupChatSpam": "おおっと!たくさんのメッセージを投稿しすぎたようです!少しだけ待ってから再度お試しください。キャンプ場では200個のメッセージまでしか一度に表示されませんので,Habiticaでは熟慮と吟味がなされた返信を奨励しています。あなたが言いかけたことを楽しみにしています。:)",
     "messageCannotLeaveWhileQuesting": "あなたはクエストを実行中のため、このパーティーへの招待を承諾することができません。もしこのパーティーに加わりたいのであれば、まずパーティー画面から実行中のクエストを中止してください。中止したクエストの巻物は手元に戻ります。",
     "messageUserOperationProtected": "「<%= operation %>」パスは、保護されたパスなので保存できません。",
@@ -60,9 +60,10 @@
     "messageNotAbleToBuyInBulk": "このアイテムは1つ以上購入することができません。",
     "notificationsRequired": "通知 ID が必要です。",
     "unallocatedStatsPoints": "<span class=\"notification-bold-blue\"><%= points %>ポイントが割り当てできます。</span>",
-    "beginningOfConversation": "<%= userName %>との会話の始まりです。相手に対して思いやりと敬意を持ち、コミュニティガイドラインを守ることを忘れないでください！",
+    "beginningOfConversation": "<%= userName %>との会話の始まりです。",
     "messageDeletedUser": "申し訳ありません。このユーザーはアカウントを削除しています。",
     "messageMissingDisplayName": "表示名がありません。",
     "reportedMessage": "このメッセージはモデレーターに報告済みです。",
-    "canDeleteNow": "もし希望するときはメッセージを削除できるようになりました。"
+    "canDeleteNow": "もし希望するときはメッセージを削除できるようになりました。",
+    "beginningOfConversationReminder": "相手に対して思いやりと敬意を持ち、コミュニティガイドラインを守ることを忘れないでください！"
 }
