@@ -2025,5 +2025,11 @@
     "armorArmoireLayerCakeArmorNotes": "Sie ist schützend und lecker! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Herzlichen Glückwunsch zum Geburtstag-Set (Gegenstand 2 von 4).",
     "armorArmoireLayerCakeArmorText": "Schichttortenrüstung",
     "weaponArmoireHappyBannerNotes": "Steht das \"H\" für Herzlich oder für Habitica? Entscheide selbst! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Herzlichen Glückwunsch zum Geburtstag-Set (Gegenstand 3 von 4).",
-    "weaponArmoireHappyBannerText": "Herzliche Gösch"
+    "weaponArmoireHappyBannerText": "Herzliche Gösch",
+    "weaponMystery202002Notes": "Ein Accessoire, das Dir einen Hauch Rätselhaftigkeit und Romantik verleiht. Sonnenschutz als Bonus! Gewährt keinen Attributbonus. Abonnentengegenstand, Februar 2020.",
+    "weaponMystery202002Text": "Stilvolles Schätzchen-Sonnenschirm",
+    "bodyMystery202002Notes": "Zu tragen, wenn Dein Herz warm ist, aber die Brisen des Februars böig sind. Gewährt keinen Attributbonus. Abonnentengegenstand, Februar 2020.",
+    "bodyMystery202002Text": "Stilvolles Schätzchen-Schal",
+    "armorSpecialBirthday2020Notes": "Herzlichen Glückwunsch zum geburtstag, Habitica! Trage diese Frevelhafte Fetenrobe, um diesen wundervollen Tag zu zelebrieren. Gewährt keinen Attributbonus.",
+    "armorSpecialBirthday2020Text": "Frevelhafte Fetenrobe"
 }

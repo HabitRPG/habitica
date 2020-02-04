@@ -1866,5 +1866,20 @@
     "armorSpecialSummer2019MageText": "Vestido Floral",
     "armorSpecialSpring2019HealerNotes": "Tus plumas brillantes son prueba de que el frío y la oscuridad del invierno se han acabado. Incrementa la Constitución un <%= con %>. Equipamiento de Primavera 2019 Edición Limitada.",
     "armorSpecialSpring2019MageText": "Bata de Ámbar",
-    "weaponArmoireHappyBannerText": "Cartel Feliz"
+    "weaponArmoireHappyBannerText": "Cartel Feliz",
+    "headSpecialKS2019Text": "Casco de Grifo Mítico",
+    "armorArmoireNephriteArmorText": "Armadura de Nefrita",
+    "armorMystery201909Text": "Armadura de Bellota Afable",
+    "armorMystery201908Text": "Disfraz de Fauno Libre",
+    "armorMystery201906Text": "Cola de Koi Amable",
+    "armorSpecialWinter2020HealerText": "Toga de Mondura de Naranja",
+    "armorSpecialWinter2020RogueText": "Parka Acolchado",
+    "armorSpecialFall2019MageText": "Blusón de Polifemo",
+    "armorSpecialSummer2019HealerText": "Cola de Mareas Tropicales",
+    "armorSpecialSummer2019RogueText": "Cola de Pez Martillo",
+    "armorSpecialSpring2019HealerText": "Disfraz de Petirrojo",
+    "armorSpecialBirthday2020Text": "Bata de Fiesta Estrafalaria",
+    "weaponArmoireHappyBannerNotes": "Es la \"H\" por Happy, o por Habitica? Es tu elección. Incrementa la Percepción un <%= per %>. Armario Encantado: Colección de Feliz Cumpleaños (Artículo 3 de 4).",
+    "weaponMystery202002Notes": "Un accesorio con un aire de misterio y romance. ¡La protección solar es un bonus! No da ningún beneficio. Artículo de Suscripción Febrero 2020.",
+    "weaponMystery202002Text": "Parasol Estiloso de Corazón"
 }

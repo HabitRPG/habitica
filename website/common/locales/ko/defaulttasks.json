@@ -33,5 +33,20 @@
     "healthTodoNotes": "눌러서 체크리스트를 추가하세요!",
     "healthDailyNotes": "눌러서 수정하세요!",
     "workTodoProjectNotes": "눌러서 현재 프로젝트의 이름이나 마감일을 정하세요",
-    "exerciseTodoNotes": "눌러서 체크리스트를 추가하세요"
+    "exerciseTodoNotes": "눌러서 체크리스트를 추가하세요",
+    "choresDailyNotes": "일정을 선택하려면 누르세요!",
+    "choresHabit": "10분 청소",
+    "selfCareTodoNotes": "실천할 계획을 지정하려면 누르세요!",
+    "selfCareTodoText": "재미있는 활동에 참여하기",
+    "selfCareDailyNotes": "일정을 선택하려면 누르세요!",
+    "selfCareHabit": "휴식하기",
+    "schoolTodoText": "학교 과제하기",
+    "schoolDailyNotes": "과제 일정을 선택하려면 누르세요!",
+    "schoolDailyText": "과제 하기",
+    "healthTodoText": "일정 확인 >> 건강한 변화를 생각하기",
+    "healthHabit": "건강식품/정크 푸드를 먹으세요",
+    "exerciseDailyNotes": "눌러서 스케줄 및 운동을 지정하세요!",
+    "exerciseTodoText": "운동 일정 설정",
+    "exerciseDailyText": "스트레칭 >> 일일 운동 순서",
+    "workDailyImportantTaskNotes": "가장 중요한 할 일로 지정하려면 누르세요"
 }
