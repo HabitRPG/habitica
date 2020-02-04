@@ -26,7 +26,7 @@
     "guardianText": "版主是从高等级贡献者中仔细挑选出来的，所以请尊重他们，和听从他们的建议。",
     "staff": "工作人员",
     "heroic": "英雄",
-    "heroicText": "英雄级包含 Habitica 员工和员工级别贡献者。如果你有这个称号，你将被任命（甚至被雇用！）。",
+    "heroicText": "英雄级包含Habitica员工和员工级别贡献者。如果你有这个称号，你将被任命（甚至被雇用！）。",
     "npcText": "NPC们对Habitica的Kickstarter计划作出了最高层级的支持。你可以在网站各处看到他们的角色形象！",
     "modalContribAchievement": "贡献成就！",
     "contribModal": "<%= name %>，你太棒啦！你现在是一位帮助Habitica的<%= level %>级贡献者。",
