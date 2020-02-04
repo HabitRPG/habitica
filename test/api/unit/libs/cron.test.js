@@ -1882,6 +1882,33 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.not.equal('CRON');
       common.statsComputed.restore();
     });
+
+    it('should remove duplicates from pushDevices array', () => {
+      // Arrange
+      const device1 = {
+        regId: 'erWWzAqL9Bw:APA91bEkvxR_bo1232148734487103471983479817349287ieROEjvT1cx5',
+        type: 'android',
+        createdAt: '2018-12-18T09:12:51.415Z',
+        updatedAt: '2020-02-02T07:57:28.447Z',
+      };
+      const device2 = {
+        regId: 'fr_5B_ezlkE:APA91bF4Rq1RlTalkdsjfkaksjdflkasdflskajdflskjfj87GyD_9zKNIKB-hcybmte37kw',
+        type: 'android',
+        createdAt: '2019-01-12T23:50:24.531Z',
+        updatedAt: '2020-02-02T07:57:28.447Z',
+      };
+      user.pushDevices = [device1, device1, device2, device2, device2];
+
+      // Act
+      cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+
+      // Assert
+      expect(user.pushDevices).to.be.an('array').that.does.have.lengthOf(2);
+      expect(user.pushDevices[0].regId).to.eql(device1.regId);
+      expect(user.pushDevices[1].regId).to.eql(device2.regId);
+    });
   });
 
   describe('private messages', () => {
@@ -2140,37 +2167,6 @@ describe('cron', () => {
       expect(user.loginIncentives).to.eql(50);
       expect(user.items.food.Saddle).to.eql(1);
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
-    });
-
-    it('should remove duplicates from pushDevices array', () => {
-      // Arrange
-      const device1 = {
-        regId: 'erWWzAqL9Bw:APA91bEkvxR_bo1232148734487103471983479817349287ieROEjvT1cx5',
-        type: 'android',
-        createdAt: '2018-12-18T09:12:51.415Z',
-        updatedAt: '2020-02-02T07:57:28.447Z',
-      };
-      const device2 = {
-        regId: 'fr_5B_ezlkE:APA91bF4Rq1RlTalkdsjfkaksjdflkasdflskajdflskjfj87GyD_9zKNIKB-hcybmte37kw',
-        type: 'android',
-        createdAt: '2019-01-12T23:50:24.531Z',
-        updatedAt: '2020-02-02T07:57:28.447Z',
-      };
-      user.pushDevices = [device1, device1, device2, device2, device2];
-
-      // Act
-      cron({
-        user, tasksByType, daysMissed, analytics,
-      });
-
-      // Assert
-      expect(user.pushDevices).to.be.an('array').that.does.have.lengthOf(2);
-      expect(user.pushDevices[0].regId).to.eql(device1.regId);
-      expect(user.pushDevices[1].regId).to.eql(device2.regId);
-    });
-
-    it('cron should remove duplicates from pushDevices array', () => {
-      user.pushDevices = [];
     });
   });
 });
