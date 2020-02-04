@@ -473,6 +473,8 @@
   "weaponArmoireAlchemistsDistillerNotes": "Purify metals and other magical compounds with this shiny brass instrument. Increases Strength by <%= str %> and Intelligence by <%= int %>. Enchanted Armoire: Alchemist Set (Item 3 of 4).",
   "weaponArmoireHappyBannerText": "Happy Banner",
   "weaponArmoireHappyBannerNotes": "Is the “H” for Happy, or Habitica? Your choice! Increases Perception by <%= per %>. Enchanted Armoire: Happy Birthday Set (Item 3 of 4).",
+  "weaponArmoireLivelyMatchText": "A Lively Match",
+  "weaponArmoireLivelyMatchNotes": "When you're holding this, you're sure to spark someone's interest! Increases Strength by <%= str %>. Enchanted Armoire: Match Maker Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1020,6 +1022,8 @@
   "armorArmoireDuffleCoatNotes": "Travel frosty realms in style with this cozy wool coat. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Duffle Coat Set (Item 1 of 2).",
   "armorArmoireLayerCakeArmorText": "Layer Cake Armor",
   "armorArmoireLayerCakeArmorNotes": "It's protective and tasty! Increases Constitution by <%= con %>. Enchanted Armoire: Happy Birthday Set (Item 2 of 4).",
+  "armorArmoireMatchMakersApronText": "Match Maker's Apron",
+  "armorArmoireMatchMakersApronNotes": "This apron is for safety, but for humor's sake we can make light of it. Increases Constitution, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Match Maker Set (Item 1 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1583,6 +1587,8 @@
   "headArmoireEarflapHatNotes": "If you're looking to keep your head toasty warm, this hat has you covered! Increases Intelligence and Strength by <%= attrs %> each. Enchanted Armoire: Duffle Coat Set (Item 2 of 2).",
   "headArmoireFrostedHelmText": "Frosted Helm",
   "headArmoireFrostedHelmNotes": "The perfect headgear for any celebration! Increases Intelligence by <%= int %>. Enchanted Armoire: Happy Birthday Set (Item 1 of 4).",
+  "headArmoireMatchMakersBeretText": "Match Maker's Beret",
+  "headArmoireMatchMakersBeretNotes": "You'll look striking wearing this lovely hat! Increases Constitution by <%= con %>. Enchanted Armoire: Match Maker Set (Item 2 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1887,6 +1893,8 @@
   "shieldArmoireAlchemistsScaleNotes": "Ensure that your mystical ingredients are properly measured using this fine piece of equipment. Increases Intelligence by <%= int %>. Enchanted Armoire: Alchemist Set (Item 4 of 4).",
   "shieldArmoireBirthdayBannerText": "Birthday Banner",
   "shieldArmoireBirthdayBannerNotes": "Celebrate your special day, the special day of someone you love, or break this out for Habitica's Birthday on January 31! Increases Strength by <%= str %>. Enchanted Armoire: Happy Birthday Set (Item 4 of 4).",
+  "shieldArmoirePerfectMatchText": "The Perfect Match",
+  "shieldArmoirePerfectMatchNotes": "Hot take: we think you look great. Increases Perception by <%= per %>. Enchanted Armoire: Match Maker Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",

@@ -524,6 +524,16 @@ const armor = {
     set: 'birthday',
     canOwn: ownsItem('armor_armoire_layerCakeArmor'),
   },
+  matchMakersApron: {
+    text: t('armorArmoireMatchMakersApronText'),
+    notes: t('armorArmoireMatchMakersApronNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    str: 7,
+    int: 7,
+    set: 'matchMaker',
+    canOwn: ownsItem('armor_armoire_matchMakersApron'),
+  },
 };
 
 const body = {
@@ -1071,6 +1081,14 @@ const head = {
     set: 'birthday',
     canOwn: ownsItem('head_armoire_frostedHelm'),
   },
+  matchMakersBeret: {
+    text: t('headArmoireMatchMakersBeretText'),
+    notes: t('headArmoireMatchMakersBeretNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'matchMaker',
+    canOwn: ownsItem('head_armoire_matchMakersBeret'),
+  },
 };
 
 const shield = {
@@ -1365,6 +1383,14 @@ const shield = {
     str: 7,
     set: 'birthday',
     canOwn: ownsItem('shield_armoire_birthdayBanner'),
+  },
+  perfectMatch: {
+    text: t('shieldArmoirePerfectMatchText'),
+    notes: t('shieldArmoirePerfectMatchNotes', { per: 15 }),
+    value: 100,
+    per: 15,
+    set: 'matchMaker',
+    canOwn: ownsItem('shield_armoire_perfectMatch'),
   },
 };
 
@@ -1828,6 +1854,14 @@ const weapon = {
     per: 7,
     set: 'birthday',
     canOwn: ownsItem('weapon_armoire_happyBanner'),
+  },
+  livelyMatch: {
+    text: t('weaponArmoireLivelyMatchText'),
+    notes: t('weaponArmoireLivelyMatchNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    set: 'matchMaker',
+    canOwn: ownsItem('weapon_armoire_livelyMatch'),
   },
 };
 
