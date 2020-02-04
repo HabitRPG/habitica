@@ -479,6 +479,9 @@ export function cron (options = {}) {
 
   user.history.exp.push({ date: now, value: expTally });
 
+  // Remove duplicated user's pushDevices
+  user.pushDevices = _.uniqBy(user.pushDevices, 'regId');
+
   // Remove any remaining completed todos from the list of active todos
   user.tasksOrder.todos = user.tasksOrder.todos
     .filter(taskOrderId => _.some(
