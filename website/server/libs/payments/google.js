@@ -247,8 +247,6 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     }
   }
 
-  if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
-
   await payments.cancelSubscription({
     user,
     nextBill: dateTerminated,
