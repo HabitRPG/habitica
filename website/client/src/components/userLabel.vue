@@ -90,10 +90,11 @@ export default {
     },
     isNPC () {
       if (this.backer) {
-        return this.backer.level;
+        return this.backer.tier === 800;
       } if (this.user && this.user.backer) {
-        return this.user.backer.level;
+        return this.user.backer.tier === 800;
       }
+
       return false;
     },
   },

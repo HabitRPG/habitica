@@ -196,14 +196,16 @@ export default {
     },
     showTierStyle (message) {
       const isContributor = Boolean(message.contributor && message.contributor.level);
-      const isNPC = Boolean(message.backer && message.backer.npc);
+      const isNPC = Boolean(message.backer && message.backer.tier === 800);
+
       return isContributor || isNPC;
     },
     tierIcon (message) {
-      const isNPC = Boolean(message.backer && message.backer.npc);
+      const isNPC = Boolean(message.backer && message.backer.tier === 800);
       if (isNPC) {
         return this.icons.tierNPC;
       }
+
       return this.icons[`tier${message.contributor.level}`];
     },
     select (result) {
