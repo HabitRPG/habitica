@@ -2025,5 +2025,11 @@
     "armorArmoireLayerCakeArmorNotes": "É protetor e saboroso! Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto Feliz Aniversário (Item 2 de 4).",
     "armorArmoireLayerCakeArmorText": "Armadura Bolo de Camada",
     "weaponArmoireHappyBannerNotes": "É um \"H\" para 'Happy' ou 'Habitica'? Você decide! Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto Feliz Aniversário (Item 3 de 4).",
-    "weaponArmoireHappyBannerText": "Banner feliz"
+    "weaponArmoireHappyBannerText": "Banner feliz",
+    "bodyMystery202002Notes": "Para quando seu coração estiver quente, mas a brisa de Fevereiro é intensa. Não confere benefícios. Item de assinante, Fevereiro de 2020.",
+    "bodyMystery202002Text": "Querido cachecol elegante",
+    "armorSpecialBirthday2020Notes": "Feliz aniversário, Habitica! Vista essas ultrajantes roupas festivas para celebrar este dia incrível. Não confere benefícios.",
+    "armorSpecialBirthday2020Text": "Vestes festivas ultrajantes",
+    "weaponMystery202002Notes": "Um acessório que te dá um ar de mistério e romance. Proteção contra o Sol é um bônus! Não confere benefícios. Item de assinante, Fevereiro de 2020.",
+    "weaponMystery202002Text": "Amoroso guarda-sol elegante"
 }
