@@ -224,5 +224,6 @@
     "mainHand": "Mano Principal",
     "offHand": "Mano Secundaria",
     "statPoints": "Puntos de estadisticas",
-    "pts": "pts"
+    "pts": "pts",
+    "purchaseForGold": "¿Comprar por  <%= cost %> monedas de oro?"
 }

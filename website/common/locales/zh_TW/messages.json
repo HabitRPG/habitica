@@ -41,7 +41,7 @@
     "messageAuthEmailTaken": "電子郵件已被使用",
     "messageAuthNoUserFound": "找不到使用者。",
     "messageAuthMustBeLoggedIn": "你需要登入。",
-    "messageAuthMustIncludeTokens": "您必須在您的請求中註明 token 和 UUID（使用者 ID）",
+    "messageAuthMustIncludeTokens": "您必須在您的請求中註明token和UUID（使用者ID）",
     "messageGroupAlreadyInParty": "您已經在一支隊伍裡，請嘗試刷新畫面。",
     "messageGroupOnlyLeaderCanUpdate": "只有隊長可以更新隊伍訊息！",
     "messageGroupRequiresInvite": "不能加入一個你沒有被邀請參加的群組。",

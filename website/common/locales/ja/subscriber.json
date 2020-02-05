@@ -84,7 +84,7 @@
     "seeSubscriptionDetails": "<a href='/user/settings/subscription'>設定 &gt; 寄付</a>であなたの寄付の詳細を確認できます!",
     "timeTravelers": "タイムトラベラー",
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %>と<%= linkStartVicky %>Vicky<%= linkEnd %>",
-    "timeTravelersTitle": "謎のタイムトラベラーズ",
+    "timeTravelersTitle": "謎のタイムトラベラー",
     "timeTravelersPopoverNoSub": "謎のタイムトラベラーを呼び出すには、神秘の砂時計が必要です!　<%= linkStart %>寄付会員<%= linkEnd %>には寄付の継続 3 ヵ月ごとに神秘の砂時計 1 つが与えられます。神秘の砂時計を手に入れたら戻ってきてください。タイム トラベラーが貴重なペットや乗騎、寄付会員むけの過去の、そしてもしかしたら未来のアイテムを取ってきてくれるでしょう。",
     "timeTravelersPopoverNoSubMobile": "時の扉を開いて謎のタイムトラベラーを呼び出すには、神秘の砂時計が必要なようです。",
     "timeTravelersPopover": "神秘の砂時計によって時の扉が開かれた！　さあ、我々に取り寄せてほしい過去や未来のものを選んでくれたまえ。",
