@@ -82,7 +82,7 @@
     "gearAchievement": "您已達成「終極裝備」成就：已升級到指定職業中的最高級裝備套組！您已完成下列套組：",
     "gearAchievementNotification": "您已達成「終極裝備」成就：已升級到指定職業中的最高級裝備套組！",
     "moreGearAchievements": "想獲得更多終極裝備徽章？可到「<a href='/user/settings/site' target='_blank'>設定 &gt; 網站</a>」頁面變更職業並購買新的職業裝備！",
-    "armoireUnlocked": "想獲得更多的裝備？快來看看<strong>神秘寶箱！</strong>點擊神秘寶箱就可以獲得隨機的特殊裝備！而且還可能得到隨機的經驗值或是食物。",
+    "armoireUnlocked": "想獲得更多的裝備？快來看看<strong>魔法衣櫥！</strong>點擊魔法衣櫥就可以獲得隨機的特殊裝備！而且還可能得到隨機的經驗值或是食物。",
     "ultimGearName": "終極裝備—<%= ultClass %>",
     "ultimGearText": "已經將<%= ultClass %>職業的武器與盔甲組合升級到滿等了。",
     "level": "等級",

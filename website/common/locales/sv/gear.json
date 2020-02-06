@@ -1829,5 +1829,11 @@
     "bodyMystery202002Notes": "När ditt hjärta är varmt men februari-vinden är kylig. Medför inga ökningar. Februari 2020 Abonnentföremål.",
     "bodyMystery202002Text": "Stilig Älskare Scarf",
     "weaponMystery202002Notes": "En accessoar som ger dig en bris av mystik och romantik. Solskydd är en bonus! Medför inga ökningar. Februari 2020 Abonnentföremål.",
-    "weaponMystery202002Text": "Stilig Älskare Parasoll"
+    "weaponMystery202002Text": "Stilig Älskare Parasoll",
+    "shieldArmoirePerfectMatchNotes": "Sammanfattning: Du ser fantastisk ut. Ökar Uppmärksamhet med <%= per %>. Förtrollat vapenskåp: Äktenskapsmäklare-set (Föremål 4 av 4).",
+    "headArmoireMatchMakersBeretNotes": "Du kommer att se slående ut med denna härliga hatt! Ökar Tålighet med <%= con %>. Förtrollat vapenskåp: Äktenskapsmäklare-set (Föremål 2 av 4).",
+    "headArmoireMatchMakersBeretText": "Äktenskapsmäklarens Basker",
+    "armorArmoireMatchMakersApronNotes": "Detta förkläde är för säkerhet och för humorns skull poängterar vi det. Ökar Tålighet och Intelligens med <%= con %>. Förtrollat vapenskåp: Äktenskapsmäklare-set (Föremål 1 av 4).",
+    "armorArmoireMatchMakersApronText": "Äktenskapsmäklarens Förkläde",
+    "weaponArmoireLivelyMatchNotes": "När du håller denna kommer du säkert att fånga någons intressen. Ökar Styrka med <%= str %>. Förtrollat vapenskåp: Äktenskapsmäklare-set (Föremål 3 av 4)."
 }

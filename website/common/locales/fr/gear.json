@@ -2031,5 +2031,13 @@
     "armorSpecialBirthday2020Notes": "Joyeux anniversaire, Habitica ! Portes ces robes de fêtes scandaleuses pour célébrer ce jour merveilleux. Ne confère aucun bonus.",
     "armorSpecialBirthday2020Text": "Robes de fête scandaleuses",
     "weaponMystery202002Notes": "Un accessoire qui vous prête un air de mystère et de romance. La protection solaire est en bonus ! Ne confère aucun bonus. Équipement d'abonnement de février 2020.",
-    "weaponMystery202002Text": "Parasol chéri stylé"
+    "weaponMystery202002Text": "Parasol chéri stylé",
+    "shieldArmoirePerfectMatchNotes": "Sujet brûlant : nous pensons que vous êtes magnifique. Augmente la perception de <%= per %>. Armoire enchantée : ensemble d'entremise (objet 4 de 4).",
+    "shieldArmoirePerfectMatchText": "L'âme sœur",
+    "headArmoireMatchMakersBeretNotes": "Vous étincelez quand vous portez ce joli chapeau ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble d'entremise (objet 2 de 4).",
+    "headArmoireMatchMakersBeretText": "Béret d'entremise",
+    "armorArmoireMatchMakersApronNotes": "Ce tablier est pour la protection, mais pour l'humour, nous pouvons l'illuminer. Augmente la constitution, la force et l'intelligence de <%= attrs %> chacun. Armoire enchantée : ensemble d'entremise (objet 1 de 4).",
+    "armorArmoireMatchMakersApronText": "Tablier d'entremise",
+    "weaponArmoireLivelyMatchNotes": "Quand vous tenez ceci, vous avez la certitude d'attiser l'intérêt de quelqu'un ! Augmente la force de <%= str %>. Armoire enchantée : ensemble d'entremise (objet 3 de 4).",
+    "weaponArmoireLivelyMatchText": "Une allumette animée"
 }
