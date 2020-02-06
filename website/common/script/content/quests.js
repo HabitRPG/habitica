@@ -2262,7 +2262,7 @@ const quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 7,
       text: t('loginReward', { count: 7 }),
     },
@@ -2293,7 +2293,7 @@ const quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 22,
       text: t('loginReward', { count: 22 }),
     },
@@ -2323,7 +2323,7 @@ const quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 40,
       text: t('loginReward', { count: 40 }),
     },
