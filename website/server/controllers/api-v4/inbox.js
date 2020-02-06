@@ -91,8 +91,7 @@ api.clearMessages = {
  *       "text":"last message of conversation",
  *       "userStyles": {},
  *       "contributor": {},
- *       "optOut": false,
- *       "chatRevoked": false,
+ *       "canReceive": true,
  *       "count":1
  *    }
  * }

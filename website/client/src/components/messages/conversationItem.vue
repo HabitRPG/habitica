@@ -30,12 +30,12 @@
               v-html="icons.dots"
             ></div>
           </template>
-          <b-dropdown-item @click="block()">
+          <b-dropdown-item @click="toggleBlock()">
             <span class="dropdown-icon-item">
               <div
                 class="svg-icon inline"
                 v-html="icons.remove"
-              ></div><span class="text">{{ $t('block') }}</span></span>
+              ></div><span class="text">{{ $t(isBlocked ? 'unblock' : 'block') }}</span></span>
           </b-dropdown-item>
         </b-dropdown>
       </div>
@@ -83,6 +83,9 @@ export default {
     ...mapState({
       userLoggedIn: 'user.data',
     }),
+    isBlocked () {
+      return this.userLoggedIn.inbox.blocks.includes(this.uuid);
+    },
   },
   data () {
     return {
@@ -105,8 +108,8 @@ export default {
         dropdown.hide();
       }
     },
-    block () {
-      this.$store.dispatch('user:block', {
+    toggleBlock () {
+      this.$store.dispatch(this.isBlocked ? 'user:unblock' : 'user:block', {
         uuid: this.uuid,
       });
     },
