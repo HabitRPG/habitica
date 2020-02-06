@@ -241,7 +241,7 @@ import { setUpAxios, buildAppleAuthUrl } from '@/libs/auth';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
-import appleIcon from '@/assets/svg/apple.svg';
+import appleIcon from '@/assets/svg/apple_black.svg';
 
 export default {
   name: 'AuthForm',
