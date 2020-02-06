@@ -1323,6 +1323,7 @@ export default {
           ...t,
           text: t.text(),
           notes: t.notes && t.notes(),
+          skipAnalytics: true,
         })),
       ];
       this.taskCategories.forEach(category => {
@@ -1330,6 +1331,7 @@ export default {
           ...t,
           text: t.text(),
           notes: t.notes && t.notes(),
+          skipAnalytics: true,
         })));
       });
 

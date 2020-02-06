@@ -141,6 +141,7 @@ export const TaskSchema = new Schema({
   reminders: [reminderSchema],
 
   byHabitica: { $type: Boolean, default: false }, // Flag of Tasks that were created by Habitica
+  skipAnalytics: { $type: Boolean, default: false }, // For automatically created tasks
 }, _.defaults({
   minimize: false, // So empty objects are returned
   strict: true,

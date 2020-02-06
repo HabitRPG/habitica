@@ -13,7 +13,6 @@
     <testing />
     <testingletiant />
     <rebirth-enabled />
-    <drops-enabled />
     <contributor />
     <won-challenge />
     <ultimate-gear />
@@ -128,7 +127,6 @@ import questInvitation from './achievements/questInvitation';
 import testing from './achievements/testing';
 import testingletiant from './achievements/testingletiant';
 import rebirthEnabled from './achievements/rebirthEnabled';
-import dropsEnabled from './achievements/dropsEnabled';
 import contributor from './achievements/contributor';
 import invitedFriend from './achievements/invitedFriend';
 import joinedChallenge from './achievements/joinedChallenge';
@@ -317,7 +315,6 @@ export default {
     testing,
     testingletiant,
     rebirthEnabled,
-    dropsEnabled,
     contributor,
     loginIncentives,
     verifyUsername,
@@ -331,7 +328,6 @@ export default {
   data () {
     // Levels that already display modals and should not trigger generic Level Up
     const unlockLevels = {
-      3: 'drop system',
       10: 'class system',
       50: 'Orb of Rebirth',
     };
@@ -345,7 +341,7 @@ export default {
     const handledNotifications = {};
 
     [
-      'GUILD_PROMPT', 'DROPS_ENABLED', 'REBIRTH_ENABLED', 'WON_CHALLENGE', 'STREAK_ACHIEVEMENT',
+      'GUILD_PROMPT', 'REBIRTH_ENABLED', 'WON_CHALLENGE', 'STREAK_ACHIEVEMENT',
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
@@ -722,9 +718,6 @@ export default {
             } else {
               this.$root.$emit('bv::show::modal', 'testingletiant');
             }
-            break;
-          case 'DROPS_ENABLED':
-            this.$root.$emit('bv::show::modal', 'drops-enabled');
             break;
           case 'REBIRTH_ENABLED':
             this.$root.$emit('bv::show::modal', 'rebirth-enabled');

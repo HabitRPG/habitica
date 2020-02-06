@@ -202,7 +202,7 @@ api.createUserTasks = {
 
     tasks.forEach(task => {
       // Track when new users (first 7 days) create tasks
-      if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+      if (!task.skipAnalytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
         res.analytics.track('task create', {
           uuid: user._id,
           hitType: 'event',
