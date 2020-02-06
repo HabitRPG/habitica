@@ -1,1 +1,13 @@
-{}
+{
+    "stable": "Kandang",
+    "sortByColor": "Warna",
+    "rideLater": "Menunggang Kemudian",
+    "rideNow": "Menunggang sekarang",
+    "food": "Makanan dan Pelana",
+    "foodText": "makanan",
+    "eggSingular": "telur",
+    "eggs": "Telur-telur",
+    "phoenix": "Burung Phoenix",
+    "orca": "Paus Pembunuh",
+    "pets": "Haiwan Peliharaan"
+}

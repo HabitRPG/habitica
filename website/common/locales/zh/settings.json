@@ -160,7 +160,7 @@
     "enabled": "已启用",
     "webhookURL": "Webhook链接",
     "invalidUrl": "无效的url",
-    "invalidEnabled": "“启用”参数应当是布尔数学体系的,意为判断后需返回True或False。",
+    "invalidEnabled": "“启用”参数应当是布尔数学体系的，意为判断后需返回True或False。",
     "invalidWebhookId": "“ID”参数应当是一个有效的UUID。",
     "missingWebhookId": "需要webhook的id。",
     "invalidWebhookType": "对于“类型”参数，“<%= type %>”不是一个有有效的值。",
