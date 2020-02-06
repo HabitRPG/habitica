@@ -326,12 +326,12 @@
 
   .empty-messages {
     h3, p {
-      color: $gray-400;
+      color: $gray-200;
       margin: 0rem;
     }
 
     h2 {
-      color: $gray-400;
+      color: $gray-200;
       margin-bottom: 1rem;
     }
 
@@ -471,7 +471,7 @@
     z-index: 2;
 
     h4, p {
-      color: $gray-300;
+      color: $gray-200;
     }
 
     h4 {
@@ -677,8 +677,7 @@ export default {
             contributor: recentMessage.contributor,
             userStyles: recentMessage.userStyles,
             backer: recentMessage.backer,
-            optOut: recentMessage.optOut,
-            chatRevoked: recentMessage.chatRevoked,
+            canReceive: recentMessage.canReceive,
             canLoadMore: false,
             page: 0,
           };
@@ -752,12 +751,20 @@ export default {
         };
       }
 
-      console.info(this.selectedConversation);
-      if (this.selectedConversation && this.selectedConversation.optOut) {
-        return {
-          title: this.$t('PMCanNotReply'),
-          description: this.$t('PMUserDoesNotReceiveMessages'),
-        };
+      if (this.selectedConversation && this.selectedConversation.key) {
+        if (this.user.inbox.blocks.includes(this.selectedConversation.key)) {
+          return {
+            title: this.$t('PMDisabledCaptionTitle'),
+            description: this.$t('PMUnblockUserToSendMessages'),
+          };
+        }
+
+        if (!this.selectedConversation.canReceive) {
+          return {
+            title: this.$t('PMCanNotReply'),
+            description: this.$t('PMUserDoesNotReceiveMessages'),
+          };
+        }
       }
 
       return null;
@@ -781,7 +788,8 @@ export default {
       return '';
     },
     newMessageDisabled () {
-      return !this.selectedConversation || !this.selectedConversation.key;
+      return !this.selectedConversation || !this.selectedConversation.key
+        || this.disabledTexts !== null;
     },
   },
 

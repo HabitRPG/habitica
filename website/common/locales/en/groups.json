@@ -145,6 +145,7 @@
   "PMDisabledCaptionText": "You can still send messages, but no one can send them to you.",
   "PMCanNotReply": "You can not reply to this conversation",
   "PMUserDoesNotReceiveMessages": "This user is no longer receiving private messages",
+  "PMUnblockUserToSendMessages": "Unblock this user to continue sending and receiving messages.",
   "block": "Block",
   "unblock": "Un-block",
   "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
