@@ -129,7 +129,7 @@ export async function listConversations (owner) {
       conversation.userStyles = usersMap[uuid].userStyles;
       conversation.contributor = usersMap[uuid].contributor;
       conversation.backer = usersMap[uuid].backer;
-      conversation.canReceive = !usersMap[uuid].optOut || !usersMap[uuid].chatRevoked;
+      conversation.canReceive = !usersMap[uuid].optOut || owner.isAdmin();
     }
 
     return conversation;
