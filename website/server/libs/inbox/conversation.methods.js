@@ -10,6 +10,7 @@ import { model as User } from '../../models/user';
  * @returns {Promise<void>}
  */
 async function usersMapByConversations (owner, users) {
+  // Load user info by the Inbox itself first
   const query = Inbox
     .aggregate([
       {
@@ -82,7 +83,7 @@ async function usersMapByConversations (owner, users) {
 
   for (const usr of usersExtraInfo) {
     usersMap[usr._id].optOut = usr.inbox.optOut;
-    usersMap[usr._id].chatRevoked = usr.inbox.chatRevoked;
+    usersMap[usr._id].blocks = usr.inbox.blocks;
   }
 
   return usersMap;
@@ -126,10 +127,13 @@ export async function listConversations (owner) {
     };
 
     if (usersMap[uuid]) {
-      conversation.userStyles = usersMap[uuid].userStyles;
-      conversation.contributor = usersMap[uuid].contributor;
-      conversation.backer = usersMap[uuid].backer;
-      conversation.canReceive = !usersMap[uuid].optOut || owner.isAdmin();
+      const user = usersMap[uuid];
+
+      conversation.userStyles = user.userStyles;
+      conversation.contributor = user.contributor;
+      conversation.backer = user.backer;
+      conversation.canReceive = !(user.optOut || user.blocks.includes(owner._id))
+        || owner.isAdmin();
     }
 
     return conversation;
