@@ -21,7 +21,7 @@
       </div>
       <div class="d-flex selected-conversion">
         <router-link
-          :to="{'name': 'userProfile', 'params': {'userId': selectedConversation.id}}"
+          :to="{'name': 'userProfile', 'params': {'userId': selectedConversation.key}}"
         >
           <face-avatar
             v-if="selectedConversation.userStyles"
@@ -34,6 +34,7 @@
           :contributor="selectedConversation.contributor"
           :name="selectedConversation.name"
           :user="selectedConversation"
+          :userId="selectedConversation.key"
           :hide-tooltip="true"
         />
       </div>
