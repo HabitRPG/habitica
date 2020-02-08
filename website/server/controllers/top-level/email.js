@@ -15,7 +15,8 @@ const api = {};
  * that will unsubscribe the user from emails.
  * Does not require authentication.
  *
- * @apiParam (Query) {String} code An unsubscription code that contains an encrypted User ID or email address
+ * @apiParam (Query) {String} code An unsubscription code that contains an encrypted User ID or
+ * email address
  *
  * @apiSuccess {String} Webpage An html success message
  *

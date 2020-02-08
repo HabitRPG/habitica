@@ -154,7 +154,7 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth f
  * @apiGroup Hall
  * @apiPermission Admin
  *
- * @apiDescription Returns the profile of the given user. The user does not need to be a contributor.
+ * @apiDescription Returns the profile of the given user. User does not need to be a contributor.
  *
  * @apiSuccess {Object} data The user object
  *

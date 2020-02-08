@@ -91,7 +91,7 @@ api.getUser = {
 };
 
 /**
- * @api {get} /api/v3/user/inventory/buy Get the gear items available for purchase for the authenticated user
+ * @api {get} /api/v3/user/inventory/buy Get equipment/gear items available for user to purchase
  * @apiName UserGetBuyList
  * @apiGroup User
  *
@@ -244,10 +244,12 @@ api.updateUser = {
  *
  * @apiError {BadRequest} MissingPassword Missing password.
  * @apiError {BadRequest} NotAuthorized Wrong password.
- * @apiError {BadRequest} NotAuthorized Please type DELETE in all capital letters to delete your account.
+ * @apiError {BadRequest} NotAuthorized Please type DELETE in all capital letters to
+ * delete your account.
  * @apiError {BadRequest} BadRequest Account deletion feedback is limited to 10,000 characters.
  * For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.
- * @apiError {BadRequest} NotAuthorized You have an active subscription, cancel your plan before deleting your account.
+ * @apiError {BadRequest} NotAuthorized You have an active subscription,
+ * cancel your plan before deleting your account.
  *
  * @apiErrorExample {json}
  *  {
@@ -707,7 +709,7 @@ api.buyQuest = {
 };
 
 /**
- * @api {post} /api/v3/user/buy-special-spell/:key Buy special item (card, avatar transformation, etc)
+ * @api {post} /api/v3/user/buy-special-spell/:key Buy special item (card, avatar transformation)
  * @apiDescription Includes gift cards (e.g., birthday card), and avatar Transformation
  * Items and their antidotes (e.g., Snowball item and Salt reward).
  * @apiName UserBuySpecialSpell
@@ -1670,7 +1672,7 @@ api.togglePinnedItem = {
 };
 
 /**
- * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
+ * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned item in the rewards column to a new position after being sorted // eslint-disable-line max-len
  * @apiName MovePinnedItem
  * @apiGroup User
  *
