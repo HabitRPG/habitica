@@ -230,7 +230,8 @@ api.updateUser = {
  * @apiName UserDelete
  * @apiGroup User
  *
- * @apiParam (Body) {String} password The user's password if the account uses local authentication, otherwise the localized word "DELETE"
+ * @apiParam (Body) {String} password The user's password if the account uses local authentication,
+ * otherwise the localized word "DELETE"
  * @apiParam (Body) {String} feedback User's optional feedback explaining reasons for deletion
  *
  * @apiSuccess {Object} data An empty Object
@@ -244,7 +245,8 @@ api.updateUser = {
  * @apiError {BadRequest} MissingPassword Missing password.
  * @apiError {BadRequest} NotAuthorized Wrong password.
  * @apiError {BadRequest} NotAuthorized Please type DELETE in all capital letters to delete your account.
- * @apiError {BadRequest} BadRequest Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.
+ * @apiError {BadRequest} BadRequest Account deletion feedback is limited to 10,000 characters.
+ * For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.
  * @apiError {BadRequest} NotAuthorized You have an active subscription, cancel your plan before deleting your account.
  *
  * @apiErrorExample {json}

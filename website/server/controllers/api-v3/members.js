@@ -659,7 +659,7 @@ api.getObjectionsToInteraction = {
  * @apiGroup Member
  *
  * @apiParam (Body) {String} message The message
- * @apiParam (Body) {UUID} toUserId The user to contact
+ * @apiParam (Body) {UUID} toUserId The id of the user to contact
  *
  * @apiSuccess {Object} data.message The message just sent
  *

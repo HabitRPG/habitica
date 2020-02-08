@@ -29,7 +29,7 @@ const api = {};
 /**
  * @api {post} /api/v3/user/auth/local/register Register
  * @apiDescription Register a new user with email, login name, and password or
- * attach local authentication to a social-auth user
+ * attach local authentication to a social auth user
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
