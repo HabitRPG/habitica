@@ -5,8 +5,7 @@ import { authWithHeaders } from '../../../middlewares/auth';
 const api = {};
 
 /**
- * @api {post} /api/v3/user/allocate Allocate a single Stat Point
- * (previously called Attribute Point)
+ * @api {post} /api/v3/user/allocate Allocate a single Stat Point (previously called Attribute Point)
  * @apiName UserAllocate
  * @apiGroup User
  *

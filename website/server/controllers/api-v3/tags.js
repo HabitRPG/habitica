@@ -78,7 +78,7 @@ api.getTags = {
 };
 
 /**
- * @api {get} /api/v3/tags/:tagId Get a tag given its id
+ * @api {get} /api/v3/tags/:tagId Get a tag
  * @apiName GetTag
  * @apiGroup Tag
  *
@@ -199,7 +199,7 @@ api.reorderTags = {
 };
 
 /**
- * @api {delete} /api/v3/tags/:tagId Delete a user tag given its id
+ * @api {delete} /api/v3/tags/:tagId Delete a user tag
  * @apiName DeleteTag
  * @apiGroup Tag
  *

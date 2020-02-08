@@ -1477,8 +1477,9 @@ api.unlinkOneTask = {
 };
 
 /**
- * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed todos
+ * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed To-Dos
  * @apiName ClearCompletedTodos
+ * @apiDescription Deletes all of a user's completed To-Dos except those belonging to active Challenges and Group Plans
  * @apiGroup Task
  *
  * @apiExample {curl} Example call:
@@ -1523,7 +1524,7 @@ api.clearCompletedTodos = {
 };
 
 /**
- * @api {delete} /api/v3/tasks/:taskId Delete a task given its id
+ * @api {delete} /api/v3/tasks/:taskId Delete a task
  * @apiName DeleteTask
  * @apiGroup Task
  *

@@ -5,8 +5,8 @@ const api = {};
 
 /**
  * @api {post} /api/v4/members/flag-private-message/:messageId Flag a private message
- * @apiDescription An email and slack message are sent
- * to the moderators about every flagged message.
+ * @apiDescription Moderators are notified about every flagged message, including the sender, recipient, and full content of the message.
+ * This route is for API v4 which must not be used in third-party tools as it can change without notice. There is no equivalent route in API v3.
  * @apiName FlagPrivateMessage
  * @apiGroup Member
  *
