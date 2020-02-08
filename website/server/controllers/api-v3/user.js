@@ -1671,8 +1671,9 @@ api.togglePinnedItem = {
   },
 };
 
+/* eslint-disable max-len */
 /**
- * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned item in the rewards column to a new position after being sorted // eslint-disable-line max-len
+ * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned item in the rewards column to a new position after being sorted
  * @apiName MovePinnedItem
  * @apiGroup User
  *
@@ -1689,6 +1690,7 @@ api.togglePinnedItem = {
  *
  * @apiUse TaskNotFound
  */
+/* eslint-enable max-len */
 api.movePinnedItem = {
   method: 'POST',
   url: '/user/move-pinned-item/:path/move/to/:position',

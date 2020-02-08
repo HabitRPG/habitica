@@ -111,6 +111,7 @@ api.getGroupTasks = {
   },
 };
 
+/* eslint-disable max-len */
 /**
  * @api {post} /api/v3/group/:groupId/tasks/:taskId/move/to/:position Move group task to new position
  * @apiDescription Moves a group task to a specified position
@@ -124,6 +125,7 @@ api.getGroupTasks = {
  *
  * @apiSuccess {Array} data The new tasks order (group.tasksOrder.{task.type}s)
  */
+/* eslint-enable max-len */
 api.groupMoveTask = {
   method: 'POST',
   url: '/group-tasks/:taskId/move/to/:position',
