@@ -368,7 +368,6 @@
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
     background: white;
     border-radius: 2px;
-    position: relative;
 
     &:hover {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
