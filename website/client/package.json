@@ -20,7 +20,7 @@
     "@vue/cli-service": "^4.1.2",
     "@storybook/addon-actions": "^5.3.12",
     "@storybook/addon-knobs": "^5.3.12",
-    "@storybook/addon-links": "^5.3.10",
+    "@storybook/addon-links": "^5.3.12",
     "@storybook/addon-notes": "^5.3.10",
     "@storybook/vue": "^5.3.12",
     "@vue/test-utils": "1.0.0-beta.29",
