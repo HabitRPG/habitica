@@ -234,6 +234,9 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     const purchases = iap.getPurchaseData(googleRes);
     if (purchases.length === 0) throw new NotAuthorized(this.constants.RESPONSE_INVALID_RECEIPT);
     const subscriptionData = purchases[0];
+    // Check to make sure the sub isn't active anymore.
+    if (subscriptionData.autoRenews) return;
+
     dateTerminated = new Date(Number(subscriptionData.expirationDate));
   } catch (err) {
     // Status:410 means that the subsctiption isn't active anymore and we can safely delete it
@@ -243,8 +246,6 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
       throw err;
     }
   }
-
-  if (dateTerminated > new Date()) throw new NotAuthorized(this.constants.RESPONSE_STILL_VALID);
 
   await payments.cancelSubscription({
     user,
