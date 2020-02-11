@@ -278,29 +278,6 @@ describe('Google Payments', () => {
         });
     });
 
-    it('should not throw an error if subscription is still valid', async () => {
-      iap.getPurchaseData.restore();
-      expect(iapSetupStub).to.be.calledOnce;
-      expect(iapValidateStub).to.be.calledOnce;
-      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
-        data: receipt,
-        signature,
-      });
-      expect(iapIsValidatedStub).to.be.calledOnce;
-      expect(iapIsValidatedStub).to.be.calledWith({
-        expirationDate,
-      });
-      expect(iapGetPurchaseDataStub).to.be.calledOnce;
-
-      expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
-      expect(paymentCancelSubscriptionSpy).to.be.calledWith({
-        user,
-        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
-        nextBill: expirationDate.toDate(),
-        headers,
-      });
-    });
-
     it('should throw an error if receipt is invalid', async () => {
       iap.isValidated.restore();
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
