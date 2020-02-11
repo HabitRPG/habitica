@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FEBRUARY SUBSCRIBER ITEMS REVEALED!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: PET FOOD PREFERENCES';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,24 +31,21 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/1/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/6/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_022020 center-block"></div>
+        <div class="scene_cake center-block"></div>
         <p>
-          The February Subscriber Item has been revealed: the Stylish Sweetheart Item Set!
-          <a href='/user/settings/subscription'>Subscribe to Habitica</a> by February 29 to receive
-          this exciting set! If you're already an active subscriber, reload the site and then head
-          to Inventory > Items to claim your gear!
+          This month's <a href='https://habitica.wordpress.com/2020/02/05/food-preferences/'
+          target='_blank'>featured Wiki article</a> is about Pet Food Preferences! We hope that it
+          will help you as you hatch and raise your own Habitican menagerie. Be sure to check it
+          out, and let us know what you think by reaching out on <a
+          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
+          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
+          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
-        <p>
-          Subscribers also receive the ability to buy Gems with Gold -- the longer you subscribe,
-          the more Gems you can buy per month! There are other perks as well, such as longer access
-          to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep
-          Habitica running. Thank you very much for your support -- it means a lot to us.
-        </p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
