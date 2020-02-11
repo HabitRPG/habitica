@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <b-form-group class="mb-4 w-100 h-100" id="subscription-form">
+  <div id="subscription-form">
+    <b-form-group class="mb-4 w-100 h-100">
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
       <b-form-radio
         v-for="block in subscriptionBlocksOrdered"
@@ -65,8 +65,63 @@
   </div>
 </template>
 
+
+<style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+  #subscription-form {
+    .disabled .amazonpay-button-inner-image {
+      cursor: default !important;
+    }
+
+    .custom-control .custom-control-label::before,
+    .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+      margin-top: 0.75rem;
+    }
+
+    .selected {
+      background-color: rgba(213, 200, 255, 0.32);
+
+      .subscription-bubble {
+        background-color: $purple-300;
+        color: $white;
+      }
+      .subscription-text {
+        color: $purple-200;
+      }
+    }
+
+    .subscription-bubble, .discount-bubble {
+      border-radius: 100px;
+      font-size: 12px;
+    }
+
+    .subscription-bubble {
+      background-color: $gray-600;
+      color: $gray-200;
+    }
+
+    .discount-bubble {
+      background-color: $green-10;
+      color: $white;
+    }
+  }
+</style>
+
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
+
+  .disabled {
+    opacity: 0.64;
+
+    .btn, .btn:hover, .btn:active {
+      box-shadow: none;
+      cursor: default !important;
+    }
+  }
+
+  .payments-column {
+    margin-bottom: 2rem;
+  }
 
   .subscribe-option {
     border-bottom: 1px solid $gray-600;

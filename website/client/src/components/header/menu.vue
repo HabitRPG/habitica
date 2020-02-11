@@ -361,7 +361,7 @@
               class="top-menu-icon svg-icon gem"
               :aria-label="$t('gems')"
               href="#buy-gems"
-              @click.prevent="showBuyGemsModal('gems')"
+              @click.prevent="showBuyGemsModal()"
               v-html="icons.gem"
             ></a>
             <span>{{ userGems }}</span>
@@ -790,9 +790,7 @@ export default {
     openPartyModal () {
       this.$root.$emit('bv::show::modal', 'create-party-modal');
     },
-    showBuyGemsModal (startingPage) {
-      this.$store.state.gemModalOptions.startingPage = startingPage;
-
+    showBuyGemsModal () {
       Analytics.track({
         hitType: 'event',
         eventCategory: 'button',

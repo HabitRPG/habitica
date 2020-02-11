@@ -280,47 +280,6 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-  #subscription-form {
-    .disabled > .amazonpay-button-inner-image {
-      cursor: default !important;
-    }
-
-    .custom-control .custom-control-label::before,
-    .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
-      margin-top: 0.75rem;
-    }
-
-    .selected {
-      background-color: rgba(213, 200, 255, 0.32);
-
-      .subscription-bubble {
-        background-color: $purple-300;
-        color: $white;
-      }
-      .subscription-text {
-        color: $purple-200;
-      }
-    }
-
-    .subscription-bubble, .discount-bubble {
-      border-radius: 100px;
-      font-size: 12px;
-    }
-
-    .subscription-bubble {
-      background-color: $gray-600;
-      color: $gray-200;
-    }
-
-    .discount-bubble {
-      background-color: $green-10;
-      color: $white;
-    }
-  }
-</style>
-
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
 

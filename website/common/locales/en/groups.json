@@ -176,7 +176,7 @@
   "messageWroteIn": "<%= user %> wrote in <%= group %>",
   "msgPreviewHeading": "Message Preview",
   "leaderOnlyChallenges": "Only group leader can create challenges",
-  "sendGift": "Send Gift",
+  "sendGift": "Send a Gift",
   "selectGift": "Select Gift",
   "sendGiftToWhom": "Who would you like to send a gift to?",
   "inviteFriends": "Invite Friends",

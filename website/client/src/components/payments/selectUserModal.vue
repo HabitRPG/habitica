@@ -5,6 +5,7 @@
     :hide-footer="true"
     @hide="onHide()"
   >
+    <h2 class="ml-2"> {{ $t('sendGift')}} </h2>
     <div class="d-flex flex-column align-items-center">
       <div
         class="modal-close"
@@ -12,7 +13,7 @@
       >
         <div class="svg-icon" v-html="icons.close"></div>
       </div>
-      <div class="mb-2">
+      <div class="ml-2 mr-auto">
         <strong> {{ $t('sendGiftToWhom')}} </strong>
       </div>
       <div
