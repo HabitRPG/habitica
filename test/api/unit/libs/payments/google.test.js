@@ -278,17 +278,27 @@ describe('Google Payments', () => {
         });
     });
 
-    it('should throw an error if subscription is still valid', async () => {
+    it('should not throw an error if subscription is still valid', async () => {
       iap.getPurchaseData.restore();
-      iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
-        .returns([{ expirationDate: expirationDate.add({ day: 1 }).toDate() }]);
+      expect(iapSetupStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledOnce;
+      expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
+        data: receipt,
+        signature,
+      });
+      expect(iapIsValidatedStub).to.be.calledOnce;
+      expect(iapIsValidatedStub).to.be.calledWith({
+        expirationDate,
+      });
+      expect(iapGetPurchaseDataStub).to.be.calledOnce;
 
-      await expect(googlePayments.cancelSubscribe(user, headers))
-        .to.eventually.be.rejected.and.to.eql({
-          httpCode: 401,
-          name: 'NotAuthorized',
-          message: googlePayments.constants.RESPONSE_STILL_VALID,
-        });
+      expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
+      expect(paymentCancelSubscriptionSpy).to.be.calledWith({
+        user,
+        paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
+        nextBill: expirationDate.toDate(),
+        headers,
+      });
     });
 
     it('should throw an error if receipt is invalid', async () => {
