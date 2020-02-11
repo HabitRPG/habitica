@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'VALENTINE’S WEEK: NPCS, VALENTINE CARDS, AND MAGIC HATCHING POTIONS!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW MAGIC HATCHING POTION QUEST: RUBY!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,44 +31,21 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/11/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/13/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_valentines_2020 center-block"></div>
-        <h3>Habitica Celebrates Valentine's Day!</h3>
+        <div class="quest_ruby center-block"></div>
         <p>
-          In honor of Habitica's holiday celebrating all forms of love, whether it's friendship,
-          familial, or romantic, some of the shopkeepers are dressed up! Take a look around to
-          enjoy their new festive decorations.
+          It's time for a trip to the snowy hot springs of Stoïkalm! Get the latest Magic Hatching
+          Potion quest, "Ruby Rapport", and collect Ruby Gems, Aquarius Zodiac Runes, and Venus
+          Runes to earn some glittering Ruby Magic Hatching Potions by completing your real-life
+          tasks!
         </p>
-        <div class="small mb-3">by Beffymaroo and Lemoness</div>
-        <h3>Cupid and Rose Quartz Hatching Potions</h3>
-        <p>
-          We're excited to announce the return of Rose Quartz and Cupid Magic Hatching Potions!
-          Between now and February 29, you can buy these potions from <a href='/shops/market'>the
-          Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not
-          work on Quest Pet eggs.) Magic Potion Pets aren't picky, so they'll happily eat any kind
-          of food that you feed them!
-        </p>
-        <p>
-          After they're gone, it will be at least a year before the Cupid or Rose Quartz Hatching
-          Potions are available again, so be sure to get them now!
-        </p>
-        <div class="small mb-3">by Vampitch, Willow the Witty, and SabreCat</div>
-        <div class="promo_valentines_potions center-block"></div>
-        <h3>Send a Valentine</h3>
-        <p>
-          Help motivate all of the lovely people in your life by sending them a caring Valentine.
-          Valentines can be purchased for 10 Gold from the <a href='/shops/market'>Market</a> until
-          February 18. For spreading love and joy throughout the community, both the giver AND the
-          receiver get a coveted "Adoring Friends" badge. Hooray!
-        </p>
-        <p>
-          While you're there, why not check out the other cards that are available to send to your
-          party? Each one gives a special achievement of its own...
-        </p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
+        <div class="small">
+          Art by Aspiring_Advocate, gully, Beffymaroo, Tyche_Alba, and loremi
+        </div>
+        <div class="small mb-3">Writing by JohnJSal</div>
       </div>
       `,
     });

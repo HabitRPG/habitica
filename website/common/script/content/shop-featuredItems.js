@@ -56,7 +56,7 @@ const featuredItems = {
       },
       {
         type: 'quests',
-        path: 'quests.silver',
+        path: 'quests.ruby',
       },
     ];
   },
