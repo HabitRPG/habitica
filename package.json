@@ -60,7 +60,7 @@
     "ps-tree": "^1.0.0",
     "regenerator-runtime": "^0.13.3",
     "remove-markdown": "^0.3.0",
-    "rimraf": "^3.0.1",
+    "rimraf": "^3.0.2",
     "short-uuid": "^3.0.0",
     "stripe": "^7.15.0",
     "superagent": "^5.2.1",
