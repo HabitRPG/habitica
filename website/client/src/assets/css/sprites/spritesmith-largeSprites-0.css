@@ -6,7 +6,7 @@
 }
 .promo_mystery_022020 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -277px;
+  background-position: 0px -425px;
   width: 282px;
   height: 147px;
 }
@@ -15,6 +15,18 @@
   background-position: -533px -148px;
   width: 96px;
   height: 69px;
+}
+.promo_valentines_2020 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -421px -277px;
+  width: 309px;
+  height: 147px;
+}
+.promo_valentines_potions {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -277px;
+  width: 420px;
+  height: 147px;
 }
 .scene_cake {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');

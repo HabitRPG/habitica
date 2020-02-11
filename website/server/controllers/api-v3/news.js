@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: PET FOOD PREFERENCES';
+const LAST_ANNOUNCEMENT_TITLE = 'VALENTINE’S WEEK: NPCS, VALENTINE CARDS, AND MAGIC HATCHING POTIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,21 +31,44 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/6/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/11/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_cake center-block"></div>
+        <div class="promo_valentines_2020 center-block"></div>
+        <h3>Habitica Celebrates Valentine's Day!</h3>
         <p>
-          This month's <a href='https://habitica.wordpress.com/2020/02/05/food-preferences/'
-          target='_blank'>featured Wiki article</a> is about Pet Food Preferences! We hope that it
-          will help you as you hatch and raise your own Habitican menagerie. Be sure to check it
-          out, and let us know what you think by reaching out on <a
-          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
-          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
-          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
+          In honor of Habitica's holiday celebrating all forms of love, whether it's friendship,
+          familial, or romantic, some of the shopkeepers are dressed up! Take a look around to
+          enjoy their new festive decorations.
         </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <div class="small mb-3">by Beffymaroo and Lemoness</div>
+        <h3>Cupid and Rose Quartz Hatching Potions</h3>
+        <p>
+          We're excited to announce the return of Rose Quartz and Cupid Magic Hatching Potions!
+          Between now and February 29, you can buy these potions from <a href='/shops/market'>the
+          Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not
+          work on Quest Pet eggs.) Magic Potion Pets aren't picky, so they'll happily eat any kind
+          of food that you feed them!
+        </p>
+        <p>
+          After they're gone, it will be at least a year before the Cupid or Rose Quartz Hatching
+          Potions are available again, so be sure to get them now!
+        </p>
+        <div class="small mb-3">by Vampitch, Willow the Witty, and SabreCat</div>
+        <div class="promo_valentines_potions center-block"></div>
+        <h3>Send a Valentine</h3>
+        <p>
+          Help motivate all of the lovely people in your life by sending them a caring Valentine.
+          Valentines can be purchased for 10 Gold from the <a href='/shops/market'>Market</a> until
+          February 18. For spreading love and joy throughout the community, both the giver AND the
+          receiver get a coveted "Adoring Friends" badge. Hooray!
+        </p>
+        <p>
+          While you're there, why not check out the other cards that are available to send to your
+          party? Each one gives a special achievement of its own...
+        </p>
+        <div class="small mb-3">by Lemoness and SabreCat</div>
       </div>
       `,
     });
