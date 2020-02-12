@@ -49,7 +49,7 @@
     "snowboardingSet": "单板滑雪巫师（法师）",
     "festiveFairySet": "节日仙女（医师）",
     "cocoaSet": "可可盗贼（盗贼）",
-    "toAndFromCard": "发给: <%= toName %>, 来自: <%= fromName %>",
+    "toAndFromCard": "发给：<%= toName %>，来自: <%= fromName %>",
     "nyeCard": "新年贺卡",
     "nyeCardExplanation": "你们一起庆祝了新年的到来，为此你们收到了“老朋友”的奖章！",
     "nyeCardNotes": "送一张新年贺卡给你的一个队伍成员。",

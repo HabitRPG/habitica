@@ -2031,5 +2031,13 @@
     "armorSpecialBirthday2020Notes": "Happy Birthday, Habitica! Wear these Outrageous Party Robes to celebrate this wonderful day. Confers no benefit.",
     "armorSpecialBirthday2020Text": "Outrageous Party Robes",
     "weaponMystery202002Notes": "An accessory that lends you an air of mystery and romance. Sun protection is a bonus! Confers no benefit. February 2020 Subscriber Item.",
-    "weaponMystery202002Text": "Stylish Sweetheart Parasol"
+    "weaponMystery202002Text": "Stylish Sweetheart Parasol",
+    "shieldArmoirePerfectMatchNotes": "Hot take: we think you look great. Increases Perception by <%= per %>. Enchanted Armoire: Match Maker Set (Item 4 of 4).",
+    "shieldArmoirePerfectMatchText": "The Perfect Match",
+    "headArmoireMatchMakersBeretNotes": "You'll look striking wearing this lovely hat! Increases Constitution by <%= con %>. Enchanted Armoire: Match Maker Set (Item 2 of 4).",
+    "headArmoireMatchMakersBeretText": "Match Maker's Beret",
+    "armorArmoireMatchMakersApronNotes": "This apron is for safety, but for humour's sake we can make light of it. Increases Constitution, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Match Maker Set (Item 1 of 4).",
+    "armorArmoireMatchMakersApronText": "Match Maker's Apron",
+    "weaponArmoireLivelyMatchNotes": "When you're holding this, you're sure to spark someone's interest! Increases Strength by <%= str %>. Enchanted Armoire: Match Maker Set (Item 3 of 4).",
+    "weaponArmoireLivelyMatchText": "A Lively Match"
 }

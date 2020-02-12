@@ -2031,5 +2031,13 @@
     "bodyMystery202002Notes": "Zu tragen, wenn Dein Herz warm ist, aber die Brisen des Februars böig sind. Gewährt keinen Attributbonus. Abonnentengegenstand, Februar 2020.",
     "bodyMystery202002Text": "Stilvolles Schätzchen-Schal",
     "armorSpecialBirthday2020Notes": "Herzlichen Glückwunsch zum geburtstag, Habitica! Trage diese Frevelhafte Fetenrobe, um diesen wundervollen Tag zu zelebrieren. Gewährt keinen Attributbonus.",
-    "armorSpecialBirthday2020Text": "Frevelhafte Fetenrobe"
+    "armorSpecialBirthday2020Text": "Frevelhafte Fetenrobe",
+    "shieldArmoirePerfectMatchNotes": "Heisser Tipp: damit siehst Du blendend aus. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 4 von 4).",
+    "shieldArmoirePerfectMatchText": "Die Perfekte Mischung",
+    "headArmoireMatchMakersBeretNotes": "Dieses Hütchen ist der erste \"Streich\"! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 2 von 4).",
+    "headArmoireMatchMakersBeretText": "Streichholzmacher-Beret",
+    "armorArmoireMatchMakersApronNotes": "Diese Schürze trägst Du zu Deiner Sicherheit, aber um des Spaßes Willen können wir auch mal ohne sie leuchten. Erhöht Ausdauer, Stärke und Intelligenz um je <%= attrs %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 1 von 4).",
+    "armorArmoireMatchMakersApronText": "Streichholzmacher-Schürze",
+    "weaponArmoireLivelyMatchNotes": "So lange Du dies hältst, wirst Du in jedem einen Funken Interesse wecken! Erhöht Stärke um <%= str %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 3 von 4).",
+    "weaponArmoireLivelyMatchText": "Ein lebhaftes Streichholz"
 }
