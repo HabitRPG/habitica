@@ -293,7 +293,7 @@
               <a
                 class="btn btn-secondary"
                 @click="openModifyInventoryModal()"
-              >Modify Inventory</a>
+              >Show Dropsies</a>
             </div>
           </div>
         </div>
@@ -597,7 +597,7 @@ export default {
       // @TODO: sync()
     },
     openModifyInventoryModal  () {
-      this.$root.$emit('bv::show::modal', 'modify-inventory');
+      this.$root.$emit('bv::show::modal', 'first-drops');
     },
     donate () {
       Analytics.track({

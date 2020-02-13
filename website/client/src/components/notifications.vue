@@ -33,6 +33,7 @@
     <lost-masterclasser />
     <mind-over-matter />
     <onboarding-complete />
+    <first-drops />
   </div>
 </template>
 
@@ -142,6 +143,7 @@ import mindOverMatter from './achievements/mindOverMatter';
 import loginIncentives from './achievements/login-incentives';
 import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
+import firstDrops from './achievements/firstDrops';
 
 const NOTIFICATIONS = {
   CHALLENGE_JOINED_ACHIEVEMENT: {
@@ -323,6 +325,7 @@ export default {
     mindOverMatter,
     justAddWater,
     onboardingComplete,
+    firstDrops,
   },
   mixins: [notifications, guide],
   data () {
