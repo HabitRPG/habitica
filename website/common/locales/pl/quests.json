@@ -101,6 +101,8 @@
     "questNotGemPurchasable": "Misja \"<%= key %>\" nie może być kupiona za Klejnoty.",
     "questLevelTooHigh": "Musisz mieć co najmniej poziom <%= level %>, by rozpocząć tą misję.",
     "questAlreadyUnderway": "Twoja drużyna już jest na misji. Spróbuj ponownie gdy obecna misja się zakończy.",
+    "questAlreadyStarted": "The quest has already started.",
+    "questAlreadyStartedFriendly": "The quest has already started, but you can always catch the next one!",
     "questAlreadyAccepted": "Już zaakceptowałeś zaproszenie na misję.",
     "noActiveQuestToLeave": "Brak aktywnych misji do opuszczenia",
     "questLeaderCannotLeaveQuest": "Przywódca misji nie może jej opuścić",

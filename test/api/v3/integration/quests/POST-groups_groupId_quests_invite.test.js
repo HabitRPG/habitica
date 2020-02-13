@@ -110,7 +110,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`)).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('questAlreadyUnderway'),
+        message: t('questAlreadyStartedFriendly'),
       });
     });
   });

@@ -101,6 +101,8 @@
     "questNotGemPurchasable": "Queeste \"<%= key %>\" is geen Edelsteen-koopbare queeste.",
     "questLevelTooHigh": "Je moet niveau <%= level %> zijn om deze queeste te beginnen.",
     "questAlreadyUnderway": "Jouw gezelschap is al op een queeste. Probeer het opnieuw wanneer deze queeste is beëindigd.",
+    "questAlreadyStarted": "The quest has already started.",
+    "questAlreadyStartedFriendly": "The quest has already started, but you can always catch the next one!",
     "questAlreadyAccepted": "Je hebt de queesteuitnodiging al geaccepteerd.",
     "noActiveQuestToLeave": "Geen actieve queeste om te verlaten",
     "questLeaderCannotLeaveQuest": "Queesteleider kan de queeste niet verlaten",

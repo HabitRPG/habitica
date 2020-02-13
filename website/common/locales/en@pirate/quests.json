@@ -101,6 +101,8 @@
     "questNotGemPurchasable": "Adventure \"<%= key %>\" doesn't be a Sapphire-purchasable adventure.",
     "questLevelTooHigh": "Ye must be level <%= level %> t' begin this adventure.",
     "questAlreadyUnderway": "Yer crew already be on a adventure. Try again when th' current adventure has ended.",
+    "questAlreadyStarted": "The adventure already be started.",
+    "questAlreadyStartedFriendly": "The adventure already be started, but ye can pillage on the next one!",
     "questAlreadyAccepted": "Ye already accepted th' adventure invitation.",
     "noActiveQuestToLeave": "No active adventure t' leave",
     "questLeaderCannotLeaveQuest": "Adventure leader cannot leave adventure",

@@ -101,6 +101,8 @@
     "questNotGemPurchasable": "",
     "questLevelTooHigh": "",
     "questAlreadyUnderway": "",
+    "questAlreadyStarted": "",
+    "questAlreadyStartedFriendly": "",
     "questAlreadyAccepted": "",
     "noActiveQuestToLeave": "",
     "questLeaderCannotLeaveQuest": "",
