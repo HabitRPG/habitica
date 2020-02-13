@@ -83,7 +83,9 @@ async function usersMapByConversations (owner, users) {
 
   for (const usr of usersExtraInfo) {
     usersMap[usr._id].optOut = usr.inbox.optOut;
-    usersMap[usr._id].blocks = usr.inbox.blocks;
+
+    // usr.inbox.blocks can be undefined
+    usersMap[usr._id].blocks = usr.inbox.blocks || [];
   }
 
   return usersMap;
@@ -132,8 +134,10 @@ export async function listConversations (owner) {
       conversation.userStyles = user.userStyles;
       conversation.contributor = user.contributor;
       conversation.backer = user.backer;
-      conversation.canReceive = !(user.optOut || user.blocks.includes(owner._id))
-        || owner.isAdmin();
+
+      const isOwnerBlocked = user.blocks.includes(owner._id);
+
+      conversation.canReceive = !(user.optOut || isOwnerBlocked) || owner.isAdmin();
     }
 
     return conversation;

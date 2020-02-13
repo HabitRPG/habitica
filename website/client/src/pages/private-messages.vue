@@ -78,7 +78,8 @@
       </div>
       <div class="messages-column d-flex flex-column align-items-center">
         <div
-          v-if="filtersConversations.length === 0 && !selectedConversation"
+          v-if="filtersConversations.length === 0
+            && (!selectedConversation || !selectedConversation.key)"
           class="empty-messages m-auto text-center empty-sidebar"
         >
           <div class="no-messages-box">
@@ -659,6 +660,7 @@ export default {
           id: '',
           text: '',
           timestamp: new Date(),
+          canReceive: true,
         }];
       }
       // Create conversation objects
