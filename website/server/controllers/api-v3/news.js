@@ -37,10 +37,10 @@ api.getNews = {
         <hr/>
         <div class="quest_ruby center-block"></div>
         <p>
-          It's time for a trip to the snowy hot springs of Stoïkalm! Get the latest Magic Hatching
-          Potion quest, "Ruby Rapport", and collect Ruby Gems, Aquarius Zodiac Runes, and Venus
-          Runes to earn some glittering Ruby Magic Hatching Potions by completing your real-life
-          tasks!
+          It's time for a trip to the snowy hot springs of Stoïkalm! <a href='/shops/quests'>Get
+          the latest Magic Hatching Potion quest</a>, "Ruby Rapport", and collect Ruby Gems,
+          Aquarius Zodiac Runes, and Venus Runes to earn some glittering Ruby Magic Hatching
+          Potions by completing your real-life tasks!
         </p>
         <div class="small">
           Art by Aspiring_Advocate, gully, Beffymaroo, Tyche_Alba, and loremi
