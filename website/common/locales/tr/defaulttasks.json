@@ -24,5 +24,12 @@
     "defaultTag4": "Okul",
     "defaultTag5": "Takımlar",
     "defaultTag6": "Ev İşleri",
-    "defaultTag7": "Yaratıcılık"
+    "defaultTag7": "Yaratıcılık",
+    "schoolDailyText": "Ödevi bitir",
+    "schoolHabit": "Çalış/Ertele",
+    "healthDailyNotes": "Herhangi bir değişiklik yapmak için tıkla!",
+    "healthHabit": "Sağlıklı yiyecek/abur cubur ye",
+    "exerciseTodoText": "Egzersiz planını oluştur",
+    "exerciseDailyText": "Esneme >> Günlük egzersiz rutini",
+    "exerciseHabit": "10 dakika kardiyo >> + 10 dakika kardiyo"
 }
