@@ -3537,6 +3537,47 @@ const quests = {
       unlock: t('questAmberUnlockText'),
     },
   },
+  ruby: {
+    text: t('questRubyText'),
+    notes: t('questRubyNotes'),
+    completion: t('questRubyCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      rubyGem: {
+        text: t('questRubyCollectRubyGems'),
+        count: 25,
+      },
+      venusRune: {
+        text: t('questRubyCollectVenusRunes'),
+        count: 10,
+      },
+      aquariusRune: {
+        text: t('questRubyCollectAquariusRunes'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Ruby',
+          text: t('questRubyDropRubyPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Ruby',
+          text: t('questRubyDropRubyPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Ruby',
+          text: t('questRubyDropRubyPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questRubyUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

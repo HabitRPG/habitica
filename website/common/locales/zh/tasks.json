@@ -133,7 +133,7 @@
     "newbieGuild": "还有更多的问题？去<%= linkStart %>Habitica帮助公会<%= linkEnd %>提问吧！",
     "dailyHelp1": "每日任务会 <%= emphasisStart %>每天<%= emphasisEnd %> 重新激活刷新。点击<%= pencilIcon %>改变每日任务的刷新周期。",
     "dailyHelp2": "如果你未完成每日任务，那么当天过后你会失去生命值。",
-    "dailyHelp3": "一旦错过一个每日任务，它就会变<%= emphasisStart %>红<%= emphasisEnd %> , 而完成它们时则变得更 <%= emphasisStart %>蓝<%= emphasisEnd %> 。越是红色的每日任务，越能给你带来丰厚的奖赏……或者伤害。",
+    "dailyHelp3": "一旦错过一个每日任务，它就会变<%= emphasisStart %>红<%= emphasisEnd %> ，而完成它们时则变得更 <%= emphasisStart %>蓝<%= emphasisEnd %> 。越是红色的每日任务，越能给你带来丰厚的奖赏……或者伤害。",
     "dailyHelp4": "需要设置每一天从何时开始计算，进入 <%= linkStart %> 设置 > 站点 <%= linkEnd %> > 自定义每日计时点。",
     "dailyHelp5": "想要来点灵感提示吗？点击这里看看一些<a href='http://habitica.fandom.com/wiki/Sample_Dailies' target='_blank'>每日任务示例</a>！",
     "toDoHelp1": "待办事项开始时是黄色，你完成它们耗时越久它们就越红（越有价值）。",

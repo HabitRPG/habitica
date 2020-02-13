@@ -62,6 +62,9 @@ const premium = {
     value: 2,
     text: t('hatchingPotionCupid'),
     limited: true,
+    canBuy () {
+      return moment().isBefore('2020-03-02');
+    },
   },
   Shimmer: {
     value: 2,
@@ -187,6 +190,9 @@ const premium = {
     value: 2,
     text: t('hatchingPotionRoseQuartz'),
     limited: true,
+    canBuy () {
+      return moment().isBefore('2020-03-02');
+    },
   },
   Celestial: {
     value: 2,
@@ -240,6 +246,13 @@ const premium = {
       date: t('dateEndJanuary'),
     }),
   },
+  Ruby: {
+    value: 2,
+    text: t('hatchingPotionRuby'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('ruby'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {
@@ -273,7 +286,7 @@ each(premium, (pot, key) => {
       potText: pot.text,
     }),
     _addlNotes: t('eventAvailability', {
-      date: t(`dateEnd${pot._season}`),
+      date: t('dateEndFebruary'),
     }),
     premium: true,
     limited: false,
