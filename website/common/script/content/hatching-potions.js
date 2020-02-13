@@ -246,6 +246,13 @@ const premium = {
       date: t('dateEndJanuary'),
     }),
   },
+  Ruby: {
+    value: 2,
+    text: t('hatchingPotionRuby'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('ruby'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {
