@@ -147,6 +147,7 @@ import ACHIEVEMENT_JUST_ADD_WATER from './notifications/justAddWater';
 import ACHIEVEMENT_LOST_MASTERCLASSER from './notifications/lostMasterclasser';
 import ACHIEVEMENT_MIND_OVER_MATTER from './notifications/mindOverMatter';
 import ONBOARDING_COMPLETE from './notifications/onboardingComplete';
+import GIFT_ONE_GET_ONE from './notifications/g1g1';
 import OnboardingGuide from './onboardingGuide';
 
 export default {
@@ -176,6 +177,7 @@ export default {
     VERIFY_USERNAME,
     OnboardingGuide,
     ONBOARDING_COMPLETE,
+    GIFT_ONE_GET_ONE,
   },
   data () {
     return {
@@ -195,7 +197,7 @@ export default {
       // listed in the order they should appear in the notifications panel.
       // NOTE: Those not listed here won't be shown in the notification panel!
       handledNotifications: [
-        'NEW_STUFF', 'GROUP_TASK_NEEDS_WORK',
+        'NEW_STUFF', 'GIFT_ONE_GET_ONE', 'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
         'QUEST_INVITATION', 'GROUP_TASK_ASSIGNED', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
         'GROUP_TASK_CLAIMED', 'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
