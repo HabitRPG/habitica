@@ -119,10 +119,6 @@
     }
   }
 
-  .payments-column {
-    margin-bottom: 2rem;
-  }
-
   .subscribe-option {
     border-bottom: 1px solid $gray-600;
   }

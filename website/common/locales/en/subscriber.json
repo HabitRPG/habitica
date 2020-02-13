@@ -43,7 +43,7 @@
     "manageSub": "Click to manage subscription",
     "cancelSub": "Cancel Subscription",
     "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
-    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple's official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\" target=\"_blank\">Apple's official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
     "cancelSubInfoGroupPlan": "Because you have a free subscription from a Group Plan, you cannot cancel it. It will end when you are no longer a member of the Group Plan. If you are the Group leader and want to cancel the Group Plan, you can do that from the Group Plan’s “Group Billing” tab.",
     "canceledSubscription": "Canceled Subscription",
     "cancelingSubscription": "Canceling the subscription",

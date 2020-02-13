@@ -78,7 +78,7 @@
         <div class="flex-spacer"></div>
         <div>
           <div class="subscribe-card d-flex flex-column">
-            <subscription-options />
+            <subscription-options class="mb-4"/>
           </div>
         </div>
       </div>
@@ -152,7 +152,7 @@
         </div>
         <div
           v-if="hasCanceledSubscription"
-          class="d-flex flex-column align-items-center my-4"
+          class="d-flex flex-column align-items-center mt-4"
         >
           <div class="round-container bg-gray-300 d-flex align-items-center justify-content-center">
             <div
@@ -161,13 +161,14 @@
               v-html="icons.closeIcon"
             ></div>
           </div>
+          <h2 class="gray-50">{{ $t('subscriptionCanceled') }}</h2>
           <div
             class="w-75 text-center mb-4"
             v-html="$t('subscriptionInactiveDate', {date: subscriptionEndDate})"
           >
           </div>
           <h2>{{ $t('readyToResubscribe') }}</h2>
-          <subscription-options class="w-100"/>
+          <subscription-options class="w-100 mb-2"/>
         </div>
         <div
           v-if="hasSubscription"
@@ -350,6 +351,10 @@
 
   .gray-10 {
     color: $gray-10;
+  }
+
+  .gray-50 {
+    color: $gray-50;
   }
 
   .green-10 {
