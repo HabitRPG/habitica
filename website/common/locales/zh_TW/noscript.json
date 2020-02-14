@@ -1,6 +1,6 @@
 {
-    "jsDisabledHeading": "唉呀！你的瀏覽器沒有啟用 JavaScript",
-    "jsDisabledHeadingFull": "唉呀！你的瀏覽器未啟用 JavaScript，沒有它 Habitica 就無法正常運行",
-    "jsDisabledText": "Habitica 沒有它就無法正確顯示網站！",
-    "jsDisabledLink": "請啟用 JavaScript 來繼續！"
+    "jsDisabledHeading": "唉呀！你的瀏覽器沒有啟用JavaScript",
+    "jsDisabledHeadingFull": "唉呀！你的瀏覽器沒有啟用 JavaScript，沒有它Habitica就無法正常運行",
+    "jsDisabledText": "Habitica沒有它就無法正確顯示網站！",
+    "jsDisabledLink": "請啟用JavaScript來繼續！"
 }

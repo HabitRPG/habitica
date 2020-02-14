@@ -1,0 +1,67 @@
+.svg-icon {
+  display: block;
+  transition: none !important;
+  fill: currentColor;
+
+  svg {
+    display: block;
+  }
+
+  * {
+    transition: none !important;
+  }
+
+  &.color {
+    svg path {
+      fill: currentColor;
+    }
+  }
+}
+
+.icon-16 {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-12 {
+  width: 12px;
+  height: 12px;
+}
+
+.icon-24 {
+  width: 24px;
+  height: 24px;
+}
+
+
+.icon-10 {
+  width: 10px;
+  height: 10px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.toggle-up, .toggle-down {
+  cursor: pointer;
+
+  .svg-icon {
+    width: 20px;
+  }
+}
+
+.close-icon {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  cursor: pointer;
+
+  & svg path {
+    stroke: $gray-200;
+  }
+
+  &:hover svg path {
+    stroke: $gray-100;
+  }
+}

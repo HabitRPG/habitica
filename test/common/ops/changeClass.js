@@ -19,10 +19,10 @@ describe('shared.ops.changeClass', () => {
     user.stats.flagSelected = false;
   });
 
-  it('user is not level 10', (done) => {
+  it('user is not level 10', done => {
     user.stats.lvl = 9;
     try {
-      changeClass(user, {query: {class: 'rogue'}});
+      changeClass(user, { query: { class: 'rogue' } });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('lvl10ChangeClass'));
@@ -30,12 +30,12 @@ describe('shared.ops.changeClass', () => {
     }
   });
 
-  it('req.query.class is an invalid class', (done) => {
+  it('req.query.class is an invalid class', done => {
     user.flags.classSelected = false;
     user.preferences.disableClasses = false;
 
     try {
-      changeClass(user, {query: {class: 'cellist'}});
+      changeClass(user, { query: { class: 'cellist' } });
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(i18n.t('invalidClass'));
@@ -44,13 +44,13 @@ describe('shared.ops.changeClass', () => {
   });
 
   context('req.query.class is a valid class', () => {
-    it('errors if user.stats.flagSelected is true and user.balance < 0.75', (done) => {
+    it('errors if user.stats.flagSelected is true and user.balance < 0.75', done => {
       user.flags.classSelected = true;
       user.preferences.disableClasses = false;
       user.balance = 0;
 
       try {
-        changeClass(user, {query: {class: 'rogue'}});
+        changeClass(user, { query: { class: 'rogue' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('notEnoughGems'));
@@ -63,7 +63,7 @@ describe('shared.ops.changeClass', () => {
       user.items.gear.owned.weapon_healer_3 = true;
       user.items.gear.equipped.weapon = 'weapon_healer_3';
 
-      let [data] = changeClass(user, {query: {class: 'rogue'}});
+      const [data] = changeClass(user, { query: { class: 'rogue' } });
       expect(data).to.eql({
         preferences: user.preferences,
         stats: user.stats,
@@ -92,7 +92,7 @@ describe('shared.ops.changeClass', () => {
       user.stats.int = 4;
       user.flags.classSelected = true;
 
-      let [data] = changeClass(user);
+      const [data] = changeClass(user);
       expect(data).to.eql({
         preferences: user.preferences,
         stats: user.stats,
@@ -112,7 +112,7 @@ describe('shared.ops.changeClass', () => {
     });
 
     context('has user.preferences.disableClasses !== true', () => {
-      it('and less than 3 gems', (done) => {
+      it('and less than 3 gems', done => {
         user.balance = 0.5;
         try {
           changeClass(user);
@@ -132,7 +132,7 @@ describe('shared.ops.changeClass', () => {
         user.stats.int = 4;
         user.flags.classSelected = true;
 
-        let [data] = changeClass(user);
+        const [data] = changeClass(user);
         expect(data).to.eql({
           preferences: user.preferences,
           stats: user.stats,

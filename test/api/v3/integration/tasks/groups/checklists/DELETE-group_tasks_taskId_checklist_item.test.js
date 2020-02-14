@@ -1,14 +1,15 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
   translate as t,
 } from '../../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('DELETE group /tasks/:taskId/checklist/:itemId', () => {
-  let user, guild, task;
+  let user; let guild; let
+    task;
 
   before(async () => {
-    let {group, groupLeader} = await createAndPopulateGroup({
+    const { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         name: 'Test Guild',
         type: 'guild',
@@ -26,7 +27,7 @@ describe('DELETE group /tasks/:taskId/checklist/:itemId', () => {
       text: 'Daily with checklist',
     });
 
-    let savedTask = await user.post(`/tasks/${task._id}/checklist`, {text: 'Checklist Item 1', completed: false});
+    let savedTask = await user.post(`/tasks/${task._id}/checklist`, { text: 'Checklist Item 1', completed: false });
 
     await user.del(`/tasks/${task._id}/checklist/${savedTask.checklist[0].id}`);
     savedTask = await user.get(`/tasks/group/${guild._id}`);
@@ -35,7 +36,7 @@ describe('DELETE group /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('does not work with habits', async () => {
-    let habit = await user.post(`/tasks/group/${guild._id}`, {
+    const habit = await user.post(`/tasks/group/${guild._id}`, {
       type: 'habit',
       text: 'habit with checklist',
     });
@@ -48,7 +49,7 @@ describe('DELETE group /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('does not work with rewards', async () => {
-    let reward = await user.post(`/tasks/group/${guild._id}`, {
+    const reward = await user.post(`/tasks/group/${guild._id}`, {
       type: 'reward',
       text: 'reward with checklist',
     });
@@ -69,7 +70,7 @@ describe('DELETE group /tasks/:taskId/checklist/:itemId', () => {
   });
 
   it('fails on checklist item not found', async () => {
-    let createdTask = await user.post(`/tasks/group/${guild._id}`, {
+    const createdTask = await user.post(`/tasks/group/${guild._id}`, {
       type: 'daily',
       text: 'daily with checklist',
     });

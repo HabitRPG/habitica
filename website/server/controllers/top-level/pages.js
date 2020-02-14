@@ -1,6 +1,6 @@
 import { serveClient } from '../../libs/client';
 
-let api = {};
+const api = {};
 
 // All requests to /new_app (except /new_app/static) should serve the new client in development
 // if (IS_PROD && IS_NEW_CLIENT_ENABLED) {
@@ -16,4 +16,4 @@ api.getNewClient = {
   },
 };
 
-module.exports = api;
+export default api;

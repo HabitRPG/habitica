@@ -1,18 +1,18 @@
-import { authWithSession } from '../../middlewares/auth';
-import { model as User } from '../../models/user';
-import * as inboxLib from '../../libs/inbox';
-import * as Tasks from '../../models/task';
-import {
-  NotFound,
-} from '../../libs/errors';
 import _ from 'lodash';
-import csvStringify from '../../libs/csvStringify';
 import moment from 'moment';
 import * as js2xml from 'js2xmlparser';
 import Pageres from 'pageres';
 import nconf from 'nconf';
 import got from 'got';
 import md from 'habitica-markdown';
+import csvStringify from '../../libs/csvStringify';
+import {
+  NotFound,
+} from '../../libs/errors';
+import * as Tasks from '../../models/task';
+import * as inboxLib from '../../libs/inbox';
+import { model as User } from '../../models/user';
+import { authWithSession } from '../../middlewares/auth';
 import {
   S3,
 } from '../../libs/aws';
@@ -21,13 +21,14 @@ const S3_BUCKET = nconf.get('S3_BUCKET');
 
 const BASE_URL = nconf.get('BASE_URL');
 
-let api = {};
+const api = {};
 
 /**
  * @apiDefine DataExport Data Export
  * These routes allow you to download backups of your data.
  *
- * **Note:** They are intented to be used on the website only and as such are part of the private API and may change at any time.
+ * **Note:** They are intended to be used on the website only and as such are part
+ * of the private API and may change at any time.
  */
 
 /**
@@ -49,14 +50,14 @@ api.exportUserHistory = {
   url: '/export/history.csv',
   middlewares: [authWithSession],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
-    let tasks = await Tasks.Task.find({
+    const tasks = await Tasks.Task.find({
       userId: user._id,
-      type: {$in: ['habit', 'daily']},
+      type: { $in: ['habit', 'daily'] },
     }).exec();
 
-    let output = [
+    const output = [
       ['Task Name', 'Task ID', 'Task Type', 'Date', 'Value'],
     ];
 
@@ -77,7 +78,7 @@ api.exportUserHistory = {
       'Content-disposition': 'attachment; filename=habitica-tasks-history.csv',
     });
 
-    let csvRes = await csvStringify(output);
+    const csvRes = await csvStringify(output);
     res.status(200).send(csvRes);
   },
 };
@@ -85,7 +86,7 @@ api.exportUserHistory = {
 // Convert user to json and attach tasks divided by type and inbox messages
 // at user.tasks[`${taskType}s`] (user.tasks.{dailys/habits/...})
 async function _getUserDataForExport (user, xmlMode = false) {
-  let userData = user.toJSON();
+  const userData = user.toJSON();
   userData.tasks = {};
 
   userData.inbox.messages = {};
@@ -119,19 +120,15 @@ async function _getUserDataForExport (user, xmlMode = false) {
       .value();
 
     // _id gets parsed as an bytearray => which gets casted to a chararray => "weird chars"
-    userData.unpinnedItems = userData.unpinnedItems.map(i => {
-      return {
-        path: i.path,
-        type: i.type,
-      };
-    });
+    userData.unpinnedItems = userData.unpinnedItems.map(i => ({
+      path: i.path,
+      type: i.type,
+    }));
 
-    userData.pinnedItems = userData.pinnedItems.map(i => {
-      return {
-        path: i.path,
-        type: i.type,
-      };
-    });
+    userData.pinnedItems = userData.pinnedItems.map(i => ({
+      path: i.path,
+      type: i.type,
+    }));
   }
 
   return userData;
@@ -149,13 +146,13 @@ api.exportUserDataJson = {
   url: '/export/userdata.json',
   middlewares: [authWithSession],
   async handler (req, res) {
-    let userData = await _getUserDataForExport(res.locals.user);
+    const userData = await _getUserDataForExport(res.locals.user);
 
     res.set({
       'Content-Type': 'application/json',
       'Content-disposition': 'attachment; filename=habitica-user-data.json',
     });
-    let jsonRes = JSON.stringify(userData);
+    const jsonRes = JSON.stringify(userData);
 
     res.status(200).send(jsonRes);
   },
@@ -173,7 +170,7 @@ api.exportUserDataXml = {
   url: '/export/userdata.xml',
   middlewares: [authWithSession],
   async handler (req, res) {
-    let userData = await _getUserDataForExport(res.locals.user, true);
+    const userData = await _getUserDataForExport(res.locals.user, true);
 
     res.set({
       'Content-Type': 'text/xml',
@@ -207,19 +204,19 @@ api.exportUserAvatarHtml = {
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let memberId = req.params.memberId;
-    let member = await User
+    const { memberId } = req.params;
+    const member = await User
       .findById(memberId)
       .select('stats profile items achievements preferences backer contributor')
       .exec();
 
-    if (!member) throw new NotFound(res.t('userWithIDNotFound', {userId: memberId}));
+    if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
     res.render('avatar-static', {
       title: member.profile.name,
-      env: _.defaults({user: member}, res.locals.habitrpg),
+      env: _.defaults({ user: member }, res.locals.habitrpg),
     });
   },
 };
@@ -239,13 +236,13 @@ api.exportUserAvatarPng = {
   async handler (req, res) {
     req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let memberId = req.params.memberId;
+    const { memberId } = req.params;
 
-    let filename = `avatars/${memberId}.png`;
-    let s3url = `https://${S3_BUCKET}.s3.amazonaws.com/${filename}`;
+    const filename = `avatars/${memberId}.png`;
+    const s3url = `https://${S3_BUCKET}.s3.amazonaws.com/${filename}`;
 
     let response;
     try {
@@ -269,17 +266,17 @@ api.exportUserAvatarPng = {
       })
       .run();
 
-    let s3upload = S3.upload({
+    const s3upload = S3.upload({
       Bucket: S3_BUCKET,
       Key: filename,
       ACL: 'public-read',
       StorageClass: 'REDUCED_REDUNDANCY',
       ContentType: 'image/png',
-      Expires: moment().add({minutes: 5}).toDate(),
+      Expires: moment().add({ minutes: 5 }).toDate(),
       Body: pageBuffer,
     });
 
-    let s3res = await new Promise((resolve, reject) => {
+    const s3res = await new Promise((resolve, reject) => {
       s3upload.send((err, s3uploadRes) => {
         if (err) {
           reject(err);
@@ -289,7 +286,7 @@ api.exportUserAvatarPng = {
       });
     });
 
-    res.redirect(s3res.Location);
+    return res.redirect(s3res.Location);
   },
 };
 
@@ -305,9 +302,9 @@ api.exportUserPrivateMessages = {
   url: '/export/inbox.html',
   middlewares: [authWithSession],
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
-    const timezoneOffset = user.preferences.timezoneOffset;
+    const { timezoneOffset } = user.preferences;
     const dateFormat = user.preferences.dateFormat.toUpperCase();
     const TO = res.t('to');
     const FROM = res.t('from');
@@ -317,15 +314,15 @@ api.exportUserPrivateMessages = {
     let messages = '<!DOCTYPE html><html><head></head><body>';
 
     inbox.forEach((message, index) => {
-      let recipientLabel = message.sent ? TO : FROM;
-      let messageUser = message.user;
-      let timestamp = moment.utc(message.timestamp).zone(timezoneOffset).format(`${dateFormat} HH:mm:ss`);
-      let text = md.render(message.text);
-      index = `(${index + 1}/${inbox.length})`;
+      const recipientLabel = message.sent ? TO : FROM;
+      const messageUser = message.user;
+      const timestamp = moment.utc(message.timestamp).zone(timezoneOffset).format(`${dateFormat} HH:mm:ss`);
+      const text = md.render(message.text);
+      const pageIndex = `(${index + 1}/${inbox.length})`;
       messages += `
       <p>
         ${recipientLabel} <strong>${messageUser}</strong> ${timestamp}
-        ${index}
+        ${pageIndex}
         <br />
         ${text}
       </p>
@@ -343,4 +340,4 @@ api.exportUserPrivateMessages = {
   },
 };
 
-module.exports = api;
+export default api;

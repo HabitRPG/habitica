@@ -157,7 +157,7 @@
     "questEggNudibranchAdjective": "un șic",
     "questEggHippoText": "Hipopotam",
     "questEggHippoMountText": "Hipopotam",
-    "questEggHippoAdjective": "un fericit ",
+    "questEggHippoAdjective": "un fericit",
     "questEggYarnText": "Fir tors",
     "questEggYarnMountText": "Covor Zburător",
     "questEggYarnAdjective": "de lână",
@@ -198,7 +198,7 @@
     "hatchingPotionFloral": "Floral",
     "hatchingPotionAquatic": "Acvatic",
     "hatchingPotionEmber": "Jăratic",
-    "hatchingPotionThunderstorm": "Furtună.",
+    "hatchingPotionThunderstorm": "Furtună",
     "hatchingPotionGhost": "Fantoma",
     "hatchingPotionRoyalPurple": "Violet Roial",
     "hatchingPotionHolly": "Sfânt",
@@ -306,5 +306,5 @@
     "foodSaddleText": "Șa",
     "foodSaddleNotes": "Transformă instantaneu un companion într-un animal de călărit.",
     "foodSaddleSellWarningNote": "Hei! Ăsta e un obiect destul de folositor! Ești familiar cu utilizarea unei Șei pentru animalele tale de companie?",
-    "foodNotes": "Hrănește cu asta un companion și e posibil să crească cât să-l poți călări"
+    "foodNotes": "Hrănește cu asta un companion și e posibil să crească cât să-l poți călări."
 }

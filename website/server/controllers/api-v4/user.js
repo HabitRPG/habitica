@@ -17,7 +17,8 @@ const api = {};
  * @apiName UserGet
  * @apiGroup User
  *
- * @apiDescription The user profile contains data related to the authenticated user including (but not limited to);
+ * @apiDescription The user profile contains data related to the authenticated user
+ * including (but not limited to);
  * Achievements
  * Authentications (including types and timestamps)
  * Challenges
@@ -38,7 +39,9 @@ const api = {};
  * Tags
  * TasksOrder (list of all ids for dailys, habits, rewards and todos)
  *
- * @apiParam (Query) {String} [userFields] A list of comma separated user fields to be returned instead of the entire document. Notifications are always returned.
+ * @apiParam (Query) {String} [userFields] A list of comma separated user fields
+ *                                         to be returned instead of the entire document.
+ *                                         Notifications are always returned.
  *
  * @apiExample {curl} Example use:
  * curl -i https://habitica.com/api/v3/user?userFields=achievements,items.mounts
@@ -85,7 +88,8 @@ api.getUser = {
  *
  * @apiSuccess {Object} data The updated user object, the result is identical to the get user call
  *
- * @apiError (401) {NotAuthorized} messageUserOperationProtected Returned if the change is not allowed.
+ * @apiError (401) {NotAuthorized} messageUserOperationProtected Returned if the
+ *                                                               change is not allowed.
  *
  * @apiErrorExample {json} Error-Response:
  *  {
@@ -216,7 +220,7 @@ api.verifyDisplayName = {
   async handler (req, res) {
     req.checkBody({
       displayName: {
-        notEmpty: {errorMessage: res.t('messageMissingDisplayName')},
+        notEmpty: { errorMessage: res.t('messageMissingDisplayName') },
       },
     });
 
@@ -235,4 +239,4 @@ api.verifyDisplayName = {
   },
 };
 
-module.exports = api;
+export default api;

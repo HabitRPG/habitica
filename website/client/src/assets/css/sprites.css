@@ -1,0 +1,172 @@
+.quest_lostMasterclasser4 {
+  background: url("~@/assets/images/animated/quest_lostMasterclasser4.gif") no-repeat;
+  width: 219px;
+  height: 219px;
+}
+
+.Pet_HatchingPotion_Veggie {
+  background: url("~@/assets/images/animated/Pet_HatchingPotion_Veggie.gif") no-repeat;
+  width: 68px;
+  height: 68px;
+}
+
+.Gems {
+  display:inline-block;
+  margin-right:5px;
+  border-style:none;
+  margin-left:0px;
+  margin-top:2px;
+}
+
+.inline-gems {
+  vertical-align: middle;
+  margin-left: 0px;
+  display: inline-block;
+}
+
+/* Both */
+.customize-menu .locked {
+  background-color: #727272;
+}
+
+/* These sprites are oversized until a move to 105 avatar box happens*/
+
+/* Backer */
+.weapon_special_0, .head_special_0 {
+  width: 105px;
+  height: 105px;
+  margin-left: -3px;
+  margin-top: -18px;
+}
+.slim_armor_special_0, .broad_armor_special_0, .shield_special_0 {
+  width: 90px;
+  height: 90px;
+}
+
+/* Critical */
+.weapon_special_critical {
+  background: url("~@/assets/images/animated/weapon_special_critical.gif") no-repeat;
+  width: 90px;
+  height: 90px;
+  margin-left:-12px;
+  margin-top:12px;
+}
+
+/* This is oversized until a move to 105 avatar box happens*/
+.weapon_special_1 {
+  margin-left: -12px;
+}
+.broad_armor_special_1, .slim_armor_special_1, .head_special_1 {
+  width: 90px;
+  height: 90px;
+}
+
+.head_special_0 {
+  background: url("~@/assets/images/animated/BackerOnly-Equip-ShadeHelmet.gif") no-repeat;
+}
+.head_special_1 {
+  background: url("~@/assets/images/animated/ContributorOnly-Equip-CrystalHelmet.gif") no-repeat;
+  margin-top: 3px;
+}
+
+.broad_armor_special_0,.slim_armor_special_0 {
+  background: url("~@/assets/images/animated/BackerOnly-Equip-ShadeArmor.gif") no-repeat;
+}
+.broad_armor_special_1,.slim_armor_special_1 {
+  background: url("~@/assets/images/animated/ContributorOnly-Equip-CrystalArmor.gif") no-repeat;
+}
+
+.shield_special_0 {
+  background: url("~@/assets/images/animated/BackerOnly-Shield-TormentedSkull.gif") no-repeat;
+}
+
+.weapon_special_0 {
+  background: url("~@/assets/images/animated/BackerOnly-Weapon-DarkSoulsBlade.gif") no-repeat;
+}
+
+.Pet-Wolf-Cerberus {
+  width: 105px;
+  height: 72px;
+  background: url("~@/assets/images/animated/BackerOnly-Pet-CerberusPup.gif") no-repeat;
+}
+
+.broad_armor_special_ks2019, .slim_armor_special_ks2019, .eyewear_special_ks2019, .head_special_ks2019, .shield_special_ks2019 {
+  width: 117px;
+  height: 120px;
+}
+
+.broad_armor_special_ks2019, .slim_armor_special_ks2019 {
+  background: url("~@/assets/images/animated/BackerOnly-Equip-MythicGryphonArmor.gif") no-repeat;
+}
+
+.eyewear_special_ks2019 {
+  background: url("~@/assets/images/animated/BackerOnly-Equip-MythicGryphonVisor.gif") no-repeat;
+}
+
+.head_special_ks2019 {
+  background: url("~@/assets/images/animated/BackerOnly-Equip-MythicGryphonHelm.gif") no-repeat;
+}
+
+.shield_special_ks2019 {
+  background: url("~@/assets/images/animated/BackerOnly-Equip-MythicGryphonShield.gif") no-repeat;
+}
+
+.weapon_special_ks2019 {
+  background: url("~@/assets/images/animated/BackerOnly-Equip-MythicGryphonGlaive.gif") no-repeat;
+  width: 120px;
+  height: 120px;
+}
+
+.Pet-Gryphon-Gryphatrice {
+  background: url("~@/assets/images/animated/BackerOnly-Pet-Gryphatrice.gif") no-repeat;
+  width: 81px;
+  height: 99px;
+}
+
+.Mount_Head_Gryphon-Gryphatrice, .Mount_Body_Gryphon-Gryphatrice {
+  width: 135px;
+  height: 135px;
+}
+
+.Mount_Head_Gryphon-Gryphatrice {
+  background: url("~@/assets/images/animated/BackerOnly-Mount-Head-Gryphatrice.gif") no-repeat;
+}
+
+.Mount_Body_Gryphon-Gryphatrice {
+  background: url("~@/assets/images/animated/BackerOnly-Mount-Body-Gryphatrice.gif") no-repeat;
+}
+
+.background_airship, .background_clocktower, .background_steamworks {
+  width: 141px;
+  height: 147px;
+}
+
+.background_airship {
+  background: url("~@/assets/images/animated/background_airship.gif") no-repeat;
+}
+
+.background_clocktower {
+  background: url("~@/assets/images/animated/background_clocktower.gif") no-repeat;
+}
+
+.background_steamworks {
+  background: url("~@/assets/images/animated/background_steamworks.gif") no-repeat;
+}
+
+/* FIXME figure out how to handle customize menu!!
+.customize-menu .f_head_0 {
+  width: 60px;
+  height: 60px;
+  background-position: -1917px -9px;
+}
+*/
+
+[class*="Mount_Head_"],
+[class*="Mount_Body_"] {
+  margin-top:18px; /* Sprite accommodates 105x123 box */
+}
+
+.Pet_Currency_Gem {
+  margin-top: 5px;
+  margin-bottom: 5px
+}

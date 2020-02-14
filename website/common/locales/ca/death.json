@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "T'estas quedant sense vida",
+    "dontDespair": "No et desesperis!",
+    "deathPenaltyDetails": "Has perdut un nivell, el teu or, i una peca del teu equip, però les pots recuperar amb treballant dur! Molta sort--Ho faràs bé",
+    "refillHealthTryAgain": "Recarrega salut & Torna-ho a provar",
+    "dyingOftenTips": "Passa massa sobint?  <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'> Aquí tens alguns consells! </a>",
+    "losingHealthWarning": "Vigila - Estàs perdent vida!",
+    "losingHealthWarning2": "No permetis que la teva salut baixi a zero! Si ho fas, perdràs un nivell, el teu or, i una peça del teu equip.",
+    "toRegainHealth": "Per recuperar vida:",
+    "lowHealthTips1": "Puja de nivell per curar-te completament!",
+    "lowHealthTips2": "Compra pocions de la columna de premis per recuperar 15 punts de salut.",
+    "losingHealthQuickly": "Estàs perdent la teva salut massa ràpid?",
+    "lowHealthTips3": "Les tasques diàries incompletes et faran mal durant la nit, així que ves amb compte de no afegir-ne gaires al principi!",
+    "lowHealthTips4": "Si una tasca diària no s'ha de completar en un dia en concret, la pots desactivar clicant en la icona del llapis.",
+    "goodLuck": "Bona sort!",
+    "cannotRevive": "No pots reviure si no estàs mort"
+}

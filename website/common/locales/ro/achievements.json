@@ -1,9 +1,10 @@
 {
-  "achievement": "Achievement",
-  "share": "Distribuie",
-  "onwards": "Înainte!",
-  "levelup": "Prin atingerea scopurilor în viață, ai trecut la următorul nivel și viața îți este complet refăcută.",
-  "reachedLevel": "Ai Atins Nivelul <%= level %>",
-  "achievementLostMasterclasser": "Săvârșitorul de expediții: Seria Masterclass",
-  "achievementLostMasterclasserText": "Ai terminat toate cele șaisprezece expediții în Seria de Expediții Masterclass și ai rezolvat misterul Masterclasser-ului Pierdut!"
+    "achievement": "Achievement",
+    "share": "Distribuie",
+    "onwards": "Înainte!",
+    "levelup": "Prin atingerea scopurilor în viață, ai trecut la următorul nivel și viața îți este complet refăcută!",
+    "reachedLevel": "Ai Atins Nivelul <%= level %>",
+    "achievementLostMasterclasser": "Săvârșitorul de expediții: Seria Masterclass",
+    "achievementLostMasterclasserText": "Ai terminat toate cele șaisprezece expediții în Seria de Expediții Masterclass și ai rezolvat misterul Masterclasser-ului Pierdut!",
+    "achievementJustAddWater": "Doar adaugă apă"
 }

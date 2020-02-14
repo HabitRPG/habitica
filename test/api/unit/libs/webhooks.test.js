@@ -12,11 +12,13 @@ import {
 } from '../../../../website/server/models/user';
 import {
   generateUser,
-} from '../../../helpers/api-unit.helper.js';
-import { defer } from '../../../helpers/api-unit.helper';
+  defer,
+} from '../../../helpers/api-unit.helper';
+
 
 describe('webhooks', () => {
-  let webhooks, user;
+  let webhooks; let
+    user;
 
   beforeEach(() => {
     sandbox.stub(got, 'post').returns(defer().promise);
@@ -41,6 +43,7 @@ describe('webhooks', () => {
       options: {
         questStarted: true,
         questFinised: true,
+        questInvited: true,
       },
     }, {
       id: 'userActivity',
@@ -72,7 +75,7 @@ describe('webhooks', () => {
 
   describe('WebhookSender', () => {
     it('creates a new WebhookSender object', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
@@ -82,13 +85,15 @@ describe('webhooks', () => {
 
     it('provides default function for data transformation', () => {
       sandbox.spy(WebhookSender, 'defaultTransformData');
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultTransformData).to.be.calledOnce;
@@ -100,14 +105,16 @@ describe('webhooks', () => {
     });
 
     it('adds default data (user and webhookType) to the body', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
       sandbox.spy(sendWebhook, 'attachDefaultData');
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(sendWebhook.attachDefaultData).to.be.calledOnce;
@@ -118,25 +125,27 @@ describe('webhooks', () => {
 
       expect(body).to.eql({
         foo: 'bar',
-        user: {_id: user._id},
+        user: { _id: user._id },
         webhookType: 'custom',
       });
     });
 
     it('can pass in a data transformation function', () => {
       sandbox.spy(WebhookSender, 'defaultTransformData');
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
         transformData (data) {
-          let dataToSend = Object.assign({baz: 'biz'}, data);
+          const dataToSend = { baz: 'biz', ...data };
 
           return dataToSend;
         },
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultTransformData).to.not.be.called;
@@ -152,13 +161,15 @@ describe('webhooks', () => {
 
     it('provides a default filter function', () => {
       sandbox.spy(WebhookSender, 'defaultWebhookFilter');
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultWebhookFilter).to.be.calledOnce;
@@ -166,16 +177,18 @@ describe('webhooks', () => {
 
     it('can pass in a webhook filter function', () => {
       sandbox.spy(WebhookSender, 'defaultWebhookFilter');
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
         webhookFilter (hook) {
           return hook.url !== 'http://custom-url.com';
         },
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultWebhookFilter).to.not.be.called;
@@ -184,18 +197,22 @@ describe('webhooks', () => {
 
     it('can pass in a webhook filter function that filters on data', () => {
       sandbox.spy(WebhookSender, 'defaultWebhookFilter');
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
         webhookFilter (hook, data) {
           return hook.options.foo === data.foo;
         },
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
       user.webhooks = [
-        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom', options: { foo: 'bar' }},
-        { id: 'other-custom-webhook', url: 'http://other-custom-url.com', enabled: true, type: 'custom', options: { foo: 'foo' }},
+        {
+          id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom', options: { foo: 'bar' },
+        },
+        {
+          id: 'other-custom-webhook', url: 'http://other-custom-url.com', enabled: true, type: 'custom', options: { foo: 'foo' },
+        },
       ];
       sendWebhook.send(user, body);
 
@@ -204,41 +221,49 @@ describe('webhooks', () => {
     });
 
     it('ignores disabled webhooks', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: false, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: false, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(got.post).to.not.be.called;
     });
 
     it('ignores webhooks with invalid urls', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'httxp://custom-url!!!', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'httxp://custom-url!!!', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(got.post).to.not.be.called;
     });
 
     it('ignores webhooks of other types', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
       user.webhooks = [
-        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'},
-        { id: 'other-webhook', url: 'http://other-url.com', enabled: true, type: 'other'},
+        {
+          id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+        },
+        {
+          id: 'other-webhook', url: 'http://other-url.com', enabled: true, type: 'other',
+        },
       ];
       sendWebhook.send(user, body);
 
@@ -250,14 +275,16 @@ describe('webhooks', () => {
     });
 
     it('sends every type of activity to global webhooks', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
       user.webhooks = [
-        { id: 'global-webhook', url: 'http://custom-url.com', enabled: true, type: 'globalActivity'},
+        {
+          id: 'global-webhook', url: 'http://custom-url.com', enabled: true, type: 'globalActivity',
+        },
       ];
       sendWebhook.send(user, body);
 
@@ -269,15 +296,19 @@ describe('webhooks', () => {
     });
 
     it('sends multiple webhooks of the same type', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
       user.webhooks = [
-        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'},
-        { id: 'other-custom-webhook', url: 'http://other-url.com', enabled: true, type: 'custom'},
+        {
+          id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+        },
+        {
+          id: 'other-custom-webhook', url: 'http://other-url.com', enabled: true, type: 'custom',
+        },
       ];
       sendWebhook.send(user, body);
 
@@ -299,7 +330,7 @@ describe('webhooks', () => {
     beforeEach(() => {
       data = {
         user: {
-          _tmp: {foo: 'bar'},
+          _tmp: { foo: 'bar' },
           stats: {
             lvl: 5,
             int: 10,
@@ -317,11 +348,12 @@ describe('webhooks', () => {
         delta: 176,
       };
 
-      let mockStats = Object.assign({
+      const mockStats = {
         maxHealth: 50,
         maxMP: 103,
         toNextLevel: 40,
-      }, data.user.stats);
+        ...data.user.stats,
+      };
       delete mockStats.toJSON;
 
       sandbox.stub(User, 'addComputedStatsToJSONObj').returns(mockStats);
@@ -338,7 +370,7 @@ describe('webhooks', () => {
           webhookType: 'taskActivity',
           user: {
             _id: user._id,
-            _tmp: {foo: 'bar'},
+            _tmp: { foo: 'bar' },
             stats: {
               lvl: 5,
               int: 10,
@@ -376,7 +408,7 @@ describe('webhooks', () => {
           webhookType: 'taskActivity',
           user: {
             _id: user._id,
-            _tmp: {foo: 'bar'},
+            _tmp: { foo: 'bar' },
             stats: {
               lvl: 5,
               int: 10,
@@ -416,7 +448,7 @@ describe('webhooks', () => {
       };
     });
 
-    ['created', 'updated', 'deleted'].forEach((type) => {
+    ['created', 'updated', 'deleted'].forEach(type => {
       it(`sends ${type} tasks`, () => {
         data.type = type;
 
@@ -498,7 +530,7 @@ describe('webhooks', () => {
       };
     });
 
-    ['petHatched', 'mountRaised', 'leveledUp'].forEach((type) => {
+    ['petHatched', 'mountRaised', 'leveledUp'].forEach(type => {
       it(`sends ${type} webhooks`, () => {
         data.type = type;
 
@@ -545,7 +577,7 @@ describe('webhooks', () => {
       };
     });
 
-    ['questStarted', 'questFinised'].forEach((type) => {
+    ['questStarted', 'questFinised', 'questInvited'].forEach(type => {
       it(`sends ${type} webhooks`, () => {
         data.type = type;
 
@@ -584,7 +616,7 @@ describe('webhooks', () => {
 
   describe('groupChatReceivedWebhook', () => {
     it('sends chat data', () => {
-      let data = {
+      const data = {
         group: {
           id: 'group-id',
           name: 'some group',
@@ -619,7 +651,7 @@ describe('webhooks', () => {
     });
 
     it('does not send chat data for group if not selected', () => {
-      let data = {
+      const data = {
         group: {
           id: 'not-group-id',
           name: 'some group',

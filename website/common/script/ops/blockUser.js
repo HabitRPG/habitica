@@ -4,11 +4,11 @@ import {
   BadRequest,
 } from '../libs/errors';
 
-module.exports = function blockUser (user, req = {}) {
+export default function blockUser (user, req = {}) {
   if (!validator.isUUID(req.params.uuid)) throw new BadRequest(i18n.t('invalidUUID', req.language));
   if (req.params.uuid === user._id) throw new BadRequest(i18n.t('blockYourself', req.language));
 
-  let i = user.inbox.blocks.indexOf(req.params.uuid);
+  const i = user.inbox.blocks.indexOf(req.params.uuid);
   if (i === -1) {
     user.inbox.blocks.push(req.params.uuid);
   } else {
@@ -19,4 +19,4 @@ module.exports = function blockUser (user, req = {}) {
   return [
     user.inbox.blocks,
   ];
-};
+}

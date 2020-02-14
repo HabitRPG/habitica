@@ -11,9 +11,8 @@ import {
 export function capByLevel (lvl) {
   if (lvl > MAX_LEVEL) {
     return MAX_LEVEL;
-  } else {
-    return lvl;
   }
+  return lvl;
 }
 
 /*
@@ -23,13 +22,20 @@ export function capByLevel (lvl) {
  */
 
 export function toNextLevel (lvl) {
-  return Math.round((Math.pow(lvl, 2) * 0.25 + 10 * lvl + 139.75) / 10) * 10;
+  if (lvl < 5) {
+    return 25 * lvl;
+  } if (lvl === 5) {
+    return 150;
+  }
+  return Math.round(((lvl ** 2) * 0.25 + 10 * lvl + 139.75) / 10) * 10;
 }
 
 /*
-  A hyperbola function that creates diminishing returns, so you can't go to infinite (eg, with Exp gain).
+  A hyperbola function that creates diminishing returns,
+  so you can't go to infinite (eg, with Exp gain).
   {max} The asymptote
-  {bonus} All the numbers combined for your point bonus (eg, task.value * user.stats.int * critChance, etc)
+  {bonus} All the numbers combined for your point bonus
+  (eg, task.value * user.stats.int * critChance, etc)
   {halfway} (optional) the point at which the graph starts bending
  */
 

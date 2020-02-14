@@ -10,9 +10,9 @@ describe('PUT /tags/:tagId', () => {
   });
 
   it('updates a tag given it\'s id', async () => {
-    let updatedTagName = 'Tag updated';
-    let createdTag = await user.post('/tags', {name: 'Tag 1'});
-    let updatedTag = await user.put(`/tags/${createdTag.id}`, {
+    const updatedTagName = 'Tag updated';
+    let createdTag = await user.post('/tags', { name: 'Tag 1' });
+    const updatedTag = await user.put(`/tags/${createdTag.id}`, {
       name: updatedTagName,
       ignored: true,
     });

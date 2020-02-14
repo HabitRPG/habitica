@@ -10,20 +10,20 @@ import {
 
 describe('shared.ops.releasePets', () => {
   let user;
-  let animal = 'Wolf-Base';
+  const animal = 'Wolf-Base';
 
   beforeEach(() => {
     user = generateUser();
-    for (let k in content.pets) {
+    Object.keys(content.pets).forEach(k => {
       user.items.pets[k] = content.pets[k];
       user.items.pets[k] = 5;
-    }
+    });
 
     user.items.currentPet = animal;
     user.balance = 1;
   });
 
-  it('returns an error when user balance is too low', (done) => {
+  it('returns an error when user balance is too low', done => {
     user.balance = 0;
 
     try {
@@ -35,7 +35,7 @@ describe('shared.ops.releasePets', () => {
     }
   });
 
-  it('returns an error when user does not have all pets', (done) => {
+  it('returns an error when user does not have all pets', done => {
     const petKeys = Object.keys(user.items.pets);
     delete user.items.pets[petKeys[0]];
 
@@ -49,14 +49,14 @@ describe('shared.ops.releasePets', () => {
   });
 
   it('releases pets', () => {
-    let message = releasePets(user)[1];
+    const message = releasePets(user)[1];
 
     expect(message).to.equal(i18n.t('petsReleased'));
     expect(user.items.pets[animal]).to.equal(0);
   });
 
   it('removes drop currentPet', () => {
-    let petInfo = content.petInfo[user.items.currentPet];
+    const petInfo = content.petInfo[user.items.currentPet];
     expect(petInfo.type).to.equal('drop');
     releasePets(user);
 
@@ -64,11 +64,11 @@ describe('shared.ops.releasePets', () => {
   });
 
   it('leaves non-drop pets equipped', () => {
-    let questAnimal = 'Gryphon-Base';
+    const questAnimal = 'Gryphon-Base';
     user.items.currentPet = questAnimal;
     user.items.pets[questAnimal] = 5;
 
-    let petInfo = content.petInfo[user.items.currentPet];
+    const petInfo = content.petInfo[user.items.currentPet];
     expect(petInfo.type).to.not.equal('drop');
     releasePets(user);
 
@@ -99,7 +99,7 @@ describe('shared.ops.releasePets', () => {
   });
 
   it('does not increment beastMasterCount if any pet is missing (null)', () => {
-    let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
+    const beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     user.items.pets[animal] = null;
 
     try {
@@ -110,7 +110,7 @@ describe('shared.ops.releasePets', () => {
   });
 
   it('does not increment beastMasterCount if any pet is missing (undefined)', () => {
-    let beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
+    const beastMasterCountBeforeRelease = user.achievements.beastMasterCount;
     delete user.items.pets[animal];
 
     try {

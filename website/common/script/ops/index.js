@@ -32,7 +32,7 @@ import scoreTask from './scoreTask';
 import markPmsRead from './markPMSRead';
 import * as pinnedGearUtils from './pinnedGearUtils';
 
-module.exports = {
+export default {
   sleep,
   revive,
   reset,

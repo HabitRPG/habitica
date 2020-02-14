@@ -1,0 +1,381 @@
+.task {
+  &-worst { // dark red
+    &-control {
+      &-bg {
+        background: $maroon-100 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+        }
+      }
+      &-bg-noninteractive {
+        background: $maroon-100 !important;
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: $maroon-500 !important; }
+      &-checkbox { color: $maroon-100 !important; }
+      &-icon { color: #6c0406 !important; }
+    }
+
+    &-modal {
+      &-bg { background: $maroon-100 !important; }
+      &-icon { color: $maroon-100 !important; }
+      &-text { color: $maroon-50 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $maroon-100 !important; }
+        .option-item-label { color: $maroon-50 !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $maroon-100 !important; }
+        .option-item-label { color: $maroon-50 !important; }
+      }
+    }
+  }
+
+  &-worse { // light red
+    &-control {
+      &-bg {
+        background: $red-100 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+        }
+      }
+      &-bg-noninteractive {
+        background: $red-100 !important;
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: $red-500 !important; }
+      &-checkbox { color: $red-100 !important; }
+      &-icon { color: #6c0406 !important; }
+    }
+
+    &-modal {
+      &-bg { background: $red-100 !important; }
+      &-icon { color: $red-100 !important; }
+      &-text { color: $red-10 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $red-100 !important; }
+        .option-item-label { color: $red-10 !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $red-100 !important; }
+        .option-item-label { color: $red-10 !important; }
+      }
+    }
+  }
+
+  &-bad { // orange
+    &-control {
+      &-bg {
+        background: $orange-100 !important;
+
+        &:hover {
+          .habit-control { background: #b75a1c !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+        }
+      }
+      &-bg-noninteractive {
+        background: $orange-100 !important;
+      }
+      &-inner-habit { background: rgba(183, 90, 28, 0.4) !important; }
+      &-inner-daily-todo { background: $orange-500 !important; }
+      &-checkbox { color: $orange-100 !important; }
+      &-icon { color: #7f3300 !important; }
+    }
+
+    &-modal {
+      &-bg {
+        background: $orange-100 !important;
+
+        .form-control {
+          background: rgba(183, 90, 28, 0.4) !important;
+
+          &:focus, &:active, &:hover {
+            background-color: #b75a1c !important;
+          }
+        }
+      }
+      &-icon { color: $orange-100 !important; }
+      &-text { color: #b75a1c !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $orange-100 !important; }
+        .option-item-label { color: #b75a1c !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $orange-100 !important; }
+        .option-item-label { color: #b75a1c !important; }
+      }
+    }
+  }
+
+  &-neutral { // yellow
+    &-control {
+      &-bg {
+        background: $yellow-100 !important;
+        &:hover {
+          .habit-control { background: #bf7d1a !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+        }
+      }
+      &-bg-noninteractive {
+        background: $yellow-100 !important;
+      }
+      &-inner-habit { background: rgba(183, 90, 28, 0.32) !important; }
+      &-inner-daily-todo { background: $yellow-500 !important; }
+      &-checkbox { color: $yellow-100 !important; }
+      &-icon { color: #794b00 !important; }
+    }
+
+    &-modal {
+      &-bg {
+        background: $yellow-100 !important;
+
+        .form-control {
+          background: rgba(183, 90, 28, 0.4) !important;
+
+          &:focus, &:active, &:hover {
+            background-color: #bf7d1a !important;
+          }
+        }
+      }
+      &-icon { color: $yellow-100 !important; }
+      &-text { color: #bf7d1a !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $yellow-100 !important; }
+        .option-item-label { color: #bf7d1a !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $yellow-100 !important; }
+        .option-item-label { color: #bf7d1a !important; }
+      }
+    }
+  }
+
+  &-good { // green
+    &-control {
+      &-bg {
+        background: $green-100 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+        }
+      }
+      &-bg-noninteractive {
+        background: $green-100 !important;
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: #77f4c7 !important; }
+      &-checkbox { color: $green-10 !important; }
+      &-icon { color: #005737 !important; }
+    }
+
+    &-modal {
+      &-bg { background: $green-100 !important; }
+      &-icon { color: $green-10 !important; }
+      &-text { color: #1ca372 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $green-10 !important; }
+        .option-item-label { color: #1ca372 !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $green-10 !important; }
+        .option-item-label { color: #1ca372 !important; }
+      }
+    }
+  }
+
+  &-better { // teal
+    &-control {
+      &-bg {
+        background: $teal-100 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+        }
+      }
+      &-bg-noninteractive {
+        background: $teal-100 !important;
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: #8dedf6 !important; }
+      &-checkbox { color: $teal-100 !important; }
+      &-icon { color: #005158 !important; }
+    }
+
+    &-modal {
+      &-bg { background: $teal-100 !important; }
+      &-icon { color: $teal-100 !important; }
+      &-text { color: $teal-10 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $teal-100 !important; }
+        .option-item-label { color: $teal-10 !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $teal-100 !important; }
+        .option-item-label { color: $teal-10 !important; }
+      }
+    }
+  }
+
+  &-best { // blue
+    &-control {
+      &-bg {
+        background: $blue-100 !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+        }
+      }
+      &-bg-noninteractive {
+        background: $blue-100 !important;
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: $blue-500 !important; }
+      &-checkbox { color: $blue-100 !important; }
+      &-icon { color: #033f5e !important; }
+    }
+
+    &-modal {
+      &-bg { background: $blue-100 !important; }
+      &-icon { color: $blue-100 !important; }
+      &-text { color: $blue-10 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $blue-50 !important; }
+        .option-item-label { color: $blue-10 !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $blue-50 !important; }
+        .option-item-label { color: $blue-10 !important; }
+      }
+    }
+  }
+
+  &-purple { // purple, only used in modals
+    &-control {
+      &-bg {
+        background: $purple-task !important;
+        &:hover {
+          .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+        }
+      }
+      &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
+      &-inner-daily-todo { background: #ffffff80 !important; }
+      &-checkbox { color: $purple-task !important; }
+    }
+
+    &-modal {
+      &-bg { background: $purple-300 !important; }
+      &-icon { color: $purple-300 !important; }
+      &-text { color: $purple-200 !important; }
+      &-option-disabled:hover {
+        .svg-icon { color: $purple-300 !important; }
+        .option-item-label { color: $purple-200 !important; }
+      }
+      &-habit-control-disabled:hover {
+        .habit-control { background: $purple-300 !important; }
+        .option-item-label { color: $purple-200 !important; }
+      }
+    }
+  }
+
+  &-reward {
+    &-control {
+      &-bg {
+        background: rgba(255, 217, 160, 0.32) !important;
+        .small-text { color: $orange-10 !important; }
+
+        &:hover { background: rgba(255, 217, 160, 0.48) !important; }
+      }
+      &-bg-noninteractive {
+        background: rgba(255, 217, 160, 0.32) !important;
+        .small-text { color: $orange-10 !important; }
+      }
+    }
+  }
+
+  &-disabled {
+    &-habit {
+      &-control {
+        &-bg { background: $gray-600; }
+        &-inner {
+          color: rgba(26, 24, 29, 0.12) !important;
+          border: 1px solid rgba(26, 24, 29, 0.12);
+        }
+      }
+    }
+
+    &-daily-todo {
+      &-control {
+        &-bg {
+          background: $gray-400 !important;
+          &:hover {
+            .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
+          }
+        }
+        &-inner { background: $gray-500 !important; }
+        &-checkbox { color: $gray-400 !important; }
+        &-content {
+          background: $gray-600;
+
+          .task-title, .task-notes {
+            color: $gray-300 !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.task-control {
+  width: 28px;
+  height: 28px;
+}
+
+.habit-control {
+  border-radius: 100px;
+  color: $white;
+
+  .svg-icon {
+    width: 10px;
+    height: 10px;
+    margin: 0 auto;
+  }
+
+  .lock {
+    margin-top: 7px;
+    height: 12px;
+    width: 10px;
+  }
+
+  .positive {
+    margin-top: 9px;
+  }
+
+  .negative {
+    margin-top: 13px;
+  }
+}
+
+.daily-todo-control {
+  &:hover {
+    .svg-icon.check {
+      display: block;
+    }
+  }
+
+  .svg-icon.check {
+    display: none;
+
+    &.display-check-icon {
+      display: block;
+    }
+  }
+
+  .svg-icon.lock {
+    margin: 8px auto;
+    height: 12px;
+    width: 10px;
+  }
+}

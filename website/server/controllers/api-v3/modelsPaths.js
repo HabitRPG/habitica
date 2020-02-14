@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-let api = {};
+const api = {};
 
-let tasksModels = ['habit', 'daily', 'todo', 'reward'];
-let allModels = ['user', 'tag', 'challenge', 'group'].concat(tasksModels);
+const tasksModels = ['habit', 'daily', 'todo', 'reward'];
+const allModels = ['user', 'tag', 'challenge', 'group'].concat(tasksModels);
 
 /**
  * @api {get} /api/v3/models/:model/paths Get all paths for the specified model
@@ -11,12 +11,14 @@ let allModels = ['user', 'tag', 'challenge', 'group'].concat(tasksModels);
  * @apiName GetUserModelPaths
  * @apiGroup Meta
  *
- * @apiParam (Path) {String="user","group","challenge","tag","habit","daily","todo","reward"} model The name of the model
+ * @apiParam (Path) {String="user","group","challenge","tag","habit",
+                    "daily","todo","reward"} model The name of the model
  *
  * @apiExample {curl} Tag
  * curl https://habitica.com/api/v3/models/tag/paths
  *
- * @apiSuccess {Object} data A key-value object made of fieldPath: fieldType (like {'field.nested': Boolean})
+ * @apiSuccess {Object} data A key-value object made of fieldPath: fieldType
+                             (like {'field.nested': Boolean})
  *
  * @apiSuccessExample {json} Tag
  * {
@@ -36,10 +38,10 @@ api.getModelPaths = {
   async handler (req, res) {
     req.checkParams('model', res.t('modelNotFound')).notEmpty().isIn(allModels);
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let model = req.params.model;
+    let { model } = req.params;
     // tasks models are lowercase, the others have the first letter uppercase (User, Group)
     if (tasksModels.indexOf(model) === -1) {
       model = model.charAt(0).toUpperCase() + model.slice(1);
@@ -51,4 +53,4 @@ api.getModelPaths = {
   },
 };
 
-module.exports = api;
+export default api;

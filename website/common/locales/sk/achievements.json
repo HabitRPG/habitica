@@ -1,9 +1,9 @@
 {
-  "achievement": "Odznak",
-  "share": "Zdieľaj",
-  "onwards": "Vpred!",
-  "levelup": "Plnením cieľov v reálnom živote si získal level a bol si vyliečený!",
-  "reachedLevel": "Dosiahol si level <%= level %>",
-  "achievementLostMasterclasser": "Plniteľ výprav: Séria majstra zberateľa",
-  "achievementLostMasterclasserText": "Splnil všetkých šestnásť výprav v sérii výprav Majster zberateľ a vyriešil záhady Strateného majstra zberateľa!"
+    "achievement": "Úspech",
+    "share": "Zdieľaj",
+    "onwards": "Vpred!",
+    "levelup": "Plnením cieľov v reálnom živote si získal level a bol si vyliečený!",
+    "reachedLevel": "Dosiahol si level <%= level %>",
+    "achievementLostMasterclasser": "Plniteľ výprav: Séria majstra zberateľa",
+    "achievementLostMasterclasserText": "Splnil všetkých šestnásť výprav v sérii výprav Majster zberateľ a vyriešil záhady Strateného majstra zberateľa!"
 }

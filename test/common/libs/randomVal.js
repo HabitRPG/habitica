@@ -1,5 +1,5 @@
+import { times } from 'lodash';
 import randomVal from '../../../website/common/script/libs/randomVal';
-import {times} from 'lodash';
 
 describe('randomVal', () => {
   let obj;
@@ -18,7 +18,7 @@ describe('randomVal', () => {
   });
 
   it('returns a random value from an object', () => {
-    let result = randomVal(obj);
+    const result = randomVal(obj);
     expect(result).to.be.oneOf([1, 2, 3, 4]);
   });
 
@@ -31,7 +31,7 @@ describe('randomVal', () => {
   });
 
   it('returns a random key when the key option is passed in', () => {
-    let result = randomVal(obj, { key: true });
+    const result = randomVal(obj, { key: true });
     expect(result).to.be.oneOf(['a', 'b', 'c', 'd']);
   });
 });

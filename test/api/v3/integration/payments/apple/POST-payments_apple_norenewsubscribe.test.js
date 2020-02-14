@@ -1,9 +1,9 @@
-import {generateUser, translate as t} from '../../../../../helpers/api-integration/v3';
+import { generateUser, translate as t } from '../../../../../helpers/api-integration/v3';
 import applePayments from '../../../../../../website/server/libs/payments/apple';
 
 describe('payments : apple #norenewsubscribe', () => {
-  let endpoint = '/iap/ios/norenew-subscribe';
-  let sku = 'com.habitrpg.ios.habitica.subscription.3month';
+  const endpoint = '/iap/ios/norenew-subscribe';
+  const sku = 'com.habitrpg.ios.habitica.subscription.3month';
   let user;
 
   beforeEach(async () => {
@@ -50,7 +50,7 @@ describe('payments : apple #norenewsubscribe', () => {
 
       await user.post(endpoint, {
         sku,
-        transaction: {receipt: 'receipt'},
+        transaction: { receipt: 'receipt' },
         gift: {
           uuid: '1',
         },

@@ -3,10 +3,11 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('Prevent multiple notifications', () => {
-  let partyLeader, partyMembers, party;
+  let partyLeader; let partyMembers; let
+    party;
 
   before(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: {
         type: 'party',
         privacy: 'private',
@@ -22,10 +23,10 @@ describe('Prevent multiple notifications', () => {
   it('does not add the same notification twice', async () => {
     const multipleChatMessages = [];
 
-    for (let i = 0; i < 4; i++) {
-      for (let memberIndex = 0; memberIndex < partyMembers.length; memberIndex++) {
+    for (let i = 0; i < 4; i += 1) {
+      for (let memberIndex = 0; memberIndex < partyMembers.length; memberIndex += 1) {
         multipleChatMessages.push(
-          partyMembers[memberIndex].post(`/groups/${party._id}/chat`, { message: `Message ${i}_${memberIndex}`}),
+          partyMembers[memberIndex].post(`/groups/${party._id}/chat`, { message: `Message ${i}_${memberIndex}` }),
         );
       }
     }

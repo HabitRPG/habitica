@@ -1,20 +1,18 @@
+import cloneDeep from 'lodash/cloneDeep';
 import content from '../content/index';
 import i18n from '../i18n';
 import {
   BadRequest,
 } from '../libs/errors';
-import cloneDeep from 'lodash/cloneDeep';
 
 function markNotificationAsRead (user) {
-  const index = user.notifications.findIndex(notification => {
-    return notification && notification.type === 'NEW_MYSTERY_ITEMS';
-  });
+  const index = user.notifications.findIndex(notification => notification && notification.type === 'NEW_MYSTERY_ITEMS');
 
   if (index !== -1) user.notifications.splice(index, 1);
 }
 
-module.exports = function openMysteryItem (user, req = {}, analytics) {
-  const mysteryItems = user.purchased.plan.mysteryItems;
+export default function openMysteryItem (user, req = {}, analytics) {
+  const { mysteryItems } = user.purchased.plan;
   let item = mysteryItems.shift();
 
   if (!item) {
@@ -24,7 +22,11 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
   if (mysteryItems.length === 0) markNotificationAsRead(user);
 
   item = cloneDeep(content.gear.flat[item]);
-  user.items.gear.owned[item.key] = true;
+  item.text = content.gear.flat[item.key].text(user.preferences.language);
+  user.items.gear.owned = {
+    ...user.items.gear.owned,
+    [item.key]: true,
+  };
 
   if (user.markModified) {
     user.markModified('purchased.plan.mysteryItems');
@@ -46,4 +48,4 @@ module.exports = function openMysteryItem (user, req = {}, analytics) {
     item,
     i18n.t('mysteryItemOpened', req.language),
   ];
-};
+}

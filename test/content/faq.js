@@ -3,24 +3,26 @@ import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
 
-import {questions, stillNeedHelp} from '../../website/common/script/content/faq';
+import faq from '../../website/common/script/content/faq';
+
+const { questions, stillNeedHelp } = faq;
 
 describe('FAQ Locales', () => {
   describe('Questions', () => {
     it('has a valid questions', () => {
-      each(questions, (question) => {
+      each(questions, question => {
         expectValidTranslationString(question.question);
       });
     });
 
     it('has a valid ios answers', () => {
-      each(questions, (question) => {
+      each(questions, question => {
         expectValidTranslationString(question.ios);
       });
     });
 
     it('has a valid web answers', () => {
-      each(questions, (question) => {
+      each(questions, question => {
         expectValidTranslationString(question.web);
       });
     });

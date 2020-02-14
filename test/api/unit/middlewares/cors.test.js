@@ -7,7 +7,8 @@ import {
 import cors from '../../../../website/server/middlewares/cors';
 
 describe('cors middleware', () => {
-  let res, req, next;
+  let res; let req; let
+    next;
 
   beforeEach(() => {
     req = generateReq();

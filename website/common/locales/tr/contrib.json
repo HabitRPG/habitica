@@ -66,7 +66,7 @@
     "visitHeroes": "Kahramanlar Salonu'nu ziyaret et (katılımcılar ve destekçiler)",
     "conLearn": "<a href='http://tr.habitica.fandom.com/wiki/Katılımcı_Ödülleri' target='_blank'>Katılımcı ödülleri hakkında daha fazla bilgi al</a>",
     "conLearnHow": "Habitica'ya nasıl katkıda bulunabileceğini öğren",
-    "conLearnURL": "http://tr.habitica.fandom.com/wiki/Habitica%27ya_Kat%C4%B1l%C4%B1m",
+    "conLearnURL": "https://habitica.fandom.com/tr/wiki/Habitica%27ya_Kat%C4%B1l%C4%B1m",
     "conRewardsURL": "http://tr.habitica.fandom.com/wiki/Katılımcı_Ödülleri",
     "surveysSingle": "Bir anket doldurarak veya test çözmeye vakit ayırarak Habitica'nın büyümesine yardımcı oldun. Teşekkürler!",
     "surveysMultiple": "Bir anket doldurarak veya büyük bir geliştirme uygulamasına katkı göstererek <%= count %> adet etkinlikte Habitica'nın büyümesine yardımcı oldu. Teşekkürler!",

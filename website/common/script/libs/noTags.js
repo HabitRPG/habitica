@@ -7,8 +7,6 @@ are any tags active?
 
 // TODO move to client
 
-module.exports = function noTags (tags) {
-  return isEmpty(tags) || isEmpty(filter(tags, (t) => {
-    return t;
-  }));
-};
+export default function noTags (tags) {
+  return isEmpty(tags) || isEmpty(filter(tags, t => t));
+}

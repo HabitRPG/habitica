@@ -14,41 +14,43 @@ import statsComputed from '../libs/statsComputed';
 // TODO This is only used on the server
 // move to user model as an instance method?
 
-// Clone a drop object maintaining its functions so that we can change it without affecting the original item
+// Clone a drop object maintaining its functions
+// so that we can change it without affecting the original item
 function cloneDropItem (drop) {
-  return cloneDeepWith(drop, (val) => {
-    return isFunction(val) ? val : undefined; // undefined will be handled by lodash
-  });
+  return cloneDeepWith(drop, val => (isFunction(val) ? val : undefined));
 }
 
 function trueRandom () {
   return Math.random();
 }
 
-module.exports = function randomDrop (user, options, req = {}, analytics) {
+export default function randomDrop (user, options, req = {}, analytics) {
   let acceptableDrops;
   let drop;
   let dropMultiplier;
   let rarity;
 
-  let predictableRandom = options.predictableRandom || trueRandom;
-  let task = options.task;
+  const predictableRandom = options.predictableRandom || trueRandom;
+  const { task } = options;
 
   let chance = min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
-  chance *= task.priority *                             // Task priority: +50% for Medium, +100% for Hard
-    (1 + (task.streak / 100 || 0)) *                    // Streak bonus: +1% per streak
-    (1 + statsComputed(user).per / 100) *               // PERception: +1% per point
-    (1 + (user.contributor.level / 40 || 0)) *          // Contrib levels: +2.5% per level
-    (1 + (user.achievements.rebirths / 20 || 0)) *      // Rebirths: +5% per achievement
-    (1 + (user.achievements.streak / 200 || 0)) *       // Streak achievements: +0.5% per achievement
-    (user._tmp.crit || 1) * (1 + 0.5 * (reduce(task.checklist, (m, i) => { // +50% per checklist item complete. TODO: make this into X individual drop chances instead
-      return m + (i.completed ? 1 : 0); // eslint-disable-line indent
-    }, 0) || 0)); // eslint-disable-line indent
+  chance *= task.priority // Task priority: +50% for Medium, +100% for Hard
+    * (1 + (task.streak / 100 || 0)) // Streak bonus: +1% per streak
+    * (1 + statsComputed(user).per / 100) // PERception: +1% per point
+    * (1 + (user.contributor.level / 40 || 0)) // Contrib levels: +2.5% per level
+    * (1 + (user.achievements.rebirths / 20 || 0)) // Rebirths: +5% per achievement
+    * (1 + (user.achievements.streak / 200 || 0)) // Streak achievements: +0.5% per achievement
+    // +50% per checklist item complete. TODO: make this into X individual drop chances instead
+    * (user._tmp.crit || 1)
+    * (1 + 0.5 * (reduce(
+      task.checklist, (m, i) => m + (i.completed ? 1 : 0), // eslint-disable-line indent
+      0,
+) || 0)); // eslint-disable-line indent
   chance = diminishingReturns(chance, 0.75);
 
   if (predictableRandom() < chance) {
     user.party.quest.progress.collectedItems = user.party.quest.progress.collectedItems || 0;
-    user.party.quest.progress.collectedItems++;
+    user.party.quest.progress.collectedItems += 1;
     user._tmp.quest = user._tmp.quest || {};
     user._tmp.quest.collection = 1;
     if (user.markModified) user.markModified('party.quest.progress');
@@ -60,8 +62,12 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
     dropMultiplier = 1;
   }
 
-  if (daysSince(user.items.lastDrop.date, user.preferences) === 0 &&
-      user.items.lastDrop.count >= dropMultiplier * (5 + Math.floor(statsComputed(user).per / 25) + (user.contributor.level || 0))) {
+  const maxDropCount = dropMultiplier * (5 + Math.floor(statsComputed(user).per / 25) + (user.contributor.level || 0)); // eslint-disable-line max-len
+
+  if (
+    daysSince(user.items.lastDrop.date, user.preferences) === 0
+    && user.items.lastDrop.count >= maxDropCount
+  ) {
     return;
   }
 
@@ -73,7 +79,10 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
         canDrop: true,
       })));
 
-      user.items.food[drop.key] = user.items.food[drop.key] || 0;
+      user.items.food = {
+        ...user.items.food,
+        [drop.key]: user.items.food[drop.key] || 0,
+      };
       user.items.food[drop.key] += 1;
       if (user.markModified) user.markModified('items.food');
 
@@ -85,8 +94,11 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
     } else if (rarity > 0.3) { // eggs 30% chance
       drop = cloneDropItem(randomVal(content.dropEggs));
 
-      user.items.eggs[drop.key] = user.items.eggs[drop.key] || 0;
-      user.items.eggs[drop.key]++;
+      user.items.eggs = {
+        ...user.items.eggs,
+        [drop.key]: user.items.eggs[drop.key] || 0,
+      };
+      user.items.eggs[drop.key] += 1;
       if (user.markModified) user.markModified('items.eggs');
 
       drop.type = 'Egg';
@@ -104,12 +116,16 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
       } else { // common, 40% of 30%
         acceptableDrops = ['Base', 'White', 'Desert'];
       }
-      drop = cloneDropItem(randomVal(pickBy(content.hatchingPotions, (v, k) => {
-        return acceptableDrops.indexOf(k) >= 0;
-      })));
+      drop = cloneDropItem(
+        randomVal(pickBy(content.hatchingPotions, (v, k) => acceptableDrops.indexOf(k) >= 0)),
+      );
 
-      user.items.hatchingPotions[drop.key] = user.items.hatchingPotions[drop.key] || 0;
-      user.items.hatchingPotions[drop.key]++;
+      user.items.hatchingPotions = {
+        ...user.items.hatchingPotions,
+        [drop.key]: user.items.hatchingPotions[drop.key] || 0,
+      };
+      user.items.hatchingPotions[drop.key] += 1;
+
       if (user.markModified) user.markModified('items.hatchingPotions');
 
       drop.type = 'HatchingPotion';
@@ -131,6 +147,6 @@ module.exports = function randomDrop (user, options, req = {}, analytics) {
 
     user._tmp.drop = drop;
     user.items.lastDrop.date = Number(new Date());
-    user.items.lastDrop.count++;
+    user.items.lastDrop.count += 1;
   }
-};
+}

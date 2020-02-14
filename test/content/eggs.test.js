@@ -5,14 +5,14 @@ import {
   expectValidTranslationString,
 } from '../helpers/content.helper';
 
-import eggs from '../../website/common/script/content/eggs';
+import * as eggs from '../../website/common/script/content/eggs';
 
-describe('eggs', ()  => {
-  describe('all', ()  => {
+describe('eggs', () => {
+  describe('all', () => {
     it('is a combination of drop and quest eggs', () => {
-      let dropNumber = Object.keys(eggs.drops).length;
-      let questNumber = Object.keys(eggs.quests).length;
-      let allNumber = Object.keys(eggs.all).length;
+      const dropNumber = Object.keys(eggs.drops).length;
+      const questNumber = Object.keys(eggs.quests).length;
+      const allNumber = Object.keys(eggs.all).length;
 
       expect(allNumber).to.be.greaterThan(0);
       expect(allNumber).to.equal(dropNumber + questNumber);

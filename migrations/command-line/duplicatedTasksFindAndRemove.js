@@ -39,38 +39,52 @@
 //   needed. Do not miss any of them!
 
 
-let uuid = '30fb2640-7121-4968-ace5-f385e60ea6c5';
+const uuid = '30fb2640-7121-4968-ace5-f385e60ea6c5';
 
 db.users.aggregate([
-  {$match: {
-    _id: uuid,
-  }},
-  {$project: {
-    _id: 0, todos: 1,
-  }},
-  {$unwind: '$todos'},
-  {$group: {
-    _id: { taskid: '$todos.id' },
-    count: { $sum: 1 },
-  }},
-  {$match: {
-    count: { $gt: 1 },
-  }},
-  {$project: {
-    '_id.taskid': 1,
-  }},
-  {$group: {
-    _id: { taskid: '$todos.id' },
-    troublesomeIds: { $addToSet: '$_id.taskid' },
-  }},
-  {$project: {
-    _id: 0,
-    troublesomeIds: 1,
-  }},
-]).forEach((data) => {
+  {
+    $match: {
+      _id: uuid,
+    },
+  },
+  {
+    $project: {
+      _id: 0, todos: 1,
+    },
+  },
+  { $unwind: '$todos' },
+  {
+    $group: {
+      _id: { taskid: '$todos.id' },
+      count: { $sum: 1 },
+    },
+  },
+  {
+    $match: {
+      count: { $gt: 1 },
+    },
+  },
+  {
+    $project: {
+      '_id.taskid': 1,
+    },
+  },
+  {
+    $group: {
+      _id: { taskid: '$todos.id' },
+      troublesomeIds: { $addToSet: '$_id.taskid' },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      troublesomeIds: 1,
+    },
+  },
+]).forEach(data => {
   // print( "\n" ); printjson(data);
-  data.troublesomeIds.forEach((taskid) => {
-    print(`non-unique task: ${  taskid}`);
+  data.troublesomeIds.forEach(taskid => {
+    print(`non-unique task: ${taskid}`); // eslint-disable-line no-restricted-globals
     db.users.update({
       _id: uuid,
       todos: { $elemMatch: { id: taskid } },
@@ -81,8 +95,7 @@ db.users.aggregate([
 });
 
 db.users.update(
-  {_id: uuid},
-  {$pull: { todos: { id: 'de666' } } },
-  {multi: false }
+  { _id: uuid },
+  { $pull: { todos: { id: 'de666' } } },
+  { multi: false },
 );
-

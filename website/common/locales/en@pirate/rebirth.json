@@ -25,5 +25,6 @@
     "rebirthName": "Orb o' Rebirth",
     "reborn": "Reborn, max level <%= reLevel %>",
     "confirmReborn": "Be ye positive?",
-    "rebirthComplete": "Ye've been reborn!"
+    "rebirthComplete": "Ye've been reborn!",
+    "nextFreeRebirth": "<strong><%= days %> days</strong> afore ye can use yon <strong>FREE</strong> Orb o' Rebirth"
 }

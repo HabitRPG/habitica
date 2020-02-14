@@ -1,21 +1,23 @@
+/* eslint-disable import/no-commonjs */
 const migrationName = 'habits-one-history-entry-per-day';
 const authorName = 'paglias'; // in case script author needs to know when their ...
 const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is done
 
 /*
- * Iterates over all habits and condense multiple history entries for the same day into a single entry
+ * Iterates over all habits and condense multiple history entries for the same day into a single one
  */
 
-const monk = require('monk');
+const monk = require('monk'); // eslint-disable-line import/no-extraneous-dependencies
 const _ = require('lodash');
 const moment = require('moment');
+
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 const dbTasks = monk(connectionString).get('tasks', { castIds: false });
 const dbUsers = monk(connectionString).get('users', { castIds: false });
 
 function processUsers (lastId) {
-  let query = {
-    migration: {$ne: migrationName},
+  const query = {
+    migration: { $ne: migrationName },
   };
 
   if (lastId) {
@@ -25,34 +27,32 @@ function processUsers (lastId) {
   }
 
   dbUsers.find(query, {
-    sort: {_id: 1},
+    sort: { _id: 1 },
     limit: 50, // just 50 users per time since we have to process all their habits as well
     fields: ['_id', 'preferences.timezoneOffset', 'preferences.dayStart'],
   })
     .then(updateUsers)
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
-      return exiting(1, `ERROR! ${  err}`);
+      return exiting(1, `ERROR! ${err}`);
     });
 }
 
-let progressCount = 1000;
+const progressCount = 1000;
 let count = 0;
 
 function updateUsers (users) {
   if (!users || users.length === 0) {
     console.warn('All appropriate users and their tasks found and modified.');
     displayData();
-    return;
+    return null;
   }
 
-  let usersPromises = users.map(updateUser);
-  let lastUser = users[users.length - 1];
+  const usersPromises = users.map(updateUser);
+  const lastUser = users[users.length - 1];
 
   return Promise.all(usersPromises)
-    .then(() => {
-      return processUsers(lastUser._id);
-    });
+    .then(() => processUsers(lastUser._id));
 }
 
 function updateHabit (habit, timezoneOffset, dayStart) {
@@ -82,7 +82,7 @@ function updateHabit (habit, timezoneOffset, dayStart) {
       .toPairs() // [key, entry]
       .sortBy(([key]) => key) // sort by date
       .map(keyEntryPair => {
-        let entries = keyEntryPair[1]; // 1 is entry, 0 is key
+        const entries = keyEntryPair[1]; // 1 is entry, 0 is key
         let scoredUp = 0;
         let scoredDown = 0;
 
@@ -107,57 +107,56 @@ function updateHabit (habit, timezoneOffset, dayStart) {
       })
       .value();
 
-    return dbTasks.update({_id: habit._id}, {
-      $set: {history: habit.history},
+    return dbTasks.update({ _id: habit._id }, {
+      $set: { history: habit.history },
     });
   }
+
+  return null;
 }
 
 function updateUser (user) {
-  count++;
+  count += 1;
 
-  const timezoneOffset = user.preferences.timezoneOffset;
-  const dayStart = user.preferences.dayStart;
+  const { timezoneOffset } = user.preferences;
+  const { dayStart } = user.preferences;
 
-  if (count % progressCount === 0) console.warn(`${count  } ${  user._id}`);
-  if (user._id === authorUuid) console.warn(`${authorName  } being processed`);
+  if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
+  if (user._id === authorUuid) console.warn(`${authorName} being processed`);
 
   return dbTasks.find({
     type: 'habit',
     userId: user._id,
   })
-    .then(habits => {
-      return Promise.all(habits.map(habit => updateHabit(habit, timezoneOffset, dayStart)));
-    })
-    .then(() => {
-      return dbUsers.update({_id: user._id}, {
-        $set: {migration: migrationName},
-      });
-    })
-    .catch((err) => {
+    .then(habits => Promise.all(habits.map(habit => updateHabit(habit, timezoneOffset, dayStart))))
+    .then(() => dbUsers.update({ _id: user._id }, {
+      $set: { migration: migrationName },
+    }))
+    .catch(err => {
       console.log(err);
-      return exiting(1, `ERROR! ${  err}`);
+      return exiting(1, `ERROR! ${err}`);
     });
 }
 
 function displayData () {
-  console.warn(`\n${  count  } tasks processed\n`);
+  console.warn(`\n${count} tasks processed\n`);
   return exiting(0);
 }
 
 function exiting (code, msg) {
-  code = code || 0; // 0 = success
+  // 0 = success
+  code = code || 0; // eslint-disable-line no-param-reassign
   if (code && !msg) {
-    msg = 'ERROR!';
+    msg = 'ERROR!'; // eslint-disable-line no-param-reassign
   }
   if (msg) {
     if (code) {
       console.error(msg);
-    } else      {
+    } else {
       console.log(msg);
     }
   }
   process.exit(code);
 }
 
-module.exports = processUsers;
+export default processUsers;

@@ -1,12 +1,13 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /members/send-private-message', () => {
   let userToSendMessage;
-  let messageToSend = 'Test Private Message';
+  const messageToSend = 'Test *Private* Message';
+  const unformattedMessage = 'Test Private Message';
 
   beforeEach(async () => {
     userToSendMessage = await generateUser();
@@ -43,7 +44,7 @@ describe('POST /members/send-private-message', () => {
   });
 
   it('returns error when to user has blocked the sender', async () => {
-    let receiver = await generateUser({'inbox.blocks': [userToSendMessage._id]});
+    const receiver = await generateUser({ 'inbox.blocks': [userToSendMessage._id] });
 
     await expect(userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
@@ -56,8 +57,8 @@ describe('POST /members/send-private-message', () => {
   });
 
   it('returns error when sender has blocked to user', async () => {
-    let receiver = await generateUser();
-    let sender = await generateUser({'inbox.blocks': [receiver._id]});
+    const receiver = await generateUser();
+    const sender = await generateUser({ 'inbox.blocks': [receiver._id] });
 
     await expect(sender.post('/members/send-private-message', {
       message: messageToSend,
@@ -65,12 +66,12 @@ describe('POST /members/send-private-message', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('notAuthorizedToSendMessageToThisUser'),
+      message: t('blockedToSendToThisUser'),
     });
   });
 
   it('returns error when to user has opted out of messaging', async () => {
-    let receiver = await generateUser({'inbox.optOut': true});
+    const receiver = await generateUser({ 'inbox.optOut': true });
 
     await expect(userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
@@ -83,8 +84,8 @@ describe('POST /members/send-private-message', () => {
   });
 
   it('returns an error when chat privileges are revoked', async () => {
-    let userWithChatRevoked = await generateUser({'flags.chatRevoked': true});
-    let receiver = await generateUser();
+    const userWithChatRevoked = await generateUser({ 'flags.chatRevoked': true });
+    const receiver = await generateUser();
 
     await expect(userWithChatRevoked.post('/members/send-private-message', {
       message: messageToSend,
@@ -97,7 +98,7 @@ describe('POST /members/send-private-message', () => {
   });
 
   it('sends a private message to a user', async () => {
-    let receiver = await generateUser();
+    const receiver = await generateUser();
     // const initialNotifications = receiver.notifications.length;
 
     const response = await userToSendMessage.post('/members/send-private-message', {
@@ -105,16 +106,20 @@ describe('POST /members/send-private-message', () => {
       toUserId: receiver._id,
     });
 
-    let updatedReceiver = await receiver.get('/user');
-    let updatedSender = await userToSendMessage.get('/user');
+    const updatedReceiver = await receiver.get('/user');
+    const updatedSender = await userToSendMessage.get('/user');
 
-    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
-      return message.uuid === userToSendMessage._id && message.text === messageToSend;
-    });
+    const sendersMessageInReceiversInbox = _.find(
+      updatedReceiver.inbox.messages,
+      message => message.uuid === userToSendMessage._id
+        && message.text === messageToSend
+        && message.unformattedText === unformattedMessage,
+    );
 
-    let sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
-      return message.uuid === receiver._id && message.text === messageToSend;
-    });
+    const sendersMessageInSendersInbox = _.find(
+      updatedSender.inbox.messages,
+      message => message.uuid === receiver._id && message.text === messageToSend,
+    );
 
     expect(response.message.text).to.deep.equal(sendersMessageInSendersInbox.text);
     expect(response.message.uuid).to.deep.equal(sendersMessageInSendersInbox.uuid);
@@ -133,22 +138,34 @@ describe('POST /members/send-private-message', () => {
     expect(sendersMessageInSendersInbox).to.exist;
   });
 
+  it('sends a private message with mentions to a user', async () => {
+    const receiver = await generateUser();
+
+    const response = await userToSendMessage.post('/members/send-private-message', {
+      message: `hi @${receiver.auth.local.username}`,
+      toUserId: receiver._id,
+    });
+
+    expect(response.message.text).to.include(`[@${receiver.auth.local.username}](/profile/${receiver._id})`);
+  });
+
   // @TODO waiting for mobile support
   xit('creates a notification with an excerpt if the message is too long', async () => {
-    let receiver = await generateUser();
-    let longerMessageToSend = 'A very long message, that for sure exceeds the limit of 100 chars for the excerpt that we set to 100 chars';
-    let messageExcerpt = `${longerMessageToSend.substring(0, 100)}...`;
+    const receiver = await generateUser();
+    const longerMessageToSend = 'A very long message, that for sure exceeds the limit of 100 chars for the excerpt that we set to 100 chars';
+    const messageExcerpt = `${longerMessageToSend.substring(0, 100)}...`;
 
     await userToSendMessage.post('/members/send-private-message', {
       message: longerMessageToSend,
       toUserId: receiver._id,
     });
 
-    let updatedReceiver = await receiver.get('/user');
+    const updatedReceiver = await receiver.get('/user');
 
-    let sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
-      return message.uuid === userToSendMessage._id && message.text === longerMessageToSend;
-    });
+    const sendersMessageInReceiversInbox = _.find(
+      updatedReceiver.inbox.messages,
+      message => message.uuid === userToSendMessage._id && message.text === longerMessageToSend,
+    );
 
     const notification = updatedReceiver.notifications[updatedReceiver.notifications.length - 1];
 
@@ -161,7 +178,7 @@ describe('POST /members/send-private-message', () => {
     userToSendMessage = await generateUser({
       'contributor.admin': 1,
     });
-    const receiver = await generateUser({'inbox.blocks': [userToSendMessage._id]});
+    const receiver = await generateUser({ 'inbox.blocks': [userToSendMessage._id] });
 
     await userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
@@ -171,13 +188,15 @@ describe('POST /members/send-private-message', () => {
     const updatedReceiver = await receiver.get('/user');
     const updatedSender = await userToSendMessage.get('/user');
 
-    const sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
-      return message.uuid === userToSendMessage._id && message.text === messageToSend;
-    });
+    const sendersMessageInReceiversInbox = _.find(
+      updatedReceiver.inbox.messages,
+      message => message.uuid === userToSendMessage._id && message.text === messageToSend,
+    );
 
-    const sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
-      return message.uuid === receiver._id && message.text === messageToSend;
-    });
+    const sendersMessageInSendersInbox = _.find(
+      updatedSender.inbox.messages,
+      message => message.uuid === receiver._id && message.text === messageToSend,
+    );
 
     expect(sendersMessageInReceiversInbox).to.exist;
     expect(sendersMessageInSendersInbox).to.exist;
@@ -187,7 +206,7 @@ describe('POST /members/send-private-message', () => {
     userToSendMessage = await generateUser({
       'contributor.admin': 1,
     });
-    const receiver = await generateUser({'inbox.optOut': true});
+    const receiver = await generateUser({ 'inbox.optOut': true });
 
     await userToSendMessage.post('/members/send-private-message', {
       message: messageToSend,
@@ -197,13 +216,15 @@ describe('POST /members/send-private-message', () => {
     const updatedReceiver = await receiver.get('/user');
     const updatedSender = await userToSendMessage.get('/user');
 
-    const sendersMessageInReceiversInbox = _.find(updatedReceiver.inbox.messages, (message) => {
-      return message.uuid === userToSendMessage._id && message.text === messageToSend;
-    });
+    const sendersMessageInReceiversInbox = _.find(
+      updatedReceiver.inbox.messages,
+      message => message.uuid === userToSendMessage._id && message.text === messageToSend,
+    );
 
-    const sendersMessageInSendersInbox = _.find(updatedSender.inbox.messages, (message) => {
-      return message.uuid === receiver._id && message.text === messageToSend;
-    });
+    const sendersMessageInSendersInbox = _.find(
+      updatedSender.inbox.messages,
+      message => message.uuid === receiver._id && message.text === messageToSend,
+    );
 
     expect(sendersMessageInReceiversInbox).to.exist;
     expect(sendersMessageInSendersInbox).to.exist;

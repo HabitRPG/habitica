@@ -24,5 +24,20 @@
     "defaultTag4": "Scuola",
     "defaultTag5": "Squadre",
     "defaultTag6": "Faccende di casa",
-    "defaultTag7": "Creatività"
+    "defaultTag7": "Creatività",
+    "schoolDailyText": "Finire i compiti",
+    "schoolHabit": "Studio / Procrastinazione",
+    "healthTodoNotes": "Premi per aggiungere una lista!",
+    "healthDailyText": "Passa il filo interdentale",
+    "healthDailyNotes": "Premi per apportare qualsiasi cambiamento!",
+    "healthHabit": "Cibo Sano / Cibo Spazzatura",
+    "exerciseTodoNotes": "Premi per aggiungere una lista!",
+    "exerciseTodoText": "Imposta il tuo programma di allenamento",
+    "exerciseDailyNotes": "Premi per scegliere il tuo programma e specifica gli esercizi!",
+    "exerciseDailyText": "Stretching >> Routine di allenamento quotidiano",
+    "exerciseHabit": "10 minuti di cardio >> +10 minuti di cardio",
+    "workTodoProjectNotes": "Premi per specificare il nome del tuo progetto attuale e fissa una data di scadenza!",
+    "workTodoProject": "Progetto di lavoro >> Completa il progetto di lavoro",
+    "workDailyImportantTaskNotes": "Premi per specificare la tua task più importante",
+    "workDailyImportantTask": "La task più importante >> Ho lavorato sulla task più importante di oggi"
 }

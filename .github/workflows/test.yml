@@ -1,0 +1,198 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run lint-no-fix
+  apidoc:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run apidoc
+  sanity:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run test:sanity
+  
+  common:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run test:common
+  content:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run test:content
+  
+  api-unit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: sudo docker run --name mongo -d -p 27017:27017 mongo
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run test:api:unit
+      env:
+        REQUIRES_SERVER=true: true
+  api-v3-integration:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: sudo docker run --name mongo -d -p 27017:27017 mongo
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run test:api-v3:integration
+      env:
+        REQUIRES_SERVER=true: true
+  api-v4-integration:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: sudo docker run --name mongo -d -p 27017:27017 mongo
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run test:api-v4:integration
+      env:
+        REQUIRES_SERVER=true: true
+
+  client-unit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: cp config.json.example config.json
+    - name: npm install
+      run: |
+        npm ci
+      env:
+        CI: true
+    - run: npm run test:unit
+      working-directory: ./website/client

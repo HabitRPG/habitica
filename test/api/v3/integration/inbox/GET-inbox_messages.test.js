@@ -6,7 +6,7 @@ describe('GET /inbox/messages', () => {
   let user;
   let otherUser;
 
-  before(async () => {
+  beforeEach(async () => {
     [user, otherUser] = await Promise.all([generateUser(), generateUser()]);
 
     await otherUser.post('/members/send-private-message', {
@@ -47,7 +47,7 @@ describe('GET /inbox/messages', () => {
   it('returns four messages when using page-query ', async () => {
     const promises = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i += 1) {
       promises.push(user.post('/members/send-private-message', {
         toUserId: user.id,
         message: 'fourth',

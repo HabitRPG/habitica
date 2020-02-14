@@ -1,8 +1,8 @@
 {
-    "stable": "Stable",
-    "pets": "Pets",
-    "activePet": "Active Pet",
-    "noActivePet": "No Active Pet",
+    "stable": "Ship's Stable",
+    "pets": "Pirate's Pets",
+    "activePet": "Pirate's Active Pet",
+    "noActivePet": "Pirate's Pet Not Active",
     "petsFound": "Pets Found",
     "magicPets": "Magic Potion Pets",
     "rarePets": "Rare Pets",
@@ -142,5 +142,7 @@
     "clickOnPotionToHatch": "Click on a hatchin' potion t' use it on yer <%= eggName %> an' hatch a new pet!",
     "notEnoughPets": "Ye haven't collected enough pets",
     "notEnoughMounts": "Ye haven't collected enough mounts",
-    "notEnoughPetsMounts": "Ye haven't collected enough pets an' mounts"
+    "notEnoughPetsMounts": "Ye haven't collected enough pets an' mounts",
+    "wackyPets": "Pirate's Wacky Pets",
+    "filterByWacky": "Wacky"
 }

@@ -5,13 +5,15 @@ import stripePayments from '../../../../../../website/server/libs/payments/strip
 import payments from '../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../website/common';
 
-const i18n = common.i18n;
+const { i18n } = common;
 
 describe('checkout', () => {
   const subKey = 'basic_3mo';
   const stripe = stripeModule('test');
-  let stripeChargeStub, paymentBuyGemsStub, paymentCreateSubscritionStub;
-  let user, gift, groupId, email, headers, coupon, customerIdResponse, token;
+  let stripeChargeStub; let paymentBuyGemsStub; let
+    paymentCreateSubscritionStub;
+  let user; let gift; let groupId; let email; let headers; let coupon; let customerIdResponse; let
+    token;
 
   beforeEach(() => {
     user = new User();
@@ -23,7 +25,7 @@ describe('checkout', () => {
     token = 'test-token';
 
     customerIdResponse = 'example-customerIdResponse';
-    let stripCustomerResponse = {
+    const stripCustomerResponse = {
       id: customerIdResponse,
     };
     stripeChargeStub = sinon.stub(stripe.charges, 'create').resolves(stripCustomerResponse);
@@ -54,7 +56,7 @@ describe('checkout', () => {
   });
 
   it('should error if gem amount is too low', async () => {
-    let receivingUser = new User();
+    const receivingUser = new User();
     receivingUser.save();
     gift = {
       type: 'gems',
@@ -132,7 +134,7 @@ describe('checkout', () => {
   });
 
   it('should gift gems', async () => {
-    let receivingUser = new User();
+    const receivingUser = new User();
     await receivingUser.save();
     gift = {
       type: 'gems',
@@ -169,7 +171,7 @@ describe('checkout', () => {
   });
 
   it('should gift a subscription', async () => {
-    let receivingUser = new User();
+    const receivingUser = new User();
     receivingUser.save();
     gift = {
       type: 'subscription',
