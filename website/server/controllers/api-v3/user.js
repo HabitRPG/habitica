@@ -955,7 +955,7 @@ api.disableClasses = {
  * @apiGroup User
  *
  * @apiParam (Path) {String="gems","eggs","hatchingPotions","premiumHatchingPotions"
-                    ,food","quests","gear"} type Type of item to purchase.
+                    ,"food","quests","gear"} type Type of item to purchase.
  * @apiParam (Path) {String} key Item's key (use "gem" for purchasing gems)
  *
  * @apiSuccess {Object} data.items user.items
