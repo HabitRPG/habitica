@@ -341,12 +341,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
     // Don't adjust values for rewards
     delta += _changeTaskValue(user, task, direction, times, cron);
     // purchase item
-    stats.gp -= Math.abs(task.value);
-    // hp - gp difference
-    if (stats.gp < 0) {
-      stats.hp += stats.gp;
-      stats.gp = 0;
-    }
+    stats.gp -= task.value;
   }
 
   req.yesterDailyScored = task.yesterDailyScored;
