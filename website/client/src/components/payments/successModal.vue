@@ -2,7 +2,6 @@
   <b-modal
     id="payments-success-modal"
     :title="$t('accountSuspendedTitle')"
-    size="sm"
     :hide-footer="isFromBalance"
     :modal-class="isFromBalance ? ['modal-hidden-footer'] : []"
   >
@@ -102,6 +101,10 @@
 <style lang="scss">
 @import '~@/assets/scss/colors.scss';
 
+#payments-success-modal .modal-md {
+  max-width: 20.5rem;
+}
+
 #payments-success-modal .modal-content {
   background: transparent;
 }
@@ -115,7 +118,7 @@
   justify-content: center;
   padding-top: 24px;
   padding-bottom: 0px;
-  background: $green-10;
+  background: $green-100;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
   border-bottom: none;
@@ -241,6 +244,7 @@ export default {
   methods: {
     close () {
       this.paymentData = {};
+      this.$root.$emit('habitica::dismiss-modal', 'payments-success-modal');
       this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
   },

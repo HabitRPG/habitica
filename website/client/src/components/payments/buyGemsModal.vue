@@ -23,463 +23,151 @@
           </div>
         </div>
       </div>
-      <div class="d-flex nav justify-content-center">
-        <div
-          class="nav-item text-center"
-          :class="{active: selectedPage === 'subscribe'}"
-          @click="selectedPage = 'subscribe'"
-        >
-          {{ $t('subscribe') }}
-        </div>
-        <div
-          class="nav-item text-center"
-          :class="{active: selectedPage === 'gems'}"
-          @click="selectedPage = 'gems'"
-        >
-          {{ $t('buyGems') }}
-        </div>
-      </div>
-      <div v-show="selectedPage === 'gems'">
-        <div v-if="hasSubscription">
-          <div class="row text-center">
-            <h2 class="mx-auto text-leadin">
-              {{ $t('subscriptionAlreadySubscribedLeadIn') }}
-            </h2>
-          </div>
-          <div class="row text-center">
-            <div class="col-6 offset-3">
-              <p>{{ $t("gemsPurchaseNote") }}</p>
-            </div>
-          </div>
-        </div>
+      <div v-if="hasSubscription">
         <div class="row text-center">
           <h2 class="mx-auto text-leadin">
-            {{ $t('gemBenefitLeadin') }}
+            {{ $t('subscriptionAlreadySubscribedLeadIn') }}
           </h2>
         </div>
-        <div class="row">
-          <div class="col">
-            <div class="row">
-              <div class="col-md-2 offset-1">
-                <div class="d-flex bubble justify-content-center align-items-center">
-                  <div
-                    class="svg-icon check mx-auto"
-                    v-html="icons.check"
-                  ></div>
-                </div>
-              </div>
-              <div class="col-md-8 align-self-center">
-                <p>{{ $t('gemBenefit1') }}</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 offset-1">
-                <div class="d-flex bubble justify-content-center align-items-center">
-                  <div
-                    class="svg-icon check mx-auto"
-                    v-html="icons.check"
-                  ></div>
-                </div>
-              </div>
-              <div class="col-md-8 align-self-center">
-                <p>{{ $t('gemBenefit2') }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="row">
-              <div class="col-md-2 offset-1">
-                <div class="d-flex bubble justify-content-center align-items-center">
-                  <div
-                    class="svg-icon check mx-auto"
-                    v-html="icons.check"
-                  ></div>
-                </div>
-              </div>
-              <div class="col-md-8 align-self-center">
-                <p>{{ $t('gemBenefit3') }}</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 offset-1">
-                <div class="d-flex bubble justify-content-center align-items-center">
-                  <div
-                    class="svg-icon check mx-auto"
-                    v-html="icons.check"
-                  ></div>
-                </div>
-              </div>
-              <div class="col-md-8 align-self-center">
-                <p>{{ $t('gemBenefit4') }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-deck gem-deck">
-          <div
-            class="card text-center col-3"
-            :class="{active: gemAmount === 20 }"
-          >
-            <div class="card-img-top">
-              <div
-                class="mx-auto"
-                style="'height: 55px; width: 47.5px; margin-top: 1.85em;'"
-                v-html="icons.twentyOneGems"
-              ></div>
-            </div>
-            <div class="card-body">
-              <div class="gem-count">
-                20
-              </div>
-              <div class="gem-text">
-                {{ $t('gems') }}
-              </div>
-              <div class="divider"></div>
-              <button
-                class="btn btn-primary"
-                @click="gemAmount === 20 ? gemAmount = 0 : gemAmount = 20"
-              >
-                {{ gemAmount === 20 ? $t('selected') : '$5.00' }}
-              </button>
-            </div>
-          </div>
-        </div>
         <div class="row text-center">
-          <h2 class="mx-auto text-payment">
-            {{ $t('choosePaymentMethod') }}
-          </h2>
-        </div>
-        <div class="payments-column">
-          <button
-            class="purchase btn btn-primary payment-button payment-item"
-            @click="showStripe({})"
-          >
-            <div
-              class="svg-icon credit-card-icon"
-              v-html="icons.creditCardIcon"
-            ></div>
-            {{ $t('card') }}
-          </button>
-          <button
-            class="btn payment-item paypal-checkout payment-button"
-            @click="openPaypal(paypalCheckoutLink, 'gems')"
-          >
-            &nbsp;
-            <img
-              src="~@/assets/images/paypal-checkout.png"
-              :alt="$t('paypal')"
-            >&nbsp;
-          </button>
-          <amazon-button
-            class="payment-item"
-            :amazon-data="{type: 'single'}"
-          />
-        </div>
-        <div class="row text-center">
-          <div
-            class="svg-icon mx-auto"
-            style="'height: 24px; width: 24px;'"
-            v-html="icons.heart"
-          ></div>
-        </div>
-        <div class="row text-center text-outtro">
           <div class="col-6 offset-3">
-            {{ $t('buyGemsSupportsDevs') }}
+            <p>{{ $t("gemsPurchaseNote") }}</p>
           </div>
         </div>
       </div>
-      <div v-show="selectedPage === 'subscribe'">
-        <div v-if="hasSubscription">
-          <div class="row text-center">
-            <h2 class="mx-auto text-leadin">
-              {{ $t('subscriptionAlreadySubscribedLeadIn') }}
-            </h2>
+      <div class="row text-center">
+        <h2 class="mx-auto text-leadin">
+          {{ $t('gemBenefitLeadin') }}
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col-md-2 offset-1">
+              <div class="d-flex bubble justify-content-center align-items-center">
+                <div
+                  class="svg-icon check mx-auto"
+                  v-html="icons.check"
+                ></div>
+              </div>
+            </div>
+            <div class="col-md-8 align-self-center">
+              <p>{{ $t('gemBenefit1') }}</p>
+            </div>
           </div>
-          <div class="row text-center">
-            <div class="col-10 offset-1">
-              <p v-html="$t('subscriptionAlreadySubscribed1')"></p>
+          <div class="row">
+            <div class="col-md-2 offset-1">
+              <div class="d-flex bubble justify-content-center align-items-center">
+                <div
+                  class="svg-icon check mx-auto"
+                  v-html="icons.check"
+                ></div>
+              </div>
+            </div>
+            <div class="col-md-8 align-self-center">
+              <p>{{ $t('gemBenefit2') }}</p>
             </div>
           </div>
         </div>
-        <div v-if="!hasSubscription">
-          <div class="row text-center">
-            <h2 class="mx-auto text-leadin">
-              {{ $t('subscriptionBenefitLeadin') }}
-            </h2>
+        <div class="col">
+          <div class="row">
+            <div class="col-md-2 offset-1">
+              <div class="d-flex bubble justify-content-center align-items-center">
+                <div
+                  class="svg-icon check mx-auto"
+                  v-html="icons.check"
+                ></div>
+              </div>
+            </div>
+            <div class="col-md-8 align-self-center">
+              <p>{{ $t('gemBenefit3') }}</p>
+            </div>
           </div>
           <div class="row">
-            <div class="col">
-              <div class="row">
-                <div class="col-md-2 offset-1">
-                  <div class="d-flex bubble justify-content-center align-items-center">
-                    <div
-                      class="svg-icon check mx-auto"
-                      v-html="icons.check"
-                    ></div>
-                  </div>
-                </div>
-                <div class="col-md-8 align-self-center">
-                  <p>{{ $t('subscriptionBenefit1') }}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-2 offset-1">
-                  <div class="d-flex bubble justify-content-center align-items-center">
-                    <div
-                      class="svg-icon check mx-auto"
-                      v-html="icons.check"
-                    ></div>
-                  </div>
-                </div>
-                <div class="col-md-8 align-self-center">
-                  <p>{{ $t('subscriptionBenefit2') }}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-2 offset-1">
-                  <div class="d-flex bubble justify-content-center align-items-center">
-                    <div
-                      class="svg-icon check mx-auto"
-                      v-html="icons.check"
-                    ></div>
-                  </div>
-                </div>
-                <div class="col-md-8 align-self-center">
-                  <p>{{ $t('subscriptionBenefit3') }}</p>
-                </div>
+            <div class="col-md-2 offset-1">
+              <div class="d-flex bubble justify-content-center align-items-center">
+                <div
+                  class="svg-icon check mx-auto"
+                  v-html="icons.check"
+                ></div>
               </div>
             </div>
-            <div class="col">
-              <div class="row">
-                <div class="col-md-2 offset-1">
-                  <div class="d-flex bubble justify-content-center align-items-center">
-                    <div
-                      class="svg-icon check mx-auto"
-                      v-html="icons.check"
-                    ></div>
-                  </div>
-                </div>
-                <div class="col-md-8 align-self-center">
-                  <p>{{ $t('subscriptionBenefit4') }}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-2 offset-1">
-                  <div class="d-flex bubble justify-content-center align-items-center">
-                    <div
-                      class="svg-icon check mx-auto"
-                      v-html="icons.check"
-                    ></div>
-                  </div>
-                </div>
-                <div class="col-md-8 align-self-center">
-                  <p>{{ $t('subscriptionBenefit5') }}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-2 offset-1">
-                  <div class="d-flex bubble justify-content-center align-items-center">
-                    <div
-                      class="svg-icon check mx-auto"
-                      v-html="icons.check"
-                    ></div>
-                  </div>
-                </div>
-                <div class="col-md-8 align-self-center">
-                  <p>{{ $t('subscriptionBenefit6') }}</p>
-                </div>
-              </div>
+            <div class="col-md-8 align-self-center">
+              <p>{{ $t('gemBenefit4') }}</p>
             </div>
           </div>
-          <div class="card-deck">
+        </div>
+      </div>
+      <div class="card-deck gem-deck">
+        <div
+          class="card text-center col-3"
+          :class="{active: gemAmount === 20 }"
+        >
+          <div class="card-img-top">
             <div
-              class="card text-center"
-              :class="{active: subscriptionPlan === 'basic_earned'}"
-            >
-              <div class="card-body">
-                <div class="subscription-price">
-                  <span class="superscript">$</span>
-                  <span>5</span>
-                  <span class="superscript muted">.00</span>
-                </div>
-                <div
-                  v-once
-                  class="small"
-                >
-                  {{ $t('everyMonth') }}
-                </div>
-                <div class="divider"></div>
-                <p
-                  v-markdown="$t('earnGemsMonthly', {cap:25})"
-                  class="benefits"
-                ></p>
-                <div class="spacer"></div>
-                <button
-                  class="btn btn-primary"
-                  @click="subscriptionPlan = 'basic_earned'"
-                >
-                  {{ subscriptionPlan === "basic_earned" ? $t('selected') : $t('select') }}
-                </button>
-              </div>
-            </div>
-            <div
-              class="card text-center"
-              :class="{active: subscriptionPlan === 'basic_3mo'}"
-            >
-              <div class="card-body">
-                <div class="subscription-price">
-                  <span class="superscript">$</span>
-                  <span>15</span>
-                  <span class="superscript muted">.00</span>
-                </div>
-                <div
-                  v-once
-                  class="small"
-                >
-                  {{ $t('everyXMonths', {interval: 3}) }}
-                </div>
-                <div class="divider"></div>
-                <p
-                  v-markdown="$t('earnGemsMonthly', {cap:30})"
-                  class="benefits"
-                ></p>
-                <p
-                  v-markdown="$t('receiveMysticHourglass')"
-                  class="benefits"
-                ></p>
-                <button
-                  class="btn btn-primary"
-                  @click="subscriptionPlan = 'basic_3mo'"
-                >
-                  {{ subscriptionPlan === "basic_3mo" ? $t('selected') : $t('select') }}
-                </button>
-              </div>
-            </div>
-            <div
-              class="card text-center"
-              :class="{active: subscriptionPlan === 'basic_6mo'}"
-            >
-              <div class="card-body">
-                <div class="subscription-price">
-                  <span class="superscript">$</span>
-                  <span>30</span>
-                  <span class="superscript muted">.00</span>
-                </div>
-                <div
-                  v-once
-                  class="small"
-                >
-                  {{ $t('everyXMonths', {interval: 6}) }}
-                </div>
-                <div class="divider"></div>
-                <p
-                  v-markdown="$t('earnGemsMonthly', {cap:35})"
-                  class="benefits"
-                ></p>
-                <p
-                  v-markdown="$t('receiveMysticHourglasses', {amount:2})"
-                  class="benefits"
-                ></p>
-                <button
-                  class="btn btn-primary"
-                  @click="subscriptionPlan = 'basic_6mo'"
-                >
-                  {{ subscriptionPlan === "basic_6mo" ? $t('selected') : $t('select') }}
-                </button>
-              </div>
-            </div>
-            <div
-              class="card text-center"
-              :class="{active: subscriptionPlan === 'basic_12mo'}"
-            >
-              <div class="card-body">
-                <div class="subscription-price">
-                  <span class="superscript">$</span>
-                  <span>48</span>
-                  <span class="superscript muted">.00</span>
-                </div>
-                <div
-                  v-once
-                  class="small"
-                >
-                  {{ $t('everyYear') }}
-                </div>
-                <div class="divider"></div>
-                <p
-                  v-markdown="$t('earnGemsMonthly', {cap:45})"
-                  class="benefits"
-                ></p>
-                <p
-                  v-markdown="$t('receiveMysticHourglasses', {amount:4})"
-                  class="benefits"
-                ></p>
-                <button
-                  class="btn btn-primary"
-                  @click="subscriptionPlan = 'basic_12mo'"
-                >
-                  {{ subscriptionPlan === "basic_12mo" ? $t('selected') : $t('select') }}
-                </button>
-              </div>
-            </div>
-          </div>
-          <div
-            v-if="subscriptionPlan"
-            class="row text-center"
-          >
-            <h2
-              v-once
-              class="mx-auto text-payment"
-            >
-              {{ $t('choosePaymentMethod') }}
-            </h2>
-          </div>
-          <div class="row text-center">
-            <a
-              v-once
               class="mx-auto"
-            >{{ $t('haveCouponCode') }}</a>
-          </div>
-          <div
-            v-if="subscriptionPlan"
-            class="payments-column"
-          >
-            <button
-              class="purchase btn btn-primary payment-button payment-item"
-              @click="showStripe({subscription: subscriptionPlan})"
-            >
-              <div
-                class="svg-icon credit-card-icon"
-                v-html="icons.creditCardIcon"
-              ></div>
-              {{ $t('card') }}
-            </button>
-            <button
-              class="btn payment-item paypal-checkout payment-button"
-              @click="openPaypal(paypalSubscriptionLink, 'subscription')"
-            >
-              &nbsp;
-              <img
-                src="~@/assets/images/paypal-checkout.png"
-                :alt="$t('paypal')"
-              >&nbsp;
-            </button>
-            <amazon-button
-              class="payment-item"
-              :amazon-data="{type: 'subscription', subscription: subscriptionPlan}"
-            />
-          </div>
-          <div class="row text-center">
-            <div
-              class="svg-icon mx-auto"
-              style="'height: 24px; width: 24px;'"
-              v-html="icons.heart"
+              style="'height: 55px; width: 47.5px; margin-top: 1.85em;'"
+              v-html="icons.twentyOneGems"
             ></div>
           </div>
-          <div class="row text-center text-outtro">
-            <div class="col-6 offset-3">
-              {{ $t('subscribeSupportsDevs') }}
+          <div class="card-body">
+            <div class="gem-count">
+              20
             </div>
+            <div class="gem-text">
+              {{ $t('gems') }}
+            </div>
+            <div class="divider"></div>
+            <button
+              class="btn btn-primary"
+              @click="gemAmount === 20 ? gemAmount = 0 : gemAmount = 20"
+            >
+              {{ gemAmount === 20 ? $t('selected') : '$5.00' }}
+            </button>
           </div>
+        </div>
+      </div>
+      <div class="row text-center">
+        <h2 class="mx-auto text-payment">
+          {{ $t('choosePaymentMethod') }}
+        </h2>
+      </div>
+      <div class="payments-column">
+        <button
+          class="purchase btn btn-primary payment-button payment-item"
+          @click="showStripe({})"
+        >
+          <div
+            class="svg-icon credit-card-icon"
+            v-html="icons.creditCardIcon"
+          ></div>
+          {{ $t('card') }}
+        </button>
+        <button
+          class="btn payment-item paypal-checkout payment-button"
+          @click="openPaypal(paypalCheckoutLink, 'gems')"
+        >
+          &nbsp;
+          <img
+            src="~@/assets/images/paypal-checkout.png"
+            :alt="$t('paypal')"
+          >&nbsp;
+        </button>
+        <amazon-button
+          class="payment-item"
+          :amazon-data="{type: 'single'}"
+        />
+      </div>
+      <div class="row text-center">
+        <div
+          class="svg-icon mx-auto"
+          style="'height: 24px; width: 24px;'"
+          v-html="icons.heart"
+        ></div>
+      </div>
+      <div class="row text-center text-outtro">
+        <div class="col-6 offset-3">
+          {{ $t('buyGemsSupportsDevs') }}
         </div>
       </div>
     </b-modal>
@@ -520,10 +208,6 @@
 
   p {
     font-size: 16px;
-  }
-
-  .benefits {
-    font-size: 14px;
   }
 
   .bubble {
@@ -577,46 +261,6 @@
   .logo {
     width: 256px;
     height: 56px;
-  }
-
-  .muted {
-    color: #c3c0c7;
-  }
-
-  .nav {
-    font-weight: bold;
-    background-color: $gray-600;
-  }
-
-  .nav-item {
-    box-sizing: border-box;
-    display: inline-block;
-    font-size: 16px;
-    margin: 0rem;
-    padding: 1rem;
-    width: 7.5rem;
-  }
-
-  .nav-item:hover, .nav-item.active {
-    color: #4f2a93;
-    border-bottom: 4px solid $purple-300;
-    cursor: pointer;
-  }
-
-  .spacer {
-    height: 4em;
-  }
-
-  .subscription-price {
-    font-family: Roboto Condensed;
-    font-size: 48px;
-    font-weight: bold;
-    color: #1ca372;
-  }
-
-  .superscript {
-    font-size: 24px;
-    vertical-align: super;
   }
 
   .svg-icon.check {
@@ -696,9 +340,6 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-    startingPageOption () {
-      return this.$store.state.gemModalOptions.startingPage;
-    },
     hasSubscription () {
       return Boolean(this.user.purchased.plan.customerId);
     },
@@ -706,11 +347,6 @@ export default {
       return this.user.purchased.plan.customerId
         && this.user.purchased.plan.gemsBought
         >= (this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap);
-    },
-  },
-  watch: {
-    startingPageOption () {
-      this.selectedPage = this.$store.state.gemModalOptions.startingPage;
     },
   },
   methods: {

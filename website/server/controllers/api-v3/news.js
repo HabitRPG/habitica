@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FEBRUARY SUBSCRIBER ITEMS REVEALED!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW MAGIC HATCHING POTION QUEST: RUBY!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,24 +31,21 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/1/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/13/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_022020 center-block"></div>
+        <div class="quest_ruby center-block"></div>
         <p>
-          The February Subscriber Item has been revealed: the Stylish Sweetheart Item Set!
-          <a href='/user/settings/subscription'>Subscribe to Habitica</a> by February 29 to receive
-          this exciting set! If you're already an active subscriber, reload the site and then head
-          to Inventory > Items to claim your gear!
+          It's time for a trip to the snowy hot springs of Stoïkalm! <a href='/shops/quests'>Get
+          the latest Magic Hatching Potion quest</a>, "Ruby Rapport", and collect Ruby Gems,
+          Aquarius Zodiac Runes, and Venus Runes to earn some glittering Ruby Magic Hatching
+          Potions by completing your real-life tasks!
         </p>
-        <p>
-          Subscribers also receive the ability to buy Gems with Gold -- the longer you subscribe,
-          the more Gems you can buy per month! There are other perks as well, such as longer access
-          to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep
-          Habitica running. Thank you very much for your support -- it means a lot to us.
-        </p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <div class="small">
+          Art by Aspiring_Advocate, gully, Beffymaroo, Tyche_Alba, and loremi
+        </div>
+        <div class="small mb-3">Writing by JohnJSal</div>
       </div>
       `,
     });
