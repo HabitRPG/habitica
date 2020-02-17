@@ -294,6 +294,22 @@ const NOTIFICATIONS = {
       achievement: 'pearlyPro', // defined manually until the server sends all the necessary data
     },
   },
+  ACHIEVEMENT_TICKLED_PINK: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementTickledPink')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'tickledPink', // defined manually until the server sends all the necessary data
+    },
+  },
+  ACHIEVEMENT_ROSY_OUTLOOK: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementRosyOutlook')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'rosyOutlook', // defined manually until the server sends all the necessary data
+    },
+  },
 };
 
 export default {
@@ -352,7 +368,8 @@ export default {
       'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
       'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
       'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
-      'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT', 'ONBOARDING_COMPLETE',
+      'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT_TICKLED_PINK', 'ACHIEVEMENT_ROSY_OUTLOOK', 'ACHIEVEMENT',
+      'ONBOARDING_COMPLETE',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -760,6 +777,8 @@ export default {
           case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
           case 'ACHIEVEMENT_PRIMED_FOR_PAINTING':
           case 'ACHIEVEMENT_PEARLY_PRO':
+          case 'ACHIEVEMENT_TICKLED_PINK':
+          case 'ACHIEVEMENT_ROSY_OUTLOOK':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

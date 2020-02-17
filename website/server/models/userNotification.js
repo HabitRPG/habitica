@@ -50,6 +50,8 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_UNDEAD_UNDERTAKER',
   'ACHIEVEMENT_PRIMED_FOR_PAINTING',
   'ACHIEVEMENT_PEARLY_PRO',
+  'ACHIEVEMENT_TICKLED_PINK',
+  'ACHIEVEMENT_ROSY_OUTLOOK',
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
 ];
 
