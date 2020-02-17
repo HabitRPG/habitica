@@ -273,6 +273,7 @@
 
 <script>
 import clone from 'lodash/clone';
+import throttle from 'lodash/throttle';
 
 import markdownDirective from '@/directives/markdown';
 
@@ -541,7 +542,7 @@ export default {
       if (!this.workingChallenge.description) errors.push(this.$t('descriptionRequired'));
       if (!this.workingChallenge.group) errors.push(this.$t('locationRequired'));
       if (!this.workingChallenge.categories || this.workingChallenge.categories.length === 0) errors.push(this.$t('categoiresRequired'));
-      if (this.workingChallenge.prize > this.maxPrize) errors.push(this.$t('cantAfford'));
+      // if (this.workingChallenge.prize > this.maxPrize) errors.push(this.$t('cantAfford'));
 
       if (errors.length > 0) {
         window.alert(errors.join('\n'));
@@ -632,12 +633,12 @@ export default {
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;
     },
-    enableSubmit () {
+    enableSubmit: throttle(function enableSubmit () {
       /* Enables the submit button if it was disabled */
       if (this.loading) {
         this.loading = false;
       }
-    },
+    }, 250),
   },
 };
 </script>
