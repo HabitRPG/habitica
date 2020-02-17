@@ -18,7 +18,7 @@
     "@vue/cli-plugin-router": "^4.2.2",
     "@vue/cli-plugin-unit-mocha": "^4.2.2",
     "@vue/cli-service": "^4.2.2",
-    "@storybook/addon-actions": "^5.3.12",
+    "@storybook/addon-actions": "^5.3.13",
     "@storybook/addon-knobs": "^5.3.12",
     "@storybook/addon-links": "^5.3.12",
     "@storybook/addon-notes": "^5.3.12",
