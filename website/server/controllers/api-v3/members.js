@@ -167,17 +167,17 @@ api.getMemberByUsername = {
  * @apiSuccess {Object} data.seasonal The seasonal achievements object
  * @apiSuccess {Object} data.special The special achievements object
  *
- * @apiSuccess {String} data.*.label The label for that category
- * @apiSuccess {Object} data.*.achievements The achievements in that category
+ * @apiSuccess {String} data.label The label for that category
+ * @apiSuccess {Object} data.achievements The achievements in that category
  *
- * @apiSuccess {String} data.*.achievements.title The localized title string
- * @apiSuccess {String} data.*.achievements.text The localized description string
- * @apiSuccess {Boolean} data.*.achievements.earned Whether the user has earned the achievement
- * @apiSuccess {Number} data.*.achievements.index The unique index assigned
+ * @apiSuccess {String} data.achievements.title The localized title string
+ * @apiSuccess {String} data.achievements.text The localized description string
+ * @apiSuccess {Boolean} data.achievements.earned Whether the user has earned the achievement
+ * @apiSuccess {Number} data.achievements.index The unique index assigned
  *                                                to the achievement (only for sorting purposes).
- * @apiSuccess {Anything} data.*.achievements.value The value related to the achievement
+ * @apiSuccess {Anything} data.achievements.value The value related to the achievement
  *                                                  (if applicable)
- * @apiSuccess {Number} data.*.achievements.optionalCount The count related to the achievement
+ * @apiSuccess {Number} data.achievements.optionalCount The count related to the achievement
  *                                                        (if applicable)
  *
  * @apiSuccessExample {json} Successful Response
