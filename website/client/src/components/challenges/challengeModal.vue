@@ -577,7 +577,7 @@ export default {
         }
       } catch (e) {
         // creating the challenge failed. Most probably due to server-side errors.
-        console.error(e);
+        console.error(e); // eslint-disable-line no-console
         return;
       }
 
