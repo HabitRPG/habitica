@@ -1,14 +1,14 @@
-import {authWithHeaders} from '../../middlewares/auth';
 import _ from 'lodash';
+import { authWithHeaders } from '../../middlewares/auth';
 import apiError from '../../libs/apiError';
-import {model as NewsPost} from '../../models/newsPost';
-import {ensureAdmin} from '../../middlewares/ensureAccessRight';
+import { model as NewsPost } from '../../models/newsPost';
+import { ensureAdmin } from '../../middlewares/ensureAccessRight';
 import {
   NotFound,
 } from '../../libs/errors';
-let api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from controllers
+const api = {};
+
 const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR LAVA DRAGON SET AND SPOTLIGHT ON BACK TO SCHOOL';
 
 /**
@@ -33,12 +33,12 @@ api.getNews = {
   })],
   noLanguage: true,
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     let isAdmin = false;
     if (user && user.contributor) {
       isAdmin = user.contributor.admin;
     }
-    let results = await NewsPost.getNews(isAdmin);
+    const results = await NewsPost.getNews(isAdmin);
     res.respond(200, results);
   },
 };
@@ -48,7 +48,7 @@ api.createNews = {
   url: '/news',
   middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const postData = {
@@ -80,13 +80,13 @@ api.getPost = {
   noLanguage: true,
   async handler (req, res) {
     req.checkParams('postId', apiError('postIdRequired')).notEmpty();
-    let user = res.locals.user;
+    const { user } = res.locals;
     let isAdmin = false;
     if (user && user.contributor) {
       isAdmin = user.contributor.admin;
     }
 
-    let newsPost = await NewsPost.findById(req.params.postId);
+    const newsPost = await NewsPost.findById(req.params.postId);
     if (!isAdmin && !newsPost.isPublished) {
       res.respond(401, {});
     } else {
@@ -121,14 +121,14 @@ api.updateNews = {
   middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
     req.checkParams('postId', apiError('postIdRequired')).notEmpty();
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let newsPost = await NewsPost.findById(req.params.postId);
+    const newsPost = await NewsPost.findById(req.params.postId);
     if (!newsPost) throw new NotFound(res.t('newsPostNotFound'));
 
     _.merge(newsPost, NewsPost.sanitize(req.body));
-    let savedPost = await newsPost.save();
+    const savedPost = await newsPost.save();
 
     if (newsPost.published) {
       NewsPost.updateLastNewsPostID(newsPost.id, newsPost.publishDate);
@@ -143,13 +143,13 @@ api.deleteNews = {
   url: '/news/:postId',
   middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let newsPost = await NewsPost.findById(req.params.postId);
+    const newsPost = await NewsPost.findById(req.params.postId);
     if (!newsPost) throw new NotFound(res.t('newsPostNotFound'));
 
-    await NewsPost.remove({_id: req.params.postId}).exec();
+    await NewsPost.remove({ _id: req.params.postId }).exec();
 
     res.respond(200, {});
   },
@@ -169,7 +169,7 @@ api.MarkNewsRead = {
   middlewares: [authWithHeaders()],
   url: '/news/read',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     user.flags.lastNewStuffRead = await NewsPost.lastNewsPostID();
 
@@ -192,13 +192,11 @@ api.tellMeLaterNews = {
   middlewares: [authWithHeaders()],
   url: '/news/tell-me-later',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     user.flags.lastNewStuffRead = await NewsPost.lastNewsPostID();
 
-    const existingNotificationIndex = user.notifications.findIndex(n => {
-      return n && n.type === 'NEW_STUFF';
-    });
+    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
     if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
     user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
 
@@ -207,4 +205,4 @@ api.tellMeLaterNews = {
   },
 };
 
-module.exports = api;
+export default api;

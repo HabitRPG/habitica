@@ -25,4 +25,6 @@ export default {
   missingCustomerId: 'Missing "req.query.customerId"',
   missingPaypalBlock: 'Missing "req.session.paypalBlock"',
   missingSubKey: 'Missing "req.query.sub"',
+
+  postIdRequired: '"postId" must be a valid UUID.',
 };
