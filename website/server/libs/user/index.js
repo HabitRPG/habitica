@@ -27,6 +27,9 @@ export async function get (req, res, { isV3 = false }) {
     userToJSON.needsCron = false;
     if (daysMissed > 0) userToJSON.needsCron = true;
     User.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
+    console.log(user);
+    console.log(user.checkNewStuff());
+    userToJSON.flags.newStuff = await user.checkNewStuff();
   }
 
   return res.respond(200, userToJSON);
@@ -43,7 +46,6 @@ const updatablePaths = [
   'flags.welcomed',
   'flags.cardReceived',
   'flags.warnedLowHealth',
-  'flags.newStuff',
 
   'achievements',
 

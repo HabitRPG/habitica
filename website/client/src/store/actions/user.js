@@ -177,6 +177,10 @@ export function newStuffRead (store) {
   return axios.post('/api/v4/news/read');
 }
 
+export function getNews () {
+  return axios.get('/api/v4/news');
+}
+
 export function newPrivateMessageTo (store, params) {
   const { member } = params;
 
