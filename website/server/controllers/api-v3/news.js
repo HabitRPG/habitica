@@ -1,4 +1,5 @@
 import { authWithHeaders } from '../../middlewares/auth';
+import { model as NewsPost } from '../../models/newsPost';
 
 const api = {};
 
@@ -68,7 +69,7 @@ api.tellMeLaterNews = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.flags.newStuff = false;
+    user.flags.lastNewStuffRead = await NewsPost.lastNewsPostID();
 
     const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
     if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
