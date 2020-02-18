@@ -62,7 +62,7 @@ export default {
       this.$emit('member-selected', member);
     },
     memberName (member) {
-      if (member.auth.local.username) {
+      if (member.auth.local && member.auth.local.username) {
         return `@${member.auth.local.username}`;
       }
       return member.profile.name;
