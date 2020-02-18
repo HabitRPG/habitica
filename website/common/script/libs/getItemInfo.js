@@ -72,7 +72,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       itemInfo = {
         key: item.key,
         text: i18n.t('potion', { potionType: item.text(language) }),
-        notes: item._addlNotes ? item.notes(language) : null,
+        notes: item.notes(language),
         class: `Pet_HatchingPotion_${item.key}`,
         value: item.value,
         locked: false,
@@ -86,7 +86,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
       itemInfo = {
         key: item.key,
         text: i18n.t('potion', { potionType: item.text(language) }),
-        notes: item._addlNotes ? `${item.notes(language)} ${item._addlNotes(language)}` : null,
+        notes: `${item.notes(language)} ${item._addlNotes(language)}`,
         class: `Pet_HatchingPotion_${item.key}`,
         value: item.value,
         locked: false,
