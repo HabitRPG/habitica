@@ -202,7 +202,7 @@ api.createUserTasks = {
 
     tasks.forEach(task => {
       // Track when new users (first 7 days) create tasks
-      if (!task.skipAnalytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
+      if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
         res.analytics.track('task create', {
           uuid: user._id,
           hitType: 'event',
@@ -797,7 +797,7 @@ api.scoreTask = {
 
     const wasCompleted = task.completed;
 
-    const [delta] = common.ops.scoreTask({ task, user, direction }, req);
+    const [delta] = common.ops.scoreTask({ task, user, direction }, req, res.analytics);
     // Drop system (don't run on the client,
     // as it would only be discarded since ops are sent to the API, not the results)
     if (direction === 'up') common.fns.randomDrop(user, { task, delta }, req, res.analytics);
@@ -884,7 +884,7 @@ api.scoreTask = {
     }
 
     // Track when new users (first 7 days) score tasks
-    if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+    if (moment().diff(user.auth.timestamps.created, 'days') < 7 && user.flags.welcomed) {
       res.analytics.track('task score', {
         uuid: user._id,
         hitType: 'event',

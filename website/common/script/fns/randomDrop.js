@@ -17,7 +17,7 @@ import statsComputed from '../libs/statsComputed';
 
 // Clone a drop object maintaining its functions
 // so that we can change it without affecting the original item
-function cloneDropItem (drop) {
+export function cloneDropItem (drop) {
   return cloneDeepWith(drop, val => (isFunction(val) ? val : undefined));
 }
 

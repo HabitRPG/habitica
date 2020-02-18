@@ -56,7 +56,7 @@ export default function hatch (user, req = {}, analytics) {
 
   if (!user.achievements.hatchedPet && user.addAchievement) {
     user.addAchievement('hatchedPet');
-    checkOnboardingStatus(user);
+    checkOnboardingStatus(user, analytics);
   }
 
   forEach(content.animalColorAchievements, achievement => {
