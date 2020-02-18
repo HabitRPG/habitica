@@ -890,7 +890,7 @@
     "headSpecialSpikedHelmNotes": "戴上這頂帶有尖刺（看起來還非常與眾不同！）的頭盔，您將會得到妥善的保護，遠離未完成的每日任務和壞習慣。增加<%= str %>點力量。",
     "headSpecialDandyHatText": "花花公子闊邊帽",
     "headSpecialDandyHatNotes": "這是一頂多麼賞心悅目的帽子啊！您會很享受戴著它閒逛的感覺。增加<%= con %>點體質。",
-    "headSpecialKabutoText": "假面騎士頭盔",
+    "headSpecialKabutoText": "卡布托",
     "headSpecialKabutoNotes": "這頂頭盔也太酷了吧！您的敵人也一定會忍不住讚美它！增加<%= int %>點智力。",
     "headSpecialNamingDay2017Text": "紫禦獅鷲頭盔",
     "headSpecialNamingDay2017Notes": "命名節快樂！快戴上這頂由兇猛獅鷲的羽毛編製而成的頭盔一同前來為Habitica歡慶吧！沒有屬性加成。",
