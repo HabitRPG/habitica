@@ -18,7 +18,7 @@ describe('DELETE /news/:newsID', () => {
   });
 
   it('disallows access to non-admins', async () => {
-    const nonAdminUser = await generateUser({ 'contributor.admin': false});
+    const nonAdminUser = await generateUser({ 'contributor.admin': false });
     await expect(nonAdminUser.post('/news')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
@@ -33,9 +33,7 @@ describe('DELETE /news/:newsID', () => {
     });
 
     const returnedPosts = await user.get('/news');
-    const deletedPost = returnedPosts.find(returnedPost => {
-      return returnedPost.id === existingPost.id;
-    });
+    const deletedPost = returnedPosts.find(returnedPost => returnedPost.id === existingPost.id);
 
     expect(returnedPosts).is.an('array');
     expect(deletedPost).to.not.exist;

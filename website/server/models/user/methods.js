@@ -22,7 +22,7 @@ import * as inboxLib from '../../libs/inbox'; // eslint-disable-line import/no-c
 import amazonPayments from '../../libs/payments/amazon'; // eslint-disable-line import/no-cycle
 import stripePayments from '../../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import paypalPayments from '../../libs/payments/paypal'; // eslint-disable-line import/no-cycle
-import {model as NewsPost} from '../../models/newsPost';
+import { model as NewsPost } from '../newsPost';
 
 const { daysSince } = common;
 

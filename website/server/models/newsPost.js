@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 import baseModel from '../libs/baseModel';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-export let schema = new Schema({
-  title: {$type: String},
-  author: {$type: String},
-  credits: {$type: String},
-  publishDate: {$type: Date},
-  published: {$type: Boolean},
-  text: {$type: String},
+export const schema = new Schema({
+  title: { $type: String },
+  author: { $type: String },
+  credits: { $type: String },
+  publishDate: { $type: Date },
+  published: { $type: Boolean },
+  text: { $type: String },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -24,13 +24,15 @@ schema.plugin(baseModel, {
 schema.statics.getNews = async function getNews (isAdmin) {
   let posts = [];
   if (!isAdmin) {
-    posts = this.find({published: true,
-                       publishDate: { $lte: Date() }})
+    posts = this.find({
+      published: true,
+      publishDate: { $lte: Date() },
+    })
       .select('title publishDate credits text');
   } else {
     posts = this.find();
   }
-  return posts.sort({publishDate: -1});
+  return posts.sort({ publishDate: -1 });
 };
 
 let cachedLastNewsPostID = null;
@@ -56,4 +58,4 @@ schema.statics.updateLastNewsPostID = async function updateLastNewsPostID (newID
   }
 };
 
-export let model = mongoose.model('NewsPost', schema);
+export const model = mongoose.model('NewsPost', schema);

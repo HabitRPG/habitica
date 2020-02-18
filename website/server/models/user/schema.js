@@ -239,7 +239,7 @@ export default new Schema({
     },
     dropsEnabled: { $type: Boolean, default: false },
     itemsEnabled: { $type: Boolean, default: false },
-    lastNewStuffRead: {$type: String, default: ''},
+    lastNewStuffRead: { $type: String, default: '' },
     rewrite: { $type: Boolean, default: true },
     classSelected: { $type: Boolean, default: false },
     mathUpdates: Boolean,

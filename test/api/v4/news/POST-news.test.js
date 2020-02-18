@@ -18,7 +18,7 @@ describe('POST /news/read', () => {
   });
 
   it('disallows access to non-admins', async () => {
-    const nonAdminUser = await generateUser({ 'contributor.admin': false});
+    const nonAdminUser = await generateUser({ 'contributor.admin': false });
     await expect(nonAdminUser.post('/news')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
