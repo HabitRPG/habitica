@@ -24,7 +24,7 @@
         />
         <div class="d-flex flex-column profile-name-character">
           <h3 class="character-name">
-            <span v-if="member.contributor.level > 0 && !disableNameStyling">
+            <span v-if="member.contributor && member.contributor.level > 0 && !disableNameStyling">
               <user-link
                 :user-id="member._id"
                 :name="member.profile.name"

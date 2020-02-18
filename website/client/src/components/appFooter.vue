@@ -326,7 +326,7 @@
   .footer-row {
     margin: 0;
     flex: 0 1 auto;
-    z-index: 17;
+    z-index: 10;
   }
 
   footer {

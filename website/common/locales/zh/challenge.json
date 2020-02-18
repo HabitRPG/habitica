@@ -58,8 +58,8 @@
     "closeCha": "关闭挑战并且……",
     "leaveCha": "放弃挑战并且……",
     "challengedOwnedFilterHeader": "所有權",
-    "challengedOwnedFilter": "已擁有的",
-    "owned": "已拥有",
+    "challengedOwnedFilter": "已拥有的",
+    "owned": "已拥有的",
     "challengedNotOwnedFilter": "尚未拥有的",
     "not_owned": "未拥有",
     "not_participating": "未参与",
@@ -133,7 +133,7 @@
     "viewProgressOf": "查看参与者的任务状况",
     "viewProgress": "查看进度",
     "selectMember": "选择成员",
-    "confirmKeepChallengeTasks": "你要保留这个挑战嗎?",
+    "confirmKeepChallengeTasks": "你要保留这个挑战嗎？",
     "selectParticipant": "选择一个参与者",
     "createChallengeCloneTasks": "复制挑战任务"
 }

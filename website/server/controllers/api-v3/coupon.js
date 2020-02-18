@@ -25,7 +25,7 @@ const api = {};
  *
  * @apiSuccess {String} Coupons in CSV format
  *
- * @apiSuccessExample {String}
+ * @apiSuccessExample {String} Example success:
  * code,event,date,user
  * GJG4-WEA4-QX3P,wondercon,1476929528704,user-uuid
  * TT32-EYQA-JPBT,wondercon,1476929528705,

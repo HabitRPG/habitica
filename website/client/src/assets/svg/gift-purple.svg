@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="34" viewBox="0 0 32 34">
+    <g fill="none" fill-rule="evenodd">
+        <path stroke="#22AEB7" stroke-width="4" d="M12.558 7.452C11.49 5.033 9.422 2.896 6.934 2.79 4.446 2.684 3.019 4.68 3.75 6.444c.73 1.766 2.47 2.09 8.113 3.601 1.603.43 1.764-.174.695-2.593z"/>
+        <path stroke="#38C9C6" stroke-width="4" d="M18.916 7.452c1.07-2.419 3.137-4.556 5.625-4.662 2.488-.106 3.915 1.89 3.184 3.654-.73 1.766-2.47 2.09-8.114 3.601-1.602.43-1.764-.174-.695-2.593z"/>
+        <path fill="#46DDDA" d="M15.564 6c-4.87 0-1.953 5.572 0 5.572 1.954 0 4.87-5.572 0-5.572z"/>
+        <path fill="#6133B4" d="M3 17h26v17H3zM0 11h32v6H0z"/>
+        <path fill="#FFF" fill-opacity=".5" d="M16 17h13v17H16z" style="mix-blend-mode:soft-light"/>
+        <path fill="#8EEDF6" d="M16 17h3v17h-3z"/>
+        <path fill="#3BCAD7" d="M13 17h3v17h-3zM10 11h6v6h-6z"/>
+        <path fill="#8EEDF6" d="M16 11h6v6h-6z"/>
+        <path fill="#000" fill-opacity=".2" d="M3 17h13v3H3zM10 11h6v3h-6zM0 14h10v3H0zM22 14h10v3H22zM16 11h6v3h-6zM3 31h13v3H3zM16 17h13v3H16zM16 31h13v3H16z" style="mix-blend-mode:multiply"/>
+    </g>
+</svg>

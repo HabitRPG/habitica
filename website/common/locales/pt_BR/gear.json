@@ -2031,5 +2031,13 @@
     "armorSpecialBirthday2020Notes": "Feliz aniversário, Habitica! Vista essas ultrajantes roupas festivas para celebrar este dia incrível. Não confere benefícios.",
     "armorSpecialBirthday2020Text": "Vestes festivas ultrajantes",
     "weaponMystery202002Notes": "Um acessório que te dá um ar de mistério e romance. Proteção contra o Sol é um bônus! Não confere benefícios. Item de assinante, Fevereiro de 2020.",
-    "weaponMystery202002Text": "Amoroso guarda-sol elegante"
+    "weaponMystery202002Text": "Amoroso guarda-sol elegante",
+    "shieldArmoirePerfectMatchNotes": "Observação quente: achamos que você está ótimo(a). Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto de fabricante de fósforos (Item 4 de 4).",
+    "armorArmoireMatchMakersApronNotes": "Este avental é por segurança, mas pelo bem do humor, podemos fazer pouco caso disso. Aumenta a Constituição, Força e Inteligência em <%= attrs %>. Armário Encantado: Conjunto de fabricante de fósforo (Item 1 de 4).",
+    "armorArmoireMatchMakersApronText": "Avental do(a) fabricante de fósforos",
+    "weaponArmoireLivelyMatchNotes": "Quando você segurando isto, terá certeza que despertará interesse de alguém! Aumenta a Força em <%= str %>. Armário Encantado: Conjunto de fabricante de fósforo (Item 3 de 4).",
+    "weaponArmoireLivelyMatchText": "Um fósforo vivaz",
+    "shieldArmoirePerfectMatchText": "O fósforo perfeito",
+    "headArmoireMatchMakersBeretNotes": "Você ficará impressionante vestindo este lindo chapéu! Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto de fabricante de fósforo (Item 2 de 4).",
+    "headArmoireMatchMakersBeretText": "Boina do(a) fabricante de fósforos"
 }

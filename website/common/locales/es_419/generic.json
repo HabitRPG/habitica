@@ -290,5 +290,11 @@
     "selected": "Seleccionado",
     "howManyToBuy": "¿Cuántos quieres vender?",
     "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Contact the Moderation Team",
+    "loadEarlierMessages": "Cargar Mensajes Anteriores",
+    "demo": "Demo",
+    "congratulations": "¡Felicitaciones!",
+    "onboardingAchievs": "Logros de Iniciación",
+    "options": "Opciones",
+    "finish": "Terminar"
 }
