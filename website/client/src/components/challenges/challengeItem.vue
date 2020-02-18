@@ -43,7 +43,14 @@
         >
           <div class="owner-item">
             <strong>{{ $t('createdBy') }}:</strong>
+            <span
+              v-if="challenge.leader === null"
+              class="mx-1"
+            >
+              {{ $t('noChallengeOwner') }}
+            </span>
             <user-link
+              v-else
               class="mx-1"
               :user="challenge.leader"
             />

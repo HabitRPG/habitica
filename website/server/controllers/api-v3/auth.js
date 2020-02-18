@@ -248,7 +248,7 @@ api.updateUsername = {
 };
 
 /**
- * @api {put} /api/v3/user/auth/update-password
+ * @api {put} /api/v3/user/auth/update-password Update password
  * @apiDescription Update the password of a local user
  * @apiName UpdatePassword
  * @apiGroup User

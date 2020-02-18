@@ -299,7 +299,7 @@
       <div class="container featured">
         <div class="row text-center">
           <h3 class="col-12">
-            {{ $t('joinMany') }}
+            {{ $t('joinMany', {userCountInMillions}) }}
           </h3>
         </div>
         <div class="row">
@@ -837,7 +837,7 @@ export default {
         makeuseof,
         thenewyorktimes,
       }),
-      userCountInMillions: 3,
+      userCountInMillions: 4,
       username: '',
       password: '',
       passwordConfirm: '',

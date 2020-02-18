@@ -112,8 +112,8 @@ api.getGroupTasks = {
 };
 
 /**
- * @api {post} /api/v3/group/:groupId/tasks/:taskId/move/to/:position Move a group task to
- * a specified position
+ * @api {post} /api/v3/group/:groupId/tasks/:taskId/move/to/:position
+ * Move a group task to a specified position
  * @apiDescription Moves a group task to a specified position
  * @apiVersion 3.0.0
  * @apiName GroupMoveTask

@@ -44,7 +44,8 @@ export function canDelete (store) {
       && group.leader._id === userId);
     const isUserGroupManager = group && (group.managers
         && Boolean(group.managers[userId]));
-    const isUserChallenge = userId === (challenge && challenge.leader.id);
+    const isUserChallenge = userId === (challenge
+      && challenge.leader !== null && challenge.leader.id);
 
     let isUserCanDeleteTask = onUserDashboard;
 
@@ -81,7 +82,8 @@ export function canEdit (store) {
       && group.leader._id === userId);
     const isUserGroupManager = group && (group.managers
         && Boolean(group.managers[userId]));
-    const isUserChallenge = userId === (challenge && challenge.leader.id);
+    const isUserChallenge = userId === (challenge
+      && challenge.leader !== null && challenge.leader.id);
 
 
     switch (taskCategory) {
