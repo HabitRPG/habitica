@@ -101,8 +101,6 @@
     "questNotGemPurchasable": "Misi \"<%= key %>\" tidak dapat dibeli dengan Permata.",
     "questLevelTooHigh": "Kamu harus berada di level <%= level %> untuk memulai misi ini.",
     "questAlreadyUnderway": "Party-mu telah berada dalam misi. Coba lagi ketika misi telah selesai.",
-    "questAlreadyStarted": "The quest has already started.",
-    "questAlreadyStartedFriendly": "The quest has already started, but you can always catch the next one!",
     "questAlreadyAccepted": "Kamu telah menerima undangan misi.",
     "noActiveQuestToLeave": "Tidak ada misi aktif untuk ditinggalkan",
     "questLeaderCannotLeaveQuest": "Pemilik misi tidak dapat meninggalkan misi",

@@ -101,8 +101,6 @@
     "questNotGemPurchasable": "Pustolovinu \"<%= key %>\" se ne može kupiti Draguljima.",
     "questLevelTooHigh": "Moraš biti level <%= level %> da bi započeo/la ovu pustolovinu.",
     "questAlreadyUnderway": "Tvoja družina je već na pustolovini. Pokušaj ponovno kad trenutna pustolovina završi.",
-    "questAlreadyStarted": "The quest has already started.",
-    "questAlreadyStartedFriendly": "The quest has already started, but you can always catch the next one!",
     "questAlreadyAccepted": "Već si prihvatio/la poziv za pustolovinu.",
     "noActiveQuestToLeave": "Nema aktivnih pustolovina koje možeš napustiti",
     "questLeaderCannotLeaveQuest": "Vođa pustolovine ne može napustiti pustolovinu",

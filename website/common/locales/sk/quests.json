@@ -101,8 +101,6 @@
     "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
     "questLevelTooHigh": "Musíš byť level <%= level %>, aby si začal túto výpravu.",
     "questAlreadyUnderway": "Tvoja družina je práve na výprave. Skús to znovu, keď vaša súčasná výprava skončí.",
-    "questAlreadyStarted": "The quest has already started.",
-    "questAlreadyStartedFriendly": "The quest has already started, but you can always catch the next one!",
     "questAlreadyAccepted": "Túto pozvánku si už prijal.",
     "noActiveQuestToLeave": "Žiadna aktívna výprava, ktorá by sa dala opustiť",
     "questLeaderCannotLeaveQuest": "Vodca výpravy nemôže opustiť výpravu",
