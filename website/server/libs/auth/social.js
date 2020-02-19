@@ -37,11 +37,13 @@ const auth = new AppleAuth(JSON.stringify({
 
 async function _appleProfile (req) {
   let idToken = {};
-  if (req.body.code) {
-    const response = await auth.accessToken(req.body.code);
+  const code = req.body.code ? req.body.code : req.query.code;
+  const passedToken = req.body.id_token ? req.body.id_oken : req.query.id_token;
+  if (code) {
+    const response = await auth.accessToken(code);
     idToken = jwt.decode(response.id_token);
-  } else if (req.body.id_token) {
-    idToken = await jwt.verify(req.body.id_token, applePublicKey, { algorithms: ['RS256'] });
+  } else if (passedToken) {
+    idToken = await jwt.verify(passedToken, applePublicKey, { algorithms: ['RS256'] });
   }
   return {
     id: idToken.sub,
