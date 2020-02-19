@@ -10,7 +10,7 @@
       v-for='(post, index) in posts'
               :key="index">
         <small v-if='!post.published' class='draft'>DRAFT</small><h2 class='title'>
-          {{ post.publishDate}} - {{ post.title }}
+          {{ post.publishDate | date}} - {{ post.title }}
         </h2>
         <hr>
         <div class='markdown' v-html='renderMarkdown(post.text)'></div>
@@ -107,6 +107,7 @@
 </style>
 
 <script>
+import moment from 'moment';
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
 
@@ -115,6 +116,12 @@ export default {
     return {
       posts: [],
     };
+  },
+  filters: {
+    date (value) {
+      // @TODO: Vue doesn't support this so we cant user preference
+      return moment(value).format('l');
+    },
   },
   computed: {
     ...mapState({ user: 'user.data' }),
