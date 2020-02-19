@@ -493,7 +493,7 @@
   }
 
   .sidebar {
-    max-width: 330px;
+    width: 330px;
     background-color: $gray-700;
     padding: 0;
     border-bottom-left-radius: 8px;
@@ -501,6 +501,10 @@
     .search-section {
       padding: 1rem 1.5rem;
       border-bottom: 1px solid $gray-500;
+    }
+
+    @media only screen and (max-width: 768px) {
+      width: 280px;
     }
   }
 
