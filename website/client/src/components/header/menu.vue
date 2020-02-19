@@ -4,6 +4,7 @@
     <profileModal />
     <report-flag-modal />
     <send-gems-modal />
+    <select-user-modal />
     <b-navbar
       class="topbar navbar-inverse static-top"
       toggleable="lg"
@@ -360,7 +361,7 @@
               class="top-menu-icon svg-icon gem"
               :aria-label="$t('gems')"
               href="#buy-gems"
-              @click.prevent="showBuyGemsModal('gems')"
+              @click.prevent="showBuyGemsModal()"
               v-html="icons.gem"
             ></a>
             <span>{{ userGems }}</span>
@@ -719,6 +720,7 @@ import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
 import sendGemsModal from '@/components/payments/sendGemsModal';
+import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
 
@@ -730,6 +732,7 @@ export default {
     profileModal,
     reportFlagModal,
     sendGemsModal,
+    selectUserModal,
     userDropdown,
   },
   mixins: [sync],
@@ -787,9 +790,7 @@ export default {
     openPartyModal () {
       this.$root.$emit('bv::show::modal', 'create-party-modal');
     },
-    showBuyGemsModal (startingPage) {
-      this.$store.state.gemModalOptions.startingPage = startingPage;
-
+    showBuyGemsModal () {
       Analytics.track({
         hitType: 'event',
         eventCategory: 'button',
@@ -833,13 +834,11 @@ export default {
     },
 
     closeMenu () {
+      Array.from(document.getElementsByClassName('droppable')).forEach(droppableElement => {
+        this.closeDropdown(droppableElement);
+      });
       if (this.isMobile()) {
         this.menuIsOpen = false;
-
-        Array.from(document.getElementsByClassName('droppable')).forEach(droppableElement => {
-          droppableElement.classList.remove('down');
-          droppableElement.lastChild.style.maxHeight = 0;
-        });
       }
     },
     isMobile () {

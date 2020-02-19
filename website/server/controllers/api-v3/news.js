@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: PET FOOD PREFERENCES';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,21 +31,23 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/6/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/18/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_cake center-block"></div>
+        <div class="promo_achievement_CottonCandyPink center-block"></div>
         <p>
-          This month's <a href='https://habitica.wordpress.com/2020/02/05/food-preferences/'
-          target='_blank'>featured Wiki article</a> is about Pet Food Preferences! We hope that it
-          will help you as you hatch and raise your own Habitican menagerie. Be sure to check it
-          out, and let us know what you think by reaching out on <a
-          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
-          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
-          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
+          We're releasing a new achievement so you can celebrate your successes in the world of
+          Habitican pet collecting! Earn the Tickled Pink and Rosy Outlook achievements by
+          collecting Cotton Candy Pink pets and mounts and you'll earn a nifty badge for your
+          profile.
         </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <p>
+          If you already have all the Cotton Candy Pink pets and/or mounts in your stable, you'll
+          receive the badge automatically! Check your profile and celebrate your new achievement
+          with pride in your pink prowess.
+        </p>
+        <div class="small mb-3">by Piyowo and SabreCat</div>
       </div>
       `,
     });

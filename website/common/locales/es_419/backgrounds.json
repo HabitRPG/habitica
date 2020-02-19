@@ -4,7 +4,7 @@
     "backgroundShop": "Tienda de Fondos",
     "backgroundShopText": "Tienda de Fondos",
     "noBackground": "Ningún Fondo Seleccionado",
-    "backgrounds062014": "CONJUNTO 1: Lanzado en junio 2014",
+    "backgrounds062014": "CONJUNTO 1: Lanzado en junio de 2014",
     "backgroundBeachText": "Playa",
     "backgroundBeachNotes": "Holgazanea en una playa tibia.",
     "backgroundFairyRingText": "Anillo de hadas",
@@ -499,5 +499,12 @@
     "backgroundFlyingInAThunderstormText": "Tormenta Tumultuosa",
     "backgroundFarmersMarketNotes": "Compra los víveres más frescos en el Mercado del Granjero.",
     "backgroundFarmersMarketText": "Mercado del Granjero",
-    "backgrounds112019": "CONJUNTO 66: Lanzado en Noviembre 2018"
+    "backgrounds112019": "CONJUNTO 66: Lanzado en Noviembre 2018",
+    "backgroundTeaPartyNotes": "Participa en una sofisticado té.",
+    "backgroundHallOfHeroesNotes": "Acércate al salón de los héroes con apreciación y veneración.",
+    "backgroundElegantBallroomNotes": "Baila toda la noche en una elegante sala de baile.",
+    "backgroundTeaPartyText": "Té",
+    "backgroundHallOfHeroesText": "Salón de los héroes",
+    "backgroundElegantBallroomText": "Sala de baile elegante",
+    "backgrounds022020": "CONJUNTO 69: lanzado en febrero de 2020"
 }

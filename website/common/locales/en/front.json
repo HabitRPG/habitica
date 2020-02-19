@@ -321,7 +321,7 @@
   "muchmuchMoreDesc": "Our fully customizable task list means that you can shape Habitica to fit your personal goals. Work on creative projects, emphasize self-care, or pursue a different dream -- it's all up to you.",
   "levelUpAnywhere": "Level Up Anywhere",
   "levelUpAnywhereDesc": "Our mobile apps make it simple to keep track of your tasks on-the-go. Accomplish your goals with a single tap, no matter where you are.",
-  "joinMany": "Join over 2,000,000 people having fun while accomplishing their goals!",
+  "joinMany": "Join over <%= userCountInMillions %> million people having fun while accomplishing their goals!",
   "joinToday": "Join Habitica Today",
   "featuredIn": "Featured in",
   "signup": "Sign Up",
