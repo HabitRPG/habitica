@@ -6,11 +6,15 @@
     no-close-on-esc
     no-close-on-backdrop>
     <div class='modal-body'>
-      <div class='bailey' v-for='(post, index) in posts'
+      <div :class="index == (posts.length - 1) ? 'bailey bailey-last' : 'bailey'"
+      v-for='(post, index) in posts'
               :key="index">
-        <h2>{{ post.title }}</h2>
-        <div v-markdown='post.text'></div>
-        <small v-markdown='post.credits'></small>
+        <small v-if='!post.published' class='draft'>DRAFT</small><h2 class='title'>
+          {{ post.publishDate}} - {{ post.title }}
+        </h2>
+        <hr>
+        <div class='markdown' v-html='renderMarkdown(post.text)'></div>
+        <small>{{ post.credits }}</small>
       </div>
       </div>
 
@@ -31,7 +35,14 @@
   padding-top: 2em;
 }
 .bailey {
-  margin-bottom: 50px;
+  margin-bottom: 60px;
+  .title {
+    display: inline;
+  }
+
+  .draft {
+    margin-right: 10px;
+  }
 
   h2 {
     color: #4F2A93;
@@ -40,6 +51,14 @@
   div {
     font-size: 16px;
   }
+
+  .center-block {
+    display: block;
+    margin: auto;
+  }
+}
+.bailey-last {
+  margin-bottom: 10px;
 }
 </style>
 
@@ -48,16 +67,50 @@
     display: block;
     margin: auto;
   }
+
+  .bailey .markdown h1 {
+    color: #4F2A93 !important;
+    font-size: 2.5rem !important;
+    margin-top: 4rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .bailey .markdown h2 {
+    color: #4F2A93 !important;
+    font-size: 2rem !important;
+    margin-top: 3.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .bailey .markdown h3 {
+    color: #4F2A93 !important;
+    font-size: 1.75rem !important;
+    margin-top: 3rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .bailey .markdown h4 {
+    color: #4F2A93 !important;
+    font-size: 1.5rem !important;
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .bailey div {
+    font-size: 16px;
+  }
+
+  .bailey .center-block {
+    display: block;
+    margin: auto;
+  }
 </style>
 
 <script>
+import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
-import markdownDirective from '@/directives/markdown';
 
 export default {
-  directives: {
-    markdown: markdownDirective,
-  },
   data () {
     return {
       posts: [],
@@ -83,6 +136,9 @@ export default {
     dismissAlert () {
       this.$store.dispatch('user:newStuffRead');
       this.$root.$emit('bv::hide::modal', 'new-stuff');
+    },
+    renderMarkdown (text) {
+      return habiticaMarkdown.unsafeHTMLRender(text);
     },
   },
 };
