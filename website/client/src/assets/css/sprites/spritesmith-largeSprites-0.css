@@ -1,3 +1,9 @@
+.promo_achievement_CottonCandyPink {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -328px -148px;
+  width: 204px;
+  height: 102px;
+}
 .promo_armoire_backgrounds_202002 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -328px 0px;
@@ -12,7 +18,7 @@
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -533px -148px;
+  background-position: -283px -425px;
   width: 96px;
   height: 69px;
 }
@@ -30,7 +36,7 @@
 }
 .scene_cake {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -328px -148px;
+  background-position: -533px -148px;
   width: 204px;
   height: 102px;
 }

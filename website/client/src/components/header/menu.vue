@@ -834,13 +834,11 @@ export default {
     },
 
     closeMenu () {
+      Array.from(document.getElementsByClassName('droppable')).forEach(droppableElement => {
+        this.closeDropdown(droppableElement);
+      });
       if (this.isMobile()) {
         this.menuIsOpen = false;
-
-        Array.from(document.getElementsByClassName('droppable')).forEach(droppableElement => {
-          droppableElement.classList.remove('down');
-          droppableElement.lastChild.style.maxHeight = 0;
-        });
       }
     },
     isMobile () {

@@ -1815,5 +1815,6 @@
     "armorArmoireAstronomersRobeText": "Kleed voor Astronomen",
     "armorArmoireAstronomersRobeNotes": "Blijkt dat zijde en sterrenlicht een stof maken die niet enkel magisch is, maar ook zeer goed ademt. Verhoogt Perceptie en Constitutie met elk <%= attrs %>. Betoverd Kabinet: Magische Set voor Astronomen (Voorwerp 1 van 3).",
     "headArmoireNephriteHelmText": "Jaden Help",
-    "headArmoireNephriteHelmNotes": "Deze gesculpteerde jaden pluim op de top van deze help is betoverd om je trefzekerheid te verbeteren. Verhoogt Perceptie met <%= per %> en Intelligentie met <%= int %>. Betoverd Kabinet: Jaden Boogschutters Set (Voorwerp 2 van 3)."
+    "headArmoireNephriteHelmNotes": "Deze gesculpteerde jaden pluim op de top van deze help is betoverd om je trefzekerheid te verbeteren. Verhoogt Perceptie met <%= per %> en Intelligentie met <%= int %>. Betoverd Kabinet: Jaden Boogschutters Set (Voorwerp 2 van 3).",
+    "weaponSpecialKS2019Text": "Mythische Griffioen Lans"
 }

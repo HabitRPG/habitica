@@ -74,7 +74,7 @@
     "dropsEnabled": "啟用了物品掉落功能！",
     "itemDrop": "你獲得一件物品！",
     "firstDrop": "你解鎖了掉落物系統！你現在每完成一項任務，就有機會找到物品，包括蛋、孵化藥水、或是食物！你剛剛發現了<strong><%= eggText %>蛋</strong>！<%= eggNotes %>",
-    "useGems": "如果你很想要某隻寵物，但又不想慢慢等蛋掉落的話，可以在「<strong>背包 > 市集」</strong>花費寶石買下它！",
+    "useGems": "如果你很想要某隻寵物，但又不想慢慢等蛋掉落的話，可以在「<strong>背包 > 市場」</strong>花費寶石買下它！",
     "hatchAPot": "孵化一隻新的<%= potion %><%= egg %>？",
     "hatchedPet": "你孵化了一隻新的<%= potion %><%= egg %>！",
     "hatchedPetGeneric": "您孵化了一隻新寵物！",

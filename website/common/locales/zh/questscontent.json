@@ -675,5 +675,13 @@
     "questBronzeDropBronzePotion": "青铜孵化药水",
     "questBronzeBoss": "青铜甲虫",
     "questBronzeText": "青铜甲虫战斗",
-    "evilSantaAddlNotes": "注意，圣诞陷阱猎手和找熊崽奖励可堆叠的副本成就，但会奖励的稀有宠物和坐骑只能添加到你的马厩一次。"
+    "evilSantaAddlNotes": "注意，圣诞陷阱猎手和找熊崽奖励可堆叠的副本成就，但会奖励的稀有宠物和坐骑只能添加到你的马厩一次。",
+    "questRubyCompletion": "安全地包装必要的物品后，你们三个人赶回Habit城市，在@beffymaroo 的实验室见面。“做工出色！”@beffymaroo 说。 “你已经收集了药水的成分！”<br><br>@beffymaroo 仔细组合了卢恩和红宝石，制成了亮丽的红药水，并把一些药水倒在两个宠物蛋上。当你观察结果时，你会发现这两只宠物似乎对彼此完全不感兴趣！<br><br>“它失败了吗？”@gully 问。但在任何人能回答之前，你突然意识到-不是药水，而是实现共同目标的共同经验，才会创造友谊和爱情。 从这次的副本中，你获得了一些新朋友...和一些闪亮的新宠物！",
+    "questRubyNotes": "在通常熙熙攘攘的Stoïkalm火山，峰趴雪地里沉默。“我想远足者和观光客正在冬眠？”@gully 对你和@Aspiring_Advocate 说。 “这让我们的搜索更加容易。”<br><br>当你到达山顶时，寒风与火山口滚滚的蒸汽融为一体。 “在那里！” @Aspiring_Advocate惊呼，指向温泉。“冰和火在那里相遇，有什么更好的地方找冰冷的水瓶座卢恩和激情的金星卢恩呢？”<br><br>你们三人朝温泉赶路。 @Aspiring_Advocate 说：“ 根据我的研究，将卢恩与心形的红宝石结合在一起将产生一种可以促进友谊和爱情的孵化药水！”<br><br>对新发现的前景感到兴奋，大家都微笑。 @gully 说：“好吧，让我们开始搜索！”",
+    "questRubyCollectRubyGems": "红宝石",
+    "questRubyCollectVenusRunes": "金星卢恩",
+    "questRubyCollectAquariusRunes": "水瓶座卢恩",
+    "questRubyUnlockText": "在市场上解锁红宝石孵化药水以购买",
+    "questRubyDropRubyPotion": "红宝石孵化药水",
+    "questRubyText": "红宝石溶液"
 }
