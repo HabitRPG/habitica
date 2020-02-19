@@ -5,7 +5,6 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW MAGIC HATCHING POTION QUEST: RUBY!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -32,7 +31,6 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/13/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
@@ -70,10 +68,11 @@ api.tellMeLaterNews = {
     const { user } = res.locals;
 
     user.flags.lastNewStuffRead = await NewsPost.lastNewsPostID();
+    const title = await NewsPost.lastNewsPostTitle();
 
     const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
     if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
-    user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
+    user.addNotification('NEW_STUFF', { title: title.toUpperCase() }, true); // seen by default
 
     await user.save();
     res.respond(200, {});

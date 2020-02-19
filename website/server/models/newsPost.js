@@ -37,6 +37,7 @@ schema.statics.getNews = async function getNews (isAdmin) {
 
 let cachedLastNewsPostID = null;
 let cachedLastNewsPostDate = null;
+let cachedLastNewsPostTitle = null;
 
 schema.statics.lastNewsPostID = async function lastNewsPostID () {
   if (cachedLastNewsPostID === null) {
@@ -49,11 +50,22 @@ schema.statics.lastNewsPostID = async function lastNewsPostID () {
   return cachedLastNewsPostID;
 };
 
-schema.statics.updateLastNewsPostID = async function updateLastNewsPostID (newID, newDate) {
-  if (cachedLastNewsPostID !== newID) {
-    if (cachedLastNewsPostDate === undefined || cachedLastNewsPostDate < newDate) {
-      cachedLastNewsPostID = newID;
-      cachedLastNewsPostDate = newDate;
+schema.statics.lastNewsPostTitle = async function lastNewsPostTitle () {
+  if (cachedLastNewsPostTitle === null) {
+    const lastPost = (await this.getNews(false))[0];
+    if (lastPost !== undefined && lastPost !== null) {
+      cachedLastNewsPostTitle = lastPost.title;
+    }
+  }
+  return cachedLastNewsPostTitle;
+};
+
+schema.statics.updateLastNewsPost = async function updateLastNewsPost (newPost) {
+  if (cachedLastNewsPostID !== newPost.id) {
+    if (cachedLastNewsPostDate === undefined || cachedLastNewsPostDate < newPost.publishDate) {
+      cachedLastNewsPostID = newPost.id;
+      cachedLastNewsPostDate = newPost.publishDate;
+      cachedLastNewsPostTitle = newPost.title;
     }
   }
 };

@@ -9,8 +9,6 @@ import {
 
 const api = {};
 
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR LAVA DRAGON SET AND SPOTLIGHT ON BACK TO SCHOOL';
-
 /**
  * @apiDefine postIdRequired
  * @apiError (400) {BadRequest} postIdRequired A postId is required
@@ -63,7 +61,7 @@ api.createNews = {
     await newsPost.save();
 
     if (newsPost.published) {
-      NewsPost.updateLastNewsPostID(newsPost.id, newsPost.publishDate);
+      NewsPost.updateLastNewsPost(newsPost);
     }
 
     res.respond(201, newsPost.toJSON());
@@ -131,7 +129,7 @@ api.updateNews = {
     const savedPost = await newsPost.save();
 
     if (newsPost.published) {
-      NewsPost.updateLastNewsPostID(newsPost.id, newsPost.publishDate);
+      NewsPost.updateLastNewsPost(newsPost);
     }
 
     res.respond(200, savedPost.toJSON());
@@ -195,10 +193,11 @@ api.tellMeLaterNews = {
     const { user } = res.locals;
 
     user.flags.lastNewStuffRead = await NewsPost.lastNewsPostID();
+    const title = await NewsPost.lastNewsPostTitle();
 
     const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
     if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
-    user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
+    user.addNotification('NEW_STUFF', { title: title.toUpperCase() }, true); // seen by default
 
     await user.save();
     res.respond(200, {});
