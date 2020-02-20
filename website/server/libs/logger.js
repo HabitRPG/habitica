@@ -1,6 +1,6 @@
 // Logger utility
 import winston from 'winston';
-import 'winston-loggly-bulk';
+import { Loggly } from 'winston-loggly-bulk';
 import nconf from 'nconf';
 import _ from 'lodash';
 import {
@@ -24,14 +24,13 @@ if (IS_PROD) {
       ),
     }));
 
-    /* logger.add(new winston.transports.Loggly(), {
+    logger.add(new Loggly({
       inputToken: nconf.get('LOGGLY_TOKEN'),
       subdomain: nconf.get('LOGGLY_SUBDOMAIN'),
       tags: ['Winston-NodeJS'],
-      json: true, format.json()
-    }); */
+      json: true,
+    }));
   }
-
 // Do not log anything when testing unless specified
 } else if (!IS_TEST || (IS_TEST && ENABLE_LOGS_IN_TEST)) {
   logger
