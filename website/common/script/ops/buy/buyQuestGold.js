@@ -42,7 +42,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // es
 
     if (!item) throw new NotFound(errorMessage('questNotFound', { key }));
 
-    if (!(item.category === 'gold' && item.goldValue)) {
+    if (!(item.goldValue)) {
       throw new NotAuthorized(this.i18n('questNotGoldPurchasable', { key }));
     }
 
