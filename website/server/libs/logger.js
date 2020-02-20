@@ -38,12 +38,19 @@ if (IS_PROD) {
     .add(new winston.transports.Console({
       level: 'warn', // warn and errors always in JSON
       format: winston.format.combine(
-        winston.format.timestamp(),
         winston.format.colorize(),
-        winston.format.prettyPrint(),
-        winston.format(info => {
-          console.log(info);
-        })(),
+        winston.format.timestamp(),
+        winston.format.printf(
+          info => `${info.timestamp} - ${info.level} ${info.message}`,
+        ),
+      ),
+    }))
+    .add(new winston.transports.Console({
+      level: 'warn', // warn and errors always in JSON
+      format: winston.format.combine(
+        winston.format.prettyPrint({
+          colorize: true,
+        }),
       ),
     }))
     .add(new winston.transports.Console({
