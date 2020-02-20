@@ -890,7 +890,7 @@
     "headSpecialSpikedHelmNotes": "使用这个功能（和看起来不一样的）头盔，你将会得到良好的保护并且远离杂散的日常和坏习惯。增加<%= str %>点力量。",
     "headSpecialDandyHatText": "花花公子套装的帽子",
     "headSpecialDandyHatNotes": "这是一顶多么愉悦的帽子！你会很享受戴着它闲逛的感觉。增加<%= con %>点体质。",
-    "headSpecialKabutoText": "假面骑士",
+    "headSpecialKabutoText": "卡布托",
     "headSpecialKabutoNotes": "这个功能性头盔是如此的好看！以至于你的敌人都会忍不住赞美它！增加<%= int %>点智力。",
     "headSpecialNamingDay2017Text": "紫色皇家狮鹫头盔",
     "headSpecialNamingDay2017Notes": "命名节快乐！带上这个凶猛狮鹫羽毛编制的头盔来一起庆祝吧！没有属性加成。",

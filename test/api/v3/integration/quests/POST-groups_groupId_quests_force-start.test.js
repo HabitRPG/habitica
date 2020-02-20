@@ -73,7 +73,7 @@ describe('POST /groups/:groupId/quests/force-start', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('questAlreadyUnderway'),
+          message: t('questAlreadyStarted'),
         });
     });
 
