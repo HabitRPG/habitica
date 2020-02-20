@@ -486,6 +486,12 @@ export default {
         this.$router.push('/');
       }
     },
+    async group () {
+      this.members = await this.loadMembers({
+        groupId: this.group._id,
+        includeAllPublicFields: true,
+      });
+    },
   },
   mounted () {
     if (this.isParty) this.searchId = 'party';
@@ -509,11 +515,7 @@ export default {
         // Load invites
       }
       await this.fetchGuild();
-      // Fetch group members on load
-      this.members = await this.loadMembers({
-        groupId: this.group._id,
-        includeAllPublicFields: true,
-      });
+
       this.$root.$on('updatedGroup', group => {
         const updatedGroup = extend(this.group, group);
         this.$set(this.group, updatedGroup);
