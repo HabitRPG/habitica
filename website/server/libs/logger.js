@@ -16,11 +16,10 @@ const logger = winston.createLogger();
 
 if (IS_PROD) {
   if (ENABLE_LOGS_IN_PROD) {
-    logger.add(new winston.transports.Console({ // for errors
-      level: 'error', // errors always in JSON
+    logger.add(new winston.transports.Console({
       format: winston.format.combine(
         winston.format.timestamp(),
-        winston.format.prettyPrint(),
+        winston.format.json(),
       ),
     }));
 
@@ -35,7 +34,7 @@ if (IS_PROD) {
 } else if (!IS_TEST || (IS_TEST && ENABLE_LOGS_IN_TEST)) {
   logger
     .add(new winston.transports.Console({
-      level: 'warn', // warn and errors always in JSON
+      level: 'warn', // warn and errors (text part)
       format: winston.format.combine(
         winston.format.colorize(),
         winston.format.timestamp(),
@@ -45,7 +44,7 @@ if (IS_PROD) {
       ),
     }))
     .add(new winston.transports.Console({
-      level: 'warn', // warn and errors always in JSON
+      level: 'warn', // warn and errors (json part)
       format: winston.format.combine(
         winston.format.prettyPrint({
           colorize: true,
@@ -53,7 +52,7 @@ if (IS_PROD) {
       ),
     }))
     .add(new winston.transports.Console({
-      level: 'info', // the rest as text
+      level: 'info', // info messages as text
       format: winston.format.combine(
         // Ignores warn and errors
         winston.format(info => {
@@ -66,7 +65,6 @@ if (IS_PROD) {
         winston.format.timestamp(),
         winston.format.colorize(),
         winston.format.splat(),
-        winston.format.simple(),
         winston.format.printf(info => `${info.timestamp} - ${info.level} ${info.message}`),
       ),
     }));
