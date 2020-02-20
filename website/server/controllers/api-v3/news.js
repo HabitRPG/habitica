@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POSTS: PARTY PARTICIPATION AND OUR FAVO(U)RITE GUILDS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,23 +31,43 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/18/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/20/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_achievement_CottonCandyPink center-block"></div>
+        <div class="scene_gaining_achievement center-block"></div>
+        <h3>Use Case Spotlight: Party Participation</h3>
         <p>
-          We're releasing a new achievement so you can celebrate your successes in the world of
-          Habitican pet collecting! Earn the Tickled Pink and Rosy Outlook achievements by
-          collecting Cotton Candy Pink pets and mounts and you'll earn a nifty badge for your
-          profile.
+          This month's <a
+          href='https://habitica.wordpress.com/2020/02/20/use-case-spotlight-party-cipation/'
+          target='_blank'>Use Case Spotlight</a> is about Party Participation! It features a number
+          of great suggestions submitted by Habiticans in the <a
+          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
+          We hope it helps any of you who might be looking for ways to keep your quest party
+          engaged and excited to win battles with good habits.
         </p>
         <p>
-          If you already have all the Cotton Candy Pink pets and/or mounts in your stable, you'll
-          receive the badge automatically! Check your profile and celebrate your new achievement
-          with pride in your pink prowess.
+          Plus, we're collecting user submissions for the next spotlight! How do you use Habitica
+          to manage conflicting needs, like productivity versus self-care? We’ll be featuring
+          player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post
+          your suggestions in the Use Case Spotlight Guild now. We look forward to learning more
+          about how you use Habitica to improve your life and get things done!
         </p>
-        <div class="small mb-3">by Piyowo and SabreCat</div>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="scene_shanaqui center-block"></div>
+        <h3>Guild Spotlight: Shanaqui's Favourites</h3>
+        <p>
+          For this year's Guild Spotlight series, we're highlighting some favourites from
+          Habitica's staff, moderators, and maybe some high-level contributors!
+        </p>
+        <p>
+          This month we're kicking things off with some <a
+          href='https://habitica.wordpress.com/2020/02/20/guild-spotlights-our-favourites/'
+          target='_blank'>picks from shanaqui!</a> If you want to curate your Habitica experience
+          and join active, positive Guilds, this is a great way to pick up some new ideas for
+          Guilds to join.
+        </p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });
