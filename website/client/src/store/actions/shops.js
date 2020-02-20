@@ -93,6 +93,10 @@ async function buyArmoire (store, params) {
       timeout: true,
       ...notificationOptions,
     });
+
+    if (isExperience) {
+      await store.dispatch('user:fetch', { forceLoad: true });
+    }
   }
 }
 
