@@ -12,31 +12,58 @@ const IS_TEST = nconf.get('IS_TEST');
 const ENABLE_LOGS_IN_TEST = nconf.get('ENABLE_CONSOLE_LOGS_IN_TEST') === 'true';
 const ENABLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') === 'true';
 
-const logger = new winston.Logger();
+const logger = winston.createLogger();
 
 if (IS_PROD) {
   if (ENABLE_LOGS_IN_PROD) {
-    logger.add(winston.transports.Console, {
-      timestamp: true,
-      colorize: false,
-      prettyPrint: false,
-    });
-    logger.add(winston.transports.Loggly, {
+    logger.add(new winston.transports.Console({ // for errors
+      level: 'error', // errors always in JSON
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.prettyPrint(),
+      ),
+    }));
+
+    /* logger.add(new winston.transports.Loggly(), {
       inputToken: nconf.get('LOGGLY_TOKEN'),
       subdomain: nconf.get('LOGGLY_SUBDOMAIN'),
       tags: ['Winston-NodeJS'],
-      json: true,
-    });
+      json: true, format.json()
+    }); */
   }
 
 // Do not log anything when testing unless specified
 } else if (!IS_TEST || (IS_TEST && ENABLE_LOGS_IN_TEST)) {
   logger
-    .add(winston.transports.Console, {
-      timestamp: true,
-      colorize: true,
-      prettyPrint: true,
-    });
+    .add(new winston.transports.Console({
+      level: 'warn', // warn and errors always in JSON
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.colorize(),
+        winston.format.prettyPrint(),
+        winston.format(info => {
+          console.log(info);
+        })(),
+      ),
+    }))
+    .add(new winston.transports.Console({
+      level: 'info', // the rest as text
+      format: winston.format.combine(
+        // Ignores warn and errors
+        winston.format(info => {
+          if (info.level === 'error' || info.level === 'warn') {
+            return false;
+          }
+
+          return info;
+        })(),
+        winston.format.timestamp(),
+        winston.format.colorize(),
+        winston.format.splat(),
+        winston.format.simple(),
+
+      ),
+    }));
 }
 
 // exports a public interface insteaf of accessing directly the logger module
