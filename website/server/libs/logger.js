@@ -61,7 +61,7 @@ if (IS_PROD) {
         winston.format.colorize(),
         winston.format.splat(),
         winston.format.simple(),
-
+        winston.format.printf(info => `${info.timestamp} - ${info.level} ${info.message}`),
       ),
     }));
 }
