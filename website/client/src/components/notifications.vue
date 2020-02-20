@@ -733,8 +733,8 @@ export default {
         switch (notification.type) { // eslint-disable-line default-case
           case 'FIRST_DROPS':
             if (notification.data) {
-              this.$store.state.firstDropsOptions.egg = notification.data.eggDrop;
-              this.$store.state.firstDropsOptions.potion = notification.data.potionDrop;
+              this.$store.state.firstDropsOptions.egg = notification.data.egg;
+              this.$store.state.firstDropsOptions.potion = notification.data.potion;
               this.$root.$emit('bv::show::modal', 'first-drops');
             }
             break;

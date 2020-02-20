@@ -94,10 +94,10 @@ export default {
   },
   computed: {
     eggClass () {
-      return this.$store.state.firstDropsOptions.egg;
+      return `Pet_Egg_${this.$store.state.firstDropsOptions.egg}`;
     },
     potionClass () {
-      return this.$store.state.firstDropsOptions.potion;
+      return `Pet_HatchingPotion_${this.$store.state.firstDropsOptions.potion}`;
     },
   },
   methods: {

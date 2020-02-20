@@ -19,5 +19,5 @@ export default function firstDrops (user) {
   };
   user.items.hatchingPotions[potionDrop.key] += 1;
 
-  if (user.addNotification) user.addNotification('FIRST_DROPS', { eggDrop, potionDrop });
+  if (user.addNotification) user.addNotification('FIRST_DROPS', { egg: eggDrop.key, potion: potionDrop.key });
 }
