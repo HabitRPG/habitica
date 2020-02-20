@@ -78,9 +78,8 @@ async function buyArmoire (store, params) {
     // @TODO: We might need to abstract notifications to library rather than mixin
     const notificationOptions = isExperience
       ? {
-        text: `+ ${item.value}`,
-        type: 'xp',
-        flavorMessage: message,
+        text: message,
+        type: 'success',
       }
       : {
         text: message,
