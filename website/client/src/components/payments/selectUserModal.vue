@@ -5,21 +5,15 @@
     :hide-footer="true"
     @hide="onHide()"
   >
-    <div class="g1g1 mb-4 text-center">
-      <div class="heading">Gift a Subscription, Get a Subscription</div>
-      <div class="details">
-        Enter your friend's @ username and choose a subscription package.
-        You'll receive the same one in return!
-      </div>
+    <h2 class="ml-2"> {{ $t('sendGift')}} </h2>
+    <div class="d-flex flex-column align-items-center">
       <div
         class="modal-close"
         @click="close()"
       >
         <div class="svg-icon" v-html="icons.close"></div>
       </div>
-    </div>
-    <div class="d-flex flex-column align-items-center">
-      <div class="mb-2">
+      <div class="ml-2 mr-auto">
         <strong> {{ $t('sendGiftToWhom')}} </strong>
       </div>
       <div
@@ -150,7 +144,7 @@
 <script>
 import debounce from 'lodash/debounce';
 import isUUID from 'validator/lib/isUUID';
-import closeIcon from '@/assets/svg/close-teal.svg';
+import closeIcon from '@/assets/svg/close.svg';
 
 export default {
   data () {

@@ -37,7 +37,7 @@
     "individualSub": "Abonnement individuel",
     "subscribe": "Abonnez-vous",
     "subscribed": "Abonné",
-    "nowSubscribed": "Vous êtes maintenant abonné.e à Habitica !",
+    "nowSubscribed": "Vous bénéficiez maintenant d'un abonnement à Habitica !",
     "manageSub": "Cliquez ici pour gérer votre abonnement",
     "cancelSub": "Annuler l'abonnement",
     "cancelSubInfoGoogle": "Veuillez vous rendre dans la section \"Mes jeux et applications\" > \"Abonnements\" du Play Store Google pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne pourra pas vous indiquer si votre abonnement a été annulé.",
@@ -232,5 +232,6 @@
     "mysterySet202001": "Ensemble de renard légendaire",
     "backgroundAlreadyOwned": "Arrière plan déjà possédé.",
     "mysticHourglassNeededNoSub": "Cet objet requiert un sablier mystique. Vous gagnez des sabliers mystiques en vous abonnant à Habitica.",
-    "viewSubscriptions": "Voir les abonnements"
+    "viewSubscriptions": "Voir les abonnements",
+    "mysterySet202002": "Ensemble chéri stylé"
 }

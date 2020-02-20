@@ -108,7 +108,7 @@
     "paymentMethods": "Comprar usando",
     "paymentSuccessful": "Seu pagamento foi efetuado com sucesso!",
     "paymentYouReceived": "Você recebeu:",
-    "paymentYouSentGems": "Você enviou <strong><%= name %></strong>:",
+    "paymentYouSentGems": "Você enviou para <strong><%= name %></strong>:",
     "paymentYouSentSubscription": "Você enviou para <strong><%= name %></strong>uma assinatura de Habitica por <%= months %> meses.",
     "paymentSubBilling": "Sua fatura será cobrada no valor de <strong>$<%= amount %></strong> a cada <strong><%= months %> meses</strong>.",
     "success": "Sucesso!",

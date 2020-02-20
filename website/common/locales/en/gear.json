@@ -364,6 +364,8 @@
   "weaponMystery201811Notes": "This magical stave is as powerful as it is elegant. Confers no benefit. November 2018 Subscriber Item.",
   "weaponMystery201911Text": "Charmed Crystal Staff",
   "weaponMystery201911Notes": "The crystal ball atop this staff can show you the future, but beware! Using such dangerous knowledge can change a person in unexpected ways. Confers no benefit. November 2019 Subscriber Item.",
+  "weaponMystery202002Text": "Stylish Sweetheart Parasol",
+  "weaponMystery202002Notes": "An accessory that lends you an air of mystery and romance. Sun protection is a bonus! Confers no benefit. February 2020 Subscriber Item.",
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
 
@@ -471,6 +473,8 @@
   "weaponArmoireAlchemistsDistillerNotes": "Purify metals and other magical compounds with this shiny brass instrument. Increases Strength by <%= str %> and Intelligence by <%= int %>. Enchanted Armoire: Alchemist Set (Item 3 of 4).",
   "weaponArmoireHappyBannerText": "Happy Banner",
   "weaponArmoireHappyBannerNotes": "Is the “H” for Happy, or Habitica? Your choice! Increases Perception by <%= per %>. Enchanted Armoire: Happy Birthday Set (Item 3 of 4).",
+  "weaponArmoireLivelyMatchText": "A Lively Match",
+  "weaponArmoireLivelyMatchNotes": "When you're holding this, you're sure to spark someone's interest! Increases Strength by <%= str %>. Enchanted Armoire: Match Maker Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -581,6 +585,8 @@
   "armorSpecialBirthday2018Notes": "Happy Birthday, Habitica! Wear these Fanciful Party Robes to celebrate this wonderful day. Confers no benefit.",
   "armorSpecialBirthday2019Text": "Outlandish Party Robes",
   "armorSpecialBirthday2019Notes": "Happy Birthday, Habitica! Wear these Outlandish Party Robes to celebrate this wonderful day. Confers no benefit.",
+  "armorSpecialBirthday2020Text": "Outrageous Party Robes",
+  "armorSpecialBirthday2020Notes": "Happy Birthday, Habitica! Wear these Outrageous Party Robes to celebrate this wonderful day. Confers no benefit.",
 
   "armorSpecialGaymerxText": "Rainbow Warrior Armor",
   "armorSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special armor is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -1016,6 +1022,8 @@
   "armorArmoireDuffleCoatNotes": "Travel frosty realms in style with this cozy wool coat. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Duffle Coat Set (Item 1 of 2).",
   "armorArmoireLayerCakeArmorText": "Layer Cake Armor",
   "armorArmoireLayerCakeArmorNotes": "It's protective and tasty! Increases Constitution by <%= con %>. Enchanted Armoire: Happy Birthday Set (Item 2 of 4).",
+  "armorArmoireMatchMakersApronText": "Match Maker's Apron",
+  "armorArmoireMatchMakersApronNotes": "This apron is for safety, but for humor's sake we can make light of it. Increases Constitution, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Match Maker Set (Item 1 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1579,6 +1587,8 @@
   "headArmoireEarflapHatNotes": "If you're looking to keep your head toasty warm, this hat has you covered! Increases Intelligence and Strength by <%= attrs %> each. Enchanted Armoire: Duffle Coat Set (Item 2 of 2).",
   "headArmoireFrostedHelmText": "Frosted Helm",
   "headArmoireFrostedHelmNotes": "The perfect headgear for any celebration! Increases Intelligence by <%= int %>. Enchanted Armoire: Happy Birthday Set (Item 1 of 4).",
+  "headArmoireMatchMakersBeretText": "Match Maker's Beret",
+  "headArmoireMatchMakersBeretNotes": "You'll look striking wearing this lovely hat! Increases Constitution by <%= con %>. Enchanted Armoire: Match Maker Set (Item 2 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1883,6 +1893,8 @@
   "shieldArmoireAlchemistsScaleNotes": "Ensure that your mystical ingredients are properly measured using this fine piece of equipment. Increases Intelligence by <%= int %>. Enchanted Armoire: Alchemist Set (Item 4 of 4).",
   "shieldArmoireBirthdayBannerText": "Birthday Banner",
   "shieldArmoireBirthdayBannerNotes": "Celebrate your special day, the special day of someone you love, or break this out for Habitica's Birthday on January 31! Increases Strength by <%= str %>. Enchanted Armoire: Happy Birthday Set (Item 4 of 4).",
+  "shieldArmoirePerfectMatchText": "The Perfect Match",
+  "shieldArmoirePerfectMatchNotes": "Hot take: we think you look great. Increases Perception by <%= per %>. Enchanted Armoire: Match Maker Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
@@ -2003,6 +2015,8 @@
   "bodyMystery201711Notes": "This soft knitted scarf looks quite majestic blowing in the wind. Confers no benefit. November 2017 Subscriber Item.",
   "bodyMystery201901Text": "Polaris Pauldrons",
   "bodyMystery201901Notes": "These shimmering pauldrons are strong, but will rest on your shoulders as weightlessly as a ray of dancing light. Confers no benefit. January 2019 Subscriber Item.",
+  "bodyMystery202002Text": "Stylish Sweetheart Scarf",
+  "bodyMystery202002Notes": "For when your heart is warm but the breezes of February are brisk. Confers no benefit. February 2020 Subscriber Item.",
 
   "bodyArmoireCozyScarfText": "Cozy Scarf",
   "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Lamplighter's Set (Item 4 of 4).",

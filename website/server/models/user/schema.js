@@ -130,6 +130,8 @@ export default new Schema({
     undeadUndertaker: Boolean,
     primedForPainting: Boolean,
     pearlyPro: Boolean,
+    tickledPink: Boolean,
+    rosyOutlook: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

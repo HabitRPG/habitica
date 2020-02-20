@@ -37,5 +37,9 @@
     "workTodoProject": "Werkproject >> Voltooi werkproject",
     "workDailyImportantTaskNotes": "Tik aan om je belangrijkste taak te specificeren",
     "workDailyImportantTask": "Belangrijkste taak >> Gewerkt aan de belangrijkste taak van vandaag",
-    "workHabitMail": "Verwerk je e-mail"
+    "workHabitMail": "Verwerk je e-mail",
+    "choresDailyNotes": "Tik om je schema te kiezen!",
+    "choresDailyText": "Doe de afwas",
+    "selfCareHabit": "Neem een korte pauze",
+    "healthTodoNotes": "Tik aan om checklists toe te voegen!"
 }

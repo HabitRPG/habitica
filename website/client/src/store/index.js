@@ -114,9 +114,6 @@ export default function () {
       profileOptions: {
         startingPage: '',
       },
-      gemModalOptions: {
-        startingPage: '',
-      },
       rageModalOptions: {
         npc: '',
       },

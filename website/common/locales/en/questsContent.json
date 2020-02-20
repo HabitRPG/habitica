@@ -787,5 +787,14 @@
   "questAmberCompletion": "“Trerezin?” @-Tyr- says calmly. “Could you let @Vikte go? I don’t think they’re enjoying being so high up.”<br><br>The Trerezin’s amber skin blushes crimson and she gently lowers @Vikte to the ground. “My apologies! It’s been so long since I’ve had any guests that I’ve forgotten my manners!” She slithers forward to greet you properly before disappearing into her treehouse, and returning with an armful of Amber Hatching Potions as thank-you gifts!<br><br>“Magic Potions!” @Vikte gasps.<br><br>“Oh, these old things?” The Trerezin's tongue flickers as she thinks. “How about this? I’ll give you this whole stack if you promise to visit me every so often...”<br><br>And so you leave the Taskwoods, excited to tell everyone about the new potions--and your new friend!",
   "questAmberBoss": "Trerezin",
   "questAmberDropAmberPotion": "Amber Hatching Potion",
-  "questAmberUnlockText": "Unlocks Amber Hatching Potions for purchase in the Market"
+  "questAmberUnlockText": "Unlocks Amber Hatching Potions for purchase in the Market",
+
+  "questRubyText": "Ruby Rapport",
+  "questRubyNotes": "The normally bustling peaks of the Stoïkalm Volcanoes lie silent in the snow. “I suppose the hikers and sight-seers are hibernating?” @gully says to you and @Aspiring_Advocate. “That makes our search easier.”<br><br>As you reach the summit, the chill wind merges with the steam billowing from the crater. “There!” @Aspiring_Advocate exclaims, pointing toward a hot spring. “What better place to find cool runes of Aquarius and passionate runes of Venus than where ice and fire meet?”<br><br>The three of you hurry toward the hot spring. “According to my research,” @Aspiring_Advocate says, “combining the runes with heart-shaped rubies will create a hatching potion that can foster friendship and love!”<br><br>Excited by the prospect of a new discovery, you all smile. “All right,” @gully says, “let's start searching!”",
+  "questRubyCompletion": "With the necessary items safely packed away, the three of you rush back to Habit City and meet in @beffymaroo's lab. “Excellent work!” @beffymaroo says. “You've gathered the ingredients for the potion!”<br><br>@beffymaroo carefully combines the runes and the rubies to create a brilliant red potion and pours some of it on two pet eggs. As you observe the results, you notice that the two pets seem completely uninterested in one another!<br><br>“Did it not work?” @gully asks. But before anyone can answer, you suddenly realize that it isn't the potion that creates friendship and love, but rather it is the experience of working together toward a common goal. You come away from the quest having gained some new friends...and some flashy new pets!",
+  "questRubyCollectAquariusRunes": "Aquarius Zodiac Runes",
+  "questRubyCollectVenusRunes": "Venus Runes",
+  "questRubyCollectRubyGems": "Ruby Gems",
+  "questRubyDropRubyPotion": "Ruby Hatching Potion",
+  "questRubyUnlockText": "Unlocks Ruby Hatching Potions for purchase in the Market"
 }

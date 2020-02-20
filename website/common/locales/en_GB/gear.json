@@ -2025,5 +2025,19 @@
     "weaponSpecialFall2019RogueText": "Music Stand",
     "weaponSpecialSummer2019HealerNotes": "The bubbles from this wand capture healing energy and ancient oceanic magic. Increases Intelligence by <%= int %>. Limited Edition 2019 Summer Gear.",
     "weaponSpecialKS2019Notes": "Curved as a gryphon's beak and talons, this ornate polearm reminds you to power through when the task ahead feels daunting. Increases Strength by <%= str %>.",
-    "weaponSpecialKS2019Text": "Mythic Gryphon Glaive"
+    "weaponSpecialKS2019Text": "Mythic Gryphon Glaive",
+    "bodyMystery202002Notes": "For when your heart is warm but the breezes of February are brisk. Confers no benefit. February 2020 Subscriber Item.",
+    "bodyMystery202002Text": "Stylish Sweetheart Scarf",
+    "armorSpecialBirthday2020Notes": "Happy Birthday, Habitica! Wear these Outrageous Party Robes to celebrate this wonderful day. Confers no benefit.",
+    "armorSpecialBirthday2020Text": "Outrageous Party Robes",
+    "weaponMystery202002Notes": "An accessory that lends you an air of mystery and romance. Sun protection is a bonus! Confers no benefit. February 2020 Subscriber Item.",
+    "weaponMystery202002Text": "Stylish Sweetheart Parasol",
+    "shieldArmoirePerfectMatchNotes": "Hot take: we think you look great. Increases Perception by <%= per %>. Enchanted Armoire: Match Maker Set (Item 4 of 4).",
+    "shieldArmoirePerfectMatchText": "The Perfect Match",
+    "headArmoireMatchMakersBeretNotes": "You'll look striking wearing this lovely hat! Increases Constitution by <%= con %>. Enchanted Armoire: Match Maker Set (Item 2 of 4).",
+    "headArmoireMatchMakersBeretText": "Match Maker's Beret",
+    "armorArmoireMatchMakersApronNotes": "This apron is for safety, but for humour's sake we can make light of it. Increases Constitution, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Match Maker Set (Item 1 of 4).",
+    "armorArmoireMatchMakersApronText": "Match Maker's Apron",
+    "weaponArmoireLivelyMatchNotes": "When you're holding this, you're sure to spark someone's interest! Increases Strength by <%= str %>. Enchanted Armoire: Match Maker Set (Item 3 of 4).",
+    "weaponArmoireLivelyMatchText": "A Lively Match"
 }
