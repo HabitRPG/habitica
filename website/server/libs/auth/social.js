@@ -38,7 +38,7 @@ const auth = new AppleAuth(JSON.stringify({
 async function _appleProfile (req) {
   let idToken = {};
   const code = req.body.code ? req.body.code : req.query.code;
-  const passedToken = req.body.id_token ? req.body.id_oken : req.query.id_token;
+  const passedToken = req.body.id_token ? req.body.id_token : req.query.id_token;
   if (code) {
     const response = await auth.accessToken(code);
     idToken = jwt.decode(response.id_token);
