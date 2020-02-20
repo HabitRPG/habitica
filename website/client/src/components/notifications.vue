@@ -368,7 +368,7 @@ export default {
       'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
       'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
       'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT_TICKLED_PINK', 'ACHIEVEMENT_ROSY_OUTLOOK', 'ACHIEVEMENT',
-      'ONBOARDING_COMPLETE', 'FIRST_DROPS'
+      'ONBOARDING_COMPLETE', 'FIRST_DROPS',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -733,8 +733,8 @@ export default {
         switch (notification.type) { // eslint-disable-line default-case
           case 'FIRST_DROPS':
             if (notification.data) {
-              this.$store.state.firstDropsOptions.egg = notification.data.eggDrop,
-              this.$store.state.firstDropsOptions.potion = notification.data.potionDrop,
+              this.$store.state.firstDropsOptions.egg = notification.data.eggDrop;
+              this.$store.state.firstDropsOptions.potion = notification.data.potionDrop;
               this.$root.$emit('bv::show::modal', 'first-drops');
             }
             break;
