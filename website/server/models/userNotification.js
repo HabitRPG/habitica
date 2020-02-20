@@ -22,6 +22,7 @@ const NOTIFICATION_TYPES = [
   'GROUP_INVITE_ACCEPTED',
   'SCORED_TASK',
   'BOSS_DAMAGE', // Not used currently but kept to avoid validation errors
+  'GIFT_ONE_GET_ONE',
   'GUILD_PROMPT',
   'GUILD_JOINED_ACHIEVEMENT',
   'CHALLENGE_JOINED_ACHIEVEMENT',
@@ -50,6 +51,8 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_UNDEAD_UNDERTAKER',
   'ACHIEVEMENT_PRIMED_FOR_PAINTING',
   'ACHIEVEMENT_PEARLY_PRO',
+  'ACHIEVEMENT_TICKLED_PINK',
+  'ACHIEVEMENT_ROSY_OUTLOOK',
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
 ];
 
