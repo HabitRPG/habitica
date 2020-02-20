@@ -6,12 +6,12 @@ import shared from '../../common';
 export const localePath = path.join(__dirname, '../../common/locales/');
 
 // Store translations
-export let translations = {};
+export const translations = {};
 // Store MomentJS localization files
-export let momentLangs = {};
+export const momentLangs = {};
 
-// Handle differencies in language codes between MomentJS and /locales
-let momentLangsMapping = {
+// Handle differences in language codes between MomentJS and /locales
+const momentLangsMapping = {
   en: 'en-gb',
   en_GB: 'en-gb', // eslint-disable-line camelcase
   no: 'nn',
@@ -21,16 +21,47 @@ let momentLangsMapping = {
   pt_BR: 'pt-br', // eslint-disable-line camelcase
 };
 
+export const approvedLanguages = [
+  'bg',
+  'cs',
+  'da',
+  'de',
+  'en',
+  'en_GB',
+  'en@pirate',
+  'es',
+  'es_419',
+  'fr',
+  'he',
+  'hu',
+  'id',
+  'it',
+  'ja',
+  'nl',
+  'pl',
+  'pt',
+  'pt_BR',
+  'ro',
+  'ru',
+  'sk',
+  'sr',
+  'sv',
+  'tr',
+  'uk',
+  'zh',
+  'zh_TW',
+];
+
 function _loadTranslations (locale) {
-  let files = fs.readdirSync(path.join(localePath, locale));
+  const files = fs.readdirSync(path.join(localePath, locale));
 
   translations[locale] = {};
 
-  files.forEach((file) => {
+  files.forEach(file => {
     if (path.extname(file) !== '.json') return;
 
     // We use require to load and parse a JSON file
-    _.merge(translations[locale], require(path.join(localePath, locale, file))); // eslint-disable-line global-require
+    _.merge(translations[locale], require(path.join(localePath, locale, file))); // eslint-disable-line global-require, import/no-dynamic-require, max-len
   });
 }
 
@@ -38,7 +69,7 @@ function _loadTranslations (locale) {
 _loadTranslations('en');
 
 // Then load all other languages
-fs.readdirSync(localePath).forEach((file) => {
+approvedLanguages.forEach(file => {
   if (file === 'en' || fs.statSync(path.join(localePath, file)).isDirectory() === false) return;
   _loadTranslations(file);
 
@@ -49,24 +80,23 @@ fs.readdirSync(localePath).forEach((file) => {
 // Add translations to shared
 shared.i18n.translations = translations;
 
-export let langCodes = Object.keys(translations);
+export const langCodes = Object.keys(translations);
 
-export let availableLanguages = langCodes.map((langCode) => {
-  return {
-    code: langCode,
-    name: translations[langCode].languageName,
-  };
-});
+export const availableLanguages = langCodes.map(langCode => ({
+  code: langCode,
+  name: translations[langCode].languageName,
+}));
 
-langCodes.forEach((code) => {
-  let lang = _.find(availableLanguages, {code});
+langCodes.forEach(code => {
+  const lang = _.find(availableLanguages, { code });
 
   lang.momentLangCode = momentLangsMapping[code] || code;
 
   try {
-    // MomentJS lang files are JS files that has to be executed in the browser so we load them as plain text files
+    // MomentJS lang files are JS files that has to be executed
+    // in the browser so we load them as plain text files
     // We wrap everything in a try catch because the file might not exist
-    let f = fs.readFileSync(path.join(__dirname, `/../../../node_modules/moment/locale/${lang.momentLangCode}.js`), 'utf8');
+    const f = fs.readFileSync(path.join(__dirname, `/../../../node_modules/moment/locale/${lang.momentLangCode}.js`), 'utf8');
 
     momentLangs[code] = f;
   } catch (e) { // eslint-disable-lint no-empty
@@ -75,11 +105,12 @@ langCodes.forEach((code) => {
 });
 
 // Remove en_GB from langCodes checked by browser to avoid it being
-// used in place of plain original 'en' (it's an optional language that can be enabled only in setting)
-export let defaultLangCodes = _.without(langCodes, 'en_GB');
+// used in place of plain original 'en'
+// (it's an optional language that can be enabled only in setting)
+export const defaultLangCodes = _.without(langCodes, 'en_GB');
 
 // A map of languages that have different versions and the relative versions
-export let multipleVersionsLanguages = {
+export const multipleVersionsLanguages = {
   es: {
     'es-419': 'es_419',
     'es-mx': 'es_419',

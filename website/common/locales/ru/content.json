@@ -197,7 +197,7 @@
     "hatchingPotionPeppermint": "Мятный",
     "hatchingPotionFloral": "Цветочный",
     "hatchingPotionAquatic": "Водный",
-    "hatchingPotionEmber": "Янтарный",
+    "hatchingPotionEmber": "Тлеющий",
     "hatchingPotionThunderstorm": "Грозовой",
     "hatchingPotionGhost": "Призрачный",
     "hatchingPotionRoyalPurple": "Королевский пурпурный",
@@ -212,7 +212,7 @@
     "hatchingPotionFrost": "Морозный",
     "hatchingPotionIcySnow": "Ледяной",
     "hatchingPotionNotes": "Полейте его на яйцо и из него вылупится <%= potText(locale) %> питомец.",
-    "premiumPotionAddlNotes": "Несовместим с яйцами квестовых питомцев.",
+    "premiumPotionAddlNotes": "Несовместим с яйцами квестовых питомцев. Доступен для покупки до <%= date(locale) %>.",
     "foodMeat": "Мясо",
     "foodMeatThe": "Мясная пища",
     "foodMeatA": "Мясо",
@@ -346,5 +346,13 @@
     "hatchingPotionSunshine": "Солнечный",
     "hatchingPotionBronze": "Бронзовый",
     "hatchingPotionWatery": "Водяной",
-    "hatchingPotionSilver": "Серебряный"
+    "hatchingPotionSilver": "Серебряный",
+    "questEggRobotAdjective": "футуристический",
+    "questEggRobotMountText": "Робот",
+    "questEggRobotText": "Робот",
+    "hatchingPotionShadow": "Теневой",
+    "premiumPotionUnlimitedNotes": "Нельзя применить на квестовых яйцах питомцев.",
+    "hatchingPotionAmber": "Янтарный",
+    "hatchingPotionAurora": "Полярно-сияющий",
+    "hatchingPotionRuby": "Рубиновый"
 }

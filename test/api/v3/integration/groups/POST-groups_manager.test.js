@@ -5,14 +5,15 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /group/:groupId/add-manager', () => {
-  let leader, nonLeader, groupToUpdate;
-  let groupName = 'Test Public Guild';
-  let groupType = 'guild';
+  let leader; let nonLeader; let
+    groupToUpdate;
+  const groupName = 'Test Public Guild';
+  const groupType = 'guild';
   let nonMember;
 
   context('Guilds', () => {
     beforeEach(async () => {
-      let { group, groupLeader, members } = await createAndPopulateGroup({
+      const { group, groupLeader, members } = await createAndPopulateGroup({
         groupDetails: {
           name: groupName,
           type: groupType,
@@ -23,7 +24,7 @@ describe('POST /group/:groupId/add-manager', () => {
 
       groupToUpdate = group;
       leader = groupLeader;
-      nonLeader = members[0];
+      nonLeader = members[0]; // eslint-disable-line prefer-destructuring
       nonMember = await generateUser();
     });
 
@@ -48,7 +49,7 @@ describe('POST /group/:groupId/add-manager', () => {
     });
 
     it('allows a leader to add managers', async () => {
-      let updatedGroup = await leader.post(`/groups/${groupToUpdate._id}/add-manager`, {
+      const updatedGroup = await leader.post(`/groups/${groupToUpdate._id}/add-manager`, {
         managerId: nonLeader._id,
       });
 
@@ -57,10 +58,11 @@ describe('POST /group/:groupId/add-manager', () => {
   });
 
   context('Party', () => {
-    let party, partyLeader, partyNonLeader;
+    let party; let partyLeader; let
+      partyNonLeader;
 
     beforeEach(async () => {
-      let { group, groupLeader, members } = await createAndPopulateGroup({
+      const { group, groupLeader, members } = await createAndPopulateGroup({
         groupDetails: {
           name: groupName,
           type: 'party',
@@ -71,11 +73,11 @@ describe('POST /group/:groupId/add-manager', () => {
 
       party = group;
       partyLeader = groupLeader;
-      partyNonLeader = members[0];
+      partyNonLeader = members[0]; // eslint-disable-line prefer-destructuring
     });
 
     it('allows leader of party to add managers', async () => {
-      let updatedGroup = await partyLeader.post(`/groups/${party._id}/add-manager`, {
+      const updatedGroup = await partyLeader.post(`/groups/${party._id}/add-manager`, {
         managerId: partyNonLeader._id,
       });
 

@@ -1,0 +1,11 @@
+{
+    "achievement": "Prestasjon",
+    "share": "Del",
+    "onwards": "Videre!",
+    "levelup": "Ved å fullføre dine mål i det virkelige liv gikk du opp i nivå og har nå full helse!",
+    "reachedLevel": "Du har nådd nivå <%= level %>",
+    "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
+    "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
+    "achievementJustAddWater": "Bare tilsett vann",
+    "achievementMindOverMatterText": "Har gjennomført dyreoppdragene Stein, Slim og Garn."
+}

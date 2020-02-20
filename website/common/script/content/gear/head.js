@@ -1,15 +1,15 @@
-import {head as baseHead} from './sets/base';
+import { head as baseHead } from './sets/base';
 
-import {head as healerHead} from './sets/healer';
-import {head as rogueHead} from './sets/rogue';
-import {head as warriorHead} from './sets/warrior';
-import {head as wizardHead} from './sets/wizard';
+import { head as healerHead } from './sets/healer';
+import { head as rogueHead } from './sets/rogue';
+import { head as warriorHead } from './sets/warrior';
+import { head as wizardHead } from './sets/wizard';
 
-import {head as armoireHead} from './sets/armoire';
-import {head as mysteryHead} from './sets/mystery';
-import {head as specialHead} from './sets/special';
+import { head as armoireHead } from './sets/armoire';
+import { head as mysteryHead } from './sets/mystery';
+import { head as specialHead } from './sets/special';
 
-let head = {
+const head = {
   base: baseHead,
 
   warrior: warriorHead,
@@ -22,4 +22,4 @@ let head = {
   armoire: armoireHead,
 };
 
-module.exports = head;
+export default head;

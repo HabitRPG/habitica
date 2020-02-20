@@ -1,13 +1,15 @@
 import mongoose from 'mongoose';
-import baseModel from '../libs/baseModel';
 import validator from 'validator';
+import baseModel from '../libs/baseModel';
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-export let schema = new Schema({
-  _id: {$type: String, required: true}, // Use a custom string as _id
-  consumed: {$type: Boolean, default: false, required: true},
-  userId: {$type: String, ref: 'User', required: true, validate: [v => validator.isUUID(v), 'Invalid uuid.']},
+export const schema = new Schema({
+  _id: { $type: String, required: true }, // Use a custom string as _id
+  consumed: { $type: Boolean, default: false, required: true },
+  userId: {
+    $type: String, ref: 'User', required: true, validate: [v => validator.isUUID(v), 'Invalid uuid for iapPurchaseReceipt.'],
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
@@ -20,4 +22,4 @@ schema.plugin(baseModel, {
   _id: false, // using custom _id
 });
 
-export let model = mongoose.model('IapPurchaseReceipt', schema);
+export const model = mongoose.model('IapPurchaseReceipt', schema);

@@ -20,8 +20,8 @@
     "welcomeToTavern": "キャンプ場へようこそ！",
     "sleepDescription": "休息が必要ですか？　ダニエルのロッジにチェックインして、Habiticaにおける手ごわいゲーム要素を停止させましょう。",
     "sleepBullet1": "やり逃した日課によるダメージを受けません",
-    "sleepBullet2": "タスクの連続実行回数は失われず、タスクの色も変化しません",
-    "sleepBullet3": "ボスはあなたの逃した日課によるダメージを発生させません",
+    "sleepBullet2": "タスクの連続実行回数は失われません",
+    "sleepBullet3": "ボスはあなた自身が逃した日課によるダメージを与えません",
     "sleepBullet4": "あなたがボスに与えたダメージと、アイテム集めのクエストアイテムは、チェックアウトするまで保留されます",
     "pauseDailies": "日課を休む",
     "unpauseDailies": "日課を休むのをやめる",
@@ -43,7 +43,7 @@
     "displayPotionForGold": "<strong><%= itemType %>薬</strong>を売りますか?",
     "sellForGold": "<%= gold %> ゴールドで売る",
     "howManyToSell": "いくつ売ってくれますか？",
-    "yourBalance": "あなたの残高",
+    "yourBalance": "あなたの残高：",
     "sell": "売る",
     "buyNow": "今すぐ買う",
     "sortByNumber": "数",
@@ -91,7 +91,7 @@
     "unlocked": "アイテムがアンロックされました",
     "alreadyUnlocked": "全てのセットがすでにアンロックされています。",
     "alreadyUnlockedPart": "全てのセットのうち一部がすでにアンロックされています。",
-    "invalidQuantity": "購入する個数を数字で入れてください。",
+    "invalidQuantity": "購入する個数は正の整数で入力してください。",
     "USD": "(米ドル)",
     "newStuff": "Baileyの新着情報",
     "newBaileyUpdate": "Baileyから新しいお知らせがあります！",
@@ -168,5 +168,7 @@
     "welcome5": "それではアバターをカスタマイズしてタスクを設定しましょう…",
     "imReady": "Habitica をはじめる",
     "limitedOffer": "<%= date %>まで購入可能",
-    "paymentAutoRenew": "この寄付会員はキャンセルするまで自動更新されます。もしこの寄付会員をキャンセルする必要があるときは、設定からキャンセルできます。"
+    "paymentAutoRenew": "この寄付会員はキャンセルするまで自動更新されます。もしこの寄付会員をキャンセルする必要があるときは、設定からキャンセルできます。",
+    "paymentCanceledDisputes": "キャンセルの承認のメールをあなたに送りました。もしそのメールが見つからない場合は、今後の請求についての論争を防ぐために、私たちにご連絡をお願いいたします。",
+    "cannotUnpinItem": "このアイテムはピン留めを外せません。"
 }

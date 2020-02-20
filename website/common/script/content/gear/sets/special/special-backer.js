@@ -1,16 +1,14 @@
 import { ownsItem } from '../../gear-helper';
 import t from '../../../translation';
 
-let isBackerOfLevel = (tierRequirement, ownedItem) => {
-  return (user) => {
-    let backer = user.backer;
-    let tier = Number(backer && backer.tier);
+const isBackerOfLevel = (tierRequirement, ownedItem) => user => {
+  const { backer } = user;
+  const tier = Number(backer && backer.tier);
 
-    return tier >= tierRequirement || ownsItem(ownedItem)(user);
-  };
+  return tier >= tierRequirement || ownsItem(ownedItem)(user);
 };
 
-let armorSpecial0 = {
+const armorSpecial0 = {
   text: t('armorSpecial0Text'),
   notes: t('armorSpecial0Notes', { con: 20 }),
   con: 20,
@@ -18,7 +16,7 @@ let armorSpecial0 = {
   canOwn: isBackerOfLevel(45, 'armor_special_0'),
 };
 
-let armorSpecial2 = {
+const armorSpecial2 = {
   text: t('armorSpecial2Text'),
   notes: t('armorSpecial2Notes', { attrs: 25 }),
   int: 25,
@@ -27,7 +25,7 @@ let armorSpecial2 = {
   canOwn: isBackerOfLevel(300, 'armor_special_2'),
 };
 
-let headSpecial0 = {
+const headSpecial0 = {
   text: t('headSpecial0Text'),
   notes: t('headSpecial0Notes', { int: 20 }),
   int: 20,
@@ -35,7 +33,7 @@ let headSpecial0 = {
   canOwn: isBackerOfLevel(45, 'head_special_0'),
 };
 
-let headSpecial2 = {
+const headSpecial2 = {
   text: t('headSpecial2Text'),
   notes: t('headSpecial2Notes', { attrs: 25 }),
   int: 25,
@@ -44,7 +42,7 @@ let headSpecial2 = {
   canOwn: isBackerOfLevel(300, 'head_special_2'),
 };
 
-let shieldSpecial0 = {
+const shieldSpecial0 = {
   text: t('shieldSpecial0Text'),
   notes: t('shieldSpecial0Notes', { per: 20 }),
   per: 20,
@@ -52,7 +50,7 @@ let shieldSpecial0 = {
   canOwn: isBackerOfLevel(45, 'shield_special_0'),
 };
 
-let weaponSpecial0 = {
+const weaponSpecial0 = {
   text: t('weaponSpecial0Text'),
   notes: t('weaponSpecial0Notes', { str: 20 }),
   str: 20,
@@ -60,7 +58,7 @@ let weaponSpecial0 = {
   canOwn: isBackerOfLevel(70, 'weapon_special_0'),
 };
 
-let weaponSpecial2 = {
+const weaponSpecial2 = {
   text: t('weaponSpecial2Text'),
   notes: t('weaponSpecial2Notes', { attrs: 25 }),
   str: 25,
@@ -69,7 +67,7 @@ let weaponSpecial2 = {
   canOwn: isBackerOfLevel(300, 'weapon_special_2'),
 };
 
-let weaponSpecial3 = {
+const weaponSpecial3 = {
   text: t('weaponSpecial3Text'),
   notes: t('weaponSpecial3Notes', { attrs: 17 }),
   str: 17,
@@ -79,7 +77,7 @@ let weaponSpecial3 = {
   canOwn: isBackerOfLevel(300, 'weapon_special_3'),
 };
 
-let backerSet = {
+export {
   armorSpecial0,
   armorSpecial2,
   headSpecial0,
@@ -89,5 +87,3 @@ let backerSet = {
   weaponSpecial2,
   weaponSpecial3,
 };
-
-module.exports = backerSet;

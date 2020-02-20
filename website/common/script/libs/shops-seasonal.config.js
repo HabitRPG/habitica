@@ -1,11 +1,11 @@
 // import { SEASONAL_SETS } from '../content/constants';
 
-module.exports = {
+export default {
   opened: false,
 
   currentSeason: 'Closed',
 
-  dateRange: { start: '2018-09-20', end: '2018-10-31' },
+  dateRange: { start: '2019-09-24', end: '2019-10-31' },
 
   availableSets: [
   ],
@@ -19,5 +19,5 @@ module.exports = {
   availableQuests: [
   ],
 
-  featuredSet: 'mummyMedicSet',
+  featuredSet: 'fall2018AlterEgoSet',
 };

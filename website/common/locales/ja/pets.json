@@ -34,7 +34,7 @@
     "invisibleAether": "不可視のエーテル獣",
     "rarePetPop1": "金色の足跡をクリックすると、Habitica への貢献で、この貴重なペットを入手する詳しい方法がわかります!",
     "rarePetPop2": "このペットを手に入れる方法!",
-    "potion": "<%= potionType %> ポーション",
+    "potion": "<%= potionType %> 薬",
     "egg": "<%= eggType %>のたまご",
     "eggs": "たまご",
     "eggSingular": "たまご",
@@ -70,7 +70,7 @@
     "triadBingoName": "ペット完全制覇",
     "triadBingoText": "ペット90種すべてと乗騎90種すべてを発見し、そしてもう一度90匹すべてのペットを発見しました(どうやってやったの!)",
     "triadBingoText2": " そして、動物小屋全体を計 <%= count %> 回解放しました",
-    "triadBingoAchievement": "すべてのペットを発見し、すべての乗騎を飼いならし、さらに再びすべてのペットを発見したので「ペット完全制覇」の実績を手に入れた!",
+    "triadBingoAchievement": "すべてのペットを発見して、すべての乗騎を飼いならしたため、あるいは再びすべてのペットを発見したため「ペット完全制覇」の実績を解除しました！",
     "dropsEnabled": "落とし物が手に入るようになった!",
     "itemDrop": "アイテムが落ちました!",
     "firstDrop": "落とし物のシステムがアンロックされました！ 今後タスクを達成すると、たまご、たまごがえしの薬、えさなどのアイテムを発見するちょっとしたチャンスがあります！ あなたはたった今、<strong><%= eggText %>のたまご</strong>を見つけました！ <%= eggNotes %>",
@@ -144,5 +144,6 @@
     "notEnoughMounts": "まだ十分な数の乗騎を集めていません",
     "notEnoughPetsMounts": "まだ十分な数のペットと乗騎を集めていません",
     "wackyPets": "へんてこなペット",
-    "filterByWacky": "へんてこ"
+    "filterByWacky": "へんてこ",
+    "gryphatrice": "グリファトリス"
 }

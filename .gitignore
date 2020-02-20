@@ -1,10 +1,5 @@
 .DS_Store
-website/client-old/gen
-website/client-old/common
-website/client-old/apidoc
 website/build
-website/client-old/js/habitrpg-shared.js*
-website/client-old/css/habitrpg-shared.css
 website/transpiled-babel/
 website/common/transpiled-babel/
 node_modules
@@ -15,8 +10,6 @@ apidoc_build
 config.json
 npm-debug.log*
 lib
-website/client-old/bower_components
-website/client-old/new-stuff.html
 newrelic_agent.log
 .bower-tmp
 .bower-registry
@@ -27,15 +20,13 @@ TODO
 *.log
 src/*/*.map
 src/*/*/*.map
-test/*.js
-test/*.map
-website/client-old/docs
 *.sublime-workspace
 coverage
 coverage.html
 common/dist/scripts/*
 dist
 dist-client
+website/client/dist
 test/client/unit/coverage
 test/client/e2e/reports
 test/client-old/spec/mocks/translations.js
@@ -46,3 +37,6 @@ yarn.lock
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# webstorm fake webpack for path intellisense
+webpack.webstorm.config

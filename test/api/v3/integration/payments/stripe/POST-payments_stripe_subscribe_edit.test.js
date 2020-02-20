@@ -6,8 +6,9 @@ import {
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 
 describe('payments - stripe - #subscribeEdit', () => {
-  let endpoint = '/stripe/subscribe/edit';
-  let user, group;
+  const endpoint = '/stripe/subscribe/edit';
+  let user; let
+    group;
 
   beforeEach(async () => {
     user = await generateUser();

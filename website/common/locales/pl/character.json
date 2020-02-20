@@ -104,7 +104,7 @@
     "allocatePerPop": "Dodaj punkt do Percepcji",
     "allocateInt": "Punkty przydzielone do Inteligencji:",
     "allocateIntPop": "Dodaj punkt do Inteligencji",
-    "noMoreAllocate": "Teraz, gdy osiągnąłeś poziom 100, nie będziesz już zyskiwać punktów statystyk. Możesz dalej podnosić poziom lub zacząć nową przygodę od poziomu 1 używając <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Kuli Odrodzenia</a>, dostępnej teraz za darmo na Targu.",
+    "noMoreAllocate": "Teraz, gdy osiągnąłeś poziom 100, nie będziesz już zyskiwać punktów statystyk. Możesz dalej podnosić poziom lub zacząć nową przygodę od poziomu 1 używając <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Kuli Odrodzenia</a>!",
     "stats": "Statystyki",
     "achievs": "Osiągnięcia",
     "strength": "Siła",
@@ -156,7 +156,7 @@
     "optOutOfClasses": "Nie teraz",
     "optOutOfPMs": "Nie teraz",
     "chooseClass": "Wybierz swoją klasę",
-    "chooseClassLearnMarkdown": "[Dowiedz się więcej na temat systemu klas](http://habitica.fandom.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Dowiedz się więcej na temat systemu klas](https://habitica.fandom.com/pl/wiki/System_klas)",
     "optOutOfClassesText": "Nie interesują Cię klasy? Chcesz wybrać później? Zrezygnuj z wyboru – będziesz wojownikiem bez umiejętności specjalnych. Później możesz poczytać o systemie klasowym w wiki i w dowolnym momencie włączyć klasy w Użytkownik > Statystyki.",
     "selectClass": "Wybierz <%= heroClass %>",
     "select": "Wybierz",
@@ -168,7 +168,7 @@
     "youDied": "Zginąłeś!",
     "dieText": "Straciłeś jeden Poziom, losowo wybrany przedmiot z Ekwipunku oraz całe Złoto. A teraz powstań, dzielny Habitaninie, i jeszcze raz spróbuj sił w walce! Okiełznaj złe Nawyki, czujnie dopełniaj Codzienne, a jeśli zasłabniesz, wymknij się śmierci zażywając Eliksiru Zdrowia!",
     "sureReset": "Na pewno? Ta opcja zresetuje klasę twojej postaci oraz przydzielone punkty (dostaniesz je z powrotem do ponownego rozdzielenia) oraz kosztuje 3 Klejnoty.",
-    "purchaseFor": "Kupić za <%= cost %> klejnoty?",
+    "purchaseFor": "Kupić za <%= cost %> klejnot(y)(ów)?",
     "purchaseForHourglasses": "Kupić za <%= cost %> Mistycznych Klepsydr?",
     "notEnoughMana": "Masz za mało many.",
     "invalidTarget": "Nie możesz rzucić na to zaklęcia.",
@@ -224,5 +224,9 @@
     "mainHand": "Główna ręka",
     "offHand": "Druga ręka",
     "statPoints": "Punkty Statystyk",
-    "pts": "pkt"
+    "pts": "pkt",
+    "chatCastSpellUser": "<%= username %> rzuca zaklęcie <%= spell %> na <%= target %>.",
+    "chatCastSpellParty": "<%= username %> rzuca zaklęcie <%= spell %> dla drużyny.",
+    "purchasePetItemConfirm": "Ten zakup przekroczyłby liczbę przedmiotów potrzebnych do wyklucia wszystkich możliwych <%= itemText %> chowańców. Czy nadal chcesz kupić?",
+    "purchaseForGold": "Kupić za <%= cost %> szt. złota?"
 }

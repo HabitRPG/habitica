@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "آپکِی صَحَت خَتَم ہو چُکِی ہَے!",
+    "dontDespair": "مَایُوس مَت ہو!",
+    "deathPenaltyDetails": "You lost a Level, your Gold, and a piece of Equipment, but you can get them all back with hard work! Good luck--you'll do great.",
+    "refillHealthTryAgain": "Refill Health & Try Again",
+    "dyingOftenTips": "Is this happening often? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Here are some tips!</a>",
+    "losingHealthWarning": "خَبَردَار - آپکِی صَحَت کَم ہو رَہی ہَے!",
+    "losingHealthWarning2": "Don't let your Health drop to zero! If you do, you'll lose a level, your Gold, and a piece of equipment.",
+    "toRegainHealth": "To regain Health:",
+    "lowHealthTips1": "پُوری تَرَہہ سے تَندرُست ہونے کے لئے دَرجَہ بَدَھائے!",
+    "lowHealthTips2": "Buy a Health Potion from the Rewards column to restore 15 Health Points.",
+    "losingHealthQuickly": "صَحَت جَلدِی جَلدِی کھو رَہے ہو؟",
+    "lowHealthTips3": "Incomplete Dailies hurt you overnight, so be careful not to add too many at first!",
+    "lowHealthTips4": "If a Daily isn't due on a certain day, you can disable it by clicking the pencil icon.",
+    "goodLuck": "خُش نَصِيب ہو!",
+    "cannotRevive": "Cannot revive if not dead"
+}

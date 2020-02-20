@@ -3,13 +3,15 @@ import paypalPayments from '../../../../../../website/server/libs/payments/paypa
 import payments from '../../../../../../website/server/libs/payments/payments';
 import {
   generateGroup,
-} from '../../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 
 describe('ipn', () => {
   const subKey = 'basic_3mo';
-  let user, group, txn_type, userPaymentId, groupPaymentId;
-  let ipnVerifyAsyncStub, paymentCancelSubscriptionSpy;
+  let user; let group; let txn_type; let userPaymentId; let
+    groupPaymentId;
+  let ipnVerifyAsyncStub; let
+    paymentCancelSubscriptionSpy;
 
   beforeEach(async () => {
     txn_type = 'recurring_payment_profile_cancel';
@@ -38,16 +40,16 @@ describe('ipn', () => {
     paymentCancelSubscriptionSpy = sinon.stub(payments, 'cancelSubscription').resolves({});
   });
 
-  afterEach(function () {
+  afterEach(() => {
     paypalPayments.ipnVerifyAsync.restore();
     payments.cancelSubscription.restore();
   });
 
   it('should cancel a user subscription', async () => {
-    await paypalPayments.ipn({txn_type, recurring_payment_id: userPaymentId});
+    await paypalPayments.ipn({ txn_type, recurring_payment_id: userPaymentId });
 
     expect(ipnVerifyAsyncStub).to.be.calledOnce;
-    expect(ipnVerifyAsyncStub).to.be.calledWith({txn_type, recurring_payment_id: userPaymentId});
+    expect(ipnVerifyAsyncStub).to.be.calledWith({ txn_type, recurring_payment_id: userPaymentId });
 
     expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
     expect(paymentCancelSubscriptionSpy.args[0][0].user._id).to.eql(user._id);
@@ -55,10 +57,10 @@ describe('ipn', () => {
   });
 
   it('should cancel a group subscription', async () => {
-    await paypalPayments.ipn({txn_type, recurring_payment_id: groupPaymentId});
+    await paypalPayments.ipn({ txn_type, recurring_payment_id: groupPaymentId });
 
     expect(ipnVerifyAsyncStub).to.be.calledOnce;
-    expect(ipnVerifyAsyncStub).to.be.calledWith({txn_type, recurring_payment_id: groupPaymentId});
+    expect(ipnVerifyAsyncStub).to.be.calledWith({ txn_type, recurring_payment_id: groupPaymentId });
 
     expect(paymentCancelSubscriptionSpy).to.be.calledOnce;
     expect(paymentCancelSubscriptionSpy).to.be.calledWith({ groupId: group._id, paymentMethod: 'Paypal' });

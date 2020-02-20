@@ -61,7 +61,7 @@
     "newGroupTitle": "Nowa Grupa",
     "subscriberItem": "Tajemniczy przedmiot",
     "newSubscriberItem": "Masz nowy <span class=\"notification-bold-blue\">Tajemniczy Przedmiot</span>",
-    "subscriberItemText": "W każdym miesiącu  abonenci otrzymają tajemniczy przedmiot. Zazwyczaj jest on wydawany około tygodnia przed końcem miesiąca. Aby uzyskać więcej informacji, zobacz stronę \"Mystery Item\" w wiki.",
+    "subscriberItemText": "W każdym miesiącu  abonenci otrzymają tajemniczy przedmiot. Staje się on dostępny na początku miesiąca. Aby uzyskać więcej informacji, zobacz stronę \"Mystery Item\" na wiki.",
     "all": "Wszystkie",
     "none": "Żadne",
     "more": "<%= count %> więcej",
@@ -293,5 +293,8 @@
     "contactForm": "Skontaktuj się z Drużyną Moderatorów",
     "options": "Opcje",
     "loadEarlierMessages": "Wczytaj Wcześniejsze Wiadomości",
-    "demo": "Demo"
+    "demo": "Demo",
+    "finish": "Zakończ",
+    "congratulations": "Gratulacje!",
+    "onboardingAchievs": "Osiągnięcia rozwojowe"
 }

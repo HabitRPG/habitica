@@ -2,7 +2,7 @@ import forOwn from 'lodash/forOwn';
 import t from '../translation';
 
 /* eslint-disable camelcase */
-let backgrounds = {
+const backgrounds = {
   backgrounds062014: {
     beach: {
       text: t('backgroundBeachText'),
@@ -899,6 +899,96 @@ let backgrounds = {
       notes: t('backgroundInAClassroomNotes'),
     },
   },
+  backgrounds102019: {
+    foggy_moor: {
+      text: t('backgroundFoggyMoorText'),
+      notes: t('backgroundFoggyMoorNotes'),
+    },
+    monster_makers_workshop: {
+      text: t('backgroundMonsterMakersWorkshopText'),
+      notes: t('backgroundMonsterMakersWorkshopNotes'),
+    },
+    pumpkin_carriage: {
+      text: t('backgroundPumpkinCarriageText'),
+      notes: t('backgroundPumpkinCarriageNotes'),
+    },
+  },
+  backgrounds112019: {
+    farmers_market: {
+      text: t('backgroundFarmersMarketText'),
+      notes: t('backgroundFarmersMarketNotes'),
+    },
+    flying_in_a_thunderstorm: {
+      text: t('backgroundFlyingInAThunderstormText'),
+      notes: t('backgroundFlyingInAThunderstormNotes'),
+    },
+    potion_shop: {
+      text: t('backgroundPotionShopText'),
+      notes: t('backgroundPotionShopNotes'),
+    },
+  },
+  backgrounds122019: {
+    holiday_market: {
+      text: t('backgroundHolidayMarketText'),
+      notes: t('backgroundHolidayMarketNotes'),
+    },
+    holiday_wreath: {
+      text: t('backgroundHolidayWreathText'),
+      notes: t('backgroundHolidayWreathNotes'),
+    },
+    winter_nocturne: {
+      text: t('backgroundWinterNocturneText'),
+      notes: t('backgroundWinterNocturneNotes'),
+    },
+  },
+  backgrounds012020: {
+    birthday_party: {
+      text: t('backgroundBirthdayPartyText'),
+      notes: t('backgroundBirthdayPartyNotes'),
+    },
+    desert_with_snow: {
+      text: t('backgroundDesertWithSnowText'),
+      notes: t('backgroundDesertWithSnowNotes'),
+    },
+    snowglobe: {
+      text: t('backgroundSnowglobeText'),
+      notes: t('backgroundSnowglobeNotes'),
+    },
+  },
+  backgrounds022020: {
+    elegant_ballroom: {
+      text: t('backgroundElegantBallroomText'),
+      notes: t('backgroundElegantBallroomNotes'),
+    },
+    hall_of_heroes: {
+      text: t('backgroundHallOfHeroesText'),
+      notes: t('backgroundHallOfHeroesNotes'),
+    },
+    tea_party: {
+      text: t('backgroundTeaPartyText'),
+      notes: t('backgroundTeaPartyNotes'),
+    },
+  },
+  timeTravelBackgrounds: {
+    airship: {
+      text: t('backgroundAirshipText'),
+      notes: t('backgroundAirshipNotes'),
+      price: 1,
+      currency: 'hourglasses',
+    },
+    clocktower: {
+      text: t('backgroundClocktowerText'),
+      notes: t('backgroundClocktowerNotes'),
+      price: 1,
+      currency: 'hourglasses',
+    },
+    steamworks: {
+      text: t('backgroundSteamworksText'),
+      notes: t('backgroundSteamworksNotes'),
+      price: 1,
+      currency: 'hourglasses',
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
@@ -934,13 +1024,13 @@ let backgrounds = {
 };
 /* eslint-enable quote-props */
 
-let flat = {};
+const flat = {};
 
-forOwn(backgrounds, function prefillBackgroundSet (backgroundsInSet, set) {
-  forOwn(backgroundsInSet, function prefillBackground (background, bgKey) {
+forOwn(backgrounds, (backgroundsInSet, set) => {
+  forOwn(backgroundsInSet, (background, bgKey) => {
     background.key = bgKey;
     background.set = set;
-    background.price = 7;
+    background.price = background.price || 7;
 
     flat[bgKey] = background;
   });

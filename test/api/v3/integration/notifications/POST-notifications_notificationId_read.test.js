@@ -1,8 +1,8 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /notifications/:notificationId/read', () => {
   let user;
@@ -12,7 +12,7 @@ describe('POST /notifications/:notificationId/read', () => {
   });
 
   it('errors when notification is not found', async () => {
-    let dummyId = generateUUID();
+    const dummyId = generateUUID();
 
     await expect(user.post(`/notifications/${dummyId}/read`)).to.eventually.be.rejected.and.eql({
       code: 404,

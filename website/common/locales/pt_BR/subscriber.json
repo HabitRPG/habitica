@@ -8,7 +8,7 @@
     "mustSubscribeToPurchaseGems": "É necessário ser assinante para comprar gemas com Ouro.",
     "reachedGoldToGemCap": "Você atingiu o limite de<%= convCap %> para conversão de Ouro=>Gemas deste mês. Isto serve para prevenir abusos. O limite irá reiniciar dentro dos três primeiros dias do próximo mês.",
     "reachedGoldToGemCapQuantity": "Seu pedido de <%= quantity %> gemas ultrapassa o limite de conversão deste mês (<%= convCap %>). Queremos lhe ver sempre produtivo,  e que não farme as gemas em 1 mês. O limite é reiniciado nos primeiros 3 dias de cada mês.",
-    "retainHistory": "Guardar Itens adicionais no histórico",
+    "retainHistory": "Guardar entradas adicionais no histórico",
     "retainHistoryText": "Faz com que o histórico de tarefas e Afazeres completos fiquem disponíveis por mais tempo.",
     "doubleDrops": "Capacidade diária de drop duplicada",
     "doubleDropsText": "Complete seu estábulo mais rápido!",
@@ -224,5 +224,14 @@
     "mysterySet201906": "Conjunto do Koi Adorável",
     "mysterySet201907": "Conjunto Companheiro de Praia",
     "mysterySet201908": "Conjunto Fauno Descomprometido",
-    "subCanceledTitle": "Assinatura cancelada"
+    "subCanceledTitle": "Assinatura cancelada",
+    "mysterySet201909": "Conjunto de Bolota Afável",
+    "mysterySet201910": "Conjunto de Chamas Crípticas",
+    "mysterySet201911": "Conjunto de cristal encantado",
+    "mysterySet201912": "Conjunto do(a) Duende Polar",
+    "mysterySet202001": "Conjunto da Raposa Fabulosa",
+    "backgroundAlreadyOwned": "Cenário já obtido.",
+    "mysticHourglassNeededNoSub": "Este item requer uma Ampulheta Mística. Você poderá obter uma Ampulheta Mística ao tornar-se um(a) assinante.",
+    "viewSubscriptions": "Exibir assinaturas",
+    "mysterySet202002": "Conjunto de coração elegante"
 }

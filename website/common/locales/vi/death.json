@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Bạn đã mất hết Máu!",
+    "dontDespair": "Đừng tuyệt vọng!",
+    "deathPenaltyDetails": "Bạn bị rớt một cấp, mất tất cả vàng và một mảnh Trang bị, nhưng bạn có thể lấy lại tất cả bằng sự chăm chỉ! Chúc may mắn -- bạn sẽ làm được.",
+    "refillHealthTryAgain": "Hồi phục Máu & Thử lại",
+    "dyingOftenTips": "Việc này có xảy ra thường xuyên không? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'> Sau đây là một vài mẹo!</a>",
+    "losingHealthWarning": "Cẩn thận! - Bạn đang mất Máu!",
+    "losingHealthWarning2": "Đừng để Máu của bạn trở về số không! Nếu làm thế, bạn sẽ bị mất một cấp, tất cả vàng và một mảnh Trang bị.",
+    "toRegainHealth": "Để hồi lại Máu:",
+    "lowHealthTips1": "Lên cấp để hồi lại toàn bộ máu!",
+    "lowHealthTips2": "Mua Lọ thuốc hồi máu từ cột Phần Thưởng để hồi lại 15 Máu.",
+    "losingHealthQuickly": "Đang mất Máu nhanh chóng?",
+    "lowHealthTips3": "Những Công việc hằng ngày không được hoàn thành sẽ tổn thương bạn khi qua đêm, vì vậy hãy cẩn thận đừng thêm quá nhiều việc khi bạn mới bắt đầu!",
+    "lowHealthTips4": "Nếu một Công việc hằng ngày không kết thúc vào một ngày nhất định, bạn có thể vô hiệu hoá nó bằng cách nhấn vào biểu tượng bút chì.",
+    "goodLuck": "Chúc may mắn!",
+    "cannotRevive": "Không thể hồi sinh nếu chưa chết"
+}

@@ -1,9 +1,10 @@
 import { authWithHeaders } from '../../middlewares/auth';
 
-let api = {};
+const api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW DISCOUNTED PET QUEST BUNDLE: ROCKING REPTILES';
+// @TODO export this const, cannot export it from here because only routes are exported from
+// controllers
+const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -30,15 +31,23 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/10/2019 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/18/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_rocking_reptiles_bundle center-block"></div>
-        <p>If you're looking to add some scaly friends to your Habitica stable, you're in luck! From now until Sept 30, you can purchase the Rocking Reptiles Pet Quest Bundle and receive the Alligator, Snake, and Velociraptor quests, all for only 7 Gems! That's a discount of 5 Gems from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a> today!</p>
-        <div class="small">Art by Gully, Willow The Witty, mfonda, UncommonCriminal, tabbytoes, EmeraldOx, LordDarkly, PainterProphet, Seraphina, Anna Glassman, Procyon, and Lilith of Alfheim</div>
-        <div class="small mb-3">Writing by Mike.Antonacci, lilackbar, Daniel The Bard, and felipena</div>
-        <p>If snakes are something you'd prefer not to see in Habitica due to a phobia, check out the <a href='http://habitica.wikia.com/wiki/Phobia_Protection_Extension' target='_blank'>Phobia Protection Extension</a> which will hide any pets, mounts, backgrounds, quest bosses, or equipment featuring snakes (as well as spiders, rats, bees, zombies, skeletons, or any combination thereof). We hope that it helps make everyone's Habitica experience fun!</p>
+        <div class="promo_achievement_CottonCandyPink center-block"></div>
+        <p>
+          We're releasing a new achievement so you can celebrate your successes in the world of
+          Habitican pet collecting! Earn the Tickled Pink and Rosy Outlook achievements by
+          collecting Cotton Candy Pink pets and mounts and you'll earn a nifty badge for your
+          profile.
+        </p>
+        <p>
+          If you already have all the Cotton Candy Pink pets and/or mounts in your stable, you'll
+          receive the badge automatically! Check your profile and celebrate your new achievement
+          with pride in your pink prowess.
+        </p>
+        <div class="small mb-3">by Piyowo and SabreCat</div>
       </div>
       `,
     });
@@ -59,13 +68,11 @@ api.tellMeLaterNews = {
   middlewares: [authWithHeaders()],
   url: '/news/tell-me-later',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     user.flags.newStuff = false;
 
-    const existingNotificationIndex = user.notifications.findIndex(n => {
-      return n && n.type === 'NEW_STUFF';
-    });
+    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
     if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
     user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
 
@@ -74,4 +81,4 @@ api.tellMeLaterNews = {
   },
 };
 
-module.exports = api;
+export default api;

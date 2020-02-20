@@ -1,13 +1,11 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 function findMessage (messages, receiverId) {
-  let message = _.find(messages, (inboxMessage) => {
-    return inboxMessage.uuid === receiverId;
-  });
+  const message = _.find(messages, inboxMessage => inboxMessage.uuid === receiverId);
 
   return message;
 }
@@ -15,11 +13,11 @@ function findMessage (messages, receiverId) {
 describe('POST /members/transfer-gems', () => {
   let userToSendMessage;
   let receiver;
-  let message = 'Test Private Message';
-  let gemAmount = 20;
+  const message = 'Test Private Message';
+  const gemAmount = 20;
 
   beforeEach(async () => {
-    userToSendMessage = await generateUser({balance: 5});
+    userToSendMessage = await generateUser({ balance: 5 });
     receiver = await generateUser();
   });
 
@@ -68,7 +66,7 @@ describe('POST /members/transfer-gems', () => {
   });
 
   it('returns error when recipient has blocked the sender', async () => {
-    let receiverWhoBlocksUser = await generateUser({'inbox.blocks': [userToSendMessage._id]});
+    const receiverWhoBlocksUser = await generateUser({ 'inbox.blocks': [userToSendMessage._id] });
 
     await expect(userToSendMessage.post('/members/transfer-gems', {
       message,
@@ -82,7 +80,7 @@ describe('POST /members/transfer-gems', () => {
   });
 
   it('returns error when sender has blocked recipient', async () => {
-    let sender = await generateUser({'inbox.blocks': [receiver._id]});
+    const sender = await generateUser({ 'inbox.blocks': [receiver._id] });
 
     await expect(sender.post('/members/transfer-gems', {
       message,
@@ -91,12 +89,12 @@ describe('POST /members/transfer-gems', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('notAuthorizedToSendMessageToThisUser'),
+      message: t('blockedToSendToThisUser'),
     });
   });
 
   it('returns an error when chat privileges are revoked', async () => {
-    let userWithChatRevoked = await generateUser({'flags.chatRevoked': true});
+    const userWithChatRevoked = await generateUser({ 'flags.chatRevoked': true });
 
     await expect(userWithChatRevoked.post('/members/transfer-gems', {
       message,
@@ -110,7 +108,7 @@ describe('POST /members/transfer-gems', () => {
   });
 
   it('works when only the recipient\'s chat privileges are revoked', async () => {
-    let receiverWithChatRevoked = await generateUser({'flags.chatRevoked': true});
+    const receiverWithChatRevoked = await generateUser({ 'flags.chatRevoked': true });
 
     await expect(userToSendMessage.post('/members/transfer-gems', {
       message,
@@ -118,8 +116,8 @@ describe('POST /members/transfer-gems', () => {
       toUserId: receiverWithChatRevoked._id,
     })).to.eventually.be.fulfilled;
 
-    let updatedReceiver = await receiverWithChatRevoked.get('/user');
-    let updatedSender = await userToSendMessage.get('/user');
+    const updatedReceiver = await receiverWithChatRevoked.get('/user');
+    const updatedSender = await userToSendMessage.get('/user');
 
     expect(updatedReceiver.balance).to.equal(gemAmount / 4);
     expect(updatedSender.balance).to.equal(0);
@@ -179,18 +177,20 @@ describe('POST /members/transfer-gems', () => {
       toUserId: receiver._id,
     });
 
-    let updatedReceiver = await receiver.get('/user');
-    let updatedSender = await userToSendMessage.get('/user');
+    const updatedReceiver = await receiver.get('/user');
+    const updatedSender = await userToSendMessage.get('/user');
 
-    let sendersMessageInReceiversInbox = findMessage(updatedReceiver.inbox.messages, userToSendMessage._id);
-    let sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
+    const sendersMessageInReceiversInbox = findMessage(
+      updatedReceiver.inbox.messages, userToSendMessage._id,
+    );
+    const sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
     let messageSentContent = t('privateMessageGiftGemsMessage', {
       receiverName: receiver.profile.name,
       senderName: userToSendMessage.profile.name,
       gemAmount,
     });
-    messageSentContent =  `\`${messageSentContent}\` `;
+    messageSentContent = `\`${messageSentContent}\` `;
     messageSentContent += message;
 
     expect(sendersMessageInReceiversInbox).to.exist;
@@ -208,18 +208,20 @@ describe('POST /members/transfer-gems', () => {
       toUserId: receiver._id,
     });
 
-    let updatedReceiver = await receiver.get('/user');
-    let updatedSender = await userToSendMessage.get('/user');
+    const updatedReceiver = await receiver.get('/user');
+    const updatedSender = await userToSendMessage.get('/user');
 
-    let sendersMessageInReceiversInbox = findMessage(updatedReceiver.inbox.messages, userToSendMessage._id);
-    let sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
+    const sendersMessageInReceiversInbox = findMessage(
+      updatedReceiver.inbox.messages, userToSendMessage._id,
+    );
+    const sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
     let messageSentContent = t('privateMessageGiftGemsMessage', {
       receiverName: receiver.profile.name,
       senderName: userToSendMessage.profile.name,
       gemAmount,
     });
-    messageSentContent =  `\`${messageSentContent}\` `;
+    messageSentContent = `\`${messageSentContent}\` `;
 
     expect(sendersMessageInReceiversInbox).to.exist;
     expect(sendersMessageInReceiversInbox.text).to.equal(messageSentContent);
@@ -242,14 +244,16 @@ describe('POST /members/transfer-gems', () => {
       toUserId: receiver._id,
     });
 
-    let updatedReceiver = await receiver.get('/user');
-    let updatedSender = await userToSendMessage.get('/user');
+    const updatedReceiver = await receiver.get('/user');
+    const updatedSender = await userToSendMessage.get('/user');
 
-    let sendersMessageInReceiversInbox = findMessage(updatedReceiver.inbox.messages, userToSendMessage._id);
-    let sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
+    const sendersMessageInReceiversInbox = findMessage(
+      updatedReceiver.inbox.messages, userToSendMessage._id,
+    );
+    const sendersMessageInSendersInbox = findMessage(updatedSender.inbox.messages, receiver._id);
 
-    let [receieversMessageContent, sendersMessageContent] = ['es', 'cs'].map((lang) => {
-      let messageContent = t('privateMessageGiftGemsMessage', {
+    const [receieversMessageContent, sendersMessageContent] = ['es', 'cs'].map(lang => {
+      const messageContent = t('privateMessageGiftGemsMessage', {
         receiverName: receiver.profile.name,
         senderName: userToSendMessage.profile.name,
         gemAmount,

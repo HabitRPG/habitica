@@ -20,8 +20,8 @@
     "welcomeToTavern": "¡Bienvenido a la taberna!",
     "sleepDescription": "¿Necesitas un descanso? Pásate por la Posada de Daniel para ",
     "sleepBullet1": "Las Tareas Diarias incumplidas no te dañarán",
-    "sleepBullet2": "Las tareas diarias no pierden su racha ni cambia su color",
-    "sleepBullet3": "Los Jefes no te dañarán por tus Tareas Diarias incompletas",
+    "sleepBullet2": "Las tareas no perderán sus rachas",
+    "sleepBullet3": "Los Jefes no te dañarán por tus propias Tareas Diarias incompletas",
     "sleepBullet4": "El daño que hagas a tu jefe o los objetos de Misiones de recolección permanecerán pendientes hasta que termine el día.",
     "pauseDailies": "Pausar daño",
     "unpauseDailies": "Volver a sufrir daño",
@@ -91,10 +91,10 @@
     "unlocked": "Los objetos han sido desbloqueados",
     "alreadyUnlocked": "Conjunto completo ya desbloqueado.",
     "alreadyUnlockedPart": "Conjunto completo parcialmente desbloqueado.",
-    "invalidQuantity": "La cantidad a comprar tiene que ser un número.",
+    "invalidQuantity": "La cantidad a comprar debe ser un número entero positivo.",
     "USD": "(USD)",
     "newStuff": "Cosas Nuevas de Bailey",
-    "newBaileyUpdate": "¡Nueva Actualización de Bailey!",
+    "newBaileyUpdate": "¡Nuevas Novedades de Bailey!",
     "tellMeLater": "Dímelo más tarde",
     "dismissAlert": "Descartar este aviso",
     "donateText1": "Añade 20 Gemas a tu cuenta. Las Gemas se usan para comprar objetos especiales en el juego, como camisetas y peinados.",
@@ -168,5 +168,7 @@
     "welcome5": "Ahora podrás personalizar tu personaje y configurar tus tareas...",
     "imReady": "Entrar en Habitica",
     "limitedOffer": "Disponible hasta <%= date %>",
-    "paymentAutoRenew": "Esta suscripción se renovará automáticamente hasta que sea cancelada. Si necesitas cancelar está suscripción, puedes hacerlo desde tus Configuraciones."
+    "paymentAutoRenew": "Esta suscripción se renovará automáticamente hasta que sea cancelada. Si necesitas cancelar está suscripción, puedes hacerlo desde tus Configuraciones.",
+    "paymentCanceledDisputes": "Hemos enviado una confirmación de cancelación a tu correo electrónico. Si no ves el correo, por favor contáctanos para prevenir futuros problemas de facturación.",
+    "cannotUnpinItem": "Este objeto no puede desanclarse."
 }

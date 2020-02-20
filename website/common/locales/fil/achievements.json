@@ -1,0 +1,17 @@
+{
+    "achievement": "Mga Nakamit",
+    "share": "Ibahagi",
+    "onwards": "Sugod!",
+    "levelup": "Sa pamamagitan ng pagkamit ng iyong mga mithiin sa totoong buhay, naglevel up ka at gumaling nang tuluyan!",
+    "reachedLevel": "Nakamit Mo Ang Level <%= level %>",
+    "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
+    "achievementLostMasterclasserText": "Natapos mo ang labing-anim na quests sa Masterclasser Quest Series at nalutas ang misteryo ng Lost Masterclasser!",
+    "achievementMindOverMatter": "Isip Bago Damdamin",
+    "achievementLostMasterclasserModalText": "Natapos mo ang labing-anim na quests sa Masterclasser Quest Series at nalutas ang misteryo ng Lost Masterclasser!",
+    "onboardingCompleteDesc": "Nakatanggap ka ng <strong>5 achievements</strong> at <strong class=\"gold-amount\">100</strong> ginto para sa pagkumpleto ng listahan.",
+    "earnedAchievement": "Nakatanggap ka ng achievement!",
+    "viewAchievements": "Tignan ang Achievements",
+    "letsGetStarted": "Magsimula na tayo!",
+    "onboardingProgress": "<%= percentage %>% progress",
+    "gettingStartedDesc": "Lumikha ka ng gawain, tapusin mo ito, at tignan mo ang iyong gantimpala. Makakukuha ka ng <strong>5 achievements</strong> at <strong class=\"gold-amount\">100 ginti</strong> pagkatapos mo!"
+}

@@ -1,7 +1,7 @@
-import setupNconf from '../../../../website/server/libs/setupNconf';
 
 import path from 'path';
 import nconf from 'nconf';
+import setupNconf from '../../../../website/server/libs/setupNconf';
 
 describe('setupNconf', () => {
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('setupNconf', () => {
     expect(nconf.env).to.be.calledOnce;
     expect(nconf.file).to.be.calledOnce;
 
-    let regexString = `\\${path.sep}config.json$`;
+    const regexString = `\\${path.sep}config.json$`;
     expect(nconf.file).to.be.calledWithMatch('user', new RegExp(regexString));
   });
 

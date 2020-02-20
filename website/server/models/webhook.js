@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
+import { v4 as uuid } from 'uuid';
+import _ from 'lodash';
+import nconf from 'nconf';
 import baseModel from '../libs/baseModel';
 import shared from '../../common';
-import {v4 as uuid} from 'uuid';
-import _ from 'lodash';
 import { BadRequest } from '../libs/errors';
-import nconf from 'nconf';
 import apiError from '../libs/apiError';
 
 const IS_PRODUCTION = nconf.get('IS_PROD');
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const TASK_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
   created: false,
@@ -28,9 +28,10 @@ const USER_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
 const QUEST_ACTIVITY_DEFAULT_OPTIONS = Object.freeze({
   questStarted: false,
   questFinished: false,
+  questInvited: false,
 });
 
-export let schema = new Schema({
+export const schema = new Schema({
   id: {
     $type: String,
     required: true,
@@ -55,11 +56,9 @@ export let schema = new Schema({
   url: {
     $type: String,
     required: true,
-    validate: [(v) => {
-      return validator.isURL(v, {
-        require_tld: IS_PRODUCTION ? true : false, // eslint-disable-line camelcase
-      });
-    }, shared.i18n.t('invalidUrl')],
+    validate: [v => validator.isURL(v, {
+      require_tld: !!IS_PRODUCTION, // eslint-disable-line camelcase
+    }), shared.i18n.t('invalidUrl')],
   },
   enabled: { $type: Boolean, required: true, default: true },
   options: {
@@ -87,7 +86,7 @@ schema.methods.formatOptions = function formatOptions (res) {
     _.defaults(this.options, TASK_ACTIVITY_DEFAULT_OPTIONS);
     this.options = _.pick(this.options, Object.keys(TASK_ACTIVITY_DEFAULT_OPTIONS));
 
-    let invalidOption = Object.keys(this.options)
+    const invalidOption = Object.keys(this.options)
       .find(option => typeof this.options[option] !== 'boolean');
 
     if (invalidOption) {
@@ -103,7 +102,7 @@ schema.methods.formatOptions = function formatOptions (res) {
     _.defaults(this.options, USER_ACTIVITY_DEFAULT_OPTIONS);
     this.options = _.pick(this.options, Object.keys(USER_ACTIVITY_DEFAULT_OPTIONS));
 
-    let invalidOption = Object.keys(this.options)
+    const invalidOption = Object.keys(this.options)
       .find(option => typeof this.options[option] !== 'boolean');
 
     if (invalidOption) {
@@ -113,7 +112,7 @@ schema.methods.formatOptions = function formatOptions (res) {
     _.defaults(this.options, QUEST_ACTIVITY_DEFAULT_OPTIONS);
     this.options = _.pick(this.options, Object.keys(QUEST_ACTIVITY_DEFAULT_OPTIONS));
 
-    let invalidOption = Object.keys(this.options)
+    const invalidOption = Object.keys(this.options)
       .find(option => typeof this.options[option] !== 'boolean');
 
     if (invalidOption) {
@@ -125,4 +124,4 @@ schema.methods.formatOptions = function formatOptions (res) {
   }
 };
 
-export let model = mongoose.model('Webhook', schema);
+export const model = mongoose.model('Webhook', schema);

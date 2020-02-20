@@ -1,3 +1,4 @@
+import nconf from 'nconf';
 import {
   generateUser,
   requester,
@@ -9,20 +10,19 @@ import {
   sha1Encrypt as sha1EncryptPassword,
 } from '../../../../../../website/server/libs/password';
 
-import nconf from 'nconf';
 
 describe('POST /user/auth/local/login', () => {
   let api;
   let user;
-  let endpoint = '/user/auth/local/login';
-  let password = 'password';
+  const endpoint = '/user/auth/local/login';
+  const password = 'password';
   beforeEach(async () => {
     api = requester();
     user = await generateUser();
   });
 
   it('success with username', async () => {
-    let response = await api.post(endpoint, {
+    const response = await api.post(endpoint, {
       username: user.auth.local.username,
       password,
     });
@@ -30,7 +30,7 @@ describe('POST /user/auth/local/login', () => {
   });
 
   it('success with email', async () => {
-    let response = await api.post(endpoint, {
+    const response = await api.post(endpoint, {
       username: user.auth.local.email,
       password,
     });
@@ -81,9 +81,9 @@ describe('POST /user/auth/local/login', () => {
   });
 
   it('converts user with SHA1 encrypted password to bcrypt encryption', async () => {
-    let textPassword = 'mySecretPassword';
-    let salt = sha1MakeSalt();
-    let sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+    const textPassword = 'mySecretPassword';
+    const salt = sha1MakeSalt();
+    const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
 
     await user.update({
       'auth.local.hashed_password': sha1HashedPassword,
@@ -107,7 +107,7 @@ describe('POST /user/auth/local/login', () => {
     expect(user.auth.local.salt).to.be.undefined;
     expect(user.auth.local.hashed_password).not.to.equal(sha1HashedPassword);
 
-    let isValidPassword = await bcryptCompare(textPassword, user.auth.local.hashed_password);
+    const isValidPassword = await bcryptCompare(textPassword, user.auth.local.hashed_password);
     expect(isValidPassword).to.equal(true);
   });
 

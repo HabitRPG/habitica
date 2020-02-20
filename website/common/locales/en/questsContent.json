@@ -1,16 +1,18 @@
 {
   "questEvilSantaText": "Trapper Santa",
-  "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!",
+  "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!<br><br><strong>Note</strong>: “Trapper Santa” awards a stackable quest achievement but gives a rare mount that can only be added to your stable once.",
   "questEvilSantaCompletion": "Trapper Santa squeals in anger, and bounces off into the night. The grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the Beast Master listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured.",
   "questEvilSantaBoss": "Trapper Santa",
   "questEvilSantaDropBearCubPolarMount": "Polar Bear (Mount)",
 
   "questEvilSanta2Text": "Find The Cub",
-  "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!",
+  "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!<br><br><strong>Note</strong>: “Find the Cub” awards a stackable quest achievement but gives a rare pet that can only be added to your stable once.",
   "questEvilSanta2Completion": "You've found the cub! It will keep you company forever.",
   "questEvilSanta2CollectTracks": "Tracks",
   "questEvilSanta2CollectBranches": "Broken Twigs",
   "questEvilSanta2DropBearCubPolarPet": "Polar Bear (Pet)",
+
+  "evilSantaAddlNotes": "Note that Trapper Santa and Find the Cub have stackable quest achievements but give a rare pet and mount that can only be added to your stable once.",
 
   "questGryphonText": "The Fiery Gryphon",
   "questGryphonNotes": "The grand beast master, <strong>baconsaur</strong>, has come to your party seeking help. \"Please, adventurers, you must help me! My prized gryphon has broken free and is terrorizing Habit City! If you can stop her, I could reward you with some of her eggs!\"",
@@ -648,7 +650,7 @@
   "questYarnUnlockText": "Unlocks Yarn Eggs for purchase in the Market",
 
   "winterQuestsText": "Winter Quest Bundle",
-  "winterQuestsNotes": "Contains 'Trapper Santa', 'Find the Cub', and 'The Fowl Frost'. Available until December 31.",
+  "winterQuestsNotes": "Contains 'Trapper Santa', 'Find the Cub', and 'The Fowl Frost'. Available until January 31. Note that Trapper Santa and Find the Cub have stackable quest achievements but give a rare pet and mount that can only be added to your stable once.",
 
   "questPterodactylText": "The Pterror-dactyl",
   "questPterodactylNotes": "You're taking a stroll along the peaceful Stoïkalm Cliffs when an evil screech rends the air. You turn to find a hideous creature flying towards you and are overcome by a powerful terror. As you turn to flee, @Lilith of Alfheim grabs you. \"Don't panic! It's just a Pterror-dactyl.\"<br><br>@Procyon P nods. \"They nest nearby, but they're attracted to the scent of negative Habits and undone Dailies.\"<br><br>\"Don't worry,\" @Katy133 says. \"We just need to be extra productive to defeat it!\" You are filled with a renewed sense of purpose and turn to face your foe.",
@@ -775,5 +777,24 @@
   "questRobotUnlockText": "Unlocks purchasable Robot Eggs in the Market",
 
   "rockingReptilesText": "Rocking Reptiles Quest Bundle",
-  "rockingReptilesNotes": "Contains 'The Insta-Gator,' 'The Serpent of Distraction,' and 'The Veloci-Rapper.' Available until September 30."
+  "rockingReptilesNotes": "Contains 'The Insta-Gator,' 'The Serpent of Distraction,' and 'The Veloci-Rapper.' Available until September 30.",
+
+  "delightfulDinosText": "Delightful Dinos Quest Bundle",
+  "delightfulDinosNotes": "Contains 'The Pterror-dactyl,' 'The Trampling Triceratops,' and 'The Dinosaur Unearthed.' Available until November 30.",
+
+  "questAmberText": "The Amber Alliance",
+  "questAmberNotes": "You’re sitting in the Tavern with @beffymaroo and @-Tyr- when @Vikte bursts through the door and excitedly tells you about the rumors of another type of Magic Hatching Potion hidden in the Taskwoods. Having completed your Dailies, the three of you immediately agree to help @Vikte on their search. After all, what’s the harm in a little adventure?<br><br>After walking through the Taskwoods for hours, you’re beginning to regret joining such a wild chase. You’re about to head home, when you hear a surprised yelp and turn to see a huge lizard with shiny amber scales coiled around a tree, clutching @Vikte in her claws. @beffymaroo reaches for her sword.<br><br>“Wait!” cries @-Tyr-. “It’s the Trerezin! She’s not dangerous, just dangerously clingy!”",
+  "questAmberCompletion": "“Trerezin?” @-Tyr- says calmly. “Could you let @Vikte go? I don’t think they’re enjoying being so high up.”<br><br>The Trerezin’s amber skin blushes crimson and she gently lowers @Vikte to the ground. “My apologies! It’s been so long since I’ve had any guests that I’ve forgotten my manners!” She slithers forward to greet you properly before disappearing into her treehouse, and returning with an armful of Amber Hatching Potions as thank-you gifts!<br><br>“Magic Potions!” @Vikte gasps.<br><br>“Oh, these old things?” The Trerezin's tongue flickers as she thinks. “How about this? I’ll give you this whole stack if you promise to visit me every so often...”<br><br>And so you leave the Taskwoods, excited to tell everyone about the new potions--and your new friend!",
+  "questAmberBoss": "Trerezin",
+  "questAmberDropAmberPotion": "Amber Hatching Potion",
+  "questAmberUnlockText": "Unlocks Amber Hatching Potions for purchase in the Market",
+
+  "questRubyText": "Ruby Rapport",
+  "questRubyNotes": "The normally bustling peaks of the Stoïkalm Volcanoes lie silent in the snow. “I suppose the hikers and sight-seers are hibernating?” @gully says to you and @Aspiring_Advocate. “That makes our search easier.”<br><br>As you reach the summit, the chill wind merges with the steam billowing from the crater. “There!” @Aspiring_Advocate exclaims, pointing toward a hot spring. “What better place to find cool runes of Aquarius and passionate runes of Venus than where ice and fire meet?”<br><br>The three of you hurry toward the hot spring. “According to my research,” @Aspiring_Advocate says, “combining the runes with heart-shaped rubies will create a hatching potion that can foster friendship and love!”<br><br>Excited by the prospect of a new discovery, you all smile. “All right,” @gully says, “let's start searching!”",
+  "questRubyCompletion": "With the necessary items safely packed away, the three of you rush back to Habit City and meet in @beffymaroo's lab. “Excellent work!” @beffymaroo says. “You've gathered the ingredients for the potion!”<br><br>@beffymaroo carefully combines the runes and the rubies to create a brilliant red potion and pours some of it on two pet eggs. As you observe the results, you notice that the two pets seem completely uninterested in one another!<br><br>“Did it not work?” @gully asks. But before anyone can answer, you suddenly realize that it isn't the potion that creates friendship and love, but rather it is the experience of working together toward a common goal. You come away from the quest having gained some new friends...and some flashy new pets!",
+  "questRubyCollectAquariusRunes": "Aquarius Zodiac Runes",
+  "questRubyCollectVenusRunes": "Venus Runes",
+  "questRubyCollectRubyGems": "Ruby Gems",
+  "questRubyDropRubyPotion": "Ruby Hatching Potion",
+  "questRubyUnlockText": "Unlocks Ruby Hatching Potions for purchase in the Market"
 }

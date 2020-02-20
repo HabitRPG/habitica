@@ -1,16 +1,16 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   createAndPopulateGroup,
   checkExistence,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('POST /group/:groupId/join', () => {
   const PET_QUEST = 'whale';
 
   it('returns error when groupId is not for a valid group', async () => {
-    let joiningUser = await generateUser();
+    const joiningUser = await generateUser();
 
     await expect(joiningUser.post(`/groups/${generateUUID()}/join`)).to.eventually.be.rejected.and.eql({
       code: 404,
@@ -20,10 +20,11 @@ describe('POST /group/:groupId/join', () => {
   });
 
   context('Joining a public guild', () => {
-    let user, joiningUser, publicGuild;
+    let user; let joiningUser; let
+      publicGuild;
 
     beforeEach(async () => {
-      let {group, groupLeader} = await createAndPopulateGroup({
+      const { group, groupLeader } = await createAndPopulateGroup({
         groupDetails: {
           name: 'Test Guild',
           type: 'guild',
@@ -37,7 +38,7 @@ describe('POST /group/:groupId/join', () => {
     });
 
     it('allows non-invited users to join public guilds', async () => {
-      let res = await joiningUser.post(`/groups/${publicGuild._id}/join`);
+      const res = await joiningUser.post(`/groups/${publicGuild._id}/join`);
 
       await expect(joiningUser.get('/user')).to.eventually.have.property('guilds').to.include(publicGuild._id);
       expect(res.leader._id).to.eql(user._id);
@@ -62,7 +63,7 @@ describe('POST /group/:groupId/join', () => {
     });
 
     it('increments memberCount when joining guilds', async () => {
-      let oldMemberCount = publicGuild.memberCount;
+      const oldMemberCount = publicGuild.memberCount;
 
       await joiningUser.post(`/groups/${publicGuild._id}/join`);
 
@@ -77,10 +78,11 @@ describe('POST /group/:groupId/join', () => {
   });
 
   context('Joining a private guild', () => {
-    let user, invitedUser, guild;
+    let user; let invitedUser; let
+      guild;
 
     beforeEach(async () => {
-      let { group, groupLeader, invitees } = await createAndPopulateGroup({
+      const { group, groupLeader, invitees } = await createAndPopulateGroup({
         groupDetails: {
           name: 'Test Guild',
           type: 'guild',
@@ -91,11 +93,11 @@ describe('POST /group/:groupId/join', () => {
 
       guild = group;
       user = groupLeader;
-      invitedUser = invitees[0];
+      invitedUser = invitees[0]; // eslint-disable-line prefer-destructuring
     });
 
     it('returns error when user is not invited to private guild', async () => {
-      let userWithoutInvite = await generateUser();
+      const userWithoutInvite = await generateUser();
 
       await expect(userWithoutInvite.post(`/groups/${guild._id}/join`)).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -116,11 +118,11 @@ describe('POST /group/:groupId/join', () => {
 
         await expect(invitedUser.get('/user'))
           .to.eventually.have.nested.property('invitations.guilds')
-          .to.not.include({id: guild._id});
+          .to.not.include({ id: guild._id });
       });
 
       it('increments memberCount when joining guilds', async () => {
-        let oldMemberCount = guild.memberCount;
+        const oldMemberCount = guild.memberCount;
 
         await invitedUser.post(`/groups/${guild._id}/join`);
 
@@ -144,8 +146,8 @@ describe('POST /group/:groupId/join', () => {
       it('notifies inviting user that their invitation was accepted', async () => {
         await invitedUser.post(`/groups/${guild._id}/join`);
 
-        let inviter = await user.get('/user');
-        let expectedData = {
+        const inviter = await user.get('/user');
+        const expectedData = {
           headerText: t('invitationAcceptedHeader'),
           bodyText: t('invitationAcceptedBody', {
             username: invitedUser.auth.local.username,
@@ -166,10 +168,11 @@ describe('POST /group/:groupId/join', () => {
   });
 
   context('Joining a party', () => {
-    let user, invitedUser, party;
+    let user; let invitedUser; let
+      party;
 
     beforeEach(async () => {
-      let { group, groupLeader, invitees } = await createAndPopulateGroup({
+      const { group, groupLeader, invitees } = await createAndPopulateGroup({
         groupDetails: {
           name: 'Test Party',
           type: 'party',
@@ -180,11 +183,11 @@ describe('POST /group/:groupId/join', () => {
 
       party = group;
       user = groupLeader;
-      invitedUser = invitees[0];
+      invitedUser = invitees[0]; // eslint-disable-line prefer-destructuring
     });
 
     it('returns error when user is not invited to party', async () => {
-      let userWithoutInvite = await generateUser();
+      const userWithoutInvite = await generateUser();
 
       await expect(userWithoutInvite.post(`/groups/${party._id}/join`)).to.eventually.be.rejected.and.eql({
         code: 401,
@@ -203,9 +206,9 @@ describe('POST /group/:groupId/join', () => {
       it('notifies inviting user that their invitation was accepted', async () => {
         await invitedUser.post(`/groups/${party._id}/join`);
 
-        let inviter = await user.get('/user');
+        const inviter = await user.get('/user');
 
-        let expectedData = {
+        const expectedData = {
           headerText: t('invitationAcceptedHeader'),
           bodyText: t('invitationAcceptedBody', {
             username: invitedUser.auth.local.username,
@@ -224,7 +227,7 @@ describe('POST /group/:groupId/join', () => {
       });
 
       it('increments memberCount when joining party', async () => {
-        let oldMemberCount = party.memberCount;
+        const oldMemberCount = party.memberCount;
 
         await invitedUser.post(`/groups/${party._id}/join`);
 
@@ -238,7 +241,7 @@ describe('POST /group/:groupId/join', () => {
       });
 
       it('increments basilist quest item count to inviter when joining a party', async () => {
-        await user.update({'items.quests.basilist': 1 });
+        await user.update({ 'items.quests.basilist': 1 });
 
         await invitedUser.post(`/groups/${party._id}/join`);
 
@@ -246,8 +249,8 @@ describe('POST /group/:groupId/join', () => {
       });
 
       it('deletes previous party where the user was the only member', async () => {
-        let userToInvite = await generateUser();
-        let oldParty = await userToInvite.post('/groups', { // add user to a party
+        const userToInvite = await generateUser();
+        const oldParty = await userToInvite.post('/groups', { // add user to a party
           name: 'Another Test Party',
           type: 'party',
         });
@@ -263,8 +266,8 @@ describe('POST /group/:groupId/join', () => {
       });
 
       it('does not allow user to leave a party if a quest was active and they were the only member', async () => {
-        let userToInvite = await generateUser();
-        let oldParty = await userToInvite.post('/groups', { // add user to a party
+        const userToInvite = await generateUser();
+        const oldParty = await userToInvite.post('/groups', { // add user to a party
           name: 'Another Test Party',
           type: 'party',
         });
@@ -305,7 +308,8 @@ describe('POST /group/:groupId/join', () => {
   });
 
   context('Party incentive achievements', () => {
-    let leader, member, party;
+    let leader; let member; let
+      party;
 
     beforeEach(async () => {
       leader = await generateUser();
@@ -314,6 +318,7 @@ describe('POST /group/:groupId/join', () => {
         name: 'Testing Party',
         type: 'party',
       });
+
       await leader.post(`/groups/${party._id}/invite`, {
         uuids: [member._id],
       });
@@ -325,7 +330,9 @@ describe('POST /group/:groupId/join', () => {
       await leader.sync();
 
       expect(member).to.have.nested.property('achievements.partyUp', true);
+      expect(member.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_UP')).to.exist;
       expect(leader).to.have.nested.property('achievements.partyUp', true);
+      expect(leader.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_UP')).to.exist;
     });
 
     it('does not award Party On achievement to party of size 2', async () => {
@@ -337,8 +344,8 @@ describe('POST /group/:groupId/join', () => {
     });
 
     it('awards Party On achievement to party of size 4', async () => {
-      let addlMemberOne = await generateUser();
-      let addlMemberTwo = await generateUser();
+      const addlMemberOne = await generateUser();
+      const addlMemberTwo = await generateUser();
       await leader.post(`/groups/${party._id}/invite`, {
         uuids: [addlMemberOne._id, addlMemberTwo._id],
       });
@@ -349,7 +356,9 @@ describe('POST /group/:groupId/join', () => {
       await leader.sync();
 
       expect(member).to.have.nested.property('achievements.partyOn', true);
+      expect(member.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_ON')).to.exist;
       expect(leader).to.have.nested.property('achievements.partyOn', true);
+      expect(leader.notifications.find(notification => notification.type === 'ACHIEVEMENT_PARTY_ON')).to.exist;
     });
   });
 });

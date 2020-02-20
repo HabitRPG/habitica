@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "لا يوجد لديك <%= type %>",
+  "foodItemType": "طعام",
+  "eggsItemType": "بيض",
+  "hatchingPotionsItemType": "جرعات الفقس",
+  "specialItemType": "حاجات خاصة",
+  "lockedItem": "حاجة مقفلة"
+}

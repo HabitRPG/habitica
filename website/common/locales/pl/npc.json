@@ -20,8 +20,8 @@
     "welcomeToTavern": "Witaj w Karczmie!",
     "sleepDescription": "Potrzebujesz przerwy? Odwiedź Gospodę Daniela by zatrzymać bardziej skomplikowane elementy Habitiki:",
     "sleepBullet1": "Pominięte Codziennie nie zadadzą Ci obrażeń",
-    "sleepBullet2": "Zadania nie stracą serii ani nie osłabią się w kolorze",
-    "sleepBullet3": "Bossowie nie zadadzą ci obrażeń za ominięte Codziennie",
+    "sleepBullet2": "Zadania nie stracą serii",
+    "sleepBullet3": "Bossowie nie zadadzą ci obrażeń za ominięte, własne Codziennie",
     "sleepBullet4": "Twoje obrażenia dla bossa albo zebranie przedmiotów zostaną jako oczekujące do końca dnia",
     "pauseDailies": "Wstrzymaj obrażenia",
     "unpauseDailies": "Wznów otrzymywanie obrażeń",
@@ -33,8 +33,8 @@
     "danielText2": "Uważaj: Jeśli uczestniczysz w walce z bossem, wciąż może on zadać tobie obrażenia, jeśli członkowie twojej drużyny ominą Codzienne! Również twoje obrażenia dla bossa (lub zebrane przedmioty) nie zostaną zaaplikowane, dopóki nie zakończysz odpoczynku w Gospodzie.",
     "danielTextBroken": "Witaj w Karczmie... czy jakoś tak... Jeśli potrzebujesz odpoczynku, znajdę dla ciebie pokój w gospodzie... Kiedy odpoczywasz, twoje Codzienne nie skrzywdzą ciebie na koniec dnia, jednak nadal możesz je odhaczać... jeśli starczy ci energii...",
     "danielText2Broken": "Aha... Jeśli uczestniczysz w walce z bossem, wciąż może on zadać ci obrażenia, jeśli członkowie twojej drużyny ominą Codzienne... Twoje obrażenia dla bossa (lub zebrane przedmioty) też nie zostaną zaaplikowane, dopóki nie zakończysz odpoczynku w gospodzie...",
-    "worldBossEvent": "Wydarzenie Globalny Boss",
-    "worldBossDescription": "Opis Globalnego Bossa",
+    "worldBossEvent": "Wydarzenie: Boss Świata",
+    "worldBossDescription": "Opis Bossa Świata",
     "alexander": "Handlarz Aleksander",
     "welcomeMarket": "Witaj na Targu! Tu kupisz rzadkie jaja oraz eliksiry! Sprzedasz nadmiar towaru! Zamówisz usługi! Zobacz, co dla Ciebie mamy.",
     "welcomeMarketMobile": "Witamy na Targu! Kup ciężkie do znalezienia jajka i eliksiry! Zobacz co mamy na stanie.",
@@ -43,7 +43,7 @@
     "displayPotionForGold": "Czy chcesz sprzedać <strong><%= itemType %> Eliksir</strong>?",
     "sellForGold": "Sprzedaj za <%= gold %> szt. złota",
     "howManyToSell": "Ile chcesz sprzedać?",
-    "yourBalance": "Twoja saldo",
+    "yourBalance": "Twoje saldo:",
     "sell": "Sprzedaj",
     "buyNow": "Kup",
     "sortByNumber": "Numer",
@@ -169,5 +169,6 @@
     "imReady": "Wejdź do Habitiki",
     "limitedOffer": "Dostępne do <%= date %>",
     "paymentAutoRenew": "Subskrypcja odnowi się automatycznie dopóki nie zostanie anulowana. Jeśli chcesz anulować subskrypcję, możesz zrobić to w ustawieniach.",
-    "paymentCanceledDisputes": "Potwierdzenie anulowania zostało przesłane na Twój e-mail. Jeśli nie możesz go znaleźć, skontaktuj się z nami, aby zapobiec ewentualnym sporom w sprawie rozliczeń."
+    "paymentCanceledDisputes": "Potwierdzenie anulowania zostało przesłane na Twój e-mail. Jeśli nie możesz go znaleźć, skontaktuj się z nami, aby zapobiec ewentualnym sporom w sprawie rozliczeń.",
+    "cannotUnpinItem": "Ten przedmiot nie może być odpięty."
 }
