@@ -1330,7 +1330,6 @@ export default {
           ...t,
           text: t.text(),
           notes: t.notes && t.notes(),
-          skipAnalytics: true,
         })));
       });
 

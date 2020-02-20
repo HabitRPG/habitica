@@ -14,9 +14,15 @@
       </div>
       <h2 class="mt-3 mb-4">{{ $t('foundNewItems') }}</h2>
       <div class="d-flex justify-content-center">
-        <div class="item-box ml-auto mr-3 Pet_Egg_Wolf">
+        <div
+          class="item-box ml-auto mr-3"
+          :class="eggClass"
+        >
         </div>
-        <div class="item-box mr-auto Pet_HatchingPotion_Base">
+        <div
+          class="item-box mr-auto"
+          :class="potionClass"
+        >
         </div>
       </div>
       <p class="mt-4">{{ $t('foundNewItemsExplanation') }}</p>
@@ -85,6 +91,14 @@ export default {
         close: closeIcon,
       }),
     };
+  },
+  computed: {
+    eggClass () {
+      return this.$store.state.firstDropsOptions.egg;
+    },
+    potionClass () {
+      return this.$store.state.firstDropsOptions.potion;
+    },
   },
   methods: {
     close () {
