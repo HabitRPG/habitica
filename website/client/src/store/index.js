@@ -131,6 +131,10 @@ export default function () {
         backer: {},
         contributor: {},
       },
+      firstDropsOptions: {
+        egg: '',
+        potion: '',
+      },
     },
   });
 

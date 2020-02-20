@@ -243,7 +243,7 @@ export default new Schema({
         reorderTask: { $type: Boolean, default: false },
       },
     },
-    dropsEnabled: { $type: Boolean, default: false },
+    dropsEnabled: { $type: Boolean, default: false }, // unused
     itemsEnabled: { $type: Boolean, default: false },
     newStuff: { $type: Boolean, default: false },
     rewrite: { $type: Boolean, default: true },

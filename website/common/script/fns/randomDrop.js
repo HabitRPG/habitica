@@ -4,6 +4,7 @@ import min from 'lodash/min';
 import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
 import pickBy from 'lodash/pickBy';
+import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
@@ -16,7 +17,7 @@ import statsComputed from '../libs/statsComputed';
 
 // Clone a drop object maintaining its functions
 // so that we can change it without affecting the original item
-function cloneDropItem (drop) {
+export function cloneDropItem (drop) {
   return cloneDeepWith(drop, val => (isFunction(val) ? val : undefined));
 }
 
@@ -71,7 +72,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
     return;
   }
 
-  if (user.flags && user.flags.dropsEnabled && predictableRandom() < chance) {
+  if (predictableRandom() < chance) {
     rarity = predictableRandom();
 
     if (rarity > 0.6) { // food 40% chance
@@ -135,7 +136,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
       }, req.language);
     }
 
-    if (analytics) {
+    if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
       analytics.track('dropped item', {
         uuid: user._id,
         itemKey: drop.key,

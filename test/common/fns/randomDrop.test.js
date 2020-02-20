@@ -34,7 +34,6 @@ describe('common.fns.randomDrop', () => {
 
   context('drops enabled', () => {
     beforeEach(() => {
-      user.flags.dropsEnabled = true;
       task.priority = 100000;
     });
 
@@ -46,7 +45,6 @@ describe('common.fns.randomDrop', () => {
 
     it('drops something when the task is a todo', () => {
       expect(user._tmp).to.eql({});
-      user.flags.dropsEnabled = true;
       predictableRandom.returns(0.1);
 
       randomDrop(user, { task, predictableRandom });
@@ -56,7 +54,6 @@ describe('common.fns.randomDrop', () => {
     it('drops something when the task is a habit', () => {
       task = generateHabit({ userId: user._id });
       expect(user._tmp).to.eql({});
-      user.flags.dropsEnabled = true;
       predictableRandom.returns(0.1);
 
       randomDrop(user, { task, predictableRandom });
@@ -66,7 +63,6 @@ describe('common.fns.randomDrop', () => {
     it('drops something when the task is a daily', () => {
       task = generateDaily({ userId: user._id });
       expect(user._tmp).to.eql({});
-      user.flags.dropsEnabled = true;
       predictableRandom.returns(0.1);
 
       randomDrop(user, { task, predictableRandom });
@@ -76,7 +72,6 @@ describe('common.fns.randomDrop', () => {
     it('drops something when the task is a reward', () => {
       task = generateReward({ userId: user._id });
       expect(user._tmp).to.eql({});
-      user.flags.dropsEnabled = true;
       predictableRandom.returns(0.1);
 
       randomDrop(user, { task, predictableRandom });
