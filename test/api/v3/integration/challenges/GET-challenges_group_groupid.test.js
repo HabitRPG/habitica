@@ -188,6 +188,7 @@ describe('GET challenges/groups/:groupId', () => {
 
   context('official challenge is present', () => {
     let publicGuild; let user; let officialChallenge; let unofficialChallenges = [];
+
     before(async () => {
       const { group, groupLeader } = await createAndPopulateGroup({
         groupDetails: {

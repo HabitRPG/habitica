@@ -427,15 +427,17 @@ api.getUserChallenges = {
     let resChals = challenges.map(chal => (new Challenge(chal)).toJSON());
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Promise.all(resChals.map((chal, index) => {
-      return Promise.all([
-        User.findById(chal.leader).select(`${nameFields} backer contributor`).exec(),
-        Group.findById(chal.group).select(basicGroupFields).exec(),
-      ]).then(populatedData => {
-        resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
-        resChals[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
-      });
-    }));
+    await Promise.all(resChals.map((chal, index) => Promise.all([
+      User.findById(chal.leader).select(`${nameFields} backer contributor`).exec(),
+      Group.findById(chal.group).select(basicGroupFields).exec(),
+    ]).then(populatedData => {
+      resChals[index].leader = populatedData[0]
+        ? populatedData[0].toJSON({ minimize: true })
+        : null;
+      resChals[index].group = populatedData[1]
+        ? populatedData[1].toJSON({ minimize: true })
+        : null;
+    })));
 
     res.respond(200, resChals);
   },
@@ -481,21 +483,22 @@ api.getGroupChallenges = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
     const challenges = await createChallengeQuery({ group: groupId })
-      // .populate('leader', nameFields) // Only populate the leader as the group is implicit
+      // Only populate the leader as the group is implicit // see below why we're not using populate
+      // .populate('leader', nameFields)
       .exec();
 
     let resChals = challenges.map(challenge => (new Challenge(challenge)).toJSON());
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Promise.all(resChals.map((chal, index) => User
-        .findById(chal.leader)
-        .select(nameFields)
-        .exec()
-        .then(populatedLeader => {
-          resChals[index].leader = populatedLeader
-            ? populatedLeader.toJSON({minimize: true})
-            : null;
-    })));
+      .findById(chal.leader)
+      .select(nameFields)
+      .exec()
+      .then(populatedLeader => {
+        resChals[index].leader = populatedLeader
+          ? populatedLeader.toJSON({ minimize: true })
+          : null;
+      })));
 
     res.respond(200, resChals);
   },
