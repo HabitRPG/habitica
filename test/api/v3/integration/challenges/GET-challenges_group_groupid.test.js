@@ -233,10 +233,10 @@ describe('GET challenges/groups/:groupId', () => {
     it('should return newest challenges first, after official ones', async () => {
       let challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
 
-      await Promise.all(unofficialChallenges.forEach((chal, index) => {
+      unofficialChallenges.forEach((chal, index) => {
         const foundChallengeIndex = _.findIndex(challenges, { _id: chal._id });
         expect(foundChallengeIndex).to.eql(10 - index);
-      }));
+      });
 
       const newChallenge = await generateChallenge(user, publicGuild);
       await user.post(`/challenges/${newChallenge._id}/join`);
