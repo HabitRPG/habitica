@@ -424,7 +424,7 @@ api.getUserChallenges = {
     const challenges = await mongoQuery.exec();
 
     // Unserialize, then serialize the challenges to fill in default fields
-    let resChals = challenges.map(chal => (new Challenge(chal)).toJSON());
+    const resChals = challenges.map(chal => (new Challenge(chal)).toJSON());
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Promise.all(resChals.map((chal, index) => Promise.all([
@@ -487,7 +487,7 @@ api.getGroupChallenges = {
       // .populate('leader', nameFields)
       .exec();
 
-    let resChals = challenges.map(challenge => (new Challenge(challenge)).toJSON());
+    const resChals = challenges.map(challenge => (new Challenge(challenge)).toJSON());
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Promise.all(resChals.map((chal, index) => User

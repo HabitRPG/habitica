@@ -187,7 +187,7 @@ describe('GET challenges/groups/:groupId', () => {
   });
 
   context('official challenge is present', () => {
-    let publicGuild; let user; let officialChallenge; let unofficialChallenges = [];
+    let publicGuild; let user; let officialChallenge; let unofficialChallenges;
 
     before(async () => {
       const { group, groupLeader } = await createAndPopulateGroup({
@@ -215,9 +215,10 @@ describe('GET challenges/groups/:groupId', () => {
 
       // We add 10 extra challenges to test whether the official challenge
       // (the oldest) makes it to the front page.
-      for (var i = 0; i < 10; i++) {
-        const challenge = await generateChallenge(user, group);
-        await user.post(`/challenges/${challenge._id}/join`);
+      unofficialChallenges = [];
+      for (let i = 0; i < 10; i += 1) {
+        const challenge = await generateChallenge(user, group); // eslint-disable-line
+        await user.post(`/challenges/${challenge._id}/join`); // eslint-disable-line
         unofficialChallenges.push(challenge);
       }
     });
@@ -232,7 +233,7 @@ describe('GET challenges/groups/:groupId', () => {
     it('should return newest challenges first, after official ones', async () => {
       let challenges = await user.get(`/challenges/groups/${publicGuild._id}`);
 
-      await Promise.all(unofficialChallenges.map((chal, index) => {
+      await Promise.all(unofficialChallenges.forEach((chal, index) => {
         const foundChallengeIndex = _.findIndex(challenges, { _id: chal._id });
         expect(foundChallengeIndex).to.eql(10 - index);
       }));
