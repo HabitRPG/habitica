@@ -421,42 +421,23 @@ api.getUserChallenges = {
     // see below why we're not using populate
     // .populate('group', basicGroupFields)
     // .populate('leader', nameFields)
-    let challenges = await mongoQuery.exec();
+    const challenges = await mongoQuery.exec();
+
+    // Unserialize, then serialize the challenges to fill in default fields
+    let resChals = challenges.map(chal => (new Challenge(chal)).toJSON());
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Promise.all(challenges.map((chal, index) => {
+    await Promise.all(resChals.map((chal, index) => {
       return Promise.all([
         User.findById(chal.leader).select(`${nameFields} backer contributor`).exec(),
         Group.findById(chal.group).select(basicGroupFields).exec(),
       ]).then(populatedData => {
-        challenges[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
-        challenges[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
+        resChals[index].leader = populatedData[0] ? populatedData[0].toJSON({minimize: true}) : null;
+        resChals[index].group = populatedData[1] ? populatedData[1].toJSON({minimize: true}) : null;
       });
     }));
-/*
-    const challenges = await mongoQuery.exec();
 
-    let resChals = challenges.map(challenge => challenge.toJSON());
-
-    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Promise.all(resChals.map((chal, index) => Promise.all([
-      User.findById(chal.leader).select(`${nameFields} backer contributor`).exec(),
-      Group.findById(chal.group).select(basicGroupFields).exec(),
-    ]).then(populatedData => {
-      resChals[index].leader = populatedData[0]
-        ? populatedData[0].toJSON({ minimize: true })
-        : null;
-      resChals[index].group = populatedData[1]
-        ? populatedData[1].toJSON({ minimize: true })
-        : null;
-    })));
-    */
-
-    challenges = await Promise.all(challenges.map((chal) => {
-      return new Challenge(chal)
-    }));
-
-    res.respond(200, challenges);
+    res.respond(200, resChals);
   },
 };
 
@@ -499,50 +480,24 @@ api.getGroupChallenges = {
     const group = await Group.getGroup({ user, groupId });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-<<<<<<< HEAD
-    // Ensure that official challenges are always first
-    let challenges = await createChallengeQuery({ group: groupId })
+    const challenges = await createChallengeQuery({ group: groupId })
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
       .exec();
 
+    let resChals = challenges.map(challenge => (new Challenge(challenge)).toJSON());
+
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Promise.all(challenges.map((chal, index) => {
-      return User
+    await Promise.all(resChals.map((chal, index) => User
         .findById(chal.leader)
         .select(nameFields)
         .exec()
         .then(populatedLeader => {
-          challenges[index].leader = populatedLeader ? populatedLeader.toJSON({minimize: true}) : null;
-        });
-    }));
-=======
-    const challenges = await Challenge.find({ group: groupId })
-      .sort('-createdAt')
-      // Only populate the leader as the group is implicit // see below why we're not using populate
-      // .populate('leader', nameFields)
-      .exec();
+          resChals[index].leader = populatedLeader
+            ? populatedLeader.toJSON({minimize: true})
+            : null;
+    })));
 
-    let resChals = challenges.map(challenge => challenge.toJSON());
-
-    resChals = _.orderBy(
-      resChals,
-      [challenge => challenge.categories.map(category => category.slug).includes('habitica_official')],
-      ['desc'],
-    );
-
-    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    await Promise.all(resChals.map((chal, index) => User
-      .findById(chal.leader)
-      .select(nameFields)
-      .exec()
-      .then(populatedLeader => {
-        resChals[index].leader = populatedLeader
-          ? populatedLeader.toJSON({ minimize: true })
-          : null;
-      })));
->>>>>>> develop
-
-    res.respond(200, challenges);
+    res.respond(200, resChals);
   },
 };
 
