@@ -109,7 +109,7 @@
     "chalk": "^2.4.1",
     "expect.js": "^0.3.1",
     "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^5.1.1",
+    "mocha": "^7.0.1",
     "monk": "^7.1.2",
     "require-again": "^2.0.0",
     "sinon": "^7.2.4",
