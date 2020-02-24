@@ -78,7 +78,7 @@
         <div class="flex-spacer"></div>
         <div>
           <div class="subscribe-card d-flex flex-column">
-            <subscription-options class="mb-4"/>
+            <subscription-options class="mb-4" />
           </div>
         </div>
       </div>
@@ -87,7 +87,9 @@
       v-if="hasSubscription"
       class="d-flex flex-column align-items-center"
     >
-      <h1 class="mt-4 mx-auto">{{ $t('subscription') }}</h1>
+      <h1 class="mt-4 mx-auto">
+        {{ $t('subscription') }}
+      </h1>
       <div class="subscribe-card mx-auto">
         <div
           v-if="hasSubscription && !hasCanceledSubscription"
@@ -100,7 +102,9 @@
               v-html="icons.checkmarkIcon"
             ></div>
           </div>
-          <h2 class="green-10 mx-auto">{{ $t('youAreSubscribed') }}</h2>
+          <h2 class="green-10 mx-auto">
+            {{ $t('youAreSubscribed') }}
+          </h2>
           <div
             v-if="hasGroupPlan"
             class="mx-5 text-center"
@@ -121,7 +125,9 @@
             v-if="canEditCardDetails"
             class="mt-4 text-center"
           >
-            <div class="font-weight-bold gray-10 mb-2">{{ $t('needToUpdateCard') }}</div>
+            <div class="font-weight-bold gray-10 mb-2">
+              {{ $t('needToUpdateCard') }}
+            </div>
             <button
               class="btn btn-primary btn-update-card
               d-flex justify-content-center align-items-center"
@@ -146,7 +152,7 @@
             v-if="purchasedPlanExtraMonthsDetails.months > 0"
             class="extra-months green-10 py-2 px-3 mt-4"
             v-html="$t('purchasedPlanExtraMonths',
-            {months: purchasedPlanExtraMonthsDetails.months})"
+                       {months: purchasedPlanExtraMonthsDetails.months})"
           >
           </div>
         </div>
@@ -161,20 +167,24 @@
               v-html="icons.closeIcon"
             ></div>
           </div>
-          <h2 class="gray-50">{{ $t('subscriptionCanceled') }}</h2>
+          <h2 class="gray-50">
+            {{ $t('subscriptionCanceled') }}
+          </h2>
           <div
             class="w-75 text-center mb-4"
             v-html="$t('subscriptionInactiveDate', {date: subscriptionEndDate})"
           >
           </div>
           <h2>{{ $t('readyToResubscribe') }}</h2>
-          <subscription-options class="w-100 mb-2"/>
+          <subscription-options class="w-100 mb-2" />
         </div>
         <div
           v-if="hasSubscription"
           class="bg-gray-700 p-2 text-center"
         >
-          <div class="header-mini mb-3">{{ $t('subscriptionStats') }}</div>
+          <div class="header-mini mb-3">
+            {{ $t('subscriptionStats') }}
+          </div>
           <div class="d-flex justify-content-around">
             <div class="ml-4 mr-3">
               <div class="d-flex justify-content-center align-items-center">
@@ -189,7 +199,9 @@
                     user.purchased.plan.consecutive.offset }}
                 </div>
               </div>
-              <div class="stats-label">{{ $t('subMonths') }}</div>
+              <div class="stats-label">
+                {{ $t('subMonths') }}
+              </div>
             </div>
             <div class="stats-spacer"></div>
             <div>
@@ -204,7 +216,9 @@
                   {{ user.purchased.plan.consecutive.gemCapExtra }}
                 </div>
               </div>
-              <div class="stats-label">{{ $t('gemCapExtra') }}</div>
+              <div class="stats-label">
+                {{ $t('gemCapExtra') }}
+              </div>
             </div>
             <div class="stats-spacer"></div>
             <div>
@@ -219,18 +233,22 @@
                   {{ user.purchased.plan.consecutive.trinkets }}
                 </div>
               </div>
-              <div class="stats-label">{{ $t('mysticHourglassesTooltip') }}</div>
+              <div class="stats-label">
+                {{ $t('mysticHourglassesTooltip') }}
+              </div>
             </div>
           </div>
         </div>
         <div class="d-flex flex-column justify-content-center align-items-center mt-4 mb-3">
           <div
-          v-once
-          class="svg-icon svg-heart mb-1"
-          v-html="icons.heartIcon"
+            v-once
+            class="svg-icon svg-heart mb-1"
+            v-html="icons.heartIcon"
           >
           </div>
-          <div class="stats-label">{{ $t('giftSubscriptionText4') }}</div>
+          <div class="stats-label">
+            {{ $t('giftSubscriptionText4') }}
+          </div>
         </div>
       </div>
     </div>
@@ -239,8 +257,12 @@
       class="d-flex flex-column align-items-center mt-3"
     >
       <div class="cancel-card p-4 text-center">
-        <h2 class="maroon-50">{{ $t('cancelYourSubscription') }}</h2>
-        <div v-if="hasGroupPlan">{{ $t('cancelSubInfoGroupPlan') }}</div>
+        <h2 class="maroon-50">
+          {{ $t('cancelYourSubscription') }}
+        </h2>
+        <div v-if="hasGroupPlan">
+          {{ $t('cancelSubInfoGroupPlan') }}
+        </div>
         <div
           v-if="!hasGroupPlan && !canCancelSubscription"
           v-html="$t(`cancelSubInfo${user.purchased.plan.paymentMethod}`)"

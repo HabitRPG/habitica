@@ -776,7 +776,6 @@ export default {
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
       // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
-      apple: appleAuthProvider,
     });
   },
   methods: {

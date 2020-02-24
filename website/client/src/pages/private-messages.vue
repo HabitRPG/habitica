@@ -34,7 +34,7 @@
           :contributor="selectedConversation.contributor"
           :name="selectedConversation.name"
           :user="selectedConversation"
-          :userId="selectedConversation.key"
+          :user-id="selectedConversation.key"
           :hide-tooltip="true"
         />
       </div>

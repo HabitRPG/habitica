@@ -689,7 +689,6 @@ export default {
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
-      apple: appleAuthProvider,
     }, {
       redirect_uri: '', // eslint-disable-line
     });
