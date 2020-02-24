@@ -14,8 +14,13 @@ function walkContent (obj, lang) {
   });
 }
 
+export function localizeContentData (data, langCode) {
+  const dataClone = _.cloneDeep(data);
+  walkContent(dataClone, langCode);
+  return dataClone;
+}
+
 export function getLocalizedContentResponse (langCode) {
-  const contentClone = _.cloneDeep(common.content);
-  walkContent(contentClone, langCode);
-  return `{"success": true, "data": ${JSON.stringify(contentClone)}}`;
+  const localizedContent = localizeContentData(common.content, langCode);
+  return `{"success": true, "data": ${JSON.stringify(localizedContent)}}`;
 }
