@@ -61,4 +61,15 @@ describe('Groups Utilities Mixin', () => {
       })).to.equal(false);
     });
   });
+
+  describe('filterGuild', () => {
+    const testGroup = {
+      type: 'guild',
+      _id: user.guilds[0],
+    };
+
+    it('returns true with no search and no filter', () => {
+      expect(instance.filterGuild(testGroup, null, null, user)).to.equal(true);
+    });
+  });
 });
