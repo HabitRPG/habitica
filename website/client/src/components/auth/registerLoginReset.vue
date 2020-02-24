@@ -651,7 +651,7 @@ import hello from 'hellojs';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
-import { appleAuthProvider } from '../../libs/auth';
+import { buildAppleAuthUrl } from '../../libs/auth';
 
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import exclamation from '@/assets/svg/exclamation.svg';
@@ -865,35 +865,39 @@ export default {
     },
     // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
-      try {
-        await hello(network).logout();
-      } catch (e) {} // eslint-disable-line
-
-      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-      const auth = await hello(network).login({
-        scope: network === 'apple' ? 'name email' : 'email',
-        // explicitly pass the redirect url or it might redirect to /home
-        redirect_uri: redirectUrl, // eslint-disable-line camelcase
-      });
-
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
-
-      let redirectTo;
-
-      if (this.$route.query.redirectTo) {
-        redirectTo = this.$route.query.redirectTo;
+      if (network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
       } else {
-        redirectTo = '/';
-      }
+        try {
+          await hello(network).logout();
+        } catch (e) {} // eslint-disable-line
 
-      // @TODO do not reload entire page
-      // problem is that app.vue created hook should be called again
-      // after user is logged in / just signed up
-      // ALSO it's the only way to make sure language data
-      // is reloaded and correct for the logged in user
-      window.location.href = redirectTo;
+        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
+        const auth = await hello(network).login({
+          scope: 'email',
+          // explicitly pass the redirect url or it might redirect to /home
+          redirect_uri: redirectUrl, // eslint-disable-line camelcase
+        });
+
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
+
+        let redirectTo;
+
+        if (this.$route.query.redirectTo) {
+          redirectTo = this.$route.query.redirectTo;
+        } else {
+          redirectTo = '/';
+        }
+
+        // @TODO do not reload entire page
+        // problem is that app.vue created hook should be called again
+        // after user is logged in / just signed up
+        // ALSO it's the only way to make sure language data
+        // is reloaded and correct for the logged in user
+        window.location.href = redirectTo;
+      }
     },
     handleSubmit () {
       if (this.registering) {

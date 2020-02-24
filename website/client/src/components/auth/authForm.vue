@@ -237,11 +237,11 @@
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
-import { setUpAxios, appleAuthProvider } from '@/libs/auth';
+import { setUpAxios, buildAppleAuthUrl } from '@/libs/auth';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
-import appleIcon from '@/assets/svg/apple.svg';
+import appleIcon from '@/assets/svg/apple_black.svg';
 
 export default {
   name: 'AuthForm',
@@ -328,27 +328,31 @@ export default {
     }, 500),
     // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
-      try {
-        await hello(network).logout();
-      } catch (e) {} // eslint-disable-line
+      if (network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
+      } else {
+        try {
+          await hello(network).logout();
+        } catch (e) {} // eslint-disable-line
 
-      try {
-        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-        const auth = await hello(network).login({
-          scope: 'email',
-          redirect_uri: redirectUrl, // eslint-disable-line camelcase
-        });
+        try {
+          const redirectUrl = `${window.location.protocol}//${window.location.host}`;
+          const auth = await hello(network).login({
+            scope: 'email',
+            redirect_uri: redirectUrl, // eslint-disable-line camelcase
+          });
 
-        await this.$store.dispatch('auth:socialAuth', {
-          auth,
-        });
+          await this.$store.dispatch('auth:socialAuth', {
+            auth,
+          });
 
-        await this.finishAuth();
-      } catch (err) {
-        console.error(err); // eslint-disable-line no-console
-        // logout the user
-        await hello(network).logout();
-        this.socialAuth(network); // login again
+          await this.finishAuth();
+        } catch (err) {
+          console.error(err); // eslint-disable-line no-console
+          // logout the user
+          await hello(network).logout();
+          this.socialAuth(network); // login again
+        }
       }
     },
     async register () {

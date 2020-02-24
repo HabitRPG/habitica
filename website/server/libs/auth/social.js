@@ -32,22 +32,24 @@ const auth = new AppleAuth(JSON.stringify({
   client_id: nconf.get('APPLE_AUTH_CLIENT_ID'), // eslint-disable-line camelcase
   team_id: nconf.get('APPLE_TEAM_ID'), // eslint-disable-line camelcase
   key_id: nconf.get('APPLE_AUTH_KEY_ID'), // eslint-disable-line camelcase
-  redirect_uri: `${nconf.get('BASE_URL')}/api/v4/user/auth/apple`, // eslint-disable-line camelcase
+  redirect_uri: 'https://habitica.com/api/v4/user/auth/social', // eslint-disable-line camelcase
   scope: 'name email',
 }), applePrivateKey.toString(), 'text');
 
 async function _appleProfile (req) {
   let idToken = {};
-  if (req.body.id_token) {
-    idToken = jwt.verify(req.body.id_token, applePublicKey, { algorithms: ['RS256'] });
-  } else if (req.body.code) {
-    const response = await auth.accessToken(req.body.code);
-    idToken = jwt.decode(response.id_token, { algorithms: ['RS256'] });
+  const code = req.body.code ? req.body.code : req.query.code;
+  const passedToken = req.body.id_token ? req.body.id_token : req.query.id_token;
+  if (code) {
+    const response = await auth.accessToken(code);
+    idToken = jwt.decode(response.id_token);
+  } else if (passedToken) {
+    idToken = await jwt.verify(passedToken, applePublicKey, { algorithms: ['RS256'] });
   }
   return {
     id: idToken.sub,
     emails: [idToken.email],
-    name: idToken.name,
+    name: idToken.name || req.body.name,
   };
 }
 
