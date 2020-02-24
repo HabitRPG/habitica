@@ -658,8 +658,8 @@ api.getObjectionsToInteraction = {
  * @apiName SendPrivateMessage
  * @apiGroup Member
  *
- * @apiParam (Body) {String} message Body parameter - The message
- * @apiParam (Body) {UUID} toUserId Body parameter - The user to contact
+ * @apiParam (Body) {String} message The message
+ * @apiParam (Body) {UUID} toUserId The id of the user to contact
  *
  * @apiSuccess {Object} data.message The message just sent
  *
@@ -698,7 +698,7 @@ api.sendPrivateMessage = {
  * @apiGroup Member
  *
  * @apiParam (Body) {String} message The message to the user
- * @apiParam (Body) {UUID} toUserId The toUser _id
+ * @apiParam (Body) {UUID} toUserId The user to send the gift to
  * @apiParam (Body) {Integer} gemAmount The number of gems to send
  *
  * @apiSuccess {Object} data An empty Object
