@@ -31,7 +31,7 @@ const auth = new AppleAuth(JSON.stringify({
   client_id: nconf.get('APPLE_AUTH_CLIENT_ID'), // eslint-disable-line camelcase
   team_id: nconf.get('APPLE_TEAM_ID'), // eslint-disable-line camelcase
   key_id: nconf.get('APPLE_AUTH_KEY_ID'), // eslint-disable-line camelcase
-  redirect_uri: `${nconf.get('BASE_URL')}/api/v4/user/auth/social`, // eslint-disable-line camelcase
+  redirect_uri: `${nconf.get('BASE_URL')}/api/v4/user/auth/apple`, // eslint-disable-line camelcase
   scope: 'name email',
 }), applePrivateKey.toString(), 'text');
 
