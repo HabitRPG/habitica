@@ -10,6 +10,7 @@ import {
 import randomVal, * as randomValFns from '../../libs/randomVal';
 import { removeItemByPath } from '../pinnedGearUtils';
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
+import updateStats from '../../fns/updateStats';
 
 // TODO this is only used on the server
 // move out of common?
@@ -156,6 +157,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
   _experienceResult (user) {
     const armoireExp = Math.floor(randomValFns.trueRandom() * 40 + 10);
     user.stats.exp += armoireExp;
+    updateStats(user, user.stats, this.req);
 
     return {
       message: this.i18n('armoireExp'),

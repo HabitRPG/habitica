@@ -209,7 +209,6 @@
           <!-- eslint-disable vue/no-use-v-if-with-v-for, max-len -->
           <div
             v-for="(items, key) in getGrouped(questItems(category, selectedSortItemsBy,searchTextThrottled, hideLocked, hidePinned))"
-            v-if="key !== 'questGroupEarnable'"
             :key="key"
             class="group"
           >
