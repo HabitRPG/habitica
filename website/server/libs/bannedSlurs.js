@@ -95,7 +95,6 @@ const bannedSlurs = [
 
 
 
-  'sluts',
   'spics',
   'tranny',
   'trannies',

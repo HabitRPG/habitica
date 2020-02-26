@@ -93,7 +93,7 @@ api.getPatrons = {
 };
 
 /**
- * @api {get} /api/v3/hall/heroes Get all Heroes
+ * @api {get} /api/v3/hall/heroes Get all Heroes (contributors)
  * @apiName GetHeroes
  * @apiGroup Hall
  *
@@ -154,7 +154,7 @@ const heroAdminFields = 'contributor balance profile.name purchased items auth f
  * @apiGroup Hall
  * @apiPermission Admin
  *
- * @apiDescription Returns the profile of the given user
+ * @apiDescription Returns the profile of the given user. User does not need to be a contributor.
  *
  * @apiSuccess {Object} data The user object
  *
@@ -208,9 +208,9 @@ const gemsPerTier = {
  * @apiGroup Hall
  * @apiPermission Admin
  *
- * @apiDescription Update user's gem balance, contributions & contribution tier
- * and admin status. Grant items, block / unblock user's account
- * and revoke / unrevoke chat privileges.
+ * @apiDescription Update user's gem balance, contributions and contribution tier,
+ * or admin status. Grant items. Block / unblock user's account.
+ * Revoke / unrevoke chat privileges.
  *
  * @apiExample Example Body:
  * {
