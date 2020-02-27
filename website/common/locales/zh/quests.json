@@ -137,5 +137,7 @@
     "chatBossDamage": "<%= username %>对<%= bossName %>造成了<%= userDamage %>点伤害。<%= bossName %>对队伍造成了<%= bossDamage %>点伤害。",
     "chatQuestStarted": "你们的副本<%= questName %>已经开始啦。",
     "hatchingPotionQuests": "魔法孵化药水副本",
-    "questInvitationNotificationInfo": "您受邀参与副本"
+    "questInvitationNotificationInfo": "您受邀参与副本",
+    "questAlreadyStartedFriendly": "这个副本已经开始了，但是你可以参加下一个！",
+    "questAlreadyStarted": "副本已经开始了。"
 }

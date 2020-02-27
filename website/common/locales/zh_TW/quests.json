@@ -137,5 +137,7 @@
     "chatQuestAborted": "<%= username %>放棄了隊伍副本〈<%= questName %>〉。",
     "chatQuestCancelled": "<%= username %>取消了隊伍副本〈<%= questName %>〉。",
     "tavernBossTired": "<%= bossName %>試圖解放<%= rageName %>，但因為實在太累而失敗了。",
-    "questInvitationNotificationInfo": "您受邀參與副本"
+    "questInvitationNotificationInfo": "您受邀參與副本",
+    "questAlreadyStartedFriendly": "這個副本已經開始了，但是你可以參加下一個！",
+    "questAlreadyStarted": "副本已經開始了。"
 }
