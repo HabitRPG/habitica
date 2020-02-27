@@ -48,7 +48,7 @@ async function _appleProfile (req) {
   
   return {
     id: idToken.sub,
-    emails: [idToken.email],
+    emails: [{value: idToken.email}],
     name: idToken.name || req.body.name,
   };
 }
