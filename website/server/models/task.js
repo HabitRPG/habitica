@@ -162,6 +162,12 @@ TaskSchema.plugin(baseModel, {
       }
     }
 
+    // Fix issue where iOS was sending null as the value of the attribute field
+    // See https://github.com/HabitRPG/habitica-ios/commit/4cd05f80363502eb7652e057aa564c85546f7806
+    if (taskObj.attribute === null) {
+      taskObj.attribute = 'str';
+    }
+
     return taskObj;
   },
   private: [],
