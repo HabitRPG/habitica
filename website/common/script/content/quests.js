@@ -1067,7 +1067,7 @@ const quests = {
     notes: t('questBasilistNotes'),
     group: 'questGroupEarnable',
     completion: t('questBasilistCompletion'),
-    value: 4,
+    goldValue: 100,
     category: 'unlockable',
     unlockCondition: {
       condition: 'party invite',
@@ -2238,7 +2238,7 @@ const quests = {
     notes: t('questDustBunniesNotes'),
     group: 'questGroupEarnable',
     completion: t('questDustBunniesCompletion'),
-    value: 4,
+    value: 1,
     category: 'unlockable',
     unlockCondition: {
       condition: 'party invite',
@@ -2262,7 +2262,7 @@ const quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 7,
       text: t('loginReward', { count: 7 }),
     },
@@ -2293,7 +2293,7 @@ const quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 22,
       text: t('loginReward', { count: 22 }),
     },
@@ -2323,7 +2323,7 @@ const quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 40,
       text: t('loginReward', { count: 40 }),
     },
