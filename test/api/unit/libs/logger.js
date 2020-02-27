@@ -4,11 +4,11 @@ import {
   NotFound,
 } from '../../../../website/server/libs/errors';
 
-describe('logger', () => {
+describe.only('logger', () => {
   let logSpy;
 
   beforeEach(() => {
-    logSpy = sandbox.stub(winston.Logger.prototype, 'log');
+    logSpy = sandbox.stub(Object.getPrototypeOf(winston.createLogger()), 'log');
   });
 
   afterEach(() => {
