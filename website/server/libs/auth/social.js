@@ -41,10 +41,11 @@ async function _appleProfile (req) {
   const passedToken = req.body.id_token ? req.body.id_token : req.query.id_token;
   if (code) {
     const response = await auth.accessToken(code);
-    idToken = jwt.decode(response.id_token);
-  } else if (passedToken) {
-    idToken = await jwt.verify(passedToken, applePublicKey, { algorithms: ['RS256'] });
+    passedToken = response.id_token
+    idToken = jwt.verify(response.id_token, applePublicKey, { algorithms: ['RS256'] });
   }
+  idToken = await jwt.verify(passedToken, applePublicKey, { algorithms: ['RS256'] });
+  
   return {
     id: idToken.sub,
     emails: [idToken.email],
