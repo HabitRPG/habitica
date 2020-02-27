@@ -59,8 +59,10 @@ api.getNews = {
 };
 
 /**
- * @api {post} /api/v3/news/tell-me-later Get latest Bailey announcement in a second moment
+ * @api {post} /api/v3/news/tell-me-later Allow latest Bailey announcement to be read later
  * @apiName TellMeLaterNews
+ * @apiDescription Add a notification to allow viewing of the latest "New Stuff by Bailey" message.
+ * Prevent this specific Bailey message from appearing automatically.
  * @apiGroup News
  *
  *
