@@ -20,7 +20,8 @@
     &-modal {
       &-bg { background: $maroon-100 !important; }
       &-icon { color: $maroon-100 !important; }
-      &-text { color: $maroon-50 !important; }
+      &-text { color: $red-1 !important; }
+      &-text:focus, &-text:active { border: 1px solid $red-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $maroon-100 !important; }
         .option-item-label { color: $maroon-50 !important; }
@@ -53,7 +54,8 @@
     &-modal {
       &-bg { background: $red-100 !important; }
       &-icon { color: $red-100 !important; }
-      &-text { color: $red-10 !important; }
+      &-text { color: $red-1 !important; }
+      &-text:focus, &-text:active { border: 1px solid $red-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $red-100 !important; }
         .option-item-label { color: $red-10 !important; }
@@ -85,19 +87,10 @@
     }
 
     &-modal {
-      &-bg {
-        background: $orange-100 !important;
-
-        .form-control {
-          background: rgba(183, 90, 28, 0.4) !important;
-
-          &:focus, &:active, &:hover {
-            background-color: #b75a1c !important;
-          }
-        }
-      }
+      &-bg { background: $orange-100 !important; }
       &-icon { color: $orange-100 !important; }
-      &-text { color: #b75a1c !important; }
+      &-text { color: $orange-1 !important; }
+      &-text:focus, &-text:active { border: 1px solid $orange-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $orange-100 !important; }
         .option-item-label { color: #b75a1c !important; }
@@ -128,19 +121,10 @@
     }
 
     &-modal {
-      &-bg {
-        background: $yellow-100 !important;
-
-        .form-control {
-          background: rgba(183, 90, 28, 0.4) !important;
-
-          &:focus, &:active, &:hover {
-            background-color: #bf7d1a !important;
-          }
-        }
-      }
+      &-bg { background: $yellow-100 !important; }
       &-icon { color: $yellow-100 !important; }
-      &-text { color: #bf7d1a !important; }
+      &-text { color: $yellow-1 !important; }
+      &-text:focus, &-text:active { border: 1px solid $yellow-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $yellow-100 !important; }
         .option-item-label { color: #bf7d1a !important; }
@@ -173,7 +157,8 @@
     &-modal {
       &-bg { background: $green-100 !important; }
       &-icon { color: $green-10 !important; }
-      &-text { color: #1ca372 !important; }
+      &-text { color: $green-1 !important; }
+      &-text:focus, &-text:active { border: 1px solid $green-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $green-10 !important; }
         .option-item-label { color: #1ca372 !important; }
@@ -206,7 +191,8 @@
     &-modal {
       &-bg { background: $teal-100 !important; }
       &-icon { color: $teal-100 !important; }
-      &-text { color: $teal-10 !important; }
+      &-text { color: $teal-1 !important; }
+      &-text:focus, &-text:active { border: 1px solid $teal-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $teal-100 !important; }
         .option-item-label { color: $teal-10 !important; }
@@ -239,7 +225,8 @@
     &-modal {
       &-bg { background: $blue-100 !important; }
       &-icon { color: $blue-100 !important; }
-      &-text { color: $blue-10 !important; }
+      &-text { color: $blue-1 !important; }
+      &-text:focus, &-text:active { border: 1px solid $blue-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $blue-50 !important; }
         .option-item-label { color: $blue-10 !important; }
@@ -268,7 +255,8 @@
     &-modal {
       &-bg { background: $purple-300 !important; }
       &-icon { color: $purple-300 !important; }
-      &-text { color: $purple-200 !important; }
+      &-text { color: $black !important; }
+      &-text:focus, &-text:active { border: 1px solid $black !important; }
       &-option-disabled:hover {
         .svg-icon { color: $purple-300 !important; }
         .option-item-label { color: $purple-200 !important; }

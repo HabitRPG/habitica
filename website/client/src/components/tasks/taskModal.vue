@@ -15,54 +15,62 @@
       :class="cssClass('bg')"
       @click="handleClick($event)"
     >
-      <div class="clearfix">
-        <h1 class="float-left">
+      <div class="d-flex align-items-center mt-2 mb-4">
+        <h2
+          class="mr-auto my-auto"
+          :class="cssClassHeadings"
+        >
           {{ title }}
-        </h1>
-        <div class="float-right d-flex align-items-center">
+        </h2>
+        <div class="ml-auto d-flex align-items-center">
           <span
-            v-once
-            class="cancel-task-btn mr-2"
+            class="cancel-task-btn mr-3"
+            :class="cssClassHeadings"
             @click="cancel()"
           >{{ $t('cancel') }}</span>
-          <button
+          <div
             v-once
-            class="btn btn-secondary"
+            class="save-task-btn d-flex align-items-center justify-content-center"
             @click="submit()"
           >
-            {{ $t('save') }}
-          </button>
+            <div class="m-auto">{{ $t('save') }}</div>
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <label v-once>{{ `${$t('text')}*` }}</label>
+      <div class="form-group mb-3">
+        <label
+          :class="cssClassHeadings"
+        >{{ `${$t('text')}*` }}</label>
         <input
           ref="inputToFocus"
           v-model="task.text"
-          class="form-control title-input"
+          class="form-control input-title"
+          :class="cssClass('text')"
           type="text"
           required="required"
           spellcheck="true"
           :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
         >
       </div>
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label
-          v-once
           class="d-flex align-items-center justify-content-between"
         >
-          <span>{{ $t('notes') }}</span>
-          <small v-once>
+          <span
+            :class="cssClassHeadings"
+          >{{ $t('notes') }}</span>
+          <small>
             <a
               target="_blank"
               href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet"
+              :class="cssClassHeadings"
             >{{ $t('markdownHelpLink') }}</a>
           </small>
         </label>
         <textarea
           v-model="task.notes"
-          class="form-control"
-          rows="3"
+          class="form-control input-notes"
+          :class="cssClass('text')"
         ></textarea>
       </div>
     </div>
@@ -765,17 +773,11 @@
 
     input, textarea {
       border: none;
-      background: rgba(0, 0, 0, 0.24);
-      color: rgba($white, 0.64) !important;
       transition-property: border-color, box-shadow, color, background;
-
-      &:focus, &:active {
-        color: $white !important;
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.32);
-      }
+      background-color: rgba(255, 255, 255, 0.5);
 
       &:focus, &:active, &:hover {
-        background-color: rgba(0, 0, 0, 0.40);
+        background-color: rgba(255, 255, 255, 0.75);
       }
     }
 
@@ -802,7 +804,7 @@
       padding-top: 16px;
       padding-bottom: 24px;
 
-      h1 {
+      h2 {
         color: $white;
       }
     }
@@ -1146,9 +1148,26 @@
 </style>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .gold {
     width: 24px;
     margin: 0 7px;
+  }
+
+  .save-task-btn {
+    width: 4rem;
+    height: 2rem;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    background-color: $white;
+    color: $gray-50;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .input-notes {
+    height: 4rem;
   }
 </style>
 
@@ -1302,6 +1321,11 @@ export default {
     },
     remainingSelectedTags () {
       return this.selectedTags.slice(this.maxTags);
+    },
+    cssClassHeadings () {
+      const textClass = this.cssClass('text');
+      if (textClass.indexOf('purple') !== -1 || textClass.indexOf('worst') !== -1) return null;
+      return textClass;
     },
   },
   watch: {
