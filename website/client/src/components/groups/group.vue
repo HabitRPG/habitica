@@ -486,12 +486,6 @@ export default {
         this.$router.push('/');
       }
     },
-    async group () {
-      this.members = await this.loadMembers({
-        groupId: this.group._id,
-        includeAllPublicFields: true,
-      });
-    },
   },
   mounted () {
     if (this.isParty) this.searchId = 'party';
@@ -578,6 +572,11 @@ export default {
           this.$delete(this.user.newMessages, groupId);
         }, 1000);
       }
+
+      this.members = await this.loadMembers({
+        groupId: this.group._id,
+        includeAllPublicFields: true,
+      });
     },
     hasUnreadMessages (groupId) {
       if (this.user.newMessages[groupId]) return true;
