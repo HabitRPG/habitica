@@ -63,5 +63,11 @@
     "viewAchievements": "Visualizar Conquistas",
     "letsGetStarted": "Vamos começar!",
     "onboardingProgress": "<%= percentage %>% concluído",
-    "gettingStartedDesc": "Vamos criar uma tarefa, concluí-la e, então, conferir suas recompensas. Você ganhará <strong>5 conquistas</strong> e <strong class=\"gold-amount\">100 peças ouro</strong> assim que terminar!"
+    "gettingStartedDesc": "Vamos criar uma tarefa, concluí-la e, então, conferir suas recompensas. Você ganhará <strong>5 conquistas</strong> e <strong class=\"gold-amount\">100 peças ouro</strong> assim que terminar!",
+    "achievementRosyOutlookModalText": "Você domou todas as Montarias algodão-doce rosa!",
+    "achievementRosyOutlookText": "Coletou todas as Montarias algodão-doce rosa.",
+    "achievementRosyOutlook": "Perspectiva rosada",
+    "achievementTickledPinkModalText": "Você coletou todos os Mascotes algodão-doce rosa!",
+    "achievementTickledPinkText": "Coletou todos os Mascotes algodão-doce rosa.",
+    "achievementTickledPink": "Cócegas rosa"
 }

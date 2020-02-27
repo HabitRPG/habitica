@@ -63,5 +63,11 @@
     "viewAchievements": "View Achievements",
     "letsGetStarted": "Let's get started!",
     "onboardingProgress": "<%= percentage %>% progress",
-    "gettingStartedDesc": "Let’s create a task, complete it, then check out your rewards. You’ll earn <strong>5 achievements</strong> and <strong class=\"gold-amount\">100 gold</strong> once you’re done!"
+    "gettingStartedDesc": "Let’s create a task, complete it, then check out your rewards. You’ll earn <strong>5 achievements</strong> and <strong class=\"gold-amount\">100 gold</strong> once you’re done!",
+    "achievementRosyOutlookModalText": "You tamed all the Cotton Candy Pink Mounts!",
+    "achievementRosyOutlookText": "Has tamed all Cotton Candy Pink Mounts.",
+    "achievementRosyOutlook": "Rosy Outlook",
+    "achievementTickledPinkModalText": "You collected all the Cotton Candy Pink Pets!",
+    "achievementTickledPinkText": "Has collected all Cotton Candy Pink Pets.",
+    "achievementTickledPink": "Tickled Pink"
 }

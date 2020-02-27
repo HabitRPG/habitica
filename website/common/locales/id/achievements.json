@@ -1,9 +1,15 @@
 {
-  "achievement": "Pencapaian",
-  "share": "Bagikan",
-  "onwards": "Berjuang!",
-  "levelup": "Dengan mencapai tujuanmu di kehidupan nyata, kamu naik level dan sekarang disembuhkan sepenuhnya!",
-  "reachedLevel": "Kamu Mencapai Level <%= level %>",
-  "achievementLostMasterclasser": "Penakluk Misi: Seri Masterclasser",
-  "achievementLostMasterclasserText": "Menyelesaikan seluruh enam belas misi di Seri Misi Masterclasser dan memecahkan misteri dari Sang Masterclasser!"
+    "achievement": "Pencapaian",
+    "share": "Bagikan",
+    "onwards": "Berjuang!",
+    "levelup": "Dengan mencapai tujuanmu di kehidupan nyata, kamu naik level dan sekarang disembuhkan sepenuhnya!",
+    "reachedLevel": "Kamu Mencapai Level <%= level %>",
+    "achievementLostMasterclasser": "Penakluk Misi: Seri Masterclasser",
+    "achievementLostMasterclasserText": "Menyelesaikan seluruh enam belas misi di Seri Misi Masterclasser dan memecahkan misteri dari Sang Masterclasser!",
+    "onboardingCompleteDesc": "Kamu mendapatkan <strong>5 penghargaan</strong> dan <strong class=\"gold-amount\">100</strong> emas karena telah melengkapi daftar.",
+    "earnedAchievement": "Kamu mendapatkan sebuah penghargaan!",
+    "viewAchievements": "Lihat Penghargaan",
+    "letsGetStarted": "Mari kita mulai!",
+    "onboardingProgress": "<%= percentage %>% kemajuan",
+    "gettingStartedDesc": "Mari buat sebuah tugas, selesaikan, lalu periksa hadiahmu. Kamu akan mendapatkan <strong>5 penghargaan</strong> dan <strong class=\"gold-amount\">100 Emas</strong> ketika kamu selesai!"
 }
