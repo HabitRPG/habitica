@@ -178,7 +178,7 @@ api.groupMoveTask = {
  * @apiParam (Path) {UUID} taskId The id of the task that will be assigned
  * @apiParam (Path) {UUID} assignedUserId The id of the user that will be assigned to the task
  *
- * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ * @apiSuccess data The assigned task
  */
 api.assignTask = {
   method: 'POST',
@@ -246,14 +246,14 @@ api.assignTask = {
 
 /**
  * @api {post} /api/v3/tasks/:taskId/unassign/:assignedUserId Unassign a user from a task
- * @apiDescription Unassigns a user to from a group task
+ * @apiDescription Unassigns a user from a group task
  * @apiName UnassignTask
  * @apiGroup Task
  *
- * @apiParam (Path) {UUID} taskId The id of the task that will be assigned
+ * @apiParam (Path) {UUID} taskId The id of the task that is the original group task
  * @apiParam (Path) {UUID} assignedUserId The id of the user that will be unassigned from the task
  *
- * @apiSuccess data An object if a single task was created, otherwise an array of tasks
+ * @apiSuccess data The unassigned task
  */
 api.unassignTask = {
   method: 'POST',
@@ -398,8 +398,8 @@ api.approveTask = {
 };
 
 /**
- * @api {post} /api/v3/tasks/:taskId/needs-work/:userId Group task needs more work
- * @apiDescription Mark an assigned group task as needeing more work before it can be approved
+ * @api {post} /api/v3/tasks/:taskId/needs-work/:userId Require more work for a group task
+ * @apiDescription Mark an assigned group task as needing more work before it can be approved
  * @apiVersion 3.0.0
  * @apiName TaskNeedsWork
  * @apiGroup Task

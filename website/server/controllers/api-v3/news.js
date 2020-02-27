@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POSTS: PARTY PARTICIPATION AND OUR FAVO(U)RITE GUILDS!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR FEBRUARY ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,43 +31,27 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/20/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>2/27/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_gaining_achievement center-block"></div>
-        <h3>Use Case Spotlight: Party Participation</h3>
+        <div class="promo_mystery_022020 center-block"></div>
+        <h3>Last Chance for Stylish Sweetheart Set</h3>
         <p>
-          This month's <a
-          href='https://habitica.wordpress.com/2020/02/20/use-case-spotlight-party-cipation/'
-          target='_blank'>Use Case Spotlight</a> is about Party Participation! It features a number
-          of great suggestions submitted by Habiticans in the <a
-          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
-          We hope it helps any of you who might be looking for ways to keep your quest party
-          engaged and excited to win battles with good habits.
+          Reminder: time is running out to receive the Stylish Sweetheart Set when you <a
+          href='/user/settings/subscription'>subscribe</a>! Subscribing also lets you buy Gems
+          with Gold, nets you a special Royal Purple Jackalope Pet, and more!
         </p>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_valentines_potions center-block"></div>
+        <h3>Last Chance for Rose Quartz and Cupid Hatching Potions</h3>
         <p>
-          Plus, we're collecting user submissions for the next spotlight! How do you use Habitica
-          to manage conflicting needs, like productivity versus self-care? We’ll be featuring
-          player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post
-          your suggestions in the Use Case Spotlight Guild now. We look forward to learning more
-          about how you use Habitica to improve your life and get things done!
+          <a href='/shops/market'>Rose Quartz and Cupid Hatching Potions</a> will also go away at
+          the end of the month! If they come back, it won't be until next year at the earliest, so
+          don't delay!
         </p>
-        <div class="small mb-3">by shanaqui</div>
-        <div class="scene_shanaqui center-block"></div>
-        <h3>Guild Spotlight: Shanaqui's Favourites</h3>
-        <p>
-          For this year's Guild Spotlight series, we're highlighting some favourites from
-          Habitica's staff, moderators, and maybe some high-level contributors!
-        </p>
-        <p>
-          This month we're kicking things off with some <a
-          href='https://habitica.wordpress.com/2020/02/20/guild-spotlights-our-favourites/'
-          target='_blank'>picks from shanaqui!</a> If you want to curate your Habitica experience
-          and join active, positive Guilds, this is a great way to pick up some new ideas for
-          Guilds to join.
-        </p>
-        <div class="small mb-3">by shanaqui</div>
+        <div class="small mb-3">by Vampitch, Willow the Witty, and SabreCat</div>
       </div>
       `,
     });
@@ -75,8 +59,10 @@ api.getNews = {
 };
 
 /**
- * @api {post} /api/v3/news/tell-me-later Get latest Bailey announcement in a second moment
+ * @api {post} /api/v3/news/tell-me-later Allow latest Bailey announcement to be read later
  * @apiName TellMeLaterNews
+ * @apiDescription Add a notification to allow viewing of the latest "New Stuff by Bailey" message.
+ * Prevent this specific Bailey message from appearing automatically.
  * @apiGroup News
  *
  *

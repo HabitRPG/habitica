@@ -77,7 +77,9 @@ api.clearMessages = {
  * @api {get} /api/v4/inbox/conversations Get the conversations for a user
  * @apiName conversations
  * @apiGroup Inbox
- * @apiDescription Get the conversations for a user
+ * @apiDescription Get the conversations for a user.
+ * This is for API v4 which must not be used in third-party tools.
+ * For API v3, use "Get inbox messages for a user".
  *
  * @apiSuccess {Array} data An array of inbox conversations
  *
