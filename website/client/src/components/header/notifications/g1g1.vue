@@ -3,14 +3,14 @@
     class="notification d-flex flex-column justify-content-center text-center"
   >
     <strong
-      class="mx-auto mb-2"
       v-once
+      class="mx-auto mb-2"
     >
       {{ $t('g1g1Announcement') }}
     </strong>
     <p
-      class="mx-4"
       v-once
+      class="mx-4"
     >
       {{ $t('g1g1Details') }}
     </p>
@@ -19,8 +19,8 @@
       @click="showSelectUser()"
     >
       <div
-        class="m-auto"
         v-once
+        class="m-auto"
       >
         {{ $t('sendGift') }}
       </div>
@@ -30,9 +30,9 @@
       @click.stop="remove()"
     >
       <div
+        v-once
         class="svg-icon"
         v-html="icons.close"
-        v-once
       ></div>
     </div>
   </div>
