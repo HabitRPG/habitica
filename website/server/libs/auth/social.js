@@ -69,6 +69,8 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     profile = await _passportProfile(network, accessToken);
   }
 
+  if (!profile.id) throw new BadRequest(res.t('invalidData'))
+
   let user = await User.findOne({
     [`auth.${network}.id`]: profile.id,
   }, { _id: 1, apiToken: 1, auth: 1 }).exec();
