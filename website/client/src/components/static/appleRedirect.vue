@@ -24,8 +24,11 @@ export default {
   async mounted () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-
-    await this.$store.dispatch('auth:appleAuth', { code: urlParams.get('code') });
+    const body = { code: urlParams.get('code') };
+    if (urlParams.has('name')) {
+      body['name'] = urlParams.get('name')
+    }
+    await this.$store.dispatch('auth:appleAuth', body);
 
     window.location.href = '/';
   },
