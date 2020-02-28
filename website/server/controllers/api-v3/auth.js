@@ -158,7 +158,7 @@ api.redirectApple = {
       req.body.network = 'apple';
       return loginSocial(req, res);
     }
-    const url = `/static/apple-redirect?code=${req.body.code}`;
+    let url = `/static/apple-redirect?code=${req.body.code}`;
     if (req.body.user) {
       const { name } = JSON.parse(req.body.user);
       url += `&name=${name}`;

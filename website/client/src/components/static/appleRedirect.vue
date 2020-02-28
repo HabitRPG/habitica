@@ -26,7 +26,7 @@ export default {
     const urlParams = new URLSearchParams(queryString);
     const body = { code: urlParams.get('code') };
     if (urlParams.has('name')) {
-      body['name'] = urlParams.get('name')
+      body.name = urlParams.get('name');
     }
     await this.$store.dispatch('auth:appleAuth', body);
 

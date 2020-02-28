@@ -36,15 +36,15 @@ const auth = new AppleAuth(JSON.stringify({
 }), applePrivateKey.toString(), 'text');
 
 async function _appleProfile (req) {
-  const idToken = {};
+  let idToken = {};
   const code = req.body.code ? req.body.code : req.query.code;
-  const passedToken = req.body.id_token ? req.body.id_token : req.query.id_token;
+  let passedToken = req.body.id_token ? req.body.id_token : req.query.id_token;
   if (code) {
     const response = await auth.accessToken(code);
     passedToken = response.id_token;
   }
   idToken = await jwt.verify(passedToken, applePublicKey, { algorithms: ['RS256'] });
-  
+
   return {
     id: idToken.sub,
     emails: [{ value: idToken.email }],
