@@ -1,5 +1,6 @@
 <template>
   <router-link
+    v-if="group"
     :to="toPath"
   >
     {{ group.name }}
