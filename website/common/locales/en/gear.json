@@ -1458,6 +1458,8 @@
   "headMystery201912Notes": "This glittering snowflake grants you resistance to the biting cold no matter how high you fly! Confers no benefit. December 2019 Subscriber Item.",
   "headMystery202001Text": "Fabled Fox Ears",
   "headMystery202001Notes": "Your hearing will be so sharp, you'll hear the stars twinkling and the moon spinning. Confers no benefit. January 2020 Subscriber Item.",
+  "headMystery202003Text": "Barbed Helm",
+  "headMystery202003Notes": "Be careful, this helm is sharp in more ways than one! Confers no benefit. March 2020 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -2017,6 +2019,8 @@
   "bodyMystery201901Notes": "These shimmering pauldrons are strong, but will rest on your shoulders as weightlessly as a ray of dancing light. Confers no benefit. January 2019 Subscriber Item.",
   "bodyMystery202002Text": "Stylish Sweetheart Scarf",
   "bodyMystery202002Notes": "For when your heart is warm but the breezes of February are brisk. Confers no benefit. February 2020 Subscriber Item.",
+  "bodyMystery202003Text": "Barbed Pauldrons",
+  "bodyMystery202003Notes": "They're like shoulder pads that are on a whole other level. Confers no benefit. March 2020 Subscriber Item.",
 
   "bodyArmoireCozyScarfText": "Cozy Scarf",
   "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Lamplighter's Set (Item 4 of 4).",

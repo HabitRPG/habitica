@@ -63,5 +63,11 @@
     "earnedAchievement": "Вы получили достижение!",
     "viewAchievements": "Посмотреть достижения",
     "onboardingProgress": "<%= percentage %>% прогресс",
-    "gettingStartedDesc": "Давайте создадим задачу, выполним её, и проверим ваши награды. По итогу вы получите <strong>5 достижений</strong> и <strong class=\"gold-amount\">100 золотых</strong>!"
+    "gettingStartedDesc": "Давайте создадим задачу, выполним её, и проверим ваши награды. По итогу вы получите <strong>5 достижений</strong> и <strong class=\"gold-amount\">100 золотых</strong>!",
+    "achievementRosyOutlookModalText": "Вы собрали всех розовых сахорных скакунов!",
+    "achievementRosyOutlookText": "Собраны все розовые сахорные скакуны.",
+    "achievementTickledPinkModalText": "Вы собрали всех розовых сахорных питомцев!",
+    "achievementTickledPinkText": "Собраны все розовые сахорные питомцы.",
+    "achievementRosyOutlook": "Розовые перспективы",
+    "achievementTickledPink": "Радостный розовый"
 }

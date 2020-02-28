@@ -203,6 +203,12 @@
     "goToSettings": "Mene asetuksiin",
     "usernameVerifiedConfirmation": "Käyttäjänimesi, <%= username %>, on vahvistettu!",
     "usernameNotVerified": "Vahvista käyttäjänimesi.",
-    "changeUsernameDisclaimer": "Siirrymme pian kirjautumisnimistä yksilöllisiin, julkisiin käyttäjänimiin. Tätä käyttäjänimeä käytetään kutsuissa, @tunnisteissa chatissa, ja viesteissä.",
-    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
+    "changeUsernameDisclaimer": "Tätä käyttäjänimeä käytetään kutsuissa, @tunnisteissa chatissa, ja viesteissä.",
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
+    "everywhere": "Kaikkialla",
+    "mentioning": "Mainitseminen",
+    "subscriptionReminders": "Tilausmuistutukset",
+    "newPMNotificationTitle": "Uusi Viesti käyttäjältä <%= name %>",
+    "chatExtensionDesc": "Habitican Chat-liitännäinen lisää intuitiivisen chat-ikkunan kaikkialle habitica.com:iin. Sen avulla käyttäjät voivat jutella Tavernassa, partiossaan ja kaikissa killoissaan.",
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chat-liitännäinen Chromelle</a> ja <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Chat-liitännäinen Firefoxille</a>"
 }
