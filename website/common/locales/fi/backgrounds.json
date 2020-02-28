@@ -408,5 +408,11 @@
     "backgroundArchaeologicalDigText": "Arkeologinen kaivaus",
     "backgroundArchaeologicalDigNotes": "Paljasta muinaishistorian salaisuudet Arkeologisella kaivauksella.",
     "backgroundScribesWorkshopText": "Kirjurin työpaja",
-    "backgroundScribesWorkshopNotes": "Kirjoita seuraava menestyksekäs kirjakäärösi Kirjurin työpajassa."
+    "backgroundScribesWorkshopNotes": "Kirjoita seuraava menestyksekäs kirjakäärösi Kirjurin työpajassa.",
+    "backgroundBirchForestText": "Koivumetsä",
+    "backgroundFlowerMarketText": "Kukkatori",
+    "backgroundDuckPondText": "Ankkalammikko",
+    "backgroundValentinesDayFeastingHallText": "Ystävänpäivän juhlasali",
+    "backgroundOldFashionedBakeryText": "Vanhanaikainen leipomo",
+    "backgroundMedievalKitchenText": "Keskiaikainen keittiö"
 }

@@ -63,5 +63,11 @@
     "achievementCompletedTask": "完成一個任務",
     "achievementCompletedTaskText": "完成了他們頭一回任務。",
     "achievementCompletedTaskModalText": "你可以清點任務已得到獎勵",
-    "achievementHatchedPet": "孵化一隻寵物"
+    "achievementHatchedPet": "孵化一隻寵物",
+    "achievementRosyOutlookModalText": "你集齊了所有粉色棉花糖坐騎！",
+    "achievementRosyOutlookText": "馴服了所有粉色棉花糖色坐騎。",
+    "achievementRosyOutlook": "玫瑰色的前景",
+    "achievementTickledPinkModalText": "你集齊了所有粉色棉花糖寵物！",
+    "achievementTickledPinkText": "集齊了所有粉色棉花糖寵物。",
+    "achievementTickledPink": "笑得臉變粉紅色"
 }

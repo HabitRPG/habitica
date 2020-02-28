@@ -63,5 +63,11 @@
     "achievementCompletedTaskModalText": "Hake Deine Aufgaben ab, um Belohnungen zu verdienen",
     "achievementCompletedTaskText": "Hat die erste Aufgabe erledigt.",
     "achievementCompletedTask": "Erledige eine Aufgabe",
-    "achievementCreatedTaskText": "Hat die erste Aufgabe erstellt."
+    "achievementCreatedTaskText": "Hat die erste Aufgabe erstellt.",
+    "achievementRosyOutlookModalText": "Du hast alle zuckerwattenrosanen Reittiere gezähmt!",
+    "achievementRosyOutlookText": "Hat alle zuckerwattenrosanen Reittiere gezähmt.",
+    "achievementRosyOutlook": "Rosige Aussichten",
+    "achievementTickledPinkModalText": "Du hast alle zuckerwattenrosanen Haustiere gesammelt!",
+    "achievementTickledPinkText": "Hat alle zuckerwattenrosanen Haustiere gesammelt.",
+    "achievementTickledPink": "Rosige Bäckchen"
 }
