@@ -6,6 +6,9 @@ import * as Tasks from '../task';
 import {
   model as UserNotification,
 } from '../userNotification';
+import {
+  model as pushDevice,
+} from '../pushDevice';
 import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
@@ -28,6 +31,11 @@ schema.plugin(baseModel, {
     if (originalDoc.notifications) {
       plainObj.notifications = UserNotification
         .convertNotificationsToSafeJson(originalDoc.notifications);
+    }
+
+    if (originalDoc.pushDevices) {
+      plainObj.pushDevices = pushDevice
+        .convertPushDevicesToSafeJson(originalDoc.pushDevices);
     }
 
     return plainObj;
@@ -189,6 +197,20 @@ schema.pre('validate', function preValidateUser (next) {
     this.profile.name = _setProfileName(this);
   }
 
+  // Filter push Devices, remove unvalid and unnecessary,
+  // handle the ones that have special requirements
+  if (// Make sure all the data is loaded
+    this.isDirectSelected('pushDevices')
+  ) {
+    this.pushDevices = this.pushDevices.filter(pushDevice => {
+      // Remove corrupt push devices
+      if (!pushDevice || pushDevice.validateSync()) return false;
+
+      // Keep all the others
+      return true;
+    })
+  }
+
   next();
 });
 
@@ -245,6 +267,21 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // if (!this.items.pets['JackOLantern-Base'] && moment().isBefore('2014-11-01'))
     // this.items.pets['JackOLantern-Base'] = 5;
     // this.markModified('items.pets');
+  }
+
+
+  // Filter push Devices, remove unvalid and unnecessary,
+  // handle the ones that have special requirements
+  if (// Make sure all the data is loaded
+    this.isDirectSelected('pushDevices')
+  ) {
+    this.pushDevices = this.pushDevices.filter(pushDevice => {
+      // Remove corrupt push devices
+      if (!pushDevice || pushDevice.validateSync()) return false;
+
+      // Keep all the others
+      return true;
+    })
   }
 
   // Filter notifications, remove unvalid and not necessary,
