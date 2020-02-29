@@ -39,16 +39,16 @@ const auth = new AppleAuth(JSON.stringify({
 async function _appleProfile (req) {
   let idToken = {};
   const code = req.body.code ? req.body.code : req.query.code;
-  const passedToken = req.body.id_token ? req.body.id_token : req.query.id_token;
+  let passedToken = req.body.id_token ? req.body.id_token : req.query.id_token;
   if (code) {
     const response = await auth.accessToken(code);
-    idToken = jwt.decode(response.id_token);
-  } else if (passedToken) {
-    idToken = await jwt.verify(passedToken, applePublicKey, { algorithms: ['RS256'] });
+    passedToken = response.id_token;
   }
+  idToken = await jwt.verify(passedToken, applePublicKey, { algorithms: ['RS256'] });
+
   return {
     id: idToken.sub,
-    emails: [idToken.email],
+    emails: [{ value: idToken.email }],
     name: idToken.name || req.body.name,
   };
 }
@@ -68,6 +68,8 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     const accessToken = req.body.authResponse.access_token;
     profile = await _passportProfile(network, accessToken);
   }
+
+  if (!profile.id) throw new BadRequest(res.t('invalidData'));
 
   let user = await User.findOne({
     [`auth.${network}.id`]: profile.id,
