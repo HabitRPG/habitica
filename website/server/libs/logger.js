@@ -14,6 +14,13 @@ const ENABLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') === 'true';
 
 const logger = winston.createLogger();
 
+const _config = {
+  logger,
+  loggingEnabled: true, // false if no transport has been configured
+};
+
+export { _config as _loggerConfig }; // exported for use during tests
+
 if (IS_PROD) {
   if (ENABLE_LOGS_IN_PROD) {
     logger.add(new winston.transports.Console({
@@ -46,6 +53,12 @@ if (IS_PROD) {
     .add(new winston.transports.Console({
       level: 'warn', // warn and errors (json part)
       format: winston.format.combine(
+        // Remove stacktrace from json, printed separately
+        winston.format(info => {
+          const message = info.message.split('\n')[0];
+          info.message = message;
+          return info;
+        })(),
         winston.format.prettyPrint({
           colorize: true,
         }),
@@ -68,11 +81,15 @@ if (IS_PROD) {
         winston.format.printf(info => `${info.timestamp} - ${info.level} ${info.message}`),
       ),
     }));
+} else {
+  _config.loggingEnabled = false;
 }
 
 // exports a public interface insteaf of accessing directly the logger module
 const loggerInterface = {
   info (...args) {
+    if (!_config.loggingEnabled) return;
+
     logger.info(...args);
   },
 
@@ -81,6 +98,7 @@ const loggerInterface = {
   // and an object of additional data to log alongside the error
   // If the first argument isn't an Error, it'll call logger.error with all the arguments supplied
   error (...args) {
+    if (!_config.loggingEnabled) return;
     const [err, errorData = {}, ...otherArgs] = args;
 
     if (err instanceof Error) {
