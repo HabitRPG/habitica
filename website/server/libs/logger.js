@@ -10,7 +10,10 @@ import {
 const IS_PROD = nconf.get('IS_PROD');
 const IS_TEST = nconf.get('IS_TEST');
 const ENABLE_LOGS_IN_TEST = nconf.get('ENABLE_CONSOLE_LOGS_IN_TEST') === 'true';
-const ENABLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') === 'true';
+const ENABLE_CONSOLE_LOGS_IN_PROD = nconf.get('ENABLE_CONSOLE_LOGS_IN_PROD') === 'true';
+
+const LOGGLY_TOKEN = nconf.get('LOGGLY_TOKEN');
+const LOGGLY_SUBDOMAIN = nconf.get('LOGGLY_SUBDOMAIN');
 
 const logger = winston.createLogger();
 
@@ -22,17 +25,19 @@ const _config = {
 export { _config as _loggerConfig }; // exported for use during tests
 
 if (IS_PROD) {
-  if (ENABLE_LOGS_IN_PROD) {
+  if (ENABLE_CONSOLE_LOGS_IN_PROD) {
     logger.add(new winston.transports.Console({
       format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.json(),
       ),
     }));
+  }
 
+  if (LOGGLY_TOKEN && LOGGLY_SUBDOMAIN) {
     logger.add(new Loggly({
-      inputToken: nconf.get('LOGGLY_TOKEN'),
-      subdomain: nconf.get('LOGGLY_SUBDOMAIN'),
+      inputToken: LOGGLY_TOKEN,
+      subdomain: LOGGLY_SUBDOMAIN,
       tags: ['Winston-NodeJS'],
       json: true,
     }));
