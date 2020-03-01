@@ -170,7 +170,9 @@ export default {
       return Math.floor(this.currentWidth / 140) + 1;
     },
     sortedPartyMembers () {
-      return orderBy(this.partyMembers, [this.user.party.order], [this.user.party.orderAscending]);
+      const sortBy = this.user.party.order === 'profile.name' ? member => member.profile.name.toLowerCase() : this.user.party.order;
+
+      return orderBy(this.partyMembers, [sortBy], [this.user.party.orderAscending]);
     },
     hideHeader () {
       return ['groupPlan', 'privateMessages'].includes(this.$route.name);
