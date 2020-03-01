@@ -9,6 +9,9 @@ import {
 import {
   model as PushDevice,
 } from '../pushDevice';
+import {
+  model as Tag,
+} from '../tag';
 import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
@@ -196,6 +199,11 @@ schema.post('init', function postInitUser () {
   // Make sure pushDevices are loaded
   if (this.isDirectSelected('pushDevices')) {
     this.pushDevices = PushDevice.cleanupCorruptData(this.pushDevices);
+  }
+
+  // Make sure tags are loaded
+  if (this.isDirectSelected('tags')) {
+    this.tags = Tag.cleanupCorruptData(this.tags);
   }
 
   return true;

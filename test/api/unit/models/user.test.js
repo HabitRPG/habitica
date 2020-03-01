@@ -182,6 +182,31 @@ describe('User Model', () => {
   });
 
   context('post init', () => {
+    it('removes invalid tags when loading the user', async () => {
+      let user = new User();
+      await user.save();
+      await user.update({
+        $set: {
+          tags: [
+            null, // invalid, not an object
+            // { name: '123' }, // invalid, no id - generated automatically
+            { id: '123' }, // invalid, no name
+            { name: 'ABC', id: '1234' }, // valid
+          ],
+        },
+      }).exec();
+
+      user = await User.findById(user._id).exec();
+
+      const userToJSON = user.toJSON();
+      console.log(userToJSON.tags);
+      expect(userToJSON.tags.length).to.equal(1);
+
+      expect(userToJSON.tags[0]).to.have.all.keys(['id', 'name']);
+      expect(userToJSON.tags[0].id).to.equal('1234');
+      expect(userToJSON.tags[0].name).to.equal('ABC');
+    });
+
     it('removes invalid push devices when loading the user', async () => {
       let user = new User();
       await user.save();
