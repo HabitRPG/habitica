@@ -93,6 +93,7 @@ export const schema = new Schema({
  * Called by user's post init hook (models/user/hooks.js)
  */
 schema.statics.cleanupCorruptData = function cleanupCorruptNotificationsData (notifications) {
+  console.log('fixing stuff', notifications);
   if (!notifications) return notifications;
 
   let filteredNotifications = notifications.filter(notification => {
