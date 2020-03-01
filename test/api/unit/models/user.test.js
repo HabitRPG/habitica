@@ -181,7 +181,7 @@ describe('User Model', () => {
     });
   });
 
-  context.only('notifications', () => {
+  context('notifications', () => {
     it('can add notifications without data', () => {
       const user = new User();
 
