@@ -30,6 +30,7 @@
       </div>
       <div
         v-if="hasParty"
+        ref="partyMembersDiv"
         v-resize="1500"
         class="party-members d-flex"
         @resized="setPartyMembersWidth($event)"
@@ -173,6 +174,11 @@ export default {
       return orderBy(this.partyMembers, [this.user.party.order], [this.user.party.orderAscending]);
     },
     hideHeader () {
+      this.$nextTick(() => {
+        if (this.$refs.partyMembersDiv) {
+          this.setPartyMembersWidth({ width: this.$refs.partyMembersDiv.clientWidth });
+        }
+      });
       return ['groupPlan', 'privateMessages'].includes(this.$route.name);
     },
   },
