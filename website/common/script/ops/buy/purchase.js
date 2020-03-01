@@ -67,7 +67,7 @@ function purchaseItem (user, item, price, type, key) {
     user.items[type] = {
       ...user.items[type],
       [key]: user.items[type][key] + 1,
-    };
+    }; 
     if (user.markModified) user.markModified(`items.${type}`);
   }
 }
