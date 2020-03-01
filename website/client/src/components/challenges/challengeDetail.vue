@@ -21,7 +21,8 @@
               <span v-if="challenge.leader === null">
                 {{ $t('noChallengeOwner') }}
               </span>
-              <user-link v-else
+              <user-link
+                v-else
                 class="mx-1"
                 :user="challenge.leader"
               />
