@@ -206,6 +206,28 @@ describe('User Model', () => {
       expect(userToJSON.pushDevices[0].regId).to.equal('1234');
     });
 
+    it('removes duplicate push devices when loading the user', async () => {
+      let user = new User();
+      await user.save();
+      await user.update({
+        $set: {
+          pushDevices: [
+            { type: 'android', regId: '1234' },
+            { type: 'android', regId: '1234' },
+          ],
+        },
+      }).exec();
+
+      user = await User.findById(user._id).exec();
+
+      const userToJSON = user.toJSON();
+      expect(userToJSON.pushDevices.length).to.equal(1);
+
+      expect(userToJSON.pushDevices[0]).to.have.all.keys(['regId', 'type', 'createdAt', 'updatedAt']);
+      expect(userToJSON.pushDevices[0].type).to.equal('android');
+      expect(userToJSON.pushDevices[0].regId).to.equal('1234');
+    });
+
     it('removes invalid notifications when loading the user', async () => {
       let user = new User();
       await user.save();
@@ -230,6 +252,48 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
       expect(userToJSON.notifications[0].type).to.equal('ABC');
       expect(userToJSON.notifications[0].id).to.equal('123');
+    });
+
+    it('removes multiple NEW_CHAT_MESSAGE for the same group', async () => {
+      let user = new User();
+      await user.save();
+      await user.update({
+        $set: {
+          notifications: [
+            {
+              type: 'NEW_CHAT_MESSAGE',
+              id: 123,
+              data: { group: { id: 12345 } },
+            },
+            {
+              type: 'NEW_CHAT_MESSAGE',
+              id: 1234,
+              data: { group: { id: 12345 } },
+            },
+            {
+              type: 'NEW_CHAT_MESSAGE',
+              id: 123,
+              data: { group: { id: 123456 } },
+            }, // not duplicate, different group
+            {
+              type: 'NEW_CHAT_MESSAGE_DIFF',
+              id: 123,
+              data: { group: { id: 12345 } },
+            }, // not duplicate, different type
+          ],
+        },
+      }).exec();
+
+      user = await User.findById(user._id).exec();
+
+      const userToJSON = user.toJSON();
+      expect(userToJSON.notifications.length).to.equal(3);
+
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+      expect(userToJSON.notifications[0].type).to.equal('NEW_CHAT_MESSAGE');
+      expect(userToJSON.notifications[0].id).to.equal('123');
+      expect(userToJSON.notifications[0].data).to.deep.equal({ group: { id: 12345 } });
+      expect(userToJSON.notifications[0].seen).to.equal(false);
     });
   });
 
