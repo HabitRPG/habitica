@@ -181,7 +181,7 @@ describe('User Model', () => {
     });
   });
 
-  context('notifications', () => {
+  context.only('notifications', () => {
     it('can add notifications without data', () => {
       const user = new User();
 
@@ -213,6 +213,26 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
       expect(userToJSON.notifications[0].type).to.equal('ABC');
       expect(userToJSON.notifications[0].id).to.equal('123');
+    });
+
+    it('removes invalid notifications when saving', async () => {
+      const user = new User();
+
+      user.notifications = [
+        null, // invalid, not an object
+        { seen: true }, // invalid, no type or id
+        { id: 123 }, // invalid, no type
+        // invalid, no id, not included here because the id would be added automatically
+        // {type: 'ABC'},
+        { type: 'ABC', id: '123' }, // valid
+      ];
+
+      await user.save();
+      expect(user.notifications.length).to.equal(1);
+
+      expect(user.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+      expect(user.notifications[0].type).to.equal('ABC');
+      expect(user.notifications[0].id).to.equal('123');
     });
 
     it('can add notifications with data and already marked as seen', () => {

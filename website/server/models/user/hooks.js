@@ -25,11 +25,6 @@ schema.plugin(baseModel, {
 
     delete plainObj.filters;
 
-    if (originalDoc.notifications) {
-      plainObj.notifications = UserNotification
-        .convertNotificationsToSafeJson(originalDoc.notifications);
-    }
-
     return plainObj;
   },
 });
@@ -182,6 +177,22 @@ function _setProfileName (user) {
   return localUsername || anonymous;
 }
 
+schema.post('init', function postInitUser () {
+  // Cleanup any corrupt data that could have ended up inside the user schema.
+  // In particular:
+  // - tags https://github.com/HabitRPG/habitica/issues/10688
+  // - notifications https://github.com/HabitRPG/habitica/issues/9923
+  // - push devices https://github.com/HabitRPG/habitica/issues/11805
+  //            and https://github.com/HabitRPG/habitica/issues/11868
+
+  // Make sure notifications are loaded
+  if (this.isDirectSelected('notifications')) {
+    this.notifications = UserNotification.cleanupCorruptData(this.notifications);
+  }
+
+  return true;
+});
+
 schema.pre('validate', function preValidateUser (next) {
   // Populate new user with profile name, not running in pre('save') because the field
   // is required and validation fails if it doesn't exists like for new users
@@ -258,11 +269,8 @@ schema.pre('save', true, function preSaveUser (next, done) {
     const unallocatedPointsNotifications = [];
 
     this.notifications = this.notifications.filter(notification => {
-      // Remove corrupt notifications
-      if (!notification || !notification.type) return false;
-
-      // Remove all unsallocated stats points
-      if (notification && notification.type === 'UNALLOCATED_STATS_POINTS') {
+      // Remove all unallocated stats points
+      if (notification.type === 'UNALLOCATED_STATS_POINTS') {
         unallocatedPointsNotifications.push(notification);
         return false;
       }
