@@ -63,15 +63,11 @@ export const schema = new Schema({
     $type: String,
     default: uuid,
     validate: [v => validator.isUUID(v), 'Invalid uuid for userNotification.'],
-    // @TODO: Add these back once we figure out the issue with notifications
-    // See Fix for https://github.com/HabitRPG/habitica/issues/9923
-    // required: true,
+    required: true,
   },
   type: {
     $type: String,
-    // @TODO: Add these back once we figure out the issue with notifications
-    // See Fix for https://github.com/HabitRPG/habitica/issues/9923
-    // required: true,
+    required: true,
     enum: NOTIFICATION_TYPES,
   },
   data: {
