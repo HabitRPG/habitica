@@ -478,20 +478,12 @@ export default {
       let sortedMembers = this.members;
 
       if (!isEmpty(this.sortOption)) {
-        // Use the memberlist filtered by searchTerm
-        if (this.sortOption.value === 'profile.name') {
-          // If members are to be sorted by name, use localeCompare for case-
-          // insensitive sort
-          sortedMembers.sort(
-            (a, b) => a.profile.name.localeCompare(b.profile.name),
-          );
-        } else {
-          sortedMembers = orderBy(
-            sortedMembers,
-            [this.sortOption.value],
-            [this.sortOption.direction],
-          );
-        }
+        const sortBy = this.sortOption.value === 'profile.name' ? member => member.profile.name.toLowerCase() : this.sortOption.value;
+        sortedMembers = orderBy(
+          sortedMembers,
+          [sortBy],
+          [this.sortOption.direction],
+        );
       }
 
       return sortedMembers;
