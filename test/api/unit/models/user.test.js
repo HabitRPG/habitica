@@ -181,18 +181,29 @@ describe('User Model', () => {
     });
   });
 
-  context('notifications', () => {
-    it('can add notifications without data', () => {
-      const user = new User();
+  context('post init', () => {
+    it('removes invalid push devices when loading the user', async () => {
+      let user = new User();
+      await user.save();
+      await user.update({
+        $set: {
+          pushDevices: [
+            null, // invalid, not an object
+            { regId: '123' }, // invalid, no type
+            { type: 'android' }, // invalid, no regId
+            { type: 'android', regId: '1234' }, // valid
+          ],
+        },
+      }).exec();
 
-      user.addNotification('CRON');
+      user = await User.findById(user._id).exec();
 
       const userToJSON = user.toJSON();
-      expect(user.notifications.length).to.equal(1);
-      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
-      expect(userToJSON.notifications[0].type).to.equal('CRON');
-      expect(userToJSON.notifications[0].data).to.eql({});
-      expect(userToJSON.notifications[0].seen).to.eql(false);
+      expect(userToJSON.pushDevices.length).to.equal(1);
+
+      expect(userToJSON.pushDevices[0]).to.have.all.keys(['regId', 'type', 'createdAt', 'updatedAt']);
+      expect(userToJSON.pushDevices[0].type).to.equal('android');
+      expect(userToJSON.pushDevices[0].regId).to.equal('1234');
     });
 
     it('removes invalid notifications when loading the user', async () => {
@@ -219,6 +230,21 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
       expect(userToJSON.notifications[0].type).to.equal('ABC');
       expect(userToJSON.notifications[0].id).to.equal('123');
+    });
+  });
+
+  context('notifications', () => {
+    it('can add notifications without data', () => {
+      const user = new User();
+
+      user.addNotification('CRON');
+
+      const userToJSON = user.toJSON();
+      expect(user.notifications.length).to.equal(1);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+      expect(userToJSON.notifications[0].type).to.equal('CRON');
+      expect(userToJSON.notifications[0].data).to.eql({});
+      expect(userToJSON.notifications[0].seen).to.eql(false);
     });
 
     it('can add notifications with data and already marked as seen', () => {

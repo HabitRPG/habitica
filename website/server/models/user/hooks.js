@@ -6,6 +6,9 @@ import * as Tasks from '../task';
 import {
   model as UserNotification,
 } from '../userNotification';
+import {
+  model as PushDevice,
+} from '../pushDevice';
 import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
@@ -188,6 +191,11 @@ schema.post('init', function postInitUser () {
   // Make sure notifications are loaded
   if (this.isDirectSelected('notifications')) {
     this.notifications = UserNotification.cleanupCorruptData(this.notifications);
+  }
+
+  // Make sure pushDevices are loaded
+  if (this.isDirectSelected('pushDevices')) {
+    this.pushDevices = PushDevice.cleanupCorruptData(this.pushDevices);
   }
 
   return true;
