@@ -21,7 +21,7 @@
     "@storybook/addon-actions": "^5.3.13",
     "@storybook/addon-knobs": "^5.3.13",
     "@storybook/addon-links": "^5.3.14",
-    "@storybook/addon-notes": "^5.3.13",
+    "@storybook/addon-notes": "^5.3.14",
     "@storybook/vue": "^5.3.14",
     "@vue/test-utils": "1.0.0-beta.29",
     "amplitude-js": "^5.9.0",
