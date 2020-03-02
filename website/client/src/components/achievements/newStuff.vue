@@ -1,28 +1,52 @@
 <template>
-  <b-modal id='new-stuff'
-    size='lg'
-    :hide-header='true'
-    :hide-footer='true'
+  <b-modal
+    id="new-stuff"
+    size="lg"
+    :hide-header="true"
+    :hide-footer="true"
     no-close-on-esc
-    no-close-on-backdrop>
-    <div class='modal-body'>
-      <div :class="index == (posts.length - 1) ? 'bailey bailey-last' : 'bailey'"
-      v-for='(post, index) in posts'
-              :key="index">
-        <small v-if='!post.published' class='draft'>DRAFT</small><h2 class='title'>
-          {{ post.publishDate | date}} - {{ post.title }}
+    no-close-on-backdrop
+  >
+    <div class="modal-body">
+      <div
+        v-for="(post, index) in posts"
+        :key="index"
+        :class="index == (posts.length - 1) ? 'bailey bailey-last' : 'bailey'"
+      >
+        <small
+          v-if="!post.published"
+          class="draft"
+        >DRAFT</small><h2 class="title">
+          {{ post.publishDate | date }} - {{ post.title }}
         </h2>
         <hr>
-        <div class='markdown' v-html='renderMarkdown(post.text)'></div>
+        <div
+          class="markdown"
+          v-html="renderMarkdown(post.text)"
+        ></div>
         <small>{{ post.credits }}</small>
       </div>
-      </div>
+    </div>
 
-    <div class='modal-footer'>
-      <a class='btn btn-info' href='http://habitica.fandom.com/wiki/Whats_New' target='_blank'> {{ this.$t('newsArchive') }}</a>
-      <button class='btn btn-secondary' @click='tellMeLater()'>{{ this.$t('tellMeLater') }}</button>
-      <button class='btn btn-warning' @click='dismissAlert()'>{{ this.$t('dismissAlert') }}</button>
-      </div>
+    <div class="modal-footer">
+      <a
+        class="btn btn-info"
+        href="http://habitica.fandom.com/wiki/Whats_New"
+        target="_blank"
+      > {{ this.$t('newsArchive') }}</a>
+      <button
+        class="btn btn-secondary"
+        @click="tellMeLater()"
+      >
+        {{ this.$t('tellMeLater') }}
+      </button>
+      <button
+        class="btn btn-warning"
+        @click="dismissAlert()"
+      >
+        {{ this.$t('dismissAlert') }}
+      </button>
+    </div>
   </b-modal>
 </template>
 
@@ -112,16 +136,16 @@ import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
 
 export default {
-  data () {
-    return {
-      posts: [],
-    };
-  },
   filters: {
     date (value) {
       // @TODO: Vue doesn't support this so we cant user preference
       return moment(value).format('l');
     },
+  },
+  data () {
+    return {
+      posts: [],
+    };
   },
   computed: {
     ...mapState({ user: 'user.data' }),

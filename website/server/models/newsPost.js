@@ -22,10 +22,11 @@ schema.plugin(baseModel, {
 });
 
 schema.static.getLastPost = async function getLastPost () {
-  return await this.findOne({
+  const post = await this.findOne({
     published: true,
     publishDate: { $lte: new Date() },
   }).sort({ publishDate: -1 }).exec();
+  return post;
 };
 
 schema.statics.getNews = async function getNews (isAdmin) {
