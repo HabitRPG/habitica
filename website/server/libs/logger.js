@@ -26,12 +26,22 @@ export { _config as _loggerConfig }; // exported for use during tests
 
 if (IS_PROD) {
   if (ENABLE_CONSOLE_LOGS_IN_PROD) {
-    logger.add(new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json(),
-      ),
-    }));
+    logger
+      .add(new winston.transports.Console({ // text part
+        format: winston.format.combine(
+          winston.format.colorize(),
+          winston.format.timestamp(),
+          winston.format.printf(
+            info => `${info.timestamp} - ${info.level} ${info.message}`,
+          ),
+        ),
+      }))
+      .add(new winston.transports.Console({ // json part
+        format: winston.format.combine(
+          winston.format.timestamp(),
+          winston.format.json(),
+        ),
+      }));
   }
 
   if (LOGGLY_TOKEN && LOGGLY_SUBDOMAIN) {
