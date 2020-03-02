@@ -16,7 +16,7 @@
     "@vue/cli-plugin-babel": "^4.2.3",
     "@vue/cli-plugin-eslint": "^4.2.2",
     "@vue/cli-plugin-router": "^4.2.3",
-    "@vue/cli-plugin-unit-mocha": "^4.2.2",
+    "@vue/cli-plugin-unit-mocha": "^4.2.3",
     "@vue/cli-service": "^4.2.3",
     "@storybook/addon-actions": "^5.3.13",
     "@storybook/addon-knobs": "^5.3.14",
