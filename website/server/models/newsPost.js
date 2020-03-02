@@ -26,7 +26,7 @@ schema.statics.getNews = async function getNews (isAdmin) {
   if (!isAdmin) {
     posts = this.find({
       published: true,
-      publishDate: { $lte: Date() },
+      publishDate: { $lte: new Date() },
     })
       .select('title publishDate credits text');
   } else {
