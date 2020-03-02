@@ -2039,5 +2039,9 @@
     "armorArmoireMatchMakersApronNotes": "這款圍裙是為了安全，但出於幽默的考慮，我們可以把它淡化一下。增加體質、力量、智力各<%= attrs %>點。魔法衣櫥：火柴製造者套裝（1/4）。",
     "armorArmoireMatchMakersApronText": "火柴製造者的圍裙",
     "weaponArmoireLivelyMatchNotes": "你拿到這根火柴時，你一定會激發某人的興趣！增加<%= str %>點力量。魔法衣櫥：火柴製造者套裝（3/4）。",
-    "weaponArmoireLivelyMatchText": "一根活潑的火柴"
+    "weaponArmoireLivelyMatchText": "一根活潑的火柴",
+    "bodyMystery202003Notes": "它們好像另一層上的肩墊。沒有屬性加成。 2020年3月訂閱者物品。",
+    "bodyMystery202003Text": "倒刺肩甲",
+    "headMystery202003Notes": "小心，這個頭盔又尖又精細！沒有屬性加成。 2020年3月訂閱者物品。",
+    "headMystery202003Text": "倒刺頭盔"
 }
