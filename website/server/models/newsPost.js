@@ -21,6 +21,13 @@ schema.plugin(baseModel, {
   timestamps: true,
 });
 
+schema.static.getLastPost = async function getLastPost () {
+  return await this.findOne({
+    published: true,
+    publishDate: { $lte: new Date() },
+  }).sort({ publishDate: -1 }).exec();
+};
+
 schema.statics.getNews = async function getNews (isAdmin) {
   let posts = [];
   if (!isAdmin) {
@@ -41,7 +48,7 @@ let cachedLastNewsPostTitle = null;
 
 schema.statics.lastNewsPostID = async function lastNewsPostID () {
   if (cachedLastNewsPostID === null) {
-    const lastPost = (await this.getNews(false))[0];
+    const lastPost = (await this.getLastPost());
     if (lastPost) {
       cachedLastNewsPostID = lastPost.id;
       cachedLastNewsPostDate = lastPost.publishDate;
@@ -52,7 +59,7 @@ schema.statics.lastNewsPostID = async function lastNewsPostID () {
 
 schema.statics.lastNewsPostTitle = async function lastNewsPostTitle () {
   if (cachedLastNewsPostTitle === null) {
-    const lastPost = (await this.getNews(false))[0];
+    const lastPost = (await this.getLastPost());
     if (lastPost) {
       cachedLastNewsPostTitle = lastPost.title;
     }
