@@ -391,7 +391,7 @@ api.getUserChallenges = {
     };
 
     if (!user.contributor.admin) {
-      query.$and.push({flagCount: {$lt: 2}});
+      query.$and.push({ flagCount: { $lt: 2 } });
     }
 
     if (owned) {
@@ -409,7 +409,7 @@ api.getUserChallenges = {
       const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       searchOr.$or.push({ name: searchQuery });
-      searchOr.$or.push({ description: searchQuery });      query.$and.push(searchOr);
+      searchOr.$or.push({ description: searchQuery }); query.$and.push(searchOr);
     }
 
     if (req.query.categories) {
@@ -497,7 +497,7 @@ api.getGroupChallenges = {
       query.flagCount = { $lt: 2 };
     }
 
-    let challenges = await Challenge
+    const challenges = await Challenge
       .find(query)
       .sort('-createdAt')
       // .populate('leader', nameFields) // Only populate the leader as the group is implicit
@@ -912,20 +912,20 @@ api.flagChallenge = {
   url: '/challenges/:challengeId/flag',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     await flagChallenge(challenge, user, res);
     await notifyOfFlaggedChallenge(challenge, user);
 
-    res.respond(200, {challenge});
+    res.respond(200, { challenge });
   },
 };
 
@@ -945,7 +945,7 @@ api.clearFlagsChallenge = {
   url: '/challenges/:challengeId/clearflags',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
 
@@ -956,12 +956,12 @@ api.clearFlagsChallenge = {
       throw new NotAuthorized(res.t('messageGroupChatAdminClearFlagCount'));
     }
 
-    const challenge = await Challenge.findOne({_id: req.params.challengeId}).exec();
+    const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     await clearFlags(challenge, user);
 
-    res.respond(200, {challenge});
+    res.respond(200, { challenge });
   },
 };
 

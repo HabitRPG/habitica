@@ -1,16 +1,18 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateChallenge,
   generateUser,
   createAndPopulateGroup,
   translate as t,
-} from '../../../../helpers/api-v3-integration.helper';
-import { v4 as generateUUID } from 'uuid';
+} from '../../../../helpers/api-integration/v3';
 
 describe('POST /challenges/:challengeId/flag', () => {
-  let user, challenge, guild;
+  let user;
+  let challenge;
+  let guild;
 
   beforeEach(async () => {
-    let { group, groupLeader } = await createAndPopulateGroup({
+    const { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         name: 'TestPrivateGuild',
         type: 'guild',
@@ -42,7 +44,7 @@ describe('POST /challenges/:challengeId/flag', () => {
   });
 
   it('flags a challenge with a higher count when from an admin', async () => {
-    await user.update({'contributor.admin': true});
+    await user.update({ 'contributor.admin': true });
 
     const flagResult = await user.post(`/challenges/${challenge._id}/flag`);
 
@@ -62,7 +64,7 @@ describe('POST /challenges/:challengeId/flag', () => {
   });
 
   it('does not return a flagged challenge in routes', async () => {
-    const admin = await generateUser({'contributor.admin': true});
+    const admin = await generateUser({ 'contributor.admin': true });
     await admin.post(`/challenges/${challenge._id}/flag`);
 
     const userChallenges = await user.get('/challenges/user');
@@ -83,7 +85,7 @@ describe('POST /challenges/:challengeId/flag', () => {
   });
 
   it('does return a flagged challenge in routes if user is admin', async () => {
-    let { group, groupLeader } = await createAndPopulateGroup({
+    const { group, groupLeader } = await createAndPopulateGroup({
       groupDetails: {
         name: 'TestPrivateGuild',
         type: 'guild',
@@ -94,7 +96,7 @@ describe('POST /challenges/:challengeId/flag', () => {
 
     const admin = groupLeader;
     guild = group;
-    await admin.update({'contributor.admin': true});
+    await admin.update({ 'contributor.admin': true });
     challenge = await generateChallenge(admin, guild);
     await admin.post(`/challenges/${challenge._id}/flag`);
 
