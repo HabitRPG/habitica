@@ -1,83 +1,29 @@
-<template>
-  <div class="row">
-    <challenge-modal @createChallenge="challengeCreated" />
-    <sidebar
-      @search="updateSearch"
-      @filter="updateFilters"
-    />
-    <div class="col-12 col-md-10 standard-page">
-      <div class="row header-row">
-        <div class="col-md-8 text-left">
-          <h1 v-once>
-            {{ $t('findChallenges') }}
-          </h1>
-        </div>
-        <div class="col-md-4">
-          <!-- @TODO: implement sorting span.dropdown-label
-           {{ $t('sortBy') }}b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(v-for='sortOption in sortOptions',
-           :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
-          <button
-            class="btn btn-secondary create-challenge-button float-right"
-            @click="createChallenge()"
-          >
-            <div
-              class="svg-icon positive-icon"
-              v-html="icons.positiveIcon"
-            ></div>
-            <span v-once>{{ $t('createChallenge') }}</span>
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div
-          v-if="!loading && filteredChallenges.length === 0"
-          class="no-challenges text-center col-md-6 offset-3"
-        >
-          <h2 v-once>
-            {{ $t('noChallengeMatchFilters') }}
-          </h2>
-        </div>
-      </div>
-      <div class="row">
-        <div
-          v-for="challenge in filteredChallenges"
-          :key="challenge._id"
-          class="col-12 col-md-6"
-        >
-          <challenge-item :challenge="challenge" />
-        </div>
-        <mugen-scroll
-          v-show="loading"
-          :handler="infiniteScrollTrigger"
-          :should-handle="!loading && canLoadMore"
-          :threshold="1"
-        >
-          <h2
-            v-once
-            class="col-12 loading"
-          >
-            {{ $t('loading') }}
-          </h2>
-        </mugen-scroll>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+.row
+  challenge-modal(v-on:createChallenge='challengeCreated')
+  sidebar(v-on:search="updateSearch", v-on:filter="updateFilters")
+  .col-12.col-md-10.standard-page
+    .row.header-row
+      .col-md-8.text-left
+        h1(v-once) {{$t('findChallenges')}}
+        h2(v-if='loading') {{ $t('loading') }}
+      .col-md-4
+        // @TODO: implement sorting span.dropdown-label {{ $t('sortBy') }}
+          b-dropdown(:text="$t('sort')", right=true)
+            b-dropdown-item(v-for='sortOption in sortOptions', :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}
+        button.btn.btn-secondary.create-challenge-button.float-right(@click='createChallenge()')
+          .svg-icon.positive-icon(v-html="icons.positiveIcon")
+          span(v-once) {{$t('createChallenge')}}
+    .row
+      .col-12.col-md-6(v-for='challenge in filteredChallenges', v-if='!memberOf(challenge) && userCanViewFlagged(challenge)')
+        challenge-item(:challenge='challenge')
+    .row
+      .col-12.text-center
+        button.btn.btn-secondary(@click='loadMore()') {{ $t('loadMore') }}
 </template>
 
 <style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
-
-  @media only screen and (max-width: 768px) {
-    .header-row {
-      margin-bottom: 1rem;
-    }
-
-    .col-10.standard-page {
-      // full width on smaller devices
-      max-width: 100%;
-    }
-  }
+  @import '~client/assets/scss/colors.scss';
 
   .header-row {
     h1 {
@@ -95,47 +41,28 @@
       margin-right: .5em;
     }
   }
-
-  .no-challenges {
-    color: $gray-200;
-    margin-top: 10em;
-
-    h2 {
-      color: $gray-200;
-    }
-  }
-
-  .loading {
-    text-align: center;
-    color: $purple-300;
-  }
 </style>
 
 <script>
-import MugenScroll from 'vue-mugen-scroll';
-import debounce from 'lodash/debounce';
-import { mapState } from '@/libs/store';
+import { mapState } from 'client/libs/store';
 
 import Sidebar from './sidebar';
 import ChallengeItem from './challengeItem';
 import challengeModal from './challengeModal';
-import challengeUtilities from '@/mixins/challengeUtilities';
+import challengeUtilities from 'client/mixins/challengeUtilities';
 
-import positiveIcon from '@/assets/svg/positive.svg';
-
+import positiveIcon from 'assets/svg/positive.svg';
 
 export default {
+  mixins: [challengeUtilities],
   components: {
     Sidebar,
     ChallengeItem,
     challengeModal,
-    MugenScroll,
   },
-  mixins: [challengeUtilities],
   data () {
     return {
       loading: true,
-      canLoadMore: true,
       icons: Object.freeze({
         positiveIcon,
       }),
@@ -168,30 +95,33 @@ export default {
       page: 0,
     };
   },
+  mounted () {
+    this.loadchallanges();
+  },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({user: 'user.data'}),
     filteredChallenges () {
       return this.challenges;
     },
   },
-  mounted () {
-    this.loadChallenges();
-  },
   methods: {
+    memberOf (challenge) {
+      return this.user.challenges.indexOf(challenge._id) !== -1;
+    },
     updateSearch (eventData) {
       this.search = eventData.searchTerm;
       this.page = 0;
-      this.loadChallenges();
+      this.loadchallanges();
     },
     updateFilters (eventData) {
       this.filters = eventData;
       this.page = 0;
-      this.loadChallenges();
+      this.loadchallanges();
     },
     createChallenge () {
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     },
-    async loadChallenges () {
+    async loadchallanges () {
       this.loading = true;
 
       let categories = '';
@@ -202,7 +132,7 @@ export default {
       let owned = '';
       // @TODO: we skip ownership === 2 because it is the same as === 0 right now
       if (this.filters.ownership && this.filters.ownership.length === 1) {
-        [owned] = this.filters.ownership;
+        owned = this.filters.ownership[0];
       }
 
       const challenges = await this.$store.dispatch('challenges:getUserChallenges', {
@@ -218,27 +148,18 @@ export default {
         this.challenges = this.challenges.concat(challenges);
       }
 
-      // only show the load more Button if the max count was returned
-      this.canLoadMore = challenges.length === 10;
-
       this.loading = false;
     },
     challengeCreated (challenge) {
       this.challenges.push(challenge);
     },
-    infiniteScrollTrigger () {
-      // show loading and wait until the loadMore debounced
-      // or else it would trigger on every scrolling-pixel (while not loading)
-      if (this.canLoadMore) {
-        this.loading = true;
-      }
-
-      this.loadMore();
-    },
-    loadMore: debounce(function loadMoreDebounce () {
+    async loadMore () {
       this.page += 1;
-      this.loadChallenges();
-    }, 1000),
+      this.loadchallanges();
+    },
+    userCanViewFlagged (challenge) {
+      return challenge.flagCount < 2 || this.user.contributor.admin || this.user._id === challenge.leader._id;
+    },
   },
 };
 </script>
