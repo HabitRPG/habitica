@@ -509,11 +509,7 @@ export default {
         // Load invites
       }
       await this.fetchGuild();
-      // Fetch group members on load
-      this.members = await this.loadMembers({
-        groupId: this.group._id,
-        includeAllPublicFields: true,
-      });
+
       this.$root.$on('updatedGroup', group => {
         const updatedGroup = extend(this.group, group);
         this.$set(this.group, updatedGroup);
@@ -576,6 +572,11 @@ export default {
           this.$delete(this.user.newMessages, groupId);
         }, 1000);
       }
+
+      this.members = await this.loadMembers({
+        groupId: this.group._id,
+        includeAllPublicFields: true,
+      });
     },
     hasUnreadMessages (groupId) {
       if (this.user.newMessages[groupId]) return true;
