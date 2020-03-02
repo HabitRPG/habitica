@@ -63,9 +63,6 @@ api.createNews = {
   url: '/news',
   middlewares: [authWithHeaders(), ensureAdmin],
   async handler (req, res) {
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
-
     const postData = {
       title: req.body.title,
       publishDate: req.body.publishDate,
@@ -74,7 +71,7 @@ api.createNews = {
       text: req.body.text,
     };
 
-    const newsPost = new NewsPost(postData);
+    const newsPost = new NewsPost(NewsPost.sanitize(postData));
     await newsPost.save();
 
     if (newsPost.published) {
@@ -84,6 +81,7 @@ api.createNews = {
     res.respond(201, newsPost.toJSON());
   },
 };
+
 /**
  * @api {get} /api/v4/news/:postId get news post
  * @apiName GetNewsPost
@@ -119,8 +117,8 @@ api.getPost = {
     }
 
     const newsPost = await NewsPost.findById(req.params.postId);
-    if (!isAdmin && !newsPost.isPublished) {
-      res.respond(401, {});
+    if (!newsPost || (!isAdmin && !newsPost.isPublished)) {
+      res.respond(404, {});
     } else {
       res.respond(200, newsPost);
     }
@@ -163,7 +161,7 @@ api.updateNews = {
     const savedPost = await newsPost.save();
 
     if (newsPost.published) {
-      NewsPost.updateLastNewsPost(newsPost);
+      await NewsPost.updateLastNewsPost(newsPost);
     }
 
     res.respond(200, savedPost.toJSON());
