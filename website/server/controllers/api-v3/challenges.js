@@ -890,7 +890,7 @@ async function flagChallenge (challenge, user, res) {
     // Arbitrary amount, higher than 2
     challenge.flagCount = 5;
   } else {
-    challenge.flagCount++;
+    challenge.flagCount += 1;
   }
 
   await challenge.save();
