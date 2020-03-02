@@ -199,7 +199,6 @@ describe('User Model', () => {
       user = await User.findById(user._id).exec();
 
       const userToJSON = user.toJSON();
-      console.log(userToJSON.tags);
       expect(userToJSON.tags.length).to.equal(1);
 
       expect(userToJSON.tags[0]).to.have.all.keys(['id', 'name']);
