@@ -42,7 +42,7 @@ let cachedLastNewsPostTitle = null;
 schema.statics.lastNewsPostID = async function lastNewsPostID () {
   if (cachedLastNewsPostID === null) {
     const lastPost = (await this.getNews(false))[0];
-    if (lastPost !== undefined && lastPost !== null) {
+    if (lastPost) {
       cachedLastNewsPostID = lastPost.id;
       cachedLastNewsPostDate = lastPost.publishDate;
     }
@@ -53,7 +53,7 @@ schema.statics.lastNewsPostID = async function lastNewsPostID () {
 schema.statics.lastNewsPostTitle = async function lastNewsPostTitle () {
   if (cachedLastNewsPostTitle === null) {
     const lastPost = (await this.getNews(false))[0];
-    if (lastPost !== undefined && lastPost !== null) {
+    if (lastPost) {
       cachedLastNewsPostTitle = lastPost.title;
     }
   }
