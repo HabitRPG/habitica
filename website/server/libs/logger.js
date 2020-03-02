@@ -29,7 +29,6 @@ if (IS_PROD) {
     logger
       .add(new winston.transports.Console({ // text part
         format: winston.format.combine(
-          winston.format.colorize(),
           winston.format.timestamp(),
           winston.format.printf(
             info => `${info.timestamp} - ${info.level} ${info.message}`,
