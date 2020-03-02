@@ -534,6 +534,15 @@ const armor = {
     set: 'matchMaker',
     canOwn: ownsItem('armor_armoire_matchMakersApron'),
   },
+  baseballUniform: {
+    text: t('armorArmoireBaseballUniformText'),
+    notes: t('armorArmoireBaseballUniformNotes', { attrs: 10 }),
+    value: 100,
+    con: 10,
+    str: 10,
+    set: 'baseball',
+    canOwn: ownsItem('armor_armoire_baseballUniform'),
+  },
 };
 
 const body = {
@@ -1089,6 +1098,15 @@ const head = {
     set: 'matchMaker',
     canOwn: ownsItem('head_armoire_matchMakersBeret'),
   },
+  baseballCap: {
+    text: t('headArmoireBaseballCapText'),
+    notes: t('headArmoireBaseballCapNotes', { attrs: 8 }),
+    value: 100,
+    con: 8,
+    str: 8,
+    set: 'baseball',
+    canOwn: ownsItem('head_armoire_baseballCap'),
+  },
 };
 
 const shield = {
@@ -1391,6 +1409,14 @@ const shield = {
     per: 15,
     set: 'matchMaker',
     canOwn: ownsItem('shield_armoire_perfectMatch'),
+  },
+  baseballGlove: {
+    text: t('shieldArmoireBaseballGloveText'),
+    notes: t('shieldArmoireBaseballGloveNotes', { str: 9 }),
+    value: 100,
+    str: 9,
+    set: 'baseball',
+    canOwn: ownsItem('shield_armoire_baseballGlove'),
   },
 };
 
@@ -1862,6 +1888,14 @@ const weapon = {
     str: 15,
     set: 'matchMaker',
     canOwn: ownsItem('weapon_armoire_livelyMatch'),
+  },
+  baseballBat: {
+    text: t('weaponArmoireBaseballBatText'),
+    notes: t('weaponArmoireBaseballBatNotes', { con: 9 }),
+    value: 100,
+    con: 9,
+    set: 'baseball',
+    canOwn: ownsItem('weapon_armoire_baseballBat'),
   },
 };
 
