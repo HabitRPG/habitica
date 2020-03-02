@@ -15,7 +15,7 @@ const api = {};
  */
 
 /**
- * @api {get} /api/v3/news Get latest Bailey announcement
+ * @api {get} /api/v4/news Get latest Bailey announcement
  * @apiName GetNews
  * @apiGroup News
  *
@@ -41,6 +41,23 @@ api.getNews = {
   },
 };
 
+
+/**
+ * @api {post} /api/v4/news create a new news post
+ * @apiName CreateNewsPost
+ * @apiGroup News
+ *
+ * @apiSuccess {Object} data The create news post (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/newsPost.js" target="_blank">/website/server/models/newsPost.js</a>)
+ *
+ * @apiSuccessExample {json} Post:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "title": "News Title",
+ *       ...
+ *     }
+ *
+ * @apiPermission Admin
+ */
 api.createNews = {
   method: 'POST',
   url: '/news',
@@ -67,8 +84,25 @@ api.createNews = {
     res.respond(201, newsPost.toJSON());
   },
 };
-
-
+/**
+ * @api {get} /api/v4/news/:postId get news post
+ * @apiName GetNewsPost
+ * @apiGroup News
+ *
+ * @apiParam (Path) {String} postId The posts _id
+ *
+ * @apiSuccess {Object} data The news post (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/newsPost.js" target="_blank">/website/server/models/newsPost.js</a>)
+ *
+ * @apiSuccessExample {json} Post:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "title": "News Title",
+ *       ...
+ *     }
+ *
+ * @apiUse postIdRequired
+ *
+ */
 api.getPost = {
   method: 'GET',
   url: '/news/:postId',
@@ -136,6 +170,19 @@ api.updateNews = {
   },
 };
 
+/**
+ * @api {delete} /api/v4/news/:postId delete news post
+ * @apiName DeleteNewsPost
+ * @apiGroup News
+ *
+ * @apiParam (Path) {String} postId The posts _id
+ *
+ * @apiSuccess {Object} data An empty Object
+ *
+ * @apiUse postIdRequired
+ *
+ * @apiPermission Admin
+ */
 api.deleteNews = {
   method: 'DELETE',
   url: '/news/:postId',
@@ -154,10 +201,9 @@ api.deleteNews = {
 };
 
 /**
- * @api {post} /api/v3/news/read Mark latest Bailey announcement as read
+ * @api {post} /api/v4/news/read Mark latest Bailey announcement as read
  * @apiName MarkNewsRead
  * @apiGroup News
- *
  *
  * @apiSuccess {Object} data An empty Object
  *
@@ -177,10 +223,9 @@ api.MarkNewsRead = {
 };
 
 /**
- * @api {post} /api/v3/news/tell-me-later Get latest Bailey announcement in a second moment
+ * @api {post} /api/v4/news/tell-me-later Get latest Bailey announcement in a second moment
  * @apiName TellMeLaterNews
  * @apiGroup News
- *
  *
  * @apiSuccess {Object} data An empty Object
  *
