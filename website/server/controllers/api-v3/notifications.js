@@ -5,9 +5,6 @@ import {
 import {
   model as User,
 } from '../../models/user';
-import {
-  model as UserNotification,
-} from '../../models/userNotification';
 
 const api = {};
 
@@ -49,7 +46,7 @@ api.readNotification = {
       $pull: { notifications: { id: req.params.notificationId } },
     }).exec();
 
-    res.respond(200, UserNotification.convertNotificationsToSafeJson(user.notifications));
+    res.respond(200, user.notifications);
   },
 };
 
@@ -92,7 +89,7 @@ api.readNotifications = {
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
     user._v += 1;
 
-    res.respond(200, UserNotification.convertNotificationsToSafeJson(user.notifications));
+    res.respond(200, user.notifications);
   },
 };
 
@@ -181,7 +178,7 @@ api.seeNotifications = {
 
     await user.save();
 
-    res.respond(200, UserNotification.convertNotificationsToSafeJson(user.notifications));
+    res.respond(200, user.notifications);
   },
 };
 
