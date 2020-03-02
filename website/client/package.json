@@ -27,7 +27,7 @@
     "amplitude-js": "^5.9.0",
     "axios": "^0.19.2",
     "axios-progress-bar": "^1.2.0",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.1.0",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.5.0",
     "chai": "^4.1.2",
