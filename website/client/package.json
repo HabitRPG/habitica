@@ -23,7 +23,7 @@
     "@storybook/addon-links": "^5.3.14",
     "@storybook/addon-notes": "^5.3.14",
     "@storybook/vue": "^5.3.14",
-    "@vue/test-utils": "1.0.0-beta.29",
+    "@vue/test-utils": "1.0.0-beta.31",
     "amplitude-js": "^5.9.0",
     "axios": "^0.19.2",
     "axios-progress-bar": "^1.2.0",
