@@ -1,197 +1,469 @@
-<template lang="pug">
-.card
-  .row
-    span(v-if='canViewFlags') {{ $t('hasBeenFlagged') }}
-    router-link.col-12(:to="{ name: 'challenge', params: { challengeId: challenge._id } }")
-      h3(v-markdown='challenge.name')
-  .row
-    .col-6
-      div.details
-        span
-          .svg-icon.member-icon(v-html="icons.memberIcon")
-        span {{challenge.memberCount}}
-        // @TODO: Add in V2
-          span
-            .svg-icon.calendar-icon(v-html="icons.calendarIcon")
-          span
-            strong End Date:
-          span {{challenge.endDate}}
-      div.tags
-        span.tag(v-for='tag in challenge.tags') {{tag}}
-    .col-6.prize-section
-      div
-        span.svg-icon.gem(v-html="icons.gemIcon")
-        span.prize {{challenge.prize}}
-      div Challenge Prize
-  .row.description
-    .col-12
-      | {{challenge.summary}}
-  .well.row
-    .col-3
-      .count-details
-        .svg-icon.habit-icon(v-html="icons.habitIcon")
-        span.count {{challenge.tasksOrder.habits.length}}
-      div {{$t('habit')}}
-    .col-3
-      .count-details
-        .svg-icon.daily-icon(v-html="icons.dailyIcon")
-        span.count {{challenge.tasksOrder.dailys.length}}
-      div {{$t('daily')}}
-    .col-3
-      .count-details
-        .svg-icon.todo-icon(v-html="icons.todoIcon")
-        span.count {{challenge.tasksOrder.todos.length}}
-      div {{$t('todo')}}
-    .col-3
-      .count-details
-        .svg-icon.reward-icon(v-html="icons.rewardIcon")
-        span.count {{challenge.tasksOrder.rewards.length}}
-      div {{$t('reward')}}
+<template>
+  <div class="challenge">
+    <div class="challenge-prize">
+      <div class="number">
+        <span
+          class="svg-icon"
+          v-html="icons.gemIcon"
+        ></span>
+        <span class="value">{{ challenge.prize || 0 }}</span>
+      </div>
+      <div class="label">
+        {{ $t('prize') }}
+      </div>
+    </div>
+    <div class="challenge-header">
+      <span
+        v-if="canViewFlags"
+      >
+        {{ $t("hasBeenFlagged") }}
+      </span>
+      <router-link :to="{ name: 'challenge', params: { challengeId: challenge._id } }">
+        <h3
+          v-markdown="challenge.name"
+          class="challenge-title"
+        ></h3>
+      </router-link>
+      <div class="meta-info">
+        <div class="member-count">
+          <div
+            class="svg-icon user-icon"
+            v-html="icons.memberIcon"
+          ></div>
+          <span class="count-label">{{ challenge.memberCount }}</span>
+        </div>
+        <div class="divider"></div>
+        <div
+          v-if="isOfficial"
+          class="official"
+        >
+          <div
+            class="svg-icon user-icon"
+            v-html="icons.officialIcon"
+          ></div>
+        </div>
+        <div
+          v-if="fullLayout"
+          class="owner"
+        >
+          <div class="owner-item">
+            <strong>{{ $t('createdBy') }}:</strong>
+            <span
+              v-if="challenge.leader === null"
+              class="mx-1"
+            >
+              {{ $t('noChallengeOwner') }}
+            </span>
+            <user-link
+              v-else
+              class="mx-1"
+              :user="challenge.leader"
+            />
+          </div>
+          <div
+            v-if="challenge.group && !isTavern(challenge.group)"
+            class="owner-item"
+          >
+            <strong>{{ $t(challenge.group.type) }}:</strong>
+            <group-link
+              class="mx-1"
+              :group="challenge.group"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <category-tags
+      class="challenge-categories"
+      :categories="challenge.categories"
+      :owner="isOwner"
+      :member="isMember"
+    />
+    <div
+      v-markdown="challenge.summary"
+      class="challenge-description"
+    ></div>
+    <div
+      v-if="fullLayout"
+      class="well-wrapper"
+    >
+      <div class="well">
+        <div
+          v-for="task in tasksData"
+          :key="task.label"
+          :class="{'muted': task.value === 0}"
+        >
+          <div class="number">
+            <div
+              class="svg-icon"
+              :class="task.label + '-icon'"
+              v-html="task.icon"
+            ></div>
+            <span class="value">{{ task.value }}</span>
+          </div>
+          <div class="label">
+            {{ $t(task.label) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
+<style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+  // Have to use this, because v-markdown creates p element in h3. Scoping doesn't work with it.
+  .challenge-title > p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: condensed;
+    line-height: 1.4;
+    letter-spacing: normal;
+    color: $gray-10;
+  }
+</style>
+
 <style lang="scss" scoped>
-  @import '~client/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
-  .card {
+  .challenge {
     background-color: $white;
-    box-shadow: 0 2px 2px 0 $gray-600, 0 1px 4px 0 $gray-600;
-    padding: 2em;
-    height: 350px;
+    box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($black, 0.1);
     margin-bottom: 1em;
+    border-radius: 4px;
+    padding-bottom: .5em;
 
-    .gem {
-      width: 32px;
+    .number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .svg-icon {
+        margin-top: -.2em;
+      }
+
+      .value {
+        margin-left: .5em;
+        font-size: 24px;
+      }
     }
 
-    .member-icon {
-      width: 20px;
+    .label {
+      font-size: .9em;
     }
 
-    .calendar-icon {
-      width: 14px;
+    .official {
+      margin-right: 8px;
     }
 
-    span {
+    .challenge-prize {
+      text-align: center;
+      color: $gems-color;
       display: inline-block;
-      font-size: 14px;
-      color: $gray-200;
-      margin-right: 1em;
-      vertical-align: bottom;
-    }
-
-    .details {
-      margin: 1em 0;
-    }
-
-    .tags {
-      margin-bottom: 1em;
-    }
-
-    .tag {
-      border-radius: 30px;
-      background-color: $gray-600;
-      padding: .5em;
-    }
-
-    .prize {
-      color: $gray-100;
-      font-size: 24px;
-    }
-
-    .prize-section {
-      text-align: right;
-      padding-right: 2em;
-    }
-
-    .description {
-      color: $gray-200;
-      margin-top: 1em;
-      margin-bottom: 1em;
-      overflow: hidden;
+      float: right;
+      padding: 18px 24px;
+      margin-left: 1em;
+      background: #24cc8f19;
+      border-bottom-left-radius: 4px;
+      width: 107px;
       height: 80px;
+
+      .svg-icon {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+
+      .value {
+        margin-left: 8px;
+        font-size: 20px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.4;
+        letter-spacing: normal;
+        color: #1ca372;
+      }
+
+      .label {
+        margin-top: 4px;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.33;
+        letter-spacing: normal;
+        text-align: center;
+        color: #1ca372;
+      }
+    }
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      background-color: $gray-600;
+      margin-right: 12px;
+      margin-left: 12px;
+    }
+
+    .challenge-header {
+      padding: 16px 20px;
     }
 
     .well-wrapper {
-      padding: .8em;
+      padding: 16px 20px 20px;
+    }
+
+    .challenge-header {
+      padding-bottom: 0;
+    }
+
+    .meta-info {
+      margin-bottom: 8px;
+    }
+
+    .count-label {
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.71;
+      letter-spacing: normal;
+      color: $gray-50;
+      margin-left: 4px;
+    }
+
+    .meta-info, .owner, .member-count {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .meta-item, .owner-item {
+      display: inline-flex;
+      color: $gray-200;
+      align-items: center;
+      margin-right: 1em;
+      white-space: nowrap;
+
+      .svg-icon {
+        color: $gray-300;
+        width: 14px;
+      }
+    }
+
+    .challenge-categories {
+      clear: right;
+      display: flex;
+      padding: 0 20px 16px;
+      flex-wrap: wrap;
+    }
+
+    .user-icon {
+      width: 20px !important;
+    }
+
+    .habit-icon {
+      width: 30px;
+    }
+
+    .todo-icon {
+      width: 20px;
+    }
+
+    .daily-icon {
+      width: 24px;
+    }
+
+    .reward-icon {
+      width: 26px;
+    }
+
+    .challenge-description {
+      margin: 0 20px 0;
+      word-break: break-word;
+
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.71;
+      letter-spacing: normal;
+      color: $gray-50;
     }
 
     .well {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
       background-color: $gray-700;
       text-align: center;
-      padding: 2em;
-      border-radius: 4px;
-      margin-left: .2em;
-      margin-right: .2em;
+      padding: 8px;
+      border-radius: .25em;
+      flex-wrap: wrap;
 
-      .svg-icon {
-        display: inline-block;
-        margin-left: .5em;
+      > div {
+        .value {
+          font-size: 20px;
+          font-weight: bold;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.4;
+          letter-spacing: normal;
+          color: $gray-50;
+        }
+
+        .label {
+          font-size: 12px;
+          font-weight: bold;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.33;
+          letter-spacing: normal;
+          text-align: center;
+          color: $gray-100;
+        }
+
+        .svg-icon {
+          object-fit: contain;
+          color: $gray-100;
+        }
       }
 
-      .habit-icon {
-        width: 30px;
-      }
+      > div.muted {
+        margin: 8px;
 
-      .todo-icon {
-        width: 20px;
-      }
+        .value {
+          opacity: 0.5;
+          font-size: 20px;
+          font-weight: bold;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.4;
+          letter-spacing: normal;
+          color: $gray-50;
+        }
 
-      .daily-icon {
-        width: 24px;
-      }
+        .label {
+          opacity: 0.5;
+          font-size: 12px;
+          font-weight: bold;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.33;
+          letter-spacing: normal;
+          text-align: center;
+          color: $gray-100;
+        }
 
-      .reward-icon {
-        width: 26px;
-      }
-
-      .count-details span {
-        margin-right: .5em;
-      }
-
-      .count {
-        font-size: 20px;
-        margin-left: .5em;
+        .svg-icon {
+          object-fit: contain;
+          opacity: 0.5;
+          color: $gray-100;
+        }
       }
     }
+
   }
 </style>
 
 <script>
-import { mapState } from 'client/libs/store';
+import { TAVERN_ID } from '@/../../common/script/constants';
+import userLink from '../userLink';
+import groupLink from '../groupLink';
+import categoryTags from '../categories/categoryTags';
+import markdownDirective from '@/directives/markdown';
+import { mapState } from '@/libs/store';
 
-import gemIcon from 'assets/svg/gem.svg';
-import memberIcon from 'assets/svg/member-icon.svg';
-import calendarIcon from 'assets/svg/calendar.svg';
-import habitIcon from 'assets/svg/habit.svg';
-import todoIcon from 'assets/svg/todo.svg';
-import dailyIcon from 'assets/svg/daily.svg';
-import rewardIcon from 'assets/svg/reward.svg';
-import markdownDirective from 'client/directives/markdown';
+import gemIcon from '@/assets/svg/gem.svg';
+import memberIcon from '@/assets/svg/member-icon.svg';
+import calendarIcon from '@/assets/svg/calendar.svg';
+import habitIcon from '@/assets/svg/habit.svg';
+import todoIcon from '@/assets/svg/todo.svg';
+import dailyIcon from '@/assets/svg/daily.svg';
+import rewardIcon from '@/assets/svg/reward.svg';
+import officialIcon from '@/assets/svg/official.svg';
 
 export default {
-  props: ['challenge'],
+  components: {
+    userLink,
+    groupLink,
+    categoryTags,
+  },
+  directives: {
+    markdown: markdownDirective,
+  },
+  props: {
+    challenge: {
+      required: true,
+    },
+    fullLayout: {
+      default: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({
         gemIcon,
         memberIcon,
         calendarIcon,
-        habitIcon,
-        todoIcon,
-        dailyIcon,
-        rewardIcon,
+        officialIcon,
       }),
     };
   },
-  directives: {
-    markdown: markdownDirective,
-  },
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
+    isOwner () {
+      return this.challenge.leader && this.challenge.leader._id === this.user._id;
+    },
+    isMember () {
+      return this.user.challenges.indexOf(this.challenge._id) !== -1;
+    },
+    isOfficial () {
+      return this.challenge.official
+        || this.challenge.categories.map(category => category.slug).includes('habitica_official');
+    },
+    tasksData () {
+      return [
+        {
+          icon: habitIcon,
+          label: 'habit',
+          value: this.challenge.tasksOrder.habits.length,
+        },
+        {
+          icon: dailyIcon,
+          label: 'daily',
+          value: this.challenge.tasksOrder.dailys.length,
+        },
+        {
+          icon: todoIcon,
+          label: 'todo',
+          value: this.challenge.tasksOrder.todos.length,
+        },
+        {
+          icon: rewardIcon,
+          label: 'reward',
+          value: this.challenge.tasksOrder.rewards.length,
+        },
+      ];
+    },
     canViewFlags () {
       const isAdmin = Boolean(this.user.contributor.admin);
       if (isAdmin && this.challenge.flagCount > 0) return true;
       return false;
+    },
+  },
+  methods: {
+    isTavern (group) {
+      return group._id === TAVERN_ID;
     },
   },
 };

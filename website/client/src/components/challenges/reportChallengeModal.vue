@@ -1,14 +1,44 @@
-<template lang="pug">
-  b-modal#report-challenge(:title='$t("abuseFlagModalHeading")', size='lg', :hide-footer='true')
-    .modal-body
-      h4 {{ challenge.name }}
-      blockquote
-        div {{ challenge.summary }}
-      p(v-html="$t('abuseFlagModalBodyChallenge', abuseFlagModalBody)")
-    .modal-footer
-      button.pull-left.btn.btn-danger(@click='clearFlagCount()', v-if='userIsAdmin') {{ $t('resetFlagCount') }}
-      button.btn.btn-primary(@click='close()') {{ $t('cancel') }}
-      button.btn.btn-danger(@click='reportAbuse()') {{ $t('abuseFlagModalButton') }}
+<template>
+  <b-modal
+    id="report-challenge"
+    :title="$t('$abuseFlagModalHeading')"
+    size="lg"
+    :hide-footer="true"
+  >
+    <div class="modal-body">
+      <h4>{{ challenge.name }}</h4>
+      <blockquote>
+        <div>
+          {{ challenge.summary }}
+        </div>
+      </blockquote>
+      <p
+        v-html="$t('abuseFlagModalBodyChallenge'), abuseFlagModalBody)"
+      ></p>
+    </div>
+    <div class="modal-footer">
+      <button
+        v-if="user.contributor.admin"
+        class="pull-left btn btn-danger"
+        @click="clearFlagCount()"
+      >
+        {{ $t("resetFlagCount") }}
+      </button>
+      <button
+        class="btn btn-primary"
+        @click="close()"
+      >
+        {{ $t("cancel") }}
+      </button>
+      <button
+        class="btn btn-danger"
+        @click="reportAbuse()"
+      >
+        {{ $t("abuseFlagModalButton") }}
+      </button>
+    </div>
+
+  </b-modal>
 </template>
 
 <script>
