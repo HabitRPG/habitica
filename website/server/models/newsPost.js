@@ -32,7 +32,7 @@ schema.statics.getNews = async function getNews (isAdmin) {
   } else {
     posts = this.find();
   }
-  return posts.sort({ publishDate: -1 });
+  return posts.sort({ publishDate: -1 }).exec();
 };
 
 let cachedLastNewsPostID = null;
