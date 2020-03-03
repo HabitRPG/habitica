@@ -240,6 +240,8 @@ export default new Schema({
     dropsEnabled: { $type: Boolean, default: false },
     itemsEnabled: { $type: Boolean, default: false },
     lastNewStuffRead: { $type: String, default: '' },
+    // This field was changed to be a computed field, so that it doesn't have to be updated for each bailey post.
+    // newStuff: { $type: Boolean, default: false },
     rewrite: { $type: Boolean, default: true },
     classSelected: { $type: Boolean, default: false },
     mathUpdates: Boolean,
