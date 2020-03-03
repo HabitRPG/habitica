@@ -45,7 +45,7 @@
           ref="inputToFocus"
           v-model="task.text"
           class="form-control input-title"
-          :class="cssClass('text')"
+          :class="cssClass('input')"
           type="text"
           required="required"
           spellcheck="true"
@@ -70,7 +70,7 @@
         <textarea
           v-model="task.notes"
           class="form-control input-notes"
-          :class="cssClass('text')"
+          :class="cssClass('input')"
         ></textarea>
       </div>
     </div>

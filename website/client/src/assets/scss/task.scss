@@ -21,7 +21,7 @@
       &-bg { background: $maroon-100 !important; }
       &-icon { color: $maroon-100 !important; }
       &-text { color: $red-1 !important; }
-      &-text:focus, &-text:active { border: 1px solid $red-1 !important; }
+      &-input:focus, &-input:active { border: 1px solid $red-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $maroon-100 !important; }
         .option-item-label { color: $maroon-50 !important; }
@@ -55,7 +55,7 @@
       &-bg { background: $red-100 !important; }
       &-icon { color: $red-100 !important; }
       &-text { color: $red-1 !important; }
-      &-text:focus, &-text:active { border: 1px solid $red-1 !important; }
+      &-input:focus, &-input:active { border: 1px solid $red-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $red-100 !important; }
         .option-item-label { color: $red-10 !important; }
@@ -90,7 +90,7 @@
       &-bg { background: $orange-100 !important; }
       &-icon { color: $orange-100 !important; }
       &-text { color: $orange-1 !important; }
-      &-text:focus, &-text:active { border: 1px solid $orange-1 !important; }
+      &-input:focus, &-input:active { border: 1px solid $orange-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $orange-100 !important; }
         .option-item-label { color: #b75a1c !important; }
@@ -124,7 +124,7 @@
       &-bg { background: $yellow-100 !important; }
       &-icon { color: $yellow-100 !important; }
       &-text { color: $yellow-1 !important; }
-      &-text:focus, &-text:active { border: 1px solid $yellow-1 !important; }
+      &-input:focus, &-input:active { border: 1px solid $yellow-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $yellow-100 !important; }
         .option-item-label { color: #bf7d1a !important; }
@@ -158,7 +158,7 @@
       &-bg { background: $green-100 !important; }
       &-icon { color: $green-10 !important; }
       &-text { color: $green-1 !important; }
-      &-text:focus, &-text:active { border: 1px solid $green-1 !important; }
+      &-input:focus, &-input:active { border: 1px solid $green-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $green-10 !important; }
         .option-item-label { color: #1ca372 !important; }
@@ -192,7 +192,7 @@
       &-bg { background: $teal-100 !important; }
       &-icon { color: $teal-100 !important; }
       &-text { color: $teal-1 !important; }
-      &-text:focus, &-text:active { border: 1px solid $teal-1 !important; }
+      &-input:focus, &-input:active { border: 1px solid $teal-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $teal-100 !important; }
         .option-item-label { color: $teal-10 !important; }
@@ -226,7 +226,7 @@
       &-bg { background: $blue-100 !important; }
       &-icon { color: $blue-100 !important; }
       &-text { color: $blue-1 !important; }
-      &-text:focus, &-text:active { border: 1px solid $blue-1 !important; }
+      &-input:focus, &-input:active { border: 1px solid $blue-1 !important; }
       &-option-disabled:hover {
         .svg-icon { color: $blue-50 !important; }
         .option-item-label { color: $blue-10 !important; }
@@ -256,7 +256,7 @@
       &-bg { background: $purple-300 !important; }
       &-icon { color: $purple-300 !important; }
       &-text { color: $black !important; }
-      &-text:focus, &-text:active { border: 1px solid $black !important; }
+      &-input:focus, &-input:active { border: 1px solid $black !important; }
       &-option-disabled:hover {
         .svg-icon { color: $purple-300 !important; }
         .option-item-label { color: $purple-200 !important; }
