@@ -129,6 +129,7 @@
           ref="chatscroll"
           class="message-scroll"
           :chat="selectedConversationMessages"
+          :conversationOpponentUser="selectedConversation.userStyles"
           :can-load-more="canLoadMore"
           :is-loading="messagesLoading"
           @message-removed="messageRemoved"
