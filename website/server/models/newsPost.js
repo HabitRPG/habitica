@@ -47,9 +47,9 @@ schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 })
   }
 
   return query.sort({ publishDate: -1 })
-      .limit(POSTS_PER_PAGE)
-      .skip(POSTS_PER_PAGE * Number(options.page))
-      .exec();
+    .limit(POSTS_PER_PAGE)
+    .skip(POSTS_PER_PAGE * Number(page))
+    .exec();
 };
 
 let cachedLastNewsPostID = null;
