@@ -13,7 +13,7 @@
         </div>
       </blockquote>
       <p
-        v-html="$t('abuseFlagModalBodyChallenge'), abuseFlagModalBody)"
+        v-html="$t('abuseFlagModalBodyChallenge', abuseFlagModalBody)"
       ></p>
     </div>
     <div class="modal-footer">
@@ -42,13 +42,13 @@
 </template>
 
 <script>
-import { mapState } from 'client/libs/store';
-import notifications from 'client/mixins/notifications';
+import { mapState } from '@/libs/store';
+import notifications from '@/mixins/notifications';
 
 export default {
   mixins: [notifications],
   computed: {
-    ...mapState({user: 'user.data'}),
+    ...mapState({ user: 'user.data' }),
     userIsAdmin () {
       return this.user.contributor.admin;
     },
@@ -80,13 +80,9 @@ export default {
     async reportAbuse () {
       this.text(this.$t('abuseReported'));
 
-
       await this.$store.dispatch('challenges:flag', {
         challengeId: this.challenge._id,
-      })
-      .catch((e) => {
-      })
-
+      });
       this.close();
     },
     async clearFlagCount () {

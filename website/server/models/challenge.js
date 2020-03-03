@@ -43,8 +43,8 @@ const schema = new Schema({
     slug: { $type: String },
     name: { $type: String },
   }],
-  flags: { type: Object, default: {} },
-  flagCount: { type: Number, default: 0, min: 0 },
+  flags: { $type: Object, default: {} },
+  flagCount: { $type: Number, default: 0, min: 0 },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned

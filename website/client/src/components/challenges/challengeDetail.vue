@@ -354,7 +354,7 @@ export default {
   components: {
     closeChallengeModal,
     leaveChallengeModal,
-    reportChallengeModal
+    reportChallengeModal,
     challengeModal,
     challengeMemberProgressModal,
     memberSearchDropdown,
@@ -561,7 +561,7 @@ export default {
       this.$root.$emit('habitica::report-challenge', {
         challenge: this.challenge,
       });
-    }
+    },
   },
 };
 </script>

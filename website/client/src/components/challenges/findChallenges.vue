@@ -42,7 +42,6 @@
       <div class="row">
         <div
           v-for="challenge in filteredChallenges"
-          v-if="userCanViewFlagged(challenge)"
           :key="challenge._id"
           class="col-12 col-md-6"
         >
@@ -172,7 +171,7 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     filteredChallenges () {
-      return this.challenges;
+      return this.challenges.filter(this.userCanViewFlagged);
     },
   },
   mounted () {
@@ -241,7 +240,9 @@ export default {
       this.loadChallenges();
     }, 1000),
     userCanViewFlagged (challenge) {
-      return challenge.flagCount < 2 || this.user.contributor.admin || this.user._id === challenge.leader._id;
+      return challenge.flagCount < 2
+        || this.user.contributor.admin
+        || this.user._id === challenge.leader._id;
     },
   },
 };

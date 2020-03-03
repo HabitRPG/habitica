@@ -474,7 +474,7 @@ api.getGroupChallenges = {
   url: '/challenges/groups/:groupId',
   middlewares: [authWithHeaders({
     // Some fields (including _id) are always loaded (see middlewares/auth)
-    userFieldsToInclude: ['party', 'guilds'], // Some fields are always loaded (see middlewares/auth)
+    userFieldsToInclude: ['party', 'guilds', 'contributor'], // Some fields are always loaded (see middlewares/auth)
   })],
   async handler (req, res) {
     const { user } = res.locals;

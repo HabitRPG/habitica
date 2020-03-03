@@ -84,21 +84,13 @@ describe('POST /challenges/:challengeId/flag', () => {
     expect(guildChallengeFound).to.not.exist;
   });
 
-  it('does return a flagged challenge in routes if user is admin', async () => {
-    const { group, groupLeader } = await createAndPopulateGroup({
-      groupDetails: {
-        name: 'TestPrivateGuild',
-        type: 'guild',
-        privacy: 'private',
-      },
-      members: 1,
-    });
-
-    const admin = groupLeader;
-    guild = group;
-    await admin.update({ 'contributor.admin': true });
-    challenge = await generateChallenge(admin, guild);
+  it('returns a flagged challenge in routes if user is admin', async () => {
+    const admin = await generateUser({ 'contributor.admin': true });
     await admin.post(`/challenges/${challenge._id}/flag`);
+
+    // admin needs to join the group to see its challenges
+    await user.post(`/groups/${guild._id}/invite`, { uuids: [admin._id] });
+    await admin.post(`/groups/${guild._id}/join`);
 
     const userChallenges = await admin.get('/challenges/user');
     const challengeFound = admin.get(`/challenges/${challenge._id}`);
