@@ -33,4 +33,19 @@ schema.statics.sanitizeUpdate = function sanitizeUpdate (updateObj) {
   return this.sanitize(updateObj, noUpdate);
 };
 
+/**
+ * Remove invalid data from an array of tags.
+ * Fix for https://github.com/HabitRPG/habitica/issues/10688
+ * Called by user's post init hook (models/user/hooks.js)
+ */
+schema.statics.cleanupCorruptData = function cleanupCorruptTagsData (tags) {
+  if (!tags) return tags;
+
+  return tags.filter(tag => {
+    // Exclude tags with a nullish value or no id
+    if (!tag || !tag.id || !tag.name) return false;
+    return true;
+  });
+};
+
 export const model = mongoose.model('Tag', schema);

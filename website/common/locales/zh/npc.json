@@ -81,7 +81,7 @@
     "mustPurchaseToSet": "必须购买 <%= val %>来把它使用在<%= key %>上。",
     "typeRequired": "需要Type",
     "positiveAmountRequired": "需要正数值",
-    "notAccteptedType": "种类必须在 [蛋，孵化药水，食物，任务，装备] 中",
+    "notAccteptedType": "种类必须在 [蛋，孵化药水，食物，副本，装备] 中",
     "contentKeyNotFound": "内容<%= type %>找不到Key",
     "plusGem": "+<%= count %>颗宝石",
     "typeNotSellable": "这种类型的东西不出售。只有在<%= acceptedTypes %>里的才行",

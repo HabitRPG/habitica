@@ -119,8 +119,8 @@
     "giftedSubscriptionInfo": "<%= name%> heeft je een abonnement van <%= months %> maanden cadeau gedaan",
     "giftedSubscriptionFull": "Hallo <%= username %>, <%= sender %> heeft je een abonnement van <%= monthCount %> maanden gestuurd!",
     "giftedSubscriptionWinterPromo": "Hallo <%= username %>, je hebt <%= monthCount %> maanden aan abonnement ontvangen als een deel van onze feestdagen-cadeaus-geven promotie!",
-    "invitedParty": "Uitgenodigd voor gezelschap",
-    "invitedGuild": "Uitgenodigd voor gilde",
+    "invitedParty": "Je bent uitgenodigd voor een Gezelschap",
+    "invitedGuild": "Uitgenodigd voor een gilde",
     "importantAnnouncements": "Herinneringen om in te checken teneinde taken te voltooien en prijzen te ontvangen",
     "weeklyRecaps": "Samenvatting van je account-activiteit van de afgelopen week (Opmerking: dit is tijdelijk uitgeschakeld vanwege prestatieproblemen, maar we hopen dit snel weer online te hebben en e-mails kunnen sturen!)",
     "onboarding": "Hulp bij het opzetten van je Habitica account",
@@ -203,7 +203,14 @@
     "goToSettings": "Ga naar instellingen",
     "usernameVerifiedConfirmation": "Jouw gebruikersnaam, <%= username %>, is bevestigd!",
     "usernameNotVerified": "Bevestig alsjeblieft je gebruikersnaam.",
-    "changeUsernameDisclaimer": "Wij gaan binnenkort over op unieke, publieke gebruikersnamen. Deze gebruikersnaam zal gebruikt worden bij uitnodigingen, @mentions in de chat en het sturen van berichten.",
+    "changeUsernameDisclaimer": "Deze gebruikersnaam zal gebruikt worden bij uitnodigingen, @mentions in de chat en het sturen van berichten.",
     "verifyUsernameVeteranPet": "Een van deze Veteraan Huisdieren staat voor je klaar wanneer je bevestiging volbracht is!",
-    "subscriptionReminders": "Herinneringen Abonnementen"
+    "subscriptionReminders": "Herinneringen Abonnementen",
+    "onlyPrivateSpaces": "Alleen in privé plekken",
+    "everywhere": "Overal",
+    "suggestMyUsername": "Stel me een gebruikersnaam voor",
+    "mentioning": "Vermelding",
+    "newPMNotificationTitle": "Nieuw Bericht van <%= name %>",
+    "chatExtensionDesc": "De Chat Uitbreiding voor Habitica voegt een intuïtieve chat box toe aan habitica.com. Hierdoor kunnen gebruikers chatten in de Herberg, hun gezelschap, en de gildes waar ze in zitten.",
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chat Extentie</a> en <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox Chat Extentie</a>"
 }
