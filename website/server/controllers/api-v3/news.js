@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW SUBSCRIBER ITEMS, RESOLUTION SUCCESS CHALLENGE, AND TAKE THIS CHALLENGE!';
+const LAST_ANNOUNCEMENT_TITLE = 'MARCH BACKGROUNDS AND ARMOIRE ITEMS! HOPEFUL HIPPOGRIFFS IN THE TIME TRAVELERS SHOP!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,66 +31,33 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/2/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/3/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_202003 center-block"></div>
-        <h3>March Subscriber Items Revealed!</h3>
+        <div class="promo_armoire_backgrounds_202003 center-block"></div>
+        <h3>March Backgrounds and Armoire Items!</h3>
         <p>
-          The March Subscriber Item has been revealed: the Barbed Battler Item Set! <a
-          href='/user/settings/subscription'>Subscribe to Habitica</a> by March 31 to receive this
-          exciting set! If you're already an active subscriber, reload the site and then head to
-          Inventory > Items to claim your gear!
+          We’ve added three new backgrounds to the Background Shop! Now your avatar can dally among
+          Giant Flowers, admire a fancy Succulent Garden, and party with pollinators in the
+          Butterfly Garden. Check them out under User Icon > Backgrounds!
         </p>
         <p>
-          Subscribers also receive the ability to buy Gems with Gold -- the longer you subscribe,
-          the more gems you can buy per month! There are other perks as well, such as longer access
-          to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep
-          Habitica running. Thank you very much for your support -- it means a lot to us.
-        </p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="scene_gaining_achievement center-block"></div>
-        <h3>New Resolution Success Challenge and Take This Challenge!</h3>
-        <p>
-          The Habitica team has launched a special official Challenge series hosted in the <a
-          href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New
-          Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain
-          goals that are destined for success and then stick with them as the year progresses. For
-          this month's Challenge, <a href='/challenges/ad50c909-eb5d-4b34-83ca-52b2122f1451'>Reach
-          for Your First Achievement</a>, we're focusing on setting smaller mini-goals as
-          milestones! It has a 15 Gem prize, which will be awarded to five lucky winners on April
-          1st.
-        </p>
-        <p>
-          Congratulations to the winners of the February Challenge: @2muchomework, @Meylin_uwu,
-          @OpCit, @dejavudu, and @rebeccafae!
-        </p>
-        <p>
-          The next Take This Challenge has also launched, "<a
-          href='/challenges/96980722-77b2-4a76-8bba-358558fe1a19'>Gaining Inspiration Points!</a>",
-          with a focus on capturing creativity. Be sure to check it out to earn additional pieces
-          of the Take This armor set!
-        </p>
-        <p>
-          <a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that
-          seeks to inform the gamer community about mental health issues, to provide education
-          about mental disorders and mental illness prevention, and to reduce the stigma of mental
-          illness.
-        </p>
-        <p>
-          Congratulations to the winners of the last Take This Challenge, "Multiplayer Co-Op
-          Exercise!": grand prize winner SimpleMan, and runners-up @damole, @BrittySpitty1013,
-          @LeScalpeurDeCarottes, @Eziorocks, and @k4m3n! Plus, all participants in that Challenge
-          have received a piece of the <a
-          href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set'
-          target='_blank'>Take This item set</a> if they hadn't completed it already. It is located
-          in your Rewards column. Enjoy!
+          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
+          Baseball Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
         </p>
         <div class="small mb-3">
-          by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat
+          by Vikte, Mantichore, FolleMente, Aspiring Advocate, QuartzFox, katieslug, and SabreCat
         </div>
-        <div class="promo_take_this center-block"></div>
+        <div class="Pet-Hippogriff-Hopeful center-block"></div>
+        <h3>Hopeful Hippogriffs in the Time Travelers' Shop!</h3>
+        <p>
+          The <a href='/shops/time'>Time Travelers</a> have traveled back in time to obtain some
+          rare Hopeful Hippogriff pets and mounts! You can buy them with Mystic Hourglasses, which
+          are awarded to <a href='/user/settings/subscription'>long-term subscribers</a>. Thanks
+          for helping us to keep Habitica running!
+        </p>
+        <div class="small mb-3">by Lemoness and SabreCat</div>
       </div>
       `,
     });
