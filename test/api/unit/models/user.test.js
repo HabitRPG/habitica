@@ -59,7 +59,7 @@ describe('User Model', () => {
     expect(userToJSON.stats.toNextLevel).to.not.exist;
     expect(userToJSON.id).to.not.exist;
 
-    await User.transformJSONUser(userToJSON);
+    User.transformJSONUser(userToJSON);
 
     expect(userToJSON.id).to.equal(userToJSON._id);
     expect(userToJSON.stats.maxMP).to.not.exist;
@@ -76,7 +76,7 @@ describe('User Model', () => {
     expect(userToJSON.stats.maxHealth).to.not.exist;
     expect(userToJSON.stats.toNextLevel).to.not.exist;
 
-    await User.transformJSONUser(userToJSON, true);
+    User.transformJSONUser(userToJSON, true);
 
     expect(userToJSON.id).to.equal(userToJSON._id);
     expect(userToJSON.stats.maxMP).to.exist;
