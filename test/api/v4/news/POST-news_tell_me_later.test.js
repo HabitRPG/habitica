@@ -3,7 +3,7 @@ import {
 } from '../../../helpers/api-integration/v4';
 import { model as NewsPost } from '../../../../website/server/models/newsPost';
 
-describe.only('POST /news/tell-me-later', () => {
+describe('POST /news/tell-me-later', () => {
   let user;
 
   beforeEach(async () => {
