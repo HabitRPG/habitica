@@ -57,8 +57,8 @@ let cachedLastNewsPostDate = null;
 let cachedLastNewsPostTitle = null;
 
 schema.statics.lastNewsPostID = async function lastNewsPostID () {
-  if (cachedLastNewsPostID === null) {
-    const lastPost = (await this.getLastPost());
+  if (!cachedLastNewsPostID) {
+    const lastPost = await this.getLastPost();
     if (lastPost) {
       cachedLastNewsPostID = lastPost.id;
       cachedLastNewsPostDate = lastPost.publishDate;
@@ -68,8 +68,8 @@ schema.statics.lastNewsPostID = async function lastNewsPostID () {
 };
 
 schema.statics.lastNewsPostTitle = async function lastNewsPostTitle () {
-  if (cachedLastNewsPostTitle === null) {
-    const lastPost = (await this.getLastPost());
+  if (!cachedLastNewsPostTitle) {
+    const lastPost = await this.getLastPost();
     if (lastPost) {
       cachedLastNewsPostTitle = lastPost.title;
     }
