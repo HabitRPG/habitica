@@ -170,10 +170,18 @@ export function getTaskClasses (store) {
         } if (type === 'habit') {
           return {
             up: task.up
-              ? { bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`, icon: `task-${color}-control-icon` }
+              ? {
+                bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
+                inner: task.group && task.group.id && !task.userId ? `task-${color}-control-inner-habit-noninteractive` : `task-${color}-control-inner-habit`,
+                icon: `task-${color}-control-icon`,
+              }
               : { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
             down: task.down
-              ? { bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`, inner: `task-${color}-control-inner-habit`, icon: `task-${color}-control-icon` }
+              ? {
+                bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
+                inner: task.group && task.group.id && !task.userId ? `task-${color}-control-inner-habit-noninteractive` : `task-${color}-control-inner-habit`,
+                icon: `task-${color}-control-icon`,
+              }
               : { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
           };
         }
