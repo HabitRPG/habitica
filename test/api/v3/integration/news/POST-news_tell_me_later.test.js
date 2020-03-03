@@ -7,11 +7,11 @@ describe('POST /news/tell-me-later', () => {
   let user;
 
   beforeEach(async () => {
+    NewsPost.updateLastNewsPost({ id: '1234', publishDate: new Date(), title: 'Title' });
     user = await generateUser();
   });
 
   it('marks new stuff as read and adds notification', async () => {
-    NewsPost.updateLastNewsPostID('1234', new Date());
     const initialNotifications = user.notifications.length;
 
     await user.post('/news/tell-me-later');

@@ -3,15 +3,15 @@ import {
 } from '../../../helpers/api-integration/v4';
 import { model as NewsPost } from '../../../../website/server/models/newsPost';
 
-describe('POST /news/tell-me-later', () => {
+describe.only('POST /news/tell-me-later', () => {
   let user;
 
   beforeEach(async () => {
     user = await generateUser();
+    NewsPost.updateLastNewsPost({ id: '1234', publishDate: new Date(), title: 'Title' });
   });
 
   it('marks new stuff as read and adds notification', async () => {
-    NewsPost.updateLastNewsPost({ id: '1234', publishDate: new Date() });
     const initialNotifications = user.notifications.length;
 
     await user.post('/news/tell-me-later');

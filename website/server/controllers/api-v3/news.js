@@ -70,8 +70,10 @@ api.tellMeLaterNews = {
     user.flags.lastNewStuffRead = await NewsPost.lastNewsPostID();
     const title = await NewsPost.lastNewsPostTitle();
 
-    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
-    if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
+    if (user.notifications) {
+      const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
+      if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
+    }
     user.addNotification('NEW_STUFF', { title: title.toUpperCase() }, true); // seen by default
 
     await user.save();
