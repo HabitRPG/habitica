@@ -118,7 +118,7 @@ api.getPost = {
 
     const newsPost = await NewsPost.findById(req.params.postId);
     if (!newsPost || (!isAdmin && !newsPost.isPublished)) {
-      res.respond(404, {});
+      throw new NotFound(res.t('newsPostNotFound'));
     } else {
       res.respond(200, newsPost);
     }
