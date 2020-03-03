@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import baseModel from '../libs/baseModel';
 
 const { Schema } = mongoose;
+const POSTS_PER_PAGE = 10;
 
 export const schema = new Schema({
   title: { $type: String },
@@ -21,7 +22,7 @@ schema.plugin(baseModel, {
   timestamps: true,
 });
 
-schema.static.getLastPost = async function getLastPost () {
+schema.statics.getLastPost = async function getLastPost () {
   const post = await this.findOne({
     published: true,
     publishDate: { $lte: new Date() },
@@ -29,18 +30,26 @@ schema.static.getLastPost = async function getLastPost () {
   return post;
 };
 
-schema.statics.getNews = async function getNews (isAdmin) {
-  let posts = [];
+schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 }) {
+  let query;
   if (!isAdmin) {
-    posts = this.find({
+    query = this.find({
       published: true,
       publishDate: { $lte: new Date() },
     })
       .select('title publishDate credits text');
   } else {
-    posts = this.find();
+    query = this.find();
   }
-  return posts.sort({ publishDate: -1 }).exec();
+  let page = 0;
+  if (typeof options.page !== 'undefined') {
+    page = options.page;
+  }
+
+  return query.sort({ publishDate: -1 })
+      .limit(POSTS_PER_PAGE)
+      .skip(POSTS_PER_PAGE * Number(options.page))
+      .exec();
 };
 
 let cachedLastNewsPostID = null;

@@ -32,11 +32,13 @@ api.getNews = {
   noLanguage: true,
   async handler (req, res) {
     const { user } = res.locals;
+    const { page } = req.query;
+
     let isAdmin = false;
     if (user && user.contributor) {
       isAdmin = user.contributor.admin;
     }
-    const results = await NewsPost.getNews(isAdmin);
+    const results = await NewsPost.getNews(isAdmin, { page });
     res.respond(200, results);
   },
 };
