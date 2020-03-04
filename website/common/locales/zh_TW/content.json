@@ -1,10 +1,10 @@
 {
     "potionText": "治療藥水",
     "potionNotes": "回復15點生命值（立即使用 ）",
-    "armoireText": "神秘寶箱",
-    "armoireNotesFull": "打開神祕寶箱可隨機獲得特殊裝備、經驗值、或食物！剩餘裝備數量:",
-    "armoireLastItem": "您在神祕寶箱裡找到最後一件稀有裝備。",
-    "armoireNotesEmpty": "每個月的第一個禮拜，神祕寶箱都將會推出新的裝備。在那之前，請繼續購買神祕寶箱以獲得經驗和食物！",
+    "armoireText": "魔法衣櫥",
+    "armoireNotesFull": "打開魔法衣櫥可隨機獲得特殊裝備、經驗值、或食物！剩餘裝備數量:",
+    "armoireLastItem": "您在魔法衣櫥裡找到最後一件稀有裝備。",
+    "armoireNotesEmpty": "每個月的第一個禮拜，魔法衣櫥都將會推出新的裝備。在那之前，請繼續購買魔法衣櫥以獲得經驗和食物！",
     "dropEggWolfText": "狼",
     "dropEggWolfMountText": "狼",
     "dropEggWolfAdjective": "一隻忠誠的",
@@ -190,8 +190,8 @@
     "hatchingPotionShade": "暗影",
     "hatchingPotionSkeleton": "骸骨",
     "hatchingPotionZombie": "殭屍",
-    "hatchingPotionCottonCandyPink": "棉染粉紅",
-    "hatchingPotionCottonCandyBlue": "棉染藍",
+    "hatchingPotionCottonCandyPink": "粉色棉花糖",
+    "hatchingPotionCottonCandyBlue": "藍色棉花糖",
     "hatchingPotionGolden": "金黃",
     "hatchingPotionSpooky": "幽靈",
     "hatchingPotionPeppermint": "薄荷",
@@ -353,5 +353,6 @@
     "hatchingPotionShadow": "陰影",
     "premiumPotionUnlimitedNotes": "無法用於副本寵物蛋。",
     "hatchingPotionAurora": "極光",
-    "hatchingPotionAmber": "琥珀"
+    "hatchingPotionAmber": "琥珀",
+    "hatchingPotionRuby": "紅寶石"
 }

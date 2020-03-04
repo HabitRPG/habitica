@@ -8,13 +8,16 @@ const BASE_URL = nconf.get('BASE_URL');
 const EMAIL_SLUG = 'mandrill-email-slug'; // Set email template to send
 const MIGRATION_NAME = 'bulk-email';
 
-const progressCount = 1000;
+const progressCount = 250;
 let count = 0;
 
 async function updateUser (user) {
   count += 1;
 
-  if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
+  if (count % progressCount === 0) {
+    console.warn(`${count} ${user._id}`);
+    await new Promise(resolve => setTimeout(resolve, 5000));
+  }
 
   await sendTxn(
     user,

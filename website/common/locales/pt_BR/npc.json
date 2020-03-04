@@ -3,7 +3,7 @@
     "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Apoiou o projeto no Kickstarter no nível máximo!",
     "welcomeTo": "Boas Vindas a",
-    "welcomeBack": "Bem Vindo(a) de volta!",
+    "welcomeBack": "Bem-vindo(a) de volta!",
     "justin": "Justin",
     "justinIntroMessage1": "Olá! Você deve ser novo por aqui. Meu nome é <strong>Justin</strong> e eu serei seu guia do Habitica.",
     "justinIntroMessage2": "De início, você precisará criar um avatar.",
@@ -24,7 +24,7 @@
     "sleepBullet3": "Os Chefões não causam danos pelas suas Diárias não concluídas",
     "sleepBullet4": "Seu dano no Chefão ou itens de Missão de coleta ficarão acumulados até o fim do dia",
     "pauseDailies": "Pausar Danos",
-    "unpauseDailies": "Reativar Danos",
+    "unpauseDailies": "Reativar danos",
     "staffAndModerators": "Equipe e Moderadores",
     "communityGuidelinesIntro": "O Habitica tentar criar um ambiente convidativo para usuários de todas as idades e contexto, especialmente em espaços públicos como a Taverna. Se você tiver qualquer dúvida, por favor consulte nossas <a href='/static/community-guidelines' target='_blank'>Diretrizes da Comunidade</a>.",
     "acceptCommunityGuidelines": "Eu aceito cumprir as Diretrizes da Comunidade",
@@ -108,7 +108,7 @@
     "paymentMethods": "Comprar usando",
     "paymentSuccessful": "Seu pagamento foi efetuado com sucesso!",
     "paymentYouReceived": "Você recebeu:",
-    "paymentYouSentGems": "Você enviou <strong><%= name %></strong>:",
+    "paymentYouSentGems": "Você enviou para <strong><%= name %></strong>:",
     "paymentYouSentSubscription": "Você enviou para <strong><%= name %></strong>uma assinatura de Habitica por <%= months %> meses.",
     "paymentSubBilling": "Sua fatura será cobrada no valor de <strong>$<%= amount %></strong> a cada <strong><%= months %> meses</strong>.",
     "success": "Sucesso!",
@@ -170,5 +170,6 @@
     "limitedOffer": "Disponível até <%= date %>",
     "paymentAutoRenew": "Esta assinatura será renovada automaticamente até ser cancelada. Se você precisar cancelar, poderá fazê-lo através da configurações.",
     "paymentCanceledDisputes": "Enviamos uma confirmação de cancelamento para o seu e-mail. Se você não está vendo o e-mail, entre em contato para evitar cobranças futuras.",
-    "cannotUnpinItem": "Este item não pode ser desfixado."
+    "cannotUnpinItem": "Este item não pode ser desfixado.",
+    "paymentSubBillingWithMethod": "Sua assinatura irá ser faturada no valor de <strong>$<%= amount %></strong> a cada <strong><%= months %> meses</strong>."
 }

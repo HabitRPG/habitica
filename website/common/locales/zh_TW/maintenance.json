@@ -1,5 +1,5 @@
 {
-    "habiticaBackSoon": "別擔心。Habitica 一會兒就回來！",
+    "habiticaBackSoon": "別擔心。Habitica一會兒就回來！",
     "importantMaintenance": "我們正在做重要的維護，我們估計維護將會一直持續到太平洋時間晚上10點（5am UTC）。",
     "maintenance": "維護",
     "maintenanceMoreInfo": "想知道更多關於維護的資訊？<%= linkStart %>請瀏覽我們的資訊頁面面<%= linkEnd %>。",
@@ -21,13 +21,13 @@
     "maintenanceInfoHowLong": "維護會持續多久？",
     "maintenanceInfoHowLongText": "我們必須遷移所有130萬Habitica用戶的任務及資料—而這並不容易！我們預期會在約臺灣時區凌晨四點（8pm UTC）到下午一點（5am UTC）進行作業。請放心，我們會竭盡所能地盡快完成作業！你可以關注我們在<a href='https://twitter.com/habitica' target='_blank'>Twitter上的更新進度</a>。",
     "maintenanceInfoStatsAffected": "我的每日任務、連擊數、增益魔法和副本會受到什麼影響？",
-    "maintenanceInfoStatsAffectedText1": "你在這個週末不會損血或是失去連擊數，但是該天會被正常重置！你已勾選的每日任務會變為未句選，增益魔法會重置等等。如果你正在進行收集副本，你仍然能尋找副本道具；如果你正在進行boss戰，你仍然能對boss造成傷害，但boss無法傷害你。(即使身為怪物也需要休息的！)",
+    "maintenanceInfoStatsAffectedText1": "你在這個週末不會損血或是失去連擊數，但是該天會被正常重置！你已勾選的每日任務會變為未句選，增益魔法會重置等等。如果你正在進行收集副本，你仍然能尋找副本道具；如果你正在進行boss戰，你仍然能對boss造成傷害，但boss無法傷害你。（即使身為怪物也需要休息的！）",
     "maintenanceInfoStatsAffectedText2": "我們的團隊在思索已久後，結論出這是最為公平的處置—考慮到多數用戶無法在維護期間正常地勾選他們的每日任務。我們對此帶來的不便感到抱歉！",
     "maintenanceInfoSeeTasks": "如果我需要查看我的任務呢？",
     "maintenanceInfoSeeTasksText": "若你已經知道你會需要在週六檢查任務清單來提醒自己需要作什麼事，我們建議在維護開始之前，你能先把任務截圖下來作為參考。",
     "maintenanceInfoRarePet": "我會受到什麼樣的稀有寵物？",
     "maintenanceInfoRarePetText": "為了感謝你在伺服器下線時間的耐心等候，每個人都能獲得一隻將領寵物。如果你之前從未得到將領寵物，你能得到一隻將領狼；如果你先前已經獲得將領狼，你能獲得將領老虎；如果你先前已經獲得將領老虎，你能獲得從未見過的將領寵物！在遷移作業完成後，寵物需要數小時後才會顯示。請別擔心，每個人都能得到。",
     "maintenanceInfoWho": "是誰曾參與了這超大的工程？",
-    "maintenanceInfoWhoText": "很高興你問了這樣的問題！它是由我們厲害的貢獻者 paglias 帶領，且從 Blade、TheHollidayInn、SabreCat、Victor Pudeyev、TheUnknown、Alys 得到了許多幫助。",
+    "maintenanceInfoWhoText": "很高興你問了這樣的問題！它是由我們厲害的貢獻者paglias帶領，且從Blade、TheHollidayInn、SabreCat、Victor Pudeyev、TheUnknown、Alys 得到了許多幫助。",
     "maintenanceInfoTesting": "新版本也將無間歇地被我們超棒的開放原始碼志願者輪番試驗。謝謝你們—沒有你們我們無法完成這次更新。"
 }

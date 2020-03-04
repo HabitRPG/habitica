@@ -41,28 +41,28 @@ const api = {};
  * @apiGroup User
  *
  * @apiDescription The user profile contains data related to the authenticated
- * user including (but not limited to);
- * Achievements
- * Authentications (including types and timestamps)
- * Challenges
- * Flags (including armoire, tutorial, tour etc...)
- * Guilds
- * History (including timestamps and values)
- * Inbox
- * Invitations (to parties/guilds)
- * Items (character's full inventory)
- * New Messages (flags for groups/guilds that have new messages)
- * Notifications
- * Party (includes current quest information)
- * Preferences (user selected prefs)
- * Profile (name, photo url, blurb)
- * Purchased (includes purchase history, gem purchased items, plans)
- * PushDevices (identifiers for mobile devices authorized)
- * Stats (standard RPG stats, class, buffs, xp, etc..)
- * Tags
- * TasksOrder (list of all ids for dailys, habits, rewards and todos)
+ * user including (but not limited to):
+ * Achievements;
+ * Authentications (including types and timestamps);
+ * Challenges memberships (Challenge IDs);
+ * Flags (including armoire, tutorial, tour etc...);
+ * Guilds memberships (Guild IDs);
+ * History (including timestamps and values, only for Experience and summed To-Do values);
+ * Inbox;
+ * Invitations (to parties/guilds);
+ * Items (character's full inventory);
+ * New Messages (flags for party/guilds that have new messages; also reported in Notifications);
+ * Notifications;
+ * Party (includes current quest information);
+ * Preferences (user selected prefs);
+ * Profile (name, photo url, blurb);
+ * Purchased (includes subscription data and some gem-purchased items);
+ * PushDevices (identifiers for mobile devices authorized);
+ * Stats (standard RPG stats, class, buffs, xp, etc..);
+ * Tags;
+ * TasksOrder (list of all IDs for Dailys, Habits, Rewards and To-Dos).
  *
- * @apiParam (Query) {String} [userFields] A list of comma separated user fields to
+ * @apiParam (Query) {String} [userFields] A list of comma-separated user fields to
  *                                         be returned instead of the entire document.
  *                                         Notifications are always returned.
  *
@@ -91,8 +91,8 @@ api.getUser = {
 };
 
 /**
- * @api {get} /api/v3/user/inventory/buy Get the gear items available for purchase
- * for the authenticated user
+ * @api {get} /api/v3/user/inventory/buy
+ * Get equipment/gear items available for purchase for the authenticated user
  * @apiName UserGetBuyList
  * @apiGroup User
  *
@@ -231,7 +231,8 @@ api.updateUser = {
  * @apiName UserDelete
  * @apiGroup User
  *
- * @apiParam (Body) {String} password The user's password if the account uses local authentication
+ * @apiParam (Body) {String} password The user's password if the account uses local authentication,
+ * otherwise the localized word "DELETE"
  * @apiParam (Body) {String} feedback User's optional feedback explaining reasons for deletion
  *
  * @apiSuccess {Object} data An empty Object
@@ -242,11 +243,16 @@ api.updateUser = {
  *   "data": {}
  * }
  *
- * @apiError {BadRequest} MissingPassword The password was not included in the request
- * @apiError {BadRequest} LengthExceeded The feedback provided is longer than 10K
- * @apiError {BadRequest} NotAuthorized There is no account that uses those credentials.
+ * @apiError {BadRequest} MissingPassword Missing password.
+ * @apiError {BadRequest} NotAuthorized Wrong password.
+ * @apiError {BadRequest} NotAuthorized Please type DELETE in all capital letters to
+ * delete your account.
+ * @apiError {BadRequest} BadRequest Account deletion feedback is limited to 10,000 characters.
+ * For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.
+ * @apiError {BadRequest} NotAuthorized You have an active subscription,
+ * cancel your plan before deleting your account.
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  *  {
  *   "success": false,
  *   "error": "BadRequest",
@@ -279,7 +285,7 @@ api.deleteUser = {
     }
 
     const { feedback } = req.body;
-    if (feedback && feedback.length > 10000) throw new BadRequest(`Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.`);
+    if (feedback && feedback.length > 10000) throw new BadRequest(`Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.`); // @TODO localize this string
 
     if (plan && plan.customerId && !plan.dateTerminated) {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
@@ -333,14 +339,14 @@ function _cleanChecklist (task) {
  * @apiGroup User
  *
  * @apiDescription Returns the user's data without:
- * Authentication information
- * NewMessages/Invitations/Inbox
- * Profile
- * Purchased information
- * Contributor information
- * Special items
- * Webhooks
- * Notifications
+ * Authentication information,
+ * NewMessages/Invitations/Inbox,
+ * Profile,
+ * Purchased information,
+ * Contributor information,
+ * Special items,
+ * Webhooks,
+ * Notifications.
  *
  * @apiSuccess {Object} data.user
  * @apiSuccess {Object} data.tasks
@@ -537,7 +543,7 @@ api.buyGear = {
 };
 
 /**
- * @api {post} /api/v3/user/buy-armoire Buy an armoire item
+ * @api {post} /api/v3/user/buy-armoire Buy an Enchanted Armoire item
  * @apiName UserBuyArmoire
  * @apiGroup User
  *
@@ -586,7 +592,7 @@ api.buyArmoire = {
  * @apiSuccess {Object} data User's current stats
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample
+ * @apiSuccessExample Example return:
  *  {
  *   "success": true,
  *   "data": {
@@ -619,8 +625,9 @@ api.buyHealthPotion = {
 };
 
 /**
- * @api {post} /api/v3/user/buy-mystery-set/:key Buy a mystery set
+ * @api {post} /api/v3/user/buy-mystery-set/:key Buy a Mystery Item set
  * @apiName UserBuyMysterySet
+ * @apiDescription This buys a Mystery Item set using an Hourglass.
  * @apiGroup User
  *
  * @apiParam (Path) {String} key The mystery set to buy
@@ -669,7 +676,7 @@ api.buyMysterySet = {
  * @apiSuccess {Object} data.quests User's quest list
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Success response:
  * {
  *   "success": true,
  *   "data": {
@@ -703,7 +710,7 @@ api.buyQuest = {
 };
 
 /**
- * @api {post} /api/v3/user/buy-special-spell/:key Buy special "spell" item
+ * @api {post} /api/v3/user/buy-special-spell/:key Buy special item (card, avatar transformation)
  * @apiDescription Includes gift cards (e.g., birthday card), and avatar Transformation
  * Items and their antidotes (e.g., Snowball item and Salt reward).
  * @apiName UserBuySpecialSpell
@@ -815,7 +822,7 @@ api.hatch = {
  * @apiSuccess {Object} data user.items
  * @apiSuccess {String} message Optional success message for unequipping an items
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example return:
  *  {
  *   "success": true,
  *   "data": {---DATA TRUNCATED---},
@@ -857,12 +864,12 @@ api.equip = {
  * @apiSuccess {Number} data The pet value
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  * {"success":true,"data":10,"message":"Shade Armadillo
  * really likes the Chocolate!","notifications":[]}
  *
  * @apiError {NotFound} PetNotOwned :pet not found in user.items.pets
- * @apiError {BedRequest} InvalidPet Invalid pet name supplied.
+ * @apiError {BadRequest} InvalidPet Invalid pet name supplied.
  * @apiError {NotFound} FoodNotOwned :food not found in user.items.food
  *                                   Note: also sent if food name is invalid.
  *
@@ -913,7 +920,7 @@ api.feed = {
  *                           selected and gems needed to be paid.
  * @apiError {NotAuthorized} Level To change class you must be at least level 10.
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.changeClass = {
@@ -955,7 +962,7 @@ api.disableClasses = {
  * @apiGroup User
  *
  * @apiParam (Path) {String="gems","eggs","hatchingPotions","premiumHatchingPotions"
-                    ,food","quests","gear"} type Type of item to purchase.
+                    ,"food","quests","gear"} type Type of item to purchase.
  * @apiParam (Path) {String} key Item's key (use "gem" for purchasing gems)
  *
  * @apiSuccess {Object} data.items user.items
@@ -968,7 +975,7 @@ api.disableClasses = {
  * @apiError {NotFound} Key Key not found for Content type.
  * @apiError {NotFound} Type Type invalid.
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"NotAuthorized","message":
  * "This item is not currently available for purchase."}
  */
@@ -1003,6 +1010,8 @@ api.purchase = {
 /**
  * @api {post} /api/v3/user/purchase-hourglass/:type/:key Purchase Hourglass-purchasable item
  * @apiName UserPurchaseHourglass
+ * @apiDescription Purchases an Hourglass-purchasable item.
+ * Does not include Mystery Item sets (use /api/v3/user/buy-mystery-set/:key).
  * @apiGroup User
  *
  * @apiParam (Path) {String="pets","mounts"} type The type of item to purchase
@@ -1021,7 +1030,7 @@ api.purchase = {
  * @apiError {BadRequest} Quantity Quantity to purchase must be a number.
  * @apiError {NotFound} Type Type invalid.
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"NotAuthorized","message":"You don't have enough Mystic Hourglasses."}
  */
 api.userPurchaseHourglass = {
@@ -1055,7 +1064,7 @@ api.userPurchaseHourglass = {
  * @apiSuccess {Boolean} data.cardReceived user.flags.cardReceived
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  *  {
  *   "success": true,
  *   "data": {
@@ -1104,7 +1113,7 @@ api.readCard = {
  * @apiSuccess {Object} data The item obtained
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  * { "success": true,
  *   "data": {
  *     "mystery": "201612",
@@ -1123,7 +1132,7 @@ api.readCard = {
  *
  * @apiError {BadRequest} Empty No mystery items to open.
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"BadRequest","message":"Mystery items are empty"}
  */
 api.userOpenMysteryItem = {
@@ -1145,7 +1154,7 @@ api.userOpenMysteryItem = {
  * @apiSuccess {Object} data.items `user.items.pets`
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  *  {
  *   "success": true,
  *   "data": {
@@ -1153,9 +1162,9 @@ api.userOpenMysteryItem = {
  *   "message": "Pets released"
  * }
  *
- * @apiError {NotAuthorized} Not enough gems
+ * @apiError {NotAuthorized} Gems Not enough gems
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.userReleasePets = {
@@ -1180,7 +1189,7 @@ api.userReleasePets = {
  * @apiSuccess {Number} data.balance
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  *  {
  *   "success": true,
  *   "data": {
@@ -1201,9 +1210,9 @@ api.userReleasePets = {
  *   "message": "Mounts and pets released"
  * }
  *
- * @apiError {NotAuthorized} Not enough gems
+ * @apiError {NotAuthorized} Gems Not enough gems
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
 
  */
@@ -1227,7 +1236,7 @@ api.userReleaseBoth = {
  * @apiSuccess {Object} data user.items.mounts
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  *  {
  *   "success": true,
  *   "data": {
@@ -1237,9 +1246,9 @@ api.userReleaseBoth = {
  *   "message": "Mounts released"
  * }
  *
- * @apiError {NotAuthorized} Not enough gems
+ * @apiError {NotAuthorized} Gems Not enough gems
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  *
  */
@@ -1262,7 +1271,7 @@ api.userReleaseMounts = {
  *
  * @apiParam (Path) {String="eggs","hatchingPotions","food"} type The type of item to sell.
  * @apiParam (Path) {String} key The key of the item
- * @apiParam (Query) {Number} (optional) amount The amount to sell
+ * @apiParam (Query) {Number} [amount] The amount to sell
  *
  * @apiSuccess {Object} data.stats
  * @apiSuccess {Object} data.items
@@ -1272,7 +1281,7 @@ api.userReleaseMounts = {
  *                                 user has none in inventory).
  * @apiError {NotAuthorized} InvalidType Type is not a valid type.
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"NotAuthorized","message":"Type is not sellable.
  * Must be one of the following eggs, hatchingPotions, food"}
  */
@@ -1295,7 +1304,7 @@ api.userSell = {
  *
  * @apiParam (Query) {String} path Full path to unlock. See "content" API call for list of items.
  *
- * @apiParamExample {curl}
+ * @apiParamExample {curl} Example call:
  * curl -X POST http://habitica.com/api/v3/user/unlock?path=background.midnight_clouds
  * curl -X POST http://habitica.com/api/v3/user/unlock?path=hair.color.midnight
  *
@@ -1304,7 +1313,7 @@ api.userSell = {
  * @apiSuccess {Object} data.preferences
  * @apiSuccess {String} message "Items have been unlocked"
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  * {
  *  "success": true,
  *  "data": {},
@@ -1315,7 +1324,7 @@ api.userSell = {
  * @apiError {NotAuthorized} Gems Not enough gems available.
  * @apiError {NotAuthorized} Unlocked Full set already unlocked.
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"BadRequest","message":"Path string is required"}
  * {"success":false,"error":"NotAuthorized","message":"Full set already unlocked."}
  */
@@ -1342,7 +1351,7 @@ api.userUnlock = {
  *
  * @apiError {NotAuthorized} NotDead Cannot revive player if player is not dead yet
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"NotAuthorized","message":"Cannot revive if not dead"}
  */
 api.userRevive = {
@@ -1368,7 +1377,7 @@ api.userRevive = {
  * @apiSuccess {Array} data.tasks User's modified tasks (no rewards)
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  *  {
  *   "success": true,
  *   "data": {
@@ -1382,9 +1391,9 @@ api.userRevive = {
  *   ]
  * }
  *
- * @apiError {NotAuthorized} Not enough gems
+ * @apiError {NotAuthorized} Gems Not enough gems
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.userRebirth = {
@@ -1405,7 +1414,7 @@ api.userRebirth = {
  *
  * @apiSuccess {Array} data user.inbox.blocks
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example return:
  * {"success":true,"data":["e4842579-g987-d2d2-8660-2f79e725fb79"],"notifications":[]}
  *
  * @apiError {BadRequest} InvalidUUID UUID is incorrect.
@@ -1433,7 +1442,7 @@ api.blockUser = {
  * @apiParam (Path) {UUID} id The id of the message to delete
  *
  * @apiSuccess {Object} data user.inbox.messages
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example return:
  * {
  *   "success": true,
  *   "data": {
@@ -1475,7 +1484,7 @@ api.deleteMessage = {
  *
  * @apiSuccess {Object} data user.inbox.messages which should be empty
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example return:
  * {"success":true,"data":{},"notifications":[]}
  */
 api.clearMessages = {
@@ -1492,13 +1501,13 @@ api.clearMessages = {
 };
 
 /**
- * @api {post} /api/v3/user/mark-pms-read Marks Private Messages as read
+ * @api {post} /api/v3/user/mark-pms-read Mark Private Messages as read
  * @apiName markPmsRead
  * @apiGroup User
  *
  * @apiSuccess {Object} data user.inbox.newMessages
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example return:
  * {"success":true,"data":[0,"Your private messages have been marked as read"],"notifications":[]}
  *
  */
@@ -1517,7 +1526,7 @@ api.markPmsRead = {
 /* NOTE this route has also an API v4 version */
 
 /**
- * @api {post} /api/v3/user/reroll Reroll a user using the Fortify Potion
+ * @api {post} /api/v3/user/reroll Reroll a user (reset tasks) using the Fortify Potion
  * @apiName UserReroll
  * @apiGroup User
  *
@@ -1525,7 +1534,7 @@ api.markPmsRead = {
  * @apiSuccess {Object} data.tasks User's modified tasks (no rewards)
  * @apiSuccess {Object} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  *  {
  *   "success": true,
  *   "data": {
@@ -1533,9 +1542,9 @@ api.markPmsRead = {
  *   "message": "Fortify complete!"
  * }
  *
- * @apiError {NotAuthorized} Not enough gems
+ * @apiError {NotAuthorized} Gems Not enough gems
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  * {"success":false,"error":"NotAuthorized","message":"Not enough Gems"}
  */
 api.userReroll = {
@@ -1558,7 +1567,7 @@ api.userReroll = {
  * @apiSuccess {Array} data.tasksToRemove IDs of removed tasks
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  *  {
  *   "success": true,
  *   "data": {--TRUNCATED--},
@@ -1580,14 +1589,12 @@ api.userReset = {
 };
 
 /**
- * @api {post} /api/v3/user/custom-day-start Set preferences.dayStart
- * (Custom Day Start time) for user.
+ * @api {post} /api/v3/user/custom-day-start Set Custom Day Start time for user.
  * @apiName setCustomDayStart
  * @apiGroup User
  *
- *
  * @apiParam (Body) {number} [dayStart=0] The hour number 0-23 for day to begin.
- *                                        If body is not included, will default to 0.
+ *                                        If not supplied, will default to 0.
  *
  * @apiParamExample {json} Request-Example:
  * {"dayStart":2}
@@ -1595,12 +1602,12 @@ api.userReset = {
  * @apiSuccess {Object} data An empty Object
  * @apiSuccess {String} message Success message
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Success-Example:
  * {"success":true,"data":{"message":"Your custom day start has changed."},"notifications":[]}
  *
  * @apiError {BadRequest} Validation Value provided is not a number, or is outside the range of 0-23
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Error-Example:
  * {"success":false,"error":"BadRequest","message":"User validation failed",
  * "errors":[{"message":"Path `preferences.dayStart` (25) is more than maximum allowed value (23)."
  * ,"path":"preferences.dayStart","value":25}]}
@@ -1666,8 +1673,8 @@ api.togglePinnedItem = {
 };
 
 /**
- * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position Move a pinned
- * item in the rewards column to a new position after being sorted
+ * @api {post} /api/v3/user/move-pinned-item/:type/:path/move/to/:position
+ * Move a pinned item in the rewards column to a new position after being sorted
  * @apiName MovePinnedItem
  * @apiGroup User
  *
@@ -1678,7 +1685,7 @@ api.togglePinnedItem = {
  *
  * @apiSuccess {Array} data The new pinned items order.
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example success:
  * {"success":true,"data":{"path":"quests.mayhemMistiflying3","type":"quests",
  * "_id": "5a32d357232feb3bc94c2bdf"},"notifications":[]}
  *

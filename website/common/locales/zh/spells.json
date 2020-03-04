@@ -51,7 +51,7 @@
     "spellSpecialSandText": "沙子",
     "spellSpecialSandNotes": "逆转把你变成海星的咒语。",
     "partyNotFound": "找不到队伍",
-    "targetIdUUID": "\"targetId\" 必须是有效ID。",
+    "targetIdUUID": "“targetId”必须是有效ID。",
     "challengeTasksNoCast": "不允许在挑战任务上使用技能。",
     "groupTasksNoCast": "不允许在小组任务上使用技能。",
     "spellNotOwned": "你没有拥有这个技能。",

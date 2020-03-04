@@ -63,5 +63,11 @@
   "achievementPrimedForPaintingModalText": "You collected all the White Pets!",
   "achievementPearlyPro": "Pearly Pro",
   "achievementPearlyProText": "Has tamed all White Mounts.",
-  "achievementPearlyProModalText": "You tamed all the White Mounts!"
+  "achievementPearlyProModalText": "You tamed all the White Mounts!",
+  "achievementTickledPink": "Tickled Pink",
+  "achievementTickledPinkText": "Has collected all Cotton Candy Pink Pets.",
+  "achievementTickledPinkModalText": "You collected all the Cotton Candy Pink Pets!",
+  "achievementRosyOutlook": "Rosy Outlook",
+  "achievementRosyOutlookText": "Has tamed all Cotton Candy Pink Mounts.",
+  "achievementRosyOutlookModalText": "You tamed all the Cotton Candy Pink Mounts!"
 }

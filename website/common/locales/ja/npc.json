@@ -43,7 +43,7 @@
     "displayPotionForGold": "<strong><%= itemType %>薬</strong>を売りますか?",
     "sellForGold": "<%= gold %> ゴールドで売る",
     "howManyToSell": "いくつ売ってくれますか？",
-    "yourBalance": "あなたの残高",
+    "yourBalance": "あなたの残高：",
     "sell": "売る",
     "buyNow": "今すぐ買う",
     "sortByNumber": "数",
@@ -170,5 +170,6 @@
     "limitedOffer": "<%= date %>まで購入可能",
     "paymentAutoRenew": "この寄付会員はキャンセルするまで自動更新されます。もしこの寄付会員をキャンセルする必要があるときは、設定からキャンセルできます。",
     "paymentCanceledDisputes": "キャンセルの承認のメールをあなたに送りました。もしそのメールが見つからない場合は、今後の請求についての論争を防ぐために、私たちにご連絡をお願いいたします。",
-    "cannotUnpinItem": "このアイテムはピン留めを外せません。"
+    "cannotUnpinItem": "このアイテムはピン留めを外せません。",
+    "paymentSubBillingWithMethod": "あなたの寄付は、<strong><%= months %>ヶ月</strong>ごとに<strong><%= paymentMethod %></strong>によって <strong>$<%= amount %></strong> 請求されます。"
 }

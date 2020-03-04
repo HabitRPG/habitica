@@ -121,7 +121,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('questAlreadyUnderway'),
+          message: t('questAlreadyStartedFriendly'),
         });
     });
   });

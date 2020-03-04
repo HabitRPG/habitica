@@ -265,8 +265,8 @@
     "backgrounds052017": "第36组：2017年5月推出",
     "backgroundGuardianStatuesText": "石狮守护",
     "backgroundGuardianStatuesNotes": "在守护神雕像前站立。",
-    "backgroundHabitCityStreetsText": "Habit城街道",
-    "backgroundHabitCityStreetsNotes": "车水马龙。",
+    "backgroundHabitCityStreetsText": "Habit城市的街道",
+    "backgroundHabitCityStreetsNotes": "探索Habit城市的街道。",
     "backgroundOnATreeBranchText": "在树枝上",
     "backgroundOnATreeBranchNotes": "栖在树枝上。",
     "backgrounds062017": "第37组：2017年6月推出",
@@ -499,5 +499,12 @@
     "backgroundSteamworksText": "蒸汽厂",
     "backgroundAirshipNotes": "成为空中水手在你自己的飞艇上。",
     "backgroundAirshipText": "飞艇",
-    "timeTravelBackgrounds": "蒸汽朋克背景"
+    "timeTravelBackgrounds": "蒸汽朋克背景",
+    "backgroundTeaPartyNotes": "参加一场华丽的茶会。",
+    "backgroundTeaPartyText": "茶会",
+    "backgroundHallOfHeroesNotes": "欣赏和崇敬地走去英雄殿堂。",
+    "backgroundHallOfHeroesText": "英雄殿堂",
+    "backgroundElegantBallroomNotes": "跳舞一整夜在优雅的宴会厅里。",
+    "backgroundElegantBallroomText": "优雅的宴会厅",
+    "backgrounds022020": "第69组：2020年2月推出"
 }

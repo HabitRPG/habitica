@@ -284,6 +284,7 @@ export default {
       this.amazonPayments.group = null;
     },
     cancelSubscriptionConfirm (config) {
+      if (config.canCancel === false) return;
       this.$root.$emit('habitica:cancel-subscription-confirm', config);
     },
     async cancelSubscription (config) {

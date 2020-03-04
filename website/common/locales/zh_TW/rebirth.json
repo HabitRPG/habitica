@@ -11,7 +11,7 @@
     "rebirthInList1": "任務、歷史記錄、裝備和設置都將被保留。",
     "rebirthInList2": "挑戰、公會和隊伍關係會保留下來。",
     "rebirthInList3": "寶石、贊助者層級、和貢獻者等級將會被保留。",
-    "rebirthInList4": "透過寶石或隨機掉落 (如寵物及坐騎) 取得的物品將會保留。",
+    "rebirthInList4": "透過寶石或隨機掉落（如寵物及坐騎）取得的物品將會保留。",
     "rebirthEarnAchievement": "你會因為開始一段新冒險，而獲得一個成就！",
     "beReborn": "重生",
     "rebirthAchievement": "你開始了一段新冒險！這是你的第<%= number %>次冒險，你曾經獲得的最高等級是<%= level %>等。要累積這個成就，你要在獲得更高等級之後，再開始下一次冒險！",

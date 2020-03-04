@@ -4,6 +4,7 @@
     <profileModal />
     <report-flag-modal />
     <send-gems-modal />
+    <select-user-modal />
     <b-navbar
       class="topbar navbar-inverse static-top"
       toggleable="lg"
@@ -57,8 +58,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/inventory'),
-              'down': $route.path.startsWith('/inventory') && isDesktop()}"
+              'active': $route.path.startsWith('/inventory')}"
           >
             <div
               class="chevron rotate"
@@ -101,8 +101,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/shop'),
-              'down': $route.path.startsWith('/shop') && isDesktop()}"
+              'active': $route.path.startsWith('/shop')}"
           >
             <div
               class="chevron rotate"
@@ -168,8 +167,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/groups'),
-              'down': $route.path.startsWith('/groups') && isDesktop()}"
+              'active': $route.path.startsWith('/groups')}"
           >
             <div
               class="chevron rotate"
@@ -211,8 +209,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/group-plans'),
-              'down': $route.path.startsWith('/group-plans') && isDesktop()}"
+              'active': $route.path.startsWith('/group-plans')}"
           >
             <div
               v-if="groupPlans.length > 0"
@@ -245,8 +242,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/challenges'),
-              'down': $route.path.startsWith('/challenges') && isDesktop()}"
+              'active': $route.path.startsWith('/challenges')}"
           >
             <div
               class="chevron rotate"
@@ -282,8 +278,7 @@
           <li
             class="topbar-item droppable"
             :class="{
-              'active': $route.path.startsWith('/help'),
-              'down': $route.path.startsWith('/help') && isDesktop()}"
+              'active': $route.path.startsWith('/help')}"
           >
             <div
               class="chevron rotate"
@@ -366,7 +361,7 @@
               class="top-menu-icon svg-icon gem"
               :aria-label="$t('gems')"
               href="#buy-gems"
-              @click.prevent="showBuyGemsModal('gems')"
+              @click.prevent="showBuyGemsModal()"
               v-html="icons.gem"
             ></a>
             <span>{{ userGems }}</span>
@@ -725,6 +720,7 @@ import notificationMenu from './notificationsDropdown';
 import profileModal from '../userMenu/profileModal';
 import reportFlagModal from '../chat/reportFlagModal';
 import sendGemsModal from '@/components/payments/sendGemsModal';
+import selectUserModal from '@/components/payments/selectUserModal';
 import sync from '@/mixins/sync';
 import userDropdown from './userDropdown';
 
@@ -736,6 +732,7 @@ export default {
     profileModal,
     reportFlagModal,
     sendGemsModal,
+    selectUserModal,
     userDropdown,
   },
   mixins: [sync],
@@ -793,9 +790,7 @@ export default {
     openPartyModal () {
       this.$root.$emit('bv::show::modal', 'create-party-modal');
     },
-    showBuyGemsModal (startingPage) {
-      this.$store.state.gemModalOptions.startingPage = startingPage;
-
+    showBuyGemsModal () {
       Analytics.track({
         hitType: 'event',
         eventCategory: 'button',
@@ -807,13 +802,15 @@ export default {
     },
     dropdownDesktop (hover) {
       if (this.isDesktop() && hover.target.classList.contains('droppable')) {
-        this.dropdown(hover.target);
+        if (hover.type === 'mouseenter') {
+          this.openDropdown(hover.target);
+        } else {
+          this.closeDropdown(hover.target);
+        }
       }
     },
     dropdownMobile (click) {
-      this.dropdown(click.currentTarget.parentElement);
-    },
-    dropdown (element) {
+      const element = click.currentTarget.parentElement;
       const droppedElement = document.getElementsByClassName('down')[0];
       if (droppedElement && droppedElement !== element) {
         droppedElement.classList.remove('down');
@@ -821,18 +818,27 @@ export default {
           droppedElement.lastChild.style.maxHeight = 0;
         }
       }
-
-      element.classList.toggle('down');
-      element.lastChild.style.maxHeight = element.classList.contains('down') ? `${element.lastChild.scrollHeight}px` : 0;
+      if (element.classList.contains('down')) {
+        this.closeDropdown(element);
+      } else {
+        this.openDropdown(element);
+      }
     },
+    closeDropdown (element) {
+      element.classList.remove('down');
+      element.lastChild.style.maxHeight = 0;
+    },
+    openDropdown (element) {
+      element.classList.add('down');
+      element.lastChild.style.maxHeight = `${element.lastChild.scrollHeight}px`;
+    },
+
     closeMenu () {
+      Array.from(document.getElementsByClassName('droppable')).forEach(droppableElement => {
+        this.closeDropdown(droppableElement);
+      });
       if (this.isMobile()) {
         this.menuIsOpen = false;
-
-        Array.from(document.getElementsByClassName('droppable')).forEach(droppableElement => {
-          droppableElement.classList.remove('down');
-          droppableElement.lastChild.style.maxHeight = 0;
-        });
       }
     },
     isMobile () {

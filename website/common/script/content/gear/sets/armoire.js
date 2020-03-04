@@ -524,6 +524,25 @@ const armor = {
     set: 'birthday',
     canOwn: ownsItem('armor_armoire_layerCakeArmor'),
   },
+  matchMakersApron: {
+    text: t('armorArmoireMatchMakersApronText'),
+    notes: t('armorArmoireMatchMakersApronNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    str: 7,
+    int: 7,
+    set: 'matchMaker',
+    canOwn: ownsItem('armor_armoire_matchMakersApron'),
+  },
+  baseballUniform: {
+    text: t('armorArmoireBaseballUniformText'),
+    notes: t('armorArmoireBaseballUniformNotes', { attrs: 10 }),
+    value: 100,
+    con: 10,
+    str: 10,
+    set: 'baseball',
+    canOwn: ownsItem('armor_armoire_baseballUniform'),
+  },
 };
 
 const body = {
@@ -1071,6 +1090,23 @@ const head = {
     set: 'birthday',
     canOwn: ownsItem('head_armoire_frostedHelm'),
   },
+  matchMakersBeret: {
+    text: t('headArmoireMatchMakersBeretText'),
+    notes: t('headArmoireMatchMakersBeretNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'matchMaker',
+    canOwn: ownsItem('head_armoire_matchMakersBeret'),
+  },
+  baseballCap: {
+    text: t('headArmoireBaseballCapText'),
+    notes: t('headArmoireBaseballCapNotes', { attrs: 8 }),
+    value: 100,
+    con: 8,
+    str: 8,
+    set: 'baseball',
+    canOwn: ownsItem('head_armoire_baseballCap'),
+  },
 };
 
 const shield = {
@@ -1365,6 +1401,22 @@ const shield = {
     str: 7,
     set: 'birthday',
     canOwn: ownsItem('shield_armoire_birthdayBanner'),
+  },
+  perfectMatch: {
+    text: t('shieldArmoirePerfectMatchText'),
+    notes: t('shieldArmoirePerfectMatchNotes', { per: 15 }),
+    value: 100,
+    per: 15,
+    set: 'matchMaker',
+    canOwn: ownsItem('shield_armoire_perfectMatch'),
+  },
+  baseballGlove: {
+    text: t('shieldArmoireBaseballGloveText'),
+    notes: t('shieldArmoireBaseballGloveNotes', { str: 9 }),
+    value: 100,
+    str: 9,
+    set: 'baseball',
+    canOwn: ownsItem('shield_armoire_baseballGlove'),
   },
 };
 
@@ -1828,6 +1880,22 @@ const weapon = {
     per: 7,
     set: 'birthday',
     canOwn: ownsItem('weapon_armoire_happyBanner'),
+  },
+  livelyMatch: {
+    text: t('weaponArmoireLivelyMatchText'),
+    notes: t('weaponArmoireLivelyMatchNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    set: 'matchMaker',
+    canOwn: ownsItem('weapon_armoire_livelyMatch'),
+  },
+  baseballBat: {
+    text: t('weaponArmoireBaseballBatText'),
+    notes: t('weaponArmoireBaseballBatNotes', { con: 9 }),
+    value: 100,
+    con: 9,
+    set: 'baseball',
+    canOwn: ownsItem('weapon_armoire_baseballBat'),
   },
 };
 
