@@ -114,14 +114,20 @@ export function setUserStyles (newMessage, user) {
   }
 }
 
+// Sanitize an input message, separate from messageDefaults because
+// it must run before mentions are highlighted
+export function sanitizeText (msg) {
+  // Trim messages longer than the MAX_MESSAGE_LENGTH
+  return msg.substring(0, shared.constants.MAX_MESSAGE_LENGTH);
+}
+
 export function messageDefaults (msg, user, client, flagCount = 0, info = {}) {
   const id = uuid();
-  const trimmedMessage = msg.substring(0, shared.constants.MAX_MESSAGE_LENGTH);
   const message = {
     id,
     _id: id,
-    text: trimmedMessage,
-    unformattedText: removeMd(trimmedMessage),
+    text: msg,
+    unformattedText: removeMd(msg),
     info,
     timestamp: Number(new Date()),
     likes: {},
