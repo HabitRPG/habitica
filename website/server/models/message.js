@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { defaults } from 'lodash';
 import removeMd from 'remove-markdown';
 import baseModel from '../libs/baseModel';
-import shared from '../../../common';
+import shared from '../../common';
 
 const defaultSchema = () => ({
   id: String,
