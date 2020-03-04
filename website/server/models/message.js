@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { defaults } from 'lodash';
 import removeMd from 'remove-markdown';
 import baseModel from '../libs/baseModel';
+import shared from '../../../common';
 
 const defaultSchema = () => ({
   id: String,
@@ -115,7 +116,7 @@ export function setUserStyles (newMessage, user) {
 
 export function messageDefaults (msg, user, client, flagCount = 0, info = {}) {
   const id = uuid();
-  const trimmedMessage = msg.substring(0, 3000);
+  const trimmedMessage = msg.substring(0, shared.constants.MAX_MESSAGE_LENGTH);
   const message = {
     id,
     _id: id,

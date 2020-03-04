@@ -13,7 +13,7 @@ import {
   SPAM_MIN_EXEMPT_CONTRIB_LEVEL,
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
-import { CHAT_FLAG_FROM_SHADOW_MUTE } from '../../../../../website/common/script/constants';
+import { CHAT_FLAG_FROM_SHADOW_MUTE, MAX_MESSAGE_LENGTH } from '../../../../../website/common/script/constants';
 import { getMatchesByWordArray } from '../../../../../website/server/libs/stringUtils';
 import bannedWords from '../../../../../website/server/libs/bannedWords';
 import guildsAllowingBannedWords from '../../../../../website/server/libs/guildsAllowingBannedWords';
@@ -501,9 +501,9 @@ describe('POST /chat', () => {
     expect(newMessage.message.id).to.exist;
     expect(groupMessages[0].id).to.exist;
 
-    expect(newMessage.message.text.length).to.eql(3000);
+    expect(newMessage.message.text.length).to.eql(MAX_MESSAGE_LENGTH);
     expect(newMessage.message.text).to.not.contain('MESSAGE');
-    expect(groupMessages[0].text.length).to.eql(3000);
+    expect(groupMessages[0].text.length).to.eql(MAX_MESSAGE_LENGTH);
   });
 
   it('creates a chat with user styles', async () => {
