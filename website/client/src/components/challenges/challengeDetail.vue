@@ -131,6 +131,7 @@
           :type="column"
           :task-list-override="tasksByType[column]"
           :challenge="challenge"
+          :draggable-override="isLeader || isAdmin"
           @editTask="editTask"
           @taskDestroyed="taskDestroyed"
         />

@@ -80,7 +80,8 @@
       <draggable
         ref="tasksList"
         class="sortable-tasks"
-        :options="{disabled: activeFilter.label === 'scheduled' || !isUser, scrollSensitivity: 64}"
+        :options="{disabled: activeFilter.label === 'scheduled' || !canBeDragged(),
+          scrollSensitivity: 64}"
         @update="taskSorted"
         @start="isDragging(true)"
         @end="isDragging(false)"
@@ -364,6 +365,10 @@ export default {
   props: {
     type: {},
     isUser: {
+      type: Boolean,
+      default: false,
+    },
+    draggableOverride: {
       type: Boolean,
       default: false,
     },
@@ -744,6 +749,10 @@ export default {
     },
     taskDestroyed (task) {
       this.$emit('taskDestroyed', task);
+    },
+    canBeDragged () {
+      return this.isUser
+        || this.draggableOverride;
     },
   },
 };
