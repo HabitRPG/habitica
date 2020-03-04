@@ -82,23 +82,44 @@
         </div>
       </div>
 
-      <button
-        class="btn"
-        :class="{'btn-primary': !costumeMode, 'btn-light': costumeMode}"
-        @click="selectDrawerTab('equipment')"
-      >
-        {{ $t('battleGear') }}
-      </button>
-      <button
-        class="btn"
-        :class="{'btn-primary': costumeMode, 'btn-light': !costumeMode}"
-        @click="selectDrawerTab('costume')"
-      >
-        {{ $t('costume') }}
-      </button>
-      <button class="btn btn-danger">
-        Cancel
-      </button>
+      <div class="settings-line">
+        <div class="left-column">
+          <button
+            class="btn"
+            :class="{'btn-primary': !costumeMode, 'btn-light': costumeMode}"
+            @click="selectDrawerTab('equipment')"
+          >
+            {{ $t('battleGear') }}
+          </button>
+          <button
+            class="btn"
+            :class="{'btn-primary': costumeMode, 'btn-light': !costumeMode}"
+            @click="selectDrawerTab('costume')"
+          >
+            {{ $t('costume') }}
+          </button>
+        </div>
+        <div class="space"></div>
+        <div class="right-column">
+          <div class="toggle-group inline">
+            <toggle-switch
+              class="inline"
+              :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
+              :checked="user.preferences[drawerPreference]"
+              :hover-text="$t(drawerPreference+'PopoverText')"
+              :bold-label="true"
+              @change="changeDrawerPreference"
+            />
+          </div>
+          <button class="btn btn-danger">
+            {{ $t(costumeMode ? 'unequipCostume' : 'unequipBattleGear') }}
+          </button>
+
+          <button class="btn btn-danger">
+            {{ $t('unequipPetMountBackground') }}
+          </button>
+        </div>
+      </div>
       <drawer
         :no-title-bottom-padding="true"
         :error-message="(costumeMode && !user.preferences.costume) ? $t('costumeDisabled') : null"
@@ -124,13 +145,7 @@
         <div slot="drawer-header">
           <div class="drawer-tab-container">
             <div class="clearfix">
-              <toggle-switch
-                class="float-right align-with-tab"
-                :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
-                :checked="user.preferences[drawerPreference]"
-                :hover-text="$t(drawerPreference+'PopoverText')"
-                @change="changeDrawerPreference"
-              />
+
             </div>
           </div>
         </div>
@@ -262,6 +277,36 @@
 
   .drawer-tab {
     background: transparent;
+  }
+}
+
+.settings-line {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .left-column, .right-column {
+    margin-bottom: 1.5rem;
+  }
+
+  .left-column * {
+//    margin-right: 0.5rem;
+  }
+
+  .right-column *:not(:first-child) {
+    margin-left: 0.5rem;
+  }
+
+  .space {
+    flex: 1;
+  }
+
+  .inline {
+    display: inline-block;
+  }
+
+  .toggle-group {
+    vertical-align: middle;
   }
 }
 </style>

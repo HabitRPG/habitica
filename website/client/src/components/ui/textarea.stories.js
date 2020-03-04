@@ -2,7 +2,7 @@
 import { storiesOf } from '@storybook/vue';
 import { text, withKnobs } from '@storybook/addon-knobs';
 
-const stories = storiesOf('Textare', module);
+const stories = storiesOf('Textarea', module);
 
 stories.addDecorator(withKnobs);
 
