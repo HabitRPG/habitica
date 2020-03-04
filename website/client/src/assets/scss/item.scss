@@ -24,7 +24,7 @@
   @media only screen and (min-width: 1440px){
     margin-right: 1.71em;
   }
-  
+
   // Desktop L (1280)
   @media only screen and (min-width: 1280px) and (max-width: 1439px) {
     margin-right: 0.43em;
@@ -51,7 +51,7 @@
   border: 1px solid transparent;
 
   &-empty {
-    background: $gray-10;
+    background: $gray-10 !important;
     box-shadow: none;
     cursor: auto;
   }
