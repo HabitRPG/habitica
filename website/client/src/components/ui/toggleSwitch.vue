@@ -1,16 +1,23 @@
 <template>
   <div class="popover-box">
     <div
-      :id="containerId"
       class="clearfix toggle-switch-outer"
     >
       <div
         v-if="label"
         class="float-left toggle-switch-description"
-        :class="hoverText ? 'hasPopOver' : ''"
+        :class="{'bold': boldLabel}"
       >
         <span>{{ label }}</span>
       </div>
+      <span
+        v-if="hoverText"
+        :id="hoverId"
+        class="svg-icon inline icon-16  float-left"
+        v-html="icons.information"
+      >
+
+      </span>
       <div class="toggle-switch float-left">
         <input
           :id="toggleId"
@@ -31,7 +38,7 @@
     </div>
     <b-popover
       v-if="hoverText"
-      :target="containerId"
+      :target="hoverId"
       triggers="hover"
       placement="top"
     >
@@ -49,13 +56,17 @@
     position: relative;
     width: 40px;
     user-select: none;
-    margin-left: 9px;
+    margin-left: 0.5rem;
   }
 
   .toggle-switch-description {
     &.hasPopOver span {
       border-bottom: 1px dashed $gray-200;
     }
+  }
+
+  .svg-icon {
+    margin: 2px 0.5rem 2px 0.5rem;
   }
 
   .toggle-switch-checkbox {
@@ -68,7 +79,7 @@
     cursor: pointer;
     border-radius: 100px;
     margin-bottom: 0px;
-    margin-top: 3px;
+    margin-top: 2px;
   }
 
   .toggle-switch-inner {
@@ -104,7 +115,7 @@
     display: block;
     width: 20px;
     margin: -2px;
-    margin-top: 1px;
+    margin-top: 0;
     height: 20px;
     background: $white;
     position: absolute;
@@ -122,9 +133,15 @@
   .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {
     right: 0px;
   }
+
+  .bold {
+    font-weight: bold;
+  }
 </style>
 
 <script>
+import svgInformation from '@/assets/svg/information.svg';
+
 export default {
   model: {
     prop: 'checked',
@@ -136,6 +153,10 @@ export default {
     },
     label: {
       type: String,
+    },
+    boldLabel: {
+      type: Boolean,
+      default: false,
     },
     checked: {
       type: Boolean,
@@ -150,7 +171,11 @@ export default {
       // The toggle requires a unique id to link it to the label
       toggleId: this.generateId(),
       // The container requires a unique id to link it to the pop-over
-      containerId: this.generateId(),
+      hoverId: this.generateId(),
+
+      icons: Object.freeze({
+        information: svgInformation,
+      }),
     };
   },
   computed: {
