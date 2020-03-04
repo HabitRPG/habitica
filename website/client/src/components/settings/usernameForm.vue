@@ -157,6 +157,7 @@
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 import { mapState } from '@/libs/store';
+import { EVENTS } from '@/libs/events';
 
 export default {
   props: {
@@ -218,9 +219,9 @@ export default {
   },
   methods: {
     async close () {
-      this.$root.$emit('habitica::resync-requested');
+      this.$root.$emit(EVENTS.RESYNC_REQUESTED);
       await this.$store.dispatch('user:fetch', { forceLoad: true });
-      this.$root.$emit('habitica::resync-completed');
+      this.$root.$emit(EVENTS.RESYNC_COMPLETED);
       if (this.avatarIntro) {
         this.$emit('usernameConfirmed');
       } else {

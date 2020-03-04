@@ -10,21 +10,7 @@
         :backer="backer"
         :contributor="contributor"
         :name="displayName"
-      /><span
-        v-if="username"
-        class="username"
-      >@{{ username }}</span>
-      <div
-        v-if="lastMessageDate"
-        class="time"
-      >
-        {{ lastMessageDate | timeAgo }}
-      </div>
-    </div>
-    <div class="preview-row">
-      <div class="messagePreview">
-        {{ lastMessageText }}
-      </div>
+      />
       <div
         v-if="userLoggedIn.id !== uuid"
         class="actions"
@@ -44,15 +30,33 @@
               v-html="icons.dots"
             ></div>
           </template>
-          <b-dropdown-item @click="block()">
+          <b-dropdown-item @click="toggleBlock()">
             <span class="dropdown-icon-item">
               <div
                 class="svg-icon inline"
                 v-html="icons.remove"
-              ></div><span class="text">{{ $t('block') }}</span></span>
+              ></div><span class="text">{{ $t(isBlocked ? 'unblock' : 'block') }}</span></span>
           </b-dropdown-item>
         </b-dropdown>
       </div>
+    </div>
+    <span class="username-row">
+      <span
+        v-if="username"
+        class="username"
+      >@{{ username }}</span> <span
+      v-if="lastMessageDate"
+      class="time"
+    >•
+        {{ lastMessageDate | timeAgo }}
+      </span>
+    </span>
+
+    <div class="preview-row">
+      <div class="messagePreview">
+        {{ lastMessageText }}
+      </div>
+
     </div>
   </div>
 </template>
@@ -79,6 +83,9 @@ export default {
     ...mapState({
       userLoggedIn: 'user.data',
     }),
+    isBlocked () {
+      return this.userLoggedIn.inbox.blocks.includes(this.uuid);
+    },
   },
   data () {
     return {
@@ -101,8 +108,8 @@ export default {
         dropdown.hide();
       }
     },
-    block () {
-      this.$store.dispatch('user:block', {
+    toggleBlock () {
+      this.$store.dispatch(this.isBlocked ? 'user:unblock' : 'user:block', {
         uuid: this.uuid,
       });
     },
@@ -133,6 +140,12 @@ export default {
       height: 16px;
       width: 4px;
 
+      &:not(:hover) {
+        svg path {
+          fill: $gray-200;
+        }
+      }
+
       svg path {
         fill: $purple-300
       }
@@ -144,7 +157,7 @@ export default {
   @import '~@/assets/scss/colors.scss';
 
   .conversation {
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     border-bottom: 1px solid $gray-500;
 
     &:hover {
@@ -164,17 +177,13 @@ export default {
       display: flex;
       flex-direction: row;
       height: 20px;
+      position: relative;
 
       .user-label {
         flex: 1;
         flex-grow: 0;
         margin-right: 0.5rem;
         white-space: nowrap;
-      }
-
-      .username {
-        flex: 1;
-        flex-grow: 0;
       }
 
       .time {
@@ -187,10 +196,15 @@ export default {
       }
     }
 
+    .username-row {
+      flex: 1;
+      flex-grow: 0;
+      font-size: 12px;
+      color: $gray-200;
+    }
+
     .messagePreview {
-      //width: 100%;
-      height: 30px;
-      margin-right: 40px;
+      max-height: 30px;
       margin-top: 4px;
       font-size: 12px;
       font-weight: normal;
@@ -221,7 +235,6 @@ export default {
     right: 0;
     display: none;
     width: 16px;
-    margin-top: 4px;
 
     .dots {
       height: 16px;
