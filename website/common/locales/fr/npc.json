@@ -43,7 +43,7 @@
     "displayPotionForGold": "Voulez-vous vendre une <strong>potion <%= itemType %></strong> ?",
     "sellForGold": "Vendre pour <%= gold %> pièces d'or",
     "howManyToSell": "Combien voulez-vous en vendre ?",
-    "yourBalance": "Votre solde",
+    "yourBalance": "Votre solde :",
     "sell": "Vendre",
     "buyNow": "Acheter",
     "sortByNumber": "Quantité",
@@ -170,5 +170,6 @@
     "limitedOffer": "Disponible jusqu'au <%= date %>",
     "paymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez annuler cet abonnement, vous pouvez le faire depuis les paramètres.",
     "paymentCanceledDisputes": "Nous avons envoyé la confirmation d'annulation à votre adresse email. Si vous ne recevez pas cet email, veuillez nous contacter pour éviter de futurs problèmes de facturation.",
-    "cannotUnpinItem": "Cet objet ne peut pas être désépinglé."
+    "cannotUnpinItem": "Cet objet ne peut pas être désépinglé.",
+    "paymentSubBillingWithMethod": "Votre abonnement sera facturé <strong><%= amount %></strong> tous les <strong><%= months %> mois</strong> via <strong><%= paymentMethod %></strong>."
 }

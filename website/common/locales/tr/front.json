@@ -108,7 +108,7 @@
     "marketing2Lead1Title": "Sosyal Üretkenlik",
     "marketing2Lead1": "Habitica'yı tek başına oynayabileceğin gibi, ışıklar ortak çalışmaya, mücadele etmeye ve birbirinizi sorumluluk sahibi tutmaya başlayınca gerçekten yanmış sayılır. Tüm kişisel gelişim programlarının en etkili kısmı sosyal yükümlülüktür; yükümlülük ve mücadele için de bir video oyunundan daha iyi bir ortam olabilir mi?",
     "marketing2Lead2Title": "Canavarlarla Savaş",
-    "marketing2Lead2": "Savaşsız bir Rol Yapma Oyunu olur mu? Takımınla birlikte canavarlar ile savaş. Canavarlar \"süper sorumluluk modu\"dur - spor salonunu aksattığın bir gün, canavarın \"herkesin\" canını yaktığı gün olur!",
+    "marketing2Lead2": "Savaşsız bir Rol Yapma Oyunu nedir ki? Takımınla birlikte canavarlar ile savaş. Canavarlar \"süper sorumluluk modu\"dur - spor salonunu aksattığın bir gün, canavarın *herkesin* canını yaktığı gün olur.",
     "marketing2Lead3Title": "Başkalarına Karşı Mücadele Oku",
     "marketing2Lead3": "Mücadeleler arkadaşların ve yabancılarla yarışmanı sağlar. Mücadelenin sonunda kim en iyi yapmışsa, o özel ödüller kazanır.",
     "marketing3Header": "Eklentiler ve Uzantılar",
@@ -331,5 +331,6 @@
     "getStarted": "Buradan Başla!",
     "mobileApps": "Mobil Uygulamalar",
     "learnMore": "Daha Fazlasını Öğren",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "Şifre 8 veya üstü karakter içermelidir."
 }

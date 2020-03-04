@@ -179,8 +179,8 @@
     "questEggAlligatorText": "Alligator",
     "questEggAlligatorMountText": "Alligator",
     "questEggAlligatorAdjective": "a cunning",
-    "questEggVelociraptorText": "Velociraptor",
-    "questEggVelociraptorMountText": "Velociraptor",
+    "questEggVelociraptorText": "벨로시랩터",
+    "questEggVelociraptorMountText": "벨로시랩터",
     "questEggVelociraptorAdjective": "a clever",
     "eggNotes": "부화 물약을 찾아서 이 알에 부으면 <%= eggAdjective(locale) %> <%= eggText(locale) %>(으)로 부화합니다.",
     "hatchingPotionBase": "기본",
@@ -308,5 +308,6 @@
     "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
     "foodNotes": "이것을 펫에게 먹이면 튼튼한 탑승펫으로 성장시킬 수 있습니다.",
     "questEggRobotText": "로봇",
-    "questEggDolphinText": "돌고래"
+    "questEggDolphinText": "돌고래",
+    "questEggDolphinMountText": "돌고래"
 }

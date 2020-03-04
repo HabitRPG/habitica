@@ -130,6 +130,8 @@ export default new Schema({
     undeadUndertaker: Boolean,
     primedForPainting: Boolean,
     pearlyPro: Boolean,
+    tickledPink: Boolean,
+    rosyOutlook: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
@@ -404,7 +406,7 @@ export default new Schema({
     default: () => ({}),
   },
 
-  challenges: [{ $type: String, ref: 'Challenge', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
+  challenges: [{ $type: String, ref: 'Challenge', validate: [v => validator.isUUID(v), 'Invalid uuid for user challenges.'] }],
 
   invitations: {
     // Using an array without validation because otherwise mongoose
@@ -424,7 +426,7 @@ export default new Schema({
         $type: String,
         ref: 'Group',
         required: true,
-        validate: [v => validator.isUUID(v), 'Invalid uuid.'],
+        validate: [v => validator.isUUID(v), 'Invalid uuid for user invitation party id.'],
       },
       name: {
         $type: String,
@@ -434,15 +436,15 @@ export default new Schema({
         $type: String,
         ref: 'User',
         required: true,
-        validate: [v => validator.isUUID(v), 'Invalid uuid.'],
+        validate: [v => validator.isUUID(v), 'Invalid uuid for user invitation inviter id.'],
       },
     }],
   },
 
-  guilds: [{ $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
+  guilds: [{ $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for user guild.'] }],
 
   party: {
-    _id: { $type: String, validate: [v => validator.isUUID(v), 'Invalid uuid.'], ref: 'Group' },
+    _id: { $type: String, validate: [v => validator.isUUID(v), 'Invalid uuid for user party.'], ref: 'Group' },
     order: { $type: String, default: 'level' },
     orderAscending: { $type: String, default: 'ascending' },
     quest: {

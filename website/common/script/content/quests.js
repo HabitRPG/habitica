@@ -1067,7 +1067,7 @@ const quests = {
     notes: t('questBasilistNotes'),
     group: 'questGroupEarnable',
     completion: t('questBasilistCompletion'),
-    value: 4,
+    goldValue: 100,
     category: 'unlockable',
     unlockCondition: {
       condition: 'party invite',
@@ -2238,7 +2238,7 @@ const quests = {
     notes: t('questDustBunniesNotes'),
     group: 'questGroupEarnable',
     completion: t('questDustBunniesCompletion'),
-    value: 4,
+    value: 1,
     category: 'unlockable',
     unlockCondition: {
       condition: 'party invite',
@@ -2262,7 +2262,7 @@ const quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 7,
       text: t('loginReward', { count: 7 }),
     },
@@ -2293,7 +2293,7 @@ const quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 22,
       text: t('loginReward', { count: 22 }),
     },
@@ -2323,7 +2323,7 @@ const quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 40,
       text: t('loginReward', { count: 40 }),
     },
@@ -3535,6 +3535,47 @@ const quests = {
       gp: 50,
       exp: 100,
       unlock: t('questAmberUnlockText'),
+    },
+  },
+  ruby: {
+    text: t('questRubyText'),
+    notes: t('questRubyNotes'),
+    completion: t('questRubyCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      rubyGem: {
+        text: t('questRubyCollectRubyGems'),
+        count: 25,
+      },
+      venusRune: {
+        text: t('questRubyCollectVenusRunes'),
+        count: 10,
+      },
+      aquariusRune: {
+        text: t('questRubyCollectAquariusRunes'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Ruby',
+          text: t('questRubyDropRubyPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Ruby',
+          text: t('questRubyDropRubyPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Ruby',
+          text: t('questRubyDropRubyPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questRubyUnlockText'),
     },
   },
 };

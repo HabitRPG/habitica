@@ -31,6 +31,12 @@ export async function fetchMember (store, payload) {
   return response;
 }
 
+export async function fetchMemberByUsername (store, payload) {
+  const url = `${apiv4Prefix}/members/username/${payload.username}`;
+  const response = await axios.get(url);
+  return response;
+}
+
 export async function getGroupInvites (store, payload) {
   let url = `${apiv4Prefix}/groups/${payload.groupId}/invites`;
   if (payload.includeAllPublicFields) {

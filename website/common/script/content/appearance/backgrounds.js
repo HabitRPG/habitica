@@ -955,6 +955,54 @@ const backgrounds = {
       notes: t('backgroundSnowglobeNotes'),
     },
   },
+  backgrounds022020: {
+    elegant_ballroom: {
+      text: t('backgroundElegantBallroomText'),
+      notes: t('backgroundElegantBallroomNotes'),
+    },
+    hall_of_heroes: {
+      text: t('backgroundHallOfHeroesText'),
+      notes: t('backgroundHallOfHeroesNotes'),
+    },
+    tea_party: {
+      text: t('backgroundTeaPartyText'),
+      notes: t('backgroundTeaPartyNotes'),
+    },
+  },
+  backgrounds032020: {
+    among_giant_flowers: {
+      text: t('backgroundAmongGiantFlowersText'),
+      notes: t('backgroundAmongGiantFlowersNotes'),
+    },
+    butterfly_garden: {
+      text: t('backgroundButterflyGardenText'),
+      notes: t('backgroundButterflyGardenNotes'),
+    },
+    succulent_garden: {
+      text: t('backgroundSucculentGardenText'),
+      notes: t('backgroundSucculentGardenNotes'),
+    },
+  },
+  timeTravelBackgrounds: {
+    airship: {
+      text: t('backgroundAirshipText'),
+      notes: t('backgroundAirshipNotes'),
+      price: 1,
+      currency: 'hourglasses',
+    },
+    clocktower: {
+      text: t('backgroundClocktowerText'),
+      notes: t('backgroundClocktowerNotes'),
+      price: 1,
+      currency: 'hourglasses',
+    },
+    steamworks: {
+      text: t('backgroundSteamworksText'),
+      notes: t('backgroundSteamworksNotes'),
+      price: 1,
+      currency: 'hourglasses',
+    },
+  },
   incentiveBackgrounds: {
     violet: {
       text: t('backgroundVioletText'),
@@ -996,7 +1044,7 @@ forOwn(backgrounds, (backgroundsInSet, set) => {
   forOwn(backgroundsInSet, (background, bgKey) => {
     background.key = bgKey;
     background.set = set;
-    background.price = 7;
+    background.price = background.price || 7;
 
     flat[bgKey] = background;
   });

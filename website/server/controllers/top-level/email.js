@@ -8,14 +8,15 @@ import {
 const api = {};
 
 /**
- * @api {get} /email/unsubscribe Unsubscribe an email or user from email notifications
- * @apiDescription Does not require authentication
+ * @api {get} /email/unsubscribe Unsubscribe an email address or user from email notifications
  * @apiName UnsubscribeEmail
  * @apiGroup Unsubscribe
  * @apiDescription This is a GET method included in official emails from Habitica
  * that will unsubscribe the user from emails.
+ * Does not require authentication.
  *
- * @apiParam (Query) {String} code An unsubscription code
+ * @apiParam (Query) {String} code An unsubscription code that contains an encrypted User ID or
+ * email address
  *
  * @apiSuccess {String} Webpage An html success message
  *

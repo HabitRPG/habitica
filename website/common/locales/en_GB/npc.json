@@ -43,7 +43,7 @@
     "displayPotionForGold": "Do you want to sell a <strong><%= itemType %> Potion</strong>?",
     "sellForGold": "Sell it for <%= gold %> Gold",
     "howManyToSell": "How many would you like to sell?",
-    "yourBalance": "Your balance",
+    "yourBalance": "Your balance:",
     "sell": "Sell",
     "buyNow": "Buy Now",
     "sortByNumber": "Number",
@@ -170,5 +170,6 @@
     "limitedOffer": "Available until <%= date %>",
     "paymentAutoRenew": "This subscription will auto-renew until it is cancelled. If you need to cancel this subscription, you can do so from your settings.",
     "paymentCanceledDisputes": "We’ve sent a cancellation confirmation to your email. If you don’t see the email, please contact us to prevent future billing disputes.",
-    "cannotUnpinItem": "This item cannot be unpinned."
+    "cannotUnpinItem": "This item cannot be unpinned.",
+    "paymentSubBillingWithMethod": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong> via <strong><%= paymentMethod %></strong>."
 }

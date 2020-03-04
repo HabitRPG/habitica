@@ -513,7 +513,7 @@ api.getGroupChallenges = {
 };
 
 /**
- * @api {get} /api/v3/challenges/:challengeId Get a challenge given its id
+ * @api {get} /api/v3/challenges/:challengeId Get a challenge
  * @apiName GetChallenge
  * @apiGroup Challenge
  *

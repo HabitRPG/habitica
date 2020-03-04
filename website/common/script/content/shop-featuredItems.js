@@ -5,43 +5,23 @@ import moment from 'moment';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween('2019-12-19', '2020-01-02')) {
+    if (moment().isBefore('2020-03-02')) {
       return [
         {
           type: 'card',
-          path: 'cardTypes.nye',
+          path: 'cardTypes.valentine',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Aurora',
+          path: 'premiumHatchingPotions.Cupid',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Holly',
+          path: 'premiumHatchingPotions.RoseQuartz',
         },
         {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.StarryNight',
-        },
-      ];
-    }
-    if (moment().isBetween('2019-12-19', '2020-02-02')) {
-      return [
-        {
-          type: 'armoire',
-          path: 'armoire',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Aurora',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Holly',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.StarryNight',
+          type: 'eggs',
+          path: 'eggs.Fox',
         },
       ];
     }
@@ -52,11 +32,11 @@ const featuredItems = {
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.White',
+        path: 'hatchingPotions.Golden',
       },
       {
         type: 'eggs',
-        path: 'eggs.PandaCub',
+        path: 'eggs.Wolf',
       },
       {
         type: 'food',
@@ -65,22 +45,6 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBetween('2019-12-19', '2020-02-02')) {
-      return [
-        {
-          type: 'bundles',
-          path: 'bundles.winterQuests',
-        },
-        {
-          type: 'quests',
-          path: 'quests.evilsanta',
-        },
-        {
-          type: 'quests',
-          path: 'quests.evilsanta2',
-        },
-      ];
-    }
     return [
       {
         type: 'quests',
@@ -92,7 +56,7 @@ const featuredItems = {
       },
       {
         type: 'quests',
-        path: 'quests.silver',
+        path: 'quests.ruby',
       },
     ];
   },

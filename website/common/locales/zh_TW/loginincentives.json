@@ -1,12 +1,12 @@
 {
-    "unlockedReward": "你收到 <%= reward %>",
+    "unlockedReward": "你收到了<%= reward %>",
     "earnedRewardForDevotion": "你因為致力於改善你的生活而獲得了<%= reward %>。",
-    "nextRewardUnlocksIn": "達到你的下個獎品所需的簽到次數: <%= numberOfCheckinsLeft %>",
+    "nextRewardUnlocksIn": "達到你的下個獎品所需的簽到次數：<%= numberOfCheckinsLeft %>",
     "awesome": "讚！",
-    "totalCount": "<%= count %> 總數",
-    "countLeft": "達到下個獎勵所需的簽到次數: <%= count %>",
+    "totalCount": "<%= count %>總數",
+    "countLeft": "達到下個獎勵所需的簽到次數：<%= count %>",
     "incentivesDescription": "建立習慣時，持久是關鍵。每天登入簽到，你就又離獎品更近一步了。",
-    "totalCheckins": "<%= count %> 簽到",
+    "totalCheckins": "<%= count %>簽到",
     "checkinEarned": "你的簽到計數器已經刷新了！",
     "unlockedCheckInReward": "你解鎖了簽到獎勵！",
     "totalCheckinsTitle": "簽到總數",
@@ -23,7 +23,7 @@
     "threeSaddles": "三個鞍子",
     "incentiveAchievement": "既忠誠又高貴的成就",
     "royallyLoyal": "既忠誠又高貴",
-    "royallyLoyalText": "這名用戶已經登入超過 500 次，並且獲得了每個登入獎勵！",
+    "royallyLoyalText": "這名用戶已經登入超過500次，並且獲得了每個登入獎勵！",
     "checkInRewards": "登入獎勵",
     "backloggedCheckInRewards": "你獲得了登入獎勵！前往你的背包和裝備查看有哪些新物品。"
 }

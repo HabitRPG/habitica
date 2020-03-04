@@ -13,6 +13,7 @@ export default {
   invalidTypeEquip: '"type" must be one of "equipped", "pet", "mount", "costume"',
   missingPetFoodFeed: '"pet" and "food" are required parameters.',
   missingEggHatchingPotion: '"egg" and "hatchingPotion" are required parameters.',
+  useUnlockForCosmetics: 'Use the "unlock" route to purchase backgrounds and avatar customizations using Gems.',
 
   invalidPetName: 'Invalid pet name supplied.',
   invalidFoodName: 'Invalid food name supplied.',

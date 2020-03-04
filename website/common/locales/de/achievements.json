@@ -48,7 +48,7 @@
     "achievementPurchasedEquipment": "Erwerbe Ausrüstung",
     "achievementFedPetModalText": "Es gibt viele verschiedene Arten an Futter, aber Haustiere können wählerisch sein",
     "achievementFedPet": "Füttere ein Haustier",
-    "achievementHatchedPet": "Schlüpfe ein Haustier",
+    "achievementHatchedPet": "Lass ein Haustier schlüpfen",
     "hideAchievements": "<%= category %> ausblenden",
     "showAllAchievements": "Alle <%= category %> anzeigen",
     "viewAchievements": "Erfolge ansehen",
@@ -58,10 +58,16 @@
     "achievementCreatedTaskModalText": "Füge eine Aufgabe hinzu, für etwas, das Du diese Woche erreichen willst",
     "achievementPurchasedEquipmentText": "Hat den ersten Rüstungsgegenstand gekauft.",
     "achievementFedPetText": "Hat das erste Haustier gefüttert.",
-    "achievementHatchedPetModalText": "Schau in Dein Inventar und versuche ein Schlüpfelixier mit einem Ei zu kombinieren",
-    "achievementHatchedPetText": "Hat das erste Haustier geschlüpft.",
+    "achievementHatchedPetModalText": "Schau in Dein Inventar und versuche, ein Schlüpfelixier mit einem Ei zu kombinieren",
+    "achievementHatchedPetText": "Hat das erste Haustier schlüpfen lassen.",
     "achievementCompletedTaskModalText": "Hake Deine Aufgaben ab, um Belohnungen zu verdienen",
     "achievementCompletedTaskText": "Hat die erste Aufgabe erledigt.",
     "achievementCompletedTask": "Erledige eine Aufgabe",
-    "achievementCreatedTaskText": "Hat die erste Aufgabe erstellt."
+    "achievementCreatedTaskText": "Hat die erste Aufgabe erstellt.",
+    "achievementRosyOutlookModalText": "Du hast alle zuckerwattenrosanen Reittiere gezähmt!",
+    "achievementRosyOutlookText": "Hat alle zuckerwattenrosanen Reittiere gezähmt.",
+    "achievementRosyOutlook": "Rosige Aussichten",
+    "achievementTickledPinkModalText": "Du hast alle zuckerwattenrosanen Haustiere gesammelt!",
+    "achievementTickledPinkText": "Hat alle zuckerwattenrosanen Haustiere gesammelt.",
+    "achievementTickledPink": "Rosige Bäckchen"
 }

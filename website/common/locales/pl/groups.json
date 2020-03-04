@@ -484,5 +484,7 @@
     "groupActivityNotificationTitle": "<%= user %> napisał w <%= group %>",
     "suggestedGroup": "Sugerowane, ponieważ jesteś nowicjuszem w Habitica.",
     "taskClaimed": "<%= userName %> przejął zadanie <span class=\"notification-bold\"><%= taskText %></span>.",
-    "youHaveBeenAssignedTask": "<%= managerName %> przyznał(a) Ci zadanie <span class=\"notification-bold\"><%= taskText %></span>."
+    "youHaveBeenAssignedTask": "<%= managerName %> przyznał(a) Ci zadanie <span class=\"notification-bold\"><%= taskText %></span>.",
+    "blockedToSendToThisUser": "Nie możesz wysłać wiadomości do gracza, bo został on przez Ciebie zablokowany.",
+    "PMDisabled": "Zablokuj Prywatne Wiadomości"
 }

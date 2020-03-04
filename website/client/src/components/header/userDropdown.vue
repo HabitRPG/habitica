@@ -75,7 +75,7 @@
       >{{ $t('logout') }}</a>
       <li
         v-if="!user.purchased.plan.customerId"
-        @click="showBuyGemsModal('subscribe')"
+        @click="showBuyGemsModal()"
       >
         <div class="dropdown-item text-center">
           <h3 class="purple">
@@ -172,9 +172,7 @@ export default {
     showProfile (startingPage) {
       this.$router.push({ name: startingPage });
     },
-    showBuyGemsModal (startingPage) {
-      this.$store.state.gemModalOptions.startingPage = startingPage;
-
+    showBuyGemsModal () {
       Analytics.track({
         hitType: 'event',
         eventCategory: 'button',

@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: SEASONAL SHOP';
+const LAST_ANNOUNCEMENT_TITLE = 'MARCH BACKGROUNDS AND ARMOIRE ITEMS! HOPEFUL HIPPOGRIFFS IN THE TIME TRAVELERS SHOP!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,21 +31,33 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>1/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/3/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_seasonal_shop center-block"></div>
+        <div class="promo_armoire_backgrounds_202003 center-block"></div>
+        <h3>March Backgrounds and Armoire Items!</h3>
         <p>
-          This month's <a href='https://habitica.wordpress.com/2020/01/15/seasonal-shop/'
-          target='_blank'>featured Wiki article</a> is about the Seasonal Shop! We hope that it
-          will help you get the most out of the Winter Wonderland Gala and many Galas to come. Be
-          sure to check it out, and let us know what you think by reaching out on <a
-          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a href=
-          'http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a href=
-          'https://facebook.com/habitica' target='_blank'>Facebook</a>.
+          We’ve added three new backgrounds to the Background Shop! Now your avatar can dally among
+          Giant Flowers, admire a fancy Succulent Garden, and party with pollinators in the
+          Butterfly Garden. Check them out under User Icon > Backgrounds!
         </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <p>
+          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
+          Baseball Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
+        </p>
+        <div class="small mb-3">
+          by Vikte, Mantichore, FolleMente, Aspiring Advocate, QuartzFox, katieslug, and SabreCat
+        </div>
+        <div class="Pet-Hippogriff-Hopeful center-block"></div>
+        <h3>Hopeful Hippogriffs in the Time Travelers' Shop!</h3>
+        <p>
+          The <a href='/shops/time'>Time Travelers</a> have traveled back in time to obtain some
+          rare Hopeful Hippogriff pets and mounts! You can buy them with Mystic Hourglasses, which
+          are awarded to <a href='/user/settings/subscription'>long-term subscribers</a>. Thanks
+          for helping us to keep Habitica running!
+        </p>
+        <div class="small mb-3">by Lemoness and SabreCat</div>
       </div>
       `,
     });
@@ -53,8 +65,10 @@ api.getNews = {
 };
 
 /**
- * @api {post} /api/v3/news/tell-me-later Get latest Bailey announcement in a second moment
+ * @api {post} /api/v3/news/tell-me-later Allow latest Bailey announcement to be read later
  * @apiName TellMeLaterNews
+ * @apiDescription Add a notification to allow viewing of the latest "New Stuff by Bailey" message.
+ * Prevent this specific Bailey message from appearing automatically.
  * @apiGroup News
  *
  *

@@ -212,7 +212,7 @@
     "hatchingPotionFrost": "Bevroren",
     "hatchingPotionIcySnow": "IJzige Sneeuw",
     "hatchingPotionNotes": "Giet dit over een ei, en er zal een <%= potText(locale) %> dierlijke metgezel uitkomen.",
-    "premiumPotionAddlNotes": "Niet te gebruiken op eieren van queeste-huisdieren.",
+    "premiumPotionAddlNotes": "Niet te gebruiken op eieren van queeste-huisdieren. Te koop tot <%= date(locale) %>.",
     "foodMeat": "Vlees",
     "foodMeatThe": "het Vlees",
     "foodMeatA": "Vlees",
@@ -346,5 +346,12 @@
     "foodPieDesertA": "een stukje Woestijn Desserttaart",
     "foodPieRed": "Rode Kersentaart",
     "foodPieRedThe": "de Rode Kersentaart",
-    "foodPieRedA": "een stukje Rode Kersentaart"
+    "foodPieRedA": "een stukje Rode Kersentaart",
+    "premiumPotionUnlimitedNotes": "Niet te gebruiken op huisdiereieren van queesten.",
+    "hatchingPotionRuby": "Robijn",
+    "hatchingPotionAurora": "Poollicht",
+    "hatchingPotionAmber": "Bernsteen",
+    "hatchingPotionShadow": "Schaduw",
+    "questEggRobotAdjective": "een futuristische",
+    "questEggRobotText": "Robot Huisdier"
 }

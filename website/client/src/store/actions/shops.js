@@ -78,9 +78,8 @@ async function buyArmoire (store, params) {
     // @TODO: We might need to abstract notifications to library rather than mixin
     const notificationOptions = isExperience
       ? {
-        text: `+ ${item.value}`,
-        type: 'xp',
-        flavorMessage: message,
+        text: message,
+        type: 'success',
       }
       : {
         text: message,
@@ -93,6 +92,10 @@ async function buyArmoire (store, params) {
       timeout: true,
       ...notificationOptions,
     });
+
+    if (isExperience) {
+      await store.dispatch('user:fetch', { forceLoad: true });
+    }
   }
 }
 
@@ -163,6 +166,9 @@ export async function genericPurchase (store, params) {
       // resetting type to pinType only here
       return buyItem(store, { ...params, type: params.pinType });
     case 'background':
+      if (params.currency === 'hourglasses') {
+        return purchaseHourglassItem(store, params);
+      }
       return unlock(store, {
         query: {
           path: `background.${params.key}`,

@@ -485,5 +485,9 @@
     "groupActivityNotificationTitle": "Есть сообщение в <%= group %> от <%= user %>",
     "taskClaimed": "<%= userName %> требует назначения задания <span class=\"notification-bold\"><%= taskText %></span>.",
     "youHaveBeenAssignedTask": "<%= managerName %> поручил вам задание <span class=\"notification-bold\"><%= taskText %></span>.",
-    "PMDisabled": "Отключить личные сообщения"
+    "PMDisabled": "Отключить личные сообщения",
+    "blockedToSendToThisUser": "Вы не можете отправить сообщение этому игроку, потому что вы заблокировали его.",
+    "selectGift": "Выбрать подарок",
+    "userWithUsernameOrUserIdNotFound": "Имя или ID пользователя не найдено.",
+    "usernameOrUserId": "Имя или ID пользователя"
 }
