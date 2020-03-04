@@ -89,8 +89,8 @@
 
   .title-row {
     flex: 1;
-    margin-right: 16px;
     display: flex;
+    justify-content: center;
 
     & > div {
       flex: 1;
