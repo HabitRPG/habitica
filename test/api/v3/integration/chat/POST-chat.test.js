@@ -521,7 +521,7 @@ describe('POST /chat', () => {
     expect(newMessage.message.text).to.include(mentionLink);
     expect(newMessage.message.text).to.include(' END.');
     expect(newMessage.message.text.length)
-      .to.eql(messageWithMentions.length - memberUsername.length + mentionLink.length - 1);
+      .to.eql(messageWithMentions.length - (`@${memberUsername}`).length + mentionLink.length);
     expect(groupMessages[0].text.length).to.eql(newMessage.message.text.length);
   });
 
