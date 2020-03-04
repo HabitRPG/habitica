@@ -141,7 +141,7 @@
               v-model="newMessage"
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
-              maxlength="3000"
+              :maxlength="MAX_MESSAGE_LENGTH"
               :class="{'has-content': newMessage !== ''}"
               @keyup.ctrl.enter="sendPrivateMessage()"
             ></textarea>
@@ -518,6 +518,7 @@ import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import habiticaMarkdown from 'habitica-markdown';
 import axios from 'axios';
+import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
 import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
 import toggleSwitch from '@/components/ui/toggleSwitch';
@@ -563,6 +564,7 @@ export default {
       messagesLoading: false,
       initiatedConversation: null,
       updateConversationsCounter: 0,
+      MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
   },
   async mounted () {

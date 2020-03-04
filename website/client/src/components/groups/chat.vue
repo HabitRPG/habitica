@@ -20,7 +20,7 @@
           v-model="newMessage"
           :placeholder="placeholder"
           :class="{'user-entry': newMessage}"
-          maxlength="3000"
+          :maxlength="MAX_MESSAGE_LENGTH"
           @keydown="updateCarretPosition"
           @keyup.ctrl.enter="sendMessageShortcut()"
           @keydown.tab="handleTab($event)"
@@ -30,7 +30,7 @@
           @keydown.esc="handleEscape($event)"
           @paste="disableMessageSendShortcut()"
         ></textarea>
-        <span>{{ currentLength }} / 3000</span>
+        <span>{{ currentLength }} / {{ MAX_MESSAGE_LENGTH }}</span>
         <autocomplete
           ref="autocomplete"
           :text="newMessage"
@@ -91,6 +91,7 @@ import communityGuidelines from './communityGuidelines';
 import chatMessage from '../chat/chatMessages';
 import { mapState } from '@/libs/store';
 import markdownDirective from '@/directives/markdown';
+import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
 
 export default {
   directives: {
@@ -116,6 +117,7 @@ export default {
         LEFT: 0,
       },
       textbox: this.$refs,
+      MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
   },
   computed: {
