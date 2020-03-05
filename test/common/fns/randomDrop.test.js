@@ -15,6 +15,8 @@ describe('common.fns.randomDrop', () => {
   beforeEach(() => {
     user = generateUser();
     user._tmp = user._tmp ? user._tmp : {};
+    user.achievements.completedTask = true;
+    user.items.eggs.Wolf = 0;
     task = generateTodo({ userId: user._id });
     predictableRandom = sandbox.stub().returns(0.5);
   });

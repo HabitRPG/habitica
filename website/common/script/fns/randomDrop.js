@@ -4,6 +4,7 @@ import min from 'lodash/min';
 import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
 import pickBy from 'lodash/pickBy';
+import size from 'lodash/size';
 import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
@@ -30,6 +31,11 @@ export default function randomDrop (user, options, req = {}, analytics) {
   let drop;
   let dropMultiplier;
   let rarity;
+
+  if (
+    !user.achievements.completedTask
+    || (size(user.items.eggs) < 1 && size(user.items.hatchingPotions) < 1)
+  ) return;
 
   const predictableRandom = options.predictableRandom || trueRandom;
   const { task } = options;
