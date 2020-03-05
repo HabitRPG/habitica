@@ -137,5 +137,7 @@
     "questInvitationNotificationInfo": "Du wurdest eingeladen, an einer Quest teilzunehmen",
     "hatchingPotionQuests": "Magische Schlüpfelixier-Quests",
     "tavernBossTired": "<%= bossName %> versucht, seinen <%= rageName %> loszulassen, aber er ist zu müde.",
-    "chatBossDontAttack": "<%= username %> greift <%= bossName %> für <%= userDamage %> Schaden an. <%= bossName %> greift nicht an, weil er die Tatsache respektiert, dass es nach der Wartung einige Bugs gibt, und er will niemanden unfair verletzen will. Bald wird er seine Randale weiterführen!"
+    "chatBossDontAttack": "<%= username %> greift <%= bossName %> für <%= userDamage %> Schaden an. <%= bossName %> greift nicht an, weil er die Tatsache respektiert, dass es nach der Wartung einige Bugs gibt, und er will niemanden unfair verletzen will. Bald wird er seine Randale weiterführen!",
+    "questAlreadyStarted": "Die Quest hat bereits begonnen.",
+    "questAlreadyStartedFriendly": "Die Quest hat bereits begonnen, aber Du kannst bei der nächsten mithelfen!"
 }

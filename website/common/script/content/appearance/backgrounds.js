@@ -969,6 +969,20 @@ const backgrounds = {
       notes: t('backgroundTeaPartyNotes'),
     },
   },
+  backgrounds032020: {
+    among_giant_flowers: {
+      text: t('backgroundAmongGiantFlowersText'),
+      notes: t('backgroundAmongGiantFlowersNotes'),
+    },
+    butterfly_garden: {
+      text: t('backgroundButterflyGardenText'),
+      notes: t('backgroundButterflyGardenNotes'),
+    },
+    succulent_garden: {
+      text: t('backgroundSucculentGardenText'),
+      notes: t('backgroundSucculentGardenNotes'),
+    },
+  },
   timeTravelBackgrounds: {
     airship: {
       text: t('backgroundAirshipText'),

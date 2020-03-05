@@ -41,28 +41,28 @@ const api = {};
  * @apiGroup User
  *
  * @apiDescription The user profile contains data related to the authenticated
- * user including (but not limited to);
- * Achievements
- * Authentications (including types and timestamps)
- * Challenges
- * Flags (including armoire, tutorial, tour etc...)
- * Guilds
- * History (including timestamps and values)
- * Inbox
- * Invitations (to parties/guilds)
- * Items (character's full inventory)
- * New Messages (flags for groups/guilds that have new messages)
- * Notifications
- * Party (includes current quest information)
- * Preferences (user selected prefs)
- * Profile (name, photo url, blurb)
- * Purchased (includes purchase history, gem purchased items, plans)
- * PushDevices (identifiers for mobile devices authorized)
- * Stats (standard RPG stats, class, buffs, xp, etc..)
- * Tags
- * TasksOrder (list of all ids for dailys, habits, rewards and todos)
+ * user including (but not limited to):
+ * Achievements;
+ * Authentications (including types and timestamps);
+ * Challenges memberships (Challenge IDs);
+ * Flags (including armoire, tutorial, tour etc...);
+ * Guilds memberships (Guild IDs);
+ * History (including timestamps and values, only for Experience and summed To-Do values);
+ * Inbox;
+ * Invitations (to parties/guilds);
+ * Items (character's full inventory);
+ * New Messages (flags for party/guilds that have new messages; also reported in Notifications);
+ * Notifications;
+ * Party (includes current quest information);
+ * Preferences (user selected prefs);
+ * Profile (name, photo url, blurb);
+ * Purchased (includes subscription data and some gem-purchased items);
+ * PushDevices (identifiers for mobile devices authorized);
+ * Stats (standard RPG stats, class, buffs, xp, etc..);
+ * Tags;
+ * TasksOrder (list of all IDs for Dailys, Habits, Rewards and To-Dos).
  *
- * @apiParam (Query) {String} [userFields] A list of comma separated user fields to
+ * @apiParam (Query) {String} [userFields] A list of comma-separated user fields to
  *                                         be returned instead of the entire document.
  *                                         Notifications are always returned.
  *
@@ -92,7 +92,7 @@ api.getUser = {
 
 /**
  * @api {get} /api/v3/user/inventory/buy
- * Get the gear items available for purchase for the authenticated user
+ * Get equipment/gear items available for purchase for the authenticated user
  * @apiName UserGetBuyList
  * @apiGroup User
  *
@@ -231,7 +231,8 @@ api.updateUser = {
  * @apiName UserDelete
  * @apiGroup User
  *
- * @apiParam (Body) {String} password The user's password if the account uses local authentication
+ * @apiParam (Body) {String} password The user's password if the account uses local authentication,
+ * otherwise the localized word "DELETE"
  * @apiParam (Body) {String} feedback User's optional feedback explaining reasons for deletion
  *
  * @apiSuccess {Object} data An empty Object
@@ -242,9 +243,14 @@ api.updateUser = {
  *   "data": {}
  * }
  *
- * @apiError {BadRequest} MissingPassword The password was not included in the request
- * @apiError {BadRequest} LengthExceeded The feedback provided is longer than 10K
- * @apiError {BadRequest} NotAuthorized There is no account that uses those credentials.
+ * @apiError {BadRequest} MissingPassword Missing password.
+ * @apiError {BadRequest} NotAuthorized Wrong password.
+ * @apiError {BadRequest} NotAuthorized Please type DELETE in all capital letters to
+ * delete your account.
+ * @apiError {BadRequest} BadRequest Account deletion feedback is limited to 10,000 characters.
+ * For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.
+ * @apiError {BadRequest} NotAuthorized You have an active subscription,
+ * cancel your plan before deleting your account.
  *
  * @apiErrorExample {json} Example error:
  *  {
@@ -279,7 +285,7 @@ api.deleteUser = {
     }
 
     const { feedback } = req.body;
-    if (feedback && feedback.length > 10000) throw new BadRequest(`Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.`);
+    if (feedback && feedback.length > 10000) throw new BadRequest(`Account deletion feedback is limited to 10,000 characters. For lengthy feedback, email ${TECH_ASSISTANCE_EMAIL}.`); // @TODO localize this string
 
     if (plan && plan.customerId && !plan.dateTerminated) {
       throw new NotAuthorized(res.t('cannotDeleteActiveAccount'));
@@ -333,14 +339,14 @@ function _cleanChecklist (task) {
  * @apiGroup User
  *
  * @apiDescription Returns the user's data without:
- * Authentication information
- * NewMessages/Invitations/Inbox
- * Profile
- * Purchased information
- * Contributor information
- * Special items
- * Webhooks
- * Notifications
+ * Authentication information,
+ * NewMessages/Invitations/Inbox,
+ * Profile,
+ * Purchased information,
+ * Contributor information,
+ * Special items,
+ * Webhooks,
+ * Notifications.
  *
  * @apiSuccess {Object} data.user
  * @apiSuccess {Object} data.tasks
@@ -537,7 +543,7 @@ api.buyGear = {
 };
 
 /**
- * @api {post} /api/v3/user/buy-armoire Buy an armoire item
+ * @api {post} /api/v3/user/buy-armoire Buy an Enchanted Armoire item
  * @apiName UserBuyArmoire
  * @apiGroup User
  *
@@ -619,8 +625,9 @@ api.buyHealthPotion = {
 };
 
 /**
- * @api {post} /api/v3/user/buy-mystery-set/:key Buy a mystery set
+ * @api {post} /api/v3/user/buy-mystery-set/:key Buy a Mystery Item set
  * @apiName UserBuyMysterySet
+ * @apiDescription This buys a Mystery Item set using an Hourglass.
  * @apiGroup User
  *
  * @apiParam (Path) {String} key The mystery set to buy
@@ -703,7 +710,7 @@ api.buyQuest = {
 };
 
 /**
- * @api {post} /api/v3/user/buy-special-spell/:key Buy special "spell" item
+ * @api {post} /api/v3/user/buy-special-spell/:key Buy special item (card, avatar transformation)
  * @apiDescription Includes gift cards (e.g., birthday card), and avatar Transformation
  * Items and their antidotes (e.g., Snowball item and Salt reward).
  * @apiName UserBuySpecialSpell
@@ -1003,6 +1010,8 @@ api.purchase = {
 /**
  * @api {post} /api/v3/user/purchase-hourglass/:type/:key Purchase Hourglass-purchasable item
  * @apiName UserPurchaseHourglass
+ * @apiDescription Purchases an Hourglass-purchasable item.
+ * Does not include Mystery Item sets (use /api/v3/user/buy-mystery-set/:key).
  * @apiGroup User
  *
  * @apiParam (Path) {String="pets","mounts"} type The type of item to purchase
@@ -1492,7 +1501,7 @@ api.clearMessages = {
 };
 
 /**
- * @api {post} /api/v3/user/mark-pms-read Marks Private Messages as read
+ * @api {post} /api/v3/user/mark-pms-read Mark Private Messages as read
  * @apiName markPmsRead
  * @apiGroup User
  *
@@ -1517,7 +1526,7 @@ api.markPmsRead = {
 /* NOTE this route has also an API v4 version */
 
 /**
- * @api {post} /api/v3/user/reroll Reroll a user using the Fortify Potion
+ * @api {post} /api/v3/user/reroll Reroll a user (reset tasks) using the Fortify Potion
  * @apiName UserReroll
  * @apiGroup User
  *
@@ -1580,14 +1589,12 @@ api.userReset = {
 };
 
 /**
- * @api {post} /api/v3/user/custom-day-start
- * Set preferences.dayStart (Custom Day Start time) for user
+ * @api {post} /api/v3/user/custom-day-start Set Custom Day Start time for user.
  * @apiName setCustomDayStart
  * @apiGroup User
  *
- *
  * @apiParam (Body) {number} [dayStart=0] The hour number 0-23 for day to begin.
- *                                        If body is not included, will default to 0.
+ *                                        If not supplied, will default to 0.
  *
  * @apiParamExample {json} Request-Example:
  * {"dayStart":2}

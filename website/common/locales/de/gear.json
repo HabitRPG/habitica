@@ -2033,11 +2033,15 @@
     "armorSpecialBirthday2020Notes": "Herzlichen Glückwunsch zum Geburtstag, Habitica! Trage diese Frevelhafte Fetenrobe, um diesen wundervollen Tag zu zelebrieren. Gewährt keinen Attributbonus.",
     "armorSpecialBirthday2020Text": "Frevelhafte Fetenrobe",
     "shieldArmoirePerfectMatchNotes": "Heisser Tipp: damit siehst Du blendend aus. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 4 von 4).",
-    "shieldArmoirePerfectMatchText": "Die Perfekte Mischung",
-    "headArmoireMatchMakersBeretNotes": "Dieses Hütchen ist der erste \"Streich\"! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 2 von 4).",
+    "shieldArmoirePerfectMatchText": "Der perfekte Partner",
+    "headArmoireMatchMakersBeretNotes": "Du wirst heiß aussehen mit diesem lieblichen Hütchen! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 2 von 4).",
     "headArmoireMatchMakersBeretText": "Streichholzmacher-Beret",
     "armorArmoireMatchMakersApronNotes": "Diese Schürze trägst Du zu Deiner Sicherheit, aber zur Abwechslung könnte man damit ja auch mal ein loderndes Feuer entfachen. Erhöht Ausdauer, Stärke und Intelligenz um je <%= attrs %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 1 von 4).",
     "armorArmoireMatchMakersApronText": "Streichholzmacher-Schürze",
-    "weaponArmoireLivelyMatchNotes": "So lange Du dies hältst, wirst Du in jedem einen Funken Interesse wecken! Erhöht Stärke um <%= str %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 3 von 4).",
-    "weaponArmoireLivelyMatchText": "Ein Lebhaftes Streichholz"
+    "weaponArmoireLivelyMatchNotes": "So lange Du dies hältst, wirst Du sicherlich jemandes Interesse entfachen! Erhöht Stärke um <%= str %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 3 von 4).",
+    "weaponArmoireLivelyMatchText": "Ein Brennendes Streichholz",
+    "bodyMystery202003Notes": "Diese Schulterpolster sind mal was ganz anderes. Gewährt keinen Attributbonus. Abonnentengegenstand, März 2020.",
+    "bodyMystery202003Text": "Stachlige Schulterplatten",
+    "headMystery202003Notes": "Sei vorsichtig, dieser Helm ist auf vielfältige Weise scharf! Gewährt keinen Attributbonus. Abonnentengegenstand, März 2020.",
+    "headMystery202003Text": "Stachliger Helm"
 }

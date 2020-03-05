@@ -2039,5 +2039,9 @@
     "armorArmoireMatchMakersApronNotes": "Ce tablier est pour la protection, mais pour l'humour, nous pouvons l'illuminer. Augmente la constitution, la force et l'intelligence de <%= attrs %> chacun. Armoire enchantée : ensemble d'entremise (objet 1 de 4).",
     "armorArmoireMatchMakersApronText": "Tablier d'entremise",
     "weaponArmoireLivelyMatchNotes": "Quand vous tenez ceci, vous avez la certitude d'attiser l'intérêt de quelqu'un ! Augmente la force de <%= str %>. Armoire enchantée : ensemble d'entremise (objet 3 de 4).",
-    "weaponArmoireLivelyMatchText": "Une allumette animée"
+    "weaponArmoireLivelyMatchText": "Une allumette animée",
+    "bodyMystery202003Notes": "Elles sont comme des épaulettes mais ne manquent pas de piquant. Ne confère aucun bonus. Équipement d'abonnement de Mars 2020.",
+    "bodyMystery202003Text": "Spalières barbelées",
+    "headMystery202003Notes": "Faites attention, ce heaume est affûté de bien des façons ! Ne confère aucun bonus. Équipement d'abonnement de Mars 2020.",
+    "headMystery202003Text": "Casque barbelé"
 }

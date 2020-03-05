@@ -30,29 +30,30 @@ const api = {};
  *                  the necessary fields will be populated. The user is always returned.
  *
  * @apiDescription Skill Key to Name Mapping
- * Mage
- * fireball: "Burst of Flames"
- * mpheal: "Ethereal Surge"
- * earth: "Earthquake"
- * frost: "Chilling Frost"
  *
- * Warrior
- * smash: "Brutal Smash"
- * defensiveStance: "Defensive Stance"
- * valorousPresence: "Valorous Presence"
- * intimidate: "Intimidating Gaze"
+ * Mage:
+ * fireball="Burst of Flames",
+ * mpheal="Ethereal Surge",
+ * earth="Earthquake",
+ * frost="Chilling Frost"
  *
- * Rogue
- * pickPocket: "Pickpocket"
- * backStab: "Backstab"
- * toolsOfTrade: "Tools of the Trade"
- * stealth: "Stealth"
+ * Warrior:
+ * smash="Brutal Smash",
+ * defensiveStance="Defensive Stance",
+ * valorousPresence="Valorous Presence",
+ * intimidate="Intimidating Gaze"
  *
- * Healer
- * heal: "Healing Light"
- * protectAura: "Protective Aura"
- * brightness: "Searing Brightness"
- * healAll: "Blessing"
+ * Rogue:
+ * pickPocket="Pickpocket",
+ * backStab="Backstab",
+ * toolsOfTrade="Tools of the Trade",
+ * stealth="Stealth"
+ *
+ * Healer:
+ * heal="Healing Light",
+ * protectAura="Protective Aura",
+ * brightness="Searing Brightness",
+ * healAll="Blessing"
  *
  * @apiError (400) {NotAuthorized} Not enough mana.
  * @apiUse TaskNotFound

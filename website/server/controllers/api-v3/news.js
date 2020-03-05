@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
+const LAST_ANNOUNCEMENT_TITLE = 'MARCH BACKGROUNDS AND ARMOIRE ITEMS! HOPEFUL HIPPOGRIFFS IN THE TIME TRAVELERS SHOP!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,23 +31,33 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/18/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/3/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_achievement_CottonCandyPink center-block"></div>
+        <div class="promo_armoire_backgrounds_202003 center-block"></div>
+        <h3>March Backgrounds and Armoire Items!</h3>
         <p>
-          We're releasing a new achievement so you can celebrate your successes in the world of
-          Habitican pet collecting! Earn the Tickled Pink and Rosy Outlook achievements by
-          collecting Cotton Candy Pink pets and mounts and you'll earn a nifty badge for your
-          profile.
+          We’ve added three new backgrounds to the Background Shop! Now your avatar can dally among
+          Giant Flowers, admire a fancy Succulent Garden, and party with pollinators in the
+          Butterfly Garden. Check them out under User Icon > Backgrounds!
         </p>
         <p>
-          If you already have all the Cotton Candy Pink pets and/or mounts in your stable, you'll
-          receive the badge automatically! Check your profile and celebrate your new achievement
-          with pride in your pink prowess.
+          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
+          Baseball Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
         </p>
-        <div class="small mb-3">by Piyowo and SabreCat</div>
+        <div class="small mb-3">
+          by Vikte, Mantichore, FolleMente, Aspiring Advocate, QuartzFox, katieslug, and SabreCat
+        </div>
+        <div class="Pet-Hippogriff-Hopeful center-block"></div>
+        <h3>Hopeful Hippogriffs in the Time Travelers' Shop!</h3>
+        <p>
+          The <a href='/shops/time'>Time Travelers</a> have traveled back in time to obtain some
+          rare Hopeful Hippogriff pets and mounts! You can buy them with Mystic Hourglasses, which
+          are awarded to <a href='/user/settings/subscription'>long-term subscribers</a>. Thanks
+          for helping us to keep Habitica running!
+        </p>
+        <div class="small mb-3">by Lemoness and SabreCat</div>
       </div>
       `,
     });
@@ -55,8 +65,10 @@ api.getNews = {
 };
 
 /**
- * @api {post} /api/v3/news/tell-me-later Get latest Bailey announcement in a second moment
+ * @api {post} /api/v3/news/tell-me-later Allow latest Bailey announcement to be read later
  * @apiName TellMeLaterNews
+ * @apiDescription Add a notification to allow viewing of the latest "New Stuff by Bailey" message.
+ * Prevent this specific Bailey message from appearing automatically.
  * @apiGroup News
  *
  *

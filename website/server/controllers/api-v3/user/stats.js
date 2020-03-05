@@ -9,6 +9,7 @@ const api = {};
  * Allocate a single Stat Point (previously called Attribute Point)
  * @apiName UserAllocate
  * @apiGroup User
+ * @apiDescription Allocates a single Stat Point.
  *
  * @apiParam (Query) {String="str","con","int","per"} stat The Stat to increase. Default is 'str'
  *

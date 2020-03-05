@@ -190,7 +190,7 @@ api.acceptQuest = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInviteNotFound'));
-    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStartedFriendly'));
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
 
     user.party.quest.RSVPNeeded = false;
@@ -248,7 +248,7 @@ api.rejectQuest = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
-    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStartedFriendly'));
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
     if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
 
@@ -312,7 +312,7 @@ api.forceStart = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questNotPending'));
-    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStarted'));
     if (!(user._id === group.quest.leader || user._id === group.leader)) {
       throw new NotAuthorized(res.t('questOrGroupLeaderOnlyStartQuest'));
     }

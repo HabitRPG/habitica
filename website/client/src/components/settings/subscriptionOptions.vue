@@ -5,22 +5,22 @@
       <b-form-radio
         v-for="block in subscriptionBlocksOrdered"
         v-if="block.target !== 'group' && block.canSubscribe === true"
-        :value="block.key"
         :key="block.key"
         v-model="subscription.key"
+        :value="block.key"
         class="subscribe-option pt-2 pl-5 pb-3 mb-0"
         :class="{selected: subscription.key === block.key}"
         @click.native="subscription.key = block.key"
       >
-      <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+        <!-- eslint-enable vue/no-use-v-if-with-v-for -->
         <div
-          v-html="$t('subscriptionRateText', {price: block.price, months: block.months})"
           class="subscription-text ml-2 mb-1"
+          v-html="$t('subscriptionRateText', {price: block.price, months: block.months})"
         >
         </div>
         <div
-          v-html="subscriptionBubbles(block.key)"
           class="ml-2"
+          v-html="subscriptionBubbles(block.key)"
         >
         </div>
       </b-form-radio>
