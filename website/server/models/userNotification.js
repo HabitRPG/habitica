@@ -5,7 +5,7 @@ import validator from 'validator';
 import baseModel from '../libs/baseModel';
 
 const NOTIFICATION_TYPES = [
-  'DROPS_ENABLED',
+  'DROPS_ENABLED', // unused
   'REBIRTH_ENABLED',
   'WON_CHALLENGE',
   'STREAK_ACHIEVEMENT',
