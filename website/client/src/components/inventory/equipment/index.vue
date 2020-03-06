@@ -111,11 +111,11 @@
               @change="changeDrawerPreference"
             />
           </div>
-          <button class="btn btn-danger">
+          <button class="btn btn-danger" @click="unequipItems()">
             {{ $t(costumeMode ? 'unequipCostume' : 'unequipBattleGear') }}
           </button>
 
-          <button class="btn btn-danger">
+          <button class="btn btn-danger" @click="unequipPetMountBackground()">
             {{ $t('unequipPetMountBackground') }}
           </button>
         </div>
@@ -331,6 +331,9 @@ import Drawer from '@/components/ui/drawer';
 import i18n from '@/../../common/script/i18n';
 
 import EquipGearModal from './equipGearModal';
+
+// export constant to a different path?
+import { UNEQUIP_PET_MOUNT, UNEQUIP_COSTUME, UNEQUIP_EQUIPPED } from '../../../../../common/script/ops/unequip';
 
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -583,6 +586,16 @@ export default {
         CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE,
         CONSTANTS.drawerStateValues.DRAWER_CLOSED,
       );
+    },
+    unequipItems () {
+      this.$store.dispatch('user:unequip', {
+        type: this.costumeMode ? UNEQUIP_COSTUME : UNEQUIP_EQUIPPED,
+      });
+    },
+    unequipPetMountBackground () {
+      this.$store.dispatch('user:unequip', {
+        type: UNEQUIP_PET_MOUNT,
+      });
     },
   },
 };
