@@ -1071,7 +1071,9 @@ export default {
 
       if (firstDrops) {
         if (!user.items.eggs[firstDrops.egg]) Vue.set(user.items.eggs, firstDrops.egg, 0);
-        if (!user.items.hatchingPotions[firstDrops.hatchingPotion]) Vue.set(user.items.hatchingPotions, firstDrops.hatchingPotion, 0);
+        if (!user.items.hatchingPotions[firstDrops.hatchingPotion]) {
+          Vue.set(user.items.hatchingPotions, firstDrops.hatchingPotion, 0);
+        }
         user.items.eggs[firstDrops.egg] += 1;
         user.items.hatchingPotions[firstDrops.hatchingPotion] += 1;
       }
