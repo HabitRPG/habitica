@@ -1,11 +1,10 @@
 import { drops as eggs } from '../content/eggs';
 import { drops as hatchingPotions } from '../content/hatching-potions';
-import { cloneDropItem } from '../fns/randomDrop';
 import randomVal from '../libs/randomVal';
 
 export default function firstDrops (user) {
-  const eggDrop = cloneDropItem(randomVal(eggs));
-  const potionDrop = cloneDropItem(randomVal(hatchingPotions));
+  const eggDrop = randomVal(eggs);
+  const potionDrop = randomVal(hatchingPotions);
 
   user.items.eggs = {
     ...user.items.eggs,
