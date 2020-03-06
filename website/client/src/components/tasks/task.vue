@@ -1051,6 +1051,7 @@ export default {
       const tmp = response.data.data._tmp || {};
       const { crit } = tmp;
       const { drop } = tmp;
+      const { firstDrops } = tmp;
       const { quest } = tmp;
 
       if (crit) {
@@ -1066,6 +1067,13 @@ export default {
           user.party.quest.progress.collectedItems += 1;
           this.quest('questCollection', quest.collection);
         }
+      }
+
+      if (firstDrops) {
+        Vue.set(user.items.eggs, firstDrops.egg, 0);
+        Vue.set(user.items.hatchingPotions, firstDrops.hatchingPotion, 0);
+        user.items.eggs[firstDrops.egg] += 1;
+        user.items.hatchingPotions[firstDrops.hatchingPotion] += 1;
       }
 
       if (drop) {
@@ -1088,7 +1096,7 @@ export default {
           }
 
           if (!user.items[type][drop.key]) {
-            Vue.set(user, `items.${type}.${drop.key}`, 0);
+            Vue.set(user.items[type], drop.key, 0);
           }
           user.items[type][drop.key] += 1;
         }

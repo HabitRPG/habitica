@@ -15,7 +15,6 @@ describe('common.fns.randomDrop', () => {
   beforeEach(() => {
     user = generateUser();
     user._tmp = user._tmp ? user._tmp : {};
-    user.achievements.completedTask = true;
     user.items.eggs.Wolf = 0;
     task = generateTodo({ userId: user._id });
     predictableRandom = sandbox.stub().returns(0.5);
@@ -37,6 +36,14 @@ describe('common.fns.randomDrop', () => {
   context('drops enabled', () => {
     beforeEach(() => {
       task.priority = 100000;
+    });
+
+    it('awards an egg and a hatching potion if user has never received any', () => {
+      delete user.items.eggs.Wolf;
+      randomDrop(user, { task, predictableRandom });
+
+      expect(user._tmp.firstDrops.egg).to.be.a.string;
+      expect(user._tmp.firstDrops.hatchingPotion).to.be.a.string;
     });
 
     it('does nothing if user.items.lastDrop.count is exceeded', () => {

@@ -97,10 +97,8 @@
 
 <script>
 import closeIcon from '@/assets/svg/close.svg';
-import sync from '@/mixins/sync';
 
 export default {
-  mixins: [sync],
   data () {
     return {
       icons: Object.freeze({
@@ -113,16 +111,15 @@ export default {
       return `Pet_Egg_${this.$store.state.firstDropsOptions.egg}`;
     },
     potionClass () {
-      return `Pet_HatchingPotion_${this.$store.state.firstDropsOptions.potion}`;
+      return `Pet_HatchingPotion_${this.$store.state.firstDropsOptions.hatchingPotion}`;
     },
   },
   methods: {
-    async close () {
+    close () {
       this.$store.state.firstDropsOptions = {
         egg: '',
-        potion: '',
+        hatchingPotion: '',
       };
-      await this.sync();
       this.$root.$emit('habitica::dismiss-modal', 'first-drops');
     },
     toInventory () {

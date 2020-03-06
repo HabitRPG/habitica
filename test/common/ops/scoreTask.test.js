@@ -1,4 +1,3 @@
-import size from 'lodash/size';
 import scoreTask from '../../../website/common/script/ops/scoreTask';
 
 import {
@@ -384,16 +383,6 @@ describe('shared.ops.scoreTask', () => {
         });
 
         expect(ref.afterUser.addAchievement).to.not.be.called;
-      });
-    });
-
-    context('first drops', () => {
-      it('grants a potion and an egg on second scored task', () => {
-        ref.afterUser.achievements.completedTask = true;
-        scoreTask({ user: ref.afterUser, task: todo, direction: 'up' });
-
-        expect(size(ref.afterUser.items.eggs)).to.eql(1);
-        expect(size(ref.afterUser.items.hatchingPotions)).to.eql(1);
       });
     });
   });

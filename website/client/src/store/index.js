@@ -133,7 +133,7 @@ export default function () {
       },
       firstDropsOptions: {
         egg: '',
-        potion: '',
+        hatchingPotion: '',
       },
     },
   });

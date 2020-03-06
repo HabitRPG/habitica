@@ -12,6 +12,7 @@ import { daysSince } from '../cron';
 import { diminishingReturns } from '../statHelpers';
 import randomVal from '../libs/randomVal';
 import statsComputed from '../libs/statsComputed';
+import firstDrops from './firstDrops';
 
 // TODO This is only used on the server
 // move to user model as an instance method?
@@ -33,9 +34,12 @@ export default function randomDrop (user, options, req = {}, analytics) {
   let rarity;
 
   if (
-    !user.achievements.completedTask
-    || (size(user.items.eggs) < 1 && size(user.items.hatchingPotions) < 1)
-  ) return;
+    size(user.items.eggs) < 1
+    && size(user.items.hatchingPotions) < 1
+  ) {
+    user._tmp.firstDrops = firstDrops(user);
+    return;
+  }
 
   const predictableRandom = options.predictableRandom || trueRandom;
   const { task } = options;
