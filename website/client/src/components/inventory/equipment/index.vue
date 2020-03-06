@@ -151,7 +151,7 @@
         </div>
         <div
           slot="drawer-slider"
-          class="items items-one-line"
+          class="equipment items items-one-line"
         >
           <item
             v-for="(label, group) in gearTypesToStrings"
@@ -251,6 +251,8 @@
 </template>
 
 <style lang="scss">
+@import '~@/assets/scss/colors.scss';
+
 .pointer {
   cursor: pointer;
 }
@@ -262,6 +264,11 @@
 .drawer-tab-text {
   display: inline-block;
 }
+
+.equipment.items .item-empty {
+  background: $gray-10 !important;
+}
+
 </style>
 
 <style lang="scss" scoped>
