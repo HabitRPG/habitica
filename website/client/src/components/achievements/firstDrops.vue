@@ -97,8 +97,10 @@
 
 <script>
 import closeIcon from '@/assets/svg/close.svg';
+import sync from '@/mixins/sync';
 
 export default {
+  mixins: [sync],
   data () {
     return {
       icons: Object.freeze({
@@ -115,11 +117,12 @@ export default {
     },
   },
   methods: {
-    close () {
+    async close () {
       this.$store.state.firstDropsOptions = {
         egg: '',
         potion: '',
       };
+      await this.sync();
       this.$root.$emit('habitica::dismiss-modal', 'first-drops');
     },
     toInventory () {
