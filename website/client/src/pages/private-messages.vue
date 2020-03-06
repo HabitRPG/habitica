@@ -3,7 +3,7 @@
     <div class="floating-header-shadow"></div>
     <div class="header-bar d-flex w-100">
       <!-- changing w-25 would also need changes in .left-header.w-25 -->
-      <div class="d-flex w-25 left-header">
+      <div class="d-flex left-header">
         <div
           v-once
           class="mail-icon svg-icon"
@@ -19,22 +19,28 @@
           <!-- placeholder -->
         </div>
       </div>
-      <div class="d-flex w-75 selected-conversion">
-        <face-avatar
-          v-if="selectedConversation.userStyles"
-          :member="selectedConversation.userStyles"
-          :class="selectedConversationFaceAvatarClass"
-        />
-        <user-label
+      <div class="d-flex selected-conversion">
+        <router-link
+          :to="{'name': 'userProfile', 'params': {'userId': selectedConversation.key}}"
+        >
+          <face-avatar
+            v-if="selectedConversation.userStyles"
+            :member="selectedConversation.userStyles"
+            :class="selectedConversationFaceAvatarClass"
+          />
+        </router-link>
+        <user-link
           :backer="selectedConversation.backer"
           :contributor="selectedConversation.contributor"
           :name="selectedConversation.name"
+          :user="selectedConversation"
+          :userId="selectedConversation.key"
           :hide-tooltip="true"
         />
       </div>
     </div>
     <div class="d-flex content">
-      <div class="w-25 sidebar d-flex flex-column">
+      <div class="sidebar d-flex flex-column">
         <div class="disable-background">
           <toggle-switch
             :label="optTextSet.switchDescription"
@@ -49,24 +55,6 @@
             class="input-search"
             :placeholder="$t('search')"
           />
-        </div>
-        <div
-          v-if="filtersConversations.length === 0"
-          class="empty-messages m-auto text-center empty-sidebar"
-        >
-          <div>
-            <div
-              v-once
-              class="svg-icon envelope"
-              v-html="icons.messageIcon"
-            ></div>
-            <h4 v-once>
-              {{ $t('emptyMessagesLine1') }}
-            </h4>
-            <p v-if="!user.flags.chatRevoked">
-              {{ $t('emptyMessagesLine2') }}
-            </p>
-          </div>
         </div>
         <div
           v-if="filtersConversations.length > 0"
@@ -88,18 +76,39 @@
           />
         </div>
       </div>
-      <div class="w-75 messages-column d-flex flex-column align-items-center">
+      <div class="messages-column d-flex flex-column align-items-center">
         <div
-          v-if="!selectedConversation.key"
+          v-if="filtersConversations.length === 0
+            && (!selectedConversation || !selectedConversation.key)"
+          class="empty-messages m-auto text-center empty-sidebar"
+        >
+          <div class="no-messages-box">
+            <div
+              v-once
+              class="svg-icon envelope"
+              v-html="icons.messageIcon"
+            ></div>
+            <h2 v-once>
+              {{ $t('emptyMessagesLine1') }}
+            </h2>
+            <p v-if="!user.flags.chatRevoked">
+              {{ $t('emptyMessagesLine2') }}
+            </p>
+          </div>
+        </div>
+        <div
+          v-if="filtersConversations.length !== 0 && !selectedConversation.key"
           class="empty-messages full-height m-auto text-center"
         >
-          <div
-            v-once
-            class="svg-icon envelope"
-            v-html="icons.messageIcon"
-          ></div>
-          <h4>{{ placeholderTexts.title }}</h4>
-          <p v-html="placeholderTexts.description"></p>
+          <div class="no-messages-box">
+            <div
+              v-once
+              class="svg-icon envelope"
+              v-html="icons.messageIcon"
+            ></div>
+            <h2>{{ placeholderTexts.title }}</h2>
+            <p v-html="placeholderTexts.description"></p>
+          </div>
         </div>
         <div
           v-if="selectedConversation.key && selectedConversationMessages.length === 0"
@@ -120,34 +129,37 @@
           ref="chatscroll"
           class="message-scroll"
           :chat="selectedConversationMessages"
+          :conversationOpponentUser="selectedConversation.userStyles"
           :can-load-more="canLoadMore"
           :is-loading="messagesLoading"
           @message-removed="messageRemoved"
           @triggerLoad="infiniteScrollTrigger"
         />
         <div
-          v-if="user.inbox.optOut"
+          v-if="disabledTexts"
           class="pm-disabled-caption text-center"
         >
-          <h4>{{ $t('PMDisabledCaptionTitle') }}</h4>
-          <p>{{ $t('PMDisabledCaptionText') }}</p>
+          <h4>{{ disabledTexts.title }}</h4>
+          <p>{{ disabledTexts.description }}</p>
         </div>
         <div>
           <div
-            v-if="selectedConversation.key && !user.flags.chatRevoked"
             class="new-message-row d-flex align-items-center"
           >
             <textarea
+              ref="textarea"
               v-model="newMessage"
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
               :maxlength="MAX_MESSAGE_LENGTH"
-              :class="{'has-content': newMessage !== ''}"
+              :class="{'has-content': newMessage !== '', 'disabled': newMessageDisabled}"
+              :style="{'--textarea-auto-height': textareaAutoHeight}"
               @keyup.ctrl.enter="sendPrivateMessage()"
-            ></textarea>
+              @input="autoSize()"
+            >
+            </textarea>
           </div>
           <div
-            v-if="selectedConversation.key && !user.flags.chatRevoked"
             class="sub-new-message-row d-flex"
           >
             <div
@@ -157,7 +169,7 @@
             ></div>
             <button
               class="btn btn-primary"
-              :class="{'disabled':newMessage === ''}"
+              :class="{'disabled':newMessageDisabled || newMessage === ''}"
               @click="sendPrivateMessage()"
             >
               {{ $t('send') }}
@@ -268,10 +280,6 @@
     .placeholder.svg-icon {
       width: 32px;
     }
-
-    .left-header.w-25 {
-      width: calc(25% - 2rem) !important;
-    }
   }
 
   .full-height {
@@ -281,7 +289,7 @@
     justify-content: center;
   }
 
-  .user-label {
+  .user-link {
     margin-left: 12px;
   }
 
@@ -292,8 +300,11 @@
     background-image: url(~@/assets/svg/for-css/search_gray.svg) !important;
     padding-left: 40px;
 
-    color: $gray-200 !important;
     height: 40px;
+  }
+
+  .input-search::placeholder {
+    color: $gray-200 !important;
   }
 
   .selected-conversion {
@@ -314,32 +325,42 @@
 
 
   .conversations {
-    max-height: 35rem;
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
   }
 
   .empty-messages {
-    h3, h4, p {
-      color: $gray-400;
+    h3, p {
+      color: $gray-200;
       margin: 0rem;
+    }
+
+    h2 {
+      color: $gray-200;
+      margin-bottom: 1rem;
     }
 
     p {
       font-size: 12px;
     }
 
-    .envelope {
-      width: 30px;
-      margin: 0 auto 0.5rem;
+    .no-messages-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 330px;
     }
-  }
 
-  .envelope {
-    color: $gray-500 !important;
-    margin: 0rem;
-    max-width: 2rem;
+    .envelope {
+      color: $gray-400 !important;
+      margin-bottom: 1.5rem;
+
+      ::v-deep svg {
+        width: 64px;
+        height: 48px;
+      }
+    }
   }
 
   h3 {
@@ -371,7 +392,12 @@
     word-break: break-word;
   }
 
+  .selected-conversion {
+    flex: 1;
+  }
+
   .messages-column {
+    flex: 1;
     padding: 0rem;
     display: flex;
     flex-direction: column;
@@ -398,16 +424,24 @@
     padding-right: 1.5rem;
 
     textarea {
-      height: 5.5rem;
       display: inline-block;
       vertical-align: bottom;
       border-radius: 2px;
       z-index: 5;
+
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.64;
+        background-color: $gray-500;
+      }
+
+      min-height: var(--textarea-auto-height, 40px);
+      max-height: var(--textarea-auto-height, 40px);
     }
   }
 
   .sub-new-message-row {
-    padding: 1rem 1.5rem 1.5rem;
+    padding: 1.5rem;
 
     .guidelines {
       height: 32px;
@@ -433,17 +467,17 @@
         pointer-events: none;
         opacity: 0.64;
         background-color: $gray-500;
+        color: $gray-100;
       }
     }
   }
 
   .pm-disabled-caption {
     padding-top: 1em;
-    background-color: $gray-700;
     z-index: 2;
 
     h4, p {
-      color: $gray-300;
+      color: $gray-200;
     }
 
     h4 {
@@ -457,16 +491,24 @@
     }
   }
 
+  .left-header {
+    max-width: calc(330px - 2rem); // minus the left padding
+    flex: 1;
+  }
+
   .sidebar {
+    width: 330px;
     background-color: $gray-700;
-    min-height: 540px;
-    max-width: 330px;
     padding: 0;
     border-bottom-left-radius: 8px;
 
     .search-section {
       padding: 1rem 1.5rem;
       border-bottom: 1px solid $gray-500;
+    }
+
+    @media only screen and (max-width: 768px) {
+      width: 280px;
     }
   }
 
@@ -522,7 +564,7 @@ import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
 import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import userLabel from '@/components/userLabel';
+import userLink from '@/components/userLink';
 
 import messageList from '@/components/messages/messageList';
 import messageIcon from '@/assets/svg/message.svg';
@@ -530,6 +572,9 @@ import mail from '@/assets/svg/mail.svg';
 import conversationItem from '@/components/messages/conversationItem';
 import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
+import { EVENTS } from '@/libs/events';
+
+const MAX_TEXTAREA_HEIGHT = 80;
 
 export default {
   components: {
@@ -537,7 +582,7 @@ export default {
     messageList,
     toggleSwitch,
     conversationItem,
-    userLabel,
+    userLink,
     faceAvatar,
   },
   filters: {
@@ -564,14 +609,23 @@ export default {
       messagesLoading: false,
       initiatedConversation: null,
       updateConversationsCounter: 0,
+      textareaAutoHeight: undefined,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
   },
   async mounted () {
-    this.$root.$on('pm::refresh', async () => {
+    // notification click to refresh
+    this.$root.$on(EVENTS.PM_REFRESH, async () => {
       await this.reload();
 
-      this.selectConversation(this.loadedConversations[0].uuid, true);
+      this.selectFirstConversation();
+    });
+
+    // header sync button
+    this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
+      await this.reload();
+
+      this.selectFirstConversation();
     });
 
     await this.reload();
@@ -594,7 +648,7 @@ export default {
     }
   },
   destroyed () {
-    this.$root.$off('habitica::new-private-message');
+    this.$root.$off(EVENTS.RESYNC_COMPLETED);
   },
   computed: {
     ...mapState({ user: 'user.data' }),
@@ -616,6 +670,7 @@ export default {
           id: '',
           text: '',
           timestamp: new Date(),
+          canReceive: true,
         }];
       }
       // Create conversation objects
@@ -635,6 +690,7 @@ export default {
             contributor: recentMessage.contributor,
             userStyles: recentMessage.userStyles,
             backer: recentMessage.backer,
+            canReceive: recentMessage.canReceive,
             canLoadMore: false,
             page: 0,
           };
@@ -693,6 +749,39 @@ export default {
         description: this.$t('PMPlaceholderDescription'),
       };
     },
+    disabledTexts () {
+      if (this.user.flags.chatRevoked) {
+        return {
+          title: this.$t('PMPlaceholderTitleRevoked'),
+          description: this.$t('chatPrivilegesRevoked'),
+        };
+      }
+
+      if (this.user.inbox.optOut) {
+        return {
+          title: this.$t('PMDisabledCaptionTitle'),
+          description: this.$t('PMDisabledCaptionText'),
+        };
+      }
+
+      if (this.selectedConversation && this.selectedConversation.key) {
+        if (this.user.inbox.blocks.includes(this.selectedConversation.key)) {
+          return {
+            title: this.$t('PMDisabledCaptionTitle'),
+            description: this.$t('PMUnblockUserToSendMessages'),
+          };
+        }
+
+        if (!this.selectedConversation.canReceive) {
+          return {
+            title: this.$t('PMCanNotReply'),
+            description: this.$t('PMUserDoesNotReceiveMessages'),
+          };
+        }
+      }
+
+      return null;
+    },
     optTextSet () {
       if (!this.user.inbox.optOut) {
         return {
@@ -711,6 +800,10 @@ export default {
       }
       return '';
     },
+    newMessageDisabled () {
+      return !this.selectedConversation || !this.selectedConversation.key
+        || this.disabledTexts !== null;
+    },
   },
 
   methods: {
@@ -720,6 +813,8 @@ export default {
       const conversationRes = await axios.get('/api/v4/inbox/conversations');
       this.loadedConversations = conversationRes.data.data;
       this.selectedConversation = {};
+
+      await this.$store.dispatch('user:markPrivMessagesRead');
 
       this.loaded = true;
     },
@@ -813,6 +908,7 @@ export default {
       });
 
       this.newMessage = '';
+      this.autoSize();
     },
     removeTags (html) {
       const tmp = document.createElement('DIV');
@@ -855,6 +951,27 @@ export default {
       // only show the load more Button if the max count was returned
       this.selectedConversation.canLoadMore = loadedMessages.length === 10;
       this.messagesLoading = false;
+    },
+    autoSize () {
+      const { textarea } = this.$refs;
+      // weird issue: browser only removing the scrollHeight / clientHeight per key event - 56-54-52
+      let { scrollHeight } = textarea;
+
+      if (this.newMessage === '') {
+        // reset height when the message was removed again
+        scrollHeight = 40;
+      }
+
+      if (scrollHeight > MAX_TEXTAREA_HEIGHT) {
+        scrollHeight = MAX_TEXTAREA_HEIGHT;
+      }
+
+      this.textareaAutoHeight = `${scrollHeight}px`;
+    },
+    selectFirstConversation () {
+      if (this.loadedConversations.length > 0) {
+        this.selectConversation(this.loadedConversations[0].uuid, true);
+      }
     },
   },
 };

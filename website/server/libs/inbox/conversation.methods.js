@@ -2,70 +2,40 @@ import { inboxModel as Inbox, setUserStyles } from '../../models/message';
 import { model as User } from '../../models/user';
 
 /**
- * Get the users for conversations
- * 1. Get the user data of last sent message by conversation
- * 2. If the target user hasn't replied yet ( 'sent:true' ) , list user data by users directly
- * @param owner
+ * Get the current user (avatar/setting etc) for conversations
  * @param users
  * @returns {Promise<void>}
  */
-async function usersMapByConversations (owner, users) {
-  const query = Inbox
-    .aggregate([
-      {
-        $match: {
-          ownerId: owner._id,
-          uuid: { $in: users },
-          sent: false, // only messages the other user sent to you
-        },
-      },
-      {
-        $group: {
-          _id: '$uuid',
-          userStyles: { $last: '$userStyles' },
-          contributor: { $last: '$contributor' },
-          backer: { $last: '$backer' },
-        },
-      },
-    ]);
-
-
-  const usersAr = await query.exec();
+async function usersMapByConversations (users) {
   const usersMap = {};
 
-  for (const usr of usersAr) {
-    usersMap[usr._id] = usr;
-  }
+  const usersQuery = {
+    _id: { $in: users },
+  };
 
-  // if a conversation doesn't have a response of the chat-partner,
-  // those won't be listed by the query above
-  const usersStillNeedToBeLoaded = users.filter(userId => !usersMap[userId]);
+  const loadedUsers = await User.find(usersQuery, {
+    _id: 1,
+    contributor: 1,
+    backer: 1,
+    items: 1,
+    preferences: 1,
+    stats: 1,
+    flags: 1,
+    inbox: 1,
+  }).exec();
 
-  if (usersStillNeedToBeLoaded.length > 0) {
-    const usersQuery = {
-      _id: { $in: usersStillNeedToBeLoaded },
+  for (const usr of loadedUsers) {
+    const loadedUserConversation = {
+      _id: usr._id,
+      backer: usr.backer,
+      contributor: usr.contributor,
+      optOut: usr.inbox.optOut,
+      blocks: usr.inbox.blocks || [],
     };
+    // map user values to conversation properties
+    setUserStyles(loadedUserConversation, usr);
 
-    const loadedUsers = await User.find(usersQuery, {
-      _id: 1,
-      contributor: 1,
-      backer: 1,
-      items: 1,
-      preferences: 1,
-      stats: 1,
-    }).exec();
-
-    for (const usr of loadedUsers) {
-      const loadedUserConversation = {
-        _id: usr._id,
-        backer: usr.backer,
-        contributor: usr.contributor,
-      };
-      // map user values to conversation properties
-      setUserStyles(loadedUserConversation, usr);
-
-      usersMap[usr._id] = loadedUserConversation;
-    }
+    usersMap[usr._id] = loadedUserConversation;
   }
 
   return usersMap;
@@ -98,7 +68,7 @@ export async function listConversations (owner) {
   const userIdList = conversationsList.map(c => c._id);
 
   // get user-info based on conversations
-  const usersMap = await usersMapByConversations(owner, userIdList);
+  const usersMap = await usersMapByConversations(userIdList);
 
   const conversations = conversationsList.map(res => {
     const uuid = res._id;
@@ -109,9 +79,15 @@ export async function listConversations (owner) {
     };
 
     if (usersMap[uuid]) {
-      conversation.userStyles = usersMap[uuid].userStyles;
-      conversation.contributor = usersMap[uuid].contributor;
-      conversation.backer = usersMap[uuid].backer;
+      const user = usersMap[uuid];
+
+      conversation.userStyles = user.userStyles;
+      conversation.contributor = user.contributor;
+      conversation.backer = user.backer;
+
+      const isOwnerBlocked = user.blocks.includes(owner._id);
+
+      conversation.canReceive = !(user.optOut || isOwnerBlocked) || owner.isAdmin();
     }
 
     return conversation;
