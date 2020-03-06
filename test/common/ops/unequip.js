@@ -7,7 +7,7 @@ import {
   UNEQUIP_COSTUME,
   UNEQUIP_EQUIPPED,
   UNEQUIP_PET_MOUNT,
-  unEquipByType
+  unEquipByType,
 } from '../../../website/common/script/ops/unequip';
 
 describe('shared.ops.unequip', () => {
