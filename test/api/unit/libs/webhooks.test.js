@@ -43,6 +43,7 @@ describe('webhooks', () => {
       options: {
         questStarted: true,
         questFinised: true,
+        questInvited: true,
       },
     }, {
       id: 'userActivity',
@@ -576,7 +577,7 @@ describe('webhooks', () => {
       };
     });
 
-    ['questStarted', 'questFinised'].forEach(type => {
+    ['questStarted', 'questFinised', 'questInvited'].forEach(type => {
       it(`sends ${type} webhooks`, () => {
         data.type = type;
 

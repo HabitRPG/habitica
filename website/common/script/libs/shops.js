@@ -200,7 +200,7 @@ shops.getQuestShop = function getQuestShop (user, language) {
     categories: shops.getQuestShopCategories(user, language),
     featured: {
       text: i18n.t('featuredQuests'),
-      items: featuredItems.quests.map(i => getItemInfo(user, i.type, get(content, i.path))),
+      items: featuredItems.quests().map(i => getItemInfo(user, i.type, get(content, i.path))),
     },
   };
 };
@@ -325,6 +325,25 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
     }
   }
   categories.push(questCategory);
+
+  const backgroundCategory = {
+    identifier: 'backgrounds',
+    text: i18n.t('backgrounds', language),
+    items: [],
+  };
+  for (const bg in content.backgrounds.timeTravelBackgrounds) {
+    if (!user.purchased.background[bg]) {
+      const item = getItemInfo(
+        user,
+        'background',
+        content.backgroundsFlat[bg],
+        officialPinnedItems,
+        language,
+      );
+      backgroundCategory.items.push(item);
+    }
+  }
+  categories.push(backgroundCategory);
 
   for (const type of Object.keys(stable)) {
     const category = {

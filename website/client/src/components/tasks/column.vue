@@ -335,7 +335,6 @@ import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
 import notifications from '@/mixins/notifications';
 import { shouldDo } from '@/../../common/script/cron';
 import inAppRewards from '@/../../common/script/libs/inAppRewards';
-import spells from '@/../../common/script/content/spells';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 
 import {
@@ -349,6 +348,7 @@ import habitIcon from '@/assets/svg/habit.svg';
 import dailyIcon from '@/assets/svg/daily.svg';
 import todoIcon from '@/assets/svg/todo.svg';
 import rewardIcon from '@/assets/svg/reward.svg';
+import { EVENTS } from '@/libs/events';
 
 export default {
   components: {
@@ -433,26 +433,6 @@ export default {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
       const rewards = inAppRewards(this.user);
 
-      // Add season rewards if user is affected
-      // @TODO: Add buff conditional
-      const seasonalSkills = {
-        snowball: 'salt',
-        spookySparkles: 'opaquePotion',
-        shinySeed: 'petalFreePotion',
-        seafoam: 'sand',
-      };
-
-      for (const key in seasonalSkills) {
-        if (this.getUserBuffs(key)) {
-          const debuff = seasonalSkills[key];
-          const item = { ...spells.special[debuff] };
-          item.text = item.text();
-          item.notes = item.notes();
-          item.class = `shop_${key}`;
-          rewards.push(item);
-        }
-      }
-
       return rewards;
     },
     hasRewardsList () {
@@ -521,7 +501,7 @@ export default {
     });
 
     if (this.type !== 'todo') return;
-    this.$root.$on('habitica::resync-completed', () => {
+    this.$root.$on(EVENTS.RESYNC_COMPLETED, () => {
       if (this.activeFilter.label !== 'complete2') return;
       this.loadCompletedTodos();
     });
@@ -529,7 +509,7 @@ export default {
   destroyed () {
     this.$root.$off('buyModal::boughtItem');
     if (this.type !== 'todo') return;
-    this.$root.$off('habitica::resync-requested');
+    this.$root.$off(EVENTS.RESYNC_COMPLETED);
   },
   methods: {
     ...mapActions({

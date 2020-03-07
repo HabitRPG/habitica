@@ -9,6 +9,7 @@ import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
 import statsComputed from '../libs/statsComputed';
+import { checkOnboardingStatus } from '../libs/onboarding';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
@@ -343,5 +344,11 @@ export default function scoreTask (options = {}, req = {}) {
 
   req.yesterDailyScored = task.yesterDailyScored;
   updateStats(user, stats, req);
+
+  if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
+    user.addAchievement('completedTask');
+    checkOnboardingStatus(user);
+  }
+
   return [delta];
 }

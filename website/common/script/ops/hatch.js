@@ -11,6 +11,7 @@ import {
   NotFound,
 } from '../libs/errors';
 import errorMessage from '../libs/errorMessage';
+import { checkOnboardingStatus } from '../libs/onboarding';
 
 export default function hatch (user, req = {}) {
   const egg = get(req, 'params.egg');
@@ -40,13 +41,21 @@ export default function hatch (user, req = {}) {
     throw new NotAuthorized(i18n.t('messageAlreadyPet', req.language));
   }
 
-  user.items.pets[pet] = 5;
+  user.items.pets = {
+    ...user.items.pets,
+    [pet]: 5,
+  };
   user.items.eggs[egg] -= 1;
   user.items.hatchingPotions[hatchingPotion] -= 1;
   if (user.markModified) {
     user.markModified('items.pets');
     user.markModified('items.eggs');
     user.markModified('items.hatchingPotions');
+  }
+
+  if (!user.achievements.hatchedPet && user.addAchievement) {
+    user.addAchievement('hatchedPet');
+    checkOnboardingStatus(user);
   }
 
   forEach(content.animalColorAchievements, achievement => {

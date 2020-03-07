@@ -254,19 +254,23 @@ api.joinChallenge = {
 
     const challenge = await Challenge.findOne({ _id: req.params.challengeId }).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (challenge.isMember(user)) throw new NotAuthorized(res.t('userAlreadyInChallenge'));
 
     const group = await Group.getGroup({
       user, groupId: challenge.group, fields: basicGroupFields, optionalMembership: true,
     });
     if (!group || !challenge.canJoin(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
+    const addedSuccessfully = await challenge.addToUser(user);
+    if (!addedSuccessfully) {
+      throw new NotAuthorized(res.t('userAlreadyInChallenge'));
+    }
+
     challenge.memberCount += 1;
 
     addUserJoinChallengeNotification(user);
 
     // Add all challenge's tasks to user's tasks and save the challenge
-    const results = await Promise.all([challenge.syncToUser(user), challenge.save()]);
+    const results = await Promise.all([challenge.syncTasksToUser(user), challenge.save()]);
 
     const response = results[1].toJSON();
     response.group = getChallengeGroupResponse(group);
@@ -509,7 +513,7 @@ api.getGroupChallenges = {
 };
 
 /**
- * @api {get} /api/v3/challenges/:challengeId Get a challenge given its id
+ * @api {get} /api/v3/challenges/:challengeId Get a challenge
  * @apiName GetChallenge
  * @apiGroup Challenge
  *

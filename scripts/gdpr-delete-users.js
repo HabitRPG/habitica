@@ -24,15 +24,22 @@ async function deleteAmplitudeData (userId, email) {
     console.log(err.response.data);
   });
 
-  if (response) console.log(`${response.status} ${response.statusText}`);
+  if (response) {
+    if (response.status === 200) {
+      console.log(`${userId} (${email}) Amplitude deletion request OK.`);
+    } else {
+      console.log(`${userId} (${email}) Amplitude response: ${response.status} ${response.statusText}`);
+    }
+  }
 }
 
 async function deleteHabiticaData (user, email) {
+  const truncatedEmail = email.slice(0, email.indexOf('@'));
   await User.update(
     { _id: user._id },
     {
       $set: {
-        'auth.local.email': email,
+        'auth.local.email': user.auth.local.email ? email : `${truncatedEmail}@example.com`,
         'auth.local.hashed_password': '$2a$10$QDnNh1j1yMPnTXDEOV38xOePEWFd4X8DSYwAM8XTmqmacG5X0DKjW',
         'auth.local.passwordHashMethod': 'bcrypt',
       },
@@ -54,39 +61,46 @@ async function deleteHabiticaData (user, email) {
   });
 
   if (response) {
-    console.log(`${response.status} ${response.statusText}`);
-    if (response.status === 200) console.log(`${user._id} (${email}) removed. Last login: ${user.auth.timestamps.loggedin}`);
+    if (response.status === 200) {
+      console.log(`${user._id} (${email}) removed from Habitica. Last login: ${user.auth.timestamps.loggedin}`);
+    } else {
+      console.log(`${user._id} (${email}) Habitica response: ${response.status} ${response.statusText}`);
+    }
   }
 }
 
 async function processEmailAddress (email) {
   const emailRegex = new RegExp(`^${email}$`, 'i');
-  const users = await User.find({
-    $or: [
-      { 'auth.local.email': emailRegex },
-      { 'auth.facebook.emails.value': emailRegex },
-      { 'auth.google.emails.value': emailRegex },
-    ],
-  },
-  {
-    _id: 1,
-    apiToken: 1,
-    auth: 1,
-  }).exec();
+  const localUsers = await User.find(
+    { 'auth.local.email': emailRegex },
+    { _id: 1, apiToken: 1, auth: 1 },
+  ).exec();
+
+  const socialUsers = await User.find(
+    {
+      $or: [
+        { 'auth.facebook.emails.value': email },
+        { 'auth.google.emails.value': email },
+      ],
+    },
+    { _id: 1, apiToken: 1, auth: 1 },
+  ).collation(
+    { locale: 'en', strength: 1 },
+  ).exec();
+
+  const users = localUsers.concat(socialUsers);
 
   if (users.length < 1) {
-    console.log(`No users found with email address ${email}`);
-  } else {
-    Promise.all(users.map(user => (async () => {
-      await deleteAmplitudeData(user._id, email); // eslint-disable-line no-await-in-loop
-      await deleteHabiticaData(user, email); // eslint-disable-line no-await-in-loop
-    })()));
+    return console.log(`No users found with email address ${email}`);
   }
+
+  return Promise.all(users.map(user => (async () => {
+    await deleteAmplitudeData(user._id, email); // eslint-disable-line no-await-in-loop
+    await deleteHabiticaData(user, email); // eslint-disable-line no-await-in-loop
+  })()));
 }
 
-function deleteUserData (emails) {
+export default function deleteUserData (emails) {
   const emailPromises = emails.map(processEmailAddress);
   return Promise.all(emailPromises);
 }
-
-module.exports = deleteUserData;

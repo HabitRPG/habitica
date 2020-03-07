@@ -13,8 +13,6 @@
     </div>
     <transition
       name="slide-up"
-      @afterLeave="adjustPagePadding"
-      @afterEnter="adjustPagePadding"
     >
       <div
         v-show="isOpen"
@@ -194,19 +192,7 @@ export default {
       return this.open;
     },
   },
-  mounted () {
-    // Make sure the page has enough space so the drawer does not overlap content
-    this.adjustPagePadding();
-  },
   methods: {
-    adjustPagePadding () {
-      const minPaddingBottom = 20;
-      const drawerHeight = this.$el.offsetHeight;
-      const standardPage = document.getElementsByClassName('standard-page')[0];
-      if (standardPage) {
-        standardPage.style.paddingBottom = `${drawerHeight + minPaddingBottom}px`;
-      }
-    },
     toggle () {
       this.open = !this.isOpen;
       this.$emit('toggled', this.open);

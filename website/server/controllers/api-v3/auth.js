@@ -29,7 +29,7 @@ const api = {};
 /**
  * @api {post} /api/v3/user/auth/local/register Register
  * @apiDescription Register a new user with email, login name, and password or
- * attach local auth to a social user
+ * attach local authentication to a social auth user
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
@@ -148,12 +148,14 @@ api.loginSocial = {
 
 /**
  * @api {put} /api/v3/user/auth/update-username Update username
- * @apiDescription Update the username of a local user
+ * @apiDescription Update and verify the user's username
  * @apiName UpdateUsername
  * @apiGroup User
  *
  * @apiParam (Body) {String} username The new username
-
+ * @apiParam (Body) {String} password The user's password if they use local authentication.
+ * Omit if they use social auth.
+ *
  * @apiSuccess {String} data.username The new username
  * */
 api.updateUsername = {
@@ -196,6 +198,8 @@ api.updateUsername = {
     // save username
     user.auth.local.lowerCaseUsername = newUsername.toLowerCase();
     user.auth.local.username = newUsername;
+
+    // reward user for verifying their username
     if (!user.flags.verifiedUsername) {
       user.flags.verifiedUsername = true;
       if (user.items.pets['Bear-Veteran']) {
@@ -219,7 +223,7 @@ api.updateUsername = {
 };
 
 /**
- * @api {put} /api/v3/user/auth/update-password
+ * @api {put} /api/v3/user/auth/update-password Update password
  * @apiDescription Update the password of a local user
  * @apiName UpdatePassword
  * @apiGroup User
@@ -245,6 +249,10 @@ api.updatePassword = {
       },
       newPassword: {
         notEmpty: { errorMessage: res.t('missingNewPassword') },
+        isLength: {
+          options: { min: common.constants.MINIMUM_PASSWORD_LENGTH },
+          errorMessage: res.t('minPasswordLength'),
+        },
       },
       confirmPassword: {
         notEmpty: { errorMessage: res.t('missingNewPassword') },
@@ -273,7 +281,7 @@ api.updatePassword = {
 };
 
 /**
- * @api {post} /api/v3/user/reset-password Reset password
+ * @api {post} /api/v3/user/reset-password Reset password (email a reset link)
  * @apiDescription Send the user an email to let them reset their password
  * @apiName ResetPassword
  * @apiGroup User
@@ -367,7 +375,7 @@ api.updateEmail = {
 };
 
 /**
- * @api {post} /api/v3/user/auth/reset-password-set-new-one Reset Password Set New one
+ * @api {post} /api/v3/user/auth/reset-password-set-new-one Reset password (set a new one)
  * @apiDescription Set a new password for a user that reset theirs. Not meant for public usage.
  * @apiName ResetPasswordSetNewOne
  * @apiGroup User
@@ -387,13 +395,23 @@ api.resetPasswordSetNewOne = {
 
     if (!isValidCode) throw new NotAuthorized(res.t('invalidPasswordResetCode'));
 
-    req.checkBody('newPassword', res.t('missingNewPassword')).notEmpty();
-    req.checkBody('confirmPassword', res.t('missingNewPassword')).notEmpty();
+    req.checkBody({
+      newPassword: {
+        notEmpty: { errorMessage: res.t('missingNewPassword') },
+        isLength: {
+          options: { min: common.constants.MINIMUM_PASSWORD_LENGTH },
+          errorMessage: res.t('minPasswordLength'),
+        },
+      },
+      confirmPassword: {
+        notEmpty: { errorMessage: res.t('missingNewPassword') },
+      },
+    });
+
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const { newPassword } = req.body;
-    const { confirmPassword } = req.body;
+    const { newPassword, confirmPassword } = req.body;
 
     if (newPassword !== confirmPassword) {
       throw new BadRequest(res.t('passwordConfirmationMatch'));
@@ -410,8 +428,8 @@ api.resetPasswordSetNewOne = {
 
 /**
  * @api {delete} /api/v3/user/auth/social/:network Delete social authentication method
- * @apiDescription Remove a social authentication method (only facebook supported)
- * from a user profile. The user must have local authentication enabled
+ * @apiDescription Remove a social authentication method from a user profile.
+ * The user must have another authentication method enabled.
  * @apiName UserDeleteSocial
  * @apiGroup User
  *

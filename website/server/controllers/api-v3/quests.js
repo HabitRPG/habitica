@@ -18,6 +18,7 @@ import {
 import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import apiError from '../../libs/apiError';
+import { questActivityWebhook } from '../../libs/webhook';
 
 const questScrolls = common.content.quests;
 
@@ -79,7 +80,7 @@ api.inviteToQuest = {
       'party._id': group._id,
       _id: { $ne: user._id },
     })
-      .select('auth.facebook auth.google auth.local preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices')
+      .select('auth.facebook auth.google auth.local preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices webhooks')
       .exec();
 
     group.markModified('quest');
@@ -132,6 +133,13 @@ api.inviteToQuest = {
         );
       }
 
+      // Send webhooks
+      questActivityWebhook.send(member, {
+        type: 'questInvited',
+        group,
+        quest,
+      });
+
       return member.preferences.emailNotifications.invitedQuest !== false;
     });
     sendTxnEmail(membersToEmail, `invite-${quest.boss ? 'boss' : 'collection'}-quest`, [
@@ -182,7 +190,7 @@ api.acceptQuest = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInviteNotFound'));
-    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStartedFriendly'));
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
 
     user.party.quest.RSVPNeeded = false;
@@ -240,7 +248,7 @@ api.rejectQuest = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questInvitationDoesNotExist'));
-    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStartedFriendly'));
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
     if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
 
@@ -304,7 +312,7 @@ api.forceStart = {
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!group.quest.key) throw new NotFound(res.t('questNotPending'));
-    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyUnderway'));
+    if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStarted'));
     if (!(user._id === group.quest.leader || user._id === group.leader)) {
       throw new NotAuthorized(res.t('questOrGroupLeaderOnlyStartQuest'));
     }

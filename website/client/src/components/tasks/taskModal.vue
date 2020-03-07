@@ -1,8 +1,8 @@
 <template>
   <b-modal
     id="task-modal"
-    :no-close-on-esc="showTagsSelect"
-    :no-close-on-backdrop="showTagsSelect"
+    :no-close-on-esc="true"
+    :no-close-on-backdrop="true"
     size="sm"
     @hidden="onClose()"
     @show="handleOpen()"
@@ -1435,6 +1435,10 @@ export default {
         this.task.group.approval.required = this.requiresApproval;
         this.task.sharedCompletion = this.sharedCompletion;
         this.task.group.sharedCompletion = this.sharedCompletion;
+      }
+
+      if (this.task.type === 'reward' && this.task.value === '') {
+        this.task.value = 0;
       }
 
       if (this.purpose === 'create') {

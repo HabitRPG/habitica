@@ -20,7 +20,7 @@
     "welcomeToTavern": "キャンプ場へようこそ！",
     "sleepDescription": "休息が必要ですか？　ダニエルのロッジにチェックインして、Habiticaにおける手ごわいゲーム要素を停止させましょう。",
     "sleepBullet1": "やり逃した日課によるダメージを受けません",
-    "sleepBullet2": "タスクの連続実行回数は失われず、タスクの色も変化しません",
+    "sleepBullet2": "タスクの連続実行回数は失われません",
     "sleepBullet3": "ボスはあなた自身が逃した日課によるダメージを与えません",
     "sleepBullet4": "あなたがボスに与えたダメージと、アイテム集めのクエストアイテムは、チェックアウトするまで保留されます",
     "pauseDailies": "日課を休む",
@@ -43,7 +43,7 @@
     "displayPotionForGold": "<strong><%= itemType %>薬</strong>を売りますか?",
     "sellForGold": "<%= gold %> ゴールドで売る",
     "howManyToSell": "いくつ売ってくれますか？",
-    "yourBalance": "あなたの残高",
+    "yourBalance": "あなたの残高：",
     "sell": "売る",
     "buyNow": "今すぐ買う",
     "sortByNumber": "数",
@@ -169,5 +169,7 @@
     "imReady": "Habitica をはじめる",
     "limitedOffer": "<%= date %>まで購入可能",
     "paymentAutoRenew": "この寄付会員はキャンセルするまで自動更新されます。もしこの寄付会員をキャンセルする必要があるときは、設定からキャンセルできます。",
-    "paymentCanceledDisputes": "キャンセルの承認のメールをあなたに送りました。もしそのメールが見つからない場合は、今後の請求についての論争を防ぐために、私たちにご連絡をお願いいたします。"
+    "paymentCanceledDisputes": "キャンセルの承認のメールをあなたに送りました。もしそのメールが見つからない場合は、今後の請求についての論争を防ぐために、私たちにご連絡をお願いいたします。",
+    "cannotUnpinItem": "このアイテムはピン留めを外せません。",
+    "paymentSubBillingWithMethod": "あなたの寄付は、<strong><%= months %>ヶ月</strong>ごとに<strong><%= paymentMethod %></strong>によって <strong>$<%= amount %></strong> 請求されます。"
 }

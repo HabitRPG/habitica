@@ -42,7 +42,7 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // es
 
     if (!item) throw new NotFound(errorMessage('questNotFound', { key }));
 
-    if (!(item.category === 'gold' && item.goldValue)) {
+    if (!(item.goldValue)) {
       throw new NotAuthorized(this.i18n('questNotGoldPurchasable', { key }));
     }
 
@@ -67,7 +67,10 @@ export class BuyQuestWithGoldOperation extends AbstractGoldItemOperation { // es
       !user.items.quests[item.key]
       || user.items.quests[item.key] < 0
     ) user.items.quests[item.key] = 0;
-    user.items.quests[item.key] += this.quantity;
+    user.items.quests = {
+      ...user.items.quests,
+      [item.key]: user.items.quests[item.key] + this.quantity,
+    };
     if (user.markModified) user.markModified('items.quests');
 
     this.subtractCurrency(user, item, this.quantity);

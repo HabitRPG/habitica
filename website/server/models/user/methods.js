@@ -61,7 +61,7 @@ const INTERACTION_CHECKS = Object.freeze({
 
     // Direct user blocks prevent all interactions
     (sndr, rcvr) => rcvr.inbox.blocks.includes(sndr._id) && 'notAuthorizedToSendMessageToThisUser',
-    (sndr, rcvr) => sndr.inbox.blocks.includes(rcvr._id) && 'notAuthorizedToSendMessageToThisUser',
+    (sndr, rcvr) => sndr.inbox.blocks.includes(rcvr._id) && 'blockedToSendToThisUser',
   ],
 
   'send-private-message': [
@@ -110,7 +110,7 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
 
 
 /**
- * Sends a message to a this. Archives a copy in sender's inbox.
+ * Sends a message to a user. Archives a copy in sender's inbox.
  *
  * @param  userToReceiveMessage  The receiver
  * @param  options
@@ -231,6 +231,59 @@ schema.statics.pushNotification = async function pushNotification (
   ).exec();
 };
 
+/**
+ * Adds an achievement and a related notification to the user.
+ *
+ * @param  achievement The key identifying the achievement to award.
+ */
+schema.methods.addAchievement = function addAchievement (achievement) {
+  const achievementData = common.content.achievements[achievement];
+  if (!achievementData) throw new Error(`Achievement ${achievement} does not exist.`);
+
+  this.achievements[achievement] = true;
+
+  this.notifications.push({
+    type: 'ACHIEVEMENT',
+    data: {
+      achievement,
+    },
+    seen: false,
+  });
+};
+
+
+/**
+ * Adds an achievement and a related notification to the user, saving it directly to the database
+ * To be used when the user object is not loaded or we don't want to use `user.save`
+ *
+ * @param  query A Mongoose query defining the users to add the notification to.
+ * @param  achievement The key identifying the achievement to award.
+ */
+schema.statics.addAchievementUpdate = async function addAchievementUpdate (query, achievement) {
+  const achievementData = common.content.achievements[achievement];
+  if (!achievementData) throw new Error(`Achievement ${achievement} does not exist.`);
+
+  const newNotification = new UserNotification({
+    type: 'ACHIEVEMENT',
+    data: {
+      achievement,
+    },
+    seen: false,
+  });
+
+  const validationResult = newNotification.validateSync();
+  if (validationResult) throw validationResult;
+
+  await this.update(
+    query,
+    {
+      $push: { notifications: newNotification.toObject() },
+      $set: { [`achievements.${achievement}`]: true },
+    },
+    { multi: true },
+  ).exec();
+};
+
 // Static method to add/remove properties to a JSON User object,
 // For example for when the user is returned using `.lean()` and thus doesn't
 // have access to any mongoose helper
@@ -276,7 +329,7 @@ schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONOb
 // This creates some odd Dependency Injection issues. To counter that,
 // we use the user as the third layer
 // To negotiate between the payment providers and the payment helper
-// (which probably has too many responsiblities)
+// (which probably has too many responsibilities)
 // In summary, currently is is best practice to use this method to cancel a user subscription,
 // rather than calling the
 // payment helper.

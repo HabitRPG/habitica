@@ -2,7 +2,7 @@
     "potionText": "治疗药水",
     "potionNotes": "回复15点生命值 （立即生效）",
     "armoireText": "魔法衣橱",
-    "armoireNotesFull": "拉开 魔法衣橱 来获得随机的特殊装备，经验或者食物！剩余的装备：",
+    "armoireNotesFull": "拉开魔法衣橱来获得随机的特殊装备，经验或者食物！剩余的装备：",
     "armoireLastItem": "您在 魔法衣橱 里找到了最后一件 稀有装备。",
     "armoireNotesEmpty": "每个月的第一个星期衣柜里会有新的装备，到时记得常点进来获得经验和食物！",
     "dropEggWolfText": "狼",
@@ -351,5 +351,8 @@
     "questEggDolphinMountText": "海豚",
     "questEggDolphinText": "海豚",
     "hatchingPotionShadow": "阴影",
-    "premiumPotionUnlimitedNotes": "无法用于副本宠物蛋。"
+    "premiumPotionUnlimitedNotes": "无法用于副本宠物蛋。",
+    "hatchingPotionAmber": "琥珀",
+    "hatchingPotionAurora": "极光",
+    "hatchingPotionRuby": "红宝石"
 }

@@ -71,7 +71,6 @@
   "noPermissionEditChallenge": "You don't have permissions to edit this challenge",
   "noPermissionDeleteChallenge": "You don't have permissions to delete this challenge",
   "noPermissionCloseChallenge": "You don't have permissions to close this challenge",
-  "congratulations": "Congratulations!",
   "hurray": "Hurray!",
   "noChallengeOwner": "no owner",
   "noChallengeOwnerPopover": "This challenge does not have an owner because the person who created the challenge deleted their account.",

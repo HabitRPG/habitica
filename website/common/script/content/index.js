@@ -1,5 +1,6 @@
 import defaults from 'lodash/defaults';
 import each from 'lodash/each';
+import moment from 'moment';
 import t from './translation';
 import { tasksByCategory } from './tasks';
 
@@ -117,6 +118,7 @@ api.cardTypes = {
   nye: {
     key: 'nye',
     messageOptions: 5,
+    yearRound: moment().isBefore('2020-01-02'),
   },
   thankyou: {
     key: 'thankyou',
@@ -126,6 +128,7 @@ api.cardTypes = {
   valentine: {
     key: 'valentine',
     messageOptions: 4,
+    yearRound: moment().isBefore('2020-03-02'),
   },
   birthday: {
     key: 'birthday',
@@ -161,12 +164,14 @@ api.timeTravelStable = {
     'MantisShrimp-Base': t('mantisShrimp'),
     'Phoenix-Base': t('phoenix'),
     'MagicalBee-Base': t('magicalBee'),
+    'Hippogriff-Hopeful': t('hopefulHippogriffPet'),
   },
   mounts: {
     'Mammoth-Base': t('mammoth'),
     'MantisShrimp-Base': t('mantisShrimp'),
     'Phoenix-Base': t('phoenix'),
     'MagicalBee-Base': t('magicalBee'),
+    'Hippogriff-Hopeful': t('hopefulHippogriffMount'),
   },
 };
 

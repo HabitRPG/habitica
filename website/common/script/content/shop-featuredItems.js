@@ -5,23 +5,23 @@ import moment from 'moment';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBetween('2019-11-01', '2019-12-02')) {
+    if (moment().isBefore('2020-03-02')) {
       return [
         {
-          type: 'armoire',
-          path: 'armoire',
+          type: 'card',
+          path: 'cardTypes.valentine',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Ember',
+          path: 'premiumHatchingPotions.Cupid',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Thunderstorm',
+          path: 'premiumHatchingPotions.RoseQuartz',
         },
         {
-          type: 'food',
-          path: 'food.Saddle',
+          type: 'eggs',
+          path: 'eggs.Fox',
         },
       ];
     }
@@ -32,11 +32,11 @@ const featuredItems = {
       },
       {
         type: 'hatchingPotions',
-        path: 'hatchingPotions.Skeleton',
+        path: 'hatchingPotions.Golden',
       },
       {
         type: 'eggs',
-        path: 'eggs.Fox',
+        path: 'eggs.Wolf',
       },
       {
         type: 'food',
@@ -44,21 +44,23 @@ const featuredItems = {
       },
     ];
   },
-  quests: [
-    {
-      type: 'bundles',
-      path: 'bundles.delightfulDinos',
-    },
-    {
-      type: 'quests',
-      path: 'quests.taskwoodsTerror1',
-    },
-    {
-      type: 'quests',
-      path: 'quests.silver',
-    },
-  ],
-  seasonal: 'fall2018Rogue',
+  quests () {
+    return [
+      {
+        type: 'quests',
+        path: 'quests.treeling',
+      },
+      {
+        type: 'quests',
+        path: 'quests.stoikalmCalamity1',
+      },
+      {
+        type: 'quests',
+        path: 'quests.ruby',
+      },
+    ];
+  },
+  seasonal: 'winter2019Warrior',
   timeTravelers: [
     // TODO
   ],

@@ -23,7 +23,7 @@ input, textarea, input.form-control, textarea.form-control {
   border-radius: 2px;
   font-size: 14px;
   line-height: 1.43;
-  color: $gray-200;
+  color: $gray-50;
   border: 1px solid $gray-400;
 
   &:hover:not(:disabled) {
@@ -32,7 +32,6 @@ input, textarea, input.form-control, textarea.form-control {
 
   &:active:not(:disabled), &:focus:not(:disabled) {
     border-color: $purple-500;
-    color: $gray-50;
     outline: 0;
     box-shadow: none;
   }
@@ -65,6 +64,7 @@ input, textarea, input.form-control, textarea.form-control {
     padding-right: 40px;
     background-image: url(~@/assets/svg/for-css/alert.svg);
     background-size: 16px 16px;
+    border-color: $red-100 !important;
   }
 }
 
@@ -275,4 +275,20 @@ $bg-disabled-control: #34303a;
 
 .toggle-switch-container.no-margin {
   margin-top: 0 !important;
+}
+
+
+
+// Disable default style Firefox for invalid elements.
+// Selectors taken from view-source:resource://gre-resources/forms.css on Firefox
+:not(output):-moz-ui-invalid {
+  box-shadow: none;
+}
+
+:not(output):-moz-ui-invalid:-moz-focusring {
+  box-shadow: none;
+}
+
+output:-moz-ui-invalid {
+  color: inherit;
 }

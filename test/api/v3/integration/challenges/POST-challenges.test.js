@@ -251,7 +251,7 @@ describe('POST /challenges', () => {
       expect(groupLeader.balance).to.eql(oldUserBalance);
     });
 
-    it('sets all properites of the challenge as passed', async () => {
+    it('sets all properties of the challenge as passed', async () => {
       const name = 'Test Challenge';
       const shortName = 'TC Label';
       const description = 'Test Description';

@@ -283,7 +283,7 @@
     "passwordResetEmailHtml": "Si vous avez demandé une réinitialisation de mot de passe pour <strong><%= username %></strong> sur Habitica, rendez-vous sur <a href=\"<%= passwordResetLink %>\"> ce lien</a> pour en définir un nouveau. Le lien expirera après 24 heures.<br/><br>Si vous n'avez pas demandé de réinitialisation, vous pouvez ignorer ce courriel.",
     "invalidLoginCredentialsLong": "Oups ! Votre adresse courriel / identifiant ou votre mot de passe est incorrect.\n- Assurez-vous que vous avez tout bien orthographié. L'identifiant et le mot de passe sont sensibles à la casse.\n- Vous vous êtes peut-être enregistré avec Facebook ou Google-sign-in, et non avec votre adresse courriel. Vérifiez en essayant de vous connecter avec ces services.\n- Si vous avez oublié votre mot de passe, cliquez sur « Mot de passe oublié ».",
     "invalidCredentials": "Aucun compte n'utilise cet identifiant.",
-    "accountSuspended": "Ce compte, identifiant “<%= userId %>”, a été bloqué pour avoir enfreint les [règles de vie en communauté] (https://habitica.com/static/community-guidelines) ou les [conditions d’utilisation] (https://habitica.com/static/terms). Pour plus d’informations, ou pour demander un déblocage, merci d’envoyer un courriel à notre gestionnaire de la communauté : <%= communityManagerEmail %>, ou demandez à un parent ou à un tuteur de leur envoyer un courriel. Merci de copier votre ID d'Utilisateur dans le courriel et d'y inclure également votre identifiant.",
+    "accountSuspended": "Ce compte, identifiant “<%= userId %>”, a été bloqué pour avoir enfreint les règles de vie en communauté (https://habitica.com/static/community-guidelines) ou les conditions d’utilisation (https://habitica.com/static/terms). Pour plus d’informations, ou pour demander un déblocage, merci d’envoyer un courriel à notre gestionnaire de la communauté : <%= communityManagerEmail %>, ou demandez à un parent ou à un tuteur de leur envoyer un courriel. Merci d'y inclure votre @identifiant.",
     "accountSuspendedTitle": "Le compte a été suspendu",
     "unsupportedNetwork": "Ce réseau n'est actuellement pas pris en charge.",
     "cantDetachSocial": "Votre compte n'a pas d'autre méthode d'authentification; vous ne pouvez pas détacher cette méthode d'authentification.",
@@ -325,11 +325,12 @@
     "muchmuchMoreDesc": "Notre liste de tâches totalement personnalisable vous permet de modeler Habitica pour convenir à vos objectifs personnels. Travailler sur des projets créatifs, prendre soin de soi, ou suivre un rêve différent – c'est à vous de choisir.",
     "levelUpAnywhere": "Augmentez de niveau n'importe où",
     "levelUpAnywhereDesc": "Notre application mobile facilite la validation de vos tâches en itinérance. Accomplissez vos objectifs du bout des doigts, peu importe où vous vous trouvez.",
-    "joinMany": "Rejoignez plus de 2 000 000 de personnes qui s'amusent en réalisant leurs objectifs !",
+    "joinMany": "Rejoignez plus de <%= userCountInMillions %> millions de personnes qui s'amusent en réalisant leurs objectifs !",
     "joinToday": "Rejoignez Habitica aujourd'hui",
     "signup": "Inscrivez-vous",
     "getStarted": "Commencez !",
     "mobileApps": "Applications mobiles",
     "learnMore": "En savoir plus",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "Le mot de passe doit faire au moins 8 caractères."
 }

@@ -43,6 +43,10 @@ export default function buy (
       buyRes = buyOp.purchase();
       break;
     }
+    case 'backgrounds':
+      if (!hourglass) throw new BadRequest(errorMessage('useUnlockForCosmetics'));
+      buyRes = hourglassPurchase(user, req, analytics);
+      break;
     case 'mystery':
       buyRes = buyMysterySet(user, req, analytics);
       break;

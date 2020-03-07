@@ -1,60 +1,42 @@
-.promo_armoire_backgrounds_201911 {
+.promo_achievement_CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -752px;
+  background-position: -424px -277px;
+  width: 204px;
+  height: 102px;
+}
+.promo_armoire_backgrounds_202003 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -277px;
   width: 423px;
   height: 147px;
 }
-.promo_costume_achievement {
+.promo_mystery_202003 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -928px -296px;
-  width: 144px;
-  height: 156px;
-}
-.promo_delightful_dinos {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -752px;
-  width: 423px;
-  height: 147px;
-}
-.promo_ember_thunderstorm_potions {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -928px 0px;
-  width: 423px;
-  height: 147px;
-}
-.promo_mystery_201911 {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -928px -148px;
+  background-position: 0px -425px;
   width: 282px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1211px -148px;
+  background-position: -566px -425px;
   width: 96px;
   height: 69px;
 }
-.scene_habitica_map {
+.scene_dailies {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
-  width: 450px;
-  height: 450px;
+  width: 327px;
+  height: 276px;
 }
-.scene_office {
+.scene_gaining_achievement {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -421px -451px;
-  width: 360px;
-  height: 240px;
+  background-position: -328px 0px;
+  width: 339px;
+  height: 210px;
 }
-.scene_seaserpent {
+.scene_shanaqui {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -451px 0px;
-  width: 476px;
-  height: 364px;
-}
-.scene_yarn_boss {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -451px;
-  width: 420px;
-  height: 300px;
+  background-position: -283px -425px;
+  width: 282px;
+  height: 147px;
 }

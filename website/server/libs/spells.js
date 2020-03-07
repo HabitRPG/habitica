@@ -11,7 +11,7 @@ import {
 } from '../models/group';
 import apiError from './apiError';
 
-const partyMembersFields = 'profile.name stats achievements items.special notifications flags';
+const partyMembersFields = 'profile.name stats achievements items.special notifications flags pinnedItems';
 // Excluding notifications and flags from the list of public fields to return.
 const partyMembersPublicFields = 'profile.name stats achievements items.special';
 
@@ -68,6 +68,9 @@ async function castSelfSpell (req, user, spell, quantity = 1) {
   for (let i = 0; i < quantity; i += 1) {
     spell.cast(user, null, req);
   }
+
+  common.setDebuffPotionItems(user);
+
   await user.save();
 }
 
@@ -112,6 +115,8 @@ async function castUserSpell (res, req, party, partyMembers, targetId, user, spe
   for (let i = 0; i < quantity; i += 1) {
     spell.cast(user, partyMembers, req);
   }
+
+  common.setDebuffPotionItems(partyMembers);
 
   if (partyMembers !== user) {
     await Promise.all([

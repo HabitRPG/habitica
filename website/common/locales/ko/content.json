@@ -3,7 +3,7 @@
     "potionNotes": "체력 15 회복 (일회용)",
     "armoireText": "마법의 장롱",
     "armoireNotesFull": "랜덤으로 특별한 장비, 경험치 혹은 펫 먹이를 받으려면 장롱문을 열어주세요! 아직 못찾은 특별장비:",
-    "armoireLastItem": "마법의 장롱에서 마지막 남은 희귀 장비를 찾으셨습니다!",
+    "armoireLastItem": "마법의 장롱에서 마지막 남은 레어 장비를 찾았습니다!",
     "armoireNotesEmpty": "매달 첫주마다 새로운 장비가 구비될 것입니다. 그 때까지는 경험치와 먹이를 받으러 클릭하세요!",
     "dropEggWolfText": "늑대",
     "dropEggWolfMountText": "늑대",
@@ -179,8 +179,8 @@
     "questEggAlligatorText": "Alligator",
     "questEggAlligatorMountText": "Alligator",
     "questEggAlligatorAdjective": "a cunning",
-    "questEggVelociraptorText": "Velociraptor",
-    "questEggVelociraptorMountText": "Velociraptor",
+    "questEggVelociraptorText": "벨로시랩터",
+    "questEggVelociraptorMountText": "벨로시랩터",
     "questEggVelociraptorAdjective": "a clever",
     "eggNotes": "부화 물약을 찾아서 이 알에 부으면 <%= eggAdjective(locale) %> <%= eggText(locale) %>(으)로 부화합니다.",
     "hatchingPotionBase": "기본",
@@ -306,5 +306,8 @@
     "foodSaddleText": "안장",
     "foodSaddleNotes": "즉시 펫 한마리를 탑승펫으로 성장시킵니다.",
     "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
-    "foodNotes": "이것을 펫에게 먹이면 튼튼한 탑승펫으로 성장시킬 수 있습니다."
+    "foodNotes": "이것을 펫에게 먹이면 튼튼한 탑승펫으로 성장시킬 수 있습니다.",
+    "questEggRobotText": "로봇",
+    "questEggDolphinText": "돌고래",
+    "questEggDolphinMountText": "돌고래"
 }

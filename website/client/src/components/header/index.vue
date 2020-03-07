@@ -8,13 +8,14 @@
     <div
       id="app-header"
       class="row"
-      :class="{'hide-header': $route.name === 'groupPlan'}"
+      :class="{'hide-header': hideHeader}"
     >
       <members-modal :hide-badge="true" />
       <member-details
         :member="user"
         :class-badge-position="'next-to-name'"
         :is-header="true"
+        :disable-name-styling="true"
       />
       <div
         v-if="hasParty"
@@ -170,6 +171,9 @@ export default {
     },
     sortedPartyMembers () {
       return orderBy(this.partyMembers, [this.user.party.order], [this.user.party.orderAscending]);
+    },
+    hideHeader () {
+      return ['groupPlan', 'privateMessages'].includes(this.$route.name);
     },
   },
   created () {

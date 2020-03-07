@@ -17,7 +17,7 @@
 .tier3 {
   color: #d70e14;
 
-  :hover, :active, :focus {
+  &:hover, &:active, &:focus {
     color: #d70e14;
   }
 }
@@ -25,7 +25,7 @@
 .tier4 {
   color: #c24d00;
 
-  &:hover, &:active, :focus {
+  &:hover, &:active, &:focus {
     color: #c24d00;
   }
 }
@@ -33,7 +33,7 @@
 .tier5 {
   color: #9e650f;
 
-  :hover, :active, :focus {
+  &:hover, &:active, &:focus {
     color: #9e650f;
   }
 }
@@ -41,7 +41,7 @@
 .tier6 {
   color: #2b8363;
 
-  :hover, :active, &:focus {
+  &:hover, &:active, &:focus {
     color: #2b8363;
   }
 }
@@ -71,8 +71,8 @@
 }
 
 .tierNPC, .npc {
-  color: #77f4c7;
-  fill: #77f4c7;
+  color: #4e4a57;
+  fill: #4e4a57;
   stroke: #005737;
 
   &:hover, &:active, &:focus {

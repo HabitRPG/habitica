@@ -1,18 +1,14 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import shared from '../../../common';
-import { schema as TagSchema } from '../tag';
-import { schema as PushDeviceSchema } from '../pushDevice';
-import { schema as WebhookSchema } from '../webhook';
-import {
-  schema as UserNotificationSchema,
-} from '../userNotification';
-import {
-  schema as SubscriptionPlanSchema,
-} from '../subscriptionPlan';
 import { // eslint-disable-line import/no-cycle
   getDefaultOwnedGear,
 } from '../../libs/items/utils';
+import { schema as PushDeviceSchema } from '../pushDevice';
+import { schema as SubscriptionPlanSchema } from '../subscriptionPlan';
+import { schema as TagSchema } from '../tag';
+import { schema as UserNotificationSchema } from '../userNotification';
+import { schema as WebhookSchema } from '../webhook';
 
 const { Schema } = mongoose;
 
@@ -132,6 +128,16 @@ export default new Schema({
     kickstarter2019: Boolean,
     monsterMagus: Boolean,
     undeadUndertaker: Boolean,
+    primedForPainting: Boolean,
+    pearlyPro: Boolean,
+    tickledPink: Boolean,
+    rosyOutlook: Boolean,
+    // Onboarding Guide
+    createdTask: Boolean,
+    completedTask: Boolean,
+    hatchedPet: Boolean,
+    fedPet: Boolean,
+    purchasedEquipment: Boolean,
   },
 
   backer: {
@@ -400,7 +406,7 @@ export default new Schema({
     default: () => ({}),
   },
 
-  challenges: [{ $type: String, ref: 'Challenge', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
+  challenges: [{ $type: String, ref: 'Challenge', validate: [v => validator.isUUID(v), 'Invalid uuid for user challenges.'] }],
 
   invitations: {
     // Using an array without validation because otherwise mongoose
@@ -420,7 +426,7 @@ export default new Schema({
         $type: String,
         ref: 'Group',
         required: true,
-        validate: [v => validator.isUUID(v), 'Invalid uuid.'],
+        validate: [v => validator.isUUID(v), 'Invalid uuid for user invitation party id.'],
       },
       name: {
         $type: String,
@@ -430,15 +436,15 @@ export default new Schema({
         $type: String,
         ref: 'User',
         required: true,
-        validate: [v => validator.isUUID(v), 'Invalid uuid.'],
+        validate: [v => validator.isUUID(v), 'Invalid uuid for user invitation inviter id.'],
       },
     }],
   },
 
-  guilds: [{ $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
+  guilds: [{ $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for user guild.'] }],
 
   party: {
-    _id: { $type: String, validate: [v => validator.isUUID(v), 'Invalid uuid.'], ref: 'Group' },
+    _id: { $type: String, validate: [v => validator.isUUID(v), 'Invalid uuid for user party.'], ref: 'Group' },
     order: { $type: String, default: 'level' },
     orderAscending: { $type: String, default: 'ascending' },
     quest: {

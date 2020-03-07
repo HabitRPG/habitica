@@ -114,9 +114,6 @@ export default function () {
       profileOptions: {
         startingPage: '',
       },
-      gemModalOptions: {
-        startingPage: '',
-      },
       rageModalOptions: {
         npc: '',
       },
@@ -127,6 +124,13 @@ export default function () {
       equipmentDrawerOpen: true,
       groupPlans: [],
       isRunningYesterdailies: false,
+      privateMessageOptions: {
+        userIdToMessage: '',
+        displayName: '',
+        username: '',
+        backer: {},
+        contributor: {},
+      },
     },
   });
 

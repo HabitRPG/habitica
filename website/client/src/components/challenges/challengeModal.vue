@@ -16,6 +16,7 @@
           v-model="workingChallenge.name"
           type="text"
           :placeholder="$t('challengeNamePlaceholder')"
+          @keydown="enableSubmit"
         />
       </div>
       <div class="form-group">
@@ -26,6 +27,7 @@
           v-model="workingChallenge.shortName"
           type="text"
           :placeholder="$t('shortNamePlaceholder')"
+          @keydown="enableSubmit"
         />
       </div>
       <div class="form-group">
@@ -41,6 +43,7 @@
           v-model="workingChallenge.summary"
           class="summary-textarea form-control"
           :placeholder="$t('challengeSummaryPlaceholder')"
+          @keydown="enableSubmit"
         ></textarea>
       </div>
       <div class="form-group">
@@ -55,6 +58,7 @@
           v-model="workingChallenge.description"
           class="description-textarea form-control"
           :placeholder="$t('challengeDescriptionPlaceholder')"
+          @keydown="enableSubmit"
         ></textarea>
       </div>
       <div
@@ -67,6 +71,7 @@
         <select
           v-model="workingChallenge.group"
           class="form-control"
+          @change="enableSubmit"
         >
           <option
             v-for="group in groups"
@@ -101,7 +106,7 @@
           </div>
         </div>
         <div
-          v-if="showCategorySelect && creating"
+          v-if="showCategorySelect"
           class="category-box"
         >
           <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -119,6 +124,7 @@
                 class="custom-control-input"
                 type="checkbox"
                 :value="group.key"
+                @change="enableSubmit"
               >
               <label
                 v-once
@@ -150,6 +156,7 @@
           type="number"
           :min="minPrize"
           :max="maxPrize"
+          @change="enableSubmit"
         >
       </div>
       <div class="row footer-wrap">
@@ -266,6 +273,7 @@
 
 <script>
 import clone from 'lodash/clone';
+import throttle from 'lodash/throttle';
 
 import markdownDirective from '@/directives/markdown';
 
@@ -534,6 +542,7 @@ export default {
       if (!this.workingChallenge.description) errors.push(this.$t('descriptionRequired'));
       if (!this.workingChallenge.group) errors.push(this.$t('locationRequired'));
       if (!this.workingChallenge.categories || this.workingChallenge.categories.length === 0) errors.push(this.$t('categoiresRequired'));
+      if (this.workingChallenge.prize > this.maxPrize) errors.push(this.$t('cantAfford'));
 
       if (errors.length > 0) {
         window.alert(errors.join('\n'));
@@ -556,14 +565,20 @@ export default {
       challengeDetails.categories = serverCategories;
 
       let challenge;
-      if (this.cloning) {
-        challenge = await this.$store.dispatch('challenges:cloneChallenge', {
-          challenge: challengeDetails,
-          cloningChallengeId: this.cloningChallengeId,
-        });
-        this.cloningChallengeId = '';
-      } else {
-        challenge = await this.$store.dispatch('challenges:createChallenge', { challenge: challengeDetails });
+      try {
+        if (this.cloning) {
+          challenge = await this.$store.dispatch('challenges:cloneChallenge', {
+            challenge: challengeDetails,
+            cloningChallengeId: this.cloningChallengeId,
+          });
+          this.cloningChallengeId = '';
+        } else {
+          challenge = await this.$store.dispatch('challenges:createChallenge', { challenge: challengeDetails });
+        }
+      } catch (e) {
+        // creating the challenge failed. Most probably due to server-side errors.
+        console.error(e); // eslint-disable-line no-console
+        return;
       }
 
       // Update Group Prize
@@ -592,10 +607,10 @@ export default {
       this.$emit('createChallenge', challenge);
       this.resetWorkingChallenge();
 
-      this.$root.$emit('bv::hide::modal', 'challenge-modal');
+      this.$root.$emit('habitica::dismiss-modal', 'challenge-modal');
       this.$router.push(`/challenges/${challenge._id}`);
     },
-    updateChallenge () {
+    async updateChallenge () {
       const categoryKeys = this.workingChallenge.categories;
       const serverCategories = [];
       categoryKeys.forEach(key => {
@@ -610,16 +625,20 @@ export default {
       const challengeDetails = clone(this.workingChallenge);
       challengeDetails.categories = serverCategories;
 
-      this.$emit('updatedChallenge', {
-        challenge: challengeDetails,
-      });
-      this.$store.dispatch('challenges:updateChallenge', { challenge: challengeDetails });
+      const challenge = await this.$store.dispatch('challenges:updateChallenge', { challenge: challengeDetails });
+      this.$emit('updatedChallenge', { challenge });
       this.resetWorkingChallenge();
-      this.$root.$emit('bv::hide::modal', 'challenge-modal');
+      this.$root.$emit('habitica::dismiss-modal', 'challenge-modal');
     },
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;
     },
+    enableSubmit: throttle(function enableSubmit () {
+      /* Enables the submit button if it was disabled */
+      if (this.loading) {
+        this.loading = false;
+      }
+    }, 250),
   },
 };
 </script>

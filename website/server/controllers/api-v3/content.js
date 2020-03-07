@@ -82,7 +82,7 @@ async function saveContentToDisk (language, content) {
  *                                                     the user's configured language.
  *
  * @apiSuccess {Object} data Various data about the content of Habitica. The content route
- * contains many keys, but the data listed below are the recomended data to use.
+ * contains many keys, but the data listed below are the recommended data to use.
  * @apiSuccess {Object} data.mystery The mystery sets awarded to paying subscribers.
  * @apiSuccess {Object} data.gear The gear that can be equipped.
  * @apiSuccess {Object} data.gear.tree Detailed information about the gear, organized by type.
@@ -101,7 +101,7 @@ async function saveContentToDisk (language, content) {
  * @apiSuccess {Object} data.food All the food.
  * @apiSuccess {Array} data.userCanOwnQuestCategories The types of quests that a user can own.
  * @apiSuccess {Object} data.quests Data about the quests.
- * @apiSuccess {Object} data.appearances Data about the apperance properties.
+ * @apiSuccess {Object} data.appearances Data about the appearance properties.
  * @apiSuccess {Object} data.appearances.hair Data about available hair options.
  * @apiSuccess {Object} data.appearances.shirt Data about available shirt options.
  * @apiSuccess {Object} data.appearances.size Data about available body size options.
@@ -109,7 +109,7 @@ async function saveContentToDisk (language, content) {
  * @apiSuccess {Object} data.appearances.chair Data about available chair options.
  * @apiSuccess {Object} data.appearances.background Data about available background options.
  * @apiSuccess {Object} data.backgrounds Data about the background sets.
- * @apiSuccess {Object} data.subscriptionBlocks Data about the various subscirption blocks.
+ * @apiSuccess {Object} data.subscriptionBlocks Data about the various subscriptions blocks.
  *
  */
 api.getContent = {

@@ -29,7 +29,7 @@ export function setUpLogging () { // eslint-disable-line import/prefer-default-e
   Vue.config.errorHandler = (err, vm, info) => {
     console.error('Unhandled error in Vue.js code.');
     console.error('Error:', err);
-    console.error('Component where it occured:', vm);
+    console.error('Component where it occurred:', vm);
     console.error('Info:', info);
 
     _LTracker.push({

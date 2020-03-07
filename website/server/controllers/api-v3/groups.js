@@ -1049,7 +1049,7 @@ api.removeGroupMember = {
  *
  * @apiSuccess {Array} data The invites
  * @apiSuccess {Object} data[0] If the invitation was a User ID, you'll receive back an object.
- *                              You'll receive one Object for each succesful User ID invite.
+ *                              You'll receive one Object for each successful User ID invite.
  * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email.
  *                              You'll receive one String for each successful email invite.
  *

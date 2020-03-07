@@ -26,10 +26,14 @@
     <quest-completed />
     <quest-invitation />
     <verify-username />
-    <generic-achievement :data="notificationData" />
+    <generic-achievement
+      v-if="notificationData && notificationData.achievement"
+      :data="notificationData"
+    />
     <just-add-water />
     <lost-masterclasser />
     <mind-over-matter />
+    <onboarding-complete />
   </div>
 </template>
 
@@ -92,6 +96,10 @@
     background-color: #4f2a93 !important;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12) !important;
   }
+
+  .introjs-skipbutton.btn-primary, .introjs-donebutton.btn-primary {
+    color: #fff;
+  }
 </style>
 
 <script>
@@ -99,9 +107,11 @@ import axios from 'axios';
 import moment from 'moment';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
+import Vue from 'vue';
 
 import { toNextLevel } from '@/../../common/script/statHelpers';
 import { shouldDo } from '@/../../common/script/cron';
+import { onOnboardingComplete } from '@/../../common/script/libs/onboarding';
 import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
@@ -132,6 +142,7 @@ import justAddWater from './achievements/justAddWater';
 import lostMasterclasser from './achievements/lostMasterclasser';
 import mindOverMatter from './achievements/mindOverMatter';
 import loginIncentives from './achievements/login-incentives';
+import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
 
 const NOTIFICATIONS = {
@@ -164,21 +175,33 @@ const NOTIFICATIONS = {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementAllYourBase')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'allYourBase', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_BACK_TO_BASICS: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'backToBasics', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_DUST_DEVIL: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'dustDevil', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_ARID_AUTHORITY: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'aridAuthority', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_PARTY_UP: {
     achievement: true,
@@ -187,6 +210,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('achievementPartyUp'),
+      achievement: 'partyUp', // defined manually until the server sends all the necessary data
     },
   },
   ACHIEVEMENT_PARTY_ON: {
@@ -196,6 +220,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('achievementPartyOn'),
+      achievement: 'partyOn', // defined manually until the server sends all the necessary data
     },
   },
   ACHIEVEMENT_BEAST_MASTER: {
@@ -205,6 +230,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('beastAchievement'),
+      achievement: 'beastMaster', // defined manually until the server sends all the necessary data
     },
   },
   ACHIEVEMENT_MOUNT_MASTER: {
@@ -214,6 +240,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('mountAchievement'),
+      achievement: 'mountMaster', // defined manually until the server sends all the necessary data
     },
   },
   ACHIEVEMENT_TRIAD_BINGO: {
@@ -223,17 +250,65 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('triadBingoAchievement'),
+      achievement: 'triadBingo', // defined manually until the server sends all the necessary data
     },
   },
   ACHIEVEMENT_MONSTER_MAGUS: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'monsterMagus', // defined manually until the server sends all the necessary data
+    },
   },
   ACHIEVEMENT_UNDEAD_UNDERTAKER: {
     achievement: true,
     label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
     modalId: 'generic-achievement',
+    data: {
+      achievement: 'undeadUndertaker', // defined manually until the server sends all the necessary data
+    },
+  },
+  ACHIEVEMENT: { // data filled in handleUserNotifications
+    achievement: true,
+    modalId: 'generic-achievement',
+    label: null, // data filled in handleUserNotifications
+    data: {
+      message: $t => $t('achievement'),
+      modalText: null, // data filled in handleUserNotifications
+    },
+  },
+  ACHIEVEMENT_PRIMED_FOR_PAINTING: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPrimedForPainting')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'primedForPainting', // defined manually until the server sends all the necessary data
+    },
+  },
+  ACHIEVEMENT_PEARLY_PRO: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementPearlyPro')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'pearlyPro', // defined manually until the server sends all the necessary data
+    },
+  },
+  ACHIEVEMENT_TICKLED_PINK: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementTickledPink')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'tickledPink', // defined manually until the server sends all the necessary data
+    },
+  },
+  ACHIEVEMENT_ROSY_OUTLOOK: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementRosyOutlook')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'rosyOutlook', // defined manually until the server sends all the necessary data
+    },
   },
 };
 
@@ -266,6 +341,7 @@ export default {
     lostMasterclasser,
     mindOverMatter,
     justAddWater,
+    onboardingComplete,
   },
   mixins: [notifications, guide],
   data () {
@@ -291,7 +367,9 @@ export default {
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
       'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
       'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
-      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'GENERIC_ACHIEVEMENT',
+      'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
+      'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT_TICKLED_PINK', 'ACHIEVEMENT_ROSY_OUTLOOK', 'ACHIEVEMENT',
+      'ONBOARDING_COMPLETE',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -467,7 +545,7 @@ export default {
         this.text(config.label(this.$t), () => {
           this.notificationData = data;
           this.$root.$emit('bv::show::modal', config.modalId);
-        }, false);
+        }, true, 10000);
       }
     },
     debounceCheckUserAchievements: debounce(function debounceCheck () {
@@ -697,9 +775,25 @@ export default {
           case 'ACHIEVEMENT_TRIAD_BINGO':
           case 'ACHIEVEMENT_MONSTER_MAGUS':
           case 'ACHIEVEMENT_UNDEAD_UNDERTAKER':
+          case 'ACHIEVEMENT_PRIMED_FOR_PAINTING':
+          case 'ACHIEVEMENT_PEARLY_PRO':
+          case 'ACHIEVEMENT_TICKLED_PINK':
+          case 'ACHIEVEMENT_ROSY_OUTLOOK':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
+          case 'ACHIEVEMENT': { // generic achievement
+            const { achievement } = notification.data;
+            const upperCaseAchievement = achievement.charAt(0).toUpperCase() + achievement.slice(1);
+            const achievementTitleKey = `achievement${upperCaseAchievement}`;
+            NOTIFICATIONS.ACHIEVEMENT.label = $t => `${$t('achievement')}: ${$t(achievementTitleKey)}`;
+            NOTIFICATIONS.ACHIEVEMENT.data.modalText = $t => $t(achievementTitleKey);
+            this.showNotificationWithModal(notification);
+
+            // Set the achievement as it's not defined in the user schema
+            Vue.set(this.user.achievements, achievement, true);
+            break;
+          }
           case 'CRON':
             if (notification.data) {
               if (notification.data.hp) this.hp(notification.data.hp, 'hp');
@@ -727,6 +821,20 @@ export default {
             if (this.user.flags.tour.intro === this.TOUR_END && this.user.flags.welcomed) {
               this.notificationData = notification.data;
               this.$root.$emit('bv::show::modal', 'login-incentives');
+            }
+            break;
+          case 'ONBOARDING_COMPLETE':
+            // Award rewards
+            onOnboardingComplete(this.user);
+
+            // If the user cronned in the last 3 minutes
+            // Don't show too many modals on app load
+            // Use notification panel
+            if (moment().diff(this.user.lastCron, 'minutes') < 3) {
+              markAsRead = false;
+            } else {
+              // Otherwise use the modal
+              this.$root.$emit('bv::show::modal', 'onboarding-complete');
             }
             break;
         }

@@ -28,7 +28,10 @@
     </div>
     <div
       id="app"
-      :class="{'casting-spell': castingSpell}"
+      :class="{
+        'casting-spell': castingSpell,
+        'resting': showRestingBanner
+      }"
     >
       <banned-account-modal />
       <amazon-payments-modal v-if="!isStaticPage" />
@@ -66,7 +69,10 @@
           </div>
           <notifications-display />
           <app-menu />
-          <div class="container-fluid">
+          <div
+            class="container-fluid"
+            :class="{'no-margin': noMargin}"
+          >
             <app-header />
             <buyModal
               :item="selectedItemToBuy || {}"
@@ -83,7 +89,7 @@
               <router-view />
             </div>
           </div>
-          <app-footer />
+          <app-footer v-if="!hideFooter" />
           <audio
             id="sound"
             ref="sound"
@@ -97,13 +103,20 @@
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
 
   #app {
-    height: calc(100% - 56px); /* 56px is the menu */
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     overflow-x: hidden;
+
+    &.resting {
+      --banner-resting-height: #{$restingToolbarHeight};
+    }
+
+    &.giftingBanner {
+      --banner-gifting-height: 2.5rem;
+    }
   }
 
   #loading-screen-inapp {
@@ -135,8 +148,24 @@
     cursor: crosshair;
   }
 
+  .closepadding {
+    margin: 11px 24px;
+    display: inline-block;
+    position: relative;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+
   .container-fluid {
     flex: 1 0 auto;
+  }
+
+  .no-margin {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .notification {
@@ -151,7 +180,7 @@
 
   .resting-banner {
     width: 100%;
-    min-height: 40px;
+    height: $restingToolbarHeight;
     background-color: $blue-10;
     top: 0;
     z-index: 1300;
@@ -163,15 +192,6 @@
       color: $white;
       padding: 8px 38px 8px 8px;
       margin: auto;
-    }
-
-    .closepadding {
-      margin: 11px 24px;
-      display: inline-block;
-      position: relative;
-      right: 0;
-      top: 0;
-      cursor: pointer;
     }
 
     @media only screen and (max-width: 768px) {
@@ -239,7 +259,11 @@ import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
 import subCanceledModal from '@/components/payments/canceledModal';
 
 import spellsMixin from '@/mixins/spells';
-import { CONSTANTS, getLocalSetting, removeLocalSetting } from '@/libs/userlocalManager';
+import {
+  CONSTANTS,
+  getLocalSetting,
+  removeLocalSetting,
+} from '@/libs/userlocalManager';
 
 import svgClose from '@/assets/svg/close.svg';
 import bannedAccountModal from '@/components/bannedAccountModal';
@@ -298,7 +322,13 @@ export default {
       return this.$t(`tip${tipNumber}`);
     },
     showRestingBanner () {
-      return !this.bannerHidden && this.user.preferences.sleep;
+      return !this.bannerHidden && this.user && this.user.preferences.sleep;
+    },
+    noMargin () {
+      return ['privateMessages'].includes(this.$route.name);
+    },
+    hideFooter () {
+      return ['privateMessages'].includes(this.$route.name);
     },
   },
   created () {
@@ -579,6 +609,25 @@ export default {
 
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, { fromRoot: true });
       });
+
+      // Dismiss modal aggressively. Pass a modal ID to remove a modal instance from the stack
+      // (both the stack entry itself and its "prev" reference) so we don't reopen it
+      this.$root.$on('habitica::dismiss-modal', oldModal => {
+        if (!oldModal) return;
+        this.$root.$emit('bv::hide::modal', oldModal);
+        let removeIndex = this.$store.state.modalStack
+          .map(modal => modal.modalId)
+          .indexOf(oldModal);
+        if (removeIndex >= 0) {
+          this.$store.state.modalStack.splice(removeIndex, 1);
+        }
+        removeIndex = this.$store.state.modalStack
+          .map(modal => modal.prev)
+          .indexOf(oldModal);
+        if (removeIndex >= 0) {
+          delete this.$store.state.modalStack[removeIndex].prev;
+        }
+      });
     },
     validStack (modalStack) {
       const modalsThatCanShowTwice = ['profile'];
@@ -708,5 +757,6 @@ export default {
 <style src="@/assets/css/sprites/spritesmith-main-24.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-25.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-26.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-27.css"></style>
 <style src="@/assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

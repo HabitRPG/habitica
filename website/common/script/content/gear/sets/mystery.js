@@ -394,6 +394,18 @@ const back = {
     mystery: '201905',
     value: 0,
   },
+  201912: {
+    text: t('backMystery201912Text'),
+    notes: t('backMystery201912Notes'),
+    mystery: '201912',
+    value: 0,
+  },
+  202001: {
+    text: t('backMystery202001Text'),
+    notes: t('backMystery202001Notes'),
+    mystery: '202001',
+    value: 0,
+  },
 };
 
 const body = {
@@ -419,6 +431,18 @@ const body = {
     text: t('bodyMystery201901Text'),
     notes: t('bodyMystery201901Notes'),
     mystery: '201901',
+    value: 0,
+  },
+  202002: {
+    text: t('bodyMystery202002Text'),
+    notes: t('bodyMystery202002Notes'),
+    mystery: '202002',
+    value: 0,
+  },
+  202003: {
+    text: t('bodyMystery202003Text'),
+    notes: t('bodyMystery202003Notes'),
+    mystery: '202003',
     value: 0,
   },
 };
@@ -763,6 +787,24 @@ const head = {
     mystery: '201911',
     value: 0,
   },
+  201912: {
+    text: t('headMystery201912Text'),
+    notes: t('headMystery201912Notes'),
+    mystery: '201912',
+    value: 0,
+  },
+  202001: {
+    text: t('headMystery202001Text'),
+    notes: t('headMystery202001Notes'),
+    mystery: '202001',
+    value: 0,
+  },
+  202003: {
+    text: t('headMystery202003Text'),
+    notes: t('headMystery202003Notes'),
+    mystery: '202003',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -956,6 +998,12 @@ const weapon = {
     text: t('weaponMystery201911Text'),
     notes: t('weaponMystery201911Notes'),
     mystery: '201911',
+    value: 0,
+  },
+  202002: {
+    text: t('weaponMystery202002Text'),
+    notes: t('weaponMystery202002Notes'),
+    mystery: '202002',
     value: 0,
   },
   301404: {

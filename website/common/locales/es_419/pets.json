@@ -143,5 +143,7 @@
     "notEnoughPets": "No has recolectado suficientes mascotas",
     "notEnoughMounts": "No has recolectado suficientes monturas",
     "notEnoughPetsMounts": "No has recolectado suficientes mascotas y monturas",
-    "wackyPets": "Mascotas Locas"
+    "wackyPets": "Mascotas Locas",
+    "filterByWacky": "Loco",
+    "gryphatrice": "Grifotriz"
 }

@@ -283,7 +283,7 @@
     "passwordResetEmailHtml": "Se pediu uma reinicialização de senha para <strong><%= username %></strong> em Habitica, <a href=\"<%= passwordResetLink %>\">carregue aqui</a> para definir uma nova. O link expirará depois de 24 horas.<br/><br>Se não pediu uma reinicialização de senha, por favor ignore este e-mail.",
     "invalidLoginCredentialsLong": "Oh não - seu endereço de e-mail / nome de utilizador ou senha está incorreto.\n- Tenha certeza de que seu nome de utilizador e senha estão digitados corretamente. Seu nome de utilizador e senha são sensíveis a letras maiúsculas. \n- Você pode ter se cadastrado com o Facebook ou Google, não com o e-mail. Cheque tentando fazer login com estas opções.\n- Se você esqueceu sua senha, clique \"Esqueci Senha\".",
     "invalidCredentials": "Não há uma conta que usa essas credenciais.",
-    "accountSuspended": "Essa conta, com o ID de Utilizador \"<%= userId %>\" foi bloqueada por violar as [Diretrizes da Comunidade](https://habitica.com/static/community-guidelines) ou [Termos de Serviço] (https://habitica.com/static/terms). Para detalhes ou solicitar o desbloqueio, por favor, entre em contato com nosso Gestor de Comunidade pelo e-mail <%= communityManagerEmail %> ou peça para seu pais ou tutores para enviar o e-mail. Por gentileza, não se esqueça de colocar no conteúdo do e-mail o seu ID de Utilizador e Nome de Utilizador.",
+    "accountSuspended": "Essa conta, com o ID de Utilizador \"<%= userId %>\" foi bloqueada por violar as [Diretrizes da Comunidade](https://habitica.com/static/community-guidelines) ou [Termos de Serviço] (https://habitica.com/static/terms). Para detalhes ou solicitar o desbloqueio, por favor, entre em contato com nosso Gestor de Comunidade pelo e-mail <%= communityManagerEmail %> ou peça para seus pais ou tutores para enviar o e-mail. Por gentileza, não se esqueça de incluir o seu @nome no e-mail.",
     "accountSuspendedTitle": "Esta conta foi suspensa",
     "unsupportedNetwork": "Atualmente, esta rede não é suportada.",
     "cantDetachSocial": "A conta não possui outra forma de autenticação; não se pode remover este método de autenticação.",
@@ -330,5 +330,6 @@
     "signup": "Inscrever",
     "getStarted": "Comece!",
     "mobileApps": "Apps Móveis",
-    "learnMore": "Saber Mais"
+    "learnMore": "Saber Mais",
+    "minPasswordLength": "A senha deve conter 8 caracteres ou mais."
 }

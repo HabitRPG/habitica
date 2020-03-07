@@ -5,6 +5,7 @@ const CONSTANTS = {
     EQUIPMENT_DRAWER_STATE: 'equipment-drawer-state',
     CURRENT_EQUIPMENT_DRAWER_TAB: 'current-equipment-drawer-tab',
     STABLE_SORT_STATE: 'stable-sort-state',
+    ONBOARDING_PANEL_STATE: 'onboarding-panel-state',
   },
   drawerStateValues: {
     DRAWER_CLOSED: 'drawer-closed',
@@ -16,6 +17,9 @@ const CONSTANTS = {
   },
   savedAppStateValues: {
     SAVED_APP_STATE: 'saved-app-state',
+  },
+  onboardingPanelValues: {
+    PANEL_OPENED: 'onboarding-panel-opened',
   },
 };
 

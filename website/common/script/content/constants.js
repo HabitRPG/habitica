@@ -38,6 +38,7 @@ export const EVENTS = {
   spring2019: { start: '2019-03-19', end: '2019-05-02' },
   summer2019: { start: '2019-06-18', end: '2019-08-02' },
   fall2019:   { start: '2019-09-24', end: '2019-11-02' },
+  winter2020: { start: '2019-12-19', end: '2020-02-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -77,6 +78,12 @@ export const SEASONAL_SETS = {
     'winter2019WinterStarSet',
     'winter2019BlizzardSet',
     'winter2019PyrotechnicSet',
+
+    // winter 2020
+    'winter2020CarolOfTheMageSet',
+    'winter2020LanternSet',
+    'winter2020EvergreenSet',
+    'winter2020WinterSpiceSet',
   ],
   spring: [
     // spring 2014
@@ -265,12 +272,38 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
 
 export const ANIMAL_COLOR_ACHIEVEMENTS = [
   {
-    color: 'Base', petAchievement: 'backToBasics', petNotificationType: 'ACHIEVEMENT_BACK_TO_BASICS', mountAchievement: 'allYourBase', mountNotificationType: 'ACHIEVEMENT_ALL_YOUR_BASE',
+    color: 'Base',
+    petAchievement: 'backToBasics',
+    petNotificationType: 'ACHIEVEMENT_BACK_TO_BASICS',
+    mountAchievement: 'allYourBase',
+    mountNotificationType: 'ACHIEVEMENT_ALL_YOUR_BASE',
   },
   {
-    color: 'Desert', petAchievement: 'dustDevil', petNotificationType: 'ACHIEVEMENT_DUST_DEVIL', mountAchievement: 'aridAuthority', mountNotificationType: 'ACHIEVEMENT_ARID_AUTHORITY',
+    color: 'Desert',
+    petAchievement: 'dustDevil',
+    petNotificationType: 'ACHIEVEMENT_DUST_DEVIL',
+    mountAchievement: 'aridAuthority',
+    mountNotificationType: 'ACHIEVEMENT_ARID_AUTHORITY',
   },
   {
-    color: 'Zombie', petAchievement: 'monsterMagus', petNotificationType: 'ACHIEVEMENT_MONSTER_MAGUS', mountAchievement: 'undeadUndertaker', mountNotificationType: 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+    color: 'Zombie',
+    petAchievement: 'monsterMagus',
+    petNotificationType: 'ACHIEVEMENT_MONSTER_MAGUS',
+    mountAchievement: 'undeadUndertaker',
+    mountNotificationType: 'ACHIEVEMENT_UNDEAD_UNDERTAKER',
+  },
+  {
+    color: 'White',
+    petAchievement: 'primedForPainting',
+    petNotificationType: 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
+    mountAchievement: 'pearlyPro',
+    mountNotificationType: 'ACHIEVEMENT_PEARLY_PRO',
+  },
+  {
+    color: 'CottonCandyPink',
+    petAchievement: 'tickledPink',
+    petNotificationType: 'ACHIEVEMENT_TICKLED_PINK',
+    mountAchievement: 'rosyOutlook',
+    mountNotificationType: 'ACHIEVEMENT_ROSY_OUTLOOK',
   },
 ];

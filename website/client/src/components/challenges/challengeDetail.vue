@@ -1,7 +1,10 @@
 <template>
   <div class="row">
     <challenge-modal @updatedChallenge="updatedChallenge" />
-    <leave-challenge-modal :challenge-id="challenge._id" />
+    <leave-challenge-modal
+      :challenge-id="challenge._id"
+      @update-challenge="updateChallenge"
+    />
     <close-challenge-modal
       :members="members"
       :challenge-id="challenge._id"
@@ -15,7 +18,11 @@
           <div>
             <span class="mr-1 ml-0 d-block">
               <strong v-once>{{ $t('createdBy') }}:</strong>
+              <span v-if="challenge.leader === null">
+                {{ $t('noChallengeOwner') }}
+              </span>
               <user-link
+                v-else
                 class="mx-1"
                 :user="challenge.leader"
               />
@@ -493,11 +500,19 @@ export default {
     },
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
-      await this.$store.dispatch('challenges:joinChallenge', { challengeId: this.searchId });
+      this.challenge = await this.$store.dispatch('challenges:joinChallenge', { challengeId: this.searchId });
+      this.members = await this
+        .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
+
       await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
     },
     async leaveChallenge () {
       this.$root.$emit('bv::show::modal', 'leave-challenge-modal');
+    },
+    async updateChallenge () {
+      this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
+      this.members = await this
+        .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
     },
     closeChallenge () {
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
