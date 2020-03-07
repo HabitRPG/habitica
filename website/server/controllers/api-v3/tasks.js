@@ -797,10 +797,11 @@ api.scoreTask = {
 
     const wasCompleted = task.completed;
 
-    const [delta] = common.ops.scoreTask({ task, user, direction }, req);
+    const firstTask = !user.achievements.completedTask;
+    const [delta] = common.ops.scoreTask({ task, user, direction }, req, res.analytics);
     // Drop system (don't run on the client,
     // as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up') common.fns.randomDrop(user, { task, delta }, req, res.analytics);
+    if (direction === 'up' && !firstTask) common.fns.randomDrop(user, { task, delta }, req, res.analytics);
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?
@@ -884,7 +885,7 @@ api.scoreTask = {
     }
 
     // Track when new users (first 7 days) score tasks
-    if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+    if (moment().diff(user.auth.timestamps.created, 'days') < 7 && user.flags.welcomed) {
       res.analytics.track('task score', {
         uuid: user._id,
         hitType: 'event',
