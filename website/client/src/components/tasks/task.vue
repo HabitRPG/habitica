@@ -167,7 +167,7 @@
             <div class="d-inline-flex">
               <div
                 v-if="isUser"
-                v-b-tooltip.hover.bottom="$t(`${task.collapseChecklist
+                v-b-tooltip.hover.right="$t(`${task.collapseChecklist
                   ? 'expand': 'collapse'}Checklist`)"
                 class="collapse-checklist d-flex align-items-center expand-toggle"
                 :class="{open: !task.collapseChecklist}"
