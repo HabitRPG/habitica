@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR FEBRUARY ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'MARCH BACKGROUNDS AND ARMOIRE ITEMS! HOPEFUL HIPPOGRIFFS IN THE TIME TRAVELERS SHOP!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,27 +31,33 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/27/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/3/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_022020 center-block"></div>
-        <h3>Last Chance for Stylish Sweetheart Set</h3>
+        <div class="promo_armoire_backgrounds_202003 center-block"></div>
+        <h3>March Backgrounds and Armoire Items!</h3>
         <p>
-          Reminder: time is running out to receive the Stylish Sweetheart Set when you <a
-          href='/user/settings/subscription'>subscribe</a>! Subscribing also lets you buy Gems
-          with Gold, nets you a special Royal Purple Jackalope Pet, and more!
+          We’ve added three new backgrounds to the Background Shop! Now your avatar can dally among
+          Giant Flowers, admire a fancy Succulent Garden, and party with pollinators in the
+          Butterfly Garden. Check them out under User Icon > Backgrounds!
         </p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_valentines_potions center-block"></div>
-        <h3>Last Chance for Rose Quartz and Cupid Hatching Potions</h3>
         <p>
-          <a href='/shops/market'>Rose Quartz and Cupid Hatching Potions</a> will also go away at
-          the end of the month! If they come back, it won't be until next year at the earliest, so
-          don't delay!
+          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
+          Baseball Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
         </p>
-        <div class="small mb-3">by Vampitch, Willow the Witty, and SabreCat</div>
+        <div class="small mb-3">
+          by Vikte, Mantichore, FolleMente, Aspiring Advocate, QuartzFox, katieslug, and SabreCat
+        </div>
+        <div class="Pet-Hippogriff-Hopeful center-block"></div>
+        <h3>Hopeful Hippogriffs in the Time Travelers' Shop!</h3>
+        <p>
+          The <a href='/shops/time'>Time Travelers</a> have traveled back in time to obtain some
+          rare Hopeful Hippogriff pets and mounts! You can buy them with Mystic Hourglasses, which
+          are awarded to <a href='/user/settings/subscription'>long-term subscribers</a>. Thanks
+          for helping us to keep Habitica running!
+        </p>
+        <div class="small mb-3">by Lemoness and SabreCat</div>
       </div>
       `,
     });

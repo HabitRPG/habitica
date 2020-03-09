@@ -2039,5 +2039,9 @@
     "armorArmoireMatchMakersApronNotes": "This apron is for safety, but for humour's sake we can make light of it. Increases Constitution, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Match Maker Set (Item 1 of 4).",
     "armorArmoireMatchMakersApronText": "Match Maker's Apron",
     "weaponArmoireLivelyMatchNotes": "When you're holding this, you're sure to spark someone's interest! Increases Strength by <%= str %>. Enchanted Armoire: Match Maker Set (Item 3 of 4).",
-    "weaponArmoireLivelyMatchText": "A Lively Match"
+    "weaponArmoireLivelyMatchText": "A Lively Match",
+    "bodyMystery202003Notes": "They're like shoulder pads that are on a whole other level. Confers no benefit. March 2020 Subscriber Item.",
+    "bodyMystery202003Text": "Barbed Pauldrons",
+    "headMystery202003Notes": "Be careful, this helm is sharp in more ways than one! Confers no benefit. March 2020 Subscriber Item.",
+    "headMystery202003Text": "Barbed Helm"
 }

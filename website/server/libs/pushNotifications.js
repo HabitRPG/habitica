@@ -49,7 +49,9 @@ function sendNotification (user, details = {}) {
 
           fcmSender.send(message, {
             registrationTokens: [pushDevice.regId],
-          }, 10, err => logger.error(err, 'FCM Error'));
+          }, 10, err => {
+            if (err) logger.error(err, 'FCM Error');
+          });
         }
         break;
 

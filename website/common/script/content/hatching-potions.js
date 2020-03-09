@@ -303,9 +303,9 @@ each(wacky, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: t('eventAvailability', {
+    _addlNotes: pot._seasont && pot._season !== '_PENDING_' ? t('eventAvailability', {
       date: t(`dateEnd${pot._season}`),
-    }),
+    }) : null,
     premium: false,
     limited: true,
     wacky: true,
