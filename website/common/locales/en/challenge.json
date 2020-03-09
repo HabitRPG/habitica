@@ -134,5 +134,9 @@
   "selectMember": "Select Member",
   "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
   "selectParticipant": "Select a Participant",
-  "messageChallengeFlagAlreadyReported": "You have already flagged this challenge."
+  "messageChallengeFlagAlreadyReported": "You have already flagged this challenge.",
+  "flaggedNotHidden": "Challenge flagged once, not hidden",
+  "flaggedAndHidden": "Challenge flagged; hiding not yet implemented",
+  "resetFlagCount": "Reset Flag Count",
+  "abuseFlagModalBodyChallenge": "Are you sure you want to report this challenge? You should ONLY report a challenge that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a challenge is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a challenge include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical content</li></ul>"
 }

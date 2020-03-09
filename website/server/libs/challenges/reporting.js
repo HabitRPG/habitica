@@ -29,7 +29,7 @@ export async function clearFlags (challenge, user) {
   const adminEmailContent = getUserInfo(user, ['email']).email;
   const challengeUrl = `/challenges/${challenge._id}`;
 
-  const groupUrl = getGroupUrl({ _id: challenge.group });
+  const groupUrl = getGroupUrl({ _id: challenge.group, type: 'guild' });
 
   sendTxn(FLAG_REPORT_EMAILS, 'unflag-report-to-mods', [
     { name: 'ADMIN_USERNAME', content: user.profile.name },

@@ -14,9 +14,19 @@
     </div>
     <div class="challenge-header">
       <span
+        class="flagged"
         v-if="canViewFlags"
       >
-        {{ $t("hasBeenFlagged") }}
+        <span
+          v-if="flaggedNotHidden"
+        >
+          {{ $t("flaggedNotHidden") }}
+        </span>
+        <span
+          v-else-if="flaggedAndHidden"
+        >
+          {{ $t("flaggedAndHidden")}}
+        </span>
       </span>
       <router-link :to="{ name: 'challenge', params: { challengeId: challenge._id } }">
         <h3
@@ -128,6 +138,9 @@
     line-height: 1.4;
     letter-spacing: normal;
     color: $gray-10;
+  }
+  .flagged {
+    color: $red-10;
   }
 </style>
 
@@ -459,6 +472,12 @@ export default {
       const isAdmin = Boolean(this.user.contributor.admin);
       if (isAdmin && this.challenge.flagCount > 0) return true;
       return false;
+    },
+    flaggedNotHidden () {
+      return this.challenge.flagCount === 1;
+    },
+    flaggedAndHidden () {
+      return this.challenge.flagCount > 1;
     },
   },
   methods: {

@@ -158,7 +158,6 @@
   "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
   "badAmountOfGemsToSend": "Amount must be within 1 and your current number of gems.",
   "report": "Report",
-  "hasBeenFlagged": "Flagged",
   "abuseFlag": "Report violation of Community Guidelines",
   "abuseFlagModalHeading": "Report a Violation",
   "abuseFlagModalBody": "Are you sure you want to report this post? You should <strong>only</strong> report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
@@ -169,7 +168,6 @@
   "whyReportingPost": "Why are you reporting this post?",
   "whyReportingPostPlaceholder": "Please help our moderators by letting us know why you are reporting this post for a violation, e.g., spam, swearing, religious oaths, bigotry, slurs, adult topics, violence.",
   "optional": "Optional",
-  "resetFlagCount": "Reset Flag Count",
   "needsText": "Please type a message.",
   "needsTextPlaceholder": "Type your message here.",
   "copyMessageAsToDo": "Copy message as To-Do",
@@ -496,6 +494,5 @@
   "singleCompletion": "Single - Completes when any assigned user finishes",
   "allAssignedCompletion": "All - Completes when all assigned users finish",
   "suggestedGroup": "Suggested because you’re new to Habitica.",
-  "groupActivityNotificationTitle": "<%= user %> posted in <%= group %>",
-  "abuseFlagModalBodyChallenge": "Are you sure you want to report this challenge? You should ONLY report a challenge that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a challenge is a violation of the Community Guidelines and may give you an infraction. Appropriate reasons to flag a challenge include but are not limited to:<br><br><ul style='margin-left: 10px;'><li>swearing, religious oaths</li><li>bigotry, slurs</li><li>adult topics</li><li>violence, including as a joke</li><li>spam, nonsensical content</li></ul>"
+  "groupActivityNotificationTitle": "<%= user %> posted in <%= group %>"
 }

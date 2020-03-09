@@ -1,7 +1,7 @@
 <template>
   <b-modal
     id="report-challenge"
-    :title="$t('$abuseFlagModalHeading')"
+    :title="$t('abuseFlagModalHeading')"
     size="lg"
     :hide-footer="true"
   >
