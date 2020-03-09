@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'MARCH BACKGROUNDS AND ARMOIRE ITEMS! HOPEFUL HIPPOGRIFFS IN THE TIME TRAVELERS SHOP!';
+const LAST_ANNOUNCEMENT_TITLE = 'DISCOUNTED QUEST BUNDLE: HUG A BUG!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,33 +31,29 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/3/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/10/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_202003 center-block"></div>
-        <h3>March Backgrounds and Armoire Items!</h3>
+        <div class="promo_hugabug_bundle center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can dally among
-          Giant Flowers, admire a fancy Succulent Garden, and party with pollinators in the
-          Butterfly Garden. Check them out under User Icon > Backgrounds!
+          If you're looking to add some insect friends to your Habitica stable, you're in luck!
+          From now until March 31, you can purchase the Hug a Bug Pet Quest Bundle and receive the
+          Snail, Beetle, and Butterfly quests, all for only 7 Gems! That's a discount of 5 Gems
+          from the price of purchasing them separately. Check it out in the <a
+          href='/shops/quests'>Quest Shop</a> today!
         </p>
         <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Baseball Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
+          If you’d prefer not to see bugs in Habitica due to a phobia, check out the <a
+          href='http://habitica.wikia.com/wiki/Phobia_Protection_Extension' target='_blank'>Phobia
+          Protection Extension</a> and enable the option for hiding "Beetles"!
         </p>
-        <div class="small mb-3">
-          by Vikte, Mantichore, FolleMente, Aspiring Advocate, QuartzFox, katieslug, and SabreCat
+        <div class="small">By Lemoness, SabreCat, and Beffymaroo</div>
+        <div class="small">
+          Art by Pfeffernusse, Megan, Pocketmole, overomega, Misceo, UncommonCriminal, Zorella,
+          Anna Glassman, Leephon, Lilith of Alfheim, Ac, starsystemic, and Karithina
         </div>
-        <div class="Pet-Hippogriff-Hopeful center-block"></div>
-        <h3>Hopeful Hippogriffs in the Time Travelers' Shop!</h3>
-        <p>
-          The <a href='/shops/time'>Time Travelers</a> have traveled back in time to obtain some
-          rare Hopeful Hippogriff pets and mounts! You can buy them with Mystic Hourglasses, which
-          are awarded to <a href='/user/settings/subscription'>long-term subscribers</a>. Thanks
-          for helping us to keep Habitica running!
-        </p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
+        <div class="small mb-3">Writing by arachnidstardis, emiausti, and AnnDeLune</div>
       </div>
       `,
     });
