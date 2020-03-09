@@ -109,3 +109,29 @@ export function cleanUpTask (task) {
 
   return cleansedTask;
 }
+
+// Create an aggregation query for querying challenges.
+// Ensures that official challenges are listed first.
+export function createChallengeQuery (query) {
+  return Challenge.aggregate()
+    .match(query)
+    .addFields({
+      isOfficial: {
+        $gt: [
+          {
+            $size: {
+              $filter: {
+                input: '$categories',
+                as: 'cat',
+                cond: {
+                  $eq: ['$$cat.slug', 'habitica_official'],
+                },
+              },
+            },
+          },
+          0,
+        ],
+      },
+    })
+    .sort('-isOfficial -createdAt');
+}
