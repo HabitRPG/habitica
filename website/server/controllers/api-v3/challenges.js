@@ -900,6 +900,7 @@ async function flagChallenge (challenge, user, res) {
  * @apiGroup Challenge
  *
  * @apiParam (Path) {UUID} challengeId The _id for the challenge to clone
+ * @apiParam (Body) {String} [comment] Why the message was flagged
  *
  * @apiSuccess {Object} data The flagged challenge message
  *
@@ -921,7 +922,7 @@ api.flagChallenge = {
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
 
     await flagChallenge(challenge, user, res);
-    await notifyOfFlaggedChallenge(challenge, user);
+    await notifyOfFlaggedChallenge(challenge, user, req.body.comment);
 
     res.respond(200, { challenge });
   },

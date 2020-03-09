@@ -100,7 +100,9 @@ export async function selectChallengeWinner (store, payload) {
 }
 
 export async function flag (store, payload) {
-  const response = await axios.post(`/api/v3/challenges/${payload.challengeId}/flag`);
+  const response = await axios.post(`/api/v3/challenges/${payload.challengeId}/flag`, {
+    comment: payload.comment,
+  });
   return response.data.data;
 }
 

@@ -1,9 +1,10 @@
 import nconf from 'nconf';
 import { getUserInfo, sendTxn, getGroupUrl } from '../email';
+import * as slack from '../slack';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
 
-export async function notifyOfFlaggedChallenge (challenge, user) {
+export async function notifyOfFlaggedChallenge (challenge, user, userComment) {
   const reporterEmailContent = getUserInfo(user, ['email']).email;
 
   const emailVariables = [
@@ -14,12 +15,19 @@ export async function notifyOfFlaggedChallenge (challenge, user) {
     { name: 'REPORTER_UUID', content: user._id },
     { name: 'REPORTER_EMAIL', content: reporterEmailContent },
     { name: 'REPORTER_MODAL_URL', content: `/static/front/#?memberId=${user._id}` },
+    { name: 'REPORTER_COMMENT', content: userComment || '' },
 
     { name: 'AUTHOR_UUID', content: challenge.leader._id },
     { name: 'AUTHOR_MODAL_URL', content: `/static/front/#?memberId=${challenge.leader._id}` },
   ];
 
   sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods', emailVariables);
+
+  slack.sendChallengeFlagNotification({
+    flagger: user,
+    challenge,
+    userComment,
+  });
 }
 
 export async function clearFlags (challenge, user) {
