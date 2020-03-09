@@ -117,20 +117,26 @@ export function createChallengeQuery (query) {
     .match(query)
     .addFields({
       isOfficial: {
-        $gt: [
-          {
-            $size: {
-              $filter: {
-                input: '$categories',
-                as: 'cat',
-                cond: {
-                  $eq: ['$$cat.slug', 'habitica_official'],
+        $cond: {
+          if: { $isArray: '$categories' },
+          then: {
+            $gt: [
+              {
+                $size: {
+                  $filter: {
+                    input: '$categories',
+                    as: 'cat',
+                    cond: {
+                      $eq: ['$$cat.slug', 'habitica_official'],
+                    },
+                  },
                 },
               },
-            },
+              0,
+            ],
           },
-          0,
-        ],
+          else: false,
+        },
       },
     })
     .sort('-isOfficial -createdAt');
