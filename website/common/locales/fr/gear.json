@@ -2043,5 +2043,13 @@
     "bodyMystery202003Notes": "Elles sont comme des épaulettes mais ne manquent pas de piquant. Ne confère aucun bonus. Équipement d'abonnement de Mars 2020.",
     "bodyMystery202003Text": "Spalières barbelées",
     "headMystery202003Notes": "Faites attention, ce heaume est affûté de bien des façons ! Ne confère aucun bonus. Équipement d'abonnement de Mars 2020.",
-    "headMystery202003Text": "Casque barbelé"
+    "headMystery202003Text": "Casque barbelé",
+    "shieldArmoireBaseballGloveNotes": "Parfait pour les grands tournois, ou pour attraper les tâches au vol. Augmente la force de <%= str %>. Armoire enchantée : ensemble de baseball (objet 4 de 4).",
+    "shieldArmoireBaseballGloveText": "Gant de baseball",
+    "headArmoireBaseballCapNotes": "Montrez à tout le monde que vous faite partie de l'équipe Habitica ! Augmente la constitution et la force de <%= attrs %> chacune. Armoire enchantée : ensemble de baseball (objet 1 de 4).",
+    "headArmoireBaseballCapText": "Casquette de baseball",
+    "armorArmoireBaseballUniformNotes": "Les rayures ne sont toujours pas passées de mode. Augmente la constitution et la force de <%= attrs %> chacune. Armoire enchantée : ensemble de baseball (objet 2 de 4).",
+    "armorArmoireBaseballUniformText": "Uniforme de baseball",
+    "weaponArmoireBaseballBatNotes": "Faites un home run de ces bonnes habitudes ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de baseball (objet 3 de 4).",
+    "weaponArmoireBaseballBatText": "Batte de baseball"
 }

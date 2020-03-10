@@ -2043,5 +2043,13 @@
     "bodyMystery202003Notes": "它們好像另一層上的肩墊。沒有屬性加成。 2020年3月訂閱者物品。",
     "bodyMystery202003Text": "倒刺肩甲",
     "headMystery202003Notes": "小心，這個頭盔又尖又精細！沒有屬性加成。 2020年3月訂閱者物品。",
-    "headMystery202003Text": "倒刺頭盔"
+    "headMystery202003Text": "倒刺頭盔",
+    "shieldArmoireBaseballGloveNotes": "它非常適合大型的錦標賽，或者任務間的友好接球遊戲。增加<%= str %>點力量。魔法衣櫥：棒球套裝（4/4）。",
+    "shieldArmoireBaseballGloveText": "棒球手套",
+    "headArmoireBaseballCapNotes": "讓大家知道你加入了Habitica團隊！增加體質、力量各<%= attrs %>點。魔法衣櫥：棒球套裝（1/4）。",
+    "headArmoireBaseballCapText": "棒球帽",
+    "armorArmoireBaseballUniformNotes": "細條紋永遠不會過時。增加體質、力量各<%= attrs %>點。魔法衣櫥：棒球套裝（2/4）。",
+    "armorArmoireBaseballUniformText": "棒球製服",
+    "weaponArmoireBaseballBatNotes": "養成良好習慣，獲得本壘打！增加<%= con %>點體質。魔法衣櫥：棒球套裝（3/4）。",
+    "weaponArmoireBaseballBatText": "棒球棒"
 }

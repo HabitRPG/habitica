@@ -63,5 +63,14 @@
     "earnedAchievement": "Je hebt een prestatie verricht!",
     "viewAchievements": "Bekijk Prestaties",
     "letsGetStarted": "Laten we beginnen!",
-    "onboardingProgress": "<%= percentage %>% voortgang"
+    "onboardingProgress": "<%= percentage %>% voortgang",
+    "achievementRosyOutlookModalText": "Je hebt alle Suikerspinroze Rijdieren verzamelt!",
+    "achievementRosyOutlookText": "Heeft alle Suikerspinroze Rijdieren verzamelt.",
+    "achievementRosyOutlook": "Rooskleurig Perspectief",
+    "achievementTickledPinkModalText": "Je hebt alle Suikerspinroze huisdieren verzamelt!",
+    "achievementTickledPinkText": "Heeft alle Suikerspinroze Huisdieren verzameld.",
+    "achievementTickledPink": "Door een Roze Bril",
+    "foundNewItemsCTA": "Ga naar je Inventaris en probeer je nieuwe uitbroeddrank eens te combineren met een ei!",
+    "foundNewItemsExplanation": "Taken voltooien geeft je een kans om voorwerpen te vinden, zoals eieren, uitbroeddranken en voedsel.",
+    "foundNewItems": "Je hebt nieuwe voorwerpen gevonden!"
 }

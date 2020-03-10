@@ -490,5 +490,8 @@
     "userWithUsernameOrUserIdNotFound": "Username or User ID not found.",
     "usernameOrUserId": "Username or User ID",
     "sendGiftToWhom": "Who would you like to send a gift to?",
-    "selectGift": "Select Gift"
+    "selectGift": "Select Gift",
+    "PMUnblockUserToSendMessages": "Unblock this user to continue sending and receiving messages.",
+    "PMUserDoesNotReceiveMessages": "This user is no longer receiving private messages",
+    "PMCanNotReply": "You can not reply to this conversation"
 }
