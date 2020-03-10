@@ -114,7 +114,7 @@
     "questNotPending": "现在没有开始的探索副本。",
     "questOrGroupLeaderOnlyStartQuest": "仅有小组长或副本发起者能强制开始一个副本",
     "createAccountReward": "创建账户",
-    "loginIncentiveQuest": "想得到这个探索副本？你还需要在Habitica历练 <%= count %> 天才有资格哦！",
+    "loginIncentiveQuest": "想得到这个探索副本？你还需要在Habitica历练<%= count %>天才有资格哦！",
     "loginIncentiveQuestObtained": "因为有了在Habitica历练 <%= count %> 天的经验，你可以去挑战这个探索副本啦！！",
     "loginReward": "<%= count %>次签到",
     "createAccountQuest": "当你加人Habitica的时候，你会收到这个副本！如果你的朋友加入，他们也会得到一个。",

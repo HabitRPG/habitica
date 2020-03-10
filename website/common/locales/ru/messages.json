@@ -9,7 +9,7 @@
     "messageCannotFeedPet": "Невозможно покормить этого питомца.",
     "messageAlreadyMount": "У вас уже есть такой скакун. Попробуйте покормить другого питомца.",
     "messageEvolve": "<%= egg %> ждет в стойлах, пора покататься!",
-    "messageLikesFood": "<%= egg %> доволен. <%= foodText %> – его любимая еда!",
+    "messageLikesFood": "<%= egg %> доволен. <%= foodText %> – его любимый корм!",
     "messageDontEnjoyFood": "<%= egg %> съедает <%= foodText %>, но похоже, это ему не подходит.",
     "messageBought": "Куплено: <%= itemText %>",
     "messageEquipped": " <%= itemText %> Надето.",

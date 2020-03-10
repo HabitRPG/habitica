@@ -69,5 +69,8 @@
     "achievementRosyOutlook": "Rosige Aussichten",
     "achievementTickledPinkModalText": "Du hast alle zuckerwattenrosanen Haustiere gesammelt!",
     "achievementTickledPinkText": "Hat alle zuckerwattenrosanen Haustiere gesammelt.",
-    "achievementTickledPink": "Rosige Bäckchen"
+    "achievementTickledPink": "Rosige Bäckchen",
+    "foundNewItems": "Du hast neue Gegenstände gefunden!",
+    "foundNewItemsCTA": "Schau in Dein Inventar und versuche, Dein neues Schlüpfelixier mit einem Ei zu kombinieren!",
+    "foundNewItemsExplanation": "Durch das Abschließen von Aufgaben erhältst Du die Chance Gegenstände, wie etwa Eier, Schlüpfelixiere und Futter, zu finden."
 }
