@@ -483,7 +483,13 @@ export default {
           // If members are to be sorted by name, use localeCompare for case-
           // insensitive sort
           sortedMembers.sort(
-            (a, b) => a.profile.name.localeCompare(b.profile.name),
+            (a, b) => {
+              if (this.sortOption.direction === 'desc') {
+                return b.profile.name.localeCompare(a.profile.name);
+              }
+
+              return a.profile.name.localeCompare(b.profile.name);
+            },
           );
         } else {
           sortedMembers = orderBy(

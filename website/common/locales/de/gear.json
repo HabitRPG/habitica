@@ -2039,5 +2039,9 @@
     "armorArmoireMatchMakersApronNotes": "Diese Schürze trägst Du zu Deiner Sicherheit, aber zur Abwechslung könnte man damit ja auch mal ein loderndes Feuer entfachen. Erhöht Ausdauer, Stärke und Intelligenz um je <%= attrs %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 1 von 4).",
     "armorArmoireMatchMakersApronText": "Streichholzmacher-Schürze",
     "weaponArmoireLivelyMatchNotes": "So lange Du dies hältst, wirst Du sicherlich jemandes Interesse entfachen! Erhöht Stärke um <%= str %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 3 von 4).",
-    "weaponArmoireLivelyMatchText": "Ein Brennendes Streichholz"
+    "weaponArmoireLivelyMatchText": "Ein Brennendes Streichholz",
+    "bodyMystery202003Notes": "Diese Schulterpolster sind mal was ganz anderes. Gewährt keinen Attributbonus. Abonnentengegenstand, März 2020.",
+    "bodyMystery202003Text": "Stachlige Schulterplatten",
+    "headMystery202003Notes": "Sei vorsichtig, dieser Helm ist auf vielfältige Weise scharf! Gewährt keinen Attributbonus. Abonnentengegenstand, März 2020.",
+    "headMystery202003Text": "Stachliger Helm"
 }

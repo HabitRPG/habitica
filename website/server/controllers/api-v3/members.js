@@ -21,6 +21,9 @@ import {
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import common from '../../../common';
 import { sentMessage } from '../../libs/inbox';
+import {
+  sanitizeText as sanitizeMessageText,
+} from '../../models/message';
 import { highlightMentions } from '../../libs/highlightMentions';
 
 const { achievements } = common;
@@ -677,7 +680,8 @@ api.sendPrivateMessage = {
     if (validationErrors) throw validationErrors;
 
     const sender = res.locals.user;
-    const message = (await highlightMentions(req.body.message))[0];
+    const sanitizedMessageText = sanitizeMessageText(req.body.message);
+    const message = (await highlightMentions(sanitizedMessageText))[0];
 
     const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));

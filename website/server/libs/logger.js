@@ -69,8 +69,10 @@ if (IS_PROD) {
       format: winston.format.combine(
         // Remove stacktrace from json, printed separately
         winston.format(info => {
-          const message = info.message.split('\n')[0];
-          info.message = message;
+          if (info && info.message && typeof info.message.split === 'function') {
+            const message = info.message.split('\n')[0];
+            info.message = message;
+          }
           return info;
         })(),
         winston.format.prettyPrint({

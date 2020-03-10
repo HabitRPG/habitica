@@ -1910,7 +1910,7 @@
     "weaponSpecialFall2019RogueText": "乐谱架",
     "weaponSpecialFall2019HealerNotes": "这种系统可以唤起人们长期杀戮的精神，并利用其治愈能力。增加<％= int％>点智力。2019年秋季限定版装备。",
     "weaponSpecialFall2019HealerText": "可怕的文字",
-    "weaponSpecialFall2019MageNotes": "无论是制造雷电，制造工事，还是只是将恐怖袭击到凡人的心中，这只魔杖都赋予了巨人创造奇迹的力量。增加<%= int %>点智力和<%= per %>点感知。2019年秋季限定版装备。",
+    "weaponSpecialFall2019MageNotes": "无论是制造雷电，制造工事，还是只是将恐怖袭击到凡人的心中，这只魔杖都借用着巨人的力量创造奇迹。增加<%= int %>点智力和<%= per %>点感知。2019年秋季限定版装备。",
     "weaponSpecialFall2019MageText": "独眼魔杖",
     "weaponSpecialFall2019WarriorNotes": "准备用渡鸦的爪子杀死敌人！增加<％= str％>点力量。2019年秋季限定版装备。",
     "weaponSpecialFall2019WarriorText": "三叉脚爪",
@@ -1930,7 +1930,7 @@
     "armorMystery201910Text": "隐秘的护甲",
     "armorMystery201909Notes": "你的强硬的外壳会保护你，可是你还应该留意￼松鼠... 没有属性加成。2019年9月订阅者物品。",
     "armorMystery201909Text": "友好的橡子护甲",
-    "armorSpecialFall2019MageNotes": "它的同名遇到一个悲惨的结果。但是，你不会这么容易被骗！带了这个传奇的罩衫，没人会超过你。增加<%= int %>点体质。2019年秋季限定版装备。",
+    "armorSpecialFall2019MageNotes": "与它同名的主人的结局相当悲惨。但是，你不会这么容易被骗！套上这个传奇的罩衫，没人会超过你。增加<%= int %>点体质。2019年秋季限定版装备。",
     "eyewearSpecialKS2019Text": "神话狮鹫面罩",
     "armorMystery201910Notes": "这个隐秘的护甲上刀山下火海，无所不能地保护你。没有属性加成。2019年10月订阅者物品。",
     "armorSpecialFall2019RogueNotes": "这套衣服配有白手套，非常适合在剧院私人套间中沉思，或在宏伟的楼梯出现时让人诧异。增加<%= per %>点感知。2019年秋季限定版装备。",
@@ -2039,5 +2039,9 @@
     "headArmoireMatchMakersBeretText": "火柴制造者的贝雷帽",
     "armorArmoireMatchMakersApronNotes": "这款围裙是为了安全，但出于幽默的考虑，我们可以把它淡化一下。增加体质、力量、智力各<%= attrs %>点。魔法衣橱：火柴制造者套装（1/4）。",
     "armorArmoireMatchMakersApronText": "火柴制造者的围裙",
-    "weaponArmoireLivelyMatchText": "一根活泼的火柴"
+    "weaponArmoireLivelyMatchText": "一根活泼的火柴",
+    "bodyMystery202003Notes": "它们好像另一层上的肩垫。没有属性加成。2020年3月订阅者物品。",
+    "bodyMystery202003Text": "倒刺肩甲",
+    "headMystery202003Notes": "小心，这个头盔又尖又精细！没有属性加成。2020年3月订阅者物品。",
+    "headMystery202003Text": "倒刺头盔"
 }
