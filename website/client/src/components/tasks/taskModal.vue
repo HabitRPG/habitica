@@ -50,6 +50,7 @@
           required="required"
           spellcheck="true"
           :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+          :placeholder="$t('addATitle')"
         >
       </div>
       <div class="form-group mb-0">
@@ -71,6 +72,7 @@
           v-model="task.notes"
           class="form-control input-notes"
           :class="cssClass('input')"
+          :placeholder="$t('notesUseMarkdown')"
         ></textarea>
       </div>
     </div>
