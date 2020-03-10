@@ -12,7 +12,10 @@ function sendWebhook (url, body) {
   got.post(url, {
     body,
     json: true,
-  }).catch(err => logger.error(err));
+  }).catch(err => {
+    // TODO disable webshook here
+    logger.error(err)
+  });
 }
 
 function isValidWebhook (hook) {
