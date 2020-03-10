@@ -96,7 +96,7 @@ const bundles = {
       'butterfly',
     ],
     canBuy () {
-      return moment().isBetween('2018-02-06', '2018-04-02');
+      return moment().isBetween('2020-03-09', '2020-04-02');
     },
     type: 'quests',
     value: 7,
