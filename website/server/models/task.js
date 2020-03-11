@@ -4,6 +4,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import shared from '../../common';
 import baseModel from '../libs/baseModel';
+import { InternalServerError } from '../libs/errors';
 import { preenHistory } from '../libs/preening';
 import { SHARED_COMPLETION } from '../libs/groupTasks'; // eslint-disable-line import/no-cycle
 
@@ -121,8 +122,7 @@ export const TaskSchema = new Schema({
     broken: { $type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED'] },
     assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for task group user.'] }],
     assignedDate: { $type: Date },
-    claimedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
-    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid.'] },
+    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid for task group task.'] },
     approval: {
       required: { $type: Boolean, default: false },
       approved: { $type: Boolean, default: false },
@@ -136,7 +136,6 @@ export const TaskSchema = new Schema({
       enum: _.values(SHARED_COMPLETION),
       default: SHARED_COMPLETION.single,
     },
-    managerNotes: { $type: String, default: '' },
   },
 
   reminders: [reminderSchema],
@@ -180,8 +179,10 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
   userId,
   additionalQueries = {},
 ) {
-  if (!identifier) throw new Error('Task identifier is a required argument');
-  if (!userId) throw new Error('User identifier is a required argument');
+  // not using i18n strings because these errors
+  // are meant for devs who forgot to pass some parameters
+  if (!identifier) throw new InternalServerError('Task identifier is a required argument');
+  if (!userId) throw new InternalServerError('User identifier is a required argument');
 
   const query = _.cloneDeep(additionalQueries);
 
@@ -193,34 +194,6 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
   }
 
   const task = await this.findOne(query).exec();
-
-  return task;
-};
-
-TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
-  identifiers,
-  userId,
-  additionalQueries = {},
-) {
-  if (!identifiers) throw new Error('Task identifier is a required argument');
-  if (!userId) throw new Error('User identifier is a required argument');
-
-  const query = _.cloneDeep(additionalQueries);
-  query.userId = userId;
-  const ids = [];
-  const aliases = [];
-  identifiers.forEach(identifier => {
-    if (validator.isUUID(String(identifier))) {
-      ids.push(identifier);
-    } else {
-      aliases.push(identifier);
-    }
-  });
-  query.$or = [
-    { _id: { $in: ids } },
-    { alias: { $in: aliases } },
-  ];
-  const task = await this.find(query).exec();
 
   return task;
 };
@@ -308,13 +281,11 @@ TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta
 export const Task = mongoose.model('Task', TaskSchema);
 
 // habits and dailies shared fields
-
-// History Schema not defined because it causes serious perf problems.
-// Expected `history` structure is an array of objects, with each object having
-// one each of `date`, `value`, `scoredUp`, and `scoredDown` attributes.
+// Schema for history not defined because it causes serious perf problems
 // date is a date stored as a Number value
 // value is a Number
-// scoredUp and scoredDown only exist for Habits and are numbers
+// scoredUp and scoredDown only exist for habits and are numbers
+
 const habitDailySchema = () => ({ history: Array });
 
 // dailys and todos shared fields
@@ -352,8 +323,6 @@ export const DailySchema = new Schema(_.defaults({
       'Valid everyX values are integers from 0 to 9999',
     ],
   },
-  repeatAfterCompletion: { $type: Boolean, default: false },
-  lastCompleted: Date,
   startDate: {
     $type: Date,
     default () {

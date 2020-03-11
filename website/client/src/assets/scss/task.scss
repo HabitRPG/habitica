@@ -5,7 +5,7 @@
         background: $maroon-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
-          .daily-todo-control { background: rgba(255, 255, 255, 0.75) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-bg-noninteractive {
@@ -13,7 +13,8 @@
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: $maroon-500 !important; }
-      &-checkbox { color: $red-1 !important; }
+      &-checkbox { color: $maroon-100 !important; }
+      &-icon { color: #6c0406 !important; }
     }
 
     &-modal {
@@ -37,7 +38,7 @@
         background: $red-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
-          .daily-todo-control { background: rgba(255, 255, 255, 0.75) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-bg-noninteractive {
@@ -45,7 +46,8 @@
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: $red-500 !important; }
-      &-checkbox { color: $red-1 !important; }
+      &-checkbox { color: $red-100 !important; }
+      &-icon { color: #6c0406 !important; }
     }
 
     &-modal {
@@ -70,7 +72,7 @@
 
         &:hover {
           .habit-control { background: #b75a1c !important; }
-          .daily-todo-control { background: rgba(255, 255, 255, 0.75) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-bg-noninteractive {
@@ -78,7 +80,8 @@
       }
       &-inner-habit { background: rgba(183, 90, 28, 0.4) !important; }
       &-inner-daily-todo { background: $orange-500 !important; }
-      &-checkbox { color: $orange-1 !important; }
+      &-checkbox { color: $orange-100 !important; }
+      &-icon { color: #7f3300 !important; }
     }
 
     &-modal {
@@ -112,7 +115,7 @@
         background: $yellow-100 !important;
         &:hover {
           .habit-control { background: #bf7d1a !important; }
-          .daily-todo-control { background: rgba(255, 255, 255, 0.75) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-bg-noninteractive {
@@ -120,7 +123,8 @@
       }
       &-inner-habit { background: rgba(183, 90, 28, 0.32) !important; }
       &-inner-daily-todo { background: $yellow-500 !important; }
-      &-checkbox { color: $yellow-1 !important; }
+      &-checkbox { color: $yellow-100 !important; }
+      &-icon { color: #794b00 !important; }
     }
 
     &-modal {
@@ -154,7 +158,7 @@
         background: $green-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
-          .daily-todo-control { background: rgba(255, 255, 255, 0.75) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-bg-noninteractive {
@@ -162,7 +166,8 @@
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: #77f4c7 !important; }
-      &-checkbox { color: $green-1 !important; }
+      &-checkbox { color: $green-10 !important; }
+      &-icon { color: #005737 !important; }
     }
 
     &-modal {
@@ -186,7 +191,7 @@
         background: $teal-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
-          .daily-todo-control { background: rgba(255, 255, 255, 0.75) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-bg-noninteractive {
@@ -194,7 +199,8 @@
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: #8dedf6 !important; }
-      &-checkbox { color: $teal-1 !important; }
+      &-checkbox { color: $teal-100 !important; }
+      &-icon { color: #005158 !important; }
     }
 
     &-modal {
@@ -218,7 +224,7 @@
         background: $blue-100 !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
-          .daily-todo-control { background: rgba(255, 255, 255, 0.75) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-bg-noninteractive {
@@ -226,7 +232,8 @@
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: $blue-500 !important; }
-      &-checkbox { color: $blue-1 !important; }
+      &-checkbox { color: $blue-100 !important; }
+      &-icon { color: #033f5e !important; }
     }
 
     &-modal {
@@ -250,12 +257,12 @@
         background: $purple-task !important;
         &:hover {
           .habit-control { background: rgba(26, 24, 29, 0.48) !important; }
-          .daily-todo-control { background: rgba(255, 255, 255, 0.75) !important; }
+          .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
         }
       }
       &-inner-habit { background: rgba(26, 24, 29, 0.24) !important; }
       &-inner-daily-todo { background: #ffffff80 !important; }
-      &-checkbox { color: $purple-50 !important; }
+      &-checkbox { color: $purple-task !important; }
     }
 
     &-modal {
@@ -304,7 +311,7 @@
         &-bg {
           background: $gray-400 !important;
           &:hover {
-            .daily-todo-control { background: rgba(255, 255, 255, 0.75) !important; }
+            .daily-todo-control { background: rgba(255, 255, 255, 0.72) !important; }
           }
         }
         &-inner { background: $gray-500 !important; }

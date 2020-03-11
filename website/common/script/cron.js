@@ -29,7 +29,7 @@ export const DAY_MAPPING_STRING_TO_NUMBER = invert(DAY_MAPPING);
   one example being the test scripts scripts testing different "now" times.
  */
 
-export function sanitizeOptions (o) {
+function sanitizeOptions (o) {
   const ref = Number(o.dayStart || 0);
   const dayStart = !Number.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
 
@@ -135,43 +135,20 @@ export function shouldDo (day, dailyTask, options = {}) {
 
   if (dailyTask.frequency === 'daily') {
     if (!dailyTask.everyX) return false; // error condition
-    let lastCompletedDate;
-    if (dailyTask.repeatAfterCompletion && dailyTask.lastCompleted) {
-      lastCompletedDate = moment(dailyTask.lastCompleted).zone(o.timezoneOffset).startOf('day');
-    }
+    const schedule = moment(startDate).recur()
+      .every(dailyTask.everyX).days();
 
     if (options.nextDue) {
       const filteredDates = [];
       for (let i = 1; filteredDates.length < 6; i += 1) {
-        let calcDate;
-        if (dailyTask.repeatAfterCompletion) {
-          if (lastCompletedDate) {
-            calcDate = moment(lastCompletedDate).add(dailyTask.everyX + i - 1, 'days');
-          } else {
-            calcDate = moment(startDate).add(i, 'days');
-          }
-        } else {
-          calcDate = moment(startDate).add(dailyTask.everyX * i, 'days');
-        }
+        const calcDate = moment(startDate).add(dailyTask.everyX * i, 'days');
         if (calcDate > startOfDayWithCDSTime) filteredDates.push(calcDate);
       }
       return filteredDates;
     }
 
-    if (dailyTask.repeatAfterCompletion) {
-      if (lastCompletedDate) {
-        return moment(lastCompletedDate).add(dailyTask.everyX, 'days')
-          .isSameOrBefore(startOfDayWithCDSTime);
-      }
-
-      return moment(startDate).isSameOrBefore(startOfDayWithCDSTime);
-    }
-
-    const schedule = moment(startDate).recur().every(dailyTask.everyX).days();
     return schedule.matches(startOfDayWithCDSTime);
-  }
-
-  if (dailyTask.frequency === 'weekly') {
+  } if (dailyTask.frequency === 'weekly') {
     let schedule = moment(startDate).recur();
 
     const differenceInWeeks = moment(startOfDayWithCDSTime).diff(moment(startDate), 'week');
@@ -196,9 +173,7 @@ export function shouldDo (day, dailyTask, options = {}) {
     }
 
     return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
-  }
-
-  if (dailyTask.frequency === 'monthly') {
+  } if (dailyTask.frequency === 'monthly') {
     let schedule = moment(startDate).recur();
 
     // Use startOf to ensure that we are always comparing month
@@ -254,9 +229,7 @@ export function shouldDo (day, dailyTask, options = {}) {
     }
 
     return schedule.matches(startOfDayWithCDSTime) && matchEveryX;
-  }
-
-  if (dailyTask.frequency === 'yearly') {
+  } if (dailyTask.frequency === 'yearly') {
     let schedule = moment(startDate).recur();
 
     schedule = schedule.every(dailyTask.everyX).years();
@@ -272,6 +245,5 @@ export function shouldDo (day, dailyTask, options = {}) {
 
     return schedule.matches(startOfDayWithCDSTime);
   }
-
   return false;
 }

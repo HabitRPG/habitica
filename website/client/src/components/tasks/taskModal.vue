@@ -109,7 +109,6 @@
           <draggable
             v-model="checklist"
             :options="{handle: '.grippy', filter: '.task-dropdown'}"
-            :disabled="groupAccessRequiredAndOnPersonalPage"
             @update="sortedChecklist"
           >
             <div
@@ -117,18 +116,13 @@
               :key="item.id"
               class="inline-edit-input-group checklist-group input-group"
             >
-              <span
-                v-if="!groupAccessRequiredAndOnPersonalPage"
-                class="grippy"
-              ></span>
+              <span class="grippy"></span>
               <input
                 v-model="item.text"
-                :disabled="groupAccessRequiredAndOnPersonalPage"
                 class="inline-edit-input checklist-item form-control"
                 type="text"
               >
               <span
-                v-if="!groupAccessRequiredAndOnPersonalPage"
                 class="input-group-append"
                 @click="removeChecklistItem($index)"
               >
@@ -137,14 +131,9 @@
                   v-html="icons.destroy"
                 ></div>
               </span>
-              <span
-                v-else
-                class="input-group-append no-pointer"
-              ></span>
             </div>
           </draggable>
           <input
-            v-if="!groupAccessRequiredAndOnPersonalPage"
             v-model="newChecklistItem"
             class="inline-edit-input checklist-item form-control"
             type="text"
@@ -374,22 +363,6 @@
               </div>
             </div>
           </div>
-          <template v-if="task.frequency === 'daily'">
-            <div class="form-check">
-              <div class="custom-control custom-checkbox custom-control-inline">
-                <input
-                  id="repeatAfterCompletion"
-                  v-model="task.repeatAfterCompletion"
-                  class="custom-control-input"
-                  type="checkbox"
-                >
-                <label
-                  class="custom-control-label"
-                  for="repeatAfterCompletion"
-                >{{ $t('repeatAfterCompletionTitle', {everyX: task.everyX}) }}</label>
-              </div>
-            </div>
-          </template>
           <template v-if="task.frequency === 'weekly'">
             <div class="form-group">
               <label
@@ -532,7 +505,7 @@
           class="option group-options"
         >
           <div
-            v-if="task.type === 'todo' || task.type === 'daily'"
+            v-if="task.type === 'todo'"
             class="form-group"
           >
             <label v-once>{{ $t('sharedCompletion') }}</label>
@@ -1127,11 +1100,8 @@
     }
 
     .weekday-check {
+      margin-left: 0px;
       width: 57px;
-      .custom-control-label {
-        width: 57px;
-        font-weight: normal;
-      }
     }
 
     .advanced-settings {
@@ -1179,10 +1149,6 @@
   .gold {
     width: 24px;
     margin: 0 7px;
-  }
-
-  .no-pointer {
-    cursor: default;
   }
 </style>
 

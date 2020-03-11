@@ -176,7 +176,6 @@
   "taskApprovalWasNotRequested": "Approval has not been requested for this task.",
   "approvals": "Approvals",
   "approvalRequired": "Needs Approval",
-  "repeatAfterCompletionTitle": "Repeat Every <%= everyX %> Days Since Last Completed",
   "repeatZero": "Daily is never due",
   "repeatType": "Repeat Type",
   "repeatTypeHelpTitle": "What kind of repeat is this?",

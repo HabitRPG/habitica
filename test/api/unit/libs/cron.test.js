@@ -8,7 +8,7 @@ import * as Tasks from '../../../../website/server/models/task';
 import common from '../../../../website/common';
 import * as analytics from '../../../../website/server/libs/analyticsService';
 
-const { scoreTask } = common.ops;
+// const scoreTask = common.ops.scoreTask;
 
 const pathToCronLib = '../../../../website/server/libs/cron';
 
@@ -41,42 +41,42 @@ describe('cron', () => {
     analytics.track.restore();
   });
 
-  it('updates user.preferences.timezoneOffsetAtLastCron', async () => {
+  it('updates user.preferences.timezoneOffsetAtLastCron', () => {
     const timezoneOffsetFromUserPrefs = 1;
 
-    await cron({
+    cron({
       user, tasksByType, daysMissed, analytics, timezoneOffsetFromUserPrefs,
     });
 
     expect(user.preferences.timezoneOffsetAtLastCron).to.equal(timezoneOffsetFromUserPrefs);
   });
 
-  it('resets user.items.lastDrop.count', async () => {
+  it('resets user.items.lastDrop.count', () => {
     user.items.lastDrop.count = 4;
-    await cron({
+    cron({
       user, tasksByType, daysMissed, analytics,
     });
     expect(user.items.lastDrop.count).to.equal(0);
   });
 
-  it('increments user cron count', async () => {
+  it('increments user cron count', () => {
     const cronCountBefore = user.flags.cronCount;
-    await cron({
+    cron({
       user, tasksByType, daysMissed, analytics,
     });
     expect(user.flags.cronCount).to.be.greaterThan(cronCountBefore);
   });
 
-  it('calls analytics', async () => {
-    await cron({
+  it('calls analytics', () => {
+    cron({
       user, tasksByType, daysMissed, analytics,
     });
     expect(analytics.track.callCount).to.equal(1);
   });
 
-  it('calls analytics when user is sleeping', async () => {
+  it('calls analytics when user is sleeping', () => {
     user.preferences.sleep = true;
-    await cron({
+    cron({
       user, tasksByType, daysMissed, analytics,
     });
     expect(analytics.track.callCount).to.equal(1);
@@ -110,104 +110,104 @@ describe('cron', () => {
       expect(filteredNotifications.length).to.equal(1);
     });
 
-    it('resets plan.gemsBought on a new month', async () => {
+    it('resets plan.gemsBought on a new month', () => {
       user.purchased.plan.gemsBought = 10;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.gemsBought).to.equal(0);
     });
 
-    it('resets plan.gemsBought on a new month if user does not have purchased.plan.dateUpdated', async () => {
+    it('resets plan.gemsBought on a new month if user does not have purchased.plan.dateUpdated', () => {
       user.purchased.plan.gemsBought = 10;
       user.purchased.plan.dateUpdated = undefined;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.gemsBought).to.equal(0);
     });
 
-    it('does not reset plan.gemsBought within the month', async () => {
+    it('does not reset plan.gemsBought within the month', () => {
       clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').toDate());
       user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
 
       user.purchased.plan.gemsBought = 10;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.gemsBought).to.equal(10);
     });
 
-    it('resets plan.dateUpdated on a new month', async () => {
+    it('resets plan.dateUpdated on a new month', () => {
       const currentMonth = moment().startOf('month');
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(moment(user.purchased.plan.dateUpdated).startOf('month').isSame(currentMonth)).to.eql(true);
     });
 
-    it('increments plan.consecutive.count', async () => {
+    it('increments plan.consecutive.count', () => {
       user.purchased.plan.consecutive.count = 0;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.count).to.equal(1);
     });
 
-    it('increments plan.consecutive.count by more than 1 if user skipped months between logins', async () => {
+    it('increments plan.consecutive.count by more than 1 if user skipped months between logins', () => {
       user.purchased.plan.dateUpdated = moment().subtract(2, 'months').toDate();
       user.purchased.plan.consecutive.count = 0;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.count).to.equal(2);
     });
 
-    it('decrements plan.consecutive.offset when offset is greater than 0', async () => {
+    it('decrements plan.consecutive.offset when offset is greater than 0', () => {
       user.purchased.plan.consecutive.offset = 2;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.offset).to.equal(1);
     });
 
-    it('does not award unearned plan.consecutive.trinkets if subscription ended during an absence', async () => {
+    it('does not award unearned plan.consecutive.trinkets if subscription ended during an absence', () => {
       user.purchased.plan.dateUpdated = moment().subtract(6, 'months').toDate();
       user.purchased.plan.dateTerminated = moment().subtract(3, 'months').toDate();
       user.purchased.plan.consecutive.count = 5;
       user.purchased.plan.consecutive.trinkets = 1;
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(user.purchased.plan.consecutive.trinkets).to.equal(1);
     });
 
-    it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', async () => {
+    it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', () => {
       user.purchased.plan.consecutive.gemCapExtra = 25;
       user.purchased.plan.consecutive.count = 5;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(25);
     });
 
-    it('does not reset plan stats if we are before the last day of the cancelled month', async () => {
+    it('does not reset plan stats if we are before the last day of the cancelled month', () => {
       user.purchased.plan.dateTerminated = moment(new Date()).add({ days: 1 });
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.customerId).to.exist;
     });
 
-    it('does reset plan stats if we are after the last day of the cancelled month', async () => {
+    it('does reset plan stats if we are after the last day of the cancelled month', () => {
       user.purchased.plan.dateTerminated = moment(new Date()).subtract({ days: 1 });
       user.purchased.plan.consecutive.gemCapExtra = 20;
       user.purchased.plan.consecutive.count = 5;
       user.purchased.plan.consecutive.offset = 1;
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -239,14 +239,14 @@ describe('cron', () => {
       user1.purchased.plan.consecutive.trinkets = 0;
       user1.purchased.plan.consecutive.gemCapExtra = 0;
 
-      it('does not increment consecutive benefits after the first month', async () => {
+      it('does not increment consecutive benefits after the first month', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
         // Add 1 month to simulate what happens a month after the subscription was created.
         // Add 2 days so that we're sure we're not affected by any start-of-month effects
         // e.g., from time zone oddness.
-        await cron({
+        cron({
           user: user1, tasksByType, daysMissed, analytics,
         });
         expect(user1.purchased.plan.consecutive.count).to.equal(1);
@@ -255,14 +255,14 @@ describe('cron', () => {
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(0);
       });
 
-      it('does not increment consecutive benefits after the second month', async () => {
+      it('does not increment consecutive benefits after the second month', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(2, 'months')
           .add(2, 'days')
           .toDate());
         // Add 1 month to simulate what happens a month after the subscription was created.
         // Add 2 days so that we're sure we're not affected by any start-of-month effects
         // e.g., from time zone oddness.
-        await cron({
+        cron({
           user: user1, tasksByType, daysMissed, analytics,
         });
         expect(user1.purchased.plan.consecutive.count).to.equal(2);
@@ -271,14 +271,14 @@ describe('cron', () => {
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(0);
       });
 
-      it('increments consecutive benefits after the third month', async () => {
+      it('increments consecutive benefits after the third month', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(3, 'months')
           .add(2, 'days')
           .toDate());
         // Add 1 month to simulate what happens a month after the subscription was created.
         // Add 2 days so that we're sure we're not affected by any start-of-month effects
         // e.g., from time zone oddness.
-        await cron({
+        cron({
           user: user1, tasksByType, daysMissed, analytics,
         });
         expect(user1.purchased.plan.consecutive.count).to.equal(3);
@@ -287,14 +287,14 @@ describe('cron', () => {
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(5);
       });
 
-      it('does not increment consecutive benefits after the fourth month', async () => {
+      it('does not increment consecutive benefits after the fourth month', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(4, 'months')
           .add(2, 'days')
           .toDate());
         // Add 1 month to simulate what happens a month after the subscription was created.
         // Add 2 days so that we're sure we're not affected by any start-of-month effects
         // e.g., from time zone oddness.
-        await cron({
+        cron({
           user: user1, tasksByType, daysMissed, analytics,
         });
         expect(user1.purchased.plan.consecutive.count).to.equal(4);
@@ -303,11 +303,11 @@ describe('cron', () => {
         expect(user1.purchased.plan.consecutive.gemCapExtra).to.equal(5);
       });
 
-      it('increments consecutive benefits correctly if user has been absent with continuous subscription', async () => {
+      it('increments consecutive benefits correctly if user has been absent with continuous subscription', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(10, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user1, tasksByType, daysMissed, analytics,
         });
         expect(user1.purchased.plan.consecutive.count).to.equal(10);
@@ -338,11 +338,11 @@ describe('cron', () => {
       user3.purchased.plan.consecutive.trinkets = 1;
       user3.purchased.plan.consecutive.gemCapExtra = 5;
 
-      it('does not increment consecutive benefits in the first month of the first paid period that they already have benefits for', async () => {
+      it('does not increment consecutive benefits in the first month of the first paid period that they already have benefits for', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(1);
@@ -351,11 +351,11 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(5);
       });
 
-      it('does not increment consecutive benefits in the middle of the period that they already have benefits for', async () => {
+      it('does not increment consecutive benefits in the middle of the period that they already have benefits for', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(2, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(2);
@@ -364,11 +364,11 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(5);
       });
 
-      it('does not increment consecutive benefits in the final month of the period that they already have benefits for', async () => {
+      it('does not increment consecutive benefits in the final month of the period that they already have benefits for', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(3, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(3);
@@ -377,11 +377,11 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(5);
       });
 
-      it('increments consecutive benefits the month after the second paid period has started', async () => {
+      it('increments consecutive benefits the month after the second paid period has started', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(4, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(4);
@@ -390,11 +390,11 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(10);
       });
 
-      it('does not increment consecutive benefits in the second month of the second period that they already have benefits for', async () => {
+      it('does not increment consecutive benefits in the second month of the second period that they already have benefits for', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(5, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(5);
@@ -403,11 +403,11 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(10);
       });
 
-      it('does not increment consecutive benefits in the final month of the second period that they already have benefits for', async () => {
+      it('does not increment consecutive benefits in the final month of the second period that they already have benefits for', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(6, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(6);
@@ -416,11 +416,11 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(10);
       });
 
-      it('increments consecutive benefits the month after the third paid period has started', async () => {
+      it('increments consecutive benefits the month after the third paid period has started', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(7, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(7);
@@ -429,11 +429,11 @@ describe('cron', () => {
         expect(user3.purchased.plan.consecutive.gemCapExtra).to.equal(15);
       });
 
-      it('increments consecutive benefits correctly if user has been absent with continuous subscription', async () => {
+      it('increments consecutive benefits correctly if user has been absent with continuous subscription', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(10, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3, tasksByType, daysMissed, analytics,
         });
         expect(user3.purchased.plan.consecutive.count).to.equal(10);
@@ -464,11 +464,11 @@ describe('cron', () => {
       user6.purchased.plan.consecutive.trinkets = 2;
       user6.purchased.plan.consecutive.gemCapExtra = 10;
 
-      it('does not increment consecutive benefits in the first month of the first paid period that they already have benefits for', async () => {
+      it('does not increment consecutive benefits in the first month of the first paid period that they already have benefits for', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user6, tasksByType, daysMissed, analytics,
         });
         expect(user6.purchased.plan.consecutive.count).to.equal(1);
@@ -477,11 +477,11 @@ describe('cron', () => {
         expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(10);
       });
 
-      it('does not increment consecutive benefits in the final month of the period that they already have benefits for', async () => {
+      it('does not increment consecutive benefits in the final month of the period that they already have benefits for', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(6, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user6, tasksByType, daysMissed, analytics,
         });
         expect(user6.purchased.plan.consecutive.count).to.equal(6);
@@ -490,11 +490,11 @@ describe('cron', () => {
         expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(10);
       });
 
-      it('increments consecutive benefits the month after the second paid period has started', async () => {
+      it('increments consecutive benefits the month after the second paid period has started', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(7, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user6, tasksByType, daysMissed, analytics,
         });
         expect(user6.purchased.plan.consecutive.count).to.equal(7);
@@ -503,11 +503,11 @@ describe('cron', () => {
         expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(20);
       });
 
-      it('increments consecutive benefits the month after the third paid period has started', async () => {
+      it('increments consecutive benefits the month after the third paid period has started', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(13, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user6, tasksByType, daysMissed, analytics,
         });
         expect(user6.purchased.plan.consecutive.count).to.equal(13);
@@ -516,11 +516,11 @@ describe('cron', () => {
         expect(user6.purchased.plan.consecutive.gemCapExtra).to.equal(25);
       });
 
-      it('increments consecutive benefits correctly if user has been absent with continuous subscription', async () => {
+      it('increments consecutive benefits correctly if user has been absent with continuous subscription', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(19, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user6, tasksByType, daysMissed, analytics,
         });
         expect(user6.purchased.plan.consecutive.count).to.equal(19);
@@ -551,11 +551,11 @@ describe('cron', () => {
       user12.purchased.plan.consecutive.trinkets = 4;
       user12.purchased.plan.consecutive.gemCapExtra = 20;
 
-      it('does not increment consecutive benefits in the first month of the first paid period that they already have benefits for', async () => {
+      it('does not increment consecutive benefits in the first month of the first paid period that they already have benefits for', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user12, tasksByType, daysMissed, analytics,
         });
         expect(user12.purchased.plan.consecutive.count).to.equal(1);
@@ -564,11 +564,11 @@ describe('cron', () => {
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(20);
       });
 
-      it('does not increment consecutive benefits in the final month of the period that they already have benefits for', async () => {
+      it('does not increment consecutive benefits in the final month of the period that they already have benefits for', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(12, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user12, tasksByType, daysMissed, analytics,
         });
         expect(user12.purchased.plan.consecutive.count).to.equal(12);
@@ -577,11 +577,11 @@ describe('cron', () => {
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(20);
       });
 
-      it('increments consecutive benefits the month after the second paid period has started', async () => {
+      it('increments consecutive benefits the month after the second paid period has started', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(13, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user12, tasksByType, daysMissed, analytics,
         });
         expect(user12.purchased.plan.consecutive.count).to.equal(13);
@@ -590,11 +590,11 @@ describe('cron', () => {
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(25);
       });
 
-      it('increments consecutive benefits the month after the third paid period has started', async () => {
+      it('increments consecutive benefits the month after the third paid period has started', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(25, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user12, tasksByType, daysMissed, analytics,
         });
         expect(user12.purchased.plan.consecutive.count).to.equal(25);
@@ -603,11 +603,11 @@ describe('cron', () => {
         expect(user12.purchased.plan.consecutive.gemCapExtra).to.equal(25);
       });
 
-      it('increments consecutive benefits correctly if user has been absent with continuous subscription', async () => {
+      it('increments consecutive benefits correctly if user has been absent with continuous subscription', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(37, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user12, tasksByType, daysMissed, analytics,
         });
         expect(user12.purchased.plan.consecutive.count).to.equal(37);
@@ -640,11 +640,11 @@ describe('cron', () => {
       user3g.purchased.plan.consecutive.trinkets = 1;
       user3g.purchased.plan.consecutive.gemCapExtra = 5;
 
-      it('does not increment consecutive benefits in the first month of the gift subscription', async () => {
+      it('does not increment consecutive benefits in the first month of the gift subscription', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3g, tasksByType, daysMissed, analytics,
         });
         expect(user3g.purchased.plan.consecutive.count).to.equal(1);
@@ -653,11 +653,11 @@ describe('cron', () => {
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(5);
       });
 
-      it('does not increment consecutive benefits in the second month of the gift subscription', async () => {
+      it('does not increment consecutive benefits in the second month of the gift subscription', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(2, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3g, tasksByType, daysMissed, analytics,
         });
         expect(user3g.purchased.plan.consecutive.count).to.equal(2);
@@ -666,11 +666,11 @@ describe('cron', () => {
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(5);
       });
 
-      it('does not increment consecutive benefits in the third month of the gift subscription', async () => {
+      it('does not increment consecutive benefits in the third month of the gift subscription', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(3, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3g, tasksByType, daysMissed, analytics,
         });
         expect(user3g.purchased.plan.consecutive.count).to.equal(3);
@@ -679,11 +679,11 @@ describe('cron', () => {
         expect(user3g.purchased.plan.consecutive.gemCapExtra).to.equal(5);
       });
 
-      it('does not increment consecutive benefits in the month after the gift subscription has ended', async () => {
+      it('does not increment consecutive benefits in the month after the gift subscription has ended', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(4, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user3g, tasksByType, daysMissed, analytics,
         });
         // subscription has been erased by now
@@ -716,11 +716,11 @@ describe('cron', () => {
       user6x.purchased.plan.consecutive.trinkets = 3;
       user6x.purchased.plan.consecutive.gemCapExtra = 15;
 
-      it('increments consecutive benefits in the first month since the fix for #4819 goes live', async () => {
+      it('increments consecutive benefits in the first month since the fix for #4819 goes live', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(1, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user6x, tasksByType, daysMissed, analytics,
         });
         expect(user6x.purchased.plan.consecutive.count).to.equal(9);
@@ -729,11 +729,11 @@ describe('cron', () => {
         expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
       });
 
-      it('does not increment consecutive benefits in the second month after the fix goes live', async () => {
+      it('does not increment consecutive benefits in the second month after the fix goes live', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(2, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user6x, tasksByType, daysMissed, analytics,
         });
         expect(user6x.purchased.plan.consecutive.count).to.equal(10);
@@ -742,11 +742,11 @@ describe('cron', () => {
         expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
       });
 
-      it('does not increment consecutive benefits in the third month after the fix goes live', async () => {
+      it('does not increment consecutive benefits in the third month after the fix goes live', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(3, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user6x, tasksByType, daysMissed, analytics,
         });
         expect(user6x.purchased.plan.consecutive.count).to.equal(11);
@@ -755,11 +755,11 @@ describe('cron', () => {
         expect(user6x.purchased.plan.consecutive.gemCapExtra).to.equal(25);
       });
 
-      it('increments consecutive benefits in the seventh month after the fix goes live', async () => {
+      it('increments consecutive benefits in the seventh month after the fix goes live', () => {
         clock = sinon.useFakeTimers(moment().zone(0).startOf('month').add(7, 'months')
           .add(2, 'days')
           .toDate());
-        await cron({
+        cron({
           user: user6x, tasksByType, daysMissed, analytics,
         });
         expect(user6x.purchased.plan.consecutive.count).to.equal(15);
@@ -775,94 +775,88 @@ describe('cron', () => {
       user.purchased.plan.dateUpdated = moment().subtract(1, 'months').toDate();
     });
 
-    it('resets plan.gemsBought on a new month', async () => {
+    it('resets plan.gemsBought on a new month', () => {
       user.purchased.plan.gemsBought = 10;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.gemsBought).to.equal(0);
     });
 
-    it('does not reset plan.gemsBought within the month', async () => {
+    it('does not reset plan.gemsBought within the month', () => {
       clock = sinon.useFakeTimers(moment().startOf('month').add(2, 'days').unix());
       user.purchased.plan.dateUpdated = moment().startOf('month').toDate();
 
       user.purchased.plan.gemsBought = 10;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.gemsBought).to.equal(10);
     });
 
-    it('does not reset plan.dateUpdated on a new month', async () => {
-      await cron({
+    it('does not reset plan.dateUpdated on a new month', () => {
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.dateUpdated).to.be.empty;
     });
 
-    it('does not increment plan.consecutive.count', async () => {
+    it('does not increment plan.consecutive.count', () => {
       user.purchased.plan.consecutive.count = 0;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.count).to.equal(0);
     });
 
-    it('does not decrement plan.consecutive.offset when offset is greater than 0', async () => {
+    it('does not decrement plan.consecutive.offset when offset is greater than 0', () => {
       user.purchased.plan.consecutive.offset = 1;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.offset).to.equal(1);
     });
 
-    it('does not increment plan.consecutive.trinkets when user has reached a month that is a multiple of 3', async () => {
+    it('does not increment plan.consecutive.trinkets when user has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.trinkets).to.equal(0);
     });
 
-    it('does not increment plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', async () => {
+    it('does not increment plan.consecutive.gemCapExtra when user has reached a month that is a multiple of 3', () => {
       user.purchased.plan.consecutive.count = 5;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(0);
     });
 
-    it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', async () => {
+    it('does not increment plan.consecutive.gemCapExtra when user has reached the gemCap limit', () => {
       user.purchased.plan.consecutive.gemCapExtra = 25;
       user.purchased.plan.consecutive.count = 5;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.consecutive.gemCapExtra).to.equal(25);
     });
 
-    it('does nothing to plan stats if we are before the last day of the cancelled month', async () => {
+    it('does nothing to plan stats if we are before the last day of the cancelled month', () => {
       user.purchased.plan.dateTerminated = moment(new Date()).add({ days: 1 });
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.purchased.plan.customerId).to.not.exist;
     });
 
-    xit('does nothing to plan stats when we are after the last day of the cancelled month', async () => {
+    xit('does nothing to plan stats when we are after the last day of the cancelled month', () => {
       user.purchased.plan.dateTerminated = moment(new Date()).subtract({ days: 1 });
       user.purchased.plan.consecutive.gemCapExtra = 20;
       user.purchased.plan.consecutive.count = 5;
       user.purchased.plan.consecutive.offset = 1;
 
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -885,25 +879,25 @@ describe('cron', () => {
       tasksByType.todos.push(task);
     });
 
-    it('should make uncompleted todos redder', async () => {
+    it('should make uncompleted todos redder', () => {
       const valueBefore = tasksByType.todos[0].value;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.todos[0].value).to.be.lessThan(valueBefore);
     });
 
-    it('should add history of completed todos to user history', async () => {
+    it('should add history of completed todos to user history', () => {
       tasksByType.todos[0].completed = true;
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(user.history.todos).to.be.lengthOf(1);
     });
 
-    it('should remove completed todos from users taskOrder list', async () => {
+    it('should remove completed todos from users taskOrder list', () => {
       tasksByType.todos = [];
       user.tasksOrder.todos = [];
       const todo = {
@@ -926,8 +920,7 @@ describe('cron', () => {
       expect(tasksByType.todos).to.be.lengthOf(2);
       expect(user.tasksOrder.todos).to.be.lengthOf(3);
 
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -936,7 +929,7 @@ describe('cron', () => {
       expect(user.tasksOrder.todos).to.be.lengthOf(1);
     });
 
-    it('should preserve todos order in task list', async () => {
+    it('should preserve todos order in task list', () => {
       tasksByType.todos = [];
       user.tasksOrder.todos = [];
       const todo = {
@@ -956,7 +949,7 @@ describe('cron', () => {
       user.tasksOrder.todos = tasksByType.todos.map(todoTask => todoTask._id).reverse();
       const original = user.tasksOrder.todos; // Preserve the original order
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -992,110 +985,106 @@ describe('cron', () => {
       common.statsComputed.restore();
     });
 
-    it('computes isDue', async () => {
+    it('computes isDue', () => {
       tasksByType.dailys[0].frequency = 'daily';
       tasksByType.dailys[0].everyX = 5;
       tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.dailys[0].isDue).to.be.false;
     });
 
-    it('computes isDue when user is sleeping', async () => {
+    it('computes isDue when user is sleeping', () => {
       user.preferences.sleep = true;
       tasksByType.dailys[0].frequency = 'daily';
       tasksByType.dailys[0].everyX = 5;
       tasksByType.dailys[0].startDate = moment().toDate();
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.dailys[0].isDue).to.exist;
     });
 
-    it('computes nextDue', async () => {
+    it('computes nextDue', () => {
       tasksByType.dailys[0].frequency = 'daily';
       tasksByType.dailys[0].everyX = 5;
       tasksByType.dailys[0].startDate = moment().add(1, 'days').toDate();
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.dailys[0].nextDue.length).to.eql(6);
     });
 
-    it('should add history', async () => {
-      await cron({
+    it('should add history', () => {
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.dailys[0].history).to.be.lengthOf(1);
     });
 
-    it('should set tasks completed to false', async () => {
+    it('should set tasks completed to false', () => {
       tasksByType.dailys[0].completed = true;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.dailys[0].completed).to.be.false;
     });
 
-    it('should set tasks completed to false when user is sleeping', async () => {
+    it('should set tasks completed to false when user is sleeping', () => {
       user.preferences.sleep = true;
       tasksByType.dailys[0].completed = true;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.dailys[0].completed).to.be.false;
     });
 
-    it('should reset task checklist for completed dailys', async () => {
+    it('should reset task checklist for completed dailys', () => {
       tasksByType.dailys[0].checklist.push({ title: 'test', completed: false });
       tasksByType.dailys[0].completed = true;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.dailys[0].checklist[0].completed).to.be.false;
     });
 
-    it('should reset task checklist for completed dailys when user is sleeping', async () => {
+    it('should reset task checklist for completed dailys when user is sleeping', () => {
       user.preferences.sleep = true;
       tasksByType.dailys[0].checklist.push({ title: 'test', completed: false });
       tasksByType.dailys[0].completed = true;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.dailys[0].checklist[0].completed).to.be.false;
     });
 
-    it('should reset task checklist for dailys with scheduled misses', async () => {
+    it('should reset task checklist for dailys with scheduled misses', () => {
       daysMissed = 10;
       tasksByType.dailys[0].checklist.push({ title: 'test', completed: false });
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.dailys[0].checklist[0].completed).to.be.false;
     });
 
-    it('should do damage for missing a daily', async () => {
+    it('should do damage for missing a daily', () => {
       daysMissed = 1;
       const hpBefore = user.stats.hp;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.stats.hp).to.be.lessThan(hpBefore);
     });
 
-    it('should not do damage for missing a daily when user is sleeping', async () => {
+    it('should not do damage for missing a daily when user is sleeping', () => {
       user.preferences.sleep = true;
       daysMissed = 1;
       const hpBefore = user.stats.hp;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.stats.hp).to.equal(hpBefore);
@@ -1116,24 +1105,24 @@ describe('cron', () => {
       expect(user.stats.hp).to.equal(hpBefore);
     });
 
-    it('should not do damage for missing a daily if user stealth buff is greater than or equal to days missed', async () => {
+    it('should not do damage for missing a daily if user stealth buff is greater than or equal to days missed', () => {
       daysMissed = 1;
       const hpBefore = user.stats.hp;
       user.stats.buffs.stealth = 2;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(user.stats.hp).to.equal(hpBefore);
     });
 
-    it('should do less damage for missing a daily with partial completion', async () => {
+    it('should do less damage for missing a daily with partial completion', () => {
       daysMissed = 1;
       let hpBefore = user.stats.hp;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       const hpDifferenceOfFullyIncompleteDaily = hpBefore - user.stats.hp;
@@ -1141,7 +1130,7 @@ describe('cron', () => {
       hpBefore = user.stats.hp;
       tasksByType.dailys[0].checklist.push({ title: 'test', completed: true });
       tasksByType.dailys[0].checklist.push({ title: 'test2', completed: false });
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       const hpDifferenceOfPartiallyIncompleteDaily = hpBefore - user.stats.hp;
@@ -1150,30 +1139,30 @@ describe('cron', () => {
         .to.be.lessThan(hpDifferenceOfFullyIncompleteDaily);
     });
 
-    it('should decrement quest.progress.down for missing a daily', async () => {
+    it('should decrement quest.progress.down for missing a daily', () => {
       daysMissed = 1;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
 
-      const progress = await cron({
+      const progress = cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(progress.down).to.equal(-1);
     });
 
-    it('should not decrement quest.progress.down for missing a daily when user is sleeping', async () => {
+    it('should not decrement quest.progress.down for missing a daily when user is sleeping', () => {
       user.preferences.sleep = true;
       daysMissed = 1;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
 
-      const progress = await cron({
+      const progress = cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(progress.down).to.equal(0);
     });
 
-    it('should do damage for only yesterday\'s dailies', async () => {
+    it('should do damage for only yesterday\'s dailies', () => {
       daysMissed = 3;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
 
@@ -1187,106 +1176,11 @@ describe('cron', () => {
       tasksByType.dailys[1].everyX = 2;
       tasksByType.dailys[1].frequency = 'daily';
 
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(user.stats.hp).to.equal(48);
-    });
-
-    context('repeat every X days after completion is on', () => {
-      // date will be changed as the tests mimic a user going through one or more crons
-      let dateDuringTest;
-      beforeEach(() => {
-        tasksByType.dailys[0].everyX = 3;
-        tasksByType.dailys[0].frequency = 'daily';
-        tasksByType.dailys[0].repeatAfterCompletion = true;
-        scoreTask({
-          user, task: tasksByType.dailys[0], direction: 'up', cron: false,
-        });
-        dateDuringTest = moment();
-      });
-
-      context('player uses Habitica every day (daysMissed is always 1)', () => {
-        it('should be due 3+ days after completion but not before', () => {
-          daysMissed = 1;
-
-          // 1 day after completion
-          dateDuringTest.add(daysMissed, 'days').subtract(5, 'minutes').toDate();
-          // we subtract 5 minutes to ensure we haven't jumped more than a
-          // day from the starting time due to any small delays in the tests
-          cron({
-            user, tasksByType, daysMissed, analytics, now: dateDuringTest,
-          });
-          expect(tasksByType.dailys[0].isDue).to.be.false;
-
-          // 2 days after completion
-          dateDuringTest.add(daysMissed, 'days').subtract(5, 'minutes').toDate();
-          cron({
-            user, tasksByType, daysMissed, analytics, now: dateDuringTest,
-          });
-          expect(tasksByType.dailys[0].isDue).to.be.false;
-
-          // 3 days after completion
-          dateDuringTest.add(daysMissed, 'days').subtract(5, 'minutes').toDate();
-          cron({
-            user, tasksByType, daysMissed, analytics, now: dateDuringTest,
-          });
-          expect(tasksByType.dailys[0].isDue).to.be.true;
-
-          // 4 days after completion
-          dateDuringTest.add(daysMissed, 'days').subtract(5, 'minutes').toDate();
-          cron({
-            user, tasksByType, daysMissed, analytics, now: dateDuringTest,
-          });
-          expect(tasksByType.dailys[0].isDue).to.be.true;
-        });
-      });
-
-      context('player does not use Habitica every day (daysMissed is sometimes greater than 1)', () => {
-        it('should not be due 2 days after completion when the intervening day is missed', () => {
-          daysMissed = 2;
-
-          // 2 days after completion
-          dateDuringTest.add(daysMissed, 'days').subtract(5, 'minutes').toDate();
-          cron({
-            user, tasksByType, daysMissed, analytics, now: dateDuringTest,
-          });
-          expect(tasksByType.dailys[0].isDue).to.be.false;
-        });
-
-        it('should be due 3 days after completion when one intervening day is missed', () => {
-          daysMissed = 1;
-
-          // 1 day after completion
-          dateDuringTest.add(daysMissed, 'days').subtract(5, 'minutes').toDate();
-          cron({
-            user, tasksByType, daysMissed, analytics, now: dateDuringTest,
-          });
-          expect(tasksByType.dailys[0].isDue).to.be.false;
-
-          daysMissed = 2;
-
-          // 3 days after completion
-          dateDuringTest.add(daysMissed, 'days').subtract(5, 'minutes').toDate();
-          cron({
-            user, tasksByType, daysMissed, analytics, now: dateDuringTest,
-          });
-          expect(tasksByType.dailys[0].isDue).to.be.true;
-        });
-
-        it('should be due 3 days after completion when all intervening days are missed', () => {
-          daysMissed = 3;
-
-          // 3 days after completion
-          dateDuringTest.add(daysMissed, 'days').subtract(5, 'minutes').toDate();
-          cron({
-            user, tasksByType, daysMissed, analytics, now: dateDuringTest,
-          });
-          expect(tasksByType.dailys[0].isDue).to.be.true;
-        });
-      });
     });
   });
 
@@ -1302,36 +1196,34 @@ describe('cron', () => {
       tasksByType.habits.push(task);
     });
 
-    it('should decrement only up value', async () => {
+    it('should decrement only up value', () => {
       tasksByType.habits[0].value = 1;
       tasksByType.habits[0].down = false;
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(tasksByType.habits[0].value).to.be.lessThan(1);
     });
 
-    it('should decrement only down value', async () => {
+    it('should decrement only down value', () => {
       tasksByType.habits[0].value = 1;
       tasksByType.habits[0].up = false;
 
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(tasksByType.habits[0].value).to.be.lessThan(1);
     });
 
-    it('should do nothing to habits with both up and down', async () => {
+    it('should do nothing to habits with both up and down', () => {
       tasksByType.habits[0].value = 1;
       tasksByType.habits[0].up = true;
       tasksByType.habits[0].down = true;
 
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1346,11 +1238,11 @@ describe('cron', () => {
         clock = sinon.useFakeTimers(notStartOfWeekOrMonth);
       });
 
-      it('should reset a daily habit counter each day', async () => {
+      it('should reset a daily habit counter each day', () => {
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
 
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1358,12 +1250,12 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
-      it('should reset habit counters even if user is sleeping', async () => {
+      it('should reset habit counters even if user is sleeping', () => {
         user.preferences.sleep = true;
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
 
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1371,13 +1263,13 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
-      it('should reset a weekly habit counter each Monday', async () => {
+      it('should reset a weekly habit counter each Monday', () => {
         tasksByType.habits[0].frequency = 'weekly';
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
 
         // should not reset
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1386,7 +1278,7 @@ describe('cron', () => {
 
         // should reset
         daysMissed = 8;
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1394,7 +1286,7 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
-      it('should reset a weekly habit counter with custom daily start', async () => {
+      it('should reset a weekly habit counter with custom daily start', () => {
         clock.restore();
 
         // Server clock: Monday 12am UTC
@@ -1410,7 +1302,7 @@ describe('cron', () => {
         daysMissed = 1;
 
         // should not reset
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1424,7 +1316,7 @@ describe('cron', () => {
         clock = sinon.useFakeTimers(monday);
 
         // should reset after user CDS
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1432,7 +1324,7 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
-      it('should not reset a weekly habit counter when server tz is Monday but user\'s tz is Tuesday', async () => {
+      it('should not reset a weekly habit counter when server tz is Monday but user\'s tz is Tuesday', () => {
         clock.restore();
 
         // Server clock: Monday 11pm UTC
@@ -1448,7 +1340,7 @@ describe('cron', () => {
         daysMissed = 1;
 
         // should not reset
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1458,7 +1350,7 @@ describe('cron', () => {
         // User missed one cron, which will subtract User clock back to Monday 1am UTC + 2
         // should reset
         daysMissed = 2;
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1466,7 +1358,7 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
-      it('should reset a weekly habit counter when server tz is Sunday but user\'s tz is Monday', async () => {
+      it('should reset a weekly habit counter when server tz is Sunday but user\'s tz is Monday', () => {
         clock.restore();
 
         // Server clock: Sunday 11pm UTC
@@ -1482,7 +1374,7 @@ describe('cron', () => {
         daysMissed = 1;
 
         // should reset
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1490,7 +1382,7 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
-      it('should not reset a weekly habit counter when server tz is Monday but user\'s tz is Sunday', async () => {
+      it('should not reset a weekly habit counter when server tz is Monday but user\'s tz is Sunday', () => {
         clock.restore();
 
         // Server clock: Monday 2am UTC
@@ -1506,7 +1398,7 @@ describe('cron', () => {
         daysMissed = 1;
 
         // should not reset
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1514,13 +1406,13 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(1);
       });
 
-      it('should reset a monthly habit counter the first day of each month', async () => {
+      it('should reset a monthly habit counter the first day of each month', () => {
         tasksByType.habits[0].frequency = 'monthly';
         tasksByType.habits[0].counterUp = 1;
         tasksByType.habits[0].counterDown = 1;
 
         // should not reset
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1529,7 +1421,7 @@ describe('cron', () => {
 
         // should reset
         daysMissed = 32;
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1537,7 +1429,7 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
-      it('should reset a monthly habit counter when server tz is last day of month but user tz is first day of the month', async () => {
+      it('should reset a monthly habit counter when server tz is last day of month but user tz is first day of the month', () => {
         clock.restore();
         daysMissed = 0;
 
@@ -1554,7 +1446,7 @@ describe('cron', () => {
         daysMissed = 1;
 
         // should reset
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1562,7 +1454,7 @@ describe('cron', () => {
         expect(tasksByType.habits[0].counterDown).to.equal(0);
       });
 
-      it('should not reset a monthly habit counter when server tz is first day of month but user tz is 2nd day of the month', async () => {
+      it('should not reset a monthly habit counter when server tz is first day of month but user tz is 2nd day of the month', () => {
         clock.restore();
 
         // Server clock: 5/1/17 11pm UTC
@@ -1578,7 +1470,7 @@ describe('cron', () => {
         daysMissed = 1;
 
         // should not reset
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1588,7 +1480,7 @@ describe('cron', () => {
         // User missed one day, which will subtract User clock back to 5/1/17 2am UTC + 3
         // should reset
         daysMissed = 2;
-        await cron({
+        cron({
           user, tasksByType, daysMissed, analytics,
         });
 
@@ -1618,10 +1510,10 @@ describe('cron', () => {
       common.statsComputed.restore();
     });
 
-    it('stores a new entry in user.history.exp', async () => {
+    it('stores a new entry in user.history.exp', () => {
       user.stats.lvl = 2;
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1629,38 +1521,38 @@ describe('cron', () => {
       expect(user.history.exp[0].value).to.equal(25);
     });
 
-    it('increments perfect day achievement if all (at least 1) due dailies were completed', async () => {
+    it('increments perfect day achievement if all (at least 1) due dailies were completed', () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(user.achievements.perfect).to.equal(1);
     });
 
-    it('does not increment perfect day achievement if no due dailies', async () => {
+    it('does not increment perfect day achievement if no due dailies', () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].startDate = moment(new Date()).add({ days: 1 });
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
       expect(user.achievements.perfect).to.equal(0);
     });
 
-    it('gives perfect day buff if all (at least 1) due dailies were completed', async () => {
+    it('gives perfect day buff if all (at least 1) due dailies were completed', () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
 
       const previousBuffs = user.stats.buffs.toObject();
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1670,7 +1562,7 @@ describe('cron', () => {
       expect(user.stats.buffs.con).to.be.greaterThan(previousBuffs.con);
     });
 
-    it('gives perfect day buff if all (at least 1) due dailies were completed when user is sleeping', async () => {
+    it('gives perfect day buff if all (at least 1) due dailies were completed when user is sleeping', () => {
       user.preferences.sleep = true;
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
@@ -1678,7 +1570,7 @@ describe('cron', () => {
 
       const previousBuffs = user.stats.buffs.toObject();
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1688,7 +1580,7 @@ describe('cron', () => {
       expect(user.stats.buffs.con).to.be.greaterThan(previousBuffs.con);
     });
 
-    it('clears buffs if user does not have a perfect day (no due dailys)', async () => {
+    it('clears buffs if user does not have a perfect day (no due dailys)', () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
       tasksByType.dailys[0].startDate = moment(new Date()).add({ days: 1 });
@@ -1702,7 +1594,7 @@ describe('cron', () => {
         streaks: true,
       };
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1714,7 +1606,7 @@ describe('cron', () => {
       expect(user.stats.buffs.streaks).to.be.false;
     });
 
-    it('clears buffs if user does not have a perfect day (no due dailys) when user is sleeping', async () => {
+    it('clears buffs if user does not have a perfect day (no due dailys) when user is sleeping', () => {
       user.preferences.sleep = true;
       daysMissed = 1;
       tasksByType.dailys[0].completed = true;
@@ -1729,7 +1621,7 @@ describe('cron', () => {
         streaks: true,
       };
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1741,7 +1633,7 @@ describe('cron', () => {
       expect(user.stats.buffs.streaks).to.be.false;
     });
 
-    it('clears buffs if user does not have a perfect day (at least one due daily not completed)', async () => {
+    it('clears buffs if user does not have a perfect day (at least one due daily not completed)', () => {
       daysMissed = 1;
       tasksByType.dailys[0].completed = false;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
@@ -1755,7 +1647,7 @@ describe('cron', () => {
         streaks: true,
       };
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1767,7 +1659,7 @@ describe('cron', () => {
       expect(user.stats.buffs.streaks).to.be.false;
     });
 
-    it('clears buffs if user does not have a perfect day (at least one due daily not completed) when user is sleeping', async () => {
+    it('clears buffs if user does not have a perfect day (at least one due daily not completed) when user is sleeping', () => {
       user.preferences.sleep = true;
       daysMissed = 1;
       tasksByType.dailys[0].completed = false;
@@ -1782,7 +1674,7 @@ describe('cron', () => {
         streaks: true,
       };
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1794,7 +1686,7 @@ describe('cron', () => {
       expect(user.stats.buffs.streaks).to.be.false;
     });
 
-    it('always grants a perfect day buff when CRON_SAFE_MODE is set', async () => {
+    it('always grants a perfect day buff when CRON_SAFE_MODE is set', () => {
       sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
       const cronOverride = requireAgain(pathToCronLib).cron;
       daysMissed = 1;
@@ -1803,7 +1695,7 @@ describe('cron', () => {
 
       const previousBuffs = user.stats.buffs.toObject();
 
-      await cronOverride({
+      cronOverride({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1813,7 +1705,7 @@ describe('cron', () => {
       expect(user.stats.buffs.con).to.be.greaterThan(previousBuffs.con);
     });
 
-    it('always grants a perfect day buff when CRON_SAFE_MODE is set when user is sleeping', async () => {
+    it('always grants a perfect day buff when CRON_SAFE_MODE is set when user is sleeping', () => {
       user.preferences.sleep = true;
       sandbox.stub(nconf, 'get').withArgs('CRON_SAFE_MODE').returns('true');
       const cronOverride = requireAgain(pathToCronLib).cron;
@@ -1823,7 +1715,7 @@ describe('cron', () => {
 
       const previousBuffs = user.stats.buffs.toObject();
 
-      await cronOverride({
+      cronOverride({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1835,14 +1727,14 @@ describe('cron', () => {
   });
 
   describe('adding mp', () => {
-    it('should add mp to user', async () => {
+    it('should add mp to user', () => {
       const statsComputedRes = common.statsComputed(user);
       const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
 
       const mpBefore = user.stats.mp;
       tasksByType.dailys[0].completed = true;
       stubbedStatsComputed.returns(Object.assign(statsComputedRes, { maxMP: 100 }));
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.stats.mp).to.be.greaterThan(mpBefore);
@@ -1850,7 +1742,7 @@ describe('cron', () => {
       common.statsComputed.restore();
     });
 
-    it('should not add mp to user when user is sleeping', async () => {
+    it('should not add mp to user when user is sleeping', () => {
       const statsComputedRes = common.statsComputed(user);
       const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
 
@@ -1858,7 +1750,7 @@ describe('cron', () => {
       const mpBefore = user.stats.mp;
       tasksByType.dailys[0].completed = true;
       stubbedStatsComputed.returns(Object.assign(statsComputedRes, { maxMP: 100 }));
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.stats.mp).to.equal(mpBefore);
@@ -1866,12 +1758,12 @@ describe('cron', () => {
       common.statsComputed.restore();
     });
 
-    it('set user\'s mp to statsComputed.maxMP when user.stats.mp is greater', async () => {
+    it('set user\'s mp to statsComputed.maxMP when user.stats.mp is greater', () => {
       const statsComputedRes = common.statsComputed(user);
       const stubbedStatsComputed = sinon.stub(common, 'statsComputed');
       user.stats.mp = 120;
       stubbedStatsComputed.returns(Object.assign(statsComputedRes, { maxMP: 100 }));
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.stats.mp).to.equal(common.statsComputed(user).maxMP);
@@ -1903,8 +1795,8 @@ describe('cron', () => {
       common.statsComputed.restore();
     });
 
-    it('resets user progress', async () => {
-      await cron({
+    it('resets user progress', () => {
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.party.quest.progress.up).to.equal(0);
@@ -1912,8 +1804,8 @@ describe('cron', () => {
       expect(user.party.quest.progress.collectedItems).to.equal(0);
     });
 
-    it('applies the user progress', async () => {
-      const progress = await cron({
+    it('applies the user progress', () => {
+      const progress = cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(progress.down).to.equal(-1);
@@ -1921,7 +1813,7 @@ describe('cron', () => {
   });
 
   describe('notifications', () => {
-    it('adds a user notification', async () => {
+    it('adds a user notification', () => {
       const mpBefore = user.stats.mp;
       tasksByType.dailys[0].completed = true;
 
@@ -1933,7 +1825,7 @@ describe('cron', () => {
       const hpBefore = user.stats.hp;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1947,7 +1839,7 @@ describe('cron', () => {
       common.statsComputed.restore();
     });
 
-    it('condenses multiple notifications into one', async () => {
+    it('condenses multiple notifications into one', () => {
       const mpBefore1 = user.stats.mp;
       tasksByType.dailys[0].completed = true;
 
@@ -1959,7 +1851,7 @@ describe('cron', () => {
       const hpBefore1 = user.stats.hp;
       tasksByType.dailys[0].startDate = moment(new Date()).subtract({ days: 1 });
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -1976,7 +1868,7 @@ describe('cron', () => {
 
       user.lastCron = moment(new Date()).subtract({ days: 2 });
 
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -2022,34 +1914,34 @@ describe('cron', () => {
   });
 
   describe('login incentives', () => {
-    it('increments incentive counter each cron', async () => {
-      await cron({
+    it('increments incentive counter each cron', () => {
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(1);
       user.lastCron = moment(new Date()).subtract({ days: 1 });
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(2);
     });
 
-    it('pushes a notification of the day\'s incentive each cron', async () => {
-      await cron({
+    it('pushes a notification of the day\'s incentive each cron', () => {
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.notifications.length).to.be.greaterThan(1);
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('replaces previous notifications', async () => {
-      await cron({
+    it('replaces previous notifications', () => {
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
 
@@ -2058,25 +1950,24 @@ describe('cron', () => {
       expect(filteredNotifications.length).to.equal(1);
     });
 
-    it('increments loginIncentives by 1 even if days are skipped in between', async () => {
+    it('increments loginIncentives by 1 even if days are skipped in between', () => {
       daysMissed = 3;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(1);
     });
 
-    it('increments loginIncentives by 1 even if user is sleeping', async () => {
+    it('increments loginIncentives by 1 even if user is sleeping', () => {
       user.preferences.sleep = true;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(1);
     });
 
-    it('awards user bard robes if login incentive is 1', async () => {
-      await cron({
+    it('awards user bard robes if login incentive is 1', () => {
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(1);
@@ -2084,10 +1975,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user incentive backgrounds if login incentive is 2', async () => {
+    it('awards user incentive backgrounds if login incentive is 2', () => {
       user.loginIncentives = 1;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(2);
@@ -2099,10 +1989,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user Bard Hat if login incentive is 3', async () => {
+    it('awards user Bard Hat if login incentive is 3', () => {
       user.loginIncentives = 2;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(3);
@@ -2110,10 +1999,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user RoyalPurple Hatching Potion if login incentive is 4', async () => {
+    it('awards user RoyalPurple Hatching Potion if login incentive is 4', () => {
       user.loginIncentives = 3;
-
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(4);
@@ -2121,9 +2009,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user a Chocolate, Meat and Pink Contton Candy if login incentive is 5', async () => {
+    it('awards user a Chocolate, Meat and Pink Contton Candy if login incentive is 5', () => {
       user.loginIncentives = 4;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(5);
@@ -2135,9 +2023,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user moon quest if login incentive is 7', async () => {
+    it('awards user moon quest if login incentive is 7', () => {
       user.loginIncentives = 6;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(7);
@@ -2145,9 +2033,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user RoyalPurple Hatching Potion if login incentive is 10', async () => {
+    it('awards user RoyalPurple Hatching Potion if login incentive is 10', () => {
       user.loginIncentives = 9;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(10);
@@ -2155,9 +2043,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user a Strawberry, Patato and Blue Contton Candy if login incentive is 14', async () => {
+    it('awards user a Strawberry, Patato and Blue Contton Candy if login incentive is 14', () => {
       user.loginIncentives = 13;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(14);
@@ -2169,9 +2057,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user a bard instrument if login incentive is 18', async () => {
+    it('awards user a bard instrument if login incentive is 18', () => {
       user.loginIncentives = 17;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(18);
@@ -2179,9 +2067,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user second moon quest if login incentive is 22', async () => {
+    it('awards user second moon quest if login incentive is 22', () => {
       user.loginIncentives = 21;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(22);
@@ -2189,9 +2077,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user a RoyalPurple hatching potion if login incentive is 26', async () => {
+    it('awards user a RoyalPurple hatching potion if login incentive is 26', () => {
       user.loginIncentives = 25;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(26);
@@ -2199,9 +2087,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user Fish, Milk, Rotten Meat and Honey if login incentive is 30', async () => {
+    it('awards user Fish, Milk, Rotten Meat and Honey if login incentive is 30', () => {
       user.loginIncentives = 29;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(30);
@@ -2214,9 +2102,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user a RoyalPurple hatching potion if login incentive is 35', async () => {
+    it('awards user a RoyalPurple hatching potion if login incentive is 35', () => {
       user.loginIncentives = 34;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(35);
@@ -2224,9 +2112,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user the third moon quest if login incentive is 40', async () => {
+    it('awards user the third moon quest if login incentive is 40', () => {
       user.loginIncentives = 39;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(40);
@@ -2234,9 +2122,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user a RoyalPurple hatching potion if login incentive is 45', async () => {
+    it('awards user a RoyalPurple hatching potion if login incentive is 45', () => {
       user.loginIncentives = 44;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(45);
@@ -2244,9 +2132,9 @@ describe('cron', () => {
       expect(user.notifications[0].type).to.eql('LOGIN_INCENTIVE');
     });
 
-    it('awards user a saddle if login incentive is 50', async () => {
+    it('awards user a saddle if login incentive is 50', () => {
       user.loginIncentives = 49;
-      await cron({
+      cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(user.loginIncentives).to.eql(50);

@@ -724,7 +724,7 @@ api.updateTask = {
  */
 api.scoreTask = {
   method: 'POST',
-  url: '/tasks/:taskId/score/:direction/:yesterdaily?',
+  url: '/tasks/:taskId/score/:direction',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);

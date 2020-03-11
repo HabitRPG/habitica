@@ -57,7 +57,7 @@
             <div
               v-if="task.group.id && !isUser && !task.completed"
               class="svg-icon lock"
-              :class="controlClass.checkbox"
+              :class="controlClass.icon"
               v-html="icons.lock"
             ></div>
             <div
@@ -1046,9 +1046,7 @@ export default {
 
 
       Analytics.updateUser();
-
-      const yesterDaily = task.yesterDailyScored ? '/yesterdaily' : '';
-      const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}${yesterDaily}`);
+      const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);
       // used to notify drops, critical hits and other bonuses
       const tmp = response.data.data._tmp || {};
       const { crit } = tmp;

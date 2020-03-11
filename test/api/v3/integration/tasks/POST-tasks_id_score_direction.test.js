@@ -261,7 +261,6 @@ describe('POST /tasks/:id/score/:direction', () => {
       const task = await user.get(`/tasks/${daily._id}`);
 
       expect(task.completed).to.equal(true);
-      expect(task.value).to.be.greaterThan(daily.value);
     });
 
     it('uncompletes daily when direction is down', async () => {

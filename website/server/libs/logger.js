@@ -139,7 +139,11 @@ const loggerInterface = {
       const loggerArgs = [stack, errorData, ...otherArgs];
 
       // Treat 4xx errors that are handled as warnings, 5xx and uncaught errors as serious problems
-      logger.error(...loggerArgs);
+      if (!errorData || !errorData.isHandledError || errorData.httpCode >= 500) {
+        logger.error(...loggerArgs);
+      } else {
+        logger.warn(...loggerArgs);
+      }
     } else {
       logger.error(...args);
     }

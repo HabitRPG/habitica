@@ -1,19 +1,6 @@
 // When using a common module from the website or the server NEVER import the module directly
 // but access it through `api` (the main common) module,
 // otherwise you would require the non transpiled version of the file in production.
-import content from './content/index';
-
-import * as errors from './libs/errors';
-import i18n from './i18n';
-
-import commonErrors from './errors/commonErrorMessages';
-import apiErrors from './errors/apiErrorMessages';
-
-// TODO under api.libs.cron?
-import {
-  shouldDo, daysSince, startOfDay, sanitizeOptions, DAY_MAPPING,
-} from './cron';
-
 import {
   CHAT_FLAG_FROM_MOD,
   CHAT_FLAG_FROM_SHADOW_MUTE,
@@ -33,30 +20,12 @@ import {
   TAVERN_ID,
   MAX_MESSAGE_LENGTH,
 } from './constants';
-
-// TODO under api.libs.statHelpers?
-import * as statHelpers from './statHelpers';
-import * as onboarding from './libs/onboarding';
-import splitWhitespace from './libs/splitWhitespace';
-import refPush from './libs/refPush';
-import planGemLimits from './libs/planGemLimits';
-import preenTodos from './libs/preenTodos';
-import updateStore from './libs/updateStore';
-import inAppRewards from './libs/inAppRewards';
-
-import setDebuffPotionItems from './libs/setDebuffPotionItems';
-import getDebuffPotionItems from './libs/getDebuffPotionItems';
-
-import uuid from './libs/uuid';
-import taskDefaults from './libs/taskDefaults';
-import percent from './libs/percent';
-import gold from './libs/gold';
-import silver from './libs/silver';
-import noTags from './libs/noTags';
-import appliedTags from './libs/appliedTags';
-import pickDeep from './libs/pickDeep';
-
+import content from './content/index';
 import * as count from './count';
+// TODO under api.libs.cron?
+import { daysSince, DAY_MAPPING, shouldDo } from './cron';
+import apiErrors from './errors/apiErrorMessages';
+import commonErrors from './errors/commonErrorMessages';
 import autoAllocate from './fns/autoAllocate';
 import crit from './fns/crit';
 import handleTwoHanded from './fns/handleTwoHanded';
@@ -65,11 +34,30 @@ import randomDrop from './fns/randomDrop';
 import resetGear from './fns/resetGear';
 import ultimateGear from './fns/ultimateGear';
 import updateStats from './fns/updateStats';
+import i18n from './i18n';
 import achievements from './libs/achievements';
+import appliedTags from './libs/appliedTags';
+import * as errors from './libs/errors';
+import getDebuffPotionItems from './libs/getDebuffPotionItems';
+import gold from './libs/gold';
 import hasClass from './libs/hasClass';
+import inAppRewards from './libs/inAppRewards';
+import noTags from './libs/noTags';
+import * as onboarding from './libs/onboarding';
+import percent from './libs/percent';
+import pickDeep from './libs/pickDeep';
+import planGemLimits from './libs/planGemLimits';
+import preenTodos from './libs/preenTodos';
 import randomVal from './libs/randomVal';
+import refPush from './libs/refPush';
+import setDebuffPotionItems from './libs/setDebuffPotionItems';
 import shops from './libs/shops';
+import silver from './libs/silver';
+import splitWhitespace from './libs/splitWhitespace';
 import statsComputed from './libs/statsComputed';
+import taskDefaults from './libs/taskDefaults';
+import updateStore from './libs/updateStore';
+import uuid from './libs/uuid';
 import blockUser from './ops/blockUser';
 import buy from './ops/buy/buy';
 import changeClass from './ops/changeClass';
@@ -96,6 +84,9 @@ import allocateBulk from './ops/stats/allocateBulk';
 import allocateNow from './ops/stats/allocateNow';
 import unlock from './ops/unlock';
 import updateTask from './ops/updateTask';
+// TODO under api.libs.statHelpers?
+import * as statHelpers from './statHelpers';
+
 
 const api = {};
 api.content = content;
@@ -103,12 +94,7 @@ api.errors = errors;
 api.i18n = i18n;
 api.shouldDo = shouldDo;
 api.daysSince = daysSince;
-api.startOfDay = startOfDay;
-api.sanitizeOptions = sanitizeOptions;
 api.DAY_MAPPING = DAY_MAPPING;
-
-api.setDebuffPotionItems = setDebuffPotionItems;
-api.getDebuffPotionItems = getDebuffPotionItems;
 
 api.constants = {
   MAX_INCENTIVES,
