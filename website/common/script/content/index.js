@@ -164,12 +164,14 @@ api.timeTravelStable = {
     'MantisShrimp-Base': t('mantisShrimp'),
     'Phoenix-Base': t('phoenix'),
     'MagicalBee-Base': t('magicalBee'),
+    'Hippogriff-Hopeful': t('hopefulHippogriffPet'),
   },
   mounts: {
     'Mammoth-Base': t('mammoth'),
     'MantisShrimp-Base': t('mantisShrimp'),
     'Phoenix-Base': t('phoenix'),
     'MagicalBee-Base': t('magicalBee'),
+    'Hippogriff-Hopeful': t('hopefulHippogriffMount'),
   },
 };
 

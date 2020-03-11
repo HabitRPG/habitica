@@ -489,5 +489,6 @@
     "blockedToSendToThisUser": "Вы не можете отправить сообщение этому игроку, потому что вы заблокировали его.",
     "selectGift": "Выбрать подарок",
     "userWithUsernameOrUserIdNotFound": "Имя или ID пользователя не найдено.",
-    "usernameOrUserId": "Имя или ID пользователя"
+    "usernameOrUserId": "Имя или ID пользователя",
+    "sendGiftToWhom": "Кому бы вы хотели сделать подарок?"
 }

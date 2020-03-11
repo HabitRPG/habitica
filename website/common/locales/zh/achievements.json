@@ -63,5 +63,14 @@
     "viewAchievements": "看成就",
     "letsGetStarted": "我们开始吧！",
     "onboardingProgress": "<%= percentage %>% 完成",
-    "gettingStartedDesc": "我们一起制作一个任务，做完它，然后看你的奖励。你会得到<strong>五个成就</strong>和<strong class=\"gold-amount\">一百金币</strong>！"
+    "gettingStartedDesc": "我们来创建一个任务，并完成它，然后看看你的奖励。你会得到<strong>五个成就</strong>和<strong class=\"gold-amount\">一百金币</strong>！",
+    "achievementRosyOutlookModalText": "你集齐了所有粉色棉花糖坐骑！",
+    "achievementRosyOutlookText": "驯服了所有粉色棉花糖色坐骑。",
+    "achievementRosyOutlook": "玫瑰色的前景",
+    "achievementTickledPinkModalText": "你集齐了所有粉色棉花糖宠物！",
+    "achievementTickledPinkText": "集齐了所有粉色棉花糖宠物。",
+    "achievementTickledPink": "笑得脸变粉红色",
+    "foundNewItemsCTA": "去物品栏，尝试结合你的新孵化药水和蛋！",
+    "foundNewItemsExplanation": "完成任务使你有机会找到物品，如蛋、孵化药水和食物。",
+    "foundNewItems": "你找到了新物品！"
 }

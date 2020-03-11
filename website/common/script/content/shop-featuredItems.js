@@ -5,26 +5,6 @@ import moment from 'moment';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore('2020-03-02')) {
-      return [
-        {
-          type: 'card',
-          path: 'cardTypes.valentine',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Cupid',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.RoseQuartz',
-        },
-        {
-          type: 'eggs',
-          path: 'eggs.Fox',
-        },
-      ];
-    }
     return [
       {
         type: 'armoire',
@@ -45,18 +25,34 @@ const featuredItems = {
     ];
   },
   quests () {
+    if (moment().isBefore('2020-04-02')) {
+      return [
+        {
+          type: 'bundles',
+          path: 'bundles.hugabug',
+        },
+        {
+          type: 'quests',
+          path: 'quests.velociraptor',
+        },
+        {
+          type: 'quests',
+          path: 'quests.taskwoodsTerror1',
+        },
+      ];
+    }
     return [
       {
         type: 'quests',
-        path: 'quests.treeling',
+        path: 'quests.badger',
       },
       {
         type: 'quests',
-        path: 'quests.stoikalmCalamity1',
+        path: 'quests.ferret',
       },
       {
         type: 'quests',
-        path: 'quests.ruby',
+        path: 'quests.sloth',
       },
     ];
   },

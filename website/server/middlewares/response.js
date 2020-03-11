@@ -1,7 +1,4 @@
 import packageInfo from '../../../package.json';
-import {
-  model as UserNotification,
-} from '../models/userNotification';
 
 export default function responseHandler (req, res, next) {
   // Only used for successful responses
@@ -16,7 +13,7 @@ export default function responseHandler (req, res, next) {
     if (message) response.message = message;
 
     if (user) {
-      response.notifications = UserNotification.convertNotificationsToSafeJson(user.notifications);
+      response.notifications = user.notifications;
       response.userV = user._v;
     }
 

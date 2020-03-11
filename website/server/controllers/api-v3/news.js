@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR FEBRUARY ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'DISCOUNTED QUEST BUNDLE: HUG A BUG!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,27 +31,29 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/27/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/10/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_022020 center-block"></div>
-        <h3>Last Chance for Stylish Sweetheart Set</h3>
+        <div class="promo_hugabug_bundle center-block"></div>
         <p>
-          Reminder: time is running out to receive the Stylish Sweetheart Set when you <a
-          href='/user/settings/subscription'>subscribe</a>! Subscribing also lets you buy Gems
-          with Gold, nets you a special Royal Purple Jackalope Pet, and more!
+          If you're looking to add some insect friends to your Habitica stable, you're in luck!
+          From now until March 31, you can purchase the Hug a Bug Pet Quest Bundle and receive the
+          Snail, Beetle, and Butterfly quests, all for only 7 Gems! That's a discount of 5 Gems
+          from the price of purchasing them separately. Check it out in the <a
+          href='/shops/quests'>Quest Shop</a> today!
         </p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_valentines_potions center-block"></div>
-        <h3>Last Chance for Rose Quartz and Cupid Hatching Potions</h3>
         <p>
-          <a href='/shops/market'>Rose Quartz and Cupid Hatching Potions</a> will also go away at
-          the end of the month! If they come back, it won't be until next year at the earliest, so
-          don't delay!
+          If you’d prefer not to see bugs in Habitica due to a phobia, check out the <a
+          href='http://habitica.wikia.com/wiki/Phobia_Protection_Extension' target='_blank'>Phobia
+          Protection Extension</a> and enable the option for hiding "Beetles"!
         </p>
-        <div class="small mb-3">by Vampitch, Willow the Witty, and SabreCat</div>
+        <div class="small">By Lemoness, SabreCat, and Beffymaroo</div>
+        <div class="small">
+          Art by Pfeffernusse, Megan, Pocketmole, overomega, Misceo, UncommonCriminal, Zorella,
+          Anna Glassman, Leephon, Lilith of Alfheim, Ac, starsystemic, and Karithina
+        </div>
+        <div class="small mb-3">Writing by arachnidstardis, emiausti, and AnnDeLune</div>
       </div>
       `,
     });

@@ -18,6 +18,7 @@ import {
   MINIMUM_PASSWORD_LENGTH,
   SUPPORTED_SOCIAL_NETWORKS,
   TAVERN_ID,
+  MAX_MESSAGE_LENGTH,
 } from './constants';
 import content from './content/index';
 import * as count from './count';
@@ -108,6 +109,7 @@ api.constants = {
   CHAT_FLAG_FROM_MOD,
   CHAT_FLAG_FROM_SHADOW_MUTE,
   MINIMUM_PASSWORD_LENGTH,
+  MAX_MESSAGE_LENGTH,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;

@@ -61,7 +61,7 @@
     "newGroupTitle": "Nieuwe groep",
     "subscriberItem": "Verrassingsartikel",
     "newSubscriberItem": "Je hebt nieuwe <span class=\"notification-bold-blue\">Mysterieuze items</span>",
-    "subscriberItemText": "Elke maand ontvangen abonnees een verrassingsvoorwerp. Dit voorwerp wordt meestal in de laatste week van de maand uitgebracht. Zie de wikipagina 'Mystery Item' voor meer informatie.",
+    "subscriberItemText": "Elke maand ontvangen abonnees een verrassingsvoorwerp. Dit voorwerp wordt aan het begin van de maand uitgebracht. Zie de wikipagina 'Mystery Item' voor meer informatie.",
     "all": "Alle",
     "none": "Geen",
     "more": "<%= count %> meer",
@@ -290,5 +290,11 @@
     "selected": "Geselecteerd",
     "howManyToBuy": "Hoeveel wil je kopen?",
     "habiticaHasUpdated": "Er is een nieuwe update voor Habitica. Ververs om de laatste versie te krijgen!",
-    "contactForm": "Contacteer het moderators team"
+    "contactForm": "Contacteer het moderators team",
+    "loadEarlierMessages": "Laad Eerdere Berichten",
+    "demo": "Demo",
+    "congratulations": "Gefeliciteerd!",
+    "onboardingAchievs": "Prestaties aan boord halen",
+    "options": "Opties",
+    "finish": "Voltooien"
 }

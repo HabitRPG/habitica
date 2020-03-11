@@ -23,9 +23,16 @@ export function onOnboardingComplete (user) {
 }
 
 // Add notification and awards (server)
-export function checkOnboardingStatus (user) {
+export function checkOnboardingStatus (user, analytics) {
   if (hasActiveOnboarding(user) && hasCompletedOnboarding(user) && user.addNotification) {
     user.addNotification('ONBOARDING_COMPLETE');
+    if (analytics) {
+      analytics.track('onboarding complete', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+      });
+    }
     onOnboardingComplete(user);
   }
 }

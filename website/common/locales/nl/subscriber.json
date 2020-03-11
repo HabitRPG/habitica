@@ -18,7 +18,7 @@
     "supportDevsText": "Je abonnement zorgt ervoor dat Habitica kan bloeien en dat de ontwikkeling van nieuwe functies betaald kunnen worden. Dankjewel voor je gulheid!",
     "exclusiveJackalopePet": "Exclusief huisdier",
     "exclusiveJackalopePetText": "Krijg het royale paarse Jackalope huisdier, alleen verkrijgbaar voor abonnees!",
-    "giftSubscription": "Wil je iemand een abonnement cadeau doen?",
+    "giftSubscription": "Wil je iemand een abonnement cadeau geven?",
     "giftSubscriptionText1": "Open hun profiel! Je kunt dit doen door op hun avatar te klikken in de bovenbalk of in de chat op hun naam te klikken.",
     "giftSubscriptionText2": "Klik op het cadeau-pictogram rechts bovenin hun profiel.",
     "giftSubscriptionText3": "Selecteer \"abonnement\" en vul je betalingsgegevens in.",
@@ -41,8 +41,8 @@
     "manageSub": "Klik om je abonnement te beheren",
     "cancelSub": "Abonnement stopzetten",
     "cancelSubInfoGoogle": "Ga naar \"Mijn apps & games\" > \"Abonnementen\" in de Google Play Store app om je abonnement te annuleren of om de einddatum van je abonnement te zien als je die al geannuleerd hebt. Dit scherm laat niet zien of je abonnement geannuleerd is.",
-    "cancelSubInfoApple": "Ga naar <a href=\"https://support.apple.com/en-us/HT202039\">de officiële instructies van Apple</a> om je abonnement te annuleren of om de einddatum van je abonnement te zien als je die al geannuleerd hebt. Dit scherm laat niet zien of je abonnement geannuleerd is.",
-    "cancelSubInfoGroupPlan": "Omdat je een gratis abonnement hebt van een Groepsplan, kan je deze niet afzeggen. Deze zal aflopen wanneer je niet langen tot een Groep behoort. Als je de Groepsleider bent en het gehele Groepsplan wil afzeggen, kan je dat doen via de groep's 'Betalingsdetails' tabblad.",
+    "cancelSubInfoApple": "Ga naar <a href=\"https://support.apple.com/en-us/HT202039\">de officiële instructies van Apple</a> om je abonnement te annuleren of om de einddatum van je abonnement te zien als je deze al geannuleerd hebt. Dit scherm laat niet zien of je abonnement geannuleerd is.",
+    "cancelSubInfoGroupPlan": "Omdat je een gratis abonnement hebt van een groepsplan, kan je deze niet annuleren. Het abonnement loopt af wanneer je niet langer tot een groep behoort. Als je de groepsleider bent en het gehele groepsplan wilt annuleren, kun je dit doen via het tabblad 'Betalingsdetails' in de groep.",
     "canceledSubscription": "Beëindigd abonnement",
     "cancelingSubscription": "Het abonnement stopzetten",
     "adminSub": "Beheerdersabonnementen",
@@ -214,5 +214,10 @@
     "purchaseAll": "Koop set aan",
     "gemsPurchaseNote": "Abonnees kunnen Edelstenen voor Goud kopen in de Markt! Voor gemakkelijke toegang, kan je de Edelsteen ook aan je Beloningskolom vastmaken.",
     "gemsRemaining": "resterende Edelstenen",
-    "notEnoughGemsToBuy": "Je bent niet in staat om die hoeveelheid Edelstenen te kopen"
+    "notEnoughGemsToBuy": "Je bent niet in staat om die hoeveelheid Edelstenen te kopen",
+    "viewSubscriptions": "Bekijk Abonnementen",
+    "mysticHourglassNeededNoSub": "Voor dit artikel heb je een Mystieke Zandloper nodig. Je kunt Mystieke Zandlopers verdienen door een Habitica abonnee te zijn.",
+    "subWillBecomeInactive": "Wordt inactief",
+    "confirmCancelSub": "Weet je zeker dat je je abonnement wilt annuleren? Je zult alle voordelen van het abonnement verliezen.",
+    "giftASubscription": "Geef iemand een abonnement cadeau"
 }
