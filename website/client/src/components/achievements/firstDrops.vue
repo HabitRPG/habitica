@@ -11,15 +11,17 @@
         @click="close()"
       >
         <div
+          v-once
           class="svg-icon"
           v-html="icons.close"
-          v-once
         ></div>
       </div>
       <h2
-        class="mt-3 mb-4"
         v-once
-      >{{ $t('foundNewItems') }}</h2>
+        class="mt-3 mb-4"
+      >
+        {{ $t('foundNewItems') }}
+      </h2>
       <div class="d-flex justify-content-center">
         <div
           class="item-box ml-auto mr-3"
@@ -33,17 +35,21 @@
         </div>
       </div>
       <p
+        v-once
         class="mt-4"
-        v-once
-      >{{ $t('foundNewItemsExplanation') }}</p>
+      >
+        {{ $t('foundNewItemsExplanation') }}
+      </p>
       <p
-        class="strong mb-4"
         v-once
-      >{{ $t('foundNewItemsCTA') }}</p>
+        class="strong mb-4"
+      >
+        {{ $t('foundNewItemsCTA') }}
+      </p>
       <button
+        v-once
         class="btn btn-primary mb-2"
         @click="toInventory()"
-        v-once
       >
         {{ $t('letsgo') }}
       </button>

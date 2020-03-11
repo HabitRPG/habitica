@@ -34,7 +34,7 @@
           :contributor="selectedConversation.contributor"
           :name="selectedConversation.name"
           :user="selectedConversation"
-          :userId="selectedConversation.key"
+          :user-id="selectedConversation.key"
           :hide-tooltip="true"
         />
       </div>
@@ -129,7 +129,7 @@
           ref="chatscroll"
           class="message-scroll"
           :chat="selectedConversationMessages"
-          :conversationOpponentUser="selectedConversation.userStyles"
+          :conversation-opponent-user="selectedConversation.userStyles"
           :can-load-more="canLoadMore"
           :is-loading="messagesLoading"
           @message-removed="messageRemoved"
