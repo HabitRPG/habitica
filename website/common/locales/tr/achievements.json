@@ -44,5 +44,11 @@
     "showAllAchievements": "Hepsini göster <%= category %>",
     "onboardingCompleteDesc": "Listeyi tamamladığın için <strong> 5 başarı </strong> ve <strong class=\"gold-amount\"> 100 </strong> altın kazandın.",
     "onboardingProgress": "<%= percentage %>%  ilerleme",
-    "gettingStartedDesc": "Hadi bir görev oluştur, tamamla ve ödüllerine göz at. Tamamladığında <strong> 5 başarı </strong> ve <strong class=\"gold-amount\"> 100 altın </strong> kazanacaksın!"
+    "gettingStartedDesc": "Hadi bir görev oluştur, tamamla ve ödüllerine göz at. Tamamladığında <strong> 5 başarı </strong> ve <strong class=\"gold-amount\"> 100 altın </strong> kazanacaksın!",
+    "achievementKickstarter2019Text": "2019 Kickstarter Rozet Projesini destekledi",
+    "achievementKickstarter2019": "Kickstarter Rozet Destekçisi",
+    "achievementAridAuthority": "Çorak Toprakların Hakimi",
+    "achievementAridAuthorityModalText": "Tüm Çöl Binek Hayvanlarını evcilleştirdin!",
+    "achievementAridAuthorityText": "Tüm Çöl Binek Hayvanları evcilleştirildi.",
+    "achievementDustDevil": "Toz Şeytanı"
 }

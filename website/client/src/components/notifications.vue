@@ -737,7 +737,7 @@ export default {
           case 'FIRST_DROPS':
             if (notification.data) {
               this.$store.state.firstDropsOptions.egg = notification.data.egg;
-              this.$store.state.firstDropsOptions.potion = notification.data.potion;
+              this.$store.state.firstDropsOptions.hatchingPotion = notification.data.hatchingPotion;
               this.$root.$emit('bv::show::modal', 'first-drops');
             }
             break;

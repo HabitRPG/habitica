@@ -69,5 +69,8 @@
     "achievementRosyOutlook": "Rosy Outlook",
     "achievementTickledPinkModalText": "You collected all the Cotton Candy Pink Pets!",
     "achievementTickledPinkText": "Has collected all Cotton Candy Pink Pets.",
-    "achievementTickledPink": "Tickled Pink"
+    "achievementTickledPink": "Tickled Pink",
+    "foundNewItemsCTA": "Head to your Inventory and try combining your new hatching potion and egg!",
+    "foundNewItemsExplanation": "Completing tasks gives you a chance to find items, like eggs, hatching potions, and food.",
+    "foundNewItems": "You found new items!"
 }

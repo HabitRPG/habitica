@@ -129,6 +129,7 @@
           ref="chatscroll"
           class="message-scroll"
           :chat="selectedConversationMessages"
+          :conversation-opponent-user="selectedConversation.userStyles"
           :can-load-more="canLoadMore"
           :is-loading="messagesLoading"
           @message-removed="messageRemoved"
@@ -150,7 +151,7 @@
               v-model="newMessage"
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
-              maxlength="3000"
+              :maxlength="MAX_MESSAGE_LENGTH"
               :class="{'has-content': newMessage !== '', 'disabled': newMessageDisabled}"
               :style="{'--textarea-auto-height': textareaAutoHeight}"
               @keyup.ctrl.enter="sendPrivateMessage()"
@@ -299,8 +300,11 @@
     background-image: url(~@/assets/svg/for-css/search_gray.svg) !important;
     padding-left: 40px;
 
-    color: $gray-200 !important;
     height: 40px;
+  }
+
+  .input-search::placeholder {
+    color: $gray-200 !important;
   }
 
   .selected-conversion {
@@ -556,6 +560,7 @@ import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import habiticaMarkdown from 'habitica-markdown';
 import axios from 'axios';
+import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
 import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
 import toggleSwitch from '@/components/ui/toggleSwitch';
@@ -605,6 +610,7 @@ export default {
       initiatedConversation: null,
       updateConversationsCounter: 0,
       textareaAutoHeight: undefined,
+      MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
   },
   async mounted () {

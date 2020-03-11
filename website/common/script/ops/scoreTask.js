@@ -2,7 +2,6 @@ import timesLodash from 'lodash/times';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
 import max from 'lodash/max';
-import size from 'lodash/size';
 import {
   NotAuthorized,
 } from '../libs/errors';
@@ -12,7 +11,6 @@ import crit from '../fns/crit';
 import statsComputed from '../libs/statsComputed';
 import { sanitizeOptions, startOfDay } from '../cron';
 import { checkOnboardingStatus } from '../libs/onboarding';
-import firstDrops from './firstDrops';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
@@ -372,13 +370,6 @@ export default function scoreTask (options = {}, req = {}, analytics) {
   if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
     user.addAchievement('completedTask');
     checkOnboardingStatus(user, analytics);
-  } else if (
-    user.achievements.completedTask
-    && cron === false
-    && direction === 'up'
-    && size(user.items.eggs) < 1
-    && size(user.items.hatchingPotions) < 1) {
-    firstDrops(user);
   }
 
   return [delta];

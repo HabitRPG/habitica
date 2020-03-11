@@ -5,7 +5,7 @@ import validator from 'validator';
 import baseModel from '../libs/baseModel';
 
 const NOTIFICATION_TYPES = [
-  'DROPS_ENABLED',
+  'DROPS_ENABLED', // unused
   'REBIRTH_ENABLED',
   'WON_CHALLENGE',
   'STREAK_ACHIEVEMENT',
@@ -64,15 +64,11 @@ export const schema = new Schema({
     $type: String,
     default: uuid,
     validate: [v => validator.isUUID(v), 'Invalid uuid for userNotification.'],
-    // @TODO: Add these back once we figure out the issue with notifications
-    // See Fix for https://github.com/HabitRPG/habitica/issues/9923
-    // required: true,
+    required: true,
   },
   type: {
     $type: String,
-    // @TODO: Add these back once we figure out the issue with notifications
-    // See Fix for https://github.com/HabitRPG/habitica/issues/9923
-    // required: true,
+    required: true,
     enum: NOTIFICATION_TYPES,
   },
   data: {
@@ -93,30 +89,30 @@ export const schema = new Schema({
 });
 
 /**
- * Convert notifications to JSON making sure to return only valid data.
- * Fix for https://github.com/HabitRPG/habitica/issues/9923#issuecomment-362869881
- * @TODO Remove once https://github.com/HabitRPG/habitica/issues/9923
- * is fixed
+ * Remove invalid data from an array of notifications.
+ * Fix for https://github.com/HabitRPG/habitica/issues/9923
+ * Called by user's post init hook (models/user/hooks.js)
  */
-schema.statics.convertNotificationsToSafeJson = function convNotifsToSafeJson (notifications) {
+schema.statics.cleanupCorruptData = function cleanupCorruptNotificationsData (notifications) {
   if (!notifications) return notifications;
 
-  let filteredNotifications = notifications.filter(n => {
-    // Exclude notifications with a nullish value
-    if (!n) return false;
-    // Exclude notifications without an id or a type
-    if (!n.id || !n.type) return false;
+  let filteredNotifications = notifications.filter(notification => {
+    // Exclude notifications with a nullish value, no id or no type
+    if (!notification || !notification.id || !notification.type) return false;
     return true;
   });
 
+  // Remove duplicate NEW_CHAT_MESSAGES notifications
+  // can be caused by a race condition when adding a new notification of this type
+  // in group.sendChat if two messages are posted at the same time
   filteredNotifications = _.uniqWith(filteredNotifications, (val, otherVal) => {
-    if (val.type === otherVal.type && val.type === 'NEW_CHAT_MESSAGE') {
+    if (val.type === 'NEW_CHAT_MESSAGE' && val.type === otherVal.type) {
       return val.data.group.id === otherVal.data.group.id;
     }
     return false;
   });
 
-  return filteredNotifications.map(n => n.toJSON());
+  return filteredNotifications;
 };
 
 schema.plugin(baseModel, {

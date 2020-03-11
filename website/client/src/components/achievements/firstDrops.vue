@@ -11,11 +11,15 @@
         @click="close()"
       >
         <div
+          v-once
           class="svg-icon"
           v-html="icons.close"
         ></div>
       </div>
-      <h2 class="mt-3 mb-4">
+      <h2
+        v-once
+        class="mt-3 mb-4"
+      >
         {{ $t('foundNewItems') }}
       </h2>
       <div class="d-flex justify-content-center">
@@ -30,13 +34,20 @@
         >
         </div>
       </div>
-      <p class="mt-4">
+      <p
+        v-once
+        class="mt-4"
+      >
         {{ $t('foundNewItemsExplanation') }}
       </p>
-      <p class="strong mb-4">
+      <p
+        v-once
+        class="strong mb-4"
+      >
         {{ $t('foundNewItemsCTA') }}
       </p>
       <button
+        v-once
         class="btn btn-primary mb-2"
         @click="toInventory()"
       >
@@ -106,11 +117,15 @@ export default {
       return `Pet_Egg_${this.$store.state.firstDropsOptions.egg}`;
     },
     potionClass () {
-      return `Pet_HatchingPotion_${this.$store.state.firstDropsOptions.potion}`;
+      return `Pet_HatchingPotion_${this.$store.state.firstDropsOptions.hatchingPotion}`;
     },
   },
   methods: {
     close () {
+      this.$store.state.firstDropsOptions = {
+        egg: '',
+        hatchingPotion: '',
+      };
       this.$root.$emit('habitica::dismiss-modal', 'first-drops');
     },
     toInventory () {

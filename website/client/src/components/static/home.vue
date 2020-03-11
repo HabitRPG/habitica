@@ -98,7 +98,6 @@
                 class="btn btn-block btn-info sign-up"
                 :disabled="signupFormInvalid"
                 type="submit"
-                @click="register()"
               >
                 {{ $t('signup') }}
               </button>

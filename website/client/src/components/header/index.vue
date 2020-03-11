@@ -170,7 +170,30 @@ export default {
       return Math.floor(this.currentWidth / 140) + 1;
     },
     sortedPartyMembers () {
-      return orderBy(this.partyMembers, [this.user.party.order], [this.user.party.orderAscending]);
+      let sortedMembers = this.partyMembers;
+      const { order, orderAscending } = this.user.party;
+
+      if (order === 'profile.name') {
+        // If members are to be sorted by name, use localeCompare for case-
+        // insensitive sort
+        sortedMembers.sort(
+          (a, b) => {
+            if (orderAscending === 'desc') {
+              return b.profile.name.localeCompare(a.profile.name);
+            }
+
+            return a.profile.name.localeCompare(b.profile.name);
+          },
+        );
+      } else {
+        sortedMembers = orderBy(
+          sortedMembers,
+          [order],
+          [orderAscending],
+        );
+      }
+
+      return sortedMembers;
     },
     hideHeader () {
       return ['groupPlan', 'privateMessages'].includes(this.$route.name);

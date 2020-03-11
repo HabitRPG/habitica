@@ -2039,5 +2039,17 @@
     "armorArmoireMatchMakersApronNotes": "Diese Schürze trägst Du zu Deiner Sicherheit, aber zur Abwechslung könnte man damit ja auch mal ein loderndes Feuer entfachen. Erhöht Ausdauer, Stärke und Intelligenz um je <%= attrs %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 1 von 4).",
     "armorArmoireMatchMakersApronText": "Streichholzmacher-Schürze",
     "weaponArmoireLivelyMatchNotes": "So lange Du dies hältst, wirst Du sicherlich jemandes Interesse entfachen! Erhöht Stärke um <%= str %>. Verzauberter Schrank: Streichholzmacher-Set (Gegenstand 3 von 4).",
-    "weaponArmoireLivelyMatchText": "Ein Brennendes Streichholz"
+    "weaponArmoireLivelyMatchText": "Ein Brennendes Streichholz",
+    "bodyMystery202003Notes": "Diese Schulterpolster sind mal was ganz anderes. Gewährt keinen Attributbonus. Abonnentengegenstand, März 2020.",
+    "bodyMystery202003Text": "Stachlige Schulterplatten",
+    "headMystery202003Notes": "Sei vorsichtig, dieser Helm ist auf vielfältige Weise scharf! Gewährt keinen Attributbonus. Abonnentengegenstand, März 2020.",
+    "headMystery202003Text": "Stachliger Helm",
+    "shieldArmoireBaseballGloveText": "Baseballhandschuh",
+    "headArmoireBaseballCapNotes": "Lass alle wissen, dass Du im Team Habitica bist! Erhöht Ausdauer und Stärke um jeweils <%= attrs %>. Verzauberter Schrank: Baseball-Set (Gegenstand 1 von 4).",
+    "headArmoireBaseballCapText": "Baseballkappe",
+    "armorArmoireBaseballUniformText": "Baseball-Uniform",
+    "weaponArmoireBaseballBatText": "Baseballschläger",
+    "shieldArmoireBaseballGloveNotes": "Perfekt für das große Turnier oder ein freundschaftliches Fangspiel zwischen zwei Aufgaben. Erhöht Stärke um <%= str %>. Verzauberter Schrank: Baseball-Set (Gegenstand 4 von 4).",
+    "armorArmoireBaseballUniformNotes": "Nadelstreifen kommen nie aus der Mode. Erhöht Ausdauer und Stärke um jeweils <%= attrs %>. Verzauberter Schrank: Baseball-Set (Gegenstand 2 von 4).",
+    "weaponArmoireBaseballBatNotes": "Hol Dir einen Homerun für die guten Gewohnheiten! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Baseball-Set (Gegenstand 3 von 4)."
 }

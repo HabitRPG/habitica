@@ -2039,5 +2039,10 @@
     "weaponArmoireLivelyMatchText": "Um fósforo vivaz",
     "shieldArmoirePerfectMatchText": "O fósforo perfeito",
     "headArmoireMatchMakersBeretNotes": "Você ficará impressionante vestindo este lindo chapéu! Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto de fabricante de fósforo (Item 2 de 4).",
-    "headArmoireMatchMakersBeretText": "Boina do(a) fabricante de fósforos"
+    "headArmoireMatchMakersBeretText": "Boina do(a) fabricante de fósforos",
+    "bodyMystery202003Notes": "São como ombreiras que estão em um nível totalmente diferente. Não confere benefícios. Item de assinante, Março de 2020.",
+    "bodyMystery202003Text": "Ombreiras farpadas",
+    "headMystery202003Notes": "Tenha cuidado, este elmo é afiado em mais de um sentido! Não confere benefícios. Item de assinante, Março de 2020.",
+    "headMystery202003Text": "Elmo farpado",
+    "weaponArmoireBaseballBatText": "Taco de beisebol"
 }

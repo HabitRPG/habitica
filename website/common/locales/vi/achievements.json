@@ -7,5 +7,15 @@
     "achievementLostMasterclasser": "Người hoàn thành nhiệm vụ: Chuỗi Bậc thầy Chức nghiệp",
     "achievementLostMasterclasserText": "Đã hoàn thành tất cả mười sáu nhiệm vụ trong Chuỗi Nhiệm vụ Bậc thầy Chức nghiệp và giải đáp bí ẩn của Bậc thầy Chức nghiệp Mất tích!",
     "achievementJustAddWater": "Mới Thêm Nước",
-    "achievementLostMasterclasserModalText": "Bạn đã hoàn thành tất cả mười sáu nhiệm vụ trong Chuỗi Nhiệm vụ Bậc thầy Chức nghiệp và đã giải mã ra bí ẩn của Bậc thầy Chức nghiệp mất tích!"
+    "achievementLostMasterclasserModalText": "Bạn đã hoàn thành tất cả mười sáu nhiệm vụ trong Chuỗi Nhiệm vụ Bậc thầy Chức nghiệp và đã giải mã ra bí ẩn của Bậc thầy Chức nghiệp mất tích!",
+    "foundNewItemsCTA": "Đi đến Hành trang và thử kết hợp lọ thuốc ấp trứng mới của bạn với quả trứng!",
+    "foundNewItemsExplanation": "Hoàn thành công việc cho bạn cơ hội tìm thấy những vật phẩm, như những quả trứng, lọ thuốc ấp trứng, và thức ăn.",
+    "foundNewItems": "Bạn đã tìm ra một vật phẩm mới!",
+    "earnedAchievement": "Bạn đã đạt được một thành tựu!",
+    "hideAchievements": "Ẩn <%= category %>",
+    "showAllAchievements": "Hiển thị tất cả <%= category %>",
+    "onboardingCompleteDesc": "Bạn kiếm được <strong> 5 thành tựu </strong> và <strong class=\"gold-amount\"> 100 </strong> vàng cho việc hoàn thành danh sách.",
+    "viewAchievements": "Xem những thành tựu",
+    "letsGetStarted": "Hãy bắt đầu nào!",
+    "gettingStartedDesc": "Hãy tạo một công việc, hoàn thành nó,sau đó đánh dấu phần thưởng của bạn. Bạn sẽ kiếm được <strong> 5 thành tựu</strong>và<strong class=\"gold-amount\">100 vàng</strong></strong>mỗi lần bạn hoàn thành!"
 }

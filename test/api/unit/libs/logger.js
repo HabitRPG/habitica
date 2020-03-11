@@ -1,14 +1,27 @@
-import winston from 'winston';
-import logger from '../../../../website/server/libs/logger';
+import logger, { _loggerConfig } from '../../../../website/server/libs/logger';
 import {
   NotFound,
 } from '../../../../website/server/libs/errors';
 
 describe('logger', () => {
-  let logSpy;
+  let infoSpy;
+  let warnSpy;
+  let errorSpy;
+
+  const originalLoggingEnabled = _loggerConfig.loggingEnabled;
+
+  before(() => { // enable logging in tests
+    _loggerConfig.loggingEnabled = true;
+  });
+
+  after(() => { // reset value of _loggerConfig.loggingEnabled
+    _loggerConfig.loggingEnabled = originalLoggingEnabled;
+  });
 
   beforeEach(() => {
-    logSpy = sandbox.stub(winston.Logger.prototype, 'log');
+    infoSpy = sandbox.stub(_loggerConfig.logger, 'info');
+    warnSpy = sandbox.stub(_loggerConfig.logger, 'warn');
+    errorSpy = sandbox.stub(_loggerConfig.logger, 'error');
   });
 
   afterEach(() => {
@@ -18,8 +31,8 @@ describe('logger', () => {
   describe('info', () => {
     it('calls winston\'s info log', () => {
       logger.info(1, 2, 3);
-      expect(logSpy).to.be.calledOnce;
-      expect(logSpy).to.be.calledWith('info', 1, 2, 3);
+      expect(infoSpy).to.be.calledOnce;
+      expect(infoSpy).to.be.calledWith(1, 2, 3);
     });
   });
 
@@ -27,8 +40,8 @@ describe('logger', () => {
     context('non-error object', () => {
       it('passes through arguments if the first arg is not an error object', () => {
         logger.error(1, 2, 3, 4);
-        expect(logSpy).to.be.calledOnce;
-        expect(logSpy).to.be.calledWith('error', 1, 2, 3, 4);
+        expect(errorSpy).to.be.calledOnce;
+        expect(errorSpy).to.be.calledWith(1, 2, 3, 4);
       });
     });
 
@@ -39,9 +52,8 @@ describe('logger', () => {
           data: 1,
         }, 2, 3);
 
-        expect(logSpy).to.be.calledOnce;
-        expect(logSpy).to.be.calledWith(
-          'error',
+        expect(errorSpy).to.be.calledOnce;
+        expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           { data: 1, fullError: errInstance },
           2,
@@ -58,9 +70,8 @@ describe('logger', () => {
           fullError: anotherError,
         }, 2, 3);
 
-        expect(logSpy).to.be.calledOnce;
-        expect(logSpy).to.be.calledWith(
-          'error',
+        expect(errorSpy).to.be.calledOnce;
+        expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           { data: 1, fullError: anotherError },
           2,
@@ -73,9 +84,8 @@ describe('logger', () => {
 
         logger.error(errInstance, null, 2, 3);
 
-        expect(logSpy).to.be.calledOnce;
-        expect(logSpy).to.be.calledWith(
-          'error',
+        expect(errorSpy).to.be.calledOnce;
+        expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           null,
           2,
@@ -88,9 +98,8 @@ describe('logger', () => {
 
         logger.error(errInstance, true, 2, 3);
 
-        expect(logSpy).to.be.calledOnce;
-        expect(logSpy).to.be.calledWith(
-          'error',
+        expect(errorSpy).to.be.calledOnce;
+        expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           true,
           2,
@@ -103,9 +112,8 @@ describe('logger', () => {
 
         logger.error(errInstance, { httpCode: 400 }, 2, 3);
 
-        expect(logSpy).to.be.calledOnce;
-        expect(logSpy).to.be.calledWith(
-          'error',
+        expect(errorSpy).to.be.calledOnce;
+        expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           { httpCode: 400, fullError: errInstance },
           2,
@@ -121,9 +129,8 @@ describe('logger', () => {
           httpCode: 502,
         }, 2, 3);
 
-        expect(logSpy).to.be.calledOnce;
-        expect(logSpy).to.be.calledWith(
-          'error',
+        expect(errorSpy).to.be.calledOnce;
+        expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           { httpCode: 502, isHandledError: true, fullError: errInstance },
           2,
@@ -139,9 +146,8 @@ describe('logger', () => {
           httpCode: 403,
         }, 2, 3);
 
-        expect(logSpy).to.be.calledOnce;
-        expect(logSpy).to.be.calledWith(
-          'error',
+        expect(warnSpy).to.be.calledOnce;
+        expect(warnSpy).to.be.calledWith(
           errInstance.stack,
           { httpCode: 403, isHandledError: true, fullError: errInstance },
           2,
@@ -156,9 +162,8 @@ describe('logger', () => {
 
         logger.error(errInstance, {}, 2, 3);
 
-        expect(logSpy).to.be.calledOnce;
-        expect(logSpy).to.be.calledWith(
-          'error',
+        expect(errorSpy).to.be.calledOnce;
+        expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           {
             fullError: {

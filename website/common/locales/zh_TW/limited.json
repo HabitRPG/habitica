@@ -155,7 +155,7 @@
     "spring2019OrchidWarriorSet": "蘭花（戰士）",
     "spring2019AmberMageSet": "琥珀（法師）",
     "eventAvailabilityReturning": "<%= availableDate(locale) %>前仍可購買。這瓶藥水上次在<%= previousDate(locale) %>上市。",
-    "june2018": "2018 年 6 月",
+    "june2018": "2018年6月",
     "september2018": "2018年9月",
     "september2017": "2017年9月",
     "decemberYYYY": "12月<%= year %>年",
