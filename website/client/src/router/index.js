@@ -47,6 +47,9 @@ const HallPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/i
 const PatronsPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/patrons');
 const HeroesPage = () => import(/* webpackChunkName: "hall" */'@/components/hall/heroes');
 
+// Admin Panel
+const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel');
+
 // Except for tasks that are always loaded all the other main level
 // All the main level
 // components are loaded in separate webpack chunks.
@@ -330,6 +333,7 @@ const router = new VueRouter({
         { name: 'contributors', path: 'contributors', component: HeroesPage },
       ],
     },
+    { path: '/admin-panel', name: 'adminPanel', component: AdminPanelPage },
     // Only used to handle some redirects
     // See router.beforeEach
     { path: '/redirect/:redirect', name: 'redirect' },

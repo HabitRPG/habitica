@@ -340,6 +340,12 @@
                 class="topbar-dropdown-item dropdown-item"
                 @click="modForm()"
               >{{ $t('contactForm') }}</a>
+              <router-link
+                class="topbar-dropdown-item dropdown-item"
+                :to="{name: 'adminPanel'}"
+              >
+                Admin Panel
+              </router-link>
             </div>
           </li>
         </b-navbar-nav>
