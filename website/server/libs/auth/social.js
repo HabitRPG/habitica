@@ -11,7 +11,6 @@ import {
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../email';
-import logger from '../logger';
 
 function _passportProfile (network, accessToken) {
   return new Promise((resolve, reject) => {
@@ -77,7 +76,6 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
 
   // User already signed up
   if (user) {
-    logger.info(`FOUND USER ${user._id}`);
     return loginRes(user, req, res);
   }
 
