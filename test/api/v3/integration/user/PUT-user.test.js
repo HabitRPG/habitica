@@ -125,7 +125,7 @@ describe('PUT /user', () => {
   context('Sub-Level Protected Operations', () => {
     const protectedOperations = {
       'class stat': { 'stats.class': 'wizard' },
-      'flags unless whitelisted': { 'flags.dropsEnabled': true },
+      'flags unless whitelisted': { 'flags.chatRevoked': true },
       webhooks: { 'preferences.webhooks': [1, 2, 3] },
       sleep: { 'preferences.sleep': true },
       'disable classes': { 'preferences.disableClasses': true },

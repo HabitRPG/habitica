@@ -442,5 +442,10 @@
     "backgroundDojoNotes": "Disce novos motus in Dojo.",
     "backgroundBlossomingDesertNotes": "Contemplare florem vigentem in deserto florente.",
     "backgroundBlossomingDesertText": "Desertus florens",
-    "backgroundFieldWithColoredEggsNotes": "Thesaurum veris in campo ovis variis coloribus sparso."
+    "backgroundFieldWithColoredEggsNotes": "Thesaurum veris in campo ovis variis coloribus sparso.",
+    "backgroundUnderwaterVentsText": "Fontes hydrothermales",
+    "backgroundSeasideCliffsNotes": "In litore sta inspiciens pulchritudine scopulorum maritimorum.",
+    "backgroundSeasideCliffsText": "Scopulus maritimus",
+    "backgroundSchoolOfFishNotes": "In turba piscium nata.",
+    "backgroundSchoolOfFishText": "Turba piscium"
 }

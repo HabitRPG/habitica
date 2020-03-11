@@ -172,7 +172,7 @@
     "messageWroteIn": "<%= user %> wrote in <%= group %>",
     "msgPreviewHeading": "Message Preview",
     "leaderOnlyChallenges": "Only the group leader can create challenges",
-    "sendGift": "Send Gift",
+    "sendGift": "Send a Gift",
     "inviteFriends": "Invite Friends",
     "partyMembersInfo": "Your Party currently has <%= memberCount %> members and <%= invitationCount %> pending invitations. The limit of members in a Party is <%= limitMembers %>. Invitations above this limit cannot be sent.",
     "inviteByEmail": "Invite by Email",
@@ -339,7 +339,7 @@
     "aboutToJoinCancelledGroupPlan": "You are about to join a group with a cancelled plan. You will NOT receive a free subscription.",
     "cannotChangeLeaderWithActiveGroupPlan": "You cannot change the leader while the group has an active plan.",
     "leaderCannotLeaveGroupWithActiveGroup": "A leader cannot leave a group while the group has an active plan",
-    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
+    "youHaveGroupPlan": "You have a free subscription because you are a member of a Group Plan. Your subscription will end when you are no longer a member of the Group Plan.",
     "cancelGroupSub": "Cancel Group Plan",
     "confirmCancelGroupPlan": "Are you sure you want to cancel your Group Plan? All Group members will lose their subscription and benefits.",
     "canceledGroupPlan": "Group Plan Cancelled",
@@ -486,5 +486,12 @@
     "taskClaimed": "<%= userName %> has claimed the task <span class=\"notification-bold\"><%= taskText %></span>.",
     "youHaveBeenAssignedTask": "<%= managerName %> has assigned you the task <span class=\"notification-bold\"><%= taskText %></span>.",
     "blockedToSendToThisUser": "You can't send to this player because you have blocked this player.",
-    "PMDisabled": "Disable Private Messages"
+    "PMDisabled": "Disable Private Messages",
+    "userWithUsernameOrUserIdNotFound": "Username or User ID not found.",
+    "usernameOrUserId": "Username or User ID",
+    "sendGiftToWhom": "Who would you like to send a gift to?",
+    "selectGift": "Select Gift",
+    "PMUnblockUserToSendMessages": "Unblock this user to continue sending and receiving messages.",
+    "PMUserDoesNotReceiveMessages": "This user is no longer receiving private messages",
+    "PMCanNotReply": "You can not reply to this conversation"
 }

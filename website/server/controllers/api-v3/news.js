@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POSTS: PARTY PARTICIPATION AND OUR FAVO(U)RITE GUILDS!';
+const LAST_ANNOUNCEMENT_TITLE = 'DISCOUNTED QUEST BUNDLE: HUG A BUG!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,43 +31,29 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>2/20/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/10/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_gaining_achievement center-block"></div>
-        <h3>Use Case Spotlight: Party Participation</h3>
+        <div class="promo_hugabug_bundle center-block"></div>
         <p>
-          This month's <a
-          href='https://habitica.wordpress.com/2020/02/20/use-case-spotlight-party-cipation/'
-          target='_blank'>Use Case Spotlight</a> is about Party Participation! It features a number
-          of great suggestions submitted by Habiticans in the <a
-          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
-          We hope it helps any of you who might be looking for ways to keep your quest party
-          engaged and excited to win battles with good habits.
+          If you're looking to add some insect friends to your Habitica stable, you're in luck!
+          From now until March 31, you can purchase the Hug a Bug Pet Quest Bundle and receive the
+          Snail, Beetle, and Butterfly quests, all for only 7 Gems! That's a discount of 5 Gems
+          from the price of purchasing them separately. Check it out in the <a
+          href='/shops/quests'>Quest Shop</a> today!
         </p>
         <p>
-          Plus, we're collecting user submissions for the next spotlight! How do you use Habitica
-          to manage conflicting needs, like productivity versus self-care? We’ll be featuring
-          player-submitted examples in Use Case Spotlights on the Habitica Blog next month, so post
-          your suggestions in the Use Case Spotlight Guild now. We look forward to learning more
-          about how you use Habitica to improve your life and get things done!
+          If you’d prefer not to see bugs in Habitica due to a phobia, check out the <a
+          href='http://habitica.wikia.com/wiki/Phobia_Protection_Extension' target='_blank'>Phobia
+          Protection Extension</a> and enable the option for hiding "Beetles"!
         </p>
-        <div class="small mb-3">by shanaqui</div>
-        <div class="scene_shanaqui center-block"></div>
-        <h3>Guild Spotlight: Shanaqui's Favourites</h3>
-        <p>
-          For this year's Guild Spotlight series, we're highlighting some favourites from
-          Habitica's staff, moderators, and maybe some high-level contributors!
-        </p>
-        <p>
-          This month we're kicking things off with some <a
-          href='https://habitica.wordpress.com/2020/02/20/guild-spotlights-our-favourites/'
-          target='_blank'>picks from shanaqui!</a> If you want to curate your Habitica experience
-          and join active, positive Guilds, this is a great way to pick up some new ideas for
-          Guilds to join.
-        </p>
-        <div class="small mb-3">by shanaqui</div>
+        <div class="small">By Lemoness, SabreCat, and Beffymaroo</div>
+        <div class="small">
+          Art by Pfeffernusse, Megan, Pocketmole, overomega, Misceo, UncommonCriminal, Zorella,
+          Anna Glassman, Leephon, Lilith of Alfheim, Ac, starsystemic, and Karithina
+        </div>
+        <div class="small mb-3">Writing by arachnidstardis, emiausti, and AnnDeLune</div>
       </div>
       `,
     });

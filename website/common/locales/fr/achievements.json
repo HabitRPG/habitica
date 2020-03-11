@@ -63,5 +63,14 @@
     "viewAchievements": "Voir les succès",
     "letsGetStarted": "Commençons !",
     "onboardingProgress": "<%= percentage %>% de progression",
-    "gettingStartedDesc": "Créons une tâche, pour ensuite la valider et regarder le résultat. Vous gagnerez <strong>5 succès</strong> et <strong class=\"gold-amount\">100 pièces d'or</strong> quand vous aurez fini !"
+    "gettingStartedDesc": "Créons une tâche, pour ensuite la valider et regarder le résultat. Vous gagnerez <strong>5 succès</strong> et <strong class=\"gold-amount\">100 pièces d'or</strong> quand vous aurez fini !",
+    "achievementRosyOutlookModalText": "Vous avez dompté toutes les montures rose barbe à papa !",
+    "achievementRosyOutlookText": "A dompté toutes les montures rose barbe à papa.",
+    "achievementRosyOutlook": "La vie en rose",
+    "achievementTickledPinkModalText": "Vous avez collecté tous les familiers rose barbe à papa !",
+    "achievementTickledPinkText": "A collecté tous les familiers rose barbe à papa.",
+    "achievementTickledPink": "Rose bonbon",
+    "foundNewItemsCTA": "Rendez-vous dans votre inventaire et essayez de combiner les nouvelles potions d'éclosion et les nouveaux œufs !",
+    "foundNewItemsExplanation": "Remplir vos tâches vous donne une chance de trouver des objets, comme les œufs, les potion d'éclosion et la nourriture.",
+    "foundNewItems": "Vous avez trouvé de nouveaux objets !"
 }

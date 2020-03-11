@@ -325,7 +325,7 @@
     "muchmuchMoreDesc": "Notre liste de tâches totalement personnalisable vous permet de modeler Habitica pour convenir à vos objectifs personnels. Travailler sur des projets créatifs, prendre soin de soi, ou suivre un rêve différent – c'est à vous de choisir.",
     "levelUpAnywhere": "Augmentez de niveau n'importe où",
     "levelUpAnywhereDesc": "Notre application mobile facilite la validation de vos tâches en itinérance. Accomplissez vos objectifs du bout des doigts, peu importe où vous vous trouvez.",
-    "joinMany": "Rejoignez plus de 2 000 000 de personnes qui s'amusent en réalisant leurs objectifs !",
+    "joinMany": "Rejoignez plus de <%= userCountInMillions %> millions de personnes qui s'amusent en réalisant leurs objectifs !",
     "joinToday": "Rejoignez Habitica aujourd'hui",
     "signup": "Inscrivez-vous",
     "getStarted": "Commencez !",

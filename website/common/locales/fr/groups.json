@@ -339,7 +339,7 @@
     "aboutToJoinCancelledGroupPlan": "Vous êtes sur le point de rejoindre un groupe dont l'abonnement a été annulé. Vous ne recevrez PAS d'abonnement gratuit.",
     "cannotChangeLeaderWithActiveGroupPlan": "Vous ne pouvez pas changer le responsable d'un groupe avec un abonnement actif.",
     "leaderCannotLeaveGroupWithActiveGroup": "Un responsable ne peut pas quitter un groupe avec un abonnement actif",
-    "youHaveGroupPlan": "Vous bénéficiez d'un abonnement gratuit, car vous êtes membre d'un groupe inscrit à une offre de groupe. Cet abonnement gratuit prendra fin quand vous n'appartiendrez plus à ce groupe. À la fin de cette offre de groupe, tous les mois d'inscription supplémentaires crédités commenceront à être utilisés.",
+    "youHaveGroupPlan": "Vous bénéficiez d'un abonnement gratuit, car vous êtes membre d'une offre de groupe. Votre abonnement prendra fin lorsque vous ne serez plus membre de l'offre de groupe.",
     "cancelGroupSub": "Résilier l'Offre de groupe",
     "confirmCancelGroupPlan": "Confirmez-vous vouloir résilier votre offre de groupe ? Tous les membres du groupe perdront leur abonnement et leurs bénéfices.",
     "canceledGroupPlan": "Offre de groupe annulée",
@@ -486,5 +486,12 @@
     "youHaveBeenAssignedTask": "<%= managerName %> vous a assigné la tâche <span class=\"notification-bold\"><%= taskText %></span>.",
     "groupActivityNotificationTitle": "<%= user %> a écrit dans <%= group %>",
     "blockedToSendToThisUser": "Vous ne pouvez pas envoyer de message à ce membre, car vous l'avez bloqué.",
-    "PMDisabled": "Désactiver les messages privés"
+    "PMDisabled": "Désactiver les messages privés",
+    "userWithUsernameOrUserIdNotFound": "Identifiant ou pseudo non trouvé.",
+    "usernameOrUserId": "Identifiant ou pseudo",
+    "sendGiftToWhom": "A qui voulez-vous envoyer un cadeau ?",
+    "selectGift": "Choisir le cadeau",
+    "PMUnblockUserToSendMessages": "Débloquez cette personne pour continuer à envoyer et recevoir des messages.",
+    "PMUserDoesNotReceiveMessages": "Cette personne ne reçoit plus de messages privés",
+    "PMCanNotReply": "Vous ne pouvez pas répondre à cette conversation"
 }

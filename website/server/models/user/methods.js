@@ -110,7 +110,7 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
 
 
 /**
- * Sends a message to a this. Archives a copy in sender's inbox.
+ * Sends a message to a user. Archives a copy in sender's inbox.
  *
  * @param  userToReceiveMessage  The receiver
  * @param  options

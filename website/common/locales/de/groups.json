@@ -172,7 +172,7 @@
     "messageWroteIn": "<%= user %> schrieb in <%= group %>",
     "msgPreviewHeading": "Nachrichtenvorschau",
     "leaderOnlyChallenges": "Nur der Gruppenleiter kann Herausforderungen erstellen",
-    "sendGift": "Geschenk schicken",
+    "sendGift": "Ein Geschenk schicken",
     "inviteFriends": "Lade Freunde ein",
     "partyMembersInfo": "Deine Party hat aktuell <%= memberCount %> Mitglieder und <%= invitationCount %> ausstehende Einladungen. Die maximale Anzahl an Mitgliedern in einer Party ist <%= limitMembers %>. Einladungen über diesem Limit können nicht verschickt werden.",
     "inviteByEmail": "Lade per E-Mail ein",
@@ -339,7 +339,7 @@
     "aboutToJoinCancelledGroupPlan": "Du bist dabei einer Gruppe mit gekündigtem Plan beizutreten. Du erhältst KEIN freies Abonnement.",
     "cannotChangeLeaderWithActiveGroupPlan": "Du kannst den Leiter nicht ändern während das Team einen aktiven Plan hat.",
     "leaderCannotLeaveGroupWithActiveGroup": "Ein Leiter kann eine Gruppe nicht verlassen, während es noch einen aktiven Plan gibt",
-    "youHaveGroupPlan": "Du hast ein kostenloses Abonnement, weil Du einer Gruppe angehörst, die einen Gruppenplan hat. Dies endet, wenn Du die Gruppe mit dem Gruppenplan verlässt. Deine zusätzlichen Abonnementsguthaben-Monate aus anderen Abonnementen werden nach Ablauf des Gruppenplans fortgesetzt.",
+    "youHaveGroupPlan": "Du hast ein kostenloses Abonnement, weil Du einem Gruppenplan angehörst. Dein Abonnement endet, wenn Du nicht mehr einem Gruppenplan angehörst.",
     "cancelGroupSub": "Gruppenplan kündigen",
     "confirmCancelGroupPlan": "Bist Du Dir sicher, dass Du Deinen Gruppenplan abbrechen möchtest? Alle Gruppenmitglieder werden ihre Abonnements und die Vorteile verlieren.",
     "canceledGroupPlan": "Gruppenplan abgebrochen",
@@ -486,5 +486,12 @@
     "youHaveBeenAssignedTask": "<%= managerName %> hat Dir die Aufgabe <span class=\"notification-bold\"><%= taskText %></span> zugeteilt.",
     "groupActivityNotificationTitle": "<%= user %> hat in <%= group %> gepostet",
     "blockedToSendToThisUser": "Du kannst dieser Person nicht schreiben, weil Du diese Person blockiert hast.",
-    "PMDisabled": "Private Nachrichten deaktivieren"
+    "PMDisabled": "Private Nachrichten deaktivieren",
+    "userWithUsernameOrUserIdNotFound": "Benutzername bzw. Benutzer ID nicht gefunden.",
+    "usernameOrUserId": "Benutzername oder Benutzer ID",
+    "sendGiftToWhom": "Wem würdest Du gerne ein Geschenk schicken?",
+    "selectGift": "Geschenk auswählen",
+    "PMCanNotReply": "Du kannst auf diese Nachricht nicht antworten",
+    "PMUnblockUserToSendMessages": "Entblocke diese Person, um wieder Nachrichten versenden und empfangen zu können.",
+    "PMUserDoesNotReceiveMessages": "Diese Person empfängt keine privaten Nachrichten mehr"
 }

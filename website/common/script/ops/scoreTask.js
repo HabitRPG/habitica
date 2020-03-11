@@ -189,7 +189,7 @@ function _updateCounter (task, direction, times) {
   }
 }
 
-export default function scoreTask (options = {}, req = {}) {
+export default function scoreTask (options = {}, req = {}, analytics) {
   const {
     user, task, direction, times = 1, cron = false,
   } = options;
@@ -347,7 +347,7 @@ export default function scoreTask (options = {}, req = {}) {
 
   if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
     user.addAchievement('completedTask');
-    checkOnboardingStatus(user);
+    checkOnboardingStatus(user, analytics);
   }
 
   return [delta];

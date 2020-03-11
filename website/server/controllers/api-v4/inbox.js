@@ -93,6 +93,7 @@ api.clearMessages = {
  *       "text":"last message of conversation",
  *       "userStyles": {},
  *       "contributor": {},
+ *       "canReceive": true,
  *       "count":1
  *    }
  * }
