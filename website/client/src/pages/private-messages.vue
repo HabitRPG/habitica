@@ -555,9 +555,10 @@
 <script>
 import Vue from 'vue';
 import moment from 'moment';
-import filter from 'lodash/filter';
+// import filter from 'lodash/filter';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
+import debounce from 'lodash/debounce';
 import habiticaMarkdown from 'habitica-markdown';
 import axios from 'axios';
 import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
@@ -597,7 +598,6 @@ export default {
         messageIcon,
         mail,
       }),
-      displayCreate: true,
       selectedConversation: {},
       search: '',
       newMessage: '',
@@ -616,19 +616,25 @@ export default {
   async mounted () {
     // notification click to refresh
     this.$root.$on(EVENTS.PM_REFRESH, async () => {
-      await this.reload();
+      await this.reload({
+        markAsRead: true,
+      });
 
       this.selectFirstConversation();
     });
 
     // header sync button
     this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
-      await this.reload();
+      await this.reload({
+        markAsRead: true,
+      });
 
       this.selectFirstConversation();
     });
 
-    await this.reload();
+    await this.reload({
+      markAsRead: true,
+    });
 
     const data = this.$store.state.privateMessageOptions;
 
@@ -649,6 +655,9 @@ export default {
   },
   destroyed () {
     this.$root.$off(EVENTS.RESYNC_COMPLETED);
+  },
+  watch: {
+    search: 'triggerSearch',
   },
   computed: {
     ...mapState({ user: 'user.data' }),
@@ -722,15 +731,9 @@ export default {
     },
     filtersConversations () {
       // Vue-subscribe to changes
-      const subscribeToUpdate = this.updateConversationsCounter > -1;
 
-      const filtered = subscribeToUpdate && !this.search
-        ? this.conversations
-
-        /* eslint-disable max-len */
-        : filter(this.conversations, conversation => conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1);
-
-      const ordered = orderBy(filtered, [o => moment(o.date).toDate()], ['desc']);
+      const ordered = orderBy(this.conversations,
+        [o => moment(o.date).toDate()], ['desc']);
 
       return ordered;
     },
@@ -804,17 +807,31 @@ export default {
       return !this.selectedConversation || !this.selectedConversation.key
         || this.disabledTexts !== null;
     },
+    searchMode () {
+      return Boolean(this.search);
+    }
   },
 
   methods: {
-    async reload () {
+    async reload (options = {
+      markAsRead: false,
+      search: '',
+    }) {
       this.loaded = false;
 
-      const conversationRes = await axios.get('/api/v4/inbox/conversations');
+      const query = ['/api/v4/inbox/conversations'];
+
+      if (options.search) {
+        query.push(`?searchMessage=${options.search}`);
+      }
+
+      const conversationRes = await axios.get(query.join(''));
       this.loadedConversations = conversationRes.data.data;
       this.selectedConversation = {};
 
-      await this.$store.dispatch('user:markPrivMessagesRead');
+      if (options.markAsRead) {
+        await this.$store.dispatch('user:markPrivMessagesRead');
+      }
 
       this.loaded = true;
     },
@@ -832,9 +849,6 @@ export default {
           contributor: this.selectedConversation.contributor,
         };
       }
-    },
-    toggleClick () {
-      this.displayCreate = !this.displayCreate;
     },
     toggleOpt () {
       this.$store.dispatch('user:togglePrivateMessagesOpt');
@@ -943,7 +957,10 @@ export default {
       const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data;
 
+      /* eslint-disable max-len */
       this.messagesByConversation[conversationKey] = this.messagesByConversation[conversationKey] || [];
+
+      /* eslint-disable max-len */
       const loadedMessagesToAdd = loadedMessages
         .filter(m => this.messagesByConversation[conversationKey].findIndex(mI => mI.id === m.id) === -1);
       this.messagesByConversation[conversationKey].push(...loadedMessagesToAdd);
@@ -973,6 +990,11 @@ export default {
         this.selectConversation(this.loadedConversations[0].uuid, true);
       }
     },
+    triggerSearch: debounce(function triggerSearch () {
+      this.reload({
+        search: this.search,
+      });
+    }, 1300),
   },
 };
 </script>
