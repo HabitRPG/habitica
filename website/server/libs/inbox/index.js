@@ -2,8 +2,6 @@ import { mapInboxMessage, inboxModel as Inbox } from '../../models/message';
 import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../pushNotifications';
 
-const PM_PER_PAGE = 10;
-
 export async function sentMessage (sender, receiver, message, translate) {
   const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
   const senderName = getUserInfo(sender, ['name']).name;
@@ -34,16 +32,15 @@ export async function sentMessage (sender, receiver, message, translate) {
   return messageSent;
 }
 
-export async function getUserInbox (user, options = {
-  asArray: true, page: 0, conversation: null, mapProps: false,
-}) {
-  if (typeof options.asArray === 'undefined') {
-    options.asArray = true;
-  }
+const PM_PER_PAGE = 10;
 
-  if (typeof options.mapProps === 'undefined') {
-    options.mapProps = false;
-  }
+const getUserInboxDefaultOptions = {
+  asArray: true, page: 0, conversation: null, mapProps: false,
+};
+
+export async function getUserInbox (user, optionParams = getUserInboxDefaultOptions) {
+  // if not all properties are passed, fill the default values
+  const options = Object.assign(getUserInboxDefaultOptions, optionParams);
 
   const findObj = { ownerId: user._id };
 
@@ -57,8 +54,8 @@ export async function getUserInbox (user, options = {
 
   if (typeof options.page !== 'undefined') {
     query = query
-      .limit(PM_PER_PAGE)
-      .skip(PM_PER_PAGE * Number(options.page));
+      .skip(PM_PER_PAGE * Number(options.page))
+      .limit(PM_PER_PAGE);
   }
 
   const messages = (await query.exec()).map(msg => {
@@ -78,6 +75,52 @@ export async function getUserInbox (user, options = {
   messages.forEach(msg => { messagesObj[msg._id] = msg; });
 
   return messagesObj;
+}
+
+
+const searchUserInboxDefaultOptions = {
+  beforeTimestamp: null,
+  afterTimestamp: null,
+  conversation: null,
+  mapProps: false,
+};
+
+// WIP remove once ready to merge
+export async function searchUserInbox (user, optionParams = searchUserInboxDefaultOptions) {
+  // if not all properties are passed, fill the default values
+  const options = Object.assign(searchUserInboxDefaultOptions, optionParams);
+
+  const findObj = { ownerId: user._id };
+
+  if (options.conversation) {
+    findObj.uuid = options.conversation;
+  }
+
+  if (options.beforeTimestamp) {
+    findObj.timestamp = { $lt: options.beforeTimestamp };
+  }
+
+  if (options.afterTimestamp) {
+    findObj.timestamp = Object.assign(findObj.timestamp || {},
+      { $gt: options.afterTimestamp });
+  }
+
+  const query = Inbox
+    .find(findObj)
+    .sort({ timestamp: options.afterTimestamp ? 1 : -1 })
+    .limit(PM_PER_PAGE);
+
+  const messages = (await query.exec()).map(msg => {
+    const msgObj = msg.toJSON();
+
+    if (options.mapProps) {
+      mapInboxMessage(msgObj, user);
+    }
+
+    return msgObj;
+  });
+
+  return messages;
 }
 
 export async function getUserInboxMessage (user, messageId) {
