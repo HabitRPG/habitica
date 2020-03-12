@@ -41,14 +41,23 @@ async function usersMapByConversations (users) {
   return usersMap;
 }
 
-export async function listConversations (owner) {
+export async function listConversations (owner, searchMessage = null) {
+  const matchQuery = {
+    ownerId: owner._id,
+  };
+
+  if (searchMessage) {
+    const searchRegex = { $regex: new RegExp(`${searchMessage}`, 'i') };
+
+    matchQuery.text = searchRegex;
+  }
+
+
   // group messages by user owned by logged-in user
   const query = Inbox
     .aggregate([
       {
-        $match: {
-          ownerId: owner._id,
-        },
+        $match: matchQuery,
       },
       {
         $group: {
@@ -57,6 +66,7 @@ export async function listConversations (owner) {
           username: { $last: '$username' },
           timestamp: { $last: '$timestamp' },
           text: { $last: '$text' },
+          messageId: { $last: '$id' },
           count: { $sum: 1 },
         },
       },

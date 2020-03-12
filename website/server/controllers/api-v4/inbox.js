@@ -81,6 +81,8 @@ api.clearMessages = {
  * This is for API v4 which must not be used in third-party tools.
  * For API v3, use "Get inbox messages for a user".
  *
+ * @apiParam (Query) {String} searchMessage Lists only the conversations that contain this message
+ *
  * @apiSuccess {Array} data An array of inbox conversations
  *
  * @apiSuccessExample {json} Success-Response:
@@ -104,8 +106,9 @@ api.conversations = {
   url: '/inbox/conversations',
   async handler (req, res) {
     const { user } = res.locals;
+    const { searchMessage } = req.query;
 
-    const result = await listConversations(user);
+    const result = await listConversations(user, searchMessage);
 
     res.respond(200, result);
   },
@@ -129,8 +132,7 @@ api.getInboxMessages = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    const { page } = req.query;
-    const { conversation } = req.query;
+    const { page, conversation } = req.query;
 
     const userInbox = await getUserInbox(user, {
       page, conversation, mapProps: true,
