@@ -41,7 +41,7 @@ describe('GET /groups', () => {
     await leader.post(`/groups/${publicGuildUserIsMemberOf._id}/invite`, { uuids: [user._id] });
     await user.post(`/groups/${publicGuildUserIsMemberOf._id}/join`);
 
-    userInGuild = await generateUser({ guilds: [publicGuildUserIsMemberOf._id]});
+    userInGuild = await generateUser({ guilds: [publicGuildUserIsMemberOf._id] });
 
     publicGuildNotMember = await generateGroup(leader, {
       name: 'public guild - is not member',
@@ -164,25 +164,25 @@ describe('GET /groups', () => {
       expect(guilds.length).to.equal(NUMBER_OF_PUBLIC_GUILDS_USER_IS_LEADER);
     });
 
-    it('filters public guilds by member role', async() => {
+    it('filters public guilds by member role', async () => {
       const guilds = await userInGuild.get('/groups?type=publicGuilds&member=true');
       expect(guilds.length).to.equal(1);
       expect(guilds[0].name).to.have.string('is member');
     });
 
-    it('filters public guilds by single-word search term', async() => {
+    it('filters public guilds by single-word search term', async () => {
       const guilds = await user.get('/groups?type=publicGuilds&search=kom');
       expect(guilds.length).to.equal(1);
       expect(guilds[0].summary).to.have.string('ohayou kombonwa');
     });
 
-    it('filters public guilds by single-word search term left and right-padded by spaces', async() => {
+    it('filters public guilds by single-word search term left and right-padded by spaces', async () => {
       const guilds = await user.get('/groups?type=publicGuilds&search=++++ohayou+kombonwa+++++');
       expect(guilds.length).to.equal(1);
       expect(guilds[0].summary).to.have.string('ohayou kombonwa');
     });
 
-    it('filters public guilds by two-words search term separated by multiple spaces', async() => {
+    it('filters public guilds by two-words search term separated by multiple spaces', async () => {
       const guilds = await user.get('/groups?type=publicGuilds&search=kinnosuke+++++hon');
       expect(guilds.length).to.equal(1);
       expect(guilds[0].description).to.have.string('Kinnosuke');
