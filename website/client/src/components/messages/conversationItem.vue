@@ -45,9 +45,9 @@
         v-if="username"
         class="username"
       >@{{ username }}</span> <span
-      v-if="lastMessageDate"
-      class="time"
-    >•
+        v-if="lastMessageDate"
+        class="time"
+      >•
         {{ lastMessageDate | timeAgo }}
       </span>
     </span>
@@ -56,7 +56,6 @@
       <div class="messagePreview">
         {{ lastMessageText }}
       </div>
-
     </div>
   </div>
 </template>
