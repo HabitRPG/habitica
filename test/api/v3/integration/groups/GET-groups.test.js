@@ -184,8 +184,6 @@ describe('GET /groups', () => {
 
     it('filters public guilds by two-words search term separated by multiple spaces', async() => {
       const guilds = await user.get('/groups?type=publicGuilds&search=kinnosuke+++++hon');
-      console.log('two words search multiple spaces guilds');
-      console.log(guilds);
       expect(guilds.length).to.equal(1);
       expect(guilds[0].description).to.have.string('Kinnosuke');
     });
