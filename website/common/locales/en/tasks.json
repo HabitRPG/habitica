@@ -9,7 +9,7 @@
   "addsingle": "Add Single",
   "addATask": "Add a <%= type %>",
   "addATitle": "Add a title",
-  "editATask": "Edit a <%= type %>",
+  "editATask": "Edit <%= type %>",
   "createTask": "Create <%= type %>",
   "addTaskToUser": "Add Task",
   "scheduled": "Scheduled",
