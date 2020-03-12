@@ -19,6 +19,8 @@ const api = {};
  * @apiName GetNews
  * @apiGroup News
  *
+ * @apiParam (Query) {Number} [page] This parameter can be used to specify the page number
+ *           (the initial page is number 0 and not required).
  *
  * @apiSuccess {Object} html Latest Bailey html
  *
@@ -38,7 +40,7 @@ api.getNews = {
     if (user && user.contributor) {
       isAdmin = user.contributor.admin;
     }
-    const results = await NewsPost.getNews(isAdmin, { page });
+    const results = await NewsPost.getNews(isAdmin, { page }).exec();
     res.respond(200, results);
   },
 };
@@ -118,7 +120,7 @@ api.getPost = {
       isAdmin = user.contributor.admin;
     }
 
-    const newsPost = await NewsPost.findById(req.params.postId);
+    const newsPost = await NewsPost.findById(req.params.postId).exec();
     if (!newsPost || (!isAdmin && !newsPost.isPublished)) {
       throw new NotFound(res.t('newsPostNotFound'));
     } else {
@@ -156,7 +158,7 @@ api.updateNews = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const newsPost = await NewsPost.findById(req.params.postId);
+    const newsPost = await NewsPost.findById(req.params.postId).exec();
     if (!newsPost) throw new NotFound(res.t('newsPostNotFound'));
 
     _.merge(newsPost, NewsPost.sanitize(req.body));
@@ -191,7 +193,7 @@ api.deleteNews = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const newsPost = await NewsPost.findById(req.params.postId);
+    const newsPost = await NewsPost.findById(req.params.postId).exec();
     if (!newsPost) throw new NotFound(res.t('newsPostNotFound'));
 
     await NewsPost.remove({ _id: req.params.postId }).exec();
