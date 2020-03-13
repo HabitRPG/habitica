@@ -605,19 +605,15 @@
     font-style: normal;
 
     &-right {
-      flex-grow: 1;
+      margin: 0;
+      padding: 7px 0;
+      padding-right: 8px;
+
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: end;
+      flex-shrink: 0;
     }
-  }
-
-  .icons-right {
-    margin: 0;
-    padding: 7px 0;
-    padding-right: 8px;
-
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: end;
-    flex-shrink: 0;
   }
 
   .icons-right .svg-icon {
