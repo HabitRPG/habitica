@@ -168,6 +168,7 @@ api.redirectApple = {
 };
 
 // Called as a callback by Apple. Internal route
+// Can be passed `code` and `name` as query parameters
 api.loginApple = {
   method: 'GET',
   middlewares: [authWithHeaders({

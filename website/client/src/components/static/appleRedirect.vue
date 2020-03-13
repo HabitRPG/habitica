@@ -23,11 +23,11 @@ export default {
   async mounted () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const body = { code: urlParams.get('code') };
+    const reqParams = { code: urlParams.get('code') };
     if (urlParams.has('name')) {
-      body.name = urlParams.get('name');
+      reqParams.name = urlParams.get('name');
     }
-    await this.$store.dispatch('auth:appleAuth', body);
+    await this.$store.dispatch('auth:appleAuth', reqParams);
 
     window.location.href = '/';
   },

@@ -85,7 +85,10 @@ export async function socialAuth (store, params) {
 export async function appleAuth (store, params) {
   const url = '/api/v4/user/auth/apple';
   const result = await axios.get(url, {
-    params: { code: params.code },
+    params: {
+      code: params.code,
+      name: params.name,
+    },
   });
 
   const user = result.data.data;
