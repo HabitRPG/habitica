@@ -74,150 +74,93 @@
           :class="contentClass"
         >
           <div
-            class="task-clickable-area"
+            class="task-clickable-area d-flex justify-content-between"
             :class="{'task-clickable-area-user': isUser}"
             @click="edit($event, task)"
           >
-            <div class="d-flex justify-content-between">
-              <h3
-                v-markdown="task.text"
-                class="task-title"
-                :class="{ 'has-notes': task.notes }"
-              ></h3>
-              <menu-dropdown
-                v-if="!isRunningYesterdailies && showOptions"
-                ref="taskDropdown"
-                v-b-tooltip.hover.top="$t('options')"
-                class="task-dropdown"
-                :right="task.type === 'reward'"
-              >
-                <div slot="dropdown-toggle">
-                  <div
-                    class="svg-icon dropdown-icon"
-                    v-html="icons.menu"
-                  ></div>
-                </div>
-                <div slot="dropdown-content">
-                  <div
-                    v-if="showEdit"
-                    ref="editTaskItem"
-                    class="dropdown-item edit-task-item"
-                  >
-                    <span class="dropdown-icon-item">
-                      <span
-                        class="svg-icon inline edit-icon"
-                        v-html="icons.edit"
-                      ></span>
-                      <span class="text">{{ $t('edit') }}</span>
-                    </span>
+            <div>
+              <div class="d-flex justify-content-between">
+                <h3
+                  v-markdown="task.text"
+                  class="task-title"
+                  :class="{ 'has-notes': task.notes }"
+                ></h3>
+                <menu-dropdown
+                  v-if="!isRunningYesterdailies && showOptions"
+                  ref="taskDropdown"
+                  v-b-tooltip.hover.top="$t('options')"
+                  class="task-dropdown"
+                  :right="task.type === 'reward'"
+                >
+                  <div slot="dropdown-toggle">
+                    <div
+                      class="svg-icon dropdown-icon"
+                      v-html="icons.menu"
+                    ></div>
                   </div>
-                  <div
-                    v-if="isUser"
-                    class="dropdown-item"
-                    @click="moveToTop"
-                  >
-                    <span class="dropdown-icon-item">
-                      <span
-                        class="svg-icon inline push-to-top"
-                        v-html="icons.top"
-                      ></span>
-                      <span class="text">{{ $t('taskToTop') }}</span>
-                    </span>
+                  <div slot="dropdown-content">
+                    <div
+                      v-if="showEdit"
+                      ref="editTaskItem"
+                      class="dropdown-item edit-task-item"
+                    >
+                      <span class="dropdown-icon-item">
+                        <span
+                          class="svg-icon inline edit-icon"
+                          v-html="icons.edit"
+                        ></span>
+                        <span class="text">{{ $t('edit') }}</span>
+                      </span>
+                    </div>
+                    <div
+                      v-if="isUser"
+                      class="dropdown-item"
+                      @click="moveToTop"
+                    >
+                      <span class="dropdown-icon-item">
+                        <span
+                          class="svg-icon inline push-to-top"
+                          v-html="icons.top"
+                        ></span>
+                        <span class="text">{{ $t('taskToTop') }}</span>
+                      </span>
+                    </div>
+                    <div
+                      v-if="isUser"
+                      class="dropdown-item"
+                      @click="moveToBottom"
+                    >
+                      <span class="dropdown-icon-item">
+                        <span
+                          class="svg-icon inline push-to-bottom"
+                          v-html="icons.bottom"
+                        ></span>
+                        <span class="text">{{ $t('taskToBottom') }}</span>
+                      </span>
+                    </div>
+                    <div
+                      v-if="showDelete"
+                      class="dropdown-item"
+                      @click="destroy"
+                    >
+                      <span class="dropdown-icon-item delete-task-item">
+                        <span
+                          class="svg-icon inline delete"
+                          v-html="icons.delete"
+                        ></span>
+                        <span class="text">{{ $t('delete') }}</span>
+                      </span>
+                    </div>
                   </div>
-                  <div
-                    v-if="isUser"
-                    class="dropdown-item"
-                    @click="moveToBottom"
-                  >
-                    <span class="dropdown-icon-item">
-                      <span
-                        class="svg-icon inline push-to-bottom"
-                        v-html="icons.bottom"
-                      ></span>
-                      <span class="text">{{ $t('taskToBottom') }}</span>
-                    </span>
-                  </div>
-                  <div
-                    v-if="showDelete"
-                    class="dropdown-item"
-                    @click="destroy"
-                  >
-                    <span class="dropdown-icon-item delete-task-item">
-                      <span
-                        class="svg-icon inline delete"
-                        v-html="icons.delete"
-                      ></span>
-                      <span class="text">{{ $t('delete') }}</span>
-                    </span>
-                  </div>
-                </div>
-              </menu-dropdown>
-            </div>
-            <div
-              v-markdown="task.notes"
-              class="task-notes small-text"
-              :class="{'has-checklist': task.notes && hasChecklist}"
-            ></div>
-          </div>
-          <div
-            v-if="canViewchecklist"
-            class="checklist"
-            :class="{isOpen: !task.collapseChecklist}"
-          >
-            <div class="d-inline-flex">
-              <div
-                v-if="isUser"
-                v-b-tooltip.hover.right="$t(`${task.collapseChecklist
-                  ? 'expand': 'collapse'}Checklist`)"
-                class="collapse-checklist d-flex align-items-center expand-toggle"
-                :class="{open: !task.collapseChecklist}"
-                @click="collapseChecklist(task)"
-              >
-                <div
-                  class="svg-icon"
-                  v-html="icons.checklist"
-                ></div>
-                <span>{{ checklistProgress }}</span>
+                </menu-dropdown>
               </div>
-            </div>
-            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-            <div
-              v-for="item in task.checklist"
-              v-if="!task.collapseChecklist"
-              :key="item.id"
-              class="custom-control custom-checkbox checklist-item"
-              :class="{'checklist-item-done': item.completed}"
-            >
-              <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-              <input
-                :id="`checklist-${item.id}-${random}`"
-                class="custom-control-input"
-                type="checkbox"
-                :checked="item.completed"
-                :disabled="castingSpell || !isUser"
-                @change="toggleChecklistItem(item)"
-              >
-              <label
-                v-markdown="item.text"
-                class="custom-control-label"
-                :for="`checklist-${item.id}-${random}`"
-              ></label>
-            </div>
-          </div>
-          <div class="icons small-text d-flex align-items-center">
-            <div
-              v-if="task.type === 'todo' && task.date"
-              class="d-flex align-items-center"
-              :class="{'due-overdue': isDueOverdue}"
-            >
               <div
-                v-b-tooltip.hover.bottom="$t('dueDate')"
-                class="svg-icon calendar"
-                v-html="icons.calendar"
+                v-markdown="task.notes"
+                class="task-notes small-text"
+                :class="{'has-checklist': task.notes && hasChecklist}"
               ></div>
-              <span>{{ dueIn }}</span>
             </div>
-            <div class="icons-right d-flex justify-content-end">
+            <div class="icons icons-right small-text d-flex">
               <div
                 v-if="showStreak"
                 class="d-flex align-items-center"
@@ -294,6 +237,68 @@
                   </div>
                 </div>
               </b-popover>
+            </div>
+          </div>
+          <div
+            v-if="canViewchecklist"
+            class="checklist"
+            :class="{isOpen: !task.collapseChecklist}"
+          >
+            <div class="d-inline-flex">
+              <div
+                v-if="isUser"
+                v-b-tooltip.hover.right="$t(`${task.collapseChecklist
+                  ? 'expand': 'collapse'}Checklist`)"
+                class="collapse-checklist d-flex align-items-center expand-toggle"
+                :class="{open: !task.collapseChecklist}"
+                @click="collapseChecklist(task)"
+              >
+                <div
+                  class="svg-icon"
+                  v-html="icons.checklist"
+                ></div>
+                <span>{{ checklistProgress }}</span>
+              </div>
+            </div>
+            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+            <div
+              v-for="item in task.checklist"
+              v-if="!task.collapseChecklist"
+              :key="item.id"
+              class="custom-control custom-checkbox checklist-item"
+              :class="{'checklist-item-done': item.completed}"
+            >
+              <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+              <input
+                :id="`checklist-${item.id}-${random}`"
+                class="custom-control-input"
+                type="checkbox"
+                :checked="item.completed"
+                :disabled="castingSpell || !isUser"
+                @change="toggleChecklistItem(item)"
+              >
+              <label
+                v-markdown="item.text"
+                class="custom-control-label"
+                :for="`checklist-${item.id}-${random}`"
+              ></label>
+            </div>
+          </div>
+          <div
+            v-if="task.type === 'todo' && task.date"
+            class="icons small-text d-flex align-items-center flex-shrink-0"
+          >
+            <div
+              v-if="task.type === 'todo' && task.date"
+              class="d-flex align-items-center"
+              :class="{'due-overdue': isDueOverdue}"
+            >
+              <div
+                v-b-tooltip.hover.bottom="$t('dueDate')"
+                class="svg-icon calendar"
+                v-html="icons.calendar"
+              ></div>
+              <span>{{ dueIn }}</span>
             </div>
           </div>
         </div>
@@ -505,6 +510,10 @@
     &.has-checklist {
       padding-bottom: 2px;
     }
+
+    p {
+      margin-bottom: 4px;
+    }
   }
 
   .task-content {
@@ -598,6 +607,14 @@
     &-right {
       flex-grow: 1;
     }
+  }
+
+  .icons-right {
+    padding-left: 0;
+
+    justify-content: end;
+    align-items: end;
+    flex-shrink: 0;
   }
 
   .icons-right .svg-icon {
