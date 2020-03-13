@@ -195,7 +195,7 @@ api.mountInfo = stable.mountInfo;
 
 // For seasonal events, change this constant:
 
-const FOOD_SEASON = 'Normal';
+const FOOD_SEASON = 'Pie';
 
 api.food = {
   Meat: {
