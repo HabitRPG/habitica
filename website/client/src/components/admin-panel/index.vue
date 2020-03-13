@@ -3,13 +3,15 @@
     <div class="well">
       <h1>Admin Panel</h1>
       <div class="row">
-        <div class="form col-12">
+        <div class="form-inline col-12">
           <div class="form-group">
             <input
               v-model="heroID"
               class="form-control"
               type="text"
               :placeholder="'User ID or Username'"
+              :style="{ 'min-width': '45ch' }"
+              @keyup.enter="loadHero(heroID)"
             >
           </div>
           <div class="form-group">
@@ -17,96 +19,106 @@
               class="btn btn-secondary"
               @click="loadHero(heroID)"
             >
-              Load User
+              Load User (click or hit enter)
             </button>
           </div>
         </div>
       </div>
+
       <div v-if="hero && hero.profile" class="row">
-        <div class="form col-6"> <!-- XXX use later in a div: submit="saveHero(hero)" -->
+        <div class="form col-6">
+          <h2>@{{ hero.auth.local.username }} &nbsp; / &nbsp; {{ hero.profile.name }}</h2>
+          <div class="form-group">
+            {{ hero._id }} &nbsp;
+            <router-link :to="{'name': 'userProfile', 'params': {'userId': hero._id}}">
+              profile link
+            </router-link>
+          </div>
 
-          <h2>@{{ hero.auth.local.username }}</h2>
-          <p>{{ hero.profile.name }}</p>
-          <p>{{ hero._id }}</p>
-          <router-link :to="{'name': 'userProfile', 'params': {'userId': hero._id}}">
-            profile link
-          </router-link>
+          <div class="accordion-group">
+            <h3
+              class="expand-toggle"
+              :class="{'open': expandPriv}"
+              @click="expandPriv = !expandPriv"
+            >
+              Privileges, Gem Balance
+            </h3>
+            <div v-if="expandPriv">
+              <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    <input
+                      v-if="hero.flags"
+                      v-model="hero.flags.chatShadowMuted"
+                      type="checkbox"
+                    > Shadow Mute
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input
+                      v-if="hero.flags"
+                      v-model="hero.flags.chatRevoked"
+                      type="checkbox"
+                    > Mute (Revoke Chat Privileges)
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input
+                      v-model="hero.auth.blocked"
+                      type="checkbox"
+                    > Ban / Block
+                  </label>
+                </div>
+                <div class="form-inline">
+                  <label>Balance</label>
+                  <input
+                    v-model="hero.balance"
+                    class="form-control"
+                    type="number"
+                    step="0.25"
+                    :style="{ 'width': '15ch' }"
+                  >
+                  <span>
+                    <small>
+                      Balance is in USD, not in Gems.
+                      E.g., if this number is 1, it means 4 Gems.
+                      Arrows change Balance by 0.25 (i.e., 1 Gem per click).
+                      Do not use when awarding tiers; tier gems are automatic.
+                    </small>
+                  </span>
+                </div>
+                <button class="form-control btn btn-primary" @click="saveHero()">Save</button>
+              </div>
+            </div> <!-- TST end of v-if="expandPriv" -->
+          </div>
 
-          <div class="form-group">
-            <label>Contributor Title</label>
-            <input
-              v-model="hero.contributor.text"
-              class="form-control"
-              type="text"
+          <div class="accordion-group">
+            <h3
+              class="expand-toggle"
+              :class="{'open': expandAuth}"
+              @click="expandAuth = !expandAuth"
             >
-            <small>
-              Common titles:
-              <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher,
-              Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>.
-              Rare titles:
-              Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson, Statistician,
-              Tinker, Transcriber, Troubadour.
-            </small>
+              Authentication, Email, Timestamps
+            </h3>
+            <div v-if="expandAuth">
+              <pre>{{ hero.auth }}</pre>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Contributor Tier</label>
-            <input
-              v-model="hero.contributor.level"
-              class="form-control"
-              type="number"
-            >
-            <small>
-              1-7 for normal contributors, 8 for moderators, 9 for staff.
-              This determines which items, pets, and mounts are available, and name-tag coloring.
-              Tiers 8 and 9 are automatically given admin status.&nbsp; <!-- XXX is that true? -->
-              <a
-                target="_blank"
-                href="https://trello.com/c/wkFzONhE/277-contributor-gear"
-              >More details (1-7)</a>,&nbsp;
-              <a
-                target="_blank"
-                href="https://github.com/HabitRPG/habitica/issues/3801"
-              >more details (8-9)</a>
-            </small>
-          </div>
-          <div class="form-group">
-            <label>Contributions</label>
-            <textarea
-              v-model="hero.contributor.contributions"
-              class="form-control"
-              cols="5"
-            ></textarea>
-          </div>
-          <div class="form-group">
-            <label>Balance</label>
-            <input
-              v-model="hero.balance"
-              class="form-control"
-              type="number"
-              step="any"
-            >
-            <small>
-              <span>
-                '{{ hero.balance }}' is in USD,
-                <em>not</em> in Gems. E.g., if this number is 1, it means 4 Gems.
-                Only use this option when manually granting Gems to players.
-                Don't use it when granting contributor tiers.
-                Contrib tiers will automatically add Gems.
-              </span>
-            </small>
-          </div>
+
           <div class="accordion">
             <div
               class="accordion-group"
               heading="Items"
             >
-              <h4
+              <h3
                 class="expand-toggle"
                 :class="{'open': expandItems}"
                 @click="expandItems = !expandItems"
               >
                 Update Item
-              </h4>
+              </h3>
               <div
                 v-if="expandItems"
                 class="form-group well"
@@ -152,68 +164,78 @@
                     <pre>{{ hero.items }}</pre>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="accordion-group"
-              heading="Auth"
-            >
-              <h4
-                class="expand-toggle"
-                :class="{'open': expandAuth}"
-                @click="expandAuth = !expandAuth"
-              >
-                Auth
-              </h4>
-              <div v-if="expandAuth">
-                <pre>{{ hero.auth }}</pre>
                 <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input
-                        v-if="hero.flags"
-                        v-model="hero.flags.chatShadowMuted"
-                        type="checkbox"
-                      >
-                      <strong>Chat Shadow Muting On</strong>
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input
-                        v-if="hero.flags"
-                        v-model="hero.flags.chatRevoked"
-                        type="checkbox"
-                      >
-                      <strong>Chat Privileges Revoked</strong>
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input
-                        v-model="hero.auth.blocked"
-                        type="checkbox"
-                      >Blocked
-                    </label>
-                  </div>
+                  <button class="form-control btn btn-primary" @click="saveHero()">Save</button>
                 </div>
               </div>
             </div>
           </div>
-          <!-- h4 Backer Status-->
-          <!-- Add backer stuff like tier, disable adds, etcs-->
-          <div class="form-group">
-            <button
-              class="form-control btn btn-primary"
-              @click="saveHero()"
+
+          <div class="accordion-group">
+            <h3
+              class="expand-toggle"
+              :class="{'open': expandContrib}"
+              @click="expandContrib = !expandContrib"
             >
-              Save
-            </button>
+              Contributor Details
+            </h3>
+            <div v-if="expandContrib">
+              <div class="form-group form-inline">
+                <label>Title</label>
+                <input
+                  v-model="hero.contributor.text"
+                  class="form-control"
+                  type="text"
+                  :style="{ 'min-width': '50ch' }"
+                >
+                <small>
+                  Common titles:
+                  <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher,
+                  Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>.
+                </small>
+                <small>
+                  Rare titles:
+                  Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson,
+                  Statistician, Tinker, Transcriber, Troubadour.
+                </small>
+              </div>
+              <div class="form-group form-inline">
+                <label>Tier</label>
+                <input
+                  v-model="hero.contributor.level"
+                  class="form-control"
+                  type="number"
+                  :style="{ 'width': '10ch' }"
+                >
+                <small>
+                  1-7 for normal contributors, 8 for moderators, 9 for staff.
+                  This determines which items, pets, mounts are available, and name-tag coloring.
+                  Tiers 8 and 9 are automatically given admin status.
+                  <a
+                    target="_blank"
+                    href="https://trello.com/c/wkFzONhE/277-contributor-gear"
+                  >More details (1-7)</a>,&nbsp;
+                  <a
+                    target="_blank"
+                    href="https://github.com/HabitRPG/habitica/issues/3801"
+                  >more details (8-9)</a>
+                </small>
+              </div>
+              <div class="form-group">
+                <label>Contributions</label>
+                <textarea
+                  v-model="hero.contributor.contributions"
+                  class="form-control"
+                  cols="5"
+                  rows="5"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <button class="form-control btn btn-primary" @click="saveHero()">Save</button>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -221,8 +243,17 @@
 </template>
 
 <style lang="scss" scoped>
-  h4.expand-toggle::after {
+  h3 {
+    margin-top: 2em;
+  }
+  h3.expand-toggle::after {
     margin-left: 5px;
+  }
+  .form-inline {
+    margin-bottom: 1em;
+    input {
+      margin-left: 10px;
+    }
   }
 </style>
 
@@ -259,8 +290,10 @@ export default {
       hatchingPotions: content.hatchingPotions,
       special: content.special,
       gear,
-      expandItems: false,
+      expandPriv: false,
       expandAuth: false,
+      expandItems: false,
+      expandContrib: false,
     };
   },
   computed: {
@@ -322,8 +355,10 @@ export default {
           chatShadowMuted: false,
         };
       }
-      this.expandItems = false;
+      this.expandPriv = true;
       this.expandAuth = false;
+      this.expandItems = false;
+      this.expandContrib = true;
     },
     async saveHero () {
       this.hero.contributor.admin = this.hero.contributor.level > 7;
