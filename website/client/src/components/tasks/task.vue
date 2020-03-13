@@ -508,7 +508,6 @@
   }
 
   .task-content {
-    position: relative;
     padding-top: 0px;
     padding-bottom: 7px;
     flex-grow: 1;
@@ -592,10 +591,7 @@
   }
 
   .icons {
-    position: absolute;
-    right: 0;
-    bottom: 7px;
-
+    margin-top: 4px;
     color: $gray-300;
     font-style: normal;
 
