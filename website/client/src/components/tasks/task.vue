@@ -84,74 +84,6 @@
                 class="task-title"
                 :class="{ 'has-notes': task.notes }"
               ></h3>
-              <menu-dropdown
-                v-if="!isRunningYesterdailies && showOptions"
-                ref="taskDropdown"
-                v-b-tooltip.hover.top="$t('options')"
-                class="task-dropdown"
-                :right="task.type === 'reward'"
-              >
-                <div slot="dropdown-toggle">
-                  <div
-                    class="svg-icon dropdown-icon"
-                    v-html="icons.menu"
-                  ></div>
-                </div>
-                <div slot="dropdown-content">
-                  <div
-                    v-if="showEdit"
-                    ref="editTaskItem"
-                    class="dropdown-item edit-task-item"
-                  >
-                    <span class="dropdown-icon-item">
-                      <span
-                        class="svg-icon inline edit-icon"
-                        v-html="icons.edit"
-                      ></span>
-                      <span class="text">{{ $t('edit') }}</span>
-                    </span>
-                  </div>
-                  <div
-                    v-if="isUser"
-                    class="dropdown-item"
-                    @click="moveToTop"
-                  >
-                    <span class="dropdown-icon-item">
-                      <span
-                        class="svg-icon inline push-to-top"
-                        v-html="icons.top"
-                      ></span>
-                      <span class="text">{{ $t('taskToTop') }}</span>
-                    </span>
-                  </div>
-                  <div
-                    v-if="isUser"
-                    class="dropdown-item"
-                    @click="moveToBottom"
-                  >
-                    <span class="dropdown-icon-item">
-                      <span
-                        class="svg-icon inline push-to-bottom"
-                        v-html="icons.bottom"
-                      ></span>
-                      <span class="text">{{ $t('taskToBottom') }}</span>
-                    </span>
-                  </div>
-                  <div
-                    v-if="showDelete"
-                    class="dropdown-item"
-                    @click="destroy"
-                  >
-                    <span class="dropdown-icon-item delete-task-item">
-                      <span
-                        class="svg-icon inline delete"
-                        v-html="icons.delete"
-                      ></span>
-                      <span class="text">{{ $t('delete') }}</span>
-                    </span>
-                  </div>
-                </div>
-              </menu-dropdown>
             </div>
             <div
               v-markdown="task.notes"
@@ -223,82 +155,152 @@
           </div>
         </div>
         <div class="icons icons-right small-text d-flex">
-          <div
-            v-if="showStreak"
-            class="d-flex align-items-center"
+          <menu-dropdown
+            v-if="!isRunningYesterdailies && showOptions"
+            ref="taskDropdown"
+            v-b-tooltip.hover.top="$t('options')"
+            class="task-dropdown"
+            :right="task.type === 'reward'"
           >
-            <div
-              v-b-tooltip.hover.bottom="$t('streakCounter')"
-              class="svg-icon streak"
-              v-html="icons.streak"
-            ></div>
-            <span v-if="task.type === 'daily'">{{ task.streak }}</span>
-            <span v-if="task.type === 'habit'">
-              <span
-                v-if="task.up"
-                class="m-0"
-              >+{{ task.counterUp }}</span>
-              <span
-                v-if="task.up && task.down"
-                class="m-0"
-              >&nbsp;|&nbsp;</span>
-              <span
-                v-if="task.down"
-                class="m-0"
-              >-{{ task.counterDown }}</span>
-            </span>
-          </div>
-          <div
-            v-if="task.challenge && task.challenge.id"
-            class="d-flex align-items-center"
-          >
-            <div
-              v-if="!task.challenge.broken"
-              v-b-tooltip.hover.bottom="shortName"
-              class="svg-icon challenge"
-              v-html="icons.challenge"
-            ></div>
-            <div
-              v-if="task.challenge.broken"
-              v-b-tooltip.hover.bottom="$t('brokenChaLink')"
-              class="svg-icon challenge broken"
-              @click="handleBrokenTask(task)"
-              v-html="icons.brokenChallengeIcon"
-            ></div>
-          </div>
-          <div
-            v-if="hasTags"
-            :id="`tags-icon-${task._id}`"
-            class="d-flex align-items-center"
-          >
-            <div
-              class="svg-icon tags"
-              v-html="icons.tags"
-            ></div>
-          </div>
-          <b-popover
-            v-if="hasTags"
-            :target="`tags-icon-${task._id}`"
-            triggers="hover"
-            placement="bottom"
-          >
-            <div class="tags-popover">
-              <div class="d-flex align-items-center tags-container">
-                <div
-                  v-once
-                  class="tags-popover-title"
-                >
-                  {{ `${$t('tags')}:` }}
-                </div>
-                <div
-                  v-for="tag in getTagsFor(task)"
-                  :key="tag"
-                  v-markdown="tag"
-                  class="tag-label"
-                ></div>
+            <div slot="dropdown-toggle">
+              <div
+                class="svg-icon dropdown-icon"
+                v-html="icons.menu"
+              ></div>
+            </div>
+            <div slot="dropdown-content">
+              <div
+                v-if="showEdit"
+                ref="editTaskItem"
+                class="dropdown-item edit-task-item"
+              >
+                <span class="dropdown-icon-item">
+                  <span
+                    class="svg-icon inline edit-icon"
+                    v-html="icons.edit"
+                  ></span>
+                  <span class="text">{{ $t('edit') }}</span>
+                </span>
+              </div>
+              <div
+                v-if="isUser"
+                class="dropdown-item"
+                @click="moveToTop"
+              >
+                <span class="dropdown-icon-item">
+                  <span
+                    class="svg-icon inline push-to-top"
+                    v-html="icons.top"
+                  ></span>
+                  <span class="text">{{ $t('taskToTop') }}</span>
+                </span>
+              </div>
+              <div
+                v-if="isUser"
+                class="dropdown-item"
+                @click="moveToBottom"
+              >
+                <span class="dropdown-icon-item">
+                  <span
+                    class="svg-icon inline push-to-bottom"
+                    v-html="icons.bottom"
+                  ></span>
+                  <span class="text">{{ $t('taskToBottom') }}</span>
+                </span>
+              </div>
+              <div
+                v-if="showDelete"
+                class="dropdown-item"
+                @click="destroy"
+              >
+                <span class="dropdown-icon-item delete-task-item">
+                  <span
+                    class="svg-icon inline delete"
+                    v-html="icons.delete"
+                  ></span>
+                  <span class="text">{{ $t('delete') }}</span>
+                </span>
               </div>
             </div>
-          </b-popover>
+          </menu-dropdown>
+          <div class="d-flex">
+            <div
+              v-if="showStreak"
+              class="d-flex align-items-center"
+            >
+              <div
+                v-b-tooltip.hover.bottom="$t('streakCounter')"
+                class="svg-icon streak"
+                v-html="icons.streak"
+              ></div>
+              <span v-if="task.type === 'daily'">{{ task.streak }}</span>
+              <span v-if="task.type === 'habit'">
+                <span
+                  v-if="task.up"
+                  class="m-0"
+                >+{{ task.counterUp }}</span>
+                <span
+                  v-if="task.up && task.down"
+                  class="m-0"
+                >&nbsp;|&nbsp;</span>
+                <span
+                  v-if="task.down"
+                  class="m-0"
+                >-{{ task.counterDown }}</span>
+              </span>
+            </div>
+            <div
+              v-if="task.challenge && task.challenge.id"
+              class="d-flex align-items-center"
+            >
+              <div
+                v-if="!task.challenge.broken"
+                v-b-tooltip.hover.bottom="shortName"
+                class="svg-icon challenge"
+                v-html="icons.challenge"
+              ></div>
+              <div
+                v-if="task.challenge.broken"
+                v-b-tooltip.hover.bottom="$t('brokenChaLink')"
+                class="svg-icon challenge broken"
+                @click="handleBrokenTask(task)"
+                v-html="icons.brokenChallengeIcon"
+              ></div>
+            </div>
+            <div
+              v-if="hasTags"
+              :id="`tags-icon-${task._id}`"
+              class="d-flex align-items-center"
+            >
+              <div
+                class="svg-icon tags"
+                v-html="icons.tags"
+              ></div>
+            </div>
+            <b-popover
+              v-if="hasTags"
+              :target="`tags-icon-${task._id}`"
+              triggers="hover"
+              placement="bottom"
+            >
+              <div class="tags-popover">
+                <div class="d-flex align-items-center tags-container">
+                  <div
+                    v-once
+                    class="tags-popover-title"
+                  >
+                    {{ `${$t('tags')}:` }}
+                  </div>
+                  <div
+                    v-for="tag in getTagsFor(task)"
+                    :key="tag"
+                    v-markdown="tag"
+                    class="tag-label"
+                  ></div>
+                </div>
+              </div>
+            </b-popover>
+          </div>
         </div>
         <!-- Habits right side control-->
         <div
@@ -461,7 +463,7 @@
     opacity: 1;
   }
 
-  .task-clickable-area ::v-deep .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
+  .icons-right ::v-deep .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
     opacity: 1;
 
     .svg-icon {
@@ -469,7 +471,7 @@
     }
   }
 
-  .task-clickable-area ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle:hover .svg-icon {
+  .icons-right ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle:hover .svg-icon {
     color: $purple-400 !important;
   }
 
@@ -608,10 +610,12 @@
   }
 
   .icons-right {
-    padding-left: 0;
-    padding-bottom: 7px;
+    margin: 0;
+    padding: 7px 0;
+    padding-right: 8px;
 
-    justify-content: end;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: end;
     flex-shrink: 0;
   }
