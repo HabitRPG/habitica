@@ -52,26 +52,28 @@ schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 })
     .exec();
 };
 
+const NEWS_CACHE_TIME = 5 * 60 * 1000;
+
 let cachedLastNewsPostID = null;
 let cachedLastNewsPostDate = null;
 let cachedLastNewsPostTitle = null;
+let timeStampCachedLastNews = null;
 
 schema.statics.lastNewsPostID = async function lastNewsPostID () {
-  if (!cachedLastNewsPostID) {
+  if (!cachedLastNewsPostID || (new Date() - timeStampCachedLastNews) > NEWS_CACHE_TIME) {
     const lastPost = await this.getLastPost();
     if (lastPost) {
-      cachedLastNewsPostID = lastPost.id;
-      cachedLastNewsPostDate = lastPost.publishDate;
+      this.updateLastNewsPost(lastPost);
     }
   }
   return cachedLastNewsPostID;
 };
 
 schema.statics.lastNewsPostTitle = async function lastNewsPostTitle () {
-  if (!cachedLastNewsPostTitle) {
+  if (!cachedLastNewsPostTitle || (new Date() - timeStampCachedLastNews) > NEWS_CACHE_TIME) {
     const lastPost = await this.getLastPost();
     if (lastPost) {
-      cachedLastNewsPostTitle = lastPost.title;
+      this.updateLastNewsPost(lastPost);
     }
   }
   return cachedLastNewsPostTitle;
@@ -83,6 +85,7 @@ schema.statics.updateLastNewsPost = async function updateLastNewsPost (newPost) 
       cachedLastNewsPostID = newPost.id;
       cachedLastNewsPostDate = newPost.publishDate;
       cachedLastNewsPostTitle = newPost.title;
+      timeStampCachedLastNews = new Date();
     }
   }
 };
