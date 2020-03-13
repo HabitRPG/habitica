@@ -26,7 +26,7 @@
       </div>
 
       <div v-if="hero && hero.profile" class="row">
-        <div class="form col-6">
+        <div class="form col-12">
           <h2>@{{ hero.auth.local.username }} &nbsp; / &nbsp; {{ hero.profile.name }}</h2>
           <div class="form-group">
             {{ hero._id }} &nbsp;
@@ -91,7 +91,7 @@
                 </div>
                 <button class="form-control btn btn-primary" @click="saveHero()">Save</button>
               </div>
-            </div> <!-- TST end of v-if="expandPriv" -->
+            </div>
           </div>
 
           <div class="accordion-group">
@@ -100,10 +100,39 @@
               :class="{'open': expandAuth}"
               @click="expandAuth = !expandAuth"
             >
-              Authentication, Email, Timestamps
+              Timestamps, Authentication, Email Address
             </h3>
             <div v-if="expandAuth">
-              <pre>{{ hero.auth }}</pre>
+              <div>Account created:
+                <strong>{{ formatDate(hero.auth.timestamps.created) }}</strong>
+              </div>
+              <div>Most recent cron:
+                <strong>{{ formatDate(hero.auth.timestamps.loggedin) }}</strong>
+              </div>
+              <div>"lastCron":
+                <strong>{{ formatDate(hero.lastCron) }}</strong>
+                (if different than above, cron crashed before finishing)
+              </div>
+              <div class="subsection-start">Local authentication:
+                <span v-if="hero.auth.local.email">Yes, &nbsp;
+                  <strong>{{ hero.auth.local.email }}</strong></span>
+                <span v-else><strong>None</strong></span>
+              </div>
+              <div>Google authentication:
+                <pre v-if="authMethodExists('google')">{{ hero.auth.google }}</pre>
+                <span v-else><strong>None</strong></span>
+              </div>
+              <div>Facebook authentication:
+                <pre v-if="authMethodExists('facebook')">{{ hero.auth.facebook }}</pre>
+                <span v-else><strong>None</strong></span>
+              </div>
+              <div>Apple ID authentication (not live yet as of March 2020):
+                <pre v-if="authMethodExists('apple')">{{ hero.auth.apple }}</pre>
+                <span v-else><strong>None</strong></span>
+              </div>
+              <div class="subsection-start">Full "auth" object for checking above is correct:
+                <pre>{{ hero.auth }}</pre>
+              </div>
             </div>
           </div>
 
@@ -249,6 +278,9 @@
   h3.expand-toggle::after {
     margin-left: 5px;
   }
+  .subsection-start {
+    margin-top: 1em;
+  }
   .form-inline {
     margin-bottom: 1em;
     input {
@@ -259,6 +291,7 @@
 
 <script>
 import each from 'lodash/each';
+import moment from 'moment';
 
 import markdownDirective from '@/directives/markdown';
 import styleHelper from '@/mixins/styleHelper';
@@ -303,6 +336,14 @@ export default {
     this.heroes = await this.$store.dispatch('hall:getHeroes');
   },
   methods: {
+    authMethodExists (authMethod) {
+      if (this.hero.auth[authMethod] && this.hero.auth[authMethod].length !== 0) return true;
+      return false;
+    },
+    formatDate (inputDate) {
+      const date = moment(inputDate).utcOffset(0).format('YYYY-MM-DD HH:mm');
+      return `${date} UTC`;
+    },
     getAllItemPaths () {
       // let questsFormat = this.getFormattedItemReference
       // ('items.quests', keys(this.quests), 'Numeric Quantity');
@@ -336,7 +377,7 @@ export default {
       //
       // return data;
     },
-    getFormattedItemReference (pathPrefix, itemKeys, values) {
+    getFormattedItemReference (pathPrefix, itemKeys, values) { // XXX check if this is used
       let finishedString = '\n'.concat('path: ', pathPrefix, ', ', 'value: {', values, '}\n');
 
       each(itemKeys, key => {
@@ -355,24 +396,19 @@ export default {
           chatShadowMuted: false,
         };
       }
-      this.expandPriv = true;
-      this.expandAuth = false;
+      this.expandPriv = false; // XXX true
+      this.expandAuth = true; // XXX false
       this.expandItems = false;
-      this.expandContrib = true;
+      this.expandContrib = false; // XXX true
     },
     async saveHero () {
       this.hero.contributor.admin = this.hero.contributor.level > 7;
       const heroUpdated = await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
       this.text('User updated');
       this.hero = {};
-      this.heroID = -1;
+      // this.heroID = ''; // uncomment if we want to clear the search box after saving
       this.heroes[this.currentHeroIndex] = heroUpdated;
       this.currentHeroIndex = -1;
-    },
-    populateContributorInput (id, index) {
-      this.heroID = id;
-      window.scrollTo(0, 200);
-      this.loadHero(id, index);
     },
   },
 };
