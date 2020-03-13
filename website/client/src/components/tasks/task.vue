@@ -371,22 +371,6 @@
     position: relative;
 
     &:hover {
-      box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
-      z-index: 11;
-    }
-  }
-
-  .task:not(.groupTask) {
-    &:hover {
-      .left-control, .right-control, .task-content {
-        border-color: $purple-400;
-      }
-    }
-  }
-
-  .task.groupTask {
-
-    &:hover {
       border: $purple-400 solid 1px;
       border-radius: 3px;
       margin: -1px; // to counter the border width
@@ -512,14 +496,8 @@
     padding-bottom: 7px;
     flex-grow: 1;
     cursor: pointer;
-    background: $white;
-    border: 1px solid transparent;
     transition-duration: 0.15;
     min-width: 0px;
-
-    &.no-right-border {
-      border-right: none !important;
-    }
 
     &.reward-content {
       border-top-left-radius: 2px;
@@ -688,12 +666,6 @@
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     min-height: 60px;
-    border: 1px solid transparent;
-    border-right: none;
-
-    & + .task-content {
-      border-left: none;
-    }
   }
   .task:not(.type_habit) {
     .left-control {
@@ -708,8 +680,6 @@
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
     min-height: 56px;
-    border: 1px solid transparent;
-    border-left: none;
   }
 
   .task-control:not(.task-disabled-habit-control-inner), .reward-control {
@@ -894,20 +864,7 @@ export default {
       return this.getTaskClasses(this.task, 'control', this.dueDate);
     },
     contentClass () {
-      const { type } = this.task;
-
-      const classes = [];
-      classes.push(this.getTaskClasses(this.task, 'control', this.dueDate).content);
-
-      if (type === 'reward' || type === 'habit') {
-        classes.push('no-right-border');
-      }
-
-      if (type === 'reward') {
-        classes.push('reward-content');
-      }
-
-      return classes;
+      return this.getTaskClasses(this.task, 'control', this.dueDate).content;
     },
     showStreak () {
       if (this.task.streak !== undefined) return true;
