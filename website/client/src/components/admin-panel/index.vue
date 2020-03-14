@@ -158,6 +158,29 @@
             </div>
           </div>
 
+          <div class="accordion-group">
+            <h3
+              class="expand-toggle"
+              :class="{'open': expandAvatar}"
+              @click="expandAvatar = !expandAvatar"
+            >
+              Current Avatar Appearance, Drop Count Today
+            </h3>
+            <div v-if="expandAvatar">
+              <div>Drops Today: {{ hero.items.lastDrop.count }}</div>
+              <div>Most Recent Drop: {{ formatDate(hero.items.lastDrop.date) }}</div>
+              <div>Use Costume: {{ hero.preferences.costume ? 'on' : 'off' }}</div>
+              <div class="subsection-start">
+                Equipped Gear:
+                <ul v-html="formatEquipment(hero.items.gear.equipped)"></ul>
+              </div>
+              <div>
+                Costume:
+                <ul v-html="formatEquipment(hero.items.gear.costume)"></ul>
+              </div>
+            </div>
+          </div>
+
           <div class="accordion">
             <div
               class="accordion-group"
@@ -168,7 +191,7 @@
                 :class="{'open': expandItems}"
                 @click="expandItems = !expandItems"
               >
-                Update Item
+                Update Items
               </h3>
               <div
                 v-if="expandItems"
@@ -346,6 +369,7 @@ export default {
       expandPriv: false,
       expandAuth: false,
       expandParty: false,
+      expandAvatar: false,
       expandItems: false,
       expandContrib: false,
     };
@@ -379,6 +403,16 @@ export default {
     formatDate (inputDate) {
       const date = moment(inputDate).utcOffset(0).format('YYYY-MM-DD HH:mm');
       return `${date} UTC`;
+    },
+    formatEquipment (gearWorn) {
+      const gearTypes = ['head', 'armor', 'weapon', 'shield', 'headAccessory',
+                         'eyewear', 'body', 'back'];
+      let description = '';
+      gearTypes.forEach(gearType => {
+        const item = gearWorn[gearType] || 'none';
+        description += `<li>${gearType} : ${item}</li>\n`;
+      });
+      return description;
     },
     getAllItemPaths () {
       // let questsFormat = this.getFormattedItemReference
@@ -434,7 +468,8 @@ export default {
       this.expandPriv = false; // XXX true
       this.expandAuth = false;
       this.expandParty = false;
-      this.expandItems = false;
+      this.expandAvatar = false;
+      this.expandItems = true; // XXX false
       this.expandContrib = false; // XXX true
     },
     async saveHero () {
