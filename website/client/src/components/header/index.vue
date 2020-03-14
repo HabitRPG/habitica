@@ -170,7 +170,7 @@ export default {
       return Math.floor(this.currentWidth / 140) + 1;
     },
     sortedPartyMembers () {
-      let sortedMembers = this.partyMembers;
+      let sortedMembers = this.partyMembers.slice(); // shallow clone to avoid infinite loop
       const { order, orderAscending } = this.user.party;
 
       if (order === 'profile.name') {
