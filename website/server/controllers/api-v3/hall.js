@@ -145,7 +145,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'contributor balance profile.name purchased items auth lastCron flags.chatRevoked flags.chatShadowMuted';
+const heroAdminFields = 'contributor balance profile.name purchased items auth lastCron flags.chatRevoked flags.chatShadowMuted party';
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID or Username

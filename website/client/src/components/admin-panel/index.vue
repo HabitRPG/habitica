@@ -136,6 +136,28 @@
             </div>
           </div>
 
+          <div class="accordion-group">
+            <h3
+              class="expand-toggle"
+              :class="{'open': expandParty}"
+              @click="expandParty = !expandParty"
+            >
+              Party, Quest
+            </h3>
+            <div v-if="expandParty">
+              <div>Party: &nbsp;
+                <span v-if="hero.party._id">Yes &nbsp;
+                  (party ID {{ hero.party._id }})
+                  although this has not been verified by searching for the Party.
+                  </span>
+                <span v-else>No</span>
+              </div>
+              <div class="subsection-start">Quest: &nbsp;
+                {{ questStatus }}
+              </div>
+            </div>
+          </div>
+
           <div class="accordion">
             <div
               class="accordion-group"
@@ -325,12 +347,29 @@ export default {
       gear,
       expandPriv: false,
       expandAuth: false,
+      expandParty: false,
       expandItems: false,
       expandContrib: false,
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
+    questStatus () {
+      if (!this.hero.party || !this.hero.party.quest) return 'No';
+      const questKey = this.hero.party.quest.key || '';
+      if (this.hero.party.quest.RSVPNeeded) {
+        if (questKey) return `${questKey} : Invitation waiting.`;
+        return 'BUG! '
+          + 'Invitation is waiting but Quest "key" is not assigned. '
+          + 'Party might or might not have a Quest. '
+          + 'An admin needs to delete the invitation or assign the Quest key.';
+      }
+      if (questKey) {
+        return `${questKey} : Invitation has been accepted. `
+          + 'Quest is either running or still in invitation stage.';
+      }
+      return 'No (party might have a quest but user is not in it).';
+    },
   },
   async mounted () {
     this.heroes = await this.$store.dispatch('hall:getHeroes');
@@ -397,7 +436,8 @@ export default {
         };
       }
       this.expandPriv = false; // XXX true
-      this.expandAuth = true; // XXX false
+      this.expandAuth = false;
+      this.expandParty = false;
       this.expandItems = false;
       this.expandContrib = false; // XXX true
     },
