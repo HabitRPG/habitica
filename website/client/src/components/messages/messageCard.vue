@@ -62,6 +62,15 @@
           {{ $t('delete') }}
         </div>
       </div>
+      <div
+        v-if="searchMode"
+        class="action d-flex align-items-center"
+        @click="jumpToContext()"
+      >
+        <div v-once>
+          {{ $t('jumpToContext') }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -158,6 +167,7 @@ export default {
   },
   props: {
     msg: {},
+    searchMode: Boolean,
   },
   data () {
     return {
@@ -210,6 +220,10 @@ export default {
     parseMarkdown (text) {
       if (!text) return null;
       return habiticaMarkdown.render(String(text));
+    },
+    jumpToContext () {
+      const message = this.msg;
+      this.$emit('jump-to-context', message);
     },
   },
 };

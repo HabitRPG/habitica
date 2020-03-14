@@ -74,5 +74,7 @@
   "messageDeletedUser": "Sorry, this user has deleted their account.",
   "messageMissingDisplayName": "Missing display name.",
   "reportedMessage": "You have reported this message to moderators.",
-  "canDeleteNow": "You can now delete the message if you wish."
+  "canDeleteNow": "You can now delete the message if you wish.",
+
+  "jumpToContext": "Jump to context"
 }

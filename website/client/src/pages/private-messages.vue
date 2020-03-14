@@ -19,7 +19,8 @@
           <!-- placeholder -->
         </div>
       </div>
-      <div class="d-flex selected-conversion">
+      <div class="d-flex selected-conversion"
+           v-if="selectedConversation && selectedConversation.key">
         <router-link
           :to="{'name': 'userProfile', 'params': {'userId': selectedConversation.key}}"
         >
@@ -128,12 +129,14 @@
           v-if="selectedConversation && selectedConversationMessages.length > 0"
           ref="chatscroll"
           class="message-scroll"
+          :search-mode="searchMode"
           :chat="selectedConversationMessages"
           :conversation-opponent-user="selectedConversation.userStyles"
-          :can-load-more="canLoadMore"
+          :can-load-more-before="canLoadMore"
           :is-loading="messagesLoading"
           @message-removed="messageRemoved"
-          @triggerLoad="infiniteScrollTrigger"
+          @triggerLoad="triggerLoadMore"
+          @jump-to-context="jumpToContext"
         />
         <div
           v-if="disabledTexts"
@@ -701,6 +704,12 @@ export default {
             backer: recentMessage.backer,
             canReceive: recentMessage.canReceive,
             canLoadMore: false,
+
+            // search-mode loadMore flags - todo merge ?
+            oldestTimestamp: null,
+            newestTimestamp: null,
+            canLoadMoreBefore: false,
+            canLoadMoreAfter: false,
             page: 0,
           };
 
@@ -809,7 +818,7 @@ export default {
     },
     searchMode () {
       return Boolean(this.search);
-    }
+    },
   },
 
   methods: {
@@ -828,6 +837,7 @@ export default {
       const conversationRes = await axios.get(query.join(''));
       this.loadedConversations = conversationRes.data.data;
       this.selectedConversation = {};
+      this.messagesByConversation = {};
 
       if (options.markAsRead) {
         await this.$store.dispatch('user:markPrivMessagesRead');
@@ -933,27 +943,54 @@ export default {
       if (!text) return null;
       return habiticaMarkdown.render(String(text));
     },
-    infiniteScrollTrigger () {
+    triggerLoadMore (params) {
       // show loading and wait until the loadMore debounced
       // or else it would trigger on every scrolling-pixel (while not loading)
       if (this.canLoadMore) {
         this.messagesLoading = true;
       }
 
-      return this.loadMore();
+      return this.loadMore(params.type, params.timestamp);
     },
-    loadMore () {
+    loadMore (type, timestamp) {
       this.selectedConversation.page += 1;
-      return this.loadMessages();
+      return this.loadMessages(type, timestamp);
     },
-    async loadMessages () {
+    /* eslint-disable no-unused-vars */
+    async loadMessages (type, timestamp) {
       this.messagesLoading = true;
+
+      let { searchMode } = this;
+
+      if (type && timestamp) {
+        searchMode = true;
+      }
 
       // use local vars if the loading takes longer
       // and the user switches the conversation while loading
       const conversationKey = this.selectedConversation.key;
 
-      const requestUrl = `/api/v4/inbox/paged-messages?conversation=${conversationKey}&page=${this.selectedConversation.page}`;
+      const baseUrl = searchMode ? '/api/v4/inbox/search-messages' : '/api/v4/inbox/paged-messages';
+
+      const params = [`conversation=${conversationKey}`];
+
+      if (searchMode) {
+        if (this.search) {
+          params.push(`searchMessage=${this.search}`);
+        }
+
+        if (timestamp) {
+          if (type === 'before') {
+            params.push(`beforeTimestamp=${timestamp}`);
+          } else {
+            params.push(`afterTimestamp=${timestamp}`);
+          }
+        }
+      } else {
+        params.push(`page=${this.selectedConversation.page}`);
+      }
+
+      const requestUrl = `${baseUrl}?${params.join('&')}`;
       const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data;
 
@@ -966,7 +1003,7 @@ export default {
       this.messagesByConversation[conversationKey].push(...loadedMessagesToAdd);
 
       // only show the load more Button if the max count was returned
-      this.selectedConversation.canLoadMore = loadedMessages.length === 10;
+      this.selectedConversation.canLoadMore = !searchMode && loadedMessages.length === 10;
       this.messagesLoading = false;
     },
     autoSize () {
@@ -995,6 +1032,29 @@ export default {
         search: this.search,
       });
     }, 1300),
+    async jumpToContext (msg) {
+      const selectedConversationKey = this.selectedConversation.key;
+
+      // reset
+      this.search = '';
+      this.loadedConversations = [];
+
+      // reload the conversations
+      await this.reload();
+
+      const convoFound = this.conversations.find(conversation => conversation.key === selectedConversationKey);
+
+      // re-select the conversation
+      this.selectedConversation = convoFound || {};
+
+      Vue.nextTick(async () => {
+        // select conversation & load messages from selected
+        await this.loadMessages('before', msg.timestamp);
+
+        // re-select the conversation
+        this.selectedConversation = convoFound || {};
+      });
+    },
   },
 };
 </script>

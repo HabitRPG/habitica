@@ -83,6 +83,7 @@ const searchUserInboxDefaultOptions = {
   afterTimestamp: null,
   conversation: null,
   mapProps: false,
+  searchMessage: null,
 };
 
 // WIP remove once ready to merge
@@ -97,12 +98,18 @@ export async function searchUserInbox (user, optionParams = searchUserInboxDefau
   }
 
   if (options.beforeTimestamp) {
-    findObj.timestamp = { $lt: options.beforeTimestamp };
+    findObj.timestamp = { $lte: options.beforeTimestamp };
   }
 
   if (options.afterTimestamp) {
     findObj.timestamp = Object.assign(findObj.timestamp || {},
-      { $gt: options.afterTimestamp });
+      { $gte: options.afterTimestamp });
+  }
+
+  if (options.searchMessage) {
+    const searchRegex = { $regex: new RegExp(`${options.searchMessage}`, 'i') };
+
+    findObj.text = searchRegex;
   }
 
   const query = Inbox

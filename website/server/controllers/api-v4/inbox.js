@@ -144,27 +144,38 @@ api.getInboxMessages = {
 
 
 /**
- * @api {get} /api/v4/inbox/paged-messages Get inbox messages for a user
- * @apiName GetInboxMessages
- * @apiGroup Inbox TODO
- * @apiDescription Get inbox messages for a user.
+ * @api {get} /api/v4/inbox/search-messages Search inbox messages for a user
+ * @apiName SearchInboxMessages
+ * @apiGroup Inbox
+ * @apiDescription Search inbox messages for a user.
  * Entries already populated with the correct `sent` - information
  *
- * @apiParam (Query) {Number} page Load the messages of the selected Page - 10 Messages per Page
+ * @apiParam (Query) {Timestamp} Optional beforeTimestamp
+ * Load the messages before (less then equal) this timestamp
+ * @apiParam (Query) {Timestamp} Optional afterTimestamp
+ * Load the messages after (greater then equal) this timestamp
+ * @apiParam (Query) {String} Optional searchMessage
+ * Load the messages that contain this searchMessage-string
  * @apiParam (Query) {GUID} conversation Loads only the messages of a conversation
  *
  * @apiSuccess {Array} data An array of inbox messages
  */
-api.getInboxMessages = {
+api.searchInboxMessages = {
   method: 'GET',
   url: '/inbox/search-messages',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    const { beforeTimestamp, afterTimestamp, conversation } = req.query;
+    const {
+      beforeTimestamp, afterTimestamp, conversation, searchMessage,
+    } = req.query;
 
     const userInbox = await searchUserInbox(user, {
-      beforeTimestamp, afterTimestamp, conversation, mapProps: true,
+      beforeTimestamp,
+      afterTimestamp,
+      searchMessage,
+      conversation,
+      mapProps: true,
     });
 
     res.respond(200, userInbox);
