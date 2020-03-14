@@ -333,10 +333,8 @@ export default {
   mixins: [notifications, styleHelper],
   data () {
     return {
-      heroes: [],
       hero: {},
       heroID: '',
-      currentHeroIndex: -1,
       allItemPaths: this.getAllItemPaths(),
       quests,
       mountInfo,
@@ -371,9 +369,8 @@ export default {
       return 'No (party might have a quest but user is not in it).';
     },
   },
-  async mounted () {
-    this.heroes = await this.$store.dispatch('hall:getHeroes');
-  },
+  // async mounted () {
+  // },
   methods: {
     authMethodExists (authMethod) {
       if (this.hero.auth[authMethod] && this.hero.auth[authMethod].length !== 0) return true;
@@ -425,8 +422,7 @@ export default {
 
       return finishedString;
     },
-    async loadHero (uuid, heroIndex) {
-      this.currentHeroIndex = heroIndex;
+    async loadHero (uuid) {
       const hero = await this.$store.dispatch('hall:getHero', { uuid });
       this.hero = { ...hero };
       if (!this.hero.flags) {
@@ -443,12 +439,10 @@ export default {
     },
     async saveHero () {
       this.hero.contributor.admin = this.hero.contributor.level > 7;
-      const heroUpdated = await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
+      await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
       this.text('User updated');
       this.hero = {};
       // this.heroID = ''; // uncomment if we want to clear the search box after saving
-      this.heroes[this.currentHeroIndex] = heroUpdated;
-      this.currentHeroIndex = -1;
     },
   },
 };
