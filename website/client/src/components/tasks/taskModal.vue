@@ -898,25 +898,6 @@
       }
     }
 
-    .habit-control {
-      .option-item-box {
-        background: $white;
-        border: 2px solid $gray-600;
-
-        .habit-control { background: $gray-300; }
-        .svg-icon { color: $white; }
-      }
-
-      &-enabled {
-        .option-item-box {
-          border: 2px solid transparent;
-          transition-property: none;
-
-          .habit-control { background: $white !important; }
-        }
-      }
-    }
-
     .category-wrap {
       cursor: pointer;
       margin-top: 0px;
@@ -1184,6 +1165,7 @@
   .habit-option {
     &-container {
       min-width: 3rem;
+      cursor: pointer;
 
       &:first-of-type {
         margin-right: 2rem;
