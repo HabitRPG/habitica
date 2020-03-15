@@ -29,7 +29,7 @@
             @click="cancel()"
           >{{ $t('cancel') }}</span>
           <div
-            class="btn-save-task d-flex align-items-center justify-content-center"
+            class="btn-secondary btn-save-task d-flex align-items-center justify-content-center"
             :class="{disabled: !canSave}"
             @click="submit()"
           >
@@ -748,7 +748,8 @@
     >
       <div
         v-if="purpose === 'create'"
-        class="btn-save-task btn-footer d-flex align-items-center justify-content-center mb-2"
+        class="btn-primary btn-save-task btn-footer
+          d-flex align-items-center justify-content-center mb-2"
         :class="{disabled: !canSave}"
         @click="submit()"
       >

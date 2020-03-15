@@ -64,12 +64,11 @@
   }
 
   &:active, &:focus, &.active {
-    border-color: $purple-500 !important;
+    border-color: $purple-400 !important;
   }
 
   &:disabled, &.disabled {
     background: $gray-500 !important;
-    color: $gray-100 !important;
   }
 }
 
