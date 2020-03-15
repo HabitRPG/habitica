@@ -40,7 +40,7 @@ const getUserInboxDefaultOptions = {
 
 export async function getUserInbox (user, optionParams = getUserInboxDefaultOptions) {
   // if not all properties are passed, fill the default values
-  const options = Object.assign(getUserInboxDefaultOptions, optionParams);
+  const options = { ...getUserInboxDefaultOptions, ...optionParams };
 
   const findObj = { ownerId: user._id };
 
@@ -89,7 +89,7 @@ const searchUserInboxDefaultOptions = {
 // WIP remove once ready to merge
 export async function searchUserInbox (user, optionParams = searchUserInboxDefaultOptions) {
   // if not all properties are passed, fill the default values
-  const options = Object.assign(searchUserInboxDefaultOptions, optionParams);
+  const options = { ...searchUserInboxDefaultOptions, ...optionParams };
 
   const findObj = { ownerId: user._id };
 

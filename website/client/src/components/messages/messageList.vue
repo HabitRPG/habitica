@@ -42,8 +42,10 @@
           :hide-class-badge="true"
           @click.native="showMemberModal(msg.uuid)"
         />
-        <div class="card"
-             :class="{'card-right': user._id !== msg.uuid, 'card-left': user._id === msg.uuid}">
+        <div
+          class="card"
+          :class="{'card-right': user._id !== msg.uuid, 'card-left': user._id === msg.uuid}"
+        >
           <message-card
             :msg="msg"
             :search-mode="searchMode"

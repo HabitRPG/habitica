@@ -4,7 +4,9 @@ import {
   NotFound,
 } from '../../libs/errors';
 import { listConversations } from '../../libs/inbox/conversation.methods';
-import { clearPMs, deleteMessage, getUserInbox, searchUserInbox } from '../../libs/inbox';
+import {
+  clearPMs, deleteMessage, getUserInbox, searchUserInbox,
+} from '../../libs/inbox';
 
 const api = {};
 

@@ -19,8 +19,10 @@
           <!-- placeholder -->
         </div>
       </div>
-      <div class="d-flex selected-conversion"
-           v-if="selectedConversation && selectedConversation.key">
+      <div
+        v-if="selectedConversation && selectedConversation.key"
+        class="d-flex selected-conversion"
+      >
         <router-link
           :to="{'name': 'userProfile', 'params': {'userId': selectedConversation.key}}"
         >
@@ -616,6 +618,9 @@ export default {
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
   },
+  watch: {
+    search: 'triggerSearch',
+  },
   async mounted () {
     // notification click to refresh
     this.$root.$on(EVENTS.PM_REFRESH, async () => {
@@ -658,9 +663,6 @@ export default {
   },
   destroyed () {
     this.$root.$off(EVENTS.RESYNC_COMPLETED);
-  },
-  watch: {
-    search: 'triggerSearch',
   },
   computed: {
     ...mapState({ user: 'user.data' }),
