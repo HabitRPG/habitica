@@ -6,7 +6,7 @@
     :options="psOptions"
   >
     <div class="row loadmore">
-      <div v-if="canLoadMoreBefore && !isLoading">
+      <div v-if="canLoadMoreBefore && !isLoading.before">
         <div class="loadmore-divider"></div>
         <button
           class="btn btn-secondary"
@@ -17,7 +17,7 @@
         <div class="loadmore-divider"></div>
       </div>
       <h2
-        v-show="isLoading"
+        v-show="isLoading.before"
         class="col-12 loading"
       >
         {{ $t('loading') }}
@@ -67,7 +67,7 @@
       </div>
     </div>
     <div class="row loadmore">
-      <div v-if="canLoadMoreAfter && !isLoading">
+      <div v-if="canLoadMoreAfter && !isLoading.after">
         <div class="loadmore-divider"></div>
         <button
           class="btn btn-secondary"
@@ -78,7 +78,7 @@
         <div class="loadmore-divider"></div>
       </div>
       <h2
-        v-show="isLoading"
+        v-show="isLoading.after"
         class="col-12 loading"
       >
         {{ $t('loading') }}
@@ -224,7 +224,7 @@ export default {
   },
   props: {
     chat: {},
-    isLoading: Boolean,
+    isLoading: {},
     canLoadMoreBefore: Boolean,
     canLoadMoreAfter: Boolean,
     conversationOpponentUser: {},
@@ -234,8 +234,9 @@ export default {
     return {
       currentDayDividerDisplay: moment().day(),
       loading: false,
-      handleScrollBack: false,
+      handleScrollBack: null,
       lastOffset: -1,
+      lastScrollTop: -1,
       disablePerfectScroll: false,
     };
   },
@@ -272,6 +273,7 @@ export default {
 
       // get current offset
       this.lastOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
+      this.lastScrollTop = container.scrollTop;
       // disable scroll
       // container.style.overflowY = 'hidden';
 
@@ -279,14 +281,14 @@ export default {
         ? this.canLoadMoreBefore
         : this.canLoadMoreAfter;
 
-      const canLoadMore = !this.isLoading && canLoadMoreOfType;
+      const canLoadMore = !this.isLoading[type] && canLoadMoreOfType;
 
       if (canLoadMore) {
         const triggerLoadResult = this.$emit('triggerLoad', { type });
 
         await triggerLoadResult;
 
-        this.handleScrollBack = true;
+        this.handleScrollBack = type;
       }
     },
     displayDivider (message) {
@@ -302,14 +304,23 @@ export default {
     },
     itemWasMounted: debounce(function itemWasMounted () {
       if (this.handleScrollBack) {
-        this.handleScrollBack = false;
+        const type = this.handleScrollBack;
+        this.handleScrollBack = null;
 
         const container = this.$refs.container.$el;
-        const offset = container.scrollHeight - container.clientHeight;
 
-        const newOffset = offset + this.lastOffset;
+        if (type === 'before') {
+          const offset = container.scrollHeight - container.clientHeight;
 
-        container.scrollTo(0, newOffset);
+          const newOffset = offset + this.lastOffset;
+
+          container.scrollTo(0, newOffset);
+        } else {
+          // keep scrollTop-position
+          const newOffset = this.lastScrollTop;
+
+          container.scrollTo(0, newOffset);
+        }
         // enable scroll again
         // container.style.overflowY = 'scroll';
       }

@@ -134,7 +134,8 @@
           :search-mode="searchMode"
           :chat="selectedConversationMessages"
           :conversation-opponent-user="selectedConversation.userStyles"
-          :can-load-more-before="canLoadMore"
+          :can-load-more-before="selectedConversation.canLoadMore.before"
+          :can-load-more-after="selectedConversation.canLoadMore.after"
           :is-loading="messagesLoading"
           @message-removed="messageRemoved"
           @triggerLoad="triggerLoadMore"
@@ -564,6 +565,8 @@ import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import debounce from 'lodash/debounce';
+import min from 'lodash/min';
+import max from 'lodash/max';
 import habiticaMarkdown from 'habitica-markdown';
 import axios from 'axios';
 import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
@@ -605,13 +608,17 @@ export default {
       }),
       selectedConversation: {},
       search: '',
+      searchMode: false,
       newMessage: '',
       showPopover: false,
       messages: [],
       messagesByConversation: {}, // cache {uuid: []}
       loadedConversations: [],
       loaded: false,
-      messagesLoading: false,
+      messagesLoading: {
+        before: false,
+        after: false,
+      },
       initiatedConversation: null,
       updateConversationsCounter: 0,
       textareaAutoHeight: undefined,
@@ -666,9 +673,6 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-    canLoadMore () {
-      return this.selectedConversation && this.selectedConversation.canLoadMore;
-    },
     conversations () {
       const inboxGroup = groupBy(this.loadedConversations, 'uuid');
 
@@ -705,13 +709,12 @@ export default {
             userStyles: recentMessage.userStyles,
             backer: recentMessage.backer,
             canReceive: recentMessage.canReceive,
-            canLoadMore: false,
-
-            // search-mode loadMore flags - todo merge ?
+            canLoadMore: {
+              before: false,
+              after: false,
+            },
             oldestTimestamp: null,
             newestTimestamp: null,
-            canLoadMoreBefore: false,
-            canLoadMoreAfter: false,
             page: 0,
           };
 
@@ -726,7 +729,9 @@ export default {
     /* eslint-disable vue/no-side-effects-in-computed-properties */
     selectedConversationMessages () {
       // Vue-subscribe to changes
-      const subscribeToUpdate = this.messagesLoading || this.updateConversationsCounter > -1;
+      const subscribeToUpdate = this.messagesLoading.before
+        || this.messagesLoading.after
+        || this.updateConversationsCounter > -1;
 
       const selectedConversationKey = this.selectedConversation.key;
       const selectedConversation = this.messagesByConversation[selectedConversationKey];
@@ -818,9 +823,6 @@ export default {
       return !this.selectedConversation || !this.selectedConversation.key
         || this.disabledTexts !== null;
     },
-    searchMode () {
-      return Boolean(this.search);
-    },
   },
 
   methods: {
@@ -829,6 +831,9 @@ export default {
       search: '',
     }) {
       this.loaded = false;
+      this.selectedConversation = {};
+      this.messagesByConversation = {};
+      this.loadedConversations = [];
 
       const query = ['/api/v4/inbox/conversations'];
 
@@ -838,8 +843,6 @@ export default {
 
       const conversationRes = await axios.get(query.join(''));
       this.loadedConversations = conversationRes.data.data;
-      this.selectedConversation = {};
-      this.messagesByConversation = {};
 
       if (options.markAsRead) {
         await this.$store.dispatch('user:markPrivMessagesRead');
@@ -871,14 +874,10 @@ export default {
       this.selectedConversation = convoFound || {};
 
       if (!this.messagesByConversation[this.selectedConversation.key] || forceLoadMessage) {
-        await this.loadMessages();
+        await this.loadMessages('before');
       }
 
-      Vue.nextTick(() => {
-        if (!this.$refs.chatscroll) return;
-        const chatscroll = this.$refs.chatscroll.$el;
-        chatscroll.scrollTop = chatscroll.scrollHeight;
-      });
+      this.scrollToBottom();
     },
     sendPrivateMessage () {
       if (!this.newMessage) return;
@@ -916,11 +915,7 @@ export default {
       this.selectedConversation.lastMessageText = this.newMessage;
       this.selectedConversation.date = new Date();
 
-      Vue.nextTick(() => {
-        if (!this.$refs.chatscroll) return;
-        const chatscroll = this.$refs.chatscroll.$el;
-        chatscroll.scrollTop = chatscroll.scrollHeight;
-      });
+      this.scrollToBottom();
 
       this.$store.dispatch('members:sendPrivateMessage', {
         toUserId: this.selectedConversation.key,
@@ -946,21 +941,20 @@ export default {
       return habiticaMarkdown.render(String(text));
     },
     triggerLoadMore (params) {
-      // show loading and wait until the loadMore debounced
-      // or else it would trigger on every scrolling-pixel (while not loading)
-      if (this.canLoadMore) {
-        this.messagesLoading = true;
-      }
+      const type = params.type || 'before';
 
-      return this.loadMore(params.type, params.timestamp);
+      const timestamp = type === 'before'
+        ? this.selectedConversation.oldestTimestamp
+        : this.selectedConversation.newestTimestamp;
+
+      return this.loadMore(type, timestamp);
     },
     loadMore (type, timestamp) {
       this.selectedConversation.page += 1;
       return this.loadMessages(type, timestamp);
     },
-    /* eslint-disable no-unused-vars */
     async loadMessages (type, timestamp) {
-      this.messagesLoading = true;
+      this.messagesLoading[type] = true;
 
       let { searchMode } = this;
 
@@ -997,16 +991,22 @@ export default {
       const loadedMessages = res.data.data;
 
       /* eslint-disable max-len */
-      this.messagesByConversation[conversationKey] = this.messagesByConversation[conversationKey] || [];
+      const messagesList = this.messagesByConversation[conversationKey] || [];
 
       /* eslint-disable max-len */
       const loadedMessagesToAdd = loadedMessages
-        .filter(m => this.messagesByConversation[conversationKey].findIndex(mI => mI.id === m.id) === -1);
-      this.messagesByConversation[conversationKey].push(...loadedMessagesToAdd);
+        .filter(m => messagesList.findIndex(mI => mI.id === m.id) === -1);
+      messagesList.push(...loadedMessagesToAdd);
+
+      const timestampList = messagesList.map(m => m.timestamp);
+
+      this.selectedConversation.oldestTimestamp = min(timestampList);
+      this.selectedConversation.newestTimestamp = max(timestampList);
 
       // only show the load more Button if the max count was returned
-      this.selectedConversation.canLoadMore = !searchMode && loadedMessages.length === 10;
-      this.messagesLoading = false;
+      this.messagesByConversation[conversationKey] = messagesList;
+      this.selectedConversation.canLoadMore[type] = !this.search && loadedMessages.length === 10;
+      this.messagesLoading[type] = false;
     },
     autoSize () {
       const { textarea } = this.$refs;
@@ -1030,6 +1030,7 @@ export default {
       }
     },
     triggerSearch: debounce(function triggerSearch () {
+      this.searchMode = Boolean(this.search);
       this.reload({
         search: this.search,
       });
@@ -1055,6 +1056,16 @@ export default {
 
         // re-select the conversation
         this.selectedConversation = convoFound || {};
+        this.selectedConversation.canLoadMore.after = true; // enable initial load button
+
+        this.scrollToBottom();
+      });
+    },
+    scrollToBottom () {
+      Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
+        const chatscroll = this.$refs.chatscroll.$el;
+        chatscroll.scrollTop = chatscroll.scrollHeight;
       });
     },
   },
