@@ -30,6 +30,7 @@
       </div>
       <div
         v-if="hasParty"
+        ref="partyMembersDiv"
         v-resize="1500"
         class="party-members d-flex"
         @resized="setPartyMembersWidth($event)"
@@ -153,6 +154,15 @@ export default {
       inviteModalGroupType: undefined,
     };
   },
+  watch: {
+    hideHeader () {
+      this.$nextTick(() => {
+        if (this.$refs.partyMembersDiv) {
+          this.setPartyMembersWidth({ width: this.$refs.partyMembersDiv.clientWidth });
+        }
+      });
+    },
+  },
   computed: {
     ...mapGetters({
       user: 'user:data',
@@ -170,7 +180,7 @@ export default {
       return Math.floor(this.currentWidth / 140) + 1;
     },
     sortedPartyMembers () {
-      let sortedMembers = this.partyMembers;
+      let sortedMembers = this.partyMembers.slice(); // shallow clone to avoid infinite loop
       const { order, orderAscending } = this.user.party;
 
       if (order === 'profile.name') {
