@@ -30,6 +30,7 @@
       </div>
       <div
         v-if="hasParty"
+        ref="partyMembersDiv"
         v-resize="1500"
         class="party-members d-flex"
         @resized="setPartyMembersWidth($event)"
@@ -152,6 +153,15 @@ export default {
       inviteModalGroup: undefined,
       inviteModalGroupType: undefined,
     };
+  },
+  watch: {
+    hideHeader () {
+      this.$nextTick(() => {
+        if (this.$refs.partyMembersDiv) {
+          this.setPartyMembersWidth({ width: this.$refs.partyMembersDiv.clientWidth });
+        }
+      });
+    },
   },
   computed: {
     ...mapGetters({
