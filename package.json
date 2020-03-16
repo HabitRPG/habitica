@@ -58,7 +58,7 @@
     "paypal-ipn": "3.0.0",
     "paypal-rest-sdk": "^1.8.1",
     "ps-tree": "^1.0.0",
-    "regenerator-runtime": "^0.13.3",
+    "regenerator-runtime": "^0.13.5",
     "remove-markdown": "^0.3.0",
     "rimraf": "^3.0.2",
     "short-uuid": "^3.0.0",
