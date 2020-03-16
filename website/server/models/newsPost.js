@@ -76,7 +76,10 @@ schema.statics.lastNewsPostTitle = async function lastNewsPostTitle () {
       this.updateLastNewsPost(lastPost);
     }
   }
-  return cachedLastNewsPostTitle;
+  if (cachedLastNewsPostTitle) {
+    return cachedLastNewsPostTitle;
+  }
+  return '';
 };
 
 schema.statics.updateLastNewsPost = async function updateLastNewsPost (newPost) {

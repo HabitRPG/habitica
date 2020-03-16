@@ -40,7 +40,7 @@ api.getNews = {
     if (user && user.contributor) {
       isAdmin = user.contributor.admin;
     }
-    const results = await NewsPost.getNews(isAdmin, { page }).exec();
+    const results = await NewsPost.getNews(isAdmin, { page });
     res.respond(200, results);
   },
 };
