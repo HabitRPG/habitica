@@ -1701,7 +1701,9 @@ export const model = mongoose.model('Group', schema);
 
 // initialize tavern if !exists (fresh installs)
 // do not run when testing as it's handled by the tests and can easily cause a race condition
-if (!nconf.get('IS_TEST')) {
+
+// TODO re-enable
+/* if (!nconf.get('IS_TEST')) {
   model.count({ _id: TAVERN_ID }, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
@@ -1713,4 +1715,4 @@ if (!nconf.get('IS_TEST')) {
       privacy: 'public',
     }).save();
   });
-}
+} */
