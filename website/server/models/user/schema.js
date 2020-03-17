@@ -132,6 +132,7 @@ export default new Schema({
     pearlyPro: Boolean,
     tickledPink: Boolean,
     rosyOutlook: Boolean,
+    bugBonanza: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

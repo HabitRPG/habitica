@@ -72,5 +72,8 @@
   "achievementTickledPinkModalText": "You collected all the Cotton Candy Pink Pets!",
   "achievementRosyOutlook": "Rosy Outlook",
   "achievementRosyOutlookText": "Has tamed all Cotton Candy Pink Mounts.",
-  "achievementRosyOutlookModalText": "You tamed all the Cotton Candy Pink Mounts!"
+  "achievementRosyOutlookModalText": "You tamed all the Cotton Candy Pink Mounts!",
+  "achievementBugBonanza": "Bug Bonanza",
+  "achievementBugBonanzaText": "Has completed Beetle, Butterfly, Snail, and Spider pet quests.",
+  "achievementBugBonanzaModalText": "You completed the Beetle, Butterfly, Snail, and Spider pet quests!"
 }

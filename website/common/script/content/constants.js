@@ -268,6 +268,12 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
     'seaserpent',
     'dolphin',
   ],
+  bugBonanza: [
+    'beetle',
+    'butterfly',
+    'snail',
+    'spider',
+  ],
 };
 
 export const ANIMAL_COLOR_ACHIEVEMENTS = [
