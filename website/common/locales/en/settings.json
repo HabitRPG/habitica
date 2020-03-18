@@ -210,5 +210,6 @@
     "mentioning": "Mentioning",
     "suggestMyUsername": "Suggest my username",
     "everywhere": "Everywhere",
-    "onlyPrivateSpaces": "Only in private spaces"
+    "onlyPrivateSpaces": "Only in private spaces",
+    "blurbIssueSlur": "About description may not contain inappropriate language"
 }
