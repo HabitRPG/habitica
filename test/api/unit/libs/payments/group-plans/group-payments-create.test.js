@@ -11,7 +11,6 @@ import { model as User } from '../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../website/server/models/group';
 import {
   generateGroup,
-  sleep,
 } from '../../../../../helpers/api-unit.helper';
 
 describe('Purchasing a group plan for group', () => {
@@ -293,7 +292,7 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('sends appropriate emails when subscribed member of group must manually cancel recurring Android subscription', async () => {
-    const TECH_ASSISTANCE_EMAIL = nconf.get('TECH_ASSISTANCE_EMAIL');
+    const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
     plan.customerId = 'random';
     plan.paymentMethod = api.constants.GOOGLE_PAYMENT_METHOD;
 
@@ -308,26 +307,46 @@ describe('Purchasing a group plan for group', () => {
     data.groupId = group._id;
 
     await api.createSubscription(data);
-    await sleep(0.5);
 
     expect(sender.sendTxn).to.have.callCount(4);
-    expect(sender.sendTxn.args[0][0]._id).to.equal(TECH_ASSISTANCE_EMAIL);
-    expect(sender.sendTxn.args[0][1]).to.equal('admin-user-subscription-details');
-    expect(sender.sendTxn.args[1][0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.args[1][1]).to.equal('group-member-join');
-    expect(sender.sendTxn.args[1][2]).to.eql([
+    const adminUserSubscriptionDetails = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      return emailType === 'admin-user-subscription-details';
+    });
+    expect(adminUserSubscriptionDetails).to.exist;
+    expect(adminUserSubscriptionDetails[0].email).to.equal(TECH_ASSISTANCE_EMAIL);
+
+    const groupMemberJoinOne = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      const emailRecipient = sendTxnArgs[0];
+      return emailType === 'group-member-join' && emailRecipient._id === recipient._id;
+    });
+    expect(groupMemberJoinOne).to.exist;
+    expect(groupMemberJoinOne[0]._id).to.equal(recipient._id);
+    expect(groupMemberJoinOne[2]).to.eql([
       { name: 'LEADER', content: groupLeaderName },
       { name: 'GROUP_NAME', content: groupName },
       { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE },
     ]);
-    expect(sender.sendTxn.args[2][0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.args[2][1]).to.equal('group-member-join');
-    expect(sender.sendTxn.args[3][0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.args[3][1]).to.equal('group-subscription-begins');
+
+    const groupMemberJoinTwo = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      const emailRecipient = sendTxnArgs[0];
+      return emailType === 'group-member-join' && emailRecipient._id === group.leader;
+    });
+    expect(groupMemberJoinTwo).to.exist;
+    expect(groupMemberJoinTwo[0]._id).to.equal(group.leader);
+
+    const groupSubscriptionBegins = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      return emailType === 'group-subscription-begins';
+    });
+    expect(groupSubscriptionBegins).to.exist;
+    expect(groupSubscriptionBegins[0]._id).to.equal(group.leader);
   });
 
   it('sends appropriate emails when subscribed member of group must manually cancel recurring iOS subscription', async () => {
-    const TECH_ASSISTANCE_EMAIL = nconf.get('TECH_ASSISTANCE_EMAIL');
+    const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
     plan.customerId = 'random';
     plan.paymentMethod = api.constants.IOS_PAYMENT_METHOD;
 
@@ -342,22 +361,43 @@ describe('Purchasing a group plan for group', () => {
     data.groupId = group._id;
 
     await api.createSubscription(data);
-    await sleep(0.5);
 
     expect(sender.sendTxn).to.have.callCount(4);
-    expect(sender.sendTxn.args[0][0]._id).to.equal(TECH_ASSISTANCE_EMAIL);
-    expect(sender.sendTxn.args[0][1]).to.equal('admin-user-subscription-details');
-    expect(sender.sendTxn.args[1][0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.args[1][1]).to.equal('group-member-join');
-    expect(sender.sendTxn.args[1][2]).to.eql([
+
+    const adminUserSubscriptionDetails = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      return emailType === 'admin-user-subscription-details';
+    });
+    expect(adminUserSubscriptionDetails).to.exist;
+    expect(adminUserSubscriptionDetails[0].email).to.equal(TECH_ASSISTANCE_EMAIL);
+
+    const groupMemberJoinOne = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      const emailRecipient = sendTxnArgs[0];
+      return emailType === 'group-member-join' && emailRecipient._id === recipient._id;
+    });
+    expect(groupMemberJoinOne).to.exist;
+    expect(groupMemberJoinOne[0]._id).to.equal(recipient._id);
+    expect(groupMemberJoinOne[2]).to.eql([
       { name: 'LEADER', content: groupLeaderName },
       { name: 'GROUP_NAME', content: groupName },
       { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS },
     ]);
-    expect(sender.sendTxn.args[2][0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.args[2][1]).to.equal('group-member-join');
-    expect(sender.sendTxn.args[3][0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.args[3][1]).to.equal('group-subscription-begins');
+
+    const groupMemberJoinTwo = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      const emailRecipient = sendTxnArgs[0];
+      return emailType === 'group-member-join' && emailRecipient._id === group.leader;
+    });
+    expect(groupMemberJoinTwo).to.exist;
+    expect(groupMemberJoinTwo[0]._id).to.equal(group.leader);
+
+    const groupSubscriptionBegins = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      return emailType === 'group-subscription-begins';
+    });
+    expect(groupSubscriptionBegins).to.exist;
+    expect(groupSubscriptionBegins[0]._id).to.equal(group.leader);
   });
 
   it('adds months to members with existing gift subscription', async () => {
