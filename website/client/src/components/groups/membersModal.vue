@@ -475,7 +475,7 @@ export default {
       return this.$store.state.memberModalOptions.challengeId;
     },
     sortedMembers () {
-      let sortedMembers = this.members;
+      let sortedMembers = this.members.slice(); // shallow clone to avoid infinite loop
 
       if (!isEmpty(this.sortOption)) {
         // Use the memberlist filtered by searchTerm
