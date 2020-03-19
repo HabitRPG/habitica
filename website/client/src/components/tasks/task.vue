@@ -17,7 +17,7 @@
         <!-- Habits left side control-->
         <div
           v-if="task.type === 'habit'"
-          class="left-control d-flex align-items-center justify-content-center"
+          class="left-control d-flex justify-content-center p-t-l"
           :class="[{
             'control-bottom-box': task.group.id,
             'control-top-box': approvalsClass
@@ -25,13 +25,16 @@
         >
           <div
             class="task-control habit-control"
-            :class="controlClass.up.inner"
+            :class="[{
+              'habit-control-positive-enabled': task.up && isUser,
+              'habit-control-positive-disabled': !task.up && isUser,
+            }, controlClass.up.inner]"
             @click="(isUser && task.up) ? score('up') : null"
           >
             <div
               v-if="task.group.id && !isUser"
               class="svg-icon lock"
-              :class="controlClass.up.icon"
+              :class="task.up ? controlClass.up.icon : 'positive'"
               v-html="icons.lock"
             ></div>
             <div
@@ -300,20 +303,23 @@
         <!-- Habits right side control-->
         <div
           v-if="task.type === 'habit'"
-          class="right-control d-flex align-items-center justify-content-center"
+          class="right-control d-flex justify-content-center p-t-l"
           :class="[{
             'control-bottom-box': task.group.id,
             'control-top-box': approvalsClass}, controlClass.down.bg]"
         >
           <div
             class="task-control habit-control"
-            :class="controlClass.down.inner"
+            :class="[{
+              'habit-control-negative-enabled': task.down && isUser,
+              'habit-control-negative-disabled': !task.down && isUser,
+            }, controlClass.down.inner]"
             @click="(isUser && task.down) ? score('down') : null"
           >
             <div
               v-if="task.group.id && !isUser"
               class="svg-icon lock"
-              :class="controlClass.down.icon"
+              :class="task.down ? controlClass.down.icon : 'negative'"
               v-html="icons.lock"
             ></div>
             <div

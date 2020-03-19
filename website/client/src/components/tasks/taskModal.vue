@@ -17,7 +17,7 @@
     >
       <div class="d-flex align-items-center m-b-l">
         <h2
-          class="mr-auto my-auto"
+          class="my-auto"
           :class="cssClassHeadings"
         >
           {{ title }}
