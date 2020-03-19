@@ -24,5 +24,5 @@ export default {
   availableQuests: [
   ],
 
-  featuredSet: 'spring2019OrchidWarriorSet',
+  featuredSet: 'spring2020PuddleMageSet',
 };
