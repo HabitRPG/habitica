@@ -26,9 +26,16 @@
         .svg-icon { color: $maroon-100 !important; }
         .option-item-label { color: $maroon-50 !important; }
       }
-      &-habit-control-disabled:hover {
-        .habit-control { background: $maroon-100 !important; }
-        .option-item-label { color: $maroon-50 !important; }
+      &-habit-control-disabled {
+        .habit-option-button {
+          border: 2px solid $gray-300;
+        }
+        &:hover {
+          .habit-option-button {
+            border: 2px solid $maroon-100;
+          }
+          .habit-option-icon, .habit-option-label { color: $maroon-100 !important; }
+        }
       }
     }
   }
@@ -60,9 +67,16 @@
         .svg-icon { color: $red-100 !important; }
         .option-item-label { color: $red-10 !important; }
       }
-      &-habit-control-disabled:hover {
-        .habit-control { background: $red-100 !important; }
-        .option-item-label { color: $red-10 !important; }
+      &-habit-control-disabled {
+        .habit-option-button {
+          border: 2px solid $gray-300;
+        }
+        &:hover {
+          .habit-option-button {
+            border: 2px solid $red-100;
+          }
+          .habit-option-icon, .habit-option-label { color: $red-100 !important; }
+        }
       }
     }
   }
@@ -95,9 +109,16 @@
         .svg-icon { color: $orange-100 !important; }
         .option-item-label { color: #b75a1c !important; }
       }
-      &-habit-control-disabled:hover {
-        .habit-control { background: $orange-100 !important; }
-        .option-item-label { color: #b75a1c !important; }
+      &-habit-control-disabled {
+        .habit-option-button {
+          border: 2px solid $gray-300;
+        }
+        &:hover {
+          .habit-option-button {
+            border: 2px solid $orange-100;
+          }
+          .habit-option-icon, .habit-option-label { color: $orange-100 !important; }
+        }
       }
     }
   }
@@ -129,9 +150,16 @@
         .svg-icon { color: $yellow-100 !important; }
         .option-item-label { color: #bf7d1a !important; }
       }
-      &-habit-control-disabled:hover {
-        .habit-control { background: $yellow-100 !important; }
-        .option-item-label { color: #bf7d1a !important; }
+      &-habit-control-disabled {
+        .habit-option-button {
+          border: 2px solid $gray-300;
+        }
+        &:hover {
+          .habit-option-button {
+            border: 2px solid $yellow-100;
+          }
+          .habit-option-icon, .habit-option-label { color: $yellow-100 !important; }
+        }
       }
     }
   }
@@ -163,9 +191,16 @@
         .svg-icon { color: $green-10 !important; }
         .option-item-label { color: #1ca372 !important; }
       }
-      &-habit-control-disabled:hover {
-        .habit-control { background: $green-10 !important; }
-        .option-item-label { color: #1ca372 !important; }
+      &-habit-control-disabled {
+        .habit-option-button {
+          border: 2px solid $gray-300;
+        }
+        &:hover {
+          .habit-option-button {
+            border: 2px solid $green-100;
+          }
+          .habit-option-icon, .habit-option-label { color: $green-100 !important; }
+        }
       }
     }
   }
@@ -197,9 +232,16 @@
         .svg-icon { color: $teal-100 !important; }
         .option-item-label { color: $teal-10 !important; }
       }
-      &-habit-control-disabled:hover {
-        .habit-control { background: $teal-100 !important; }
-        .option-item-label { color: $teal-10 !important; }
+      &-habit-control-disabled {
+        .habit-option-button {
+          border: 2px solid $gray-300;
+        }
+        &:hover {
+          .habit-option-button {
+            border: 2px solid $teal-100;
+          }
+          .habit-option-icon, .habit-option-label { color: $teal-100 !important; }
+        }
       }
     }
   }
@@ -231,9 +273,16 @@
         .svg-icon { color: $blue-50 !important; }
         .option-item-label { color: $blue-10 !important; }
       }
-      &-habit-control-disabled:hover {
-        .habit-control { background: $blue-50 !important; }
-        .option-item-label { color: $blue-10 !important; }
+      &-habit-control-disabled {
+        .habit-option-button {
+          border: 2px solid $gray-300;
+        }
+        &:hover {
+          .habit-option-button {
+            border: 2px solid $blue-100;
+          }
+          .habit-option-icon, .habit-option-label { color: $blue-100 !important; }
+        }
       }
     }
   }
@@ -262,10 +311,18 @@
         .svg-icon { color: $purple-300 !important; }
         .option-item-label { color: $purple-200 !important; }
       }
-      &-habit-control-disabled:hover {
-        .habit-control { background: $purple-300 !important; }
-        .option-item-label { color: $purple-200 !important; }
+      &-habit-control-disabled {
+        .habit-option-button {
+          border: 2px solid $gray-300;
+        }
+        &:hover {
+          .habit-option-button {
+            border: 2px solid $purple-300;
+          }
+          .habit-option-icon, .habit-option-label { color: $purple-300 !important; }
+        }
       }
+
     }
   }
 

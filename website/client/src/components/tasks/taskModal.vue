@@ -172,10 +172,11 @@
             class="habit-option-container d-flex flex-column
               justify-content-center align-items-center"
             @click="toggleUpDirection()"
+            :class="!task.up ? cssClass('habit-control-disabled') : ''"
           >
             <div
               class="habit-option-button d-flex justify-content-center align-items-center m-b-s"
-              :class="task.up ? cssClass('bg') : 'disabled'"
+              :class="task.up ? cssClass('bg') : ''"
             >
               <div
                 class="habit-option-icon svg-icon"
@@ -194,10 +195,11 @@
             class="habit-option-container d-flex flex-column
               justify-content-center align-items-center"
             @click="toggleDownDirection()"
+            :class="!task.down ? cssClass('habit-control-disabled') : ''"
           >
             <div
               class="habit-option-button d-flex justify-content-center align-items-center m-b-s"
-              :class="task.down ? cssClass('bg') : 'disabled'"
+              :class="task.down ? cssClass('bg') : ''"
             >
               <div
                 class="habit-option-icon svg-icon negative mx-auto"
@@ -1166,10 +1168,6 @@
       width: 2.5rem;
       height: 2.5rem;
       border-radius: 50%;
-
-      &.disabled {
-        border: 2px solid $gray-300;
-      }
     }
 
     &-icon {
