@@ -271,7 +271,7 @@
   "questGroupDilatoryDistress": "Dilatory Distress",
   "questDilatoryDistress1Text": "Dilatory Distress, Part 1: Message in a Bottle",
   "questDilatoryDistress1Notes": "A message in a bottle arrived from the newly rebuilt city of Dilatory! It reads: \"Dear Habiticans, we need your help once again. Our princess has disappeared and the city is under siege by some unknown watery demons! The mantis shrimps are holding the attackers at bay. Please aid us!\" To make the long journey to the sunken city, one must be able to breathe water. Fortunately, the alchemists @Benga and @hazel can make it all possible! You only have to find the proper ingredients.",
-  "questDilatoryDistress1Completion": "You don the the finned armor and swim to Dilatory as quickly as you can. The merfolk and their mantis shrimp allies have managed to keep the monsters outside the city for the moment, but they are losing. No sooner are you within the castle walls than the horrifying siege descends!",
+  "questDilatoryDistress1Completion": "You don the finned armor and swim to Dilatory as quickly as you can. The merfolk and their mantis shrimp allies have managed to keep the monsters outside the city for the moment, but they are losing. No sooner are you within the castle walls than the horrifying siege descends!",
   "questDilatoryDistress1CollectFireCoral": "Fire Coral",
   "questDilatoryDistress1CollectBlueFins": "Blue Fins",
   "questDilatoryDistress1DropArmor": "Finned Oceanic Armor (Armor)",
@@ -661,7 +661,7 @@
 
   "questBadgerText": "Stop Badgering Me!",
   "questBadgerNotes": "Ah, winter in the Taskwoods. The softly falling snow, the branches sparkling with frost, the Flourishing Fairies… still not snoozing?<br><br>“Why are they still awake?” cries @LilithofAlfheim. “If they don't hibernate soon, they'll never have the energy for planting season.”<br><br>As you and @Willow the Witty hurry to investigate, a furry head pops up from the ground. Before you can yell, “It’s the Badgering Bother!” it’s back in its burrow—but not before snatching up the Fairies' “Hibernate”  To-Dos and dropping a giant list of pesky tasks in their place!<br><br>“No wonder the fairies aren't resting, if they're constantly being badgered like that!”  @plumilla says. Can you chase off this beast and save the Taskwood’s harvest this year?",
-  "questBadgerCompletion": "You finally drive away the the Badgering Bother and hurry into its burrow. At the end of a tunnel, you find its hoard of the faeries’ “Hibernate”  To-Dos. The den is otherwise abandoned, except for three eggs that look ready to hatch.",
+  "questBadgerCompletion": "You finally drive away the Badgering Bother and hurry into its burrow. At the end of a tunnel, you find its hoard of the faeries’ “Hibernate”  To-Dos. The den is otherwise abandoned, except for three eggs that look ready to hatch.",
   "questBadgerBoss": "The Badgering Bother",
   "questBadgerDropBadgerEgg": "Badger (Egg)",
   "questBadgerUnlockText": "Unlocks Badger Eggs for purchase in the Market",

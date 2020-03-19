@@ -490,5 +490,8 @@
     "userWithUsernameOrUserIdNotFound": "Identifiant ou pseudo non trouvé.",
     "usernameOrUserId": "Identifiant ou pseudo",
     "sendGiftToWhom": "A qui voulez-vous envoyer un cadeau ?",
-    "selectGift": "Choisir le cadeau"
+    "selectGift": "Choisir le cadeau",
+    "PMUnblockUserToSendMessages": "Débloquez cette personne pour continuer à envoyer et recevoir des messages.",
+    "PMUserDoesNotReceiveMessages": "Cette personne ne reçoit plus de messages privés",
+    "PMCanNotReply": "Vous ne pouvez pas répondre à cette conversation"
 }

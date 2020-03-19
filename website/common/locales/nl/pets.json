@@ -142,5 +142,8 @@
     "clickOnPotionToHatch": "Klik op een uitbroeddrank om het te gebruiken op je<%= eggName %>en broed een nieuw huisdier uit!",
     "notEnoughPets": "Je hebt niet genoeg huisdieren verzameld",
     "notEnoughMounts": "Je hebt niet genoeg rijdieren verzameld",
-    "notEnoughPetsMounts": "Je hebt niet genoeg huis- en rijdieren verzameld"
+    "notEnoughPetsMounts": "Je hebt niet genoeg huis- en rijdieren verzameld",
+    "filterByWacky": "Maf",
+    "gryphatrice": "Grifalisk",
+    "wackyPets": "Maffe Huisdieren"
 }

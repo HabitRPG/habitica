@@ -69,5 +69,8 @@
     "achievementRosyOutlook": "La vie en rose",
     "achievementTickledPinkModalText": "Vous avez collecté tous les familiers rose barbe à papa !",
     "achievementTickledPinkText": "A collecté tous les familiers rose barbe à papa.",
-    "achievementTickledPink": "Rose bonbon"
+    "achievementTickledPink": "Rose bonbon",
+    "foundNewItemsCTA": "Rendez-vous dans votre inventaire et essayez de combiner les nouvelles potions d'éclosion et les nouveaux œufs !",
+    "foundNewItemsExplanation": "Remplir vos tâches vous donne une chance de trouver des objets, comme les œufs, les potion d'éclosion et la nourriture.",
+    "foundNewItems": "Vous avez trouvé de nouveaux objets !"
 }

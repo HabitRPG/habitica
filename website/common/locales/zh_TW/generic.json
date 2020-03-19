@@ -284,7 +284,7 @@
     "dismissAll": "清除全部",
     "messages": "訊息",
     "emptyMessagesLine1": "您沒有任何訊息",
-    "emptyMessagesLine2": "發送訊息以開始對話！",
+    "emptyMessagesLine2": "如果你想發信息給別的玩家，你可以通過他們的主頁，然後點擊“消息”按鈕。",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span>寄給你一封訊息",
     "letsgo": "我們出發吧！",
     "selected": "已選取",

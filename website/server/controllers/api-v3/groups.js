@@ -349,9 +349,10 @@ api.getGroups = {
 
     if (req.query.search) {
       filters.$or = [];
-      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
+      const searchWords = _.escapeRegExp(req.query.search.trim()).split(/\s+/).join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       filters.$or.push({ name: searchQuery });
+      filters.$or.push({ summary: searchQuery });
       filters.$or.push({ description: searchQuery });
     }
 
