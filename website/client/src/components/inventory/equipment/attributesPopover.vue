@@ -5,7 +5,7 @@
         {{ `${$t('lockedItem')}` }}
       </h4>
       <div
-        v-if="item.specialClass"
+        v-if="item.specialClass !== user.stats.class && item.klass !== user.stats.class"
         class="popover-content-text"
       >
         {{ `${$t('classLockedItem')}` }}
