@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW PET QUEST BADGE AND BLOG POST!';
+const LAST_ANNOUNCEMENT_TITLE = 'SPRING FLING BEGINS! LIMITED EDITION EQUIPMENT, SEASONAL SHOP, AND MAGIC HATCHING POTIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,37 +31,50 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/17/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>3/19/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="achievement-bugBonanza2x center-block"></div>
-        <h3>New Pet Quest Badge!</h3>
+        <div class="promo_spring_2020 center-block"></div>
+        <h3>Limited Edition Class Outfits</h3>
         <p>
-          We're releasing a new achievement so you can celebrate your successes in the world of
-          Habitican Pet collecting! Earn the Bug Bonanza achievement by collecting all Habitica's
-          insect and insect-adjacent Pets and you'll earn a nifty badge for your profile.
+          From now until April 30th, limited edition outfits are available in the Rewards column!
+          Depending on your class, you can be a Rhinoceros Beetle Warrior, Iris Healer, Lapis
+          Lazuli Rogue, or Puddle Mage. You'd better get productive to earn enough Gold before your
+          time runs out...
+        </p>
+        <div class="small mb-3">by Vikte, gawrone, jjgame83, Shine Caramia, and SabreCat</div>
+        <div class="promo_seasonal_shop_spring center-block"></div>
+        <h3>Seasonal Shop Opens</h3>
+        <p>
+          The <a href='/shops/seasonal'>Seasonal Shop</a> has opened! It's stocking springtime
+          Seasonal Edition goodies at the moment, including past spring outfits. Everything there
+          will be available to purchase during the Spring Fling event each year, but it's only open
+          until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these
+          items again!
+        </p>
+        <div class="small mb-3">
+          by Eslyn, Aspiring Advocate, OuttaMyMind, Lt. Cabel, Vikte, Lalaitha, DialFForFunky,
+          Gerald the Pixel, Scarvia, Awesome kitty, usnbfs, Lemoness, Balduranne, PainterProphet,
+          Beffymaroo, and SabreCat
+        </div>
+        <div class="promo_spring_potions_2020 center-block"></div>
+        <h3>Spring Fling Magic Hatching Potions</h3>
+        <p>
+          There's a new pet breed in town! Check out the brand-new Birch Bark Potions and the
+          return of Shimmer and Celestial Potions to brighten your Spring avatar look from <a
+          href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic
+          Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky,
+          so they'll happily eat any kind of food that you feed them!
         </p>
         <p>
-          If you’ve already completed the required Quests for a newly released achievement you
-          don’t have to do them all again! Just complete one of the relevant Quests and the
-          Achievement will unlock. Check your profile and celebrate your new Achievement with
-          pride.
+          These potions will be available until Spring Fling ends on April 30. After they're gone,
+          it will be at least a year before these Hatching Potions return, so be sure to get them
+          now!
         </p>
-        <div class="small mb-3">by JokeRat and SabreCat</div>
-        <div class="promo_cosplay center-block"></div>
-        <h3>Blog Post: Cosplay</h3>
-        <p>
-          This month's <a href='https://habitica.wordpress.com/2020/03/11/cosplay/'
-          target='_blank'>featured Wiki article</a> is about doing Cosplay with your avatar! We
-          hope that it will help you as you explore more ways to have fun with the stash of
-          outfits, pets, and backgrounds you've earned by completing your tasks. Be sure to check
-          it out, and let us know what you think by reaching out on <a
-          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
-          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
-          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
-        </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <div class="small mb-3">
+          by Teto Forever, tricksy.fox, Bonogo, Mara, ravenlune, Ricardo, and SabreCat
+        </div>
       </div>
       `,
     });
