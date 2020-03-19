@@ -11,11 +11,11 @@
     <div
       v-if="task"
       slot="modal-header"
-      class="task-modal-header"
+      class="task-modal-header p-xl"
       :class="cssClass('bg')"
       @click="handleClick($event)"
     >
-      <div class="d-flex align-items-center mt-2 mb-4">
+      <div class="d-flex align-items-center m-b-l">
         <h2
           class="mr-auto my-auto"
           :class="cssClassHeadings"
@@ -24,7 +24,7 @@
         </h2>
         <div class="ml-auto d-flex align-items-center">
           <span
-            class="cancel-task-btn mr-3"
+            class="cancel-task-btn m-r-l"
             :class="cssClassHeadings"
             @click="cancel()"
           >{{ $t('cancel') }}</span>
@@ -48,9 +48,10 @@
           </div>
         </div>
       </div>
-      <div class="form-group mb-3">
+      <div class="form-group">
         <label
           :class="cssClassHeadings"
+          class="m-b-xs"
         >{{ `${$t('text')}*` }}</label>
         <input
           ref="inputToFocus"
@@ -70,6 +71,7 @@
         >
           <span
             :class="cssClassHeadings"
+            class="m-b-xs"
           >{{ $t('notes') }}</span>
           <small>
             <a
@@ -88,7 +90,7 @@
       </div>
     </div>
     <div
-      class="task-modal-content"
+      class="task-modal-content p-x-xl p-t-l p-b-xl"
       @click="handleClick($event)"
     >
       <form
@@ -172,7 +174,7 @@
             @click="toggleUpDirection()"
           >
             <div
-              class="habit-option-button d-flex justify-content-center align-items-center mb-2"
+              class="habit-option-button d-flex justify-content-center align-items-center m-b-s"
               :class="task.up ? cssClass('bg') : 'disabled'"
             >
               <div
@@ -194,7 +196,7 @@
             @click="toggleDownDirection()"
           >
             <div
-              class="habit-option-button d-flex justify-content-center align-items-center mb-2"
+              class="habit-option-button d-flex justify-content-center align-items-center m-b-s"
               :class="task.down ? cssClass('bg') : 'disabled'"
             >
               <div
@@ -767,10 +769,6 @@
       max-width: 448px;
     }
 
-    label {
-      font-weight: bold;
-    }
-
     .input-group > * {
       height: 40px;
     }
@@ -795,18 +793,11 @@
       border: none;
     }
 
-    .task-modal-content, .task-modal-header {
-      padding-left: 23px;
-      padding-right: 23px;
-    }
-
     .task-modal-header {
       color: $white;
       width: 100%;
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
-      padding-top: 16px;
-      padding-bottom: 24px;
 
       h2 {
         color: $white;
@@ -814,8 +805,6 @@
     }
 
     .task-modal-content {
-      padding-top: 24px;
-
       input {
         background: $white;
         border: 1px solid $gray-400;
@@ -1209,8 +1198,12 @@
     }
   }
 
+  .input-title {
+    height: 2rem;
+  }
+
   .input-notes {
-    height: 4rem;
+    height: 3.5rem;
   }
 </style>
 
