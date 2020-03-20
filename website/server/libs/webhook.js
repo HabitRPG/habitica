@@ -15,6 +15,8 @@ function sendWebhook (webhook, body, user) {
   got.post(url, {
     body,
     json: true,
+    timeout: 30000, // wait up to 30s before timing out
+    retry: 3, // retry the request up to 3 times
   }).catch(webhookErr => {
     // Log the error
     logger.error(webhookErr);
