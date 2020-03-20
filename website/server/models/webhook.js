@@ -61,6 +61,8 @@ export const schema = new Schema({
     }), shared.i18n.t('invalidUrl')],
   },
   enabled: { $type: Boolean, required: true, default: true },
+  // How many times this webhook has failed, disabled after 10
+  failures: { $type: Number, default: 0 },
   options: {
     $type: Schema.Types.Mixed,
     required: true,
@@ -76,7 +78,7 @@ export const schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id'],
+  noSet: ['_id', 'failures'],
   timestamps: true,
   _id: false,
 });
