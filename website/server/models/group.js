@@ -6,14 +6,14 @@ import {
 } from './user';
 import shared from '../../common';
 import _  from 'lodash';
-import { model as Challenge} from './challenge';
+import { model as Challenge } from './challenge';
 import {
   chatModel as Chat,
   setUserStyles,
   messageDefaults,
 } from './message';
-import * as Tasks from './task';
 import validator from 'validator';
+import * as Tasks from './task'; // eslint-disable-line import/no-cycle
 import { removeFromArray } from '../libs/collectionManipulators';
 import payments from '../libs/payments/payments';
 import {
@@ -29,7 +29,7 @@ import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email';
 import nconf from 'nconf';
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
-import {
+import { // eslint-disable-line import/no-cycle
   syncableAttrs,
 } from '../libs/taskManager';
 import {
@@ -1367,7 +1367,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
 };
 
 schema.methods.linkTask = async function groupLinkTask (linkingTask, user) {
-  let toSave = [];
+  const toSave = [];
   if (linkingTask.group.assignedUsers.indexOf(user._id) === -1) {
     linkingTask.group.assignedUsers.push(user._id);
   }

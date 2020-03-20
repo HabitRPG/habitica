@@ -1,12 +1,13 @@
 import moment from 'moment';
-import * as Tasks from '../models/task';
+import compact from 'lodash/compact';
+import omit from 'lodash/omit';
+import * as Tasks from '../models/task'; // eslint-disable-line import/no-cycle
 import {
   BadRequest,
 } from './errors';
-import {
+import { // eslint-disable-line import/no-cycle
   SHARED_COMPLETION,
 } from './groupTasks';
-import _ from 'lodash';
 import shared from '../../common';
 
 async function _validateTaskAlias (tasks, res) {
@@ -236,7 +237,7 @@ export async function getTasks (req, res, options = {}) {
     });
 
     // Remove empty values from the array and add any unordered task
-    orderedTasks = _.compact(orderedTasks).concat(unorderedTasks);
+    orderedTasks = compact(orderedTasks).concat(unorderedTasks);
     return orderedTasks;
   } else {
     return tasks;
@@ -246,11 +247,11 @@ export async function getTasks (req, res, options = {}) {
 // Takes a Task document and return a plain object of attributes that can be synced to the user
 
 export function syncableAttrs (task) {
-  let t = task.toObject(); // lodash doesn't seem to like _.omit on Document
+  let t = task.toObject(); // lodash doesn't seem to like omit() on Document
   // only sync/compare important attrs
   let omitAttrs = ['_id', '__v', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'createdAt', 'group', 'checklist', 'attribute'];
   if (t.type !== 'reward') omitAttrs.push('value');
-  return _.omit(t, omitAttrs);
+  return omit(t, omitAttrs);
 }
 
 /**

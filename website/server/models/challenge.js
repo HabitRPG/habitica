@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
+import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
+import includes from 'lodash/includes';
+import merge from 'lodash/merge';
 import validator from 'validator';
 import baseModel from '../libs/baseModel';
-import _ from 'lodash';
-import * as Tasks from './task';
-import { model as User } from './user';
-import {
+import * as Tasks from './task'; // eslint-disable-line import/no-cycle
+import { model as User } from './user'; // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
   model as Group,
 } from './group';
 import { removeFromArray } from '../libs/collectionManipulators';
@@ -103,14 +106,14 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   challenge.shortName = challenge.shortName || challenge.name;
 
   // Add challenge to user.challenges
-  if (!_.includes(user.challenges, challenge._id)) {
+  if (!includes(user.challenges, challenge._id)) {
     // using concat because mongoose's protection against concurrent array modification isn't working as expected.
     // see https://github.com/HabitRPG/habitica/pull/7787#issuecomment-232972394
     user.challenges = user.challenges.concat([challenge._id]);
   }
   // Sync tags
   let userTags = user.tags;
-  let i = _.findIndex(userTags, {id: challenge._id});
+  let i = findIndex(userTags, {id: challenge._id});
 
   if (i !== -1) {
     if (userTags[i].name !== challenge.shortName) {
@@ -142,7 +145,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
   let toSave = []; // An array of things to save
 
   challengeTasks.forEach(chalTask => {
-    let matchingTask = _.find(userTasks, userTask => userTask.challenge.taskId === chalTask._id);
+    let matchingTask = find(userTasks, userTask => userTask.challenge.taskId === chalTask._id);
 
     if (!matchingTask) { // If the task is new, create it
       matchingTask = new Tasks[chalTask.type](Tasks.Task.sanitize(syncableAttrs(chalTask)));
@@ -151,7 +154,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
       user.tasksOrder[`${chalTask.type}s`].push(matchingTask._id);
       setNextDue(matchingTask, user);
     } else {
-      _.merge(matchingTask, syncableAttrs(chalTask));
+      merge(matchingTask, syncableAttrs(chalTask));
       // Make sure the task is in user.tasksOrder
       let orderList = user.tasksOrder[`${chalTask.type}s`];
       if (orderList.indexOf(matchingTask._id) === -1 && (matchingTask.type !== 'todo' || !matchingTask.completed)) orderList.push(matchingTask._id);
@@ -164,7 +167,7 @@ schema.methods.syncToUser = async function syncChallengeToUser (user) {
 
   // Flag deleted tasks as "broken"
   userTasks.forEach(userTask => {
-    if (!_.find(challengeTasks, chalTask => chalTask._id === userTask.challenge.taskId)) {
+    if (!find(challengeTasks, chalTask => chalTask._id === userTask.challenge.taskId)) {
       userTask.challenge.broken = 'TASK_DELETED';
       toSave.push(userTask.save());
     }

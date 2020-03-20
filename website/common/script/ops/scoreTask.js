@@ -278,8 +278,8 @@ module.exports = function scoreTask (options = {}, req = {}) {
         task.completed = true;
 
         // Save history entry for daily
-        // If this is a yesterDaily being scored from the RYA dialog, set the date to the last minute of the user's "yesterday"
-        let dateScored = task.yesterDailyScored ? startOfDay(user.preferences).subtract(1, 'minute') : moment();
+        // Set date to the last minute of the user's "yesterday" for yesterDailies from RYA dialog
+        const dateScored = task.yesterDailyScored ? startOfDay(user.preferences).subtract(1, 'minute') : moment();
         task.history = task.history || [];
         let historyEntry = {
           date: Number(new Date(dateScored)),
@@ -289,14 +289,15 @@ module.exports = function scoreTask (options = {}, req = {}) {
       } else if (direction === 'down') {
         // Delete history entry when daily unchecked
         if (task.history && task.history.length > 0) {
-          // @REVIEW Don't remove entries not from user's "today", in case this is a (single) completion shared daily completed by someone else
-          let historyEntry = task.history.pop();
+          // @REVIEW Don't remove entries not from user's "today",
+          // It might be a (single completion) shared daily completed by someone else
+          const historyEntry = task.history.pop();
           if (task.group && task.group.sharedCompletion && task.group.sharedCompletion === 'singleCompletion' && historyEntry.date) {
             // This Daily could have been completed "today" by someone else.
-            // Since this function runs on the client, as well as the server, let's make assumptions and keep things simple
+            // Function runs on the client and server. Make assumptions and keep things simple.
             // Otherwise we have to load the Master Task and check who did what when
-            let o = sanitizeOptions(user.preferences);
-            let startOfDayWithCDSTime = startOfDay(o);
+            const o = sanitizeOptions(user.preferences);
+            const startOfDayWithCDSTime = startOfDay(o);
             if (moment(historyEntry.date).isBefore(startOfDayWithCDSTime)) {
               // This Daily was completed by us before "today"
               // It was probably completed "today" by someone else

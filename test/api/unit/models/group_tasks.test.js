@@ -3,7 +3,7 @@ import { model as Group } from '../../../../website/server/models/group';
 import { model as User } from '../../../../website/server/models/user';
 import * as Tasks from '../../../../website/server/models/task';
 import { each, find, findIndex } from 'lodash';
-import {handleSharedCompletion} from '../../../../website/server/libs/groupTasks';
+import { handleSharedCompletion } from '../../../../website/server/libs/groupTasks';
 import common from '../../../../website/common/index';
 
 describe('Group Task Methods', () => {
@@ -238,23 +238,23 @@ describe('Group Task Methods', () => {
         it('removes and reassigns completed and unchecked todos to other assignees', async () => {
           if (taskType !== 'todo') return;
 
-          let updatedLeader = await User.findOne({_id: leader._id});
-          let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-          let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+          const updatedLeader = await User.findOne({ _id: leader._id });
+          const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+          const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
           syncedTask.completed = true;
           await handleSharedCompletion(syncedTask);
 
-          let updatedMember = await User.findOne({_id: newMember._id});
-          let updatedMemberTasks = await Tasks.Task.find({_id: { $in: updatedMember.tasksOrder[`${taskType}s`]}});
-          let syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
+          const updatedMember = await User.findOne({ _id: newMember._id });
+          const updatedMemberTasks = await Tasks.Task.find({ _id: { $in: updatedMember.tasksOrder[`${taskType}s`] } });
+          const syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
 
           syncedTask.completed = false;
           await handleSharedCompletion(syncedTask);
 
-          let reUpdatedMember = await User.findOne({_id: newMember._id});
-          let reUpdatedMemberTasks = await Tasks.Task.find({_id: { $in: reUpdatedMember.tasksOrder[`${taskType}s`]}});
-          let reSyncedMemberTask = find(reUpdatedMemberTasks, findLinkedTask);
+          const reUpdatedMember = await User.findOne({ _id: newMember._id });
+          const reUpdatedMemberTasks = await Tasks.Task.find({ _id: { $in: reUpdatedMember.tasksOrder[`${taskType}s`] } });
+          const reSyncedMemberTask = find(reUpdatedMemberTasks, findLinkedTask);
 
           expect(syncedMemberTask).to.not.exist;
           expect(reSyncedMemberTask).to.exist;
@@ -263,23 +263,23 @@ describe('Group Task Methods', () => {
         it('syncs daily completion to other assignees', async () => {
           if (taskType !== 'daily') return;
 
-          let updatedLeader = await User.findOne({_id: leader._id});
-          let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-          let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+          const updatedLeader = await User.findOne({ _id: leader._id });
+          const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+          const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-          common.ops.scoreTask({task: syncedTask, user: updatedLeader, direction: 'up'});
+          common.ops.scoreTask({ task: syncedTask, user: updatedLeader, direction: 'up' });
           await handleSharedCompletion(syncedTask);
 
-          let updatedMember = await User.findOne({_id: newMember._id});
-          let updatedMemberTasks = await Tasks.Task.find({_id: { $in: updatedMember.tasksOrder[`${taskType}s`]}});
-          let syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
+          const updatedMember = await User.findOne({ _id: newMember._id });
+          const updatedMemberTasks = await Tasks.Task.find({ _id: { $in: updatedMember.tasksOrder[`${taskType}s`] } });
+          const syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
 
-          common.ops.scoreTask({task: syncedTask, user: updatedLeader, direction: 'down'});
+          common.ops.scoreTask({ task: syncedTask, user: updatedLeader, direction: 'down' });
           await handleSharedCompletion(syncedTask);
 
-          let reUpdatedMember = await User.findOne({_id: newMember._id});
-          let reUpdatedMemberTasks = await Tasks.Task.find({_id: { $in: reUpdatedMember.tasksOrder[`${taskType}s`]}});
-          let reSyncedMemberTask = find(reUpdatedMemberTasks, findLinkedTask);
+          const reUpdatedMember = await User.findOne({ _id: newMember._id });
+          const reUpdatedMemberTasks = await Tasks.Task.find({ _id: { $in: reUpdatedMember.tasksOrder[`${taskType}s`] } });
+          const reSyncedMemberTask = find(reUpdatedMemberTasks, findLinkedTask);
 
           expect(syncedMemberTask.completed).to.equal(true);
           expect(reSyncedMemberTask.completed).to.equal(false);
