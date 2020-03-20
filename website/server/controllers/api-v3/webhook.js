@@ -108,7 +108,7 @@ api.addWebhook = {
   url: '/user/webhook',
   async handler (req, res) {
     const { user } = res.locals;
-    const webhook = new Webhook(req.body);
+    const webhook = new Webhook(Webhook.sanitize(req.body));
 
     const existingWebhook = user.webhooks.find(hook => hook.id === webhook.id);
 
