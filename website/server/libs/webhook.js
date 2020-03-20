@@ -32,9 +32,19 @@ function sendWebhook (webhook, body, user) {
     // Disable a webhook with too many failures
     if (webhook.failures >= 10) {
       webhook.enabled = false;
+      webhook.failures = 0;
     }
 
-    return user.save();
+    return User.update({
+      _id: user._id,
+      'webhooks.id': webhook.id,
+    }, {
+      $set: {
+        'webhooks.$.enabled': webhook.enabled,
+        'webhooks.$.failures': webhook.failures,
+        'webhooks.$.lastFailureAt': webhook.lastFailureAt,
+      },
+    }).exec();
   }).catch(err => logger.error(err)); // log errors that might have happened in the previous catch
 }
 
