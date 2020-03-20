@@ -21,10 +21,13 @@ function sendWebhook (webhook, body, user) {
     // Log the error
     logger.error(webhookErr);
 
+    let _failuresReset = false;
+
     // Reset failures if the last one happened more than 1 month ago
     const oneMonthAgo = moment().subtract(1, 'months');
     if (!lastFailureAt || moment(lastFailureAt).isBefore(oneMonthAgo)) {
       webhook.failures = 0;
+      _failuresReset = true;
     }
 
     // Increase the number of failures
@@ -35,18 +38,29 @@ function sendWebhook (webhook, body, user) {
     if (webhook.failures >= 10) {
       webhook.enabled = false;
       webhook.failures = 0;
+      webhook.lastFailureAt = undefined;
+      _failuresReset = true;
+    }
+
+    const update = {
+      $set: {
+        'webhooks.$.lastFailureAt': webhook.lastFailureAt,
+        'webhooks.$.enabled': webhook.enabled,
+      },
+    };
+
+    if (_failuresReset) {
+      update.$set['webhooks.$.failures'] = webhook.failures;
+    } else {
+      update.$inc = {
+        'webhooks.$.failures': 1,
+      };
     }
 
     return User.update({
       _id: user._id,
       'webhooks.id': webhook.id,
-    }, {
-      $set: {
-        'webhooks.$.enabled': webhook.enabled,
-        'webhooks.$.failures': webhook.failures,
-        'webhooks.$.lastFailureAt': webhook.lastFailureAt,
-      },
-    }).exec();
+    }, update).exec();
   }).catch(err => logger.error(err)); // log errors that might have happened in the previous catch
 }
 
