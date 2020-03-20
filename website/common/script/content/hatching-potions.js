@@ -70,6 +70,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionShimmer'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2018 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
   },
   Fairy: {
     value: 2,
@@ -198,6 +205,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionCelestial'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
   },
   Sunshine: {
     value: 2,
@@ -252,6 +266,17 @@ const premium = {
     limited: true,
     canBuy: hasQuestAchievementFunction('ruby'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
+  BirchBark: {
+    value: 2,
+    text: t('hatchingPotionBirchBark'),
+    limited: true,
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndMarch'),
+    }),
   },
 };
 

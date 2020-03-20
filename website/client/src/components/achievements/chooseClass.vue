@@ -225,30 +225,30 @@ export default {
     classGear (heroClass) {
       if (heroClass === 'rogue') {
         return {
-          armor: 'armor_rogue_5',
-          head: 'head_rogue_5',
-          shield: 'shield_rogue_6',
-          weapon: 'weapon_rogue_6',
+          armor: 'armor_special_spring2020Rogue',
+          head: 'head_special_spring2020Rogue',
+          shield: 'shield_special_spring2020Rogue',
+          weapon: 'weapon_special_spring2020Rogue',
         };
       } if (heroClass === 'wizard') {
         return {
-          armor: 'armor_wizard_5',
-          head: 'head_wizard_5',
-          weapon: 'weapon_wizard_6',
+          armor: 'armor_special_spring2020Mage',
+          head: 'head_special_spring2020Mage',
+          weapon: 'weapon_special_spring2020Mage',
         };
       } if (heroClass === 'healer') {
         return {
-          armor: 'armor_healer_5',
-          head: 'head_healer_5',
-          shield: 'shield_healer_5',
-          weapon: 'weapon_healer_6',
+          armor: 'armor_special_spring2020Healer',
+          head: 'head_special_spring2020Healer',
+          shield: 'shield_special_spring2020Healer',
+          weapon: 'weapon_special_spring2020Healer',
         };
       }
       return {
-        armor: 'armor_warrior_5',
-        head: 'head_warrior_5',
-        shield: 'shield_warrior_5',
-        weapon: 'weapon_warrior_6',
+        armor: 'armor_special_spring2020Warrior',
+        head: 'head_special_spring2020Warrior',
+        shield: 'shield_special_spring2020Warrior',
+        weapon: 'weapon_special_spring2020Warrior',
       };
     },
     selectionBox (selectedClass, heroClass) {

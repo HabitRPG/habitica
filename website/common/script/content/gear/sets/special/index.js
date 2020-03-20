@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   EVENTS,
 } from '../../../constants';
@@ -8,7 +9,7 @@ import * as takeThisGear from './special-takeThis';
 import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
-const CURRENT_SEASON = 'winter';
+const CURRENT_SEASON = moment().isBetween('2020-03-17', '2020-05-02') ? 'spring' : '_NONE_';
 
 const armor = {
   0: backerGear.armorSpecial0,
@@ -1002,6 +1003,7 @@ const armor = {
     notes: t('armorSpecialSpring2019RogueNotes', { per: 15 }),
     value: 90,
     per: 15,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Warrior: {
     event: EVENTS.spring2019,
@@ -1011,6 +1013,7 @@ const armor = {
     notes: t('armorSpecialSpring2019WarriorNotes', { con: 9 }),
     value: 90,
     con: 9,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Mage: {
     event: EVENTS.spring2019,
@@ -1020,6 +1023,7 @@ const armor = {
     notes: t('armorSpecialSpring2019MageNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Healer: {
     event: EVENTS.spring2019,
@@ -1029,6 +1033,7 @@ const armor = {
     notes: t('armorSpecialSpring2019HealerNotes', { con: 15 }),
     value: 90,
     con: 15,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   summer2019Rogue: {
     event: EVENTS.summer2019,
@@ -1150,6 +1155,42 @@ const armor = {
     notes: t('armorSpecialBirthday2020Notes'),
     value: 0,
     canOwn: ownsItem('armor_special_birthday2020'),
+  },
+  spring2020Rogue: {
+    event: EVENTS.spring2020,
+    specialClass: 'rogue',
+    set: 'spring2020LapisLazuliRogueSet',
+    text: t('armorSpecialSpring2020RogueText'),
+    notes: t('armorSpecialSpring2020RogueNotes', { per: 15 }),
+    value: 90,
+    per: 15,
+  },
+  spring2020Warrior: {
+    event: EVENTS.spring2020,
+    specialClass: 'warrior',
+    set: 'spring2020BeetleWarriorSet',
+    text: t('armorSpecialSpring2020WarriorText'),
+    notes: t('armorSpecialSpring2020WarriorNotes', { con: 9 }),
+    value: 90,
+    con: 9,
+  },
+  spring2020Mage: {
+    event: EVENTS.spring2020,
+    specialClass: 'wizard',
+    set: 'spring2020PuddleMageSet',
+    text: t('armorSpecialSpring2020MageText'),
+    notes: t('armorSpecialSpring2020MageNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  spring2020Healer: {
+    event: EVENTS.spring2020,
+    specialClass: 'healer',
+    set: 'spring2020IrisHealerSet',
+    text: t('armorSpecialSpring2020HealerText'),
+    notes: t('armorSpecialSpring2020HealerNotes', { con: 15 }),
+    value: 90,
+    con: 15,
   },
 };
 
@@ -2477,6 +2518,7 @@ const head = {
     notes: t('headSpecialSpring2019RogueNotes', { per: 9 }),
     value: 60,
     per: 9,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Warrior: {
     event: EVENTS.spring2019,
@@ -2486,6 +2528,7 @@ const head = {
     notes: t('headSpecialSpring2019WarriorNotes', { str: 9 }),
     value: 60,
     str: 9,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Mage: {
     event: EVENTS.spring2019,
@@ -2495,6 +2538,7 @@ const head = {
     notes: t('headSpecialSpring2019MageNotes', { per: 7 }),
     value: 60,
     per: 7,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Healer: {
     event: EVENTS.spring2019,
@@ -2504,6 +2548,7 @@ const head = {
     notes: t('headSpecialSpring2019HealerNotes', { int: 7 }),
     value: 60,
     int: 7,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   summer2019Rogue: {
     event: EVENTS.summer2019,
@@ -2625,6 +2670,42 @@ const head = {
     notes: t('headSpecialNye2019Notes'),
     value: 0,
     canOwn: ownsItem('head_special_nye2019'),
+  },
+  spring2020Rogue: {
+    event: EVENTS.spring2020,
+    specialClass: 'rogue',
+    set: 'spring2020LapisLazuliRogueSet',
+    text: t('headSpecialSpring2020RogueText'),
+    notes: t('headSpecialSpring2020RogueNotes', { per: 9 }),
+    value: 60,
+    per: 9,
+  },
+  spring2020Warrior: {
+    event: EVENTS.spring2020,
+    specialClass: 'warrior',
+    set: 'spring2020BeetleWarriorSet',
+    text: t('headSpecialSpring2020WarriorText'),
+    notes: t('headSpecialSpring2020WarriorNotes', { str: 9 }),
+    value: 60,
+    str: 9,
+  },
+  spring2020Mage: {
+    event: EVENTS.spring2020,
+    specialClass: 'wizard',
+    set: 'spring2020PuddleMageSet',
+    text: t('headSpecialSpring2020MageText'),
+    notes: t('headSpecialSpring2020MageNotes', { per: 7 }),
+    value: 60,
+    per: 7,
+  },
+  spring2020Healer: {
+    event: EVENTS.spring2020,
+    specialClass: 'healer',
+    set: 'spring2020IrisHealerSet',
+    text: t('headSpecialSpring2020HealerText'),
+    notes: t('headSpecialSpring2020HealerNotes', { int: 7 }),
+    value: 60,
+    int: 7,
   },
 };
 
@@ -3593,6 +3674,7 @@ const shield = {
     notes: t('weaponSpecialSpring2019RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Warrior: {
     event: EVENTS.spring2019,
@@ -3602,6 +3684,7 @@ const shield = {
     notes: t('shieldSpecialSpring2019WarriorNotes', { con: 7 }),
     value: 70,
     con: 7,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Healer: {
     event: EVENTS.spring2019,
@@ -3611,6 +3694,7 @@ const shield = {
     notes: t('shieldSpecialSpring2019HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   summer2019Rogue: {
     event: EVENTS.summer2019,
@@ -3706,6 +3790,33 @@ const shield = {
     set: 'winter2020WinterSpiceSet',
     text: t('shieldSpecialWinter2020HealerText'),
     notes: t('shieldSpecialWinter2020HealerNotes', { con: 9 }),
+    value: 70,
+    con: 9,
+  },
+  spring2020Rogue: {
+    event: EVENTS.spring2020,
+    specialClass: 'rogue',
+    set: 'spring2020LapisLazuliRogueSet',
+    text: t('weaponSpecialSpring2020RogueText'),
+    notes: t('weaponSpecialSpring2020RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  spring2020Warrior: {
+    event: EVENTS.spring2020,
+    specialClass: 'warrior',
+    set: 'spring2020BeetleWarriorSet',
+    text: t('shieldSpecialSpring2020WarriorText'),
+    notes: t('shieldSpecialSpring2020WarriorNotes', { con: 7 }),
+    value: 70,
+    con: 7,
+  },
+  spring2020Healer: {
+    event: EVENTS.spring2020,
+    specialClass: 'healer',
+    set: 'spring2020IrisHealerSet',
+    text: t('shieldSpecialSpring2020HealerText'),
+    notes: t('shieldSpecialSpring2020HealerNotes', { con: 9 }),
     value: 70,
     con: 9,
   },
@@ -4702,6 +4813,7 @@ const weapon = {
     notes: t('weaponSpecialSpring2019RogueNotes', { str: 8 }),
     value: 80,
     str: 8,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Warrior: {
     event: EVENTS.spring2019,
@@ -4711,6 +4823,7 @@ const weapon = {
     notes: t('weaponSpecialSpring2019WarriorNotes', { str: 15 }),
     value: 90,
     str: 15,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Mage: {
     event: EVENTS.spring2019,
@@ -4722,6 +4835,7 @@ const weapon = {
     value: 160,
     int: 15,
     per: 7,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   spring2019Healer: {
     event: EVENTS.spring2019,
@@ -4731,6 +4845,7 @@ const weapon = {
     notes: t('weaponSpecialSpring2019HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
+    canBuy: () => CURRENT_SEASON === 'spring',
   },
   summer2019Rogue: {
     event: EVENTS.summer2019,
@@ -4848,6 +4963,44 @@ const weapon = {
     set: 'winter2020WinterSpiceSet',
     text: t('weaponSpecialWinter2020HealerText'),
     notes: t('weaponSpecialWinter2020HealerNotes', { int: 9 }),
+    value: 90,
+    int: 9,
+  },
+  spring2020Rogue: {
+    event: EVENTS.spring2020,
+    specialClass: 'rogue',
+    set: 'spring2020LapisLazuliRogueSet',
+    text: t('weaponSpecialSpring2020RogueText'),
+    notes: t('weaponSpecialSpring2020RogueNotes', { str: 8 }),
+    value: 80,
+    str: 8,
+  },
+  spring2020Warrior: {
+    event: EVENTS.spring2020,
+    specialClass: 'warrior',
+    set: 'spring2020BeetleWarriorSet',
+    text: t('weaponSpecialSpring2020WarriorText'),
+    notes: t('weaponSpecialSpring2020WarriorNotes', { str: 15 }),
+    value: 90,
+    str: 15,
+  },
+  spring2020Mage: {
+    event: EVENTS.spring2020,
+    specialClass: 'wizard',
+    set: 'spring2020PuddleMageSet',
+    twoHanded: true,
+    text: t('weaponSpecialSpring2020MageText'),
+    notes: t('weaponSpecialSpring2020MageNotes', { int: 15, per: 7 }),
+    value: 160,
+    int: 15,
+    per: 7,
+  },
+  spring2020Healer: {
+    event: EVENTS.spring2020,
+    specialClass: 'healer',
+    set: 'spring2020IrisHealerSet',
+    text: t('weaponSpecialSpring2020HealerText'),
+    notes: t('weaponSpecialSpring2020HealerNotes', { int: 9 }),
     value: 90,
     int: 9,
   },

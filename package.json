@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.136.2",
+  "version": "4.138.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.8.7",
@@ -14,7 +14,7 @@
     "amplitude": "^3.5.0",
     "apidoc": "^0.17.5",
     "apn": "^2.2.0",
-    "aws-sdk": "^2.635.0",
+    "aws-sdk": "^2.639.0",
     "bcrypt": "^3.0.8",
     "body-parser": "^1.18.3",
     "compression": "^1.7.4",
@@ -58,7 +58,7 @@
     "paypal-ipn": "3.0.0",
     "paypal-rest-sdk": "^1.8.1",
     "ps-tree": "^1.0.0",
-    "regenerator-runtime": "^0.13.3",
+    "regenerator-runtime": "^0.13.5",
     "remove-markdown": "^0.3.0",
     "rimraf": "^3.0.2",
     "short-uuid": "^3.0.0",
