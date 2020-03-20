@@ -1,6 +1,7 @@
 import got from 'got';
 import { isURL } from 'validator';
 import nconf from 'nconf';
+import moment from 'moment';
 import logger from './logger';
 import { // eslint-disable-line import/no-cycle
   model as User,
@@ -8,14 +9,33 @@ import { // eslint-disable-line import/no-cycle
 
 const IS_PRODUCTION = nconf.get('IS_PROD');
 
-function sendWebhook (url, body) {
+function sendWebhook (webhook, body, user) {
+  const { url, lastFailureAt } = webhook;
+
   got.post(url, {
     body,
     json: true,
-  }).catch(err => {
-    // TODO disable webshook here
-    logger.error(err)
-  });
+  }).catch(webhookErr => {
+    // Log the error
+    logger.error(webhookErr);
+
+    // Reset failures if the last one happened more than 1 month ago
+    const oneMonthAgo = moment().subtract(1, 'months');
+    if (!lastFailureAt || moment(lastFailureAt).isBefore(oneMonthAgo)) {
+      webhook.failures = 0;
+    }
+
+    // Increase the number of failures
+    webhook.failures += 1;
+    webhook.lastFailureAt = new Date();
+
+    // Disable a webhook with too many failures
+    if (webhook.failures >= 10) {
+      webhook.enabled = false;
+    }
+
+    return user.save();
+  }).catch(err => logger.error(err)); // log errors that might have happened in the previous catch
 }
 
 function isValidWebhook (hook) {
@@ -63,7 +83,7 @@ export class WebhookSender {
     this.attachDefaultData(user, body);
 
     hooks.forEach(hook => {
-      sendWebhook(hook.url, body);
+      sendWebhook(hook, body, user);
     });
   }
 }
