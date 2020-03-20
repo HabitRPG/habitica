@@ -76,7 +76,8 @@ function sendNotification (user, details = {}) {
                   logger.error('APN transmissionError', failure.status, notification, failure.device);
                 }
               });
-            });
+            })
+            .catch(err => logger.error(err, 'APN error'));
         }
         break;
     }
