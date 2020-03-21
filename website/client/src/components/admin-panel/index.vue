@@ -100,7 +100,7 @@
               :class="{'open': expandAuth}"
               @click="expandAuth = !expandAuth"
             >
-              Timestamps, Authentication, Email Address
+              Timestamps, Time Zone, Authentication, Email Address
             </h3>
             <div v-if="expandAuth">
               <div>Account created:
@@ -112,6 +112,15 @@
               <div>"lastCron":
                 <strong>{{ formatDate(hero.lastCron) }}</strong>
                 (if different than above, cron crashed before finishing)
+              </div>
+              <div class="subsection-start">Time zone:
+                <strong>{{ formatTimeZone(hero.preferences.timezoneOffset) }}</strong>
+              </div>
+              <div>Time zone at previous cron:
+                <strong>{{ formatTimeZone(hero.preferences.timezoneOffsetAtLastCron) }}</strong>
+                <br>(if different than above, the user changed zones / daylight savings
+                OR has devices on different zones OR uses a VPN with varying zones
+                OR something similarly unpleasant is happening)
               </div>
               <div class="subsection-start">Local authentication:
                 <span v-if="hero.auth.local.email">Yes, &nbsp;
@@ -403,6 +412,11 @@ export default {
     formatDate (inputDate) {
       const date = moment(inputDate).utcOffset(0).format('YYYY-MM-DD HH:mm');
       return `${date} UTC`;
+    },
+    formatTimeZone (inputTimeZoneOffset) {
+      const timeZone = (inputTimeZoneOffset / 60) * -1;
+      const sign = (timeZone < 0) ? '-' : '+';
+      return `${sign}${timeZone} UTC`;
     },
     formatEquipment (gearWorn) {
       const gearTypes = ['head', 'armor', 'weapon', 'shield', 'headAccessory',
