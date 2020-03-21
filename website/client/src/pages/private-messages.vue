@@ -609,6 +609,7 @@ export default {
       selectedConversation: {},
       search: '',
       searchMode: false,
+      jumpContextMode: false,
       newMessage: '',
       showPopover: false,
       messages: [],
@@ -874,7 +875,7 @@ export default {
       this.selectedConversation = convoFound || {};
 
       if (!this.messagesByConversation[this.selectedConversation.key] || forceLoadMessage) {
-        await this.loadMessages('before');
+        await this.loadMessages({ type: 'before' });
       }
 
       this.scrollToBottom();
@@ -947,13 +948,11 @@ export default {
         ? this.selectedConversation.oldestTimestamp
         : this.selectedConversation.newestTimestamp;
 
-      return this.loadMore(type, timestamp);
-    },
-    loadMore (type, timestamp) {
       this.selectedConversation.page += 1;
-      return this.loadMessages(type, timestamp);
+
+      return this.loadMessages({ type, timestamp });
     },
-    async loadMessages (type, timestamp) {
+    async loadMessages ({ type, timestamp }) {
       this.messagesLoading[type] = true;
 
       let { searchMode } = this;
@@ -971,15 +970,15 @@ export default {
       const params = [`conversation=${conversationKey}`];
 
       if (searchMode) {
-        if (this.search) {
+        if (this.search && !this.jumpContextMode) {
           params.push(`searchMessage=${this.search}`);
         }
 
         if (timestamp) {
           if (type === 'before') {
-            params.push(`beforeTimestamp=${timestamp}`);
+            params.push(`beforeTimestamp=${encodeURIComponent(timestamp)}`);
           } else {
-            params.push(`afterTimestamp=${timestamp}`);
+            params.push(`afterTimestamp=${encodeURIComponent(timestamp)}`);
           }
         }
       } else {
@@ -1031,6 +1030,7 @@ export default {
     },
     triggerSearch: debounce(function triggerSearch () {
       this.searchMode = Boolean(this.search);
+      this.jumpContextMode = false;
       this.reload({
         search: this.search,
       });
@@ -1038,28 +1038,23 @@ export default {
     async jumpToContext (msg) {
       const selectedConversationKey = this.selectedConversation.key;
 
-      // reset
-      this.search = '';
-      this.loadedConversations = [];
-
-      // reload the conversations
-      await this.reload();
-
       const convoFound = this.conversations.find(conversation => conversation.key === selectedConversationKey);
 
       // re-select the conversation
       this.selectedConversation = convoFound || {};
 
-      Vue.nextTick(async () => {
-        // select conversation & load messages from selected
-        await this.loadMessages('before', msg.timestamp);
+      this.jumpContextMode = true;
 
-        // re-select the conversation
-        this.selectedConversation = convoFound || {};
-        this.selectedConversation.canLoadMore.after = true; // enable initial load button
-
-        this.scrollToBottom();
+      // select conversation & load messages from selected
+      await this.loadMessages({
+        type: 'before',
+        timestamp: msg.timestamp,
       });
+
+      // re-select the conversation
+      this.selectedConversation.canLoadMore.after = true; // enable initial load button
+
+      this.scrollToBottom();
     },
     scrollToBottom () {
       Vue.nextTick(() => {
