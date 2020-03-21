@@ -880,8 +880,15 @@ export default {
 
       this.scrollToBottom();
     },
-    sendPrivateMessage () {
+    async sendPrivateMessage () {
       if (!this.newMessage) return;
+
+      if (this.searchMode) {
+        // reset message list
+        this.selectedConversation.page = 0;
+        // reload current view
+        await this.loadMessages({ type: 'before', disableSearchMode: true });
+      }
 
       const messages = this.messagesByConversation[this.selectedConversation.key];
 
@@ -952,13 +959,17 @@ export default {
 
       return this.loadMessages({ type, timestamp });
     },
-    async loadMessages ({ type, timestamp }) {
+    async loadMessages ({ type, timestamp, disableSearchMode }) {
       this.messagesLoading[type] = true;
 
       let { searchMode } = this;
 
       if (type && timestamp) {
         searchMode = true;
+      }
+
+      if (disableSearchMode) {
+        searchMode = false;
       }
 
       // use local vars if the loading takes longer
