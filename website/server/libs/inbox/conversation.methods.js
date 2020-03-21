@@ -1,5 +1,6 @@
 import { inboxModel as Inbox, setUserStyles } from '../../models/message';
 import { model as User } from '../../models/user';
+import { createSearchParams } from './shared.methods';
 
 /**
  * Get the current user (avatar/setting etc) for conversations
@@ -42,16 +43,13 @@ async function usersMapByConversations (users) {
 }
 
 export async function listConversations (owner, searchMessage = null) {
-  const matchQuery = {
+  let matchQuery = {
     ownerId: owner._id,
   };
 
   if (searchMessage) {
-    const searchRegex = { $regex: new RegExp(`${searchMessage}`, 'i') };
-
-    matchQuery.text = searchRegex;
+    matchQuery = Object.assign(matchQuery, createSearchParams(searchMessage));
   }
-
 
   // group messages by user owned by logged-in user
   const query = Inbox

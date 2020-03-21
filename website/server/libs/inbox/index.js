@@ -1,6 +1,7 @@
 import { mapInboxMessage, inboxModel as Inbox } from '../../models/message';
 import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../pushNotifications';
+import { createSearchParams } from './shared.methods';
 
 export async function sentMessage (sender, receiver, message, translate) {
   const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
@@ -91,7 +92,7 @@ export async function searchUserInbox (user, optionParams = searchUserInboxDefau
   // if not all properties are passed, fill the default values
   const options = { ...searchUserInboxDefaultOptions, ...optionParams };
 
-  const findObj = { ownerId: user._id };
+  let findObj = { ownerId: user._id };
 
   if (options.conversation) {
     findObj.uuid = options.conversation;
@@ -107,9 +108,7 @@ export async function searchUserInbox (user, optionParams = searchUserInboxDefau
   }
 
   if (options.searchMessage) {
-    const searchRegex = { $regex: new RegExp(`${options.searchMessage}`, 'i') };
-
-    findObj.text = searchRegex;
+    findObj = Object.assign(findObj, createSearchParams(options.searchMessage));
   }
 
   const query = Inbox
