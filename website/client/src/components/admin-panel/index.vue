@@ -9,7 +9,7 @@
               v-model="heroID"
               class="form-control"
               type="text"
-              :placeholder="'User ID or Username'"
+              :placeholder="'User ID or Username; blank for your account'"
               :style="{ 'min-width': '45ch' }"
               @keyup.enter="loadHero(heroID)"
             >
@@ -456,7 +456,8 @@ export default {
 
       return finishedString;
     },
-    async loadHero (uuid) {
+    async loadHero (id) {
+      const uuid = id || this.user._id;
       const hero = await this.$store.dispatch('hall:getHero', { uuid });
       this.hero = { ...hero };
       if (!this.hero.flags) {
