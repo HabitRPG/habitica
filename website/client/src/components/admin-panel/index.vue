@@ -193,17 +193,17 @@
           <div class="accordion">
             <div
               class="accordion-group"
-              heading="Items"
+              heading="Update Items"
             >
               <h3
                 class="expand-toggle"
-                :class="{'open': expandItems}"
-                @click="expandItems = !expandItems"
+                :class="{'open': expandUpdateItems}"
+                @click="expandUpdateItems = !expandUpdateItems"
               >
                 Update Items
               </h3>
               <div
-                v-if="expandItems"
+                v-if="expandUpdateItems"
                 class="form-group well"
               >
                 <input
@@ -380,6 +380,7 @@ export default {
       expandParty: false,
       expandAvatar: false,
       expandItems: false,
+      expandUpdateItems: false,
       expandContrib: false,
     };
   },
@@ -485,6 +486,7 @@ export default {
       this.expandParty = false;
       this.expandAvatar = false;
       this.expandItems = true; // XXX false
+      this.expandUpdateItems = false;
       this.expandContrib = false; // XXX true
     },
     async saveHero () {
