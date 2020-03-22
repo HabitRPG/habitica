@@ -190,6 +190,56 @@
             </div>
           </div>
 
+          <div class="accordion-group">
+            <h3
+              class="expand-toggle"
+              :class="{'open': expandItems}"
+              @click="expandItems = !expandItems"
+            >
+              Items
+            </h3>
+            <div v-if="expandItems">
+              <div v-for="itemType in itemTypes" :key="itemType">
+                <div class="accordion-group">
+                  <h4
+                    class="expand-toggle"
+                    :class="{'open': expandItemType[itemType]}"
+                    @click="expandItemType[itemType] = !expandItemType[itemType]"
+                  >
+                    {{ itemType }}
+                  </h4>
+                  <div v-if="expandItemType[itemType]">
+                    <p v-if="itemType === 'pets'">
+                      A value of -1 means they owned the Pet but Released it.
+                    </p>
+                    <p v-if="itemType === 'mounts'">
+                      A value of NULL means they owned the Mount but Released it.
+                    </p>
+                    <p v-if="itemType === 'special'">
+                      When there are 0 of these items, we can't tell if
+                      they had been owned and were all used, or have never been owned.
+                    </p>
+                    <p v-if="itemType === 'gear'">
+                      A value of true means they own the item now and can wear it.
+                      A value of false means they used to own it but lost it from Death
+                      (or an old Rebirth).
+                    </p>
+
+                    <ul>
+                      <li v-for="item in collatedItemData[itemType]" :key="item.key"
+                        class="form-group form-inline">
+                        <button class="form-control btn btn-primary"
+                          @click="changeData(item.path, item.value)">Change</button>
+                        <span>{{ item.valueForDisplay }} : </span>
+                        <span v-bind:class="{ ownedItem: !item.neverOwned }">{{ item.key }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="accordion">
             <div
               class="accordion-group"
@@ -206,18 +256,23 @@
                 v-if="expandUpdateItems"
                 class="form-group well"
               >
+                <p>
+                  TIP: First find the item in the "Items" section above and
+                  click its "Change" button.
+                  The item path and current value (if any) will be inserted below.
+                </p>
                 <input
                   v-model="hero.itemPath"
                   class="form-control"
                   type="text"
-                  placeholder="Path (eg, items.pets.BearCub-Base)"
                 >
                 <small class="muted">
-                  Enter the
-                  <strong>item path</strong>. E.g.,
+                  Enter the <strong>item path</strong>. E.g.,
                   <code>items.pets.BearCub-Zombie</code> or
                   <code>items.gear.owned.head_special_0</code> or
-                  <code>items.gear.equipped.head</code>. You can find all the item paths below.
+                  <code>items.gear.equipped.head</code>.
+                  You can find all the items in the "Item" section above.
+                  The "Change" buttons will insert the path and the current value automatically.
                 </small>
                 <br>
                 <input
@@ -227,11 +282,10 @@
                   placeholder="Value (eg, 5)"
                 >
                 <small class="muted">
-                  Enter the
-                  <strong>item value</strong>. E.g.,
+                  Enter the <strong>item value</strong>. E.g.,
                   <code>5</code> or
                   <code>false</code> or
-                  <code>head_warrior_3</code>. All values are listed in the All Item Paths section below. <!-- eslint-disable-line max-len -->
+                  <code>head_warrior_3</code>.
                 </small>
                 <div class="accordion">
                   <div
@@ -244,7 +298,6 @@
                     class="accordion-group"
                     heading="Current Items"
                   >
-                    <pre>{{ hero.items }}</pre>
                   </div>
                 </div>
                 <div class="form-group">
@@ -326,10 +379,16 @@
 </template>
 
 <style lang="scss" scoped>
+  .accordion-group .accordion-group {
+    margin-left: 1em;
+  }
   h3 {
     margin-top: 2em;
   }
-  h3.expand-toggle::after {
+  h4 {
+    margin-top: 1em;
+  }
+  .expand-toggle::after {
     margin-left: 5px;
   }
   .subsection-start {
@@ -337,9 +396,12 @@
   }
   .form-inline {
     margin-bottom: 1em;
-    input {
-      margin-left: 10px;
+    input, span {
+      margin-left: 5px;
     }
+  }
+  .ownedItem {
+    font-weight: bold;
   }
 </style>
 
@@ -371,17 +433,30 @@ export default {
       quests,
       mountInfo,
       petInfo,
-      food: content.food,
+      content, // XXX TODO remove this so that we're not loading the whole content...
+      food: content.food, // XXX TODO                 ... use lines like this instead
       hatchingPotions: content.hatchingPotions,
       special: content.special,
       gear,
+      collatedItemData: {},
       expandPriv: false,
       expandAuth: false,
       expandParty: false,
       expandAvatar: false,
       expandItems: false,
+      expandItemType: {
+        eggs: false,
+        hatchingPotions: false,
+        food: false,
+        pets: false,
+        mounts: false,
+        quests: false,
+        gear: false,
+        special: false,
+      },
       expandUpdateItems: false,
       expandContrib: false,
+      itemTypes: ['eggs', 'hatchingPotions', 'food', 'pets', 'mounts', 'quests', 'gear', 'special'],
     };
   },
   computed: {
@@ -462,7 +537,7 @@ export default {
       //
       // return data;
     },
-    getFormattedItemReference (pathPrefix, itemKeys, values) { // XXX check if this is used
+    getFormattedItemReference (pathPrefix, itemKeys, values) { // XXX_SOON delete
       let finishedString = '\n'.concat('path: ', pathPrefix, ', ', 'value: {', values, '}\n');
 
       each(itemKeys, key => {
@@ -470,6 +545,75 @@ export default {
       });
 
       return finishedString;
+    },
+
+    collateItemData () {
+      // items.special includes many items but we are interested in these only:
+      const specialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+
+      const collatedItemData = {};
+      this.itemTypes.forEach(itemType => {
+        let basePath = `items.${itemType}`;
+        let ownedItems = this.hero.items[itemType] || {};
+        let allItems = content[itemType];
+        if (itemType === 'gear') {
+          basePath = 'items.gear.owned';
+          ownedItems = this.hero.items.gear.owned || {};
+          allItems = content.gear.flat;
+        }
+        const itemData = [];
+
+        for (const key of Object.keys(ownedItems)) {
+          // Do not sort keys. Order in the items object gives hints about order received.
+
+          if (itemType !== 'special' || specialItems.includes(key)) {
+            // we want null values shown as visible text (e.g., Mounts that were Released)
+            const value = ownedItems[key];
+            const valueForDisplay = (value === null) ? 'NULL' : value;
+            itemData.push({
+              neverOwned: false,
+              key,
+              path: `${basePath}.${key}`,
+              value,
+              valueForDisplay,
+            });
+          }
+        }
+
+        for (const key of Object.keys(allItems).sort()) {
+          // These are never-owned items so we sort by key for convenient viewing.
+
+          if (!(key in ownedItems) && (itemType !== 'special' || specialItems.includes(key))) {
+            // these types of items have true/false/null values (all other have integers):
+            const booleanTypes = ['mounts', 'gear'];
+
+            let value;
+            let valueForDisplay;
+            if (booleanTypes.includes(itemType)) {
+              value = ''; // we want no default value in the "Update Items" input box
+              valueForDisplay = 'never owned';
+            } else {
+              value = 0;
+              valueForDisplay = '0 (never owned)';
+            }
+            itemData.push({
+              neverOwned: true,
+              key,
+              path: `${basePath}.${key}`,
+              value,
+              valueForDisplay,
+            });
+          }
+        }
+        collatedItemData[itemType] = itemData;
+      });
+      return collatedItemData;
+    },
+    changeData (path, currentValue) {
+      this.expandUpdateItems = true;
+      this.expandItems = false;
+      this.hero.itemPath = path;
+      this.hero.itemVal = currentValue;
     },
     async loadHero (id) {
       const uuid = id || this.user._id;
@@ -481,13 +625,15 @@ export default {
           chatShadowMuted: false,
         };
       }
-      this.expandPriv = false; // XXX true
+      this.collatedItemData = this.collateItemData();
+      this.expandPriv = false;
       this.expandAuth = false;
       this.expandParty = false;
       this.expandAvatar = false;
-      this.expandItems = true; // XXX false
+      this.expandItems = false;
       this.expandUpdateItems = false;
-      this.expandContrib = false; // XXX true
+      this.expandContrib = false;
+      this.itemTypes.forEach(itemType => { this.expandItemType[itemType] = false; });
     },
     async saveHero () {
       this.hero.contributor.admin = this.hero.contributor.level > 7;
