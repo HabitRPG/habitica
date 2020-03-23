@@ -8,9 +8,15 @@ const POOL_SIZE = nconf.get('MONGODB_POOL_SIZE');
 
 // Do not connect to MongoDB when in maintenance mode
 if (MAINTENANCE_MODE !== 'true') {
-  const mongooseOptions = !IS_PROD ? {} : {
+  const commonOptions = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  };
+
+  const mongooseOptions = !IS_PROD ? commonOptions : {
     keepAlive: 120,
     connectTimeoutMS: 30000,
+    ...commonOptions,
   };
 
   if (POOL_SIZE) mongooseOptions.poolSize = Number(POOL_SIZE);
