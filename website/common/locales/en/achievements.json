@@ -13,7 +13,7 @@
   "showAllAchievements": "Show All <%= category %>",
   "hideAchievements": "Hide <%= category %>",
   "foundNewItems": "You found new items!",
-  "foundNewItemsExplanation": "Completing tasks gives you a chance to find items, like eggs, hatching potions, and food.",
+  "foundNewItemsExplanation": "Completing tasks gives you a chance to find items, like Eggs, Hatching Potions, and Pet Food.",
   "foundNewItemsCTA": "Head to your Inventory and try combining your new hatching potion and egg!",
   "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
   "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
