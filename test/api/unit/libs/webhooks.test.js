@@ -414,8 +414,8 @@ describe('webhooks', () => {
         user = await User.findById(user._id).exec();
 
         expect(user.webhooks[0].failures).to.equal(1);
-        expect(user.webhooks[0].lastFailureAt.toLocaleString())
-          .to.equal((new Date()).toLocaleString());
+        // Check that the stored date is whitin 10s from now
+        expect((Date.now() - user.webhooks[0].lastFailureAt.getTime()) < 10000).to.be.true;
       });
     });
   });
