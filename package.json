@@ -47,7 +47,7 @@
     "moment": "^2.24.0",
     "moment-recur": "^1.0.7",
     "mongoose": "^5.9.3",
-    "morgan": "^1.7.0",
+    "morgan": "^1.10.0",
     "nconf": "^0.10.0",
     "node-gcm": "^1.0.2",
     "pageres": "^5.1.0",
