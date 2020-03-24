@@ -376,8 +376,7 @@ describe('webhooks', () => {
         user = await User.findById(user._id).exec();
 
         expect(user.webhooks[0].failures).to.equal(1);
-        expect(user.webhooks[0].lastFailureAt.toLocaleString())
-          .to.equal((new Date()).toLocaleString());
+        expect((Date.now() - user.webhooks[0].lastFailureAt.getTime()) < 10000).to.be.true;
       });
 
       it('disables a webhook after 10 failures', async () => {
