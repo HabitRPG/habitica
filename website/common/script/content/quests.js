@@ -514,7 +514,7 @@ const quests = {
     value: 1,
     category: 'pet',
     canBuy () {
-      return false;
+      return true;
     },
     collect: {
       plainEgg: {
