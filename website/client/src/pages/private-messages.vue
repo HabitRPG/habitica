@@ -630,7 +630,16 @@ export default {
 
     await this.reload();
 
-    const data = this.$store.state.privateMessageOptions;
+    let data = this.$store.state.privateMessageOptions;
+    if ((!data || (data && !data.userIdToMessage)) && this.$route.query && this.$route.query.uuid) {
+      const res = await this.$store.dispatch('user:userLookup', { uuid: this.$route.query.uuid });
+      if (res && res.data && res.data.data) {
+        this.$store.dispatch('user:newPrivateMessageTo', {
+          member: res.data.data,
+        });
+        data = this.$store.state.privateMessageOptions;
+      }
+    }
 
     if (data && data.userIdToMessage) {
       this.initiatedConversation = {

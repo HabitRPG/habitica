@@ -10,10 +10,12 @@
           class="btn btn-secondary message-icon"
           @click="sendMessage()"
         >
-          <div
-            class="svg-icon message-icon"
-            v-html="icons.message"
-          ></div>
+          <a :href="'/private-messages?uuid=' + user._id">
+            <div
+              class="svg-icon message-icon"
+              v-html="icons.message"
+            ></div>
+          </a>
         </button>
         <button
           v-b-tooltip.hover.bottom="$t('sendGems')"
