@@ -19,7 +19,7 @@ function sendWebhook (webhook, body, user) {
     retry: 3, // retry the request up to 3 times
   }).catch(webhookErr => {
     // Log the error
-    logger.error(webhookErr);
+    logger.error(webhookErr, 'Error while sending a webhook request.');
 
     let _failuresReset = false;
 

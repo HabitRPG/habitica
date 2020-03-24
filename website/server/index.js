@@ -34,7 +34,7 @@ if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
   cluster.on('disconnect', worker => {
     const w = cluster.fork(); // replace the dead worker
 
-    logger.info('[%s] [master:%s] worker:%s disconnect! new worker:%s fork', new Date(), process.pid, worker.process.pid, w.process.pid);
+    logger.info(`[${new Date()}] [master:${process.pid}] worker:${worker.process.pid} disconnect! new worker:${w.process.pid} fork`);
   });
 } else {
   module.exports = require('./server.js');
