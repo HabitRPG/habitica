@@ -96,7 +96,17 @@ export const TaskSchema = new Schema({
     validate: [v => validator.isUUID(v), 'Invalid uuid for task tags.'],
   }],
   // redness or cost for rewards Required because it must be settable (for rewards)
-  value: { $type: Number, default: 0, required: true },
+  value: {
+    $type: Number,
+    default: 0,
+    required: true,
+    validate: {
+      validator (value) {
+        return this.type === 'reward' ? value >= 0 : true;
+      },
+      msg: 'Reward cost should be a positive number or 0.',
+    },
+  },
   priority: {
     $type: Number,
     default: 1,
