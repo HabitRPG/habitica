@@ -217,7 +217,8 @@ api.MarkNewsRead = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.flags.lastNewStuffRead = await NewsPost.lastNewsPostID();
+    const { id } = await NewsPost.lastNewsPost();
+    user.flags.lastNewStuffRead = id;
 
     await user.save();
     res.respond(200, {});
@@ -239,8 +240,8 @@ api.tellMeLaterNews = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.flags.lastNewStuffRead = await NewsPost.lastNewsPostID();
-    const title = await NewsPost.lastNewsPostTitle();
+    const { id, title } = await NewsPost.lastNewsPost();
+    user.flags.lastNewStuffRead = id;
 
     if (user.notifications) {
       const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');

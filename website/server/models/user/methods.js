@@ -492,8 +492,8 @@ schema.methods.isAdmin = function isAdmin () {
 };
 
 schema.methods.checkNewStuff = async function checkNewStuff () {
-  const lastNewsPostID = await NewsPost.lastNewsPostID();
-  return this.flags.lastNewStuffRead !== lastNewsPostID;
+  const { id } = await NewsPost.lastNewsPost();
+  return this.flags.lastNewStuffRead !== id;
 };
 
 // When converting to json add inbox messages from the Inbox collection

@@ -11,7 +11,7 @@ describe('POST /news', () => {
   });
 
   it('marks new stuff as read', async () => {
-    NewsPost.updateLastNewsPost({ id: '1234', publishDate: new Date() });
+    NewsPost.updateLastNewsPost({ id: '1234', publishDate: new Date(), title: 'Title' });
     await user.post('/news/read');
     await user.sync();
 

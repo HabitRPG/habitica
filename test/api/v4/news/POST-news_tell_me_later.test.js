@@ -7,8 +7,8 @@ describe('POST /news/tell-me-later', () => {
   let user;
 
   beforeEach(async () => {
-    user = await generateUser();
     NewsPost.updateLastNewsPost({ id: '1234', publishDate: new Date(), title: 'Title' });
+    user = await generateUser();
   });
 
   it('marks new stuff as read and adds notification', async () => {

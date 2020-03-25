@@ -54,40 +54,23 @@ schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 })
 
 const NEWS_CACHE_TIME = 5 * 60 * 1000;
 
-let cachedLastNewsPostID = null;
-let cachedLastNewsPostDate = null;
-let cachedLastNewsPostTitle = null;
+let cachedLastNewsPost = null;
 let timeStampCachedLastNews = null;
 
-schema.statics.lastNewsPostID = async function lastNewsPostID () {
-  if (!cachedLastNewsPostID || (new Date() - timeStampCachedLastNews) > NEWS_CACHE_TIME) {
+schema.statics.lastNewsPost = async function lastNewsPost () {
+  if (!cachedLastNewsPost || (new Date() - timeStampCachedLastNews) > NEWS_CACHE_TIME) {
     const lastPost = await this.getLastPost();
     if (lastPost) {
-      this.updateLastNewsPost(lastPost);
+      await this.updateLastNewsPost(lastPost);
     }
   }
-  return cachedLastNewsPostID;
-};
-
-schema.statics.lastNewsPostTitle = async function lastNewsPostTitle () {
-  if (!cachedLastNewsPostTitle || (new Date() - timeStampCachedLastNews) > NEWS_CACHE_TIME) {
-    const lastPost = await this.getLastPost();
-    if (lastPost) {
-      this.updateLastNewsPost(lastPost);
-    }
-  }
-  if (cachedLastNewsPostTitle) {
-    return cachedLastNewsPostTitle;
-  }
-  return '';
+  return cachedLastNewsPost;
 };
 
 schema.statics.updateLastNewsPost = async function updateLastNewsPost (newPost) {
-  if (cachedLastNewsPostID !== newPost.id) {
-    if (cachedLastNewsPostDate === undefined || cachedLastNewsPostDate < newPost.publishDate) {
-      cachedLastNewsPostID = newPost.id;
-      cachedLastNewsPostDate = newPost.publishDate;
-      cachedLastNewsPostTitle = newPost.title;
+  if (!cachedLastNewsPost || cachedLastNewsPost.id !== newPost.id) {
+    if (!cachedLastNewsPost || cachedLastNewsPost.publishDate < newPost.publishDate) {
+      cachedLastNewsPost = newPost;
       timeStampCachedLastNews = new Date();
     }
   }
