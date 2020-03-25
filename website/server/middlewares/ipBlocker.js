@@ -3,11 +3,9 @@ import {
   NotAuthorized,
 } from '../libs/errors';
 
-// TODO explain what it does and how it works
-// TODO prod only
-// TODO logging
-// TODO 401 or 403?
-
+// A list of comma separated IPs to block
+// It works fine as long as the list is short,
+// if the list becomes too long for an env variable we'll switch to Redis.
 const BLOCKED_IPS_RAW = nconf.get('BLOCKED_IPS');
 
 const blockedIps = BLOCKED_IPS_RAW
