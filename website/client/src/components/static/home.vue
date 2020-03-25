@@ -460,7 +460,7 @@
     }
 
     h3 {
-      font-size: 24px;
+      font-size: 32px;
     }
 
     .social-button {
@@ -491,7 +491,7 @@
       height: 18px;
       display: inline-block;
       vertical-align: top;
-      margin-top: .2em;
+      margin-top: .1em;
     }
 
     .strike {

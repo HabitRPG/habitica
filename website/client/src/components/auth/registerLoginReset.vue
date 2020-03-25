@@ -527,7 +527,7 @@
       height: 18px;
       display: inline-block;
       vertical-align: top;
-      margin-top: .2em;
+      margin-top: .1em;
     }
   }
 
