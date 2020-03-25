@@ -598,6 +598,7 @@ export default {
         mail,
       }),
       displayCreate: true,
+      hasPrivateMessageOptionsOnPageLoad: false,
       selectedConversation: {},
       search: '',
       newMessage: '',
@@ -612,6 +613,23 @@ export default {
       textareaAutoHeight: undefined,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      const data = vm.$store.state.privateMessageOptions;
+
+      if ((!data || (data && !data.userIdToMessage)) && vm.$route.query && vm.$route.query.uuid) {
+        vm.$store.dispatch('user:userLookup', { uuid: vm.$route.query.uuid }).then(res => {
+          if (res && res.data && res.data.data) {
+            vm.$store.dispatch('user:newPrivateMessageTo', {
+              member: res.data.data,
+            });
+          }
+        });
+      } else {
+        vm.hasPrivateMessageOptionsOnPageLoad = true;
+      }
+    });
   },
   async mounted () {
     // notification click to refresh
@@ -630,17 +648,10 @@ export default {
 
     await this.reload();
 
-    let data = this.$store.state.privateMessageOptions;
-    if ((!data || (data && !data.userIdToMessage)) && this.$route.query && this.$route.query.uuid) {
-      const res = await this.$store.dispatch('user:userLookup', { uuid: this.$route.query.uuid });
-      if (res && res.data && res.data.data) {
-        this.$store.dispatch('user:newPrivateMessageTo', {
-          member: res.data.data,
-        });
-        data = this.$store.state.privateMessageOptions;
-      }
-    }
+    // close members modal if the Private Messages page is opened in an existing tab
+    if (this.hasPrivateMessageOptionsOnPageLoad) this.$root.$emit('bv::hide::modal', 'members-modal');
 
+    const data = this.$store.state.privateMessageOptions;
     if (data && data.userIdToMessage) {
       this.initiatedConversation = {
         uuid: data.userIdToMessage,

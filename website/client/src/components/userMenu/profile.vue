@@ -5,18 +5,18 @@
   >
     <div class="header">
       <div class="profile-actions">
-        <button
-          v-b-tooltip.hover.left="$t('sendMessage')"
-          class="btn btn-secondary message-icon"
-          @click="sendMessage()"
-        >
-          <a :href="'/private-messages?uuid=' + user._id">
+        <router-link :to="{ path: '/private-messages', query: { uuid: user._id } }">
+          <button
+            v-b-tooltip.hover.left="$t('sendMessage')"
+            class="btn btn-secondary message-icon"
+            @click="sendMessage()"
+          >
             <div
               class="svg-icon message-icon"
               v-html="icons.message"
             ></div>
-          </a>
-        </button>
+          </button>
+        </router-link>
         <button
           v-b-tooltip.hover.bottom="$t('sendGems')"
           class="btn btn-secondary gift-icon"
@@ -864,8 +864,6 @@ export default {
       this.$store.dispatch('user:newPrivateMessageTo', {
         member: this.user,
       });
-
-      this.$router.push('/private-messages');
       this.$root.$emit('bv::hide::modal', 'profile');
     },
     getProgressDisplay () {
