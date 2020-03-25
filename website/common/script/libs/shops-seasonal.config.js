@@ -22,6 +22,7 @@ export default {
   ],
 
   availableQuests: [
+    'egg',
   ],
 
   featuredSet: 'spring2020PuddleMageSet',
