@@ -39,7 +39,7 @@
           @click="socialAuth('apple')"
         >
           <div
-            class="svg-icon social-icon"
+            class="svg-icon social-icon apple-icon"
             v-html="icons.appleIcon"
           ></div>
           <span>{{ registering
@@ -217,6 +217,11 @@
       height: 18px;
       display: inline-block;
       vertical-align: top;
+      margin-top: .1em;
+    }
+
+    .apple-icon {
+      margin-top: -1px;
     }
 
     small.form-text {

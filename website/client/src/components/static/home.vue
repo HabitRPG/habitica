@@ -131,7 +131,7 @@
                 @click="socialAuth('apple')"
               >
                 <div
-                  class="svg-icon social-icon"
+                  class="svg-icon social-icon apple-icon"
                   v-html="icons.appleIcon"
                 ></div>
                 <span>{{ $t('signUpWithSocial', {social: 'Apple'}) }}</span>
@@ -492,6 +492,10 @@
       display: inline-block;
       vertical-align: top;
       margin-top: .1em;
+    }
+
+    .apple-icon {
+      margin-top: -1px;
     }
 
     .strike {
