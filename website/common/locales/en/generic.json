@@ -304,5 +304,7 @@
   "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
   "contactForm": "Contact the Moderation Team",
   "loadEarlierMessages": "Load earlier Messages",
-  "loadNewerMessages": "Load newer Messages"
+  "loadNewerMessages": "Load newer Messages",
+  "viewingOlderMessagesOf": "Viewing older messages with \"<%= name %>\"",
+  "jumpToRecent": "Jump to recent messages"
 }

@@ -80,6 +80,20 @@
         </div>
       </div>
       <div class="messages-column d-flex flex-column align-items-center">
+        <!-- TODO: extract as sub components / merge? -->
+        <div class="jump-to-recent-bar"
+             v-if="selectedConversation && selectedConversationMessages.length > 0
+             && selectedConversation.searchMode">
+          <span>
+            <span>
+              {{ $t('viewingOlderMessagesOf', {name: selectedConversation.name})}}
+              </span>
+            <span class="divider"></span>
+            <span class="jump-to-recent" @click="jumpToRecent()">
+              {{ $t('jumpToRecent')}}
+            </span>
+          </span>
+        </div>
         <div
           v-if="filtersConversations.length === 0
             && (!selectedConversation || !selectedConversation.key)"
@@ -131,7 +145,7 @@
           v-if="selectedConversation && selectedConversationMessages.length > 0"
           ref="chatscroll"
           class="message-scroll"
-          :search-mode="searchMode"
+          :search-mode="selectedConversation.searchMode"
           :chat="selectedConversationMessages"
           :conversation-opponent-user="selectedConversation.userStyles"
           :can-load-more-before="selectedConversation.canLoadMore.before"
@@ -556,6 +570,32 @@
   .center-avatar {
     margin: 0 auto;
   }
+
+  .jump-to-recent-bar {
+    background-color: $blue-10;
+    width: 100%;
+    text-align: center;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: $white;
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      border: solid 1px $blue-100;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    .jump-to-recent {
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
 </style>
 
 <script>
@@ -717,6 +757,7 @@ export default {
             oldestTimestamp: null,
             newestTimestamp: null,
             page: 0,
+            searchMode: recentMessage.searchMode || false,
           };
 
           convos.push(convoModel);
@@ -844,6 +885,10 @@ export default {
 
       const conversationRes = await axios.get(query.join(''));
       this.loadedConversations = conversationRes.data.data;
+
+      for (const conv of this.loadedConversations) {
+        conv.searchMode = !!options.search;
+      }
 
       if (options.markAsRead) {
         await this.$store.dispatch('user:markPrivMessagesRead');
@@ -1062,7 +1107,6 @@ export default {
         timestamp: msg.timestamp,
       });
 
-      // re-select the conversation
       this.selectedConversation.canLoadMore.after = true; // enable initial load button
 
       this.scrollToBottom();
@@ -1073,6 +1117,23 @@ export default {
         const chatscroll = this.$refs.chatscroll.$el;
         chatscroll.scrollTop = chatscroll.scrollHeight;
       });
+    },
+    async jumpToRecent () {
+      const selectedConversationKey = this.selectedConversation.key;
+
+      const convoFound = this.conversations.find(conversation => conversation.key === selectedConversationKey);
+
+      // re-select the conversation
+      this.selectedConversation = convoFound || {};
+      this.selectedConversation.searchMode = false;
+
+      // select conversation & load messages from selected
+      await this.loadMessages({
+        type: 'before',
+        disableSearchMode: true,
+      });
+
+      this.scrollToBottom();
     },
   },
 };
