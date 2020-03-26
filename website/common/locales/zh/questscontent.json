@@ -95,7 +95,7 @@
     "questMoonstone3DropZombiePotion": "僵尸孵化药水",
     "questGroupGoldenknight": "黄金骑士",
     "questGoldenknight1Text": "黄金骑士，第1部：一场严肃的谈话",
-    "questGoldenknight1Notes": "黄金骑士得知了可怜的Habitica居民们的情况。<br><br>你们没有将每日任务全部完成？点击了一个不好的习惯？她会以此为理由来不断的骚扰你，教你怎样追寻她的脚步。她是完美的Habitica居民光辉的榜样，而你只不过是一个失败者。<br><br>好吧，这一点也不好！<br><br>所有人都会犯错。那些犯了错的人也不应因此就受到这样的否定。也许现在对你来说正是时候，从受到伤害的Habitica居民们那里收集一些证据，然后和黄金骑士来一场严肃的谈话！",
+    "questGoldenknight1Notes": "黄金骑士得知了可怜的Habitica居民们的情况。你们没有将每日任务全部完成？点击了一个不好的习惯？她会以此为理由来不断的骚扰你，教你怎样追寻她的脚步。她是完美的Habitica居民光辉的榜样，而你只不过是一个失败者。好吧，这一点也不好！所有人都会犯错。那些犯了错的人也不应因此就受到这样的否定。也许现在对你来说正是时候，从受到伤害的Habitica居民们那里收集一些证据，然后和黄金骑士来一场严肃的谈话！",
     "questGoldenknight1CollectTestimony": "证据",
     "questGoldenknight1Completion": "看看这些全部的证词！ 这当然足以说服黄金骑士。现在你需要做的就是找到她。",
     "questGoldenknight1DropGoldenknight2Quest": "黄金骑士，第2部：黄金骑士（卷轴）",
@@ -683,5 +683,5 @@
     "questRubyCollectAquariusRunes": "水瓶座卢恩",
     "questRubyUnlockText": "在市场上解锁红宝石孵化药水以购买",
     "questRubyDropRubyPotion": "红宝石孵化药水",
-    "questRubyText": "红宝石溶液"
+    "questRubyText": "红宝石的关系"
 }
