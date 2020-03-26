@@ -1315,7 +1315,7 @@ api.getGroupPlans = {
       .select('leaderOnly leader purchased name managers')
       .exec();
 
-    const groupPlans = groups.filter(group => group.isSubscribed());
+    const groupPlans = groups.filter(group => group.hasActiveGroupPlan());
 
     res.respond(200, groupPlans);
   },

@@ -73,6 +73,7 @@ async function createSubscription (data) {
   let itemPurchased = 'Subscription';
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
+  let recipientIsSubscribed = recipient.isSubscribed();
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -93,6 +94,7 @@ async function createSubscription (data) {
     itemPurchased = 'Group-Subscription';
     purchaseType = 'group-subscribe';
     emailType = 'group-subscription-begins';
+    recipientIsSubscribed = group.hasActiveGroupPlan();
     groupId = group._id;
     recipient.purchased.plan.quantity = data.sub.quantity;
 
@@ -105,7 +107,7 @@ async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!recipient.isSubscribed() || !plan.dateUpdated) plan.dateUpdated = today;
+      if (!recipientIsSubscribed || !plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({ months }).toDate();
       } else {
