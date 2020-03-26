@@ -71,12 +71,13 @@ function sendNotification (user, details = {}) {
             .then(response => {
               response.failed.forEach(failure => {
                 if (failure.error) {
-                  logger.error('APN error', failure.error);
+                  logger.error(new Error('APN error'), { failure });
                 } else {
-                  logger.error('APN transmissionError', failure.status, notification, failure.device);
+                  logger.error(new Error('APN transmissionError'), { failure, notification });
                 }
               });
-            });
+            })
+            .catch(err => logger.error(err, 'APN error'));
         }
         break;
     }
