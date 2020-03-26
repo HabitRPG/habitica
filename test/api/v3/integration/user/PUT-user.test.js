@@ -94,6 +94,30 @@ describe('PUT /user', () => {
         error: 'BadRequest',
         message: t('displaynameIssueSlur'),
       });
+
+      await expect(user.put('/user', {
+        'profile.name': 'TESTPLACEHOLDERSWEARWORDHERE',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('displaynameIssueSlur'),
+      });
+
+      await expect(user.put('/user', {
+        'profile.blurb': 'TESTPLACEHOLDERSLURWORDHERE',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('blurbIssueSlur'),
+      });
+
+      await expect(user.put('/user', {
+        'profile.blurb': 'TESTPLACEHOLDERSWEARWORDHERE',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('blurbIssueSlur'),
+      });
     });
   });
 
