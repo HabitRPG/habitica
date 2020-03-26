@@ -1677,7 +1677,7 @@ schema.methods.hasNotCancelled = function hasNotCancelled () {
   return Boolean(this.hasActiveGroupPlan() && !plan.dateTerminated);
 };
 
-schema.methods.hasCancelled = function hasNotCancelled () {
+schema.methods.hasCancelled = function hasCancelled () {
   const { plan } = this.purchased;
   return Boolean(this.hasActiveGroupPlan() && plan.dateTerminated);
 };
