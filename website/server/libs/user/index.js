@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import nconf from 'nconf';
 import common from '../../../common';
 import * as Tasks from '../../models/task';
 import {
@@ -7,7 +8,10 @@ import {
 } from '../errors';
 import { model as User, schema as UserSchema } from '../../models/user';
 import { stringContainsSlur, stringContainsBannedWord } from './validation';
+import { sendTxn, getUserInfo } from '../email';
+import * as slack from '../slack';
 
+const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
 
 export async function get (req, res, { isV3 = false }) {
   const { user } = res.locals;
@@ -115,6 +119,29 @@ export async function update (req, res, { isV3 = false }) {
     if (stringContainsSlur(newName)) {
       user.flags.chatRevoked = true;
       await user.save();
+
+      // Email the mods
+      const authorEmail = getUserInfo(user, ['email']).email;
+
+      const report = [
+        { name: 'PROFILE_NAME_CHANGE_TIME', content: (new Date()).toString() },
+        { name: 'PROFILE_NAME_CHANGE_TEXT', content: newName },
+
+        { name: 'AUTHOR_USERNAME', content: user.profile.name },
+        { name: 'AUTHOR_UUID', content: user._id },
+        { name: 'AUTHOR_EMAIL', content: authorEmail },
+        { name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}` },
+      ];
+
+      sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
+
+      // Slack the mods
+      slack.sendSlurNotification({
+        authorEmail,
+        author: user,
+        message: `Name change: "${newName}"`,
+      });
+
       throw new BadRequest(res.t('displaynameIssueSlur'));
     }
     if (stringContainsBannedWord(newName)) throw new BadRequest(res.t('displaynameIssueSlur'));
@@ -125,6 +152,29 @@ export async function update (req, res, { isV3 = false }) {
     if (stringContainsSlur(newBlurb)) {
       user.flags.chatRevoked = true;
       await user.save();
+
+      // Email the mods
+      const authorEmail = getUserInfo(user, ['email']).email;
+
+      const report = [
+        { name: 'PROFILE_BLURB_CHANGE_TIME', content: (new Date()).toString() },
+        { name: 'PROFILE_BLURB_CHANGE_TEXT', content: newBlurb },
+
+        { name: 'AUTHOR_USERNAME', content: user.profile.name },
+        { name: 'AUTHOR_UUID', content: user._id },
+        { name: 'AUTHOR_EMAIL', content: authorEmail },
+        { name: 'AUTHOR_MODAL_URL', content: `/profile/${user._id}` },
+      ];
+
+      sendTxn(FLAG_REPORT_EMAILS, 'slur-report-to-mods', report);
+
+      // Slack the mods
+      slack.sendSlurNotification({
+        authorEmail,
+        author: user,
+        message: `Blurb change: "${newBlurb}"`,
+      });
+
       throw new BadRequest(res.t('blurbIssueSlur'));
     }
     if (stringContainsBannedWord(newBlurb)) throw new BadRequest(res.t('blurbIssueSlur'));

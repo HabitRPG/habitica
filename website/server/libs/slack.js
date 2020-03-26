@@ -239,7 +239,7 @@ function sendShadowMutedPostNotification ({
 function sendSlurNotification ({
   authorEmail,
   author,
-  group,
+  group = undefined,
   message,
 }) {
   if (SKIP_FLAG_METHODS) {
@@ -248,14 +248,21 @@ function sendSlurNotification ({
   const text = `${author.profile.name} (${author._id}) tried to post a slur`;
 
   let titleLink;
-  let title = `Slur in ${group.name}`;
+  let title;
 
-  if (group.id === TAVERN_ID) {
-    titleLink = `${BASE_URL}/groups/tavern`;
-  } else if (group.privacy === 'public') {
-    titleLink = `${BASE_URL}/groups/guild/${group.id}`;
+  if (group !== undefined) {
+    title = `Slur in ${group.name}`;
+
+    if (group.id === TAVERN_ID) {
+      titleLink = `${BASE_URL}/groups/tavern`;
+    } else if (group.privacy === 'public') {
+      titleLink = `${BASE_URL}/groups/guild/${group.id}`;
+    } else {
+      title += ` - (${group.privacy} ${group.type})`;
+    }
   } else {
-    title += ` - (${group.privacy} ${group.type})`;
+    title = 'User tried to use a slur in their profile';
+    titleLink = `${BASE_URL}/profile/${author._id}`;
   }
 
   const authorName = formatUser({
