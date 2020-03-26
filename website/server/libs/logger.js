@@ -81,7 +81,7 @@ if (IS_PROD) {
       ),
     }))
     .add(new winston.transports.Console({
-      level: 'info', // info messages as text
+      level: 'info', // text part
       format: winston.format.combine(
         // Ignores warn and errors
         winston.format(info => {
@@ -93,8 +93,27 @@ if (IS_PROD) {
         })(),
         winston.format.timestamp(),
         winston.format.colorize(),
-        winston.format.splat(),
         winston.format.printf(info => `${info.timestamp} - ${info.level} ${info.message}`),
+      ),
+    }))
+    .add(new winston.transports.Console({
+      level: 'info', // json part
+      format: winston.format.combine(
+        // Ignores warn and errors
+        winston.format(info => {
+          if (info.level === 'error' || info.level === 'warn') {
+            return false;
+          }
+
+          // If there are only two keys (message and level) it means there's nothing
+          // to print as json
+          if (Object.keys(info).length <= 2) return false;
+
+          return info;
+        })(),
+        winston.format.prettyPrint({
+          colorize: true,
+        }),
       ),
     }));
 } else {
@@ -106,7 +125,27 @@ const loggerInterface = {
   info (...args) {
     if (!_config.loggingEnabled) return;
 
-    logger.info(...args);
+    const [_message, _data] = args;
+    const isMessageString = typeof _message === 'string';
+
+    const message = isMessageString ? _message : 'No message provided for log.';
+    let data;
+
+    if (args.length === 1) {
+      if (isMessageString) {
+        data = {};
+      } else {
+        data = { extraData: _message };
+      }
+    } else if (!isMessageString || args.length > 2) {
+      throw new Error('logger.info accepts up to two arguments: a message and an object with extra data to log.');
+    } else if (_.isPlainObject(_data)) {
+      data = _data;
+    } else {
+      data = { extraData: _data };
+    }
+
+    logger.info(message, data);
   },
 
   // Accepts two argument,
@@ -115,13 +154,27 @@ const loggerInterface = {
   // If the first argument isn't an Error, it'll call logger.error with all the arguments supplied
   error (...args) {
     if (!_config.loggingEnabled) return;
-    const [err, errorData = {}, ...otherArgs] = args;
+    const [err, _errorData] = args;
+
+    if (args.length > 2) {
+      throw new Error('logger.error accepts up to two arguments: an error and an object with extra data to log.');
+    }
+
+    let errorData = {};
+
+    if (typeof _errorData === 'string') {
+      errorData = { extraMessage: _errorData };
+    } else if (_.isPlainObject(_errorData)) {
+      errorData = _errorData;
+    } else if (_errorData) {
+      errorData = { extraData: _errorData };
+    }
 
     if (err instanceof Error) {
       // pass the error stack as the first parameter to logger.error
       const stack = err.stack || err.message || err;
 
-      if (_.isPlainObject(errorData) && !errorData.fullError) {
+      if (!errorData.fullError) {
         // If the error object has interesting data
         // (not only httpCode, message and name from the CustomError class)
         // add it to the logs
@@ -136,7 +189,7 @@ const loggerInterface = {
         }
       }
 
-      const loggerArgs = [stack, errorData, ...otherArgs];
+      const loggerArgs = [stack, errorData];
 
       // Treat 4xx errors that are handled as warnings, 5xx and uncaught errors as serious problems
       if (!errorData || !errorData.isHandledError || errorData.httpCode >= 500) {
@@ -145,7 +198,8 @@ const loggerInterface = {
         logger.warn(...loggerArgs);
       }
     } else {
-      logger.error(...args);
+      errorData.invalidErr = err;
+      logger.error('logger.error expects an Error instance', errorData);
     }
   },
 };

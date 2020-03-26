@@ -5,6 +5,26 @@ import moment from 'moment';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
+    if (moment().isBefore('2020-05-02')) {
+      return [
+        {
+          type: 'armoire',
+          path: 'armoire',
+        },
+        {
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.BirchBark',
+        },
+        {
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Shimmer',
+        },
+        {
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Celestial',
+        },
+      ];
+    }
     return [
       {
         type: 'armoire',

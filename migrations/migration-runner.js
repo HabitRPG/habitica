@@ -18,7 +18,7 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = () => {}; // require('').default;
+const processUsers = require('./tasks/rewards-flip-negative-costs').default;
 
 processUsers()
   .then(() => {

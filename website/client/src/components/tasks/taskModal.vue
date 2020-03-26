@@ -138,7 +138,8 @@
             class="inline-edit-input checklist-item form-control"
             type="text"
             :placeholder="$t('newChecklistItem')"
-            @keydown.enter="addChecklistItem($event)"
+            @keypress.enter="setHasPossibilityOfIMEConversion(false)"
+            @keyup.enter="addChecklistItem($event)"
           >
         </div>
         <div
@@ -1222,6 +1223,7 @@ export default {
         per: 'perception',
       },
       calendarHighlights: { dates: [new Date()] },
+      hasPossibilityOfIMEConversion: true,
     };
   },
   computed: {
@@ -1384,7 +1386,12 @@ export default {
       sorting.splice(data.newIndex, 0, movingItem);
       this.task.checklist = sorting;
     },
+    setHasPossibilityOfIMEConversion (bool) {
+      this.hasPossibilityOfIMEConversion = bool;
+    },
     addChecklistItem (e) {
+      if (e) e.preventDefault();
+      if (this.hasPossibilityOfIMEConversion) return;
       const checkListItem = {
         id: uuid.v4(),
         text: this.newChecklistItem,
@@ -1394,7 +1401,7 @@ export default {
       // @TODO: managing checklist separately to help with sorting on the UI
       this.checklist.push(checkListItem);
       this.newChecklistItem = null;
-      if (e) e.preventDefault();
+      this.setHasPossibilityOfIMEConversion(true);
     },
     removeChecklistItem (i) {
       this.task.checklist.splice(i, 1);

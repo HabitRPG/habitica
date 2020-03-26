@@ -248,7 +248,7 @@ api.exportUserAvatarPng = {
 
     let response;
     try {
-      response = await got.head(s3url);
+      response = await got.head(s3url); // TODO add timeout and retries
     } catch (gotError) {
       // If the file does not exist AWS S3 can return a 403 error
       if (gotError.code !== 'ENOTFOUND' && gotError.statusCode !== 404 && gotError.statusCode !== 403) {

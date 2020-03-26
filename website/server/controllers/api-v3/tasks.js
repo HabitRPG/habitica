@@ -105,7 +105,8 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                      for "Good habits"-
  * @apiParam (Body) {Boolean} [down=true] Only valid for type "habit" If true, enables
  *                                        the "-" under "Directions/Action" for "Bad habits"
- * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost in gold of the reward
+ * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost
+ *                                     in gold of the reward. Should be greater then or equal to 0.
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -174,6 +175,8 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                                     underscores and dashes.
  * @apiError (400) {BadRequest} Value-ValidationFailed `x` is not a valid enum value
  *                                                     for path `(body param)`.
+ * @apiError (400) {BadRequest} Value-ValidationFailed Reward cost should be a
+ *                                                      positive number or 0.`.
  * @apiError (401) {NotAuthorized} NoAccount There is no account that uses those credentials.
  *
  * @apiErrorExample {json} Error-Response:
