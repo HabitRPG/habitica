@@ -207,8 +207,8 @@ const loggerInterface = {
 // Logs unhandled promises errors
 // when no catch is attached to a promise a unhandledRejection event will be triggered
 // reason is the error, p the promise where it originated
-process.on('unhandledRejection', (reason, p) => {
-  loggerInterface.error(reason, 'unhandledPromiseRejection at', p);
+process.on('unhandledRejection', (reason, promise) => {
+  loggerInterface.error(reason, { message: 'unhandledPromiseRejection', promise });
 });
 
 export default loggerInterface;
