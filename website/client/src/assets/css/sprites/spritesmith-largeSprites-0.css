@@ -70,6 +70,12 @@
   width: 96px;
   height: 69px;
 }
+.scene_QuartzFox {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -316px -307px;
+  width: 141px;
+  height: 147px;
+}
 .scene_dailies {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -624px 0px;
