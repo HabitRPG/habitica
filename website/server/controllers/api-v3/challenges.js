@@ -19,7 +19,7 @@ import * as Tasks from '../../models/task';
 import csvStringify from '../../libs/csvStringify';
 import {
   createTasks,
-} from '../../libs/taskManager';
+} from '../../libs/tasks';
 
 import {
   addUserJoinChallengeNotification,
@@ -556,6 +556,7 @@ api.getChallenge = {
     const chalLeader = await User.findById(chalRes.leader).select(nameFields).exec();
     chalRes.leader = chalLeader ? chalLeader.toJSON({ minimize: true }) : null;
 
+    console.log(chalRes);
     res.respond(200, chalRes);
   },
 };

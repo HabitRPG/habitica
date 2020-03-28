@@ -28,7 +28,6 @@ describe('DELETE /tasks/:id', () => {
 
     it('deletes a user\'s task', async () => {
       await user.del(`/tasks/${task._id}`);
-
       await expect(user.get(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',

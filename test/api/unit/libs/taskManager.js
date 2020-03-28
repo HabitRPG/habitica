@@ -3,7 +3,7 @@ import {
   getTasks,
   syncableAttrs,
   moveTask,
-} from '../../../../website/server/libs/taskManager';
+} from '../../../../website/server/libs/tasks';
 import i18n from '../../../../website/common/script/i18n';
 import shared from '../../../../website/common/script';
 import {

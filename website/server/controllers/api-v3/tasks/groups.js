@@ -11,7 +11,7 @@ import {
   createTasks,
   getTasks,
   moveTask,
-} from '../../../libs/taskManager';
+} from '../../../libs/tasks';
 import { handleSharedCompletion } from '../../../libs/groupTasks';
 import apiError from '../../../libs/apiError';
 
