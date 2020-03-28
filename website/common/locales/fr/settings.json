@@ -203,7 +203,7 @@
     "goToSettings": "Voir les paramètres",
     "usernameVerifiedConfirmation": "Votre identifiant, <%= username %>, est confirmé !",
     "usernameNotVerified": "Veuillez confirmer votre identifiant.",
-    "changeUsernameDisclaimer": "Cet identifiant sera utilisé pour les invitations, les @mentions dans les discussion, et les messages.",
+    "changeUsernameDisclaimer": "Cet identifiant sera utilisé pour les invitations, les @mentions dans les discussions, et les messages.",
     "verifyUsernameVeteranPet": "Un de ces familiers vétérans t'attendra quand tu auras validé !",
     "subscriptionReminders": "Rappels d'abonnements",
     "newPMNotificationTitle": "Nouveau message de <%= name %>",

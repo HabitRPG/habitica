@@ -203,7 +203,7 @@
     "goToSettings": "Gehe zu Einstellungen",
     "usernameVerifiedConfirmation": "Dein Benutzername, <%= username %>, ist bestätigt!",
     "usernameNotVerified": "Bitte bestätige Deinen Benutzernamen.",
-    "changeUsernameDisclaimer": "Dieser Benutzername wird für Einladungen, @Erwähnungen im Chat und Nachrichten verwendet werden.",
+    "changeUsernameDisclaimer": "Dein Benutzername wird für Einladungen, @Erwähnungen im Chat und Nachrichten verwendet. Er muss zwischen 1 und 20 Zeichen haben, darf nur Buchstaben von a bis z, Ziffern von 0 bis 9, Bindestriche oder Unterstriche beinhalten und darf keine unpassenden Ausdrücke enthalten.",
     "verifyUsernameVeteranPet": "Eines dieser Veteranen-Haustiere wartet auf Dich wenn Du die Bestätigung abgeschlossen hast!",
     "subscriptionReminders": "Abonnement-Erinnerung",
     "newPMNotificationTitle": "Neue Nachricht von <%= name %>",
