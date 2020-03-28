@@ -17,6 +17,14 @@ const apnProvider = APN_ENABLED ? new apn.Provider({
   production: true,
 }) : undefined;
 
+function removePushDevice (user, pushDevice) {
+  return user.update({
+    $pull: { pushDevices: { regId: pushDevice.regId } },
+  }).exec().catch(err => {
+    logger.error(err, `Error removing push device ${pushDevice.regId} for user ${user._id}`);
+  });
+}
+
 function sendNotification (user, details = {}) {
   if (!user) throw new Error('User is required.');
   if (user.preferences.pushNotifications.unsubscribeFromAll === true) return;
@@ -43,10 +51,29 @@ function sendNotification (user, details = {}) {
 
           fcmSender.send(message, {
             registrationTokens: [pushDevice.regId],
-          }, 10, (err, result) => {
+          }, 10, (err, response) => {
             if (err) logger.error(err, 'Unhandled FCM error.');
 
             // Handle failed push notifications deliveries
+            // Note that we're always sending to one device, not multiple
+            const failed = response.results[0].error;
+
+            if (failed != null) {
+              // See https://firebase.google.com/docs/cloud-messaging/http-server-ref#table9
+              // for the list of errors
+
+              // The regId is not valid anymore, remove it
+              if (failed === 'NotRegistered') {
+                removePushDevice(user, pushDevice);
+                logger.error(new Error('FCM error, removing pushDevice'), {
+                  response, regId: pushDevice.regId, userId: user._id,
+                });
+              } else {
+                logger.error(new Error('FCM error'), {
+                  response, regId: pushDevice.regId, userId: user._id,
+                });
+              }
+            }
           });
         }
         break;
@@ -67,10 +94,23 @@ function sendNotification (user, details = {}) {
             .then(response => {
               // Handle failed push notifications deliveries
               response.failed.forEach(failure => {
-                if (failure.error) {
-                  logger.error(new Error('APN error'), { failure });
-                } else {
-                  logger.error(new Error('APN transmissionError'), { failure, notification });
+                if (failure.error) { // generic error
+                  logger.error(new Error('APN error'), {
+                    response, regId: pushDevice.regId, userId: user._id,
+                  });
+                } else { // rejected
+                  // see https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html#//apple_ref/doc/uid/TP40008194-CH11-SW17
+                  // for a list of rejection reasons
+                  const { reason } = failure.response;
+                  if (reason === 'Unregistered') {
+                    logger.error(new Error('APN error, removing pushDevice'), {
+                      response, regId: pushDevice.regId, userId: user._id,
+                    });
+                  } else {
+                    logger.error(new Error('APN error'), {
+                      response, regId: pushDevice.regId, userId: user._id,
+                    });
+                  }
                 }
               });
             })
