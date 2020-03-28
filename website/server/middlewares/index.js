@@ -58,11 +58,11 @@ export default function attachMiddlewares (app, server) {
 
   app.use(maintenanceMode);
 
+  app.use(ipBlocker);
+
   app.use(cors);
   app.use(forceSSL);
   app.use(forceHabitica);
-
-  app.use(ipBlocker);
 
   app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware
