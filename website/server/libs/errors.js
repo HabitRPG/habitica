@@ -41,6 +41,19 @@ export const { BadRequest } = common.errors;
  */
 export const { NotFound } = common.errors;
 
+/**
+ * @apiDefine Forbidden
+ * @apiError Forbidden The requested resource was not found.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 403 Forbidden
+ *     {
+ *       "error": "Forbidden",
+ *       "message": "Access forbidden."
+ *     }
+ */
+export const { Forbidden } = common.errors;
+
 
 /**
  * @apiDefine NotificationNotFound
