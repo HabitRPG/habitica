@@ -15,7 +15,11 @@ import apiError from '../libs/apiError';
 const BLOCKED_IPS_RAW = nconf.get('BLOCKED_IPS');
 
 const blockedIps = BLOCKED_IPS_RAW
-  ? BLOCKED_IPS_RAW.split(',').map(blockedIp => blockedIp.trim())
+  ? BLOCKED_IPS_RAW
+    .trim()
+    .split(',')
+    .map(blockedIp => blockedIp.trim())
+    .filter(blockedIp => Boolean(blockedIp))
   : [];
 
 export default function ipBlocker (req, res, next) {
@@ -49,7 +53,7 @@ export default function ipBlocker (req, res, next) {
 
   if (match === true) {
     // Not translated because no user is loaded at this point
-    throw new Forbidden(apiError('ipAddressBlocked'));
+    return next(new Forbidden(apiError('ipAddressBlocked')));
   }
 
   return next();
