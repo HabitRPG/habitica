@@ -5,23 +5,17 @@ import gcmLib from 'node-gcm'; // works with FCM notifications too
 import logger from './logger';
 
 const FCM_API_KEY = nconf.get('PUSH_CONFIGS_FCM_SERVER_API_KEY');
-
 const fcmSender = FCM_API_KEY ? new gcmLib.Sender(FCM_API_KEY) : undefined;
 
-let apnProvider;
-// Load APN certificate and key from S3
 const APN_ENABLED = nconf.get('PUSH_CONFIGS_APN_ENABLED') === 'true';
-
-if (APN_ENABLED) {
-  apnProvider = APN_ENABLED ? new apn.Provider({
-    token: {
-      key: nconf.get('PUSH_CONFIGS_APN_KEY'),
-      keyId: nconf.get('PUSH_CONFIGS_APN_KEY_ID'),
-      teamId: nconf.get('PUSH_CONFIGS_APN_TEAM_ID'),
-    },
-    production: true,
-  }) : undefined;
-}
+const apnProvider = APN_ENABLED ? new apn.Provider({
+  token: {
+    key: nconf.get('PUSH_CONFIGS_APN_KEY'),
+    keyId: nconf.get('PUSH_CONFIGS_APN_KEY_ID'),
+    teamId: nconf.get('PUSH_CONFIGS_APN_TEAM_ID'),
+  },
+  production: true,
+}) : undefined;
 
 function sendNotification (user, details = {}) {
   if (!user) throw new Error('User is required.');
@@ -49,8 +43,10 @@ function sendNotification (user, details = {}) {
 
           fcmSender.send(message, {
             registrationTokens: [pushDevice.regId],
-          }, 10, err => {
-            if (err) logger.error(err, 'FCM Error');
+          }, 10, (err, result) => {
+            if (err) logger.error(err, 'Unhandled FCM error.');
+
+            // Handle failed push notifications deliveries
           });
         }
         break;
@@ -69,6 +65,7 @@ function sendNotification (user, details = {}) {
           });
           apnProvider.send(notification, pushDevice.regId)
             .then(response => {
+              // Handle failed push notifications deliveries
               response.failed.forEach(failure => {
                 if (failure.error) {
                   logger.error(new Error('APN error'), { failure });
@@ -77,7 +74,7 @@ function sendNotification (user, details = {}) {
                 }
               });
             })
-            .catch(err => logger.error(err, 'APN error'));
+            .catch(err => logger.error(err, 'Unhandled APN error.'));
         }
         break;
     }
