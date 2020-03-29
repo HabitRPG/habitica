@@ -4,7 +4,7 @@
     "armoireText": "魔法衣櫥",
     "armoireNotesFull": "打開魔法衣櫥可隨機獲得特殊裝備、經驗值、或食物！剩餘裝備數量:",
     "armoireLastItem": "您在魔法衣櫥裡找到最後一件稀有裝備。",
-    "armoireNotesEmpty": "每個月的第一個禮拜，魔法衣櫥都將會推出新的裝備。在那之前，請繼續購買魔法衣櫥以獲得經驗和食物！",
+    "armoireNotesEmpty": "每個月的第一個星期衣櫥裡會有新的裝備，到時記得常點進來獲得經驗和寵物食品！",
     "dropEggWolfText": "狼",
     "dropEggWolfMountText": "狼",
     "dropEggWolfAdjective": "一隻忠誠的",
@@ -354,5 +354,6 @@
     "premiumPotionUnlimitedNotes": "無法用於副本寵物蛋。",
     "hatchingPotionAurora": "極光",
     "hatchingPotionAmber": "琥珀",
-    "hatchingPotionRuby": "紅寶石"
+    "hatchingPotionRuby": "紅寶石",
+    "hatchingPotionBirchBark": "樺樹皮"
 }

@@ -349,6 +349,7 @@ import habitIcon from '@/assets/svg/habit.svg';
 import dailyIcon from '@/assets/svg/daily.svg';
 import todoIcon from '@/assets/svg/todo.svg';
 import rewardIcon from '@/assets/svg/reward.svg';
+import { EVENTS } from '@/libs/events';
 
 export default {
   components: {
@@ -505,7 +506,7 @@ export default {
     });
 
     if (this.type !== 'todo') return;
-    this.$root.$on('habitica::resync-completed', () => {
+    this.$root.$on(EVENTS.RESYNC_COMPLETED, () => {
       if (this.activeFilter.label !== 'complete2') return;
       this.loadCompletedTodos();
     });
@@ -513,7 +514,7 @@ export default {
   destroyed () {
     this.$root.$off('buyModal::boughtItem');
     if (this.type !== 'todo') return;
-    this.$root.$off('habitica::resync-requested');
+    this.$root.$off(EVENTS.RESYNC_COMPLETED);
   },
   methods: {
     ...mapActions({

@@ -1,4 +1,5 @@
 import got from 'got';
+import moment from 'moment';
 import {
   WebhookSender,
   taskScoredWebhook,
@@ -13,6 +14,7 @@ import {
 import {
   generateUser,
   defer,
+  sleep,
 } from '../../../helpers/api-unit.helper';
 
 
@@ -320,6 +322,99 @@ describe('webhooks', () => {
       expect(got.post).to.be.calledWithMatch('http://other-url.com', {
         body,
         json: true,
+      });
+    });
+
+    describe('failures', () => {
+      let sendWebhook;
+
+      beforeEach(async () => {
+        sandbox.restore();
+        sandbox.stub(got, 'post').returns(Promise.reject());
+
+        sendWebhook = new WebhookSender({ type: 'taskActivity' });
+        user.webhooks = [{
+          url: 'http://custom-url.com', enabled: true, type: 'taskActivity',
+        }];
+        await user.save();
+
+        expect(user.webhooks[0].failures).to.equal(0);
+        expect(user.webhooks[0].lastFailureAt).to.equal(undefined);
+      });
+
+      it('does not increase failures counter if request is successfull', async () => {
+        sandbox.restore();
+        sandbox.stub(got, 'post').returns(Promise.resolve());
+
+        const body = {};
+        sendWebhook.send(user, body);
+
+        expect(got.post).to.be.calledOnce;
+        expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+          json: true,
+          body,
+        });
+
+        await sleep(0.1);
+        user = await User.findById(user._id).exec();
+
+        expect(user.webhooks[0].failures).to.equal(0);
+        expect(user.webhooks[0].lastFailureAt).to.equal(undefined);
+      });
+
+      it('records failures', async () => {
+        const body = {};
+        sendWebhook.send(user, body);
+
+        expect(got.post).to.be.calledOnce;
+        expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+          json: true,
+          body,
+        });
+
+        await sleep(0.1);
+        user = await User.findById(user._id).exec();
+
+        expect(user.webhooks[0].failures).to.equal(1);
+        expect((Date.now() - user.webhooks[0].lastFailureAt.getTime()) < 10000).to.be.true;
+      });
+
+      it('disables a webhook after 10 failures', async () => {
+        const times = 10;
+        for (let i = 0; i < times; i += 1) {
+          sendWebhook.send(user, {});
+          await sleep(0.1); // eslint-disable-line no-await-in-loop
+          user = await User.findById(user._id).exec(); // eslint-disable-line no-await-in-loop
+        }
+
+        expect(got.post).to.be.callCount(10);
+        expect(got.post).to.be.calledWithMatch('http://custom-url.com');
+
+        await sleep(0.1);
+        user = await User.findById(user._id).exec();
+
+        expect(user.webhooks[0].enabled).to.equal(false);
+        expect(user.webhooks[0].failures).to.equal(0);
+      });
+
+      it('resets failures after a month ', async () => {
+        const oneMonthAgo = moment().subtract(1, 'months').subtract(1, 'days').toDate();
+        user.webhooks[0].lastFailureAt = oneMonthAgo;
+        user.webhooks[0].failures = 9;
+
+        await user.save();
+
+        sendWebhook.send(user, []);
+
+        expect(got.post).to.be.calledOnce;
+        expect(got.post).to.be.calledWithMatch('http://custom-url.com');
+
+        await sleep(0.1);
+        user = await User.findById(user._id).exec();
+
+        expect(user.webhooks[0].failures).to.equal(1);
+        // Check that the stored date is whitin 10s from now
+        expect((Date.now() - user.webhooks[0].lastFailureAt.getTime()) < 10000).to.be.true;
       });
     });
   });

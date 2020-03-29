@@ -490,5 +490,8 @@
     "userWithUsernameOrUserIdNotFound": "找不到使用者名稱或者UUID。",
     "usernameOrUserId": "使用者名稱或者UUID",
     "sendGiftToWhom": "你想送禮物給誰？",
-    "selectGift": "選擇禮物"
+    "selectGift": "選擇禮物",
+    "PMUnblockUserToSendMessages": "取消阻止該用戶以繼續發送和接收消息。",
+    "PMUserDoesNotReceiveMessages": "這個用戶不再接收私人消息",
+    "PMCanNotReply": "你不能回复此談話"
 }

@@ -4,7 +4,7 @@
     "armoireText": "Armoire enchantée",
     "armoireNotesFull": "Ouvrez l'armoire pour recevoir au hasard de l'équipement spécial, de l'expérience ou de la nourriture ! Pièces d'équipement restantes :",
     "armoireLastItem": "Vous avez trouvé la dernière pièce d'équipement rare dans l'armoire enchantée.",
-    "armoireNotesEmpty": "L'armoire contiendra de nouvelles pièces d'équipement la première semaine de chaque mois. D'ici là, continuez à cliquer pour obtenir de l'expérience et de la nourriture !",
+    "armoireNotesEmpty": "L'armoire contiendra de nouvelles pièces d'équipement la première semaine de chaque mois. D'ici là, continuez à cliquer pour obtenir de l'expérience et de la nourriture pour familiers !",
     "dropEggWolfText": "loup",
     "dropEggWolfMountText": "Loup",
     "dropEggWolfAdjective": "un loyal",
@@ -354,5 +354,6 @@
     "premiumPotionUnlimitedNotes": "Ne peut pas être utilisé sur des œufs de familiers de quête.",
     "hatchingPotionAmber": "d'ambre",
     "hatchingPotionAurora": "Aurore",
-    "hatchingPotionRuby": "Rubis"
+    "hatchingPotionRuby": "Rubis",
+    "hatchingPotionBirchBark": "Écorce de bouleau"
 }

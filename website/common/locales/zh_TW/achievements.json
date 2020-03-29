@@ -69,5 +69,11 @@
     "achievementRosyOutlook": "玫瑰色的前景",
     "achievementTickledPinkModalText": "你集齊了所有粉色棉花糖寵物！",
     "achievementTickledPinkText": "集齊了所有粉色棉花糖寵物。",
-    "achievementTickledPink": "笑得臉變粉紅色"
+    "achievementTickledPink": "笑得臉變粉紅色",
+    "foundNewItemsCTA": "去物品欄，嘗試結合你的新孵化藥水和蛋！",
+    "foundNewItemsExplanation": "完成任務使你有機會找到物品，如蛋、孵化藥水和食物。",
+    "foundNewItems": "你找到了新物品！",
+    "achievementBugBonanzaModalText": "你完成了甲蟲、蝴蝶、蝸牛及蜘蛛的寵物副本！",
+    "achievementBugBonanzaText": "已完成甲蟲、蝴蝶、蝸牛及蜘蛛的寵物副本。",
+    "achievementBugBonanza": "蟲子富礦帶"
 }

@@ -102,7 +102,8 @@ const api = {};
  *                                      for "Good habits"-
  * @apiParam (Body) {Boolean} [down=true] Only valid for type "habit" If true, enables
  *                                        the "-" under "Directions/Action" for "Bad habits"
- * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost in gold of the reward
+ * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost
+ *                                     in gold of the reward. Should be greater then or equal to 0.
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -171,6 +172,8 @@ const api = {};
  *                                                     underscores and dashes.
  * @apiError (400) {BadRequest} Value-ValidationFailed `x` is not a valid enum value
  *                                                     for path `(body param)`.
+ * @apiError (400) {BadRequest} Value-ValidationFailed Reward cost should be a
+ *                                                      positive number or 0.`.
  * @apiError (401) {NotAuthorized} NoAccount There is no account that uses those credentials.
  *
  * @apiErrorExample {json} Error-Response:
@@ -779,10 +782,11 @@ api.scoreTask = {
 
     const wasCompleted = task.completed;
 
-    const [delta] = common.ops.scoreTask({ task, user, direction }, req);
+    const firstTask = !user.achievements.completedTask;
+    const [delta] = common.ops.scoreTask({ task, user, direction }, req, res.analytics);
     // Drop system (don't run on the client,
     // as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up') common.fns.randomDrop(user, { task, delta }, req, res.analytics);
+    if (direction === 'up' && !firstTask) common.fns.randomDrop(user, { task, delta }, req, res.analytics);
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?
@@ -866,7 +870,7 @@ api.scoreTask = {
     }
 
     // Track when new users (first 7 days) score tasks
-    if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+    if (moment().diff(user.auth.timestamps.created, 'days') < 7 && user.flags.welcomed) {
       res.analytics.track('task score', {
         uuid: user._id,
         hitType: 'event',

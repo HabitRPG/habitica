@@ -284,7 +284,7 @@
     "dismissAll": "Dispensar tudo",
     "messages": "Mensagens",
     "emptyMessagesLine1": "Você não tem mensagens",
-    "emptyMessagesLine2": "Envie uma mensagem para iniciar uma conversa!",
+    "emptyMessagesLine2": "Você pode enviar uma mensagem para um usuário ao clicar no perfil dele(a) e selecionar o botão \"Mensagem\".",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> enviou-lhe uma mensagem",
     "letsgo": "Vamo que vamo!",
     "selected": "Selecionado",

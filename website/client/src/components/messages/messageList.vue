@@ -34,10 +34,9 @@
         class="d-flex flex-grow-1"
       >
         <avatar
-          v-if="msg.userStyles || (cachedProfileData[msg.uuid]
-            && !cachedProfileData[msg.uuid].rejected)"
+          v-if="conversationOpponentUser"
           class="avatar-left"
-          :member="msg.userStyles || cachedProfileData[msg.uuid]"
+          :member="conversationOpponentUser"
           :avatar-only="true"
           :override-top-padding="'14px'"
           :hide-class-badge="true"
@@ -65,10 +64,9 @@
           />
         </div>
         <avatar
-          v-if="msg.userStyles
-            || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
+          v-if="user"
           class="avatar-right"
-          :member="msg.userStyles || cachedProfileData[msg.uuid]"
+          :member="user"
           :avatar-only="true"
           :hide-class-badge="true"
           :override-top-padding="'14px'"
@@ -88,18 +86,18 @@
   }
 
   .avatar {
-    width: 15%;
+    width: 170px;
     min-width: 8rem;
     height: 120px;
     padding-top: 0 !important;
   }
 
-  .avatar-left {
-    margin-left: -1rem;
-  }
-
   .avatar-right {
     margin-left: -1rem;
+
+    ::v-deep .character-sprites {
+      margin-right: 1rem !important;
+    }
   }
 
   .card {
@@ -201,7 +199,6 @@
 
 <script>
 import moment from 'moment';
-import axios from 'axios';
 import debounce from 'lodash/debounce';
 import { PerfectScrollbar } from 'vue2-perfect-scrollbar';
 import { mapState } from '@/libs/store';
@@ -219,13 +216,11 @@ export default {
     chat: {},
     isLoading: Boolean,
     canLoadMore: Boolean,
+    conversationOpponentUser: {},
   },
   data () {
     return {
       currentDayDividerDisplay: moment().day(),
-      cachedProfileData: {},
-      currentProfileLoadedCount: 0,
-      currentProfileLoadedEnd: 10,
       loading: false,
       handleScrollBack: false,
       lastOffset: -1,
@@ -233,8 +228,6 @@ export default {
     };
   },
   mounted () {
-    this.loadProfileCache();
-
     this.$el.addEventListener('selectstart', () => this.handleSelectStart());
     this.$el.addEventListener('mouseup', () => this.handleSelectChange());
   },
@@ -253,7 +246,6 @@ export default {
     // @TODO: We need a different lazy load mechnism.
     // But honestly, adding a paging route to chat would solve this
     messages () {
-      this.loadProfileCache();
       return this.chat;
     },
     psOptions () {
@@ -263,9 +255,6 @@ export default {
     },
   },
   methods: {
-    handleScroll () {
-      this.loadProfileCache(window.scrollY / 1000);
-    },
     async triggerLoad () {
       const container = this.$refs.container.$el;
 
@@ -284,62 +273,6 @@ export default {
         this.handleScrollBack = true;
       }
     },
-    loadProfileCache: debounce(function loadProfileCache (screenPosition) {
-      this._loadProfileCache(screenPosition);
-    }, 1000),
-    async _loadProfileCache (screenPosition) {
-      if (this.loading) return;
-      this.loading = true;
-
-      const promises = [];
-      const noProfilesLoaded = Object.keys(this.cachedProfileData).length === 0;
-
-      // @TODO: write an explination
-      // @TODO: Remove this after enough messages are cached
-      if (!noProfilesLoaded && screenPosition
-        && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
-        this.currentProfileLoadedEnd = 10 * (Math.floor(screenPosition) + 1);
-      } else if (!noProfilesLoaded && screenPosition) {
-        return;
-      }
-
-      const aboutToCache = {};
-      this.messages.forEach(message => {
-        const { uuid } = message;
-
-        if (message.userStyles) {
-          this.$set(this.cachedProfileData, uuid, message.userStyles);
-        }
-
-        if (Boolean(uuid) && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
-          if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
-          aboutToCache[uuid] = {};
-          promises.push(axios.get(`/api/v4/members/${uuid}`));
-          this.currentProfileLoadedCount += 1;
-        }
-      });
-
-      const results = await Promise.all(promises);
-      results.forEach(result => {
-        // We could not load the user. Maybe they were deleted.
-        // So, let's cache empty so we don't try again
-        if (!result || !result.data || result.status >= 400) {
-          return;
-        }
-
-        const userData = result.data.data;
-        this.$set(this.cachedProfileData, userData._id, userData);
-      });
-
-      // Merge in any attempts that were rejected so we don't attempt again
-      for (const uuid in aboutToCache) {
-        if (!this.cachedProfileData[uuid]) {
-          this.$set(this.cachedProfileData, uuid, { rejected: true });
-        }
-      }
-
-      this.loading = false;
-    },
     displayDivider (message) {
       if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
         this.currentDayDividerDisplay = moment(message.timestamp).day();
@@ -348,29 +281,8 @@ export default {
 
       return false;
     },
-    async showMemberModal (memberId) {
-      let profile = this.cachedProfileData[memberId];
-
-      if (!profile._id) {
-        const result = await this.$store.dispatch('members:fetchMember', { memberId });
-        if (result.response && result.response.status === 404) {
-          return this.$store.dispatch('snackbars:add', {
-            title: 'Habitica',
-            text: this.$t('messageDeletedUser'),
-            type: 'error',
-            timeout: false,
-          });
-        }
-        this.cachedProfileData[memberId] = result.data.data;
-        profile = result.data.data;
-      }
-
-      // Open the modal only if the data is available
-      if (profile && !profile.rejected) {
-        this.$router.push({ name: 'userProfile', params: { userId: profile._id } });
-      }
-
-      return null;
+    showMemberModal (memberId) {
+      this.$router.push({ name: 'userProfile', params: { userId: memberId } });
     },
     itemWasMounted: debounce(function itemWasMounted () {
       if (this.handleScrollBack) {

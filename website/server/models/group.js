@@ -35,6 +35,7 @@ import {
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
+import logger from '../libs/logger';
 import amazonPayments from '../libs/payments/amazon'; // eslint-disable-line import/no-cycle
 import stripePayments from '../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import { getGroupChat, translateMessage } from '../libs/chat/group-chat'; // eslint-disable-line import/no-cycle
@@ -607,9 +608,11 @@ schema.methods.sendChat = function sendChat (options = {}) {
     },
   };
 
-  User.update(query, lastSeenUpdateRemoveOld, { multi: true }).exec().then(() => {
-    User.update(query, lastSeenUpdateAddNew, { multi: true }).exec();
-  });
+  User
+    .update(query, lastSeenUpdateRemoveOld, { multi: true })
+    .exec()
+    .then(() => User.update(query, lastSeenUpdateAddNew, { multi: true }).exec())
+    .catch(err => logger.error(err));
 
   if (this.type === 'party' && user) {
     sendChatPushNotifications(user, this, newChatMessage, mentions, translate);
@@ -810,7 +813,8 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
           chat,
         });
       });
-    });
+    })
+    .catch(err => logger.error(err));
 };
 
 schema.statics.cleanQuestParty = _cleanQuestParty;
@@ -944,7 +948,8 @@ schema.methods.finishQuest = async function finishQuest (quest) {
           quest,
         });
       });
-    });
+    })
+    .catch(err => logger.error(err));
 
   _.forEach(questSeriesAchievements, (questList, achievement) => {
     if (questList.includes(questK)) {

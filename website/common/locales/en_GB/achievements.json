@@ -69,5 +69,11 @@
     "achievementRosyOutlook": "Rosy Outlook",
     "achievementTickledPinkModalText": "You collected all the Cotton Candy Pink Pets!",
     "achievementTickledPinkText": "Has collected all Cotton Candy Pink Pets.",
-    "achievementTickledPink": "Tickled Pink"
+    "achievementTickledPink": "Tickled Pink",
+    "foundNewItemsCTA": "Head to your Inventory and try combining your new hatching potion and egg!",
+    "foundNewItemsExplanation": "Completing tasks gives you a chance to find items, like Eggs, Hatching Potions, and Pet Food.",
+    "foundNewItems": "You found new items!",
+    "achievementBugBonanzaModalText": "You completed the Beetle, Butterfly, Snail, and Spider pet quests!",
+    "achievementBugBonanzaText": "Has completed Beetle, Butterfly, Snail, and Spider pet quests.",
+    "achievementBugBonanza": "Bug Bonanza"
 }

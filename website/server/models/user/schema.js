@@ -132,6 +132,7 @@ export default new Schema({
     pearlyPro: Boolean,
     tickledPink: Boolean,
     rosyOutlook: Boolean,
+    bugBonanza: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
@@ -239,7 +240,7 @@ export default new Schema({
         reorderTask: { $type: Boolean, default: false },
       },
     },
-    dropsEnabled: { $type: Boolean, default: false },
+    dropsEnabled: { $type: Boolean, default: false }, // unused
     itemsEnabled: { $type: Boolean, default: false },
     newStuff: { $type: Boolean, default: false },
     rewrite: { $type: Boolean, default: true },

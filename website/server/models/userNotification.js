@@ -5,7 +5,7 @@ import validator from 'validator';
 import baseModel from '../libs/baseModel';
 
 const NOTIFICATION_TYPES = [
-  'DROPS_ENABLED',
+  'DROPS_ENABLED', // unused
   'REBIRTH_ENABLED',
   'WON_CHALLENGE',
   'STREAK_ACHIEVEMENT',
@@ -34,6 +34,7 @@ const NOTIFICATION_TYPES = [
   'NEW_STUFF',
   'NEW_CHAT_MESSAGE',
   'LEVELED_UP',
+  'FIRST_DROPS',
   'ONBOARDING_COMPLETE',
   'ACHIEVEMENT_ALL_YOUR_BASE',
   'ACHIEVEMENT_BACK_TO_BASICS',
@@ -53,6 +54,7 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_PEARLY_PRO',
   'ACHIEVEMENT_TICKLED_PINK',
   'ACHIEVEMENT_ROSY_OUTLOOK',
+  'ACHIEVEMENT_BUG_BONANZA',
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
 ];
 

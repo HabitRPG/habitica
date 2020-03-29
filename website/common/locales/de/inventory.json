@@ -1,8 +1,8 @@
 {
-  "noItemsAvailableForType": "Du hast keine <%= type %>.",
-  "foodItemType": "Nahrung",
-  "eggsItemType": "Eier",
-  "hatchingPotionsItemType": "Schlüpfelixiere",
-  "specialItemType": "Besondere Gegenstände",
-  "lockedItem": "Gesperrter Gegenstand"
+    "noItemsAvailableForType": "Du hast keine <%= type %>.",
+    "foodItemType": "Futter",
+    "eggsItemType": "Eier",
+    "hatchingPotionsItemType": "Schlüpfelixiere",
+    "specialItemType": "Besondere Gegenstände",
+    "lockedItem": "Gesperrter Gegenstand"
 }

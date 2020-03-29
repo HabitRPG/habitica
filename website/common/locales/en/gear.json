@@ -350,6 +350,15 @@
   "weaponSpecialWinter2020HealerText": "Clove Scepter",
   "weaponSpecialWinter2020HealerNotes": "Wave it about, and its aroma will summon your friends and helpers to begin cooking and baking! Increases Intelligence by <%= int %>. Limited Edition 2019-2020 Winter Gear.",
 
+  "weaponSpecialSpring2020RogueText": "Lazurite Blade",
+  "weaponSpecialSpring2020RogueNotes": "You'll strike so fast it'll look even MORE blue! Increases Strength by <%= str %>. Limited Edition 2020 Spring Gear.",
+  "weaponSpecialSpring2020WarriorText": "Sharpened Wing",
+  "weaponSpecialSpring2020WarriorNotes": "Fight or flight, this wing will serve you well! Increases Strength by <%= str %>. Limited Edition 2020 Spring Gear.",
+  "weaponSpecialSpring2020MageText": "Raindrops",
+  "weaponSpecialSpring2020MageNotes": "They keep falling on your head! But you'll never stop them by complaining. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2020 Spring Gear.",
+  "weaponSpecialSpring2020HealerText": "Sword-Lily Staff",
+  "weaponSpecialSpring2020HealerNotes": "An iris is beautiful, but the leaves are like swords... don't be deceived by the flowers, this staff is tough as steel! Increases Intelligence by <%= int %>. Limited Edition 2020 Spring Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -475,6 +484,8 @@
   "weaponArmoireHappyBannerNotes": "Is the “H” for Happy, or Habitica? Your choice! Increases Perception by <%= per %>. Enchanted Armoire: Happy Birthday Set (Item 3 of 4).",
   "weaponArmoireLivelyMatchText": "A Lively Match",
   "weaponArmoireLivelyMatchNotes": "When you're holding this, you're sure to spark someone's interest! Increases Strength by <%= str %>. Enchanted Armoire: Match Maker Set (Item 3 of 4).",
+  "weaponArmoireBaseballBatText": "Baseball Bat",
+  "weaponArmoireBaseballBatNotes": "Get a home run on those good habits! Increases Constitution by <%= con %>. Enchanted Armoire: Baseball Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -807,6 +818,15 @@
   "armorSpecialWinter2020HealerText": "Orange Peel Gown",
   "armorSpecialWinter2020HealerNotes": "An opulent gown for those with festive zest! Increases Constitution by <%= con %>. Limited Edition 2019-2020 Winter Gear.",
 
+  "armorSpecialSpring2020RogueText": "Ultramarine Armor",
+  "armorSpecialSpring2020RogueNotes": "The color of twilight, of a multitude of precious stones, of the deepest sea! Increases Perception by <%= per %>. Limited Edition 2020 Spring Gear.",
+  "armorSpecialSpring2020WarriorText": "Exoskeleton Armor",
+  "armorSpecialSpring2020WarriorNotes": "This rigid carapace can keep you safe from even the most crushing attacks. Increases Constitution by <%= con %>. Limited Edition 2020 Spring Gear.",
+  "armorSpecialSpring2020MageText": "Whirlpuddle Gown",
+  "armorSpecialSpring2020MageNotes": "If you can't resist stomping through the leavings of rainstorms, this armor is for you! Turn a childish impulse into a display of mystic artistry. Increases Intelligence by <%= int %>. Limited Edition 2020 Spring Gear.",
+  "armorSpecialSpring2020HealerText": "Protective Petals",
+  "armorSpecialSpring2020HealerNotes": "Wrap yourself in soft iris leaves and petals to fool enemies into underestimating your healing power. Increases Constitution by <%= con %>. Limited Edition 2020 Spring Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1024,6 +1044,8 @@
   "armorArmoireLayerCakeArmorNotes": "It's protective and tasty! Increases Constitution by <%= con %>. Enchanted Armoire: Happy Birthday Set (Item 2 of 4).",
   "armorArmoireMatchMakersApronText": "Match Maker's Apron",
   "armorArmoireMatchMakersApronNotes": "This apron is for safety, but for humor's sake we can make light of it. Increases Constitution, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Match Maker Set (Item 1 of 4).",
+  "armorArmoireBaseballUniformText": "Baseball Uniform",
+  "armorArmoireBaseballUniformNotes": "Pinstripes never go out of style. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Baseball Set (Item 2 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1357,6 +1379,15 @@
   "headSpecialWinter2020HealerText": "Star Anise Emblem",
   "headSpecialWinter2020HealerNotes": "Please remove it from your head before attempting to brew chai or coffee with it. Increases Intelligence by <%= int %>. Limited Edition 2019-2020 Winter Gear.",
 
+  "headSpecialSpring2020RogueText": "Lapis Kabuto",
+  "headSpecialSpring2020RogueNotes": "So vibrant and valuable, you'll be tempted to steal it off your own head. Increases Perception by <%= per %>. Limited Edition 2020 Spring Gear.",
+  "headSpecialSpring2020WarriorText": "Beetle Helm",
+  "headSpecialSpring2020WarriorNotes": "Your enemies' blows will glance off this beetle-inspired helm! Increases Strength by <%= str %>. Limited Edition 2020 Spring Gear.",
+  "headSpecialSpring2020MageText": "Drip Top Cap",
+  "headSpecialSpring2020MageNotes": "Is the sky clear? Humidity low? Don't worry, we've got you. Moisten your magic without dampening your spirits! Increases Perception by <%= per %>. Limited Edition 2020 Spring Gear.",
+  "headSpecialSpring2020HealerText": "Iris Fascinator",
+  "headSpecialSpring2020HealerNotes": "Beguile your foes with this headpiece made of flowers! Increases Intelligence by <%= int %>. Limited Edition 2020 Spring Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1591,6 +1622,8 @@
   "headArmoireFrostedHelmNotes": "The perfect headgear for any celebration! Increases Intelligence by <%= int %>. Enchanted Armoire: Happy Birthday Set (Item 1 of 4).",
   "headArmoireMatchMakersBeretText": "Match Maker's Beret",
   "headArmoireMatchMakersBeretNotes": "You'll look striking wearing this lovely hat! Increases Constitution by <%= con %>. Enchanted Armoire: Match Maker Set (Item 2 of 4).",
+  "headArmoireBaseballCapText": "Baseball Cap",
+  "headArmoireBaseballCapNotes": "Let everyone know that you're on Team Habitica! Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Baseball Set (Item 1 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1808,6 +1841,11 @@
   "shieldSpecialWinter2020HealerText": "Giant Cinnamon Stick",
   "shieldSpecialWinter2020HealerNotes": "Do you feel you are too good for this world, too pure? Only this beauty of a spice will do. Increases Constitution by <%= con %>. Limited Edition 2019-2020 Winter Gear.",
 
+  "shieldSpecialSpring2020WarriorText": "Iridescent Shield",
+  "shieldSpecialSpring2020WarriorNotes": "Don't let the delicate colors fool you. This shield has got you covered! Increases Constitution by <%= con %>. Limited Edition 2020 Spring Gear.",
+  "shieldSpecialSpring2020HealerText": "Perfumed Shield",
+  "shieldSpecialSpring2020HealerNotes": "Ward off those musty old To-Dos with this sweet-smelling shield. Increases Constitution by <%= con %>. Limited Edition 2020 Spring Gear.",
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
@@ -1897,6 +1935,8 @@
   "shieldArmoireBirthdayBannerNotes": "Celebrate your special day, the special day of someone you love, or break this out for Habitica's Birthday on January 31! Increases Strength by <%= str %>. Enchanted Armoire: Happy Birthday Set (Item 4 of 4).",
   "shieldArmoirePerfectMatchText": "The Perfect Match",
   "shieldArmoirePerfectMatchNotes": "Hot take: we think you look great. Increases Perception by <%= per %>. Enchanted Armoire: Match Maker Set (Item 4 of 4).",
+  "shieldArmoireBaseballGloveText": "Baseball Glove",
+  "shieldArmoireBaseballGloveNotes": "Perfect for the big tournament, or a friendly game of catch between tasks. Increases Strength by <%= str %>. Enchanted Armoire: Baseball Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",

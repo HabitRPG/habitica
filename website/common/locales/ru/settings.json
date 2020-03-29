@@ -180,7 +180,7 @@
     "purchasedPlanExtraMonths": "У вас остается <strong><%= months %> мес.</strong> оплаченной подписки.",
     "consecutiveSubscription": "Непрерывная подписка",
     "consecutiveMonths": "Месяцев подряд:",
-    "gemCapExtra": "Доп. предел самоцветов:",
+    "gemCapExtra": "Бонус на предел самоцветов",
     "mysticHourglasses": "Мистические песочные часы:",
     "mysticHourglassesTooltip": "Мистические песочные часы",
     "paypal": "PayPal",
