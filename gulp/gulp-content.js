@@ -1,15 +1,14 @@
 import gulp from 'gulp';
 import fs from 'fs';
-import clean from 'rimraf';
-import { CONTENT_CACHE_PATH, getLocalizedContent } from '../website/server/libs/content';
-import { langCodes } from '../website/server/libs/i18n';
-
-gulp.task('content:cache:clean', done => {
-  clean(CONTENT_CACHE_PATH, done);
-});
 
 // TODO parallelize, use gulp file helpers
-gulp.task('content:cache', gulp.series('content:cache:clean', done => {
+gulp.task('content:cache', done => {
+  // Requiring at runtime because these files access `common`
+  // code which in production works only if transpiled so after
+  // gulp build:babel:common has run
+  const { CONTENT_CACHE_PATH, getLocalizedContent } = require('../website/server/libs/content'); // eslint-disable-line global-require
+  const { langCodes } = require('../website/server/libs/i18n'); // eslint-disable-line global-require
+
   try {
     // create the cache folder (if it doesn't exist)
     try {
@@ -32,4 +31,4 @@ gulp.task('content:cache', gulp.series('content:cache:clean', done => {
   } catch (err) {
     done(err);
   }
-}));
+});
