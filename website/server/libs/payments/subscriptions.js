@@ -17,6 +17,7 @@ import {
 } from '../errors';
 import shared from '../../../common';
 import { sendNotification as sendPushNotification } from '../pushNotifications';
+import { calculateSubscriptionTerminationDate } from './util';
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
@@ -309,24 +310,11 @@ async function cancelSubscription (data) {
     if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) sendEmail = false;
   }
 
-  const now = moment();
-  let defaultRemainingDays = 30;
-
   if (plan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
-    defaultRemainingDays = 2;
     sendEmail = false; // because group-member-cancel email has already been sent
   }
 
-  const remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days', true) : defaultRemainingDays;
-  if (plan.extraMonths < 0) plan.extraMonths = 0;
-  const extraDays = Math.ceil(30.5 * plan.extraMonths);
-  const nowStr = `${now.format('MM')}/${now.format('DD')}/${now.format('YYYY')}`;
-  const nowStrFormat = 'MM/DD/YYYY';
-
-  plan.dateTerminated = moment(nowStr, nowStrFormat)
-    .add({ days: remaining })
-    .add({ days: extraDays })
-    .toDate();
+  plan.dateTerminated = calculateSubscriptionTerminationDate(data.nextBill, plan, this.constants);
 
   // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
   plan.extraMonths = 0;
