@@ -556,7 +556,6 @@ api.getChallenge = {
     const chalLeader = await User.findById(chalRes.leader).select(nameFields).exec();
     chalRes.leader = chalLeader ? chalLeader.toJSON({ minimize: true }) : null;
 
-    console.log(chalRes);
     res.respond(200, chalRes);
   },
 };
