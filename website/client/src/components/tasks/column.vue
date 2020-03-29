@@ -81,7 +81,7 @@
         ref="tasksList"
         class="sortable-tasks"
         :options="{disabled: activeFilter.label === 'scheduled' || !canBeDragged(),
-          scrollSensitivity: 64}"
+                   scrollSensitivity: 64}"
         @update="taskSorted"
         @start="isDragging(true)"
         @end="isDragging(false)"

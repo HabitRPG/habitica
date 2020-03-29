@@ -92,16 +92,16 @@ describe('POST /tasks/unlink-one/:taskId', () => {
 
   it('unlinks a task from a challenge and saves it on keep=keep', async () => {
     await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
-    let [, daily] = await user.get('/tasks/user');
+    let [daily] = await user.get('/tasks/user');
     await user.del(`/challenges/${challenge._id}`);
     await user.post(`/tasks/unlink-one/${daily._id}?keep=keep`);
-    [, daily] = await user.get('/tasks/user');
+    [daily] = await user.get('/tasks/user');
     expect(daily.challenge).to.eql({});
   });
 
   it('unlinks a task from a challenge and deletes it on keep=remove', async () => {
     await user.post(`/tasks/challenge/${challenge._id}`, tasksToTest.daily);
-    const [, daily] = await user.get('/tasks/user');
+    const [daily] = await user.get('/tasks/user');
     await user.del(`/challenges/${challenge._id}`);
     await user.post(`/tasks/unlink-one/${daily._id}?keep=remove`);
     const tasks = await user.get('/tasks/user');

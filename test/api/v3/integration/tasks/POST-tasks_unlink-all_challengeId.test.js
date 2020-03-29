@@ -97,7 +97,7 @@ describe('POST /tasks/unlink-all/:challengeId', () => {
     await user.del(`/challenges/${challenge._id}`);
     await user.post(`/tasks/unlink-all/${challenge._id}?keep=keep-all`);
     // Get the task for the second user
-    const [, anotherUserTask] = await anotherUser.get('/tasks/user');
+    const [anotherUserTask] = await anotherUser.get('/tasks/user');
     // Expect the second user to still have the task, but unlinked
     expect(anotherUserTask.challenge).to.eql({
       taskId: daily._id,

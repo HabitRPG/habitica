@@ -1007,8 +1007,9 @@ api.addChecklistItem = {
       throw new NotFound(res.t('taskNotFound'));
     }
 
-    const group = getGroupFromTaskAndUser(task, user);
-    const challenge = getChallengeFromTask(task);
+    const group = await getGroupFromTaskAndUser(task, user);
+    console.log(group);
+    const challenge = await getChallengeFromTask(task);
     verifyTaskModification(task, user, group, challenge, res);
 
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
@@ -1514,7 +1515,9 @@ api.deleteTask = {
     const challenge = await getChallengeFromTask(task);
     verifyTaskModification(task, user, group, challenge, res);
 
-    if (task.userId && task.challenge.id && !task.challenge.broken) {
+    if (task.group.id && !task.userId) {
+      await group.removeTask(task);
+    } else if (task.userId && task.challenge.id && !task.challenge.broken) {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
     } else if (
       task.group.id

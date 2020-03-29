@@ -234,7 +234,7 @@ function canNotEditTasks (group, user, assignedUserId) {
 
 async function getGroupFromTaskAndUser (task, user) {
   if (task.group.id && !task.userId) {
-    const fields = requiredGroupFields.concat('managers');
+    const fields = requiredGroupFields.concat(' managers');
     return Group.getGroup({ user, groupId: task.group.id, fields });
   }
   return null;

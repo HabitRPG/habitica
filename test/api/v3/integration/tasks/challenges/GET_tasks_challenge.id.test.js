@@ -21,16 +21,16 @@ describe('GET /tasks/challenge/:challengeId', () => {
       up: false,
       down: true,
     },
-    todo: {
-      text: 'test todo',
-      type: 'todo',
-    },
     daily: {
       text: 'test daily',
       type: 'daily',
       frequency: 'daily',
       everyX: 5,
       startDate: new Date(),
+    },
+    todo: {
+      text: 'test todo',
+      type: 'todo',
     },
     reward: {
       text: 'test reward',
@@ -82,6 +82,37 @@ describe('GET /tasks/challenge/:challengeId', () => {
           message: t('challengeNotFound'),
         });
       });
+    });
+  });
+
+  it('maintains challenge task order', async () => {
+    const orderedTasks = {};
+    Object.entries(tasksToTest).forEach(async (taskType, taskValue) => {
+      const results = [];
+      for (let i = 0; i < 5; i += 1) {
+        results.push(user.post(`/tasks/challenge/${challenge._id}`, taskValue));
+      }
+      const taskList = await Promise.all(results);
+      await user.post(`/tasks/${taskList[0]._id}/move/to/3`);
+
+      const firstTask = taskList.unshift();
+      taskList.splice(3, 0, firstTask);
+
+      orderedTasks[taskType] = taskList;
+    });
+
+    const results = await user.get(`/tasks/challenge/${challenge._id}`);
+    const resultTasks = {};
+
+    results.forEach(result => {
+      if (!resultTasks[result.type]) {
+        resultTasks[result.type] = [];
+      }
+      resultTasks[result.type].push(result);
+    });
+
+    Object.entries(orderedTasks).forEach((taskType, taskList) => {
+      expect(resultTasks[taskType]).to.eql(taskList);
     });
   });
 });
