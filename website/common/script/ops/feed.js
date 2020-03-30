@@ -95,7 +95,7 @@ export default function feed (user, req = {}, analytics) {
 
     if (!user.achievements.fedPet && user.addAchievement) {
       user.addAchievement('fedPet');
-      checkOnboardingStatus(user, analytics);
+      checkOnboardingStatus(user, req, analytics);
     }
   }
 
