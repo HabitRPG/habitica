@@ -982,7 +982,6 @@ export default {
       });
 
       this.newMessage = '';
-      this.autoSize();
     },
     removeTags (html) {
       const tmp = document.createElement('DIV');
