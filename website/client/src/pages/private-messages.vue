@@ -86,7 +86,7 @@
              && selectedConversation.searchMode">
           <span>
             <span>
-              {{ $t('viewingOlderMessagesOf', {name: selectedConversation.name})}}
+              {{ $t('viewingOlderMessagesOf', {text: search})}}
               </span>
             <span class="divider"></span>
             <span class="jump-to-recent" @click="jumpToRecent()">
