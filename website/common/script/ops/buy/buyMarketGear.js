@@ -70,7 +70,7 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslin
 
     if (!user.achievements.purchasedEquipment && user.addAchievement) {
       user.addAchievement('purchasedEquipment');
-      checkOnboardingStatus(user, analytics);
+      checkOnboardingStatus(user, req, analytics);
     }
 
     removePinnedGearAddPossibleNewOnes(user, `gear.flat.${item.key}`, item.key);
