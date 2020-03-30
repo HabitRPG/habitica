@@ -1126,6 +1126,7 @@ export default {
       // re-select the conversation
       this.selectedConversation = convoFound || {};
       this.selectedConversation.searchMode = false;
+      this.messagesByConversation[selectedConversationKey] = [];
 
       // select conversation & load messages from selected
       await this.loadMessages({
