@@ -1060,7 +1060,7 @@ export default {
 
       // only show the load more Button if the max count was returned
       this.messagesByConversation[conversationKey] = messagesList;
-      this.selectedConversation.canLoadMore[type] = !this.search && loadedMessages.length === 10;
+      this.selectedConversation.canLoadMore[type] = loadedMessages.length === 10;
       this.messagesLoading[type] = false;
     },
     autoSize () {
@@ -1068,7 +1068,7 @@ export default {
       // weird issue: browser only removing the scrollHeight / clientHeight per key event - 56-54-52
       let { scrollHeight } = textarea;
 
-      if (this.newMessage === '') {
+      if (!this.newMessage || this.newMessage.trim() === '') {
         // reset height when the message was removed again
         scrollHeight = 40;
       }
