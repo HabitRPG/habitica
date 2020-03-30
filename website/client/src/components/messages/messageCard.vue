@@ -64,7 +64,7 @@
       </div>
       <div
         v-if="searchMode"
-        class="action d-flex align-items-center"
+        class="action d-flex align-items-center jump-to-context"
         @click="jumpToContext()"
       >
         <div v-once>
@@ -141,6 +141,10 @@
   .reported {
     margin-top: 18px;
     color: $red-50;
+  }
+
+  .jump-to-context {
+    color: $blue-10;
   }
 </style>
 
