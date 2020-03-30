@@ -1012,7 +1012,6 @@ api.addChecklistItem = {
     }
 
     const group = await getGroupFromTaskAndUser(task, user);
-    console.log(group);
     const challenge = await getChallengeFromTask(task);
     verifyTaskModification(task, user, group, challenge, res);
 
