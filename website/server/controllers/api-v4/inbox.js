@@ -108,9 +108,9 @@ api.conversations = {
   url: '/inbox/conversations',
   async handler (req, res) {
     const { user } = res.locals;
-    const { searchMessage } = req.query;
+    const { searchMessage, page = 0 } = req.query;
 
-    const result = await listConversations(user, searchMessage);
+    const result = await listConversations(user, page, searchMessage);
 
     res.respond(200, result);
   },

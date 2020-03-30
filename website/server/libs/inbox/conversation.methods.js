@@ -42,7 +42,9 @@ async function usersMapByConversations (users) {
   return usersMap;
 }
 
-export async function listConversations (owner, searchMessage = null) {
+const CONVERSATION_PER_PAGE = 10;
+
+export async function listConversations (owner, page = 0, searchMessage = null) {
   let matchQuery = {
     ownerId: owner._id,
   };
@@ -51,25 +53,32 @@ export async function listConversations (owner, searchMessage = null) {
     matchQuery = Object.assign(matchQuery, createSearchParams(searchMessage));
   }
 
+  const aggregateQuery = [
+    {
+      $match: matchQuery,
+    },
+    {
+      $group: {
+        _id: '$uuid',
+        user: { $last: '$user' },
+        username: { $last: '$username' },
+        timestamp: { $last: '$timestamp' },
+        text: { $last: '$text' },
+        messageId: { $last: '$id' },
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { timestamp: -1 } }, // sort by latest message
+  ];
+
+  if (!searchMessage) {
+    aggregateQuery.push({ $skip: page * CONVERSATION_PER_PAGE });
+    aggregateQuery.push({ $limit: CONVERSATION_PER_PAGE });
+  }
+
   // group messages by user owned by logged-in user
   const query = Inbox
-    .aggregate([
-      {
-        $match: matchQuery,
-      },
-      {
-        $group: {
-          _id: '$uuid',
-          user: { $last: '$user' },
-          username: { $last: '$username' },
-          timestamp: { $last: '$timestamp' },
-          text: { $last: '$text' },
-          messageId: { $last: '$id' },
-          count: { $sum: 1 },
-        },
-      },
-      { $sort: { timestamp: -1 } }, // sort by latest message
-    ]);
+    .aggregate(aggregateQuery);
 
   const conversationsList = await query.exec();
 
