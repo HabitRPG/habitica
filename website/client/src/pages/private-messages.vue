@@ -172,10 +172,8 @@
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
               :maxlength="MAX_MESSAGE_LENGTH"
-              :class="{'has-content': newMessage !== '', 'disabled': newMessageDisabled}"
-              :style="{'--textarea-auto-height': textareaAutoHeight}"
+              :class="{'has-content': newMessage.trim() !== '', 'disabled': newMessageDisabled}"
               @keyup.ctrl.enter="sendPrivateMessage()"
-              @input="autoSize()"
             >
             </textarea>
           </div>
@@ -455,6 +453,10 @@
         background-color: $gray-500;
       }
 
+      &:focus, &.has-content {
+        --textarea-auto-height: 80px
+      }
+
       min-height: var(--textarea-auto-height, 40px);
       max-height: var(--textarea-auto-height, 40px);
     }
@@ -622,8 +624,6 @@ import conversationItem from '@/components/messages/conversationItem';
 import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
 import { EVENTS } from '@/libs/events';
-
-const MAX_TEXTAREA_HEIGHT = 80;
 
 export default {
   components: {
@@ -1062,22 +1062,6 @@ export default {
       this.messagesByConversation[conversationKey] = messagesList;
       this.selectedConversation.canLoadMore[type] = loadedMessages.length === 10;
       this.messagesLoading[type] = false;
-    },
-    autoSize () {
-      const { textarea } = this.$refs;
-      // weird issue: browser only removing the scrollHeight / clientHeight per key event - 56-54-52
-      let { scrollHeight } = textarea;
-
-      if (!this.newMessage || this.newMessage.trim() === '') {
-        // reset height when the message was removed again
-        scrollHeight = 40;
-      }
-
-      if (scrollHeight > MAX_TEXTAREA_HEIGHT) {
-        scrollHeight = MAX_TEXTAREA_HEIGHT;
-      }
-
-      this.textareaAutoHeight = `${scrollHeight}px`;
     },
     selectFirstConversation () {
       if (this.loadedConversations.length > 0) {
