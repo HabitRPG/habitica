@@ -61,6 +61,6 @@
     "vue2-perfect-scrollbar": "^1.4.0",
     "vuedraggable": "^2.23.1",
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#5d237615463a84a23dd6f3f77c6ab577d68593ec",
-    "webpack": "^4.42.0"
+    "webpack": "^4.42.1"
   }
 }
