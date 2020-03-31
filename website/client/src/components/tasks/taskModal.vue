@@ -1204,6 +1204,13 @@
   .input-notes {
     height: 3.5rem;
   }
+
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.71;
+    margin: 0px;
+  }
 </style>
 
 <script>
