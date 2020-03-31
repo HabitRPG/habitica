@@ -861,11 +861,6 @@ api.leaveGroup = {
       if (guildIndex >= 0) user.guilds.splice(guildIndex, 1);
     }
 
-    const isMemberOfGroupPlan = await user.isMemberOfGroupPlan();
-    if (!isMemberOfGroupPlan) {
-      await payments.cancelGroupSubscriptionForUser(user, group);
-    }
-
     if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     res.respond(200, {});
   },

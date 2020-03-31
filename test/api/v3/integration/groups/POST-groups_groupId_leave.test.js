@@ -2,6 +2,7 @@ import { v4 as generateUUID } from 'uuid';
 import {
   each,
 } from 'lodash';
+import moment from 'moment';
 import {
   generateChallenge,
   checkExistence,
@@ -12,6 +13,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 import { model as User } from '../../../../../website/server/models/user';
 import payments from '../../../../../website/server/libs/payments/payments';
+import { calculateSubscriptionTerminationDate } from '../../../../../website/server/libs/payments/util';
 
 describe('POST /groups/:groupId/leave', () => {
   const typesOfGroups = {
@@ -335,6 +337,50 @@ describe('POST /groups/:groupId/leave', () => {
         await member.post(`/groups/${groupWithNoPlan._id}/leave`);
         await member.sync();
         expect(member.purchased.plan.dateTerminated).to.not.exist;
+      });
+    });
+  });
+
+  each(typesOfGroups, (groupDetails, groupType) => {
+    context(`Leaving a group with extraMonths left plan when the group is a ${groupType}`, () => {
+      const extraMonths = 12;
+      let groupWithPlan;
+      let member;
+
+      beforeEach(async () => {
+        const { group, members } = await createAndPopulateGroup({
+          groupDetails,
+          members: 1,
+          upgradeToGroupPlan: true,
+        });
+        [member] = members;
+        groupWithPlan = group;
+        await member.update({
+          'purchased.plan.extraMonths': extraMonths,
+        });
+      });
+      it('calculates dateTerminated and sets extraMonths to zero after user leaves the group', async () => {
+        const userBeforeLeave = await User.findById(member._id).exec();
+
+        await member.post(`/groups/${groupWithPlan._id}/leave`);
+        const userAfterLeave = await User.findById(member._id).exec();
+
+        const dateTerminatedBefore = userBeforeLeave.purchased.plan.dateTerminated;
+        const extraMonthsBefore = userBeforeLeave.purchased.plan.extraMonths;
+        const dateTerminatedAfter = userAfterLeave.purchased.plan.dateTerminated;
+        const extraMonthsAfter = userAfterLeave.purchased.plan.extraMonths;
+
+        const expectedTerminationDate = calculateSubscriptionTerminationDate(null, {
+          customerId: payments.constants.GROUP_PLAN_CUSTOMER_ID,
+          extraMonths,
+        }, payments.constants);
+
+        expect(extraMonthsBefore).to.gte(12);
+        expect(extraMonthsAfter).to.equal(0);
+        expect(dateTerminatedBefore).to.be.null;
+        expect(dateTerminatedAfter).to.exist;
+
+        expect(moment(dateTerminatedAfter).diff(expectedTerminationDate, 'days')).to.equal(0);
       });
     });
   });
