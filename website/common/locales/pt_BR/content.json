@@ -310,9 +310,9 @@
     "hatchingPotionRoseQuartz": "Quartzo Rosa",
     "hatchingPotionCelestial": "Celestial",
     "hatchingPotionVeggie": "Jardim",
-    "foodPieSkeleton": "Torta de Maionese",
-    "foodPieSkeletonThe": "a Torta de Maionese",
-    "foodPieSkeletonA": "uma fatia de Torta de Maionese",
+    "foodPieSkeleton": "Torta de medula óssea",
+    "foodPieSkeletonThe": "a torta de medula óssea",
+    "foodPieSkeletonA": "uma fatia de torta de medula óssea",
     "foodPieBase": "Torta Básica de Maçã",
     "foodPieBaseThe": "a Torta Básica de Maçã",
     "foodPieBaseA": "uma fatia de Torta Básica de Maçã",
@@ -354,5 +354,6 @@
     "premiumPotionUnlimitedNotes": "Não utilizável em ovos de mascotes adquiridos em missões.",
     "hatchingPotionAmber": "Âmbar",
     "hatchingPotionAurora": "Aurora",
-    "hatchingPotionRuby": "Rubi"
+    "hatchingPotionRuby": "Rubi",
+    "hatchingPotionBirchBark": "Casca de bétula"
 }

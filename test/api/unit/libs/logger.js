@@ -30,18 +30,52 @@ describe('logger', () => {
 
   describe('info', () => {
     it('calls winston\'s info log', () => {
-      logger.info(1, 2, 3);
+      logger.info('1', 2);
       expect(infoSpy).to.be.calledOnce;
-      expect(infoSpy).to.be.calledWith(1, 2, 3);
+      expect(infoSpy).to.be.calledWith('1', { extraData: 2 });
+    });
+
+    it('allows up to two arguments', () => {
+      expect(() => logger.info('1', 2, 3)).to.throw;
+      expect(infoSpy).to.not.be.called;
+    });
+
+    it('has default message', () => {
+      logger.info(1);
+      expect(infoSpy).to.be.calledOnce;
+      expect(infoSpy).to.be.calledWith('No message provided for log.', { extraData: 1 });
+    });
+
+    it('wraps non objects', () => {
+      logger.info('message', [1, 2]);
+      expect(infoSpy).to.be.calledOnce;
+      expect(infoSpy).to.be.calledWithMatch('message', { extraData: [1, 2] });
+    });
+
+    it('does not wrap objects', () => {
+      logger.info('message', { a: 1, b: 2 });
+      expect(infoSpy).to.be.calledOnce;
+      expect(infoSpy).to.be.calledWithMatch('message', { a: 1, b: 2 });
+    });
+
+    it('throws if two arguments and no message', () => {
+      expect(() => logger.info({ a: 1 }, { b: 2 })).to.throw;
+      expect(infoSpy).to.not.be.called;
     });
   });
 
   describe('error', () => {
-    context('non-error object', () => {
-      it('passes through arguments if the first arg is not an error object', () => {
-        logger.error(1, 2, 3, 4);
-        expect(errorSpy).to.be.calledOnce;
-        expect(errorSpy).to.be.calledWith(1, 2, 3, 4);
+    it('allows up to two arguments', () => {
+      expect(() => logger.error('1', 2, 3)).to.throw;
+      expect(errorSpy).to.not.be.called;
+    });
+
+    it('handled non-error object', () => {
+      logger.error(1, 2);
+      expect(errorSpy).to.be.calledOnce;
+      expect(errorSpy).to.be.calledWithMatch('logger.error expects an Error instance', {
+        invalidErr: 1,
+        extraData: 2,
       });
     });
 
@@ -50,14 +84,12 @@ describe('logger', () => {
         const errInstance = new Error('An error.');
         logger.error(errInstance, {
           data: 1,
-        }, 2, 3);
+        });
 
         expect(errorSpy).to.be.calledOnce;
         expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           { data: 1, fullError: errInstance },
-          2,
-          3,
         );
       });
 
@@ -68,56 +100,60 @@ describe('logger', () => {
         logger.error(errInstance, {
           data: 1,
           fullError: anotherError,
-        }, 2, 3);
+        });
 
         expect(errorSpy).to.be.calledOnce;
         expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           { data: 1, fullError: anotherError },
-          2,
-          3,
         );
       });
 
       it('logs the error when errorData is null', () => {
         const errInstance = new Error('An error.');
 
-        logger.error(errInstance, null, 2, 3);
+        logger.error(errInstance, null);
 
         expect(errorSpy).to.be.calledOnce;
-        expect(errorSpy).to.be.calledWith(
+        expect(errorSpy).to.be.calledWithMatch(
           errInstance.stack,
-          null,
-          2,
-          3,
+          { },
         );
       });
 
       it('logs the error when errorData is not an object', () => {
         const errInstance = new Error('An error.');
 
-        logger.error(errInstance, true, 2, 3);
+        logger.error(errInstance, true);
 
         expect(errorSpy).to.be.calledOnce;
-        expect(errorSpy).to.be.calledWith(
+        expect(errorSpy).to.be.calledWithMatch(
           errInstance.stack,
-          true,
-          2,
-          3,
+          { extraData: true },
+        );
+      });
+
+      it('logs the error when errorData is a string', () => {
+        const errInstance = new Error('An error.');
+
+        logger.error(errInstance, 'a string');
+
+        expect(errorSpy).to.be.calledOnce;
+        expect(errorSpy).to.be.calledWithMatch(
+          errInstance.stack,
+          { extraMessage: 'a string' },
         );
       });
 
       it('logs the error when errorData does not include isHandledError property', () => {
         const errInstance = new Error('An error.');
 
-        logger.error(errInstance, { httpCode: 400 }, 2, 3);
+        logger.error(errInstance, { httpCode: 400 });
 
         expect(errorSpy).to.be.calledOnce;
         expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           { httpCode: 400, fullError: errInstance },
-          2,
-          3,
         );
       });
 
@@ -127,14 +163,12 @@ describe('logger', () => {
         logger.error(errInstance, {
           isHandledError: true,
           httpCode: 502,
-        }, 2, 3);
+        });
 
         expect(errorSpy).to.be.calledOnce;
         expect(errorSpy).to.be.calledWith(
           errInstance.stack,
           { httpCode: 502, isHandledError: true, fullError: errInstance },
-          2,
-          3,
         );
       });
 
@@ -144,14 +178,12 @@ describe('logger', () => {
         logger.error(errInstance, {
           isHandledError: true,
           httpCode: 403,
-        }, 2, 3);
+        });
 
         expect(warnSpy).to.be.calledOnce;
         expect(warnSpy).to.be.calledWith(
           errInstance.stack,
           { httpCode: 403, isHandledError: true, fullError: errInstance },
-          2,
-          3,
         );
       });
 
@@ -160,7 +192,7 @@ describe('logger', () => {
 
         errInstance.customField = 'Some interesting data';
 
-        logger.error(errInstance, {}, 2, 3);
+        logger.error(errInstance, {});
 
         expect(errorSpy).to.be.calledOnce;
         expect(errorSpy).to.be.calledWith(
@@ -170,8 +202,6 @@ describe('logger', () => {
               customField: 'Some interesting data',
             },
           },
-          2,
-          3,
         );
       });
     });

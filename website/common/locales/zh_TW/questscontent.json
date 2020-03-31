@@ -231,7 +231,7 @@
     "questGroupDilatoryDistress": "怠慢危機",
     "questDilatoryDistress1Text": "怠慢危機，第1部：瓶中信",
     "questDilatoryDistress1Notes": "一封來自Dilatory重建城市的瓶中信！上面寫著：「親愛的Habitica公民，我們再次需要你的幫助。我們的公主失蹤了，而且城市正被不明的水生怪物給包圍著！目前瀨尿蝦們正在海灣邊抵禦著襲擊者。請幫幫我們！」這趟前往水中城市的漫長旅途，必須擁有在水中呼吸的能力。幸運的是煉金術士@Benga 和@hazel 能夠使其成真！你只要找到適當的材料就行了。",
-    "questDilatoryDistress1Completion": "你穿上附鰭盔甲並儘快地游到 Dilatory。魚人族和他們的瀨尿蝦盟友雖然將怪物抵擋在城外，但正在節節敗退。你剛進到城牆內，恐怖的圍攻就開始了！",
+    "questDilatoryDistress1Completion": "你穿上附鰭盔甲並儘快地游到Dilatory。魚人族和他們的瀨尿蝦盟友雖然將怪物抵擋在城外，但正在節節敗退。你剛進到城牆內，恐怖的圍攻就開始了！",
     "questDilatoryDistress1CollectFireCoral": "火焰珊瑚",
     "questDilatoryDistress1CollectBlueFins": "藍鰭",
     "questDilatoryDistress1DropArmor": "魚鰭海洋盔甲（盔甲）",
@@ -683,5 +683,5 @@
     "questRubyNotes": "在通常熙熙攘攘的Stoïkalm火山，峰趴雪地裡沉默。 “我想遠足者和觀光客正在冬眠？”@gully 對你和@Aspiring_Advocate 說。 “這讓我們的搜索更加容易。”<br><br>當你到達山頂時，寒風與火山口滾滾的蒸汽融為一體。 “在那裡！” @Aspiring_Advocate驚呼，指向溫泉。 “冰和火在那里相遇，有什麼更好的地方找冰冷的水瓶座盧恩和激情的金星盧恩呢？”<br><br>你們三人朝溫泉趕路。 @Aspiring_Advocate 說：“ 根據我的研究，將盧恩與心形的紅寶石結合在一起將產生一種可以促進友誼和愛情的孵化藥水！”<br><br>對新發現的前景感到興奮，大家都微笑。 @gully 說：“好吧，讓我們開始搜索！”",
     "questRubyCollectVenusRunes": "金星盧恩",
     "questRubyCollectAquariusRunes": "水瓶座盧恩",
-    "questRubyText": "紅寶石溶液"
+    "questRubyText": "紅寶石的關係"
 }

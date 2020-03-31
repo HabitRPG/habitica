@@ -203,7 +203,8 @@ async function registerLocal (req, res, { isV3 = false }) {
       } else {
         sendTxnEmail(savedUser, 'welcome');
       }
-    });
+    })
+    .catch(err => logger.error(err));
 
   if (!existingUser) {
     res.analytics.track('register', {

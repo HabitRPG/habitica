@@ -95,7 +95,7 @@
     "questMoonstone3DropZombiePotion": "僵尸孵化药水",
     "questGroupGoldenknight": "黄金骑士",
     "questGoldenknight1Text": "黄金骑士，第1部：一场严肃的谈话",
-    "questGoldenknight1Notes": "黄金骑士得知了可怜的Habitica居民们的情况。<br><br>你们没有将每日任务全部完成？点击了一个不好的习惯？她会以此为理由来不断的骚扰你，教你怎样追寻她的脚步。她是完美的Habitica居民光辉的榜样，而你只不过是一个失败者。<br><br>好吧，这一点也不好！<br><br>所有人都会犯错。那些犯了错的人也不应因此就受到这样的否定。也许现在对你来说正是时候，从受到伤害的Habitica居民们那里收集一些证据，然后和黄金骑士来一场严肃的谈话！",
+    "questGoldenknight1Notes": "黄金骑士得知了可怜的Habitica居民们的情况。你们没有将每日任务全部完成？点击了一个不好的习惯？她会以此为理由来不断的骚扰你，教你怎样追寻她的脚步。她是完美的Habitica居民光辉的榜样，而你只不过是一个失败者。好吧，这一点也不好！所有人都会犯错。那些犯了错的人也不应因此就受到这样的否定。也许现在对你来说正是时候，从受到伤害的Habitica居民们那里收集一些证据，然后和黄金骑士来一场严肃的谈话！",
     "questGoldenknight1CollectTestimony": "证据",
     "questGoldenknight1Completion": "看看这些全部的证词！ 这当然足以说服黄金骑士。现在你需要做的就是找到她。",
     "questGoldenknight1DropGoldenknight2Quest": "黄金骑士，第2部：黄金骑士（卷轴）",
@@ -117,7 +117,7 @@
     "questBasilistCompletion": "这条清单魔蛇碎成了漫天的碎纸片，微微地闪着彩虹色。“吁，”@Arcosine 说道，“有你们在真是太棒了！”你从地上的碎纸片中收集起散落的金币，感觉自己与以前相比更加老练了。",
     "questBasilistBoss": "普通的清单魔蛇",
     "questEggHuntText": "搜寻蛋",
-    "questEggHuntNotes": "一夜之间，奇怪而又毫无特征的蛋出现在各个角落：Matt的马厩里，酒馆的柜台后，甚至混杂在市场的宠物蛋之中！真是一片混乱！“没人知道它们哪儿来的，也没人知道它们到底会孵出啥，”梅根说，“但我们不能就任由它们放在那儿！努力工作，努力寻找，来帮助我一起收集这些神秘的蛋。假如你收集的够多，也许你能给你自己留下几个……”",
+    "questEggHuntNotes": "一夜之间，奇怪而又毫无特征的蛋出现在各个角落：Matt的马厩里，酒馆的柜台后，甚至混杂在市场的宠物蛋之中！真是一片混乱！“没人知道它们哪儿来的，也没人知道它们到底会孵出啥，”Megan说，“但我们不能就任由它们放在那儿！努力工作，努力寻找，来帮助我一起收集这些神秘的蛋。假如你收集的够多，也许你能给你自己留下几个……”",
     "questEggHuntCompletion": "你成功了！作为报答<strong>Megan</strong>给了你十个蛋。“我打赌孵化药水会给他们染上漂亮的颜色！不过我想知道当他们变成坐骑时会发生什么……”",
     "questEggHuntCollectPlainEgg": "普通的蛋",
     "questEggHuntDropPlainEgg": "普通蛋",
@@ -274,7 +274,7 @@
     "questBurnoutDropPhoenixPet": "凤凰（宠物）",
     "questBurnoutDropPhoenixMount": "凤凰（坐骑）",
     "questBurnoutBossRageQuests": "`倦怠使用了疲劳打击！`\n\n噢，不！尽管我们尽了最大努力，我们仍然让一些每日任务离开了我们，现在，倦怠充满了能量熊熊燃烧！伴随着噼啪的咆哮声，它涌起幽灵之火吞噬了副本大师Ian。落下的副本卷轴燃烧着，烟雾散去，你发现Ian已经被抽光了能量，变成了漂浮着的疲劳精神体！\n\n唯有战胜倦怠才能制止法术，才能复原我们珍爱的副本大师。让我们保持按时完成每日任务吧，在怪物再次攻击前战胜它！",
-    "questBurnoutBossRageSeasonalShop": "`倦怠使用了疲劳打击！`\n\n啊啊啊！我们未完成的每日任务给倦怠之火提供了能量，现在，它有足够的能量再次攻击了！它释放了一团幽灵之火灼烧着季节商店。你惊骇地发现，愉快的季节女巫已经变为无力的疲劳精神体。\n\n你必须营救我们的NPC们！快，Habitic村民们，完成你的任务吧，在怪物第三次攻击前战胜它！",
+    "questBurnoutBossRageSeasonalShop": "`倦怠使用了疲劳打击！`\n\n啊啊啊！我们未完成的每日任务给倦怠之火提供了能量，现在，它有足够的能量再次攻击了！它释放了一团幽灵之火灼烧着季度商店。你惊骇地发现，愉快的季节女巫已经变为无力的疲劳精神体。\n\n你必须营救我们的NPC们！快，Habitica居民们，完成你的任务吧，在怪物第三次攻击前战胜它！",
     "questBurnoutBossRageTavern": "`倦怠使用了疲劳打击！`\n\n很多Habitica居民已经躲避倦怠进入了客栈，但是坚持不了太长时间了！伴随着刺耳的嚎叫，倦怠用它那白热的爪子犁过酒馆。酒馆的客人全跑了，Daniel 被倦怠抓住，就在你面前变成了疲劳精神体！\n\n极度恐慌已经持续了太长的时间。不要放弃...我们已经如此接近战胜倦怠了，一劳永逸！",
     "questFrogText": "蛙泽",
     "questFrogNotes": "你和朋友正在拖沓沼泽艰难前行，@starsystemic 指向一个大标记。“不要离开小路——如果能做到的话”。<br><br>“这又不难！”@RosemonkeyCT 说，“路面又宽又干净。”<br><br>但随着你们继续前行，你注意到路面开始渐渐被沼泽覆盖，间杂着奇怪的蓝色碎块杂物，直到无法再继续向前走。<br><br>你环顾四周，想搞明白这是怎么一回事，@Jon Arjinborn 喊道：“小心！”一只愤怒的青蛙从淤泥中一跃而出，身披脏衣服，还烧着蓝色的火焰，你必须战胜这只有毒的凌乱蛙才能前进！",
@@ -683,5 +683,5 @@
     "questRubyCollectAquariusRunes": "水瓶座卢恩",
     "questRubyUnlockText": "在市场上解锁红宝石孵化药水以购买",
     "questRubyDropRubyPotion": "红宝石孵化药水",
-    "questRubyText": "红宝石溶液"
+    "questRubyText": "红宝石的关系"
 }
