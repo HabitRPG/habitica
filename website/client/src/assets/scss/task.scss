@@ -336,9 +336,7 @@
       &-control {
         &-bg {
           background: $gray-200 !important;
-          &:hover {
-            .daily-todo-control { background: rgba($white, 0.75) !important; }
-          }
+          .daily-todo-control:hover { background: rgba($white, 0.75) !important; }
         }
         &-inner { background: rgba($white, 0.5) !important; }
         &-checkbox { color: $gray-10 !important; }
