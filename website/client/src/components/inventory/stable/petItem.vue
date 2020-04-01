@@ -161,7 +161,10 @@ export default {
     },
     getPetItemClass () {
       if (this.isOwned() || (this.mountOwned() && this.isHatchable())) {
-        return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
+        if (this.isSpecial()) {
+          return 'Pet Pet-LionCub-Dessert';
+        }
+        return `${this.item.class} ${this.item.eggKey}`;
       }
 
       if (!this.isOwned() && this.isSpecial()) {
@@ -173,7 +176,7 @@ export default {
       }
 
       if (this.mountOwned()) {
-        return `GreyedOut Pet Pet-${this.item.key} ${this.item.eggKey}`;
+        return `GreyedOut ${this.item.class} ${this.item.eggKey}`;
       }
 
       // Can't hatch
