@@ -57,7 +57,8 @@ api.getNews = {
         <div class="npc_aprilFool center-block"></div>
         <h3>Special April Fool's Social Media Challenge!</h3>
         <p>
-          For even more fun, check out the <a href='/challenges/'>official Challenge</a> posted
+          For even more fun, check out the <a
+          href='/challenges/c12641ae-16bc-428b-b949-4e4a6137a6aa'>official Challenge</a> posted
           especially for today! Share your avatar featuring your new dessert pet on social media
           between now and April 3, and you'll have a chance to win Gems and have your avatar
           featured on the Habitica Blog!
