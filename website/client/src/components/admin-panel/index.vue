@@ -287,19 +287,6 @@
                   <code>false</code> or
                   <code>head_warrior_3</code>.
                 </small>
-                <div class="accordion">
-                  <div
-                    class="accordion-group"
-                    heading="All Item Paths"
-                  >
-                    <pre>{{ allItemPaths }}</pre>
-                  </div>
-                  <div
-                    class="accordion-group"
-                    heading="Current Items"
-                  >
-                  </div>
-                </div>
                 <div class="form-group">
                   <button class="form-control btn btn-primary" @click="saveHero()">Save</button>
                 </div>
@@ -406,7 +393,6 @@
 </style>
 
 <script>
-import each from 'lodash/each';
 import moment from 'moment';
 
 import markdownDirective from '@/directives/markdown';
@@ -429,7 +415,6 @@ export default {
     return {
       hero: {},
       heroID: '',
-      allItemPaths: this.getAllItemPaths(),
       quests,
       mountInfo,
       petInfo,
@@ -503,48 +488,6 @@ export default {
         description += `<li>${gearType} : ${item}</li>\n`;
       });
       return description;
-    },
-    getAllItemPaths () {
-      // let questsFormat = this.getFormattedItemReference
-      // ('items.quests', keys(this.quests), 'Numeric Quantity');
-      // let mountsFormat = this.getFormattedItemReference
-      // ('items.mounts', keys(this.mountInfo), 'Boolean');
-      // let foodFormat = this.getFormattedItemReference
-      // ('items.food', keys(this.food), 'Numeric Quantity');
-      // let eggsFormat = this.getFormattedItemReference
-      // ('items.eggs', keys(this.eggs), 'Numeric Quantity');
-      // let hatchingPotionsFormat = this.getFormattedItemReference
-      // ('items.hatchingPotions', keys(this.hatchingPotions), 'Numeric Quantity');
-      // let petsFormat = this.getFormattedItemReference
-      // ('items.pets', keys(this.petInfo), '-1:
-      // Owns Mount, 0: Not Owned, 1-49: Progress to mount');
-      // let specialFormat = this.getFormattedItemReference
-      // ('items.special', keys(this.special), 'Numeric Quantity');
-      // let gearFormat = this.getFormattedItemReference
-      // ('items.gear.owned', keys(this.gear.flat), 'Boolean');
-      //
-      // let equippedGearFormat = ''; // @TODO:
-      // '\nEquipped Gear:\n\titems.gear.{equipped/costume}
-      // .{head/headAccessory/eyewear/armor/body/back/shield/weapon}.{gearKey}\n';
-      // let equippedPetFormat = ''; // @TODO:'\nEquipped Pet:\n\titems.currentPet.{petKey}\n';
-      // let equippedMountFormat = ''; // @TODO:
-      // '\nEquipped Mount:\n\titems.currentMount.{mountKey}\n';
-      //
-      // let data = questsFormat.concat(mountsFormat,
-      // foodFormat, eggsFormat, hatchingPotionsFormat,
-      // petsFormat, specialFormat, gearFormat, equippedGearFormat,
-      // equippedPetFormat, equippedMountFormat);
-      //
-      // return data;
-    },
-    getFormattedItemReference (pathPrefix, itemKeys, values) { // XXX_SOON delete
-      let finishedString = '\n'.concat('path: ', pathPrefix, ', ', 'value: {', values, '}\n');
-
-      each(itemKeys, key => {
-        finishedString = finishedString.concat('\t', pathPrefix, '.', key, '\n');
-      });
-
-      return finishedString;
     },
 
     collateItemData () {
