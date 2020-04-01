@@ -29,7 +29,7 @@
     "axios-progress-bar": "^1.2.0",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.4.1",
-    "bootstrap-vue": "^2.7.0",
+    "bootstrap-vue": "^2.9.0",
     "chai": "^4.1.2",
     "core-js": "^3.6.4",
     "eslint": "^6.8.0",
@@ -61,6 +61,6 @@
     "vue2-perfect-scrollbar": "^1.4.0",
     "vuedraggable": "^2.23.1",
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#5d237615463a84a23dd6f3f77c6ab577d68593ec",
-    "webpack": "^4.42.0"
+    "webpack": "^4.42.1"
   }
 }

@@ -203,7 +203,7 @@
     "goToSettings": "前往設定",
     "usernameVerifiedConfirmation": "您的使用者名稱<%= username %>已確認！",
     "usernameNotVerified": "請確認您的使用者名稱。",
-    "changeUsernameDisclaimer": "此使用者名稱將用於邀請、聊天中的@標記、和訊息。",
+    "changeUsernameDisclaimer": "你的用戶名用於收發邀請、聊天的艾特@和消息、和私信消息。登錄名的長度必須在1至20個字符之間，只含有字母a至z，數字0至9，連字符，或下劃線，並且不能包含任何不適當的條款。",
     "verifyUsernameVeteranPet": "完成確認後，其中一隻將領寵物將會等您前來領養！",
     "subscriptionReminders": "訂閱提醒",
     "newPMNotificationTitle": "來自<%= name %>的新訊息",

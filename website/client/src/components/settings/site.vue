@@ -833,6 +833,7 @@ export default {
     },
     async deleteSocialAuth (network) {
       await axios.delete(`/api/v4/user/auth/social/${network.key}`);
+      this.user.auth[network.key] = {};
       this.text(this.$t('detachedSocial', { network: network.name }));
     },
     async socialAuth (network) {

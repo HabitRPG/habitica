@@ -1,8 +1,10 @@
-
 import content from '@/../../common/script/content';
 
 const specialPets = Object.keys(content.specialPets);
 const wackyPets = Object.keys(content.wackyPets);
+const questPets = Object.keys(content.questPets);
+const premiumPets = Object.keys(content.premiumPets);
+const dropPets = Object.keys(content.pets);
 
 function getText (textOrFunction) {
   if (textOrFunction instanceof Function) {
@@ -34,10 +36,20 @@ export function isSpecial (animal) {
 
 export function createAnimal (egg, potion, type, _content, userItems) {
   const animalKey = `${egg.key}-${potion.key}`;
+  let fooledKey = '';
+  if (questPets.includes(animalKey)) {
+    fooledKey = 'FlyingPig-Dessert';
+  } else if (dropPets.includes(animalKey)
+    || premiumPets.includes(animalKey)
+    || wackyPets.includes(animalKey)) {
+    fooledKey = `${egg.key}-Dessert`;
+  } else {
+    fooledKey = animalKey;
+  }
 
   return {
     key: animalKey,
-    class: type === 'pet' ? `Pet Pet-${animalKey}` : `Mount_Icon_${animalKey}`,
+    class: type === 'pet' ? `Pet Pet-${fooledKey}` : `Mount_Icon_${animalKey}`,
     eggKey: egg.key,
     eggName: getText(egg.text),
     potionKey: potion.key,

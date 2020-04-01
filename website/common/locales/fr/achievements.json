@@ -72,5 +72,8 @@
     "achievementTickledPink": "Rose bonbon",
     "foundNewItemsCTA": "Rendez-vous dans votre inventaire et essayez de combiner les nouvelles potions d'éclosion et les nouveaux œufs !",
     "foundNewItemsExplanation": "Remplir vos tâches vous donne une chance de trouver des objets, comme les œufs, les potion d'éclosion et la nourriture.",
-    "foundNewItems": "Vous avez trouvé de nouveaux objets !"
+    "foundNewItems": "Vous avez trouvé de nouveaux objets !",
+    "achievementBugBonanzaModalText": "Vous avez achevé les quêtes des scarabées, papillons, escargots et araignées !",
+    "achievementBugBonanzaText": "A achevé les quêtes des scarabées, papillons, escargots et araignées.",
+    "achievementBugBonanza": "Profusion d'insectes"
 }

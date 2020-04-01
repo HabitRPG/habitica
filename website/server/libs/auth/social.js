@@ -1,6 +1,7 @@
 import passport from 'passport';
 import common from '../../../common';
 import { BadRequest } from '../errors';
+import logger from '../logger';
 import {
   generateUsername,
   loginRes,
@@ -98,7 +99,8 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
             sendTxnEmail(savedUser, 'welcome');
           }
         }
-      }); // eslint-disable-line max-nested-callbacks
+      })
+      .catch(err => logger.error(err)); // eslint-disable-line max-nested-callbacks
   }
 
   if (!existingUser) {
