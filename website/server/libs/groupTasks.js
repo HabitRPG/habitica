@@ -237,9 +237,12 @@ async function groupTaskNewDay (groupMemberTask, user, now = moment()) {
   // if user day is *different* from task's last completed day
   const masterTask = await Tasks.Task.findOne({
     _id: groupMemberTask.group.taskId,
+    completed: true,
+    type: 'daily',
   }).exec();
 
-  if (!masterTask || !masterTask.group || masterTask.type !== 'daily' || !masterTask.completed) return;
+  if (!masterTask) return;
+
   if (masterTask.history && masterTask.history.length > 0) {
     const taskLastHistory = masterTask.history[masterTask.history.length - 1];
     if (taskLastHistory.userId) {
@@ -251,7 +254,8 @@ async function groupTaskNewDay (groupMemberTask, user, now = moment()) {
         ));
         const userDay = startOfDay(defaults({ now }, user.preferences.toObject()));
         if (!userDay.isSame(taskLastCompletedDay)) {
-          return Tasks.Task.findByIdAndUpdate(masterTask._id, { $set: { completed: false } }); // eslint-disable-line consistent-return
+          masterTask.completed = false;
+          masterTask.save();
         }
       }
     }
