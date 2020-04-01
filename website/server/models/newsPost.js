@@ -55,15 +55,8 @@ schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 })
 const NEWS_CACHE_TIME = 5 * 60 * 1000;
 
 let cachedLastNewsPost = null;
-let timeStampCachedLastNews = null;
 
-schema.statics.lastNewsPost = async function lastNewsPost () {
-  if (!cachedLastNewsPost || (new Date() - timeStampCachedLastNews) > NEWS_CACHE_TIME) {
-    const lastPost = await this.getLastPost();
-    if (lastPost) {
-      await this.updateLastNewsPost(lastPost);
-    }
-  }
+schema.statics.lastNewsPost = function lastNewsPost () {
   return cachedLastNewsPost;
 };
 
@@ -71,9 +64,19 @@ schema.statics.updateLastNewsPost = async function updateLastNewsPost (newPost) 
   if (!cachedLastNewsPost || cachedLastNewsPost.id !== newPost.id) {
     if (!cachedLastNewsPost || cachedLastNewsPost.publishDate < newPost.publishDate) {
       cachedLastNewsPost = newPost;
-      timeStampCachedLastNews = new Date();
     }
   }
 };
 
 export const model = mongoose.model('NewsPost', schema);
+
+setInterval(async () => {
+  const lastPost = await model.getLastPost();
+  if (lastPost) {
+    model.updateLastNewsPost(lastPost);
+  }
+}, NEWS_CACHE_TIME);
+
+model.getLastPost().then(newsPost => {
+  model.updateLastNewsPost(newsPost);
+});

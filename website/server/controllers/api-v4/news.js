@@ -217,7 +217,7 @@ api.MarkNewsRead = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    const { id } = await NewsPost.lastNewsPost();
+    const { id } = NewsPost.lastNewsPost();
     user.flags.lastNewStuffRead = id;
 
     await user.save();
@@ -240,7 +240,7 @@ api.tellMeLaterNews = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    const { id, title } = await NewsPost.lastNewsPost();
+    const { id, title } = NewsPost.lastNewsPost();
     user.flags.lastNewStuffRead = id;
 
     if (user.notifications) {

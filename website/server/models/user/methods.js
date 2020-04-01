@@ -296,6 +296,8 @@ schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComp
   if (!jsonUser.flags.verifiedUsername) jsonUser.auth.local.username = null;
 
   if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
+
+  jsonUser.flags.newStuff = this.checkNewStuff();
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
@@ -491,8 +493,8 @@ schema.methods.isAdmin = function isAdmin () {
   return this.contributor && this.contributor.admin;
 };
 
-schema.methods.checkNewStuff = async function checkNewStuff () {
-  const { id } = await NewsPost.lastNewsPost();
+schema.methods.checkNewStuff = function checkNewStuff () {
+  const { id } = NewsPost.lastNewsPost();
   return this.flags.lastNewStuffRead !== id;
 };
 
