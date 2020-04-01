@@ -2079,5 +2079,9 @@
     "weaponSpecialSpring2020WarriorNotes": "Fight or flight, this wing will serve you well! Increases Strength by <%= str %>. Limited Edition 2020 Spring Gear.",
     "weaponSpecialSpring2020WarriorText": "Sharpened Wing",
     "weaponSpecialSpring2020RogueNotes": "You'll strike so fast it'll look even MORE blue! Increases Strength by <%= str %>. Limited Edition 2020 Spring Gear.",
-    "weaponSpecialSpring2020RogueText": "Lazurite Blade"
+    "weaponSpecialSpring2020RogueText": "Lazurite Blade",
+    "headAccessoryMystery202004Notes": "They twitch just a bit if the scent of flowers drifts by--use them to find a pretty garden! Confers no benefit. April 2020 Subscriber Item.",
+    "headAccessoryMystery202004Text": "Mighty Monarch Antennae",
+    "backMystery202004Notes": "Make a quick flutter to the nearest flowery meadow or migrate across the continent with these beautiful wings! Confers no benefit. April 2020 Subscriber Item.",
+    "backMystery202004Text": "Mighty Monarch Wings"
 }

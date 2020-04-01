@@ -2079,5 +2079,9 @@
     "weaponSpecialSpring2020WarriorNotes": "Lutar ou voar, esta asa irá te atender bem! Aumenta a Força em <%= str %>. Equipamento de edição limitada da primavera de 2020.",
     "weaponSpecialSpring2020WarriorText": "Asa afiada",
     "weaponSpecialSpring2020RogueNotes": "Você atacará tão rápido que ficará ainda MAIS AZUL! Aumenta a Força em <%= str %>. Equipamento de edição limitada da primavera de 2020.",
-    "weaponSpecialSpring2020RogueText": "Lâmina de lazurita"
+    "weaponSpecialSpring2020RogueText": "Lâmina de lazurita",
+    "headAccessoryMystery202004Notes": "Elas tremem um pouco se o perfume das flores passa perto -- use-as para encontrar um belo jardim! Não confere benefícios. Item de assinante, Abril de 2020.",
+    "headAccessoryMystery202004Text": "Antenas do(a) Monarca poderoso(a)",
+    "backMystery202004Notes": "Faça um movimento rápido para o prado florido mais próximo ou migre pelo continente com essas lindas asas! Não confere benefícios. Item de assinante, Abril  de 2020.",
+    "backMystery202004Text": "Asas do(a) Monarca poderoso(a)"
 }
