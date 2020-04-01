@@ -32,7 +32,7 @@
             @click="(isUser && task.up) ? score('up') : null"
           >
             <div
-              v-if="task.group.id && !isUser"
+              v-if="!isUser"
               class="svg-icon lock"
               :class="task.up ? controlClass.up.icon : 'positive'"
               v-html="icons.lock"
@@ -58,7 +58,7 @@
             @click="isUser ? score(task.completed ? 'down' : 'up') : null"
           >
             <div
-              v-if="task.group.id && !isUser && !task.completed"
+              v-if="!isUser && !task.completed"
               class="svg-icon lock"
               :class="controlClass.icon"
               v-html="icons.lock"
@@ -317,7 +317,7 @@
             @click="(isUser && task.down) ? score('down') : null"
           >
             <div
-              v-if="task.group.id && !isUser"
+              v-if="!isUser"
               class="svg-icon lock"
               :class="task.down ? controlClass.down.icon : 'negative'"
               v-html="icons.lock"

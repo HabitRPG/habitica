@@ -108,6 +108,11 @@ export function canEdit (store) {
   };
 }
 
+function _nonInteractive (task) {
+  return (task.group && task.group.id && !task.userId)
+    || (task.challenge && task.challenge.id && !task.userId);
+}
+
 export function getTaskClasses (store) {
   const userPreferences = store.state.user.data.preferences;
 
@@ -158,28 +163,28 @@ export function getTaskClasses (store) {
           }
 
           return {
-            bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
+            bg: _nonInteractive(task) ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
             checkbox: `task-${color}-control-checkbox`,
             inner: `task-${color}-control-inner-daily-todo`,
             icon: `task-${color}-control-icon`,
           };
         } if (type === 'reward') {
           return {
-            bg: task.group && task.group.id && !task.userId ? 'task-reward-control-bg-noninteractive' : 'task-reward-control-bg',
+            bg: _nonInteractive(task) ? 'task-reward-control-bg-noninteractive' : 'task-reward-control-bg',
           };
         } if (type === 'habit') {
           return {
             up: task.up
               ? {
-                bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
-                inner: task.group && task.group.id && !task.userId ? `task-${color}-control-inner-habit-noninteractive` : `task-${color}-control-inner-habit`,
+                bg: _nonInteractive(task) ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
+                inner: _nonInteractive(task) ? `task-${color}-control-inner-habit-noninteractive` : `task-${color}-control-inner-habit`,
                 icon: `task-${color}-control-icon`,
               }
               : { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
             down: task.down
               ? {
-                bg: task.group && task.group.id && !task.userId ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
-                inner: task.group && task.group.id && !task.userId ? `task-${color}-control-inner-habit-noninteractive` : `task-${color}-control-inner-habit`,
+                bg: _nonInteractive(task) ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
+                inner: _nonInteractive(task) ? `task-${color}-control-inner-habit-noninteractive` : `task-${color}-control-inner-habit`,
                 icon: `task-${color}-control-icon`,
               }
               : { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },

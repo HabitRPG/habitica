@@ -67,11 +67,10 @@
       </div>
       <div class="form-group mb-0">
         <label
-          class="d-flex align-items-center justify-content-between"
+          class="d-flex align-items-center justify-content-between m-b-xs"
         >
           <span
             :class="cssClassHeadings"
-            class="m-b-xs"
           >{{ $t('notes') }}</span>
           <small>
             <a
@@ -1209,7 +1208,6 @@
     font-size: 14px;
     font-weight: bold;
     line-height: 1.71;
-    margin: 0px;
   }
 </style>
 
