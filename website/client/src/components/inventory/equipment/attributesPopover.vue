@@ -5,7 +5,7 @@
         {{ `${$t('lockedItem')}` }}
       </h4>
       <div
-        v-if="item.specialClass !== user.stats.class && item.klass !== user.stats.class"
+        v-if="isWrongClass"
         class="popover-content-text"
       >
         {{ `${$t('classLockedItem')}` }}
@@ -52,6 +52,9 @@ export default {
   props: {
     item: {
       type: Object,
+    },
+    isWrongClass: {
+      type: Boolean,
     },
   },
   computed: {
