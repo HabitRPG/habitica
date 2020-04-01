@@ -49,6 +49,7 @@ describe('GET /heroes/:heroId', () => {
     expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'id', 'balance', 'profile', 'purchased',
       'contributor', 'auth', 'items',
+      'preferences', 'lastCron', 'party',
     ]);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
@@ -63,6 +64,7 @@ describe('GET /heroes/:heroId', () => {
     expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'id', 'balance', 'profile', 'purchased',
       'contributor', 'auth', 'items',
+      'preferences', 'lastCron', 'party',
     ]);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
