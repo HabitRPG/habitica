@@ -72,5 +72,8 @@
     "achievementTickledPink": "笑得脸变粉红色",
     "foundNewItemsCTA": "去物品栏，尝试结合你的新孵化药水和蛋！",
     "foundNewItemsExplanation": "完成任务使你有机会找到物品，如蛋、孵化药水和食物。",
-    "foundNewItems": "你找到了新物品！"
+    "foundNewItems": "你找到了新物品！",
+    "achievementBugBonanzaModalText": "你完成了甲虫、蝴蝶、蜗牛及蜘蛛的宠物副本！",
+    "achievementBugBonanzaText": "已完成甲虫、蝴蝶、蜗牛及蜘蛛的宠物副本。",
+    "achievementBugBonanza": "虫子富矿带"
 }

@@ -63,5 +63,8 @@
     "achievementCreatedTaskText": "最初のタスクを作成しました。",
     "achievementCreatedTask": "タスクを作成する",
     "hideAchievements": "<%= category %>をたたむ",
-    "showAllAchievements": "すべての<%= category %>を表示する"
+    "showAllAchievements": "すべての<%= category %>を表示する",
+    "foundNewItemsCTA": "所持品のページに行って、新しいたまごがえしの薬とたまごを組み合わせてみましょう！",
+    "foundNewItemsExplanation": "タスクを完了することで、たまご・たまごがえしの薬・えさなどのアイテムを見つけるチャンスが与えられます。",
+    "foundNewItems": "新しいアイテムを見つけました！"
 }

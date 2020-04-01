@@ -1,11 +1,11 @@
 {
     "questEvilSantaText": "Pelsjagende Kerstman",
-    "questEvilSantaNotes": "Je hoort kreunende brullen diep in de ijsvelden. Je volgt het gegrom - onderbroken door het geluid van gekakel - naar een open plek in het bos, waar je een volgroeide ijsbeer ziet. Ze is gekooid en geboeid, vechtend voor haar leven. Bovenop de kooi danst een kwaadaardige kleine imp in een aftands kerstkostuum. Overwin de pelsjagende Kerstman, en red het beest!",
+    "questEvilSantaNotes": "Je hoort kreunende brullen diep in de ijsvelden. Je volgt het gegrom - onderbroken door het geluid van gekakel - naar een open plek in het bos, waar je een volgroeide ijsbeer ziet. Ze is gekooid en geboeid, vechtend voor haar leven. Bovenop de kooi danst een kwaadaardige kleine imp in een aftands kerstkostuum. Overwin de pelsjagende Kerstman, en red het beest! <br><br><strong> Opmerking </strong>: \"Trapper Santa\" beloont een stapelbare questprestatie, maar geeft een zeldzame mount die maar één keer aan je stal kan worden toegevoegd.",
     "questEvilSantaCompletion": "De Pelsjagende Kerstman krijst van woede, en stuitert weg in de nacht. De dankbare berin probeert je iets te vertellen door te brullen en te grommen. Je neemt haar mee naar de stallen, waar Matt Boch de dierenfluisteraar met een snik van afgrijzen luistert. Ze heeft een welp! Hij rende de ijsvelden in toen mama-beer gevangen werd genomen.",
     "questEvilSantaBoss": "Pelsjagende Kerstman",
     "questEvilSantaDropBearCubPolarMount": "IJsbeer (rijdier)",
     "questEvilSanta2Text": "Vind de welp",
-    "questEvilSanta2Notes": "De welp van mama-beer is de ijsvelden in weggerend toen mama-beer gevangen werd genomen door de pelsjagende Kerstman. Je hoort takjes breken en sneeuw kraken door de kristalheldere geluiden van het bos. Pootafdrukken! Jullie beginnen te rennen om het spoor te volgen. Vind alle afdrukken en gebroken takjes, en haal haar jong terug!",
+    "questEvilSanta2Notes": "De welp van mama-beer is de ijsvelden in weggerend toen mama-beer gevangen werd genomen door de pelsjagende Kerstman. Je hoort takjes breken en sneeuw kraken door de kristalheldere geluiden van het bos. Pootafdrukken! Jullie beginnen te rennen om het spoor te volgen. Vind alle afdrukken en gebroken takjes, en haal haar jong terug! <br><br><strong>Opmerking</strong>: \"Find the Cub\" beloont een stapelbare missie, maar geeft een zeldzaam huisdier dat maar één keer aan je stal kan worden toegevoegd.",
     "questEvilSanta2Completion": "Je hebt de welp gevonden! Hij zal je voor altijd gezelschap houden.",
     "questEvilSanta2CollectTracks": "Sporen",
     "questEvilSanta2CollectBranches": "Gebroken takjes",
@@ -656,5 +656,6 @@
     "questBronzeNotes": "Tijdens een verfrissende pauze tussen twee taken, wandelen jij en je vriend over de paden van het Takenbos. Je komt aan een grote, holle boomstam, en een glinstering binnenin trekt je aandacht.<br><br>Waarom, het is een opslagplaats voor Magische Toverdrankjes! Het geflonker wervelt zachtjes in de flessen, en @Hachiseiko reikt om er eentje op te nemen.<br><br> “Halt!”, sist een stem achter je. Het is een gigantische kever met een rugschild van glanzend brons, die haar poot met klauwen opheft in een vechtstand. \"Dit zijn mijn toverdranken, en als je ze wil bekomen, dan moet je jezelf bewijzen in een adelstand duel!\"",
     "questBronzeText": "Strijd van de Bronzen Kever",
     "mythicalMarvelsNotes": "Bevat 'De Eenhoornkoningin  Overtuigen', 'De Vurige Griffioen' en 'Gevaar in de Diepten: Zeeslangen Slag'! Beschikbaar tot 28 Februari.",
-    "mythicalMarvelsText": "Mytische Wonderen Queeste Bundel"
+    "mythicalMarvelsText": "Mytische Wonderen Queeste Bundel",
+    "evilSantaAddlNotes": "Wees er bewust van dat Trapper Santa en Find the Cub stapelbare questprestaties hebben, maar een zeldzaam huisdier en een mount geven die maar één keer aan je stal kan worden toegevoegd."
 }

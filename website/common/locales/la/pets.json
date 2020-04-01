@@ -37,7 +37,7 @@
     "royalPurpleGryphon": "Gryphus Purpureus Regius",
     "noEggs": "Ulla ova non habes.",
     "eggSingular": "ovum",
-    "eggs": "ova",
+    "eggs": "Ova",
     "mountName": "<%= mount(locale) %> <%= potion(locale) %>",
     "petName": "<%= egg(locale) %> <%= potion(locale) %>",
     "hatchedPet": "Incubuisti novum animal nominatum <%= potion %> <%= egg %>!",
