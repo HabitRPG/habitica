@@ -19,13 +19,15 @@ import {
 import {
   createTasks,
   getTasks,
-  moveTask,
-  setNextDue,
   getGroupFromTaskAndUser,
   getChallengeFromTask,
   verifyTaskModification,
-  requiredGroupFields,
 } from '../../libs/tasks';
+import {
+  moveTask,
+  setNextDue,
+  requiredGroupFields,
+} from '../../libs/tasks/utils';
 import common from '../../../common';
 import logger from '../../libs/logger';
 import apiError from '../../libs/apiError';
@@ -929,7 +931,6 @@ api.moveTask = {
     const challenge = await getChallengeFromTask(task);
     verifyTaskModification(task, user, group, challenge, res);
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
 
     const owner = group || challenge || user;
@@ -958,7 +959,10 @@ api.moveTask = {
     // Update the user version field manually,
     // it cannot be updated in the pre update hook
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
-    owner._v += 1;
+    // Only users have a version.
+    if (!group && !challenge) {
+      owner._v += 1;
+    }
 
     res.respond(200, order);
   },

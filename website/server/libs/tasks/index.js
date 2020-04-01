@@ -2,8 +2,6 @@ import _ from 'lodash';
 import {
   requiredGroupFields,
   validateTaskAlias,
-  syncableAttrs,
-  moveTask,
   setNextDue,
 } from './utils';
 import { model as Challenge } from '../../models/challenge';
@@ -243,7 +241,7 @@ async function getGroupFromTaskAndUser (task, user) {
 
 async function getChallengeFromTask (task) {
   if (task.challenge.id && !task.userId) {
-    return Challenge.findOne({ _id: task.challenge.id });
+    return Challenge.findOne({ _id: task.challenge.id }).exec();
   }
   return null;
 }
@@ -268,14 +266,10 @@ function verifyTaskModification (task, user, group, challenge, res) {
 }
 
 export {
-  setNextDue,
   createTasks,
   getTasks,
-  moveTask,
   canNotEditTasks,
   getGroupFromTaskAndUser,
   getChallengeFromTask,
   verifyTaskModification,
-  requiredGroupFields,
-  syncableAttrs,
 };
