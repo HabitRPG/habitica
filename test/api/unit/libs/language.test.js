@@ -33,20 +33,6 @@ describe('language lib', () => {
 
       expect(getLanguageFromUser(user, req)).to.equal('en');
     });
-
-    it('uses the user preferred language even if a session is included in request', () => {
-      const user = {
-        preferences: {
-          language: 'it',
-        },
-      };
-
-      req.session = {
-        userId: 123,
-      };
-
-      expect(getLanguageFromUser(user, req)).to.equal('it');
-    });
   });
 
   describe('getLanguageFromBrowser', () => {

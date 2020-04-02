@@ -22,6 +22,8 @@ describe('language middleware', () => {
 
     beforeEach(() => {
       res = generateRes();
+      // remove the defaul user
+      res.locals.user = undefined;
       req = generateReq();
       next = generateNext();
 
@@ -60,6 +62,8 @@ describe('language middleware', () => {
 
     beforeEach(() => {
       res = generateRes();
+      // remove the defaul user
+      res.locals.user = undefined;
       req = generateReq();
       next = generateNext();
       attachTranslateFunction(req, res, next);
