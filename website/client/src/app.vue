@@ -559,13 +559,9 @@ export default {
         userId: parseSettings.auth.apiId,
       });
 
-      console.log('is banned?', errorMessage, bannedMessage, errorMessage === bannedMessage);
-
       if (errorMessage !== bannedMessage) return;
 
-      console.log('is banned');
-      // this.$store.dispatch('auth:logout');
-
+      this.$store.dispatch('auth:logout');
     },
     initializeModalStack () {
       // Manage modals

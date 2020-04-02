@@ -12,6 +12,9 @@ import { model as User } from '../../../../website/server/models/user';
 
 const { i18n } = common;
 
+// TODO some of the checks here can be simplified to simply check
+// that the right parameters are passed to the functions in libs/language
+
 describe('language middleware', () => {
   describe('res.t', () => {
     let res; let req; let
