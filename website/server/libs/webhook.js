@@ -13,10 +13,10 @@ function sendWebhook (webhook, body, user) {
   const { url, lastFailureAt } = webhook;
 
   got.post(url, {
-    body,
-    json: true,
+    json: body,
     timeout: 30000, // wait up to 30s before timing out
     retry: 3, // retry the request up to 3 times
+  // Not calling .json() to parse the response because we simply ignore it
   }).catch(webhookErr => {
     // Log the error
     logger.error(webhookErr, 'Error while sending a webhook request.');
