@@ -91,7 +91,7 @@ describe('language middleware', () => {
           lang: 'es',
         };
 
-        req.locals = {
+        res.locals = {
           user: {
             preferences: {
               language: 'it',
@@ -111,7 +111,7 @@ describe('language middleware', () => {
 
     context('authorized request', () => {
       it('uses the user preferred language if avalaible', () => {
-        req.locals = {
+        res.locals = {
           user: {
             preferences: {
               language: 'it',
@@ -125,7 +125,7 @@ describe('language middleware', () => {
       });
 
       it('falls back to english if the user preferred language is not avalaible', done => {
-        req.locals = {
+        res.locals = {
           user: {
             preferences: {
               language: 'bla',
@@ -141,7 +141,7 @@ describe('language middleware', () => {
       });
 
       it('uses the user preferred language even if a session is included in request', () => {
-        req.locals = {
+        res.locals = {
           user: {
             preferences: {
               language: 'it',
