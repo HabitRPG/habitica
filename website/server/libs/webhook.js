@@ -13,9 +13,7 @@ function sendWebhook (webhook, body, user) {
   const { url, lastFailureAt } = webhook;
 
   got.post(url, {
-    // passed as a stringified JSON object, not using `json: true` because we don't want to parse the
-    // respose as json
-    body,
+    json: body,
     headers: {
       'content-type': 'application/json',
     },
@@ -112,10 +110,8 @@ export class WebhookSender {
     const body = this.transformData(data);
     this.attachDefaultData(user, body);
 
-    const stringifiedBody = JSON.stringify(body);
-
     hooks.forEach(hook => {
-      sendWebhook(hook, stringifiedBody, user);
+      sendWebhook(hook, body, user);
     });
   }
 }

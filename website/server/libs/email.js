@@ -134,8 +134,7 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
       retry: 5, // retry the http request to the email server 5 times
       timeout: 60000, // wait up to 60s before timing out
       auth: `${EMAIL_SERVER.auth.user}:${EMAIL_SERVER.auth.password}`,
-      json: true,
-      body: {
+      json: {
         type: 'email',
         data: {
           emailType,
@@ -149,7 +148,7 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
           backoff: { delay: 10 * 60 * 1000, type: 'fixed' },
         },
       },
-    }).catch(err => logger.error(err));
+    }).json().catch(err => logger.error(err));
   }
 
   return null;
