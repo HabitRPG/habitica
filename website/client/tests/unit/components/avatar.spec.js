@@ -78,7 +78,7 @@ context('avatar.vue', () => {
       };
     });
 
-    xit('defaults to 27px', () => {
+    it('defaults to 27px', () => {
       vm.avatarOnly = true;
       expect(vm.paddingTop).to.equal('27px');
     });
