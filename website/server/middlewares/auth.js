@@ -7,6 +7,7 @@ import {
   model as User,
 } from '../models/user';
 import gcpStackdriverTracer from '../libs/gcpTraceAgent';
+import common from '../../common';
 
 const COMMUNITY_MANAGER_EMAIL = nconf.get('EMAILS_COMMUNITY_MANAGER_EMAIL');
 const USER_FIELDS_ALWAYS_LOADED = ['_id', 'notifications', 'preferences', 'auth', 'flags'];
@@ -72,7 +73,7 @@ export function authWithHeaders (options = {}) {
       .exec()
       .then(user => {
         if (!user) throw new NotAuthorized(res.t('invalidCredentials'));
-        if (user.auth.blocked) throw new NotAuthorized(res.t('accountSuspended', { communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id }));
+        if (user.auth.blocked) throw new NotAuthorized(common.i18n.t('accountSuspended', { communityManagerEmail: COMMUNITY_MANAGER_EMAIL, userId: user._id }, 'it'));
 
         res.locals.user = user;
         req.session.userId = user._id;

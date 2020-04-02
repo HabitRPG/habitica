@@ -33,7 +33,7 @@
         'resting': showRestingBanner
       }"
     >
-      <banned-account-modal />
+      <!-- <banned-account-modal /> -->
       <amazon-payments-modal v-if="!isStaticPage" />
       <payments-success-modal />
       <sub-cancel-modal-confirm v-if="isUserLoaded" />
@@ -266,7 +266,6 @@ import {
 } from '@/libs/userlocalManager';
 
 import svgClose from '@/assets/svg/close.svg';
-import bannedAccountModal from '@/components/bannedAccountModal';
 
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
@@ -281,7 +280,6 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
-    bannedAccountModal,
     paymentsSuccessModal,
     subCancelModalConfirm,
     subCanceledModal,
@@ -561,9 +559,13 @@ export default {
         userId: parseSettings.auth.apiId,
       });
 
+      console.log('is banned?', errorMessage, bannedMessage, errorMessage === bannedMessage);
+
       if (errorMessage !== bannedMessage) return;
 
-      this.$root.$emit('bv::show::modal', 'banned-account');
+      console.log('is banned');
+      // this.$store.dispatch('auth:logout');
+
     },
     initializeModalStack () {
       // Manage modals
