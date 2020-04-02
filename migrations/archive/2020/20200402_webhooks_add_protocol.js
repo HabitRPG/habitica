@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const MIGRATION_NAME = '20200402_webhooks_fixes';
+const MIGRATION_NAME = '20200402_webhooks_add_protocol';
 import { model as User } from '../../../website/server/models/user';
 
 const progressCount = 1000;
@@ -14,11 +14,6 @@ async function updateUser (user) {
 
   if (user && user.webhooks && user.webhooks.length > 0) {
     user.webhooks.forEach(webhook => {
-      // Re-enable webhooks disabled because of too many failures
-      if (webhook.enabled === false && webhook.lastFailureAt === null) {
-        webhook.enabled = true;
-      }
-
       // Make sure the protocol is set and valid
       if (webhook.url.startsWith('ftp')) {
         webhook.url = webhook.url.replace('ftp', 'https');
