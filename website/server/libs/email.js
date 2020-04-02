@@ -133,7 +133,8 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
     return got.post(`${EMAIL_SERVER.url}/job`, {
       retry: 5, // retry the http request to the email server 5 times
       timeout: 60000, // wait up to 60s before timing out
-      auth: `${EMAIL_SERVER.auth.user}:${EMAIL_SERVER.auth.password}`,
+      username: EMAIL_SERVER.auth.user,
+      password: EMAIL_SERVER.auth.password,
       json: {
         type: 'email',
         data: {
