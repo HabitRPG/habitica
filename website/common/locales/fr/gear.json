@@ -2079,5 +2079,9 @@
     "weaponSpecialSpring2020WarriorNotes": "En vol ou au sol, ces ailes vous serviront bien ! Augmente la force de <%= str %>. Équipement en édition limitée du printemps 2020.",
     "weaponSpecialSpring2020WarriorText": "Ailes affutées",
     "weaponSpecialSpring2020RogueNotes": "Vous frapperez si vite que aura l'air encore PLUS bleu ! Augmente la force de <%= str %>. Équipement en édition limitée du printemps 2020.",
-    "weaponSpecialSpring2020RogueText": "Épée de Lazurite"
+    "weaponSpecialSpring2020RogueText": "Épée de Lazurite",
+    "headAccessoryMystery202004Notes": "Elles se trémoussent juste un peu si l'odeur des fleurs passe devant elles : utilisez-les pour trouver un joli jardin ! Ne confère aucun bonus. Équipement d'abonnement d'avril 2020.",
+    "headAccessoryMystery202004Text": "Antennes de merveilleux monarque",
+    "backMystery202004Notes": "Faites un vol rapide vers la prairie fleurie la plus proche ou migrez à travers le continent avec ces jolies ailes ! Ne confère aucun bonus. Équipement d'abonnement d'avril 2020.",
+    "backMystery202004Text": "Ailes de merveilleux monarque"
 }

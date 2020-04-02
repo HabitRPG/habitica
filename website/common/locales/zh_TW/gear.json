@@ -2079,5 +2079,9 @@
     "weaponSpecialSpring2020WarriorNotes": "在戰鬥時或逃跑時，這支翅膀會為你服務！增加<%= str %>點力量。 2020年春季限定版裝備。",
     "weaponSpecialSpring2020WarriorText": "鋒利的翅膀",
     "weaponSpecialSpring2020RogueNotes": "你會擊打得這麼快，任務會看起來更藍！增加<%= str %>點力量。 2020年春季限定版裝備。",
-    "weaponSpecialSpring2020RogueText": "青金石刀"
+    "weaponSpecialSpring2020RogueText": "青金石刀",
+    "headAccessoryMystery202004Notes": "如果花朵的香味飄過，它們只會抽搐一下--用它們找到一個漂亮的花園！沒有屬性加成。 2020年4月訂閱者物品。",
+    "headAccessoryMystery202004Text": "強大的君主斑蝶觸角",
+    "backMystery202004Notes": "用這些美麗的翅膀快速地飛向最近絢麗的草地，或在整個大陸上遷移！沒有屬性加成。 2020年4月訂閱者物品。",
+    "backMystery202004Text": "強大的君主斑蝶翅膀"
 }
