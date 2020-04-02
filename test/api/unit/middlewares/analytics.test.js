@@ -19,7 +19,7 @@ describe('analytics middleware', () => {
     next = generateNext();
   });
 
-  it('attaches analytics object res.locals', () => {
+  it('attaches analytics object to res', () => {
     const attachAnalytics = requireAgain(pathToAnalyticsMiddleware).default;
 
     attachAnalytics(req, res, next);
