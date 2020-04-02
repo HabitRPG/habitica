@@ -13,8 +13,12 @@ function sendWebhook (webhook, body, user) {
   const { url, lastFailureAt } = webhook;
 
   got.post(url, {
+    // passed as a stringified JSON object, not using `json: true` because we don't want to parse the
+    // respose as json
     body,
-    json: true,
+    headers: {
+      'content-type': 'application/json',
+    },
     timeout: 30000, // wait up to 30s before timing out
     retry: 3, // retry the request up to 3 times
   }).catch(webhookErr => {
@@ -108,8 +112,10 @@ export class WebhookSender {
     const body = this.transformData(data);
     this.attachDefaultData(user, body);
 
+    const stringifiedBody = JSON.stringify(body);
+
     hooks.forEach(hook => {
-      sendWebhook(hook, body, user);
+      sendWebhook(hook, stringifiedBody, user);
     });
   }
 }
