@@ -1,69 +1,10 @@
-import _ from 'lodash';
-import fsCallback from 'fs';
-import path from 'path';
-import util from 'util';
-import logger from '../../libs/logger';
+import nconf from 'nconf';
 import { langCodes } from '../../libs/i18n';
-import common from '../../../common';
+import { CONTENT_CACHE_PATH, getLocalizedContent } from '../../libs/content';
 
-// Transform fs methods that accept callbacks in ones that return promises
-const fs = {
-  readFile: util.promisify(fsCallback.readFile).bind(fsCallback),
-  writeFile: util.promisify(fsCallback.writeFile).bind(fsCallback),
-  stat: util.promisify(fsCallback.stat).bind(fsCallback),
-  mkdir: util.promisify(fsCallback.mkdir).bind(fsCallback),
-};
+const IS_PROD = nconf.get('IS_PROD');
 
 const api = {};
-
-function walkContent (obj, lang) {
-  _.each(obj, (item, key, source) => {
-    if (_.isPlainObject(item) || _.isArray(item)) {
-      walkContent(item, lang);
-    } else if (_.isFunction(item) && item.i18nLangFunc) {
-      source[key] = item(lang);
-    }
-  });
-}
-
-// After the getContent route is called the first time for a certain language
-// the response is saved on disk and subsequentially served
-// directly from there to reduce computation.
-// Example: if `cachedContentResponses.en` is true it means that the response is cached
-const cachedContentResponses = {};
-
-// Language key set to true while the cache file is being written
-const cacheBeingWritten = {};
-
-_.each(langCodes, code => {
-  cachedContentResponses[code] = false;
-  cacheBeingWritten[code] = false;
-});
-
-
-const CONTENT_CACHE_PATH = path.join(__dirname, '/../../../../content_cache/');
-
-async function saveContentToDisk (language, content) {
-  try {
-    cacheBeingWritten[language] = true;
-
-    // check if the directory exists, if it doesn't an error is thrown
-    await fs.stat(CONTENT_CACHE_PATH);
-    await fs.writeFile(`${CONTENT_CACHE_PATH}${language}.json`, content, 'utf8');
-
-    cacheBeingWritten[language] = false;
-    cachedContentResponses[language] = true;
-  } catch (err) {
-    // the directory doesn't exists, create it and retry
-    if (err.code === 'ENOENT' && err.syscall === 'stat') {
-      await fs.mkdir(CONTENT_CACHE_PATH);
-      saveContentToDisk(language, content);
-    } else {
-      cacheBeingWritten[language] = false;
-      logger.error(err);
-    }
-  }
-}
 
 /**
  * @api {get} /api/v3/content Get all available content objects
@@ -118,33 +59,21 @@ api.getContent = {
   noLanguage: true,
   async handler (req, res) {
     let language = 'en';
-    const proposedLang = req.query.language && req.query.language.toString();
+    const proposedLang = req.query.language;
 
-    if (proposedLang in cachedContentResponses) {
+    if (proposedLang && langCodes.includes(proposedLang)) {
       language = proposedLang;
     }
 
-    let content;
+    if (IS_PROD) {
+      res.sendFile(`${CONTENT_CACHE_PATH}${language}.json`);
+    } else {
+      res.set({
+        'Content-Type': 'application/json',
+      });
 
-    // is the content response for this language cached?
-    if (cachedContentResponses[language] === true) {
-      content = await fs.readFile(`${CONTENT_CACHE_PATH}${language}.json`, 'utf8');
-    } else { // generate the response
-      content = _.cloneDeep(common.content);
-      walkContent(content, language);
-      content = JSON.stringify(content);
-    }
-
-    res.set({
-      'Content-Type': 'application/json',
-    });
-
-    const jsonResString = `{"success": true, "data": ${content}}`;
-    res.status(200).send(jsonResString);
-
-    // save the file in background unless it's already cached or being written right now
-    if (cachedContentResponses[language] !== true && cacheBeingWritten[language] !== true) {
-      saveContentToDisk(language, content);
+      const jsonResString = getLocalizedContent(language);
+      res.status(200).send(jsonResString);
     }
   },
 };

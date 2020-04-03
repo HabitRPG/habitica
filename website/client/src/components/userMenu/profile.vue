@@ -350,6 +350,7 @@
                 ></div>
               </div>
             </div>
+          </div>
             <div
               v-if="achievementsCategories[key].number > 5"
               class="btn btn-flat btn-show-more"
@@ -360,7 +361,6 @@
                 $t('showAllAchievements', {category: $t(key+'Achievs')})
               }}
             </div>
-          </div>
         </div>
       </div>
       <hr class="col-12">

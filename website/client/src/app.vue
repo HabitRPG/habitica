@@ -33,7 +33,7 @@
         'resting': showRestingBanner
       }"
     >
-      <banned-account-modal />
+      <!-- <banned-account-modal /> -->
       <amazon-payments-modal v-if="!isStaticPage" />
       <payments-success-modal />
       <sub-cancel-modal-confirm v-if="isUserLoaded" />
@@ -266,7 +266,6 @@ import {
 } from '@/libs/userlocalManager';
 
 import svgClose from '@/assets/svg/close.svg';
-import bannedAccountModal from '@/components/bannedAccountModal';
 
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
@@ -281,7 +280,6 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
-    bannedAccountModal,
     paymentsSuccessModal,
     subCancelModalConfirm,
     subCanceledModal,
@@ -385,7 +383,8 @@ export default {
       return response;
     }, error => {
       if (error.response.status >= 400) {
-        this.checkForBannedUser(error);
+        const isBanned = this.checkForBannedUser(error);
+        if (isBanned === true) return null; // eslint-disable-line consistent-return
 
         // Don't show errors from getting user details. These users have delete their account,
         // but their chat message still exists.
@@ -403,7 +402,8 @@ export default {
         // TODO use a specific error like NotificationNotFound instead of checking for the string
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(errorMessage) !== -1) {
-          this.$store.dispatch('auth:logout');
+          this.$store.dispatch('auth:logout', { redirectToLogin: true });
+          return null;
         }
 
         // Most server errors should return is click to dismiss errors, with some exceptions
@@ -553,7 +553,7 @@ export default {
 
       // Case where user is not logged in
       if (!parseSettings) {
-        return;
+        return false;
       }
 
       const bannedMessage = this.$t('accountSuspended', {
@@ -561,9 +561,10 @@ export default {
         userId: parseSettings.auth.apiId,
       });
 
-      if (errorMessage !== bannedMessage) return;
+      if (errorMessage !== bannedMessage) return false;
 
-      this.$root.$emit('bv::show::modal', 'banned-account');
+      this.$store.dispatch('auth:logout', { redirectToLogin: true });
+      return true;
     },
     initializeModalStack () {
       // Manage modals

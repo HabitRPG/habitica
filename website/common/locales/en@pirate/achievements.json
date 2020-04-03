@@ -69,5 +69,11 @@
     "achievementRosyOutlook": "Rosy Lookout",
     "achievementTickledPinkModalText": "Ye've collected all th' Cotton Candy Pink Critters!",
     "achievementTickledPinkText": "'as collected all Cotton Candy Pink Critters.",
-    "achievementTickledPink": "Pickled Pink"
+    "achievementTickledPink": "Pickled Pink",
+    "foundNewItemsCTA": "Head t' yer inventory an' try combinin' yer new 'atchin' potion an' egg!",
+    "foundNewItemsExplanation": "Completin' tasks gives ye a chance ta find new items, like eggs, 'atchin' potions, an' vittles.",
+    "foundNewItems": "Ye found somethin' new!",
+    "achievementBugBonanzaModalText": "Ye've kermpleted th' Beetle, Butterfly, Snail, an' Spidey pet quests!",
+    "achievementBugBonanzaText": "'as kermpleted Beetle, Butterfly, Snail, an' Spidey pet quests.",
+    "achievementBugBonanza": "Crawly Catcher"
 }
