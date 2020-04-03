@@ -339,7 +339,7 @@
     "aboutToJoinCancelledGroupPlan": "You are about to join a group with a canceled plan. You will NOT receive a free subscription.",
     "cannotChangeLeaderWithActiveGroupPlan": "You can not change the leader while the group has an active plan.",
     "leaderCannotLeaveGroupWithActiveGroup": "A leader can not leave a group while the group has an active plan",
-    "youHaveGroupPlan": "You have a free subscription because you are a member of a group that has a Group Plan. This will end when you are no longer in the group that has a Group Plan. Any months of extra subscription credit you have will be applied at the end of the Group Plan.",
+    "youHaveGroupPlan": "Gratis tibi constat hic interesse, quia sodalis Ordinationis Tribus es. Quae res perserverabit, dum sodalis eris.",
     "cancelGroupSub": "Cancel Group Plan",
     "confirmCancelGroupPlan": "Are you sure you want to cancel your Group Plan? All Group members will lose their subscription and benefits.",
     "canceledGroupPlan": "Canceled Group Plan",
@@ -479,5 +479,6 @@
     "sharedCompletion": "Shared Completion",
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned user finishes",
-    "allAssignedCompletion": "All - Completes when all assigned users finish"
+    "allAssignedCompletion": "All - Completes when all assigned users finish",
+    "PMDisabled": "Nuntii privati non permittuntur"
 }

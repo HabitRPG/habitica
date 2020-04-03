@@ -33,6 +33,9 @@ async function updateUser (user) {
   each(keys(content.specialPets), pet => {
     set[`items.pets.${pet}`] = 5;
   });
+  each(keys(content.wackyPets), pet => {
+    set[`items.pets.${pet}`] = 5;
+  });
   each(keys(content.mounts), mount => {
     set[`items.mounts.${mount}`] = true;
   });
@@ -54,7 +57,7 @@ async function updateUser (user) {
 export default async function processUsers () {
   const query = {
     migration: { $ne: MIGRATION_NAME },
-    'auth.local.username': 'olson22',
+    'auth.local.username': 'SabreTest',
   };
 
   const fields = {

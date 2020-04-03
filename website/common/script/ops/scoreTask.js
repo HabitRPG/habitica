@@ -349,7 +349,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
     user.addAchievement('completedTask');
-    checkOnboardingStatus(user, analytics);
+    checkOnboardingStatus(user, req, analytics);
   }
 
   return [delta];

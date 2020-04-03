@@ -84,7 +84,7 @@
     "weaponSpecial1Notes": "闪耀的晶面诉说着英雄的传说。增加全属性<%= attrs %>点。",
     "weaponSpecial2Text": "Stephen Weber的巨龙长矛",
     "weaponSpecial2Notes": "感受喷薄而出的巨龙神力吧！增加力量、感知各<%= attrs %>点。",
-    "weaponSpecial3Text": "马斯泰恩的碎石流星锤",
+    "weaponSpecial3Text": "Mustaine的碎石流星锤",
     "weaponSpecial3Notes": "怪物统统捣烂！增加力量、智力、体质各<%= attrs %>点。",
     "weaponSpecialCriticalText": "碾碎臭虫的批判战锤",
     "weaponSpecialCriticalNotes": "这位勇士杀死了一个使无数战士陨落的Github敌人。这把战锤由臭虫的骨头打造，能造成强大的致命一击。增加力量、感知各<%= attrs %>点。",
@@ -2079,5 +2079,9 @@
     "armorSpecialSpring2020RogueText": "群青装甲",
     "armorSpecialSpring2020WarriorText": "外骨骼护甲",
     "armorSpecialSpring2020MageText": "旋风长袍",
-    "armorSpecialSpring2020HealerText": "防护的花瓣"
+    "armorSpecialSpring2020HealerText": "防护的花瓣",
+    "headAccessoryMystery202004Text": "强大的君主斑蝶触角",
+    "backMystery202004Text": "强大的君主斑蝶翅膀",
+    "headAccessoryMystery202004Notes": "如果花朵的香味飘过，它们只会抽搐一下--用它们找到一个漂亮的花园！没有属性加成。2020年4月订阅者物品。",
+    "backMystery202004Notes": "用这些美丽的翅膀快速地飞向最近绚丽的草地，或在整个大陆上迁移！没有属性加成。2020年4月订阅者物品。"
 }
