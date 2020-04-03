@@ -58,7 +58,7 @@ export const schema = new Schema({
     required: true,
     validate: [v => validator.isURL(v, {
       require_tld: !!IS_PRODUCTION, // eslint-disable-line camelcase
-      require_protocol: true, // TODO migrate existing ones
+      require_protocol: true,
       protocols: ['http', 'https'],
     }), shared.i18n.t('invalidUrl')],
   },
