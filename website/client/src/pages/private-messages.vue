@@ -897,7 +897,6 @@ export default {
       });
 
       this.newMessage = '';
-      this.autoSize();
     },
     scrollToBottom () {
       Vue.nextTick(() => {
