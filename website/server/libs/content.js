@@ -14,7 +14,7 @@ function walkContent (obj, lang) {
   });
 }
 
-export function getLocalizedContent (langCode) {
+export function getLocalizedContentResponse (langCode) {
   const contentClone = _.cloneDeep(common.content);
   walkContent(contentClone, langCode);
   return `{"success": true, "data": ${JSON.stringify(contentClone)}}`;
