@@ -199,6 +199,12 @@
               Items
             </h3>
             <div v-if="expandItems">
+              <p>
+                The sections below display each item's key (bolded if the player has ever owned it)
+                and the item's English name in brackets.
+                Use the key (not name!) to change the amount owned or the true/false value.
+                Click "Change" to auto-fill "Update Items" with key and current amount/value.
+              </p>
               <div v-for="itemType in itemTypes" :key="itemType">
                 <div class="accordion-group">
                   <h4
@@ -210,10 +216,12 @@
                   </h4>
                   <div v-if="expandItemType[itemType]">
                     <p v-if="itemType === 'pets'">
-                      A value of -1 means they owned the Pet but Released it.
+                      A value of -1 means they owned the Pet but Released it
+                      and have not yet rehatched it.
                     </p>
                     <p v-if="itemType === 'mounts'">
-                      A value of NULL means they owned the Mount but Released it.
+                      A value of NULL means they owned the Mount but Released it
+                      and have not yet retamed it.
                     </p>
                     <p v-if="itemType === 'special'">
                       When there are 0 of these items, we can't tell if
@@ -232,6 +240,7 @@
                           @click="changeData(item.path, item.value)">Change</button>
                         <span>{{ item.valueForDisplay }} : </span>
                         <span v-bind:class="{ ownedItem: !item.neverOwned }">{{ item.key }}</span>
+                        <span>({{ item.name }})</span>
                       </li>
                     </ul>
                   </div>
@@ -516,6 +525,7 @@ export default {
             itemData.push({
               neverOwned: false,
               key,
+              name: this.getItemDescription(itemType, key),
               path: `${basePath}.${key}`,
               value,
               valueForDisplay,
@@ -526,7 +536,17 @@ export default {
         for (const key of Object.keys(allItems).sort()) {
           // These are never-owned items so we sort by key for convenient viewing.
 
-          if (!(key in ownedItems) && (itemType !== 'special' || specialItems.includes(key))) {
+          if (
+            // ignore items the user owns because they were listed above:
+            !(key in ownedItems)
+
+            // ignore gear items that indicate empty equipped slots (e.g., head_base_0):
+            && !(itemType === 'gear' && content.gear.flat[key].set
+              && content.gear.flat[key].set === 'base-0')
+
+            // ignore "special" items that aren't Snowballs, Seafoam, etc:
+            && (itemType !== 'special' || specialItems.includes(key))
+          ) {
             // these types of items have true/false/null values (all other have integers):
             const booleanTypes = ['mounts', 'gear'];
 
@@ -542,6 +562,7 @@ export default {
             itemData.push({
               neverOwned: true,
               key,
+              name: this.getItemDescription(itemType, key),
               path: `${basePath}.${key}`,
               value,
               valueForDisplay,
@@ -551,6 +572,99 @@ export default {
         collatedItemData[itemType] = itemData;
       });
       return collatedItemData;
+    },
+    getItemDescription (itemType, key) {
+      // Returns item name. Also returns other info for equipment.
+      const simpleItemTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'special'];
+      if (simpleItemTypes.includes(itemType) && content[itemType][key]) {
+        return content[itemType][key].text();
+      }
+      if (itemType === 'mounts' && content.mountInfo[key]) {
+        return content.mountInfo[key].text();
+      }
+      if (itemType === 'pets' && content.petInfo[key]) {
+        return content.petInfo[key].text();
+      }
+      if (itemType === 'gear' && content.gear.flat[key]) {
+        const name = content.gear.flat[key].text();
+        const description = this.getGearSetDescription(key);
+        if (description) return `${name} -- ${description}`;
+        return name;
+      }
+      return 'NO NAME - invalid item?';
+    },
+    getGearSetDescription (key) {
+      let setName = this.getGearSetName(key);
+      if (setName === 'special-takeThis') {
+        // no point displaying set details for gear where it's obvious
+        return '';
+      }
+      const klassNames = {
+        healer: 'Healer',
+        rogue: 'Rogue',
+        warrior: 'Warrior',
+        wizard: 'Mage',
+      };
+      let wantSetName = true; // some set names are useful, others aren't
+      let setType = '[cannot determine set type]';
+      if (setName.includes('special-turkey')) {
+        setType = 'Turkey Day https://habitica.fandom.com/wiki/Turkey_Day';
+        wantSetName = false;
+      } else if (setName.includes('special-nye')) {
+        setType = 'New Year\'s Eve https://habitica.fandom.com/wiki/Event_Item_Sequences';
+        wantSetName = false;
+      } else if (setName.includes('special-birthday')) {
+        setType = 'Habitica Birthday Bash https://habitica.fandom.com/wiki/Habitica_Birthday_Bash';
+        wantSetName = false;
+      } else if (setName.includes('special-0')) {
+        setType = 'Kickstarter 2013';
+        wantSetName = false;
+      } else if (setName.includes('special-1')) {
+        setType = 'Contributor gear';
+        wantSetName = false;
+      } else if (setName.includes('special-2') || setName.includes('special-3')) {
+        setType = 'Legendary Equipment https://habitica.fandom.com/wiki/Legendary_Equipment';
+        wantSetName = false;
+      } else if (setName.includes('special-wondercon')) {
+        setType = 'Unconventional Armor https://habitica.fandom.com/wiki/Unconventional_Armor';
+        wantSetName = false;
+      } else if (setName.includes('special-aether')) {
+        setType = 'Mystery of the Masterclassers quest rewards https://habitica.fandom.com/wiki/Quest_Lines';
+        wantSetName = false;
+      } else if (!content.gear.flat[key].klass) {
+        setType = 'NO "klass" [omission in API data]';
+      } else if (content.gear.flat[key].klass === 'armoire') {
+        setType = 'Armoire set';
+      } else if (content.gear.flat[key].klass === 'mystery') {
+        setType = 'Mystery Items';
+        setName = setName.replace(/mystery-(....)(..)/, '$1-$2');
+      } else if (content.gear.flat[key].klass === 'special') {
+        const specialClass = content.gear.flat[key].specialClass || '';
+        if (specialClass && Object.keys(klassNames).includes(specialClass)) {
+          setType = `Grand Gala ${klassNames[specialClass]} gear`;
+        } else if (key.includes('special_gaymerx')) {
+          setType = 'GaymerX';
+          wantSetName = false;
+        } else if (key.includes('special_ks2019')) {
+          setType = 'Kickstarter 2019';
+          wantSetName = false;
+        } else {
+          setType = '[unknown set]';
+          wantSetName = false;
+        }
+      } else if (Object.keys(klassNames).includes(content.gear.flat[key].klass)) {
+        // e.g., base class gear such as weapon_warrior_6 (Golden Sword)
+        setType = `base ${klassNames[content.gear.flat[key].klass]} gear`;
+        wantSetName = false;
+      }
+      return (wantSetName) ? `${setType}: ${setName}` : setType;
+    },
+    getGearSetName (key) {
+      let set = 'NO SET [probably an omission in the API data]';
+      if (content.gear.flat[key].set) {
+        set = `${content.gear.flat[key].set}`;
+      }
+      return set;
     },
     changeData (path, currentValue) {
       this.expandUpdateItems = true;
