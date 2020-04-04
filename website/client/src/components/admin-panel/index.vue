@@ -481,12 +481,15 @@ export default {
     formatEquipment (gearWorn) {
       const gearTypes = ['head', 'armor', 'weapon', 'shield', 'headAccessory',
                          'eyewear', 'body', 'back'];
-      let description = '';
+      let equipmentList = '';
       gearTypes.forEach(gearType => {
-        const item = gearWorn[gearType] || 'none';
-        description += `<li>${gearType} : ${item}</li>\n`;
+        const key = gearWorn[gearType] || '';
+        const description = (key)
+          ? `<strong>${key}</strong> (${this.getItemDescription('gear', gearWorn[gearType])})`
+          : 'none';
+        equipmentList += `<li>${gearType} : ${description}</li>\n`;
       });
-      return description;
+      return equipmentList;
     },
 
     collateItemData () {
@@ -597,7 +600,10 @@ export default {
       };
       let wantSetName = true; // some set names are useful, others aren't
       let setType = '[cannot determine set type]';
-      if (setName.includes('special-turkey')) {
+      if (setName === 'base-0') {
+        setType = 'empty slot';
+        wantSetName = false;
+      } else if (setName.includes('special-turkey')) {
         setType = 'Turkey Day https://habitica.fandom.com/wiki/Turkey_Day';
         wantSetName = false;
       } else if (setName.includes('special-nye')) {
@@ -631,7 +637,7 @@ export default {
       } else if (content.gear.flat[key].klass === 'special') {
         const specialClass = content.gear.flat[key].specialClass || '';
         if (specialClass && Object.keys(klassNames).includes(specialClass)) {
-          setType = `Grand Gala ${klassNames[specialClass]} gear`;
+          setType = `Grand Gala ${klassNames[specialClass]} set`;
         } else if (key.includes('special_gaymerx')) {
           setType = 'GaymerX';
           wantSetName = false;
