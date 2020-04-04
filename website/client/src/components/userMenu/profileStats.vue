@@ -266,7 +266,7 @@
           class="col-12 col-md-3"
         >
           <div class="box white row col-12">
-            <div class="col-9 stat-points">
+            <div class="col-9 text-nowrap">
               <div :class="stat">
                 {{ $t(stats[stat].title) }}
               </div>
@@ -583,10 +583,6 @@ export default {
 
       div {
         margin-top: 0;
-      }
-
-      .stat-points {
-        white-space: nowrap;
       }
 
       .number {
