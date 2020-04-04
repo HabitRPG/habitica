@@ -239,8 +239,8 @@
                         <button class="form-control btn btn-primary"
                           @click="changeData(item.path, item.value)">Change</button>
                         <span>{{ item.valueForDisplay }} : </span>
-                        <span v-bind:class="{ ownedItem: !item.neverOwned }">{{ item.key }}</span>
-                        <span>({{ item.name }})</span>
+                        <span v-bind:class="{ ownedItem: !item.neverOwned }">{{ item.key }} :</span>
+                        <span v-html="item.name"></span>
                       </li>
                     </ul>
                   </div>
@@ -485,7 +485,7 @@ export default {
       gearTypes.forEach(gearType => {
         const key = gearWorn[gearType] || '';
         const description = (key)
-          ? `<strong>${key}</strong> (${this.getItemDescription('gear', gearWorn[gearType])})`
+          ? `<strong>${key}</strong> : ${this.getItemDescription('gear', gearWorn[gearType])}`
           : 'none';
         equipmentList += `<li>${gearType} : ${description}</li>\n`;
       });
@@ -604,13 +604,13 @@ export default {
         setType = 'empty slot';
         wantSetName = false;
       } else if (setName.includes('special-turkey')) {
-        setType = 'Turkey Day https://habitica.fandom.com/wiki/Turkey_Day';
+        setType = '<a href="https://habitica.fandom.com/wiki/Turkey_Day">Turkey Day</a>';
         wantSetName = false;
       } else if (setName.includes('special-nye')) {
-        setType = 'New Year\'s Eve https://habitica.fandom.com/wiki/Event_Item_Sequences';
+        setType = '<a href="https://habitica.fandom.com/wiki/Event_Item_Sequences">New Year\'s Eve</a>';
         wantSetName = false;
       } else if (setName.includes('special-birthday')) {
-        setType = 'Habitica Birthday Bash https://habitica.fandom.com/wiki/Habitica_Birthday_Bash';
+        setType = '<a href="https://habitica.fandom.com/wiki/Habitica_Birthday_Bash">Habitica Birthday Bash</a>';
         wantSetName = false;
       } else if (setName.includes('special-0')) {
         setType = 'Kickstarter 2013';
@@ -619,13 +619,13 @@ export default {
         setType = 'Contributor gear';
         wantSetName = false;
       } else if (setName.includes('special-2') || setName.includes('special-3')) {
-        setType = 'Legendary Equipment https://habitica.fandom.com/wiki/Legendary_Equipment';
+        setType = '<a href="https://habitica.fandom.com/wiki/Legendary_Equipment">Legendary Equipment</a>';
         wantSetName = false;
       } else if (setName.includes('special-wondercon')) {
-        setType = 'Unconventional Armor https://habitica.fandom.com/wiki/Unconventional_Armor';
+        setType = '<a href="https://habitica.fandom.com/wiki/Unconventional_Armor">Unconventional Armor</a>';
         wantSetName = false;
       } else if (setName.includes('special-aether')) {
-        setType = 'Mystery of the Masterclassers quest rewards https://habitica.fandom.com/wiki/Quest_Lines';
+        setType = '<a href="https://habitica.fandom.com/wiki/Quest_Lines">Mystery of the Masterclassers quest</a>';
         wantSetName = false;
       } else if (!content.gear.flat[key].klass) {
         setType = 'NO "klass" [omission in API data]';
