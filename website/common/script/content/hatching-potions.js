@@ -286,6 +286,12 @@ const wacky = {
     limited: true,
     _season: '_PENDING_',
   },
+  Dessert: {
+    text: t('hatchingPotionDessert'),
+    limited: true,
+    _season: '_PENDING_',
+    canBuy: hasQuestAchievementFunction('waffle'),
+  },
 };
 
 each(drops, (pot, key) => {
@@ -328,7 +334,7 @@ each(wacky, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: pot._seasont && pot._season !== '_PENDING_' ? t('eventAvailability', {
+    _addlNotes: pot._season && pot._season !== '_PENDING_' ? t('eventAvailability', {
       date: t(`dateEnd${pot._season}`),
     }) : null,
     premium: false,
