@@ -25,4 +25,6 @@ export default {
   missingCustomerId: 'Missing "req.query.customerId"',
   missingPaypalBlock: 'Missing "req.session.paypalBlock"',
   missingSubKey: 'Missing "req.query.sub"',
+
+  ipAddressBlocked: 'This IP address has been blocked from accessing Habitica. This may be due to a breach of our Terms of Service or technical issue originating at this IP address. For details or to ask to be unblocked, please email admin@habitica.com or ask your parent or guardian to email them. Include your Habitica @ Username or User Id in the email if you have one.',
 };

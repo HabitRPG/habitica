@@ -1,8 +1,8 @@
 {
-  "noItemsAvailableForType": "<%= type %>を持っていません。",
-  "foodItemType": "えさ",
-  "eggsItemType": "たまご",
-  "hatchingPotionsItemType": "たまごがえしの薬",
-  "specialItemType": "特別なアイテム",
-  "lockedItem": "ロックされたアイテム"
+    "noItemsAvailableForType": "<%= type %>を持っていません。",
+    "foodItemType": "ペットのえさ",
+    "eggsItemType": "たまご",
+    "hatchingPotionsItemType": "たまごがえしの薬",
+    "specialItemType": "特別なアイテム",
+    "lockedItem": "ロックされたアイテム"
 }

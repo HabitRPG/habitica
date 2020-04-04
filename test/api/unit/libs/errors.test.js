@@ -3,6 +3,7 @@ import {
   CustomError,
   NotAuthorized,
   BadRequest,
+  Forbidden,
   InternalServerError,
   NotFound,
   NotificationNotFound,
@@ -110,6 +111,32 @@ describe('Custom Errors', () => {
       const badRequestError = new BadRequest('Custom Error Message');
 
       expect(badRequestError.message).to.eql('Custom Error Message');
+    });
+  });
+
+  describe('Forbidden', () => {
+    it('is an instance of CustomError', () => {
+      const forbiddenError = new Forbidden();
+
+      expect(forbiddenError).to.be.an.instanceOf(CustomError);
+    });
+
+    it('it returns an http code of 401', () => {
+      const forbiddenError = new Forbidden();
+
+      expect(forbiddenError.httpCode).to.eql(403);
+    });
+
+    it('returns a default message', () => {
+      const forbiddenError = new Forbidden();
+
+      expect(forbiddenError.message).to.eql('Access forbidden.');
+    });
+
+    it('allows a custom message', () => {
+      const forbiddenError = new Forbidden('Custom Error Message');
+
+      expect(forbiddenError.message).to.eql('Custom Error Message');
     });
   });
 

@@ -6,7 +6,7 @@
     "reachedLevel": "Dosáhl jsi úrovně <%= level %>",
     "achievementLostMasterclasser": "Dokončení výprav: Série Mistra třídy",
     "achievementLostMasterclasserText": "Splnil všech šestnáct výprav v sérii výprav Mistra třídy a vyřešil záhadu Ztraceného Mistra!",
-    "achievementLostMasterclasserModalText": "Dokončil jsi všech 16 masterclass výprav a vyřešil jsi tajemství ztracené masterclass!",
+    "achievementLostMasterclasserModalText": "Dokončil jsi všech šestnáct výprav Mistra třídy a vyřešil jsi tajemství Ztraceného Mistra!",
     "achievementMindOverMatter": "Mysl nad hmotou",
     "achievementMindOverMatterText": "Dokončil/a kamennou, slizovou a vlněnou mazlíčkovou výpravu.",
     "achievementMindOverMatterModalText": "Dokončil jsi kamennou, slizovou a vlněnou mazlíčkovou výpravu!",
@@ -55,5 +55,12 @@
     "achievementCreatedTask": "Vytvořte úkol",
     "earnedAchievement": "Získali jste úspěch!",
     "viewAchievements": "Zobrazit úspěchy",
-    "letsGetStarted": "Začněme!"
+    "letsGetStarted": "Začněme!",
+    "foundNewItemsCTA": "Podívej se do Tvého Inventáře a zkus zkombinovat Tvůj nový líhnoucí lektvar a vajíčko!",
+    "foundNewItemsExplanation": "Splnění úkolů Ti dá šanci najít předměty, jako vajíčka, líhnoucí lektvary a jídlo.",
+    "foundNewItems": "Našel jsi nové předměty!",
+    "hideAchievements": "Schovat <%= kategorie %>",
+    "onboardingCompleteDesc": "Získáš <strong>5 ocenění</strong> a <strong class=\"gold-amount\">100</strong> zlaťáků za dokončení seznamu.",
+    "onboardingProgress": "<%= percentage %>% postup",
+    "gettingStartedDesc": "Vytvoř si úkol, splň jej a pak se podívej na své odměny. Dostaneš <strong>5 ocenění</strong> a <strong class=“gold-amount”>100 zlaťáků</strong>, jakmile budeš hotový!"
 }

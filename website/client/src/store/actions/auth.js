@@ -82,7 +82,8 @@ export async function socialAuth (store, params) {
   localStorage.setItem(LOCALSTORAGE_AUTH_KEY, userLocalData);
 }
 
-export function logout () {
+export function logout (store, options = {}) {
   localStorage.clear();
-  window.location.href = '/logout-server';
+  const query = options.redirectToLogin === true ? '?redirectToLogin=true' : '';
+  window.location.href = `/logout-server${query}`;
 }
