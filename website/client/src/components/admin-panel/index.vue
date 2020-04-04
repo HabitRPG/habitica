@@ -407,10 +407,7 @@ import moment from 'moment';
 import markdownDirective from '@/directives/markdown';
 import styleHelper from '@/mixins/styleHelper';
 import { mapState } from '@/libs/store';
-import * as quests from '@/../../common/script/content/quests';
-import { mountInfo, petInfo } from '@/../../common/script/content/stable';
 import content from '@/../../common/script/content';
-import gear from '@/../../common/script/content/gear';
 import notifications from '@/mixins/notifications';
 
 export default {
@@ -424,14 +421,7 @@ export default {
     return {
       hero: {},
       heroID: '',
-      quests,
-      mountInfo,
-      petInfo,
-      content, // XXX TODO remove this so that we're not loading the whole content...
-      food: content.food, // XXX TODO                 ... use lines like this instead
-      hatchingPotions: content.hatchingPotions,
-      special: content.special,
-      gear,
+      content,
       collatedItemData: {},
       expandPriv: false,
       expandAuth: false,
