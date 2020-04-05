@@ -200,8 +200,8 @@
             </h3>
             <div v-if="expandItems">
               <p>
-                The sections below display each item's key (bolded if the player has ever owned it)
-                and the item's English name in brackets.
+                The sections below display each item's key (bolded if the player has ever owned it),
+                followed by the item's English name.
                 Use the key (not name!) to change the amount owned or the true/false value.
                 Click "Change" to auto-fill "Update Items" with key and current amount/value.
               </p>
