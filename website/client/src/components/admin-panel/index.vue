@@ -598,6 +598,10 @@ export default {
         warrior: 'Warrior',
         wizard: 'Mage',
       };
+      const loginIncentivesGear = ['armor_special_bardRobes', 'armor_special_dandySuit', 'armor_special_lunarWarriorArmor', 'armor_special_nomadsCuirass', 'armor_special_pageArmor', 'armor_special_samuraiArmor', 'armor_special_sneakthiefRobes', 'armor_special_snowSovereignRobes', 'back_special_snowdriftVeil', 'head_special_bardHat', 'head_special_clandestineCowl', 'head_special_dandyHat', 'head_special_kabuto', 'head_special_lunarWarriorHelm', 'head_special_pageHelm', 'head_special_snowSovereignCrown', 'head_special_spikedHelm', 'shield_special_diamondStave', 'shield_special_lootBag', 'shield_special_wakizashi', 'shield_special_wintryMirror', 'weapon_special_bardInstrument', 'weapon_special_fencingFoil', 'weapon_special_lunarScythe', 'weapon_special_nomadsScimitar', 'weapon_special_pageBanner', 'weapon_special_skeletonKey', 'weapon_special_tachi'];
+
+      const animalGear = ['back_special_bearTail', 'back_special_cactusTail', 'back_special_foxTail', 'back_special_lionTail', 'back_special_pandaTail', 'back_special_pigTail', 'back_special_tigerTail', 'back_special_wolfTail', 'headAccessory_special_bearEars', 'headAccessory_special_cactusEars', 'headAccessory_special_foxEars', 'headAccessory_special_lionEars', 'headAccessory_special_pandaEars', 'headAccessory_special_pigEars', 'headAccessory_special_tigerEars', 'headAccessory_special_wolfEars'];
+
       let wantSetName = true; // some set names are useful, others aren't
       let setType = '[cannot determine set type]';
       if (setName === 'base-0') {
@@ -626,6 +630,12 @@ export default {
         wantSetName = false;
       } else if (setName.includes('special-aether')) {
         setType = '<a href="https://habitica.fandom.com/wiki/Quest_Lines">Mystery of the Masterclassers quest</a>';
+        wantSetName = false;
+      } else if (loginIncentivesGear.includes(key)) {
+        setType = '<a href="https://habitica.fandom.com/wiki/Daily_Check-In_Incentives">Check-In Incentives</a>';
+        wantSetName = false;
+      } else if (animalGear.includes(key)) {
+        setType = '<a href="https://habitica.fandom.com/wiki/Avatar_Customizations">Animal Avatar Accessory Customisations</a>';
         wantSetName = false;
       } else if (!content.gear.flat[key].klass) {
         setType = 'NO "klass" [omission in API data]';
