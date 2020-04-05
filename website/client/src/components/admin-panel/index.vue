@@ -1,5 +1,8 @@
 <template>
-  <div v-if="user.contributor.admin" class="row standard-page">
+  <div
+    v-if="user.contributor.admin"
+    class="row standard-page"
+  >
     <div class="well">
       <h1>Admin Panel</h1>
       <div class="row">
@@ -25,7 +28,10 @@
         </div>
       </div>
 
-      <div v-if="hero && hero.profile" class="row">
+      <div
+        v-if="hero && hero.profile"
+        class="row"
+      >
         <div class="form col-12">
           <h2>@{{ hero.auth.local.username }} &nbsp; / &nbsp; {{ hero.profile.name }}</h2>
           <div class="form-group">
@@ -89,7 +95,12 @@
                     </small>
                   </span>
                 </div>
-                <button class="form-control btn btn-primary" @click="saveHero()">Save</button>
+                <button
+                  class="form-control btn btn-primary"
+                  @click="saveHero()"
+                >
+                  Save
+                </button>
               </div>
             </div>
           </div>
@@ -103,43 +114,53 @@
               Timestamps, Time Zone, Authentication, Email Address
             </h3>
             <div v-if="expandAuth">
-              <div>Account created:
+              <div>
+                Account created:
                 <strong>{{ formatDate(hero.auth.timestamps.created) }}</strong>
               </div>
-              <div>Most recent cron:
+              <div>
+                Most recent cron:
                 <strong>{{ formatDate(hero.auth.timestamps.loggedin) }}</strong>
               </div>
-              <div>"lastCron":
+              <div>
+                "lastCron":
                 <strong>{{ formatDate(hero.lastCron) }}</strong>
                 (if different than above, cron crashed before finishing)
               </div>
-              <div class="subsection-start">Time zone:
+              <div class="subsection-start">
+                Time zone:
                 <strong>{{ formatTimeZone(hero.preferences.timezoneOffset) }}</strong>
               </div>
-              <div>Time zone at previous cron:
+              <div>
+                Time zone at previous cron:
                 <strong>{{ formatTimeZone(hero.preferences.timezoneOffsetAtLastCron) }}</strong>
                 <br>(if different than above, the user changed zones / daylight savings
                 OR has devices on different zones OR uses a VPN with varying zones
                 OR something similarly unpleasant is happening)
               </div>
-              <div class="subsection-start">Local authentication:
+              <div class="subsection-start">
+                Local authentication:
                 <span v-if="hero.auth.local.email">Yes, &nbsp;
                   <strong>{{ hero.auth.local.email }}</strong></span>
                 <span v-else><strong>None</strong></span>
               </div>
-              <div>Google authentication:
+              <div>
+                Google authentication:
                 <pre v-if="authMethodExists('google')">{{ hero.auth.google }}</pre>
                 <span v-else><strong>None</strong></span>
               </div>
-              <div>Facebook authentication:
+              <div>
+                Facebook authentication:
                 <pre v-if="authMethodExists('facebook')">{{ hero.auth.facebook }}</pre>
                 <span v-else><strong>None</strong></span>
               </div>
-              <div>Apple ID authentication (not live yet as of March 2020):
+              <div>
+                Apple ID authentication (not live yet as of March 2020):
                 <pre v-if="authMethodExists('apple')">{{ hero.auth.apple }}</pre>
                 <span v-else><strong>None</strong></span>
               </div>
-              <div class="subsection-start">Full "auth" object for checking above is correct:
+              <div class="subsection-start">
+                Full "auth" object for checking above is correct:
                 <pre>{{ hero.auth }}</pre>
               </div>
             </div>
@@ -154,14 +175,16 @@
               Party, Quest
             </h3>
             <div v-if="expandParty">
-              <div>Party: &nbsp;
+              <div>
+                Party: &nbsp;
                 <span v-if="hero.party._id">Yes &nbsp;
                   (party ID {{ hero.party._id }})
                   although this has not been verified by searching for the Party.
-                  </span>
+                </span>
                 <span v-else>No</span>
               </div>
-              <div class="subsection-start">Quest: &nbsp;
+              <div class="subsection-start">
+                Quest: &nbsp;
                 {{ questStatus }}
               </div>
             </div>
@@ -205,7 +228,10 @@
                 Use the key (not name!) to change the amount owned or the true/false value.
                 Click "Change" to auto-fill "Update Items" with key and current amount/value.
               </p>
-              <div v-for="itemType in itemTypes" :key="itemType">
+              <div
+                v-for="itemType in itemTypes"
+                :key="itemType"
+              >
                 <div class="accordion-group">
                   <h4
                     class="expand-toggle"
@@ -234,10 +260,17 @@
                     </p>
 
                     <ul>
-                      <li v-for="item in collatedItemData[itemType]" :key="item.key"
-                        class="form-group form-inline">
-                        <button class="form-control btn btn-primary"
-                          @click="changeData(item.path, item.value)">Change</button>
+                      <li
+                        v-for="item in collatedItemData[itemType]"
+                        :key="item.key"
+                        class="form-group form-inline"
+                      >
+                        <button
+                          class="form-control btn btn-primary"
+                          @click="changeData(item.path, item.value)"
+                        >
+                          Change
+                        </button>
                         <span>{{ item.valueForDisplay }} : </span>
                         <span v-bind:class="{ ownedItem: !item.neverOwned }">{{ item.key }} :</span>
                         <span v-html="item.name"></span>
@@ -297,7 +330,12 @@
                   <code>head_warrior_3</code>.
                 </small>
                 <div class="form-group">
-                  <button class="form-control btn btn-primary" @click="saveHero()">Save</button>
+                  <button
+                    class="form-control btn btn-primary"
+                    @click="saveHero()"
+                  >
+                    Save
+                  </button>
                 </div>
               </div>
             </div>
@@ -323,7 +361,7 @@
                 <small>
                   Common titles:
                   <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher,
-                  Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>.
+                    Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>.
                 </small>
                 <small>
                   Rare titles:
@@ -363,11 +401,15 @@
                 ></textarea>
               </div>
               <div class="form-group">
-                <button class="form-control btn btn-primary" @click="saveHero()">Save</button>
+                <button
+                  class="form-control btn btn-primary"
+                  @click="saveHero()"
+                >
+                  Save
+                </button>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -479,8 +521,8 @@ export default {
       return `${sign}${timeZone} UTC`;
     },
     formatEquipment (gearWorn) {
-      const gearTypes = ['head', 'armor', 'weapon', 'shield', 'headAccessory',
-                         'eyewear', 'body', 'back'];
+      const gearTypes = ['head', 'armor', 'weapon', 'shield', 'headAccessory', 'eyewear',
+        'body', 'back'];
       let equipmentList = '';
       gearTypes.forEach(gearType => {
         const key = gearWorn[gearType] || '';
@@ -654,7 +696,7 @@ export default {
           setType = 'GaymerX';
           wantSetName = false;
         } else if (key.includes('special_ks2019')) {
-        setType = '<a href="https://habitica.fandom.com/wiki/Kickstarter">Kickstarter 2019</a>';
+          setType = '<a href="https://habitica.fandom.com/wiki/Kickstarter">Kickstarter 2019</a>';
           wantSetName = false;
         } else {
           setType = '[unknown set]';
