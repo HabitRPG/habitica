@@ -618,13 +618,13 @@ export default {
       } else if (setName.includes('special-birthday')) {
         setType = '<a href="https://habitica.fandom.com/wiki/Habitica_Birthday_Bash">Habitica Birthday Bash</a>';
         wantSetName = false;
-      } else if (setName.includes('special-0')) {
-        setType = 'Kickstarter 2013';
+      } else if (setName.includes('special-0') || key === 'weapon_special_3') {
+        setType = '<a href="https://habitica.fandom.com/wiki/Kickstarter">Kickstarter 2013</a>';
         wantSetName = false;
       } else if (setName.includes('special-1')) {
         setType = 'Contributor gear';
         wantSetName = false;
-      } else if (setName.includes('special-2') || setName.includes('special-3')) {
+      } else if (setName.includes('special-2') || key === 'shield_special_goldenknight') {
         setType = '<a href="https://habitica.fandom.com/wiki/Legendary_Equipment">Legendary Equipment</a>';
         wantSetName = false;
       } else if (setName.includes('special-wondercon')) {
@@ -654,7 +654,7 @@ export default {
           setType = 'GaymerX';
           wantSetName = false;
         } else if (key.includes('special_ks2019')) {
-          setType = 'Kickstarter 2019';
+        setType = '<a href="https://habitica.fandom.com/wiki/Kickstarter">Kickstarter 2019</a>';
           wantSetName = false;
         } else {
           setType = '[unknown set]';
