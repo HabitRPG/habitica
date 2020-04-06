@@ -543,6 +543,15 @@ const armor = {
     set: 'baseball',
     canOwn: ownsItem('armor_armoire_baseballUniform'),
   },
+  boxArmor: {
+    text: t('armorArmoireBoxArmorText'),
+    notes: t('armorArmoireBoxArmorNotes', { attrs: 5 }),
+    value: 100,
+    per: 5,
+    con: 5,
+    set: 'paperKnight',
+    canOwn: ownsItem('armor_armoire_boxArmor'),
+  },
 };
 
 const body = {
@@ -1418,6 +1427,15 @@ const shield = {
     set: 'baseball',
     canOwn: ownsItem('shield_armoire_baseballGlove'),
   },
+  hobbyHorse: {
+    text: t('shieldArmoireHobbyHorseText'),
+    notes: t('shieldArmoireHobbyHorseNotes', { attrs: 4 }),
+    value: 100,
+    per: 4,
+    con: 4,
+    set: 'paperKnight',
+    canOwn: ownsItem('shield_armoire_hobbyHorse'),
+  },
 };
 
 const headAccessory = {
@@ -1896,6 +1914,14 @@ const weapon = {
     con: 9,
     set: 'baseball',
     canOwn: ownsItem('weapon_armoire_baseballBat'),
+  },
+  paperCutter: {
+    text: t('weaponArmoirePaperCutterText'),
+    notes: t('weaponArmoirePaperCutterNotes', { str: 9 }),
+    value: 100,
+    str: 9,
+    set: 'paperKnight',
+    canOwn: ownsItem('weapon_armoire_paperCutter'),
   },
 };
 
