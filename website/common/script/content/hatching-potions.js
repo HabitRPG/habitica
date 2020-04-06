@@ -284,12 +284,17 @@ const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    _season: '_PENDING_',
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
   },
   Dessert: {
     text: t('hatchingPotionDessert'),
     limited: true,
-    _season: '_PENDING_',
     canBuy: hasQuestAchievementFunction('waffle'),
   },
 };
