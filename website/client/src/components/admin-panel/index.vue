@@ -723,7 +723,8 @@ export default {
       this.hero.itemVal = currentValue;
     },
     async loadHero (id) {
-      const uuid = id || this.user._id;
+      let uuid = id || this.user._id;
+      uuid = uuid.replace(/@/, ''); // allow "@name" to be entered
       const hero = await this.$store.dispatch('hall:getHero', { uuid });
       this.hero = { ...hero };
       if (!this.hero.flags) {
