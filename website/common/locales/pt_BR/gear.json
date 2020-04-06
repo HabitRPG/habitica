@@ -2072,7 +2072,7 @@
     "armorSpecialSpring2020WarriorText": "Armadura de exoesqueleto",
     "armorSpecialSpring2020RogueNotes": "A cor do crepúsculo, de uma infinidade de pedras preciosas, do mar mais profundo! Aumenta a Percepção em <%= per %>. Equipamento de edição limitada da primavera de 2020.",
     "armorSpecialSpring2020RogueText": "Armadura ultramarina",
-    "weaponSpecialSpring2020HealerNotes": "Uma íris é linda, mas as folhas são como espadas ... não se deixe enganar pelas flores, esse cajado é duro como aço! Aumenta a Inteligência em <% =int %>. Equipamento de edição limitada da primavera de 2020.",
+    "weaponSpecialSpring2020HealerNotes": "Uma íris é linda, mas as folhas são como espadas ... não se deixe enganar pelas flores, esse cajado é duro como aço! Aumenta a Inteligência em <%= int %>. Equipamento de edição limitada da primavera de 2020.",
     "weaponSpecialSpring2020HealerText": "Cajado da espada-lírio",
     "weaponSpecialSpring2020MageNotes": "Eles continuam caindo em sua cabeça! Mas você nunca os impedirá reclamando. Aumenta a Inteligência em <%= int %>  e a Percepção em <%=per %>. Equipamento de edição limitada da primavera de 2020.",
     "weaponSpecialSpring2020MageText": "Pingos de chuva",
