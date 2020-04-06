@@ -369,6 +369,12 @@ describe('webhooks', () => {
 
         expect(user.webhooks[0].failures).to.equal(1);
         expect((Date.now() - user.webhooks[0].lastFailureAt.getTime()) < 10000).to.be.true;
+
+        expect(logger.error).to.be.calledWithMatch(new Error(''), {
+          extraMessage: 'Error while sending message',
+          userId: 1234,
+          webhook,
+        })
       });
 
       it('disables a webhook after 10 failures', async () => {
