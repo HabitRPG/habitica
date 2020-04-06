@@ -295,6 +295,7 @@ const wacky = {
   Dessert: {
     text: t('hatchingPotionDessert'),
     limited: true,
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
     canBuy: hasQuestAchievementFunction('waffle'),
   },
 };
