@@ -13,7 +13,7 @@
     "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js"
   },
   "dependencies": {
-    "@vue/cli-plugin-babel": "^4.2.3",
+    "@vue/cli-plugin-babel": "^4.3.0",
     "@vue/cli-plugin-eslint": "^4.2.3",
     "@vue/cli-plugin-router": "^4.2.3",
     "@vue/cli-plugin-unit-mocha": "^4.2.3",
