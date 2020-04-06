@@ -20,10 +20,6 @@
           </svg>
           <!-- eslint-enable max-len -->
         </div>
-        <div class="col-12 text-center">
-          <h2>{{ $t('tipTitle', {tipNumber: currentTipNumber}) }}</h2>
-          <p>{{ currentTip }}</p>
-        </div>
       </div>
     </div>
     <div
