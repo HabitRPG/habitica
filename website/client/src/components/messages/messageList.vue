@@ -34,9 +34,9 @@
         class="d-flex flex-grow-1"
       >
         <avatar
-          v-if="conversationOpponentUser"
+          v-if="msg.userStyles"
           class="avatar-left"
-          :member="conversationOpponentUser"
+          :member="msg.userStyles"
           :avatar-only="true"
           :override-top-padding="'14px'"
           :hide-class-badge="true"
@@ -64,13 +64,22 @@
           />
         </div>
         <avatar
-          v-if="user"
+          v-if="msg.userStyles"
           class="avatar-right"
-          :member="user"
+          :member="msg.userStyles"
           :avatar-only="true"
           :hide-class-badge="true"
           :override-top-padding="'14px'"
           @click.native="showMemberModal(msg.uuid)"
+        />
+        <avatar
+         v-else-if="user"
+         class="avatar-right"
+         :member="user"
+         :avatar-only="true"
+         :hide-class-badge="true"
+         :override-top-padding="'14px'"
+         @click.native="showMemberModal(msg.uuid)"
         />
       </div>
     </div>
