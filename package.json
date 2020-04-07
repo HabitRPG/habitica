@@ -69,7 +69,7 @@
     "validator": "^11.0.0",
     "vinyl-buffer": "^1.0.1",
     "winston": "^3.2.1",
-    "winston-loggly-bulk": "^3.0.1",
+    "winston-loggly-bulk": "^3.1.0",
     "xml2js": "^0.4.23"
   },
   "private": true,
