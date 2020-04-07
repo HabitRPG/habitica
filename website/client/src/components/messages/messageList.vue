@@ -73,13 +73,13 @@
           @click.native="showMemberModal(msg.uuid)"
         />
         <avatar
-         v-else-if="user"
-         class="avatar-right"
-         :member="user"
-         :avatar-only="true"
-         :hide-class-badge="true"
-         :override-top-padding="'14px'"
-         @click.native="showMemberModal(msg.uuid)"
+          v-else-if="user"
+          class="avatar-right"
+          :member="user"
+          :avatar-only="true"
+          :hide-class-badge="true"
+          :override-top-padding="'14px'"
+          @click.native="showMemberModal(msg.uuid)"
         />
       </div>
     </div>
