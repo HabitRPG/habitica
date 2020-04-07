@@ -111,7 +111,7 @@
     "mocha": "^5.1.1",
     "monk": "^7.1.2",
     "require-again": "^2.0.0",
-    "sinon": "^7.2.4",
+    "sinon": "^9.0.1",
     "sinon-chai": "^3.5.0",
     "sinon-stub-promise": "^4.0.0"
   },
