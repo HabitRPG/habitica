@@ -25,7 +25,9 @@ function removePushDevice (user, pushDevice) {
   });
 }
 
-function sendNotification (user, details = {}) {
+export const MAX_MESSAGE_LENGTH = 300;
+
+export function sendNotification (user, details = {}) {
   if (!user) throw new Error('User is required.');
   if (user.preferences.pushNotifications.unsubscribeFromAll === true) return;
   const pushDevices = user.pushDevices.toObject ? user.pushDevices.toObject() : user.pushDevices;
@@ -36,6 +38,15 @@ function sendNotification (user, details = {}) {
 
   const payload = details.payload ? details.payload : {};
   payload.identifier = details.identifier;
+
+  // Cut the message to 300 characters to avoid going over the limit of 4kb per notifications
+  if (details.message.length > MAX_MESSAGE_LENGTH) {
+    details.message = _.truncate(details.message, { length: MAX_MESSAGE_LENGTH });
+  }
+
+  if (payload.message && payload.message.length > MAX_MESSAGE_LENGTH) {
+    payload.message = _.truncate(payload.message, { length: MAX_MESSAGE_LENGTH });
+  }
 
   _.each(pushDevices, pushDevice => {
     switch (pushDevice.type) { // eslint-disable-line default-case
@@ -51,7 +62,7 @@ function sendNotification (user, details = {}) {
 
           fcmSender.send(message, {
             registrationTokens: [pushDevice.regId],
-          }, 10, (err, response) => {
+          }, 5, (err, response) => {
             if (err) logger.error(err, 'Unhandled FCM error.');
 
             // Handle failed push notifications deliveries
@@ -65,7 +76,7 @@ function sendNotification (user, details = {}) {
               // The regId is not valid anymore, remove it
               if (failed === 'NotRegistered') {
                 removePushDevice(user, pushDevice);
-                logger.error(new Error('FCM error, removing pushDevice'), {
+                logger.error(new Error('FCM error, invalid pushDevice'), {
                   response, regId: pushDevice.regId, userId: user._id,
                 });
               } else {
@@ -103,7 +114,8 @@ function sendNotification (user, details = {}) {
                   // for a list of rejection reasons
                   const { reason } = failure.response;
                   if (reason === 'Unregistered') {
-                    logger.error(new Error('APN error, removing pushDevice'), {
+                    removePushDevice(user, pushDevice);
+                    logger.error(new Error('APN error, invalid pushDevice'), {
                       response, regId: pushDevice.regId, userId: user._id,
                     });
                   } else {
@@ -120,7 +132,3 @@ function sendNotification (user, details = {}) {
     }
   });
 }
-
-export {
-  sendNotification, // eslint-disable-line import/prefer-default-export
-};
