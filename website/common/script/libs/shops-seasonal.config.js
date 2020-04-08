@@ -19,9 +19,11 @@ export default {
   },
 
   availableSpells: [
+    'shinySeed',
   ],
 
   availableQuests: [
+    'egg',
   ],
 
   featuredSet: 'spring2020PuddleMageSet',

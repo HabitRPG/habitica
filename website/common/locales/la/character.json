@@ -80,7 +80,7 @@
     "autoEquipPopoverText": "Select this option to automatically equip gear as soon as you purchase it.",
     "costumeDisabled": "You have disabled your costume.",
     "gearAchievement": "\"Armamenta Ultima\" Rem Perfectam meruisti propter tuum progrediendum ad maximam collationem armamentorum pro professione. Has collationes completas obtinuisti:",
-    "gearAchievementNotification": "\"Armamenta Ultima\" Rem Perfectam meruisti propter tuum progrediendum ad maximam collationem armamentorum pro professione.",
+    "gearAchievementNotification": "\"Armamenta Ultima\" Rem Perfectam meruisti propter tuum progrediendum ad maximam collationem armamentorum pro professione!",
     "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/user/settings/site' target='_blank'>the Settings &gt; Site page</a> and buy your new class's gear!",
     "armoireUnlocked": "For more equipment, check out the <strong>Enchanted Armoire!</strong> Click on the Enchanted Armoire Reward for a random chance at special Equipment! It may also give you random XP or food items.",
     "ultimGearName": "Armamentum Ultimum - <%= ultClass %>",

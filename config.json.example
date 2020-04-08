@@ -78,5 +78,6 @@
   "APPLE_AUTH_PRIVATE_KEY": "",
   "APPLE_TEAM_ID": "",
   "APPLE_AUTH_CLIENT_ID": "",
-  "APPLE_AUTH_KEY_ID": ""
+  "APPLE_AUTH_KEY_ID": "",
+  "BLOCKED_IPS": ""
 }

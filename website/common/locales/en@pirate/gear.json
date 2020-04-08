@@ -1813,5 +1813,7 @@
     "weaponSpecialWinter2020MageNotes": "Wiv practice, ye kin perject this aural magic (in waves!  Like th' sea!!) any way ye like: a thoughtful hum, a festive chime, er a RED TASK O'ERBOARD ALARM.  Raises yer Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2019-2020 Winter Gear.",
     "weaponSpecialWinter2020MageText": "Ripplin' Waves o' Sound",
     "weaponSpecialWinter2020WarriorNotes": "Avast, squirrels!  Ye'll get no piece o' this!  ...But iffen ye wanna hang out an' 'ave cocoa, that be cool.  Raises yer Strength by <%= str %>. Limited Edition 2019-2020 Winter Gear.",
-    "weaponSpecialWinter2020WarriorText": "Pointy Conny-fer Cone"
+    "weaponSpecialWinter2020WarriorText": "Pointy Conny-fer Cone",
+    "weaponSpecialSpring2020RogueNotes": "Ye'll strike so fast it'll look e'en MORE blue! Raises yer Strength by <%= str %>. Limited Edition 2020 Spring Gear.",
+    "weaponSpecialSpring2020RogueText": "Laz-yer-rite Blade"
 }

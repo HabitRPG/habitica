@@ -57,7 +57,7 @@
     "achievementCreatedTaskText": "Criou sua primeira tarefa.",
     "achievementCreatedTask": "Criar uma Tarefa",
     "hideAchievements": "Ocultar <%= category %>",
-    "showAllAchievements": "Exibir todos(as) <%= category %>",
+    "showAllAchievements": "Exibir todas as <%= category %>",
     "onboardingCompleteDesc": "Você ganhou <strong>5 conquistas</strong> e <strong class=\"gold-amount\">100</strong> peças de ouro por completar a lista.",
     "earnedAchievement": "Você ganhou uma conquista!",
     "viewAchievements": "Visualizar Conquistas",
@@ -71,6 +71,9 @@
     "achievementTickledPinkText": "Coletou todos os Mascotes algodão-doce rosa.",
     "achievementTickledPink": "Cócegas rosa",
     "foundNewItemsCTA": "Vá para o seu Inventário e tente combinar sua nova poção de eclosão com algum ovo!",
-    "foundNewItemsExplanation": "A conclusão de tarefas oferece a chance de encontrar itens, como ovos, poções de eclosão e comida.",
-    "foundNewItems": "Você encontrou todos os novos itens!"
+    "foundNewItemsExplanation": "A conclusão de tarefas oferece a chance de encontrar itens, como ovos, poções de eclosão e comida para mascotes.",
+    "foundNewItems": "Você encontrou todos os novos itens!",
+    "achievementBugBonanzaModalText": "Você completou as missões dos mascotes Besouro, Borboleta, Caracol e Aranha!",
+    "achievementBugBonanzaText": "Completou as missões dos mascotes Besouro, Borboleta, Caracol e Aranha.",
+    "achievementBugBonanza": "Inseto próspero"
 }

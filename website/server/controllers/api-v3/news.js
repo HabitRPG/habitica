@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SPRING FLING BEGINS! LIMITED EDITION EQUIPMENT, SEASONAL SHOP, AND MAGIC HATCHING POTIONS!';
+const LAST_ANNOUNCEMENT_TITLE = 'CONFECTION HATCHING POTION QUEST, APRIL FOOL BLOG POST, AND SHINY SEEDS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,50 +31,63 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/19/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/7/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_spring_2020 center-block"></div>
-        <h3>Limited Edition Class Outfits</h3>
+        <h3>April Fool's Challenge Winners and Blog Post!</h3>
         <p>
-          From now until April 30th, limited edition outfits are available in the Rewards column!
-          Depending on your class, you can be a Rhinoceros Beetle Warrior, Iris Healer, Lapis
-          Lazuli Rogue, or Puddle Mage. You'd better get productive to earn enough Gold before your
-          time runs out...
-        </p>
-        <div class="small mb-3">by Vikte, gawrone, jjgame83, Shine Caramia, and SabreCat</div>
-        <div class="promo_seasonal_shop_spring center-block"></div>
-        <h3>Seasonal Shop Opens</h3>
-        <p>
-          The <a href='/shops/seasonal'>Seasonal Shop</a> has opened! It's stocking springtime
-          Seasonal Edition goodies at the moment, including past spring outfits. Everything there
-          will be available to purchase during the Spring Fling event each year, but it's only open
-          until April 30th, so be sure to stock up now, or you'll have to wait a year to buy these
-          items again!
-        </p>
-        <div class="small mb-3">
-          by Eslyn, Aspiring Advocate, OuttaMyMind, Lt. Cabel, Vikte, Lalaitha, DialFForFunky,
-          Gerald the Pixel, Scarvia, Awesome kitty, usnbfs, Lemoness, Balduranne, PainterProphet,
-          Beffymaroo, and SabreCat
-        </div>
-        <div class="promo_spring_potions_2020 center-block"></div>
-        <h3>Spring Fling Magic Hatching Potions</h3>
-        <p>
-          There's a new pet breed in town! Check out the brand-new Birch Bark Potions and the
-          return of Shimmer and Celestial Potions to brighten your Spring avatar look from <a
-          href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic
-          Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky,
-          so they'll happily eat any kind of food that you feed them!
+          The winners of the April Fool's Social Media Challenge have been selected!
+          Congratulations to Silvercat17, RaidingPartyGames, Pangdood, Spacehawk, and VixiMonster!
         </p>
         <p>
-          These potions will be available until Spring Fling ends on April 30. After they're gone,
-          it will be at least a year before these Hatching Potions return, so be sure to get them
-          now!
+          Thank you to everyone who shared their awesome pics with their dessert pets! You can see
+          a fun <a href='https://habitica.wordpress.com/2020/04/07/taking-the-cake-dessert-pet-pics-from-habiticas-april-fools-celebration/'
+          target='_blank'>recap of the shenanigans on our blog</a>. Stay tuned to see what wacky antics the Fool gets up to next year!
         </p>
-        <div class="small mb-3">
-          by Teto Forever, tricksy.fox, Bonogo, Mara, ravenlune, Ricardo, and SabreCat
-        </div>
+        <div class="promo_april_fools_2020 center-block"></div>
+        <h3>Confection Magic Hatching Potion Quest!</h3>
+        <p>
+          Oh, no! Just as Habiticans were going back to daily life, missing their cute dessert
+          pets, it looks like some kind of syrupy monstrosity has emerged to threaten the land!
+        </p>
+        <p>
+          Can you help the April Fool save Habitica from the Awful Waffle? Join the battle, and
+          earn special Confection Magic Hatching potions by completing your everyday tasks.
+        </p>
+        <p>
+          You can purchase the limited Confection Magic Hatching Potion Quest from the <a
+          href='/shops/quests'>Quest Shop</a> between now and April 30! Each quest completion
+          awards participants three potions each. Confection pets do not have mount forms, so keep
+          that in mind when you're purchasing!
+        </p>
+        <p>
+          Garden Potions have also returned, if you prefer a healthier treat! You can find them in
+          <a href='/shops/market'>the Market</a> until April 30. Keep in mind that Garden pets also
+          do not have mount forms when deciding how many to purchase.
+        </p>
+        <p>
+          After they're gone, it will be at least a year before the Confection Magic Hatching
+          Potion Quest or the Garden Magic Potions are available again, so be sure to get them now!
+        </p>
+        <div class="small mb-3">by Beffymaroo, Piyo, Viirus, and SabreCat</div>
+        <div class="promo_shiny_seeds center-block"></div>
+        <h3>Shiny Seeds</h3>
+        <p>
+          Throw a Shiny Seed at your friends and they will turn into a cheerful flower until their
+          next cron! You can buy the Seeds in the <a href='/shops/seasonal'>Seasonal Shop</a> with
+          Gold. Plus, if you get transformed by a Shiny Seed, you'll receive the Agricultural
+          Friends badge!
+        </p>
+        <p>
+          Don't want to be a flower? Just buy some Petal-Free Potion from your Rewards column to
+          reverse it.
+        </p>
+        <p>
+          Shiny Seeds will be available in the <a href='/shops/seasonal'>Seasonal Shop</a> until
+          April 30th!
+        </p>
+        <div class="small mb-3">by Lemoness</div>
       </div>
       `,
     });

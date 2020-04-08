@@ -50,7 +50,7 @@
     "loadUser": "Utentem Lege",
     "noAdminAccess": "Aditum administratoris non habes.",
     "userNotFound": "Utens non nactus est.",
-    "invalidUUID": "Debere UUID lictum esse.",
+    "invalidUUID": "Debere UUID lictum esse",
     "title": "Titulus",
     "moreDetails": "Particulae plures (1-7)",
     "moreDetails2": "particulae plures (8-9)",

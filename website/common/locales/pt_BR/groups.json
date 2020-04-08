@@ -191,15 +191,15 @@
     "invitedFriendText": "Este usuário convidou um ou mais amigos(as) que se uniram a eles em suas aventuras!",
     "inviteAlertInfo2": "Ou compartilhe este link (copiar/colar):",
     "inviteLimitReached": "Você já enviou a quantidade máxima de convites por e-mail. Nós temos um limite para prevenir spam. De qualquer forma, se você gostaria que o limite fosse maior, mande um e-mail para <%= techAssistanceEmail %> e nós ficaremos felizes em discutir isso!",
-    "sendGiftHeading": "Enviar Presente para <%= name %>",
+    "sendGiftHeading": "Enviar presente para <%= name %>",
     "sendGiftGemsBalance": "De <%= number %> Gemas",
     "sendGiftCost": "Total: $<%= cost %> (Dólar)",
-    "sendGiftFromBalance": "Do Saldo",
+    "sendGiftFromBalance": "Do saldo",
     "sendGiftPurchase": "Compra",
     "sendGiftMessagePlaceholder": "Mensagem pessoal (opcional)",
     "sendGiftSubscription": "<%= months %> Mês(es): $<%= price %> (Dólar)",
     "gemGiftsAreOptional": "Por favor, note que o Habitica nunca exigirá que você presenteie outros jogadores com gemas. Pedir gemas para outras pessoas é uma <strong> violação das Diretrizes de Comunidade</strong> e todos esses pedidos devem ser informados, mandando um e-mail para <%= hrefTechAssistanceEmail %>.",
-    "battleWithFriends": "Enfrente Monstros com os Amigos",
+    "battleWithFriends": "Enfrente monstros com seus amigos",
     "startPartyWithFriends": "Comece um Grupo com seus amigos!",
     "startAParty": "Começar um Grupo",
     "addToParty": "Adicione alguém a seu Grupo",
@@ -490,5 +490,8 @@
     "userWithUsernameOrUserIdNotFound": "Nome de usuário ou ID de usuário não encontrados.",
     "usernameOrUserId": "Nome de usuário ou ID de usuário",
     "sendGiftToWhom": "Para quem você gostaria de enviar um presente?",
-    "selectGift": "Selecionar presente"
+    "selectGift": "Selecionar presente",
+    "PMUnblockUserToSendMessages": "Desbloqueie esse usuário para continuar enviando ou recebendo mensagens.",
+    "PMUserDoesNotReceiveMessages": "Este usuário não está mais recebendo mensagens privadas",
+    "PMCanNotReply": "Você não pode responder a essa conversa"
 }

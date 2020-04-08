@@ -72,5 +72,8 @@
     "achievementTickledPink": "Rosige Bäckchen",
     "foundNewItems": "Du hast neue Gegenstände gefunden!",
     "foundNewItemsCTA": "Schau in Dein Inventar und versuche, Dein neues Schlüpfelixier mit einem Ei zu kombinieren!",
-    "foundNewItemsExplanation": "Durch das Abschließen von Aufgaben erhältst Du die Chance Gegenstände, wie etwa Eier, Schlüpfelixiere und Futter, zu finden."
+    "foundNewItemsExplanation": "Durch das Abschließen von Aufgaben erhältst Du die Chance, Gegenstände wie etwa Eier, Schlüpfelixiere und Futter zu finden.",
+    "achievementBugBonanza": "Kostbarer Käfer",
+    "achievementBugBonanzaModalText": "Du hast die Käfer-, Schmetterling-, Schnecken- und Spinnenhaustier-Quests erfüllt!",
+    "achievementBugBonanzaText": "Hat die Käfer-, Schmetterling-, Schnecken- und Spinnenhaustier-Quests erfüllt."
 }

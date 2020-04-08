@@ -70,7 +70,7 @@
     "contactUs": "联系我们",
     "checkout": "结帐",
     "sureCancelSub": "你确定你要取消捐助吗？",
-    "subCanceled": "捐助将失效于",
+    "subCanceled": "订阅将失效于",
     "buyGemsGoldTitle": "用金币购买宝石",
     "becomeSubscriber": "成为一名订阅者",
     "subGemPop": "由于您订阅了Habitica，您可以每月使用金币购买一些宝石。",
@@ -202,7 +202,7 @@
     "gemBenefit3": "掉落副本宠物蛋的令人兴奋的系列副本。",
     "gemBenefit4": "重置角色属性值，并改变职业。",
     "subscriptionBenefitLeadin": "通过成为订阅者支持Habitica，您将获得这些有益的好处！",
-    "subscriptionBenefit1": "商人Alexander现在会从市场卖给你宝石，每个20金币！",
+    "subscriptionBenefit1": "商人Alexander现在会从市场卖给你宝石，每颗20金币！",
     "subscriptionBenefit2": "完成的待办事项和任务的历史记录会更长时间保留。",
     "subscriptionBenefit3": "在Habitica发现更多的物品，每天享受双倍的物品掉落上限。",
     "subscriptionBenefit4": "您的角色每个月会有独特的装备，让您装饰它。",
@@ -210,7 +210,7 @@
     "subscriptionBenefit6": "获得神秘沙漏在时空穿越者的商店购买物品！",
     "haveCouponCode": "你有优惠券代码吗？",
     "subscriptionAlreadySubscribedLeadIn": "感谢订阅！",
-    "subscriptionAlreadySubscribed1": "要查看您的捐助详细信息并取消，续订或更改，请转到<a href='/user/settings/subscription'>用户图标＜设置＜订阅</a>中。",
+    "subscriptionAlreadySubscribed1": "要查看您的详细订阅信息并取消，续订或更改，请转到<a href='/user/settings/subscription'>用户图标＜设置＜订阅</a>中。",
     "purchaseAll": "购买套装",
     "gemsPurchaseNote": "订阅者可以在市场上使用金币购买到宝石！ 为了方便购买，您还可以将宝石固定到“奖励”列。",
     "gemsRemaining": "剩下的宝石",
@@ -247,5 +247,6 @@
     "monthlyMysteryItems": "每月神秘物品",
     "subscribersReceiveBenefits": "订阅者可以获得这些优越的好处！",
     "mysterySet202003": "倒刺斗士套装",
-    "giftASubscription": "赠送订阅"
+    "giftASubscription": "赠送订阅",
+    "mysterySet202004": "强大的君主斑蝶套装"
 }
