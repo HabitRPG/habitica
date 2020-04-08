@@ -1057,16 +1057,18 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
       if (quest.boss.rage.mpDrain) {
         updates.$set = { 'stats.mp': 0 };
       }
+      if (quest.boss.rage.progressDrain) {
+        updates.$mul = { 'party.quest.progress.up': quest.boss.rage.progressDrain };
+      }
     }
   }
 
-  await User.update(
+  await User.updateMany(
     {
       _id:
       { $in: this.getParticipatingQuestMembers() },
     },
     updates,
-    { multi: true },
   ).exec();
   // Apply changes the currently cronning user locally
   // so we don't have to reload it to get the updated state

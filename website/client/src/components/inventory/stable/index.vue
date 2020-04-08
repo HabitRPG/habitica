@@ -183,7 +183,7 @@
           </div>
         </div>
         <div
-          v-if="petGroup.key !== 'specialPets' && petGroup.key !== 'wackyPets'"
+          v-if="petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
           class="btn btn-flat btn-show-more"
           @click="setShowMore(petGroup.key)"
         >
@@ -790,7 +790,7 @@ export default {
       const pets = this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
 
       // Don't group special
-      if (animalGroup.key === 'specialPets' || animalGroup.key === 'wackyPets') {
+      if (animalGroup.key === 'specialPets' || (animalGroup.key === 'wackyPets' && sortBy !== 'sortByColor')) {
         return { none: pets };
       }
 

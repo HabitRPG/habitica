@@ -1,26 +1,38 @@
-.promo_armoire_backgrounds_202003 {
+.promo_april_fools_2020 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -445px -184px;
+  background-position: -433px -337px;
+  width: 423px;
+  height: 147px;
+}
+.promo_armoire_backgrounds_202004 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -500px;
   width: 423px;
   height: 147px;
 }
 .promo_egg_quest {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -500px;
+  background-position: 0px -648px;
   width: 354px;
   height: 147px;
 }
 .promo_mystery_202004 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -355px -500px;
+  background-position: -355px -648px;
   width: 282px;
   height: 147px;
 }
 .promo_seasonal_shop_spring {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -638px -500px;
+  background-position: -638px -648px;
   width: 162px;
   height: 138px;
+}
+.promo_shiny_seeds {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -500px;
+  width: 360px;
+  height: 147px;
 }
 .promo_spring_2019 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
@@ -36,13 +48,13 @@
 }
 .promo_spring_potions_2020 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -433px -337px;
+  background-position: -445px -184px;
   width: 423px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -151px -648px;
+  background-position: -875px -151px;
   width: 96px;
   height: 69px;
 }
@@ -54,7 +66,7 @@
 }
 .scene_meditation {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -648px;
+  background-position: -875px 0px;
   width: 150px;
   height: 150px;
 }
