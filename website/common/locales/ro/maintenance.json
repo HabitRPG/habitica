@@ -1,11 +1,11 @@
 {
     "habiticaBackSoon": "Nu vă faceți griji, Habitica se va întoarce în curând!",
-    "importantMaintenance": "We are doing important maintenance that we estimate will last until 10pm Pacific Time (5am UTC).",
+    "importantMaintenance": "Facem o întreținere de mentenanță importantă care estimăm că va dura până la ora 22:00 Ora Pacificului (05:00 UTC).",
     "maintenance": "Mentenanță",
     "maintenanceMoreInfo": "Doriți mai multe informații în legătura cu mentenanța? <%= linkStart %> Aruncați o privire paginii noastre de informații <%= linkEnd %>.",
     "noDamageKeepStreaks": "Starea ta nu se va deteriora și nu vei pierde șiruri!",
     "thanksForPatience": "Vă mulțumim pentru răbdare!",
-    "twitterMaintenanceUpdates": "Pentru cele mai recente",
+    "twitterMaintenanceUpdates": "Pentru cele mai recente actualizări, urmărește pagina noastră de <a href='https://twitter.com/habitica'> Twitter </a>, unde vom posta informații despre stare.",
     "veteranPetAward": "La final vei primi un animal Veteran!",
     "maintenanceInfoTitle": "Informații despre Lucrări de Mentenanță la Habitica",
     "maintenanceInfoWhat": "Ce se întâmplă?",
