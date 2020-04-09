@@ -11,6 +11,7 @@ const StaticWrapper = () => import(/* webpackChunkName: "entry" */'@/components/
 const HomePage = () => import(/* webpackChunkName: "entry" */'@/components/static/home');
 
 const AppPage = () => import(/* webpackChunkName: "static" */'@/components/static/app');
+const AppleRedirectPage = () => import(/* webpackChunkName: "static" */'@/components/static/appleRedirect');
 const ClearBrowserDataPage = () => import(/* webpackChunkName: "static" */'@/components/static/clearBrowserData');
 const CommunityGuidelinesPage = () => import(/* webpackChunkName: "static" */'@/components/static/communityGuidelines');
 const ContactPage = () => import(/* webpackChunkName: "static" */'@/components/static/contact');
@@ -271,6 +272,9 @@ const router = new VueRouter({
       children: [
         {
           name: 'app', path: 'app', component: AppPage, meta: { requiresLogin: false },
+        },
+        {
+          name: 'appleRedirect', path: 'apple-redirect', component: AppleRedirectPage, meta: { requiresLogin: false },
         },
         {
           name: 'clearBrowserData', path: 'clear-browser-data', component: ClearBrowserDataPage, meta: { requiresLogin: false },
