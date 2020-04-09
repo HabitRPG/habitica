@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
-import {
-  highlightMentions,
-} from '../../../../website/server/libs/highlightMentions';
+import highlightMentions from '../../../../website/server/libs/highlightMentions';
 
 describe('highlightMentions', () => {
   beforeEach(() => {
@@ -64,5 +62,47 @@ describe('highlightMentions', () => {
     const text = '@user @user2 @user3 @user4 @user5 @user6';
     const result = await highlightMentions(text);
     expect(result[0]).to.equal(text);
+  });
+
+  describe('exceptions in code blocks', () => {
+    it('doesn\'t highlight user in inline code block', async () => {
+      const text = '\`@user\`';
+
+      const [result,,] = await highlightMentions(text);
+
+      expect(result).to.equal(text);
+    });
+
+    it('doesn\'t highlight user in fenced code block', async () => {
+      const text = `Text\n\n\`\`\`\n// code referencing @user\n\`\`\`\n\nText`;
+
+      const [result,,] = await highlightMentions(text);
+
+      expect(result).to.equal(text);
+    });
+
+    it('doesn\'t highlight user in indented code block', async () => {
+      const text = `      @user`;
+
+      const [result,,] = await highlightMentions(text);
+
+      expect(result).to.equal(text);
+    });
+
+    it('does highlight user that\'s after in-line code block', async () => {
+      const text = '\`<code />\` for @user';
+
+      const [result,,] = await highlightMentions(text);
+
+      expect(result).to.equal('\`<code />\` for [@user](/profile/111)');
+    });
+
+    it('does highlight same content properly', async () => {
+      const text = '@user `@user`'
+
+      const [result,,] = await highlightMentions(text);
+
+      expect(result).to.equal('[@user](/profile/111) `@user`');
+    });
   });
 });
