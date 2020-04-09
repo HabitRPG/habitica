@@ -25,7 +25,7 @@
     "spellRogueStealthText": "Discreție",
     "spellRogueStealthNotes": "Cu fiecare aruncare a vrăjii, câteva dintre Cotidianele voastre nefăcute nu vor provoca daune în această seară. Șirulși culorile lor nu se vor schimba. (Pe baza: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Numumărul de Cotidiene evitate: <%= number %>.",
-    "spellRogueStealthMaxedOut": " You have already avoided all your dailies; there's no need to cast this again.",
+    "spellRogueStealthMaxedOut": " Ți-ai evitat deja Cotidienele; nu e nevoie să invoci asta din nou.",
     "spellHealerHealText": "Lumină vindecătoare",
     "spellHealerHealNotes": "Lumina strălucitoare îți restabilește sănătatea! (Bazat pe: CON și INT)",
     "spellHealerBrightnessText": "Strălucire mistuitoare",

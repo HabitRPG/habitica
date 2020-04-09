@@ -61,7 +61,7 @@
     "newGroupTitle": "Grup nou",
     "subscriberItem": "Obiect Misterios",
     "newSubscriberItem": "Ai <span class=\"notification-bold-blue\">Articole Misterioase</span> noi",
-    "subscriberItemText": "În fiecare lună, abonații vor primi un articol misterios. Acesta va fi trimis deobicei cu o săptămână în înainte de sfârșitul lunii. Consulta pagina 'Mystery Item' pe wiki pentru mai multe informații.",
+    "subscriberItemText": "În fiecare lună, abonații vor primi un articol misterios. Devine disponibil la începutul lunii. Consulta pagina 'Mystery Item' pe wiki pentru mai multe informații.",
     "all": "Toate",
     "none": "Niciunul",
     "more": "<%= count %> mai mult",
@@ -284,11 +284,17 @@
     "dismissAll": "Dismiss All",
     "messages": "Mesaje",
     "emptyMessagesLine1": "Nu ai nici un mesaj",
-    "emptyMessagesLine2": "Trimite un mesaj și începe o conversație!",
+    "emptyMessagesLine2": "Poți trimite un mesaj nou unui utilizator vizitând profilul său și făcând click pe butonul „Mesaj”.",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> ți-a trimis un mesaj",
     "letsgo": "Înainte!",
     "selected": "Selectat",
     "howManyToBuy": "Câte vrei să cumperi?",
     "habiticaHasUpdated": "Există o nouă actualizare pentru Habitica. Reîmprospătează pagina ca să vezi versiune curentă!",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Contact the Moderation Team",
+    "loadEarlierMessages": "Load Earlier Messages",
+    "demo": "Demo",
+    "congratulations": "Congratulations!",
+    "onboardingAchievs": "Onboarding Achievements",
+    "options": "Options",
+    "finish": "Finish"
 }
