@@ -66,43 +66,43 @@ describe('highlightMentions', () => {
 
   describe('exceptions in code blocks', () => {
     it('doesn\'t highlight user in inline code block', async () => {
-      const text = '\`@user\`';
+      const text = '`@user`';
 
-      const [result,,] = await highlightMentions(text);
+      const result = await highlightMentions(text);
 
-      expect(result).to.equal(text);
+      expect(result[0]).to.equal(text);
     });
 
     it('doesn\'t highlight user in fenced code block', async () => {
-      const text = `Text\n\n\`\`\`\n// code referencing @user\n\`\`\`\n\nText`;
+      const text = 'Text\n\n```\n// code referencing @user\n```\n\nText';
 
-      const [result,,] = await highlightMentions(text);
+      const result = await highlightMentions(text);
 
-      expect(result).to.equal(text);
+      expect(result[0]).to.equal(text);
     });
 
     it('doesn\'t highlight user in indented code block', async () => {
-      const text = `      @user`;
+      const text = '      @user';
 
-      const [result,,] = await highlightMentions(text);
+      const result = await highlightMentions(text);
 
-      expect(result).to.equal(text);
+      expect(result[0]).to.equal(text);
     });
 
     it('does highlight user that\'s after in-line code block', async () => {
-      const text = '\`<code />\` for @user';
+      const text = '`<code />` for @user';
 
-      const [result,,] = await highlightMentions(text);
+      const result = await highlightMentions(text);
 
-      expect(result).to.equal('\`<code />\` for [@user](/profile/111)');
+      expect(result[0]).to.equal('`<code />` for [@user](/profile/111)');
     });
 
     it('does highlight same content properly', async () => {
-      const text = '@user `@user`'
+      const text = '@user `@user`';
 
-      const [result,,] = await highlightMentions(text);
+      const result = await highlightMentions(text);
 
-      expect(result).to.equal('[@user](/profile/111) `@user`');
+      expect(result[0]).to.equal('[@user](/profile/111) `@user`');
     });
   });
 });
