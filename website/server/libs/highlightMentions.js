@@ -3,7 +3,12 @@ import habiticaMarkdown from 'habitica-markdown';
 import { model as User } from '../models/user';
 
 const mentionRegex = /\B@[-\w]+/g;
+const codeTokenTypes = ['code_block', 'code_inline', 'fence'];
 
+/**
+ * Container class for text blocks and code blocks combined
+ * Blocks have the properties `text` and `isCodeBlock`
+ */
 class TextWithCodeBlocks {
   constructor (blocks) {
     this.blocks = blocks;
@@ -29,15 +34,11 @@ class TextWithCodeBlocks {
 function findCodeBlocks (tokens) {
   function recurse (ts, result) {
     const [head, ...tail] = ts;
-
     if (!head) {
       return result;
     }
 
-    if (head.type === 'code_block'
-        || head.type === 'code_inline'
-        || head.type === 'fence'
-    ) {
+    if (codeTokenTypes.includes(head.type)) {
       result.push(head);
     }
 
@@ -47,6 +48,11 @@ function findCodeBlocks (tokens) {
   return recurse(tokens, []);
 }
 
+/**
+ * Since there are many factors that can prefix lines with indentation in
+ * markdown, each line from a token's content needs to be prefixed with a
+ * variable whitespace matcher.
+ */
 function withOptionalIndentation (content) {
   return content.split('\n').map(line => `\\s*${line}`).join('\n');
 }
@@ -66,6 +72,10 @@ function createRegex ({ content, type, markup }) {
   return new RegExp(regexStr);
 }
 
+/**
+ * Uses habiticaMarkdown to determine what part of the text are code blocks
+ * according to the specification here: https://spec.commonmark.org/0.29/
+ */
 function findTextAndCodeBlocks (text) {
   // For token description see https://markdown-it.github.io/markdown-it/#Token
   const tokens = habiticaMarkdown.parse(text);
