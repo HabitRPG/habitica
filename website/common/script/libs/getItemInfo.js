@@ -134,7 +134,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         notes: item.notes(language),
         addlNotes: item.addlNotes ? item.addlNotes(language) : null,
         group: item.group,
-        limited: item.limited ? item.limited : false,
+        event: item.event,
         value: item.goldValue ? item.goldValue : item.value,
         locked,
         previous: content.quests[item.previous]

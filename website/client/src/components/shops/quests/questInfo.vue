@@ -36,7 +36,7 @@
         </dd>
       </div>
     </div>
-    <div v-if="quest.limited && popoverVersion">
+    <div v-if="quest.event && popoverVersion">
       {{ limitedString }}
     </div>
   </div>
