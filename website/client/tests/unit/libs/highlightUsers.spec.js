@@ -1,7 +1,7 @@
 import habiticaMarkdown from 'habitica-markdown';
 import { highlightUsers } from '@/libs/highlightUsers';
 
-describe.only('highlightUserAndEmail', () => {
+describe('highlightUserAndEmail', () => {
   it('highlights displayname', () => {
     const text = 'hello @displayedUser with text after';
 
