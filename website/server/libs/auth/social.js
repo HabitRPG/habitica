@@ -6,6 +6,7 @@ import {
   generateUsername,
   loginRes,
 } from './utils';
+import { appleProfile } from './apple';
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
 import { sendTxn as sendTxnEmail } from '../email';
@@ -24,14 +25,21 @@ function _passportProfile (network, accessToken) {
 
 export async function loginSocial (req, res) { // eslint-disable-line import/prefer-default-export
   const existingUser = res.locals.user;
-  const accessToken = req.body.authResponse.access_token;
   const { network } = req.body;
 
   const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
     .find(supportedNetwork => supportedNetwork.key === network);
   if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
 
-  const profile = await _passportProfile(network, accessToken);
+  let profile = {};
+  if (network === 'apple') {
+    profile = await appleProfile(req);
+  } else {
+    const accessToken = req.body.authResponse.access_token;
+    profile = await _passportProfile(network, accessToken);
+  }
+
+  if (!profile.id) throw new BadRequest(res.t('invalidData'));
 
   let user = await User.findOne({
     [`auth.${network}.id`]: profile.id,
@@ -80,7 +88,7 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     user.newUser = true;
   }
 
-  loginRes(user, req, res);
+  const response = loginRes(user, req, res);
 
   // Clean previous email preferences
   if (
@@ -114,5 +122,5 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
     });
   }
 
-  return null;
+  return response;
 }

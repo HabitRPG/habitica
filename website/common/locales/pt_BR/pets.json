@@ -44,7 +44,7 @@
     "hatchingPotion": "poção de eclosão",
     "noHatchingPotions": "Você não possui poções de eclosão.",
     "inventoryText": "Clique num ovo para ver as poções utilizáveis destacadas em verde e depois clique em uma das poções destacadas para incubar seu mascote. Se nenhuma poção estiver destacada, clique no ovo novamente para desmarcá-lo, e em vez do ovo, clique na poção primeiro para ver os ovos utilizáveis marcados em verde. Você também pode vender itens indesejados para Alexander, o Comerciante.",
-    "haveHatchablePet": "Você tem a Poção de Eclosão <%= potion %> e o ovo <%= egg %> para chocar este mascote! <b>Clique</b> na pata para chocar.",
+    "haveHatchablePet": "Você tem a poção de eclosão <%= potion %> e o ovo <%= egg %> para chocar este mascote! <b>Clique</b>para chocar!",
     "quickInventory": "Inventário Rápido",
     "foodText": "comida",
     "food": "Comida para mascotes e Selas",

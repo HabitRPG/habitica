@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR MARCH SUBSCRIBER ITEMS AND HUG A BUG BUNDLE!';
+const LAST_ANNOUNCEMENT_TITLE = 'CONFECTION HATCHING POTION QUEST, APRIL FOOL BLOG POST, AND SHINY SEEDS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,27 +31,63 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/30/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/7/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_202003 center-block"></div>
-        <h3>Last Chance for Barbed Battler Set</h3>
+        <h3>April Fool's Challenge Winners and Blog Post!</h3>
         <p>
-          Reminder: this is the last day to receive the Barbed Battler Set when you <a
-          href='/user/settings/subscription'>sign up for a new Habitica subscription</a>!
-          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
-          you can get!
+          The winners of the April Fool's Social Media Challenge have been selected!
+          Congratulations to Silvercat17, RaidingPartyGames, Pangdood, Spacehawk, and VixiMonster!
         </p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_hugabug_bundle center-block"></div>
-        <h3>Last Chance for Hug a Bug Pet Quest Bundle</h3>
         <p>
-          This is also the final day to buy the discounted Hug a Bug Pet Quest Bundle, featuring
-          the Snail, Beetle, and Butterfly quests, all for seven Gems! Be sure to take your bug-
-          catching net over to the <a href='/shops/quests'>Quest Shop</a> before it bugs out!
+          Thank you to everyone who shared their awesome pics with their dessert pets! You can see
+          a fun <a href='https://habitica.wordpress.com/2020/04/07/taking-the-cake-dessert-pet-pics-from-habiticas-april-fools-celebration/'
+          target='_blank'>recap of the shenanigans on our blog</a>. Stay tuned to see what wacky antics the Fool gets up to next year!
         </p>
+        <div class="promo_april_fools_2020 center-block"></div>
+        <h3>Confection Magic Hatching Potion Quest!</h3>
+        <p>
+          Oh, no! Just as Habiticans were going back to daily life, missing their cute dessert
+          pets, it looks like some kind of syrupy monstrosity has emerged to threaten the land!
+        </p>
+        <p>
+          Can you help the April Fool save Habitica from the Awful Waffle? Join the battle, and
+          earn special Confection Magic Hatching potions by completing your everyday tasks.
+        </p>
+        <p>
+          You can purchase the limited Confection Magic Hatching Potion Quest from the <a
+          href='/shops/quests'>Quest Shop</a> between now and April 30! Each quest completion
+          awards participants three potions each. Confection pets do not have mount forms, so keep
+          that in mind when you're purchasing!
+        </p>
+        <p>
+          Garden Potions have also returned, if you prefer a healthier treat! You can find them in
+          <a href='/shops/market'>the Market</a> until April 30. Keep in mind that Garden pets also
+          do not have mount forms when deciding how many to purchase.
+        </p>
+        <p>
+          After they're gone, it will be at least a year before the Confection Magic Hatching
+          Potion Quest or the Garden Magic Potions are available again, so be sure to get them now!
+        </p>
+        <div class="small mb-3">by Beffymaroo, Piyo, Viirus, and SabreCat</div>
+        <div class="promo_shiny_seeds center-block"></div>
+        <h3>Shiny Seeds</h3>
+        <p>
+          Throw a Shiny Seed at your friends and they will turn into a cheerful flower until their
+          next cron! You can buy the Seeds in the <a href='/shops/seasonal'>Seasonal Shop</a> with
+          Gold. Plus, if you get transformed by a Shiny Seed, you'll receive the Agricultural
+          Friends badge!
+        </p>
+        <p>
+          Don't want to be a flower? Just buy some Petal-Free Potion from your Rewards column to
+          reverse it.
+        </p>
+        <p>
+          Shiny Seeds will be available in the <a href='/shops/seasonal'>Seasonal Shop</a> until
+          April 30th!
+        </p>
+        <div class="small mb-3">by Lemoness</div>
       </div>
       `,
     });
