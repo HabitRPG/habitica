@@ -2,7 +2,6 @@
   <div>
     <div
       class="row"
-      :class="{'small-version': smallVersion}"
     >
       <div
         v-if="quest.collect"
@@ -31,14 +30,13 @@
           <div
             v-for="star of stars()"
             :key="star"
-            class="svg-icon inline"
-            :class="smallVersion ? 'icon-12' : 'icon-16'"
+            class="svg-icon inline icon-16"
             v-html="icons[star]"
           ></div>
         </dd>
       </div>
     </div>
-    <div v-if="quest.limited">
+    <div v-if="quest.limited && popoverVersion">
       {{ limitedString }}
     </div>
   </div>
@@ -133,7 +131,7 @@ export default {
     quest: {
       type: Object,
     },
-    smallVersion: {
+    popoverVersion: {
       type: Boolean,
       default: false,
     },

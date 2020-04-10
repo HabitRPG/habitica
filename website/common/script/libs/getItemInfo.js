@@ -94,6 +94,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'hatchingPotions',
         path: item.wacky ? `wackyHatchingPotions.${item.key}` : `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
+        event: item.event,
       };
       break;
     case 'food':
