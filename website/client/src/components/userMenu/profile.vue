@@ -349,16 +349,16 @@
               </div>
             </div>
           </div>
-          <div
-            v-if="achievementsCategories[key].number > 5"
-            class="btn btn-flat btn-show-more"
-            @click="toggleAchievementsCategory(key)"
-          >
-            {{ achievementsCategories[key].open ?
-              $t('hideAchievements', {category: $t(key+'Achievs')}) :
-              $t('showAllAchievements', {category: $t(key+'Achievs')})
-            }}
-          </div>
+            <div
+              v-if="achievementsCategories[key].number > 5"
+              class="btn btn-flat btn-show-more"
+              @click="toggleAchievementsCategory(key)"
+            >
+              {{ achievementsCategories[key].open ?
+                $t('hideAchievements', {category: $t(key+'Achievs')}) :
+                $t('showAllAchievements', {category: $t(key+'Achievs')})
+              }}
+            </div>
         </div>
       </div>
       <hr class="col-12">
