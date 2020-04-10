@@ -1,3 +1,6 @@
+<!-- Commenting out merch page see
+             https://github.com/HabitRPG/habitica/issues/12039
+
 <template>
   <div class="container-fluid">
     <div class="row">
@@ -67,3 +70,4 @@ export default {
   },
 };
 </script>
+-->
