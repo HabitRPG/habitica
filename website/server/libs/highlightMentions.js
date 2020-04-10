@@ -32,8 +32,8 @@ class TextWithCodeBlocks {
  * use a branching recursive algorithm to maintain order and check all tokens.
  */
 function findCodeBlocks (tokens) {
-  function recurse (ts, result) {
-    const [head, ...tail] = ts;
+  function recurse (remainingTokens, result) {
+    const [head, ...tail] = remainingTokens;
     if (!head) {
       return result;
     }
@@ -52,6 +52,8 @@ function findCodeBlocks (tokens) {
  * Since there are many factors that can prefix lines with indentation in
  * markdown, each line from a token's content needs to be prefixed with a
  * variable whitespace matcher.
+ *
+ * See for example: https://spec.commonmark.org/0.29/#example-224
  */
 function withOptionalIndentation (content) {
   return content.split('\n').map(line => `\\s*${line}`).join('\n');
@@ -63,9 +65,8 @@ function createRegex ({ content, type, markup }) {
   if (type === 'code_block') {
     regexStr = withOptionalIndentation(content);
   } else if (type === 'fence') {
-    regexStr = (`${withOptionalIndentation(markup)}.*\n${
-      withOptionalIndentation(content + markup)}`);
-  } else { //  type == code_inline
+    regexStr = `\\s*${markup}.*\n${withOptionalIndentation(content)}\\s*${markup}`;
+  } else { // type === code_inline
     regexStr = `${markup} ?${content} ?${markup}`;
   }
 
@@ -101,6 +102,12 @@ function findTextAndCodeBlocks (text) {
   return new TextWithCodeBlocks(blocks);
 }
 
+/**
+ * Replaces `@user` mentions by `[@user](/profile/{user-id})` markup to inject
+ * a link towards the user's profile page.
+ * - Only works if there are no more that 5 user mentions
+ * - Skips mentions in code blocks as defined by https://spec.commonmark.org/0.29/
+ */
 export default async function highlightMentions (text) {
   const textAndCodeBlocks = findTextAndCodeBlocks(text);
 
