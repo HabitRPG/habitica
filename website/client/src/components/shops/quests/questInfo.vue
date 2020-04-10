@@ -1,40 +1,45 @@
 <template>
-  <div
-    class="row"
-    :class="{'small-version': smallVersion}"
-  >
+  <div>
     <div
-      v-if="quest.collect"
-      class="table-row"
+      class="row"
+      :class="{'small-version': smallVersion}"
     >
-      <dt>{{ $t('collect') + ':' }}</dt>
-      <dd>
-        <div
-          v-for="(collect, key) of quest.collect"
-          :key="key"
-        >
-          <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
-        </div>
-      </dd>
+      <div
+        v-if="quest.collect"
+        class="table-row"
+      >
+        <dt>{{ $t('collect') + ':' }}</dt>
+        <dd>
+          <div
+            v-for="(collect, key) of quest.collect"
+            :key="key"
+          >
+            <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
+          </div>
+        </dd>
+      </div>
+      <div
+        v-if="quest.boss"
+        class="table-row"
+      >
+        <dt>{{ $t('bossHP') + ':' }}</dt>
+        <dd>{{ quest.boss.hp }}</dd>
+      </div>
+      <div class="table-row">
+        <dt>{{ $t('difficulty') + ':' }}</dt>
+        <dd>
+          <div
+            v-for="star of stars()"
+            :key="star"
+            class="svg-icon inline"
+            :class="smallVersion ? 'icon-12' : 'icon-16'"
+            v-html="icons[star]"
+          ></div>
+        </dd>
+      </div>
     </div>
-    <div
-      v-if="quest.boss"
-      class="table-row"
-    >
-      <dt>{{ $t('bossHP') + ':' }}</dt>
-      <dd>{{ quest.boss.hp }}</dd>
-    </div>
-    <div class="table-row">
-      <dt>{{ $t('difficulty') + ':' }}</dt>
-      <dd>
-        <div
-          v-for="star of stars()"
-          :key="star"
-          class="svg-icon inline"
-          :class="smallVersion ? 'icon-12' : 'icon-16'"
-          v-html="icons[star]"
-        ></div>
-      </dd>
+    <div v-if="quest.limited">
+      {{ limitedString }}
     </div>
   </div>
 </template>
@@ -115,9 +120,13 @@ dt {
 </style>
 
 <script>
+import moment from 'moment';
+
 import svgStar from '@/assets/svg/difficulty-star.svg';
 import svgStarHalf from '@/assets/svg/difficulty-star-half.svg';
 import svgStarEmpty from '@/assets/svg/difficulty-star-empty.svg';
+
+import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
 export default {
   props: {
@@ -145,6 +154,9 @@ export default {
       }
 
       return 1;
+    },
+    limitedString () {
+      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
     },
   },
   methods: {

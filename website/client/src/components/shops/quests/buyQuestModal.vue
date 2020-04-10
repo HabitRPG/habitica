@@ -83,6 +83,16 @@
       <questDialogDrops :item="item" />
     </div>
     <div
+      v-if="item.limited"
+      class="limitedTime"
+    >
+      <span
+        class="svg-icon inline icon-16 clock-icon"
+        v-html="icons.clock"
+      ></span>
+      <span class="limitedString">{{ limitedString }}</span>
+    </div>
+    <div
       slot="modal-footer"
       class="clearfix"
     >
@@ -121,6 +131,9 @@
       margin: 33px auto auto;
     }
 
+    .modal-body {
+      padding-bottom: 0px;
+    }
 
     .questInfo {
       width: 70%;
@@ -208,6 +221,27 @@
       }
     }
 
+    .limitedTime {
+      height: 32px;
+      background-color: $purple-300;
+      width: calc(100% + 30px);
+      margin: 0 -15px; // the modal content has its own padding
+
+      font-size: 12px;
+      line-height: 1.33;
+      text-align: center;
+      color: $white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .limitedString {
+        height: 16px;
+        margin-left: 8px;
+      }
+    }
+
     .notEnough {
       pointer-events: none;
       opacity: 0.55;
@@ -247,14 +281,17 @@
 </style>
 
 <script>
+import moment from 'moment';
 import { mapState } from '@/libs/store';
+import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
+import svgClock from '@/assets/svg/clock.svg';
 import svgClose from '@/assets/svg/close.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgPin from '@/assets/svg/pin.svg';
 import svgExperience from '@/assets/svg/experience.svg';
+import svgGem from '@/assets/svg/gem.svg';
+import svgGold from '@/assets/svg/gold.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
+import svgPin from '@/assets/svg/pin.svg';
 
 import BalanceInfo from '../balanceInfo.vue';
 import currencyMixin from '../_currencyMixin';
@@ -286,12 +323,13 @@ export default {
   data () {
     return {
       icons: Object.freeze({
+        clock: svgClock,
         close: svgClose,
-        gold: svgGold,
-        gem: svgGem,
-        pin: svgPin,
         experience: svgExperience,
+        gem: svgGem,
+        gold: svgGold,
         hourglass: svgHourglasses,
+        pin: svgPin,
       }),
 
       isPinned: false,
@@ -318,6 +356,9 @@ export default {
       if (this.priceType === 'gold') return this.icons.gold;
       if (this.priceType === 'hourglasses') return this.icons.hourglass;
       return this.icons.gem;
+    },
+    limitedString () {
+      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
     },
   },
   watch: {
