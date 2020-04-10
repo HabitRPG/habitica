@@ -1,7 +1,7 @@
 import habiticaMarkdown from 'habitica-markdown';
 import { highlightUsers } from '@/libs/highlightUsers';
 
-describe('highlightUserAndEmail', () => {
+describe.only('highlightUserAndEmail', () => {
   it('highlights displayname', () => {
     const text = 'hello @displayedUser with text after';
 
@@ -20,7 +20,7 @@ describe('highlightUserAndEmail', () => {
   it('highlights username sandwiched with underscores', () => {
     const text = 'hello @_user_';
 
-    const result = highlightUsers(text, 'user', 'displayedUser');
+    const result = highlightUsers(text, '_user_', 'displayedUser');
     expect(result).to.contain('<span class="at-text at-highlight">@_user_</span>');
     expect(result).to.not.contain('<em>');
   });
