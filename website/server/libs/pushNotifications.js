@@ -21,7 +21,7 @@ function removePushDevice (user, pushDevice) {
   return user.update({
     $pull: { pushDevices: { regId: pushDevice.regId } },
   }).exec().catch(err => {
-    logger.error(err, `Error removing push device ${pushDevice.regId} for user ${user._id}`);
+    logger.error(err, `Error removing pushDevice ${pushDevice.regId} for user ${user._id}`);
   });
 }
 
@@ -63,13 +63,17 @@ export function sendNotification (user, details = {}) {
           fcmSender.send(message, {
             registrationTokens: [pushDevice.regId],
           }, 5, (err, response) => {
-            if (err) logger.error(err, 'Unhandled FCM error.');
+            if (err) {
+              logger.error(err, 'Unhandled FCM error.');
+              return;
+            }
 
             // Handle failed push notifications deliveries
             // Note that we're always sending to one device, not multiple
-            const failed = response.results[0].error;
+            const failed = response
+              && response.results && response.results[0] && response.results[0].error;
 
-            if (failed != null) {
+            if (failed) {
               // See https://firebase.google.com/docs/cloud-messaging/http-server-ref#table9
               // for the list of errors
 
