@@ -17,6 +17,14 @@ describe('highlightUserAndEmail', () => {
     expect(result).to.contain('<span class="at-text at-highlight">@user</span>');
   });
 
+  it('highlights username sandwiched with underscores', () => {
+    const text = 'hello @_user_';
+
+    const result = highlightUsers(text, 'user', 'displayedUser');
+    expect(result).to.contain('<span class="at-text at-highlight">@user</span>');
+    expect(result).to.not.contain('<em>');
+  });
+
   it('not highlights any email', () => {
     const text = habiticaMarkdown.render('hello@example.com');
 
