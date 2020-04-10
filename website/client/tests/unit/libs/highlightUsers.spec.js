@@ -21,7 +21,7 @@ describe('highlightUserAndEmail', () => {
     const text = 'hello @_user_';
 
     const result = highlightUsers(text, 'user', 'displayedUser');
-    expect(result).to.contain('<span class="at-text at-highlight">@user</span>');
+    expect(result).to.contain('<span class="at-text at-highlight">@_user_</span>');
     expect(result).to.not.contain('<em>');
   });
 
