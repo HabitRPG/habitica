@@ -16,7 +16,7 @@ import {
   defer,
   sleep,
 } from '../../../helpers/api-unit.helper';
-
+import logger from '../../../../website/server/libs/logger';
 
 describe('webhooks', () => {
   let webhooks; let
@@ -356,6 +356,7 @@ describe('webhooks', () => {
       });
 
       it('records failures', async () => {
+        sinon.stub(logger, 'error');
         const body = {};
         sendWebhook.send(user, body);
 
@@ -369,6 +370,9 @@ describe('webhooks', () => {
 
         expect(user.webhooks[0].failures).to.equal(1);
         expect((Date.now() - user.webhooks[0].lastFailureAt.getTime()) < 10000).to.be.true;
+
+        expect(logger.error).to.be.calledOnce;
+        logger.error.restore();
       });
 
       it('disables a webhook after 10 failures', async () => {
