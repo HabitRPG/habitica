@@ -17,7 +17,7 @@ export function highlightUsers (text, userName, displayName) { // eslint-disable
     let fixedStr = mentionStr.replace(/<\/?em>/g, '_');
     fixedStr = fixedStr.replace(/<\/?strong>/g, '__');
 
-    const isUserMention = currentUser.includes(mentionStr) ? 'at-highlight' : '';
+    const isUserMention = currentUser.includes(fixedStr) ? 'at-highlight' : '';
 
     return fullMatched.replace(mentionStr, `<span class="at-text ${isUserMention}">${fixedStr}</span>`);
   });

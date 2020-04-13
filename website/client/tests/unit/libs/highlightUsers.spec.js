@@ -18,7 +18,7 @@ describe('highlightUserAndEmail', () => {
   });
 
   it('highlights username sandwiched with underscores', () => {
-    const text = 'hello @_user_';
+    const text = 'hello @<em>user</em>';
 
     const result = highlightUsers(text, '_user_', 'displayedUser');
     expect(result).to.contain('<span class="at-text at-highlight">@_user_</span>');
@@ -27,9 +27,9 @@ describe('highlightUserAndEmail', () => {
   });
 
   it('highlights username sandwiched with double underscores', () => {
-    const text = 'hello @__user__';
+    const text = 'hello @<strong>user</strong>';
 
-    const result = highlightUsers(text, '__user__', 'displayedUser');
+    const result = highlightUsers(text, 'diffUser', 'displayDiffUser');
     expect(result).to.contain('<span class="at-text at-highlight">@__user__</span>');
     expect(result).to.not.contain('<strong>');
     expect(result).to.not.contain('</strong>');
