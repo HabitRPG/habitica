@@ -202,7 +202,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
 import max from 'lodash/max';
 
-import habiticaMarkdown from 'habitica-markdown';
+import renderMarkdown from '@/libs/renderMarkdown';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
 
@@ -360,9 +360,7 @@ export default {
       });
     },
     parseMarkdown (text) {
-      if (!text) return null;
-      const env = { userName: this.user.auth.local.username, displayName: this.user.profile.name };
-      return habiticaMarkdown.render(String(text), env);
+      return renderMarkdown(String(text), this.user);
     },
   },
 };

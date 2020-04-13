@@ -139,7 +139,7 @@
 import axios from 'axios';
 import moment from 'moment';
 
-import habiticaMarkdown from 'habitica-markdown';
+import renderMarkdown from '@/libs/renderMarkdown';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
 
@@ -204,9 +204,7 @@ export default {
       await axios.delete(`/api/v4/inbox/messages/${message.id}`);
     },
     parseMarkdown (text) {
-      if (!text) return null;
-      const env = { userName: this.user.auth.local.username, displayName: this.user.profile.name };
-      return habiticaMarkdown.render(String(text), env);
+      return renderMarkdown(String(text), this.user);
     },
   },
 };

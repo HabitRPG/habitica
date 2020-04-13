@@ -1,14 +1,20 @@
-import habiticaMarkdown from 'habitica-markdown';
+import renderMarkdown from '@/libs/renderMarkdown';
 
 describe('highlightUserAndEmail', () => {
-  function toEnv (userName, displayName) {
-    return { userName, displayName };
+  function user (name, displayName) {
+    return { auth: { local: { username: name } }, profile: { name: displayName } };
   }
+
+  it('returns null if no text supplied', () => {
+    const result = renderMarkdown('', user('a', 'b'));
+
+    expect(result).to.be.null;
+  });
 
   it('highlights displayname', () => {
     const text = 'hello @displayedUser with text after';
 
-    const result = habiticaMarkdown.render(text, toEnv('user', 'displayedUser'));
+    const result = renderMarkdown(text, user('user', 'displayedUser'));
 
     expect(result).to.contain('<span class="at-text at-highlight">@displayedUser</span>');
   });
@@ -16,7 +22,7 @@ describe('highlightUserAndEmail', () => {
   it('highlights username', () => {
     const text = 'hello @user';
 
-    const result = habiticaMarkdown.render(text, toEnv('user', 'displayedUser'));
+    const result = renderMarkdown(text, user('user', 'displayedUser'));
     expect(result).to.contain('<span class="at-text at-highlight">@user</span>');
   });
 
@@ -39,7 +45,7 @@ describe('highlightUserAndEmail', () => {
   });
 
   it('not highlights any email', () => {
-    const result = habiticaMarkdown.render('hello@example.com', toEnv('example', 'displayedUser'));
+    const result = renderMarkdown('hello@example.com', user('example', 'displayedUser'));
 
     expect(result).to.not.contain('<span class="at-highlight">@example</span>');
   });
@@ -47,7 +53,7 @@ describe('highlightUserAndEmail', () => {
   it('complex highlight', () => {
     const plainText = 'a bit more @mentions to @use my@mentions.com broken.@mail.com';
 
-    const result = habiticaMarkdown.render(plainText, toEnv('use', 'mentions'));
+    const result = renderMarkdown(plainText, user('use', 'mentions'));
 
     expect(result).to.contain('<span class="at-text at-highlight">@mentions</span>');
     expect(result).to.contain('<span class="at-text at-highlight">@use</span>');
