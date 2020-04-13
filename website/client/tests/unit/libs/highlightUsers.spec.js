@@ -30,7 +30,7 @@ describe('highlightUserAndEmail', () => {
     const text = 'hello @<strong>user</strong>';
 
     const result = highlightUsers(text, 'diffUser', 'displayDiffUser');
-    expect(result).to.contain('<span class="at-text at-highlight">@__user__</span>');
+    expect(result).to.contain('<span class="at-text ">@__user__</span>');
     expect(result).to.not.contain('<strong>');
     expect(result).to.not.contain('</strong>');
   });
