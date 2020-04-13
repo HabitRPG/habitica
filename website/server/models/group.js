@@ -648,6 +648,27 @@ schema.methods.sendChat = function sendChat (options = {}) {
   return newChatMessage;
 };
 
+schema.methods.handleQuestInvitation = async function handleQuestInvitation (user, accept) {
+  // Handle quest invitation atomically (update only current member when still undecided)
+  // to prevent multiple concurrent requests overriding updates
+  // see https://github.com/HabitRPG/habitica/issues/11398
+  const Group = this.constructor;
+  const result = await Group.update(
+    {
+      _id: this._id,
+      [`quest.members.${user._id}`]: { $exists: true, $eq: null },
+    },
+    { $set: { [`quest.members.${user._id}`]: !!accept } },
+  ).exec();
+
+  if (result.nModified) {
+    // update also current instance so future operations wil work correctly
+    this.quest.members[user._id] = !!accept;
+  }
+
+  return !!result.nModified;
+};
+
 schema.methods.startQuest = async function startQuest (user) {
   // not using i18n strings because these errors are meant
   // for devs who forgot to pass some parameters
