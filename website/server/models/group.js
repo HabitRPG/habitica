@@ -662,7 +662,7 @@ schema.methods.handleQuestInvitation = async function handleQuestInvitation (use
   ).exec();
 
   if (result.nModified) {
-    // update also current instance so future operations wil work correctly
+    // update also current instance so future operations will work correctly
     this.quest.members[user._id] = !!accept;
   }
 
@@ -698,6 +698,11 @@ schema.methods.startQuest = async function startQuest (user) {
 
   // Changes quest.members to only include participating members
   this.quest.members = _.pickBy(this.quest.members, _.identity);
+
+  // Persist quest.members early to avoid simultaneous handling of accept/reject
+  // while processing the rest of this script
+  this.update({ $set: { 'quest.members': this.quest.members } }).exec();
+
   const nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
 
