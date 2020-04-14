@@ -1196,6 +1196,11 @@
     }
   }
 
+  input, textarea, input.form-control, textarea.form-control {
+    padding: 0.25rem 0.75rem;
+    line-height: 1.71;
+  }
+
   .input-title {
     height: 2rem;
   }
