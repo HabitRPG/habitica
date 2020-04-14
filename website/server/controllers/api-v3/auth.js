@@ -146,6 +146,41 @@ api.loginSocial = {
   },
 };
 
+// Called by apple for web authentication.
+api.redirectApple = {
+  method: 'POST',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  url: '/user/auth/apple',
+  async handler (req, res) {
+    if (req.body.id_token) {
+      req.body.network = 'apple';
+      return loginSocial(req, res);
+    }
+    let url = `/static/apple-redirect?code=${req.body.code}`;
+    if (req.body.user) {
+      const { name } = JSON.parse(req.body.user);
+      url += `&name=${name.firstName} ${name.lastName}`;
+    }
+    return res.redirect(303, url);
+  },
+};
+
+// Called as a callback by Apple. Internal route
+// Can be passed `code` and `name` as query parameters
+api.loginApple = {
+  method: 'GET',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  url: '/user/auth/apple',
+  async handler (req, res) {
+    req.body.network = 'apple';
+    return loginSocial(req, res);
+  },
+};
+
 /**
  * @api {put} /api/v3/user/auth/update-username Update username
  * @apiDescription Update and verify the user's username

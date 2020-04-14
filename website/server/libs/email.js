@@ -149,7 +149,10 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
           backoff: { delay: 10 * 60 * 1000, type: 'fixed' },
         },
       },
-    }).json().catch(err => logger.error(err, 'Error while sending an email.'));
+    }).json().catch(err => logger.error(err, {
+      extraMessage: 'Error while sending an email.',
+      emailType,
+    }));
   }
 
   return null;

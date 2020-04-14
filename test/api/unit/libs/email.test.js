@@ -18,6 +18,16 @@ function getUser () {
           value: 'email@facebook',
         }],
       },
+      google: {
+        emails: [{
+          value: 'email@google',
+        }],
+      },
+      apple: {
+        emails: [{
+          value: 'email@apple',
+        }],
+      },
     },
     profile: {
       name: 'profile name',
@@ -58,11 +68,47 @@ describe('emails', () => {
       const user = getUser();
       delete user.profile.name;
       delete user.auth.local.email;
+      delete user.auth.google.emails;
+      delete user.auth.apple.emails;
 
       const data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 
       expect(data).to.have.property('name', user.auth.local.username);
       expect(data).to.have.property('email', user.auth.facebook.emails[0].value);
+      expect(data).to.have.property('_id', user._id);
+      expect(data).to.have.property('canSend', true);
+    });
+
+    it('returns correct user data [google users]', () => {
+      const attachEmail = requireAgain(pathToEmailLib);
+      const { getUserInfo } = attachEmail;
+      const user = getUser();
+      delete user.profile.name;
+      delete user.auth.local.email;
+      delete user.auth.facebook.emails;
+      delete user.auth.apple.emails;
+
+      const data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
+
+      expect(data).to.have.property('name', user.auth.local.username);
+      expect(data).to.have.property('email', user.auth.google.emails[0].value);
+      expect(data).to.have.property('_id', user._id);
+      expect(data).to.have.property('canSend', true);
+    });
+
+    it('returns correct user data [apple users]', () => {
+      const attachEmail = requireAgain(pathToEmailLib);
+      const { getUserInfo } = attachEmail;
+      const user = getUser();
+      delete user.profile.name;
+      delete user.auth.local.email;
+      delete user.auth.google.emails;
+      delete user.auth.facebook.emails;
+
+      const data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
+
+      expect(data).to.have.property('name', user.auth.local.username);
+      expect(data).to.have.property('email', user.auth.apple.emails[0].value);
       expect(data).to.have.property('_id', user._id);
       expect(data).to.have.property('canSend', true);
     });
@@ -73,6 +119,8 @@ describe('emails', () => {
       const user = getUser();
       delete user.auth.local.email;
       delete user.auth.facebook;
+      delete user.auth.google;
+      delete user.auth.apple;
 
       const data = getUserInfo(user, ['name', 'email', '_id', 'canSend']);
 

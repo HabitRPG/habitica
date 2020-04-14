@@ -51,7 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Ai raportat deja acest mesaj",
     "messageGroupChatNotFound": "Mesajul nu a fost găsit!",
     "messageGroupChatAdminClearFlagCount": "Doar un administrator poate curăța numărul de atenționări!",
-    "messageCannotFlagSystemMessages": "You cannot flag a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to Lemoness at <%= communityManagerEmail %>.",
+    "messageCannotFlagSystemMessages": "You cannot report a system message. If you need to report a violation of the Community Guidelines related to this message, please email a screenshot and explanation to our Community Manager at <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Whoops, looks like you're posting too many messages! Please wait a minute and try again. The Tavern chat only holds 200 messages at a time, so Habitica encourages posting longer, more thoughtful messages and consolidating replies. Can't wait to hear what you have to say. :)",
     "messageCannotLeaveWhileQuesting": "You cannot accept this party invitation while you are in a quest. If you'd like to join this party, you must first abort your quest, which you can do from your party screen. You will be given back the quest scroll.",
     "messageUserOperationProtected": "calea `<%= operation %>` nu a fost salvată pentru că este protejată.",
@@ -60,7 +60,10 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
+    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>.",
     "messageDeletedUser": "Sorry, this user has deleted their account.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Missing display name.",
+    "canDeleteNow": "You can now delete the message if you wish.",
+    "reportedMessage": "You have reported this message to moderators.",
+    "beginningOfConversationReminder": "Remember to be kind, respectful, and follow the Community Guidelines!"
 }

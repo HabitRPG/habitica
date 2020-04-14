@@ -19,7 +19,11 @@ function sendWebhook (webhook, body, user) {
   // Not calling .json() to parse the response because we simply ignore it
   }).catch(webhookErr => {
     // Log the error
-    logger.error(webhookErr, 'Error while sending a webhook request.');
+    logger.error(webhookErr, {
+      extraMessage: 'Error while sending a webhook request.',
+      userId: user._id,
+      webhook,
+    });
 
     let _failuresReset = false;
 
