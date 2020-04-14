@@ -31,21 +31,18 @@ class TextWithCodeBlocks {
  * Since tokens have both order and can be nested until infinite depth,
  * use a branching recursive algorithm to maintain order and check all tokens.
  */
-function findCodeBlocks (tokens) {
-  function recurse (remainingTokens, result) {
-    const [head, ...tail] = remainingTokens;
-    if (!head) {
-      return result;
-    }
-
-    if (codeTokenTypes.includes(head.type)) {
-      result.push(head);
-    }
-
-    return recurse(tail, head.children ? recurse(head.children, result) : result);
+function findCodeBlocks (tokens, aggregator) {
+  const result = aggregator || [];
+  const [head, ...tail] = tokens;
+  if (!head) {
+    return result;
   }
 
-  return recurse(tokens, []);
+  if (codeTokenTypes.includes(head.type)) {
+    result.push(head);
+  }
+
+  return findCodeBlocks(tail, head.children ? findCodeBlocks(head.children, result) : result);
 }
 
 /**
@@ -59,7 +56,7 @@ function withOptionalIndentation (content) {
   return content.split('\n').map(line => `\\s*${line}`).join('\n');
 }
 
-function createRegex ({ content, type, markup }) {
+function createCodeBlockRegex ({ content, type, markup }) {
   let regexStr = '';
 
   if (type === 'code_block') {
@@ -85,8 +82,8 @@ function findTextAndCodeBlocks (text) {
   const blocks = [];
   let remainingText = text;
   codeBlocks.forEach(codeBlock => {
-    const regex = createRegex(codeBlock);
-    const match = remainingText.match(regex);
+    const codeBlockRegex = createCodeBlockRegex(codeBlock);
+    const match = remainingText.match(codeBlockRegex);
 
     if (match.index) {
       blocks.push({ text: remainingText.substr(0, match.index), isCodeBlock: false });
