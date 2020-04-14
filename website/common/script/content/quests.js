@@ -4,6 +4,7 @@ import moment from 'moment';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
 import {
+  EVENTS,
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
@@ -3584,6 +3585,7 @@ const quests = {
     completion: t('questWaffleCompletion'),
     value: 4,
     category: 'hatchingPotion',
+    event: EVENTS.spring2020,
     boss: {
       name: t('questWaffleBoss'),
       hp: 500,
