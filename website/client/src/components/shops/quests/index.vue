@@ -299,7 +299,10 @@
             <span slot="popoverContent">
               <div class="questPopover">
                 <h4 class="popover-content-title">{{ item.text }}</h4>
-                <questInfo :quest="item" />
+                <questInfo
+                  :quest="item"
+                  :popoverVersion="true"
+                />
               </div>
             </span>
             <template
