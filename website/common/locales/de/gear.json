@@ -2072,5 +2072,17 @@
     "weaponSpecialSpring2020WarriorNotes": "Kämpfen oder Fliehen, dieser Flügel wird Dir einen guten Dienst erweisen! Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2020 Frühlingsausrüstung.",
     "weaponSpecialSpring2020WarriorText": "Geschliffener Flügel",
     "weaponSpecialSpring2020RogueNotes": "Du wirst so schnell zuschlagen, dass sie NOCH blauer aussehen wird! Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2020 Frühlingsausrüstung.",
-    "weaponSpecialSpring2020RogueText": "Lapislazuli Klinge"
+    "weaponSpecialSpring2020RogueText": "Lapislazuli Klinge",
+    "armorArmoireBoxArmorNotes": "Schachtelrüstung: Es passt, also sitzt Du… äh, also ziehst Du damit in die Schlacht, als stolzer Ritter, der Du bist! Erhöht Wahrnehmung und Ausdauer um je <%= attrs %>. Verzauberter Schrank: Papierritter-Set (Gegenstand 3 von 3). ",
+    "armorArmoireBoxArmorText": "Schachtelrüstung",
+    "armorSpecialSpring2020HealerNotes": "Wickle Dich in weiche Blätter und Blüten der Iris um Feinde zu verleiten, Deine heilenden Kräfte zu unterschätzen. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2020 Frühlingsausrüstung.",
+    "armorSpecialSpring2020MageNotes": "Wenn auch Du einer Regenwasserpfütze nicht widerstehen kannst, ist diese Rüstung wie gemacht für Dich! Verwandle einen kindischen Impuls in eine Vorführung eines mystischen Kunstwerks. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2020 Frühlingsausrüstung.",
+    "weaponArmoirePaperCutterNotes": "Das mag nicht furchteinflössend aussehen, aber hast Du schon mal einen Papierschnitt gehabt? Erhöht Stärke um <%= str %>. Verzauberter Schrank: Papierritter-Set (Gegenstand 1 von 3).",
+    "weaponArmoirePaperCutterText": "Papiermesser",
+    "shieldArmoireHobbyHorseText": "Steckenpferd",
+    "headSpecialSpring2020HealerNotes": "Fessle Deine Feinde mit diesem Kopfschmuck aus Blumen! Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2020 Frühlingsausrüstung.",
+    "headSpecialSpring2020MageNotes": "Ist der Himmel klar? Die Luftfeuchtigkeit niedrig? Keine Sorge, wir haben uns drum gekümmert. Versprühe Deine Magie, ohne Deine Stimmung zu trüben! Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Frühlingsausrüstung.",
+    "headSpecialSpring2020MageText": "Tropfkantenhut",
+    "headSpecialSpring2020WarriorNotes": "Die Schläge Deiner Gegener werden von diesem durch Käfer inspirierten Helm abprallen! Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2020 Frühlingsausrüstung.",
+    "headSpecialSpring2020RogueNotes": "So knallig und kostbar, dass Du in Versuchung kommen wirst, ihn von Deinem eigenen Kopf zu stehlen. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Frühlingsausrüstung."
 }
