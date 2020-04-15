@@ -1,6 +1,6 @@
 import { model as User } from '../models/user'; // eslint-disable-line import/no-cycle
 import { getUserInfo } from './email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from './pushNotifications';
+import { sendNotification as sendPushNotification } from './pushNotifications'; // eslint-disable-line import/no-cycle
 
 export async function getAuthorEmailFromMessage (message) {
   const authorId = message.uuid;
