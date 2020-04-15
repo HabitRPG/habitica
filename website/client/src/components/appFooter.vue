@@ -49,11 +49,13 @@
                 target="_blank"
               >{{ $t('oldNews') }}</a>
             </li>
+            <!--
             <li>
               <router-link to="/static/merch">
                 {{ $t('merch') }}
               </router-link>
             </li>
+            -->
             <li>
               <router-link to="/static/press-kit">
                 {{ $t('presskit') }}
