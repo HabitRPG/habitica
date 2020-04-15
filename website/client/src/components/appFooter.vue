@@ -49,7 +49,7 @@
                 target="_blank"
               >{{ $t('oldNews') }}</a>
             </li>
-            <!--
+            <!-- Commenting out merch page see https://github.com/HabitRPG/habitica/issues/12039
             <li>
               <router-link to="/static/merch">
                 {{ $t('merch') }}
