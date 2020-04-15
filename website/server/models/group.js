@@ -28,7 +28,7 @@ import {
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
 import {
   syncableAttrs,
 } from '../libs/taskManager';
@@ -637,12 +637,15 @@ schema.methods.sendChat = function sendChat (options = {}) {
           return;
         }
       }
-      sendPushNotification(member, {
-        identifier: 'chatMention',
-        title: `${user.profile.name} mentioned you in ${this.name}`,
-        message: newChatMessage.unformattedText,
-        payload: { type: this.type },
-      });
+
+      if (newChatMessage.unformattedText) {
+        sendPushNotification(member, {
+          identifier: 'chatMention',
+          title: `${user.profile.name} mentioned you in ${this.name}`,
+          message: newChatMessage.unformattedText,
+          payload: { type: this.type },
+        });
+      }
     });
   }
   return newChatMessage;

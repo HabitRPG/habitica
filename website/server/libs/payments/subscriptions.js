@@ -16,7 +16,7 @@ import {
   NotFound,
 } from '../errors';
 import shared from '../../../common';
-import { sendNotification as sendPushNotification } from '../pushNotifications';
+import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
