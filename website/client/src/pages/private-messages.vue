@@ -308,6 +308,8 @@
     height: 44px;
     background-color: $gray-600;
     padding: 0.75rem 1.5rem;
+
+    border-bottom: 1px solid $gray-500;
   }
 
 

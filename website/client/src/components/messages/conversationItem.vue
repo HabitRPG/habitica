@@ -157,11 +157,7 @@ export default {
 
   .conversation {
     padding: 1rem 1.5rem;
-    border-top: 1px solid $gray-500;
-
-    &:last-of-type {
-      border-top: 1px solid $gray-500;
-    }
+    border-bottom: 1px solid $gray-500;
 
     &:hover {
       cursor: pointer;
