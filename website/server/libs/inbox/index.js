@@ -14,7 +14,7 @@ export async function sentMessage (sender, receiver, message, translate) {
     ]);
   }
 
-  if (receiver.preferences.pushNotifications.newPM !== false) {
+  if (receiver.preferences.pushNotifications.newPM !== false && messageSent.unformattedText) {
     sendPushNotification(
       receiver,
       {

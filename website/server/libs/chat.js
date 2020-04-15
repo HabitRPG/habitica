@@ -30,6 +30,9 @@ export async function sendChatPushNotifications (user, group, message, mentions,
       if (mentions && mentions.includes(`@${member.auth.local.username}`) && member.preferences.pushNotifications.mentionParty !== false) {
         return;
       }
+
+      if (!message.unformattedText) return;
+
       sendPushNotification(
         member,
         {
