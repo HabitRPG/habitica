@@ -115,14 +115,8 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
       </div>
       <div class="form-group">
         <label>
-          <strong
-            v-if="isParty"
-            v-once
-          >{{ $t('groupDescription') }}</strong>
-          <strong
-            v-if="!isParty"
-            v-once
-          >{{ $t('groupDescription') }} *</strong>
+          <strong v-if="isParty" v-once>{{ $t('groupDescription') }}</strong>
+          <strong v-if="!isParty" v-once>{{ $t('groupDescription') }} *</strong>
         </label>
         <a
           v-markdown="$t('markdownFormattingHelp')"
