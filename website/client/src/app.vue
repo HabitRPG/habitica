@@ -20,10 +20,6 @@
           </svg>
           <!-- eslint-enable max-len -->
         </div>
-        <div class="col-12 text-center">
-          <h2>{{ $t('tipTitle', {tipNumber: currentTipNumber}) }}</h2>
-          <p>{{ currentTip }}</p>
-        </div>
       </div>
     </div>
     <div
@@ -297,7 +293,6 @@ export default {
       audioSuffix: null,
 
       loading: true,
-      currentTipNumber: 0,
       bannerHidden: false,
     };
   },
@@ -309,15 +304,6 @@ export default {
     },
     castingSpell () {
       return this.$store.state.spellOptions.castingSpell;
-    },
-    currentTip () {
-      const numberOfTips = 35 + 1;
-      const min = 1;
-      const randomNumber = Math.random() * (numberOfTips - min) + min;
-      const tipNumber = Math.floor(randomNumber);
-      this.currentTipNumber = tipNumber; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
-
-      return this.$t(`tip${tipNumber}`);
     },
     showRestingBanner () {
       return !this.bannerHidden && this.user && this.user.preferences.sleep;

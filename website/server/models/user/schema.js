@@ -162,6 +162,7 @@ export default new Schema({
     text: String,
     // a markdown textarea to list their contributions + links
     contributions: String,
+    // user can own Critical Hammer of Bug-Crushing if this has a truthy value
     critical: String,
   },
 

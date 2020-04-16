@@ -3,6 +3,9 @@ import nconf from 'nconf';
 import apn from 'apn';
 import gcmLib from 'node-gcm'; // works with FCM notifications too
 import logger from './logger';
+import { // eslint-disable-line import/no-cycle
+  model as User,
+} from '../models/user';
 
 const FCM_API_KEY = nconf.get('PUSH_CONFIGS_FCM_SERVER_API_KEY');
 const fcmSender = FCM_API_KEY ? new gcmLib.Sender(FCM_API_KEY) : undefined;
@@ -18,7 +21,7 @@ const apnProvider = APN_ENABLED ? new apn.Provider({
 }) : undefined;
 
 function removePushDevice (user, pushDevice) {
-  return user.update({
+  return User.update({ _id: user._id }, {
     $pull: { pushDevices: { regId: pushDevice.regId } },
   }).exec().catch(err => {
     logger.error(err, `Error removing pushDevice ${pushDevice.regId} for user ${user._id}`);
@@ -80,10 +83,18 @@ export function sendNotification (user, details = {}) {
               // The regId is not valid anymore, remove it
               if (failed === 'NotRegistered') {
                 removePushDevice(user, pushDevice);
-                logger.error(new Error('FCM error, invalid pushDevice'), {
-                  response, regId: pushDevice.regId, userId: user._id,
+                logger.error(new Error('FCM error, unregistered pushDevice'), {
+                  regId: pushDevice.regId, userId: user._id,
                 });
               } else {
+                // An invalid token was registered by mistake
+                // Remove it but log the error differently so that it can be distinguished
+                // from when failed === NotRegistered
+                // Blacklisted can happen in some rare cases,
+                // see https://stackoverflow.com/questions/42136122/why-does-firebase-push-token-return-blacklisted
+                if (failed === 'InvalidRegistration' || pushDevice.regId === 'BLACKLISTED') {
+                  removePushDevice(user, pushDevice);
+                }
                 logger.error(new Error('FCM error'), {
                   response, regId: pushDevice.regId, userId: user._id,
                 });
@@ -110,7 +121,7 @@ export function sendNotification (user, details = {}) {
               // Handle failed push notifications deliveries
               response.failed.forEach(failure => {
                 if (failure.error) { // generic error
-                  logger.error(new Error('APN error'), {
+                  logger.error(new Error('Unhandled APN error'), {
                     response, regId: pushDevice.regId, userId: user._id,
                   });
                 } else { // rejected
@@ -119,10 +130,16 @@ export function sendNotification (user, details = {}) {
                   const { reason } = failure.response;
                   if (reason === 'Unregistered') {
                     removePushDevice(user, pushDevice);
-                    logger.error(new Error('APN error, invalid pushDevice'), {
-                      response, regId: pushDevice.regId, userId: user._id,
+                    logger.error(new Error('APN error, unregistered pushDevice'), {
+                      regId: pushDevice.regId, userId: user._id,
                     });
                   } else {
+                    if (reason === 'BadDeviceToken') {
+                      // An invalid token was registered by mistake
+                      // Remove it but log the error differently so that it can be distinguished
+                      // from when reason === Unregistered
+                      removePushDevice(user, pushDevice);
+                    }
                     logger.error(new Error('APN error'), {
                       response, regId: pushDevice.regId, userId: user._id,
                     });

@@ -6,7 +6,7 @@ gulp.task('content:cache', done => {
   // Requiring at runtime because these files access `common`
   // code which in production works only if transpiled so after
   // gulp build:babel:common has run
-  const { CONTENT_CACHE_PATH, getLocalizedContent } = require('../website/server/libs/content'); // eslint-disable-line global-require
+  const { CONTENT_CACHE_PATH, getLocalizedContentResponse } = require('../website/server/libs/content'); // eslint-disable-line global-require
   const { langCodes } = require('../website/server/libs/i18n'); // eslint-disable-line global-require
 
   try {
@@ -23,7 +23,7 @@ gulp.task('content:cache', done => {
     langCodes.forEach(langCode => {
       fs.writeFileSync(
         `${CONTENT_CACHE_PATH}${langCode}.json`,
-        getLocalizedContent(langCode),
+        getLocalizedContentResponse(langCode),
         'utf8',
       );
     });
