@@ -1112,7 +1112,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const itemsFound = {};
 
   const possibleItemKeys = Object.keys(quest.collect)
-    .filter(key => group.quest.progress.collect[key] !== quest.collect[key].count);
+    .filter(key => group.quest.progress.collect[key] < quest.collect[key].count);
 
   const possibleItemsToCollect = possibleItemKeys.reduce((accumulator, current, index) => {
     accumulator[possibleItemKeys[index]] = quest.collect[current];
