@@ -28,9 +28,7 @@ describe('DELETE /news/:newsID', () => {
 
   it('deletes news posts', async () => {
     const existingPost = await user.post('/news', newsPost);
-    await user.del(`/news/${existingPost.id}`, {
-      title: 'Changed Title',
-    });
+    await user.del(`/news/${existingPost.id}`);
 
     const returnedPosts = await user.get('/news');
     const deletedPost = returnedPosts.find(returnedPost => returnedPost.id === existingPost.id);

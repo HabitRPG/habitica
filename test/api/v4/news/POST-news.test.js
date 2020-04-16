@@ -2,7 +2,7 @@ import {
   generateUser,
 } from '../../../helpers/api-integration/v4';
 
-describe('POST /news/read', () => {
+describe('POST /news', () => {
   let user;
   const newsPost = {
     title: 'New Post',
@@ -34,5 +34,10 @@ describe('POST /news/read', () => {
     expect(response.text).to.equal(newsPost.text);
     expect(response.published).to.equal(newsPost.published);
     expect(response.id).to.exist;
+
+    const res = await user.get('/news');
+    expect(res.length).to.be.equal(1);
+    expect(res[0].title).to.equal(newsPost.title);
+    expect(res[0].text).to.equal(newsPost.text);
   });
 });

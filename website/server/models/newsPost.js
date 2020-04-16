@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import baseModel from '../libs/baseModel';
+import logger from '../libs/logger';
 
 const { Schema } = mongoose;
 const POSTS_PER_PAGE = 10;
@@ -60,7 +61,7 @@ schema.statics.lastNewsPost = function lastNewsPost () {
   return cachedLastNewsPost;
 };
 
-schema.statics.updateLastNewsPost = async function updateLastNewsPost (newPost) {
+schema.statics.updateLastNewsPost = function updateLastNewsPost (newPost) {
   if (!cachedLastNewsPost || cachedLastNewsPost.id !== newPost.id) {
     if (!cachedLastNewsPost || cachedLastNewsPost.publishDate < newPost.publishDate) {
       cachedLastNewsPost = newPost;
@@ -70,13 +71,14 @@ schema.statics.updateLastNewsPost = async function updateLastNewsPost (newPost) 
 
 export const model = mongoose.model('NewsPost', schema);
 
-setInterval(async () => {
-  const lastPost = await model.getLastPost();
-  if (lastPost) {
-    model.updateLastNewsPost(lastPost);
-  }
+setInterval(() => {
+  model.getLastPost().then(lastPost => {
+    if (lastPost) {
+      model.updateLastNewsPost(lastPost);
+    }
+  }).catch(err => logger.error(err));
 }, NEWS_CACHE_TIME);
 
 model.getLastPost().then(newsPost => {
   model.updateLastNewsPost(newsPost);
-});
+}).catch(err => logger.error(err));

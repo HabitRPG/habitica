@@ -3,7 +3,7 @@ import {
 } from '../../../helpers/api-integration/v4';
 import { model as NewsPost } from '../../../../website/server/models/newsPost';
 
-describe('POST /news', () => {
+describe('POST /news/read', () => {
   let user;
 
   beforeEach(async () => {
