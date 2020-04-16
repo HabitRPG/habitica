@@ -80,7 +80,7 @@ api.inviteToQuest = {
       'party._id': group._id,
       _id: { $ne: user._id },
     })
-      .select('auth.facebook auth.google auth.local preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices webhooks')
+      .select('auth preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices webhooks')
       .exec();
 
     group.markModified('quest');

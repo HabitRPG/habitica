@@ -155,6 +155,7 @@ async function inviteByEmail (invite, group, inviter, req, res) {
       { 'auth.local.email': invite.email },
       { 'auth.facebook.emails.value': invite.email },
       { 'auth.google.emails.value': invite.email },
+      { 'auth.apple.emails.value': invite.email },
     ],
   })
     .select({ _id: true, 'preferences.emailNotifications': true })
