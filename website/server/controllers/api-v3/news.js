@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SHIMMER HAIR COLORS AND PASTEL SKIN SET!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: HALL OF HEROES';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,18 +31,24 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>4/14/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_pastel_skin_hair center-block"></div>
+        <img
+          src="https://habitica-assets.s3.us-east-1.amazonaws.com/mobileApp/images/promo_hall_of_heroes.png"
+          style='width: 100%'>
+        </img>
         <p>
-          The Seasonal Edition Shimmer Hair Colors and Pastel Skin Set are now available for
-          purchase in the User menu > Edit Avatar! These skin sets will only be available to
-          purchase until April 30th, and then they will disappear from the shop until next
-          Spring Fling. If you buy them, though, you will have access to them year-round!
+          This month's <a href='https://habitica.wordpress.com/2020/04/15/hall-of-heroes/'
+          target='_blank'>featured Wiki article</a> is about the Hall of Heroes! We hope that it
+          will help you as learn about Habitica's community and contributors. Be sure to check it
+          out, and let us know what you think by reaching out on <a
+          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
+          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
+          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
-        <div class="small mb-3">by Lemoness and McCoyly</div>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
