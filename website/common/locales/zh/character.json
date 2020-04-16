@@ -156,7 +156,7 @@
     "optOutOfClasses": "有权退出",
     "optOutOfPMs": "有权退出",
     "chooseClass": "选择你的职业",
-    "chooseClassLearnMarkdown": "[想知道更多关于Habitica的职业系统](http://habitica.fandom.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[想知道更多关于Habitica的职业系统](http://habitica.fandom.com/zh/wiki/职业)",
     "optOutOfClassesText": "不知道选什么职业？想以后再选？没问题 - 你现在可以先做一个没有特殊技能的战士。我们的维基页面上有关于职业系统的介绍，你看了之后随时可以在用户图标->设定界面确定你的职业。",
     "selectClass": "选择 <%= heroClass %>",
     "select": "选择",
