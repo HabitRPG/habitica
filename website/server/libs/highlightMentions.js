@@ -103,6 +103,18 @@ function findTextAndCodeBlocks (text) {
   return new TextWithCodeBlocks(blocks);
 }
 
+function injectLinkIfNecessary (username, userId) {
+  const regex = new RegExp(`(\\S*)(@${username}(?![\\w-]))(\\S*)`, 'g');
+
+  return text => text.replace(regex, (fullMatch, prefix, mention, suffix) => {
+    // Can be done with ternary but then linter goes loopy
+    if (habiticaMarkdown.isLinkOrEmail(fullMatch)) {
+      return fullMatch;
+    }
+    return `${prefix}[${mention}](/profile/${userId})${suffix}`;
+  });
+}
+
 /**
  * Replaces `@user` mentions by `[@user](/profile/{user-id})` markup to inject
  * a link towards the user's profile page.
@@ -124,10 +136,7 @@ export default async function highlightMentions (text) {
       .exec();
     members.forEach(member => {
       const { username } = member.auth.local;
-      const regex = new RegExp(`@${username}(?![\\-\\w])`, 'g');
-      const replacement = `[@${username}](/profile/${member._id})`;
-
-      textAndCodeBlocks.transformTextBlocks(blockText => blockText.replace(regex, replacement));
+      textAndCodeBlocks.transformTextBlocks(injectLinkIfNecessary(username, member._id));
     });
   }
 

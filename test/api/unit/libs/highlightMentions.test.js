@@ -52,6 +52,18 @@ describe('highlightMentions', () => {
     expect(result[0]).to.equal('@nouser message');
   });
 
+  it('doesn\'t highlight users in link', async () => {
+    const text = 'http://www.medium.com/@user/blog';
+    const result = await highlightMentions(text);
+    expect(result[0]).to.equal(text);
+  });
+
+  it('doesn\'t highlight users in link when followed by same @user mention', async () => {
+    const text = 'http://www.medium.com/@user/blog @user';
+    const result = await highlightMentions(text);
+    expect(result[0]).to.equal('http://www.medium.com/@user/blog [@user](/profile/111)');
+  });
+
   it('highlights multiple existing users', async () => {
     const text = '@user message (@user2) @user3 @user';
     const result = await highlightMentions(text);
