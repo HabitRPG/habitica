@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import paypalPayments from '../../../libs/payments/paypal';
+import logger from '../../../libs/logger';
 import shared from '../../../../common';
 import {
   authWithSession,
@@ -171,7 +172,9 @@ api.ipn = {
   async handler (req, res) {
     res.sendStatus(200);
 
-    await paypalPayments.ipn(req.body);
+    paypalPayments
+      .ipn(req.body)
+      .catch(err => logger.error(err));
   },
 };
 
