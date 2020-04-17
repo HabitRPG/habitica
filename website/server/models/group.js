@@ -651,6 +651,30 @@ schema.methods.sendChat = function sendChat (options = {}) {
   return newChatMessage;
 };
 
+schema.methods.handleQuestInvitation = async function handleQuestInvitation (user, accept) {
+  if (!user) throw new InternalServerError('Must provide user to handle quest invitation');
+  if (accept !== true && accept !== false) throw new InternalServerError('Must provide accept param handle quest invitation');
+
+  // Handle quest invitation atomically (update only current member when still undecided)
+  // to prevent multiple concurrent requests overriding updates
+  // see https://github.com/HabitRPG/habitica/issues/11398
+  const Group = this.constructor;
+  const result = await Group.update(
+    {
+      _id: this._id,
+      [`quest.members.${user._id}`]: { $type: 10 }, // match BSON Type Null (type number 10)
+    },
+    { $set: { [`quest.members.${user._id}`]: accept } },
+  ).exec();
+
+  if (result.nModified) {
+    // update also current instance so future operations will work correctly
+    this.quest.members[user._id] = accept;
+  }
+
+  return Boolean(result.nModified);
+};
+
 schema.methods.startQuest = async function startQuest (user) {
   // not using i18n strings because these errors are meant
   // for devs who forgot to pass some parameters
@@ -680,6 +704,11 @@ schema.methods.startQuest = async function startQuest (user) {
 
   // Changes quest.members to only include participating members
   this.quest.members = _.pickBy(this.quest.members, _.identity);
+
+  // Persist quest.members early to avoid simultaneous handling of accept/reject
+  // while processing the rest of this script
+  await this.update({ $set: { 'quest.members': this.quest.members } }).exec();
+
   const nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
 
