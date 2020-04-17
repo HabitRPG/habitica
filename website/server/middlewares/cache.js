@@ -1,7 +1,7 @@
 import onHeaders from 'on-headers';
 
 export function disableCache (req, res, next) {
-  res.header('Cache-Control', 'no-store');
+  res.set('Cache-Control', 'no-store');
 
   // Remove the etag header when caching is disabled
   // @TODO Unfortunately it's not possible to prevent the creation right now
