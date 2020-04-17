@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { query } from 'express-validator/check';
 import { langCodes } from '../../libs/i18n';
 import apiError from '../../libs/apiError';
 import common from '../../../common';
@@ -55,12 +54,9 @@ function _deleteOtherPlatformsAnswers (faqObject, platform) {
 api.faq = {
   method: 'GET',
   url: '/faq',
-  middlewares: [
-    query('platform')
-      .optional()
-      .isIn(['web', 'android', 'ios']).withMessage(apiError('invalidPlatform')),
-  ],
   async handler (req, res) {
+    req.checkQuery('platform').optional().isIn(['web', 'android', 'ios'], apiError('guildsPaginateBooleanString'));
+
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 

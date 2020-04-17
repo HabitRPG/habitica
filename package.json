@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.140.4",
+  "version": "4.140.5",
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -52,6 +52,7 @@
     "morgan": "^1.10.0",
     "nconf": "^0.10.0",
     "node-gcm": "^1.0.2",
+    "on-headers": "^1.0.2",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth2": "^0.2.0",
