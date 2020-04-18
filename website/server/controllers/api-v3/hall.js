@@ -3,6 +3,7 @@ import validator from 'validator';
 import { authWithHeaders } from '../../middlewares/auth';
 import { ensureAdmin } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
+import { model as Group } from '../../models/group';
 import {
   NotFound,
 } from '../../libs/errors';
@@ -146,6 +147,9 @@ api.getHeroes = {
 // they can be used by admins to get/update any user
 
 const heroAdminFields = 'contributor secret balance profile.name purchased items preferences auth lastCron flags.chatRevoked flags.chatShadowMuted party';
+
+const heroPartyAdminFields = 'balance challengeCount leader leaderOnly memberCount purchased quest';
+// must never include Party name, description, summary, leaderMessage
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID or Username
@@ -320,6 +324,55 @@ api.updateHero = {
     });
 
     res.respond(200, responseHero);
+  },
+};
+
+/**
+ * @api {get} /api/v3/hall/heroes/party/:groupId Get any Party given its ID
+ * @apiParam (Path) {UUID} groupId party's group ID
+ * @apiName GetHeroParty
+ * @apiGroup Hall
+ * @apiPermission Admin
+ *
+ * @apiDescription Returns some basic information about a given Party,
+ # to assist admins with user support.
+ *
+ * @apiSuccess {Object} data The party object (contains computed fields
+ * that are not in the Group model)
+ *
+ * @apiUse NoAuthHeaders
+ * @apiUse NoAccount
+ * @apiUse NoUser
+ * @apiUse NotAdmin
+ * // XXX add others missing from here
+ * @apiUse groupIdRequired
+ * @apiUse GroupNotFound
+ */
+api.getHeroParty = { // XXX tests
+  method: 'GET',
+  url: '/hall/heroes/party/:groupId',
+  middlewares: [authWithHeaders(), ensureAdmin],
+  async handler (req, res) {
+    req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
+    const { groupId } = req.params;
+
+    const query = { _id: groupId };
+
+    const party = await Group
+      .findOne(query)
+      .select(heroPartyAdminFields)
+      .exec();
+
+    if (!party) throw new NotFound(apiError('groupWithIDNotFound', { groupId })); // XXX check that's handled nicely // groupWithIDNotFound: 'Group with id \"<%= groupId %>\" not found.',
+    const partyRes = party.toJSON({ minimize: true });
+    // //// // supply to the possible absence of hero.contributor
+    // //// // if we didn't pass minimize: true it would have returned all fields as empty
+    // //// if (!heroRes.contributor) heroRes.contributor = {};
+    res.respond(200, partyRes);
   },
 };
 
