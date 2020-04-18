@@ -5,7 +5,14 @@
   right: 0;
   bottom: 0;
   left: 0;
-  top: -28px !important;
+
+  &:not([class*="FlyingPig"]) {
+    top: -28px !important;
+  }
+}
+
+.Pet[class*="FlyingPig"] {
+  top: 7px !important;
 }
 
 .Pet.Pet-Dragon-Hydra {

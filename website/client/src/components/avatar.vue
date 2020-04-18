@@ -79,8 +79,9 @@
         ></span>
         <!-- Pet-->
         <span
+          v-if="member.items.currentPet"
           class="current-pet"
-          :class="foolPet(member.items.currentPet)"
+          :class="'Pet-' + member.items.currentPet"
         ></span>
       </template>
     </div>
@@ -123,7 +124,6 @@
 </style>
 
 <script>
-import includes from 'lodash/includes';
 import { mapState } from '@/libs/store';
 
 import ClassBadge from '@/components/members/classBadge';
@@ -275,52 +275,6 @@ export default {
       const { buffs } = this.member.stats;
 
       return !buffs.snowball && !buffs.spookySparkles && !buffs.shinySeed && !buffs.seafoam;
-    },
-    foolPet (pet) {
-      const SPECIAL_PETS = [
-        'Wolf-Veteran',
-        'Wolf-Cerberus',
-        'Dragon-Hydra',
-        'Turkey-Base',
-        'BearCub-Polar',
-        'MantisShrimp-Base',
-        'JackOLantern-Base',
-        'Mammoth-Base',
-        'Tiger-Veteran',
-        'Phoenix-Base',
-        'Turkey-Gilded',
-        'MagicalBee-Base',
-        'Lion-Veteran',
-        'Gryphon-RoyalPurple',
-        'JackOLantern-Ghost',
-        'Jackalope-RoyalPurple',
-        'Orca-Base',
-        'Bear-Veteran',
-        'Hippogriff-Hopeful',
-        'Fox-Veteran',
-        'JackOLantern-Glow',
-        'Gryphon-Gryphatrice',
-      ];
-      const BASE_PETS = [
-        'Wolf',
-        'TigerCub',
-        'PandaCub',
-        'LionCub',
-        'Fox',
-        'FlyingPig',
-        'BearCub',
-        'Dragon',
-        'Cactus',
-      ];
-      if (!pet) return 'Pet-Cactus-Dessert';
-      if (SPECIAL_PETS.indexOf(pet) !== -1) {
-        return 'Pet-LionCub-Dessert';
-      }
-      const species = pet.slice(0, pet.indexOf('-'));
-      if (includes(BASE_PETS, species)) {
-        return `Pet-${species}-Dessert`;
-      }
-      return 'Pet-FlyingPig-Dessert';
     },
   },
 };
