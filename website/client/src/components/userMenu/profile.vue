@@ -349,16 +349,16 @@
               </div>
             </div>
           </div>
-          <div
-            v-if="achievementsCategories[key].number > 5"
-            class="btn btn-flat btn-show-more"
-            @click="toggleAchievementsCategory(key)"
-          >
-            {{ achievementsCategories[key].open ?
-              $t('hideAchievements', {category: $t(key+'Achievs')}) :
-              $t('showAllAchievements', {category: $t(key+'Achievs')})
-            }}
-          </div>
+            <div
+              v-if="achievementsCategories[key].number > 5"
+              class="btn btn-flat btn-show-more"
+              @click="toggleAchievementsCategory(key)"
+            >
+              {{ achievementsCategories[key].open ?
+                $t('hideAchievements', {category: $t(key+'Achievs')}) :
+                $t('showAllAchievements', {category: $t(key+'Achievs')})
+              }}
+            </div>
         </div>
       </div>
       <hr class="col-12">
@@ -414,38 +414,31 @@
 
 <style lang="scss" >
   @import '~@/assets/scss/colors.scss';
-
   .profile {
     .member-details {
       .character-name, small, .small-text {
         color: #878190;
       }
     }
-
     .modal-content {
       background: #f9f9f9;
     }
-
     .progress-container > .progress {
       background-color: $gray-500 !important;
       height: 16px !important;
       vertical-align: middle !important;
-
       .progress-bar {
         height: 16px !important;
       }
     }
-
     .profile-name-character {
       margin-left: 4px !important;
     }
   }
-
   .message-icon svg {
     height: 11px;
     margin-top: 1px;
   }
-
   .gift-icon svg {
     height: 14px;
   }
@@ -453,25 +446,20 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-
   .header {
     width: 100%;
   }
-
   .admin-profile-actions {
     margin-bottom: 3em;
-
     .admin-action {
       color: blue;
       cursor: pointer;
       padding: 0 1em;
     }
   }
-
   .profile-actions {
     float: right;
     margin-right: 1em;
-
     button {
       width: 40px;
       height: 40px;
@@ -479,80 +467,65 @@
       margin-right: .5em;
     }
   }
-
   .message-icon,
   .gift-icon {
     width: 14px;
     margin: auto;
     color: $gray-100;
   }
-
   .gift-icon {
     width: 12px;
   }
-
   .remove-icon {
     width: 16px;
     color: $gray-100;
   }
-
   .positive-icon {
     width: 14px;
     color: $gray-100;
   }
-
   .photo img {
     max-width: 100%;
   }
-
   .header {
     h1 {
       color: $purple-200;
       margin-bottom: 0.2rem;
     }
-
     h4 {
       color: $gray-100;
     }
   }
-
   .nav {
     font-weight: bold;
     min-height: 40px;
     justify-content: center;
   }
-
   .nav-item {
     display: inline-block;
     margin: 0 1.2em;
     padding: 1em;
   }
-
   .nav-item:hover, .nav-item.active {
     color: #4f2a93;
     border-bottom: 2px solid #4f2a93;
     cursor: pointer;
   }
-
   .name {
     color: $gray-200;
     font-size: 16px;
   }
-
   #achievements {
     .category-row {
       margin-bottom: 34px;
-
       &:last-child {
         margin-bottom: 0px;
       }
     }
-
     .achievements-row {
       max-width: 590px;
       margin: 0 auto;
     }
-
     .achievement-wrapper {
       width: 94px;
       max-width: 94px;
@@ -560,23 +533,19 @@
       margin-left: 12px;
       padding: 0px;
     }
-
     .box {
       margin: 0 auto;
       margin-bottom: 1em;
       padding-top: 1.2em;
       background: $white;
     }
-
     hr {
       margin-bottom: 48px;
       margin-top: 48px;
     }
-
     .box.achievement-unearned {
       background-color: $gray-600;
     }
-
     .counter.badge {
       position: absolute;
       top: -0.8em;
@@ -585,20 +554,16 @@
       background-color: $orange-100;
       max-height: 24px;
     }
-
     .achievement-icon {
       margin: 0 auto;
     }
-
     .achievement-list-item {
       padding-top: 11px;
       padding-bottom: 12px;
       border-top: 1px solid $gray-500;
-
       &:last-child {
         border-bottom: 1px solid $gray-500;
       }
-
       .badge {
         margin-right: 8px;
         background: $gray-600;
@@ -606,42 +571,35 @@
       }
     }
   }
-
   .achievement {
     margin: 0 auto;
   }
-
   .box {
     width: 94px;
     height: 92px;
     border-radius: 2px;
     border: dotted 1px #c3c0c7;
   }
-
   .white {
     border-radius: 2px;
     background: #FFFFFF;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.15), 0 1px 4px 0 rgba(26, 24, 29, 0.1);
     border: 1px solid transparent;
   }
-
   .item-wrapper {
     h3 {
       text-align: center;
     }
   }
-
     .member-details {
       .character-name, small, .small-text {
         color: #878190;
       }
-
       .progress-container > .progress {
         border-radius: 1px;
         background-color: $gray-500;
       }
     }
-
   .profile-section {
     h2 {
       overflow: hidden;
@@ -659,29 +617,23 @@
       left: 16px;
     }
   }
-
   .info {
-
     .info-item {
       color: $gray-200;
       size: 14px;
       margin-bottom: 8px;
-
       .info-item-label {
         font-weight: bold;
         display: inline-block;
       }
-
       .info-item-value {
         display: inline-block;
         float: right;
       }
     }
-
     .progress {
       height: 8px;
       border-radius: 1px;
-
       .progress-bar {
         border-radius: 1px;
         background-color: $green-10 !important;
@@ -696,14 +648,11 @@ import axios from 'axios';
 import each from 'lodash/each';
 import cloneDeep from 'lodash/cloneDeep';
 import { mapState } from '@/libs/store';
-
 import MemberDetails from '../memberDetails';
 import markdown from '@/directives/markdown';
 import achievementsLib from '@/../../common/script/libs/achievements';
 import Content from '@/../../common/script/content';
 import profileStats from './profileStats';
-
-
 import message from '@/assets/svg/message.svg';
 import gift from '@/assets/svg/gift.svg';
 import remove from '@/assets/svg/remove.svg';
@@ -716,7 +665,6 @@ import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
-
 export default {
   directives: {
     markdown,
@@ -781,7 +729,6 @@ export default {
     incentivesProgress () {
       return this.getIncentivesProgress();
     },
-
     classText () {
       const classTexts = {
         warrior: this.$t('warrior'),
@@ -789,7 +736,6 @@ export default {
         rogue: this.$t('rogue'),
         healer: this.$t('healer'),
       };
-
       return classTexts[this.user.stats.class];
     },
     startingPageOption () {
@@ -817,28 +763,22 @@ export default {
   methods: {
     async loadUser () {
       let user = this.userLoggedIn;
-
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
       this.hero = {};
       this.adminToolsLoaded = false;
-
       const profileUserId = this.userId;
-
       if (profileUserId && profileUserId !== this.userLoggedIn._id) {
         const response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
         user = response.data.data;
       }
-
       this.editingProfile.name = user.profile.name;
       this.editingProfile.imageUrl = user.profile.imageUrl;
       this.editingProfile.blurb = user.profile.blurb;
-
       if (!user.achievements.quests) user.achievements.quests = {};
       if (!user.achievements.challenges) user.achievements.challenges = {};
       // @TODO: this common code should handle the above
       this.achievements = achievementsLib.getAchievementsForProfile(user);
-
       const achievementsCategories = {};
       Object.keys(this.achievements).forEach(category => {
         achievementsCategories[category] = {
@@ -846,12 +786,9 @@ export default {
           number: Object.keys(this.achievements[category].achievements).length,
         };
       });
-
       this.achievementsCategories = achievementsCategories;
-
       // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
       user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
-
       this.user = user;
     },
     selectPage (page) {
@@ -862,7 +799,6 @@ export default {
       this.$store.dispatch('user:newPrivateMessageTo', {
         member: this.user,
       });
-
       this.$router.push('/private-messages');
       this.$root.$emit('bv::hide::modal', 'profile');
     },
@@ -889,21 +825,16 @@ export default {
     },
     save () {
       const values = {};
-
       const edits = cloneDeep(this.editingProfile);
-
       each(edits, (value, key) => {
         // Using toString because we need to compare two arrays (websites)
         const curVal = this.user.profile[key];
-
         if (!curVal || value.toString() !== curVal.toString()) {
           values[`profile.${key}`] = value;
           this.$set(this.user.profile, key, value);
         }
       });
-
       this.$store.dispatch('user:set', values);
-
       this.editing = false;
     },
     blockUser () {
@@ -923,7 +854,6 @@ export default {
         this.hero.flags = {};
       }
       this.hero.flags.chatShadowMuted = true;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     adminTurnOffShadowMuting () {
@@ -931,7 +861,6 @@ export default {
         this.hero.flags = {};
       }
       this.hero.flags.chatShadowMuted = false;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     adminRevokeChat () {
@@ -939,7 +868,6 @@ export default {
         this.hero.flags = {};
       }
       this.hero.flags.chatRevoked = true;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     adminReinstateChat () {
@@ -947,17 +875,14 @@ export default {
         this.hero.flags = {};
       }
       this.hero.flags.chatRevoked = false;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     adminBlockUser () {
       this.hero.auth.blocked = true;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     adminUnblockUser () {
       this.hero.auth.blocked = false;
-
       this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
     },
     async toggleAdminTools () {
@@ -973,19 +898,14 @@ export default {
     },
     achievementsCategory (categoryKey, category) {
       const achievementsKeys = Object.keys(category.achievements);
-
       if (this.achievementsCategories[categoryKey].open === true) {
         return category.achievements;
       }
-
       const fiveAchievements = achievementsKeys.slice(0, 5);
-
       const categoryAchievements = {};
-
       fiveAchievements.forEach(key => {
         categoryAchievements[key] = category.achievements[key];
       });
-
       return categoryAchievements;
     },
     toggleAchievementsCategory (categoryKey) {
