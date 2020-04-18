@@ -71,7 +71,6 @@
         <equipmentAttributesPopover
           v-if="item.purchaseType === 'gear'"
           :item="item"
-          :is-wrong-class="isWrongClass"
         />
         <div
           v-else-if="item.purchaseType === 'quests'"
@@ -231,7 +230,6 @@ import svgGold from '@/assets/svg/gold.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
 import svgLock from '@/assets/svg/lock.svg';
 import svgClock from '@/assets/svg/clock.svg';
-import { mapState } from '@/libs/store';
 
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 
@@ -287,9 +285,6 @@ export default {
     });
   },
   computed: {
-    ...mapState({
-      user: 'user.data',
-    }),
     showNotes () {
       if (['armoire', 'potion'].indexOf(this.item.path) > -1) return true;
       return false;
@@ -303,11 +298,6 @@ export default {
     limitedString () {
       return this.item.owned === false ? ''
         : this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
-    },
-    isWrongClass () {
-      const wrongKlass = this.item.klass && !['special', 'armoire', this.user.stats.class].includes(this.item.klass);
-      const wrongSpecialClass = this.item.klass === 'special' && this.item.specialClass && this.item.specialClass !== this.user.stats.class;
-      return wrongKlass || wrongSpecialClass;
     },
   },
   methods: {
