@@ -12,6 +12,7 @@ ENV GOOGLE_CLIENT_ID 1035232791481-32vtplgnjnd1aufv3mcu1lthf31795fq.apps.googleu
 ENV LOGGLY_CLIENT_TOKEN ab5663bf-241f-4d14-8783-7d80db77089a
 ENV NODE_ENV production
 ENV STRIPE_PUB_KEY pk_85fQ0yMECHNfHTSsZoxZXlPSwSNfA
+ENV APPLE_AUTH_CLIENT_ID 9Q9SMRMCNN.com.habitrpg.ios.Habitica
 
 # Install global packages
 RUN npm install -g gulp-cli mocha
