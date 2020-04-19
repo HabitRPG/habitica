@@ -45,16 +45,17 @@ describe('shared.ops.unlock', () => {
 
   it('returns an error when user already owns a full set', done => {
     try {
-      unlock(user, { query: { path: unlockPath } });
-      unlock(user, { query: { path: unlockPath } });
+      unlock(user, { query: { path: unlockGearSetPath } });
+      unlock(user, { query: { path: unlockGearSetPath } });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('alreadyUnlocked'));
+      expect(user.balance).to.equal(3.75);
       done();
     }
   });
 
-  // disabled until fully implemente
+  // disabled until fully implemented
   xit('returns an error when user already owns items in a full set', done => {
     try {
       unlock(user, { query: { path: unlockPath } });
@@ -105,7 +106,7 @@ describe('shared.ops.unlock', () => {
     expect(user.items.gear.owned.headAccessory_special_wolfEars).to.be.true;
   });
 
-  it('unlocks a an item', () => {
+  it('unlocks an item', () => {
     const [, message] = unlock(user, { query: { path: backgroundUnlockPath } });
 
     expect(message).to.equal(i18n.t('unlocked'));

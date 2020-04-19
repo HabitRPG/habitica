@@ -1,6 +1,4 @@
-import get from 'lodash/get';
-import each from 'lodash/each';
-import pick from 'lodash/pick';
+import { get, each, pick, every } from 'lodash';
 import setWith from 'lodash/setWith';
 import i18n from '../i18n';
 import splitWhitespace from '../libs/splitWhitespace';
@@ -13,6 +11,11 @@ import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
 
+function setAsObject(target, key, value) {
+  // Using Object so path[1] won't create an array but an object {path: {1: value}}
+  setWith(target, key, value, Object);
+}
+
 // If item is already purchased -> equip it
 // Otherwise unlock it
 export default function unlock (user, req = {}, analytics) {
@@ -22,8 +25,8 @@ export default function unlock (user, req = {}, analytics) {
     throw new BadRequest(i18n.t('pathRequired', req.language));
   }
 
-  const isFullSet = path.indexOf(',') !== -1;
-  const isBackground = path.indexOf('background.') !== -1;
+  const isFullSet = path.includes(',');
+  const isBackground = path.includes('background.');
 
   let cost;
   if (isBackground && isFullSet) {
@@ -36,20 +39,11 @@ export default function unlock (user, req = {}, analytics) {
     cost = 0.5;
   }
 
-  let setPaths;
+  const setPaths = path.split(',');
   let alreadyOwns;
 
   if (isFullSet) {
-    setPaths = path.split(',');
-    let alreadyOwnedItems = 0;
-
-    each(setPaths, singlePath => {
-      if (get(user, `purchased.${singlePath}`) === true) {
-        alreadyOwnedItems += 1;
-      }
-    });
-
-    if (alreadyOwnedItems === setPaths.length) {
+    if (every(setPaths, p => get(user, `purchased.${p}`))) {
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
     // TODO write math formula to check if buying
     // the full set is cheaper than the items individually
@@ -71,16 +65,14 @@ export default function unlock (user, req = {}, analytics) {
 
   if (isFullSet) {
     each(setPaths, pathPart => {
-      if (path.indexOf('gear.') !== -1) {
-        // Using Object so path[1] won't create an array but an object {path: {1: value}}
-        setWith(user, pathPart, true, Object);
+      if (path.includes('gear.')) {
+        setAsObject(user, pathPart, true);
         const itemName = pathPart.split('.').pop();
         removeItemByPath(user, `gear.flat.${itemName}`);
-        if (user.markModified && path.indexOf('gear.owned') !== -1) user.markModified('items.gear.owned');
+        if (user.markModified && path.includes('gear.owned')) user.markModified('items.gear.owned');
       }
 
-      // Using Object so path[1] won't create an array but an object {path: {1: value}}
-      setWith(user, `purchased.${pathPart}`, true, Object);
+      setAsObject(user, `purchased.${pathPart}`, true);
     });
   } else {
     const split = path.split('.');
@@ -92,16 +84,13 @@ export default function unlock (user, req = {}, analytics) {
         value = '';
       }
 
-      // Using Object so path[1] won't create an array but an object {path: {1: value}}
-      setWith(user, `preferences.${key}`, value, Object);
+      setAsObject(user, `preferences.${key}`, value);
     } else {
-      if (path.indexOf('gear.') !== -1) {
-        // Using Object so path[1] won't create an array but an object {path: {1: value}}
-        setWith(user, path, true, Object);
-        if (user.markModified && path.indexOf('gear.owned') !== -1) user.markModified('items.gear.owned');
+      if (path.includes('gear.')) {
+        setAsObject(user, path, true);
+        if (user.markModified && path.includes('gear.owned')) user.markModified('items.gear.owned');
       }
-      // Using Object so path[1] won't create an array but an object {path: {1: value}}
-      setWith(user, `purchased.${path}`, true, Object);
+      setAsObject(user, `purchased.${path}`, true);
 
       // @TODO: Test and check test coverage
       if (isBackground) {
@@ -113,7 +102,7 @@ export default function unlock (user, req = {}, analytics) {
   }
 
   if (!alreadyOwns) {
-    if (path.indexOf('gear.') === -1) {
+    if (path.includes('gear.')) {
       if (user.markModified) user.markModified('purchased');
     }
 
