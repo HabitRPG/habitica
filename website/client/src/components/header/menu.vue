@@ -297,7 +297,8 @@
               {{ $t('help') }}
             </router-link>
             <div class="topbar-dropdown">
-              <router-link v-if="user.contributor.admin"
+              <router-link
+                v-if="user.contributor.admin"
                 class="topbar-dropdown-item dropdown-item"
                 :to="{name: 'adminPanel'}"
               >
