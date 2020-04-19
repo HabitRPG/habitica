@@ -6,6 +6,9 @@
 
 <style lang='scss'>
 @import '~@/assets/scss/static.scss';
+</style>
+
+<style lang='scss' scoped>
 .static-view {
   height: 400px;
   text-align: center;
