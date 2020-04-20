@@ -153,7 +153,7 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
-    if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
   },
 });
 
@@ -1701,7 +1701,7 @@ schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
   return false;
 };
 
-schema.methods.isSubscribed = function isSubscribed () {
+schema.methods.hasActiveGroupPlan = function hasActiveGroupPlan () {
   const now = new Date();
   const { plan } = this.purchased;
   return plan && plan.customerId
@@ -1710,12 +1710,12 @@ schema.methods.isSubscribed = function isSubscribed () {
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
   const { plan } = this.purchased;
-  return Boolean(this.isSubscribed() && !plan.dateTerminated);
+  return Boolean(this.hasActiveGroupPlan() && !plan.dateTerminated);
 };
 
-schema.methods.hasCancelled = function hasNotCancelled () {
+schema.methods.hasCancelled = function hasCancelled () {
   const { plan } = this.purchased;
-  return Boolean(this.isSubscribed() && plan.dateTerminated);
+  return Boolean(this.hasActiveGroupPlan() && plan.dateTerminated);
 };
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {

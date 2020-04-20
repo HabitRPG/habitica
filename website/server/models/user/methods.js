@@ -477,13 +477,13 @@ schema.methods.canGetGems = async function canObtainGems () {
   const groups = await getUserGroupData(user);
 
   return groups
-    .every(g => !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true);
+    .every(g => !g.hasActiveGroupPlan() || g.leader === user._id || g.leaderOnly.getGems !== true);
 };
 
 schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
   const groups = await getUserGroupData(this);
 
-  return groups.some(g => g.isSubscribed());
+  return groups.some(g => g.hasActiveGroupPlan());
 };
 
 schema.methods.isAdmin = function isAdmin () {
