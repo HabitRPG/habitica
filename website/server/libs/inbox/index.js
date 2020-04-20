@@ -2,8 +2,6 @@ import { mapInboxMessage, inboxModel as Inbox } from '../../models/message';
 import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 
-const PM_PER_PAGE = 10;
-
 export async function sentMessage (sender, receiver, message, translate) {
   const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
   const senderName = getUserInfo(sender, ['name']).name;
@@ -33,17 +31,15 @@ export async function sentMessage (sender, receiver, message, translate) {
 
   return messageSent;
 }
+const PM_PER_PAGE = 10;
 
-export async function getUserInbox (user, options = {
+const getUserInboxDefaultOptions = {
   asArray: true, page: 0, conversation: null, mapProps: false,
-}) {
-  if (typeof options.asArray === 'undefined') {
-    options.asArray = true;
-  }
+};
 
-  if (typeof options.mapProps === 'undefined') {
-    options.mapProps = false;
-  }
+export async function getUserInbox (user, optionParams = getUserInboxDefaultOptions) {
+  // if not all properties are passed, fill the default values
+  const options = { ...getUserInboxDefaultOptions, ...optionParams };
 
   const findObj = { ownerId: user._id };
 
@@ -57,8 +53,8 @@ export async function getUserInbox (user, options = {
 
   if (typeof options.page !== 'undefined') {
     query = query
-      .limit(PM_PER_PAGE)
-      .skip(PM_PER_PAGE * Number(options.page));
+      .skip(PM_PER_PAGE * Number(options.page))
+      .limit(PM_PER_PAGE);
   }
 
   const messages = (await query.exec()).map(msg => {

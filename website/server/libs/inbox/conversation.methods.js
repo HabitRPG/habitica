@@ -41,27 +41,36 @@ async function usersMapByConversations (users) {
   return usersMap;
 }
 
-export async function listConversations (owner) {
+const CONVERSATION_PER_PAGE = 10;
+
+export async function listConversations (owner, page) {
+  const aggregateQuery = [
+    {
+      $match: {
+        ownerId: owner._id,
+      },
+    },
+    {
+      $group: {
+        _id: '$uuid',
+        user: { $last: '$user' },
+        username: { $last: '$username' },
+        timestamp: { $last: '$timestamp' },
+        text: { $last: '$text' },
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { timestamp: -1 } }, // sort by latest message
+  ];
+
+  if (page >= 0) {
+    aggregateQuery.push({ $skip: page * CONVERSATION_PER_PAGE });
+    aggregateQuery.push({ $limit: CONVERSATION_PER_PAGE });
+  }
+
   // group messages by user owned by logged-in user
   const query = Inbox
-    .aggregate([
-      {
-        $match: {
-          ownerId: owner._id,
-        },
-      },
-      {
-        $group: {
-          _id: '$uuid',
-          user: { $last: '$user' },
-          username: { $last: '$username' },
-          timestamp: { $last: '$timestamp' },
-          text: { $last: '$text' },
-          count: { $sum: 1 },
-        },
-      },
-      { $sort: { timestamp: -1 } }, // sort by latest message
-    ]);
+    .aggregate(aggregateQuery);
 
   const conversationsList = await query.exec();
 
