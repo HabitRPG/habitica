@@ -155,7 +155,7 @@ export function getTaskClasses (store) {
         if (type === 'todo' || type === 'daily') {
           if (task.completed || (!shouldDo(dueDate, task, userPreferences) && type === 'daily')) {
             return {
-              bg: 'task-disabled-daily-todo-control-bg',
+              bg: _nonInteractive(task) ? 'task-disabled-daily-todo-control-bg-noninteractive' : 'task-disabled-daily-todo-control-bg',
               checkbox: 'task-disabled-daily-todo-control-checkbox',
               inner: 'task-disabled-daily-todo-control-inner',
               content: 'task-disabled-daily-todo-control-content',

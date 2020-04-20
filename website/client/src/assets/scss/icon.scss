@@ -7,10 +7,6 @@
     display: block;
   }
 
-  * {
-    transition: none !important;
-  }
-
   &.color {
     svg path {
       fill: currentColor;

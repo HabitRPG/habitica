@@ -58,12 +58,16 @@
 .btn-secondary, .dropdown > .btn-secondary {
   color: $gray-50;
   background: $white !important;
+  border: 1px solid transparent;
+  border-radius: 2px;
 
   &:hover:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled), &:focus:not(:disabled):not(.disabled) {
     color: $purple-200 !important;
+    border-color: transparent;
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
   }
 
-  &:active, &:focus, &.active {
+  &:focus {
     border-color: $purple-400 !important;
   }
 

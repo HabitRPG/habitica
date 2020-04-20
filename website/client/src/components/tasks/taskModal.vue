@@ -1129,11 +1129,12 @@
   .btn-save-task {
     background-color: $white;
     border-radius: 2px;
-    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
     color: $gray-50;
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
+    width: 4rem;
     height: 2rem;
     padding: 0.25rem 1rem;
 

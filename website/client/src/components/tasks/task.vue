@@ -58,7 +58,7 @@
             @click="isUser ? score(task.completed ? 'down' : 'up') : null"
           >
             <div
-              v-if="!isUser && !task.completed"
+              v-if="!isUser"
               class="svg-icon lock"
               :class="controlClass.icon"
               v-html="icons.lock"
