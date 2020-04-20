@@ -858,11 +858,6 @@ api.leaveGroup = {
     _removeMessagesFromMember(user, group._id);
     await user.save();
 
-    if (group.type !== 'party') {
-      const guildIndex = user.guilds.indexOf(group._id);
-      if (guildIndex >= 0) user.guilds.splice(guildIndex, 1);
-    }
-
     if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     res.respond(200, {});
   },
