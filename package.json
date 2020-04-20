@@ -68,7 +68,7 @@
     "superagent": "^5.2.2",
     "universal-analytics": "^0.4.17",
     "useragent": "^2.1.9",
-    "uuid": "^3.4.0",
+    "uuid": "^7.0.3",
     "validator": "^11.0.0",
     "vinyl-buffer": "^1.0.1",
     "winston": "^3.2.1",
