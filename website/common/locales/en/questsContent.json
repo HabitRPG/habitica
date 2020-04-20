@@ -542,7 +542,7 @@
 
   "questButterflyText": "Bye, Bye, Butterfry",
   "questButterflyNotes": "Your gardener friend @Megan sends you an invitation: “These warm days are the perfect time to visit Habitica’s butterfly garden in the Taskan countryside. Come see the butterflies migrate!” When you arrive, however, the garden is in shambles -- little more than scorched grass and dried-out weeds. It’s been so hot that the Habiticans haven’t come out to water the flowers, and the dark-red Dailies have turned it into a dry, sun-baked, fire-hazard. There's only one butterfly there, and there's something odd about it...<br><br>“Oh no! This is the perfect hatching ground for the Flaming Butterfry,” cries @Leephon.<br><br>“If we don’t catch it, it’ll destroy everything!” gasps @Eevachu.<br><br>Time to say bye, bye to Butterfry!",
-  "questButterflyCompletion": "After a blazing battle, the Flaming Butterfry is captured. “Great job catching the that would-be arsonist,” says @Megan with a sigh of relief. “Still, it’s hard to vilify even the vilest butterfly. We’d better free this Butterfry someplace safe…like the desert.”<br><br>One of the other gardeners, @Beffymaroo, comes up to you, singed but smiling. “Will you help raise these foundling chrysalises we found? Perhaps next year we’ll have a greener garden for them.”",
+  "questButterflyCompletion": "After a blazing battle, the Flaming Butterfry is captured. “Great job catching that would-be arsonist,” says @Megan with a sigh of relief. “Still, it’s hard to vilify even the vilest butterfly. We’d better free this Butterfry someplace safe…like the desert.”<br><br>One of the other gardeners, @Beffymaroo, comes up to you, singed but smiling. “Will you help raise these foundling chrysalises we found? Perhaps next year we’ll have a greener garden for them.”",
   "questButterflyBoss": "Flaming Butterfry",
   "questButterflyDropButterflyEgg": "Caterpillar (Egg)",
   "questButterflyUnlockText": "Unlocks Caterpillar Eggs for purchase in the Market",
@@ -796,5 +796,15 @@
   "questRubyCollectVenusRunes": "Venus Runes",
   "questRubyCollectRubyGems": "Ruby Gems",
   "questRubyDropRubyPotion": "Ruby Hatching Potion",
-  "questRubyUnlockText": "Unlocks Ruby Hatching Potions for purchase in the Market"
+  "questRubyUnlockText": "Unlocks Ruby Hatching Potions for purchase in the Market",
+
+  "questWaffleText": "Waffling with the Fool: Disaster Breakfast!",
+  "questWaffleNotes": "“April Fool!” storms a flustered Lady Glaciate. “You said your dessert-themed prank was ‘over with and completely cleaned up’!”<br><br>“Why, it was and is, my dear,” replies the Fool, puzzled. “And I am the most honest of Fools. What's wrong?”<br><br>“There's a giant sugary monster approaching Habit City!”<br><br>“Hmm,” muses the Fool. “I did raid a few lairs for the mystic reagents for my last event. Maybe I attracted some unwanted attention. Is it the Saccharine Serpent? The Torte-oise? Tiramisu Rex?”<br><br>“No! It's some sort of... Awful Waffle!”<br><br>“Huh. That's a new one! Perhaps it spawned from all the ambient shenanigan energy.” He turns to you and @beffymaroo with a lopsided smile. “I don't suppose you'd be available for some heroics?”",
+  "questWaffleCompletion": "Battered and buttered but triumphant, you savor sweet victory as the Awful Waffle collapses into a pool of sticky goo.<br><br>“Wow, you really creamed that monster,” says Lady Glaciate, impressed.<br><br>“A piece of cake!” beams the April Fool.<br><br>“Kind of a shame, though,” says @beffymaroo. “It looked good enough to eat.”<br><br>The Fool takes a set of potion bottles from somewhere in his cape, fills them with the syrupy leavings of the Waffle, and mixes in a pinch of sparkling dust. The liquid swirls with color--new Hatching Potions! He tosses them into your arms. “All that adventure has given me an appetite. Who wants to join me for breakfast?”",
+  "questWaffleBoss": "Awful Waffle",
+  "questWaffleRageTitle": "Maple Mire",
+  "questWaffleRageDescription": "Maple Mire: This bar fills when you don't complete your Dailies. When it is full, the Awful Waffle will set back the party's attack progress!",
+  "questWaffleRageEffect": "`Awful Waffle uses MAPLE MIRE!` Sticky sappy syrup slows your swings and spells!",
+  "questWaffleDropDessertPotion": "Confection Hatching Potion",
+  "questWaffleUnlockText": "Unlocks Confection Hatching Potions for purchase in the Market"
 }

@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR MARCH SUBSCRIBER ITEMS AND HUG A BUG BUNDLE!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: HALL OF HEROES';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,27 +31,24 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/30/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_202003 center-block"></div>
-        <h3>Last Chance for Barbed Battler Set</h3>
+        <img
+          src="https://habitica-assets.s3.us-east-1.amazonaws.com/mobileApp/images/promo_hall_of_heroes.png"
+          style='width: 100%'>
+        </img>
         <p>
-          Reminder: this is the last day to receive the Barbed Battler Set when you <a
-          href='/user/settings/subscription'>sign up for a new Habitica subscription</a>!
-          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
-          you can get!
+          This month's <a href='https://habitica.wordpress.com/2020/04/15/hall-of-heroes/'
+          target='_blank'>featured Wiki article</a> is about the Hall of Heroes! We hope that it
+          will help you as learn about Habitica's community and contributors. Be sure to check it
+          out, and let us know what you think by reaching out on <a
+          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
+          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
+          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_hugabug_bundle center-block"></div>
-        <h3>Last Chance for Hug a Bug Pet Quest Bundle</h3>
-        <p>
-          This is also the final day to buy the discounted Hug a Bug Pet Quest Bundle, featuring
-          the Snail, Beetle, and Butterfly quests, all for seven Gems! Be sure to take your bug-
-          catching net over to the <a href='/shops/quests'>Quest Shop</a> before it bugs out!
-        </p>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });

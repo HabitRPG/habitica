@@ -607,9 +607,11 @@ api.joinGroup = {
 
     let promises = [group.save(), user.save()];
 
-    if (inviter) {
-      inviter = await User.findById(inviter).exec();
+    // Load the inviter
+    if (inviter) inviter = await User.findById(inviter).exec();
 
+    // Check the inviter again, could be a deleted account
+    if (inviter) {
       const data = {
         headerText: common.i18n.t('invitationAcceptedHeader', inviter.preferences.language),
         bodyText: common.i18n.t('invitationAcceptedBody', {

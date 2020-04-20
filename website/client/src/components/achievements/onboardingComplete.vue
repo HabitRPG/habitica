@@ -7,20 +7,31 @@
   >
     <div class="content text-center">
       <span
+        v-once
         class="close-icon svg-icon inline icon-10"
         @click="close()"
         v-html="icons.close"
       ></span>
-      <h2>{{ $t('congratulations') }}</h2>
+      <h2 v-once>
+        {{ $t('onboardingComplete') }}
+      </h2>
       <img
         class="onboarding-complete-banner d-block"
         src="~@/assets/images/onboarding-complete-banner@2x.png"
       >
       <p
+        v-once
         class="onboarding-complete-text"
         v-html="$t('onboardingCompleteDesc')"
       ></p>
+      <p
+        v-once
+        class="onboarding-complete-text-small"
+      >
+        {{ $t('onboardingCompleteDescSmall') }}
+      </p>
       <button
+        v-once
         class="btn btn-primary"
         @click="closeWithAction()"
       >
@@ -37,7 +48,7 @@
   }
 
   .modal-body {
-    padding-top: 1em;
+    padding-top: 1rem;
     padding-bottom: 0;
   }
 
@@ -58,7 +69,7 @@ h2 {
 
 .content {
   padding: 0 8px;
-  margin-top: 18px;
+  margin-top: 1rem;
 }
 
 .onboarding-complete-banner {
@@ -68,11 +79,19 @@ h2 {
 }
 
 .onboarding-complete-text {
-  margin-bottom: 24px;
+  margin-bottom: 1rem;
 }
 
 .onboarding-complete-text ::v-deep .gold-amount {
   color: $yellow-5;
+}
+
+.onboarding-complete-text-small {
+  margin-bottom: 1.5rem;
+  color: $gray-100;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 1.33;
 }
 
 button {

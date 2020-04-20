@@ -104,7 +104,7 @@
         </div>
         <div
           v-if="item.event"
-          class="mt-4"
+          :class="item.purchaseType === 'gear' ? 'mt-4' : 'mt-2'"
         >
           {{ limitedString }}
         </div>

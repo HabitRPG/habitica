@@ -2079,5 +2079,15 @@
     "weaponSpecialSpring2020WarriorNotes": "Fight or flight, this wing will serve you well! Increases Strength by <%= str %>. Limited Edition 2020 Spring Gear.",
     "weaponSpecialSpring2020WarriorText": "Sharpened Wing",
     "weaponSpecialSpring2020RogueNotes": "You'll strike so fast it'll look even MORE blue! Increases Strength by <%= str %>. Limited Edition 2020 Spring Gear.",
-    "weaponSpecialSpring2020RogueText": "Lazurite Blade"
+    "weaponSpecialSpring2020RogueText": "Lazurite Blade",
+    "headAccessoryMystery202004Notes": "They twitch just a bit if the scent of flowers drifts by--use them to find a pretty garden! Confers no benefit. April 2020 Subscriber Item.",
+    "headAccessoryMystery202004Text": "Mighty Monarch Antennae",
+    "backMystery202004Notes": "Make a quick flutter to the nearest flowery meadow or migrate across the continent with these beautiful wings! Confers no benefit. April 2020 Subscriber Item.",
+    "backMystery202004Text": "Mighty Monarch Wings",
+    "shieldArmoireHobbyHorseNotes": "Ride your handsome hobby-horse steed toward your just Rewards! Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Paper Knight Set (Item 2 of 3).",
+    "shieldArmoireHobbyHorseText": "Hobby Horse",
+    "armorArmoireBoxArmorNotes": "Box Armor: It fits, therefore you sits... uh, therefore you wear it into battle, like the bold knight you are! Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Paper Knight Set (Item 3 of 3). ",
+    "armorArmoireBoxArmorText": "Box Armor",
+    "weaponArmoirePaperCutterNotes": "This may not look fearsome, but have you never had a papercut? Increases Strength by <%= str %>. Enchanted Armoire: Paper Knight Set (Item 1 of 3).",
+    "weaponArmoirePaperCutterText": "Paper Cutter"
 }

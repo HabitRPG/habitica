@@ -24,7 +24,7 @@ import { sentMessage } from '../../libs/inbox';
 import {
   sanitizeText as sanitizeMessageText,
 } from '../../models/message';
-import { highlightMentions } from '../../libs/highlightMentions';
+import highlightMentions from '../../libs/highlightMentions';
 
 const { achievements } = common;
 
