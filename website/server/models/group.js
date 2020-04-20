@@ -1141,7 +1141,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const itemsFound = {};
 
   const possibleItemKeys = Object.keys(quest.collect)
-    .filter(key => group.quest.progress.collect[key] !== quest.collect[key].count);
+    .filter(key => group.quest.progress.collect[key] < quest.collect[key].count);
 
   const possibleItemsToCollect = possibleItemKeys.reduce((accumulator, current, index) => {
     accumulator[possibleItemKeys[index]] = quest.collect[current];
@@ -1151,11 +1151,13 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   _.times(progress.collectedItems, () => {
     const item = shared.randomVal(possibleItemsToCollect, { key: true });
 
-    if (!itemsFound[item]) {
-      itemsFound[item] = 0;
+    if (group.quest.progress.collect[item] < quest.collect[item].count) {
+      if (!itemsFound[item]) {
+        itemsFound[item] = 0;
+      }
+      itemsFound[item] += 1;
+      group.quest.progress.collect[item] += 1;
     }
-    itemsFound[item] += 1;
-    group.quest.progress.collect[item] += 1;
   });
 
   // Add 0 for all items not found

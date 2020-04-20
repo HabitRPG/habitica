@@ -538,52 +538,74 @@ describe('Group Model', () => {
           });
         });
 
-        it('sends a chat message if no progress is made on quest with multiple items', async () => {
-          progress.collectedItems = 0;
-          party.quest.key = 'dilatoryDistress1';
-          party.quest.active = false;
+        describe('collection quests with multiple items', () => {
+          it('sends a chat message if no progress is made on quest with multiple items', async () => {
+            progress.collectedItems = 0;
+            party.quest.key = 'dilatoryDistress1';
+            party.quest.active = false;
 
-          await party.startQuest(questLeader);
-          Group.prototype.sendChat.resetHistory();
-          await party.save();
+            await party.startQuest(questLeader);
+            Group.prototype.sendChat.resetHistory();
+            await party.save();
 
-          await Group.processQuestProgress(participatingMember, progress);
+            await Group.processQuestProgress(participatingMember, progress);
 
-          party = await Group.findOne({ _id: party._id });
+            party = await Group.findOne({ _id: party._id });
 
-          expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith({
-            message: '`Participating Member found 0 Fire Coral, 0 Blue Fins.`',
-            info: {
-              items: { blueFins: 0, fireCoral: 0 },
-              quest: 'dilatoryDistress1',
-              type: 'user_found_items',
-              user: 'Participating Member',
-            },
+            expect(Group.prototype.sendChat).to.be.calledOnce;
+            expect(Group.prototype.sendChat).to.be.calledWith({
+              message: '`Participating Member found 0 Fire Coral, 0 Blue Fins.`',
+              info: {
+                items: { blueFins: 0, fireCoral: 0 },
+                quest: 'dilatoryDistress1',
+                type: 'user_found_items',
+                user: 'Participating Member',
+              },
+            });
           });
-        });
 
-        it('handles collection quests with multiple items', async () => {
-          progress.collectedItems = 10;
-          party.quest.key = 'evilsanta2';
-          party.quest.active = false;
+          it('handles correctly', async () => {
+            progress.collectedItems = 10;
+            party.quest.key = 'evilsanta2';
+            party.quest.active = false;
 
-          await party.startQuest(questLeader);
-          Group.prototype.sendChat.resetHistory();
-          await party.save();
+            await party.startQuest(questLeader);
+            Group.prototype.sendChat.resetHistory();
+            await party.save();
 
-          await Group.processQuestProgress(participatingMember, progress);
+            await Group.processQuestProgress(participatingMember, progress);
 
-          party = await Group.findOne({ _id: party._id });
+            party = await Group.findOne({ _id: party._id });
 
-          expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWithMatch({
-            message: sinon.match(/`Participating Member found/).and(sinon.match(/\d* (Tracks|Broken Twigs)/)),
-            info: {
-              quest: 'evilsanta2',
-              type: 'user_found_items',
-              user: 'Participating Member',
-            },
+            expect(Group.prototype.sendChat).to.be.calledOnce;
+            expect(Group.prototype.sendChat).to.be.calledWithMatch({
+              message: sinon.match(/`Participating Member found/).and(sinon.match(/\d* (Tracks|Broken Twigs)/)),
+              info: {
+                quest: 'evilsanta2',
+                type: 'user_found_items',
+                user: 'Participating Member',
+              },
+            });
+          });
+
+          it('cannot collect excess items', async () => {
+            // Make sure the quest progress isn't erased
+            sandbox.stub(Group.prototype, 'finishQuest').returns(Promise.resolve());
+
+            progress.collectedItems = 500;
+            party.quest.key = 'evilsanta2';
+            party.quest.active = false;
+
+            await party.startQuest(questLeader);
+            await party.save();
+
+            await Group.processQuestProgress(participatingMember, progress);
+            party = await Group.findOne({ _id: party._id });
+
+            expect(party.quest.progress.collect.tracks)
+              .to.eql(questScrolls.evilsanta2.collect.tracks.count);
+            expect(party.quest.progress.collect.branches)
+              .to.eql(questScrolls.evilsanta2.collect.branches.count);
           });
         });
 
