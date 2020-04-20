@@ -93,7 +93,7 @@ describe('shared.ops.feed', () => {
       user.items.pets['Wolf-Veggie'] = 5;
       user.items.food.Meat = 1;
       try {
-        feed(user, { params: { pet: 'Wolf-Vegie', food: 'Meat' } });
+        feed(user, { params: { pet: 'Wolf-Veggie', food: 'Meat' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageCannotFeedPet'));
