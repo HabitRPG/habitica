@@ -17,7 +17,6 @@ import {
 } from '../errors';
 import shared from '../../../common';
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
-import { calculateSubscriptionTerminationDate } from './util';
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
@@ -74,7 +73,6 @@ async function createSubscription (data) {
   let itemPurchased = 'Subscription';
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
-  let recipientIsSubscribed = recipient.isSubscribed();
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -95,7 +93,6 @@ async function createSubscription (data) {
     itemPurchased = 'Group-Subscription';
     purchaseType = 'group-subscribe';
     emailType = 'group-subscription-begins';
-    recipientIsSubscribed = group.hasActiveGroupPlan();
     groupId = group._id;
     recipient.purchased.plan.quantity = data.sub.quantity;
 
@@ -108,7 +105,7 @@ async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!recipientIsSubscribed || !plan.dateUpdated) plan.dateUpdated = today;
+      if (!recipient.isSubscribed() || !plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({ months }).toDate();
       } else {
@@ -310,11 +307,24 @@ async function cancelSubscription (data) {
     if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) sendEmail = false;
   }
 
+  const now = moment();
+  let defaultRemainingDays = 30;
+
   if (plan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
+    defaultRemainingDays = 2;
     sendEmail = false; // because group-member-cancel email has already been sent
   }
 
-  plan.dateTerminated = calculateSubscriptionTerminationDate(data.nextBill, plan, this.constants);
+  const remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days', true) : defaultRemainingDays;
+  if (plan.extraMonths < 0) plan.extraMonths = 0;
+  const extraDays = Math.ceil(30.5 * plan.extraMonths);
+  const nowStr = `${now.format('MM')}/${now.format('DD')}/${now.format('YYYY')}`;
+  const nowStrFormat = 'MM/DD/YYYY';
+
+  plan.dateTerminated = moment(nowStr, nowStrFormat)
+    .add({ days: remaining })
+    .add({ days: extraDays })
+    .toDate();
 
   // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
   plan.extraMonths = 0;

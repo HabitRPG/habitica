@@ -2402,29 +2402,29 @@ describe('Group Model', () => {
       });
     });
 
-    context('hasActiveGroupPlan', () => {
+    context('isSubscribed', () => {
       it('returns false if group does not have customer id', () => {
-        expect(party.hasActiveGroupPlan()).to.be.undefined;
+        expect(party.isSubscribed()).to.be.undefined;
       });
 
       it('returns true if group does not have plan.dateTerminated', () => {
         party.purchased.plan.customerId = 'test-id';
 
-        expect(party.hasActiveGroupPlan()).to.be.true;
+        expect(party.isSubscribed()).to.be.true;
       });
 
       it('returns true if group if plan.dateTerminated is after today', () => {
         party.purchased.plan.customerId = 'test-id';
         party.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
 
-        expect(party.hasActiveGroupPlan()).to.be.true;
+        expect(party.isSubscribed()).to.be.true;
       });
 
       it('returns false if group if plan.dateTerminated is before today', () => {
         party.purchased.plan.customerId = 'test-id';
         party.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
 
-        expect(party.hasActiveGroupPlan()).to.be.false;
+        expect(party.isSubscribed()).to.be.false;
       });
     });
 

@@ -858,6 +858,16 @@ api.leaveGroup = {
     _removeMessagesFromMember(user, group._id);
     await user.save();
 
+    if (group.type !== 'party') {
+      const guildIndex = user.guilds.indexOf(group._id);
+      if (guildIndex >= 0) user.guilds.splice(guildIndex, 1);
+    }
+
+    const isMemberOfGroupPlan = await user.isMemberOfGroupPlan();
+    if (!isMemberOfGroupPlan) {
+      await payments.cancelGroupSubscriptionForUser(user, group);
+    }
+
     if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     res.respond(200, {});
   },
@@ -1307,7 +1317,7 @@ api.getGroupPlans = {
       .select('leaderOnly leader purchased name managers')
       .exec();
 
-    const groupPlans = groups.filter(group => group.hasActiveGroupPlan());
+    const groupPlans = groups.filter(group => group.isSubscribed());
 
     res.respond(200, groupPlans);
   },

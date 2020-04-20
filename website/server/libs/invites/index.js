@@ -73,7 +73,7 @@ function inviteUserToGuild (userToInvite, group, inviter, publicGuild, res) {
     publicGuild,
   };
 
-  if (group.hasActiveGroupPlan() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
+  if (group.isSubscribed() && !group.hasNotCancelled()) guildInvite.cancelledPlan = true;
 
   userToInvite.invitations.guilds.push(guildInvite);
 }
@@ -94,7 +94,7 @@ async function inviteUserToParty (userToInvite, group, inviter, res) {
   }
 
   const partyInvite = { id: group._id, name: group.name, inviter: inviter._id };
-  if (group.hasActiveGroupPlan() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
+  if (group.isSubscribed() && !group.hasNotCancelled()) partyInvite.cancelledPlan = true;
 
   userToInvite.invitations.parties.push(partyInvite);
   userToInvite.invitations.party = partyInvite;
@@ -167,7 +167,7 @@ async function inviteByEmail (invite, group, inviter, req, res) {
     userReturnInfo = invite.email;
 
     let cancelledPlan = false;
-    if (group.hasActiveGroupPlan() && !group.hasNotCancelled()) cancelledPlan = true;
+    if (group.isSubscribed() && !group.hasNotCancelled()) cancelledPlan = true;
 
     const groupQueryString = JSON.stringify({
       id: group._id,
