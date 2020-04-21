@@ -1,10 +1,14 @@
 .svg-icon {
   display: block;
-  transition: none !important;
   fill: currentColor;
 
   svg {
     display: block;
+    transition: none;
+
+    path {
+      transition: none;
+    }
   }
 
   &.color {

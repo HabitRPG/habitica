@@ -29,7 +29,7 @@
             @click="cancel()"
           >{{ $t('cancel') }}</span>
           <div
-            class="btn-secondary btn-save-task d-flex align-items-center justify-content-center"
+            class="btn btn-secondary d-flex align-items-center justify-content-center"
             :class="{disabled: !canSave}"
             @click="submit()"
           >
@@ -169,46 +169,48 @@
           class="d-flex justify-content-center"
         >
           <div
-            class="habit-option-container d-flex flex-column
-              justify-content-center align-items-center"
+            class="habit-option-container no-transition
+              d-flex flex-column justify-content-center align-items-center"
             @click="toggleUpDirection()"
             :class="!task.up ? cssClass('habit-control-disabled') : ''"
           >
             <div
-              class="habit-option-button d-flex justify-content-center align-items-center m-b-s"
+              class="habit-option-button no-transition
+                d-flex justify-content-center align-items-center m-b-s"
               :class="task.up ? cssClass('bg') : ''"
             >
               <div
-                class="habit-option-icon svg-icon"
+                class="habit-option-icon svg-icon no-transition"
                 :class="task.up ? '' : 'disabled'"
                 v-html="icons.positive"
               ></div>
             </div>
             <div
-              class="habit-option-label"
+              class="habit-option-label no-transition"
               :class="task.up ? cssClass('icon') : 'disabled'"
             >
               {{ $t('positive') }}
             </div>
           </div>
           <div
-            class="habit-option-container d-flex flex-column
-              justify-content-center align-items-center"
+            class="habit-option-container no-transition
+              d-flex flex-column justify-content-center align-items-center"
             @click="toggleDownDirection()"
             :class="!task.down ? cssClass('habit-control-disabled') : ''"
           >
             <div
-              class="habit-option-button d-flex justify-content-center align-items-center m-b-s"
+              class="habit-option-button no-transition
+                d-flex justify-content-center align-items-center m-b-s"
               :class="task.down ? cssClass('bg') : ''"
             >
               <div
-                class="habit-option-icon svg-icon negative mx-auto"
+                class="habit-option-icon no-transition svg-icon negative mx-auto"
                 :class="task.down ? '' : 'disabled'"
                 v-html="icons.negative"
               ></div>
             </div>
             <div
-              class="habit-option-label"
+              class="habit-option-label no-transition"
               :class="task.down ? cssClass('icon') : 'disabled'"
             >
               {{ $t('negative') }}
@@ -216,14 +218,19 @@
           </div>
         </div>
         <template v-if="task.type !== 'reward'">
-          <label v-once>
-            <span class="float-left">{{ $t('difficulty') }}</span>
+          <div class="d-flex align-items-center m-b-m">
+            <label
+              v-once
+              class="mb-0 m-r-xs"
+            >
+              {{ $t('difficulty') }}
+            </label>
             <div
               v-b-tooltip.hover.righttop="$t('difficultyHelp')"
-              class="svg-icon info-icon"
+              class="svg-icon info-icon mb-auto"
               v-html="icons.information"
             ></div>
-          </label>
+          </div>
           <div class="d-flex justify-content-center difficulty-options">
             <div
               class="option-item"
@@ -752,7 +759,7 @@
     >
       <div
         v-if="purpose === 'create'"
-        class="btn-primary btn-save-task btn-footer
+        class="btn btn-primary btn-footer
           d-flex align-items-center justify-content-center mb-2"
         :class="{disabled: !canSave}"
         @click="submit()"
@@ -769,6 +776,10 @@
   #task-modal {
     .modal-dialog.modal-sm {
       max-width: 448px;
+    }
+
+    .no-transition {
+      transition: none;
     }
 
     .input-group > * {
@@ -822,8 +833,8 @@
       float: left;
       height: 16px;
       width: 16px;
-      margin-left: 8px;
       margin-top: 2px;
+      color: $gray-200;
     }
 
     .difficulty-trivial-icon {
@@ -1125,30 +1136,6 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-
-  .btn-save-task {
-    background-color: $white;
-    border-radius: 2px;
-    box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
-    color: $gray-50;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    width: 4rem;
-    height: 2rem;
-    padding: 0.25rem 1rem;
-
-    &.btn-footer {
-      background-color: $purple-200;
-      color: $white;
-    }
-
-    &.disabled {
-      box-shadow: none;
-      cursor: default;
-      opacity: 0.75;
-    }
-  }
 
   .gold {
     width: 24px;
