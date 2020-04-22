@@ -29,7 +29,7 @@
             :class="{
               'input-valid': invite.valid, 'is-invalid input-invalid': invite.valid === false}"
             @keyup="expandInviteList"
-            @change="checkInviteList"
+            @input="checkInviteList"
           >
         </div>
         <div
@@ -152,12 +152,9 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     cannotSubmit () {
-      const filteredInvites = filter(
-        this.invites,
-        invite => invite.text.length > 0 && !invite.valid,
-      );
-      if (filteredInvites.length > 0) return true;
-      return false;
+      const filledInvites = filter(this.invites, invite => invite.text.length);
+      const validInvites = filter(filledInvites, invite => invite.valid);
+      return !filledInvites.length || validInvites.length !== filledInvites.length;
     },
     inviter () {
       return this.user.profile.name;
@@ -185,7 +182,7 @@ export default {
         return this.$store.dispatch('user:userLookup', { username: searchUsername })
           .then(res => this.fillErrors(index, res));
       });
-    }, 250),
+    }, 500),
     expandInviteList () {
       if (this.invites[this.invites.length - 1].text.length > 0) {
         this.invites.push(clone(INVITE_DEFAULTS));
