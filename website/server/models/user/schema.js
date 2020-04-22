@@ -187,6 +187,10 @@ export default new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
+    items: {
+      $type: Schema.Types.Mixed,
+      default: () => ({}),
+    },
     txnCount: { $type: Number, default: 0 },
     mobileChat: Boolean,
     plan: {

@@ -100,6 +100,7 @@
     "client:build": "cd website/client && npm run build",
     "client:unit": "cd website/client && npm run test:unit",
     "start": "gulp nodemon",
+    "debug": "gulp nodemon --inspect",
     "postinstall": "gulp build && cd website/client && npm install",
     "apidoc": "gulp apidoc"
   },

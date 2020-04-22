@@ -1,7 +1,8 @@
-import { get, each, pick, every } from 'lodash';
+import {
+  get, each, pick, filter,
+} from 'lodash';
 import setWith from 'lodash/setWith';
 import i18n from '../i18n';
-import splitWhitespace from '../libs/splitWhitespace';
 import {
   NotAuthorized,
   BadRequest,
@@ -11,9 +12,17 @@ import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
 
-function setAsObject(target, key, value) {
+function setAsObject (target, key, value) {
   // Using Object so path[1] won't create an array but an object {path: {1: value}}
   setWith(target, key, value, Object);
+}
+
+/**
+ * Splits `items.gear.owned.headAccessory_wolfEars` into `items.gear.owned`
+ * and `headAccessory_wolfEars`
+ */
+function splitPathItem (path) {
+  return path.match(/(.+)\.([^.]+)/).splice(1);
 }
 
 // If item is already purchased -> equip it
@@ -43,7 +52,8 @@ export default function unlock (user, req = {}, analytics) {
   let alreadyOwns;
 
   if (isFullSet) {
-    if (every(setPaths, p => get(user, `purchased.${p}`))) {
+    const alreadyOwnedItems = filter(setPaths, p => get(user, `purchased.${p}`)).length;
+    if (alreadyOwnedItems === setPaths.length) {
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
     // TODO write math formula to check if buying
     // the full set is cheaper than the items individually
@@ -69,26 +79,22 @@ export default function unlock (user, req = {}, analytics) {
         setAsObject(user, pathPart, true);
         const itemName = pathPart.split('.').pop();
         removeItemByPath(user, `gear.flat.${itemName}`);
-        if (user.markModified && path.includes('gear.owned')) user.markModified('items.gear.owned');
+        if (path.includes('gear.owned')) user.markModified('items.gear.owned');
       }
 
       setAsObject(user, `purchased.${pathPart}`, true);
+      user.markModified('purchased');
     });
   } else {
-    const split = path.split('.');
-    let value = split.pop();
-    const key = split.join('.');
+    const [key, value] = splitPathItem(path);
 
-    if (alreadyOwns) { // eslint-disable-line no-lonely-if
-      if (key === 'background' && value === user.preferences.background) {
-        value = '';
-      }
-
-      setAsObject(user, `preferences.${key}`, value);
+    if (alreadyOwns) {
+      const unsetBackground = isBackground && value === user.preferences.background;
+      setAsObject(user, `preferences.${key}`, unsetBackground ? '' : value);
     } else {
       if (path.includes('gear.')) {
         setAsObject(user, path, true);
-        if (user.markModified && path.includes('gear.owned')) user.markModified('items.gear.owned');
+        if (path.includes('gear.owned')) user.markModified('items.gear.owned');
       }
       setAsObject(user, `purchased.${path}`, true);
 
@@ -103,7 +109,7 @@ export default function unlock (user, req = {}, analytics) {
 
   if (!alreadyOwns) {
     if (path.includes('gear.')) {
-      if (user.markModified) user.markModified('purchased');
+      user.markModified('purchased');
     }
 
     user.balance -= cost;
@@ -122,7 +128,7 @@ export default function unlock (user, req = {}, analytics) {
   }
 
   const response = [
-    pick(user, splitWhitespace('purchased preferences items')),
+    pick(user, ['purchased', 'preferences', 'items']),
   ];
 
   if (!alreadyOwns) response.push(i18n.t('unlocked', req.language));
