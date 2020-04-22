@@ -1,6 +1,6 @@
 import { model as User } from '../models/user'; // eslint-disable-line import/no-cycle
 import { getUserInfo } from './email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from './pushNotifications';
+import { sendNotification as sendPushNotification } from './pushNotifications'; // eslint-disable-line import/no-cycle
 
 export async function getAuthorEmailFromMessage (message) {
   const authorId = message.uuid;
@@ -30,6 +30,9 @@ export async function sendChatPushNotifications (user, group, message, mentions,
       if (mentions && mentions.includes(`@${member.auth.local.username}`) && member.preferences.pushNotifications.mentionParty !== false) {
         return;
       }
+
+      if (!message.unformattedText) return;
+
       sendPushNotification(
         member,
         {

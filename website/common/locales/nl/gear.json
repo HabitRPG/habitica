@@ -1871,5 +1871,7 @@
     "armorSpecialFall2019WarriorText": "Vleugels van de Nacht",
     "armorSpecialFall2019RogueNotes": "Deze outfit wordt compleet geleverd met witte handschoenen en is ideaal om te broeden in je privébox boven het podium of om verrassende ingangen via grote trappen te maken. Verhoogt de perceptie met <%= per%>. Beperkte Editie 2019 herfstuitrusting.",
     "armorSpecialFall2019RogueText": "Gekaapte Opera Jas",
-    "armorSpecialBirthday2020Notes": "Fijne verjaardag, Habitica! Draag deze Schandelijke Feest Jurk om deze prachtige dag te vieren. Geeft geen voordeel."
+    "armorSpecialBirthday2020Notes": "Fijne verjaardag, Habitica! Draag deze Schandelijke Feest Jurk om deze prachtige dag te vieren. Geeft geen voordeel.",
+    "armorSpecialWinter2020RogueNotes": "Ondanks dat je vast en zeker stormen kan trotseren met de innerlijke warme van je motivatie en toewijding, kan het geen kwaad om je op het weer te kleden. Verhoogt Perceptie met <%= per %>. Limited Edition 2019-2020 Winteruitrusting.",
+    "armorSpecialWinter2020RogueText": "Pluizige Parka"
 }

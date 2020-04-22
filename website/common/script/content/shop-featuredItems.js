@@ -23,6 +23,10 @@ const featuredItems = {
           type: 'premiumHatchingPotion',
           path: 'premiumHatchingPotions.Celestial',
         },
+        {
+          type: 'premiumHatchingPotion',
+          path: 'hatchingPotions.Veggie',
+        },
       ];
     }
     return [
@@ -45,34 +49,34 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2020-04-02')) {
+    if (moment().isBefore('2020-05-02')) {
       return [
         {
-          type: 'bundles',
-          path: 'bundles.hugabug',
+          type: 'quests',
+          path: 'quests.waffle',
         },
         {
           type: 'quests',
-          path: 'quests.velociraptor',
+          path: 'quests.trex_undead',
         },
         {
           type: 'quests',
-          path: 'quests.taskwoodsTerror1',
+          path: 'quests.bunny',
         },
       ];
     }
     return [
       {
         type: 'quests',
-        path: 'quests.badger',
+        path: 'quests.sheep',
       },
       {
         type: 'quests',
-        path: 'quests.ferret',
+        path: 'quests.seaserpent',
       },
       {
         type: 'quests',
-        path: 'quests.sloth',
+        path: 'quests.silver',
       },
     ];
   },

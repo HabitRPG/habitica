@@ -51,6 +51,7 @@ describe('POST /user/auth/social', () => {
 
       await expect(getProperty('users', response.id, 'profile.name')).to.eventually.equal('a facebook user');
       await expect(getProperty('users', response.id, 'auth.local.lowerCaseUsername')).to.exist;
+      await expect(getProperty('users', response.id, 'auth.facebook.id')).to.eventually.equal(facebookId);
     });
 
     it('logs an existing user in', async () => {
@@ -106,6 +107,7 @@ describe('POST /user/auth/social', () => {
       expect(response.apiToken).to.exist;
       expect(response.id).to.exist;
       expect(response.newUser).to.be.true;
+      await expect(getProperty('users', response.id, 'auth.google.id')).to.eventually.equal(googleId);
       await expect(getProperty('users', response.id, 'profile.name')).to.eventually.equal('a google user');
     });
 

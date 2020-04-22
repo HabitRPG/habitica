@@ -1,20 +1,22 @@
 <template>
-  <perfect-scrollbar
+  <div
     ref="container"
     class="container-fluid"
-    :class="{'disable-perfect-scroll': disablePerfectScroll}"
-    :options="psOptions"
   >
     <div class="row loadmore">
       <div v-if="canLoadMore && !isLoading">
+        <div class="loadmore-divider-holder">
         <div class="loadmore-divider"></div>
+        </div>
         <button
           class="btn btn-secondary"
           @click="triggerLoad()"
         >
           {{ $t('loadEarlierMessages') }}
         </button>
+      <div class="loadmore-divider-holder">
         <div class="loadmore-divider"></div>
+      </div>
       </div>
       <h2
         v-show="isLoading"
@@ -30,11 +32,10 @@
       :class="{ 'margin-right': user._id !== msg.uuid}"
     >
       <div
-        v-if="user._id !== msg.uuid"
         class="d-flex flex-grow-1"
       >
         <avatar
-          v-if="conversationOpponentUser"
+          v-if="user._id !== msg.uuid && conversationOpponentUser"
           class="avatar-left"
           :member="conversationOpponentUser"
           :avatar-only="true"
@@ -42,20 +43,10 @@
           :hide-class-badge="true"
           @click.native="showMemberModal(msg.uuid)"
         />
-        <div class="card card-right">
-          <message-card
-            :msg="msg"
-            @message-removed="messageRemoved"
-            @show-member-modal="showMemberModal"
-            @message-card-mounted="itemWasMounted"
-          />
-        </div>
-      </div>
-      <div
-        v-if="user._id === msg.uuid"
-        class="d-flex flex-grow-1"
-      >
-        <div class="card card-left">
+        <div
+          class="card"
+          :class="{'card-right': user._id !== msg.uuid, 'card-left': user._id === msg.uuid}"
+        >
           <message-card
             :msg="msg"
             @message-removed="messageRemoved"
@@ -64,7 +55,7 @@
           />
         </div>
         <avatar
-          v-if="user"
+          v-if="user && user._id === msg.uuid"
           class="avatar-right"
           :member="user"
           :avatar-only="true"
@@ -74,16 +65,11 @@
         />
       </div>
     </div>
-  </perfect-scrollbar>
+  </div>
 </template>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-  @import '~vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css';
-
-  .disable-perfect-scroll {
-    overflow-y: inherit !important;
-  }
 
   .avatar {
     width: 170px;
@@ -162,6 +148,8 @@
   .loadmore {
     justify-content: center;
     margin-right: 12px;
+    margin-top: 12px;
+    margin-bottom: 24px;
 
     > div {
       display: flex;
@@ -171,15 +159,11 @@
       button {
         text-align: center;
         color: $gray-50;
-        margin-top: 12px;
-        margin-bottom: 24px;
       }
     }
   }
 
-  .loadmore-divider {
-    height: 1px;
-    background-color: $gray-500;
+  .loadmore-divider-holder {
     flex: 1;
     margin-left: 24px;
     margin-right: 24px;
@@ -187,6 +171,13 @@
     &:last-of-type {
       margin-right: 0;
     }
+  }
+
+  .loadmore-divider {
+    height: 1px;
+    border-top: 1px $gray-500 solid;
+    width: 100%;
+
   }
 
   .loading {
@@ -200,7 +191,6 @@
 <script>
 import moment from 'moment';
 import debounce from 'lodash/debounce';
-import { PerfectScrollbar } from 'vue2-perfect-scrollbar';
 import { mapState } from '@/libs/store';
 
 import Avatar from '../avatar';
@@ -210,7 +200,6 @@ export default {
   components: {
     Avatar,
     messageCard,
-    PerfectScrollbar,
   },
   props: {
     chat: {},
@@ -248,15 +237,10 @@ export default {
     messages () {
       return this.chat;
     },
-    psOptions () {
-      return {
-        suppressScrollX: true,
-      };
-    },
   },
   methods: {
     async triggerLoad () {
-      const container = this.$refs.container.$el;
+      const { container } = this.$refs;
 
       // get current offset
       this.lastOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
@@ -274,8 +258,9 @@ export default {
       }
     },
     displayDivider (message) {
-      if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
-        this.currentDayDividerDisplay = moment(message.timestamp).day();
+      const day = moment(message.timestamp).day();
+      if (this.currentDayDividerDisplay !== day) {
+        this.currentDayDividerDisplay = day;
         return true;
       }
 
@@ -288,7 +273,7 @@ export default {
       if (this.handleScrollBack) {
         this.handleScrollBack = false;
 
-        const container = this.$refs.container.$el;
+        const { container } = this.$refs;
         const offset = container.scrollHeight - container.clientHeight;
 
         const newOffset = offset + this.lastOffset;

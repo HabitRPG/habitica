@@ -1,6 +1,6 @@
 import nconf from 'nconf';
 import { langCodes } from '../../libs/i18n';
-import { CONTENT_CACHE_PATH, getLocalizedContent } from '../../libs/content';
+import { CONTENT_CACHE_PATH, getLocalizedContentResponse } from '../../libs/content';
 
 const IS_PROD = nconf.get('IS_PROD');
 
@@ -72,7 +72,7 @@ api.getContent = {
         'Content-Type': 'application/json',
       });
 
-      const jsonResString = getLocalizedContent(language);
+      const jsonResString = getLocalizedContentResponse(language);
       res.status(200).send(jsonResString);
     }
   },

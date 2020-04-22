@@ -44,7 +44,7 @@
     "hatchingPotion": "Schlüpfelixier",
     "noHatchingPotions": "Du hast im Moment keine Schlüpfelixiere.",
     "inventoryText": "Klicke auf ein Ei um die anwendbaren Elixiere grün hervorgehoben zu sehen. Klicke dann auf ein hervorgehobenes Elixier, um Dein Haustier auszubrüten. Falls kein Elixier hervorgehoben wird, klicke auf das Ei um es abzuwählen und klicke diesmal zuerst auf das Elixier, um die Eier hervorzuheben. Du kannst überflüssige Gegenstände auch an Alexander den Händler verkaufen.",
-    "haveHatchablePet": "Du hast ein <%= potion %> Schlüpfelixier und ein <%= egg %>-Ei, um dieses Haustier auszubrüten! <b>Klicke</b> auf den Pfotenabdruck, damit es schlüpft.",
+    "haveHatchablePet": "Du hast ein <%= potion %> Schlüpfelixier und ein <%= egg %>-Ei, um dieses Haustier auszubrüten! <b>Klicke</b>, damit es schlüpft.",
     "quickInventory": "Schnell-Inventar",
     "foodText": "Futter",
     "food": "Futter und magische Sättel",

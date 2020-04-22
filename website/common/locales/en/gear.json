@@ -486,6 +486,8 @@
   "weaponArmoireLivelyMatchNotes": "When you're holding this, you're sure to spark someone's interest! Increases Strength by <%= str %>. Enchanted Armoire: Match Maker Set (Item 3 of 4).",
   "weaponArmoireBaseballBatText": "Baseball Bat",
   "weaponArmoireBaseballBatNotes": "Get a home run on those good habits! Increases Constitution by <%= con %>. Enchanted Armoire: Baseball Set (Item 3 of 4).",
+  "weaponArmoirePaperCutterText": "Paper Cutter",
+  "weaponArmoirePaperCutterNotes": "This may not look fearsome, but have you never had a papercut? Increases Strength by <%= str %>. Enchanted Armoire: Paper Knight Set (Item 1 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1046,6 +1048,8 @@
   "armorArmoireMatchMakersApronNotes": "This apron is for safety, but for humor's sake we can make light of it. Increases Constitution, Strength, and Intelligence by <%= attrs %> each. Enchanted Armoire: Match Maker Set (Item 1 of 4).",
   "armorArmoireBaseballUniformText": "Baseball Uniform",
   "armorArmoireBaseballUniformNotes": "Pinstripes never go out of style. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Baseball Set (Item 2 of 4).",
+  "armorArmoireBoxArmorText": "Box Armor",
+  "armorArmoireBoxArmorNotes": "Box Armor: It fits, therefore you sits... uh, therefore you wear it into battle, like the bold knight you are! Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Paper Knight Set (Item 3 of 3). ",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1937,6 +1941,8 @@
   "shieldArmoirePerfectMatchNotes": "Hot take: we think you look great. Increases Perception by <%= per %>. Enchanted Armoire: Match Maker Set (Item 4 of 4).",
   "shieldArmoireBaseballGloveText": "Baseball Glove",
   "shieldArmoireBaseballGloveNotes": "Perfect for the big tournament, or a friendly game of catch between tasks. Increases Strength by <%= str %>. Enchanted Armoire: Baseball Set (Item 4 of 4).",
+  "shieldArmoireHobbyHorseText": "Hobby Horse",
+  "shieldArmoireHobbyHorseNotes": "Ride your handsome hobby-horse steed toward your just Rewards! Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Paper Knight Set (Item 2 of 3).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
@@ -1984,6 +1990,8 @@
   "backMystery201912Notes": "Glide silently across sparkling snowfields and shimmering mountains with these icy wings. Confers no benefit. December 2019 Subscriber Item.",
   "backMystery202001Text": "Five Tails of Fable",
   "backMystery202001Notes": "These fluffy tails contain celestial power, and also a high level of cuteness! Confers no benefit. January 2020 Subscriber Item.",
+  "backMystery202004Text": "Mighty Monarch Wings",
+  "backMystery202004Notes": "Make a quick flutter to the nearest flowery meadow or migrate across the continent with these beautiful wings! Confers no benefit. April 2020 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
@@ -2162,6 +2170,8 @@
   "headAccessoryMystery201906Notes": "Legend has it these finny ears help merfolk hear the calls and songs of all the denizens of the deep! Confers no benefit. June 2019 Subscriber Item.",
   "headAccessoryMystery201908Text": "Footloose Faun Horns",
   "headAccessoryMystery201908Notes": "If wearing horns floats your goat, you're in luck! Confers no benefit. August 2019 Subscriber Item.",
+  "headAccessoryMystery202004Text": "Mighty Monarch Antennae",
+  "headAccessoryMystery202004Notes": "They twitch just a bit if the scent of flowers drifts by--use them to find a pretty garden! Confers no benefit. April 2020 Subscriber Item.",
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 

@@ -18,7 +18,7 @@
       </div>
       <div class="form-group">
         <label>
-          <strong v-once>{{ $t('privacySettings') }} *</strong>
+          <strong v-once>{{ $t('privacySettings') }}</strong>
         </label>
         <br>
         <div class="custom-control custom-checkbox">
@@ -115,7 +115,8 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
       </div>
       <div class="form-group">
         <label>
-          <strong v-once>{{ $t('groupDescription') }} *</strong>
+          <strong v-if="isParty">{{ $t('groupDescription') }}</strong>
+          <strong v-else>{{ $t('groupDescription') }} *</strong>
         </label>
         <a
           v-markdown="$t('markdownFormattingHelp')"
@@ -254,7 +255,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
         <button
           v-if="workingGroup.id"
           class="btn btn-primary btn-md"
-          :disabled="!workingGroup.name || !workingGroup.description"
+          :disabled="!workingGroup.name || (!isParty && !workingGroup.description)"
         >
           {{ isParty ? $t('updateParty') : $t('updateGuild') }}
         </button>
@@ -540,7 +541,7 @@ export default {
       if (!this.workingGroup.name) errors.push(this.$t('nameRequired'));
       if (!this.workingGroup.summary) errors.push(this.$t('summaryRequired'));
       if (this.workingGroup.summary.length > MAX_SUMMARY_SIZE_FOR_GUILDS) errors.push(this.$t('summaryTooLong'));
-      if (!this.workingGroup.description) errors.push(this.$t('descriptionRequired'));
+      if (!this.isParty && !this.workingGroup.description) errors.push(this.$t('descriptionRequired'));
       if (!this.isParty && (!this.workingGroup.categories || this.workingGroup.categories.length === 0)) errors.push(this.$t('categoiresRequired'));
 
       if (errors.length > 0) {
