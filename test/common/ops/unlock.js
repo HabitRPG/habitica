@@ -8,7 +8,7 @@ import {
   BadRequest,
 } from '../../../website/common/script/libs/errors';
 
-describe('shared.ops.unlock', () => {
+describe.only('shared.ops.unlock', () => {
   let user;
   const unlockPath = 'shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie';
   const unlockGearSetPath = 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars';
@@ -55,14 +55,13 @@ describe('shared.ops.unlock', () => {
     }
   });
 
-  // disabled until fully implemented
-  xit('returns an error when user already owns items in a full set', done => {
+  it('returns an error when user already owns items in a full set', done => {
     try {
-      unlock(user, { query: { path: unlockPath } });
+      unlock(user, { query: { path: unlockPath.split(',').splice(2).join(',') } });
       unlock(user, { query: { path: unlockPath } });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
-      expect(err.message).to.equal(i18n.t('alreadyUnlocked'));
+      expect(err.message).to.equal(i18n.t('alreadyUnlockedPart'));
       done();
     }
   });

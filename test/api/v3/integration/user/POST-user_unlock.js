@@ -39,7 +39,7 @@ describe('POST /user/unlock', () => {
     await user.update({
       balance: usersStartingGems,
     });
-    let response = await user.post(`/user/unlock?path=${unlockPath}`);
+    const response = await user.post(`/user/unlock?path=${unlockPath}`);
     await user.sync();
 
     expect(response.message).to.equal(t('unlocked'));

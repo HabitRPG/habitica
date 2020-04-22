@@ -1,6 +1,4 @@
-import {
-  get, each, pick, filter,
-} from 'lodash';
+import get from 'lodash/get';
 import setWith from 'lodash/setWith';
 import i18n from '../i18n';
 import {
@@ -23,6 +21,33 @@ function setAsObject (target, key, value) {
  */
 function splitPathItem (path) {
   return path.match(/(.+)\.([^.]+)/).splice(1);
+}
+
+/**
+ * `markModified` does not exist on frontend users
+ */
+function markModified (user, path) {
+  if (user.markModified) user.markModified(path);
+}
+
+function purchaseItem (path, user) {
+  if (path.includes('gear.')) {
+    setAsObject(user, path, true);
+    const itemName = splitPathItem(path)[1];
+    removeItemByPath(user, `gear.flat.${itemName}`);
+    if (path.includes('gear.owned')) markModified(user, 'items.gear.owned');
+  }
+
+  setAsObject(user, `purchased.${path}`, true);
+  markModified(user, 'purchased');
+}
+
+function buildResponse ({ purchased, preference, items }, alreadyOwns, language) {
+  const response = [
+    { purchased, preference, items },
+  ];
+  if (!alreadyOwns) response.push(i18n.t('unlocked', language));
+  return response;
 }
 
 // If item is already purchased -> equip it
@@ -52,15 +77,13 @@ export default function unlock (user, req = {}, analytics) {
   let alreadyOwns;
 
   if (isFullSet) {
-    const alreadyOwnedItems = filter(setPaths, p => get(user, `purchased.${p}`)).length;
-    if (alreadyOwnedItems === setPaths.length) {
+    const alreadyOwnedItems = setPaths.filter(p => get(user, `purchased.${p}`)).length;
+    const totalItems = setPaths.length;
+    if (alreadyOwnedItems === totalItems) {
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
-    // TODO write math formula to check if buying
-    // the full set is cheaper than the items individually
-    // (item cost * number of remaining items) < setCost`
-    } /* else if (alreadyOwnedItems > 0) {
+    } else if ((totalItems - alreadyOwnedItems) < 3) {
       throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
-    } */
+    }
   } else {
     alreadyOwns = get(user, `purchased.${path}`) === true;
   }
@@ -74,17 +97,7 @@ export default function unlock (user, req = {}, analytics) {
   }
 
   if (isFullSet) {
-    each(setPaths, pathPart => {
-      if (path.includes('gear.')) {
-        setAsObject(user, pathPart, true);
-        const itemName = pathPart.split('.').pop();
-        removeItemByPath(user, `gear.flat.${itemName}`);
-        if (path.includes('gear.owned')) user.markModified('items.gear.owned');
-      }
-
-      setAsObject(user, `purchased.${pathPart}`, true);
-      user.markModified('purchased');
-    });
+    setPaths.forEach(pathPart => purchaseItem(pathPart, user));
   } else {
     const [key, value] = splitPathItem(path);
 
@@ -92,11 +105,7 @@ export default function unlock (user, req = {}, analytics) {
       const unsetBackground = isBackground && value === user.preferences.background;
       setAsObject(user, `preferences.${key}`, unsetBackground ? '' : value);
     } else {
-      if (path.includes('gear.')) {
-        setAsObject(user, path, true);
-        if (path.includes('gear.owned')) user.markModified('items.gear.owned');
-      }
-      setAsObject(user, `purchased.${path}`, true);
+      purchaseItem(path, user);
 
       // @TODO: Test and check test coverage
       if (isBackground) {
@@ -108,10 +117,6 @@ export default function unlock (user, req = {}, analytics) {
   }
 
   if (!alreadyOwns) {
-    if (path.includes('gear.')) {
-      user.markModified('purchased');
-    }
-
     user.balance -= cost;
 
     if (analytics) {
@@ -127,11 +132,5 @@ export default function unlock (user, req = {}, analytics) {
     }
   }
 
-  const response = [
-    pick(user, ['purchased', 'preferences', 'items']),
-  ];
-
-  if (!alreadyOwns) response.push(i18n.t('unlocked', req.language));
-
-  return response;
+  return buildResponse(user, alreadyOwns, req.language);
 }
