@@ -106,7 +106,7 @@
     "habiticaDaySingularText": "欢庆Habitica的命名日！衷心感谢您成为一位了不起的玩家。",
     "habiticaDayPluralText": "庆祝第 <%= count %> 次命名日！谢谢你始终陪伴我们。",
     "achievementDilatory": "拖延症的救星",
-    "achievementDilatoryText": "2014年夏季泼水节事件中协助打败了恐怖的拖延巨龙！",
+    "achievementDilatoryText": "2014年夏季嬉水节事件中协助打败了恐怖的拖延巨龙！",
     "costumeContest": "装扮比赛",
     "costumeContestText": "已参加了Habitica万圣节活动的装扮比赛。在blog.habitrpg.com查看一些了不起的作品吧！",
     "costumeContestTextPlural": "已参加了Habitica万圣节活动的装扮比赛<%= count %>次。在blog.habitrpg.com查看一些了不起的作品吧！",
