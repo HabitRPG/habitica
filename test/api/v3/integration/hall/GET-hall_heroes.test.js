@@ -3,13 +3,16 @@ import {
   resetHabiticaDB,
 } from '../../../../helpers/api-integration/v3';
 
-describe('GET /hall/heroes', () => {
+describe.only('GET /hall/heroes', () => {
   it('returns all heroes sorted by -contributor.level and with correct fields', async () => {
     await resetHabiticaDB();
 
     const nonHero = await generateUser();
     const hero1 = await generateUser({
       contributor: { level: 1 },
+      secret: {
+        text: 'Super-Hero',
+      },
     });
     const hero2 = await generateUser({
       contributor: { level: 3 },
@@ -21,6 +24,8 @@ describe('GET /hall/heroes', () => {
     expect(heroes[1]._id).to.equal(hero1._id);
 
     expect(heroes[0]).to.have.all.keys(['_id', 'contributor', 'backer', 'profile']);
+
+    // should not contain the secret
     expect(heroes[1]).to.have.all.keys(['_id', 'contributor', 'backer', 'profile']);
 
     expect(heroes[0].profile).to.have.all.keys(['name']);
@@ -28,5 +33,6 @@ describe('GET /hall/heroes', () => {
 
     expect(heroes[0].profile.name).to.equal(hero2.profile.name);
     expect(heroes[1].profile.name).to.equal(hero1.profile.name);
+    expect(heroes[1].secret).to.equal(undefined);
   });
 });

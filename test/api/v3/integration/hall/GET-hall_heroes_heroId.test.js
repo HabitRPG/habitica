@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe('GET /heroes/:heroId', () => {
+describe.only('GET /heroes/:heroId', () => {
   let user;
 
   before(async () => {
@@ -40,18 +40,22 @@ describe('GET /heroes/:heroId', () => {
     });
   });
 
-  it('returns only necessary hero data given user id', async () => {
+  it.only('returns only necessary hero data given user id', async () => {
     const hero = await generateUser({
       contributor: { tier: 23 },
+      secret: {
+        text: 'Super Hero',
+      },
     });
     const heroRes = await user.get(`/hall/heroes/${hero._id}`);
 
     expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items',
+      'contributor', 'auth', 'items', 'secret',
     ]);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
+    expect(heroRes.secret.text).to.be.eq('Super Hero');
   });
 
   it('returns only necessary hero data given username', async () => {

@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe('PUT /heroes/:heroId', () => {
+describe.only('PUT /heroes/:heroId', () => {
   let user;
 
   before(async () => {
@@ -172,6 +172,45 @@ describe('PUT /heroes/:heroId', () => {
     expect(hero.contributor.level).to.equal(5); // doesn't modify previous values
     expect(hero.contributor.text).to.equal('Astronaut');
   });
+
+
+  it.only('updates contributor secret', async () => {
+    const secretText = 'my super hero';
+
+    const hero = await generateUser({
+      contributor: { level: 5 },
+      secret: {
+        text: 'supr hro typo',
+      },
+    });
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      contributor: { text: 'Astronaut' },
+      secret: {
+        text: secretText,
+      },
+    });
+
+    // test response
+    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
+      '_id', 'balance', 'profile', 'purchased',
+      'contributor', 'auth', 'items', 'flags',
+      'secret',
+    ]);
+    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
+    expect(heroRes.profile).to.have.all.keys(['name']);
+
+    // test response values
+    expect(heroRes.contributor.level).to.equal(5); // doesn't modify previous values
+    expect(heroRes.contributor.text).to.equal('Astronaut');
+    expect(heroRes.secret.text).to.equal(secretText);
+
+    // test hero values
+    await hero.sync();
+    expect(hero.contributor.level).to.equal(5); // doesn't modify previous values
+    expect(hero.contributor.text).to.equal('Astronaut');
+    expect(hero.secret.text).to.equal(secretText);
+  });
+
 
   it('updates items', async () => {
     const hero = await generateUser();

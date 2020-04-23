@@ -145,7 +145,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'contributor balance profile.name purchased items auth flags.chatRevoked flags.chatShadowMuted';
+const heroAdminFields = 'contributor balance profile.name purchased items auth flags.chatRevoked flags.chatShadowMuted secret';
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID or Username
@@ -301,6 +301,12 @@ api.updateHero = {
     }
     if (updateData.flags && _.isBoolean(updateData.flags.chatShadowMuted)) {
       hero.flags.chatShadowMuted = updateData.flags.chatShadowMuted;
+    }
+
+    if (updateData.secret) {
+      if (typeof updateData.secret.text !== 'undefined') {
+        hero.secret.text = updateData.secret.text;
+      }
     }
 
     const savedHero = await hero.save();
