@@ -1,14 +1,28 @@
 import get from 'lodash/get';
 import setWith from 'lodash/setWith';
 import i18n from '../i18n';
-import {
-  NotAuthorized,
-  BadRequest,
-} from '../libs/errors';
+import { NotAuthorized, BadRequest } from '../libs/errors';
 
 import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
+
+const incentiveBackgrounds = ['blue', 'green', 'red', 'purple', 'yellow'];
+
+function determineCost (isBackground, isFullSet) {
+  if (isBackground) {
+    return isFullSet ? 3.75 : 1.75;
+  }
+  return isFullSet ? 1.25 : 0.5;
+}
+
+function isGear (path) {
+  return path.includes('gear.');
+}
+
+function alreadyOwns (user, path) {
+  return get(user, isGear(path) ? path : `purchased.${path}`);
+}
 
 function setAsObject (target, key, value) {
   // Using Object so path[1] won't create an array but an object {path: {1: value}}
@@ -31,22 +45,22 @@ function markModified (user, path) {
 }
 
 function purchaseItem (path, user) {
-  if (path.includes('gear.')) {
+  if (isGear(path)) {
     setAsObject(user, path, true);
     const itemName = splitPathItem(path)[1];
     removeItemByPath(user, `gear.flat.${itemName}`);
     if (path.includes('gear.owned')) markModified(user, 'items.gear.owned');
+  } else {
+    setAsObject(user, `purchased.${path}`, true);
+    markModified(user, 'purchased');
   }
-
-  setAsObject(user, `purchased.${path}`, true);
-  markModified(user, 'purchased');
 }
 
-function buildResponse ({ purchased, preference, items }, alreadyOwns, language) {
+function buildResponse ({ purchased, preference, items }, ownsAlready, language) {
   const response = [
     { purchased, preference, items },
   ];
-  if (!alreadyOwns) response.push(i18n.t('unlocked', language));
+  if (!ownsAlready) response.push(i18n.t('unlocked', language));
   return response;
 }
 
@@ -61,38 +75,30 @@ export default function unlock (user, req = {}, analytics) {
 
   const isFullSet = path.includes(',');
   const isBackground = path.includes('background.');
-
-  let cost;
-  if (isBackground && isFullSet) {
-    cost = 3.75;
-  } else if (isBackground) {
-    cost = 1.75;
-  } else if (isFullSet) {
-    cost = 1.25;
-  } else {
-    cost = 0.5;
-  }
+  const cost = determineCost(isBackground, isFullSet);
 
   const setPaths = path.split(',');
-  let alreadyOwns;
+  let ownsAlready;
 
   if (isFullSet) {
-    const alreadyOwnedItems = setPaths.filter(p => get(user, `purchased.${p}`)).length;
+    const alreadyOwnedItems = setPaths.filter(p => alreadyOwns(user, p)).length;
     const totalItems = setPaths.length;
     if (alreadyOwnedItems === totalItems) {
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
-    } else if ((totalItems - alreadyOwnedItems) < 3) {
-      throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
+    // TODO Different pull request
+    // } else if ((totalItems - alreadyOwnedItems) < 3) {
+    //   throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
     }
   } else {
-    alreadyOwns = get(user, `purchased.${path}`) === true;
+    ownsAlready = alreadyOwns(user, path);
   }
 
-  if (isBackground && !alreadyOwns && (path.indexOf('.blue') !== -1 || path.indexOf('.green') !== -1 || path.indexOf('.red') !== -1 || path.indexOf('.purple') !== -1 || path.indexOf('.yellow') !== -1)) {
+  if (isBackground && !ownsAlready
+      && incentiveBackgrounds.some(background => path.includes(`.${background}`))) {
     throw new BadRequest(i18n.t('incentiveBackgroundsUnlockedWithCheckins'));
   }
 
-  if ((!user.balance || user.balance < cost) && !alreadyOwns) {
+  if ((!user.balance || user.balance < cost) && !ownsAlready) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
@@ -101,7 +107,7 @@ export default function unlock (user, req = {}, analytics) {
   } else {
     const [key, value] = splitPathItem(path);
 
-    if (alreadyOwns) {
+    if (ownsAlready) {
       const unsetBackground = isBackground && value === user.preferences.background;
       setAsObject(user, `preferences.${key}`, unsetBackground ? '' : value);
     } else {
@@ -116,7 +122,7 @@ export default function unlock (user, req = {}, analytics) {
     }
   }
 
-  if (!alreadyOwns) {
+  if (!ownsAlready) {
     user.balance -= cost;
 
     if (analytics) {
@@ -132,5 +138,5 @@ export default function unlock (user, req = {}, analytics) {
     }
   }
 
-  return buildResponse(user, alreadyOwns, req.language);
+  return buildResponse(user, ownsAlready, req.language);
 }

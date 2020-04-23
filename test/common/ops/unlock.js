@@ -55,7 +55,7 @@ describe('shared.ops.unlock', () => {
     }
   });
 
-  it('returns an error when user already owns items in a full set', done => {
+  xit('returns an error when user already owns items in a full set', done => {
     try {
       unlock(user, { query: { path: unlockPath.split(',').splice(2).join(',') } });
       unlock(user, { query: { path: unlockPath } });
