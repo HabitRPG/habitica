@@ -3,6 +3,7 @@ import expressValidator from 'express-validator';
 import path from 'path';
 import analytics from './analytics';
 import setupBody from './setupBody';
+import setupExpress from '../libs/setupExpress';
 import * as routes from '../libs/routes';
 
 const API_V3_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/api-v3/');
@@ -12,8 +13,7 @@ const TOP_LEVEL_CONTROLLERS_PATH = path.join(__dirname, '/../controllers/top-lev
 const app = express();
 
 // re-set the view options because they are not inherited from the top level app
-app.set('view engine', 'pug');
-app.set('views', `${__dirname}/../../views`);
+setupExpress(app);
 
 app.use(expressValidator());
 app.use(analytics);

@@ -4,6 +4,8 @@ import url from 'url';
 const IS_PROD = nconf.get('IS_PROD');
 const IGNORE_REDIRECT = nconf.get('IGNORE_REDIRECT') === 'true';
 const BASE_URL = nconf.get('BASE_URL');
+const HTTPS_BASE_URL = BASE_URL.indexOf('https') === 0;
+
 // A secret key that if passed as req.query.skipSSLCheck allows to skip
 // the redirects to SSL, used for health checks from the load balancer
 const SKIP_SSL_CHECK_KEY = nconf.get('SKIP_SSL_CHECK_KEY');
@@ -12,10 +14,9 @@ const BASE_URL_HOST = url.parse(BASE_URL).hostname;
 
 function isHTTP (req) {
   return ( // eslint-disable-line no-extra-parens
-    req.header('x-forwarded-proto')
-    && req.header('x-forwarded-proto') === 'http'
+    req.protocol === 'http'
     && IS_PROD
-    && BASE_URL.indexOf('https') === 0
+    && HTTPS_BASE_URL === true
   );
 }
 
