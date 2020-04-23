@@ -6,7 +6,7 @@ import {
   generateNext,
 } from '../../../helpers/api-unit.helper';
 
-describe.only('redirects middleware', () => {
+describe('redirects middleware', () => {
   let res; let req; let
     next;
   const pathToRedirectsMiddleware = '../../../../website/server/middlewares/redirects';
