@@ -1873,5 +1873,13 @@
     "armorSpecialFall2019RogueText": "Gekaapte Opera Jas",
     "armorSpecialBirthday2020Notes": "Fijne verjaardag, Habitica! Draag deze Schandelijke Feest Jurk om deze prachtige dag te vieren. Geeft geen voordeel.",
     "armorSpecialWinter2020RogueNotes": "Ondanks dat je vast en zeker stormen kan trotseren met de innerlijke warme van je motivatie en toewijding, kan het geen kwaad om je op het weer te kleden. Verhoogt Perceptie met <%= per %>. Limited Edition 2019-2020 Winteruitrusting.",
-    "armorSpecialWinter2020RogueText": "Pluizige Parka"
+    "armorSpecialWinter2020RogueText": "Pluizige Parka",
+    "armorSpecialWinter2020HealerNotes": "Een weelderige jurk voor hen met een feestelijke smaak! verhoogt Lichaam met <%= con %>. Limited Edition 2019-2020 Winter Uitrusting.",
+    "armorSpecialWinter2020HealerText": "Sinaasappelschil Jurk",
+    "armorSpecialWinter2020MageNotes": "Luidt het nieuwe jaar warm, comfortabel, en beschermd tegen overtollige vibratie in. Verhoogt Intelligentie met <%= int %>. Limited Edition 2019-2020 Winter Uitrusting.",
+    "armorSpecialWinter2020MageText": "Golvend Gewaad",
+    "armorSpecialWinter2020WarriorNotes": "Oh machtige den, o torenhoge spar, geef je kracht. Of liever, je Lichaam! Verhoogt Lichaam met <%=con %>. Limited Edition 2019-2020 Winter Uitrusting.",
+    "armorSpecialWinter2020WarriorText": "Schors Harnas",
+    "weaponArmoirePaperCutterNotes": "Dit ziet er misschien niet angstaanjagend uit, maar heb je je wel eens aan papier gesneden? Verhoogt Kracht met <%= str %>. Betoverd Kabinet: Papieren Ridder Set (Voorwerp 1 van 3).",
+    "weaponArmoirePaperCutterText": "Papier Snijder"
 }
