@@ -74,7 +74,7 @@ export default function unlock (user, req = {}, analytics) {
   }
 
   const isFullSet = path.includes(',');
-  const isBackground = path.includes('background.');
+  const isBackground = path.startsWith('background.');
   const cost = determineCost(isBackground, isFullSet);
 
   const setPaths = path.split(',');

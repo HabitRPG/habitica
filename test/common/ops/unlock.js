@@ -90,7 +90,7 @@ describe('shared.ops.unlock', () => {
     expect(user.preferences.background).to.equal('giant_florals');
   });
 
-  it('un-equips an item already equipped', () => {
+  it('un-equips a background already equipped', () => {
     expect(user.purchased.background.giant_florals).to.not.exist;
 
     unlock(user, { query: { path: backgroundUnlockPath } }); // unlock
