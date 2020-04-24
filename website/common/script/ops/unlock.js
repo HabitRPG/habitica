@@ -7,17 +7,52 @@ import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
 
-const incentiveBackgrounds = ['blue', 'green', 'red', 'purple', 'yellow'];
-
-function determineCost (isBackground, isFullSet) {
+function determineCost (setType, isFullSet, set) {
   if (isBackground) {
     return isFullSet ? 3.75 : 1.75;
   }
   return isFullSet ? 1.25 : 0.5;
 }
 
-function isGear (path) {
-  return path.includes('gear.');
+/**
+ * Throw an error when the provided set isn't valid.
+ */
+function invalidSet () {
+  throw new BadRequest("invalid set string");
+}
+
+/**
+ * Return the type of the set (gear or one of the appareance sets - see content.appearance).
+ */
+function getSetType (firstPath) {
+  if (firstPath.includes('gear.')) return 'gear';
+
+  const type = firstPath.split('.')[0];
+  if (content.appearance[type]) return type;
+
+  return invalidSet();
+}
+
+/**
+ * Return the set of items to unlock.
+ */
+function getSet (setType, firstPath) {
+  const itemKey = splitPathItem(firstPath);
+  const item = setType === 'gear'
+    ? content.gear.flat[itemKey]
+    : content.appearance[setType][itemKey];
+
+  if (!item) return invalidSet();
+  // Only animal gear sets are unlockable
+  if (setType === 'gear' && item.gearSet !== 'animal') return invalidSet();
+
+
+
+  if (setType === 'gear') {
+
+  } else {
+    return item.set
+  }
 }
 
 function alreadyUnlocked (user, path) {
@@ -68,6 +103,7 @@ function buildResponse ({ purchased, preference, items }, ownsAlready, language)
 
 // If item is already purchased -> equip it
 // Otherwise unlock it
+// @TODO refactor and take as parameter the set name, for single items use the buy ops
 export default function unlock (user, req = {}, analytics) {
   const path = get(req.query, 'path');
 
@@ -75,11 +111,15 @@ export default function unlock (user, req = {}, analytics) {
     throw new BadRequest(i18n.t('pathRequired', req.language));
   }
 
-  const isFullSet = path.includes(',');
-  const isBackground = path.startsWith('background.');
-  const cost = determineCost(isBackground, isFullSet);
-
   const setPaths = path.split(',');
+  const isFullSet = setPaths.length > 1;
+  // We take the first path and use it to get the set,
+  // The passed paths are not used anymore after this point
+  const firstPath = setPaths[0];
+  const setType = getSetType(firstPath);
+  const set = getSet(setType, firstPath);
+  const cost = determineCost(setType, isFullSet, set);
+
   let unlockedAlready;
 
   if (isFullSet) {
