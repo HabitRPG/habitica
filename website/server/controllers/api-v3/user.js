@@ -381,6 +381,7 @@ api.getUserAnonymized = {
     delete user.webhooks;
     delete user.achievements.challenges;
     delete user.notifications;
+    delete user.secret;
 
     _.forEach(user.inbox.messages, msg => {
       msg.text = 'inbox message text';

@@ -3,7 +3,7 @@ import {
   resetHabiticaDB,
 } from '../../../../helpers/api-integration/v3';
 
-describe.only('GET /hall/heroes', () => {
+describe('GET /hall/heroes', () => {
   it('returns all heroes sorted by -contributor.level and with correct fields', async () => {
     await resetHabiticaDB();
 

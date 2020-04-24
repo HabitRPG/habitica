@@ -8,6 +8,7 @@ import {
 import { model as User, schema as UserSchema } from '../../models/user';
 import { nameContainsSlur } from './validation';
 
+const adminOnlyFields = ['secret'];
 
 export async function get (req, res, { isV3 = false }) {
   const { user } = res.locals;
@@ -17,6 +18,12 @@ export async function get (req, res, { isV3 = false }) {
     userToJSON = await user.toJSONWithInbox();
   } else {
     userToJSON = user.toJSON();
+  }
+
+  if (!user.isAdmin()) {
+    adminOnlyFields.forEach(key => {
+      delete userToJSON[key];
+    });
   }
 
   // Remove apiToken from response TODO make it private at the user level? returned in signup/login

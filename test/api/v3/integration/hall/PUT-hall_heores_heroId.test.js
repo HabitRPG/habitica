@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe.only('PUT /heroes/:heroId', () => {
+describe('PUT /heroes/:heroId', () => {
   let user;
 
   before(async () => {
@@ -173,8 +173,7 @@ describe.only('PUT /heroes/:heroId', () => {
     expect(hero.contributor.text).to.equal('Astronaut');
   });
 
-
-  it.only('updates contributor secret', async () => {
+  it('updates contributor secret', async () => {
     const secretText = 'my super hero';
 
     const hero = await generateUser({
@@ -210,7 +209,6 @@ describe.only('PUT /heroes/:heroId', () => {
     expect(hero.contributor.text).to.equal('Astronaut');
     expect(hero.secret.text).to.equal(secretText);
   });
-
 
   it('updates items', async () => {
     const hero = await generateUser();

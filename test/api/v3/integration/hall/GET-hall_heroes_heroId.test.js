@@ -4,7 +4,7 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-describe.only('GET /heroes/:heroId', () => {
+describe('GET /heroes/:heroId', () => {
   let user;
 
   before(async () => {
@@ -40,7 +40,7 @@ describe.only('GET /heroes/:heroId', () => {
     });
   });
 
-  it.only('returns only necessary hero data given user id', async () => {
+  it('returns only necessary hero data given user id', async () => {
     const hero = await generateUser({
       contributor: { tier: 23 },
       secret: {
