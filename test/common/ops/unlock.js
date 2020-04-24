@@ -45,6 +45,18 @@ describe('shared.ops.unlock', () => {
 
   it('returns an error when user already owns a full set', done => {
     try {
+      unlock(user, { query: { path: unlockPath } });
+      unlock(user, { query: { path: unlockPath } });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('alreadyUnlocked'));
+      expect(user.balance).to.equal(3.75);
+      done();
+    }
+  });
+
+  it('returns an error when user already owns a full set of gear', done => {
+    try {
       unlock(user, { query: { path: unlockGearSetPath } });
       unlock(user, { query: { path: unlockGearSetPath } });
     } catch (err) {

@@ -5,7 +5,8 @@ import {
 
 describe('POST /user/unlock', () => {
   let user;
-  const unlockPath = 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars';
+  const unlockPath = 'shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie';
+  const unlockGearSetPath = 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars';
   const unlockCost = 1.25;
   const usersStartingGems = 5;
 
@@ -39,13 +40,13 @@ describe('POST /user/unlock', () => {
     await user.update({
       balance: usersStartingGems,
     });
-    const response = await user.post(`/user/unlock?path=${unlockPath}`);
+    const response = await user.post(`/user/unlock?path=${unlockGearSetPath}`);
     await user.sync();
 
     expect(response.message).to.equal(t('unlocked'));
     expect(user.balance).to.equal(usersStartingGems - unlockCost);
 
-    expect(user.post(`/user/unlock?path=${unlockPath}`))
+    expect(user.post(`/user/unlock?path=${unlockGearSetPath}`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
         error: 'NotAuthorized',
