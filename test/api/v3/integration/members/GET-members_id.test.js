@@ -68,7 +68,7 @@ describe('GET /members/:memberId', () => {
     const memberRes = await member.get(`/members/${member._id}`);
     expect(memberRes).to.have.keys([ // works as: object has all and only these keys
       '_id', 'id', 'preferences', 'profile', 'stats', 'achievements', 'party',
-      'backer', 'contributor', 'auth', 'items', 'inbox', 'loginIncentives', 'flags'
+      'backer', 'contributor', 'auth', 'items', 'inbox', 'loginIncentives', 'flags',
     ]);
 
     expect(memberRes.secret).to.not.exist;

@@ -7,6 +7,12 @@ import {
 describe('PUT /heroes/:heroId', () => {
   let user;
 
+  const heroFields = [
+    '_id', 'balance', 'profile', 'purchased',
+    'contributor', 'auth', 'items', 'flags',
+    'secret',
+  ];
+
   before(async () => {
     user = await generateUser({
       contributor: { admin: true },
@@ -51,10 +57,8 @@ describe('PUT /heroes/:heroId', () => {
     });
 
     // test response
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items', 'flags',
-    ]);
+    // works as: object has all and only these keys
+    expect(heroRes).to.have.all.keys(heroFields);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
 
@@ -130,10 +134,8 @@ describe('PUT /heroes/:heroId', () => {
     });
 
     // test response
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items', 'flags',
-    ]);
+    // works as: object has all and only these keys
+    expect(heroRes).to.have.all.keys(heroFields);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
 
@@ -157,10 +159,8 @@ describe('PUT /heroes/:heroId', () => {
     });
 
     // test response
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items', 'flags',
-    ]);
+    // works as: object has all and only these keys
+    expect(heroRes).to.have.all.keys(heroFields);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
 
@@ -190,11 +190,8 @@ describe('PUT /heroes/:heroId', () => {
     });
 
     // test response
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items', 'flags',
-      'secret',
-    ]);
+    // works as: object has all and only these keys
+    expect(heroRes).to.have.all.keys(heroFields);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
 
@@ -218,10 +215,8 @@ describe('PUT /heroes/:heroId', () => {
     });
 
     // test response
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items', 'flags',
-    ]);
+    // works as: object has all and only these keys
+    expect(heroRes).to.have.all.keys(heroFields);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
 
