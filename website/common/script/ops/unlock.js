@@ -20,8 +20,10 @@ function isGear (path) {
   return path.includes('gear.');
 }
 
-function alreadyOwns (user, path) {
-  return get(user, isGear(path) ? path : `purchased.${path}`);
+function alreadyUnlocked (user, path) {
+  return isGear(path)
+    ? get(user, path) !== undefined
+    : get(user, `purchased.${path}`);
 }
 
 function setAsObject (target, key, value) {
@@ -78,27 +80,27 @@ export default function unlock (user, req = {}, analytics) {
   const cost = determineCost(isBackground, isFullSet);
 
   const setPaths = path.split(',');
-  let ownsAlready;
+  let unlockedAlready;
 
   if (isFullSet) {
-    const alreadyOwnedItems = setPaths.filter(p => alreadyOwns(user, p)).length;
+    const alreadyUnlockedItems = setPaths.filter(p => alreadyUnlocked(user, p)).length;
     const totalItems = setPaths.length;
-    if (alreadyOwnedItems === totalItems) {
+    if (alreadyUnlockedItems === totalItems) {
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
     // TODO Different pull request
     // } else if ((totalItems - alreadyOwnedItems) < 3) {
     //   throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
     }
   } else {
-    ownsAlready = alreadyOwns(user, path);
+    unlockedAlready = alreadyUnlocked(user, path);
   }
 
-  if (isBackground && !ownsAlready
+  if (isBackground && !unlockedAlready
       && incentiveBackgrounds.some(background => path.includes(`.${background}`))) {
     throw new BadRequest(i18n.t('incentiveBackgroundsUnlockedWithCheckins'));
   }
 
-  if ((!user.balance || user.balance < cost) && !ownsAlready) {
+  if ((!user.balance || user.balance < cost) && !unlockedAlready) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
@@ -107,7 +109,7 @@ export default function unlock (user, req = {}, analytics) {
   } else {
     const [key, value] = splitPathItem(path);
 
-    if (ownsAlready) {
+    if (unlockedAlready) {
       const unsetBackground = isBackground && value === user.preferences.background;
       setAsObject(user, `preferences.${key}`, unsetBackground ? '' : value);
     } else {
@@ -122,7 +124,7 @@ export default function unlock (user, req = {}, analytics) {
     }
   }
 
-  if (!ownsAlready) {
+  if (!unlockedAlready) {
     user.balance -= cost;
 
     if (analytics) {
@@ -138,5 +140,5 @@ export default function unlock (user, req = {}, analytics) {
     }
   }
 
-  return buildResponse(user, ownsAlready, req.language);
+  return buildResponse(user, unlockedAlready, req.language);
 }

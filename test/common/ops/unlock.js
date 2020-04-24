@@ -1,12 +1,7 @@
 import unlock from '../../../website/common/script/ops/unlock';
 import i18n from '../../../website/common/script/i18n';
-import {
-  generateUser,
-} from '../../helpers/common.helper';
-import {
-  NotAuthorized,
-  BadRequest,
-} from '../../../website/common/script/libs/errors';
+import { generateUser } from '../../helpers/common.helper';
+import { NotAuthorized, BadRequest } from '../../../website/common/script/libs/errors';
 
 describe('shared.ops.unlock', () => {
   let user;
@@ -29,6 +24,15 @@ describe('shared.ops.unlock', () => {
       expect(err.message).to.equal(i18n.t('pathRequired'));
       done();
     }
+  });
+
+  it('does not unlock lost gear', done => {
+    user.items.gear.owned.headAccessory_special_bearEars = false;
+
+    unlock(user, { query: { path: 'items.gear.owned.headAccessory_special_bearEars' } });
+
+    expect(user.balance).to.equal(usersStartingGems);
+    done();
   });
 
   it('returns an error when user balance is too low', done => {
