@@ -76,7 +76,9 @@ function createCodeBlockRegex ({ content, type, markup }) {
  */
 function findTextAndCodeBlocks (text) {
   // For token description see https://markdown-it.github.io/markdown-it/#Token
-  const tokens = habiticaMarkdown.parse(text);
+  // The second parameter is mandatory even if not used, see
+  // https://markdown-it.github.io/markdown-it/#MarkdownIt.parse
+  const tokens = habiticaMarkdown.parse(text, {});
   const codeBlocks = findCodeBlocks(tokens);
 
   const blocks = [];
