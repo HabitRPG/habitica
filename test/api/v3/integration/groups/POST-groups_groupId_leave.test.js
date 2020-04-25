@@ -13,7 +13,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 import { model as User } from '../../../../../website/server/models/user';
 import payments from '../../../../../website/server/libs/payments/payments';
-import { calculateSubscriptionTerminationDate } from '../../../../../website/server/libs/payments/util';
+import calculateSubscriptionTerminationDate from '../../../../../website/server/libs/payments/calculateSubscriptionTerminationDate';
 
 describe('POST /groups/:groupId/leave', () => {
   const typesOfGroups = {
@@ -359,6 +359,7 @@ describe('POST /groups/:groupId/leave', () => {
           'purchased.plan.extraMonths': extraMonths,
         });
       });
+
       it('calculates dateTerminated and sets extraMonths to zero after user leaves the group', async () => {
         const userBeforeLeave = await User.findById(member._id).exec();
 
