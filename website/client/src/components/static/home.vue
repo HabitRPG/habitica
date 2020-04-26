@@ -106,36 +106,9 @@
               <span>{{ $t('or') }}</span>
             </div>
             <div class="text-center">
-              <button
-                class="social-button"
-                @click="socialAuth('facebook')"
-              >
-                <div
-                  class="svg-icon social-icon"
-                  v-html="icons.facebookIcon"
-                ></div>
-                <span>{{ $t('signUpWithSocial', {social: 'Facebook'}) }}</span>
-              </button>
-              <button
-                class="social-button"
-                @click="socialAuth('google')"
-              >
-                <div
-                  class="svg-icon social-icon"
-                  v-html="icons.googleIcon"
-                ></div>
-                <span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
-              </button>
-              <button
-                class="social-button"
-                @click="socialAuth('apple')"
-              >
-                <div
-                  class="svg-icon social-icon apple-icon"
-                  v-html="icons.appleIcon"
-                ></div>
-                <span>{{ $t('signUpWithSocial', {social: 'Apple'}) }}</span>
-              </button>
+              <facebook-auth />
+              <google-auth />
+              <apple-auth />
             </div>
           </div>
           <div class="col-12">
@@ -463,41 +436,6 @@
       font-size: 32px;
     }
 
-    .social-button {
-      border-radius: 2px;
-      border: solid 2px #bda8ff;
-      width: 100%;
-      min-height: 40px;
-      padding: .5em;
-      background: transparent;
-      margin-bottom: .5em;
-      color: #bda8ff;
-      transition: .5s;
-
-      span {
-        transition: none;
-      }
-    }
-
-    .social-button:hover {
-      cursor: pointer;
-      border-color: #fff;
-      color: #fff;
-    }
-
-    .social-icon {
-      margin-right: 1em;
-      width: 18px;
-      height: 18px;
-      display: inline-block;
-      vertical-align: top;
-      margin-top: .1em;
-    }
-
-    .apple-icon {
-      margin-top: -1px;
-    }
-
     .strike {
       display: block;
       text-align: center;
@@ -816,8 +754,16 @@ import makeuseof from '@/assets/images/home/make-use-of.svg';
 import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg';
 import * as Analytics from '@/libs/analytics';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
+import appleAuth from '../auth/socialAuth/apple';
+import facebookAuth from '../auth/socialAuth/facebook';
+import googleAuth from '../auth/socialAuth/google';
 
 export default {
+  components: {
+    appleAuth,
+    facebookAuth,
+    googleAuth,
+  },
   data () {
     return {
       icons: Object.freeze({

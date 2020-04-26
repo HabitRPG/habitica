@@ -1,6 +1,11 @@
 <template>
   <div
-    class="btn btn-secondary social-button"
+    :class="{
+      'btn': !isHomePage,
+      'btn-secondary': !isHomePage,
+      'social-button': true,
+      'social-button-home': isHomePage,
+    }"
     @click="socialAuth('facebook')"
   >
     <div
@@ -24,6 +29,23 @@
       display: inline-block;
     }
   }
+
+  .social-button-home {
+    border-radius: 2px;
+    border: solid 2px #bda8ff;
+    width: 100%;
+    min-height: 40px;
+    padding: .5em;
+    background: transparent;
+    margin-bottom: .5em;
+    color: #bda8ff;
+    transition: .5s;
+
+    span {
+      transition: none;
+    }
+  }
+
   .social-icon {
     margin-left: 1em;
     margin-right: 1em;
@@ -51,6 +73,12 @@ export default {
   computed: {
     registering () {
       if (this.$route.path.startsWith('/register')) {
+        return true;
+      }
+      return false;
+    },
+    isHomePage () {
+      if (this.$route.path.startsWith('/static/home')) {
         return true;
       }
       return false;

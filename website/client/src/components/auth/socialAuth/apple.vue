@@ -1,8 +1,8 @@
 <template>
   <div
     :class="{
-      'btn': true,
-      'btn-secondary': true,
+      'btn': !isHomePage,
+      'btn-secondary': !isHomePage,
       'social-button': true,
       'social-button-home': isHomePage,
     }"
@@ -12,7 +12,7 @@
       class="svg-icon social-icon apple-icon"
       v-html="icons.appleIcon"
     ></div>
-    <span>{{ registering
+    <span>{{ (registering || isHomePage)
       ? $t('signUpWithSocial', {social: 'Apple'})
       : $t('loginWithSocial', {social: 'Apple'}) }}</span>
   </div>
@@ -28,6 +28,32 @@
     .text {
       display: inline-block;
     }
+  }
+
+  .social-button-home {
+    border-radius: 2px;
+    border: solid 2px #bda8ff;
+    width: 100%;
+    min-height: 40px;
+    padding: .5em;
+    background: transparent;
+    margin-bottom: .5em;
+    color: #bda8ff;
+    transition: .5s;
+
+    span {
+      transition: none;
+    }
+  }
+
+  .social-button-home:hover {
+    cursor: pointer;
+    border-color: #fff;
+    color: #fff;
+  }
+
+  .apple-icon {
+    margin-top: -1px;
   }
 
   .social-icon {
@@ -55,7 +81,7 @@ export default {
   },
   computed: {
     registering () {
-      if (this.$route.path.startsWith('/register')) {
+      if (this.$route.path.startsWith('/register') || this.$route.path.startsWith('/static/home')) {
         return true;
       }
       return false;
