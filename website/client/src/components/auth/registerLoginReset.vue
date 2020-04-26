@@ -37,62 +37,17 @@
       </div>
       <div class="form-group row text-center">
         <div class="col-12 col-md-12">
-          <div
-            class="btn btn-secondary social-button"
-            @click="socialAuth('facebook')"
-          >
-            <div
-              class="svg-icon social-icon"
-              v-html="icons.facebookIcon"
-            ></div>
-            <div
-              class="text"
-            >
-              {{ registering
-                ? $t('signUpWithSocial', {social: 'Facebook'})
-                : $t('loginWithSocial', {social: 'Facebook'}) }}
-            </div>
-          </div>
+          <facebook-auth />
         </div>
       </div>
       <div class="form-group row text-center">
         <div class="col-12 col-md-12">
-          <div
-            class="btn btn-secondary social-button"
-            @click="socialAuth('google')"
-          >
-            <div
-              class="svg-icon social-icon"
-              v-html="icons.googleIcon"
-            ></div>
-            <div
-              class="text"
-            >
-              {{ registering
-                ? $t('signUpWithSocial', {social: 'Google'})
-                : $t('loginWithSocial', {social: 'Google'}) }}
-            </div>
-          </div>
+          <google-auth />
         </div>
       </div>
       <div class="form-group row text-center">
         <div class="col-12 col-md-12">
-          <div
-            class="btn btn-secondary social-button"
-            @click="socialAuth('apple')"
-          >
-            <div
-              class="svg-icon social-icon"
-              v-html="icons.appleIcon"
-            ></div>
-            <div
-              class="text"
-            >
-              {{ registering
-                ? $t('signUpWithSocial', {social: 'Apple'})
-                : $t('loginWithSocial', {social: 'Apple'}) }}
-            </div>
-          </div>
+          <apple-auth />
         </div>
       </div>
       <div class="strike">
@@ -509,26 +464,7 @@
       color: $white;
     }
 
-    .social-button {
-      width: 100%;
-      height: 100%;
-      white-space: inherit;
-      text-align: center;
 
-      .text {
-        display: inline-block;
-      }
-    }
-
-    .social-icon {
-      margin-left: 1em;
-      margin-right: 1em;
-      width: 18px;
-      height: 18px;
-      display: inline-block;
-      vertical-align: top;
-      margin-top: .1em;
-    }
   }
 
   #top-background {
@@ -651,17 +587,21 @@ import hello from 'hellojs';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
-import { buildAppleAuthUrl } from '../../libs/auth';
+import appleAuth from './socialAuth/apple';
+import facebookAuth from './socialAuth/facebook';
+import googleAuth from './socialAuth/google';
 
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import exclamation from '@/assets/svg/exclamation.svg';
 import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
-import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
-import googleIcon from '@/assets/svg/google.svg';
-import appleIcon from '@/assets/svg/apple_black.svg';
 
 export default {
+  components: {
+    appleAuth,
+    facebookAuth,
+    googleAuth,
+  },
   data () {
     const data = {
       username: '',
@@ -680,9 +620,6 @@ export default {
       exclamation,
       gryphon,
       habiticaIcon,
-      facebookIcon: facebookSquareIcon,
-      googleIcon,
-      appleIcon,
     });
 
     return data;
@@ -861,42 +798,6 @@ export default {
       // ALSO it's the only way to make sure language data
       // is reloaded and correct for the logged in user
       window.location.href = redirectTo;
-    },
-    // @TODO: Abstract hello in to action or lib
-    async socialAuth (network) {
-      if (network === 'apple') {
-        window.location.href = buildAppleAuthUrl();
-      } else {
-        try {
-          await hello(network).logout();
-        } catch (e) {} // eslint-disable-line
-
-        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-        const auth = await hello(network).login({
-          scope: 'email',
-          // explicitly pass the redirect url or it might redirect to /home
-          redirect_uri: redirectUrl, // eslint-disable-line camelcase
-        });
-
-        await this.$store.dispatch('auth:socialAuth', {
-          auth,
-        });
-
-        let redirectTo;
-
-        if (this.$route.query.redirectTo) {
-          redirectTo = this.$route.query.redirectTo;
-        } else {
-          redirectTo = '/';
-        }
-
-        // @TODO do not reload entire page
-        // problem is that app.vue created hook should be called again
-        // after user is logged in / just signed up
-        // ALSO it's the only way to make sure language data
-        // is reloaded and correct for the logged in user
-        window.location.href = redirectTo;
-      }
     },
     handleSubmit () {
       if (this.registering) {

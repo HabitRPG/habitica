@@ -2,50 +2,17 @@
   <div class="form">
     <div class="form-group row text-center">
       <div class="col-12">
-        <div
-          class="btn btn-secondary social-button"
-          @click="socialAuth('facebook')"
-        >
-          <div
-            class="svg-icon social-icon"
-            v-html="icons.facebookIcon"
-          ></div>
-          <span>{{ registering
-            ? $t('signUpWithSocial', {social: 'Facebook'})
-            : $t('loginWithSocial', {social: 'Facebook'}) }}</span>
-        </div>
+        <facebook-auth />
       </div>
     </div>
     <div class="form-group row text-center">
       <div class="col-12">
-        <div
-          class="btn btn-secondary social-button"
-          @click="socialAuth('google')"
-        >
-          <div
-            class="svg-icon social-icon"
-            v-html="icons.googleIcon"
-          ></div>
-          <span>{{ registering
-            ? $t('signUpWithSocial', {social: 'Google'})
-            : $t('loginWithSocial', {social: 'Google'}) }}</span>
-        </div>
+        <google-auth />
       </div>
     </div>
     <div class="form-group row text-center">
       <div class="col-12">
-        <div
-          class="btn btn-secondary social-button"
-          @click="socialAuth('apple')"
-        >
-          <div
-            class="svg-icon social-icon apple-icon"
-            v-html="icons.appleIcon"
-          ></div>
-          <span>{{ registering
-            ? $t('signUpWithSocial', {social: 'Apple'})
-            : $t('loginWithSocial', {social: 'Apple'}) }}</span>
-        </div>
+        <apple-auth />
       </div>
     </div>
     <div
@@ -243,12 +210,17 @@ import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
 import { setUpAxios, buildAppleAuthUrl } from '@/libs/auth';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
-import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
-import googleIcon from '@/assets/svg/google.svg';
-import appleIcon from '@/assets/svg/apple_black.svg';
+import appleAuth from './socialAuth/apple';
+import facebookAuth from './socialAuth/facebook';
+import googleAuth from './socialAuth/google';
 
 export default {
   name: 'AuthForm',
+  components: {
+    appleAuth,
+    facebookAuth,
+    googleAuth,
+  },
   data () {
     const data = {
       registering: true,
@@ -258,12 +230,6 @@ export default {
       passwordConfirm: '',
       usernameIssues: [],
     };
-
-    data.icons = Object.freeze({
-      facebookIcon: facebookSquareIcon,
-      googleIcon,
-      appleIcon,
-    });
 
     return data;
   },
