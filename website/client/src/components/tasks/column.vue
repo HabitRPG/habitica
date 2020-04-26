@@ -81,6 +81,8 @@
         ref="tasksList"
         class="sortable-tasks"
         :options="{disabled: activeFilter.label === 'scheduled' || !isUser, scrollSensitivity: 64}"
+        :delay-on-touch-only="true"
+        :delay="100"
         @update="taskSorted"
         @start="isDragging(true)"
         @end="isDragging(false)"
@@ -101,6 +103,8 @@
         <draggable
           ref="rewardsList"
           class="reward-items"
+          :delay-on-touch-only="true"
+          :delay="100"
           @update="rewardSorted"
           @start="rewardDragStart"
           @end="rewardDragEnd"
