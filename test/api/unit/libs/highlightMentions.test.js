@@ -119,4 +119,18 @@ describe('highlightMentions', () => {
 
     expect(err).to.be.undefined;
   });
+
+  it('github issue 12138, method crashes when regex chars are used in code block', async () => {
+    const text = '`[test]`';
+
+    let err;
+
+    try {
+      await highlightMentions(text);
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).to.be.undefined;
+  });
 });
