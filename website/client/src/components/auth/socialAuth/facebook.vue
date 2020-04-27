@@ -84,6 +84,13 @@ export default {
       return false;
     },
   },
+  mounted () {
+    hello.init({
+      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
+      // windows: WINDOWS_CLIENT_ID,
+      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+    });
+  },
   methods: {
     async socialAuth (network) {
       try {
