@@ -19,10 +19,9 @@
     <div id="top-background">
       <div class="seamless_stars_varied_opacity_repeat"></div>
     </div>
-    <form
+    <div
       v-if="!forgotPassword && !resetPasswordSetNewOne"
       id="login-form"
-      @submit.prevent.stop="handleSubmit"
     >
       <div class="text-center">
         <div>
@@ -55,125 +54,8 @@
       </div>
       <login-form v-if="!registering" />
       <register-form v-if="registering" />
-    </form>
-    <form
-      v-if="forgotPassword"
-      id="forgot-form"
-      @submit.prevent="handleSubmit"
-      @keyup.enter="handleSubmit"
-    >
-      <div class="text-center">
-        <div>
-          <div class="svg-icon gryphon"></div>
-        </div>
-        <div>
-          <div
-            class="svg-icon habitica-logo"
-            v-html="icons.habiticaIcon"
-          ></div>
-        </div>
-        <div class="header">
-          <h2 v-once>
-            {{ $t('emailNewPass') }}
-          </h2>
-          <p v-once>
-            {{ $t('forgotPasswordSteps') }}
-          </p>
-        </div>
-      </div>
-      <div class="form-group row text-center">
-        <label
-          v-once
-          for="usernameInput"
-        >{{ $t('email') }}</label>
-        <input
-          id="usernameInput"
-          v-model="username"
-          class="form-control"
-          type="text"
-          :placeholder="$t('emailPlaceholder')"
-        >
-      </div>
-      <div class="text-center">
-        <div
-          v-once
-          class="btn btn-info"
-          @click="forgotPasswordLink()"
-        >
-          {{ $t('sendLink') }}
-        </div>
-      </div>
-    </form>
-    <form
-      v-if="resetPasswordSetNewOne"
-      id="reset-password-set-new-one-form"
-      @submit.prevent="handleSubmit"
-      @keyup.enter="handleSubmit"
-    >
-      <div class="text-center">
-        <div>
-          <div class="svg-icon gryphon"></div>
-        </div>
-        <div>
-          <div
-            class="svg-icon habitica-logo"
-            v-html="icons.habiticaIcon"
-          ></div>
-        </div>
-        <div class="header">
-          <h2>{{ $t('passwordResetPage') }}</h2>
-        </div>
-      </div>
-      <div class="form-group">
-        <label
-          v-once
-          for="passwordInput"
-        >{{ $t('newPass') }}</label>
-        <input
-          id="passwordInput"
-          v-model="password"
-          class="form-control input-with-error"
-          type="password"
-          :placeholder="$t('password')"
-          :class="{'input-invalid': passwordInvalid, 'input-valid': passwordValid}"
-        >
-        <div
-          v-if="passwordInvalid"
-          class="input-error"
-        >
-          {{ $t('minPasswordLength') }}
-        </div>
-      </div>
-      <div class="form-group">
-        <label
-          v-once
-          for="confirmPasswordInput"
-        >{{ $t('confirmPass') }}</label>
-        <input
-          id="confirmPasswordInput"
-          v-model="passwordConfirm"
-          class="form-control input-with-error"
-          type="password"
-          :placeholder="$t('confirmPasswordPlaceholder')"
-          :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
-        >
-        <div
-          v-if="passwordConfirmInvalid"
-          class="input-error"
-        >
-          {{ $t('passwordConfirmationMatch') }}
-        </div>
-      </div>
-      <div class="text-center">
-        <div
-          class="btn btn-info"
-          :enabled="!resetPasswordSetNewOneData.hasError"
-          @click="resetPasswordSetNewOneLink()"
-        >
-          {{ $t('setNewPass') }}
-        </div>
-      </div>
-    </form>
+    </div>
+    <reset-password-form v-if="resetPasswordSetNewOne" />
     <div
       id="bottom-wrap"
       :class="`bottom-wrap-${!registering ? 'login' : 'register'}`"
@@ -252,7 +134,7 @@
     color: $purple-400;
   }
 
-  #login-form, #forgot-form, #reset-password-set-new-one-form {
+  #login-form, #reset-password-set-new-one-form {
     margin: 0 auto;
     width: 40em;
     padding-top: 5em;
@@ -443,6 +325,7 @@ import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
 import loginForm from './login';
 import registerForm from './register';
+import resetPasswordForm from './reset';
 
 export default {
   components: {
@@ -451,6 +334,7 @@ export default {
     googleAuth,
     loginForm,
     registerForm,
+    resetPasswordForm,
   },
   data () {
     const data = {
@@ -518,12 +402,6 @@ export default {
     passwordConfirmInvalid () {
       if (this.passwordConfirm.length <= 3) return false;
       return !this.passwordConfirmValid;
-    },
-    signupFormInvalid () {
-      return this.usernameInvalid
-        || this.emailInvalid
-        || this.passwordInvalid
-        || this.passwordConfirmInvalid;
     },
     preOutage () {
       return moment.utc().isBefore('2020-01-12');
