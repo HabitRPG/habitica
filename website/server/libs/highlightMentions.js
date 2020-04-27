@@ -1,3 +1,4 @@
+import escapeRegExp from 'lodash/escapeRegExp';
 import habiticaMarkdown from 'habitica-markdown';
 
 import { model as User } from '../models/user';
@@ -57,14 +58,15 @@ function withOptionalIndentation (content) {
 }
 
 function createCodeBlockRegex ({ content, type, markup }) {
+  const contentRegex = escapeRegExp(content);
   let regexStr = '';
 
   if (type === 'code_block') {
-    regexStr = withOptionalIndentation(content);
+    regexStr = withOptionalIndentation(contentRegex);
   } else if (type === 'fence') {
-    regexStr = `\\s*${markup}.*\n${withOptionalIndentation(content)}\\s*${markup}`;
+    regexStr = `\\s*${markup}.*\n${withOptionalIndentation(contentRegex)}\\s*${markup}`;
   } else { // type === code_inline
-    regexStr = `${markup} ?${content} ?${markup}`;
+    regexStr = `${markup} ?${contentRegex} ?${markup}`;
   }
 
   return new RegExp(regexStr);
