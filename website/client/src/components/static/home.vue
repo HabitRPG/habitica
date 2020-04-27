@@ -28,7 +28,7 @@
             <h3 class="text-center">
               {{ $t('singUpForFree') }}
             </h3>
-            <p class="form-text" style="margin-top: 14px;">
+            <p class="form-text" style="padding-top: 1em;">
               {{ $t('usernameLimitations') }}
             </p>
             <register-form />
