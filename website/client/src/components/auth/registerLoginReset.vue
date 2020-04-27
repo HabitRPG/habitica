@@ -53,162 +53,8 @@
       <div class="strike">
         <span>{{ $t('or') }}</span>
       </div>
-      <div
-        v-if="registering"
-        class="form-group"
-      >
-        <label
-          v-once
-          for="usernameInput"
-        >{{ $t('username') }}</label>
-        <input
-          id="usernameInput"
-          v-model="username"
-          class="form-control input-with-error"
-          type="text"
-          :placeholder="$t('usernamePlaceholder')"
-          :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
-        >
-        <div
-          v-for="issue in usernameIssues"
-          :key="issue"
-          class="input-error"
-        >
-          {{ issue }}
-        </div>
-      </div>
-      <div
-        v-if="!registering"
-        class="form-group"
-      >
-        <label
-          v-once
-          for="usernameInput"
-        >{{ $t('emailOrUsername') }}</label>
-        <input
-          id="usernameInput"
-          v-model="username"
-          class="form-control"
-          type="text"
-          :placeholder="$t('emailOrUsername')"
-        >
-      </div>
-      <div
-        v-if="registering"
-        class="form-group"
-      >
-        <label
-          v-once
-          for="emailInput"
-        >{{ $t('email') }}</label>
-        <input
-          id="emailInput"
-          v-model="email"
-          class="form-control"
-          type="email"
-          :placeholder="$t('emailPlaceholder')"
-          :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
-        >
-      </div>
-      <div class="form-group">
-        <label
-          v-once
-          for="passwordInput"
-        >{{ $t('password') }}</label>
-        <a
-          v-if="!registering"
-          v-once
-          class="float-right forgot-password"
-          @click="forgotPassword = true"
-        >{{ $t('forgotPassword') }}</a>
-        <input
-          id="passwordInput"
-          v-model="password"
-          class="form-control"
-          type="password"
-          :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
-          :class="{
-            'input-invalid input-with-error': registering && passwordInvalid,
-            'input-valid': registering && passwordValid
-          }"
-        >
-        <div
-          v-if="passwordInvalid && registering"
-          class="input-error"
-        >
-          {{ $t('minPasswordLength') }}
-        </div>
-      </div>
-      <div
-        v-if="registering"
-        class="form-group"
-      >
-        <label
-          v-once
-          for="confirmPasswordInput"
-        >{{ $t('confirmPassword') }}</label>
-        <input
-          id="confirmPasswordInput"
-          v-model="passwordConfirm"
-          class="form-control input-with-error"
-          type="password"
-          :placeholder="$t('confirmPasswordPlaceholder')"
-          :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
-        >
-        <div
-          v-if="passwordConfirmInvalid"
-          class="input-error"
-        >
-          {{ $t('passwordConfirmationMatch') }}
-        </div>
-        <small
-          v-once
-          class="form-text"
-          v-html="$t('termsAndAgreement')"
-        ></small>
-      </div>
-      <div class="text-center">
-        <button
-          v-if="registering"
-          type="submit"
-          class="btn btn-info"
-          :disabled="signupFormInvalid"
-        >
-          {{ $t('joinHabitica') }}
-        </button>
-        <button
-          v-if="!registering"
-          v-once
-          type="submit"
-          class="btn btn-info"
-        >
-          {{ $t('login') }}
-        </button>
-        <div class="toggle-links">
-          <router-link
-            v-if="registering"
-            :to="{name: 'login'}"
-            exact="exact"
-          >
-            <a
-              v-once
-              class="toggle-link"
-              v-html="$t('alreadyHaveAccountLogin')"
-            ></a>
-          </router-link>
-          <router-link
-            v-if="!registering"
-            :to="{name: 'register'}"
-            exact="exact"
-          >
-            <a
-              v-once
-              class="toggle-link"
-              v-html="$t('dontHaveAccountSignup')"
-            ></a>
-          </router-link>
-        </div>
-      </div>
+      <login-form v-if="!registering" />
+      <register-form v-if="registering" />
     </form>
     <form
       v-if="forgotPassword"
@@ -595,12 +441,16 @@ import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import exclamation from '@/assets/svg/exclamation.svg';
 import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
+import loginForm from './login';
+import registerForm from './register';
 
 export default {
   components: {
     appleAuth,
     facebookAuth,
     googleAuth,
+    loginForm,
+    registerForm,
   },
   data () {
     const data = {

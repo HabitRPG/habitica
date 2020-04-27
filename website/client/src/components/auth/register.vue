@@ -97,8 +97,6 @@
   .register-form {
     margin: 0 auto;
     width: 40em;
-    padding-top: 5em;
-    padding-bottom: 4em;
     position: relative;
     z-index: 1;
 
@@ -172,7 +170,6 @@
   }
 
   .register-form-homePage {
-    padding-top: 1em;
     padding-bottom: 1em;
 
     input {

@@ -122,8 +122,8 @@
 
     margin: 0 auto;
     width: 40em;
-    padding-top: 5em;
-    padding-bottom: 4em;
+    padding-top: 0em !important;
+    padding-bottom: 0em !important;
     position: relative;
     z-index: 1;
 
