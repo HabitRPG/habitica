@@ -655,10 +655,6 @@
 </style>
 
 <script>
-import hello from 'hellojs';
-import debounce from 'lodash/debounce';
-import isEmail from 'validator/lib/isEmail';
-import { buildAppleAuthUrl } from '../../libs/auth';
 import googlePlay from '@/assets/images/home/google-play-badge.svg';
 import iosAppStore from '@/assets/images/home/ios-app-store.svg';
 import iphones from '@/assets/images/home/iphones.svg';
@@ -666,9 +662,6 @@ import spacer from '@/assets/images/home/spacer.svg';
 import pixelHorizontal from '@/assets/images/home/pixel-horizontal.svg';
 import pixelHorizontal2 from '@/assets/images/home/pixel-horizontal-2.svg';
 import pixelHorizontal3 from '@/assets/images/home/pixel-horizontal-3.svg';
-import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
-import googleIcon from '@/assets/svg/google.svg';
-import appleIcon from '@/assets/svg/apple.svg';
 import cnet from '@/assets/svg/cnet.svg';
 import fastCompany from '@/assets/svg/fast-company.svg';
 import discover from '@/assets/images/home/discover.svg';
@@ -678,7 +671,6 @@ import lifehacker from '@/assets/images/home/lifehacker.svg';
 import makeuseof from '@/assets/images/home/make-use-of.svg';
 import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg';
 import * as Analytics from '@/libs/analytics';
-import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import appleAuth from '../auth/socialAuth/apple';
 import facebookAuth from '../auth/socialAuth/facebook';
 import googleAuth from '../auth/socialAuth/google';
@@ -701,9 +693,6 @@ export default {
         pixelHorizontal,
         pixelHorizontal2,
         pixelHorizontal3,
-        facebookIcon: facebookSquareIcon,
-        googleIcon,
-        appleIcon,
         cnet,
         fastCompany,
         discover,
@@ -714,57 +703,7 @@ export default {
         thenewyorktimes,
       }),
       userCountInMillions: 4,
-      username: '',
-      password: '',
-      passwordConfirm: '',
-      email: '',
-      usernameIssues: [],
     };
-  },
-  computed: {
-    emailValid () {
-      if (this.email.length <= 3) return false;
-      return isEmail(this.email);
-    },
-    emailInvalid () {
-      if (this.email.length <= 3) return false;
-      return !isEmail(this.email);
-    },
-    usernameValid () {
-      if (this.username.length < 1) return false;
-      return this.usernameIssues.length === 0;
-    },
-    usernameInvalid () {
-      if (this.username.length < 1) return false;
-      return !this.usernameValid;
-    },
-    passwordValid () {
-      if (this.password.length <= 0) return false;
-      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
-    },
-    passwordInvalid () {
-      if (this.password.length <= 0) return false;
-      return this.password.length < MINIMUM_PASSWORD_LENGTH;
-    },
-    passwordConfirmValid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return this.passwordConfirm === this.password;
-    },
-    passwordConfirmInvalid () {
-      if (this.passwordConfirm.length <= 3) return false;
-      return this.passwordConfirm !== this.password;
-    },
-    signupFormInvalid () {
-      return this.usernameInvalid
-        || this.emailInvalid
-        || this.passwordInvalid
-        || this.passwordConfirmInvalid;
-    },
-  },
-  watch: {
-    username () {
-      this.validateUsername(this.username);
-    },
   },
   mounted () {
     Analytics.track({
@@ -773,58 +712,8 @@ export default {
       eventAction: 'landing page',
       page: '/static/home',
     });
-
-    hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
-      // windows: WINDOWS_CLIENT_ID,
-      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
-    });
   },
   methods: {
-    // eslint-disable-next-line func-names
-    validateUsername: debounce(function (username) {
-      if (username.length < 1) {
-        return;
-      }
-      this.$store.dispatch('auth:verifyUsername', {
-        username: this.username,
-      }).then(res => {
-        if (res.issues !== undefined) {
-          this.usernameIssues = res.issues;
-        } else {
-          this.usernameIssues = [];
-        }
-      });
-    }, 500),
-    // @TODO this is totally duplicate from the registerLogin component
-    async register () {
-      let groupInvite = '';
-      if (this.$route.query && this.$route.query.p) {
-        groupInvite = this.$route.query.p;
-      }
-
-      if (this.$route.query && this.$route.query.groupInvite) {
-        groupInvite = this.$route.query.groupInvite;
-      }
-
-      await this.$store.dispatch('auth:register', {
-        username: this.username,
-        email: this.email,
-        password: this.password,
-        passwordConfirm: this.passwordConfirm,
-        groupInvite,
-      });
-
-      let redirectTo;
-
-      if (this.$route.query.redirectTo) {
-        redirectTo = this.$route.query.redirectTo;
-      } else {
-        redirectTo = '/';
-      }
-
-      window.location.href = redirectTo;
-    },
     playButtonClick () {
       Analytics.track({
         hitType: 'event',
@@ -833,29 +722,6 @@ export default {
         eventLabel: 'Play',
       });
       this.$router.push('/register');
-    },
-    // @TODO: Abstract hello in to action or lib
-    async socialAuth (network) {
-      if (network === 'apple') {
-        window.location.href = buildAppleAuthUrl();
-      } else {
-        try {
-          await hello(network).logout();
-          } catch (e) {} // eslint-disable-line
-
-        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-        const auth = await hello(network).login({
-          scope: 'email',
-          // explicitly pass the redirect url or it might redirect to /home
-          redirect_uri: redirectUrl, // eslint-disable-line camelcase
-        });
-
-        await this.$store.dispatch('auth:socialAuth', {
-          auth,
-        });
-
-        window.location.href = '/';
-      }
     },
   },
 };
