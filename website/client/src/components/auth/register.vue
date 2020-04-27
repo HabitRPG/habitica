@@ -172,6 +172,9 @@
   }
 
   .register-form-homePage {
+    padding-top: 1em;
+    padding-bottom: 1em;
+
     input {
       margin-bottom: 1em;
       border-radius: 2px;

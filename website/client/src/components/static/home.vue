@@ -28,80 +28,10 @@
             <h3 class="text-center">
               {{ $t('singUpForFree') }}
             </h3>
-            <form
-              class="form"
-              @submit.prevent.stop="register()"
-            >
-              <p class="form-text">
-                {{ $t('usernameLimitations') }}
-              </p>
-              <input
-                id="usernameInput"
-                v-model="username"
-                class="form-control input-with-error"
-                type="text"
-                :placeholder="$t('username')"
-                :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
-              >
-              <!-- eslint-disable vue/require-v-for-key -->
-              <div
-                v-for="issue in usernameIssues"
-                class="input-error"
-              >
-                <!-- eslint-enable vue/require-v-for-key -->
-                {{ issue }}
-              </div>
-              <input
-                v-model="email"
-                class="form-control"
-                type="email"
-                :placeholder="$t('email')"
-                :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
-              >
-              <input
-                v-model="password"
-                class="form-control input-with-error"
-                type="password"
-                :placeholder="$t('password')"
-                :class="{
-                  'input-valid': passwordValid,
-                  'input-invalid': passwordInvalid,
-                }"
-              >
-              <div
-                v-if="passwordInvalid"
-                class="input-error"
-              >
-                {{ $t('minPasswordLength') }}
-              </div>
-              <input
-                v-model="passwordConfirm"
-                class="form-control input-with-error"
-                type="password"
-                :placeholder="$t('confirmPassword')"
-                :class="{
-                  'input-invalid': passwordConfirmInvalid,
-                  'input-valid': passwordConfirmValid}"
-              >
-              <div
-                v-if="passwordConfirmInvalid"
-                class="input-error"
-              >
-                {{ $t('passwordConfirmationMatch') }}
-              </div>
-              <p
-                v-once
-                class="form-text"
-                v-html="$t('termsAndAgreement')"
-              ></p>
-              <button
-                class="btn btn-block btn-info sign-up"
-                :disabled="signupFormInvalid"
-                type="submit"
-              >
-                {{ $t('signup') }}
-              </button>
-            </form>
+            <p class="form-text" style="margin-top: 14px;">
+              {{ $t('usernameLimitations') }}
+            </p>
+            <register-form />
             <div class="strike">
               <span>{{ $t('or') }}</span>
             </div>
@@ -471,11 +401,6 @@
       margin-left: 15px;
     }
 
-    .form {
-      padding-top: 1em;
-      padding-bottom: 1em;
-    }
-
     input {
       margin-bottom: 1em;
       border-radius: 2px;
@@ -757,12 +682,14 @@ import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import appleAuth from '../auth/socialAuth/apple';
 import facebookAuth from '../auth/socialAuth/facebook';
 import googleAuth from '../auth/socialAuth/google';
+import registerForm from '../auth/register';
 
 export default {
   components: {
     appleAuth,
     facebookAuth,
     googleAuth,
+    registerForm,
   },
   data () {
     return {
