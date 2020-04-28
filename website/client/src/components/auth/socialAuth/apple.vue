@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     registering () {
-      if (this.$route.path.startsWith('/register') || this.$route.path.startsWith('/static/home')) {
+      if (this.$route.path.startsWith('/register')) {
         return true;
       }
       return false;
