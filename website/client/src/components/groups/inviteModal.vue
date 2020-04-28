@@ -128,8 +128,6 @@
 <script>
 import clone from 'lodash/clone';
 import debounce from 'lodash/debounce';
-import filter from 'lodash/filter';
-import forEach from 'lodash/forEach';
 import isEmail from 'validator/lib/isEmail';
 import isUUID from 'validator/lib/isUUID';
 import { mapState } from '@/libs/store';
@@ -152,9 +150,8 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     cannotSubmit () {
-      const filledInvites = filter(this.invites, invite => invite.text.length);
-      const validInvites = filter(filledInvites, invite => invite.valid);
-      return !filledInvites.length || validInvites.length !== filledInvites.length;
+      const filledInvites = this.invites.filter(invite => invite.text.length);
+      return !filledInvites.length || filledInvites.some(invite => !invite.valid);
     },
     inviter () {
       return this.user.profile.name;
@@ -162,12 +159,11 @@ export default {
   },
   methods: {
     checkInviteList: debounce(function checkList () {
-      this.invites = filter(
-        this.invites,
+      this.invites = this.invites.filter(
         (invite, index) => invite.text.length > 0 || index === this.invites.length - 1,
       );
       while (this.invites.length < 2) this.invites.push(clone(INVITE_DEFAULTS));
-      forEach(this.invites, (value, index) => {
+      this.invites.forEach((value, index) => {
         if (value.text.length < 1 || isEmail(value.text)) {
           return this.fillErrors(index);
         }
@@ -217,7 +213,7 @@ export default {
         uuids: [],
         usernames: [],
       };
-      forEach(this.invites, invite => {
+      this.invites.forEach(invite => {
         if (invite.text.length < 1) return;
         if (isEmail(invite.text)) {
           invitationDetails.emails.push({ email: invite.text });
