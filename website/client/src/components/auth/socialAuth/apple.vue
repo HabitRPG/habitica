@@ -12,7 +12,7 @@
       class="svg-icon social-icon apple-icon"
       v-html="icons.appleIcon"
     ></div>
-    <span>{{ (registering || isHomePage)
+    <span>{{ (registering || isHomePage || isGroupPlansPage)
       ? $t('signUpWithSocial', {social: 'Apple'})
       : $t('loginWithSocial', {social: 'Apple'}) }}</span>
   </div>
@@ -88,6 +88,13 @@ export default {
     },
     isHomePage () {
       if (this.$route.path.startsWith('/static/home')) {
+        return true;
+      }
+      return false;
+    },
+    isGroupPlansPage () {
+      if (this.$route.path.startsWith('/static/plan')
+      || this.$route.path.startsWith('/static/group-plans')) {
         return true;
       }
       return false;

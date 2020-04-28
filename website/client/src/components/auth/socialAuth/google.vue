@@ -12,7 +12,7 @@
       class="svg-icon social-icon"
       v-html="icons.googleIcon"
     ></div>
-    <span>{{ registering
+    <span>{{ (registering || isHomePage || isGroupPlansPage)
       ? $t('signUpWithSocial', {social: 'Google'})
       : $t('loginWithSocial', {social: 'Google'}) }}</span>
   </div>
@@ -79,6 +79,13 @@ export default {
     },
     isHomePage () {
       if (this.$route.path.startsWith('/static/home')) {
+        return true;
+      }
+      return false;
+    },
+    isGroupPlansPage () {
+      if (this.$route.path.startsWith('/static/plan')
+      || this.$route.path.startsWith('/static/group-plans')) {
         return true;
       }
       return false;
