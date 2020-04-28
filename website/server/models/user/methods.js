@@ -502,3 +502,9 @@ schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
 
   return toJSON;
 };
+
+schema.methods.getSecretData = function getSecretData () {
+  const user = this;
+
+  return user.secret;
+};

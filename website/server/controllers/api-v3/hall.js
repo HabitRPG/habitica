@@ -189,6 +189,7 @@ api.getHero = {
 
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
     const heroRes = hero.toJSON({ minimize: true });
+    heroRes.secret = hero.getSecretData();
     // supply to the possible absence of hero.contributor
     // if we didn't pass minimize: true it would have returned all fields as empty
     if (!heroRes.contributor) heroRes.contributor = {};
@@ -311,6 +312,7 @@ api.updateHero = {
 
     const savedHero = await hero.save();
     const heroJSON = savedHero.toJSON();
+    heroJSON.secret = savedHero.getSecretData();
     const responseHero = { _id: heroJSON._id }; // only respond with important fields
     heroAdminFields.split(' ').forEach(field => {
       _.set(responseHero, field, _.get(heroJSON, field));
