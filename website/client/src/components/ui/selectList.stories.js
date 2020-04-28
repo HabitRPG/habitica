@@ -45,7 +45,7 @@ stories
               text: 'Second',
             },
           },
-        ]
-      }
+        ],
+      };
     },
   }));
