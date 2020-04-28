@@ -6,6 +6,11 @@ export default function reset (user, tasks = []) {
   user.stats.lvl = 1;
   user.stats.gp = 0;
   user.stats.exp = 0;
+  user.stats.con = 0;
+  user.stats.str = 0;
+  user.stats.per = 0;
+  user.stats.int = 0;
+  user.stats.points = 1;
 
   const tasksToRemove = [];
   tasks.forEach(task => {
