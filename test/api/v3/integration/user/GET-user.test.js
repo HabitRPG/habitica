@@ -38,4 +38,27 @@ describe('GET /user', () => {
     expect(returnedUser.notifications).to.exist;
     expect(returnedUser.stats).to.not.exist;
   });
+
+  it('returns the full inbox', async () => {
+    const otherUser = await generateUser();
+    const amountOfMessages = 12;
+
+    const allMessagesPromise = [];
+    for (let i = 0; i < amountOfMessages; i += 1) {
+      allMessagesPromise.push(
+        otherUser.post('/members/send-private-message', {
+          toUserId: user.id,
+          message: `Message Num: ${i}`,
+        }),
+      );
+    }
+
+    await Promise.all(allMessagesPromise);
+
+    const returnedUser = await user.get('/user');
+
+    expect(returnedUser._id).to.equal(user._id);
+    expect(returnedUser.inbox).to.exist;
+    expect(Object.keys(returnedUser.inbox.messages)).to.have.a.lengthOf(12);
+  });
 });

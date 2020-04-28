@@ -63,7 +63,7 @@ describe('GET /inbox/conversations', () => {
     expect(messages[4].text).to.equal('first');
   });
 
-  it('returns four messages when using page-query ', async () => {
+  it('returns five messages when using page-query ', async () => {
     const promises = [];
 
     for (let i = 0; i < 10; i += 1) {
