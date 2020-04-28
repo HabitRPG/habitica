@@ -67,7 +67,7 @@ describe('shared.ops.reset', () => {
     expect(user.stats.per).to.equal(0);
     expect(user.stats.points).to.equal(1);
   });
-  
+
   it('resets user\'s gold', () => {
     user.stats.gp = 20;
 
