@@ -1,6 +1,29 @@
 <template>
-  <div class='select-list p-y-xs p-x-m'>
-    {{ value }}
+  <div>
+    <b-dropdown
+      class="inline-dropdown"
+      :disabled="disabled"
+    >
+      <template v-slot:button-content>
+        <slot name="item" v-bind:item="value">
+          <!-- Fallback content -->
+          {{ value }}
+        </slot>
+      </template>
+      <b-dropdown-item
+        v-for="item in items"
+        :key="item[keyProp]"
+        :disabled="typeof item[disabledProp] === 'undefined' ? false : item[disabledProp]"
+        :class="{active: item === value}"
+        @click="$emit('select', item)"
+      >
+        <slot name="item" v-bind:item="item">
+          <!-- Fallback content -->
+          {{ item }}
+        </slot>
+      </b-dropdown-item>
+    </b-dropdown>
+
   </div>
 </template>
 
@@ -41,7 +64,19 @@
 <script>
 export default {
   props: {
+    items: {
+      type: Array,
+    },
+    disabled: {
+      type: Boolean,
+    },
     value: {
+      type: Object,
+    },
+    keyProp: {
+      type: String,
+    },
+    disabledProp: {
       type: String,
     },
   },

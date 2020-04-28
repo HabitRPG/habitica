@@ -31,7 +31,11 @@ import '../../src/assets/css/sprites/spritesmith-main-24.css';
 import '../../src/assets/css/sprites/spritesmith-main-25.css';
 import '../../src/assets/css/sprites/spritesmith-main-26.css';
 import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
 import StoreModule from '@/libs/store';
+
+Vue.use(BootstrapVue);
+Vue.use(StoreModule);
 
 const req = require.context('../../src', true, /.stories.js$/);
 
@@ -39,6 +43,5 @@ function loadStories () {
   req.keys().forEach(filename => req(filename));
 }
 
-Vue.use(StoreModule);
 
 configure(loadStories, module);

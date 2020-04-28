@@ -13,13 +13,39 @@ stories
     components: { SelectList },
     template: `
       <div class="m-xl">
-        <select-list class="m-b-xl" :value="'Default'"></select-list>
-        <select-list class="disabled" :value="'Disabled'"></select-list>
+        <select-list class="m-b-xl"
+                     :items="items"
+                     :key-prop="'key'"
+        :value="selected">
+          <template v-slot:item="{ item }">
+            Template: {{ item?.key }} - {{ item?.value.text }}
+          </template>
+        </select-list>
+        <select-list :disabled="true"></select-list>
       </div>
     `,
-    props: {
-      value: {
-        default: 'Value',
-      },
+    data () {
+      return {
+        selected: {
+          key: 1,
+          value: {
+            text: 'First',
+          },
+        },
+        items: [
+          {
+            key: 1,
+            value: {
+              text: 'First',
+            },
+          },
+          {
+            key: 2,
+            value: {
+              text: 'Second',
+            },
+          },
+        ]
+      }
     },
   }));
