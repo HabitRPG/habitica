@@ -67,7 +67,7 @@
     }
 
     .login-button:hover {
-      background-color: #b288ff;
+      background-color: #5d3b9c;
       box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12) !important;
     }
   }

@@ -179,7 +179,7 @@
             <div class="col-12 col-md-4">
               <button
                 v-if="user"
-                class="btn btn-contribute btn-flat"
+                class="btn btn-contribute btn-front btn-flat"
                 @click="donate()"
               >
                 <div
@@ -192,7 +192,7 @@
               </button>
               <div
                 v-else
-                class="btn btn-contribute btn-flat"
+                class="btn btn-contribute btn-front btn-flat"
               >
                 <a
                   href="http://habitica.fandom.com/wiki/Contributing_to_Habitica"
@@ -417,6 +417,7 @@
     background: #c3c0c7;
     box-shadow: none;
     border-radius: 4px;
+    font-family: Roboto Condensed,sans-serif;
 
     &:hover {
       background: #a5a1ac;

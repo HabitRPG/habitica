@@ -4,11 +4,11 @@
   font-size: 14px;
   font-weight: bold;
   line-height: 1.71;
-  border: 1px solid transparent !important;
+  border: 1px solid transparent;
   padding: 0.25rem 1rem;
   border-radius: 2px;
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
-  color: $white !important;
+  color: $white;
 
   &:hover, &:focus {
     box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
@@ -19,7 +19,7 @@
   }
 
   &:focus {
-    border-color: $purple-400 !important;
+    border-color: $purple-400;
   }
 
   &:active, &.active:not(.btn-flat), &:disabled, &.disabled {
@@ -28,45 +28,131 @@
 
   &:disabled, &.disabled {
     cursor: default;
-    opacity: 0.75 !important;
+    opacity: 0.75;
   }
 }
 
+.btn-front {
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 7.5px 15.5px;
+}
+
 .btn-primary {
-  background: $purple-200 !important;
+  background: $purple-200;
+  border: 1px solid transparent;
+
+  &:hover {
+    background: #5d3b9c;
+    border: 1px solid transparent;
+  }
+
+  &:focus {
+    background: $purple-200;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
+    box-shadow: none;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
+    background: $purple-200;
+    border: 1px solid transparent;
+  }
+
+  &:disabled, &.disabled {
+    background: $purple-200;
+    border: 1px solid transparent;
+    cursor: default;
+    opacity: 0.75;
+  }
 }
 
 .btn-secondary, .dropdown > .btn-secondary {
-  color: $gray-50 !important;
-  background: $white !important;
+  color: $gray-50;
+  background: $white;
 
   &:hover, &:active, &.active, &:focus {
-    color: $purple-300 !important;
+    color: $purple-300;
 
     &:disabled, &.disabled {
-      color: $gray-50 !important;
+      color: $gray-50;
     }
   }
 
   &:focus {
-    border-color: $purple-400 !important;
+    border-color: $purple-400;
+  }
+}
+
+.btn-danger {
+  background: $maroon-100;
+  border: 1px solid transparent;
+
+  &:hover {
+    background: #e14e4e;
+    border: 1px solid transparent;
+  }
+
+  &:focus {
+    background: $maroon-100;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
+    box-shadow: none;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
+    background: $maroon-100;
+    border: 1px solid transparent;
+  }
+
+  &:disabled, &.disabled {
+    background: $maroon-100;
+    border: 1px solid transparent;
+    cursor: default;
+    opacity: 0.75;
+  }
+}
+
+.btn-success {
+  background: $green-50;
+  border: 1px solid transparent;
+
+  &:hover {
+    background: #32bd8a;
+    border: 1px solid transparent;
+  }
+
+  &:focus {
+    background: $green-50;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
+    box-shadow: none;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
+    background: $green-50;
+    border: 1px solid transparent;
+  }
+
+  &:disabled, &.disabled {
+    background: $green-50;
+    border: 1px solid transparent;
+    cursor: default;
+    opacity: 0.75;
   }
 }
 
 .btn-warning:hover, .btn-warning:focus, .btn-warning:active {
-  color: $white !important;
-}
-
-.btn-success {
-  background: $green-100;
-
-  &:disabled {
-    background: $green-100;
-  }
-
-  &:hover:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled) {
-    background: $green-50;
-  }
+  color: $white;
 }
 
 .show > .btn-success.dropdown-toggle {
@@ -86,22 +172,6 @@
 
   &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled) {
     background: $blue-50;
-  }
-}
-
-.btn-danger {
-  background: $red-50;
-
-  &:disabled {
-    background: $red-50;
-  }
-
-  &:hover:not(:disabled):not(.disabled) {
-    background: $red-100;
-  }
-
-  &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled) {
-    background: $red-100;
   }
 }
 

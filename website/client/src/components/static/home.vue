@@ -304,7 +304,7 @@
         <div class="row">
           <div class="col-12 text-center">
             <button
-              class="btn btn-primary join-button"
+              class="btn btn-primary btn-front join-button"
               @click="playButtonClick()"
             >
               {{ $t('joinToday') }}
@@ -680,10 +680,13 @@
       padding-bottom: 5em;
     }
 
-    .join-button:hover {
+    .join-button {
       cursor: pointer;
-      background-color: #b288ff;
-      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+
+      &:hover {
+        background-color: #5d3b9c;
+        box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+      }
     }
 
     .featured .row {
