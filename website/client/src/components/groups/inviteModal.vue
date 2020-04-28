@@ -29,7 +29,7 @@
             :class="{
               'input-valid': invite.valid, 'is-invalid input-invalid': invite.valid === false}"
             @keyup="expandInviteList"
-            @input="checkInviteList(); clearErrors(invite);"
+            @input="inviteUpdated(invite)"
           >
         </div>
         <div
@@ -158,6 +158,10 @@ export default {
     },
   },
   methods: {
+    inviteUpdated (invite) {
+      this.clearErrors(invite);
+      this.checkInviteList();
+    },
     checkInviteList: debounce(function checkList () {
       this.invites = this.invites.filter(
         (invite, index) => invite.text.length > 0 || index === this.invites.length - 1,
