@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { defaultsDeep } from 'lodash';
 import {
   generateUser,
 } from '../../../helpers/common.helper';
@@ -9,11 +10,10 @@ import {
 import i18n from '../../../../website/common/script/i18n';
 import content from '../../../../website/common/script/content/index';
 import errorMessage from '../../../../website/common/script/libs/errorMessage';
-import { defaultsDeep } from 'lodash';
 
 describe('shared.ops.buy', () => {
   let user;
-  let analytics = {track () {}};
+  const analytics = { track () {} };
 
   beforeEach(() => {
     user = generateUser({
@@ -40,7 +40,7 @@ describe('shared.ops.buy', () => {
     analytics.track.restore();
   });
 
-  it('returns error when key is not provided', (done) => {
+  it('returns error when key is not provided', done => {
     try {
       buy(user);
     } catch (err) {
@@ -52,7 +52,7 @@ describe('shared.ops.buy', () => {
 
   it('recovers 15 hp', () => {
     user.stats.hp = 30;
-    buy(user, {params: {key: 'potion'}}, analytics);
+    buy(user, { params: { key: 'potion' } }, analytics);
     expect(user.stats.hp).to.eql(45);
 
     expect(analytics.track).to.be.calledOnce;
@@ -61,7 +61,7 @@ describe('shared.ops.buy', () => {
   it('adds equipment to inventory', () => {
     user.stats.gp = 31;
 
-    buy(user, {params: {key: 'armor_warrior_1'}});
+    buy(user, { params: { key: 'armor_warrior_1' } });
 
     expect(user.items.gear.owned).to.eql({
       weapon_warrior_0: true,
@@ -118,15 +118,15 @@ describe('shared.ops.buy', () => {
       type: 'quest',
     });
 
-    expect(user.items.quests).to.eql({dilatoryDistress1: 1});
+    expect(user.items.quests).to.eql({ dilatoryDistress1: 1 });
     expect(user.stats.gp).to.equal(5);
   });
 
   it('buys a special item', () => {
     user.stats.gp = 11;
-    let item = content.special.thankyou;
+    const item = content.special.thankyou;
 
-    let [data, message] = buy(user, {
+    const [data, message] = buy(user, {
       params: {
         key: 'thankyou',
       },
@@ -146,11 +146,11 @@ describe('shared.ops.buy', () => {
 
   it('allows for bulk purchases', () => {
     user.stats.hp = 30;
-    buy(user, {params: {key: 'potion'}, quantity: 2});
+    buy(user, { params: { key: 'potion' }, quantity: 2 });
     expect(user.stats.hp).to.eql(50);
   });
 
-  it('errors if user supplies a non-numeric quantity', (done) => {
+  it('errors if user supplies a non-numeric quantity', done => {
     try {
       buy(user, {
         params: {
@@ -166,7 +166,7 @@ describe('shared.ops.buy', () => {
     }
   });
 
-  it('errors if user supplies a negative quantity', (done) => {
+  it('errors if user supplies a negative quantity', done => {
     try {
       buy(user, {
         params: {
@@ -182,7 +182,7 @@ describe('shared.ops.buy', () => {
     }
   });
 
-  it('errors if user supplies a decimal quantity', (done) => {
+  it('errors if user supplies a decimal quantity', done => {
     try {
       buy(user, {
         params: {

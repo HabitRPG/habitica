@@ -5,7 +5,7 @@ import {
 
 describe('POST /challenges/:challengeId/clone', () => {
   it('clones a challenge', async () => {
-    const user = await generateUser({balance: 10});
+    const user = await generateUser({ balance: 10 });
     const group = await generateGroup(user);
 
     const name = 'Test Challenge';
@@ -38,6 +38,7 @@ describe('POST /challenges/:challengeId/clone', () => {
 
     expect(cloneChallengeResponse.clonedTasks[0].text).to.eql(challengeTask.text);
     expect(cloneChallengeResponse.clonedTasks[0]._id).to.not.eql(challengeTask._id);
-    expect(cloneChallengeResponse.clonedTasks[0].challenge.id).to.eql(cloneChallengeResponse.clonedChallenge._id);
+    expect(cloneChallengeResponse.clonedTasks[0].challenge.id)
+      .to.eql(cloneChallengeResponse.clonedChallenge._id);
   });
 });

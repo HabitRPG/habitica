@@ -118,7 +118,7 @@
     "loginIncentiveQuestObtained": "Você ganhou essa missão por fazer check-in no Habitica <%= count %> vezes!",
     "loginReward": "<%= count %> Check-ins",
     "createAccountQuest": "Você recebeu esta missão quando se juntou ao Habitica! Se um amigo se juntar, ele também terá um.",
-    "questBundles": "Pacotes de Missões com Desconto",
+    "questBundles": "Pacotes de Missões com cesconto",
     "buyQuestBundle": "Comprar Pacote de Missões",
     "noQuestToStart": "Não consegue achar uma missão? Experimente visitar a Loja de Missões no Mercado e veja os novos lançamentos!",
     "pendingDamage": "<%= damage %> de dano acumulado",
@@ -135,6 +135,9 @@
     "chatQuestAborted": "<%= username %> abortou a missão <%= questName %>.",
     "chatItemQuestFinish": "Todos os itens foram encontrados! Todos os membros do Grupo que participaram desta missão receberam suas recompensas.",
     "chatFindItems": "<%= username %> encontrou <%= items %>.",
-    "chatBossDefeated": "Você derrotou o(a) <%= bossName %>! Todos os membros do Grupo que participaram desta missão receberam recompensas por esta vitória.",
-    "chatBossDamage": "<%= username %> atacaou <%= bossName %> e causou <%= userDamage %> de dano. <%= bossName %> atacou o Grupo e causou <%= bossDamage %> de dano."
+    "chatBossDefeated": "Vocês derrotaram <%= bossName %>! Todos os membros do Grupo que participaram desta missão receberam recompensas por esta vitória.",
+    "chatBossDamage": "<%= username %> ataca <%= bossName %>, causando <%= userDamage %> de dano. <%= bossName %> ataca o Grupo e causa <%= bossDamage %> de dano.",
+    "questInvitationNotificationInfo": "Você foi convidado(a) para participar de uma missão",
+    "questAlreadyStartedFriendly": "A missão já começou, mas você sempre pode pegar a próxima!",
+    "questAlreadyStarted": "A missão já começou."
 }

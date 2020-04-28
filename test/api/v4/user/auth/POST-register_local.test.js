@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+import { each } from 'lodash';
 import {
   generateUser,
   requester,
@@ -6,8 +8,6 @@ import {
   getProperty,
 } from '../../../../helpers/api-integration/v4';
 import { ApiUser } from '../../../../helpers/api-integration/api-classes';
-import { v4 as uuid } from 'uuid';
-import { each } from 'lodash';
 import { encrypt } from '../../../../../website/server/libs/encryption';
 
 function generateRandomUserName () {
@@ -23,11 +23,11 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('registers a new user', async () => {
-      let username = generateRandomUserName();
-      let email = `${username}@example.com`;
-      let password = 'password';
+      const username = generateRandomUserName();
+      const email = `${username}@example.com`;
+      const password = 'password';
 
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -43,11 +43,11 @@ describe('POST /user/auth/local/register', () => {
 
     xit('remove spaces from username', async () => {
       // TODO can probably delete this test now
-      let username = ' usernamewithspaces ';
-      let email = 'test@example.com';
-      let password = 'password';
+      const username = ' usernamewithspaces ';
+      const email = 'test@example.com';
+      const password = 'password';
 
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -108,24 +108,24 @@ describe('POST /user/auth/local/register', () => {
 
     context('provides default tags and tasks', async () => {
       it('for a generic API consumer', async () => {
-        let username = generateRandomUserName();
-        let email = `${username}@example.com`;
-        let password = 'password';
+        const username = generateRandomUserName();
+        const email = `${username}@example.com`;
+        const password = 'password';
 
-        let user = await api.post('/user/auth/local/register', {
+        const user = await api.post('/user/auth/local/register', {
           username,
           email,
           password,
           confirmPassword: password,
         });
 
-        let requests = new ApiUser(user);
+        const requests = new ApiUser(user);
 
-        let habits = await requests.get('/tasks/user?type=habits');
-        let dailys = await requests.get('/tasks/user?type=dailys');
-        let todos = await requests.get('/tasks/user?type=todos');
-        let rewards = await requests.get('/tasks/user?type=rewards');
-        let tags = await requests.get('/tags');
+        const habits = await requests.get('/tasks/user?type=habits');
+        const dailys = await requests.get('/tasks/user?type=dailys');
+        const todos = await requests.get('/tasks/user?type=todos');
+        const rewards = await requests.get('/tasks/user?type=rewards');
+        const tags = await requests.get('/tags');
 
         expect(habits).to.have.a.lengthOf(0);
         expect(dailys).to.have.a.lengthOf(0);
@@ -145,26 +145,26 @@ describe('POST /user/auth/local/register', () => {
       xit('for Web', async () => {
         api = requester(
           null,
-          {'x-client': 'habitica-web'},
+          { 'x-client': 'habitica-web' },
         );
-        let username = generateRandomUserName();
-        let email = `${username}@example.com`;
-        let password = 'password';
+        const username = generateRandomUserName();
+        const email = `${username}@example.com`;
+        const password = 'password';
 
-        let user = await api.post('/user/auth/local/register', {
+        const user = await api.post('/user/auth/local/register', {
           username,
           email,
           password,
           confirmPassword: password,
         });
 
-        let requests = new ApiUser(user);
+        const requests = new ApiUser(user);
 
-        let habits = await requests.get('/tasks/user?type=habits');
-        let dailys = await requests.get('/tasks/user?type=dailys');
-        let todos = await requests.get('/tasks/user?type=todos');
-        let rewards = await requests.get('/tasks/user?type=rewards');
-        let tags = await requests.get('/tags');
+        const habits = await requests.get('/tasks/user?type=habits');
+        const dailys = await requests.get('/tasks/user?type=dailys');
+        const todos = await requests.get('/tasks/user?type=todos');
+        const rewards = await requests.get('/tasks/user?type=rewards');
+        const tags = await requests.get('/tags');
 
         expect(habits).to.have.a.lengthOf(3);
         expect(habits[0].text).to.eql(t('defaultHabit1Text'));
@@ -199,26 +199,26 @@ describe('POST /user/auth/local/register', () => {
       it('for Android', async () => {
         api = requester(
           null,
-          {'x-client': 'habitica-android'},
+          { 'x-client': 'habitica-android' },
         );
-        let username = generateRandomUserName();
-        let email = `${username}@example.com`;
-        let password = 'password';
+        const username = generateRandomUserName();
+        const email = `${username}@example.com`;
+        const password = 'password';
 
-        let user = await api.post('/user/auth/local/register', {
+        const user = await api.post('/user/auth/local/register', {
           username,
           email,
           password,
           confirmPassword: password,
         });
 
-        let requests = new ApiUser(user);
+        const requests = new ApiUser(user);
 
-        let habits = await requests.get('/tasks/user?type=habits');
-        let dailys = await requests.get('/tasks/user?type=dailys');
-        let todos = await requests.get('/tasks/user?type=todos');
-        let rewards = await requests.get('/tasks/user?type=rewards');
-        let tags = await requests.get('/tags');
+        const habits = await requests.get('/tasks/user?type=habits');
+        const dailys = await requests.get('/tasks/user?type=dailys');
+        const todos = await requests.get('/tasks/user?type=todos');
+        const rewards = await requests.get('/tasks/user?type=rewards');
+        const tags = await requests.get('/tags');
 
         expect(habits).to.have.a.lengthOf(0);
         expect(dailys).to.have.a.lengthOf(0);
@@ -230,26 +230,26 @@ describe('POST /user/auth/local/register', () => {
       it('for iOS', async () => {
         api = requester(
           null,
-          {'x-client': 'habitica-ios'},
+          { 'x-client': 'habitica-ios' },
         );
-        let username = generateRandomUserName();
-        let email = `${username}@example.com`;
-        let password = 'password';
+        const username = generateRandomUserName();
+        const email = `${username}@example.com`;
+        const password = 'password';
 
-        let user = await api.post('/user/auth/local/register', {
+        const user = await api.post('/user/auth/local/register', {
           username,
           email,
           password,
           confirmPassword: password,
         });
 
-        let requests = new ApiUser(user);
+        const requests = new ApiUser(user);
 
-        let habits = await requests.get('/tasks/user?type=habits');
-        let dailys = await requests.get('/tasks/user?type=dailys');
-        let todos = await requests.get('/tasks/user?type=todos');
-        let rewards = await requests.get('/tasks/user?type=rewards');
-        let tags = await requests.get('/tags');
+        const habits = await requests.get('/tasks/user?type=habits');
+        const dailys = await requests.get('/tasks/user?type=dailys');
+        const todos = await requests.get('/tasks/user?type=todos');
+        const rewards = await requests.get('/tasks/user?type=rewards');
+        const tags = await requests.get('/tags');
 
         expect(habits).to.have.a.lengthOf(0);
         expect(dailys).to.have.a.lengthOf(0);
@@ -260,11 +260,11 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('enrolls new users in an A/B test', async () => {
-      let username = generateRandomUserName();
-      let email = `${username}@example.com`;
-      let password = 'password';
+      const username = generateRandomUserName();
+      const email = `${username}@example.com`;
+      const password = 'password';
 
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -275,11 +275,11 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('includes items awarded by default when creating a new user', async () => {
-      let username = generateRandomUserName();
-      let email = `${username}@example.com`;
-      let password = 'password';
+      const username = generateRandomUserName();
+      const email = `${username}@example.com`;
+      const password = 'password';
 
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -292,10 +292,10 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('requires password and confirmPassword to match', async () => {
-      let username = generateRandomUserName();
-      let email = `${username}@example.com`;
-      let password = 'password';
-      let confirmPassword = 'not password';
+      const username = generateRandomUserName();
+      const email = `${username}@example.com`;
+      const password = 'password';
+      const confirmPassword = 'not password';
 
       await expect(api.post('/user/auth/local/register', {
         username,
@@ -310,9 +310,9 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('requires a username', async () => {
-      let email = `${generateRandomUserName()}@example.com`;
-      let password = 'password';
-      let confirmPassword = 'password';
+      const email = `${generateRandomUserName()}@example.com`;
+      const password = 'password';
+      const confirmPassword = 'password';
 
       await expect(api.post('/user/auth/local/register', {
         email,
@@ -326,8 +326,8 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('requires an email', async () => {
-      let username = generateRandomUserName();
-      let password = 'password';
+      const username = generateRandomUserName();
+      const password = 'password';
 
       await expect(api.post('/user/auth/local/register', {
         username,
@@ -341,9 +341,9 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('requires a valid email', async () => {
-      let username = generateRandomUserName();
-      let email = 'notanemail@sdf';
-      let password = 'password';
+      const username = generateRandomUserName();
+      const email = 'notanemail@sdf';
+      const password = 'password';
 
       await expect(api.post('/user/auth/local/register', {
         username,
@@ -358,11 +358,11 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('sanitizes email params to a lowercase string before creating the user', async () => {
-      let username = generateRandomUserName();
-      let email = 'ISANEmAiL@ExAmPle.coM';
-      let password = 'password';
+      const username = generateRandomUserName();
+      const email = 'ISANEmAiL@ExAmPle.coM';
+      const password = 'password';
 
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -373,9 +373,9 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('fails on a habitica.com email', async () => {
-      let username = generateRandomUserName();
-      let email = `${username}@habitica.com`;
-      let password = 'password';
+      const username = generateRandomUserName();
+      const email = `${username}@habitica.com`;
+      const password = 'password';
 
       await expect(api.post('/user/auth/local/register', {
         username,
@@ -390,9 +390,9 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('fails on a habitrpg.com email', async () => {
-      let username = generateRandomUserName();
-      let email = `${username}@habitrpg.com`;
-      let password = 'password';
+      const username = generateRandomUserName();
+      const email = `${username}@habitrpg.com`;
+      const password = 'password';
 
       await expect(api.post('/user/auth/local/register', {
         username,
@@ -407,9 +407,9 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('requires a password', async () => {
-      let username = generateRandomUserName();
-      let email = `${username}@example.com`;
-      let confirmPassword = 'password';
+      const username = generateRandomUserName();
+      const email = `${username}@example.com`;
+      const confirmPassword = 'password';
 
       await expect(api.post('/user/auth/local/register', {
         username,
@@ -425,9 +425,9 @@ describe('POST /user/auth/local/register', () => {
 
   context('attach to facebook user', () => {
     let user;
-    let email = 'some@email.net';
-    let username = 'some-username';
-    let password = 'some-password';
+    const email = 'some@email.net';
+    const username = 'some-username';
+    const password = 'some-password';
     beforeEach(async () => {
       user = await generateUser();
     });
@@ -457,8 +457,77 @@ describe('POST /user/auth/local/register', () => {
     });
   });
 
+  context('attach to google user', () => {
+    let user;
+    const email = 'some-google@email.net';
+    const username = 'some-username-google';
+    const password = 'some-password';
+    beforeEach(async () => {
+      user = await generateUser();
+    });
+    it('checks onlySocialAttachLocal', async () => {
+      await expect(user.post('/user/auth/local/register', {
+        email,
+        username,
+        password,
+        confirmPassword: password,
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlySocialAttachLocal'),
+      });
+    });
+    it('succeeds', async () => {
+      await user.update({ 'auth.google.id': 'some-google-id', 'auth.local': { ok: true } });
+      await user.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+      await user.sync();
+      expect(user.auth.local.username).to.eql(username);
+      expect(user.auth.local.email).to.eql(email);
+    });
+  });
+
+  context('attach to apple user', () => {
+    let user;
+    const email = 'some-apple@email.net';
+    const username = 'some-username-apple';
+    const password = 'some-password';
+    beforeEach(async () => {
+      user = await generateUser();
+    });
+    it('checks onlySocialAttachLocal', async () => {
+      await expect(user.post('/user/auth/local/register', {
+        email,
+        username,
+        password,
+        confirmPassword: password,
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlySocialAttachLocal'),
+      });
+    });
+    it('succeeds', async () => {
+      await user.update({ 'auth.apple.id': 'some-apple-id', 'auth.local': { ok: true } });
+      await user.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+      await user.sync();
+      expect(user.auth.local.username).to.eql(username);
+      expect(user.auth.local.email).to.eql(email);
+    });
+  });
+
   context('login is already taken', () => {
-    let username, email, api;
+    let username; let email; let
+      api;
 
     beforeEach(async () => {
       api = requester();
@@ -473,8 +542,8 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('rejects if username is already taken', async () => {
-      let uniqueEmail = `${generateRandomUserName()}@example.com`;
-      let password = 'password';
+      const uniqueEmail = `${generateRandomUserName()}@example.com`;
+      const password = 'password';
 
       await expect(api.post('/user/auth/local/register', {
         username,
@@ -489,8 +558,8 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('rejects if email is already taken', async () => {
-      let uniqueUsername = generateRandomUserName();
-      let password = 'password';
+      const uniqueUsername = generateRandomUserName();
+      const password = 'password';
 
       await expect(api.post('/user/auth/local/register', {
         username: uniqueUsername,
@@ -506,7 +575,8 @@ describe('POST /user/auth/local/register', () => {
   });
 
   context('req.query.groupInvite', () => {
-    let api, username, email, password;
+    let api; let username; let email; let
+      password;
 
     beforeEach(() => {
       api = requester();
@@ -516,7 +586,7 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('does not crash the signup process when it\'s invalid', async () => {
-      let user = await api.post('/user/auth/local/register?groupInvite=aaaaInvalid', {
+      const user = await api.post('/user/auth/local/register?groupInvite=aaaaInvalid', {
         username,
         email,
         password,
@@ -527,17 +597,17 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('supports invite using req.query.groupInvite', async () => {
-      let { group, groupLeader } = await createAndPopulateGroup({
+      const { group, groupLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'party', privacy: 'private' },
       });
 
-      let invite = encrypt(JSON.stringify({
+      const invite = encrypt(JSON.stringify({
         id: group._id,
         inviter: groupLeader._id,
         sentAt: Date.now(), // so we can let it expire
       }));
 
-      let user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+      const user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
         username,
         email,
         password,
@@ -550,11 +620,11 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('awards achievement to inviter', async () => {
-      let { group, groupLeader } = await createAndPopulateGroup({
+      const { group, groupLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'party', privacy: 'private' },
       });
 
-      let invite = encrypt(JSON.stringify({
+      const invite = encrypt(JSON.stringify({
         id: group._id,
         inviter: groupLeader._id,
         sentAt: Date.now(),
@@ -572,17 +642,17 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('user not added to a party on expired invite', async () => {
-      let { group, groupLeader } = await createAndPopulateGroup({
+      const { group, groupLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'party', privacy: 'private' },
       });
 
-      let invite = encrypt(JSON.stringify({
+      const invite = encrypt(JSON.stringify({
         id: group._id,
         inviter: groupLeader._id,
         sentAt: Date.now() - 6.912e8, // 8 days old
       }));
 
-      let user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+      const user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
         username,
         email,
         password,
@@ -593,17 +663,17 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('adds a user to a guild on an invite of type other than party', async () => {
-      let { group, groupLeader } = await createAndPopulateGroup({
+      const { group, groupLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'private' },
       });
 
-      let invite = encrypt(JSON.stringify({
+      const invite = encrypt(JSON.stringify({
         id: group._id,
         inviter: groupLeader._id,
         sentAt: Date.now(),
       }));
 
-      let user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
+      const user = await api.post(`/user/auth/local/register?groupInvite=${invite}`, {
         username,
         email,
         password,
@@ -619,7 +689,8 @@ describe('POST /user/auth/local/register', () => {
   });
 
   context('successful login via api', () => {
-    let api, username, email, password;
+    let api; let username; let email; let
+      password;
 
     beforeEach(() => {
       api = requester();
@@ -629,7 +700,7 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('sets all site tour values to -2 (already seen)', async () => {
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -638,13 +709,13 @@ describe('POST /user/auth/local/register', () => {
 
       expect(user.flags.tour).to.not.be.empty;
 
-      each(user.flags.tour, (value) => {
+      each(user.flags.tour, value => {
         expect(value).to.eql(-2);
       });
     });
 
     it('populates user with default todos, not no other task types', async () => {
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -658,7 +729,7 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('populates user with default tags', async () => {
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -670,17 +741,18 @@ describe('POST /user/auth/local/register', () => {
   });
 
   context('successful login with habitica-web header', () => {
-    let api, username, email, password;
+    let api; let username; let email; let
+      password;
 
     beforeEach(() => {
-      api = requester({}, {'x-client': 'habitica-web'});
+      api = requester({}, { 'x-client': 'habitica-web' });
       username = generateRandomUserName();
       email = `${username}@example.com`;
       password = 'password';
     });
 
     it('sets all common tutorial flags to true', async () => {
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -689,13 +761,13 @@ describe('POST /user/auth/local/register', () => {
 
       expect(user.flags.tour).to.not.be.empty;
 
-      each(user.flags.tutorial.common, (value) => {
+      each(user.flags.tutorial.common, value => {
         expect(value).to.eql(true);
       });
     });
 
     it('populates user with default todos, habits, and rewards', async () => {
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -709,7 +781,7 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('populates user with default tags', async () => {
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
@@ -720,17 +792,17 @@ describe('POST /user/auth/local/register', () => {
     });
 
     it('adds the correct tags to the correct tasks', async () => {
-      let user = await api.post('/user/auth/local/register', {
+      const user = await api.post('/user/auth/local/register', {
         username,
         email,
         password,
         confirmPassword: password,
       });
 
-      let requests = new ApiUser(user);
+      const requests = new ApiUser(user);
 
-      let habits = await requests.get('/tasks/user?type=habits');
-      let todos = await requests.get('/tasks/user?type=todos');
+      const habits = await requests.get('/tasks/user?type=habits');
+      const todos = await requests.get('/tasks/user?type=todos');
 
       expect(habits).to.have.a.lengthOf(0);
       expect(todos).to.have.a.lengthOf(0);

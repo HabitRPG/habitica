@@ -1,5 +1,5 @@
-import i18n from '../i18n';
 import each from 'lodash/each';
+import i18n from '../i18n';
 import { capByLevel } from '../statHelpers';
 import { MAX_LEVEL } from '../constants';
 import {
@@ -11,14 +11,14 @@ import isFreeRebirth from '../libs/isFreeRebirth';
 
 const USERSTATSLIST = ['per', 'int', 'con', 'str', 'points', 'gp', 'exp', 'mp'];
 
-module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
+export default function rebirth (user, tasks = [], req = {}, analytics) {
   const notFree = !isFreeRebirth(user);
 
   if (user.balance < 1.5 && notFree) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
-  let analyticsData = {
+  const analyticsData = {
     uuid: user._id,
     category: 'behavior',
   };
@@ -37,9 +37,9 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     analytics.track('Rebirth', analyticsData);
   }
 
-  let lvl = capByLevel(user.stats.lvl);
+  const lvl = capByLevel(user.stats.lvl);
 
-  each(tasks, function resetTasks (task) {
+  each(tasks, task => {
     if (!task.challenge || !task.challenge.id || task.challenge.broken) {
       if (task.type !== 'reward') {
         task.value = 0;
@@ -56,7 +56,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
 
   removePinnedGearByClass(user);
 
-  let stats = user.stats;
+  const { stats } = user;
   stats.buffs = {};
   stats.hp = 50;
   stats.lvl = 1;
@@ -64,7 +64,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
 
   user.preferences.automaticAllocation = false;
 
-  each(USERSTATSLIST, function resetStats (value) {
+  each(USERSTATSLIST, value => {
     stats[value] = 0;
   });
 
@@ -86,7 +86,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     });
   }
 
-  let flags = user.flags;
+  const { flags } = user;
   flags.itemsEnabled = false;
   flags.dropsEnabled = false;
   flags.classSelected = false;
@@ -97,7 +97,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
     user.achievements.rebirths = 1;
     user.achievements.rebirthLevel = lvl;
   } else if (lvl > user.achievements.rebirthLevel || lvl === MAX_LEVEL) {
-    user.achievements.rebirths++;
+    user.achievements.rebirths += 1;
     user.achievements.rebirthLevel = lvl;
   }
 
@@ -110,7 +110,7 @@ module.exports = function rebirth (user, tasks = [], req = {}, analytics) {
   user.stats.buffs = {};
 
   return [
-    {user, tasks},
+    { user, tasks },
     i18n.t('rebirthComplete'),
   ];
-};
+}

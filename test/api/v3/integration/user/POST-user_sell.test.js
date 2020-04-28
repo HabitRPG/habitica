@@ -6,8 +6,8 @@ import content from '../../../../../website/common/script/content';
 
 describe('POST /user/sell/:type/:key', () => {
   let user;
-  let type = 'eggs';
-  let key = 'Wolf';
+  const type = 'eggs';
+  const key = 'Wolf';
 
   beforeEach(async () => {
     user = await generateUser();
@@ -20,7 +20,7 @@ describe('POST /user/sell/:type/:key', () => {
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
-        message: t('userItemsKeyNotFound', {type}),
+        message: t('userItemsKeyNotFound', { type }),
       });
   });
 

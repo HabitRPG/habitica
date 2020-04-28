@@ -9,7 +9,7 @@
     "totalCheckins": "<%= count %> Check-Ins",
     "checkinEarned": "Seu Contador de Check-In aumentou!",
     "unlockedCheckInReward": "Você desbloqueou uma recompensa de Check-In!",
-    "totalCheckinsTitle": "Total de Check-Ins",
+    "totalCheckinsTitle": "Total de check-ins",
     "checkinProgressTitle": "Progresso até o próximo",
     "incentiveBackgroundsUnlockedWithCheckins": "Você pode conseguir os Cenários Simples Bloqueados logando diariamente.",
     "checkinReceivedAllRewardsMessage": "Você recebeu todos os prêmios de Check-In disponíveis! Parabéns!",
@@ -23,7 +23,7 @@
     "threeSaddles": "três Selas",
     "incentiveAchievement": "a conquista do Fiel Real",
     "royallyLoyal": "Fiel Real",
-    "royallyLoyalText": "Este usuário fez Check-In mais de 500 vezes e conquistou todos os prêmios de Check-In!",
-    "checkInRewards": "Recompensas de Check-In",
-    "backloggedCheckInRewards": "Você recebeu recompensas de Check-In! Olhe o seu Inventário e e vá em Equipamento para ver o quê há de novo."
+    "royallyLoyalText": "Este usuário fez check-in mais de 500 vezes e conquistou todos os prêmios de check-in!",
+    "checkInRewards": "Recompensas de check-in",
+    "backloggedCheckInRewards": "Você recebeu recompensas de check-in! Olhe o seu Inventário e vá em Equipamento para ver o que há de novo."
 }

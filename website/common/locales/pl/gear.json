@@ -279,7 +279,7 @@
     "weaponSpecialWinter2019WarriorText": "Snowflake Halberd",
     "weaponSpecialWinter2019WarriorNotes": "This snowflake was grown, ice crystal by ice crystal, into a diamond-hard blade! Increases Strength by <%= str %>. Limited Edition 2018-2019 Winter Gear.",
     "weaponSpecialWinter2019MageText": "Fiery Dragon Staff",
-    "weaponSpecialWinter2019MageNotes": "Watch out! This explosive staff is ready to help you take on all comers. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2018-2019 Winter Gear",
+    "weaponSpecialWinter2019MageNotes": "Ostrożnie! Ta wybuchowa rzecz jest gotowa pomóc Ci znaleźć się we wszystkich kątach jednocześnie.  Zwiększa Inteligencję o <%= int %> oraz Percepcję o <%= per %>. Edycja Limitowana 2018-2019 Zimowe Wyposażenie.",
     "weaponSpecialWinter2019HealerText": "Wand of Winter",
     "weaponSpecialWinter2019HealerNotes": "Winter can be a time of rest and healing, and so this wand of winter magic can help to soothe the most grievous hurts. Increases Intelligence by <%= int %>. Limited Edition 2018-2019 Winter Gear.",
     "weaponMystery201411Text": "Widły Ucztowania",
@@ -1745,8 +1745,8 @@
     "eyewearMystery301703Notes": "Idealna na maskaradę lub do ukrywania się w specyficznie ubranym tłumie. Brak dodatkowych korzyści. Przedmiot Abonencki, marzec 3017.",
     "eyewearArmoirePlagueDoctorMaskText": "Maska Medyków",
     "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
-    "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
-    "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
+    "eyewearArmoireGoofyGlassesText": "Głupkowate Okulary",
+    "eyewearArmoireGoofyGlassesNotes": "Idealne do ukrycia się w tłumie lub po prostu do wzbudzenia śmiechu przyjaciół na imprezie. Zwiększa Percepcję o <%= per %>. Zaczarowana Skrzynia: Niezależny Przedmiot.",
     "twoHandedItem": "Przedmiot dwuręczny.",
     "weaponArmoireChefsSpoonText": "Łyżka Szefa Kuchni",
     "shieldArmoireMightyPizzaText": "Wszechmocna Pizza",
@@ -1763,5 +1763,6 @@
     "weaponArmoireBambooCaneNotes": "Perfekcyjna, jeśli chodzi o wspomaganie przy spacerach lub podczas tańczenia charlestona.  Zwiększa Inteligencję, Percepcję i Kondycję, każde o <%= attrs %>. Zaczarowana Skrzynia: Zestaw Żeglarski (Przedmiot 3 z 3).",
     "armorMystery201906Text": "Ogon Uprzejmego Karpia",
     "eyewearMystery201907Text": "Słodkie Okulary Przeciwsłoneczne",
-    "eyewearMystery201907Notes": "Wyglądają niesamowicie, a dodatkowo chronią oczy przed promieniami UV! Brak dodatkowych korzyści. Przedmiot subskrybenta, lipiec 2019."
+    "eyewearMystery201907Notes": "Wyglądają niesamowicie, a dodatkowo chronią oczy przed promieniami UV! Brak dodatkowych korzyści. Przedmiot subskrybenta, lipiec 2019.",
+    "headSpecialWinter2020MageNotes": "Oh! Jak dzwonki / Słodkie złote dzwonki / Wszystkie wydają się mówić, / “Rzuć ‘Eksplozję Płomieni’” (w oparciu o słowa piosenki \"Carol of the Bells\" - przyp. tłum.) Zwiększa Percepcję o <%= per %>. Edycja Limitowana 2019-2020 Zimowe Wyposażenie."
 }

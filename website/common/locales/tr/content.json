@@ -109,7 +109,7 @@
     "questEggSabretoothAdjective": "yırtıcı bir",
     "questEggMonkeyText": "Maymun",
     "questEggMonkeyMountText": "Maymun",
-    "questEggMonkeyAdjective": "yaramaz bir ",
+    "questEggMonkeyAdjective": "yaramaz bir",
     "questEggSnailText": "Salyangoz",
     "questEggSnailMountText": "Salyangoz",
     "questEggSnailAdjective": "yavaş ama istikrarlı bir",
@@ -305,6 +305,6 @@
     "foodCandyRedA": "Tarçınlı Şeker",
     "foodSaddleText": "Eyer",
     "foodSaddleNotes": "Hayvanlarından birini anında bir bineğe dönüştürür.",
-    "foodSaddleSellWarningNote": "Bu oldukça kullanışlı bir eşya! Hayvanlarınla nasıl Eyer kullanıldığını biliyor musun? ",
+    "foodSaddleSellWarningNote": "Bu oldukça kullanışlı bir eşya! Hayvanlarınla nasıl Eyer kullanıldığını biliyor musun?",
     "foodNotes": "Bunu bir hayvana yedirdiğinde, kuvvetli bir bineğe dönüşebilir."
 }

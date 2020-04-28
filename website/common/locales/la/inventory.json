@@ -1,0 +1,8 @@
+{
+    "noItemsAvailableForType": "Non est tibi <%= type %>.",
+    "foodItemType": "Cibus",
+    "eggsItemType": "Ova",
+    "hatchingPotionsItemType": "Potiones Incubantes",
+    "specialItemType": "Res Propriae",
+    "lockedItem": "Res Obserata"
+}

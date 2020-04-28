@@ -1,12 +1,14 @@
-Habitica [![Build Status](https://travis-ci.org/HabitRPG/habitica.svg?branch=develop)](https://travis-ci.org/HabitRPG/habitica) [![Code Climate](https://codeclimate.com/github/HabitRPG/habitrpg.svg)](https://codeclimate.com/github/HabitRPG/habitrpg) [![Bountysource](https://api.bountysource.com/badge/tracker?tracker_id=68393)](https://www.bountysource.com/trackers/68393-habitrpg?utm_source=68393&utm_medium=shield&utm_campaign=TRACKER_BADGE) [![Open Source Helpers](https://www.codetriage.com/habitrpg/habitica/badges/users.svg)](https://www.codetriage.com/habitrpg/habitica)
+Habitica ![Build Status](https://github.com/HabitRPG/habitica/workflows/Test/badge.svg) [![Code Climate](https://codeclimate.com/github/HabitRPG/habitrpg.svg)](https://codeclimate.com/github/HabitRPG/habitrpg) [![Bountysource](https://api.bountysource.com/badge/tracker?tracker_id=68393)](https://www.bountysource.com/trackers/68393-habitrpg?utm_source=68393&utm_medium=shield&utm_campaign=TRACKER_BADGE) [![Open Source Helpers](https://www.codetriage.com/habitrpg/habitica/badges/users.svg)](https://www.codetriage.com/habitrpg/habitica)
 ===============
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/HabitRPG/habitica.svg)](https://greenkeeper.io/)
 
 [Habitica](https://habitica.com) is an open source habit building program which treats your life like a Role Playing Game. Level up as you succeed, lose HP as you fail, earn money to buy weapons and armor.
 
-We need more programmers! Your assistance will be greatly appreciated.
+**We need more programmers!** Your assistance will be greatly appreciated. The wiki pages below and the additional pages they link to will tell you how to get started on contributing code and where you can go to seek further help or ask questions:
+* [Guidance for Blacksmiths](http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths) - an introduction to the technologies used and how the software is organized.
+* [Setting up Habitica Locally](http://habitica.fandom.com/wiki/Setting_up_Habitica_Locally) - how to set up a local install of Habitica for development and testing on various platforms.
 
-For an introduction to the technologies used and how the software is organized, refer to [Guidance for Blacksmiths](http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths).
+Habitica's code is licensed as described at https://github.com/HabitRPG/habitica/blob/develop/LICENSE
 
-To set up a local install of Habitica for development and testing on various platforms, see [Setting up Habitica Locally](http://habitica.fandom.com/wiki/Setting_up_Habitica_Locally).
+**Found a bug?** Please report it in the [Report a Bug guild](https://habitica.com/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac) rather than creating an issue (an admin will advise you if a new issue is necessary; usually it is not).
+
+**Have any questions about Habitica or its community?** See the links in the [habitica.com](https://habitica.com) website's Help menu or drop in to [Guilds > Tavern Chat](https://habitica.com/groups/tavern) to ask questions or chat socially!

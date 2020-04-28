@@ -1,21 +1,57 @@
-# Running
-For information about installing and running Habitica locally, see [Setting up Habitica Locally](http://habitica.fandom.com/wiki/Setting_up_Habitica_Locally).
+# Habitica Client
 
-# Preparation Reading
-- Vue 2 (https://vuejs.org)
+## Project setup
+```
+npm install
+```
 
-- Webpack (https://webpack.github.io/) is the build system and it includes plugins for code transformation, right now we have: BabelJS for ES6 transpilation, eslint for code style, less and postcss for css compilation. The code comes from https://github.com/vuejs-templates/webpack which is a Webpack template for Vue, with some small modifications to adapt it to our use case. Docs http://vuejs-templates.github.io/webpack/
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-- We're using `.vue` files that make it possible to have HTML, JS and CSS for each component together in a single location. They're implemented as a webpack plugin and the docs can be found here http://vue-loader.vuejs.org/en/
+### Compiles and minifies for production
+```
+npm run build
+```
 
-- SemanticUI is the UI framework http://semantic-ui.com/. So far I've only used the CSS part, it also has JS plugins but I've yet to use them. It supports theming so if it's not too difficult we'll want to customize the base theme with our own styles instead of writing CSS rules to override the original styling.
+### Run your unit tests
+```
+npm run test:unit
+```
 
-The code is in `/website/client`. We're using something very similar to Vuex (equivalent of React's Redux) for state management http://vuex.vuejs.org/en/index.html
+### Lints and fixes files
+```
+npm run lint
+```
 
-The API is almost the same except that we don't use mutations but only actions because it would make it difficult to work with common code
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
 
-The project is developed directly in the `develop` branch as long as we'll be able to avoid splitting it into a different branch.
+## Storybook
 
-So far most of the work has been on the template, so there's no complex logic to understand. The only thing I would suggest you to read about is Vuex for data management: it's basically a Flux implementation: there's a central store that hold the data for the entire app, and every change to the data must happen through an action, the data cannot be mutated directly.
+Storybook is mainly used while working on UI-Components to see changes faster instead of using the website.
 
-For further resources, see [Guidance for Blacksmiths](http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths), and in particular the ["Website Technology Stack" section](http://habitica.fandom.com/wiki/Guidance_for_Blacksmiths#Website_Technology_Stack).
+### Start Storybook
+
+```
+npm run storybook:serve
+```
+
+This will start the storybook process, every `*.stories.js`-File is searched and added to the storybook overview.
+
+### Storybook Worklow
+
+Usually when you working on `component-name.vue` you also create a `component-name.stories.js` file.
+
+Example of the stories structure - [Storybook Docs][StorybookDocsExample] - [CountBadge][CountBadgeExample]
+
+[StorybookDocsExample]: https://storybook.js.org/docs/guides/guide-vue/#step-4-write-your-stories
+[CountBadgeExample]: src/components/ui/countBadge.stories.js
+
+Each function or example of this component will be put after `storiesOf('Your Component', module)`,
+in a separate `.add('function of component', ...`
+
+### Storybook Build
+
+After each client build, storybook build is also triggered and will be available in `dist/storybook`

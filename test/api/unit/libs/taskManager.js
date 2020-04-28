@@ -5,15 +5,17 @@ import {
   moveTask,
 } from '../../../../website/server/libs/taskManager';
 import i18n from '../../../../website/common/script/i18n';
+import shared from '../../../../website/common/script';
 import {
   generateUser,
   generateGroup,
   generateChallenge,
-} from '../../../helpers/api-unit.helper.js';
+} from '../../../helpers/api-unit.helper';
 
 describe('taskManager', () => {
-  let user, group, challenge;
-  let testHabit = {
+  let user; let group; let
+    challenge;
+  const testHabit = {
     text: 'test habit',
     type: 'habit',
     up: false,
@@ -47,8 +49,8 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let newTasks = await createTasks(req, res, {user});
-    let newTask = newTasks[0];
+    const newTasks = await createTasks(req, res, { user });
+    const newTask = newTasks[0];
 
     expect(newTask.text).to.equal(testHabit.text);
     expect(newTask.type).to.equal(testHabit.type);
@@ -57,19 +59,64 @@ describe('taskManager', () => {
     expect(newTask.createdAt).to.exist;
   });
 
+  describe('onboarding', () => {
+    beforeEach(() => {
+      user.addAchievement = sinon.spy();
+      sinon.stub(shared.onboarding, 'checkOnboardingStatus');
+    });
+
+    afterEach(() => {
+      shared.onboarding.checkOnboardingStatus.restore();
+    });
+
+    it('adds the onboarding achievement to the user and checks the onboarding status', async () => {
+      req.body = testHabit;
+      res.t = i18n.t;
+      user.flags.welcomed = true;
+
+      await createTasks(req, res, { user });
+
+      expect(user.addAchievement).to.be.calledOnce;
+      expect(user.addAchievement).to.be.calledWith('createdTask');
+
+      expect(shared.onboarding.checkOnboardingStatus).to.be.calledOnce;
+      expect(shared.onboarding.checkOnboardingStatus).to.be.calledWith(user);
+    });
+
+    it('does not add the onboarding achievement to the user if flags.welcomed is false', async () => {
+      req.body = testHabit;
+      res.t = i18n.t;
+      user.flags.welcomed = false;
+
+      await createTasks(req, res, { user });
+
+      expect(user.addAchievement).to.not.be.called;
+    });
+
+    it('does not add the onboarding achievement to the user if it\'s already been awarded', async () => {
+      req.body = testHabit;
+      res.t = i18n.t;
+      user.achievements.createdTask = true;
+
+      await createTasks(req, res, { user });
+
+      expect(user.addAchievement).to.not.be.called;
+    });
+  });
+
   it('gets user tasks', async () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    await createTasks(req, res, {user});
+    await createTasks(req, res, { user });
 
     req.body = {};
     req.query = {
       type: 'habits',
     };
 
-    let tasks = await getTasks(req, res, {user});
-    let task = tasks[0];
+    const tasks = await getTasks(req, res, { user });
+    const task = tasks[0];
 
     expect(task.text).to.equal(testHabit.text);
     expect(task.type).to.equal(testHabit.type);
@@ -82,8 +129,8 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let newTasks = await createTasks(req, res, {user, group});
-    let newTask = newTasks[0];
+    const newTasks = await createTasks(req, res, { user, group });
+    const newTask = newTasks[0];
 
     expect(newTask.text).to.equal(testHabit.text);
     expect(newTask.type).to.equal(testHabit.type);
@@ -97,15 +144,15 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    await createTasks(req, res, {user, group});
+    await createTasks(req, res, { user, group });
 
     req.body = {};
     req.query = {
       type: 'habits',
     };
 
-    let tasks = await getTasks(req, res, {user, group});
-    let task = tasks[0];
+    const tasks = await getTasks(req, res, { user, group });
+    const task = tasks[0];
 
     expect(task.text).to.equal(testHabit.text);
     expect(task.type).to.equal(testHabit.type);
@@ -119,8 +166,8 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let newTasks = await createTasks(req, res, {user, challenge});
-    let newTask = newTasks[0];
+    const newTasks = await createTasks(req, res, { user, challenge });
+    const newTask = newTasks[0];
 
     expect(newTask.text).to.equal(testHabit.text);
     expect(newTask.type).to.equal(testHabit.type);
@@ -134,15 +181,15 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    await createTasks(req, res, {user, challenge});
+    await createTasks(req, res, { user, challenge });
 
     req.body = {};
     req.query = {
       type: 'habits',
     };
 
-    let tasks = await getTasks(req, res, {user, challenge});
-    let task = tasks[0];
+    const tasks = await getTasks(req, res, { user, challenge });
+    const task = tasks[0];
 
     expect(task.text).to.equal(testHabit.text);
     expect(task.type).to.equal(testHabit.type);
@@ -156,9 +203,9 @@ describe('taskManager', () => {
     req.body = testHabit;
     res.t = i18n.t;
 
-    let tasks = await createTasks(req, res, {user, challenge});
+    const tasks = await createTasks(req, res, { user, challenge });
 
-    let syncableTask = syncableAttrs(tasks[0]);
+    const syncableTask = syncableAttrs(tasks[0]);
 
     expect(syncableTask._id).to.not.exist;
     expect(syncableTask.userId).to.not.exist;
@@ -172,7 +219,7 @@ describe('taskManager', () => {
   });
 
   it('moves tasks to a specified position', async () => {
-    let order = ['task-id-1', 'task-id-2'];
+    const order = ['task-id-1', 'task-id-2'];
 
     moveTask(order, 'task-id-2', 0);
 
@@ -180,7 +227,7 @@ describe('taskManager', () => {
   });
 
   it('moves tasks to a specified position out of length', async () => {
-    let order = ['task-id-1'];
+    const order = ['task-id-1'];
 
     moveTask(order, 'task-id-2', 2);
 

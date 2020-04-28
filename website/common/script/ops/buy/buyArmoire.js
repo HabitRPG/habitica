@@ -1,15 +1,16 @@
-import content from '../../content/index';
 import filter from 'lodash/filter';
 import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
-import count from '../../count';
+import content from '../../content/index';
+import * as count from '../../count';
 import splitWhitespace from '../../libs/splitWhitespace';
 import {
   NotAuthorized,
 } from '../../libs/errors';
-import randomVal from '../../libs/randomVal';
-import {removeItemByPath} from '../pinnedGearUtils';
-import {AbstractGoldItemOperation} from './abstractBuyOperation';
+import randomVal, * as randomValFns from '../../libs/randomVal';
+import { removeItemByPath } from '../pinnedGearUtils';
+import { AbstractGoldItemOperation } from './abstractBuyOperation';
+import updateStats from '../../fns/updateStats';
 
 // TODO this is only used on the server
 // move out of common?
@@ -17,17 +18,13 @@ import {AbstractGoldItemOperation} from './abstractBuyOperation';
 const YIELD_EQUIPMENT_THRESHOLD = 0.6;
 const YIELD_FOOD_THRESHOLD = 0.8;
 
-export class BuyArmoireOperation extends AbstractGoldItemOperation {
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
-  multiplePurchaseAllowed () {
+export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-disable-line import/prefer-default-export, max-len
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return false;
   }
 
   extractAndValidateParams (user) {
-    let item = content.armoire;
+    const item = content.armoire;
 
     this.canUserPurchase(user, item);
   }
@@ -35,15 +32,19 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
   executeChanges (user, item) {
     let result = {};
 
-    let armoireResult = randomVal.trueRandom();
-    let eligibleEquipment = filter(content.gear.flat, (eligible) => {
-      return eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key];
-    });
-    let armoireHasEquipment = !isEmpty(eligibleEquipment);
+    const armoireResult = randomValFns.trueRandom();
+    const eligibleEquipment = filter(content.gear.flat, eligible => eligible.klass === 'armoire' && !user.items.gear.owned[eligible.key]);
+    const armoireHasEquipment = !isEmpty(eligibleEquipment);
 
-    if (armoireHasEquipment && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)) {
+    if (
+      armoireHasEquipment
+      && (armoireResult < YIELD_EQUIPMENT_THRESHOLD || !user.flags.armoireOpened)
+    ) {
       result = this._gearResult(user, eligibleEquipment);
-    } else if ((armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD) || armoireResult < 0.5) { // eslint-disable-line no-extra-parens
+    } else if (
+      (armoireHasEquipment && armoireResult < YIELD_FOOD_THRESHOLD)
+      || armoireResult < 0.5
+    ) {
       result = this._foodResult(user);
     } else {
       result = this._experienceResult(user);
@@ -51,7 +52,8 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
 
     this.subtractCurrency(user, item);
 
-    let {message, armoireResp} = result;
+    let { message } = result;
+    const { armoireResp } = result;
 
     if (!message) {
       message = this.i18n('messageBought', {
@@ -59,7 +61,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
       });
     }
 
-    let resData = pick(user, splitWhitespace('items flags'));
+    const resData = pick(user, splitWhitespace('items flags'));
     if (armoireResp) resData.armoire = armoireResp;
 
     return [
@@ -83,17 +85,20 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
 
   _gearResult (user, eligibleEquipment) {
     eligibleEquipment.sort();
-    let drop = randomVal(eligibleEquipment);
+    const drop = randomVal(eligibleEquipment);
 
     if (user.items.gear.owned[drop.key]) {
       throw new NotAuthorized(this.i18n('equipmentAlreadyOwned'));
     }
 
-    user.items.gear.owned[drop.key] = true;
+    user.items.gear.owned = {
+      ...user.items.gear.owned,
+      [drop.key]: true,
+    };
     if (user.markModified) user.markModified('items.gear.owned');
 
     user.flags.armoireOpened = true;
-    let message = this.i18n('armoireEquipment', {
+    const message = this.i18n('armoireEquipment', {
       image: `<span class="shop_${drop.key} pull-left"></span>`,
       dropText: drop.text(this.req.language),
     });
@@ -108,7 +113,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
       this._trackDropAnalytics(user._id, drop.key);
     }
 
-    let armoireResp = {
+    const armoireResp = {
       type: 'gear',
       dropKey: drop.key,
       dropText: drop.text(this.req.language),
@@ -121,11 +126,14 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
   }
 
   _foodResult (user) {
-    let drop = randomVal(filter(content.food, {
+    const drop = randomVal(filter(content.food, {
       canDrop: true,
     }));
 
-    user.items.food[drop.key] = user.items.food[drop.key] || 0;
+    user.items.food = {
+      ...user.items.food,
+      [drop.key]: user.items.food[drop.key] || 0,
+    };
     user.items.food[drop.key] += 1;
     if (user.markModified) user.markModified('items.food');
 
@@ -147,8 +155,9 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation {
   }
 
   _experienceResult (user) {
-    let armoireExp = Math.floor(randomVal.trueRandom() * 40 + 10);
+    const armoireExp = Math.floor(randomValFns.trueRandom() * 40 + 10);
     user.stats.exp += armoireExp;
+    updateStats(user, user.stats, this.req);
 
     return {
       message: this.i18n('armoireExp'),

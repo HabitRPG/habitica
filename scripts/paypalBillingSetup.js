@@ -1,8 +1,12 @@
-require('babel-register');
+/* eslint-disable import/no-commonjs */
+require('@babel/register'); // eslint-disable-line import/no-extraneous-dependencies
 
-// This file is used for creating paypal billing plans. PayPal doesn't have a web interface for setting up recurring
-// payment plan definitions, instead you have to create it via their REST SDK and keep it updated the same way. So this
-// file will be used once for initing your billing plan (then you get the resultant plan.id to store in config.json),
+// This file is used for creating paypal billing plans.
+// PayPal doesn't have a web interface for setting up recurring
+// payment plan definitions, instead you have to create it
+// via their REST SDK and keep it updated the same way. So this
+// file will be used once for initing your billing plan
+// (then you get the resultant plan.id to store in config.json),
 // and once for any time you need to edit the plan thereafter
 
 /* eslint-disable no-console, camelcase, no-case-declarations */
@@ -12,11 +16,12 @@ const nconf = require('nconf');
 const _ = require('lodash');
 const paypal = require('paypal-rest-sdk');
 const blocks = require('../website/common').content.subscriptionBlocks;
+
 const live = nconf.get('PAYPAL_MODE') === 'live';
 
 nconf.argv().env().file('user', path.join(path.resolve(__dirname, '../config.json')));
 
-let OP = 'create'; // list get update create create-webprofile
+const OP = 'create'; // list get update create create-webprofile
 
 paypal.configure({
   mode: nconf.get('PAYPAL_MODE'), // sandbox or live
@@ -25,8 +30,8 @@ paypal.configure({
 });
 
 // https://developer.paypal.com/docs/api/#billing-plans-and-agreements
-let billingPlanTitle = 'Habitica Subscription';
-let billingPlanAttributes = {
+const billingPlanTitle = 'Habitica Subscription';
+const billingPlanAttributes = {
   description: billingPlanTitle,
   type: 'INFINITE',
   merchant_preferences: {
@@ -41,7 +46,7 @@ let billingPlanAttributes = {
   }],
 };
 
-_.each(blocks, (block) => {
+_.each(blocks, block => {
   block.definition = _.cloneDeep(billingPlanAttributes);
   _.merge(block.definition.payment_definitions[0], {
     name: `${billingPlanTitle} ($${block.price} every ${block.months} months, recurring)`,
@@ -57,17 +62,17 @@ _.each(blocks, (block) => {
 
 switch (OP) {
   case 'list':
-    paypal.billingPlan.list({status: 'ACTIVE'}, (err, plans) => {
-      console.log({err, plans});
+    paypal.billingPlan.list({ status: 'ACTIVE' }, (err, plans) => {
+      console.log({ err, plans });
     });
     break;
   case 'get':
     paypal.billingPlan.get(nconf.get('PAYPAL_BILLING_PLANS_basic_12mo'), (err, plan) => {
-      console.log({err, plan});
+      console.log({ err, plan });
     });
     break;
   case 'update':
-    let updatePayload = {
+    const updatePayload = {
       op: 'replace',
       path: '/merchant_preferences',
       value: {
@@ -75,7 +80,7 @@ switch (OP) {
       },
     };
     paypal.billingPlan.update(nconf.get('PAYPAL_BILLING_PLANS_basic_12mo'), updatePayload, (err, res) => {
-      console.log({err, plan: res});
+      console.log({ err, plan: res });
     });
     break;
   case 'create':
@@ -83,10 +88,10 @@ switch (OP) {
       if (err) return console.log(err);
 
       if (plan.state === 'ACTIVE') {
-        return console.log({err, plan});
+        return console.log({ err, plan });
       }
 
-      let billingPlanUpdateAttributes = [{
+      const billingPlanUpdateAttributes = [{
         op: 'replace',
         path: '/',
         value: {
@@ -96,12 +101,14 @@ switch (OP) {
 
       // Activate the plan by changing status to Active
       paypal.billingPlan.update(plan.id, billingPlanUpdateAttributes, (err2, response) => {
-        console.log({err: err2, response, id: plan.id});
+        console.log({ err: err2, response, id: plan.id });
       });
+
+      return null;
     });
     break;
   case 'create-webprofile':
-    let webexpinfo = {
+    const webexpinfo = {
       name: 'HabiticaProfile',
       input_fields: {
         no_shipping: 1,
@@ -112,4 +119,6 @@ switch (OP) {
       console.log(error, result);
     });
     break;
+  default:
+    throw new Error('Invalid op');
 }

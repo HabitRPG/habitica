@@ -1,18 +1,25 @@
-import common from '../../../common';
 import _ from 'lodash';
 import moment from 'moment';
+import common from '../../../common';
 import baseModel from '../../libs/baseModel';
 import * as Tasks from '../task';
 import {
   model as UserNotification,
 } from '../userNotification';
 import {
+  model as PushDevice,
+} from '../pushDevice';
+import {
+  model as Tag,
+} from '../tag';
+import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
-import schema from './schema';
+import schema from './schema'; // eslint-disable-line import/no-cycle
 
 schema.plugin(baseModel, {
-  // noSet is not used as updating uses a whitelist and creating only accepts specific params (password, email, username, ...)
+  // noSet is not used as updating uses a whitelist and creating only accepts
+  // specific params (password, email, username, ...)
   noSet: [],
   private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
@@ -24,18 +31,12 @@ schema.plugin(baseModel, {
 
     delete plainObj.filters;
 
-    if (originalDoc.notifications) {
-      plainObj.notifications = UserNotification.convertNotificationsToSafeJson(originalDoc.notifications);
-    }
-
     return plainObj;
   },
 });
 
 function findTag (user, tagName) {
-  let tagID = _.find(user.tags, (userTag) => {
-    return userTag.name === tagName(user.preferences.language);
-  });
+  const tagID = _.find(user.tags, userTag => userTag.name === tagName(user.preferences.language));
   return tagID.id;
 }
 
@@ -47,13 +48,14 @@ function _populateDefaultTasks (user, taskTypes) {
   } else {
     defaultsData = common.content.userDefaults;
   }
-  let tagsI = taskTypes.indexOf('tag');
+  const tagsI = taskTypes.indexOf('tag');
 
   if (tagsI !== -1) {
-    user.tags = _.map(defaultsData.tags, (tag) => {
-      let newTag = _.cloneDeep(tag);
+    user.tags = _.map(defaultsData.tags, tag => {
+      const newTag = _.cloneDeep(tag);
 
-      // tasks automatically get _id=helpers.uuid() from TaskSchema id.default, but tags are Schema.Types.Mixed - so we need to manually invoke here
+      // tasks automatically get _id=helpers.uuid() from TaskSchema id.default,
+      // but tags are Schema.Types.Mixed - so we need to manually invoke here
       newTag.id = common.uuid();
       // Render tag's name in user's language
       newTag.name = newTag.name(user.preferences.language);
@@ -61,25 +63,28 @@ function _populateDefaultTasks (user, taskTypes) {
     });
   }
 
-  // @TODO: default tasks are handled differently now, and not during registration. We should move this code
+  // @TODO: default tasks are handled differently now, and not during registration.
+  // We should move this code
 
-  let tasksToCreate = [];
+  // TODO why isn't this using createTasks from libs/tasksManager?
+
+  const tasksToCreate = [];
   if (user.registeredThrough === 'habitica-web') return Promise.all(tasksToCreate);
 
   if (tagsI !== -1) {
-    taskTypes = _.clone(taskTypes);
+    taskTypes = _.clone(taskTypes); // eslint-disable-line no-param-reassign
     taskTypes.splice(tagsI, 1);
   }
 
-  _.each(taskTypes, (taskType) => {
-    let tasksOfType = _.map(defaultsData[`${taskType}s`], (taskDefaults) => {
-      let newTask = new Tasks[taskType](taskDefaults);
+  _.each(taskTypes, taskType => {
+    const tasksOfType = _.map(defaultsData[`${taskType}s`], taskDefaults => {
+      const newTask = new Tasks[taskType](taskDefaults);
 
       newTask.userId = user._id;
       newTask.text = taskDefaults.text(user.preferences.language);
       if (newTask.notes) newTask.notes = taskDefaults.notes(user.preferences.language);
       if (taskDefaults.checklist) {
-        newTask.checklist = _.map(taskDefaults.checklist, (checklistItem) => {
+        newTask.checklist = _.map(taskDefaults.checklist, checklistItem => {
           checklistItem.text = checklistItem.text(user.preferences.language);
           return checklistItem;
         });
@@ -96,8 +101,8 @@ function _populateDefaultTasks (user, taskTypes) {
   });
 
   return Promise.all(tasksToCreate)
-    .then((tasksCreated) => {
-      _.each(tasksCreated, (task) => {
+    .then(tasksCreated => {
+      _.each(tasksCreated, task => {
         user.tasksOrder[`${task.type}s`].push(task._id);
       });
     });
@@ -115,20 +120,37 @@ function pinBaseItems (user) {
   }));
 
   user.pinnedItems.push(
-    {type: 'potion', path: 'potion'},
-    {type: 'armoire', path: 'armoire'},
+    { type: 'potion', path: 'potion' },
+    { type: 'armoire', path: 'armoire' },
   );
 }
 
 function _setUpNewUser (user) {
   let taskTypes;
-  let iterableFlags = user.flags.toObject();
+  const iterableFlags = user.flags.toObject();
 
   user.items.quests.dustbunnies = 1;
-  user.markModified('items.quests');
-
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
+  if (moment().isBefore('2020-02-02')) {
+    user.achievements.habitBirthdays = 1;
+    user.items.gear.owned.armor_special_birthday = true;
+    user.items.gear.equipped.armor = 'armor_special_birthday';
+    user.items.food = {
+      Cake_Skeleton: 1,
+      Cake_Base: 1,
+      Cake_CottonCandyBlue: 1,
+      Cake_CottonCandyPink: 1,
+      Cake_Shade: 1,
+      Cake_White: 1,
+      Cake_Golden: 1,
+      Cake_Zombie: 1,
+      Cake_Desert: 1,
+      Cake_Red: 1,
+    };
+  }
+
+  user.markModified('items achievements');
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
@@ -155,11 +177,37 @@ function _setUpNewUser (user) {
 }
 
 function _setProfileName (user) {
-  let localUsername = user.auth.local && user.auth.local.username;
-  let anonymous = 'profile name not found';
+  const localUsername = user.auth.local && user.auth.local.username;
+  const anonymous = 'profile name not found';
 
   return localUsername || anonymous;
 }
+
+schema.post('init', function postInitUser () {
+  // Cleanup any corrupt data that could have ended up inside the user schema.
+  // In particular:
+  // - tags https://github.com/HabitRPG/habitica/issues/10688
+  // - notifications https://github.com/HabitRPG/habitica/issues/9923
+  // - push devices https://github.com/HabitRPG/habitica/issues/11805
+  //            and https://github.com/HabitRPG/habitica/issues/11868
+
+  // Make sure notifications are loaded
+  if (this.isDirectSelected('notifications')) {
+    this.notifications = UserNotification.cleanupCorruptData(this.notifications);
+  }
+
+  // Make sure pushDevices are loaded
+  if (this.isDirectSelected('pushDevices')) {
+    this.pushDevices = PushDevice.cleanupCorruptData(this.pushDevices);
+  }
+
+  // Make sure tags are loaded
+  if (this.isDirectSelected('tags')) {
+    this.tags = Tag.cleanupCorruptData(this.tags);
+  }
+
+  return true;
+});
 
 schema.pre('validate', function preValidateUser (next) {
   // Populate new user with profile name, not running in pre('save') because the field
@@ -186,25 +234,37 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // do not calculate achievements if items or achievements are not selected
   if (this.isDirectSelected('items') && this.isDirectSelected('achievements')) {
     // Determines if Beast Master should be awarded
-    let beastMasterProgress = common.count.beastMasterProgress(this.items.pets);
+    const beastMasterProgress = common.count.beastMasterProgress(this.items.pets);
 
-    if (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0) {
+    if (
+      (beastMasterProgress >= 90 || this.achievements.beastMasterCount > 0)
+      && this.achievements.beastMaster !== true
+    ) {
       this.achievements.beastMaster = true;
+      this.addNotification('ACHIEVEMENT_BEAST_MASTER');
     }
 
     // Determines if Mount Master should be awarded
-    let mountMasterProgress = common.count.mountMasterProgress(this.items.mounts);
+    const mountMasterProgress = common.count.mountMasterProgress(this.items.mounts);
 
-    if (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0) {
+    if (
+      (mountMasterProgress >= 90 || this.achievements.mountMasterCount > 0)
+      && this.achievements.mountMaster !== true
+    ) {
       this.achievements.mountMaster = true;
+      this.addNotification('ACHIEVEMENT_MOUNT_MASTER');
     }
 
     // Determines if Triad Bingo should be awarded
-    let dropPetCount = common.count.dropPetsCurrentlyOwned(this.items.pets);
-    let qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
+    const dropPetCount = common.count.dropPetsCurrentlyOwned(this.items.pets);
+    const qualifiesForTriad = dropPetCount >= 90 && mountMasterProgress >= 90;
 
-    if (qualifiesForTriad || this.achievements.triadBingoCount > 0) {
+    if (
+      (qualifiesForTriad || this.achievements.triadBingoCount > 0)
+      && this.achievements.triadBingo !== true
+    ) {
       this.achievements.triadBingo = true;
+      this.addNotification('ACHIEVEMENT_TRIAD_BINGO');
     }
 
     // EXAMPLE CODE for allowing all existing and new players to be
@@ -214,21 +274,19 @@ schema.pre('save', true, function preSaveUser (next, done) {
     // this.markModified('items.pets');
   }
 
-  // Filter notifications, remove unvalid and not necessary, handle the ones that have special requirements
+  // Filter notifications, remove unvalid and not necessary,
+  // handle the ones that have special requirements
   if ( // Make sure all the data is loaded
-    this.isDirectSelected('notifications') &&
-    this.isDirectSelected('stats') &&
-    this.isDirectSelected('flags') &&
-    this.isDirectSelected('preferences')
+    this.isDirectSelected('notifications')
+    && this.isDirectSelected('stats')
+    && this.isDirectSelected('flags')
+    && this.isDirectSelected('preferences')
   ) {
     const unallocatedPointsNotifications = [];
 
     this.notifications = this.notifications.filter(notification => {
-      // Remove corrupt notifications
-      if (!notification || !notification.type) return false;
-
-      // Remove all unsallocated stats points
-      if (notification && notification.type === 'UNALLOCATED_STATS_POINTS') {
+      // Remove all unallocated stats points
+      if (notification.type === 'UNALLOCATED_STATS_POINTS') {
         unallocatedPointsNotifications.push(notification);
         return false;
       }
@@ -241,10 +299,12 @@ schema.pre('save', true, function preSaveUser (next, done) {
     const classNotEnabled = !this.flags.classSelected || this.preferences.disableClasses;
 
     // Take the most recent notification
-    const lastExistingNotification = unallocatedPointsNotifications[unallocatedPointsNotifications.length - 1];
+    const unallLengh = unallocatedPointsNotifications.length;
+    const lastExistingNotification = unallocatedPointsNotifications[unallLengh - 1];
 
     // Decide if it's outdated or not
-    const outdatedNotification = !lastExistingNotification || lastExistingNotification.data.points !== pointsToAllocate;
+    const outdatedNotification = !lastExistingNotification
+      || lastExistingNotification.data.points !== pointsToAllocate;
 
     // If there are points to allocate and the notification is outdated, add a new notifications
     if (pointsToAllocate > 0 && !classNotEnabled) {
@@ -267,7 +327,11 @@ schema.pre('save', true, function preSaveUser (next, done) {
   }
 
   if (this.isDirectSelected('preferences')) {
-    if (_.isNaN(this.preferences.dayStart) || this.preferences.dayStart < 0 || this.preferences.dayStart > 23) {
+    if (
+      _.isNaN(this.preferences.dayStart)
+      || this.preferences.dayStart < 0
+      || this.preferences.dayStart > 23
+    ) {
       this.preferences.dayStart = 0;
     }
   }
@@ -275,7 +339,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
   // our own version incrementer
   if (this.isDirectSelected('_v')) {
     if (_.isNaN(this._v) || !_.isNumber(this._v)) this._v = 0;
-    this._v++;
+    this._v += 1;
   }
 
   // Populate new users with default content
@@ -289,7 +353,7 @@ schema.pre('save', true, function preSaveUser (next, done) {
 });
 
 schema.pre('update', function preUpdateUser () {
-  this.update({}, {$inc: {_v: 1}});
+  this.update({}, { $inc: { _v: 1 } });
 });
 
 schema.post('save', function postSaveUser () {
@@ -299,7 +363,7 @@ schema.post('save', function postSaveUser () {
     const firstLvlNotification = lvlUpNotifications[0];
     const lastLvlNotification = lvlUpNotifications[lvlUpNotifications.length - 1];
 
-    const initialLvl = firstLvlNotification.initialLvl;
+    const { initialLvl } = firstLvlNotification;
     const finalLvl = lastLvlNotification.newLvl;
 
     userActivityWebhook.send(this, {

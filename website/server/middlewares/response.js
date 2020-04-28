@@ -1,14 +1,11 @@
 import packageInfo from '../../../package.json';
-import {
-  model as UserNotification,
-} from '../models/userNotification';
 
-module.exports = function responseHandler (req, res, next) {
+export default function responseHandler (req, res, next) {
   // Only used for successful responses
   res.respond = function respond (status = 200, data = {}, message) {
-    let user = res.locals && res.locals.user;
+    const user = res.locals && res.locals.user;
 
-    let response = {
+    const response = {
       success: status < 400,
       data,
     };
@@ -16,7 +13,7 @@ module.exports = function responseHandler (req, res, next) {
     if (message) response.message = message;
 
     if (user) {
-      response.notifications = UserNotification.convertNotificationsToSafeJson(user.notifications);
+      response.notifications = user.notifications;
       response.userV = user._v;
     }
 
@@ -26,4 +23,4 @@ module.exports = function responseHandler (req, res, next) {
   };
 
   next();
-};
+}

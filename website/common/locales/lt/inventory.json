@@ -1,0 +1,8 @@
+{
+  "noItemsAvailableForType": "Jūs neturite <%= type %>",
+  "foodItemType": "Maistas",
+  "eggsItemType": "Kiaušiniai",
+  "hatchingPotionsItemType": "Eliksyrai išperėjimui",
+  "specialItemType": "Ypatingi daiktai",
+  "lockedItem": "Neprieinami daiktai"
+}

@@ -1,9 +1,9 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   generateGroup,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 import common from '../../../../../website/common';
 
 describe('GET /groups/:groupId/members', () => {
@@ -12,8 +12,8 @@ describe('GET /groups/:groupId/members', () => {
   beforeEach(async () => {
     user = await generateUser({
       balance: 10,
-      contributor: {level: 1},
-      backer: {tier: 3},
+      contributor: { level: 1 },
+      backer: { tier: 3 },
       preferences: {
         costume: false,
         background: 'volcano',
@@ -38,8 +38,8 @@ describe('GET /groups/:groupId/members', () => {
   });
 
   it('fails if user doesn\'t have access to the group', async () => {
-    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
-    let anotherUser = await generateUser();
+    const group = await generateGroup(user, { type: 'party', name: generateUUID() });
+    const anotherUser = await generateUser();
     await expect(anotherUser.get(`/groups/${group._id}/members`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
@@ -48,14 +48,14 @@ describe('GET /groups/:groupId/members', () => {
   });
 
   it('works when passing party as req.params.groupId', async () => {
-    await generateGroup(user, {type: 'party', name: generateUUID()});
-    let res = await user.get('/groups/party/members');
+    await generateGroup(user, { type: 'party', name: generateUUID() });
+    const res = await user.get('/groups/party/members');
     expect(res).to.be.an('array');
     expect(res.length).to.equal(1);
     expect(res[0]).to.eql({
       _id: user._id,
       id: user._id,
-      profile: {name: user.profile.name},
+      profile: { name: user.profile.name },
       auth: {
         local: {
           username: user.auth.local.username,
@@ -68,15 +68,15 @@ describe('GET /groups/:groupId/members', () => {
   });
 
   it('populates only some fields', async () => {
-    await generateGroup(user, {type: 'party', name: generateUUID()});
-    let res = await user.get('/groups/party/members');
+    await generateGroup(user, { type: 'party', name: generateUUID() });
+    const res = await user.get('/groups/party/members');
     expect(res[0]).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
     expect(res[0].profile).to.have.all.keys(['name']);
   });
 
   it('req.query.includeAllPublicFields === true works with guilds', async () => {
-    let group = await generateGroup(user, {type: 'guild', name: generateUUID()});
-    let [memberRes] = await user.get(`/groups/${group._id}/members?includeAllPublicFields=true`);
+    const group = await generateGroup(user, { type: 'guild', name: generateUUID() });
+    const [memberRes] = await user.get(`/groups/${group._id}/members?includeAllPublicFields=true`);
 
     expect(memberRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'id', 'preferences', 'profile', 'stats', 'achievements', 'party',
@@ -96,8 +96,8 @@ describe('GET /groups/:groupId/members', () => {
   });
 
   it('populates all public fields if req.query.includeAllPublicFields === true and it is a party', async () => {
-    await generateGroup(user, {type: 'party', name: generateUUID()});
-    let [memberRes] = await user.get('/groups/party/members?includeAllPublicFields=true');
+    await generateGroup(user, { type: 'party', name: generateUUID() });
+    const [memberRes] = await user.get('/groups/party/members?includeAllPublicFields=true');
 
     expect(memberRes).to.have.all.keys([ // works as: object has all and only these keys
       '_id', 'id', 'preferences', 'profile', 'stats', 'achievements', 'party',
@@ -117,15 +117,15 @@ describe('GET /groups/:groupId/members', () => {
   });
 
   it('returns only first 30 members', async () => {
-    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
+    const group = await generateGroup(user, { type: 'party', name: generateUUID() });
 
-    let usersToGenerate = [];
-    for (let i = 0; i < 31; i++) {
-      usersToGenerate.push(generateUser({party: {_id: group._id}}));
+    const usersToGenerate = [];
+    for (let i = 0; i < 31; i += 1) {
+      usersToGenerate.push(generateUser({ party: { _id: group._id } }));
     }
     await Promise.all(usersToGenerate);
 
-    let res = await user.get('/groups/party/members');
+    const res = await user.get('/groups/party/members');
     expect(res.length).to.equal(30);
     res.forEach(member => {
       expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
@@ -134,15 +134,15 @@ describe('GET /groups/:groupId/members', () => {
   });
 
   it('returns only first 30 members even when ?includeAllMembers=true', async () => {
-    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
+    const group = await generateGroup(user, { type: 'party', name: generateUUID() });
 
-    let usersToGenerate = [];
-    for (let i = 0; i < 31; i++) {
-      usersToGenerate.push(generateUser({party: {_id: group._id}}));
+    const usersToGenerate = [];
+    for (let i = 0; i < 31; i += 1) {
+      usersToGenerate.push(generateUser({ party: { _id: group._id } }));
     }
     await Promise.all(usersToGenerate);
 
-    let res = await user.get('/groups/party/members?includeAllMembers=true');
+    const res = await user.get('/groups/party/members?includeAllMembers=true');
     expect(res.length).to.equal(30);
     res.forEach(member => {
       expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
@@ -150,38 +150,39 @@ describe('GET /groups/:groupId/members', () => {
     });
   });
 
-  it('supports using req.query.lastId to get more members', async function () {
+  it('supports using req.query.lastId to get more members', async function test () {
     this.timeout(30000); // @TODO: times out after 8 seconds
-    let leader = await generateUser({balance: 4});
-    let group = await generateGroup(leader, {type: 'guild', privacy: 'public', name: generateUUID()});
+    const leader = await generateUser({ balance: 4 });
+    const group = await generateGroup(leader, { type: 'guild', privacy: 'public', name: generateUUID() });
 
-    let usersToGenerate = [];
-    for (let i = 0; i < 57; i++) {
-      usersToGenerate.push(generateUser({guilds: [group._id]}));
+    const usersToGenerate = [];
+    for (let i = 0; i < 57; i += 1) {
+      usersToGenerate.push(generateUser({ guilds: [group._id] }));
     }
-    let generatedUsers = await Promise.all(usersToGenerate); // Group has 59 members (1 is the leader)
-    let expectedIds = [leader._id].concat(generatedUsers.map(generatedUser => generatedUser._id));
+    // Group has 59 members (1 is the leader)
+    const generatedUsers = await Promise.all(usersToGenerate);
+    const expectedIds = [leader._id].concat(generatedUsers.map(generatedUser => generatedUser._id));
 
-    let res = await user.get(`/groups/${group._id}/members`);
+    const res = await user.get(`/groups/${group._id}/members`);
     expect(res.length).to.equal(30);
-    let res2 = await user.get(`/groups/${group._id}/members?lastId=${res[res.length - 1]._id}`);
+    const res2 = await user.get(`/groups/${group._id}/members?lastId=${res[res.length - 1]._id}`);
     expect(res2.length).to.equal(28);
 
-    let resIds = res.concat(res2).map(member => member._id);
+    const resIds = res.concat(res2).map(member => member._id);
     expect(resIds).to.eql(expectedIds.sort());
   });
 
   it('searches members', async () => {
-    let group = await generateGroup(user, {type: 'party', name: generateUUID()});
+    const group = await generateGroup(user, { type: 'party', name: generateUUID() });
 
-    let usersToGenerate = [];
-    for (let i = 0; i < 2; i++) {
-      usersToGenerate.push(generateUser({party: {_id: group._id}}));
+    const usersToGenerate = [];
+    for (let i = 0; i < 2; i += 1) {
+      usersToGenerate.push(generateUser({ party: { _id: group._id } }));
     }
     const usersCreated = await Promise.all(usersToGenerate);
     const userToSearch = usersCreated[0].profile.name;
 
-    let res = await user.get(`/groups/party/members?search=${userToSearch}`);
+    const res = await user.get(`/groups/party/members?search=${userToSearch}`);
     expect(res.length).to.equal(1);
     expect(res[0].profile.name).to.equal(userToSearch);
   });

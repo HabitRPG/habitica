@@ -1,14 +1,15 @@
+import nconf from 'nconf';
+import requireAgain from 'require-again';
 import {
   generateRes,
   generateReq,
   generateNext,
 } from '../../../helpers/api-unit.helper';
-import nconf from 'nconf';
-import requireAgain from 'require-again';
 
 describe('redirects middleware', () => {
-  let res, req, next;
-  let pathToRedirectsMiddleware = '../../../../website/server/middlewares/redirects';
+  let res; let req; let
+    next;
+  const pathToRedirectsMiddleware = '../../../../website/server/middlewares/redirects';
 
   beforeEach(() => {
     res = generateRes();
@@ -18,13 +19,13 @@ describe('redirects middleware', () => {
 
   context('forceSSL', () => {
     it('sends http requests to https', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(true);
       req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('http');
       req.originalUrl = '/static/front';
 
-      let attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
 
       attachRedirects.forceSSL(req, res, next);
 
@@ -33,13 +34,13 @@ describe('redirects middleware', () => {
     });
 
     it('does not redirect https forwarded requests', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(true);
       req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('https');
       req.originalUrl = '/static/front';
 
-      let attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
 
       attachRedirects.forceSSL(req, res, next);
 
@@ -47,13 +48,13 @@ describe('redirects middleware', () => {
     });
 
     it('does not redirect outside of production environments', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(false);
       req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('http');
       req.originalUrl = '/static/front';
 
-      let attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
 
       attachRedirects.forceSSL(req, res, next);
 
@@ -61,13 +62,13 @@ describe('redirects middleware', () => {
     });
 
     it('does not redirect if base URL is not https', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('http://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(true);
       req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('http');
       req.originalUrl = '/static/front';
 
-      let attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
 
       attachRedirects.forceSSL(req, res, next);
 
@@ -75,7 +76,7 @@ describe('redirects middleware', () => {
     });
 
     it('does not redirect if passed skip ssl request param is passed with corrrect key', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(true);
       nconfStub.withArgs('SKIP_SSL_CHECK_KEY').returns('test-key');
@@ -91,7 +92,7 @@ describe('redirects middleware', () => {
     });
 
     it('does redirect if skip ssl request param is passed with incorrrect key', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(true);
       nconfStub.withArgs('SKIP_SSL_CHECK_KEY').returns('test-key');
@@ -108,7 +109,7 @@ describe('redirects middleware', () => {
     });
 
     it('does redirect if skip ssl check key is not set', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(true);
       nconfStub.withArgs('SKIP_SSL_CHECK_KEY').returns(null);
@@ -127,7 +128,7 @@ describe('redirects middleware', () => {
 
   context('forceHabitica', () => {
     it('sends requests with differing hostname to base URL host', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IGNORE_REDIRECT').returns('false');
       nconfStub.withArgs('IS_PROD').returns(true);
@@ -136,7 +137,7 @@ describe('redirects middleware', () => {
       req.originalUrl = '/static/front';
       req.url = '/static/front';
 
-      let attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
 
       attachRedirects.forceHabitica(req, res, next);
 
@@ -145,7 +146,7 @@ describe('redirects middleware', () => {
     });
 
     it('does not redirect outside of production environments', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IGNORE_REDIRECT').returns('false');
       nconfStub.withArgs('IS_PROD').returns(false);
@@ -154,7 +155,7 @@ describe('redirects middleware', () => {
       req.originalUrl = '/static/front';
       req.url = '/static/front';
 
-      let attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
 
       attachRedirects.forceHabitica(req, res, next);
 
@@ -162,7 +163,7 @@ describe('redirects middleware', () => {
     });
 
     it('does not redirect if env is set to ignore redirection', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IGNORE_REDIRECT').returns('true');
       nconfStub.withArgs('IS_PROD').returns(true);
@@ -171,7 +172,7 @@ describe('redirects middleware', () => {
       req.originalUrl = '/static/front';
       req.url = '/static/front';
 
-      let attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
 
       attachRedirects.forceHabitica(req, res, next);
 
@@ -179,7 +180,7 @@ describe('redirects middleware', () => {
     });
 
     it('does not redirect if request hostname matches base URL host', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IGNORE_REDIRECT').returns('false');
       nconfStub.withArgs('IS_PROD').returns(true);
@@ -188,7 +189,7 @@ describe('redirects middleware', () => {
       req.originalUrl = '/static/front';
       req.url = '/static/front';
 
-      let attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
 
       attachRedirects.forceHabitica(req, res, next);
 
@@ -196,7 +197,7 @@ describe('redirects middleware', () => {
     });
 
     it('does not redirect if request is an API URL', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IGNORE_REDIRECT').returns('false');
       nconfStub.withArgs('IS_PROD').returns(true);
@@ -205,7 +206,7 @@ describe('redirects middleware', () => {
       req.originalUrl = '/api/v3/challenges';
       req.url = '/api/v3/challenges';
 
-      let attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
 
       attachRedirects.forceHabitica(req, res, next);
 
@@ -213,7 +214,7 @@ describe('redirects middleware', () => {
     });
 
     it('does not redirect if request method is not GET', () => {
-      let nconfStub = sandbox.stub(nconf, 'get');
+      const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IGNORE_REDIRECT').returns('false');
       nconfStub.withArgs('IS_PROD').returns(true);
@@ -222,7 +223,7 @@ describe('redirects middleware', () => {
       req.originalUrl = '/static/front';
       req.url = '/static/front';
 
-      let attachRedirects = requireAgain(pathToRedirectsMiddleware);
+      const attachRedirects = requireAgain(pathToRedirectsMiddleware);
 
       attachRedirects.forceHabitica(req, res, next);
 

@@ -7,7 +7,7 @@
     "noPhoto": "Tento Habiťan nepřidal fotku.",
     "other": "Další",
     "fullName": "Celé jméno",
-    "displayName": "Display name",
+    "displayName": "Zobrazovaný název",
     "changeDisplayName": "Změnit zobrazované jméno",
     "newDisplayName": "Nové zobrazované jméno",
     "displayPhoto": "Fotografie",
@@ -104,7 +104,7 @@
     "allocatePerPop": "Přidat bod k vnímání",
     "allocateInt": "Body přiřazené k Inteligenci:",
     "allocateIntPop": "Přidat bod k inteligenci",
-    "noMoreAllocate": "Nyní, když jsi dosáhl úrovně 100, už nebudeš dostávat žádné body atributů. Můžeš pokračovat v dosahování dalších úrovní, nebo můžeš začít nové dobrodružství na úrovni 1, když použiješ <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb Znovuzrození</a>, který nyní najdeš zdarma na Trhu.",
+    "noMoreAllocate": "Nyní, když jsi dosáhl úrovně 100, už nebudeš dostávat žádné body atributů. Můžeš pokračovat v dosahování dalších úrovní, nebo můžeš začít nové dobrodružství na úrovni 1, když použiješ <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb Znovuzrození</a>!",
     "stats": "Statistiky",
     "achievs": "Úspěchy",
     "strength": "Síla",
@@ -227,5 +227,6 @@
     "pts": "Body",
     "purchaseForGold": "Koupit za <%= cost %> zlata?",
     "chatCastSpellParty": "<%= username %> použil/a <%= spell %> pro skupinu.",
-    "chatCastSpellUser": "<%= username %> použil/a <%= spell %> na <%= target %>."
+    "chatCastSpellUser": "<%= username %> použil/a <%= spell %> na <%= target %>.",
+    "purchasePetItemConfirm": "Tento nákup by překročil počet položek, které potřebujete k vylíhnutí všech možných <%=itemText %> domácích zvířátek. Jsi si jistá?"
 }

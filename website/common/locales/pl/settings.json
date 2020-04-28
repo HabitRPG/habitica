@@ -119,8 +119,8 @@
     "giftedSubscriptionInfo": "<%= name %> podarował Ci <%= months %> miesięczną subskrypcję",
     "giftedSubscriptionFull": "Hej <%= username %>, <%= sender %> podarował Ci <%= monthCount %> miesięcy subskrypcji!",
     "giftedSubscriptionWinterPromo": "Cześć <%= username %>, otrzymałeś <%= monthCount %> miesięcy subskrybcji w ramach naszej promocji świątecznego rozdawania prezentów!",
-    "invitedParty": "Zaproszony do Drużyny",
-    "invitedGuild": "Zaproszony do Gildii",
+    "invitedParty": "Zostałeś(-aś) zaproszony(-a) do Drużyny",
+    "invitedGuild": "Zostałeś(-aś) zaproszony(-a) do Gildii",
     "importantAnnouncements": "Przypomnienia o meldowaniu, aby wykonywać zadania i otrzymywać nagrody",
     "weeklyRecaps": "Podsumowanie aktywności na koncie w ostatnim tygodniu (Uwaga: z powodów wydajnościowych ta opcja jest aktualnie wyłączona, ale mamy nadzieję przywrócić ją do działania już niedługo!)",
     "onboarding": "Wskazówki dot. zakładania konta Habitiki",
@@ -203,6 +203,14 @@
     "goToSettings": "Przejdź do ustawień",
     "usernameVerifiedConfirmation": "Twoja nazwa użytkownika, <%= username %>, została potwierdzona!",
     "usernameNotVerified": "Prosimy potwierdzić swoją nazwę użytkownika.",
-    "changeUsernameDisclaimer": "Wkrótce będziemy zmieniać nazwy logowania na unikalne, publiczne nazwy użytkowników. Nowe nazwy użytkowników będą używane do: zaproszeń, wywoływania innych osób na czacie poprzez @nazwę oraz w korespondencji.",
-    "verifyUsernameVeteranPet": "Jedno zwierzątko z oddziału Weteranów będzie czekało na ciebie po potwierdzeniu!"
+    "changeUsernameDisclaimer": "Nowe nazwy użytkowników będą używane do: zaproszeń, wywoływania innych osób na czacie poprzez @nazwę oraz w korespondencji.",
+    "verifyUsernameVeteranPet": "Jedno zwierzątko z oddziału Weteranów będzie czekało na ciebie po potwierdzeniu!",
+    "subscriptionReminders": "Przypomnienia o subskrypcji",
+    "newPMNotificationTitle": "Nowa wiadomość od <%= name %>",
+    "onlyPrivateSpaces": "Tylko w przestrzeniach prywatnych",
+    "everywhere": "Gdziekolwiek",
+    "suggestMyUsername": "Podpowiedz nazwę użytkownika",
+    "mentioning": "Wspomnienia",
+    "chatExtensionDesc": "Rozszerzenie czatu dla Habitica dodaje intuicyjne okno czatu na wszystkich stronach habitica.com. Pozwala ono użytkownikom rozmawiać w Tawernie, swoich drużynach i gildiach do których przynależą.",
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>rozszerzenie Chrome Chat</a> oraz <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>rozszerzenie Firefox Chat</a>"
 }

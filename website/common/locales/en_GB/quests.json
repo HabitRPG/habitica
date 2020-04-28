@@ -126,5 +126,18 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
     "rageAttack": "Rage Attack:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "rageStrikes": "Rage Strikes",
+    "tavernBossTired": "<%= bossName %> tries to unleash <%= rageName %> but is too tired.",
+    "chatQuestCancelled": "<%= username %> cancelled the party quest <%= questName %>.",
+    "chatQuestAborted": "<%= username %> aborted the party quest <%= questName %>.",
+    "chatItemQuestFinish": "All items found! Party has received their rewards.",
+    "chatFindItems": "<%= username %> found <%= items %>.",
+    "chatBossDefeated": "You defeated <%= bossName %>! Questing party members receive the rewards of victory.",
+    "chatBossDontAttack": "<%= username %> attacks <%= bossName %> for <%= userDamage %> damage. <%= bossName %> does not attack, because it respects the fact that there are some bugs post-maintenance, and it doesn't want to hurt anyone unfairly. It will continue its rampage soon!",
+    "chatBossDamage": "<%= username %> attacks <%= bossName %> for <%= userDamage %> damage. <%= bossName %> attacks party for <%= bossDamage %> damage.",
+    "chatQuestStarted": "Your quest, <%= questName %>, has started.",
+    "questInvitationNotificationInfo": "You were invited to join a quest",
+    "hatchingPotionQuests": "Magic Hatching Potion Quests",
+    "questAlreadyStartedFriendly": "The quest has already started, but you can always catch the next one!",
+    "questAlreadyStarted": "The quest has already started."
 }

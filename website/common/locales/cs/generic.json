@@ -79,7 +79,7 @@
     "continue": "Pokračovat",
     "accept": "Přijmout",
     "reject": "Odmítnout",
-    "neverMind": "Odejít",
+    "neverMind": "Nevadí",
     "buyMoreGems": "Koupit více drahokamů",
     "notEnoughGems": "Nedostatek drahokamů",
     "alreadyHave": "Oops! Tohle už máš. Nemusíš si to kupovat znovu!",
@@ -290,5 +290,10 @@
     "selected": "Vybrané",
     "howManyToBuy": "Kolik by jsi chtěl koupit?",
     "habiticaHasUpdated": "Existuje nová verze Habiticy. Znovu načti, aby jsi dostal nejnovější verzi!",
-    "contactForm": "Kontaktuj tým moderátorů"
+    "contactForm": "Kontaktuj tým moderátorů",
+    "loadEarlierMessages": "Načíst dřívější zprávy",
+    "demo": "Ukázka",
+    "options": "Možnosti",
+    "finish": "Dokončit",
+    "congratulations": "Gratulujeme!"
 }

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import extendableBuiltin from './extendableBuiltin';
 
 // Base class for custom application errors
@@ -38,6 +39,15 @@ export class NotFound extends CustomError {
     this.name = this.constructor.name;
     this.httpCode = 404;
     this.message = customMessage || 'Not found.';
+  }
+}
+
+export class Forbidden extends CustomError {
+  constructor (customMessage) {
+    super();
+    this.name = this.constructor.name;
+    this.httpCode = 403;
+    this.message = customMessage || 'Access forbidden.';
   }
 }
 

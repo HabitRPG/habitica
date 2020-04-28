@@ -1,4 +1,5 @@
 import got from 'got';
+import moment from 'moment';
 import {
   WebhookSender,
   taskScoredWebhook,
@@ -12,11 +13,14 @@ import {
 } from '../../../../website/server/models/user';
 import {
   generateUser,
-} from '../../../helpers/api-unit.helper.js';
-import { defer } from '../../../helpers/api-unit.helper';
+  defer,
+  sleep,
+} from '../../../helpers/api-unit.helper';
+import logger from '../../../../website/server/libs/logger';
 
 describe('webhooks', () => {
-  let webhooks, user;
+  let webhooks; let
+    user;
 
   beforeEach(() => {
     sandbox.stub(got, 'post').returns(defer().promise);
@@ -41,6 +45,7 @@ describe('webhooks', () => {
       options: {
         questStarted: true,
         questFinised: true,
+        questInvited: true,
       },
     }, {
       id: 'userActivity',
@@ -72,7 +77,7 @@ describe('webhooks', () => {
 
   describe('WebhookSender', () => {
     it('creates a new WebhookSender object', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
@@ -82,68 +87,72 @@ describe('webhooks', () => {
 
     it('provides default function for data transformation', () => {
       sandbox.spy(WebhookSender, 'defaultTransformData');
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultTransformData).to.be.calledOnce;
       expect(got.post).to.be.calledOnce;
       expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
-        json: true,
-        body,
+        json: body,
       });
     });
 
     it('adds default data (user and webhookType) to the body', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
       sandbox.spy(sendWebhook, 'attachDefaultData');
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(sendWebhook.attachDefaultData).to.be.calledOnce;
       expect(got.post).to.be.calledOnce;
       expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
-        json: true,
+        json: body,
       });
 
       expect(body).to.eql({
         foo: 'bar',
-        user: {_id: user._id},
+        user: { _id: user._id },
         webhookType: 'custom',
       });
     });
 
     it('can pass in a data transformation function', () => {
       sandbox.spy(WebhookSender, 'defaultTransformData');
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
         transformData (data) {
-          let dataToSend = Object.assign({baz: 'biz'}, data);
+          const dataToSend = { baz: 'biz', ...data };
 
           return dataToSend;
         },
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultTransformData).to.not.be.called;
       expect(got.post).to.be.calledOnce;
       expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
-        json: true,
-        body: {
+        json: {
           foo: 'bar',
           baz: 'biz',
         },
@@ -152,13 +161,15 @@ describe('webhooks', () => {
 
     it('provides a default filter function', () => {
       sandbox.spy(WebhookSender, 'defaultWebhookFilter');
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultWebhookFilter).to.be.calledOnce;
@@ -166,16 +177,18 @@ describe('webhooks', () => {
 
     it('can pass in a webhook filter function', () => {
       sandbox.spy(WebhookSender, 'defaultWebhookFilter');
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
         webhookFilter (hook) {
           return hook.url !== 'http://custom-url.com';
         },
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(WebhookSender.defaultWebhookFilter).to.not.be.called;
@@ -184,18 +197,22 @@ describe('webhooks', () => {
 
     it('can pass in a webhook filter function that filters on data', () => {
       sandbox.spy(WebhookSender, 'defaultWebhookFilter');
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
         webhookFilter (hook, data) {
           return hook.options.foo === data.foo;
         },
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
       user.webhooks = [
-        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom', options: { foo: 'bar' }},
-        { id: 'other-custom-webhook', url: 'http://other-custom-url.com', enabled: true, type: 'custom', options: { foo: 'foo' }},
+        {
+          id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom', options: { foo: 'bar' },
+        },
+        {
+          id: 'other-custom-webhook', url: 'http://other-custom-url.com', enabled: true, type: 'custom', options: { foo: 'foo' },
+        },
       ];
       sendWebhook.send(user, body);
 
@@ -204,91 +221,196 @@ describe('webhooks', () => {
     });
 
     it('ignores disabled webhooks', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'http://custom-url.com', enabled: false, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'http://custom-url.com', enabled: false, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(got.post).to.not.be.called;
     });
 
     it('ignores webhooks with invalid urls', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
-      user.webhooks = [{id: 'custom-webhook', url: 'httxp://custom-url!!!', enabled: true, type: 'custom'}];
+      user.webhooks = [{
+        id: 'custom-webhook', url: 'httxp://custom-url!!!', enabled: true, type: 'custom',
+      }];
       sendWebhook.send(user, body);
 
       expect(got.post).to.not.be.called;
     });
 
     it('ignores webhooks of other types', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
       user.webhooks = [
-        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'},
-        { id: 'other-webhook', url: 'http://other-url.com', enabled: true, type: 'other'},
+        {
+          id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+        },
+        {
+          id: 'other-webhook', url: 'http://other-url.com', enabled: true, type: 'other',
+        },
       ];
       sendWebhook.send(user, body);
 
       expect(got.post).to.be.calledOnce;
       expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
-        body,
-        json: true,
+        json: body,
       });
     });
 
     it('sends every type of activity to global webhooks', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
       user.webhooks = [
-        { id: 'global-webhook', url: 'http://custom-url.com', enabled: true, type: 'globalActivity'},
+        {
+          id: 'global-webhook', url: 'http://custom-url.com', enabled: true, type: 'globalActivity',
+        },
       ];
       sendWebhook.send(user, body);
 
       expect(got.post).to.be.calledOnce;
       expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
-        body,
-        json: true,
+        json: body,
       });
     });
 
     it('sends multiple webhooks of the same type', () => {
-      let sendWebhook = new WebhookSender({
+      const sendWebhook = new WebhookSender({
         type: 'custom',
       });
 
-      let body = { foo: 'bar' };
+      const body = { foo: 'bar' };
 
       user.webhooks = [
-        { id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom'},
-        { id: 'other-custom-webhook', url: 'http://other-url.com', enabled: true, type: 'custom'},
+        {
+          id: 'custom-webhook', url: 'http://custom-url.com', enabled: true, type: 'custom',
+        },
+        {
+          id: 'other-custom-webhook', url: 'http://other-url.com', enabled: true, type: 'custom',
+        },
       ];
       sendWebhook.send(user, body);
 
       expect(got.post).to.be.calledTwice;
       expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
-        body,
-        json: true,
+        json: body,
       });
       expect(got.post).to.be.calledWithMatch('http://other-url.com', {
-        body,
-        json: true,
+        json: body,
+      });
+    });
+
+    describe('failures', () => {
+      let sendWebhook;
+
+      beforeEach(async () => {
+        sandbox.restore();
+        sandbox.stub(got, 'post').returns(Promise.reject());
+
+        sendWebhook = new WebhookSender({ type: 'taskActivity' });
+        user.webhooks = [{
+          url: 'http://custom-url.com', enabled: true, type: 'taskActivity',
+        }];
+        await user.save();
+
+        expect(user.webhooks[0].failures).to.equal(0);
+        expect(user.webhooks[0].lastFailureAt).to.equal(undefined);
+      });
+
+      it('does not increase failures counter if request is successfull', async () => {
+        sandbox.restore();
+        sandbox.stub(got, 'post').returns(Promise.resolve());
+
+        const body = {};
+        sendWebhook.send(user, body);
+
+        expect(got.post).to.be.calledOnce;
+        expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+          json: body,
+        });
+
+        await sleep(0.1);
+        user = await User.findById(user._id).exec();
+
+        expect(user.webhooks[0].failures).to.equal(0);
+        expect(user.webhooks[0].lastFailureAt).to.equal(undefined);
+      });
+
+      it('records failures', async () => {
+        sinon.stub(logger, 'error');
+        const body = {};
+        sendWebhook.send(user, body);
+
+        expect(got.post).to.be.calledOnce;
+        expect(got.post).to.be.calledWithMatch('http://custom-url.com', {
+          json: body,
+        });
+
+        await sleep(0.1);
+        user = await User.findById(user._id).exec();
+
+        expect(user.webhooks[0].failures).to.equal(1);
+        expect((Date.now() - user.webhooks[0].lastFailureAt.getTime()) < 10000).to.be.true;
+
+        expect(logger.error).to.be.calledOnce;
+        logger.error.restore();
+      });
+
+      it('disables a webhook after 10 failures', async () => {
+        const times = 10;
+        for (let i = 0; i < times; i += 1) {
+          sendWebhook.send(user, {});
+          await sleep(0.1); // eslint-disable-line no-await-in-loop
+          user = await User.findById(user._id).exec(); // eslint-disable-line no-await-in-loop
+        }
+
+        expect(got.post).to.be.callCount(10);
+        expect(got.post).to.be.calledWithMatch('http://custom-url.com');
+
+        await sleep(0.1);
+        user = await User.findById(user._id).exec();
+
+        expect(user.webhooks[0].enabled).to.equal(false);
+        expect(user.webhooks[0].failures).to.equal(0);
+      });
+
+      it('resets failures after a month ', async () => {
+        const oneMonthAgo = moment().subtract(1, 'months').subtract(1, 'days').toDate();
+        user.webhooks[0].lastFailureAt = oneMonthAgo;
+        user.webhooks[0].failures = 9;
+
+        await user.save();
+
+        sendWebhook.send(user, []);
+
+        expect(got.post).to.be.calledOnce;
+        expect(got.post).to.be.calledWithMatch('http://custom-url.com');
+
+        await sleep(0.1);
+        user = await User.findById(user._id).exec();
+
+        expect(user.webhooks[0].failures).to.equal(1);
+        // Check that the stored date is whitin 10s from now
+        expect((Date.now() - user.webhooks[0].lastFailureAt.getTime()) < 10000).to.be.true;
       });
     });
   });
@@ -299,7 +421,7 @@ describe('webhooks', () => {
     beforeEach(() => {
       data = {
         user: {
-          _tmp: {foo: 'bar'},
+          _tmp: { foo: 'bar' },
           stats: {
             lvl: 5,
             int: 10,
@@ -317,11 +439,12 @@ describe('webhooks', () => {
         delta: 176,
       };
 
-      let mockStats = Object.assign({
+      const mockStats = {
         maxHealth: 50,
         maxMP: 103,
         toNextLevel: 40,
-      }, data.user.stats);
+        ...data.user.stats,
+      };
       delete mockStats.toJSON;
 
       sandbox.stub(User, 'addComputedStatsToJSONObj').returns(mockStats);
@@ -332,13 +455,12 @@ describe('webhooks', () => {
 
       expect(got.post).to.be.calledOnce;
       expect(got.post).to.be.calledWithMatch(webhooks[0].url, {
-        json: true,
-        body: {
+        json: {
           type: 'scored',
           webhookType: 'taskActivity',
           user: {
             _id: user._id,
-            _tmp: {foo: 'bar'},
+            _tmp: { foo: 'bar' },
             stats: {
               lvl: 5,
               int: 10,
@@ -370,13 +492,12 @@ describe('webhooks', () => {
 
       expect(got.post).to.be.calledOnce;
       expect(got.post).to.be.calledWithMatch('http://global-activity.com', {
-        json: true,
-        body: {
+        json: {
           type: 'scored',
           webhookType: 'taskActivity',
           user: {
             _id: user._id,
-            _tmp: {foo: 'bar'},
+            _tmp: { foo: 'bar' },
             stats: {
               lvl: 5,
               int: 10,
@@ -416,7 +537,7 @@ describe('webhooks', () => {
       };
     });
 
-    ['created', 'updated', 'deleted'].forEach((type) => {
+    ['created', 'updated', 'deleted'].forEach(type => {
       it(`sends ${type} tasks`, () => {
         data.type = type;
 
@@ -424,8 +545,7 @@ describe('webhooks', () => {
 
         expect(got.post).to.be.calledOnce;
         expect(got.post).to.be.calledWithMatch(webhooks[0].url, {
-          json: true,
-          body: {
+          json: {
             type,
             webhookType: 'taskActivity',
             user: {
@@ -465,8 +585,7 @@ describe('webhooks', () => {
 
         expect(got.post).to.be.calledOnce;
         expect(got.post).to.be.calledWithMatch(webhooks[0].url, {
-          json: true,
-          body: {
+          json: {
             webhookType: 'taskActivity',
             user: {
               _id: user._id,
@@ -498,7 +617,7 @@ describe('webhooks', () => {
       };
     });
 
-    ['petHatched', 'mountRaised', 'leveledUp'].forEach((type) => {
+    ['petHatched', 'mountRaised', 'leveledUp'].forEach(type => {
       it(`sends ${type} webhooks`, () => {
         data.type = type;
 
@@ -506,8 +625,7 @@ describe('webhooks', () => {
 
         expect(got.post).to.be.calledOnce;
         expect(got.post).to.be.calledWithMatch(webhooks[2].url, {
-          json: true,
-          body: {
+          json: {
             type,
             webhookType: 'userActivity',
             user: {
@@ -545,7 +663,7 @@ describe('webhooks', () => {
       };
     });
 
-    ['questStarted', 'questFinised'].forEach((type) => {
+    ['questStarted', 'questFinised', 'questInvited'].forEach(type => {
       it(`sends ${type} webhooks`, () => {
         data.type = type;
 
@@ -553,8 +671,7 @@ describe('webhooks', () => {
 
         expect(got.post).to.be.calledOnce;
         expect(got.post).to.be.calledWithMatch(webhooks[1].url, {
-          json: true,
-          body: {
+          json: {
             type,
             webhookType: 'questActivity',
             user: {
@@ -584,7 +701,7 @@ describe('webhooks', () => {
 
   describe('groupChatReceivedWebhook', () => {
     it('sends chat data', () => {
-      let data = {
+      const data = {
         group: {
           id: 'group-id',
           name: 'some group',
@@ -600,8 +717,7 @@ describe('webhooks', () => {
 
       expect(got.post).to.be.calledOnce;
       expect(got.post).to.be.calledWithMatch(webhooks[webhooks.length - 1].url, {
-        json: true,
-        body: {
+        json: {
           webhookType: 'groupChatReceived',
           user: {
             _id: user._id,
@@ -619,7 +735,7 @@ describe('webhooks', () => {
     });
 
     it('does not send chat data for group if not selected', () => {
-      let data = {
+      const data = {
         group: {
           id: 'not-group-id',
           name: 'some group',

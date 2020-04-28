@@ -1,11 +1,11 @@
+import _ from 'lodash';
+import find from 'lodash/find';
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as Tag } from '../../models/tag';
 import * as Tasks from '../../models/task';
 import {
   NotFound,
 } from '../../libs/errors';
-import _ from 'lodash';
-import find from 'lodash/find';
 
 /**
  * @apiDefine TagNotFound
@@ -14,11 +14,13 @@ import find from 'lodash/find';
 
 /**
  * @apiDefine InvalidUUID
- * @apiError (400) {BadRequest} InvalidRequestParameters "tagId" must be a valid UUID corresponding to a tag belonging to the user.
+ * @apiError (400) {BadRequest} InvalidRequestParameters "tagId" must be a valid UUID
+ *                                                       corresponding to a tag
+ *                                                       belonging to the user.
  */
 
 
-let api = {};
+const api = {};
 
 /**
  * @api {post} /api/v3/tags Create a new tag
@@ -33,20 +35,21 @@ let api = {};
  * @apiSuccess (201) {Object} data The newly created tag
  *
  * @apiSuccessExample {json} Example return:
- * {"success":true,"data":{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
+ * {"success":true,"data":{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},
+ * "notifications":[]}
  */
 api.createTag = {
   method: 'POST',
   url: '/tags',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     user.tags.push(Tag.sanitize(req.body));
-    let savedUser = await user.save();
+    const savedUser = await user.save();
 
-    let l = savedUser.tags.length;
-    let tag = savedUser.tags[l - 1];
+    const l = savedUser.tags.length;
+    const tag = savedUser.tags[l - 1];
     res.respond(201, tag);
   },
 };
@@ -59,20 +62,23 @@ api.createTag = {
  * @apiSuccess {Array} data An array of tags
  *
  * @apiSuccessExample {json} Example return:
- * {"success":true,"data":[{"name":"Work","id":"3d5d324d-a042-4d5f-872e-0553e228553e"},{"name":"apitester","challenge":"true","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"}],"notifications":[]}
+ * {"success":true,"data":[{"name":"Work",
+ * "id":"3d5d324d-a042-4d5f-872e-0553e228553e"},
+ * {"name":"apitester","challenge":"true","id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},
+ * {"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"}],"notifications":[]}
  */
 api.getTags = {
   method: 'GET',
   url: '/tags',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
     res.respond(200, user.tags);
   },
 };
 
 /**
- * @api {get} /api/v3/tags/:tagId Get a tag given its id
+ * @api {get} /api/v3/tags/:tagId Get a tag
  * @apiName GetTag
  * @apiGroup Tag
  *
@@ -81,7 +87,8 @@ api.getTags = {
  * @apiSuccess {Object} data The tag object
  *
  * @apiSuccessExample {json} Example return:
- * {"success":true,"data":{"name":"practicetag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
+ * {"success":true,"data":{"name":"practicetag",
+ * "id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
  *
  * @apiUse TagNotFound
  * @apiUSe InvalidUUID
@@ -91,14 +98,14 @@ api.getTag = {
   url: '/tags/:tagId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tag = _.find(user.tags, {id: req.params.tagId});
+    const tag = _.find(user.tags, { id: req.params.tagId });
     if (!tag) throw new NotFound(res.t('tagNotFound'));
     res.respond(200, tag);
   },
@@ -118,7 +125,8 @@ api.getTag = {
  * @apiSuccess {Object} data The updated tag
  *
  * @apiSuccessExample {json} Example result:
- * {"success":true,"data":{"name":"practice-tag","id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
+ * {"success":true,"data":{"name":"practice-tag",
+ * "id":"8bc0afbf-ab8e-49a4-982d-67a40557ed1a"},"notifications":[]}
  *
  * @apiUse TagNotFound
  * @apiUSe InvalidUUID
@@ -128,22 +136,22 @@ api.updateTag = {
   url: '/tags/:tagId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
-    let tagId = req.params.tagId;
+    const { tagId } = req.params;
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tag = _.find(user.tags, {id: tagId});
+    const tag = _.find(user.tags, { id: tagId });
     if (!tag) throw new NotFound(res.t('tagNotFound'));
 
     _.merge(tag, Tag.sanitize(req.body));
 
-    let savedUser = await user.save();
-    res.respond(200, _.find(savedUser.tags, {id: tagId}));
+    const savedUser = await user.save();
+    res.respond(200, _.find(savedUser.tags, { id: tagId }));
   },
 };
 
@@ -170,17 +178,15 @@ api.reorderTags = {
   url: '/reorder-tags',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkBody('to', res.t('toRequired')).notEmpty();
     req.checkBody('tagId', res.t('tagIdRequired')).notEmpty();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tagIndex = _.findIndex(user.tags, function findTag (tag) {
-      return tag.id === req.body.tagId;
-    });
+    const tagIndex = _.findIndex(user.tags, tag => tag.id === req.body.tagId);
     if (tagIndex === -1) throw new NotFound(res.t('tagNotFound'));
 
     const removedItem = user.tags.splice(tagIndex, 1)[0];
@@ -193,7 +199,7 @@ api.reorderTags = {
 };
 
 /**
- * @api {delete} /api/v3/tags/:tagId Delete a user tag given its id
+ * @api {delete} /api/v3/tags/:tagId Delete a user tag
  * @apiName DeleteTag
  * @apiGroup Tag
  *
@@ -212,16 +218,14 @@ api.deleteTag = {
   url: '/tags/:tagId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('tagId', res.t('tagIdRequired')).notEmpty().isUUID();
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let tagFound = find(user.tags, (tag) => {
-      return tag.id === req.params.tagId;
-    });
+    const tagFound = find(user.tags, tag => tag.id === req.params.tagId);
     if (!tagFound) throw new NotFound(res.t('tagNotFound'));
 
     await user.update({
@@ -231,7 +235,7 @@ api.deleteTag = {
     // Update the user version field manually,
     // it cannot be updated in the pre update hook
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
-    user._v++;
+    user._v += 1;
 
     // Remove from all the tasks TODO test
     await Tasks.Task.update({
@@ -240,10 +244,10 @@ api.deleteTag = {
       $pull: {
         tags: tagFound.id,
       },
-    }, {multi: true}).exec();
+    }, { multi: true }).exec();
 
     res.respond(200, {});
   },
 };
 
-module.exports = api;
+export default api;

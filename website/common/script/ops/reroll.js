@@ -1,18 +1,18 @@
-import i18n from '../i18n';
 import each from 'lodash/each';
+import i18n from '../i18n';
 import {
   NotAuthorized,
 } from '../libs/errors';
 
-module.exports = function reroll (user, tasks = [], req = {}, analytics) {
+export default function reroll (user, tasks = [], req = {}, analytics) {
   if (user.balance < 1) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
-  user.balance--;
+  user.balance -= 1;
   user.stats.hp = 50;
 
-  each(tasks, function resetTaskValues (task) {
+  each(tasks, task => {
     if (!task.challenge || !task.challenge.id || task.challenge.broken) {
       if (task.type !== 'reward') {
         task.value = 0;
@@ -31,7 +31,7 @@ module.exports = function reroll (user, tasks = [], req = {}, analytics) {
   }
 
   return [
-    {user, tasks},
+    { user, tasks },
     i18n.t('fortifyComplete'),
   ];
-};
+}

@@ -1,7 +1,7 @@
 import { ownsItem } from '../gear-helper';
 import t from '../../translation';
 
-let armor = {
+const armor = {
   lunarArmor: {
     text: t('armorArmoireLunarArmorText'),
     notes: t('armorArmoireLunarArmorNotes', { str: 7, int: 7 }),
@@ -490,9 +490,71 @@ let armor = {
     set: 'detective',
     canOwn: ownsItem('armor_armoire_invernessCape'),
   },
+  shadowMastersRobe: {
+    text: t('armorArmoireShadowMastersRobeText'),
+    notes: t('armorArmoireShadowMastersRobeNotes', { con: 12 }),
+    value: 100,
+    con: 12,
+    set: 'shadowMaster',
+    canOwn: ownsItem('armor_armoire_shadowMastersRobe'),
+  },
+  alchemistsRobe: {
+    text: t('armorArmoireAlchemistsRobeText'),
+    notes: t('armorArmoireAlchemistsRobeNotes', { con: 8, per: 5 }),
+    value: 100,
+    con: 8,
+    per: 5,
+    set: 'alchemist',
+    canOwn: ownsItem('armor_armoire_alchemistsRobe'),
+  },
+  duffleCoat: {
+    text: t('armorArmoireDuffleCoatText'),
+    notes: t('armorArmoireDuffleCoatNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    per: 7,
+    set: 'duffle',
+    canOwn: ownsItem('armor_armoire_duffleCoat'),
+  },
+  layerCakeArmor: {
+    text: t('armorArmoireLayerCakeArmorText'),
+    notes: t('armorArmoireLayerCakeArmorNotes', { con: 13 }),
+    value: 100,
+    con: 13,
+    set: 'birthday',
+    canOwn: ownsItem('armor_armoire_layerCakeArmor'),
+  },
+  matchMakersApron: {
+    text: t('armorArmoireMatchMakersApronText'),
+    notes: t('armorArmoireMatchMakersApronNotes', { attrs: 7 }),
+    value: 100,
+    con: 7,
+    str: 7,
+    int: 7,
+    set: 'matchMaker',
+    canOwn: ownsItem('armor_armoire_matchMakersApron'),
+  },
+  baseballUniform: {
+    text: t('armorArmoireBaseballUniformText'),
+    notes: t('armorArmoireBaseballUniformNotes', { attrs: 10 }),
+    value: 100,
+    con: 10,
+    str: 10,
+    set: 'baseball',
+    canOwn: ownsItem('armor_armoire_baseballUniform'),
+  },
+  boxArmor: {
+    text: t('armorArmoireBoxArmorText'),
+    notes: t('armorArmoireBoxArmorNotes', { attrs: 5 }),
+    value: 100,
+    per: 5,
+    con: 5,
+    set: 'paperKnight',
+    canOwn: ownsItem('armor_armoire_boxArmor'),
+  },
 };
 
-let body = {
+const body = {
   cozyScarf: {
     text: t('bodyArmoireCozyScarfText'),
     notes: t('bodyArmoireCozyScarfNotes', { attrs: 5 }),
@@ -504,7 +566,7 @@ let body = {
   },
 };
 
-let eyewear = {
+const eyewear = {
   plagueDoctorMask: {
     text: t('eyewearArmoirePlagueDoctorMaskText'),
     notes: t('eyewearArmoirePlagueDoctorMaskNotes', { attrs: 5 }),
@@ -523,7 +585,7 @@ let eyewear = {
   },
 };
 
-let head = {
+const head = {
   lunarCrown: {
     text: t('headArmoireLunarCrownText'),
     notes: t('headArmoireLunarCrownNotes', { con: 7, per: 7 }),
@@ -1003,9 +1065,60 @@ let head = {
     set: 'detective',
     canOwn: ownsItem('head_armoire_deerstalkerCap'),
   },
+  shadowMastersHood: {
+    text: t('headArmoireShadowMastersHoodText'),
+    notes: t('headArmoireShadowMastersHoodNotes', { attrs: 5 }),
+    value: 100,
+    per: 5,
+    con: 5,
+    set: 'shadowMaster',
+    canOwn: ownsItem('head_armoire_shadowMastersHood'),
+  },
+  alchemistsHat: {
+    text: t('headArmoireAlchemistsHatText'),
+    notes: t('headArmoireAlchemistsHatNotes', { per: 7 }),
+    value: 100,
+    per: 7,
+    set: 'alchemist',
+    canOwn: ownsItem('head_armoire_alchemistsHat'),
+  },
+  earflapHat: {
+    text: t('headArmoireEarflapHatText'),
+    notes: t('headArmoireEarflapHatNotes', { attrs: 7 }),
+    value: 100,
+    int: 7,
+    str: 7,
+    set: 'duffle',
+    canOwn: ownsItem('head_armoire_earflapHat'),
+  },
+  frostedHelm: {
+    text: t('headArmoireFrostedHelmText'),
+    notes: t('headArmoireFrostedHelmNotes', { int: 13 }),
+    value: 100,
+    int: 13,
+    set: 'birthday',
+    canOwn: ownsItem('head_armoire_frostedHelm'),
+  },
+  matchMakersBeret: {
+    text: t('headArmoireMatchMakersBeretText'),
+    notes: t('headArmoireMatchMakersBeretNotes', { con: 15 }),
+    value: 100,
+    con: 15,
+    set: 'matchMaker',
+    canOwn: ownsItem('head_armoire_matchMakersBeret'),
+  },
+  baseballCap: {
+    text: t('headArmoireBaseballCapText'),
+    notes: t('headArmoireBaseballCapNotes', { attrs: 8 }),
+    value: 100,
+    con: 8,
+    str: 8,
+    set: 'baseball',
+    canOwn: ownsItem('head_armoire_baseballCap'),
+  },
 };
 
-let shield = {
+const shield = {
   gladiatorShield: {
     text: t('shieldArmoireGladiatorShieldText'),
     notes: t('shieldArmoireGladiatorShieldNotes', { con: 5, str: 5 }),
@@ -1273,9 +1386,59 @@ let shield = {
     int: 9,
     canOwn: ownsItem('shield_armoire_polishedPocketwatch'),
   },
+  masteredShadow: {
+    text: t('shieldArmoireMasteredShadowText'),
+    notes: t('shieldArmoireMasteredShadowNotes', { attrs: 5 }),
+    value: 100,
+    per: 5,
+    con: 5,
+    set: 'shadowMaster',
+    canOwn: ownsItem('shield_armoire_masteredShadow'),
+  },
+  alchemistsScale: {
+    text: t('shieldArmoireAlchemistsScaleText'),
+    notes: t('shieldArmoireAlchemistsScaleNotes', { int: 7 }),
+    value: 100,
+    int: 7,
+    set: 'alchemist',
+    canOwn: ownsItem('shield_armoire_alchemistsScale'),
+  },
+  birthdayBanner: {
+    text: t('shieldArmoireBirthdayBannerText'),
+    notes: t('shieldArmoireBirthdayBannerNotes', { str: 7 }),
+    value: 100,
+    str: 7,
+    set: 'birthday',
+    canOwn: ownsItem('shield_armoire_birthdayBanner'),
+  },
+  perfectMatch: {
+    text: t('shieldArmoirePerfectMatchText'),
+    notes: t('shieldArmoirePerfectMatchNotes', { per: 15 }),
+    value: 100,
+    per: 15,
+    set: 'matchMaker',
+    canOwn: ownsItem('shield_armoire_perfectMatch'),
+  },
+  baseballGlove: {
+    text: t('shieldArmoireBaseballGloveText'),
+    notes: t('shieldArmoireBaseballGloveNotes', { str: 9 }),
+    value: 100,
+    str: 9,
+    set: 'baseball',
+    canOwn: ownsItem('shield_armoire_baseballGlove'),
+  },
+  hobbyHorse: {
+    text: t('shieldArmoireHobbyHorseText'),
+    notes: t('shieldArmoireHobbyHorseNotes', { attrs: 4 }),
+    value: 100,
+    per: 4,
+    con: 4,
+    set: 'paperKnight',
+    canOwn: ownsItem('shield_armoire_hobbyHorse'),
+  },
 };
 
-let headAccessory = {
+const headAccessory = {
   comicalArrow: {
     text: t('headAccessoryArmoireComicalArrowText'),
     notes: t('headAccessoryArmoireComicalArrowNotes', { str: 10 }),
@@ -1293,7 +1456,7 @@ let headAccessory = {
   },
 };
 
-let weapon = {
+const weapon = {
   basicCrossbow: {
     text: t('weaponArmoireBasicCrossbowText'),
     notes: t('weaponArmoireBasicCrossbowNotes', { str: 5, per: 5, con: 5 }),
@@ -1711,9 +1874,58 @@ let weapon = {
     per: 9,
     canOwn: ownsItem('weapon_armoire_resplendentRapier'),
   },
+  shadowMastersMace: {
+    text: t('weaponArmoireShadowMastersMaceText'),
+    notes: t('weaponArmoireShadowMastersMaceNotes', { per: 12 }),
+    value: 100,
+    per: 12,
+    set: 'shadowMaster',
+    canOwn: ownsItem('weapon_armoire_shadowMastersMace'),
+  },
+  alchemistsDistiller: {
+    text: t('weaponArmoireAlchemistsDistillerText'),
+    notes: t('weaponArmoireAlchemistsDistillerNotes', { str: 8, int: 5 }),
+    value: 100,
+    str: 8,
+    int: 5,
+    set: 'alchemist',
+    canOwn: ownsItem('weapon_armoire_alchemistsDistiller'),
+  },
+  happyBanner: {
+    text: t('weaponArmoireHappyBannerText'),
+    notes: t('weaponArmoireHappyBannerNotes', { per: 7 }),
+    value: 100,
+    per: 7,
+    set: 'birthday',
+    canOwn: ownsItem('weapon_armoire_happyBanner'),
+  },
+  livelyMatch: {
+    text: t('weaponArmoireLivelyMatchText'),
+    notes: t('weaponArmoireLivelyMatchNotes', { str: 15 }),
+    value: 100,
+    str: 15,
+    set: 'matchMaker',
+    canOwn: ownsItem('weapon_armoire_livelyMatch'),
+  },
+  baseballBat: {
+    text: t('weaponArmoireBaseballBatText'),
+    notes: t('weaponArmoireBaseballBatNotes', { con: 9 }),
+    value: 100,
+    con: 9,
+    set: 'baseball',
+    canOwn: ownsItem('weapon_armoire_baseballBat'),
+  },
+  paperCutter: {
+    text: t('weaponArmoirePaperCutterText'),
+    notes: t('weaponArmoirePaperCutterNotes', { str: 9 }),
+    value: 100,
+    str: 9,
+    set: 'paperKnight',
+    canOwn: ownsItem('weapon_armoire_paperCutter'),
+  },
 };
 
-let armoireSet = {
+export {
   armor,
   body,
   eyewear,
@@ -1722,5 +1934,3 @@ let armoireSet = {
   shield,
   weapon,
 };
-
-module.exports = armoireSet;

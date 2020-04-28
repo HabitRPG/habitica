@@ -6,8 +6,9 @@ import {
 import amzLib from '../../../../../../website/server/libs/payments/amazon';
 
 describe('payments - amazon - #subscribe', () => {
-  let endpoint = '/amazon/subscribe';
-  let user, group, subscribeWithAmazonStub;
+  const endpoint = '/amazon/subscribe';
+  let user; let group; let
+    subscribeWithAmazonStub;
 
   beforeEach(async () => {
     user = await generateUser();
@@ -22,8 +23,8 @@ describe('payments - amazon - #subscribe', () => {
   });
 
   describe('success', () => {
-    let billingAgreementId = 'billingAgreementId-example';
-    let subscription = 'basic_3mo';
+    const billingAgreementId = 'billingAgreementId-example';
+    const subscription = 'basic_3mo';
     let coupon;
 
     beforeEach(() => {

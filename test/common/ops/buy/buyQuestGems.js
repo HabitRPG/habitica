@@ -1,4 +1,4 @@
-import pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
+import * as pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
 import {
   NotAuthorized,
 } from '../../../../website/common/script/libs/errors';
@@ -6,12 +6,12 @@ import i18n from '../../../../website/common/script/i18n';
 import {
   generateUser,
 } from '../../../helpers/common.helper';
-import {BuyQuestWithGemOperation} from '../../../../website/common/script/ops/buy/buyQuestGem';
+import { BuyQuestWithGemOperation } from '../../../../website/common/script/ops/buy/buyQuestGem';
 
 describe('shared.ops.buyQuestGems', () => {
   let user;
-  let goldPoints = 40;
-  let analytics = {track () {}};
+  const goldPoints = 40;
+  const analytics = { track () {} };
 
   function buyQuest (_user, _req, _analytics) {
     const buyOp = new BuyQuestWithGemOperation(_user, _req, _analytics);
@@ -20,7 +20,7 @@ describe('shared.ops.buyQuestGems', () => {
   }
 
   before(() => {
-    user = generateUser({'stats.class': 'rogue'});
+    user = generateUser({ 'stats.class': 'rogue' });
   });
 
   beforeEach(() => {
@@ -34,20 +34,29 @@ describe('shared.ops.buyQuestGems', () => {
   });
 
   context('successful purchase', () => {
-    let userGemAmount = 10;
+    const userGemAmount = 10;
 
     before(() => {
       user.balance = userGemAmount;
       user.stats.gp = goldPoints;
       user.purchased.plan.gemsBought = 0;
       user.purchased.plan.customerId = 'customer-id';
-      user.pinnedItems.push({type: 'quests', key: 'gryphon'});
+      user.pinnedItems.push({ type: 'quests', key: 'gryphon' });
     });
 
     it('purchases quests', () => {
-      let key = 'gryphon';
+      const key = 'gryphon';
 
-      buyQuest(user, {params: {key}});
+      buyQuest(user, { params: { key } });
+
+      expect(user.items.quests[key]).to.equal(1);
+      expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
+    });
+    it('if a user\'s count of a quest scroll is negative, it will be reset to 0 before incrementing when they buy a new one.', () => {
+      const key = 'dustbunnies';
+      user.items.quests[key] = -1;
+
+      buyQuest(user, { params: { key } });
 
       expect(user.items.quests[key]).to.equal(1);
       expect(pinnedGearUtils.removeItemByPath.notCalled).to.equal(true);
@@ -55,7 +64,7 @@ describe('shared.ops.buyQuestGems', () => {
   });
 
   context('bulk purchase', () => {
-    let userGemAmount = 10;
+    const userGemAmount = 10;
 
     beforeEach(() => {
       user.balance = userGemAmount;
@@ -64,13 +73,13 @@ describe('shared.ops.buyQuestGems', () => {
       user.purchased.plan.customerId = 'customer-id';
     });
 
-    it('errors when user does not have enough gems', (done) => {
+    it('errors when user does not have enough gems', done => {
       user.balance = 1;
-      let key = 'gryphon';
+      const key = 'gryphon';
 
       try {
         buyQuest(user, {
-          params: {key},
+          params: { key },
           quantity: 2,
         });
       } catch (err) {
@@ -81,10 +90,10 @@ describe('shared.ops.buyQuestGems', () => {
     });
 
     it('makes bulk purchases of quests', () => {
-      let key = 'gryphon';
+      const key = 'gryphon';
 
       buyQuest(user, {
-        params: {key},
+        params: { key },
         quantity: 3,
       });
 

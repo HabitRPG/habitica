@@ -1,8 +1,8 @@
 import each from 'lodash/each';
 
-let achievementsData = {};
+const achievementsData = {};
 
-let worldQuestAchievs = {
+const worldQuestAchievs = {
   dilatoryQuest: {
     icon: 'achievement-dilatory',
     titleKey: 'achievementDilatory',
@@ -31,7 +31,7 @@ let worldQuestAchievs = {
 };
 Object.assign(achievementsData, worldQuestAchievs);
 
-let seasonalSpellAchievs = {
+const seasonalSpellAchievs = {
   snowball: {
     icon: 'achievement-snowball',
     titleKey: 'annoyingFriends',
@@ -55,7 +55,7 @@ let seasonalSpellAchievs = {
 };
 Object.assign(achievementsData, seasonalSpellAchievs);
 
-let masterAchievs = {
+const masterAchievs = {
   beastMaster: {
     icon: 'achievement-rat',
     titleKey: 'beastMasterName',
@@ -77,7 +77,7 @@ let masterAchievs = {
 };
 Object.assign(achievementsData, masterAchievs);
 
-let basicAchievs = {
+const basicAchievs = {
   partyUp: {
     icon: 'achievement-partyUp',
     titleKey: 'partyUpName',
@@ -157,10 +157,74 @@ let basicAchievs = {
     titleKey: 'achievementAridAuthority',
     textKey: 'achievementAridAuthorityText',
   },
+  monsterMagus: {
+    icon: 'achievement-monsterMagus',
+    titleKey: 'achievementMonsterMagus',
+    textKey: 'achievementMonsterMagusText',
+  },
+  undeadUndertaker: {
+    icon: 'achievement-undeadUndertaker',
+    titleKey: 'achievementUndeadUndertaker',
+    textKey: 'achievementUndeadUndertakerText',
+  },
+  primedForPainting: {
+    icon: 'achievement-primedForPainting',
+    titleKey: 'achievementPrimedForPainting',
+    textKey: 'achievementPrimedForPaintingText',
+  },
+  pearlyPro: {
+    icon: 'achievement-pearlyPro',
+    titleKey: 'achievementPearlyPro',
+    textKey: 'achievementPearlyProText',
+  },
+  tickledPink: {
+    icon: 'achievement-tickledPink',
+    titleKey: 'achievementTickledPink',
+    textKey: 'achievementTickledPinkText',
+  },
+  rosyOutlook: {
+    icon: 'achievement-rosyOutlook',
+    titleKey: 'achievementRosyOutlook',
+    textKey: 'achievementRosyOutlookText',
+  },
+  bugBonanza: {
+    icon: 'achievement-bugBonanza',
+    titleKey: 'achievementBugBonanza',
+    textKey: 'achievementBugBonanzaText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
-let specialAchievs = {
+const onboardingAchievs = {
+  createdTask: {
+    icon: 'achievement-createdTask',
+    titleKey: 'achievementCreatedTask',
+    textKey: 'achievementCreatedTaskText',
+  },
+  completedTask: {
+    icon: 'achievement-completedTask',
+    titleKey: 'achievementCompletedTask',
+    textKey: 'achievementCompletedTaskText',
+  },
+  hatchedPet: {
+    icon: 'achievement-hatchedPet',
+    titleKey: 'achievementHatchedPet',
+    textKey: 'achievementHatchedPetText',
+  },
+  fedPet: {
+    icon: 'achievement-fedPet',
+    titleKey: 'achievementFedPet',
+    textKey: 'achievementFedPetText',
+  },
+  purchasedEquipment: {
+    icon: 'achievement-purchasedEquipment',
+    titleKey: 'achievementPurchasedEquipment',
+    textKey: 'achievementPurchasedEquipmentText',
+  },
+};
+Object.assign(achievementsData, onboardingAchievs);
+
+const specialAchievs = {
   contributor: {
     icon: 'achievement-boot',
     titleKey: 'contribName',
@@ -193,10 +257,15 @@ let specialAchievs = {
     pluralTitleKey: 'helped',
     pluralTextKey: 'surveysMultiple',
   },
+  kickstarter2019: {
+    icon: 'achievement-kickstarter2019',
+    titleKey: 'achievementKickstarter2019',
+    textKey: 'achievementKickstarter2019Text',
+  },
 };
 Object.assign(achievementsData, specialAchievs);
 
-let holidayAchievs = {
+const holidayAchievs = {
   habiticaDays: {
     icon: 'achievement-habiticaDay',
     singularTitleKey: 'habiticaDay',
@@ -221,7 +290,7 @@ let holidayAchievs = {
 };
 Object.assign(achievementsData, holidayAchievs);
 
-let ultimateGearAchievs = ['healer', 'rogue', 'warrior', 'mage'].reduce((achievs, type) => {
+const ultimateGearAchievs = ['healer', 'rogue', 'warrior', 'mage'].reduce((achievs, type) => {
   achievs[`${type}UltimateGear`] = {
     icon: `achievement-ultimate-${type}`,
     titleKey: 'ultimGearName',
@@ -231,7 +300,7 @@ let ultimateGearAchievs = ['healer', 'rogue', 'warrior', 'mage'].reduce((achievs
 }, {});
 Object.assign(achievementsData, ultimateGearAchievs);
 
-let cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell', 'goodluck'].reduce((achievs, type) => {
+const cardAchievs = ['greeting', 'thankyou', 'nye', 'valentine', 'birthday', 'congrats', 'getwell', 'goodluck'].reduce((achievs, type) => {
   achievs[`${type}Cards`] = {
     icon: `achievement-${type}`,
     titleKey: `${type}CardAchievementTitle`,
@@ -245,4 +314,4 @@ each(achievementsData, (value, key) => {
   value.key = key;
 });
 
-module.exports = achievementsData;
+export default achievementsData;

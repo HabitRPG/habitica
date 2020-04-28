@@ -55,19 +55,28 @@
 // 'fu' and 'fuq' because they have legitimate meanings in English and/or other languages.
 // 'tard' because it's French for 'late' and there's no common synonyms.
 // 'god' because it is allowed for use in ways that are not oaths.
-// Tobacco products because they are more often mentioned when celebrating quitting than in a way that might trigger addictive behaviour.
+// Tobacco products because they are more often mentioned when celebrating
+// quitting than in a way that might trigger addictive behaviour.
 // Legitimate given names: 'Jesus', 'Sherry'
 // Legitimate surnames: 'Christ', 'Mead'
 // Legitimate place names: 'Dyke'
 //
 // Explanations for some blocked words:
-// 'fag' means 'subject' in some Scandinavian languages but we have decided to block it for its use as an English-language slur; hopefully the Scandinavian languages have suitable synonyms.
+// 'fag' means 'subject' in some Scandinavian languages but
+// we have decided to block it for its use as an English-language slur;
+// hopefully the Scandinavian languages have suitable synonyms.
 // 'slut' means 'end' in Danish but is blocked for the same reason as 'fag'.
-// These words are blocked from use in the Tavern but do not appear in bannedSlurs.js because we do not want people to be automatically muted when the words are used appropriately in guilds.
+// These words are blocked from use in the Tavern but do not appear in bannedSlurs.js
+// because we do not want people to be automatically muted when the words are used
+// appropriately in guilds.
+// As of 2020-02-26, 'sluts' is also here rather than in bannedSlurs.js because
+// "Expanded Party: Polyamorous Adventurers" guild (17bb8393-2d74-42de-8dcb-315a5f596636)
+// wants to discuss https://en.wikipedia.org/wiki/The_Ethical_Slut (a book) and
+// we've decided to allow that.
 
 
 // DO NOT EDIT! See the comments at the top of this file.
-let bannedWords = [
+const bannedWords = [
   'TESTPLACEHOLDERSWEARWORDHERE',
   'TESTPLACEHOLDERSWEARWORDHERE1',
 
@@ -127,8 +136,10 @@ let bannedWords = [
   'arse',
   'asshole',
   'badass',
+  'kickass',
   'arsehole',
   'badarse',
+  'kickarse',
   'lmao',
   'lmfao',
 
@@ -140,6 +151,7 @@ let bannedWords = [
 
   'fag',
   'slut',
+  'sluts',
   'retard',
   'retards',
   'bastard',
@@ -174,4 +186,4 @@ let bannedWords = [
   'pewdiepie',
 ];
 
-module.exports = bannedWords;
+export default bannedWords;

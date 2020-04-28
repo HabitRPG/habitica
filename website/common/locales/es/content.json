@@ -207,12 +207,12 @@
     "hatchingPotionFairy": "Hada",
     "hatchingPotionStarryNight": "Noche Estrellada",
     "hatchingPotionRainbow": "Arco-iris",
-    "hatchingPotionGlass": "El Vidrio",
+    "hatchingPotionGlass": "Vidrio",
     "hatchingPotionGlow": "que brilla en la oscuridad",
     "hatchingPotionFrost": "Escarcha",
     "hatchingPotionIcySnow": "Nieve Glacial",
     "hatchingPotionNotes": "Vierte esto en un huevo y eclosionará como una mascota <%= potText(locale) %>.",
-    "premiumPotionAddlNotes": "No puede usarse en huevos de mascota de misión.",
+    "premiumPotionAddlNotes": "No puede usarse en huevos de Mascotas de Misiones. Disponible para su compra hasta <%= date(locale) %>.",
     "foodMeat": "Carne",
     "foodMeatThe": "La Carne",
     "foodMeatA": "Carne",
@@ -346,5 +346,12 @@
     "hatchingPotionSunshine": "Solar",
     "hatchingPotionBronze": "Bronce",
     "hatchingPotionWatery": "Aguado",
-    "hatchingPotionSilver": "Plata"
+    "hatchingPotionSilver": "Plata",
+    "hatchingPotionShadow": "Sombrío",
+    "questEggRobotAdjective": "un futurista",
+    "questEggRobotMountText": "Robot",
+    "questEggRobotText": "Robot",
+    "premiumPotionUnlimitedNotes": "No puede usarse en huevos de Mascotas de Misiones.",
+    "hatchingPotionAmber": "Ámbar",
+    "hatchingPotionAurora": "Aurora"
 }

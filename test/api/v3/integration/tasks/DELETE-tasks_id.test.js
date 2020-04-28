@@ -1,3 +1,4 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
@@ -6,7 +7,6 @@ import {
   generateChallenge,
   server,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('DELETE /tasks/:id', () => {
   let user;
@@ -57,9 +57,9 @@ describe('DELETE /tasks/:id', () => {
     });
 
     it('sends task activity webhooks if task is user owned', async () => {
-      let uuid = generateUUID();
+      const uuid = generateUUID();
 
-      let task = await user.post('/tasks/user', {
+      const task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });
@@ -78,20 +78,20 @@ describe('DELETE /tasks/:id', () => {
 
       await sleep();
 
-      let body = server.getWebhookData(uuid);
+      const body = server.getWebhookData(uuid);
 
       expect(body.type).to.eql('deleted');
       expect(body.task).to.eql(task);
     });
 
     it('does not send task activity webhooks if task is not user owned', async () => {
-      let uuid = generateUUID();
+      const uuid = generateUUID();
 
       await user.update({
         balance: 10,
       });
-      let guild = await generateGroup(user);
-      let challenge = await generateChallenge(user, guild);
+      const guild = await generateGroup(user);
+      const challenge = await generateChallenge(user, guild);
       await user.post(`/challenges/${challenge._id}/join`);
 
       await user.post('/user/webhook', {
@@ -104,7 +104,7 @@ describe('DELETE /tasks/:id', () => {
         },
       });
 
-      let challengeTask = await user.post(`/tasks/challenge/${challenge._id}`, {
+      const challengeTask = await user.post(`/tasks/challenge/${challenge._id}`, {
         text: 'test habit',
         type: 'habit',
       });
@@ -113,14 +113,14 @@ describe('DELETE /tasks/:id', () => {
 
       await sleep();
 
-      let body = server.getWebhookData(uuid);
+      const body = server.getWebhookData(uuid);
 
       expect(body).to.not.exist;
     });
   });
 
   context('task cannot be deleted', () => {
-    it('cannot delete a non-existant task', async () => {
+    it('cannot delete a non-existent task', async () => {
       await expect(user.del('/tasks/550e8400-e29b-41d4-a716-446655440000')).to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
@@ -129,8 +129,8 @@ describe('DELETE /tasks/:id', () => {
     });
 
     it('cannot delete a task owned by someone else', async () => {
-      let anotherUser = await generateUser();
-      let anotherUsersTask = await anotherUser.post('/tasks/user', {
+      const anotherUser = await generateUser();
+      const anotherUsersTask = await anotherUser.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });
@@ -143,7 +143,7 @@ describe('DELETE /tasks/:id', () => {
     });
 
     it('removes a task from user.tasksOrder', async () => {
-      let task = await user.post('/tasks/user', {
+      const task = await user.post('/tasks/user', {
         text: 'test habit',
         type: 'habit',
       });

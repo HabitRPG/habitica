@@ -212,7 +212,7 @@
     "hatchingPotionFrost": "Mroźny",
     "hatchingPotionIcySnow": "Lodowaty Śnieg",
     "hatchingPotionNotes": "Wylej eliksir na jajko, a wykluje się z niego <%= potText(locale) %>.",
-    "premiumPotionAddlNotes": "Nie nadaje się do użytku na jajach otrzymanych za misje.",
+    "premiumPotionAddlNotes": "Nie nadaje się do użytku na jajach otrzymanych za misje. Dostępny w sprzedaży do  <%= date(locale) %>.",
     "foodMeat": "Mięso",
     "foodMeatThe": "Mięso",
     "foodMeatA": "Mięso",
@@ -349,5 +349,10 @@
     "hatchingPotionSilver": "Srebrny",
     "questEggRobotAdjective": "futurystyczny",
     "questEggRobotMountText": "Robot",
-    "questEggRobotText": "Robot"
+    "questEggRobotText": "Robot",
+    "hatchingPotionShadow": "Cienisty",
+    "premiumPotionUnlimitedNotes": "Nie nadaje się do użytku na jajach.",
+    "hatchingPotionAurora": "Polarnej Zorzy",
+    "hatchingPotionAmber": "Bursztynowy",
+    "hatchingPotionRuby": "Rubinowy"
 }

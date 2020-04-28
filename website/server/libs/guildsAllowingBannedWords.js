@@ -3,12 +3,13 @@
 // - literature guilds (quoting of passages containing words banned as oaths);
 // - food/drink/lifestyle/perfume guilds (alcohol allowed);
 // - guilds dealing with traumatic life events (must be allowed to describe them);
-// - foreign language guilds using the Roman alphabet (avoid accidental banning of non-English words).
+// - foreign language guilds using the Roman alphabet
+// (avoid accidental banning of non-English words).
 //
 // This is for a short-term, partial solution to the need for swearword blocking in guilds.
 // Later, it will be replaced with customised lists of disallowed words based on the guilds' tags.
 
-let guildsAllowingBannedWords = {
+const guildsAllowingBannedWords = {
   'f646bc11-e330-482c-982a-843cd018373c': true, // Abuse Victims and Survivors
   'b5843474-07e6-4af2-9bd0-b8a00fe7fe52': true, // Alcoholics Anonymous - One Day at a Time!
   'd3339c3d-6744-4c17-b9d3-a16bdcfb5d53': true, // Am Yisrael Chai
@@ -43,6 +44,7 @@ let guildsAllowingBannedWords = {
   '612e5766-a171-4e0a-b02b-c55a9fe786e4': true, // Compulsive Overeaters
   '726058f7-4452-47a3-aa86-e995d1ac031c': true, // Conscientious Consumption
   'c59147bf-46c1-4ec8-a63f-9a8ebfcf9987': true, // Culinary Institute of Habitica
+  '9ffb19bb-1356-4ead-b585-c5031b5393b1': true, // Cynophiles
   '202ab416-92b7-4cbe-97d7-772776c8f911': true, // Danish Translators
   '6c6f4df6-8bc2-4a4c-a5a1-d4f1ef447989': true, // Dar al-Arqam
   'ad251001-c1c5-4227-b165-6549a5b9e267': true, // Das Planertarium
@@ -56,6 +58,7 @@ let guildsAllowingBannedWords = {
   '955fdbb8-f1b3-40cb-b528-8d292b312a6a': true, // Egyptology Unearthed
   'a4cd281d-4683-4604-86f3-d2cc955e1544': true, // En espanol
   '4c366cdd-9ece-4ee1-9bc5-fa0d0c8df63f': true, // Essential Habits of a Christian
+  '17bb8393-2d74-42de-8dcb-315a5f596636': true, // Expanded Party: Polyamorous Adventurers
   '414381ad-08bf-4fe4-b767-c0e874660438': true, // FOCUS - Fellowship of Catholic University Students
   '1705f33f-9303-4b78-93ac-e21ed2d08df8': true, // Fitbit Guild
   '2ed36580-011f-4abb-94fc-e52022f38f6f': true, // Foodies
@@ -116,6 +119,7 @@ let guildsAllowingBannedWords = {
   '8dc268f5-5f6d-41a0-82ca-a248dfd240c4': true, // Portugal Fenomenal
   '77e13b13-e3ba-4e45-badf-9e448bb9be64': true, // Portuguese Translators
   '46bc163e-f34e-4216-b916-9062d30a141f': true, // Procurando Grupo Brasil (Pedir Convite)
+  '14ae3965-0536-4b63-bc55-3dbd6660e3af': true, // Purely Positive Dog Trainers
   '00698a77-cda2-4f49-a59f-f32205078903': true, // Quit Soda Support Group
   '3584819a-a854-4768-ba49-8880fc0dda14': true, // Reiki Br
   'd7838bfa-4577-4a4f-b922-65834e4a824c': true, // Rhyme Commando
@@ -136,8 +140,6 @@ let guildsAllowingBannedWords = {
   '8e389264-ada0-4834-828c-ef65679e929c': true, // Witches, Pagans, and Diviners
   '0ff469a9-677f-4dcd-a091-2d2d3cebcaa8': true, // Writers of Ideas: Speculative Fiction Authors
   'f371368a-b3b0-4a81-a400-3bd59fc0a89d': true, // Youtube francophone
-  '9ffb19bb-1356-4ead-b585-c5031b5393b1': true, // Cynophiles
-  '14ae3965-0536-4b63-bc55-3dbd6660e3af': true, // Purely Positive Dog Trainers
 };
 
-module.exports = guildsAllowingBannedWords;
+export default guildsAllowingBannedWords;

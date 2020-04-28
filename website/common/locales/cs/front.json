@@ -266,7 +266,7 @@
     "missingNewPassword": "Chybějící nové heslo.",
     "invalidEmailDomain": "Nemůžeš se zaregistrovat e-mailem z následujících domén: <%= domains %>",
     "wrongPassword": "Špatné heslo.",
-    "incorrectDeletePhrase": "Please type <%= magicWord %> in all caps to delete your account.",
+    "incorrectDeletePhrase": "Chcete-li účet smazat, zadejte <%= magicWord %> velkými písmeny.",
     "notAnEmail": "Neplatná e-mailová adresa.",
     "emailTaken": "E-mailová adresa je již použita.",
     "newEmailRequired": "Chybějící e-mailová adresa.",
@@ -283,7 +283,7 @@
     "passwordResetEmailHtml": "If you requested a password reset for <strong><%= username %></strong> on Habitica, <a href=\"<%= passwordResetLink %>\">click here</a> to set a new one. The link will expire after 24 hours.<br/><br>If you haven't requested a password reset, please ignore this email.",
     "invalidLoginCredentialsLong": "Uh-oh - your email address / username or password is incorrect.\n- Make sure they are typed correctly. Your username and password are case-sensitive.\n- You may have signed up with Facebook or Google-sign-in, not email so double-check by trying them.\n- If you forgot your password, click \"Forgot Password\".",
     "invalidCredentials": "There is no account that uses those credentials.",
-    "accountSuspended": "This account, User ID \"<%= userId %>\", has been blocked for breaking the [Community Guidelines](https://habitica.com/static/community-guidelines) or [Terms of Service](https://habitica.com/static/terms). For details or to ask to be unblocked, please email our Community Manager at <%= communityManagerEmail %> or ask your parent or guardian to email them. Please copy your User ID into the email and include your username.",
+    "accountSuspended": "Tento účet, ID uživatele \"<%= userId %>\", byl zablokován kvůli porušení pokynů pro komunitu (https://habitica.com/static/community-guidelines) nebo smluvních podmínek (https://habitica.com/static/terms). Chcete-li získat podrobnosti nebo požádat o odblokování, pošlete e-mail našemu Správci komunity na <%= communityManagerEmail %> nebo požádejte svého rodiče nebo zákonného zástupce o zaslání e-mailu. Do e-mailu uveďte prosím své @uživatelské_jméno.",
     "accountSuspendedTitle": "Account has been suspended",
     "unsupportedNetwork": "Tato síť není momentálně dostupná.",
     "cantDetachSocial": "Account lacks another authentication method; can't detach this authentication method.",
@@ -330,5 +330,7 @@
     "signup": "Zaregistruj se",
     "getStarted": "Get Started!",
     "mobileApps": "Mobilní aplikace",
-    "learnMore": "Zjisti více"
+    "learnMore": "Zjisti více",
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "Heslo musí mít 8 nebo více znaků."
 }

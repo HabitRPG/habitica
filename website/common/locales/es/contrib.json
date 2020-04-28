@@ -1,5 +1,5 @@
 {
-    "playerTiersDesc": "Los nombres de usuario de colores que ves en un chat representan su nivel como colaborador. ¡Cuanto mayor es el nivel, más ha contribuído con Habitica con arte, códigos, a la comunidad y más!",
+    "playerTiersDesc": "Los nombres de usuario de colores que ves en un chat representan su nivel como colaborador. ¡Cuanto mayor es el nivel, más ha contribuido con Habitica con arte, códigos, a la comunidad y más!",
     "tier1": "Nivel 1 (Amigo)",
     "tier2": "Nivel 2 (Amigo)",
     "tier3": "Nivel 3 (Élite)",
@@ -12,7 +12,7 @@
     "tierNPC": "NPC",
     "friend": "Amigo",
     "friendFirst": "Cuando se implemente tu <strong>primera</strong> contribución, recibirás la medalla de Colaborador de Habitica. Tu nombre en el chat de la Taberna mostrará orgullosamente que eres un colaborador. Como premio por tu trabajo también recibirás <strong>3 Gemas</strong>.",
-    "friendSecond": "Cuando se implemente tu <strong>segunda</strong> contribución, la <strong>Armadura de cristal</strong> estará disponible en la tienda de Recompensas. Como premio por tu trabajo también recibirás <strong>3 Gemas</strong>.",
+    "friendSecond": "Cuando se implemente tu <strong>segunda</strong> contribución, la <strong>Armadura de cristal</strong> estará disponible en la tienda de Recompensas. Como premio por tu trabajo también recibirás <strong>3 Gemas.</strong>",
     "elite": "Élite",
     "eliteThird": "Cuando se implemente tu <strong>tercera</strong> contribución, el <strong>Casco de cristal</strong> estará disponible en la tienda de Recompensas. Como premio por tu trabajo también recibirás <strong>3 Gemas</strong>.",
     "eliteFourth": "Cuando se implemente tu <strong>cuarta</strong> contribución, la <strong>Espada de cristal</strong> estará disponible en la tienda de Recompensas. Como premio por tu trabajo también recibirás <strong>4 Gemas</strong>.",

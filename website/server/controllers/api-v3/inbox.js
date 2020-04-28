@@ -1,7 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import * as inboxLib from '../../libs/inbox';
 
-let api = {};
+const api = {};
 
 /* NOTE most inbox routes are either in the user or members controller */
 
@@ -21,9 +21,9 @@ api.getInboxMessages = {
   url: '/inbox/messages',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const user = res.locals.user;
-    const page = req.query.page;
-    const conversation = req.query.conversation;
+    const { user } = res.locals;
+    const { page } = req.query;
+    const { conversation } = req.query;
 
     const userInbox = await inboxLib.getUserInbox(user, {
       page, conversation,
@@ -33,4 +33,4 @@ api.getInboxMessages = {
   },
 };
 
-module.exports = api;
+export default api;

@@ -1,5 +1,5 @@
 {
-    "unlockedReward": "你收到了 <%= reward %>",
+    "unlockedReward": "你收到了<%= reward %>",
     "earnedRewardForDevotion": "因为努力地改善自己的生活，你赢得了一个<%= reward %>。",
     "nextRewardUnlocksIn": "继续签到直到获得下次战利品吧！剩余签到数：<%= numberOfCheckinsLeft %>",
     "awesome": "哟嚯！！",
@@ -17,8 +17,8 @@
     "twoOfAllPetEggs": "每种标准宠物蛋各两个",
     "threeOfAllPetEggs": "每种标准宠物蛋各三个",
     "oneOfAllHatchingPotions": "每种标准孵化药水各一个",
-    "threeOfEachFood": "每种标准宠物食物各三个",
-    "fourOfEachFood": "每种标准宠物食物各四个",
+    "threeOfEachFood": "每种标准宠物食品各三个",
+    "fourOfEachFood": "每种标准宠物食品各四个",
     "twoSaddles": "两个鞍",
     "threeSaddles": "三个鞍",
     "incentiveAchievement": "忠实信徒成就",

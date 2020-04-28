@@ -1,15 +1,16 @@
+import get from 'lodash/get';
 import content from '../content/index';
 import i18n from '../i18n';
-import get from 'lodash/get';
 
-let achievs = {};
-let achievsContent = content.achievements;
+const achievs = {};
+const achievsContent = content.achievements;
 let index = 0;
 
 function contribText (contrib, backer, language) {
-  if (!contrib && !backer) return;
+  if (!contrib && !backer) return null;
   if (backer && backer.npc) return backer.npc;
-  let lvl = contrib && contrib.level;
+
+  const lvl = contrib && contrib.level;
   if (lvl && lvl > 0) {
     let contribTitle = '';
 
@@ -29,6 +30,8 @@ function contribText (contrib, backer, language) {
 
     return `${contribTitle} ${contrib.text}`;
   }
+
+  return null;
 }
 
 function _add (result, data) {
@@ -38,17 +41,17 @@ function _add (result, data) {
     icon: data.icon,
     earned: data.earned,
     value: data.value,
-    index: index++,
+    index: index += 1,
     optionalCount: data.optionalCount,
   };
 }
 
 function _addSimpleWithCustomPath (result, user, data) {
-  let value = get(user, data.path);
-  let thisContent = achievsContent[data.key];
+  const value = get(user, data.path);
+  const thisContent = achievsContent[data.key];
 
   _add(result, {
-    title: i18n.t(thisContent.titleKey, {key: value}, data.language),
+    title: i18n.t(thisContent.titleKey, { key: value }, data.language),
     text: i18n.t(thisContent.textKey, data.language),
     icon: thisContent.icon,
     key: data.key,
@@ -64,10 +67,10 @@ function _addQuest (result, user, data) {
 }
 
 function _addSimple (result, user, data) {
-  let value = user.achievements[data.path];
+  const value = user.achievements[data.path];
 
-  let key = data.key || data.path;
-  let thisContent = achievsContent[key];
+  const key = data.key || data.path;
+  const thisContent = achievsContent[key];
 
   _add(result, {
     title: i18n.t(thisContent.titleKey, data.language),
@@ -80,14 +83,14 @@ function _addSimple (result, user, data) {
 }
 
 function _addSimpleWithMasterCount (result, user, data) {
-  let language = data.language;
-  let value = user.achievements[`${data.path}Count`] || 0;
+  const { language } = data;
+  const value = user.achievements[`${data.path}Count`] || 0;
 
-  let thisContent = achievsContent[data.path];
+  const thisContent = achievsContent[data.path];
 
   let text = i18n.t(thisContent.textKey, language);
   if (value > 0) {
-    text += i18n.t(thisContent.text2Key, {count: value}, language);
+    text += i18n.t(thisContent.text2Key, { count: value }, language);
   }
 
   _add(result, {
@@ -102,14 +105,14 @@ function _addSimpleWithMasterCount (result, user, data) {
 }
 
 function _addSimpleWithCount (result, user, data) {
-  let value = user.achievements[data.path] || 0;
+  const value = user.achievements[data.path] || 0;
 
-  let key = data.key || data.path;
-  let thisContent = achievsContent[key];
+  const key = data.key || data.path;
+  const thisContent = achievsContent[key];
 
   _add(result, {
     title: i18n.t(thisContent.titleKey, data.language),
-    text: i18n.t(thisContent.textKey, {count: value}, data.language),
+    text: i18n.t(thisContent.textKey, { count: value }, data.language),
     icon: thisContent.icon,
     key,
     value,
@@ -119,10 +122,10 @@ function _addSimpleWithCount (result, user, data) {
 }
 
 function _addPlural (result, user, data) {
-  let value = user.achievements[data.path] || 0;
+  const value = user.achievements[data.path] || 0;
 
-  let key = data.key || data.path;
-  let thisContent = achievsContent[key];
+  const key = data.key || data.path;
+  const thisContent = achievsContent[key];
 
   let titleKey;
   let textKey;
@@ -137,8 +140,8 @@ function _addPlural (result, user, data) {
   }
 
   _add(result, {
-    title: i18n.t(titleKey, {count: value}, data.language),
-    text: i18n.t(textKey, {count: value}, data.language),
+    title: i18n.t(titleKey, { count: value }, data.language),
+    text: i18n.t(textKey, { count: value }, data.language),
     icon: thisContent.icon,
     key,
     value,
@@ -152,14 +155,14 @@ function _addUltimateGear (result, user, data) {
     data.altPath = data.path;
   }
 
-  let value = user.achievements.ultimateGearSets[data.altPath];
+  const value = user.achievements.ultimateGearSets[data.altPath];
 
-  let key = `${data.path}UltimateGear`;
-  let thisContent = achievsContent[key];
+  const key = `${data.path}UltimateGear`;
+  const thisContent = achievsContent[key];
 
-  let localizedClass = i18n.t(data.path, data.language);
-  let title = i18n.t(thisContent.titleKey, {ultClass: localizedClass}, data.language);
-  let text = i18n.t(thisContent.textKey, {ultClass: localizedClass}, data.language);
+  const localizedClass = i18n.t(data.path, data.language);
+  const title = i18n.t(thisContent.titleKey, { ultClass: localizedClass }, data.language);
+  const text = i18n.t(thisContent.textKey, { ultClass: localizedClass }, data.language);
 
   _add(result, {
     title,
@@ -172,44 +175,51 @@ function _addUltimateGear (result, user, data) {
 }
 
 function _getBasicAchievements (user, language) {
-  let result = {};
+  const result = {};
 
-  _addPlural(result, user, {path: 'streak', language});
-  _addPlural(result, user, {path: 'perfect', language});
+  _addPlural(result, user, { path: 'streak', language });
+  _addPlural(result, user, { path: 'perfect', language });
 
-  _addSimple(result, user, {path: 'partyUp', language});
-  _addSimple(result, user, {path: 'partyOn', language});
-  _addSimple(result, user, {path: 'joinedGuild', language});
-  _addSimple(result, user, {path: 'royallyLoyal', language});
-  _addSimple(result, user, {path: 'joinedChallenge', language});
-  _addSimple(result, user, {path: 'invitedFriend', language});
-  _addSimple(result, user, {path: 'lostMasterclasser', language});
-  _addSimple(result, user, {path: 'mindOverMatter', language});
-  _addSimple(result, user, {path: 'justAddWater', language});
-  _addSimple(result, user, {path: 'backToBasics', language});
-  _addSimple(result, user, {path: 'allYourBase', language});
-  _addSimple(result, user, {path: 'dustDevil', language});
-  _addSimple(result, user, {path: 'aridAuthority', language});
+  _addSimple(result, user, { path: 'partyUp', language });
+  _addSimple(result, user, { path: 'partyOn', language });
+  _addSimple(result, user, { path: 'joinedGuild', language });
+  _addSimple(result, user, { path: 'royallyLoyal', language });
+  _addSimple(result, user, { path: 'joinedChallenge', language });
+  _addSimple(result, user, { path: 'invitedFriend', language });
+  _addSimple(result, user, { path: 'lostMasterclasser', language });
+  _addSimple(result, user, { path: 'mindOverMatter', language });
+  _addSimple(result, user, { path: 'justAddWater', language });
+  _addSimple(result, user, { path: 'backToBasics', language });
+  _addSimple(result, user, { path: 'allYourBase', language });
+  _addSimple(result, user, { path: 'dustDevil', language });
+  _addSimple(result, user, { path: 'aridAuthority', language });
+  _addSimple(result, user, { path: 'monsterMagus', language });
+  _addSimple(result, user, { path: 'undeadUndertaker', language });
+  _addSimple(result, user, { path: 'primedForPainting', language });
+  _addSimple(result, user, { path: 'pearlyPro', language });
+  _addSimple(result, user, { path: 'tickledPink', language });
+  _addSimple(result, user, { path: 'rosyOutlook', language });
+  _addSimple(result, user, { path: 'bugBonanza', language });
 
-  _addSimpleWithMasterCount(result, user, {path: 'beastMaster', language});
-  _addSimpleWithMasterCount(result, user, {path: 'mountMaster', language});
-  _addSimpleWithMasterCount(result, user, {path: 'triadBingo', language});
+  _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
+  _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });
+  _addSimpleWithMasterCount(result, user, { path: 'triadBingo', language });
 
-  _addUltimateGear(result, user, {path: 'healer', language});
-  _addUltimateGear(result, user, {path: 'rogue', language});
-  _addUltimateGear(result, user, {path: 'warrior', language});
-  _addUltimateGear(result, user, {path: 'mage', altPath: 'wizard', language});
+  _addUltimateGear(result, user, { path: 'healer', language });
+  _addUltimateGear(result, user, { path: 'rogue', language });
+  _addUltimateGear(result, user, { path: 'warrior', language });
+  _addUltimateGear(result, user, { path: 'mage', altPath: 'wizard', language });
 
-  let cardAchievements = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell', 'goodluck'];
+  const cardAchievements = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell', 'goodluck'];
   cardAchievements.forEach(path => {
-    _addSimpleWithCount(result, user, {path, key: `${path}Cards`, language});
+    _addSimpleWithCount(result, user, { path, key: `${path}Cards`, language });
   });
 
   let rebirthTitle;
   let rebirthText;
 
   if (user.achievements.rebirths > 1) {
-    rebirthTitle = i18n.t('rebirthText', {rebirths: user.achievements.rebirths}, language);
+    rebirthTitle = i18n.t('rebirthText', { rebirths: user.achievements.rebirths }, language);
   } else {
     rebirthTitle = i18n.t('rebirthBegan', language);
   }
@@ -217,7 +227,7 @@ function _getBasicAchievements (user, language) {
   if (!user.achievements.rebirthLevel) {
     rebirthText = i18n.t('rebirthOrbNoLevel', language);
   } else if (user.achievements.rebirthLevel < 100) {
-    rebirthText = i18n.t('rebirthOrb', {level: user.achievements.rebirthLevel}, language);
+    rebirthText = i18n.t('rebirthOrb', { level: user.achievements.rebirthLevel }, language);
   } else {
     rebirthText = i18n.t('rebirthOrb100', language);
   }
@@ -234,42 +244,54 @@ function _getBasicAchievements (user, language) {
   return result;
 }
 
+function _getOnboardingAchievements (user, language) {
+  const result = {};
+
+  _addSimple(result, user, { path: 'createdTask', language });
+  _addSimple(result, user, { path: 'completedTask', language });
+  _addSimple(result, user, { path: 'hatchedPet', language });
+  _addSimple(result, user, { path: 'fedPet', language });
+  _addSimple(result, user, { path: 'purchasedEquipment', language });
+
+  return result;
+}
+
 function _getSeasonalAchievements (user, language) {
-  let result = {};
+  const result = {};
 
-  _addPlural(result, user, {path: 'habiticaDays', language});
-  _addPlural(result, user, {path: 'habitBirthdays', language});
+  _addPlural(result, user, { path: 'habiticaDays', language });
+  _addPlural(result, user, { path: 'habitBirthdays', language });
 
-  let spellAchievements = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+  const spellAchievements = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
   spellAchievements.forEach(path => {
-    _addSimpleWithCount(result, user, {path, language});
+    _addSimpleWithCount(result, user, { path, language });
   });
 
-  let questAchievements = ['dilatory', 'stressbeast', 'burnout', 'bewilder', 'dysheartener'];
+  const questAchievements = ['dilatory', 'stressbeast', 'burnout', 'bewilder', 'dysheartener'];
   questAchievements.forEach(path => {
     if (user.achievements.quests[path]) {
-      _addQuest(result, user, {path, language});
+      _addQuest(result, user, { path, language });
     }
   });
 
-  _addPlural(result, user, {path: 'costumeContests', language});
+  _addPlural(result, user, { path: 'costumeContests', language });
 
-  let cardAchievements = ['nye', 'valentine'];
+  const cardAchievements = ['nye', 'valentine'];
   cardAchievements.forEach(path => {
-    _addSimpleWithCount(result, user, {path, key: `${path}Cards`, language});
+    _addSimpleWithCount(result, user, { path, key: `${path}Cards`, language });
   });
 
   return result;
 }
 
 function _getSpecialAchievements (user, language) {
-  let result = {};
+  const result = {};
 
-  _addPlural(result, user, {path: 'habitSurveys', language});
+  _addPlural(result, user, { path: 'habitSurveys', language });
 
-  let contribKey = 'contributor';
-  let contribContent = achievsContent[contribKey];
-  let contributorAchiev = {
+  const contribKey = 'contributor';
+  const contribContent = achievsContent[contribKey];
+  const contributorAchiev = {
     key: contribKey,
     text: i18n.t(contribContent.textKey, language),
     icon: contribContent.icon,
@@ -285,19 +307,23 @@ function _getSpecialAchievements (user, language) {
   _add(result, contributorAchiev);
 
   if (user.backer && user.backer.npc) {
-    _addSimpleWithCustomPath(result, user, {key: 'npc', path: 'backer.npc', language});
+    _addSimpleWithCustomPath(result, user, { key: 'npc', path: 'backer.npc', language });
   }
 
   if (user.backer && user.backer.tier) {
-    _addSimpleWithCustomPath(result, user, {key: 'kickstarter', path: 'backer.tier', language});
+    _addSimpleWithCustomPath(result, user, { key: 'kickstarter', path: 'backer.tier', language });
   }
 
   if (user.achievements.veteran) {
-    _addSimple(result, user, {path: 'veteran', language});
+    _addSimple(result, user, { path: 'veteran', language });
   }
 
   if (user.achievements.originalUser) {
-    _addSimple(result, user, {path: 'originalUser', language});
+    _addSimple(result, user, { path: 'originalUser', language });
+  }
+
+  if (user.achievements.kickstarter2019) {
+    _addSimple(result, user, { path: 'kickstarter2019', language });
   }
 
   return result;
@@ -305,10 +331,14 @@ function _getSpecialAchievements (user, language) {
 
 // Build and return the given user's achievement data.
 achievs.getAchievementsForProfile = function getAchievementsForProfile (user, language) {
-  let result = {
+  const result = {
     basic: {
       label: 'Basic',
       achievements: _getBasicAchievements(user, language),
+    },
+    onboarding: {
+      label: 'Onboarding',
+      achievements: _getOnboardingAchievements(user, language),
     },
     seasonal: {
       label: 'Seasonal',
@@ -324,4 +354,4 @@ achievs.getAchievementsForProfile = function getAchievementsForProfile (user, la
 
 achievs.getContribText = contribText;
 
-module.exports = achievs;
+export default achievs;

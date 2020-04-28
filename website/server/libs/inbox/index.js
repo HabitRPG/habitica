@@ -1,44 +1,47 @@
-import {mapInboxMessage, inboxModel as Inbox} from '../../models/message';
-import {getUserInfo, sendTxn as sendTxnEmail} from '../email';
-import {sendNotification as sendPushNotification} from '../pushNotifications';
-
-const PM_PER_PAGE = 10;
+import { mapInboxMessage, inboxModel as Inbox } from '../../models/message';
+import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
+import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 
 export async function sentMessage (sender, receiver, message, translate) {
   const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
+  const senderName = getUserInfo(sender, ['name']).name;
 
   if (receiver.preferences.emailNotifications.newPM !== false) {
     sendTxnEmail(receiver, 'new-pm', [
-      {name: 'SENDER', content: getUserInfo(sender, ['name']).name},
+      { name: 'SENDER', content: senderName },
     ]);
   }
 
-  if (receiver.preferences.pushNotifications.newPM !== false) {
+  if (receiver.preferences.pushNotifications.newPM !== false && messageSent.unformattedText) {
     sendPushNotification(
       receiver,
       {
-        title: translate('newPM', receiver.preferences.language),
-        message: translate('newPMInfo', {name: getUserInfo(sender, ['name']).name, message}, receiver.preferences.language),
+        title: translate(
+          'newPMNotificationTitle',
+          { name: getUserInfo(sender, ['name']).name },
+          receiver.preferences.language,
+        ),
+        message: messageSent.unformattedText,
         identifier: 'newPM',
         category: 'newPM',
-        payload: {replyTo: sender._id},
-      }
+        payload: { replyTo: sender._id, senderName, message },
+      },
     );
   }
 
   return messageSent;
 }
+const PM_PER_PAGE = 10;
 
-export async function getUserInbox (user, options = {asArray: true, page: 0, conversation: null, mapProps: false}) {
-  if (typeof options.asArray === 'undefined') {
-    options.asArray = true;
-  }
+const getUserInboxDefaultOptions = {
+  asArray: true, page: 0, conversation: null, mapProps: false,
+};
 
-  if (typeof options.mapProps === 'undefined') {
-    options.mapProps = false;
-  }
+export async function getUserInbox (user, optionParams = getUserInboxDefaultOptions) {
+  // if not all properties are passed, fill the default values
+  const options = { ...getUserInboxDefaultOptions, ...optionParams };
 
-  const findObj = {ownerId: user._id};
+  const findObj = { ownerId: user._id };
 
   if (options.conversation) {
     findObj.uuid = options.conversation;
@@ -46,12 +49,12 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
 
   let query = Inbox
     .find(findObj)
-    .sort({timestamp: -1});
+    .sort({ timestamp: -1 });
 
   if (typeof options.page !== 'undefined') {
     query = query
-      .limit(PM_PER_PAGE)
-      .skip(PM_PER_PAGE * Number(options.page));
+      .skip(PM_PER_PAGE * Number(options.page))
+      .limit(PM_PER_PAGE);
   }
 
   const messages = (await query.exec()).map(msg => {
@@ -66,55 +69,21 @@ export async function getUserInbox (user, options = {asArray: true, page: 0, con
 
   if (options.asArray) {
     return messages;
-  } else {
-    const messagesObj = {};
-    messages.forEach(msg => messagesObj[msg._id] = msg);
-
-    return messagesObj;
   }
-}
+  const messagesObj = {};
+  messages.forEach(msg => { messagesObj[msg._id] = msg; });
 
-export async function listConversations (owner) {
-  let query = Inbox
-    .aggregate([
-      {
-        $match: {
-          ownerId: owner._id,
-        },
-      },
-      {
-        $group: {
-          _id: '$uuid',
-          user: {$last: '$user' },
-          username: {$last: '$username' },
-          timestamp: {$last: '$timestamp'},
-          text: {$last: '$text'},
-          userStyles: {$last: '$userStyles'},
-          contributor: {$last: '$contributor'},
-          count: {$sum: 1},
-        },
-      },
-      { $sort: {timestamp: -1}}, // sort by latest message
-    ]);
-
-  const conversationsList = await query.exec();
-
-  const conversations = conversationsList.map((res) => ({
-    uuid: res._id,
-    ...res,
-  }));
-
-  return conversations;
+  return messagesObj;
 }
 
 export async function getUserInboxMessage (user, messageId) {
-  return Inbox.findOne({ownerId: user._id, _id: messageId}).exec();
+  return Inbox.findOne({ ownerId: user._id, _id: messageId }).exec();
 }
 
 export async function deleteMessage (user, messageId) {
-  const message = await Inbox.findOne({_id: messageId, ownerId: user._id}).exec();
+  const message = await Inbox.findOne({ _id: messageId, ownerId: user._id }).exec();
   if (!message) return false;
-  await Inbox.remove({_id: message._id, ownerId: user._id}).exec();
+  await Inbox.remove({ _id: message._id, ownerId: user._id }).exec();
 
   return true;
 }
@@ -124,6 +93,6 @@ export async function clearPMs (user) {
 
   await Promise.all([
     user.save(),
-    Inbox.remove({ownerId: user._id}).exec(),
+    Inbox.remove({ ownerId: user._id }).exec(),
   ]);
 }

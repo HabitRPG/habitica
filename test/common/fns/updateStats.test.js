@@ -12,8 +12,8 @@ describe('common.fns.updateStats', () => {
   });
 
   context('No Hp', () => {
-    it('updates user\s hp', () => {
-      let stats = { hp: 0 };
+    it('updates user\'s hp', () => {
+      const stats = { hp: 0 };
       expect(user.stats.hp).to.not.eql(0);
       updateStats(user, stats);
       expect(user.stats.hp).to.eql(0);
@@ -22,7 +22,7 @@ describe('common.fns.updateStats', () => {
     });
 
     it('does not lower hp below 0', () => {
-      let stats = {
+      const stats = {
         hp: -5,
       };
       updateStats(user, stats);
@@ -32,7 +32,7 @@ describe('common.fns.updateStats', () => {
 
   context('Stat Allocation', () => {
     it('adds only attribute points up to user\'s level', () => {
-      let stats = {
+      const stats = {
         exp: 261,
       };
       expect(user.stats.points).to.eql(0);
@@ -45,7 +45,7 @@ describe('common.fns.updateStats', () => {
     });
 
     it('adds an attibute point when user\'s stat points are less than max level', () => {
-      let stats = {
+      const stats = {
         exp: 3581,
       };
 
@@ -61,7 +61,7 @@ describe('common.fns.updateStats', () => {
     });
 
     it('does not add an attibute point when user\'s stat points are equal to max level', () => {
-      let stats = {
+      const stats = {
         exp: 3581,
       };
 
@@ -77,7 +77,7 @@ describe('common.fns.updateStats', () => {
     });
 
     it('does not add an attibute point when user\'s stat points + unallocated points are equal to max level', () => {
-      let stats = {
+      const stats = {
         exp: 3581,
       };
 
@@ -94,7 +94,7 @@ describe('common.fns.updateStats', () => {
     });
 
     it('only awards stat points up to level 100 if user is missing unallocated stat points and is over level 100', () => {
-      let stats = {
+      const stats = {
         exp: 5581,
       };
 
@@ -108,13 +108,6 @@ describe('common.fns.updateStats', () => {
       updateStats(user, stats);
 
       expect(user.stats.points).to.eql(10);
-    });
-
-    it('add user notification when drops are enabled', () => {
-      user.stats.lvl = 3;
-      updateStats(user, { });
-      expect(user.addNotification).to.be.calledOnce;
-      expect(user.addNotification).to.be.calledWith('DROPS_ENABLED');
     });
 
     it('add user notification when the user levels up', () => {
@@ -131,7 +124,7 @@ describe('common.fns.updateStats', () => {
     it('add user notification when rebirth is enabled', () => {
       user.stats.lvl = 51;
       updateStats(user, { });
-      expect(user.addNotification).to.be.calledTwice; // once is for drops enabled
+      expect(user.addNotification).to.be.calledOnce;
       expect(user.addNotification).to.be.calledWith('REBIRTH_ENABLED');
     });
 
@@ -182,7 +175,7 @@ describe('common.fns.updateStats', () => {
     xit('auto allocates stats if automaticAllocation is turned on', () => {
       sandbox.stub(user.fns, 'autoAllocate');
 
-      let stats = {
+      const stats = {
         exp: 261,
       };
 

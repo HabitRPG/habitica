@@ -1,6 +1,6 @@
-import common from '../../common';
+import common from '../../common'; // eslint-disable-line max-classes-per-file
 
-export const CustomError = common.errors.CustomError;
+export const { CustomError } = common.errors;
 
 /**
  * @apiDefine NotAuthorized
@@ -13,7 +13,7 @@ export const CustomError = common.errors.CustomError;
  *       "message": "Not authorized."
  *     }
  */
-export const NotAuthorized = common.errors.NotAuthorized;
+export const { NotAuthorized } = common.errors;
 
 /**
  * @apiDefine BadRequest
@@ -26,7 +26,7 @@ export const NotAuthorized = common.errors.NotAuthorized;
  *       "message": "Bad request."
  *     }
  */
-export const BadRequest = common.errors.BadRequest;
+export const { BadRequest } = common.errors;
 
 /**
  * @apiDefine NotFound
@@ -39,7 +39,20 @@ export const BadRequest = common.errors.BadRequest;
  *       "message": "Not found."
  *     }
  */
-export const NotFound = common.errors.NotFound;
+export const { NotFound } = common.errors;
+
+/**
+ * @apiDefine Forbidden
+ * @apiError Forbidden The requested resource was not found.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 403 Forbidden
+ *     {
+ *       "error": "Forbidden",
+ *       "message": "Access forbidden."
+ *     }
+ */
+export const { Forbidden } = common.errors;
 
 
 /**

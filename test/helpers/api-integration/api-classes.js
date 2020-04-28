@@ -1,17 +1,18 @@
 /* eslint-disable no-use-before-define */
+/* eslint-disable max-classes-per-file */
 import moment from 'moment';
-import { requester } from './requester';
-import {
-  getDocument as getDocumentFromMongo,
-  updateDocument as updateDocumentInMongo,
-  unsetDocument as unsetDocumentInMongo,
-} from '../mongo';
 import {
   assign,
   each,
   isEmpty,
   set,
 } from 'lodash';
+import { requester } from './requester';
+import {
+  getDocument as getDocumentFromMongo,
+  updateDocument as updateDocumentInMongo,
+  unsetDocument as unsetDocumentInMongo,
+} from '../mongo';
 
 class ApiObject {
   constructor (options) {
@@ -20,7 +21,7 @@ class ApiObject {
 
   async update (options) {
     if (isEmpty(options)) {
-      return;
+      return null;
     }
 
     await updateDocumentInMongo(this._docType, this, options);
@@ -32,7 +33,7 @@ class ApiObject {
 
   async unset (options) {
     if (isEmpty(options)) {
-      return;
+      return null;
     }
 
     await unsetDocumentInMongo(this._docType, this, options);
@@ -43,7 +44,7 @@ class ApiObject {
   }
 
   async sync () {
-    let updatedDoc = await getDocumentFromMongo(this._docType, this);
+    const updatedDoc = await getDocumentFromMongo(this._docType, this);
 
     assign(this, updatedDoc);
 
@@ -57,7 +58,7 @@ export class ApiUser extends ApiObject {
 
     this._docType = 'users';
 
-    let _requester = requester(this);
+    const _requester = requester(this);
 
     this.get = _requester.get;
     this.post = _requester.post;
@@ -74,10 +75,10 @@ export class ApiGroup extends ApiObject {
   }
 
   async addChat (chat) {
-    let group = this;
+    const group = this;
 
     if (!chat) {
-      chat = {
+      chat = { // eslint-disable-line no-param-reassign
         id: 'Test_ID',
         text: 'Test message',
         flagCount: 0,
@@ -91,13 +92,13 @@ export class ApiGroup extends ApiObject {
       };
     }
 
-    let update = { chat };
+    const update = { chat };
 
-    return await this.update(update);
+    return this.update(update);
   }
 
   async createCancelledSubscription () {
-    let update = {
+    const update = {
       purchased: {
         plan: {
           customerId: 'example-customer',
@@ -106,7 +107,7 @@ export class ApiGroup extends ApiObject {
       },
     };
 
-    return await this.update(update);
+    return this.update(update);
   }
 }
 

@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import validator from 'validator';
 import _ from 'lodash';
 
-module.exports = function baseModel (schema, options = {}) {
+export default function baseModel (schema, options = {}) {
   if (schema.options.typeKey !== '$type') {
     throw new Error('Every schema must use $type as the typeKey, see https://mongoosejs.com/docs/guide.html#typeKey');
   }
@@ -12,7 +12,7 @@ module.exports = function baseModel (schema, options = {}) {
       _id: {
         $type: String,
         default: uuid,
-        validate: [v => validator.isUUID(v), 'Invalid uuid.'],
+        validate: [v => validator.isUUID(v), 'Invalid uuid in baseModel.'],
       },
     });
   }
@@ -41,13 +41,13 @@ module.exports = function baseModel (schema, options = {}) {
     });
   }
 
-  let noSetFields = ['createdAt', 'updatedAt'];
-  let privateFields = ['__v'];
+  const noSetFields = ['createdAt', 'updatedAt'];
+  const privateFields = ['__v'];
 
   if (Array.isArray(options.noSet)) noSetFields.push(...options.noSet);
   // This method accepts an additional array of fields to be sanitized that can be passed at runtime
   schema.statics.sanitize = function sanitize (objToSanitize = {}, additionalFields = []) {
-    noSetFields.concat(additionalFields).forEach((fieldPath) => {
+    noSetFields.concat(additionalFields).forEach(fieldPath => {
       _.unset(objToSanitize, fieldPath);
     });
 
@@ -59,7 +59,7 @@ module.exports = function baseModel (schema, options = {}) {
 
   if (!schema.options.toJSON) schema.options.toJSON = {};
   schema.options.toJSON.transform = function transformToObject (doc, plainObj) {
-    privateFields.forEach((fieldPath) => {
+    privateFields.forEach(fieldPath => {
       _.unset(plainObj, fieldPath);
     });
 
@@ -79,4 +79,4 @@ module.exports = function baseModel (schema, options = {}) {
       return result;
     }, {});
   };
-};
+}

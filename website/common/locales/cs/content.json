@@ -212,7 +212,7 @@
     "hatchingPotionFrost": "Zmrzlý",
     "hatchingPotionIcySnow": "Ledově Sněhový",
     "hatchingPotionNotes": "Nalij ho na vejce a vylíhne se ti <%= potText(locale) %> mazlíček.",
-    "premiumPotionAddlNotes": "Nelze použít na vejce mazlíčků z výprav.",
+    "premiumPotionAddlNotes": "Nelze použít na vejce mazlíčků z výprav. K dispozici ke koupi do <%= date(locale) %>.",
     "foodMeat": "Maso",
     "foodMeatThe": "Maso",
     "foodMeatA": "Maso",
@@ -349,5 +349,9 @@
     "questEggRobotText": "Robot",
     "questEggDolphinAdjective": "radostný",
     "questEggDolphinMountText": "Delfín",
-    "questEggDolphinText": "Delfín"
+    "questEggDolphinText": "Delfín",
+    "hatchingPotionShadow": "Stín",
+    "premiumPotionUnlimitedNotes": "Nepoužitelné na vejce z výprav.",
+    "hatchingPotionAurora": "Polární záře",
+    "hatchingPotionAmber": "Jantar"
 }
