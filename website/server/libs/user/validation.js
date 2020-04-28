@@ -1,8 +1,12 @@
+import escapeRegExp from 'lodash/escapeRegExp';
 import bannedSlurs from '../bannedSlurs';
 import { getMatchesByWordArray } from '../stringUtils';
 import forbiddenUsernames from '../forbiddenUsernames';
 
-const bannedSlurRegexs = bannedSlurs.map(word => new RegExp(`.*${word}.*`, 'i'));
+const bannedSlurRegexs = bannedSlurs.map(word => {
+  const escapedWord = escapeRegExp(word);
+  return new RegExp(`.*${escapedWord}.*`, 'i');
+});
 
 export function nameContainsSlur (username) {
   for (let i = 0; i < bannedSlurRegexs.length; i += 1) {
