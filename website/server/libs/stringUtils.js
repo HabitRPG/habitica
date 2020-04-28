@@ -1,15 +1,12 @@
-import escapeRegExp from 'lodash/escapeRegExp';
-
 export function removePunctuationFromString (str) {
   return str.replace(/[.,/#!@$%^&;:{}=\-_`~()]/g, ' ');
 }
 
+// NOTE: the wordsToMatch aren't escaped in order to support regular expressions,
+// so this method should not be used if wordsToMatch contains unsanitized user input
 export function getMatchesByWordArray (str, wordsToMatch) {
   const matchedWords = [];
-  const wordRegexs = wordsToMatch.map(word => {
-    const escapedWord = escapeRegExp(word);
-    return new RegExp(`\\b([^a-z]+)?${escapedWord}([^a-z]+)?\\b`, 'i');
-  });
+  const wordRegexs = wordsToMatch.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'));
   for (let i = 0; i < wordRegexs.length; i += 1) {
     const regEx = wordRegexs[i];
     const match = str.match(regEx);
