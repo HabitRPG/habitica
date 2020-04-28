@@ -67,7 +67,7 @@
         v-once
         class="float-right forgot-password"
         style="color: rgb(189, 168, 255) !important;"
-        @click="forgotPassword = true"
+        @click="handleForgotPasswordChange"
       >{{ $t('forgotPassword') }}</a>
       <input
         id="passwordInput"
@@ -201,6 +201,10 @@ export default {
     return data;
   },
   methods: {
+    handleForgotPasswordChange () {
+      this.forgotPassword = true;
+      this.$emit('forgotPassword', true);
+    },
     async login () {
       await this.$store.dispatch('auth:login', {
         username: this.username,

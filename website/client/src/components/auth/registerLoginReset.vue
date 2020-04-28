@@ -20,7 +20,7 @@
       <div class="seamless_stars_varied_opacity_repeat"></div>
     </div>
     <div
-      v-if="!forgotPassword && !resetPasswordSetNewOne"
+      v-if="!resetPasswordSetNewOne"
       id="login-form"
     >
       <div class="text-center">
@@ -34,25 +34,27 @@
           ></div>
         </div>
       </div>
-      <div class="form-group row text-center">
-        <div class="col-12 col-md-12">
-          <facebook-auth />
+      <div v-if="!forgotPassword">
+        <div class="form-group row text-center">
+          <div class="col-12 col-md-12">
+            <facebook-auth />
+          </div>
+        </div>
+        <div class="form-group row text-center">
+          <div class="col-12 col-md-12">
+            <google-auth />
+          </div>
+        </div>
+        <div class="form-group row text-center">
+          <div class="col-12 col-md-12">
+            <apple-auth />
+          </div>
+        </div>
+        <div class="strike">
+          <span>{{ $t('or') }}</span>
         </div>
       </div>
-      <div class="form-group row text-center">
-        <div class="col-12 col-md-12">
-          <google-auth />
-        </div>
-      </div>
-      <div class="form-group row text-center">
-        <div class="col-12 col-md-12">
-          <apple-auth />
-        </div>
-      </div>
-      <div class="strike">
-        <span>{{ $t('or') }}</span>
-      </div>
-      <login-form v-if="!registering" />
+      <login-form v-if="!registering" @forgotPassword="forgotPassword = true"/>
       <register-form v-if="registering" />
     </div>
     <reset-password-form v-if="resetPasswordSetNewOne" />
