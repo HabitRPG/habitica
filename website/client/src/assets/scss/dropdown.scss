@@ -1,5 +1,5 @@
 .dropdown > .btn {
-  padding: 9px 15.5px;
+  padding: 0.25rem 0.75rem;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: normal;
@@ -28,9 +28,8 @@
 }
 
 .dropdown-item {
-  padding-left: 24px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 0.25rem 0.75rem;
+  height: 32px;
   font-size: 14px;
   line-height: 1.71;
   color: $gray-50;
@@ -86,13 +85,14 @@
 
   .dropdown-toggle {
     width: 100% !important;
+    height: 32px;
     text-align: left;
   }
 
   .dropdown-toggle::after {
     position: absolute;
-    right: 16px;
-    top: 17px;
+    right: 12px;
+    top: 14px;
   }
 
   .dropdown-menu.show {

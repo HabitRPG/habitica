@@ -70,33 +70,51 @@
   }
 }
 
-.btn-secondary {
+.btn-secondary,
+.dropdown > .btn-secondary.dropdown-toggle:not(.btn-success),
+.show > .btn-secondary.dropdown-toggle:not(.btn-success)
+{
   background: $white;
   border: 1px solid transparent;
   color: $gray-50;
 
-  &:hover:not(:disabled):not(.disabled) {
-    color: $purple-300;
-    background: $white;
-    border: 1px solid transparent;
-  }
-
-  &:focus {
+  &:focus, &:active {
     color: $gray-50;
     background: $white;
     border-color: $purple-400;
   }
 
-  &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
-    color: $purple-300;
-    box-shadow: none;
-    border-color: $purple-400;
-  }
+  &:not(:disabled):not(.disabled) {
+    &:active:focus,
+    &.active:focus {
+      color: $purple-300;
+      box-shadow: none;
+      border-color: $purple-400;
+    }
 
-  &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
-    color: $purple-300;
-    background: $white;
-    border: 1px solid transparent;
+    &:active,
+    &.active {
+      color: $purple-300;
+
+      &.dropdown-toggle {
+        color: $gray-50;
+      }
+
+
+      background: $white;
+      border: 1px solid transparent;
+    }
+
+    &:hover {
+      color: $purple-300;
+
+      &.dropdown-toggle {
+        color: $gray-50;
+      }
+
+      background: $white !important;
+      border: 1px solid transparent;
+    }
   }
 
   &:disabled, &.disabled {
