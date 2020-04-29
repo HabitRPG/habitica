@@ -9,13 +9,13 @@
       <div v-html="notification.data.message"></div>
       <div class="notifications-buttons">
         <div
-          class="btn btn-small btn-success"
+          class="btn btn-small btn-primary mr-2"
           @click.stop="approve()"
         >
           {{ $t('approve') }}
         </div>
         <div
-          class="btn btn-small btn-warning"
+          class="btn btn-small btn-secondary"
           @click.stop="needsWork()"
         >
           {{ $t('needsWork') }}

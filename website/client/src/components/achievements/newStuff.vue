@@ -13,20 +13,20 @@
         v-html="html"
       ></div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer d-flex align-items-center pb-0">
       <a
-        class="btn btn-info"
         href="http://habitica.fandom.com/wiki/Whats_New"
         target="_blank"
+        class="mr-auto"
       >{{ this.$t('newsArchive') }}</a>
       <button
-        class="btn btn-secondary"
+        class="btn btn-secondary ml-auto"
         @click="tellMeLater()"
       >
         {{ this.$t('tellMeLater') }}
       </button>
       <button
-        class="btn btn-warning"
+        class="btn btn-primary"
         @click="dismissAlert();"
       >
         {{ this.$t('dismissAlert') }}
