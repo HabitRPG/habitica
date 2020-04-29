@@ -30,7 +30,7 @@ if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
   for (let i = 0; i < CORES; i += 1) {
     cluster.setupMaster({
       exec: process.argv[1],
-      args: ['--perf-basic-prof'],
+      args: ['--interpreted-frames-native-stack', '--perf-basic-prof'],
     });
     cluster.fork();
   }
