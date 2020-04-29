@@ -42,7 +42,7 @@
   background: $purple-200;
   border: 1px solid transparent;
 
-  &:hover {
+  &:hover:not(:disabled):not(.disabled) {
     background: #5d3b9c;
     border: 1px solid transparent;
   }
@@ -70,20 +70,41 @@
   }
 }
 
-.btn-secondary, .dropdown > .btn-secondary {
-  color: $gray-50;
+.btn-secondary {
   background: $white;
+  border: 1px solid transparent;
+  color: $gray-50;
 
-  &:hover, &:active, &.active, &:focus {
+  &:hover:not(:disabled):not(.disabled) {
     color: $purple-300;
-
-    &:disabled, &.disabled {
-      color: $gray-50;
-    }
+    background: $white;
+    border: 1px solid transparent;
   }
 
   &:focus {
+    color: $gray-50;
+    background: $white;
     border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
+    color: $purple-300;
+    box-shadow: none;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
+    color: $purple-300;
+    background: $white;
+    border: 1px solid transparent;
+  }
+
+  &:disabled, &.disabled {
+    color: $gray-50;
+    background: $white;
+    border: 1px solid transparent;
+    cursor: default;
+    opacity: 0.75;
   }
 }
 
@@ -91,7 +112,7 @@
   background: $maroon-100;
   border: 1px solid transparent;
 
-  &:hover {
+  &:hover:not(:disabled):not(.disabled) {
     background: #e14e4e;
     border: 1px solid transparent;
   }
@@ -123,7 +144,7 @@
   background: $green-50;
   border: 1px solid transparent;
 
-  &:hover {
+  &:hover:not(:disabled):not(.disabled) {
     background: #32bd8a;
     border: 1px solid transparent;
   }
