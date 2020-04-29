@@ -2,6 +2,8 @@ import moment from 'moment';
 import calculateSubscriptionTerminationDate from '../../../../../../website/server/libs/payments/calculateSubscriptionTerminationDate';
 import api from '../../../../../../website/server/libs/payments/payments';
 
+const groupPlanId = api.constants.GROUP_PLAN_CUSTOMER_ID;
+
 describe('#calculateSubscriptionTerminationDate', () => {
   let plan;
   let nextBill;
@@ -20,7 +22,7 @@ describe('#calculateSubscriptionTerminationDate', () => {
     const expectedTerminationDate = moment()
       .add(5, 'days');
 
-    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, api.constants);
+    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, groupPlanId);
     expect(expectedTerminationDate.diff(terminationDate, 'days')).to.eql(0);
   });
 
@@ -28,7 +30,7 @@ describe('#calculateSubscriptionTerminationDate', () => {
     nextBill = null;
     const expectedTerminationDate = moment()
       .add(30, 'days');
-    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, api.constants);
+    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, groupPlanId);
 
     expect(expectedTerminationDate.diff(terminationDate, 'days')).to.eql(0);
   });
@@ -39,7 +41,7 @@ describe('#calculateSubscriptionTerminationDate', () => {
     const expectedTerminationDate = moment()
       .add(2, 'days');
 
-    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, api.constants);
+    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, groupPlanId);
     expect(expectedTerminationDate.diff(terminationDate, 'days')).to.eql(0);
   });
 
@@ -48,7 +50,7 @@ describe('#calculateSubscriptionTerminationDate', () => {
     const expectedTerminationDate = moment()
       .add(30.5 * 4, 'days');
 
-    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, api.constants);
+    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, groupPlanId);
     expect(expectedTerminationDate.diff(terminationDate, 'days')).to.eql(0);
   });
 
@@ -57,14 +59,23 @@ describe('#calculateSubscriptionTerminationDate', () => {
     const expectedTerminationDate = moment()
       .add(Math.ceil(30.5 * 5), 'days');
 
-    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, api.constants);
+    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, groupPlanId);
     expect(expectedTerminationDate.diff(terminationDate, 'days')).to.eql(0);
   });
 
   it('behaves like extraMonths is 0 if it\'s set to a negative number', () => {
     plan.extraMonths = -5;
     const expectedTerminationDate = moment();
-    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, api.constants);
+    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, groupPlanId);
     expect(expectedTerminationDate.diff(terminationDate, 'days')).to.eql(0);
+  });
+
+  it('returns current terminated date if it exists and is later than newly calculated date', () => {
+    const expectedTerminationDate = moment().add({ months: 5 }).toDate();
+    plan.terminationDate = expectedTerminationDate;
+
+    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, groupPlanId);
+
+    expect(terminationDate).to.equal(expectedTerminationDate);
   });
 });

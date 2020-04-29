@@ -314,7 +314,9 @@ async function cancelSubscription (data) {
     sendEmail = false; // because group-member-cancel email has already been sent
   }
 
-  plan.dateTerminated = calculateSubscriptionTerminationDate(data.nextBill, plan, this.constants);
+  plan.dateTerminated = calculateSubscriptionTerminationDate(
+    data.nextBill, plan, this.constants.GROUP_PLAN_CUSTOMER_ID,
+  );
 
   // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
   plan.extraMonths = 0;

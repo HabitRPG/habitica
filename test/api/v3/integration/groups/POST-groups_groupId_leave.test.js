@@ -1,7 +1,5 @@
 import { v4 as generateUUID } from 'uuid';
-import {
-  each,
-} from 'lodash';
+import each from 'lodash/each';
 import moment from 'moment';
 import {
   generateChallenge,
@@ -374,7 +372,7 @@ describe('POST /groups/:groupId/leave', () => {
         const expectedTerminationDate = calculateSubscriptionTerminationDate(null, {
           customerId: payments.constants.GROUP_PLAN_CUSTOMER_ID,
           extraMonths,
-        }, payments.constants);
+        }, payments.constants.GROUP_PLAN_CUSTOMER_ID);
 
         expect(extraMonthsBefore).to.gte(12);
         expect(extraMonthsAfter).to.equal(0);
