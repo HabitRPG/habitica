@@ -277,13 +277,13 @@
         </div>
         <div class="col-12 text-center">
           <button
-            class="btn btn-primary"
+            class="btn btn-primary mr-2"
             @click="save()"
           >
             {{ $t("save") }}
           </button>
           <button
-            class="btn btn-warning"
+            class="btn btn-secondary"
             @click="editing = false"
           >
             {{ $t("cancel") }}
@@ -420,6 +420,10 @@
       .character-name, small, .small-text {
         color: #878190;
       }
+    }
+
+    .standard-page {
+      padding-bottom: 0rem;
     }
 
     .modal-content {
