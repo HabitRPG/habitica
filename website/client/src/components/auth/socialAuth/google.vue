@@ -58,7 +58,7 @@
 </style>
 
 <script>
-import hello from 'hellojs';
+import { socialLogout, socialLogin } from './socialAuth';
 import { setUpAxios } from '@/libs/auth';
 import googleIcon from '@/assets/svg/google.svg';
 
@@ -91,25 +91,15 @@ export default {
       return false;
     },
   },
-  mounted () {
-    hello.init({
-      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
-      // windows: WINDOWS_CLIENT_ID,
-      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
-    });
-  },
   methods: {
     async socialAuth (network) {
       try {
-        await hello(network).logout();
+        await socialLogout(network);
       } catch (e) {} // eslint-disable-line
 
       try {
         const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-        const auth = await hello(network).login({
-          scope: 'email',
-          redirect_uri: redirectUrl, // eslint-disable-line camelcase
-        });
+        const auth = await socialLogin(network, redirectUrl);
 
         await this.$store.dispatch('auth:socialAuth', {
           auth,
@@ -119,7 +109,7 @@ export default {
       } catch (err) {
         console.error(err); // eslint-disable-line no-console
         // logout the user
-        await hello(network).logout();
+        await socialLogout(network);
         this.socialAuth(network); // login again
       }
     },
