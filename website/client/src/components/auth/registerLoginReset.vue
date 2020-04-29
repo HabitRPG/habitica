@@ -19,8 +19,9 @@
     <div id="top-background">
       <div class="seamless_stars_varied_opacity_repeat"></div>
     </div>
+    <reset-password-form v-if="resetPasswordSetNewOne" />
     <div
-      v-if="!resetPasswordSetNewOne"
+      v-else
       id="login-form"
     >
       <div class="text-center">
@@ -57,7 +58,6 @@
       <login-form v-if="!registering" @forgotPassword="forgotPassword = true"/>
       <register-form v-if="registering" />
     </div>
-    <reset-password-form v-if="resetPasswordSetNewOne" />
     <div
       id="bottom-wrap"
       :class="`bottom-wrap-${!registering ? 'login' : 'register'}`"
@@ -368,6 +368,11 @@ export default {
       }
       return false;
     },
+    /*
+      preOutage always return false, but i'm not gonna delete
+      these code snippets cause Habitica emails may be unavailable
+      again.
+    */
     preOutage () {
       return moment.utc().isBefore('2020-01-12');
     },
