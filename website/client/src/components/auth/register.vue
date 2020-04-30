@@ -18,7 +18,7 @@
         v-model="username"
         class="form-control input-with-error"
         type="text"
-        :placeholder="$t('usernamePlaceholder')"
+        :placeholder="$t(isHomePage?'username':'usernamePlaceholder')"
         :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
       >
       <div v-for="issue in usernameIssues" :key="issue" class="input-error">{{ issue }}</div>
@@ -30,7 +30,7 @@
         v-model="email"
         class="form-control"
         type="email"
-        :placeholder="$t('emailPlaceholder')"
+        :placeholder="$t(isHomePage?'email':'emailPlaceholder')"
         :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
       >
     </div>
@@ -41,7 +41,7 @@
         v-model="password"
         class="form-control"
         type="password"
-        :placeholder="$t('passwordPlaceholder')"
+        :placeholder="$t(isHomePage?'password':'passwordPlaceholder')"
         :class="{
             'input-invalid input-with-error': passwordInvalid,
             'input-valid': passwordValid
@@ -61,7 +61,7 @@
         v-model="passwordConfirm"
         class="form-control input-with-error"
         type="password"
-        :placeholder="$t('confirmPasswordPlaceholder')"
+        :placeholder="$t(isHomePage?'confirmPassword':'confirmPasswordPlaceholder')"
         :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
       >
       <div v-if="passwordConfirmInvalid" class="input-error">
