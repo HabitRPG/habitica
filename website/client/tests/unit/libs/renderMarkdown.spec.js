@@ -27,19 +27,19 @@ describe('highlightUserAndEmail', () => {
   });
 
   it('highlights username sandwiched with underscores', () => {
-    const text = 'hello @<em>user</em>';
+    const text = 'hello @_user_';
 
-    const result = highlightUsers(text, '_user_', 'displayedUser');
+    const result = renderMarkdown(text, user('_user_', 'displayedUser'));
     expect(result).to.contain('<span class="at-text at-highlight">@_user_</span>');
     expect(result).to.not.contain('<em>');
     expect(result).to.not.contain('</em>');
   });
 
   it('highlights username sandwiched with double underscores', () => {
-    const text = 'hello @<strong>user</strong>';
+    const text = 'hello @__user__';
 
-    const result = highlightUsers(text, 'diffUser', 'displayDiffUser');
-    expect(result).to.contain('<span class="at-text ">@__user__</span>');
+    const result = renderMarkdown(text, user('diffUser', 'displayDiffUser'));
+    expect(result).to.contain('<span class="at-text">@__user__</span>');
     expect(result).to.not.contain('<strong>');
     expect(result).to.not.contain('</strong>');
   });
@@ -51,7 +51,7 @@ describe('highlightUserAndEmail', () => {
   });
 
   it('complex highlight', () => {
-    const plainText = 'a bit more @mentions to @use my@mentions.com broken.@mail.com';
+    const plainText = 'a bit more @mentions to @use my@mentions.com broken @mail.com';
 
     const result = renderMarkdown(plainText, user('use', 'mentions'));
 

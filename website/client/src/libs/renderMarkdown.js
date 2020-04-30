@@ -1,4 +1,4 @@
-import habiticaMarkdown from 'habitica-markdown';
+import habiticaMarkdown from 'habitica-markdown/withMentions';
 
 export default function renderMarkdown (text, user) {
   if (!text) return null;
