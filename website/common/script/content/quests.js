@@ -2241,10 +2241,6 @@ const quests = {
     completion: t('questDustBunniesCompletion'),
     value: 1,
     category: 'unlockable',
-    unlockCondition: {
-      condition: 'party invite',
-      text: t('createAccountReward'),
-    },
     boss: {
       name: t('questDustBunniesBoss'),
       hp: 100,

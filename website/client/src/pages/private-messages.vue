@@ -72,8 +72,8 @@
           />
         </div>
         <button
-          class="btn btn-secondary"
           v-if="canLoadMoreConversations"
+          class="btn btn-secondary"
           @click="loadConversations()"
         >
           {{ $t('loadMore') }}
