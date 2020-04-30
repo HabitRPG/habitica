@@ -28,10 +28,6 @@ if (CORES !== 0 && cluster.isMaster && (IS_DEV || IS_PROD)) {
   // Fork workers. If config.json has WEB_CONCURRENCY=x,
   // use that - otherwise, use all cpus-1 (production)
   for (let i = 0; i < CORES; i += 1) {
-    cluster.setupMaster({
-      exec: process.argv[1],
-      args: ['--interpreted-frames-native-stack', '--perf-basic-prof'],
-    });
     cluster.fork();
   }
 
