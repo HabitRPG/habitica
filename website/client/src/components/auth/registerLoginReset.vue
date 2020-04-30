@@ -22,7 +22,7 @@
     <reset-password-form v-if="resetPasswordSetNewOne" />
     <div
       v-else
-      id="login-form"
+      id="auth-form"
     >
       <div class="text-center">
         <div>
@@ -103,7 +103,7 @@
   }
 
   @media only screen and (max-width: 768px) {
-    #login-form {
+    #auth {
       width: 100% !important;
     }
 
@@ -120,23 +120,7 @@
     min-height: 100vh;
   }
 
-  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: $purple-400;
-  }
-  ::-moz-placeholder { /* Firefox 19+ */
-    color: $purple-400;
-  }
-  :-ms-input-placeholder { /* IE 10+ */
-    color: $purple-400;
-  }
-  :-moz-placeholder { /* Firefox 18- */
-    color: $purple-400;
-  }
-  ::placeholder { //  Standard browsers
-    color: $purple-400;
-  }
-
-  #login-form, #reset-password-set-new-one-form {
+  #auth-form {
     margin: 0 auto;
     width: 40em;
     padding-top: 5em;
@@ -166,35 +150,6 @@
       height: 31px;
       margin: 2em auto;
     }
-
-    label {
-      color: $white;
-      font-weight: bold;
-    }
-
-    input {
-      margin-bottom: 2em;
-      border-radius: 2px;
-      background-color: #432874;
-      border-color: transparent;
-      height: 50px;
-      color: $white;
-    }
-
-    .input-with-error.input-invalid {
-      margin-bottom: 0.5em;
-    }
-
-    #confirmPasswordInput + .input-error {
-      margin-bottom: 2em;
-    }
-
-    .form-text {
-      font-size: 14px;
-      color: $white;
-    }
-
-
   }
 
   #top-background {
@@ -235,24 +190,6 @@
       height: 150px;
       margin: 0 auto;
     }
-  }
-
-  .toggle-links {
-    margin-top: 1em;
-  }
-
-  .toggle-link {
-    color: $white !important;
-  }
-
-  .forgot-password {
-    color: #bda8ff !important;
-  }
-
-  .input-error {
-    color: #fff;
-    font-size: 90%;
-    width: 100%;
   }
 
   .warning-banner {
@@ -335,16 +272,7 @@ export default {
   },
   data () {
     const data = {
-      username: '',
-      email: '',
-      password: '',
-      passwordConfirm: '',
       forgotPassword: false,
-      resetPasswordSetNewOneData: {
-        hasError: null,
-        code: null,
-      },
-      usernameIssues: [],
     };
 
     data.icons = Object.freeze({
