@@ -90,6 +90,7 @@
     </div>
     <div
       class="task-modal-content p-x-xl p-t-l p-b-xl"
+      :class="cssClass('content')"
       @click="handleClick($event)"
     >
       <form
@@ -231,92 +232,10 @@
               v-html="icons.information"
             ></div>
           </div>
-          <div class="d-flex justify-content-center difficulty-options">
-            <div
-              class="option-item"
-              :class="task.priority === 0.1 ? 'option-item-selected' : cssClass('option-disabled')"
-              @click="setDifficulty(0.1)"
-            >
-              <div
-                class="option-item-box"
-                :class="task.priority === 0.1 ? cssClass('bg') : ''"
-              >
-                <div
-                  class="svg-icon difficulty-trivial-icon"
-                  v-html="icons.difficultyTrivial"
-                ></div>
-              </div>
-              <div
-                class="option-item-label"
-                :class="task.priority === 0.1 ? cssClass('text') : ''"
-              >
-                {{ $t('trivial') }}
-              </div>
-            </div>
-            <div
-              class="option-item"
-              :class="task.priority === 1 ? 'option-item-selected' : cssClass('option-disabled')"
-              @click="setDifficulty(1)"
-            >
-              <div
-                class="option-item-box"
-                :class="task.priority === 1 ? cssClass('bg') : ''"
-              >
-                <div
-                  class="svg-icon difficulty-normal-icon"
-                  v-html="icons.difficultyNormal"
-                ></div>
-              </div>
-              <div
-                class="option-item-label"
-                :class="task.priority === 1 ? cssClass('text') : ''"
-              >
-                {{ $t('easy') }}
-              </div>
-            </div>
-            <div
-              class="option-item"
-              :class="task.priority === 1.5 ? 'option-item-selected' : cssClass('option-disabled')"
-              @click="setDifficulty(1.5)"
-            >
-              <div
-                class="option-item-box"
-                :class="task.priority === 1.5 ? cssClass('bg') : ''"
-              >
-                <div
-                  class="svg-icon difficulty-medium-icon"
-                  v-html="icons.difficultyMedium"
-                ></div>
-              </div>
-              <div
-                class="option-item-label"
-                :class="task.priority === 1.5 ? cssClass('text') : ''"
-              >
-                {{ $t('medium') }}
-              </div>
-            </div>
-            <div
-              class="option-item"
-              :class="task.priority === 2 ? 'option-item-selected' : cssClass('option-disabled')"
-              @click="setDifficulty(2)"
-            >
-              <div
-                class="option-item-box"
-                :class="task.priority === 2 ? cssClass('bg') : ''"
-              >
-                <div
-                  class="svg-icon difficulty-hard-icon"
-                  v-html="icons.difficultyHard"
-                ></div>
-              </div>
-              <div
-                class="option-item-label"
-                :class="task.priority === 2 ? cssClass('text') : ''"
-              >
-                {{ $t('hard') }}
-              </div>
-            </div>
-          </div>
+          <select-difficulty :value="task.priority"
+                              @select="setDifficulty($event)"
+          />
+
         </template>
         <div
           v-if="task.type === 'todo'"
@@ -837,30 +756,6 @@
       color: $gray-200;
     }
 
-    .difficulty-trivial-icon {
-      width: 16px;
-      height: 16px;
-      color: $gray-300;
-    }
-
-    .difficulty-normal-icon {
-      width: 36px;
-      height: 16px;
-      color: $gray-300;
-    }
-
-    .difficulty-medium-icon {
-      width: 36px;
-      height: 32px;
-      color: $gray-300;
-    }
-
-    .difficulty-hard-icon {
-      width: 36px;
-      height: 36px;
-      color: $gray-300;
-    }
-
     .option {
       margin-bottom: 12px;
       margin-top: 12px;
@@ -869,10 +764,6 @@
       .custom-control-label p {
         word-break: break-word;
       }
-    }
-
-    .difficulty-options .option-item-selected .svg-icon {
-      color: $white !important;
     }
 
     .option-item {
@@ -1214,12 +1105,9 @@ import toggleSwitch from '@/components/ui/toggleSwitch';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
 import TagsPopup from './tagsPopup';
+import selectDifficulty from '@/components/tasks/selectDifficulty';
 
 import informationIcon from '@/assets/svg/information.svg';
-import difficultyTrivialIcon from '@/assets/svg/difficulty-trivial.svg';
-import difficultyMediumIcon from '@/assets/svg/difficulty-medium.svg';
-import difficultyHardIcon from '@/assets/svg/difficulty-hard.svg';
-import difficultyNormalIcon from '@/assets/svg/difficulty-normal.svg';
 import positiveIcon from '@/assets/svg/positive.svg';
 import negativeIcon from '@/assets/svg/negative.svg';
 import streakIcon from '@/assets/svg/streak.svg';
@@ -1234,6 +1122,7 @@ export default {
     Datepicker,
     toggleSwitch,
     draggable,
+    selectDifficulty,
   },
   directives: {
     markdown: markdownDirective,
@@ -1248,10 +1137,6 @@ export default {
       newChecklistItem: null,
       icons: Object.freeze({
         information: informationIcon,
-        difficultyNormal: difficultyNormalIcon,
-        difficultyTrivial: difficultyTrivialIcon,
-        difficultyMedium: difficultyMediumIcon,
-        difficultyHard: difficultyHardIcon,
         negative: negativeIcon,
         positive: positiveIcon,
         destroy: deleteIcon,

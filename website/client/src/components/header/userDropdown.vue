@@ -24,14 +24,14 @@
       class="user-dropdown"
     >
       <a
-        class="dropdown-item edit-avatar dropdown-separated"
+        class="topbar-dropdown-item dropdown-item edit-avatar dropdown-separated"
         @click="showAvatar('body', 'size')"
       >
         <h3>{{ user.profile.name }}</h3>
         <span class="small-text">{{ $t('editAvatar') }}</span>
       </a>
       <a
-        class="nav-link dropdown-item
+        class="topbar-dropdown-item nav-link dropdown-item
          dropdown-separated d-flex justify-content-between align-items-center"
         @click.prevent="showPrivateMessages()"
       >
@@ -42,42 +42,42 @@
         />
       </a>
       <a
-        class="dropdown-item"
+        class="topbar-dropdown-item dropdown-item"
         @click="showAvatar('backgrounds', '2020')"
       >{{ $t('backgrounds') }}</a>
       <a
-        class="dropdown-item"
+        class="topbar-dropdown-item dropdown-item"
         @click="showProfile('stats')"
       >{{ $t('stats') }}</a>
       <a
-        class="dropdown-item"
+        class="topbar-dropdown-item dropdown-item"
         @click="showProfile('achievements')"
       >{{ $t('achievements') }}</a>
       <a
-        class="dropdown-item dropdown-separated"
+        class="topbar-dropdown-item dropdown-item dropdown-separated"
         @click="showProfile('profile')"
       >{{ $t('profile') }}</a>
       <router-link
-        class="dropdown-item"
+        class="topbar-dropdown-item dropdown-item"
         :to="{name: 'site'}"
       >
         {{ $t('settings') }}
       </router-link>
       <router-link
-        class="dropdown-item dropdown-separated"
+        class="topbar-dropdown-item dropdown-item dropdown-separated"
         :to="{name: 'subscription'}"
       >
         {{ $t('subscription') }}
       </router-link>
       <a
-        class="nav-link dropdown-item dropdown-separated"
+        class="topbar-dropdown-item nav-link dropdown-item dropdown-separated"
         @click.prevent="logout()"
       >{{ $t('logout') }}</a>
       <li
         v-if="!user.purchased.plan.customerId"
         @click="showBuyGemsModal()"
       >
-        <div class="dropdown-item text-center">
+        <div class="topbar-dropdown-item dropdown-item text-center">
           <h3 class="purple">
             {{ $t('needMoreGems') }}
           </h3>

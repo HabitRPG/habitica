@@ -70,14 +70,19 @@ stories
     components: { SelectDifficulty },
     template: `
       <div class="m-xl">
-        <select-difficulty>
+        <select-difficulty
+              :value="selected"
+            @select="selected = $event"
+        >
 
         </select-difficulty>
+
+        Selected: {{ selected }}
       </div>
     `,
     data () {
       return {
-
+        selected: 2,
       };
     },
   }));

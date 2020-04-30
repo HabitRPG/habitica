@@ -17,6 +17,9 @@
       &-bg { background: $maroon-100 !important; }
       &-icon { color: $maroon-100 !important; }
       &-text { color: $red-1 !important; }
+      &-content {
+        --svg-color: #{$maroon-100};
+      }
       &-text::placeholder { color: $red-1 !important; }
       &-input:focus, &-input:active { box-shadow: 0 0 0 1px $red-1 !important; }
       &-option-disabled:hover {
@@ -55,6 +58,9 @@
       &-bg { background: $red-100 !important; }
       &-icon { color: $red-100 !important; }
       &-text { color: $red-1 !important; }
+      &-content {
+        --svg-color: #{$red-100};
+      }
       &-text::placeholder { color: $red-1 !important; }
       &-input:focus, &-input:active { box-shadow: 0 0 0 1px $red-1 !important; }
       &-option-disabled:hover {
@@ -93,6 +99,9 @@
       &-bg { background: $orange-100 !important; }
       &-icon { color: $orange-100 !important; }
       &-text { color: $orange-1 !important; }
+      &-content {
+        --svg-color: #{$orange-100};
+      }
       &-text::placeholder { color: $orange-1 !important; }
       &-input:focus, &-input:active { box-shadow: 0 0 0 1px $orange-1 !important; }
       &-option-disabled:hover {
@@ -137,6 +146,9 @@
         .svg-icon { color: $yellow-100 !important; }
         .option-item-label { color: #bf7d1a !important; }
       }
+      &-content {
+        --svg-color: #{$yellow-100};
+      }
       &-habit-control-disabled {
         .habit-option-button {
           border: 2px solid $gray-300;
@@ -169,6 +181,9 @@
       &-bg { background: $green-100 !important; }
       &-icon { color: $green-10 !important; }
       &-text { color: $green-1 !important; }
+      &-content {
+        --svg-color: #{$green-100};
+      }
       &-text::placeholder { color: $green-1 !important; }
       &-input:focus, &-input:active { box-shadow: 0 0 0 1px $green-1 !important; }
       &-option-disabled:hover {
@@ -207,6 +222,9 @@
       &-bg { background: $teal-100 !important; }
       &-icon { color: $teal-100 !important; }
       &-text { color: $teal-1 !important; }
+      &-content {
+        --svg-color: #{$teal-100};
+      }
       &-text::placeholder { color: $teal-1 !important; }
       &-input:focus, &-input:active { box-shadow: 0 0 0 1px $teal-1 !important; }
       &-option-disabled:hover {
@@ -245,6 +263,9 @@
       &-bg { background: $blue-100 !important; }
       &-icon { color: $blue-100 !important; }
       &-text { color: $blue-1 !important; }
+      &-content {
+        --svg-color: #{$blue-100};
+      }
       &-text::placeholder { color: $blue-1 !important; }
       &-input:focus, &-input:active { box-shadow: 0 0 0 1px $blue-1 !important; }
       &-option-disabled:hover {
@@ -281,6 +302,9 @@
       &-bg { background: $purple-300 !important; }
       &-icon { color: $purple-300 !important; }
       &-text { color: $black !important; }
+      &-content {
+        --svg-color: #{$purple-300};
+      }
       &-text::placeholder { color: $black !important; }
       &-input:focus, &-input:active { box-shadow: 0 0 0 1px $black !important; }
       &-option-disabled:hover {

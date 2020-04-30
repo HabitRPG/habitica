@@ -27,9 +27,22 @@
   box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($white, 0.1);
 }
 
+// shared dropdown-item styles
 .dropdown-item {
-  padding: 0.25rem 0.75rem;
-  height: 32px;
+
+  // header items
+  &.topbar-dropdown-item {
+    padding-left: 24px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  // normal dropdown items
+  &:not(.topbar-dropdown-item) {
+    padding: 0.25rem 0.75rem;
+    height: 32px;
+  }
+
   font-size: 14px;
   line-height: 1.71;
   color: $gray-50;

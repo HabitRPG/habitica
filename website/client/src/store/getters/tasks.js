@@ -128,6 +128,8 @@ export function getTaskClasses (store) {
     switch (purpose) {
       case 'edit-modal-bg':
         return `task-${color}-modal-bg`;
+      case 'edit-modal-content':
+        return `task-${color}-modal-content`;
       case 'edit-modal-text':
         return `task-${color}-modal-text`;
       case 'edit-modal-icon':
