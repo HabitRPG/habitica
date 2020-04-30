@@ -80,11 +80,11 @@
         :key="group.key"
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-        <h2 class="mb-3">
+        <h2 class="d-flex align-items-center mb-3">
           {{ $t(group.key) }}
           <span
             v-if="group.key != 'special'"
-            class="badge badge-pill badge-default"
+            class="badge badge-pill badge-default ml-2"
           >{{ group.quantity }}</span>
         </h2>
         <itemRows

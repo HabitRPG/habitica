@@ -6,14 +6,12 @@
   >
     <span
       v-if="withPin"
-      class="badge badge-pill badge-dialog"
-      :class="{'item-selected-badge': isPinned}"
+      class="badge-dialog"
       @click.prevent.stop="togglePinned()"
     >
-      <span
-        class="svg-icon inline color icon-16"
-        v-html="icons.pin"
-      ></span>
+      <pin-badge
+        :pinned="isPinned"
+      />
     </span>
     <div>
       <span
@@ -147,7 +145,7 @@
           v-else
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
-            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid"
+            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked"
           :class="{'notEnough': !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
           @click="buyItem()"
@@ -310,21 +308,6 @@
       display: block;
     }
 
-    .badge-dialog {
-      color: $gray-300;
-      position: absolute;
-      left: -14px;
-      padding: 8px 10px;
-      top: -12px;
-      background: white;
-      cursor: pointer;
-
-      &.item-selected-badge {
-        background: $purple-300;
-        color: $white;
-      }
-    }
-
     .notEnough {
       pointer-events: none;
       opacity: 0.55;
@@ -405,11 +388,11 @@ import svgClose from '@/assets/svg/close.svg';
 import svgGold from '@/assets/svg/gold.svg';
 import svgGem from '@/assets/svg/gem.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
-import svgPin from '@/assets/svg/pin.svg';
 import svgClock from '@/assets/svg/clock.svg';
 import svgWhiteClock from '@/assets/svg/clock-white.svg';
 
 import BalanceInfo from './balanceInfo.vue';
+import PinBadge from '@/components/ui/pinBadge';
 import currencyMixin from './_currencyMixin';
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
@@ -439,6 +422,7 @@ export default {
     EquipmentAttributesGrid,
     Item,
     Avatar,
+    PinBadge,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
   props: {
@@ -463,7 +447,6 @@ export default {
         gold: svgGold,
         gems: svgGem,
         hourglasses: svgHourglasses,
-        pin: svgPin,
         clock: svgClock,
         whiteClock: svgWhiteClock,
       }),
