@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { socialLogin, socialLogout } from '@/libs/auth';
+import { socialLogin, socialLogout, setUpAxios } from '@/libs/auth';
 
 const LOCALSTORAGE_AUTH_KEY = 'habit-mobile-settings';
 
@@ -123,6 +123,7 @@ export async function facebookOrGoogleAuth (store, params) {
       auth,
     });
 
+    setUpAxios();
     await store.dispatch('user:fetch', { forceLoad: true });
   } catch (err) {
     console.error(err); // eslint-disable-line no-console
