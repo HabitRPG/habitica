@@ -1,10 +1,11 @@
 <template>
-  <div
+  <form
     :class="{
       'register-form': isRegisterPage,
       'register-form-plansPage': isPlansPage,
       'register-form-homePage': isHomePage,
     }"
+    @submit.prevent.stop="register"
   >
     <div class="form-group">
       <label
@@ -88,7 +89,7 @@
         </router-link>
       </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <style lang="scss" scoped>

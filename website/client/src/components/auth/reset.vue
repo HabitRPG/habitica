@@ -1,8 +1,8 @@
 <template>
   <form
     id="reset-password-set-new-one-form"
-    @submit.prevent="handleSubmit"
-    @keyup.enter="handleSubmit"
+    @submit.prevent="resetPasswordSetNewOneLink"
+    @keyup.enter="resetPasswordSetNewOneLink"
   >
     <div class="form-group">
       <label
