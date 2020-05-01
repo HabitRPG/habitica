@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { socialLogin, socialLogout } from '@/libs/auth';
 
 const LOCALSTORAGE_AUTH_KEY = 'habit-mobile-settings';
 
@@ -107,4 +108,26 @@ export function logout (store, options = {}) {
   localStorage.clear();
   const query = options.redirectToLogin === true ? '?redirectToLogin=true' : '';
   window.location.href = `/logout-server${query}`;
+}
+
+export async function facebookOrGoogleAuth (store, params) {
+  const { network, redirectUrl } = params;
+  try {
+    await socialLogout(network);
+  } catch (e) {} // eslint-disable-line
+
+  try {
+    const auth = await socialLogin(network, redirectUrl);
+
+    await store.dispatch('auth:socialAuth', {
+      auth,
+    });
+
+    await store.dispatch('user:fetch', { forceLoad: true });
+  } catch (err) {
+    console.error(err); // eslint-disable-line no-console
+    // logout the user
+    await socialLogout(network);
+    store.dispatch('auth:facebookAuth', params);
+  }
 }

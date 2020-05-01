@@ -1,5 +1,12 @@
 import axios from 'axios';
 import moment from 'moment';
+import hello from 'hellojs';
+
+hello.init({
+  facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
+  // windows: WINDOWS_CLIENT_ID,
+  google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+});
 
 export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefer-default-export
   if (!AUTH_SETTINGS) {
@@ -25,4 +32,17 @@ export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefe
 export function buildAppleAuthUrl () {
   const redirectUrl = encodeURIComponent(`${window.location.protocol}//${window.location.host}/api/v4/user/auth/apple`);
   return `https://appleid.apple.com/auth/authorize?response_mode=form_post&scope=name%20email&response_type=code&version=2&redirect_uri=${redirectUrl}&client_id=${process.env.APPLE_AUTH_CLIENT_ID}`;
+}
+
+export async function socialLogin (network, redirectUrl) {
+  const result = await hello(network).login({
+    scope: 'email',
+    redirect_uri: redirectUrl, // eslint-disable-line camelcase
+  });
+  return result;
+}
+
+export async function socialLogout (network) {
+  const result = await hello(network).logout();
+  return result;
 }

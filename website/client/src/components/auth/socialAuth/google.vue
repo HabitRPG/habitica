@@ -58,8 +58,6 @@
 </style>
 
 <script>
-import { socialLogout, socialLogin } from './socialAuth';
-import { setUpAxios } from '@/libs/auth';
 import googleIcon from '@/assets/svg/google.svg';
 
 export default {
@@ -92,33 +90,12 @@ export default {
     },
   },
   methods: {
-    async socialAuth (network) {
-      try {
-        await socialLogout(network);
-      } catch (e) {} // eslint-disable-line
-
-      try {
-        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-        const auth = await socialLogin(network, redirectUrl);
-
-        await this.$store.dispatch('auth:socialAuth', {
-          auth,
-        });
-
-        await this.finishAuth();
-      } catch (err) {
-        console.error(err); // eslint-disable-line no-console
-        // logout the user
-        await socialLogout(network);
-        this.socialAuth(network); // login again
-      }
-    },
-    async finishAuth () {
-      setUpAxios();
-
-      await this.$store.dispatch('user:fetch', { forceLoad: true });
-
-      this.$emit('authenticate');
+    async socialAuth () {
+      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
+      this.$store.dispatch('auth:facebookOrGoogleAuth', {
+        network: 'google',
+        redirectUrl,
+      });
     },
   },
 };
