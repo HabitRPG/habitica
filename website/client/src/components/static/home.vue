@@ -942,15 +942,7 @@ export default {
         groupInvite,
       });
 
-      let redirectTo;
-
-      if (this.$route.query.redirectTo) {
-        redirectTo = this.$route.query.redirectTo;
-      } else {
-        redirectTo = '/';
-      }
-
-      window.location.href = redirectTo;
+      window.location.href = this.$route.query.redirectTo || '/';
     },
     playButtonClick () {
       Analytics.track({
