@@ -1,5 +1,4 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
-import sinon from 'sinon';
 
 import Home from '@/components/static/home.vue';
 import Store from '@/libs/store';
@@ -25,10 +24,10 @@ describe('Home', () => {
     });
   }
 
-  function fillOutUserForm (username, email, password) {
-    wrapper.find('#usernameInput').setValue(username);
-    wrapper.find('input[type=email]').setValue(email);
-    wrapper.findAll('input[type=password]').setValue(password);
+  async function fillOutUserForm (username, email, password) {
+    await wrapper.find('#usernameInput').setValue(username);
+    await wrapper.find('input[type=email]').setValue(email);
+    await wrapper.findAll('input[type=password]').setValue(password);
   }
 
   beforeEach(() => {
@@ -59,7 +58,7 @@ describe('Home', () => {
       const username = 'newUser';
       const email = 'rookie@habitica.com';
       const password = 'ImmaG3tProductive!';
-      fillOutUserForm(username, email, password);
+      await fillOutUserForm(username, email, password);
 
       await wrapper.find('form').trigger('submit');
 
@@ -76,7 +75,7 @@ describe('Home', () => {
     it('registers a user with group invite if groupInvite in the query', async () => {
       const groupInvite = 'TheBestGroup';
       wrapper = mountWrapper({ groupInvite });
-      fillOutUserForm('invitedUser', 'invited@habitica.com', '1veGotFri3ndsHooray!');
+      await fillOutUserForm('invitedUser', 'invited@habitica.com', '1veGotFri3ndsHooray!');
 
       await wrapper.find('form').trigger('submit');
 
@@ -87,7 +86,7 @@ describe('Home', () => {
     it('registers a user with group invite if p in the query', async () => {
       const p = 'ThePiGroup';
       wrapper = mountWrapper({ p });
-      fillOutUserForm('alsoInvitedUser', 'invited2@habitica.com', '1veGotFri3nds2!');
+      await fillOutUserForm('alsoInvitedUser', 'invited2@habitica.com', '1veGotFri3nds2!');
 
       await wrapper.find('form').trigger('submit');
 
@@ -98,7 +97,7 @@ describe('Home', () => {
     it('registers a user with group invite invite if both p and groupInvite are in the query', async () => {
       const groupInvite = 'StillTheBestGroup';
       wrapper = mountWrapper({ p: 'LesserGroup', groupInvite });
-      fillOutUserForm('doublyInvitedUser', 'invited3@habitica.com', '1veGotSm4rtFri3nds!');
+      await fillOutUserForm('doublyInvitedUser', 'invited3@habitica.com', '1veGotSm4rtFri3nds!');
 
       await wrapper.find('form').trigger('submit');
 
