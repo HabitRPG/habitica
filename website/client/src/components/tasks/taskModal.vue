@@ -278,20 +278,12 @@
         >
           <div class="form-group">
             <label v-once>{{ $t('repeats') }}</label>
-            <b-dropdown
-              class="inline-dropdown"
-              :text="$t(task.frequency)"
-            >
-              <b-dropdown-item
-                v-for="frequency in ['daily', 'weekly', 'monthly', 'yearly']"
-                :key="frequency"
-                :disabled="challengeAccessRequired"
-                :class="{active: task.frequency === frequency}"
-                @click="task.frequency = frequency"
-              >
-                {{ $t(frequency) }}
-              </b-dropdown-item>
-            </b-dropdown>
+            <select-translated-array
+              :disabled="challengeAccessRequired"
+              :items="['daily', 'weekly', 'monthly', 'yearly']"
+              :value="task.frequency"
+              @select="task.frequency = $event"
+            />
           </div>
           <div class="form-group">
             <label v-once>{{ $t('repeatEvery') }}</label>
@@ -431,20 +423,12 @@
         >
           <div class="form-group">
             <label v-once>{{ $t('resetStreak') }}</label>
-            <b-dropdown
-              class="inline-dropdown"
-              :text="$t(task.frequency)"
+            <select-translated-array
               :disabled="challengeAccessRequired"
-            >
-              <b-dropdown-item
-                v-for="frequency in ['daily', 'weekly', 'monthly']"
-                :key="frequency"
-                :class="{active: task.frequency === frequency}"
-                @click="task.frequency = frequency"
-              >
-                {{ $t(frequency) }}
-              </b-dropdown-item>
-            </b-dropdown>
+              :items="['daily', 'weekly', 'monthly']"
+              :value="task.frequency"
+              @select="task.frequency = $event"
+            />
           </div>
         </div>
         <div
@@ -456,20 +440,11 @@
             class="form-group"
           >
             <label v-once>{{ $t('sharedCompletion') }}</label>
-            <b-dropdown
-              class="inline-dropdown"
-              :text="$t(sharedCompletion)"
-            >
-              <b-dropdown-item
-                v-for="completionOption in [
-                  'recurringCompletion', 'singleCompletion', 'allAssignedCompletion']"
-                :key="completionOption"
-                :class="{active: sharedCompletion === completionOption}"
-                @click="sharedCompletion = completionOption"
-              >
-                {{ $t(completionOption) }}
-              </b-dropdown-item>
-            </b-dropdown>
+            <select-translated-array
+              :items="['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']"
+              :value="sharedCompletion"
+              @select="sharedCompletion = $event"
+            />
           </div>
           <div class="form-group row">
             <label
@@ -1105,7 +1080,8 @@ import toggleSwitch from '@/components/ui/toggleSwitch';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
 import TagsPopup from './tagsPopup';
-import selectDifficulty from '@/components/tasks/selectDifficulty';
+import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
+import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 import informationIcon from '@/assets/svg/information.svg';
 import positiveIcon from '@/assets/svg/positive.svg';
@@ -1123,6 +1099,7 @@ export default {
     toggleSwitch,
     draggable,
     selectDifficulty,
+    selectTranslatedArray,
   },
   directives: {
     markdown: markdownDirective,

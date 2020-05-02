@@ -50,9 +50,7 @@ export default {
     disabled: {
       type: Boolean,
     },
-    value: {
-      type: Object,
-    },
+    value: [String, Number, Object],
     keyProp: {
       type: String,
     },

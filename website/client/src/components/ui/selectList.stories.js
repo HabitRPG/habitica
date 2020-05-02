@@ -3,7 +3,8 @@ import { storiesOf } from '@storybook/vue';
 import { withKnobs } from '@storybook/addon-knobs';
 
 import SelectList from './selectList.vue';
-import SelectDifficulty from '../tasks/selectDifficulty';
+import SelectDifficulty from '../tasks/modal-controls/selectDifficulty';
+import SelectTranslatedArray from '../tasks/modal-controls/selectTranslatedArray';
 
 const stories = storiesOf('Select List', module);
 
@@ -41,8 +42,8 @@ stories
           </template>
         </select-list>
 
-<br/>
-        Selected: {{ selected }} <br />
+        <br/>
+        Selected: {{ selected }} <br/>
 
       </div>
     `,
@@ -71,8 +72,8 @@ stories
     template: `
       <div class="m-xl">
         <select-difficulty
-              :value="selected"
-            @select="selected = $event"
+          :value="selected"
+          @select="selected = $event"
         >
 
         </select-difficulty>
@@ -83,6 +84,27 @@ stories
     data () {
       return {
         selected: 2,
+      };
+    },
+  }))
+  .add('translated array', () => ({
+    components: { SelectTranslatedArray },
+    template: `
+      <div class="m-xl">
+        <select-translated-array
+          :items="['daily', 'weekly', 'monthly']"
+          :value="selected"
+          @select="selected = $event"
+        >
+
+        </select-translated-array>
+
+        Selected: {{ selected }}
+      </div>
+    `,
+    data () {
+      return {
+        selected: 'weekly',
       };
     },
   }));
