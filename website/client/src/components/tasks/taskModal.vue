@@ -100,10 +100,10 @@
       >
         <div
           v-if="task.type === 'reward'"
-          class="option mt-0"
+          class="option mt-0 m-t-l"
         >
           <div class="form-group">
-            <label v-once>{{ $t('cost') }}</label>
+            <label v-once class="m-b-xs">{{ $t('cost') }}</label>
             <div class="input-group">
               <div class="input-group-prepend input-group-icon align-items-center">
                 <div
@@ -125,9 +125,9 @@
         </div>
         <div
           v-if="checklistEnabled"
-          class="option mt-0"
+          class="option mt-0 m-t-l"
         >
-          <label v-once>{{ $t('checklist') }}</label>
+          <label v-once class="m-b-xs">{{ $t('checklist') }}</label>
           <br>
           <draggable
             v-model="checklist"
@@ -219,7 +219,7 @@
           </div>
         </div>
         <template v-if="task.type !== 'reward'">
-          <div class="d-flex align-items-center m-b-m">
+          <div class="d-flex align-items-center m-b-xs">
             <label
               v-once
               class="mb-0 m-r-xs"
@@ -239,10 +239,10 @@
         </template>
         <div
           v-if="task.type === 'todo'"
-          class="option"
+          class="option m-t-l"
         >
           <div class="form-group">
-            <label v-once>{{ $t('dueDate') }}</label>
+            <label v-once class="m-b-xs">{{ $t('dueDate') }}</label>
             <datepicker
               v-model="task.date"
               :calendar-icon="icons.calendar"
@@ -257,10 +257,10 @@
         </div>
         <div
           v-if="task.type === 'daily'"
-          class="option"
+          class="option m-t-l"
         >
           <div class="form-group">
-            <label v-once>{{ $t('startDate') }}</label>
+            <label v-once class="m-b-xs">{{ $t('startDate') }}</label>
             <datepicker
               v-model="task.startDate"
               :calendar-icon="icons.calendar"
@@ -274,10 +274,10 @@
         </div>
         <div
           v-if="task.type === 'daily'"
-          class="option"
+          class="option m-t-l"
         >
           <div class="form-group">
-            <label v-once>{{ $t('repeats') }}</label>
+            <label v-once class="m-b-xs">{{ $t('repeats') }}</label>
             <select-translated-array
               :disabled="challengeAccessRequired"
               :items="['daily', 'weekly', 'monthly', 'yearly']"
@@ -286,7 +286,7 @@
             />
           </div>
           <div class="form-group">
-            <label v-once>{{ $t('repeatEvery') }}</label>
+            <label v-once class="m-b-xs">{{ $t('repeatEvery') }}</label>
             <div class="input-group">
               <input
                 v-model="task.everyX"
@@ -306,7 +306,7 @@
             <div class="form-group">
               <label
                 v-once
-                class="d-block"
+                class="d-block m-b-xs"
               >{{ $t('repeatOn') }}</label>
               <div
                 v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
@@ -323,7 +323,7 @@
                   >
                   <label
                     v-once
-                    class="custom-control-label"
+                    class="custom-control-label m-b-xs"
                     :for="`weekday-${dayNumber}`"
                   >{{ weekdaysMin(dayNumber) }}</label>
                 </div>
@@ -333,7 +333,7 @@
           <template v-if="task.frequency === 'monthly'">
             <label
               v-once
-              class="d-block"
+              class="d-block m-b-xs"
             >{{ $t('repeatOn') }}</label>
             <div class="form-radio">
               <div class="custom-control custom-radio custom-control-inline">
@@ -346,7 +346,7 @@
                   name="repeatsOn"
                 >
                 <label
-                  class="custom-control-label"
+                  class="custom-control-label m-b-xs"
                   for="repeat-dayOfMonth"
                 >{{ $t('dayOfMonth') }}</label>
               </div>
@@ -360,7 +360,7 @@
                   name="repeatsOn"
                 >
                 <label
-                  class="custom-control-label"
+                  class="custom-control-label m-b-xs"
                   for="repeat-dayOfWeek"
                 >{{ $t('dayOfWeek') }}</label>
               </div>
@@ -369,12 +369,12 @@
         </div>
         <div
           v-if="isUserTask"
-          class="tags-select option"
+          class="tags-select option m-t-l"
         >
           <div class="tags-inline form-group row">
             <label
               v-once
-              class="col-12"
+              class="col-12 m-b-xs"
             >{{ $t('tags') }}</label>
             <div class="col-12">
               <div
@@ -419,10 +419,10 @@
         </div>
         <div
           v-if="task.type === 'habit'"
-          class="option"
+          class="option m-t-l"
         >
           <div class="form-group">
-            <label v-once>{{ $t('resetStreak') }}</label>
+            <label v-once class="m-b-xs">{{ $t('resetStreak') }}</label>
             <select-translated-array
               :disabled="challengeAccessRequired"
               :items="['daily', 'weekly', 'monthly']"
@@ -433,13 +433,13 @@
         </div>
         <div
           v-if="groupId"
-          class="option group-options"
+          class="option group-options m-t-l"
         >
           <div
             v-if="task.type === 'todo'"
             class="form-group"
           >
-            <label v-once>{{ $t('sharedCompletion') }}</label>
+            <label v-once class="m-b-xs">{{ $t('sharedCompletion') }}</label>
             <select-translated-array
               :items="['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']"
               :value="sharedCompletion"
@@ -449,7 +449,7 @@
           <div class="form-group row">
             <label
               v-once
-              class="col-12"
+              class="col-12 m-b-xs"
             >{{ $t('assignedTo') }}</label>
             <div class="col-12 mt-2">
               <div
@@ -512,7 +512,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label v-once>{{ $t('approvalRequired') }}</label>
+            <label v-once class="m-b-xs">{{ $t('approvalRequired') }}</label>
             <toggle-switch
               class="d-inline-block"
               :checked="requiresApproval"
@@ -544,10 +544,10 @@
             <div class="advanced-settings-body">
               <div
                 v-if="task.type === 'daily' && isUserTask && purpose === 'edit'"
-                class="option"
+                class="option m-t-l"
               >
                 <div class="form-group">
-                  <label v-once>{{ $t('restoreStreak') }}</label>
+                  <label v-once class="m-b-xs">{{ $t('restoreStreak') }}</label>
                   <div class="input-group">
                     <div class="input-group-prepend streak-addon input-group-icon">
                       <div
@@ -568,10 +568,10 @@
               <div
                 v-if="task.type === 'habit'
                   && isUserTask && purpose === 'edit' && (task.up || task.down)"
-                class="option"
+                class="option m-t-l"
               >
                 <div class="form-group">
-                  <label v-once>{{ $t('restoreStreak') }}</label>
+                  <label v-once class="m-b-xs">{{ $t('restoreStreak') }}</label>
                   <div class="row">
                     <div
                       v-if="task.up"
@@ -733,7 +733,6 @@
 
     .option {
       margin-bottom: 12px;
-      margin-top: 12px;
       position: relative;
 
       .custom-control-label p {
