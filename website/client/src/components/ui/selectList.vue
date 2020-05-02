@@ -17,7 +17,7 @@
         v-for="item in items"
         :key="keyProp ? item[keyProp] : item"
         :disabled="typeof item[disabledProp] === 'undefined' ? false : item[disabledProp]"
-        :class="{active: item === selected}"
+        :class="{active: item === selected, selectListItem: true}"
         @click="selectItem(item)"
       >
         <slot name="item" v-bind:item="item">

@@ -29,19 +29,10 @@
 
 // shared dropdown-item styles
 .dropdown-item {
-
-  // header items
-  &.topbar-dropdown-item {
-    padding-left: 24px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-
-  // normal dropdown items
-  &:not(.topbar-dropdown-item) {
-    padding: 0.25rem 0.75rem;
-    height: 32px;
-  }
+  // header items & not selectList-items
+  padding-left: 24px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 
   font-size: 14px;
   line-height: 1.71;
@@ -111,4 +102,10 @@
   .dropdown-menu.show {
     width: 100% !important;
   }
+}
+
+// selectList.vue items sizing
+.selectListItem .dropdown-item {
+  padding: 0.25rem 0.75rem;
+  height: 32px;
 }
