@@ -76,16 +76,16 @@ describe('Store', () => {
   });
 
   describe('actions', () => {
-    it('can dispatch an action', () => {
-      expect(store.dispatch('getName', 1, 2, 3)).to.deep.equal(['test', 1, 2, 3]);
+    it('can dispatch an action', async () => {
+      expect(await store.dispatch('getName', 1, 2, 3)).to.deep.equal(['test', 1, 2, 3]);
     });
 
-    it('can dispatch a nested action', () => {
-      expect(store.dispatch('nested:getName', 1, 2, 3)).to.deep.equal(['test', 1, 2, 3]);
+    it('can dispatch a nested action', async () => {
+      expect(await store.dispatch('nested:getName', 1, 2, 3)).to.deep.equal(['test', 1, 2, 3]);
     });
 
-    it('throws an error is the action doesn\'t exists', () => {
-      expect(() => store.dispatched('wrong')).to.throw;
+    it('throws an error is the action doesn\'t exists', async () => {
+      expect(async () => store.dispatched('wrong')).to.throw;
     });
   });
 
@@ -140,9 +140,9 @@ describe('Store', () => {
         data: {
           title: 'internal',
         },
-        created () {
-          expect(this.getName('123')).to.deep.equal(['test', '123']);
-          expect(this.getNameRenamed('123')).to.deep.equal(['test', '123']);
+        async created () {
+          expect(await this.getName('123')).to.deep.equal(['test', '123']);
+          expect(await this.getNameRenamed('123')).to.deep.equal(['test', '123']);
           done();
         },
         methods: {
