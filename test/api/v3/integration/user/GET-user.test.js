@@ -1,3 +1,4 @@
+import range from 'lodash/range';
 import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
@@ -43,15 +44,11 @@ describe('GET /user', () => {
     const otherUser = await generateUser();
     const amountOfMessages = 12;
 
-    const allMessagesPromise = [];
-    for (let i = 0; i < amountOfMessages; i += 1) {
-      allMessagesPromise.push(
-        otherUser.post('/members/send-private-message', {
-          toUserId: user.id,
-          message: `Message Num: ${i}`,
-        }),
-      );
-    }
+    const allMessagesPromise = range(amountOfMessages)
+      .map(i => otherUser.post('/members/send-private-message', {
+        toUserId: user.id,
+        message: `Message Num: ${i}`,
+      }));
 
     await Promise.all(allMessagesPromise);
 
@@ -59,6 +56,6 @@ describe('GET /user', () => {
 
     expect(returnedUser._id).to.equal(user._id);
     expect(returnedUser.inbox).to.exist;
-    expect(Object.keys(returnedUser.inbox.messages)).to.have.a.lengthOf(12);
+    expect(Object.keys(returnedUser.inbox.messages)).to.have.a.lengthOf(amountOfMessages);
   });
 });
