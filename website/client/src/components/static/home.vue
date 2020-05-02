@@ -913,6 +913,7 @@ export default {
       if (username.length < 1) {
         return;
       }
+
       this.$store.dispatch('auth:verifyUsername', {
         username: this.username,
       }).then(res => {
@@ -960,7 +961,7 @@ export default {
       } else {
         try {
           await hello(network).logout();
-          } catch (e) {} // eslint-disable-line
+        } catch (e) {} // eslint-disable-line
 
         const redirectUrl = `${window.location.protocol}//${window.location.host}`;
         const auth = await hello(network).login({
