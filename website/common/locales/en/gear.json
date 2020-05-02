@@ -1900,7 +1900,7 @@
   "shieldArmoireAntiProcrastinationShieldText": "Anti-Procrastination Shield",
   "shieldArmoireAntiProcrastinationShieldNotes": "This strong steel shield will help you block distractions when they approach! Increases Constitution by <%= con %>. Enchanted Armoire: Anti-Procrastination Set (Item 3 of 3).",
   "shieldArmoireHorseshoeText": "Horseshoe",
-  "shieldArmoireHorseshoeNotes": "Help protect the feet of your hooved mounts with this iron shoe. Increases Constitution, Perception, and Strength by <%= attrs %> each. Enchanted Armoire: Farrier Set (Item 3 of 3)",
+  "shieldArmoireHorseshoeNotes": "Help protect the feet of your hooved mounts with this iron shoe. Increases Constitution, Perception, and Strength by <%= attrs %> each. Enchanted Armoire: Farrier Set (Item 3 of 3).",
   "shieldArmoireHandmadeCandlestickText": "Handmade Candlestick",
   "shieldArmoireHandmadeCandlestickNotes": "Your fine wax wares provide light and warmth to grateful Habiticans! Increases Strength by <%= str %>. Enchanted Armoire: Candlestick Maker Set (Item 3 of 3).",
   "shieldArmoireWeaversShuttleText": "Weaver's Shuttle",
