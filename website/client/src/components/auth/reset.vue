@@ -66,29 +66,6 @@
     position: relative;
     z-index: 1;
 
-    .header {
-      h2 {
-        color: $white;
-      }
-
-      color: $white;
-    }
-
-    .gryphon {
-      background-image: url('~@/assets/images/melior@3x.png');
-      width: 63.2px;
-      height: 69.4px;
-      background-size: cover;
-      color: $white;
-      margin: 0 auto;
-    }
-
-    .habitica-logo {
-      width: 144px;
-      height: 31px;
-      margin: 2em auto;
-    }
-
     label {
       color: $white;
       font-weight: bold;
@@ -129,14 +106,6 @@
     }
     ::placeholder { //  Standard browsers
       color: $purple-400;
-    }
-
-    .toggle-links {
-      margin-top: 1em;
-    }
-
-    .toggle-link {
-      color: $white !important;
     }
   }
 </style>
