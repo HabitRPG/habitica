@@ -27,6 +27,7 @@ describe('GET /user', () => {
     expect(returnedUser.auth.local.passwordHashMethod).to.not.exist;
     expect(returnedUser.auth.local.salt).to.not.exist;
     expect(returnedUser.apiToken).to.not.exist;
+    expect(returnedUser.secret).to.not.exist;
   });
 
   it('returns only user properties requested', async () => {
@@ -38,6 +39,13 @@ describe('GET /user', () => {
     // Notifications are always returned
     expect(returnedUser.notifications).to.exist;
     expect(returnedUser.stats).to.not.exist;
+  });
+
+  it('does not return requested private properties', async () => {
+    const returnedUser = await user.get('/user?userFields=apiToken,secret.text');
+
+    expect(returnedUser.apiToken).to.not.exist;
+    expect(returnedUser.secret).to.not.exist;
   });
 
   it('returns the full inbox', async () => {

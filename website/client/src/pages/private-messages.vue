@@ -800,6 +800,7 @@ export default {
   methods: {
     async reload () {
       this.loaded = false;
+      this.conversationPage = 0;
 
       this.loadedConversations = [];
       this.selectedConversation = {};

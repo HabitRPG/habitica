@@ -105,7 +105,7 @@
     "allocateInt": "知能のポイント：",
     "allocateIntPop": "知能にポイントを加える",
     "noMoreAllocate": "レベル100に到達したので、これ以上ステータスポイントは増えません。このままレベルアップを続けることもできますし、もしくは<a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>転生のオーブ</a>を使ってレベル１から新しい冒険を始めることもできます！",
-    "stats": "データ",
+    "stats": "ステータス",
     "achievs": "実績",
     "strength": "力",
     "strText": "力は「会心の一撃」が出る確率と、それがもたらすゴールド、経験値、アイテムドロップの上昇率を上げます。さらに、ボスモンスターに与えるダメージも増えます。",

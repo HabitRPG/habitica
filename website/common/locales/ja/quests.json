@@ -126,5 +126,16 @@
     "bossHealth": "体力 <%= currentHealth %> / <%= maxHealth %>",
     "rageAttack": "怒りの攻撃:",
     "bossRage": "怒り <%= currentRage %> / <%= maxRage %>",
-    "rageStrikes": "怒りの攻撃"
+    "rageStrikes": "怒りの攻撃",
+    "questInvitationNotificationInfo": "クエストに招待されました",
+    "chatItemQuestFinish": "すべてのアイテムを見つけました！ パーティーはごほうびを受け取りました。",
+    "hatchingPotionQuests": "魔法のたまごがえしの薬のクエスト",
+    "questAlreadyStarted": "クエストはすでに始まっています。",
+    "chatQuestStarted": "クエスト「<%= questName %>」が始まりました。",
+    "chatBossDamage": "<%= username %>は<%= bossName %>に<%= userDamage %>ダメージを与えました。<%= bossName %>はパーティーに<%= bossDamage %>ダメージを与えました。",
+    "chatBossDefeated": "<%= bossName %>を倒しました！ クエストに参加したパーティーメンバーは勝利のごほうびを受け取りました。",
+    "chatFindItems": "<%= username %> が<%= items %>を見つけました。",
+    "tavernBossTired": "<%= bossName %>は<%= rageName %>を放とうと試みていますが、疲れ過ぎています。",
+    "chatQuestCancelled": "<%= username %>はパーティークエスト「<%= questName %>」をキャンセルしました。",
+    "chatQuestAborted": "<%= username %>はパーティークエスト「<%= questName %>」を中止しました。"
 }

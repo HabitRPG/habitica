@@ -145,7 +145,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'contributor balance profile.name purchased items auth flags.chatRevoked flags.chatShadowMuted';
+const heroAdminFields = 'contributor balance profile.name purchased items auth flags.chatRevoked flags.chatShadowMuted secret';
 
 /**
  * @api {get} /api/v3/hall/heroes/:heroId Get any user ("hero") given the UUID or Username
@@ -189,6 +189,8 @@ api.getHero = {
 
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
     const heroRes = hero.toJSON({ minimize: true });
+    heroRes.secret = hero.getSecretData();
+
     // supply to the possible absence of hero.contributor
     // if we didn't pass minimize: true it would have returned all fields as empty
     if (!heroRes.contributor) heroRes.contributor = {};
@@ -303,8 +305,15 @@ api.updateHero = {
       hero.flags.chatShadowMuted = updateData.flags.chatShadowMuted;
     }
 
+    if (updateData.secret) {
+      if (typeof updateData.secret.text !== 'undefined') {
+        hero.secret.text = updateData.secret.text;
+      }
+    }
+
     const savedHero = await hero.save();
     const heroJSON = savedHero.toJSON();
+    heroJSON.secret = savedHero.getSecretData();
     const responseHero = { _id: heroJSON._id }; // only respond with important fields
     heroAdminFields.split(' ').forEach(field => {
       _.set(responseHero, field, _.get(heroJSON, field));

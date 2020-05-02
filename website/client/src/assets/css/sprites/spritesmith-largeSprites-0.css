@@ -22,6 +22,12 @@
   width: 282px;
   height: 147px;
 }
+.promo_mystery_202005 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -283px -796px;
+  width: 282px;
+  height: 147px;
+}
 .promo_pastel_skin_hair {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -355px -648px;
