@@ -34,42 +34,6 @@
       text-align: left;
       font-weight: bold;
     }
-
-    .social-button {
-      width: 100%;
-      height: 100%;
-      white-space: inherit;
-      text-align: center;
-
-      .text {
-        display: inline-block;
-        min-height: 0px;
-      }
-    }
-
-    .social-icon {
-      margin-right: 1em;
-      width: 18px;
-      height: 18px;
-      display: inline-block;
-      vertical-align: top;
-      margin-top: .1em;
-    }
-
-    .apple-icon {
-      margin-top: -1px;
-    }
-
-    small.form-text {
-      text-align: center;
-    }
-
-    .input-error {
-      margin-top: 0.25em;
-      font-weight: normal;
-      font-size: 90%;
-      width: 100%;
-    }
   }
 </style>
 
