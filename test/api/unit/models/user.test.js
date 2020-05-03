@@ -773,7 +773,7 @@ describe('User Model', () => {
 
     it('should not cron early when going back a timezone', () => {
       const yesterday = moment('2017-12-05T00:00:00.000-06:00'); // 11 pm on 4 Texas
-      const timezoneOffset = moment().zone('-06:00').zone();
+      const timezoneOffset = -moment().zone('-06:00').utcOffset();
       user.lastCron = yesterday;
       user.preferences.timezoneOffset = timezoneOffset;
 
@@ -788,7 +788,7 @@ describe('User Model', () => {
 
     it('should not cron early when going back a timezone with a custom day start', () => {
       const yesterday = moment('2017-12-05T02:00:00.000-08:00');
-      const timezoneOffset = moment().zone('-08:00').zone();
+      const timezoneOffset = -moment().zone('-08:00').utcOffset();
       user.lastCron = yesterday;
       user.preferences.timezoneOffset = timezoneOffset;
       user.preferences.dayStart = 2;

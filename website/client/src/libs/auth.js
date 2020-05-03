@@ -8,7 +8,7 @@ export function setUpAxios (AUTH_SETTINGS) { // eslint-disable-line import/prefe
     AUTH_SETTINGS = JSON.parse(AUTH_SETTINGS); // eslint-disable-line no-param-reassign
   }
 
-  const browserTimezoneOffset = moment().zone();
+  const browserTimezoneOffset = -moment().utcOffset();
 
   if (AUTH_SETTINGS.auth && AUTH_SETTINGS.auth.apiId && AUTH_SETTINGS.auth.apiToken) {
     axios.defaults.headers.common['x-api-user'] = AUTH_SETTINGS.auth.apiId;
