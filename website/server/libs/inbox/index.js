@@ -34,7 +34,10 @@ export async function sentMessage (sender, receiver, message, translate) {
 const PM_PER_PAGE = 10;
 
 const getUserInboxDefaultOptions = {
-  asArray: true, page: 0, conversation: null, mapProps: false,
+  asArray: true,
+  page: undefined,
+  conversation: null,
+  mapProps: false,
 };
 
 export async function getUserInbox (user, optionParams = getUserInboxDefaultOptions) {
