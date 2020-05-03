@@ -36,9 +36,9 @@
               <span>{{ $t('or') }}</span>
             </div>
             <div class="text-center">
-              <facebook-auth />
-              <google-auth />
-              <apple-auth />
+              <social-auth-form network="facebook" />
+              <social-auth-form network="google" />
+              <social-auth-form network="apple" />
             </div>
           </div>
           <div class="col-12">
@@ -671,16 +671,12 @@ import lifehacker from '@/assets/images/home/lifehacker.svg';
 import makeuseof from '@/assets/images/home/make-use-of.svg';
 import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg';
 import * as Analytics from '@/libs/analytics';
-import appleAuth from '../auth/socialAuth/apple';
-import facebookAuth from '../auth/socialAuth/facebook';
-import googleAuth from '../auth/socialAuth/google';
+import socialAuthForm from '../auth/socialAuth';
 import registerForm from '../auth/register';
 
 export default {
   components: {
-    appleAuth,
-    facebookAuth,
-    googleAuth,
+    socialAuthForm,
     registerForm,
   },
   data () {

@@ -2,17 +2,17 @@
   <div class="form">
     <div class="form-group row text-center">
       <div class="col-12">
-        <facebook-auth />
+        <social-auth-form network="facebook" />
       </div>
     </div>
     <div class="form-group row text-center">
       <div class="col-12">
-        <google-auth />
+        <social-auth-form network="google" />
       </div>
     </div>
     <div class="form-group row text-center">
       <div class="col-12">
-        <apple-auth />
+        <social-auth-form network="apple" />
       </div>
     </div>
     <register-form />
@@ -38,18 +38,14 @@
 </style>
 
 <script>
-import appleAuth from './socialAuth/apple';
-import facebookAuth from './socialAuth/facebook';
-import googleAuth from './socialAuth/google';
 import registerForm from './register';
+import socialAuthForm from './socialAuth';
 
 export default {
   name: 'AuthForm',
   components: {
-    appleAuth,
-    facebookAuth,
-    googleAuth,
     registerForm,
+    socialAuthForm,
   },
 };
 </script>

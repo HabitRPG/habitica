@@ -6,17 +6,17 @@
       'social-button': true,
       'social-button-home': isHomePage,
     }"
-    @click="socialAuth('facebook')"
+    @click="socialAuth(network)"
   >
     <div
       class="svg-icon social-icon"
-      v-html="icons.facebookIcon"
+      v-html="socialIcon"
     ></div>
-    <span>{{ $t(showSignUp?'signUpWithSocial':'loginWithSocial', {social: 'Facebook'})}}</span>
+    <span>{{ $t(showSignUp?'signUpWithSocial':'loginWithSocial', translateOptions)}}</span>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .social-button {
     width: 100%;
     height: 100%;
@@ -44,6 +44,16 @@
     }
   }
 
+  .social-button-home:hover {
+    cursor: pointer;
+    border-color: #fff;
+    color: #fff;
+  }
+
+  .apple-icon {
+    margin-top: -1px;
+  }
+
   .social-icon {
     margin-left: 1em;
     margin-right: 1em;
@@ -56,13 +66,24 @@
 </style>
 
 <script>
+import { buildAppleAuthUrl } from '@/libs/auth';
+import googleIcon from '@/assets/svg/google.svg';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
+import appleIcon from '@/assets/svg/apple_black.svg';
 
 export default {
+  props: {
+    network: {
+      type: String,
+      required: true,
+    },
+  },
   data () {
     const data = {};
     data.icons = Object.freeze({
+      googleIcon,
       facebookIcon: facebookSquareIcon,
+      appleIcon,
     });
     return data;
   },
@@ -89,12 +110,25 @@ export default {
     showSignUp () {
       return this.registering || this.isHomePage || this.isGroupPlansPage;
     },
+    translateOptions () {
+      return {
+        social: this.network.charAt(0).toUpperCase() + this.network.slice(1),
+      };
+    },
+    socialIcon () {
+      return this.icons[`${this.network}Icon`];
+    },
   },
   methods: {
     async socialAuth () {
+      if (this.network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
+        return;
+      }
+
       const redirectUrl = `${window.location.protocol}//${window.location.host}`;
       this.$store.dispatch('auth:facebookOrGoogleAuth', {
-        network: 'facebook',
+        network: this.network,
         redirectUrl,
       });
     },

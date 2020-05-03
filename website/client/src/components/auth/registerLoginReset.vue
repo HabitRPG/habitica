@@ -38,17 +38,17 @@
       <div v-if="!forgotPassword">
         <div class="form-group row text-center">
           <div class="col-12 col-md-12">
-            <facebook-auth />
+            <social-auth-form network="facebook" />
           </div>
         </div>
         <div class="form-group row text-center">
           <div class="col-12 col-md-12">
-            <google-auth />
+            <social-auth-form network="google" />
           </div>
         </div>
         <div class="form-group row text-center">
           <div class="col-12 col-md-12">
-            <apple-auth />
+            <social-auth-form network="apple" />
           </div>
         </div>
         <div class="strike">
@@ -250,9 +250,7 @@
 
 <script>
 import moment from 'moment';
-import appleAuth from './socialAuth/apple';
-import facebookAuth from './socialAuth/facebook';
-import googleAuth from './socialAuth/google';
+import socialAuthForm from './socialAuth';
 
 import exclamation from '@/assets/svg/exclamation.svg';
 import gryphon from '@/assets/svg/gryphon.svg';
@@ -263,9 +261,7 @@ import resetPasswordForm from './reset';
 
 export default {
   components: {
-    appleAuth,
-    facebookAuth,
-    googleAuth,
+    socialAuthForm,
     loginForm,
     registerForm,
     resetPasswordForm,
