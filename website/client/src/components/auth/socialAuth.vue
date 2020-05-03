@@ -12,7 +12,7 @@
       class="svg-icon social-icon"
       v-html="socialIcon"
     ></div>
-    <span>{{ $t(showSignUp?'signUpWithSocial':'loginWithSocial', translateOptions)}}</span>
+    <span>{{ $t(login?'loginWithSocial':'signUpWithSocial', translateOptions)}}</span>
   </div>
 </template>
 
@@ -77,6 +77,10 @@ export default {
       type: String,
       required: true,
     },
+    login: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     const data = {};
@@ -88,27 +92,11 @@ export default {
     return data;
   },
   computed: {
-    registering () {
-      if (this.$route.path.startsWith('/register')) {
-        return true;
-      }
-      return false;
-    },
     isHomePage () {
       if (this.$route.path.startsWith('/static/home')) {
         return true;
       }
       return false;
-    },
-    isGroupPlansPage () {
-      if (this.$route.path.startsWith('/static/plan')
-      || this.$route.path.startsWith('/static/group-plans')) {
-        return true;
-      }
-      return false;
-    },
-    showSignUp () {
-      return this.registering || this.isHomePage || this.isGroupPlansPage;
     },
     translateOptions () {
       return {
