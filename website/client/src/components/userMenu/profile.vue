@@ -5,7 +5,10 @@
   >
     <div class="header">
       <div class="profile-actions">
-        <router-link :to="{ path: '/private-messages', query: { uuid: user._id } }" replace>
+        <router-link
+          :to="{ path: '/private-messages', query: { uuid: user._id } }"
+          replace
+        >
           <button
             v-b-tooltip.hover.left="$t('sendMessage')"
             class="btn btn-secondary message-icon"
