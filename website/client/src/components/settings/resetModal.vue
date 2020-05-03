@@ -39,10 +39,6 @@ export default {
     async reset () {
       const response = await axios.post('/api/v4/user/reset');
       window.location.reload(true);
-      // @TODO: Not sure if this is correct
-      this.$store.user = response.data.data.user;
-      this.$router.push('/');
-      this.$root.$emit('bv::hide::modal', 'reset');
     },
   },
 };
