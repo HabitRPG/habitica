@@ -84,8 +84,8 @@ describe('Store', () => {
       expect(await store.dispatch('nested:getName', 1, 2, 3)).to.deep.equal(['test', 1, 2, 3]);
     });
 
-    it('throws an error is the action doesn\'t exists', async () => {
-      expect(async () => store.dispatched('wrong')).to.throw;
+    it('throws an error if the action doesn\'t exists', () => {
+      expect(() => store.dispatched('wrong')).to.throw;
     });
   });
 
