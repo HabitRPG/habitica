@@ -37,7 +37,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'reset');
     },
     async reset () {
-      const response = await axios.post('/api/v4/user/reset');
+      await axios.post('/api/v4/user/reset');
       window.location.reload(true);
     },
   },
