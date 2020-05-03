@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Avatar from '@/components/avatar';
 import generateStore from '@/store';
 
-context('avatar.vue', () => {
+context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tests
   let Constructr;
   let vm;
 
@@ -25,9 +25,10 @@ context('avatar.vue', () => {
           },
         },
       },
-    }).$mount();
+    });
 
     vm.$store = generateStore();
+    vm.$mount();
   });
 
   afterEach(() => {
@@ -55,11 +56,7 @@ context('avatar.vue', () => {
 
   describe('isBuffed', () => {
     beforeEach(() => {
-      vm.member = {
-        stats: {
-          buffs: {},
-        },
-      };
+      vm.member.stats.buffs = {};
     });
 
     it('accurately reports if buffed', () => {
@@ -73,8 +70,11 @@ context('avatar.vue', () => {
 
   describe('paddingTop', () => {
     beforeEach(() => {
-      vm.member = {
-        items: {},
+      vm.member.items = {
+        gear: {
+          equipped: {},
+          warrior: {},
+        },
       };
     });
 
@@ -107,9 +107,7 @@ context('avatar.vue', () => {
 
   describe('costumeClass', () => {
     beforeEach(() => {
-      vm.member = {
-        preferences: {},
-      };
+      vm.member.preferences = {};
     });
 
     it('returns if showing equipped gear', () => {
