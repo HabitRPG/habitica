@@ -12,9 +12,7 @@
       class="svg-icon social-icon apple-icon"
       v-html="icons.appleIcon"
     ></div>
-    <span>{{ (registering || isHomePage || isGroupPlansPage)
-      ? $t('signUpWithSocial', {social: 'Apple'})
-      : $t('loginWithSocial', {social: 'Apple'}) }}</span>
+    <span>{{ $t(showSignUp?'signUpWithSocial':'loginWithSocial', {social: 'Apple'})}}</span>
   </div>
 </template>
 
@@ -98,6 +96,9 @@ export default {
         return true;
       }
       return false;
+    },
+    showSignUp () {
+      return this.registering || this.isHomePage || this.isGroupPlansPage;
     },
   },
   methods: {
