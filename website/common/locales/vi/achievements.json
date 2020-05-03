@@ -9,15 +9,15 @@
     "achievementJustAddWater": "Mới Thêm Nước",
     "achievementLostMasterclasserModalText": "Bạn đã hoàn thành tất cả mười sáu nhiệm vụ trong Chuỗi Nhiệm vụ Bậc thầy Chức nghiệp và đã giải mã ra bí ẩn của Bậc thầy Chức nghiệp mất tích!",
     "foundNewItemsCTA": "Đi đến Hành trang và thử kết hợp Lọ thuốc Ấp trứng mới của bạn với Quả trứng!",
-    "foundNewItemsExplanation": "Hoàn thành những Công việc cho bạn một cơ hội tìm thấy những vật phẩm, như những Quả trứng, Lọ thuốc Ấp trứng, và thức ăn.",
+    "foundNewItemsExplanation": "Hoàn thành những công việc cho bạn một cơ hội tìm thấy những vật phẩm, như Quả trứng, Lọ thuốc Ấp trứng, và Thức ăn cho Thú.",
     "foundNewItems": "Bạn đã tìm ra một vật phẩm mới!",
     "earnedAchievement": "Bạn đã đạt được một thành tựu!",
     "hideAchievements": "Ẩn <%= category %>",
     "showAllAchievements": "Hiển thị Tất cả <%= category %>",
-    "onboardingCompleteDesc": "Bạn đã kiếm được <strong> 5 thành tựu </strong> và <strong class=\"gold-amount\">100</strong> vàng cho việc hoàn thành danh sách công việc.",
+    "onboardingCompleteDesc": "Bạn đã kiếm được <strong>5 thành tựu</strong> và <strong class=\"gold-amount\">100 Vàng</strong> cho việc hoàn thành danh sách.",
     "viewAchievements": "Xem những thành tựu",
     "letsGetStarted": "Hãy bắt đầu nào!",
-    "gettingStartedDesc": "Hãy tạo một công việc, hoàn thành nó, sau đó đánh dấu phần thưởng của bạn. Bạn sẽ kiếm được <strong>5 thành tựu</strong> và <strong class=\"gold-amount\">100 vàng</strong> mỗi lần bạn hoàn thành!",
+    "gettingStartedDesc": "Hoàn thành những công việc nhập môn này và bạn sẽ kiếm được <strong>5 Thành tựu</strong> và <strong class=\"gold-amount\">100 Vàng</strong> khi hoàn thành chúng!",
     "achievementPurchasedEquipmentModalText": "Trang bị là một cách để tùy chỉnh nhân vật đại diện của bạn và nâng cao chỉ số của bạn",
     "achievementPurchasedEquipmentText": "Đã mua loại trang bị đầu tiên.",
     "achievementPurchasedEquipment": "Mua Trang Bị",
@@ -55,5 +55,5 @@
     "achievementMindOverMatterModalText": "Bạn đã hoàn thành nhiệm vụ thú cưng Rock, Slime và Yarn!",
     "achievementMindOverMatterText": "Hoàn thành nhiệm vụ thú cưng Rock, Slime và Yarn.",
     "achievementMindOverMatter": "\"Mind Over Matter\"",
-    "onboardingProgress": "<%= percentage %>% quá trình"
+    "onboardingProgress": "<%= percentage %>% tiến trình"
 }

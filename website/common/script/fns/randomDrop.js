@@ -5,7 +5,6 @@ import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
 import pickBy from 'lodash/pickBy';
 import size from 'lodash/size';
-import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
@@ -146,7 +145,11 @@ export default function randomDrop (user, options, req = {}, analytics) {
       }, req.language);
     }
 
-    if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
+    user._tmp.drop = drop;
+    user.items.lastDrop.date = Number(new Date());
+    user.items.lastDrop.count += 1;
+
+    if (analytics) {
       analytics.track('dropped item', {
         uuid: user._id,
         itemKey: drop.key,
@@ -154,10 +157,15 @@ export default function randomDrop (user, options, req = {}, analytics) {
         category: 'behavior',
         headers: req.headers,
       });
-    }
 
-    user._tmp.drop = drop;
-    user.items.lastDrop.date = Number(new Date());
-    user.items.lastDrop.count += 1;
+      if (user.items.lastDrop.count === maxDropCount) {
+        analytics.track('drop cap reached', {
+          uuid: user._id,
+          dropCap: maxDropCount,
+          category: 'behavior',
+          headers: req.headers,
+        });
+      }
+    }
   }
 }

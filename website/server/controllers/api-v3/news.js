@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW OFFICIAL CHALLENGES AND BEHIND THE SCENES BLOG POST';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR APRIL AND SPRING FLING GOODIES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,65 +31,73 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>4/2/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>4/30/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_hat_guild center-block"></div>
-        <h3>April 2020 Resolution Success Challenge and New Take This Challenge</h3>
+        <div class="promo_spring_2020 center-block"></div>
+        <h3>Last Chance for Spring Fling Outfits, Spring Customizations, Spring Magic Hatching Potions, and Shiny Seeds</h3>
         <p>
-          The Habitica team has launched a special official Challenge series hosted in the <a
-          href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New
-          Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain
-          goals that are destined for success and then stick with them as the year progresses. For
-          this month's Challenge, <a href='/challenges/178ba70c-b446-4fd6-913c-408f6ac40c96'>Gather
-          Your Party</a>, we're focusing on finding encouraging allies to help you gain
-          accountability for your goals!! It has a 15 Gem prize, which will be awarded to five
-          lucky winners on May 1st.
+          Spring Fling is coming to a close in Habitica. It's the last day to snag this year's
+          limited edition outfits from your Rewards column. Depending on your class, you can be a
+          Puddle Mage, Rhinoceros Beetle Warrior, Lapiz Lazuli Rogue, or Iris Healer! Don't miss
+          these awesome gear sets, available to purchase with Gold for now!
         </p>
+        <div class="small mb-3">by Vikte, gawrone, jjgame83, Shine Caramia, and SabreCat</div>
+        <div class="promo_spring_2019 center-block"></div>
         <p>
-          Congratulations to the winners of March's Challenge: @mymartianromance,
-          @BadWolfandTheStorm, @KatieIrene, @LastminuteKing, and @Janqt!
-        </p>
-        <div class="promo_take_this center-block"></div>
-        <p>
-          The next Take This Challenge has also launched, "<a
-          href='/challenges/a167f3d9-f32d-46b5-ba4b-5277357f2322'>This One Goes to 11!</a>", with
-          a focus on managing feelings of overwhelm. Be sure to check it out to earn additional
-          pieces of the Take This armor set!
-        </p>
-        <p>
-          <a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that
-          seeks to inform the gamer community about mental health issues, to provide education
-          about mental disorders and mental illness prevention, and to reduce the stigma of mental
-          illness.
-        </p>
-        <p>
-          Congratulations to the winners of the last Take This Challenge, "Gaining Inspiration
-          Points": grand prize winner @Susiturrikka, and runners-up @Kereenas-ff, @JohnMakiej,
-          @Martes625, @ScarletSlayer, and @bradders154276! Plus, all participants in that Challenge
-          have received a piece of the <a
-          href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set'
-          target='_blank'>Take This item set</a> if they hadn't completed it already. It is located
-          in your Rewards column. Enjoy!
+          The <a href='/shops/seasonal'>Seasonal Shop</a> will also be closing when the Gala ends.
+          The Seasonal Sorceress is stocking the seasonal edition versions of previous spring
+          outfits, now available for Gems instead of Gold, the seasonal Egg Quest, and Shiny Seeds.
         </p>
         <div class="small mb-3">
-          by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat
+          by Eslyn, Aspiring Advocate, OuttaMyMind, Lt. Cabel, Vikte, Lalaitha, DialFForFunky,
+          Gerald the Pixel, Scarvia, Awesome kitty, usnbfs, Balduranne, PainterProphet,
+          Beffymaroo, SabreCat and Lemoness
         </div>
-        <div class="scene_meditation center-block"></div>
-        <h3>Behind the Scenes: Mental Health Tips from the Team</h3>
+        <div class="promo_spring_potions_2020 center-block"></div>
         <p>
-          Hello Habiticans! In this edition of <a
-          href='https://habitica.wordpress.com/2020/04/02/behind-the-scenes-coping-in-a-crisis/'
-          target='_blank'>Behind the Scenes</a>, some of the Habitica staff and mods are sharing
-          some of the ways they're taking care of their mental health, physical well-being, and
-          work routines during the current crisis. We hope some of their tips are helpful for you
-          as well!
+          It's also the final day to <a href='/shops/market'>buy the Birch Bark, Celestial, and
+          Shimmer Magic Hatching Potions!</a> If they come back, it won't be until next year at the
+          earliest, so don't delay!
+        </p>
+        <div class="small mb-3">
+          by Teto Forever, tricksy.fox, Bonogo, Mara, ravenlune, Ricardo,  and SabreCat
+        </div>
+        <div class="promo_pastel_skin_hair center-block"></div>
+        <p>
+          Don't miss the Pastel Skins and Shimmer Hair colors! They're also available in User >
+          Customize Avatar until the Gala ends. But once you purchase them, you can use them
+          year-round!
+        </p>
+        <div class="small mb-3">by Lemoness and McCoyly</div>
+        <div class="promo_mystery_202004 center-block"></div>
+        <h3>Last Chance for Majestic Monarch Set</h3>
+        <p>
+          Reminder: this is the final day to <a href='/user/settings/subscription'>subscribe</a>
+          and receive the Majestic Monarch Set! Subscribing also lets you buy Gems with Gold. The
+          longer your subscription, the more Gems you can get!
+        </p>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <div class="promo_april_fools_2020 center-block"></div>
+        <h3>Last Chance for Confection Hatching Potion Quest and Garden Potions</h3>
+        <p>
+          Have you had your eye on the sweet new Confection Hatching Potion Pets from this year's
+          April Fool's festivities? Be sure to get the special Waffling with the Fool Quest from
+          the <a href='/shops/quests'>Quest Shop</a>! After today, it will not be available again
+          for at least one year.
         </p>
         <p>
-          Take care! 💜
+          Garden Potions, which hatch the fruit and veggie pets from our 2019 April Fool's prank,
+          will also disappear from the <a href='/shops/market'>Market</a> after today. Be sure to
+          stock up if you haven't already!
         </p>
-        <div class="small mb-3">by shanaqui and the Habitica Team</div>
+        <p>
+          Note that Confection Pets and Garden Pets do not have mount forms, so plan your purchases
+          accordingly!
+        </p>
+        <div class="small mb-3">by Beffymaroo, Piyo, SabreCat, and Viirus</div>
       </div>
       `,
     });

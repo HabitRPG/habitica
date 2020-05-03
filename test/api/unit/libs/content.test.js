@@ -8,9 +8,9 @@ describe('contentLib', () => {
     });
   });
 
-  describe('getLocalizedContent', () => {
+  describe('getLocalizedContentResponse', () => {
     it('clones, not modify, the original content data', () => {
-      contentLib.getLocalizedContent();
+      contentLib.getLocalizedContentResponse();
       expect(typeof content.backgrounds.backgrounds062014.beach.text).to.equal('function');
     });
   });

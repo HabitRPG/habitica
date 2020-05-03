@@ -10,20 +10,25 @@
       v-html="icons.down"
     ></div>
     <div
+      v-once
       class="svg-icon onboarding-guide-banner"
       v-html="icons.onboardingGuideBanner"
     ></div>
-    <h3 class="getting-started">
+    <h3
+      v-once
+      class="getting-started"
+    >
       {{ $t('gettingStarted') }}
     </h3>
     <span
+      v-once
       class="getting-started-desc"
       v-html="$t('gettingStartedDesc')"
     ></span>
     <div
       class="onboarding-progress-box d-flex flex-row justify-content-between small-text mb-2"
     >
-      <strong>Your Progress</strong>
+      <strong v-once>{{ $t('yourProgress') }}</strong>
       <span :class="{'has-progress': progress > 0}">{{ progressText }}</span>
     </div>
     <div class="onboarding-progress-bar mb-3">
@@ -48,8 +53,14 @@
           <div :class="`achievement-icon ${getAchievementIcon(achievement)}`"></div>
         </div>
         <div class="achievement-info d-flex flex-column">
-          <strong class="achievement-title">{{ achievement.title }}</strong>
-          <span class="small-text achievement-desc">{{ getAchievementText(key) }}</span>
+          <strong
+            v-once
+            class="achievement-title"
+          >{{ achievement.title }}</strong>
+          <span
+            v-once
+            class="small-text achievement-desc"
+          >{{ getAchievementText(key) }}</span>
         </div>
       </div>
     </b-collapse>

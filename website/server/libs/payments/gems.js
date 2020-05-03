@@ -3,7 +3,7 @@ import { // eslint-disable-line import/no-cycle
   getUserInfo,
   sendTxn as txnEmail,
 } from '../email';
-import { sendNotification as sendPushNotification } from '../pushNotifications';
+import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 import shared from '../../../common';
 
 function getGiftMessage (data, byUsername, gemAmount, language) {

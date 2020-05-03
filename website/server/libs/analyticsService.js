@@ -13,6 +13,9 @@ import logger from './logger';
 
 const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
+
+const LOG_AMPLITUDE_EVENTS = nconf.get('LOG_AMPLITUDE_EVENTS') === 'true';
+
 const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
 const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
 const AMPLITUDE_PROPERTIES_TO_SCRUB = [
@@ -176,6 +179,10 @@ function _sendDataToAmplitude (eventType, data) {
 
   amplitudeData.event_type = eventType;
 
+  if (LOG_AMPLITUDE_EVENTS) {
+    logger.info('Amplitude Event', amplitudeData);
+  }
+
   return amplitude
     .track(amplitudeData)
     .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
@@ -244,6 +251,10 @@ function _sendPurchaseDataToAmplitude (data) {
 
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
+
+  if (LOG_AMPLITUDE_EVENTS) {
+    logger.info('Amplitude Purchase Event', amplitudeData);
+  }
 
   return amplitude
     .track(amplitudeData)
@@ -325,6 +336,8 @@ async function trackPurchase (data) {
 }
 
 // Stub for non-prod environments
+// @TODO instead of exporting a different interface why not have track
+// and trackPurchase be no ops when not in production?
 const mockAnalyticsService = {
   track: () => { },
   trackPurchase: () => { },

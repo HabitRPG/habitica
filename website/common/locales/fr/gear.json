@@ -2083,5 +2083,11 @@
     "headAccessoryMystery202004Notes": "Elles se trémoussent juste un peu si l'odeur des fleurs passe devant elles : utilisez-les pour trouver un joli jardin ! Ne confère aucun bonus. Équipement d'abonnement d'avril 2020.",
     "headAccessoryMystery202004Text": "Antennes de merveilleux monarque",
     "backMystery202004Notes": "Faites un vol rapide vers la prairie fleurie la plus proche ou migrez à travers le continent avec ces jolies ailes ! Ne confère aucun bonus. Équipement d'abonnement d'avril 2020.",
-    "backMystery202004Text": "Ailes de merveilleux monarque"
+    "backMystery202004Text": "Ailes de merveilleux monarque",
+    "shieldArmoireHobbyHorseNotes": "Chevauchez votre magnifique monture de jeu vers vos récompenses méritées ! Augmente la perception et la constitution de <%= attrs %> chacune. Armoire enchantée : ensemble de chevalerie de papier (objet 2 de 3).",
+    "shieldArmoireHobbyHorseText": "Cheval de jeu",
+    "armorArmoireBoxArmorNotes": "Attention, un chat y dort peut-être... mais ça ne vous empêchera pas de porter cette armure au combat, avec l'audace qui vous caractérise ! Augmente la perception et la constitution de <%= attrs %> chacune. Armoire enchantée : ensemble de chevalerie de papier (objet 3 de 3). ",
+    "armorArmoireBoxArmorText": "Armure boite",
+    "weaponArmoirePaperCutterNotes": "Ca n'a pas l'air terrible, mais vous êtes vous déjà coupé avec une feuille de papier ? Augmente la force de <%= str %>. Armoire enchantée : ensemble de chevalerie de papier (objet 1 de 3).",
+    "weaponArmoirePaperCutterText": "Coupe papier"
 }
