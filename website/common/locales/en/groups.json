@@ -157,7 +157,7 @@
   "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
   "blockedToSendToThisUser": "You can't send to this player because you have blocked this player.",
   "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
-  "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription! ",
+  "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription!",
   "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
   "badAmountOfGemsToSend": "Amount must be within 1 and your current number of gems.",
   "report": "Report",
