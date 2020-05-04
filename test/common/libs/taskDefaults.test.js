@@ -72,7 +72,7 @@ describe('taskDefaults', () => {
 
     expect(task.startDate).to.eql(
       moment()
-        .zone(user.preferences.timezoneOffset, 'hour')
+        .utcOffset(-user.preferences.timezoneOffset, 'hour')
         .startOf('day')
         .subtract(1, 'day')
         .toDate(),

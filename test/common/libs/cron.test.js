@@ -113,7 +113,7 @@ describe('cron utility functions', () => {
       const options = {
         now: moment('2020-02-02 13:30:27Z'),
         timezoneOffset: 0,
-        timezoneOffsetOverride: 240,
+        timezoneUtcOffsetOverride: -240,
       };
 
       const result = startOfDay(options);
