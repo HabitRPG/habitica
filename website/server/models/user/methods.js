@@ -493,6 +493,10 @@ schema.methods.isAdmin = function isAdmin () {
   return this.contributor && this.contributor.admin;
 };
 
+schema.methods.isNewsPoster = function isNewsPoster () {
+  return this.contributor && this.contributor.newsPoster;
+};
+
 schema.methods.checkNewStuff = function checkNewStuff () {
   const { id } = NewsPost.lastNewsPost();
   return this.flags.lastNewStuffRead !== id;

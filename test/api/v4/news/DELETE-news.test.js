@@ -13,16 +13,16 @@ describe('DELETE /news/:newsID', () => {
   };
   beforeEach(async () => {
     user = await generateUser({
-      'contributor.admin': true,
+      'contributor.newsPoster': true,
     });
   });
 
-  it('disallows access to non-admins', async () => {
-    const nonAdminUser = await generateUser({ 'contributor.admin': false });
+  it('disallows access to non-newsPosters', async () => {
+    const nonAdminUser = await generateUser({ 'contributor.newsPoster': false });
     await expect(nonAdminUser.post('/news')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: 'You don\'t have admin access.',
+      message: 'You don\'t have newsPoster access.',
     });
   });
 

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { authWithHeaders } from '../../middlewares/auth';
 import apiError from '../../libs/apiError';
 import { model as NewsPost } from '../../models/newsPost';
-import { ensureAdmin } from '../../middlewares/ensureAccessRight';
+import { ensureNewsPoster } from '../../middlewares/ensureAccessRight';
 import {
   NotFound,
 } from '../../libs/errors';
@@ -65,7 +65,7 @@ api.getNews = {
 api.createNews = {
   method: 'POST',
   url: '/news',
-  middlewares: [authWithHeaders(), ensureAdmin],
+  middlewares: [authWithHeaders(), ensureNewsPoster],
   async handler (req, res) {
     const postData = {
       title: req.body.title,
@@ -152,7 +152,7 @@ api.getPost = {
 api.updateNews = {
   method: 'PUT',
   url: '/news/:postId',
-  middlewares: [authWithHeaders(), ensureAdmin],
+  middlewares: [authWithHeaders(), ensureNewsPoster],
   async handler (req, res) {
     req.checkParams('postId', apiError('postIdRequired')).notEmpty();
     const validationErrors = req.validationErrors();
@@ -183,12 +183,12 @@ api.updateNews = {
  *
  * @apiUse postIdRequired
  *
- * @apiPermission Admin
+ * @apiPermission NewsPoster
  */
 api.deleteNews = {
   method: 'DELETE',
   url: '/news/:postId',
-  middlewares: [authWithHeaders(), ensureAdmin],
+  middlewares: [authWithHeaders(), ensureNewsPoster],
   async handler (req, res) {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
