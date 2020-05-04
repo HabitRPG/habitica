@@ -643,10 +643,8 @@ export default {
     await this.reload();
 
     // close members modal if the Private Messages page is opened in an existing tab
-    if (this.hasPrivateMessageOptionsOnPageLoad) {
-      this.$root.$emit('habitica::dismiss-modal', 'members-modal'); // hide members modal on linux
-      this.$root.$emit('bv:hide::modal', 'members-modal'); // hide members modal on mac
-    }
+    this.$root.$emit('habitica::dismiss-modal', 'profile');
+    this.$root.$emit('habitica::dismiss-modal', 'members-modal');
 
     const data = this.$store.state.privateMessageOptions;
     if (data && data.userIdToMessage) {

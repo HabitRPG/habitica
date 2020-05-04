@@ -12,7 +12,6 @@
           <button
             v-b-tooltip.hover.left="$t('sendMessage')"
             class="btn btn-secondary message-icon"
-            @click="sendMessage()"
           >
             <div
               class="svg-icon message-icon"
@@ -862,12 +861,6 @@ export default {
     selectPage (page) {
       this.selectedPage = page || 'profile';
       window.history.replaceState(null, null, '');
-    },
-    sendMessage () {
-      this.$store.dispatch('user:newPrivateMessageTo', {
-        member: this.user,
-      });
-      this.$root.$emit('bv::hide::modal', 'profile');
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
