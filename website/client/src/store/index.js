@@ -18,7 +18,7 @@ const IS_TEST = process.env.NODE_ENV === 'test'; // eslint-disable-line no-proce
 let isUserLoggedIn = false;
 
 // eg, 240 - this will be converted on server as -(offset/60)
-const browserTimezoneOffset = -moment().utcOffset();
+const browserTimezoneOffset = moment().zone();
 
 axios.defaults.headers.common['x-client'] = 'habitica-web';
 
