@@ -180,7 +180,7 @@
     "inviteMembersHowTo": "通过有效的电子邮件或36位用户ID邀请他人。如果电子邮件尚未注册，我们将邀请他们加入Habitica。",
     "inviteFriendsNow": "现在邀请你的朋友",
     "inviteFriendsLater": "稍后邀请",
-    "inviteAlertInfo": "如果你的朋友们已经在使用Habitica 了，通过<a href='http://habitica.fandom.com/wiki/API_Options' target='_blank'>用户ID</a>邀请他们 。",
+    "inviteAlertInfo": "如果你的朋友们已经在使用Habitica了，通过<a href='http://habitica.fandom.com/wiki/API_Options' target='_blank'>用户ID</a>邀请他们 。",
     "inviteExistUser": "邀请已存在的用户",
     "byColon": "来自：",
     "inviteNewUsers": "邀请新用户",
