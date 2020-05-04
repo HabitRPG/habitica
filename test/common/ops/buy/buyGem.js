@@ -119,7 +119,7 @@ describe('shared.ops.buyGem', () => {
           buyGem(user, { params: { type: 'gems', key: 'gem' } });
         } catch (err) {
           expect(err).to.be.an.instanceof(NotAuthorized);
-          expect(err.message).to.equal(i18n.t('reachedGoldToGemCap', { convCap: planGemLimits.convCap }));
+          expect(err.message).to.equal(i18n.t('maxBuyGems', { convCap: planGemLimits.convCap }));
           done();
         }
       });

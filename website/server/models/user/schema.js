@@ -655,6 +655,11 @@ export default new Schema({
     path: { $type: String },
     type: { $type: String },
   }],
+
+  // only visible to staff and moderators
+  secret: {
+    text: String,
+  },
 }, {
   skipVersioning: { notifications: true },
   strict: true,

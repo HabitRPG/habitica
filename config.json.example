@@ -79,5 +79,6 @@
   "APPLE_TEAM_ID": "",
   "APPLE_AUTH_CLIENT_ID": "",
   "APPLE_AUTH_KEY_ID": "",
-  "BLOCKED_IPS": ""
+  "BLOCKED_IPS": "",
+  "LOG_AMPLITUDE_EVENTS": "false"
 }

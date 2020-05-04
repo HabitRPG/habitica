@@ -1,3 +1,4 @@
+import escapeRegExp from 'lodash/escapeRegExp';
 import habiticaMarkdown from 'habitica-markdown';
 
 import { model as User } from '../models/user';
@@ -57,14 +58,15 @@ function withOptionalIndentation (content) {
 }
 
 function createCodeBlockRegex ({ content, type, markup }) {
+  const contentRegex = escapeRegExp(content);
   let regexStr = '';
 
   if (type === 'code_block') {
-    regexStr = withOptionalIndentation(content);
+    regexStr = withOptionalIndentation(contentRegex);
   } else if (type === 'fence') {
-    regexStr = `\\s*${markup}.*\n${withOptionalIndentation(content)}\\s*${markup}`;
+    regexStr = `\\s*${markup}.*\n${withOptionalIndentation(contentRegex)}\\s*${markup}`;
   } else { // type === code_inline
-    regexStr = `${markup} ?${content} ?${markup}`;
+    regexStr = `${markup} ?${contentRegex} ?${markup}`;
   }
 
   return new RegExp(regexStr);
@@ -76,7 +78,9 @@ function createCodeBlockRegex ({ content, type, markup }) {
  */
 function findTextAndCodeBlocks (text) {
   // For token description see https://markdown-it.github.io/markdown-it/#Token
-  const tokens = habiticaMarkdown.parse(text);
+  // The second parameter is mandatory even if not used, see
+  // https://markdown-it.github.io/markdown-it/#MarkdownIt.parse
+  const tokens = habiticaMarkdown.parse(text, {});
   const codeBlocks = findCodeBlocks(tokens);
 
   const blocks = [];

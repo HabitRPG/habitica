@@ -89,6 +89,18 @@ describe('shared.ops.feed', () => {
       }
     });
 
+    it('does not allow feeding of wacky pets', done => {
+      user.items.pets['Wolf-Veggie'] = 5;
+      user.items.food.Meat = 1;
+      try {
+        feed(user, { params: { pet: 'Wolf-Veggie', food: 'Meat' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageCannotFeedPet'));
+        done();
+      }
+    });
+
     it('does not allow feeding of mounts', done => {
       user.items.pets['Wolf-Base'] = -1;
       user.items.mounts['Wolf-Base'] = true;

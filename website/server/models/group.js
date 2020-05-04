@@ -153,7 +153,7 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
-    if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
   },
 });
 
@@ -1141,7 +1141,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const itemsFound = {};
 
   const possibleItemKeys = Object.keys(quest.collect)
-    .filter(key => group.quest.progress.collect[key] !== quest.collect[key].count);
+    .filter(key => group.quest.progress.collect[key] < quest.collect[key].count);
 
   const possibleItemsToCollect = possibleItemKeys.reduce((accumulator, current, index) => {
     accumulator[possibleItemKeys[index]] = quest.collect[current];
@@ -1151,11 +1151,13 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   _.times(progress.collectedItems, () => {
     const item = shared.randomVal(possibleItemsToCollect, { key: true });
 
-    if (!itemsFound[item]) {
-      itemsFound[item] = 0;
+    if (group.quest.progress.collect[item] < quest.collect[item].count) {
+      if (!itemsFound[item]) {
+        itemsFound[item] = 0;
+      }
+      itemsFound[item] += 1;
+      group.quest.progress.collect[item] += 1;
     }
-    itemsFound[item] += 1;
-    group.quest.progress.collect[item] += 1;
   });
 
   // Add 0 for all items not found
@@ -1699,7 +1701,7 @@ schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
   return false;
 };
 
-schema.methods.isSubscribed = function isSubscribed () {
+schema.methods.hasActiveGroupPlan = function hasActiveGroupPlan () {
   const now = new Date();
   const { plan } = this.purchased;
   return plan && plan.customerId
@@ -1708,12 +1710,12 @@ schema.methods.isSubscribed = function isSubscribed () {
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
   const { plan } = this.purchased;
-  return Boolean(this.isSubscribed() && !plan.dateTerminated);
+  return Boolean(this.hasActiveGroupPlan() && !plan.dateTerminated);
 };
 
-schema.methods.hasCancelled = function hasNotCancelled () {
+schema.methods.hasCancelled = function hasCancelled () {
   const { plan } = this.purchased;
-  return Boolean(this.isSubscribed() && plan.dateTerminated);
+  return Boolean(this.hasActiveGroupPlan() && plan.dateTerminated);
 };
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {

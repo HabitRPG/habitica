@@ -6,7 +6,7 @@
     <div class="row loadmore">
       <div v-if="canLoadMore && !isLoading">
         <div class="loadmore-divider-holder">
-        <div class="loadmore-divider"></div>
+          <div class="loadmore-divider"></div>
         </div>
         <button
           class="btn btn-secondary"
@@ -14,9 +14,9 @@
         >
           {{ $t('loadEarlierMessages') }}
         </button>
-      <div class="loadmore-divider-holder">
-        <div class="loadmore-divider"></div>
-      </div>
+        <div class="loadmore-divider-holder">
+          <div class="loadmore-divider"></div>
+        </div>
       </div>
       <h2
         v-show="isLoading"

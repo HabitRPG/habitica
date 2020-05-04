@@ -515,7 +515,7 @@ const quests = {
     value: 1,
     category: 'pet',
     canBuy () {
-      return true;
+      return false;
     },
     collect: {
       plainEgg: {
@@ -2241,10 +2241,6 @@ const quests = {
     completion: t('questDustBunniesCompletion'),
     value: 1,
     category: 'unlockable',
-    unlockCondition: {
-      condition: 'party invite',
-      text: t('createAccountReward'),
-    },
     boss: {
       name: t('questDustBunniesBoss'),
       hp: 100,
