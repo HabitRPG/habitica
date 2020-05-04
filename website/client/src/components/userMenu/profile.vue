@@ -4,7 +4,7 @@
     class="profile"
   >
     <div class="header">
-      <div class="profile-actions">
+      <div class="profile-actions d-flex">
         <button
           v-b-tooltip.hover.left="$t('sendMessage')"
           class="btn btn-secondary message-icon"
@@ -28,7 +28,7 @@
         <button
           v-if="user._id !== userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1"
           v-b-tooltip.hover.right="$t('blockWarning')"
-          class="btn btn-secondary remove-icon"
+          class="btn btn-secondary remove-icon d-flex justify-content-center align-items-center"
           @click="blockUser()"
         >
           <div
@@ -50,7 +50,7 @@
         <button
           v-if="userLoggedIn.contributor.admin"
           v-b-tooltip.hover.right="'Admin - Toggle Tools'"
-          class="btn btn-secondary positive-icon"
+          class="btn btn-secondary positive-icon d-flex justify-content-center align-items-center"
           @click="toggleAdminTools()"
         >
           <div
