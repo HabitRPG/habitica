@@ -219,7 +219,7 @@
           </div>
         </div>
         <template v-if="task.type !== 'reward'">
-          <div class="d-flex align-items-center m-b-xs">
+          <div class="d-flex align-items-center m-b-xs m-t-l">
             <label
               v-once
               class="mb-0 m-r-xs"
@@ -265,8 +265,7 @@
               v-model="task.startDate"
               :calendar-icon="icons.calendar"
               :clear-button="false"
-              :today-button="!challengeAccessRequired"
-              :today-button-text="$t('today')"
+              :today-button="false"
               :disabled-picker="challengeAccessRequired"
               :highlighted="calendarHighlights"
             />
@@ -378,20 +377,19 @@
             >{{ $t('tags') }}</label>
             <div class="col-12">
               <div
-                class="category-wrap"
+                class="dropdown inline-dropdown"
                 :class="{ active: showTagsSelect }"
                 @click="toggleTagSelect()"
               >
                 <span
                   v-if="task.tags && task.tags.length === 0"
-                  class="category-select"
+                  class="btn dropdown-toggle btn-secondary"
                 >
                   <div class="tags-none">{{ $t('none') }}</div>
-                  <div class="dropdown-toggle"></div>
                 </span>
                 <span
                   v-else
-                  class="category-select"
+                  class="btn dropdown-toggle btn-secondary"
                 >
                   <div
                     v-for="tagName in truncatedSelectedTags"
@@ -404,7 +402,7 @@
                     v-if="remainingSelectedTags.length > 0"
                     class="tags-more"
                   >+{{ $t('more', { count: remainingSelectedTags.length }) }}</div>
-                  <div class="dropdown-toggle"></div>
+
                 </span>
               </div>
             </div>
@@ -451,18 +449,18 @@
               v-once
               class="col-12 m-b-xs"
             >{{ $t('assignedTo') }}</label>
-            <div class="col-12 mt-2">
+            <div class="col-12">
               <div
-                class="category-wrap"
+                class="dropdown inline-dropdown"
                 @click="showAssignedSelect = !showAssignedSelect"
               >
                 <span
                   v-if="assignedMembers && assignedMembers.length === 0"
-                  class="category-select"
+                  class="btn dropdown-toggle btn-secondary"
                 >{{ $t('none') }}</span>
                 <span
                   v-else
-                  class="category-select"
+                  class="btn dropdown-toggle btn-secondary"
                 >
                   <span
                     v-for="memberId in assignedMembers"
@@ -511,8 +509,8 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label v-once class="m-b-xs">{{ $t('approvalRequired') }}</label>
+          <div class="form-group flex-group">
+            <label v-once class="m-b-xs flex">{{ $t('approvalRequired') }}</label>
             <toggle-switch
               class="d-inline-block"
               :checked="requiresApproval"
@@ -732,7 +730,6 @@
     }
 
     .option {
-      margin-bottom: 12px;
       position: relative;
 
       .custom-control-label p {
@@ -806,6 +803,7 @@
           .category-select {
             align-items: center;
             display: flex;
+            height: 32px;
             padding: .6em;
             padding-right: 2.8em;
             width: 100%;
@@ -1067,6 +1065,15 @@
     font-weight: bold;
     line-height: 1.71;
   }
+
+  .flex-group {
+    display: flex;
+
+    .flex {
+      flex: 1;
+    }
+  }
+
 </style>
 
 <script>
