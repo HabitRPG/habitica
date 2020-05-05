@@ -37,13 +37,13 @@ gulp.task('cache:i18n', done => {
   // Requiring at runtime because these files access `common`
   // code which in production works only if transpiled so after
   // gulp build:babel:common has run
-  const { CONTENT_CACHE_PATH, getLocalizedContentResponse } = require('../website/server/libs/content'); // eslint-disable-line global-require
-  const { langCodes } = require('../website/server/libs/i18n'); // eslint-disable-line global-require
+  const { BROWSER_SCRIPT_CACHE_PATH, geti18nBrowserScript } = require('../website/server/libs/i18n'); // eslint-disable-line global-require
+  const { availableLanguages } = require('../website/server/libs/i18n'); // eslint-disable-line global-require
 
   try {
     // create the cache folder (if it doesn't exist)
     try {
-      fs.mkdirSync(CONTENT_CACHE_PATH);
+      fs.mkdirSync(BROWSER_SCRIPT_CACHE_PATH);
     } catch (err) {
       if (err.code !== 'EEXIST') throw err;
     }
@@ -51,10 +51,10 @@ gulp.task('cache:i18n', done => {
     // clone the content for each language and save
     // localize it
     // save the result
-    langCodes.forEach(langCode => {
+    availableLanguages.forEach(language => {
       fs.writeFileSync(
-        `${CONTENT_CACHE_PATH}${langCode}.json`,
-        getLocalizedContentResponse(langCode),
+        `${BROWSER_SCRIPT_CACHE_PATH}${language.code}.json`,
+        geti18nBrowserScript(language),
         'utf8',
       );
     });

@@ -4,6 +4,7 @@ import _ from 'lodash';
 import shared from '../../common';
 
 export const localePath = path.join(__dirname, '../../common/locales/');
+export const BROWSER_SCRIPT_CACHE_PATH = path.join(__dirname, '/../../../i18n_cache/');
 
 // Store translations
 export const translations = {};
@@ -115,3 +116,15 @@ export const multipleVersionsLanguages = {
     'pt-br': 'pt_BR',
   },
 };
+
+export function geti18nBrowserScript (language) {
+  return `(function () {
+    if (!window) return;
+    window['habitica-i18n'] = ${JSON.stringify({
+    availableLanguages,
+    language,
+    strings: translations[language.code],
+    momentLang: momentLangs[language.code],
+  })};
+  })()`;
+}
