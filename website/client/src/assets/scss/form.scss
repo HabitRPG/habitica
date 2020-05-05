@@ -69,10 +69,23 @@ input, textarea, input.form-control, textarea.form-control {
 }
 
 .input-group {
+  border-radius: 2px;
+  border: solid 1px $gray-300;
+  background: $gray-600;
+  height: 2rem;
+
+  &:focus, &:active, &:focus-within {
+    border: solid 1px $purple-400;
+  }
+
   .input-group-prepend , .input-group-append  {
     background: $gray-600;
     color: $gray-300;
-    border-radius: 2px;
+    border: 0;
+    height: 30px;
+    min-width: 32px;
+    margin: 0;
+
 
     &.input-group-text {
       font-size: 14px;
@@ -83,10 +96,11 @@ input, textarea, input.form-control, textarea.form-control {
     }
 
     &.input-group-icon {
-      border: solid 1px $gray-400;
-      border-right: none;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
+      display: flex;
+      align-self: center;
+      align-items: center;
+      justify-items: center;
+      justify-content: center;
     }
 
     &.streak-addon .svg-icon {
@@ -98,13 +112,13 @@ input, textarea, input.form-control, textarea.form-control {
     &.positive-addon .svg-icon {
       width: 10px;
       height: 10px;
-      margin: 14px 14px;
+      // margin: 14px 14px;
     }
 
     &.negative-addon .svg-icon {
       width: 10px;
       height: 2px;
-      margin: 18px 14px;
+      // margin: 18px 14px;
     }
   }
 
@@ -114,6 +128,12 @@ input, textarea, input.form-control, textarea.form-control {
 
   input:first-child {
     border-right: none !important;
+  }
+
+  input {
+    height: 30px;
+    border: 0;
+    background: $white !important;
   }
 }
 

@@ -248,8 +248,7 @@
               :calendar-icon="icons.calendar"
               :clear-button="true"
               :clear-button-text="$t('clear')"
-              :today-button="!challengeAccessRequired"
-              :today-button-text="$t('today')"
+              :today-button="false"
               :disabled-picker="challengeAccessRequired"
               :highlighted="calendarHighlights"
             />
@@ -674,10 +673,6 @@
       transition: none;
     }
 
-    .input-group > * {
-      height: 40px;
-    }
-
     input, textarea {
       border: none;
       transition-property: border-color, box-shadow, color, background;
@@ -706,18 +701,6 @@
 
       h2 {
         color: $white;
-      }
-    }
-
-    .task-modal-content {
-      input {
-        background: $white;
-        border: 1px solid $gray-400;
-        color: $gray-200 !important;
-
-        &:focus {
-          color: $gray-50 !important;
-        }
       }
     }
 
