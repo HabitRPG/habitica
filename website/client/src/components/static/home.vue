@@ -36,9 +36,9 @@
               <span>{{ $t('or') }}</span>
             </div>
             <div class="text-center">
-              <social-auth-form network="facebook" />
-              <social-auth-form network="google" />
-              <social-auth-form network="apple" />
+              <social-auth-form network="facebook" class="social-button-home" />
+              <social-auth-form network="google" class="social-button-home"/>
+              <social-auth-form network="apple" class="social-button-home"/>
             </div>
           </div>
           <div class="col-12">
@@ -449,6 +449,28 @@
     }
     ::placeholder { //  Standard browsers
       color: $purple-400;
+    }
+
+    .social-button-home {
+      border-radius: 2px;
+      border: solid 2px #bda8ff;
+      width: 100%;
+      min-height: 40px;
+      padding: .5em;
+      background: transparent;
+      margin-bottom: .5em;
+      color: #bda8ff;
+      transition: .5s;
+
+      span {
+        transition: none;
+      }
+    }
+
+    .social-button-home:hover {
+      cursor: pointer;
+      border-color: #fff;
+      color: #fff;
     }
   }
 

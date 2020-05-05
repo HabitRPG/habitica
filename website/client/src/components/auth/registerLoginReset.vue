@@ -38,17 +38,17 @@
       <div v-if="!forgotPassword">
         <div class="form-group row text-center">
           <div class="col-12 col-md-12">
-            <social-auth-form network="facebook" :login="!registering"/>
+            <social-auth-form network="facebook" :login="!registering" class="btn btn-secondary"/>
           </div>
         </div>
         <div class="form-group row text-center">
           <div class="col-12 col-md-12">
-            <social-auth-form network="google" :login="!registering"/>
+            <social-auth-form network="google" :login="!registering" class="btn btn-secondary"/>
           </div>
         </div>
         <div class="form-group row text-center">
           <div class="col-12 col-md-12">
-            <social-auth-form network="apple" :login="!registering"/>
+            <social-auth-form network="apple" :login="!registering" class="btn btn-secondary"/>
           </div>
         </div>
         <div class="strike">
