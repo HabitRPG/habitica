@@ -34,14 +34,12 @@
       text-align: left;
       font-weight: bold;
     }
-
-    :v-deep .register-form-authForm {
+    ::v-deep .register-form-authForm {
       .form-group {
         text-align: left;
         font-weight: bold;
       }
-
-      small.form-text {
+      .small {
         text-align: center;
       }
     }

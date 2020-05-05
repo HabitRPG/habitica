@@ -31,7 +31,9 @@
             <p class="form-text" style="padding-top: 1em;">
               {{ $t('usernameLimitations') }}
             </p>
-            <register-form class="register-form-homePage" />
+            <register-form
+              class="register-form-homePage"
+              :showFormLabel="false"/>
             <div class="strike">
               <span>{{ $t('or') }}</span>
             </div>

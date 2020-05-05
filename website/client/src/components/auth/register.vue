@@ -4,7 +4,7 @@
   >
     <div class="form-group">
       <label
-        v-if="!isHomePage"
+        v-if="showFormLabel"
         v-once
         for="usernameInput">
           {{ $t('username') }}
@@ -14,30 +14,30 @@
         v-model="username"
         class="form-control input-with-error"
         type="text"
-        :placeholder="$t(isHomePage?'username':'usernamePlaceholder')"
+        :placeholder="$t(showFormLabel?'usernamePlaceholder':'username')"
         :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
       >
       <div v-for="issue in usernameIssues" :key="issue" class="input-error">{{ issue }}</div>
     </div>
     <div class="form-group">
-      <label v-if="!isHomePage" v-once for="emailInput">{{ $t('email') }}</label>
+      <label v-if="showFormLabel" v-once for="emailInput">{{ $t('email') }}</label>
       <input
         id="emailInput"
         v-model="email"
         class="form-control"
         type="email"
-        :placeholder="$t(isHomePage?'email':'emailPlaceholder')"
+        :placeholder="$t(showFormLabel?'emailPlaceholder':'email')"
         :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
       >
     </div>
     <div class="form-group">
-      <label v-if="!isHomePage" v-once for="passwordInput">{{ $t('password') }}</label>
+      <label v-if="showFormLabel" v-once for="passwordInput">{{ $t('password') }}</label>
       <input
         id="passwordInput"
         v-model="password"
         class="form-control"
         type="password"
-        :placeholder="$t(isHomePage?'password':'passwordPlaceholder')"
+        :placeholder="$t(showFormLabel?'passwordPlaceholder':'password')"
         :class="{
             'input-invalid input-with-error': passwordInvalid,
             'input-valid': passwordValid
@@ -47,7 +47,7 @@
     </div>
     <div class="form-group">
       <label
-        v-if="!isHomePage"
+        v-if="showFormLabel"
         v-once
         for="confirmPasswordInput">
           {{ $t('confirmPassword') }}
@@ -57,19 +57,14 @@
         v-model="passwordConfirm"
         class="form-control input-with-error"
         type="password"
-        :placeholder="$t(isHomePage?'confirmPassword':'confirmPasswordPlaceholder')"
+        :placeholder="$t(showFormLabel?'confirmPasswordPlaceholder':'confirmPassword')"
         :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
       >
       <div v-if="passwordConfirmInvalid" class="input-error">
         {{ $t('passwordConfirmationMatch') }}
       </div>
-      <p
-        v-if="isHomePage"
-        v-once
-        class="form-text"
-        v-html="$t('termsAndAgreement')"
-      ></p>
-      <small v-else v-once class="form-text" v-html="$t('termsAndAgreement')"></small>
+      <p v-once class="form-text small" v-html="$t('termsAndAgreement')">
+      </p>
     </div>
     <div class="text-center">
       <button
@@ -78,7 +73,7 @@
         :disabled="signupFormInvalid"
         @click="register"
       >{{ $t('signup') }}</button>
-      <div class="toggle-links" v-if="!isPlansPage && !isHomePage">
+      <div class="toggle-links" v-if="showToggleLoginLink">
         <router-link :to="{name: 'login'}" exact="exact">
           <a v-once class="toggle-link" v-html="$t('alreadyHaveAccountLogin')"></a>
         </router-link>
@@ -97,6 +92,20 @@ import isEmail from 'validator/lib/isEmail';
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 
 export default {
+  props: {
+    showFormLabel: {
+      type: Boolean,
+      default: true,
+    },
+    showToggleLoginLink: {
+      type: Boolean,
+      default: false,
+    },
+    showTermAndAgreement: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     const data = {
       username: '',
@@ -109,24 +118,6 @@ export default {
     return data;
   },
   computed: {
-    isHomePage () {
-      if (this.$route.path.startsWith('/static/home')) {
-        return true;
-      }
-      return false;
-    },
-    isRegisterPage () {
-      if (this.$route.path.startsWith('/register')) {
-        return true;
-      }
-      return false;
-    },
-    isPlansPage () {
-      if (this.$route.path.startsWith('/static/plans')) {
-        return true;
-      }
-      return false;
-    },
     usernameValid () {
       if (this.username.length < 1) return false;
       return this.usernameIssues.length === 0;

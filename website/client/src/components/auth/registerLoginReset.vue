@@ -56,7 +56,10 @@
         </div>
       </div>
       <login-form v-if="!registering" @forgotPassword="forgotPassword = true"/>
-      <register-form v-if="registering" class="register-form"/>
+      <register-form
+        v-if="registering"
+        class="register-form"
+        :showToggleLoginLink="true"/>
     </div>
     <div
       id="bottom-wrap"
