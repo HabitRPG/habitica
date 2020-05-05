@@ -78,7 +78,7 @@ export default {
     async castEnd (target, type) {
       if (!this.$store.state.spellOptions.castingSpell) return null;
       let beforeQuestProgress;
-      if (this.spell.target === 'party') beforeQuestProgress = this.questProgress();
+      if (this.spell.target === 'task') beforeQuestProgress = this.questProgress();
 
       if (!this.applyingAction) return 'No applying action';
 
@@ -153,10 +153,10 @@ export default {
 
 
       this.markdown(msg); // @TODO: mardown directive?
-      if (!beforeQuestProgress) return null;
+      if (beforeQuestProgress === undefined) return null;
       const questProgress = this.questProgress() - beforeQuestProgress;
       if (questProgress > 0) {
-        const userQuest = this.quests[this.user.party.quest.key];
+        const userQuest = this.quests.quests[this.user.party.quest.key];
         if (userQuest.boss) {
           this.quest('questDamage', questProgress.toFixed(1));
         } else if (userQuest.collection && userQuest.collect) {
