@@ -2089,5 +2089,9 @@
     "armorArmoireBoxArmorNotes": "Box Armor: It fits, therefore you sits... uh, therefore you wear it into battle, like the bold knight you are! Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Paper Knight Set (Item 3 of 3). ",
     "armorArmoireBoxArmorText": "Box Armor",
     "weaponArmoirePaperCutterNotes": "This may not look fearsome, but have you never had a papercut? Increases Strength by <%= str %>. Enchanted Armoire: Paper Knight Set (Item 1 of 3).",
-    "weaponArmoirePaperCutterText": "Paper Cutter"
+    "weaponArmoirePaperCutterText": "Paper Cutter",
+    "headAccessoryMystery202005Notes": "With such mighty horns, what creature dares challenge you? Confers no benefit. May 2020 Subscriber Item.",
+    "headAccessoryMystery202005Text": "Wondrous Wyvern Horns",
+    "backMystery202005Notes": "Despite their slight tatters, these wings can still carry you wherever you need to travel. Confers no benefit. May 2020 Subscriber Item.",
+    "backMystery202005Text": "Wondrous Wyvern Wings"
 }

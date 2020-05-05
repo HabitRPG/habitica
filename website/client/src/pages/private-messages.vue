@@ -72,8 +72,8 @@
           />
         </div>
         <button
-          class="btn btn-secondary"
           v-if="canLoadMoreConversations"
+          class="btn btn-secondary"
           @click="loadConversations()"
         >
           {{ $t('loadMore') }}
@@ -608,6 +608,23 @@ export default {
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      const data = vm.$store.state.privateMessageOptions;
+
+      if ((!data || (data && !data.userIdToMessage)) && vm.$route.query && vm.$route.query.uuid) {
+        vm.$store.dispatch('user:userLookup', { uuid: vm.$route.query.uuid }).then(res => {
+          if (res && res.data && res.data.data) {
+            vm.$store.dispatch('user:newPrivateMessageTo', {
+              member: res.data.data,
+            });
+          }
+        });
+      } else {
+        vm.hasPrivateMessageOptionsOnPageLoad = true;
+      }
+    });
+  },
   async mounted () {
     // notification click to refresh
     this.$root.$on(EVENTS.PM_REFRESH, async () => {
@@ -625,8 +642,11 @@ export default {
 
     await this.reload();
 
-    const data = this.$store.state.privateMessageOptions;
+    // close members modal if the Private Messages page is opened in an existing tab
+    this.$root.$emit('habitica::dismiss-modal', 'profile');
+    this.$root.$emit('habitica::dismiss-modal', 'members-modal');
 
+    const data = this.$store.state.privateMessageOptions;
     if (data && data.userIdToMessage) {
       this.initiatedConversation = {
         uuid: data.userIdToMessage,
@@ -800,6 +820,7 @@ export default {
   methods: {
     async reload () {
       this.loaded = false;
+      this.conversationPage = 0;
 
       this.loadedConversations = [];
       this.selectedConversation = {};

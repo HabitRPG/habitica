@@ -2063,7 +2063,7 @@
     "headSpecialSpring2020MageText": "Chapéu de goteira",
     "headSpecialSpring2020WarriorNotes": "Os golpes de seus inimigos vão vislumbrar este elmo inspirado em besouros! Aumenta a Força em <%= str %>. Equipamento de edição limitada da primavera de 2020.",
     "headSpecialSpring2020WarriorText": "Elmo de besouro",
-    "headSpecialSpring2020RogueNotes": "Tão vibrante e valioso que você será tentado a roubá-lo de sua própria cabeça. Aumenta a percepção em <% = per %>. Equipamento de edição limitada da primavera de 2020.",
+    "headSpecialSpring2020RogueNotes": "Tão vibrante e valioso que você será tentado a roubá-lo de sua própria cabeça. Aumenta a percepção em <%= per %>. Equipamento de edição limitada da primavera de 2020.",
     "armorSpecialSpring2020HealerNotes": "Envolva-se em folhas e pétalas de íris macias para enganar os inimigos e subestimar o seu poder de cura. Aumenta a Constituição em <%= con %>. Equipamento de edição limitada da primavera de 2020.",
     "armorSpecialSpring2020HealerText": "Pétalas de proteção",
     "armorSpecialSpring2020MageNotes": "Se você não consegue resistir a pisar nos restos das tempestades, esta armadura é para você! Transforme um impulso infantil em uma exibição de arte mística. Aumenta a Inteligência em <%= int %>. Equipamento de edição limitada da primavera de 2020.",
@@ -2089,5 +2089,9 @@
     "armorArmoireBoxArmorNotes": "Armadura de caixa de papelão: se couber, portanto, você senta... ops, portanto você o usa em batalha, como o cavaleiro ousado que você é! Aumenta Percepção e Constituição em <%= attrs %> , cada. Armário Encantado: Conjunto do Cavaleiro de papel (Item 3 de 3). ",
     "armorArmoireBoxArmorText": "Armadura de caixa de papelão",
     "weaponArmoirePaperCutterNotes": "Isso pode não parecer assustador, mas você nunca teve um cortador de papel? Aumenta Força em <%= str %>. Armário Encantado: Conjunto do Cavaleiro de papel (Item 1 de 3).",
-    "weaponArmoirePaperCutterText": "Cortador de papel"
+    "weaponArmoirePaperCutterText": "Cortador de papel",
+    "headAccessoryMystery202005Notes": "Com chifres tão poderosos, que criatura ousa te desafiar? Não confere benefícios. Item de assinante, Maio de 2020.",
+    "headAccessoryMystery202005Text": "Maravilhosos chifres de serpe",
+    "backMystery202005Notes": "Apesar dos pequenos rasgos, essas asas podem carregá-lo(a) para onde você precisa viajar. Não confere benefícios. Item de assinante, Maio de 2020.",
+    "backMystery202005Text": "Maravilhosas asas de serpe"
 }

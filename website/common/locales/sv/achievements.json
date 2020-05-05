@@ -66,5 +66,6 @@
     "onboardingProgress": "<%= percentage %>% framsteg",
     "foundNewItems": "Du har hittat nya objekt!",
     "foundNewItemsCTA": "Gå till ditt Förråd och prova att kombinera ditt nya kläckningsbrygd och ägg!",
-    "foundNewItemsExplanation": "Genom att utföra uppgifter får du en chans att hitta objekt, som ägg, kläckningsbrygder och mat."
+    "foundNewItemsExplanation": "Genom att utföra uppgifter får du en chans att hitta objekt, som ägg, kläckningsbrygder och mat.",
+    "yourProgress": "Dina Framsteg"
 }
