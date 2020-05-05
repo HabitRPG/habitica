@@ -66,6 +66,7 @@
 </style>
 
 <script>
+import { startCase } from 'lodash';
 import { buildAppleAuthUrl } from '@/libs/auth';
 import googleIcon from '@/assets/svg/google.svg';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
@@ -100,7 +101,7 @@ export default {
     },
     translateOptions () {
       return {
-        social: this.network.charAt(0).toUpperCase() + this.network.slice(1),
+        social: startCase(this.network),
       };
     },
     socialIcon () {
