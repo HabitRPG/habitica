@@ -1,7 +1,5 @@
-import _ from 'lodash';
 import nconf from 'nconf';
 import {
-  availableLanguages,
   BROWSER_SCRIPT_CACHE_PATH,
   geti18nBrowserScript,
 } from '../../libs/i18n';
@@ -22,16 +20,14 @@ api.geti18nBrowserScript = {
   method: 'GET',
   url: '/i18n/browser-script',
   async handler (req, res) {
-    const language = _.find(availableLanguages, { code: req.language });
-
     if (IS_PROD) {
-      res.sendFile(`${BROWSER_SCRIPT_CACHE_PATH}${language}.js`);
+      res.sendFile(`${BROWSER_SCRIPT_CACHE_PATH}${req.language}.js`);
     } else {
       res.set({
         'Content-Type': 'application/javascript',
       });
 
-      const jsonResString = geti18nBrowserScript(language);
+      const jsonResString = geti18nBrowserScript(req.language);
       res.status(200).send(jsonResString);
     }
   },

@@ -117,14 +117,16 @@ export const multipleVersionsLanguages = {
   },
 };
 
-export function geti18nBrowserScript (language) {
+export function geti18nBrowserScript (languageCode) {
+  const language = _.find(availableLanguages, { code: languageCode });
+
   return `(function () {
     if (!window) return;
     window['habitica-i18n'] = ${JSON.stringify({
     availableLanguages,
     language,
-    strings: translations[language.code],
-    momentLang: momentLangs[language.code],
+    strings: translations[languageCode],
+    momentLang: momentLangs[languageCode],
   })};
   })()`;
 }
