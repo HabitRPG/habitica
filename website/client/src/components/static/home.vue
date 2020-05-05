@@ -31,7 +31,7 @@
             <p class="form-text" style="padding-top: 1em;">
               {{ $t('usernameLimitations') }}
             </p>
-            <register-form />
+            <register-form class="register-form-homePage" />
             <div class="strike">
               <span>{{ $t('or') }}</span>
             </div>
@@ -471,6 +471,30 @@
       cursor: pointer;
       border-color: #fff;
       color: #fff;
+    }
+    ::v-deep .register-form-homePage {
+      padding-bottom: 1em;
+
+      input {
+        margin-bottom: 1em;
+        border-radius: 2px;
+        background-color: #432874;
+        border-color: #432874;
+        color: $purple-400;
+        border: solid 2px transparent;
+        transition-timing-function: ease;
+        transition: border .5s, color .5s;
+      }
+
+      .sign-up {
+        padding-top: 11px;
+        padding-bottom: 11px;
+      }
+
+      h1, h2, h3, h4, h5, h6, button, .strike > span, input {
+        font-family: 'Varela Round', sans-serif;
+        font-weight: normal;
+      }
     }
   }
 

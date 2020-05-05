@@ -56,7 +56,7 @@
         </div>
       </div>
       <login-form v-if="!registering" @forgotPassword="forgotPassword = true"/>
-      <register-form v-if="registering" />
+      <register-form v-if="registering" class="register-form"/>
     </div>
     <div
       id="bottom-wrap"
@@ -149,6 +149,69 @@
       width: 144px;
       height: 31px;
       margin: 2em auto;
+    }
+    ::v-deep .register-form {
+      margin: 0 auto;
+      width: 40em;
+      position: relative;
+      z-index: 1;
+
+      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: $purple-400;
+      }
+      ::-moz-placeholder { /* Firefox 19+ */
+        color: $purple-400;
+      }
+      :-ms-input-placeholder { /* IE 10+ */
+        color: $purple-400;
+      }
+      :-moz-placeholder { /* Firefox 18- */
+        color: $purple-400;
+      }
+      ::placeholder { //  Standard browsers
+        color: $purple-400;
+      }
+
+      label {
+        color: $white;
+        font-weight: bold;
+      }
+
+      input {
+        margin-bottom: 2em;
+        border-radius: 2px;
+        background-color: #432874;
+        border-color: transparent;
+        height: 50px;
+        color: $white;
+      }
+
+      .input-with-error.input-invalid {
+        margin-bottom: 0.5em;
+      }
+
+      #confirmPasswordInput + .input-error {
+        margin-bottom: 2em;
+      }
+
+      .form-text {
+        font-size: 14px;
+        color: $white;
+      }
+
+      .toggle-links {
+        margin-top: 1em;
+      }
+
+      .toggle-link {
+        color: $white !important;
+      }
+
+      .input-error {
+        color: #fff;
+        font-size: 90%;
+        width: 100%;
+      }
     }
   }
 

@@ -1,10 +1,5 @@
 <template>
   <form
-    :class="{
-      'register-form': isRegisterPage,
-      'register-form-plansPage': isPlansPage,
-      'register-form-homePage': isHomePage,
-    }"
     @submit.prevent.stop="register"
   >
     <div class="form-group">
@@ -94,106 +89,6 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-
-  .register-form {
-    margin: 0 auto;
-    width: 40em;
-    position: relative;
-    z-index: 1;
-
-    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-      color: $purple-400;
-    }
-    ::-moz-placeholder { /* Firefox 19+ */
-      color: $purple-400;
-    }
-    :-ms-input-placeholder { /* IE 10+ */
-      color: $purple-400;
-    }
-    :-moz-placeholder { /* Firefox 18- */
-      color: $purple-400;
-    }
-    ::placeholder { //  Standard browsers
-      color: $purple-400;
-    }
-
-    label {
-      color: $white;
-      font-weight: bold;
-    }
-
-    input {
-      margin-bottom: 2em;
-      border-radius: 2px;
-      background-color: #432874;
-      border-color: transparent;
-      height: 50px;
-      color: $white;
-    }
-
-    .input-with-error.input-invalid {
-      margin-bottom: 0.5em;
-    }
-
-    #confirmPasswordInput + .input-error {
-      margin-bottom: 2em;
-    }
-
-    .form-text {
-      font-size: 14px;
-      color: $white;
-    }
-
-    .toggle-links {
-      margin-top: 1em;
-    }
-
-    .toggle-link {
-      color: $white !important;
-    }
-
-    .input-error {
-      color: #fff;
-      font-size: 90%;
-      width: 100%;
-    }
-  }
-
-  .register-form-plansPage {
-    .form-group {
-      text-align: left;
-      font-weight: bold;
-    }
-
-    small.form-text {
-      text-align: center;
-    }
-  }
-
-  .register-form-homePage {
-    padding-bottom: 1em;
-
-    input {
-      margin-bottom: 1em;
-      border-radius: 2px;
-      background-color: #432874;
-      border-color: #432874;
-      color: $purple-400;
-      border: solid 2px transparent;
-      transition-timing-function: ease;
-      transition: border .5s, color .5s;
-    }
-
-    .sign-up {
-      padding-top: 11px;
-      padding-bottom: 11px;
-    }
-
-    h1, h2, h3, h4, h5, h6, button, .strike > span, input {
-      font-family: 'Varela Round', sans-serif;
-      font-weight: normal;
-    }
-  }
 </style>
 
 <script>

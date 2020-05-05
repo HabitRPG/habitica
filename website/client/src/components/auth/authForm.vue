@@ -15,7 +15,7 @@
         <social-auth-form network="apple" class="btn btn-secondary" />
       </div>
     </div>
-    <register-form />
+    <register-form class="register-form-authForm"/>
   </div>
 </template>
 
@@ -33,6 +33,17 @@
     .form-group {
       text-align: left;
       font-weight: bold;
+    }
+
+    :v-deep .register-form-authForm {
+      .form-group {
+        text-align: left;
+        font-weight: bold;
+      }
+
+      small.form-text {
+        text-align: center;
+      }
     }
   }
 </style>
