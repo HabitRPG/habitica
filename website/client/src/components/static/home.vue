@@ -453,7 +453,7 @@
       color: $purple-400;
     }
 
-    .social-button-home {
+    ::v-deep .social-button-home {
       border-radius: 2px;
       border: solid 2px #bda8ff;
       width: 100%;
@@ -467,9 +467,11 @@
       span {
         transition: none;
       }
+      font-family: 'Varela Round', sans-serif;
+      font-weight: normal;
     }
 
-    .social-button-home:hover {
+    ::v-deep .social-button-home:hover {
       cursor: pointer;
       border-color: #fff;
       color: #fff;
