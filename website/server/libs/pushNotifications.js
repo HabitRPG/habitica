@@ -92,7 +92,13 @@ export function sendNotification (user, details = {}) {
                 // from when failed === NotRegistered
                 // Blacklisted can happen in some rare cases,
                 // see https://stackoverflow.com/questions/42136122/why-does-firebase-push-token-return-blacklisted
-                if (failed === 'InvalidRegistration' || pushDevice.regId === 'BLACKLISTED') {
+                // MismatchSenderId could be due to old tokens,
+                // see https://stackoverflow.com/questions/11313342/why-do-i-get-mismatchsenderid-from-gcm-server-side
+                if (
+                  failed === 'InvalidRegistration'
+                  || failed === 'MismatchSenderId'
+                  || pushDevice.regId === 'BLACKLISTED'
+                ) {
                   removePushDevice(user, pushDevice);
                 }
                 logger.error(new Error('FCM error'), {

@@ -105,4 +105,32 @@ describe('highlightMentions', () => {
       expect(result[0]).to.equal('[@user](/profile/111) `@user`');
     });
   });
+
+  it('github issue 12118, method crashes when square brackets are used', async () => {
+    const text = '[test]';
+
+    let err;
+
+    try {
+      await highlightMentions(text);
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).to.be.undefined;
+  });
+
+  it('github issue 12138, method crashes when regex chars are used in code block', async () => {
+    const text = '`[test]`';
+
+    let err;
+
+    try {
+      await highlightMentions(text);
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).to.be.undefined;
+  });
 });

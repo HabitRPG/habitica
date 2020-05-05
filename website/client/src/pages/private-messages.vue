@@ -72,8 +72,8 @@
           />
         </div>
         <button
-          class="btn btn-secondary"
           v-if="canLoadMoreConversations"
+          class="btn btn-secondary"
           @click="loadConversations()"
         >
           {{ $t('loadMore') }}
@@ -800,6 +800,7 @@ export default {
   methods: {
     async reload () {
       this.loaded = false;
+      this.conversationPage = 0;
 
       this.loadedConversations = [];
       this.selectedConversation = {};

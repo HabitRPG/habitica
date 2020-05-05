@@ -72,7 +72,7 @@ module.exports = {
       .exclude
       .add(path.resolve(__dirname, 'src/assets/svg/for-css'))
       .end()
-      .use('svg-ingline-loader')
+      .use('svg-inline-loader')
       .loader('svg-inline-loader')
       .end()
       .use('svgo-loader')
