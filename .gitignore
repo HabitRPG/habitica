@@ -4,6 +4,7 @@ website/transpiled-babel/
 website/common/transpiled-babel/
 node_modules
 content_cache
+i18n_cache
 apidoc_build
 *.swp
 .idea*
