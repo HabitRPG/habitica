@@ -542,6 +542,9 @@ export default {
         }, 0);
         if (this.item.pinType === 'premiumHatchingPotion') {
           petsRemaining -= this.user.items.hatchingPotions[this.item.key] + 2 || 2;
+          if (this.item.path.indexOf('wackyHatchingPotions.') !== -1) {
+            petsRemaining -= 9;
+          }
         } else {
           petsRemaining -= this.user.items.eggs[this.item.key] || 0;
         }
