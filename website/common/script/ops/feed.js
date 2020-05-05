@@ -61,7 +61,7 @@ export default function feed (user, req = {}, analytics) {
     throw new NotFound(i18n.t('messageFoodNotFound', req.language));
   }
 
-  if (pet.type === 'special') {
+  if (pet.type === 'special' || pet.type === 'wacky') {
     throw new NotAuthorized(i18n.t('messageCannotFeedPet', req.language));
   }
 

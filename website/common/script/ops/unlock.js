@@ -1,17 +1,70 @@
 import get from 'lodash/get';
-import each from 'lodash/each';
-import pick from 'lodash/pick';
 import setWith from 'lodash/setWith';
 import i18n from '../i18n';
-import splitWhitespace from '../libs/splitWhitespace';
-import {
-  NotAuthorized,
-  BadRequest,
-} from '../libs/errors';
+import { NotAuthorized, BadRequest } from '../libs/errors';
 
 import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
+
+const incentiveBackgrounds = ['blue', 'green', 'red', 'purple', 'yellow'];
+
+function determineCost (isBackground, isFullSet) {
+  if (isBackground) {
+    return isFullSet ? 3.75 : 1.75;
+  }
+  return isFullSet ? 1.25 : 0.5;
+}
+
+function isGear (path) {
+  return path.includes('gear.');
+}
+
+function alreadyUnlocked (user, path) {
+  return isGear(path)
+    ? get(user, path) !== undefined
+    : get(user, `purchased.${path}`);
+}
+
+function setAsObject (target, key, value) {
+  // Using Object so path[1] won't create an array but an object {path: {1: value}}
+  setWith(target, key, value, Object);
+}
+
+/**
+ * Splits `items.gear.owned.headAccessory_wolfEars` into `items.gear.owned`
+ * and `headAccessory_wolfEars`
+ */
+function splitPathItem (path) {
+  return path.match(/(.+)\.([^.]+)/).splice(1);
+}
+
+/**
+ * `markModified` does not exist on frontend users
+ */
+function markModified (user, path) {
+  if (user.markModified) user.markModified(path);
+}
+
+function purchaseItem (path, user) {
+  if (isGear(path)) {
+    setAsObject(user, path, true);
+    const itemName = splitPathItem(path)[1];
+    removeItemByPath(user, `gear.flat.${itemName}`);
+    if (path.includes('gear.owned')) markModified(user, 'items.gear.owned');
+  } else {
+    setAsObject(user, `purchased.${path}`, true);
+    markModified(user, 'purchased');
+  }
+}
+
+function buildResponse ({ purchased, preference, items }, ownsAlready, language) {
+  const response = [
+    { purchased, preference, items },
+  ];
+  if (!ownsAlready) response.push(i18n.t('unlocked', language));
+  return response;
+}
 
 // If item is already purchased -> equip it
 // Otherwise unlock it
@@ -22,86 +75,45 @@ export default function unlock (user, req = {}, analytics) {
     throw new BadRequest(i18n.t('pathRequired', req.language));
   }
 
-  const isFullSet = path.indexOf(',') !== -1;
-  const isBackground = path.indexOf('background.') !== -1;
+  const isFullSet = path.includes(',');
+  const isBackground = path.startsWith('background.');
+  const cost = determineCost(isBackground, isFullSet);
 
-  let cost;
-  if (isBackground && isFullSet) {
-    cost = 3.75;
-  } else if (isBackground) {
-    cost = 1.75;
-  } else if (isFullSet) {
-    cost = 1.25;
-  } else {
-    cost = 0.5;
-  }
-
-  let setPaths;
-  let alreadyOwns;
+  const setPaths = path.split(',');
+  let unlockedAlready;
 
   if (isFullSet) {
-    setPaths = path.split(',');
-    let alreadyOwnedItems = 0;
-
-    each(setPaths, singlePath => {
-      if (get(user, `purchased.${singlePath}`) === true) {
-        alreadyOwnedItems += 1;
-      }
-    });
-
-    if (alreadyOwnedItems === setPaths.length) {
+    const alreadyUnlockedItems = setPaths.filter(p => alreadyUnlocked(user, p)).length;
+    const totalItems = setPaths.length;
+    if (alreadyUnlockedItems === totalItems) {
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
-    // TODO write math formula to check if buying
-    // the full set is cheaper than the items individually
-    // (item cost * number of remaining items) < setCost`
-    } /* else if (alreadyOwnedItems > 0) {
-      throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
-    } */
+    // TODO Different pull request
+    // } else if ((totalItems - alreadyOwnedItems) < 3) {
+    //   throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
+    }
   } else {
-    alreadyOwns = get(user, `purchased.${path}`) === true;
+    unlockedAlready = alreadyUnlocked(user, path);
   }
 
-  if (isBackground && !alreadyOwns && (path.indexOf('.blue') !== -1 || path.indexOf('.green') !== -1 || path.indexOf('.red') !== -1 || path.indexOf('.purple') !== -1 || path.indexOf('.yellow') !== -1)) {
+  if (isBackground && !unlockedAlready
+      && incentiveBackgrounds.some(background => path.includes(`.${background}`))) {
     throw new BadRequest(i18n.t('incentiveBackgroundsUnlockedWithCheckins'));
   }
 
-  if ((!user.balance || user.balance < cost) && !alreadyOwns) {
+  if ((!user.balance || user.balance < cost) && !unlockedAlready) {
     throw new NotAuthorized(i18n.t('notEnoughGems', req.language));
   }
 
   if (isFullSet) {
-    each(setPaths, pathPart => {
-      if (path.indexOf('gear.') !== -1) {
-        // Using Object so path[1] won't create an array but an object {path: {1: value}}
-        setWith(user, pathPart, true, Object);
-        const itemName = pathPart.split('.').pop();
-        removeItemByPath(user, `gear.flat.${itemName}`);
-        if (user.markModified && path.indexOf('gear.owned') !== -1) user.markModified('items.gear.owned');
-      }
-
-      // Using Object so path[1] won't create an array but an object {path: {1: value}}
-      setWith(user, `purchased.${pathPart}`, true, Object);
-    });
+    setPaths.forEach(pathPart => purchaseItem(pathPart, user));
   } else {
-    const split = path.split('.');
-    let value = split.pop();
-    const key = split.join('.');
+    const [key, value] = splitPathItem(path);
 
-    if (alreadyOwns) { // eslint-disable-line no-lonely-if
-      if (key === 'background' && value === user.preferences.background) {
-        value = '';
-      }
-
-      // Using Object so path[1] won't create an array but an object {path: {1: value}}
-      setWith(user, `preferences.${key}`, value, Object);
+    if (unlockedAlready) {
+      const unsetBackground = isBackground && value === user.preferences.background;
+      setAsObject(user, `preferences.${key}`, unsetBackground ? '' : value);
     } else {
-      if (path.indexOf('gear.') !== -1) {
-        // Using Object so path[1] won't create an array but an object {path: {1: value}}
-        setWith(user, path, true, Object);
-        if (user.markModified && path.indexOf('gear.owned') !== -1) user.markModified('items.gear.owned');
-      }
-      // Using Object so path[1] won't create an array but an object {path: {1: value}}
-      setWith(user, `purchased.${path}`, true, Object);
+      purchaseItem(path, user);
 
       // @TODO: Test and check test coverage
       if (isBackground) {
@@ -112,11 +124,7 @@ export default function unlock (user, req = {}, analytics) {
     }
   }
 
-  if (!alreadyOwns) {
-    if (path.indexOf('gear.') === -1) {
-      if (user.markModified) user.markModified('purchased');
-    }
-
+  if (!unlockedAlready) {
     user.balance -= cost;
 
     if (analytics) {
@@ -132,11 +140,5 @@ export default function unlock (user, req = {}, analytics) {
     }
   }
 
-  const response = [
-    pick(user, splitWhitespace('purchased preferences items')),
-  ];
-
-  if (!alreadyOwns) response.push(i18n.t('unlocked', req.language));
-
-  return response;
+  return buildResponse(user, unlockedAlready, req.language);
 }

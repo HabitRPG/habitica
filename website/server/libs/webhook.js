@@ -22,7 +22,7 @@ function sendWebhook (webhook, body, user) {
     logger.error(webhookErr, {
       extraMessage: 'Error while sending a webhook request.',
       userId: user._id,
-      webhook,
+      webhookId: webhook.id,
     });
 
     let _failuresReset = false;

@@ -5,7 +5,7 @@
     "innCheckIn": "Descansar na Pousada",
     "innText": "Você está descansando na Pousada! Durante o check-in, suas Diárias não lhe causarão dano no final do dia, mas elas ainda irão atualizar todos os dias. Fique avisado: se você estiver participando de uma Missão de Chefão, o chefe ainda irá causar dano pelas Diárias perdidas dos membros do seu Grupo, a menos que eles também estejam na Pousada! Além disso, seu próprio dano ao Chefão (ou itens coletados) não será aplicado até que você saia da Pousada.",
     "innTextBroken": "Você está descansando na Pousada, eu acho ... Enquanto estiver na Pousada, suas Diárias não vão te machucar no final do dia, mas elas ainda irão atualizar todos os dias ... Se você estiver participando de uma Missão de Chefão, o Chefão ainda irá causar dano pelas Diárias perdidas dos  membros do seu Grupo, a menos que eles também estejam na Pousada... Além disso, seu próprio dano ao Chefão (ou itens coletados) não será aplicado até você sair da Pousada... estou tão cansado...",
-    "innCheckOutBanner": "Você está atualmente na Pousada. Suas Diárias não realizadas não te causarão dano e também não poderá ser feito progresso em Missões enquanto estiver na Pousada.",
+    "innCheckOutBanner": "Atualmente, você está na Pousada. Enquanto isso, suas Diárias não realizadas não te causarão dano e também não poderá progredir em Missões.",
     "innCheckOutBannerShort": "Você está descansando na Pousada.",
     "resumeDamage": "Reativar dano",
     "helpfulLinks": "Links úteis",

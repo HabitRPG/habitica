@@ -6,14 +6,12 @@
   >
     <span
       v-if="withPin"
-      class="badge badge-pill badge-dialog"
-      :class="{'item-selected-badge': isPinned}"
+      class="badge-dialog"
       @click.prevent.stop="togglePinned()"
     >
-      <span
-        class="svg-icon inline color icon-10"
-        v-html="icons.pin"
-      ></span>
+      <pin-badge
+        :pinned="isPinned"
+      />
     </span>
     <div class="close">
       <span
@@ -29,7 +27,10 @@
     >
       <div class="inner-content">
         <questDialogContent :item="item" />
-        <div class="purchase-amount">
+        <div
+          v-if="!item.locked"
+          class="purchase-amount"
+        >
           <div class="how-many-to-buy">
             <strong>{{ $t('howManyToBuy') }}</strong>
           </div>
@@ -59,7 +60,8 @@
         </div>
         <button
           v-if="priceType === 'gems'
-            && !enoughCurrency(priceType, item.value * selectedAmountToBuy)"
+            && !enoughCurrency(priceType, item.value * selectedAmountToBuy)
+            && !item.locked"
           class="btn btn-primary"
           @click="purchaseGems()"
         >
@@ -81,6 +83,16 @@
       class="right-sidebar"
     >
       <questDialogDrops :item="item" />
+    </div>
+    <div
+      v-if="item.event"
+      class="limitedTime"
+    >
+      <span
+        class="svg-icon inline icon-16 clock-icon"
+        v-html="icons.clock"
+      ></span>
+      <span class="limitedString">{{ limitedString }}</span>
     </div>
     <div
       slot="modal-footer"
@@ -121,6 +133,9 @@
       margin: 33px auto auto;
     }
 
+    .modal-body {
+      padding-bottom: 0px;
+    }
 
     .questInfo {
       width: 70%;
@@ -193,18 +208,24 @@
       display: block;
     }
 
-    .badge-dialog {
-      color: $gray-300;
-      position: absolute;
-      left: -14px;
-      padding: 8px 10px;
-      top: -12px;
-      background: white;
-      cursor: pointer;
+    .limitedTime {
+      height: 32px;
+      background-color: $purple-300;
+      width: calc(100% + 30px);
+      margin: 0 -15px; // the modal content has its own padding
 
-      &.item-selected-badge {
-        background: $purple-300;
-        color: $white;
+      font-size: 12px;
+      line-height: 1.33;
+      text-align: center;
+      color: $white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .limitedString {
+        height: 16px;
+        margin-left: 8px;
       }
     }
 
@@ -247,13 +268,15 @@
 </style>
 
 <script>
+import moment from 'moment';
 import { mapState } from '@/libs/store';
+import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
+import svgClock from '@/assets/svg/clock.svg';
 import svgClose from '@/assets/svg/close.svg';
-import svgGold from '@/assets/svg/gold.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgPin from '@/assets/svg/pin.svg';
 import svgExperience from '@/assets/svg/experience.svg';
+import svgGem from '@/assets/svg/gem.svg';
+import svgGold from '@/assets/svg/gold.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
 
 import BalanceInfo from '../balanceInfo.vue';
@@ -261,6 +284,7 @@ import currencyMixin from '../_currencyMixin';
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
 import numberInvalid from '@/mixins/numberInvalid';
+import PinBadge from '@/components/ui/pinBadge';
 
 import questDialogDrops from './questDialogDrops';
 import questDialogContent from './questDialogContent';
@@ -268,6 +292,7 @@ import questDialogContent from './questDialogContent';
 export default {
   components: {
     BalanceInfo,
+    PinBadge,
     questDialogDrops,
     questDialogContent,
   },
@@ -286,11 +311,11 @@ export default {
   data () {
     return {
       icons: Object.freeze({
+        clock: svgClock,
         close: svgClose,
-        gold: svgGold,
-        gem: svgGem,
-        pin: svgPin,
         experience: svgExperience,
+        gem: svgGem,
+        gold: svgGold,
         hourglass: svgHourglasses,
       }),
 
@@ -318,6 +343,9 @@ export default {
       if (this.priceType === 'gold') return this.icons.gold;
       if (this.priceType === 'hourglasses') return this.icons.hourglass;
       return this.icons.gem;
+    },
+    limitedString () {
+      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
     },
   },
   watch: {

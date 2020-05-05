@@ -1,12 +1,12 @@
 .Pet-Hippo-Base {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -82px 0px;
+  background-position: 0px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Hippo-CottonCandyBlue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -82px -1100px;
+  background-position: -82px 0px;
   width: 81px;
   height: 99px;
 }
@@ -996,7 +996,7 @@
 }
 .Pet-Parrot-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: 0px 0px;
+  background-position: -82px -1100px;
   width: 81px;
   height: 99px;
 }

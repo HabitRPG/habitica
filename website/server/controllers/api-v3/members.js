@@ -1,3 +1,4 @@
+import escapeRegExp from 'lodash/escapeRegExp';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as User,
@@ -24,7 +25,7 @@ import { sentMessage } from '../../libs/inbox';
 import {
   sanitizeText as sanitizeMessageText,
 } from '../../models/message';
-import { highlightMentions } from '../../libs/highlightMentions';
+import highlightMentions from '../../libs/highlightMentions';
 
 const { achievements } = common;
 
@@ -354,7 +355,8 @@ function _getMembersForItem (type) {
 
       if (req.query.search) {
         // Creates a RegExp expression when querying for profile.name
-        query['profile.name'] = { $regex: new RegExp(req.query.search, 'i') };
+        const escapedSearch = escapeRegExp(req.query.search);
+        query['profile.name'] = { $regex: new RegExp(escapedSearch, 'i') };
       }
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if

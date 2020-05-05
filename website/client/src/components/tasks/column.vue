@@ -81,6 +81,8 @@
         ref="tasksList"
         class="sortable-tasks"
         :options="{disabled: activeFilter.label === 'scheduled' || !isUser, scrollSensitivity: 64}"
+        :delay-on-touch-only="true"
+        :delay="100"
         @update="taskSorted"
         @start="isDragging(true)"
         @end="isDragging(false)"
@@ -101,6 +103,8 @@
         <draggable
           ref="rewardsList"
           class="reward-items"
+          :delay-on-touch-only="true"
+          :delay="100"
           @update="rewardSorted"
           @start="rewardDragStart"
           @end="rewardDragEnd"
@@ -109,7 +113,6 @@
             v-for="reward in inAppRewards"
             :key="reward.key"
             :item="reward"
-            :highlight-border="reward.isSuggested"
             :show-popover="showPopovers"
             :popover-position="'left'"
             @click="openBuyDialog(reward)"
@@ -119,14 +122,12 @@
               slot-scope="ctx"
             >
               <span
-                class="badge badge-pill badge-item badge-svg"
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}"
+                class="badge-top"
                 @click.prevent.stop="togglePinned(ctx.item)"
               >
-                <span
-                  class="svg-icon inline icon-12 color"
-                  v-html="icons.pin"
-                ></span>
+                <pin-badge
+                  :pinned="ctx.item.pinned"
+                />
               </span>
             </template>
           </shopItem>
@@ -141,6 +142,14 @@
 
   ::v-deep .draggable-cursor {
     cursor: grabbing;
+  }
+
+  .badge-pin {
+    display: none;
+  }
+
+  .item:hover .badge-pin {
+    display: block;
   }
 
   .tasks-column {
@@ -331,6 +340,7 @@ import buyMixin from '@/mixins/buy';
 import { mapState, mapActions, mapGetters } from '@/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
+import PinBadge from '@/components/ui/pinBadge';
 
 import notifications from '@/mixins/notifications';
 import { shouldDo } from '@/../../common/script/cron';
@@ -343,7 +353,6 @@ import {
   getActiveFilter,
 } from '@/libs/store/helpers/filterTasks';
 
-import svgPin from '@/assets/svg/pin.svg';
 import habitIcon from '@/assets/svg/habit.svg';
 import dailyIcon from '@/assets/svg/daily.svg';
 import todoIcon from '@/assets/svg/todo.svg';
@@ -355,6 +364,7 @@ export default {
     Task,
     ClearCompletedTodos,
     BuyQuestModal,
+    PinBadge,
     shopItem,
     draggable,
   },
@@ -380,7 +390,6 @@ export default {
       daily: dailyIcon,
       todo: todoIcon,
       reward: rewardIcon,
-      pin: svgPin,
     });
 
     const typeLabel = '';

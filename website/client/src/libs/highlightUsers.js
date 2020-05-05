@@ -1,7 +1,7 @@
 import escapeRegExp from 'lodash/escapeRegExp';
 
 const optionalAnchorTagRegExStr = '(<\\w[^>]*)?'; // everything including the anchor tag is recognized
-const mentionRegExStr = '(@[\\w-]+)';
+const mentionRegExStr = '(@(?:<(?:em|strong)>)?[\\w-]+(?:<\\/(?:em|strong)>)?)';
 const optionalPostMentionRegExStr = '(\\.\\w+)?'; // like dot-TLD
 
 const finalMentionRegEx = new RegExp(`${optionalAnchorTagRegExStr}${mentionRegExStr}${optionalPostMentionRegExStr}`, 'gi');
@@ -14,9 +14,12 @@ export function highlightUsers (text, userName, displayName) { // eslint-disable
       return fullMatched;
     }
 
-    const isUserMention = currentUser.includes(mentionStr) ? 'at-highlight' : '';
+    let fixedStr = mentionStr.replace(/<\/?em>/g, '_');
+    fixedStr = fixedStr.replace(/<\/?strong>/g, '__');
 
-    return fullMatched.replace(mentionStr, `<span class="at-text ${isUserMention}">${mentionStr}</span>`);
+    const isUserMention = currentUser.includes(fixedStr) ? 'at-highlight' : '';
+
+    return fullMatched.replace(mentionStr, `<span class="at-text ${isUserMention}">${fixedStr}</span>`);
   });
 
   return text;

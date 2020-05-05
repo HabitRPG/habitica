@@ -162,6 +162,7 @@ export default new Schema({
     text: String,
     // a markdown textarea to list their contributions + links
     contributions: String,
+    // user can own Critical Hammer of Bug-Crushing if this has a truthy value
     critical: String,
   },
 
@@ -654,6 +655,11 @@ export default new Schema({
     path: { $type: String },
     type: { $type: String },
   }],
+
+  // only visible to staff and moderators
+  secret: {
+    text: String,
+  },
 }, {
   skipVersioning: { notifications: true },
   strict: true,

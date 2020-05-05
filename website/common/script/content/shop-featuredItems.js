@@ -24,7 +24,7 @@ const featuredItems = {
           path: 'premiumHatchingPotions.Celestial',
         },
         {
-          type: 'hatchingPotions',
+          type: 'premiumHatchingPotion',
           path: 'hatchingPotions.Veggie',
         },
       ];

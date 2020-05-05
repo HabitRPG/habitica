@@ -18,7 +18,9 @@ const ContactPage = () => import(/* webpackChunkName: "static" */'@/components/s
 const FAQPage = () => import(/* webpackChunkName: "static" */'@/components/static/faq');
 const FeaturesPage = () => import(/* webpackChunkName: "static" */'@/components/static/features');
 const GroupPlansPage = () => import(/* webpackChunkName: "static" */'@/components/static/groupPlans');
-const MerchPage = () => import(/* webpackChunkName: "static" */'@/components/static/merch');
+// Commenting out merch page see
+// https://github.com/HabitRPG/habitica/issues/12039
+// const MerchPage = () => import(/* webpackChunkName: "static" */'@/components/static/merch');
 const NewsPage = () => import(/* webpackChunkName: "static" */'@/components/static/newStuff');
 const OverviewPage = () => import(/* webpackChunkName: "static" */'@/components/static/overview');
 const PressKitPage = () => import(/* webpackChunkName: "static" */'@/components/static/pressKit');
@@ -300,9 +302,11 @@ const router = new VueRouter({
         {
           name: 'front', path: 'front', component: HomePage, meta: { requiresLogin: false },
         },
-        {
-          name: 'merch', path: 'merch', component: MerchPage, meta: { requiresLogin: false },
-        },
+        // Commenting out merch page see
+        // https://github.com/HabitRPG/habitica/issues/12039
+        // {
+        //   name: 'merch', path: 'merch', component: MerchPage, meta: { requiresLogin: false },
+        // },
         {
           name: 'news', path: 'new-stuff', component: NewsPage, meta: { requiresLogin: false },
         },

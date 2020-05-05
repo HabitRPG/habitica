@@ -4,6 +4,7 @@ import moment from 'moment';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
 import {
+  EVENTS,
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
@@ -514,7 +515,7 @@ const quests = {
     value: 1,
     category: 'pet',
     canBuy () {
-      return true;
+      return false;
     },
     collect: {
       plainEgg: {
@@ -2240,10 +2241,6 @@ const quests = {
     completion: t('questDustBunniesCompletion'),
     value: 1,
     category: 'unlockable',
-    unlockCondition: {
-      condition: 'party invite',
-      text: t('createAccountReward'),
-    },
     boss: {
       name: t('questDustBunniesBoss'),
       hp: 100,
@@ -3584,6 +3581,7 @@ const quests = {
     completion: t('questWaffleCompletion'),
     value: 4,
     category: 'hatchingPotion',
+    event: EVENTS.spring2020,
     boss: {
       name: t('questWaffleBoss'),
       hp: 500,

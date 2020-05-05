@@ -160,8 +160,10 @@ api.redirectApple = {
     }
     let url = `/static/apple-redirect?code=${req.body.code}`;
     if (req.body.user) {
-      const { name } = JSON.parse(req.body.user);
-      url += `&name=${name.firstName} ${name.lastName}`;
+      const parsedBody = JSON.parse(req.body.user);
+      if (parsedBody && parsedBody.name) {
+        url += `&name=${parsedBody.name.firstName} ${parsedBody.name.lastName}`;
+      }
     }
     return res.redirect(303, url);
   },
