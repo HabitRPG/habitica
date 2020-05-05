@@ -488,6 +488,8 @@
   "weaponArmoireBaseballBatNotes": "Get a home run on those good habits! Increases Constitution by <%= con %>. Enchanted Armoire: Baseball Set (Item 3 of 4).",
   "weaponArmoirePaperCutterText": "Paper Cutter",
   "weaponArmoirePaperCutterNotes": "This may not look fearsome, but have you never had a papercut? Increases Strength by <%= str %>. Enchanted Armoire: Paper Knight Set (Item 1 of 3).",
+  "weaponArmoireFiddlersBowText": "Fiddler's Bow",
+  "weaponArmoireFiddlersBowNotes": "You can coax music out of anything with this! ...A violin might work best, though. Increases Strength by <%= str %>. Enchanted Armoire: Fiddler Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1049,7 +1051,9 @@
   "armorArmoireBaseballUniformText": "Baseball Uniform",
   "armorArmoireBaseballUniformNotes": "Pinstripes never go out of style. Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Baseball Set (Item 2 of 4).",
   "armorArmoireBoxArmorText": "Box Armor",
-  "armorArmoireBoxArmorNotes": "Box Armor: It fits, therefore you sits... uh, therefore you wear it into battle, like the bold knight you are! Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Paper Knight Set (Item 3 of 3). ",
+  "armorArmoireBoxArmorNotes": "Box Armor: It fits, therefore you sits... uh, therefore you wear it into battle, like the bold knight you are! Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Paper Knight Set (Item 3 of 3).",
+  "armorArmoireFiddlersCoatText": "Fiddler's Coat",
+  "armorArmoireFiddlersCoatNotes": "A practical outfit to give you plenty of room to move! Increases Constitution by <%= con %>. Enchanted Armoire: Fiddler Set (Item 2 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1628,6 +1632,8 @@
   "headArmoireMatchMakersBeretNotes": "You'll look striking wearing this lovely hat! Increases Constitution by <%= con %>. Enchanted Armoire: Match Maker Set (Item 2 of 4).",
   "headArmoireBaseballCapText": "Baseball Cap",
   "headArmoireBaseballCapNotes": "Let everyone know that you're on Team Habitica! Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Baseball Set (Item 1 of 4).",
+  "headArmoireFiddlersCapText": "Fiddler's Cap",
+  "headArmoireFiddlersCapNotes": "Put on this jaunty cap to let everyone know who's dancing to whose tune! Increases Perception by <%= per %>. Enchanted Armoire: Fiddler Set (Item 1 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1943,6 +1949,8 @@
   "shieldArmoireBaseballGloveNotes": "Perfect for the big tournament, or a friendly game of catch between tasks. Increases Strength by <%= str %>. Enchanted Armoire: Baseball Set (Item 4 of 4).",
   "shieldArmoireHobbyHorseText": "Hobby Horse",
   "shieldArmoireHobbyHorseNotes": "Ride your handsome hobby-horse steed toward your just Rewards! Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Paper Knight Set (Item 2 of 3).",
+  "shieldArmoireFiddleText": "Fiddler's Violin",
+  "shieldArmoireFiddleNotes": "A perfect instrument that always strikes the right note in company. Increases Intelligence by <%= int %>. Enchanted Armoire: Fiddler Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
