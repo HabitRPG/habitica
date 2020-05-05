@@ -25,10 +25,10 @@ api.geti18nBrowserScript = {
     const language = _.find(availableLanguages, { code: req.language });
 
     if (IS_PROD) {
-      res.sendFile(`${BROWSER_SCRIPT_CACHE_PATH}${language}.json`);
+      res.sendFile(`${BROWSER_SCRIPT_CACHE_PATH}${language}.js`);
     } else {
       res.set({
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/javascript',
       });
 
       const jsonResString = geti18nBrowserScript(language);

@@ -48,12 +48,10 @@ gulp.task('cache:i18n', done => {
       if (err.code !== 'EEXIST') throw err;
     }
 
-    // clone the content for each language and save
-    // localize it
-    // save the result
+    // create and save the i18n browser script for each language
     availableLanguages.forEach(language => {
       fs.writeFileSync(
-        `${BROWSER_SCRIPT_CACHE_PATH}${language.code}.json`,
+        `${BROWSER_SCRIPT_CACHE_PATH}${language.code}.js`,
         geti18nBrowserScript(language),
         'utf8',
       );
