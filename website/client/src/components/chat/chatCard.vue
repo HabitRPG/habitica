@@ -202,7 +202,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
 import max from 'lodash/max';
 
-import renderMarkdown from '@/libs/renderMarkdown';
+import renderWithMentions from '@/libs/renderWithMentions';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
 
@@ -360,7 +360,7 @@ export default {
       });
     },
     parseMarkdown (text) {
-      return renderMarkdown(String(text), this.user);
+      return renderWithMentions(text, this.user);
     },
   },
 };

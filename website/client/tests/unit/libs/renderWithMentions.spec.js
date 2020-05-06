@@ -1,6 +1,6 @@
-import renderMarkdown from '@/libs/renderMarkdown';
+import renderMarkdown from '@/libs/renderWithMentions';
 
-describe('highlightUserAndEmail', () => {
+describe('renderWithMentions', () => {
   function user (name, displayName) {
     return { auth: { local: { username: name } }, profile: { name: displayName } };
   }

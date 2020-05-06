@@ -139,7 +139,7 @@
 import axios from 'axios';
 import moment from 'moment';
 
-import renderMarkdown from '@/libs/renderMarkdown';
+import renderWithMentions from '@/libs/renderWithMentions';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
 
@@ -204,7 +204,7 @@ export default {
       await axios.delete(`/api/v4/inbox/messages/${message.id}`);
     },
     parseMarkdown (text) {
-      return renderMarkdown(String(text), this.user);
+      return renderWithMentions(text, this.user);
     },
   },
 };
