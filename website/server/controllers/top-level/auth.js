@@ -28,7 +28,9 @@ api.logout = {
   async handler (req, res) {
     if (req.logout) req.logout(); // passportjs method
     req.session = null;
-    res.redirect('/');
+
+    const redirectUrl = req.query.redirectToLogin === 'true' ? '/login' : '/';
+    res.redirect(redirectUrl);
   },
 };
 

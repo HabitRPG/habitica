@@ -543,6 +543,23 @@ const armor = {
     set: 'baseball',
     canOwn: ownsItem('armor_armoire_baseballUniform'),
   },
+  boxArmor: {
+    text: t('armorArmoireBoxArmorText'),
+    notes: t('armorArmoireBoxArmorNotes', { attrs: 5 }),
+    value: 100,
+    per: 5,
+    con: 5,
+    set: 'paperKnight',
+    canOwn: ownsItem('armor_armoire_boxArmor'),
+  },
+  fiddlersCoat: {
+    text: t('armorArmoireFiddlersCoatText'),
+    notes: t('armorArmoireFiddlersCoatNotes', { con: 6 }),
+    value: 100,
+    con: 6,
+    set: 'fiddler',
+    canOwn: ownsItem('armor_armoire_fiddlersCoat'),
+  },
 };
 
 const body = {
@@ -1107,6 +1124,14 @@ const head = {
     set: 'baseball',
     canOwn: ownsItem('head_armoire_baseballCap'),
   },
+  fiddlersCap: {
+    text: t('headArmoireFiddlersCapText'),
+    notes: t('headArmoireFiddlersCapNotes', { per: 6 }),
+    value: 100,
+    per: 6,
+    set: 'fiddler',
+    canOwn: ownsItem('head_armoire_fiddlersCap'),
+  },
 };
 
 const shield = {
@@ -1417,6 +1442,23 @@ const shield = {
     str: 9,
     set: 'baseball',
     canOwn: ownsItem('shield_armoire_baseballGlove'),
+  },
+  hobbyHorse: {
+    text: t('shieldArmoireHobbyHorseText'),
+    notes: t('shieldArmoireHobbyHorseNotes', { attrs: 4 }),
+    value: 100,
+    per: 4,
+    con: 4,
+    set: 'paperKnight',
+    canOwn: ownsItem('shield_armoire_hobbyHorse'),
+  },
+  fiddle: {
+    text: t('shieldArmoireFiddleText'),
+    notes: t('shieldArmoireFiddleNotes', { int: 6 }),
+    value: 100,
+    int: 6,
+    set: 'fiddler',
+    canOwn: ownsItem('shield_armoire_fiddle'),
   },
 };
 
@@ -1896,6 +1938,22 @@ const weapon = {
     con: 9,
     set: 'baseball',
     canOwn: ownsItem('weapon_armoire_baseballBat'),
+  },
+  paperCutter: {
+    text: t('weaponArmoirePaperCutterText'),
+    notes: t('weaponArmoirePaperCutterNotes', { str: 9 }),
+    value: 100,
+    str: 9,
+    set: 'paperKnight',
+    canOwn: ownsItem('weapon_armoire_paperCutter'),
+  },
+  fiddlersBow: {
+    text: t('weaponArmoireFiddlersBowText'),
+    notes: t('weaponArmoireFiddlersBowNotes', { str: 6 }),
+    value: 100,
+    str: 6,
+    set: 'fiddler',
+    canOwn: ownsItem('weapon_armoire_fiddlersBow'),
   },
 };
 

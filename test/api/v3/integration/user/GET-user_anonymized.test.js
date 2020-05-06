@@ -12,7 +12,11 @@ describe('GET /user/anonymized', () => {
   const endpoint = '/user/anonymized';
 
   before(async () => {
-    user = await generateUser();
+    user = await generateUser({
+      secret: {
+        text: 'Clark Kent',
+      },
+    });
     await user.update({
       newMessages: ['some', 'new', 'messages'],
       'profile.name': 'profile',
@@ -100,5 +104,7 @@ describe('GET /user/anonymized', () => {
         });
       }
     });
+
+    expect(returnedUser.secret).to.not.exist;
   });
 });

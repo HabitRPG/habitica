@@ -1,29 +1,23 @@
-import { SEASONAL_SETS } from '../content/constants';
+// import { SEASONAL_SETS } from '../content/constants';
 
 export default {
-  opened: true,
+  opened: false,
 
-  currentSeason: 'Spring',
+  currentSeason: 'Closed',
 
-  dateRange: { start: '2020-03-19', end: '2020-04-30' },
+  dateRange: { start: '2019-09-24', end: '2019-10-31' },
 
   availableSets: [
-    ...SEASONAL_SETS.spring,
   ],
 
   pinnedSets: {
-    healer: 'spring2020IrisHealerSet',
-    rogue: 'spring2020LapisLazuliRogueSet',
-    warrior: 'spring2020BeetleWarriorSet',
-    wizard: 'spring2020PuddleMageSet',
   },
 
   availableSpells: [
   ],
 
   availableQuests: [
-    'egg',
   ],
 
-  featuredSet: 'spring2020PuddleMageSet',
+  featuredSet: 'fall2018AlterEgoSet',
 };

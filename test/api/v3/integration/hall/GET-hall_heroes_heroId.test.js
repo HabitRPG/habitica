@@ -7,6 +7,12 @@ import {
 describe('GET /heroes/:heroId', () => {
   let user;
 
+  const heroFields = [
+    '_id', 'id', 'balance', 'profile', 'purchased',
+    'contributor', 'secret', 'auth', 'items',
+    'preferences', 'lastCron', 'party',
+  ];
+
   before(async () => {
     user = await generateUser({
       contributor: { admin: true },
@@ -43,16 +49,16 @@ describe('GET /heroes/:heroId', () => {
   it('returns only necessary hero data given user id', async () => {
     const hero = await generateUser({
       contributor: { tier: 23 },
+      secret: {
+        text: 'Super Hero',
+      },
     });
     const heroRes = await user.get(`/hall/heroes/${hero._id}`);
 
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items',
-      'preferences', 'lastCron', 'party',
-    ]);
+    expect(heroRes).to.have.all.keys(heroFields); // works as: object has all and only these keys
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
+    expect(heroRes.secret.text).to.be.eq('Super Hero');
   });
 
   it('returns only necessary hero data given username', async () => {
@@ -61,11 +67,7 @@ describe('GET /heroes/:heroId', () => {
     });
     const heroRes = await user.get(`/hall/heroes/${hero.auth.local.username}`);
 
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items',
-      'preferences', 'lastCron', 'party',
-    ]);
+    expect(heroRes).to.have.all.keys(heroFields);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
   });

@@ -11,6 +11,12 @@
       <span slot="popoverContent">
         <strong v-if="item.key === 'gem' && gemsLeft === 0">{{ $t('maxBuyGems') }}</strong>
         <h4 class="popover-content-title">{{ item.text }}</h4>
+        <div
+          v-if="item.event"
+          class="mt-2"
+        >
+          {{ limitedString }}
+        </div>
       </span>
       <template
         slot="itemBadge"
@@ -26,13 +32,14 @@
 import _filter from 'lodash/filter';
 import _sortBy from 'lodash/sortBy';
 import _map from 'lodash/map';
+import moment from 'moment';
 import { mapState } from '@/libs/store';
 import pinUtils from '@/mixins/pinUtils';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
+import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
 import ShopItem from '../shopItem';
 import CategoryItem from './categoryItem';
-
 
 export default {
   components: {
@@ -52,6 +59,9 @@ export default {
       if (!this.user.purchased.plan) return 0;
       return planGemLimits.convCap
         + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
+    },
+    limitedString () {
+      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
     },
     sortedMarketItems () {
       let result = _map(this.category.items, e => ({

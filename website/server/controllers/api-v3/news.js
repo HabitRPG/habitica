@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR MARCH SUBSCRIBER ITEMS AND HUG A BUG BUNDLE!';
+const LAST_ANNOUNCEMENT_TITLE = 'MAY BACKGROUNDS AND ARMOIRE ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,27 +31,22 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/30/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>5/5/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_202003 center-block"></div>
-        <h3>Last Chance for Barbed Battler Set</h3>
+        <div class="promo_armoire_backgrounds_202005 center-block"></div>
         <p>
-          Reminder: this is the last day to receive the Barbed Battler Set when you <a
-          href='/user/settings/subscription'>sign up for a new Habitica subscription</a>!
-          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
-          you can get!
+          We’ve added three new backgrounds to the Background Shop! Now your avatar can soar in a
+          Hot Air Balloon, pick fresh treats in a Strawberry Patch, and caper on Habit City
+          Rooftops. Check them out under User Icon > Backgrounds on web and Menu > Inventory >
+          Customize Avatar on mobile!
         </p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_hugabug_bundle center-block"></div>
-        <h3>Last Chance for Hug a Bug Pet Quest Bundle</h3>
         <p>
-          This is also the final day to buy the discounted Hug a Bug Pet Quest Bundle, featuring
-          the Snail, Beetle, and Butterfly quests, all for seven Gems! Be sure to take your bug-
-          catching net over to the <a href='/shops/quests'>Quest Shop</a> before it bugs out!
+          Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the
+          Fiddler Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
         </p>
+        <div class="small mb-3">by FolleMente, QuartzFox, Katy133, weeWitch, and Ricardo</div>
       </div>
       `,
     });
