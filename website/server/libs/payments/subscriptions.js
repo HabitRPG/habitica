@@ -17,7 +17,7 @@ import {
 } from '../errors';
 import shared from '../../../common';
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
-import { calculateSubscriptionTerminationDate } from './util';
+import calculateSubscriptionTerminationDate from './calculateSubscriptionTerminationDate';
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
@@ -314,7 +314,9 @@ async function cancelSubscription (data) {
     sendEmail = false; // because group-member-cancel email has already been sent
   }
 
-  plan.dateTerminated = calculateSubscriptionTerminationDate(data.nextBill, plan, this.constants);
+  plan.dateTerminated = calculateSubscriptionTerminationDate(
+    data.nextBill, plan, this.constants.GROUP_PLAN_CUSTOMER_ID,
+  );
 
   // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
   plan.extraMonths = 0;

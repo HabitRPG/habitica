@@ -1,7 +1,5 @@
 import { v4 as generateUUID } from 'uuid';
-import {
-  each,
-} from 'lodash';
+import each from 'lodash/each';
 import moment from 'moment';
 import {
   generateChallenge,
@@ -13,7 +11,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 import { model as User } from '../../../../../website/server/models/user';
 import payments from '../../../../../website/server/libs/payments/payments';
-import { calculateSubscriptionTerminationDate } from '../../../../../website/server/libs/payments/util';
+import calculateSubscriptionTerminationDate from '../../../../../website/server/libs/payments/calculateSubscriptionTerminationDate';
 
 describe('POST /groups/:groupId/leave', () => {
   const typesOfGroups = {
@@ -359,6 +357,7 @@ describe('POST /groups/:groupId/leave', () => {
           'purchased.plan.extraMonths': extraMonths,
         });
       });
+
       it('calculates dateTerminated and sets extraMonths to zero after user leaves the group', async () => {
         const userBeforeLeave = await User.findById(member._id).exec();
 
@@ -373,7 +372,7 @@ describe('POST /groups/:groupId/leave', () => {
         const expectedTerminationDate = calculateSubscriptionTerminationDate(null, {
           customerId: payments.constants.GROUP_PLAN_CUSTOMER_ID,
           extraMonths,
-        }, payments.constants);
+        }, payments.constants.GROUP_PLAN_CUSTOMER_ID);
 
         expect(extraMonthsBefore).to.gte(12);
         expect(extraMonthsAfter).to.equal(0);

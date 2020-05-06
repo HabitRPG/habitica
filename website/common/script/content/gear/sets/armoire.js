@@ -552,6 +552,14 @@ const armor = {
     set: 'paperKnight',
     canOwn: ownsItem('armor_armoire_boxArmor'),
   },
+  fiddlersCoat: {
+    text: t('armorArmoireFiddlersCoatText'),
+    notes: t('armorArmoireFiddlersCoatNotes', { con: 6 }),
+    value: 100,
+    con: 6,
+    set: 'fiddler',
+    canOwn: ownsItem('armor_armoire_fiddlersCoat'),
+  },
 };
 
 const body = {
@@ -1116,6 +1124,14 @@ const head = {
     set: 'baseball',
     canOwn: ownsItem('head_armoire_baseballCap'),
   },
+  fiddlersCap: {
+    text: t('headArmoireFiddlersCapText'),
+    notes: t('headArmoireFiddlersCapNotes', { per: 6 }),
+    value: 100,
+    per: 6,
+    set: 'fiddler',
+    canOwn: ownsItem('head_armoire_fiddlersCap'),
+  },
 };
 
 const shield = {
@@ -1435,6 +1451,14 @@ const shield = {
     con: 4,
     set: 'paperKnight',
     canOwn: ownsItem('shield_armoire_hobbyHorse'),
+  },
+  fiddle: {
+    text: t('shieldArmoireFiddleText'),
+    notes: t('shieldArmoireFiddleNotes', { int: 6 }),
+    value: 100,
+    int: 6,
+    set: 'fiddler',
+    canOwn: ownsItem('shield_armoire_fiddle'),
   },
 };
 
@@ -1922,6 +1946,14 @@ const weapon = {
     str: 9,
     set: 'paperKnight',
     canOwn: ownsItem('weapon_armoire_paperCutter'),
+  },
+  fiddlersBow: {
+    text: t('weaponArmoireFiddlersBowText'),
+    notes: t('weaponArmoireFiddlersBowNotes', { str: 6 }),
+    value: 100,
+    str: 6,
+    set: 'fiddler',
+    canOwn: ownsItem('weapon_armoire_fiddlersBow'),
   },
 };
 

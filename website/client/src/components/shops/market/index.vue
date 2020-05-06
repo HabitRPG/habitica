@@ -176,14 +176,8 @@ import FilterDropdown from '@/components/ui/filterDropdown';
 import MarketFilter from './filter';
 
 import SellModal from './sellModal.vue';
-
-import svgPin from '@/assets/svg/pin.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgInformation from '@/assets/svg/information.svg';
-
 import getItemInfo from '@/../../common/script/libs/getItemInfo';
 import shops from '@/../../common/script/libs/shops';
-
 
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
@@ -222,13 +216,6 @@ export default {
 
       searchText: null,
       searchTextThrottled: null,
-
-      icons: Object.freeze({
-        pin: svgPin,
-        gem: svgGem,
-        information: svgInformation,
-      }),
-
       sortItemsBy: sortItems,
       selectedSortItemsBy: sortItems[0],
 

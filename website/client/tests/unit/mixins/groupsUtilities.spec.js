@@ -1,14 +1,18 @@
-import Vue from 'vue';
+import { createLocalVue } from '@vue/test-utils';
 import groupsUtilities from '@/mixins/groupsUtilities';
 import { TAVERN_ID } from '@/../../common/script/constants';
 import generateStore from '@/store';
+import Store from '@/libs/store';
+
+const LocalVue = createLocalVue();
+LocalVue.use(Store);
 
 describe('Groups Utilities Mixin', () => {
-  let instance; let
-    user;
+  let instance;
+  let user;
 
   before(() => {
-    instance = new Vue({
+    instance = new LocalVue({
       store: generateStore(),
       mixins: [groupsUtilities],
     });

@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG POSTS: USE CASE AND GUILD SPOTLIGHTS';
+const LAST_ANNOUNCEMENT_TITLE = 'MAY BACKGROUNDS AND ARMOIRE ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,41 +31,22 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>4/23/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>5/5/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_tasks center-block"></div>
-        <h3>Use Case Spotlight</h3>
+        <div class="promo_armoire_backgrounds_202005 center-block"></div>
         <p>
-          This month's <a href='https://habitica.wordpress.com/2020/04/23/use-case-spotlight-managing-longterm-conditions/'
-          target='_blank'>Use Case Spotlight</a> is about Managing Long-Term Conditions! It
-          features a number of great suggestions submitted by Habiticans in the <a
-          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
-          We hope it helps any of you who might be using Habitica to create tasks and goals for
-          mental and physical care.
+          We’ve added three new backgrounds to the Background Shop! Now your avatar can soar in a
+          Hot Air Balloon, pick fresh treats in a Strawberry Patch, and caper on Habit City
+          Rooftops. Check them out under User Icon > Backgrounds on web and Menu > Inventory >
+          Customize Avatar on mobile!
         </p>
         <p>
-          Plus, we're collecting user submissions for the next spotlight! How do you use Habitica
-          to manage your biggest projects? We’ll be featuring player-submitted examples in Use Case
-          Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case
-          Spotlight Guild now. We look forward to learning more about how you use Habitica to
-          improve your life and get things done!
+          Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the
+          Fiddler Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
         </p>
-        <div class="small mb-3">by shanaqui</div>
-        <div class="scene_citrusella center-block"></div>
-        <h3>Guild Spotlight: Citrusella's Favorites</h3>
-        <p>
-          For this year's Guild Spotlight series, we're highlighting some favourites from
-          Habitica's staff, moderators, and some high-level contributors!
-        </p>
-        <p>
-          This month we're sharing some <a href='https://habitica.wordpress.com/2020/04/23/guild-spotlights-our-favourites-3/'
-          target='_blank'>picks from contributor and Tavern fixture citrusella</a>! If you want to
-          curate your Habitica experience and join active, positive Guilds, this is a great way to
-          pick up some new ideas for Guilds to join.
-        </p>
-        <div class="small mb-3">by shanaqui</div>
+        <div class="small mb-3">by FolleMente, QuartzFox, Katy133, weeWitch, and Ricardo</div>
       </div>
       `,
     });

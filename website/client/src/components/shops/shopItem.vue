@@ -16,45 +16,47 @@
         ></slot>
         <span
           v-if="item.event && item.owned == null && showEventBadge"
-          class="badge badge-pill badge-item badge-clock"
+          class="badge badge-round badge-item badge-clock"
         >
           <span
             class="svg-icon inline clock"
             v-html="icons.clock"
           ></span>
         </span>
-        <div class="shop-content">
+        <span
+          v-if="item.locked"
+          class="svg-icon inline lock"
+          v-html="icons.lock"
+        ></span>
+        <span
+          v-if="item.isSuggested"
+          class="suggestedDot"
+        ></span>
+        <div class="image">
+          <div
+            v-once
+            :class="item.class"
+          ></div>
+          <slot
+            name="itemImage"
+            :item="item"
+          ></slot>
+        </div>
+        <div
+          class="price d-flex align-items-center justify-content-center"
+          :class="currencyClass"
+        >
           <span
-            v-if="item.locked"
-            class="svg-icon inline lock"
-            v-html="icons.lock"
+            v-once
+            :class="{ 'w-0': currencyClass === 'unlock'}"
+            class="svg-icon inline icon-16 mr-1"
+            v-html="icons[currencyClass]"
           ></span>
           <span
-            v-if="item.isSuggested"
-            class="suggestedDot"
-          ></span>
-          <div class="image">
-            <div
-              v-once
-              :class="item.class"
-            ></div>
-            <slot
-              name="itemImage"
-              :item="item"
-            ></slot>
-          </div>
-          <div class="price">
-            <span
-              v-once
-              class="svg-icon inline icon-16"
-              v-html="icons[currencyClass]"
-            ></span>
-            <span
-              v-once
-              class="price-label"
-              :class="currencyClass"
-            >{{ getPrice() }}</span>
-          </div>
+            v-once
+            class="price-label"
+            :class="currencyClass"
+          >{{ getPrice() }}</span>
         </div>
       </div>
     </div>
@@ -121,60 +123,66 @@
   }
 
   .item {
-    min-height: 106px;
-  }
-
-  .item:not(.locked) {
+    height: 7.5rem;
+    width: 94px;
+    border-radius: 4px;
+    background-color: $white;
+    box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
     cursor: pointer;
-  }
 
-  .item.item-empty {
-    border-radius: 2px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
-  }
-
-  .shop-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    & > * {
-      margin-top : 12px;
+    &.locked .price {
+      opacity: 0.5;
     }
   }
 
   .image {
-    height: 50px;
+    margin: 12px 13px;
   }
 
-
   .price {
-    .svg-icon {
-      padding-top: 2px;
-      margin-right: 4px;
+    height: 1.75rem;
+    width: 94px;
+    margin-left: -1px;
+    margin-right: -1px;
+    border-radius: 0px 0px 4px 4px;
+
+    &.gems {
+      background-color: rgba($green-100, 0.15);
     }
 
-    margin-top: 1.25em;
+    &.gold {
+      background-color: rgba($yellow-100, 0.15);
+    }
+
+    &.hourglasses {
+      background-color: rgba($blue-50, 0.15);
+    }
+
+    &.unlock {
+      background-color: rgba($gray-400, 0.15);
+    }
   }
 
   .price-label {
-    height: 16px;
     font-family: Roboto;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
     line-height: 1.33;
 
     &.gems {
-      color: $green-10;
+      color: $green-1;
     }
 
     &.gold {
-      color: $yellow-10
+      color: $yellow-1;
+    }
+
+    &.unlock {
+      color: $gray-100;
     }
 
     &.hourglasses {
-      color: $blue-10;
+      color: $blue-1;
     }
   }
 
@@ -185,9 +193,10 @@
     right: 8px;
     top: 8px;
     margin-top: 0;
+    color: $gray-200;
   }
 
-  span.badge.badge-pill.badge-item.badge-clock {
+  span.badge.badge-round.badge-item.badge-clock {
     height: 24px;
     width: 24px;
     background-color: $purple-300;
@@ -206,7 +215,7 @@
   .suggestedDot {
     width: 6px;
     height: 6px;
-    background-color: $suggested-item-color;
+    background-color: $purple-400;
     border-radius: 4px;
 
     position: absolute;
@@ -218,6 +227,10 @@
   .icon-48 {
     width: 48px;
     height: 48px;
+  }
+
+  .w-0 {
+    width: 0rem;
   }
 </style>
 
@@ -234,7 +247,6 @@ import svgClock from '@/assets/svg/clock.svg';
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 
 import QuestInfo from './quests/questInfo.vue';
-
 
 import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
@@ -271,6 +283,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    owned: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return Object.freeze({
@@ -290,6 +306,7 @@ export default {
       return false;
     },
     currencyClass () {
+      if (this.item.unlockCondition && this.item.unlockCondition.condition === 'party invite' && !this.owned) return 'unlock';
       if (this.item.currency && this.icons[this.item.currency]) {
         return this.item.currency;
       }
@@ -305,6 +322,7 @@ export default {
       this.$emit('click', {});
     },
     getPrice () {
+      if (this.item.unlockCondition && this.item.unlockCondition.condition === 'party invite' && !this.owned) return this.item.unlockCondition.text();
       if (this.price === -1) {
         return this.item.value;
       }
