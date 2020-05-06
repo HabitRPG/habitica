@@ -52,24 +52,6 @@ describe('highlightMentions', () => {
     expect(result[0]).to.equal('@nouser message');
   });
 
-  it('doesn\'t highlight users in link', async () => {
-    const text = 'http://www.medium.com/@user/blog';
-    const result = await highlightMentions(text);
-    expect(result[0]).to.equal(text);
-  });
-
-  it('doesn\'t highlight user in link between brackets', async () => {
-    const text = '(http://www.medium.com/@user/blog)';
-    const result = await highlightMentions(text);
-    expect(result[0]).to.equal(text);
-  });
-
-  it('doesn\'t highlight users in link when followed by same @user mention', async () => {
-    const text = 'http://www.medium.com/@user/blog @user';
-    const result = await highlightMentions(text);
-    expect(result[0]).to.equal('http://www.medium.com/@user/blog [@user](/profile/111)');
-  });
-
   it('highlights multiple existing users', async () => {
     const text = '@user message (@user2) @user3 @user';
     const result = await highlightMentions(text);
@@ -80,6 +62,44 @@ describe('highlightMentions', () => {
     const text = '@user @user2 @user3 @user4 @user5 @user6';
     const result = await highlightMentions(text);
     expect(result[0]).to.equal(text);
+  });
+
+  describe('link interactions', async () => {
+    it('doesn\'t highlight users in link', async () => {
+      const text = 'http://www.medium.com/@user/blog';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('doesn\'t highlight user in link between brackets', async () => {
+      const text = '(http://www.medium.com/@user/blog)';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('doesn\'t highlight user in an autolink', async () => {
+      const text = '<http://www.medium.com/@user/blog>';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('doesn\'t highlight users in link text', async () => {
+      const text = '[Check awesome blog written by @user](http://www.medium.com/@user/blog)';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('doesn\'t highlight users in link with newlines and markup', async () => {
+      const text = '[Check `awesome` \nblog **written** by @user](http://www.medium.com/@user/blog)';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('doesn\'t highlight users in link when followed by same @user mention', async () => {
+      const text = 'http://www.medium.com/@user/blog @user';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal('http://www.medium.com/@user/blog [@user](/profile/111)');
+    });
   });
 
   describe('exceptions in code blocks', () => {
