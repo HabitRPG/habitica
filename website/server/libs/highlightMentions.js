@@ -95,10 +95,10 @@ function toSourceMapRegex (token) {
 }
 
 /**
- * Uses habiticaMarkdown to determine what part of the text are code blocks
+ * Uses habiticaMarkdown to determine which text blocks should be ignored (links and code blocks)
  * according to the specification here: https://spec.commonmark.org/0.29/
  */
-function findTextAndIgnoreBlocks (text) {
+function findTextBlocks (text) {
   // For token description see https://markdown-it.github.io/markdown-it/#Token
   // The second parameter is mandatory even if not used, see
   // https://markdown-it.github.io/markdown-it/#MarkdownIt.parse
@@ -112,12 +112,11 @@ function findTextAndIgnoreBlocks (text) {
     const match = targetText.match(regex);
 
     if (match.index) {
-      index += match.index;
       blocks.push({ text: targetText.substr(0, match.index), ignore: false });
     }
 
     blocks.push({ text: match[0], ignore: true });
-    index += match[0].length;
+    index += match.index + match[0].length;
   });
 
   if (index < text.length) {
@@ -135,7 +134,7 @@ function findTextAndIgnoreBlocks (text) {
  * - Skips mentions in links
  */
 export default async function highlightMentions (text) {
-  const textBlocks = findTextAndIgnoreBlocks(text);
+  const textBlocks = findTextBlocks(text);
 
   const mentions = textBlocks.allValidText.match(mentionRegex);
   let members = [];
