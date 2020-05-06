@@ -58,6 +58,12 @@ describe('highlightMentions', () => {
     expect(result[0]).to.equal(text);
   });
 
+  it('doesn\'t highlight user in link between brackets', async () => {
+    const text = '(http://www.medium.com/@user/blog)';
+    const result = await highlightMentions(text);
+    expect(result[0]).to.equal(text);
+  });
+
   it('doesn\'t highlight users in link when followed by same @user mention', async () => {
     const text = 'http://www.medium.com/@user/blog @user';
     const result = await highlightMentions(text);

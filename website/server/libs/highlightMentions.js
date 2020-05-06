@@ -103,12 +103,16 @@ function findTextAndCodeBlocks (text) {
   return new TextWithCodeBlocks(blocks);
 }
 
+function stripBrackets (text) {
+  return text.slice(text[0] === '(', text.slice(-1) === ')' ? -1 : text.length);
+}
+
 function injectLinkIfNecessary (username, userId) {
-  const regex = new RegExp(`(\\S*)(@${username}(?![\\w-]))(\\S*)`, 'g');
+  const regex = new RegExp(`(\\(?[^(\\s]*)(@${username}(?![\\w-]))([^)\\s]*\\)?)`, 'g');
 
   return text => text.replace(regex, (fullMatch, prefix, mention, suffix) => {
     // Can be done with ternary but then linter goes loopy
-    if (habiticaMarkdown.isLinkOrEmail(fullMatch)) {
+    if (habiticaMarkdown.isLinkOrEmail(stripBrackets(fullMatch))) {
       return fullMatch;
     }
     return `${prefix}[${mention}](/profile/${userId})${suffix}`;
