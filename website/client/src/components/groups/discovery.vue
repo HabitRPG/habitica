@@ -55,7 +55,6 @@ b-dropdown(:text="$t('sort')", right=true)
             :handler="triggerFetchGuilds"
             :should-handle="!loading && !hasLoadedAllGuilds"
             :handle-on-mount="true"
-            :threshold="20"
           >
             <span v-once>{{ $t('loading') }}</span>
           </mugen-scroll>
