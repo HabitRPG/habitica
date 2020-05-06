@@ -245,28 +245,14 @@ export default {
     ...mapState({ user: 'user.data' }),
     isUserMentioned () {
       const message = this.msg;
+
+      if (message.highlight) return true;
+
       const { user } = this;
-
-      if (message.highlight) return message.highlight;
-
-      message.highlight = false;
-      const messageText = message.text.toLowerCase();
       const displayName = user.profile.name;
-      const username = user.auth.local && user.auth.local.username;
-      const mentioned = max([
-        messageText.indexOf(username.toLowerCase()),
-        messageText.indexOf(displayName.toLowerCase()),
-      ]);
-      if (mentioned === -1) return message.highlight;
-
-      const escapedDisplayName = escapeRegExp(displayName);
-      const escapedUsername = escapeRegExp(username);
-      const pattern = `@(${escapedUsername}|${escapedDisplayName})(\\b)`;
-      const precedingChar = messageText.substring(mentioned - 1, mentioned);
-      if (mentioned === 0 || precedingChar.trim() === '' || precedingChar === '@') {
-        const regex = new RegExp(pattern, 'i');
-        message.highlight = regex.test(messageText);
-      }
+      const username = user.auth.local.username;
+      const pattern = `@(${escapeRegExp(displayName)}|${escapeRegExp(username)})(\\b)`;
+      message.highlight = new RegExp(pattern, 'i').test(message.text);
 
       return message.highlight;
     },
@@ -319,11 +305,7 @@ export default {
         chatId: message.id,
       });
 
-      if (!message.likes[this.user._id]) {
-        message.likes[this.user._id] = true;
-      } else {
-        message.likes[this.user._id] = !message.likes[this.user._id];
-      }
+      message.likes[this.user._id] = !message.likes[this.user._id];
 
       this.$emit('message-liked', message);
       this.$root.$emit('bv::hide::tooltip');
