@@ -3,7 +3,6 @@
     v-if="forgotPassword"
     id="forgot-form"
     @submit.prevent="forgotPasswordLink"
-    @keyup.enter="forgotPasswordLink"
   >
     <div class="text-center">
       <div class="header">
@@ -29,13 +28,13 @@
       >
     </div>
     <div class="text-center">
-      <div
+      <button
         v-once
         class="btn btn-info"
-        @click="forgotPasswordLink()"
+        type="submit"
       >
         {{ $t('sendLink') }}
-      </div>
+      </button>
     </div>
   </form>
   <form
@@ -104,21 +103,9 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   #login-form, #forgot-form {
-    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-      color: $purple-400;
-    }
-    ::-moz-placeholder { /* Firefox 19+ */
-      color: $purple-400;
-    }
-    :-ms-input-placeholder { /* IE 10+ */
-      color: $purple-400;
-    }
-    :-moz-placeholder { /* Firefox 18- */
-      color: $purple-400;
-    }
     ::placeholder { //  Standard browsers
       color: $purple-400;
-  }
+    }
 
     margin: 0 auto;
     width: 40em;
@@ -135,21 +122,6 @@
       color: $white;
     }
 
-    .gryphon {
-      background-image: url('~@/assets/images/melior@3x.png');
-      width: 63.2px;
-      height: 69.4px;
-      background-size: cover;
-      color: $white;
-      margin: 0 auto;
-    }
-
-    .habitica-logo {
-      width: 144px;
-      height: 31px;
-      margin: 2em auto;
-    }
-
     label {
       color: $white;
       font-weight: bold;
@@ -162,14 +134,6 @@
       border-color: transparent;
       height: 50px;
       color: $white;
-    }
-
-    .input-with-error.input-invalid {
-      margin-bottom: 0.5em;
-    }
-
-    #confirmPasswordInput + .input-error {
-      margin-bottom: 2em;
     }
 
     .form-text {

@@ -62,12 +62,6 @@ export default {
     return data;
   },
   computed: {
-    isHomePage () {
-      if (this.$route.path.startsWith('/static/home')) {
-        return true;
-      }
-      return false;
-    },
     translateOptions () {
       return {
         social: startCase(this.network),
