@@ -24,6 +24,7 @@ api.getNews = {
   async handler (req, res) {
     const baileyClass = worldDmg.bailey ? 'npc_bailey_broken' : 'npc_bailey';
 
+    const lastNewsPost = NewsPost.lastNewsPost();
     res.status(200).send({
       html: `
       <div class="bailey">
@@ -31,20 +32,17 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            <h2>${lastNewsPost.title}</h2>
           </div>
         </div>
         <hr/>
         <div class="quest_ruby center-block"></div>
         <p>
-          It's time for a trip to the snowy hot springs of Stoïkalm! <a href='/shops/quests'>Get
-          the latest Magic Hatching Potion quest</a>, "Ruby Rapport", and collect Ruby Gems,
-          Aquarius Zodiac Runes, and Venus Runes to earn some glittering Ruby Magic Hatching
-          Potions by completing your real-life tasks!
+          ${lastNewsPost.text}
         </p>
         <div class="small">
-          Art by Aspiring_Advocate, gully, Beffymaroo, Tyche_Alba, and loremi
+          ${lastNewsPost.credits}
         </div>
-        <div class="small mb-3">Writing by JohnJSal</div>
       </div>
       `,
     });
