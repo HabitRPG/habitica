@@ -45,6 +45,7 @@
   "hallPatrons": "Hall of Patrons",
   "UUID": "User ID",
   "noAdminAccess": "You don't have admin access.",
+  "noNewsPosterAccess": "You don't have news poster access.",
   "userNotFound": "User not found.",
   "invalidUUID": "UUID must be valid",
   "title": "Title",

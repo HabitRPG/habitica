@@ -17,7 +17,7 @@ export function ensureNewsPoster (req, res, next) {
   const { user } = res.locals;
 
   if (!user.contributor.newsPoster) {
-    return next(new NotAuthorized(res.t('noAdminAccess')));
+    return next(new NotAuthorized(res.t('noNewsPosterAccess')));
   }
 
   return next();
