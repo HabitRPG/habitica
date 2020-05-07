@@ -573,10 +573,10 @@ export default {
         }, 1000);
       }
 
-      /* this.members = await this.loadMembers({
+      this.members = await this.loadMembers({
         groupId: this.group._id,
         includeAllPublicFields: true,
-      }); */
+      });
     },
     hasUnreadMessages (groupId) {
       if (this.user.newMessages[groupId]) return true;

@@ -1,6 +1,6 @@
 <template>
   <base-notification
-    v-if="worldBoss.active"
+    v-if="worldBoss && worldBoss.active"
     :can-remove="false"
     :notification="{}"
     :read-after-click="false"
@@ -11,10 +11,10 @@
       class="background"
     >
       <div class="text">
-        <div class="title">
+        <div class="title" v-once>
           {{ $t('worldBoss') }}
         </div>
-        <div class="sub-title">
+        <div class="sub-title" v-once>
           {{ $t('questDysheartenerText') }}
         </div>
       </div>
@@ -42,6 +42,7 @@
           <div
             class="svg-icon"
             v-html="icons.sword"
+            v-once
           ></div>
           <span>+{{ parseInt(user.party.quest.progress.up) || 0 }}</span>
         </div>
@@ -182,11 +183,13 @@ export default {
         sword,
       }),
       questData,
-      worldBoss: {},
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({
+      user: 'user.data',
+      worldBoss: 'worldState.data.worldBoss',
+    }),
     bossHp () {
       if (this.worldBoss && this.worldBoss.progress) {
         return this.worldBoss.progress.hp;
@@ -195,8 +198,7 @@ export default {
     },
   },
   async mounted () {
-    const result = await this.$store.dispatch('worldState:getWorldState');
-    this.worldBoss = result.worldBoss;
+    await this.$store.dispatch('worldState:getWorldState');
   },
   methods: {
     action () {

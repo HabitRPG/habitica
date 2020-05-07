@@ -56,6 +56,7 @@ export default function () {
       isUserLoaded: false, // Means the user and the user's tasks are ready
       isAmazonReady: false, // Whether the Amazon Payments lib can be used
       user: asyncResourceFactory(),
+      worldState: asyncResourceFactory(),
       credentials: isUserLoggedIn ? {
         API_ID: AUTH_SETTINGS.auth.apiId,
         API_TOKEN: AUTH_SETTINGS.auth.apiToken,
