@@ -7,11 +7,12 @@ import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
 
-function determineCost (setType, isFullSet, set) {
-  if (isBackground) {
-    return isFullSet ? 3.75 : 1.75;
-  }
-  return isFullSet ? 1.25 : 0.5;
+/**
+ * Splits `items.gear.owned.headAccessory_wolfEars` into `items.gear.owned`
+ * and `headAccessory_wolfEars`
+ */
+function splitPathItem (path) {
+  return path.match(/(.+)\.([^.]+)/).splice(1);
 }
 
 /**
@@ -43,35 +44,36 @@ function getSet (setType, firstPath) {
     : content.appearance[setType][itemKey];
 
   if (!item) return invalidSet();
-  // Only animal gear sets are unlockable
-  if (setType === 'gear' && item.gearSet !== 'animal') return invalidSet();
-
 
 
   if (setType === 'gear') {
+    // Only animal gear sets are unlockable
+    if (item.gearSet !== 'animal') return invalidSet();
 
   } else {
     return item.set
   }
 }
 
+//Add comment
+function determineCost (setType, isFullSet, set) {
+  if (isBackground) {
+    return isFullSet ? 3.75 : 1.75;
+  }
+  return isFullSet ? 1.25 : 0.5;
+}
+
+//Add comment
 function alreadyUnlocked (user, path) {
   return isGear(path)
     ? get(user, path) !== undefined
     : get(user, `purchased.${path}`);
 }
 
+//Add comment
 function setAsObject (target, key, value) {
   // Using Object so path[1] won't create an array but an object {path: {1: value}}
   setWith(target, key, value, Object);
-}
-
-/**
- * Splits `items.gear.owned.headAccessory_wolfEars` into `items.gear.owned`
- * and `headAccessory_wolfEars`
- */
-function splitPathItem (path) {
-  return path.match(/(.+)\.([^.]+)/).splice(1);
 }
 
 /**
@@ -81,6 +83,7 @@ function markModified (user, path) {
   if (user.markModified) user.markModified(path);
 }
 
+//Add comment
 function purchaseItem (path, user) {
   if (isGear(path)) {
     setAsObject(user, path, true);
@@ -93,6 +96,7 @@ function purchaseItem (path, user) {
   }
 }
 
+//Add comment
 function buildResponse ({ purchased, preference, items }, ownsAlready, language) {
   const response = [
     { purchased, preference, items },
