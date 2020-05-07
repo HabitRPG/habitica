@@ -361,13 +361,49 @@ export default {
       showSpinner: false,
     });
 
-    // Set up Error interceptors
-    axios.interceptors.response.use(response => {
+    axios.interceptors.response.use(response => { // Set up Response interceptors
+      // Verify that the user was not updated from another browser/app/client
+      // If it was, sync
+      const { url } = response.config;
+      const { method } = response.config;
+
+      const isApiCall = url.indexOf('api/v4') !== -1;
+      const userV = response.data && response.data.userV;
+      const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
+
+      if (this.isUserLoaded && isApiCall && userV) {
+        const oldUserV = this.user._v;
+        this.user._v = userV;
+
+        // Do not sync again if already syncing
+        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
+        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
+        // exclude chat seen requests because with real time chat they would be too many
+        const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
+        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
+
+        // Something has changed on the user object that was not tracked here, sync the user
+        if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
+          Promise.all([
+            this.$store.dispatch('user:fetch', { forceLoad: true }),
+            this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
+          ]);
+        }
+      }
+
+      // Store the app version from the server
+      const serverAppVersion = response.data && response.data.appVersion;
+
+      if (serverAppVersion && this.$store.state.serverAppVersion !== response.data.appVersion) {
+        this.$store.state.serverAppVersion = serverAppVersion;
+      }
+
       if (this.user && response.data && response.data.notifications) {
         this.$set(this.user, 'notifications', response.data.notifications);
       }
+
       return response;
-    }, error => {
+    }, error => { // Set up Error interceptors
       if (error.response.status >= 400) {
         const isBanned = this.checkForBannedUser(error);
         if (isBanned === true) return null; // eslint-disable-line consistent-return
@@ -423,51 +459,6 @@ export default {
       }
 
       return Promise.reject(error);
-    });
-
-    axios.interceptors.response.use(response => {
-      // Verify that the user was not updated from another browser/app/client
-      // If it was, sync
-      const { url } = response.config;
-      const { method } = response.config;
-
-      const isApiCall = url.indexOf('api/v4') !== -1;
-      const userV = response.data && response.data.userV;
-      const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
-
-      if (this.isUserLoaded && isApiCall && userV) {
-        const oldUserV = this.user._v;
-        this.user._v = userV;
-
-        // Do not sync again if already syncing
-        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
-        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
-        // exclude chat seen requests because with real time chat they would be too many
-        const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
-        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
-
-        // Something has changed on the user object that was not tracked here, sync the user
-        if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
-          Promise.all([
-            this.$store.dispatch('user:fetch', { forceLoad: true }),
-            this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
-          ]);
-        }
-      }
-
-      // Verify the client is updated
-      // const serverAppVersion = response.data.appVersion;
-      // let serverAppVersionState = this.$store.state.serverAppVersion;
-      // if (isApiCall && !serverAppVersionState) {
-      //   this.$store.state.serverAppVersion = serverAppVersion;
-      // } else if (isApiCall && serverAppVersionState !== serverAppVersion) {
-      //   if (document.activeElement.tagName !== 'INPUT'
-      // || confirm(this.$t('habiticaHasUpdated'))) {
-      //     location.reload(true);
-      //   }
-      // }
-
-      return response;
     });
 
     // Setup listener for title

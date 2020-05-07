@@ -9,5 +9,6 @@ export async function getWorldState (store, options = {}) {
       return response.data.data;
     },
     forceLoad: options.forceLoad,
+    reloadOnAppVersionChange: true, // reload when the server has been updated
   });
 }

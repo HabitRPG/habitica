@@ -50,10 +50,12 @@ export default function () {
     actions,
     getters,
     state: {
-      serverAppVersion: '',
+      serverAppVersion: null,
       title: 'Habitica',
       isUserLoggedIn,
-      isUserLoaded: false, // Means the user and the user's tasks are ready
+      // Means the user and the user's tasks are ready
+      // @TODO use store.user.loaded since it's an async resource?
+      isUserLoaded: false,
       isAmazonReady: false, // Whether the Amazon Payments lib can be used
       user: asyncResourceFactory(),
       worldState: asyncResourceFactory(),
@@ -66,6 +68,7 @@ export default function () {
       // in app.vue
       browserTimezoneOffset,
       tasks: asyncResourceFactory(), // user tasks
+      // @TODO use asyncresource?
       completedTodosStatus: 'NOT_LOADED',
       party: asyncResourceFactory(),
       partyMembers: asyncResourceFactory(),
