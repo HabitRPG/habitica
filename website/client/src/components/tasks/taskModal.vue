@@ -285,17 +285,20 @@
           </div>
           <div class="form-group">
             <label v-once class="m-b-xs">{{ $t('repeatEvery') }}</label>
-            <div class="input-group">
-              <input
-                v-model="task.everyX"
-                class="form-control"
-                type="number"
-                min="0"
-                max="9999"
-                required="required"
-                :disabled="challengeAccessRequired"
-              >
-              <div class="input-group-append input-group-text">
+            <div class="input-group-outer">
+              <div class="input-group">
+                <input
+                  v-model="task.everyX"
+                  class="form-control"
+                  type="number"
+                  min="0"
+                  max="9999"
+                  required="required"
+                  :disabled="challengeAccessRequired"
+                >
+
+              </div>
+              <div class="input-group-spaced input-group-text">
                 {{ repeatSuffix }}
               </div>
             </div>
@@ -375,44 +378,11 @@
               class="col-12 m-b-xs"
             >{{ $t('tags') }}</label>
             <div class="col-12">
-              <div
-                class="dropdown inline-dropdown"
-                :class="{ active: showTagsSelect }"
-                @click="toggleTagSelect()"
-              >
-                <span
-                  v-if="task.tags && task.tags.length === 0"
-                  class="btn dropdown-toggle btn-secondary"
-                >
-                  <div class="tags-none">{{ $t('none') }}</div>
-                </span>
-                <span
-                  v-else
-                  class="btn dropdown-toggle btn-secondary"
-                >
-                  <div
-                    v-for="tagName in truncatedSelectedTags"
-                    :key="tagName"
-                    v-markdown="tagName"
-                    class="category-label"
-                    :title="tagName"
-                  ></div>
-                  <div
-                    v-if="remainingSelectedTags.length > 0"
-                    class="tags-more"
-                  >+{{ $t('more', { count: remainingSelectedTags.length }) }}</div>
-
-                </span>
-              </div>
+              <select-tag :selected-tags="task.tags"
+                          :all-tags="user.tags"
+                          ref="selectTag" />
             </div>
           </div>
-          <tags-popup
-            v-if="showTagsSelect"
-            ref="popup"
-            v-model="task.tags"
-            :tags="user.tags"
-            @close="closeTagsPopup()"
-          />
         </div>
         <div
           v-if="task.type === 'habit'"
@@ -799,16 +769,6 @@
               }
             }
 
-            .tags-more {
-              color: $gray-300;
-              flex: 0 1 auto;
-              font-size: 12px;
-              text-align: left;
-              position: relative;
-              left: .5em;
-              width: 100%;
-            }
-
             .dropdown-toggle {
               position: absolute;
               right: 1em;
@@ -831,11 +791,6 @@
             }
           }
         }
-      }
-
-      .tags-popup {
-        position: absolute;
-        top: 100%;
       }
     }
 
@@ -984,8 +939,8 @@
   @import '~@/assets/scss/colors.scss';
 
   .gold {
-    width: 24px;
-    margin: 0 7px;
+    width: 1rem;
+    height: 1rem;
   }
 
   .habit-option {
@@ -1068,7 +1023,7 @@ import draggable from 'vuedraggable';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
-import TagsPopup from './tagsPopup';
+import SelectTag from './modal-controls/selectTag';
 import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
@@ -1083,7 +1038,7 @@ import calendarIcon from '@/assets/svg/calendar.svg';
 
 export default {
   components: {
-    TagsPopup,
+    SelectTag,
     Datepicker,
     toggleSwitch,
     draggable,
@@ -1097,8 +1052,6 @@ export default {
   props: ['task', 'purpose', 'challengeId', 'groupId'],
   data () {
     return {
-      maxTags: 3,
-      showTagsSelect: false,
       showAssignedSelect: false,
       newChecklistItem: null,
       icons: Object.freeze({
@@ -1185,14 +1138,17 @@ export default {
     repeatSuffix () {
       const { task } = this;
 
+      // once changed it is a string
+      const everyXValue = +task.everyX;
+
       if (task.frequency === 'daily') {
-        return task.everyX === 1 ? this.$t('day') : this.$t('days');
+        return everyXValue === 1 ? this.$t('day') : this.$t('days');
       } if (task.frequency === 'weekly') {
-        return task.everyX === 1 ? this.$t('week') : this.$t('weeks');
+        return everyXValue === 1 ? this.$t('week') : this.$t('weeks');
       } if (task.frequency === 'monthly') {
-        return task.everyX === 1 ? this.$t('month') : this.$t('months');
+        return everyXValue === 1 ? this.$t('month') : this.$t('months');
       } if (task.frequency === 'yearly') {
-        return task.everyX === 1 ? this.$t('year') : this.$t('years');
+        return everyXValue === 1 ? this.$t('year') : this.$t('years');
       }
       return null;
     },
@@ -1212,12 +1168,6 @@ export default {
     },
     selectedTags () {
       return this.getTagsFor(this.task);
-    },
-    truncatedSelectedTags () {
-      return this.selectedTags.slice(0, this.maxTags);
-    },
-    remainingSelectedTags () {
-      return this.selectedTags.slice(this.maxTags);
     },
     cssClassHeadings () {
       const textClass = this.cssClass('text');
@@ -1280,9 +1230,6 @@ export default {
     cssClass (suffix) {
       return this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
     },
-    closeTagsPopup () {
-      this.showTagsSelect = false;
-    },
     setDifficulty (level) {
       if (this.challengeAccessRequired) return;
       this.task.priority = level;
@@ -1294,9 +1241,6 @@ export default {
     toggleDownDirection () {
       if (this.challengeAccessRequired) return;
       this.task.down = !this.task.down;
-    },
-    toggleTagSelect () {
-      this.showTagsSelect = !this.showTagsSelect;
     },
     sortedChecklist (data) {
       const sorting = clone(this.task.checklist);
@@ -1408,7 +1352,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     onClose () {
-      this.showTagsSelect = false;
+      this.closeTagsPopup();
       this.newChecklistItem = '';
       this.$emit('cancel');
     },
@@ -1445,13 +1389,16 @@ export default {
       this.$refs.inputToFocus.focus();
     },
     handleEsc (e) {
-      if (e.keyCode === 27 && this.showTagsSelect) {
+      if (e.keyCode === 27) {
         this.closeTagsPopup();
       }
     },
     handleClick (e) {
-      if (this.$refs.popup && !this.$refs.popup.$el.parentNode.contains(e.target)) {
-        this.closeTagsPopup();
+      this.closeTagsPopup(e.target);
+    },
+    closeTagsPopup (element) {
+      if (this.$refs.selectTag) {
+        this.$refs.selectTag.closeIfOpen(element);
       }
     },
   },

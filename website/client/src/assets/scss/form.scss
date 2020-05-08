@@ -68,6 +68,15 @@ input, textarea, input.form-control, textarea.form-control {
   }
 }
 
+.input-group-outer {
+  display: flex;
+  flex-direction: row;
+
+  .input-group {
+    flex: 1;
+  }
+}
+
 .input-group {
   border-radius: 2px;
   border: solid 1px $gray-300;
@@ -83,9 +92,13 @@ input, textarea, input.form-control, textarea.form-control {
     color: $gray-300;
     border: 0;
     height: 30px;
-    min-width: 32px;
+    width: 2rem;
     margin: 0;
 
+    &.grow {
+      width: initial;
+      min-width: 2rem;
+    }
 
     &.input-group-text {
       font-size: 14px;
@@ -103,22 +116,23 @@ input, textarea, input.form-control, textarea.form-control {
       justify-content: center;
     }
 
+    .svg-icon {
+      margin: 0 !important;
+    }
+
     &.streak-addon .svg-icon {
       width: 11.6px;
       height: 7.1px;
-      margin: 15px 13.4px 15.9px 13px;
     }
 
     &.positive-addon .svg-icon {
       width: 10px;
       height: 10px;
-      // margin: 14px 14px;
     }
 
     &.negative-addon .svg-icon {
       width: 10px;
       height: 2px;
-      // margin: 18px 14px;
     }
   }
 
@@ -135,6 +149,13 @@ input, textarea, input.form-control, textarea.form-control {
     border: 0;
     background: $white !important;
   }
+}
+
+.input-group-spaced {
+  margin-left: 12px;
+  height: 2rem;
+  border-radius: 2px;
+  background-color: $gray-600;
 }
 
 .form-check {
