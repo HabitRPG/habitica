@@ -297,7 +297,12 @@ schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComp
 
   if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
 
-  jsonUser.flags.newStuff = this.checkNewStuff();
+  jsonUser.flags.newStuff = this.checkNewStuff(jsonUser.flags.lastNewStuffRead);
+};
+
+schema.statics.checkNewStuff = function checkNewStuff (lastReadID) {
+  const { id } = NewsPost.lastNewsPost();
+  return lastReadID !== id;
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
