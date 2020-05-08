@@ -13,6 +13,15 @@ export function getTagsFor (store) {
     .map(tag => tag.name);
 }
 
+export function getTagsByIdList (store) {
+  return function tagsByIdListFunc (taskIdArray) {
+    return (taskIdArray || []).length > 0
+      ? store.state.user.data.tags
+        .filter(tag => taskIdArray.indexOf(tag.id) !== -1)
+      : [];
+  };
+}
+
 function getTaskColor (task) {
   if (task.type === 'reward' || task.byHabitica) return 'purple';
 

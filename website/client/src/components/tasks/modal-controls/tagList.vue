@@ -5,14 +5,17 @@
     </template>
     <template v-else>
       <div
-        :key="tagName"
-        :title="tagName"
+        :key="tag.id"
+        :title="tag.name"
         class="tag m-r-xs"
-        v-for="tagName in truncatedSelectedTags"
+        v-for="tag in truncatedSelectedTags"
 
       >
-        <span class="tag-label m-l-m m-t-xs m-b-xs m-r-s" v-markdown="tagName"></span>
+        <span class="tag-label m-l-m m-t-xs m-b-xs m-r-s"
+              v-markdown="tag.name"></span>
+
         <span class="remove m-r-l"
+              @click.stop="removeTag($event, tag)"
               v-html="icons.remove"></span>
       </div>
       <div
@@ -59,10 +62,13 @@
     }
 
     .remove {
-      display: inline-block;
+      display: none;
+      // display: inline-block;
       width: 0.313rem;
       height: 0.313rem;
       object-fit: contain;
+
+      cursor: pointer;
     }
   }
 
@@ -112,6 +118,11 @@ export default {
     maxTags: {
       type: Number,
       default: 3,
+    },
+  },
+  methods: {
+    removeTag ($event, tag) {
+      this.$emit('remove-tag', tag.id);
     },
   },
 };

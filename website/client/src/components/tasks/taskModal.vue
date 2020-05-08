@@ -380,6 +380,7 @@
             <div class="col-12">
               <select-tag :selected-tags="task.tags"
                           :all-tags="user.tags"
+                          @changed="task.tags = $event"
                           ref="selectTag" />
             </div>
           </div>
@@ -734,66 +735,6 @@
       }
     }
 
-    .tags-select {
-      position: relative;
-
-      .tags-inline {
-        .category-wrap {
-          cursor: inherit;
-          position: relative;
-          border: 1px solid transparent;
-          border-radius: 2px;
-          display: inline-block;
-
-          &.active {
-            border-color: $purple-500;
-
-            .category-select {
-              box-shadow: none;
-            }
-          }
-
-          .category-select {
-            align-items: center;
-            display: flex;
-            height: 32px;
-            padding: .6em;
-            padding-right: 2.8em;
-            width: 100%;
-
-            .tags-none {
-              margin: .26em 0 .26em .6em;
-
-              & + .dropdown-toggle {
-                right: 1.3em;
-              }
-            }
-
-            .dropdown-toggle {
-              position: absolute;
-              right: 1em;
-              top: .8em;
-            }
-
-            .category-label {
-              min-width: 68px;
-              padding: .5em 1em;
-              width: 68px;
-
-              // Applies to v-markdown generated p tag.
-              p {
-                margin-bottom: 0px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                word-wrap: break-word;
-              }
-            }
-          }
-        }
-      }
-    }
-
     .checklist-group {
       border-top: 1px solid $gray-500;
 
@@ -1084,7 +1025,6 @@ export default {
   computed: {
     ...mapGetters({
       getTaskClasses: 'tasks:getTaskClasses',
-      getTagsFor: 'tasks:getTagsFor',
       canDeleteTask: 'tasks:canDelete',
     }),
     ...mapState({
@@ -1228,7 +1168,9 @@ export default {
       this.syncTask();
     },
     cssClass (suffix) {
-      return this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
+      return this.task
+        ? this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`)
+        : '';
     },
     setDifficulty (level) {
       if (this.challengeAccessRequired) return;

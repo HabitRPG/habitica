@@ -9,6 +9,21 @@ const stories = storiesOf('Tags', module);
 
 stories.addDecorator(withKnobs);
 
+const exampleTagList = [
+  {
+    id: 1,
+    name: 'Small Tag',
+  },
+  {
+    id: 2,
+    name: 'This is a long tag',
+  },
+  {
+    id: 3,
+    name: 'This is a long tag',
+  },
+]
+
 stories
   .add('tag-list', () => ({
     components: { TagList },
@@ -19,7 +34,7 @@ stories
     `,
     props: {
       tagList: {
-        default: ['Small Tag', 'This is a long tag', 'tag3'],
+        default: exampleTagList,
       },
       maxTags: {
         default: number('Max-Tags', 3),
@@ -35,7 +50,7 @@ stories
     `,
     props: {
       tagList: {
-        default: ['Small Tag', 'This is a long tag', 'tag3'],
+        default: exampleTagList,
       },
     },
   }));
