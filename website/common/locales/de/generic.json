@@ -284,7 +284,7 @@
     "dismissAll": "Alle entfernen",
     "messages": "Nachrichten",
     "emptyMessagesLine1": "Du hast im Moment keine Nachrichten",
-    "emptyMessagesLine2": "Beginne eine Unterhaltung, indem Du eine Nachricht verschickst!",
+    "emptyMessagesLine2": "Du kannst anderen eine neue Nachricht schicken, indem Du ihr Profil aufrufst und auf den \"Nachrichten\"-Knopf drückst.",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> hat Dir eine Nachricht gesendet",
     "letsgo": "Auf geht's!",
     "selected": "Ausgewählt",

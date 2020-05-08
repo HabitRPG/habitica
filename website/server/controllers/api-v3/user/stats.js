@@ -5,21 +5,22 @@ import { authWithHeaders } from '../../../middlewares/auth';
 const api = {};
 
 /**
- * @api {post} /api/v3/user/allocate Allocate a single Stat Point
- * (previously called Attribute Point)
+ * @api {post} /api/v3/user/allocate
+ * Allocate a single Stat Point (previously called Attribute Point)
  * @apiName UserAllocate
  * @apiGroup User
+ * @apiDescription Allocates a single Stat Point.
  *
  * @apiParam (Query) {String="str","con","int","per"} stat The Stat to increase. Default is 'str'
  *
- * @apiParamExample {curl}
+ * @apiParamExample {curl} Example call:
  * curl -X POST -d "" https://habitica.com/api/v3/user/allocate?stat=int
  *
  * @apiSuccess {Object} data Returns stats and notifications from the user profile
  *
  * @apiError {NotAuthorized} NoPoints You don't have enough Stat Points.
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  *  {
  *   "success": false,
  *   "error": "NotAuthorized",
@@ -59,7 +60,7 @@ api.allocate = {
  *
  * @apiError {NotAuthorized} NoPoints You don't have enough Stat Points.
  *
- * @apiErrorExample {json}
+ * @apiErrorExample {json} Example error:
  *  {
  *   "success": false,
  *   "error": "NotAuthorized",

@@ -1,9 +1,9 @@
 {
     "backgrounds": "Scaenae",
     "background": "Scaena",
-    "backgroundShop": "Taberna Scaenarum",
-    "backgroundShopText": "Taberna Scaenarum",
-    "noBackground": "Scaena Non Legitur",
+    "backgroundShop": "Emporium Scaenarum",
+    "backgroundShopText": "Emporium Scaenarum",
+    "noBackground": "Scaena Non Electa",
     "backgrounds062014": "THESAVRVS 1: Iunio 2014 editus",
     "backgroundBeachText": "Litus",
     "backgroundBeachNotes": "Desidere in litore calido.",
@@ -180,7 +180,7 @@
     "backgroundWaterfallRockText": "Petra Aquae Cadentis",
     "backgroundWaterfallRockNotes": "Resperge in Petra Aquae Cadentis.",
     "backgrounds072016": "THESAVRVS 26: Iulio 2016 editus",
-    "backgroundAquariumText": "Aquarium",
+    "backgroundAquariumText": "Aquarius",
     "backgroundAquariumNotes": "Nare in Aquario.",
     "backgroundDeepSeaText": "Oceanus Altus",
     "backgroundDeepSeaNotes": "Urinare sub Oceanum Altum.",
@@ -442,5 +442,10 @@
     "backgroundDojoNotes": "Disce novos motus in Dojo.",
     "backgroundBlossomingDesertNotes": "Contemplare florem vigentem in deserto florente.",
     "backgroundBlossomingDesertText": "Desertus florens",
-    "backgroundFieldWithColoredEggsNotes": "Thesaurum veris in campo ovis variis coloribus sparso."
+    "backgroundFieldWithColoredEggsNotes": "Thesaurum veris in campo ovis variis coloribus sparso.",
+    "backgroundUnderwaterVentsText": "Fontes hydrothermales",
+    "backgroundSeasideCliffsNotes": "In litore sta inspiciens pulchritudine scopulorum maritimorum.",
+    "backgroundSeasideCliffsText": "Scopulus maritimus",
+    "backgroundSchoolOfFishNotes": "In turba piscium nata.",
+    "backgroundSchoolOfFishText": "Turba piscium"
 }

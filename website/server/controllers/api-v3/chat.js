@@ -2,7 +2,10 @@ import nconf from 'nconf';
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as Group } from '../../models/group';
 import { model as User } from '../../models/user';
-import { chatModel as Chat } from '../../models/message';
+import {
+  chatModel as Chat,
+  sanitizeText as sanitizeMessageText,
+} from '../../models/message';
 import common from '../../../common';
 import {
   BadRequest,
@@ -19,7 +22,7 @@ import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
-import { highlightMentions } from '../../libs/highlightMentions';
+import highlightMentions from '../../libs/highlightMentions';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
 
@@ -187,7 +190,8 @@ api.postChat = {
       throw new NotAuthorized(res.t('messageGroupChatSpam'));
     }
 
-    const [message, mentions, mentionedMembers] = await highlightMentions(req.body.message);
+    const sanitizedMessageText = sanitizeMessageText(req.body.message);
+    const [message, mentions, mentionedMembers] = await highlightMentions(sanitizedMessageText);
     let client = req.headers['x-client'] || '3rd Party';
     if (client) {
       client = client.replace('habitica-', '');

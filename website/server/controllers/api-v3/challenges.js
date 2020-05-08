@@ -26,6 +26,7 @@ import {
   getChallengeGroupResponse,
   createChallenge,
   cleanUpTask,
+  createChallengeQuery,
 } from '../../libs/challenges';
 import apiError from '../../libs/apiError';
 
@@ -409,13 +410,12 @@ api.getUserChallenges = {
       query.categories = { $elemMatch: { slug: { $in: categorySlugs } } };
     }
 
-    let mongoQuery = Challenge.find(query)
-      .sort('-createdAt');
-
+    // Ensure that official challenges are always first
+    let mongoQuery = createChallengeQuery(query);
     if (page) {
       mongoQuery = mongoQuery
-        .limit(CHALLENGES_PER_PAGE)
-        .skip(CHALLENGES_PER_PAGE * page);
+        .skip(CHALLENGES_PER_PAGE * page)
+        .limit(CHALLENGES_PER_PAGE);
     }
 
     // see below why we're not using populate
@@ -423,9 +423,8 @@ api.getUserChallenges = {
     // .populate('leader', nameFields)
     const challenges = await mongoQuery.exec();
 
-    let resChals = challenges.map(challenge => challenge.toJSON());
-
-    resChals = _.orderBy(resChals, [challenge => challenge.categories.map(category => category.slug).includes('habitica_official')], ['desc']);
+    // Unserialize, then serialize the challenges to fill in default fields
+    const resChals = challenges.map(chal => (new Challenge(chal)).toJSON());
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Promise.all(resChals.map((chal, index) => Promise.all([
@@ -483,19 +482,12 @@ api.getGroupChallenges = {
     const group = await Group.getGroup({ user, groupId });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    const challenges = await Challenge.find({ group: groupId })
-      .sort('-createdAt')
+    const challenges = await createChallengeQuery({ group: groupId })
       // Only populate the leader as the group is implicit // see below why we're not using populate
       // .populate('leader', nameFields)
       .exec();
 
-    let resChals = challenges.map(challenge => challenge.toJSON());
-
-    resChals = _.orderBy(
-      resChals,
-      [challenge => challenge.categories.map(category => category.slug).includes('habitica_official')],
-      ['desc'],
-    );
+    const resChals = challenges.map(challenge => (new Challenge(challenge)).toJSON());
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
     await Promise.all(resChals.map((chal, index) => User
@@ -513,7 +505,7 @@ api.getGroupChallenges = {
 };
 
 /**
- * @api {get} /api/v3/challenges/:challengeId Get a challenge given its id
+ * @api {get} /api/v3/challenges/:challengeId Get a challenge
  * @apiName GetChallenge
  * @apiGroup Challenge
  *

@@ -28,13 +28,14 @@ import {
 } from '../libs/errors';
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
 import {
   syncableAttrs,
 } from '../libs/taskManager';
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';
+import logger from '../libs/logger';
 import amazonPayments from '../libs/payments/amazon'; // eslint-disable-line import/no-cycle
 import stripePayments from '../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import { getGroupChat, translateMessage } from '../libs/chat/group-chat'; // eslint-disable-line import/no-cycle
@@ -152,7 +153,7 @@ schema.plugin(baseModel, {
   noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
-    if (plainObj.purchased) plainObj.purchased.active = originalDoc.isSubscribed();
+    if (plainObj.purchased) plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
   },
 });
 
@@ -607,9 +608,11 @@ schema.methods.sendChat = function sendChat (options = {}) {
     },
   };
 
-  User.update(query, lastSeenUpdateRemoveOld, { multi: true }).exec().then(() => {
-    User.update(query, lastSeenUpdateAddNew, { multi: true }).exec();
-  });
+  User
+    .update(query, lastSeenUpdateRemoveOld, { multi: true })
+    .exec()
+    .then(() => User.update(query, lastSeenUpdateAddNew, { multi: true }).exec())
+    .catch(err => logger.error(err));
 
   if (this.type === 'party' && user) {
     sendChatPushNotifications(user, this, newChatMessage, mentions, translate);
@@ -634,15 +637,42 @@ schema.methods.sendChat = function sendChat (options = {}) {
           return;
         }
       }
-      sendPushNotification(member, {
-        identifier: 'chatMention',
-        title: `${user.profile.name} mentioned you in ${this.name}`,
-        message: newChatMessage.unformattedText,
-        payload: { type: this.type },
-      });
+
+      if (newChatMessage.unformattedText) {
+        sendPushNotification(member, {
+          identifier: 'chatMention',
+          title: `${user.profile.name} mentioned you in ${this.name}`,
+          message: newChatMessage.unformattedText,
+          payload: { type: this.type },
+        });
+      }
     });
   }
   return newChatMessage;
+};
+
+schema.methods.handleQuestInvitation = async function handleQuestInvitation (user, accept) {
+  if (!user) throw new InternalServerError('Must provide user to handle quest invitation');
+  if (accept !== true && accept !== false) throw new InternalServerError('Must provide accept param handle quest invitation');
+
+  // Handle quest invitation atomically (update only current member when still undecided)
+  // to prevent multiple concurrent requests overriding updates
+  // see https://github.com/HabitRPG/habitica/issues/11398
+  const Group = this.constructor;
+  const result = await Group.update(
+    {
+      _id: this._id,
+      [`quest.members.${user._id}`]: { $type: 10 }, // match BSON Type Null (type number 10)
+    },
+    { $set: { [`quest.members.${user._id}`]: accept } },
+  ).exec();
+
+  if (result.nModified) {
+    // update also current instance so future operations will work correctly
+    this.quest.members[user._id] = accept;
+  }
+
+  return Boolean(result.nModified);
 };
 
 schema.methods.startQuest = async function startQuest (user) {
@@ -674,6 +704,11 @@ schema.methods.startQuest = async function startQuest (user) {
 
   // Changes quest.members to only include participating members
   this.quest.members = _.pickBy(this.quest.members, _.identity);
+
+  // Persist quest.members early to avoid simultaneous handling of accept/reject
+  // while processing the rest of this script
+  await this.update({ $set: { 'quest.members': this.quest.members } }).exec();
+
   const nonUserQuestMembers = _.keys(this.quest.members);
   removeFromArray(nonUserQuestMembers, user._id);
 
@@ -810,7 +845,8 @@ schema.methods.sendGroupChatReceivedWebhooks = function sendGroupChatReceivedWeb
           chat,
         });
       });
-    });
+    })
+    .catch(err => logger.error(err));
 };
 
 schema.statics.cleanQuestParty = _cleanQuestParty;
@@ -944,7 +980,8 @@ schema.methods.finishQuest = async function finishQuest (quest) {
           quest,
         });
       });
-    });
+    })
+    .catch(err => logger.error(err));
 
   _.forEach(questSeriesAchievements, (questList, achievement) => {
     if (questList.includes(questK)) {
@@ -1052,16 +1089,18 @@ schema.methods._processBossQuest = async function processBossQuest (options) {
       if (quest.boss.rage.mpDrain) {
         updates.$set = { 'stats.mp': 0 };
       }
+      if (quest.boss.rage.progressDrain) {
+        updates.$mul = { 'party.quest.progress.up': quest.boss.rage.progressDrain };
+      }
     }
   }
 
-  await User.update(
+  await User.updateMany(
     {
       _id:
       { $in: this.getParticipatingQuestMembers() },
     },
     updates,
-    { multi: true },
   ).exec();
   // Apply changes the currently cronning user locally
   // so we don't have to reload it to get the updated state
@@ -1102,7 +1141,7 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const itemsFound = {};
 
   const possibleItemKeys = Object.keys(quest.collect)
-    .filter(key => group.quest.progress.collect[key] !== quest.collect[key].count);
+    .filter(key => group.quest.progress.collect[key] < quest.collect[key].count);
 
   const possibleItemsToCollect = possibleItemKeys.reduce((accumulator, current, index) => {
     accumulator[possibleItemKeys[index]] = quest.collect[current];
@@ -1112,11 +1151,13 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   _.times(progress.collectedItems, () => {
     const item = shared.randomVal(possibleItemsToCollect, { key: true });
 
-    if (!itemsFound[item]) {
-      itemsFound[item] = 0;
+    if (group.quest.progress.collect[item] < quest.collect[item].count) {
+      if (!itemsFound[item]) {
+        itemsFound[item] = 0;
+      }
+      itemsFound[item] += 1;
+      group.quest.progress.collect[item] += 1;
     }
-    itemsFound[item] += 1;
-    group.quest.progress.collect[item] += 1;
   });
 
   // Add 0 for all items not found
@@ -1660,7 +1701,7 @@ schema.methods.checkChatSpam = function groupCheckChatSpam (user) {
   return false;
 };
 
-schema.methods.isSubscribed = function isSubscribed () {
+schema.methods.hasActiveGroupPlan = function hasActiveGroupPlan () {
   const now = new Date();
   const { plan } = this.purchased;
   return plan && plan.customerId
@@ -1669,12 +1710,12 @@ schema.methods.isSubscribed = function isSubscribed () {
 
 schema.methods.hasNotCancelled = function hasNotCancelled () {
   const { plan } = this.purchased;
-  return Boolean(this.isSubscribed() && !plan.dateTerminated);
+  return Boolean(this.hasActiveGroupPlan() && !plan.dateTerminated);
 };
 
-schema.methods.hasCancelled = function hasNotCancelled () {
+schema.methods.hasCancelled = function hasCancelled () {
   const { plan } = this.purchased;
-  return Boolean(this.isSubscribed() && plan.dateTerminated);
+  return Boolean(this.hasActiveGroupPlan() && plan.dateTerminated);
 };
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {

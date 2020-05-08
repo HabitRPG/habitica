@@ -5,6 +5,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
+
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -36,7 +37,7 @@ api.getNews = {
           </div>
         </div>
         <hr/>
-        <div class="quest_ruby center-block"></div>
+        <div class="promo_armoire_backgrounds_202005 center-block"></div>
         <p>
           ${lastNewsPost.text}
         </p>
@@ -50,8 +51,10 @@ api.getNews = {
 };
 
 /**
- * @api {post} /api/v3/news/tell-me-later Get latest Bailey announcement in a second moment
+ * @api {post} /api/v3/news/tell-me-later Allow latest Bailey announcement to be read later
  * @apiName TellMeLaterNews
+ * @apiDescription Add a notification to allow viewing of the latest "New Stuff by Bailey" message.
+ * Prevent this specific Bailey message from appearing automatically.
  * @apiGroup News
  *
  *

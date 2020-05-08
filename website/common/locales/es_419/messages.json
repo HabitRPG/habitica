@@ -12,7 +12,7 @@
     "messageLikesFood": "¡A <%= egg %>realmente le gusta la <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> se come la <%= foodText %> pero no parece disfrutarlo.",
     "messageBought": "Compraste <%= itemText %>",
-    "messageEquipped": " <%= itemText %> ha sido equipad@.",
+    "messageEquipped": " <%= itemText %> ha sido equipada.",
     "messageUnEquipped": "<%= itemText %> ha sido removid@.",
     "messageMissingEggPotion": "Te hace falta o el huevo o la poción",
     "messageInvalidEggPotionCombo": "¡No puedes eclosionar Huevos de Mascotas de Misión con Pociones de Eclosión Mágicas! Prueba con otro huevo.",
@@ -51,7 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Ya has denunciado este mensaje",
     "messageGroupChatNotFound": "¡Mensaje no encontrado!",
     "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar el número de denuncias!",
-    "messageCannotFlagSystemMessages": "No puedes reportar un mensaje del sistema. Si necesitas informar una infracción de las Normas de la comunidad relacionadas con este mensaje, envíe un mensaje de correo electrónico con una captura de pantalla y una explicación a Lemoness <%= communityManagerEmail %>.",
+    "messageCannotFlagSystemMessages": "No puedes reportar un mensaje del sistema. Si necesitas informar una infracción de las Normas de la comunidad relacionadas con este mensaje, envíe un mensaje de correo electrónico con una captura de pantalla y una explicación a nuestro Gerente de la Communidad a <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, ¡parece que estás publicando demasiados mensajes! Espera un minuto y vuelve a intentarlo. El chat de la Taberna solo puede con 200 mensajes a la vez, por lo que Habitica recomienda publicar mensajes más largos y meditados, así como respuestas unificadas. No podemos esperar a oir lo que tienes que decir. :)",
     "messageCannotLeaveWhileQuesting": "No puedes aceptar esta invitación de grupo mientras estas en una misión. Si te quieres unir a este grupo, tienes que abortar tu misión primero, puedes hacerlo desde la pantalla del grupo. Se te devolverá tu pergamino de misión.",
     "messageUserOperationProtected": "la ruta `<%= operation %>` no ha sido guardada, ya que es una ruta protegida.",
@@ -60,7 +60,10 @@
     "messageNotAbleToBuyInBulk": "Este artículo no se puede comprar en cantidades arriba de 1.",
     "notificationsRequired": "Se requiere el ID de notificación.",
     "unallocatedStatsPoints": "Tienes <span class=\"notification-bold-blue\"><%= points %> Puntos de Atributo sin asignar </span>",
-    "beginningOfConversation": "Este es el comienzo de tu conversación con <%= userName %>. ¡Recuerda ser amable, respetuoso y seguir las Normas de la Comunidad!",
-    "messageDeletedUser": "Sorry, this user has deleted their account.",
-    "messageMissingDisplayName": "Missing display name."
+    "beginningOfConversation": "Este es el comienzo de tu conversación con <%= userName %>.",
+    "messageDeletedUser": "Lo sentimos, este usuario ha eliminado su cuenta.",
+    "messageMissingDisplayName": "Nombre de Usuario no encontrado.",
+    "canDeleteNow": "Ahora puedes borrar el mensaje si lo desea.",
+    "reportedMessage": "Has reportado este mensaje a los moderadores.",
+    "beginningOfConversationReminder": "¡Recuerda de ser amable, respetuoso, y seguir las Normas de la Comunidad!"
 }

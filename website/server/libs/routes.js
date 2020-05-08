@@ -3,6 +3,9 @@ import _ from 'lodash';
 import {
   getUserLanguage,
 } from '../middlewares/language';
+import {
+  disableCache,
+} from '../middlewares/cache';
 
 // Wrapper function to handler `async` route handlers that return promises
 // It takes the async function, execute it and pass any error to next (args[2])
@@ -28,22 +31,26 @@ export function readController (router, controller, overrides = []) {
       return false;
     });
 
-    const middlewaresToAdd = [getUserLanguage];
+    method = method.toLowerCase();
 
-    if (action.noLanguage !== true) {
+    // disable caching for all routes with mandatory or optional authentication
+    if (authMiddlewareIndex !== -1) {
+      middlewares.unshift(disableCache);
+    }
+
+    if (action.noLanguage !== true) { // unless getting the language is explictly disabled
       // the user will be authenticated, getUserLanguage after authentication
       if (authMiddlewareIndex !== -1) {
         if (authMiddlewareIndex === middlewares.length - 1) {
-          middlewares.push(...middlewaresToAdd);
+          middlewares.push(getUserLanguage);
         } else {
-          middlewares.splice(authMiddlewareIndex + 1, 0, ...middlewaresToAdd);
+          middlewares.splice(authMiddlewareIndex + 1, 0, getUserLanguage);
         }
       } else { // no auth, getUserLanguage as the first middleware
-        middlewares.unshift(...middlewaresToAdd);
+        middlewares.unshift(getUserLanguage);
       }
     }
 
-    method = method.toLowerCase();
     const fn = handler ? _wrapAsyncFn(handler) : noop;
 
     router[method](url, ...middlewares, fn);

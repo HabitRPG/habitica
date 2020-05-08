@@ -31,6 +31,7 @@ export default new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
+    apple: { $type: Schema.Types.Mixed, default: () => ({}) },
     local: {
       email: {
         $type: String,
@@ -130,6 +131,9 @@ export default new Schema({
     undeadUndertaker: Boolean,
     primedForPainting: Boolean,
     pearlyPro: Boolean,
+    tickledPink: Boolean,
+    rosyOutlook: Boolean,
+    bugBonanza: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
@@ -159,6 +163,7 @@ export default new Schema({
     text: String,
     // a markdown textarea to list their contributions + links
     contributions: String,
+    // user can own Critical Hammer of Bug-Crushing if this has a truthy value
     critical: String,
   },
 
@@ -238,7 +243,7 @@ export default new Schema({
         reorderTask: { $type: Boolean, default: false },
       },
     },
-    dropsEnabled: { $type: Boolean, default: false },
+    dropsEnabled: { $type: Boolean, default: false }, // unused
     itemsEnabled: { $type: Boolean, default: false },
     lastNewStuffRead: { $type: String, default: '' },
     // Was changed to be a computed , so that it doesn't have to be updated for each bailey post.
@@ -653,6 +658,11 @@ export default new Schema({
     path: { $type: String },
     type: { $type: String },
   }],
+
+  // only visible to staff and moderators
+  secret: {
+    text: String,
+  },
 }, {
   skipVersioning: { notifications: true },
   strict: true,

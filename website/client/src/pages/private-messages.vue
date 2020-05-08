@@ -3,7 +3,7 @@
     <div class="floating-header-shadow"></div>
     <div class="header-bar d-flex w-100">
       <!-- changing w-25 would also need changes in .left-header.w-25 -->
-      <div class="d-flex w-25 left-header">
+      <div class="d-flex left-header">
         <div
           v-once
           class="mail-icon svg-icon"
@@ -19,22 +19,31 @@
           <!-- placeholder -->
         </div>
       </div>
-      <div class="d-flex w-75 selected-conversion">
-        <face-avatar
-          v-if="selectedConversation.userStyles"
-          :member="selectedConversation.userStyles"
-          :class="selectedConversationFaceAvatarClass"
-        />
-        <user-label
+      <div
+        v-if="selectedConversation && selectedConversation.key"
+        class="d-flex selected-conversion"
+      >
+        <router-link
+          :to="{'name': 'userProfile', 'params': {'userId': selectedConversation.key}}"
+        >
+          <face-avatar
+            v-if="selectedConversation.userStyles"
+            :member="selectedConversation.userStyles"
+            :class="selectedConversationFaceAvatarClass"
+          />
+        </router-link>
+        <user-link
           :backer="selectedConversation.backer"
           :contributor="selectedConversation.contributor"
           :name="selectedConversation.name"
+          :user="selectedConversation"
+          :user-id="selectedConversation.key"
           :hide-tooltip="true"
         />
       </div>
     </div>
     <div class="d-flex content">
-      <div class="w-25 sidebar d-flex flex-column">
+      <div class="sidebar d-flex flex-column">
         <div class="disable-background">
           <toggle-switch
             :label="optTextSet.switchDescription"
@@ -42,31 +51,6 @@
             :hover-text="optTextSet.popoverText"
             @change="toggleOpt()"
           />
-        </div>
-        <div class="search-section">
-          <b-form-input
-            v-model="search"
-            class="input-search"
-            :placeholder="$t('search')"
-          />
-        </div>
-        <div
-          v-if="filtersConversations.length === 0"
-          class="empty-messages m-auto text-center empty-sidebar"
-        >
-          <div>
-            <div
-              v-once
-              class="svg-icon envelope"
-              v-html="icons.messageIcon"
-            ></div>
-            <h4 v-once>
-              {{ $t('emptyMessagesLine1') }}
-            </h4>
-            <p v-if="!user.flags.chatRevoked">
-              {{ $t('emptyMessagesLine2') }}
-            </p>
-          </div>
         </div>
         <div
           v-if="filtersConversations.length > 0"
@@ -87,19 +71,47 @@
             @click="selectConversation(conversation.key)"
           />
         </div>
+        <button
+          v-if="canLoadMoreConversations"
+          class="btn btn-secondary"
+          @click="loadConversations()"
+        >
+          {{ $t('loadMore') }}
+        </button>
       </div>
-      <div class="w-75 messages-column d-flex flex-column align-items-center">
+      <div class="messages-column d-flex flex-column align-items-center">
         <div
-          v-if="!selectedConversation.key"
+          v-if="filtersConversations.length === 0
+            && (!selectedConversation || !selectedConversation.key)"
+          class="empty-messages m-auto text-center empty-sidebar"
+        >
+          <div class="no-messages-box">
+            <div
+              v-once
+              class="svg-icon envelope"
+              v-html="icons.messageIcon"
+            ></div>
+            <h2 v-once>
+              {{ $t('emptyMessagesLine1') }}
+            </h2>
+            <p v-if="!user.flags.chatRevoked">
+              {{ $t('emptyMessagesLine2') }}
+            </p>
+          </div>
+        </div>
+        <div
+          v-if="filtersConversations.length !== 0 && !selectedConversation.key"
           class="empty-messages full-height m-auto text-center"
         >
-          <div
-            v-once
-            class="svg-icon envelope"
-            v-html="icons.messageIcon"
-          ></div>
-          <h4>{{ placeholderTexts.title }}</h4>
-          <p v-html="placeholderTexts.description"></p>
+          <div class="no-messages-box">
+            <div
+              v-once
+              class="svg-icon envelope"
+              v-html="icons.messageIcon"
+            ></div>
+            <h2>{{ placeholderTexts.title }}</h2>
+            <p v-html="placeholderTexts.description"></p>
+          </div>
         </div>
         <div
           v-if="selectedConversation.key && selectedConversationMessages.length === 0"
@@ -120,34 +132,35 @@
           ref="chatscroll"
           class="message-scroll"
           :chat="selectedConversationMessages"
+          :conversation-opponent-user="selectedConversation.userStyles"
           :can-load-more="canLoadMore"
           :is-loading="messagesLoading"
           @message-removed="messageRemoved"
           @triggerLoad="infiniteScrollTrigger"
         />
         <div
-          v-if="user.inbox.optOut"
+          v-if="disabledTexts"
           class="pm-disabled-caption text-center"
         >
-          <h4>{{ $t('PMDisabledCaptionTitle') }}</h4>
-          <p>{{ $t('PMDisabledCaptionText') }}</p>
+          <h4>{{ disabledTexts.title }}</h4>
+          <p>{{ disabledTexts.description }}</p>
         </div>
-        <div>
+        <div class="full-width">
           <div
-            v-if="selectedConversation.key && !user.flags.chatRevoked"
             class="new-message-row d-flex align-items-center"
           >
             <textarea
+              ref="textarea"
               v-model="newMessage"
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
-              maxlength="3000"
-              :class="{'has-content': newMessage !== ''}"
+              :maxlength="MAX_MESSAGE_LENGTH"
+              :class="{'has-content': newMessage.trim() !== '', 'disabled': newMessageDisabled}"
               @keyup.ctrl.enter="sendPrivateMessage()"
-            ></textarea>
+            >
+            </textarea>
           </div>
           <div
-            v-if="selectedConversation.key && !user.flags.chatRevoked"
             class="sub-new-message-row d-flex"
           >
             <div
@@ -157,7 +170,7 @@
             ></div>
             <button
               class="btn btn-primary"
-              :class="{'disabled':newMessage === ''}"
+              :class="{'disabled':newMessageDisabled || newMessage === ''}"
               @click="sendPrivateMessage()"
             >
               {{ $t('send') }}
@@ -268,10 +281,6 @@
     .placeholder.svg-icon {
       width: 32px;
     }
-
-    .left-header.w-25 {
-      width: calc(25% - 2rem) !important;
-    }
   }
 
   .full-height {
@@ -281,19 +290,8 @@
     justify-content: center;
   }
 
-  .user-label {
+  .user-link {
     margin-left: 12px;
-  }
-
-  .input-search {
-    background-repeat: no-repeat;
-    background-position: center left 16px;
-    background-size: 16px 16px;
-    background-image: url(~@/assets/svg/for-css/search_gray.svg) !important;
-    padding-left: 40px;
-
-    color: $gray-200 !important;
-    height: 40px;
   }
 
   .selected-conversion {
@@ -310,36 +308,48 @@
     height: 44px;
     background-color: $gray-600;
     padding: 0.75rem 1.5rem;
+
+    border-bottom: 1px solid $gray-500;
   }
 
 
   .conversations {
-    max-height: 35rem;
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
   }
 
   .empty-messages {
-    h3, h4, p {
-      color: $gray-400;
+    h3, p {
+      color: $gray-200;
       margin: 0rem;
+    }
+
+    h2 {
+      color: $gray-200;
+      margin-bottom: 1rem;
     }
 
     p {
       font-size: 12px;
     }
 
-    .envelope {
-      width: 30px;
-      margin: 0 auto 0.5rem;
+    .no-messages-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 330px;
     }
-  }
 
-  .envelope {
-    color: $gray-500 !important;
-    margin: 0rem;
-    max-width: 2rem;
+    .envelope {
+      color: $gray-400 !important;
+      margin-bottom: 1.5rem;
+
+      ::v-deep svg {
+        width: 64px;
+        height: 48px;
+      }
+    }
   }
 
   h3 {
@@ -371,7 +381,12 @@
     word-break: break-word;
   }
 
+  .selected-conversion {
+    flex: 1;
+  }
+
   .messages-column {
+    flex: 1;
     padding: 0rem;
     display: flex;
     flex-direction: column;
@@ -391,6 +406,10 @@
     }
   }
 
+  .full-width {
+    width: 100%;
+  }
+
   .new-message-row {
     width: 100%;
     padding-left: 1.5rem;
@@ -398,16 +417,28 @@
     padding-right: 1.5rem;
 
     textarea {
-      height: 5.5rem;
       display: inline-block;
       vertical-align: bottom;
       border-radius: 2px;
       z-index: 5;
+
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.64;
+        background-color: $gray-500;
+      }
+
+      &.has-content {
+        --textarea-auto-height: 80px
+      }
+
+      max-height: var(--textarea-auto-height, 40px);
+      min-height: var(--textarea-auto-height, 40px);
     }
   }
 
   .sub-new-message-row {
-    padding: 1rem 1.5rem 1.5rem;
+    padding: 1.5rem;
 
     .guidelines {
       height: 32px;
@@ -433,17 +464,17 @@
         pointer-events: none;
         opacity: 0.64;
         background-color: $gray-500;
+        color: $gray-100;
       }
     }
   }
 
   .pm-disabled-caption {
     padding-top: 1em;
-    background-color: $gray-700;
     z-index: 2;
 
     h4, p {
-      color: $gray-300;
+      color: $gray-200;
     }
 
     h4 {
@@ -457,16 +488,19 @@
     }
   }
 
+  .left-header {
+    max-width: calc(330px - 2rem); // minus the left padding
+    flex: 1;
+  }
+
   .sidebar {
+    width: 330px;
     background-color: $gray-700;
-    min-height: 540px;
-    max-width: 330px;
     padding: 0;
     border-bottom-left-radius: 8px;
 
-    .search-section {
-      padding: 1rem 1.5rem;
-      border-bottom: 1px solid $gray-500;
+    @media only screen and (max-width: 768px) {
+      width: 280px;
     }
   }
 
@@ -513,15 +547,15 @@
 <script>
 import Vue from 'vue';
 import moment from 'moment';
-import filter from 'lodash/filter';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import habiticaMarkdown from 'habitica-markdown';
 import axios from 'axios';
+import { MAX_MESSAGE_LENGTH } from '@/../../common/script/constants';
 import { mapState } from '@/libs/store';
 import styleHelper from '@/mixins/styleHelper';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import userLabel from '@/components/userLabel';
+import userLink from '@/components/userLink';
 
 import messageList from '@/components/messages/messageList';
 import messageIcon from '@/assets/svg/message.svg';
@@ -529,6 +563,11 @@ import mail from '@/assets/svg/mail.svg';
 import conversationItem from '@/components/messages/conversationItem';
 import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
+import { EVENTS } from '@/libs/events';
+
+// extract to a shared path
+const CONVERSATIONS_PER_PAGE = 10;
+const PM_PER_PAGE = 10;
 
 export default {
   components: {
@@ -536,7 +575,7 @@ export default {
     messageList,
     toggleSwitch,
     conversationItem,
-    userLabel,
+    userLink,
     faceAvatar,
   },
   filters: {
@@ -551,31 +590,63 @@ export default {
         messageIcon,
         mail,
       }),
-      displayCreate: true,
-      selectedConversation: {},
-      search: '',
-      newMessage: '',
-      showPopover: false,
-      messages: [],
-      messagesByConversation: {}, // cache {uuid: []}
-      loadedConversations: [],
       loaded: false,
-      messagesLoading: false,
+      showPopover: false,
+
+      /* Conversation-specific data */
       initiatedConversation: null,
       updateConversationsCounter: 0,
+      selectedConversation: {},
+      conversationPage: 0,
+      canLoadMoreConversations: false,
+      loadedConversations: [],
+      messagesByConversation: {}, // cache {uuid: []}
+
+      newMessage: '',
+      messages: [],
+      messagesLoading: false,
+      MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      const data = vm.$store.state.privateMessageOptions;
+
+      if ((!data || (data && !data.userIdToMessage)) && vm.$route.query && vm.$route.query.uuid) {
+        vm.$store.dispatch('user:userLookup', { uuid: vm.$route.query.uuid }).then(res => {
+          if (res && res.data && res.data.data) {
+            vm.$store.dispatch('user:newPrivateMessageTo', {
+              member: res.data.data,
+            });
+          }
+        });
+      } else {
+        vm.hasPrivateMessageOptionsOnPageLoad = true;
+      }
+    });
+  },
   async mounted () {
-    this.$root.$on('pm::refresh', async () => {
+    // notification click to refresh
+    this.$root.$on(EVENTS.PM_REFRESH, async () => {
       await this.reload();
 
-      this.selectConversation(this.loadedConversations[0].uuid, true);
+      this.selectFirstConversation();
+    });
+
+    // header sync button
+    this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
+      await this.reload();
+
+      this.selectFirstConversation();
     });
 
     await this.reload();
 
-    const data = this.$store.state.privateMessageOptions;
+    // close members modal if the Private Messages page is opened in an existing tab
+    this.$root.$emit('habitica::dismiss-modal', 'profile');
+    this.$root.$emit('habitica::dismiss-modal', 'members-modal');
 
+    const data = this.$store.state.privateMessageOptions;
     if (data && data.userIdToMessage) {
       this.initiatedConversation = {
         uuid: data.userIdToMessage,
@@ -592,7 +663,7 @@ export default {
     }
   },
   destroyed () {
-    this.$root.$off('habitica::new-private-message');
+    this.$root.$off(EVENTS.RESYNC_COMPLETED);
   },
   computed: {
     ...mapState({ user: 'user.data' }),
@@ -614,6 +685,7 @@ export default {
           id: '',
           text: '',
           timestamp: new Date(),
+          canReceive: true,
         }];
       }
       // Create conversation objects
@@ -633,6 +705,7 @@ export default {
             contributor: recentMessage.contributor,
             userStyles: recentMessage.userStyles,
             backer: recentMessage.backer,
+            canReceive: recentMessage.canReceive,
             canLoadMore: false,
             page: 0,
           };
@@ -666,13 +739,9 @@ export default {
       // Vue-subscribe to changes
       const subscribeToUpdate = this.updateConversationsCounter > -1;
 
-      const filtered = subscribeToUpdate && !this.search
-        ? this.conversations
+      const filtered = subscribeToUpdate && this.conversations;
 
-        /* eslint-disable max-len */
-        : filter(this.conversations, conversation => conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1);
-
-      const ordered = orderBy(filtered, [o => moment(o.date).toDate()], ['desc']);
+      const ordered = orderBy(filtered, [o => o.date], ['desc']);
 
       return ordered;
     },
@@ -690,6 +759,39 @@ export default {
         title: this.$t('PMPlaceholderTitle'),
         description: this.$t('PMPlaceholderDescription'),
       };
+    },
+    disabledTexts () {
+      if (this.user.flags.chatRevoked) {
+        return {
+          title: this.$t('PMPlaceholderTitleRevoked'),
+          description: this.$t('chatPrivilegesRevoked'),
+        };
+      }
+
+      if (this.user.inbox.optOut) {
+        return {
+          title: this.$t('PMDisabledCaptionTitle'),
+          description: this.$t('PMDisabledCaptionText'),
+        };
+      }
+
+      if (this.selectedConversation && this.selectedConversation.key) {
+        if (this.user.inbox.blocks.includes(this.selectedConversation.key)) {
+          return {
+            title: this.$t('PMDisabledCaptionTitle'),
+            description: this.$t('PMUnblockUserToSendMessages'),
+          };
+        }
+
+        if (!this.selectedConversation.canReceive) {
+          return {
+            title: this.$t('PMCanNotReply'),
+            description: this.$t('PMUserDoesNotReceiveMessages'),
+          };
+        }
+      }
+
+      return null;
     },
     optTextSet () {
       if (!this.user.inbox.optOut) {
@@ -709,17 +811,35 @@ export default {
       }
       return '';
     },
+    newMessageDisabled () {
+      return !this.selectedConversation || !this.selectedConversation.key
+        || this.disabledTexts !== null;
+    },
   },
 
   methods: {
     async reload () {
       this.loaded = false;
+      this.conversationPage = 0;
 
-      const conversationRes = await axios.get('/api/v4/inbox/conversations');
-      this.loadedConversations = conversationRes.data.data;
+      this.loadedConversations = [];
       this.selectedConversation = {};
 
+      await this.loadConversations();
+
+      await this.$store.dispatch('user:markPrivMessagesRead');
+
       this.loaded = true;
+    },
+    async loadConversations () {
+      const query = ['/api/v4/inbox/conversations'];
+      query.push(`?page=${this.conversationPage}`);
+      this.conversationPage += 1;
+
+      const conversationRes = await axios.get(query.join(''));
+      const loadedConversations = conversationRes.data.data;
+      this.canLoadMoreConversations = loadedConversations.length === CONVERSATIONS_PER_PAGE;
+      this.loadedConversations.push(...loadedConversations);
     },
     messageRemoved (message) {
       const messages = this.messagesByConversation[this.selectedConversation.key];
@@ -736,9 +856,6 @@ export default {
         };
       }
     },
-    toggleClick () {
-      this.displayCreate = !this.displayCreate;
-    },
     toggleOpt () {
       this.$store.dispatch('user:togglePrivateMessagesOpt');
     },
@@ -751,11 +868,7 @@ export default {
         await this.loadMessages();
       }
 
-      Vue.nextTick(() => {
-        if (!this.$refs.chatscroll) return;
-        const chatscroll = this.$refs.chatscroll.$el;
-        chatscroll.scrollTop = chatscroll.scrollHeight;
-      });
+      this.scrollToBottom();
     },
     sendPrivateMessage () {
       if (!this.newMessage) return;
@@ -793,11 +906,7 @@ export default {
       this.selectedConversation.lastMessageText = this.newMessage;
       this.selectedConversation.date = new Date();
 
-      Vue.nextTick(() => {
-        if (!this.$refs.chatscroll) return;
-        const chatscroll = this.$refs.chatscroll.$el;
-        chatscroll.scrollTop = chatscroll.scrollHeight;
-      });
+      this.scrollToBottom();
 
       this.$store.dispatch('members:sendPrivateMessage', {
         toUserId: this.selectedConversation.key,
@@ -811,6 +920,13 @@ export default {
       });
 
       this.newMessage = '';
+    },
+    scrollToBottom () {
+      Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
+        const chatscroll = this.$refs.chatscroll.$el;
+        chatscroll.scrollTop = chatscroll.scrollHeight;
+      });
     },
     removeTags (html) {
       const tmp = document.createElement('DIV');
@@ -845,14 +961,21 @@ export default {
       const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data;
 
+      /* eslint-disable max-len */
       this.messagesByConversation[conversationKey] = this.messagesByConversation[conversationKey] || [];
+      /* eslint-disable max-len */
       const loadedMessagesToAdd = loadedMessages
         .filter(m => this.messagesByConversation[conversationKey].findIndex(mI => mI.id === m.id) === -1);
       this.messagesByConversation[conversationKey].push(...loadedMessagesToAdd);
 
       // only show the load more Button if the max count was returned
-      this.selectedConversation.canLoadMore = loadedMessages.length === 10;
+      this.selectedConversation.canLoadMore = loadedMessages.length === PM_PER_PAGE;
       this.messagesLoading = false;
+    },
+    selectFirstConversation () {
+      if (this.loadedConversations.length > 0) {
+        this.selectConversation(this.loadedConversations[0].uuid, true);
+      }
     },
   },
 };

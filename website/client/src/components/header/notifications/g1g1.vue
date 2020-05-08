@@ -2,15 +2,27 @@
   <div
     class="notification d-flex flex-column justify-content-center text-center"
   >
-    <strong class="mx-auto mb-2"> {{ $t('g1g1Announcement') }} </strong>
-    <p class="mx-4">
+
+    <strong
+      v-once
+      class="mx-auto mb-2"
+    >
+      {{ $t('g1g1Announcement') }}
+    </strong>
+    <p
+      v-once
+      class="mx-4"
+    >
       {{ $t('g1g1Details') }}
     </p>
     <div
       class="btn-secondary mx-auto d-flex"
       @click="showSelectUser()"
     >
-      <div class="m-auto">
+      <div
+        v-once
+        class="m-auto"
+      >
         {{ $t('sendGift') }}
       </div>
     </div>
@@ -19,6 +31,7 @@
       @click.stop="remove()"
     >
       <div
+        v-once
         class="svg-icon"
         v-html="icons.close"
       ></div>

@@ -1742,5 +1742,6 @@
     "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
     "twoHandedItem": "Two-handed item.",
-    "weaponSpecialKS2019Text": "Myyttinen Griippiglaive"
+    "weaponSpecialKS2019Text": "Myyttinen Griippiglaive",
+    "weaponSpecialKS2019Notes": "Käyränä kuin griipin nokka ja kynnet, tämä koristeltu salkoase muistuttaa sinua puskemaan eteenpäin kun urakka edessäsi tuntuu musertavalta. Kasvattaa voimaa <%= str %> pisteellä."
 }

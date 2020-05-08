@@ -11,12 +11,12 @@
     "questDetailsTitle": "Détails de la quête",
     "questDescription": "Les quêtes permettent aux joueurs de se concentrer, avec les membres de leur équipe, sur des objectifs de jeu à long terme.",
     "invitations": "Invitations",
-    "completed": "complétée !",
+    "completed": "finie !",
     "rewardsAllParticipants": "Récompenses individuelles",
-    "rewardsQuestOwner": "Récompenses additionnelles pour le ou la responsable de quête",
-    "questOwnerReceived": "La personne propriétaire de la quête a aussi reçu",
+    "rewardsQuestOwner": "Récompenses additionnelles pour le ou la propriétaire du parchemin de quête",
+    "questOwnerReceived": "La personne propriétaire du parchemin de quête a aussi reçu",
     "youWillReceive": "Vous recevrez",
-    "questOwnerWillReceive": "La personne propriétaire de la quête recevra aussi",
+    "questOwnerWillReceive": "La personne propriétaire du parchemin de quête recevra aussi",
     "youReceived": "Vous avez reçu :",
     "dropQuestCongrats": "Félicitations pour avoir reçu ce parchemin de quête ! Vous pouvez inviter votre équipe à commencer la quête maintenant, ou y revenir à n'importe quel moment dans votre Inventaire > Quêtes.",
     "questSend": "En cliquant sur \"Inviter\", vous enverrez une invitation aux membres de votre équipe. Lorsque tous les membres auront accepté ou refusé, la quête commencera. Vous pouvez suivre le statut de l'invitation sous Social > Équipe.",
@@ -137,5 +137,7 @@
     "chatQuestAborted": "<%= username %> a interrompu la quête <%= questName %>.",
     "chatQuestCancelled": "<%= username %> a annulé la quête en équipe <%= questName %>.",
     "tavernBossTired": "<%= bossName %> essaye de lancer <%= rageName %> mais est trop fatigué pour ça.",
-    "questInvitationNotificationInfo": "Vous avez reçu une invitation à une quête"
+    "questInvitationNotificationInfo": "Vous avez reçu une invitation à une quête",
+    "questAlreadyStartedFriendly": "La quête a déjà commencé, mais vous pourrez toujours faire la suivante !",
+    "questAlreadyStarted": "La quête a déjà commencé."
 }

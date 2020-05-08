@@ -96,7 +96,17 @@ export const TaskSchema = new Schema({
     validate: [v => validator.isUUID(v), 'Invalid uuid for task tags.'],
   }],
   // redness or cost for rewards Required because it must be settable (for rewards)
-  value: { $type: Number, default: 0, required: true },
+  value: {
+    $type: Number,
+    default: 0,
+    required: true,
+    validate: {
+      validator (value) {
+        return this.type === 'reward' ? value >= 0 : true;
+      },
+      msg: 'Reward cost should be a positive number or 0.',
+    },
+  },
   priority: {
     $type: Number,
     default: 1,
@@ -160,6 +170,12 @@ TaskSchema.plugin(baseModel, {
       if (!Number.isNaN(parsedFloat)) {
         taskObj.priority = parsedFloat.toFixed(1);
       }
+    }
+
+    // Fix issue where iOS was sending null as the value of the attribute field
+    // See https://github.com/HabitRPG/habitica-ios/commit/4cd05f80363502eb7652e057aa564c85546f7806
+    if (taskObj.attribute === null) {
+      taskObj.attribute = 'str';
     }
 
     return taskObj;

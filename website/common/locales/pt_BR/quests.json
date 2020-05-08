@@ -135,7 +135,9 @@
     "chatQuestAborted": "<%= username %> abortou a missão <%= questName %>.",
     "chatItemQuestFinish": "Todos os itens foram encontrados! Todos os membros do Grupo que participaram desta missão receberam suas recompensas.",
     "chatFindItems": "<%= username %> encontrou <%= items %>.",
-    "chatBossDefeated": "Você derrotou o(a) <%= bossName %>! Todos os membros do Grupo que participaram desta missão receberam recompensas por esta vitória.",
+    "chatBossDefeated": "Vocês derrotaram <%= bossName %>! Todos os membros do Grupo que participaram desta missão receberam recompensas por esta vitória.",
     "chatBossDamage": "<%= username %> ataca <%= bossName %>, causando <%= userDamage %> de dano. <%= bossName %> ataca o Grupo e causa <%= bossDamage %> de dano.",
-    "questInvitationNotificationInfo": "Você foi convidado(a) para participar de uma missão"
+    "questInvitationNotificationInfo": "Você foi convidado(a) para participar de uma missão",
+    "questAlreadyStartedFriendly": "A missão já começou, mas você sempre pode pegar a próxima!",
+    "questAlreadyStarted": "A missão já começou."
 }

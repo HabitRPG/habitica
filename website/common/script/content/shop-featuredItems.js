@@ -5,23 +5,27 @@ import moment from 'moment';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore('2020-03-02')) {
+    if (moment().isBefore('2020-05-02')) {
       return [
         {
-          type: 'card',
-          path: 'cardTypes.valentine',
+          type: 'armoire',
+          path: 'armoire',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Cupid',
+          path: 'premiumHatchingPotions.BirchBark',
         },
         {
           type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.RoseQuartz',
+          path: 'premiumHatchingPotions.Shimmer',
         },
         {
-          type: 'eggs',
-          path: 'eggs.Fox',
+          type: 'premiumHatchingPotion',
+          path: 'premiumHatchingPotions.Celestial',
+        },
+        {
+          type: 'premiumHatchingPotion',
+          path: 'hatchingPotions.Veggie',
         },
       ];
     }
@@ -45,22 +49,38 @@ const featuredItems = {
     ];
   },
   quests () {
+    if (moment().isBefore('2020-05-02')) {
+      return [
+        {
+          type: 'quests',
+          path: 'quests.waffle',
+        },
+        {
+          type: 'quests',
+          path: 'quests.trex_undead',
+        },
+        {
+          type: 'quests',
+          path: 'quests.bunny',
+        },
+      ];
+    }
     return [
       {
         type: 'quests',
-        path: 'quests.treeling',
+        path: 'quests.sheep',
       },
       {
         type: 'quests',
-        path: 'quests.stoikalmCalamity1',
+        path: 'quests.seaserpent',
       },
       {
         type: 'quests',
-        path: 'quests.ruby',
+        path: 'quests.silver',
       },
     ];
   },
-  seasonal: 'winter2019Warrior',
+  seasonal: 'spring2019Rogue',
   timeTravelers: [
     // TODO
   ],

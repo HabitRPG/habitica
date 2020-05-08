@@ -879,12 +879,26 @@ describe('cron', () => {
       tasksByType.todos.push(task);
     });
 
+    afterEach(() => {
+      tasksByType.todos = [];
+      user.tasksOrder.todos = [];
+    });
+
     it('should make uncompleted todos redder', () => {
       const valueBefore = tasksByType.todos[0].value;
       cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.todos[0].value).to.be.lessThan(valueBefore);
+    });
+
+    it('should not make completed todos redder', () => {
+      tasksByType.todos[0].completed = true;
+      const valueBefore = tasksByType.todos[0].value;
+      cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+      expect(tasksByType.todos[0].value).to.equal(valueBefore);
     });
 
     it('should add history of completed todos to user history', () => {
@@ -898,17 +912,13 @@ describe('cron', () => {
     });
 
     it('should remove completed todos from users taskOrder list', () => {
-      tasksByType.todos = [];
-      user.tasksOrder.todos = [];
       const todo = {
         text: 'test todo',
         type: 'todo',
         value: 0,
       };
 
-      let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
-      tasksByType.todos.push(task);
-      task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
+      const task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
       tasksByType.todos.push(task);
       tasksByType.todos[0].completed = true;
 
@@ -930,8 +940,6 @@ describe('cron', () => {
     });
 
     it('should preserve todos order in task list', () => {
-      tasksByType.todos = [];
-      user.tasksOrder.todos = [];
       const todo = {
         text: 'test todo',
         type: 'todo',

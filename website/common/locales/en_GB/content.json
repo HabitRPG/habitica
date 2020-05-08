@@ -4,7 +4,7 @@
     "armoireText": "Enchanted Armoire",
     "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining:",
     "armoireLastItem": "You've found the last piece of rare Equipment in the Enchanted Armoire.",
-    "armoireNotesEmpty": "The Armoire will have new Equipment in the first week of every month. Until then, keep clicking for Experience and Food!",
+    "armoireNotesEmpty": "The Armoire will have new Equipment in the first week of every month. Until then, keep clicking for Experience and Pet Food!",
     "dropEggWolfText": "Wolf",
     "dropEggWolfMountText": "Wolf",
     "dropEggWolfAdjective": "a loyal",
@@ -353,5 +353,8 @@
     "questEggRobotText": "Robot",
     "questEggDolphinAdjective": "a chipper",
     "questEggDolphinMountText": "Dolphin",
-    "questEggDolphinText": "Dolphin"
+    "questEggDolphinText": "Dolphin",
+    "hatchingPotionRuby": "Ruby",
+    "hatchingPotionBirchBark": "Birch Bark",
+    "hatchingPotionDessert": "Confection"
 }

@@ -136,5 +136,8 @@
     "chatBossDontAttack": "<%= username %> hits yon <%= bossName %> fer <%= userDamage %> damage. <%= bossName %> don't strike back, as it respecks th' fact that there're some choppy waters post-maintenance, n' it don't want t' hurt no-one unfairly. It'll continue its rampage soon!",
     "chatBossDamage": "<%= username %> hits yon <%= bossName %> fer <%= userDamage %> damage. <%= bossName %> hits yer party fer <%= bossDamage %> damage.",
     "chatQuestStarted": "Yer Adventure, <%= questName %>, has begun.",
-    "hatchingPotionQuests": "Magical Hatchin' Potion Adventures"
+    "hatchingPotionQuests": "Magical Hatchin' Potion Adventures",
+    "questAlreadyStartedFriendly": "Th' Adventure's already started, but ye kin allus catch th' next 'un!",
+    "questAlreadyStarted": "Th' Adventure's already started.",
+    "questInvitationNotificationInfo": "Ye've been invited ta join an Adventure"
 }

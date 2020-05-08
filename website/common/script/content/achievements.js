@@ -177,6 +177,21 @@ const basicAchievs = {
     titleKey: 'achievementPearlyPro',
     textKey: 'achievementPearlyProText',
   },
+  tickledPink: {
+    icon: 'achievement-tickledPink',
+    titleKey: 'achievementTickledPink',
+    textKey: 'achievementTickledPinkText',
+  },
+  rosyOutlook: {
+    icon: 'achievement-rosyOutlook',
+    titleKey: 'achievementRosyOutlook',
+    textKey: 'achievementRosyOutlookText',
+  },
+  bugBonanza: {
+    icon: 'achievement-bugBonanza',
+    titleKey: 'achievementBugBonanza',
+    textKey: 'achievementBugBonanzaText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

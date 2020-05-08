@@ -63,5 +63,13 @@
     "achievementPurchasedEquipmentText": "Adquirió su primera pieza de equipamiento.",
     "achievementHatchedPetText": "Eclosionó su primera mascota.",
     "achievementHatchedPet": "Eclosiona una mascota",
-    "achievementPearlyPro": "Coleccionista de Perlas"
+    "achievementPearlyPro": "Coleccionista de Perlas",
+    "achievementTickledPinkModalText": "¡Coleccionaste todas las mascotas rosadas de algodón de azúcar!",
+    "achievementTickledPinkText": "Ha recogido todas las mascotas rosadas de algodón de azúcar.",
+    "achievementTickledPink": "cosquillas rosa",
+    "foundNewItemsCTA": "¡Dirígete a tu Inventario e intenta combinar tu nueva poción para incubar y huevo!",
+    "foundNewItemsExplanation": "Completar tareas te da la oportunidad de encontrar elementos, como Huevos, Pociones para Incubar y Comida para Mascotas.",
+    "foundNewItems": "¡Encontraste nuevos artículos!",
+    "onboardingCompleteDescSmall": "¡Si quieres aún más, mira Logros y comienza a coleccionar!",
+    "yourProgress": "Su Progreso"
 }

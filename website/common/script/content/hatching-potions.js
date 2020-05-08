@@ -3,6 +3,9 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import moment from 'moment';
 import t from './translation';
+import {
+  EVENTS,
+} from './constants';
 
 function hasQuestAchievementFunction (key) {
   return user => user.achievements.quests
@@ -70,6 +73,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionShimmer'),
     limited: true,
+    event: EVENTS.spring2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2018 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
   },
   Fairy: {
     value: 2,
@@ -198,6 +209,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionCelestial'),
     limited: true,
+    event: EVENTS.spring2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
   },
   Sunshine: {
     value: 2,
@@ -253,13 +272,38 @@ const premium = {
     canBuy: hasQuestAchievementFunction('ruby'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
+  BirchBark: {
+    value: 2,
+    text: t('hatchingPotionBirchBark'),
+    limited: true,
+    event: EVENTS.spring2020,
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndMarch'),
+    }),
+  },
 };
 
 const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    _season: '_PENDING_',
+    event: EVENTS.spring2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
+  },
+  Dessert: {
+    text: t('hatchingPotionDessert'),
+    limited: true,
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+    canBuy: hasQuestAchievementFunction('waffle'),
   },
 };
 
@@ -303,9 +347,9 @@ each(wacky, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: t('eventAvailability', {
+    _addlNotes: pot._season && pot._season !== '_PENDING_' ? t('eventAvailability', {
       date: t(`dateEnd${pot._season}`),
-    }),
+    }) : null,
     premium: false,
     limited: true,
     wacky: true,

@@ -3,6 +3,7 @@ import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
 import keys from 'lodash/keys';
 import upperFirst from 'lodash/upperFirst';
+import moment from 'moment';
 import i18n from '../i18n';
 import content from '../content/index';
 import {
@@ -34,7 +35,7 @@ function evolve (user, pet, req) {
   }, req.language);
 }
 
-export default function feed (user, req = {}) {
+export default function feed (user, req = {}, analytics) {
   let pet = get(req, 'params.pet');
   const foodK = get(req, 'params.food');
 
@@ -60,7 +61,7 @@ export default function feed (user, req = {}) {
     throw new NotFound(i18n.t('messageFoodNotFound', req.language));
   }
 
-  if (pet.type === 'special') {
+  if (pet.type === 'special' || pet.type === 'wacky') {
     throw new NotAuthorized(i18n.t('messageCannotFeedPet', req.language));
   }
 
@@ -94,7 +95,7 @@ export default function feed (user, req = {}) {
 
     if (!user.achievements.fedPet && user.addAchievement) {
       user.addAchievement('fedPet');
-      checkOnboardingStatus(user);
+      checkOnboardingStatus(user, req, analytics);
     }
   }
 
@@ -117,6 +118,16 @@ export default function feed (user, req = {}) {
       }
     }
   });
+
+  if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
+    analytics.track('pet feed', {
+      uuid: user._id,
+      foodKey: food.key,
+      petKey: pet.key,
+      category: 'behavior',
+      headers: req.headers,
+    });
+  }
 
   return [
     user.items.pets[pet.key],

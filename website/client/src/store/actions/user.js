@@ -6,6 +6,7 @@ import { togglePinnedItem as togglePinnedItemOp } from '@/../../common/script/op
 import changeClassOp from '@/../../common/script/ops/changeClass';
 import disableClassesOp from '@/../../common/script/ops/disableClasses';
 import openMysteryItemOp from '@/../../common/script/ops/openMysteryItem';
+import markPMSRead from '../../../../common/script/ops/markPMSRead';
 
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow
   return loadAsyncResource({
@@ -179,6 +180,11 @@ export function newStuffRead (store) {
 
 export function getNews () {
   return axios.get('/api/v4/news');
+}
+
+export function markPrivMessagesRead (store) {
+  markPMSRead(store.state.user.data);
+  return axios.post('/api/v4/user/mark-pms-read');
 }
 
 export function newPrivateMessageTo (store, params) {

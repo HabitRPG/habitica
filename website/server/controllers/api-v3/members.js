@@ -1,3 +1,4 @@
+import escapeRegExp from 'lodash/escapeRegExp';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as User,
@@ -21,7 +22,10 @@ import {
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import common from '../../../common';
 import { sentMessage } from '../../libs/inbox';
-import { highlightMentions } from '../../libs/highlightMentions';
+import {
+  sanitizeText as sanitizeMessageText,
+} from '../../models/message';
+import highlightMentions from '../../libs/highlightMentions';
 
 const { achievements } = common;
 
@@ -167,17 +171,17 @@ api.getMemberByUsername = {
  * @apiSuccess {Object} data.seasonal The seasonal achievements object
  * @apiSuccess {Object} data.special The special achievements object
  *
- * @apiSuccess {String} data.*.label The label for that category
- * @apiSuccess {Object} data.*.achievements The achievements in that category
+ * @apiSuccess {String} data.label The label for that category
+ * @apiSuccess {Object} data.achievements The achievements in that category
  *
- * @apiSuccess {String} data.*.achievements.title The localized title string
- * @apiSuccess {String} data.*.achievements.text The localized description string
- * @apiSuccess {Boolean} data.*.achievements.earned Whether the user has earned the achievement
- * @apiSuccess {Number} data.*.achievements.index The unique index assigned
+ * @apiSuccess {String} data.achievements.title The localized title string
+ * @apiSuccess {String} data.achievements.text The localized description string
+ * @apiSuccess {Boolean} data.achievements.earned Whether the user has earned the achievement
+ * @apiSuccess {Number} data.achievements.index The unique index assigned
  *                                                to the achievement (only for sorting purposes).
- * @apiSuccess {Anything} data.*.achievements.value The value related to the achievement
+ * @apiSuccess {Anything} data.achievements.value The value related to the achievement
  *                                                  (if applicable)
- * @apiSuccess {Number} data.*.achievements.optionalCount The count related to the achievement
+ * @apiSuccess {Number} data.achievements.optionalCount The count related to the achievement
  *                                                        (if applicable)
  *
  * @apiSuccessExample {json} Successful Response
@@ -351,7 +355,8 @@ function _getMembersForItem (type) {
 
       if (req.query.search) {
         // Creates a RegExp expression when querying for profile.name
-        query['profile.name'] = { $regex: new RegExp(req.query.search, 'i') };
+        const escapedSearch = escapeRegExp(req.query.search);
+        query['profile.name'] = { $regex: new RegExp(escapedSearch, 'i') };
       }
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
@@ -658,8 +663,8 @@ api.getObjectionsToInteraction = {
  * @apiName SendPrivateMessage
  * @apiGroup Member
  *
- * @apiParam (Body) {String} message Body parameter - The message
- * @apiParam (Body) {UUID} toUserId Body parameter - The user to contact
+ * @apiParam (Body) {String} message The message
+ * @apiParam (Body) {UUID} toUserId The id of the user to contact
  *
  * @apiSuccess {Object} data.message The message just sent
  *
@@ -677,7 +682,8 @@ api.sendPrivateMessage = {
     if (validationErrors) throw validationErrors;
 
     const sender = res.locals.user;
-    const message = (await highlightMentions(req.body.message))[0];
+    const sanitizedMessageText = sanitizeMessageText(req.body.message);
+    const message = (await highlightMentions(sanitizedMessageText))[0];
 
     const receiver = await User.findById(req.body.toUserId).exec();
     if (!receiver) throw new NotFound(res.t('userNotFound'));
@@ -698,7 +704,7 @@ api.sendPrivateMessage = {
  * @apiGroup Member
  *
  * @apiParam (Body) {String} message The message to the user
- * @apiParam (Body) {UUID} toUserId The toUser _id
+ * @apiParam (Body) {UUID} toUserId The user to send the gift to
  * @apiParam (Body) {Integer} gemAmount The number of gems to send
  *
  * @apiSuccess {Object} data An empty Object

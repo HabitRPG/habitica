@@ -561,6 +561,8 @@ import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import changeClass from '@/../../common/script/ops/changeClass';
 import notificationsMixin from '../../mixins/notifications';
 import sounds from '../../libs/sounds';
+import { buildAppleAuthUrl } from '../../libs/auth';
+
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
 
@@ -833,16 +835,21 @@ export default {
     },
     async deleteSocialAuth (network) {
       await axios.delete(`/api/v4/user/auth/social/${network.key}`);
+      this.user.auth[network.key] = {};
       this.text(this.$t('detachedSocial', { network: network.name }));
     },
     async socialAuth (network) {
-      const auth = await hello(network).login({ scope: 'email' });
+      if (network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
+      } else {
+        const auth = await hello(network).login({ scope: 'email' });
 
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
 
-      window.location.href = '/';
+        window.location.href = '/';
+      }
     },
     async changeClassForUser (confirmationNeeded) {
       if (confirmationNeeded && !window.confirm(this.$t('changeClassConfirmCost'))) return;

@@ -49,11 +49,13 @@
                 target="_blank"
               >{{ $t('oldNews') }}</a>
             </li>
+            <!-- Commenting out merch page see https://github.com/HabitRPG/habitica/issues/12039
             <li>
               <router-link to="/static/merch">
                 {{ $t('merch') }}
               </router-link>
             </li>
+            -->
             <li>
               <router-link to="/static/press-kit">
                 {{ $t('presskit') }}
@@ -214,7 +216,7 @@
       </div>
       <div class="row">
         <div class="col-12 col-md-5">
-          © 2019 Habitica. All rights reserved.
+          © 2020 Habitica. All rights reserved.
           <div
             v-if="!IS_PRODUCTION && isUserLoaded"
             class="debug float-left"
@@ -326,7 +328,7 @@
   .footer-row {
     margin: 0;
     flex: 0 1 auto;
-    z-index: 17;
+    z-index: 10;
   }
 
   footer {

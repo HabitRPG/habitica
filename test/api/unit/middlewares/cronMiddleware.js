@@ -21,28 +21,11 @@ describe('cron middleware', () => {
     req;
   let user;
 
-  beforeEach(done => {
+  beforeEach(async () => {
     res = generateRes();
     req = generateReq();
-    user = new User({
-      auth: {
-        local: {
-          username: 'username',
-          lowerCaseUsername: 'username',
-          email: 'email@email.email',
-          salt: 'salt',
-          hashed_password: 'hashed_password', // eslint-disable-line camelcase
-        },
-      },
-    });
-
-    user.save()
-      .then(savedUser => {
-        res.locals.user = savedUser;
-        res.analytics = analyticsService;
-        done();
-      })
-      .catch(done);
+    user = await res.locals.user.save();
+    res.analytics = analyticsService;
   });
 
   afterEach(() => {

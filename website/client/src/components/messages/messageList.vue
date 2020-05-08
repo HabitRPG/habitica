@@ -1,20 +1,22 @@
 <template>
-  <perfect-scrollbar
+  <div
     ref="container"
     class="container-fluid"
-    :class="{'disable-perfect-scroll': disablePerfectScroll}"
-    :options="psOptions"
   >
     <div class="row loadmore">
       <div v-if="canLoadMore && !isLoading">
-        <div class="loadmore-divider"></div>
+        <div class="loadmore-divider-holder">
+          <div class="loadmore-divider"></div>
+        </div>
         <button
           class="btn btn-secondary"
           @click="triggerLoad()"
         >
           {{ $t('loadEarlierMessages') }}
         </button>
-        <div class="loadmore-divider"></div>
+        <div class="loadmore-divider-holder">
+          <div class="loadmore-divider"></div>
+        </div>
       </div>
       <h2
         v-show="isLoading"
@@ -30,33 +32,21 @@
       :class="{ 'margin-right': user._id !== msg.uuid}"
     >
       <div
-        v-if="user._id !== msg.uuid"
         class="d-flex flex-grow-1"
       >
         <avatar
-          v-if="msg.userStyles || (cachedProfileData[msg.uuid]
-            && !cachedProfileData[msg.uuid].rejected)"
+          v-if="user._id !== msg.uuid && conversationOpponentUser"
           class="avatar-left"
-          :member="msg.userStyles || cachedProfileData[msg.uuid]"
+          :member="conversationOpponentUser"
           :avatar-only="true"
           :override-top-padding="'14px'"
           :hide-class-badge="true"
           @click.native="showMemberModal(msg.uuid)"
         />
-        <div class="card card-right">
-          <message-card
-            :msg="msg"
-            @message-removed="messageRemoved"
-            @show-member-modal="showMemberModal"
-            @message-card-mounted="itemWasMounted"
-          />
-        </div>
-      </div>
-      <div
-        v-if="user._id === msg.uuid"
-        class="d-flex flex-grow-1"
-      >
-        <div class="card card-left">
+        <div
+          class="card"
+          :class="{'card-right': user._id !== msg.uuid, 'card-left': user._id === msg.uuid}"
+        >
           <message-card
             :msg="msg"
             @message-removed="messageRemoved"
@@ -65,10 +55,9 @@
           />
         </div>
         <avatar
-          v-if="msg.userStyles
-            || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
+          v-if="user && user._id === msg.uuid"
           class="avatar-right"
-          :member="msg.userStyles || cachedProfileData[msg.uuid]"
+          :member="user"
           :avatar-only="true"
           :hide-class-badge="true"
           :override-top-padding="'14px'"
@@ -76,30 +65,25 @@
         />
       </div>
     </div>
-  </perfect-scrollbar>
+  </div>
 </template>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-  @import '~vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css';
-
-  .disable-perfect-scroll {
-    overflow-y: inherit !important;
-  }
 
   .avatar {
-    width: 15%;
+    width: 170px;
     min-width: 8rem;
     height: 120px;
     padding-top: 0 !important;
   }
 
-  .avatar-left {
-    margin-left: -1rem;
-  }
-
   .avatar-right {
     margin-left: -1rem;
+
+    ::v-deep .character-sprites {
+      margin-right: 1rem !important;
+    }
   }
 
   .card {
@@ -164,6 +148,8 @@
   .loadmore {
     justify-content: center;
     margin-right: 12px;
+    margin-top: 12px;
+    margin-bottom: 24px;
 
     > div {
       display: flex;
@@ -173,15 +159,11 @@
       button {
         text-align: center;
         color: $gray-50;
-        margin-top: 12px;
-        margin-bottom: 24px;
       }
     }
   }
 
-  .loadmore-divider {
-    height: 1px;
-    background-color: $gray-500;
+  .loadmore-divider-holder {
     flex: 1;
     margin-left: 24px;
     margin-right: 24px;
@@ -189,6 +171,13 @@
     &:last-of-type {
       margin-right: 0;
     }
+  }
+
+  .loadmore-divider {
+    height: 1px;
+    border-top: 1px $gray-500 solid;
+    width: 100%;
+
   }
 
   .loading {
@@ -201,9 +190,7 @@
 
 <script>
 import moment from 'moment';
-import axios from 'axios';
 import debounce from 'lodash/debounce';
-import { PerfectScrollbar } from 'vue2-perfect-scrollbar';
 import { mapState } from '@/libs/store';
 
 import Avatar from '../avatar';
@@ -213,19 +200,16 @@ export default {
   components: {
     Avatar,
     messageCard,
-    PerfectScrollbar,
   },
   props: {
     chat: {},
     isLoading: Boolean,
     canLoadMore: Boolean,
+    conversationOpponentUser: {},
   },
   data () {
     return {
       currentDayDividerDisplay: moment().day(),
-      cachedProfileData: {},
-      currentProfileLoadedCount: 0,
-      currentProfileLoadedEnd: 10,
       loading: false,
       handleScrollBack: false,
       lastOffset: -1,
@@ -233,8 +217,6 @@ export default {
     };
   },
   mounted () {
-    this.loadProfileCache();
-
     this.$el.addEventListener('selectstart', () => this.handleSelectStart());
     this.$el.addEventListener('mouseup', () => this.handleSelectChange());
   },
@@ -253,21 +235,12 @@ export default {
     // @TODO: We need a different lazy load mechnism.
     // But honestly, adding a paging route to chat would solve this
     messages () {
-      this.loadProfileCache();
       return this.chat;
-    },
-    psOptions () {
-      return {
-        suppressScrollX: true,
-      };
     },
   },
   methods: {
-    handleScroll () {
-      this.loadProfileCache(window.scrollY / 1000);
-    },
     async triggerLoad () {
-      const container = this.$refs.container.$el;
+      const { container } = this.$refs;
 
       // get current offset
       this.lastOffset = container.scrollTop - (container.scrollHeight - container.clientHeight);
@@ -284,99 +257,23 @@ export default {
         this.handleScrollBack = true;
       }
     },
-    loadProfileCache: debounce(function loadProfileCache (screenPosition) {
-      this._loadProfileCache(screenPosition);
-    }, 1000),
-    async _loadProfileCache (screenPosition) {
-      if (this.loading) return;
-      this.loading = true;
-
-      const promises = [];
-      const noProfilesLoaded = Object.keys(this.cachedProfileData).length === 0;
-
-      // @TODO: write an explination
-      // @TODO: Remove this after enough messages are cached
-      if (!noProfilesLoaded && screenPosition
-        && Math.floor(screenPosition) + 1 > this.currentProfileLoadedEnd / 10) {
-        this.currentProfileLoadedEnd = 10 * (Math.floor(screenPosition) + 1);
-      } else if (!noProfilesLoaded && screenPosition) {
-        return;
-      }
-
-      const aboutToCache = {};
-      this.messages.forEach(message => {
-        const { uuid } = message;
-
-        if (message.userStyles) {
-          this.$set(this.cachedProfileData, uuid, message.userStyles);
-        }
-
-        if (Boolean(uuid) && !this.cachedProfileData[uuid] && !aboutToCache[uuid]) {
-          if (uuid === 'system' || this.currentProfileLoadedCount === this.currentProfileLoadedEnd) return;
-          aboutToCache[uuid] = {};
-          promises.push(axios.get(`/api/v4/members/${uuid}`));
-          this.currentProfileLoadedCount += 1;
-        }
-      });
-
-      const results = await Promise.all(promises);
-      results.forEach(result => {
-        // We could not load the user. Maybe they were deleted.
-        // So, let's cache empty so we don't try again
-        if (!result || !result.data || result.status >= 400) {
-          return;
-        }
-
-        const userData = result.data.data;
-        this.$set(this.cachedProfileData, userData._id, userData);
-      });
-
-      // Merge in any attempts that were rejected so we don't attempt again
-      for (const uuid in aboutToCache) {
-        if (!this.cachedProfileData[uuid]) {
-          this.$set(this.cachedProfileData, uuid, { rejected: true });
-        }
-      }
-
-      this.loading = false;
-    },
     displayDivider (message) {
-      if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {
-        this.currentDayDividerDisplay = moment(message.timestamp).day();
+      const day = moment(message.timestamp).day();
+      if (this.currentDayDividerDisplay !== day) {
+        this.currentDayDividerDisplay = day;
         return true;
       }
 
       return false;
     },
-    async showMemberModal (memberId) {
-      let profile = this.cachedProfileData[memberId];
-
-      if (!profile._id) {
-        const result = await this.$store.dispatch('members:fetchMember', { memberId });
-        if (result.response && result.response.status === 404) {
-          return this.$store.dispatch('snackbars:add', {
-            title: 'Habitica',
-            text: this.$t('messageDeletedUser'),
-            type: 'error',
-            timeout: false,
-          });
-        }
-        this.cachedProfileData[memberId] = result.data.data;
-        profile = result.data.data;
-      }
-
-      // Open the modal only if the data is available
-      if (profile && !profile.rejected) {
-        this.$router.push({ name: 'userProfile', params: { userId: profile._id } });
-      }
-
-      return null;
+    showMemberModal (memberId) {
+      this.$router.push({ name: 'userProfile', params: { userId: memberId } });
     },
     itemWasMounted: debounce(function itemWasMounted () {
       if (this.handleScrollBack) {
         this.handleScrollBack = false;
 
-        const container = this.$refs.container.$el;
+        const { container } = this.$refs;
         const offset = container.scrollHeight - container.clientHeight;
 
         const newOffset = offset + this.lastOffset;

@@ -60,7 +60,7 @@ export function mapActions (actions) {
   const res = {};
 
   normalizeMap(actions).forEach(({ key, val }) => {
-    res[key] = function mappedAction (...args) {
+    res[key] = async function mappedAction (...args) {
       return this.$store.dispatch.apply(this.$store, [val].concat(args)); // eslint-disable-line prefer-spread, max-len
     };
   });
