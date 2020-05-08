@@ -22,7 +22,7 @@ const exampleTagList = [
     id: 3,
     name: 'This is a long tag',
   },
-]
+];
 
 stories
   .add('tag-list', () => ({
