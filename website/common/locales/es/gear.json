@@ -1907,5 +1907,11 @@
     "armorArmoireBoatingJacketText": "Chaqueta de Barco",
     "armorMystery201903Notes": "¡La gente se muere por saber de dónde has sacado este traje egg-celente! No otorga ningún beneficio. Artículo de Suscripción Marzo 2019.",
     "armorMystery201903Text": "Armadura de Shell-ebración",
-    "weaponArmoireLivelyMatchText": ""
+    "weaponArmoireLivelyMatchText": "Un partido animado",
+    "weaponArmoirePaperCutterText": "Cortador de papel",
+    "weaponArmoireBaseballBatText": "Bate de béisbol",
+    "weaponSpecialSpring2020HealerNotes": "Un iris es hermoso, pero las hojas son como espadas ... ¡no te dejes engañar por las flores, este bastón es duro como el acero! Aumenta la inteligencia en <% = int%>. Edición limitada 2020 Spring Gear.",
+    "weaponSpecialSpring2020MageText": "Gotas de lluvia",
+    "weaponSpecialSpring2020RogueText": "Cuchilla de lazurita",
+    "weaponArmoireLivelyMatchNotes": "When you're holding this, you're sure to spark someone's interest! Increases Strength by <%= str %>. Enchanted Armoire: Match Maker Set (Item 3 of 4)."
 }

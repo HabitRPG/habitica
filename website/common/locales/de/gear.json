@@ -2089,5 +2089,9 @@
     "backMystery202004Notes": "Flattere mal kurz zur nächsten Blumenwiese oder ziehe über den ganzen Kontinent mit diesen wunderschönen Flügeln! Gewährt keinen Attributbonus. Abonentengegenstand, April 2020.",
     "shieldArmoireHobbyHorseNotes": "Reite auf Deinem stattlichen Steckenpferd zu Deinen verdienten Belohnungen! Erhöht Wahrnehmung und Ausdauer um je <%= attrs %>. Verzauberter Schrank: Papierritter-Set (Gegenstand 2 von 3).",
     "shieldSpecialSpring2020HealerNotes": "Wehre die muffigen, alten To-Dos mit dem süßen Duft dieses Schilds ab. Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2020 Frühlingsausrüstung.",
-    "shieldSpecialSpring2020WarriorNotes": "Lass Dich nicht von den sanften Farben täuschen. Dieser Schild hält Dir den Rücken frei! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2020 Frühlingsausrüstung."
+    "shieldSpecialSpring2020WarriorNotes": "Lass Dich nicht von den sanften Farben täuschen. Dieser Schild hält Dir den Rücken frei! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2020 Frühlingsausrüstung.",
+    "backMystery202005Notes": "Obschon sie ganz leicht zerfetzt sind, tragen Dich diese Flügel immer noch, wo auch immer Du hin musst. Gewährt keinen Attributbonus. Abonnentengegenstand Mai 2020.",
+    "headAccessoryMystery202005Notes": "Mit so mächtigen Hörnern wird es kaum eine Kreatur wagen, Dich herauszufordern. Gewährt keinen Attributbonus. Abonnentengegenstand Mai 2020.",
+    "headAccessoryMystery202005Text": "Wunderliche Wyvernhörner",
+    "backMystery202005Text": "Wunderliche Wyvernflügel"
 }
