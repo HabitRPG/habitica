@@ -200,7 +200,6 @@
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
-import max from 'lodash/max';
 
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
@@ -250,7 +249,7 @@ export default {
 
       const { user } = this;
       const displayName = user.profile.name;
-      const username = user.auth.local.username;
+      const { username } = user.auth.local;
       const pattern = `@(${escapeRegExp(displayName)}|${escapeRegExp(username)})(\\b)`;
       message.highlight = new RegExp(pattern, 'i').test(message.text);
 
