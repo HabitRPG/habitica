@@ -34,7 +34,7 @@
       <div
         ref="markdownContainer"
         class="text"
-        v-html="atHighlight(parseMarkdown(msg.text))"
+        v-html="parseMarkdown(msg.text)"
       ></div>
       <hr>
       <div
@@ -201,7 +201,7 @@ import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
 
-import habiticaMarkdown from 'habitica-markdown';
+import renderWithMentions from '@/libs/renderWithMentions';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
 
@@ -210,7 +210,6 @@ import copyIcon from '@/assets/svg/copy.svg';
 import likeIcon from '@/assets/svg/like.svg';
 import likedIcon from '@/assets/svg/liked.svg';
 import reportIcon from '@/assets/svg/report.svg';
-import { highlightUsers } from '../../libs/highlightUsers';
 import { CHAT_FLAG_LIMIT_FOR_HIDING, CHAT_FLAG_FROM_SHADOW_MUTE } from '@/../../common/script/constants';
 
 export default {
@@ -341,12 +340,8 @@ export default {
         chatId: message.id,
       });
     },
-    atHighlight (text) {
-      return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
-    },
     parseMarkdown (text) {
-      if (!text) return null;
-      return habiticaMarkdown.render(String(text));
+      return renderWithMentions(text, this.user);
     },
   },
 };
