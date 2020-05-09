@@ -31,7 +31,7 @@ describe('DELETE /news/:newsID', () => {
     await user.del(`/news/${existingPost.id}`);
 
     const returnedPosts = await user.get('/news');
-    const deletedPost = returnedPosts.find(returnedPost => returnedPost.id === existingPost.id);
+    const deletedPost = returnedPosts.find(returnedPost => returnedPost._id === existingPost._id);
 
     expect(returnedPosts).is.an('array');
     expect(deletedPost).to.not.exist;

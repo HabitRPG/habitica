@@ -301,8 +301,8 @@ schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComp
 };
 
 schema.statics.checkNewStuff = function checkNewStuff (lastReadID) {
-  const { _id } = NewsPost.lastNewsPost();
-  return lastReadID !== _id;
+  const lastNewsPost = NewsPost.lastNewsPost();
+  return Boolean(lastNewsPost && lastReadID !== lastNewsPost._id);
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
@@ -503,8 +503,8 @@ schema.methods.isNewsPoster = function isNewsPoster () {
 };
 
 schema.methods.checkNewStuff = function checkNewStuff () {
-  const { id } = NewsPost.lastNewsPost();
-  return this.flags.lastNewStuffRead !== id;
+  const lastNewsPost = NewsPost.lastNewsPost();
+  return Boolean(lastNewsPost && this.flags.lastNewStuffRead !== lastNewsPost._id);
 };
 
 // When converting to json add inbox messages from the Inbox collection
