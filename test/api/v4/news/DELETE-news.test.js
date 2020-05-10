@@ -22,7 +22,7 @@ describe('DELETE /news/:newsID', () => {
     await expect(nonAdminUser.post('/news')).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: 'You don\'t have newsPoster access.',
+      message: 'You don\'t have news poster access.',
     });
   });
 

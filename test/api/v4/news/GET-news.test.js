@@ -14,7 +14,7 @@ describe('GET /news', () => {
   beforeEach(async () => {
     api = requester();
     const user = await generateUser({
-      'contributor.admin': true,
+      'contributor.newsPoster': true,
     });
     await user.post('/news', newsPost);
     await user.post('/news', newsPost);
