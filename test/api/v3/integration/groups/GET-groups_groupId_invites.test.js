@@ -56,6 +56,7 @@ describe('GET /groups/:groupId/invites', () => {
         },
       },
       flags: {
+        newStuff: false,
         verifiedUsername: true,
       },
     });

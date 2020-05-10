@@ -36,11 +36,7 @@ api.getNews = {
     const { user } = res.locals;
     const { page } = req.query;
 
-    let isAdmin = false;
-    if (user && user.contributor) {
-      isAdmin = user.contributor.admin;
-    }
-    const results = await NewsPost.getNews(isAdmin, { page });
+    const results = await NewsPost.getNews(user.isNewsPoster(), { page });
     res.respond(200, results);
   },
 };
@@ -60,7 +56,7 @@ api.getNews = {
  *       ...
  *     }
  *
- * @apiPermission Admin
+ * @apiPermission NewsPoster
  */
 api.createNews = {
   method: 'POST',
@@ -115,13 +111,9 @@ api.getPost = {
   async handler (req, res) {
     req.checkParams('postId', apiError('postIdRequired')).notEmpty();
     const { user } = res.locals;
-    let isAdmin = false;
-    if (user && user.contributor) {
-      isAdmin = user.contributor.admin;
-    }
 
     const newsPost = await NewsPost.findById(req.params.postId).exec();
-    if (!newsPost || (!isAdmin && !newsPost.isPublished)) {
+    if (!newsPost || (!user.isNewsPoster() && !newsPost.isPublished)) {
       throw new NotFound(res.t('newsPostNotFound'));
     } else {
       res.respond(200, newsPost);
@@ -147,7 +139,7 @@ api.getPost = {
  *
  * @apiUse postIdRequired
  *
- * @apiPermission Admin
+ * @apiPermission NewsPoster
  */
 api.updateNews = {
   method: 'PUT',

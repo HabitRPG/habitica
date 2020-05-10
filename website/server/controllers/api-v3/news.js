@@ -26,27 +26,42 @@ api.getNews = {
     const baileyClass = worldDmg.bailey ? 'npc_bailey_broken' : 'npc_bailey';
 
     const lastNewsPost = NewsPost.lastNewsPost();
-    res.status(200).send({
-      html: `
-      <div class="bailey">
-        <div class="media align-items-center">
-          <div class="mr-3 ${baileyClass}"></div>
-          <div class="media-body">
-            <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>${lastNewsPost.title}</h2>
+    if (lastNewsPost) {
+      res.status(200).send({
+        html: `
+        <div class="bailey">
+          <div class="media align-items-center">
+            <div class="mr-3 ${baileyClass}"></div>
+            <div class="media-body">
+              <h1 class="align-self-center">${res.t('newStuff')}</h1>
+              <h2>${lastNewsPost.title}</h2>
+            </div>
+          </div>
+          <hr/>
+          <div class="promo_armoire_backgrounds_202005 center-block"></div>
+          <p>
+            ${lastNewsPost.text}
+          </p>
+          <div class="small">
+            ${lastNewsPost.credits}
           </div>
         </div>
-        <hr/>
-        <div class="promo_armoire_backgrounds_202005 center-block"></div>
-        <p>
-          ${lastNewsPost.text}
-        </p>
-        <div class="small">
-          ${lastNewsPost.credits}
+        `,
+      });
+    } else {
+      res.status(200).send({
+        html: `
+        <div class="bailey">
+          <div class="media align-items-center">
+            <div class="mr-3 ${baileyClass}"></div>
+            <div class="media-body">
+              <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            </div>
+          </div>
         </div>
-      </div>
-      `,
-    });
+        `,
+      });
+    }
   },
 };
 
