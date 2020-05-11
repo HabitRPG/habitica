@@ -35,8 +35,11 @@ api.getNews = {
   async handler (req, res) {
     const { user } = res.locals;
     const { page } = req.query;
-
-    const results = await NewsPost.getNews(user.isNewsPoster(), { page });
+    let isNewsPoster = false;
+    if (user) {
+      isNewsPoster = user.isNewsPoster();
+    }
+    const results = await NewsPost.getNews(isNewsPoster, { page });
     res.respond(200, results);
   },
 };
