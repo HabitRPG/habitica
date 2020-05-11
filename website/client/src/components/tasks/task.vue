@@ -979,7 +979,9 @@ export default {
       // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
 
-      if (target.tagName === 'A') return; // clicked on a link
+      for (let element = target; element.className === undefined || element.className.indexOf('task-clickable-area') === -1; element = element.parentNode) {
+        if (element.tagName === 'A') return; // clicked on a link
+      }
 
       const isDropdown = this.$refs.taskDropdown && this.$refs.taskDropdown.$el.contains(target);
       const isEditAction = this.$refs.editTaskItem && this.$refs.editTaskItem.contains(target);
