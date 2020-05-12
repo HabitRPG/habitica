@@ -976,10 +976,16 @@ export default {
     edit (e, task) {
       if (this.isRunningYesterdailies || !this.showEdit) return;
 
-      // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
 
-      for (let element = target; element.className === undefined || element.className.indexOf('task-clickable-area') === -1; element = element.parentNode) {
+      /*
+       * Prevent clicking on a link from opening the edit modal
+       *
+       * Ascend up the ancestors of the click target, up until the node defining the click handler.
+       * If any of them is an <a> element, don't open the edit task popup.
+       * Needed in case of a link, with a bold and/or italic link description
+       */
+      for (let element = target; !element.classList.contains('task-clickable-area'); element = element.parentNode) {
         if (element.tagName === 'A') return; // clicked on a link
       }
 
