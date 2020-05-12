@@ -379,6 +379,7 @@
 import keys from 'lodash/keys';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
+
 import * as Analytics from '@/libs/analytics';
 import spellsMixin from '@/mixins/spells';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
@@ -406,7 +407,6 @@ import Avatar from '@/components/avatar';
 
 import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 import { drops as dropEggs } from '@/../../common/script/content/eggs';
-
 
 const dropEggKeys = keys(dropEggs);
 
@@ -531,23 +531,43 @@ export default {
         this.item.pinType === 'premiumHatchingPotion'
         || (this.item.pinType === 'eggs' && dropEggKeys.indexOf(this.item.key) === -1)
       ) {
-        let petsRemaining = 20 - this.selectedAmountToBuy;
-        petsRemaining -= reduce(this.user.items.pets, (sum, petValue, petKey) => {
+        /* Total amount of pets to hatch with item bought */
+        let totalPetsToHatch;
+
+        if (this.item.pinType === 'premiumHatchingPotion') { // buying potions
+          if (this.item.path.includes('wackyHatchingPotions.')) {
+            // wacky potions don't have mounts
+            totalPetsToHatch = 9;
+          } else {
+            totalPetsToHatch = 18; // Each of the 9 eggs, combine into pet twice
+          }
+        } else { // buying quest eggs: Each of the 10 potions, combine into pet twice
+          totalPetsToHatch = 20;
+        }
+
+        /* Amount of items the user already has */
+        let ownedItems;
+        if (this.item.pinType === 'premiumHatchingPotion') {
+          ownedItems = this.user.items.hatchingPotions[this.item.key] || 0;
+        } else {
+          ownedItems = this.user.items.eggs[this.item.key] || 0;
+        }
+
+        const ownedPets = reduce(this.user.items.pets, (sum, petValue, petKey) => {
           if (petKey.indexOf(this.item.key) !== -1 && petValue > 0) return sum + 1;
           return sum;
         }, 0);
-        petsRemaining -= reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
+
+        const ownedMounts = reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
           if (mountKey.indexOf(this.item.key) !== -1 && mountValue === true) return sum + 1;
           return sum;
         }, 0);
-        if (this.item.pinType === 'premiumHatchingPotion') {
-          petsRemaining -= this.user.items.hatchingPotions[this.item.key] + 2 || 2;
-          if (this.item.path.indexOf('wackyHatchingPotions.') !== -1) {
-            petsRemaining -= 9;
-          }
-        } else {
-          petsRemaining -= this.user.items.eggs[this.item.key] || 0;
-        }
+
+        const petsRemaining = totalPetsToHatch
+          - this.selectedAmountToBuy
+          - ownedPets
+          - ownedMounts
+          - ownedItems;
 
         if (
           petsRemaining < 0
