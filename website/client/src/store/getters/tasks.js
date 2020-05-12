@@ -139,6 +139,8 @@ export function getTaskClasses (store) {
         return `task-${color}-modal-bg`;
       case 'edit-modal-content':
         return `task-${color}-modal-content`;
+      case 'create-modal-content':
+        return 'task-purple-modal-content';
       case 'edit-modal-text':
         return `task-${color}-modal-text`;
       case 'edit-modal-icon':
