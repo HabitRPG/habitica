@@ -89,7 +89,7 @@
       </div>
     </div>
     <div
-      class="task-modal-content p-x-xl p-t-l p-b-xl"
+      class="task-modal-content p-x-xl p-t-l"
       :class="cssClass('content')"
       @click="handleClick($event)"
     >
@@ -622,7 +622,7 @@
       <div
         v-if="purpose === 'create'"
         class="btn btn-primary btn-footer
-          d-flex align-items-center justify-content-center mb-2"
+          d-flex align-items-center justify-content-center m-t-s m-b-s"
         :class="{disabled: !canSave}"
         @click="submit()"
       >
@@ -657,6 +657,12 @@
     .modal-content {
       border-radius: 8px;
       border: none;
+    }
+
+    .modal-body {
+      // the body has a margin/padding that can't be found
+      // if found please remove that padding and this style
+      margin-bottom: -1rem;
     }
 
     .modal-header, .modal-body, .modal-footer {
@@ -821,6 +827,7 @@
     }
 
     .task-modal-footer {
+      margin: 0;
       padding: 16px 24px;
       width: 100%;
 
@@ -837,10 +844,8 @@
 
     .advanced-settings {
       background: $gray-700;
-      margin-left: -23px;
-      margin-right: -23px;
       padding: 16px 24px;
-      margin-bottom: -8px;
+      margin: -8px -23px;
 
       &-toggle {
         cursor: pointer;
