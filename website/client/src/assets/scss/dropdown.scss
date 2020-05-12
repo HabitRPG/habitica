@@ -6,15 +6,22 @@
   line-height: 1.43;
 }
 
+.dropdown-toggle:hover {
+  --caret-color: #{$purple-200};
+}
+
 .dropdown.show > .dropdown-toggle:not(.btn-success) {
   color: $purple-200;
   border-color: $purple-500 !important;
   box-shadow: none;
+
+  &::after {
+    --caret-color: #{$purple-200};
+  }
 }
 
 .dropdown-toggle::after {
-  margin-left: 16px;
-  border-top: 6px solid;
+  border-top-color: var(--caret-color);
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   vertical-align: 0;
