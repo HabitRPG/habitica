@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'MAY BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'FAIRY AND SUNSHINE GLOW HATCHING POTIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,22 +31,23 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>5/5/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>5/12/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_202005 center-block"></div>
+        <div class="promo_fairy_sunshine_potions center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can soar in a
-          Hot Air Balloon, pick fresh treats in a Strawberry Patch, and caper on Habit City
-          Rooftops. Check them out under User Icon > Backgrounds on web and Menu > Inventory >
-          Customize Avatar on mobile!
+          Some favorite pet breeds are back in town! Check out the return of Fairy and Sunshine
+          Glow Potions to brighten your May avatar look. Buy them from <a href='/shops/market'>the
+          Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not
+          work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky, so they'll happily eat
+          any kind of food that you feed them!
         </p>
         <p>
-          Plus, there’s new gold-purchasable equipment in the Enchanted Armoire, including the
-          Fiddler Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
+          After they're gone, it will be at least a year before the Fairy or Sunshine Glow Hatching
+          Potions are available again, so be sure to get them now!
         </p>
-        <div class="small mb-3">by FolleMente, QuartzFox, Katy133, weeWitch, and Ricardo</div>
+        <div class="small mb-3">by OuttaMyMind, Lt.Cabel, Eslyn, Edge, and SabreCat</div>
       </div>
       `,
     });
