@@ -845,7 +845,7 @@
     .advanced-settings {
       background: $gray-700;
       padding: 16px 24px;
-      margin: -8px -23px;
+      margin: -8px -24px;
 
       &-toggle {
         cursor: pointer;
