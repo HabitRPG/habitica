@@ -57,7 +57,7 @@
             <div
               v-if="task.group.id && !isUser && !task.completed"
               class="svg-icon lock"
-              :class="controlClass.checkbox"
+              :class="controlClass.icon"
               v-html="icons.lock"
             ></div>
             <div
