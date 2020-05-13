@@ -771,9 +771,21 @@ describe('User Model', () => {
       user = new User();
     });
 
+    it('should correctly calculate missed days when going forward', () => {
+      user.lastCron = moment('2017-12-05T00:00:00.000-06:00').toDate();
+      user.preferences.timezoneOffset = 360;
+
+      const today = moment('2017-12-06T00:00:00.000-06:00').toDate();
+      const requestWithMinus7Timezone = { header: () => 420 };
+
+      const { daysMissed } = user.daysUserHasMissed(today, requestWithMinus7Timezone);
+
+      expect(daysMissed).to.eql(0);
+    });
+
     it('should not cron early when going back a timezone', () => {
       const yesterday = moment('2017-12-05T00:00:00.000-06:00'); // 11 pm on 4 Texas
-      const timezoneOffset = -moment().zone('-06:00').utcOffset();
+      const timezoneOffset = 360;
       user.lastCron = yesterday;
       user.preferences.timezoneOffset = timezoneOffset;
 

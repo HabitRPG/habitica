@@ -81,7 +81,7 @@ export function startOfDay (options = {}) {
   const o = sanitizeOptions(options);
   const dayStart = moment(o.now).startOf('day').add({ hours: o.dayStart });
 
-  if (moment(o.now).hour() < o.dayStart) {
+  if (o.now.hour() < o.dayStart) {
     dayStart.subtract({ days: 1 });
   }
 
