@@ -49,7 +49,7 @@
     "onboardingProgress": "<%= percentage %> % progreso",
     "gettingStartedDesc": "Vamos a crear una tarea, complétala y mira tus recompensas. ¡Ganarás <strong>5 logros</strong> y <strong class=\"gold-amount\">100 de oro</strong> cuando hayas terminado!",
     "achievementCreatedTaskText": "Creaó su primera tarea.",
-    "achievementCreatedTask": "Crea una tarea",
+    "achievementCreatedTask": "¡Crea tu primera tarea!",
     "achievementFedPet": "Alimenta a una mascota",
     "achievementFedPetModalText": "Hay muchos tipos de comida, pero las mascotas pueden ser quisquillosas",
     "achievementHatchedPetModalText": "Dirígete a tu inventario y prueba a combinar una poción de eclosión y un huevo",
@@ -71,5 +71,6 @@
     "foundNewItemsExplanation": "Completar tareas te da la oportunidad de encontrar elementos, como Huevos, Pociones para Incubar y Comida para Mascotas.",
     "foundNewItems": "¡Encontraste nuevos artículos!",
     "onboardingCompleteDescSmall": "¡Si quieres aún más, mira Logros y comienza a coleccionar!",
-    "yourProgress": "Su Progreso"
+    "yourProgress": "Su Progreso",
+    "onboardingComplete": "¡Has completado tus tareas de incorporación!"
 }

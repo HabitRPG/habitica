@@ -170,6 +170,7 @@ const NOTIFICATIONS = {
     achievement: true,
     label: $t => $t('modalContribAchievement'),
     modalId: 'contributor',
+    sticky: true,
   },
   ACHIEVEMENT_ALL_YOUR_BASE: {
     achievement: true,
@@ -552,7 +553,7 @@ export default {
         this.text(config.label(this.$t), () => {
           this.notificationData = data;
           this.$root.$emit('bv::show::modal', config.modalId);
-        }, true, 10000);
+        }, !config.sticky, 10000);
       }
     },
     debounceCheckUserAchievements: debounce(function debounceCheck () {

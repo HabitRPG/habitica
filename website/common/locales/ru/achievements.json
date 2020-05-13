@@ -56,7 +56,7 @@
     "achievementCompletedTask": "Выполнить задачу",
     "achievementCreatedTaskModalText": "Добавить задачу для чего-то, что вы хотели бы выполнить на этой неделе",
     "achievementCreatedTaskText": "Создать свою первую задачу.",
-    "achievementCreatedTask": "Создать задачу",
+    "achievementCreatedTask": "Создать первую задачу",
     "hideAchievements": "Скрыть <%= category %>",
     "showAllAchievements": "Показать все <%= category %>",
     "onboardingCompleteDesc": "Вы получили <strong>5 достижений</strong> и <strong class=\"gold-amount\">100 золота</strong> за выполнение списка.",

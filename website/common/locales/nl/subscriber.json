@@ -7,7 +7,7 @@
     "buyGemsGoldText": "Alexander the Merchant zal je juwelen verkopen tegen een prijs van 20 goud per juweel. Zijn maandelijkse verzendingen worden aanvankelijk afgemaakt op 25 Gems per maand, maar voor elke 3 opeenvolgende maanden die u bent ingeschreven, stijgt deze pet met 5 Gems, tot maximaal 50 Gems per maand!",
     "mustSubscribeToPurchaseGems": "Je moet een abonnement hebben om edelstenen te kunnen kopen met GP",
     "reachedGoldToGemCap": "Je hebt de maximale hoeveelheid Goud voor Edelstenen inwisselen <%= convCap %> al gehaald voor deze maand. Wij doen dit om misbruik te voorkomen. Het limiet zal gereset worden in de eerste drie dagen van elke maand.",
-    "reachedGoldToGemCapQuantity": "Je verzoek voor <%= quantity %> gaat over het limiet van Goud voor Edelstenen inwisselen <%= convCap %> voor deze maand. Wij doen dit om misbruik te voorkomen. Het limiet zal gereset worden in de eerste drie dagen van elke maand.",
+    "reachedGoldToGemCapQuantity": "Je verzoek voor <%= quantity %> is hoger dan de hoeveelheid die je nog kunt kopen deze maand. De volledige hoeveelheid wordt beschikbaar in de eerste drie dagen van elke maand. Bedankt voor het abboneren!",
     "retainHistory": "Volledige extra geschiedenis behouden",
     "retainHistoryText": "Maakt je afgeronde to-do's en taakgeschiedenis langer beschikbaar.",
     "doubleDrops": "Dagelijkse vondstmaximum verdubbeld",
@@ -41,7 +41,7 @@
     "manageSub": "Klik om je abonnement te beheren",
     "cancelSub": "Abonnement stopzetten",
     "cancelSubInfoGoogle": "Ga naar \"Mijn apps & games\" > \"Abonnementen\" in de Google Play Store app om je abonnement te annuleren of om de einddatum van je abonnement te zien als je die al geannuleerd hebt. Dit scherm laat niet zien of je abonnement geannuleerd is.",
-    "cancelSubInfoApple": "Ga naar <a href=\"https://support.apple.com/en-us/HT202039\">de officiële instructies van Apple</a> om je abonnement te annuleren of om de einddatum van je abonnement te zien als je deze al geannuleerd hebt. Dit scherm laat niet zien of je abonnement geannuleerd is.",
+    "cancelSubInfoApple": "Ga naar <a href=\"https://support.apple.com/en-us/HT202039\" target=\"_blank\">de officiële instructies van Apple</a> om je abonnement te annuleren of om de einddatum van je abonnement te zien als je deze al geannuleerd hebt. Dit scherm kan niet laten zien of je abonnement geannuleerd is.",
     "cancelSubInfoGroupPlan": "Omdat je een gratis abonnement hebt van een groepsplan, kan je deze niet annuleren. Het abonnement loopt af wanneer je niet langer tot een groep behoort. Als je de groepsleider bent en het gehele groepsplan wilt annuleren, kun je dit doen via het tabblad 'Betalingsdetails' in de groep.",
     "canceledSubscription": "Beëindigd abonnement",
     "cancelingSubscription": "Het abonnement stopzetten",
@@ -152,7 +152,7 @@
     "mysterySet201810": "Donker bos set",
     "mysterySet201811": "Geweldige toveraans Set",
     "mysterySet201812": "arctische wolf Set",
-    "mysterySet201901": "Polaris Set",
+    "mysterySet201901": "Poolster Set",
     "mysterySet301404": "Standaard Steampunkset",
     "mysterySet301405": "Opgesmukte Steampunkset",
     "mysterySet301703": "Pauw steampunkset",
@@ -248,5 +248,6 @@
     "subscribersReceiveBenefits": "Abonnees ontvangen deze handige voordelen!",
     "subCanceledTitle": "Abonnement opgezegd",
     "backgroundAlreadyOwned": "Achtergrond al in bezit.",
-    "mysterySet202004": "Machtige Vorsten Set"
+    "mysterySet202004": "Machtige Vorsten Set",
+    "mysterySet202005": "Wonderlijke Wyvern Set"
 }

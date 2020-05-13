@@ -61,7 +61,7 @@
     "newGroupTitle": "New Group",
     "subscriberItem": "Mystery Item",
     "newSubscriberItem": "You have new <span class=\"notification-bold-blue\">Mystery Items</span>",
-    "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for more information.",
+    "subscriberItemText": "Kada buwan, ang mga naka-subscribe ay makakatanggap ng mystery item. Ito ay nagiging available sa umpisa ng buwan. Tignan ang pahinang 'Mystery Item' ng wiki para sa karagdagang impormasyon.",
     "all": "All",
     "none": "None",
     "more": "<%= count %> more",
@@ -284,11 +284,17 @@
     "dismissAll": "Dismiss All",
     "messages": "Messages",
     "emptyMessagesLine1": "You don't have any messages",
-    "emptyMessagesLine2": "Send a message to start a conversation!",
+    "emptyMessagesLine2": "Maaari kang magmessage sa isang user sa pamamagitan ng pagpunta sa kanilang profile at pagpindot ng \"Message\" button.",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
     "letsgo": "Let's Go!",
     "selected": "Selected",
     "howManyToBuy": "How many would you like to buy?",
     "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Contact the Moderation Team",
+    "loadEarlierMessages": "I-load ang mga Naunang Mensahe",
+    "demo": "Demo",
+    "congratulations": "Pagbati!",
+    "options": "Mga Pagpipilian",
+    "finish": "Tapos",
+    "onboardingAchievs": "Onboarding Achievements"
 }

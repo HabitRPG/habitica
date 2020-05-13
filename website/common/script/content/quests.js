@@ -3621,6 +3621,9 @@ each(quests, (v, key) => {
   defaults(v, {
     key,
     canBuy () {
+      if (v.event) {
+        return moment().isBetween(v.event.start, v.event.end);
+      }
       return true;
     },
   });
