@@ -2,7 +2,7 @@
   <router-link
     v-if="displayName"
     v-b-tooltip.hover.top="tierTitle"
-    class="leader"
+    class="leader user-link"
     :to="{'name': 'userProfile', 'params': {'userId': id}}"
     :class="levelStyle()"
   >
@@ -56,7 +56,7 @@ import tierNPC from '@/assets/svg/tier-npc.svg';
 
 export default {
   mixins: [styleHelper],
-  props: ['user', 'userId', 'name', 'backer', 'contributor'],
+  props: ['user', 'userId', 'name', 'backer', 'contributor', 'hideTooltip'],
   data () {
     return {
       icons: Object.freeze({
@@ -92,10 +92,11 @@ export default {
     },
     isNPC () {
       if (this.backer) {
-        return this.backer.level;
+        return this.backer.tier === 800;
       } if (this.user && this.user.backer) {
-        return this.user.backer.level;
+        return this.user.backer.tier === 800;
       }
+
       return false;
     },
     id () {
@@ -110,7 +111,7 @@ export default {
       return this.icons[`tier${this.level}`];
     },
     tierTitle () {
-      return achievementsLib.getContribText(this.contributor, this.isNPC) || '';
+      return this.hideTooltip ? '' : achievementsLib.getContribText(this.contributor, this.isNPC) || '';
     },
     levelStyle () {
       return this.userLevelStyleFromLevel(this.level, this.isNPC);

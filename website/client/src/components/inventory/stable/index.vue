@@ -183,7 +183,7 @@
           </div>
         </div>
         <div
-          v-if="petGroup.key !== 'specialPets' && petGroup.key !== 'wackyPets'"
+          v-if="petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
           class="btn btn-flat btn-show-more"
           @click="setShowMore(petGroup.key)"
         >
@@ -767,7 +767,6 @@ export default {
         case 'sortByHatchable': {
           if (isPetList) {
             const sortFunc = i => (i.isHatchable() ? 0 : 1);
-
             animals = _sortBy(animals, [sortFunc]);
           }
           break;
@@ -791,7 +790,7 @@ export default {
       const pets = this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
 
       // Don't group special
-      if (animalGroup.key === 'specialPets' || animalGroup.key === 'wackyPets') {
+      if (animalGroup.key === 'specialPets' || (animalGroup.key === 'wackyPets' && sortBy !== 'sortByColor')) {
         return { none: pets };
       }
 
@@ -800,6 +799,8 @@ export default {
         groupKey = 'potionKey';
       } else if (sortBy === 'AZ') {
         groupKey = '';
+      } else if (sortBy === 'sortByHatchable') {
+        groupKey = i => (i.isHatchable() ? 0 : 1);
       }
 
       return groupBy(pets, groupKey);

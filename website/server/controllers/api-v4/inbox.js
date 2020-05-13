@@ -1,9 +1,10 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import apiError from '../../libs/apiError';
-import * as inboxLib from '../../libs/inbox';
 import {
   NotFound,
 } from '../../libs/errors';
+import { listConversations } from '../../libs/inbox/conversation.methods';
+import { clearPMs, deleteMessage, getUserInbox } from '../../libs/inbox';
 
 const api = {};
 
@@ -40,7 +41,7 @@ api.deleteMessage = {
     const { messageId } = req.params;
     const { user } = res.locals;
 
-    const deleted = await inboxLib.deleteMessage(user, messageId);
+    const deleted = await deleteMessage(user, messageId);
     if (!deleted) throw new NotFound(res.t('messageGroupChatNotFound'));
 
     res.respond(200);
@@ -66,7 +67,7 @@ api.clearMessages = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    await inboxLib.clearPMs(user);
+    await clearPMs(user);
 
     res.respond(200, {});
   },
@@ -76,7 +77,12 @@ api.clearMessages = {
  * @api {get} /api/v4/inbox/conversations Get the conversations for a user
  * @apiName conversations
  * @apiGroup Inbox
- * @apiDescription Get the conversations for a user
+ * @apiDescription Get the conversations for a user.
+ * This is for API v4 which must not be used in third-party tools.
+ * For API v3, use "Get inbox messages for a user".
+ *
+ * @apiParam (Query) {Number} page (optional) Load the conversations of the selected Page
+ * - 10 conversations per Page
  *
  * @apiSuccess {Array} data An array of inbox conversations
  *
@@ -90,6 +96,7 @@ api.clearMessages = {
  *       "text":"last message of conversation",
  *       "userStyles": {},
  *       "contributor": {},
+ *       "canReceive": true,
  *       "count":1
  *    }
  * }
@@ -100,8 +107,9 @@ api.conversations = {
   url: '/inbox/conversations',
   async handler (req, res) {
     const { user } = res.locals;
+    const { page } = req.query;
 
-    const result = await inboxLib.listConversations(user);
+    const result = await listConversations(user, page);
 
     res.respond(200, result);
   },
@@ -125,10 +133,9 @@ api.getInboxMessages = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    const { page } = req.query;
-    const { conversation } = req.query;
+    const { page, conversation } = req.query;
 
-    const userInbox = await inboxLib.getUserInbox(user, {
+    const userInbox = await getUserInbox(user, {
       page, conversation, mapProps: true,
     });
 

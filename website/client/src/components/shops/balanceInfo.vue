@@ -1,14 +1,19 @@
 <template>
-  <div>
+  <div class="d-flex justify-content-around">
     <span
       v-for="currency of currencies"
       :key="currency.key"
     >
       <div
-        class="svg-icon"
+        class="svg-icon ml-1"
         v-html="currency.icon"
       ></div>
-      <span :class="{'notEnough': currency.notEnough}">{{ currency.value | roundBigNumber }}</span>
+      <span
+        :class="{'notEnough': currency.notEnough}"
+        class="mx-1"
+      >
+        {{ currency.value | roundBigNumber }}
+      </span>
     </span>
   </div>
 </template>
@@ -29,9 +34,6 @@ span {
   vertical-align: middle;
   width: 16px;
   height: 16px;
-  margin-right: 8px;
-  margin-left: 4px;
-
   display: inline-block;
 }
 
@@ -51,9 +53,6 @@ import currencyMixin from './_currencyMixin';
 export default {
   mixins: [currencyMixin],
   props: {
-    withHourglass: {
-      type: Boolean,
-    },
     currencyNeeded: {
       type: String,
     },
@@ -73,14 +72,11 @@ export default {
   computed: {
     currencies () {
       const currencies = [];
-
-      if (this.withHourglass) {
-        currencies.push({
-          type: 'hourglasses',
-          icon: this.icons.hourglasses,
-          value: this.userHourglasses,
-        });
-      }
+      currencies.push({
+        type: 'hourglasses',
+        icon: this.icons.hourglasses,
+        value: this.userHourglasses,
+      });
 
       currencies.push({
         type: 'gems',

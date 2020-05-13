@@ -51,7 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Has reportado este mensaje",
     "messageGroupChatNotFound": "¡Mensaje no encontrado!",
     "messageGroupChatAdminClearFlagCount": "¡Sólo un administrador puede borrar la cuenta!",
-    "messageCannotFlagSystemMessages": "No puedes reportar un mensaje de sistema. Si necesitas reportar una violación de las Normas de la Comunidad relacionadas con este mensaje, por favor manda un email con una captura de pantalla y una explicación a Lemoness a <%= communityManagerEmail %>.",
+    "messageCannotFlagSystemMessages": "No puedes reportar un mensaje de sistema. Si necesitas reportar una violación de las Normas de la Comunidad relacionadas con este mensaje, por favor manda un email con una captura de pantalla y una explicación al Manager de la Comunidad a <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "¡Oops, parece que estas escribiendo demasiados mensajes! Por favor, espera un minuto y vuelve a intentarlo. El Chat de la Taberna solo puede procesar 200 mensajes a la vez, por ello, Habitica recomienda escribir mensajes más largos y razonados, al igual que respuestas combinadas. No puedo esperar a leer lo que tienes que decir :) .",
     "messageCannotLeaveWhileQuesting": "No puedes aceptar una invitación a equipo mientras estás en una misión. Si deseas unirse a este equipo, primero debes cancelar la misión, lo que se puede hacer desde la pantalla de tu equpo. Se te devolverá el pergamino de misión.",
     "messageUserOperationProtected": "la ruta <%= operation %> no se guardó porque es una ruta protegida.",
@@ -60,9 +60,10 @@
     "messageNotAbleToBuyInBulk": "Este artículo no se puede comprar en cantidades superiores a 1.",
     "notificationsRequired": "Se requieren ids de notificación.",
     "unallocatedStatsPoints": "Tienes <span class=\"notification-bold-blue\"><%= points %> Puntos de Atributo sin asignar</span>",
-    "beginningOfConversation": "Este es el principio de tu conversación con <%= userName %>. ¡Recuerda ser amable, respetuoso y seguir las Normas de la Comunidad!",
+    "beginningOfConversation": "Este es el principio de tu conversación con <%= userName %>.",
     "messageDeletedUser": "Lo sentimos, este usuario ha eliminado su cuenta.",
     "messageMissingDisplayName": "Falta el nombre público.",
     "reportedMessage": "Has reportado este mensaje a los moderadores.",
-    "canDeleteNow": "Ahora puedes eliminar el mensaje si lo deseas."
+    "canDeleteNow": "Ahora puedes eliminar el mensaje si lo deseas.",
+    "beginningOfConversationReminder": "¡Recuerda ser amable, respetuoso, y seguir las Normas de la Comunidad!"
 }

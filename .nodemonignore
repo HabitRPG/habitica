@@ -1,4 +1,6 @@
 node_modules/**
+content_cache
+content_cache/**
 website/client/**
 test/**
 .git/**

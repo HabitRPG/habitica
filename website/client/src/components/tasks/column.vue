@@ -81,6 +81,8 @@
         ref="tasksList"
         class="sortable-tasks"
         :options="{disabled: activeFilter.label === 'scheduled' || !isUser, scrollSensitivity: 64}"
+        :delay-on-touch-only="true"
+        :delay="100"
         @update="taskSorted"
         @start="isDragging(true)"
         @end="isDragging(false)"
@@ -90,8 +92,8 @@
           :key="task.id"
           :task="task"
           :is-user="isUser"
-          :show-options="showOptions"
           :group="group"
+          :challenge="challenge"
           @editTask="editTask"
           @moveTo="moveTo"
           @taskDestroyed="taskDestroyed"
@@ -101,6 +103,8 @@
         <draggable
           ref="rewardsList"
           class="reward-items"
+          :delay-on-touch-only="true"
+          :delay="100"
           @update="rewardSorted"
           @start="rewardDragStart"
           @end="rewardDragEnd"
@@ -109,7 +113,6 @@
             v-for="reward in inAppRewards"
             :key="reward.key"
             :item="reward"
-            :highlight-border="reward.isSuggested"
             :show-popover="showPopovers"
             :popover-position="'left'"
             @click="openBuyDialog(reward)"
@@ -119,14 +122,12 @@
               slot-scope="ctx"
             >
               <span
-                class="badge badge-pill badge-item badge-svg"
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.highlightBorder}"
+                class="badge-top"
                 @click.prevent.stop="togglePinned(ctx.item)"
               >
-                <span
-                  class="svg-icon inline icon-12 color"
-                  v-html="icons.pin"
-                ></span>
+                <pin-badge
+                  :pinned="ctx.item.pinned"
+                />
               </span>
             </template>
           </shopItem>
@@ -141,6 +142,14 @@
 
   ::v-deep .draggable-cursor {
     cursor: grabbing;
+  }
+
+  .badge-pin {
+    display: none;
+  }
+
+  .item:hover .badge-pin {
+    display: block;
   }
 
   .tasks-column {
@@ -331,11 +340,11 @@ import buyMixin from '@/mixins/buy';
 import { mapState, mapActions, mapGetters } from '@/libs/store';
 import shopItem from '../shops/shopItem';
 import BuyQuestModal from '@/components/shops/quests/buyQuestModal.vue';
+import PinBadge from '@/components/ui/pinBadge';
 
 import notifications from '@/mixins/notifications';
 import { shouldDo } from '@/../../common/script/cron';
 import inAppRewards from '@/../../common/script/libs/inAppRewards';
-import spells from '@/../../common/script/content/spells';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 
 import {
@@ -344,17 +353,18 @@ import {
   getActiveFilter,
 } from '@/libs/store/helpers/filterTasks';
 
-import svgPin from '@/assets/svg/pin.svg';
 import habitIcon from '@/assets/svg/habit.svg';
 import dailyIcon from '@/assets/svg/daily.svg';
 import todoIcon from '@/assets/svg/todo.svg';
 import rewardIcon from '@/assets/svg/reward.svg';
+import { EVENTS } from '@/libs/events';
 
 export default {
   components: {
     Task,
     ClearCompletedTodos,
     BuyQuestModal,
+    PinBadge,
     shopItem,
     draggable,
   },
@@ -372,10 +382,7 @@ export default {
     selectedTags: {},
     taskListOverride: {},
     group: {},
-    showOptions: {
-      type: Boolean,
-      default: true,
-    },
+    challenge: {},
   }, // @TODO: maybe we should store the group on state?
   data () {
     const icons = Object.freeze({
@@ -383,7 +390,6 @@ export default {
       daily: dailyIcon,
       todo: todoIcon,
       reward: rewardIcon,
-      pin: svgPin,
     });
 
     const typeLabel = '';
@@ -435,26 +441,6 @@ export default {
     inAppRewards () {
       let watchRefresh = this.forceRefresh; // eslint-disable-line
       const rewards = inAppRewards(this.user);
-
-      // Add season rewards if user is affected
-      // @TODO: Add buff conditional
-      const seasonalSkills = {
-        snowball: 'salt',
-        spookySparkles: 'opaquePotion',
-        shinySeed: 'petalFreePotion',
-        seafoam: 'sand',
-      };
-
-      for (const key in seasonalSkills) {
-        if (this.getUserBuffs(key)) {
-          const debuff = seasonalSkills[key];
-          const item = { ...spells.special[debuff] };
-          item.text = item.text();
-          item.notes = item.notes();
-          item.class = `shop_${key}`;
-          rewards.push(item);
-        }
-      }
 
       return rewards;
     },
@@ -524,7 +510,7 @@ export default {
     });
 
     if (this.type !== 'todo') return;
-    this.$root.$on('habitica::resync-completed', () => {
+    this.$root.$on(EVENTS.RESYNC_COMPLETED, () => {
       if (this.activeFilter.label !== 'complete2') return;
       this.loadCompletedTodos();
     });
@@ -532,7 +518,7 @@ export default {
   destroyed () {
     this.$root.$off('buyModal::boughtItem');
     if (this.type !== 'todo') return;
-    this.$root.$off('habitica::resync-requested');
+    this.$root.$off(EVENTS.RESYNC_COMPLETED);
   },
   methods: {
     ...mapActions({

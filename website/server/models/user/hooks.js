@@ -6,6 +6,12 @@ import * as Tasks from '../task'; // eslint-disable-line import/no-cycle
 import {
   model as UserNotification,
 } from '../userNotification';
+import {
+  model as PushDevice,
+} from '../pushDevice';
+import {
+  model as Tag,
+} from '../tag';
 import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
@@ -15,7 +21,7 @@ schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts
   // specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests'],
+  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests', 'secret'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
 
@@ -24,11 +30,6 @@ schema.plugin(baseModel, {
     }
 
     delete plainObj.filters;
-
-    if (originalDoc.notifications) {
-      plainObj.notifications = UserNotification
-        .convertNotificationsToSafeJson(originalDoc.notifications);
-    }
 
     return plainObj;
   },
@@ -64,6 +65,8 @@ function _populateDefaultTasks (user, taskTypes) {
 
   // @TODO: default tasks are handled differently now, and not during registration.
   // We should move this code
+
+  // TODO why isn't this using createTasks from libs/tasksManager?
 
   const tasksToCreate = [];
   if (user.registeredThrough === 'habitica-web') return Promise.all(tasksToCreate);
@@ -127,10 +130,27 @@ function _setUpNewUser (user) {
   const iterableFlags = user.flags.toObject();
 
   user.items.quests.dustbunnies = 1;
-  user.markModified('items.quests');
-
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
+  if (moment().isBefore('2020-02-02')) {
+    user.achievements.habitBirthdays = 1;
+    user.items.gear.owned.armor_special_birthday = true;
+    user.items.gear.equipped.armor = 'armor_special_birthday';
+    user.items.food = {
+      Cake_Skeleton: 1,
+      Cake_Base: 1,
+      Cake_CottonCandyBlue: 1,
+      Cake_CottonCandyPink: 1,
+      Cake_Shade: 1,
+      Cake_White: 1,
+      Cake_Golden: 1,
+      Cake_Zombie: 1,
+      Cake_Desert: 1,
+      Cake_Red: 1,
+    };
+  }
+
+  user.markModified('items achievements');
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];
@@ -162,6 +182,32 @@ function _setProfileName (user) {
 
   return localUsername || anonymous;
 }
+
+schema.post('init', function postInitUser () {
+  // Cleanup any corrupt data that could have ended up inside the user schema.
+  // In particular:
+  // - tags https://github.com/HabitRPG/habitica/issues/10688
+  // - notifications https://github.com/HabitRPG/habitica/issues/9923
+  // - push devices https://github.com/HabitRPG/habitica/issues/11805
+  //            and https://github.com/HabitRPG/habitica/issues/11868
+
+  // Make sure notifications are loaded
+  if (this.isDirectSelected('notifications')) {
+    this.notifications = UserNotification.cleanupCorruptData(this.notifications);
+  }
+
+  // Make sure pushDevices are loaded
+  if (this.isDirectSelected('pushDevices')) {
+    this.pushDevices = PushDevice.cleanupCorruptData(this.pushDevices);
+  }
+
+  // Make sure tags are loaded
+  if (this.isDirectSelected('tags')) {
+    this.tags = Tag.cleanupCorruptData(this.tags);
+  }
+
+  return true;
+});
 
 schema.pre('validate', function preValidateUser (next) {
   // Populate new user with profile name, not running in pre('save') because the field
@@ -239,11 +285,8 @@ schema.pre('save', true, function preSaveUser (next, done) {
     const unallocatedPointsNotifications = [];
 
     this.notifications = this.notifications.filter(notification => {
-      // Remove corrupt notifications
-      if (!notification || !notification.type) return false;
-
-      // Remove all unsallocated stats points
-      if (notification && notification.type === 'UNALLOCATED_STATS_POINTS') {
+      // Remove all unallocated stats points
+      if (notification.type === 'UNALLOCATED_STATS_POINTS') {
         unallocatedPointsNotifications.push(notification);
         return false;
       }

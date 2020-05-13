@@ -349,9 +349,10 @@ api.getGroups = {
 
     if (req.query.search) {
       filters.$or = [];
-      const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
+      const searchWords = _.escapeRegExp(req.query.search.trim()).split(/\s+/).join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       filters.$or.push({ name: searchQuery });
+      filters.$or.push({ summary: searchQuery });
       filters.$or.push({ description: searchQuery });
     }
 
@@ -606,9 +607,11 @@ api.joinGroup = {
 
     let promises = [group.save(), user.save()];
 
-    if (inviter) {
-      inviter = await User.findById(inviter).exec();
+    // Load the inviter
+    if (inviter) inviter = await User.findById(inviter).exec();
 
+    // Check the inviter again, could be a deleted account
+    if (inviter) {
       const data = {
         headerText: common.i18n.t('invitationAcceptedHeader', inviter.preferences.language),
         bodyText: common.i18n.t('invitationAcceptedBody', {
@@ -855,16 +858,6 @@ api.leaveGroup = {
     _removeMessagesFromMember(user, group._id);
     await user.save();
 
-    if (group.type !== 'party') {
-      const guildIndex = user.guilds.indexOf(group._id);
-      if (guildIndex >= 0) user.guilds.splice(guildIndex, 1);
-    }
-
-    const isMemberOfGroupPlan = await user.isMemberOfGroupPlan();
-    if (!isMemberOfGroupPlan) {
-      await payments.cancelGroupSubscriptionForUser(user, group);
-    }
-
     if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     res.respond(200, {});
   },
@@ -1049,7 +1042,7 @@ api.removeGroupMember = {
  *
  * @apiSuccess {Array} data The invites
  * @apiSuccess {Object} data[0] If the invitation was a User ID, you'll receive back an object.
- *                              You'll receive one Object for each succesful User ID invite.
+ *                              You'll receive one Object for each successful User ID invite.
  * @apiSuccess {String} data[1] If the invitation was an email, you'll receive back the email.
  *                              You'll receive one String for each successful email invite.
  *
@@ -1314,7 +1307,7 @@ api.getGroupPlans = {
       .select('leaderOnly leader purchased name managers')
       .exec();
 
-    const groupPlans = groups.filter(group => group.isSubscribed());
+    const groupPlans = groups.filter(group => group.hasActiveGroupPlan());
 
     res.respond(200, groupPlans);
   },

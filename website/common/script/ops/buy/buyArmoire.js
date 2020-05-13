@@ -10,6 +10,7 @@ import {
 import randomVal, * as randomValFns from '../../libs/randomVal';
 import { removeItemByPath } from '../pinnedGearUtils';
 import { AbstractGoldItemOperation } from './abstractBuyOperation';
+import updateStats from '../../fns/updateStats';
 
 // TODO this is only used on the server
 // move out of common?
@@ -90,7 +91,10 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
       throw new NotAuthorized(this.i18n('equipmentAlreadyOwned'));
     }
 
-    user.items.gear.owned[drop.key] = true;
+    user.items.gear.owned = {
+      ...user.items.gear.owned,
+      [drop.key]: true,
+    };
     if (user.markModified) user.markModified('items.gear.owned');
 
     user.flags.armoireOpened = true;
@@ -126,7 +130,10 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
       canDrop: true,
     }));
 
-    user.items.food[drop.key] = user.items.food[drop.key] || 0;
+    user.items.food = {
+      ...user.items.food,
+      [drop.key]: user.items.food[drop.key] || 0,
+    };
     user.items.food[drop.key] += 1;
     if (user.markModified) user.markModified('items.food');
 
@@ -150,6 +157,7 @@ export class BuyArmoireOperation extends AbstractGoldItemOperation { // eslint-d
   _experienceResult (user) {
     const armoireExp = Math.floor(randomValFns.trueRandom() * 40 + 10);
     user.stats.exp += armoireExp;
+    updateStats(user, user.stats, this.req);
 
     return {
       message: this.i18n('armoireExp'),

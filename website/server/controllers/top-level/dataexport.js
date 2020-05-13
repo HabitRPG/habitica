@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import moment from 'moment';
 import * as js2xml from 'js2xmlparser';
-import Pageres from 'pageres';
-import nconf from 'nconf';
-import got from 'got';
+// import Pageres from 'pageres';
+// import nconf from 'nconf';
+// import got from 'got';
 import md from 'habitica-markdown';
 import csvStringify from '../../libs/csvStringify';
 import {
@@ -11,15 +11,15 @@ import {
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import * as inboxLib from '../../libs/inbox';
-import { model as User } from '../../models/user';
+// import { model as User } from '../../models/user';
 import { authWithSession } from '../../middlewares/auth';
-import {
+/* import {
   S3,
-} from '../../libs/aws';
+} from '../../libs/aws'; */
 
-const S3_BUCKET = nconf.get('S3_BUCKET');
+// const S3_BUCKET = nconf.get('S3_BUCKET');
 
-const BASE_URL = nconf.get('BASE_URL');
+// const BASE_URL = nconf.get('BASE_URL');
 
 const api = {};
 
@@ -27,7 +27,7 @@ const api = {};
  * @apiDefine DataExport Data Export
  * These routes allow you to download backups of your data.
  *
- * **Note:** They are intented to be used on the website only and as such are part
+ * **Note:** They are intended to be used on the website only and as such are part
  * of the private API and may change at any time.
  */
 
@@ -161,6 +161,7 @@ api.exportUserDataJson = {
 /**
  * @api {get} /export/userdata.xml Export user data in XML format
  * @apiName ExportUserDataXml
+ * @apiDescription This XML export feature is not currently working (https://github.com/HabitRPG/habitica/issues/10100).
  * @apiGroup DataExport
  *
  * @apiSuccess {XML} File An xml file of the user object.
@@ -171,17 +172,18 @@ api.exportUserDataXml = {
   middlewares: [authWithSession],
   async handler (req, res) {
     const userData = await _getUserDataForExport(res.locals.user, true);
+    const xmlData = js2xml.parse('user', userData, {
+      cdataInvalidChars: true,
+      declaration: {
+        include: false,
+      },
+    });
 
     res.set({
       'Content-Type': 'text/xml',
       'Content-disposition': 'attachment; filename=habitica-user-data.xml',
     });
-    res.status(200).send(js2xml.parse('user', userData, {
-      cdataInvalidChars: true,
-      declaration: {
-        include: false,
-      },
-    }));
+    res.status(200).send(xmlData);
   },
 };
 
@@ -201,13 +203,18 @@ api.exportUserAvatarHtml = {
   method: 'GET',
   url: '/export/avatar-:memberId.html',
   // middlewares: [locals],
-  async handler (req, res) {
-    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+  async handler (/* req, res */) {
+    throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
+
+    /* req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const { memberId } = req.params;
+
+    throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
+
     const member = await User
       .findById(memberId)
       .select('stats profile items achievements preferences backer contributor')
@@ -217,13 +224,14 @@ api.exportUserAvatarHtml = {
     res.render('avatar-static', {
       title: member.profile.name,
       env: _.defaults({ user: member }, res.locals.habitrpg),
-    });
+    }); */
   },
 };
 
 /**
  * @api {get} /export/avatar-:uuid.png Render a user avatar as a PNG file
  * @apiName ExportUserAvatarPng
+ * @apiDescription This PNG export feature is not currently working (https://github.com/HabitRPG/habitica/issues/9489).
  * @apiGroup DataExport
  *
  * @apiParam (Path) {String} uuid The User ID of the user
@@ -233,8 +241,10 @@ api.exportUserAvatarHtml = {
 api.exportUserAvatarPng = {
   method: 'GET',
   url: '/export/avatar-:memberId.png',
-  async handler (req, res) {
-    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+  async handler (/* req, res */) {
+    throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
+
+    /* req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -246,16 +256,18 @@ api.exportUserAvatarPng = {
 
     let response;
     try {
-      response = await got.head(s3url);
+      response = await got.head(s3url); // TODO add timeout and retries
     } catch (gotError) {
       // If the file does not exist AWS S3 can return a 403 error
-      if (gotError.code !== 'ENOTFOUND' && gotError.statusCode !== 404 && gotError.statusCode !== 403) {
+      if (gotError.code !== 'ENOTFOUND' && gotError.statusCode
+      !== 404 && gotError.statusCode !== 403) {
         throw gotError;
       }
     }
 
     // cache images for 30 minutes on aws, else upload a new one
-    if (response && response.statusCode === 200 && moment().diff(response.headers['last-modified'], 'minutes') < 30) {
+    if (response && response.statusCode === 200 && moment()
+    .diff(response.headers['last-modified'], 'minutes') < 30) {
       return res.redirect(s3url);
     }
 
@@ -286,13 +298,14 @@ api.exportUserAvatarPng = {
       });
     });
 
-    return res.redirect(s3res.Location);
+    return res.redirect(s3res.Location); */
   },
 };
 
 /**
  * @api {get} /export/inbox.html Export user private messages as HTML document
  * @apiName ExportUserPrivateMessages
+ * @apiDescription This HTML export feature is not currently working (https://github.com/HabitRPG/habitica/issues/9489).
  * @apiGroup DataExport
  *
  * @apiSuccess {HTML} File An html page of the user's private messages.

@@ -33,7 +33,7 @@
       <a
         class="nav-link dropdown-item
          dropdown-separated d-flex justify-content-between align-items-center"
-        @click.prevent="showInbox()"
+        @click.prevent="showPrivateMessages()"
       >
         <div>{{ $t('messages') }}</div>
         <message-count
@@ -43,7 +43,7 @@
       </a>
       <a
         class="dropdown-item"
-        @click="showAvatar('backgrounds', '2019')"
+        @click="showAvatar('backgrounds', '2020')"
       >{{ $t('backgrounds') }}</a>
       <a
         class="dropdown-item"
@@ -75,7 +75,7 @@
       >{{ $t('logout') }}</a>
       <li
         v-if="!user.purchased.plan.customerId"
-        @click="showBuyGemsModal('subscribe')"
+        @click="showBuyGemsModal()"
       >
         <div class="dropdown-item text-center">
           <h3 class="purple">
@@ -133,13 +133,12 @@
 </style>
 
 <script>
-import axios from 'axios';
 import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 import userIcon from '@/assets/svg/user.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
-import markPMSRead from '@/../../common/script/ops/markPMSRead';
 import MessageCount from './messageCount';
+import { EVENTS } from '@/libs/events';
 
 export default {
   components: {
@@ -163,17 +162,17 @@ export default {
       this.$store.state.avatarEditorOptions.subpage = subpage;
       this.$root.$emit('bv::show::modal', 'avatar-modal');
     },
-    showInbox () {
-      markPMSRead(this.user);
-      axios.post('/api/v4/user/mark-pms-read');
-      this.$root.$emit('bv::show::modal', 'inbox-modal');
+    showPrivateMessages () {
+      if (this.$router.history.current.name === 'privateMessages') {
+        this.$root.$emit(EVENTS.PM_REFRESH);
+      } else {
+        this.$router.push('/private-messages');
+      }
     },
     showProfile (startingPage) {
       this.$router.push({ name: startingPage });
     },
-    showBuyGemsModal (startingPage) {
-      this.$store.state.gemModalOptions.startingPage = startingPage;
-
+    showBuyGemsModal () {
       Analytics.track({
         hitType: 'event',
         eventCategory: 'button',

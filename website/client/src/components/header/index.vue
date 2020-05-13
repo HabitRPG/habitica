@@ -8,13 +8,14 @@
     <div
       id="app-header"
       class="row"
-      :class="{'hide-header': $route.name === 'groupPlan'}"
+      :class="{'hide-header': hideHeader}"
     >
       <members-modal :hide-badge="true" />
       <member-details
         :member="user"
         :class-badge-position="'next-to-name'"
         :is-header="true"
+        :disable-name-styling="true"
       />
       <div
         v-if="hasParty"
@@ -29,6 +30,7 @@
       </div>
       <div
         v-if="hasParty"
+        ref="partyMembersDiv"
         v-resize="1500"
         class="party-members d-flex"
         @resized="setPartyMembersWidth($event)"
@@ -152,6 +154,15 @@ export default {
       inviteModalGroupType: undefined,
     };
   },
+  watch: {
+    hideHeader () {
+      this.$nextTick(() => {
+        if (this.$refs.partyMembersDiv) {
+          this.setPartyMembersWidth({ width: this.$refs.partyMembersDiv.clientWidth });
+        }
+      });
+    },
+  },
   computed: {
     ...mapGetters({
       user: 'user:data',
@@ -169,7 +180,33 @@ export default {
       return Math.floor(this.currentWidth / 140) + 1;
     },
     sortedPartyMembers () {
-      return orderBy(this.partyMembers, [this.user.party.order], [this.user.party.orderAscending]);
+      let sortedMembers = this.partyMembers.slice(); // shallow clone to avoid infinite loop
+      const { order, orderAscending } = this.user.party;
+
+      if (order === 'profile.name') {
+        // If members are to be sorted by name, use localeCompare for case-
+        // insensitive sort
+        sortedMembers.sort(
+          (a, b) => {
+            if (orderAscending === 'desc') {
+              return b.profile.name.localeCompare(a.profile.name);
+            }
+
+            return a.profile.name.localeCompare(b.profile.name);
+          },
+        );
+      } else {
+        sortedMembers = orderBy(
+          sortedMembers,
+          [order],
+          [orderAscending],
+        );
+      }
+
+      return sortedMembers;
+    },
+    hideHeader () {
+      return ['groupPlan', 'privateMessages'].includes(this.$route.name);
     },
   },
   created () {

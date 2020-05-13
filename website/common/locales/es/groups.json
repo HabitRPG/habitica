@@ -484,5 +484,7 @@
     "groupActivityNotificationTitle": "<%= user %> publicó en <%= group %>",
     "suggestedGroup": "Sugerido porque eres nuevo en Habitica.",
     "taskClaimed": "<%= userName %> ha reclamado la tarea <span class=\"notification-bold\"><%= taskText %></span>.",
-    "youHaveBeenAssignedTask": "<%= managerName %> te ha asignado la tarea <span class=\"notification-bold\"><%= taskText %></span>."
+    "youHaveBeenAssignedTask": "<%= managerName %> te ha asignado la tarea <span class=\"notification-bold\"><%= taskText %></span>.",
+    "blockedToSendToThisUser": "No puedes enviárselo a este jugador porque lo has bloqueado.",
+    "PMDisabled": "Desactivar mensajes privados"
 }

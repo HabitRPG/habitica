@@ -104,7 +104,7 @@
     "allocatePerPop": "Lisää kokemuspiste Tarkkaavaisuuteen",
     "allocateInt": "Älykkyyteen lisätyt pisteet:",
     "allocateIntPop": "Lisää kokemuspiste Älykkyyteen",
-    "noMoreAllocate": "Nyt kun olet saavuttanut tason 100, et saa enää ominaisuuspisteitä. Voit jatkaa uusien tasojen saamista, tai aloittaa uuden seikkailun tasolta 1 käyttämällä <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Jälleensyntymisen helmeä</a>, jonka voit nyt ostaa ilmaiseksi Kaupasta.",
+    "noMoreAllocate": "Nyt kun olet saavuttanut tason 100, et saa enää ominaisuuspisteitä. Voit jatkaa uusien tasojen saamista, tai aloittaa uuden seikkailun tasolta 1 käyttämällä <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Jälleensyntymisen helmeä</a>!",
     "stats": "Tilastot",
     "achievs": "Saavutukset",
     "strength": "Voimakkuus",
@@ -224,5 +224,7 @@
     "mainHand": "Kädessä",
     "offHand": "Toisessa kädessä",
     "statPoints": "Ominaisuuspisteet",
-    "pts": "p."
+    "pts": "p.",
+    "purchasePetItemConfirm": "Olet ostamassa useamman esineen kuin mitä tarvitset kaikkien mahdollisten <%= itemText %>lemmikkien hautomiseen. Oletko varma?",
+    "purchaseForGold": "Osta <%= cost %> kullalla?"
 }

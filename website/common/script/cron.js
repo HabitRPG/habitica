@@ -66,7 +66,7 @@ export function startOfWeek (options = {}) {
 /*
   This is designed for use with any date that has an important time portion
   (e.g., when comparing the current date-time with the previous cron's date-time
-   for determing if cron should run now).
+   for determining if cron should run now).
   It changes the time portion of the date-time to be the Custom Day Start hour,
   so that the date-time is now the user's correct start of day.
   It SUBTRACTS a day if the date-time's original hour is before CDS

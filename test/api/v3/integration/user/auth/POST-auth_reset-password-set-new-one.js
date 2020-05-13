@@ -189,6 +189,28 @@ describe('POST /user/auth/reset-password-set-new-one', () => {
     });
   });
 
+  it('renders the error page if the password is too short', async () => {
+    const user = await generateUser();
+
+    const code = encrypt(JSON.stringify({
+      userId: user._id,
+      expiresAt: moment().add({ days: 1 }),
+    }));
+    await user.update({
+      'auth.local.passwordResetCode': code,
+    });
+
+    await expect(api.post(`${endpoint}`, {
+      newPassword: 'short',
+      confirmPassword: 'short',
+      code,
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
   it('renders the success page and save the user', async () => {
     const user = await generateUser();
 

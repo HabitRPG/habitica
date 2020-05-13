@@ -2,14 +2,14 @@
   <div class="popover-box">
     <div
       :id="containerId"
-      class="clearfix"
+      class="clearfix toggle-switch-outer"
     >
       <div
         v-if="label"
         class="float-left toggle-switch-description"
         :class="hoverText ? 'hasPopOver' : ''"
       >
-        {{ label }}
+        <span>{{ label }}</span>
       </div>
       <div class="toggle-switch float-left">
         <input
@@ -53,9 +53,7 @@
   }
 
   .toggle-switch-description {
-    height: 20px;
-
-    &.hasPopOver {
+    &.hasPopOver span {
       border-bottom: 1px dashed $gray-200;
     }
   }

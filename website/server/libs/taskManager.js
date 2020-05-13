@@ -114,6 +114,13 @@ export async function createTasks (req, res, options = {}) {
       newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.default;
     } else {
       newTask.userId = user._id;
+
+      // user.flags.welcomed is checked because when false it means the tasks being created
+      // are the onboarding ones
+      if (!user.achievements.createdTask && user.flags.welcomed) {
+        user.addAchievement('createdTask');
+        shared.onboarding.checkOnboardingStatus(user, req, res.analytics);
+      }
     }
 
     setNextDue(newTask, user);
@@ -127,7 +134,7 @@ export async function createTasks (req, res, options = {}) {
 
     // Otherwise update the user/challenge/group
     if (!taskOrderToAdd[`${taskType}s`]) taskOrderToAdd[`${taskType}s`] = [];
-    taskOrderToAdd[`${taskType}s`].unshift(newTask._id);
+    if (!owner.tasksOrder[`${taskType}s`].includes(newTask._id)) taskOrderToAdd[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
   });
@@ -276,7 +283,7 @@ export function syncableAttrs (task) {
  *
  * @param  order  The list of ordered tasks
  * @param  taskId  The Task._id of the task to move
- * @param  to A integer specifiying the index to move the task to
+ * @param  to A integer specifying the index to move the task to
  *
  * @return Empty
  */

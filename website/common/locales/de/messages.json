@@ -51,8 +51,8 @@
     "messageGroupChatFlagAlreadyReported": "Du hast diese Nachricht bereits gemeldet",
     "messageGroupChatNotFound": "Nachricht wurde nicht gefunden!",
     "messageGroupChatAdminClearFlagCount": "Nur Admins können den Zählmarker zurücksetzen!",
-    "messageCannotFlagSystemMessages": "Du kannst eine Systemmeldung nicht als unangemessen melden. Falls Du bezüglich dieser Meldung eine Verletzung der Community-Richtlinien melden willst, sende bitte eine E-Mail mit einem Screenshot und einer Erklärung an Lemoness unter <%= communityManagerEmail %>.",
-    "messageGroupChatSpam": "Ups, es sieht so aus als ob Du zu viele Nachrichten schreibst! Bitte warte eine Minute und versuche es erneut. Die Taverne kann nur 200 Nachrichten gleichzeitig beinhalten und deshalb ermutigt Habitica längere, durchdachte Nachrichten und hilfreiche Antworten zu schreiben. Wir können es kaum erwarten zu hören, was Du zu sagen hast. :)",
+    "messageCannotFlagSystemMessages": "Du kannst eine Systembenachrichtigung nicht als unangemessen melden. Falls Du bezüglich dieser Benachrichtigung eine Verletzung der Community-Richtlinien melden willst, sende bitte eine E-Mail mit einem Screenshot und einer Erklärung an unser Community-Management unter <%= communityManagerEmail %>.",
+    "messageGroupChatSpam": "Ups, es sieht so aus als ob Du zu viele Nachrichten schreibst! Bitte warte eine Minute und versuche es erneut. Die Taverne kann nur 200 Nachrichten gleichzeitig beinhalten und deshalb ermutigt Habitica, längere, durchdachte Nachrichten und hilfreiche Antworten zu schreiben. Wir können es kaum erwarten zu hören, was Du zu sagen hast. :)",
     "messageCannotLeaveWhileQuesting": "Du kannst diese Partyeinladung nicht annehmen, während Du mit einer Quest beschäftigt bist. Wenn Du dieser Party beitreten möchtest, musst Du zuerst die Quest über Deine Partyanzeige abbrechen. Du erhältst die Questschriftrolle zurück.",
     "messageUserOperationProtected": "Pfad `<%= operation %>` wurde nicht gespeichert, da dieser geschützt ist.",
     "messageUserOperationNotFound": "<%= operation %> Operation nicht gefunden",
@@ -60,9 +60,10 @@
     "messageNotAbleToBuyInBulk": "Dieser Gegenstand kann nicht in größeren Mengen als 1 gekauft werden.",
     "notificationsRequired": "Mitteilungs-IDs werden benötigt.",
     "unallocatedStatsPoints": "Du kannst <span class=\"notification-bold-blue\"><%= points %> Attributpunkt(e)</span> verteilen",
-    "beginningOfConversation": "Dies ist der Anfang Deiner Unterhaltung mit<%= userName %>. Denke an einen freundlichen und respektvollen Umgang und halte Dich an die Community-Richtlinien!",
+    "beginningOfConversation": "Dies ist der Anfang Deiner Unterhaltung mit <%= userName %>.",
     "messageDeletedUser": "Tut uns leid, dieser Benutzer hat sein Konto gelöscht.",
-    "messageMissingDisplayName": "Fehlender Angezeigter Name.",
+    "messageMissingDisplayName": "Fehlender Anzeigename.",
     "reportedMessage": "Du hast diese Nachricht den Moderatoren gemeldet.",
-    "canDeleteNow": "Du kannst diese Nachricht nun löschen, wenn Du willst."
+    "canDeleteNow": "Du kannst diese Nachricht nun löschen, wenn Du willst.",
+    "beginningOfConversationReminder": "Denke an einen freundlichen und respektvollen Umgang und halte Dich an die Community-Richtlinien!"
 }

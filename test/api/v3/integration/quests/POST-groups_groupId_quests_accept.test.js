@@ -100,7 +100,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('questAlreadyUnderway'),
+          message: t('questAlreadyStartedFriendly'),
         });
     });
   });
@@ -112,7 +112,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
 
       await Promise.all([partyMembers[0].sync(), questingGroup.sync()]);
       expect(leader.party.quest.RSVPNeeded).to.equal(false);
-      expect(questingGroup.quest.members[partyMembers[0]._id]);
+      expect(questingGroup.quest.members[partyMembers[0]._id]).to.equal(true);
     });
 
     it('does not begin the quest if pending invitations remain', async () => {

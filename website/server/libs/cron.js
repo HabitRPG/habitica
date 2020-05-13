@@ -7,6 +7,7 @@ import { model as User } from '../models/user';
 import common from '../../common';
 import { preenUserHistory } from './preening';
 import sleep from './sleep';
+import { revealMysteryItems } from './payments/subscriptions';
 
 const CRON_SAFE_MODE = nconf.get('CRON_SAFE_MODE') === 'true';
 const CRON_SEMI_SAFE_MODE = nconf.get('CRON_SEMI_SAFE_MODE') === 'true';
@@ -75,6 +76,9 @@ function grantEndOfTheMonthPerks (user, now) {
     _.defaults(plan.consecutive, {
       count: 0, offset: 0, trinkets: 0, gemCapExtra: 0,
     });
+
+    // Award mystery items
+    revealMysteryItems(user, elapsedMonths);
 
     // 1 for one-month recurring or gift subscriptions; later set to 3 for 3-month recurring, etc.
     let planMonthsLength = 1;
@@ -323,8 +327,9 @@ export async function cron (options = {}) {
   // make uncompleted To-Dos redder (further incentive to complete them)
   tasksByType.todos.forEach(task => {
     if (
-      task.group.assignedDate
-      && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated)
+      task.completed
+      || (task.group.assignedDate
+      && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated))
     ) return;
     scoreTask({
       task,
@@ -523,6 +528,8 @@ export async function cron (options = {}) {
   } else {
     user.stats.buffs = _.cloneDeep(CLEAR_BUFFS);
   }
+
+  common.setDebuffPotionItems(user);
 
   // Add 10 MP, or 10% of max MP if that'd be more.
   // Perform this after Perfect Day for maximum benefit

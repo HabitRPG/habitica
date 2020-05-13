@@ -250,14 +250,14 @@
     "onlyGroupLeaderCanEditTasks": "İşleri yönetme yetkin yok!",
     "onlyGroupTasksCanBeAssigned": "Sadece grup görevleri atanabilir",
     "assignedTo": "Atandığı Kişi",
-    "assignedToUser": "<%= userName %> adlı üyeye atandı",
+    "assignedToUser": "<strong><%= userName %></strong> adlı üyeye atandı",
     "assignedToMembers": "<%= userCount %> tane üyeye atandı",
-    "assignedToYouAndMembers": "Sana ve <%= userCount %> başka üyeye atandı",
+    "assignedToYouAndMembers": "Sana ve <strong> <%= userCount %> üyeye </strong> atandı",
     "youAreAssigned": "Bu işe atandın",
     "taskIsUnassigned": "Bu iş henüz atanmamış",
     "confirmClaim": "Bu işi almak istediğinden emin misin?",
     "confirmUnClaim": "Bu işi bırakmak istediğinden emin misin?",
-    "confirmApproval": "Bu işi onaylamak istediğinden emin misin?",
+    "confirmApproval": "Bu görevi onaylamak istediğinden emin misin?",
     "confirmNeedsWork": "Bu işi üstünde çalışılması için işaretlemek istediğine emin misin?",
     "userRequestsApproval": "<%= userName %> talep onay bekliyor",
     "userCountRequestsApproval": "<%= userCount %> üye onay bekliyor",
@@ -482,5 +482,7 @@
     "allAssignedCompletion": "Tümü - Atanmış kullanıcıların tümü işi bitirdiğinde tamamlanır",
     "pmReported": "Bu mesajı raporladığınız için teşekkürler.",
     "youHaveBeenAssignedTask": "<%= managerName %> size görev atadı <span class=\"notification-bold\"><%= taskText %></span>.",
-    "suggestedGroup": "Önerildi çünkü Habitica'da yenisin."
+    "suggestedGroup": "Önerildi çünkü Habitica'da yenisin.",
+    "blockedToSendToThisUser": "Bu oyuncuyu blokladığınız için bu oyuncuya gönderemezsiniz.",
+    "PMDisabled": "Özel mesajları devre dışı bırak"
 }

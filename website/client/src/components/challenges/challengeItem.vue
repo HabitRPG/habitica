@@ -6,7 +6,7 @@
           class="svg-icon"
           v-html="icons.gemIcon"
         ></span>
-        <span class="value">{{ challenge.prize }}</span>
+        <span class="value">{{ challenge.prize || 0 }}</span>
       </div>
       <div class="label">
         {{ $t('prize') }}
@@ -43,7 +43,14 @@
         >
           <div class="owner-item">
             <strong>{{ $t('createdBy') }}:</strong>
+            <span
+              v-if="challenge.leader === null"
+              class="mx-1"
+            >
+              {{ $t('noChallengeOwner') }}
+            </span>
             <user-link
+              v-else
               class="mx-1"
               :user="challenge.leader"
             />
@@ -215,7 +222,6 @@
     }
 
     .meta-info {
-      height: 24px;
       margin-bottom: 8px;
     }
 
@@ -295,8 +301,9 @@
       justify-content: space-evenly;
       background-color: $gray-700;
       text-align: center;
-      padding: 16px;
+      padding: 8px;
       border-radius: .25em;
+      flex-wrap: wrap;
 
       > div {
         .value {
@@ -327,6 +334,8 @@
       }
 
       > div.muted {
+        margin: 8px;
+
         .value {
           opacity: 0.5;
           font-size: 20px;

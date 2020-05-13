@@ -19,7 +19,7 @@
       :key="member._id"
       @click="selectMember(member)"
     >
-      {{ member.profile.name }}
+      {{ memberName(member) }}
     </b-dropdown-item>
   </b-dropdown>
 </template>
@@ -60,6 +60,12 @@ export default {
   methods: {
     selectMember (member) {
       this.$emit('member-selected', member);
+    },
+    memberName (member) {
+      if (member.auth.local && member.auth.local.username) {
+        return `@${member.auth.local.username}`;
+      }
+      return member.profile.name;
     },
   },
 };

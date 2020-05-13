@@ -10,12 +10,19 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 import errorMessage from '../../../website/common/script/libs/errorMessage';
+import shared from '../../../website/common/script';
 
 describe('shared.ops.feed', () => {
   let user;
 
   beforeEach(() => {
     user = generateUser();
+    user.addAchievement = sinon.spy();
+    sinon.stub(shared.onboarding, 'checkOnboardingStatus');
+  });
+
+  afterEach(() => {
+    shared.onboarding.checkOnboardingStatus.restore();
   });
 
   context('failure conditions', () => {
@@ -75,6 +82,18 @@ describe('shared.ops.feed', () => {
       user.items.food.Meat = 1;
       try {
         feed(user, { params: { pet: 'Wolf-Veteran', food: 'Meat' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageCannotFeedPet'));
+        done();
+      }
+    });
+
+    it('does not allow feeding of wacky pets', done => {
+      user.items.pets['Wolf-Veggie'] = 5;
+      user.items.food.Meat = 1;
+      try {
+        feed(user, { params: { pet: 'Wolf-Veggie', food: 'Meat' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageCannotFeedPet'));
@@ -222,6 +241,29 @@ describe('shared.ops.feed', () => {
       expect(user.items.pets['Wolf-Base']).to.equal(-1);
       expect(user.items.mounts['Wolf-Base']).to.equal(true);
       expect(user.items.currentPet).to.equal('');
+    });
+
+    it('adds the onboarding achievement to the user and checks the onboarding status', () => {
+      user.items.pets['Wolf-Base'] = 5;
+      user.items.food.Meat = 2;
+
+      feed(user, { params: { pet: 'Wolf-Base', food: 'Meat' } });
+
+      expect(user.addAchievement).to.be.calledOnce;
+      expect(user.addAchievement).to.be.calledWith('fedPet');
+
+      expect(shared.onboarding.checkOnboardingStatus).to.be.calledOnce;
+      expect(shared.onboarding.checkOnboardingStatus).to.be.calledWith(user);
+    });
+
+    it('does not add the onboarding achievement to the user if it\'s already been awarded', () => {
+      user.items.pets['Wolf-Base'] = 5;
+      user.items.food.Meat = 2;
+      user.achievements.fedPet = true;
+
+      feed(user, { params: { pet: 'Wolf-Base', food: 'Meat' } });
+
+      expect(user.addAchievement).to.not.be.called;
     });
   });
 });

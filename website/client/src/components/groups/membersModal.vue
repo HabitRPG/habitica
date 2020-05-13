@@ -475,15 +475,29 @@ export default {
       return this.$store.state.memberModalOptions.challengeId;
     },
     sortedMembers () {
-      let sortedMembers = this.members;
+      let sortedMembers = this.members.slice(); // shallow clone to avoid infinite loop
 
       if (!isEmpty(this.sortOption)) {
         // Use the memberlist filtered by searchTerm
-        sortedMembers = orderBy(
-          sortedMembers,
-          [this.sortOption.value],
-          [this.sortOption.direction],
-        );
+        if (this.sortOption.value === 'profile.name') {
+          // If members are to be sorted by name, use localeCompare for case-
+          // insensitive sort
+          sortedMembers.sort(
+            (a, b) => {
+              if (this.sortOption.direction === 'desc') {
+                return b.profile.name.localeCompare(a.profile.name);
+              }
+
+              return a.profile.name.localeCompare(b.profile.name);
+            },
+          );
+        } else {
+          sortedMembers = orderBy(
+            sortedMembers,
+            [this.sortOption.value],
+            [this.sortOption.direction],
+          );
+        }
       }
 
       return sortedMembers;
@@ -491,7 +505,7 @@ export default {
   },
   watch: {
     groupId () {
-      // @TOOD: We might not need this since groupId is computed now
+      // @TODO: We might not need this since groupId is computed now
       this.getMembers();
     },
     challengeId () {
@@ -528,13 +542,12 @@ export default {
   },
   methods: {
     sendMessage (member) {
-      this.$root.$emit('habitica::new-inbox-message', {
-        userIdToMessage: member._id,
-        displayName: member.profile.name,
-        username: member.auth.local.username,
-        backer: member.backer,
-        contributor: member.contributor,
+      this.$store.dispatch('user:newPrivateMessageTo', {
+        member,
       });
+
+      this.$root.$emit('bv::hide::modal', 'members-modal');
+      this.$router.push('/private-messages');
     },
     async searchMembers (searchTerm = '') {
       this.members = await this.$store.state.memberModalOptions.fetchMoreMembers({
@@ -655,7 +668,7 @@ export default {
         memberId: member._id,
         groupId: this.groupId,
       });
-      this.viewMembers();
+      if (this.invites.length === 0) this.viewMembers();
     },
     async promoteToLeader (member) {
       const groupData = { ...this.group };

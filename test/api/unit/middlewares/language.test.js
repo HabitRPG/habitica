@@ -12,6 +12,9 @@ import { model as User } from '../../../../website/server/models/user';
 
 const { i18n } = common;
 
+// TODO some of the checks here can be simplified to simply check
+// that the right parameters are passed to the functions in libs/language
+
 describe('language middleware', () => {
   describe('res.t', () => {
     let res; let req; let
@@ -19,6 +22,8 @@ describe('language middleware', () => {
 
     beforeEach(() => {
       res = generateRes();
+      // remove the defaul user
+      res.locals.user = undefined;
       req = generateReq();
       next = generateNext();
 
@@ -57,6 +62,8 @@ describe('language middleware', () => {
 
     beforeEach(() => {
       res = generateRes();
+      // remove the defaul user
+      res.locals.user = undefined;
       req = generateReq();
       next = generateNext();
       attachTranslateFunction(req, res, next);
@@ -88,7 +95,7 @@ describe('language middleware', () => {
           lang: 'es',
         };
 
-        req.locals = {
+        res.locals = {
           user: {
             preferences: {
               language: 'it',
@@ -108,7 +115,7 @@ describe('language middleware', () => {
 
     context('authorized request', () => {
       it('uses the user preferred language if avalaible', () => {
-        req.locals = {
+        res.locals = {
           user: {
             preferences: {
               language: 'it',
@@ -122,7 +129,7 @@ describe('language middleware', () => {
       });
 
       it('falls back to english if the user preferred language is not avalaible', done => {
-        req.locals = {
+        res.locals = {
           user: {
             preferences: {
               language: 'bla',
@@ -138,7 +145,7 @@ describe('language middleware', () => {
       });
 
       it('uses the user preferred language even if a session is included in request', () => {
-        req.locals = {
+        res.locals = {
           user: {
             preferences: {
               language: 'it',

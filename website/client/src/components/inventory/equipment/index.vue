@@ -159,10 +159,10 @@
         :class="group.key"
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-        <h2 class="mb-3">
+        <h2 class="d-flex align-items-center mb-3">
           {{ group.label }}
           <span
-            class="badge badge-pill badge-default"
+            class="badge badge-pill badge-default ml-2"
           >{{ items[group.key].length }}</span>
         </h2>
         <itemRows
@@ -341,7 +341,7 @@ export default {
             const { firstRender } = viewOptions;
             const { itemsInFirstPosition } = viewOptions;
 
-            // Render selected items in first postion only for the first render
+            // Render selected items in first position only for the first render
             if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
               gearItemsByType[type].unshift(ownedItem);
             } else if (isEquipped === true && firstRender === true) {
@@ -382,7 +382,7 @@ export default {
             const { firstRender } = viewOptions;
             const { itemsInFirstPosition } = viewOptions;
 
-            // Render selected items in first postion only for the first render
+            // Render selected items in first position only for the first render
             if (itemsInFirstPosition.indexOf(ownedItem.key) !== -1 && firstRender === false) {
               gearItemsByClass[klass].unshift(ownedItem);
             } else if (isEquipped === true && firstRender === true) {

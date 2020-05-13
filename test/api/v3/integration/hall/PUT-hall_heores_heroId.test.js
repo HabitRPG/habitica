@@ -7,6 +7,12 @@ import {
 describe('PUT /heroes/:heroId', () => {
   let user;
 
+  const heroFields = [
+    '_id', 'balance', 'profile', 'purchased',
+    'contributor', 'auth', 'items', 'flags',
+    'secret',
+  ];
+
   before(async () => {
     user = await generateUser({
       contributor: { admin: true },
@@ -51,10 +57,8 @@ describe('PUT /heroes/:heroId', () => {
     });
 
     // test response
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items', 'flags',
-    ]);
+    // works as: object has all and only these keys
+    expect(heroRes).to.have.all.keys(heroFields);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
 
@@ -130,10 +134,8 @@ describe('PUT /heroes/:heroId', () => {
     });
 
     // test response
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items', 'flags',
-    ]);
+    // works as: object has all and only these keys
+    expect(heroRes).to.have.all.keys(heroFields);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
 
@@ -157,10 +159,8 @@ describe('PUT /heroes/:heroId', () => {
     });
 
     // test response
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items', 'flags',
-    ]);
+    // works as: object has all and only these keys
+    expect(heroRes).to.have.all.keys(heroFields);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
 
@@ -173,6 +173,40 @@ describe('PUT /heroes/:heroId', () => {
     expect(hero.contributor.text).to.equal('Astronaut');
   });
 
+  it('updates contributor secret', async () => {
+    const secretText = 'my super hero';
+
+    const hero = await generateUser({
+      contributor: { level: 5 },
+      secret: {
+        text: 'supr hro typo',
+      },
+    });
+    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+      contributor: { text: 'Astronaut' },
+      secret: {
+        text: secretText,
+      },
+    });
+
+    // test response
+    // works as: object has all and only these keys
+    expect(heroRes).to.have.all.keys(heroFields);
+    expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
+    expect(heroRes.profile).to.have.all.keys(['name']);
+
+    // test response values
+    expect(heroRes.contributor.level).to.equal(5); // doesn't modify previous values
+    expect(heroRes.contributor.text).to.equal('Astronaut');
+    expect(heroRes.secret.text).to.equal(secretText);
+
+    // test hero values
+    await hero.sync();
+    expect(hero.contributor.level).to.equal(5); // doesn't modify previous values
+    expect(hero.contributor.text).to.equal('Astronaut');
+    expect(hero.secret.text).to.equal(secretText);
+  });
+
   it('updates items', async () => {
     const hero = await generateUser();
     const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
@@ -181,10 +215,8 @@ describe('PUT /heroes/:heroId', () => {
     });
 
     // test response
-    expect(heroRes).to.have.all.keys([ // works as: object has all and only these keys
-      '_id', 'balance', 'profile', 'purchased',
-      'contributor', 'auth', 'items', 'flags',
-    ]);
+    // works as: object has all and only these keys
+    expect(heroRes).to.have.all.keys(heroFields);
     expect(heroRes.auth.local).not.to.have.keys(['salt', 'hashed_password']);
     expect(heroRes.profile).to.have.all.keys(['name']);
 

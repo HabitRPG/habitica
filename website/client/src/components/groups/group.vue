@@ -160,7 +160,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="px-3 py-3">
         <quest-sidebar-section
           v-if="isParty"
           :group="group"
@@ -255,11 +255,10 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
-
   }
 
   .buttons-wrapper {
-    padding-top: 2.8em;
+    padding: 2.8em 24px 0em 24px;
   }
 
   .card {
@@ -510,11 +509,7 @@ export default {
         // Load invites
       }
       await this.fetchGuild();
-      // Fetch group members on load
-      this.members = await this.loadMembers({
-        groupId: this.group._id,
-        includeAllPublicFields: true,
-      });
+
       this.$root.$on('updatedGroup', group => {
         const updatedGroup = extend(this.group, group);
         this.$set(this.group, updatedGroup);
@@ -577,6 +572,11 @@ export default {
           this.$delete(this.user.newMessages, groupId);
         }, 1000);
       }
+
+      this.members = await this.loadMembers({
+        groupId: this.group._id,
+        includeAllPublicFields: true,
+      });
     },
     hasUnreadMessages (groupId) {
       if (this.user.newMessages[groupId]) return true;

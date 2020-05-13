@@ -16,19 +16,19 @@ import {
   NotFound,
 } from '../errors';
 import shared from '../../../common';
-import { sendNotification as sendPushNotification } from '../pushNotifications';
+import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
+import calculateSubscriptionTerminationDate from './calculateSubscriptionTerminationDate';
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
 
-function revealMysteryItems (user) {
+function _findMysteryItems (user, dateMoment) {
   const pushedItems = [];
-
   _.each(shared.content.gear.flat, item => {
     if (
       item.klass === 'mystery'
-        && moment().isAfter(shared.content.mystery[item.mystery].start)
-        && moment().isBefore(shared.content.mystery[item.mystery].end)
+        && dateMoment.isSameOrAfter(shared.content.mystery[item.mystery].start)
+        && dateMoment.isSameOrBefore(moment(shared.content.mystery[item.mystery].end).endOf('day'))
         && !user.items.gear.owned[item.key]
         && user.purchased.plan.mysteryItems.indexOf(item.key) === -1
     ) {
@@ -36,6 +36,19 @@ function revealMysteryItems (user) {
       pushedItems.push(item.key);
     }
   });
+  return pushedItems;
+}
+
+function revealMysteryItems (user, elapsedMonths = 1) {
+  let monthsToCheck = elapsedMonths;
+  let pushedItems = [];
+
+  do {
+    monthsToCheck -= 1;
+    pushedItems = pushedItems.concat(_findMysteryItems(user, moment().subtract(monthsToCheck, 'months')));
+  }
+  while (monthsToCheck > 0);
+
   if (pushedItems.length > 0) {
     user.addNotification('NEW_MYSTERY_ITEMS', { items: pushedItems });
   }
@@ -61,6 +74,7 @@ async function createSubscription (data) {
   let itemPurchased = 'Subscription';
   let purchaseType = 'subscribe';
   let emailType = 'subscription-begins';
+  let recipientIsSubscribed = recipient.isSubscribed();
 
   //  If we are buying a group subscription
   if (data.groupId) {
@@ -81,6 +95,7 @@ async function createSubscription (data) {
     itemPurchased = 'Group-Subscription';
     purchaseType = 'group-subscribe';
     emailType = 'group-subscription-begins';
+    recipientIsSubscribed = group.hasActiveGroupPlan();
     groupId = group._id;
     recipient.purchased.plan.quantity = data.sub.quantity;
 
@@ -93,7 +108,7 @@ async function createSubscription (data) {
     if (plan.customerId && !plan.dateTerminated) { // User has active plan
       plan.extraMonths += months;
     } else {
-      if (!recipient.isSubscribed() || !plan.dateUpdated) plan.dateUpdated = today;
+      if (!recipientIsSubscribed || !plan.dateUpdated) plan.dateUpdated = today;
       if (moment(plan.dateTerminated).isAfter()) {
         plan.dateTerminated = moment(plan.dateTerminated).add({ months }).toDate();
       } else {
@@ -153,52 +168,71 @@ async function createSubscription (data) {
     txnEmail(data.user, emailType);
   }
 
-  analytics.trackPurchase({
-    uuid: data.user._id,
-    groupId,
-    itemPurchased,
-    sku: `${data.paymentMethod.toLowerCase()}-subscription`,
-    purchaseType,
-    paymentMethod: data.paymentMethod,
-    quantity: 1,
-    gift: Boolean(data.gift),
-    purchaseValue: block.price,
-    headers: data.headers,
-  });
+  if (!data.promo) {
+    analytics.trackPurchase({
+      uuid: data.user._id,
+      groupId,
+      itemPurchased,
+      sku: `${data.paymentMethod.toLowerCase()}-subscription`,
+      purchaseType,
+      paymentMethod: data.paymentMethod,
+      quantity: 1,
+      gift: Boolean(data.gift),
+      purchaseValue: block.price,
+      headers: data.headers,
+    });
+  }
 
-  if (!group) data.user.purchased.txnCount += 1;
+  if (!group && !data.promo) data.user.purchased.txnCount += 1;
 
   if (data.gift) {
     const byUserName = getUserInfo(data.user, ['name']).name;
 
     // generate the message in both languages, so both users can understand it
     const languages = [data.user.preferences.language, data.gift.member.preferences.language];
-    let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
-      username: data.gift.member.profile.name,
-      sender: byUserName,
-      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
-    }, languages[0]);
-    senderMsg = `\`${senderMsg}\``;
+    if (data.promo) {
+      let senderMsg = shared.i18n.t(`giftedSubscription${data.promo}Promo`, {
+        username: data.gift.member.profile.name,
+        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+      }, languages[0]);
 
-    let receiverMsg = shared.i18n.t('giftedSubscriptionFull', {
-      username: data.gift.member.profile.name,
-      sender: byUserName,
-      monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
-    }, languages[1]);
-    receiverMsg = `\`${receiverMsg}\``;
+      senderMsg = `\`${senderMsg}\``;
+      data.user.sendMessage(data.gift.member, { senderMsg });
+    } else {
+      let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
+        username: data.gift.member.profile.name,
+        sender: byUserName,
+        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+      }, languages[0]);
+      senderMsg = `\`${senderMsg}\``;
 
-    if (data.gift.message) {
-      receiverMsg += ` ${data.gift.message}`;
-      senderMsg += ` ${data.gift.message}`;
+      let receiverMsg = shared.i18n.t('giftedSubscriptionFull', {
+        username: data.gift.member.profile.name,
+        sender: byUserName,
+        monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
+      }, languages[1]);
+      receiverMsg = `\`${receiverMsg}\``;
+
+      if (data.gift.message) {
+        receiverMsg += ` ${data.gift.message}`;
+        senderMsg += ` ${data.gift.message}`;
+      }
+
+      data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg, save: false });
     }
 
-    data.user.sendMessage(data.gift.member, { receiverMsg, senderMsg, save: false });
-
     if (data.gift.member.preferences.emailNotifications.giftedSubscription !== false) {
-      txnEmail(data.gift.member, 'gifted-subscription', [
-        { name: 'GIFTER', content: byUserName },
-        { name: 'X_MONTHS_SUBSCRIPTION', content: months },
-      ]);
+      if (data.promo) {
+        txnEmail(data.gift.member, 'gift-one-get-one', [
+          { name: 'GIFTEE_USERNAME', content: data.promoUsername },
+          { name: 'X_MONTHS_SUBSCRIPTION', content: months },
+        ]);
+      } else {
+        txnEmail(data.gift.member, 'gifted-subscription', [
+          { name: 'GIFTER', content: byUserName },
+          { name: 'X_MONTHS_SUBSCRIPTION', content: months },
+        ]);
+      }
     }
 
     // Only send push notifications if sending to a user other than yourself
@@ -276,24 +310,13 @@ async function cancelSubscription (data) {
     if (data.cancellationReason && data.cancellationReason === JOINED_GROUP_PLAN) sendEmail = false;
   }
 
-  const now = moment();
-  let defaultRemainingDays = 30;
-
   if (plan.customerId === this.constants.GROUP_PLAN_CUSTOMER_ID) {
-    defaultRemainingDays = 2;
     sendEmail = false; // because group-member-cancel email has already been sent
   }
 
-  const remaining = data.nextBill ? moment(data.nextBill).diff(new Date(), 'days', true) : defaultRemainingDays;
-  if (plan.extraMonths < 0) plan.extraMonths = 0;
-  const extraDays = Math.ceil(30.5 * plan.extraMonths);
-  const nowStr = `${now.format('MM')}/${now.format('DD')}/${now.format('YYYY')}`;
-  const nowStrFormat = 'MM/DD/YYYY';
-
-  plan.dateTerminated = moment(nowStr, nowStrFormat)
-    .add({ days: remaining })
-    .add({ days: extraDays })
-    .toDate();
+  plan.dateTerminated = calculateSubscriptionTerminationDate(
+    data.nextBill, plan, this.constants.GROUP_PLAN_CUSTOMER_ID,
+  );
 
   // clear extra time. If they subscribe again, it'll be recalculated from p.dateTerminated
   plan.extraMonths = 0;
@@ -324,4 +347,5 @@ async function cancelSubscription (data) {
 export {
   createSubscription,
   cancelSubscription,
+  revealMysteryItems,
 };

@@ -266,7 +266,7 @@
           class="col-12 col-md-3"
         >
           <div class="box white row col-12">
-            <div class="col-9">
+            <div class="col-9 text-nowrap">
               <div :class="stat">
                 {{ $t(stats[stat].title) }}
               </div>

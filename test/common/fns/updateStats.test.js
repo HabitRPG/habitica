@@ -110,13 +110,6 @@ describe('common.fns.updateStats', () => {
       expect(user.stats.points).to.eql(10);
     });
 
-    it('add user notification when drops are enabled', () => {
-      user.stats.lvl = 3;
-      updateStats(user, { });
-      expect(user.addNotification).to.be.calledOnce;
-      expect(user.addNotification).to.be.calledWith('DROPS_ENABLED');
-    });
-
     it('add user notification when the user levels up', () => {
       const initialLvl = user.stats.lvl;
       updateStats(user, {
@@ -131,7 +124,7 @@ describe('common.fns.updateStats', () => {
     it('add user notification when rebirth is enabled', () => {
       user.stats.lvl = 51;
       updateStats(user, { });
-      expect(user.addNotification).to.be.calledTwice; // once is for drops enabled
+      expect(user.addNotification).to.be.calledOnce;
       expect(user.addNotification).to.be.calledWith('REBIRTH_ENABLED');
     });
 

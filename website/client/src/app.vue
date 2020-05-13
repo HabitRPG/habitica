@@ -20,17 +20,16 @@
           </svg>
           <!-- eslint-enable max-len -->
         </div>
-        <div class="col-12 text-center">
-          <h2>{{ $t('tipTitle', {tipNumber: currentTipNumber}) }}</h2>
-          <p>{{ currentTip }}</p>
-        </div>
       </div>
     </div>
     <div
       id="app"
-      :class="{'casting-spell': castingSpell}"
+      :class="{
+        'casting-spell': castingSpell,
+        'resting': showRestingBanner
+      }"
     >
-      <banned-account-modal />
+      <!-- <banned-account-modal /> -->
       <amazon-payments-modal v-if="!isStaticPage" />
       <payments-success-modal />
       <sub-cancel-modal-confirm v-if="isUserLoaded" />
@@ -66,7 +65,10 @@
           </div>
           <notifications-display />
           <app-menu />
-          <div class="container-fluid">
+          <div
+            class="container-fluid"
+            :class="{'no-margin': noMargin}"
+          >
             <app-header />
             <buyModal
               :item="selectedItemToBuy || {}"
@@ -83,7 +85,7 @@
               <router-view />
             </div>
           </div>
-          <app-footer />
+          <app-footer v-if="!hideFooter" />
           <audio
             id="sound"
             ref="sound"
@@ -97,13 +99,20 @@
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/variables.scss';
 
   #app {
-    height: calc(100% - 56px); /* 56px is the menu */
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     overflow-x: hidden;
+
+    &.resting {
+      --banner-resting-height: #{$restingToolbarHeight};
+    }
+
+    &.giftingBanner {
+      --banner-gifting-height: 2.5rem;
+    }
   }
 
   #loading-screen-inapp {
@@ -135,8 +144,24 @@
     cursor: crosshair;
   }
 
+  .closepadding {
+    margin: 11px 24px;
+    display: inline-block;
+    position: relative;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+
   .container-fluid {
     flex: 1 0 auto;
+  }
+
+  .no-margin {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .notification {
@@ -151,7 +176,7 @@
 
   .resting-banner {
     width: 100%;
-    min-height: 40px;
+    height: $restingToolbarHeight;
     background-color: $blue-10;
     top: 0;
     z-index: 1300;
@@ -163,15 +188,6 @@
       color: $white;
       padding: 8px 38px 8px 8px;
       margin: auto;
-    }
-
-    .closepadding {
-      margin: 11px 24px;
-      display: inline-block;
-      position: relative;
-      right: 0;
-      top: 0;
-      cursor: pointer;
     }
 
     @media only screen and (max-width: 768px) {
@@ -239,10 +255,13 @@ import subCancelModalConfirm from '@/components/payments/cancelModalConfirm';
 import subCanceledModal from '@/components/payments/canceledModal';
 
 import spellsMixin from '@/mixins/spells';
-import { CONSTANTS, getLocalSetting, removeLocalSetting } from '@/libs/userlocalManager';
+import {
+  CONSTANTS,
+  getLocalSetting,
+  removeLocalSetting,
+} from '@/libs/userlocalManager';
 
 import svgClose from '@/assets/svg/close.svg';
-import bannedAccountModal from '@/components/bannedAccountModal';
 
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
@@ -257,7 +276,6 @@ export default {
     BuyModal,
     SelectMembersModal,
     amazonPaymentsModal,
-    bannedAccountModal,
     paymentsSuccessModal,
     subCancelModalConfirm,
     subCanceledModal,
@@ -275,7 +293,6 @@ export default {
       audioSuffix: null,
 
       loading: true,
-      currentTipNumber: 0,
       bannerHidden: false,
     };
   },
@@ -288,17 +305,14 @@ export default {
     castingSpell () {
       return this.$store.state.spellOptions.castingSpell;
     },
-    currentTip () {
-      const numberOfTips = 35 + 1;
-      const min = 1;
-      const randomNumber = Math.random() * (numberOfTips - min) + min;
-      const tipNumber = Math.floor(randomNumber);
-      this.currentTipNumber = tipNumber; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
-
-      return this.$t(`tip${tipNumber}`);
-    },
     showRestingBanner () {
-      return !this.bannerHidden && this.user.preferences.sleep;
+      return !this.bannerHidden && this.user && this.user.preferences.sleep;
+    },
+    noMargin () {
+      return ['privateMessages'].includes(this.$route.name);
+    },
+    hideFooter () {
+      return ['privateMessages'].includes(this.$route.name);
     },
   },
   created () {
@@ -355,7 +369,8 @@ export default {
       return response;
     }, error => {
       if (error.response.status >= 400) {
-        this.checkForBannedUser(error);
+        const isBanned = this.checkForBannedUser(error);
+        if (isBanned === true) return null; // eslint-disable-line consistent-return
 
         // Don't show errors from getting user details. These users have delete their account,
         // but their chat message still exists.
@@ -373,7 +388,8 @@ export default {
         // TODO use a specific error like NotificationNotFound instead of checking for the string
         const invalidUserMessage = [this.$t('invalidCredentials'), 'Missing authentication headers.'];
         if (invalidUserMessage.indexOf(errorMessage) !== -1) {
-          this.$store.dispatch('auth:logout');
+          this.$store.dispatch('auth:logout', { redirectToLogin: true });
+          return null;
         }
 
         // Most server errors should return is click to dismiss errors, with some exceptions
@@ -523,7 +539,7 @@ export default {
 
       // Case where user is not logged in
       if (!parseSettings) {
-        return;
+        return false;
       }
 
       const bannedMessage = this.$t('accountSuspended', {
@@ -531,9 +547,10 @@ export default {
         userId: parseSettings.auth.apiId,
       });
 
-      if (errorMessage !== bannedMessage) return;
+      if (errorMessage !== bannedMessage) return false;
 
-      this.$root.$emit('bv::show::modal', 'banned-account');
+      this.$store.dispatch('auth:logout', { redirectToLogin: true });
+      return true;
     },
     initializeModalStack () {
       // Manage modals
@@ -578,6 +595,25 @@ export default {
         const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
 
         if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, { fromRoot: true });
+      });
+
+      // Dismiss modal aggressively. Pass a modal ID to remove a modal instance from the stack
+      // (both the stack entry itself and its "prev" reference) so we don't reopen it
+      this.$root.$on('habitica::dismiss-modal', oldModal => {
+        if (!oldModal) return;
+        this.$root.$emit('bv::hide::modal', oldModal);
+        let removeIndex = this.$store.state.modalStack
+          .map(modal => modal.modalId)
+          .indexOf(oldModal);
+        if (removeIndex >= 0) {
+          this.$store.state.modalStack.splice(removeIndex, 1);
+        }
+        removeIndex = this.$store.state.modalStack
+          .map(modal => modal.prev)
+          .indexOf(oldModal);
+        if (removeIndex >= 0) {
+          delete this.$store.state.modalStack[removeIndex].prev;
+        }
       });
     },
     validStack (modalStack) {
@@ -708,5 +744,6 @@ export default {
 <style src="@/assets/css/sprites/spritesmith-main-24.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-25.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-26.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-27.css"></style>
 <style src="@/assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

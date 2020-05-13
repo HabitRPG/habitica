@@ -5,7 +5,7 @@
       class="mentioned-icon"
     ></div>
     <div
-      v-if="!inbox && user.contributor.admin && msg.flagCount"
+      v-if="user.contributor.admin && msg.flagCount"
       class="message-hidden"
     >
       {{ flagCountDescription }}
@@ -27,31 +27,21 @@
           class="mr-1"
         >•</span>
         <span
-          v-b-tooltip
-          :title="msg.timestamp | date"
+          v-b-tooltip.hover="messageDate"
         >{{ msg.timestamp | timeAgo }}&nbsp;</span>
         <span v-if="msg.client && user.contributor.level >= 4">({{ msg.client }})</span>
       </p>
       <div
         ref="markdownContainer"
         class="text"
-        v-html="atHighlight(parseMarkdown(msg.text))"
+        v-html="parseMarkdown(msg.text)"
       ></div>
-      <div
-        v-if="isMessageReported && (inbox === true)"
-        class="reported"
-      >
-        <span v-once>{{ $t('reportedMessage') }}</span>
-        <br>
-        <span v-once>{{ $t('canDeleteNow') }}</span>
-      </div>
       <hr>
       <div
         v-if="msg.id"
         class="d-flex"
       >
         <div
-          v-if="!inbox"
           class="action d-flex align-items-center"
           @click="copyAsTodo(msg)"
         >
@@ -62,7 +52,7 @@
           <div>{{ $t('copyAsTodo') }}</div>
         </div>
         <div
-          v-if="(inbox || (user.flags.communityGuidelinesAccepted && msg.uuid !== 'system'))
+          v-if="(user.flags.communityGuidelinesAccepted && msg.uuid !== 'system')
             && (!isMessageReported || user.contributor.admin)"
           class="action d-flex align-items-center"
           @click="report(msg)"
@@ -77,7 +67,7 @@
           </div>
         </div>
         <div
-          v-if="msg.uuid === user._id || inbox || user.contributor.admin"
+          v-if="msg.uuid === user._id || user.contributor.admin"
           class="action d-flex align-items-center"
           @click="remove()"
         >
@@ -91,7 +81,6 @@
           </div>
         </div>
         <div
-          v-if="!inbox"
           v-b-tooltip="{title: likeTooltip(msg.likes[user._id])}"
           class="ml-auto d-flex"
         >
@@ -121,7 +110,7 @@
             ></div>
           </div>
         </div>
-        <span v-if="!msg.likes[user._id] && !inbox">{{ $t('like') }}</span>
+        <span v-if="!msg.likes[user._id]">{{ $t('like') }}</span>
       </div>
     </div>
   </div>
@@ -205,21 +194,14 @@
       color: $purple-400;
     }
   }
-
-  .reported {
-    margin-top: 18px;
-    color: $red-50;
-  }
 </style>
 
 <script>
-import axios from 'axios';
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
-import max from 'lodash/max';
 
-import habiticaMarkdown from 'habitica-markdown';
+import renderWithMentions from '@/libs/renderWithMentions';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
 
@@ -228,7 +210,6 @@ import copyIcon from '@/assets/svg/copy.svg';
 import likeIcon from '@/assets/svg/like.svg';
 import likedIcon from '@/assets/svg/liked.svg';
 import reportIcon from '@/assets/svg/report.svg';
-import { highlightUsers } from '../../libs/highlightUsers';
 import { CHAT_FLAG_LIMIT_FOR_HIDING, CHAT_FLAG_FROM_SHADOW_MUTE } from '@/../../common/script/constants';
 
 export default {
@@ -244,10 +225,6 @@ export default {
   },
   props: {
     msg: {},
-    inbox: {
-      type: Boolean,
-      default: false,
-    },
     groupId: {},
   },
   data () {
@@ -266,28 +243,14 @@ export default {
     ...mapState({ user: 'user.data' }),
     isUserMentioned () {
       const message = this.msg;
+
+      if (message.highlight) return true;
+
       const { user } = this;
-
-      if (message.highlight) return message.highlight;
-
-      message.highlight = false;
-      const messageText = message.text.toLowerCase();
       const displayName = user.profile.name;
-      const username = user.auth.local && user.auth.local.username;
-      const mentioned = max([
-        messageText.indexOf(username.toLowerCase()),
-        messageText.indexOf(displayName.toLowerCase()),
-      ]);
-      if (mentioned === -1) return message.highlight;
-
-      const escapedDisplayName = escapeRegExp(displayName);
-      const escapedUsername = escapeRegExp(username);
-      const pattern = `@(${escapedUsername}|${escapedDisplayName})(\\b)`;
-      const precedingChar = messageText.substring(mentioned - 1, mentioned);
-      if (mentioned === 0 || precedingChar.trim() === '' || precedingChar === '@') {
-        const regex = new RegExp(pattern, 'i');
-        message.highlight = regex.test(messageText);
-      }
+      const { username } = user.auth.local;
+      const pattern = `@(${escapeRegExp(displayName)}|${escapeRegExp(username)})(\\b)`;
+      message.highlight = new RegExp(pattern, 'i').test(message.text);
 
       return message.highlight;
     },
@@ -310,6 +273,10 @@ export default {
       if (this.msg.flagCount < CHAT_FLAG_LIMIT_FOR_HIDING) return 'Message flagged once, not hidden';
       if (this.msg.flagCount < CHAT_FLAG_FROM_SHADOW_MUTE) return 'Message hidden';
       return 'Message hidden (shadow-muted)';
+    },
+    messageDate () {
+      const date = moment(this.msg.timestamp).toDate();
+      return date.toString();
     },
   },
   mounted () {
@@ -336,11 +303,7 @@ export default {
         chatId: message.id,
       });
 
-      if (!message.likes[this.user._id]) {
-        message.likes[this.user._id] = true;
-      } else {
-        message.likes[this.user._id] = !message.likes[this.user._id];
-      }
+      message.likes[this.user._id] = !message.likes[this.user._id];
 
       this.$emit('message-liked', message);
       this.$root.$emit('bv::hide::tooltip');
@@ -372,22 +335,13 @@ export default {
       const message = this.msg;
       this.$emit('message-removed', message);
 
-      if (this.inbox) {
-        await axios.delete(`/api/v4/inbox/messages/${message.id}`);
-        return;
-      }
-
       await this.$store.dispatch('chat:deleteChat', {
         groupId: this.groupId,
         chatId: message.id,
       });
     },
-    atHighlight (text) {
-      return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
-    },
     parseMarkdown (text) {
-      if (!text) return null;
-      return habiticaMarkdown.render(String(text));
+      return renderWithMentions(text, this.user);
     },
   },
 };

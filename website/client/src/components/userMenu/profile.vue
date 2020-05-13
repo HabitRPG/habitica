@@ -5,16 +5,20 @@
   >
     <div class="header">
       <div class="profile-actions">
-        <button
-          v-b-tooltip.hover.left="$t('sendMessage')"
-          class="btn btn-secondary message-icon"
-          @click="sendMessage()"
+        <router-link
+          :to="{ path: '/private-messages', query: { uuid: user._id } }"
+          replace
         >
-          <div
-            class="svg-icon message-icon"
-            v-html="icons.message"
-          ></div>
-        </button>
+          <button
+            v-b-tooltip.hover.left="$t('sendMessage')"
+            class="btn btn-secondary message-icon"
+          >
+            <div
+              class="svg-icon message-icon"
+              v-html="icons.message"
+            ></div>
+          </button>
+        </router-link>
         <button
           v-b-tooltip.hover.bottom="$t('sendGems')"
           class="btn btn-secondary gift-icon"
@@ -300,50 +304,64 @@
       <div
         v-for="(category, key) in achievements"
         :key="key"
-        class="row"
+        class="row category-row"
       >
-        <h2 class="col-12 text-center">
+        <h3 class="col-12 text-center mb-3">
           {{ $t(key+'Achievs') }}
-        </h2>
-        <div
-          v-for="(achievement, achievKey) in category.achievements"
-          :key="achievKey"
-          class="col-12 col-md-3 text-center"
-        >
-          <div
-            :id="achievKey + '-achievement'"
-            class="box achievement-container"
-            :class="{'achievement-unearned': !achievement.earned}"
-          >
-            <b-popover
-              :target="'#' + achievKey + '-achievement'"
-              triggers="hover"
-              placement="top"
-            >
-              <h4 class="popover-content-title">
-                {{ achievement.title }}
-              </h4>
-              <div
-                class="popover-content-text"
-                v-html="achievement.text"
-              ></div>
-            </b-popover>
+        </h3>
+        <div class="col-12">
+          <div class="row achievements-row justify-content-center">
             <div
-              v-if="achievement.earned"
-              class="achievement"
-              :class="achievement.icon + '2x'"
+              v-for="(achievement, achievKey) in achievementsCategory(key, category)"
+              :key="achievKey"
+              class="achievement-wrapper col text-center"
             >
               <div
-                v-if="achievement.optionalCount"
-                class="counter badge badge-info stack-count"
+                :id="achievKey + '-achievement'"
+                class="box achievement-container"
+                :class="{'achievement-unearned': !achievement.earned}"
               >
-                {{ achievement.optionalCount }}
+                <b-popover
+                  :target="'#' + achievKey + '-achievement'"
+                  triggers="hover"
+                  placement="top"
+                >
+                  <h4 class="popover-content-title">
+                    {{ achievement.title }}
+                  </h4>
+                  <div
+                    class="popover-content-text"
+                    v-html="achievement.text"
+                  ></div>
+                </b-popover>
+                <div
+                  v-if="achievement.earned"
+                  class="achievement"
+                  :class="achievement.icon + '2x'"
+                >
+                  <div
+                    v-if="achievement.optionalCount"
+                    class="counter badge badge-pill stack-count"
+                  >
+                    {{ achievement.optionalCount }}
+                  </div>
+                </div>
+                <div
+                  v-if="!achievement.earned"
+                  class="achievement achievement-unearned achievement-unearned2x"
+                ></div>
               </div>
             </div>
-            <div
-              v-if="!achievement.earned"
-              class="achievement achievement-unearned achievement-unearned2x"
-            ></div>
+          </div>
+          <div
+            v-if="achievementsCategories[key].number > 5"
+            class="btn btn-flat btn-show-more"
+            @click="toggleAchievementsCategory(key)"
+          >
+            {{ achievementsCategories[key].open ?
+              $t('hideAchievements', {category: $t(key+'Achievs')}) :
+              $t('showAllAchievements', {category: $t(key+'Achievs')})
+            }}
           </div>
         </div>
       </div>
@@ -353,31 +371,38 @@
           v-if="user.achievements.challenges"
           class="col-12 col-md-6"
         >
-          <div class="achievement-icon achievement-karaoke"></div>
-          <h2 class="text-center">
+          <div class="achievement-icon achievement-karaoke-2x"></div>
+          <h3 class="text-center mt-2 mb-4">
             {{ $t('challengesWon') }}
-          </h2>
+          </h3>
           <div
             v-for="chal in user.achievements.challenges"
             :key="chal"
+            class="achievement-list-item"
           >
             <span v-markdown="chal"></span>
-            <hr>
           </div>
         </div>
         <div
           v-if="user.achievements.quests"
           class="col-12 col-md-6"
         >
-          <div class="achievement-icon achievement-alien"></div>
-          <h2 class="text-center">
+          <div class="achievement-icon achievement-alien2x"></div>
+          <h3 class="text-center mt-2 mb-4">
             {{ $t('questsCompleted') }}
-          </h2>
+          </h3>
           <div
             v-for="(value, key) in user.achievements.quests"
             :key="key"
+            class="achievement-list-item d-flex justify-content-between"
           >
-            <span>{{ content.quests[key].text() }} ({{ value }})</span>
+            <span>{{ content.quests[key].text() }}</span>
+            <span
+              v-if="value > 1"
+              class="badge badge-pill stack-count"
+            >
+              {{ value }}
+            </span>
           </div>
         </div>
       </div>
@@ -519,36 +544,70 @@
   }
 
   #achievements {
+    .category-row {
+      margin-bottom: 34px;
+
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+
+    .achievements-row {
+      max-width: 590px;
+      margin: 0 auto;
+    }
+
+    .achievement-wrapper {
+      width: 94px;
+      max-width: 94px;
+      margin-right: 12px;
+      margin-left: 12px;
+      padding: 0px;
+    }
+
     .box {
       margin: 0 auto;
-      margin-top: 1em;
+      margin-bottom: 1em;
       padding-top: 1.2em;
-      background: #fff;
+      background: $white;
+    }
+
+    hr {
+      margin-bottom: 48px;
+      margin-top: 48px;
     }
 
     .box.achievement-unearned {
-      background-color: #edecee;
-    }
-
-    h2 {
-      margin-top: 1em;
+      background-color: $gray-600;
     }
 
     .counter.badge {
       position: absolute;
-      top: .5em;
-      right: 3em;
-      color: #fff;
-      background-color: #ff944c;
-      box-shadow: 0 1px 1px 0 rgba(26, 24, 29, 0.12);
-      min-width: 24px;
-      min-height: 24px;
-      border-radius: 2em;
-      padding: .5em;
+      top: -0.8em;
+      right: -0.5em;
+      color: $white;
+      background-color: $orange-100;
+      max-height: 24px;
     }
 
     .achievement-icon {
       margin: 0 auto;
+    }
+
+    .achievement-list-item {
+      padding-top: 11px;
+      padding-bottom: 12px;
+      border-top: 1px solid $gray-500;
+
+      &:last-child {
+        border-bottom: 1px solid $gray-500;
+      }
+
+      .badge {
+        margin-right: 8px;
+        background: $gray-600;
+        color: $gray-300;
+      }
     }
   }
 
@@ -699,6 +758,7 @@ export default {
       },
       selectedPage: 'profile',
       achievements: {},
+      achievementsCategories: {}, // number, open
       content: Content,
       user: undefined,
     };
@@ -756,6 +816,7 @@ export default {
   },
   mounted () {
     this.loadUser();
+    this.selectPage(this.startingPage);
   },
   methods: {
     async loadUser () {
@@ -782,23 +843,24 @@ export default {
       // @TODO: this common code should handle the above
       this.achievements = achievementsLib.getAchievementsForProfile(user);
 
+      const achievementsCategories = {};
+      Object.keys(this.achievements).forEach(category => {
+        achievementsCategories[category] = {
+          open: false,
+          number: Object.keys(this.achievements[category].achievements).length,
+        };
+      });
+
+      this.achievementsCategories = achievementsCategories;
+
       // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
       user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
 
       this.user = user;
     },
     selectPage (page) {
-      this.selectedPage = page;
+      this.selectedPage = page || 'profile';
       window.history.replaceState(null, null, '');
-    },
-    sendMessage () {
-      this.$root.$emit('habitica::new-inbox-message', {
-        userIdToMessage: this.user._id,
-        displayName: this.user.profile.name,
-        username: this.user.auth.local.username,
-        backer: this.user.backer,
-        contributor: this.user.contributor,
-      });
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
@@ -904,6 +966,27 @@ export default {
     },
     showAllocation () {
       return this.user._id === this.userLoggedIn._id && this.hasClass;
+    },
+    achievementsCategory (categoryKey, category) {
+      const achievementsKeys = Object.keys(category.achievements);
+
+      if (this.achievementsCategories[categoryKey].open === true) {
+        return category.achievements;
+      }
+
+      const fiveAchievements = achievementsKeys.slice(0, 5);
+
+      const categoryAchievements = {};
+
+      fiveAchievements.forEach(key => {
+        categoryAchievements[key] = category.achievements[key];
+      });
+
+      return categoryAchievements;
+    },
+    toggleAchievementsCategory (categoryKey) {
+      const status = this.achievementsCategories[categoryKey].open;
+      this.achievementsCategories[categoryKey].open = !status;
     },
   },
 };

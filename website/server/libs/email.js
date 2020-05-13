@@ -66,16 +66,16 @@ export function getGroupUrl (group) {
 }
 
 // Send a transactional email using Mandrill through the external email server
-export function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
+export async function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
   mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray]; // eslint-disable-line no-param-reassign, max-len
 
-  variables = [ // eslint-disable-line no-param-reassign, max-len
+  variables = [ // eslint-disable-line no-param-reassign
     { name: 'BASE_URL', content: BASE_URL },
   ].concat(variables || []);
 
   // It's important to pass at least a user with its `preferences`
   // as we need to check if he unsubscribed
-  mailingInfoArray = mailingInfoArray // eslint-disable-line no-param-reassign, max-len
+  mailingInfoArray = mailingInfoArray // eslint-disable-line no-param-reassign
     .map(mailingInfo => (mailingInfo._id ? getUserInfo(mailingInfo, ['_id', 'email', 'name', 'canSend']) : mailingInfo))
     // Always send reset-password emails
     // Don't check canSend for non registered users as already checked before
@@ -130,10 +130,12 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
   }
 
   if (IS_PROD && mailingInfoArray.length > 0) {
-    got.post(`${EMAIL_SERVER.url}/job`, {
-      auth: `${EMAIL_SERVER.auth.user}:${EMAIL_SERVER.auth.password}`,
-      json: true,
-      body: {
+    return got.post(`${EMAIL_SERVER.url}/job`, {
+      retry: 5, // retry the http request to the email server 5 times
+      timeout: 60000, // wait up to 60s before timing out
+      username: EMAIL_SERVER.auth.user,
+      password: EMAIL_SERVER.auth.password,
+      json: {
         type: 'email',
         data: {
           emailType,
@@ -147,6 +149,11 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
           backoff: { delay: 10 * 60 * 1000, type: 'fixed' },
         },
       },
-    }).catch(err => logger.error(err));
+    }).json().catch(err => logger.error(err, {
+      extraMessage: 'Error while sending an email.',
+      emailType,
+    }));
   }
+
+  return null;
 }

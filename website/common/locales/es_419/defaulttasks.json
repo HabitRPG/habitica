@@ -38,5 +38,10 @@
     "workTodoProject": "Proyecto de trabajo >> Completa proyecto de trabajo",
     "workDailyImportantTaskNotes": "Pincha para especificar tu tarea más importante",
     "workDailyImportantTask": "La tarea más importante >> Trabajé en la tarea más importante de hoy",
-    "workHabitMail": "Procesa correo electrónico"
+    "workHabitMail": "Procesa correo electrónico",
+    "schoolTodoText": "Terminar la tarea de clase",
+    "schoolDailyNotes": "¡Toque para elegir su horario de tarea!",
+    "schoolDailyText": "Terminar la tarea",
+    "schoolHabit": "Estudiar/Procrastinar",
+    "healthTodoNotes": "Toque para agregar listas de verificación!"
 }

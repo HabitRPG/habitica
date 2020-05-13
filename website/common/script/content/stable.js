@@ -123,6 +123,7 @@ const specialMounts = {
   'JackOLantern-Ghost': 'ghostJackolantern',
   'Hippogriff-Hopeful': 'hopefulHippogriffMount',
   'Gryphon-Gryphatrice': 'gryphatrice',
+  'JackOLantern-Glow': 'glowJackolantern',
 };
 
 each(specialPets, (translationString, key) => {

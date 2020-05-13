@@ -6,7 +6,8 @@ import {
 
 describe('POST /members/send-private-message', () => {
   let userToSendMessage;
-  const messageToSend = 'Test Private Message';
+  const messageToSend = 'Test *Private* Message';
+  const unformattedMessage = 'Test Private Message';
 
   beforeEach(async () => {
     userToSendMessage = await generateUser();
@@ -65,7 +66,7 @@ describe('POST /members/send-private-message', () => {
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('notAuthorizedToSendMessageToThisUser'),
+      message: t('blockedToSendToThisUser'),
     });
   });
 
@@ -110,7 +111,9 @@ describe('POST /members/send-private-message', () => {
 
     const sendersMessageInReceiversInbox = _.find(
       updatedReceiver.inbox.messages,
-      message => message.uuid === userToSendMessage._id && message.text === messageToSend,
+      message => message.uuid === userToSendMessage._id
+        && message.text === messageToSend
+        && message.unformattedText === unformattedMessage,
     );
 
     const sendersMessageInSendersInbox = _.find(
