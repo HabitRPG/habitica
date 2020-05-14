@@ -143,7 +143,7 @@
 
               </span>
 
-                <checkbox :checked="item.completed"
+                <checkbox :checked.sync="item.completed"
                           class="input-group-prepend"
                 :id="`checklist-${item.id}`"/>
 
