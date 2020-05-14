@@ -297,7 +297,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset', 'isUserLoaded']),
+    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset', 'isUserLoaded', 'notificationsRemoved']),
     ...mapState({ user: 'user.data' }),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
@@ -398,8 +398,14 @@ export default {
         this.$store.state.serverAppVersion = serverAppVersion;
       }
 
+      // Store the notifications, filtering those that have already been read
+      // See store/index.js on why this is necessary
       if (this.user && response.data && response.data.notifications) {
-        this.$set(this.user, 'notifications', response.data.notifications);
+        const filteredNotifications = response.data.notifications.filter(serverNotification => {
+          if (this.notificationsRemoved.includes(serverNotification.id)) return false;
+          return true;
+        });
+        this.$set(this.user, 'notifications', filteredNotifications);
       }
 
       return response;

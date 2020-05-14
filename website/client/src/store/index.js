@@ -58,6 +58,11 @@ export default function () {
       isUserLoaded: false,
       isAmazonReady: false, // Whether the Amazon Payments lib can be used
       user: asyncResourceFactory(),
+      // Keep track of the ids of notifications that have been removed
+      // to make sure they don't get shown again. It happened due to concurrent requests
+      // which in some cases could result in a read notification showing up again
+      // see https://github.com/HabitRPG/habitica/issues/9242
+      notificationsRemoved: [],
       worldState: asyncResourceFactory(),
       credentials: isUserLoggedIn ? {
         API_ID: AUTH_SETTINGS.auth.apiId,

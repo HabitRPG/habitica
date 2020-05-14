@@ -565,12 +565,10 @@ export default {
 
       const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
       if (this.hasUnreadMessages(groupId)) {
-        // Delay by 1sec to make sure it returns after
-        // other requests that don't have the notification marked as read
-        setTimeout(() => {
-          this.$store.dispatch('chat:markChatSeen', { groupId });
-          this.$delete(this.user.newMessages, groupId);
-        }, 1000);
+        const notification = this.user
+          .notifications.find(n => n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId);
+        const notificationId = notification && notification.id;
+        this.$store.dispatch('chat:markChatSeen', { groupId, notificationId });
       }
 
       this.members = await this.loadMembers({
@@ -578,6 +576,7 @@ export default {
         includeAllPublicFields: true,
       });
     },
+    // returns the notification id or false
     hasUnreadMessages (groupId) {
       if (this.user.newMessages[groupId]) return true;
 
