@@ -487,10 +487,15 @@ export default {
       }
     },
   },
-  mounted () {
+  async mounted () {
     if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
-    this.load();
+    await this.fetchGuild();
+
+    this.$root.$on('updatedGroup', this.onGroupUpdate);
+  },
+  beforeDestroy () {
+    this.$root.$off('updatedGroup', this.onGroupUpdate);
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
@@ -501,19 +506,9 @@ export default {
     acceptCommunityGuidelines () {
       this.$store.dispatch('user:set', { 'flags.communityGuidelinesAccepted': true });
     },
-    async load () {
-      if (this.isParty) {
-        this.searchId = 'party';
-        // @TODO: Set up from old client. Decide what we need and what we don't
-        // Check Desktop notifs
-        // Load invites
-      }
-      await this.fetchGuild();
-
-      this.$root.$on('updatedGroup', group => {
-        const updatedGroup = extend(this.group, group);
-        this.$set(this.group, updatedGroup);
-      });
+    onGroupUpdate (group) {
+      const updatedGroup = extend(this.group, group);
+      this.$set(this.group, updatedGroup);
     },
 
     /**

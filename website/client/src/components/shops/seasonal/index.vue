@@ -517,12 +517,11 @@ export default {
     }, 250),
   },
   async mounted () {
-    await this.$store.dispatch('worldState:getWorldState');
-  },
-  created () {
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });
+
+    await this.$store.dispatch('worldState:getWorldState');
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

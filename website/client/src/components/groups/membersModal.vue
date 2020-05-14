@@ -537,7 +537,7 @@ export default {
       this.getMembers();
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica:show-member-modal');
   },
   methods: {

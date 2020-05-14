@@ -222,7 +222,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'invite-modal');
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.off('inviteModal::inviteToGroup');
   },
   methods: {

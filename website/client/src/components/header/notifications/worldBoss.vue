@@ -11,10 +11,16 @@
       class="background"
     >
       <div class="text">
-        <div class="title" v-once>
+        <div
+          v-once
+          class="title"
+        >
           {{ $t('worldBoss') }}
         </div>
-        <div class="sub-title" v-once>
+        <div
+          v-once
+          class="sub-title"
+        >
           {{ $t('questDysheartenerText') }}
         </div>
       </div>
@@ -40,9 +46,9 @@
         </div>
         <div class="pending-damage">
           <div
+            v-once
             class="svg-icon"
             v-html="icons.sword"
-            v-once
           ></div>
           <span>+{{ parseInt(user.party.quest.progress.up) || 0 }}</span>
         </div>
