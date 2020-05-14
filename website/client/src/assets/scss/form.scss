@@ -77,18 +77,25 @@ input, textarea, input.form-control, textarea.form-control {
   }
 }
 
-.input-group {
+/** Colored Input-Groups, ignoring checklist */
+.input-group:not(.checklist-group) {
   border-radius: 2px;
   border: solid 1px $gray-300;
-  background: $gray-600;
-  height: 2rem;
 
   &:focus, &:active, &:focus-within {
     border: solid 1px $purple-400;
   }
 
-  .input-group-prepend , .input-group-append  {
+  .input-group-prepend , .input-group-append {
     background: $gray-600;
+  }
+}
+
+/** Generic Input Group Styles */
+.input-group {
+  height: 2rem;
+
+  .input-group-prepend , .input-group-append  {
     color: $gray-300;
     border: 0;
     height: 30px;

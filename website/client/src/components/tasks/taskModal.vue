@@ -139,7 +139,14 @@
               :key="item.id"
               class="inline-edit-input-group checklist-group input-group"
             >
-              <span class="grippy"></span>
+              <span class="grippy" v-html="icons.grip">
+
+              </span>
+
+                <checkbox :checked="item.completed"
+                          class="input-group-prepend"
+                :id="`checklist-${item.id}`"/>
+
               <input
                 v-model="item.text"
                 class="inline-edit-input checklist-item form-control"
@@ -753,27 +760,14 @@
       }
     }
 
-    // From: https://codepen.io/zachariab/pen/wkrbc
     span.grippy {
-      content: '....';
-      width: 20px;
-      height: 20px;
-      display: inline-block;
-      overflow: hidden;
-      line-height: 5px;
-      padding: 3px 4px;
-      cursor: move;
-      vertical-align: middle;
-      margin-top: .5em;
-      margin-right: .3em;
-      font-size: 12px;
-      letter-spacing: 2px;
-      color: $gray-300;
-      text-shadow: 1px 0 1px black;
-    }
-
-    span.grippy::after {
-      content: '.. .. .. ..';
+      position: absolute;
+      left: -15px;
+      width: 0.625rem;
+      height: 1rem;
+      object-fit: contain;
+      color: $gray-200;
+      top: 4px;
     }
 
     .checklist-item {
@@ -793,15 +787,30 @@
     }
 
     .checklist-group {
+      .grippy {
+        opacity: 0;
+        cursor: pointer;
+
+        &:hover, &:active {
+          opacity: 1;
+        }
+      }
+
       .destroy-icon {
         display: none;
       }
 
       &:hover {
         cursor: text;
+
         .destroy-icon {
           display: inline-block;
           color: $gray-200;
+        }
+
+        .grippy {
+          display: inline-block;
+
         }
       }
     }
@@ -967,6 +976,7 @@ import moment from 'moment';
 import uuid from 'uuid';
 import draggable from 'vuedraggable';
 import toggleSwitch from '@/components/ui/toggleSwitch';
+import checkbox from '@/components/ui/checkbox';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
 import SelectTag from './modal-controls/selectTag';
@@ -981,6 +991,7 @@ import deleteIcon from '@/assets/svg/delete.svg';
 import goldIcon from '@/assets/svg/gold.svg';
 import downIcon from '@/assets/svg/down.svg';
 import calendarIcon from '@/assets/svg/calendar.svg';
+import gripIcon from '@/assets/svg/grip.svg';
 
 export default {
   components: {
@@ -990,6 +1001,7 @@ export default {
     draggable,
     selectDifficulty,
     selectTranslatedArray,
+    checkbox,
   },
   directives: {
     markdown: markdownDirective,
@@ -1009,6 +1021,7 @@ export default {
         down: downIcon,
         streak: streakIcon,
         calendar: calendarIcon,
+        grip: gripIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
       sharedCompletion: 'singleCompletion',

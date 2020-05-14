@@ -16,6 +16,12 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+  .custom-control.custom-checkbox {
+    margin-bottom: 0 !important;
+  }
+</style>
+
 <script>
 export default {
   props: {
