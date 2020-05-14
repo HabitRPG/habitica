@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FAIRY AND SUNSHINE GLOW HATCHING POTIONS!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: RESTING IN THE INN';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,23 +31,20 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>5/12/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>5/14/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_fairy_sunshine_potions center-block"></div>
+        <div class="scene_pets_resting center-block"></div>
         <p>
-          Some favorite pet breeds are back in town! Check out the return of Fairy and Sunshine
-          Glow Potions to brighten your May avatar look. Buy them from <a href='/shops/market'>the
-          Market</a> and use them to hatch any standard pet egg. (Magic Hatching Potions do not
-          work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky, so they'll happily eat
-          any kind of food that you feed them!
+          This month's <a href='https://habitica.wordpress.com/2020/05/13/rest-in-the-inn/'
+          target='_blank'>featured Wiki article</a> is about Resting in the Inn! We hope that it
+          will help you when you need a break from your Dailies. Be sure to check it out, and let
+          us know what you think by reaching out on <a href='https://twitter.com/habitica'
+          target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>
+          Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
-        <p>
-          After they're gone, it will be at least a year before the Fairy or Sunshine Glow Hatching
-          Potions are available again, so be sure to get them now!
-        </p>
-        <div class="small mb-3">by OuttaMyMind, Lt.Cabel, Eslyn, Edge, and SabreCat</div>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
