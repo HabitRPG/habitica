@@ -18,6 +18,12 @@ export default function calculateSubscriptionTerminationDate (
 
   const calculatedTerminationDate = moment().startOf('day').add({ days: remaining + extraDays });
 
-  return calculatedTerminationDate.isBefore(purchasedPlan.terminationDate)
-    ? purchasedPlan.terminationDate : calculatedTerminationDate.toDate();
+  // If a termination date is already set, use the one further in the future
+  if (purchasedPlan.dateTerminated) {
+    return calculatedTerminationDate.isBefore(purchasedPlan.dateTerminated)
+      ? purchasedPlan.dateTerminated : calculatedTerminationDate.toDate();
+  }
+
+  // Otherwise the calculated one
+  return calculatedTerminationDate.toDate();
 }
