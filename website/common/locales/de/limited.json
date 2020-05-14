@@ -178,5 +178,6 @@
     "marchYYYY": "März <%= year %>",
     "spring2020LapisLazuliRogueSet": "Lapislazuli (Schurke)",
     "spring2020IrisHealerSet": "Iris (Heiler)",
-    "spring2020PuddleMageSet": "Pfütze (Magier)"
+    "spring2020PuddleMageSet": "Pfütze (Magier)",
+    "mayYYYY": "Mai <%= year %>"
 }

@@ -245,5 +245,9 @@
     "subscriptionCanceled": "寄付はキャンセルされました",
     "cancelSubAlternatives": "技術的な問題があるかHabiticaがうまく動いていないように見えるときは、<a href='mailto:admin@habitica.com'>私たちに連絡する</a>ことをご検討ください。あなたがHabiticaを最大限に楽しめるよう私たちはお役に立ちたいです。",
     "subMonths": "寄付の月",
-    "subscriptionStats": "寄付のステータス"
+    "subscriptionStats": "寄付のステータス",
+    "mysterySet202004": "ダイオウカバマダラセット",
+    "mysterySet202005": "比類無き飛竜セット",
+    "mysterySet202003": "とげとげ闘士セット",
+    "mysterySet202002": "優雅な想い人セット"
 }
