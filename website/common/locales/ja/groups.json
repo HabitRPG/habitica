@@ -486,12 +486,12 @@
     "taskClaimed": "<%= userName %> は、タスク<span class=\"notification-bold\"><%= taskText %></span>を担当しています。",
     "groupActivityNotificationTitle": "<%= user %>が<%= group %>に投稿しました",
     "blockedToSendToThisUser": "このユーザーにブロックされているため、メッセージは送れません。",
-    "PMDisabled": "プライベートメッセージを無効にする",
+    "PMDisabled": "メッセージを無効にする",
     "userWithUsernameOrUserIdNotFound": "ユーザー名またはユーザーIDが見つかりませんでした。",
     "usernameOrUserId": "ユーザー名またはユーザーID",
     "sendGiftToWhom": "誰に贈り物を送りたいですか？",
     "selectGift": "贈り物を選ぶ",
-    "PMUnblockUserToSendMessages": "メッセージの送信と受信を続けるためにこのユーザーのブロックを解除しましょう。",
+    "PMUnblockUserToSendMessages": "メッセージの送信と受信を続けるには、このユーザーのブロックを解除しましょう。",
     "PMUserDoesNotReceiveMessages": "このユーザーはもはやプライベートメッセージを受信していません",
     "PMCanNotReply": "この会話に返信することはできません"
 }

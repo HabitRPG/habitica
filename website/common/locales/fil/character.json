@@ -227,6 +227,6 @@
     "pts": "pts",
     "chatCastSpellUser": "<%= username %> casts <%= spell %> sa <%= target %>.",
     "chatCastSpellParty": "<%= username %> casts <%= spell %> para sa partido.",
-    "purchasePetItemConfirm": "Ang pagbiling ito ay lalagpas sa bilang ng kagamitang kailangan mo upang ma-hatch ang mga posibleng <%= itemText %> alaga. Sigurado ka ba?",
+    "purchasePetItemConfirm": "Ang pagbiling nito ay lalagpas sa bilang ng kagamitang kailangan mo upang ma-hatch ang mga posibleng <%= itemText %> alaga. Sigurado ka ba?",
     "purchaseForGold": "Bilhin ng <%= cost %> Ginto?"
 }
