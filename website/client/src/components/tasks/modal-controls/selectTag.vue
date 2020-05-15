@@ -30,6 +30,11 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+  .select-tag {
+    .dropdown-toggle {
+      padding-left: 0.5rem;
+    }
+  }
 </style>
 
 <script>
