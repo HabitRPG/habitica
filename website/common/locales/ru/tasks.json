@@ -199,7 +199,7 @@
     "monthlyRepeatHelpContent": "Это задание будет появляться каждые N месяцев",
     "yearlyRepeatHelpContent": "Это задание будет появляться каждые N лет",
     "resets": "Сбрасывается",
-    "summaryStart": "Повторяется <%= frequency %> каждые <%= everyX %> <%= frequencyPlural %>. ",
+    "summaryStart": "Повторяется <%= frequency %> каждые <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Следующие сроки выполнения",
     "checkOffYesterDailies": "Отметьте любые ежедневные задания, которые вы выполнили вчера:",
     "yesterDailiesTitle": "Вчера вы оставили некоторые ежедневные задания непроверенными! Хотите ли вы отметить какие-либо из них сейчас?",

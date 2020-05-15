@@ -1947,7 +1947,9 @@
     "headSpecialPiDayNotes": "Probeer om dit stuk heerlijke taart op je hoofd te balanceren terwijl je in een cirkel wandelt. Of werp het naar een rode Dagtaak! Of je zou het kunnen opeten. Jouw keuze! Kent geen voordeel toe.",
     "headMystery201903Text": "Spiegelei Helm",
     "armorArmoireBaseballUniformText": "Honkbal Uniform",
-    "armorArmoireMatchMakersApronText": "Koppelaarsters Schort",
+    "armorArmoireMatchMakersApronText": "Lucifermaker Schort",
     "armorArmoireBoxArmorText": "Boks Uitrusting",
-    "headSpecialSummer2019RogueText": "Voorhamer Helm"
+    "headSpecialSummer2019RogueText": "Voorhamer Helm",
+    "headSpecialSpring2019MageText": "Amber Hoed",
+    "armorArmoireMatchMakersApronNotes": "Dit schort is voor de veiligheid, maar omwille van de humor kunnen we er licht van maken. Verhoogt lichaam, kracht en intelligentie met elk <%= attrs %>. Betoverd Kabinet: Lucifermaker Set (Voorwerp 1 van 4)."
 }

@@ -1,6 +1,6 @@
 {
     "languageName": "日本語",
-    "stringNotFound": "文字例 '<%= string %>' が見つかりません。",
+    "stringNotFound": "文字列「<%= string %>」が見つかりません。",
     "titleIndex": "Habitica | あなたの人生のロールプレイングゲーム",
     "habitica": "Habitica",
     "habiticaLink": "<a href='https://habitica.fandom.com/ja/wiki/Habitica_Wiki' target='_blank'>Habitica</a>",
