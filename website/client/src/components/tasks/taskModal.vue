@@ -316,25 +316,15 @@
                 v-once
                 class="d-block m-b-xs"
               >{{ $t('repeatOn') }}</label>
-              <div
-                v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
-                :key="dayNumber"
-                class="form-check-inline weekday-check mr-0"
-              >
-                <div class="custom-control custom-checkbox custom-control-inline">
-                  <input
-                    :id="`weekday-${dayNumber}`"
-                    v-model="task.repeat[day]"
-                    class="custom-control-input"
-                    type="checkbox"
-                    :disabled="challengeAccessRequired"
-                  >
-                  <label
-                    v-once
-                    class="custom-control-label m-b-xs"
-                    :for="`weekday-${dayNumber}`"
-                  >{{ weekdaysMin(dayNumber) }}</label>
-                </div>
+              <div class="toggle-group">
+                <toggle-checkbox
+                  v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
+                  :tab-index="dayNumber"
+                  :key="dayNumber"
+                  :checked.sync="task.repeat[day]"
+                  :disabled="challengeAccessRequired"
+                  :text="weekdaysMin(dayNumber)"
+                />
               </div>
             </div>
           </template>
@@ -853,8 +843,9 @@
 
     .advanced-settings {
       background: $gray-700;
-      padding: 16px 24px;
+      padding: 0.75rem 1.5rem;
       margin: -8px -24px;
+      margin-top: 1.5rem;
 
       &-toggle {
         cursor: pointer;
@@ -986,6 +977,7 @@ import uuid from 'uuid';
 import draggable from 'vuedraggable';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import checkbox from '@/components/ui/checkbox';
+import toggleCheckbox from '@/components/ui/toggleCheckbox';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
 import SelectTag from './modal-controls/selectTag';
@@ -1011,6 +1003,7 @@ export default {
     selectDifficulty,
     selectTranslatedArray,
     checkbox,
+    toggleCheckbox,
   },
   directives: {
     markdown: markdownDirective,

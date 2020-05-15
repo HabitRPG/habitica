@@ -6,6 +6,7 @@
         v-model="isChecked"
         class="custom-control-input"
         type="checkbox"
+        :disabled="disabled"
       >
       <label
         v-once
@@ -26,6 +27,7 @@
 export default {
   props: {
     checked: Boolean,
+    disabled: Boolean,
     id: String,
     text: String,
   },
@@ -35,6 +37,9 @@ export default {
     };
   },
   watch: {
+    checked (after) {
+      this.isChecked = after;
+    },
     isChecked (after) {
       this.$emit('update:checked', after);
     },
