@@ -47,6 +47,19 @@ stories
                         :checked.sync="checked"
                         :disabled="true"></ToggleCheckbox>
         </div>
+
+        <br/>
+        <br/>
+        Disabled:
+        <div class="toggle-group" style="width: 300px">
+          <ToggleCheckbox text="Su" :disabled="true"></ToggleCheckbox>
+          <ToggleCheckbox text="Mo" :disabled="true"></ToggleCheckbox>
+          <ToggleCheckbox text="Tu" :disabled="true"></ToggleCheckbox>
+          <ToggleCheckbox text="We" :disabled="true"></ToggleCheckbox>
+          <ToggleCheckbox text="Th" :disabled="true"></ToggleCheckbox>
+          <ToggleCheckbox text="Fr" :disabled="true"></ToggleCheckbox>
+          <ToggleCheckbox text="Sa" :disabled="true"></ToggleCheckbox>
+        </div>
       </div>
     `,
     data () {

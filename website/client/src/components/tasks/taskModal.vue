@@ -322,7 +322,7 @@
                   :tab-index="dayNumber"
                   :key="dayNumber"
                   :checked.sync="task.repeat[day]"
-                  :disabled="challengeAccessRequired"
+                  :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
                   :text="weekdaysMin(dayNumber)"
                 />
               </div>

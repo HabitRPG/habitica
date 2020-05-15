@@ -76,19 +76,19 @@ export default {
 
         outline: 0;
       }
+    }
 
-      &:not(:first-of-type) {
-        border-left: none;
-      }
+    &:not(:first-of-type) {
+      border-left: none;
+    }
 
-      &:first-of-type {
-        border-bottom-left-radius: 2px;
-        border-top-left-radius: 2px;
-      }
-      &:last-of-type {
-        border-bottom-right-radius: 2px;
-        border-top-right-radius: 2px;
-      }
+    &:first-of-type {
+      border-bottom-left-radius: 2px;
+      border-top-left-radius: 2px;
+    }
+    &:last-of-type {
+      border-bottom-right-radius: 2px;
+      border-top-right-radius: 2px;
     }
   }
 </style>
