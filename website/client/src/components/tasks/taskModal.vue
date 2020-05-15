@@ -163,14 +163,22 @@
               </span>
             </div>
           </draggable>
-          <input
-            v-model="newChecklistItem"
-            class="inline-edit-input checklist-item form-control"
-            type="text"
-            :placeholder="$t('newChecklistItem')"
-            @keypress.enter="setHasPossibilityOfIMEConversion(false)"
-            @keyup.enter="addChecklistItem($event)"
-          >
+          <div  class="inline-edit-input-group checklist-group input-group">
+            <span class="input-group-prepend new-icon"
+                 v-html="icons.positive">
+
+            </span>
+
+            <input
+              v-model="newChecklistItem"
+              class="inline-edit-input checklist-item form-control"
+              type="text"
+              :placeholder="$t('newChecklistItem')"
+              @keypress.enter="setHasPossibilityOfIMEConversion(false)"
+              @keyup.enter="addChecklistItem($event)"
+            >
+          </div>
+
         </div>
         <div
           v-if="task.type === 'habit'"
@@ -748,6 +756,20 @@
       .checklist-item {
         padding-left: 12px;
       }
+
+      .new-icon {
+        cursor: default;
+        margin-left: 3px;
+        margin-right: -3px;
+
+        svg {
+          width: 1rem;
+          height: 1rem;
+          object-fit: contain;
+
+          fill: $gray-200;
+        }
+      }
     }
 
     span.grippy {
@@ -765,15 +787,6 @@
       border-radius: 0px;
       border: none !important;
       padding-left: 36px;
-
-      &:last-child {
-        background-repeat: no-repeat;
-        background-position: center left 10px;
-        border-top: 1px solid $gray-500 !important;
-        border-bottom: 1px solid $gray-500 !important;
-        background-size: 10px 10px;
-        background-image: url(~@/assets/svg/for-css/positive.svg);
-      }
     }
 
     .checklist-group {
