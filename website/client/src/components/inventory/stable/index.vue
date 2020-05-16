@@ -706,24 +706,26 @@ export default {
             const eggKey = specialKey.split('-')[0];
             const potionKey = specialKey.split('-')[1];
 
-            animals.push({
-              key: specialKey,
-              eggKey,
-              potionKey,
-              name: this.content[`${type}Info`][specialKey].text(),
-              isOwned () {
-                return isOwned(type, this, userItems);
-              },
-              mountOwned () {
-                return isOwned('mount', this, userItems);
-              },
-              isAllowedToFeed () {
-                return type === 'pet' && this.isOwned() && !this.mountOwned();
-              },
-              isHatchable () {
-                return false;
-              },
-            });
+            if (value.canFind || isOwned('mount', this, userItems)) {
+              animals.push({
+                key: specialKey,
+                eggKey,
+                potionKey,
+                name: this.content[`${type}Info`][specialKey].text(),
+                isOwned () {
+                  return isOwned(type, this, userItems);
+                },
+                mountOwned () {
+                  return isOwned('mount', this, userItems);
+                },
+                isAllowedToFeed () {
+                  return type === 'pet' && this.isOwned() && !this.mountOwned();
+                },
+                isHatchable () {
+                  return false;
+                },
+              });
+            }
           });
           break;
         }

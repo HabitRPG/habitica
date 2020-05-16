@@ -62,7 +62,7 @@ describe('stable', () => {
   describe('specialPets', () => {
     it('each value is a valid translation string', () => {
       each(stable.specialPets, pet => {
-        const string = t(pet);
+        const string = t(pet.translationString);
         expectValidTranslationString(string);
       });
     });
@@ -107,7 +107,7 @@ describe('stable', () => {
   describe('specialMounts', () => {
     it('each value is a valid translation string', () => {
       each(stable.specialMounts, mount => {
-        const string = t(mount);
+        const string = t(mount.translationString);
         expectValidTranslationString(string);
       });
     });

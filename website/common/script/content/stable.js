@@ -82,63 +82,180 @@ const [questPets, questMounts] = constructSet('quest', questEggs, dropPotions);
 const wackyPets = constructPetOnlySet('wacky', dropEggs, wackyPotions);
 
 const specialPets = {
-  'Wolf-Veteran': 'veteranWolf',
-  'Wolf-Cerberus': 'cerberusPup',
-  'Dragon-Hydra': 'hydra',
-  'Turkey-Base': 'turkey',
-  'BearCub-Polar': 'polarBearPup',
-  'MantisShrimp-Base': 'mantisShrimp',
-  'JackOLantern-Base': 'jackolantern',
-  'Mammoth-Base': 'mammoth',
-  'Tiger-Veteran': 'veteranTiger',
-  'Phoenix-Base': 'phoenix',
-  'Turkey-Gilded': 'gildedTurkey',
-  'MagicalBee-Base': 'magicalBee',
-  'Lion-Veteran': 'veteranLion',
-  'Gryphon-RoyalPurple': 'royalPurpleGryphon',
-  'JackOLantern-Ghost': 'ghostJackolantern',
-  'Jackalope-RoyalPurple': 'royalPurpleJackalope',
-  'Orca-Base': 'orca',
-  'Bear-Veteran': 'veteranBear',
-  'Hippogriff-Hopeful': 'hopefulHippogriffPet',
-  'Fox-Veteran': 'veteranFox',
-  'JackOLantern-Glow': 'glowJackolantern',
-  'Gryphon-Gryphatrice': 'gryphatrice',
+  'Wolf-Veteran': {
+    translationString: 'veteranWolf',
+    canFind: false,
+  },
+  'Wolf-Cerberus': {
+    translationString: 'cerberusPup',
+    canFind: false,
+  },
+  'Dragon-Hydra': {
+    translationString: 'hydra',
+    canFind: true,
+  },
+  'Turkey-Base': {
+    translationString: 'turkey',
+    canFind: false,
+  },
+  'BearCub-Polar': {
+    translationString: 'polarBearPup',
+    canFind: true,
+  },
+  'MantisShrimp-Base': {
+    translationString: 'mantisShrimp',
+    canFind: true,
+  },
+  'JackOLantern-Base': {
+    translationString: 'jackolantern',
+    canFind: false,
+  },
+  'Mammoth-Base': {
+    translationString: 'mammoth',
+    canFind: true,
+  },
+  'Tiger-Veteran': {
+    translationString: 'veteranTiger',
+    canFind: false,
+  },
+  'Phoenix-Base': {
+    translationString: 'phoenix',
+    canFind: true,
+  },
+  'Turkey-Gilded': {
+    translationString: 'gildedTurkey',
+    canFind: true,
+  },
+  'MagicalBee-Base': {
+    translationString: 'magicalBee',
+    canFind: true,
+  },
+  'Lion-Veteran': {
+    translationString: 'veteranLion',
+    canFind: true,
+  },
+  'Gryphon-RoyalPurple': {
+    translationString: 'royalPurpleGryphon',
+    canFind: false,
+  },
+  'JackOLantern-Ghost': {
+    translationString: 'ghostJackolantern',
+    canFind: false,
+  },
+  'Jackalope-RoyalPurple': {
+    translationString: 'royalPurpleJackalope',
+    canFind: true,
+  },
+  'Orca-Base': {
+    translationString: 'orca',
+    canFind: false,
+  },
+  'Bear-Veteran': {
+    translationString: 'veteranBear',
+    canFind: false,
+  },
+  'Hippogriff-Hopeful': {
+    translationString: 'hopefulHippogriffPet',
+    canFind: true,
+  },
+  'Fox-Veteran': {
+    translationString: 'veteranFox',
+    canFind: false,
+  },
+  'JackOLantern-Glow': {
+    translationString: 'glowJackolantern',
+    canFind: false,
+  },
+  'Gryphon-Gryphatrice': {
+    translationString: 'gryphatrice',
+    canFind: false,
+  },
 };
 
 const specialMounts = {
-  'BearCub-Polar': 'polarBear',
-  'LionCub-Ethereal': 'etherealLion',
-  'MantisShrimp-Base': 'mantisShrimp',
-  'Turkey-Base': 'turkey',
-  'Mammoth-Base': 'mammoth',
-  'Orca-Base': 'orca',
-  'Gryphon-RoyalPurple': 'royalPurpleGryphon',
-  'Phoenix-Base': 'phoenix',
-  'JackOLantern-Base': 'jackolantern',
-  'MagicalBee-Base': 'magicalBee',
-  'Turkey-Gilded': 'gildedTurkey',
-  'Jackalope-RoyalPurple': 'royalPurpleJackalope',
-  'Aether-Invisible': 'invisibleAether',
-  'JackOLantern-Ghost': 'ghostJackolantern',
-  'Hippogriff-Hopeful': 'hopefulHippogriffMount',
-  'Gryphon-Gryphatrice': 'gryphatrice',
-  'JackOLantern-Glow': 'glowJackolantern',
+  'BearCub-Polar': {
+    translationString: 'polarBear',
+    canFind: false,
+  },
+  'LionCub-Ethereal': {
+    translationString: 'etherealLion',
+    canFind: true,
+  },
+  'MantisShrimp-Base': {
+    translationString: 'mantisShrimp',
+    canFind: true,
+  },
+  'Turkey-Base': {
+    translationString: 'turkey',
+    canFind: false,
+  },
+  'Mammoth-Base': {
+    translationString: 'mammoth',
+    canFind: true,
+  },
+  'Orca-Base': {
+    translationString: 'orca',
+    canFind: false,
+  },
+  'Gryphon-RoyalPurple': {
+    translationString: 'royalPurpleGryphon',
+    canFind: false,
+  },
+  'Phoenix-Base': {
+    translationString: 'phoenix',
+    canFind: true,
+  },
+  'JackOLantern-Base': {
+    translationString: 'jackolantern',
+    canFind: false,
+  },
+  'MagicalBee-Base': {
+    translationString: 'magicalBee',
+    canFind: true,
+  },
+  'Turkey-Gilded': {
+    translationString: 'gildedTurkey',
+    canFind: false,
+  },
+  'Jackalope-RoyalPurple': {
+    translationString: 'royalPurpleJackalope',
+    canFind: true,
+  },
+  'Aether-Invisible': {
+    translationString: 'invisibleAether',
+    canFind: true,
+  },
+  'JackOLantern-Ghost': {
+    translationString: 'ghostJackolantern',
+    canFind: false,
+  },
+  'Hippogriff-Hopeful': {
+    translationString: 'hopefulHippogriffMount',
+    canFind: true,
+  },
+  'Gryphon-Gryphatrice': {
+    translationString: 'gryphatrice',
+    canFind: false,
+  },
+  'JackOLantern-Glow': {
+    translationString: 'glowJackolantern',
+    canFind: true,
+  },
 };
 
-each(specialPets, (translationString, key) => {
+each(specialPets, (entry, key) => {
   petInfo[key] = {
     key,
     type: 'special',
-    text: t(translationString),
+    text: t(entry.translationString),
   };
 });
 
-each(specialMounts, (translationString, key) => {
+each(specialMounts, (entry, key) => {
   mountInfo[key] = {
     key,
     type: 'special',
-    text: t(translationString),
+    text: t(entry.translationString),
   };
 });
 
