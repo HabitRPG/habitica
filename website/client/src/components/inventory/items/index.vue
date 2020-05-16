@@ -419,6 +419,11 @@ export default {
         cardType: '',
         messageOptions: 0,
       },
+      quantitySnapshot: {
+        eggs: null,
+        hatchingPotions: null,
+        food: null,
+      },
     };
   },
   computed: {
@@ -443,7 +448,9 @@ export default {
           if (itemQuantity > 0 && isAllowed) {
             const item = contentItems[itemKey];
 
-            const isSearched = !searchText || item.text().toLowerCase().indexOf(searchText) !== -1;
+            const isSearched = !searchText || item.text()
+              .toLowerCase()
+              .indexOf(searchText) !== -1;
             if (isSearched) {
               itemsArray.push({
                 ...item,
@@ -458,12 +465,22 @@ export default {
           }
         });
 
-        itemsArray.sort((a, b) => {
-          if (this.sortBy === 'quantity') {
-            return b.quantity - a.quantity;
-          } // AZ
-          return a.text.localeCompare(b.text);
-        });
+        if (this.sortBy === 'quantity') {
+          const quantitySnapshot = this.quantitySnapshot[groupKey];
+          if (quantitySnapshot) {
+            itemsArray.sort((a, b) => quantitySnapshot[b.key] - quantitySnapshot[a.key]);
+          } else {
+            itemsArray.sort((a, b) => b.quantity - a.quantity);
+          }
+
+          if (quantitySnapshot === null) {
+            this.quantitySnapshot[groupKey] = Object.fromEntries(
+              itemsArray.map(item => [item.key, item.quantity]),
+            );
+          }
+        } else {
+          itemsArray.sort((a, b) => a.text.localeCompare(b.text));
+        }
       });
 
       const specialArray = itemsByType.special;
