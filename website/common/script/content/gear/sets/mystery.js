@@ -406,6 +406,18 @@ const back = {
     mystery: '202001',
     value: 0,
   },
+  202004: {
+    text: t('backMystery202004Text'),
+    notes: t('backMystery202004Notes'),
+    mystery: '202004',
+    value: 0,
+  },
+  202005: {
+    text: t('backMystery202005Text'),
+    notes: t('backMystery202005Notes'),
+    mystery: '202005',
+    value: 0,
+  },
 };
 
 const body = {
@@ -896,6 +908,18 @@ const headAccessory = {
     text: t('headAccessoryMystery201908Text'),
     notes: t('headAccessoryMystery201908Notes'),
     mystery: '201908',
+    value: 0,
+  },
+  202004: {
+    text: t('headAccessoryMystery202004Text'),
+    notes: t('headAccessoryMystery202004Notes'),
+    mystery: '202004',
+    value: 0,
+  },
+  202005: {
+    text: t('headAccessoryMystery202005Text'),
+    notes: t('headAccessoryMystery202005Notes'),
+    mystery: '202005',
     value: 0,
   },
   301405: {

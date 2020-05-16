@@ -71,7 +71,7 @@
     "scrollsText1": "Для квестов нужна команда. Если вы хотите выполнить квест в одиночку,",
     "scrollsText2": "создайте пустую команду",
     "scrollsPre": "Вы ещё не разблокировали этот квест!",
-    "alreadyEarnedQuestLevel": "Вы уже получили этот квест, достигнув уровня <%= level %>. ",
+    "alreadyEarnedQuestLevel": "Вы уже получили этот квест, достигнув уровня <%= level %>.",
     "alreadyEarnedQuestReward": "Вы уже получили этот квест, выполнив <%= priorQuest %>. ",
     "completedQuests": "Выполнены следующие квесты",
     "mustComplete": "Вам нужно сначала завершить <%= quest %>.",
@@ -138,5 +138,6 @@
     "chatBossDefeated": "Вы победили <%= bossName %>! Участники квеста получают награду за победу.",
     "chatBossDontAttack": "<%= username %> атакует <%= bossName %> и наносит <%= userDamage %> урона. <%= bossName %> не атакует, потому что осознает тот факт, что имеются некоторые ошибки после техобслуживания, и не хочет никого несправедливо поранить. <%= bossName %> скоро продолжит буйство!",
     "questInvitationNotificationInfo": "Вы были приглашены принять участие в квесте",
-    "questAlreadyStarted": "Квест уже начился."
+    "questAlreadyStarted": "Квест уже начился.",
+    "questAlreadyStartedFriendly": "Квест уже начался, но вы всегда можете поучаствовать в следующем!"
 }

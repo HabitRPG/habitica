@@ -43,7 +43,7 @@ function _calculateDelta (task, direction, cron) {
     }
 
     // If To-Do, point-match the TD per checklist item completed
-    if (task.type === 'todo') {
+    if (task.type === 'todo' && !cron) {
       nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
   }
@@ -349,7 +349,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
     user.addAchievement('completedTask');
-    checkOnboardingStatus(user, analytics);
+    checkOnboardingStatus(user, req, analytics);
   }
 
   return [delta];

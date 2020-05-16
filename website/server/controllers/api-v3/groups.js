@@ -607,9 +607,11 @@ api.joinGroup = {
 
     let promises = [group.save(), user.save()];
 
-    if (inviter) {
-      inviter = await User.findById(inviter).exec();
+    // Load the inviter
+    if (inviter) inviter = await User.findById(inviter).exec();
 
+    // Check the inviter again, could be a deleted account
+    if (inviter) {
       const data = {
         headerText: common.i18n.t('invitationAcceptedHeader', inviter.preferences.language),
         bodyText: common.i18n.t('invitationAcceptedBody', {
@@ -855,16 +857,6 @@ api.leaveGroup = {
     await group.leave(user, req.query.keep, req.body.keepChallenges);
     _removeMessagesFromMember(user, group._id);
     await user.save();
-
-    if (group.type !== 'party') {
-      const guildIndex = user.guilds.indexOf(group._id);
-      if (guildIndex >= 0) user.guilds.splice(guildIndex, 1);
-    }
-
-    const isMemberOfGroupPlan = await user.isMemberOfGroupPlan();
-    if (!isMemberOfGroupPlan) {
-      await payments.cancelGroupSubscriptionForUser(user, group);
-    }
 
     if (group.hasNotCancelled()) await group.updateGroupPlan(true);
     res.respond(200, {});
@@ -1315,7 +1307,7 @@ api.getGroupPlans = {
       .select('leaderOnly leader purchased name managers')
       .exec();
 
-    const groupPlans = groups.filter(group => group.isSubscribed());
+    const groupPlans = groups.filter(group => group.hasActiveGroupPlan());
 
     res.respond(200, groupPlans);
   },

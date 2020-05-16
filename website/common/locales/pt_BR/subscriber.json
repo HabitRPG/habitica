@@ -7,7 +7,7 @@
     "buyGemsGoldText": "Alexander, o Mercador, venderá suas Gemas por 20 de ouro cada Gema. Suas remessas mensais serão limitados a 25 Gemas por mês, mas para cada 3 meses consecutivos de assinatura, este limite aumenta em 5 Gemas até o máximo de 50 Gemas por mês!",
     "mustSubscribeToPurchaseGems": "É necessário ser assinante para comprar gemas com Ouro.",
     "reachedGoldToGemCap": "Você atingiu o limite de<%= convCap %> para conversão de Ouro=>Gemas deste mês. Isto serve para prevenir abusos. O limite irá reiniciar dentro dos três primeiros dias do próximo mês.",
-    "reachedGoldToGemCapQuantity": "Seu pedido de <%= quantity %> gemas ultrapassa o limite de conversão deste mês (<%= convCap %>). Queremos lhe ver sempre produtivo,  e que não farme as gemas em 1 mês. O limite é reiniciado nos primeiros 3 dias de cada mês.",
+    "reachedGoldToGemCapQuantity": "Seu pedido de <%= quantity %> Gemas ultrapassa o limite que você pode comprar para este mês (<%= convCap %>). O limite fica disponível nos três primeiros dias de cada mês. Obrigado por assinar!",
     "retainHistory": "Guardar entradas adicionais no histórico",
     "retainHistoryText": "Faz com que o histórico de tarefas e Afazeres completos fiquem disponíveis por mais tempo.",
     "doubleDrops": "Capacidade diária de drop duplicada",
@@ -212,7 +212,7 @@
     "subscriptionAlreadySubscribedLeadIn": "Obrigado por tornar-se um assinante!",
     "subscriptionAlreadySubscribed1": "Para ver os detalhes, cancelamento, renovação ou mudanças na sua assinatura, por favor vá para <a href='/user/settings/subscription'>Usuário &gt; Configurações &gt; Assinatura</a>.",
     "purchaseAll": "Comprar Conjunto",
-    "gemsPurchaseNote": "Assinantes podem comprar Gemas com Ouro no Mercado! Para fácil acesso, você pode marcar a Gema na sua coluna de Recompensas.",
+    "gemsPurchaseNote": "Assinantes podem comprar Gemas com Ouro no Mercado! Para facilitar o acesso, você pode fixar a Gema na sua coluna de Recompensas.",
     "gemsRemaining": "Gemas restantes",
     "notEnoughGemsToBuy": "Você não pode comprar essa quantidade de Gemas",
     "mysterySet201902": "Conjunto do crush enigmático",
@@ -247,5 +247,7 @@
     "monthlyMysteryItems": "Itens misteriosos mensalmente",
     "subscribersReceiveBenefits": "Assinantes recebem esses benefícios úteis!",
     "giftASubscription": "Presentar uma Assinatura",
-    "mysterySet202003": "Conjunto do(a) gladiador(a) farpado(a)"
+    "mysterySet202003": "Conjunto do(a) gladiador(a) farpado(a)",
+    "mysterySet202004": "Conjunto do(a) Monarca poderoso(a)",
+    "mysterySet202005": "Conjunto da Serpe Maravilhosa"
 }

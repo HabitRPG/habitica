@@ -7,7 +7,7 @@
     "buyGemsGoldText": "Alexander le marchand vous vendra les gemmes au prix de 20 pièces d'or par gemme. Ses envois mensuels sont initialement plafonnés à 25 gemmes par mois, mais cette limite augmente de 5 gemmes tous les trois mois d'abonnement consécutifs, jusqu'à un maximum de 50 gemmes par mois !",
     "mustSubscribeToPurchaseGems": "Vous devez être abonné pour acheter des gemmes avec de l'or",
     "reachedGoldToGemCap": "Vous avez atteint la limite de conversion d'or en gemme de <%= convCap %> pour ce mois. Ceci permet de limiter les abus et une accumulation de trophées qui ne seraient pas dans l'esprit du jeu. Le compte est remis à zéro chaque mois, au cours des trois premiers jours.",
-    "reachedGoldToGemCapQuantity": "La quantité demandée de <%= quantity %> dépasse le palier de conversion d'or en gemmes de ce mois, qui est de <%= convCap %>. Ce palier sert à empêcher les abus. Il est réinitialisé dans les trois premiers jours de chaque mois.",
+    "reachedGoldToGemCapQuantity": "La quantité demandée de <%= quantity %> dépasse la quantité que vous pouvez acheter ce mois (<%= convCap %>). La quantité totale devient disponible dans les trois premiers jours de chaque mois. Merci pour votre abonnement !",
     "retainHistory": "Conservation de plus d'entrées de l'historique",
     "retainHistoryText": "Rend les tâches à faire terminées et l'historique des tâches disponibles plus longtemps.",
     "doubleDrops": "Limite journalière de butin doublée",
@@ -247,5 +247,7 @@
     "monthlyMysteryItems": "Objets mystère mensuels",
     "subscribersReceiveBenefits": "Les personnes abonnées reçoivent ces bénéfices utiles !",
     "mysterySet202003": "Ensemble de combat barbelé",
-    "giftASubscription": "Offrez un abonnement"
+    "giftASubscription": "Offrez un abonnement",
+    "mysterySet202004": "Ensemble du merveilleux monarque",
+    "mysterySet202005": "Ensemble de la merveilleuse wyverne"
 }

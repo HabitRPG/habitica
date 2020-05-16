@@ -457,6 +457,74 @@ describe('POST /user/auth/local/register', () => {
     });
   });
 
+  context('attach to google user', () => {
+    let user;
+    const email = 'some-google@email.net';
+    const username = 'some-username-google';
+    const password = 'some-password';
+    beforeEach(async () => {
+      user = await generateUser();
+    });
+    it('checks onlySocialAttachLocal', async () => {
+      await expect(user.post('/user/auth/local/register', {
+        email,
+        username,
+        password,
+        confirmPassword: password,
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlySocialAttachLocal'),
+      });
+    });
+    it('succeeds', async () => {
+      await user.update({ 'auth.google.id': 'some-google-id', 'auth.local': { ok: true } });
+      await user.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+      await user.sync();
+      expect(user.auth.local.username).to.eql(username);
+      expect(user.auth.local.email).to.eql(email);
+    });
+  });
+
+  context('attach to apple user', () => {
+    let user;
+    const email = 'some-apple@email.net';
+    const username = 'some-username-apple';
+    const password = 'some-password';
+    beforeEach(async () => {
+      user = await generateUser();
+    });
+    it('checks onlySocialAttachLocal', async () => {
+      await expect(user.post('/user/auth/local/register', {
+        email,
+        username,
+        password,
+        confirmPassword: password,
+      })).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('onlySocialAttachLocal'),
+      });
+    });
+    it('succeeds', async () => {
+      await user.update({ 'auth.apple.id': 'some-apple-id', 'auth.local': { ok: true } });
+      await user.post('/user/auth/local/register', {
+        username,
+        email,
+        password,
+        confirmPassword: password,
+      });
+      await user.sync();
+      expect(user.auth.local.username).to.eql(username);
+      expect(user.auth.local.email).to.eql(email);
+    });
+  });
+
   context('login is already taken', () => {
     let username; let email; let
       api;

@@ -68,7 +68,7 @@ async function createTasks (req, res, options = {}) {
       // are the onboarding ones
       if (!user.achievements.createdTask && user.flags.welcomed) {
         user.addAchievement('createdTask');
-        shared.onboarding.checkOnboardingStatus(user);
+        shared.onboarding.checkOnboardingStatus(user, req, res.analytics);
       }
     }
 

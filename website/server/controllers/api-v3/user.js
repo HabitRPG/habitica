@@ -280,7 +280,10 @@ api.deleteUser = {
     if (user.auth.local.hashed_password && user.auth.local.email) {
       const isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
-    } else if ((user.auth.facebook.id || user.auth.google.id) && password !== DELETE_CONFIRMATION) {
+    } else if (
+      (user.auth.facebook.id || user.auth.google.id || user.auth.apple.id)
+      && password !== DELETE_CONFIRMATION
+    ) {
       throw new NotAuthorized(res.t('incorrectDeletePhrase', { magicWord: 'DELETE' }));
     }
 
@@ -366,6 +369,7 @@ api.getUserAnonymized = {
       delete user.auth.local;
       delete user.auth.facebook;
       delete user.auth.google;
+      delete user.auth.apple;
     }
     delete user.newMessages;
     delete user.profile;
@@ -377,6 +381,7 @@ api.getUserAnonymized = {
     delete user.webhooks;
     delete user.achievements.challenges;
     delete user.notifications;
+    delete user.secret;
 
     _.forEach(user.inbox.messages, msg => {
       msg.text = 'inbox message text';
@@ -790,7 +795,7 @@ api.hatch = {
   url: '/user/hatch/:egg/:hatchingPotion',
   async handler (req, res) {
     const { user } = res.locals;
-    const hatchRes = common.ops.hatch(user, req);
+    const hatchRes = common.ops.hatch(user, req, res.analytics);
 
     await user.save();
 
@@ -881,7 +886,7 @@ api.feed = {
   url: '/user/feed/:pet/:food',
   async handler (req, res) {
     const { user } = res.locals;
-    const feedRes = common.ops.feed(user, req);
+    const feedRes = common.ops.feed(user, req, res.analytics);
 
     await user.save();
 

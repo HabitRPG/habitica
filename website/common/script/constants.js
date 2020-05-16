@@ -20,6 +20,7 @@ export const CHAT_FLAG_FROM_SHADOW_MUTE = 10;
 export const SUPPORTED_SOCIAL_NETWORKS = [
   { key: 'facebook', name: 'Facebook' },
   { key: 'google', name: 'Google' },
+  { key: 'apple', name: 'Apple' },
 ];
 
 export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when using pagination
@@ -27,6 +28,7 @@ export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when u
 export const PARTY_LIMIT_MEMBERS = 30;
 
 export const MINIMUM_PASSWORD_LENGTH = 8;
+
 export const TRANSFORMATION_DEBUFFS_LIST = {
   snowball: 'salt',
   spookySparkles: 'opaquePotion',

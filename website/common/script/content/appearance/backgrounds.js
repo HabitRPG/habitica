@@ -983,6 +983,34 @@ const backgrounds = {
       notes: t('backgroundSucculentGardenNotes'),
     },
   },
+  backgrounds042020: {
+    animal_clouds: {
+      text: t('backgroundAnimalCloudsText'),
+      notes: t('backgroundAnimalCloudsNotes'),
+    },
+    heather_field: {
+      text: t('backgroundHeatherFieldText'),
+      notes: t('backgroundHeatherFieldNotes'),
+    },
+    rainy_barnyard: {
+      text: t('backgroundRainyBarnyardText'),
+      notes: t('backgroundRainyBarnyardNotes'),
+    },
+  },
+  backgrounds052020: {
+    habit_city_rooftops: {
+      text: t('backgroundHabitCityRooftopsText'),
+      notes: t('backgroundHabitCityRooftopsNotes'),
+    },
+    hot_air_balloon: {
+      text: t('backgroundHotAirBalloonText'),
+      notes: t('backgroundHotAirBalloonNotes'),
+    },
+    strawberry_patch: {
+      text: t('backgroundStrawberryPatchText'),
+      notes: t('backgroundStrawberryPatchNotes'),
+    },
+  },
   timeTravelBackgrounds: {
     airship: {
       text: t('backgroundAirshipText'),

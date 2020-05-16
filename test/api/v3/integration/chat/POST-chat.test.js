@@ -14,8 +14,6 @@ import {
   TAVERN_ID,
 } from '../../../../../website/server/models/group';
 import { CHAT_FLAG_FROM_SHADOW_MUTE, MAX_MESSAGE_LENGTH } from '../../../../../website/common/script/constants';
-import { getMatchesByWordArray } from '../../../../../website/server/libs/stringUtils';
-import bannedWords from '../../../../../website/server/libs/bannedWords';
 import guildsAllowingBannedWords from '../../../../../website/server/libs/guildsAllowingBannedWords';
 import * as email from '../../../../../website/server/libs/email';
 
@@ -290,12 +288,6 @@ describe('POST /chat', () => {
         .to.eventually.be.rejected
         .and.have.property('message')
         .that.includes(testBannedWords.join(', '));
-    });
-
-    it('check all banned words are matched', async () => {
-      const message = bannedWords.join(',').replace(/\\/g, '');
-      const matches = getMatchesByWordArray(message, bannedWords);
-      expect(matches.length).to.equal(bannedWords.length);
     });
 
     it('does not error when bad word is suffix of a word', async () => {

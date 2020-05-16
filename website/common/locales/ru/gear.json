@@ -1508,7 +1508,7 @@
     "backCapitalized": "Аксессуар на спину",
     "backBase0Text": "Нет аксессуаров на спине",
     "backBase0Notes": "Нет аксессуаров на спине.",
-    "animalTails": "Хвосты животных",
+    "animalTails": "Звериные хвосты",
     "backMystery201402Text": "Золотые крылья",
     "backMystery201402Notes": "Перья на этих сияющих крыльях сверкают на солнце! Бонусов не дают. Подарок подписчикам февраля 2014.",
     "backMystery201404Text": "Крылья сумеречной бабочки",
@@ -2038,5 +2038,7 @@
     "weaponArmoireLivelyMatchText": "Искрящиеся спичка",
     "shieldArmoireBaseballGloveText": "Бейсбольная перчатка",
     "headArmoireBaseballCapText": "Бейсболка",
-    "weaponArmoireBaseballBatText": "Бейсбольная бита"
+    "weaponArmoireBaseballBatText": "Бейсбольная бита",
+    "armorSpecialSpring2020RogueText": "Ультрамариновые доспехи",
+    "weaponSpecialSpring2020MageText": "Капли дождя"
 }

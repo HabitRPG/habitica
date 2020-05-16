@@ -11,7 +11,7 @@ import { // eslint-disable-line import/no-cycle
 import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
 import { syncableAttrs, setNextDue } from '../libs/tasks/utils';
 
 const { Schema } = mongoose;
