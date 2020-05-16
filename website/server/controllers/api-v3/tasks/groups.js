@@ -10,8 +10,10 @@ import {
 import {
   createTasks,
   getTasks,
-  moveTask,
 } from '../../../libs/tasks';
+import {
+  moveTask,
+} from '../../../libs/tasks/utils';
 import { handleSharedCompletion } from '../../../libs/groupTasks';
 import apiError from '../../../libs/apiError';
 
