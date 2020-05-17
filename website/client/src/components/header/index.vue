@@ -173,6 +173,7 @@ export default {
       return true;
     },
     hasParty () {
+      console.log(this.partyMembers);
       return this.user.party && this.user.party._id
         && this.partyMembers && this.partyMembers.length > 1;
     },

@@ -808,10 +808,8 @@ export default {
             break;
           }
           case 'CRON':
-            if (notification.data) {
-              if (notification.data.hp) this.hp(notification.data.hp, 'hp');
-              if (notification.data.mp && this.userHasClass) this.mp(notification.data.mp);
-            }
+            // Not needed because it's shown already by the userHp and userMp watchers
+            // Keeping an empty block so that it gets read
             break;
           case 'SCORED_TASK':
             // Search if it is a read notification
