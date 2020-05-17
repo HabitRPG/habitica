@@ -349,12 +349,16 @@ schema.methods.cancelSubscription = async function cancelSubscription (options =
   return payments.cancelSubscription(options);
 };
 
+schema.methods.getUtcOffset = function getUtcOffset () {
+  return common.fns.getUtcOffset(this);
+};
+
 schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   // If the user's timezone has changed (due to travel or daylight savings),
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
   // CDS = Custom Day Start time.
-  let timezoneUtcOffsetFromUserPrefs = common.fns.getUtcOffset(this);
+  let timezoneUtcOffsetFromUserPrefs = this.getUtcOffset();
   const timezoneUtcOffsetAtLastCron = Number.isFinite(this.preferences.timezoneOffsetAtLastCron)
     ? -this.preferences.timezoneOffsetAtLastCron
     : timezoneUtcOffsetFromUserPrefs;

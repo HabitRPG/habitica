@@ -9,7 +9,6 @@ import csvStringify from '../../libs/csvStringify';
 import {
   NotFound,
 } from '../../libs/errors';
-import getUtcOffset from '../../../common/script/fns/getUtcOffset';
 import * as Tasks from '../../models/task';
 import * as inboxLib from '../../libs/inbox';
 // import { model as User } from '../../models/user';
@@ -318,7 +317,7 @@ api.exportUserPrivateMessages = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    const timezoneUtcOffset = getUtcOffset(user);
+    const timezoneUtcOffset = user.getUtcOffset();
     const dateFormat = user.preferences.dateFormat.toUpperCase();
     const TO = res.t('to');
     const FROM = res.t('from');
