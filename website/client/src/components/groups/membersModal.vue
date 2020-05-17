@@ -504,16 +504,6 @@ export default {
     },
   },
   watch: {
-    groupId () {
-      // @TODO: We might not need this since groupId is computed now
-      this.getMembers();
-    },
-    challengeId () {
-      this.getMembers();
-    },
-    group () {
-      this.getMembers();
-    },
     // Watches `searchTerm` and if present, performs a `searchMembers` action
     // and usual `getMembers` otherwise
     searchTerm () {
@@ -558,8 +548,9 @@ export default {
       });
     },
     async getMembers () {
-      const { groupId } = this;
+      this.members = this.$store.state.memberModalOptions.viewingMembers;
 
+      const { groupId } = this;
       if (groupId && groupId !== 'challenge') {
         const invites = await this.$store.dispatch('members:getGroupInvites', {
           groupId,
@@ -567,8 +558,6 @@ export default {
         });
         this.invites = invites;
       }
-
-      this.members = this.$store.state.memberModalOptions.viewingMembers;
     },
     async clickMember (uid, forceShow) {
       const user = this.$store.state.user.data;
