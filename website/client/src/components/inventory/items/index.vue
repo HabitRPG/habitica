@@ -466,18 +466,11 @@ export default {
         });
 
         if (this.sortBy === 'quantity') {
-          const quantitySnapshot = this.quantitySnapshot[groupKey];
-          if (quantitySnapshot) {
-            itemsArray.sort((a, b) => quantitySnapshot[b.key] - quantitySnapshot[a.key]);
-          } else {
-            itemsArray.sort((a, b) => b.quantity - a.quantity);
-          }
-
-          if (quantitySnapshot === null) {
-            this.quantitySnapshot[groupKey] = Object.fromEntries(
-              itemsArray.map(item => [item.key, item.quantity]),
-            );
-          }
+          const quantitySnapshot = this.quantitySnapshot[groupKey] || Object.fromEntries(
+            itemsArray.map(item => [item.key, item.quantity]),
+          );
+          itemsArray.sort((a, b) => quantitySnapshot[b.key] - quantitySnapshot[a.key]);
+          this.quantitySnapshot[groupKey] = quantitySnapshot;
         } else {
           itemsArray.sort((a, b) => a.text.localeCompare(b.text));
         }
