@@ -223,7 +223,7 @@ export default {
     });
   },
   beforeDestroy () {
-    this.$root.off('inviteModal::inviteToGroup');
+    this.$root.$off('inviteModal::inviteToGroup');
   },
   methods: {
     ...mapActions({
