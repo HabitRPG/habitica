@@ -763,7 +763,7 @@ describe('User Model', () => {
     });
   });
 
-  context('days missed', () => {
+  describe('daysUserHasMissed', () => {
     // http://forbrains.co.uk/international_tools/earth_timezones
     let user;
 

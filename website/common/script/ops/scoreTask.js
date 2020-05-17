@@ -8,6 +8,8 @@ import {
 import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
+import getUtcOffset from '../fns/getUtcOffset';
+
 import statsComputed from '../libs/statsComputed';
 import { checkOnboardingStatus } from '../libs/onboarding';
 
@@ -194,7 +196,7 @@ function _lastHistoryEntryWasToday (lastHistoryEntry, user) {
     return false;
   }
 
-  const timezoneUtcOffset = -user.preferences.timezoneOffset;
+  const timezoneUtcOffset = getUtcOffset(user);
   const { dayStart } = user.preferences;
 
   // Adjust the last entry date according to the user's timezone and CDS

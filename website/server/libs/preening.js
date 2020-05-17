@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
+import getUtcOffset from '../../common/script/fns/getUtcOffset';
 
 // Aggregate entries
 function _aggregate (history, aggregateBy, timezoneUtcOffset, dayStart) {
@@ -67,7 +68,7 @@ export function preenHistory (history, isSubscribed, timezoneUtcOffset = 0, dayS
 // Preen history for users and tasks.
 export function preenUserHistory (user, tasksByType) {
   const isSubscribed = user.isSubscribed();
-  const timezoneUtcOffset = -user.preferences.timezoneOffset;
+  const timezoneUtcOffset = getUtcOffset(user);
   const { dayStart } = user.preferences;
   const minHistoryLength = isSubscribed ? 365 : 60;
 

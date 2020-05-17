@@ -354,7 +354,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
   // CDS = Custom Day Start time.
-  let timezoneUtcOffsetFromUserPrefs = -this.preferences.timezoneOffset;
+  let timezoneUtcOffsetFromUserPrefs = common.fns.getUtcOffset(this);
   const timezoneUtcOffsetAtLastCron = Number.isFinite(this.preferences.timezoneOffsetAtLastCron)
     ? -this.preferences.timezoneOffsetAtLastCron
     : timezoneUtcOffsetFromUserPrefs;
