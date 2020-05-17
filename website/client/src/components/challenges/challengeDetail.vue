@@ -55,7 +55,7 @@
         </div>
         <div class="col-12 col-md-6 text-right">
           <div
-            class="box"
+            class="box member-count"
             @click="showMemberModal()"
           >
             <div
@@ -278,6 +278,10 @@
     text-align: center;
     font-size: 20px;
     vertical-align: bottom;
+
+    &.member-count:hover {
+      cursor: pointer;
+    }
 
     .svg-icon {
       width: 30px;
