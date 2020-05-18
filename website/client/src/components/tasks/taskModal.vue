@@ -163,7 +163,7 @@
               </span>
             </div>
           </draggable>
-          <div  class="inline-edit-input-group checklist-group input-group">
+          <div  class="inline-edit-input-group checklist-group input-group new-checklist">
             <span class="input-group-prepend new-icon"
                  v-html="icons.positive">
 
@@ -749,6 +749,10 @@
     .checklist-group {
       border-top: 1px solid $gray-500;
 
+      &.new-checklist {
+        border-bottom: 1px solid $gray-500;
+      }
+
       .input-group-append {
         background: inherit;
       }
@@ -809,6 +813,10 @@
         .destroy-icon {
           display: inline-block;
           color: $gray-200;
+
+          &:hover {
+            color: $maroon-50;
+          }
         }
 
         .grippy {
