@@ -1,7 +1,7 @@
 <template>
   <div class="tag-list">
     <template v-if="tags.length === 0">
-      <div class="tags-none">{{ $t('none') }}</div>
+      <div class="tags-none">{{ $t('addTags') }}</div>
     </template>
     <template v-else>
       <div
