@@ -5,8 +5,8 @@
                  class="difficulty-select"
                  :value="selected"
                  @select="$emit('select', $event.value)">
-      <template v-slot:item="{ item }">
-        <div v-if="item" class="difficulty-item">
+      <template v-slot:item="{ item, button }">
+        <div v-if="item" class="difficulty-item" :class="{ 'isButton': button }">
           <span class="label">{{ item.label }}</span>
 
           <div class="svg-icon" >
@@ -23,9 +23,19 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .difficulty-item {
     display: flex;
     align-items: center;
+
+    &:hover, &.isButton {
+      div.svg-icon {
+        ::v-deep svg {
+          fill: var(--svg-color);
+        }
+      }
+    }
   }
 
   .label {
@@ -49,7 +59,7 @@
       height: 0.625rem;
       object-fit: contain;
 
-      fill: var(--svg-color);
+      fill: $gray-200;
     }
   }
 </style>

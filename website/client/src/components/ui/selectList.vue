@@ -8,7 +8,7 @@
       :disabled="disabled"
     >
       <template v-slot:button-content>
-        <slot name="item" v-bind:item="selected">
+        <slot name="item" v-bind:item="selected" v-bind:button="true">
           <!-- Fallback content -->
           {{ value }}
         </slot>
@@ -20,7 +20,7 @@
         :class="{active: item === selected, selectListItem: true}"
         @click="selectItem(item)"
       >
-        <slot name="item" v-bind:item="item">
+        <slot name="item" v-bind:item="item" v-bind:button="false">
           <!-- Fallback content -->
           {{ item }}
         </slot>

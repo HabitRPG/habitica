@@ -58,28 +58,38 @@ export default {
 
     &:not(.disabled):not(:disabled) {
       &.checked {
-        border: solid 1px $purple-100;
+        border-color: $purple-100;
         background-color: $purple-300;
         color: $white;
+
+        &:active {
+          outline: 0;
+        }
       }
 
-      &:hover {
-        border: solid 1px $gray-300;
-        background-color: $white;
-        color: $purple-300;
+      &:not(.checked) {
+        &:hover {
+          border-color: $gray-300;
+          background-color: $white;
+          color: $purple-300;
+        }
+
+        &:focus, &:active {
+          border-color: $purple-400;
+          background-color: $white;
+          color: $gray-50;
+
+          outline: 0;
+        }
       }
 
       &:focus, &:active {
-        border: solid 1px $purple-400;
-        background-color: $white;
-        color: $gray-50;
-
         outline: 0;
       }
     }
 
     &:not(:first-of-type) {
-      border-left: none;
+      border-left: none !important;
     }
 
     &:first-of-type {
