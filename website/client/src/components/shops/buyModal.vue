@@ -529,7 +529,7 @@ export default {
 
       if (
         this.item.pinType === 'premiumHatchingPotion'
-        || (this.item.pinType === 'eggs' && dropEggKeys.indexOf(this.item.key) === -1)
+        || (this.item.pinType === 'eggs' && !dropEggKeys.includes(this.item.key))
       ) {
         /* Total amount of pets to hatch with item bought */
         let totalPetsToHatch;
@@ -554,12 +554,12 @@ export default {
         }
 
         const ownedPets = reduce(this.user.items.pets, (sum, petValue, petKey) => {
-          if (petKey.indexOf(this.item.key) !== -1 && petValue > 0) return sum + 1;
+          if (petKey.includes(this.item.key) && petValue > 0) return sum + 1;
           return sum;
         }, 0);
 
         const ownedMounts = reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
-          if (mountKey.indexOf(this.item.key) !== -1 && mountValue === true) return sum + 1;
+          if (mountKey.includes(this.item.key) && mountValue === true) return sum + 1;
           return sum;
         }, 0);
 
