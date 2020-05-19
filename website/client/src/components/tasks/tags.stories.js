@@ -53,7 +53,7 @@ stories
     `,
     props: {
       tagList: {
-        default: exampleTagList,
+        default: allTags,
       },
       maxTags: {
         default: number('Max-Tags', 3),
