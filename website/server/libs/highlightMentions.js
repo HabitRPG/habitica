@@ -86,7 +86,7 @@ function toSourceMapRegex (token) {
   } else if (type === 'link_open') {
     const texts = token.textContents.map(escapeRegExp);
     regexStr = markup === 'linkify' || markup === 'autolink' ? texts[0]
-      : `\\[.*${texts.join('.*')}.*\\]\\(${escapeRegExp(token.attrs[0][1])}\\)`;
+      : `\\[.*${texts.join('.*')}.*\\]\\([^)]+\\)`;
   } else {
     throw new Error(`No source mapping regex defined for ignore blocks of type ${type}`);
   }

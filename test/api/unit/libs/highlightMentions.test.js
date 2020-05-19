@@ -100,6 +100,13 @@ describe('highlightMentions', () => {
       const result = await highlightMentions(text);
       expect(result[0]).to.equal('http://www.medium.com/@user/blog [@user](/profile/111)');
     });
+
+    // https://github.com/HabitRPG/habitica/issues/12217
+    it('doesn\'t highlight user in link with url-escapable characters', async () => {
+      const text = '[test](https://habitica.fandom.com/ru/@wiki/Снаряжение)';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
   });
 
   describe('exceptions in code blocks', () => {
