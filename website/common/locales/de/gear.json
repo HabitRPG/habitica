@@ -2094,7 +2094,7 @@
     "headAccessoryMystery202005Notes": "Mit so mächtigen Hörnern wird es kaum eine Kreatur wagen, Dich herauszufordern. Gewährt keinen Attributbonus. Abonnentengegenstand Mai 2020.",
     "headAccessoryMystery202005Text": "Wunderliche Wyvernhörner",
     "backMystery202005Text": "Wunderliche Wyvernflügel",
-    "weaponArmoireFiddlersBowText": "Fiedlers Bogen",
+    "weaponArmoireFiddlersBowText": "Fiedelbogen",
     "shieldArmoireFiddleNotes": "Dieses perfekte Instrument trifft immer den richtigen Ton. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Fiedler-Set (Gegenstand 4 von 4).",
     "shieldArmoireFiddleText": "Fiedler-Fiedel",
     "headArmoireFiddlersCapNotes": "Setz' diese kesse Kappe auf und lass alle wissen, wer nach wessen Musik tanzt! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Fiedler-Set (Gegenstand 1 von 4).",

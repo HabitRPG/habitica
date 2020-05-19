@@ -230,7 +230,7 @@
     "weaponSpecialSummer2017RogueNotes": "这些鳍拥有着锋利的边缘。增加<%= str %>点力量。2017年夏季限定版装备。",
     "weaponSpecialSummer2017WarriorText": "最强大遮阳伞",
     "weaponSpecialSummer2017WarriorNotes": "恐惧之源。增加<%= str %>点力量。2017年夏季限定版装备。",
-    "weaponSpecialSummer2017MageText": "Whirlpool的鞭子",
+    "weaponSpecialSummer2017MageText": "漩涡藤鞭",
     "weaponSpecialSummer2017MageNotes": "召唤一种神奇的沸腾之水来打击你的任务！增加智力<%= int %>点和感知<%= per %>点。2017年夏季限定版装备。",
     "weaponSpecialSummer2017HealerText": "珍珠魔杖",
     "weaponSpecialSummer2017HealerNotes": "这只珍珠的魔杖一碰就能把所有的伤口都抚平。增加<%= int %>点智力。2017年夏季限定版装备。",

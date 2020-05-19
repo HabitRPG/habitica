@@ -178,5 +178,6 @@
     "spring2020LapisLazuliRogueSet": "青金石（盗贼）",
     "spring2020IrisHealerSet": "鸢尾花（医师）",
     "spring2020PuddleMageSet": "水坑（法师）",
-    "spring2020BeetleWarriorSet": "犀牛甲虫（战士）"
+    "spring2020BeetleWarriorSet": "犀牛甲虫（战士）",
+    "mayYYYY": "<%= year %>年5月"
 }

@@ -199,7 +199,7 @@
     "monthlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X mois",
     "yearlyRepeatHelpContent": "Cette tâche arrivera à échéance tous les X ans",
     "resets": "Réinitialisations",
-    "summaryStart": "Se répète <%= frequency %> tous ou toutes les <%= everyX %> <%= frequencyPlural %> ",
+    "summaryStart": "Se répète <%= frequency %> tous ou toutes les <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Prochaines dates d'échéances",
     "checkOffYesterDailies": "Cochez les objectifs quotidiens que vous avez faits hier :",
     "yesterDailiesTitle": "Vous n'avez pas validé ces quotidiennes, hier ! Y en a-t-il que vous souhaitez cocher maintenant ?",
