@@ -318,7 +318,7 @@
             >
               <div
                 :id="achievKey + '-achievement'"
-                class="box achievement-container"
+                class="box achievement-container d-flex align-items-center justify-content-center"
                 :class="{'achievement-unearned': !achievement.earned}"
               >
                 <b-popover
@@ -568,7 +568,6 @@
     .box {
       margin: 0 auto;
       margin-bottom: 1em;
-      padding-top: 1.2em;
       background: $white;
     }
 

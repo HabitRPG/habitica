@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: RESTING IN THE INN';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW PET ACHIEVEMENT AND QUEST BUNDLE!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -35,16 +35,37 @@ api.getNews = {
           </div>
         </div>
         <hr/>
-        <div class="scene_pets_resting center-block"></div>
+        <div class="achievement-bareNecessities2x center-block"></div>
+        <h3>New Quest Pet Badge!</h3>
         <p>
-          This month's <a href='https://habitica.wordpress.com/2020/05/13/rest-in-the-inn/'
-          target='_blank'>featured Wiki article</a> is about Resting in the Inn! We hope that it
-          will help you when you need a break from your Dailies. Be sure to check it out, and let
-          us know what you think by reaching out on <a href='https://twitter.com/habitica'
-          target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>
-          Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
+          We're releasing a new achievement so you can celebrate your successes in the world of
+          Habitican Pet collecting! Earn the Bare Necessities achievement by collecting all
+          Habitica's jungle-dwelling Pets and you'll earn a nifty badge for your profile.
         </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <p>
+          If you’ve already completed the required Quests for a newly released achievement, you
+          don’t have to do them all again! Just complete one of the relevant Quests and the
+          Achievement will unlock. Check your profile and celebrate your new Achievement with
+          pride.
+        </p>
+        <div class="small mb-3">by Beffymaroo and SabreCat</div>
+        <div class="promo_jungle_buddies_bundle center-block"></div>
+        <h3>New Discounted Pet Quest Bundle: Jungle Buddies!</h3>
+        <p>
+          If you're eager to complete the Bare Necessities quests, or if you're simply looking to
+          add some equatorial pets to your Habitica stable, you're in luck! From now until May 30,
+          you can purchase the Jungle Buddies Pet Quest Bundle and receive the Monkey, Sloth, and
+          Treeling quests, all for only 7 Gems! That's a discount of 5 Gems from the price of
+          purchasing them separately. Check it out in the <a href='/shops/quests'>Quest Shop</a>
+          today!
+        </p>
+        <div class="small">by SabreCat</div>
+        <div class="small">Writing by PixelHunter, Emily Austin, Flutter Bee, and Felipe NA</div>
+        <div class="small mb-3">
+          Art by JaizakAripaik, Drevian, McCoyly, awakebyjava, PainterProphet, Kiwibot,
+          greenpencil, fuzzytrees, PainterProphet, aurakami, yamato, leephon, Misceo, and
+          Oneironaut
+        </div>
       </div>
       `,
     });

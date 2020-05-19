@@ -134,6 +134,7 @@ export default new Schema({
     tickledPink: Boolean,
     rosyOutlook: Boolean,
     bugBonanza: Boolean,
+    bareNecessities: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
