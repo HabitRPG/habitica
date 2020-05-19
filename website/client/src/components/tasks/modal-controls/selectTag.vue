@@ -1,79 +1,135 @@
 <template>
-  <div class="select-tag">
-    <div
-      class="dropdown inline-dropdown"
-      :class="{ show: showTagsSelect }"
-      @click="toggleTagSelect()"
+  <div>
+    <b-dropdown
+      class="inline-dropdown select-tag"
+      @show="wasOpened()"
+      @hide="hideCallback($event)"
+      :toggle-class="isOpened ? 'active' : null"
+      :disabled="disabled"
+      ref="dropdown"
     >
-      <span class="btn dropdown-toggle btn-secondary">
-        <tag-list :tags="currentlySelectedTags" />
-      </span>
-    </div>
+      <b-dropdown-header>
+        <b-form-input
+                type="text"
+                placeholder="Search"
+                v-model="search"
+        />
 
-    <tags-popup
-      v-if="showTagsSelect"
-      ref="popup"
-      v-model="selected"
-      :tags="allTags"
-      @close="closeTagsPopup()"
-    />
+        <tagList v-if="selectedTags.length > 0"
+                 :tags="selectedTagsAsObjects"
+                 @remove-tag="removeTag($event)"
+                 class="mt-2"
+                 :max-tags="0" />
+
+      </b-dropdown-header>
+      <template v-slot:button-content>
+        <tag-list :tags="selectedTagsAsObjects"
+                  @remove-tag="removeTag($event)"/>
+      </template>
+      <b-dropdown-item-button
+        v-for="tag in availableToSelect"
+        :key="tag.id"
+        @click.prevent.stop="selectTag(tag)"
+        class="ignore-hide"
+      >
+        {{ tag.name }}
+      </b-dropdown-item-button>
+    </b-dropdown>
+
   </div>
 </template>
-
-
-<style lang="scss">
-  .select-tag {
-    position: relative;
-  }
-</style>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+</style>
+
+<style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
   .select-tag {
-    .dropdown-toggle {
-      padding-left: 0.5rem;
+    .dropdown-header {
+      background-color: $gray-700;
+    }
+
+    .dropdown-item, .dropdown-header {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
   }
+
 </style>
 
 <script>
-import TagsPopup from './tagsPopup';
-import TagList from './tagList';
-import { mapGetters } from '@/libs/store';
+import TagList from '@/components/tasks/modal-controls/tagList';
 
 export default {
   directives: {
   },
   components: {
     TagList,
-    TagsPopup,
   },
   data () {
     return {
+      preventHide: true,
+      isOpened: false,
       showTagsSelect: false,
       selected: this.selectedTags,
+      search: '',
     };
   },
   methods: {
-    toggleTagSelect () {
-      this.showTagsSelect = !this.showTagsSelect;
-    },
     closeTagsPopup () {
-      this.showTagsSelect = false;
+      this.preventHide = false;
+      this.isOpened = false;
+      this.$refs.dropdown.hide();
     },
-    closeIfOpen (element) {
-      if (this.$refs.popup && (!element || !this.$refs.popup.$el.parentNode.contains(element))) {
-        this.closeTagsPopup();
+    closeIfOpen () {
+      this.closeTagsPopup();
+    },
+    selectTag (tag) {
+      this.selectedTags.push(tag.id);
+    },
+    removeTag ($event) {
+      const foundIndex = this.selectedTags.findIndex(t => t === $event);
+
+      this.selectedTags.splice(foundIndex, 1);
+    },
+    hideCallback ($event) {
+      if (this.preventHide) {
+        $event.preventDefault();
+        return;
       }
+
+      this.isOpened = false;
+    },
+    wasOpened () {
+      this.isOpened = true;
+      this.preventHide = true;
     },
   },
   computed: {
-    ...mapGetters({
-      getTagsByIdList: 'tasks:getTagsByIdList',
-    }),
-    currentlySelectedTags () {
-      return this.getTagsByIdList(this.selected);
+    selectedTagsIdList () {
+      return this.selectedTags
+        ? this.selectedTags.map(t => t)
+        : [];
+    },
+    allTagsMap () {
+      const obj = {};
+      this.allTags.forEach(t => {
+        obj[t.id] = t;
+      });
+      return obj;
+    },
+    selectedTagsAsObjects () {
+      return this.selectedTags.map(t => this.allTagsMap[t]);
+    },
+    availableToSelect () {
+      const availableItems = this.allTags.filter(t => !this.selectedTagsIdList.includes(t.id));
+
+      const searchString = this.search.toLowerCase();
+
+      return availableItems.filter(i => i.name.toLowerCase().includes(searchString));
     },
   },
   props: {
@@ -88,6 +144,11 @@ export default {
     selected () {
       this.$emit('changed', this.selected);
     },
+  },
+  mounted () {
+    this.$refs.dropdown.clickOutHandler = () => {
+      this.closeTagsPopup();
+    };
   },
 };
 </script>

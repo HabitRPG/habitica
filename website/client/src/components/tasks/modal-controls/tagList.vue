@@ -1,5 +1,7 @@
 <template>
-  <div class="tag-list">
+  <div class="tag-list"
+       :class="{ 'break': maxTags === 0 }"
+  >
     <template v-if="tags.length === 0">
       <div class="tags-none">{{ $t('addTags') }}</div>
     </template>
@@ -7,15 +9,15 @@
       <div
         :key="tag.id"
         :title="tag.name"
-        class="tag m-r-xs"
+        class="tag mr-1"
         v-for="tag in truncatedSelectedTags"
 
+        @click.stop="removeTag($event, tag)"
       >
         <span class="tag-label m-l-m m-t-xs m-b-xs m-r-s"
               v-markdown="tag.name"></span>
 
-        <span class="remove m-r-l"
-              @click.stop="removeTag($event, tag)"
+        <span class="remove mr-3"
               v-html="icons.remove"></span>
       </div>
       <div
@@ -30,11 +32,22 @@
 
 
 <style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
   .tag-list {
     p {
       display: inline;
       margin: 0 !important;
       padding: 0 !important;
+    }
+
+
+    .tag {
+      &:hover {
+        .remove svg path {
+          stroke: $maroon-50;
+        }
+      }
     }
   }
 </style>
@@ -44,6 +57,15 @@
 
   .tag-list {
     width: 100%;
+
+    &.break {
+      display: flex;
+      flex-wrap: wrap;
+
+      .tag {
+        margin-bottom: 0.25rem;
+      }
+    }
   }
 
   .tag {
@@ -51,6 +73,15 @@
     height: 1.5rem;
     border-radius: 100px;
     background-color: $gray-600;
+
+    cursor: pointer;
+
+
+    &:hover {
+      .remove {
+        stroke: $maroon-50;
+      }
+    }
 
     .tag-label {
       height: 1rem;
@@ -62,13 +93,10 @@
     }
 
     .remove {
-      display: none;
-      // display: inline-block;
+      display: inline-block;
       width: 0.313rem;
       height: 0.313rem;
       object-fit: contain;
-
-      cursor: pointer;
     }
   }
 

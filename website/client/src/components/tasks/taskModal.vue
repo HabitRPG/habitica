@@ -650,7 +650,10 @@
     }
 
     input, textarea {
-      border: none;
+      &:not(:host-context(.tags-popup)) {
+        border: none;
+      }
+
       transition-property: border-color, box-shadow, color, background;
       background-color: rgba(255, 255, 255, 0.5);
 
