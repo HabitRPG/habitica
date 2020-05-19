@@ -282,6 +282,11 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
     'snail',
     'spider',
   ],
+  bareNecessities: [
+    'monkey',
+    'sloth',
+    'treeling',
+  ],
 };
 
 export const ANIMAL_COLOR_ACHIEVEMENTS = [

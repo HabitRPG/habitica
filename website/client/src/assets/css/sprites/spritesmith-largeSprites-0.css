@@ -10,9 +10,15 @@
   width: 423px;
   height: 147px;
 }
-.promo_mystery_202005 {
+.promo_jungle_buddies_bundle {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -434px;
+  width: 423px;
+  height: 147px;
+}
+.promo_mystery_202005 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -434px;
   width: 282px;
   height: 147px;
 }
