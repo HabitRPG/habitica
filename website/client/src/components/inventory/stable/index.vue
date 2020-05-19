@@ -706,7 +706,7 @@ export default {
             const eggKey = specialKey.split('-')[0];
             const potionKey = specialKey.split('-')[1];
 
-            if (value.canFind || isOwned('mount', this, userItems)) {
+            if (this.content[`${type}Info`][specialKey].canFind || isOwned('mount', this, userItems)) {
               animals.push({
                 key: specialKey,
                 eggKey,
