@@ -69,5 +69,11 @@
     "foundNewItems": "新しいアイテムを見つけました！",
     "onboardingComplete": "初心者入門のタスクを完了しました！",
     "yourProgress": "進捗",
-    "onboardingCompleteDescSmall": "もっとほしいなら、実績を確認してコレクションをはじめましょう！"
+    "onboardingCompleteDescSmall": "もっとほしいなら、実績を確認してコレクションをはじめましょう！",
+    "achievementRosyOutlookModalText": "ピンク綿菓子の乗騎をすべて手なずけました！",
+    "achievementRosyOutlookText": "ピンク綿菓子の乗騎をすべて手なずけました。",
+    "achievementRosyOutlook": "桃源郷",
+    "achievementTickledPinkModalText": "ピンク綿菓子のペットをすべて集めました！",
+    "achievementTickledPinkText": "ピンク綿菓子のペットをすべて集めました。",
+    "achievementTickledPink": "桃色片想い"
 }

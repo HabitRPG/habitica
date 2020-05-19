@@ -32,7 +32,7 @@
     "seasonalShopClosedText": "De seizoenswinkel is momenteel gesloten!! Hij is alleen open tijdens Habitica's vier Grote Gala's.",
     "seasonalShopSummerText": "Fijn Zomer Spetterfestijn gewenst! Wil je wat zeldzame voorwerpen kopen? Ze zijn slechts tot 31 juli verkrijgbaar!",
     "seasonalShopFallText": "Fijn Najaarsvolksfeest gewenst! Wil je wat zeldzame voorwerpen kopen? Ze zijn slechts tot 31 oktober verkrijgbaar!",
-    "seasonalShopWinterText": "Fijne winter wonderland gewenst!! Wil je wat speciale items kopen? Ze zijn alleen beschikbaar tot 32 januari!",
+    "seasonalShopWinterText": "Fijne winter wonderland gewenst!! Wil je wat speciale items kopen? Ze zijn alleen beschikbaar tot 31 januari!",
     "seasonalShopSpringText": "Fijn Lentefeest gewenst!! Wil je wat zeldzame artikelen kopen? Ze zijn alleen verkrijgbaar tot 30 april!",
     "seasonalShopFallTextBroken": "Oh... Welkom in de Seizoenswinkel... We hebben op het moment najaars spullen in voorraad, ofzo... Alles is te koop tijdens het Najaars Volksfeest-evenement ieder jaar, maar we zijn maar open tot 31 oktober... Zorg maar dat je inslaat anders zou je moeten wachten... wachten... en nog eens wachten... <strong>*zucht*</strong>",
     "seasonalShopBrokenText": "Mijn paviljoen!!!!!!! Mijn versieringen!!!! Oooo, de Harteloze heeft alles verwoest :( Alsjeblieft help me het beest te verslaan in de Herberg zodat ik alles kan herbouwen!",
@@ -133,7 +133,7 @@
     "winter2019BlizzardSet": "Blizzard (Warrior)",
     "winter2019PyrotechnicSet": "Pyrotechnic (Mage)",
     "winter2019WinterStarSet": "Winter Star (Healer)",
-    "winter2019PoinsettiaSet": "Poinsettia (Rogue)",
+    "winter2019PoinsettiaSet": "Poinsettia (Dief)",
     "eventAvailability": "Verkrijgbaar voor aankoop tot <%=date(locale) %>.",
     "dateEndMarch": "30 april",
     "dateEndApril": "19 april",
@@ -178,5 +178,6 @@
     "spring2019RobinHealerSet": "Roodborstje (Heler)",
     "spring2019AmberMageSet": "Amber (Magiër)",
     "spring2019OrchidWarriorSet": "Orchidee (Krijger)",
-    "june2018": "Juni 2018"
+    "june2018": "Juni 2018",
+    "mayYYYY": "Mei <%= year %>"
 }

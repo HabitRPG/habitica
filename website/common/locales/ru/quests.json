@@ -72,7 +72,7 @@
     "scrollsText2": "создайте пустую команду",
     "scrollsPre": "Вы ещё не разблокировали этот квест!",
     "alreadyEarnedQuestLevel": "Вы уже получили этот квест, достигнув уровня <%= level %>.",
-    "alreadyEarnedQuestReward": "Вы уже получили этот квест, выполнив <%= priorQuest %>. ",
+    "alreadyEarnedQuestReward": "Вы уже получили этот квест, выполнив <%= priorQuest %>.",
     "completedQuests": "Выполнены следующие квесты",
     "mustComplete": "Вам нужно сначала завершить <%= quest %>.",
     "mustLevel": "Вам нужно достигнуть уровня <%= level %>, чтобы начать этот квест.",
