@@ -377,6 +377,7 @@
 
 <script>
 import keys from 'lodash/keys';
+import size from 'lodash/size';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
 
@@ -407,8 +408,12 @@ import Avatar from '@/components/avatar';
 
 import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 import { drops as dropEggs } from '@/../../common/script/content/eggs';
+import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
 
 const dropEggKeys = keys(dropEggs);
+
+const amountOfDropEggs = size(dropEggs);
+const amountOfDropPotions = size(dropPotions);
 
 const hideAmountSelectionForPurchaseTypes = [
   'gear', 'backgrounds', 'mystery_set', 'card',
@@ -537,12 +542,13 @@ export default {
         if (this.item.pinType === 'premiumHatchingPotion') { // buying potions
           if (this.item.path.includes('wackyHatchingPotions.')) {
             // wacky potions don't have mounts
-            totalPetsToHatch = 9;
+            totalPetsToHatch = amountOfDropEggs;
           } else {
-            totalPetsToHatch = 18; // Each of the 9 eggs, combine into pet twice
+            // Each of the drop eggs, combine into pet twice
+            totalPetsToHatch = amountOfDropEggs * 2;
           }
-        } else { // buying quest eggs: Each of the 10 potions, combine into pet twice
-          totalPetsToHatch = 20;
+        } else { // buying quest eggs: Each of the drop potions, combine into pet twice
+          totalPetsToHatch = amountOfDropPotions * 2;
         }
 
         /* Amount of items the user already has */
