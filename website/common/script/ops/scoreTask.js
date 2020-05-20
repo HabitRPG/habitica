@@ -312,7 +312,8 @@ export default function scoreTask (options = {}, req = {}, analytics) {
           // @REVIEW Don't remove entries not from user's "today",
           // It might be a (single completion) shared daily completed by someone else
           const historyEntry = task.history.pop();
-          if (task.group && task.group.sharedCompletion && task.group.sharedCompletion === 'singleCompletion' && historyEntry.date) {
+          if (task.group && task.group.id && task.group.sharedCompletion
+            && task.group.sharedCompletion === 'singleCompletion' && historyEntry.date) {
             // This Daily could have been completed "today" by someone else.
             // Function runs on the client and server. Make assumptions and keep things simple.
             // Otherwise we have to load the Master Task and check who did what when
