@@ -328,7 +328,8 @@ export default function scoreTask (options = {}, req = {}, analytics) {
           }
         } else if (!task.history || (task.history && task.history.length === 0)) {
           // No history for a group single completion daily, assume another user completed it
-          if (task.group && task.group.sharedCompletion && task.group.sharedCompletion === 'singleCompletion') {
+          if (task.group && task.group.id && task.group.sharedCompletion
+            && task.group.sharedCompletion === 'singleCompletion') {
             throw new NotAuthorized(i18n.t('messageOtherAssigneeCompleted', req.language));
           }
         }
