@@ -4,7 +4,6 @@ import moment from 'moment';
 import _ from 'lodash';
 import shared from '../../common';
 import baseModel from '../libs/baseModel';
-import { InternalServerError } from '../libs/errors';
 import { preenHistory } from '../libs/preening';
 import { SHARED_COMPLETION } from '../libs/groupTasks'; // eslint-disable-line import/no-cycle
 
@@ -132,7 +131,7 @@ export const TaskSchema = new Schema({
     broken: { $type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED'] },
     assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for task group user.'] }],
     assignedDate: { $type: Date },
-    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid for task group task.'] },
+    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid.'] },
     approval: {
       required: { $type: Boolean, default: false },
       approved: { $type: Boolean, default: false },
@@ -191,8 +190,8 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
 ) {
   // not using i18n strings because these errors
   // are meant for devs who forgot to pass some parameters
-  if (!identifier) throw new InternalServerError('Task identifier is a required argument');
-  if (!userId) throw new InternalServerError('User identifier is a required argument');
+  if (!identifier) throw new Error('Task identifier is a required argument');
+  if (!userId) throw new Error('User identifier is a required argument');
 
   const query = _.cloneDeep(additionalQueries);
 
