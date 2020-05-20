@@ -1,20 +1,14 @@
 {
-  "merch" : "商品",
-  "merchandiseDescription": "想要 T 恤、馬克杯或貼紙來展現您的 Habitica 驕傲嗎？請點選這裡！",
-
-  "merch-teespring-summary" : "Teespring 是個讓任何人都能輕鬆製作並銷售優質商品的平台，無須成本或風險。",
-  "merch-teespring-goto" : "獲得一件Habitica T恤。",
-
-  "merch-teespring-mug-summary" : "Teespring 是個讓任何人都能輕鬆製作並銷售優質商品的平台，無須成本或風險。",
-  "merch-teespring-mug-goto" : "獲得Habitica茶杯",
-
-  "merch-teespring-eu-summary" : "EUROPEAN VERSION : Teespring is a platform that makes it easy for anyone to create and sell high-quality products people love, with no cost or risk.",
-  "merch-teespring-eu-goto" : "獲得HabiticaT恤 (歐盟)",
-
-  "merch-teespring-mug-eu-summary" : "EUROPEAN VERSION : Teespring is a platform that makes it easy for anyone to create and sell high-quality products people love, with no cost or risk.",
-  "merch-teespring-mug-eu-goto" : "獲得Habitica茶杯 (歐盟)",
-
-  "merch-stickermule-summary" : "Stick proud Melior wherever you (or someone else) need a reminder of both present and future accomplishments!",
-  "merch-stickermule-goto" : "獲得Habitica貼紙"
-
+    "merch": "商品",
+    "merchandiseDescription": "想要T恤、馬克杯或貼紙來展現您的Habitica驕傲嗎？請點選這裡！",
+    "merch-teespring-summary": "Teespring是個讓任何人都能輕鬆製作並銷售優質商品的平台，無須成本或風險。",
+    "merch-teespring-goto": "獲得一件Habitica T恤",
+    "merch-teespring-mug-summary": "Teespring是個讓任何人都能輕鬆製作並銷售優質商品的平台，無須成本或風險。",
+    "merch-teespring-mug-goto": "獲得Habitica馬克杯",
+    "merch-teespring-eu-summary": "歐盟版本：Teespring是個讓任何人都能輕鬆製作並銷售優質商品的平台，無須成本或風險。",
+    "merch-teespring-eu-goto": "獲得Habitica T恤（歐盟）",
+    "merch-teespring-mug-eu-summary": "歐盟版本：Teespring是個讓任何人都能輕鬆製作並銷售優質商品的平台，無須成本或風險。",
+    "merch-teespring-mug-eu-goto": "獲得Habitica馬克杯（歐盟）",
+    "merch-stickermule-summary": "在你需要提醒自己（或他人）現有及往後的成就之處，自豪地貼上Melior貼紙！",
+    "merch-stickermule-goto": "獲得Habitica貼紙"
 }

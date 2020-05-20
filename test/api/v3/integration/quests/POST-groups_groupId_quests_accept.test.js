@@ -17,7 +17,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
   beforeEach(async () => {
     user = await generateUser();
 
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
       members: 2,
     });
@@ -51,7 +51,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
     });
 
     it('does not accept quest for a guild', async () => {
-      let { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
+      const { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'private' },
       });
 
@@ -100,7 +100,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('questAlreadyUnderway'),
+          message: t('questAlreadyStartedFriendly'),
         });
     });
   });
@@ -112,7 +112,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
 
       await Promise.all([partyMembers[0].sync(), questingGroup.sync()]);
       expect(leader.party.quest.RSVPNeeded).to.equal(false);
-      expect(questingGroup.quest.members[partyMembers[0]._id]);
+      expect(questingGroup.quest.members[partyMembers[0]._id]).to.equal(true);
     });
 
     it('does not begin the quest if pending invitations remain', async () => {
@@ -134,7 +134,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
     });
 
     it('cleans up user quest data for non-quest members when last member accepts', async () => {
-      let rejectingMember = partyMembers[0];
+      const rejectingMember = partyMembers[0];
 
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await rejectingMember.post(`/groups/${questingGroup._id}/quests/reject`);
@@ -162,7 +162,7 @@ describe('POST /groups/:groupId/quests/accept', () => {
       expect(groupChat[0]._meta).to.exist;
       expect(groupChat[0]._meta).to.have.all.keys(['participatingMembers']);
 
-      let returnedGroup = await leader.get(`/groups/${questingGroup._id}`);
+      const returnedGroup = await leader.get(`/groups/${questingGroup._id}`);
       expect(returnedGroup.chat[0]._meta).to.be.undefined;
     });
   });

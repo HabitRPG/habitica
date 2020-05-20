@@ -8,14 +8,20 @@ import {
   omit,
   toArray,
 } from 'lodash';
-import { content as Content } from '../../common';
+import common from '../../common';
 import logger from './logger';
 
 const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
+
+const LOG_AMPLITUDE_EVENTS = nconf.get('LOG_AMPLITUDE_EVENTS') === 'true';
+
 const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
 const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
-const AMPLITUDE_PROPERTIES_TO_SCRUB = ['uuid', 'user', 'purchaseValue', 'gaLabel', 'gaValue', 'headers', 'registeredThrough'];
+const AMPLITUDE_PROPERTIES_TO_SCRUB = [
+  'uuid', 'user', 'purchaseValue',
+  'gaLabel', 'gaValue', 'headers', 'registeredThrough',
+];
 
 const PLATFORM_MAP = Object.freeze({
   'habitica-web': 'Web',
@@ -26,17 +32,19 @@ const PLATFORM_MAP = Object.freeze({
 let amplitude;
 if (AMPLITUDE_TOKEN) amplitude = new Amplitude(AMPLITUDE_TOKEN);
 
-let ga = googleAnalytics(GA_TOKEN);
+const ga = googleAnalytics(GA_TOKEN);
+
+const Content = common.content;
 
 function _lookUpItemName (itemKey) {
-  if (!itemKey) return;
+  if (!itemKey) return null;
 
-  let gear = Content.gear.flat[itemKey];
-  let egg = Content.eggs[itemKey];
-  let food = Content.food[itemKey];
-  let hatchingPotion = Content.hatchingPotions[itemKey];
-  let quest = Content.quests[itemKey];
-  let spell = Content.special[itemKey];
+  const gear = Content.gear.flat[itemKey];
+  const egg = Content.eggs[itemKey];
+  const food = Content.food[itemKey];
+  const hatchingPotion = Content.hatchingPotions[itemKey];
+  const quest = Content.quests[itemKey];
+  const spell = Content.special[itemKey];
 
   let itemName;
 
@@ -58,7 +66,7 @@ function _lookUpItemName (itemKey) {
 }
 
 function _formatUserData (user) {
-  let properties = {};
+  const properties = {};
 
   if (user.stats) {
     properties.Class = user.stats.class;
@@ -122,8 +130,8 @@ function _formatUserAgentForAmplitude (platform, agentString) {
     return 'Unknown';
   }
 
-  let agent = useragent.lookup(agentString).toJSON();
-  let formattedAgent = {};
+  const agent = useragent.lookup(agentString).toJSON();
+  const formattedAgent = {};
   if (platform === 'iOS' || platform === 'Android') {
     formattedAgent.name = agent.os.family;
     formattedAgent.version = `${agent.os.major}.${agent.os.minor}.${agent.os.patch}`;
@@ -143,10 +151,10 @@ function _formatUUIDForAmplitude (uuid) {
 }
 
 function _formatDataForAmplitude (data) {
-  let event_properties = omit(data, AMPLITUDE_PROPERTIES_TO_SCRUB);
-  let platform = _formatPlatformForAmplitude(data.headers && data.headers['x-client']);
-  let agent = _formatUserAgentForAmplitude(platform, data.headers && data.headers['user-agent']);
-  let ampData = {
+  const event_properties = omit(data, AMPLITUDE_PROPERTIES_TO_SCRUB);
+  const platform = _formatPlatformForAmplitude(data.headers && data.headers['x-client']);
+  const agent = _formatUserAgentForAmplitude(platform, data.headers && data.headers['user-agent']);
+  const ampData = {
     user_id: _formatUUIDForAmplitude(data.uuid),
     platform,
     os_name: agent.name,
@@ -158,7 +166,7 @@ function _formatDataForAmplitude (data) {
     ampData.user_properties = _formatUserData(data.user);
   }
 
-  let itemName = _lookUpItemName(data.itemKey);
+  const itemName = _lookUpItemName(data.itemKey);
 
   if (itemName) {
     ampData.event_properties.itemName = itemName;
@@ -167,9 +175,13 @@ function _formatDataForAmplitude (data) {
 }
 
 function _sendDataToAmplitude (eventType, data) {
-  let amplitudeData = _formatDataForAmplitude(data);
+  const amplitudeData = _formatDataForAmplitude(data);
 
   amplitudeData.event_type = eventType;
+
+  if (LOG_AMPLITUDE_EVENTS) {
+    logger.info('Amplitude Event', amplitudeData);
+  }
 
   return amplitude
     .track(amplitudeData)
@@ -179,11 +191,13 @@ function _sendDataToAmplitude (eventType, data) {
 function _generateLabelForGoogleAnalytics (data) {
   let label;
 
-  each(GA_POSSIBLE_LABELS, (key) => {
+  each(GA_POSSIBLE_LABELS, key => {
     if (data[key]) {
       label = data[key];
       return false; // exit each early
     }
+
+    return true;
   });
 
   return label;
@@ -192,38 +206,40 @@ function _generateLabelForGoogleAnalytics (data) {
 function _generateValueForGoogleAnalytics (data) {
   let value;
 
-  each(GA_POSSIBLE_VALUES, (key) => {
+  each(GA_POSSIBLE_VALUES, key => {
     if (data[key]) {
       value = data[key];
       return false; // exit each early
     }
+
+    return true;
   });
 
   return value;
 }
 
 function _sendDataToGoogle (eventType, data) {
-  let eventData = {
+  const eventData = {
     ec: data.gaCategory || data.category || 'behavior',
     ea: eventType,
   };
 
-  let label = _generateLabelForGoogleAnalytics(data);
+  const label = _generateLabelForGoogleAnalytics(data);
 
   if (label) {
     eventData.el = label;
   }
 
-  let value = _generateValueForGoogleAnalytics(data);
+  const value = _generateValueForGoogleAnalytics(data);
 
   if (value) {
     eventData.ev = value;
   }
 
   const promise = new Promise((resolve, reject) => {
-    ga.event(eventData, (err) => {
+    ga.event(eventData, err => {
       if (err) return reject(err);
-      resolve();
+      return resolve();
     });
   });
 
@@ -231,10 +247,14 @@ function _sendDataToGoogle (eventType, data) {
 }
 
 function _sendPurchaseDataToAmplitude (data) {
-  let amplitudeData = _formatDataForAmplitude(data);
+  const amplitudeData = _formatDataForAmplitude(data);
 
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
+
+  if (LOG_AMPLITUDE_EVENTS) {
+    logger.info('Amplitude Purchase Event', amplitudeData);
+  }
 
   return amplitude
     .track(amplitudeData)
@@ -242,17 +262,17 @@ function _sendPurchaseDataToAmplitude (data) {
 }
 
 function _sendPurchaseDataToGoogle (data) {
-  let label = data.paymentMethod;
-  let type = data.purchaseType;
-  let price = data.purchaseValue;
-  let qty = data.quantity;
-  let sku = data.sku;
-  let itemKey = data.itemPurchased;
+  const label = data.paymentMethod;
+  const type = data.purchaseType;
+  const price = data.purchaseValue;
+  const qty = data.quantity;
+  const { sku } = data;
+  const itemKey = data.itemPurchased;
   let variation = type;
 
   if (data.gift) variation += ' - Gift';
 
-  let eventData = {
+  const eventData = {
     ec: 'commerce',
     ea: type,
     el: label,
@@ -260,9 +280,9 @@ function _sendPurchaseDataToGoogle (data) {
   };
 
   const eventPromise = new Promise((resolve, reject) => {
-    ga.event(eventData, (err) => {
+    ga.event(eventData, err => {
       if (err) return reject(err);
-      resolve();
+      return resolve();
     });
   });
 
@@ -271,7 +291,7 @@ function _sendPurchaseDataToGoogle (data) {
       .item(price, qty, sku, itemKey, variation)
       .send(err => {
         if (err) return reject(err);
-        resolve();
+        return resolve();
       });
   });
 
@@ -293,7 +313,7 @@ function _setOnce (dataToSetOnce, uuid) {
 
 // There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
 async function track (eventType, data) {
-  let promises = [
+  const promises = [
     _sendDataToAmplitude(eventType, data),
     _sendDataToGoogle(eventType, data),
   ];
@@ -306,7 +326,8 @@ async function track (eventType, data) {
   return Promise.all(promises);
 }
 
-// There's no error handling directly here because it's handled inside _sendPurchaseDataTo{Amplitude|Google}
+// There's no error handling directly here because
+// it's handled inside _sendPurchaseDataTo{Amplitude|Google}
 async function trackPurchase (data) {
   return Promise.all([
     _sendPurchaseDataToAmplitude(data),
@@ -315,12 +336,14 @@ async function trackPurchase (data) {
 }
 
 // Stub for non-prod environments
+// @TODO instead of exporting a different interface why not have track
+// and trackPurchase be no ops when not in production?
 const mockAnalyticsService = {
   track: () => { },
   trackPurchase: () => { },
 };
 
-module.exports = {
+export {
   track,
   trackPurchase,
   mockAnalyticsService,

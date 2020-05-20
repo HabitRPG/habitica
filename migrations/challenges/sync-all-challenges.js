@@ -2,15 +2,15 @@ import { model as Challenges } from '../../website/server/models/challenge';
 import { model as User } from '../../website/server/models/user';
 
 async function syncChallengeToMembers (challenges) {
-  let challengSyncPromises = challenges.map(async (challenge) => {
-    let users = await User.find({
+  const challengSyncPromises = challenges.map(async challenge => {
+    const users = await User.find({
       // _id: '',
       challenges: challenge._id,
     }).exec();
 
-    let promises = [];
-    users.forEach((user) => {
-      promises.push(challenge.syncToUser(user));
+    const promises = [];
+    users.forEach(user => {
+      promises.push(challenge.syncTasksToUser(user));
       promises.push(challenge.save());
       promises.push(user.save());
     });
@@ -18,11 +18,11 @@ async function syncChallengeToMembers (challenges) {
     return Promise.all(promises);
   });
 
-  return await Promise.all(challengSyncPromises);
+  return Promise.all(challengSyncPromises);
 }
 
 async function syncChallenges (lastChallengeDate) {
-  let query = {
+  const query = {
     // _id: '',
   };
 
@@ -30,16 +30,16 @@ async function syncChallenges (lastChallengeDate) {
     query.createdOn = { $lte: lastChallengeDate };
   }
 
-  let challengesFound = await Challenges.find(query)
+  const challengesFound = await Challenges.find(query)
     .limit(10)
     .sort('-createdAt')
     .exec();
 
-  let syncedChallenges = await syncChallengeToMembers(challengesFound)
+  const syncedChallenges = await syncChallengeToMembers(challengesFound)
     .catch(reason => console.error(reason));
-  let lastChallenge = challengesFound[challengesFound.length - 1];
+  const lastChallenge = challengesFound[challengesFound.length - 1];
   if (lastChallenge) syncChallenges(lastChallenge.createdAt);
   return syncedChallenges;
 }
 
-module.exports = syncChallenges;
+export default syncChallenges;

@@ -1,0 +1,16 @@
+{
+    "veteranFox": "Veteraanikettu",
+    "veteranBear": "Veteraanikarhu",
+    "veteranLion": "Veteraanileijona",
+    "veteranTiger": "Veteraanitiikeri",
+    "veteranWolf": "Veteraanisusi",
+    "mountsTamed": "Kesytetyt ratsut",
+    "noActiveMount": "Ei aktiivista ratsua",
+    "activeMount": "Aktiivinen ratsu",
+    "mounts": "Ratsut",
+    "petsFound": "Löydetyt lemmikit",
+    "noActivePet": "Ei aktiivista lemmikkiä",
+    "activePet": "Aktiivinen lemmikki",
+    "pets": "Lemmikit",
+    "stable": "Talli"
+}

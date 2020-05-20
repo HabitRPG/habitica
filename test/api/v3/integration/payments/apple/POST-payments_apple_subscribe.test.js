@@ -1,8 +1,8 @@
-import {generateUser, translate as t} from '../../../../../helpers/api-integration/v3';
+import { generateUser, translate as t } from '../../../../../helpers/api-integration/v3';
 import applePayments from '../../../../../../website/server/libs/payments/apple';
 
 describe('payments : apple #subscribe', () => {
-  let endpoint = '/iap/ios/subscribe';
+  const endpoint = '/iap/ios/subscribe';
   let user;
 
   beforeEach(async () => {
@@ -37,7 +37,7 @@ describe('payments : apple #subscribe', () => {
         balance: 2,
       });
 
-      let sku = 'com.habitrpg.ios.habitica.subscription.3month';
+      const sku = 'com.habitrpg.ios.habitica.subscription.3month';
 
       await user.post(endpoint, {
         sku,

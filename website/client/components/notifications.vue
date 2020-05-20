@@ -90,11 +90,11 @@ import moment from 'moment';
 import throttle from 'lodash/throttle';
 import debounce from 'lodash/debounce';
 
-import { toNextLevel } from '../../common/script/statHelpers';
-import { shouldDo } from '../../common/script/cron';
 import { mapState } from 'client/libs/store';
 import notifications from 'client/mixins/notifications';
 import guide from 'client/mixins/guide';
+import { shouldDo } from '../../common/script/cron';
+import { toNextLevel } from '../../common/script/statHelpers';
 
 import yesterdailyModal from './yesterdailyModal';
 import welcomeModal from './achievements/welcome';
@@ -124,33 +124,32 @@ import verifyUsername from './settings/verifyUsername';
 const NOTIFICATIONS = {
   CHALLENGE_JOINED_ACHIEVEMENT: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('joinedChallenge')}`,
+    label: $t => `${$t('achievement')}: ${$t('joinedChallenge')}`,
     modalId: 'joined-challenge',
   },
   ULTIMATE_GEAR_ACHIEVEMENT: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
+    label: $t => `${$t('achievement')}: ${$t('gearAchievementNotification')}`,
     modalId: 'ultimate-gear',
   },
   GUILD_JOINED_ACHIEVEMENT: {
-    label: ($t) => `${$t('achievement')}: ${$t('joinedGuild')}`,
+    label: $t => `${$t('achievement')}: ${$t('joinedGuild')}`,
     achievement: true,
     modalId: 'joined-guild',
   },
   INVITED_FRIEND_ACHIEVEMENT: {
     achievement: true,
-    label: ($t) => `${$t('achievement')}: ${$t('invitedFriend')}`,
+    label: $t => `${$t('achievement')}: ${$t('invitedFriend')}`,
     modalId: 'invited-friend',
   },
   NEW_CONTRIBUTOR_LEVEL: {
     achievement: true,
-    label: ($t) => $t('modalContribAchievement'),
+    label: $t => $t('modalContribAchievement'),
     modalId: 'contributor',
   },
 };
 
 export default {
-  mixins: [notifications, guide],
   components: {
     yesterdailyModal,
     wonChallenge,
@@ -177,17 +176,18 @@ export default {
     loginIncentives,
     verifyUsername,
   },
+  mixins: [notifications, guide],
   data () {
     // Levels that already display modals and should not trigger generic Level Up
-    let unlockLevels = {
+    const unlockLevels = {
       3: 'drop system',
       10: 'class system',
       50: 'Orb of Rebirth',
     };
 
     // Avoid showing the same notiication more than once
-    let lastShownNotifications = [];
-    let alreadyReadNotification = [];
+    const lastShownNotifications = [];
+    const alreadyReadNotification = [];
 
     // A list of notifications handled by this component,
     // NOTE: Those not listed here won't be handled at all!
@@ -259,7 +259,7 @@ export default {
       if (after === before) return;
       if (this.user.stats.lvl === 0) return;
 
-      let money = after - before;
+      const money = after - before;
       let bonus;
       if (this.user._tmp) {
         bonus = this.user._tmp.streakBonus || 0;
@@ -390,7 +390,7 @@ export default {
       }
 
       // Lvl evaluation
-      if (afterLvl !== beforeLvl)  {
+      if (afterLvl !== beforeLvl) {
         if (afterLvl <= beforeLvl || this.$store.state.isRunningYesterdailies) return;
         this.showLevelUpNotifications(afterLvl);
       }
@@ -398,28 +398,35 @@ export default {
     checkUserAchievements () {
       if (this.user.needsCron) return;
 
-      // List of prompts for user on changes. Sounds like we may need a refactor here, but it is clean for now
+      // List of prompts for user on changes. Sounds like we may need a refactor here, but it is
+      // clean for now
       if (!this.user.flags.welcomed) {
-        if (this.$store.state.avatarEditorOptions) this.$store.state.avatarEditorOptions.editingUser = false;
-        return this.$root.$emit('bv::show::modal', 'avatar-modal');
+        if (this.$store.state.avatarEditorOptions)
+          this.$store.state.avatarEditorOptions.editingUser = false;
+        this.$root.$emit('bv::show::modal', 'avatar-modal');
+        return;
       }
 
       if (this.user.flags.newStuff) {
-        return this.$root.$emit('bv::show::modal', 'new-stuff');
+        this.$root.$emit('bv::show::modal', 'new-stuff');
+        return;
       }
 
       if (this.user.stats.hp <= 0) {
-        return this.showDeathModal();
+        this.showDeathModal();
+        return;
       }
 
       if (this.questCompleted) {
         this.playSound('Achievement_Unlocked');
-        return this.$root.$emit('bv::show::modal', 'quest-completed');
+        this.$root.$emit('bv::show::modal', 'quest-completed');
+        return;
       }
 
       if (this.userClassSelect) {
         this.playSound('Achievement_Unlocked');
-        return this.$root.$emit('bv::show::modal', 'choose-class');
+        this.$root.$emit('bv::show::modal', 'choose-class');
+        return;
       }
     },
     showLevelUpNotifications (newlevel) {
@@ -427,7 +434,8 @@ export default {
       this.playSound('Level_Up');
       if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
       if (this.unlockLevels[`${newlevel}`]) return;
-      if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('bv::show::modal', 'level-up');
+      if (!this.user.preferences.suppressModals.levelUp)
+        this.$root.$emit('bv::show::modal', 'level-up');
     },
     playSound (sound) {
       this.$root.$emit('playSound', sound);
@@ -435,8 +443,8 @@ export default {
     checkNextCron: throttle(function checkNextCron () {
       if (!this.$store.state.isRunningYesterdailies && this.nextCron && Date.now() > this.nextCron) {
         Promise.all([
-          this.$store.dispatch('user:fetch', {forceLoad: true}),
-          this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+          this.$store.dispatch('user:fetch', { forceLoad: true }),
+          this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
         ]).then(() => this.runYesterDailies());
       }
     }, 1000),
@@ -445,8 +453,9 @@ export default {
       this.yesterDailies = [];
 
       // Open yesterdailies modal the next time cron runs
-      const dayStart = this.user.preferences.dayStart;
-      let nextCron = moment().hours(dayStart).minutes(0).seconds(0).milliseconds(0);
+      const { dayStart } = this.user.preferences;
+      let nextCron = moment().hours(dayStart).minutes(0).seconds(0)
+        .milliseconds(0);
 
       const currentHour = moment().format('H');
       if (currentHour >= dayStart) {
@@ -467,16 +476,16 @@ export default {
         return;
       }
 
-      let dailys = this.$store.state.tasks.data.dailys;
+      const { dailys } = this.$store.state.tasks.data;
 
-      let yesterDay = moment().subtract('1', 'day').startOf('day').add({
+      const yesterDay = moment().subtract('1', 'day').startOf('day').add({
         hours: this.user.preferences.dayStart,
       });
 
-      dailys.forEach((task) => {
+      dailys.forEach(task => {
         if (task && task.group.approval && task.group.approval.requested) return;
         if (task.completed) return;
-        let due = shouldDo(yesterDay, task);
+        const due = shouldDo(yesterDay, task);
         if (task.yesterDaily && due) {
           task.yesterDailyScored = true;
           this.yesterDailies.push(task);
@@ -499,13 +508,14 @@ export default {
 
       // Sync
       await Promise.all([
-        this.$store.dispatch('user:fetch', {forceLoad: true}),
-        this.$store.dispatch('tasks:fetchUserTasks', {forceLoad: true}),
+        this.$store.dispatch('user:fetch', { forceLoad: true }),
+        this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
       ]);
 
       this.$store.state.isRunningYesterdailies = false;
 
-      if (this.levelBeforeYesterdailies > 0 && this.levelBeforeYesterdailies < this.user.stats.lvl) {
+      if (this.levelBeforeYesterdailies > 0
+        && this.levelBeforeYesterdailies < this.user.stats.lvl) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
 
@@ -517,10 +527,10 @@ export default {
 
       if (!after || after.length === 0 || !Array.isArray(after)) return;
 
-      let notificationsToRead = [];
-      let scoreTaskNotification = [];
+      const notificationsToRead = [];
+      const scoreTaskNotification = [];
 
-      after.forEach((notification) => {
+      after.forEach(notification => {
         // This notification type isn't implemented here
         if (!this.handledNotifications[notification.type]) return;
 
@@ -579,7 +589,7 @@ export default {
             break;
           case 'SCORED_TASK':
             // Search if it is a read notification
-            for (let i = 0; i < this.alreadyReadNotification.length; i++) {
+            for (let i = 0; i < this.alreadyReadNotification.length; i += 1) {
               if (this.alreadyReadNotification[i] === notification.id) {
                 markAsRead = false; // Do not let it be read again
                 break;
@@ -600,12 +610,14 @@ export default {
               this.$root.$emit('bv::show::modal', 'login-incentives');
             }
             break;
+          default:
+            return;
         }
 
         if (markAsRead) notificationsToRead.push(notification.id);
       });
 
-      let userReadNotifsPromise = false;
+      const userReadNotifsPromise = false;
 
       if (notificationsToRead.length > 0) {
         await axios.post('/api/v4/notifications/read', {
@@ -618,8 +630,8 @@ export default {
         userReadNotifsPromise.then(() => {
           // Only run this code for scoring approved tasks
           if (scoreTaskNotification.length > 0) {
-            let approvedTasks = [];
-            for (let i = 0; i < scoreTaskNotification.length; i++) {
+            const approvedTasks = [];
+            for (let i = 0; i < scoreTaskNotification.length; i += 1) {
               // Array with all approved tasks
               const scoreData = scoreTaskNotification[i].data;
               let direction = 'up';

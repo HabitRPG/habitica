@@ -1,37 +1,38 @@
-import {
-  generateUser,
-  createAndPopulateGroup,
-  translate as t,
-} from '../../../../helpers/api-integration/v3';
 import { v4 as generateUUID } from 'uuid';
 
 import {
   each,
 } from 'lodash';
+import {
+  generateUser,
+  createAndPopulateGroup,
+  translate as t,
+} from '../../../../helpers/api-integration/v3';
 
 describe('GET /groups/:id', () => {
-  let typesOfGroups = {};
+  const typesOfGroups = {};
   typesOfGroups['public guild'] = { type: 'guild', privacy: 'public' };
   typesOfGroups['private guild'] = { type: 'guild', privacy: 'private' };
   typesOfGroups.party = { type: 'party', privacy: 'private' };
 
   each(typesOfGroups, (groupDetails, groupType) => {
     context(`Member of a ${groupType}`, () => {
-      let leader, member, createdGroup;
+      let leader; let member; let
+        createdGroup;
 
       before(async () => {
-        let groupData = await createAndPopulateGroup({
+        const groupData = await createAndPopulateGroup({
           members: 30,
           groupDetails,
         });
 
         leader = groupData.groupLeader;
-        member = groupData.members[0];
+        member = groupData.members[0]; // eslint-disable-line prefer-destructuring
         createdGroup = groupData.group;
       });
 
       it('returns the group object', async () => {
-        let group = await member.get(`/groups/${createdGroup._id}`);
+        const group = await member.get(`/groups/${createdGroup._id}`);
 
         expect(group._id).to.eql(createdGroup._id);
         expect(group.name).to.eql(createdGroup.name);
@@ -40,7 +41,7 @@ describe('GET /groups/:id', () => {
       });
 
       it('transforms leader id to leader object', async () => {
-        let group = await member.get(`/groups/${createdGroup._id}`);
+        const group = await member.get(`/groups/${createdGroup._id}`);
 
         expect(group.leader._id).to.eql(leader._id);
         expect(group.leader.profile.name).to.eql(leader.profile.name);
@@ -49,10 +50,11 @@ describe('GET /groups/:id', () => {
   });
 
   context('Non-member of a public guild', () => {
-    let nonMember, createdGroup;
+    let nonMember; let
+      createdGroup;
 
     before(async () => {
-      let groupData = await createAndPopulateGroup({
+      const groupData = await createAndPopulateGroup({
         members: 1,
         groupDetails: {
           name: 'test guild',
@@ -62,11 +64,11 @@ describe('GET /groups/:id', () => {
       });
 
       createdGroup = groupData.group;
-      nonMember =  await generateUser();
+      nonMember = await generateUser();
     });
 
     it('returns the group object for a non-member', async () => {
-      let group = await nonMember.get(`/groups/${createdGroup._id}`);
+      const group = await nonMember.get(`/groups/${createdGroup._id}`);
 
       expect(group._id).to.eql(createdGroup._id);
       expect(group.name).to.eql(createdGroup.name);
@@ -76,10 +78,11 @@ describe('GET /groups/:id', () => {
   });
 
   context('Non-member of a private guild', () => {
-    let nonMember, createdGroup;
+    let nonMember; let
+      createdGroup;
 
     before(async () => {
-      let groupData = await createAndPopulateGroup({
+      const groupData = await createAndPopulateGroup({
         members: 1,
         groupDetails: {
           name: 'test guild',
@@ -103,10 +106,11 @@ describe('GET /groups/:id', () => {
   });
 
   context('Non-member of a party', () => {
-    let nonMember, createdGroup;
+    let nonMember; let
+      createdGroup;
 
     before(async () => {
-      let groupData = await createAndPopulateGroup({
+      const groupData = await createAndPopulateGroup({
         members: 1,
         groupDetails: {
           name: 'test party',
@@ -130,10 +134,11 @@ describe('GET /groups/:id', () => {
   });
 
   context('Member of a party', () => {
-    let member, createdGroup;
+    let member; let
+      createdGroup;
 
     before(async () => {
-      let groupData = await createAndPopulateGroup({
+      const groupData = await createAndPopulateGroup({
         members: 1,
         groupDetails: {
           name: 'test party',
@@ -143,11 +148,11 @@ describe('GET /groups/:id', () => {
       });
 
       createdGroup = groupData.group;
-      member = groupData.members[0];
+      member = groupData.members[0]; // eslint-disable-line prefer-destructuring
     });
 
     it('returns the user\'s party if an id of "party" is passed in', async () => {
-      let group = await member.get('/groups/party');
+      const group = await member.get('/groups/party');
 
       expect(group._id).to.eql(createdGroup._id);
       expect(group.name).to.eql(createdGroup.name);
@@ -172,8 +177,8 @@ describe('GET /groups/:id', () => {
         });
     });
 
-    it('removes non-existant guild from user\'s guild list', async () => {
-      let guildId = generateUUID();
+    it('removes non-existent guild from user\'s guild list', async () => {
+      const guildId = generateUUID();
 
       await user.update({
         guilds: [guildId, generateUUID()],
@@ -192,8 +197,8 @@ describe('GET /groups/:id', () => {
       expect(user.guilds).to.not.include(guildId);
     });
 
-    it('removes non-existant party from user\'s party object', async () => {
-      let partyId = generateUUID();
+    it('removes non-existent party from user\'s party object', async () => {
+      const partyId = generateUUID();
 
       await user.update({
         party: { _id: partyId },
@@ -215,20 +220,20 @@ describe('GET /groups/:id', () => {
   context('Flagged messages', () => {
     let group;
 
-    let chat1 = {
+    const chat1 = {
       id: 'chat1',
       text: 'chat 1',
       flags: {},
     };
 
-    let chat2 = {
+    const chat2 = {
       id: 'chat2',
       text: 'chat 2',
       flags: {},
       flagCount: 0,
     };
 
-    let chat3 = {
+    const chat3 = {
       id: 'chat3',
       text: 'chat 3',
       flags: {
@@ -237,7 +242,7 @@ describe('GET /groups/:id', () => {
       flagCount: 1,
     };
 
-    let chat4 = {
+    const chat4 = {
       id: 'chat4',
       text: 'chat 4',
       flags: {
@@ -247,7 +252,7 @@ describe('GET /groups/:id', () => {
       flagCount: 2,
     };
 
-    let chat5 = {
+    const chat5 = {
       id: 'chat5',
       text: 'chat 5',
       flags: {
@@ -259,7 +264,7 @@ describe('GET /groups/:id', () => {
     };
 
     beforeEach(async () => {
-      let groupData = await createAndPopulateGroup({
+      const groupData = await createAndPopulateGroup({
         groupDetails: {
           name: 'test guild',
           type: 'guild',
@@ -287,7 +292,7 @@ describe('GET /groups/:id', () => {
       });
 
       it('does not include messages with a flag count of 2 or greater', async () => {
-        let fetchedGroup = await nonAdmin.get(`/groups/${group._id}`);
+        const fetchedGroup = await nonAdmin.get(`/groups/${group._id}`);
 
         expect(fetchedGroup.chat).to.have.lengthOf(3);
         expect(fetchedGroup.chat[0].id).to.eql(chat1.id);
@@ -296,8 +301,8 @@ describe('GET /groups/:id', () => {
       });
 
       it('does not include user ids in flags object', async () => {
-        let fetchedGroup = await nonAdmin.get(`/groups/${group._id}`);
-        let chatWithOneFlag = fetchedGroup.chat[2];
+        const fetchedGroup = await nonAdmin.get(`/groups/${group._id}`);
+        const chatWithOneFlag = fetchedGroup.chat[2];
 
         expect(chatWithOneFlag.id).to.eql(chat3.id);
         expect(chat3.flags).to.eql({ 'user-id': true });
@@ -315,7 +320,7 @@ describe('GET /groups/:id', () => {
       });
 
       it('includes all messages', async () => {
-        let fetchedGroup = await admin.get(`/groups/${group._id}`);
+        const fetchedGroup = await admin.get(`/groups/${group._id}`);
 
         expect(fetchedGroup.chat).to.have.lengthOf(5);
         expect(fetchedGroup.chat[0].id).to.eql(chat1.id);
@@ -326,8 +331,8 @@ describe('GET /groups/:id', () => {
       });
 
       it('includes user ids in flags object', async () => {
-        let fetchedGroup = await admin.get(`/groups/${group._id}`);
-        let chatWithOneFlag = fetchedGroup.chat[2];
+        const fetchedGroup = await admin.get(`/groups/${group._id}`);
+        const chatWithOneFlag = fetchedGroup.chat[2];
 
         expect(chatWithOneFlag.id).to.eql(chat3.id);
         expect(chat3.flags).to.eql({ 'user-id': true });

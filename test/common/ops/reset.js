@@ -16,10 +16,10 @@ describe('shared.ops.reset', () => {
     user = generateUser();
     user.balance = 2;
 
-    let habit = generateHabit();
-    let todo = generateTodo();
-    let daily = generateDaily();
-    let reward = generateReward();
+    const habit = generateHabit();
+    const todo = generateTodo();
+    const daily = generateDaily();
+    const reward = generateReward();
 
     user.tasksOrder.habits = [habit._id];
     user.tasksOrder.todos = [todo._id];
@@ -31,7 +31,7 @@ describe('shared.ops.reset', () => {
 
 
   it('resets a user', () => {
-    let [, message] = reset(user);
+    const [, message] = reset(user);
 
     expect(message).to.equal(i18n.t('resetComplete'));
   });
@@ -50,6 +50,22 @@ describe('shared.ops.reset', () => {
     reset(user);
 
     expect(user.stats.lvl).to.equal(1);
+  });
+
+  it('resets user\'s stat points (str, con, int, per, points)', () => {
+    user.stats.str = 2;
+    user.stats.con = 2;
+    user.stats.int = 2;
+    user.stats.per = 2;
+    user.stats.points = 2;
+
+    reset(user);
+
+    expect(user.stats.str).to.equal(0);
+    expect(user.stats.con).to.equal(0);
+    expect(user.stats.int).to.equal(0);
+    expect(user.stats.per).to.equal(0);
+    expect(user.stats.points).to.equal(1);
   });
 
   it('resets user\'s gold', () => {

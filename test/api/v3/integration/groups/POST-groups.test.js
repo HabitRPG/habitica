@@ -13,7 +13,7 @@ describe('POST /group', () => {
   context('All Groups', () => {
     it('it returns validation error when type is not provided', async () => {
       await expect(
-        user.post('/groups', { name: 'Test Group Without Type' })
+        user.post('/groups', { name: 'Test Group Without Type' }),
       ).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -23,7 +23,7 @@ describe('POST /group', () => {
 
     it('it returns validation error when type is not supported', async () => {
       await expect(
-        user.post('/groups', { name: 'Group with unsupported type', type: 'foo' })
+        user.post('/groups', { name: 'Group with unsupported type', type: 'foo' }),
       ).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
@@ -32,7 +32,7 @@ describe('POST /group', () => {
     });
 
     it('sets the group leader to the user who created the group', async () => {
-      let group = await user.post('/groups', {
+      const group = await user.post('/groups', {
         name: 'Test Public Guild',
         type: 'guild',
       });
@@ -80,7 +80,7 @@ describe('POST /group', () => {
         user.post('/groups', {
           name: 'Test Public Guild',
           type: 'guild',
-        })
+        }),
       ).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
@@ -89,13 +89,13 @@ describe('POST /group', () => {
     });
 
     it('adds guild to user\'s list of guilds', async () => {
-      let guild = await user.post('/groups', {
+      const guild = await user.post('/groups', {
         name: 'some guild',
         type: 'guild',
         privacy: 'public',
       });
 
-      let updatedUser = await user.get('/user');
+      const updatedUser = await user.get('/user');
 
       expect(updatedUser.guilds).to.include(guild._id);
     });
@@ -107,18 +107,18 @@ describe('POST /group', () => {
         privacy: 'public',
       });
 
-      let updatedUser = await user.get('/user');
+      const updatedUser = await user.get('/user');
 
       expect(updatedUser.achievements.joinedGuild).to.eql(true);
     });
 
     context('public guild', () => {
       it('creates a group', async () => {
-        let groupName = 'Test Public Guild';
-        let groupType = 'guild';
-        let groupPrivacy = 'public';
+        const groupName = 'Test Public Guild';
+        const groupType = 'guild';
+        const groupPrivacy = 'public';
 
-        let publicGuild = await user.post('/groups', {
+        const publicGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
           privacy: groupPrivacy,
@@ -145,22 +145,22 @@ describe('POST /group', () => {
             name: 'Test Public Guild',
             type: 'guild',
             privacy: 'public',
-          })
+          }),
         ).to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('cannotCreatePublicGuildWhenMuted'),
+          message: t('chatPrivilegesRevoked'),
         });
       });
     });
 
     context('private guild', () => {
-      let groupName = 'Test Private Guild';
-      let groupType = 'guild';
-      let groupPrivacy = 'private';
+      const groupName = 'Test Private Guild';
+      const groupType = 'guild';
+      const groupPrivacy = 'private';
 
       it('creates a group', async () => {
-        let privateGuild = await user.post('/groups', {
+        const privateGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
           privacy: groupPrivacy,
@@ -181,7 +181,7 @@ describe('POST /group', () => {
 
       it('creates a private guild when the user has no chat privileges', async () => {
         await user.update({ 'flags.chatRevoked': true });
-        let privateGuild = await user.post('/groups', {
+        const privateGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
           privacy: groupPrivacy,
@@ -191,7 +191,7 @@ describe('POST /group', () => {
       });
 
       it('deducts gems from user and adds them to guild bank', async () => {
-        let privateGuild = await user.post('/groups', {
+        const privateGuild = await user.post('/groups', {
           name: groupName,
           type: groupType,
           privacy: groupPrivacy,
@@ -199,7 +199,7 @@ describe('POST /group', () => {
 
         expect(privateGuild.balance).to.eql(1);
 
-        let updatedUser = await user.get('/user');
+        const updatedUser = await user.get('/user');
 
         expect(updatedUser.balance).to.eql(user.balance - 1);
       });
@@ -207,11 +207,11 @@ describe('POST /group', () => {
   });
 
   context('Parties', () => {
-    let partyName = 'Test Party';
-    let partyType = 'party';
+    const partyName = 'Test Party';
+    const partyType = 'party';
 
     it('creates a party', async () => {
-      let party = await user.post('/groups', {
+      const party = await user.post('/groups', {
         name: partyName,
         type: partyType,
       });
@@ -230,7 +230,7 @@ describe('POST /group', () => {
 
     it('creates a party when the user has no chat privileges', async () => {
       await user.update({ 'flags.chatRevoked': true });
-      let party = await user.post('/groups', {
+      const party = await user.post('/groups', {
         name: partyName,
         type: partyType,
       });
@@ -241,25 +241,25 @@ describe('POST /group', () => {
     it('does not require gems to create a party', async () => {
       await user.update({ balance: 0 });
 
-      let party = await user.post('/groups', {
+      const party = await user.post('/groups', {
         name: partyName,
         type: partyType,
       });
 
       expect(party._id).to.exist;
 
-      let updatedUser = await user.get('/user');
+      const updatedUser = await user.get('/user');
 
       expect(updatedUser.balance).to.eql(user.balance);
     });
 
     it('sets party id on user object', async () => {
-      let party = await user.post('/groups', {
+      const party = await user.post('/groups', {
         name: partyName,
         type: partyType,
       });
 
-      let updatedUser = await user.get('/user');
+      const updatedUser = await user.get('/user');
 
       expect(updatedUser.party._id).to.eql(party._id);
     });
@@ -270,7 +270,7 @@ describe('POST /group', () => {
         type: partyType,
       });
 
-      let updatedUser = await user.get('/user');
+      const updatedUser = await user.get('/user');
 
       expect(updatedUser.achievements.partyUp).to.not.eql(true);
     });

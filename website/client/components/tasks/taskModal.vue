@@ -653,7 +653,6 @@
 </style>
 
 <script>
-import TagsPopup from './tagsPopup';
 import { mapGetters, mapActions, mapState } from 'client/libs/store';
 import markdownDirective from 'client/directives/markdown';
 import toggleSwitch from 'client/components/ui/toggleSwitch';
@@ -675,6 +674,7 @@ import deleteIcon from 'assets/svg/delete.svg';
 import goldIcon from 'assets/svg/gold.svg';
 import downIcon from 'assets/svg/down.svg';
 import calendarIcon from 'assets/svg/calendar.svg';
+import TagsPopup from './tagsPopup';
 
 export default {
   components: {
@@ -721,22 +721,22 @@ export default {
         con: 'constitution',
         per: 'perception',
       },
-      calendarHighlights: { dates: [new Date()]},
+      calendarHighlights: { dates: [new Date()] },
     };
-  },
-  mounted () {
-    this.showAdvancedOptions = !this.user.preferences.advancedCollapsed;
   },
   watch: {
     task () {
       this.syncTask();
     },
-    'task.startDate' () {
+    'task.startDate': function () {
       this.calculateMonthlyRepeatDays();
     },
-    'task.frequency' () {
+    'task.frequency': function () {
       this.calculateMonthlyRepeatDays();
     },
+  },
+  mounted () {
+    this.showAdvancedOptions = !this.user.preferences.advancedCollapsed;
   },
   computed: {
     ...mapGetters({
@@ -766,7 +766,7 @@ export default {
       return this.onUserPage && this.isChallengeTask;
     },
     isOriginalChallengeTask () {
-      let isUserChallenge = Boolean(this.task.userId);
+      const isUserChallenge = Boolean(this.task.userId);
       return !isUserChallenge && (this.challengeId || this.task.challenge && this.task.challenge.id);
     },
     canDelete () {
@@ -774,21 +774,21 @@ export default {
     },
     title () {
       const type = this.$t(this.task.type);
-      return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', {type});
+      return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', { type });
     },
     isUserTask () {
       return !this.challengeId && !this.groupId;
     },
     repeatSuffix () {
-      const task = this.task;
+      const { task } = this;
 
       if (task.frequency === 'daily') {
         return task.everyX === 1 ? this.$t('day') : this.$t('days');
-      } else if (task.frequency === 'weekly') {
+      } if (task.frequency === 'weekly') {
         return task.everyX === 1 ? this.$t('week') : this.$t('weeks');
-      } else if (task.frequency === 'monthly') {
+      } if (task.frequency === 'monthly') {
         return task.everyX === 1 ? this.$t('month') : this.$t('months');
-      } else if (task.frequency === 'yearly') {
+      } if (task.frequency === 'yearly') {
         return task.everyX === 1 ? this.$t('year') : this.$t('years');
       }
     },
@@ -823,14 +823,14 @@ export default {
     document.removeEventListener('keyup', this.handleEsc);
   },
   methods: {
-    ...mapActions({saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create'}),
+    ...mapActions({ saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create' }),
     async syncTask () {
       if (this.groupId && this.task.group && this.task.group.approval) {
         this.requiresApproval = this.task.group.approval.required;
       }
 
       if (this.groupId) {
-        let members = await this.$store.dispatch('members:getGroupMembers', {
+        const members = await this.$store.dispatch('members:getGroupMembers', {
           groupId: this.groupId,
           includeAllPublicFields: true,
         });
@@ -871,14 +871,14 @@ export default {
       this.showTagsSelect = !this.showTagsSelect;
     },
     sortedChecklist (data) {
-      let sorting = clone(this.task.checklist);
-      let movingItem = sorting[data.oldIndex];
+      const sorting = clone(this.task.checklist);
+      const movingItem = sorting[data.oldIndex];
       sorting.splice(data.oldIndex, 1);
       sorting.splice(data.newIndex, 0, movingItem);
       this.task.checklist = sorting;
     },
     addChecklistItem (e) {
-      let checkListItem = {
+      const checkListItem = {
         id: uuid.v4(),
         text: this.newChecklistItem,
         completed: false,
@@ -898,7 +898,7 @@ export default {
     },
     calculateMonthlyRepeatDays (newRepeatsOn) {
       if (!this.task) return;
-      const task = this.task;
+      const { task } = this;
       const repeatsOn = newRepeatsOn || this.repeatsOn;
 
       if (task.frequency === 'monthly') {
@@ -912,7 +912,7 @@ export default {
           const shortDay = this.dayMapping[dayOfWeek];
           task.daysOfMonth = [];
           task.weeksOfMonth = [week];
-          for (let key in task.repeat) {
+          for (const key in task.repeat) {
             task.repeat[key] = false;
           }
           task.repeat[shortDay] = true;
@@ -944,12 +944,10 @@ export default {
             tasks: [this.task],
           });
           Object.assign(this.task, response);
-          let promises = this.assignedMembers.map(memberId => {
-            return this.$store.dispatch('tasks:assignTask', {
-              taskId: this.task._id,
-              userId: memberId,
-            });
-          });
+          const promises = this.assignedMembers.map(memberId => this.$store.dispatch('tasks:assignTask', {
+            taskId: this.task._id,
+            userId: memberId,
+          }));
           Promise.all(promises);
           this.task.group.assignedUsers = this.assignedMembers;
           this.$emit('taskCreated', this.task);
@@ -982,9 +980,9 @@ export default {
       this.requiresApproval = truthy;
     },
     async toggleAssignment (memberId) {
-      let assignedIndex = this.assignedMembers.indexOf(memberId);
+      const assignedIndex = this.assignedMembers.indexOf(memberId);
 
-      if (assignedIndex  === -1) {
+      if (assignedIndex === -1) {
         if (this.purpose === 'create') {
           return;
         }

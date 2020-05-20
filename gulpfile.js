@@ -6,14 +6,23 @@
  * directory, and it will automatically be included.
  */
 
-require('babel-register');
+/* eslint-disable import/no-commonjs */
+require('@babel/register');
 
 const gulp = require('gulp');
 
 if (process.env.NODE_ENV === 'production') { // eslint-disable-line no-process-env
   require('./gulp/gulp-apidoc'); // eslint-disable-line global-require
+  require('./gulp/gulp-cache'); // eslint-disable-line global-require
   require('./gulp/gulp-build'); // eslint-disable-line global-require
 } else {
-  require('glob').sync('./gulp/gulp-*').forEach(require); // eslint-disable-line global-require
+  require('./gulp/gulp-apidoc'); // eslint-disable-line global-require
+  require('./gulp/gulp-cache'); // eslint-disable-line global-require
+  require('./gulp/gulp-build'); // eslint-disable-line global-require
+  require('./gulp/gulp-console'); // eslint-disable-line global-require
+  require('./gulp/gulp-sprites'); // eslint-disable-line global-require
+  require('./gulp/gulp-start'); // eslint-disable-line global-require
+  require('./gulp/gulp-tests'); // eslint-disable-line global-require
+  require('./gulp/gulp-transifex-test'); // eslint-disable-line global-require
   require('gulp').task('default', gulp.series('test')); // eslint-disable-line global-require
 }

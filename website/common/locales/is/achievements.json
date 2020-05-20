@@ -1,0 +1,17 @@
+{
+    "achievement": "Afrek",
+    "share": "Deila",
+    "onwards": "Áfram!",
+    "levelup": "Með því að ljúka markmiðum í lífinu þínu hefurðu komist upp á næsta stig og ert nú með fullt líf!",
+    "reachedLevel": "Þú hefur náð <%= level %> stigi",
+    "achievementLostMasterclasser": "Leitar Klárari: Meistara stéttin",
+    "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
+    "earnedAchievement": "Þú hefur lokið afreki!",
+    "showAllAchievements": "Sýna öll <%= category %>",
+    "hideAchievements": "Fela <%= category %>",
+    "onboardingCompleteDesc": "Þú náðir <strong>5 afrekum</strong> og fékkst <strong class=\"gold-amount\">100</strong> gullpeninga fyrir að ljúka verkefnalistanum.",
+    "gettingStartedDesc": "Nú skulum við setja upp verkefni, klára verkefnið og skoða viðurkenninguna sem þú færð fyrir að klára verkefni. Þú vinnur þér inn <strong>5  afrek</strong> og <strong class=\"gold-amount\">100 gullpeninga</strong> þegar þú klárar!",
+    "viewAchievements": "Skoða Afrek",
+    "letsGetStarted": "Hefjumst handa!",
+    "onboardingProgress": "<%= percentage %>% árangur"
+}

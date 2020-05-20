@@ -1,14 +1,16 @@
 import each from 'lodash/each';
 import defaults from 'lodash/defaults';
+import moment from 'moment';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
 import {
+  EVENTS,
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
-let userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
+const userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
-let quests = {
+const quests = {
   dilatory: {
     text: t('questDilatoryText'),
     notes: t('questDilatoryNotes'),
@@ -257,10 +259,11 @@ let quests = {
   },
   evilsanta: {
     canBuy () {
-      return true;
+      return moment().isBetween('2019-12-19', '2020-02-02');
     },
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
+    addlNotes: t('evilSantaAddlNotes'),
     completion: t('questEvilSantaCompletion'),
     value: 4,
     category: 'pet',
@@ -283,10 +286,11 @@ let quests = {
   },
   evilsanta2: {
     canBuy () {
-      return true;
+      return moment().isBetween('2019-12-19', '2020-02-02');
     },
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
+    addlNotes: t('evilSantaAddlNotes'),
     completion: t('questEvilSanta2Completion'),
     value: 4,
     category: 'pet',
@@ -1064,7 +1068,7 @@ let quests = {
     notes: t('questBasilistNotes'),
     group: 'questGroupEarnable',
     completion: t('questBasilistCompletion'),
-    value: 4,
+    goldValue: 100,
     category: 'unlockable',
     unlockCondition: {
       condition: 'party invite',
@@ -2235,12 +2239,8 @@ let quests = {
     notes: t('questDustBunniesNotes'),
     group: 'questGroupEarnable',
     completion: t('questDustBunniesCompletion'),
-    value: 4,
+    value: 1,
     category: 'unlockable',
-    unlockCondition: {
-      condition: 'party invite',
-      text: t('createAccountReward'),
-    },
     boss: {
       name: t('questDustBunniesBoss'),
       hp: 100,
@@ -2259,9 +2259,9 @@ let quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 7,
-      text: t('loginReward', {count: 7}),
+      text: t('loginReward', { count: 7 }),
     },
     collect: {
       shard: {
@@ -2290,9 +2290,9 @@ let quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 22,
-      text: t('loginReward', {count: 22}),
+      text: t('loginReward', { count: 22 }),
     },
     boss: {
       name: t('questMoon2Boss'),
@@ -2320,9 +2320,9 @@ let quests = {
     value: 4,
     category: 'unlockable',
     unlockCondition: {
-      condition: 'party invite',
+      condition: 'login reward',
       incentiveThreshold: 40,
-      text: t('loginReward', {count: 40}),
+      text: t('loginReward', { count: 40 }),
     },
     boss: {
       name: t('questMoon3Boss'),
@@ -3353,25 +3353,290 @@ let quests = {
       unlock: t('questVelociraptorUnlockText'),
     },
   },
-
+  bronze: {
+    text: t('questBronzeText'),
+    notes: t('questBronzeNotes'),
+    completion: t('questBronzeCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questBronzeBoss'),
+      hp: 800,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Bronze',
+          text: t('questBronzeDropBronzePotion'),
+        },
+      ],
+      gp: 63,
+      exp: 575,
+      unlock: t('questBronzeUnlockText'),
+    },
+  },
+  dolphin: {
+    text: t('questDolphinText'),
+    notes: t('questDolphinNotes'),
+    completion: t('questDolphinCompletion'),
+    value: 4,
+    category: 'pet',
+    boss: {
+      name: t('questDolphinBoss'),
+      hp: 300,
+      str: 1.25,
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Dolphin',
+          text: t('questDolphinDropDolphinEgg'),
+        },
+      ],
+      gp: 22,
+      exp: 110,
+      unlock: t('questDolphinUnlockText'),
+    },
+  },
+  silver: {
+    text: t('questSilverText'),
+    notes: t('questSilverNotes'),
+    completion: t('questSilverCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      silverIngot: {
+        text: t('questSilverCollectSilverIngots'),
+        count: 20,
+      },
+      moonRune: {
+        text: t('questSilverCollectMoonRunes'),
+        count: 15,
+      },
+      cancerRune: {
+        text: t('questSilverCollectCancerRunes'),
+        count: 15,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Silver',
+          text: t('questSilverDropSilverPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questSilverUnlockText'),
+    },
+  },
+  robot: {
+    text: t('questRobotText'),
+    notes: t('questRobotNotes'),
+    completion: t('questRobotCompletion'),
+    value: 1,
+    category: 'timeTravelers',
+    canBuy () {
+      return false;
+    },
+    collect: {
+      bolt: {
+        text: t('questRobotCollectBolts'),
+        count: 15,
+      },
+      gear: {
+        text: t('questRobotCollectGears'),
+        count: 10,
+      },
+      spring: {
+        text: t('questRobotCollectSprings'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        }, {
+          type: 'eggs',
+          key: 'Robot',
+          text: t('questRobotDropRobotEgg'),
+        },
+      ],
+      gp: 40,
+      exp: 75,
+      unlock: t('questRobotUnlockText'),
+    },
+  },
+  amber: {
+    text: t('questAmberText'),
+    notes: t('questAmberNotes'),
+    completion: t('questAmberCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questAmberBoss'),
+      hp: 300,
+      str: 1.25,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Amber',
+          text: t('questAmberDropAmberPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Amber',
+          text: t('questAmberDropAmberPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Amber',
+          text: t('questAmberDropAmberPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questAmberUnlockText'),
+    },
+  },
+  ruby: {
+    text: t('questRubyText'),
+    notes: t('questRubyNotes'),
+    completion: t('questRubyCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      rubyGem: {
+        text: t('questRubyCollectRubyGems'),
+        count: 25,
+      },
+      venusRune: {
+        text: t('questRubyCollectVenusRunes'),
+        count: 10,
+      },
+      aquariusRune: {
+        text: t('questRubyCollectAquariusRunes'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Ruby',
+          text: t('questRubyDropRubyPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Ruby',
+          text: t('questRubyDropRubyPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Ruby',
+          text: t('questRubyDropRubyPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questRubyUnlockText'),
+    },
+  },
+  waffle: {
+    text: t('questWaffleText'),
+    notes: t('questWaffleNotes'),
+    completion: t('questWaffleCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    event: EVENTS.spring2020,
+    boss: {
+      name: t('questWaffleBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t('questWaffleRageTitle'),
+        description: t('questWaffleRageDescription'),
+        value: 50,
+        progressDrain: 0.5,
+        effect: t('questWaffleRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Dessert',
+          text: t('questWaffleDropDessertPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Dessert',
+          text: t('questWaffleDropDessertPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Dessert',
+          text: t('questWaffleDropDessertPotion'),
+        },
+      ],
+      gp: 40,
+      exp: 500,
+      unlock: t('questWaffleUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {
-  let b;
   defaults(v, {
     key,
     canBuy () {
+      if (v.event) {
+        return moment().isBetween(v.event.start, v.event.end);
+      }
       return true;
     },
   });
-  b = v.boss;
+
+  const b = v.boss;
+
   if (b) {
     defaults(b, {
       str: 1,
       def: 1,
     });
     if (b.rage) {
-      return defaults(b.rage, {
+      defaults(b.rage, {
         title: t('bossRageTitle'),
         description: t('bossRageDescription'),
       });
@@ -3379,11 +3644,9 @@ each(quests, (v, key) => {
   }
 });
 
-let questsByLevel = sortBy(quests, (quest) => {
-  return quest.lvl || 0;
-});
+const questsByLevel = sortBy(quests, quest => quest.lvl || 0);
 
-module.exports = {
+export {
   quests,
   questsByLevel,
   userCanOwnQuestCategories,

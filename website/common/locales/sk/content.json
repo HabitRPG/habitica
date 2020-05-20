@@ -4,7 +4,7 @@
     "armoireText": "Kúzelná skrinka",
     "armoireNotesFull": "Otvor skrinku aby si získal ľubovoľnú špeciálnu výbavu, skúsenosti alebo jedlo! Zostávajúce časti výbavy:",
     "armoireLastItem": "Našiel si poslednú časť vzácnej výbavy v Kúzelnej skrinke.",
-    "armoireNotesEmpty": "Skrinka bude mat novú výbavu vždy v prvom týždni každého mesiaca. Dovtedy môžeš klikať na skúsenosti a jedlo!",
+    "armoireNotesEmpty": "Skrinka bude mať novú výbavu vždy v prvom týždni každého mesiaca. Medzitým môžeš získať skúsenosti a jedlo!",
     "dropEggWolfText": "Vlk",
     "dropEggWolfMountText": "Vlk",
     "dropEggWolfAdjective": "verný",
@@ -306,5 +306,17 @@
     "foodSaddleText": "Sedlo",
     "foodSaddleNotes": "Ihneď vychová z tvojho zvieratka tátoša.",
     "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
-    "foodNotes": "Nakŕm touto pochúťkou svoje zvieratko, aby z neho vyrástol zdatný tátoš."
+    "foodNotes": "Nakŕm touto pochúťkou svoje zvieratko, aby z neho vyrástol zdatný tátoš.",
+    "hatchingPotionRoseQuartz": "Ružovieť Kremeň",
+    "hatchingPotionCelestial": "nebeský",
+    "hatchingPotionVeggie": "záhradné",
+    "foodPieSkeleton": "Kôra kostnej drene Pot",
+    "foodPieSkeletonThe": "koláč z kostnej drene",
+    "foodPieSkeletonA": "kus koláča kostnej drene",
+    "foodPieBase": "Základný jablkový koláč",
+    "foodPieBaseThe": "Základný jablkový koláč",
+    "foodPieBaseA": "kúsok základného jablčného koláča",
+    "foodPieCottonCandyBlue": "Čučoriedkový koláč",
+    "foodPieCottonCandyBlueThe": "Borůvkový koláč",
+    "foodPieCottonCandyBlueA": "plátok čučoriedkového koláča"
 }

@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Znovuzrození: Je dostupné nové dobrodružství !",
-    "rebirthUnlock": "Odemkl jsi znovuzrození! Tento speciální předmět ti umožňuje začít novou hru na úrovni 1, zatímco ti zůstanou všechny úkoly, úspěchy, mazlíčci a ostatní věci. Pokud máš pocit, že už jsi zvládl vše, použij ho pro vdechnutí nového života do programu Habitica anebo pro vyzkoušení nových funkcí s novou postavou a s čistým štítem.",
+    "rebirthUnlock": "Odemkl jsi znovuzrození! Tento speciální předmět ti umožňuje začít novou hru na úrovni 1, zatímco ti zůstanou všechny úkoly, úspěchy, mazlíčci a ostatní věci. Pokud máš pocit, že už jsi zvládl vše, použij ho pro vdechnutí nového života do programu Habitica anebo pro vyzkoušení nových funkcí s novou postavou a s čistým štítem!",
     "rebirthBegin": "Znovuzrození: Začni nové dobrodružství",
     "rebirthStartOver": "Znovuzrození obnoví tvou postavu na úrovni 1.",
     "rebirthAdvList1": "Bylo ti obnoveno plné zdraví.",
@@ -12,7 +12,7 @@
     "rebirthInList2": "Členství ve výzvách, družině a v ceších zůstávají.",
     "rebirthInList3": "Drahokamy, úrovně podpory a úrovně pomoci zůstanou.",
     "rebirthInList4": "Věci získané pomocí Drahokamů nebo mazlíčci a jezdecká zvířata zůstávají.",
-    "rebirthEarnAchievement": "Také dostaneš ocenění za začátek nového dobrodružství.",
+    "rebirthEarnAchievement": "Také dostaneš ocenění za začátek nového dobrodružství!",
     "beReborn": "Buď znovuzrozen",
     "rebirthAchievement": "Začal jsi nové dobrodružství! Tohle je Znovuzrození číslo <%= number %> a nejvyšší úroveň, které jsi dosáhl je <%= level %>. K dosažení dalšího ocenění začni nové dobrodružství až dosáhneš ještě vyšší úrovně!",
     "rebirthAchievement100": "Začal jsi nové dobrodružství! Toto je tvé <%= number %>. Znovuzrození. Dosáhl jsi úrovně 100 nebo vyšší. Aby sis udržel toto ocenění, začni další dobrodružství po dosažení nejméně sté úrovně!",
@@ -21,9 +21,10 @@
     "rebirthOrb": "Použil Kouli Znovozrození, aby začal znova, po dosáhnutí úrovně <%= level %>.",
     "rebirthOrb100": "Použil Kouli znovuzrození, aby začal odznovu po dosažení úrovně 100 nebo vyšší.",
     "rebirthOrbNoLevel": "Použil Kouli Znovozrození, aby začal znova.",
-    "rebirthPop": "Obnoví tvou postavu a vrátí jí na 1. úroveň s povoláním Válečníka, zatímco ti zůstanou všechny úspěchy, celá sbírka a vybavení. Tvoje úkoly zůstanou i s historií, ale vrátí se na žlutou barvu. Tvé řady úspěchů se resetují, jen u úkolů z výzev zůstanou. Tvé zlato, zkušenosti, mana a efekty všech schopností budou odstraněny. Toto vše nastane s okamžitou platností. Pro více informací se podívej na wiki stránku: <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>.",
+    "rebirthPop": "Obnoví tvou postavu a vrátí jí na 1. úroveň s povoláním Válečníka, zatímco ti zůstanou všechny úspěchy, celá sbírka a vybavení. Tvoje úkoly zůstanou i s historií, ale vrátí se na žlutou barvu. Tvé řady úspěchů se resetují, zůstanou úkoly patřící do aktivních výzev a do Skupiny. Tvé zlato, zkušenosti, mana a efekty všech schopností budou odstraněny. Toto vše nastane s okamžitou platností. Pro více informací se podívej na wiki stránku: <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>.",
     "rebirthName": "Koule znovuzrození",
     "reborn": "Znovuzrozen, maximální úroveň <%= reLevel %>",
     "confirmReborn": "Jsi si jistý?",
-    "rebirthComplete": "Byl jste znovuzrozen!"
+    "rebirthComplete": "Byl jste znovuzrozen!",
+    "nextFreeRebirth": "<strong><%= days %> dni</strong> do <strong>bezplatného</strong> Koule znovuzrození"
 }

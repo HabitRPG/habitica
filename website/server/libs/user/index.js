@@ -1,16 +1,15 @@
+import _ from 'lodash';
 import common from '../../../common';
 import * as Tasks from '../../models/task';
-import _ from 'lodash';
 import {
   BadRequest,
   NotAuthorized,
-} from '../../libs/errors';
-import { model as User } from '../../models/user';
-import {nameContainsSlur} from './validation';
-
+} from '../errors';
+import { model as User, schema as UserSchema } from '../../models/user';
+import { nameContainsSlur } from './validation';
 
 export async function get (req, res, { isV3 = false }) {
-  const user = res.locals.user;
+  const { user } = res.locals;
   let userToJSON;
 
   if (isV3) {
@@ -23,7 +22,7 @@ export async function get (req, res, { isV3 = false }) {
   delete userToJSON.apiToken;
 
   if (!req.query.userFields) {
-    let {daysMissed} = user.daysUserHasMissed(new Date(), req);
+    const { daysMissed } = user.daysUserHasMissed(new Date(), req);
     userToJSON.needsCron = false;
     if (daysMissed > 0) userToJSON.needsCron = true;
     User.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
@@ -61,10 +60,8 @@ const updatablePaths = [
 
 // This tells us for which paths users can call `PUT /user`.
 // The trick here is to only accept leaf paths, not root/intermediate paths (see http://goo.gl/OEzkAs)
-let acceptablePUTPaths = _.reduce(require('./../../models/user').schema.paths, (accumulator, val, leaf) => {
-  let found = _.find(updatablePaths, (rootPath) => {
-    return leaf.indexOf(rootPath) === 0;
-  });
+const acceptablePUTPaths = _.reduce(UserSchema.paths, (accumulator, val, leaf) => {
+  const found = _.find(updatablePaths, rootPath => leaf.indexOf(rootPath) === 0);
 
   if (found) accumulator[leaf] = true;
 
@@ -79,7 +76,7 @@ const restrictedPUTSubPaths = [
   'preferences.webhooks',
 ];
 
-_.each(restrictedPUTSubPaths, (removePath) => {
+_.each(restrictedPUTSubPaths, removePath => {
   delete acceptablePUTPaths[removePath];
 });
 
@@ -97,8 +94,8 @@ const requiresPurchase = {
 };
 
 function checkPreferencePurchase (user, path, item) {
-  let itemPath = `${path}.${item}`;
-  let appearance = _.get(common.content.appearances, itemPath);
+  const itemPath = `${path}.${item}`;
+  const appearance = _.get(common.content.appearances, itemPath);
   if (!appearance) return false;
   if (appearance.price === 0) return true;
 
@@ -106,7 +103,7 @@ function checkPreferencePurchase (user, path, item) {
 }
 
 export async function update (req, res, { isV3 = false }) {
-  const user = res.locals.user;
+  const { user } = res.locals;
 
   let promisesForTagsRemoval = [];
 
@@ -118,7 +115,7 @@ export async function update (req, res, { isV3 = false }) {
   }
 
   _.each(req.body, (val, key) => {
-    let purchasable = requiresPurchase[key];
+    const purchasable = requiresPurchase[key];
 
     if (purchasable && !checkPreferencePurchase(user, purchasable, val)) {
       throw new NotAuthorized(res.t('mustPurchaseToSet', { val, key }));
@@ -145,7 +142,7 @@ export async function update (req, res, { isV3 = false }) {
       user.tags = oldTags;
 
       val.forEach(t => {
-        let oldI = removedTagsIds.findIndex(id => id === t.id);
+        const oldI = removedTagsIds.findIndex(id => id === t.id);
         if (oldI > -1) {
           removedTagsIds.splice(oldI, 1);
         }
@@ -156,15 +153,13 @@ export async function update (req, res, { isV3 = false }) {
       // Remove from all the tasks
       // NOTE each tag to remove requires a query
 
-      promisesForTagsRemoval = removedTagsIds.map(tagId => {
-        return Tasks.Task.update({
-          userId: user._id,
-        }, {
-          $pull: {
-            tags: tagId,
-          },
-        }, {multi: true}).exec();
-      });
+      promisesForTagsRemoval = removedTagsIds.map(tagId => Tasks.Task.update({
+        userId: user._id,
+      }, {
+        $pull: {
+          tags: tagId,
+        },
+      }, { multi: true }).exec());
     } else {
       throw new NotAuthorized(res.t('messageUserOperationProtected', { operation: key }));
     }
@@ -181,7 +176,7 @@ export async function update (req, res, { isV3 = false }) {
 }
 
 export async function reset (req, res, { isV3 = false }) {
-  const user = res.locals.user;
+  const { user } = res.locals;
 
   const tasks = await Tasks.Task.find({
     userId: user._id,
@@ -194,7 +189,7 @@ export async function reset (req, res, { isV3 = false }) {
   }
 
   await Promise.all([
-    Tasks.Task.remove({_id: {$in: resetRes[0].tasksToRemove}, userId: user._id}),
+    Tasks.Task.remove({ _id: { $in: resetRes[0].tasksToRemove }, userId: user._id }),
     user.save(),
   ]);
 
@@ -208,19 +203,19 @@ export async function reset (req, res, { isV3 = false }) {
 }
 
 export async function reroll (req, res, { isV3 = false }) {
-  let user = res.locals.user;
-  let query = {
+  const { user } = res.locals;
+  const query = {
     userId: user._id,
-    type: {$in: ['daily', 'habit', 'todo']},
+    type: { $in: ['daily', 'habit', 'todo'] },
     ...Tasks.taskIsGroupOrChallengeQuery,
   };
-  let tasks = await Tasks.Task.find(query).exec();
+  const tasks = await Tasks.Task.find(query).exec();
   const rerollRes = common.ops.reroll(user, tasks, req, res.analytics);
   if (isV3) {
     rerollRes[0].user = await rerollRes[0].user.toJSONWithInbox();
   }
 
-  let promises = tasks.map(task => task.save());
+  const promises = tasks.map(task => task.save());
   promises.push(user.save());
 
   await Promise.all(promises);
@@ -229,10 +224,10 @@ export async function reroll (req, res, { isV3 = false }) {
 }
 
 export async function rebirth (req, res, { isV3 = false }) {
-  const user = res.locals.user;
+  const { user } = res.locals;
   const tasks = await Tasks.Task.find({
     userId: user._id,
-    type: {$in: ['daily', 'habit', 'todo']},
+    type: { $in: ['daily', 'habit', 'todo'] },
     ...Tasks.taskIsGroupOrChallengeQuery,
   }).exec();
 

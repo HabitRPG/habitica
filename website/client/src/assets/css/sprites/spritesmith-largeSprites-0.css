@@ -1,0 +1,42 @@
+.promo_armoire_backgrounds_202005 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -391px 0px;
+  width: 423px;
+  height: 147px;
+}
+.promo_fairy_sunshine_potions {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -391px -148px;
+  width: 423px;
+  height: 147px;
+}
+.promo_jungle_buddies_bundle {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -434px;
+  width: 423px;
+  height: 147px;
+}
+.promo_mystery_202005 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -434px;
+  width: 282px;
+  height: 147px;
+}
+.promo_take_this {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -391px -296px;
+  width: 96px;
+  height: 69px;
+}
+.scene_casting_spells {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -211px;
+  width: 312px;
+  height: 222px;
+}
+.scene_pets_resting {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 390px;
+  height: 210px;
+}

@@ -1,3 +1,4 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   generateGroup,
@@ -5,7 +6,6 @@ import {
   sleep,
   translate as t,
 } from '../../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 
 describe('DELETE /tasks/:id', () => {
   let user;
@@ -27,7 +27,7 @@ describe('DELETE /tasks/:id', () => {
     });
   });
 
-  it('cannot delete a non-existant task', async () => {
+  it('cannot delete a non-existent task', async () => {
     await expect(user.del(`/tasks/${generateUUID()}`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
@@ -36,7 +36,7 @@ describe('DELETE /tasks/:id', () => {
   });
 
   it('returns error when user is not leader of the challenge', async () => {
-    let anotherUser = await generateUser();
+    const anotherUser = await generateUser();
 
     await expect(anotherUser.del(`/tasks/${task._id}`)).to.eventually.be.rejected.and.eql({
       code: 401,
@@ -71,8 +71,9 @@ describe('DELETE /tasks/:id', () => {
         type: 'habit',
       });
 
-      let anotherUserWithNewChallengeTask = await anotherUser.get('/user');
-      anotherUsersNewChallengeTaskID = anotherUserWithNewChallengeTask.tasksOrder.habits[0];
+      const anotherUserWithNewChallengeTask = await anotherUser.get('/user');
+      anotherUsersNewChallengeTaskID = anotherUserWithNewChallengeTask // eslint-disable-line prefer-destructuring, max-len
+        .tasksOrder.habits[0];
     });
 
     it('returns error when user attempts to delete an active challenge task', async () => {
@@ -96,7 +97,8 @@ describe('DELETE /tasks/:id', () => {
       });
     });
 
-    // TODO for some reason this test fails on TravisCI, review after mongodb indexes have been added
+    // TODO for some reason this test fails on TravisCI,
+    // review after mongodb indexes have been added
     xit('allows user to delete challenge task after challenge task is broken', async () => {
       await expect(user.del(`/tasks/${newChallengeTask._id}`));
 

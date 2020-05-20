@@ -5,7 +5,7 @@ import common from '../../../../website/common';
 
 describe('User Model', () => {
   it('keeps user._tmp when calling .toJSON', () => {
-    let user = new User({
+    const user = new User({
       auth: {
         local: {
           username: 'username',
@@ -17,26 +17,26 @@ describe('User Model', () => {
       },
     });
 
-    user._tmp = {ok: true};
-    user._nonTmp = {ok: true};
+    user._tmp = { ok: true };
+    user._nonTmp = { ok: true };
 
-    expect(user._tmp).to.eql({ok: true});
-    expect(user._nonTmp).to.eql({ok: true});
+    expect(user._tmp).to.eql({ ok: true });
+    expect(user._nonTmp).to.eql({ ok: true });
 
-    let toObject = user.toObject();
-    let toJSON = user.toJSON();
+    const toObject = user.toObject();
+    const toJSON = user.toJSON();
 
     expect(toObject).to.not.have.keys('_tmp');
     expect(toObject).to.not.have.keys('_nonTmp');
 
     expect(toJSON).to.have.any.key('_tmp');
-    expect(toJSON._tmp).to.eql({ok: true});
+    expect(toJSON._tmp).to.eql({ ok: true });
     expect(toJSON).to.not.have.keys('_nonTmp');
   });
 
   it('can add computed stats to a JSONified user object', () => {
-    let user = new User();
-    let userToJSON = user.toJSON();
+    const user = new User();
+    const userToJSON = user.toJSON();
 
     expect(userToJSON.stats.maxMP).to.not.exist;
     expect(userToJSON.stats.maxHealth).to.not.exist;
@@ -50,9 +50,9 @@ describe('User Model', () => {
   });
 
   it('can transform user object without mongoose helpers', async () => {
-    let user = new User();
+    const user = new User();
     await user.save();
-    let userToJSON = await User.findById(user._id).lean().exec();
+    const userToJSON = await User.findById(user._id).lean().exec();
 
     expect(userToJSON.stats.maxMP).to.not.exist;
     expect(userToJSON.stats.maxHealth).to.not.exist;
@@ -68,9 +68,9 @@ describe('User Model', () => {
   });
 
   it('can transform user object without mongoose helpers (including computed stats)', async () => {
-    let user = new User();
+    const user = new User();
     await user.save();
-    let userToJSON = await User.findById(user._id).lean().exec();
+    const userToJSON = await User.findById(user._id).lean().exec();
 
     expect(userToJSON.stats.maxMP).to.not.exist;
     expect(userToJSON.stats.maxHealth).to.not.exist;
@@ -84,30 +84,191 @@ describe('User Model', () => {
     expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
   });
 
-  context('notifications', () => {
-    it('can add notifications without data', () => {
-      let user = new User();
+  context('achievements', () => {
+    it('can add an achievement', () => {
+      const user = new User();
+      const originalUserToJSON = user.toJSON({ minimize: false });
+      expect(originalUserToJSON.achievements.createdTask).to.not.eql(true);
+      const notificationsN = originalUserToJSON.notifications.length;
 
-      user.addNotification('CRON');
+      user.addAchievement('createdTask');
 
-      let userToJSON = user.toJSON();
-      expect(user.notifications.length).to.equal(1);
+      const userToJSON = user.toJSON();
+      expect(user.notifications.length).to.equal(notificationsN + 1);
       expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
-      expect(userToJSON.notifications[0].type).to.equal('CRON');
-      expect(userToJSON.notifications[0].data).to.eql({});
+      expect(userToJSON.notifications[0].type).to.equal('ACHIEVEMENT');
+      expect(userToJSON.notifications[0].data).to.eql({
+        achievement: 'createdTask',
+      });
       expect(userToJSON.notifications[0].seen).to.eql(false);
+
+      expect(userToJSON.achievements.createdTask).to.eql(true);
     });
 
-    it('removes invalid notifications when calling toJSON', () => {
-      let user = new User();
+    it('throws an error if the achievement is not valid', () => {
+      const user = new User();
+      expect(() => user.addAchievement('notAnAchievement')).to.throw;
+    });
 
-      user.notifications = [
-        null, // invalid, not an object
-        {seen: true}, // invalid, no type or id
-        {id: 123}, // invalid, no type
-        // {type: 'ABC'}, // invalid, no id, not included here because the id would be added automatically
-        {type: 'ABC', id: '123'}, // valid
-      ];
+    context('static push method', () => {
+      it('throws an error if the achievement is not valid', async () => {
+        const user = new User();
+        await user.save();
+
+        await expect(User.addAchievementUpdate({ _id: user._id }, 'notAnAchievement'))
+          .to.eventually.be.rejected;
+
+        expect(() => user.addAchievement('notAnAchievement')).to.throw;
+      });
+
+      it('adds an achievement for a single member via static method', async () => {
+        let user = new User();
+        await user.save();
+
+        const originalUserToJSON = user.toJSON({ minimize: false });
+        expect(originalUserToJSON.achievements.createdTask).to.not.eql(true);
+        const notificationsN = originalUserToJSON.notifications.length;
+
+        await User.addAchievementUpdate({ _id: user._id }, 'createdTask');
+
+        user = await User.findOne({ _id: user._id }).exec();
+
+        const userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(notificationsN + 1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+        expect(userToJSON.notifications[0].type).to.equal('ACHIEVEMENT');
+        expect(userToJSON.notifications[0].data).to.eql({
+          achievement: 'createdTask',
+        });
+        expect(userToJSON.notifications[0].seen).to.eql(false);
+
+        expect(userToJSON.achievements.createdTask).to.eql(true);
+      });
+
+      it('adds an achievement for all given users via static method', async () => {
+        let user = new User();
+        const otherUser = new User();
+        await Promise.all([user.save(), otherUser.save()]);
+
+        await User.addAchievementUpdate({ _id: { $in: [user._id, otherUser._id] } }, 'createdTask');
+
+        user = await User.findOne({ _id: user._id }).exec();
+
+        let userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+        expect(userToJSON.notifications[0].type).to.equal('ACHIEVEMENT');
+        expect(userToJSON.notifications[0].data).to.eql({
+          achievement: 'createdTask',
+        });
+        expect(userToJSON.notifications[0].seen).to.eql(false);
+
+        expect(userToJSON.achievements.createdTask).to.eql(true);
+
+        user = await User.findOne({ _id: otherUser._id }).exec();
+
+        userToJSON = user.toJSON();
+        expect(user.notifications.length).to.equal(1);
+        expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+        expect(userToJSON.notifications[0].type).to.equal('ACHIEVEMENT');
+        expect(userToJSON.notifications[0].data).to.eql({
+          achievement: 'createdTask',
+        });
+        expect(userToJSON.notifications[0].seen).to.eql(false);
+
+        expect(userToJSON.achievements.createdTask).to.eql(true);
+      });
+    });
+  });
+
+  context('post init', () => {
+    it('removes invalid tags when loading the user', async () => {
+      let user = new User();
+      await user.save();
+      await user.update({
+        $set: {
+          tags: [
+            null, // invalid, not an object
+            // { name: '123' }, // invalid, no id - generated automatically
+            { id: '123' }, // invalid, no name
+            { name: 'ABC', id: '1234' }, // valid
+          ],
+        },
+      }).exec();
+
+      user = await User.findById(user._id).exec();
+
+      const userToJSON = user.toJSON();
+      expect(userToJSON.tags.length).to.equal(1);
+
+      expect(userToJSON.tags[0]).to.have.all.keys(['id', 'name']);
+      expect(userToJSON.tags[0].id).to.equal('1234');
+      expect(userToJSON.tags[0].name).to.equal('ABC');
+    });
+
+    it('removes invalid push devices when loading the user', async () => {
+      let user = new User();
+      await user.save();
+      await user.update({
+        $set: {
+          pushDevices: [
+            null, // invalid, not an object
+            { regId: '123' }, // invalid, no type
+            { type: 'android' }, // invalid, no regId
+            { type: 'android', regId: '1234' }, // valid
+          ],
+        },
+      }).exec();
+
+      user = await User.findById(user._id).exec();
+
+      const userToJSON = user.toJSON();
+      expect(userToJSON.pushDevices.length).to.equal(1);
+
+      expect(userToJSON.pushDevices[0]).to.have.all.keys(['regId', 'type', 'createdAt', 'updatedAt']);
+      expect(userToJSON.pushDevices[0].type).to.equal('android');
+      expect(userToJSON.pushDevices[0].regId).to.equal('1234');
+    });
+
+    it('removes duplicate push devices when loading the user', async () => {
+      let user = new User();
+      await user.save();
+      await user.update({
+        $set: {
+          pushDevices: [
+            { type: 'android', regId: '1234' },
+            { type: 'android', regId: '1234' },
+          ],
+        },
+      }).exec();
+
+      user = await User.findById(user._id).exec();
+
+      const userToJSON = user.toJSON();
+      expect(userToJSON.pushDevices.length).to.equal(1);
+
+      expect(userToJSON.pushDevices[0]).to.have.all.keys(['regId', 'type', 'createdAt', 'updatedAt']);
+      expect(userToJSON.pushDevices[0].type).to.equal('android');
+      expect(userToJSON.pushDevices[0].regId).to.equal('1234');
+    });
+
+    it('removes invalid notifications when loading the user', async () => {
+      let user = new User();
+      await user.save();
+      await user.update({
+        $set: {
+          notifications: [
+            null, // invalid, not an object
+            { seen: true }, // invalid, no type or id
+            { id: 123 }, // invalid, no type
+            // invalid, no id, not included here because the id would be added automatically
+            // {type: 'ABC'},
+            { type: 'ABC', id: '123' }, // valid
+          ],
+        },
+      }).exec();
+
+      user = await User.findById(user._id).exec();
 
       const userToJSON = user.toJSON();
       expect(userToJSON.notifications.length).to.equal(1);
@@ -117,16 +278,73 @@ describe('User Model', () => {
       expect(userToJSON.notifications[0].id).to.equal('123');
     });
 
-    it('can add notifications with data and already marked as seen', () => {
+    it('removes multiple NEW_CHAT_MESSAGE for the same group', async () => {
       let user = new User();
+      await user.save();
+      await user.update({
+        $set: {
+          notifications: [
+            {
+              type: 'NEW_CHAT_MESSAGE',
+              id: 123,
+              data: { group: { id: 12345 } },
+            },
+            {
+              type: 'NEW_CHAT_MESSAGE',
+              id: 1234,
+              data: { group: { id: 12345 } },
+            },
+            {
+              type: 'NEW_CHAT_MESSAGE',
+              id: 123,
+              data: { group: { id: 123456 } },
+            }, // not duplicate, different group
+            {
+              type: 'NEW_CHAT_MESSAGE_DIFF',
+              id: 123,
+              data: { group: { id: 12345 } },
+            }, // not duplicate, different type
+          ],
+        },
+      }).exec();
 
-      user.addNotification('CRON', {field: 1}, true);
+      user = await User.findById(user._id).exec();
 
-      let userToJSON = user.toJSON();
+      const userToJSON = user.toJSON();
+      expect(userToJSON.notifications.length).to.equal(3);
+
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+      expect(userToJSON.notifications[0].type).to.equal('NEW_CHAT_MESSAGE');
+      expect(userToJSON.notifications[0].id).to.equal('123');
+      expect(userToJSON.notifications[0].data).to.deep.equal({ group: { id: 12345 } });
+      expect(userToJSON.notifications[0].seen).to.equal(false);
+    });
+  });
+
+  context('notifications', () => {
+    it('can add notifications without data', () => {
+      const user = new User();
+
+      user.addNotification('CRON');
+
+      const userToJSON = user.toJSON();
       expect(user.notifications.length).to.equal(1);
       expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
       expect(userToJSON.notifications[0].type).to.equal('CRON');
-      expect(userToJSON.notifications[0].data).to.eql({field: 1});
+      expect(userToJSON.notifications[0].data).to.eql({});
+      expect(userToJSON.notifications[0].seen).to.eql(false);
+    });
+
+    it('can add notifications with data and already marked as seen', () => {
+      const user = new User();
+
+      user.addNotification('CRON', { field: 1 }, true);
+
+      const userToJSON = user.toJSON();
+      expect(user.notifications.length).to.equal(1);
+      expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
+      expect(userToJSON.notifications[0].type).to.equal('CRON');
+      expect(userToJSON.notifications[0].data).to.eql({ field: 1 });
       expect(userToJSON.notifications[0].seen).to.eql(true);
     });
 
@@ -135,11 +353,11 @@ describe('User Model', () => {
         let user = new User();
         await user.save();
 
-        await User.pushNotification({_id: user._id}, 'CRON');
+        await User.pushNotification({ _id: user._id }, 'CRON');
 
-        user = await User.findOne({_id: user._id}).exec();
+        user = await User.findOne({ _id: user._id }).exec();
 
-        let userToJSON = user.toJSON();
+        const userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
         expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
@@ -147,21 +365,21 @@ describe('User Model', () => {
       });
 
       it('validates notifications via static method', async () => {
-        let user = new User();
+        const user = new User();
         await user.save();
 
-        expect(User.pushNotification({_id: user._id}, 'BAD_TYPE')).to.eventually.be.rejected;
-        expect(User.pushNotification({_id: user._id}, 'CRON', null, 'INVALID_SEEN')).to.eventually.be.rejected;
+        expect(User.pushNotification({ _id: user._id }, 'BAD_TYPE')).to.eventually.be.rejected;
+        expect(User.pushNotification({ _id: user._id }, 'CRON', null, 'INVALID_SEEN')).to.eventually.be.rejected;
       });
 
       it('adds notifications without data for all given users via static method', async () => {
         let user = new User();
-        let otherUser = new User();
+        const otherUser = new User();
         await Promise.all([user.save(), otherUser.save()]);
 
-        await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON');
+        await User.pushNotification({ _id: { $in: [user._id, otherUser._id] } }, 'CRON');
 
-        user = await User.findOne({_id: user._id}).exec();
+        user = await User.findOne({ _id: user._id }).exec();
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
@@ -170,7 +388,7 @@ describe('User Model', () => {
         expect(userToJSON.notifications[0].data).to.eql({});
         expect(userToJSON.notifications[0].seen).to.eql(false);
 
-        user = await User.findOne({_id: otherUser._id}).exec();
+        user = await User.findOne({ _id: otherUser._id }).exec();
 
         userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
@@ -182,27 +400,27 @@ describe('User Model', () => {
 
       it('adds notifications with data and seen status for all given users via static method', async () => {
         let user = new User();
-        let otherUser = new User();
+        const otherUser = new User();
         await Promise.all([user.save(), otherUser.save()]);
 
-        await User.pushNotification({_id: {$in: [user._id, otherUser._id]}}, 'CRON', {field: 1}, true);
+        await User.pushNotification({ _id: { $in: [user._id, otherUser._id] } }, 'CRON', { field: 1 }, true);
 
-        user = await User.findOne({_id: user._id}).exec();
+        user = await User.findOne({ _id: user._id }).exec();
 
         let userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
         expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
-        expect(userToJSON.notifications[0].data).to.eql({field: 1});
+        expect(userToJSON.notifications[0].data).to.eql({ field: 1 });
         expect(userToJSON.notifications[0].seen).to.eql(true);
 
-        user = await User.findOne({_id: otherUser._id}).exec();
+        user = await User.findOne({ _id: otherUser._id }).exec();
 
         userToJSON = user.toJSON();
         expect(user.notifications.length).to.equal(1);
         expect(userToJSON.notifications[0]).to.have.all.keys(['data', 'id', 'type', 'seen']);
         expect(userToJSON.notifications[0].type).to.equal('CRON');
-        expect(userToJSON.notifications[0].data).to.eql({field: 1});
+        expect(userToJSON.notifications[0].data).to.eql({ field: 1 });
         expect(userToJSON.notifications[0].seen).to.eql(true);
       });
     });
@@ -245,7 +463,7 @@ describe('User Model', () => {
     let group;
     beforeEach(() => {
       user = new User();
-      let leader = new User();
+      const leader = new User();
       group = new Group({
         name: 'test',
         type: 'guild',
@@ -379,11 +597,13 @@ describe('User Model', () => {
 
       // Create conditions for the Beast Master achievement to be awarded
       user.achievements.beastMasterCount = 3;
-      expect(user.achievements.beastMaster).to.not.equal(true); // verify that it was not awarded initially
+      // verify that it was not awarded initially
+      expect(user.achievements.beastMaster).to.not.equal(true);
 
       user = await user.save();
       // verify that it's been awarded
       expect(user.achievements.beastMaster).to.equal(true);
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_BEAST_MASTER')).to.exist;
 
       // reset the user
       user.achievements.beastMasterCount = 0;
@@ -397,7 +617,8 @@ describe('User Model', () => {
       user = await User.findById(user._id).select('-items').exec();
       expect(user.isSelected('items')).to.equal(false);
 
-      // create the conditions for the beast master achievement but this time it should not be awarded
+      // create the conditions for the beast master achievement
+      // but this time it should not be awarded
       user.achievements.beastMasterCount = 3;
       user = await user.save();
       expect(user.achievements.beastMaster).to.equal(false);
@@ -412,6 +633,28 @@ describe('User Model', () => {
       user.achievements.beastMasterCount = 3;
       user = await user.save();
       expect(user.achievements.beastMaster).to.not.equal(true);
+    });
+
+    it('adds achievements to notification list', async () => {
+      let user = new User();
+      user = await user.save(); // necessary for user.isSelected to work correctly
+
+      // Create conditions for achievements to be awarded
+      user.achievements.beastMasterCount = 3;
+      user.achievements.mountMasterCount = 3;
+      user.achievements.triadBingoCount = 3;
+      // verify that it was not awarded initially
+      expect(user.achievements.beastMaster).to.not.equal(true);
+      // verify that it was not awarded initially
+      expect(user.achievements.mountMaster).to.not.equal(true);
+      // verify that it was not awarded initially
+      expect(user.achievements.triadBingo).to.not.equal(true);
+
+      user = await user.save();
+      // verify that it's been awarded
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_BEAST_MASTER')).to.exist;
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_MOUNT_MASTER')).to.exist;
+      expect(user.notifications.find(notification => notification.type === 'ACHIEVEMENT_TRIAD_BINGO')).to.exist;
     });
 
     context('manage unallocated stats points notifications', () => {
@@ -536,11 +779,9 @@ describe('User Model', () => {
 
       const today = moment('2017-12-06T00:00:00.000-06:00'); // 11 pm on 4 Texas
       const req = {};
-      req.header = () => {
-        return timezoneOffset + 60;
-      };
+      req.header = () => timezoneOffset + 60;
 
-      const {daysMissed} = user.daysUserHasMissed(today, req);
+      const { daysMissed } = user.daysUserHasMissed(today, req);
 
       expect(daysMissed).to.eql(0);
     });
@@ -554,11 +795,9 @@ describe('User Model', () => {
 
       const today = moment('2017-12-06T02:00:00.000-08:00');
       const req = {};
-      req.header = () => {
-        return timezoneOffset + 60;
-      };
+      req.header = () => timezoneOffset + 60;
 
-      const {daysMissed} = user.daysUserHasMissed(today, req);
+      const { daysMissed } = user.daysUserHasMissed(today, req);
 
       expect(daysMissed).to.eql(0);
     });

@@ -10,16 +10,23 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 import errorMessage from '../../../website/common/script/libs/errorMessage';
+import shared from '../../../website/common/script';
 
 describe('shared.ops.feed', () => {
   let user;
 
   beforeEach(() => {
     user = generateUser();
+    user.addAchievement = sinon.spy();
+    sinon.stub(shared.onboarding, 'checkOnboardingStatus');
+  });
+
+  afterEach(() => {
+    shared.onboarding.checkOnboardingStatus.restore();
   });
 
   context('failure conditions', () => {
-    it('does not allow feeding without specifying pet and food', (done) => {
+    it('does not allow feeding without specifying pet and food', done => {
       try {
         feed(user);
       } catch (err) {
@@ -29,9 +36,9 @@ describe('shared.ops.feed', () => {
       }
     });
 
-    it('does not allow feeding if pet name format is invalid', (done) => {
+    it('does not allow feeding if pet name format is invalid', done => {
       try {
-        feed(user, {params: {pet: 'invalid', food: 'food'}});
+        feed(user, { params: { pet: 'invalid', food: 'food' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(BadRequest);
         expect(err.message).to.equal(errorMessage('invalidPetName'));
@@ -39,9 +46,9 @@ describe('shared.ops.feed', () => {
       }
     });
 
-    it('does not allow feeding if food does not exist', (done) => {
+    it('does not allow feeding if food does not exist', done => {
       try {
-        feed(user, {params: {pet: 'Wolf-Red', food: 'invalid food name'}});
+        feed(user, { params: { pet: 'Wolf-Red', food: 'invalid food name' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(errorMessage('invalidFoodName'));
@@ -49,9 +56,9 @@ describe('shared.ops.feed', () => {
       }
     });
 
-    it('does not allow feeding if pet is not owned', (done) => {
+    it('does not allow feeding if pet is not owned', done => {
       try {
-        feed(user, {params: {pet: 'Wolf-Red', food: 'Meat'}});
+        feed(user, { params: { pet: 'Wolf-Red', food: 'Meat' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(i18n.t('messagePetNotFound'));
@@ -59,10 +66,10 @@ describe('shared.ops.feed', () => {
       }
     });
 
-    it('does not allow feeding if food is not owned', (done) => {
+    it('does not allow feeding if food is not owned', done => {
       user.items.pets['Wolf-Base'] = 5;
       try {
-        feed(user, {params: {pet: 'Wolf-Base', food: 'Meat'}});
+        feed(user, { params: { pet: 'Wolf-Base', food: 'Meat' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotFound);
         expect(err.message).to.equal(i18n.t('messageFoodNotFound'));
@@ -70,11 +77,11 @@ describe('shared.ops.feed', () => {
       }
     });
 
-    it('does not allow feeding of special pets', (done) => {
+    it('does not allow feeding of special pets', done => {
       user.items.pets['Wolf-Veteran'] = 5;
       user.items.food.Meat = 1;
       try {
-        feed(user, {params: {pet: 'Wolf-Veteran', food: 'Meat'}});
+        feed(user, { params: { pet: 'Wolf-Veteran', food: 'Meat' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageCannotFeedPet'));
@@ -82,12 +89,24 @@ describe('shared.ops.feed', () => {
       }
     });
 
-    it('does not allow feeding of mounts', (done) => {
+    it('does not allow feeding of wacky pets', done => {
+      user.items.pets['Wolf-Veggie'] = 5;
+      user.items.food.Meat = 1;
+      try {
+        feed(user, { params: { pet: 'Wolf-Veggie', food: 'Meat' } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('messageCannotFeedPet'));
+        done();
+      }
+    });
+
+    it('does not allow feeding of mounts', done => {
       user.items.pets['Wolf-Base'] = -1;
       user.items.mounts['Wolf-Base'] = true;
       user.items.food.Meat = 1;
       try {
-        feed(user, {params: {pet: 'Wolf-Base', food: 'Meat'}});
+        feed(user, { params: { pet: 'Wolf-Base', food: 'Meat' } });
       } catch (err) {
         expect(err).to.be.an.instanceof(NotAuthorized);
         expect(err.message).to.equal(i18n.t('messageAlreadyMount'));
@@ -101,9 +120,9 @@ describe('shared.ops.feed', () => {
       user.items.pets['Wolf-Base'] = 5;
       user.items.food.Saddle = 2;
       user.items.currentPet = 'Wolf-Base';
-      let pet = content.petInfo['Wolf-Base'];
+      const pet = content.petInfo['Wolf-Base'];
 
-      let [data, message] = feed(user, {params: {pet: 'Wolf-Base', food: 'Saddle'}});
+      const [data, message] = feed(user, { params: { pet: 'Wolf-Base', food: 'Saddle' } });
       expect(data).to.eql(user.items.pets['Wolf-Base']);
       expect(message).to.eql(i18n.t('messageEvolve', {
         egg: pet.text(),
@@ -119,10 +138,10 @@ describe('shared.ops.feed', () => {
       user.items.pets['Wolf-Base'] = 5;
       user.items.food.Meat = 2;
 
-      let food = content.food.Meat;
-      let pet = content.petInfo['Wolf-Base'];
+      const food = content.food.Meat;
+      const pet = content.petInfo['Wolf-Base'];
 
-      let [data, message] = feed(user, {params: {pet: 'Wolf-Base', food: 'Meat'}});
+      const [data, message] = feed(user, { params: { pet: 'Wolf-Base', food: 'Meat' } });
       expect(data).to.eql(user.items.pets['Wolf-Base']);
       expect(message).to.eql(i18n.t('messageLikesFood', {
         egg: pet.text(),
@@ -137,10 +156,10 @@ describe('shared.ops.feed', () => {
       user.items.pets['Wolf-Spooky'] = 5;
       user.items.food.Milk = 2;
 
-      let food = content.food.Milk;
-      let pet = content.petInfo['Wolf-Spooky'];
+      const food = content.food.Milk;
+      const pet = content.petInfo['Wolf-Spooky'];
 
-      let [data, message] = feed(user, {params: {pet: 'Wolf-Spooky', food: 'Milk'}});
+      const [data, message] = feed(user, { params: { pet: 'Wolf-Spooky', food: 'Milk' } });
       expect(data).to.eql(user.items.pets['Wolf-Spooky']);
       expect(message).to.eql(i18n.t('messageLikesFood', {
         egg: pet.text(),
@@ -155,10 +174,10 @@ describe('shared.ops.feed', () => {
       user.items.pets['Wolf-Base'] = 5;
       user.items.food.Milk = 2;
 
-      let food = content.food.Milk;
-      let pet = content.petInfo['Wolf-Base'];
+      const food = content.food.Milk;
+      const pet = content.petInfo['Wolf-Base'];
 
-      let [data, message] = feed(user, {params: {pet: 'Wolf-Base', food: 'Milk'}});
+      const [data, message] = feed(user, { params: { pet: 'Wolf-Base', food: 'Milk' } });
       expect(data).to.eql(user.items.pets['Wolf-Base']);
       expect(message).to.eql(i18n.t('messageDontEnjoyFood', {
         egg: pet.text(),
@@ -169,14 +188,50 @@ describe('shared.ops.feed', () => {
       expect(user.items.pets['Wolf-Base']).to.equal(7);
     });
 
+    it('awards All Your Base achievement', () => {
+      user.items.pets['Wolf-Spooky'] = 5;
+      user.items.food.Milk = 2;
+      user.items.mounts = {
+        'Wolf-Base': true,
+        'TigerCub-Base': true,
+        'PandaCub-Base': true,
+        'LionCub-Base': true,
+        'Fox-Base': true,
+        'FlyingPig-Base': true,
+        'Dragon-Base': true,
+        'Cactus-Base': true,
+        'BearCub-Base': true,
+      };
+      feed(user, { params: { pet: 'Wolf-Spooky', food: 'Milk' } });
+      expect(user.achievements.allYourBase).to.eql(true);
+    });
+
+    it('awards Arid Authority achievement', () => {
+      user.items.pets['Wolf-Spooky'] = 5;
+      user.items.food.Milk = 2;
+      user.items.mounts = {
+        'Wolf-Desert': true,
+        'TigerCub-Desert': true,
+        'PandaCub-Desert': true,
+        'LionCub-Desert': true,
+        'Fox-Desert': true,
+        'FlyingPig-Desert': true,
+        'Dragon-Desert': true,
+        'Cactus-Desert': true,
+        'BearCub-Desert': true,
+      };
+      feed(user, { params: { pet: 'Wolf-Spooky', food: 'Milk' } });
+      expect(user.achievements.aridAuthority).to.eql(true);
+    });
+
     it('evolves the pet into a mount when feeding user.items.pets[pet] >= 50', () => {
       user.items.pets['Wolf-Base'] = 49;
       user.items.food.Milk = 2;
       user.items.currentPet = 'Wolf-Base';
 
-      let pet = content.petInfo['Wolf-Base'];
+      const pet = content.petInfo['Wolf-Base'];
 
-      let [data, message] = feed(user, {params: {pet: 'Wolf-Base', food: 'Milk'}});
+      const [data, message] = feed(user, { params: { pet: 'Wolf-Base', food: 'Milk' } });
       expect(data).to.eql(user.items.pets['Wolf-Base']);
       expect(message).to.eql(i18n.t('messageEvolve', {
         egg: pet.text(),
@@ -186,6 +241,29 @@ describe('shared.ops.feed', () => {
       expect(user.items.pets['Wolf-Base']).to.equal(-1);
       expect(user.items.mounts['Wolf-Base']).to.equal(true);
       expect(user.items.currentPet).to.equal('');
+    });
+
+    it('adds the onboarding achievement to the user and checks the onboarding status', () => {
+      user.items.pets['Wolf-Base'] = 5;
+      user.items.food.Meat = 2;
+
+      feed(user, { params: { pet: 'Wolf-Base', food: 'Meat' } });
+
+      expect(user.addAchievement).to.be.calledOnce;
+      expect(user.addAchievement).to.be.calledWith('fedPet');
+
+      expect(shared.onboarding.checkOnboardingStatus).to.be.calledOnce;
+      expect(shared.onboarding.checkOnboardingStatus).to.be.calledWith(user);
+    });
+
+    it('does not add the onboarding achievement to the user if it\'s already been awarded', () => {
+      user.items.pets['Wolf-Base'] = 5;
+      user.items.food.Meat = 2;
+      user.achievements.fedPet = true;
+
+      feed(user, { params: { pet: 'Wolf-Base', food: 'Meat' } });
+
+      expect(user.addAchievement).to.not.be.called;
     });
   });
 });

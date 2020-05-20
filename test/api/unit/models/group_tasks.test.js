@@ -1,14 +1,15 @@
+import { each, find, findIndex } from 'lodash';
 import { model as Challenge } from '../../../../website/server/models/challenge';
 import { model as Group } from '../../../../website/server/models/group';
 import { model as User } from '../../../../website/server/models/user';
 import * as Tasks from '../../../../website/server/models/task';
-import { each, find, findIndex } from 'lodash';
 import { handleSharedCompletion } from '../../../../website/server/libs/groupTasks';
 import common from '../../../../website/common/index';
 
 describe('Group Task Methods', () => {
-  let guild, leader, challenge, task;
-  let tasksToTest = {
+  let guild; let leader; let challenge; let
+    task;
+  const tasksToTest = {
     habit: {
       text: 'test habit',
       type: 'habit',
@@ -81,9 +82,9 @@ describe('Group Task Methods', () => {
       it('syncs an assigned task to a user', async () => {
         await guild.linkTask(task, leader);
 
-        let updatedLeader = await User.findOne({_id: leader._id});
-        let tagIndex = findIndex(updatedLeader.tags, {id: guild._id});
-        let newTag = updatedLeader.tags[tagIndex];
+        const updatedLeader = await User.findOne({ _id: leader._id });
+        const tagIndex = findIndex(updatedLeader.tags, { id: guild._id });
+        const newTag = updatedLeader.tags[tagIndex];
 
         expect(newTag.id).to.equal(guild._id);
         expect(newTag.name).to.equal(guild.name);
@@ -93,9 +94,9 @@ describe('Group Task Methods', () => {
       it('create tags for a user when task is synced', async () => {
         await guild.linkTask(task, leader);
 
-        let updatedLeader = await User.findOne({_id: leader._id});
-        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-        let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+        const updatedLeader = await User.findOne({ _id: leader._id });
+        const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+        const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
         expect(task.group.assignedUsers).to.contain(leader._id);
         expect(syncedTask).to.exist;
@@ -103,13 +104,13 @@ describe('Group Task Methods', () => {
 
       it('syncs updated info for assigned task to a user', async () => {
         await guild.linkTask(task, leader);
-        let updatedTaskName = 'Update Task name';
+        const updatedTaskName = 'Update Task name';
         task.text = updatedTaskName;
         await guild.syncTask(task, leader);
 
-        let updatedLeader = await User.findOne({_id: leader._id});
-        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-        let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+        const updatedLeader = await User.findOne({ _id: leader._id });
+        const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+        const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
         expect(task.group.assignedUsers).to.contain(leader._id);
         expect(syncedTask).to.exist;
@@ -119,9 +120,9 @@ describe('Group Task Methods', () => {
       it('syncs checklist items to an assigned user', async () => {
         await guild.linkTask(task, leader);
 
-        let updatedLeader = await User.findOne({_id: leader._id});
-        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-        let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+        const updatedLeader = await User.findOne({ _id: leader._id });
+        const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+        const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
         if (task.type !== 'daily' && task.type !== 'todo') return;
 
@@ -143,19 +144,19 @@ describe('Group Task Methods', () => {
         });
 
         it('syncs updated info for assigned task to all users', async () => {
-          let updatedTaskName = 'Update Task name';
+          const updatedTaskName = 'Update Task name';
           task.text = updatedTaskName;
           task.group.approval.required = true;
 
           await guild.updateTask(task);
 
-          let updatedLeader = await User.findOne({_id: leader._id});
-          let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-          let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+          const updatedLeader = await User.findOne({ _id: leader._id });
+          const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+          const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-          let updatedMember = await User.findOne({_id: newMember._id});
-          let updatedMemberTasks = await Tasks.Task.find({_id: { $in: updatedMember.tasksOrder[`${taskType}s`]}});
-          let syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
+          const updatedMember = await User.findOne({ _id: newMember._id });
+          const updatedMemberTasks = await Tasks.Task.find({ _id: { $in: updatedMember.tasksOrder[`${taskType}s`] } });
+          const syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
 
           expect(task.group.assignedUsers).to.contain(leader._id);
           expect(syncedTask).to.exist;
@@ -171,22 +172,22 @@ describe('Group Task Methods', () => {
         it('syncs a new checklist item to all assigned users', async () => {
           if (task.type !== 'daily' && task.type !== 'todo') return;
 
-          let newCheckListItem = {
+          const newCheckListItem = {
             text: 'Checklist Item 1',
             completed: false,
           };
 
           task.checklist.push(newCheckListItem);
 
-          await guild.updateTask(task, {newCheckListItem});
+          await guild.updateTask(task, { newCheckListItem });
 
-          let updatedLeader = await User.findOne({_id: leader._id});
-          let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-          let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+          const updatedLeader = await User.findOne({ _id: leader._id });
+          const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+          const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-          let updatedMember = await User.findOne({_id: newMember._id});
-          let updatedMemberTasks = await Tasks.Task.find({_id: { $in: updatedMember.tasksOrder[`${taskType}s`]}});
-          let syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
+          const updatedMember = await User.findOne({ _id: newMember._id });
+          const updatedMemberTasks = await Tasks.Task.find({ _id: { $in: updatedMember.tasksOrder[`${taskType}s`] } });
+          const syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
 
           expect(syncedTask.checklist.length).to.equal(task.checklist.length);
           expect(syncedTask.checklist[1].text).to.equal(task.checklist[1].text);
@@ -197,20 +198,20 @@ describe('Group Task Methods', () => {
         it('syncs updated info for checklist in assigned task to all users when flag is passed', async () => {
           if (task.type !== 'daily' && task.type !== 'todo') return;
 
-          let updateCheckListText = 'Updated checklist item';
+          const updateCheckListText = 'Updated checklist item';
           if (task.checklist) {
             task.checklist[0].text = updateCheckListText;
           }
 
-          await guild.updateTask(task, {updateCheckListItems: [task.checklist[0]]});
+          await guild.updateTask(task, { updateCheckListItems: [task.checklist[0]] });
 
-          let updatedLeader = await User.findOne({_id: leader._id});
-          let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-          let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+          const updatedLeader = await User.findOne({ _id: leader._id });
+          const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+          const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-          let updatedMember = await User.findOne({_id: newMember._id});
-          let updatedMemberTasks = await Tasks.Task.find({_id: { $in: updatedMember.tasksOrder[`${taskType}s`]}});
-          let syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
+          const updatedMember = await User.findOne({ _id: newMember._id });
+          const updatedMemberTasks = await Tasks.Task.find({ _id: { $in: updatedMember.tasksOrder[`${taskType}s`] } });
+          const syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
 
           expect(syncedTask.checklist.length).to.equal(task.checklist.length);
           expect(syncedTask.checklist[0].text).to.equal(updateCheckListText);
@@ -221,15 +222,15 @@ describe('Group Task Methods', () => {
         it('removes a checklist item in assigned task to all users when flag is passed with checklist id', async () => {
           if (task.type !== 'daily' && task.type !== 'todo') return;
 
-          await guild.updateTask(task, {removedCheckListItemId: task.checklist[0].id});
+          await guild.updateTask(task, { removedCheckListItemId: task.checklist[0].id });
 
-          let updatedLeader = await User.findOne({_id: leader._id});
-          let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-          let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+          const updatedLeader = await User.findOne({ _id: leader._id });
+          const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+          const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-          let updatedMember = await User.findOne({_id: newMember._id});
-          let updatedMemberTasks = await Tasks.Task.find({_id: { $in: updatedMember.tasksOrder[`${taskType}s`]}});
-          let syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
+          const updatedMember = await User.findOne({ _id: newMember._id });
+          const updatedMemberTasks = await Tasks.Task.find({ _id: { $in: updatedMember.tasksOrder[`${taskType}s`] } });
+          const syncedMemberTask = find(updatedMemberTasks, findLinkedTask);
 
           expect(syncedTask.checklist.length).to.equal(0);
           expect(syncedMemberTask.checklist.length).to.equal(0);
@@ -290,9 +291,9 @@ describe('Group Task Methods', () => {
         await guild.linkTask(task, leader);
         await guild.removeTask(task);
 
-        let updatedLeader = await User.findOne({_id: leader._id});
-        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-        let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+        const updatedLeader = await User.findOne({ _id: leader._id });
+        const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+        const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
         expect(syncedTask.group.broken).to.equal('TASK_DELETED');
       });
@@ -301,9 +302,9 @@ describe('Group Task Methods', () => {
         await guild.linkTask(task, leader);
         await guild.unlinkTask(task, leader, 'remove-all');
 
-        let updatedLeader = await User.findOne({_id: leader._id});
-        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-        let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+        const updatedLeader = await User.findOne({ _id: leader._id });
+        const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+        const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
         expect(task.group.assignedUsers).to.not.contain(leader._id);
         expect(syncedTask).to.not.exist;
@@ -312,17 +313,18 @@ describe('Group Task Methods', () => {
       it('unlinks and keeps group tasks for a user when keep-all is specified', async () => {
         await guild.linkTask(task, leader);
 
-        let updatedLeader = await User.findOne({_id: leader._id});
-        let updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-        let syncedTask = find(updatedLeadersTasks, findLinkedTask);
+        let updatedLeader = await User.findOne({ _id: leader._id });
+        let updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+        const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
         await guild.unlinkTask(task, leader, 'keep-all');
 
-        updatedLeader = await User.findOne({_id: leader._id});
-        updatedLeadersTasks = await Tasks.Task.find({_id: { $in: updatedLeader.tasksOrder[`${taskType}s`]}});
-        let updatedSyncedTask = find(updatedLeadersTasks, function findUpdatedLinkedTask (updatedLeadersTask) {
-          return updatedLeadersTask._id === syncedTask._id;
-        });
+        updatedLeader = await User.findOne({ _id: leader._id });
+        updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+        const updatedSyncedTask = find(
+          updatedLeadersTasks,
+          updatedLeadersTask => updatedLeadersTask._id === syncedTask._id,
+        );
 
         expect(task.group.assignedUsers).to.not.contain(leader._id);
         expect(updatedSyncedTask).to.exist;

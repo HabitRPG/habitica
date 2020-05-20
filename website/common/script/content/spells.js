@@ -1,8 +1,9 @@
-import t from './translation';
 import each from 'lodash/each';
+import t from './translation';
 import { NotAuthorized } from '../libs/errors';
-import statsComputed from '../libs/statsComputed';
-import crit from '../fns/crit';
+import statsComputed from '../libs/statsComputed'; // eslint-disable-line import/no-cycle
+import setDebuffPotionItems from '../libs/setDebuffPotionItems'; // eslint-disable-line import/no-cycle
+import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
 import updateStats from '../fns/updateStats';
 
 /*
@@ -11,23 +12,32 @@ import updateStats from '../fns/updateStats';
   ---------------------------------------------------------------
   Text, notes, and mana are obvious. The rest:
 
-  * {target}: one of [task, self, party, user]. This is very important, because if the cast() function is expecting one
-    thing and receives another, it will cause errors. `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
+  * {target}: one of [task, self, party, user].
+  * This is very important, because if the cast() function is expecting one
+    thing and receives another, it will cause errors.
+    `self` is used for self buffs, multi-task debuffs, AOEs (eg, meteor-shower),
     etc. Basically, use self for anything that's not [task, party, user] and is an instant-cast
 
-  * {cast}: the function that's run to perform the ability's action. This is pretty slick - because this is exported to the
-    web, this function can be performed on the client and on the server. `user` param is self (needed for determining your
-    own stats for effectiveness of cast), and `target` param is one of [task, party, user]. In the case of `self` skills,
-    you act on `user` instead of `target`. You can trust these are the correct objects, as long as the `target` attr of the
-    spell is correct. Take a look at habitrpg/website/server/models/user.js and habitrpg/website/server/models/task.js for what attributes are
-    available on each model. Note `task.value` is its "redness". If party is passed in, it's an array of users,
+  * {cast}: the function that's run to perform the ability's action.
+    This is pretty slick - because this is exported to the
+    web, this function can be performed on the client and on the server.
+    `user` param is self (needed for determining your
+    own stats for effectiveness of cast), and `target` param is one of [task, party, user].
+    In the case of `self` skills,
+    you act on `user` instead of `target`. You can trust these are the correct objects,
+    as long as the `target` attr of the
+    spell is correct. Take a look at habitrpg/website/server/models/user.js and
+    habitrpg/website/server/models/task.js for what attributes are
+    available on each model. Note `task.value` is its "redness".
+    If party is passed in, it's an array of users,
     so you'll want to iterate over them like: `_.each(target,function(member){...})`
 
-  Note, user.stats.mp is docked after automatically (it's appended to functions automatically down below in an _.each)
+  Note, user.stats.mp is docked after automatically
+  (it's appended to functions automatically down below in an _.each)
  */
 
 function diminishingReturns (bonus, max, halfway) {
-  if (!halfway) halfway = max / 2;
+  if (!halfway) halfway = max / 2; // eslint-disable-line no-param-reassign
   return max * (bonus / (bonus + halfway));
 }
 
@@ -35,7 +45,7 @@ function calculateBonus (value, stat, critVal = 1, statScale = 0.5) {
   return (value < 0 ? 1 : value + 1) + stat * statScale * critVal;
 }
 
-let spells = {};
+const spells = {};
 
 spells.wizard = {
   fireball: { // Burst of Flames
@@ -60,8 +70,8 @@ spells.wizard = {
     target: 'party',
     notes: t('spellWizardMPHealNotes'),
     cast (user, target) {
-      each(target, (member) => {
-        let bonus = statsComputed(user).int;
+      each(target, member => {
+        const bonus = statsComputed(user).int;
         if (user._id !== member._id && member.stats.class !== 'wizard') {
           member.stats.mp += Math.ceil(diminishingReturns(bonus, 25, 125));
         }
@@ -75,8 +85,8 @@ spells.wizard = {
     target: 'party',
     notes: t('spellWizardEarthNotes'),
     cast (user, target) {
-      each(target, (member) => {
-        let bonus = statsComputed(user).int - user.stats.buffs.int;
+      each(target, member => {
+        const bonus = statsComputed(user).int - user.stats.buffs.int;
         if (!member.stats.buffs.int) member.stats.buffs.int = 0;
         member.stats.buffs.int += Math.ceil(diminishingReturns(bonus, 30, 200));
       });
@@ -102,7 +112,7 @@ spells.warrior = {
     target: 'task',
     notes: t('spellWarriorSmashNotes'),
     cast (user, target) {
-      let bonus = statsComputed(user).str * crit.crit(user, 'con');
+      const bonus = statsComputed(user).str * crit.crit(user, 'con');
       target.value += diminishingReturns(bonus, 2.5, 35);
       if (!user.party.quest.progress.up) user.party.quest.progress.up = 0;
       user.party.quest.progress.up += diminishingReturns(bonus, 55, 70);
@@ -115,7 +125,7 @@ spells.warrior = {
     target: 'self',
     notes: t('spellWarriorDefensiveStanceNotes'),
     cast (user) {
-      let bonus = statsComputed(user).con - user.stats.buffs.con;
+      const bonus = statsComputed(user).con - user.stats.buffs.con;
       if (!user.stats.buffs.con) user.stats.buffs.con = 0;
       user.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 40, 200));
     },
@@ -127,8 +137,8 @@ spells.warrior = {
     target: 'party',
     notes: t('spellWarriorValorousPresenceNotes'),
     cast (user, target) {
-      each(target, (member) => {
-        let bonus = statsComputed(user).str - user.stats.buffs.str;
+      each(target, member => {
+        const bonus = statsComputed(user).str - user.stats.buffs.str;
         if (!member.stats.buffs.str) member.stats.buffs.str = 0;
         member.stats.buffs.str += Math.ceil(diminishingReturns(bonus, 20, 200));
       });
@@ -141,8 +151,8 @@ spells.warrior = {
     target: 'party',
     notes: t('spellWarriorIntimidateNotes'),
     cast (user, target) {
-      each(target, (member) => {
-        let bonus = statsComputed(user).con - user.stats.buffs.con;
+      each(target, member => {
+        const bonus = statsComputed(user).con - user.stats.buffs.con;
         if (!member.stats.buffs.con) member.stats.buffs.con = 0;
         member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 24, 200));
       });
@@ -158,7 +168,7 @@ spells.rogue = {
     target: 'task',
     notes: t('spellRoguePickPocketNotes'),
     cast (user, target) {
-      let bonus = calculateBonus(target.value, statsComputed(user).per);
+      const bonus = calculateBonus(target.value, statsComputed(user).per);
       user.stats.gp += diminishingReturns(bonus, 25, 75);
     },
   },
@@ -169,8 +179,8 @@ spells.rogue = {
     target: 'task',
     notes: t('spellRogueBackStabNotes'),
     cast (user, target, req) {
-      let _crit = crit.crit(user, 'str', 0.3);
-      let bonus = calculateBonus(target.value, statsComputed(user).str, _crit);
+      const _crit = crit.crit(user, 'str', 0.3);
+      const bonus = calculateBonus(target.value, statsComputed(user).str, _crit);
       user.stats.exp += diminishingReturns(bonus, 75, 50);
       user.stats.gp += diminishingReturns(bonus, 18, 75);
       updateStats(user, user.stats, req);
@@ -183,8 +193,8 @@ spells.rogue = {
     target: 'party',
     notes: t('spellRogueToolsOfTradeNotes'),
     cast (user, target) {
-      each(target, (member) => {
-        let bonus = statsComputed(user).per - user.stats.buffs.per;
+      each(target, member => {
+        const bonus = statsComputed(user).per - user.stats.buffs.per;
         if (!member.stats.buffs.per) member.stats.buffs.per = 0;
         member.stats.buffs.per += Math.ceil(diminishingReturns(bonus, 100, 50));
       });
@@ -198,7 +208,9 @@ spells.rogue = {
     notes: t('spellRogueStealthNotes'),
     cast (user) {
       if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
-      user.stats.buffs.stealth += Math.ceil(diminishingReturns(statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55));
+      user.stats.buffs.stealth += Math.ceil(diminishingReturns(
+        statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55,
+      ));
     },
   },
 };
@@ -223,7 +235,7 @@ spells.healer = {
     target: 'tasks',
     notes: t('spellHealerBrightnessNotes'),
     cast (user, tasks) {
-      each(tasks, (task) => {
+      each(tasks, task => {
         if (task.type !== 'reward') {
           task.value += 4 * (statsComputed(user).int / (statsComputed(user).int + 40));
         }
@@ -237,8 +249,8 @@ spells.healer = {
     target: 'party',
     notes: t('spellHealerProtectAuraNotes'),
     cast (user, target) {
-      each(target, (member) => {
-        let bonus = statsComputed(user).con - user.stats.buffs.con;
+      each(target, member => {
+        const bonus = statsComputed(user).con - user.stats.buffs.con;
         if (!member.stats.buffs.con) member.stats.buffs.con = 0;
         member.stats.buffs.con += Math.ceil(diminishingReturns(bonus, 200, 200));
       });
@@ -251,7 +263,7 @@ spells.healer = {
     target: 'party',
     notes: t('spellHealerHealAllNotes'),
     cast (user, target) {
-      each(target, (member) => {
+      each(target, member => {
         member.stats.hp += (statsComputed(user).con + statsComputed(user).int + 5) * 0.04;
         if (member.stats.hp > 50) member.stats.hp = 50;
       });
@@ -274,8 +286,9 @@ spells.special = {
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = false;
       if (!target.achievements.snowball) target.achievements.snowball = 0;
-      target.achievements.snowball++;
-      user.items.special.snowball--;
+      target.achievements.snowball += 1;
+      user.items.special.snowball -= 1;
+      setDebuffPotionItems(user);
     },
   },
   salt: {
@@ -289,6 +302,7 @@ spells.special = {
     cast (user) {
       user.stats.buffs.snowball = false;
       user.stats.gp -= 5;
+      setDebuffPotionItems(user);
     },
   },
   spookySparkles: {
@@ -305,8 +319,9 @@ spells.special = {
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = false;
       if (!target.achievements.spookySparkles) target.achievements.spookySparkles = 0;
-      target.achievements.spookySparkles++;
-      user.items.special.spookySparkles--;
+      target.achievements.spookySparkles += 1;
+      user.items.special.spookySparkles -= 1;
+      setDebuffPotionItems(user);
     },
   },
   opaquePotion: {
@@ -320,6 +335,7 @@ spells.special = {
     cast (user) {
       user.stats.buffs.spookySparkles = false;
       user.stats.gp -= 5;
+      setDebuffPotionItems(user);
     },
   },
   shinySeed: {
@@ -336,8 +352,9 @@ spells.special = {
       target.stats.buffs.shinySeed = true;
       target.stats.buffs.seafoam = false;
       if (!target.achievements.shinySeed) target.achievements.shinySeed = 0;
-      target.achievements.shinySeed++;
-      user.items.special.shinySeed--;
+      target.achievements.shinySeed += 1;
+      user.items.special.shinySeed -= 1;
+      setDebuffPotionItems(user);
     },
   },
   petalFreePotion: {
@@ -351,6 +368,7 @@ spells.special = {
     cast (user) {
       user.stats.buffs.shinySeed = false;
       user.stats.gp -= 5;
+      setDebuffPotionItems(user);
     },
   },
   seafoam: {
@@ -367,8 +385,9 @@ spells.special = {
       target.stats.buffs.shinySeed = false;
       target.stats.buffs.seafoam = true;
       if (!target.achievements.seafoam) target.achievements.seafoam = 0;
-      target.achievements.seafoam++;
-      user.items.special.seafoam--;
+      target.achievements.seafoam += 1;
+      user.items.special.seafoam -= 1;
+      setDebuffPotionItems(user);
     },
   },
   sand: {
@@ -382,6 +401,7 @@ spells.special = {
     cast (user) {
       user.stats.buffs.seafoam = false;
       user.stats.gp -= 5;
+      setDebuffPotionItems(user);
     },
   },
   nye: {
@@ -395,11 +415,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.nye) user.achievements.nye = 0;
-        user.achievements.nye++;
+        user.achievements.nye += 1;
       } else {
-        each([user, target], (u) => {
+        each([user, target], u => {
           if (!u.achievements.nye) u.achievements.nye = 0;
-          u.achievements.nye++;
+          u.achievements.nye += 1;
         });
       }
 
@@ -407,13 +427,15 @@ spells.special = {
       const senderName = user.profile.name;
       target.items.special.nyeReceived.push(senderName);
 
-      if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        card: 'nye',
-        from: {
-          id: user._id,
-          name: senderName,
-        },
-      });
+      if (target.addNotification) {
+        target.addNotification('CARD_RECEIVED', {
+          card: 'nye',
+          from: {
+            id: user._id,
+            name: senderName,
+          },
+        });
+      }
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -430,11 +452,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.valentine) user.achievements.valentine = 0;
-        user.achievements.valentine++;
+        user.achievements.valentine += 1;
       } else {
-        each([user, target], (u) => {
+        each([user, target], u => {
           if (!u.achievements.valentine) u.achievements.valentine = 0;
-          u.achievements.valentine++;
+          u.achievements.valentine += 1;
         });
       }
 
@@ -442,13 +464,15 @@ spells.special = {
       const senderName = user.profile.name;
       target.items.special.valentineReceived.push(senderName);
 
-      if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        card: 'valentine',
-        from: {
-          id: user._id,
-          name: senderName,
-        },
-      });
+      if (target.addNotification) {
+        target.addNotification('CARD_RECEIVED', {
+          card: 'valentine',
+          from: {
+            id: user._id,
+            name: senderName,
+          },
+        });
+      }
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -465,11 +489,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.greeting) user.achievements.greeting = 0;
-        user.achievements.greeting++;
+        user.achievements.greeting += 1;
       } else {
-        each([user, target], (u) => {
+        each([user, target], u => {
           if (!u.achievements.greeting) u.achievements.greeting = 0;
-          u.achievements.greeting++;
+          u.achievements.greeting += 1;
         });
       }
 
@@ -477,13 +501,15 @@ spells.special = {
       const senderName = user.profile.name;
       target.items.special.greetingReceived.push(senderName);
 
-      if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        card: 'greeting',
-        from: {
-          id: user._id,
-          name: senderName,
-        },
-      });
+      if (target.addNotification) {
+        target.addNotification('CARD_RECEIVED', {
+          card: 'greeting',
+          from: {
+            id: user._id,
+            name: senderName,
+          },
+        });
+      }
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -500,11 +526,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.thankyou) user.achievements.thankyou = 0;
-        user.achievements.thankyou++;
+        user.achievements.thankyou += 1;
       } else {
-        each([user, target], (u) => {
+        each([user, target], u => {
           if (!u.achievements.thankyou) u.achievements.thankyou = 0;
-          u.achievements.thankyou++;
+          u.achievements.thankyou += 1;
         });
       }
 
@@ -512,13 +538,15 @@ spells.special = {
       const senderName = user.profile.name;
       target.items.special.thankyouReceived.push(senderName);
 
-      if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        card: 'thankyou',
-        from: {
-          id: user._id,
-          name: senderName,
-        },
-      });
+      if (target.addNotification) {
+        target.addNotification('CARD_RECEIVED', {
+          card: 'thankyou',
+          from: {
+            id: user._id,
+            name: senderName,
+          },
+        });
+      }
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -535,11 +563,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.birthday) user.achievements.birthday = 0;
-        user.achievements.birthday++;
+        user.achievements.birthday += 1;
       } else {
-        each([user, target], (u) => {
+        each([user, target], u => {
           if (!u.achievements.birthday) u.achievements.birthday = 0;
-          u.achievements.birthday++;
+          u.achievements.birthday += 1;
         });
       }
 
@@ -547,13 +575,15 @@ spells.special = {
       const senderName = user.profile.name;
       target.items.special.birthdayReceived.push(senderName);
 
-      if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        card: 'birthday',
-        from: {
-          id: user._id,
-          name: senderName,
-        },
-      });
+      if (target.addNotification) {
+        target.addNotification('CARD_RECEIVED', {
+          card: 'birthday',
+          from: {
+            id: user._id,
+            name: senderName,
+          },
+        });
+      }
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -570,11 +600,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.congrats) user.achievements.congrats = 0;
-        user.achievements.congrats++;
+        user.achievements.congrats += 1;
       } else {
-        each([user, target], (u) => {
+        each([user, target], u => {
           if (!u.achievements.congrats) u.achievements.congrats = 0;
-          u.achievements.congrats++;
+          u.achievements.congrats += 1;
         });
       }
 
@@ -582,13 +612,15 @@ spells.special = {
       const senderName = user.profile.name;
       target.items.special.congratsReceived.push(senderName);
 
-      if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        card: 'congrats',
-        from: {
-          id: user._id,
-          name: senderName,
-        },
-      });
+      if (target.addNotification) {
+        target.addNotification('CARD_RECEIVED', {
+          card: 'congrats',
+          from: {
+            id: user._id,
+            name: senderName,
+          },
+        });
+      }
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -605,11 +637,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.getwell) user.achievements.getwell = 0;
-        user.achievements.getwell++;
+        user.achievements.getwell += 1;
       } else {
-        each([user, target], (u) => {
+        each([user, target], u => {
           if (!u.achievements.getwell) u.achievements.getwell = 0;
-          u.achievements.getwell++;
+          u.achievements.getwell += 1;
         });
       }
 
@@ -617,13 +649,15 @@ spells.special = {
       const senderName = user.profile.name;
       target.items.special.getwellReceived.push(senderName);
 
-      if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        card: 'getwell',
-        from: {
-          id: user._id,
-          name: senderName,
-        },
-      });
+      if (target.addNotification) {
+        target.addNotification('CARD_RECEIVED', {
+          card: 'getwell',
+          from: {
+            id: user._id,
+            name: senderName,
+          },
+        });
+      }
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -640,11 +674,11 @@ spells.special = {
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.goodluck) user.achievements.goodluck = 0;
-        user.achievements.goodluck++;
+        user.achievements.goodluck += 1;
       } else {
-        each([user, target], (u) => {
+        each([user, target], u => {
           if (!u.achievements.goodluck) u.achievements.goodluck = 0;
-          u.achievements.goodluck++;
+          u.achievements.goodluck += 1;
         });
       }
 
@@ -652,13 +686,15 @@ spells.special = {
       const senderName = user.profile.name;
       target.items.special.goodluckReceived.push(senderName);
 
-      if (target.addNotification) target.addNotification('CARD_RECEIVED', {
-        card: 'goodluck',
-        from: {
-          id: user._id,
-          name: senderName,
-        },
-      });
+      if (target.addNotification) {
+        target.addNotification('CARD_RECEIVED', {
+          card: 'goodluck',
+          from: {
+            id: user._id,
+            name: senderName,
+          },
+        });
+      }
       target.flags.cardReceived = true;
 
       user.stats.gp -= 10;
@@ -666,10 +702,10 @@ spells.special = {
   },
 };
 
-each(spells, (spellClass) => {
+each(spells, spellClass => {
   each(spellClass, (spell, key) => {
     spell.key = key;
-    let _cast = spell.cast;
+    const _cast = spell.cast;
     spell.cast = function castSpell (user, target, req) {
       _cast(user, target, req);
       user.stats.mp -= spell.mana;
@@ -677,4 +713,4 @@ each(spells, (spellClass) => {
   });
 });
 
-module.exports = spells;
+export default spells;

@@ -19,13 +19,11 @@ function applyEggDefaults (set, config) {
 }
 
 function hasQuestAchievementFunction (key) {
-  return (user) => {
-    return user.achievements.quests &&
-      user.achievements.quests[key] > 0;
-  };
+  return user => user.achievements.quests
+      && user.achievements.quests[key] > 0;
 }
 
-let drops = {
+const drops = {
   Wolf: {
     text: t('dropEggWolfText'),
     mountText: t('dropEggWolfMountText'),
@@ -73,7 +71,7 @@ let drops = {
   },
 };
 
-let quests = {
+const quests = {
   Gryphon: {
     text: t('questEggGryphonText'),
     mountText: t('questEggGryphonMountText'),
@@ -150,11 +148,11 @@ let quests = {
     mountText: t('questEggTRexMountText'),
     adjective: t('questEggTRexAdjective'),
     canBuy (user) {
-      let questAchievements = user.achievements.quests;
+      const questAchievements = user.achievements.quests;
 
       return questAchievements && (
-        questAchievements.trex > 0 ||
-        questAchievements.trex_undead > 0
+        questAchievements.trex > 0
+        || questAchievements.trex_undead > 0
       );
     },
   },
@@ -380,6 +378,18 @@ let quests = {
     adjective: t('questEggVelociraptorAdjective'),
     canBuy: hasQuestAchievementFunction('velociraptor'),
   },
+  Dolphin: {
+    text: t('questEggDolphinText'),
+    mountText: t('questEggDolphinMountText'),
+    adjective: t('questEggDolphinAdjective'),
+    canBuy: hasQuestAchievementFunction('dolphin'),
+  },
+  Robot: {
+    text: t('questEggRobotText'),
+    mountText: t('questEggRobotMountText'),
+    adjective: t('questEggRobotAdjective'),
+    canBuy: hasQuestAchievementFunction('robot'),
+  },
 };
 
 applyEggDefaults(drops, {
@@ -394,9 +404,9 @@ applyEggDefaults(quests, {
   },
 });
 
-let all = assign({}, drops, quests);
+const all = assign({}, drops, quests);
 
-module.exports = {
+export {
   drops,
   quests,
   all,

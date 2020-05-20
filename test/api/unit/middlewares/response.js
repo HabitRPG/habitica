@@ -7,7 +7,8 @@ import responseMiddleware from '../../../../website/server/middlewares/response'
 import packageInfo from '../../../../package.json';
 
 describe('response middleware', () => {
-  let res, req, next;
+  let res; let req; let
+    next;
 
   beforeEach(() => {
     res = generateRes();
@@ -24,7 +25,7 @@ describe('response middleware', () => {
 
   it('can be used to respond to requests', () => {
     responseMiddleware(req, res, next);
-    res.respond(200, {field: 1});
+    res.respond(200, { field: 1 });
 
     expect(res.status).to.be.calledOnce;
     expect(res.json).to.be.calledOnce;
@@ -32,8 +33,8 @@ describe('response middleware', () => {
     expect(res.status).to.be.calledWith(200);
     expect(res.json).to.be.calledWith({
       success: true,
-      data: {field: 1},
-      notifications: [],
+      data: { field: 1 },
+      notifications: res.locals.user.notifications,
       userV: res.locals.user._v,
       appVersion: packageInfo.version,
     });
@@ -41,7 +42,7 @@ describe('response middleware', () => {
 
   it('can be passed a third parameter to be used as optional message', () => {
     responseMiddleware(req, res, next);
-    res.respond(200, {field: 1}, 'hello');
+    res.respond(200, { field: 1 }, 'hello');
 
     expect(res.status).to.be.calledOnce;
     expect(res.json).to.be.calledOnce;
@@ -49,9 +50,9 @@ describe('response middleware', () => {
     expect(res.status).to.be.calledWith(200);
     expect(res.json).to.be.calledWith({
       success: true,
-      data: {field: 1},
+      data: { field: 1 },
       message: 'hello',
-      notifications: [],
+      notifications: res.locals.user.notifications,
       userV: res.locals.user._v,
       appVersion: packageInfo.version,
     });
@@ -59,7 +60,7 @@ describe('response middleware', () => {
 
   it('treats status >= 400 as failures', () => {
     responseMiddleware(req, res, next);
-    res.respond(403, {field: 1});
+    res.respond(403, { field: 1 });
 
     expect(res.status).to.be.calledOnce;
     expect(res.json).to.be.calledOnce;
@@ -67,8 +68,8 @@ describe('response middleware', () => {
     expect(res.status).to.be.calledWith(403);
     expect(res.json).to.be.calledWith({
       success: false,
-      data: {field: 1},
-      notifications: [],
+      data: { field: 1 },
+      notifications: res.locals.user.notifications,
       userV: res.locals.user._v,
       appVersion: packageInfo.version,
     });
@@ -76,47 +77,15 @@ describe('response middleware', () => {
 
   it('returns userV if a user is authenticated', () => {
     responseMiddleware(req, res, next);
-    res.respond(200, {field: 1});
+    res.respond(200, { field: 1 });
 
     expect(res.json).to.be.calledOnce;
 
     expect(res.json).to.be.calledWith({
       success: true,
-      data: {field: 1},
-      notifications: [],
+      data: { field: 1 },
+      notifications: res.locals.user.notifications,
       userV: 0,
-      appVersion: packageInfo.version,
-    });
-  });
-
-  it('returns notifications if a user is authenticated', () => {
-    const user = res.locals.user;
-
-    user.notifications = [
-      null, // invalid, not an object
-      {seen: true}, // invalid, no type or id
-      {id: 123}, // invalid, no type
-      // {type: 'ABC'}, // invalid, no id, not included here because the id would be added automatically
-      {type: 'ABC', id: '123'}, // valid
-    ];
-
-    responseMiddleware(req, res, next);
-    res.respond(200, {field: 1});
-
-    expect(res.json).to.be.calledOnce;
-
-    expect(res.json).to.be.calledWith({
-      success: true,
-      data: {field: 1},
-      notifications: [
-        {
-          type: 'ABC',
-          id: '123',
-          data: {},
-          seen: false,
-        },
-      ],
-      userV: res.locals.user._v,
       appVersion: packageInfo.version,
     });
   });

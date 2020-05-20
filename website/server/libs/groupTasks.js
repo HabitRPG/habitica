@@ -24,9 +24,8 @@ async function _completeOrUncompleteMasterTask (masterTask, completed) {
 async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
   if (groupMemberTask.type === 'todo') {
     if (
-      groupMemberTask.group.approval &&
-      groupMemberTask.group.approval.approved ||
-      groupMemberTask.completed
+      groupMemberTask.group.approval
+      && (groupMemberTask.group.approval.approved || groupMemberTask.completed)
     ) {
       // The task was done by one person and is removed from others' lists
       await Tasks.Task.deleteMany({
@@ -85,16 +84,15 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
     // For approval required tasks, treat approval as completion for users other than the completer
     // This protects other users if the completing user decides to uncomplete after approval
     // TODO This is poor logic. Some design could be done for uncompleting approved tasks behavior
-    const approvalRequired =
-      groupMemberTask.group.approval &&
-      groupMemberTask.group.approval.required;
+    const approvalRequired = groupMemberTask.group.approval
+      && groupMemberTask.group.approval.required;
     const approved = groupMemberTask.group.approval && groupMemberTask.group.approval.approved;
     let taskDate = moment();
     if (!approvalRequired) {
       // Happened on user history or "now" for unchecking
       // If we ever come here from via cron scoring down, we will have to recalculate
-      taskDate = groupMemberTask.completed ?
-        moment(groupMemberTask.history[groupMemberTask.history.length - 1].date) : taskDate;
+      taskDate = groupMemberTask.completed
+        ? moment(groupMemberTask.history[groupMemberTask.history.length - 1].date) : taskDate;
     } else if (approved) {
       // If approved, mark task on approval.requestedDate
       taskDate = moment(groupMemberTask.approval.requestedDate);
@@ -121,8 +119,8 @@ async function _updateAssignedUsersTasks (masterTask, groupMemberTask) {
     // Record history on approval or completion for tasks which don't require approval
     // Don't double count history when user completes already approved task
     if (
-      groupMemberTask.completed && !approvalRequired ||
-      approved && !groupMemberTask.completed
+      (groupMemberTask.completed && !approvalRequired)
+      || (approved && !groupMemberTask.completed)
     ) {
       // Save history entry to the masterTask
       masterTask.history = masterTask.history || [];
@@ -168,7 +166,7 @@ async function _evaluateAllAssignedCompletion (masterTask, groupMemberTask) {
     }).exec();
     // Since an approval is not yet saved into the group member task, count it
     // But do not recount a group member completing an already approved task
-    if (!groupMemberTask.completed) completions++;
+    if (!groupMemberTask.completed) completions += 1;
   } else {
     completions = await Tasks.Task.count({
       'group.taskId': masterTask._id,
@@ -215,7 +213,7 @@ async function groupTaskCompleted (groupMemberTask, user, now) {
 }
 
 async function handleSharedCompletion (groupMemberTask) {
-  let masterTask = await Tasks.Task.findOne({
+  const masterTask = await Tasks.Task.findOne({
     _id: groupMemberTask.group.taskId,
   }).exec();
 
@@ -224,8 +222,8 @@ async function handleSharedCompletion (groupMemberTask) {
   if (masterTask.group.sharedCompletion === SHARED_COMPLETION.single) {
     await _updateAssignedUsersTasks(masterTask, groupMemberTask);
     await _completeOrUncompleteMasterTask(
-      masterTask, groupMemberTask.completed ||
-        groupMemberTask.group.approval && groupMemberTask.group.approval.approved,
+      masterTask, groupMemberTask.completed
+      || (groupMemberTask.group.approval && groupMemberTask.group.approval.approved),
     );
   } else if (masterTask.group.sharedCompletion === SHARED_COMPLETION.every) {
     await _evaluateAllAssignedCompletion(masterTask, groupMemberTask);

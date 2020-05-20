@@ -1,8 +1,8 @@
 {
-  "noItemsAvailableForType": "У вас нет <%= type %>.",
-  "foodItemType": "Еда",
-  "eggsItemType": "Яйца",
-  "hatchingPotionsItemType": "Инкубационные эликсиры",
-  "specialItemType": "Особые предметы",
-  "lockedItem": "Закрытый предмет"
+    "noItemsAvailableForType": "У вас нет <%= type %>.",
+    "foodItemType": "Корм",
+    "eggsItemType": "Яйца",
+    "hatchingPotionsItemType": "Инкубационные эликсиры",
+    "specialItemType": "Особые предметы",
+    "lockedItem": "Закрытый предмет"
 }

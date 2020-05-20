@@ -1,0 +1,17 @@
+{
+    "lostAllHealth": "Valitudo evanuit!",
+    "dontDespair": "Non despera!",
+    "deathPenaltyDetails": "Gradum et tuum Aurum et rem Armamentorum perdidisti, sed omnia opere laborioso potes reconciliare! Bonam fortunam--optime ages.",
+    "refillHealthTryAgain": "Reconcilia Valitudinem & Retenta",
+    "dyingOftenTips": "Evenitne haec saepe? <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'>Hic monitūs sunt!</a>",
+    "losingHealthWarning": "Es cautus - Amittis Valitudinem!",
+    "losingHealthWarning2": "Tuam Valitudinem non patere nihilo decrescere! Si hoc pateris, amittes et Gradum Aurumque tuum partemque Armamentorum.",
+    "toRegainHealth": "Ut Valitudinem relegas:",
+    "lowHealthTips1": "Tuus Gradus auge ut plene medices!",
+    "lowHealthTips2": "Potionem Sanantem ex Praemiorum columna eme ut 15 Puncta Valitudinis restaures.",
+    "losingHealthQuickly": "Amittisne Valitudinem cito?",
+    "lowHealthTips3": "Nocte cotidiana infecta te vulnerant, ergo cave ut multa initio non adderes!",
+    "lowHealthTips4": "Si cotidianum quaedam die non debitum est, premas iconem stili plumbati ut cotidianum debilitetur.",
+    "goodLuck": "Bonam fortunam!",
+    "cannotRevive": "Si mortuus non es, non potes revivere te"
+}

@@ -1,6 +1,6 @@
 import t from '../../translation';
 
-let armor = {
+const armor = {
   201402: {
     text: t('armorMystery201402Text'),
     notes: t('armorMystery201402Notes'),
@@ -235,6 +235,36 @@ let armor = {
     mystery: '201904',
     value: 0,
   },
+  201906: {
+    text: t('armorMystery201906Text'),
+    notes: t('armorMystery201906Notes'),
+    mystery: '201906',
+    value: 0,
+  },
+  201907: {
+    text: t('armorMystery201907Text'),
+    notes: t('armorMystery201907Notes'),
+    mystery: '201907',
+    value: 0,
+  },
+  201908: {
+    text: t('armorMystery201908Text'),
+    notes: t('armorMystery201908Notes'),
+    mystery: '201908',
+    value: 0,
+  },
+  201909: {
+    text: t('armorMystery201909Text'),
+    notes: t('armorMystery201909Notes'),
+    mystery: '201909',
+    value: 0,
+  },
+  201910: {
+    text: t('armorMystery201910Text'),
+    notes: t('armorMystery201910Notes'),
+    mystery: '201910',
+    value: 0,
+  },
   301404: {
     text: t('armorMystery301404Text'),
     notes: t('armorMystery301404Notes'),
@@ -255,7 +285,7 @@ let armor = {
   },
 };
 
-let back = {
+const back = {
   201402: {
     text: t('backMystery201402Text'),
     notes: t('backMystery201402Notes'),
@@ -358,9 +388,39 @@ let back = {
     mystery: '201812',
     value: 0,
   },
+  201905: {
+    text: t('backMystery201905Text'),
+    notes: t('backMystery201905Notes'),
+    mystery: '201905',
+    value: 0,
+  },
+  201912: {
+    text: t('backMystery201912Text'),
+    notes: t('backMystery201912Notes'),
+    mystery: '201912',
+    value: 0,
+  },
+  202001: {
+    text: t('backMystery202001Text'),
+    notes: t('backMystery202001Notes'),
+    mystery: '202001',
+    value: 0,
+  },
+  202004: {
+    text: t('backMystery202004Text'),
+    notes: t('backMystery202004Notes'),
+    mystery: '202004',
+    value: 0,
+  },
+  202005: {
+    text: t('backMystery202005Text'),
+    notes: t('backMystery202005Notes'),
+    mystery: '202005',
+    value: 0,
+  },
 };
 
-let body = {
+const body = {
   201705: {
     text: t('bodyMystery201705Text'),
     notes: t('bodyMystery201705Notes'),
@@ -385,9 +445,21 @@ let body = {
     mystery: '201901',
     value: 0,
   },
+  202002: {
+    text: t('bodyMystery202002Text'),
+    notes: t('bodyMystery202002Notes'),
+    mystery: '202002',
+    value: 0,
+  },
+  202003: {
+    text: t('bodyMystery202003Text'),
+    notes: t('bodyMystery202003Notes'),
+    mystery: '202003',
+    value: 0,
+  },
 };
 
-let eyewear = {
+const eyewear = {
   201503: {
     text: t('eyewearMystery201503Text'),
     notes: t('eyewearMystery201503Notes'),
@@ -418,6 +490,12 @@ let eyewear = {
     mystery: '201902',
     value: 0,
   },
+  201907: {
+    text: t('eyewearMystery201907Text'),
+    notes: t('eyewearMystery201907Notes'),
+    mystery: '201907',
+    value: 0,
+  },
   301404: {
     text: t('eyewearMystery301404Text'),
     notes: t('eyewearMystery301404Notes'),
@@ -438,7 +516,7 @@ let eyewear = {
   },
 };
 
-let head = {
+const head = {
   201402: {
     text: t('headMystery201402Text'),
     notes: t('headMystery201402Notes'),
@@ -697,6 +775,48 @@ let head = {
     mystery: '201904',
     value: 0,
   },
+  201907: {
+    text: t('headMystery201907Text'),
+    notes: t('headMystery201907Notes'),
+    mystery: '201907',
+    value: 0,
+  },
+  201909: {
+    text: t('headMystery201909Text'),
+    notes: t('headMystery201909Notes'),
+    mystery: '201909',
+    value: 0,
+  },
+  201910: {
+    text: t('headMystery201910Text'),
+    notes: t('headMystery201910Notes'),
+    mystery: '201910',
+    value: 0,
+  },
+  201911: {
+    text: t('headMystery201911Text'),
+    notes: t('headMystery201911Notes'),
+    mystery: '201911',
+    value: 0,
+  },
+  201912: {
+    text: t('headMystery201912Text'),
+    notes: t('headMystery201912Notes'),
+    mystery: '201912',
+    value: 0,
+  },
+  202001: {
+    text: t('headMystery202001Text'),
+    notes: t('headMystery202001Notes'),
+    mystery: '202001',
+    value: 0,
+  },
+  202003: {
+    text: t('headMystery202003Text'),
+    notes: t('headMystery202003Notes'),
+    mystery: '202003',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -723,7 +843,7 @@ let head = {
   },
 };
 
-let headAccessory = {
+const headAccessory = {
   201403: {
     text: t('headAccessoryMystery201403Text'),
     notes: t('headAccessoryMystery201403Notes'),
@@ -772,6 +892,36 @@ let headAccessory = {
     mystery: '201812',
     value: 0,
   },
+  201905: {
+    text: t('headAccessoryMystery201905Text'),
+    notes: t('headAccessoryMystery201905Notes'),
+    mystery: '201905',
+    value: 0,
+  },
+  201906: {
+    text: t('headAccessoryMystery201906Text'),
+    notes: t('headAccessoryMystery201906Notes'),
+    mystery: '201906',
+    value: 0,
+  },
+  201908: {
+    text: t('headAccessoryMystery201908Text'),
+    notes: t('headAccessoryMystery201908Notes'),
+    mystery: '201908',
+    value: 0,
+  },
+  202004: {
+    text: t('headAccessoryMystery202004Text'),
+    notes: t('headAccessoryMystery202004Notes'),
+    mystery: '202004',
+    value: 0,
+  },
+  202005: {
+    text: t('headAccessoryMystery202005Text'),
+    notes: t('headAccessoryMystery202005Notes'),
+    mystery: '202005',
+    value: 0,
+  },
   301405: {
     text: t('headAccessoryMystery301405Text'),
     notes: t('headAccessoryMystery301405Notes'),
@@ -780,7 +930,7 @@ let headAccessory = {
   },
 };
 
-let shield = {
+const shield = {
   201601: {
     text: t('shieldMystery201601Text'),
     notes: t('shieldMystery201601Notes'),
@@ -831,7 +981,7 @@ let shield = {
   },
 };
 
-let weapon = {
+const weapon = {
   201411: {
     text: t('weaponMystery201411Text'),
     notes: t('weaponMystery201411Notes'),
@@ -868,6 +1018,18 @@ let weapon = {
     mystery: '201811',
     value: 0,
   },
+  201911: {
+    text: t('weaponMystery201911Text'),
+    notes: t('weaponMystery201911Notes'),
+    mystery: '201911',
+    value: 0,
+  },
+  202002: {
+    text: t('weaponMystery202002Text'),
+    notes: t('weaponMystery202002Notes'),
+    mystery: '202002',
+    value: 0,
+  },
   301404: {
     text: t('weaponMystery301404Text'),
     notes: t('weaponMystery301404Notes'),
@@ -876,7 +1038,7 @@ let weapon = {
   },
 };
 
-let mysterySet = {
+export {
   armor,
   back,
   body,
@@ -886,5 +1048,3 @@ let mysterySet = {
   shield,
   weapon,
 };
-
-module.exports = mysterySet;

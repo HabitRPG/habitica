@@ -1,20 +1,16 @@
+import get from 'lodash/get';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../libs/errors';
 import content from '../../content/index';
-import get from 'lodash/get';
 
 import errorMessage from '../../libs/errorMessage';
-import {AbstractGemItemOperation} from './abstractBuyOperation';
+import { AbstractGemItemOperation } from './abstractBuyOperation';
 
-export class BuyQuestWithGemOperation extends AbstractGemItemOperation {
-  constructor (user, req, analytics) {
-    super(user, req, analytics);
-  }
-
-  multiplePurchaseAllowed () {
+export class BuyQuestWithGemOperation extends AbstractGemItemOperation { // eslint-disable-line import/prefer-default-export, max-len
+  multiplePurchaseAllowed () { // eslint-disable-line class-methods-use-this
     return true;
   }
 
@@ -22,32 +18,39 @@ export class BuyQuestWithGemOperation extends AbstractGemItemOperation {
     return this.key;
   }
 
-  getItemValue (item) {
+  getItemValue (item) { // eslint-disable-line class-methods-use-this
     return item.value / 4;
   }
 
-  getItemType () {
+  getItemType () { // eslint-disable-line class-methods-use-this
     return 'quest';
   }
 
   extractAndValidateParams (user, req) {
-    let key = this.key = get(req, 'params.key');
+    this.key = get(req, 'params.key');
+    const { key } = this;
     if (!key) throw new BadRequest(errorMessage('missingKeyParam'));
 
-    let item = content.quests[key];
+    const item = content.quests[key];
 
-    if (!item) throw new NotFound(errorMessage('questNotFound', {key}));
+    if (!item) throw new NotFound(errorMessage('questNotFound', { key }));
 
     if (item.category === 'gold') {
-      throw new NotAuthorized(this.i18n('questNotGemPurchasable', {key}));
+      throw new NotAuthorized(this.i18n('questNotGemPurchasable', { key }));
     }
 
     this.canUserPurchase(user, item);
   }
 
   executeChanges (user, item, req) {
-    user.items.quests[item.key] = user.items.quests[item.key] || 0;
-    user.items.quests[item.key] += this.quantity;
+    if (
+      !user.items.quests[item.key]
+      || user.items.quests[item.key] < 0
+    ) user.items.quests[item.key] = 0;
+    user.items.quests = {
+      ...user.items.quests,
+      [item.key]: user.items.quests[item.key] + this.quantity,
+    };
     if (user.markModified) user.markModified('items.quests');
 
     this.subtractCurrency(user, item, this.quantity);

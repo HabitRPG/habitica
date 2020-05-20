@@ -5,11 +5,11 @@ import {
 
 describe('achievements', () => {
   describe('general well-formedness', () => {
-    let user = generateUser();
-    let achievements = shared.achievements.getAchievementsForProfile(user);
+    const user = generateUser();
+    const achievements = shared.achievements.getAchievementsForProfile(user);
 
     it('each category has \'label\' and \'achievements\' fields', () => {
-      _.each(achievements, (category) => {
+      _.each(achievements, category => {
         expect(category).to.have.property('label')
           .that.is.a('string');
         expect(category).to.have.property('achievements')
@@ -18,8 +18,8 @@ describe('achievements', () => {
     });
 
     it('each achievement has all required fields of correct types', () => {
-      _.each(achievements, (category) => {
-        _.each(category.achievements, (achiev) => {
+      _.each(achievements, category => {
+        _.each(category.achievements, achiev => {
           // May have additional fields (such as 'value' and 'optionalCount').
           expect(achiev).to.contain.all.keys(['title', 'text', 'icon', 'earned', 'index']);
           expect(achiev.title).to.be.a('string');
@@ -32,18 +32,18 @@ describe('achievements', () => {
     });
 
     it('categories have unique labels', () => {
-      let achievementsArray = _.values(achievements).map(cat => cat.label);
-      let labels = _.uniq(achievementsArray);
+      const achievementsArray = _.values(achievements).map(cat => cat.label);
+      const labels = _.uniq(achievementsArray);
 
       expect(labels.length).to.be.greaterThan(0);
       expect(labels.length).to.eql(_.size(achievements));
     });
 
     it('achievements have unique keys', () => {
-      let keysSoFar = {};
+      const keysSoFar = {};
 
-      _.each(achievements, (category) => {
-        _.keys(category.achievements).forEach((key) => {
+      _.each(achievements, category => {
+        _.keys(category.achievements).forEach(key => {
           expect(keysSoFar[key]).to.be.undefined;
           keysSoFar[key] = key;
         });
@@ -51,11 +51,11 @@ describe('achievements', () => {
     });
 
     it('achievements have unique indices', () => {
-      let indicesSoFar = {};
+      const indicesSoFar = {};
 
-      _.each(achievements, (category) => {
-        _.each(category.achievements, (achiev) => {
-          let i = achiev.index;
+      _.each(achievements, category => {
+        _.each(category.achievements, achiev => {
+          const i = achiev.index;
           expect(indicesSoFar[i]).to.be.undefined;
           indicesSoFar[i] = i;
         });
@@ -63,19 +63,19 @@ describe('achievements', () => {
     });
 
     it('all categories have at least 1 achievement', () => {
-      _.each(achievements, (category) => {
+      _.each(achievements, category => {
         expect(_.size(category.achievements)).to.be.greaterThan(0);
       });
     });
   });
 
   describe('unearned basic achievements', () => {
-    let user = generateUser();
-    let basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
+    const user = generateUser();
+    const basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
 
     it('streak and perfect day achievements exist with counts', () => {
-      let streak = basicAchievs.streak;
-      let perfect = basicAchievs.perfect;
+      const { streak } = basicAchievs;
+      const { perfect } = basicAchievs;
 
       expect(streak).to.exist;
       expect(streak).to.have.property('optionalCount')
@@ -86,8 +86,8 @@ describe('achievements', () => {
     });
 
     it('party up/on achievements exist with no counts', () => {
-      let partyUp = basicAchievs.partyUp;
-      let partyOn = basicAchievs.partyOn;
+      const { partyUp } = basicAchievs;
+      const { partyOn } = basicAchievs;
 
       expect(partyUp).to.exist;
       expect(partyUp.optionalCount).to.be.undefined;
@@ -96,9 +96,9 @@ describe('achievements', () => {
     });
 
     it('pet/mount master and triad bingo achievements exist with counts', () => {
-      let beastMaster = basicAchievs.beastMaster;
-      let mountMaster = basicAchievs.mountMaster;
-      let triadBingo = basicAchievs.triadBingo;
+      const { beastMaster } = basicAchievs;
+      const { mountMaster } = basicAchievs;
+      const { triadBingo } = basicAchievs;
 
       expect(beastMaster).to.exist;
       expect(beastMaster).to.have.property('optionalCount')
@@ -112,9 +112,9 @@ describe('achievements', () => {
     });
 
     it('ultimate gear achievements exist with no counts', () => {
-      let gearTypes = ['healer', 'rogue', 'warrior', 'mage'];
-      gearTypes.forEach((gear) => {
-        let gearAchiev = basicAchievs[`${gear}UltimateGear`];
+      const gearTypes = ['healer', 'rogue', 'warrior', 'mage'];
+      gearTypes.forEach(gear => {
+        const gearAchiev = basicAchievs[`${gear}UltimateGear`];
 
         expect(gearAchiev).to.exist;
         expect(gearAchiev.optionalCount).to.be.undefined;
@@ -122,9 +122,9 @@ describe('achievements', () => {
     });
 
     it('card achievements exist with counts', () => {
-      let cardTypes = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell', 'goodluck'];
-      cardTypes.forEach((card) => {
-        let cardAchiev = basicAchievs[`${card}Cards`];
+      const cardTypes = ['greeting', 'thankyou', 'birthday', 'congrats', 'getwell', 'goodluck'];
+      cardTypes.forEach(card => {
+        const cardAchiev = basicAchievs[`${card}Cards`];
 
         expect(cardAchiev).to.exist;
         expect(cardAchiev).to.have.property('optionalCount')
@@ -133,7 +133,7 @@ describe('achievements', () => {
     });
 
     it('rebirth achievement exists with no count', () => {
-      let rebirth = basicAchievs.rebirth;
+      const { rebirth } = basicAchievs;
 
       expect(rebirth).to.exist;
       expect(rebirth.optionalCount).to.be.undefined;
@@ -141,12 +141,13 @@ describe('achievements', () => {
   });
 
   describe('unearned seasonal achievements', () => {
-    let user = generateUser();
-    let seasonalAchievs = shared.achievements.getAchievementsForProfile(user).seasonal.achievements;
+    const user = generateUser();
+    const userAchievements = shared.achievements.getAchievementsForProfile(user);
+    const seasonalAchievs = userAchievements.seasonal.achievements;
 
     it('habiticaDays and habitBirthdays achievements exist with counts', () => {
-      let habiticaDays = seasonalAchievs.habiticaDays;
-      let habitBirthdays = seasonalAchievs.habitBirthdays;
+      const { habiticaDays } = seasonalAchievs;
+      const { habitBirthdays } = seasonalAchievs;
 
       expect(habiticaDays).to.exist;
       expect(habiticaDays).to.have.property('optionalCount')
@@ -157,9 +158,9 @@ describe('achievements', () => {
     });
 
     it('spell achievements exist with counts', () => {
-      let spellTypes = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
-      spellTypes.forEach((spell) => {
-        let spellAchiev = seasonalAchievs[spell];
+      const spellTypes = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
+      spellTypes.forEach(spell => {
+        const spellAchiev = seasonalAchievs[spell];
 
         expect(spellAchiev).to.exist;
         expect(spellAchiev).to.have.property('optionalCount')
@@ -168,16 +169,16 @@ describe('achievements', () => {
     });
 
     it('quest achievements do not exist', () => {
-      let quests = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
-      quests.forEach((quest) => {
-        let questAchiev = seasonalAchievs[`${quest}Quest`];
+      const quests = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
+      quests.forEach(quest => {
+        const questAchiev = seasonalAchievs[`${quest}Quest`];
 
         expect(questAchiev).to.not.exist;
       });
     });
 
     it('costumeContests achievement exists with count', () => {
-      let costumeContests = seasonalAchievs.costumeContests;
+      const { costumeContests } = seasonalAchievs;
 
       expect(costumeContests).to.exist;
       expect(costumeContests).to.have.property('optionalCount')
@@ -185,9 +186,9 @@ describe('achievements', () => {
     });
 
     it('card achievements exist with counts', () => {
-      let cardTypes = ['nye', 'valentine'];
-      cardTypes.forEach((card) => {
-        let cardAchiev = seasonalAchievs[`${card}Cards`];
+      const cardTypes = ['nye', 'valentine'];
+      cardTypes.forEach(card => {
+        const cardAchiev = seasonalAchievs[`${card}Cards`];
 
         expect(cardAchiev).to.exist;
         expect(cardAchiev).to.have.property('optionalCount')
@@ -197,11 +198,11 @@ describe('achievements', () => {
   });
 
   describe('unearned special achievements', () => {
-    let user = generateUser();
-    let specialAchievs = shared.achievements.getAchievementsForProfile(user).special.achievements;
+    const user = generateUser();
+    const specialAchievs = shared.achievements.getAchievementsForProfile(user).special.achievements;
 
     it('habitSurveys achievement exists with count', () => {
-      let habitSurveys = specialAchievs.habitSurveys;
+      const { habitSurveys } = specialAchievs;
 
       expect(habitSurveys).to.exist;
       expect(habitSurveys).to.have.property('optionalCount')
@@ -209,7 +210,7 @@ describe('achievements', () => {
     });
 
     it('contributor achievement exists with value and no count', () => {
-      let contributor = specialAchievs.contributor;
+      const { contributor } = specialAchievs;
 
       expect(contributor).to.exist;
       expect(contributor).to.have.property('value')
@@ -218,37 +219,79 @@ describe('achievements', () => {
     });
 
     it('npc achievement is hidden if unachieved', () => {
-      let npc = specialAchievs.npc;
+      const { npc } = specialAchievs;
       expect(npc).to.not.exist;
     });
 
     it('kickstarter achievement is hidden if unachieved', () => {
-      let kickstarter = specialAchievs.kickstarter;
+      const { kickstarter } = specialAchievs;
       expect(kickstarter).to.not.exist;
     });
 
     it('veteran achievement is hidden if unachieved', () => {
-      let veteran = specialAchievs.veteran;
+      const { veteran } = specialAchievs;
       expect(veteran).to.not.exist;
     });
 
     it('originalUser achievement is hidden if unachieved', () => {
-      let originalUser = specialAchievs.originalUser;
+      const { originalUser } = specialAchievs;
       expect(originalUser).to.not.exist;
     });
   });
 
+  describe('unearned onboarding achievements', () => {
+    const user = generateUser();
+    const onboardingAchievs = shared
+      .achievements.getAchievementsForProfile(user).onboarding.achievements;
+
+    it('created task achievement exists with no count', () => {
+      const { createdTask } = onboardingAchievs;
+
+      expect(createdTask).to.exist;
+      expect(createdTask.optionalCount).to.be.undefined;
+    });
+
+    it('completed task achievement exists with no count', () => {
+      const { completedTask } = onboardingAchievs;
+
+      expect(completedTask).to.exist;
+      expect(completedTask.optionalCount).to.be.undefined;
+    });
+
+    it('hatched pet achievement exists with no count', () => {
+      const { hatchedPet } = onboardingAchievs;
+
+      expect(hatchedPet).to.exist;
+      expect(hatchedPet.optionalCount).to.be.undefined;
+    });
+
+    it('fed pet achievement exists with no count', () => {
+      const { fedPet } = onboardingAchievs;
+
+      expect(fedPet).to.exist;
+      expect(fedPet.optionalCount).to.be.undefined;
+    });
+
+    it('purchased equipment achievement exists with no count', () => {
+      const { purchasedEquipment } = onboardingAchievs;
+
+      expect(purchasedEquipment).to.exist;
+      expect(purchasedEquipment.optionalCount).to.be.undefined;
+    });
+  });
+
   describe('earned seasonal achievements', () => {
-    let user = generateUser();
-    let quests = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
-    quests.forEach((quest) => {
+    const user = generateUser();
+    const quests = ['dilatory', 'stressbeast', 'burnout', 'bewilder'];
+    quests.forEach(quest => {
       user.achievements.quests[quest] = 1;
     });
-    let seasonalAchievs = shared.achievements.getAchievementsForProfile(user).seasonal.achievements;
+    const userAchievements = shared.achievements.getAchievementsForProfile(user);
+    const seasonalAchievs = userAchievements.seasonal.achievements;
 
     it('quest achievements exist', () => {
-      quests.forEach((quest) => {
-        let questAchiev = seasonalAchievs[`${quest}Quest`];
+      quests.forEach(quest => {
+        const questAchiev = seasonalAchievs[`${quest}Quest`];
 
         expect(questAchiev).to.exist;
         expect(questAchiev.optionalCount).to.be.undefined;
@@ -257,19 +300,19 @@ describe('achievements', () => {
   });
 
   describe('earned special achievements', () => {
-    let user = generateUser({
+    const user = generateUser({
       achievements: {
         habitSurveys: 2,
         veteran: true,
         originalUser: true,
       },
-      backer: {tier: 3},
-      contributor: {level: 1},
+      backer: { tier: 3 },
+      contributor: { level: 1 },
     });
-    let specialAchievs = shared.achievements.getAchievementsForProfile(user).special.achievements;
+    const specialAchievs = shared.achievements.getAchievementsForProfile(user).special.achievements;
 
     it('habitSurveys achievement is earned with correct value', () => {
-      let habitSurveys = specialAchievs.habitSurveys;
+      const { habitSurveys } = specialAchievs;
 
       expect(habitSurveys).to.exist;
       expect(habitSurveys.earned).to.eql(true);
@@ -277,7 +320,7 @@ describe('achievements', () => {
     });
 
     it('contributor achievement is earned with correct value', () => {
-      let contributor = specialAchievs.contributor;
+      const { contributor } = specialAchievs;
 
       expect(contributor).to.exist;
       expect(contributor.earned).to.eql(true);
@@ -285,10 +328,10 @@ describe('achievements', () => {
     });
 
     it('npc achievement is earned with correct value', () => {
-      let npcUser = generateUser({
-        backer: {npc: 'test'},
+      const npcUser = generateUser({
+        backer: { npc: 'test' },
       });
-      let npc = shared.achievements.getAchievementsForProfile(npcUser).special.achievements.npc;
+      const { npc } = shared.achievements.getAchievementsForProfile(npcUser).special.achievements;
 
       expect(npc).to.exist;
       expect(npc.earned).to.eql(true);
@@ -296,7 +339,7 @@ describe('achievements', () => {
     });
 
     it('kickstarter achievement is earned with correct value', () => {
-      let kickstarter = specialAchievs.kickstarter;
+      const { kickstarter } = specialAchievs;
 
       expect(kickstarter).to.exist;
       expect(kickstarter.earned).to.eql(true);
@@ -304,14 +347,14 @@ describe('achievements', () => {
     });
 
     it('veteran achievement is earned', () => {
-      let veteran = specialAchievs.veteran;
+      const { veteran } = specialAchievs;
 
       expect(veteran).to.exist;
       expect(veteran.earned).to.eql(true);
     });
 
     it('originalUser achievement is earned', () => {
-      let originalUser = specialAchievs.originalUser;
+      const { originalUser } = specialAchievs;
 
       expect(originalUser).to.exist;
       expect(originalUser.earned).to.eql(true);
@@ -320,12 +363,12 @@ describe('achievements', () => {
 
   describe('mountMaster, beastMaster, and triadBingo achievements', () => {
     it('master and triad bingo achievements do not include *Text2 strings if no keys have been used', () => {
-      let user = generateUser();
-      let basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
+      const user = generateUser();
+      const basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
 
-      let beastMaster = basicAchievs.beastMaster;
-      let mountMaster = basicAchievs.mountMaster;
-      let triadBingo = basicAchievs.triadBingo;
+      const { beastMaster } = basicAchievs;
+      const { mountMaster } = basicAchievs;
+      const { triadBingo } = basicAchievs;
 
       expect(beastMaster.text).to.not.match(/released/);
       expect(beastMaster.text).to.not.match(/0 time\(s\)/);
@@ -336,18 +379,18 @@ describe('achievements', () => {
     });
 
     it('master and triad bingo achievements includes *Text2 strings if keys have been used', () => {
-      let user = generateUser({
+      const user = generateUser({
         achievements: {
           beastMasterCount: 1,
           mountMasterCount: 2,
           triadBingoCount: 3,
         },
       });
-      let basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
+      const basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
 
-      let beastMaster = basicAchievs.beastMaster;
-      let mountMaster = basicAchievs.mountMaster;
-      let triadBingo = basicAchievs.triadBingo;
+      const { beastMaster } = basicAchievs;
+      const { mountMaster } = basicAchievs;
+      const { triadBingo } = basicAchievs;
 
       expect(beastMaster.text).to.match(/released/);
       expect(beastMaster.text).to.match(/1 time\(s\)/);
@@ -360,13 +403,13 @@ describe('achievements', () => {
 
   describe('ultimateGear achievements', () => {
     it('title and text contain localized class info', () => {
-      let user = generateUser();
-      let basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
-      let gearTypes = ['healer', 'rogue', 'warrior', 'mage'];
+      const user = generateUser();
+      const basicAchievs = shared.achievements.getAchievementsForProfile(user).basic.achievements;
+      const gearTypes = ['healer', 'rogue', 'warrior', 'mage'];
 
-      gearTypes.forEach((gear) => {
-        let gearAchiev = basicAchievs[`${gear}UltimateGear`];
-        let classNameRegex = new RegExp(gear.charAt(0).toUpperCase() + gear.slice(1));
+      gearTypes.forEach(gear => {
+        const gearAchiev = basicAchievs[`${gear}UltimateGear`];
+        const classNameRegex = new RegExp(gear.charAt(0).toUpperCase() + gear.slice(1));
 
         expect(gearAchiev.title).to.match(classNameRegex);
         expect(gearAchiev.text).to.match(classNameRegex);

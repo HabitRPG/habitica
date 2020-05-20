@@ -1,4 +1,8 @@
-let api = {};
+import {
+  disableCache,
+} from '../../middlewares/cache';
+
+const api = {};
 
 /**
  * @api {get} /api/v3/status Get Habitica's API status
@@ -15,6 +19,8 @@ let api = {};
 api.getStatus = {
   method: 'GET',
   url: '/status',
+  // explicitly disable caching so that the server is always checked
+  middlewares: [disableCache],
   async handler (req, res) {
     res.respond(200, {
       status: 'up',
@@ -22,4 +28,4 @@ api.getStatus = {
   },
 };
 
-module.exports = api;
+export default api;

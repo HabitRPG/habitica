@@ -1,10 +1,10 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   createAndPopulateGroup,
   translate as t,
   generateUser,
   sleep,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID } from 'uuid';
 import { chatModel as Chat } from '../../../../../website/server/models/message';
 
 describe('POST /groups/:groupId/quests/reject', () => {
@@ -16,7 +16,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
   const PET_QUEST = 'whale';
 
   beforeEach(async () => {
-    let { group, groupLeader, members } = await createAndPopulateGroup({
+    const { group, groupLeader, members } = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },
       members: 2,
     });
@@ -51,7 +51,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
     });
 
     it('returns an error when group is a guild', async () => {
-      let { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
+      const { group: guild, groupLeader: guildLeader } = await createAndPopulateGroup({
         groupDetails: { type: 'guild', privacy: 'private' },
       });
 
@@ -121,13 +121,13 @@ describe('POST /groups/:groupId/quests/reject', () => {
         .to.eventually.be.rejected.and.eql({
           code: 401,
           error: 'NotAuthorized',
-          message: t('questAlreadyUnderway'),
+          message: t('questAlreadyStartedFriendly'),
         });
     });
   });
 
   context('successfully quest rejection', () => {
-    let cleanUserQuestObj = {
+    const cleanUserQuestObj = {
       key: null,
       progress: {
         up: 0,
@@ -142,7 +142,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
     it('rejects a quest invitation', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
 
-      let res = await partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`);
+      const res = await partyMembers[0].post(`/groups/${questingGroup._id}/quests/reject`);
       await partyMembers[0].sync();
       await questingGroup.sync();
 
@@ -162,7 +162,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
     });
 
     it('cleans up user quest data for non-quest members when last member rejects', async () => {
-      let rejectingMember = partyMembers[1];
+      const rejectingMember = partyMembers[1];
 
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
@@ -193,7 +193,7 @@ describe('POST /groups/:groupId/quests/reject', () => {
       expect(groupChat[0]._meta).to.exist;
       expect(groupChat[0]._meta).to.have.all.keys(['participatingMembers']);
 
-      let returnedGroup = await leader.get(`/groups/${questingGroup._id}`);
+      const returnedGroup = await leader.get(`/groups/${questingGroup._id}`);
       expect(returnedGroup.chat[0]._meta).to.be.undefined;
     });
   });

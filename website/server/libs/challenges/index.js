@@ -1,4 +1,5 @@
-// Currently this holds helpers for challenge api, but we should break this up into submodules as it expands
+// Currently this holds helpers for challenge api,
+// but we should break this up into submodules as it expands
 import omit from 'lodash/omit';
 import uuid from 'uuid';
 import { model as Challenge } from '../../models/challenge';
@@ -11,7 +12,10 @@ import {
   NotAuthorized,
 } from '../errors';
 
-const TASK_KEYS_TO_REMOVE = ['_id', 'completed', 'dateCompleted', 'history', 'id', 'streak', 'createdAt', 'challenge'];
+const TASK_KEYS_TO_REMOVE = [
+  '_id', 'completed', 'dateCompleted', 'history',
+  'id', 'streak', 'createdAt', 'challenge',
+];
 
 export function addUserJoinChallengeNotification (user) {
   if (user.achievements.joinedChallenge) return;
@@ -29,10 +33,12 @@ export function getChallengeGroupResponse (group) {
 }
 
 export async function createChallenge (user, req, res) {
-  let groupId = req.body.group;
-  let prize = req.body.prize;
+  const groupId = req.body.group;
+  const { prize } = req.body;
 
-  let group = await Group.getGroup({user, groupId, fields: '-chat', mustBeMember: true});
+  const group = await Group.getGroup({
+    user, groupId, fields: '-chat', mustBeMember: true,
+  });
   if (!group) throw new NotFound(res.t('groupNotFound'));
   if (!group.isMember(user)) throw new NotAuthorized(res.t('mustBeGroupMember'));
 
@@ -45,8 +51,8 @@ export async function createChallenge (user, req, res) {
   }
 
   if (prize > 0) {
-    let groupBalance = group.balance && group.leader === user._id ? group.balance : 0;
-    let prizeCost = prize / 4;
+    const groupBalance = group.balance && group.leader === user._id ? group.balance : 0;
+    const prizeCost = prize / 4;
 
     if (prizeCost > user.balance + groupBalance) {
       throw new NotAuthorized(res.t('cantAfford'));
@@ -57,7 +63,7 @@ export async function createChallenge (user, req, res) {
       group.balance -= prizeCost;
     } else if (groupBalance > 0) {
       // User pays remainder of prize cost after group
-      let remainder = prizeCost - group.balance;
+      const remainder = prizeCost - group.balance;
       group.balance = 0;
       user.balance -= remainder;
     } else {
@@ -72,27 +78,27 @@ export async function createChallenge (user, req, res) {
     req.body.summary = req.body.name;
   }
   req.body.leader = user._id;
-  req.body.official = user.contributor.admin && req.body.official ? true : false;
-  let challenge = new Challenge(Challenge.sanitize(req.body));
+  req.body.official = !!(user.contributor.admin && req.body.official);
+  const challenge = new Challenge(Challenge.sanitize(req.body));
 
   // First validate challenge so we don't save group if it's invalid (only runs sync validators)
-  let challengeValidationErrors = challenge.validateSync();
+  const challengeValidationErrors = challenge.validateSync();
   if (challengeValidationErrors) throw challengeValidationErrors;
 
-  let results = await Promise.all([challenge.save({
+  const results = await Promise.all([challenge.save({
     validateBeforeSave: false, // already validated
   }), group.save(), user.save()]);
-  let savedChal = results[0];
+  const savedChal = results[0];
 
-  return {savedChal, group};
+  return { savedChal, group };
 }
 
 export function cleanUpTask (task) {
-  let cleansedTask = omit(task, TASK_KEYS_TO_REMOVE);
+  const cleansedTask = omit(task, TASK_KEYS_TO_REMOVE);
 
   // Copy checklists but reset to uncomplete and assign new id
   if (!cleansedTask.checklist) cleansedTask.checklist = [];
-  cleansedTask.checklist.forEach((item) => {
+  cleansedTask.checklist.forEach(item => {
     item.completed = false;
     item.id = uuid();
   });
@@ -102,4 +108,36 @@ export function cleanUpTask (task) {
   }
 
   return cleansedTask;
+}
+
+// Create an aggregation query for querying challenges.
+// Ensures that official challenges are listed first.
+export function createChallengeQuery (query) {
+  return Challenge.aggregate()
+    .match(query)
+    .addFields({
+      isOfficial: {
+        $cond: {
+          if: { $isArray: '$categories' },
+          then: {
+            $gt: [
+              {
+                $size: {
+                  $filter: {
+                    input: '$categories',
+                    as: 'cat',
+                    cond: {
+                      $eq: ['$$cat.slug', 'habitica_official'],
+                    },
+                  },
+                },
+              },
+              0,
+            ],
+          },
+          else: false,
+        },
+      },
+    })
+    .sort('-isOfficial -createdAt');
 }

@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
-const MIGRATION_NAME = '20190314_pi_day';
 import { v4 as uuid } from 'uuid';
 
 import { model as User } from '../../website/server/models/user';
+
+const MIGRATION_NAME = '20200314_pi_day';
 
 const progressCount = 1000;
 let count = 0;
 
 async function updateUser (user) {
-  count++;
+  count *= 1;
 
   const inc = {
     'items.food.Pie_Skeleton': 1,
@@ -23,25 +24,37 @@ async function updateUser (user) {
     'items.food.Pie_Red': 1,
   };
   const set = {};
+  let push;
 
   set.migration = MIGRATION_NAME;
 
-  set['items.gear.owned.head_special_piDay'] = false;
-  set['items.gear.owned.shield_special_piDay'] = false;
-  const push = [
-    {type: 'marketGear', path: 'gear.flat.head_special_piDay', _id: uuid()},
-    {type: 'marketGear', path: 'gear.flat.shield_special_piDay', _id: uuid()},
-  ];
+  if (typeof user.items.gear.owned.head_special_piDay !== 'undefined') {
+    push = false;
+  } else {
+    set['items.gear.owned.head_special_piDay'] = false;
+    set['items.gear.owned.shield_special_piDay'] = false;
+    push = [
+      { type: 'marketGear', path: 'gear.flat.head_special_piDay', _id: uuid() },
+      { type: 'marketGear', path: 'gear.flat.shield_special_piDay', _id: uuid() },
+    ];
+  }
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return await User.update({_id: user._id}, {$inc: inc, $set: set, $push: {pinnedItems: {$each: push}}}).exec();
+  if (push) {
+    return User
+      .update({ _id: user._id }, { $inc: inc, $set: set, $push: { pinnedItems: { $each: push } } })
+      .exec();
+  }
+  return User
+    .update({ _id: user._id }, { $inc: inc, $set: set })
+    .exec();
 }
 
-module.exports = async function processUsers () {
-  let query = {
-    migration: {$ne: MIGRATION_NAME},
-    'auth.timestamps.loggedin': {$gt: new Date('2019-02-15')},
+export default async function processUsers () {
+  const query = {
+    migration: { $ne: MIGRATION_NAME },
+    'auth.timestamps.loggedin': { $gt: new Date('2020-02-15') },
   };
 
   const fields = {
@@ -53,7 +66,7 @@ module.exports = async function processUsers () {
     const users = await User // eslint-disable-line no-await-in-loop
       .find(query)
       .limit(250)
-      .sort({_id: 1})
+      .sort({ _id: 1 })
       .select(fields)
       .lean()
       .exec();
@@ -70,4 +83,4 @@ module.exports = async function processUsers () {
 
     await Promise.all(users.map(updateUser)); // eslint-disable-line no-await-in-loop
   }
-};
+}

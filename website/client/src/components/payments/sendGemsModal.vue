@@ -1,0 +1,301 @@
+<template>
+  <b-modal
+    id="send-gems"
+    :title="title"
+    :hide-footer="true"
+    size="md"
+    @hide="onHide()"
+  >
+    <div v-if="userReceivingGems">
+      <div
+        class="panel panel-default"
+        :class="gift.type === 'gems' ? 'panel-primary' : 'transparent'"
+        @click="gift.type = 'gems'"
+      >
+        <h3 class="panel-heading clearfix">
+          <div class="float-right">
+            <span
+              v-if="gift.gems.fromBalance"
+            >{{ $t('sendGiftGemsBalance', {number: userLoggedIn.balance * 4}) }}</span>
+            <span
+              v-if="!gift.gems.fromBalance"
+            >{{ $t('sendGiftCost', {cost: gift.gems.amount / 4}) }}</span>
+          </div>
+          {{ $t('gemsPopoverTitle') }}
+        </h3>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  v-model="gift.gems.amount"
+                  class="form-control"
+                  type="number"
+                  placeholder="Number of Gems"
+                  min="0"
+                  :max="gift.gems.fromBalance ? userLoggedIn.balance * 4 : 9999"
+                >
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="btn-group">
+                <button
+                  class="btn btn-secondary"
+                  :class="{active: gift.gems.fromBalance}"
+                  @click="gift.gems.fromBalance = true"
+                >
+                  {{ $t('sendGiftFromBalance') }}
+                </button>
+                <button
+                  class="btn btn-secondary"
+                  :class="{active: !gift.gems.fromBalance}"
+                  @click="gift.gems.fromBalance = false"
+                >
+                  {{ $t('sendGiftPurchase') }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <p
+                class="small"
+                v-html="$t('gemGiftsAreOptional', assistanceEmailObject)"
+              ></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="panel panel-default"
+        :class="gift.type=='subscription' ? 'panel-primary' : 'transparent'"
+        @click="gift.type = 'subscription'"
+      >
+        <h3 class="panel-heading">
+          {{ $t('subscription') }}
+        </h3>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+                <div
+                  v-for="block in subscriptionBlocks"
+                  v-if="block.target !== 'group' && block.canSubscribe === true"
+                  :key="block.key"
+                  class="radio"
+                >
+                  <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+                  <label>
+                    <input
+                      v-model="gift.subscription.key"
+                      type="radio"
+                      name="subRadio"
+                      :value="block.key"
+                    >
+                    {{ $t('sendGiftSubscription', {price: block.price, months: block.months}) }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <textarea
+        v-model="gift.message"
+        class="form-control"
+        rows="3"
+        :placeholder="$t('sendGiftMessagePlaceholder')"
+      ></textarea>
+      <!--include ../formatting-help-->
+    </div>
+    <div class="modal-footer">
+      <button
+        v-if="fromBal"
+        class="btn btn-primary"
+        :disabled="sendingInProgress"
+        @click="sendGift()"
+      >
+        {{ $t("send") }}
+      </button>
+      <div
+        v-else
+        class="payments-column mx-auto"
+        :class="{'payments-disabled': !gift.subscription.key && gift.gems.amount < 1}"
+      >
+        <button
+          class="purchase btn btn-primary payment-button payment-item"
+          :disabled="!gift.subscription.key && gift.gems.amount < 1"
+          @click="showStripe({gift, uuid: userReceivingGems._id, receiverName})"
+        >
+          <div
+            class="svg-icon credit-card-icon"
+            v-html="icons.creditCardIcon"
+          ></div>
+          {{ $t('card') }}
+        </button>
+        <button
+          class="btn payment-item paypal-checkout payment-button"
+          :disabled="!gift.subscription.key && gift.gems.amount < 1"
+          @click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})"
+        >
+          &nbsp;
+          <img
+            src="~@/assets/images/paypal-checkout.png"
+            :alt="$t('paypal')"
+          >&nbsp;
+        </button>
+        <amazon-button
+          class="payment-item mb-0"
+          :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}"
+          :amazon-disabled="!gift.subscription.key && gift.gems.amount < 1"
+        />
+      </div>
+    </div>
+  </b-modal>
+</template>
+
+<style lang="scss">
+  .panel {
+    margin-bottom: 4px;
+
+    &.transparent {
+      .panel-body {
+        opacity: 0.7;
+      }
+    }
+
+    .panel-heading {
+      margin-top: 8px;
+      margin-bottom: 5px;
+    }
+
+    .panel-body {
+      padding: 8px;
+      border-radius: 2px;
+      border: 1px solid #C3C0C7;
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
+input[type="radio"] {
+  margin-right: 4px;
+}
+</style>
+
+<script>
+import toArray from 'lodash/toArray';
+import omitBy from 'lodash/omitBy';
+import orderBy from 'lodash/orderBy';
+import { mapState } from '@/libs/store';
+import planGemLimits from '@/../../common/script/libs/planGemLimits';
+import paymentsMixin from '@/mixins/payments';
+import notificationsMixin from '@/mixins/notifications';
+import amazonButton from '@/components/payments/amazonButton';
+import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+
+// @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
+const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
+
+export default {
+  components: {
+    amazonButton,
+  },
+  mixins: [paymentsMixin, notificationsMixin],
+  data () {
+    return {
+      planGemLimits,
+      gift: {
+        type: 'gems',
+        gems: {
+          amount: 0,
+          fromBalance: true,
+        },
+        subscription: { key: '' },
+        message: '',
+      },
+      amazonPayments: {},
+      assistanceEmailObject: {
+        hrefTechAssistanceEmail: `<a href="mailto:${TECH_ASSISTANCE_EMAIL}">${TECH_ASSISTANCE_EMAIL}</a>`,
+      },
+      sendingInProgress: false,
+      userReceivingGems: null,
+      icons: Object.freeze({
+        creditCardIcon,
+      }),
+    };
+  },
+  computed: {
+    ...mapState({
+      userLoggedIn: 'user.data',
+      originalSubscriptionBlocks: 'content.subscriptionBlocks',
+    }),
+    subscriptionBlocks () {
+      let subscriptionBlocks = toArray(this.originalSubscriptionBlocks);
+      subscriptionBlocks = omitBy(subscriptionBlocks, block => block.discount === true);
+      subscriptionBlocks = orderBy(subscriptionBlocks, ['months']);
+
+      return subscriptionBlocks;
+    },
+    fromBal () {
+      return this.gift.type === 'gems' && this.gift.gems.fromBalance;
+    },
+    title () {
+      if (!this.userReceivingGems) return '';
+      return this.$t('sendGiftHeading', { name: this.userReceivingGems.profile.name });
+    },
+    receiverName () {
+      if (
+        this.userReceivingGems.auth
+        && this.userReceivingGems.auth.local
+        && this.userReceivingGems.auth.local.username
+      ) {
+        return this.userReceivingGems.auth.local.username;
+      }
+      return this.userReceivingGems.profile.name;
+    },
+  },
+  mounted () {
+    this.$root.$on('habitica::send-gems', data => {
+      this.userReceivingGems = data;
+      this.$root.$emit('bv::show::modal', 'send-gems');
+    });
+  },
+  methods: {
+    // @TODO move to payments mixin or action (problem is that we need notifications)
+    async sendGift () {
+      this.sendingInProgress = true;
+      await this.$store.dispatch('members:transferGems', {
+        message: this.gift.message,
+        toUserId: this.userReceivingGems._id,
+        gemAmount: this.gift.gems.amount,
+      });
+      this.close();
+      setTimeout(() => { // wait for the send gem modal to be closed
+        this.$root.$emit('habitica:payment-success', {
+          paymentMethod: 'balance',
+          paymentCompleted: true,
+          paymentType: 'gift-gems-balance',
+          gift: {
+            gems: {
+              amount: this.gift.gems.amount,
+            },
+          },
+          giftReceiver: this.receiverName,
+        });
+      }, 500);
+    },
+    onHide () {
+      // @TODO this breaks amazon purchases because when the amazon modal
+      // is opened this one is closed and the amount reset
+      // this.gift.gems.amount = 0;
+      this.gift.message = '';
+      this.sendingInProgress = false;
+    },
+    close () {
+      this.$root.$emit('habitica::dismiss-modal', 'send-gems');
+    },
+  },
+};
+</script>

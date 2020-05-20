@@ -1,0 +1,8 @@
+{
+    "noItemsAvailableForType": "Wala kang <%= type %>.",
+    "foodItemType": "Pagkaing Pang-alaga",
+    "eggsItemType": "Mga Itlog",
+    "hatchingPotionsItemType": "Kabal ng Pagpipisa",
+    "specialItemType": "Mga mahiwagang bagay",
+    "lockedItem": "Nakatagong bagay"
+}

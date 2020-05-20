@@ -1,3 +1,4 @@
+import nconf from 'nconf';
 import {
   generateUser,
   translate as t,
@@ -8,15 +9,14 @@ import {
   sha1Encrypt as sha1EncryptPassword,
 } from '../../../../../../website/server/libs/password';
 
-import nconf from 'nconf';
 
 const ENDPOINT = '/user/auth/update-email';
 
 describe('PUT /user/auth/update-email', () => {
-  let newEmail = 'SOmE-nEw-emAIl_2@example.net';
-  let oldPassword = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
+  const newEmail = 'SOmE-nEw-emAIl_2@example.net';
+  const oldPassword = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
 
-  context('Local Authenticaion User', async () => {
+  context('Local Authentication User', async () => {
     let user;
 
     beforeEach(async () => {
@@ -53,8 +53,8 @@ describe('PUT /user/auth/update-email', () => {
     });
 
     it('changes email if new email and existing password are provided', async () => {
-      let lowerCaseNewEmail = newEmail.toLowerCase();
-      let response = await user.put(ENDPOINT, {
+      const lowerCaseNewEmail = newEmail.toLowerCase();
+      const response = await user.put(ENDPOINT, {
         newEmail,
         password: oldPassword,
       });
@@ -76,10 +76,10 @@ describe('PUT /user/auth/update-email', () => {
     });
 
     it('converts user with SHA1 encrypted password to bcrypt encryption', async () => {
-      let textPassword = 'mySecretPassword';
-      let salt = sha1MakeSalt();
-      let sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
-      let myNewEmail = 'my-new-random-email@example.net';
+      const textPassword = 'mySecretPassword';
+      const salt = sha1MakeSalt();
+      const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+      const myNewEmail = 'my-new-random-email@example.net';
 
       await user.update({
         'auth.local.hashed_password': sha1HashedPassword,
@@ -93,7 +93,7 @@ describe('PUT /user/auth/update-email', () => {
       expect(user.auth.local.hashed_password).to.equal(sha1HashedPassword);
 
       // update email
-      let response = await user.put(ENDPOINT, {
+      const response = await user.put(ENDPOINT, {
         newEmail: myNewEmail,
         password: textPassword,
       });
@@ -106,7 +106,7 @@ describe('PUT /user/auth/update-email', () => {
       expect(user.auth.local.salt).to.be.undefined;
       expect(user.auth.local.hashed_password).not.to.equal(sha1HashedPassword);
 
-      let isValidPassword = await bcryptCompare(textPassword, user.auth.local.hashed_password);
+      const isValidPassword = await bcryptCompare(textPassword, user.auth.local.hashed_password);
       expect(isValidPassword).to.equal(true);
     });
   });

@@ -3,7 +3,7 @@ import stripeModule from 'stripe';
 import nconf from 'nconf';
 
 import * as sender from '../../../../../../website/server/libs/email';
-import * as api from '../../../../../../website/server/libs/payments/payments';
+import api from '../../../../../../website/server/libs/payments/payments';
 import amzLib from '../../../../../../website/server/libs/payments/amazon';
 import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';
@@ -11,7 +11,7 @@ import { model as User } from '../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../website/server/models/group';
 import {
   generateGroup,
-} from '../../../../../helpers/api-unit.helper.js';
+} from '../../../../../helpers/api-unit.helper';
 
 describe('Purchasing a group plan for group', () => {
   const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE = 'Google_subscription';
@@ -19,10 +19,11 @@ describe('Purchasing a group plan for group', () => {
   const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL = 'normal_subscription';
   const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE = 'no_subscription';
 
-  let plan, group, user, data;
-  let stripe = stripeModule('test');
-  let groupLeaderName = 'sender';
-  let groupName = 'test group';
+  let plan; let group; let user; let
+    data;
+  const stripe = stripeModule('test');
+  const groupLeaderName = 'sender';
+  const groupName = 'test group';
 
   beforeEach(async () => {
     user = new User();
@@ -68,14 +69,17 @@ describe('Purchasing a group plan for group', () => {
       },
     };
 
-    let subscriptionId = 'subId';
+    const subscriptionId = 'subId';
     sinon.stub(stripe.customers, 'del').resolves({});
 
-    let currentPeriodEndTimeStamp = moment().add(3, 'months').unix();
+    const currentPeriodEndTimeStamp = moment().add(3, 'months').unix();
     sinon.stub(stripe.customers, 'retrieve')
       .resolves({
         subscriptions: {
-          data: [{id: subscriptionId, current_period_end: currentPeriodEndTimeStamp}], // eslint-disable-line camelcase
+          data: [{
+            id: subscriptionId,
+            current_period_end: currentPeriodEndTimeStamp,
+          }], // eslint-disable-line camelcase
         },
       });
 
@@ -95,7 +99,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedGroup = await Group.findById(group._id).exec();
+    const updatedGroup = await Group.findById(group._id).exec();
 
     expect(updatedGroup.purchased.plan.planId).to.eql('basic_3mo');
     expect(updatedGroup.purchased.plan.customerId).to.eql('customer-id');
@@ -126,7 +130,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedGroup = await Group.findById(group._id).exec();
+    const updatedGroup = await Group.findById(group._id).exec();
     expect(updatedGroup.purchased.plan.extraMonths).to.within(1.9, 2);
   });
 
@@ -139,7 +143,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedGroup = await Group.findById(group._id).exec();
+    const updatedGroup = await Group.findById(group._id).exec();
     expect(updatedGroup.purchased.plan.extraMonths).to.eql(0);
   });
 
@@ -150,7 +154,7 @@ describe('Purchasing a group plan for group', () => {
     data.groupId = group._id;
 
     await api.createSubscription(data);
-    let updatedLeader = await User.findById(user._id).exec();
+    const updatedLeader = await User.findById(user._id).exec();
 
     expect(updatedLeader.purchased.plan.planId).to.eql('group_plan_auto');
     expect(updatedLeader.purchased.plan.customerId).to.eql('group-plan');
@@ -166,7 +170,7 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('sends an email to member of group who was not a subscriber', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.guilds.push(group._id);
     await recipient.save();
@@ -179,9 +183,9 @@ describe('Purchasing a group plan for group', () => {
     expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
     expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
     expect(sender.sendTxn.firstCall.args[2]).to.eql([
-      {name: 'LEADER', content: user.profile.name},
-      {name: 'GROUP_NAME', content: group.name},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE},
+      { name: 'LEADER', content: user.profile.name },
+      { name: 'GROUP_NAME', content: group.name },
+      { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE },
     ]);
     // confirm that the other email sent is appropriate:
     expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
@@ -189,7 +193,7 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('sends one email to subscribed member of group, stating subscription is cancelled (Stripe)', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.key = 'basic_earned';
     plan.paymentMethod = stripePayments.constants.PAYMENT_METHOD;
@@ -205,9 +209,9 @@ describe('Purchasing a group plan for group', () => {
     expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
     expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
     expect(sender.sendTxn.firstCall.args[2]).to.eql([
-      {name: 'LEADER', content: user.profile.name},
-      {name: 'GROUP_NAME', content: group.name},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL},
+      { name: 'LEADER', content: user.profile.name },
+      { name: 'GROUP_NAME', content: group.name },
+      { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL },
     ]);
     // confirm that the other email sent is not a cancel-subscription email:
     expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
@@ -218,11 +222,11 @@ describe('Purchasing a group plan for group', () => {
     sinon.stub(amzLib, 'getBillingAgreementDetails')
       .resolves({
         BillingAgreementDetails: {
-          BillingAgreementStatus: {State: 'Closed'},
+          BillingAgreementStatus: { State: 'Closed' },
         },
       });
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.planId = 'basic_earned';
     plan.paymentMethod = amzLib.constants.PAYMENT_METHOD;
@@ -238,9 +242,9 @@ describe('Purchasing a group plan for group', () => {
     expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
     expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
     expect(sender.sendTxn.firstCall.args[2]).to.eql([
-      {name: 'LEADER', content: user.profile.name},
-      {name: 'GROUP_NAME', content: group.name},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL},
+      { name: 'LEADER', content: user.profile.name },
+      { name: 'GROUP_NAME', content: group.name },
+      { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL },
     ]);
     // confirm that the other email sent is not a cancel-subscription email:
     expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
@@ -259,7 +263,7 @@ describe('Purchasing a group plan for group', () => {
         },
       });
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.planId = 'basic_earned';
     plan.paymentMethod = paypalPayments.constants.PAYMENT_METHOD;
@@ -275,9 +279,9 @@ describe('Purchasing a group plan for group', () => {
     expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
     expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
     expect(sender.sendTxn.firstCall.args[2]).to.eql([
-      {name: 'LEADER', content: user.profile.name},
-      {name: 'GROUP_NAME', content: group.name},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL},
+      { name: 'LEADER', content: user.profile.name },
+      { name: 'GROUP_NAME', content: group.name },
+      { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL },
     ]);
     // confirm that the other email sent is not a cancel-subscription email:
     expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
@@ -288,11 +292,11 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('sends appropriate emails when subscribed member of group must manually cancel recurring Android subscription', async () => {
-    const TECH_ASSISTANCE_EMAIL = nconf.get('TECH_ASSISTANCE_EMAIL');
+    const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
     plan.customerId = 'random';
     plan.paymentMethod = api.constants.GOOGLE_PAYMENT_METHOD;
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.purchased.plan = plan;
     recipient.guilds.push(group._id);
@@ -305,27 +309,48 @@ describe('Purchasing a group plan for group', () => {
     await api.createSubscription(data);
 
     expect(sender.sendTxn).to.have.callCount(4);
-    expect(sender.sendTxn.args[0][0]._id).to.equal(TECH_ASSISTANCE_EMAIL);
-    expect(sender.sendTxn.args[0][1]).to.equal('admin-user-subscription-details');
-    expect(sender.sendTxn.args[1][0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.args[1][1]).to.equal('group-member-join');
-    expect(sender.sendTxn.args[1][2]).to.eql([
-      {name: 'LEADER', content: groupLeaderName},
-      {name: 'GROUP_NAME', content: groupName},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE},
+    const adminUserSubscriptionDetails = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      return emailType === 'admin-user-subscription-details';
+    });
+    expect(adminUserSubscriptionDetails).to.exist;
+    expect(adminUserSubscriptionDetails[0].email).to.equal(TECH_ASSISTANCE_EMAIL);
+
+    const groupMemberJoinOne = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      const emailRecipient = sendTxnArgs[0];
+      return emailType === 'group-member-join' && emailRecipient._id === recipient._id;
+    });
+    expect(groupMemberJoinOne).to.exist;
+    expect(groupMemberJoinOne[0]._id).to.equal(recipient._id);
+    expect(groupMemberJoinOne[2]).to.eql([
+      { name: 'LEADER', content: groupLeaderName },
+      { name: 'GROUP_NAME', content: groupName },
+      { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE },
     ]);
-    expect(sender.sendTxn.args[2][0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.args[2][1]).to.equal('group-member-join');
-    expect(sender.sendTxn.args[3][0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.args[3][1]).to.equal('group-subscription-begins');
+
+    const groupMemberJoinTwo = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      const emailRecipient = sendTxnArgs[0];
+      return emailType === 'group-member-join' && emailRecipient._id === group.leader;
+    });
+    expect(groupMemberJoinTwo).to.exist;
+    expect(groupMemberJoinTwo[0]._id).to.equal(group.leader);
+
+    const groupSubscriptionBegins = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      return emailType === 'group-subscription-begins';
+    });
+    expect(groupSubscriptionBegins).to.exist;
+    expect(groupSubscriptionBegins[0]._id).to.equal(group.leader);
   });
 
   it('sends appropriate emails when subscribed member of group must manually cancel recurring iOS subscription', async () => {
-    const TECH_ASSISTANCE_EMAIL = nconf.get('TECH_ASSISTANCE_EMAIL');
+    const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
     plan.customerId = 'random';
     plan.paymentMethod = api.constants.IOS_PAYMENT_METHOD;
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.purchased.plan = plan;
     recipient.guilds.push(group._id);
@@ -338,23 +363,45 @@ describe('Purchasing a group plan for group', () => {
     await api.createSubscription(data);
 
     expect(sender.sendTxn).to.have.callCount(4);
-    expect(sender.sendTxn.args[0][0]._id).to.equal(TECH_ASSISTANCE_EMAIL);
-    expect(sender.sendTxn.args[0][1]).to.equal('admin-user-subscription-details');
-    expect(sender.sendTxn.args[1][0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.args[1][1]).to.equal('group-member-join');
-    expect(sender.sendTxn.args[1][2]).to.eql([
-      {name: 'LEADER', content: groupLeaderName},
-      {name: 'GROUP_NAME', content: groupName},
-      {name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS},
+
+    const adminUserSubscriptionDetails = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      return emailType === 'admin-user-subscription-details';
+    });
+    expect(adminUserSubscriptionDetails).to.exist;
+    expect(adminUserSubscriptionDetails[0].email).to.equal(TECH_ASSISTANCE_EMAIL);
+
+    const groupMemberJoinOne = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      const emailRecipient = sendTxnArgs[0];
+      return emailType === 'group-member-join' && emailRecipient._id === recipient._id;
+    });
+    expect(groupMemberJoinOne).to.exist;
+    expect(groupMemberJoinOne[0]._id).to.equal(recipient._id);
+    expect(groupMemberJoinOne[2]).to.eql([
+      { name: 'LEADER', content: groupLeaderName },
+      { name: 'GROUP_NAME', content: groupName },
+      { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_IOS },
     ]);
-    expect(sender.sendTxn.args[2][0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.args[2][1]).to.equal('group-member-join');
-    expect(sender.sendTxn.args[3][0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.args[3][1]).to.equal('group-subscription-begins');
+
+    const groupMemberJoinTwo = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      const emailRecipient = sendTxnArgs[0];
+      return emailType === 'group-member-join' && emailRecipient._id === group.leader;
+    });
+    expect(groupMemberJoinTwo).to.exist;
+    expect(groupMemberJoinTwo[0]._id).to.equal(group.leader);
+
+    const groupSubscriptionBegins = sender.sendTxn.args.find(sendTxnArgs => {
+      const emailType = sendTxnArgs[1];
+      return emailType === 'group-subscription-begins';
+    });
+    expect(groupSubscriptionBegins).to.exist;
+    expect(groupSubscriptionBegins[0]._id).to.equal(group.leader);
   });
 
   it('adds months to members with existing gift subscription', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.purchased.plan = plan;
     recipient.guilds.push(group._id);
@@ -378,7 +425,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.planId).to.eql('group_plan_auto');
     expect(updatedUser.purchased.plan.customerId).to.eql('group-plan');
@@ -392,7 +439,7 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('adds months to members with existing multi-month gift subscription', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.purchased.plan = plan;
     recipient.guilds.push(group._id);
@@ -414,7 +461,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.planId).to.eql('group_plan_auto');
     expect(updatedUser.purchased.plan.customerId).to.eql('group-plan');
@@ -428,7 +475,7 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('adds months to members with existing recurring subscription (Stripe)', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.key = 'basic_earned';
     plan.paymentMethod = stripePayments.constants.PAYMENT_METHOD;
@@ -450,11 +497,11 @@ describe('Purchasing a group plan for group', () => {
     sinon.stub(amzLib, 'getBillingAgreementDetails')
       .resolves({
         BillingAgreementDetails: {
-          BillingAgreementStatus: {State: 'Closed'},
+          BillingAgreementStatus: { State: 'Closed' },
         },
       });
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.planId = 'basic_earned';
     plan.paymentMethod = amzLib.constants.PAYMENT_METHOD;
@@ -470,7 +517,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.extraMonths).to.within(3, 5);
   });
@@ -485,7 +532,7 @@ describe('Purchasing a group plan for group', () => {
         },
       });
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.planId = 'basic_earned';
     plan.paymentMethod = paypalPayments.constants.PAYMENT_METHOD;
@@ -500,7 +547,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
     paypalPayments.paypalBillingAgreementGet.restore();
@@ -511,7 +558,7 @@ describe('Purchasing a group plan for group', () => {
   it('adds months to members with existing recurring subscription (iOS)');
 
   it('adds months to members who already cancelled but not yet terminated recurring subscription', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.key = 'basic_earned';
     plan.paymentMethod = stripePayments.constants.PAYMENT_METHOD;
@@ -527,13 +574,13 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
   });
 
   it('adds months to members who already cancelled but not yet terminated group plan subscription', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.key = 'basic_earned';
     plan.paymentMethod = api.constants.GROUP_PLAN_PAYMENT_METHOD;
@@ -550,12 +597,12 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
     expect(updatedUser.purchased.plan.extraMonths).to.within(3, 4);
   });
 
   it('resets date terminated if user has old subscription', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.key = 'basic_earned';
     plan.paymentMethod = stripePayments.constants.PAYMENT_METHOD;
@@ -570,13 +617,13 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.dateTerminated).to.not.exist;
   });
 
   it('adds months to members with existing recurring subscription and includes existing extraMonths', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.key = 'basic_earned';
     plan.paymentMethod = stripePayments.constants.PAYMENT_METHOD;
@@ -591,13 +638,13 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.extraMonths).to.within(7, 9);
   });
 
   it('adds months to members with existing recurring subscription and ignores existing negative extraMonths', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.key = 'basic_earned';
     plan.paymentMethod = stripePayments.constants.PAYMENT_METHOD;
@@ -612,23 +659,23 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.extraMonths).to.within(2, 3);
   });
 
   it('does not override gemsBought, mysteryItems, dateCreated, and consective fields', async () => {
-    let planCreatedDate = moment().toDate();
-    let mysteryItem = {title: 'item'};
-    let mysteryItems = [mysteryItem];
-    let consecutive = {
+    const planCreatedDate = moment().toDate();
+    const mysteryItem = { title: 'item' };
+    const mysteryItems = [mysteryItem];
+    const consecutive = {
       trinkets: 3,
       gemCapExtra: 20,
       offset: 1,
       count: 13,
     };
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
 
     plan.key = 'basic_earned';
@@ -647,7 +694,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.gemsBought).to.equal(3);
     expect(updatedUser.purchased.plan.mysteryItems[0]).to.eql(mysteryItem);
@@ -659,7 +706,7 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('does not modify a user with a group subscription when they join another group', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.key = 'basic_earned';
     recipient.purchased.plan = plan;
@@ -673,10 +720,10 @@ describe('Purchasing a group plan for group', () => {
     await api.createSubscription(data);
 
     let updatedUser = await User.findById(recipient._id).exec();
-    let firstDateCreated = updatedUser.purchased.plan.dateCreated;
-    let extraMonthsBeforeSecond = updatedUser.purchased.plan.extraMonths;
+    const firstDateCreated = updatedUser.purchased.plan.dateCreated;
+    const extraMonthsBeforeSecond = updatedUser.purchased.plan.extraMonths;
 
-    let group2 = generateGroup({
+    const group2 = generateGroup({
       name: 'test group2',
       type: 'guild',
       privacy: 'public',
@@ -703,7 +750,7 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('does not remove a user who is in two groups plans and leaves one', async () => {
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     plan.key = 'basic_earned';
     recipient.purchased.plan = plan;
@@ -717,10 +764,10 @@ describe('Purchasing a group plan for group', () => {
     await api.createSubscription(data);
 
     let updatedUser = await User.findById(recipient._id).exec();
-    let firstDateCreated = updatedUser.purchased.plan.dateCreated;
-    let extraMonthsBeforeSecond = updatedUser.purchased.plan.extraMonths;
+    const firstDateCreated = updatedUser.purchased.plan.dateCreated;
+    const extraMonthsBeforeSecond = updatedUser.purchased.plan.extraMonths;
 
-    let group2 = generateGroup({
+    const group2 = generateGroup({
       name: 'test group2',
       type: 'guild',
       privacy: 'public',
@@ -733,7 +780,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedGroup = await Group.findById(group._id).exec();
+    const updatedGroup = await Group.findById(group._id).exec();
     await updatedGroup.leave(recipient);
 
     updatedUser = await User.findById(recipient._id).exec();
@@ -753,7 +800,7 @@ describe('Purchasing a group plan for group', () => {
     plan.key = 'basic_earned';
     plan.customerId = api.constants.UNLIMITED_CUSTOMER_ID;
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.purchased.plan = plan;
     recipient.guilds.push(group._id);
@@ -765,7 +812,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.planId).to.eql('basic_3mo');
     expect(updatedUser.purchased.plan.customerId).to.eql(api.constants.UNLIMITED_CUSTOMER_ID);
@@ -782,7 +829,7 @@ describe('Purchasing a group plan for group', () => {
     plan.customerId = 'random';
     plan.paymentMethod = api.constants.GOOGLE_PAYMENT_METHOD;
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.purchased.plan = plan;
     recipient.guilds.push(group._id);
@@ -794,7 +841,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.planId).to.eql('basic_3mo');
     expect(updatedUser.purchased.plan.customerId).to.eql('random');
@@ -811,7 +858,7 @@ describe('Purchasing a group plan for group', () => {
     plan.customerId = 'random';
     plan.paymentMethod = api.constants.IOS_PAYMENT_METHOD;
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.purchased.plan = plan;
     recipient.guilds.push(group._id);
@@ -823,7 +870,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.planId).to.eql('basic_3mo');
     expect(updatedUser.purchased.plan.customerId).to.eql('random');
@@ -841,7 +888,7 @@ describe('Purchasing a group plan for group', () => {
     plan.customerId = api.constants.GROUP_PLAN_CUSTOMER_ID;
     plan.dateTerminated = moment().add(1, 'months');
 
-    let recipient = new User();
+    const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.purchased.plan = plan;
     recipient.guilds.push(group._id);
@@ -853,7 +900,7 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    let updatedUser = await User.findById(recipient._id).exec();
+    const updatedUser = await User.findById(recipient._id).exec();
 
     expect(updatedUser.purchased.plan.planId).to.eql('group_plan_auto');
     expect(updatedUser.purchased.plan.customerId).to.eql(api.constants.GROUP_PLAN_CUSTOMER_ID);

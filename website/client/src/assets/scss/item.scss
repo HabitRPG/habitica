@@ -1,0 +1,116 @@
+// TODO move to item component?
+
+.items > div {
+  display: inline-block;
+  margin-right: 24px;
+}
+
+.items > div:last-of-type {
+  margin-right: 0px;
+}
+
+.item-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.items-one-line .item-wrapper {
+  margin-bottom: 8px;
+}
+
+.item.pet-slot {
+  // Desktop XL (1440)
+  @media only screen and (min-width: 1440px){
+    margin-right: 1.71em;
+  }
+
+  // Desktop L (1280)
+  @media only screen and (min-width: 1280px) and (max-width: 1439px) {
+    margin-right: 0.43em;
+  }
+
+  // Desktop M (1024)
+  @media only screen and (min-width: 1024px) and (max-width: 1279px) {
+    margin-right: 0.86em;
+  }
+
+  // Tablets and mobile
+  @media only screen and (max-width: 1023px) {
+    margin-right: 1.71em;
+  }
+}
+
+.item {
+  position: relative;
+  width: 94px;
+  height: 92px;
+  border-radius: 2px;
+  background: $white;
+  box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  &-empty {
+    background: $gray-10;
+    box-shadow: none;
+    cursor: auto;
+  }
+
+  &-active {
+    background: $purple-500;
+  }
+
+  &:hover {
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+    border-color: $purple-400;
+  }
+
+  &.highlight {
+    box-shadow: 0 0 8px 8px rgba($black, 0.16), 0 5px 10px 0 rgba($black, 0.12) !important;
+  }
+
+  &.highlight-border {
+    border-color: $purple-500;
+  }
+}
+
+.flat .item {
+  box-shadow: none;
+  border: none;
+}
+
+.bordered-item .item {
+  background: $gray-700 !important;
+  margin: 0 auto;
+}
+
+.drawer-content .item:hover {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.item .item-content {
+  margin: auto;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.item-label {
+  display: block;
+  width: 94px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.33;
+  text-align: center;
+  color: $gray-400;
+  margin-top: 4px;
+}
+
+.questPopover {
+  width: 200px;
+}

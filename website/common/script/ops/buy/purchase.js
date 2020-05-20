@@ -1,8 +1,8 @@
-import content from '../../content/index';
-import i18n from '../../i18n';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import forEach from 'lodash/forEach';
+import i18n from '../../i18n';
+import content from '../../content/index';
 import splitWhitespace from '../../libs/splitWhitespace';
 import {
   NotFound,
@@ -21,7 +21,7 @@ function getItemAndPrice (user, type, key, req) {
     item = content.gear.flat[key];
 
     if (!item) {
-      throw new NotFound(i18n.t('contentKeyNotFound', {type}, req.language));
+      throw new NotFound(i18n.t('contentKeyNotFound', { type }, req.language));
     }
 
     if (user.items.gear.owned[key]) {
@@ -33,46 +33,52 @@ function getItemAndPrice (user, type, key, req) {
     item = content[type][key];
 
     if (!item) {
-      throw new NotFound(i18n.t('contentKeyNotFound', {type}, req.language));
+      throw new NotFound(i18n.t('contentKeyNotFound', { type }, req.language));
     }
 
     price = item.value / 4;
   }
 
-  return {item, price};
+  return { item, price };
 }
 
 function purchaseItem (user, item, price, type, key) {
   user.balance -= price;
 
   if (type === 'gear') {
-    user.items.gear.owned[key] = true;
+    user.items.gear.owned = {
+      ...user.items.gear.owned,
+      [key]: true,
+    };
     if (user.markModified) user.markModified('items.gear.owned');
   } else if (type === 'bundles') {
-    let subType = item.type;
-    forEach(item.bundleKeys, function addBundledItems (bundledKey) {
+    const subType = item.type;
+    forEach(item.bundleKeys, bundledKey => {
       if (!user.items[subType][bundledKey] || user.items[subType][key] < 0) {
         user.items[subType][bundledKey] = 0;
       }
-      user.items[subType][bundledKey]++;
+      user.items[subType][bundledKey] += 1;
     });
     if (user.markModified) user.markModified(`items.${subType}`);
   } else {
     if (!user.items[type][key] || user.items[type][key] < 0) {
       user.items[type][key] = 0;
     }
-    user.items[type][key]++;
+    user.items[type] = {
+      ...user.items[type],
+      [key]: user.items[type][key] + 1,
+    };
     if (user.markModified) user.markModified(`items.${type}`);
   }
 }
 
 const acceptedTypes = ['eggs', 'hatchingPotions', 'food', 'gear', 'bundles'];
 const singlePurchaseTypes = ['gear'];
-module.exports = function purchase (user, req = {}, analytics) {
-  let type = get(req.params, 'type');
-  let key = get(req.params, 'key');
+export default function purchase (user, req = {}, analytics) {
+  const type = get(req.params, 'type');
+  const key = get(req.params, 'key');
 
-  let quantity = req.quantity ? Number(req.quantity) : 1;
+  const quantity = req.quantity ? Number(req.quantity) : 1;
   if (quantity < 1 || !Number.isInteger(quantity)) throw new BadRequest(i18n.t('invalidQuantity', req.language));
 
   if (!type) {
@@ -87,7 +93,7 @@ module.exports = function purchase (user, req = {}, analytics) {
     throw new NotFound(i18n.t('notAccteptedType', req.language));
   }
 
-  let {price, item} = getItemAndPrice(user, type, key, req);
+  const { price, item } = getItemAndPrice(user, type, key, req);
 
   if (!item.canBuy(user)) {
     throw new NotAuthorized(i18n.t('messageNotAvailable', req.language));
@@ -98,7 +104,7 @@ module.exports = function purchase (user, req = {}, analytics) {
   }
 
   if (singlePurchaseTypes.includes(type)) {
-    let itemInfo = getItemInfo(user, type, item);
+    const itemInfo = getItemInfo(user, type, item);
     removeItemByPath(user, itemInfo.path);
   }
 
@@ -122,4 +128,4 @@ module.exports = function purchase (user, req = {}, analytics) {
   return [
     pick(user, splitWhitespace('items balance')),
   ];
-};
+}

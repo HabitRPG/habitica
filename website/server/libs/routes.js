@@ -3,59 +3,69 @@ import _ from 'lodash';
 import {
   getUserLanguage,
 } from '../middlewares/language';
+import {
+  disableCache,
+} from '../middlewares/cache';
 
 // Wrapper function to handler `async` route handlers that return promises
 // It takes the async function, execute it and pass any error to next (args[2])
-let _wrapAsyncFn = fn => (...args) => fn(...args).catch(args[2]);
-let noop = (req, res, next) =>  next();
+const _wrapAsyncFn = fn => (...args) => fn(...args).catch(args[2]);
+const noop = (req, res, next) => next();
 
-module.exports.readController = function readController (router, controller, overrides = []) {
-  _.each(controller, (action) => {
-    let {method, url, middlewares = [], handler} = action;
+export function readController (router, controller, overrides = []) {
+  _.each(controller, action => {
+    let {
+      method,
+    } = action;
+    const { url, middlewares = [], handler } = action;
 
     // Allow to specify a list of routes (METHOD + URL) to skip
     if (overrides.indexOf(`${method}-${url}`) !== -1) return;
 
     // If an authentication middleware is used run getUserLanguage after it, otherwise before
     // for cron instead use it only if an authentication middleware is present
-    let authMiddlewareIndex = _.findIndex(middlewares, middleware => {
+    const authMiddlewareIndex = _.findIndex(middlewares, middleware => {
       if (middleware.name.indexOf('authWith') === 0) { // authWith{Headers|Session|Url|...}
         return true;
-      } else {
-        return false;
       }
+      return false;
     });
 
-    let middlewaresToAdd = [getUserLanguage];
+    method = method.toLowerCase();
 
-    if (action.noLanguage !== true) {
-      if (authMiddlewareIndex !== -1) { // the user will be authenticated, getUserLanguage after authentication
+    // disable caching for all routes with mandatory or optional authentication
+    if (authMiddlewareIndex !== -1) {
+      middlewares.unshift(disableCache);
+    }
+
+    if (action.noLanguage !== true) { // unless getting the language is explictly disabled
+      // the user will be authenticated, getUserLanguage after authentication
+      if (authMiddlewareIndex !== -1) {
         if (authMiddlewareIndex === middlewares.length - 1) {
-          middlewares.push(...middlewaresToAdd);
+          middlewares.push(getUserLanguage);
         } else {
-          middlewares.splice(authMiddlewareIndex + 1, 0, ...middlewaresToAdd);
+          middlewares.splice(authMiddlewareIndex + 1, 0, getUserLanguage);
         }
       } else { // no auth, getUserLanguage as the first middleware
-        middlewares.unshift(...middlewaresToAdd);
+        middlewares.unshift(getUserLanguage);
       }
     }
 
-    method = method.toLowerCase();
-    let fn = handler ? _wrapAsyncFn(handler) : noop;
+    const fn = handler ? _wrapAsyncFn(handler) : noop;
 
     router[method](url, ...middlewares, fn);
   });
-};
+}
 
-module.exports.walkControllers = function walkControllers (router, filePath, overrides) {
+export function walkControllers (router, filePath, overrides) {
   fs
     .readdirSync(filePath)
     .forEach(fileName => {
       if (!fs.statSync(filePath + fileName).isFile()) {
         walkControllers(router, `${filePath}${fileName}/`, overrides);
       } else if (fileName.match(/\.js$/)) {
-        let controller = require(filePath + fileName); // eslint-disable-line global-require
-        module.exports.readController(router, controller, overrides);
+        const controller = require(filePath + fileName).default; // eslint-disable-line global-require, import/no-dynamic-require, max-len
+        readController(router, controller, overrides);
       }
     });
-};
+}

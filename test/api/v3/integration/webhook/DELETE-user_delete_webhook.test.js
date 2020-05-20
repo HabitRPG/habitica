@@ -3,8 +3,9 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-let user, webhookToDelete;
-let endpoint = '/user/webhook';
+let user; let
+  webhookToDelete;
+const endpoint = '/user/webhook';
 
 describe('DELETE /user/webhook', () => {
   beforeEach(async () => {
@@ -32,11 +33,11 @@ describe('DELETE /user/webhook', () => {
   });
 
   it('returns the remaining webhooks', async () => {
-    let [remainingWebhook] = await user.del(`${endpoint}/${webhookToDelete.id}`);
+    const [remainingWebhook] = await user.del(`${endpoint}/${webhookToDelete.id}`);
 
     await user.sync();
 
-    let webhook = user.webhooks[0];
+    const webhook = user.webhooks[0];
 
     expect(remainingWebhook.id).to.eql(webhook.id);
     expect(remainingWebhook.url).to.eql(webhook.url);
@@ -48,7 +49,7 @@ describe('DELETE /user/webhook', () => {
     await expect(user.del(`${endpoint}/id-that-does-not-exist`)).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('noWebhookWithId', {id: 'id-that-does-not-exist'}),
+      message: t('noWebhookWithId', { id: 'id-that-does-not-exist' }),
     });
   });
 });

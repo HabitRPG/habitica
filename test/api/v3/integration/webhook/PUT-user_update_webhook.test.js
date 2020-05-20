@@ -1,12 +1,13 @@
+import { v4 as generateUUID } from 'uuid';
 import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { v4 as generateUUID} from 'uuid';
 import apiError from '../../../../../website/server/libs/apiError';
 
 describe('PUT /user/webhook/:id', () => {
-  let user, webhookToUpdate;
+  let user; let
+    webhookToUpdate;
 
   beforeEach(async () => {
     user = await generateUser();
@@ -30,7 +31,7 @@ describe('PUT /user/webhook/:id', () => {
     await expect(user.put('/user/webhook/id-that-does-not-exist')).to.eventually.be.rejected.and.eql({
       code: 404,
       error: 'NotFound',
-      message: t('noWebhookWithId', {id: 'id-that-does-not-exist'}),
+      message: t('noWebhookWithId', { id: 'id-that-does-not-exist' }),
     });
   });
 
@@ -43,16 +44,53 @@ describe('PUT /user/webhook/:id', () => {
   });
 
   it('updates a webhook', async () => {
-    let url = 'http://a-new-url.com';
-    let type = 'groupChatReceived';
-    let label = 'New Label';
-    let options = { groupId: generateUUID() };
+    const url = 'http://a-new-url.com';
+    const type = 'groupChatReceived';
+    const label = 'New Label';
+    const options = { groupId: generateUUID() };
 
-    await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, type, options, label});
+    await user.put(`/user/webhook/${webhookToUpdate.id}`, {
+      url, type, options, label,
+    });
 
     await user.sync();
 
-    let webhook = user.webhooks.find(hook => webhookToUpdate.id === hook.id);
+    const webhook = user.webhooks.find(hook => webhookToUpdate.id === hook.id);
+
+    expect(webhook.url).to.equal(url);
+    expect(webhook.label).to.equal(label);
+    expect(webhook.type).to.equal(type);
+    expect(webhook.options).to.eql(options);
+  });
+
+  it('ignores protected fields', async () => {
+    const failures = 3;
+    const lastFailureAt = new Date();
+
+    await user.put(`/user/webhook/${webhookToUpdate.id}`, {
+      failures, lastFailureAt,
+    });
+
+    await user.sync();
+    const webhook = user.webhooks.find(hook => webhookToUpdate.id === hook.id);
+
+    expect(webhook.failures).to.eql(0);
+    expect(webhook.lastFailureAt).to.eql(undefined);
+  });
+
+  it('updates a webhook with empty label', async () => {
+    const url = 'http://a-new-url.com';
+    const type = 'groupChatReceived';
+    const label = '';
+    const options = { groupId: generateUUID() };
+
+    await user.put(`/user/webhook/${webhookToUpdate.id}`, {
+      url, type, options, label,
+    });
+
+    await user.sync();
+
+    const webhook = user.webhooks.find(hook => webhookToUpdate.id === hook.id);
 
     expect(webhook.url).to.equal(url);
     expect(webhook.label).to.equal(label);
@@ -61,11 +99,11 @@ describe('PUT /user/webhook/:id', () => {
   });
 
   it('returns the updated webhook', async () => {
-    let url = 'http://a-new-url.com';
-    let type = 'groupChatReceived';
-    let options = { groupId: generateUUID() };
+    const url = 'http://a-new-url.com';
+    const type = 'groupChatReceived';
+    const options = { groupId: generateUUID() };
 
-    let response = await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, type, options});
+    const response = await user.put(`/user/webhook/${webhookToUpdate.id}`, { url, type, options });
 
     expect(response.url).to.eql(url);
     expect(response.type).to.eql(type);
@@ -73,27 +111,27 @@ describe('PUT /user/webhook/:id', () => {
   });
 
   it('cannot update the id', async () => {
-    let id = generateUUID();
-    let url = 'http://a-new-url.com';
+    const id = generateUUID();
+    const url = 'http://a-new-url.com';
 
-    await user.put(`/user/webhook/${webhookToUpdate.id}`, {url, id});
+    await user.put(`/user/webhook/${webhookToUpdate.id}`, { url, id });
 
     await user.sync();
 
-    let webhook = user.webhooks.find(hook => webhookToUpdate.id === hook.id);
+    const webhook = user.webhooks.find(hook => webhookToUpdate.id === hook.id);
 
     expect(webhook.id).to.eql(webhookToUpdate.id);
     expect(webhook.url).to.eql(url);
   });
 
   it('can update taskActivity options', async () => {
-    let type = 'taskActivity';
-    let options = {
+    const type = 'taskActivity';
+    const options = {
       updated: false,
       deleted: true,
     };
 
-    let webhook = await user.put(`/user/webhook/${webhookToUpdate.id}`, {type, options});
+    const webhook = await user.put(`/user/webhook/${webhookToUpdate.id}`, { type, options });
 
     expect(webhook.options).to.eql({
       checklistScored: false, // starting value
@@ -105,14 +143,14 @@ describe('PUT /user/webhook/:id', () => {
   });
 
   it('errors if taskActivity option is not a boolean', async () => {
-    let type = 'taskActivity';
-    let options = {
+    const type = 'taskActivity';
+    const options = {
       created: 'not a boolean',
       updated: false,
       deleted: true,
     };
 
-    await expect(user.put(`/user/webhook/${webhookToUpdate.id}`, {type, options})).to.eventually.be.rejected.and.eql({
+    await expect(user.put(`/user/webhook/${webhookToUpdate.id}`, { type, options })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: t('webhookBooleanOption', { option: 'created' }),
@@ -120,12 +158,12 @@ describe('PUT /user/webhook/:id', () => {
   });
 
   it('errors if groupChatRecieved groupId option is not a uuid', async () => {
-    let type = 'groupChatReceived';
-    let options = {
+    const type = 'groupChatReceived';
+    const options = {
       groupId: 'not-a-uuid',
     };
 
-    await expect(user.put(`/user/webhook/${webhookToUpdate.id}`, {type, options})).to.eventually.be.rejected.and.eql({
+    await expect(user.put(`/user/webhook/${webhookToUpdate.id}`, { type, options })).to.eventually.be.rejected.and.eql({
       code: 400,
       error: 'BadRequest',
       message: apiError('groupIdRequired'),

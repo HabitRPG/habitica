@@ -4,7 +4,7 @@ import {
 } from '../../libs/errors';
 import { model as PushDevice } from '../../models/pushDevice';
 
-let api = {};
+const api = {};
 
 /**
  * @apiIgnore
@@ -23,7 +23,7 @@ api.addPushDevice = {
   url: '/user/push-devices',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkBody('regId', res.t('regIdRequired')).notEmpty();
     req.checkBody('type', res.t('typeRequired')).notEmpty().isIn(['ios', 'android']);
@@ -31,7 +31,7 @@ api.addPushDevice = {
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const pushDevices = user.pushDevices;
+    const { pushDevices } = user;
 
     const item = {
       regId: req.body.regId,
@@ -73,27 +73,25 @@ api.removePushDevice = {
   url: '/user/push-devices/:regId',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkParams('regId', res.t('regIdRequired')).notEmpty();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    const regId = req.params.regId;
+    const { regId } = req.params;
 
-    const pushDevices = user.pushDevices;
+    const { pushDevices } = user;
 
-    const indexOfPushDevice = pushDevices.findIndex((element) => {
-      return element.regId === regId;
-    });
+    const indexOfPushDevice = pushDevices.findIndex(element => element.regId === regId);
 
     if (indexOfPushDevice === -1) {
       throw new NotFound(res.t('pushDeviceNotFound'));
     }
 
     // Concurrency safe update
-    const pullQuery = { $pull: { pushDevices: { $elemMatch: { regId } } } };
+    const pullQuery = { $pull: { pushDevices: { regId } } };
     await user.update(pullQuery).exec();
 
     // Update the response
@@ -103,4 +101,4 @@ api.removePushDevice = {
   },
 };
 
-module.exports = api;
+export default api;

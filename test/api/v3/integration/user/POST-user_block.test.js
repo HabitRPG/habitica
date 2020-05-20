@@ -25,7 +25,7 @@ describe('block user', () => {
   });
 
   it('successfully', async () => {
-    let response = await user.post(`/user/block/${blockedUser2._id}`);
+    const response = await user.post(`/user/block/${blockedUser2._id}`);
     await user.sync();
     expect(response).to.eql([blockedUser._id, blockedUser2._id]);
     expect(user.inbox.blocks.length).to.eql(2);

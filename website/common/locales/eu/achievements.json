@@ -1,0 +1,9 @@
+{
+    "achievement": "Lorpena",
+    "share": "Partekatu",
+    "onwards": "Aurrera!",
+    "levelup": "Bizitza errealeko helburuak lortu dituzunez, maila igo eta osasuna berreskuratu duzu!",
+    "reachedLevel": "<%= level %>. mailara heldu zara",
+    "achievementLostMasterclasser": "",
+    "achievementLostMasterclasserText": ""
+}

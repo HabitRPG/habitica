@@ -10,7 +10,7 @@ import {
 
 describe('shared.ops.readCard', () => {
   let user;
-  let cardType = 'greeting';
+  const cardType = 'greeting';
 
   beforeEach(() => {
     user = generateUser();
@@ -18,7 +18,7 @@ describe('shared.ops.readCard', () => {
     user.flags.cardReceived = true;
   });
 
-  it('returns an error when cardType is not provided', (done) => {
+  it('returns an error when cardType is not provided', done => {
     try {
       readCard(user);
     } catch (err) {
@@ -28,9 +28,9 @@ describe('shared.ops.readCard', () => {
     }
   });
 
-  it('returns an error when unknown cardType is provided', (done) => {
+  it('returns an error when unknown cardType is provided', done => {
     try {
-      readCard(user, {params: {cardType: 'randomCardType'}});
+      readCard(user, { params: { cardType: 'randomCardType' } });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('cardTypeNotAllowed'));
@@ -41,13 +41,13 @@ describe('shared.ops.readCard', () => {
   it('reads a card', () => {
     user.notifications.push({
       type: 'CARD_RECEIVED',
-      data: {card: cardType},
+      data: { card: cardType },
     });
     const initialNotificationNuber = user.notifications.length;
 
-    let [, message] = readCard(user, {params: {cardType: 'greeting'}});
+    const [, message] = readCard(user, { params: { cardType: 'greeting' } });
 
-    expect(message).to.equal(i18n.t('readCard', {cardType}));
+    expect(message).to.equal(i18n.t('readCard', { cardType }));
     expect(user.items.special[`${cardType}Received`]).to.be.empty;
     expect(user.flags.cardReceived).to.be.false;
     expect(user.notifications.length).to.equal(initialNotificationNuber - 1);

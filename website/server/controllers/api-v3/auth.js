@@ -11,8 +11,7 @@ import {
   BadRequest,
 } from '../../libs/errors';
 import * as passwordUtils from '../../libs/password';
-import { send as sendEmail } from '../../libs/email';
-import { validatePasswordResetCodeAndFindUser, convertToBcrypt} from '../../libs/password';
+import { sendTxn as sendTxnEmail } from '../../libs/email';
 import { encrypt } from '../../libs/encryption';
 import {
   loginRes,
@@ -20,25 +19,29 @@ import {
   loginSocial,
   registerLocal,
 } from '../../libs/auth';
-import {verifyUsername} from '../../libs/user/validation';
+import { verifyUsername } from '../../libs/user/validation';
 
 const BASE_URL = nconf.get('BASE_URL');
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 
-let api = {};
+const api = {};
 
 /**
  * @api {post} /api/v3/user/auth/local/register Register
- * @apiDescription Register a new user with email, login name, and password or attach local auth to a social user
+ * @apiDescription Register a new user with email, login name, and password or
+ * attach local authentication to a social auth user
  * @apiName UserRegisterLocal
  * @apiGroup User
  *
- * @apiParam (Body) {String} username Login name of the new user. Must be 1-36 characters, containing only a-z, 0-9, hyphens (-), or underscores (_).
+ * @apiParam (Body) {String} username Login name of the new user.
+ *                                    Must be 1-36 characters, containing only a-z, 0-9,
+ *                                    hyphens (-), or underscores (_).
  * @apiParam (Body) {String} email Email address of the new user
  * @apiParam (Body) {String} password Password for the new user
  * @apiParam (Body) {String} confirmPassword Password confirmation
  *
- * @apiSuccess {Object} data The user object, if local auth was just attached to a social user then only user.auth.local
+ * @apiSuccess {Object} data The user object, if local auth was just
+ *                           attached to a social user then only user.auth.local
  */
 api.registerLocal = {
   method: 'POST',
@@ -61,8 +64,10 @@ api.registerLocal = {
  * @apiParam (Body) {String} password The user's password
  *
  * @apiSuccess {String} data._id The user's unique identifier
- * @apiSuccess {String} data.apiToken The user's api token that must be used to authenticate requests.
- * @apiSuccess {Boolean} data.newUser Returns true if the user was just created (always false for local login).
+ * @apiSuccess {String} data.apiToken The user's api token
+ *                                    that must be used to authenticate requests.
+ * @apiSuccess {Boolean} data.newUser Returns true if the user was just created
+ *                                    (always false for local login).
  */
 api.loginLocal = {
   method: 'POST',
@@ -79,24 +84,24 @@ api.loginLocal = {
         errorMessage: res.t('missingPassword'),
       },
     });
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     req.sanitizeBody('username').trim();
     req.sanitizeBody('password').trim();
 
     let login;
-    let username = req.body.username;
-    let password = req.body.password;
+    const { username } = req.body;
+    const { password } = req.body;
 
     if (validator.isEmail(String(username))) {
-      login = {'auth.local.email': username.toLowerCase()}; // Emails are stored lowercase
+      login = { 'auth.local.email': username.toLowerCase() }; // Emails are stored lowercase
     } else {
-      login = {'auth.local.username': username};
+      login = { 'auth.local.username': username };
     }
 
     // load the entire user because we may have to save it to convert the password to bcrypt
-    let user = await User.findOne(login).exec();
+    const user = await User.findOne(login).exec();
 
     // if user is using social login, then user will not have a hashed_password stored
     if (!user || !user.auth.local.hashed_password) throw new NotAuthorized(res.t('invalidLoginCredentialsLong'));
@@ -125,7 +130,7 @@ api.loginLocal = {
       headers: req.headers,
     });
 
-    return loginRes(user, ...arguments);
+    return loginRes(user, req, res);
   },
 };
 
@@ -137,30 +142,69 @@ api.loginSocial = {
   })],
   url: '/user/auth/social',
   async handler (req, res) {
-    return await loginSocial(req, res);
+    await loginSocial(req, res);
+  },
+};
+
+// Called by apple for web authentication.
+api.redirectApple = {
+  method: 'POST',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  url: '/user/auth/apple',
+  async handler (req, res) {
+    if (req.body.id_token) {
+      req.body.network = 'apple';
+      return loginSocial(req, res);
+    }
+    let url = `/static/apple-redirect?code=${req.body.code}`;
+    if (req.body.user) {
+      const parsedBody = JSON.parse(req.body.user);
+      if (parsedBody && parsedBody.name) {
+        url += `&name=${parsedBody.name.firstName} ${parsedBody.name.lastName}`;
+      }
+    }
+    return res.redirect(303, url);
+  },
+};
+
+// Called as a callback by Apple. Internal route
+// Can be passed `code` and `name` as query parameters
+api.loginApple = {
+  method: 'GET',
+  middlewares: [authWithHeaders({
+    optional: true,
+  })],
+  url: '/user/auth/apple',
+  async handler (req, res) {
+    req.body.network = 'apple';
+    return loginSocial(req, res);
   },
 };
 
 /**
  * @api {put} /api/v3/user/auth/update-username Update username
- * @apiDescription Update the username of a local user
+ * @apiDescription Update and verify the user's username
  * @apiName UpdateUsername
  * @apiGroup User
  *
  * @apiParam (Body) {String} username The new username
-
+ * @apiParam (Body) {String} password The user's password if they use local authentication.
+ * Omit if they use social auth.
+ *
  * @apiSuccess {String} data.username The new username
- **/
+ * */
 api.updateUsername = {
   method: 'PUT',
   middlewares: [authWithHeaders()],
   url: '/user/auth/update-username',
   async handler (req, res) {
-    const user = res.locals.user;
+    const { user } = res.locals;
 
     req.checkBody({
       username: {
-        notEmpty: {errorMessage: res.t('missingUsername')},
+        notEmpty: { errorMessage: res.t('missingUsername') },
       },
     });
 
@@ -172,13 +216,13 @@ api.updateUsername = {
     const issues = verifyUsername(newUsername, res);
     if (issues.length > 0) throw new BadRequest(issues.join(' '));
 
-    const password = req.body.password;
+    const { password } = req.body;
     if (password !== undefined) {
-      let isValidPassword = await passwordUtils.compare(user, password);
+      const isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
     }
 
-    const existingUser = await User.findOne({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() }, {auth: 1}).exec();
+    const existingUser = await User.findOne({ 'auth.local.lowerCaseUsername': newUsername.toLowerCase() }, { auth: 1 }).exec();
     if (existingUser !== undefined && existingUser !== null && existingUser._id !== user._id) {
       throw new BadRequest(res.t('usernameTaken'));
     }
@@ -191,6 +235,8 @@ api.updateUsername = {
     // save username
     user.auth.local.lowerCaseUsername = newUsername.toLowerCase();
     user.auth.local.username = newUsername;
+
+    // reward user for verifying their username
     if (!user.flags.verifiedUsername) {
       user.flags.verifiedUsername = true;
       if (user.items.pets['Bear-Veteran']) {
@@ -214,7 +260,7 @@ api.updateUsername = {
 };
 
 /**
- * @api {put} /api/v3/user/auth/update-password
+ * @api {put} /api/v3/user/auth/update-password Update password
  * @apiDescription Update the password of a local user
  * @apiName UpdatePassword
  * @apiGroup User
@@ -224,39 +270,43 @@ api.updateUsername = {
  * @apiParam (Body) {String} confirmPassword New password confirmation
  *
  * @apiSuccess {Object} data An empty object
- **/
+ * */
 api.updatePassword = {
   method: 'PUT',
   middlewares: [authWithHeaders()],
   url: '/user/auth/update-password',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     if (!user.auth.local.hashed_password) throw new BadRequest(res.t('userHasNoLocalRegistration'));
 
     req.checkBody({
       password: {
-        notEmpty: {errorMessage: res.t('missingPassword')},
+        notEmpty: { errorMessage: res.t('missingPassword') },
       },
       newPassword: {
-        notEmpty: {errorMessage: res.t('missingNewPassword')},
+        notEmpty: { errorMessage: res.t('missingNewPassword') },
+        isLength: {
+          options: { min: common.constants.MINIMUM_PASSWORD_LENGTH },
+          errorMessage: res.t('minPasswordLength'),
+        },
       },
       confirmPassword: {
-        notEmpty: {errorMessage: res.t('missingNewPassword')},
+        notEmpty: { errorMessage: res.t('missingNewPassword') },
       },
     });
 
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
 
     if (validationErrors) {
       throw validationErrors;
     }
 
-    let oldPassword = req.body.password;
-    let isValidPassword = await passwordUtils.compare(user, oldPassword);
+    const oldPassword = req.body.password;
+    const isValidPassword = await passwordUtils.compare(user, oldPassword);
     if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
-    let newPassword = req.body.newPassword;
+    const { newPassword } = req.body;
     if (newPassword !== req.body.confirmPassword) throw new NotAuthorized(res.t('passwordConfirmationMatch'));
 
     // set new password and make sure it's using bcrypt for hashing
@@ -268,7 +318,7 @@ api.updatePassword = {
 };
 
 /**
- * @api {post} /api/v3/user/reset-password Reset password
+ * @api {post} /api/v3/user/reset-password Reset password (email a reset link)
  * @apiDescription Send the user an email to let them reset their password
  * @apiName ResetPassword
  * @apiGroup User
@@ -276,7 +326,7 @@ api.updatePassword = {
  * @apiParam (Body) {String} email The email address of the user
  *
  * @apiSuccess {String} message The localized success message
- **/
+ * */
 api.resetPassword = {
   method: 'POST',
   middlewares: [],
@@ -284,14 +334,14 @@ api.resetPassword = {
   async handler (req, res) {
     req.checkBody({
       email: {
-        notEmpty: {errorMessage: res.t('missingEmail')},
+        notEmpty: { errorMessage: res.t('missingEmail') },
       },
     });
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let email = req.body.email.toLowerCase();
-    let user = await User.findOne({ 'auth.local.email': email }).exec();
+    const email = req.body.email.toLowerCase();
+    const user = await User.findOne({ 'auth.local.email': email }).exec();
 
     if (user) {
       // create an encrypted link to be used to reset the password
@@ -299,23 +349,13 @@ api.resetPassword = {
         userId: user._id,
         expiresAt: moment().add({ hours: 24 }),
       }));
-      let link = `${BASE_URL}/static/user/auth/local/reset-password-set-new-one?code=${passwordResetCode}`;
+      const link = `${BASE_URL}/static/user/auth/local/reset-password-set-new-one?code=${passwordResetCode}`;
 
       user.auth.local.passwordResetCode = passwordResetCode;
 
-      sendEmail({
-        from: 'Habitica <admin@habitica.com>',
-        to: email,
-        subject: res.t('passwordResetEmailSubject'),
-        text: res.t('passwordResetEmailText', {
-          username: user.auth.local.username,
-          passwordResetLink: link,
-        }),
-        html: res.t('passwordResetEmailHtml', {
-          username: user.auth.local.username,
-          passwordResetLink: link,
-        }),
-      });
+      sendTxnEmail(user, 'reset-password', [
+        { name: 'PASSWORD_RESET_LINK', content: link },
+      ]);
 
       await user.save();
     }
@@ -340,23 +380,23 @@ api.updateEmail = {
   middlewares: [authWithHeaders()],
   url: '/user/auth/update-email',
   async handler (req, res) {
-    let user = res.locals.user;
+    const { user } = res.locals;
 
     if (!user.auth.local.email) throw new BadRequest(res.t('userHasNoLocalRegistration'));
 
     req.checkBody('newEmail', res.t('newEmailRequired')).notEmpty().isEmail();
     req.checkBody('password', res.t('missingPassword')).notEmpty();
-    let validationErrors = req.validationErrors();
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let emailAlreadyInUse = await User.findOne({
+    const emailAlreadyInUse = await User.findOne({
       'auth.local.email': req.body.newEmail.toLowerCase(),
-    }).select({_id: 1}).lean().exec();
+    }).select({ _id: 1 }).lean().exec();
 
     if (emailAlreadyInUse) throw new NotAuthorized(res.t('cannotFulfillReq', { techAssistanceEmail: TECH_ASSISTANCE_EMAIL }));
 
-    let password = req.body.password;
-    let isValidPassword = await passwordUtils.compare(user, password);
+    const { password } = req.body;
+    const isValidPassword = await passwordUtils.compare(user, password);
     if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
 
     // if password is using old sha1 encryption, change it
@@ -372,7 +412,7 @@ api.updateEmail = {
 };
 
 /**
- * @api {post} /api/v3/user/auth/reset-password-set-new-one Reser Password Set New one
+ * @api {post} /api/v3/user/auth/reset-password-set-new-one Reset password (set a new one)
  * @apiDescription Set a new password for a user that reset theirs. Not meant for public usage.
  * @apiName ResetPasswordSetNewOne
  * @apiGroup User
@@ -387,25 +427,35 @@ api.resetPasswordSetNewOne = {
   method: 'POST',
   url: '/user/auth/reset-password-set-new-one',
   async handler (req, res) {
-    let user = await validatePasswordResetCodeAndFindUser(req.body.code);
-    let isValidCode = Boolean(user);
+    const user = await passwordUtils.validatePasswordResetCodeAndFindUser(req.body.code);
+    const isValidCode = Boolean(user);
 
     if (!isValidCode) throw new NotAuthorized(res.t('invalidPasswordResetCode'));
 
-    req.checkBody('newPassword', res.t('missingNewPassword')).notEmpty();
-    req.checkBody('confirmPassword', res.t('missingNewPassword')).notEmpty();
-    let validationErrors = req.validationErrors();
+    req.checkBody({
+      newPassword: {
+        notEmpty: { errorMessage: res.t('missingNewPassword') },
+        isLength: {
+          options: { min: common.constants.MINIMUM_PASSWORD_LENGTH },
+          errorMessage: res.t('minPasswordLength'),
+        },
+      },
+      confirmPassword: {
+        notEmpty: { errorMessage: res.t('missingNewPassword') },
+      },
+    });
+
+    const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
-    let newPassword = req.body.newPassword;
-    let confirmPassword = req.body.confirmPassword;
+    const { newPassword, confirmPassword } = req.body;
 
     if (newPassword !== confirmPassword) {
       throw new BadRequest(res.t('passwordConfirmationMatch'));
     }
 
     // set new password and make sure it's using bcrypt for hashing
-    await convertToBcrypt(user, String(newPassword));
+    await passwordUtils.convertToBcrypt(user, String(newPassword));
     user.auth.local.passwordResetCode = undefined; // Reset saved password reset code
     await user.save();
 
@@ -415,7 +465,8 @@ api.resetPasswordSetNewOne = {
 
 /**
  * @api {delete} /api/v3/user/auth/social/:network Delete social authentication method
- * @apiDescription Remove a social authentication method (only facebook supported) from a user profile. The user must have local authentication enabled
+ * @apiDescription Remove a social authentication method from a user profile.
+ * The user must have another authentication method enabled.
  * @apiName UserDeleteSocial
  * @apiGroup User
  *
@@ -426,20 +477,19 @@ api.deleteSocial = {
   url: '/user/auth/social/:network',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    let user = res.locals.user;
-    let network = req.params.network;
-    let isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(supportedNetwork => {
-      return supportedNetwork.key === network;
-    });
+    const { user } = res.locals;
+    const { network } = req.params;
+    const isSupportedNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
+      .find(supportedNetwork => supportedNetwork.key === network);
     if (!isSupportedNetwork) throw new BadRequest(res.t('unsupportedNetwork'));
     if (!hasBackupAuth(user, network)) throw new NotAuthorized(res.t('cantDetachSocial'));
-    let unset = {
+    const unset = {
       [`auth.${network}`]: 1,
     };
-    await User.update({_id: user._id}, {$unset: unset}).exec();
+    await User.update({ _id: user._id }, { $unset: unset }).exec();
 
     res.respond(200, {});
   },
 };
 
-module.exports = api;
+export default api;

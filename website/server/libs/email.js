@@ -1,8 +1,7 @@
-import nodemailer from 'nodemailer';
 import nconf from 'nconf';
-import { TAVERN_ID } from '../models/group';
-import { encrypt } from './encryption';
 import got from 'got';
+import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
+import { encrypt } from './encryption';
 import logger from './logger';
 import common from '../../common';
 
@@ -16,25 +15,11 @@ const EMAIL_SERVER = {
 };
 const BASE_URL = nconf.get('BASE_URL');
 
-let smtpTransporter = nodemailer.createTransport({
-  service: nconf.get('SMTP_SERVICE'),
-  auth: {
-    user: nconf.get('SMTP_USER'),
-    pass: nconf.get('SMTP_PASS'),
-  },
-});
-
-// Send email directly from the server using the smtpTransporter,
-// used only to send password reset emails because users unsubscribed on Mandrill wouldn't get them
-export function send (mailData) {
-  return smtpTransporter.sendMail(mailData); // promise
-}
-
 export function getUserInfo (user, fields = []) {
-  let info = {};
+  const info = {};
 
   if (fields.indexOf('name') !== -1) {
-    info.name = user.profile && user.profile.name;
+    info.name = user.auth && user.auth.local.username;
   }
 
   if (fields.indexOf('email') !== -1) {
@@ -42,7 +27,12 @@ export function getUserInfo (user, fields = []) {
       info.email = user.auth.local.email;
     } else {
       common.constants.SUPPORTED_SOCIAL_NETWORKS.forEach(network => {
-        if (user.auth[network.key] && user.auth[network.key].emails && user.auth[network.key].emails[0] && user.auth[network.key].emails[0].value) {
+        if (
+          user.auth[network.key]
+          && user.auth[network.key].emails
+          && user.auth[network.key].emails[0]
+          && user.auth[network.key].emails[0].value
+        ) {
           info.email = user.auth[network.key].emails[0].value;
         }
       });
@@ -76,55 +66,53 @@ export function getGroupUrl (group) {
 }
 
 // Send a transactional email using Mandrill through the external email server
-export function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
-  mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray];
+export async function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
+  mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray]; // eslint-disable-line no-param-reassign, max-len
 
-  variables = [
-    {name: 'BASE_URL', content: BASE_URL},
+  variables = [ // eslint-disable-line no-param-reassign
+    { name: 'BASE_URL', content: BASE_URL },
   ].concat(variables || []);
 
-  // It's important to pass at least a user with its `preferences` as we need to check if he unsubscribed
-  mailingInfoArray = mailingInfoArray.map((mailingInfo) => {
-    return mailingInfo._id ? getUserInfo(mailingInfo, ['_id', 'email', 'name', 'canSend']) : mailingInfo;
-  }).filter((mailingInfo) => {
+  // It's important to pass at least a user with its `preferences`
+  // as we need to check if he unsubscribed
+  mailingInfoArray = mailingInfoArray // eslint-disable-line no-param-reassign
+    .map(mailingInfo => (mailingInfo._id ? getUserInfo(mailingInfo, ['_id', 'email', 'name', 'canSend']) : mailingInfo))
     // Always send reset-password emails
     // Don't check canSend for non registered users as already checked before
-    return mailingInfo.email && (!mailingInfo._id || mailingInfo.canSend || emailType === 'reset-password');
-  });
+    .filter(mailingInfo => mailingInfo.email
+        && (!mailingInfo._id || mailingInfo.canSend || emailType === 'reset-password'));
 
   // Personal variables are personal to each email recipient, if they are missing
   // we manually create a structure for them with RECIPIENT_NAME and RECIPIENT_UNSUB_URL
   // otherwise we just add RECIPIENT_NAME and RECIPIENT_UNSUB_URL to the existing personal variables
   if (!personalVariables || personalVariables.length === 0) {
-    personalVariables = mailingInfoArray.map((mailingInfo) => {
-      return {
-        rcpt: mailingInfo.email,
-        vars: [
-          {
-            name: 'RECIPIENT_NAME',
-            content: mailingInfo.name,
-          },
-          {
-            name: 'RECIPIENT_UNSUB_URL',
-            content: `/email/unsubscribe?code=${encrypt(JSON.stringify({
-              _id: mailingInfo._id,
-              email: mailingInfo.email,
-            }))}`,
-          },
-        ],
-      };
-    });
+    personalVariables = mailingInfoArray.map(mailingInfo => ({ // eslint-disable-line no-param-reassign, max-len
+      rcpt: mailingInfo.email,
+      vars: [
+        {
+          name: 'RECIPIENT_NAME',
+          content: mailingInfo.name,
+        },
+        {
+          name: 'RECIPIENT_UNSUB_URL',
+          content: `/email/unsubscribe?code=${encrypt(JSON.stringify({
+            _id: mailingInfo._id,
+            email: mailingInfo.email,
+          }))}`,
+        },
+      ],
+    }));
   } else {
-    let temporaryPersonalVariables = {};
+    const temporaryPersonalVariables = {};
 
-    mailingInfoArray.forEach((mailingInfo) => {
+    mailingInfoArray.forEach(mailingInfo => {
       temporaryPersonalVariables[mailingInfo.email] = {
         name: mailingInfo.name,
         _id: mailingInfo._id,
       };
     });
 
-    personalVariables.forEach((singlePersonalVariables) => {
+    personalVariables.forEach(singlePersonalVariables => {
       singlePersonalVariables.vars.push(
         {
           name: 'RECIPIENT_NAME',
@@ -136,16 +124,18 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
             _id: temporaryPersonalVariables[singlePersonalVariables.rcpt]._id,
             email: singlePersonalVariables.rcpt,
           }))}`,
-        }
+        },
       );
     });
   }
 
   if (IS_PROD && mailingInfoArray.length > 0) {
-    got.post(`${EMAIL_SERVER.url}/job`, {
-      auth: `${EMAIL_SERVER.auth.user}:${EMAIL_SERVER.auth.password}`,
-      json: true,
-      body: {
+    return got.post(`${EMAIL_SERVER.url}/job`, {
+      retry: 5, // retry the http request to the email server 5 times
+      timeout: 60000, // wait up to 60s before timing out
+      username: EMAIL_SERVER.auth.user,
+      password: EMAIL_SERVER.auth.password,
+      json: {
         type: 'email',
         data: {
           emailType,
@@ -156,9 +146,14 @@ export function sendTxn (mailingInfoArray, emailType, variables, personalVariabl
         options: {
           priority: 'high',
           attempts: 5,
-          backoff: {delay: 10 * 60 * 1000, type: 'fixed'},
+          backoff: { delay: 10 * 60 * 1000, type: 'fixed' },
         },
       },
-    }).catch((err) => logger.error(err));
+    }).json().catch(err => logger.error(err, {
+      extraMessage: 'Error while sending an email.',
+      emailType,
+    }));
   }
+
+  return null;
 }

@@ -1,4 +1,9 @@
 import {
+  find,
+  each,
+  map,
+} from 'lodash';
+import {
   checkExistence,
   createAndPopulateGroup,
   generateGroup,
@@ -6,11 +11,6 @@ import {
   generateChallenge,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import {
-  find,
-  each,
-  map,
-} from 'lodash';
 import {
   sha1MakeSalt,
   sha1Encrypt as sha1EncryptPassword,
@@ -21,11 +21,11 @@ const DELETE_CONFIRMATION = 'DELETE';
 
 describe('DELETE /user', () => {
   let user;
-  let password = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
+  const password = 'password'; // from habitrpg/test/helpers/api-integration/v3/object-generators.js
 
   context('user with local auth', async () => {
     beforeEach(async () => {
-      user = await generateUser({balance: 10});
+      user = await generateUser({ balance: 10 });
     });
 
     it('returns an error if password is wrong', async () => {
@@ -56,10 +56,10 @@ describe('DELETE /user', () => {
     });
 
     it('returns an error if excessive feedback is supplied', async () => {
-      let feedbackText = 'spam feedback ';
+      const feedbackText = 'spam feedback ';
       let feedback = feedbackText;
       while (feedback.length < 10000) {
-        feedback = feedback + feedbackText;
+        feedback += feedbackText;
       }
 
       await expect(user.del('/user', {
@@ -73,7 +73,7 @@ describe('DELETE /user', () => {
     });
 
     it('returns an error if user has active subscription', async () => {
-      let userWithSubscription = await generateUser({'purchased.plan.customerId': 'fake-customer-id'});
+      const userWithSubscription = await generateUser({ 'purchased.plan.customerId': 'fake-customer-id' });
 
       await expect(userWithSubscription.del('/user', {
         password,
@@ -92,8 +92,8 @@ describe('DELETE /user', () => {
       await user.sync();
 
       // gets the user's tasks ids
-      let ids = [];
-      each(user.tasksOrder, (idsForOrder) => {
+      const ids = [];
+      each(user.tasksOrder, idsForOrder => {
         ids.push(...idsForOrder);
       });
 
@@ -103,20 +103,18 @@ describe('DELETE /user', () => {
         password,
       });
 
-      await Promise.all(map(ids, id => {
-        return expect(checkExistence('tasks', id)).to.eventually.eql(false);
-      }));
+      await Promise.all(map(ids, id => expect(checkExistence('tasks', id)).to.eventually.eql(false)));
     });
 
     it('reduces memberCount in challenges user is linked to', async () => {
-      let populatedGroup = await createAndPopulateGroup({
+      const populatedGroup = await createAndPopulateGroup({
         members: 2,
       });
 
-      let group = populatedGroup.group;
-      let authorizedUser = populatedGroup.members[1];
+      const { group } = populatedGroup;
+      const authorizedUser = populatedGroup.members[1];
 
-      let challenge = await generateChallenge(populatedGroup.groupLeader, group);
+      const challenge = await generateChallenge(populatedGroup.groupLeader, group);
       await populatedGroup.groupLeader.post(`/challenges/${challenge._id}/join`);
       await authorizedUser.post(`/challenges/${challenge._id}/join`);
 
@@ -136,7 +134,7 @@ describe('DELETE /user', () => {
     it('sends feedback to the admin email', async () => {
       sandbox.spy(email, 'sendTxn');
 
-      let feedback = 'Reasons for Deletion';
+      const feedback = 'Reasons for Deletion';
       await user.del('/user', {
         password,
         feedback,
@@ -160,9 +158,9 @@ describe('DELETE /user', () => {
     });
 
     it('deletes the user with a legacy sha1 password', async () => {
-      let textPassword = 'mySecretPassword';
-      let salt = sha1MakeSalt();
-      let sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
+      const textPassword = 'mySecretPassword';
+      const salt = sha1MakeSalt();
+      const sha1HashedPassword = sha1EncryptPassword(textPassword, salt);
 
       await user.update({
         'auth.local.hashed_password': sha1HashedPassword,
@@ -220,10 +218,11 @@ describe('DELETE /user', () => {
     });
 
     context('groups user is leader of', () => {
-      let guild, oldLeader, newLeader;
+      let guild; let oldLeader; let
+        newLeader;
 
       beforeEach(async () => {
-        let { group, groupLeader, members } = await createAndPopulateGroup({
+        const { group, groupLeader, members } = await createAndPopulateGroup({
           groupDetails: {
             type: 'guild',
             privacy: 'public',
@@ -232,7 +231,7 @@ describe('DELETE /user', () => {
         });
 
         guild = group;
-        newLeader = members[0];
+        newLeader = members[0]; // eslint-disable-line prefer-destructuring
         oldLeader = groupLeader;
       });
 
@@ -241,7 +240,7 @@ describe('DELETE /user', () => {
           password,
         });
 
-        let updatedGuild = await newLeader.get(`/groups/${guild._id}`);
+        const updatedGuild = await newLeader.get(`/groups/${guild._id}`);
 
         expect(updatedGuild.leader).to.exist;
         expect(updatedGuild.leader._id).to.not.eql(oldLeader._id);
@@ -249,17 +248,18 @@ describe('DELETE /user', () => {
     });
 
     context('groups user is a part of', () => {
-      let group1, group2, userToDelete, otherUser;
+      let group1; let group2; let userToDelete; let
+        otherUser;
 
       beforeEach(async () => {
-        userToDelete = await generateUser({balance: 10});
+        userToDelete = await generateUser({ balance: 10 });
 
         group1 = await generateGroup(userToDelete, {
           type: 'guild',
           privacy: 'public',
         });
 
-        let {group, members} = await createAndPopulateGroup({
+        const { group, members } = await createAndPopulateGroup({
           groupDetails: {
             type: 'guild',
             privacy: 'public',
@@ -268,7 +268,7 @@ describe('DELETE /user', () => {
         });
 
         group2 = group;
-        otherUser = members[0];
+        otherUser = members[0]; // eslint-disable-line prefer-destructuring
 
         await userToDelete.post(`/groups/${group2._id}/join`);
       });
@@ -278,11 +278,9 @@ describe('DELETE /user', () => {
           password,
         });
 
-        let updatedGroup1Members = await otherUser.get(`/groups/${group1._id}/members`);
-        let updatedGroup2Members = await otherUser.get(`/groups/${group2._id}/members`);
-        let userInGroup = find(updatedGroup2Members, (member) => {
-          return member._id === userToDelete._id;
-        });
+        const updatedGroup1Members = await otherUser.get(`/groups/${group1._id}/members`);
+        const updatedGroup2Members = await otherUser.get(`/groups/${group2._id}/members`);
+        const userInGroup = find(updatedGroup2Members, member => member._id === userToDelete._id);
 
         expect(updatedGroup1Members).to.be.empty;
         expect(updatedGroup2Members).to.not.be.empty;
@@ -308,7 +306,7 @@ describe('DELETE /user', () => {
       })).to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: t('incorrectDeletePhrase', {magicWord: 'DELETE'}),
+        message: t('incorrectDeletePhrase', { magicWord: 'DELETE' }),
       });
     });
 
@@ -342,6 +340,25 @@ describe('DELETE /user', () => {
     });
 
     it('deletes a Google user', async () => {
+      await user.del('/user', {
+        password: DELETE_CONFIRMATION,
+      });
+      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+    });
+  });
+
+  context('user with Apple auth', async () => {
+    beforeEach(async () => {
+      user = await generateUser({
+        auth: {
+          apple: {
+            id: 'apple-id',
+          },
+        },
+      });
+    });
+
+    it('deletes a Apple user', async () => {
       await user.del('/user', {
         password: DELETE_CONFIRMATION,
       });

@@ -1,46 +1,51 @@
+import moment from 'moment';
 import {
   BadRequest,
   NotAuthorized,
   NotFound,
-} from '../../libs/errors';
-import * as passwordUtils from '../../libs/password';
+} from '../errors';
+import * as passwordUtils from '../password';
 import { model as User } from '../../models/user';
 import { model as EmailUnsubscription } from '../../models/emailUnsubscription';
-import { sendTxn as sendTxnEmail } from '../../libs/email';
+import { sendTxn as sendTxnEmail } from '../email';
 import common from '../../../common';
-import logger from '../../libs/logger';
-import { decrypt } from '../../libs/encryption';
+import logger from '../logger';
+import { decrypt } from '../encryption';
 import { model as Group } from '../../models/group';
-import moment from 'moment';
-import { loginSocial } from './social.js';
+import { loginSocial } from './social';
 import { loginRes } from './utils';
 import { verifyUsername } from '../user/validation';
 
 const USERNAME_LENGTH_MIN = 1;
 const USERNAME_LENGTH_MAX = 20;
 
-// When the user signed up after having been invited to a group, invite them automatically to the group
+// When the user signed up after having been invited to a group,
+// invite them automatically to the group
 async function _handleGroupInvitation (user, invite) {
   // wrapping the code in a try because we don't want it to prevent the user from signing up
   // that's why errors are not translated
   try {
-    let {sentAt, id: groupId, inviter} = JSON.parse(decrypt(invite));
+    const decryptedInvite = JSON.parse(decrypt(invite));
+    let { inviter } = decryptedInvite;
+    const { sentAt, id: groupId } = decryptedInvite;
 
     // check that the invite has not expired (after 7 days)
     if (sentAt && moment().subtract(7, 'days').isAfter(sentAt)) {
-      let err = new Error('Invite expired.');
+      const err = new Error('Invite expired.');
       err.privateData = invite;
       throw err;
     }
 
-    let group = await Group.getGroup({user, optionalMembership: true, groupId, fields: 'name type'});
+    const group = await Group.getGroup({
+      user, optionalMembership: true, groupId, fields: 'name type',
+    });
     if (!group) throw new NotFound('Group not found.');
 
     if (group.type === 'party') {
-      user.invitations.party = {id: group._id, name: group.name, inviter};
+      user.invitations.party = { id: group._id, name: group.name, inviter };
       user.invitations.parties.push(user.invitations.party);
     } else {
-      user.invitations.guilds.push({id: group._id, name: group.name, inviter});
+      user.invitations.guilds.push({ id: group._id, name: group.name, inviter });
     }
 
     // award the inviter with 'Invited a Friend' achievement
@@ -64,9 +69,8 @@ function hasBackupAuth (user, networkToRemove) {
     return true;
   }
 
-  let hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS.find((network) => {
-    return network.key !== networkToRemove && user.auth[network.key].id;
-  });
+  const hasAlternateNetwork = common.constants.SUPPORTED_SOCIAL_NETWORKS
+    .find(network => network.key !== networkToRemove && user.auth[network.key].id);
 
   return hasAlternateNetwork;
 }
@@ -79,40 +83,49 @@ async function registerLocal (req, res, { isV3 = false }) {
       notEmpty: true,
       errorMessage: res.t('missingUsername'),
       // TODO use the constants in the error message above
-      isLength: {options: {min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX}, errorMessage: res.t('usernameIssueLength')},
-      matches: {options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameIssueInvalidCharacters')},
+      isLength: { options: { min: USERNAME_LENGTH_MIN, max: USERNAME_LENGTH_MAX }, errorMessage: res.t('usernameIssueLength') },
+      matches: { options: /^[-_a-zA-Z0-9]+$/, errorMessage: res.t('usernameIssueInvalidCharacters') },
     },
     email: {
       notEmpty: true,
       errorMessage: res.t('missingEmail'),
-      isEmail: {errorMessage: res.t('notAnEmail')},
+      isEmail: { errorMessage: res.t('notAnEmail') },
     },
     password: {
       notEmpty: true,
+
       errorMessage: res.t('missingPassword'),
-      equals: {options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch')},
+      equals: { options: [req.body.confirmPassword], errorMessage: res.t('passwordConfirmationMatch') },
+      isLength: {
+        options: { min: common.constants.MINIMUM_PASSWORD_LENGTH },
+        errorMessage: res.t('minPasswordLength'),
+      },
     },
   });
 
-  let validationErrors = req.validationErrors();
+  const validationErrors = req.validationErrors();
   if (validationErrors) throw validationErrors;
 
   const issues = verifyUsername(req.body.username, res);
   if (issues.length > 0) throw new BadRequest(issues.join(' '));
 
-  let { email, username, password } = req.body;
+  let { email, username } = req.body;
+  const { password } = req.body;
 
   // Get the lowercase version of username to check that we do not have duplicates
-  // So we can search for it in the database and then reject the choosen username if 1 or more results are found
+  // So we can search for it in the database and then reject the chosen
+  // username if 1 or more results are found
   email = email.toLowerCase();
   username = username.trim();
-  let lowerCaseUsername = username.toLowerCase();
+  const lowerCaseUsername = username.toLowerCase();
 
   // Search for duplicates using lowercase version of username
-  let user = await User.findOne({$or: [
-    {'auth.local.email': email},
-    {'auth.local.lowerCaseUsername': lowerCaseUsername},
-  ]}, {'auth.local': 1}).exec();
+  const user = await User.findOne({
+    $or: [
+      { 'auth.local.email': email },
+      { 'auth.local.lowerCaseUsername': lowerCaseUsername },
+    ],
+  }, { 'auth.local': 1 }).exec();
 
   if (user) {
     if (email === user.auth.local.email) throw new NotAuthorized(res.t('emailTaken'));
@@ -124,7 +137,7 @@ async function registerLocal (req, res, { isV3 = false }) {
     }
   }
 
-  let hashed_password = await passwordUtils.bcryptHash(password); // eslint-disable-line camelcase
+  const hashed_password = await passwordUtils.bcryptHash(password); // eslint-disable-line camelcase
   let newUser = {
     auth: {
       local: {
@@ -144,10 +157,11 @@ async function registerLocal (req, res, { isV3 = false }) {
   };
 
   if (existingUser) {
-    let hasSocialAuth = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(network => {
-      if (existingUser.auth.hasOwnProperty(network.key)) {
+    const hasSocialAuth = common.constants.SUPPORTED_SOCIAL_NETWORKS.find(network => {
+      if (existingUser.auth.hasOwnProperty(network.key)) { // eslint-disable-line no-prototype-builtins, max-len
         return existingUser.auth[network.key].id;
       }
+      return false;
     });
     if (!hasSocialAuth) throw new NotAuthorized(res.t('onlySocialAttachLocal'));
     existingUser.auth.local = newUser.auth.local;
@@ -162,7 +176,7 @@ async function registerLocal (req, res, { isV3 = false }) {
     await _handleGroupInvitation(newUser, req.query.groupInvite || req.query.partyInvite);
   }
 
-  let savedUser = await newUser.save();
+  const savedUser = await newUser.save();
 
   let userToJSON;
   if (isV3) {
@@ -174,14 +188,14 @@ async function registerLocal (req, res, { isV3 = false }) {
   if (existingUser) {
     res.respond(200, userToJSON.auth.local); // We convert to toJSON to hide private fields
   } else {
-    let userJSON = userToJSON;
+    const userJSON = userToJSON;
     userJSON.newUser = true;
     res.respond(201, userJSON);
   }
 
   // Clean previous email preferences and send welcome email
   EmailUnsubscription
-    .remove({email: savedUser.auth.local.email})
+    .remove({ email: savedUser.auth.local.email })
     .then(() => {
       if (existingUser) return;
       if (newUser.registeredThrough === 'habitica-web') {
@@ -189,7 +203,8 @@ async function registerLocal (req, res, { isV3 = false }) {
       } else {
         sendTxnEmail(savedUser, 'welcome');
       }
-    });
+    })
+    .catch(err => logger.error(err));
 
   if (!existingUser) {
     res.analytics.track('register', {
@@ -205,7 +220,7 @@ async function registerLocal (req, res, { isV3 = false }) {
   return null;
 }
 
-module.exports = {
+export {
   loginRes,
   hasBackupAuth,
   hasLocalAuth,

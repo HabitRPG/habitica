@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
-const MIGRATION_NAME = 'full-stable';
 import each from 'lodash/each';
 import keys from 'lodash/keys';
 import content from '../../website/common/script/content/index';
 
 import { model as User } from '../../website/server/models/user';
+
+const MIGRATION_NAME = 'full-stable';
 
 const progressCount = 1000;
 let count = 0;
@@ -14,46 +15,49 @@ let count = 0;
  */
 
 async function updateUser (user) {
-  count++;
+  count += 1;
 
   const set = {};
 
   set.migration = MIGRATION_NAME;
 
-  each(keys(content.pets), (pet) => {
+  each(keys(content.pets), pet => {
     set[`items.pets.${pet}`] = 5;
   });
-  each(keys(content.premiumPets), (pet) => {
+  each(keys(content.premiumPets), pet => {
     set[`items.pets.${pet}`] = 5;
   });
-  each(keys(content.questPets), (pet) => {
+  each(keys(content.questPets), pet => {
     set[`items.pets.${pet}`] = 5;
   });
-  each(keys(content.specialPets), (pet) => {
+  each(keys(content.specialPets), pet => {
     set[`items.pets.${pet}`] = 5;
   });
-  each(keys(content.mounts), (mount) => {
+  each(keys(content.wackyPets), pet => {
+    set[`items.pets.${pet}`] = 5;
+  });
+  each(keys(content.mounts), mount => {
     set[`items.mounts.${mount}`] = true;
   });
-  each(keys(content.premiumMounts), (mount) => {
+  each(keys(content.premiumMounts), mount => {
     set[`items.mounts.${mount}`] = true;
   });
-  each(keys(content.questMounts), (mount) => {
+  each(keys(content.questMounts), mount => {
     set[`items.mounts.${mount}`] = true;
   });
-  each(keys(content.specialMounts), (mount) => {
+  each(keys(content.specialMounts), mount => {
     set[`items.mounts.${mount}`] = true;
   });
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return await User.update({_id: user._id}, {$set: set}).exec();
+  return User.update({ _id: user._id }, { $set: set }).exec();
 }
 
-module.exports = async function processUsers () {
-  let query = {
-    migration: {$ne: MIGRATION_NAME},
-    'auth.local.username': 'olson22',
+export default async function processUsers () {
+  const query = {
+    migration: { $ne: MIGRATION_NAME },
+    'auth.local.username': 'SabreTest',
   };
 
   const fields = {
@@ -64,7 +68,7 @@ module.exports = async function processUsers () {
     const users = await User // eslint-disable-line no-await-in-loop
       .find(query)
       .limit(250)
-      .sort({_id: 1})
+      .sort({ _id: 1 })
       .select(fields)
       .lean()
       .exec();
@@ -81,4 +85,4 @@ module.exports = async function processUsers () {
 
     await Promise.all(users.map(updateUser)); // eslint-disable-line no-await-in-loop
   }
-};
+}
