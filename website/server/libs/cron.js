@@ -441,7 +441,7 @@ export async function cron (options = {}) {
     }
 
     // Check if another user completed shared task in the "same" day the user is "starting"
-    if (task.group && task.group.sharedCompletion === SHARED_COMPLETION.single) {
+    if (task.group && task.group.id && task.group.sharedCompletion === SHARED_COMPLETION.single) {
       // @REVIEW This introduces an async call into this cron function.
       // The function is called from ../middlewares/cron.js asyncCron(), which is already async
       // Does this cause issues?
@@ -454,7 +454,7 @@ export async function cron (options = {}) {
       );
     } else {
       task.completed = false;
-      if (task.group) {
+      if (task.group && task.group.id) {
         groupSharedDailies.push(async () => {
           await groupTaskNewDay(task, user);
         });
@@ -468,7 +468,7 @@ export async function cron (options = {}) {
       }
     }
 
-    if (task.group && task.group.approval && task.group.approval.approved) {
+    if (task.group && task.group.id && task.group.approval && task.group.approval.approved) {
       task.group.approval.approved = false;
       task.group.approval.dateApproved = null;
       task.group.approval.requested = false;
