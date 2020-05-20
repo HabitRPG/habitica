@@ -1,54 +1,78 @@
+.icon_background_rainbow_meadow {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -637px -1456px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_rainbows_end {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -706px -1456px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_rainforest {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -775px -1456px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_rainy_barnyard {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -844px -1456px;
+  width: 68px;
+  height: 68px;
+}
 .icon_background_rainy_city {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -910px -1456px;
+  background-position: -913px -1456px;
   width: 68px;
   height: 68px;
 }
 .icon_background_red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -979px -1456px;
+  background-position: -982px -1456px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rolling_hills {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1048px -1456px;
+  background-position: -1051px -1456px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rose_garden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1117px -1456px;
+  background-position: -1120px -1456px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rowboat {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1186px -1456px;
+  background-position: -1189px -1456px;
   width: 68px;
   height: 68px;
 }
 .icon_background_sandcastle {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1255px -1456px;
+  background-position: -1258px -1456px;
   width: 68px;
   height: 68px;
 }
 .icon_background_school_of_fish {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1324px -1456px;
+  background-position: -1327px -1456px;
   width: 68px;
   height: 68px;
 }
 .icon_background_scribes_workshop {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1393px -1456px;
+  background-position: -1396px -1456px;
   width: 68px;
   height: 68px;
 }
 .icon_background_seafarer_ship {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1462px -1456px;
+  background-position: -1465px -1456px;
   width: 68px;
   height: 68px;
 }
@@ -3721,42 +3745,6 @@
 .customize-option.hair_bangs_3_brown {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -571px -1471px;
-  width: 60px;
-  height: 60px;
-}
-.hair_bangs_3_candycane {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -637px -1456px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.hair_bangs_3_candycane {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -662px -1471px;
-  width: 60px;
-  height: 60px;
-}
-.hair_bangs_3_candycorn {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -728px -1456px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.hair_bangs_3_candycorn {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -753px -1471px;
-  width: 60px;
-  height: 60px;
-}
-.hair_bangs_3_festive {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -819px -1456px;
-  width: 90px;
-  height: 90px;
-}
-.customize-option.hair_bangs_3_festive {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -844px -1471px;
   width: 60px;
   height: 60px;
 }

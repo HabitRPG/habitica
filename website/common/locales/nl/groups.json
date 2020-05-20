@@ -151,7 +151,7 @@
     "gemAmountRequired": "Een hoeveelheid edelstenen is vereist",
     "notAuthorizedToSendMessageToThisUser": "Je kan geen bericht sturen naar deze speler omdat ze ervoor gekozen hebben om berichten te blokkeren.",
     "privateMessageGiftGemsMessage": "Hallo <%= receiverName %>, <%= senderName %> heeft je <%= gemAmount %> edelstenen gestuurd!",
-    "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> maanden abonnementkrediet! ",
+    "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> maanden abonnementkrediet!",
     "cannotSendGemsToYourself": "Je kunt geen edelstenen naar jezelf sturen. Probeer in plaats daarvan een abonnement.",
     "badAmountOfGemsToSend": "Het bedrag moet tussen 1 en je huidige hoeveelheid edelstenen liggen.",
     "report": "Melden",
@@ -237,7 +237,7 @@
     "cannotInviteSelfToGroup": "Je kunt jezelf niet voor een groep uitnodigen.",
     "userAlreadyInvitedToGroup": "GebruikersID: <%= userId %>, Gebruiker \"<%= username %>\" is reeds uitgenodigd voor die groep.",
     "userAlreadyPendingInvitation": "GebruikersID: <%= userId %>, Gebruiker \"<%= username %>\" heeft een lopende uitnodiging.",
-    "userAlreadyInAParty": "GebruikersID: <%= userId %>, Gebruiker \"<%= username %>\" is reeds lid van een gezelschap. ",
+    "userAlreadyInAParty": "GebruikersID: <%= userId %>, Gebruiker \"<%= username %>\" is reeds lid van een gezelschap.",
     "userWithIDNotFound": "Gebruiker met id \"<%= userId %>\" niet gevonden.",
     "userWithUsernameNotFound": "Gebruiker met gebruikersnaam \"<%= username %>\" niet gevonden.",
     "userHasNoLocalRegistration": "De gebruiker heeft geen lokale registratie (gebruikersnaam, e-mail, wachtwoord).",
@@ -490,5 +490,8 @@
     "sendGiftToWhom": "Naar wie wil je een geschenk sturen?",
     "selectGift": "Selecteer Geschenk",
     "blockedToSendToThisUser": "Je kunt dit niet naar deze speler sturen omdat je deze hebt geblokkeerd.",
-    "PMDisabled": "Schakel Privéberichten Uit"
+    "PMDisabled": "Schakel Privéberichten Uit",
+    "PMUnblockUserToSendMessages": "Deblokkeer deze gebruiker om door te gaan met het verzenden en ontvangen van berichten.",
+    "PMUserDoesNotReceiveMessages": "Deze gebruiker ontvangt niet langer privéberichten",
+    "PMCanNotReply": "U kan niet antwoorden op deze conversatie"
 }

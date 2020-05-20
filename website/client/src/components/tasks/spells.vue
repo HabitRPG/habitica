@@ -300,7 +300,7 @@ export default {
       const { user } = this;
       if (!user.party.quest) return 0;
 
-      const userQuest = this.quests[user.party.quest.key];
+      const userQuest = this.quests.quests[user.party.quest.key];
 
       if (!userQuest) {
         return 0;

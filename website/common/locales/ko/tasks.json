@@ -1,9 +1,9 @@
 {
     "clearCompleted": "삭제 완료",
-    "clearCompletedDescription": "완료된 할일 목록은 비회원은 30일,  회원은 90일 뒤에 삭제됩니다.",
-    "clearCompletedConfirm": "완료된 할일 목록을 삭제하시겠습니까?",
-    "sureDeleteCompletedTodos": "완료된 할일 목록을 삭제하시겠습니까?",
-    "lotOfToDos": "최근 완료한 할 일 30개를 이 곳에 보여줍니다. 더 오래된 것은 데이터 > 데이터 보기 도구 나 데이터 > 데이터 내보내기 > 사용자 데이터에서 볼 수 있습니다.",
+    "clearCompletedDescription": "완료된 할 일 목록은 비회원은 30일, 회원은 90일 뒤에 삭제됩니다.",
+    "clearCompletedConfirm": "완료한 할 일 목록을 삭제하시겠습니까?",
+    "sureDeleteCompletedTodos": "완료한 할 일 목록을 삭제하시겠습니까?",
+    "lotOfToDos": "최근 완료한 할 일 30개가 이곳에 보여집니다.. 더 오래된 것은 데이터 > 데이터 보기 도구 및 데이터 > 데이터 내보내기 > 사용자 데이터에서 볼 수 있습니다.",
     "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",
     "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
     "addsingle": "하나 추가",

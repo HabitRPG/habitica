@@ -319,6 +319,14 @@ const NOTIFICATIONS = {
       achievement: 'bugBonanza', // defined manually until the server sends all the necessary data
     },
   },
+  ACHIEVEMENT_BARE_NECESSITIES: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementBareNecessities')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'bareNecessities', // defined manually until the server sends all the necessary data
+    },
+  },
 };
 
 export default {
@@ -377,7 +385,7 @@ export default {
       'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
       'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
       'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT_TICKLED_PINK', 'ACHIEVEMENT_ROSY_OUTLOOK', 'ACHIEVEMENT',
-      'ONBOARDING_COMPLETE', 'FIRST_DROPS', 'ACHIEVEMENT_BUG_BONANZA',
+      'ONBOARDING_COMPLETE', 'FIRST_DROPS', 'ACHIEVEMENT_BUG_BONANZA', 'ACHIEVEMENT_BARE_NECESSITIES',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -792,6 +800,7 @@ export default {
           case 'ACHIEVEMENT_TICKLED_PINK':
           case 'ACHIEVEMENT_ROSY_OUTLOOK':
           case 'ACHIEVEMENT_BUG_BONANZA':
+          case 'ACHIEVEMENT_BARE_NECESSITIES':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
