@@ -385,7 +385,7 @@
 import extend from 'lodash/extend';
 import groupUtilities from '@/mixins/groupsUtilities';
 import styleHelper from '@/mixins/styleHelper';
-import { mapState } from '@/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 import startQuestModal from './startQuestModal';
 import questDetailsModal from './questDetailsModal';
@@ -447,6 +447,7 @@ export default {
         bronzeGuildBadgeIcon,
       }),
       members: [],
+      membersLoaded: false,
       selectedQuest: {},
       chat: {
         submitDisable: false,
@@ -455,7 +456,12 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({
+      user: 'user.data',
+    }),
+    ...mapGetters({
+      partyMembers: 'party:members',
+    }),
     partyStore () {
       return this.$store.state.party;
     },
@@ -526,6 +532,18 @@ export default {
       return this.$store.dispatch('members:getGroupMembers', payload);
     },
     showMemberModal () {
+      if (this.isParty) {
+        this.membersLoaded = true;
+        this.members = this.partyMembers;
+      } else if (!this.membersLoaded) {
+        this.membersLoaded = true;
+
+        this.loadMembers({
+          groupId: this.group._id,
+          includeAllPublicFields: true,
+        }).then(m => this.members.push(...m));
+      }
+
       this.$root.$emit('habitica:show-member-modal', {
         groupId: this.group._id,
         group: this.group,
@@ -565,11 +583,6 @@ export default {
         const notificationId = notification && notification.id;
         this.$store.dispatch('chat:markChatSeen', { groupId, notificationId });
       }
-
-      this.members = await this.loadMembers({
-        groupId: this.group._id,
-        includeAllPublicFields: true,
-      });
     },
     // returns the notification id or false
     hasUnreadMessages (groupId) {
