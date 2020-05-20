@@ -93,6 +93,7 @@
             :members="members"
             :challenge-id="challengeId"
             @member-selected="openMemberProgressModal"
+            @opened="initialMembersLoad()"
           />
         </div>
         <div class="col-12 col-md-6 text-right">
@@ -368,6 +369,7 @@ export default {
       }),
       challenge: {},
       members: [],
+      membersLoaded: false,
       tasksByType: {
         habit: [],
         daily: [],
@@ -431,8 +433,6 @@ export default {
         this.$router.push('/challenges/findChallenges');
         return;
       }
-      this.members = await this
-        .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
       const tasks = await this.$store.dispatch('tasks:getChallengeTasks', { challengeId: this.searchId });
       this.tasksByType = {
         habit: [],
@@ -458,7 +458,16 @@ export default {
       }
       return this.$store.dispatch('members:getChallengeMembers', payload);
     },
+    initialMembersLoad () {
+      if (!this.membersLoaded) {
+        this.membersLoaded = true;
 
+        this.loadMembers({
+          challengeId: this.searchId,
+          includeAllPublicFields: true,
+        }).then(m => this.members.push(...m));
+      }
+    },
     editTask (task) {
       this.taskFormPurpose = 'edit';
       this.editingTask = cloneDeep(task);
@@ -493,6 +502,8 @@ export default {
       this.tasksByType[task.type].splice(index, 1);
     },
     showMemberModal () {
+      this.initialMembersLoad();
+
       this.$root.$emit('habitica:show-member-modal', {
         challengeId: this.challenge._id,
         groupId: 'challenge', // @TODO: change these terrible settings
@@ -505,8 +516,8 @@ export default {
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
       this.challenge = await this.$store.dispatch('challenges:joinChallenge', { challengeId: this.searchId });
-      this.members = await this
-        .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
+      this.membersLoaded = false;
+      this.members = [];
 
       await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
     },
@@ -515,10 +526,11 @@ export default {
     },
     async updateChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
-      this.members = await this
-        .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
+      this.membersLoaded = false;
+      this.members = [];
     },
     closeChallenge () {
+      this.initialMembersLoad();
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {

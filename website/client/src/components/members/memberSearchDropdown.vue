@@ -3,6 +3,7 @@
     class="create-dropdown"
     :text="text"
     no-flip="no-flip"
+    @show="$emit('opened')"
   >
     <b-dropdown-form
       :disabled="false"
