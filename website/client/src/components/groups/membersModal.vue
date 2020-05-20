@@ -99,7 +99,10 @@
           </div>
         </div>
       </div>
-      <div v-if="selectedPage === 'members'">
+      <div
+        v-if="selectedPage === 'members'"
+        :class="{'mt-1': invites.length === 0}"
+      >
         <div
           v-for="(member, index) in sortedMembers"
           :key="member._id"
