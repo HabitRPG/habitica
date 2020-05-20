@@ -145,7 +145,8 @@
           v-else
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
-            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked"
+            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
+            (item.event && !eventItemAvailable)"
           :class="{'notEnough': !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
           @click="buyItem()"
@@ -155,7 +156,7 @@
       </div>
     </div>
     <div
-      v-if="item.event && item.owned == null"
+      v-if="item.event && item.owned == null && eventItemAvailable"
       class="limitedTime"
     >
       <span
@@ -163,6 +164,18 @@
         v-html="icons.clock"
       ></span>
       <span class="limitedString">{{ limitedString }}</span>
+    </div>
+    <div
+      v-if="item.event && !eventItemAvailable"
+      class="notAvailable"
+    >
+      <span
+        class="svg-icon inline icon-16 clock-icon"
+        v-html="icons.clock"
+      ></span>
+      <!-- @TODO: ask about setting string messages in the common/local/en npc.json -->
+      <!-- Wasn't able to test it locally for whatever reason  -->
+      <span class="notAvailableString" v-html="'This item is unavailable'"></span>
     </div>
     <div
       v-if="item.key === 'rebirth_orb' && item.value > 0 && user.stats.lvl >= 100"
@@ -330,6 +343,27 @@
 
       .limitedString {
         height: 16px;
+        margin-left: 8px;
+      }
+    }
+
+    .notAvailable {
+      height: 32px;
+      background-color: $red-100;
+      width: calc(100% + 30px);
+      margin: 0 -15px; // the modal content has its own padding
+
+      font-size: 12px;
+      line-height: 1.33;
+      text-align: center;
+      color: $white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .notAvailableString {
+        height: 12px;
         margin-left: 8px;
       }
     }
@@ -506,6 +540,9 @@ export default {
     nonSubscriberHourglasses () {
       return (!this.user.purchased.plan.customerId && !this.user.purchased.plan.consecutive.trinkets && this.getPriceClass() === 'hourglasses');
     },
+    eventItemAvailable () {
+      return (moment() >= moment(this.item.event.start) && moment() <= moment(this.item.event.end));
+    },
   },
   watch: {
     item: function itemChanged () {
@@ -602,6 +639,7 @@ export default {
       return 'gold';
     },
     showAmountToBuy (item) {
+      console.log('item: ', item);
       if (hideAmountSelectionForPurchaseTypes.includes(item.purchaseType)) {
         return false;
       }

@@ -187,5 +187,6 @@
   "welcome5": "Now you'll customize your avatar and set up your tasks...",
   "imReady": "Enter Habitica",
 
-  "limitedOffer": "Available until <%= date %>"
+  "limitedOffer": "Available until <%= date %>",
+  "itemUnavailable": "This item is unavailable"
 }
