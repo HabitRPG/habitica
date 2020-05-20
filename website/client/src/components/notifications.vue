@@ -688,7 +688,10 @@ export default {
         if (task && task.group.approval && task.group.approval.requested) return;
         if (task.completed) return;
         const due = shouldDo(yesterDay, task);
-        if (task.yesterDaily && due) this.yesterDailies.push(task);
+        if (task.yesterDaily && due) {
+          task.yesterDailyScored = true;
+          this.yesterDailies.push(task);
+        }
       });
 
       if (this.yesterDailies.length === 0) {

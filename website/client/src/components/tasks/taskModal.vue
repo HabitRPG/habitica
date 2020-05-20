@@ -506,7 +506,7 @@
           class="option group-options"
         >
           <div
-            v-if="task.type === 'todo'"
+            v-if="task.type === 'todo' || task.type === 'daily'"
             class="form-group"
           >
             <label v-once>{{ $t('sharedCompletion') }}</label>

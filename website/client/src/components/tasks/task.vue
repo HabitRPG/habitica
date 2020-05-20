@@ -1054,7 +1054,9 @@ export default {
 
 
       Analytics.updateUser();
-      const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);
+
+      const yesterDaily = task.yesterDailyScored ? '/yesterdaily' : '';
+      const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}${yesterDaily}`);
       // used to notify drops, critical hits and other bonuses
       const tmp = response.data.data._tmp || {};
       const { crit } = tmp;
