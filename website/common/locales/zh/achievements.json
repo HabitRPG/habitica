@@ -71,12 +71,15 @@
     "achievementTickledPinkText": "集齐了所有粉色棉花糖宠物。",
     "achievementTickledPink": "笑得脸变粉红色",
     "foundNewItemsCTA": "去物品栏，尝试结合你的新孵化药水和蛋！",
-    "foundNewItemsExplanation": "完成任务使你有机会找到物品，如蛋、孵化药水和食物。",
+    "foundNewItemsExplanation": "完成任务使你有机会找到物品，例如蛋、孵化药水和食物。",
     "foundNewItems": "你找到了新物品！",
     "achievementBugBonanzaModalText": "你完成了甲虫、蝴蝶、蜗牛及蜘蛛的宠物副本！",
     "achievementBugBonanzaText": "已完成甲虫、蝴蝶、蜗牛及蜘蛛的宠物副本。",
     "achievementBugBonanza": "虫子富矿带",
     "onboardingCompleteDescSmall": "如果你想获得更多勋章，查查你的成就列表开始收集吧！",
     "onboardingComplete": "你完成了新手任务！",
-    "yourProgress": "你的成就"
+    "yourProgress": "你的成就",
+    "achievementBareNecessitiesModalText": "你完成了猴子、树懒和小树宠物副本！",
+    "achievementBareNecessitiesText": "已完成猴子、树懒和小树宠物副本。",
+    "achievementBareNecessities": "森林王子"
 }
