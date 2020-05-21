@@ -612,10 +612,10 @@
           @click="destroy()"
         >
           <div
-            class="svg-icon d-inline-b"
+            class="svg-icon d-inline-b mt-1 mb-1"
             v-html="icons.destroy"
           ></div>
-          <span>{{ $t('deleteTask') }}</span>
+          <span class="delete-text mt-1 mb-1">{{ $t('deleteTask') }}</span>
         </div>
       </form>
     </div>
@@ -847,12 +847,29 @@
     .delete-task-btn {
       margin-top: 32px;
       margin-bottom: 8px;
-      color: $red-50;
+      height: 1.5rem;
+      align-items: center;
+
+      .delete-text {
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.71;
+        letter-spacing: normal;
+        color: $maroon-50;
+        height: 1.5rem;
+      }
 
       .svg-icon {
-        width: 14px;
-        height: 16px;
-        margin-right: 8.5px;
+        svg {
+          height: 1rem;
+          width: 1rem;
+          object-fit: contain;
+        }
+
+        margin-right: 0.5rem;
+        color: $maroon-50;
       }
     }
 
