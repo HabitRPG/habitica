@@ -150,12 +150,12 @@ describe('highlightMentions', () => {
       expect(result[0]).to.equal('[@user](/profile/111) `@user`');
     });
 
-    it('does not crash when a link is repeated in the message.', async () => {
-      const text = '[here](http://habitica.wikia.com/@user/The_Keep:Pirate_Cove/FAQ)\n[hier](http://habitica.wikia.com/@user/The_Keep:Pirate_Cove/FAQ)';
+    it('matches a link in between two the same links', async () => {
+      const text = '[here](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)\n@user\n[hier](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)';
 
       const result = await highlightMentions(text);
 
-      expect(result[0]).to.equal(text);
+      expect(result[0]).to.equal('[here](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)\n[@user](/profile/111)\n[hier](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)');
     });
   });
 
