@@ -31,6 +31,7 @@
         :key="tag.id"
         @click.prevent.stop="selectTag(tag)"
         class="ignore-hide"
+        :class="{ 'none': tag.id === 'none' }"
       >
         {{ tag.name }}
       </b-dropdown-item-button>
@@ -55,6 +56,11 @@
     .dropdown-item, .dropdown-header {
       padding-left: 0.75rem;
       padding-right: 0.75rem;
+    }
+
+    .none {
+      cursor: default;
+      pointer-events: none;
     }
   }
 
@@ -129,7 +135,20 @@ export default {
 
       const searchString = this.search.toLowerCase();
 
-      return availableItems.filter(i => i.name.toLowerCase().includes(searchString));
+      const filteredItems = availableItems.filter(i => i.name.toLowerCase().includes(searchString));
+
+      const tagCount = filteredItems.length;
+
+      const result = filteredItems.slice(0, 5);
+
+      if (tagCount > 5) {
+        result.push({
+          id: 'none',
+          name: this.$t('moreTags', { amount: tagCount - 5 }),
+        });
+      }
+
+      return result;
     },
   },
   props: {

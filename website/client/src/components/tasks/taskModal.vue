@@ -1379,8 +1379,8 @@ export default {
         this.closeTagsPopup();
       }
     },
-    handleClick (e) {
-      this.closeTagsPopup(e.target);
+    handleClick () {
+      //  this.closeTagsPopup(e.target);
     },
     closeTagsPopup (element) {
       if (this.$refs.selectTag) {
