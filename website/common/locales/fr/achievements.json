@@ -78,5 +78,8 @@
     "achievementBugBonanza": "Manne d'insectes",
     "onboardingCompleteDescSmall": "Si vous en voulez plus, allez regarder les succès et commencez à les collectionner !",
     "onboardingComplete": "Vous avez terminé vos tâches de démarrage !",
-    "yourProgress": "Votre progression"
+    "yourProgress": "Votre progression",
+    "achievementBareNecessitiesModalText": "Vous avez réalisé les quêtes de familier singe, paresseux et arbrisseaux !",
+    "achievementBareNecessitiesText": "A réalisé les quêtes de familier singe, paresseux et arbrisseaux.",
+    "achievementBareNecessities": "Le strict nécessaire"
 }
