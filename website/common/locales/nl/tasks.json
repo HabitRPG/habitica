@@ -199,7 +199,7 @@
     "monthlyRepeatHelpContent": "Deze taak zul je iedere X maanden moeten doen",
     "yearlyRepeatHelpContent": "Deze taak zul je iedere X jaren moeten doen",
     "resets": "Herstart",
-    "summaryStart": "Herhaalt <%= frequency %> iedere <%= everyX %> <%= frequencyPlural %> ",
+    "summaryStart": "Herhaalt <%= frequency %> iedere <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Toekomstige data",
     "checkOffYesterDailies": "Vink alle dagelijkse taken af die je gisteren hebt gedaan:",
     "yesterDailiesTitle": "Je hebt deze dagelijkse taken gisteren niet voltooid! Wil je er nu nog een paar voltooien?",

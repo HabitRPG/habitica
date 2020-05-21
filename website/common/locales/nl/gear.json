@@ -1947,7 +1947,17 @@
     "headSpecialPiDayNotes": "Probeer om dit stuk heerlijke taart op je hoofd te balanceren terwijl je in een cirkel wandelt. Of werp het naar een rode Dagtaak! Of je zou het kunnen opeten. Jouw keuze! Kent geen voordeel toe.",
     "headMystery201903Text": "Spiegelei Helm",
     "armorArmoireBaseballUniformText": "Honkbal Uniform",
-    "armorArmoireMatchMakersApronText": "Koppelaarsters Schort",
+    "armorArmoireMatchMakersApronText": "Lucifermaker Schort",
     "armorArmoireBoxArmorText": "Boks Uitrusting",
-    "headSpecialSummer2019RogueText": "Voorhamer Helm"
+    "headSpecialSummer2019RogueText": "Voorhamer Helm",
+    "headSpecialSpring2019MageText": "Amber Hoed",
+    "armorArmoireMatchMakersApronNotes": "Dit schort is voor de veiligheid, maar omwille van de humor kunnen we er licht van maken. Verhoogt lichaam, kracht en intelligentie met elk <%= attrs %>. Betoverd Kabinet: Lucifermaker Set (Voorwerp 1 van 4).",
+    "shieldArmoireBaseballGloveNotes": "Perfect voor het grote toernooi, of een gezellig vangspel tussen taken. Verhoogd kracht met <%= str %>. Betoverde Kabinet: Honkbal Set (Voorwerp 4 van 4).",
+    "shieldArmoireBaseballGloveText": "Honkbalhandschoen",
+    "shieldArmoireHobbyHorseNotes": "Berijd je knappe stokpaardje naar je rechtvaardige beloningen! Verhoogt perceptie en lichaam met elk <% = attrs%>. Betoverd Kabinet: Papieren Ridder Set (Voorwerp 2 van 3).",
+    "shieldArmoireHobbyHorseText": "Stokpaardje",
+    "armorArmoireBoxArmorNotes": "Boks Uitrusting: Het past, daarom zit je ... uh, daarom draag je het in de strijd, zoals de stoere ridder die je bent! Verhoogt perceptie en constitutie met elk <% = attrs%>. Betoverd Kabinet: Papieren Ridder Set (Voorwerp 3 van 3). ",
+    "armorArmoireBaseballUniformNotes": "Het krijtstreepmotief geraakt nooit uit de mode. Verhoogd lichaam en kracht met <%= attrs %> elks. Betoverde Kabinet: Honkbal Set (Voorwerp 2 van 4).",
+    "headSpecialSummer2019MageText": "Lelieblad Hoed",
+    "headSpecialSpring2019MageNotes": "Een gloeiend oranje juweel verleent deze hoed de kracht van mysterieuze natuurkrachten. Verhoogt de perceptie met <%= per%>. Beperkte Oplage 2019 Lenteuitrusting."
 }

@@ -1,9 +1,19 @@
 {
-  "achievement": "Achievement",
-  "share": "Share",
-  "onwards": "Onwards!",
-  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-  "reachedLevel": "You Reached Level <%= level %>",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+    "achievement": "Achievement",
+    "share": "Share",
+    "onwards": "Onwards!",
+    "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
+    "reachedLevel": "You Reached Level <%= level %>",
+    "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
+    "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
+    "foundNewItemsCTA": "Idi do inventara i spoj napitak za izleganje sa jajetom!",
+    "foundNewItemsExplanation": "Završavanje zadataka ti daje šansu da nadješ stvari kao što su jaja,napitci za izleganje,hrana za ljubimce.",
+    "foundNewItems": "Našao si nove stvari!",
+    "hideAchievements": "Sakrij kategoriju",
+    "showAllAchievements": "Prikaži sve kategorija",
+    "onboardingCompleteDescSmall": "Ako želiš još,pogledaj Dostignuća i skupljaj!",
+    "onboardingCompleteDesc": "Zaslužio si  5 dostignuća i 100 zlatnika za završavanje liste.",
+    "onboardingComplete": "Završio si zadate zadatke!",
+    "earnedAchievement": "Zaslužio si dostignuće!",
+    "viewAchievements": "Pregledaj dostignuća"
 }
