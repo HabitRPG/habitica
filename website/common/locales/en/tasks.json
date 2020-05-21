@@ -213,5 +213,5 @@
   "sessionOutdated": "Your session is outdated. Please refresh or sync.",
   "errorTemporaryItem": "This item is temporary and cannot be pinned.",
   "addTags": "Add tags...",
-  "moreTags": "<%= amount %> more"
+  "moreTags": "+<%= amount %> more"
 }

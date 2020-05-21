@@ -749,6 +749,13 @@
       }
     }
 
+    .vdp-datepicker {
+      .input-group-append {
+        width: auto;
+        min-width: 2rem;
+      }
+    }
+
     .checklist-group {
       border-top: 1px solid $gray-500;
 
