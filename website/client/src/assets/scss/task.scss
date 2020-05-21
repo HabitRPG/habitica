@@ -1,3 +1,14 @@
+@mixin modal-text-input($color) {
+  &-text::placeholder { color: $color !important; }
+  &-input {
+    border: 0 !important;
+
+    &:focus, &:active {
+      box-shadow: 0 0 0 1px $color !important;
+    }
+  }
+}
+
 .task {
   &-worst { // dark red
     &-control {
@@ -20,8 +31,7 @@
       &-content {
         --svg-color: #{$maroon-100};
       }
-      &-text::placeholder { color: $red-1 !important; }
-      &-input:focus, &-input:active { box-shadow: 0 0 0 1px $red-1 !important; }
+      @include modal-text-input($red-1);
       &-option-disabled:hover {
         .svg-icon { color: $maroon-100 !important; }
         .option-item-label { color: $maroon-50 !important; }
@@ -61,8 +71,7 @@
       &-content {
         --svg-color: #{$red-100};
       }
-      &-text::placeholder { color: $red-1 !important; }
-      &-input:focus, &-input:active { box-shadow: 0 0 0 1px $red-1 !important; }
+      @include modal-text-input($red-1);
       &-option-disabled:hover {
         .svg-icon { color: $red-100 !important; }
         .option-item-label { color: $red-10 !important; }
@@ -102,8 +111,7 @@
       &-content {
         --svg-color: #{$orange-100};
       }
-      &-text::placeholder { color: $orange-1 !important; }
-      &-input:focus, &-input:active { box-shadow: 0 0 0 1px $orange-1 !important; }
+      @include modal-text-input($orange-1);
       &-option-disabled:hover {
         .svg-icon { color: $orange-100 !important; }
         .option-item-label { color: $orange-1 !important; }
@@ -140,8 +148,7 @@
       &-bg { background: $yellow-100 !important; }
       &-icon { color: $yellow-100 !important; }
       &-text { color: $yellow-1 !important; }
-      &-text::placeholder { color: $yellow-1 !important; }
-      &-input:focus, &-input:active { box-shadow: 0 0 0 1px $yellow-1 !important; }
+      @include modal-text-input($yellow-1);
       &-option-disabled:hover {
         .svg-icon { color: $yellow-100 !important; }
         .option-item-label { color: #bf7d1a !important; }
@@ -184,8 +191,8 @@
       &-content {
         --svg-color: #{$green-100};
       }
-      &-text::placeholder { color: $green-1 !important; }
-      &-input:focus, &-input:active { box-shadow: 0 0 0 1px $green-1 !important; }
+
+      @include modal-text-input($green-1);
       &-option-disabled:hover {
         .svg-icon { color: $green-10 !important; }
         .option-item-label { color: #1ca372 !important; }
@@ -225,8 +232,7 @@
       &-content {
         --svg-color: #{$teal-100};
       }
-      &-text::placeholder { color: $teal-1 !important; }
-      &-input:focus, &-input:active { box-shadow: 0 0 0 1px $teal-1 !important; }
+      @include modal-text-input($teal-1);
       &-option-disabled:hover {
         .svg-icon { color: $teal-100 !important; }
         .option-item-label { color: $teal-10 !important; }
@@ -266,8 +272,8 @@
       &-content {
         --svg-color: #{$blue-100};
       }
-      &-text::placeholder { color: $blue-1 !important; }
-      &-input:focus, &-input:active { box-shadow: 0 0 0 1px $blue-1 !important; }
+
+      @include modal-text-input($blue-1);
       &-option-disabled:hover {
         .svg-icon { color: $blue-50 !important; }
         .option-item-label { color: $blue-10 !important; }
@@ -305,8 +311,8 @@
       &-content {
         --svg-color: #{$purple-300};
       }
-      &-text::placeholder { color: $black !important; }
-      &-input:focus, &-input:active { box-shadow: 0 0 0 1px $black !important; }
+
+      @include modal-text-input($black);
       &-option-disabled:hover {
         .svg-icon { color: $purple-300 !important; }
         .option-item-label { color: $purple-200 !important; }
