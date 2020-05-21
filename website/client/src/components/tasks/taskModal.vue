@@ -11,11 +11,11 @@
     <div
       v-if="task"
       slot="modal-header"
-      class="task-modal-header p-xl"
+      class="task-modal-header p-4"
       :class="cssClass('bg')"
       @click="handleClick($event)"
     >
-      <div class="d-flex align-items-center m-b-l">
+      <div class="d-flex align-items-center mb-3">
         <h2
           class="my-auto"
           :class="cssClassHeadings"
@@ -24,7 +24,7 @@
         </h2>
         <div class="ml-auto d-flex align-items-center">
           <span
-            class="cancel-task-btn m-r-l"
+            class="cancel-task-btn mr-3"
             :class="cssClassHeadings"
             @click="cancel()"
           >{{ $t('cancel') }}</span>
@@ -89,7 +89,7 @@
       </div>
     </div>
     <div
-      class="task-modal-content p-x-xl p-t-l"
+      class="task-modal-content px-4 pt-3"
       :class="cssClass('content')"
       @click="handleClick($event)"
     >
@@ -100,7 +100,7 @@
       >
         <div
           v-if="task.type === 'reward'"
-          class="option mt-0 m-t-l"
+          class="option"
         >
           <div class="form-group">
             <label v-once class="mb-1">{{ $t('cost') }}</label>
@@ -125,7 +125,7 @@
         </div>
         <div
           v-if="checklistEnabled"
-          class="option mt-0 m-t-l"
+          class="option"
         >
           <label v-once class="mb-1">{{ $t('checklist') }}</label>
           <br>
@@ -192,7 +192,7 @@
           >
             <div
               class="habit-option-button no-transition
-                d-flex justify-content-center align-items-center m-b-s"
+                d-flex justify-content-center align-items-center mb-2"
               :class="task.up ? cssClass('bg') : ''"
             >
               <div
@@ -216,7 +216,7 @@
           >
             <div
               class="habit-option-button no-transition
-                d-flex justify-content-center align-items-center m-b-s"
+                d-flex justify-content-center align-items-center mb-2"
               :class="task.down ? cssClass('bg') : ''"
             >
               <div
@@ -234,10 +234,10 @@
           </div>
         </div>
         <template v-if="task.type !== 'reward'">
-          <div class="d-flex align-items-center mb-1 m-t-l">
+          <div class="d-flex align-items-center mb-1 mt-3">
             <label
               v-once
-              class="mb-0 m-r-xs"
+              class="mb-0 mr-1"
             >
               {{ $t('difficulty') }}
             </label>
@@ -254,7 +254,7 @@
         </template>
         <div
           v-if="task.type === 'todo'"
-          class="option m-t-l"
+          class="option mt-3"
         >
           <div class="form-group">
             <label v-once class="mb-1">{{ $t('dueDate') }}</label>
@@ -271,7 +271,7 @@
         </div>
         <div
           v-if="task.type === 'daily'"
-          class="option m-t-l"
+          class="option mt-3"
         >
           <div class="form-group">
             <label v-once class="mb-1">{{ $t('startDate') }}</label>
@@ -287,7 +287,7 @@
         </div>
         <div
           v-if="task.type === 'daily'"
-          class="option m-t-l"
+          class="option mt-3"
         >
           <div class="form-group">
             <label v-once class="mb-1">{{ $t('repeats') }}</label>
@@ -375,7 +375,7 @@
         </div>
         <div
           v-if="isUserTask"
-          class="tags-select option m-t-l"
+          class="tags-select option mt-3"
         >
           <div class="tags-inline form-group row">
             <label
@@ -392,7 +392,7 @@
         </div>
         <div
           v-if="task.type === 'habit'"
-          class="option m-t-l"
+          class="option mt-3"
         >
           <div class="form-group">
             <label v-once class="mb-1">{{ $t('resetStreak') }}</label>
@@ -406,7 +406,7 @@
         </div>
         <div
           v-if="groupId"
-          class="option group-options m-t-l"
+          class="option group-options mt-3"
         >
           <div
             v-if="task.type === 'todo'"
@@ -517,7 +517,7 @@
             <div class="advanced-settings-body">
               <div
                 v-if="task.type === 'daily' && isUserTask && purpose === 'edit'"
-                class="option m-t-l"
+                class="option mt-3"
               >
                 <div class="form-group">
                   <label v-once class="mb-1">{{ $t('restoreStreak') }}</label>
@@ -541,7 +541,7 @@
               <div
                 v-if="task.type === 'habit'
                   && isUserTask && purpose === 'edit' && (task.up || task.down)"
-                class="option m-t-l"
+                class="option mt-3"
               >
                 <div class="form-group">
                   <label v-once class="mb-1">{{ $t('restoreStreak') }}</label>
@@ -627,7 +627,7 @@
       <div
         v-if="purpose === 'create'"
         class="btn btn-primary btn-footer
-          d-flex align-items-center justify-content-center m-t-s m-b-s"
+          d-flex align-items-center justify-content-center mt-2 mb-2"
         :class="{disabled: !canSave}"
         @click="submit()"
       >

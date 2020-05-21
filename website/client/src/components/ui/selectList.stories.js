@@ -16,7 +16,7 @@ stories
     template: `
       <div class="m-xl">
         Hover / Click on:
-        <select-list class="m-b-xl"
+        <select-list class="mb-4"
                      :items="items"
                      :key-prop="'key'"
                      :value="selected"
@@ -36,7 +36,7 @@ stories
                      :value="selected"
                      :items="items"
                      :key-prop="'key'"
-                     class="m-b-xl">
+                     class="mb-4">
           <template v-slot:item="{ item }">
             Template: {{ item?.key }} - {{ item?.value.text }}
           </template>

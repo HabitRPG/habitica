@@ -17,7 +17,7 @@
         <!-- Habits left side control-->
         <div
           v-if="task.type === 'habit'"
-          class="left-control d-flex justify-content-center p-t-l"
+          class="left-control d-flex justify-content-center pt-3"
           :class="[{
             'control-bottom-box': task.group.id,
             'control-top-box': approvalsClass
@@ -303,7 +303,7 @@
         <!-- Habits right side control-->
         <div
           v-if="task.type === 'habit'"
-          class="right-control d-flex justify-content-center p-t-l"
+          class="right-control d-flex justify-content-center pt-3"
           :class="[{
             'control-bottom-box': task.group.id,
             'control-top-box': approvalsClass}, controlClass.down.bg]"

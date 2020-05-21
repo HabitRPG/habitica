@@ -1,6 +1,7 @@
 <template>
-  <div class="tag-list"
-       :class="{ 'break': maxTags === 0 }"
+  <div
+    class="tag-list"
+    :class="{ 'break': maxTags === 0 }"
   >
     <template v-if="tags.length === 0">
       <div class="tags-none">{{ $t('addTags') }}</div>
@@ -9,19 +10,22 @@
       <div
         :key="tag.id"
         :title="tag.name"
-        class="tag mr-1"
+        class="tag mr-1 mt-n1 d-inline-flex align-items-center"
         v-for="tag in truncatedSelectedTags"
 
         @click.stop="removeTag($event, tag)"
       >
-        <span class="tag-label m-l-m mt-1 mb-1 m-r-s"
-              v-markdown="tag.name"></span>
-
-        <span class="remove mr-3"
-              v-html="icons.remove"></span>
+        <div
+          class="tag-label my-auto mx-2"
+          v-markdown="tag.name"
+        ></div>
+        <div
+          class="remove mt-n1 ml-auto mr-2"
+          v-html="icons.remove"
+        ></div>
       </div>
       <div
-        class="tags-more m-l-m"
+        class="tags-more ml-75"
         v-if="remainingSelectedTags.length > 0"
       >
         +{{ $t('more', { count: remainingSelectedTags.length }) }}
@@ -95,7 +99,6 @@
     .remove {
       display: inline-block;
       width: 0.313rem;
-      height: 0.313rem;
       object-fit: contain;
     }
   }
