@@ -506,7 +506,7 @@
               <div
                 class="svg-icon"
                 :class="{'toggle-open': showAdvancedOptions}"
-                v-html="icons.down"
+                v-html="icons.chevron"
               ></div>
             </div>
           </div>
@@ -887,12 +887,23 @@
       }
 
       h3 {
+        height: 1.5rem;
+        font-size: 14px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.71;
+        letter-spacing: normal;
         color: $gray-10;
-        margin-bottom: 0px;
       }
 
       .attributes .custom-control {
         margin-right: 40px;
+      }
+
+      .toggle-up svg {
+        width: 1rem;
+        height: 1rem;
       }
 
       .toggle-open {
@@ -902,6 +913,16 @@
       .attr-description {
         border-bottom: 1px dashed;
       }
+
+      label {
+        font-size: 14px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.71;
+        letter-spacing: normal;
+        color: $gray-50;
+      }
     }
   }
 
@@ -909,6 +930,10 @@
     .option-item {
       margin-right: 12px !important;
     }
+  }
+
+  .streak-addon path {
+    fill: $gray-200;
   }
 </style>
 
@@ -1009,6 +1034,7 @@
     text-align: center;
     color: $gray-50;
   }
+
 </style>
 
 <script>
@@ -1032,7 +1058,7 @@ import negativeIcon from '@/assets/svg/negative.svg';
 import streakIcon from '@/assets/svg/streak.svg';
 import deleteIcon from '@/assets/svg/delete.svg';
 import goldIcon from '@/assets/svg/gold.svg';
-import downIcon from '@/assets/svg/down.svg';
+import chevronIcon from '@/assets/svg/chevron.svg';
 import calendarIcon from '@/assets/svg/calendar.svg';
 import gripIcon from '@/assets/svg/grip.svg';
 
@@ -1062,7 +1088,7 @@ export default {
         positive: positiveIcon,
         destroy: deleteIcon,
         gold: goldIcon,
-        down: downIcon,
+        chevron: chevronIcon,
         streak: streakIcon,
         calendar: calendarIcon,
         grip: gripIcon,
