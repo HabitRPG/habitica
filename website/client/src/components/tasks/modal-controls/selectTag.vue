@@ -11,7 +11,7 @@
       <b-dropdown-header>
         <b-form-input
                 type="text"
-                placeholder="Search"
+                :placeholder="$t('enterTag')"
                 v-model="search"
         />
 

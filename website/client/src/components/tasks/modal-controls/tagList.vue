@@ -14,7 +14,7 @@
 
         @click.stop="removeTag($event, tag)"
       >
-        <span class="tag-label m-l-m m-t-xs m-b-xs m-r-s"
+        <span class="tag-label m-l-m mt-1 mb-1 m-r-s"
               v-markdown="tag.name"></span>
 
         <span class="remove mr-3"
