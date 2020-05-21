@@ -831,7 +831,7 @@
 
         .grippy {
           display: inline-block;
-
+          opacity: 1;
         }
       }
     }
