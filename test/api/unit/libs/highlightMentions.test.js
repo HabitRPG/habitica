@@ -149,6 +149,14 @@ describe('highlightMentions', () => {
 
       expect(result[0]).to.equal('[@user](/profile/111) `@user`');
     });
+
+    it('matches a link in between two the same links', async () => {
+      const text = '[here](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)\n@user\n[hier](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)';
+
+      const result = await highlightMentions(text);
+
+      expect(result[0]).to.equal('[here](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)\n[@user](/profile/111)\n[hier](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)');
+    });
   });
 
   it('github issue 12118, method crashes when square brackets are used', async () => {
