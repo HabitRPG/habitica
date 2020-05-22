@@ -53,7 +53,7 @@ each(GEAR_TYPES, type => {
         int: 0,
         per: 0,
         con: 0,
-        canBuy: () => false,
+        canBuy: () => true,
       });
 
       if (item.event) {

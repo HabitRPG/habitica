@@ -52,7 +52,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
   }
 
   let itemInfo;
-
   switch (type) { // eslint-disable-line default-case
     case 'eggs':
       itemInfo = {
@@ -66,6 +65,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'eggs',
         path: `eggs.${item.key}`,
         pinType: 'eggs',
+        canBuy: item.canBuy(),
       };
       break;
     case 'hatchingPotions':
@@ -80,6 +80,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'hatchingPotions',
         path: `hatchingPotions.${item.key}`,
         pinType: 'hatchingPotions',
+        canBuy: item.canBuy(),
       };
       break;
     case 'premiumHatchingPotion':
@@ -95,6 +96,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         path: item.wacky ? `wackyHatchingPotions.${item.key}` : `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
         event: item.event,
+        canBuy: item.canBuy(),
       };
       break;
     case 'food':
@@ -109,6 +111,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'food',
         path: `food.${item.key}`,
         pinType: 'food',
+        canBuy: item.canBuy(),
       };
       break;
     case 'bundles':
@@ -123,6 +126,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'bundles',
         path: `bundles.${item.key}`,
         pinType: 'bundles',
+        canBuy: item.canBuy(),
       };
       break;
     case 'quests': // eslint-disable-line no-case-declarations
@@ -152,6 +156,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'quests',
         path: `quests.${item.key}`,
         pinType: 'quests',
+        canBuy: item.canBuy(),
       };
       if (item.goldValue) {
         itemInfo.currency = 'gold';
@@ -179,6 +184,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `inventory_special_${item.key}`,
         path: `spells.special.${item.key}`,
         pinType: 'seasonalSpell',
+        canBuy: item.canBuy(),
       };
       break;
     case 'debuffPotion':
@@ -198,6 +204,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `shop_${item.key}`,
         path: `spells.special.${item.key}`,
         pinType: 'debuffPotion',
+        canBuy: item.canBuy(),
       };
       break;
     case 'seasonalQuest':
@@ -216,6 +223,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'quests',
         path: `quests.${item.key}`,
         pinType: 'seasonalQuest',
+        canBuy: item.canBuy(),
       };
       break;
     case 'gear':
@@ -224,6 +232,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         value: item.twoHanded ? 2 : 1,
         currency: 'gems',
         pinType: 'gear',
+        canBuy: item.canBuy(),
       });
       break;
     case 'marketGear':
@@ -232,6 +241,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         currency: 'gold',
         pinType: 'marketGear',
         canOwn: item.canOwn,
+        canBuy: item.canBuy(),
       });
       break;
     case 'background':
@@ -285,6 +295,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `shop_${item.key}`,
         path: 'armoire',
         pinType: 'armoire',
+        canBuy: item.canBuy(),
       };
       break;
     case 'card': {

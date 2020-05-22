@@ -146,7 +146,7 @@
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
             attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
-            (item.event && !eventItemAvailable)"
+            eventItemAvailable"
           :class="{'notEnough': !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
           @click="buyItem()"
@@ -156,7 +156,7 @@
       </div>
     </div>
     <div
-      v-if="item.event && item.owned == null && eventItemAvailable"
+      v-if="item.event && item.owned == null && itemAvailable"
       class="limitedTime"
     >
       <span
@@ -166,7 +166,7 @@
       <span class="limitedString">{{ limitedString }}</span>
     </div>
     <div
-      v-if="item.event && !eventItemAvailable"
+      v-if="!itemAvailable"
       class="notAvailable"
     >
       <span
@@ -540,8 +540,12 @@ export default {
     nonSubscriberHourglasses () {
       return (!this.user.purchased.plan.customerId && !this.user.purchased.plan.consecutive.trinkets && this.getPriceClass() === 'hourglasses');
     },
-    eventItemAvailable () {
-      return (moment() >= moment(this.item.event.start) && moment() <= moment(this.item.event.end));
+    itemAvailable () {
+      // for card types the item has the yearRound flag
+      if (this.item.purchaseType === 'card') {
+        return this.yearRound;
+      }
+      return this.item.canBuy();
     },
   },
   watch: {
