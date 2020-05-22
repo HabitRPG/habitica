@@ -146,7 +146,7 @@
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
             attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
-            eventItemAvailable"
+            !itemAvailable"
           :class="{'notEnough': !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
           @click="buyItem()"
@@ -550,7 +550,10 @@ export default {
       if (this.item.purchaseType === 'card') {
         return this.yearRound;
       }
-      return this.item.canBuy();
+      if (this.item && (typeof this.item.canBuy === 'function')) {
+        return this.item.canBuy();
+      }
+      return true;
     },
   },
   watch: {

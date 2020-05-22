@@ -295,7 +295,6 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `shop_${item.key}`,
         path: 'armoire',
         pinType: 'armoire',
-        canBuy: item.canBuy(),
       };
       break;
     case 'card': {
