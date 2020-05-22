@@ -312,6 +312,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         pinType: 'card',
         target: spellInfo.target,
         cast: spellInfo.cast,
+        yearRound: item.yearRound,
       };
       break;
     }

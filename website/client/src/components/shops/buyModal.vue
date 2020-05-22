@@ -548,10 +548,10 @@ export default {
     itemAvailable () {
       // for card types the item has the yearRound flag
       if (this.item.purchaseType === 'card') {
-        return this.yearRound;
+        return this.item.yearRound;
       }
-      if (this.item && (typeof this.item.canBuy === 'function')) {
-        return this.item.canBuy();
+      if (this.item && (typeof this.item.canBuy === 'boolean')) {
+        return this.item.canBuy;
       }
       return true;
     },
