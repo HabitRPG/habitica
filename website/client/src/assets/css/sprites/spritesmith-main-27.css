@@ -1,12 +1,12 @@
 .Pet-Snail-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-27.png');
-  background-position: 0px 0px;
+  background-position: -82px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Snail-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-27.png');
-  background-position: -82px 0px;
+  background-position: -164px -900px;
   width: 81px;
   height: 99px;
 }
@@ -714,7 +714,7 @@
 }
 .Pet-Unicorn-CottonCandyPink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-27.png');
-  background-position: -164px -900px;
+  background-position: 0px 0px;
   width: 81px;
   height: 99px;
 }
@@ -1194,13 +1194,13 @@
 }
 .Pet_HatchingPotion_Amber {
   background-image: url('~@/assets/images/sprites/spritesmith-main-27.png');
-  background-position: -574px -1200px;
+  background-position: -643px -1200px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Aquatic {
   background-image: url('~@/assets/images/sprites/spritesmith-main-27.png');
-  background-position: -643px -1200px;
+  background-position: -1312px -690px;
   width: 68px;
   height: 68px;
 }
@@ -1314,7 +1314,7 @@
 }
 .Pet_HatchingPotion_IcySnow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-27.png');
-  background-position: -1312px -690px;
+  background-position: -574px -1200px;
   width: 68px;
   height: 68px;
 }

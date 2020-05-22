@@ -150,8 +150,7 @@ export default new Schema({
   },
 
   contributor: {
-    // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear
-    // https://github.com/HabitRPG/habitica/issues/3801
+    // 1-9, see https://habitica.fandom.com/wiki/Contributor_Rewards
     level: {
       $type: Number,
       min: 0,

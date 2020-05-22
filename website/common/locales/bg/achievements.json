@@ -78,5 +78,8 @@
     "achievementHatchedPet": "Излюпи Животно",
     "viewAchievements": "Постижения",
     "letsGetStarted": "Нека да започнем!",
-    "onboardingProgress": "<%= percentage %>% напредък"
+    "onboardingProgress": "<%= percentage %>% напредък",
+    "achievementBareNecessitiesModalText": "Завършихте мисиите за Маймуна, Ленивец и Фиданка!",
+    "achievementBareNecessitiesText": "Завършили са всички мисии за Маймуна, Ленивец и Фиданка.",
+    "achievementBareNecessities": "От първа необходимост"
 }

@@ -78,5 +78,8 @@
     "achievementBugBonanza": "蟲子富礦帶",
     "onboardingCompleteDescSmall": "如果你想獲得更多勳章，查查你的成就列表開始收集吧！",
     "onboardingComplete": "你完成了新手任務！",
-    "yourProgress": "你的成就"
+    "yourProgress": "你的成就",
+    "achievementBareNecessitiesModalText": "你完成了猴子、樹懶和小樹寵物副本！",
+    "achievementBareNecessitiesText": "已完成猴子、樹懶和小樹寵物副本。",
+    "achievementBareNecessities": "森林王子"
 }

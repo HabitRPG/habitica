@@ -178,5 +178,6 @@
     "spring2019RobinHealerSet": "Червеношийка (лечител)",
     "spring2019AmberMageSet": "Кехлибар (Магьосник)",
     "spring2019OrchidWarriorSet": "Орхидея (воин)",
-    "june2018": "Юни 2018"
+    "june2018": "Юни 2018",
+    "mayYYYY": "Май <%= year %>"
 }

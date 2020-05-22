@@ -325,7 +325,7 @@
     "muchmuchMoreDesc": "Nasza w pełni konfigurowalna lista zadań oznacza, że możesz kształtować Habitikę tak, aby pasowała do Twoich osobistych celów. Pracuj nad kreatywnymi projektami, wspieraj swój rozwój osobisty lub realizuj inne marzenia - wszystko zależy od Ciebie.",
     "levelUpAnywhere": "Wbijaj poziomy gdziekolwiek jesteś",
     "levelUpAnywhereDesc": "Nasze aplikacje mobilne sprawiają, że być na bieżąco z twoimi zadaniami w drodze. Osiągaj swoje cele jednym kliknięciem bez względu na to, gdzie się znajdujesz.",
-    "joinMany": "Dołącz do 2,000,000 osób, które bawią się osiągając cele!",
+    "joinMany": "Dołącz do <%= userCountInMillions %> millionów osób, które bawią się osiągając swoje cele!",
     "joinToday": "Dołącz do Habitica już dziś",
     "signup": "Zarejestruj się",
     "getStarted": "Zaczynamy!",
