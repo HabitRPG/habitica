@@ -71,7 +71,6 @@
         type="submit"
         class="btn btn-block btn-info sign-up"
         :disabled="signupFormInvalid"
-        @click="register"
       >{{ $t('signup') }}</button>
       <div class="toggle-links" v-if="showToggleLoginLink">
         <router-link :to="{name: 'login'}" exact="exact">
