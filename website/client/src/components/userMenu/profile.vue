@@ -1,8 +1,11 @@
 <template>
   <div
-    v-if="user"
+    v-if="user.active === false"
     class="profile"
   >
+    <error />
+  </div>
+  <div v-else>
     <div class="header">
       <span
         class="close-icon svg-icon inline icon-10"
@@ -724,6 +727,7 @@ import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
 import svgClose from '@/assets/svg/close.svg';
+import error from '../404';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
@@ -734,6 +738,7 @@ export default {
   components: {
     MemberDetails,
     profileStats,
+    error,
   },
   props: ['userId', 'startingPage'],
   data () {
@@ -827,7 +832,7 @@ export default {
   },
   methods: {
     async loadUser () {
-      let user = this.userLoggedIn;
+      let user = await this.userLoggedIn;
 
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
@@ -837,8 +842,23 @@ export default {
       const profileUserId = this.userId;
 
       if (profileUserId && profileUserId !== this.userLoggedIn._id) {
-        const response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
-        user = response.data.data;
+        try {
+          const response = await this.$store.dispatch('members:fetchMember', {
+            memberId: profileUserId,
+          });
+          // debugger;
+          user = response.data.data;
+        } catch (e) {
+          // user = null;
+          user.active = false;
+          console.log('fkdsafj;dsak;', user.active);
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: this.$t('messageDeletedUser'),
+            type: 'error',
+            timeout: false,
+          });
+        }
       }
 
       this.editingProfile.name = user.profile.name;
