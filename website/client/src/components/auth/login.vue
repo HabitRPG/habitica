@@ -103,7 +103,7 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   #login-form, #forgot-form {
-    ::placeholder { //  Standard browsers
+    ::placeholder {
       color: $purple-400;
     }
 

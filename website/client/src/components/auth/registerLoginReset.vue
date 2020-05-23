@@ -159,19 +159,7 @@
       position: relative;
       z-index: 1;
 
-      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        color: $purple-400;
-      }
-      ::-moz-placeholder { /* Firefox 19+ */
-        color: $purple-400;
-      }
-      :-ms-input-placeholder { /* IE 10+ */
-        color: $purple-400;
-      }
-      :-moz-placeholder { /* Firefox 18- */
-        color: $purple-400;
-      }
-      ::placeholder { //  Standard browsers
+      ::placeholder {
         color: $purple-400;
       }
 
