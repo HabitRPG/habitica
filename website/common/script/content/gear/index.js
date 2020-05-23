@@ -53,7 +53,8 @@ each(GEAR_TYPES, type => {
         int: 0,
         per: 0,
         con: 0,
-        canBuy: () => true,
+        // @TODO: add checks to switch to true
+        canBuy: () => false,
       });
 
       if (item.event) {

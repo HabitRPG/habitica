@@ -175,7 +175,10 @@
       ></span>
       <!-- @TODO: ask about setting string messages in the common/local/en npc.json -->
       <!-- Wasn't able to test it locally for whatever reason  -->
-      <span class="notAvailableString" v-html="'This item is unavailable'"></span>
+      <span
+        class="notAvailableString"
+        v-html="'This item is unavailable'"
+      ></span>
     </div>
     <div
       v-if="item.key === 'rebirth_orb' && item.value > 0 && user.stats.lvl >= 100"
