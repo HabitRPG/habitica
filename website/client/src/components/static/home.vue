@@ -487,6 +487,10 @@
         font-family: 'Varela Round', sans-serif;
         font-weight: normal;
       }
+
+      .input-valid {
+        color: #fff;
+      }
     }
   }
 
