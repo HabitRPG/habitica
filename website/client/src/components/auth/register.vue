@@ -82,10 +82,6 @@
   </form>
 </template>
 
-<style lang="scss" scoped>
-  @import '~@/assets/scss/colors.scss';
-</style>
-
 <script>
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
