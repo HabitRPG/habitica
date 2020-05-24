@@ -400,12 +400,7 @@ export default {
     removeMemberModal,
     loadingGryphon,
   },
-  props: {
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-  },
+  props: ['hideBadge'],
   data () {
     return {
       sortOption: {},
@@ -489,6 +484,9 @@ export default {
     },
     challengeId () {
       return this.$store.state.memberModalOptions.challengeId;
+    },
+    loading () {
+      return this.members.length === 0;
     },
     sortedMembers () {
       let sortedMembers = this.members.slice(); // shallow clone to avoid infinite loop
