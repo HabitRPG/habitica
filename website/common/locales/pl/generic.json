@@ -284,7 +284,7 @@
     "dismissAll": "Odrzuć wszystko",
     "messages": "Wiadomości",
     "emptyMessagesLine1": "Nie masz żadnych wiadomości",
-    "emptyMessagesLine2": "Wyślij wiadomość, aby zacząć konwersację!",
+    "emptyMessagesLine2": "Aby wysłać wiadomość do Użytkownika, wejdź na jego profil, a następnie kliknij przycisk \"Wiadomości\".",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> wysłał ci wiadomość",
     "letsgo": "Jazda!",
     "selected": "Wybrane",

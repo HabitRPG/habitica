@@ -213,7 +213,6 @@ import Drawer from '@/components/ui/drawer';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
 
 import mana from '@/assets/svg/mana.svg';
-import * as quests from '@/../../common/script/content/quests';
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 
 export default {
@@ -227,7 +226,6 @@ export default {
   data () {
     return {
       spells,
-      quests,
       applyingAction: false,
       spell: {},
       icons: Object.freeze({
@@ -280,6 +278,7 @@ export default {
 
       return false;
     },
+    // @TODO is this used?
     skillNotes (skill) {
       let notes = skill.notes();
 
@@ -295,26 +294,6 @@ export default {
       }
 
       return notes;
-    },
-    questProgress () {
-      const { user } = this;
-      if (!user.party.quest) return 0;
-
-      const userQuest = this.quests.quests[user.party.quest.key];
-
-      if (!userQuest) {
-        return 0;
-      }
-
-      if (userQuest.boss && user.party.quest.progress.up > 0) {
-        return user.party.quest.progress.up;
-      }
-
-      if (userQuest.collect && user.party.quest.progress.collectedItems > 0) {
-        return user.party.quest.progress.collectedItems;
-      }
-
-      return 0;
     },
     // @TODO: Move to mouse move component??
     mouseMoved ($event) {

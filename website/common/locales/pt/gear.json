@@ -10,7 +10,7 @@
     "gearNotOwned": "Você não possui este ítem.",
     "noGearItemsOfType": "Você não possui qualquer um destes items.",
     "noGearItemsOfClass": "Você já possui todo o equipamento da sua classe! Mais será lançado durante as Grandes Galas, perto dos solstícios e equinócios.",
-    "classLockedItem": "Este item só está disponível para uma classe específica. Mude a sua classe carregando no Icon de Usuário > Configuração > Criação de Personagem!",
+    "classLockedItem": "Este item só está disponível para uma classe específica. Mude a sua classe carregando no Icone de Usuário > Configuração > Criação de Personagem!",
     "tierLockedItem": "Este item só estará disponível depois de comprar o item anterior na sequência. Continue a trabalhar para subir na mesma!",
     "sortByType": "Tipo",
     "sortByPrice": "Preço",
@@ -1747,5 +1747,7 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
     "eyewearArmoireGoofyGlassesText": "Óculos Tontos",
     "eyewearArmoireGoofyGlassesNotes": "Perfeitos para andar incógnito ou simplesmente fazer os teus colegas de equipa rir. Aumenta a Percepção em <%= per %>. Armário Encantado: Item Solto.",
-    "twoHandedItem": "Item de duas mãos."
+    "twoHandedItem": "Item de duas mãos.",
+    "weaponArmoireFiddlersBowText": "Arco do Violinista",
+    "weaponArmoirePaperCutterNotes": "Isso pode não parecer assustador, mas você nunca se cortou com papel? Aumenta a força em <%= str %>. Armário Encantado: Conjunto de Cavaleiro de Papel (Item 1 de 3)."
 }

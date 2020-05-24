@@ -86,7 +86,7 @@ function toSourceMapRegex (token) {
   } else if (type === 'link_open') {
     const texts = token.textContents.map(escapeRegExp);
     regexStr = markup === 'linkify' || markup === 'autolink' ? texts[0]
-      : `\\[.*${texts.join('.*')}.*\\]\\([^)]+\\)`;
+      : `\\[[^\\]]*${texts.join('[^\\]]*')}[^\\]]*\\]\\([^)]+\\)`;
   } else {
     throw new Error(`No source mapping regex defined for ignore blocks of type ${type}`);
   }
@@ -110,6 +110,11 @@ function findTextBlocks (text) {
   ignoreBlockRegexes.forEach(regex => {
     const targetText = text.substr(index);
     const match = targetText.match(regex);
+
+    if (!match) {
+      // Should not happen, but insert to handle bugs gracefully
+      return;
+    }
 
     if (match.index) {
       blocks.push({ text: targetText.substr(0, match.index), ignore: false });
