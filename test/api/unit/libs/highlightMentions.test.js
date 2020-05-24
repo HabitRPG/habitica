@@ -102,6 +102,7 @@ describe('highlightMentions', () => {
       expect(result[0]).to.equal('http://www.medium.com/@user/blog [@user](/profile/111)');
     });
 
+    // https://spec.commonmark.org/0.29/#example-483
     it('doesn\'t highlight user in a link without url', async () => {
       const text = '[@user2]()';
       const result = await highlightMentions(text);
