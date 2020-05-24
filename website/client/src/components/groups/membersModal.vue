@@ -99,8 +99,9 @@
           </div>
         </div>
       </div>
+      <loading-gryphon v-if="loading" />
       <div
-        v-if="selectedPage === 'members'"
+        v-if="selectedPage === 'members' && !loading"
         :class="{'mt-1': invites.length === 0}"
       >
         <div
@@ -207,7 +208,7 @@
           class="row gradient"
         ></div>
       </div>
-      <div v-if="selectedPage === 'invites'">
+      <div v-if="selectedPage === 'invites' && !loading">
         <div
           v-for="(member, index) in invites"
           :key="member._id"
@@ -386,6 +387,7 @@ import isEmpty from 'lodash/isEmpty';
 import { mapState } from '@/libs/store';
 
 import removeMemberModal from '@/components/members/removeMemberModal';
+import loadingGryphon from '@/components/ui/loadingGryphon';
 import MemberDetails from '../memberDetails';
 import removeIcon from '@/assets/members/remove.svg';
 import messageIcon from '@/assets/members/message.svg';
@@ -396,8 +398,14 @@ export default {
   components: {
     MemberDetails,
     removeMemberModal,
+    loadingGryphon,
   },
-  props: ['hideBadge'],
+  props: {
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       sortOption: {},
