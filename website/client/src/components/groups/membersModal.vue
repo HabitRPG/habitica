@@ -486,7 +486,7 @@ export default {
       return this.$store.state.memberModalOptions.challengeId;
     },
     loading () {
-      return this.members.length === 0;
+      return this.$store.state.memberModalOptions.loading;
     },
     sortedMembers () {
       let sortedMembers = this.members.slice(); // shallow clone to avoid infinite loop

@@ -459,13 +459,19 @@ export default {
       return this.$store.dispatch('members:getChallengeMembers', payload);
     },
     initialMembersLoad () {
+      this.$store.state.memberModalOptions.loading = true;
       if (!this.membersLoaded) {
         this.membersLoaded = true;
 
         this.loadMembers({
           challengeId: this.searchId,
           includeAllPublicFields: true,
-        }).then(m => this.members.push(...m));
+        }).then(m => {
+          this.members.push(...m);
+          this.$store.state.memberModalOptions.loading = false;
+        });
+      } else {
+        this.$store.state.memberModalOptions.loading = false;
       }
     },
     editTask (task) {

@@ -114,6 +114,7 @@ export default function () {
         groupId: '',
         challengeId: '',
         group: {},
+        loading: false,
       },
       openedItemRows: [],
       spellOptions: {

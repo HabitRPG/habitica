@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     loading () {
-      return this.members.length === 0;
+      return this.$store.state.memberModalOptions.loading;
     },
   },
   watch: {
