@@ -124,7 +124,7 @@ function findTextBlocks (text) {
     if (!match) {
       logger.error(
         new Error('Failed to match source-mapping regex to find ignore block'),
-        { text, targetText, regex },
+        { text, targetText, regex: String(regex) },
       );
       return;
     }
