@@ -222,8 +222,8 @@ export default {
       this.$root.$emit('bv::show::modal', 'invite-modal');
     });
   },
-  destroyed () {
-    this.$root.off('inviteModal::inviteToGroup');
+  beforeDestroy () {
+    this.$root.$off('inviteModal::inviteToGroup');
   },
   methods: {
     ...mapActions({
@@ -250,6 +250,7 @@ export default {
         groupId: party.data._id,
         viewingMembers: this.partyMembers,
         group: party.data,
+        fetchMoreMembers: p => this.$store.dispatch('members:getGroupMembers', p),
       });
     },
     setPartyMembersWidth ($event) {

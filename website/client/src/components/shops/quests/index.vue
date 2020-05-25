@@ -456,7 +456,7 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
-import { mapState } from '@/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 
 import ShopItem from '../shopItem';
 import Item from '@/components/inventory/item';
@@ -503,8 +503,6 @@ export default {
 
       hideLocked: false,
       hidePinned: false,
-
-      broken: false,
     };
   },
   computed: {
@@ -513,6 +511,9 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
+    }),
+    ...mapGetters({
+      broken: 'worldState.brokenQuests',
     }),
     shop () {
       return shops.getQuestShop(this.user);
@@ -540,9 +541,7 @@ export default {
     }, 250),
   },
   async mounted () {
-    const worldState = await this.$store.dispatch('worldState:getWorldState');
-    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra
-      && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.quests;
+    await this.$store.dispatch('worldState:getWorldState');
   },
   methods: {
     questItems (category, sortBy, searchBy, hideLocked, hidePinned) {

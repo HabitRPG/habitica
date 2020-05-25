@@ -3,6 +3,7 @@
     class="create-dropdown"
     :text="text"
     no-flip="no-flip"
+    @show="$emit('opened')"
   >
     <b-dropdown-form
       :disabled="false"
@@ -14,6 +15,7 @@
         type="text"
       >
     </b-dropdown-form>
+    <loading-gryphon v-if="loading" />
     <b-dropdown-item
       v-for="member in memberResults"
       :key="member._id"
@@ -30,8 +32,12 @@
 <script>
 // @TODO: how do we subclass this rather than type checking?
 import challengeMemberSearchMixin from '@/mixins/challengeMemberSearch';
+import loadingGryphon from '@/components/ui/loadingGryphon';
 
 export default {
+  components: {
+    loadingGryphon,
+  },
   mixins: [challengeMemberSearchMixin],
   props: {
     text: {
@@ -51,6 +57,11 @@ export default {
       searchTerm: '',
       memberResults: [],
     };
+  },
+  computed: {
+    loading () {
+      return this.$store.state.memberModalOptions.loading;
+    },
   },
   watch: {
     memberResults () {

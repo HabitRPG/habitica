@@ -515,7 +515,7 @@ export default {
       this.loadCompletedTodos();
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');
     if (this.type !== 'todo') return;
     this.$root.$off(EVENTS.RESYNC_COMPLETED);

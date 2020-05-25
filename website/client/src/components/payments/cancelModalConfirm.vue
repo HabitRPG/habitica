@@ -79,7 +79,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'subscription-cancel-modal');
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica:cancel-subscription-confirm');
   },
   methods: {
