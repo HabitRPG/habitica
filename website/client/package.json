@@ -13,7 +13,7 @@
     "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js"
   },
   "dependencies": {
-    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-knobs": "^5.3.18",
     "@storybook/addon-links": "^5.3.18",
     "@storybook/addon-notes": "^5.3.18",
