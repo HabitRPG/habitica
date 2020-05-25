@@ -154,7 +154,7 @@
           <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           <div
             v-for="item in group"
-            v-show="item.canFind === undefined || item.canFind()"
+            v-show="show('pet', item)"
             :key="item.key"
             v-drag.drop.food="item.key"
             class="pet-group"
@@ -217,7 +217,7 @@
           <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           <div
             v-for="item in group"
-            v-show="item.canFind === undefined || item.canFind()"
+            v-show="show('mount', item)"
             :key="item.key"
             class="pet-group"
           >
@@ -691,6 +691,11 @@ export default {
     setShowMore (key) {
       this.$_openedItemRows_toggleByType(key, !this.$_openedItemRows_isToggled(key));
     },
+    show (type, item) {
+      return item.canFind === undefined
+        || isOwned(type, item, this.userItems)
+        || item.canFind;
+    },
     getAnimalList (animalGroup, type) {
       const { key } = animalGroup;
 
@@ -716,11 +721,9 @@ export default {
               eggKey,
               potionKey,
               name: text(),
+              canFind,
               isOwned () {
                 return isOwned(type, this, userItems);
-              },
-              canFind () {
-                return canFind || this.isOwned();
               },
               mountOwned () {
                 return isOwned('mount', this, userItems);
