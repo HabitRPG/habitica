@@ -550,7 +550,7 @@ export default {
       if (this.item.purchaseType === 'card') {
         return this.item.yearRound;
       }
-      // Check if it has the canBuy property of type boolean. If not then 
+      // Check if it has the canBuy property of type boolean. If not then
       // we just return true.
       if (this.item && (typeof this.item.canBuy === 'boolean')) {
         return this.item.canBuy;
