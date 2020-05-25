@@ -86,6 +86,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionFairy'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMay'),
+      previousDate: t('mayYYYY', { year: 2017 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-06-02');
+    },
   },
   Floral: {
     value: 2,
@@ -222,6 +229,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSunshine'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMay'),
+      previousDate: t('mayYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-06-02');
+    },
   },
   Bronze: {
     value: 2,

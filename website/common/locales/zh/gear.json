@@ -230,7 +230,7 @@
     "weaponSpecialSummer2017RogueNotes": "这些鳍拥有着锋利的边缘。增加<%= str %>点力量。2017年夏季限定版装备。",
     "weaponSpecialSummer2017WarriorText": "最强大遮阳伞",
     "weaponSpecialSummer2017WarriorNotes": "恐惧之源。增加<%= str %>点力量。2017年夏季限定版装备。",
-    "weaponSpecialSummer2017MageText": "Whirlpool的鞭子",
+    "weaponSpecialSummer2017MageText": "漩涡藤鞭",
     "weaponSpecialSummer2017MageNotes": "召唤一种神奇的沸腾之水来打击你的任务！增加智力<%= int %>点和感知<%= per %>点。2017年夏季限定版装备。",
     "weaponSpecialSummer2017HealerText": "珍珠魔杖",
     "weaponSpecialSummer2017HealerNotes": "这只珍珠的魔杖一碰就能把所有的伤口都抚平。增加<%= int %>点智力。2017年夏季限定版装备。",
@@ -2090,8 +2090,8 @@
     "armorArmoireBoxArmorText": "盒装甲",
     "weaponArmoirePaperCutterNotes": "这可能看起来并不可怕，但你有没有被纸割伤过吗？增加<%= str %>点力量。魔法衣橱：纸骑士套装（1/3）。",
     "weaponArmoirePaperCutterText": "裁纸器",
-    "headAccessoryMystery202005Notes": "有了这么强大的角，哪一个生物敢挑战你呢？ 没有属性加成。2020年5月订阅者物品。",
+    "headAccessoryMystery202005Notes": "有了这么强大的角，哪一个生物敢挑战你呢？没有属性加成。2020年5月订阅者物品。",
     "headAccessoryMystery202005Text": "美妙的飞龙角",
-    "backMystery202005Notes": "虽然翅膀有些破烂，但它还能让您飞向您的目的地。没有属性加成。2020年5月订阅者物品。",
+    "backMystery202005Notes": "虽然翅膀有些破烂，但它还能让你飞向你的目的地。没有属性加成。2020年5月订阅者物品。",
     "backMystery202005Text": "美妙的飞龙翅膀"
 }

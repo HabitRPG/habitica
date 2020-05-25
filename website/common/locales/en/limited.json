@@ -164,6 +164,7 @@
     "augustYYYY": "August <%= year %>",
     "decemberYYYY": "December <%= year %>",
     "marchYYYY": "March <%= year %>",
+    "mayYYYY": "May <%= year %>",
     "dateEndJuly": "July 31",
     "dateEndAugust": "August 31",
     "dateEndSeptember": "September 21",

@@ -4,6 +4,11 @@
     class="profile"
   >
     <div class="header">
+      <span
+        class="close-icon svg-icon inline icon-10"
+        @click="close()"
+        v-html="icons.close"
+      ></span>
       <div class="profile-actions">
         <router-link
           :to="{ path: '/private-messages', query: { uuid: user._id } }"
@@ -318,7 +323,7 @@
             >
               <div
                 :id="achievKey + '-achievement'"
-                class="box achievement-container"
+                class="box achievement-container d-flex align-items-center justify-content-center"
                 :class="{'achievement-unearned': !achievement.earned}"
               >
                 <b-popover
@@ -568,7 +573,6 @@
     .box {
       margin: 0 auto;
       margin-bottom: 1em;
-      padding-top: 1.2em;
       background: $white;
     }
 
@@ -718,6 +722,7 @@ import lock from '@/assets/svg/lock.svg';
 import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
+import svgClose from '@/assets/svg/close.svg';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
@@ -743,6 +748,7 @@ export default {
         lock,
         member,
         staff,
+        close: svgClose,
       }),
       adminToolsLoaded: false,
       userIdToMessage: '',
@@ -987,6 +993,9 @@ export default {
     toggleAchievementsCategory (categoryKey) {
       const status = this.achievementsCategories[categoryKey].open;
       this.achievementsCategories[categoryKey].open = !status;
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', 'profile');
     },
   },
 };

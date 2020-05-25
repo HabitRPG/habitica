@@ -373,7 +373,7 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _reverse from 'lodash/reverse';
-import { mapState } from '@/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 
 import Checkbox from '@/components/ui/checkbox';
 import PinBadge from '@/components/ui/pinBadge';
@@ -434,8 +434,6 @@ export default {
       featuredGearBought: false,
 
       backgroundUpdate: new Date(),
-
-      broken: false,
     };
   },
   computed: {
@@ -443,6 +441,9 @@ export default {
       content: 'content',
       user: 'user.data',
       userStats: 'user.data.stats',
+    }),
+    ...mapGetters({
+      broken: 'worldState.brokenSeasonalShop',
     }),
 
     usersOfficalPinnedItems () {
@@ -516,14 +517,11 @@ export default {
     }, 250),
   },
   async mounted () {
-    const worldState = await this.$store.dispatch('worldState:getWorldState');
-    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra
-      && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.seasonalShop;
-  },
-  created () {
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });
+
+    await this.$store.dispatch('worldState:getWorldState');
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

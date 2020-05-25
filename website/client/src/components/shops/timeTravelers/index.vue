@@ -395,7 +395,7 @@ export default {
       this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
-  created () {
+  mounted () {
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });

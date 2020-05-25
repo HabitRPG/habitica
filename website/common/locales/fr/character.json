@@ -156,7 +156,7 @@
     "optOutOfClasses": "Désactiver",
     "optOutOfPMs": "Désactiver",
     "chooseClass": "Choisissez votre classe",
-    "chooseClassLearnMarkdown": "[En apprendre plus sur le système de classe d'Habitica](http://habitica.fandom.com/fr/wiki/Système_de_Classe)",
+    "chooseClassLearnMarkdown": "[En apprendre plus sur le système de classe d'Habitica](https://habitica.fandom.com/fr/wiki/Système_de_Classe)",
     "optOutOfClassesText": "Pas intéressé par les classes ? Vous préférez choisir plus tard ? N'en choisissez pas – vous serez un guerrier sans compétences particulières. Vous pourrez vous renseigner plus tard sur le système de classes dans le wiki et activer les classes quand vous le voudrez dans l'icône utilisateur > Paramètres.",
     "selectClass": "Sélectionner <%= heroClass %>",
     "select": "Sélectionner",

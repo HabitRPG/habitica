@@ -7,7 +7,7 @@
     "buyGemsGoldText": "商人Alexander會以每個寶石20金幣的價錢賣給你寶石。他在剛開始每月的可販售量是25個寶石，但每3個月連續訂閱，這個上限會增加5個寶石。最高額度是每個月50個寶石！",
     "mustSubscribeToPurchaseGems": "必須訂閱以使用金幣獲得寶石",
     "reachedGoldToGemCap": "您已達到了這個月的金幣=>寶石的兌換上限<%= convCap %>。上限機制是為了避免濫用和刻意耕耘。這個上限會在每個月開始的三天內重置。",
-    "reachedGoldToGemCapQuantity": "你要求的兌換量<%= quantity %>超過了這個月的金幣=>寶石的兌換上限<%= convCap %>。上限機制是為了避免濫用和刻意耕耘。這個上限會在每個月開始的三天內重置。",
+    "reachedGoldToGemCapQuantity": "你請求的兌換數量<%= quantity %>超過了這個月的上限（<%= convCap %>）。該上限在每月的前三天內重置。謝謝你的訂閱！",
     "retainHistory": "保留更長的歷史記錄",
     "retainHistoryText": "讓已完成的待辦事項以及任務的歷史記錄可以保留更久。",
     "doubleDrops": "每日掉落物上限加倍",
@@ -248,5 +248,6 @@
     "cancelSubAlternatives": "如果您遇到技術問題或Habitica不能滿足您的要求，請考慮<a href='mailto:admin@habitica.com'>與我們聯繫</a>。我們希望幫助您從Habitica獲得最大的收益。",
     "mysterySet202003": "倒刺鬥士套裝",
     "giftASubscription": "贈送訂閱",
-    "mysterySet202004": "強大的君主斑蝶套裝"
+    "mysterySet202004": "強大的君主斑蝶套裝",
+    "mysterySet202005": "美妙的飛龍套裝"
 }

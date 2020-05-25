@@ -199,7 +199,7 @@
     "monthlyRepeatHelpContent": "Esta tarefa deve ser feita a cada X meses",
     "yearlyRepeatHelpContent": "Esta tarefa deve ser feita a cada X anos",
     "resets": "Reseta",
-    "summaryStart": "Repete uma vez <%= frequency %> a cada <%= everyX %> <%= frequencyPlural %> . ",
+    "summaryStart": "Repete uma vez <%= frequency %> a cada <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Próximas Datas",
     "checkOffYesterDailies": "Marque as Diárias que tenha feito ontem:",
     "yesterDailiesTitle": "Você deixou essas Diárias desmarcadas ontem! Você quer marcar alguma delas agora?",

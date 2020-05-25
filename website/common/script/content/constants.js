@@ -39,7 +39,7 @@ export const EVENTS = {
   summer2019: { start: '2019-06-18', end: '2019-08-02' },
   fall2019:   { start: '2019-09-24', end: '2019-11-02' },
   winter2020: { start: '2019-12-19', end: '2020-02-02' },
-  spring2020: { start: '2019-03-17', end: '2020-05-02' },
+  spring2020: { start: '2020-03-17', end: '2020-05-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -281,6 +281,11 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
     'butterfly',
     'snail',
     'spider',
+  ],
+  bareNecessities: [
+    'monkey',
+    'sloth',
+    'treeling',
   ],
 };
 

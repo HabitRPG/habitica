@@ -47,7 +47,7 @@
     "achievementPearlyProText": "白い乗騎をすべて手なずけました。",
     "achievementPrimedForPaintingModalText": "白いペットをすべて集めました！",
     "achievementPrimedForPaintingText": "白いペットをすべて集めました。",
-    "achievementPurchasedEquipmentModalText": "装備はアバターをカスタマイズして、能力値を上げる手段です",
+    "achievementPurchasedEquipmentModalText": "装備はアバターをカスタマイズして、能力値を上げるための手段です",
     "achievementPurchasedEquipmentText": "最初の装備の１つを買いました。",
     "achievementPurchasedEquipment": "装備の１つを買う",
     "achievementFedPetModalText": "たくさんの異なる種類のえさがあり、ペットには好き嫌いがあります",
@@ -69,5 +69,11 @@
     "foundNewItems": "新しいアイテムを見つけました！",
     "onboardingComplete": "初心者入門のタスクを完了しました！",
     "yourProgress": "進捗",
-    "onboardingCompleteDescSmall": "もっとほしいなら、実績を確認してコレクションをはじめましょう！"
+    "onboardingCompleteDescSmall": "もっとほしいなら、実績を確認してコレクションをはじめましょう！",
+    "achievementRosyOutlookModalText": "ピンク綿菓子の乗騎をすべて手なずけました！",
+    "achievementRosyOutlookText": "ピンク綿菓子の乗騎をすべて手なずけました。",
+    "achievementRosyOutlook": "桃源郷",
+    "achievementTickledPinkModalText": "ピンク綿菓子のペットをすべて集めました！",
+    "achievementTickledPinkText": "ピンク綿菓子のペットをすべて集めました。",
+    "achievementTickledPink": "桃色片想い"
 }

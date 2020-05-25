@@ -64,7 +64,7 @@ export default {
       this.html = response.data.html;
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('bv::show::modal');
   },
   methods: {

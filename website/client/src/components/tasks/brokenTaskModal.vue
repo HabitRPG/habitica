@@ -91,7 +91,7 @@ export default {
       brokenChallengeTask: {},
     };
   },
-  created () {
+  mounted () {
     this.$root.$on('handle-broken-task', task => {
       this.brokenChallengeTask = { ...task };
       this.$root.$emit('bv::show::modal', 'broken-task-modal');

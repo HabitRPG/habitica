@@ -122,10 +122,10 @@ export default {
       };
     },
   },
-  created () {
+  mounted () {
     this.$root.$on('habitica::report-chat', this.handleReport);
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica::report-chat', this.handleReport);
   },
   methods: {

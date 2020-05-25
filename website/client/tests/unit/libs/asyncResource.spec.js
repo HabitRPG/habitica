@@ -123,6 +123,56 @@ describe('async resource', () => {
       expect(axios.get).to.have.been.calledOnce;
     });
 
+    describe('reloadOnAppVersionChange', async () => {
+      let store;
+
+      beforeEach(() => {
+        store = generateStore();
+        store.state.worldState.loadingStatus = 'LOADED';
+        store.state.serverAppVersion = 1;
+        store.state.worldState.appVersionOnLoad = 1;
+      });
+
+      it('load the resource if it is loaded but the appVersion has changed', async () => {
+        store.state.serverAppVersion = 2;
+        sandbox.stub(axios, 'get').withArgs('/api/v4/world-state').returns(Promise.resolve({
+          data: { data: { _id: 1 } },
+        }));
+
+        const resource = await loadAsyncResource({
+          store,
+          path: 'worldState',
+          url: '/api/v4/world-state',
+          reloadOnAppVersionChange: true,
+          deserialize (response) {
+            return response.data.data;
+          },
+        });
+
+        expect(resource).to.equal(store.state.worldState);
+        expect(resource.loadingStatus).to.equal('LOADED');
+        expect(resource.data._id).to.equal(1);
+        expect(axios.get).to.have.been.calledOnce;
+      });
+
+      it('does not load the resource if it is loaded but the appVersion has changed', async () => {
+        sandbox.stub(axios, 'get').returns(Promise.resolve({ data: { data: { _id: 1 } } }));
+
+        const resource = await loadAsyncResource({
+          store,
+          path: 'worldState',
+          url: '/api/v4/world-state',
+          reloadOnAppVersionChange: true,
+          deserialize (response) {
+            return response.data.data;
+          },
+        });
+
+        expect(resource).to.equal(store.state.worldState);
+        expect(axios.get).to.not.have.been.called;
+      });
+    });
+
     it('does not send multiple requests if the resource is being loaded', async () => {
       const store = generateStore();
       store.state.user.loadingStatus = 'LOADING';
