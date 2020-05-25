@@ -173,12 +173,9 @@
         class="svg-icon inline icon-16 clock-icon"
         v-html="icons.clock"
       ></span>
-      <!-- @TODO: ask about setting string messages in the common/local/en npc.json -->
-      <!-- Wasn't able to test it locally for whatever reason  -->
       <span
         class="notAvailableString"
-        v-html="'This item is unavailable'"
-      ></span>
+      >{{ $t('itemUnavailable') }}</span>
     </div>
     <div
       v-if="item.key === 'rebirth_orb' && item.value > 0 && user.stats.lvl >= 100"
