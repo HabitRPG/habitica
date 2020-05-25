@@ -5,6 +5,7 @@ const backSpecialWonderconRed = {
   notes: t('backSpecialWonderconRedNotes'),
   value: 0,
   mystery: 'wondercon',
+  canBuy: () => true,
 };
 
 const backSpecialWonderconBlack = {
@@ -12,6 +13,7 @@ const backSpecialWonderconBlack = {
   notes: t('backSpecialWonderconBlackNotes'),
   value: 0,
   mystery: 'wondercon',
+  canBuy: () => true,
 };
 
 const bodySpecialWonderconRed = {
@@ -19,6 +21,7 @@ const bodySpecialWonderconRed = {
   notes: t('bodySpecialWonderconRedNotes'),
   value: 0,
   mystery: 'wondercon',
+  canBuy: () => true,
 };
 
 const bodySpecialWonderconGold = {
@@ -26,6 +29,7 @@ const bodySpecialWonderconGold = {
   notes: t('bodySpecialWonderconGoldNotes'),
   value: 0,
   mystery: 'wondercon',
+  canBuy: () => true,
 };
 
 const bodySpecialWonderconBlack = {
@@ -33,6 +37,7 @@ const bodySpecialWonderconBlack = {
   notes: t('bodySpecialWonderconBlackNotes'),
   value: 0,
   mystery: 'wondercon',
+  canBuy: () => true,
 };
 
 const eyewearSpecialWonderconRed = {
@@ -40,6 +45,7 @@ const eyewearSpecialWonderconRed = {
   notes: t('eyewearSpecialWonderconRedNotes'),
   value: 0,
   mystery: 'wondercon',
+  canBuy: () => true,
 };
 
 const eyewearSpecialWonderconBlack = {
@@ -47,6 +53,7 @@ const eyewearSpecialWonderconBlack = {
   notes: t('eyewearSpecialWonderconBlackNotes'),
   value: 0,
   mystery: 'wondercon',
+  canBuy: () => true,
 };
 
 export {

@@ -17,6 +17,7 @@ const armorSpecial1 = {
   int: 6,
   value: 170,
   canOwn: isContributorOfLevel(2, 'armor_special_1'),
+  canBuy: () => true,
 };
 
 const headSpecial1 = {
@@ -28,6 +29,7 @@ const headSpecial1 = {
   int: 6,
   value: 170,
   canOwn: isContributorOfLevel(3, 'head_special_1'),
+  canBuy: () => true,
 };
 
 const shieldSpecial1 = {
@@ -39,6 +41,7 @@ const shieldSpecial1 = {
   int: 6,
   value: 170,
   canOwn: isContributorOfLevel(5, 'shield_special_1'),
+  canBuy: () => true,
 };
 
 const weaponSpecial1 = {
@@ -50,6 +53,7 @@ const weaponSpecial1 = {
   int: 6,
   value: 170,
   canOwn: isContributorOfLevel(4, 'weapon_special_1'),
+  canBuy: () => true,
 };
 
 const weaponSpecialCritical = {
@@ -64,6 +68,7 @@ const weaponSpecialCritical = {
 
     return hasCriticalFlag || alreadyHasItem;
   },
+  canBuy: () => true,
 };
 
 export {

@@ -14,6 +14,7 @@ const armorSpecial0 = {
   con: 20,
   value: 150,
   canOwn: isBackerOfLevel(45, 'armor_special_0'),
+  canBuy: () => true,
 };
 
 const armorSpecial2 = {
@@ -23,6 +24,7 @@ const armorSpecial2 = {
   con: 25,
   value: 200,
   canOwn: isBackerOfLevel(300, 'armor_special_2'),
+  canBuy: () => true,
 };
 
 const headSpecial0 = {
@@ -31,6 +33,7 @@ const headSpecial0 = {
   int: 20,
   value: 150,
   canOwn: isBackerOfLevel(45, 'head_special_0'),
+  canBuy: () => true,
 };
 
 const headSpecial2 = {
@@ -40,6 +43,7 @@ const headSpecial2 = {
   str: 25,
   value: 200,
   canOwn: isBackerOfLevel(300, 'head_special_2'),
+  canBuy: () => true,
 };
 
 const shieldSpecial0 = {
@@ -48,6 +52,7 @@ const shieldSpecial0 = {
   per: 20,
   value: 150,
   canOwn: isBackerOfLevel(45, 'shield_special_0'),
+  canBuy: () => true,
 };
 
 const weaponSpecial0 = {
@@ -56,6 +61,7 @@ const weaponSpecial0 = {
   str: 20,
   value: 150,
   canOwn: isBackerOfLevel(70, 'weapon_special_0'),
+  canBuy: () => true,
 };
 
 const weaponSpecial2 = {
@@ -65,6 +71,7 @@ const weaponSpecial2 = {
   per: 25,
   value: 200,
   canOwn: isBackerOfLevel(300, 'weapon_special_2'),
+  canBuy: () => true,
 };
 
 const weaponSpecial3 = {
@@ -75,6 +82,7 @@ const weaponSpecial3 = {
   con: 17,
   value: 200,
   canOwn: isBackerOfLevel(300, 'weapon_special_3'),
+  canBuy: () => true,
 };
 
 export {

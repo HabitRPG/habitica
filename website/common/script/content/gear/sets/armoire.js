@@ -10,6 +10,7 @@ const armor = {
     int: 7,
     set: 'soothing',
     canOwn: ownsItem('armor_armoire_lunarArmor'),
+    canBuy: () => true,
   },
   gladiatorArmor: {
     text: t('armorArmoireGladiatorArmorText'),
@@ -19,6 +20,7 @@ const armor = {
     per: 7,
     set: 'gladiator',
     canOwn: ownsItem('armor_armoire_gladiatorArmor'),
+    canBuy: () => true,
   },
   rancherRobes: {
     text: t('armorArmoireRancherRobesText'),
@@ -29,6 +31,7 @@ const armor = {
     int: 5,
     set: 'rancher',
     canOwn: ownsItem('armor_armoire_rancherRobes'),
+    canBuy: () => true,
   },
   goldenToga: {
     text: t('armorArmoireGoldenTogaText'),
@@ -38,6 +41,7 @@ const armor = {
     con: 8,
     set: 'goldenToga',
     canOwn: ownsItem('armor_armoire_goldenToga'),
+    canBuy: () => true,
   },
   hornedIronArmor: {
     text: t('armorArmoireHornedIronArmorText'),
@@ -47,6 +51,7 @@ const armor = {
     per: 7,
     set: 'hornedIron',
     canOwn: ownsItem('armor_armoire_hornedIronArmor'),
+    canBuy: () => true,
   },
   plagueDoctorOvercoat: {
     text: t('armorArmoirePlagueDoctorOvercoatText'),
@@ -57,6 +62,7 @@ const armor = {
     con: 6,
     set: 'plagueDoctor',
     canOwn: ownsItem('armor_armoire_plagueDoctorOvercoat'),
+    canBuy: () => true,
   },
   shepherdRobes: {
     text: t('armorArmoireShepherdRobesText'),
@@ -66,6 +72,7 @@ const armor = {
     per: 9,
     set: 'shepherd',
     canOwn: ownsItem('armor_armoire_shepherdRobes'),
+    canBuy: () => true,
   },
   royalRobes: {
     text: t('armorArmoireRoyalRobesText'),
@@ -76,6 +83,7 @@ const armor = {
     int: 5,
     set: 'royal',
     canOwn: ownsItem('armor_armoire_royalRobes'),
+    canBuy: () => true,
   },
   crystalCrescentRobes: {
     text: t('armorArmoireCrystalCrescentRobesText'),
@@ -85,6 +93,7 @@ const armor = {
     con: 7,
     set: 'crystalCrescent',
     canOwn: ownsItem('armor_armoire_crystalCrescentRobes'),
+    canBuy: () => true,
   },
   dragonTamerArmor: {
     text: t('armorArmoireDragonTamerArmorText'),
@@ -93,6 +102,7 @@ const armor = {
     con: 15,
     set: 'dragonTamer',
     canOwn: ownsItem('armor_armoire_dragonTamerArmor'),
+    canBuy: () => true,
   },
   barristerRobes: {
     text: t('armorArmoireBarristerRobesText'),
@@ -101,6 +111,7 @@ const armor = {
     con: 10,
     set: 'barrister',
     canOwn: ownsItem('armor_armoire_barristerRobes'),
+    canBuy: () => true,
   },
   jesterCostume: {
     text: t('armorArmoireJesterCostumeText'),
@@ -109,6 +120,7 @@ const armor = {
     int: 15,
     set: 'jester',
     canOwn: ownsItem('armor_armoire_jesterCostume'),
+    canBuy: () => true,
   },
   minerOveralls: {
     text: t('armorArmoireMinerOverallsText'),
@@ -117,6 +129,7 @@ const armor = {
     con: 10,
     set: 'miner',
     canOwn: ownsItem('armor_armoire_minerOveralls'),
+    canBuy: () => true,
   },
   basicArcherArmor: {
     text: t('armorArmoireBasicArcherArmorText'),
@@ -125,6 +138,7 @@ const armor = {
     per: 12,
     set: 'basicArcher',
     canOwn: ownsItem('armor_armoire_basicArcherArmor'),
+    canBuy: () => true,
   },
   graduateRobe: {
     text: t('armorArmoireGraduateRobeText'),
@@ -133,6 +147,7 @@ const armor = {
     int: 10,
     set: 'graduate',
     canOwn: ownsItem('armor_armoire_graduateRobe'),
+    canBuy: () => true,
   },
   stripedSwimsuit: {
     text: t('armorArmoireStripedSwimsuitText'),
@@ -141,6 +156,7 @@ const armor = {
     con: 13,
     set: 'seaside',
     canOwn: ownsItem('armor_armoire_stripedSwimsuit'),
+    canBuy: () => true,
   },
   cannoneerRags: {
     text: t('armorArmoireCannoneerRagsText'),
@@ -149,6 +165,7 @@ const armor = {
     con: 15,
     set: 'cannoneer',
     canOwn: ownsItem('armor_armoire_cannoneerRags'),
+    canBuy: () => true,
   },
   falconerArmor: {
     text: t('armorArmoireFalconerArmorText'),
@@ -157,6 +174,7 @@ const armor = {
     con: 10,
     set: 'falconer',
     canOwn: ownsItem('armor_armoire_falconerArmor'),
+    canBuy: () => true,
   },
   vermilionArcherArmor: {
     text: t('armorArmoireVermilionArcherArmorText'),
@@ -165,6 +183,7 @@ const armor = {
     per: 15,
     set: 'vermilionArcher',
     canOwn: ownsItem('armor_armoire_vermilionArcherArmor'),
+    canBuy: () => true,
   },
   ogreArmor: {
     text: t('armorArmoireOgreArmorText'),
@@ -173,6 +192,7 @@ const armor = {
     con: 15,
     set: 'ogre',
     canOwn: ownsItem('armor_armoire_ogreArmor'),
+    canBuy: () => true,
   },
   ironBlueArcherArmor: {
     text: t('armorArmoireIronBlueArcherArmorText'),
@@ -181,6 +201,7 @@ const armor = {
     str: 12,
     set: 'blueArcher',
     canOwn: ownsItem('armor_armoire_ironBlueArcherArmor'),
+    canBuy: () => true,
   },
   redPartyDress: {
     text: t('armorArmoireRedPartyDressText'),
@@ -191,6 +212,7 @@ const armor = {
     int: 7,
     set: 'redHairbow',
     canOwn: ownsItem('armor_armoire_redPartyDress'),
+    canBuy: () => true,
   },
   woodElfArmor: {
     text: t('armorArmoireWoodElfArmorText'),
@@ -199,6 +221,7 @@ const armor = {
     per: 12,
     set: 'woodElf',
     canOwn: ownsItem('armor_armoire_woodElfArmor'),
+    canBuy: () => true,
   },
   ramFleeceRobes: {
     text: t('armorArmoireRamFleeceRobesText'),
@@ -208,6 +231,7 @@ const armor = {
     str: 7,
     set: 'ramBarbarian',
     canOwn: ownsItem('armor_armoire_ramFleeceRobes'),
+    canBuy: () => true,
   },
   gownOfHearts: {
     text: t('armorArmoireGownOfHeartsText'),
@@ -216,6 +240,7 @@ const armor = {
     con: 13,
     set: 'queenOfHearts',
     canOwn: ownsItem('armor_armoire_gownOfHearts'),
+    canBuy: () => true,
   },
   mushroomDruidArmor: {
     text: t('armorArmoireMushroomDruidArmorText'),
@@ -225,6 +250,7 @@ const armor = {
     per: 8,
     set: 'mushroomDruid',
     canOwn: ownsItem('armor_armoire_mushroomDruidArmor'),
+    canBuy: () => true,
   },
   greenFestivalYukata: {
     text: t('armorArmoireGreenFestivalYukataText'),
@@ -234,6 +260,7 @@ const armor = {
     per: 8,
     set: 'festivalAttire',
     canOwn: ownsItem('armor_armoire_greenFestivalYukata'),
+    canBuy: () => true,
   },
   merchantTunic: {
     text: t('armorArmoireMerchantTunicText'),
@@ -242,6 +269,7 @@ const armor = {
     per: 10,
     set: 'merchant',
     canOwn: ownsItem('armor_armoire_merchantTunic'),
+    canBuy: () => true,
   },
   vikingTunic: {
     text: t('armorArmoireVikingTunicText'),
@@ -251,6 +279,7 @@ const armor = {
     str: 8,
     set: 'viking',
     canOwn: ownsItem('armor_armoire_vikingTunic'),
+    canBuy: () => true,
   },
   swanDancerTutu: {
     text: t('armorArmoireSwanDancerTutuText'),
@@ -260,6 +289,7 @@ const armor = {
     str: 8,
     set: 'swanDancer',
     canOwn: ownsItem('armor_armoire_swanDancerTutu'),
+    canBuy: () => true,
   },
   yellowPartyDress: {
     text: t('armorArmoireYellowPartyDressText'),
@@ -270,6 +300,7 @@ const armor = {
     str: 7,
     set: 'yellowHairbow',
     canOwn: ownsItem('armor_armoire_yellowPartyDress'),
+    canBuy: () => true,
   },
   antiProcrastinationArmor: {
     text: t('armorArmoireAntiProcrastinationArmorText'),
@@ -278,6 +309,7 @@ const armor = {
     str: 15,
     set: 'antiProcrastination',
     canOwn: ownsItem('armor_armoire_antiProcrastinationArmor'),
+    canBuy: () => true,
   },
   farrierOutfit: {
     text: t('armorArmoireFarrierOutfitText'),
@@ -288,6 +320,7 @@ const armor = {
     per: 6,
     set: 'farrier',
     canOwn: ownsItem('armor_armoire_farrierOutfit'),
+    canBuy: () => true,
   },
   candlestickMakerOutfit: {
     text: t('armorArmoireCandlestickMakerOutfitText'),
@@ -296,6 +329,7 @@ const armor = {
     con: 12,
     set: 'candlestickMaker',
     canOwn: ownsItem('armor_armoire_candlestickMakerOutfit'),
+    canBuy: () => true,
   },
   wovenRobes: {
     text: t('armorArmoireWovenRobesText'),
@@ -305,6 +339,7 @@ const armor = {
     int: 9,
     set: 'weaver',
     canOwn: ownsItem('armor_armoire_wovenRobes'),
+    canBuy: () => true,
   },
   lamplightersGreatcoat: {
     text: t('armorArmoireLamplightersGreatcoatText'),
@@ -313,6 +348,7 @@ const armor = {
     per: 14,
     set: 'lamplighter',
     canOwn: ownsItem('armor_armoire_lamplightersGreatcoat'),
+    canBuy: () => true,
   },
   coachDriverLivery: {
     text: t('armorArmoireCoachDriverLiveryText'),
@@ -321,6 +357,7 @@ const armor = {
     str: 12,
     set: 'coachDriver',
     canOwn: ownsItem('armor_armoire_coachDriverLivery'),
+    canBuy: () => true,
   },
   robeOfDiamonds: {
     text: t('armorArmoireRobeOfDiamondsText'),
@@ -329,6 +366,7 @@ const armor = {
     per: 13,
     set: 'kingOfDiamonds',
     canOwn: ownsItem('armor_armoire_robeOfDiamonds'),
+    canBuy: () => true,
   },
   flutteryFrock: {
     text: t('armorArmoireFlutteryFrockText'),
@@ -339,6 +377,7 @@ const armor = {
     str: 5,
     set: 'fluttery',
     canOwn: ownsItem('armor_armoire_flutteryFrock'),
+    canBuy: () => true,
   },
   cobblersCoveralls: {
     text: t('armorArmoireCobblersCoverallsText'),
@@ -348,6 +387,7 @@ const armor = {
     str: 7,
     set: 'cobbler',
     canOwn: ownsItem('armor_armoire_cobblersCoveralls'),
+    canBuy: () => true,
   },
   glassblowersCoveralls: {
     text: t('armorArmoireGlassblowersCoverallsText'),
@@ -356,6 +396,7 @@ const armor = {
     con: 8,
     set: 'glassblower',
     canOwn: ownsItem('armor_armoire_glassblowersCoveralls'),
+    canBuy: () => true,
   },
   bluePartyDress: {
     text: t('armorArmoireBluePartyDressText'),
@@ -366,6 +407,7 @@ const armor = {
     str: 7,
     set: 'blueHairbow',
     canOwn: ownsItem('armor_armoire_bluePartyDress'),
+    canBuy: () => true,
   },
   piraticalPrincessGown: {
     text: t('armorArmoirePiraticalPrincessGownText'),
@@ -374,6 +416,7 @@ const armor = {
     per: 7,
     set: 'piraticalPrincess',
     canOwn: ownsItem('armor_armoire_piraticalPrincessGown'),
+    canBuy: () => true,
   },
   jeweledArcherArmor: {
     text: t('armorArmoireJeweledArcherArmorText'),
@@ -382,6 +425,7 @@ const armor = {
     con: 15,
     set: 'jeweledArcher',
     canOwn: ownsItem('armor_armoire_jeweledArcherArmor'),
+    canBuy: () => true,
   },
   coverallsOfBookbinding: {
     text: t('armorArmoireCoverallsOfBookbindingText'),
@@ -391,6 +435,7 @@ const armor = {
     per: 5,
     set: 'bookbinder',
     canOwn: ownsItem('armor_armoire_coverallsOfBookbinding'),
+    canBuy: () => true,
   },
   robeOfSpades: {
     text: t('armorArmoireRobeOfSpadesText'),
@@ -399,6 +444,7 @@ const armor = {
     str: 13,
     set: 'aceOfSpades',
     canOwn: ownsItem('armor_armoire_robeOfSpades'),
+    canBuy: () => true,
   },
   softBlueSuit: {
     text: t('armorArmoireSoftBlueSuitText'),
@@ -408,6 +454,7 @@ const armor = {
     per: 5,
     set: 'blueLoungewear',
     canOwn: ownsItem('armor_armoire_softBlueSuit'),
+    canBuy: () => true,
   },
   softGreenSuit: {
     text: t('armorArmoireSoftGreenSuitText'),
@@ -417,6 +464,7 @@ const armor = {
     con: 7,
     set: 'greenLoungewear',
     canOwn: ownsItem('armor_armoire_softGreenSuit'),
+    canBuy: () => true,
   },
   softRedSuit: {
     text: t('armorArmoireSoftRedSuitText'),
@@ -426,6 +474,7 @@ const armor = {
     str: 5,
     set: 'redLoungewear',
     canOwn: ownsItem('armor_armoire_softRedSuit'),
+    canBuy: () => true,
   },
   scribesRobe: {
     text: t('armorArmoireScribesRobeText'),
@@ -435,6 +484,7 @@ const armor = {
     per: 7,
     set: 'scribe',
     canOwn: ownsItem('armor_armoire_scribesRobe'),
+    canBuy: () => true,
   },
   chefsJacket: {
     text: t('armorArmoireChefsJacketText'),
@@ -443,6 +493,7 @@ const armor = {
     int: 10,
     set: 'chef',
     canOwn: ownsItem('armor_armoire_chefsJacket'),
+    canBuy: () => true,
   },
   vernalVestment: {
     text: t('armorArmoireVernalVestmentText'),
@@ -452,6 +503,7 @@ const armor = {
     int: 6,
     set: 'vernalVestments',
     canOwn: ownsItem('armor_armoire_vernalVestment'),
+    canBuy: () => true,
   },
   nephriteArmor: {
     text: t('armorArmoireNephriteArmorText'),
@@ -461,6 +513,7 @@ const armor = {
     per: 6,
     set: 'nephrite',
     canOwn: ownsItem('armor_armoire_nephriteArmor'),
+    canBuy: () => true,
   },
   boatingJacket: {
     text: t('armorArmoireBoatingJacketText'),
@@ -471,6 +524,7 @@ const armor = {
     str: 6,
     set: 'boating',
     canOwn: ownsItem('armor_armoire_boatingJacket'),
+    canBuy: () => true,
   },
   astronomersRobe: {
     text: t('armorArmoireAstronomersRobeText'),
@@ -480,6 +534,7 @@ const armor = {
     con: 8,
     set: 'astronomer',
     canOwn: ownsItem('armor_armoire_astronomersRobe'),
+    canBuy: () => true,
   },
   invernessCape: {
     text: t('armorArmoireInvernessCapeText'),
@@ -489,6 +544,7 @@ const armor = {
     int: 7,
     set: 'detective',
     canOwn: ownsItem('armor_armoire_invernessCape'),
+    canBuy: () => true,
   },
   shadowMastersRobe: {
     text: t('armorArmoireShadowMastersRobeText'),
@@ -497,6 +553,7 @@ const armor = {
     con: 12,
     set: 'shadowMaster',
     canOwn: ownsItem('armor_armoire_shadowMastersRobe'),
+    canBuy: () => true,
   },
   alchemistsRobe: {
     text: t('armorArmoireAlchemistsRobeText'),
@@ -506,6 +563,7 @@ const armor = {
     per: 5,
     set: 'alchemist',
     canOwn: ownsItem('armor_armoire_alchemistsRobe'),
+    canBuy: () => true,
   },
   duffleCoat: {
     text: t('armorArmoireDuffleCoatText'),
@@ -515,6 +573,7 @@ const armor = {
     per: 7,
     set: 'duffle',
     canOwn: ownsItem('armor_armoire_duffleCoat'),
+    canBuy: () => true,
   },
   layerCakeArmor: {
     text: t('armorArmoireLayerCakeArmorText'),
@@ -523,6 +582,7 @@ const armor = {
     con: 13,
     set: 'birthday',
     canOwn: ownsItem('armor_armoire_layerCakeArmor'),
+    canBuy: () => true,
   },
   matchMakersApron: {
     text: t('armorArmoireMatchMakersApronText'),
@@ -533,6 +593,7 @@ const armor = {
     int: 7,
     set: 'matchMaker',
     canOwn: ownsItem('armor_armoire_matchMakersApron'),
+    canBuy: () => true,
   },
   baseballUniform: {
     text: t('armorArmoireBaseballUniformText'),
@@ -542,6 +603,7 @@ const armor = {
     str: 10,
     set: 'baseball',
     canOwn: ownsItem('armor_armoire_baseballUniform'),
+    canBuy: () => true,
   },
   boxArmor: {
     text: t('armorArmoireBoxArmorText'),
@@ -551,6 +613,7 @@ const armor = {
     con: 5,
     set: 'paperKnight',
     canOwn: ownsItem('armor_armoire_boxArmor'),
+    canBuy: () => true,
   },
   fiddlersCoat: {
     text: t('armorArmoireFiddlersCoatText'),
@@ -559,6 +622,7 @@ const armor = {
     con: 6,
     set: 'fiddler',
     canOwn: ownsItem('armor_armoire_fiddlersCoat'),
+    canBuy: () => true,
   },
 };
 
@@ -571,6 +635,7 @@ const body = {
     per: 5,
     set: 'lamplighter',
     canOwn: ownsItem('body_armoire_cozyScarf'),
+    canBuy: () => true,
   },
 };
 
@@ -583,6 +648,7 @@ const eyewear = {
     value: 100,
     set: 'plagueDoctor',
     canOwn: ownsItem('eyewear_armoire_plagueDoctorMask'),
+    canBuy: () => true,
   },
   goofyGlasses: {
     text: t('eyewearArmoireGoofyGlassesText'),
@@ -590,6 +656,7 @@ const eyewear = {
     value: 100,
     per: 10,
     canOwn: ownsItem('eyewear_armoire_goofyGlasses'),
+    canBuy: () => true,
   },
 };
 
@@ -602,6 +669,7 @@ const head = {
     per: 7,
     set: 'soothing',
     canOwn: ownsItem('head_armoire_lunarCrown'),
+    canBuy: () => true,
   },
   redHairbow: {
     text: t('headArmoireRedHairbowText'),
@@ -612,6 +680,7 @@ const head = {
     con: 5,
     set: 'redHairbow',
     canOwn: ownsItem('head_armoire_redHairbow'),
+    canBuy: () => true,
   },
   violetFloppyHat: {
     text: t('headArmoireVioletFloppyHatText'),
@@ -621,6 +690,7 @@ const head = {
     int: 5,
     con: 5,
     canOwn: ownsItem('head_armoire_violetFloppyHat'),
+    canBuy: () => true,
   },
   gladiatorHelm: {
     text: t('headArmoireGladiatorHelmText'),
@@ -630,6 +700,7 @@ const head = {
     int: 7,
     set: 'gladiator',
     canOwn: ownsItem('head_armoire_gladiatorHelm'),
+    canBuy: () => true,
   },
   rancherHat: {
     text: t('headArmoireRancherHatText'),
@@ -640,6 +711,7 @@ const head = {
     int: 5,
     set: 'rancher',
     canOwn: ownsItem('head_armoire_rancherHat'),
+    canBuy: () => true,
   },
   royalCrown: {
     text: t('headArmoireRoyalCrownText'),
@@ -648,6 +720,7 @@ const head = {
     str: 10,
     set: 'royal',
     canOwn: ownsItem('head_armoire_royalCrown'),
+    canBuy: () => true,
   },
   blueHairbow: {
     text: t('headArmoireBlueHairbowText'),
@@ -658,6 +731,7 @@ const head = {
     con: 5,
     set: 'blueHairbow',
     canOwn: ownsItem('head_armoire_blueHairbow'),
+    canBuy: () => true,
   },
   goldenLaurels: {
     text: t('headArmoireGoldenLaurelsText'),
@@ -667,6 +741,7 @@ const head = {
     con: 8,
     set: 'goldenToga',
     canOwn: ownsItem('head_armoire_goldenLaurels'),
+    canBuy: () => true,
   },
   hornedIronHelm: {
     text: t('headArmoireHornedIronHelmText'),
@@ -676,6 +751,7 @@ const head = {
     str: 7,
     set: 'hornedIron',
     canOwn: ownsItem('head_armoire_hornedIronHelm'),
+    canBuy: () => true,
   },
   yellowHairbow: {
     text: t('headArmoireYellowHairbowText'),
@@ -686,6 +762,7 @@ const head = {
     str: 5,
     set: 'yellowHairbow',
     canOwn: ownsItem('head_armoire_yellowHairbow'),
+    canBuy: () => true,
   },
   redFloppyHat: {
     text: t('headArmoireRedFloppyHatText'),
@@ -696,6 +773,7 @@ const head = {
     per: 6,
     canOwn: ownsItem('head_armoire_redFloppyHat'),
     set: 'redLoungewear',
+    canBuy: () => true,
   },
   plagueDoctorHat: {
     text: t('headArmoirePlagueDoctorHatText'),
@@ -706,6 +784,7 @@ const head = {
     con: 5,
     set: 'plagueDoctor',
     canOwn: ownsItem('head_armoire_plagueDoctorHat'),
+    canBuy: () => true,
   },
   blackCat: {
     text: t('headArmoireBlackCatText'),
@@ -714,6 +793,7 @@ const head = {
     int: 9,
     per: 9,
     canOwn: ownsItem('head_armoire_blackCat'),
+    canBuy: () => true,
   },
   orangeCat: {
     text: t('headArmoireOrangeCatText'),
@@ -722,6 +802,7 @@ const head = {
     con: 9,
     str: 9,
     canOwn: ownsItem('head_armoire_orangeCat'),
+    canBuy: () => true,
   },
   blueFloppyHat: {
     text: t('headArmoireBlueFloppyHatText'),
@@ -732,6 +813,7 @@ const head = {
     con: 7,
     set: 'blueLoungewear',
     canOwn: ownsItem('head_armoire_blueFloppyHat'),
+    canBuy: () => true,
   },
   shepherdHeaddress: {
     text: t('headArmoireShepherdHeaddressText'),
@@ -740,6 +822,7 @@ const head = {
     int: 9,
     set: 'shepherd',
     canOwn: ownsItem('head_armoire_shepherdHeaddress'),
+    canBuy: () => true,
   },
   crystalCrescentHat: {
     text: t('headArmoireCrystalCrescentHatText'),
@@ -749,6 +832,7 @@ const head = {
     per: 7,
     set: 'crystalCrescent',
     canOwn: ownsItem('head_armoire_crystalCrescentHat'),
+    canBuy: () => true,
   },
   dragonTamerHelm: {
     text: t('headArmoireDragonTamerHelmText'),
@@ -757,6 +841,7 @@ const head = {
     int: 15,
     set: 'dragonTamer',
     canOwn: ownsItem('head_armoire_dragonTamerHelm'),
+    canBuy: () => true,
   },
   barristerWig: {
     text: t('headArmoireBarristerWigText'),
@@ -765,6 +850,7 @@ const head = {
     str: 10,
     set: 'barrister',
     canOwn: ownsItem('head_armoire_barristerWig'),
+    canBuy: () => true,
   },
   jesterCap: {
     text: t('headArmoireJesterCapText'),
@@ -773,6 +859,7 @@ const head = {
     per: 15,
     set: 'jester',
     canOwn: ownsItem('head_armoire_jesterCap'),
+    canBuy: () => true,
   },
   minerHelmet: {
     text: t('headArmoireMinerHelmetText'),
@@ -781,6 +868,7 @@ const head = {
     int: 5,
     set: 'miner',
     canOwn: ownsItem('head_armoire_minerHelmet'),
+    canBuy: () => true,
   },
   basicArcherCap: {
     text: t('headArmoireBasicArcherCapText'),
@@ -789,6 +877,7 @@ const head = {
     per: 6,
     set: 'basicArcher',
     canOwn: ownsItem('head_armoire_basicArcherCap'),
+    canBuy: () => true,
   },
   graduateCap: {
     text: t('headArmoireGraduateCapText'),
@@ -797,6 +886,7 @@ const head = {
     int: 9,
     set: 'graduate',
     canOwn: ownsItem('head_armoire_graduateCap'),
+    canBuy: () => true,
   },
   greenFloppyHat: {
     text: t('headArmoireGreenFloppyHatText'),
@@ -807,6 +897,7 @@ const head = {
     con: 8,
     canOwn: ownsItem('head_armoire_greenFloppyHat'),
     set: 'greenLoungewear',
+    canBuy: () => true,
   },
   cannoneerBandanna: {
     text: t('headArmoireCannoneerBandannaText'),
@@ -816,6 +907,7 @@ const head = {
     per: 15,
     set: 'cannoneer',
     canOwn: ownsItem('head_armoire_cannoneerBandanna'),
+    canBuy: () => true,
   },
   falconerCap: {
     text: t('headArmoireFalconerCapText'),
@@ -824,6 +916,7 @@ const head = {
     int: 10,
     set: 'falconer',
     canOwn: ownsItem('head_armoire_falconerCap'),
+    canBuy: () => true,
   },
   vermilionArcherHelm: {
     text: t('headArmoireVermilionArcherHelmText'),
@@ -832,6 +925,7 @@ const head = {
     per: 12,
     set: 'vermilionArcher',
     canOwn: ownsItem('head_armoire_vermilionArcherHelm'),
+    canBuy: () => true,
   },
   ogreMask: {
     text: t('headArmoireOgreMaskText'),
@@ -841,6 +935,7 @@ const head = {
     str: 7,
     set: 'ogre',
     canOwn: ownsItem('head_armoire_ogreMask'),
+    canBuy: () => true,
   },
   ironBlueArcherHelm: {
     text: t('headArmoireIronBlueArcherHelmText'),
@@ -849,6 +944,7 @@ const head = {
     con: 9,
     set: 'blueArcher',
     canOwn: ownsItem('head_armoire_ironBlueArcherHelm'),
+    canBuy: () => true,
   },
   woodElfHelm: {
     text: t('headArmoireWoodElfHelmText'),
@@ -857,6 +953,7 @@ const head = {
     con: 12,
     set: 'woodElf',
     canOwn: ownsItem('head_armoire_woodElfHelm'),
+    canBuy: () => true,
   },
   ramHeaddress: {
     text: t('headArmoireRamHeaddressText'),
@@ -866,6 +963,7 @@ const head = {
     per: 7,
     set: 'ramBarbarian',
     canOwn: ownsItem('head_armoire_ramHeaddress'),
+    canBuy: () => true,
   },
   crownOfHearts: {
     text: t('headArmoireCrownOfHeartsText'),
@@ -874,6 +972,7 @@ const head = {
     str: 13,
     set: 'queenOfHearts',
     canOwn: ownsItem('head_armoire_crownOfHearts'),
+    canBuy: () => true,
   },
   mushroomDruidCap: {
     text: t('headArmoireMushroomDruidCapText'),
@@ -883,6 +982,7 @@ const head = {
     str: 7,
     set: 'mushroomDruid',
     canOwn: ownsItem('head_armoire_mushroomDruidCap'),
+    canBuy: () => true,
   },
   merchantChaperon: {
     text: t('headArmoireMerchantChaperonText'),
@@ -892,6 +992,7 @@ const head = {
     per: 7,
     set: 'merchant',
     canOwn: ownsItem('head_armoire_merchantChaperon'),
+    canBuy: () => true,
   },
   vikingHelm: {
     text: t('headArmoireVikingHelmText'),
@@ -901,6 +1002,7 @@ const head = {
     per: 8,
     set: 'viking',
     canOwn: ownsItem('head_armoire_vikingHelm'),
+    canBuy: () => true,
   },
   swanFeatherCrown: {
     text: t('headArmoireSwanFeatherCrownText'),
@@ -909,6 +1011,7 @@ const head = {
     int: 8,
     set: 'swanDancer',
     canOwn: ownsItem('head_armoire_swanFeatherCrown'),
+    canBuy: () => true,
   },
   antiProcrastinationHelm: {
     text: t('headArmoireAntiProcrastinationHelmText'),
@@ -917,6 +1020,7 @@ const head = {
     per: 15,
     set: 'antiProcrastination',
     canOwn: ownsItem('head_armoire_antiProcrastinationHelm'),
+    canBuy: () => true,
   },
   candlestickMakerHat: {
     text: t('headArmoireCandlestickMakerHatText'),
@@ -926,6 +1030,7 @@ const head = {
     per: 6,
     set: 'candlestickMaker',
     canOwn: ownsItem('head_armoire_candlestickMakerHat'),
+    canBuy: () => true,
   },
   lamplightersTopHat: {
     text: t('headArmoireLamplightersTopHatText'),
@@ -934,6 +1039,7 @@ const head = {
     con: 14,
     set: 'lamplighter',
     canOwn: ownsItem('head_armoire_lamplightersTopHat'),
+    canBuy: () => true,
   },
   coachDriversHat: {
     text: t('headArmoireCoachDriversHatText'),
@@ -942,6 +1048,7 @@ const head = {
     int: 12,
     set: 'coachDriver',
     canOwn: ownsItem('head_armoire_coachDriversHat'),
+    canBuy: () => true,
   },
   crownOfDiamonds: {
     text: t('headArmoireCrownOfDiamondsText'),
@@ -950,6 +1057,7 @@ const head = {
     int: 13,
     set: 'kingOfDiamonds',
     canOwn: ownsItem('head_armoire_crownOfDiamonds'),
+    canBuy: () => true,
   },
   flutteryWig: {
     text: t('headArmoireFlutteryWigText'),
@@ -960,6 +1068,7 @@ const head = {
     str: 5,
     set: 'fluttery',
     canOwn: ownsItem('head_armoire_flutteryWig'),
+    canBuy: () => true,
   },
   bigWig: {
     text: t('headArmoireBigWigText'),
@@ -967,6 +1076,7 @@ const head = {
     value: 100,
     str: 10,
     canOwn: ownsItem('head_armoire_bigWig'),
+    canBuy: () => true,
   },
   paperBag: {
     text: t('headArmoirePaperBagText'),
@@ -974,6 +1084,7 @@ const head = {
     value: 100,
     con: 10,
     canOwn: ownsItem('head_armoire_paperBag'),
+    canBuy: () => true,
   },
   birdsNest: {
     text: t('headArmoireBirdsNestText'),
@@ -981,6 +1092,7 @@ const head = {
     value: 100,
     int: 10,
     canOwn: ownsItem('head_armoire_birdsNest'),
+    canBuy: () => true,
   },
   glassblowersHat: {
     text: t('headArmoireGlassblowersHatText'),
@@ -989,6 +1101,7 @@ const head = {
     per: 8,
     set: 'glassblower',
     canOwn: ownsItem('head_armoire_glassblowersHat'),
+    canBuy: () => true,
   },
   piraticalPrincessHeaddress: {
     text: t('headArmoirePiraticalPrincessHeaddressText'),
@@ -998,6 +1111,7 @@ const head = {
     int: 8,
     set: 'piraticalPrincess',
     canOwn: ownsItem('head_armoire_piraticalPrincessHeaddress'),
+    canBuy: () => true,
   },
   jeweledArcherHelm: {
     text: t('headArmoireJeweledArcherHelmText'),
@@ -1006,6 +1120,7 @@ const head = {
     int: 15,
     set: 'jeweledArcher',
     canOwn: ownsItem('head_armoire_jeweledArcherHelm'),
+    canBuy: () => true,
   },
   veilOfSpades: {
     text: t('headArmoireVeilOfSpadesText'),
@@ -1014,6 +1129,7 @@ const head = {
     per: 13,
     set: 'aceOfSpades',
     canOwn: ownsItem('head_armoire_veilOfSpades'),
+    canBuy: () => true,
   },
   toqueBlanche: {
     text: t('headArmoireToqueBlancheText'),
@@ -1022,6 +1138,7 @@ const head = {
     per: 10,
     set: 'chef',
     canOwn: ownsItem('head_armoire_toqueBlanche'),
+    canBuy: () => true,
   },
   vernalHennin: {
     text: t('headArmoireVernalHenninText'),
@@ -1030,6 +1147,7 @@ const head = {
     per: 12,
     set: 'vernalVestments',
     canOwn: ownsItem('head_armoire_vernalHennin'),
+    canBuy: () => true,
   },
   tricornHat: {
     text: t('headArmoireTricornHatText'),
@@ -1037,6 +1155,7 @@ const head = {
     value: 100,
     per: 10,
     canOwn: ownsItem('head_armoire_tricornHat'),
+    canBuy: () => true,
   },
   nephriteHelm: {
     text: t('headArmoireNephriteHelmText'),
@@ -1046,6 +1165,7 @@ const head = {
     int: 6,
     set: 'nephrite',
     canOwn: ownsItem('head_armoire_nephriteHelm'),
+    canBuy: () => true,
   },
   boaterHat: {
     text: t('headArmoireBoaterHatText'),
@@ -1056,6 +1176,7 @@ const head = {
     per: 6,
     set: 'boating',
     canOwn: ownsItem('head_armoire_boaterHat'),
+    canBuy: () => true,
   },
   astronomersHat: {
     text: t('headArmoireAstronomersHatText'),
@@ -1064,6 +1185,7 @@ const head = {
     con: 10,
     set: 'astronomer',
     canOwn: ownsItem('head_armoire_astronomersHat'),
+    canBuy: () => true,
   },
   deerstalkerCap: {
     text: t('headArmoireDeerstalkerCapText'),
@@ -1072,6 +1194,7 @@ const head = {
     int: 14,
     set: 'detective',
     canOwn: ownsItem('head_armoire_deerstalkerCap'),
+    canBuy: () => true,
   },
   shadowMastersHood: {
     text: t('headArmoireShadowMastersHoodText'),
@@ -1081,6 +1204,7 @@ const head = {
     con: 5,
     set: 'shadowMaster',
     canOwn: ownsItem('head_armoire_shadowMastersHood'),
+    canBuy: () => true,
   },
   alchemistsHat: {
     text: t('headArmoireAlchemistsHatText'),
@@ -1089,6 +1213,7 @@ const head = {
     per: 7,
     set: 'alchemist',
     canOwn: ownsItem('head_armoire_alchemistsHat'),
+    canBuy: () => true,
   },
   earflapHat: {
     text: t('headArmoireEarflapHatText'),
@@ -1098,6 +1223,7 @@ const head = {
     str: 7,
     set: 'duffle',
     canOwn: ownsItem('head_armoire_earflapHat'),
+    canBuy: () => true,
   },
   frostedHelm: {
     text: t('headArmoireFrostedHelmText'),
@@ -1106,6 +1232,7 @@ const head = {
     int: 13,
     set: 'birthday',
     canOwn: ownsItem('head_armoire_frostedHelm'),
+    canBuy: () => true,
   },
   matchMakersBeret: {
     text: t('headArmoireMatchMakersBeretText'),
@@ -1114,6 +1241,7 @@ const head = {
     con: 15,
     set: 'matchMaker',
     canOwn: ownsItem('head_armoire_matchMakersBeret'),
+    canBuy: () => true,
   },
   baseballCap: {
     text: t('headArmoireBaseballCapText'),
@@ -1123,6 +1251,7 @@ const head = {
     str: 8,
     set: 'baseball',
     canOwn: ownsItem('head_armoire_baseballCap'),
+    canBuy: () => true,
   },
   fiddlersCap: {
     text: t('headArmoireFiddlersCapText'),
@@ -1131,6 +1260,7 @@ const head = {
     per: 6,
     set: 'fiddler',
     canOwn: ownsItem('head_armoire_fiddlersCap'),
+    canBuy: () => true,
   },
 };
 
@@ -1143,6 +1273,7 @@ const shield = {
     str: 5,
     set: 'gladiator',
     canOwn: ownsItem('shield_armoire_gladiatorShield'),
+    canBuy: () => true,
   },
   midnightShield: {
     text: t('shieldArmoireMidnightShieldText'),
@@ -1151,6 +1282,7 @@ const shield = {
     con: 10,
     str: 2,
     canOwn: ownsItem('shield_armoire_midnightShield'),
+    canBuy: () => true,
   },
   royalCane: {
     text: t('shieldArmoireRoyalCaneText'),
@@ -1161,6 +1293,7 @@ const shield = {
     per: 5,
     set: 'royal',
     canOwn: ownsItem('shield_armoire_royalCane'),
+    canBuy: () => true,
   },
   dragonTamerShield: {
     text: t('shieldArmoireDragonTamerShieldText'),
@@ -1169,6 +1302,7 @@ const shield = {
     per: 15,
     set: 'dragonTamer',
     canOwn: ownsItem('shield_armoire_dragonTamerShield'),
+    canBuy: () => true,
   },
   mysticLamp: {
     text: t('shieldArmoireMysticLampText'),
@@ -1176,6 +1310,7 @@ const shield = {
     value: 100,
     per: 15,
     canOwn: ownsItem('shield_armoire_mysticLamp'),
+    canBuy: () => true,
   },
   floralBouquet: {
     text: t('shieldArmoireFloralBouquetText'),
@@ -1183,6 +1318,7 @@ const shield = {
     value: 100,
     con: 3,
     canOwn: ownsItem('shield_armoire_floralBouquet'),
+    canBuy: () => true,
   },
   sandyBucket: {
     text: t('shieldArmoireSandyBucketText'),
@@ -1191,6 +1327,7 @@ const shield = {
     per: 10,
     set: 'seaside',
     canOwn: ownsItem('shield_armoire_sandyBucket'),
+    canBuy: () => true,
   },
   perchingFalcon: {
     text: t('shieldArmoirePerchingFalconText'),
@@ -1199,6 +1336,7 @@ const shield = {
     str: 16,
     set: 'falconer',
     canOwn: ownsItem('shield_armoire_perchingFalcon'),
+    canBuy: () => true,
   },
   ramHornShield: {
     text: t('shieldArmoireRamHornShieldText'),
@@ -1208,6 +1346,7 @@ const shield = {
     con: 7,
     set: 'ramBarbarian',
     canOwn: ownsItem('shield_armoire_ramHornShield'),
+    canBuy: () => true,
   },
   redRose: {
     text: t('shieldArmoireRedRoseText'),
@@ -1215,6 +1354,7 @@ const shield = {
     value: 100,
     per: 10,
     canOwn: ownsItem('shield_armoire_redRose'),
+    canBuy: () => true,
   },
   mushroomDruidShield: {
     text: t('shieldArmoireMushroomDruidShieldText'),
@@ -1224,6 +1364,7 @@ const shield = {
     str: 8,
     set: 'mushroomDruid',
     canOwn: ownsItem('shield_armoire_mushroomDruidShield'),
+    canBuy: () => true,
   },
   festivalParasol: {
     text: t('shieldArmoireFestivalParasolText'),
@@ -1232,6 +1373,7 @@ const shield = {
     con: 8,
     set: 'festivalAttire',
     canOwn: ownsItem('shield_armoire_festivalParasol'),
+    canBuy: () => true,
   },
   vikingShield: {
     text: t('shieldArmoireVikingShieldText'),
@@ -1241,6 +1383,7 @@ const shield = {
     int: 8,
     set: 'viking',
     canOwn: ownsItem('shield_armoire_vikingShield'),
+    canBuy: () => true,
   },
   swanFeatherFan: {
     text: t('shieldArmoireSwanFeatherFanText'),
@@ -1249,6 +1392,7 @@ const shield = {
     str: 8,
     set: 'swanDancer',
     canOwn: ownsItem('shield_armoire_swanFeatherFan'),
+    canBuy: () => true,
   },
   goldenBaton: {
     text: t('shieldArmoireGoldenBatonText'),
@@ -1257,6 +1401,7 @@ const shield = {
     int: 4,
     str: 4,
     canOwn: ownsItem('shield_armoire_goldenBaton'),
+    canBuy: () => true,
   },
   antiProcrastinationShield: {
     text: t('shieldArmoireAntiProcrastinationShieldText'),
@@ -1265,6 +1410,7 @@ const shield = {
     con: 15,
     set: 'antiProcrastination',
     canOwn: ownsItem('shield_armoire_antiProcrastinationShield'),
+    canBuy: () => true,
   },
   horseshoe: {
     text: t('shieldArmoireHorseshoeText'),
@@ -1275,6 +1421,7 @@ const shield = {
     str: 6,
     set: 'farrier',
     canOwn: ownsItem('shield_armoire_horseshoe'),
+    canBuy: () => true,
   },
   handmadeCandlestick: {
     text: t('shieldArmoireHandmadeCandlestickText'),
@@ -1283,6 +1430,7 @@ const shield = {
     str: 12,
     set: 'candlestickMaker',
     canOwn: ownsItem('shield_armoire_handmadeCandlestick'),
+    canBuy: () => true,
   },
   weaversShuttle: {
     text: t('shieldArmoireWeaversShuttleText'),
@@ -1292,6 +1440,7 @@ const shield = {
     int: 8,
     set: 'weaver',
     canOwn: ownsItem('shield_armoire_weaversShuttle'),
+    canBuy: () => true,
   },
   shieldOfDiamonds: {
     text: t('shieldArmoireShieldOfDiamondsText'),
@@ -1300,6 +1449,7 @@ const shield = {
     con: 10,
     set: 'kingOfDiamonds',
     canOwn: ownsItem('shield_armoire_shieldOfDiamonds'),
+    canBuy: () => true,
   },
   flutteryFan: {
     text: t('shieldArmoireFlutteryFanText'),
@@ -1310,6 +1460,7 @@ const shield = {
     per: 5,
     set: 'fluttery',
     canOwn: ownsItem('shield_armoire_flutteryFan'),
+    canBuy: () => true,
   },
   fancyShoe: {
     text: t('shieldArmoireFancyShoeText'),
@@ -1319,6 +1470,7 @@ const shield = {
     per: 7,
     set: 'cobbler',
     canOwn: ownsItem('shield_armoire_fancyShoe'),
+    canBuy: () => true,
   },
   fancyBlownGlassVase: {
     text: t('shieldArmoireFancyBlownGlassVaseText'),
@@ -1327,6 +1479,7 @@ const shield = {
     int: 6,
     set: 'glassblower',
     canOwn: ownsItem('shield_armoire_fancyBlownGlassVase'),
+    canBuy: () => true,
   },
   piraticalSkullShield: {
     text: t('shieldArmoirePiraticalSkullShieldText'),
@@ -1336,6 +1489,7 @@ const shield = {
     int: 4,
     set: 'piraticalPrincess',
     canOwn: ownsItem('shield_armoire_piraticalSkullShield'),
+    canBuy: () => true,
   },
   unfinishedTome: {
     text: t('shieldArmoireUnfinishedTomeText'),
@@ -1344,6 +1498,7 @@ const shield = {
     int: 10,
     set: 'bookbinder',
     canOwn: ownsItem('shield_armoire_unfinishedTome'),
+    canBuy: () => true,
   },
   softBluePillow: {
     text: t('shieldArmoireSoftBluePillowText'),
@@ -1352,6 +1507,7 @@ const shield = {
     con: 10,
     set: 'blueLoungewear',
     canOwn: ownsItem('shield_armoire_softBluePillow'),
+    canBuy: () => true,
   },
   softGreenPillow: {
     text: t('shieldArmoireSoftGreenPillowText'),
@@ -1361,6 +1517,7 @@ const shield = {
     int: 6,
     set: 'greenLoungewear',
     canOwn: ownsItem('shield_armoire_softGreenPillow'),
+    canBuy: () => true,
   },
   softRedPillow: {
     text: t('shieldArmoireSoftRedPillowText'),
@@ -1370,6 +1527,7 @@ const shield = {
     str: 5,
     set: 'redLoungewear',
     canOwn: ownsItem('shield_armoire_softRedPillow'),
+    canBuy: () => true,
   },
   mightyQuill: {
     text: t('shieldArmoireMightyQuillText'),
@@ -1378,6 +1536,7 @@ const shield = {
     per: 9,
     set: 'scribe',
     canOwn: ownsItem('shield_armoire_mightyQuill'),
+    canBuy: () => true,
   },
   mightyPizza: {
     text: t('shieldArmoireMightyPizzaText'),
@@ -1386,6 +1545,7 @@ const shield = {
     per: 8,
     set: 'chef',
     canOwn: ownsItem('shield_armoire_mightyPizza'),
+    canBuy: () => true,
   },
   trustyUmbrella: {
     text: t('shieldArmoireTrustyUmbrellaText'),
@@ -1394,6 +1554,7 @@ const shield = {
     int: 7,
     set: 'detective',
     canOwn: ownsItem('shield_armoire_trustyUmbrella'),
+    canBuy: () => true,
   },
   polishedPocketwatch: {
     text: t('shieldArmoirePolishedPocketwatchText'),
@@ -1401,6 +1562,7 @@ const shield = {
     value: 100,
     int: 9,
     canOwn: ownsItem('shield_armoire_polishedPocketwatch'),
+    canBuy: () => true,
   },
   masteredShadow: {
     text: t('shieldArmoireMasteredShadowText'),
@@ -1410,6 +1572,7 @@ const shield = {
     con: 5,
     set: 'shadowMaster',
     canOwn: ownsItem('shield_armoire_masteredShadow'),
+    canBuy: () => true,
   },
   alchemistsScale: {
     text: t('shieldArmoireAlchemistsScaleText'),
@@ -1418,6 +1581,7 @@ const shield = {
     int: 7,
     set: 'alchemist',
     canOwn: ownsItem('shield_armoire_alchemistsScale'),
+    canBuy: () => true,
   },
   birthdayBanner: {
     text: t('shieldArmoireBirthdayBannerText'),
@@ -1426,6 +1590,7 @@ const shield = {
     str: 7,
     set: 'birthday',
     canOwn: ownsItem('shield_armoire_birthdayBanner'),
+    canBuy: () => true,
   },
   perfectMatch: {
     text: t('shieldArmoirePerfectMatchText'),
@@ -1434,6 +1599,7 @@ const shield = {
     per: 15,
     set: 'matchMaker',
     canOwn: ownsItem('shield_armoire_perfectMatch'),
+    canBuy: () => true,
   },
   baseballGlove: {
     text: t('shieldArmoireBaseballGloveText'),
@@ -1442,6 +1608,7 @@ const shield = {
     str: 9,
     set: 'baseball',
     canOwn: ownsItem('shield_armoire_baseballGlove'),
+    canBuy: () => true,
   },
   hobbyHorse: {
     text: t('shieldArmoireHobbyHorseText'),
@@ -1451,6 +1618,7 @@ const shield = {
     con: 4,
     set: 'paperKnight',
     canOwn: ownsItem('shield_armoire_hobbyHorse'),
+    canBuy: () => true,
   },
   fiddle: {
     text: t('shieldArmoireFiddleText'),
@@ -1459,6 +1627,7 @@ const shield = {
     int: 6,
     set: 'fiddler',
     canOwn: ownsItem('shield_armoire_fiddle'),
+    canBuy: () => true,
   },
 };
 
@@ -1469,6 +1638,7 @@ const headAccessory = {
     value: 100,
     str: 10,
     canOwn: ownsItem('headAccessory_armoire_comicalArrow'),
+    canBuy: () => true,
   },
   gogglesOfBookbinding: {
     text: t('headAccessoryArmoireGogglesOfBookbindingText'),
@@ -1477,6 +1647,7 @@ const headAccessory = {
     per: 8,
     set: 'bookbinder',
     canOwn: ownsItem('headAccessory_armoire_gogglesOfBookbinding'),
+    canBuy: () => true,
   },
 };
 
@@ -1489,6 +1660,7 @@ const weapon = {
     per: 5,
     con: 5,
     canOwn: ownsItem('weapon_armoire_basicCrossbow'),
+    canBuy: () => true,
   },
   lunarSceptre: {
     text: t('weaponArmoireLunarSceptreText'),
@@ -1498,6 +1670,7 @@ const weapon = {
     int: 7,
     set: 'soothing',
     canOwn: ownsItem('weapon_armoire_lunarSceptre'),
+    canBuy: () => true,
   },
   rancherLasso: {
     twoHanded: true,
@@ -1509,6 +1682,7 @@ const weapon = {
     int: 5,
     set: 'rancher',
     canOwn: ownsItem('weapon_armoire_rancherLasso'),
+    canBuy: () => true,
   },
   mythmakerSword: {
     text: t('weaponArmoireMythmakerSwordText'),
@@ -1518,6 +1692,7 @@ const weapon = {
     per: 6,
     set: 'goldenToga',
     canOwn: ownsItem('weapon_armoire_mythmakerSword'),
+    canBuy: () => true,
   },
   ironCrook: {
     text: t('weaponArmoireIronCrookText'),
@@ -1527,6 +1702,7 @@ const weapon = {
     per: 7,
     set: 'hornedIron',
     canOwn: ownsItem('weapon_armoire_ironCrook'),
+    canBuy: () => true,
   },
   goldWingStaff: {
     text: t('weaponArmoireGoldWingStaffText'),
@@ -1537,6 +1713,7 @@ const weapon = {
     per: 4,
     str: 4,
     canOwn: ownsItem('weapon_armoire_goldWingStaff'),
+    canBuy: () => true,
   },
   batWand: {
     text: t('weaponArmoireBatWandText'),
@@ -1545,6 +1722,7 @@ const weapon = {
     int: 10,
     per: 2,
     canOwn: ownsItem('weapon_armoire_batWand'),
+    canBuy: () => true,
   },
   shepherdsCrook: {
     text: t('weaponArmoireShepherdsCrookText'),
@@ -1553,6 +1731,7 @@ const weapon = {
     con: 9,
     set: 'shepherd',
     canOwn: ownsItem('weapon_armoire_shepherdsCrook'),
+    canBuy: () => true,
   },
   crystalCrescentStaff: {
     text: t('weaponArmoireCrystalCrescentStaffText'),
@@ -1562,6 +1741,7 @@ const weapon = {
     str: 7,
     set: 'crystalCrescent',
     canOwn: ownsItem('weapon_armoire_crystalCrescentStaff'),
+    canBuy: () => true,
   },
   blueLongbow: {
     text: t('weaponArmoireBlueLongbowText'),
@@ -1573,6 +1753,7 @@ const weapon = {
     twoHanded: true,
     set: 'blueArcher',
     canOwn: ownsItem('weapon_armoire_blueLongbow'),
+    canBuy: () => true,
   },
   glowingSpear: {
     text: t('weaponArmoireGlowingSpearText'),
@@ -1580,6 +1761,7 @@ const weapon = {
     value: 100,
     str: 15,
     canOwn: ownsItem('weapon_armoire_glowingSpear'),
+    canBuy: () => true,
   },
   barristerGavel: {
     text: t('weaponArmoireBarristerGavelText'),
@@ -1589,6 +1771,7 @@ const weapon = {
     con: 5,
     set: 'barrister',
     canOwn: ownsItem('weapon_armoire_barristerGavel'),
+    canBuy: () => true,
   },
   jesterBaton: {
     text: t('weaponArmoireJesterBatonText'),
@@ -1598,6 +1781,7 @@ const weapon = {
     per: 8,
     set: 'jester',
     canOwn: ownsItem('weapon_armoire_jesterBaton'),
+    canBuy: () => true,
   },
   miningPickax: {
     text: t('weaponArmoireMiningPickaxText'),
@@ -1606,6 +1790,7 @@ const weapon = {
     per: 15,
     set: 'miner',
     canOwn: ownsItem('weapon_armoire_miningPickax'),
+    canBuy: () => true,
   },
   basicLongbow: {
     text: t('weaponArmoireBasicLongbowText'),
@@ -1615,6 +1800,7 @@ const weapon = {
     twoHanded: true,
     set: 'basicArcher',
     canOwn: ownsItem('weapon_armoire_basicLongbow'),
+    canBuy: () => true,
   },
   habiticanDiploma: {
     text: t('weaponArmoireHabiticanDiplomaText'),
@@ -1623,6 +1809,7 @@ const weapon = {
     int: 11,
     set: 'graduate',
     canOwn: ownsItem('weapon_armoire_habiticanDiploma'),
+    canBuy: () => true,
   },
   sandySpade: {
     text: t('weaponArmoireSandySpadeText'),
@@ -1631,6 +1818,7 @@ const weapon = {
     str: 10,
     set: 'seaside',
     canOwn: ownsItem('weapon_armoire_sandySpade'),
+    canBuy: () => true,
   },
   cannon: {
     text: t('weaponArmoireCannonText'),
@@ -1639,6 +1827,7 @@ const weapon = {
     str: 15,
     set: 'cannoneer',
     canOwn: ownsItem('weapon_armoire_cannon'),
+    canBuy: () => true,
   },
   vermilionArcherBow: {
     text: t('weaponArmoireVermilionArcherBowText'),
@@ -1648,6 +1837,7 @@ const weapon = {
     twoHanded: true,
     set: 'vermilionArcher',
     canOwn: ownsItem('weapon_armoire_vermilionArcherBow'),
+    canBuy: () => true,
   },
   ogreClub: {
     text: t('weaponArmoireOgreClubText'),
@@ -1656,6 +1846,7 @@ const weapon = {
     str: 15,
     set: 'ogre',
     canOwn: ownsItem('weapon_armoire_ogreClub'),
+    canBuy: () => true,
   },
   woodElfStaff: {
     text: t('weaponArmoireWoodElfStaffText'),
@@ -1664,6 +1855,7 @@ const weapon = {
     int: 12,
     set: 'woodElf',
     canOwn: ownsItem('weapon_armoire_woodElfStaff'),
+    canBuy: () => true,
   },
   wandOfHearts: {
     text: t('weaponArmoireWandOfHeartsText'),
@@ -1672,6 +1864,7 @@ const weapon = {
     int: 13,
     set: 'queenOfHearts',
     canOwn: ownsItem('weapon_armoire_wandOfHearts'),
+    canBuy: () => true,
   },
   forestFungusStaff: {
     text: t('weaponArmoireForestFungusStaffText'),
@@ -1680,6 +1873,7 @@ const weapon = {
     int: 8,
     per: 9,
     canOwn: ownsItem('weapon_armoire_forestFungusStaff'),
+    canBuy: () => true,
   },
   festivalFirecracker: {
     text: t('weaponArmoireFestivalFirecrackerText'),
@@ -1688,6 +1882,7 @@ const weapon = {
     per: 8,
     set: 'festivalAttire',
     canOwn: ownsItem('weapon_armoire_festivalFirecracker'),
+    canBuy: () => true,
   },
   merchantsDisplayTray: {
     text: t('weaponArmoireMerchantsDisplayTrayText'),
@@ -1696,6 +1891,7 @@ const weapon = {
     int: 10,
     set: 'merchant',
     canOwn: ownsItem('weapon_armoire_merchantsDisplayTray'),
+    canBuy: () => true,
   },
   battleAxe: {
     text: t('weaponArmoireBattleAxeText'),
@@ -1704,6 +1900,7 @@ const weapon = {
     int: 6,
     con: 8,
     canOwn: ownsItem('weapon_armoire_battleAxe'),
+    canBuy: () => true,
   },
   hoofClippers: {
     text: t('weaponArmoireHoofClippersText'),
@@ -1714,6 +1911,7 @@ const weapon = {
     str: 6,
     set: 'farrier',
     canOwn: ownsItem('weapon_armoire_hoofClippers'),
+    canBuy: () => true,
   },
   weaversComb: {
     text: t('weaponArmoireWeaversCombText'),
@@ -1723,6 +1921,7 @@ const weapon = {
     str: 9,
     set: 'weaver',
     canOwn: ownsItem('weapon_armoire_weaversComb'),
+    canBuy: () => true,
   },
   lamplighter: {
     text: t('weaponArmoireLamplighterText'),
@@ -1732,6 +1931,7 @@ const weapon = {
     con: 8,
     set: 'lamplighter',
     canOwn: ownsItem('weapon_armoire_lamplighter'),
+    canBuy: () => true,
   },
   coachDriversWhip: {
     text: t('weaponArmoireCoachDriversWhipText'),
@@ -1741,6 +1941,7 @@ const weapon = {
     int: 8,
     set: 'coachDriver',
     canOwn: ownsItem('weapon_armoire_coachDriversWhip'),
+    canBuy: () => true,
   },
   scepterOfDiamonds: {
     text: t('weaponArmoireScepterOfDiamondsText'),
@@ -1749,6 +1950,7 @@ const weapon = {
     str: 13,
     set: 'kingOfDiamonds',
     canOwn: ownsItem('weapon_armoire_scepterOfDiamonds'),
+    canBuy: () => true,
   },
   flutteryArmy: {
     text: t('weaponArmoireFlutteryArmyText'),
@@ -1759,6 +1961,7 @@ const weapon = {
     str: 5,
     set: 'fluttery',
     canOwn: ownsItem('weapon_armoire_flutteryArmy'),
+    canBuy: () => true,
   },
   cobblersHammer: {
     text: t('weaponArmoireCobblersHammerText'),
@@ -1768,6 +1971,7 @@ const weapon = {
     str: 7,
     set: 'cobbler',
     canOwn: ownsItem('weapon_armoire_cobblersHammer'),
+    canBuy: () => true,
   },
   glassblowersBlowpipe: {
     text: t('weaponArmoireGlassblowersBlowpipeText'),
@@ -1776,6 +1980,7 @@ const weapon = {
     str: 6,
     set: 'glassblower',
     canOwn: ownsItem('weapon_armoire_glassblowersBlowpipe'),
+    canBuy: () => true,
   },
   poisonedGoblet: {
     text: t('weaponArmoirePoisonedGobletText'),
@@ -1784,6 +1989,7 @@ const weapon = {
     int: 7,
     set: 'piraticalPrincess',
     canOwn: ownsItem('weapon_armoire_poisonedGoblet'),
+    canBuy: () => true,
   },
   jeweledArcherBow: {
     text: t('weaponArmoireJeweledArcherBowText'),
@@ -1793,6 +1999,7 @@ const weapon = {
     int: 15,
     set: 'jeweledArcher',
     canOwn: ownsItem('weapon_armoire_jeweledArcherBow'),
+    canBuy: () => true,
   },
   needleOfBookbinding: {
     text: t('weaponArmoireNeedleOfBookbindingText'),
@@ -1801,6 +2008,7 @@ const weapon = {
     str: 8,
     set: 'bookbinder',
     canOwn: ownsItem('weapon_armoire_needleOfBookbinding'),
+    canBuy: () => true,
   },
   spearOfSpades: {
     text: t('weaponArmoireSpearOfSpadesText'),
@@ -1809,6 +2017,7 @@ const weapon = {
     con: 13,
     set: 'aceOfSpades',
     canOwn: ownsItem('weapon_armoire_spearOfSpades'),
+    canBuy: () => true,
   },
   arcaneScroll: {
     text: t('weaponArmoireArcaneScrollText'),
@@ -1817,6 +2026,7 @@ const weapon = {
     int: 9,
     set: 'scribe',
     canOwn: ownsItem('weapon_armoire_arcaneScroll'),
+    canBuy: () => true,
   },
   chefsSpoon: {
     text: t('weaponArmoireChefsSpoonText'),
@@ -1825,6 +2035,7 @@ const weapon = {
     int: 8,
     set: 'chef',
     canOwn: ownsItem('weapon_armoire_chefsSpoon'),
+    canBuy: () => true,
   },
   vernalTaper: {
     text: t('weaponArmoireVernalTaperText'),
@@ -1833,6 +2044,7 @@ const weapon = {
     con: 8,
     set: 'vernalVestments',
     canOwn: ownsItem('weapon_armoire_vernalTaper'),
+    canBuy: () => true,
   },
   jugglingBalls: {
     text: t('weaponArmoireJugglingBallsText'),
@@ -1840,6 +2052,7 @@ const weapon = {
     value: 100,
     int: 10,
     canOwn: ownsItem('weapon_armoire_jugglingBalls'),
+    canBuy: () => true,
   },
   slingshot: {
     text: t('weaponArmoireSlingshotText'),
@@ -1847,6 +2060,7 @@ const weapon = {
     value: 100,
     str: 10,
     canOwn: ownsItem('weapon_armoire_slingshot'),
+    canBuy: () => true,
   },
   nephriteBow: {
     text: t('weaponArmoireNephriteBowText'),
@@ -1857,6 +2071,7 @@ const weapon = {
     set: 'nephrite',
     twoHanded: true,
     canOwn: ownsItem('weapon_armoire_nephriteBow'),
+    canBuy: () => true,
   },
   bambooCane: {
     text: t('weaponArmoireBambooCaneText'),
@@ -1867,6 +2082,7 @@ const weapon = {
     con: 6,
     set: 'boating',
     canOwn: ownsItem('weapon_armoire_bambooCane'),
+    canBuy: () => true,
   },
   astronomersTelescope: {
     text: t('weaponArmoireAstronomersTelescopeText'),
@@ -1875,6 +2091,7 @@ const weapon = {
     per: 10,
     set: 'astronomer',
     canOwn: ownsItem('weapon_armoire_astronomersTelescope'),
+    canBuy: () => true,
   },
   magnifyingGlass: {
     text: t('weaponArmoireMagnifyingGlassText'),
@@ -1883,6 +2100,7 @@ const weapon = {
     per: 7,
     set: 'detective',
     canOwn: ownsItem('weapon_armoire_magnifyingGlass'),
+    canBuy: () => true,
   },
   floridFan: {
     text: t('weaponArmoireFloridFanText'),
@@ -1890,6 +2108,7 @@ const weapon = {
     value: 100,
     con: 9,
     canOwn: ownsItem('weapon_armoire_floridFan'),
+    canBuy: () => true,
   },
   resplendentRapier: {
     text: t('weaponArmoireResplendentRapierText'),
@@ -1897,6 +2116,7 @@ const weapon = {
     value: 100,
     per: 9,
     canOwn: ownsItem('weapon_armoire_resplendentRapier'),
+    canBuy: () => true,
   },
   shadowMastersMace: {
     text: t('weaponArmoireShadowMastersMaceText'),
@@ -1905,6 +2125,7 @@ const weapon = {
     per: 12,
     set: 'shadowMaster',
     canOwn: ownsItem('weapon_armoire_shadowMastersMace'),
+    canBuy: () => true,
   },
   alchemistsDistiller: {
     text: t('weaponArmoireAlchemistsDistillerText'),
@@ -1914,6 +2135,7 @@ const weapon = {
     int: 5,
     set: 'alchemist',
     canOwn: ownsItem('weapon_armoire_alchemistsDistiller'),
+    canBuy: () => true,
   },
   happyBanner: {
     text: t('weaponArmoireHappyBannerText'),
@@ -1922,6 +2144,7 @@ const weapon = {
     per: 7,
     set: 'birthday',
     canOwn: ownsItem('weapon_armoire_happyBanner'),
+    canBuy: () => true,
   },
   livelyMatch: {
     text: t('weaponArmoireLivelyMatchText'),
@@ -1930,6 +2153,7 @@ const weapon = {
     str: 15,
     set: 'matchMaker',
     canOwn: ownsItem('weapon_armoire_livelyMatch'),
+    canBuy: () => true,
   },
   baseballBat: {
     text: t('weaponArmoireBaseballBatText'),
@@ -1938,6 +2162,7 @@ const weapon = {
     con: 9,
     set: 'baseball',
     canOwn: ownsItem('weapon_armoire_baseballBat'),
+    canBuy: () => true,
   },
   paperCutter: {
     text: t('weaponArmoirePaperCutterText'),
@@ -1946,6 +2171,7 @@ const weapon = {
     str: 9,
     set: 'paperKnight',
     canOwn: ownsItem('weapon_armoire_paperCutter'),
+    canBuy: () => true,
   },
   fiddlersBow: {
     text: t('weaponArmoireFiddlersBowText'),
@@ -1954,6 +2180,7 @@ const weapon = {
     str: 6,
     set: 'fiddler',
     canOwn: ownsItem('weapon_armoire_fiddlersBow'),
+    canBuy: () => true,
   },
 };
 

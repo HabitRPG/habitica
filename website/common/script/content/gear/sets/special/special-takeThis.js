@@ -8,6 +8,7 @@ const armorSpecialTakeThis = {
   int: 5,
   per: 5,
   str: 5,
+  canBuy: () => true,
 };
 
 const backSpecialTakeThis = {
@@ -18,6 +19,7 @@ const backSpecialTakeThis = {
   int: 1,
   per: 1,
   str: 1,
+  canBuy: () => true,
 };
 
 const bodySpecialTakeThis = {
@@ -28,6 +30,7 @@ const bodySpecialTakeThis = {
   int: 1,
   per: 1,
   str: 1,
+  canBuy: () => true,
 };
 
 const headSpecialTakeThis = {
@@ -38,6 +41,7 @@ const headSpecialTakeThis = {
   int: 5,
   per: 5,
   str: 5,
+  canBuy: () => true,
 };
 
 const shieldSpecialTakeThis = {
@@ -48,6 +52,7 @@ const shieldSpecialTakeThis = {
   int: 5,
   per: 5,
   str: 5,
+  canBuy: () => true,
 };
 
 const weaponSpecialTakeThis = {
@@ -58,6 +63,7 @@ const weaponSpecialTakeThis = {
   int: 5,
   per: 5,
   str: 5,
+  canBuy: () => true,
 };
 
 export {

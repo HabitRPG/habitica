@@ -6,24 +6,28 @@ const armor = {
     notes: t('armorWarrior1Notes', { con: 3 }),
     con: 3,
     value: 30,
+    canBuy: () => true,
   },
   2: {
     text: t('armorWarrior2Text'),
     notes: t('armorWarrior2Notes', { con: 5 }),
     con: 5,
     value: 45,
+    canBuy: () => true,
   },
   3: {
     text: t('armorWarrior3Text'),
     notes: t('armorWarrior3Notes', { con: 7 }),
     con: 7,
     value: 65,
+    canBuy: () => true,
   },
   4: {
     text: t('armorWarrior4Text'),
     notes: t('armorWarrior4Notes', { con: 9 }),
     con: 9,
     value: 90,
+    canBuy: () => true,
   },
   5: {
     text: t('armorWarrior5Text'),
@@ -31,6 +35,7 @@ const armor = {
     con: 11,
     value: 120,
     last: true,
+    canBuy: () => true,
   },
 };
 
@@ -40,24 +45,28 @@ const head = {
     notes: t('headWarrior1Notes', { str: 2 }),
     str: 2,
     value: 15,
+    canBuy: () => true,
   },
   2: {
     text: t('headWarrior2Text'),
     notes: t('headWarrior2Notes', { str: 4 }),
     str: 4,
     value: 25,
+    canBuy: () => true,
   },
   3: {
     text: t('headWarrior3Text'),
     notes: t('headWarrior3Notes', { str: 6 }),
     str: 6,
     value: 40,
+    canBuy: () => true,
   },
   4: {
     text: t('headWarrior4Text'),
     notes: t('headWarrior4Notes', { str: 9 }),
     str: 9,
     value: 60,
+    canBuy: () => true,
   },
   5: {
     text: t('headWarrior5Text'),
@@ -65,6 +74,7 @@ const head = {
     str: 12,
     value: 80,
     last: true,
+    canBuy: () => true,
   },
 };
 
@@ -74,24 +84,28 @@ const shield = {
     notes: t('shieldWarrior1Notes', { con: 2 }),
     con: 2,
     value: 20,
+    canBuy: () => true,
   },
   2: {
     text: t('shieldWarrior2Text'),
     notes: t('shieldWarrior2Notes', { con: 3 }),
     con: 3,
     value: 35,
+    canBuy: () => true,
   },
   3: {
     text: t('shieldWarrior3Text'),
     notes: t('shieldWarrior3Notes', { con: 5 }),
     con: 5,
     value: 50,
+    canBuy: () => true,
   },
   4: {
     text: t('shieldWarrior4Text'),
     notes: t('shieldWarrior4Notes', { con: 7 }),
     con: 7,
     value: 70,
+    canBuy: () => true,
   },
   5: {
     text: t('shieldWarrior5Text'),
@@ -99,6 +113,7 @@ const shield = {
     con: 9,
     value: 90,
     last: true,
+    canBuy: () => true,
   },
 };
 
