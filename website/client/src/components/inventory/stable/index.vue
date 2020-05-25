@@ -154,6 +154,7 @@
           <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           <div
             v-for="item in group"
+            v-show="item.canFind === undefined || item.canFind()"
             :key="item.key"
             v-drag.drop.food="item.key"
             class="pet-group"
@@ -216,6 +217,7 @@
           <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           <div
             v-for="item in group"
+            v-show="item.canFind === undefined || item.canFind()"
             :key="item.key"
             class="pet-group"
           >
@@ -225,6 +227,7 @@
               :popover-position="'top'"
               :show-popover="true"
               @click="selectMount(item)"
+
             >
               <span slot="popoverContent">
                 <h4 class="popover-content-title">{{ item.name }}</h4>
@@ -706,26 +709,29 @@ export default {
             const eggKey = specialKey.split('-')[0];
             const potionKey = specialKey.split('-')[1];
 
-            if (this.content[`${type}Info`][specialKey].canFind || isOwned('mount', this, userItems)) {
-              animals.push({
-                key: specialKey,
-                eggKey,
-                potionKey,
-                name: this.content[`${type}Info`][specialKey].text(),
-                isOwned () {
-                  return isOwned(type, this, userItems);
-                },
-                mountOwned () {
-                  return isOwned('mount', this, userItems);
-                },
-                isAllowedToFeed () {
-                  return type === 'pet' && this.isOwned() && !this.mountOwned();
-                },
-                isHatchable () {
-                  return false;
-                },
-              });
-            }
+            const { canFind, text } = this.content[`${type}Info`][specialKey];
+
+            animals.push({
+              key: specialKey,
+              eggKey,
+              potionKey,
+              name: text(),
+              isOwned () {
+                return isOwned(type, this, userItems);
+              },
+              canFind () {
+                return canFind || this.isOwned();
+              },
+              mountOwned () {
+                return isOwned('mount', this, userItems);
+              },
+              isAllowedToFeed () {
+                return type === 'pet' && this.isOwned() && !this.mountOwned();
+              },
+              isHatchable () {
+                return false;
+              },
+            });
           });
           break;
         }
