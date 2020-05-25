@@ -326,7 +326,6 @@ export default {
       if (profile && !profile.rejected) {
         this.$router.push({ name: 'userProfile', params: { userId: profile._id } });
       }
-
       if (profile && profile.rejected) {
         this.$router.push({ name: 'userProfile', params: { userId: memberId } });
       }

@@ -3,7 +3,7 @@
     v-if="user.active === false"
     class="profile"
   >
-    <error />
+    <error404 />
   </div>
   <div v-else>
     <div class="header">
@@ -727,7 +727,7 @@ import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
 import svgClose from '@/assets/svg/close.svg';
-import error from '../404';
+import error404 from '../404';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
@@ -738,7 +738,7 @@ export default {
   components: {
     MemberDetails,
     profileStats,
-    error,
+    error404,
   },
   props: ['userId', 'startingPage'],
   data () {
@@ -832,7 +832,7 @@ export default {
   },
   methods: {
     async loadUser () {
-      let user = await this.userLoggedIn;
+      let user = this.userLoggedIn;
 
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
@@ -842,25 +842,20 @@ export default {
       const profileUserId = this.userId;
 
       if (profileUserId && profileUserId !== this.userLoggedIn._id) {
-        try {
-          const response = await this.$store.dispatch('members:fetchMember', {
-            memberId: profileUserId,
-          });
-          // debugger;
-          user = response.data.data;
-        } catch (e) {
-          // user = null;
+        const response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
+        if (response.response && response.response.status === 404) {
           user.active = false;
-          console.log('fkdsafj;dsak;', user.active);
+
           this.$store.dispatch('snackbars:add', {
             title: 'Habitica',
             text: this.$t('messageDeletedUser'),
             type: 'error',
             timeout: false,
           });
+        } else {
+          user = response.data.data;
         }
       }
-
       this.editingProfile.name = user.profile.name;
       this.editingProfile.imageUrl = user.profile.imageUrl;
       this.editingProfile.blurb = user.profile.blurb;
