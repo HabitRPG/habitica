@@ -125,13 +125,17 @@
         </div>
         <div
           v-if="checklistEnabled"
-          class="option"
+          class="option mb-3"
         >
           <label v-once class="mb-1">{{ $t('checklist') }}</label>
           <br>
           <draggable
             v-model="checklist"
-            :options="{handle: '.grippy', filter: '.task-dropdown'}"
+            :options="{
+              handle: '.grippy',
+              filter: '.task-dropdown',
+              disabled: groupAccessRequiredAndOnPersonalPage,
+            }"
             @update="sortedChecklist"
           >
             <div
@@ -139,21 +143,28 @@
               :key="item.id"
               class="inline-edit-input-group checklist-group input-group"
             >
-              <span class="grippy" v-html="icons.grip">
-
+              <span
+                class="grippy"
+                v-html="icons.grip"
+                v-if="!groupAccessRequiredAndOnPersonalPage"
+              >
               </span>
 
                 <checkbox :checked.sync="item.completed"
+                          :disabled="groupAccessRequiredAndOnPersonalPage"
                           class="input-group-prepend"
+                          :class="{'cursor-auto': groupAccessRequiredAndOnPersonalPage}"
                           :id="`checklist-${item.id}`"/>
 
               <input
                 v-model="item.text"
                 class="inline-edit-input checklist-item form-control"
                 type="text"
+                :disabled="groupAccessRequiredAndOnPersonalPage"
               >
               <span
                 class="input-group-append"
+                v-if="!groupAccessRequiredAndOnPersonalPage"
                 @click="removeChecklistItem($index)"
               >
                 <div
@@ -163,7 +174,10 @@
               </span>
             </div>
           </draggable>
-          <div  class="inline-edit-input-group checklist-group input-group new-checklist">
+          <div
+            class="inline-edit-input-group checklist-group input-group new-checklist"
+            v-if="!groupAccessRequiredAndOnPersonalPage"
+          >
             <span class="input-group-prepend new-icon"
                  v-html="icons.positive">
 
@@ -234,7 +248,7 @@
           </div>
         </div>
         <template v-if="task.type !== 'reward'">
-          <div class="d-flex align-items-center mb-1 mt-3">
+          <div class="d-flex align-items-center mb-1">
             <label
               v-once
               class="mb-0 mr-1"
@@ -676,6 +690,10 @@
     .modal-header, .modal-body, .modal-footer {
       padding: 0px;
       border: none;
+    }
+
+    .cursor-auto {
+      cursor: auto;
     }
 
     .task-modal-header {
@@ -1151,7 +1169,9 @@ export default {
       return false;
     },
     checklistEnabled () {
-      return ['daily', 'todo'].indexOf(this.task.type) > -1 && !this.isOriginalChallengeTask;
+      return ['daily', 'todo'].indexOf(this.task.type) > -1
+        && !this.isOriginalChallengeTask
+        && (!this.groupAccessRequiredAndOnPersonalPage || this.checklist.length > 0);
     },
     isChallengeTask () {
       return Boolean(this.task.challenge && this.task.challenge.id);

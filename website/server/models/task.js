@@ -220,6 +220,16 @@ TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTas
   ]);
 };
 
+TaskSchema.statics.sanitizeUserGroupTask = function sanitizeUserGroupTask (taskObj) {
+  const initialSanitization = this.sanitize(taskObj);
+
+  return _.pick(initialSanitization, [
+    'streak', 'attribute', 'reminders',
+    'tags', 'notes', 'collapseChecklist',
+    'alias', 'yesterDaily', 'counterDown', 'counterUp',
+  ]);
+};
+
 // Sanitize checklist objects (disallowing id)
 TaskSchema.statics.sanitizeChecklist = function sanitizeChecklist (checklistObj) {
   delete checklistObj.id;

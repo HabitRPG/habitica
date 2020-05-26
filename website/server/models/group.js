@@ -1492,37 +1492,8 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
     'group.taskId': taskToSync._id,
   };
 
-  if (options.newCheckListItem) {
-    const newCheckList = { completed: false };
-    newCheckList.linkId = options.newCheckListItem.id;
-    newCheckList.text = options.newCheckListItem.text;
-    updateCmd.$push = { checklist: newCheckList };
-  }
-
-  if (options.removedCheckListItemId) {
-    updateCmd.$pull = { checklist: { linkId: { $in: [options.removedCheckListItemId] } } };
-  }
-
-  if (options.updateCheckListItems && options.updateCheckListItems.length > 0) {
-    const checkListIdsToRemove = [];
-    const checkListItemsToAdd = [];
-
-    options.updateCheckListItems.forEach(updateCheckListItem => {
-      checkListIdsToRemove.push(updateCheckListItem.id);
-      const newCheckList = { completed: false };
-      newCheckList.linkId = updateCheckListItem.id;
-      newCheckList.text = updateCheckListItem.text;
-      checkListItemsToAdd.push(newCheckList);
-    });
-
-    updateCmd.$pull = { checklist: { linkId: { $in: checkListIdsToRemove } } };
-    await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
-
-    delete updateCmd.$pull;
-    updateCmd.$push = { checklist: { $each: checkListItemsToAdd } };
-    await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
-
-    return;
+  if (options.newCheckListItem || options.removedCheckListItemId || options.updateCheckListItems) {
+    updateCmd.$set.checklist = taskToSync.checklist;
   }
 
   // Updating instead of loading and saving for performances,
