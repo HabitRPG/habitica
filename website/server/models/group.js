@@ -1492,7 +1492,18 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
     'group.taskId': taskToSync._id,
   };
 
-  if (options.newCheckListItem || options.removedCheckListItemId || options.updateCheckListItems) {
+  if (options.newCheckListItem) {
+    const newCheckList = { completed: false };
+    newCheckList.linkId = options.newCheckListItem.id;
+    newCheckList.text = options.newCheckListItem.text;
+    updateCmd.$push = { checklist: newCheckList };
+  }
+
+  if (options.removedCheckListItemId) {
+    updateCmd.$pull = { checklist: { linkId: { $in: [options.removedCheckListItemId] } } };
+  }
+
+  if (options.updateCheckListItems) {
     updateCmd.$set.checklist = taskToSync.checklist;
   }
 
