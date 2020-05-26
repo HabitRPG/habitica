@@ -11,11 +11,14 @@
     >
       <input
         v-model="searchTerm"
-        class="form-control"
+        class="form-control member-input"
         type="text"
       >
     </b-dropdown-form>
-    <loading-gryphon v-if="loading" />
+    <loading-gryphon
+      v-if="loading"
+      :height="32"
+    />
     <b-dropdown-item
       v-for="member in memberResults"
       :key="member._id"
@@ -27,6 +30,14 @@
 </template>
 
 <style lang="scss" scoped>
+.create-dropdown ::v-deep form.b-dropdown-form {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.create-dropdown ::v-deep ul.dropdown-menu {
+  width: 100%;
+}
 </style>
 
 <script>

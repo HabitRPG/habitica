@@ -241,14 +241,6 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button
-          class="btn btn-primary"
-          @click="close()"
-        >
-          {{ $t('close') }}
-        </button>
-      </div>
     </b-modal>
   </div>
 </template>
@@ -259,11 +251,6 @@
       background-color: #edecee;
       border-radius: 8px 8px 0 0;
       box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
-    }
-
-    .modal-footer {
-      background-color: #edecee;
-      border-radius: 0 0 8px 8px;
     }
 
     .small-text, .character-name {

@@ -3,6 +3,7 @@
     <div
       v-once
       class="svg-icon loading-gryphon"
+      :style="{width: `${width}px`, height: `${height}px`}"
       v-html="icons.gryphon"
     ></div>
   </div>
@@ -18,8 +19,6 @@
   .loading-gryphon {
     color: #6133b4;
     margin: 0 auto;
-    width: 65px;
-    height: 70px;
     animation: pulsate 2s linear infinite;
   }
 
@@ -34,12 +33,25 @@
 import gryphon from '@/assets/svg/gryphon.svg';
 
 export default {
+  props: {
+    height: {
+      type: Number,
+      default: 48,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({
         gryphon,
       }),
     };
+  },
+  computed: {
+    // The original SVG is 70px tall and 64px wide, we calculate the width based on that
+    // in order to keep the right proportions
+    width () {
+      return (this.height / 70) * 64;
+    },
   },
 };
 </script>
