@@ -61,6 +61,21 @@
         </div>
       </div>
       <div
+        v-if="notification.type === 'damage'"
+        class="row"
+      >
+        <div class="text col-7 offset-1">
+          <div>{{ message }}</div>
+        </div>
+        <div class="icon col-4">
+          <div
+            class="svg-icon"
+            v-html="icons.sword"
+          ></div>
+          <div v-html="notification.text"></div>
+        </div>
+      </div>
+      <div
         v-if="['info', 'success', 'crit', 'lvl'].indexOf(notification.type) !== -1"
         class="row"
       >
@@ -133,6 +148,10 @@
     color: #2995cd;
   }
 
+  .damage .icon {
+    color: #686274;
+  }
+
   .icon {
     background: #fff;
     color: #ffa623;
@@ -171,6 +190,7 @@ import health from '@/assets/svg/health.svg';
 import gold from '@/assets/svg/gold.svg';
 import star from '@/assets/svg/star.svg';
 import mana from '@/assets/svg/mana.svg';
+import sword from '@/assets/svg/sword.svg';
 
 export default {
   props: ['notification'],
@@ -182,6 +202,7 @@ export default {
         gold,
         star,
         mana,
+        sword,
       }),
       show: true,
     };
@@ -197,6 +218,7 @@ export default {
       if (this.notification.type === 'xp') localeKey += 'Experience';
       if (this.notification.type === 'gp') localeKey += 'Gold';
       if (this.notification.type === 'streak') localeKey = 'streakCoins';
+      if (this.notification.type === 'damage') localeKey = 'bossDamage';
       return this.$t(localeKey);
       // This requires eight translatable strings, but that gives the
       // translators the most flexibility for matching gender/number
