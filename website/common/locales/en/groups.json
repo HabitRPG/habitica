@@ -497,5 +497,6 @@
   "singleCompletion": "Single - Completes when any assigned user finishes",
   "allAssignedCompletion": "All - Completes when all assigned users finish",
   "suggestedGroup": "Suggested because you’re new to Habitica.",
-  "groupActivityNotificationTitle": "<%= user %> posted in <%= group %>"
+  "groupActivityNotificationTitle": "<%= user %> posted in <%= group %>",
+  "managerNotes": "Manager's Notes"
 }

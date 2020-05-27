@@ -84,7 +84,26 @@
           v-model="task.notes"
           class="form-control input-notes"
           :class="cssClass('input')"
-          :placeholder="$t('notesUseMarkdown')"
+          :placeholder="$t('addNotes')"
+        ></textarea>
+      </div>
+      <div
+        class="form-group mb-0 mt-3"
+        v-if="showManagerNotes"
+      >
+        <label
+          class="d-flex align-items-center justify-content-between mb-1"
+        >
+          <span
+            :class="cssClassHeadings"
+          >{{ $t('managerNotes') }}</span>
+        </label>
+        <textarea
+          v-model="managerNotes"
+          class="form-control input-notes"
+          :class="cssClass('input')"
+          :placeholder="$t('addNotes')"
+          :disabled="groupAccessRequiredAndOnPersonalPage"
         ></textarea>
       </div>
     </div>
@@ -1073,6 +1092,7 @@
 </style>
 
 <script>
+import axios from 'axios';
 import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
@@ -1130,9 +1150,11 @@ export default {
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
       sharedCompletion: 'singleCompletion',
+      managerNotes: '',
       members: [],
       memberNamesById: {},
       assignedMembers: [],
+      managers: [],
       checklist: [],
       showAdvancedOptions: false,
       attributesStrings: {
@@ -1172,6 +1194,12 @@ export default {
       return ['daily', 'todo'].indexOf(this.task.type) > -1
         && !this.isOriginalChallengeTask
         && (!this.groupAccessRequiredAndOnPersonalPage || this.checklist.length > 0);
+    },
+    showManagerNotes () {
+      return Boolean(this.task.group && this.task.group.managerNotes)
+        || (
+          !this.groupAccessRequiredAndOnPersonalPage && this.managers.indexOf(this.user._id) !== -1
+        );
     },
     isChallengeTask () {
       return Boolean(this.task.challenge && this.task.challenge.id);
@@ -1251,8 +1279,13 @@ export default {
       this.calculateMonthlyRepeatDays();
     },
   },
-  mounted () {
+  async mounted () {
     this.showAdvancedOptions = !this.user.preferences.advancedCollapsed;
+    if (this.groupId) {
+      const groupResponse = await axios.get(`/api/v4/groups/${this.groupId}`);
+      this.managers = Object.keys(groupResponse.data.data.managers);
+      this.managers.push(groupResponse.data.data.leader._id);
+    }
   },
   created () {
     document.addEventListener('keyup', this.handleEsc);
@@ -1263,6 +1296,7 @@ export default {
   methods: {
     ...mapActions({ saveTask: 'tasks:save', destroyTask: 'tasks:destroy', createTask: 'tasks:create' }),
     async syncTask () {
+      if (this.task.group) this.managerNotes = this.task.group.managerNotes || null;
       if (this.groupId && this.task.group && this.task.group.approval) {
         this.requiresApproval = this.task.group.approval.required;
       }
@@ -1373,6 +1407,8 @@ export default {
         this.task.group.approval.required = this.requiresApproval;
         this.task.sharedCompletion = this.sharedCompletion;
         this.task.group.sharedCompletion = this.sharedCompletion;
+        this.task.managerNotes = this.managerNotes;
+        this.task.group.managerNotes = this.managerNotes;
       }
 
       if (this.task.type === 'reward' && this.task.value === '') {

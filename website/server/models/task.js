@@ -146,6 +146,7 @@ export const TaskSchema = new Schema({
       enum: _.values(SHARED_COMPLETION),
       default: SHARED_COMPLETION.single,
     },
+    managerNotes: { $type: String },
   },
 
   reminders: [reminderSchema],

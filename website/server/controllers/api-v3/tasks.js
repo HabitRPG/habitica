@@ -660,6 +660,9 @@ api.updateTask = {
     if (sanitizedObj.sharedCompletion) {
       task.group.sharedCompletion = sanitizedObj.sharedCompletion;
     }
+    if (sanitizedObj.managerNotes) {
+      task.group.managerNotes = sanitizedObj.managerNotes;
+    }
 
     setNextDue(task, user);
     const savedTask = await task.save();

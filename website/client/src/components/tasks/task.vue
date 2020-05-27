@@ -189,7 +189,7 @@
               v-if="!task.collapseChecklist"
               :key="item.id"
               class="custom-control custom-checkbox checklist-item"
-              :class="{'checklist-item-done': item.completed}"
+              :class="{'checklist-item-done': item.completed, 'cursor-auto': !isUser}"
             >
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <input
@@ -368,6 +368,9 @@
     border-top-right-radius: 0px !important;
   }
 
+  .cursor-auto {
+    cursor: auto;
+  }
 
   .task {
     margin-bottom: 2px;
