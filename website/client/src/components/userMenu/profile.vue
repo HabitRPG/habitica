@@ -845,40 +845,44 @@ export default {
         const response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
         if (response.response && response.response.status === 404) {
           user.active = false;
-
           this.$store.dispatch('snackbars:add', {
             title: 'Habitica',
             text: this.$t('messageDeletedUser'),
             type: 'error',
             timeout: false,
           });
-        } else {
+        } else if (response.status && response.status === 200) {
           user = response.data.data;
+          user.active = true;
         }
+
+        this.editingProfile.name = user.profile.name;
+        this.editingProfile.imageUrl = user.profile.imageUrl;
+        this.editingProfile.blurb = user.profile.blurb;
+
+        if (!user.achievements.quests) user.achievements.quests = {};
+        if (!user.achievements.challenges) user.achievements.challenges = {};
+        // @TODO: this common code should handle the above
+        this.achievements = achievementsLib.getAchievementsForProfile(user);
+
+        const achievementsCategories = {};
+        Object.keys(this.achievements).forEach(category => {
+          achievementsCategories[category] = {
+            open: false,
+            number: Object.keys(this.achievements[category].achievements).length,
+          };
+        });
+
+        this.achievementsCategories = achievementsCategories;
+
+        // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
+        user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
+
+        this.user = user;
+      } else {
+        this.user = this.userLoggedIn;
+        user.active = true;
       }
-      this.editingProfile.name = user.profile.name;
-      this.editingProfile.imageUrl = user.profile.imageUrl;
-      this.editingProfile.blurb = user.profile.blurb;
-
-      if (!user.achievements.quests) user.achievements.quests = {};
-      if (!user.achievements.challenges) user.achievements.challenges = {};
-      // @TODO: this common code should handle the above
-      this.achievements = achievementsLib.getAchievementsForProfile(user);
-
-      const achievementsCategories = {};
-      Object.keys(this.achievements).forEach(category => {
-        achievementsCategories[category] = {
-          open: false,
-          number: Object.keys(this.achievements[category].achievements).length,
-        };
-      });
-
-      this.achievementsCategories = achievementsCategories;
-
-      // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
-      user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
-
-      this.user = user;
     },
     selectPage (page) {
       this.selectedPage = page || 'profile';
