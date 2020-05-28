@@ -108,7 +108,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'subscription-canceled-modal');
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica:subscription-canceled');
   },
   methods: {

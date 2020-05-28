@@ -63,7 +63,7 @@
     "earnedAchievement": "Вы получили достижение!",
     "viewAchievements": "Посмотреть достижения",
     "onboardingProgress": "<%= percentage %>% прогресс",
-    "gettingStartedDesc": "Давайте создадим задачу, выполним её, и проверим ваши награды. По итогу вы получите <strong>5 достижений</strong> и <strong class=\"gold-amount\">100 золотых</strong>!",
+    "gettingStartedDesc": "Выполните эти задания и в итоге получите <strong>5 достижений</strong> и <strong class=\"gold-amount\">100 золота</strong>!",
     "achievementRosyOutlookModalText": "Вы собрали всех розовых сахарных скакунов!",
     "achievementRosyOutlookText": "Собраны все розовые сахарные скакуны.",
     "achievementTickledPinkModalText": "Вы собрали всех розовых сахарных питомцев!",
@@ -72,5 +72,6 @@
     "achievementTickledPink": "Радостный розовый",
     "foundNewItemsCTA": "Зайдите в свой инвентарь и попробуйте объединить ваш новый инкубационный эликсир и яйцо!",
     "foundNewItems": "Вы нашли новыйе предметы!",
-    "yourProgress": "Ваш прогресс"
+    "yourProgress": "Ваш прогресс",
+    "onboardingComplete": "Вы выполнили свои первые задания!"
 }

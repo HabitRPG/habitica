@@ -8,7 +8,7 @@
 
 # Requesting a feature
 
-Habitica uses [Trello](https://trello.com/b/EpoYEYod/habitica) to track feature requests. [Read more](https://trello.com/c/odmhIqyW/440-read-first-table-of-contents).
+Habitica uses [this Google form](https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link) to track feature requests. Please post there rather than creating an issue.
 
 # Contributing Code
 

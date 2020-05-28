@@ -78,5 +78,8 @@
     "achievementBugBonanza": "Inseto próspero",
     "yourProgress": "Seu progresso",
     "onboardingCompleteDescSmall": "Se você quiser ainda mais, dê uma olhada nas Conquistas e comece a coletá-las!",
-    "onboardingComplete": "Você completou suas tarefas de integração!"
+    "onboardingComplete": "Você completou suas tarefas de integração!",
+    "achievementBareNecessitiesModalText": "Você completou a missão dos mascotes Macaco, Bicho-preguiça e Broto de Árvore!",
+    "achievementBareNecessitiesText": "Completou a missão dos mascotes Macaco, Bicho-preguiça e Broto de Árvore.",
+    "achievementBareNecessities": "Necessidades Básicas"
 }

@@ -1959,5 +1959,9 @@
     "armorArmoireBoxArmorNotes": "Boks Uitrusting: Het past, daarom zit je ... uh, daarom draag je het in de strijd, zoals de stoere ridder die je bent! Verhoogt perceptie en constitutie met elk <% = attrs%>. Betoverd Kabinet: Papieren Ridder Set (Voorwerp 3 van 3). ",
     "armorArmoireBaseballUniformNotes": "Het krijtstreepmotief geraakt nooit uit de mode. Verhoogd lichaam en kracht met <%= attrs %> elks. Betoverde Kabinet: Honkbal Set (Voorwerp 2 van 4).",
     "headSpecialSummer2019MageText": "Lelieblad Hoed",
-    "headSpecialSpring2019MageNotes": "Een gloeiend oranje juweel verleent deze hoed de kracht van mysterieuze natuurkrachten. Verhoogt de perceptie met <%= per%>. Beperkte Oplage 2019 Lenteuitrusting."
+    "headSpecialSpring2019MageNotes": "Een gloeiend oranje juweel verleent deze hoed de kracht van mysterieuze natuurkrachten. Verhoogt de perceptie met <%= per%>. Beperkte Oplage 2019 Lenteuitrusting.",
+    "headSpecialSummer2019MageNotes": "In tegenstelling tot wat vaak wordt gedacht, is je hoofd geen geschikte plek voor kikkers om neer te strijken. Verhoogt de perceptie met <%= per%>. Beperkte Oplage 2019 Zomeruitrusting.",
+    "headSpecialSummer2019RogueNotes": "Deze helm geeft je een 360 graden zicht op de omringende wateren, wat perfect is om op nietsvermoedende rode dagtaken te sluipen. Verhoogt de perceptie met <%= per%>. Beperkte Oplage 2019 Zomeruitrusting.",
+    "headSpecialSummer2019HealerNotes": "De spiraalvormige structuur van deze schelp helpt je elke roep om hulp over de zeven zeeën te horen. Verhoogt intelligentie met <%= int%>. Beperkte Oplage 2019 Zomeruitrusting.",
+    "headSpecialSummer2019HealerText": "Schelpen Kroon"
 }
