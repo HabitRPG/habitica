@@ -4,15 +4,14 @@
       class="inline-dropdown select-tag"
       @show="wasOpened()"
       @hide="hideCallback($event)"
+      @toggle="openOrClose($event)"
       :toggle-class="isOpened ? 'active' : null"
-      :disabled="disabled"
       ref="dropdown"
     >
       <b-dropdown-header>
-        <b-form-input
-                type="text"
-                :placeholder="$t('enterTag')"
-                v-model="search"
+        <b-form-input type="text"
+                      :placeholder="$t('enterTag')"
+                      v-model="search"
         />
 
         <tagList v-if="selectedTags.length > 0"
@@ -67,6 +66,7 @@
 </style>
 
 <script>
+import Vue from 'vue';
 import TagList from '@/components/tasks/modal-controls/tagList';
 
 export default {
@@ -88,7 +88,15 @@ export default {
     closeTagsPopup () {
       this.preventHide = false;
       this.isOpened = false;
-      this.$refs.dropdown.hide();
+      Vue.nextTick(() => {
+        this.$refs.dropdown.hide();
+      });
+    },
+    openOrClose ($event) {
+      if (this.isOpened) {
+        this.closeTagsPopup();
+        $event.preventDefault();
+      }
     },
     closeIfOpen () {
       this.closeTagsPopup();

@@ -52,6 +52,10 @@
           stroke: $maroon-50;
         }
       }
+
+      .remove svg path {
+        stroke: $gray-200;
+      }
     }
   }
 </style>
@@ -79,13 +83,6 @@
     background-color: $gray-600;
 
     cursor: pointer;
-
-
-    &:hover {
-      .remove {
-        stroke: $maroon-50;
-      }
-    }
 
     .tag-label {
       height: 1rem;
