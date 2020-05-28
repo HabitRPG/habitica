@@ -887,6 +887,11 @@
       height: 1.5rem;
       align-items: center;
 
+      &:hover, &:focus, &:active {
+        text-decoration: underline;
+        text-decoration-color: $maroon-50;
+      }
+
       .delete-text {
         font-size: 14px;
         font-weight: normal;
