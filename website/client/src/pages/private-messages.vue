@@ -429,10 +429,10 @@
       }
 
       &.has-content {
-        --textarea-auto-height: 80px
+        --textarea-auto-height: 80px;
       }
 
-      max-height: var(--textarea-auto-height, 40px);
+      height: var(--textarea-auto-height, 40px);
       min-height: var(--textarea-auto-height, 40px);
     }
   }
