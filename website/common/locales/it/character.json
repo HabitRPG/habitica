@@ -156,7 +156,7 @@
     "optOutOfClasses": "Rinuncia",
     "optOutOfPMs": "Rinuncia",
     "chooseClass": "Scegli la tua Classe",
-    "chooseClassLearnMarkdown": "[Maggiori informazioni sul sistema delle classi di Habitica](http://habitica.fandom.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Maggiori informazioni sul sistema delle classi di Habitica](https://habitica.fandom.com/wiki/Class_System)",
     "optOutOfClassesText": "Il sistema delle classi non ti interessa? Vuoi scegliere in un secondo momento? Nessun problema - sarai un Guerriero senza alcuna abilità speciale. Puoi avere maggiori informazioni sul sistema delle classi nella wiki ed abilitare il sistema delle classi in qualsiasi momento sull'Icona Utente -> Configurazioni.",
     "selectClass": "Seleziona <%= heroClass %>",
     "select": "Seleziona",
@@ -224,5 +224,7 @@
     "mainHand": "Mano principale",
     "offHand": "Mano secondaria",
     "statPoints": "Punti Statistiche",
-    "pts": "punti"
+    "pts": "punti",
+    "purchasePetItemConfirm": "Questo acquisto supererebbe il numero degli oggetti necessari per far schiudere tutti i possibili animali domestici. Sei sicuro?",
+    "purchaseForGold": "Acquistare per <%= cost %> oro?"
 }
