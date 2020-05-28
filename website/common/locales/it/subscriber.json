@@ -216,5 +216,8 @@
     "gemsRemaining": "gemme rimanenti",
     "notEnoughGemsToBuy": "Non puoi comprare quella quantità di gemme",
     "subWillBecomeInactive": "Diventerà inattivo",
-    "confirmCancelSub": "Sei sicuro di voler cancellare il tuo abbonamento? Perderai tutti i tuoi benefici."
+    "confirmCancelSub": "Sei sicuro di voler cancellare il tuo abbonamento? Perderai tutti i tuoi benefici.",
+    "mysticHourglassNeededNoSub": "Questo articolo ha bisogno di una Clessidra Mistica. Tu ne ottieni una essendo un abbonato/un' abbonata di Habitica.",
+    "giftASubscription": "Regala un Abbonamento",
+    "viewSubscriptions": "Guarda Abbonamenti"
 }

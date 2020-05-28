@@ -62,5 +62,6 @@
     "hideAchievements": "Schovat <%= kategorie %>",
     "onboardingCompleteDesc": "Získáš <strong>5 ocenění</strong> a <strong class=\"gold-amount\">100</strong> zlaťáků za dokončení seznamu.",
     "onboardingProgress": "<%= percentage %>% postup",
-    "gettingStartedDesc": "Vytvoř si úkol, splň jej a pak se podívej na své odměny. Dostaneš <strong>5 ocenění</strong> a <strong class=“gold-amount”>100 zlaťáků</strong>, jakmile budeš hotový!"
+    "gettingStartedDesc": "Vytvoř si úkol, splň jej a pak se podívej na své odměny. Dostaneš <strong>5 ocenění</strong> a <strong class=“gold-amount”>100 zlaťáků</strong>, jakmile budeš hotový!",
+    "showAllAchievements": "Zobrazit Všechny <%= kategorie %>"
 }

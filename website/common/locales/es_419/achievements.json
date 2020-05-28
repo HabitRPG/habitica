@@ -72,5 +72,8 @@
     "foundNewItemsExplanation": "Completar tareas te da la oportunidad de encontrar objectos, así como Huevos, Pociones para Incubar y Comida para Mascotas.",
     "foundNewItems": "¡Encontraste nuevos objetos!",
     "onboardingCompleteDescSmall": "¡Si quieres aún más, checa los Logros y comienza a coleccionar!",
-    "onboardingComplete": "¡Completaste tus tareas de incorporación!"
+    "onboardingComplete": "¡Completaste tus tareas de incorporación!",
+    "achievementRosyOutlookModalText": "¡Has domesticado todas las monturas de algodón de azúcar rosa!",
+    "achievementRosyOutlookText": "Has domesticado todas las monturas de algodón de azúcar rosa.",
+    "achievementRosyOutlook": "Rosy Outlook"
 }
