@@ -70,12 +70,22 @@
     .dropdown-toggle {
 
       .label {
-      flex: 0;
+        flex: 0;
+      }
+
+      div.svg-icon {
+        justify-content: flex-start;
+      }
     }
 
-    div.svg-icon {
-      justify-content: flex-start;
-    }
+    // highlight the svg icons,
+    // when focusing with keyboard (it is outside of the template item
+    *:focus .difficulty-item {
+      div.svg-icon {
+        svg {
+          fill: var(--svg-color);
+        }
+      }
     }
   }
 </style>

@@ -12,7 +12,7 @@
 
 .dropdown.show > .dropdown-toggle:not(.btn-success) {
   color: $purple-200;
-  border-color: $purple-500 !important;
+  border-color: $purple-400 !important;
   box-shadow: none;
 
   &::after {
@@ -53,8 +53,8 @@
   }
 
 
-  &:active, &:hover, &.active {
-    background-color: rgba(#d5c8ff, 0.32);
+  &:active, &:hover, &:focus, &.active {
+    background-color: rgba($purple-600, 0.32);
     color: $purple-200;
   }
 
