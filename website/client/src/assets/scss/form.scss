@@ -252,9 +252,13 @@ $bg-disabled-control: #34303a;
     align-items: center;
   }
 
-  .destroy-icon {
-    width: 14px;
-    height: 16px;
+  .destroy-icon.svg-icon {
+    margin-top: 1px !important;
+
+    svg {
+      width: 14px;
+      height: 16px;
+    }
   }
 }
 
