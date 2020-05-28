@@ -80,7 +80,11 @@ input, textarea, input.form-control, textarea.form-control {
 /** Colored Input-Groups, ignoring checklist */
 .input-group:not(.checklist-group) {
   border-radius: 2px;
-  border: solid 1px $gray-300;
+  border: solid 1px $gray-400;
+
+  &:hover {
+    border-color: $gray-300;
+  }
 
   &:focus, &:active, &:focus-within {
     border: solid 1px $purple-400;
@@ -96,7 +100,7 @@ input, textarea, input.form-control, textarea.form-control {
   height: 2rem;
 
   .input-group-prepend , .input-group-append  {
-    color: $gray-300;
+    color: $gray-200;
     border: 0;
     height: 30px;
     width: 2rem;
