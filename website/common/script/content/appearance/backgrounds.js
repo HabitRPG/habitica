@@ -1,651 +1,245 @@
 import forOwn from 'lodash/forOwn';
+import camelCase from 'lodash/camelCase';
+import upperFirst from 'lodash/upperFirst';
 import t from '../translation';
 
 /* eslint-disable camelcase */
 const backgrounds = {
   backgrounds062014: {
-    beach: {
-      text: t('backgroundBeachText'),
-      notes: t('backgroundBeachNotes'),
-    },
-    fairy_ring: {
-      text: t('backgroundFairyRingText'),
-      notes: t('backgroundFairyRingNotes'),
-    },
-    forest: {
-      text: t('backgroundForestText'),
-      notes: t('backgroundForestNotes'),
-    },
+    beach: { },
+    fairy_ring: { },
+    forest: { },
   },
   backgrounds072014: {
-    open_waters: {
-      text: t('backgroundOpenWatersText'),
-      notes: t('backgroundOpenWatersNotes'),
-    },
-    coral_reef: {
-      text: t('backgroundCoralReefText'),
-      notes: t('backgroundCoralReefNotes'),
-    },
-    seafarer_ship: {
-      text: t('backgroundSeafarerShipText'),
-      notes: t('backgroundSeafarerShipNotes'),
-    },
+    open_waters: { },
+    coral_reef: { },
+    seafarer_ship: { },
   },
   backgrounds082014: {
-    volcano: {
-      text: t('backgroundVolcanoText'),
-      notes: t('backgroundVolcanoNotes'),
-    },
-    clouds: {
-      text: t('backgroundCloudsText'),
-      notes: t('backgroundCloudsNotes'),
-    },
-    dusty_canyons: {
-      text: t('backgroundDustyCanyonsText'),
-      notes: t('backgroundDustyCanyonsNotes'),
-    },
+    volcano: { },
+    clouds: { },
+    dusty_canyons: { },
   },
   backgrounds092014: {
-    thunderstorm: {
-      text: t('backgroundThunderstormText'),
-      notes: t('backgroundThunderstormNotes'),
-    },
-    autumn_forest: {
-      text: t('backgroundAutumnForestText'),
-      notes: t('backgroundAutumnForestNotes'),
-    },
-    harvest_fields: {
-      text: t('backgroundHarvestFieldsText'),
-      notes: t('backgroundHarvestFieldsNotes'),
-    },
+    thunderstorm: { },
+    autumn_forest: { },
+    harvest_fields: { },
   },
   backgrounds102014: {
-    graveyard: {
-      text: t('backgroundGraveyardText'),
-      notes: t('backgroundGraveyardNotes'),
-    },
-    haunted_house: {
-      text: t('backgroundHauntedHouseText'),
-      notes: t('backgroundHauntedHouseNotes'),
-    },
-    pumpkin_patch: {
-      text: t('backgroundPumpkinPatchText'),
-      notes: t('backgroundPumpkinPatchNotes'),
-    },
+    graveyard: { },
+    haunted_house: { },
+    pumpkin_patch: { },
   },
   backgrounds112014: {
-    harvest_feast: {
-      text: t('backgroundHarvestFeastText'),
-      notes: t('backgroundHarvestFeastNotes'),
-    },
-    sunset_meadow: {
-      text: t('backgroundSunsetMeadowText'),
-      notes: t('backgroundSunsetMeadowNotes'),
-    },
-    starry_skies: {
-      text: t('backgroundStarrySkiesText'),
-      notes: t('backgroundStarrySkiesNotes'),
-    },
+    harvest_feast: { },
+    sunset_meadow: { },
+    starry_skies: { },
   },
   backgrounds122014: {
-    iceberg: {
-      text: t('backgroundIcebergText'),
-      notes: t('backgroundIcebergNotes'),
-    },
-    twinkly_lights: {
-      text: t('backgroundTwinklyLightsText'),
-      notes: t('backgroundTwinklyLightsNotes'),
-    },
-    south_pole: {
-      text: t('backgroundSouthPoleText'),
-      notes: t('backgroundSouthPoleNotes'),
-    },
+    iceberg: { },
+    twinkly_lights: { },
+    south_pole: { },
   },
   backgrounds012015: {
-    ice_cave: {
-      text: t('backgroundIceCaveText'),
-      notes: t('backgroundIceCaveNotes'),
-    },
-    frigid_peak: {
-      text: t('backgroundFrigidPeakText'),
-      notes: t('backgroundFrigidPeakNotes'),
-    },
-    snowy_pines: {
-      text: t('backgroundSnowyPinesText'),
-      notes: t('backgroundSnowyPinesNotes'),
-    },
+    ice_cave: { },
+    frigid_peak: { },
+    snowy_pines: { },
   },
   backgrounds022015: {
-    blacksmithy: {
-      text: t('backgroundBlacksmithyText'),
-      notes: t('backgroundBlacksmithyNotes'),
-    },
-    crystal_cave: {
-      text: t('backgroundCrystalCaveText'),
-      notes: t('backgroundCrystalCaveNotes'),
-    },
-    distant_castle: {
-      text: t('backgroundDistantCastleText'),
-      notes: t('backgroundDistantCastleNotes'),
-    },
+    blacksmithy: { },
+    crystal_cave: { },
+    distant_castle: { },
   },
   backgrounds032015: {
-    spring_rain: {
-      text: t('backgroundSpringRainText'),
-      notes: t('backgroundSpringRainNotes'),
-    },
-    stained_glass: {
-      text: t('backgroundStainedGlassText'),
-      notes: t('backgroundStainedGlassNotes'),
-    },
-    rolling_hills: {
-      text: t('backgroundRollingHillsText'),
-      notes: t('backgroundRollingHillsNotes'),
-    },
+    spring_rain: { },
+    stained_glass: { },
+    rolling_hills: { },
   },
   backgrounds042015: {
-    cherry_trees: {
-      text: t('backgroundCherryTreesText'),
-      notes: t('backgroundCherryTreesNotes'),
-    },
-    floral_meadow: {
-      text: t('backgroundFloralMeadowText'),
-      notes: t('backgroundFloralMeadowNotes'),
-    },
-    gumdrop_land: {
-      text: t('backgroundGumdropLandText'),
-      notes: t('backgroundGumdropLandNotes'),
-    },
+    cherry_trees: { },
+    floral_meadow: { },
+    gumdrop_land: { },
   },
   backgrounds052015: {
-    marble_temple: {
-      text: t('backgroundMarbleTempleText'),
-      notes: t('backgroundMarbleTempleNotes'),
-    },
-    mountain_lake: {
-      text: t('backgroundMountainLakeText'),
-      notes: t('backgroundMountainLakeNotes'),
-    },
-    pagodas: {
-      text: t('backgroundPagodasText'),
-      notes: t('backgroundPagodasNotes'),
-    },
+    marble_temple: { },
+    mountain_lake: { },
+    pagodas: { },
   },
   backgrounds062015: {
-    drifting_raft: {
-      text: t('backgroundDriftingRaftText'),
-      notes: t('backgroundDriftingRaftNotes'),
-    },
-    shimmery_bubbles: {
-      text: t('backgroundShimmeryBubblesText'),
-      notes: t('backgroundShimmeryBubblesNotes'),
-    },
-    island_waterfalls: {
-      text: t('backgroundIslandWaterfallsText'),
-      notes: t('backgroundIslandWaterfallsNotes'),
-    },
+    drifting_raft: { },
+    shimmery_bubbles: { },
+    island_waterfalls: { },
   },
   backgrounds072015: {
-    dilatory_ruins: {
-      text: t('backgroundDilatoryRuinsText'),
-      notes: t('backgroundDilatoryRuinsNotes'),
-    },
-    giant_wave: {
-      text: t('backgroundGiantWaveText'),
-      notes: t('backgroundGiantWaveNotes'),
-    },
-    sunken_ship: {
-      text: t('backgroundSunkenShipText'),
-      notes: t('backgroundSunkenShipNotes'),
-    },
+    dilatory_ruins: { },
+    giant_wave: { },
+    sunken_ship: { },
   },
   backgrounds082015: {
-    pyramids: {
-      text: t('backgroundPyramidsText'),
-      notes: t('backgroundPyramidsNotes'),
-    },
-    sunset_savannah: {
-      text: t('backgroundSunsetSavannahText'),
-      notes: t('backgroundSunsetSavannahNotes'),
-    },
-    twinkly_party_lights: {
-      text: t('backgroundTwinklyPartyLightsText'),
-      notes: t('backgroundTwinklyPartyLightsNotes'),
-    },
+    pyramids: { },
+    sunset_savannah: { },
+    twinkly_party_lights: { },
   },
   backgrounds092015: {
-    market: {
-      text: t('backgroundMarketText'),
-      notes: t('backgroundMarketNotes'),
-    },
-    stable: {
-      text: t('backgroundStableText'),
-      notes: t('backgroundStableNotes'),
-    },
-    tavern: {
-      text: t('backgroundTavernText'),
-      notes: t('backgroundTavernNotes'),
-    },
+    market: { },
+    stable: { },
+    tavern: { },
   },
   backgrounds102015: {
-    harvest_moon: {
-      text: t('backgroundHarvestMoonText'),
-      notes: t('backgroundHarvestMoonNotes'),
-    },
-    slimy_swamp: {
-      text: t('backgroundSlimySwampText'),
-      notes: t('backgroundSlimySwampNotes'),
-    },
-    swarming_darkness: {
-      text: t('backgroundSwarmingDarknessText'),
-      notes: t('backgroundSwarmingDarknessNotes'),
-    },
+    harvest_moon: { },
+    slimy_swamp: { },
+    swarming_darkness: { },
   },
   backgrounds112015: {
-    floating_islands: {
-      text: t('backgroundFloatingIslandsText'),
-      notes: t('backgroundFloatingIslandsNotes'),
-    },
-    night_dunes: {
-      text: t('backgroundNightDunesText'),
-      notes: t('backgroundNightDunesNotes'),
-    },
-    sunset_oasis: {
-      text: t('backgroundSunsetOasisText'),
-      notes: t('backgroundSunsetOasisNotes'),
-    },
+    floating_islands: { },
+    night_dunes: { },
+    sunset_oasis: { },
   },
   backgrounds122015: {
-    alpine_slopes: {
-      text: t('backgroundAlpineSlopesText'),
-      notes: t('backgroundAlpineSlopesNotes'),
-    },
-    snowy_sunrise: {
-      text: t('backgroundSnowySunriseText'),
-      notes: t('backgroundSnowySunriseNotes'),
-    },
-    winter_town: {
-      text: t('backgroundWinterTownText'),
-      notes: t('backgroundWinterTownNotes'),
-    },
+    alpine_slopes: { },
+    snowy_sunrise: { },
+    winter_town: { },
   },
   backgrounds012016: {
-    frozen_lake: {
-      text: t('backgroundFrozenLakeText'),
-      notes: t('backgroundFrozenLakeNotes'),
-    },
-    snowman_army: {
-      text: t('backgroundSnowmanArmyText'),
-      notes: t('backgroundSnowmanArmyNotes'),
-    },
-    winter_night: {
-      text: t('backgroundWinterNightText'),
-      notes: t('backgroundWinterNightNotes'),
-    },
+    frozen_lake: { },
+    snowman_army: { },
+    winter_night: { },
   },
   backgrounds022016: {
-    bamboo_forest: {
-      text: t('backgroundBambooForestText'),
-      notes: t('backgroundBambooForestNotes'),
-    },
-    cozy_library: {
-      text: t('backgroundCozyLibraryText'),
-      notes: t('backgroundCozyLibraryNotes'),
-    },
-    grand_staircase: {
-      text: t('backgroundGrandStaircaseText'),
-      notes: t('backgroundGrandStaircaseNotes'),
-    },
+    bamboo_forest: { },
+    cozy_library: { },
+    grand_staircase: { },
   },
   backgrounds032016: {
-    deep_mine: {
-      text: t('backgroundDeepMineText'),
-      notes: t('backgroundDeepMineNotes'),
-    },
-    rainforest: {
-      text: t('backgroundRainforestText'),
-      notes: t('backgroundRainforestNotes'),
-    },
-    stone_circle: {
-      text: t('backgroundStoneCircleText'),
-      notes: t('backgroundStoneCircleNotes'),
-    },
+    deep_mine: { },
+    rainforest: { },
+    stone_circle: { },
   },
   backgrounds042016: {
-    archery_range: {
-      text: t('backgroundArcheryRangeText'),
-      notes: t('backgroundArcheryRangeNotes'),
-    },
+    archery_range: { },
     giant_florals: {
       text: t('backgroundGiantFlowersText'),
       notes: t('backgroundGiantFlowersNotes'),
     },
-    rainbows_end: {
-      text: t('backgroundRainbowsEndText'),
-      notes: t('backgroundRainbowsEndNotes'),
-    },
+    rainbows_end: { },
   },
   backgrounds052016: {
-    beehive: {
-      text: t('backgroundBeehiveText'),
-      notes: t('backgroundBeehiveNotes'),
-    },
-    gazebo: {
-      text: t('backgroundGazeboText'),
-      notes: t('backgroundGazeboNotes'),
-    },
-    tree_roots: {
-      text: t('backgroundTreeRootsText'),
-      notes: t('backgroundTreeRootsNotes'),
-    },
+    beehive: { },
+    gazebo: { },
+    tree_roots: { },
   },
   backgrounds062016: {
-    lighthouse_shore: {
-      text: t('backgroundLighthouseShoreText'),
-      notes: t('backgroundLighthouseShoreNotes'),
-    },
-    lilypad: {
-      text: t('backgroundLilypadText'),
-      notes: t('backgroundLilypadNotes'),
-    },
-    waterfall_rock: {
-      text: t('backgroundWaterfallRockText'),
-      notes: t('backgroundWaterfallRockNotes'),
-    },
+    lighthouse_shore: { },
+    lilypad: { },
+    waterfall_rock: { },
   },
   backgrounds072016: {
-    aquarium: {
-      text: t('backgroundAquariumText'),
-      notes: t('backgroundAquariumNotes'),
-    },
-    dilatory_castle: {
-      text: t('backgroundDilatoryCastleText'),
-      notes: t('backgroundDilatoryCastleNotes'),
-    },
-    deep_sea: {
-      text: t('backgroundDeepSeaText'),
-      notes: t('backgroundDeepSeaNotes'),
-    },
+    aquarium: { },
+    dilatory_castle: { },
+    deep_sea: { },
   },
   backgrounds082016: {
-    idyllic_cabin: {
-      text: t('backgroundIdyllicCabinText'),
-      notes: t('backgroundIdyllicCabinNotes'),
-    },
-    mountain_pyramid: {
-      text: t('backgroundMountainPyramidText'),
-      notes: t('backgroundMountainPyramidNotes'),
-    },
-    stormy_ship: {
-      text: t('backgroundStormyShipText'),
-      notes: t('backgroundStormyShipNotes'),
-    },
+    idyllic_cabin: { },
+    mountain_pyramid: { },
+    stormy_ship: { },
   },
   backgrounds092016: {
-    cornfields: {
-      text: t('backgroundCornfieldsText'),
-      notes: t('backgroundCornfieldsNotes'),
-    },
-    farmhouse: {
-      text: t('backgroundFarmhouseText'),
-      notes: t('backgroundFarmhouseNotes'),
-    },
-    orchard: {
-      text: t('backgroundOrchardText'),
-      notes: t('backgroundOrchardNotes'),
-    },
+    cornfields: { },
+    farmhouse: { },
+    orchard: { },
   },
   backgrounds102016: {
-    rainy_city: {
-      text: t('backgroundRainyCityText'),
-      notes: t('backgroundRainyCityNotes'),
-    },
-    spider_web: {
-      text: t('backgroundSpiderWebText'),
-      notes: t('backgroundSpiderWebNotes'),
-    },
-    strange_sewers: {
-      text: t('backgroundStrangeSewersText'),
-      notes: t('backgroundStrangeSewersNotes'),
-    },
+    rainy_city: { },
+    spider_web: { },
+    strange_sewers: { },
   },
   backgrounds112016: {
-    midnight_clouds: {
-      text: t('backgroundMidnightCloudsText'),
-      notes: t('backgroundMidnightCloudsNotes'),
-    },
-    stormy_rooftops: {
-      text: t('backgroundStormyRooftopsText'),
-      notes: t('backgroundStormyRooftopsNotes'),
-    },
-    windy_autumn: {
-      text: t('backgroundWindyAutumnText'),
-      notes: t('backgroundWindyAutumnNotes'),
-    },
+    midnight_clouds: { },
+    stormy_rooftops: { },
+    windy_autumn: { },
   },
   backgrounds122016: {
-    shimmering_ice_prism: {
-      text: t('backgroundShimmeringIcePrismText'),
-      notes: t('backgroundShimmeringIcePrismNotes'),
-    },
-    winter_fireworks: {
-      text: t('backgroundWinterFireworksText'),
-      notes: t('backgroundWinterFireworksNotes'),
-    },
-    winter_storefront: {
-      text: t('backgroundWinterStorefrontText'),
-      notes: t('backgroundWinterStorefrontNotes'),
-    },
+    shimmering_ice_prism: { },
+    winter_fireworks: { },
+    winter_storefront: { },
   },
   backgrounds012017: {
-    blizzard: {
-      text: t('backgroundBlizzardText'),
-      notes: t('backgroundBlizzardNotes'),
-    },
-    sparkling_snowflake: {
-      text: t('backgroundSparklingSnowflakeText'),
-      notes: t('backgroundSparklingSnowflakeNotes'),
-    },
-    stoikalm_volcanoes: {
-      text: t('backgroundStoikalmVolcanoesText'),
-      notes: t('backgroundStoikalmVolcanoesNotes'),
-    },
+    blizzard: { },
+    sparkling_snowflake: { },
+    stoikalm_volcanoes: { },
   },
   backgrounds022017: {
-    bell_tower: {
-      text: t('backgroundBellTowerText'),
-      notes: t('backgroundBellTowerNotes'),
-    },
-    treasure_room: {
-      text: t('backgroundTreasureRoomText'),
-      notes: t('backgroundTreasureRoomNotes'),
-    },
-    wedding_arch: {
-      text: t('backgroundWeddingArchText'),
-      notes: t('backgroundWeddingArchNotes'),
-    },
+    bell_tower: { },
+    treasure_room: { },
+    wedding_arch: { },
   },
   backgrounds032017: {
-    magic_beanstalk: {
-      text: t('backgroundMagicBeanstalkText'),
-      notes: t('backgroundMagicBeanstalkNotes'),
-    },
-    meandering_cave: {
-      text: t('backgroundMeanderingCaveText'),
-      notes: t('backgroundMeanderingCaveNotes'),
-    },
-    mistiflying_circus: {
-      text: t('backgroundMistiflyingCircusText'),
-      notes: t('backgroundMistiflyingCircusNotes'),
-    },
+    magic_beanstalk: { },
+    meandering_cave: { },
+    mistiflying_circus: { },
   },
   backgrounds042017: {
-    bug_covered_log: {
-      text: t('backgroundBugCoveredLogText'),
-      notes: t('backgroundBugCoveredLogNotes'),
-    },
-    giant_birdhouse: {
-      text: t('backgroundGiantBirdhouseText'),
-      notes: t('backgroundGiantBirdhouseNotes'),
-    },
-    mist_shrouded_mountain: {
-      text: t('backgroundMistShroudedMountainText'),
-      notes: t('backgroundMistShroudedMountainNotes'),
-    },
+    bug_covered_log: { },
+    giant_birdhouse: { },
+    mist_shrouded_mountain: { },
   },
   backgrounds052017: {
-    guardian_statues: {
-      text: t('backgroundGuardianStatuesText'),
-      notes: t('backgroundGuardianStatuesNotes'),
-    },
-    habit_city_streets: {
-      text: t('backgroundHabitCityStreetsText'),
-      notes: t('backgroundHabitCityStreetsNotes'),
-    },
+    guardian_statues: { },
+    habit_city_streets: { },
     on_tree_branch: {
       text: t('backgroundOnATreeBranchText'),
       notes: t('backgroundOnATreeBranchNotes'),
     },
   },
   backgrounds062017: {
-    buried_treasure: {
-      text: t('backgroundBuriedTreasureText'),
-      notes: t('backgroundBuriedTreasureNotes'),
-    },
-    ocean_sunrise: {
-      text: t('backgroundOceanSunriseText'),
-      notes: t('backgroundOceanSunriseNotes'),
-    },
-    sandcastle: {
-      text: t('backgroundSandcastleText'),
-      notes: t('backgroundSandcastleNotes'),
-    },
+    buried_treasure: { },
+    ocean_sunrise: { },
+    sandcastle: { },
   },
   backgrounds072017: {
-    giant_seashell: {
-      text: t('backgroundGiantSeashellText'),
-      notes: t('backgroundGiantSeashellNotes'),
-    },
-    kelp_forest: {
-      text: t('backgroundKelpForestText'),
-      notes: t('backgroundKelpForestNotes'),
-    },
-    midnight_lake: {
-      text: t('backgroundMidnightLakeText'),
-      notes: t('backgroundMidnightLakeNotes'),
-    },
+    giant_seashell: { },
+    kelp_forest: { },
+    midnight_lake: { },
   },
   backgrounds082017: {
-    back_of_giant_beast: {
-      text: t('backgroundBackOfGiantBeastText'),
-      notes: t('backgroundBackOfGiantBeastNotes'),
-    },
-    desert_dunes: {
-      text: t('backgroundDesertDunesText'),
-      notes: t('backgroundDesertDunesNotes'),
-    },
-    summer_fireworks: {
-      text: t('backgroundSummerFireworksText'),
-      notes: t('backgroundSummerFireworksNotes'),
-    },
+    back_of_giant_beast: { },
+    desert_dunes: { },
+    summer_fireworks: { },
   },
   backgrounds092017: {
-    beside_well: {
-      text: t('backgroundBesideWellText'),
-      notes: t('backgroundBesideWellNotes'),
-    },
-    garden_shed: {
-      text: t('backgroundGardenShedText'),
-      notes: t('backgroundGardenShedNotes'),
-    },
-    pixelists_workshop: {
-      text: t('backgroundPixelistsWorkshopText'),
-      notes: t('backgroundPixelistsWorkshopNotes'),
-    },
+    beside_well: { },
+    garden_shed: { },
+    pixelists_workshop: { },
   },
   backgrounds102017: {
-    magical_candles: {
-      text: t('backgroundMagicalCandlesText'),
-      notes: t('backgroundMagicalCandlesNotes'),
-    },
-    spooky_hotel: {
-      text: t('backgroundSpookyHotelText'),
-      notes: t('backgroundSpookyHotelNotes'),
-    },
-    tar_pits: {
-      text: t('backgroundTarPitsText'),
-      notes: t('backgroundTarPitsNotes'),
-    },
+    magical_candles: { },
+    spooky_hotel: { },
+    tar_pits: { },
   },
   backgrounds112017: {
-    fiber_arts_room: {
-      text: t('backgroundFiberArtsRoomText'),
-      notes: t('backgroundFiberArtsRoomNotes'),
-    },
-    midnight_castle: {
-      text: t('backgroundMidnightCastleText'),
-      notes: t('backgroundMidnightCastleNotes'),
-    },
-    tornado: {
-      text: t('backgroundTornadoText'),
-      notes: t('backgroundTornadoNotes'),
-    },
+    fiber_arts_room: { },
+    midnight_castle: { },
+    tornado: { },
   },
   backgrounds122017: {
-    crosscountry_ski_trail: {
-      text: t('backgroundCrosscountrySkiTrailText'),
-      notes: t('backgroundCrosscountrySkiTrailNotes'),
-    },
-    starry_winter_night: {
-      text: t('backgroundStarryWinterNightText'),
-      notes: t('backgroundStarryWinterNightNotes'),
-    },
-    toymakers_workshop: {
-      text: t('backgroundToymakersWorkshopText'),
-      notes: t('backgroundToymakersWorkshopNotes'),
-    },
+    crosscountry_ski_trail: { },
+    starry_winter_night: { },
+    toymakers_workshop: { },
   },
   backgrounds012018: {
-    aurora: {
-      text: t('backgroundAuroraText'),
-      notes: t('backgroundAuroraNotes'),
-    },
-    driving_a_sleigh: {
-      text: t('backgroundDrivingASleighText'),
-      notes: t('backgroundDrivingASleighNotes'),
-    },
-    flying_over_icy_steppes: {
-      text: t('backgroundFlyingOverIcySteppesText'),
-      notes: t('backgroundFlyingOverIcySteppesNotes'),
-    },
+    aurora: { },
+    driving_a_sleigh: { },
+    flying_over_icy_steppes: { },
   },
   backgrounds022018: {
-    chessboard_land: {
-      text: t('backgroundChessboardLandText'),
-      notes: t('backgroundChessboardLandNotes'),
-    },
-    magical_museum: {
-      text: t('backgroundMagicalMuseumText'),
-      notes: t('backgroundMagicalMuseumNotes'),
-    },
-    rose_garden: {
-      text: t('backgroundRoseGardenText'),
-      notes: t('backgroundRoseGardenNotes'),
-    },
+    chessboard_land: { },
+    magical_museum: { },
+    rose_garden: { },
   },
   backgrounds032018: {
-    driving_a_coach: {
-      text: t('backgroundDrivingACoachText'),
-      notes: t('backgroundDrivingACoachNotes'),
-    },
-    elegant_balcony: {
-      text: t('backgroundElegantBalconyText'),
-      notes: t('backgroundElegantBalconyNotes'),
-    },
-    gorgeous_greenhouse: {
-      text: t('backgroundGorgeousGreenhouseText'),
-      notes: t('backgroundGorgeousGreenhouseNotes'),
-    },
+    driving_a_coach: { },
+    elegant_balcony: { },
+    gorgeous_greenhouse: { },
   },
   backgrounds042018: {
     flying_over_an_ancient_forest: {
@@ -656,424 +250,172 @@ const backgrounds = {
       text: t('backgroundFlyingOverWildflowerFieldText'),
       notes: t('backgroundFlyingOverWildflowerFieldNotes'),
     },
-    tulip_garden: {
-      text: t('backgroundTulipGardenText'),
-      notes: t('backgroundTulipGardenNotes'),
-    },
+    tulip_garden: { },
   },
   backgrounds052018: {
-    champions_colosseum: {
-      text: t('backgroundChampionsColosseumText'),
-      notes: t('backgroundChampionsColosseumNotes'),
-    },
-    fantastical_shoe_store: {
-      text: t('backgroundFantasticalShoeStoreText'),
-      notes: t('backgroundFantasticalShoeStoreNotes'),
-    },
-    terraced_rice_field: {
-      text: t('backgroundTerracedRiceFieldText'),
-      notes: t('backgroundTerracedRiceFieldNotes'),
-    },
+    champions_colosseum: { },
+    fantastical_shoe_store: { },
+    terraced_rice_field: { },
   },
   backgrounds062018: {
     at_the_docks: {
       text: t('backgroundDocksText'),
       notes: t('backgroundDocksNotes'),
     },
-    rowboat: {
-      text: t('backgroundRowboatText'),
-      notes: t('backgroundRowboatNotes'),
-    },
-    pirate_flag: {
-      text: t('backgroundPirateFlagText'),
-      notes: t('backgroundPirateFlagNotes'),
-    },
+    rowboat: { },
+    pirate_flag: { },
   },
   backgrounds072018: {
-    dark_deep: {
-      text: t('backgroundDarkDeepText'),
-      notes: t('backgroundDarkDeepNotes'),
-    },
-    dilatory_city: {
-      text: t('backgroundDilatoryCityText'),
-      notes: t('backgroundDilatoryCityNotes'),
-    },
-    tide_pool: {
-      text: t('backgroundTidePoolText'),
-      notes: t('backgroundTidePoolNotes'),
-    },
+    dark_deep: { },
+    dilatory_city: { },
+    tide_pool: { },
   },
   backgrounds082018: {
-    training_grounds: {
-      text: t('backgroundTrainingGroundsText'),
-      notes: t('backgroundTrainingGroundsNotes'),
-    },
-    flying_over_rocky_canyon: {
-      text: t('backgroundFlyingOverRockyCanyonText'),
-      notes: t('backgroundFlyingOverRockyCanyonNotes'),
-    },
-    bridge: {
-      text: t('backgroundBridgeText'),
-      notes: t('backgroundBridgeNotes'),
-    },
+    training_grounds: { },
+    flying_over_rocky_canyon: { },
+    bridge: { },
   },
   backgrounds092018: {
-    apple_picking: {
-      text: t('backgroundApplePickingText'),
-      notes: t('backgroundApplePickingNotes'),
-    },
-    giant_book: {
-      text: t('backgroundGiantBookText'),
-      notes: t('backgroundGiantBookNotes'),
-    },
-    cozy_barn: {
-      text: t('backgroundCozyBarnText'),
-      notes: t('backgroundCozyBarnNotes'),
-    },
+    apple_picking: { },
+    giant_book: { },
+    cozy_barn: { },
   },
   backgrounds102018: {
-    bayou: {
-      text: t('backgroundBayouText'),
-      notes: t('backgroundBayouNotes'),
-    },
-    creepy_castle: {
-      text: t('backgroundCreepyCastleText'),
-      notes: t('backgroundCreepyCastleNotes'),
-    },
-    dungeon: {
-      text: t('backgroundDungeonText'),
-      notes: t('backgroundDungeonNotes'),
-    },
+    bayou: { },
+    creepy_castle: { },
+    dungeon: { },
   },
   backgrounds112018: {
-    back_alley: {
-      text: t('backgroundBackAlleyText'),
-      notes: t('backgroundBackAlleyNotes'),
-    },
-    glowing_mushroom_cave: {
-      text: t('backgroundGlowingMushroomCaveText'),
-      notes: t('backgroundGlowingMushroomCaveNotes'),
-    },
-    cozy_bedroom: {
-      text: t('backgroundCozyBedroomText'),
-      notes: t('backgroundCozyBedroomNotes'),
-    },
+    back_alley: { },
+    glowing_mushroom_cave: { },
+    cozy_bedroom: { },
   },
   backgrounds122018: {
-    flying_over_snowy_mountains: {
-      text: t('backgroundFlyingOverSnowyMountainsText'),
-      notes: t('backgroundFlyingOverSnowyMountainsNotes'),
-    },
-    frosty_forest: {
-      text: t('backgroundFrostyForestText'),
-      notes: t('backgroundFrostyForestNotes'),
-    },
-    snowy_day_fireplace: {
-      text: t('backgroundSnowyDayFireplaceText'),
-      notes: t('backgroundSnowyDayFireplaceNotes'),
-    },
+    flying_over_snowy_mountains: { },
+    frosty_forest: { },
+    snowy_day_fireplace: { },
   },
   backgrounds012019: {
-    avalanche: {
-      text: t('backgroundAvalancheText'),
-      notes: t('backgroundAvalancheNotes'),
-    },
-    archaeological_dig: {
-      text: t('backgroundArchaeologicalDigText'),
-      notes: t('backgroundArchaeologicalDigNotes'),
-    },
-    scribes_workshop: {
-      text: t('backgroundScribesWorkshopText'),
-      notes: t('backgroundScribesWorkshopNotes'),
-    },
+    avalanche: { },
+    archaeological_dig: { },
+    scribes_workshop: { },
   },
   backgrounds022019: {
-    medieval_kitchen: {
-      text: t('backgroundMedievalKitchenText'),
-      notes: t('backgroundMedievalKitchenNotes'),
-    },
-    old_fashioned_bakery: {
-      text: t('backgroundOldFashionedBakeryText'),
-      notes: t('backgroundOldFashionedBakeryNotes'),
-    },
-    valentines_day_feasting_hall: {
-      text: t('backgroundValentinesDayFeastingHallText'),
-      notes: t('backgroundValentinesDayFeastingHallNotes'),
-    },
+    medieval_kitchen: { },
+    old_fashioned_bakery: { },
+    valentines_day_feasting_hall: { },
   },
   backgrounds032019: {
-    duck_pond: {
-      text: t('backgroundDuckPondText'),
-      notes: t('backgroundDuckPondNotes'),
-    },
-    field_with_colored_eggs: {
-      text: t('backgroundFieldWithColoredEggsText'),
-      notes: t('backgroundFieldWithColoredEggsNotes'),
-    },
-    flower_market: {
-      text: t('backgroundFlowerMarketText'),
-      notes: t('backgroundFlowerMarketNotes'),
-    },
+    duck_pond: { },
+    field_with_colored_eggs: { },
+    flower_market: { },
   },
   backgrounds042019: {
-    halflings_house: {
-      text: t('backgroundHalflingsHouseText'),
-      notes: t('backgroundHalflingsHouseNotes'),
-    },
-    blossoming_desert: {
-      text: t('backgroundBlossomingDesertText'),
-      notes: t('backgroundBlossomingDesertNotes'),
-    },
-    birch_forest: {
-      text: t('backgroundBirchForestText'),
-      notes: t('backgroundBirchForestNotes'),
-    },
+    halflings_house: { },
+    blossoming_desert: { },
+    birch_forest: { },
   },
   backgrounds052019: {
-    dojo: {
-      text: t('backgroundDojoText'),
-      notes: t('backgroundDojoNotes'),
-    },
-    park_with_statue: {
-      text: t('backgroundParkWithStatueText'),
-      notes: t('backgroundParkWithStatueNotes'),
-    },
-    rainbow_meadow: {
-      text: t('backgroundRainbowMeadowText'),
-      notes: t('backgroundRainbowMeadowNotes'),
-    },
+    dojo: { },
+    park_with_statue: { },
+    rainbow_meadow: { },
   },
   backgrounds062019: {
-    school_of_fish: {
-      text: t('backgroundSchoolOfFishText'),
-      notes: t('backgroundSchoolOfFishNotes'),
-    },
-    seaside_cliffs: {
-      text: t('backgroundSeasideCliffsText'),
-      notes: t('backgroundSeasideCliffsNotes'),
-    },
-    underwater_vents: {
-      text: t('backgroundUnderwaterVentsText'),
-      notes: t('backgroundUnderwaterVentsNotes'),
-    },
+    school_of_fish: { },
+    seaside_cliffs: { },
+    underwater_vents: { },
   },
   backgrounds072019: {
-    lake_with_floating_lanterns: {
-      text: t('backgroundLakeWithFloatingLanternsText'),
-      notes: t('backgroundLakeWithFloatingLanternsNotes'),
-    },
-    flying_over_tropical_islands: {
-      text: t('backgroundFlyingOverTropicalIslandsText'),
-      notes: t('backgroundFlyingOverTropicalIslandsNotes'),
-    },
-    among_giant_anemones: {
-      text: t('backgroundAmongGiantAnemonesText'),
-      notes: t('backgroundAmongGiantAnemonesNotes'),
-    },
+    lake_with_floating_lanterns: { },
+    flying_over_tropical_islands: { },
+    among_giant_anemones: { },
   },
   backgrounds082019: {
-    amid_ancient_ruins: {
-      text: t('backgroundAmidAncientRuinsText'),
-      notes: t('backgroundAmidAncientRuinsNotes'),
-    },
-    giant_dandelions: {
-      text: t('backgroundGiantDandelionsText'),
-      notes: t('backgroundGiantDandelionsNotes'),
-    },
-    treehouse: {
-      text: t('backgroundTreehouseText'),
-      notes: t('backgroundTreehouseNotes'),
-    },
+    amid_ancient_ruins: { },
+    giant_dandelions: { },
+    treehouse: { },
   },
   backgrounds092019: {
-    autumn_flower_garden: {
-      text: t('backgroundAutumnFlowerGardenText'),
-      notes: t('backgroundAutumnFlowerGardenNotes'),
-    },
-    in_an_ancient_tomb: {
-      text: t('backgroundInAnAncientTombText'),
-      notes: t('backgroundInAnAncientTombNotes'),
-    },
-    in_a_classroom: {
-      text: t('backgroundInAClassroomText'),
-      notes: t('backgroundInAClassroomNotes'),
-    },
+    autumn_flower_garden: { },
+    in_an_ancient_tomb: { },
+    in_a_classroom: { },
   },
   backgrounds102019: {
-    foggy_moor: {
-      text: t('backgroundFoggyMoorText'),
-      notes: t('backgroundFoggyMoorNotes'),
-    },
-    monster_makers_workshop: {
-      text: t('backgroundMonsterMakersWorkshopText'),
-      notes: t('backgroundMonsterMakersWorkshopNotes'),
-    },
-    pumpkin_carriage: {
-      text: t('backgroundPumpkinCarriageText'),
-      notes: t('backgroundPumpkinCarriageNotes'),
-    },
+    foggy_moor: { },
+    monster_makers_workshop: { },
+    pumpkin_carriage: { },
   },
   backgrounds112019: {
-    farmers_market: {
-      text: t('backgroundFarmersMarketText'),
-      notes: t('backgroundFarmersMarketNotes'),
-    },
-    flying_in_a_thunderstorm: {
-      text: t('backgroundFlyingInAThunderstormText'),
-      notes: t('backgroundFlyingInAThunderstormNotes'),
-    },
-    potion_shop: {
-      text: t('backgroundPotionShopText'),
-      notes: t('backgroundPotionShopNotes'),
-    },
+    farmers_market: { },
+    flying_in_a_thunderstorm: { },
+    potion_shop: { },
   },
   backgrounds122019: {
-    holiday_market: {
-      text: t('backgroundHolidayMarketText'),
-      notes: t('backgroundHolidayMarketNotes'),
-    },
-    holiday_wreath: {
-      text: t('backgroundHolidayWreathText'),
-      notes: t('backgroundHolidayWreathNotes'),
-    },
-    winter_nocturne: {
-      text: t('backgroundWinterNocturneText'),
-      notes: t('backgroundWinterNocturneNotes'),
-    },
+    holiday_market: { },
+    holiday_wreath: { },
+    winter_nocturne: { },
   },
   backgrounds012020: {
-    birthday_party: {
-      text: t('backgroundBirthdayPartyText'),
-      notes: t('backgroundBirthdayPartyNotes'),
-    },
-    desert_with_snow: {
-      text: t('backgroundDesertWithSnowText'),
-      notes: t('backgroundDesertWithSnowNotes'),
-    },
-    snowglobe: {
-      text: t('backgroundSnowglobeText'),
-      notes: t('backgroundSnowglobeNotes'),
-    },
+    birthday_party: { },
+    desert_with_snow: { },
+    snowglobe: { },
   },
   backgrounds022020: {
-    elegant_ballroom: {
-      text: t('backgroundElegantBallroomText'),
-      notes: t('backgroundElegantBallroomNotes'),
-    },
-    hall_of_heroes: {
-      text: t('backgroundHallOfHeroesText'),
-      notes: t('backgroundHallOfHeroesNotes'),
-    },
-    tea_party: {
-      text: t('backgroundTeaPartyText'),
-      notes: t('backgroundTeaPartyNotes'),
-    },
+    elegant_ballroom: { },
+    hall_of_heroes: { },
+    tea_party: { },
   },
   backgrounds032020: {
-    among_giant_flowers: {
-      text: t('backgroundAmongGiantFlowersText'),
-      notes: t('backgroundAmongGiantFlowersNotes'),
-    },
-    butterfly_garden: {
-      text: t('backgroundButterflyGardenText'),
-      notes: t('backgroundButterflyGardenNotes'),
-    },
-    succulent_garden: {
-      text: t('backgroundSucculentGardenText'),
-      notes: t('backgroundSucculentGardenNotes'),
-    },
+    among_giant_flowers: { },
+    butterfly_garden: { },
+    succulent_garden: { },
   },
   backgrounds042020: {
-    animal_clouds: {
-      text: t('backgroundAnimalCloudsText'),
-      notes: t('backgroundAnimalCloudsNotes'),
-    },
-    heather_field: {
-      text: t('backgroundHeatherFieldText'),
-      notes: t('backgroundHeatherFieldNotes'),
-    },
-    rainy_barnyard: {
-      text: t('backgroundRainyBarnyardText'),
-      notes: t('backgroundRainyBarnyardNotes'),
-    },
+    animal_clouds: { },
+    heather_field: { },
+    rainy_barnyard: { },
   },
   backgrounds052020: {
-    habit_city_rooftops: {
-      text: t('backgroundHabitCityRooftopsText'),
-      notes: t('backgroundHabitCityRooftopsNotes'),
-    },
-    hot_air_balloon: {
-      text: t('backgroundHotAirBalloonText'),
-      notes: t('backgroundHotAirBalloonNotes'),
-    },
-    strawberry_patch: {
-      text: t('backgroundStrawberryPatchText'),
-      notes: t('backgroundStrawberryPatchNotes'),
-    },
+    habit_city_rooftops: { },
+    hot_air_balloon: { },
+    strawberry_patch: { },
   },
   backgrounds062020: {
-    relaxation_river: {
-      text: t('backgroundRelaxationRiverText'),
-      notes: t('backgroundRelaxationRiverNotes'),
-    },
-    salt_lake: {
-      text: t('backgroundSaltLakeText'),
-      notes: t('backgroundSaltLakeNotes'),
-    },
-    viking_ship: {
-      text: t('backgroundVikingShipText'),
-      notes: t('backgroundVikingShipNotes'),
-    },
+    relaxation_river: { },
+    salt_lake: { },
+    viking_ship: { },
   },
   timeTravelBackgrounds: {
     airship: {
-      text: t('backgroundAirshipText'),
-      notes: t('backgroundAirshipNotes'),
       price: 1,
       currency: 'hourglasses',
     },
     clocktower: {
-      text: t('backgroundClocktowerText'),
-      notes: t('backgroundClocktowerNotes'),
       price: 1,
       currency: 'hourglasses',
     },
     steamworks: {
-      text: t('backgroundSteamworksText'),
-      notes: t('backgroundSteamworksNotes'),
       price: 1,
       currency: 'hourglasses',
     },
   },
   incentiveBackgrounds: {
     violet: {
-      text: t('backgroundVioletText'),
-      notes: t('backgroundVioletNotes'),
       currency: 'loginIncentive',
     },
     blue: {
-      text: t('backgroundBlueText'),
-      notes: t('backgroundBlueNotes'),
       currency: 'loginIncentive',
     },
     green: {
-      text: t('backgroundGreenText'),
-      notes: t('backgroundGreenNotes'),
       currency: 'loginIncentive',
     },
     purple: {
-      text: t('backgroundPurpleText'),
-      notes: t('backgroundPurpleNotes'),
       currency: 'loginIncentive',
     },
     red: {
-      text: t('backgroundRedText'),
-      notes: t('backgroundRedNotes'),
       currency: 'loginIncentive',
     },
     yellow: {
-      text: t('backgroundYellowText'),
-      notes: t('backgroundYellowNotes'),
       currency: 'loginIncentive',
     },
   },
@@ -1087,6 +429,8 @@ forOwn(backgrounds, (backgroundsInSet, set) => {
     background.key = bgKey;
     background.set = set;
     background.price = background.price || 7;
+    background.text = background.text || t(`background${upperFirst(camelCase(bgKey))}Text`);
+    background.notes = background.notes || t(`background${upperFirst(camelCase(bgKey))}Notes`);
 
     flat[bgKey] = background;
   });
