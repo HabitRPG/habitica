@@ -1011,6 +1011,20 @@ const backgrounds = {
       notes: t('backgroundStrawberryPatchNotes'),
     },
   },
+  backgrounds062020: {
+    relaxation_river: {
+      text: t('backgroundRelaxationRiverText'),
+      notes: t('backgroundRelaxationRiverNotes'),
+    },
+    salt_lake: {
+      text: t('backgroundSaltLakeText'),
+      notes: t('backgroundSaltLakeNotes'),
+    },
+    viking_ship: {
+      text: t('backgroundVikingShipText'),
+      notes: t('backgroundVikingShipNotes'),
+    },
+  },
   timeTravelBackgrounds: {
     airship: {
       text: t('backgroundAirshipText'),
