@@ -275,7 +275,7 @@ export default {
       if (skill === 'frost' && this.user.stats.buffs.streaks) return true;
       if (skill === 'stealth' && this.user.stats.buffs.stealth >= incompleteDailiesDue) return true;
 
-      return false;
+      return isSpellDisabled;
     },
 
     skillNotes (skill) {
