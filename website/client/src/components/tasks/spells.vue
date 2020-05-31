@@ -40,7 +40,7 @@
                 v-for="(skill, key) in spells[user.stats.class]"
                 v-if="user.stats.lvl >= skill.lvl"
                 :key="key"
-                v-b-popover.hover.auto="skill.notes()"
+                v-b-popover.hover.auto="skillNotes(skill)"
                 class="col-12 col-md-3"
                 @click="castStart(skill)"
               >
@@ -267,18 +267,16 @@ export default {
       );
     },
     spellDisabled (skill) {
-      if (skill === 'frost' && this.user.stats.buffs.streaks) {
-        return true;
-      }
-      // @TODO: Implement
-      // } else if (skill === 'stealth' && this.user.stats.buffs.stealth
-      // >= this.user.dailys.length) {
-      //   return true;
-      // }
+      let isSpellDisabled = false;
 
-      return false;
+      if ((skill === 'frost' && this.user.stats.buffs.streaks)
+        || (skill === 'stealth' && this.user.stats.buffs.stealth >= this.user.tasksOrder.dailys.length)) {
+        isSpellDisabled = true;
+      }
+
+      return isSpellDisabled;
     },
-    // @TODO is this used?
+
     skillNotes (skill) {
       let notes = skill.notes();
 
