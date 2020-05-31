@@ -1963,5 +1963,15 @@
     "headSpecialSummer2019MageNotes": "In tegenstelling tot wat vaak wordt gedacht, is je hoofd geen geschikte plek voor kikkers om neer te strijken. Verhoogt de perceptie met <%= per%>. Beperkte Oplage 2019 Zomeruitrusting.",
     "headSpecialSummer2019RogueNotes": "Deze helm geeft je een 360 graden zicht op de omringende wateren, wat perfect is om op nietsvermoedende rode dagtaken te sluipen. Verhoogt de perceptie met <%= per%>. Beperkte Oplage 2019 Zomeruitrusting.",
     "headSpecialSummer2019HealerNotes": "De spiraalvormige structuur van deze schelp helpt je elke roep om hulp over de zeven zeeën te horen. Verhoogt intelligentie met <%= int%>. Beperkte Oplage 2019 Zomeruitrusting.",
-    "headSpecialSummer2019HealerText": "Schelpen Kroon"
+    "headSpecialSummer2019HealerText": "Schelpen Kroon",
+    "headSpecialFall2019WarriorText": "Lavaglas Schedelhelm",
+    "headSpecialFall2019WarriorNotes": "De donkere oogkassen van deze schedelhelm zullen de moedigste van je vijanden ontmoedigen. Verhoogt de sterkte met <%= str%>. Beperkte Oplage 2019 Herfstuitrusting.",
+    "headSpecialFall2019HealerNotes": "Trek deze donkere mijter aan om de krachten van de angstaanjagende Lich te benutten. Verhoogt intelligentie met <%= int%>. Beperkte Oplage 2019 herfstuitrusting.",
+    "headSpecialFall2019HealerText": "Donkere Mijter",
+    "headSpecialNye2019Notes": "Je hebt een Extravagante Feesthoed gekregen! Draag het met trots tijdens het luiden van het nieuwe jaar! Geeft geen voordeel.",
+    "headSpecialNye2019Text": "Extravagante Feesthoed",
+    "headSpecialWinter2020RogueNotes": "Een schurk loopt met die hoed over straat, mensen weten dat ze nergens bang voor zijn. Verhoogt de perceptie met <%= per%>. Beperkte Oplage 2019-2020 Winteruitrusting.",
+    "headSpecialWinter2020RogueText": "Fluffy Muts",
+    "headSpecialWinter2020WarriorNotes": "Een stekelig gevoel op uw hoofdhuid is een kleine prijs die u moet betalen voor seizoensgebonden pracht. Verhoogt de sterkte met <%= str%>. Beperkte Oplage 2019-2020 Winteruitrusting.",
+    "headSpecialWinter2020WarriorText": "Met sneeuw bedekte hoofdtooi"
 }
