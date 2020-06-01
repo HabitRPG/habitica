@@ -108,7 +108,7 @@
 </style>
 
 <script>
-import removeIcon from '@/assets/svg/close.svg';
+import removeIcon from '@/assets/svg/remove.svg';
 import markdownDirective from '@/directives/markdown';
 
 export default {

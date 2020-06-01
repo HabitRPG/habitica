@@ -34,7 +34,7 @@
             <span class="dropdown-icon-item">
               <div
                 class="svg-icon inline"
-                v-html="icons.remove"
+                v-html="icons.block"
               ></div><span class="text">{{ $t(isBlocked ? 'unblock' : 'block') }}</span></span>
           </b-dropdown-item>
         </b-dropdown>
@@ -65,7 +65,7 @@ import moment from 'moment';
 import userLabel from '../userLabel';
 
 import dots from '@/assets/svg/dots.svg';
-import remove from '@/assets/svg/remove.svg';
+import block from '@/assets/svg/block.svg';
 
 import { mapState } from '@/libs/store';
 
@@ -90,7 +90,7 @@ export default {
     return {
       icons: Object.freeze({
         dots,
-        remove,
+        block,
       }),
     };
   },
