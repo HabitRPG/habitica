@@ -5,12 +5,12 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js",
     "lint": "vue-cli-service lint .",
     "lint-no-fix": "vue-cli-service lint --no-fix .",
     "postinstall": "node ./scripts/npm-postinstall.js",
     "storybook:build": "vue-cli-service storybook:build -c config/storybook -o dist/storybook",
-    "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook",
-    "test:unit": "vue-cli-service test:unit --require ./tests/unit/helpers.js"
+    "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook"
   },
   "dependencies": {
     "@storybook/addon-actions": "^5.3.19",
@@ -18,11 +18,11 @@
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addon-notes": "^5.3.19",
     "@storybook/vue": "^5.3.19",
-    "@vue/cli-plugin-babel": "^4.3.1",
-    "@vue/cli-plugin-eslint": "^4.3.1",
-    "@vue/cli-plugin-router": "^4.3.1",
-    "@vue/cli-plugin-unit-mocha": "^4.3.1",
-    "@vue/cli-service": "^4.3.1",
+    "@vue/cli-plugin-babel": "^4.4.1",
+    "@vue/cli-plugin-eslint": "^4.4.1",
+    "@vue/cli-plugin-router": "^4.4.1",
+    "@vue/cli-plugin-unit-mocha": "^4.4.1",
+    "@vue/cli-service": "^4.4.1",
     "@vue/test-utils": "1.0.0-beta.29",
     "amplitude-js": "^5.11.0",
     "axios": "^0.19.2",
