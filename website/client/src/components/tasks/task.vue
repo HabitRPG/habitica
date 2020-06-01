@@ -914,23 +914,30 @@ export default {
       if (this.task.type === 'habit' && (this.task.up || this.task.down)) return true;
       return false;
     },
-    timeTillDue () {
-      // this.task && is necessary to make sure the computed property updates correctly
-      const endOfToday = moment().endOf('day');
-      const endOfDueDate = moment(this.task && this.task.date).endOf('day');
+    timeTillDue: {
+      cache: false,
+      get () {
+        const endOfToday = moment().endOf('day');
+        const endOfDueDate = moment(this.task.date).endOf('day');
 
-      return moment.duration(endOfDueDate.diff(endOfToday));
+        return moment.duration(endOfDueDate.diff(endOfToday));
+      },
     },
-    isDueOverdue () {
-      return this.timeTillDue.asDays() <= 0;
+    isDueOverdue: {
+      cache: false,
+      get () {
+        return this.timeTillDue.asDays() <= 0;
+      },
     },
-    dueIn () {
-      const dueIn = this.timeTillDue.asDays() === 0
-        ? this.$t('today')
-        : this.timeTillDue.humanize(true);
+    dueIn: {
+      cache: false,
+      get () {
+        const dueIn = this.timeTillDue.asDays() === 0
+          ? this.$t('today')
+          : this.timeTillDue.humanize(true);
 
-      // this.task && is necessary to make sure the computed property updates correctly
-      return this.task && this.task.date && this.$t('dueIn', { dueIn });
+        return this.task.date && this.$t('dueIn', { dueIn });
+      },
     },
     hasTags () {
       return this.task.tags && this.task.tags.length > 0;
