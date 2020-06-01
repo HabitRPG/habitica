@@ -101,6 +101,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import '~@/assets/scss/colors.scss';
+
   .notification {
     border-radius: 30px;
     background-color: #24cc8f;
@@ -149,7 +151,7 @@
   }
 
   .damage .icon {
-    color: #686274;
+    color: $gray-100;
   }
 
   .icon {
