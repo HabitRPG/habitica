@@ -466,6 +466,7 @@ export default {
         });
 
         if (this.sortBy === 'quantity') {
+          // Store original quantities, to avoid reordering when using items.
           const quantitySnapshot = this.quantitySnapshot[groupKey] || Object.fromEntries(
             itemsArray.map(item => [item.key, item.quantity]),
           );
