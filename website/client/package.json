@@ -18,7 +18,7 @@
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addon-notes": "^5.3.19",
     "@storybook/vue": "^5.3.19",
-    "@vue/cli-plugin-babel": "^4.3.1",
+    "@vue/cli-plugin-babel": "^4.4.1",
     "@vue/cli-plugin-eslint": "^4.3.1",
     "@vue/cli-plugin-router": "^4.3.1",
     "@vue/cli-plugin-unit-mocha": "^4.3.1",
