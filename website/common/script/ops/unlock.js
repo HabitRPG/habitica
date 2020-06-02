@@ -7,6 +7,8 @@ import { removeItemByPath } from './pinnedGearUtils';
 import getItemInfo from '../libs/getItemInfo';
 import content from '../content/index';
 
+const incentiveBackgrounds = ['blue', 'green', 'red', 'purple', 'yellow'];
+
 /**
  * Splits `items.gear.owned.headAccessory_wolfEars` into `items.gear.owned`
  * and `headAccessory_wolfEars`
@@ -23,54 +25,88 @@ function invalidSet () {
 }
 
 /**
- * Return the type of the set (gear or one of the appareance sets - see content.appearance).
+ * Return an item given its path and the type of set
+ */
+function getItemByPath (path, setType) {
+  console.log('getting item by path', path, setType);
+  const itemKey = splitPathItem(path)[1];
+  const item = setType === 'gear'
+    ? content.gear.flat[itemKey]
+    : content.appearances[setType][itemKey];
+
+  return item;
+}
+
+/**
+ * Return the type of the set (gear or one of the appareance sets - see content.appearances).
  */
 function getSetType (firstPath) {
   if (firstPath.includes('gear.')) return 'gear';
 
   const type = firstPath.split('.')[0];
-  if (content.appearance[type]) return type;
+  if (content.appearances[type]) return type;
 
   return invalidSet();
 }
 
 /**
- * Return the set of items to unlock.
+ * Return the set of items to unlock given the path of the first item in the set.
  */
 function getSet (setType, firstPath) {
-  const itemKey = splitPathItem(firstPath);
-  const item = setType === 'gear'
-    ? content.gear.flat[itemKey]
-    : content.appearance[setType][itemKey];
-
+  console.log('getting set from type and firstpath', setType, firstPath);
+  const item = getItemByPath(firstPath, setType);
+  console.log('item', item);
   if (!item) return invalidSet();
-
 
   if (setType === 'gear') {
     // Only animal gear sets are unlockable
     if (item.gearSet !== 'animal') return invalidSet();
 
-  } else {
-    return item.set
+    // Since each type of gear has only one purchasable set (the animal set)
+    // we get all items with the same type and gearSet === 'animal'
+    const items = [];
+    const paths = [];
+
+    Object.keys(content.gear.tree[item.type][item.klass]).forEach(possibleItemKey => {
+      const possibleItem = content.gear.tree[item.type][item.klass][possibleItemKey];
+      if (possibleItem && possibleItem.gearSet === 'animal') {
+        items.push(possibleItem);
+        paths.push(`items.gear.owned.${possibleItem.key}`);
+      }
+    });
+
+    return { items, paths, set: { setPrice: 5 } };
   }
+  console.log('not a gear set');
+
+  const { set } = item;
+  if (!set || set.setPrice === 0) return invalidSet();
+
+  const items = [];
+  const paths = [];
+
+  Object.keys(content.appearances[setType]).forEach(possibleItemKey => {
+    const possibleItem = content.appearances[setType][possibleItemKey];
+    if (possibleItem && possibleItem.set && possibleItem.set.key === set.key) {
+      items.push(possibleItem);
+      paths.push(`${setType}.${possibleItem.key}`);
+    }
+  });
+
+  return { items, paths, set };
 }
 
-//Add comment
-function determineCost (setType, isFullSet, set) {
-  if (isBackground) {
-    return isFullSet ? 3.75 : 1.75;
-  }
-  return isFullSet ? 1.25 : 0.5;
-}
+/**
+ * checks if the user has already unlocked this item
+ */
+function alreadyUnlocked (user, setType, path) {
+  const isGear = setType === 'gear';
 
-//Add comment
-function alreadyUnlocked (user, path) {
-  return isGear(path)
+  return isGear
     ? get(user, path) !== undefined
     : get(user, `purchased.${path}`);
 }
 
-//Add comment
 function setAsObject (target, key, value) {
   // Using Object so path[1] won't create an array but an object {path: {1: value}}
   setWith(target, key, value, Object);
@@ -83,9 +119,10 @@ function markModified (user, path) {
   if (user.markModified) user.markModified(path);
 }
 
-//Add comment
-function purchaseItem (path, user) {
-  if (isGear(path)) {
+function purchaseItem (path, setType, user) {
+  const isGear = setType === 'gear';
+
+  if (isGear) {
     setAsObject(user, path, true);
     const itemName = splitPathItem(path)[1];
     removeItemByPath(user, `gear.flat.${itemName}`);
@@ -96,7 +133,13 @@ function purchaseItem (path, user) {
   }
 }
 
-//Add comment
+function getIndividualItemPrice (setType, item) {
+  if (setType === 'gear') return 0.5;
+
+  if (!item.price || item.price === 0) return invalidSet();
+  return item.price / 4;
+}
+
 function buildResponse ({ purchased, preference, items }, ownsAlready, language) {
   const response = [
     { purchased, preference, items },
@@ -117,26 +160,54 @@ export default function unlock (user, req = {}, analytics) {
 
   const setPaths = path.split(',');
   const isFullSet = setPaths.length > 1;
-  // We take the first path and use it to get the set,
-  // The passed paths are not used anymore after this point
   const firstPath = setPaths[0];
-  const setType = getSetType(firstPath);
-  const set = getSet(setType, firstPath);
-  const cost = determineCost(setType, isFullSet, set);
 
-  let unlockedAlready;
+  const setType = getSetType(firstPath);
+  const isBackground = setType === 'background';
+
+  // We take the first path and use it to get the set,
+  // The passed paths are not used anymore after this point for full sets
+  const { set, items, paths } = getSet(setType, firstPath);
+
+  let cost;
+  let unlockedAlready = false;
+
+  console.log('isFullSet', isFullSet, 'setType', setType);
 
   if (isFullSet) {
-    const alreadyUnlockedItems = setPaths.filter(p => alreadyUnlocked(user, p)).length;
-    const totalItems = setPaths.length;
+    console.log('fullset', {items}, {paths}, {set});
+    cost = set.setPrice / 4;
+
+    // all items in a set have the same price
+    const individualPrice = getIndividualItemPrice(setType, items[0]);
+
+    const alreadyUnlockedItems = paths
+      .filter(itemPath => alreadyUnlocked(user, setType, itemPath)).length;
+    const totalItems = items.length;
+    console.log('totalItems', totalItems, 'alreadyUnlockedItems', alreadyUnlockedItems)
     if (alreadyUnlockedItems === totalItems) {
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
-    // TODO Different pull request
-    // } else if ((totalItems - alreadyOwnedItems) < 3) {
-    //   throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
+    } else if ((totalItems - alreadyUnlockedItems) * individualPrice < cost) {
+      throw new NotAuthorized(i18n.t('alreadyUnlockedPart', req.language));
     }
   } else {
-    unlockedAlready = alreadyUnlocked(user, path);
+    const item = getItemByPath(firstPath, setType);
+    if (!item || !items.includes(item) || !paths.includes(firstPath)) {
+      return invalidSet();
+    }
+
+    cost = getIndividualItemPrice(setType, item);
+
+    unlockedAlready = alreadyUnlocked(user, setType, firstPath);
+
+    // Since only an item is being unlocked here,
+    // remove all the other items from the set
+    items.splice(0, items.length);
+    paths.splice(0, paths.length);
+
+    // Only keep the item being unlocked
+    items.push(item);
+    paths.push(firstPath);
   }
 
   if (isBackground && !unlockedAlready
@@ -149,7 +220,7 @@ export default function unlock (user, req = {}, analytics) {
   }
 
   if (isFullSet) {
-    setPaths.forEach(pathPart => purchaseItem(pathPart, user));
+    paths.forEach(pathPart => purchaseItem(pathPart, setType, user));
   } else {
     const [key, value] = splitPathItem(path);
 
@@ -157,9 +228,8 @@ export default function unlock (user, req = {}, analytics) {
       const unsetBackground = isBackground && value === user.preferences.background;
       setAsObject(user, `preferences.${key}`, unsetBackground ? '' : value);
     } else {
-      purchaseItem(path, user);
+      purchaseItem(paths[0], setType, user);
 
-      // @TODO: Test and check test coverage
       if (isBackground) {
         const backgroundContent = content.backgroundsFlat[value];
         const itemInfo = getItemInfo(user, 'background', backgroundContent);

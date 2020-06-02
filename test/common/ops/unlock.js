@@ -9,7 +9,7 @@ describe('shared.ops.unlock', () => {
   const unlockGearSetPath = 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars';
   const backgroundUnlockPath = 'background.giant_florals';
   const unlockCost = 1.25;
-  const usersStartingGems = 5;
+  const usersStartingGems = 50 / 4;
 
   beforeEach(() => {
     user = generateUser();
@@ -48,38 +48,72 @@ describe('shared.ops.unlock', () => {
   });
 
   it('returns an error when user already owns a full set', done => {
+    let expectedBalance;
+
     try {
       unlock(user, { query: { path: unlockPath } });
+      expectedBalance = user.balance;
       unlock(user, { query: { path: unlockPath } });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('alreadyUnlocked'));
-      expect(user.balance).to.equal(3.75);
+      expect(user.balance).to.equal(expectedBalance);
       done();
     }
   });
 
   it('returns an error when user already owns a full set of gear', done => {
+    let expectedBalance;
+
     try {
       unlock(user, { query: { path: unlockGearSetPath } });
+      expectedBalance = user.balance;
       unlock(user, { query: { path: unlockGearSetPath } });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('alreadyUnlocked'));
-      expect(user.balance).to.equal(3.75);
+      expect(user.balance).to.equal(expectedBalance);
       done();
     }
   });
 
   it('returns an error when user already owns items in a full set and it would be more expensive to buy the entire set', done => {
     try {
-      unlock(user, { query: { path: unlockPath.split(',').splice(2).join(',') } });
+      // There are 11 shirts in the set, each cost 2 gems, the full set 5 gems
+      // In order for the full purchase not to be worth, we must own 9
+      const partialUnlockPaths = unlockPath.split(',');
+      unlock(user, { query: { path: partialUnlockPaths[0] } });
+      unlock(user, { query: { path: partialUnlockPaths[1] } });
+      unlock(user, { query: { path: partialUnlockPaths[2] } });
+      unlock(user, { query: { path: partialUnlockPaths[3] } });
+      unlock(user, { query: { path: partialUnlockPaths[4] } });
+      unlock(user, { query: { path: partialUnlockPaths[5] } });
+      unlock(user, { query: { path: partialUnlockPaths[6] } });
+      unlock(user, { query: { path: partialUnlockPaths[7] } });
+      unlock(user, { query: { path: partialUnlockPaths[8] } });
+
       unlock(user, { query: { path: unlockPath } });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('alreadyUnlockedPart'));
       done();
     }
+  });
+
+  it('does not return an error when user already owns items in a full set and it would not be more expensive to buy the entire set', () => {
+    // There are 11 shirts in the set, each cost 2 gems, the full set 5 gems
+    // In order for the full purchase to be worth, we can own already 8
+    const partialUnlockPaths = unlockPath.split(',');
+    unlock(user, { query: { path: partialUnlockPaths[0] } });
+    unlock(user, { query: { path: partialUnlockPaths[1] } });
+    unlock(user, { query: { path: partialUnlockPaths[2] } });
+    unlock(user, { query: { path: partialUnlockPaths[3] } });
+    unlock(user, { query: { path: partialUnlockPaths[4] } });
+    unlock(user, { query: { path: partialUnlockPaths[5] } });
+    unlock(user, { query: { path: partialUnlockPaths[6] } });
+    unlock(user, { query: { path: partialUnlockPaths[7] } });
+
+    unlock(user, { query: { path: unlockPath } });
   });
 
   it('equips an item already owned', () => {
