@@ -310,25 +310,7 @@ export default {
       return false;
     },
     async showMemberModal (memberId) {
-      let profile = this.cachedProfileData[memberId];
-
-      if (!profile._id) {
-        const result = await this.$store.dispatch('members:fetchMember', { memberId });
-        if (result.response && result.response.status === 404) {
-          profile.rejected = true;
-        } else {
-          this.cachedProfileData[memberId] = result.data.data;
-          profile = result.data.data;
-        }
-      }
-
-      // Open the modal only if the data is available
-      if (profile && !profile.rejected) {
-        this.$router.push({ name: 'userProfile', params: { userId: profile._id } });
-      }
-      if (profile && profile.rejected) {
-        this.$router.push({ name: 'userProfile', params: { userId: memberId } });
-      }
+      this.$router.push({ name: 'userProfile', params: { userId: memberId } });
     },
     itemWasMounted: debounce(function itemWasMounted () {
       if (this.handleScrollBack) {
