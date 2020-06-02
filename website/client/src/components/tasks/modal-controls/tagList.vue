@@ -16,11 +16,11 @@
         @click.stop="removeTag($event, tag)"
       >
         <div
-          class="tag-label my-auto mx-2"
+          class="tag-label my-auto ml-75 mr-2"
           v-markdown="tag.name"
         ></div>
         <div
-          class="remove mt-n1 ml-auto mr-2"
+          class="remove ml-auto mr-75"
           v-html="icons.remove"
         ></div>
       </div>
@@ -53,8 +53,15 @@
         }
       }
 
-      .remove svg path {
-        stroke: $gray-200;
+      .remove {
+        svg {
+          width: 0.5rem;
+          height: 0.5rem;
+
+          path {
+            stroke: $gray-200;
+          }
+        }
       }
     }
   }
@@ -88,15 +95,15 @@
       height: 1rem;
 
       font-size: 12px;
-      line-height: 1.33;
+      line-height: 16px;
       letter-spacing: normal;
       color: $gray-100;
     }
 
     .remove {
       display: inline-block;
-      width: 0.313rem;
       object-fit: contain;
+      margin-top: -0.125rem;
     }
   }
 
