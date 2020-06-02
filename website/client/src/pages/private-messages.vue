@@ -662,8 +662,9 @@ export default {
       this.selectConversation(this.initiatedConversation.uuid);
     }
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off(EVENTS.RESYNC_COMPLETED);
+    this.$root.$off(EVENTS.PM_REFRESH);
   },
   computed: {
     ...mapState({ user: 'user.data' }),

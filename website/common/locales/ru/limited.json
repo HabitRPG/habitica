@@ -177,5 +177,6 @@
     "marchYYYY": "Март <%= year %>",
     "spring2020BeetleWarriorSet": "Жук-носорог (Воин)",
     "spring2020IrisHealerSet": "Ирис (Целитель)",
-    "spring2020PuddleMageSet": "Лужа (Маг)"
+    "spring2020PuddleMageSet": "Лужа (Маг)",
+    "mayYYYY": "Май <%= year %>"
 }

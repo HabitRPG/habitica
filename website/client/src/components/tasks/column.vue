@@ -80,6 +80,7 @@
       <draggable
         ref="tasksList"
         class="sortable-tasks"
+        v-if="taskList.length > 0"
         :options="{disabled: activeFilter.label === 'scheduled' || !isUser, scrollSensitivity: 64}"
         :delay-on-touch-only="true"
         :delay="100"
@@ -168,7 +169,7 @@
     @supports (display: grid) {
       display: grid;
       justify-content: center;
-      grid-column-gap: 16px;
+      grid-column-gap: 10px;
       grid-row-gap: 4px;
       grid-template-columns: repeat(auto-fill, 94px);
     }
@@ -177,7 +178,7 @@
       display: flex;
       flex-wrap: wrap;
       & > div {
-        margin: 0 16px 4px 0;
+        margin: 0 10px 4px 0;
       }
     }
   }
@@ -515,7 +516,7 @@ export default {
       this.loadCompletedTodos();
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');
     if (this.type !== 'todo') return;
     this.$root.$off(EVENTS.RESYNC_COMPLETED);

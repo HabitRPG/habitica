@@ -4,7 +4,7 @@
     "onwards": "やった！",
     "levelup": "実生活での目標達成でレベルアップしました！体力も最大まで回復しました！",
     "reachedLevel": "レベル<%= level %>になりました",
-    "achievementLostMasterclasser": "クエスト完了者: クラス・マスターシリーズ",
+    "achievementLostMasterclasser": "クエスト完了者：クラス・マスターシリーズ",
     "achievementLostMasterclasserText": "クラス・マスタークエストシリーズで16のクエストをすべて完了し、失われたクラス・マスターの謎を解き明かしました！",
     "achievementLostMasterclasserModalText": "クラス・マスタークエストシリーズで16のクエストをすべて完了し、失われたクラス・マスターの謎を解き明かしました！",
     "achievementMindOverMatter": "物体を越える精神力",
