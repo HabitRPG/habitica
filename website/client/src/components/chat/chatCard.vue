@@ -33,7 +33,7 @@
       </p>
       <div
         ref="markdownContainer"
-        class="text"
+        class="text markdown"
         v-html="parseMarkdown(msg.text)"
       ></div>
       <hr>
