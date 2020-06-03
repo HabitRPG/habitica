@@ -120,7 +120,6 @@
       color: $gray-50;
       text-align: left !important;
       min-height: 0rem;
-      margin-bottom: -0.5rem;
     }
   }
 
