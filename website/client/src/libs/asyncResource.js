@@ -6,12 +6,14 @@ import axios from 'axios';
 export function asyncResourceFactory () {
   return {
     loadingStatus: 'NOT_LOADED', // NOT_LOADED, LOADING, LOADED
+    appVersionOnLoad: null, // record the server app version the last time the resource was loaded
     data: null,
   };
 }
 
 export function loadAsyncResource ({
-  store, path, url, deserialize, forceLoad = false,
+  store, path, url, deserialize,
+  forceLoad = false, reloadOnAppVersionChange = false,
 }) {
   if (!store) throw new Error('"store" is required and must be the application store.');
   if (!path) throw new Error('The path to the resource in the application state is required.');
@@ -22,7 +24,16 @@ export function loadAsyncResource ({
   if (!resource) throw new Error(`No resouce found at path "${path}".`);
   const { loadingStatus } = resource;
 
-  if (loadingStatus === 'LOADED' && !forceLoad) {
+  // Has the server been updated since we last loaded this resource?
+  const appVersionHasChanged = loadingStatus === 'LOADED'
+    && store.state.serverAppVersion
+    && store.state.serverAppVersion !== resource.appVersionOnLoad;
+
+  let shouldUpdate = false;
+  if (forceLoad) shouldUpdate = true;
+  if (appVersionHasChanged && reloadOnAppVersionChange) shouldUpdate = true;
+
+  if (loadingStatus === 'LOADED' && !shouldUpdate) {
     return Promise.resolve(resource);
   } if (loadingStatus === 'LOADING') {
     return new Promise((resolve, reject) => {
@@ -34,15 +45,19 @@ export function loadAsyncResource ({
         return reject(); // TODO add reason?
       });
     });
-  } if (loadingStatus === 'NOT_LOADED' || forceLoad) {
-    return axios.get(url).then(response => { // TODO support more params
+  } if (loadingStatus === 'NOT_LOADED' || shouldUpdate) { // @TODO set loadingStatus back to LOADING?
+    return axios.get(url).then(response => { // @TODO support more params
       resource.loadingStatus = 'LOADED';
       // deserialize can be a promise
       return Promise.resolve(deserialize(response)).then(deserializedData => {
         resource.data = deserializedData;
+        // record the app version when the resource was loaded
+        // allows reloading if the app version has changed
+        resource.appVersionOnLoad = store.state.serverAppVersion;
         return resource;
       });
     });
   }
+
   return Promise.reject(new Error(`Invalid loading status "${loadingStatus} for resource at "${path}".`));
 }

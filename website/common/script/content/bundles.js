@@ -221,6 +221,21 @@ const bundles = {
     type: 'quests',
     value: 7,
   },
+  jungleBuddies: {
+    key: 'jungleBuddies',
+    text: t('jungleBuddiesText'),
+    notes: t('jungleBuddiesNotes', { date: moment('2020-05-31').format('LL') }),
+    bundleKeys: [
+      'monkey',
+      'sloth',
+      'treeling',
+    ],
+    canBuy () {
+      return moment().isBetween('2020-05-19', '2020-06-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 export default bundles;

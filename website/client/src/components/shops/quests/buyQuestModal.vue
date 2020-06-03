@@ -28,8 +28,8 @@
       <div class="inner-content">
         <questDialogContent :item="item" />
         <div
-          class="purchase-amount"
           v-if="!item.locked"
+          class="purchase-amount"
         >
           <div class="how-many-to-buy">
             <strong>{{ $t('howManyToBuy') }}</strong>

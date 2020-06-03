@@ -7,7 +7,7 @@
     "buyGemsGoldText": "商人Alexander将以每个20金币的价格卖给你宝石。他的发货上限最初为每月25个宝石，但你每连续订阅3个月，宝石上限将增加5个，最多可达每月50宝石！",
     "mustSubscribeToPurchaseGems": "只有订阅后才能用金币购买宝石",
     "reachedGoldToGemCap": "你已经达到了每月金币=>宝石的兑换上限<%= convCap %>。这是为了防止滥用情况的出现。该上限在每月的前三天内重置。",
-    "reachedGoldToGemCapQuantity": "你请求的兑换数量<%= quantity %>超过了本月金币=>宝石的兑换上限<%= convCap %>。这是为了防止滥用情况的出现。该上限在每月的前三天内重置。",
+    "reachedGoldToGemCapQuantity": "你请求的兑换数量<%= quantity %>超过了这个月的上限（<%= convCap %>）。该上限在每月的前三天内重置。谢谢你的订阅！",
     "retainHistory": "保留额外的历史条目",
     "retainHistoryText": "使完成的待办事项和任务的历史记录更长时间保留。",
     "doubleDrops": "每日掉落上限翻倍",
@@ -248,5 +248,6 @@
     "subscribersReceiveBenefits": "订阅者可以获得这些优越的好处！",
     "mysterySet202003": "倒刺斗士套装",
     "giftASubscription": "赠送订阅",
-    "mysterySet202004": "强大的君主斑蝶套装"
+    "mysterySet202004": "强大的君主斑蝶套装",
+    "mysterySet202005": "美妙的飞龙套装"
 }

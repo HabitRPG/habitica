@@ -7,7 +7,7 @@
     "buyGemsGoldText": "商人のAlexanderが、ジェムを１個につき20ゴールドで売ってくれます。Alexanderと1ヵ月の間に取り引きできるジェムの数は、最初は25個に限定されています。しかし、寄付の継続3カ月ごとにその数が5個ずつ増えていき、最大で月に50個を買うことができます！",
     "mustSubscribeToPurchaseGems": "ゴールドでジェムを買うには、寄付が必要です",
     "reachedGoldToGemCap": "ゴールドで買えるジェムの上限が今月で <%= convCap %> に達しました。乱用や不正なジェムの増殖を止めるために上限を設けています。制限は毎月1日から3日のいずれかの時点で解除されます。",
-    "reachedGoldToGemCapQuantity": "あなたのゴールドからジェムへの交換リクエスト数 <%= quantity %> は、今月の交換上限数 <%= convCap %> を超えてしまっています。乱用や不正なジェムの増殖を止めるために上限を設けています。制限は毎月1日から3日のいずれかの時点で解除されます。",
+    "reachedGoldToGemCapQuantity": "あなたがリクエストした数 <%= quantity %> は、今月中に購入できる上限数を超えています（<%= convCap %>）。毎月1日から3日のいずれかの時点で、最大数が利用可能になります。ご寄付いただきありがとうございます！",
     "retainHistory": "詳細な履歴の保存",
     "retainHistoryText": "完了した To-Do やタスクの履歴を、より長期間閲覧可能になります。",
     "doubleDrops": "落とし物上限が2倍に",
@@ -245,5 +245,9 @@
     "subscriptionCanceled": "寄付はキャンセルされました",
     "cancelSubAlternatives": "技術的な問題があるかHabiticaがうまく動いていないように見えるときは、<a href='mailto:admin@habitica.com'>私たちに連絡する</a>ことをご検討ください。あなたがHabiticaを最大限に楽しめるよう私たちはお役に立ちたいです。",
     "subMonths": "寄付の月",
-    "subscriptionStats": "寄付のステータス"
+    "subscriptionStats": "寄付のステータス",
+    "mysterySet202004": "ダイオウカバマダラセット",
+    "mysterySet202005": "比類無き飛竜セット",
+    "mysterySet202003": "とげとげ闘士セット",
+    "mysterySet202002": "優雅な想い人セット"
 }

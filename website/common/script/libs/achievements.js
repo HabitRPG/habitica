@@ -200,6 +200,7 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'tickledPink', language });
   _addSimple(result, user, { path: 'rosyOutlook', language });
   _addSimple(result, user, { path: 'bugBonanza', language });
+  _addSimple(result, user, { path: 'bareNecessities', language });
 
   _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
   _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });

@@ -1295,7 +1295,7 @@ export default {
   created () {
     document.addEventListener('keyup', this.handleEsc);
   },
-  destroyed () {
+  beforeDestroy () {
     document.removeEventListener('keyup', this.handleEsc);
   },
   methods: {
