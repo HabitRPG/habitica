@@ -865,14 +865,6 @@ export default {
       this.selectedPage = page || 'profile';
       window.history.replaceState(null, null, '');
     },
-    sendMessage () {
-      this.$store.dispatch('user:newPrivateMessageTo', {
-        member: this.user,
-      });
-
-      this.$router.push('/private-messages');
-      this.$root.$emit('bv::hide::modal', 'profile');
-    },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
       // if (!currentLoginDay) return this.$t('checkinReceivedAllRewardsMessage');
