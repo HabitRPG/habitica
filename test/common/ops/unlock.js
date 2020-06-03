@@ -1,10 +1,10 @@
+import get from 'lodash/get';
 import unlock from '../../../website/common/script/ops/unlock';
 import i18n from '../../../website/common/script/i18n';
 import { generateUser } from '../../helpers/common.helper';
 import { NotAuthorized, BadRequest } from '../../../website/common/script/libs/errors';
-import get from 'lodash/get';
 
-describe.only('shared.ops.unlock', () => {
+describe('shared.ops.unlock', () => {
   let user;
   const unlockPath = 'shirt.convict,shirt.cross,shirt.fire,shirt.horizon,shirt.ocean,shirt.purple,shirt.rainbow,shirt.redblue,shirt.thunder,shirt.tropical,shirt.zombie';
   const unlockGearSetPath = 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars';
