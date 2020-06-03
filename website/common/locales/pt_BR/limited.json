@@ -178,5 +178,6 @@
     "spring2020LapisLazuliRogueSet": "Lazulita (Gatuno)",
     "spring2020IrisHealerSet": "Íris (Curandeiro)",
     "spring2020PuddleMageSet": "Poça d'água (Mago)",
-    "spring2020BeetleWarriorSet": "Besouro rinoceronte (Guerreiro)"
+    "spring2020BeetleWarriorSet": "Besouro rinoceronte (Guerreiro)",
+    "mayYYYY": "Maio <%= year %>"
 }

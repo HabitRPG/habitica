@@ -199,7 +199,7 @@
     "monthlyRepeatHelpContent": "這個任務每X月會結算一次",
     "yearlyRepeatHelpContent": "這個任務每X年會結算一次",
     "resets": "重設",
-    "summaryStart": "每<%= everyX %><%= frequencyPlural %>重複<%= frequency %>次 ",
+    "summaryStart": "每<%= everyX %><%= frequencyPlural %>重複<%= frequency %>次",
     "nextDue": "下個截止日期",
     "checkOffYesterDailies": "勾選你昨天做過的每日任務：",
     "yesterDailiesTitle": "你昨天有一些每日任務沒有完成，你想要現在完成他們嗎？",

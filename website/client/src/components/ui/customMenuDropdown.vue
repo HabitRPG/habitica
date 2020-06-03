@@ -91,7 +91,7 @@ export default {
   mounted () {
     document.documentElement.addEventListener('click', this._clickOutListener);
   },
-  destroyed () {
+  beforeDestroy () {
     document.removeEventListener('click', this._clickOutListener);
   },
   methods: {

@@ -5,7 +5,8 @@
   >
     <div
       class="svg-icon color"
-      v-html="icons.pin">
+      v-html="icons.pin"
+    >
     </div>
   </div>
 </template>

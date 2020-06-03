@@ -60,7 +60,10 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
+    "beginningOfConversation": "Ito ang simula ng inyong usapan ni <%= userName %>.",
     "messageDeletedUser": "Sorry, this user has deleted their account.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Missing display name.",
+    "canDeleteNow": "Maaari mo nang tanggalin ang mensahe kung nais mo.",
+    "reportedMessage": "Na-report mo ito sa mga moderators.",
+    "beginningOfConversationReminder": "Alalahaning maging mabait, magalang, at sumunod sa mga Patnubay na Pangkomunidad!"
 }

@@ -178,5 +178,6 @@
     "spring2020LapisLazuliRogueSet": "Lapis Lazuli (Rogue)",
     "spring2020IrisHealerSet": "Iris (Healer)",
     "spring2020PuddleMageSet": "Puddle (Mage)",
-    "spring2020BeetleWarriorSet": "Rhinoceros Beetle (Warrior)"
+    "spring2020BeetleWarriorSet": "Rhinoceros Beetle (Warrior)",
+    "mayYYYY": "May <%= year %>"
 }

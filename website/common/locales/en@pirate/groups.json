@@ -141,8 +141,8 @@
     "PMDisabledOptPopoverText": "Private Messages are disabled. Enable this option t' allow users t' contact ye via yer profile.",
     "PMDisabledCaptionTitle": "Private Messages are disabled",
     "PMDisabledCaptionText": "Ye can still send messages, but no one can send them t' ye.",
-    "block": "Block",
-    "unblock": "Un-block",
+    "block": "Block 'em",
+    "unblock": "Un-block 'em",
     "blockWarning": "Block - This will 'ave no effect if th' player be a moderator now or becomes a moderator in future.",
     "pm-reply": "Send a reply",
     "inbox": "Inbox",
@@ -486,5 +486,10 @@
     "taskClaimed": "<%= userName %> 'as claimed th' task <span class=\"notification-bold\"><%= taskText %></span>.",
     "youHaveBeenAssignedTask": "<%= managerName %> 'as assign'd ye th' task <span class=\"notification-bold\"><%= taskText %></span>.",
     "blockedToSendToThisUser": "Ye canna send t' this player since ye've blocked this player.",
-    "PMDisabled": "Turn off yer Private Messages"
+    "PMDisabled": "Turn off yer Private Messages",
+    "sendGiftToWhom": "Ta whom d'ye want ta be sendin' a gift?",
+    "selectGift": "Pick a Gift",
+    "PMUnblockUserToSendMessages": "Unblock this user ta continue sendin' an receivin' messages.",
+    "PMUserDoesNotReceiveMessages": "This user be unable ta receive private messages",
+    "PMCanNotReply": "Ye cannae reply ta this con-ver-sation"
 }

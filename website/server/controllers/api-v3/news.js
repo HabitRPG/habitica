@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'MAY SUBSCRIBER ITEMS AND OFFICIAL HABITICA CHALLENGES!';
+const LAST_ANNOUNCEMENT_TITLE = 'JUNE SUBSCRIBER ITEMS, RESOLUTION SUCCESS CHALLENGE, AND TAKE THIS CHALLENGE';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,47 +31,48 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>5/4/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>6/1/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_202005 center-block"></div>
-        <h3>May Subscriber Items Revealed!</h3>
+        <div class="promo_mystery_202006 center-block"></div>
+        <h3>June Subscriber Items Revealed!</h3>
         <p>
-          The May Subscriber Item Set has been revealed: the Wondrous Wyvern Item Set! <a
-          href='/user/settings/subscription'>Subscribe to Habitica</a> by May 31 to receive this
+          The June Subscriber Item Set is here: the Multichrome Merfolk Item Set! <a
+          href='/user/settings/subscription'>Subscribe to Habitica</a> by June 30 to receive this
           exciting set! If you're already an active subscriber, reload the site and then head to
           Inventory > Items to claim your gear!
         </p>
         <p>
           Subscribers also receive the ability to buy Gems with Gold -- the longer you subscribe,
-          the more Gems you can buy per month! There are other perks as well, such as longer
-          access to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us
-          keep Habitica running. Thank you very much for your support -- it means a lot to us.
+          the more Gems you can buy per month! There are other perks as well, such as longer access
+          to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep
+          Habitica running. Thank you very much for your support -- it means a lot to us.
         </p>
         <div class="small mb-3">by Beffymaroo</div>
-        <div class="scene_casting_spells center-block"></div>
-        <h3>May 2020 Resolution Success Challenge and Take This Challenge</h3>
+        <div class="scene_hiking center-block"></div>
+        <h3>June 2020 Resolution Success Challenge and Take This Challenge</h3>
         <p>
           The Habitica team has launched a special official Challenge series hosted in the <a
-          href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99'>Official New Year's Resolution
-          Guild</a>. These Challenges are designed to help you build and maintain goals that are
-          destined for success and then stick with them as the year progresses. For this month's
-          Challenge, <a href='/challenges/7b0f5ff4-6022-462a-af6b-b153aea2517e'>Review Your Combat
-          Tactics</a>, we're focusing on refining your strategy to help you stay motivated and keep
-          moving forward as we're almost halfway through the year! It has a 15 Gem prize, which
-          will be awarded to five lucky winners on June 1st.
+          href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New
+          Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain
+          goals that are destined for success and then stick with them as the year progresses. For
+          this month's Challenge, <a href='/challenges/c69a9194-b4a4-43aa-bf3e-9b3bea476755'>Mark
+          Your Journey</a>, we're reflecting on your achievements since January and looking ahead
+          to the rest of the year! It has a 15 Gem prize, which will be awarded to five lucky
+          winners on July 1st.
         </p>
         <p>
-          Congratulations to the winners of April's Challenge: @Auralov, @organized_aspie,
-          @yasaminnb, @noblegeas and @Nodel!
+          Congratulations to the winners of May's Challenge, @kelps, @JHylander, @theFishhimself,
+          @akverbatim, and @SunshineDay29!
         </p>
         <p>
           The next Take This Challenge has also launched, "<a
-          href='/challenges/e6d862f8-5b96-4465-8e2f-18ee79592b4a'>Don't Be a Completionist!</a>",
-          with a focus on prioritization. Be sure to check it out to earn additional pieces of the
-          Take This armor set!
+          href='/challenges/9553b11a-2933-4ec6-83f9-84a412dd7896'>Keep Calm and Carry On!</a>",
+          with a focus on practicing breathing techniques to relieve intense emotions. Be sure to
+          check it out to earn additional pieces of the Take This armor set!
         </p>
+        <div class="promo_take_this center-block"></div>
         <p>
           <a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that
           seeks to inform the gamer community about mental health issues, to provide education
@@ -79,9 +80,9 @@ api.getNews = {
           illness.
         </p>
         <p>
-          Congratulations to the winners of the last Take This Challenge, "This One Goes to 11!":
-          grand prize winner @Daphne36, and runners-up @aggripa, @Lily_of_the_valley,
-          @Mockingjayabi, @Cirth, and @KatieIrene! Plus, all participants in that Challenge have
+          Congratulations to the winners of the last Take This Challenge, "Don't Be a
+          Completionist!": grand prize winner @Felicius, and runners-up @zhanghaoran, Zashi,
+          @marie56, @KelaLilBear, and @LiamTown! Plus, all participants in that Challenge have
           received a piece of the <a
           href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set'
           target='_blank'>Take This item set</a> if they hadn't completed it already. It is located

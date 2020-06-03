@@ -326,8 +326,9 @@ export function cron (options = {}) {
   // make uncompleted To-Dos redder (further incentive to complete them)
   tasksByType.todos.forEach(task => {
     if (
-      task.group.assignedDate
-      && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated)
+      task.completed
+      || (task.group.assignedDate
+      && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated))
     ) return;
     scoreTask({
       task,

@@ -166,9 +166,7 @@ async function inviteByEmail (invite, group, inviter, req, res) {
   } else {
     userReturnInfo = invite.email;
 
-    let cancelledPlan = false;
-    if (group.hasActiveGroupPlan() && !group.hasNotCancelled()) cancelledPlan = true;
-
+    const cancelledPlan = group.hasActiveGroupPlan() && !group.hasNotCancelled();
     const groupQueryString = JSON.stringify({
       id: group._id,
       inviter: inviter._id,
