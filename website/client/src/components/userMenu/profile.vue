@@ -5,16 +5,19 @@
   >
     <div class="header">
       <div class="profile-actions d-flex">
-        <button
-          v-b-tooltip.hover.left="$t('sendMessage')"
-          class="btn btn-secondary message-icon"
-          @click="sendMessage()"
+        <router-link
+          :to="{ path: '/private-messages', query: { uuid: user._id } }"
+          replace
         >
-          <div
-            class="svg-icon message-icon"
-            v-html="icons.message"
-          ></div>
-        </button>
+          <button
+            v-b-tooltip.hover.left="$t('sendMessage')"
+            class="btn btn-secondary message-icon"
+          >
+            <div class="svg-icon message-icon"
+                 v-html="icons.message"
+            ></div>
+          </button>
+        </router-link>
         <button
           v-b-tooltip.hover.bottom="$t('sendGems')"
           class="btn btn-secondary gift-icon"
