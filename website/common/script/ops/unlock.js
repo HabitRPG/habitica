@@ -20,15 +20,14 @@ function splitPathItem (path) {
 /**
  * Throw an error when the provided set isn't valid.
  */
-function invalidSet () {
-  throw new BadRequest("invalid set string");
+function invalidSet (req) {
+  throw new BadRequest(i18n.t('invalidUnlockSet', req.language));
 }
 
 /**
  * Return an item given its path and the type of set
  */
 function getItemByPath (path, setType) {
-  console.log('getting item by path', path, setType);
   const itemKey = splitPathItem(path)[1];
   const item = setType === 'gear'
     ? content.gear.flat[itemKey]
@@ -40,27 +39,25 @@ function getItemByPath (path, setType) {
 /**
  * Return the type of the set (gear or one of the appareance sets - see content.appearances).
  */
-function getSetType (firstPath) {
+function getSetType (firstPath, req) {
   if (firstPath.includes('gear.')) return 'gear';
 
   const type = firstPath.split('.')[0];
   if (content.appearances[type]) return type;
 
-  return invalidSet();
+  return invalidSet(req);
 }
 
 /**
  * Return the set of items to unlock given the path of the first item in the set.
  */
-function getSet (setType, firstPath) {
-  console.log('getting set from type and firstpath', setType, firstPath);
+function getSet (setType, firstPath, req) {
   const item = getItemByPath(firstPath, setType);
-  console.log('item', item);
-  if (!item) return invalidSet();
+  if (!item) return invalidSet(req);
 
   if (setType === 'gear') {
     // Only animal gear sets are unlockable
-    if (item.gearSet !== 'animal') return invalidSet();
+    if (item.gearSet !== 'animal') return invalidSet(req);
 
     // Since each type of gear has only one purchasable set (the animal set)
     // we get all items with the same type and gearSet === 'animal'
@@ -77,10 +74,9 @@ function getSet (setType, firstPath) {
 
     return { items, paths, set: { setPrice: 5 } };
   }
-  console.log('not a gear set');
 
   const { set } = item;
-  if (!set || set.setPrice === 0) return invalidSet();
+  if (!set || set.setPrice === 0) return invalidSet(req);
 
   const items = [];
   const paths = [];
@@ -119,6 +115,9 @@ function markModified (user, path) {
   if (user.markModified) user.markModified(path);
 }
 
+/**
+ * Purchase an item from a set for a given user
+ */
 function purchaseItem (path, setType, user) {
   const isGear = setType === 'gear';
 
@@ -133,10 +132,13 @@ function purchaseItem (path, setType, user) {
   }
 }
 
-function getIndividualItemPrice (setType, item) {
+/**
+ * Return the price of a single item in a set
+ */
+function getIndividualItemPrice (setType, item, req) {
   if (setType === 'gear') return 0.5;
 
-  if (!item.price || item.price === 0) return invalidSet();
+  if (!item.price || item.price === 0) return invalidSet(req);
   return item.price / 4;
 }
 
@@ -162,29 +164,30 @@ export default function unlock (user, req = {}, analytics) {
   const isFullSet = setPaths.length > 1;
   const firstPath = setPaths[0];
 
-  const setType = getSetType(firstPath);
+  const setType = getSetType(firstPath, req);
   const isBackground = setType === 'background';
 
   // We take the first path and use it to get the set,
   // The passed paths are not used anymore after this point for full sets
-  const { set, items, paths } = getSet(setType, firstPath);
+  const { set, items, paths } = getSet(setType, firstPath, req);
 
   let cost;
   let unlockedAlready = false;
 
-  console.log('isFullSet', isFullSet, 'setType', setType);
-
   if (isFullSet) {
-    console.log('fullset', {items}, {paths}, {set});
+    // Make sure the paths as parameters match the ones from the set
+    if (setPaths.length !== paths.length) return invalidSet(req);
+    if (!setPaths.every(setPath => paths.includes(setPath))) return invalidSet(req);
+
     cost = set.setPrice / 4;
 
     // all items in a set have the same price
-    const individualPrice = getIndividualItemPrice(setType, items[0]);
+    const individualPrice = getIndividualItemPrice(setType, items[0], req);
 
     const alreadyUnlockedItems = paths
       .filter(itemPath => alreadyUnlocked(user, setType, itemPath)).length;
     const totalItems = items.length;
-    console.log('totalItems', totalItems, 'alreadyUnlockedItems', alreadyUnlockedItems)
+
     if (alreadyUnlockedItems === totalItems) {
       throw new NotAuthorized(i18n.t('alreadyUnlocked', req.language));
     } else if ((totalItems - alreadyUnlockedItems) * individualPrice < cost) {
@@ -193,10 +196,10 @@ export default function unlock (user, req = {}, analytics) {
   } else {
     const item = getItemByPath(firstPath, setType);
     if (!item || !items.includes(item) || !paths.includes(firstPath)) {
-      return invalidSet();
+      return invalidSet(req);
     }
 
-    cost = getIndividualItemPrice(setType, item);
+    cost = getIndividualItemPrice(setType, item, req);
 
     unlockedAlready = alreadyUnlocked(user, setType, firstPath);
 
