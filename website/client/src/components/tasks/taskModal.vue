@@ -15,54 +15,76 @@
       :class="cssClass('bg')"
       @click="handleClick($event)"
     >
-      <div class="clearfix">
-        <h1 class="float-left">
+      <div class="d-flex align-items-center mb-3">
+        <h2
+          class="my-auto"
+          :class="cssClassHeadings"
+        >
           {{ title }}
-        </h1>
-        <div class="float-right d-flex align-items-center">
+        </h2>
+        <div class="ml-auto d-flex align-items-center">
           <span
-            v-once
-            class="cancel-task-btn mr-2"
+            class="cancel-task-btn mr-3"
+            :class="cssClassHeadings"
             @click="cancel()"
           >{{ $t('cancel') }}</span>
-          <button
-            v-once
-            class="btn btn-secondary"
+          <div
+            class="btn btn-secondary d-flex align-items-center justify-content-center"
+            :class="{disabled: !canSave}"
             @click="submit()"
           >
-            {{ $t('save') }}
-          </button>
+            <div
+              class="m-auto"
+              v-if="purpose === 'edit'"
+            >
+              {{ $t('save') }}
+            </div>
+            <div
+              class="m-auto"
+              v-if="purpose === 'create'"
+            >
+              {{ $t('create') }}
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-group">
-        <label v-once>{{ `${$t('text')}*` }}</label>
+        <label
+          :class="cssClassHeadings"
+          class="mb-1"
+        >{{ `${$t('text')}*` }}</label>
         <input
           ref="inputToFocus"
           v-model="task.text"
-          class="form-control title-input"
+          class="form-control input-title"
+          :class="cssClass('input')"
           type="text"
           required="required"
           spellcheck="true"
           :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+          :placeholder="$t('addATitle')"
         >
       </div>
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label
-          v-once
-          class="d-flex align-items-center justify-content-between"
+          class="d-flex align-items-center justify-content-between mb-1"
         >
-          <span>{{ $t('notes') }}</span>
-          <small v-once>
+          <span
+            :class="cssClassHeadings"
+          >{{ $t('notes') }}</span>
+          <small>
             <a
               target="_blank"
               href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet"
+              :class="cssClassHeadings"
             >{{ $t('markdownHelpLink') }}</a>
           </small>
         </label>
         <textarea
           v-model="task.notes"
-          class="form-control"
-          rows="3"
+          class="form-control input-notes"
+          :class="cssClass('input')"
+          :placeholder="$t('addNotes')"
         ></textarea>
       </div>
     </div>
@@ -1298,6 +1320,9 @@ export default {
     canDelete () {
       return this.purpose !== 'create' && this.canDeleteTask(this.task);
     },
+    canSave () {
+      return this.task && this.task.text && this.task.text.length > 0;
+    },
     title () {
       const type = this.$t(this.task.type);
       return this.$t(this.purpose === 'edit' ? 'editATask' : 'createTask', { type });
@@ -1341,6 +1366,11 @@ export default {
     },
     remainingSelectedTags () {
       return this.selectedTags.slice(this.maxTags);
+    },
+    cssClassHeadings () {
+      const textClass = this.cssClass('text');
+      if (textClass.indexOf('purple') !== -1 || textClass.indexOf('worst') !== -1) return null;
+      return textClass;
     },
   },
   watch: {
