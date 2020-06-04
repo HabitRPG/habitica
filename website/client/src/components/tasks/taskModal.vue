@@ -740,10 +740,10 @@
           @click="destroy()"
         >
           <div
-            class="svg-icon d-inline-b"
+            class="svg-icon d-inline-b mt-1 mb-1"
             v-html="icons.destroy"
           ></div>
-          <span>{{ $t('deleteTask') }}</span>
+          <span class="delete-text mt-1 mb-1">{{ $t('deleteTask') }}</span>
         </div>
       </form>
     </div>
@@ -778,27 +778,29 @@
       max-width: 448px;
     }
 
-    label {
-      font-weight: bold;
+    .no-transition {
+      transition: none;
     }
 
-    .input-group > * {
-      height: 40px;
+    .form-control:not(.input-title):not(.input-notes):not(.checklist-item) {
+      height: 40px !important; // until the new changes of teams-2020 are applied
+    }
+
+    // until the new changes of teams-2020 are applied
+    .vdp-datepicker {
+      .input-group-append {
+        height: 40px !important;
+      }
     }
 
     input, textarea {
-      border: none;
-      background: rgba(0, 0, 0, 0.24);
-      color: rgba($white, 0.64) !important;
-      transition-property: border-color, box-shadow, color, background;
-
-      &:focus, &:active {
-        color: $white !important;
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.32);
+      &:not(:host-context(.tags-popup)) {
+        border: none;
       }
-
+      transition-property: border-color, box-shadow, color, background;
+      background-color: rgba(255, 255, 255, 0.5);
       &:focus, &:active, &:hover {
-        background-color: rgba(0, 0, 0, 0.40);
+        background-color: rgba(255, 255, 255, 0.75);
       }
     }
 
@@ -817,6 +819,10 @@
       padding-right: 23px;
     }
 
+    .cursor-auto {
+      cursor: auto;
+    }
+
     .task-modal-header {
       color: $white;
       width: 100%;
@@ -825,7 +831,7 @@
       padding-top: 16px;
       padding-bottom: 24px;
 
-      h1 {
+      h2 {
         color: $white;
       }
     }
@@ -913,25 +919,6 @@
         color: $gray-50;
         text-align: center;
         transition-property: none;
-      }
-    }
-
-    .habit-control {
-      .option-item-box {
-        background: $white;
-        border: 2px solid $gray-600;
-
-        .habit-control { background: $gray-300; }
-        .svg-icon { color: $white; }
-      }
-
-      &-enabled {
-        .option-item-box {
-          border: 2px solid transparent;
-          transition-property: none;
-
-          .habit-control { background: $white !important; }
-        }
       }
     }
 
@@ -1092,23 +1079,39 @@
       }
     }
 
-    .delete-task-btn, .cancel-task-btn {
+        .delete-task-btn, .cancel-task-btn {
       cursor: pointer;
-
       &:hover, &:focus, &:active {
         text-decoration: underline;
       }
     }
-
     .delete-task-btn {
       margin-top: 32px;
       margin-bottom: 8px;
-      color: $red-50;
-
+      height: 1.5rem;
+      align-items: center;
+      &:hover, &:focus, &:active {
+        text-decoration: underline;
+        text-decoration-color: $maroon-50;
+      }
+      .delete-text {
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.71;
+        letter-spacing: normal;
+        color: $maroon-50;
+        height: 1.5rem;
+      }
       .svg-icon {
-        width: 14px;
-        height: 16px;
-        margin-right: 8.5px;
+        svg {
+          height: 1rem;
+          width: 1rem;
+          object-fit: contain;
+        }
+        margin-right: 0.5rem;
+        color: $maroon-50;
       }
     }
 
@@ -1208,6 +1211,28 @@
         color: $gray-100;
         font-weight: normal;
       }
+    }
+  }
+
+  input, textarea, input.form-control, textarea.form-control {
+    padding: 0.25rem 0.75rem;
+    line-height: 1.71;
+  }
+  .input-title {
+    height: 2rem;
+  }
+  .input-notes {
+    height: 3.5rem;
+  }
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.71;
+  }
+  .flex-group {
+    display: flex;
+    .flex {
+      flex: 1;
     }
   }
 </style>
@@ -1426,6 +1451,10 @@ export default {
       this.syncTask();
     },
     cssClass (suffix) {
+      if (!this.task) {
+        return '';
+      }
+
       return this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
     },
     closeTagsPopup () {
@@ -1501,6 +1530,7 @@ export default {
       }
     },
     async submit () {
+      if (!this.canSave) return;
       if (this.newChecklistItem) this.addChecklistItem();
 
       // TODO Fix up permissions on task.group so we don't have to keep doing these hacks
