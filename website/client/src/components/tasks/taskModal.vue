@@ -11,7 +11,7 @@
     <div
       v-if="task"
       slot="modal-header"
-      class="task-modal-header"
+      class="task-modal-header p-4"
       :class="cssClass('bg')"
       @click="handleClick($event)"
     >
@@ -147,49 +147,49 @@
           class="d-flex justify-content-center"
         >
           <div
-            class="option-item habit-control"
-            :class="task.up ? 'habit-control-enabled' : cssClass('habit-control-disabled')"
+            class="habit-option-container no-transition
+              d-flex flex-column justify-content-center align-items-center"
             @click="toggleUpDirection()"
+            :class="!task.up ? cssClass('habit-control-disabled') : ''"
           >
             <div
-              class="option-item-box"
+              class="habit-option-button no-transition
+                d-flex justify-content-center align-items-center mb-2"
               :class="task.up ? cssClass('bg') : ''"
             >
-              <div class="task-control habit-control">
-                <div
-                  class="svg-icon positive"
-                  :class="task.up ? cssClass('icon') : ''"
-                  v-html="icons.positive"
-                ></div>
-              </div>
+              <div
+                class="habit-option-icon svg-icon no-transition"
+                :class="task.up ? '' : 'disabled'"
+                v-html="icons.positive"
+              ></div>
             </div>
             <div
-              class="option-item-label"
-              :class="task.up ? cssClass('text') : ''"
+              class="habit-option-label no-transition"
+              :class="task.up ? cssClass('icon') : 'disabled'"
             >
               {{ $t('positive') }}
             </div>
           </div>
           <div
-            class="option-item habit-control"
-            :class="task.down ? 'habit-control-enabled' : cssClass('habit-control-disabled')"
+            class="habit-option-container no-transition
+              d-flex flex-column justify-content-center align-items-center"
             @click="toggleDownDirection()"
+            :class="!task.down ? cssClass('habit-control-disabled') : ''"
           >
             <div
-              class="option-item-box"
+              class="habit-option-button no-transition
+                d-flex justify-content-center align-items-center mb-2"
               :class="task.down ? cssClass('bg') : ''"
             >
-              <div class="task-control habit-control">
-                <div
-                  class="svg-icon negative"
-                  :class="task.down ? cssClass('icon') : ''"
-                  v-html="icons.negative"
-                ></div>
-              </div>
+              <div
+                class="habit-option-icon no-transition svg-icon negative mx-auto"
+                :class="task.down ? '' : 'disabled'"
+                v-html="icons.negative"
+              ></div>
             </div>
             <div
-              class="option-item-label"
-              :class="task.down ? cssClass('text') : ''"
+              class="habit-option-label no-transition"
+              :class="task.down ? cssClass('icon') : 'disabled'"
             >
               {{ $t('negative') }}
             </div>
@@ -1147,9 +1147,46 @@
 </style>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .gold {
     width: 24px;
     margin: 0 7px;
+  }
+
+  .habit-option {
+    &-container {
+      min-width: 3rem;
+      cursor: pointer;
+      &:first-of-type {
+        margin-right: 2rem;
+      }
+    }
+    &-button {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+    }
+    &-icon {
+      width: 10px;
+      height: 10px;
+      color: $white;
+      &.disabled {
+        color: $gray-200;
+      }
+      &.negative {
+        margin-top: 0.5rem;
+      }
+    }
+    &-label {
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      &.disabled {
+        color: $gray-100;
+        font-weight: normal;
+      }
+    }
   }
 </style>
 
