@@ -29,6 +29,12 @@
     display: flex;
     align-items: center;
 
+    div.svg-icon {
+      ::v-deep svg {
+        fill: $gray-200;
+      }
+    }
+
     &:hover, &.isButton {
       div.svg-icon {
         ::v-deep svg {
@@ -80,7 +86,7 @@
 
     // highlight the svg icons,
     // when focusing with keyboard (it is outside of the template item
-    *:focus .difficulty-item {
+    .dropdown-item:focus .difficulty-item {
       div.svg-icon {
         svg {
           fill: var(--svg-color);
