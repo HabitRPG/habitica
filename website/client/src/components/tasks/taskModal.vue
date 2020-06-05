@@ -578,10 +578,11 @@
               >
                 <div class="form-group">
                   <label v-once class="mb-1">{{ $t('restoreStreak') }}</label>
-                  <div class="row streak-inputs">
+                  <div class="row streak-inputs" :class="{'both': task.up && task.down}">
                     <div
                       v-if="task.up"
-                      class="col-6 positive"
+                      class="positive"
+                      :class="{'col-6': task.down, 'col-12': !task.down}"
                     >
                       <div class="input-group">
                         <div class="input-group-prepend positive-addon input-group-icon">
@@ -601,7 +602,8 @@
                     </div>
                     <div
                       v-if="task.down"
-                      class="col-6 negative"
+                      class="negative"
+                      :class="{'col-6': task.up, 'col-12': !task.up}"
                     >
                       <div class="input-group">
                         <div class="input-group-prepend negative-addon input-group-icon">
@@ -1073,7 +1075,7 @@
     }
   }
 
-  .streak-inputs {
+  .streak-inputs.both {
     .positive {
       padding-right: 6px;
     }
@@ -1092,6 +1094,7 @@
     letter-spacing: normal;
     text-align: center;
     color: $gray-50;
+    border: 0;
   }
 
 </style>
