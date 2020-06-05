@@ -23,6 +23,9 @@ const blockedIps = BLOCKED_IPS_RAW
   : [];
 
 export default function ipBlocker (req, res, next) {
+  // If there are no IPs to block, skip the middleware
+  if (blockedIps.length === 0) return next();
+
   // Is the client IP, req.ip, blocked?
   const match = blockedIps.find(blockedIp => blockedIp === req.ip) !== undefined;
 
