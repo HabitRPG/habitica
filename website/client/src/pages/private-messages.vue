@@ -434,6 +434,7 @@
 
       height: var(--textarea-auto-height, 40px);
       min-height: var(--textarea-auto-height, 40px);
+      max-height: 300px;
     }
   }
 
