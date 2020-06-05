@@ -31,14 +31,14 @@ input, textarea, input.form-control, textarea.form-control {
   }
 
   &:active:not(:disabled), &:focus:not(:disabled) {
-    border-color: $purple-500;
+    border-color: $purple-400;
     outline: 0;
     box-shadow: none;
   }
 
   &:disabled {
     opacity: 0.64;
-    background: $gray-500;
+    background: $gray-700;
   }
 
   &.input-search {

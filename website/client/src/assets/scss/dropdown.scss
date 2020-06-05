@@ -116,4 +116,9 @@
 .selectListItem .dropdown-item {
   padding: 0.25rem 0.75rem;
   height: 32px;
+
+  &:active, &:hover, &:focus, &.active {
+    background-color: rgba($purple-600, 0.25);
+    color: $purple-300;
+  }
 }

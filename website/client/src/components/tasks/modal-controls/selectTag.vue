@@ -31,10 +31,10 @@
           v-for="tag in availableToSelect"
           :key="tag.id"
           @click.prevent.stop="selectTag(tag)"
-          class="ignore-hide tag-item py-0"
-          :class="{ 'none': tag.id === 'none' }"
+          class="ignore-hide tag-item"
+          :class="{ 'none': tag.id === 'none', selectListItem: true }"
         >
-          <div class="label mt-1 mb-1" v-markdown="tag.name"></div>
+          <div class="label" v-markdown="tag.name"></div>
         </b-dropdown-item-button>
       </div>
     </b-dropdown>
@@ -61,11 +61,6 @@
       background-color: $gray-700;
       padding-bottom: 0;
       min-height: 3rem;
-    }
-
-    .dropdown-item {
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
     }
 
     .dropdown-item, .dropdown-header {
