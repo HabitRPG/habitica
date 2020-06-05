@@ -136,7 +136,7 @@
     "unsubscribeAllEmails": "Отметьте, что бы отписаться от всех уведомлений по электронной почте",
     "unsubscribeAllEmailsText": "Отписываясь от уведомлений по электронной почте, я понимаю, что Habitica не сможет известить меня по электронной почте о важных изменениях на сайте или в моей учетной записи.",
     "unsubscribeAllPush": "Отметьте, что бы отписаться от всех push уведомлений",
-    "correctlyUnsubscribedEmailType": "Вы успешно отписались от уведомлений \"<%= emailType %>\".",
+    "correctlyUnsubscribedEmailType": "Вы успешно отписались от уведомлений «<%= emailType %>».",
     "subscriptionRateText": "Автоплатеж <strong>$<%= price %> (долл. США)</strong> раз в <strong><%= months %> месяц(а)</strong>",
     "recurringText": "автоплатеж",
     "benefits": "Преимущества",

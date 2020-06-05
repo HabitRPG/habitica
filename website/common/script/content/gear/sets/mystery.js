@@ -265,6 +265,12 @@ const armor = {
     mystery: '201910',
     value: 0,
   },
+  202006: {
+    text: t('armorMystery202006Text'),
+    notes: t('armorMystery202006Notes'),
+    mystery: '202006',
+    value: 0,
+  },
   301404: {
     text: t('armorMystery301404Text'),
     notes: t('armorMystery301404Notes'),
@@ -410,6 +416,12 @@ const back = {
     text: t('backMystery202004Text'),
     notes: t('backMystery202004Notes'),
     mystery: '202004',
+    value: 0,
+  },
+  202005: {
+    text: t('backMystery202005Text'),
+    notes: t('backMystery202005Notes'),
+    mystery: '202005',
     value: 0,
   },
 };
@@ -811,6 +823,12 @@ const head = {
     mystery: '202003',
     value: 0,
   },
+  202006: {
+    text: t('headMystery202006Text'),
+    notes: t('headMystery202006Notes'),
+    mystery: '202006',
+    value: 0,
+  },
   301404: {
     text: t('headMystery301404Text'),
     notes: t('headMystery301404Notes'),
@@ -908,6 +926,12 @@ const headAccessory = {
     text: t('headAccessoryMystery202004Text'),
     notes: t('headAccessoryMystery202004Notes'),
     mystery: '202004',
+    value: 0,
+  },
+  202005: {
+    text: t('headAccessoryMystery202005Text'),
+    notes: t('headAccessoryMystery202005Notes'),
+    mystery: '202005',
     value: 0,
   },
   301405: {

@@ -134,6 +134,7 @@ export default new Schema({
     tickledPink: Boolean,
     rosyOutlook: Boolean,
     bugBonanza: Boolean,
+    bareNecessities: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
@@ -149,8 +150,7 @@ export default new Schema({
   },
 
   contributor: {
-    // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear
-    // https://github.com/HabitRPG/habitica/issues/3801
+    // 1-9, see https://habitica.fandom.com/wiki/Contributor_Rewards
     level: {
       $type: Number,
       min: 0,
@@ -655,6 +655,11 @@ export default new Schema({
     path: { $type: String },
     type: { $type: String },
   }],
+
+  // only visible to staff and moderators
+  secret: {
+    text: String,
+  },
 }, {
   skipVersioning: { notifications: true },
   strict: true,

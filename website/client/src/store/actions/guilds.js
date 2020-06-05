@@ -74,8 +74,9 @@ export async function join (store, payload) {
     if (invitationI !== -1) invitations.parties.splice(invitationI, 1);
 
     user.party._id = groupId;
-
     Analytics.updateUser({ partyID: groupId });
+    // load the party members so that they get shown in the header
+    store.dispatch('party:getMembers');
   }
 
   return response.data.data;

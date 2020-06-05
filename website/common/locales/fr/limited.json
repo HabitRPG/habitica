@@ -178,5 +178,6 @@
     "spring2020LapisLazuliRogueSet": "Lapis-lazuli (Voleur)",
     "spring2020IrisHealerSet": "Iris (Guérisseur)",
     "spring2020BeetleWarriorSet": "Scarabée rhinocéros (Guerrier)",
-    "spring2020PuddleMageSet": "Flaque (Mage)"
+    "spring2020PuddleMageSet": "Flaque (Mage)",
+    "mayYYYY": "Mai <%= year %>"
 }

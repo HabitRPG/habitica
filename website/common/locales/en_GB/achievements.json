@@ -78,5 +78,8 @@
     "achievementBugBonanza": "Bug Bonanza",
     "onboardingCompleteDescSmall": "If you want even more, check out Achievements and start collecting!",
     "onboardingComplete": "You completed your onboarding tasks!",
-    "yourProgress": "Your Progress"
+    "yourProgress": "Your Progress",
+    "achievementBareNecessitiesModalText": "You completed the Monkey, Sloth, and Treeling pet quests!",
+    "achievementBareNecessitiesText": "Has completed Monkey, Sloth, and Treeling pet quests.",
+    "achievementBareNecessities": "Bare Necessities"
 }

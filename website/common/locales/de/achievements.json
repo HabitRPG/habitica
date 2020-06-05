@@ -78,5 +78,8 @@
     "achievementBugBonanzaText": "Hat die Käfer-, Schmetterling-, Schnecken- und Spinnenhaustier-Quests erfüllt.",
     "onboardingCompleteDescSmall": "Falls Du noch mehr willst, sieh Dir Deine Erfolge an und beginne zu sammeln!",
     "onboardingComplete": "Du hast Deine Einstiegsaufgaben erledigt!",
-    "yourProgress": "Dein Fortschritt"
+    "yourProgress": "Dein Fortschritt",
+    "achievementBareNecessitiesModalText": "Du hast die Affen-, Faultier- und Bäumlinghaustier-Quests erfüllt!",
+    "achievementBareNecessitiesText": "Hat die Affen-, Faultier- und Bäumlinghaustier-Quests erfüllt.",
+    "achievementBareNecessities": "Mit Bloßen Händen"
 }

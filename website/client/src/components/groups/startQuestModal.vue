@@ -209,7 +209,7 @@ export default {
 
     this.$root.$on('selectQuest', this.selectQuest);
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('selectQuest', this.selectQuest);
   },
   methods: {

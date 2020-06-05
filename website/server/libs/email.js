@@ -69,13 +69,13 @@ export function getGroupUrl (group) {
 export async function sendTxn (mailingInfoArray, emailType, variables, personalVariables) {
   mailingInfoArray = Array.isArray(mailingInfoArray) ? mailingInfoArray : [mailingInfoArray]; // eslint-disable-line no-param-reassign, max-len
 
-  variables = [ // eslint-disable-line no-param-reassign, max-len
+  variables = [ // eslint-disable-line no-param-reassign
     { name: 'BASE_URL', content: BASE_URL },
   ].concat(variables || []);
 
   // It's important to pass at least a user with its `preferences`
   // as we need to check if he unsubscribed
-  mailingInfoArray = mailingInfoArray // eslint-disable-line no-param-reassign, max-len
+  mailingInfoArray = mailingInfoArray // eslint-disable-line no-param-reassign
     .map(mailingInfo => (mailingInfo._id ? getUserInfo(mailingInfo, ['_id', 'email', 'name', 'canSend']) : mailingInfo))
     // Always send reset-password emails
     // Don't check canSend for non registered users as already checked before

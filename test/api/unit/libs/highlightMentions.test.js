@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import highlightMentions from '../../../../website/server/libs/highlightMentions';
 
 describe('highlightMentions', () => {
@@ -64,6 +65,67 @@ describe('highlightMentions', () => {
     expect(result[0]).to.equal(text);
   });
 
+  describe('link interactions', async () => {
+    it('doesn\'t highlight users in link', async () => {
+      const text = 'http://www.medium.com/@user/blog';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('doesn\'t highlight user in link between brackets', async () => {
+      const text = '(http://www.medium.com/@user/blog)';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('doesn\'t highlight user in an autolink', async () => {
+      const text = '<http://www.medium.com/@user/blog>';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('doesn\'t highlight users in link text', async () => {
+      const text = '[Check awesome blog written by @user](http://www.medium.com/@user/blog)';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('doesn\'t highlight users in link with newlines and markup', async () => {
+      const text = '[Check `awesome` \nblog **written** by @user](http://www.medium.com/@user/blog)';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('doesn\'t highlight users in link when followed by same @user mention', async () => {
+      const text = 'http://www.medium.com/@user/blog @user';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal('http://www.medium.com/@user/blog [@user](/profile/111)');
+    });
+
+    // https://spec.commonmark.org/0.29/#example-483
+    it('doesn\'t highlight user in a link without url', async () => {
+      const text = '[@user2]()';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    // https://github.com/HabitRPG/habitica/issues/12217
+    it('doesn\'t highlight user in link with url-escapable characters', async () => {
+      const text = '[test](https://habitica.fandom.com/ru/@wiki/Снаряжение)';
+      const result = await highlightMentions(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    // https://github.com/HabitRPG/habitica/issues/12223
+    it('matches a link in between two the same links', async () => {
+      const text = '[here](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)\n@user\n[hier](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)';
+
+      const result = await highlightMentions(text);
+
+      expect(result[0]).to.equal('[here](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)\n[@user](/profile/111)\n[hier](http://habitica.wikia.com/wiki/The_Keep:Pirate_Cove/FAQ)');
+    });
+  });
+
   describe('exceptions in code blocks', () => {
     it('doesn\'t highlight user in inline code block', async () => {
       const text = '`@user`';
@@ -104,5 +166,33 @@ describe('highlightMentions', () => {
 
       expect(result[0]).to.equal('[@user](/profile/111) `@user`');
     });
+  });
+
+  it('github issue 12118, method crashes when square brackets are used', async () => {
+    const text = '[test]';
+
+    let err;
+
+    try {
+      await highlightMentions(text);
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).to.be.undefined;
+  });
+
+  it('github issue 12138, method crashes when regex chars are used in code block', async () => {
+    const text = '`[test]`';
+
+    let err;
+
+    try {
+      await highlightMentions(text);
+    } catch (e) {
+      err = e;
+    }
+
+    expect(err).to.be.undefined;
   });
 });

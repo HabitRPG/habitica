@@ -1,96 +1,60 @@
-.promo_april_fools_2020 {
+.promo_armoire_backgrounds_202005 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -445px -184px;
+  background-position: 0px -434px;
   width: 423px;
   height: 147px;
 }
-.promo_armoire_backgrounds_202004 {
+.promo_fairy_sunshine_potions {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -433px -337px;
+  background-position: -650px 0px;
   width: 423px;
   height: 147px;
 }
-.promo_egg_quest {
+.promo_jungle_buddies_bundle {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -648px;
-  width: 354px;
+  background-position: -650px -148px;
+  width: 423px;
   height: 147px;
 }
-.promo_mystery_202004 {
+.promo_mystery_202006 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -796px;
+  background-position: 0px -582px;
   width: 282px;
-  height: 147px;
-}
-.promo_pastel_skin_hair {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -355px -648px;
-  width: 354px;
-  height: 147px;
-}
-.customize-option.promo_pastel_skin_hair {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -380px -663px;
-  width: 60px;
-  height: 60px;
-}
-.promo_seasonal_shop_spring {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -875px -524px;
-  width: 162px;
-  height: 138px;
-}
-.promo_shiny_seeds {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -500px;
-  width: 360px;
-  height: 147px;
-}
-.promo_spring_2019 {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -337px;
-  width: 432px;
-  height: 162px;
-}
-.promo_spring_2020 {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -445px 0px;
-  width: 429px;
-  height: 183px;
-}
-.promo_spring_potions_2020 {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -500px;
-  width: 423px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -875px -663px;
+  background-position: -650px -492px;
   width: 96px;
   height: 69px;
 }
-.scene_citrusella {
+.scene_casting_spells {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -875px -196px;
-  width: 152px;
-  height: 176px;
+  background-position: 0px -211px;
+  width: 312px;
+  height: 222px;
 }
-.scene_hat_guild {
+.scene_hiking {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -391px 0px;
+  width: 258px;
+  height: 258px;
+}
+.scene_pets_resting {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
-  width: 444px;
-  height: 336px;
+  width: 390px;
+  height: 210px;
 }
-.scene_meditation {
+.scene_todos {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -875px -373px;
-  width: 150px;
-  height: 150px;
-}
-.scene_tasks {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -875px 0px;
+  background-position: -650px -296px;
   width: 240px;
   height: 195px;
+}
+.scene_vikte {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -891px -296px;
+  width: 157px;
+  height: 178px;
 }

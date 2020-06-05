@@ -1,12 +1,7 @@
 import unlock from '../../../website/common/script/ops/unlock';
 import i18n from '../../../website/common/script/i18n';
-import {
-  generateUser,
-} from '../../helpers/common.helper';
-import {
-  NotAuthorized,
-  BadRequest,
-} from '../../../website/common/script/libs/errors';
+import { generateUser } from '../../helpers/common.helper';
+import { NotAuthorized, BadRequest } from '../../../website/common/script/libs/errors';
 
 describe('shared.ops.unlock', () => {
   let user;
@@ -31,6 +26,15 @@ describe('shared.ops.unlock', () => {
     }
   });
 
+  it('does not unlock lost gear', done => {
+    user.items.gear.owned.headAccessory_special_bearEars = false;
+
+    unlock(user, { query: { path: 'items.gear.owned.headAccessory_special_bearEars' } });
+
+    expect(user.balance).to.equal(usersStartingGems);
+    done();
+  });
+
   it('returns an error when user balance is too low', done => {
     user.balance = 0;
 
@@ -50,18 +54,30 @@ describe('shared.ops.unlock', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('alreadyUnlocked'));
+      expect(user.balance).to.equal(3.75);
       done();
     }
   });
 
-  // disabled until fully implemente
-  xit('returns an error when user already owns items in a full set', done => {
+  it('returns an error when user already owns a full set of gear', done => {
     try {
-      unlock(user, { query: { path: unlockPath } });
-      unlock(user, { query: { path: unlockPath } });
+      unlock(user, { query: { path: unlockGearSetPath } });
+      unlock(user, { query: { path: unlockGearSetPath } });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('alreadyUnlocked'));
+      expect(user.balance).to.equal(3.75);
+      done();
+    }
+  });
+
+  xit('returns an error when user already owns items in a full set', done => {
+    try {
+      unlock(user, { query: { path: unlockPath.split(',').splice(2).join(',') } });
+      unlock(user, { query: { path: unlockPath } });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(NotAuthorized);
+      expect(err.message).to.equal(i18n.t('alreadyUnlockedPart'));
       done();
     }
   });
@@ -78,7 +94,7 @@ describe('shared.ops.unlock', () => {
     expect(user.preferences.background).to.equal('giant_florals');
   });
 
-  it('un-equips an item already equipped', () => {
+  it('un-equips a background already equipped', () => {
     expect(user.purchased.background.giant_florals).to.not.exist;
 
     unlock(user, { query: { path: backgroundUnlockPath } }); // unlock
@@ -105,7 +121,7 @@ describe('shared.ops.unlock', () => {
     expect(user.items.gear.owned.headAccessory_special_wolfEars).to.be.true;
   });
 
-  it('unlocks a an item', () => {
+  it('unlocks an item', () => {
     const [, message] = unlock(user, { query: { path: backgroundUnlockPath } });
 
     expect(message).to.equal(i18n.t('unlocked'));

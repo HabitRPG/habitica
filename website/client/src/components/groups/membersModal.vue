@@ -99,14 +99,21 @@
           </div>
         </div>
       </div>
-      <div v-if="selectedPage === 'members'">
+      <loading-gryphon v-if="loading" />
+      <div
+        v-if="selectedPage === 'members' && !loading"
+        :class="{'mt-1': invites.length === 0}"
+      >
         <div
           v-for="(member, index) in sortedMembers"
           :key="member._id"
           class="row"
         >
           <div class="col-11 no-padding-left">
-            <member-details :member="member" />
+            <member-details
+              :member="member"
+              :class-badge-position="'next-to-name'"
+            />
           </div>
           <div class="col-1 actions">
             <b-dropdown right="right">
@@ -201,7 +208,7 @@
           class="row gradient"
         ></div>
       </div>
-      <div v-if="selectedPage === 'invites'">
+      <div v-if="selectedPage === 'invites' && !loading">
         <div
           v-for="(member, index) in invites"
           :key="member._id"
@@ -234,14 +241,6 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button
-          class="btn btn-primary"
-          @click="close()"
-        >
-          {{ $t('close') }}
-        </button>
-      </div>
     </b-modal>
   </div>
 </template>
@@ -252,11 +251,6 @@
       background-color: #edecee;
       border-radius: 8px 8px 0 0;
       box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
-    }
-
-    .modal-footer {
-      background-color: #edecee;
-      border-radius: 0 0 8px 8px;
     }
 
     .small-text, .character-name {
@@ -270,6 +264,8 @@
     .modal-body {
       padding-left: 0;
       padding-right: 0;
+      padding-bottom: 0;
+      padding-top: 0;
     }
 
     .member-details {
@@ -378,6 +374,7 @@ import isEmpty from 'lodash/isEmpty';
 import { mapState } from '@/libs/store';
 
 import removeMemberModal from '@/components/members/removeMemberModal';
+import loadingGryphon from '@/components/ui/loadingGryphon';
 import MemberDetails from '../memberDetails';
 import removeIcon from '@/assets/members/remove.svg';
 import messageIcon from '@/assets/members/message.svg';
@@ -388,6 +385,7 @@ export default {
   components: {
     MemberDetails,
     removeMemberModal,
+    loadingGryphon,
   },
   props: ['hideBadge'],
   data () {
@@ -474,6 +472,9 @@ export default {
     challengeId () {
       return this.$store.state.memberModalOptions.challengeId;
     },
+    loading () {
+      return this.$store.state.memberModalOptions.loading;
+    },
     sortedMembers () {
       let sortedMembers = this.members.slice(); // shallow clone to avoid infinite loop
 
@@ -504,16 +505,6 @@ export default {
     },
   },
   watch: {
-    groupId () {
-      // @TODO: We might not need this since groupId is computed now
-      this.getMembers();
-    },
-    challengeId () {
-      this.getMembers();
-    },
-    group () {
-      this.getMembers();
-    },
     // Watches `searchTerm` and if present, performs a `searchMembers` action
     // and usual `getMembers` otherwise
     searchTerm () {
@@ -537,7 +528,7 @@ export default {
       this.getMembers();
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica:show-member-modal');
   },
   methods: {
@@ -558,8 +549,9 @@ export default {
       });
     },
     async getMembers () {
-      const { groupId } = this;
+      this.members = this.$store.state.memberModalOptions.viewingMembers;
 
+      const { groupId } = this;
       if (groupId && groupId !== 'challenge') {
         const invites = await this.$store.dispatch('members:getGroupInvites', {
           groupId,
@@ -567,8 +559,6 @@ export default {
         });
         this.invites = invites;
       }
-
-      this.members = this.$store.state.memberModalOptions.viewingMembers;
     },
     async clickMember (uid, forceShow) {
       const user = this.$store.state.user.data;

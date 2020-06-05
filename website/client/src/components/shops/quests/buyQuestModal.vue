@@ -6,14 +6,12 @@
   >
     <span
       v-if="withPin"
-      class="badge badge-pill badge-dialog"
-      :class="{'item-selected-badge': isPinned}"
+      class="badge-dialog"
       @click.prevent.stop="togglePinned()"
     >
-      <span
-        class="svg-icon inline color icon-10"
-        v-html="icons.pin"
-      ></span>
+      <pin-badge
+        :pinned="isPinned"
+      />
     </span>
     <div class="close">
       <span
@@ -29,7 +27,10 @@
     >
       <div class="inner-content">
         <questDialogContent :item="item" />
-        <div class="purchase-amount">
+        <div
+          v-if="!item.locked"
+          class="purchase-amount"
+        >
           <div class="how-many-to-buy">
             <strong>{{ $t('howManyToBuy') }}</strong>
           </div>
@@ -59,7 +60,8 @@
         </div>
         <button
           v-if="priceType === 'gems'
-            && !enoughCurrency(priceType, item.value * selectedAmountToBuy)"
+            && !enoughCurrency(priceType, item.value * selectedAmountToBuy)
+            && !item.locked"
           class="btn btn-primary"
           @click="purchaseGems()"
         >
@@ -206,21 +208,6 @@
       display: block;
     }
 
-    .badge-dialog {
-      color: $gray-300;
-      position: absolute;
-      left: -14px;
-      padding: 8px 10px;
-      top: -12px;
-      background: white;
-      cursor: pointer;
-
-      &.item-selected-badge {
-        background: $purple-300;
-        color: $white;
-      }
-    }
-
     .limitedTime {
       height: 32px;
       background-color: $purple-300;
@@ -291,13 +278,13 @@ import svgExperience from '@/assets/svg/experience.svg';
 import svgGem from '@/assets/svg/gem.svg';
 import svgGold from '@/assets/svg/gold.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
-import svgPin from '@/assets/svg/pin.svg';
 
 import BalanceInfo from '../balanceInfo.vue';
 import currencyMixin from '../_currencyMixin';
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
 import numberInvalid from '@/mixins/numberInvalid';
+import PinBadge from '@/components/ui/pinBadge';
 
 import questDialogDrops from './questDialogDrops';
 import questDialogContent from './questDialogContent';
@@ -305,6 +292,7 @@ import questDialogContent from './questDialogContent';
 export default {
   components: {
     BalanceInfo,
+    PinBadge,
     questDialogDrops,
     questDialogContent,
   },
@@ -329,7 +317,6 @@ export default {
         gem: svgGem,
         gold: svgGold,
         hourglass: svgHourglasses,
-        pin: svgPin,
       }),
 
       isPinned: false,

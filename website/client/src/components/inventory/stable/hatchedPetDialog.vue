@@ -124,7 +124,7 @@ export default {
   mounted () {
     this.$root.$on('hatchedPet::open', this.openDialog);
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('hatchedPet::open', this.openDialog);
   },
   methods: {
