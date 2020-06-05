@@ -34,12 +34,28 @@ const allTags = [
     name: 'This is a long tag',
   },
   {
-    id: 5,
+    id: 12,
     name: 'This is a different tag',
   },
   {
-    id: 4,
+    id: 9001,
     name: 'OVER 9000',
+  },
+  {
+    id: 4,
+    name: 'Four',
+  },
+  {
+    id: 5,
+    name: 'Five :tada:',
+  },
+  {
+    id: 6,
+    name: 'Six',
+  },
+  {
+    id: 7,
+    name: 'Seven **Markdown**',
   },
 ];
 
@@ -74,6 +90,28 @@ stories
     data () {
       return {
         tagList: exampleTagList,
+      };
+    },
+    props: {
+      allTags: {
+        default: allTags,
+      },
+    },
+  }))
+  .add('longer select-tag', () => ({
+    components: { SelectTag },
+    template: `
+        <div style="position: absolute; margin: 20px">
+            <SelectTag :selectedTags="tagList"
+                       :all-tags="allTags"
+                       style="width: 400px"
+                       @changed="tagList = $event"></SelectTag>
+        </div>
+    `,
+    store,
+    data () {
+      return {
+        tagList: [],
       };
     },
     props: {
