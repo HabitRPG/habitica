@@ -73,6 +73,8 @@
 // "Expanded Party: Polyamorous Adventurers" guild (17bb8393-2d74-42de-8dcb-315a5f596636)
 // wants to discuss https://en.wikipedia.org/wiki/The_Ethical_Slut (a book) and
 // we've decided to allow that.
+// As of 2020-06-06, 'nigga' and 'niggas' are here rather than in bannedSlurs.js because
+// we've found that in private they are far more often used in a reclaimed way than as slurs.
 
 
 // DO NOT EDIT! See the comments at the top of this file.
@@ -152,6 +154,8 @@ const bannedWords = [
   'fag',
   'slut',
   'sluts',
+  'nigga',
+  'niggas',
   'retard',
   'retards',
   'bastard',
