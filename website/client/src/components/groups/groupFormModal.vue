@@ -13,7 +13,7 @@
         <b-form-input
           v-model="workingGroup.name"
           type="text"
-          :placeholder="$t('newGuildPlaceholder')"
+          :placeholder="isParty ? $t('newPartyPlaceholder') : $t('newGuildPlaceholder')"
         />
       </div>
       <div class="form-group">

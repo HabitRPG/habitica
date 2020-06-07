@@ -371,6 +371,7 @@
   "groupPolicyCannotGetGems": "The policy of one group you're part of prevents its members from obtaining gems.",
   "viewParty": "View Party",
   "newGuildPlaceholder": "Enter your guild's name.",
+  "newPartyPlaceholder": "Enter your party's name.",
   "guildMembers": "Guild Members",
   "guildBank": "Guild Bank",
   "chatPlaceholder": "Type your message to Guild members here",
