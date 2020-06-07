@@ -20,7 +20,7 @@
       <span v-if="msg.client && user.contributor.level >= 4"> ({{ msg.client }})</span>
     </p>
     <div
-      class="text"
+      class="text markdown"
       v-html="parseMarkdown(msg.text)"
     ></div>
     <div
@@ -120,7 +120,6 @@
       color: $gray-50;
       text-align: left !important;
       min-height: 0rem;
-      margin-bottom: -0.5rem;
     }
   }
 
