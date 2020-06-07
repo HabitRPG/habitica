@@ -12,7 +12,7 @@
     "aquaticFriendsText": "Got splashed <%= count %> times by party members.",
     "valentineCard": "Charta Diei Valentini",
     "valentineCardExplanation": "For enduring such a saccharine poem, you both receive the \"Adoring Friends\" badge!",
-    "valentineCardNotes": "Chartam Diei Valentini sodali contubernii mitte",
+    "valentineCardNotes": "Chartam Diei Valentini sodali contubernii mitte.",
     "valentine0": "\"Rosae sunt rubeae\n\nCotidiana mea sunt caerulea\n\nSum laetus esse\n\nIn Contubernio cum te!\"",
     "valentine1": "\"Rosae sunt rubeae\n\nViolae sunt pulchrae\n\nConvergamus\n\nEt pugnemus contra Vitium!\"",
     "valentine2": "\"Rosae sunt rubeae\n\nPoema hoc est antiqua\n\nSpero ut id ames\n\nPropter pretium Aurorum decem.\"",
@@ -21,7 +21,7 @@
     "valentineCardAchievementText": "Aww, you and your friend must really care about each other! Sent or received <%= count %> Valentine's Day cards.",
     "polarBear": "Ursus Maritimus",
     "turkey": "Meleagris Gallopavo",
-    "gildedTurkey": "Obaurata Meleagris Gallopavo ",
+    "gildedTurkey": "Obaurata Meleagris Gallopavo",
     "polarBearPup": "Ursulus Maritimus",
     "jackolantern": "Cucurbita Caelata Ignifera",
     "ghostJackolantern": "Cucurbita Phantasma Caelata Ignifera",
@@ -52,7 +52,7 @@
     "toAndFromCard": "Ad: <%= toName %>, Ab: <%= fromName %>",
     "nyeCard": "Charta Kalendarum Ianuariarum",
     "nyeCardExplanation": "For celebrating the new year together, you both receive the \"Auld Acquaintance\" badge!",
-    "nyeCardNotes": "Chartam Kalendarum Ianuariarum sodali conturbernii mitte",
+    "nyeCardNotes": "Chartam Kalendarum Ianuariarum sodali conturbernii mitte.",
     "seasonalItems": "Seasonal Items",
     "nyeCardAchievementTitle": "Auld Acquaintance",
     "nyeCardAchievementText": "Felix Kalendae Ianuariae! Chartas Kalendarum Ianuariarum <%= count %> mitte vel accipe.",
@@ -151,5 +151,7 @@
     "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
     "discountBundle": "fascis",
     "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
-    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!",
+    "summer2019ConchHealerSet": "Concha (Sanator)",
+    "spring2019AmberMageSet": "Succinum (Magus)"
 }

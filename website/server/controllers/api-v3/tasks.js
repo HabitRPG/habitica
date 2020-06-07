@@ -43,7 +43,7 @@ function canNotEditTasks (group, user, assignedUserId) {
 
 /**
  * @apiDefine NotAuthorized
- * @apiError (401) {NotAuthorized} There is no account that uses those credentials.
+ * @apiError (401) {NotAuthorized} NoAccount There is no account that uses those credentials.
  */
 
 const api = {};
@@ -74,10 +74,12 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                         include: a UUID, startDate and time.
  *                                         For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3",
  *                                         "startDate":"1/16/17","time":"1/16/17" }
- * @apiParam (Body) {String="weekly","daily"} [frequency=weekly] Value "weekly" enables
- *                                                               "On days of the week", value
- *                                                               "daily" enables "EveryX Days".
- *                                                               Only valid for type "daily".
+ * @apiParam (Body) {String="daily","weekly","monthly","yearly"} [frequency=weekly] Values "weekly"
+ *                                           and "monthly" enable use of the "repeat" field.
+ *                                           All frequency values enable use of the "everyX" field.
+ *                                           Value "monthly" enables use of the "weeksOfMonth" and
+ *                                           "daysOfMonth" fields.
+ *                                           Frequency is only valid for type "daily".
  * @apiParam (Body) {String} [repeat=true] List of objects for days of the week,
  *                                         Days that are true will be repeated upon.
  *                                         Only valid for type "daily". Any days not specified
@@ -90,6 +92,10 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                      task is available again.
  * @apiParam (Body) {Number} [streak=0] Number of days that the task has consecutively
  *                                      been checked off. Only valid for type "daily"
+ * @apiParam (Body) {Integer[]} daysOfMonth Array of integers.
+ *                                      Only valid for type "daily"
+ * @apiParam (Body) {Integer[]} weeksOfMonth Array of integers.
+ *                                      Only valid for type "daily"
  * @apiParam (Body) {Date} [startDate] Date when the task will first become available.
  *                                     Only valid for type "daily"
  * @apiParam (Body) {Boolean} [up=true] Only valid for type "habit"
@@ -97,7 +103,8 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                      for "Good habits"-
  * @apiParam (Body) {Boolean} [down=true] Only valid for type "habit" If true, enables
  *                                        the "-" under "Directions/Action" for "Bad habits"
- * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost in gold of the reward
+ * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost
+ *                                     in gold of the reward. Should be greater then or equal to 0.
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -166,7 +173,9 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                                     underscores and dashes.
  * @apiError (400) {BadRequest} Value-ValidationFailed `x` is not a valid enum value
  *                                                     for path `(body param)`.
- * @apiError (401) {NotAuthorized} There is no account that uses those credentials.
+ * @apiError (400) {BadRequest} Value-ValidationFailed Reward cost should be a
+ *                                                      positive number or 0.`.
+ * @apiError (401) {NotAuthorized} NoAccount There is no account that uses those credentials.
  *
  * @apiErrorExample {json} Error-Response:
  *     {
@@ -194,7 +203,7 @@ api.createUserTasks = {
 
     tasks.forEach(task => {
       // Track when new users (first 7 days) create tasks
-      if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+      if (moment().diff(user.auth.timestamps.created, 'days') < 7 && user.flags.welcomed) {
         res.analytics.track('task create', {
           uuid: user._id,
           hitType: 'event',
@@ -238,10 +247,12 @@ api.createUserTasks = {
  *                                         include: a UUID, startDate and time.
  *                                         For example {"id":"ed427623-9a69-4aac-9852-13deb9c190c3",
  *                                         "startDate":"1/16/17","time":"1/16/17" }
- * @apiParam (Body) {String="weekly","daily"} [frequency=weekly] Value "weekly" enables
- *                                                               "On days of the week", value
- *                                                               "daily" enables "EveryX Days".
- *                                                               Only valid for type "daily".
+ * @apiParam (Body) {String="daily","weekly","monthly","yearly"} [frequency=weekly] Values "weekly"
+ *                                           and "monthly" enable use of the "repeat" field.
+ *                                           All frequency values enable use of the "everyX" field.
+ *                                           Value "monthly" enables use of the "weeksOfMonth" and
+ *                                           "daysOfMonth" fields.
+ *                                           Frequency is only valid for type "daily".
  * @apiParam (Body) {String} [repeat=true] List of objects for days of the week,
  *                                         Days that are true will be repeated upon.
  *                                         Only valid for type "daily". Any days not
@@ -253,6 +264,10 @@ api.createUserTasks = {
  *                                      of days until this daily task is available again.
  * @apiParam (Body) {Number} [streak=0] Number of days that the task has consecutively
  *                                      been checked off. Only valid for type "daily"
+ * @apiParam (Body) {Integer[]} daysOfMonth Array of integers.
+ *                                      Only valid for type "daily"
+ * @apiParam (Body) {Integer[]} weeksOfMonth Array of integers.
+ *                                      Only valid for type "daily"
  * @apiParam (Body) {Date} [startDate] Date when the task will first become available.
  *                                     Only valid for type "daily"
  * @apiParam (Body) {Boolean} [up=true] Only valid for type "habit" If true,
@@ -287,7 +302,7 @@ api.createUserTasks = {
  *                                                     and dashes.
  * @apiError (400) {BadRequest} Value-ValidationFailed `x` is not a valid enum value
  *                                                     for path `(body param)`.
- * @apiError (401) {NotAuthorized} There is no account that uses those credentials.
+ * @apiError (401) {NotAuthorized} NoAccount There is no account that uses those credentials.
  */
 api.createChallengeTasks = {
   method: 'POST',
@@ -345,7 +360,7 @@ api.createChallengeTasks = {
  *
  * @apiSuccess {Array} data An array of tasks
  *
- * @apiSuccessExample
+ * @apiSuccessExample {json} Example return:
  * {"success":true,"data":[{"_id":"8a9d461b-f5eb-4a16-97d3-c03380c422a3",
  * "userId":"b0413351-405f-416f-8787-947ec1c85199","text":"15 minute break",
  * "type":"reward","notes":"","tags":[],"value":10,"priority":1,"attribute":"str",
@@ -365,7 +380,7 @@ api.createChallengeTasks = {
  *
  * @apiError (BadRequest) Invalid_request_parameters Error returned if the
  *                                                   type URL param was not correct.
- * @apiError (401) {NotAuthorized} There is no account that uses those credentials.
+ * @apiError (401) {NotAuthorized} NoAccount There is no account that uses those credentials.
  */
 api.getUserTasks = {
   method: 'GET',
@@ -404,7 +419,7 @@ api.getUserTasks = {
  *
  * @apiSuccess {Array} data An array of tasks
  *
- * @apiSuccessExample
+ * @apiSuccessExample {json} Example return:
  * {"success":true,"data":[{"_id":"5f12bfba-da30-4733-ad01-9c42f9817975",
  * "text":"API Trial","type":"habit","notes":"","tags":[],"value":27.70767809690112,
  * "priority":1.5,"attribute":"str","challenge":{"id":"f23c12f2-5830-4f15-9c36-e17fd729a812"},
@@ -470,7 +485,7 @@ api.getChallengeTasks = {
  *
  * @apiSuccess {Object} data The task object
  *
- * @apiSuccessExample {json} Example returned object
+ * @apiSuccessExample {json} Example returned object:
  * {"success":true,"data":{"_id":"2b774d70-ec8b-41c1-8967-eb6b13d962ba",
  * "userId":"b0413351-405f-416f-8787-947ec1c85199","text":"API Trial",
  * "alias":"apiTrial","type":"habit","notes":"","tags":[],"value":11.996661122825959,
@@ -542,10 +557,12 @@ api.getTask = {
  *                                                            Easy, Medium, Hard.
  * @apiParam (Body) {String[]} [reminders] Array of reminders, each an object that must include:
  *                                         a UUID, startDate and time.
- * @apiParam (Body) {String="weekly","daily"} [frequency=weekly] Value "weekly" enables "On days
- *                                                               of the week", value "daily"
- *                                                               enables "EveryX Days".
- *                                                               Only valid for type "daily".
+ * @apiParam (Body) {String="daily","weekly","monthly","yearly"} [frequency=weekly] Values "weekly"
+ *                                           and "monthly" enable use of the "repeat" field.
+ *                                           All frequency values enable use of the "everyX" field.
+ *                                           Value "monthly" enables use of the "weeksOfMonth" and
+ *                                           "daysOfMonth" fields.
+ *                                           Frequency is only valid for type "daily".
  * @apiParam (Body) {String} [repeat=true] List of objects for days of the week,  Days that
  *                                         are true will be repeated upon. Only valid for type
  *                                         "daily". Any days not specified will be marked as true.
@@ -556,6 +573,10 @@ api.getTask = {
  *                                      of days until this daily task is available again.
  * @apiParam (Body) {Number} [streak=0] Number of days that the task has consecutively
  *                                      been checked off. Only valid for type "daily",
+ * @apiParam (Body) {Integer[]} daysOfMonth Array of integers.
+ *                                      Only valid for type "daily"
+ * @apiParam (Body) {Integer[]} weeksOfMonth Array of integers.
+ *                                      Only valid for type "daily"
  * @apiParam (Body) {Date} [startDate] Date when the task will first become available.
  *                                     Only valid for type "daily".
  * @apiParam (Body) {Boolean} [up=true] Only valid for type "habit" If true, enables
@@ -721,6 +742,7 @@ api.scoreTask = {
       delta: data.taskResponses[0].delta,
       _tmp: data.taskResponses[0]._tmp,
     }, userStats);
+
     res.respond(200, resJsonData);
   },
 };
@@ -739,7 +761,7 @@ api.scoreTask = {
  *
  * @apiSuccess {Array} data The new tasks order for the specific type that the taskID belongs to.
  *
- * @apiSuccessExample {json}
+ * @apiSuccessExample {json} Example return:
  * {"success":true,"data":["8d7e237a-b259-46ee-b431-33621256bb0b",
  * "2b774d70-ec8b-41c1-8967-eb6b13d962ba","f03d4a2b-9c36-4f33-9b5f-bae0aed23a49"],
  * "notifications":[]}
@@ -1190,7 +1212,7 @@ api.removeTagFromTask = {
  *                                                         should be kept(keep-all) or
  *                                                         removed(remove-all) after the unlink.
  *
- * @apiExample {curl}
+ * @apiExample {curl} Example call:
  * curl -X "POST" https://habitica.com/api/v3/tasks/unlink-all/f23c12f2-5830-4f15-9c36-e17fd729a812?keep=remove-all
  *
  * @apiSuccess {Object} data An empty object
@@ -1307,6 +1329,8 @@ api.unlinkOneTask = {
 /**
  * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed todos
  * @apiName ClearCompletedTodos
+ * @apiDescription Deletes all of a user's completed To-Dos except
+ * those belonging to active Challenges and Group Plans.
  * @apiGroup Task
  *
  * @apiExample {curl} Example call:
@@ -1351,7 +1375,7 @@ api.clearCompletedTodos = {
 };
 
 /**
- * @api {delete} /api/v3/tasks/:taskId Delete a task given its id
+ * @api {delete} /api/v3/tasks/:taskId Delete a task
  * @apiName DeleteTask
  * @apiGroup Task
  *

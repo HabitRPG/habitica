@@ -34,12 +34,77 @@ function getTaskColor (task) {
   return 'best';
 }
 
-export function canDelete () {
-  return task => {
-    const isUserChallenge = Boolean(task.userId);
-    const activeChallenge = isUserChallenge
-      && task.challenge && task.challenge.id && !task.challenge.broken;
-    return !activeChallenge;
+export function canDelete (store) {
+  return (task, taskCategory, onUserDashboard, group, challenge) => {
+    const user = store.state.user.data;
+    const userId = user.id || user._id;
+
+    const isUserAdmin = user.contributor && !!user.contributor.admin;
+    const isUserGroupLeader = group && (group.leader
+      && group.leader._id === userId);
+    const isUserGroupManager = group && (group.managers
+        && Boolean(group.managers[userId]));
+    const isUserChallenge = userId === (challenge
+      && challenge.leader !== null && challenge.leader.id);
+
+    let isUserCanDeleteTask = onUserDashboard;
+
+    switch (taskCategory) {
+      case 'challenge':
+        if (!onUserDashboard) {
+          isUserCanDeleteTask = isUserChallenge || isUserAdmin;
+        } else {
+          isUserCanDeleteTask = isUserAdmin;
+        }
+        break;
+      case 'group':
+        if (!onUserDashboard) {
+          isUserCanDeleteTask = isUserGroupLeader || isUserGroupManager || isUserAdmin;
+        } else {
+          isUserCanDeleteTask = isUserAdmin;
+        }
+        break;
+      default:
+        break;
+    }
+    return Boolean(isUserCanDeleteTask);
+  };
+}
+
+export function canEdit (store) {
+  return (task, taskCategory, onUserDashboard, group, challenge) => {
+    let isUserCanEditTask = onUserDashboard;
+    const user = store.state.user.data;
+    const userId = user.id || user._id;
+
+    const isUserAdmin = user.contributor && !!user.contributor.admin;
+    const isUserGroupLeader = group && (group.leader
+      && group.leader._id === userId);
+    const isUserGroupManager = group && (group.managers
+        && Boolean(group.managers[userId]));
+    const isUserChallenge = userId === (challenge
+      && challenge.leader !== null && challenge.leader.id);
+
+
+    switch (taskCategory) {
+      case 'challenge':
+        if (!onUserDashboard) {
+          isUserCanEditTask = isUserChallenge || isUserAdmin;
+        } else {
+          isUserCanEditTask = true;
+        }
+        break;
+      case 'group':
+        if (!onUserDashboard) {
+          isUserCanEditTask = isUserGroupLeader || isUserGroupManager || isUserAdmin;
+        } else {
+          isUserCanEditTask = true;
+        }
+        break;
+      default:
+        break;
+    }
+    return Boolean(isUserCanEditTask);
   };
 }
 

@@ -3,6 +3,7 @@ import forEach from 'lodash/forEach';
 import get from 'lodash/get';
 import keys from 'lodash/keys';
 import upperFirst from 'lodash/upperFirst';
+import moment from 'moment';
 import i18n from '../i18n';
 import content from '../content/index';
 import {
@@ -11,8 +12,9 @@ import {
   NotFound,
 } from '../libs/errors';
 import errorMessage from '../libs/errorMessage';
+import { checkOnboardingStatus } from '../libs/onboarding';
 
-export default function hatch (user, req = {}) {
+export default function hatch (user, req = {}, analytics) {
   const egg = get(req, 'params.egg');
   const hatchingPotion = get(req, 'params.hatchingPotion');
 
@@ -40,7 +42,10 @@ export default function hatch (user, req = {}) {
     throw new NotAuthorized(i18n.t('messageAlreadyPet', req.language));
   }
 
-  user.items.pets[pet] = 5;
+  user.items.pets = {
+    ...user.items.pets,
+    [pet]: 5,
+  };
   user.items.eggs[egg] -= 1;
   user.items.hatchingPotions[hatchingPotion] -= 1;
   if (user.markModified) {
@@ -49,11 +54,16 @@ export default function hatch (user, req = {}) {
     user.markModified('items.hatchingPotions');
   }
 
+  if (!user.achievements.hatchedPet && user.addAchievement) {
+    user.addAchievement('hatchedPet');
+    checkOnboardingStatus(user, req, analytics);
+  }
+
   forEach(content.animalColorAchievements, achievement => {
     if (!user.achievements[achievement.petAchievement]) {
       const petIndex = findIndex(
         keys(content.dropEggs),
-        animal => Number.isNaN(user.items.pets[`${animal}-${achievement.color}`]) || user.items.pets[`${animal}-${achievement.color}`] <= 0,
+        animal => !user.items.pets[`${animal}-${achievement.color}`] || user.items.pets[`${animal}-${achievement.color}`] <= 0,
       );
       if (petIndex === -1) {
         user.achievements[achievement.petAchievement] = true;
@@ -68,6 +78,15 @@ export default function hatch (user, req = {}) {
       }
     }
   });
+
+  if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
+    analytics.track('pet hatch', {
+      uuid: user._id,
+      petKey: pet,
+      category: 'behavior',
+      headers: req.headers,
+    });
+  }
 
   return [
     user.items,

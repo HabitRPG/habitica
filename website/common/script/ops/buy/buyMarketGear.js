@@ -2,6 +2,7 @@ import get from 'lodash/get';
 import pick from 'lodash/pick';
 import content from '../../content/index';
 import splitWhitespace from '../../libs/splitWhitespace';
+import { checkOnboardingStatus } from '../../libs/onboarding';
 import {
   BadRequest,
   NotAuthorized,
@@ -59,12 +60,17 @@ export class BuyMarketGearOperation extends AbstractGoldItemOperation { // eslin
     }
   }
 
-  executeChanges (user, item, req) {
+  executeChanges (user, item, req, analytics) {
     let message;
 
     if (user.preferences.autoEquip) {
       user.items.gear.equipped[item.type] = item.key;
       message = handleTwoHanded(user, item, undefined, req);
+    }
+
+    if (!user.achievements.purchasedEquipment && user.addAchievement) {
+      user.addAchievement('purchasedEquipment');
+      checkOnboardingStatus(user, req, analytics);
     }
 
     removePinnedGearAddPossibleNewOnes(user, `gear.flat.${item.key}`, item.key);

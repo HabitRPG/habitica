@@ -25,6 +25,7 @@ describe('POST /user/hatch/:egg/:hatchingPotion', () => {
     expect(user.items.pets['Wolf-Base']).to.equal(5);
     expect(user.items.eggs.Wolf).to.equal(0);
     expect(user.items.hatchingPotions.Base).to.equal(0);
+    expect(user.achievements.backToBasics).to.not.equal(true);
 
     expect(res).to.eql({
       message: t('messageHatched'),

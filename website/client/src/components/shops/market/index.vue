@@ -161,7 +161,7 @@
 import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _throttle from 'lodash/throttle';
-import { mapState } from '@/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 
 import KeysToKennel from './keysToKennel';
 import EquipmentSection from './equipmentSection';
@@ -176,14 +176,8 @@ import FilterDropdown from '@/components/ui/filterDropdown';
 import MarketFilter from './filter';
 
 import SellModal from './sellModal.vue';
-
-import svgPin from '@/assets/svg/pin.svg';
-import svgGem from '@/assets/svg/gem.svg';
-import svgInformation from '@/assets/svg/information.svg';
-
 import getItemInfo from '@/../../common/script/libs/getItemInfo';
 import shops from '@/../../common/script/libs/shops';
-
 
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
@@ -222,20 +216,11 @@ export default {
 
       searchText: null,
       searchTextThrottled: null,
-
-      icons: Object.freeze({
-        pin: svgPin,
-        gem: svgGem,
-        information: svgInformation,
-      }),
-
       sortItemsBy: sortItems,
       selectedSortItemsBy: sortItems[0],
 
       hideLocked: false,
       hidePinned: false,
-
-      broken: false,
     };
   },
   computed: {
@@ -244,6 +229,9 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
+    }),
+    ...mapGetters({
+      broken: 'worldState.brokenMarket',
     }),
     market () {
       return shops.getMarketShop(this.user);
@@ -316,10 +304,7 @@ export default {
     }, 250),
   },
   async mounted () {
-    const worldState = await this.$store.dispatch('worldState:getWorldState');
-    this.broken = worldState && worldState.worldBoss
-      && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg
-      && worldState.worldBoss.extra.worldDmg.market;
+    await this.$store.dispatch('worldState:getWorldState');
   },
   methods: {
     sellItem (itemScope) {

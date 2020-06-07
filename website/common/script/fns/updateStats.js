@@ -66,18 +66,6 @@ export default function updateStats (user, stats, req = {}, analytics) {
   if (!user.flags.itemsEnabled && (user.stats.exp > 10 || user.stats.lvl > 1)) {
     user.flags.itemsEnabled = true;
   }
-  if (!user.flags.dropsEnabled && user.stats.lvl >= 3) {
-    user.flags.dropsEnabled = true;
-    if (user.addNotification) user.addNotification('DROPS_ENABLED');
-
-    if (user.items.eggs.Wolf > 0) {
-      user.items.eggs.Wolf += 1;
-    } else {
-      user.items.eggs.Wolf = 1;
-    }
-
-    if (user.markModified) user.markModified('items.eggs');
-  }
   each({
     vice1: 30,
     atom1: 15,
@@ -89,7 +77,10 @@ export default function updateStats (user, stats, req = {}, analytics) {
       if (user.markModified) user.markModified('flags.levelDrops');
 
       if (!user.items.quests[k]) user.items.quests[k] = 0;
-      user.items.quests[k] += 1;
+      user.items.quests = {
+        ...user.items.quests,
+        [k]: user.items.quests[k] + 1,
+      };
       if (user.markModified) user.markModified('items.quests');
 
       if (analytics) {

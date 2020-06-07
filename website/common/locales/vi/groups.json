@@ -151,7 +151,7 @@
     "gemAmountRequired": "A number of gems is required",
     "notAuthorizedToSendMessageToThisUser": "You can't send a message to this player because they have chosen to block messages.",
     "privateMessageGiftGemsMessage": "Hello <%= receiverName %>, <%= senderName %> has sent you <%= gemAmount %> gems!",
-    "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> months of subscription!",
+    "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> tháng đăng ký!",
     "cannotSendGemsToYourself": "Cannot send gems to yourself. Try a subscription instead.",
     "badAmountOfGemsToSend": "Amount must be within 1 and your current number of gems.",
     "report": "Báo cáo",
@@ -172,7 +172,7 @@
     "messageWroteIn": "<%= user %> wrote in <%= group %>",
     "msgPreviewHeading": "Message Preview",
     "leaderOnlyChallenges": "Only group leader can create challenges",
-    "sendGift": "Send Gift",
+    "sendGift": "Gửi quà",
     "inviteFriends": "Invite Friends",
     "partyMembersInfo": "Your Party currently has <%= memberCount %> members and <%= invitationCount %> pending invitations. The limit of members in a Party is <%= limitMembers %>. Invitations above this limit cannot be sent.",
     "inviteByEmail": "Invite by Email",
@@ -479,5 +479,12 @@
     "sharedCompletion": "Shared Completion",
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned user finishes",
-    "allAssignedCompletion": "All - Completes when all assigned users finish"
+    "allAssignedCompletion": "All - Completes when all assigned users finish",
+    "selectGift": "Chọn quà",
+    "pmReported": "Cảm ơn vì đã báo cáo tin nhắn này.",
+    "blockedToSendToThisUser": "Bạn không thể gửi tin nhắn tới người chơi này bởi vì bạn đã chặn họ.",
+    "PMUnblockUserToSendMessages": "Mở chặn người dùng này để tiếp tục gửi và nhận tin nhắn.",
+    "PMUserDoesNotReceiveMessages": "Người dùng này không còn nhận tin nhắn riêng tư nữa",
+    "PMCanNotReply": "Bạn không thể trả lời cuộc hội thoại này",
+    "PMDisabled": "Vô hiệu hóa Tin nhắn Riêng tư"
 }

@@ -4,7 +4,7 @@
     "armoireText": "Zaczarowana Skrzynia",
     "armoireNotesFull": "Otwórz skrzynię aby otrzymać losowe wyposażenie specjalne, doświadczenie albo jedzenie! Pozostałe elementy wyposażenia:",
     "armoireLastItem": "Znalazłeś ostatnią część rzadkiego wyposażenia w Zaczarowanej Skrzyni.",
-    "armoireNotesEmpty": "Skrzynia będzie zawierała nowe wyposażenie co miesiąc. Do tego czasu klikaj aby otrzymać doświadczenie i jedzenie!",
+    "armoireNotesEmpty": "Skrzynia będzie zawierała nowe wyposażenie co miesiąc. Do tego czasu klikaj aby otrzymać doświadczenie i jedzenie dla zwierzaków!",
     "dropEggWolfText": "wilk",
     "dropEggWolfMountText": "Wilk",
     "dropEggWolfAdjective": "lojalny",
@@ -350,5 +350,11 @@
     "questEggRobotAdjective": "futurystyczny",
     "questEggRobotMountText": "Robot",
     "questEggRobotText": "Robot",
-    "hatchingPotionShadow": "Cienisty"
+    "hatchingPotionShadow": "Cienisty",
+    "premiumPotionUnlimitedNotes": "Nie nadaje się do użytku na jajach.",
+    "hatchingPotionAurora": "Polarnej Zorzy",
+    "hatchingPotionAmber": "Bursztynowy",
+    "hatchingPotionRuby": "Rubinowy",
+    "hatchingPotionDessert": "Słodyczowy",
+    "hatchingPotionBirchBark": "Kora Brzozowa"
 }

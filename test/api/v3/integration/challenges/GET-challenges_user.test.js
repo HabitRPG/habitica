@@ -242,7 +242,7 @@ describe('GET challenges/user', () => {
   });
 
   context('official challenge is present', () => {
-    let user; let officialChallenge; let challenge; let challenge2; let
+    let user; let officialChallenge; let unofficialChallenges; let
       publicGuild;
 
     before(async () => {
@@ -270,10 +270,14 @@ describe('GET challenges/user', () => {
       });
       await user.post(`/challenges/${officialChallenge._id}/join`);
 
-      challenge = await generateChallenge(user, group);
-      await user.post(`/challenges/${challenge._id}/join`);
-      challenge2 = await generateChallenge(user, group);
-      await user.post(`/challenges/${challenge2._id}/join`);
+      // We add 10 extra challenges to test whether the official challenge
+      // (the oldest) makes it to the front page.
+      unofficialChallenges = [];
+      for (let i = 0; i < 10; i += 1) {
+        const challenge = await generateChallenge(user, group); // eslint-disable-line
+        await user.post(`/challenges/${challenge._id}/join`); // eslint-disable-line
+        unofficialChallenges.push(challenge);
+      }
     });
 
     it('should return official challenges first', async () => {
@@ -284,20 +288,23 @@ describe('GET challenges/user', () => {
     });
 
     it('should return newest challenges first, after official ones', async () => {
-      let challenges = await user.get('/challenges/user');
+      let challenges = await user.get('/challenges/user?page=0');
 
-      let foundChallengeIndex = _.findIndex(challenges, { _id: challenge._id });
-      expect(foundChallengeIndex).to.eql(2);
-
-      foundChallengeIndex = _.findIndex(challenges, { _id: challenge2._id });
-      expect(foundChallengeIndex).to.eql(1);
+      unofficialChallenges.forEach((chal, index) => {
+        const foundChallengeIndex = _.findIndex(challenges, { _id: chal._id });
+        if (index === 0) {
+          expect(foundChallengeIndex).to.eql(-1);
+        } else {
+          expect(foundChallengeIndex).to.eql(10 - index);
+        }
+      });
 
       const newChallenge = await generateChallenge(user, publicGuild);
       await user.post(`/challenges/${newChallenge._id}/join`);
 
       challenges = await user.get('/challenges/user');
 
-      foundChallengeIndex = _.findIndex(challenges, { _id: newChallenge._id });
+      const foundChallengeIndex = _.findIndex(challenges, { _id: newChallenge._id });
       expect(foundChallengeIndex).to.eql(1);
     });
   });

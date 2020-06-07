@@ -5,6 +5,7 @@ import {
   moveTask,
 } from '../../../../website/server/libs/taskManager';
 import i18n from '../../../../website/common/script/i18n';
+import shared from '../../../../website/common/script';
 import {
   generateUser,
   generateGroup,
@@ -56,6 +57,51 @@ describe('taskManager', () => {
     expect(newTask.up).to.equal(testHabit.up);
     expect(newTask.down).to.equal(testHabit.down);
     expect(newTask.createdAt).to.exist;
+  });
+
+  describe('onboarding', () => {
+    beforeEach(() => {
+      user.addAchievement = sinon.spy();
+      sinon.stub(shared.onboarding, 'checkOnboardingStatus');
+    });
+
+    afterEach(() => {
+      shared.onboarding.checkOnboardingStatus.restore();
+    });
+
+    it('adds the onboarding achievement to the user and checks the onboarding status', async () => {
+      req.body = testHabit;
+      res.t = i18n.t;
+      user.flags.welcomed = true;
+
+      await createTasks(req, res, { user });
+
+      expect(user.addAchievement).to.be.calledOnce;
+      expect(user.addAchievement).to.be.calledWith('createdTask');
+
+      expect(shared.onboarding.checkOnboardingStatus).to.be.calledOnce;
+      expect(shared.onboarding.checkOnboardingStatus).to.be.calledWith(user);
+    });
+
+    it('does not add the onboarding achievement to the user if flags.welcomed is false', async () => {
+      req.body = testHabit;
+      res.t = i18n.t;
+      user.flags.welcomed = false;
+
+      await createTasks(req, res, { user });
+
+      expect(user.addAchievement).to.not.be.called;
+    });
+
+    it('does not add the onboarding achievement to the user if it\'s already been awarded', async () => {
+      req.body = testHabit;
+      res.t = i18n.t;
+      user.achievements.createdTask = true;
+
+      await createTasks(req, res, { user });
+
+      expect(user.addAchievement).to.not.be.called;
+    });
   });
 
   it('gets user tasks', async () => {

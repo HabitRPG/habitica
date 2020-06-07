@@ -28,34 +28,9 @@
             <h3 class="text-center">
               {{ $t('singUpForFree') }}
             </h3>
-            <div class="text-center">
-              <button
-                class="social-button"
-                @click="socialAuth('facebook')"
-              >
-                <div
-                  class="svg-icon social-icon"
-                  v-html="icons.facebookIcon"
-                ></div>
-                <span>{{ $t('signUpWithSocial', {social: 'Facebook'}) }}</span>
-              </button>
-              <button
-                class="social-button"
-                @click="socialAuth('google')"
-              >
-                <div
-                  class="svg-icon social-icon"
-                  v-html="icons.googleIcon"
-                ></div>
-                <span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
-              </button>
-            </div>
-            <div class="strike">
-              <span>{{ $t('or') }}</span>
-            </div>
-            <div
+            <form
               class="form"
-              @keyup.enter="register()"
+              @submit.prevent.stop="register()"
             >
               <p class="form-text">
                 {{ $t('usernameLimitations') }}
@@ -63,7 +38,7 @@
               <input
                 id="usernameInput"
                 v-model="username"
-                class="form-control"
+                class="form-control input-with-error"
                 type="text"
                 :placeholder="$t('username')"
                 :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
@@ -85,30 +60,81 @@
               >
               <input
                 v-model="password"
-                class="form-control"
+                class="form-control input-with-error"
                 type="password"
                 :placeholder="$t('password')"
-                :class="{'input-valid': password.length > 3}"
+                :class="{
+                  'input-valid': passwordValid,
+                  'input-invalid': passwordInvalid,
+                }"
               >
+              <div
+                v-if="passwordInvalid"
+                class="input-error"
+              >
+                {{ $t('minPasswordLength') }}
+              </div>
               <input
                 v-model="passwordConfirm"
-                class="form-control"
+                class="form-control input-with-error"
                 type="password"
                 :placeholder="$t('confirmPassword')"
                 :class="{
                   'input-invalid': passwordConfirmInvalid,
                   'input-valid': passwordConfirmValid}"
               >
+              <div
+                v-if="passwordConfirmInvalid"
+                class="input-error"
+              >
+                {{ $t('passwordConfirmationMatch') }}
+              </div>
               <p
                 v-once
                 class="form-text"
                 v-html="$t('termsAndAgreement')"
               ></p>
               <button
-                class="sign-up"
-                @click="register()"
+                class="btn btn-block btn-info sign-up"
+                :disabled="signupFormInvalid"
+                type="submit"
               >
                 {{ $t('signup') }}
+              </button>
+            </form>
+            <div class="strike">
+              <span>{{ $t('or') }}</span>
+            </div>
+            <div class="text-center">
+              <button
+                class="social-button"
+                @click="socialAuth('facebook')"
+              >
+                <div
+                  class="svg-icon social-icon"
+                  v-html="icons.facebookIcon"
+                ></div>
+                <span>{{ $t('signUpWithSocial', {social: 'Facebook'}) }}</span>
+              </button>
+              <button
+                class="social-button"
+                @click="socialAuth('google')"
+              >
+                <div
+                  class="svg-icon social-icon"
+                  v-html="icons.googleIcon"
+                ></div>
+                <span>{{ $t('signUpWithSocial', {social: 'Google'}) }}</span>
+              </button>
+              <button
+                class="social-button"
+                @click="socialAuth('apple')"
+              >
+                <div
+                  class="svg-icon social-icon apple-icon"
+                  v-html="icons.appleIcon"
+                ></div>
+                <span>{{ $t('signUpWithSocial', {social: 'Apple'}) }}</span>
               </button>
             </div>
           </div>
@@ -272,7 +298,7 @@
       <div class="container featured">
         <div class="row text-center">
           <h3 class="col-12">
-            {{ $t('joinMany') }}
+            {{ $t('joinMany', {userCountInMillions}) }}
           </h3>
         </div>
         <div class="row">
@@ -434,17 +460,17 @@
     }
 
     h3 {
-      font-size: 24px;
+      font-size: 32px;
     }
 
     .social-button {
       border-radius: 2px;
       border: solid 2px #bda8ff;
-      width: 48%;
+      width: 100%;
       min-height: 40px;
       padding: .5em;
       background: transparent;
-      margin-right: .5em;
+      margin-bottom: .5em;
       color: #bda8ff;
       transition: .5s;
 
@@ -465,7 +491,11 @@
       height: 18px;
       display: inline-block;
       vertical-align: top;
-      margin-top: .2em;
+      margin-top: .1em;
+    }
+
+    .apple-icon {
+      margin-top: -1px;
     }
 
     .strike {
@@ -519,7 +549,7 @@
       transition: border .5s, color .5s;
     }
 
-    #usernameInput.input-invalid {
+    .input-invalid.input-with-error {
       margin-bottom: 0.5em;
     }
 
@@ -537,21 +567,9 @@
       background-color: #36205d;
     }
 
-    button.sign-up {
-      width: 100%;
-      height: 48px;
-      color: #fff;
-      border: none;
-      border-radius: 2px;
-      background-color: #2995cd;
-      font-size: 16px;
-      transition: all .5s ease;
-    }
-
-    .sign-up:hover {
-      background-color: #50b5e9;
-      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
-      cursor: pointer;
+    .sign-up {
+      padding-top: 11px;
+      padding-bottom: 11px;
     }
 
     ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -769,7 +787,6 @@
     color: #fff;
     font-size: 90%;
     width: 100%;
-    text-align: center;
     margin-bottom: 1em;
   }
 </style>
@@ -778,6 +795,7 @@
 import hello from 'hellojs';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
+import { buildAppleAuthUrl } from '../../libs/auth';
 import googlePlay from '@/assets/images/home/google-play-badge.svg';
 import iosAppStore from '@/assets/images/home/ios-app-store.svg';
 import iphones from '@/assets/images/home/iphones.svg';
@@ -787,6 +805,7 @@ import pixelHorizontal2 from '@/assets/images/home/pixel-horizontal-2.svg';
 import pixelHorizontal3 from '@/assets/images/home/pixel-horizontal-3.svg';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
+import appleIcon from '@/assets/svg/apple.svg';
 import cnet from '@/assets/svg/cnet.svg';
 import fastCompany from '@/assets/svg/fast-company.svg';
 import discover from '@/assets/images/home/discover.svg';
@@ -796,6 +815,7 @@ import lifehacker from '@/assets/images/home/lifehacker.svg';
 import makeuseof from '@/assets/images/home/make-use-of.svg';
 import thenewyorktimes from '@/assets/images/home/the-new-york-times.svg';
 import * as Analytics from '@/libs/analytics';
+import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 
 export default {
   data () {
@@ -810,6 +830,7 @@ export default {
         pixelHorizontal3,
         facebookIcon: facebookSquareIcon,
         googleIcon,
+        appleIcon,
         cnet,
         fastCompany,
         discover,
@@ -819,7 +840,7 @@ export default {
         makeuseof,
         thenewyorktimes,
       }),
-      userCountInMillions: 3,
+      userCountInMillions: 4,
       username: '',
       password: '',
       passwordConfirm: '',
@@ -844,6 +865,14 @@ export default {
       if (this.username.length < 1) return false;
       return !this.usernameValid;
     },
+    passwordValid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
+    },
+    passwordInvalid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length < MINIMUM_PASSWORD_LENGTH;
+    },
     passwordConfirmValid () {
       if (this.passwordConfirm.length <= 3) return false;
       return this.passwordConfirm === this.password;
@@ -851,6 +880,12 @@ export default {
     passwordConfirmInvalid () {
       if (this.passwordConfirm.length <= 3) return false;
       return this.passwordConfirm !== this.password;
+    },
+    signupFormInvalid () {
+      return this.usernameInvalid
+        || this.emailInvalid
+        || this.passwordInvalid
+        || this.passwordConfirmInvalid;
     },
   },
   watch: {
@@ -867,9 +902,9 @@ export default {
     });
 
     hello.init({
-        facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
+      facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
       // windows: WINDOWS_CLIENT_ID,
-        google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+      google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
   },
   methods: {
@@ -878,6 +913,7 @@ export default {
       if (username.length < 1) {
         return;
       }
+
       this.$store.dispatch('auth:verifyUsername', {
         username: this.username,
       }).then(res => {
@@ -907,15 +943,7 @@ export default {
         groupInvite,
       });
 
-      let redirectTo;
-
-      if (this.$route.query.redirectTo) {
-        redirectTo = this.$route.query.redirectTo;
-      } else {
-        redirectTo = '/';
-      }
-
-      window.location.href = redirectTo;
+      window.location.href = this.$route.query.redirectTo || '/';
     },
     playButtonClick () {
       Analytics.track({
@@ -928,22 +956,26 @@ export default {
     },
     // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
-      try {
-        await hello(network).logout();
+      if (network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
+      } else {
+        try {
+          await hello(network).logout();
         } catch (e) {} // eslint-disable-line
 
-      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-      const auth = await hello(network).login({
-        scope: 'email',
-        // explicitly pass the redirect url or it might redirect to /home
-        redirect_uri: redirectUrl, // eslint-disable-line camelcase
-      });
+        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
+        const auth = await hello(network).login({
+          scope: 'email',
+          // explicitly pass the redirect url or it might redirect to /home
+          redirect_uri: redirectUrl, // eslint-disable-line camelcase
+        });
 
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
 
-      window.location.href = '/';
+        window.location.href = '/';
+      }
     },
   },
 };

@@ -11,7 +11,7 @@ import { // eslint-disable-line import/no-cycle
 import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   syncableAttrs,
   setNextDue,
@@ -35,10 +35,10 @@ const schema = new Schema({
     rewards: [{ $type: String, ref: 'Task' }],
   },
   leader: {
-    $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true,
+    $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for challenge leader.'], required: true,
   },
   group: {
-    $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.'], required: true,
+    $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for challenge group.'], required: true,
   },
   memberCount: { $type: Number, default: 0 },
   prize: { $type: Number, default: 0, min: 0 },
@@ -59,7 +59,7 @@ schema.plugin(baseModel, {
 
 schema.pre('init', chal => {
   // The Vue website makes the summary be mandatory for all new challenges, but the
-  // Angular website did not, and the API does not yet for backwards-compatibilty.
+  // Angular website did not, and the API does not yet for backwards-compatibility.
   // When any challenge without a summary is fetched from the database, this code
   // supplies the name as the summary. This can be removed when all challenges have
   // a summary and the API makes it mandatory (a breaking change!)
@@ -97,6 +97,23 @@ schema.methods.canJoin = function canJoinChallenge (user, group) {
   return user.getGroups().indexOf(this.group) !== -1;
 };
 
+// Returns true if the challenge was successfully added to the user
+// or false if the user already in the challenge
+schema.methods.addToUser = async function addChallengeToUser (user) {
+  // Add challenge to users challenges atomically (with a condition that checks that it
+  // is not there already) to prevent multiple concurrent requests from passing through
+  // see https://github.com/HabitRPG/habitica/issues/11295
+  const result = await User.update(
+    {
+      _id: user._id,
+      challenges: { $nin: [this._id] },
+    },
+    { $push: { challenges: this._id } },
+  ).exec();
+
+  return !!result.nModified;
+};
+
 // Returns true if user can view the challenge
 // Different from canJoin because you can see challenges of groups
 // you've been removed from if you're participating in them
@@ -105,19 +122,12 @@ schema.methods.canView = function canViewChallenge (user, group) {
   return this.canJoin(user, group);
 };
 
-// Sync challenge to user, including tasks and tags.
+// Sync challenge tasks to user, including tags.
 // Used when user joins the challenge or to force sync.
-schema.methods.syncToUser = async function syncChallengeToUser (user) {
+schema.methods.syncTasksToUser = async function syncChallengeTasksToUser (user) {
   const challenge = this;
   challenge.shortName = challenge.shortName || challenge.name;
 
-  // Add challenge to user.challenges
-  if (!_.includes(user.challenges, challenge._id)) {
-    // using concat because mongoose's protection against
-    // concurrent array modification isn't working as expected.
-    // see https://github.com/HabitRPG/habitica/pull/7787#issuecomment-232972394
-    user.challenges = user.challenges.concat([challenge._id]);
-  }
   // Sync tags
   const userTags = user.tags;
   const i = _.findIndex(userTags, { id: challenge._id });

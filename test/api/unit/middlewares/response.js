@@ -34,7 +34,7 @@ describe('response middleware', () => {
     expect(res.json).to.be.calledWith({
       success: true,
       data: { field: 1 },
-      notifications: [],
+      notifications: res.locals.user.notifications,
       userV: res.locals.user._v,
       appVersion: packageInfo.version,
     });
@@ -52,7 +52,7 @@ describe('response middleware', () => {
       success: true,
       data: { field: 1 },
       message: 'hello',
-      notifications: [],
+      notifications: res.locals.user.notifications,
       userV: res.locals.user._v,
       appVersion: packageInfo.version,
     });
@@ -69,7 +69,7 @@ describe('response middleware', () => {
     expect(res.json).to.be.calledWith({
       success: false,
       data: { field: 1 },
-      notifications: [],
+      notifications: res.locals.user.notifications,
       userV: res.locals.user._v,
       appVersion: packageInfo.version,
     });
@@ -84,41 +84,8 @@ describe('response middleware', () => {
     expect(res.json).to.be.calledWith({
       success: true,
       data: { field: 1 },
-      notifications: [],
+      notifications: res.locals.user.notifications,
       userV: 0,
-      appVersion: packageInfo.version,
-    });
-  });
-
-  it('returns notifications if a user is authenticated', () => {
-    const { user } = res.locals;
-
-    user.notifications = [
-      null, // invalid, not an object
-      { seen: true }, // invalid, no type or id
-      { id: 123 }, // invalid, no type
-      // invalid, no id, not included here because the id would be added automatically
-      // {type: 'ABC'},
-      { type: 'ABC', id: '123' }, // valid
-    ];
-
-    responseMiddleware(req, res, next);
-    res.respond(200, { field: 1 });
-
-    expect(res.json).to.be.calledOnce;
-
-    expect(res.json).to.be.calledWith({
-      success: true,
-      data: { field: 1 },
-      notifications: [
-        {
-          type: 'ABC',
-          id: '123',
-          data: {},
-          seen: false,
-        },
-      ],
-      userV: res.locals.user._v,
       appVersion: packageInfo.version,
     });
   });

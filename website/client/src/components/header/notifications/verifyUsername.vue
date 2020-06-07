@@ -13,7 +13,7 @@
       <div class="username-notification-title">
         {{ $t('setUsernameNotificationTitle') }}
       </div>
-      <div>{{ $t('setUsernameNotificationBody') }}</div>
+      <div>{{ $t('changeUsernameDisclaimer') }}</div>
       <div class="current-username-container mx-auto">
         <label class="font-weight-bold">{{ $t('currentUsername') + " " }}</label>
         <label>@</label>

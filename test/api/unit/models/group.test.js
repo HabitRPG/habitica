@@ -538,52 +538,74 @@ describe('Group Model', () => {
           });
         });
 
-        it('sends a chat message if no progress is made on quest with multiple items', async () => {
-          progress.collectedItems = 0;
-          party.quest.key = 'dilatoryDistress1';
-          party.quest.active = false;
+        describe('collection quests with multiple items', () => {
+          it('sends a chat message if no progress is made on quest with multiple items', async () => {
+            progress.collectedItems = 0;
+            party.quest.key = 'dilatoryDistress1';
+            party.quest.active = false;
 
-          await party.startQuest(questLeader);
-          Group.prototype.sendChat.resetHistory();
-          await party.save();
+            await party.startQuest(questLeader);
+            Group.prototype.sendChat.resetHistory();
+            await party.save();
 
-          await Group.processQuestProgress(participatingMember, progress);
+            await Group.processQuestProgress(participatingMember, progress);
 
-          party = await Group.findOne({ _id: party._id });
+            party = await Group.findOne({ _id: party._id });
 
-          expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWith({
-            message: '`Participating Member found 0 Fire Coral, 0 Blue Fins.`',
-            info: {
-              items: { blueFins: 0, fireCoral: 0 },
-              quest: 'dilatoryDistress1',
-              type: 'user_found_items',
-              user: 'Participating Member',
-            },
+            expect(Group.prototype.sendChat).to.be.calledOnce;
+            expect(Group.prototype.sendChat).to.be.calledWith({
+              message: '`Participating Member found 0 Fire Coral, 0 Blue Fins.`',
+              info: {
+                items: { blueFins: 0, fireCoral: 0 },
+                quest: 'dilatoryDistress1',
+                type: 'user_found_items',
+                user: 'Participating Member',
+              },
+            });
           });
-        });
 
-        it('handles collection quests with multiple items', async () => {
-          progress.collectedItems = 10;
-          party.quest.key = 'evilsanta2';
-          party.quest.active = false;
+          it('handles correctly', async () => {
+            progress.collectedItems = 10;
+            party.quest.key = 'evilsanta2';
+            party.quest.active = false;
 
-          await party.startQuest(questLeader);
-          Group.prototype.sendChat.resetHistory();
-          await party.save();
+            await party.startQuest(questLeader);
+            Group.prototype.sendChat.resetHistory();
+            await party.save();
 
-          await Group.processQuestProgress(participatingMember, progress);
+            await Group.processQuestProgress(participatingMember, progress);
 
-          party = await Group.findOne({ _id: party._id });
+            party = await Group.findOne({ _id: party._id });
 
-          expect(Group.prototype.sendChat).to.be.calledOnce;
-          expect(Group.prototype.sendChat).to.be.calledWithMatch({
-            message: sinon.match(/`Participating Member found/).and(sinon.match(/\d* (Tracks|Broken Twigs)/)),
-            info: {
-              quest: 'evilsanta2',
-              type: 'user_found_items',
-              user: 'Participating Member',
-            },
+            expect(Group.prototype.sendChat).to.be.calledOnce;
+            expect(Group.prototype.sendChat).to.be.calledWithMatch({
+              message: sinon.match(/`Participating Member found/).and(sinon.match(/\d* (Tracks|Broken Twigs)/)),
+              info: {
+                quest: 'evilsanta2',
+                type: 'user_found_items',
+                user: 'Participating Member',
+              },
+            });
+          });
+
+          it('cannot collect excess items', async () => {
+            // Make sure the quest progress isn't erased
+            sandbox.stub(Group.prototype, 'finishQuest').returns(Promise.resolve());
+
+            progress.collectedItems = 500;
+            party.quest.key = 'evilsanta2';
+            party.quest.active = false;
+
+            await party.startQuest(questLeader);
+            await party.save();
+
+            await Group.processQuestProgress(participatingMember, progress);
+            party = await Group.findOne({ _id: party._id });
+
+            expect(party.quest.progress.collect.tracks)
+              .to.eql(questScrolls.evilsanta2.collect.tracks.count);
+            expect(party.quest.progress.collect.branches)
+              .to.eql(questScrolls.evilsanta2.collect.branches.count);
           });
         });
 
@@ -1164,6 +1186,23 @@ describe('Group Model', () => {
         });
       });
 
+      it('unlink group tag', async () => {
+        participatingMember.tags.push({
+          name: party.name,
+          id: party._id,
+          group: party._id,
+        });
+
+        await participatingMember.save();
+        await party.leave(participatingMember);
+
+        participatingMember = await User.findOne({ _id: participatingMember._id });
+        const groupTag = participatingMember.tags.find(tag => tag.id === party._id);
+
+        expect(groupTag).to.not.be.undefined;
+        expect(groupTag.group).to.be.undefined;
+      });
+
       it('deletes a private party when the last member leaves', async () => {
         await party.leave(participatingMember);
         await party.leave(sleepingParticipatingMember);
@@ -1317,7 +1356,7 @@ describe('Group Model', () => {
 
       it('formats message', () => {
         const chatMessage = party.sendChat({
-          message: 'a new message',
+          message: 'a _new_ message with *markdown*',
           user: {
             _id: 'user-id',
             profile: { name: 'user name' },
@@ -1336,7 +1375,8 @@ describe('Group Model', () => {
 
         const chat = chatMessage;
 
-        expect(chat.text).to.eql('a new message');
+        expect(chat.text).to.eql('a _new_ message with *markdown*');
+        expect(chat.unformattedText).to.eql('a new message with markdown');
         expect(validator.isUUID(chat.id)).to.eql(true);
         expect(chat.timestamp).to.be.a('date');
         expect(chat.likes).to.eql({});
@@ -1878,6 +1918,8 @@ describe('Group Model', () => {
         await questLeader.save();
         await party.finishQuest(quest);
 
+        await sleep(0.5);
+
         const [
           updatedLeader,
           updatedParticipatingMember,
@@ -2360,29 +2402,29 @@ describe('Group Model', () => {
       });
     });
 
-    context('isSubscribed', () => {
+    context('hasActiveGroupPlan', () => {
       it('returns false if group does not have customer id', () => {
-        expect(party.isSubscribed()).to.be.undefined;
+        expect(party.hasActiveGroupPlan()).to.be.undefined;
       });
 
       it('returns true if group does not have plan.dateTerminated', () => {
         party.purchased.plan.customerId = 'test-id';
 
-        expect(party.isSubscribed()).to.be.true;
+        expect(party.hasActiveGroupPlan()).to.be.true;
       });
 
       it('returns true if group if plan.dateTerminated is after today', () => {
         party.purchased.plan.customerId = 'test-id';
         party.purchased.plan.dateTerminated = moment().add(1, 'days').toDate();
 
-        expect(party.isSubscribed()).to.be.true;
+        expect(party.hasActiveGroupPlan()).to.be.true;
       });
 
       it('returns false if group if plan.dateTerminated is before today', () => {
         party.purchased.plan.customerId = 'test-id';
         party.purchased.plan.dateTerminated = moment().subtract(1, 'days').toDate();
 
-        expect(party.isSubscribed()).to.be.false;
+        expect(party.hasActiveGroupPlan()).to.be.false;
       });
     });
 

@@ -94,6 +94,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'hatchingPotions',
         path: item.wacky ? `wackyHatchingPotions.${item.key}` : `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
+        event: item.event,
       };
       break;
     case 'food':
@@ -115,6 +116,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
+        addlNotes: item.addlNotes ? item.addlNotes(language) : null,
         value: item.value,
         currency: 'gems',
         class: `quest_bundle_${item.key}`,
@@ -130,7 +132,9 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         key: item.key,
         text: item.text(language),
         notes: item.notes(language),
+        addlNotes: item.addlNotes ? item.addlNotes(language) : null,
         group: item.group,
+        event: item.event,
         value: item.goldValue ? item.goldValue : item.value,
         locked,
         previous: content.quests[item.previous]
@@ -175,6 +179,25 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `inventory_special_${item.key}`,
         path: `spells.special.${item.key}`,
         pinType: 'seasonalSpell',
+      };
+      break;
+    case 'debuffPotion':
+      itemInfo = {
+        key: item.key,
+        mana: item.mana,
+        cast: item.cast,
+        immediateUse: item.immediateUse,
+        target: item.target,
+        text: item.text(language),
+        notes: item.notes(language),
+        value: item.value,
+        type: 'debuffPotion',
+        currency: 'gold',
+        locked: false,
+        purchaseType: 'debuffPotion',
+        class: `shop_${item.key}`,
+        path: `spells.special.${item.key}`,
+        pinType: 'debuffPotion',
       };
       break;
     case 'seasonalQuest':
@@ -222,6 +245,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'backgrounds',
         path: `backgrounds.${item.set}.${item.key}`,
         pinType: 'background',
+        locked: false,
       };
       break;
     case 'mystery_set':

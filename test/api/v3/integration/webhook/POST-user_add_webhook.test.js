@@ -81,6 +81,16 @@ describe('POST /user/webhook', () => {
     expect(webhook.type).to.eql('taskActivity');
   });
 
+  it('ignores protected fields', async () => {
+    body.failures = 3;
+    body.lastFailureAt = new Date();
+
+    const webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.failures).to.eql(0);
+    expect(webhook.lastFailureAt).to.eql(undefined);
+  });
+
   it('successfully adds the webhook', async () => {
     expect(user.webhooks).to.eql([]);
 
@@ -223,6 +233,69 @@ describe('POST /user/webhook', () => {
     expect(webhook.options.foo).to.not.exist;
     expect(webhook.options).to.eql({
       groupId: body.options.groupId,
+    });
+  });
+
+  it('defaults questActivity options', async () => {
+    body.type = 'questActivity';
+
+    const webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.options).to.eql({
+      questStarted: false,
+      questFinished: false,
+      questInvited: false,
+    });
+  });
+
+  it('can set questActivity options', async () => {
+    body.type = 'questActivity';
+    body.options = {
+      questStarted: true,
+      questFinished: true,
+      questInvited: true,
+    };
+
+    const webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.options).to.eql({
+      questStarted: true,
+      questFinished: true,
+      questInvited: true,
+    });
+  });
+
+  it('discards extra properties in questActivity options', async () => {
+    body.type = 'questActivity';
+    body.options = {
+      questStarted: false,
+      questFinished: true,
+      questInvited: true,
+      foo: 'bar',
+    };
+
+    const webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.options.foo).to.not.exist;
+    expect(webhook.options).to.eql({
+      questStarted: false,
+      questFinished: true,
+      questInvited: true,
+    });
+  });
+
+  ['questStarted', 'questFinished', 'questInvited'].forEach(option => {
+    it(`requires questActivity option ${option} to be a boolean`, async () => {
+      body.type = 'questActivity';
+      body.options = {
+        [option]: 'not a boolean',
+      };
+
+      await expect(user.post('/user/webhook', body)).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('webhookBooleanOption', { option }),
+      });
     });
   });
 

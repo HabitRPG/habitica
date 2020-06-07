@@ -11,10 +11,11 @@
         :aria-label="$t('notifications')"
       >
         <message-count
-          v-if="notificationsCount > 0"
+          v-if="notificationsCount > 0 || hasSpecialBadge"
           :count="notificationsCount"
           :top="true"
-          :gray="!hasUnseenNotifications"
+          :gray="!hasUnseenNotifications && !hasSpecialBadge"
+          :badge="hasSpecialBadge ? icons.starBadge : null"
         />
         <div
           class="top-menu-icon svg-icon notifications"
@@ -22,7 +23,10 @@
         ></div>
       </div>
     </div>
-    <div slot="dropdown-content">
+    <div
+      v-if="openStatus === 1"
+      slot="dropdown-content"
+    >
       <div
         class="dropdown-item dropdown-separated
          d-flex justify-content-between dropdown-inactive align-items-center"
@@ -41,6 +45,10 @@
         >{{ $t('dismissAll') }}</a>
       </div>
       <world-boss />
+      <onboarding-guide
+        v-if="showOnboardingGuide"
+        :never-seen="hasSpecialBadge"
+      />
       <component
         :is="notification.type"
         v-for="notification in notifications"
@@ -49,7 +57,7 @@
         :can-remove="!isActionable(notification)"
       />
       <div
-        v-if="notificationsCount === 0"
+        v-if="notificationsCount === 0 && !showOnboardingGuide"
         class="dropdown-item dropdown-separated
          d-flex justify-content-center dropdown-inactive no-notifications flex-column"
       >
@@ -106,10 +114,16 @@
 <script>
 import { mapState, mapActions } from '@/libs/store';
 import * as quests from '@/../../common/script/content/quests';
+import {
+  hasCompletedOnboarding,
+  hasActiveOnboarding,
+} from '@/../../common/script/libs/onboarding';
 import notificationsIcon from '@/assets/svg/notifications.svg';
 import MenuDropdown from '../ui/customMenuDropdown';
 import MessageCount from './messageCount';
+import { CONSTANTS, getLocalSetting, setLocalSetting } from '@/libs/userlocalManager';
 import successImage from '@/assets/svg/success.svg';
+import starBadge from '@/assets/svg/star-badge.svg';
 
 // Notifications
 import NEW_STUFF from './notifications/newStuff';
@@ -125,13 +139,16 @@ import GROUP_TASK_CLAIMED from './notifications/groupTaskClaimed';
 import UNALLOCATED_STATS_POINTS from './notifications/unallocatedStatsPoints';
 import NEW_MYSTERY_ITEMS from './notifications/newMysteryItems';
 import CARD_RECEIVED from './notifications/cardReceived';
-import NEW_INBOX_MESSAGE from './notifications/newInboxMessage';
+import NEW_INBOX_MESSAGE from './notifications/newPrivateMessage';
 import NEW_CHAT_MESSAGE from './notifications/newChatMessage';
 import WORLD_BOSS from './notifications/worldBoss';
 import VERIFY_USERNAME from './notifications/verifyUsername';
 import ACHIEVEMENT_JUST_ADD_WATER from './notifications/justAddWater';
 import ACHIEVEMENT_LOST_MASTERCLASSER from './notifications/lostMasterclasser';
 import ACHIEVEMENT_MIND_OVER_MATTER from './notifications/mindOverMatter';
+import ONBOARDING_COMPLETE from './notifications/onboardingComplete';
+import GIFT_ONE_GET_ONE from './notifications/g1g1';
+import OnboardingGuide from './onboardingGuide';
 
 export default {
   components: {
@@ -158,30 +175,35 @@ export default {
     ACHIEVEMENT_MIND_OVER_MATTER,
     WorldBoss: WORLD_BOSS,
     VERIFY_USERNAME,
+    OnboardingGuide,
+    ONBOARDING_COMPLETE,
+    GIFT_ONE_GET_ONE,
   },
   data () {
     return {
       icons: Object.freeze({
         notifications: notificationsIcon,
         success: successImage,
+        starBadge,
       }),
+      hasSpecialBadge: false,
       quests,
       openStatus: undefined,
       actionableNotifications: [
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
-        'QUEST_INVITATION', 'GROUP_TASK_NEEDS_WORK', 'GROUP_TASK_APPROVAL',
+        'QUEST_INVITATION', 'GROUP_TASK_NEEDS_WORK',
       ],
       // A list of notifications handled by this component,
       // listed in the order they should appear in the notifications panel.
       // NOTE: Those not listed here won't be shown in the notification panel!
       handledNotifications: [
-        'NEW_STUFF', 'GROUP_TASK_NEEDS_WORK',
+        'NEW_STUFF', 'GIFT_ONE_GET_ONE', 'GROUP_TASK_NEEDS_WORK',
         'GUILD_INVITATION', 'PARTY_INVITATION', 'CHALLENGE_INVITATION',
-        'QUEST_INVITATION', 'GROUP_TASK_ASSIGNED', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED', 'GROUP_TASK_CLAIMED',
-        'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
+        'QUEST_INVITATION', 'GROUP_TASK_ASSIGNED', 'GROUP_TASK_APPROVAL', 'GROUP_TASK_APPROVED',
+        'GROUP_TASK_CLAIMED', 'NEW_MYSTERY_ITEMS', 'CARD_RECEIVED',
         'NEW_INBOX_MESSAGE', 'NEW_CHAT_MESSAGE', 'UNALLOCATED_STATS_POINTS',
         'ACHIEVEMENT_JUST_ADD_WATER', 'ACHIEVEMENT_LOST_MASTERCLASSER', 'ACHIEVEMENT_MIND_OVER_MATTER',
-        'VERIFY_USERNAME',
+        'VERIFY_USERNAME', 'ONBOARDING_COMPLETE',
       ],
     };
   },
@@ -275,6 +297,20 @@ export default {
     hasClass () {
       return this.$store.getters['members:hasClass'](this.user);
     },
+    showOnboardingGuide () {
+      return hasActiveOnboarding(this.user) && !hasCompletedOnboarding(this.user);
+    },
+  },
+  mounted () {
+    const onboardingPanelState = getLocalSetting(CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE);
+    if (
+      onboardingPanelState !== CONSTANTS.onboardingPanelValues.PANEL_OPENED
+      && this.showOnboardingGuide
+    ) {
+      // The first time the onboarding panel is opened a special
+      // badge for notifications should be used
+      this.hasSpecialBadge = true;
+    }
   },
   methods: {
     ...mapActions({
@@ -286,6 +322,18 @@ export default {
 
       // Mark notifications as seen when the menu is opened
       if (openStatus) this.markAllAsSeen();
+
+      // Reset the special notification badge as soon as it's opened
+      if (this.hasSpecialBadge) {
+        setLocalSetting(
+          CONSTANTS.keyConstants.ONBOARDING_PANEL_STATE,
+          CONSTANTS.onboardingPanelValues.PANEL_OPENED,
+        );
+
+        setTimeout(() => {
+          this.hasSpecialBadge = false;
+        }, 100);
+      }
     },
     markAllAsSeen () {
       const idsToSee = this.notifications.map(notification => {
@@ -318,5 +366,6 @@ export default {
       return this.actionableNotifications.indexOf(notification.type) !== -1;
     },
   },
+
 };
 </script>

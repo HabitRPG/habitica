@@ -1,7 +1,10 @@
 <template>
   <div class="row">
     <challenge-modal @updatedChallenge="updatedChallenge" />
-    <leave-challenge-modal :challenge-id="challenge._id" />
+    <leave-challenge-modal
+      :challenge-id="challenge._id"
+      @update-challenge="updateChallenge"
+    />
     <close-challenge-modal
       :members="members"
       :challenge-id="challenge._id"
@@ -15,7 +18,11 @@
           <div>
             <span class="mr-1 ml-0 d-block">
               <strong v-once>{{ $t('createdBy') }}:</strong>
+              <span v-if="challenge.leader === null">
+                {{ $t('noChallengeOwner') }}
+              </span>
               <user-link
+                v-else
                 class="mx-1"
                 :user="challenge.leader"
               />
@@ -48,7 +55,7 @@
         </div>
         <div class="col-12 col-md-6 text-right">
           <div
-            class="box"
+            class="box member-count"
             @click="showMemberModal()"
           >
             <div
@@ -68,7 +75,7 @@
               class="svg-icon gem-icon"
               v-html="icons.gemIcon"
             ></div>
-            {{ challenge.prize }}
+            {{ challenge.prize || 0 }}
             <div
               v-once
               class="details"
@@ -86,6 +93,7 @@
             :members="members"
             :challenge-id="challengeId"
             @member-selected="openMemberProgressModal"
+            @opened="initialMembersLoad()"
           />
         </div>
         <div class="col-12 col-md-6 text-right">
@@ -123,7 +131,7 @@
           class="col-12 col-sm-6"
           :type="column"
           :task-list-override="tasksByType[column]"
-          :show-options="showOptions"
+          :challenge="challenge"
           @editTask="editTask"
           @taskDestroyed="taskDestroyed"
         />
@@ -272,6 +280,10 @@
     font-size: 20px;
     vertical-align: bottom;
 
+    &.member-count:hover {
+      cursor: pointer;
+    }
+
     .svg-icon {
       width: 30px;
       display: inline-block;
@@ -357,6 +369,7 @@ export default {
       }),
       challenge: {},
       members: [],
+      membersLoaded: false,
       tasksByType: {
         habit: [],
         daily: [],
@@ -386,9 +399,6 @@ export default {
     canJoin () {
       return !this.isMember;
     },
-    showOptions () {
-      return this.isLeader;
-    },
   },
   mounted () {
     if (!this.searchId) this.searchId = this.challengeId;
@@ -417,9 +427,12 @@ export default {
       return cleansedTask;
     },
     async loadChallenge () {
-      this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
-      this.members = await this
-        .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
+      try {
+        this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
+      } catch (e) {
+        this.$router.push('/challenges/findChallenges');
+        return;
+      }
       const tasks = await this.$store.dispatch('tasks:getChallengeTasks', { challengeId: this.searchId });
       this.tasksByType = {
         habit: [],
@@ -445,7 +458,22 @@ export default {
       }
       return this.$store.dispatch('members:getChallengeMembers', payload);
     },
+    initialMembersLoad () {
+      this.$store.state.memberModalOptions.loading = true;
+      if (!this.membersLoaded) {
+        this.membersLoaded = true;
 
+        this.loadMembers({
+          challengeId: this.searchId,
+          includeAllPublicFields: true,
+        }).then(m => {
+          this.members.push(...m);
+          this.$store.state.memberModalOptions.loading = false;
+        });
+      } else {
+        this.$store.state.memberModalOptions.loading = false;
+      }
+    },
     editTask (task) {
       this.taskFormPurpose = 'edit';
       this.editingTask = cloneDeep(task);
@@ -480,6 +508,8 @@ export default {
       this.tasksByType[task.type].splice(index, 1);
     },
     showMemberModal () {
+      this.initialMembersLoad();
+
       this.$root.$emit('habitica:show-member-modal', {
         challengeId: this.challenge._id,
         groupId: 'challenge', // @TODO: change these terrible settings
@@ -491,13 +521,22 @@ export default {
     },
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
-      await this.$store.dispatch('challenges:joinChallenge', { challengeId: this.searchId });
+      this.challenge = await this.$store.dispatch('challenges:joinChallenge', { challengeId: this.searchId });
+      this.membersLoaded = false;
+      this.members = [];
+
       await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
     },
     async leaveChallenge () {
       this.$root.$emit('bv::show::modal', 'leave-challenge-modal');
     },
+    async updateChallenge () {
+      this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
+      this.membersLoaded = false;
+      this.members = [];
+    },
     closeChallenge () {
+      this.initialMembersLoad();
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {

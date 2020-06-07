@@ -4,12 +4,15 @@ import min from 'lodash/min';
 import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
 import pickBy from 'lodash/pickBy';
+import size from 'lodash/size';
+import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
 import { diminishingReturns } from '../statHelpers';
 import randomVal from '../libs/randomVal';
 import statsComputed from '../libs/statsComputed';
+import firstDrops from './firstDrops';
 
 // TODO This is only used on the server
 // move to user model as an instance method?
@@ -29,6 +32,14 @@ export default function randomDrop (user, options, req = {}, analytics) {
   let drop;
   let dropMultiplier;
   let rarity;
+
+  if (
+    size(user.items.eggs) < 1
+    && size(user.items.hatchingPotions) < 1
+  ) {
+    user._tmp.firstDrops = firstDrops(user);
+    return;
+  }
 
   const predictableRandom = options.predictableRandom || trueRandom;
   const { task } = options;
@@ -71,7 +82,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
     return;
   }
 
-  if (user.flags && user.flags.dropsEnabled && predictableRandom() < chance) {
+  if (predictableRandom() < chance) {
     rarity = predictableRandom();
 
     if (rarity > 0.6) { // food 40% chance
@@ -79,7 +90,10 @@ export default function randomDrop (user, options, req = {}, analytics) {
         canDrop: true,
       })));
 
-      user.items.food[drop.key] = user.items.food[drop.key] || 0;
+      user.items.food = {
+        ...user.items.food,
+        [drop.key]: user.items.food[drop.key] || 0,
+      };
       user.items.food[drop.key] += 1;
       if (user.markModified) user.markModified('items.food');
 
@@ -91,7 +105,10 @@ export default function randomDrop (user, options, req = {}, analytics) {
     } else if (rarity > 0.3) { // eggs 30% chance
       drop = cloneDropItem(randomVal(content.dropEggs));
 
-      user.items.eggs[drop.key] = user.items.eggs[drop.key] || 0;
+      user.items.eggs = {
+        ...user.items.eggs,
+        [drop.key]: user.items.eggs[drop.key] || 0,
+      };
       user.items.eggs[drop.key] += 1;
       if (user.markModified) user.markModified('items.eggs');
 
@@ -114,8 +131,12 @@ export default function randomDrop (user, options, req = {}, analytics) {
         randomVal(pickBy(content.hatchingPotions, (v, k) => acceptableDrops.indexOf(k) >= 0)),
       );
 
-      user.items.hatchingPotions[drop.key] = user.items.hatchingPotions[drop.key] || 0;
+      user.items.hatchingPotions = {
+        ...user.items.hatchingPotions,
+        [drop.key]: user.items.hatchingPotions[drop.key] || 0,
+      };
       user.items.hatchingPotions[drop.key] += 1;
+
       if (user.markModified) user.markModified('items.hatchingPotions');
 
       drop.type = 'HatchingPotion';
@@ -125,7 +146,11 @@ export default function randomDrop (user, options, req = {}, analytics) {
       }, req.language);
     }
 
-    if (analytics) {
+    user._tmp.drop = drop;
+    user.items.lastDrop.date = Number(new Date());
+    user.items.lastDrop.count += 1;
+
+    if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
       analytics.track('dropped item', {
         uuid: user._id,
         itemKey: drop.key,
@@ -133,10 +158,15 @@ export default function randomDrop (user, options, req = {}, analytics) {
         category: 'behavior',
         headers: req.headers,
       });
-    }
 
-    user._tmp.drop = drop;
-    user.items.lastDrop.date = Number(new Date());
-    user.items.lastDrop.count += 1;
+      if (user.items.lastDrop.count === maxDropCount) {
+        analytics.track('drop cap reached', {
+          uuid: user._id,
+          dropCap: maxDropCount,
+          category: 'behavior',
+          headers: req.headers,
+        });
+      }
+    }
   }
 }

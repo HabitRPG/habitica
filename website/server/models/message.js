@@ -1,12 +1,15 @@
 import mongoose from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import { defaults } from 'lodash';
+import removeMd from 'remove-markdown';
 import baseModel from '../libs/baseModel';
+import shared from '../../common';
 
 const defaultSchema = () => ({
   id: String,
   timestamp: Date,
   text: String,
+  unformattedText: String,
   info: { $type: mongoose.Schema.Types.Mixed },
 
   // sender properties
@@ -105,7 +108,17 @@ export function setUserStyles (newMessage, user) {
 
   newMessage.contributor = contributorCopy;
   newMessage.userStyles = userStyles;
-  newMessage.markModified('userStyles contributor');
+
+  if (newMessage.markModified) {
+    newMessage.markModified('userStyles contributor');
+  }
+}
+
+// Sanitize an input message, separate from messageDefaults because
+// it must run before mentions are highlighted
+export function sanitizeText (msg) {
+  // Trim messages longer than the MAX_MESSAGE_LENGTH
+  return msg.substring(0, shared.constants.MAX_MESSAGE_LENGTH);
 }
 
 export function messageDefaults (msg, user, client, flagCount = 0, info = {}) {
@@ -113,7 +126,8 @@ export function messageDefaults (msg, user, client, flagCount = 0, info = {}) {
   const message = {
     id,
     _id: id,
-    text: msg.substring(0, 3000),
+    text: msg,
+    unformattedText: removeMd(msg),
     info,
     timestamp: Number(new Date()),
     likes: {},

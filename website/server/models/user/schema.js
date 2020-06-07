@@ -1,18 +1,14 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import shared from '../../../common';
-import { schema as TagSchema } from '../tag';
-import { schema as PushDeviceSchema } from '../pushDevice';
-import { schema as WebhookSchema } from '../webhook';
-import {
-  schema as UserNotificationSchema,
-} from '../userNotification';
-import {
-  schema as SubscriptionPlanSchema,
-} from '../subscriptionPlan';
 import { // eslint-disable-line import/no-cycle
   getDefaultOwnedGear,
 } from '../../libs/items/utils';
+import { schema as PushDeviceSchema } from '../pushDevice';
+import { schema as SubscriptionPlanSchema } from '../subscriptionPlan';
+import { schema as TagSchema } from '../tag';
+import { schema as UserNotificationSchema } from '../userNotification';
+import { schema as WebhookSchema } from '../webhook';
 
 const { Schema } = mongoose;
 
@@ -35,6 +31,7 @@ export default new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
+    apple: { $type: Schema.Types.Mixed, default: () => ({}) },
     local: {
       email: {
         $type: String,
@@ -130,6 +127,20 @@ export default new Schema({
     dustDevil: Boolean,
     aridAuthority: Boolean,
     kickstarter2019: Boolean,
+    monsterMagus: Boolean,
+    undeadUndertaker: Boolean,
+    primedForPainting: Boolean,
+    pearlyPro: Boolean,
+    tickledPink: Boolean,
+    rosyOutlook: Boolean,
+    bugBonanza: Boolean,
+    bareNecessities: Boolean,
+    // Onboarding Guide
+    createdTask: Boolean,
+    completedTask: Boolean,
+    hatchedPet: Boolean,
+    fedPet: Boolean,
+    purchasedEquipment: Boolean,
   },
 
   backer: {
@@ -139,8 +150,7 @@ export default new Schema({
   },
 
   contributor: {
-    // 1-9, see https://trello.com/c/wkFzONhE/277-contributor-gear
-    // https://github.com/HabitRPG/habitica/issues/3801
+    // 1-9, see https://habitica.fandom.com/wiki/Contributor_Rewards
     level: {
       $type: Number,
       min: 0,
@@ -152,6 +162,7 @@ export default new Schema({
     text: String,
     // a markdown textarea to list their contributions + links
     contributions: String,
+    // user can own Critical Hammer of Bug-Crushing if this has a truthy value
     critical: String,
   },
 
@@ -231,7 +242,7 @@ export default new Schema({
         reorderTask: { $type: Boolean, default: false },
       },
     },
-    dropsEnabled: { $type: Boolean, default: false },
+    dropsEnabled: { $type: Boolean, default: false }, // unused
     itemsEnabled: { $type: Boolean, default: false },
     newStuff: { $type: Boolean, default: false },
     rewrite: { $type: Boolean, default: true },
@@ -398,7 +409,7 @@ export default new Schema({
     default: () => ({}),
   },
 
-  challenges: [{ $type: String, ref: 'Challenge', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
+  challenges: [{ $type: String, ref: 'Challenge', validate: [v => validator.isUUID(v), 'Invalid uuid for user challenges.'] }],
 
   invitations: {
     // Using an array without validation because otherwise mongoose
@@ -418,7 +429,7 @@ export default new Schema({
         $type: String,
         ref: 'Group',
         required: true,
-        validate: [v => validator.isUUID(v), 'Invalid uuid.'],
+        validate: [v => validator.isUUID(v), 'Invalid uuid for user invitation party id.'],
       },
       name: {
         $type: String,
@@ -428,15 +439,15 @@ export default new Schema({
         $type: String,
         ref: 'User',
         required: true,
-        validate: [v => validator.isUUID(v), 'Invalid uuid.'],
+        validate: [v => validator.isUUID(v), 'Invalid uuid for user invitation inviter id.'],
       },
     }],
   },
 
-  guilds: [{ $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid.'] }],
+  guilds: [{ $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for user guild.'] }],
 
   party: {
-    _id: { $type: String, validate: [v => validator.isUUID(v), 'Invalid uuid.'], ref: 'Group' },
+    _id: { $type: String, validate: [v => validator.isUUID(v), 'Invalid uuid for user party.'], ref: 'Group' },
     order: { $type: String, default: 'level' },
     orderAscending: { $type: String, default: 'ascending' },
     quest: {
@@ -644,6 +655,11 @@ export default new Schema({
     path: { $type: String },
     type: { $type: String },
   }],
+
+  // only visible to staff and moderators
+  secret: {
+    text: String,
+  },
 }, {
   skipVersioning: { notifications: true },
   strict: true,

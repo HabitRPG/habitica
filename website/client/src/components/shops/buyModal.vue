@@ -6,18 +6,16 @@
   >
     <span
       v-if="withPin"
-      class="badge badge-pill badge-dialog"
-      :class="{'item-selected-badge': isPinned}"
+      class="badge-dialog"
       @click.prevent.stop="togglePinned()"
     >
-      <span
-        class="svg-icon inline color icon-10"
-        v-html="icons.pin"
-      ></span>
+      <pin-badge
+        :pinned="isPinned"
+      />
     </span>
-    <div class="close">
+    <div>
       <span
-        class="svg-icon inline icon-10"
+        class="svg-icon icon-12 close-icon"
         aria-hidden="true"
         @click="hideDialog()"
         v-html="icons.close"
@@ -54,10 +52,7 @@
         <h4 class="title">
           {{ itemText }}
         </h4>
-        <div
-          class="text"
-          v-html="itemNotes"
-        ></div>
+        <div v-html="itemNotes"></div>
         <slot
           name="additionalInfo"
           :item="item"
@@ -100,14 +95,17 @@
               >{{ item.value }}</span>
             </span>
           </div>
-          <div v-else>
+          <div
+            v-else
+            class="d-flex align-items-middle"
+          >
             <span
-              class="svg-icon inline icon-32"
+              class="svg-icon inline icon-32 ml-auto my-auto"
               aria-hidden="true"
               v-html="icons[getPriceClass()]"
             ></span>
             <span
-              class="cost"
+              class="cost mr-auto my-auto"
               :class="getPriceClass()"
             >{{ item.value }}</span>
           </div>
@@ -122,6 +120,12 @@
         <div v-if="attemptingToPurchaseMoreGemsThanAreLeft">
           {{ $t('notEnoughGemsToBuy') }}
         </div>
+        <div
+          v-if="nonSubscriberHourglasses"
+          class="hourglass-nonsub mt-3"
+        >
+          {{ $t('mysticHourglassNeededNoSub') }}
+        </div>
         <button
           v-if="getPriceClass() === 'gems'
             && !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
@@ -131,10 +135,17 @@
           {{ $t('purchaseGems') }}
         </button>
         <button
+          v-else-if="nonSubscriberHourglasses"
+          class="btn btn-primary"
+          @click="viewSubscriptions(item)"
+        >
+          {{ $t('viewSubscriptions') }}
+        </button>
+        <button
           v-else
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
-            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid"
+            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked"
           :class="{'notEnough': !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
           @click="buyItem()"
@@ -167,12 +178,11 @@
     </div>
     <div
       slot="modal-footer"
-      class="clearfix"
+      class="d-flex"
     >
-      <span class="balance float-left">{{ $t('yourBalance') }}</span>
+      <span class="balance mr-auto">{{ $t('yourBalance') }}</span>
       <balanceInfo
-        class="float-right"
-        :with-hourglass="getPriceClass() === 'hourglasses'"
+        class="ml-auto"
         :currency-needed="getPriceClass()"
         :amount-needed="item.value"
       />
@@ -186,6 +196,10 @@
 
   #buy-modal {
     @include centeredModal();
+
+    .modal-body {
+      padding-bottom: 0px;
+    }
 
     .modal-dialog {
       width: 330px;
@@ -274,6 +288,7 @@
     button.btn.btn-primary {
       margin-top: 24px;
       margin-bottom: 24px;
+      min-width: 6rem;
     }
 
     .balance {
@@ -291,21 +306,6 @@
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;
-    }
-
-    .badge-dialog {
-      color: $gray-300;
-      position: absolute;
-      left: -14px;
-      padding: 8px 10px;
-      top: -12px;
-      background: white;
-      cursor: pointer;
-
-      &.item-selected-badge {
-        background: $purple-300;
-        color: $white;
-      }
     }
 
     .notEnough {
@@ -360,10 +360,27 @@
   }
 </style>
 
+<style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
+  .close-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .hourglass-nonsub {
+    color: $yellow-5;
+    font-size: 12px;
+  }
+</style>
+
 <script>
 import keys from 'lodash/keys';
+import size from 'lodash/size';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
+
 import * as Analytics from '@/libs/analytics';
 import spellsMixin from '@/mixins/spells';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
@@ -373,11 +390,11 @@ import svgClose from '@/assets/svg/close.svg';
 import svgGold from '@/assets/svg/gold.svg';
 import svgGem from '@/assets/svg/gem.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
-import svgPin from '@/assets/svg/pin.svg';
 import svgClock from '@/assets/svg/clock.svg';
 import svgWhiteClock from '@/assets/svg/clock-white.svg';
 
 import BalanceInfo from './balanceInfo.vue';
+import PinBadge from '@/components/ui/pinBadge';
 import currencyMixin from './_currencyMixin';
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
@@ -391,9 +408,12 @@ import Avatar from '@/components/avatar';
 
 import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 import { drops as dropEggs } from '@/../../common/script/content/eggs';
-
+import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
 
 const dropEggKeys = keys(dropEggs);
+
+const amountOfDropEggs = size(dropEggs);
+const amountOfDropPotions = size(dropPotions);
 
 const hideAmountSelectionForPurchaseTypes = [
   'gear', 'backgrounds', 'mystery_set', 'card',
@@ -407,6 +427,7 @@ export default {
     EquipmentAttributesGrid,
     Item,
     Avatar,
+    PinBadge,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
   props: {
@@ -431,7 +452,6 @@ export default {
         gold: svgGold,
         gems: svgGem,
         hourglasses: svgHourglasses,
-        pin: svgPin,
         clock: svgClock,
         whiteClock: svgWhiteClock,
       }),
@@ -488,6 +508,9 @@ export default {
     nextFreeRebirth () {
       return 45 - moment().diff(moment(this.user.flags.lastFreeRebirth), 'days');
     },
+    nonSubscriberHourglasses () {
+      return (!this.user.purchased.plan.customerId && !this.user.purchased.plan.consecutive.trinkets && this.getPriceClass() === 'hourglasses');
+    },
   },
   watch: {
     item: function itemChanged () {
@@ -511,22 +534,46 @@ export default {
 
       if (
         this.item.pinType === 'premiumHatchingPotion'
-        || (this.item.pinType === 'eggs' && dropEggKeys.indexOf(this.item.key) === -1)
+        || (this.item.pinType === 'eggs' && !dropEggKeys.includes(this.item.key))
       ) {
-        let petsRemaining = 20 - this.selectedAmountToBuy;
-        petsRemaining -= reduce(this.user.items.pets, (sum, petValue, petKey) => {
-          if (petKey.indexOf(this.item.key) !== -1 && petValue > 0) return sum + 1;
-          return sum;
-        }, 0);
-        petsRemaining -= reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
-          if (mountKey.indexOf(this.item.key) !== -1 && mountValue === true) return sum + 1;
-          return sum;
-        }, 0);
-        if (this.item.pinType === 'premiumHatchingPotion') {
-          petsRemaining -= this.user.items.hatchingPotions[this.item.key] + 2 || 2;
-        } else {
-          petsRemaining -= this.user.items.eggs[this.item.key] || 0;
+        /* Total amount of pets to hatch with item bought */
+        let totalPetsToHatch;
+
+        if (this.item.pinType === 'premiumHatchingPotion') { // buying potions
+          if (this.item.path.includes('wackyHatchingPotions.')) {
+            // wacky potions don't have mounts
+            totalPetsToHatch = amountOfDropEggs;
+          } else {
+            // Each of the drop eggs, combine into pet twice
+            totalPetsToHatch = amountOfDropEggs * 2;
+          }
+        } else { // buying quest eggs: Each of the drop potions, combine into pet twice
+          totalPetsToHatch = amountOfDropPotions * 2;
         }
+
+        /* Amount of items the user already has */
+        let ownedItems;
+        if (this.item.pinType === 'premiumHatchingPotion') {
+          ownedItems = this.user.items.hatchingPotions[this.item.key] || 0;
+        } else {
+          ownedItems = this.user.items.eggs[this.item.key] || 0;
+        }
+
+        const ownedPets = reduce(this.user.items.pets, (sum, petValue, petKey) => {
+          if (petKey.includes(this.item.key) && petValue > 0) return sum + 1;
+          return sum;
+        }, 0);
+
+        const ownedMounts = reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
+          if (mountKey.includes(this.item.key) && mountValue === true) return sum + 1;
+          return sum;
+        }, 0);
+
+        const petsRemaining = totalPetsToHatch
+          - this.selectedAmountToBuy
+          - ownedPets
+          - ownedMounts
+          - ownedItems;
 
         if (
           petsRemaining < 0
@@ -611,6 +658,25 @@ export default {
       }
 
       return {};
+    },
+    viewSubscriptions (item) {
+      if (item.purchaseType === 'backgrounds') {
+        this.$root.$emit('bv::hide::modal', 'avatar-modal');
+        let removeIndex = this.$store.state.modalStack
+          .map(modal => modal.modalId)
+          .indexOf('avatar-modal');
+        if (removeIndex >= 0) {
+          this.$store.state.modalStack.splice(removeIndex, 1);
+        }
+        removeIndex = this.$store.state.modalStack
+          .map(modal => modal.prev)
+          .indexOf('avatar-modal');
+        if (removeIndex >= 0) {
+          delete this.$store.state.modalStack[removeIndex].prev;
+        }
+      }
+      this.$router.push('/user/settings/subscription');
+      this.hideDialog();
     },
   },
 };

@@ -61,7 +61,7 @@
     "newGroupTitle": "Nowa Grupa",
     "subscriberItem": "Tajemniczy przedmiot",
     "newSubscriberItem": "Masz nowy <span class=\"notification-bold-blue\">Tajemniczy Przedmiot</span>",
-    "subscriberItemText": "W każdym miesiącu  abonenci otrzymają tajemniczy przedmiot. Zazwyczaj jest on wydawany około tygodnia przed końcem miesiąca. Aby uzyskać więcej informacji, zobacz stronę \"Mystery Item\" w wiki.",
+    "subscriberItemText": "W każdym miesiącu  abonenci otrzymają tajemniczy przedmiot. Staje się on dostępny na początku miesiąca. Aby uzyskać więcej informacji, zobacz stronę \"Mystery Item\" na wiki.",
     "all": "Wszystkie",
     "none": "Żadne",
     "more": "<%= count %> więcej",
@@ -284,7 +284,7 @@
     "dismissAll": "Odrzuć wszystko",
     "messages": "Wiadomości",
     "emptyMessagesLine1": "Nie masz żadnych wiadomości",
-    "emptyMessagesLine2": "Wyślij wiadomość, aby zacząć konwersację!",
+    "emptyMessagesLine2": "Aby wysłać wiadomość do Użytkownika, wejdź na jego profil, a następnie kliknij przycisk \"Wiadomości\".",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> wysłał ci wiadomość",
     "letsgo": "Jazda!",
     "selected": "Wybrane",
@@ -294,5 +294,7 @@
     "options": "Opcje",
     "loadEarlierMessages": "Wczytaj Wcześniejsze Wiadomości",
     "demo": "Demo",
-    "finish": "Zakończ"
+    "finish": "Zakończ",
+    "congratulations": "Gratulacje!",
+    "onboardingAchievs": "Osiągnięcia rozwojowe"
 }

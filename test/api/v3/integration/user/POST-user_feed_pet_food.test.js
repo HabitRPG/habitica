@@ -72,6 +72,7 @@ describe('POST /user/feed/:pet/:food', () => {
 
       const body = server.getWebhookData(uuid);
 
+      expect(user.achievements.allYourBase).to.not.equal(true);
       expect(body.type).to.eql('mountRaised');
       expect(body.pet).to.eql('Wolf-Base');
       expect(body.message).to.eql(res.message);

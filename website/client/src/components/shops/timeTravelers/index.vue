@@ -139,13 +139,13 @@
               >
                 <span
                   v-if="ctx.item.pinType !== 'IGNORE'"
-                  class="badge badge-pill badge-item badge-svg"
-                  :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
+                  class="badge-top"
                   @click.prevent.stop="togglePinned(ctx.item)"
-                ><span
-                  class="svg-icon inline icon-12 color"
-                  v-html="icons.pin"
-                ></span></span>
+                >
+                  <pin-badge
+                    :pinned="ctx.item.pinned"
+                  />
+                </span>
               </template>
             </shopItem>
           </template>
@@ -177,43 +177,6 @@
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/variables.scss';
 
-  .badge-svg {
-    left: calc((100% - 18px) / 2);
-    cursor: pointer;
-    color: $gray-400;
-    background: $white;
-    padding: 4.5px 6px;
-
-    &.item-selected-badge {
-      background: $purple-300;
-      color: $white;
-    }
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
-    color: #a5a1ac;
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg.hide {
-    display: none;
-  }
-
-  .item:hover {
-    span.badge.badge-pill.badge-item.badge-svg.hide {
-      display: block;
-    }
-  }
-
-  .icon-12 {
-    width: 12px;
-    height: 12px;
-  }
-
-  .hand-cursor {
-    cursor: pointer;
-  }
-
-
   .featured-label {
     margin: 24px auto;
   }
@@ -222,7 +185,6 @@
     display: inline-block;
     width: 33%;
     margin-bottom: 24px;
-
 
     .items {
       border-radius: 2px;
@@ -243,6 +205,14 @@
   .timeTravelers {
     .standard-page {
       position: relative;
+    }
+
+    .badge-pin:not(.pinned) {
+        display: none;
+      }
+
+    .item:hover .badge-pin {
+      display: block;
     }
 
     .avatar {
@@ -319,14 +289,13 @@ import { mapState } from '@/libs/store';
 import ShopItem from '../shopItem';
 import Item from '@/components/inventory/item';
 import ItemRows from '@/components/ui/itemRows';
-import toggleSwitch from '@/components/ui/toggleSwitch';
 import QuestInfo from '../quests/questInfo.vue';
+import PinBadge from '@/components/ui/pinBadge';
+import toggleSwitch from '@/components/ui/toggleSwitch';
 
 import BuyQuestModal from '../quests/buyQuestModal.vue';
 
-import svgPin from '@/assets/svg/pin.svg';
 import svgHourglass from '@/assets/svg/hourglass.svg';
-
 
 import isPinned from '@/../../common/script/libs/isPinned';
 import shops from '@/../../common/script/libs/shops';
@@ -338,6 +307,7 @@ export default {
     ShopItem,
     Item,
     ItemRows,
+    PinBadge,
     toggleSwitch,
     QuestInfo,
 
@@ -352,7 +322,6 @@ export default {
       searchTextThrottled: null,
 
       icons: Object.freeze({
-        pin: svgPin,
         hourglass: svgHourglass,
       }),
 
@@ -390,9 +359,9 @@ export default {
       // force update for now until we restructure the data
       let backgroundUpdate = this.backgroundUpdate; // eslint-disable-line
 
-      const normalGroups = _filter(apiCategories, c => c.identifier === 'mounts' || c.identifier === 'pets' || c.identifier === 'quests');
+      const normalGroups = _filter(apiCategories, c => c.identifier === 'mounts' || c.identifier === 'pets' || c.identifier === 'quests' || c.identifier === 'backgrounds');
 
-      const setGroups = _filter(apiCategories, c => c.identifier !== 'mounts' && c.identifier !== 'pets' && c.identifier !== 'quests');
+      const setGroups = _filter(apiCategories, c => c.identifier !== 'mounts' && c.identifier !== 'pets' && c.identifier !== 'quests' && c.identifier !== 'backgrounds');
 
       const setCategory = {
         identifier: 'sets',
@@ -426,7 +395,7 @@ export default {
       this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
-  created () {
+  mounted () {
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });

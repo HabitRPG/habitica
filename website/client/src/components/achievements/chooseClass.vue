@@ -16,7 +16,7 @@
         <div class="row">
           <div
             v-for="heroClass in classes"
-            :key="heroClass"
+            :key="`${heroClass}-avatar`"
             class="col-md-3"
           >
             <div @click="selectedClass = heroClass">
@@ -60,7 +60,7 @@
         </div>
         <div
           v-for="heroClass in classes"
-          :key="heroClass"
+          :key="`${heroClass}-explanation`"
         >
           <div
             v-if="selectedClass === heroClass"
@@ -225,32 +225,30 @@ export default {
     classGear (heroClass) {
       if (heroClass === 'rogue') {
         return {
-          armor: 'armor_special_fall2019Rogue',
-          eyewear: 'eyewear_special_fall2019Rogue',
-          head: 'head_special_fall2019Rogue',
-          shield: 'shield_special_fall2019Rogue',
-          weapon: 'weapon_special_fall2019Rogue',
+          armor: 'armor_rogue_5',
+          head: 'head_rogue_5',
+          shield: 'shield_rogue_6',
+          weapon: 'weapon_rogue_6',
         };
       } if (heroClass === 'wizard') {
         return {
-          armor: 'armor_special_fall2019Mage',
-          head: 'head_special_fall2019Mage',
-          weapon: 'weapon_special_fall2019Mage',
+          armor: 'armor_wizard_5',
+          head: 'head_wizard_5',
+          weapon: 'weapon_wizard_6',
         };
       } if (heroClass === 'healer') {
         return {
-          armor: 'armor_special_fall2019Healer',
-          eyewear: 'eyewear_special_fall2019Healer',
-          head: 'head_special_fall2019Healer',
-          shield: 'shield_special_fall2019Healer',
-          weapon: 'weapon_special_fall2019Healer',
+          armor: 'armor_healer_5',
+          head: 'head_healer_5',
+          shield: 'shield_healer_5',
+          weapon: 'weapon_healer_6',
         };
       }
       return {
-        armor: 'armor_special_fall2019Warrior',
-        head: 'head_special_fall2019Warrior',
-        shield: 'shield_special_fall2019Warrior',
-        weapon: 'weapon_special_fall2019Warrior',
+        armor: 'armor_warrior_5',
+        head: 'head_warrior_5',
+        shield: 'shield_warrior_5',
+        weapon: 'weapon_warrior_6',
       };
     },
     selectionBox (selectedClass, heroClass) {

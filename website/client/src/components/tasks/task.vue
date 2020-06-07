@@ -99,6 +99,7 @@
                 </div>
                 <div slot="dropdown-content">
                   <div
+                    v-if="showEdit"
                     ref="editTaskItem"
                     class="dropdown-item edit-task-item"
                   >
@@ -137,7 +138,7 @@
                     </span>
                   </div>
                   <div
-                    v-if="canDelete(task)"
+                    v-if="showDelete"
                     class="dropdown-item"
                     @click="destroy"
                   >
@@ -166,7 +167,7 @@
             <div class="d-inline-flex">
               <div
                 v-if="isUser"
-                v-b-tooltip.hover.bottom="$t(`${task.collapseChecklist
+                v-b-tooltip.hover.right="$t(`${task.collapseChecklist
                   ? 'expand': 'collapse'}Checklist`)"
                 class="collapse-checklist d-flex align-items-center expand-toggle"
                 :class="{open: !task.collapseChecklist}"
@@ -371,7 +372,7 @@
 
     &:hover {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
-      z-index: 10;
+      z-index: 11;
     }
   }
 
@@ -789,6 +790,7 @@ import moment from 'moment';
 import axios from 'axios';
 import Vue from 'vue';
 import uuid from 'uuid';
+import isEmpty from 'lodash/isEmpty';
 import { mapState, mapGetters, mapActions } from '@/libs/store';
 import scoreTask from '@/../../common/script/ops/scoreTask';
 import * as Analytics from '@/libs/analytics';
@@ -825,7 +827,7 @@ export default {
     markdown: markdownDirective,
   },
   mixins: [notifications],
-  props: ['task', 'isUser', 'group', 'dueDate', 'showOptions'], // @TODO: maybe we should store the group on state?
+  props: ['task', 'isUser', 'group', 'challenge', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
       random: uuid.v4(), // used to avoid conflicts between checkboxes ids
@@ -859,6 +861,7 @@ export default {
       getTagsFor: 'tasks:getTagsFor',
       getTaskClasses: 'tasks:getTaskClasses',
       canDelete: 'tasks:canDelete',
+      canEdit: 'tasks:canEdit',
     }),
     hasChecklist () {
       return this.task.checklist && this.task.checklist.length > 0;
@@ -937,6 +940,27 @@ export default {
 
       return this.task.challenge.shortName ? this.task.challenge.shortName.toString() : '';
     },
+    isChallangeTask () {
+      return !isEmpty(this.task.challenge);
+    },
+    isGroupTask () {
+      return this.task.group.taskId || this.task.group.id;
+    },
+    taskCategory () {
+      let taskCategory = 'default';
+      if (this.isGroupTask) taskCategory = 'group';
+      else if (this.isChallangeTask) taskCategory = 'challenge';
+      return taskCategory;
+    },
+    showDelete () {
+      return this.canDelete(this.task, this.taskCategory, this.isUser, this.group, this.challenge);
+    },
+    showEdit () {
+      return this.canEdit(this.task, this.taskCategory, this.isUser, this.group, this.challenge);
+    },
+    showOptions () {
+      return this.showEdit || this.showDelete || this.isUser;
+    },
   },
   methods: {
     ...mapActions({
@@ -950,12 +974,20 @@ export default {
       this.scoreChecklistItem({ taskId: this.task._id, itemId: item.id });
     },
     edit (e, task) {
-      if (this.isRunningYesterdailies) return;
+      if (this.isRunningYesterdailies || !this.showEdit) return;
 
-      // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
 
-      if (target.tagName === 'A') return; // clicked on a link
+      /*
+       * Prevent clicking on a link from opening the edit modal
+       *
+       * Ascend up the ancestors of the click target, up until the node defining the click handler.
+       * If any of them is an <a> element, don't open the edit task popup.
+       * Needed in case of a link, with a bold and/or italic link description
+       */
+      for (let element = target; !element.classList.contains('task-clickable-area'); element = element.parentNode) {
+        if (element.tagName === 'A') return; // clicked on a link
+      }
 
       const isDropdown = this.$refs.taskDropdown && this.$refs.taskDropdown.$el.contains(target);
       const isEditAction = this.$refs.editTaskItem && this.$refs.editTaskItem.contains(target);
@@ -1027,6 +1059,7 @@ export default {
       const tmp = response.data.data._tmp || {};
       const { crit } = tmp;
       const { drop } = tmp;
+      const { firstDrops } = tmp;
       const { quest } = tmp;
 
       if (crit) {
@@ -1037,11 +1070,20 @@ export default {
       if (quest && user.party.quest && user.party.quest.key) {
         const userQuest = Content.quests[user.party.quest.key];
         if (quest.progressDelta && userQuest.boss) {
-          this.quest('questDamage', quest.progressDelta.toFixed(1));
+          this.damage(quest.progressDelta.toFixed(1));
         } else if (quest.collection && userQuest.collect) {
           user.party.quest.progress.collectedItems += 1;
           this.quest('questCollection', quest.collection);
         }
+      }
+
+      if (firstDrops) {
+        if (!user.items.eggs[firstDrops.egg]) Vue.set(user.items.eggs, firstDrops.egg, 0);
+        if (!user.items.hatchingPotions[firstDrops.hatchingPotion]) {
+          Vue.set(user.items.hatchingPotions, firstDrops.hatchingPotion, 0);
+        }
+        user.items.eggs[firstDrops.egg] += 1;
+        user.items.hatchingPotions[firstDrops.hatchingPotion] += 1;
       }
 
       if (drop) {
@@ -1064,7 +1106,7 @@ export default {
           }
 
           if (!user.items[type][drop.key]) {
-            Vue.set(user, `items.${type}.${drop.key}`, 0);
+            Vue.set(user.items[type], drop.key, 0);
           }
           user.items[type][drop.key] += 1;
         }

@@ -1,8 +1,6 @@
 import { mapInboxMessage, inboxModel as Inbox } from '../../models/message';
 import { getUserInfo, sendTxn as sendTxnEmail } from '../email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from '../pushNotifications';
-
-const PM_PER_PAGE = 10;
+import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 
 export async function sentMessage (sender, receiver, message, translate) {
   const messageSent = await sender.sendMessage(receiver, { receiverMsg: message });
@@ -14,7 +12,7 @@ export async function sentMessage (sender, receiver, message, translate) {
     ]);
   }
 
-  if (receiver.preferences.pushNotifications.newPM !== false) {
+  if (receiver.preferences.pushNotifications.newPM !== false && messageSent.unformattedText) {
     sendPushNotification(
       receiver,
       {
@@ -23,7 +21,7 @@ export async function sentMessage (sender, receiver, message, translate) {
           { name: getUserInfo(sender, ['name']).name },
           receiver.preferences.language,
         ),
-        message,
+        message: messageSent.unformattedText,
         identifier: 'newPM',
         category: 'newPM',
         payload: { replyTo: sender._id, senderName, message },
@@ -33,17 +31,18 @@ export async function sentMessage (sender, receiver, message, translate) {
 
   return messageSent;
 }
+const PM_PER_PAGE = 10;
 
-export async function getUserInbox (user, options = {
-  asArray: true, page: 0, conversation: null, mapProps: false,
-}) {
-  if (typeof options.asArray === 'undefined') {
-    options.asArray = true;
-  }
+const getUserInboxDefaultOptions = {
+  asArray: true,
+  page: undefined,
+  conversation: null,
+  mapProps: false,
+};
 
-  if (typeof options.mapProps === 'undefined') {
-    options.mapProps = false;
-  }
+export async function getUserInbox (user, optionParams = getUserInboxDefaultOptions) {
+  // if not all properties are passed, fill the default values
+  const options = { ...getUserInboxDefaultOptions, ...optionParams };
 
   const findObj = { ownerId: user._id };
 
@@ -57,8 +56,8 @@ export async function getUserInbox (user, options = {
 
   if (typeof options.page !== 'undefined') {
     query = query
-      .limit(PM_PER_PAGE)
-      .skip(PM_PER_PAGE * Number(options.page));
+      .skip(PM_PER_PAGE * Number(options.page))
+      .limit(PM_PER_PAGE);
   }
 
   const messages = (await query.exec()).map(msg => {
@@ -78,74 +77,6 @@ export async function getUserInbox (user, options = {
   messages.forEach(msg => { messagesObj[msg._id] = msg; });
 
   return messagesObj;
-}
-
-async function usersMapByConversations (owner, users) {
-  const query = Inbox
-    .aggregate([
-      {
-        $match: {
-          ownerId: owner._id,
-          uuid: { $in: users },
-        },
-      },
-      {
-        $group: {
-          _id: '$uuid',
-          userStyles: { $last: '$userStyles' },
-          contributor: { $last: '$contributor' },
-        },
-      },
-    ]);
-
-
-  const usersAr = await query.exec();
-  const usersMap = {};
-
-  for (const usr of usersAr) {
-    usersMap[usr._id] = usr;
-  }
-
-  return usersMap;
-}
-
-export async function listConversations (owner) {
-  // group messages by user owned by logged-in user
-  const query = Inbox
-    .aggregate([
-      {
-        $match: {
-          ownerId: owner._id,
-        },
-      },
-      {
-        $group: {
-          _id: '$uuid',
-          user: { $last: '$user' },
-          username: { $last: '$username' },
-          timestamp: { $last: '$timestamp' },
-          text: { $last: '$text' },
-          count: { $sum: 1 },
-        },
-      },
-      { $sort: { timestamp: -1 } }, // sort by latest message
-    ]);
-
-  const conversationsList = await query.exec();
-
-  const userIdList = conversationsList.map(c => c._id);
-
-  // get user-info based on conversations
-  const usersMap = await usersMapByConversations(owner, userIdList);
-
-  const conversations = conversationsList.map(res => ({
-    uuid: res._id,
-    ...res,
-    userStyles: usersMap[res._id].userStyles,
-    contributor: usersMap[res._id].contributor,
-  }));
-
-  return conversations;
 }
 
 export async function getUserInboxMessage (user, messageId) {

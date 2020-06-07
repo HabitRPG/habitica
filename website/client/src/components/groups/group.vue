@@ -160,7 +160,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="px-3 py-3">
         <quest-sidebar-section
           v-if="isParty"
           :group="group"
@@ -255,11 +255,10 @@
   .sidebar {
     background-color: $gray-600;
     padding-bottom: 2em;
-
   }
 
   .buttons-wrapper {
-    padding-top: 2.8em;
+    padding: 2.8em 24px 0em 24px;
   }
 
   .card {
@@ -386,7 +385,7 @@
 import extend from 'lodash/extend';
 import groupUtilities from '@/mixins/groupsUtilities';
 import styleHelper from '@/mixins/styleHelper';
-import { mapState } from '@/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 import startQuestModal from './startQuestModal';
 import questDetailsModal from './questDetailsModal';
@@ -448,6 +447,7 @@ export default {
         bronzeGuildBadgeIcon,
       }),
       members: [],
+      membersLoaded: false,
       selectedQuest: {},
       chat: {
         submitDisable: false,
@@ -456,7 +456,12 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({
+      user: 'user.data',
+    }),
+    ...mapGetters({
+      partyMembers: 'party:members',
+    }),
     partyStore () {
       return this.$store.state.party;
     },
@@ -488,10 +493,15 @@ export default {
       }
     },
   },
-  mounted () {
+  async mounted () {
     if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
-    this.load();
+    await this.fetchGuild();
+
+    this.$root.$on('updatedGroup', this.onGroupUpdate);
+  },
+  beforeDestroy () {
+    this.$root.$off('updatedGroup', this.onGroupUpdate);
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
@@ -502,23 +512,9 @@ export default {
     acceptCommunityGuidelines () {
       this.$store.dispatch('user:set', { 'flags.communityGuidelinesAccepted': true });
     },
-    async load () {
-      if (this.isParty) {
-        this.searchId = 'party';
-        // @TODO: Set up from old client. Decide what we need and what we don't
-        // Check Desktop notifs
-        // Load invites
-      }
-      await this.fetchGuild();
-      // Fetch group members on load
-      this.members = await this.loadMembers({
-        groupId: this.group._id,
-        includeAllPublicFields: true,
-      });
-      this.$root.$on('updatedGroup', group => {
-        const updatedGroup = extend(this.group, group);
-        this.$set(this.group, updatedGroup);
-      });
+    onGroupUpdate (group) {
+      const updatedGroup = extend(this.group, group);
+      this.$set(this.group, updatedGroup);
     },
 
     /**
@@ -536,6 +532,26 @@ export default {
       return this.$store.dispatch('members:getGroupMembers', payload);
     },
     showMemberModal () {
+      this.$store.state.memberModalOptions.loading = true;
+
+      if (this.isParty) {
+        this.membersLoaded = true;
+        this.members = this.partyMembers;
+        this.$store.state.memberModalOptions.loading = false;
+      } else if (!this.membersLoaded) {
+        this.membersLoaded = true;
+
+        this.loadMembers({
+          groupId: this.group._id,
+          includeAllPublicFields: true,
+        }).then(m => {
+          this.members.push(...m);
+          this.$store.state.memberModalOptions.loading = false;
+        });
+      } else {
+        this.$store.state.memberModalOptions.loading = false;
+      }
+
       this.$root.$emit('habitica:show-member-modal', {
         groupId: this.group._id,
         group: this.group,
@@ -570,14 +586,13 @@ export default {
 
       const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
       if (this.hasUnreadMessages(groupId)) {
-        // Delay by 1sec to make sure it returns after
-        // other requests that don't have the notification marked as read
-        setTimeout(() => {
-          this.$store.dispatch('chat:markChatSeen', { groupId });
-          this.$delete(this.user.newMessages, groupId);
-        }, 1000);
+        const notification = this.user
+          .notifications.find(n => n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId);
+        const notificationId = notification && notification.id;
+        this.$store.dispatch('chat:markChatSeen', { groupId, notificationId });
       }
     },
+    // returns the notification id or false
     hasUnreadMessages (groupId) {
       if (this.user.newMessages[groupId]) return true;
 

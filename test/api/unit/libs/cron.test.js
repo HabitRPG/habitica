@@ -88,6 +88,28 @@ describe('cron', () => {
       user.purchased.plan.dateUpdated = moment().subtract(1, 'months').toDate();
     });
 
+    it('awards current mystery items to subscriber', () => {
+      user.purchased.plan.dateUpdated = new Date('2018-12-11');
+      clock = sinon.useFakeTimers(new Date('2019-01-29'));
+      cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+      expect(user.purchased.plan.mysteryItems.length).to.eql(2);
+      const filteredNotifications = user.notifications.filter(n => n.type === 'NEW_MYSTERY_ITEMS');
+      expect(filteredNotifications.length).to.equal(1);
+    });
+
+    it('awards multiple mystery item sets if user skipped months between logins', () => {
+      user.purchased.plan.dateUpdated = new Date('2018-11-11');
+      clock = sinon.useFakeTimers(new Date('2019-01-29'));
+      cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+      expect(user.purchased.plan.mysteryItems.length).to.eql(4);
+      const filteredNotifications = user.notifications.filter(n => n.type === 'NEW_MYSTERY_ITEMS');
+      expect(filteredNotifications.length).to.equal(1);
+    });
+
     it('resets plan.gemsBought on a new month', () => {
       user.purchased.plan.gemsBought = 10;
       cron({
@@ -857,12 +879,26 @@ describe('cron', () => {
       tasksByType.todos.push(task);
     });
 
+    afterEach(() => {
+      tasksByType.todos = [];
+      user.tasksOrder.todos = [];
+    });
+
     it('should make uncompleted todos redder', () => {
       const valueBefore = tasksByType.todos[0].value;
       cron({
         user, tasksByType, daysMissed, analytics,
       });
       expect(tasksByType.todos[0].value).to.be.lessThan(valueBefore);
+    });
+
+    it('should not make completed todos redder', () => {
+      tasksByType.todos[0].completed = true;
+      const valueBefore = tasksByType.todos[0].value;
+      cron({
+        user, tasksByType, daysMissed, analytics,
+      });
+      expect(tasksByType.todos[0].value).to.equal(valueBefore);
     });
 
     it('should add history of completed todos to user history', () => {
@@ -876,17 +912,13 @@ describe('cron', () => {
     });
 
     it('should remove completed todos from users taskOrder list', () => {
-      tasksByType.todos = [];
-      user.tasksOrder.todos = [];
       const todo = {
         text: 'test todo',
         type: 'todo',
         value: 0,
       };
 
-      let task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
-      tasksByType.todos.push(task);
-      task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
+      const task = new Tasks.todo(Tasks.Task.sanitize(todo)); // eslint-disable-line new-cap
       tasksByType.todos.push(task);
       tasksByType.todos[0].completed = true;
 
@@ -908,8 +940,6 @@ describe('cron', () => {
     });
 
     it('should preserve todos order in task list', () => {
-      tasksByType.todos = [];
-      user.tasksOrder.todos = [];
       const todo = {
         text: 'test todo',
         type: 'todo',

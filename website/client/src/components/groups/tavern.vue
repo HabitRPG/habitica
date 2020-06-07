@@ -229,7 +229,7 @@
           -info-button(@click="showWorldBossInfo()") {{$t('whatIsWorldBoss') }}
           -->
         </div>
-        <div class="sleep below-header-sections">
+        <div class="sleep px-4 py-3">
           <strong v-once>{{ $t('sleepDescription') }}</strong>
           <ul>
             <li v-once>
@@ -263,7 +263,7 @@
           </button>
         </div>
       </div>
-      <div class="px-3">
+      <div class="px-4">
         <sidebar-section :title="$t('staffAndModerators')">
           <div class="row">
             <div
@@ -365,7 +365,7 @@
             <li>
               <a
                 v-once
-                href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents"
+                href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestFeature') }}</a>
             </li>
@@ -511,10 +511,6 @@
   .sidebar {
     background-color: $gray-600;
     padding: 0em;
-
-    .below-header-sections {
-      padding: 1em 1.75em 1em 1.75em;
-    }
   }
 
   .pause-button {

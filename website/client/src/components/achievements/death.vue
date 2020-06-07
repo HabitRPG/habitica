@@ -32,7 +32,7 @@
             :avatar-only="true"
             :with-background="true"
           />
-          <!-- @TOOD: Sleep +generatedAvatar({sleep:true})-->
+          <!-- @TODO: Sleep +generatedAvatar({sleep:true})-->
           <span class="knockout"></span>
         </div>
       </div>

@@ -10,7 +10,10 @@
     >
       <slot name="icon"></slot>
     </div>
-    <div class="notification-content">
+    <div
+      class="notification-content"
+      :class="{'has-text': hasText}"
+    >
       <slot name="content"></slot>
     </div>
     <div
@@ -107,17 +110,19 @@
   line-height: 1.43;
   color: $gray-50;
 
-  max-width: calc(100% - 26px); // to make space for the close icon
+  max-width: 100%;
+
+  &.has-text {
+    padding-right: 12px;
+  }
 }
 
 .notification-remove {
-  // total distance from the notification top edge is 20 pixels
-  margin-top: 7px;
-
+  position: absolute;
   width: 18px;
   height: 18px;
-  margin-left: 12px;
   padding: 4px;
+  right: 24px;
 
   .svg-icon {
     width: 10px;
@@ -131,7 +136,25 @@ import closeIcon from '@/assets/svg/close.svg';
 import { mapActions, mapState } from '@/libs/store';
 
 export default {
-  props: ['notification', 'canRemove', 'hasIcon', 'readAfterClick'],
+  props: {
+    notification: {
+      type: Object,
+      required: true,
+    },
+    canRemove: {
+      type: Boolean,
+    },
+    hasIcon: {
+      type: Boolean,
+    },
+    readAfterClick: {
+      type: Boolean,
+    },
+    hasText: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -159,10 +182,10 @@ export default {
     remove () {
       if (this.notification.type === 'NEW_CHAT_MESSAGE') {
         const groupId = this.notification.data.group.id;
-        this.$store.dispatch('chat:markChatSeen', { groupId });
-        if (this.user.newMessages[groupId]) {
-          this.$delete(this.user.newMessages, groupId);
-        }
+        this.$store.dispatch('chat:markChatSeen', {
+          groupId,
+          notificationId: this.notification.id,
+        });
       } else {
         this.readNotification({ notificationId: this.notification.id });
       }

@@ -25,6 +25,7 @@ const envVars = [
   'STRIPE_PUB_KEY',
   'FACEBOOK_KEY',
   'GOOGLE_CLIENT_ID',
+  'APPLE_AUTH_CLIENT_ID',
   'AMPLITUDE_KEY',
   'LOGGLY_CLIENT_TOKEN',
   // TODO necessary? if yes how not to mess up with vue cli? 'NODE_ENV'
@@ -71,7 +72,7 @@ module.exports = {
       .exclude
       .add(path.resolve(__dirname, 'src/assets/svg/for-css'))
       .end()
-      .use('svg-ingline-loader')
+      .use('svg-inline-loader')
       .loader('svg-inline-loader')
       .end()
       .use('svgo-loader')
@@ -116,6 +117,7 @@ module.exports = {
   },
 
   devServer: {
+    disableHostCheck: true,
     proxy: {
       // proxy all requests to the server at IP:PORT as specified in the top-level config
       '^/api/v3': {

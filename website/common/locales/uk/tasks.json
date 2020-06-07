@@ -173,7 +173,7 @@
     "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
     "taskRequiresApproval": "Для виконання цього завдання необхідне підтвердження. На нього вже створено запит",
     "taskApprovalHasBeenRequested": "Надіслано запит на ухвалення",
-    "taskApprovalWasNotRequested": "Тільки завдання, що очікує схвалення, може бути позначено як потреба в роботі",
+    "taskApprovalWasNotRequested": "Для цієї задачі не був поданий запит на ствердження.",
     "approvals": "Ухвалень",
     "approvalRequired": "Потребує схвалення",
     "repeatZero": "Daily is never due",

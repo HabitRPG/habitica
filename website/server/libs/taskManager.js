@@ -114,6 +114,13 @@ export async function createTasks (req, res, options = {}) {
       newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.default;
     } else {
       newTask.userId = user._id;
+
+      // user.flags.welcomed is checked because when false it means the tasks being created
+      // are the onboarding ones
+      if (!user.achievements.createdTask && user.flags.welcomed) {
+        user.addAchievement('createdTask');
+        shared.onboarding.checkOnboardingStatus(user, req, res.analytics);
+      }
     }
 
     setNextDue(newTask, user);
@@ -127,7 +134,7 @@ export async function createTasks (req, res, options = {}) {
 
     // Otherwise update the user/challenge/group
     if (!taskOrderToAdd[`${taskType}s`]) taskOrderToAdd[`${taskType}s`] = [];
-    taskOrderToAdd[`${taskType}s`].unshift(newTask._id);
+    if (!owner.tasksOrder[`${taskType}s`].includes(newTask._id)) taskOrderToAdd[`${taskType}s`].unshift(newTask._id);
 
     return newTask;
   });
@@ -272,7 +279,7 @@ export function syncableAttrs (task) {
  *
  * @param  order  The list of ordered tasks
  * @param  taskId  The Task._id of the task to move
- * @param  to A integer specifiying the index to move the task to
+ * @param  to A integer specifying the index to move the task to
  *
  * @return Empty
  */
@@ -293,6 +300,44 @@ export function moveTask (order, taskId, to) {
     order.push(taskId);
   } else {
     order.splice(to, 0, taskId);
+  }
+}
+
+async function handleChallengeTask (task, delta, direction) {
+  if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
+    // Wrapping everything in a try/catch block because if an error occurs
+    // using `await` it MUST NOT bubble up because the request has already been handled
+    try {
+      const chalTask = await Tasks.Task.findOne({
+        _id: task.challenge.taskId,
+      }).exec();
+
+      if (!chalTask) return;
+
+      await chalTask.scoreChallengeTask(delta, direction);
+    } catch (e) {
+      logger.error(e);
+    }
+  }
+}
+
+async function handleGroupTask (task, delta, direction) {
+  if (task.group && task.group.taskId) {
+    await handleSharedCompletion(task);
+    try {
+      const groupTask = await Tasks.Task.findOne({
+        _id: task.group.taskId,
+      }).exec();
+
+      if (groupTask) {
+        const groupDelta = groupTask.group.assignedUsers
+          ? delta / groupTask.group.assignedUsers.length
+          : delta;
+        await groupTask.scoreChallengeTask(groupDelta, direction);
+      }
+    } catch (e) {
+      logger.error(e);
+    }
   }
 }
 
@@ -334,8 +379,8 @@ async function scoreTask (user, task, direction, req, res) {
 
       const managers = await User.find({ _id: managerIds }, 'notifications preferences').exec(); // Use this method so we can get access to notifications
 
-      // @TODO: we can use the User.pushNotification function because we need to ensure
-      // notifications are translated
+      // @TODO: we can use the User.pushNotification function because
+      // we need to ensure notifications are translated
       const managerPromises = [];
       managers.forEach(manager => {
         manager.addNotification('GROUP_TASK_APPROVAL', {
@@ -359,16 +404,17 @@ async function scoreTask (user, task, direction, req, res) {
       throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
     }
   }
+
   const wasCompleted = task.completed;
 
-  const [delta] = shared.ops.scoreTask({ task, user, direction }, req);
-  // Drop system (don't run on the client, as it would only be discarded since
-  // ops are sent to the API, not the results)
-  if (direction === 'up') shared.fns.randomDrop(user, { task, delta }, req, res.analytics);
+  const firstTask = !user.achievements.completedTask;
+  const [delta] = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
+  // Drop system (don't run on the client,
+  // as it would only be discarded since ops are sent to the API, not the results)
+  if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task, delta }, req, res.analytics);
 
   // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
   // TODO move to common code?
-  let taskOrderPromise;
   let pullTask = false;
   let pushTask = false;
   if (task.type === 'todo') {
@@ -377,13 +423,19 @@ async function scoreTask (user, task, direction, req, res) {
       // our concurrency issues. If not, we need to use this update $pull and $push
       pullTask = true;
       // user.tasksOrder.todos.pull(task._id);
-    } else if (wasCompleted && !task.completed && user.tasksOrder.todos.indexOf(task._id) === -1) {
+    } else if (
+      wasCompleted
+      && !task.completed
+      && user.tasksOrder.todos.indexOf(task._id) === -1
+    ) {
       pushTask = true;
       // user.tasksOrder.todos.push(task._id);
     }
   }
 
   setNextDue(task, user);
+
+  await handleGroupTask(task, delta, direction);
 
   taskScoredWebhook.send(user, {
     task,
@@ -403,59 +455,22 @@ async function scoreTask (user, task, direction, req, res) {
       headers: req.headers,
     });
   }
+
   return {
     user,
     task,
     delta,
     direction,
-    taskOrderPromise,
     pullTask,
     pushTask,
     _tmp: _.cloneDeep(user._tmp),
   };
 }
 
-async function handleChallengeTask (task, delta, direction) {
-  if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
-    // Wrapping everything in a try/catch block because if an error
-    // occurs using `await` it MUST NOT bubble up because the request has already been handled
-    try {
-      const chalTask = await Tasks.Task.findOne({
-        _id: task.challenge.taskId,
-      }).exec();
-
-      if (!chalTask) return;
-
-      await chalTask.scoreChallengeTask(delta, direction);
-    } catch (e) {
-      logger.error(e);
-    }
-  }
-}
-
-async function handleGroupTask (task, delta, direction) {
-  if (task.group && task.group.taskId) {
-    await handleSharedCompletion(task);
-    try {
-      const groupTask = await Tasks.Task.findOne({
-        _id: task.group.taskId,
-      }).exec();
-
-      if (groupTask) {
-        const groupDelta = groupTask.group.assignedUsers
-          ? delta / groupTask.group.assignedUsers.length
-          : delta;
-        await groupTask.scoreChallengeTask(groupDelta, direction);
-      }
-    } catch (e) {
-      logger.error(e);
-    }
-  }
-}
-
 export async function scoreTasks (user, taskScorings, req, res) {
   const taskIds = taskScorings.map(taskScoring => taskScoring.id).filter(id => id !== undefined);
   if (taskIds.length === 0) throw new BadRequest(res.t('taskNotFound'));
+
   const tasks = {};
   (await Tasks.Task.findMultipleByIdOrAlias(taskIds, user._id)).forEach(task => {
     tasks[task._id] = task;
@@ -463,7 +478,9 @@ export async function scoreTasks (user, taskScorings, req, res) {
       tasks[task.alias] = task;
     }
   });
+
   if (Object.keys(tasks).length === 0) throw new NotFound(res.t('taskNotFound'));
+
   const scorePromises = [];
   taskScorings.forEach(taskScoring => {
     if (tasks[taskScoring.id]) {
@@ -473,6 +490,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   const returnDatas = await Promise.all(scorePromises);
 
   const savePromises = [returnDatas[returnDatas.length - 1].user.save()];
+
   const pullIDs = [];
   const pushIDs = [];
   returnDatas.forEach(returnData => {
@@ -491,6 +509,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
       savePromises.push(tasks[identifier].save());
     }
   });
+
   // Save results and handle request
   const results = await Promise.all(savePromises);
 
@@ -499,9 +518,9 @@ export async function scoreTasks (user, taskScorings, req, res) {
   response.taskResponses = returnDatas.map(data => {
     // Handle challenge tasks here so we save on one for loop
     handleChallengeTask(data.task, data.delta, data.direction);
-    handleGroupTask(data.task, data.delta, data.direction);
 
     return { id: data.task._id, delta: data.delta, _tmp: data._tmp };
   });
+
   return response;
 }

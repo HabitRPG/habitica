@@ -2,7 +2,7 @@
     "potionText": "Poção de Vida",
     "potionNotes": "Recuperar 15 Vidas (Utilização instantânea)",
     "armoireText": "Armário Encantado",
-    "armoireNotesFull": "Abra o Armário para receber aleatoriamente um Equipamento especial, Experiência, ou comida! Peças de equipamento restantes:",
+    "armoireNotesFull": "Abra o Armário para receber aleatoriamente um Equipamento especial, Experiência ou comida! Peças de equipamento restantes:",
     "armoireLastItem": "Encontrou a última peça de Equipamento raro no Armário Encantado.",
     "armoireNotesEmpty": "O Armário terá novo Equipamento na primeira semana de cada mês. Até lá, continue a clicar para ter Experiência e Comida!",
     "dropEggWolfText": "Lobo",
@@ -306,5 +306,10 @@
     "foodSaddleText": "Sela",
     "foodSaddleNotes": "Eleve instantaneamente um dos seus mascotes para uma montada.",
     "foodSaddleSellWarningNote": "Hey! Este objeto é bastante útil! Está familiarizado com a utilização de uma Sela com as suas Mascotes?",
-    "foodNotes": "Alimente um mascote com isto e ele poderá transformar-se num corcel forte."
+    "foodNotes": "Alimente um mascote com isto e ele poderá transformar-se num corcel forte.",
+    "questEggDolphinMountText": "Golfinho",
+    "questEggDolphinText": "Golfinho",
+    "hatchingPotionCelestial": "Celeste",
+    "questEggRobotMountText": "Robô",
+    "questEggRobotText": "Robô"
 }

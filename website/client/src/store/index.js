@@ -50,12 +50,20 @@ export default function () {
     actions,
     getters,
     state: {
-      serverAppVersion: '',
+      serverAppVersion: null,
       title: 'Habitica',
       isUserLoggedIn,
-      isUserLoaded: false, // Means the user and the user's tasks are ready
+      // Means the user and the user's tasks are ready
+      // @TODO use store.user.loaded since it's an async resource?
+      isUserLoaded: false,
       isAmazonReady: false, // Whether the Amazon Payments lib can be used
       user: asyncResourceFactory(),
+      // Keep track of the ids of notifications that have been removed
+      // to make sure they don't get shown again. It happened due to concurrent requests
+      // which in some cases could result in a read notification showing up again
+      // see https://github.com/HabitRPG/habitica/issues/9242
+      notificationsRemoved: [],
+      worldState: asyncResourceFactory(),
       credentials: isUserLoggedIn ? {
         API_ID: AUTH_SETTINGS.auth.apiId,
         API_TOKEN: AUTH_SETTINGS.auth.apiToken,
@@ -65,6 +73,7 @@ export default function () {
       // in app.vue
       browserTimezoneOffset,
       tasks: asyncResourceFactory(), // user tasks
+      // @TODO use asyncresource?
       completedTodosStatus: 'NOT_LOADED',
       party: asyncResourceFactory(),
       partyMembers: asyncResourceFactory(),
@@ -105,6 +114,7 @@ export default function () {
         groupId: '',
         challengeId: '',
         group: {},
+        loading: false,
       },
       openedItemRows: [],
       spellOptions: {
@@ -112,9 +122,6 @@ export default function () {
         spellDrawOpen: true,
       },
       profileOptions: {
-        startingPage: '',
-      },
-      gemModalOptions: {
         startingPage: '',
       },
       rageModalOptions: {
@@ -127,6 +134,17 @@ export default function () {
       equipmentDrawerOpen: true,
       groupPlans: [],
       isRunningYesterdailies: false,
+      privateMessageOptions: {
+        userIdToMessage: '',
+        displayName: '',
+        username: '',
+        backer: {},
+        contributor: {},
+      },
+      firstDropsOptions: {
+        egg: '',
+        hatchingPotion: '',
+      },
     },
   });
 

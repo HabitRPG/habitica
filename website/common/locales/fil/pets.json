@@ -1,0 +1,16 @@
+{
+    "pets": "Mga Alaga",
+    "stable": "Kuwadra",
+    "magicMounts": "Mga Kinabalang Sakay-Alaga",
+    "questMounts": "Lakbayang Sakay-Alaga",
+    "mountsTamed": "Mga Naamong Sakay-alaga",
+    "noActiveMount": "Walang Sinasakyang Alaga",
+    "activeMount": "Sinasakyang Alaga",
+    "mounts": "Mga Sakay Alaga",
+    "questPets": "Mga Lakbay Alaga",
+    "rarePets": "Mga Pambihirang Alaga",
+    "magicPets": "Mga Alagang Kinabalan",
+    "petsFound": "Mga Alagang Natagpuan",
+    "noActivePet": "Walang Alagang Pinapakita",
+    "activePet": "Alagang Pinapakita"
+}

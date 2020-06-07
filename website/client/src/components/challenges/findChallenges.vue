@@ -68,6 +68,17 @@
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
 
+  @media only screen and (max-width: 768px) {
+    .header-row {
+      margin-bottom: 1rem;
+    }
+
+    .col-10.standard-page {
+      // full width on smaller devices
+      max-width: 100%;
+    }
+  }
+
   .header-row {
     h1 {
       color: $purple-200;

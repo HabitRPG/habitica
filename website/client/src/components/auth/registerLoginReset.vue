@@ -1,13 +1,28 @@
 <template>
   <div class="form-wrapper">
+    <div
+      v-if="forgotPassword && preOutage"
+      class="warning-banner d-flex"
+    >
+      <div class="warning-box ml-auto my-auto mr-2 d-flex">
+        <div
+          class="svg-icon exclamation m-auto"
+          v-html="icons.exclamation"
+        >
+        </div>
+      </div>
+      <div class="mr-auto my-auto">
+        Habitica emails will be temporarily unavailable on <strong>January 11, 2020</strong> from
+        <strong>1:00 - 7:00 AM EST</strong>.
+      </div>
+    </div>
     <div id="top-background">
       <div class="seamless_stars_varied_opacity_repeat"></div>
     </div>
     <form
       v-if="!forgotPassword && !resetPasswordSetNewOne"
       id="login-form"
-      @submit.prevent="handleSubmit"
-      @keyup.enter="handleSubmit"
+      @submit.prevent.stop="handleSubmit"
     >
       <div class="text-center">
         <div>
@@ -21,7 +36,7 @@
         </div>
       </div>
       <div class="form-group row text-center">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-12">
           <div
             class="btn btn-secondary social-button"
             @click="socialAuth('facebook')"
@@ -39,7 +54,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6">
+      </div>
+      <div class="form-group row text-center">
+        <div class="col-12 col-md-12">
           <div
             class="btn btn-secondary social-button"
             @click="socialAuth('google')"
@@ -58,6 +75,29 @@
           </div>
         </div>
       </div>
+      <div class="form-group row text-center">
+        <div class="col-12 col-md-12">
+          <div
+            class="btn btn-secondary social-button"
+            @click="socialAuth('apple')"
+          >
+            <div
+              class="svg-icon social-icon"
+              v-html="icons.appleIcon"
+            ></div>
+            <div
+              class="text"
+            >
+              {{ registering
+                ? $t('signUpWithSocial', {social: 'Apple'})
+                : $t('loginWithSocial', {social: 'Apple'}) }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="strike">
+        <span>{{ $t('or') }}</span>
+      </div>
       <div
         v-if="registering"
         class="form-group"
@@ -69,7 +109,7 @@
         <input
           id="usernameInput"
           v-model="username"
-          class="form-control"
+          class="form-control input-with-error"
           type="text"
           :placeholder="$t('usernamePlaceholder')"
           :class="{'input-valid': usernameValid, 'input-invalid': usernameInvalid}"
@@ -132,7 +172,17 @@
           class="form-control"
           type="password"
           :placeholder="$t(registering ? 'passwordPlaceholder' : 'password')"
+          :class="{
+            'input-invalid input-with-error': registering && passwordInvalid,
+            'input-valid': registering && passwordValid
+          }"
         >
+        <div
+          v-if="passwordInvalid && registering"
+          class="input-error"
+        >
+          {{ $t('minPasswordLength') }}
+        </div>
       </div>
       <div
         v-if="registering"
@@ -145,11 +195,17 @@
         <input
           id="confirmPasswordInput"
           v-model="passwordConfirm"
-          class="form-control"
+          class="form-control input-with-error"
           type="password"
           :placeholder="$t('confirmPasswordPlaceholder')"
           :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
         >
+        <div
+          v-if="passwordConfirmInvalid"
+          class="input-error"
+        >
+          {{ $t('passwordConfirmationMatch') }}
+        </div>
         <small
           v-once
           class="form-text"
@@ -157,22 +213,22 @@
         ></small>
       </div>
       <div class="text-center">
-        <div
+        <button
           v-if="registering"
-          v-once
+          type="submit"
           class="btn btn-info"
-          @click="register()"
+          :disabled="signupFormInvalid"
         >
           {{ $t('joinHabitica') }}
-        </div>
-        <div
+        </button>
+        <button
           v-if="!registering"
           v-once
+          type="submit"
           class="btn btn-info"
-          @click="login()"
         >
           {{ $t('login') }}
-        </div>
+        </button>
         <div class="toggle-links">
           <router-link
             v-if="registering"
@@ -275,10 +331,17 @@
         <input
           id="passwordInput"
           v-model="password"
-          class="form-control"
+          class="form-control input-with-error"
           type="password"
           :placeholder="$t('password')"
+          :class="{'input-invalid': passwordInvalid, 'input-valid': passwordValid}"
         >
+        <div
+          v-if="passwordInvalid"
+          class="input-error"
+        >
+          {{ $t('minPasswordLength') }}
+        </div>
       </div>
       <div class="form-group">
         <label
@@ -288,10 +351,17 @@
         <input
           id="confirmPasswordInput"
           v-model="passwordConfirm"
-          class="form-control"
+          class="form-control input-with-error"
           type="password"
           :placeholder="$t('confirmPasswordPlaceholder')"
+          :class="{'input-invalid': passwordConfirmInvalid, 'input-valid': passwordConfirmValid}"
         >
+        <div
+          v-if="passwordConfirmInvalid"
+          class="input-error"
+        >
+          {{ $t('passwordConfirmationMatch') }}
+        </div>
       </div>
       <div class="text-center">
         <div
@@ -426,8 +496,12 @@
       color: $white;
     }
 
-    #usernameInput.input-invalid {
+    .input-with-error.input-invalid {
       margin-bottom: 0.5em;
+    }
+
+    #confirmPasswordInput + .input-error {
+      margin-bottom: 2em;
     }
 
     .form-text {
@@ -447,12 +521,13 @@
     }
 
     .social-icon {
+      margin-left: 1em;
       margin-right: 1em;
       width: 18px;
       height: 18px;
       display: inline-block;
       vertical-align: top;
-      margin-top: .2em;
+      margin-top: .1em;
     }
   }
 
@@ -480,7 +555,7 @@
       background-image: url('~@/assets/images/auth/seamless_mountains_demo.png');
       background-repeat: repeat-x;
       width: 100%;
-      height: 500px;
+      height: 300px;
       position: absolute;
       z-index: 0;
       bottom: 0;
@@ -512,20 +587,79 @@
     color: #fff;
     font-size: 90%;
     width: 100%;
+  }
+
+  .warning-banner {
+    color: $white;
+    background-color: $maroon-100;
+    height: 2.5rem;
+    width: 100%;
+  }
+
+  .warning-box {
+    font-weight: bold;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid;
+    border-radius: 2px;
+  }
+
+  .exclamation {
+    width: 2px;
+  }
+
+  .strike {
+    display: block;
     text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .strike > span {
+    position: relative;
+    display: inline-block;
+    line-height: 1.14;
+    color: #fff;
+  }
+
+  .strike > span:before,
+  .strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: #fff;
+  }
+
+  .strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+  }
+
+  .strike > span:after {
+    left: 100%;
+    margin-left: 15px;
   }
 </style>
 
 <script>
 import axios from 'axios';
 import hello from 'hellojs';
+import moment from 'moment';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
+import { buildAppleAuthUrl } from '../../libs/auth';
 
+import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
+import exclamation from '@/assets/svg/exclamation.svg';
 import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
+import appleIcon from '@/assets/svg/apple_black.svg';
 
 export default {
   data () {
@@ -543,10 +677,12 @@ export default {
     };
 
     data.icons = Object.freeze({
+      exclamation,
       gryphon,
       habiticaIcon,
       facebookIcon: facebookSquareIcon,
       googleIcon,
+      appleIcon,
     });
 
     return data;
@@ -580,6 +716,14 @@ export default {
       if (this.username.length < 1) return false;
       return !this.usernameValid;
     },
+    passwordValid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length >= MINIMUM_PASSWORD_LENGTH;
+    },
+    passwordInvalid () {
+      if (this.password.length <= 0) return false;
+      return this.password.length < MINIMUM_PASSWORD_LENGTH;
+    },
     passwordConfirmValid () {
       if (this.passwordConfirm.length <= 3) return false;
       return this.passwordConfirm === this.password;
@@ -587,6 +731,15 @@ export default {
     passwordConfirmInvalid () {
       if (this.passwordConfirm.length <= 3) return false;
       return !this.passwordConfirmValid;
+    },
+    signupFormInvalid () {
+      return this.usernameInvalid
+        || this.emailInvalid
+        || this.passwordInvalid
+        || this.passwordConfirmInvalid;
+    },
+    preOutage () {
+      return moment.utc().isBefore('2020-01-12');
     },
   },
   watch: {
@@ -653,7 +806,7 @@ export default {
         return;
       }
 
-      // @TODO: implement langauge and invite accepting
+      // @TODO: implement language and invite accepting
       // var url = ApiUrl.get() + "/api/v4/user/auth/local/register";
       // if (location.search && location.search.indexOf('Invite=') !== -1)
       // { // matches groupInvite and partyInvite
@@ -711,35 +864,39 @@ export default {
     },
     // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
-      try {
-        await hello(network).logout();
-      } catch (e) {} // eslint-disable-line
-
-      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-      const auth = await hello(network).login({
-        scope: 'email',
-        // explicitly pass the redirect url or it might redirect to /home
-        redirect_uri: redirectUrl, // eslint-disable-line camelcase
-      });
-
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
-
-      let redirectTo;
-
-      if (this.$route.query.redirectTo) {
-        redirectTo = this.$route.query.redirectTo;
+      if (network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
       } else {
-        redirectTo = '/';
-      }
+        try {
+          await hello(network).logout();
+        } catch (e) {} // eslint-disable-line
 
-      // @TODO do not reload entire page
-      // problem is that app.vue created hook should be called again
-      // after user is logged in / just signed up
-      // ALSO it's the only way to make sure language data
-      // is reloaded and correct for the logged in user
-      window.location.href = redirectTo;
+        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
+        const auth = await hello(network).login({
+          scope: 'email',
+          // explicitly pass the redirect url or it might redirect to /home
+          redirect_uri: redirectUrl, // eslint-disable-line camelcase
+        });
+
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
+
+        let redirectTo;
+
+        if (this.$route.query.redirectTo) {
+          redirectTo = this.$route.query.redirectTo;
+        } else {
+          redirectTo = '/';
+        }
+
+        // @TODO do not reload entire page
+        // problem is that app.vue created hook should be called again
+        // after user is logged in / just signed up
+        // ALSO it's the only way to make sure language data
+        // is reloaded and correct for the logged in user
+        window.location.href = redirectTo;
+      }
     },
     handleSubmit () {
       if (this.registering) {

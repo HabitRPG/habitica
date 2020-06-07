@@ -1544,7 +1544,7 @@
     "backMystery201805Text": "Phenomenal Peacock Tail",
     "backMystery201805Notes": "This gorgeous feathery tail is perfect for a strut down a lovely garden path! Confers no benefit. May 2018 Subscriber Item.",
     "backSpecialWonderconRedText": "Capa Poderosa",
-    "backSpecialWonderconRedNotes": "Ondea sibilante con fuerza y ​belleza. No otorga ningún beneficio. Artículo de Convención de Edición Especial.",
+    "backSpecialWonderconRedNotes": "Ondea sibilante con fuerza y belleza. No otorga ningún beneficio. Artículo de Convención de Edición Especial.",
     "backSpecialWonderconBlackText": "Capa Furtiva",
     "backSpecialWonderconBlackNotes": "Tejida a partir de sombras y susurros. No otorga ningún beneficio. Artículo de Convención de Edición Especial.",
     "backSpecialTakeThisText": "Toma Estas Alas",
@@ -1747,5 +1747,8 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "Una máscara auténtica usada por los médicos que luchan contra la Peste de la Procrastinación. Aumenta Constitución e Inteligencia por <%= attrs %> cada uno. Armario Encantado: Conjunto de Médico de la Peste (Artículo 2 de 3).",
     "eyewearArmoireGoofyGlassesText": "Lentes disparatados",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
-    "twoHandedItem": "Arma de dos manos."
+    "twoHandedItem": "Arma de dos manos.",
+    "weaponSpecialSpring2019WarriorText": "Espada de tallo",
+    "weaponSpecialSpring2019RogueText": "Rayo",
+    "weaponSpecialKS2019Text": "Glaive mítico grifo"
 }

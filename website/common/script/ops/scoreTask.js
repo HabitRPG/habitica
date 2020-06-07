@@ -9,6 +9,7 @@ import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
 import statsComputed from '../libs/statsComputed';
+import { checkOnboardingStatus } from '../libs/onboarding';
 
 const MAX_TASK_VALUE = 21.27;
 const MIN_TASK_VALUE = -47.27;
@@ -42,7 +43,7 @@ function _calculateDelta (task, direction, cron) {
     }
 
     // If To-Do, point-match the TD per checklist item completed
-    if (task.type === 'todo') {
+    if (task.type === 'todo' && !cron) {
       nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
   }
@@ -188,7 +189,38 @@ function _updateCounter (task, direction, times) {
   }
 }
 
-export default function scoreTask (options = {}, req = {}) {
+function _lastHistoryEntryWasToday (lastHistoryEntry, user) {
+  if (!lastHistoryEntry || !lastHistoryEntry.date) {
+    return false;
+  }
+
+  const { timezoneOffset } = user.preferences;
+  const { dayStart } = user.preferences;
+
+  // Adjust the last entry date according to the user's timezone and CDS
+  const dateWithTimeZone = moment(lastHistoryEntry.date).zone(timezoneOffset);
+  if (dateWithTimeZone.hour() < dayStart) dateWithTimeZone.subtract(1, 'day');
+
+  return moment().zone(timezoneOffset).isSame(dateWithTimeZone, 'day');
+}
+
+function _updateLastHistoryEntry (lastHistoryEntry, task, direction, times) {
+  lastHistoryEntry.value = task.value;
+  lastHistoryEntry.date = Number(new Date());
+
+  // @TODO remove this extra check after migration
+  // has run to set scoredUp and scoredDown in every task
+  lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
+  lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
+
+  if (direction === 'up') {
+    lastHistoryEntry.scoredUp += times;
+  } else {
+    lastHistoryEntry.scoredDown += times;
+  }
+}
+
+export default function scoreTask (options = {}, req = {}, analytics) {
   const {
     user, task, direction, times = 1, cron = false,
   } = options;
@@ -225,38 +257,14 @@ export default function scoreTask (options = {}, req = {}) {
 
     // Save history entry for habit
     task.history = task.history || [];
-    const { timezoneOffset } = user.preferences;
-    const { dayStart } = user.preferences;
     const historyLength = task.history.length;
     const lastHistoryEntry = task.history[historyLength - 1];
 
-    // Adjust the last entry date according to the user's timezone and CDS
-    let lastHistoryEntryDate;
-
-    if (lastHistoryEntry && lastHistoryEntry.date) {
-      lastHistoryEntryDate = moment(lastHistoryEntry.date).zone(timezoneOffset);
-      if (lastHistoryEntryDate.hour() < dayStart) lastHistoryEntryDate.subtract(1, 'day');
-    }
-
-    if (
-      lastHistoryEntryDate
-      && moment().zone(timezoneOffset).isSame(lastHistoryEntryDate, 'day')
-    ) {
-      lastHistoryEntry.value = task.value;
-      lastHistoryEntry.date = Number(new Date());
-
-      // @TODO remove this extra check after migration
-      // has run to set scoredUp and scoredDown in every task
-      lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
-      lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
-
-      if (direction === 'up') {
-        lastHistoryEntry.scoredUp += times;
-      } else {
-        lastHistoryEntry.scoredDown += times;
+    if (_lastHistoryEntryWasToday(lastHistoryEntry, user)) {
+      _updateLastHistoryEntry(lastHistoryEntry, task, direction, times);
+      if (task.markModified) {
+        task.markModified(`history.${historyLength - 1}`);
       }
-
-      if (task.markModified) task.markModified(`history.${historyLength - 1}`);
     } else {
       task.history.push({
         date: Number(new Date()),
@@ -333,15 +341,16 @@ export default function scoreTask (options = {}, req = {}) {
     // Don't adjust values for rewards
     delta += _changeTaskValue(user, task, direction, times, cron);
     // purchase item
-    stats.gp -= Math.abs(task.value);
-    // hp - gp difference
-    if (stats.gp < 0) {
-      stats.hp += stats.gp;
-      stats.gp = 0;
-    }
+    stats.gp -= task.value;
   }
 
   req.yesterDailyScored = task.yesterDailyScored;
   updateStats(user, stats, req);
+
+  if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
+    user.addAchievement('completedTask');
+    checkOnboardingStatus(user, req, analytics);
+  }
+
   return [delta];
 }

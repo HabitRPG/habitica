@@ -157,8 +157,77 @@ const basicAchievs = {
     titleKey: 'achievementAridAuthority',
     textKey: 'achievementAridAuthorityText',
   },
+  monsterMagus: {
+    icon: 'achievement-monsterMagus',
+    titleKey: 'achievementMonsterMagus',
+    textKey: 'achievementMonsterMagusText',
+  },
+  undeadUndertaker: {
+    icon: 'achievement-undeadUndertaker',
+    titleKey: 'achievementUndeadUndertaker',
+    textKey: 'achievementUndeadUndertakerText',
+  },
+  primedForPainting: {
+    icon: 'achievement-primedForPainting',
+    titleKey: 'achievementPrimedForPainting',
+    textKey: 'achievementPrimedForPaintingText',
+  },
+  pearlyPro: {
+    icon: 'achievement-pearlyPro',
+    titleKey: 'achievementPearlyPro',
+    textKey: 'achievementPearlyProText',
+  },
+  tickledPink: {
+    icon: 'achievement-tickledPink',
+    titleKey: 'achievementTickledPink',
+    textKey: 'achievementTickledPinkText',
+  },
+  rosyOutlook: {
+    icon: 'achievement-rosyOutlook',
+    titleKey: 'achievementRosyOutlook',
+    textKey: 'achievementRosyOutlookText',
+  },
+  bugBonanza: {
+    icon: 'achievement-bugBonanza',
+    titleKey: 'achievementBugBonanza',
+    textKey: 'achievementBugBonanzaText',
+  },
+  bareNecessities: {
+    icon: 'achievement-bareNecessities',
+    titleKey: 'achievementBareNecessities',
+    textKey: 'achievementBareNecessitiesText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
+
+const onboardingAchievs = {
+  createdTask: {
+    icon: 'achievement-createdTask',
+    titleKey: 'achievementCreatedTask',
+    textKey: 'achievementCreatedTaskText',
+  },
+  completedTask: {
+    icon: 'achievement-completedTask',
+    titleKey: 'achievementCompletedTask',
+    textKey: 'achievementCompletedTaskText',
+  },
+  hatchedPet: {
+    icon: 'achievement-hatchedPet',
+    titleKey: 'achievementHatchedPet',
+    textKey: 'achievementHatchedPetText',
+  },
+  fedPet: {
+    icon: 'achievement-fedPet',
+    titleKey: 'achievementFedPet',
+    textKey: 'achievementFedPetText',
+  },
+  purchasedEquipment: {
+    icon: 'achievement-purchasedEquipment',
+    titleKey: 'achievementPurchasedEquipment',
+    textKey: 'achievementPurchasedEquipmentText',
+  },
+};
+Object.assign(achievementsData, onboardingAchievs);
 
 const specialAchievs = {
   contributor: {

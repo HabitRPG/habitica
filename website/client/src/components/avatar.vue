@@ -186,7 +186,7 @@ export default {
         return this.overrideTopPadding;
       }
 
-      let val = '27px';
+      let val = '24px';
 
       if (!this.avatarOnly) {
         if (this.member.items.currentPet) val = '24px';
@@ -212,7 +212,7 @@ export default {
     },
     visualBuffs () {
       return {
-        snowball: 'snowman',
+        snowball: `avatar_snowball_${this.member.stats.class}`,
         spookySparkles: 'ghost',
         shinySeed: `avatar_floral_${this.member.stats.class}`,
         seafoam: 'seafoam_star',

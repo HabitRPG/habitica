@@ -1,4 +1,5 @@
 import isArray from 'lodash/isArray';
+import * as quests from '@/../../common/script/content/quests';
 
 // @TODO: Let's separate some of the business logic out of Vue if possible
 export default {
@@ -6,6 +7,26 @@ export default {
     handleCastCancelKeyUp (keyEvent) {
       if (keyEvent.keyCode !== 27) return;
       this.castCancel();
+    },
+    questProgress () {
+      const { user } = this;
+      if (!user.party.quest) return 0;
+
+      const userQuest = quests.quests[user.party.quest.key];
+
+      if (!userQuest) {
+        return 0;
+      }
+
+      if (userQuest.boss && user.party.quest.progress.up > 0) {
+        return user.party.quest.progress.up;
+      }
+
+      if (userQuest.collect && user.party.quest.progress.collectedItems > 0) {
+        return user.party.quest.progress.collectedItems;
+      }
+
+      return 0;
     },
     async castStart (spell, member) {
       if (this.$store.state.spellOptions.castingSpell) {
@@ -77,8 +98,7 @@ export default {
     },
     async castEnd (target, type) {
       if (!this.$store.state.spellOptions.castingSpell) return null;
-      let beforeQuestProgress;
-      if (this.spell.target === 'party') beforeQuestProgress = this.questProgress();
+      const beforeQuestProgress = this.questProgress();
 
       if (!this.applyingAction) return 'No applying action';
 
@@ -153,19 +173,18 @@ export default {
 
 
       this.markdown(msg); // @TODO: mardown directive?
-      if (!beforeQuestProgress) return null;
+
       const questProgress = this.questProgress() - beforeQuestProgress;
       if (questProgress > 0) {
-        const userQuest = this.quests[this.user.party.quest.key];
+        const userQuest = quests.quests[this.user.party.quest.key];
         if (userQuest.boss) {
-          this.quest('questDamage', questProgress.toFixed(1));
+          this.damage(questProgress.toFixed(1));
         } else if (userQuest.collection && userQuest.collect) {
           this.quest('questCollection', questProgress);
         }
       }
 
       return null;
-      // @TOOD: User.sync();
     },
     castCancel () {
       this.potionClickMode = false;

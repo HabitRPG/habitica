@@ -44,11 +44,11 @@
     "hatchingPotion": "poción de eclosión",
     "noHatchingPotions": "No tienes pociones de eclosión.",
     "inventoryText": "Haz clic en un huevo para ver las pociones utilizables resaltadas en verde, y después haz clic en una de las pociones para que tu mascota eclosione. Si ninguna poción se destacó, cliquea en ese huevo de nuevo para anular la selección, y pulsa primero sobre una poción para destacar los huevos utilizables. También puedes vender los objetos que ya no desees a Alexander el Comerciante.",
-    "haveHatchablePet": "You have a <%= potion %> hatching potion and <%= egg %> egg to hatch this pet! <b>Click</b> the paw print to hatch.",
+    "haveHatchablePet": "¡Tienes una poción de eclosión <%= potion %> y un Huevo de <%= egg %> para eclosionar esta mascota! ¡<b>Click</b> para hacerlo!",
     "quickInventory": "Inventario rapido",
     "foodText": "comida",
-    "food": "Comida y Monturas",
-    "noFoodAvailable": "No tienes comida.",
+    "food": "Comida para Mascota y Monturas",
+    "noFoodAvailable": "No tienes comida para mascotas.",
     "noSaddlesAvailable": "No tienes ninguna silla de montar.",
     "noFood": "No tienes ni comida ni monturas.",
     "dropsExplanation": "Consigue estos objetos más rápido con Gemas si no quieres esperar a que aparezcan cuando completes una tarea. <a href=\"http://habitica.fandom.com/wiki/Drops\">Lee más acerca del sistema de botines.</a>",
@@ -143,5 +143,7 @@
     "notEnoughPets": "No has recolectado suficientes mascotas",
     "notEnoughMounts": "No has recolectado suficientes monturas",
     "notEnoughPetsMounts": "No has recolectado suficientes mascotas y monturas",
-    "wackyPets": "Mascotas Locas"
+    "wackyPets": "Mascotas Chifladas",
+    "filterByWacky": "Loco",
+    "gryphatrice": "Grifotriz"
 }

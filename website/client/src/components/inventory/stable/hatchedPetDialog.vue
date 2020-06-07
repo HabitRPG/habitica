@@ -3,6 +3,11 @@
     id="hatchedPet-modal"
     :hide-header="true"
   >
+    <span
+      class="close-icon svg-icon inline icon-10"
+      @click="close()"
+      v-html="icons.close"
+    ></span>
     <div
       v-if="pet != null"
       class="content"
@@ -14,7 +19,7 @@
         {{ $t('hatchedPetGeneric') }}
       </div>
       <div class="inner-content">
-        <div class="pet-background">
+        <div class="pet-background d-flex align-items-center">
           <div :class="pet.class"></div>
         </div>
         <h4 class="title">
@@ -51,6 +56,10 @@
       width: 330px;
     }
 
+    .modal-footer {
+      padding-top: 0px;
+    }
+
     .content {
       text-align: center;
     }
@@ -75,12 +84,25 @@
 
     .dialog-header {
       color: $purple-200;
+      margin-top: 16px;
+    }
+
+    .text {
+      margin-bottom: 24px;
+      min-height: 0;
+
+      &.markdown {
+        p {
+          margin-bottom: 0px;
+        }
+      }
     }
   }
 </style>
 
 <script>
 import markdownDirective from '@/directives/markdown';
+import svgClose from '@/assets/svg/close.svg';
 
 export default {
   directives: {
@@ -94,12 +116,15 @@ export default {
   data () {
     return {
       pet: null,
+      icons: Object.freeze({
+        close: svgClose,
+      }),
     };
   },
   mounted () {
     this.$root.$on('hatchedPet::open', this.openDialog);
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('hatchedPet::open', this.openDialog);
   },
   methods: {
