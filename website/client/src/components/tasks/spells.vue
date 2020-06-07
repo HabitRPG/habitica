@@ -267,14 +267,10 @@ export default {
       );
     },
     spellDisabled (skill) {
-      let isSpellDisabled = false;
+      if (skill === 'frost' && this.user.stats.buffs.streaks) return true;
+      if (skill === 'stealth' && this.user.stats.buffs.stealth >= this.user.tasksOrder.dailys.length) return true;
 
-      if ((skill === 'frost' && this.user.stats.buffs.streaks)
-        || (skill === 'stealth' && this.user.stats.buffs.stealth >= this.user.tasksOrder.dailys.length)) {
-        isSpellDisabled = true;
-      }
-
-      return isSpellDisabled;
+      return false;
     },
 
     skillNotes (skill) {
