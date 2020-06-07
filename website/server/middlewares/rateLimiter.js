@@ -2,8 +2,9 @@ import nconf from 'nconf';
 import redis from 'redis';
 import { RateLimiterRedis, RateLimiterRes } from 'rate-limiter-flexible';
 import {
-  Forbidden,
+  TooManyRequests,
 } from '../libs/errors';
+import logger from '../libs/logger';
 import apiError from '../libs/apiError';
 
 // Middleware to rate limit requests to the API
@@ -33,7 +34,7 @@ if (RATE_LIMITER_ENABLED) {
   });
 
   redisClient.on('error', error => {
-    console.error(error);//todo, prevent rate limiter creation on error
+    logger.error(error, 'Redis Error');
   });
 
   rateLimiter = new RateLimiterRedis({
@@ -54,17 +55,19 @@ function setResponseHeaders (res, rateLimiterRes) {
 export default function rateLimiterMiddleware (req, res, next) {
   rateLimiter.consume(req.ip)
     .then(rateLimiterRes => {
-      console.log(rateLimiterRes);
       setResponseHeaders(res, rateLimiterRes);
       next();
     })
     .catch(rateLimiterRes => {
       if (rateLimiterRes instanceof RateLimiterRes) {
         setResponseHeaders(res, rateLimiterRes);
-        res.status(429).send('Too Many Requests');
+        next(new TooManyRequests(apiError('clientRateLimited')));
       } else {
-        next(rateLimiterRes);
-        //handle unhandled error, skip?
+        // In case of an unhandled error we skip the middleware as it could mean
+        // , for example, that the connection to the redis database is not working.
+        // We do not want to block all requests in these cases.
+        logger.error(rateLimiterRes, 'Rate Limiter Error');
+        next();
       }
     });
 }
