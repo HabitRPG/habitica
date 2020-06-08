@@ -95,7 +95,7 @@
     "backgroundShimmeryBubblesNotes": "キラキラな泡いっぱいの海に浮こう。",
     "backgroundIslandWaterfallsText": "島の滝",
     "backgroundIslandWaterfallsNotes": "島の滝の近くでピクニックしよう。",
-    "backgrounds072015": "セット14：  2015年7月リリース",
+    "backgrounds072015": "セット14：2015年7月リリース",
     "backgroundDilatoryRuinsText": "サキノバシティーの廃墟",
     "backgroundDilatoryRuinsNotes": "サキノバシティーの廃墟へ飛び込もう。",
     "backgroundGiantWaveText": "高波",
@@ -506,5 +506,15 @@
     "backgroundSucculentGardenNotes": "乾いた美しい多肉の庭を鑑賞しよう。",
     "backgroundSucculentGardenText": "多肉植物の庭",
     "backgroundButterflyGardenNotes": "花粉の運び屋たちと蝶々の花園でパーティーしよう。",
-    "backgroundButterflyGardenText": "蝶々の花園"
+    "backgroundButterflyGardenText": "蝶々の花園",
+    "backgroundAmongGiantFlowersNotes": "巨大な花にかこまれてだらだらしましょう。",
+    "backgroundAmongGiantFlowersText": "巨大な花に囲まれて",
+    "backgroundAnimalCloudsNotes": "雲の中に動物の形を探して創造力を鍛えよう。",
+    "backgroundAnimalCloudsText": "動物の形の雲",
+    "backgroundHeatherFieldNotes": "荒野のギョリュウモドキの香りを楽しもう。",
+    "backgroundHeatherFieldText": "ギョリュウモドキの荒野",
+    "backgroundRainyBarnyardNotes": "雨の降る納屋の前庭を濡れながら散歩しよう。",
+    "backgroundRainyBarnyardText": "雨降る納屋の前庭",
+    "backgroundHabitCityRooftopsNotes": "Habit シティーの屋根と屋根の間を大胆に跳ぼう。",
+    "backgroundHabitCityRooftopsText": "Habit シティーの屋上"
 }
