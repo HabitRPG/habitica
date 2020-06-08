@@ -2101,5 +2101,9 @@
     "armorArmoireFiddlersCoatNotes": "Une tenue pratique qui vous donne plein de place pour vous mouvoir ! Augmente la constitution de <%= con %>. Armoire enchantée : Ensemble de violoniste (objet 2 de 4 ).",
     "armorArmoireFiddlersCoatText": "Manteau de violoniste",
     "weaponArmoireFiddlersBowNotes": "Vous pouvez faire sortir de la musique de n'importe quoi avec ça ! ...Mais un violon est peut-être le plus adapté. Augmente la force de <%= str %>. Armoire enchantée : Ensemble de violoniste (objet 3 de 4).",
-    "weaponArmoireFiddlersBowText": "Archet de violoniste"
+    "weaponArmoireFiddlersBowText": "Archet de violoniste",
+    "headMystery202006Notes": "L'énergie positive de ces pierres violettes radieuses mettra les créatures aquatiques les plus amicales de votre côté. Ne confère aucun bonus. Équipement d'abonnement de juin 2020.",
+    "headMystery202006Text": "Diadème de sugilite",
+    "armorMystery202006Notes": "Même parmi les coraux et les anémones les plus brillantes, cette queue se démarque des autres ! Ne confère aucun bonus. Équipement d'abonnement de juin 2020.",
+    "armorMystery202006Text": "Queue de sirène multichromée"
 }

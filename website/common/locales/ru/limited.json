@@ -7,7 +7,7 @@
     "alarmingFriends": "Пугающие друзья",
     "alarmingFriendsText": "Напуганы членами команды <%= count %> раз.",
     "agriculturalFriends": "Сельскохозяйственные друзья",
-    "agriculturalFriendsText": "Превращены <%= count %>  раз в цветок членами команды.",
+    "agriculturalFriendsText": "Превращены <%= count %> раз в цветок членами команды.",
     "aquaticFriends": "Водяные друзья",
     "aquaticFriendsText": "Обрызганы <%= count %> раз членами команды.",
     "valentineCard": "Валентинка",
