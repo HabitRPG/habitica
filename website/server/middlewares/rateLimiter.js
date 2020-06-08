@@ -56,7 +56,7 @@ function setResponseHeaders (res, rateLimiterRes) {
 export default function rateLimiterMiddleware (req, res, next) {
   if (!RATE_LIMITER_ENABLED) return next();
 
-  rateLimiter.consume(req.ip)
+  return rateLimiter.consume(req.ip)
     .then(rateLimiterRes => {
       setResponseHeaders(res, rateLimiterRes);
       next();
