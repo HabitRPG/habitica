@@ -178,7 +178,7 @@ export default {
       if (questProgress > 0) {
         const userQuest = quests.quests[this.user.party.quest.key];
         if (userQuest.boss) {
-          this.quest('questDamage', questProgress.toFixed(1));
+          this.damage(questProgress.toFixed(1));
         } else if (userQuest.collection && userQuest.collect) {
           this.quest('questCollection', questProgress);
         }

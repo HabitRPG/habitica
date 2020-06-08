@@ -29,6 +29,9 @@ export default {
     quest (type, val) {
       this.notify(this.$t(type, { val }), 'success');
     },
+    damage (val) {
+      this.notify(`${this.sign(val)}${val}`, 'damage');
+    },
     exp (val) {
       const message = getXPMessage(val);
       this.notify(message, 'xp', 'glyphicon glyphicon-star', this.sign(val));
