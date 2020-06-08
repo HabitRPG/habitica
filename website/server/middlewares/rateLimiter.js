@@ -1,6 +1,10 @@
 import nconf from 'nconf';
 import redis from 'redis';
-import { RateLimiterRedis, RateLimiterRes } from 'rate-limiter-flexible';
+import {
+  RateLimiterRedis,
+  RateLimiterMemory,
+  RateLimiterRes,
+} from 'rate-limiter-flexible';
 import {
   TooManyRequests,
 } from '../libs/errors';
@@ -12,6 +16,7 @@ import apiError from '../libs/apiError';
 // More info on the API rate limits can be found on the wiki at
 // https://habitica.fandom.com/wiki/Guidance_for_Comrades#Rules_for_Third-Party_Tools
 
+const IS_TEST = nconf.get('IS_TEST');
 const RATE_LIMITER_ENABLED = nconf.get('RATE_LIMITER_ENABLED') === 'true';
 const REDIS_HOST = nconf.get('REDIS_HOST');
 const REDIS_PASSWORD = nconf.get('REDIS_PASSWORD');
@@ -27,21 +32,27 @@ const rateLimiterOpts = {
 };
 
 if (RATE_LIMITER_ENABLED) {
-  redisClient = redis.createClient({
-    host: REDIS_HOST,
-    password: REDIS_PASSWORD,
-    port: REDIS_PORT,
-    enable_offline_queue: false,
-  });
+  if (IS_TEST) {
+    rateLimiter = new RateLimiterMemory({
+      ...rateLimiterOpts,
+    });
+  } else {
+    redisClient = redis.createClient({
+      host: REDIS_HOST,
+      password: REDIS_PASSWORD,
+      port: REDIS_PORT,
+      enable_offline_queue: false,
+    });
 
-  redisClient.on('error', error => {
-    logger.error(error, 'Redis Error');
-  });
+    redisClient.on('error', error => {
+      logger.error(error, 'Redis Error');
+    });
 
-  rateLimiter = new RateLimiterRedis({
-    ...rateLimiterOpts,
-    storeClient: redisClient,
-  });
+    rateLimiter = new RateLimiterRedis({
+      ...rateLimiterOpts,
+      storeClient: redisClient,
+    });
+  }
 }
 
 function setResponseHeaders (res, rateLimiterRes) {
@@ -59,18 +70,18 @@ export default function rateLimiterMiddleware (req, res, next) {
   return rateLimiter.consume(req.ip)
     .then(rateLimiterRes => {
       setResponseHeaders(res, rateLimiterRes);
-      next();
+      return next();
     })
     .catch(rateLimiterRes => {
       if (rateLimiterRes instanceof RateLimiterRes) {
         setResponseHeaders(res, rateLimiterRes);
-        next(new TooManyRequests(apiError('clientRateLimited')));
-      } else {
-        // In case of an unhandled error we skip the middleware as it could mean
-        // , for example, that the connection to the redis database is not working.
-        // We do not want to block all requests in these cases.
-        logger.error(rateLimiterRes, 'Rate Limiter Error');
-        next();
+        return next(new TooManyRequests(apiError('clientRateLimited')));
       }
+
+      // In case of an unhandled error we skip the middleware as it could mean
+      // , for example, that the connection to the redis database is not working.
+      // We do not want to block all requests in these cases.
+      logger.error(rateLimiterRes, 'Rate Limiter Error');
+      return next();
     });
 }
