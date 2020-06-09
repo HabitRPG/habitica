@@ -493,5 +493,6 @@
     "selectGift": "Choisir le cadeau",
     "PMUnblockUserToSendMessages": "Débloquez cette personne pour continuer à envoyer et recevoir des messages.",
     "PMUserDoesNotReceiveMessages": "Cette personne ne reçoit plus de messages privés",
-    "PMCanNotReply": "Vous ne pouvez pas répondre à cette conversation"
+    "PMCanNotReply": "Vous ne pouvez pas répondre à cette conversation",
+    "newPartyPlaceholder": "Indiquez le nom de votre équipe."
 }

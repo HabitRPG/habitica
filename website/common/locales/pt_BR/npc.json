@@ -90,7 +90,7 @@
     "pathRequired": "Texto do caminho é necessário",
     "unlocked": "Itens foram destravados",
     "alreadyUnlocked": "Conjunto completo já destravado.",
-    "alreadyUnlockedPart": "Conjunto completo parcialmente destravado.",
+    "alreadyUnlockedPart": "Conjunto completo parcialmente destravado. É mais barato comprar os itens restantes individualmente.",
     "invalidQuantity": "A quantidade para compra deve ser um número inteiro e positivo.",
     "USD": "(Dólar)",
     "newStuff": "Novidades da Bailey",
@@ -171,5 +171,6 @@
     "paymentAutoRenew": "Esta assinatura será renovada automaticamente até ser cancelada. Se você precisar cancelar, poderá fazê-lo através da configurações.",
     "paymentCanceledDisputes": "Enviamos uma confirmação de cancelamento para o seu e-mail. Se você não está vendo o e-mail, entre em contato para evitar cobranças futuras.",
     "cannotUnpinItem": "Este item não pode ser desfixado.",
-    "paymentSubBillingWithMethod": "Sua assinatura irá ser faturada no valor de <strong>$<%= amount %></strong> a cada <strong><%= months %> meses</strong>."
+    "paymentSubBillingWithMethod": "Sua assinatura irá ser faturada no valor de <strong>$<%= amount %></strong> a cada <strong><%= months %> meses</strong>.",
+    "invalidUnlockSet": "Este conjunto de itens é inválido e não pode ser desbloqueado."
 }
