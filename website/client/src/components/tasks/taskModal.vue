@@ -622,7 +622,7 @@
           </div>
         </div>
         <div
-          v-if="task.type !== 'reward'"
+          v-if="advancedSettingsAvailable"
           class="advanced-settings"
         >
           <div
@@ -753,19 +753,14 @@
       @click="handleClick($event)"
     >
       <div
-        v-once
-        class="cancel-task-btn"
-        @click="cancel()"
-      >
-        {{ $t('cancel') }}
-      </div>
-      <button
-        v-once
-        class="btn btn-primary"
+        v-if="purpose === 'create'"
+        class="btn btn-primary btn-footer
+          d-flex align-items-center justify-content-center mt-2 mb-2"
+        :class="{disabled: !canSave}"
         @click="submit()"
       >
-        {{ $t('save') }}
-      </button>
+        {{ $t('create') }}
+      </div>
     </div>
   </b-modal>
 </template>
@@ -807,6 +802,12 @@
     .modal-content {
       border-radius: 8px;
       border: none;
+    }
+
+    .modal-body {
+      // the body has a margin/padding that can't be found
+      // if found please remove that padding and this style
+      margin-bottom: -1rem;
     }
 
     .modal-header, .modal-body, .modal-footer {
@@ -1116,6 +1117,7 @@
     }
 
     .task-modal-footer {
+      margin: 0;
       padding: 16px 24px;
       width: 100%;
 
@@ -1321,6 +1323,15 @@ export default {
       dayMapping: 'constants.DAY_MAPPING',
       ATTRIBUTES: 'constants.ATTRIBUTES',
     }),
+    advancedSettingsAvailable () {
+      if (
+        this.task.type === 'reward'
+        || this.task.type === 'todo'
+        || this.purpose === 'create'
+        || !this.isUserTask
+      ) return false;
+      return true;
+    },
     groupAccessRequiredAndOnPersonalPage () {
       if (!this.groupId && this.task.group && this.task.group.id) return true;
       return false;
