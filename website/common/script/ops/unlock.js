@@ -28,12 +28,16 @@ function invalidSet (req) {
  * Return an item given its path and the type of set
  */
 function getItemByPath (path, setType) {
-  const itemKey = splitPathItem(path)[1];
-  const item = setType === 'gear'
-    ? content.gear.flat[itemKey]
-    : content.appearances[setType][itemKey];
+  const [itemPathParent, itemKey] = splitPathItem(path);
 
-  return item;
+  if (setType === 'gear') return content.gear.flat[itemKey];
+  if (setType === 'hair') {
+    // itemPathParent is in this format: hair.purple
+    const hairType = itemPathParent.split('.')[1];
+    return content.appearances.hair[hairType][itemKey];
+  }
+
+  return content.appearances[setType][itemKey];
 }
 
 /**
@@ -46,6 +50,25 @@ function getSetType (firstPath, req) {
   if (content.appearances[type]) return type;
 
   return invalidSet(req);
+}
+
+/**
+ * Return the items and paths for a set given the set,
+ * a list of items of the type and a prefix for the path.
+*/
+function getItemsAndPathsForSet (set, itemsCollection, pathPrefix) {
+  const items = [];
+  const paths = [];
+
+  Object.keys(itemsCollection).forEach(possibleItemKey => {
+    const possibleItem = itemsCollection[possibleItemKey];
+    if (possibleItem && possibleItem.set && possibleItem.set.key === set.key) {
+      items.push(possibleItem);
+      paths.push(`${pathPrefix}.${possibleItem.key}`);
+    }
+  });
+
+  return { items, paths };
 }
 
 /**
@@ -78,16 +101,45 @@ function getSet (setType, firstPath, req) {
   const { set } = item;
   if (!set || set.setPrice === 0) return invalidSet(req);
 
-  const items = [];
-  const paths = [];
+  // The facialHair set is split between hair.mustache and hair.beards
+  if (setType === 'hair' && set.key === 'facialHair') {
+    const items = [];
+    const paths = [];
 
-  Object.keys(content.appearances[setType]).forEach(possibleItemKey => {
-    const possibleItem = content.appearances[setType][possibleItemKey];
-    if (possibleItem && possibleItem.set && possibleItem.set.key === set.key) {
-      items.push(possibleItem);
-      paths.push(`${setType}.${possibleItem.key}`);
-    }
-  });
+    const { mustache } = content.appearances.hair;
+    const mustachePrefix = 'hair.mustache';
+
+    const {
+      items: mustacheItems,
+      paths: mustachePaths,
+    } = getItemsAndPathsForSet(set, mustache, mustachePrefix);
+
+
+    const { beard } = content.appearances.hair;
+    const beardPrefix = 'hair.beard';
+
+    const {
+      items: beardItems,
+      paths: beardPaths,
+    } = getItemsAndPathsForSet(set, beard, beardPrefix);
+
+    items.push(...beardItems, ...mustacheItems);
+    paths.push(...beardPaths, ...mustachePaths);
+
+    return { items, paths, set };
+  }
+
+  let pathPrefix = setType;
+  let itemsCollection = content.appearances[setType];
+
+  if (setType === 'hair') { // hair sets are nested like hair.color.item
+    const nestedSet = firstPath.split('.')[1];
+
+    itemsCollection = itemsCollection[nestedSet];
+    pathPrefix = `${pathPrefix}.${nestedSet}`;
+  }
+
+  const { items, paths } = getItemsAndPathsForSet(set, itemsCollection, pathPrefix);
 
   return { items, paths, set };
 }
