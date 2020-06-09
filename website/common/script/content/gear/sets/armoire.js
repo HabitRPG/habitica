@@ -1104,14 +1104,14 @@ forEach({
       ) {
         notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, gearStats);
       } else {
-        notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, { attrs: gearStats[0] });
+        notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`, { attrs: gearStatValues[0] });
       }
     } else {
       notes = t(`${setKey}Armoire${upperFirst(gearKey)}Notes`);
     }
     defaults(gearItem, {
-      notes,
       canOwn: ownsItem(`${setKey}_armoire_${gearKey}`),
+      notes,
       text: t(`${setKey}Armoire${upperFirst(gearKey)}Text`),
       value: 100,
     });
