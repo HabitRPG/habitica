@@ -56,12 +56,17 @@ if (RATE_LIMITER_ENABLED) {
 }
 
 function setResponseHeaders (res, rateLimiterRes) {
-  res.set({
-    'Retry-After': rateLimiterRes.msBeforeNext / 1000,
+  const headers = {
     'X-RateLimit-Limit': rateLimiterOpts.points,
     'X-RateLimit-Remaining': rateLimiterRes.remainingPoints,
     'X-RateLimit-Reset': new Date(Date.now() + rateLimiterRes.msBeforeNext),
-  });
+  };
+
+  if (rateLimiterRes.remainingPoints < 1) {
+    headers['Retry-After'] = rateLimiterRes.msBeforeNext / 1000;
+  }
+
+  res.set(headers);
 }
 
 export default function rateLimiterMiddleware (req, res, next) {

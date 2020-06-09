@@ -63,7 +63,6 @@ describe('rateLimiter middleware', () => {
 
     expect(res.set).to.have.been.calledOnce;
     expect(res.set).to.have.been.calledWithMatch({
-      'Retry-After': 60,
       'X-RateLimit-Limit': 30,
       'X-RateLimit-Remaining': 29,
       'X-RateLimit-Reset': sinon.match(Date),
