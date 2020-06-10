@@ -50,6 +50,12 @@
               Privileges, Gem Balance
             </h3>
             <div v-if="expandPriv">
+              <p
+                v-if="errors.priv"
+                class="errorMessage"
+              >
+                Player has had privilege(s) removed.
+              </p>
               <div class="form-group">
                 <div class="checkbox">
                   <label>
@@ -108,12 +114,22 @@
           <div class="accordion-group">
             <h3
               class="expand-toggle"
-              :class="{'open': expandAuth}"
-              @click="expandAuth = !expandAuth"
+              :class="{'open': expandAuthEtc}"
+              @click="expandAuthEtc = !expandAuthEtc"
             >
               Timestamps, Time Zone, Authentication, Email Address
+              <span
+                v-if="errors.authEtc"
+                v-html="errorsHeading"
+              ></span>
             </h3>
-            <div v-if="expandAuth">
+            <div v-if="expandAuthEtc">
+              <p
+                v-if="errors.authEtc"
+                class="errorMessage"
+              >
+                See error(s) below.
+              </p>
               <div>
                 Account created:
                 <strong>{{ formatDate(hero.auth.timestamps.created) }}</strong>
@@ -121,22 +137,38 @@
               <div>
                 Most recent cron:
                 <strong>{{ formatDate(hero.auth.timestamps.loggedin) }}</strong>
+                ("auth.timestamps.loggedin")
               </div>
-              <div>
-                "lastCron":
+              <div v-if="this.errors.cron">
+                "lastCron" value:
                 <strong>{{ formatDate(hero.lastCron) }}</strong>
-                (if different than above, cron crashed before finishing)
+                <br>
+                <span class="errorMessage">
+                  ERROR: cron probably crashed before finishing
+                  ("auth.timestamps.loggedin" and "lastCron" dates are different).
+                </span>
               </div>
               <div class="subsection-start">
                 Time zone:
                 <strong>{{ formatTimeZone(hero.preferences.timezoneOffset) }}</strong>
               </div>
-              <div>
+              <div v-if="this.errors.timezone">
                 Time zone at previous cron:
                 <strong>{{ formatTimeZone(hero.preferences.timezoneOffsetAtLastCron) }}</strong>
-                <br>(if different than above, the user changed zones / daylight savings
-                OR has devices on different zones OR uses a VPN with varying zones
-                OR something similarly unpleasant is happening)
+                <div class="errorMessage">
+                  ERROR: the player's current time zone is different than their time zone when
+                  their previous cron ran. This can be because:
+                  <ul>
+                    <li>daylight savings started or stopped <sup>*</sup></li>
+                    <li>the player changed zones due to travel <sup>*</sup></li>
+                    <li>the player has devices set to different zones <sup>**</sup></li>
+                    <li>the player uses a VPN with varying zones <sup>**</sup></li>
+                    <li>something similarly unpleasant is happening. <sup>**</sup></li>
+                    <li><em>* The problem should fix itself in about a day.</em></li>
+                    <li><em>** One of these causes is probably happening if the time zones stay
+                    different for more than a day.</em></li>
+                  </ul>
+                </div>
               </div>
               <div class="subsection-start">
                 Local authentication:
@@ -487,7 +519,7 @@ export default {
       content,
       collatedItemData: {},
       expandPriv: false,
-      expandAuth: false,
+      expandAuthEtc: false,
       expandParty: false,
       expandAvatar: false,
       expandItems: false,
@@ -506,6 +538,10 @@ export default {
       itemTypes: ['eggs', 'hatchingPotions', 'food', 'pets', 'mounts', 'quests', 'gear', 'special'],
       errorsHeading: '- ERROR EXISTS',
       errors: {
+        priv: '',
+        cron: '',
+        authEtc: '',
+        timezone: '',
         partyOrQuest: '',
       },
     };
@@ -526,7 +562,7 @@ export default {
     },
     formatTimeZone (inputTimeZoneOffset) {
       const timeZone = (inputTimeZoneOffset / 60) * -1;
-      const sign = (timeZone < 0) ? '-' : '+';
+      const sign = (timeZone < 0) ? '' : '+'; // "-" is already in place in the number
       return `${sign}${timeZone} UTC`;
     },
     formatEquipment (gearWorn) {
@@ -933,6 +969,10 @@ export default {
 
       // initialise error messages for this user
       this.errors = {
+        priv: '',
+        cron: '',
+        authEtc: '',
+        timezone: '',
         partyOrQuest: '',
       };
 
@@ -941,6 +981,27 @@ export default {
           chatRevoked: false,
           chatShadowMuted: false,
         };
+      }
+
+      if (this.hero.flags.chatRevoked || this.hero.flags.chatShadowMuted
+          || this.hero.auth.blocked) {
+          // This isn't a code error situation but we want it to be obvious that
+          // the user has had privilege(s) removed, so we set an "error":
+          this.errors.priv = true;
+      }
+
+      // compare the two cron dates to see if cron may have crashed
+      const cronDate1 = moment(this.hero.auth.timestamps.loggedin);
+      const cronDate2 = moment(this.hero.lastCron);
+      const maxAllowableSecondsDifference = 60; // expect cron to take less than this many seconds
+      if (Math.abs(cronDate1.diff(cronDate2, 'seconds')) > maxAllowableSecondsDifference) {
+          this.errors.cron = true;
+          this.errors.authEtc = true; // this section can have errors from multiple souces
+      }
+
+      if (this.hero.preferences.timezoneOffset !== this.hero.preferences.timezoneOffsetAtLastCron) {
+          this.errors.timezone = true;
+          this.errors.authEtc = true;
       }
 
       this.hasParty = false;
@@ -963,8 +1024,8 @@ export default {
       this.collatedItemData = this.collateItemData();
 
       // collapse all sections except those with errors
-      this.expandPriv = false;
-      this.expandAuth = false;
+      this.expandPriv = this.errors.priv;
+      this.expandAuthEtc = this.errors.authEtc;
       this.expandParty = this.errors.partyOrQuest;
       this.expandAvatar = false;
       this.expandItems = false;
