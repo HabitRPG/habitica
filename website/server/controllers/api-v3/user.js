@@ -60,7 +60,7 @@ const api = {};
  * PushDevices (identifiers for mobile devices authorized);
  * Stats (standard RPG stats, class, buffs, xp, etc..);
  * Tags;
- * TasksOrder (list of all IDs for Dailys, Habits, Rewards and To-Dos).
+ * TasksOrder (list of all IDs for Dailys, Habits, Rewards and To Do's).
  *
  * @apiParam (Query) {String} [userFields] A list of comma-separated user fields to
  *                                         be returned instead of the entire document.

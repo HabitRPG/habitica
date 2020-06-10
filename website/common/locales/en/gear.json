@@ -189,7 +189,7 @@
   "weaponSpecialSummer2015HealerNotes": "Cures seasickness and sea sickness! Increases Intelligence by <%= int %>. Limited Edition 2015 Summer Gear.",
 
   "weaponSpecialFall2015RogueText": "Bat-tle Ax",
-  "weaponSpecialFall2015RogueNotes": "Fearsome To-Dos cower before the flapping of this ax. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
+  "weaponSpecialFall2015RogueNotes": "Fearsome To Do's cower before the flapping of this ax. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
   "weaponSpecialFall2015WarriorText": "Wooden Plank",
   "weaponSpecialFall2015WarriorNotes": "Great for elevating things in cornfields and/or smacking tasks. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
   "weaponSpecialFall2015MageText": "Enchanted Thread",
@@ -263,7 +263,7 @@
   "weaponSpecialFall2017RogueText": "Candied Apple Mace",
   "weaponSpecialFall2017RogueNotes": "Defeat your foes with sweetness! Increases Strength by <%= str %>. Limited Edition 2017 Autumn Gear.",
   "weaponSpecialFall2017WarriorText": "Candy Corn Lance",
-  "weaponSpecialFall2017WarriorNotes": "All your foes will cower before this tasty-looking lance, regardless of whether they're ghosts, monsters, or red To-Dos. Increases Strength by <%= str %>. Limited Edition 2017 Autumn Gear.",
+  "weaponSpecialFall2017WarriorNotes": "All your foes will cower before this tasty-looking lance, regardless of whether they're ghosts, monsters, or red To Do's. Increases Strength by <%= str %>. Limited Edition 2017 Autumn Gear.",
   "weaponSpecialFall2017MageText": "Spooky Staff",
   "weaponSpecialFall2017MageNotes": "The eyes of the glowing skull on this staff radiate magic and mystery. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2017 Autumn Gear.",
   "weaponSpecialFall2017HealerText": "Creepy Candelabra",
@@ -1744,7 +1744,7 @@
   "shieldSpecialSummer2015HealerNotes": "Use this shield to bash away bilge rats. Increases Constitution by <%= con %>. Limited Edition 2015 Summer Gear.",
 
   "shieldSpecialFall2015RogueText": "Bat-tle Ax",
-  "shieldSpecialFall2015RogueNotes": "Fearsome To-Dos cower before the flapping of this ax. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
+  "shieldSpecialFall2015RogueNotes": "Fearsome To Do's cower before the flapping of this ax. Increases Strength by <%= str %>. Limited Edition 2015 Autumn Gear.",
   "shieldSpecialFall2015WarriorText": "Birdseed Bag",
   "shieldSpecialFall2015WarriorNotes": "It's true that you're supposed to be SCARING the crows, but there's nothing wrong with making friends! Increases Constitution by <%= con %>. Limited Edition 2015 Autumn Gear.",
   "shieldSpecialFall2015HealerText": "Stirring Stick",
@@ -1860,7 +1860,7 @@
   "shieldSpecialSpring2020WarriorText": "Iridescent Shield",
   "shieldSpecialSpring2020WarriorNotes": "Don't let the delicate colors fool you. This shield has got you covered! Increases Constitution by <%= con %>. Limited Edition 2020 Spring Gear.",
   "shieldSpecialSpring2020HealerText": "Perfumed Shield",
-  "shieldSpecialSpring2020HealerNotes": "Ward off those musty old To-Dos with this sweet-smelling shield. Increases Constitution by <%= con %>. Limited Edition 2020 Spring Gear.",
+  "shieldSpecialSpring2020HealerNotes": "Ward off those musty old To Do's with this sweet-smelling shield. Increases Constitution by <%= con %>. Limited Edition 2020 Spring Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
