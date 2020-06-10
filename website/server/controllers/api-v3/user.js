@@ -47,7 +47,7 @@ const api = {};
  * Challenges memberships (Challenge IDs);
  * Flags (including armoire, tutorial, tour etc...);
  * Guilds memberships (Guild IDs);
- * History (including timestamps and values, only for Experience and summed To-Do values);
+ * History (including timestamps and values, only for Experience and summed To Do values);
  * Inbox;
  * Invitations (to parties/guilds);
  * Items (character's full inventory);
