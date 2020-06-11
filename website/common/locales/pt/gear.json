@@ -27,7 +27,7 @@
     "weaponWarrior1Text": "Espada",
     "weaponWarrior1Notes": "Lâmina comum dos soldados. Aumenta Força em <%= str %>.",
     "weaponWarrior2Text": "Machado",
-    "weaponWarrior2Notes": "Arma de corte de dupla lâmina. Aumenta Força em <%= str %>",
+    "weaponWarrior2Notes": "Arma de corte de dupla lâmina. Aumenta Força em <%= str %>.",
     "weaponWarrior3Text": "Estrela Da Manhã",
     "weaponWarrior3Notes": "Clava pesada com espinhos brutais. Aumenta Força em <%= str %>.",
     "weaponWarrior4Text": "Lâmina de Safira",
@@ -279,7 +279,7 @@
     "weaponSpecialWinter2019WarriorText": "Alabarda de Floco de Neve",
     "weaponSpecialWinter2019WarriorNotes": "Este floco de neve cresceu, cristal de gelo a cristal de gelo, até se tornar uma lâmina dura que nem diamante! Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Inverno de 2018-2019.",
     "weaponSpecialWinter2019MageText": "Bordão do Dragão Flamejante",
-    "weaponSpecialWinter2019MageNotes": "Cuidado! Este bordão explosivo está pronto a ajudá-lo a derrotar todos os desafiantes. Aumenta Inteligência em <%= int %> e Perceção em <%= per %>. Equipamento de Edição Limitada do Inverno de 2018-2019",
+    "weaponSpecialWinter2019MageNotes": "Cuidado! Este cajado explosivo está pronto para ajudá-lo a derrotar todos os desafiantes. Aumenta Inteligência em <%= int %> e Perceção em <%= per %>. Equipamento de Edição Limitada do Inverno de 2018-2019.",
     "weaponSpecialWinter2019HealerText": "Varinha do Inverno",
     "weaponSpecialWinter2019HealerNotes": "O Inverno pode ser uma altura de descanso e cura e, como tal, a magia desta varinha pode ajudar a acalmar as dores mais custosas. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada do Inverno de 2018-2019.",
     "weaponMystery201411Text": "Forcado de Banquete",
@@ -1749,5 +1749,12 @@
     "eyewearArmoireGoofyGlassesNotes": "Perfeitos para andar incógnito ou simplesmente fazer os teus colegas de equipa rir. Aumenta a Percepção em <%= per %>. Armário Encantado: Item Solto.",
     "twoHandedItem": "Item de duas mãos.",
     "weaponArmoireFiddlersBowText": "Arco do Violinista",
-    "weaponArmoirePaperCutterNotes": "Isso pode não parecer assustador, mas você nunca se cortou com papel? Aumenta a força em <%= str %>. Armário Encantado: Conjunto de Cavaleiro de Papel (Item 1 de 3)."
+    "weaponArmoirePaperCutterNotes": "Isso pode não parecer assustador, mas você nunca se cortou com papel? Aumenta a força em <%= str %>. Armário Encantado: Conjunto de Cavaleiro de Papel (Item 1 de 3).",
+    "weaponSpecialSpring2019MageText": "Cajado Âmbar",
+    "weaponSpecialSpring2019WarriorNotes": "Maus hábitos se acorvardam frente a esta espada verdejante. Aumenta Força em <%= str %>. Equipamento de Edição Limitada da Primavera de 2019.",
+    "weaponSpecialSpring2019WarriorText": "Espada de Caule",
+    "weaponSpecialSpring2019RogueNotes": "Estas armas possuem o poder dos céus e da chuva. Recomendamos que você não as use debaixo dágua. Aumenta Força em <%= str %>. Equipamento de Edição Limitada da Primavera de 2019.",
+    "weaponSpecialSpring2019RogueText": "Raio",
+    "weaponSpecialKS2019Notes": "Curvada como o bico e garras de um grifo, essa alabarda ornamentada te motiva a superar uma tarefa intimidadora a frente. Aumenta a Força em <%= str %>.",
+    "weaponSpecialKS2019Text": "Gládio de Grifo Mítico"
 }

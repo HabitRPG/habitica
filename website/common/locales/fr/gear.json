@@ -2105,5 +2105,11 @@
     "headMystery202006Notes": "L'énergie positive de ces pierres violettes radieuses mettra les créatures aquatiques les plus amicales de votre côté. Ne confère aucun bonus. Équipement d'abonnement de juin 2020.",
     "headMystery202006Text": "Diadème de sugilite",
     "armorMystery202006Notes": "Même parmi les coraux et les anémones les plus brillantes, cette queue se démarque des autres ! Ne confère aucun bonus. Équipement d'abonnement de juin 2020.",
-    "armorMystery202006Text": "Queue de sirène multichromée"
+    "armorMystery202006Text": "Queue de sirène multichromée",
+    "bodyArmoireLifeguardWhistleNotes": "Rappeler ces vilaines tâches à l'ordre ! Elles devraient connaître le règlement ! Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble de garde-côte (objet 3 de 3).",
+    "bodyArmoireLifeguardWhistleText": "Sifflet de garde-côte",
+    "weaponArmoireBeachFlagNotes": "Ralliez les troupes autour de votre château de sable et indiquez à tout le monde comment aider ! Augmente la perception de <%= per %>. Armoire enchantée : ensemble de garde-côte (objet 1 de 3).",
+    "shieldArmoireLifeBuoyNotes": "Quelle bouée ! Elle vous sera utile si vous voyez quelqu'un couler dans une mer de tâches et de responsabilités. Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de garde-côte (objet 2 de 3).",
+    "shieldArmoireLifeBuoyText": "Bouée de survie",
+    "weaponArmoireBeachFlagText": "Drapeau de plage"
 }
