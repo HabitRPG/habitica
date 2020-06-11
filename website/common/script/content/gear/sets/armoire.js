@@ -1092,12 +1092,14 @@ forEach({
     const gearStats = {};
     const gearStatValues = [];
     let notes;
-    forEach(ATTRIBUTES, stat => {
-      if (gearItem[stat]) {
-        gearStats[stat] = gearItem[stat];
-        gearStatValues.push(gearItem[stat]);
-      }
-    });
+    if (!gearItem.notes) {
+      forEach(ATTRIBUTES, stat => {
+        if (gearItem[stat]) {
+          gearStats[stat] = gearItem[stat];
+          gearStatValues.push(gearItem[stat]);
+        }
+      });
+    }
     if (gearStatValues.length > 0) {
       if (gearStatValues.length === 1
         || find(gearStats, gearStat => gearStat !== gearStatValues[0])
