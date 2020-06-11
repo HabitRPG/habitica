@@ -300,6 +300,7 @@
   "hatchingPotionRuby": "Ruby",
   "hatchingPotionBirchBark": "Birch Bark",
   "hatchingPotionDessert": "Confection",
+  "hatchingPotionFluorite": "Fluorite",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs. Available for purchase until <%= date(locale) %>.",
