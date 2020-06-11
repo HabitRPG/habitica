@@ -75,5 +75,10 @@
     "foundNewItems": "Novas res invenisti!",
     "achievementBugBonanzaText": "Investigationes animalium et Coleopterae et Cochleae et Araneae finivit.",
     "achievementBugBonanzaModalText": "Investigationes animalium et Coleopterae et Cochleae et Araneae finivisti!",
-    "achievementBugBonanza": "Copia Insectorum"
+    "achievementBugBonanza": "Copia Insectorum",
+    "achievementBareNecessitiesModalText": "Investigationes simiae, tardigradae, arborculae perfecisti!",
+    "achievementBareNecessitiesText": "Simiae, Arborculae, Tardigradae investigationes perfecit.",
+    "onboardingCompleteDescSmall": "Si plura petis, Perfecta observa et collige!",
+    "onboardingComplete": "Munera prima perfecisti!",
+    "yourProgress": "Progressus tuus"
 }
