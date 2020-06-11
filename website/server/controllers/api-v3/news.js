@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'JUNE BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW QUEST FOR FLUORITE HATCHING POTIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,25 +31,18 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/9/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>6/11/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_202006 center-block"></div>
+        <div class="quest_fluorite center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can sunbathe
-          next to a Salt Lake, splash in the Relaxation River, and set sail for adventure on a
-          Viking Ship. Check them out under User Icon > Backgrounds on web and Menu > Inventory >
-          Customize Avatar on mobile!
+          Need some color to brighten your day? Get the latest Magic Hatching Potion quest, "A
+          Bright Fluorite Fright", and defeat the Fluorite Elemental to earn vibrant Fluorite Magic
+          Hatching Potions by completing your real-life tasks!
         </p>
-        <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Lifeguard Accessory Set. Better work hard on your real-life tasks to earn all the pieces!
-          Enjoy :)
-        </p>
-        <div class="small mb-3">
-          by Pixel Storm, ravenlune, -Tyr-, katieslug, jjgame83, gawrone, shanaqui, and SabreCat
-        </div>
+        <div class="small"> Art by @nirbhao and @-Tyr- </div>
+        <div class="small mb-3">Writing by @SphinxWithoutASecret</div>
       </div>
       `,
     });

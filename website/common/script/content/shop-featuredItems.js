@@ -1,34 +1,8 @@
-import moment from 'moment';
-
 // Magic Hatching Potions are configured like this:
 // type: 'premiumHatchingPotion',  // note no "s" at the end
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore('2020-05-02')) {
-      return [
-        {
-          type: 'armoire',
-          path: 'armoire',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.BirchBark',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Shimmer',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'premiumHatchingPotions.Celestial',
-        },
-        {
-          type: 'premiumHatchingPotion',
-          path: 'hatchingPotions.Veggie',
-        },
-      ];
-    }
     return [
       {
         type: 'armoire',
@@ -49,34 +23,18 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2020-05-02')) {
-      return [
-        {
-          type: 'quests',
-          path: 'quests.waffle',
-        },
-        {
-          type: 'quests',
-          path: 'quests.trex_undead',
-        },
-        {
-          type: 'quests',
-          path: 'quests.bunny',
-        },
-      ];
-    }
     return [
       {
         type: 'quests',
-        path: 'quests.sheep',
+        path: 'quests.rock',
       },
       {
         type: 'quests',
-        path: 'quests.seaserpent',
+        path: 'quests.peacock',
       },
       {
         type: 'quests',
-        path: 'quests.silver',
+        path: 'quests.fluorite',
       },
     ];
   },

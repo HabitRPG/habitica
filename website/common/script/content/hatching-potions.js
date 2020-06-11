@@ -298,6 +298,13 @@ const premium = {
       date: t('dateEndMarch'),
     }),
   },
+  Fluorite: {
+    value: 2,
+    text: t('hatchingPotionFluorite'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('fluorite'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {
