@@ -667,7 +667,8 @@ export default {
     filterByLabel (taskList, filter) {
       if (!taskList) return [];
       return taskList.filter(task => {
-        if (filter === 'complete2') return task.completed || task.group.approval.requested;
+        if (filter === 'complete2') return task.completed
+          || (task.group && task.group.approval.requested);
         if (filter === 'due') return task.isDue;
         if (filter === 'notDue') return !task.isDue;
         return !task.completed && !task.group.approval.requested;
