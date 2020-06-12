@@ -55,7 +55,9 @@
           <div
             class="task-control daily-todo-control"
             :class="controlClass.inner"
-            @click="isUser ? score(task.completed ? 'down' : 'up') : null"
+            @click="isUser ? score(task.completed
+              || task.group.approval.requested ? 'down' : 'up'
+            ) : null"
           >
             <div
               v-if="!isUser"
@@ -66,7 +68,10 @@
             <div
               v-else
               class="svg-icon check"
-              :class="{'display-check-icon': task.completed, [controlClass.checkbox]: true}"
+              :class="{
+                'display-check-icon': task.completed || task.group.approval.requested,
+                [controlClass.checkbox]: true,
+              }"
               v-html="icons.check"
             ></div>
           </div>

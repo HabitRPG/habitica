@@ -22,9 +22,9 @@ const taskFilters = {
   todo: {
     label: 'todos',
     filters: [
-      { label: 'remaining', filterFn: t => !t.completed, default: true }, // active
-      { label: 'scheduled', filterFn: t => !t.completed && t.date, sort: t => t.date },
-      { label: 'complete2', filterFn: t => t.completed },
+      { label: 'remaining', filterFn: t => !t.completed && !t.group.approval.requested, default: true }, // active
+      { label: 'scheduled', filterFn: t => !t.completed && t.date && !t.group.approval.requested, sort: t => t.date },
+      { label: 'complete2', filterFn: t => t.completed || t.group.approval.requested },
     ],
   },
   reward: {
