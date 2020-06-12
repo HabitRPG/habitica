@@ -359,13 +359,13 @@
   @import '~@/assets/scss/colors.scss';
 
   .control-bottom-box {
-    border-bottom-left-radius: 0px !important;
-    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
 
   .control-top-box {
-    border-top-left-radius: 0px !important;
-    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
 
   .cursor-auto {

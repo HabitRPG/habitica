@@ -1755,7 +1755,7 @@
     "armorArmoireChefsJacketText": "大廚夾克",
     "armorArmoireChefsJacketNotes": "這件厚重的夾克擁有雙排扣，可以保護您免受波濺（還具有方便的反彈功能）。增加<%= int %>點智力。魔法衣櫥：大廚套裝（2/4）",
     "armorArmoireVernalVestmentText": "春季聖袍",
-    "armorArmoireVernalVestmentNotes": "這件柔順的聖袍能以最時髦的方式享受溫和春日。增加力量、智力各<%= per %>點。魔法衣櫥：春季聖袍套裝（2/3）。",
+    "armorArmoireVernalVestmentNotes": "這件柔順的聖袍能以最時髦的方式享受溫和春日。增加力量、智力各<%= attrs %>點。魔法衣櫥：春季聖袍套裝（2/3）。",
     "headArmoireToqueBlancheText": "廚師帽",
     "headArmoireToqueBlancheNotes": "根據傳說，這頂帽子的褶皺數量就代表著您學會用不同方式煮蛋的數目！真的還假的？增加<%= int %>點感知。魔法衣櫥：大廚套裝（1/4）。",
     "headArmoireVernalHenninText": "春季圓錐高帽",
@@ -2101,5 +2101,9 @@
     "weaponArmoireFiddlersBowText": "提琴手的弓",
     "shieldArmoireFiddleNotes": "這個完美的樂器總能找到正確的音符。增加<％= int％>點智力。提琴手套裝（4/4）。",
     "headArmoireFiddlersCapNotes": "戴上這個活潑的帽子，讓每個人都知道誰在為誰跳舞。增加<%= per %>點感知。提琴手套裝（1/4）。",
-    "armorArmoireFiddlersCoatNotes": "實用的服裝給你足夠的空間移動！增加<%= con %>點體質。提琴手套裝（2/4）。"
+    "armorArmoireFiddlersCoatNotes": "實用的服裝給你足夠的空間移動！增加<%= con %>點體質。提琴手套裝（2/4）。",
+    "headMystery202006Notes": "這些紫色石頭所發射的正能量將海洋中最友好的生物吸引到你身邊。沒有屬性加成。 2020年6月訂閱者物品。",
+    "headMystery202006Text": "舒俱來石飾環",
+    "armorMystery202006Notes": "這條尾巴在最明亮的珊瑚和海葵中，也能脫穎而出！沒有屬性加成。 2020年6月訂閱者物品。",
+    "armorMystery202006Text": "多彩人魚尾"
 }

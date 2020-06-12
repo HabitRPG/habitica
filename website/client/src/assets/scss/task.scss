@@ -1,3 +1,17 @@
+@mixin habit-controls($disabled-color, $active-color) {
+  &-habit-control-disabled {
+    .habit-option-button {
+      border: 2px solid $disabled-color;
+    }
+    &:hover {
+      .habit-option-button {
+        border: 2px solid $active-color;
+      }
+      .habit-option-icon, .habit-option-label { color: $active-color !important; }
+    }
+  }
+}
+
 @mixin modal-text-input($color) {
   &-text::placeholder { color: $color !important; }
   &-input {
@@ -36,17 +50,7 @@
         .svg-icon { color: $maroon-100 !important; }
         .option-item-label { color: $maroon-50 !important; }
       }
-      &-habit-control-disabled {
-        .habit-option-button {
-          border: 2px solid $gray-300;
-        }
-        &:hover {
-          .habit-option-button {
-            border: 2px solid $maroon-100;
-          }
-          .habit-option-icon, .habit-option-label { color: $maroon-100 !important; }
-        }
-      }
+      @include habit-controls($gray-300, $maroon-100);
     }
   }
 
@@ -76,17 +80,8 @@
         .svg-icon { color: $red-100 !important; }
         .option-item-label { color: $red-10 !important; }
       }
-      &-habit-control-disabled {
-        .habit-option-button {
-          border: 2px solid $gray-300;
-        }
-        &:hover {
-          .habit-option-button {
-            border: 2px solid $red-100;
-          }
-          .habit-option-icon, .habit-option-label { color: $red-100 !important; }
-        }
-      }
+
+      @include habit-controls($gray-300, $red-100);
     }
   }
 
@@ -116,17 +111,8 @@
         .svg-icon { color: $orange-100 !important; }
         .option-item-label { color: $orange-1 !important; }
       }
-      &-habit-control-disabled {
-        .habit-option-button {
-          border: 2px solid $gray-300;
-        }
-        &:hover {
-          .habit-option-button {
-            border: 2px solid $orange-100;
-          }
-          .habit-option-icon, .habit-option-label { color: $orange-100 !important; }
-        }
-      }
+
+      @include habit-controls($gray-300, $orange-100);
     }
   }
 
@@ -156,17 +142,8 @@
       &-content {
         --svg-color: #{$yellow-100};
       }
-      &-habit-control-disabled {
-        .habit-option-button {
-          border: 2px solid $gray-300;
-        }
-        &:hover {
-          .habit-option-button {
-            border: 2px solid $yellow-100;
-          }
-          .habit-option-icon, .habit-option-label { color: $yellow-100 !important; }
-        }
-      }
+
+      @include habit-controls($gray-300, $yellow-100);
     }
   }
 
@@ -197,17 +174,8 @@
         .svg-icon { color: $green-10 !important; }
         .option-item-label { color: #1ca372 !important; }
       }
-      &-habit-control-disabled {
-        .habit-option-button {
-          border: 2px solid $gray-300;
-        }
-        &:hover {
-          .habit-option-button {
-            border: 2px solid $green-100;
-          }
-          .habit-option-icon, .habit-option-label { color: $green-100 !important; }
-        }
-      }
+
+      @include habit-controls($gray-300, $green-100);
     }
   }
 
@@ -237,17 +205,8 @@
         .svg-icon { color: $teal-100 !important; }
         .option-item-label { color: $teal-10 !important; }
       }
-      &-habit-control-disabled {
-        .habit-option-button {
-          border: 2px solid $gray-300;
-        }
-        &:hover {
-          .habit-option-button {
-            border: 2px solid $teal-100;
-          }
-          .habit-option-icon, .habit-option-label { color: $teal-100 !important; }
-        }
-      }
+
+      @include habit-controls($gray-300, $teal-100);
     }
   }
 
@@ -278,17 +237,8 @@
         .svg-icon { color: $blue-50 !important; }
         .option-item-label { color: $blue-10 !important; }
       }
-      &-habit-control-disabled {
-        .habit-option-button {
-          border: 2px solid $gray-300;
-        }
-        &:hover {
-          .habit-option-button {
-            border: 2px solid $blue-100;
-          }
-          .habit-option-icon, .habit-option-label { color: $blue-100 !important; }
-        }
-      }
+
+      @include habit-controls($gray-300, $blue-100);
     }
   }
 
@@ -317,18 +267,8 @@
         .svg-icon { color: $purple-300 !important; }
         .option-item-label { color: $purple-200 !important; }
       }
-      &-habit-control-disabled {
-        .habit-option-button {
-          border: 2px solid $gray-300;
-        }
-        &:hover {
-          .habit-option-button {
-            border: 2px solid $purple-300;
-          }
-          .habit-option-icon, .habit-option-label { color: $purple-300 !important; }
-        }
-      }
 
+      @include habit-controls($gray-300, $purple-300);
     }
   }
 

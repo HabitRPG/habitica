@@ -160,7 +160,7 @@ gulp.task('test:content:safe', gulp.series('test:prepare:build', cb => {
   pipe(runner);
 }));
 
-gulp.task('test:api:unit', done => {
+gulp.task('test:api:unit:run', done => {
   const runner = exec(
     testBin('istanbul cover --dir coverage/api-unit node_modules/mocha/bin/_mocha -- test/api/unit --recursive --require ./test/helpers/start-server'),
     err => {
@@ -174,7 +174,7 @@ gulp.task('test:api:unit', done => {
   pipe(runner);
 });
 
-gulp.task('test:api:unit:watch', () => gulp.watch(['website/server/libs/*', 'test/api/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api:unit', done => done())));
+gulp.task('test:api:unit:watch', () => gulp.watch(['website/server/libs/*', 'test/api/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api:unit:run', done => done())));
 
 gulp.task('test:api-v3:integration', done => {
   const runner = exec(
@@ -235,14 +235,22 @@ gulp.task('test', gulp.series(
   'test:sanity',
   'test:content',
   'test:common',
-  'test:api:unit',
+  'test:prepare:mongo',
+  'test:api:unit:run',
   'test:api-v3:integration',
   'test:api-v4:integration',
   done => done(),
 ));
 
 gulp.task('test:api-v3', gulp.series(
-  'test:api:unit',
+  'test:prepare:mongo',
+  'test:api:unit:run',
   'test:api-v3:integration',
+  done => done(),
+));
+
+gulp.task('test:api:unit', gulp.series(
+  'test:prepare:mongo',
+  'test:api:unit:run',
   done => done(),
 ));

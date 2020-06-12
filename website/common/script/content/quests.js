@@ -3615,6 +3615,38 @@ const quests = {
       unlock: t('questWaffleUnlockText'),
     },
   },
+  fluorite: {
+    text: t('questFluoriteText'),
+    notes: t('questFluoriteNotes'),
+    completion: t('questFluoriteCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questFluoriteBoss'),
+      hp: 1200,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Fluorite',
+          text: t('questFluoriteDropFluoritePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fluorite',
+          text: t('questFluoriteDropFluoritePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fluorite',
+          text: t('questFluoriteDropFluoritePotion'),
+        },
+      ],
+      gp: 70,
+      exp: 750,
+      unlock: t('questFluoriteUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {
