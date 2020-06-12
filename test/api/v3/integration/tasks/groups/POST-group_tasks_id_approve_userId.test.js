@@ -52,7 +52,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
       });
   });
 
-  it('approves an assigned user', async () => {
+  it.only('approves an assigned user', async () => {
     await user.post(`/tasks/${task._id}/assign/${member._id}`);
 
     let memberTasks = await member.get('/tasks/user');
@@ -69,7 +69,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     await member.sync();
 
-    expect(member.notifications.length).to.equal(3);
+    expect(member.notifications.length).to.equal(2);
     expect(member.notifications[1].type).to.equal('GROUP_TASK_APPROVED');
     expect(member.notifications[1].data.message).to.equal(t('yourTaskHasBeenApproved', { taskText: task.text }));
 
@@ -81,7 +81,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
     expect(syncedTask.group.approval.dateApproved).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
   });
 
-  it('allows a manager to approve an assigned user', async () => {
+  it.only('allows a manager to approve an assigned user', async () => {
     await user.post(`/groups/${guild._id}/add-manager`, {
       managerId: member2._id,
     });
@@ -101,7 +101,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
     await member2.post(`/tasks/${task._id}/approve/${member._id}`);
     await member.sync();
 
-    expect(member.notifications.length).to.equal(3);
+    expect(member.notifications.length).to.equal(2);
     expect(member.notifications[1].type).to.equal('GROUP_TASK_APPROVED');
     expect(member.notifications[1].data.message).to.equal(t('yourTaskHasBeenApproved', { taskText: task.text }));
 

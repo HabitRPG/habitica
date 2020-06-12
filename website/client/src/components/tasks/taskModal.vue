@@ -1286,11 +1286,6 @@ export default {
       if (textClass.indexOf('purple') !== -1 || textClass.indexOf('worst') !== -1) return null;
       return textClass;
     },
-    cssClassHeadings () {
-      const textClass = this.cssClass('text');
-      if (textClass.indexOf('purple') !== -1 || textClass.indexOf('worst') !== -1) return null;
-      return textClass;
-    },
   },
   watch: {
     task () {
@@ -1527,12 +1522,9 @@ export default {
         this.closeTagsPopup();
       }
     },
-    handleClick () {
-      //  this.closeTagsPopup(e.target);
-    },
-    closeTagsPopup (element) {
-      if (this.$refs.selectTag) {
-        this.$refs.selectTag.closeIfOpen(element);
+    handleClick (e) {
+      if (this.$refs.popup && !this.$refs.popup.$el.parentNode.contains(e.target)) {
+        this.closeTagsPopup();
       }
     },
   },
