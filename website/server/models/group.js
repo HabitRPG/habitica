@@ -1513,7 +1513,7 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
   await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
 };
 
-schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
+schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assigningUser) {
   const group = this;
   const toSave = [];
 
@@ -1565,6 +1565,9 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
   matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
   matchingTask.group.managerNotes = taskToSync.group.managerNotes;
+  if (user._id !== assigningUser._id) {
+    matchingTask.group.assigningUsername = assigningUser.auth.local.username;
+  }
 
   //  sync checklist
   if (taskToSync.checklist) {

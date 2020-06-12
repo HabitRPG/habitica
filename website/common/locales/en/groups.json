@@ -499,5 +499,7 @@
   "allAssignedCompletion": "All - Completes when all assigned users finish",
   "suggestedGroup": "Suggested because you’re new to Habitica.",
   "groupActivityNotificationTitle": "<%= user %> posted in <%= group %>",
-  "managerNotes": "Manager's Notes"
+  "managerNotes": "Manager's Notes",
+  "assignedDateOnly": "Assigned on <strong><%= date %></strong>",
+  "assignedDateAndUser": "Assigned by <strong>@<%= username %></strong> on <strong><%= date %></strong>"
 }

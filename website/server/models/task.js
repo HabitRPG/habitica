@@ -128,16 +128,17 @@ export const TaskSchema = new Schema({
   },
 
   group: {
-    id: { $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for task group.'] },
+    id: { $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for group task.'] },
     broken: { $type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED'] },
-    assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for task group user.'] }],
+    assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group assigned user.'] }],
     assignedDate: { $type: Date },
-    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid for task group task.'] },
+    assigningUsername: { $type: String },
+    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid for group task.'] },
     approval: {
       required: { $type: Boolean, default: false },
       approved: { $type: Boolean, default: false },
       dateApproved: { $type: Date },
-      approvingUser: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid task group approvingUser.'] },
+      approvingUser: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group approving user.'] },
       requested: { $type: Boolean, default: false },
       requestedDate: { $type: Date },
     },

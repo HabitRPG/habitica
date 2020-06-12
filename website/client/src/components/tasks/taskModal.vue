@@ -91,13 +91,25 @@
         class="form-group mb-0 mt-3"
         v-if="showManagerNotes"
       >
-        <label
-          class="d-flex align-items-center justify-content-between mb-1"
+        <div
+          class="d-flex"
+          :class="{'opacity-75': groupAccessRequiredAndOnPersonalPage}"
         >
           <span
+            class="svg-icon icon-12 mt-1 mr-1"
             :class="cssClassHeadings"
-          >{{ $t('managerNotes') }}</span>
-        </label>
+            v-html="icons.lock"
+            v-if="groupAccessRequiredAndOnPersonalPage"
+          >
+          </span>
+          <label
+            class="d-flex align-items-center justify-content-between mb-1"
+          >
+            <span
+              :class="cssClassHeadings"
+            >{{ $t('managerNotes') }}</span>
+          </label>
+        </div>
         <textarea
           v-model="managerNotes"
           class="form-control input-notes"
@@ -105,6 +117,25 @@
           :placeholder="$t('addNotes')"
           :disabled="groupAccessRequiredAndOnPersonalPage"
         ></textarea>
+      </div>
+      <div
+        v-if="task.group && task.group.assignedDate && !task.group.assigningUsername"
+        class="mt-3 mb-n2"
+        :class="cssClassHeadings"
+        v-html="$t('assignedDateOnly', {
+          date: formattedDate(task.group.assignedDate),
+        })"
+      >
+      </div>
+      <div
+        v-if="task.group && task.group.assignedDate && task.group.assigningUsername"
+        class="mt-3 mb-n2"
+        :class="cssClassHeadings"
+        v-html="$t('assignedDateAndUser', {
+          username: task.group.assigningUsername,
+          date: formattedDate(task.group.assignedDate),
+        })"
+      >
       </div>
     </div>
     <div
@@ -170,9 +201,10 @@
               </span>
 
                 <checkbox :checked.sync="item.completed"
-                          :disabled="groupAccessRequiredAndOnPersonalPage"
+                          :disabled="groupAccessRequiredAndOnPersonalPage || !isUserTask"
                           class="input-group-prepend"
-                          :class="{'cursor-auto': groupAccessRequiredAndOnPersonalPage}"
+                          :class="{'cursor-auto': groupAccessRequiredAndOnPersonalPage
+                            || !isUserTask}"
                           :id="`checklist-${item.id}`"/>
 
               <input
@@ -684,17 +716,6 @@
       transition: none;
     }
 
-    .form-control:not(.input-title):not(.input-notes):not(.checklist-item) {
-      height: 40px !important; // until the new changes of teams-2020 are applied
-    }
-
-    // until the new changes of teams-2020 are applied
-    .vdp-datepicker {
-      .input-group-append {
-        height: 40px !important;
-      }
-    }
-
     input, textarea {
       &:not(:host-context(.tags-popup)) {
         border: none;
@@ -747,6 +768,10 @@
       width: 16px;
       margin-top: 2px;
       color: $gray-200;
+    }
+
+    .opacity-75 {
+      opacity: 0.75;
     }
 
     .option {
@@ -858,7 +883,7 @@
     .checklist-group {
       .grippy {
         opacity: 0;
-        cursor: pointer;
+        cursor: grab;
 
         &:hover, &:active {
           opacity: 1;
@@ -888,12 +913,13 @@
       }
     }
 
-        .delete-task-btn, .cancel-task-btn {
+    .delete-task-btn, .cancel-task-btn {
       cursor: pointer;
       &:hover, &:focus, &:active {
         text-decoration: underline;
       }
     }
+
     .delete-task-btn {
       margin-top: 32px;
       margin-bottom: 8px;
@@ -1135,6 +1161,7 @@ import goldIcon from '@/assets/svg/gold.svg';
 import chevronIcon from '@/assets/svg/chevron.svg';
 import calendarIcon from '@/assets/svg/calendar.svg';
 import gripIcon from '@/assets/svg/grip.svg';
+import lockIcon from '@/assets/svg/lock.svg';
 
 export default {
   components: {
@@ -1166,6 +1193,7 @@ export default {
         streak: streakIcon,
         calendar: calendarIcon,
         grip: gripIcon,
+        lock: lockIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
       sharedCompletion: 'singleCompletion',
@@ -1399,6 +1427,9 @@ export default {
     },
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
+    },
+    formattedDate (date) {
+      return moment(date).format('MM/DD/YYYY');
     },
     calculateMonthlyRepeatDays (newRepeatsOn) {
       if (!this.task) return;
