@@ -11,58 +11,80 @@
     <div
       v-if="task"
       slot="modal-header"
-      class="task-modal-header"
+      class="task-modal-header p-4"
       :class="cssClass('bg')"
       @click="handleClick($event)"
     >
-      <div class="clearfix">
-        <h1 class="float-left">
+      <div class="d-flex align-items-center mb-3">
+        <h2
+          class="my-auto"
+          :class="cssClassHeadings"
+        >
           {{ title }}
-        </h1>
-        <div class="float-right d-flex align-items-center">
+        </h2>
+        <div class="ml-auto d-flex align-items-center">
           <span
-            v-once
-            class="cancel-task-btn mr-2"
+            class="cancel-task-btn mr-3"
+            :class="cssClassHeadings"
             @click="cancel()"
           >{{ $t('cancel') }}</span>
-          <button
-            v-once
-            class="btn btn-secondary"
+          <div
+            class="btn btn-secondary d-flex align-items-center justify-content-center"
+            :class="{disabled: !canSave}"
             @click="submit()"
           >
-            {{ $t('save') }}
-          </button>
+            <div
+              class="m-auto"
+              v-if="purpose === 'edit'"
+            >
+              {{ $t('save') }}
+            </div>
+            <div
+              class="m-auto"
+              v-if="purpose === 'create'"
+            >
+              {{ $t('create') }}
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-group">
-        <label v-once>{{ `${$t('text')}*` }}</label>
+        <label
+          :class="cssClassHeadings"
+          class="mb-1"
+        >{{ `${$t('text')}*` }}</label>
         <input
           ref="inputToFocus"
           v-model="task.text"
-          class="form-control title-input"
+          class="form-control input-title"
+          :class="cssClass('input')"
           type="text"
           required="required"
           spellcheck="true"
           :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+          :placeholder="$t('addATitle')"
         >
       </div>
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label
-          v-once
-          class="d-flex align-items-center justify-content-between"
+          class="d-flex align-items-center justify-content-between mb-1"
         >
-          <span>{{ $t('notes') }}</span>
-          <small v-once>
+          <span
+            :class="cssClassHeadings"
+          >{{ $t('notes') }}</span>
+          <small>
             <a
               target="_blank"
               href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet"
+              :class="cssClassHeadings"
             >{{ $t('markdownHelpLink') }}</a>
           </small>
         </label>
         <textarea
           v-model="task.notes"
-          class="form-control"
-          rows="3"
+          class="form-control input-notes"
+          :class="cssClass('input')"
+          :placeholder="$t('addNotes')"
         ></textarea>
       </div>
     </div>
@@ -147,49 +169,49 @@
           class="d-flex justify-content-center"
         >
           <div
-            class="option-item habit-control"
-            :class="task.up ? 'habit-control-enabled' : cssClass('habit-control-disabled')"
+            class="habit-option-container no-transition
+              d-flex flex-column justify-content-center align-items-center"
             @click="toggleUpDirection()"
+            :class="!task.up ? cssClass('habit-control-disabled') : ''"
           >
             <div
-              class="option-item-box"
+              class="habit-option-button no-transition
+                d-flex justify-content-center align-items-center mb-2"
               :class="task.up ? cssClass('bg') : ''"
             >
-              <div class="task-control habit-control">
-                <div
-                  class="svg-icon positive"
-                  :class="task.up ? cssClass('icon') : ''"
-                  v-html="icons.positive"
-                ></div>
-              </div>
+              <div
+                class="habit-option-icon svg-icon no-transition"
+                :class="task.up ? '' : 'disabled'"
+                v-html="icons.positive"
+              ></div>
             </div>
             <div
-              class="option-item-label"
-              :class="task.up ? cssClass('text') : ''"
+              class="habit-option-label no-transition"
+              :class="task.up ? cssClass('icon') : 'disabled'"
             >
               {{ $t('positive') }}
             </div>
           </div>
           <div
-            class="option-item habit-control"
-            :class="task.down ? 'habit-control-enabled' : cssClass('habit-control-disabled')"
+            class="habit-option-container no-transition
+              d-flex flex-column justify-content-center align-items-center"
             @click="toggleDownDirection()"
+            :class="!task.down ? cssClass('habit-control-disabled') : ''"
           >
             <div
-              class="option-item-box"
+              class="habit-option-button no-transition
+                d-flex justify-content-center align-items-center mb-2"
               :class="task.down ? cssClass('bg') : ''"
             >
-              <div class="task-control habit-control">
-                <div
-                  class="svg-icon negative"
-                  :class="task.down ? cssClass('icon') : ''"
-                  v-html="icons.negative"
-                ></div>
-              </div>
+              <div
+                class="habit-option-icon no-transition svg-icon negative mx-auto"
+                :class="task.down ? '' : 'disabled'"
+                v-html="icons.negative"
+              ></div>
             </div>
             <div
-              class="option-item-label"
-              :class="task.down ? cssClass('text') : ''"
+              class="habit-option-label no-transition"
+              :class="task.down ? cssClass('icon') : 'disabled'"
             >
               {{ $t('negative') }}
             </div>
@@ -600,7 +622,7 @@
           </div>
         </div>
         <div
-          v-if="task.type !== 'reward'"
+          v-if="advancedSettingsAvailable"
           class="advanced-settings"
         >
           <div
@@ -718,10 +740,10 @@
           @click="destroy()"
         >
           <div
-            class="svg-icon d-inline-b"
+            class="svg-icon d-inline-b mt-1 mb-1"
             v-html="icons.destroy"
           ></div>
-          <span>{{ $t('deleteTask') }}</span>
+          <span class="delete-text mt-1 mb-1">{{ $t('deleteTask') }}</span>
         </div>
       </form>
     </div>
@@ -731,19 +753,14 @@
       @click="handleClick($event)"
     >
       <div
-        v-once
-        class="cancel-task-btn"
-        @click="cancel()"
-      >
-        {{ $t('cancel') }}
-      </div>
-      <button
-        v-once
-        class="btn btn-primary"
+        v-if="purpose === 'create'"
+        class="btn btn-primary btn-footer
+          d-flex align-items-center justify-content-center mt-2 mb-2"
+        :class="{disabled: !canSave}"
         @click="submit()"
       >
-        {{ $t('save') }}
-      </button>
+        {{ $t('create') }}
+      </div>
     </div>
   </b-modal>
 </template>
@@ -756,33 +773,41 @@
       max-width: 448px;
     }
 
-    label {
-      font-weight: bold;
+    .no-transition {
+      transition: none;
     }
 
-    .input-group > * {
-      height: 40px;
+    .form-control:not(.input-title):not(.input-notes):not(.checklist-item) {
+      height: 40px !important; // until the new changes of teams-2020 are applied
+    }
+
+    // until the new changes of teams-2020 are applied
+    .vdp-datepicker {
+      .input-group-append {
+        height: 40px !important;
+      }
     }
 
     input, textarea {
-      border: none;
-      background: rgba(0, 0, 0, 0.24);
-      color: rgba($white, 0.64) !important;
-      transition-property: border-color, box-shadow, color, background;
-
-      &:focus, &:active {
-        color: $white !important;
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.32);
+      &:not(:host-context(.tags-popup)) {
+        border: none;
       }
-
+      transition-property: border-color, box-shadow, color, background;
+      background-color: rgba(255, 255, 255, 0.5);
       &:focus, &:active, &:hover {
-        background-color: rgba(0, 0, 0, 0.40);
+        background-color: rgba(255, 255, 255, 0.75);
       }
     }
 
     .modal-content {
       border-radius: 8px;
       border: none;
+    }
+
+    .modal-body {
+      // the body has a margin/padding that can't be found
+      // if found please remove that padding and this style
+      margin-bottom: -1rem;
     }
 
     .modal-header, .modal-body, .modal-footer {
@@ -795,6 +820,10 @@
       padding-right: 23px;
     }
 
+    .cursor-auto {
+      cursor: auto;
+    }
+
     .task-modal-header {
       color: $white;
       width: 100%;
@@ -803,7 +832,7 @@
       padding-top: 16px;
       padding-bottom: 24px;
 
-      h1 {
+      h2 {
         color: $white;
       }
     }
@@ -891,25 +920,6 @@
         color: $gray-50;
         text-align: center;
         transition-property: none;
-      }
-    }
-
-    .habit-control {
-      .option-item-box {
-        background: $white;
-        border: 2px solid $gray-600;
-
-        .habit-control { background: $gray-300; }
-        .svg-icon { color: $white; }
-      }
-
-      &-enabled {
-        .option-item-box {
-          border: 2px solid transparent;
-          transition-property: none;
-
-          .habit-control { background: $white !important; }
-        }
       }
     }
 
@@ -1070,27 +1080,44 @@
       }
     }
 
-    .delete-task-btn, .cancel-task-btn {
+        .delete-task-btn, .cancel-task-btn {
       cursor: pointer;
-
       &:hover, &:focus, &:active {
         text-decoration: underline;
       }
     }
-
     .delete-task-btn {
       margin-top: 32px;
       margin-bottom: 8px;
-      color: $red-50;
-
+      height: 1.5rem;
+      align-items: center;
+      &:hover, &:focus, &:active {
+        text-decoration: underline;
+        text-decoration-color: $maroon-50;
+      }
+      .delete-text {
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.71;
+        letter-spacing: normal;
+        color: $maroon-50;
+        height: 1.5rem;
+      }
       .svg-icon {
-        width: 14px;
-        height: 16px;
-        margin-right: 8.5px;
+        svg {
+          height: 1rem;
+          width: 1rem;
+          object-fit: contain;
+        }
+        margin-right: 0.5rem;
+        color: $maroon-50;
       }
     }
 
     .task-modal-footer {
+      margin: 0;
       padding: 16px 24px;
       width: 100%;
 
@@ -1147,9 +1174,68 @@
 </style>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .gold {
     width: 24px;
     margin: 0 7px;
+  }
+
+  .habit-option {
+    &-container {
+      min-width: 3rem;
+      cursor: pointer;
+      &:first-of-type {
+        margin-right: 2rem;
+      }
+    }
+    &-button {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+    }
+    &-icon {
+      width: 10px;
+      height: 10px;
+      color: $white;
+      &.disabled {
+        color: $gray-200;
+      }
+      &.negative {
+        margin-top: 0.5rem;
+      }
+    }
+    &-label {
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      &.disabled {
+        color: $gray-100;
+        font-weight: normal;
+      }
+    }
+  }
+
+  input, textarea, input.form-control, textarea.form-control {
+    padding: 0.25rem 0.75rem;
+    line-height: 1.71;
+  }
+  .input-title {
+    height: 2rem;
+  }
+  .input-notes {
+    height: 3.5rem;
+  }
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.71;
+  }
+  .flex-group {
+    display: flex;
+    .flex {
+      flex: 1;
+    }
   }
 </style>
 
@@ -1237,6 +1323,15 @@ export default {
       dayMapping: 'constants.DAY_MAPPING',
       ATTRIBUTES: 'constants.ATTRIBUTES',
     }),
+    advancedSettingsAvailable () {
+      if (
+        this.task.type === 'reward'
+        || this.task.type === 'todo'
+        || this.purpose === 'create'
+        || !this.isUserTask
+      ) return false;
+      return true;
+    },
     groupAccessRequiredAndOnPersonalPage () {
       if (!this.groupId && this.task.group && this.task.group.id) return true;
       return false;
@@ -1260,6 +1355,9 @@ export default {
     },
     canDelete () {
       return this.purpose !== 'create' && this.canDeleteTask(this.task);
+    },
+    canSave () {
+      return this.task && this.task.text && this.task.text.length > 0;
     },
     title () {
       const type = this.$t(this.task.type);
@@ -1304,6 +1402,11 @@ export default {
     },
     remainingSelectedTags () {
       return this.selectedTags.slice(this.maxTags);
+    },
+    cssClassHeadings () {
+      const textClass = this.cssClass('text');
+      if (textClass.indexOf('purple') !== -1 || textClass.indexOf('worst') !== -1) return null;
+      return textClass;
     },
   },
   watch: {
@@ -1359,6 +1462,10 @@ export default {
       this.syncTask();
     },
     cssClass (suffix) {
+      if (!this.task) {
+        return '';
+      }
+
       return this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
     },
     closeTagsPopup () {
@@ -1434,6 +1541,7 @@ export default {
       }
     },
     async submit () {
+      if (!this.canSave) return;
       if (this.newChecklistItem) this.addChecklistItem();
 
       // TODO Fix up permissions on task.group so we don't have to keep doing these hacks

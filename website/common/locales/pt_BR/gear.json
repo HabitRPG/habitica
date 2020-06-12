@@ -2101,5 +2101,9 @@
     "armorArmoireFiddlersCoatNotes": "Uma roupa prática para lhe dar muita mobilidade. Aumenta Constituição em <%= con %>. Armário Encantado: Conjunto do(a) violonista (Item 2 de 4).",
     "armorArmoireFiddlersCoatText": "Casaco do(a) violinista",
     "weaponArmoireFiddlersBowNotes": "Você pode criar música de qualquer coisa com isso! ... Um violino pode funcionar melhor, no entanto. Aumenta Força em <%= str %>. Armário Encantado: Conjunto do(a) violinista (Item 3 de 4).",
-    "weaponArmoireFiddlersBowText": "Arco do(a) violinista"
+    "weaponArmoireFiddlersBowText": "Arco do(a) violinista",
+    "headMystery202006Notes": "A energia positiva dessas radiantes pedras roxas atrairá as criaturas mais amigáveis do mar para o seu lado. Não confere nenhum benefício. Item de assinante, Junho de 2020.",
+    "headMystery202006Text": "Argola de Sugilite",
+    "armorMystery202006Notes": "Mesmo entre os corais e anêmonas mais brilhantes, essa cauda se destaca orgulhosamente da multidão! Não confere nenhum benefício. Item de assinante, Junho de 2020.",
+    "armorMystery202006Text": "Cauda multicolorida de tritão/sereia"
 }

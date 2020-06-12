@@ -139,5 +139,6 @@
     "chatBossDamage": "<%= username %> ataca <%= bossName %>, causando <%= userDamage %> de dano. <%= bossName %> ataca o Grupo e causa <%= bossDamage %> de dano.",
     "questInvitationNotificationInfo": "Você foi convidado(a) para participar de uma missão",
     "questAlreadyStartedFriendly": "A missão já começou, mas você sempre pode pegar a próxima!",
-    "questAlreadyStarted": "A missão já começou."
+    "questAlreadyStarted": "A missão já começou.",
+    "bossDamage": "Você atingiu o Chefão!"
 }

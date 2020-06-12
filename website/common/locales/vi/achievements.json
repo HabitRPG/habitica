@@ -27,7 +27,7 @@
     "achievementHatchedPetModalText": "Đi đến Hành trang của bạn và thử kết hợp một Lọ thuốc Ấp trứng với một Quả trứng",
     "achievementHatchedPetText": "Đã ấp Thú Cưng đầu tiên.",
     "achievementHatchedPet": "Ấp một Thú Cưng",
-    "achievementCompletedTaskModalText": "Đánh dấu bất kì công việc nào của bạn để nhận phần thưởng.",
+    "achievementCompletedTaskModalText": "Đánh dấu bất kì công việc nào của bạn để nhận phần thưởng",
     "achievementCompletedTaskText": "Đã hoàn thành công việc đầu tiên.",
     "achievementCompletedTask": "Hoàn thành một Công việc",
     "achievementCreatedTaskModalText": "Thêm một công việc cho điều gì đó mà bạn muốn hoàn thành trong tuần này",
@@ -70,9 +70,16 @@
     "achievementPrimedForPaintingModalText": "Bạn đã thu thập tất Thú cưng Trắng!",
     "achievementPrimedForPaintingText": "Đã thu thập tất cả Thú cưng Trắng.",
     "achievementPrimedForPainting": "Sẵn sàng Tô màu",
-    "achievementBugBonanzaText": "Đã hoàn thành những Nhiệm vụ Thú cưng",
+    "achievementBugBonanzaText": "Đã hoàn thành những Nhiệm vụ Thú cưng Bọ cánh cứng, Bướm, Ốc sên, và Nhện.",
     "achievementRosyOutlookModalText": "Bạn đã thuần hóa tất cả Thú cưỡi Kẹo bông Hồng!",
     "achievementRosyOutlookText": "Đã thuần hóa tất cả Thú cưỡi Kẹo bông Hồng.",
     "achievementTickledPinkModalText": "Bạn đã thu thập tất cả Thú cưng Kẹo bông Hồng!",
-    "achievementTickledPinkText": "Đã thu thập tất cả Thú cưng Kẹo bông Hồng."
+    "achievementTickledPinkText": "Đã thu thập tất cả Thú cưng Kẹo bông Hồng.",
+    "achievementBareNecessitiesModalText": "Bạn đã hoàn thành những Nhiệm vụ Thú cưng Khỉ, Lười, và Cây!",
+    "achievementBareNecessitiesText": "Đã hoàn thành những Nhiệm vụ Thú cưng Khỉ, Lười, và Cây.",
+    "achievementBareNecessities": "Như thế là Đủ",
+    "achievementBugBonanzaModalText": "Bạn đã hoàn thành những Nhiệm vụ Thú cưng Bọ cánh cứng, Bướm, Ốc sên, và Nhện!",
+    "achievementBugBonanza": "Quá trời Bọ",
+    "achievementRosyOutlook": "Hồng Cá tính",
+    "achievementTickledPink": "Hồng Quyến rũ"
 }

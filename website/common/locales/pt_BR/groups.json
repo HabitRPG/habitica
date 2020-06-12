@@ -493,5 +493,6 @@
     "selectGift": "Selecionar presente",
     "PMUnblockUserToSendMessages": "Desbloqueie esse usuário para continuar enviando ou recebendo mensagens.",
     "PMUserDoesNotReceiveMessages": "Este usuário não está mais recebendo mensagens privadas",
-    "PMCanNotReply": "Você não pode responder a essa conversa"
+    "PMCanNotReply": "Você não pode responder a essa conversa",
+    "newPartyPlaceholder": "Insira o nome do seu grupo."
 }

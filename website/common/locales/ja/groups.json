@@ -151,7 +151,7 @@
     "gemAmountRequired": "ジェムが必要です",
     "notAuthorizedToSendMessageToThisUser": "このユーザーはメッセージを受け取らない設定にしているため、メッセージは送れません。",
     "privateMessageGiftGemsMessage": "こんにちは、<%= receiverName %>。<%= senderName %> から <%= gemAmount %> 個のジェムのプレゼントが届きました!",
-    "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> カ月分の寄付（有料利用）が届きました！ ",
+    "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> カ月分の寄付（有料利用）が届きました！",
     "cannotSendGemsToYourself": "自分自身にジェムを送ることは出来ません。代わりの寄付を再試行してください。",
     "badAmountOfGemsToSend": "ジェムの数は 1 以上、あなたが持っている分までで指定してください。",
     "report": "報告",
@@ -237,7 +237,7 @@
     "cannotInviteSelfToGroup": "自分自身をグループに招待することはできません。",
     "userAlreadyInvitedToGroup": "UserID: <%= userId %>, ユーザー \"<%= username %>\" はすでにそのグループに招待されています。",
     "userAlreadyPendingInvitation": "UserID: <%= userId %>, ユーザー \"<%= username %>\" はすでに招待への返事を保留しています。",
-    "userAlreadyInAParty": "UserID: <%= userId %>、ユーザー \"<%= username %>\" はすでに他のパーティーの一員のようです。 ",
+    "userAlreadyInAParty": "UserID: <%= userId %>、ユーザー \"<%= username %>\" はすでに他のパーティーの一員のようです。",
     "userWithIDNotFound": "ID が「<%= userId %>」のユーザーは見つかりません。",
     "userWithUsernameNotFound": "ユーザー名が「<%= username %>」のユーザーは見つかりませんでした。",
     "userHasNoLocalRegistration": "ユーザーはこのサーバーへの登録 ( ユーザー名、メールアドレス、パスワード ) がありません。",
@@ -493,5 +493,6 @@
     "selectGift": "贈り物を選ぶ",
     "PMUnblockUserToSendMessages": "メッセージの送信と受信を続けるには、このユーザーのブロックを解除しましょう。",
     "PMUserDoesNotReceiveMessages": "このユーザーはもはやプライベートメッセージを受信していません",
-    "PMCanNotReply": "この会話に返信することはできません"
+    "PMCanNotReply": "この会話に返信することはできません",
+    "newPartyPlaceholder": "パーティーの名前を入力してください。"
 }

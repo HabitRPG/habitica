@@ -139,5 +139,6 @@
     "chatQuestCancelled": "<%= username %>はパーティークエスト「<%= questName %>」をキャンセルしました。",
     "chatQuestAborted": "<%= username %>はパーティークエスト「<%= questName %>」を中止しました。",
     "questAlreadyStartedFriendly": "クエストはすでに始まっています。しかし、次のクエストにはいつでも参加できます！",
-    "chatBossDontAttack": "<%= username %>は<%= bossName %>に<%= userDamage %>ダメージを与えました。<%= bossName %>は攻撃してきません。なぜなら、不具合がありメンテナンス中であるという事実に敬意を表しており、誰かを不当に傷つけたくはないからです。まもなく再び暴れ出すでしょう！"
+    "chatBossDontAttack": "<%= username %>は<%= bossName %>に<%= userDamage %>ダメージを与えました。<%= bossName %>は攻撃してきません。なぜなら、不具合がありメンテナンス中であるという事実に敬意を表しており、誰かを不当に傷つけたくはないからです。まもなく再び暴れ出すでしょう！",
+    "bossDamage": "ボスにダメージを与えました！"
 }
