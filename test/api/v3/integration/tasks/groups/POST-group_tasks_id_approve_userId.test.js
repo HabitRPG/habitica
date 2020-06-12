@@ -52,7 +52,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
       });
   });
 
-  it.only('approves an assigned user', async () => {
+  it('approves an assigned user', async () => {
     await user.post(`/tasks/${task._id}/assign/${member._id}`);
 
     let memberTasks = await member.get('/tasks/user');
@@ -81,7 +81,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
     expect(syncedTask.group.approval.dateApproved).to.be.a('string'); // date gets converted to a string as json doesn't have a Date type
   });
 
-  it.only('allows a manager to approve an assigned user', async () => {
+  it('allows a manager to approve an assigned user', async () => {
     await user.post(`/groups/${guild._id}/add-manager`, {
       managerId: member2._id,
     });
