@@ -473,7 +473,7 @@ export default {
         } if (this.activeFilter.label === 'all') {
           return this.taskList
             .reduce(
-              (count, t) => (!t.completed && !t.group.approval.requested
+              (count, t) => (!t.completed && !(t.group && t.group.approval.requested)
                 && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count),
               0,
             );
