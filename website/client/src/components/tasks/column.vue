@@ -672,7 +672,7 @@ export default {
         }
         if (filter === 'due') return task.isDue;
         if (filter === 'notDue') return !task.isDue;
-        return !task.completed && !task.group.approval.requested;
+        return !task.completed && !(task.group && task.group.approval.requested);
       });
     },
     filterByTagList (taskList, tagList = []) {
