@@ -1565,7 +1565,7 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assign
   matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
   matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
   matchingTask.group.managerNotes = taskToSync.group.managerNotes;
-  if (user._id !== assigningUser._id) {
+  if (assigningUser && user._id !== assigningUser._id) {
     matchingTask.group.assigningUsername = assigningUser.auth.local.username;
   }
 
