@@ -24,7 +24,23 @@ stories
     `,
     data () {
       return {
-        checklist: [],
+        checklist: [
+          {
+            id: 'c0890cd2-3c69-4889-bf2c-b63ac0ee6628',
+            text: 'first',
+            completed: false,
+          },
+          {
+            id: '5b913020-b340-4099-9a53-afcd27dc5637',
+            text: 'second',
+            completed: true,
+          },
+          {
+            id: '77b52a8e-4a0e-4717-9650-55fb5462b42f',
+            text: 'third',
+            completed: false,
+          },
+        ],
       };
     },
   }));

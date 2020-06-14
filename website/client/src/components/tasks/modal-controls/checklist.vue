@@ -144,24 +144,55 @@ export default {
   .checklist-component {
 
     .checklist-group {
+      height: 2rem;
       border-top: 1px solid $gray-500;
 
       &.new-checklist {
         border-bottom: 1px solid $gray-500;
       }
 
-      .input-group-append {
+      .inline-edit-input  {
+        padding-left: 0.75rem;
+      }
+
+      .input-group-prepend {
+        margin-left: 0.375rem;
+        margin-top: 0.475rem;
+        margin-right: 0;
+        padding: 0;
+        &:not(.new-icon) {
+          width: 1.125rem;
+          height: 1.125rem;
+        }
+        &.new-icon {
+          margin-left: 0.5rem;
+          margin-top: 0.438rem;
+          margin-bottom: 0.438rem;
+        }
+      }
+
+      .input-group-append,
+      .input-group-prepend {
         background: inherit;
       }
 
       .checklist-item {
-        padding-left: 12px;
+        padding: 0;
+        margin-left: 0.75rem;
+        margin-top: 0.188rem;
+        margin-bottom: 0.25rem;
+        height: 1.5rem;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.71;
+        letter-spacing: normal;
+        color: $gray-50;
       }
 
       .new-icon {
         cursor: default;
-        margin-left: 3px;
-        margin-right: -3px;
 
         svg {
           width: 1rem;
@@ -220,6 +251,15 @@ export default {
           opacity: 1;
         }
       }
+    }
+
+    label {
+      height: 1.5rem;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.71;
+      letter-spacing: normal;
+      color: $gray-50;
     }
   }
 </style>
