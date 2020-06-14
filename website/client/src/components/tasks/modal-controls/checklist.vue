@@ -62,7 +62,8 @@
         type="text"
         :placeholder="$t('newChecklistItem')"
         @keypress.enter="setHasPossibilityOfIMEConversion(false)"
-        @keyup.enter="addChecklistItem($event)"
+        @keyup.enter="addChecklistItem($event, true)"
+        @blur="addChecklistItem($event, false)"
       >
     </div>
   </div>
@@ -117,9 +118,9 @@ export default {
     setHasPossibilityOfIMEConversion (bool) {
       this.hasPossibilityOfIMEConversion = bool;
     },
-    addChecklistItem (e) {
+    addChecklistItem (e, checkIME) {
       if (e) e.preventDefault();
-      if (this.hasPossibilityOfIMEConversion) return;
+      if (checkIME && this.hasPossibilityOfIMEConversion) return;
       const checkListItem = {
         id: uuid.v4(),
         text: this.newChecklistItem,
