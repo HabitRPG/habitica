@@ -113,7 +113,6 @@ export default {
     },
     updateChecklist () {
       this.$emit('update:items', this.checklist);
-      console.info('pushed items');
     },
     setHasPossibilityOfIMEConversion (bool) {
       this.hasPossibilityOfIMEConversion = bool;
