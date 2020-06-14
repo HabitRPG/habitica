@@ -37,12 +37,12 @@
         <button
           v-if="user._id !== userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1"
           v-b-tooltip.hover.right="$t('blockWarning')"
-          class="btn btn-secondary remove-icon"
+          class="btn btn-secondary block-icon"
           @click="blockUser()"
         >
           <div
-            class="svg-icon remove-icon"
-            v-html="icons.remove"
+            class="svg-icon block-icon"
+            v-html="icons.block"
           ></div>
         </button>
         <button
@@ -500,7 +500,7 @@
     width: 12px;
   }
 
-  .remove-icon {
+  .block-icon {
     width: 16px;
     color: $gray-100;
   }
@@ -715,7 +715,7 @@ import profileStats from './profileStats';
 
 import message from '@/assets/svg/message.svg';
 import gift from '@/assets/svg/gift.svg';
-import remove from '@/assets/svg/remove.svg';
+import block from '@/assets/svg/block.svg';
 import positive from '@/assets/svg/positive.svg';
 import dots from '@/assets/svg/dots.svg';
 import megaphone from '@/assets/svg/broken-megaphone.svg';
@@ -740,7 +740,7 @@ export default {
     return {
       icons: Object.freeze({
         message,
-        remove,
+        block,
         positive,
         gift,
         dots,

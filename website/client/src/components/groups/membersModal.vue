@@ -161,8 +161,8 @@
               >
                 <span class="dropdown-icon-item">
                   <div
-                    class="svg-icon inline"
-                    v-html="icons.removeIcon"
+                    class="svg-icon inline block-icon"
+                    v-html="icons.blockIcon"
                   ></div>
                   <span class="text">{{ $t('removeManager2') }}</span>
                 </span>
@@ -181,8 +181,8 @@
               >
                 <span class="dropdown-icon-item">
                   <div
-                    class="svg-icon inline"
-                    v-html="icons.removeIcon"
+                    class="svg-icon inline block-icon"
+                    v-html="icons.blockIcon"
                   ></div>
                   <span class="text">{{ $t('removeMember') }}</span>
                 </span>
@@ -231,8 +231,8 @@
                 <span class="dropdown-icon-item">
                   <div
                     v-if="isLeader"
-                    class="svg-icon inline"
-                    v-html="icons.removeIcon"
+                    class="svg-icon inline block-icon"
+                    v-html="icons.blockIcon"
                   ></div>
                   <span class="text">{{ $t('removeInvite') }}</span>
                 </span>
@@ -279,6 +279,8 @@
 </style>
 
 <style lang='scss' scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .apply-options {
     padding: 1em;
     margin: 0;
@@ -366,6 +368,10 @@
     border-bottom: 2px solid #4f2a93;
     cursor: pointer;
   }
+
+  .block-icon {
+    color:  $gray-200;
+  }
 </style>
 
 <script>
@@ -376,7 +382,7 @@ import { mapState } from '@/libs/store';
 import removeMemberModal from '@/components/members/removeMemberModal';
 import loadingGryphon from '@/components/ui/loadingGryphon';
 import MemberDetails from '../memberDetails';
-import removeIcon from '@/assets/members/remove.svg';
+import blockIcon from '@/assets/svg/block.svg';
 import messageIcon from '@/assets/members/message.svg';
 import starIcon from '@/assets/members/star.svg';
 import dots from '@/assets/svg/dots.svg';
@@ -438,7 +444,7 @@ export default {
       ],
       searchTerm: '',
       icons: Object.freeze({
-        removeIcon,
+        blockIcon,
         messageIcon,
         starIcon,
         dots,
@@ -681,9 +687,12 @@ export default {
       if (memberId === this.group.leader || memberId === this.group.leader._id) return false;
       return this.groupIsSubscribed && !(this.group.managers && this.group.managers[memberId]);
     },
-    shouldShowRemoveManager (memberId) {
+    shouldShowRemoveManager () {
+      return true;
+      /*
       if (!this.isLeader && !this.isAdmin) return false;
       return this.group.managers && this.group.managers[memberId];
+      */
     },
     shouldShowLeaderFunctions (memberId) {
       return !this.challengeId && (this.isLeader || this.isAdmin) && this.user._id !== memberId;
