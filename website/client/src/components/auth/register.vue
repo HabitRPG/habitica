@@ -160,11 +160,8 @@ export default {
   methods: {
     // eslint-disable-next-line func-names
     validateUsername: debounce(function (username) {
-      if (username.length <= 3) {
-        return;
-      }
       this.$store.dispatch('auth:verifyUsername', {
-        username: this.username,
+        username,
       }).then(res => {
         if (res.issues !== undefined) {
           this.usernameIssues = res.issues;
