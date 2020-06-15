@@ -490,6 +490,7 @@
 
       .input-valid {
         color: #fff;
+        border: 2px solid rgb(154, 98, 255);
       }
     }
   }
