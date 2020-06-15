@@ -403,40 +403,6 @@
       margin-left: 15px;
     }
 
-    input {
-      margin-bottom: 1em;
-      border-radius: 2px;
-      background-color: #432874;
-      border-color: #432874;
-      color: $purple-400;
-      border: solid 2px transparent;
-      transition-timing-function: ease;
-      transition: border .5s, color .5s;
-    }
-
-    .input-invalid.input-with-error {
-      margin-bottom: 0.5em;
-    }
-
-    .input-valid {
-      color: #fff;
-    }
-
-    input:focus {
-      border: solid 2px #9a62ff;
-      color: #fff;
-      background-color: #36205d;
-    }
-
-    input:hover {
-      background-color: #36205d;
-    }
-
-    .sign-up {
-      padding-top: 11px;
-      padding-bottom: 11px;
-    }
-
     ::placeholder {
       color: $purple-400;
     }
@@ -478,6 +444,24 @@
         transition: border .5s, color .5s;
       }
 
+      input:focus {
+        border: solid 2px #9a62ff;
+        color: #fff;
+        background-color: #36205d;
+      }
+
+      .input-valid {
+        color: #fff;
+      }
+
+      .input-invalid.input-with-error {
+        margin-bottom: 0.5em;
+      }
+
+      input:hover {
+        background-color: #36205d;
+      }
+
       .sign-up {
         padding-top: 11px;
         padding-bottom: 11px;
@@ -486,11 +470,6 @@
       h1, h2, h3, h4, h5, h6, button, .strike > span, input {
         font-family: 'Varela Round', sans-serif;
         font-weight: normal;
-      }
-
-      .input-valid {
-        color: #fff;
-        border: 2px solid rgb(154, 98, 255);
       }
     }
   }
