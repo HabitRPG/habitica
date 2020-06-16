@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW QUEST FOR FLUORITE HATCHING POTIONS!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: WIKI SPOTLIGHT ON CARDS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,18 +31,20 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/11/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>6/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="quest_fluorite center-block"></div>
+        <div class="scene_achievement center-block"></div>
         <p>
-          Need some color to brighten your day? Get the latest Magic Hatching Potion quest, "A
-          Bright Fluorite Fright", and defeat the Fluorite Elemental to earn vibrant Fluorite Magic
-          Hatching Potions by completing your real-life tasks!
+          This month's <a href='https://habitica.wordpress.com/2020/06/10/cards/' target='_blank'>
+          featured Wiki article</a> is about Cards! We hope that it will help you as you bond with
+          your partymates. Be sure to check it out, and let us know what you think by reaching out
+          on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
+          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
+          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
-        <div class="small"> Art by @nirbhao and @-Tyr- </div>
-        <div class="small mb-3">Writing by @SphinxWithoutASecret</div>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
