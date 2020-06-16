@@ -9,7 +9,7 @@
         filter: '.task-dropdown',
         disabled: disabled,
       }"
-      @update="sortedChecklist"
+      @update="updateChecklist"
     >
       <div
         v-for="(item, $index) in checklist"
@@ -23,11 +23,11 @@
         >
         </span>
 
-          <checkbox :checked.sync="item.completed"
-                    :disabled="disabled"
-                    class="input-group-prepend"
-                    :class="{'cursor-auto': disabled}"
-                    :id="`checklist-${item.id}`"/>
+        <checkbox :checked.sync="item.completed"
+                  :disabled="disabled"
+                  class="input-group-prepend"
+                  :class="{'cursor-auto': disabled}"
+                  :id="`checklist-${item.id}`"/>
 
         <input
           v-model="item.text"
@@ -40,10 +40,11 @@
           v-if="!disabled"
           @click="removeChecklistItem($index)"
         >
-          <div
-            class="svg-icon destroy-icon"
-            v-html="icons.destroy"
-          ></div>
+          <div v-once
+               class="svg-icon destroy-icon"
+               v-html="icons.destroy"
+          >
+          </div>
         </span>
       </div>
     </draggable>
@@ -52,8 +53,8 @@
       v-if="!disabled"
     >
       <span class="input-group-prepend new-icon"
-           v-html="icons.positive">
-
+            v-once
+            v-html="icons.positive">
       </span>
 
       <input
@@ -108,9 +109,6 @@ export default {
     },
   },
   methods: {
-    sortedChecklist () {
-      this.updateChecklist();
-    },
     updateChecklist () {
       this.$emit('update:items', this.checklist);
     },
@@ -118,11 +116,20 @@ export default {
       this.hasPossibilityOfIMEConversion = bool;
     },
     addChecklistItem (e, checkIME) {
-      if (e) e.preventDefault();
-      if (checkIME && this.hasPossibilityOfIMEConversion) return;
+      if (e) {
+        e.preventDefault();
+      }
+
+      const newChecklistItemText = (this.newChecklistItem || '').trim();
+
+      if ((checkIME && this.hasPossibilityOfIMEConversion)
+        || !newChecklistItemText) {
+        return;
+      }
+
       const checkListItem = {
         id: uuid.v4(),
-        text: this.newChecklistItem,
+        text: newChecklistItemText,
         completed: false,
       };
       this.checklist.push(checkListItem);
@@ -165,9 +172,9 @@ export default {
           height: 1.125rem;
         }
         &.new-icon {
-          margin-left: 0.5rem;
-          margin-top: 0.438rem;
-          margin-bottom: 0.438rem;
+          margin-left: 0.688rem;
+          margin-top: 0.625rem;
+          margin-bottom: 0.625rem;
         }
       }
 
@@ -195,8 +202,8 @@ export default {
         cursor: default;
 
         svg {
-          width: 1rem;
-          height: 1rem;
+          width: 0.625rem;
+          height: 0.625rem;
           object-fit: contain;
           fill: $gray-200;
         }

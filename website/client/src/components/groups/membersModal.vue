@@ -687,12 +687,9 @@ export default {
       if (memberId === this.group.leader || memberId === this.group.leader._id) return false;
       return this.groupIsSubscribed && !(this.group.managers && this.group.managers[memberId]);
     },
-    shouldShowRemoveManager () {
-      return true;
-      /*
+    shouldShowRemoveManager (memberId) {
       if (!this.isLeader && !this.isAdmin) return false;
       return this.group.managers && this.group.managers[memberId];
-      */
     },
     shouldShowLeaderFunctions (memberId) {
       return !this.challengeId && (this.isLeader || this.isAdmin) && this.user._id !== memberId;

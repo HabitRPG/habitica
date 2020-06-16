@@ -40,9 +40,9 @@
           class="btn btn-secondary block-icon"
           @click="blockUser()"
         >
-          <div
-            class="svg-icon block-icon"
-            v-html="icons.block"
+          <div v-once
+               class="svg-icon block-icon"
+               v-html="icons.block"
           ></div>
         </button>
         <button
