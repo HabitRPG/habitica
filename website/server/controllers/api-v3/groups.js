@@ -603,9 +603,15 @@ api.joinGroup = {
       group.leader = user._id; // If new user is only member -> set as leader
     }
 
-    const currentMembers = await group.getMemberCount();
-
-    group.memberCount = currentMembers + 1;
+    if(group.type === 'party')
+    {
+      const currentMembers = await group.getMemberCount();
+      group.memberCount = currentMembers + 1;
+    }
+    else
+    {
+      group.memberCount += 1;
+    }
 
     let promises = [group.save(), user.save()];
 
@@ -950,9 +956,15 @@ api.removeGroupMember = {
     }
 
     if (isInGroup) {
-      const currentMembers = await group.getMemberCount();
-
-      group.memberCount = currentMembers - 1;
+      if(group.type === 'party')
+      {
+        const currentMembers = await group.getMemberCount();
+        group.memberCount = currentMembers - 1;
+      }
+      else
+      {
+        group.memberCount -= 1;
+      }
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;
