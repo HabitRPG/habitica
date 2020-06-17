@@ -603,13 +603,10 @@ api.joinGroup = {
       group.leader = user._id; // If new user is only member -> set as leader
     }
 
-    if(group.type === 'party')
-    {
+    if (group.type === 'party') {
       const currentMembers = await group.getMemberCount();
       group.memberCount = currentMembers + 1;
-    }
-    else
-    {
+    } else {
       group.memberCount += 1;
     }
 
@@ -956,13 +953,10 @@ api.removeGroupMember = {
     }
 
     if (isInGroup) {
-      if(group.type === 'party')
-      {
+      if (group.type === 'party') {
         const currentMembers = await group.getMemberCount();
         group.memberCount = currentMembers - 1;
-      }
-      else
-      {
+      } else {
         group.memberCount -= 1;
       }
 
