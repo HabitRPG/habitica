@@ -1715,7 +1715,7 @@ schema.methods.hasCancelled = function hasCancelled () {
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
   // Recheck the group plan count
-  this.memberCount = await group.getMemberCount();
+  this.memberCount = await this.getMemberCount();
 
   if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     await stripePayments.chargeForAdditionalGroupMember(this);
