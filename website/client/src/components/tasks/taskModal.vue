@@ -579,7 +579,7 @@
             id="advancedOptionsCollapse"
             v-model="showAdvancedOptions"
           >
-            <div class="advanced-settings-body">
+            <div>
               <div
                 v-if="task.type === 'daily' && isUserTask && purpose === 'edit'"
                 class="option mt-3"
@@ -971,17 +971,19 @@
     }
 
     .advanced-settings {
-      background: $gray-700;
+      min-height: 3rem;
+      background-color: $gray-700;
+      margin-left: -1.5rem;
+      margin-right: -1.5rem;
+
       padding: 0.75rem 1.5rem;
-      margin: -8px -24px;
-      margin-top: 1.5rem;
+
+      .form-group:last-of-type {
+        margin-bottom: 0.75rem;
+      }
 
       &-toggle {
         cursor: pointer;
-      }
-
-      &-body {
-        margin-top: 17px;
       }
 
       h3 {
@@ -993,10 +995,15 @@
         line-height: 1.71;
         letter-spacing: normal;
         color: $gray-10;
+        margin: 0;
       }
 
       .attributes .custom-control {
         margin-right: 40px;
+      }
+
+      .toggle-up .svg-icon {
+        width: 1rem;
       }
 
       .toggle-up svg {
@@ -1013,11 +1020,7 @@
       }
 
       label {
-        font-size: 14px;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.71;
+        height: 1.5rem;
         letter-spacing: normal;
         color: $gray-50;
       }
