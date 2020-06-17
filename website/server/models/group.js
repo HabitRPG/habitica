@@ -1409,16 +1409,11 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   if (group.memberCount <= 1 && group.privacy === 'private') {
     // double check the member count is correct
     // so we don't accidentally delete a group that still has users in it
-    let members;
-    if (group.type === 'guild') {
-      members = await User.find({ guilds: group._id }).select('_id').exec();
-    } else {
-      members = await User.find({ 'party._id': group._id }).select('_id').exec();
-    }
+    this.memberCount = group.getMemberCount();
 
-    _.remove(members, { _id: user._id });
+    _.remove(this.memberCount, { _id: user._id });
 
-    if (members.length === 0) {
+    if (this.memberCount === 0) {
       promises.push(group.remove());
       return Promise.all(promises);
     }
@@ -1720,13 +1715,7 @@ schema.methods.hasCancelled = function hasCancelled () {
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
   // Recheck the group plan count
-  let members;
-  if (this.type === 'guild') {
-    members = await User.find({ guilds: this._id }).select('_id').exec();
-  } else {
-    members = await User.find({ 'party._id': this._id }).select('_id').exec();
-  }
-  this.memberCount = members.length;
+  this.memberCount = await group.getMemberCount();
 
   if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     await stripePayments.chargeForAdditionalGroupMember(this);
