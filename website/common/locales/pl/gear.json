@@ -1499,7 +1499,7 @@
     "shieldArmoireSoftBluePillowText": "Miękka Niebieska Poduszka",
     "shieldArmoireSoftBluePillowNotes": "Rozważny wojownik pamięta aby zabrać poduszkę na każdą ekspedycję. Ochroń się przed ostrymi zadaniami... nawet podczas drzemki. Zwiększa kondycję o <%= con %>. Zaczarowana Skrzynia: Zestaw Niebieskiej Piżamy (przedmiot 3 z 3).",
     "shieldArmoireSoftRedPillowText": "Miękka Czerwona Poduszka",
-    "shieldArmoireSoftRedPillowNotes": "Rozważny wojownik pamięta aby zabrać poduszkę na każdą ekspedycję. Ochroń się przed ostrymi zadaniami... nawet podczas drzemki. Zwiększa kondycję i siłę o <%= con %>. Zaczarowana Skrzynia: Zestaw Czerwonej Piżamy (przedmiot 3 z 3).",
+    "shieldArmoireSoftRedPillowNotes": "Rozważny wojownik pamięta aby zabrać poduszkę na każdą ekspedycję. Ochroń się przed ostrymi zadaniami... nawet podczas drzemki. Zwiększa kondycję i siłę o <%= attrs %>. Zaczarowana Skrzynia: Zestaw Czerwonej Piżamy (przedmiot 3 z 3).",
     "shieldArmoireSoftGreenPillowText": "Miękka Zielona Poduszka",
     "shieldArmoireSoftGreenPillowNotes": "Praktyczny wojownik pamięta aby zabrać poduszkę na każdą ekspedycję. Odpędź się od tych nieznośnych obowiązków... nawet podczas drzemki. Zwiększa kondycję o <%= con %> i inteligencję o <%= int %>. Zaczarowana Skrzynia: Zestaw Zielonej Piżamy (przedmiot 3 z 3).",
     "shieldArmoireMightyQuillText": "Wszechmocne pióro",

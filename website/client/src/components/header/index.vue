@@ -19,10 +19,10 @@
       />
       <div
         v-if="hasParty"
-        class="view-party d-flex align-items-center"
+        class="view-party d-none d-md-flex align-items-center"
       >
         <button
-          class="btn btn-primary view-party-button"
+          class="btn btn-primary"
           @click="showPartyMembers()"
         >
           {{ $t('viewParty') }}
@@ -32,7 +32,7 @@
         v-if="hasParty"
         ref="partyMembersDiv"
         v-resize="1500"
-        class="party-members d-flex"
+        class="party-members d-none d-md-flex "
         @resized="setPartyMembersWidth($event)"
       >
         <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -51,7 +51,7 @@
       </div>
       <div
         v-else
-        class="no-party d-flex justify-content-center text-center"
+        class="no-party d-none d-md-flex  justify-content-center text-center mr-4"
       >
         <div class="align-self-center">
           <h3>{{ $t('battleWithFriends') }}</h3>
@@ -117,12 +117,6 @@
 
     .btn {
       margin-top: 16px;
-    }
-  }
-
-  @media only screen and (max-width: 768px) {
-    .view-party-button {
-      display: none;
     }
   }
 </style>

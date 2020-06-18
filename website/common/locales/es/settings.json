@@ -137,7 +137,7 @@
     "unsubscribeAllEmailsText": "Al marcar esta casilla, certifico que entiendo que al desuscribirme de todos las notificaciones por correo electrónico, Habitica no va a poder nunca notificarme vía email sobre cambios importantes en el sitio o mi cuenta.",
     "unsubscribeAllPush": "Selecciona para desuscribirte de todas las Notificaciones Push",
     "correctlyUnsubscribedEmailType": "Suscripción denegada correctamente desde el email \"<%= emailType %>\".",
-    "subscriptionRateText": "$<%= price %> USD recurrentes cada <%= months %> meses",
+    "subscriptionRateText": "<strong>$<%= price %> USD recurrentes </strong>cada <strong><%= months %> meses</strong>",
     "recurringText": "recurrentes",
     "benefits": "Beneficios",
     "coupon": "Cupón",

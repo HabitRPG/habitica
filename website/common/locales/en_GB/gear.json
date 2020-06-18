@@ -2101,5 +2101,9 @@
     "armorArmoireFiddlersCoatNotes": "A practical outfit to give you plenty of room to move! Increases Constitution by <%= con %>. Enchanted Armoire: Fiddler Set (Item 2 of 4).",
     "armorArmoireFiddlersCoatText": "Fiddler's Coat",
     "weaponArmoireFiddlersBowNotes": "You can coax music out of anything with this! ...A violin might work best, though. Increases Strength by <%= str %>. Enchanted Armoire: Fiddler Set (Item 3 of 4).",
-    "weaponArmoireFiddlersBowText": "Fiddler's Bow"
+    "weaponArmoireFiddlersBowText": "Fiddler's Bow",
+    "headMystery202006Notes": "The positive energy of these radiant purple stones will draw the sea's friendliest creatures to your side. Confers no benefit. June 2020 Subscriber Item.",
+    "headMystery202006Text": "Sugilite Circlet",
+    "armorMystery202006Notes": "Even among the brightest corals and anemones, this tail proudly stands out from the crowd! Confers no benefit. June 2020 Subscriber Item.",
+    "armorMystery202006Text": "Multichrome Merfolk Tail"
 }
