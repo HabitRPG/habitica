@@ -2105,5 +2105,11 @@
     "headMystery202006Notes": "這些紫色石頭所發射的正能量將海洋中最友好的生物吸引到你身邊。沒有屬性加成。 2020年6月訂閱者物品。",
     "headMystery202006Text": "舒俱來石飾環",
     "armorMystery202006Notes": "這條尾巴在最明亮的珊瑚和海葵中，也能脫穎而出！沒有屬性加成。 2020年6月訂閱者物品。",
-    "armorMystery202006Text": "多彩人魚尾"
+    "armorMystery202006Text": "多彩人魚尾",
+    "bodyArmoireLifeguardWhistleNotes": "叫那個不良行為的習慣訂購！它應該知道規則！增加<%= int %>點智力。魔法衣櫥：救生員套裝（3/3）。",
+    "bodyArmoireLifeguardWhistleText": "救生員哨",
+    "shieldArmoireLifeBuoyNotes": "如果你發現有人在任務和責任的海洋中掙扎，這將派上用場。增加<%= con %>點體質。魔法衣櫥：救生員套裝（2/3）。",
+    "shieldArmoireLifeBuoyText": "救生圈",
+    "weaponArmoireBeachFlagNotes": "集結沙堡周圍的部隊，讓每個人都知道在哪裡尋求幫助！增加<%= per %>點感知。魔法衣櫥：救生員套裝（1/3）。",
+    "weaponArmoireBeachFlagText": "海灘旗"
 }

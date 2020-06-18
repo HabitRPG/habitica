@@ -90,7 +90,7 @@
     "pathRequired": "需要Path string",
     "unlocked": "物品已经解锁",
     "alreadyUnlocked": "全套已经解锁。",
-    "alreadyUnlockedPart": "只有完整套装中的部分已解锁。",
+    "alreadyUnlockedPart": "只有完整套装中的部分已解锁。单独购买剩余的物品比较便宜。",
     "invalidQuantity": "购买数量必须是正整数。",
     "USD": "（美元）",
     "newStuff": "Bailey的新品",
@@ -171,5 +171,6 @@
     "paymentCanceledDisputes": "我们已为您的电子邮件发送了取消确认。如果您没有看到电子邮件，请联系我们，以防止将来发生账单纠纷。",
     "paymentAutoRenew": "此订阅在被取消前会自动续订。你可以在设置里取消订阅。",
     "cannotUnpinItem": "您不能取消这个物品的固定。",
-    "paymentSubBillingWithMethod": "您的订阅费用为每<strong><%= months %>月</strong><strong><%= amount %>美元</strong>=通过<strong><%= paymentMethod %></strong>。"
+    "paymentSubBillingWithMethod": "您的订阅费用为每<strong><%= months %>月</strong><strong><%= amount %>美元</strong>=通过<strong><%= paymentMethod %></strong>。",
+    "invalidUnlockSet": "这套装是无效的，无法解锁。"
 }
