@@ -305,6 +305,17 @@ const premium = {
     canBuy: hasQuestAchievementFunction('fluorite'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
+  SandSculpture: {
+    value: 2,
+    text: t('hatchingPotionSandSculpture'),
+    limited: true,
+    canBuy () {
+      return moment().isBefore('2020-08-02');
+    },
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndJuly'),
+    }),
+  },
 };
 
 const wacky = {

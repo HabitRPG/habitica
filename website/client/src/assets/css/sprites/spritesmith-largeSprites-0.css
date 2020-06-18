@@ -1,30 +1,48 @@
 .promo_armoire_backgrounds_202006 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -340px 0px;
+  background-position: -259px -386px;
   width: 423px;
   height: 147px;
 }
 .promo_mystery_202006 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -340px -148px;
+  background-position: -785px -148px;
   width: 282px;
   height: 147px;
 }
+.promo_sand_sculpture_potions {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -785px 0px;
+  width: 423px;
+  height: 147px;
+}
+.promo_summer_splash_2019 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -199px;
+  width: 408px;
+  height: 186px;
+}
+.promo_summer_splash_2020 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px 0px;
+  width: 444px;
+  height: 198px;
+}
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -623px -148px;
+  background-position: -1068px -148px;
   width: 96px;
   height: 69px;
 }
 .scene_achievement {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
+  background-position: -445px 0px;
   width: 339px;
   height: 210px;
 }
 .scene_hiking {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -211px;
+  background-position: 0px -386px;
   width: 258px;
   height: 258px;
 }

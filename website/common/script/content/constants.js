@@ -1,5 +1,9 @@
 /* eslint-disable key-spacing */
 
+import moment from 'moment';
+
+export const CURRENT_SEASON = moment().isBefore('2020-08-02') ? 'summer' : '_NONE_';
+
 export const CLASSES = [
   'warrior',
   'rogue',
@@ -40,6 +44,7 @@ export const EVENTS = {
   fall2019:   { start: '2019-09-24', end: '2019-11-02' },
   winter2020: { start: '2019-12-19', end: '2020-02-02' },
   spring2020: { start: '2020-03-17', end: '2020-05-02' },
+  summer2020: { start: '2020-06-17', end: '2020-08-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -166,6 +171,12 @@ export const SEASONAL_SETS = {
     'summer2019WaterLilyMageSet',
     'summer2019ConchHealerSet',
     'summer2019HammerheadRogueSet',
+
+    // summer 2020
+    'summer2020SeaGlassHealerSet',
+    'summer2020OarfishMageSet',
+    'summer2020CrocodileRogueSet',
+    'summer2020RainbowTroutWarriorSet',
   ],
   fall: [
     // fall 2014
