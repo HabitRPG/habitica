@@ -2105,5 +2105,11 @@
     "armorArmoireFiddlersCoatNotes": "外套实用，有更大的空间大展身手！增加<%= con %>点体质。魔法衣橱：小提琴手套装（2/4）。",
     "armorArmoireFiddlersCoatText": "小提琴手的外套",
     "armorMystery202006Notes": "这条尾巴在最明亮的珊瑚和海葵中，也能脱颖而出！ 没有属性加成。 2020年6月订阅者物品。",
-    "armorMystery202006Text": "多彩人鱼尾"
+    "armorMystery202006Text": "多彩人鱼尾",
+    "bodyArmoireLifeguardWhistleNotes": "叫那个不良行为的习惯订购！它应该知道规则！增加<%= int %>点智力。魔法衣橱：救生员套装（3/3）。",
+    "weaponArmoireBeachFlagNotes": "集结沙堡周围的部队，让每个人都知道在哪里寻求帮助！增加<%= per %>点感知。魔法衣橱：救生员套装（1/3）。",
+    "shieldArmoireLifeBuoyNotes": "如果你发现有人在任务和责任的海洋中挣扎，这将派上用场。增加<%= con %>点体质。魔法衣橱：救生员套装（2/3）。",
+    "bodyArmoireLifeguardWhistleText": "救生员哨",
+    "shieldArmoireLifeBuoyText": "救生圈",
+    "weaponArmoireBeachFlagText": "海滩旗"
 }

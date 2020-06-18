@@ -139,5 +139,6 @@
     "questInvitationNotificationInfo": "You were invited to join a quest",
     "hatchingPotionQuests": "Magic Hatching Potion Quests",
     "questAlreadyStartedFriendly": "The quest has already started, but you can always catch the next one!",
-    "questAlreadyStarted": "The quest has already started."
+    "questAlreadyStarted": "The quest has already started.",
+    "bossDamage": "You damaged the boss!"
 }

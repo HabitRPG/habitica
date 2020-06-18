@@ -493,5 +493,6 @@
     "selectGift": "Select Gift",
     "PMUnblockUserToSendMessages": "Unblock this user to continue sending and receiving messages.",
     "PMUserDoesNotReceiveMessages": "This user is no longer receiving private messages",
-    "PMCanNotReply": "You can not reply to this conversation"
+    "PMCanNotReply": "You can not reply to this conversation",
+    "newPartyPlaceholder": "Enter your party's name."
 }

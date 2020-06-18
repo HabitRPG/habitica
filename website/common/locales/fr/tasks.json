@@ -8,7 +8,7 @@
     "addMultipleTip": "<strong>Astuce :</strong> Pour ajouter plusieurs <%= taskType %>, séparez-les par un retour à la ligne (Shift+Entrée) puis tapez sur la touche “Entrée.”",
     "addsingle": "Ajout unitaire",
     "addATask": "Ajouter une <%= type %>",
-    "editATask": "Éditer une <%= type %>",
+    "editATask": "Éditer <%= type %>",
     "createTask": "Créer une <%= type %>",
     "addTaskToUser": "Ajouter une tâche",
     "scheduled": "Planifiées",
@@ -209,5 +209,7 @@
     "repeatDayError": "Merci de vérifier que vous avez au moins un jour de la semaine de sélectionné.",
     "searchTasks": "Rechercher dans les titres et les descriptions...",
     "sessionOutdated": "Votre session a expiré. Veuillez actualiser la page ou la synchroniser.",
-    "errorTemporaryItem": "Cet objet est temporaire et ne peut pas être épinglé."
+    "errorTemporaryItem": "Cet objet est temporaire et ne peut pas être épinglé.",
+    "addATitle": "Ajouter un titre",
+    "addNotes": "Ajouter une note"
 }
