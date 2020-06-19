@@ -325,6 +325,7 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSandSculpture'),
     limited: true,
+    event: EVENTS.summer2020,
     canBuy () {
       return moment().isBefore('2020-08-02');
     },
