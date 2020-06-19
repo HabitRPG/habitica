@@ -103,6 +103,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionAquatic'),
     limited: true,
+    event: EVENTS.summer2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJuly'),
+      previousDate: t('juneYYYY', { year: 2017 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-08-02');
+    },
   },
   Ember: {
     value: 2,
@@ -248,6 +256,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionWatery'),
     limited: true,
+    event: EVENTS.summer2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJuly'),
+      previousDate: t('juneYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-08-02');
+    },
   },
   Silver: {
     value: 2,
