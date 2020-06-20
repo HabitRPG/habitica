@@ -126,43 +126,7 @@
           v-if="checklistEnabled"
           class="option mt-0"
         >
-          <label v-once>{{ $t('checklist') }}</label>
-          <br>
-          <draggable
-            v-model="checklist"
-            :options="{handle: '.grippy', filter: '.task-dropdown'}"
-            @update="sortedChecklist"
-          >
-            <div
-              v-for="(item, $index) in checklist"
-              :key="item.id"
-              class="inline-edit-input-group checklist-group input-group"
-            >
-              <span class="grippy"></span>
-              <input
-                v-model="item.text"
-                class="inline-edit-input checklist-item form-control"
-                type="text"
-              >
-              <span
-                class="input-group-append"
-                @click="removeChecklistItem($index)"
-              >
-                <div
-                  class="svg-icon destroy-icon"
-                  v-html="icons.destroy"
-                ></div>
-              </span>
-            </div>
-          </draggable>
-          <input
-            v-model="newChecklistItem"
-            class="inline-edit-input checklist-item form-control"
-            type="text"
-            :placeholder="$t('newChecklistItem')"
-            @keypress.enter="setHasPossibilityOfIMEConversion(false)"
-            @keyup.enter="addChecklistItem($event)"
-          >
+          <checklist :items.sync="task.checklist" />
         </div>
         <div
           v-if="task.type === 'habit'"
@@ -1015,72 +979,7 @@
       }
     }
 
-    .checklist-group {
-      border-top: 1px solid $gray-500;
-
-      .input-group-append {
-        background: inherit;
-      }
-
-      .checklist-item {
-        padding-left: 12px;
-      }
-    }
-
-    // From: https://codepen.io/zachariab/pen/wkrbc
-    span.grippy {
-      content: '....';
-      width: 20px;
-      height: 20px;
-      display: inline-block;
-      overflow: hidden;
-      line-height: 5px;
-      padding: 3px 4px;
-      cursor: move;
-      vertical-align: middle;
-      margin-top: .5em;
-      margin-right: .3em;
-      font-size: 12px;
-      letter-spacing: 2px;
-      color: $gray-300;
-      text-shadow: 1px 0 1px black;
-    }
-
-    span.grippy::after {
-      content: '.. .. .. ..';
-    }
-
-    .checklist-item {
-      margin-bottom: 0px;
-      border-radius: 0px;
-      border: none !important;
-      padding-left: 36px;
-
-      &:last-child {
-        background-repeat: no-repeat;
-        background-position: center left 10px;
-        border-top: 1px solid $gray-500 !important;
-        border-bottom: 1px solid $gray-500 !important;
-        background-size: 10px 10px;
-        background-image: url(~@/assets/svg/for-css/positive.svg);
-      }
-    }
-
-    .checklist-group {
-      .destroy-icon {
-        display: none;
-      }
-
-      &:hover {
-        cursor: text;
-        .destroy-icon {
-          display: inline-block;
-          color: $gray-200;
-        }
-      }
-    }
-
-        .delete-task-btn, .cancel-task-btn {
+    .delete-task-btn, .cancel-task-btn {
       cursor: pointer;
       &:hover, &:focus, &:active {
         text-decoration: underline;
@@ -1243,12 +1142,11 @@
 import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
-import uuid from 'uuid';
-import draggable from 'vuedraggable';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
 import TagsPopup from './tagsPopup';
+import checklist from './modal-controls/checklist';
 
 import informationIcon from '@/assets/svg/information.svg';
 import difficultyTrivialIcon from '@/assets/svg/difficulty-trivial.svg';
@@ -1268,7 +1166,7 @@ export default {
     TagsPopup,
     Datepicker,
     toggleSwitch,
-    draggable,
+    checklist,
   },
   directives: {
     markdown: markdownDirective,
@@ -1300,7 +1198,6 @@ export default {
       members: [],
       memberNamesById: {},
       assignedMembers: [],
-      checklist: [],
       showAdvancedOptions: false,
       attributesStrings: {
         str: 'strength',
@@ -1309,7 +1206,6 @@ export default {
         per: 'perception',
       },
       calendarHighlights: { dates: [new Date()] },
-      hasPossibilityOfIMEConversion: true,
     };
   },
   computed: {
@@ -1485,34 +1381,6 @@ export default {
     },
     toggleTagSelect () {
       this.showTagsSelect = !this.showTagsSelect;
-    },
-    sortedChecklist (data) {
-      const sorting = clone(this.task.checklist);
-      const movingItem = sorting[data.oldIndex];
-      sorting.splice(data.oldIndex, 1);
-      sorting.splice(data.newIndex, 0, movingItem);
-      this.task.checklist = sorting;
-    },
-    setHasPossibilityOfIMEConversion (bool) {
-      this.hasPossibilityOfIMEConversion = bool;
-    },
-    addChecklistItem (e) {
-      if (e) e.preventDefault();
-      if (this.hasPossibilityOfIMEConversion) return;
-      const checkListItem = {
-        id: uuid.v4(),
-        text: this.newChecklistItem,
-        completed: false,
-      };
-      this.task.checklist.push(checkListItem);
-      // @TODO: managing checklist separately to help with sorting on the UI
-      this.checklist.push(checkListItem);
-      this.newChecklistItem = null;
-      this.setHasPossibilityOfIMEConversion(true);
-    },
-    removeChecklistItem (i) {
-      this.task.checklist.splice(i, 1);
-      this.checklist = clone(this.task.checklist);
     },
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
