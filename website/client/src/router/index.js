@@ -109,7 +109,7 @@ const router = new VueRouter({
   scrollBehavior () {
     return { x: 0, y: 0 };
   },
-  // requiresLogin is true by default, isStatic false
+  // meta defaults: requiresLogin true, requiresAdmin false
   routes: [
     {
       name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
@@ -341,7 +341,9 @@ const router = new VueRouter({
         { name: 'contributors', path: 'contributors', component: HeroesPage },
       ],
     },
-    { path: '/admin-panel', name: 'adminPanel', component: AdminPanelPage },
+    {
+      path: '/admin-panel', name: 'adminPanel', component: AdminPanelPage, meta: { requiresAdmin: true },
+    },
     // Only used to handle some redirects
     // See router.beforeEach
     { path: '/redirect/:redirect', name: 'redirect' },
@@ -352,8 +354,11 @@ const router = new VueRouter({
 const store = getStore();
 
 router.beforeEach((to, from, next) => {
-  const { isUserLoggedIn } = store.state;
+  const { isUserLoggedIn, isUserLoaded } = store.state;
+  const isUserAdmin = isUserLoaded && store.state.user.data.contributor
+    && store.state.user.data.contributor.admin;
   const routeRequiresLogin = to.meta.requiresLogin !== false;
+  const routeRequiresAdmin = to.meta.requiresAdmin;
 
   if (to.name === 'redirect') return handleRedirect(to, from, next);
 
@@ -380,6 +385,15 @@ router.beforeEach((to, from, next) => {
         redirectTo: from.query.redirectTo,
       },
     });
+  }
+
+  if (!isUserAdmin && routeRequiresAdmin) {
+    // Redirect non-admin users when trying to access an page.
+    // TODO: prevent redirection happening when an admin goes directly to admin-panel URL
+    // (e.g., reloading site when already viewing Panel or opening Panel in new tab) - currently
+    // `isUserAdmin` is false when this code is executed on a reload (even for admins).
+    // Redirection is commmented-out until that's fixed.
+    // return next({ name: 'tasks' });
   }
 
   if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
