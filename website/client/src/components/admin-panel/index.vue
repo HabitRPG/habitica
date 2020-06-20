@@ -6,28 +6,22 @@
     <div class="well">
       <h1>Admin Panel</h1>
       <div class="row">
-        <div class="form-inline col-12">
-          <div class="form-group">
-            <input
-              v-model="heroID"
-              class="form-control"
-              type="text"
-              :placeholder="'User ID or Username; blank for your account'"
-              :style="{ 'min-width': '45ch' }"
-              @keyup.enter="loadHero(heroID)"
-            >
-          </div>
-          <div class="form-group">
-            <button
-              class="btn btn-secondary"
-              @click="loadHero(heroID)"
-            >
-              Load User (click or hit enter)
-            </button>
-          </div>
-        </div>
+        <form @submit.prevent="loadHero(heroID)" class="form-inline">
+          <input
+            v-model="heroID"
+            class="form-control"
+            type="text"
+            :placeholder="'User ID or Username; blank for your account'"
+            :style="{ 'min-width': '45ch' }"
+            @keyup.enter="loadHero(heroID)"
+          >
+          <input
+            type="submit"
+            value="Load User (click or hit enter)"
+            class="btn btn-secondary"
+          >
+        </form>
       </div>
-
       <div
         v-if="hero && hero.profile"
         class="row"
@@ -56,7 +50,8 @@
               >
                 Player has had privilege(s) removed.
               </p>
-              <div class="form-group">
+
+              <form @submit.prevent="saveHero()">
                 <div class="checkbox">
                   <label>
                     <input
@@ -84,14 +79,16 @@
                   </label>
                 </div>
                 <div class="form-inline">
-                  <label>Balance</label>
-                  <input
-                    v-model="hero.balance"
-                    class="form-control"
-                    type="number"
-                    step="0.25"
-                    :style="{ 'width': '15ch' }"
-                  >
+                  <label>
+                    Balance
+                    <input
+                      v-model="hero.balance"
+                      class="form-control"
+                      type="number"
+                      step="0.25"
+                      :style="{ 'width': '15ch' }"
+                    >
+                  </label>
                   <span>
                     <small>
                       Balance is in USD, not in Gems.
@@ -101,13 +98,13 @@
                     </small>
                   </span>
                 </div>
-                <button
-                  class="form-control btn btn-primary"
-                  @click="saveHero()"
+
+                <input
+                  type="submit"
+                  value="Save"
+                  class="btn btn-primary"
                 >
-                  Save
-                </button>
-              </div>
+              </form>
             </div>
           </div>
 
@@ -311,15 +308,19 @@
                         :key="item.key"
                         class="form-group form-inline"
                       >
-                        <button
-                          class="form-control btn btn-primary"
-                          @click="changeData(item.path, item.value)"
+                        <form
+                          @submit.prevent="changeData(item.path, item.value)"
+                          value="Change"
                         >
-                          Change
-                        </button>
-                        <span>{{ item.valueForDisplay }} : </span>
-                        <span :class="{ ownedItem: !item.neverOwned }">{{ item.key }} :</span>
-                        <span v-html="item.name"></span>
+                          <span>{{ item.valueForDisplay }} : </span>
+                          <span :class="{ ownedItem: !item.neverOwned }">{{ item.key }} :</span>
+                          <span>{{ item.name }}</span>
+                          <input
+                            type="submit"
+                            value="Change"
+                            class="btn btn-primary"
+                          >
+                        </form>
                       </li>
                     </ul>
                   </div>
@@ -342,47 +343,49 @@
               </h3>
               <div
                 v-if="expandUpdateItems"
-                class="form-group well"
+                class="form-group"
               >
                 <p>
                   TIP: First find the item in the "Items" section above and
                   click its "Change" button.
                   The item path and current value (if any) will be inserted below.
                 </p>
-                <input
-                  v-model="hero.itemPath"
-                  class="form-control"
-                  type="text"
-                >
-                <small class="muted">
-                  Enter the <strong>item path</strong>. E.g.,
-                  <code>items.pets.BearCub-Zombie</code> or
-                  <code>items.gear.owned.head_special_0</code> or
-                  <code>items.gear.equipped.head</code>.
-                  You can find all the items in the "Item" section above.
-                  The "Change" buttons will insert the path and the current value automatically.
-                </small>
-                <br>
-                <input
-                  v-model="hero.itemVal"
-                  class="form-control"
-                  type="text"
-                  placeholder="Value (eg, 5)"
-                >
-                <small class="muted">
-                  Enter the <strong>item value</strong>. E.g.,
-                  <code>5</code> or
-                  <code>false</code> or
-                  <code>head_warrior_3</code>.
-                </small>
-                <div class="form-group">
-                  <button
-                    class="form-control btn btn-primary"
-                    @click="saveHero()"
+                <form @submit.prevent="saveHero()">
+                  <div>
+                    <input
+                      v-model="hero.itemPath"
+                      class="form-control"
+                      type="text"
+                    >
+                    <small class="muted">
+                      Enter the <strong>item path</strong>. E.g.,
+                      <code>items.pets.BearCub-Zombie</code> or
+                      <code>items.gear.owned.head_special_0</code> or
+                      <code>items.gear.equipped.head</code>.
+                      You can find all the items in the "Item" section above.
+                      The "Change" buttons will insert the path and the current value automatically.
+                    </small>
+                  </div>
+                  <div>
+                    <input
+                      v-model="hero.itemVal"
+                      class="form-control"
+                      type="text"
+                      placeholder="Value (eg, 5)"
+                    >
+                    <small class="muted">
+                      Enter the <strong>item value</strong>. E.g.,
+                      <code>5</code> or
+                      <code>false</code> or
+                      <code>head_warrior_3</code>.
+                    </small>
+                  </div>
+                  <input
+                    type="submit"
+                    value="Save"
+                    class="btn btn-primary"
                   >
-                    Save
-                  </button>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -396,64 +399,63 @@
               Contributor Details
             </h3>
             <div v-if="expandContrib">
-              <div class="form-group form-inline">
-                <label>Title</label>
+              <form @submit.prevent="saveHero()">
+                <div class="form-group form-inline">
+                  <label>Title</label>
+                  <input
+                    v-model="hero.contributor.text"
+                    class="form-control"
+                    type="text"
+                    :style="{ 'min-width': '50ch' }"
+                  >
+                  <small>
+                    Common titles:
+                    <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher,
+                      Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>.
+                  </small>
+                  <small>
+                    Rare titles:
+                    Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson,
+                    Statistician, Tinker, Transcriber, Troubadour.
+                  </small>
+                </div>
+                <div class="form-group form-inline">
+                  <label>Tier</label>
+                  <input
+                    v-model="hero.contributor.level"
+                    class="form-control"
+                    type="number"
+                    :style="{ 'width': '10ch' }"
+                  >
+                  <small>
+                    1-7 for normal contributors, 8 for moderators, 9 for staff.
+                    This determines which items, pets, mounts are available, and name-tag coloring.
+                    Tiers 8 and 9 are automatically given admin status.
+                    <a
+                      target="_blank"
+                      href="https://trello.com/c/wkFzONhE/277-contributor-gear"
+                    >More details (1-7)</a>,&nbsp;
+                    <a
+                      target="_blank"
+                      href="https://github.com/HabitRPG/habitica/issues/3801"
+                    >more details (8-9)</a>
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label>Contributions</label>
+                  <textarea
+                    v-model="hero.contributor.contributions"
+                    class="form-control"
+                    cols="5"
+                    rows="5"
+                  ></textarea>
+                </div>
                 <input
-                  v-model="hero.contributor.text"
-                  class="form-control"
-                  type="text"
-                  :style="{ 'min-width': '50ch' }"
+                  type="submit"
+                  value="Save"
+                  class="btn btn-primary"
                 >
-                <small>
-                  Common titles:
-                  <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher,
-                    Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>.
-                </small>
-                <small>
-                  Rare titles:
-                  Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson,
-                  Statistician, Tinker, Transcriber, Troubadour.
-                </small>
-              </div>
-              <div class="form-group form-inline">
-                <label>Tier</label>
-                <input
-                  v-model="hero.contributor.level"
-                  class="form-control"
-                  type="number"
-                  :style="{ 'width': '10ch' }"
-                >
-                <small>
-                  1-7 for normal contributors, 8 for moderators, 9 for staff.
-                  This determines which items, pets, mounts are available, and name-tag coloring.
-                  Tiers 8 and 9 are automatically given admin status.
-                  <a
-                    target="_blank"
-                    href="https://trello.com/c/wkFzONhE/277-contributor-gear"
-                  >More details (1-7)</a>,&nbsp;
-                  <a
-                    target="_blank"
-                    href="https://github.com/HabitRPG/habitica/issues/3801"
-                  >more details (8-9)</a>
-                </small>
-              </div>
-              <div class="form-group">
-                <label>Contributions</label>
-                <textarea
-                  v-model="hero.contributor.contributions"
-                  class="form-control"
-                  cols="5"
-                  rows="5"
-                ></textarea>
-              </div>
-              <div class="form-group">
-                <button
-                  class="form-control btn btn-primary"
-                  @click="saveHero()"
-                >
-                  Save
-                </button>
-              </div>
+              </form>
             </div>
           </div>
         </div>
