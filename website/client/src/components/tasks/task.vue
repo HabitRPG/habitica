@@ -174,16 +174,15 @@
           >
             <div class="d-inline-flex">
               <div
-                v-if="isUser"
                 v-b-tooltip.hover.right="$t(`${task.collapseChecklist
                   ? 'expand': 'collapse'}Checklist`)"
                 class="collapse-checklist d-flex align-items-center expand-toggle"
                 :class="{open: !task.collapseChecklist}"
                 @click="collapseChecklist(task)"
               >
-                <div
-                  class="svg-icon"
-                  v-html="icons.checklist"
+                <div v-once
+                     class="svg-icon"
+                     v-html="icons.checklist"
                 ></div>
                 <span>{{ checklistProgress }}</span>
               </div>

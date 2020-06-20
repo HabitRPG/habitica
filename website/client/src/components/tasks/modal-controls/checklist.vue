@@ -164,7 +164,7 @@ export default {
 
       .input-group-prepend {
         margin-left: 0.375rem;
-        margin-top: 0.475rem;
+        margin-top: 0.375rem;
         margin-right: 0;
         padding: 0;
         &:not(.new-icon) {
@@ -175,6 +175,8 @@ export default {
           margin-left: 0.688rem;
           margin-top: 0.625rem;
           margin-bottom: 0.625rem;
+          height: 10px;
+          width: 13px;
         }
       }
 
