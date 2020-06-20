@@ -235,7 +235,18 @@ async function _addTaskFn (challenge, tasks, memberId) {
   });
 
   // Update the user
-  toSave.unshift(User.update({ _id: memberId }, updateTasksOrderQ).exec());
+  const addToChallengeTagSet = {
+    $addToSet: {
+      tags: {
+        id: challenge._id,
+        name: challenge.name,
+        challenge: true,
+      },
+    },
+  };
+  const updateUserParams = { ...updateTasksOrderQ, ...addToChallengeTagSet };
+  toSave.unshift(User.update({ _id: memberId }, updateUserParams).exec());
+
   return Promise.all(toSave);
 }
 
