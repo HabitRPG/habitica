@@ -906,7 +906,7 @@ api.scoreTask = {
 
 /**
  * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
- * @apiDescription Note: completed To-Dos are not sortable,
+ * @apiDescription Note: completed To Do's are not sortable,
  * do not appear in user.tasksOrder.todos, and are ordered by date of completion.
  * @apiName MoveTask
  * @apiGroup Task
@@ -1486,7 +1486,7 @@ api.unlinkOneTask = {
 /**
  * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed todos
  * @apiName ClearCompletedTodos
- * @apiDescription Deletes all of a user's completed To-Dos except
+ * @apiDescription Deletes all of a user's completed To Do's except
  * those belonging to active Challenges and Group Plans.
  * @apiGroup Task
  *

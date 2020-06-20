@@ -15,6 +15,7 @@
           >
             <div class="svg-icon message-icon"
                  v-html="icons.message"
+                 v-once
             ></div>
           </button>
         </router-link>
@@ -34,9 +35,9 @@
           class="btn btn-secondary block-icon d-flex justify-content-center align-items-center"
           @click="blockUser()"
         >
-          <div
-            class="svg-icon block"
-            v-html="icons.block"
+          <div v-once
+               class="svg-icon block-icon"
+               v-html="icons.block"
           ></div>
         </button>
         <button

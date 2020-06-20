@@ -190,7 +190,7 @@
     "receiveMysticHourglass": "Приобретите мистические песочные часы!",
     "receiveMysticHourglasses": "Приобретите **<%= amount %> мистических песочных часов**!",
     "everyMonth": "Ежемесячно",
-    "everyXMonths": "Каждые <%= interval %> мес",
+    "everyXMonths": "Каждый <%= interval %>-й месяц",
     "everyYear": "Ежегодно",
     "choosePaymentMethod": "Выберите ваш метод оплаты",
     "subscribeSupportsDevs": "Подписка поддерживает разработчиков и помогает работе Habitica",
@@ -240,5 +240,8 @@
     "mysterySet202005": "Набор Чудесной виверны",
     "mysterySet202003": "Набор Колючего воина",
     "mysterySet202004": "Набор Великого монарха",
-    "mysterySet202006": "Набор Разноцветного мерфолка"
+    "mysterySet202006": "Набор Разноцветного мерфолка",
+    "readyToResubscribe": "Готовы заново подписаться?",
+    "needToUpdateCard": "Требуется обновление карты?",
+    "subMonths": "Мес. подписки"
 }

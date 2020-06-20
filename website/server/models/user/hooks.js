@@ -44,7 +44,6 @@ function _populateDefaultTasks (user, taskTypes) {
   let defaultsData;
   if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
     defaultsData = common.content.userDefaultsMobile;
-    user.flags.welcomed = true;
   } else {
     defaultsData = common.content.userDefaults;
   }

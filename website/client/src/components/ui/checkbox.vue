@@ -21,6 +21,10 @@
   .custom-control.custom-checkbox {
     margin-bottom: 0 !important;
   }
+
+  label {
+    cursor: pointer;
+  }
 </style>
 
 <script>

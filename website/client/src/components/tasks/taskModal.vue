@@ -177,73 +177,10 @@
           v-if="checklistEnabled"
           class="option mb-3"
         >
-          <label v-once class="mb-1">{{ $t('checklist') }}</label>
-          <br>
-          <draggable
-            v-model="checklist"
-            :options="{
-              handle: '.grippy',
-              filter: '.task-dropdown',
-              disabled: groupAccessRequiredAndOnPersonalPage,
-            }"
-            @update="sortedChecklist"
-          >
-            <div
-              v-for="(item, $index) in checklist"
-              :key="item.id"
-              class="inline-edit-input-group checklist-group input-group"
-            >
-              <span
-                class="grippy"
-                v-html="icons.grip"
-                v-if="!groupAccessRequiredAndOnPersonalPage"
-              >
-              </span>
-
-                <checkbox :checked.sync="item.completed"
-                          :disabled="groupAccessRequiredAndOnPersonalPage || !isUserTask"
-                          class="input-group-prepend"
-                          :class="{'cursor-auto': groupAccessRequiredAndOnPersonalPage
-                            || !isUserTask}"
-                          :id="`checklist-${item.id}`"/>
-
-              <input
-                v-model="item.text"
-                class="inline-edit-input checklist-item form-control"
-                type="text"
-                :disabled="groupAccessRequiredAndOnPersonalPage"
-              >
-              <span
-                class="input-group-append"
-                v-if="!groupAccessRequiredAndOnPersonalPage"
-                @click="removeChecklistItem($index)"
-              >
-                <div
-                  class="svg-icon destroy-icon"
-                  v-html="icons.destroy"
-                ></div>
-              </span>
-            </div>
-          </draggable>
-          <div
-            class="inline-edit-input-group checklist-group input-group new-checklist"
-            v-if="!groupAccessRequiredAndOnPersonalPage"
-          >
-            <span class="input-group-prepend new-icon"
-                 v-html="icons.positive">
-
-            </span>
-
-            <input
-              v-model="newChecklistItem"
-              class="inline-edit-input checklist-item form-control"
-              type="text"
-              :placeholder="$t('newChecklistItem')"
-              @keypress.enter="setHasPossibilityOfIMEConversion(false)"
-              @keyup.enter="addChecklistItem($event)"
-            >
-          </div>
-
+          <checklist :items.sync="task.checklist"
+                     :disableItems="groupAccessRequiredAndOnPersonalPage || !isUserTask"
+                     :disableDrag="groupAccessRequiredAndOnPersonalPage"
+          />
         </div>
         <div
           v-if="task.type === 'habit'"
@@ -833,86 +770,6 @@
       }
     }
 
-    .checklist-group {
-      border-top: 1px solid $gray-500;
-
-      &.new-checklist {
-        border-bottom: 1px solid $gray-500;
-      }
-
-      .input-group-append {
-        background: inherit;
-      }
-
-      .checklist-item {
-        padding-left: 12px;
-      }
-
-      .new-icon {
-        cursor: default;
-        margin-left: 3px;
-        margin-right: -3px;
-
-        svg {
-          width: 1rem;
-          height: 1rem;
-          object-fit: contain;
-
-          fill: $gray-200;
-        }
-      }
-    }
-
-    span.grippy {
-      position: absolute;
-      left: -15px;
-      width: 0.625rem;
-      height: 1rem;
-      object-fit: contain;
-      color: $gray-200;
-      top: 4px;
-    }
-
-    .checklist-item {
-      margin-bottom: 0px;
-      border-radius: 0px;
-      border: none !important;
-      padding-left: 36px;
-    }
-
-    .checklist-group {
-      .grippy {
-        opacity: 0;
-        cursor: grab;
-
-        &:hover, &:active {
-          opacity: 1;
-        }
-      }
-
-      .destroy-icon {
-        display: none;
-      }
-
-      &:hover {
-        cursor: text;
-
-        .destroy-icon {
-          display: inline-block;
-          color: $gray-200;
-
-          &:hover {
-            color: $maroon-50;
-          }
-        }
-
-        .grippy {
-          display: inline-block;
-          opacity: 1;
-        }
-      }
-    }
-
     .delete-task-btn, .cancel-task-btn {
       cursor: pointer;
       &:hover, &:focus, &:active {
@@ -1144,13 +1001,13 @@ import axios from 'axios';
 import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
-import uuid from 'uuid';
-import draggable from 'vuedraggable';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import checkbox from '@/components/ui/checkbox';
 import toggleCheckbox from '@/components/ui/toggleCheckbox';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
+import TagsPopup from './tagsPopup';
+import checklist from './modal-controls/checklist';
 import SelectTag from './modal-controls/selectTag';
 import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
@@ -1171,6 +1028,7 @@ export default {
     SelectTag,
     Datepicker,
     toggleSwitch,
+    checklist,
     draggable,
     selectDifficulty,
     selectTranslatedArray,
@@ -1205,7 +1063,6 @@ export default {
       memberNamesById: {},
       assignedMembers: [],
       managers: [],
-      checklist: [],
       showAdvancedOptions: false,
       attributesStrings: {
         str: 'strength',
@@ -1214,7 +1071,6 @@ export default {
         per: 'perception',
       },
       calendarHighlights: { dates: [new Date()] },
-      hasPossibilityOfIMEConversion: true,
     };
   },
   computed: {
@@ -1400,33 +1256,8 @@ export default {
       if (this.challengeAccessRequired) return;
       this.task.down = !this.task.down;
     },
-    sortedChecklist (data) {
-      const sorting = clone(this.task.checklist);
-      const movingItem = sorting[data.oldIndex];
-      sorting.splice(data.oldIndex, 1);
-      sorting.splice(data.newIndex, 0, movingItem);
-      this.task.checklist = sorting;
-    },
-    setHasPossibilityOfIMEConversion (bool) {
-      this.hasPossibilityOfIMEConversion = bool;
-    },
-    addChecklistItem (e) {
-      if (e) e.preventDefault();
-      if (this.hasPossibilityOfIMEConversion) return;
-      const checkListItem = {
-        id: uuid.v4(),
-        text: this.newChecklistItem,
-        completed: false,
-      };
-      this.task.checklist.push(checkListItem);
-      // @TODO: managing checklist separately to help with sorting on the UI
-      this.checklist.push(checkListItem);
-      this.newChecklistItem = null;
-      this.setHasPossibilityOfIMEConversion(true);
-    },
-    removeChecklistItem (i) {
-      this.task.checklist.splice(i, 1);
-      this.checklist = clone(this.task.checklist);
+    toggleTagSelect () {
+      this.showTagsSelect = !this.showTagsSelect;
     },
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);

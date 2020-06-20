@@ -42,7 +42,7 @@ function _calculateDelta (task, direction, cron) {
       ) / task.checklist.length;
     }
 
-    // If To-Do, point-match the TD per checklist item completed
+    // If To Do, point-match the TD per checklist item completed
     if (task.type === 'todo' && !cron) {
       nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
@@ -80,7 +80,7 @@ function _calculateReverseDelta (task, direction) {
   // before the task was checked.
   let nextDelta = testVal - currVal;
 
-  // Checklists - If To-Do, point-match the TD per checklist item completed
+  // Checklists - If To Do, point-match the TD per checklist item completed
   if (task.checklist && task.checklist.length > 0 && task.type === 'todo') {
     nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
   }

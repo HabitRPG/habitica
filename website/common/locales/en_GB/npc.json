@@ -90,7 +90,7 @@
     "pathRequired": "Path string is required",
     "unlocked": "Items have been unlocked",
     "alreadyUnlocked": "Full set already unlocked.",
-    "alreadyUnlockedPart": "Full set already partially unlocked.",
+    "alreadyUnlockedPart": "Full set already partially unlocked. It is cheaper to buy the remaining items individually.",
     "invalidQuantity": "Quantity to purchase must be a positive whole number.",
     "USD": "(USD)",
     "newStuff": "New Stuff by Bailey",
@@ -171,5 +171,6 @@
     "paymentAutoRenew": "This subscription will auto-renew until it is cancelled. If you need to cancel this subscription, you can do so from your settings.",
     "paymentCanceledDisputes": "We’ve sent a cancellation confirmation to your email. If you don’t see the email, please contact us to prevent future billing disputes.",
     "cannotUnpinItem": "This item cannot be unpinned.",
-    "paymentSubBillingWithMethod": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong> via <strong><%= paymentMethod %></strong>."
+    "paymentSubBillingWithMethod": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong> via <strong><%= paymentMethod %></strong>.",
+    "invalidUnlockSet": "This set of items is invalid and cannot be unlocked."
 }
