@@ -1002,11 +1002,9 @@ import clone from 'lodash/clone';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import checkbox from '@/components/ui/checkbox';
 import toggleCheckbox from '@/components/ui/toggleCheckbox';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
-import TagsPopup from './tagsPopup';
 import checklist from './modal-controls/checklist';
 import SelectTag from './modal-controls/selectTag';
 import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
@@ -1029,10 +1027,8 @@ export default {
     Datepicker,
     toggleSwitch,
     checklist,
-    draggable,
     selectDifficulty,
     selectTranslatedArray,
-    checkbox,
     toggleCheckbox,
   },
   directives: {
@@ -1089,7 +1085,17 @@ export default {
         || this.task.type === 'todo'
         || this.purpose === 'create'
         || !this.isUserTask
-      ) return false;
+      ) {
+        return false;
+      }
+
+      if (this.task.type === 'habit'
+        && !this.task.up
+        && !this.task.down
+      ) {
+        return false;
+      }
+
       return true;
     },
     groupAccessRequiredAndOnPersonalPage () {
