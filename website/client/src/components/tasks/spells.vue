@@ -206,7 +206,7 @@
 <script>
 import spells from '@/../../common/script/content/spells';
 
-import { mapState } from '@/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import spellsMixin from '@/mixins/spells';
 import Drawer from '@/components/ui/drawer';
@@ -237,6 +237,9 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
+    ...mapGetters({
+      getUnfilteredTaskList: 'tasks:getUnfilteredTaskList',
+    }),
     openStatus () {
       return this.$store.state.spellOptions.spellDrawOpen ? 1 : 0;
     },
@@ -268,7 +271,7 @@ export default {
     },
     spellDisabled (skill) {
       if (skill === 'frost' && this.user.stats.buffs.streaks) return true;
-      if (skill === 'stealth' && this.user.stats.buffs.stealth >= this.user.tasksOrder.dailys.length) return true;
+      if (skill === 'stealth' && this.user.stats.buffs.stealth >= this.getUnfilteredTaskList('daily').length) return true;
 
       return false;
     },
