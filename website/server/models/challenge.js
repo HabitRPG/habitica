@@ -255,7 +255,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   const challenge = this;
   const membersIds = await _fetchMembersIds(challenge._id);
 
-  const queue = new TaskQueue(Promise, 25); // process only 5 users concurrently
+  const queue = new TaskQueue(Promise, 25); // process only this many users concurrently
 
   await Promise.all(membersIds.map(queue.wrap(memberId => _addTaskFn(challenge, tasks, memberId))));
 };
