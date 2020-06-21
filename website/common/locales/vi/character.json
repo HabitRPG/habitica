@@ -104,7 +104,7 @@
     "allocatePerPop": "Thêm 1 điểm Trực giác",
     "allocateInt": "Điểm phân bố vào Trí tuệ:",
     "allocateIntPop": "Thêm 1 điểm Trí tuệ",
-    "noMoreAllocate": "Bây giờ bạn đã đạt đến cấp 100, bạn sẽ không nhận được điểm chỉ số nữa. Bạn có thể tiếp tục nâng cấp, hoặc bắt đầu một cuộc phiêu lưu mới tại cấp 1 sử dụng <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Thiên Thể Phục Sinh</a>, có thể tìm thấy miễn phí tại Cửa hàng.",
+    "noMoreAllocate": "Bây giờ bạn đã đạt đến cấp 100, bạn sẽ không nhận được điểm chỉ số nữa. Bạn có thể tiếp tục lên cấp, hoặc bắt đầu một cuộc phiêu lưu mới ở cấp 1 bằng cách sử dụng <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Quả cầu Tái sinh</a>!",
     "stats": "Chỉ số",
     "achievs": "Thành tích",
     "strength": "Sức mạnh",
@@ -156,7 +156,7 @@
     "optOutOfClasses": "Dời lại",
     "optOutOfPMs": "Dời lại",
     "chooseClass": "Chọn Chủng tộc của bạn",
-    "chooseClassLearnMarkdown": "[Hiểu biết thêm về hệ thống chủng tộc của Habitica] (http://habitica.wikia.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Tìm hiểu thêm về hệ thống chức nghiệp của Habitica] (https://habitica.wikia.com/wiki/Class_System)",
     "optOutOfClassesText": "Không muốn bận tâm đến chủng tộc? Bạn muốn chọn sau? Hãy bỏ qua - bạn sẽ được làm Chiến binh và không có kỹ năng đặc biệt nào. Bạn có thể đọc hiểu về hệ thống chủng tộc trên wiki vào lúc khác và chọn chủng tộc vào bất cứ lúc nào tại Hình tượng Người dùng > Cài đặt",
     "selectClass": "Chọn <%= heroClass %>",
     "select": "Chọn",
@@ -224,5 +224,9 @@
     "mainHand": "Tay-Chính",
     "offHand": "Tay-Phụ",
     "statPoints": "Điểm kỹ năng",
-    "pts": "Điểm"
+    "pts": "Điểm",
+    "chatCastSpellUser": "<%= username %> sử dụng Kỹ năng %= spell %> lên <%= target %>.",
+    "chatCastSpellParty": "<%= username %> sử dụng Kỹ năng <%= spell %> lên Tổ đội.",
+    "purchaseForGold": "Mua với <%= cost %> Vàng?",
+    "purchasePetItemConfirm": "Thanh toán này sẽ xóa sổ lượng vật phẩm bạn cần để ấp tất cả thú cưng <%= itemText %> có thể. Bạn chắc chứ?"
 }

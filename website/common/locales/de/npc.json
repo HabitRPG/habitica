@@ -90,7 +90,7 @@
     "pathRequired": "Pfad ist erforderlich",
     "unlocked": "Gegenstände wurden freigeschaltet",
     "alreadyUnlocked": "Komplettes Set ist bereits freigeschaltet.",
-    "alreadyUnlockedPart": "Set ist bereits teilweise freigeschaltet.",
+    "alreadyUnlockedPart": "Set ist bereits teilweise freigeschaltet. Es ist günstiger die übrigen Gegenstände einzeln zu kaufen.",
     "invalidQuantity": "Die zu kaufende Menge muss eine positive ganze Zahl sein.",
     "USD": "(USD)",
     "newStuff": "Neuigkeiten von Bailey",
@@ -171,5 +171,6 @@
     "paymentAutoRenew": "Dieses Abonnement wird automatisch erneuert bis es gekündigt wird. Wenn Du dieses Abonnement kündigen musst, kannst Du dies in Deinen Einstellungen tun.",
     "paymentCanceledDisputes": "Wir haben eine Bestätigung der Kündigung an Deine E-Mailadresse gesendet. Falls Du die E-Mail nicht erhältst, kontaktiere uns bitte um zu verhindern, dass es zu Zahlungsstreitigkeiten kommt.",
     "cannotUnpinItem": "Dieser Gegenstand kann nicht von der Pinnwand entfernt werden.",
-    "paymentSubBillingWithMethod": "Dein Abonnement wird in Höhe von <strong>$<%= amount %></strong> alle <strong><%= months %> Monat(e)</strong> per <strong><%= paymentMethod %></strong> abgerechnet."
+    "paymentSubBillingWithMethod": "Dein Abonnement wird in Höhe von <strong>$<%= amount %></strong> alle <strong><%= months %> Monat(e)</strong> per <strong><%= paymentMethod %></strong> abgerechnet.",
+    "invalidUnlockSet": "Dieses Set an Gegenständen ist abgelaufen und kann nicht freigeschaltet werden."
 }

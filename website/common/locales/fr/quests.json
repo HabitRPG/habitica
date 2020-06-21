@@ -139,5 +139,6 @@
     "tavernBossTired": "<%= bossName %> essaye de lancer <%= rageName %> mais est trop fatigué pour ça.",
     "questInvitationNotificationInfo": "Vous avez reçu une invitation à une quête",
     "questAlreadyStartedFriendly": "La quête a déjà commencé, mais vous pourrez toujours faire la suivante !",
-    "questAlreadyStarted": "La quête a déjà commencé."
+    "questAlreadyStarted": "La quête a déjà commencé.",
+    "bossDamage": "Vous avez infligé des dégâts au boss !"
 }

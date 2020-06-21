@@ -139,5 +139,6 @@
     "hatchingPotionQuests": "魔法孵化药水副本",
     "questInvitationNotificationInfo": "您受邀参与副本",
     "questAlreadyStartedFriendly": "这个副本已经开始了，但是你可以参加下一个！",
-    "questAlreadyStarted": "副本已经开始了。"
+    "questAlreadyStarted": "副本已经开始了。",
+    "bossDamage": "你伤害了Boss！"
 }
