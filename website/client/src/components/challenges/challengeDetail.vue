@@ -317,7 +317,7 @@ import Vue from 'vue';
 import findIndex from 'lodash/findIndex';
 import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import { mapState } from '@/libs/store';
 import memberSearchDropdown from '@/components/members/memberSearchDropdown';

@@ -7,7 +7,7 @@
 
 <script>
 import axios from 'axios';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { mapState } from '@/libs/store';
 import paymentsMixin from '@/mixins/payments';
 
@@ -59,7 +59,7 @@ export default {
     },
   },
   beforeMount () {
-    this.buttonId = `AmazonPayButton-${uuid.v4()}`;
+    this.buttonId = `AmazonPayButton-${uuid()}`;
   },
   mounted () {
     this.amazonPaymentsInit(this.amazonData);

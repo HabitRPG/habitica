@@ -73,7 +73,7 @@
 <script>
 // import clone from 'lodash/clone';
 import draggable from 'vuedraggable';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import positiveIcon from '@/assets/svg/positive.svg';
 import deleteIcon from '@/assets/svg/delete.svg';
@@ -128,7 +128,7 @@ export default {
       }
 
       const checkListItem = {
-        id: uuid.v4(),
+        id: uuid(),
         text: newChecklistItemText,
         completed: false,
       };
