@@ -2,7 +2,7 @@ import amazonPayments from 'amazon-payments';
 import nconf from 'nconf';
 import moment from 'moment';
 import cc from 'coupon-code';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import util from 'util';
 
 import common from '../../../common';
@@ -356,7 +356,7 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
 
   return this.authorizeOnBillingAgreement({
     AmazonBillingAgreementId: group.purchased.plan.customerId,
-    AuthorizationReferenceId: uuid.v4().substring(0, 32),
+    AuthorizationReferenceId: uuid().substring(0, 32),
     AuthorizationAmount: {
       CurrencyCode: this.constants.CURRENCY_CODE,
       Amount: priceForNewMember,
@@ -366,7 +366,7 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
     CaptureNow: true,
     SellerNote: this.constants.SELLER_NOTE_GROUP_NEW_MEMBER,
     SellerOrderAttributes: {
-      SellerOrderId: uuid.v4(),
+      SellerOrderId: uuid(),
       StoreName: this.constants.STORE_NAME,
     },
   });
