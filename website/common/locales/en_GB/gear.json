@@ -2105,5 +2105,11 @@
     "headMystery202006Notes": "The positive energy of these radiant purple stones will draw the sea's friendliest creatures to your side. Confers no benefit. June 2020 Subscriber Item.",
     "headMystery202006Text": "Sugilite Circlet",
     "armorMystery202006Notes": "Even among the brightest corals and anemones, this tail proudly stands out from the crowd! Confers no benefit. June 2020 Subscriber Item.",
-    "armorMystery202006Text": "Multichrome Merfolk Tail"
+    "armorMystery202006Text": "Multichrome Merfolk Tail",
+    "bodyArmoireLifeguardWhistleNotes": "Call that misbehaving habit to order! It should know the rules! Increases Intelligence by <%= int %>. Enchanted Armoire: Lifeguard Set (Item 3 of 3).",
+    "bodyArmoireLifeguardWhistleText": "Lifeguard Whistle",
+    "shieldArmoireLifeBuoyNotes": "Oh buoy! This will come in handy if you spot someone struggling in a sea of tasks and responsibilities. Increases Constitution by <%= con %>. Enchanted Armoire: Lifeguard Set (Item 2 of 3).",
+    "shieldArmoireLifeBuoyText": "Life Buoy",
+    "weaponArmoireBeachFlagNotes": "Rally the troops around your sandcastle and let everyone know where to come for help! Increases Perception by <%= per %>. Enchanted Armoire: Lifeguard Set (Item 1 of 3).",
+    "weaponArmoireBeachFlagText": "Beach Flag"
 }

@@ -151,7 +151,7 @@
     "gemAmountRequired": "Требуется количество самоцветов",
     "notAuthorizedToSendMessageToThisUser": "Вы не можете посылать личные сообщения этому пользователю, так как он выбрал блокировать сообщения.",
     "privateMessageGiftGemsMessage": "Привет, <%= receiverName %>! <%= senderName %> отправляет вам самоцветы: <%= gemAmount %>!",
-    "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> месяцев подписки!",
+    "privateMessageGiftSubscriptionMessage": "<%= numberOfMonths %> мес. подписки!",
     "cannotSendGemsToYourself": "Невозможно отправить самоцветы самому себе. Лучше опробуйте подписку.",
     "badAmountOfGemsToSend": "Сумма должна быть в пределах 1 и текущего количества самоцветов.",
     "report": "Пожаловаться",

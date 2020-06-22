@@ -493,5 +493,6 @@
     "selectGift": "選擇禮物",
     "PMUnblockUserToSendMessages": "取消阻止該用戶以繼續發送和接收消息。",
     "PMUserDoesNotReceiveMessages": "這個用戶不再接收私人消息",
-    "PMCanNotReply": "你不能回复此談話"
+    "PMCanNotReply": "你不能回复此談話",
+    "newPartyPlaceholder": "輸入你的隊伍名稱。"
 }

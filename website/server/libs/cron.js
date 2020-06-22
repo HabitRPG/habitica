@@ -323,7 +323,7 @@ export function cron (options = {}) {
   // Tally each task
   let todoTally = 0;
 
-  // make uncompleted To-Dos redder (further incentive to complete them)
+  // make uncompleted To Do's redder (further incentive to complete them)
   tasksByType.todos.forEach(task => {
     if (
       task.completed

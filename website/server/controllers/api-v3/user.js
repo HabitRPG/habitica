@@ -47,7 +47,7 @@ const api = {};
  * Challenges memberships (Challenge IDs);
  * Flags (including armoire, tutorial, tour etc...);
  * Guilds memberships (Guild IDs);
- * History (including timestamps and values, only for Experience and summed To-Do values);
+ * History (including timestamps and values, only for Experience and summed To Do values);
  * Inbox;
  * Invitations (to parties/guilds);
  * Items (character's full inventory);
@@ -60,7 +60,7 @@ const api = {};
  * PushDevices (identifiers for mobile devices authorized);
  * Stats (standard RPG stats, class, buffs, xp, etc..);
  * Tags;
- * TasksOrder (list of all IDs for Dailys, Habits, Rewards and To-Dos).
+ * TasksOrder (list of all IDs for Dailys, Habits, Rewards and To Do's).
  *
  * @apiParam (Query) {String} [userFields] A list of comma-separated user fields to
  *                                         be returned instead of the entire document.

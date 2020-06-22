@@ -90,7 +90,7 @@
     "pathRequired": "需要路徑字串",
     "unlocked": "物品解鎖",
     "alreadyUnlocked": "整組已經解鎖。",
-    "alreadyUnlockedPart": "整組已經部份解鎖。",
+    "alreadyUnlockedPart": "只有完整套裝中的部分已解鎖。單獨購買剩餘的物品比較便宜。",
     "invalidQuantity": "購買數量必須是正整數。",
     "USD": "(美金）",
     "newStuff": "Bailey 報馬仔",
@@ -171,5 +171,6 @@
     "paymentAutoRenew": "直至被取消前，您的訂閱將會在訂閱期滿時自動延長。如果需要，你能在設定裡將它取消。",
     "paymentCanceledDisputes": "我們已發送取消訂閱的確認信到你的電子郵件信箱。若你沒看到該信，請聯絡我們以避免不必要的帳單疑慮。",
     "cannotUnpinItem": "您不能取消這個物品的固定。",
-    "paymentSubBillingWithMethod": "您的訂閱費用為每<strong><%= months %>月</strong><strong><%= amount %>美元</strong>=通過<strong><%= paymentMethod %></strong>。"
+    "paymentSubBillingWithMethod": "您的訂閱費用為每<strong><%= months %>月</strong><strong><%= amount %>美元</strong>=通過<strong><%= paymentMethod %></strong>。",
+    "invalidUnlockSet": "這套裝是無效的，無法解鎖。"
 }
