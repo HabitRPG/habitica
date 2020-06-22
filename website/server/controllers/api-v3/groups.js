@@ -955,6 +955,8 @@ api.removeGroupMember = {
     }
 
     if (isInGroup) {
+      // For parties we count the number of members from the database to get the correct value.
+      // See #12275 on why this is necessary and only done for parties.
       if (group.type === 'party') {
         const currentMembers = await group.getMemberCount();
         group.memberCount = currentMembers - 1;

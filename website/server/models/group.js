@@ -1409,30 +1409,12 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   if (group.memberCount <= 1 && group.privacy === 'private') {
     // double check the member count is correct
     // so we don't accidentally delete a group that still has users in it
-    let members;
-    this.memberCount = group.getMemberCount();
-    if (group.type === 'guild') {
-      members = await User.find({ guilds: group._id }).select('_id').exec();
-    } else {
-      members = await User.find({ 'party._id': group._id }).select('_id').exec();
-    }
+    this.memberCount = await group.getMemberCount();
 
-    _.remove(members, { _id: user._id });
-
-    if (members.length === 0) {
+    if ((memberCount - 1) === 0) { // -1 to make sure the user leaving is not counted
       promises.push(group.remove());
       return Promise.all(promises);
     }
-  // otherwise If the leader is leaving
-  // (or if the leader previously left, and this wasn't accounted for)
-  } else if (group.leader === user._id) {
-    const query = group.type === 'party' ? { 'party._id': group._id } : { guilds: group._id };
-    query._id = { $ne: user._id };
-    const seniorMember = await User.findOne(query).select('_id').exec();
-
-    // could be missing in case of public guild (that can have 0 members)
-    // with 1 member who is leaving
-    if (seniorMember) update.$set = { leader: seniorMember._id };
   }
   // otherwise If the leader is leaving
   // (or if the leader previously left, and this wasn't accounted for)
