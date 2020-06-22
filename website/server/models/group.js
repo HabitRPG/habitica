@@ -1411,7 +1411,7 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     // so we don't accidentally delete a group that still has users in it
     this.memberCount = await group.getMemberCount();
 
-    if ((memberCount - 1) === 0) { // -1 to make sure the user leaving is not counted
+    if ((this.memberCount - 1) === 0) { // -1 to make sure the user leaving is not counted
       promises.push(group.remove());
       return Promise.all(promises);
     }
