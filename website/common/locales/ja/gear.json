@@ -1840,7 +1840,7 @@
     "shieldSpecialSummer2019MageNotes": "夏の日差しで汗をかいてるのかって？　いいえ、スイレン池を満たすためにちょっとした精霊魔法を使っているんです。知覚が <%= per %> 上がります。2019年夏の限定装備。",
     "weaponSpecialKS2019Text": "神獣グリフォンの大刀",
     "weaponSpecialFall2019RogueText": "譜面台",
-    "weaponSpecialKS2019Notes": "",
+    "weaponSpecialKS2019Notes": "このグリフォンの爪とくちばしのようなカーブの華麗なポールウエポンは、たいへんなタスクをやり通す精神力を思い出させます。力が<%= str %>上がります。",
     "weaponSpecialFall2019MageText": "単眼のつえ",
     "weaponSpecialFall2019WarriorNotes": "カラスの鉤爪で敵を引きちぎろう！力が<%= str %>上がります。2019年秋の限定装備。",
     "weaponSpecialFall2019WarriorText": "鉤爪の三叉槍"

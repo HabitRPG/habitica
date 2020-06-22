@@ -79,5 +79,6 @@
     "achievementBareNecessities": "Голыми руками",
     "achievementBugBonanzaModalText": "Вы выполнили квесты питомцев: Жука, Бабочки, Улитки и Паука!",
     "achievementBugBonanzaText": "Завершил(а) квесты питомцев: Жука, Бабочки, Улитки и Паука.",
-    "achievementBugBonanza": "Золотой жук"
+    "achievementBugBonanza": "Золотой жук",
+    "onboardingCompleteDescSmall": ""
 }
