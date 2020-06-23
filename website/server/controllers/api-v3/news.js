@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SUMMER SPLASH BEGINS!';
+const LAST_ANNOUNCEMENT_TITLE = 'SUMMER SPLASH HATCHING POTIONS AND SPLASHY SKINS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,42 +31,40 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/18/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>6/23/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
+        <div class="promo_sand_sculpture_potions center-block"></div>
+        <h3>Summer Splash Magic Hatching Potions!</h3>
         <p>
-          To escape the summer heat in Habit City, everyone's moved down to the undersea city of
-          Dilatory. The Summer Splash event has begun!
+          There's a new pet breed in town! Check out the brand-new Sand Sculpture Potions and the
+          return of Aquatic and Watery Potions to heat up your Summer avatar look. Get them from
+          <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic
+          Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky,
+          so they'll happily eat any kind of food that you feed them!
         </p>
-        <div class="promo_summer_splash_2020 center-block"></div>
-        <h3>Summer Class Outfits</h3>
         <p>
-          From now until July 31st, limited edition outfits are available in the Rewards column.
-          Depending on your class, you can be a Rainbow Trout Warrior, Crocodile Rogue, Oarfish
-          Mage, or Sea Glass Healer! You'd better get productive to earn enough Gold before they
-          disappear. Good luck!
-        </p>
-        <div class="small mb-3">by Vikte, QuartzFox, jjgame83, and Vyllan</div>
-        <div class="promo_summer_splash_2019 center-block"></div>
-        <h3>Seasonal Shop is Open!</h3>
-        <p>
-          The <a href='/shops/seasonal'>Seasonal Shop</a> has opened! The Seasonal Sorceress is
-          stocking the seasonal edition versions of previous summer outfits, now available for Gems
-          instead of Gold. Plus, there will be more fun things in the shop as the event progresses.
-          The Seasonal Shop will only be open until July 31st, so don't wait!
+          These potions will be available until Summer Splash ends on July 31. After they're gone,
+          it will be at least a year before these Hatching Potions return, so be sure to get them
+          now!
         </p>
         <div class="small mb-3">
-          by SabreCat, Lemoness, AnnDeLune, Vikte, gawrone, TheDudeAbides, Lalaitha, Beffymaroo,
-          Vampitch, nonight, tricksy.fox, Giu09, JaizakArpaik, TetoForever, and Kai
+          by Shine Caramia, a_diamond, Persephone, Stefalupagus, Beffymaroo and SabreCat
         </div>
-        <div class="npc_matt center-block"></div>
-        <h3>NPC Costumes</h3>
+        <div class="promo_splashy_skins center-block"></div>
+        <h3>Splashy Skins!</h3>
         <p>
-          Looks like the NPCs are really getting in to the cheery summer mood around the site. Who
-          wouldn't? After all, there's plenty more celebration to come....
+          The Seasonal Edition Splashy Skins are back! You can complete your summer avatar look
+          with Clownfish, Deep Ocean, Tropical Water, Mergold, Mergreen, Merblue, Merruby, and
+          Shark Skins.
         </p>
-        <div class="small mb-3">by Lemoness</div>
+        <p>
+          This Seasonal Edition customization set will only be available to purchase until July
+          31st, after which they'll be gone until next year, so be sure to scoop them up now! You
+          can find them in User > Edit Avatar!
+        </p>
+        <div class="small mb-3">by Lemoness and UncommonCriminal</div>
       </div>
       `,
     });
