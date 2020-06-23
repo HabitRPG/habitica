@@ -30,8 +30,9 @@ export default class InboxChatReporter extends ChatReporter {
     const validationErrors = this.req.validationErrors();
     if (validationErrors) throw validationErrors;
 
+    // added .exec() to the end of line 35 as suggested by @paglias
     if (this.user.contributor.admin && this.req.query.userId) {
-      this.inboxUser = await User.findOne({ _id: this.req.query.userId });
+      this.inboxUser = await User.findOne({ _id: this.req.query.userId }).exec();
     }
 
     const message = await inboxLib.getUserInboxMessage(this.inboxUser, this.req.params.messageId);
@@ -56,8 +57,10 @@ export default class InboxChatReporter extends ChatReporter {
 
     sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', emailVariables);
 
+    // added variable to hold recipient email
     slack.sendInboxFlagNotification({
       authorEmail: this.authorEmail,
+      recipientEmail: this.recipientEmail,
       flagger: this.user,
       message,
       userComment,
@@ -83,7 +86,9 @@ export default class InboxChatReporter extends ChatReporter {
     const sendingUser = message.sent ? reporter : messageUser;
     const recipient = message.sent ? messageUser : reporter;
 
+    // added variable to hold recipient's email
     this.authorEmail = sendingUser.email;
+    this.recipientEmail = recipient.email;
 
     return [
       ...this.createGenericAuthorVariables('AUTHOR', sendingUser),
