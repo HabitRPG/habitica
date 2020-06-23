@@ -4,6 +4,7 @@ import nconf from 'nconf';
 import moment from 'moment';
 import logger from './logger';
 import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
+import ChatReporter from './chatReporting/chatReporter';
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
 const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
@@ -107,8 +108,10 @@ function sendFlagNotification ({
   });
 }
 
+// added variab;e to hold recipient email
 function sendInboxFlagNotification ({
   authorEmail,
+  recipientEmail,
   flagger,
   message,
   userComment,
@@ -141,11 +144,20 @@ function sendInboxFlagNotification ({
     email: authorEmail,
     uuid: message.uuid,
   });
+  // added to represent recipient of message
+  const RecipientFormat = formatUser({
+    displayName: message.user,
+    name: message.username,
+    email: recipientEmail,
+    uuid: message.uuid,
+  });
 
   if (message.sent) {
+    // sender of PM is person who flagged PM
     sender = flaggerFormat;
-    recipient = messageUserFormat;
+    recipient = RecipientFormat;
   } else {
+    // recipient flagged PM
     sender = messageUserFormat;
     recipient = flaggerFormat;
   }
