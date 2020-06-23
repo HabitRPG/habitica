@@ -707,7 +707,7 @@
             class="svg-icon d-inline-b mt-1 mb-1"
             v-html="icons.destroy"
           ></div>
-          <span class="delete-text mt-1 mb-1">{{ $t('deleteTask') }}</span>
+          <span class="delete-text mt-1 mb-1">{{ $t('deleteTask', { type: $t(task.type) }) }}</span>
         </div>
       </form>
     </div>
