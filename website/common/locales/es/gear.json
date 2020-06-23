@@ -27,7 +27,7 @@
     "weaponWarrior1Text": "Espada",
     "weaponWarrior1Notes": "Espada común de un soldado. Aumenta la Fuerza en <%= str %>.",
     "weaponWarrior2Text": "Hacha",
-    "weaponWarrior2Notes": "Arma cortante de doble filo. Aumenta la fuerza en <%= str %>",
+    "weaponWarrior2Notes": "Arma cortante de doble filo. Aumenta la fuerza en <%= str %>.",
     "weaponWarrior3Text": "Lucero del alba",
     "weaponWarrior3Notes": "Maza pesada con brutales espinas, Incrementa la Fuerza en <%= str %>.",
     "weaponWarrior4Text": "Espada de Zafiro",

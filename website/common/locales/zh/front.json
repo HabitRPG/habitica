@@ -325,7 +325,7 @@
     "muchmuchMoreDesc": "我们完全自由定制的任务列表意味着您可以根据您的个人目标来构建Habitica。在创意项目上工作，强调自我照顾或追求不同的梦想 - 这完全取决于你。",
     "levelUpAnywhere": "随时随地升级",
     "levelUpAnywhereDesc": "我们的移动应用程序可以轻松跟踪您的任务。无论您身在何方，轻敲屏幕，就可以轻松完成您的目标。",
-    "joinMany": "和超过20万人一起享受乐趣，同时实现自己的目标！",
+    "joinMany": "和超过<%= userCountInMillions %>百万个人一起享受乐趣，同时实现自己的目标！",
     "joinToday": "今天就加入Habitica",
     "signup": "注册",
     "getStarted": "现在加入我们！",
