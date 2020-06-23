@@ -317,7 +317,7 @@
             @click="(isUser && task.down) ? score('down') : null"
           >
             <div
-              v-if="task.group.id && !isUser"
+              v-if="!isUser"
               class="svg-icon lock"
               :class="task.down ? controlClass.down.icon : 'negative'"
               v-html="icons.lock"
