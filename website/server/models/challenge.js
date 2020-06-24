@@ -234,7 +234,9 @@ async function _addTaskFn (challenge, tasks, memberId) {
     }));
   });
 
-  // Update the user
+  // Update the tag list of the user document of a participating member of the challenge
+  // such that a tag representing the challenge into which the task to be added will
+  // be added to the user tag list if and only if the tag does not exist already.
   const addToChallengeTagSet = {
     $addToSet: {
       tags: {
