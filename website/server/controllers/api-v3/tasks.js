@@ -26,11 +26,25 @@ import common from '../../../common';
 import logger from '../../libs/logger';
 import apiError from '../../libs/apiError';
 
-function canNotEditTasks (group, user, assignedUserId) {
+function canNotEditTasks (group, user, assignedUserId, taskPayload = null) {
   const isNotGroupLeader = group.leader !== user._id;
   const isManager = Boolean(group.managers[user._id]);
   const userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
-  return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
+
+  const taskPayloadProps = taskPayload
+    ? Object.keys(taskPayload)
+    : [];
+
+  // only allow collapseChecklist to be changed by everyone
+  const allowedByTaskPayload = taskPayloadProps.length === 1
+    && taskPayloadProps.includes('collapseChecklist');
+
+  if (allowedByTaskPayload) {
+    return false;
+  }
+
+  return isNotGroupLeader && !isManager
+    && !userIsAssigningToSelf;
 }
 
 /**
@@ -618,7 +632,7 @@ api.updateTask = {
       const fields = requiredGroupFields.concat(' managers');
       group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (canNotEditTasks(group, user, null, req.body)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     // If the task belongs to a challenge make sure the user has rights
     } else if (task.challenge.id && !task.userId) {
