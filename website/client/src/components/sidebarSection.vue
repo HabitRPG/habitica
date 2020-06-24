@@ -79,7 +79,7 @@
 </style>
 
 <script>
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import upIcon from '@/assets/svg/up.svg';
 import downIcon from '@/assets/svg/down.svg';
 import informationIcon from '@/assets/svg/information.svg';

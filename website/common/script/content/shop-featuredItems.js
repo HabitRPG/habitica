@@ -9,16 +9,16 @@ const featuredItems = {
         path: 'armoire',
       },
       {
-        type: 'hatchingPotions',
-        path: 'hatchingPotions.Golden',
+        type: 'premiumHatchingPotion',
+        path: 'premiumHatchingPotions.SandSculpture',
       },
       {
         type: 'eggs',
-        path: 'eggs.Wolf',
+        path: 'eggs.Dragon',
       },
       {
         type: 'food',
-        path: 'food.Saddle',
+        path: 'food.Chocolate',
       },
     ];
   },
@@ -38,7 +38,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'spring2019Rogue',
+  seasonal: 'summer2019Warrior',
   timeTravelers: [
     // TODO
   ],

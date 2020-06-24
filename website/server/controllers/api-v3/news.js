@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: WIKI SPOTLIGHT ON CARDS';
+const LAST_ANNOUNCEMENT_TITLE = 'SUMMER SPLASH HATCHING POTIONS AND SPLASHY SKINS';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,20 +31,40 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>6/23/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_achievement center-block"></div>
+        <div class="promo_sand_sculpture_potions center-block"></div>
+        <h3>Summer Splash Magic Hatching Potions!</h3>
         <p>
-          This month's <a href='https://habitica.wordpress.com/2020/06/10/cards/' target='_blank'>
-          featured Wiki article</a> is about Cards! We hope that it will help you as you bond with
-          your partymates. Be sure to check it out, and let us know what you think by reaching out
-          on <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
-          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
-          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
+          There's a new pet breed in town! Check out the brand-new Sand Sculpture Potions and the
+          return of Aquatic and Watery Potions to heat up your Summer avatar look. Get them from
+          <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic
+          Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky,
+          so they'll happily eat any kind of food that you feed them!
         </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <p>
+          These potions will be available until Summer Splash ends on July 31. After they're gone,
+          it will be at least a year before these Hatching Potions return, so be sure to get them
+          now!
+        </p>
+        <div class="small mb-3">
+          by Shine Caramia, a_diamond, Persephone, Stefalupagus, Beffymaroo and SabreCat
+        </div>
+        <div class="promo_splashy_skins center-block"></div>
+        <h3>Splashy Skins!</h3>
+        <p>
+          The Seasonal Edition Splashy Skins are back! You can complete your summer avatar look
+          with Clownfish, Deep Ocean, Tropical Water, Mergold, Mergreen, Merblue, Merruby, and
+          Shark Skins.
+        </p>
+        <p>
+          This Seasonal Edition customization set will only be available to purchase until July
+          31st, after which they'll be gone until next year, so be sure to scoop them up now! You
+          can find them in User > Edit Avatar!
+        </p>
+        <div class="small mb-3">by Lemoness and UncommonCriminal</div>
       </div>
       `,
     });

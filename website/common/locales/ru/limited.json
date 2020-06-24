@@ -44,7 +44,7 @@
     "northMageSet": "Маг с севера (Маг)",
     "icicleDrakeSet": "Ледяной дрэйк (Разбойник)",
     "soothingSkaterSet": "Успокаивающий конькобежец (Целитель)",
-    "gingerbreadSet": "Пряничный воин (Воин)",
+    "gingerbreadSet": "Пряничный (Воин)",
     "snowDaySet": "Боец снежного дня (Воин)",
     "snowboardingSet": "Сноуборд-колдун (Маг)",
     "festiveFairySet": "Праздничная фея (Целитель)",
@@ -178,5 +178,9 @@
     "spring2020BeetleWarriorSet": "Жук-носорог (Воин)",
     "spring2020IrisHealerSet": "Ирис (Целитель)",
     "spring2020PuddleMageSet": "Лужа (Маг)",
-    "mayYYYY": "Май <%= year %>"
+    "mayYYYY": "Май <%= year %>",
+    "summer2020CrocodileRogueSet": "Крокодил (Разбойник)",
+    "summer2020SeaGlassHealerSet": "Морское стекло (Целитель)",
+    "summer2020OarfishMageSet": "Сельдяной король (Маг)",
+    "summer2020RainbowTroutWarriorSet": "Радужная форель (Воин)"
 }
