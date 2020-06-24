@@ -317,7 +317,7 @@
             @click="(isUser && task.down) ? score('down') : null"
           >
             <div
-              v-if="task.group.id && !isUser"
+              v-if="!isUser"
               class="svg-icon lock"
               :class="task.down ? controlClass.down.icon : 'negative'"
               v-html="icons.lock"
@@ -798,7 +798,7 @@
 import moment from 'moment';
 import axios from 'axios';
 import Vue from 'vue';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import isEmpty from 'lodash/isEmpty';
 import { mapState, mapGetters, mapActions } from '@/libs/store';
 import scoreTask from '@/../../common/script/ops/scoreTask';
@@ -839,7 +839,7 @@ export default {
   props: ['task', 'isUser', 'group', 'challenge', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
-      random: uuid.v4(), // used to avoid conflicts between checkboxes ids
+      random: uuid(), // used to avoid conflicts between checkboxes ids
       icons: Object.freeze({
         positive: positiveIcon,
         negative: negativeIcon,

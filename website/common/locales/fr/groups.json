@@ -166,7 +166,7 @@
     "optional": "Facultatif",
     "needsText": "Veuillez écrire un message.",
     "needsTextPlaceholder": "Écrivez votre message ici.",
-    "copyMessageAsToDo": "Copier le message comme A Faire",
+    "copyMessageAsToDo": "Copier le message comme tâche à faire",
     "copyAsTodo": "Copier comme tâche à faire",
     "messageAddedAsToDo": "Message copié comme tâche à faire.",
     "messageWroteIn": "<%= user %> a écrit dans <%= group %>",

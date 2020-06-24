@@ -1,5 +1,3 @@
-import uuid from 'uuid';
-
 import {
   generateGroup,
 } from '../../../../../helpers/api-unit.helper';
@@ -7,6 +5,8 @@ import { model as User } from '../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../website/server/models/group';
 import amzLib from '../../../../../../website/server/libs/payments/amazon';
 import payments from '../../../../../../website/server/libs/payments/payments';
+import common from '../../../../../../website/common';
+
 
 describe('#upgradeGroupPlan', () => {
   let spy; let data; let user; let group; let
@@ -41,7 +41,7 @@ describe('#upgradeGroupPlan', () => {
     spy.resolves([]);
 
     uuidString = 'uuid-v4';
-    sinon.stub(uuid, 'v4').returns(uuidString);
+    sinon.stub(common, 'uuid').returns(uuidString);
 
     data.groupId = group._id;
     data.sub.quantity = 3;
@@ -49,7 +49,7 @@ describe('#upgradeGroupPlan', () => {
 
   afterEach(() => {
     amzLib.authorizeOnBillingAgreement.restore();
-    uuid.v4.restore();
+    common.uuid.restore();
   });
 
   it('charges for a new member', async () => {

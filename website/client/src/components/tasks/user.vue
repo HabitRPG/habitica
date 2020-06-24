@@ -398,7 +398,7 @@
 </style>
 
 <script>
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import Vue from 'vue';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
@@ -511,7 +511,7 @@ export default {
       this.editingTags = true;
     },
     addTag (eventObj, key) {
-      this.tagsSnap[key].push({ id: uuid.v4(), name: this.newTag });
+      this.tagsSnap[key].push({ id: uuid(), name: this.newTag });
       this.newTag = null;
     },
     removeTag (index, key) {

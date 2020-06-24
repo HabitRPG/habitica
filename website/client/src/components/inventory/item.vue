@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 export default {
   props: {
@@ -79,7 +79,7 @@ export default {
   },
   data () {
     return Object.freeze({
-      itemId: uuid.v4(),
+      itemId: uuid(),
     });
   },
   methods: {
