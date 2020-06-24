@@ -6,7 +6,7 @@ import {
   NotAuthorized,
 } from '../errors';
 import { model as User, schema as UserSchema } from '../../models/user';
-import { nameContainsSlur } from './validation';
+import { stringContainsBannedWord, stringContainsSlur } from './validation';
 
 export async function get (req, res, { isV3 = false }) {
   const { user } = res.locals;
@@ -111,7 +111,25 @@ export async function update (req, res, { isV3 = false }) {
     const newName = req.body['profile.name'];
     if (newName === null) throw new BadRequest(res.t('invalidReqParams'));
     if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
-    if (nameContainsSlur(newName)) throw new BadRequest(res.t('displaynameIssueSlur'));
+
+    if (stringContainsSlur(newName)) {
+      user.flags.chatRevoked = true;
+      await user.save();
+      throw new BadRequest(res.t('displaynameIssueSlur'));
+    }
+    if (stringContainsBannedWord(newName)) {
+      user.flags.chatRevoked = true;
+      await user.save();
+      throw new BadRequest(res.t('displaynameIssueSlur'));
+    }
+    if (req.body['profile.blurb'] !== null) {
+      const newBlurb = req.body['profile.blurb'];
+      if (stringContainsSlur(newBlurb) || stringContainsBannedWord(newBlurb)) {
+        user.flags.chatRevoked = true;
+        await user.save();
+        throw new BadRequest(res.t('blurbIssueSlur'));
+      }
+    }
   }
 
   _.each(req.body, (val, key) => {
