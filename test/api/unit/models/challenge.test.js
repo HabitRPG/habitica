@@ -173,7 +173,7 @@ describe('Challenge Model', () => {
         expect(syncedTask.attribute).to.eql('str');
       });
 
-      it('should add challenge tag back to user upon syncing challenge tasks to a user with challenge tag removed', async() => {
+      it('should add challenge tag back to user upon syncing challenge tasks to a user with challenge tag removed', async () => {
         await challenge.addTasks([task]);
 
         const newMember = new User({
@@ -184,14 +184,6 @@ describe('Challenge Model', () => {
 
         let updatedNewMember = await User.findById(newMember._id);
         const updatedNewMemberId = updatedNewMember._id;
-        const updatedNewMemberTasks = await Tasks.Task.find({ _id: { $in: updatedNewMember.tasksOrder[`${taskType}s`] } });
-        const syncedTask = find(
-          updatedNewMemberTasks,
-          updatedNewMemberTask => (
-            updatedNewMemberTask.type === taskValue.type
-            && updatedNewMemberTask.text === taskValue.text
-          ),
-        );
 
         updatedNewMember.tags = [];
         await updatedNewMember.save();
@@ -220,14 +212,6 @@ describe('Challenge Model', () => {
 
         let updatedNewMember = await User.findById(newMember._id);
         const updatedNewMemberId = updatedNewMember._id;
-        const updatedNewMemberTasks = await Tasks.Task.find({ _id: { $in: updatedNewMember.tasksOrder[`${taskType}s`] } });
-        const syncedTask = find(
-          updatedNewMemberTasks,
-          updatedNewMemberTask => (
-            updatedNewMemberTask.type === taskValue.type
-            && updatedNewMemberTask.text === taskValue.text
-          ),
-        );
 
         const taskValue2 = tasks2ToTest[taskType];
         const task2 = new Tasks[`${taskType}`](Tasks.Task.sanitize(taskValue2));
