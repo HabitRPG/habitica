@@ -17,6 +17,7 @@ describe('common.fns.randomDrop', () => {
     user._tmp = user._tmp ? user._tmp : {};
     user.items.eggs.Wolf = 0;
     user.items.food.Meat = 0;
+    user._id = `a${user._id.slice(1)}`;
     task = generateTodo({ userId: user._id });
     predictableRandom = sandbox.stub().returns(0.5);
   });
