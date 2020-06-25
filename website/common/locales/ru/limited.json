@@ -48,7 +48,7 @@
     "snowDaySet": "Боец снежного дня (Воин)",
     "snowboardingSet": "Сноуборд-колдун (Маг)",
     "festiveFairySet": "Праздничная фея (Целитель)",
-    "cocoaSet": "Какао-разбойник (Разбойник)",
+    "cocoaSet": "Какао (Разбойник)",
     "toAndFromCard": "Для <%= toName %>, от <%= fromName %>",
     "nyeCard": "Новогодняя открытка",
     "nyeCardExplanation": "За то, что вы отметили Новый год вместе, каждый из вас двоих получает значок «Добрые знакомые»!",
@@ -182,5 +182,7 @@
     "summer2020CrocodileRogueSet": "Крокодил (Разбойник)",
     "summer2020SeaGlassHealerSet": "Морское стекло (Целитель)",
     "summer2020OarfishMageSet": "Сельдяной король (Маг)",
-    "summer2020RainbowTroutWarriorSet": "Радужная форель (Воин)"
+    "summer2020RainbowTroutWarriorSet": "Радужная форель (Воин)",
+    "juneYYYY": "Июнь <%= year %>",
+    "spring2020LapisLazuliRogueSet": "Ляпис-лазурь (Разбойник)"
 }
