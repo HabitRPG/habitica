@@ -482,7 +482,7 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
     const query = {};
     query['invitations.party.id'] = group._id;
     // @TODO invitations are now stored like this: `'invitations.parties': []`
-    const groupInvites = await User.count(query).exec();
+    const groupInvites = await User.countDocuments(query).exec();
     memberCount += groupInvites;
 
     // Counting the members that are going to be invited by email and uuids
@@ -537,7 +537,7 @@ schema.methods.getMemberCount = async function getMemberCount () {
     query = { 'party._id': this._id };
   }
 
-  return User.count(query).exec();
+  return User.countDocuments(query).exec();
 };
 
 schema.methods.sendChat = function sendChat (options = {}) {
@@ -1743,7 +1743,7 @@ export const model = mongoose.model('Group', schema);
 // initialize tavern if !exists (fresh installs)
 // do not run when testing as it's handled by the tests and can easily cause a race condition
 if (!nconf.get('IS_TEST')) {
-  model.count({ _id: TAVERN_ID }, (err, ct) => {
+  model.countDocuments({ _id: TAVERN_ID }, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
     new model({ // eslint-disable-line new-cap
