@@ -1,11 +1,10 @@
 <template>
   <div
-    v-if="!user"
-    class="profile"
+     v-if="!user && userLoaded"
   >
     <error404 />
   </div>
-  <div v-else>
+  <div class="profile" v-else-if="userLoaded">
     <div class="header">
       <span
         class="close-icon svg-icon inline icon-10"
@@ -772,7 +771,8 @@ export default {
       achievements: {},
       achievementsCategories: {}, // number, open
       content: Content,
-      user: {},
+      user: null,
+      userLoaded: false,
     };
   },
   computed: {
@@ -832,11 +832,12 @@ export default {
   },
   methods: {
     async loadUser () {
-      let user = {};
+      let user = null;
 
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
       this.hero = {};
+      this.userLoaded = false;
       this.adminToolsLoaded = false;
 
       const profileUserId = this.userId;
@@ -844,7 +845,7 @@ export default {
       if (profileUserId && profileUserId !== this.userLoggedIn._id) {
         const response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
         if (response.response && response.response.status === 404) {
-          user = undefined;
+          user = null;
           this.$store.dispatch('snackbars:add', {
             title: 'Habitica',
             text: this.$t('messageDeletedUser'),
@@ -880,6 +881,7 @@ export default {
       } else {
         this.user = this.userLoggedIn;
       }
+      this.userLoaded = true;
     },
     selectPage (page) {
       this.selectedPage = page || 'profile';
