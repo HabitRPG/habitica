@@ -139,7 +139,7 @@
     "toDoHelp1": "To Doは黄色からはじまり、完了できない期間が長くなるとより赤く(色が濃く)なります。",
     "toDoHelp2": "To Do は体力を減らしません！　達成してゴールドや経験値を得るためのものです。",
     "toDoHelp3": "To Doは細かく分割してチェックリストにすることで、おそれは緩和され、獲られるポイントも増加します！",
-    "toDoHelp4": "参考のために、<a href='https://habitica.fandom.com/ja/wiki/To-Doの例' target='_blank'>To-Doの例</a>をチェックしてみてください!",
+    "toDoHelp4": "参考のために、<a href='https://habitica.fandom.com/ja/wiki/To_Doの例' target='_blank'>To Doの例</a>をチェックしてみてください!",
     "rewardHelp1": "アバターのために購入した装備は、<%= linkStart %>所持品 > 装備<%= linkEnd %>に保存されます。",
     "rewardHelp2": "装備は、ステータスに効果を与えます(<%= linkStart %>アバター > ステータス<%= linkEnd %>)。",
     "rewardHelp3": "世界的なイベントの期間中、スペシャルな装備が出現します。",
