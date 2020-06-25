@@ -742,5 +742,6 @@ export default {
 <style src="@/assets/css/sprites/spritesmith-main-25.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-26.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-27.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-28.css"></style>
 <style src="@/assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

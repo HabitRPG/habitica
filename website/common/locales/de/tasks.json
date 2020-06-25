@@ -8,7 +8,7 @@
     "addMultipleTip": "<strong>Tipp:</strong> Um mehrere <%= taskType %> hinzuzufügen, trenne sie mit einem Zeilenumbruch (Umschalt + Enter) und drücke dann \"Enter\".",
     "addsingle": "Einzelne hinzufügen",
     "addATask": "<%= type %> hinzufügen",
-    "editATask": "Ein/e <%= type %> bearbeiten",
+    "editATask": "<%= type %> bearbeiten",
     "createTask": "<%= type %> erstellen",
     "addTaskToUser": "Aufgabe hinzufügen",
     "scheduled": "Datiert",
@@ -209,5 +209,7 @@
     "repeatDayError": "Bitte achte darauf, dass mindestens ein Wochentag ausgewählt ist.",
     "searchTasks": "Durchsuche die Überschriften und Beschreibungen...",
     "sessionOutdated": "Deine Sitzung ist abgelaufen. Bitte lade oder synchronisiere die Seite neu.",
-    "errorTemporaryItem": "Dieser Gegenstand ist nur temporär verfügbar und kann nicht gepinnt werden."
+    "errorTemporaryItem": "Dieser Gegenstand ist nur temporär verfügbar und kann nicht gepinnt werden.",
+    "addNotes": "Notizen hinzufügen",
+    "addATitle": "Überschrift hinzufügen"
 }

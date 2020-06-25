@@ -8,7 +8,7 @@
     "addMultipleTip": "<strong>提示：</strong>要新增多個<%= taskType %>，把每一項分別使用「Shift + Enter」換行，然後按下「Enter」",
     "addsingle": "新增單項",
     "addATask": "新增一個<%= type %>",
-    "editATask": "編輯一個<%= type %>",
+    "editATask": "編輯<%= type %>",
     "createTask": "創造一個<%= type %>",
     "addTaskToUser": "新增任務",
     "scheduled": "已排程",
@@ -209,5 +209,7 @@
     "repeatDayError": "請確定你每週至少有選擇一天。",
     "searchTasks": "搜尋標題和介紹...",
     "sessionOutdated": "你的瀏覽器session已過期。請重整或同步。",
-    "errorTemporaryItem": "這個項目是暫存的不能被釘選。"
+    "errorTemporaryItem": "這個項目是暫存的不能被釘選。",
+    "addNotes": "添加註釋",
+    "addATitle": "添加一個標題"
 }

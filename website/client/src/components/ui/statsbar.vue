@@ -60,6 +60,9 @@
     border-radius: 1px;
     height: 12px;
     background-color: $header-dark-background;
+    @media (max-width: 992px) {
+      min-width: 160px;
+    }
   }
 
   .progress-container > .progress > .progress-bar {

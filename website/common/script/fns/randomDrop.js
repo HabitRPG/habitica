@@ -82,10 +82,12 @@ export default function randomDrop (user, options, req = {}, analytics) {
     return;
   }
 
-  if (predictableRandom() < chance) {
+  const firstFoodDrop = size(user.items.food) < 1;
+
+  if (firstFoodDrop || predictableRandom() < chance) {
     rarity = predictableRandom();
 
-    if (rarity > 0.6) { // food 40% chance
+    if (firstFoodDrop || rarity > 0.6) { // food 40% chance
       drop = cloneDropItem(randomVal(filter(content.food, {
         canDrop: true,
       })));

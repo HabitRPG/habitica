@@ -83,8 +83,9 @@ const wackyPets = constructPetOnlySet('wacky', dropEggs, wackyPotions);
 
 const canFindSpecial = {
   pets: {
-    // Veteran Pet Ladder - verifyUserName
-    'Wolf-Veteran': true,
+    // Veteran Pet Ladder - awarded on major updates
+    // https://habitica.fandom.com/wiki/Event_Item_Sequences#Veteran_Pets
+    'Wolf-Veteran': false,
     'Tiger-Veteran': false,
     'Lion-Veteran': false,
     'Bear-Veteran': false,
@@ -142,7 +143,7 @@ const canFindSpecial = {
     'Hippogriff-Hopeful': true,
 
     // Contributor/Backer pets
-    'LionCub-Ethereal': true, // Backer tier 90
+    'LionCub-Ethereal': false, // Backer tier 90
     'Jackalope-RoyalPurple': true, // subscription
     'Gryphon-Gryphatrice': false, // Pet once granted to kickstarter
   },

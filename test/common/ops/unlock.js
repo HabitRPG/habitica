@@ -10,6 +10,8 @@ describe('shared.ops.unlock', () => {
   const unlockGearSetPath = 'items.gear.owned.headAccessory_special_bearEars,items.gear.owned.headAccessory_special_cactusEars,items.gear.owned.headAccessory_special_foxEars,items.gear.owned.headAccessory_special_lionEars,items.gear.owned.headAccessory_special_pandaEars,items.gear.owned.headAccessory_special_pigEars,items.gear.owned.headAccessory_special_tigerEars,items.gear.owned.headAccessory_special_wolfEars';
   const backgroundUnlockPath = 'background.giant_florals';
   const backgroundSetUnlockPath = 'background.archery_range,background.giant_florals,background.rainbows_end';
+  const hairUnlockPath = 'hair.color.rainbow,hair.color.yellow,hair.color.green,hair.color.purple,hair.color.blue,hair.color.TRUred';
+  const facialHairUnlockPath = 'hair.mustache.1,hair.mustache.2,hair.beard.1,hair.beard.2,hair.beard.3';
   const usersStartingGems = 50 / 4;
 
   beforeEach(() => {
@@ -206,6 +208,40 @@ describe('shared.ops.unlock', () => {
     expect(user.balance).to.equal(usersStartingGems - 1.25);
   });
 
+  it('unlocks a full set of hair items', () => {
+    user.purchased.hair.color = {};
+
+    const initialHairColors = Object.keys(user.purchased.hair.color).length;
+    const [, message] = unlock(user, { query: { path: hairUnlockPath } });
+
+    expect(message).to.equal(i18n.t('unlocked'));
+    const individualPaths = hairUnlockPath.split(',');
+    individualPaths.forEach(path => {
+      expect(get(user.purchased, path)).to.be.true;
+    });
+    expect(Object.keys(user.purchased.hair.color).length)
+      .to.equal(initialHairColors + individualPaths.length);
+    expect(user.balance).to.equal(usersStartingGems - 1.25);
+  });
+
+  it('unlocks the facial hair set', () => {
+    user.purchased.hair.mustache = {};
+    user.purchased.hair.beard = {};
+
+    const initialMustache = Object.keys(user.purchased.hair.mustache).length;
+    const initialBeard = Object.keys(user.purchased.hair.mustache).length;
+    const [, message] = unlock(user, { query: { path: facialHairUnlockPath } });
+
+    expect(message).to.equal(i18n.t('unlocked'));
+    const individualPaths = facialHairUnlockPath.split(',');
+    individualPaths.forEach(path => {
+      expect(get(user.purchased, path)).to.be.true;
+    });
+    expect(Object.keys(user.purchased.hair.mustache).length + Object.keys(user.purchased.hair.beard).length) // eslint-disable-line max-len
+      .to.equal(initialMustache + initialBeard + individualPaths.length);
+    expect(user.balance).to.equal(usersStartingGems - 1.25);
+  });
+
   it('unlocks a full set of gear', () => {
     const initialGear = Object.keys(user.items.gear.owned).length;
     const [, message] = unlock(user, { query: { path: unlockGearSetPath } });
@@ -242,6 +278,37 @@ describe('shared.ops.unlock', () => {
 
     expect(message).to.equal(i18n.t('unlocked'));
     expect(Object.keys(user.purchased.shirt).length).to.equal(initialShirts + 1);
+    expect(get(user.purchased, path)).to.be.true;
+    expect(user.balance).to.equal(usersStartingGems - 0.5);
+  });
+
+  it('unlocks an item (hair color)', () => {
+    user.purchased.hair.color = {};
+
+    const path = hairUnlockPath.split(',')[0];
+    const initialColorHair = Object.keys(user.purchased.hair.color).length;
+    const [, message] = unlock(user, { query: { path } });
+
+    expect(message).to.equal(i18n.t('unlocked'));
+    expect(Object.keys(user.purchased.hair.color).length).to.equal(initialColorHair + 1);
+    expect(get(user.purchased, path)).to.be.true;
+    expect(user.balance).to.equal(usersStartingGems - 0.5);
+  });
+
+  it('unlocks an item (facial hair)', () => {
+    user.purchased.hair.mustache = {};
+    user.purchased.hair.beard = {};
+
+    const path = facialHairUnlockPath.split(',')[0];
+    const initialMustache = Object.keys(user.purchased.hair.mustache).length;
+    const initialBeard = Object.keys(user.purchased.hair.beard).length;
+    const [, message] = unlock(user, { query: { path } });
+
+    expect(message).to.equal(i18n.t('unlocked'));
+
+    expect(Object.keys(user.purchased.hair.mustache).length).to.equal(initialMustache + 1);
+    expect(Object.keys(user.purchased.hair.beard).length).to.equal(initialBeard);
+
     expect(get(user.purchased, path)).to.be.true;
     expect(user.balance).to.equal(usersStartingGems - 0.5);
   });
