@@ -12,6 +12,7 @@ const api = {};
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/coupons/enter/:code Redeem a coupon code
  * @apiName RedeemCouponCode
  * @apiGroup Coupon
