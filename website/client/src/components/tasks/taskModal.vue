@@ -845,6 +845,8 @@
 
       h3 {
         height: 1.5rem;
+        // Condensed is the default for h3
+        font-family: Roboto;
         font-size: 14px;
         font-weight: bold;
         font-stretch: normal;
