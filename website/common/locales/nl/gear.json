@@ -2062,5 +2062,22 @@
     "shieldSpecialPiDayNotes": "We dagen je uit om de verhouding van de omtrek van dit schild tot zijn verrukking te berekenen! Geeft geen voordeel.",
     "shieldSpecialPiDayText": "Pi Schild",
     "headArmoireFiddlersCapText": "Vioolspelers Pet",
-    "headArmoireFiddlersCapNotes": "Zet deze vrolijke pet op om iedereen te laten weten wie er op wiens nummer danst! Verhoogt Perceptie met <%= per %>. Betoverde Kabinet: Vioolspeler Set (Voorwerp 1 van 4)."
+    "headArmoireFiddlersCapNotes": "Zet deze vrolijke pet op om iedereen te laten weten wie er op wiens nummer danst! Verhoogt Perceptie met <%= per %>. Betoverde Kabinet: Vioolspeler Set (Voorwerp 1 van 4).",
+    "shieldSpecialWinter2020HealerText": "Gigantische Kaneelstok",
+    "shieldSpecialWinter2020WarriorNotes": "Gebruik het als een schild totdat de zaden vallen, en dan kun je het op een krans leggen! Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019-2020 Winteruitrusting.",
+    "shieldSpecialWinter2020WarriorText": "Ronde Coniferen Kegel",
+    "shieldSpecialFall2019HealerNotes": "Gebruik de duistere kant van de genezingskunsten met deze Grimoire! Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019 Herfstuitrusting.",
+    "shieldSpecialFall2019HealerText": "Grotesk Grimoire",
+    "shieldSpecialFall2019WarriorNotes": "De donkere glans van een solide veer van een raaf, dit schild zal alle aanvallen frustreren. Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019 Herfstuitrusting.",
+    "shieldSpecialFall2019WarriorText": "Gitzwart Schild",
+    "shieldSpecialSummer2019MageNotes": "Zweten in de zomerzon? Nee! Een eenvoudige elementaire bezwering uitvoeren om de lelievijver te vullen. Verhoogt Perceptie met <%= per %>. Beperkte Oplage 2019 Zomeruitrusting.",
+    "shieldSpecialSummer2019MageText": "Druppels Zuiver Water",
+    "shieldSpecialSummer2019HealerNotes": "Laat degenen die hulp nodig hebben weten dat u komt met de luide knal van deze schelptrompet. Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019 Zomeruitrusting.",
+    "shieldSpecialSummer2019HealerText": "Zeeschelp Trompet",
+    "shieldSpecialSummer2019WarriorNotes": "Zoek dekking achter dit forse ronde schild, geëtst in het patroon van de rug van je favoriete reptiel. Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019 Zomeruitrusting.",
+    "shieldSpecialSummer2019WarriorText": "Halve Schelp Schild",
+    "shieldSpecialSpring2019HealerNotes": "Dit heldere schild is eigenlijk gemaakt van met snoep beklede chocolade. Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019 Lenteuitrusting.",
+    "shieldSpecialSpring2019HealerText": "Eierdop Schild",
+    "shieldSpecialSpring2019WarriorNotes": "Laat de kracht van chlorofyl je vijanden op afstand houden! Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019 Lenteuitrusting.",
+    "shieldSpecialSpring2019WarriorText": "Bladerrijk Schild"
 }
