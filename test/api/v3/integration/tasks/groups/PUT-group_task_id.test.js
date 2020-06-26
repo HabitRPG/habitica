@@ -99,14 +99,14 @@ describe('PUT /tasks/:id', () => {
 
   it('member updates the collapseChecklist and another property - change not allowed', async () => {
     // change the todo
-   await expect(member.put(`/tasks/${todo._id}`, {
-     collapseChecklist: true,
-     title: 'test'
-   })).to.eventually.be.rejected.and.to.eql({
-     code: 401,
-     error: 'NotAuthorized',
-     message: t('onlyGroupLeaderCanEditTasks'),
-   });
+    await expect(member.put(`/tasks/${todo._id}`, {
+      collapseChecklist: true,
+      title: 'test',
+    })).to.eventually.be.rejected.and.to.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('onlyGroupLeaderCanEditTasks'),
+    });
   });
 
   it('updates a group task with checklist', async () => {
