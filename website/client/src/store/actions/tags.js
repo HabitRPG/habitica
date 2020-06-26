@@ -9,9 +9,13 @@ export async function getTags () {
 export async function createTag (store, payload) {
   const url = 'api/v4/tags';
   const response = await axios.post(url, {
-    tagDetails: payload.tagDetails,
+    name: payload.name,
   });
-  return response.data.data;
+
+  const tag = response.data.data;
+
+  store.state.user.data.tags.push(tag);
+  return tag;
 }
 
 export async function getTag (store, payload) {

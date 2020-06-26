@@ -82,15 +82,24 @@ stories
     template: `
         <div style="position: absolute; margin: 20px">
           <SelectTag :selectedTags="tagList" 
-                        :all-tags="allTags"
-                      style="width: 400px"
-                       @changed="tagList = $event"></SelectTag>
+                     :all-tags="allTags"
+                     style="width: 400px"
+                     @changed="tagList = $event"
+                     @addNew="added = $event">
+            
+          </SelectTag>
+          
+          <br/>
+          <br/>
+          
+          Added event: {{ added }}
         </div>
     `,
     store,
     data () {
       return {
         tagList: exampleTagList,
+        added: '',
       };
     },
     props: {

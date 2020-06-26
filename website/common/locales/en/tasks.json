@@ -213,5 +213,6 @@
   "sessionOutdated": "Your session is outdated. Please refresh or sync.",
   "errorTemporaryItem": "This item is temporary and cannot be pinned.",
   "addTags": "Add tags...",
-  "enterTag": "Enter a tag"
+  "enterTag": "Enter a tag",
+  "pressEnterToAddTag": "Press Enter to add tag: '<%= tagName %>'"
 }
