@@ -35,6 +35,7 @@
           :class="{ 'none': tag.id === 'none', selectListItem: true }"
         >
           <div class="label" v-markdown="tag.name"></div>
+          <div class="challenge" v-if="tag.challenge">{{$t('challenge')}}</div>
         </b-dropdown-item-button>
       </div>
     </b-dropdown>
@@ -75,11 +76,35 @@
 
     .tag-item button {
       height: $itemHeight;
+      display: flex;
 
       .label {
         height: 1.5rem;
         font-size: 14px;
         line-height: 1.71;
+        flex: 1;
+      }
+
+      .challenge {
+        height: 1rem;
+        font-size: 12px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.33;
+        letter-spacing: normal;
+        text-align: right;
+        color: $gray-100;
+        align-self: center;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        margin-right: 0.25rem;
+      }
+
+      &:hover {
+        .challenge {
+          color: $purple-300;
+        }
       }
     }
 

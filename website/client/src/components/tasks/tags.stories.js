@@ -48,6 +48,7 @@ const allTags = [
   {
     id: 5,
     name: 'Five :tada:',
+    challenge: true,
   },
   {
     id: 6,
