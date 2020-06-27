@@ -674,6 +674,10 @@
     }
   }
 
+  a.item-with-icon:focus {
+    outline: none;
+  }
+
   .menu-icon {
     margin-left: 24px;
   }
