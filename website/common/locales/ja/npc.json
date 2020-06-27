@@ -118,7 +118,7 @@
     "autoAllocate": "自動割り当て",
     "autoAllocateText": "「自動割り当て」をチェックすると、あなたのタスクの属性をもとにステータスが自動的に成長します。タスクの属性は <strong>タスク > 編集 > 詳細設定 > 属性</strong> で確認できます。例えば、あなたがよくスポーツジムへ行くとして、「ジムに行く」という日課の属性が「力」に設定されているなら、自動的に「力」が増えていきます。",
     "spells": "スキル",
-    "spellsText": "クラス固有のスキルをアンロックできるようになりました。最初のスキルはレベル11で獲得できます。マナは１日ごとに10ポイントと、<a target='_blank' href='https://habitica.fandom.com/ja/wiki/To-Do'>To Do</a> の完了ごとに１ポイント回復します。",
+    "spellsText": "クラス固有のスキルをアンロックできるようになりました。最初のスキルはレベル11で獲得できます。マナは１日ごとに10ポイントと、<a target='_blank' href='https://habitica.fandom.com/ja/wiki/To_Do'>To Do</a> の完了ごとに１ポイント回復します。",
     "skillsTitle": "スキル",
     "toDo": "To Do",
     "moreClass": "クラス・システムの詳しい情報については<a href='https://habitica.fandom.com/ja/wiki/クラス・システム' target='_blank'>Wiki</a>をご覧ください。",
