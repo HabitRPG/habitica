@@ -15,6 +15,7 @@ const api = {};
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {delete} /api/v4/inbox/messages/:messageId Delete a message
  * @apiName deleteMessage
  * @apiGroup User
@@ -51,6 +52,7 @@ api.deleteMessage = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {delete} /api/v4/inbox/clear Delete all messages
  * @apiName clearMessages
  * @apiGroup User
@@ -74,6 +76,7 @@ api.clearMessages = {
 };
 
 /**
+ * @apiIgnore
  * @api {get} /api/v4/inbox/conversations Get the conversations for a user
  * @apiName conversations
  * @apiGroup Inbox
@@ -116,6 +119,7 @@ api.conversations = {
 };
 
 /**
+ * @apiIgnore
  * @api {get} /api/v4/inbox/paged-messages Get inbox messages for a user
  * @apiName GetInboxMessages
  * @apiGroup Inbox

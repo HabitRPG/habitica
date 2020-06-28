@@ -625,7 +625,9 @@
               v-once
               v-html="icons.destroy"
             ></div>
-            <span class="delete-text mt-1 mb-1">{{ $t('deleteTask') }}</span>
+            <span class="delete-text mt-1 mb-1">
+              {{ $t('deleteTaskType', { type: $t(task.type) }) }}
+            </span>
           </button>
         </div>
       </form>
@@ -1374,7 +1376,8 @@ export default {
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     destroy () {
-      if (!window.confirm(this.$t('sureDelete'))) return;
+      const type = this.$t(this.task.type);
+      if (!window.confirm(this.$t('sureDeleteType', { type }))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('bv::hide::modal', 'task-modal');

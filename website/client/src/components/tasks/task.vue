@@ -802,7 +802,7 @@
 import moment from 'moment';
 import axios from 'axios';
 import Vue from 'vue';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import isEmpty from 'lodash/isEmpty';
 import { mapState, mapGetters, mapActions } from '@/libs/store';
 import scoreTask from '@/../../common/script/ops/scoreTask';
@@ -843,7 +843,7 @@ export default {
   props: ['task', 'isUser', 'group', 'challenge', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
-      random: uuid.v4(), // used to avoid conflicts between checkboxes ids
+      random: uuid(), // used to avoid conflicts between checkboxes ids
       icons: Object.freeze({
         positive: positiveIcon,
         negative: negativeIcon,
@@ -1018,7 +1018,8 @@ export default {
       this.$emit('moveTo', this.task, 'bottom');
     },
     destroy () {
-      if (!window.confirm(this.$t('sureDelete'))) return;
+      const type = this.$t(this.task.type);
+      if (!window.confirm(this.$t('sureDeleteType', { type }))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
     },

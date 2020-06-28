@@ -133,7 +133,7 @@
     "weaponSpecialSummerRogueText": "Cutelo de Pirata",
     "weaponSpecialSummerRogueNotes": "Atenção marujo! Você fará essas Tarefas Diárias andarem na prancha! Aumenta Força em <%= str %>. Equipamento Edição Limitada de Verão 2014.",
     "weaponSpecialSummerWarriorText": "Fatiador dos Mares",
-    "weaponSpecialSummerWarriorNotes": "Não existe nenhuma tarefa em qualquer lista de Afazeres que não possa ser domada com esta faca!  Aumente a Força em <%= str %>. Equipamento de Edição Limitada do Verão 2014.",
+    "weaponSpecialSummerWarriorNotes": "Não existe nenhuma tarefa em qualquer lista de Afazeres que não possa ser domada com esta faca! Aumente a Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2014.",
     "weaponSpecialSummerMageText": "Apanhador de Algas",
     "weaponSpecialSummerMageNotes": "Este tridente é usado para espetar algas de maneira eficaz, para uma colheita de algas extra-produtiva! Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento Edição Limitada de Verão 2014.",
     "weaponSpecialSummerHealerText": "Varinha das Superficiais",
@@ -171,7 +171,7 @@
     "weaponSpecialSummer2015HealerText": "Varinha das Ondas",
     "weaponSpecialSummer2015HealerNotes": "Cura enjôos e maresias! Aumenta a Inteligência em <%= int %>. Edição Limitada Conjunto de Verão 2015.",
     "weaponSpecialFall2015RogueText": "Machado de Morcego",
-    "weaponSpecialFall2015RogueNotes": "Afazeres amedrontadores se acovardam frente à esse machado. Aumenta Força em <%= str %>. Equipamento Edição Limitada de Outono 2015.",
+    "weaponSpecialFall2015RogueNotes": "Afazeres amedrontadores se acovardam frente a esse machado. Aumenta Força em <%= str %>. Equipamento Edição Limitada do Outono de 2015.",
     "weaponSpecialFall2015WarriorText": "Placa de Madeira",
     "weaponSpecialFall2015WarriorNotes": "Ótimo para levantar coisas em milharais ou esmagar tarefas. Aumenta Força em <%= str %>. Equipamento de Outono Edição Limitada 2015.",
     "weaponSpecialFall2015MageText": "Fio Encantado",
@@ -237,7 +237,7 @@
     "weaponSpecialFall2017RogueText": "Maça de Maçã Adocicada",
     "weaponSpecialFall2017RogueNotes": "Derrote os seus inimigos com doçura! Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Outono de 2017.",
     "weaponSpecialFall2017WarriorText": "Lança de Milho Doce",
-    "weaponSpecialFall2017WarriorNotes": "Todos os seus inimigos se encolherão perante esta lança de aspeto saboroso, sejam eles fantasmas, monstros ou Afazeres vermelhos. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Outono de 2017.",
+    "weaponSpecialFall2017WarriorNotes": "Todos os seus inimigos se encolherão perante esta lança de aspecto saboroso, sejam eles fantasmas, monstros ou Afazeres vermelhos. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Outono de 2017.",
     "weaponSpecialFall2017MageText": "Cajado assustador",
     "weaponSpecialFall2017MageNotes": "Os olhos da caveira brilhante deste cajado irradiam magia e mistério. Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada do Outono de 2017.",
     "weaponSpecialFall2017HealerText": "Candelabro Arrepiante",
@@ -1756,5 +1756,6 @@
     "weaponSpecialSpring2019RogueNotes": "Estas armas possuem o poder dos céus e da chuva. Recomendamos que você não as use debaixo dágua. Aumenta Força em <%= str %>. Equipamento de Edição Limitada da Primavera de 2019.",
     "weaponSpecialSpring2019RogueText": "Raio",
     "weaponSpecialKS2019Notes": "Curvada como o bico e garras de um grifo, essa alabarda ornamentada te motiva a superar uma tarefa intimidadora a frente. Aumenta a Força em <%= str %>.",
-    "weaponSpecialKS2019Text": "Gládio de Grifo Mítico"
+    "weaponSpecialKS2019Text": "Gládio de Grifo Mítico",
+    "weaponSpecialSpring2019HealerText": "Música da Primavera"
 }
