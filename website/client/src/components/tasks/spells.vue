@@ -204,7 +204,7 @@
 </style>
 
 <script>
-import spells from '@/../../common/script/content/spells';
+import spells, { stealthBuffsToAdd } from '@/../../common/script/content/spells';
 
 import { mapState, mapGetters } from '@/libs/store';
 import notifications from '@/mixins/notifications';
@@ -271,13 +271,11 @@ export default {
     },
     spellDisabled (skill) {
       const incompleteDailiesDue = this.getUnfilteredTaskList('daily').filter(daily => !daily.completed && daily.isDue).length;
-
       if (skill === 'frost' && this.user.stats.buffs.streaks) return true;
       if (skill === 'stealth' && this.user.stats.buffs.stealth >= incompleteDailiesDue) return true;
 
       return isSpellDisabled;
     },
-
     skillNotes (skill) {
       let notes = skill.notes();
 
@@ -288,7 +286,7 @@ export default {
       } else if (skill.key === 'stealth') {
         notes = this.$t('spellRogueStealthDaliesAvoided', {
           originalText: notes,
-          number: this.user.stats.buffs.stealth,
+          number: stealthBuffsToAdd(this.user),
         });
       }
 
