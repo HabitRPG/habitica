@@ -23,12 +23,12 @@
           {{ title }}
         </h2>
         <div class="ml-auto d-flex align-items-center">
-          <span
+          <button
             class="cancel-task-btn mr-3"
             :class="cssClassHeadings"
             @click="cancel()"
-          >{{ $t('cancel') }}</span>
-          <div
+          >{{ $t('cancel') }}</button>
+          <button
             class="btn btn-secondary d-flex align-items-center justify-content-center"
             :class="{disabled: !canSave}"
             @click="submit()"
@@ -45,7 +45,7 @@
             >
               {{ $t('create') }}
             </div>
-          </div>
+          </button>
         </div>
       </div>
       <div class="form-group">
@@ -354,7 +354,7 @@
                   name="repeatsOn"
                 >
                 <label
-                  class="custom-control-label mb-1"
+                  class="custom-control-label"
                   for="repeat-dayOfMonth"
                 >{{ $t('dayOfMonth') }}</label>
               </div>
@@ -368,7 +368,7 @@
                   name="repeatsOn"
                 >
                 <label
-                  class="custom-control-label mb-1"
+                  class="custom-control-label"
                   for="repeat-dayOfWeek"
                 >{{ $t('dayOfWeek') }}</label>
               </div>
@@ -528,6 +528,7 @@
                     <div class="input-group-prepend streak-addon input-group-icon">
                       <div
                         class="svg-icon"
+                        v-once
                         v-html="icons.streak"
                       ></div>
                     </div>
@@ -558,6 +559,7 @@
                         <div class="input-group-prepend positive-addon input-group-icon">
                           <div
                             class="svg-icon"
+                            v-once
                             v-html="icons.positive"
                           ></div>
                         </div>
@@ -579,6 +581,7 @@
                         <div class="input-group-prepend negative-addon input-group-icon">
                           <div
                             class="svg-icon"
+                            v-once
                             v-html="icons.negative"
                           ></div>
                         </div>
@@ -611,16 +614,19 @@
             </div>
           </b-collapse>
         </div>
-        <div
-          v-if="purpose !== 'create' && !challengeAccessRequired"
-          class="delete-task-btn d-flex justify-content-center align-items-middle"
-          @click="destroy()"
-        >
-          <div
-            class="svg-icon d-inline-b mt-1 mb-1"
-            v-html="icons.destroy"
-          ></div>
-          <span class="delete-text mt-1 mb-1">{{ $t('deleteTask') }}</span>
+        <div v-if="purpose !== 'create' && !challengeAccessRequired"
+             class="d-flex justify-content-center align-items-middle">
+          <button
+            class="delete-task-btn"
+            @click="destroy()"
+          >
+            <div
+              class="svg-icon d-inline-b mt-1 mb-1"
+              v-once
+              v-html="icons.destroy"
+            ></div>
+            <span class="delete-text mt-1 mb-1">{{ $t('deleteTask') }}</span>
+          </button>
         </div>
       </form>
     </div>
@@ -629,7 +635,7 @@
       class="task-modal-footer d-flex justify-content-center align-items-center"
       @click="handleClick($event)"
     >
-      <div
+      <button
         v-if="purpose === 'create'"
         class="btn btn-primary btn-footer
           d-flex align-items-center justify-content-center mt-2 mb-2"
@@ -637,7 +643,7 @@
         @click="submit()"
       >
         {{ $t('create') }}
-      </div>
+      </button>
     </div>
   </b-modal>
 </template>
@@ -673,7 +679,7 @@
     .modal-body {
       // the body has a margin/padding that can't be found
       // if found please remove that padding and this style
-      margin-bottom: -1rem;
+      margin-bottom: -2rem;
     }
 
     .modal-header, .modal-body, .modal-footer {
@@ -772,15 +778,24 @@
     }
 
     .delete-task-btn, .cancel-task-btn {
+      border: 0;
+      background: none;
+      padding-right: 0;
+      color: inherit;
       cursor: pointer;
-      &:hover, &:focus, &:active {
+
+      &:hover, &:active, &:focus {
+        border: none !important;
+        background: none !important;
+        outline: none !important;
+
         text-decoration: underline;
       }
     }
 
     .delete-task-btn {
-      margin-top: 32px;
-      margin-bottom: 8px;
+      margin-top: 12px;
+      margin-bottom: 12px;
       height: 1.5rem;
       align-items: center;
 
@@ -805,16 +820,18 @@
           height: 1rem;
           width: 1rem;
           object-fit: contain;
+          display: inline;
         }
 
         margin-right: 0.5rem;
         color: $maroon-50;
+        display: inline;
       }
     }
 
     .task-modal-footer {
       margin: 0;
-      padding: 16px 24px;
+      padding: 24px 24px 12px;
       width: 100%;
 
       .cancel-task-btn {
@@ -883,6 +900,12 @@
         height: 1.5rem;
         letter-spacing: normal;
         color: $gray-50;
+      }
+    }
+
+    .form-radio {
+      .custom-control {
+        margin-bottom: 0;
       }
     }
   }

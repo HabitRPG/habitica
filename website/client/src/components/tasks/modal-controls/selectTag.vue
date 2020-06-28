@@ -29,7 +29,8 @@
       </template>
       <div :class="{
         'item-group': true,
-        'add-new': availableToSelect.length === 0 && search !== ''
+        'add-new': availableToSelect.length === 0 && search !== '',
+        'scroll': availableToSelect.length > 5
       }">
         <b-dropdown-item-button
           v-for="tag in availableToSelect"
@@ -58,7 +59,7 @@
 
   .select-tag {
     .dropdown-toggle {
-      padding-left: 0.5rem;
+      padding-left: 0.75rem;
     }
 
     .dropdown-header {
@@ -113,7 +114,6 @@
 
     .item-group {
       max-height: #{5*$itemHeight};
-      overflow-y: scroll;
 
       &.add-new {
         height: 30px;
@@ -121,6 +121,9 @@
         .hint {
           display: block;
         }
+      }
+      &.scroll {
+        overflow-y: scroll;
       }
     }
 
