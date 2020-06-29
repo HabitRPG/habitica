@@ -301,6 +301,11 @@
               @select="task.frequency = $event"
             />
           </div>
+        </div>
+        <div
+          v-if="task.type === 'daily'"
+          class="option mt-3"
+        >
           <div class="form-group">
             <label v-once class="mb-1">{{ $t('repeatEvery') }}</label>
             <div class="input-group-outer">
@@ -321,60 +326,66 @@
               </div>
             </div>
           </div>
-          <template v-if="task.frequency === 'weekly'">
-            <div class="form-group">
-              <label
-                v-once
-                class="d-block mb-1"
-              >{{ $t('repeatOn') }}</label>
-              <div class="toggle-group">
-                <toggle-checkbox
-                  v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
-                  :tab-index="dayNumber"
-                  :key="dayNumber"
-                  :checked.sync="task.repeat[day]"
-                  :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
-                  :text="weekdaysMin(dayNumber)"
-                />
-              </div>
-            </div>
-          </template>
-          <template v-if="task.frequency === 'monthly'">
+        </div>
+        <div
+          v-if="task.type === 'daily' && task.frequency === 'weekly'"
+          class="option mt-3"
+        >
+          <div class="form-group">
             <label
               v-once
               class="d-block mb-1"
             >{{ $t('repeatOn') }}</label>
-            <div class="form-radio">
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  id="repeat-dayOfMonth"
-                  v-model="repeatsOn"
-                  class="custom-control-input"
-                  type="radio"
-                  value="dayOfMonth"
-                  name="repeatsOn"
-                >
-                <label
-                  class="custom-control-label"
-                  for="repeat-dayOfMonth"
-                >{{ $t('dayOfMonth') }}</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  id="repeat-dayOfWeek"
-                  v-model="repeatsOn"
-                  class="custom-control-input"
-                  type="radio"
-                  value="dayOfWeek"
-                  name="repeatsOn"
-                >
-                <label
-                  class="custom-control-label"
-                  for="repeat-dayOfWeek"
-                >{{ $t('dayOfWeek') }}</label>
-              </div>
+            <div class="toggle-group">
+              <toggle-checkbox
+                v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
+                :tab-index="dayNumber"
+                :key="dayNumber"
+                :checked.sync="task.repeat[day]"
+                :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+                :text="weekdaysMin(dayNumber)"
+              />
             </div>
-          </template>
+          </div>
+        </div>
+        <div
+          v-if="task.type === 'daily' && task.frequency === 'monthly'"
+          class="option mt-3"
+        >
+          <label
+            v-once
+            class="d-block mb-1"
+          >{{ $t('repeatOn') }}</label>
+          <div class="form-radio">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input
+                id="repeat-dayOfMonth"
+                v-model="repeatsOn"
+                class="custom-control-input"
+                type="radio"
+                value="dayOfMonth"
+                name="repeatsOn"
+              >
+              <label
+                class="custom-control-label"
+                for="repeat-dayOfMonth"
+              >{{ $t('dayOfMonth') }}</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input
+                id="repeat-dayOfWeek"
+                v-model="repeatsOn"
+                class="custom-control-input"
+                type="radio"
+                value="dayOfWeek"
+                name="repeatsOn"
+              >
+              <label
+                class="custom-control-label"
+                for="repeat-dayOfWeek"
+              >{{ $t('dayOfWeek') }}</label>
+            </div>
+          </div>
         </div>
         <div
           v-if="isUserTask"
