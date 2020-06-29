@@ -15,7 +15,8 @@ const api = {};
 
  * @apiParam (Path) {String=fireball, mpheal, earth, frost, smash, defensiveStance,
  *                  valorousPresence, intimidate, pickPocket, backStab, toolsOfTrade,
- *                  stealth, heal, protectAura, brightness, healAll} spellId The skill to cast.
+ *                  stealth, heal, protectAura, brightness, healAll,
+ *                  snowball, spookySparkles, seafoam, shinySeed} spellId The skill to cast.
  * @apiParam (Query) {UUID} targetId Query parameter, necessary if the spell is
  *                                   cast on a party member or task. Not used if the spell
  *                                   is casted on the user or the user's current party.
@@ -54,6 +55,12 @@ const api = {};
  * protectAura="Protective Aura",
  * brightness="Searing Brightness",
  * healAll="Blessing"
+ *
+ * Transformation Items:
+ * snowball="Snowball",
+ * spookySparkles="Spooky Sparkles",
+ * seafoam="Seafoam",
+ * shinySeed="Shiny Seed"
  *
  * @apiError (400) {NotAuthorized} Not enough mana.
  * @apiUse TaskNotFound

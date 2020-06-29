@@ -525,7 +525,10 @@ export default {
       this.membersLoaded = false;
       this.members = [];
 
-      await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
+      await Promise.all([
+        this.$store.dispatch('user:fetch', { forceLoad: true }),
+        this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
+      ]);
     },
     async leaveChallenge () {
       this.$root.$emit('bv::show::modal', 'leave-challenge-modal');

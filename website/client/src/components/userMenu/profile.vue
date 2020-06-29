@@ -1,8 +1,10 @@
 <template>
   <div
-    v-if="user"
-    class="profile"
+     v-if="!user && userLoaded"
   >
+    <error404 />
+  </div>
+  <div class="profile" v-else-if="userLoaded">
     <div class="header">
       <span
         class="close-icon svg-icon inline icon-10"
@@ -724,6 +726,7 @@ import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
 import svgClose from '@/assets/svg/close.svg';
+import error404 from '../404';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
@@ -734,6 +737,7 @@ export default {
   components: {
     MemberDetails,
     profileStats,
+    error404,
   },
   props: ['userId', 'startingPage'],
   data () {
@@ -767,7 +771,8 @@ export default {
       achievements: {},
       achievementsCategories: {}, // number, open
       content: Content,
-      user: undefined,
+      user: null,
+      userLoaded: false,
     };
   },
   computed: {
@@ -827,43 +832,56 @@ export default {
   },
   methods: {
     async loadUser () {
-      let user = this.userLoggedIn;
+      let user = null;
 
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
       this.hero = {};
+      this.userLoaded = false;
       this.adminToolsLoaded = false;
 
       const profileUserId = this.userId;
 
       if (profileUserId && profileUserId !== this.userLoggedIn._id) {
         const response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
-        user = response.data.data;
+        if (response.response && response.response.status === 404) {
+          user = null;
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: this.$t('messageDeletedUser'),
+            type: 'error',
+            timeout: false,
+          });
+        } else if (response.status && response.status === 200) {
+          user = response.data.data;
+
+          this.editingProfile.name = user.profile.name;
+          this.editingProfile.imageUrl = user.profile.imageUrl;
+          this.editingProfile.blurb = user.profile.blurb;
+
+          if (!user.achievements.quests) user.achievements.quests = {};
+          if (!user.achievements.challenges) user.achievements.challenges = {};
+          // @TODO: this common code should handle the above
+          this.achievements = achievementsLib.getAchievementsForProfile(user);
+
+          const achievementsCategories = {};
+          Object.keys(this.achievements).forEach(category => {
+            achievementsCategories[category] = {
+              open: false,
+              number: Object.keys(this.achievements[category].achievements).length,
+            };
+          });
+
+          this.achievementsCategories = achievementsCategories;
+
+          // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
+          user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
+        }
+        this.user = user;
+      } else {
+        this.user = this.userLoggedIn;
       }
-
-      this.editingProfile.name = user.profile.name;
-      this.editingProfile.imageUrl = user.profile.imageUrl;
-      this.editingProfile.blurb = user.profile.blurb;
-
-      if (!user.achievements.quests) user.achievements.quests = {};
-      if (!user.achievements.challenges) user.achievements.challenges = {};
-      // @TODO: this common code should handle the above
-      this.achievements = achievementsLib.getAchievementsForProfile(user);
-
-      const achievementsCategories = {};
-      Object.keys(this.achievements).forEach(category => {
-        achievementsCategories[category] = {
-          open: false,
-          number: Object.keys(this.achievements[category].achievements).length,
-        };
-      });
-
-      this.achievementsCategories = achievementsCategories;
-
-      // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
-      user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
-
-      this.user = user;
+      this.userLoaded = true;
     },
     selectPage (page) {
       this.selectedPage = page || 'profile';
