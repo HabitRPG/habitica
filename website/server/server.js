@@ -18,6 +18,8 @@ import './models/challenge';
 import './models/group';
 import './models/user';
 
+import { transactionExample } from './transaction-test';
+
 const server = http.createServer();
 const app = express();
 
@@ -29,5 +31,9 @@ server.on('request', app);
 server.listen(app.get('port'), () => {
   logger.info(`Express server listening on port ${app.get('port')}`);
 });
+
+setTimeout(() => {
+  transactionExample();
+}, 1000);
 
 export default server;
