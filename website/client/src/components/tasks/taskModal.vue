@@ -7,6 +7,7 @@
     @hidden="onClose()"
     @show="handleOpen()"
     @shown="focusInput()"
+    :hide-footer="purpose !== 'create'"
   >
     <div
       v-if="task"
@@ -633,14 +634,14 @@
       </form>
     </div>
     <div
+      v-if="purpose === 'create'"
       slot="modal-footer"
       class="task-modal-footer d-flex justify-content-center align-items-center"
       @click="handleClick($event)"
     >
       <button
-        v-if="purpose === 'create'"
         class="btn btn-primary btn-footer
-          d-flex align-items-center justify-content-center mt-2 mb-2"
+          d-flex align-items-center justify-content-center"
         :class="{disabled: !canSave}"
         @click="submit()"
       >
@@ -656,6 +657,20 @@
   #task-modal {
     .modal-dialog.modal-sm {
       max-width: 448px;
+    }
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    .modal-header {
+      .form-group {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .habit-option-container {
+      margin-bottom: 0.5rem;
     }
 
     .no-transition {
@@ -681,7 +696,7 @@
     .modal-body {
       // the body has a margin/padding that can't be found
       // if found please remove that padding and this style
-      margin-bottom: -2rem;
+      // margin-bottom: -2rem;
     }
 
     .modal-header, .modal-body, .modal-footer {
@@ -796,8 +811,8 @@
     }
 
     .delete-task-btn {
-      margin-top: 12px;
-      margin-bottom: 12px;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
       height: 1.5rem;
       align-items: center;
 
@@ -833,12 +848,16 @@
 
     .task-modal-footer {
       margin: 0;
-      padding: 24px 24px 12px;
+      padding: 1.5rem 24px;
       width: 100%;
 
       .cancel-task-btn {
         margin-right: 16px;
         color: $blue-10;
+      }
+
+      .btn-footer {
+        height: 2rem;
       }
     }
 
@@ -850,6 +869,7 @@
     .advanced-settings {
       min-height: 3rem;
       background-color: $gray-700;
+      margin-top: 1.5rem;
       margin-left: -1.5rem;
       margin-right: -1.5rem;
 
