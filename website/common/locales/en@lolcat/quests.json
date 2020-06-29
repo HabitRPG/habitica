@@ -22,7 +22,7 @@
     "questSend": "Clicking \"Invite\" will send an invitation to your party members. When all members have accepted or denied, the quest begins. See status under Social > Party.",
     "questSendBroken": "Clicking \"Invite\" will send an invitation to your party members... When all members have accepted or denied, the quest begins... See status under Social > Party...",
     "inviteParty": "Invite Party to Quest",
-    "questInvitation": "Quest Invitation:",
+    "questInvitation": "KWEST INVAIT: ",
     "questInvitationTitle": "Quest Invitation",
     "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "invitedToQuest": "You were invited to the Quest <span class=\"notification-bold-blue\"><%= quest %></span>",

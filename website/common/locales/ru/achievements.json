@@ -52,10 +52,10 @@
     "achievementHatchedPetText": "Вырастить своего первого питомца.",
     "achievementHatchedPet": "Вырастить питомца",
     "achievementCompletedTaskModalText": "Отметить любую из своих задач, чтобы заработать награды",
-    "achievementCompletedTaskText": "Выполнить свою первую задачу.",
+    "achievementCompletedTaskText": "Выполнил(-а) свою первую задачу.",
     "achievementCompletedTask": "Выполнить задачу",
     "achievementCreatedTaskModalText": "Добавить задачу для чего-то, что вы хотели бы выполнить на этой неделе",
-    "achievementCreatedTaskText": "Создать свою первую задачу.",
+    "achievementCreatedTaskText": "Создал(-а) свою первую задачу.",
     "achievementCreatedTask": "Создать первую задачу",
     "hideAchievements": "Скрыть <%= category %>",
     "showAllAchievements": "Показать все <%= category %>",
@@ -80,5 +80,6 @@
     "achievementBugBonanzaModalText": "Вы выполнили квесты питомцев: Жука, Бабочки, Улитки и Паука!",
     "achievementBugBonanzaText": "Завершил(а) квесты питомцев: Жука, Бабочки, Улитки и Паука.",
     "achievementBugBonanza": "Золотой жук",
-    "onboardingCompleteDescSmall": "If you want even more, check out Achievements and start collecting!"
+    "onboardingCompleteDescSmall": "Хотите больше? Посмотрите список Достижений и начинайте собирать!",
+    "foundNewItemsExplanation": "За выполнение заданий вы можете получить яйца, инкубационные эликсиры или корм для питомцев."
 }
