@@ -111,6 +111,11 @@ jobs:
       matrix:
         node-version: [12.x]
         mongodb-version: [4.2]
+    env:
+      # The test database connection uri is specified here and not taken from
+      # config.json.example because it differs between local installs and
+      # github actions, because the github action replica set only has 1 member 
+      TEST_DB_URI=mongodb://localhost:27017/habitica-test?replicaSet=habitica-test-rs
     steps:
     - uses: actions/checkout@v1
       with:
@@ -139,6 +144,11 @@ jobs:
       matrix:
         node-version: [12.x]
         mongodb-version: [4.2]
+    env:
+      # The test database connection uri is specified here and not taken from
+      # config.json.example because it differs between local installs and
+      # github actions, because the github action replica set only has 1 member 
+      TEST_DB_URI=mongodb://localhost:27017/habitica-test?replicaSet=habitica-test-rs
     steps:
     - uses: actions/checkout@v1
       with:
@@ -167,6 +177,11 @@ jobs:
       matrix:
         node-version: [12.x]
         mongodb-version: [4.2]
+    env:
+      # The test database connection uri is specified here and not taken from
+      # config.json.example because it differs between local installs and
+      # github actions, because the github action replica set only has 1 member 
+      TEST_DB_URI=mongodb://localhost:27017/habitica-test?replicaSet=habitica-test-rs
     steps:
     - uses: actions/checkout@v1
       with:
