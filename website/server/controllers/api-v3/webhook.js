@@ -223,9 +223,9 @@ api.updateWebhook = {
 
     webhook.formatOptions(res);
 
-    // Tell Mongoose that the webhooks array has been modified
+    // Tell Mongoose that the webhook's options have been modified
     // so it actually commits the options changes to the database
-    user.markModified('webhooks');
+    webhook.markModified('options');
 
     await user.save();
     res.respond(200, webhook);
