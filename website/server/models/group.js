@@ -1409,9 +1409,15 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
   if (group.memberCount <= 1 && group.privacy === 'private') {
     // double check the member count is correct
     // so we don't accidentally delete a group that still has users in it
-    this.memberCount = await group.getMemberCount();
+    let members;
+    if (group.type === 'guild') {
+      members = await User.find({ guilds: group._id }).select('_id').exec();
+    } else {
+      members = await User.find({ 'party._id': group._id }).select('_id').exec();
+    }
+    _.remove(members, { _id: user._id });
 
-    if ((this.memberCount - 1) === 0) { // -1 to make sure the user leaving is not counted
+    if (members.length === 0) {
       promises.push(group.remove());
       return Promise.all(promises);
     }
