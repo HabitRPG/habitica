@@ -544,6 +544,11 @@ api.joinGroup = {
       // Check if was invited to party
       const inviterParty = _.find(user.invitations.parties, { id: group._id });
       if (inviterParty) {
+        // Add comments here
+        if(user.party._id === group._id) {
+          // Remove this and remove the notification instead.
+          throw new BadRequest(res.t('alreadyAMemberOfTheParty'))
+        }
         inviter = inviterParty.inviter;
 
         // If user was in a different party (when partying solo you can be invited to a new party)
