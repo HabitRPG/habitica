@@ -47,6 +47,9 @@ export async function login (store, params) {
 }
 
 export async function verifyUsername (store, params) {
+  if (params.username < 1) {
+    return '';
+  }
   const url = '/api/v4/user/auth/verify-username';
   const result = await axios.post(url, {
     username: params.username,
