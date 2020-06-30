@@ -118,7 +118,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo docker run --name mongo -d -p 27017:27017 mongo
+    - run: sudo docker run --name mongo -d -p 27017:27017 mongo:4.2
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -141,7 +141,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo docker run --name mongo -d -p 27017:27017 mongo
+    - run: sudo docker run --name mongo -d -p 27017:27017 mongo:4.2
     - run: cp config.json.example config.json
     - name: npm install
       run: |
@@ -164,7 +164,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo docker run --name mongo -d -p 27017:27017 mongo
+    - run: sudo docker run --name mongo -d -p 27017:27017 mongo:4.2
     - run: cp config.json.example config.json
     - name: npm install
       run: |

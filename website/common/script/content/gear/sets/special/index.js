@@ -5143,7 +5143,7 @@ const weapon = {
     set: 'summer2020OarfishMageSet',
     text: t('weaponSpecialSummer2020MageText'),
     notes: t('weaponSpecialSummer2020MageNotes', { int: 15, per: 7 }),
-    value: 90,
+    value: 160,
     int: 15,
     per: 7,
     twoHanded: true,

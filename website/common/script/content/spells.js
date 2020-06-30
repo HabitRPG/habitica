@@ -45,6 +45,12 @@ function calculateBonus (value, stat, critVal = 1, statScale = 0.5) {
   return (value < 0 ? 1 : value + 1) + stat * statScale * critVal;
 }
 
+export function stealthBuffsToAdd (user) {
+  return Math.ceil(diminishingReturns(
+    statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55,
+  ));
+}
+
 const spells = {};
 
 spells.wizard = {
@@ -208,9 +214,7 @@ spells.rogue = {
     notes: t('spellRogueStealthNotes'),
     cast (user) {
       if (!user.stats.buffs.stealth) user.stats.buffs.stealth = 0;
-      user.stats.buffs.stealth += Math.ceil(diminishingReturns(
-        statsComputed(user).per, user.tasksOrder.dailys.length * 0.64, 55,
-      ));
+      user.stats.buffs.stealth += stealthBuffsToAdd(user);
     },
   },
 };

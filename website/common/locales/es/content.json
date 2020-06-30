@@ -354,6 +354,9 @@
     "premiumPotionUnlimitedNotes": "No puede usarse en huevos de Mascotas de Misiones.",
     "hatchingPotionAmber": "Ámbar",
     "hatchingPotionAurora": "Aurora",
-    "hatchingPotionBirchBark": "Corteza de Abedul",
-    "hatchingPotionRuby": "Rubí"
+    "hatchingPotionBirchBark": "Corteza de abedul",
+    "hatchingPotionRuby": "Rubí",
+    "hatchingPotionSandSculpture": "Escultura de arena",
+    "hatchingPotionFluorite": "Fluorita",
+    "hatchingPotionDessert": "Golosina"
 }

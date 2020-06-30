@@ -21,6 +21,7 @@ const types = Tasks.tasksTypes.map(type => `${type}s`);
 // _allCompletedTodos is currently in BETA and is likely to be removed in future
 types.push('completedTodos', '_allCompletedTodos');
 
+// @TODO abstract this snipped (also see api-v3/tasks.js)
 function canNotEditTasks (group, user, assignedUserId) {
   const isNotGroupLeader = group.leader !== user._id;
   const isManager = Boolean(group.managers[user._id]);
