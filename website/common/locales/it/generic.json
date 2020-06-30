@@ -61,7 +61,7 @@
     "newGroupTitle": "Nuovo Gruppo",
     "subscriberItem": "Oggetto misterioso",
     "newSubscriberItem": "Hai dei nuovi <span class=\"notification-bold-blue\">Oggetti Misteriosi</span>",
-    "subscriberItemText": "Ogni mese, gli abbonati ricevono un oggetto misterioso. Questo oggetto in genere viene rilasciato circa una settimana prima della fine del mese. Leggi la pagina \"Mystery Item\" della wiki per maggiori informazioni.",
+    "subscriberItemText": "Ogni mese, gli abbonati ricevono un oggetto misterioso. Questo oggetto verrà rilasciato all'inizio del mese. Leggi la pagina \"Mystery Item\" della wiki per maggiori informazioni.",
     "all": "Tutto",
     "none": "Nessuno",
     "more": "altri <%= count %>",
@@ -284,11 +284,15 @@
     "dismissAll": "Nascondi tutto",
     "messages": "Messaggi",
     "emptyMessagesLine1": "Non hai alcun messaggio",
-    "emptyMessagesLine2": "Invia un messaggio per creare una conversazione!",
+    "emptyMessagesLine2": "Puoi inviare un nuovo messaggio ad un utente visitando il suo profilo e cliccando il pulsante \"Messaggio\".",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> ti ha scritto un messaggio",
     "letsgo": "Andiamo!",
     "selected": "Selezionato",
     "howManyToBuy": "Quanti vorresti comprarne?",
     "habiticaHasUpdated": "È disponibile un nuovo aggiornamento per Habitica. Ricarica la pagina per usare la versione più recente!",
-    "contactForm": "Contatta il team dei moderatori"
+    "contactForm": "Contatta il team dei moderatori",
+    "loadEarlierMessages": "Carica messaggi precedenti",
+    "demo": "Demo",
+    "congratulations": "Congratulazioni!",
+    "options": "Opzioni"
 }

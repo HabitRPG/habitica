@@ -2108,5 +2108,20 @@
     "armorMystery202006Text": "Mehrfarbige Meermenschenflosse",
     "bodyArmoireLifeguardWhistleText": "Rettungsschwimmerpfeife",
     "shieldArmoireLifeBuoyText": "Rettungsring",
-    "weaponArmoireBeachFlagText": "Strandflagge"
+    "weaponArmoireBeachFlagText": "Strandflagge",
+    "armorSpecialSummer2020RogueText": "Krokodiltarnkleidung",
+    "weaponArmoireBeachFlagNotes": "Versammle Deine Truppen um Dich herum und lass alle wissen, wo sie Hilfe bekommen! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Rettungsschwimmer-Set (Gegenstand 1 von 3).",
+    "weaponSpecialSummer2020MageText": "Mächtiges Riemenruder",
+    "weaponSpecialSummer2020WarriorNotes": "Wenn sich Deine Feinde über Deine Waffenwahl lustig machen, beiß nicht an! Dieser Riesenhaken ist der Hammer! Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2020 Sommerausrüstung.",
+    "weaponSpecialSummer2020WarriorText": "Fischhaken",
+    "weaponSpecialSummer2020RogueNotes": "Deine Feinde sehen Dich nicht kommen, aber aus Deinen Fängen gibt es kein Entrinnen! Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2020 Sommerausrüstung.",
+    "weaponSpecialSummer2020RogueText": "Fangzahnklinge",
+    "shieldSpecialSummer2020WarriorText": "Risiege Forellenschuppe",
+    "headSpecialSummer2020HealerText": "Glasbespikter Helm",
+    "headSpecialSummer2020MageText": "Riemenfischkamm",
+    "headSpecialSummer2020WarriorText": "Famose Fischige Mütze",
+    "headSpecialSummer2020RogueText": "Krokodilhelm",
+    "armorSpecialSummer2020MageText": "Riemenfisch",
+    "armorSpecialSummer2020WarriorText": "Regenbogenforellenschwanz",
+    "armorSpecialSummer2020RogueNotes": "Ein Krokodil ist ein geborener Schurke, so wie es auf den perfekten Moment wartet, um zuzuschlagen. Leihe Dir ihre Fähigkeiten - und ihre explosive Geschwindigkeit. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Sommerausrüstung."
 }

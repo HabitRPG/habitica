@@ -76,7 +76,7 @@
     "thirdPartyApps": "Aplicativos de terceiros",
     "dataToolDesc": "Uma página que mostra certas informações da sua conta do Habitica, como estatísticas sobre suas tarefas, equipamentos e habilidades.",
     "beeminder": "Beeminder",
-    "beeminderDesc": "Deixe o Beeminder monitorar automaticamente suas tarefas do Habitica. Você pode se propor a manter um número alvo de tarefas completadas por dia ou por semana, ou você pode propor reduzir o seu numero de tarefas remanescentes incompletas gradualmente. (Por \"propor\" Beeminder quer dizer sobre aviso de pagar dinheiro real! Mas você também pode gostar dos gráficos chiques do Beeminder.)",
+    "beeminderDesc": "Deixe o Beeminder monitorar automaticamente seus Afazeres do Habitica. Você pode se propor a manter um número alvo de Afazeres concluídos por dia ou por semana, ou você pode propor reduzir o seu número de Afazeres remanescentes incompletas gradualmente. (Por \"propor\" Beeminder quer dizer sobre aviso de pagar dinheiro real! Mas, você também pode gostar dos gráficos chiques do Beeminder.)",
     "chromeChatExtension": "Extensão de Chat do Chrome",
     "chromeChatExtensionDesc": "A extensão de Chat do Habitica para o Chrome adiciona uma caixa de mensagens intuitiva em todo o habitica.com. Isso permite que os usuários conversem na Taverna, com o seu grupo e com qualquer guilda que estejam participando.",
     "otherExtensions": "<a target='blank' href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations'>Outras Extensões</a>",

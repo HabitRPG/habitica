@@ -55,6 +55,7 @@ api.verifyUsername = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/user/auth/local/register Register
  * @apiDescription Register a new user with email, login name, and password
  * or attach local auth to a social user
