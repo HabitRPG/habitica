@@ -241,7 +241,7 @@ async function _addTaskFn (challenge, tasks, memberId) {
     $addToSet: {
       tags: {
         id: challenge._id,
-        name: challenge.name,
+        name: challenge.shortName,
         challenge: true,
       },
     },

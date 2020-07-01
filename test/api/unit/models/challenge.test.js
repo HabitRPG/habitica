@@ -182,7 +182,7 @@ describe('Challenge Model', () => {
         await newMember.save();
         await challenge.syncTasksToUser(newMember);
 
-        let updatedNewMember = await User.findById(newMember._id);
+        let updatedNewMember = await User.findById(newMember._id).exec();
         const updatedNewMemberId = updatedNewMember._id;
 
         updatedNewMember.tags = [];
@@ -194,7 +194,7 @@ describe('Challenge Model', () => {
         await challenge.addTasks([task2]);
         await challenge.syncTasksToUser(updatedNewMember);
 
-        updatedNewMember = await User.findById(updatedNewMemberId);
+        updatedNewMember = await User.findById(updatedNewMemberId).exec();
 
         expect(updatedNewMember.tags.length).to.equal(1);
         expect(updatedNewMember.tags[0].id).to.equal(challenge._id);
@@ -210,7 +210,7 @@ describe('Challenge Model', () => {
         await newMember.save();
         await challenge.syncTasksToUser(newMember);
 
-        let updatedNewMember = await User.findById(newMember._id);
+        let updatedNewMember = await User.findById(newMember._id).exec();
         const updatedNewMemberId = updatedNewMember._id;
 
         const taskValue2 = tasks2ToTest[taskType];
