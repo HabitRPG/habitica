@@ -3,7 +3,8 @@
     .habit-option-button {
       border: 2px solid $disabled-color;
     }
-    &:hover {
+    // TODO refactor to use more css-vars and less duplicate generated css code
+    &:hover, &:focus, &:active {
       .habit-option-button {
         border: 2px solid $active-color;
       }

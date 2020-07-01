@@ -28,10 +28,12 @@
             class="cancel-task-btn mr-3"
             :class="cssClassHeadings"
             @click="cancel()"
+            type="button"
           >{{ $t('cancel') }}</button>
           <button
             class="btn btn-secondary d-flex align-items-center justify-content-center"
             :class="{disabled: !canSave}"
+            type="button"
             @click="submit()"
           >
             <div
@@ -187,7 +189,8 @@
           v-if="task.type === 'habit'"
           class="d-flex justify-content-center"
         >
-          <div
+          <button
+            type="button"
             class="habit-option-container no-transition
               d-flex flex-column justify-content-center align-items-center"
             @click="toggleUpDirection()"
@@ -210,8 +213,9 @@
             >
               {{ $t('positive') }}
             </div>
-          </div>
-          <div
+          </button>
+          <button
+            type="button"
             class="habit-option-container no-transition
               d-flex flex-column justify-content-center align-items-center"
             @click="toggleDownDirection()"
@@ -234,7 +238,7 @@
             >
               {{ $t('negative') }}
             </div>
-          </div>
+          </button>
         </div>
         <template v-if="task.type !== 'reward'">
           <div class="d-flex align-items-center mb-1">
@@ -490,6 +494,7 @@
                   <div class="row">
                     <button
                       class="btn btn-primary"
+                      type="button"
                       @click.stop.prevent="showAssignedSelect = !showAssignedSelect"
                     >
                       {{ $t('close') }}
@@ -630,6 +635,7 @@
              class="d-flex justify-content-center align-items-middle">
           <button
             class="delete-task-btn"
+            type="button"
             @click="destroy()"
           >
             <div
@@ -655,6 +661,7 @@
           d-flex align-items-center justify-content-center"
         :class="{disabled: !canSave}"
         @click="submit()"
+        type="button"
       >
         {{ $t('create') }}
       </button>
@@ -682,6 +689,11 @@
 
     .habit-option-container {
       margin-bottom: 0.5rem;
+      &, &:focus, &:active, &:hover {
+        outline: 0;
+        border: 0;
+        background: none;
+      }
     }
 
     .no-transition {
