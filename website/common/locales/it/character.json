@@ -104,7 +104,7 @@
     "allocatePerPop": "Aggiungi un punto a Percezione",
     "allocateInt": "Punti assegnati a Intelligenza:",
     "allocateIntPop": "Aggiungi un punto a Intelligenza",
-    "noMoreAllocate": "Ora che hai raggiunto il livello 100, non potrai guadagnare ulteriori Punti Statistica. Puoi continuare a salire di livello, o iniziare una nuova avventura dal livello 1 usando la <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Sfera della Rinascita</a>, ora disponibile gratuitamente nel Mercato.",
+    "noMoreAllocate": "Ora che hai raggiunto il livello 100, non potrai guadagnare ulteriori Punti Statistica. Puoi continuare a salire di livello, o iniziare una nuova avventura dal livello 1 usando la <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Sfera della Rinascita</a>!",
     "stats": "Statistiche",
     "achievs": "Medaglie",
     "strength": "Forza",
@@ -226,5 +226,7 @@
     "statPoints": "Punti Statistiche",
     "pts": "punti",
     "purchasePetItemConfirm": "Questo acquisto supererebbe il numero degli oggetti necessari per far schiudere tutti i possibili animali domestici. Sei sicuro?",
-    "purchaseForGold": "Acquistare per <%= cost %> oro?"
+    "purchaseForGold": "Acquistare per <%= cost %> oro?",
+    "chatCastSpellUser": "<%= username %> lancia <%= spell %> su <%= target %>.",
+    "chatCastSpellParty": "<%= username %> lancia <%= spell %> per la squadra."
 }

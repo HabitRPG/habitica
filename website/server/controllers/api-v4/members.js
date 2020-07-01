@@ -4,6 +4,7 @@ import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactor
 const api = {};
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/members/flag-private-message/:messageId Flag a private message
  * @apiDescription Moderators are notified about every flagged message,
  * including the sender, recipient, and full content of the message.

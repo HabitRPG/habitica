@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SUMMER SPLASH HATCHING POTIONS AND SPLASHY SKINS';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR MULTICHROME MERFOLK SET!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,40 +31,19 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/23/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>6/29/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_sand_sculpture_potions center-block"></div>
-        <h3>Summer Splash Magic Hatching Potions!</h3>
+        <div class="promo_mystery_202006 center-block"></div>
         <p>
-          There's a new pet breed in town! Check out the brand-new Sand Sculpture Potions and the
-          return of Aquatic and Watery Potions to heat up your Summer avatar look. Get them from
-          <a href='/shops/market'>the Market</a> and use them to hatch any standard pet egg. (Magic
-          Hatching Potions do not work on Quest Pet eggs.) Magic Hatching Potion Pets aren't picky,
-          so they'll happily eat any kind of food that you feed them!
+          Reminder: this is the last day to receive the Multichrome Merfolk Set when you <a
+          href='/user/settings/subscription'>sign up for a new Habitica subscription</a>!
+          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
+          you can get!
         </p>
-        <p>
-          These potions will be available until Summer Splash ends on July 31. After they're gone,
-          it will be at least a year before these Hatching Potions return, so be sure to get them
-          now!
-        </p>
-        <div class="small mb-3">
-          by Shine Caramia, a_diamond, Persephone, Stefalupagus, Beffymaroo and SabreCat
-        </div>
-        <div class="promo_splashy_skins center-block"></div>
-        <h3>Splashy Skins!</h3>
-        <p>
-          The Seasonal Edition Splashy Skins are back! You can complete your summer avatar look
-          with Clownfish, Deep Ocean, Tropical Water, Mergold, Mergreen, Merblue, Merruby, and
-          Shark Skins.
-        </p>
-        <p>
-          This Seasonal Edition customization set will only be available to purchase until July
-          31st, after which they'll be gone until next year, so be sure to scoop them up now! You
-          can find them in User > Edit Avatar!
-        </p>
-        <div class="small mb-3">by Lemoness and UncommonCriminal</div>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });
