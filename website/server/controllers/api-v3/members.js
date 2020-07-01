@@ -786,5 +786,4 @@ api.transferGems = {
   },
 };
 
-
 export default api;

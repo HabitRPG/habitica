@@ -1,10 +1,13 @@
 <template>
   <div
-     v-if="!user && userLoaded"
+    v-if="!user && userLoaded"
   >
     <error404 />
   </div>
-  <div class="profile" v-else-if="userLoaded">
+  <div
+    v-else-if="userLoaded"
+    class="profile"
+  >
     <div class="header">
       <span
         class="close-icon svg-icon inline icon-10"
@@ -42,9 +45,10 @@
           class="btn btn-secondary block-icon"
           @click="blockUser()"
         >
-          <div v-once
-               class="svg-icon block-icon"
-               v-html="icons.block"
+          <div
+            v-once
+            class="svg-icon block-icon"
+            v-html="icons.block"
           ></div>
         </button>
         <button

@@ -87,7 +87,6 @@ import updateTask from './ops/updateTask';
 // TODO under api.libs.statHelpers?
 import * as statHelpers from './statHelpers';
 
-
 const api = {};
 api.content = content;
 api.errors = errors;

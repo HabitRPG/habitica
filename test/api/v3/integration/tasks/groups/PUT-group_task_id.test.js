@@ -147,7 +147,6 @@ describe('PUT /tasks/:id', () => {
       notes: 'some new notes',
     });
 
-
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
 
@@ -190,7 +189,6 @@ describe('PUT /tasks/:id', () => {
       down: false,
       notes: 'some new notes',
     });
-
 
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
