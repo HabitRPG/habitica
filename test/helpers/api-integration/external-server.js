@@ -1,5 +1,5 @@
 import express from 'express';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -30,7 +30,7 @@ app.post('/webhooks/:id', (req, res) => {
 // See http://stackoverflow.com/a/37054753/2601552
 const sockets = {};
 server.on('connection', socket => {
-  const id = uuid.v4();
+  const id = uuid();
   sockets[id] = socket;
 
   socket.once('close', () => {

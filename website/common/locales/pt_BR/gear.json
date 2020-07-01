@@ -133,7 +133,7 @@
     "weaponSpecialSummerRogueText": "Cutelo de Pirata",
     "weaponSpecialSummerRogueNotes": "Atenção marujo! Você fará essas Diárias andarem na prancha! Aumenta Força em <%= str %>. Equipamento de Edição Limitada. Verão de 2014.",
     "weaponSpecialSummerWarriorText": "Fatiador dos Mares",
-    "weaponSpecialSummerWarriorNotes": "Não existe tarefa em qualquer lista de Afazeres que não possa ser domada com esta faca!  Aumenta Força em <%= str %>. Equipamento de Edição Limitada. Verão de 2014.",
+    "weaponSpecialSummerWarriorNotes": "Não existe tarefa em qualquer lista de Afazeres que não possa ser domada com esta faca! Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2014.",
     "weaponSpecialSummerMageText": "Apanhador de Algas",
     "weaponSpecialSummerMageNotes": "Este tridente é usado para espetar algas de maneira eficaz, para uma colheita de algas extra-produtiva! Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada. Verão de 2014.",
     "weaponSpecialSummerHealerText": "Varinha das Superfícies",
@@ -171,7 +171,7 @@
     "weaponSpecialSummer2015HealerText": "Varinha das Ondas",
     "weaponSpecialSummer2015HealerNotes": "Cura enjoos e maresias! Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada. Verão de 2015.",
     "weaponSpecialFall2015RogueText": "Machado de Morcego",
-    "weaponSpecialFall2015RogueNotes": "Afazeres amedrontadores se acovardam frente à esse machado. Aumenta Força em <%= str %>. Equipamento de Edição Limitada. Outono de 2015.",
+    "weaponSpecialFall2015RogueNotes": "Afazeres amedrontadores se acovardam frente à esse machado. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Outono de 2015.",
     "weaponSpecialFall2015WarriorText": "Placa de Madeira",
     "weaponSpecialFall2015WarriorNotes": "Ótimo para levantar coisas em milharais e/ou esmagar tarefas. Aumenta Força em <%= str %>. Equipamento de Edição Limitada. Outono de 2015.",
     "weaponSpecialFall2015MageText": "Fio Encantado",
@@ -237,7 +237,7 @@
     "weaponSpecialFall2017RogueText": "Maça de Maçã Doce",
     "weaponSpecialFall2017RogueNotes": "Derrote seus inimigos com doçuras! Aumenta Força em <%= str %>. Equipamento de Edição Limitada. Outono de 2017.",
     "weaponSpecialFall2017WarriorText": "Lança de Doce de Milho",
-    "weaponSpecialFall2017WarriorNotes": "Todos seus inimigos irão se curvar diante dessa lança deliciosa, independentemente se eles são fantasmas, monstros ou tarefas vermelhas. Aumenta Força em <%= str %>. Equipamento de Edição Limitada. Outono de 2017.",
+    "weaponSpecialFall2017WarriorNotes": "Todos seus inimigos irão se curvar diante dessa lança deliciosa, independentemente se eles são fantasmas, monstros ou Afazeres vermelhos. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do outono de 2017.",
     "weaponSpecialFall2017MageText": "Cajado Assustador",
     "weaponSpecialFall2017MageNotes": "Os olhos brilhantes dessa caveira nesse cajado irradia magia e mistérios. Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada. Outono de 2017.",
     "weaponSpecialFall2017HealerText": "Candelabro Arrepiante",
@@ -2111,5 +2111,8 @@
     "shieldArmoireLifeBuoyNotes": "Oh bóia! Isso será útil se você encontrar alguém lutando em um mar de tarefas e responsabilidades. Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto de salva-vidas (Item 2 de 3).",
     "shieldArmoireLifeBuoyText": "Bóia salva-vidas",
     "weaponArmoireBeachFlagNotes": "Reúna as tropas em torno do seu castelo de areia e que todos saibam onde procurar ajuda! Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto de salva-vidas (Item 1 de 3).",
-    "weaponArmoireBeachFlagText": "Bandeira de praia"
+    "weaponArmoireBeachFlagText": "Bandeira de praia",
+    "weaponSpecialSummer2020WarriorText": "Anzol",
+    "weaponSpecialSummer2020RogueNotes": "Seus inimigos não te veem chegar, mas suas Presas são inescapáveis! Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2020.",
+    "weaponSpecialSummer2020RogueText": "Espada de Presa"
 }
