@@ -165,7 +165,6 @@ export async function update (req, res, { isV3 = false }) {
     }
   });
 
-
   await Promise.all([user.save()].concat(promisesForTagsRemoval));
 
   let userToJSON = user;

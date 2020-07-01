@@ -1,4 +1,3 @@
-
 const glob = require('glob').sync;
 const readFile = require('fs').readFileSync;
 

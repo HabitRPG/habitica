@@ -67,7 +67,6 @@ export const { Forbidden } = common.errors;
  */
 export const { TooManyRequests } = common.errors;
 
-
 /**
  * @apiDefine NotificationNotFound
  * @apiError NotificationNotFound The notification was not found.

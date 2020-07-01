@@ -1,4 +1,3 @@
-
 const glob = require('glob').sync;
 
 describe('Locales files', () => {
