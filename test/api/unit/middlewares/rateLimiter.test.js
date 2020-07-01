@@ -109,4 +109,33 @@ describe('rateLimiter middleware', () => {
       'X-RateLimit-Reset': sinon.match(Date),
     });
   });
+
+  it('uses the user id if supplied or the ip address', async () => {
+    nconfGetStub.withArgs('RATE_LIMITER_ENABLED').returns('true');
+    const attachRateLimiter = requireAgain(pathToRateLimiter).default;
+
+    req.ip = 1;
+    await attachRateLimiter(req, res, next);
+
+    req.headers['x-api-user'] = 'user-1';
+    await attachRateLimiter(req, res, next);
+    await attachRateLimiter(req, res, next);
+
+    // user id an ip are counted as separate sources
+    expect(res.set).to.have.been.calledWithMatch({
+      'X-RateLimit-Limit': 30,
+      'X-RateLimit-Remaining': 28, // 2 calls with user id
+      'X-RateLimit-Reset': sinon.match(Date),
+    });
+
+    req.headers['x-api-user'] = undefined;
+    await attachRateLimiter(req, res, next);
+    await attachRateLimiter(req, res, next);
+
+    expect(res.set).to.have.been.calledWithMatch({
+      'X-RateLimit-Limit': 30,
+      'X-RateLimit-Remaining': 27, // 3 calls with only ip
+      'X-RateLimit-Reset': sinon.match(Date),
+    });
+  });
 });

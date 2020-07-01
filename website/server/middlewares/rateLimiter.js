@@ -72,7 +72,9 @@ function setResponseHeaders (res, rateLimiterRes) {
 export default function rateLimiterMiddleware (req, res, next) {
   if (!RATE_LIMITER_ENABLED) return next();
 
-  return rateLimiter.consume(req.ip)
+  const userId = req.header('x-api-user');
+
+  return rateLimiter.consume(userId || req.ip)
     .then(rateLimiterRes => {
       setResponseHeaders(res, rateLimiterRes);
       return next();
