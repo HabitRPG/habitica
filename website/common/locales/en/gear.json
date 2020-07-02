@@ -253,7 +253,7 @@
 
   "weaponSpecialSummer2017RogueText": "Sea Dragon Fins",
   "weaponSpecialSummer2017RogueNotes": "The edges of these fins are razor-sharp. Increases Strength by <%= str %>. Limited Edition 2017 Summer Gear.",
-  "weaponSpecialSummer2017WarriorText": "The Mightiest Beach Umbrella",
+  "weaponSpecialSummer2017WarriorText": "Mightiest Beach Umbrella",
   "weaponSpecialSummer2017WarriorNotes": "All fear it. Increases Strength by <%= str %>. Limited Edition 2017 Summer Gear.",
   "weaponSpecialSummer2017MageText": "Whirlpool Whips",
   "weaponSpecialSummer2017MageNotes": "Summon up magical whips of boiling water to smite your tasks! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2017 Summer Gear.",
