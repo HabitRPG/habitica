@@ -1805,7 +1805,7 @@
     "shieldMystery201902Text": "謎めいた紙吹雪",
     "shieldMystery201902Notes": "この輝く紙は、空中でゆるやかに舞い踊り、魔法のハートを形作ります。効果なし。2019年2月寄付会員アイテム。",
     "shieldArmoireMightyPizzaText": "力強いピザ",
-    "shieldArmoireMightyPizzaNotes": "もちろん、これはけっこう良い盾ですが、このおいしい、おいしいピザは食べることを強くおすすめします。知覚が <%= per %> 上がります。ラッキー宝箱：シェフセット（４個中４個目のアイテム）。 ",
+    "shieldArmoireMightyPizzaNotes": "もちろん、これはけっこう良い盾ですが、このおいしい、おいしいピザは食べることを強くおすすめします。知覚が <%= per %> 上がります。ラッキー宝箱：シェフセット（４個中４個目のアイテム）。",
     "eyewearMystery201902Text": "謎めいた想い人のマスク",
     "eyewearMystery201902Notes": "この謎めいたマスクは、あなたの正体を隠しますが、しかし勝利の微笑みは隠しません。効果なし。2019年2月の寄付会員アイテム。",
     "weaponSpecialSummer2019RogueText": "古めかしいイカリ",
@@ -1856,5 +1856,13 @@
     "weaponArmoireLivelyMatchText": "活発なマッチ",
     "weaponArmoireLivelyMatchNotes": "あなたがこれを持っていると、きっと誰かの好奇心に火をつけることでしょう！　力が<%= str %>上がります。ラッキー宝箱：マッチ職人セット（4個中 3個目のアイテム）。",
     "weaponArmoireHappyBannerNotes": "この「H」はHappyのH？　HabiticaのH？　好きに選んで！　知覚が<%= per %>上がります。ラッキー宝箱：ハッピーバースデーセット（4個中 3個目のアイテム）。",
-    "weaponArmoireHappyBannerText": "ハッピーのぼり旗"
+    "weaponArmoireHappyBannerText": "ハッピーのぼり旗",
+    "headMystery202007Notes": "このヘルメットが仲間のシャチの複雑で美しい音楽を聞こえるようにしてくれます。　効果なし。2020年7月の寄付会員アイテム。",
+    "armorMystery202007Notes": "この力強く格好いい尻尾で、泳ぎ、跳び、潜り、競争しましょう！　効果なし。2020年7月の寄付会員アイテム。",
+    "headMystery202007Text": "ずば抜けたシャチのヘルメット",
+    "armorMystery202007Text": "ずば抜けたシャチのコスチューム",
+    "armorArmoireLayerCakeArmorText": "段々ケーキのよろい",
+    "armorArmoireLayerCakeArmorNotes": "身を守れるし美味しい！体質が<%= con %>上がります。ラッキー宝箱：ハッピーバースデーセット（4個中2個目のアイテム）。",
+    "armorArmoireMatchMakersApronNotes": "このエプロンは安全のためのものですが、ユーモアのために安全を無視することもできます。力と知能が<%= attrs %>上がります。ラッキー宝箱：マッチ職人セット（4個中 1 個目のアイテム）。",
+    "armorArmoireMatchMakersApronText": "マッチ職人のエプロン"
 }

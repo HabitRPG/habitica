@@ -1928,5 +1928,7 @@
     "weaponArmoireBaseballBatNotes": "¡Consigue un jonrón con esos buenos hábitos! Aumenta la Constitución en <% = con%>. Armario encantado: conjunto de béisbol (artículo 3 de 4).",
     "weaponSpecialSpring2020HealerText": "Bastón de lirio de espada",
     "weaponSpecialSpring2020MageNotes": "¡Siguen cayendo sobre tu cabeza! Pero nunca los detendrás quejándote. Aumenta la inteligencia en <% = int%> y la percepción en <% = per%>. Edición limitada 2020 Spring Gear.",
-    "weaponSpecialSpring2020WarriorNotes": "¡Lucha o huye, esta ala te servirá bien! Aumenta la fuerza en <%= str %>. Equipamiento de Edición limitada primavera 2020."
+    "weaponSpecialSpring2020WarriorNotes": "¡Lucha o huye, esta ala te servirá bien! Aumenta la fuerza en <%= str %>. Equipamiento de Edición limitada primavera 2020.",
+    "weaponSpecialSummer2020WarriorText": "Anzuelo",
+    "weaponSpecialSummer2020RogueText": "Espada de colmillo"
 }
