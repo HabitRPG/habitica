@@ -176,7 +176,7 @@
     "buyGemsGoldCap": "Límite aumentado a <%= amount %>",
     "mysticHourglass": "<%= amount %> Reloxo de Area Místico",
     "mysticHourglassText": "Os Reloxos de Area Místicos permítenche mercar un lote de obxectos Misteriosos dun mes anterior.",
-    "purchasedPlanId": " $<%= price %> USD periódicos cada <%= months %> mes(es) (<%= plan %>)",
+    "purchasedPlanId": "$<%= price %> USD periódicos cada <%= months %> mes(es) (<%= plan %>)",
     "purchasedPlanExtraMonths": "Tes  <%= months %> meses extra de crédito para subscrición.",
     "consecutiveSubscription": "Subscrición Consecutiva",
     "consecutiveMonths": "Meses Consecutivos",

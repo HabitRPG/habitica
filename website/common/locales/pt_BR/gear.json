@@ -2114,5 +2114,11 @@
     "weaponArmoireBeachFlagText": "Bandeira de praia",
     "weaponSpecialSummer2020WarriorText": "Anzol",
     "weaponSpecialSummer2020RogueNotes": "Seus inimigos não te veem chegar, mas suas Presas são inescapáveis! Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2020.",
-    "weaponSpecialSummer2020RogueText": "Espada de Presa"
+    "weaponSpecialSummer2020RogueText": "Espada de Presa",
+    "weaponSpecialSummer2020HealerText": "Vara de Vidro Fosco",
+    "weaponSpecialSummer2020MageText": "Remo Poderoso",
+    "armorSpecialSummer2020RogueText": "Disfarce de Crocodilo",
+    "weaponSpecialSummer2020HealerNotes": "Como as correntes desgastam arestas, também irá sua mágica suavizar as dores dos seus amigos. Aumenta a Inteligência em <%= int %>. Equipamento de Edição Limitada do Verão de 2020.",
+    "weaponSpecialSummer2020MageNotes": "Guie seu caminho pelos mares mais traiçoeiros e batalhas mais turbulentas. Aumenta a Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada do Verão de 2020.",
+    "weaponSpecialSummer2020WarriorNotes": "Se seus inimigos zombarem da sua arma, não caia na isca. Este anzol maneiro é o que há! Aumenta a Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2020."
 }
