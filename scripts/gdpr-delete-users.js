@@ -77,7 +77,7 @@ async function processEmailAddress (email) {
 
   const socialUsers = await User.find(
     {
-      'auth.local.email': {$not: emailRegex},
+      'auth.local.email': { $not: emailRegex },
       $or: [
         { 'auth.facebook.emails.value': email },
         { 'auth.google.emails.value': email },
