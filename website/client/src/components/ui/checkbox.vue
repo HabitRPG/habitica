@@ -9,9 +9,10 @@
         :disabled="disabled"
       >
       <label
-        v-once
         class="custom-control-label"
+        :class="{disabled: disabled}"
         :for="id"
+        :disabled="disabled"
       >{{ text }}</label>
     </div>
   </div>
@@ -22,7 +23,7 @@
     margin-bottom: 0 !important;
   }
 
-  label {
+  label:not(:disabled):not(.disabled) {
     cursor: pointer;
   }
 </style>

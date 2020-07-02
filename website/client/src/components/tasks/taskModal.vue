@@ -142,7 +142,7 @@
       </div>
     </div>
     <div
-      class="task-modal-content px-4 pt-3"
+      class="task-modal-content px-4 pt-3 pb-1"
       :class="cssClass('content')"
       @click="handleClick($event)"
     >
@@ -178,7 +178,7 @@
         </div>
         <div
           v-if="checklistEnabled"
-          class="option mb-3"
+          class="option mb-75"
         >
           <checklist :items.sync="task.checklist"
                      :disableItems="groupAccessRequiredAndOnPersonalPage || !isUserTask"
@@ -195,6 +195,7 @@
               d-flex flex-column justify-content-center align-items-center"
             @click="toggleUpDirection()"
             :class="!task.up ? cssClass('habit-control-disabled') : ''"
+            :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
           >
             <div
               class="habit-option-button no-transition
@@ -220,6 +221,7 @@
               d-flex flex-column justify-content-center align-items-center"
             @click="toggleDownDirection()"
             :class="!task.down ? cssClass('habit-control-disabled') : ''"
+            :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
           >
             <div
               class="habit-option-button no-transition
@@ -256,6 +258,7 @@
           </div>
           <select-difficulty :value="task.priority"
                               @select="setDifficulty($event)"
+                              :disabled="groupAccessRequiredAndOnPersonalPage"
           />
 
         </template>
@@ -268,10 +271,11 @@
             <datepicker
               v-model="task.date"
               :calendar-icon="icons.calendar"
-              :clear-button="true"
+              :clear-button="!groupAccessRequiredAndOnPersonalPage"
               :clear-button-text="$t('clear')"
               :today-button="false"
-              :disabled-picker="challengeAccessRequired"
+              :disabled-picker="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :class="{disabled: challengeAccessRequired || groupAccessRequiredAndOnPersonalPage}"
               :highlighted="calendarHighlights"
             />
           </div>
@@ -287,7 +291,8 @@
               :calendar-icon="icons.calendar"
               :clear-button="false"
               :today-button="false"
-              :disabled-picker="challengeAccessRequired"
+              :disabled-picker="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :class="{disabled: challengeAccessRequired || groupAccessRequiredAndOnPersonalPage}"
               :highlighted="calendarHighlights"
             />
           </div>
@@ -299,7 +304,7 @@
           <div class="form-group">
             <label v-once class="mb-1">{{ $t('repeats') }}</label>
             <select-translated-array
-              :disabled="challengeAccessRequired"
+              :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :items="['daily', 'weekly', 'monthly', 'yearly']"
               :value="task.frequency"
               @select="task.frequency = $event"
@@ -312,7 +317,12 @@
         >
           <div class="form-group">
             <label v-once class="mb-1">{{ $t('repeatEvery') }}</label>
-            <div class="input-group-outer">
+            <div
+              class="input-group-outer"
+              :class="{
+                disabled: challengeAccessRequired || groupAccessRequiredAndOnPersonalPage
+              }"
+            >
               <div class="input-group">
                 <input
                   v-model="task.everyX"
@@ -321,7 +331,7 @@
                   min="0"
                   max="9999"
                   required="required"
-                  :disabled="challengeAccessRequired"
+                  :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
                 >
 
               </div>
@@ -393,7 +403,7 @@
         </div>
         <div
           v-if="isUserTask"
-          class="tags-select option mt-3"
+          class="tags-select option mt-3 mb-3"
         >
           <div class="tags-inline form-group row">
             <label
@@ -411,12 +421,12 @@
         </div>
         <div
           v-if="task.type === 'habit'"
-          class="option mt-3"
+          class="option mt-3 mb-3"
         >
           <div class="form-group">
             <label v-once class="mb-1">{{ $t('resetStreak') }}</label>
             <select-translated-array
-              :disabled="challengeAccessRequired"
+              :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :items="['daily', 'weekly', 'monthly']"
               :value="task.frequency"
               @select="task.frequency = $event"
@@ -425,7 +435,7 @@
         </div>
         <div
           v-if="groupId"
-          class="option group-options mt-3"
+          class="option group-options mt-3 mb-3"
         >
           <div
             v-if="task.type === 'todo'"
@@ -438,7 +448,7 @@
               @select="sharedCompletion = $event"
             />
           </div>
-          <div class="form-group row">
+          <div class="form-group row mt-3 mb-3">
             <label
               v-once
               class="col-12 mb-1"
@@ -504,7 +514,7 @@
               </div>
             </div>
           </div>
-          <div class="form-group flex-group">
+          <div class="form-group flex-group mt-3 mb-3">
             <label v-once class="mb-1 flex">{{ $t('approvalRequired') }}</label>
             <toggle-switch
               class="d-inline-block"
@@ -515,7 +525,7 @@
         </div>
         <div
           v-if="advancedSettingsAvailable"
-          class="advanced-settings"
+          class="advanced-settings mb-3"
         >
           <div
             class="advanced-settings-toggle d-flex justify-content-between align-items-center"
@@ -631,10 +641,14 @@
             </div>
           </b-collapse>
         </div>
-        <div v-if="purpose !== 'create' && !challengeAccessRequired"
-             class="d-flex justify-content-center align-items-middle">
+        <div
+          v-if="purpose !== 'create'
+            && !challengeAccessRequired
+            && !groupAccessRequiredAndOnPersonalPage"
+         class="d-flex justify-content-center align-items-middle"
+        >
           <button
-            class="delete-task-btn"
+            class="delete-task-btn mb-3"
             type="button"
             @click="destroy()"
           >
@@ -706,7 +720,7 @@
       }
       transition-property: border-color, box-shadow, color, background;
       background-color: rgba(255, 255, 255, 0.5);
-      &:focus, &:active, &:hover {
+      &:focus:not(:disabled), &:active:not(:disabled), &:hover:not(:disabled) {
         background-color: rgba(255, 255, 255, 0.75);
       }
     }
@@ -810,6 +824,12 @@
       }
     }
 
+    .vdp-datepicker.disabled, .input-group-outer.disabled {
+      .input-group:hover {
+        border-color: $gray-400;
+      }
+    }
+
     .vdp-datepicker {
       .input-group-append {
         width: auto;
@@ -834,8 +854,6 @@
     }
 
     .delete-task-btn {
-      margin-top: 1.5rem;
-      margin-bottom: 1.5rem;
       height: 1.5rem;
       align-items: center;
 
@@ -892,7 +910,6 @@
     .advanced-settings {
       min-height: 3rem;
       background-color: $gray-700;
-      margin-top: 1.5rem;
       margin-left: -1.5rem;
       margin-right: -1.5rem;
 
@@ -977,7 +994,10 @@
   .habit-option {
     &-container {
       min-width: 3rem;
-      cursor: pointer;
+
+      &:not(:disabled) {
+        cursor: pointer;
+      }
 
       &:first-of-type {
         margin-right: 2rem;
@@ -1156,6 +1176,7 @@ export default {
         || this.task.type === 'todo'
         || this.purpose === 'create'
         || !this.isUserTask
+        || this.groupAccessRequiredAndOnPersonalPage
       ) {
         return false;
       }

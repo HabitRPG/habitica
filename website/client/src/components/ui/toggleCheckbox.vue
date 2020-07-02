@@ -56,17 +56,17 @@ export default {
       opacity: 0.75;
     }
 
-    &:not(.disabled):not(:disabled) {
-      &.checked {
-        border-color: $purple-100;
-        background-color: $purple-300;
-        color: $white;
+    &.checked {
+      border-color: $purple-100;
+      background-color: $purple-300;
+      color: $white;
 
-        &:active {
-          outline: 0;
-        }
+      &:active {
+        outline: 0;
       }
+    }
 
+    &:not(.disabled):not(:disabled) {
       &:not(.checked) {
         &:hover {
           border-color: $gray-300;

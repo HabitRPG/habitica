@@ -19,25 +19,25 @@
         <span
           class="grippy"
           v-html="icons.grip"
-          v-if="!disabled"
+          v-if="!disabled && !disableDrag"
         >
         </span>
 
         <checkbox :checked.sync="item.completed"
-                  :disabled="disabled"
+                  :disabled="disabled || disableItems"
                   class="input-group-prepend"
-                  :class="{'cursor-auto': disabled}"
+                  :class="{'cursor-auto': disabled || disableItems}"
                   :id="`checklist-${item.id}`"/>
 
         <input
           v-model="item.text"
           class="inline-edit-input checklist-item form-control"
           type="text"
-          :disabled="disabled"
+          :disabled="disabled || disableItems"
         >
         <span
           class="input-group-append"
-          v-if="!disabled"
+          v-if="!disabled && !disableItems"
           @click="removeChecklistItem($index)"
         >
           <div v-once
@@ -50,7 +50,7 @@
     </draggable>
     <div
       class="inline-edit-input-group checklist-group input-group new-checklist"
-      v-if="!disabled"
+      v-if="!disabled && !disableItems"
     >
       <span class="input-group-prepend new-icon"
             v-once
@@ -102,6 +102,12 @@ export default {
   },
   props: {
     disabled: {
+      type: Boolean,
+    },
+    disableDrag: {
+      type: Boolean,
+    },
+    disableItems: {
       type: Boolean,
     },
     items: {

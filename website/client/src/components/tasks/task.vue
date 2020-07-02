@@ -2,7 +2,11 @@
   <div class="task-wrapper">
     <div
       class="task"
-      :class="[{'groupTask': task.group.id}, `type_${task.type}`]"
+      :class="[{
+        'groupTask': task.group.id,
+        'task-not-editable': !teamManagerAccess},
+        `type_${task.type}`
+      ]"
       @click="castEnd($event, task)"
     >
       <approval-header
@@ -79,7 +83,7 @@
         <!-- Task title, description and icons-->
         <div
           class="task-content"
-          :class="contentClass"
+          :class="[{'cursor-auto': !teamManagerAccess}, contentClass]"
         >
           <div
             class="task-clickable-area"
@@ -373,7 +377,7 @@
   }
 
   .cursor-auto {
-    cursor: auto;
+    cursor: auto !important;
   }
 
   .task {
@@ -383,7 +387,7 @@
     border-radius: 2px;
     position: relative;
 
-    &:hover {
+    &:hover:not(.task-not-editable) {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
       z-index: 11;
     }
@@ -398,8 +402,7 @@
   }
 
   .task.groupTask {
-
-    &:hover {
+    &:hover:not(.task-not-editable) {
       border: $purple-400 solid 1px;
       border-radius: 3px;
       margin: -1px; // to counter the border width
@@ -973,6 +976,10 @@ export default {
     },
     showOptions () {
       return this.showEdit || this.showDelete || this.isUser;
+    },
+    teamManagerAccess () {
+      if (!this.isGroupTask || !this.group) return true;
+      return (this.group.leader._id === this.user._id || this.group.managers[this.user._id]);
     },
   },
   methods: {

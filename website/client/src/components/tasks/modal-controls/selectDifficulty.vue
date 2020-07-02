@@ -3,6 +3,7 @@
     <select-list :items="items"
                  :key-prop="'icon'"
                  class="difficulty-select"
+                 :disabled="disabled"
                  :value="selected"
                  @select="$emit('select', $event.value)">
       <template v-slot:item="{ item, button }">
@@ -75,6 +76,10 @@
     // restyle the selected item
     .dropdown-toggle {
 
+      &.disabled {
+        box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+      }
+
       .label {
         flex: 0;
       }
@@ -144,6 +149,9 @@ export default {
     };
   },
   props: {
+    disabled: {
+      type: Boolean,
+    },
     value: {
       type: Number,
     },

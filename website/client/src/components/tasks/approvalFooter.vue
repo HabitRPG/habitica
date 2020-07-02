@@ -2,7 +2,7 @@
   <div>
     <approval-modal :task="task" />
     <div
-      v-if="!approvalRequested && !multipleApprovalsRequested"
+      v-if="!approvalRequested && !multipleApprovalsRequested || !userIsManager"
       class="claim-bottom-message d-flex align-items-center"
     >
       <div
@@ -19,7 +19,7 @@
         >{{ $t('claim') }}</a>
       </div>
       <div
-        v-if="userIsAssigned"
+        v-if="userIsAssigned && !approvalRequested"
         class="ml-auto mr-2"
       >
         <a
