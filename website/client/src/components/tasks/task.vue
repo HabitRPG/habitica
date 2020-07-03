@@ -58,7 +58,6 @@
             class="task-control daily-todo-control"
             :class="controlClass.inner"
             tabindex="0"
-            role="checkbox"
             @click="isUser ? score(task.completed ? 'down' : 'up') : null"
             @keypress.enter="isUser ? score(task.completed ? 'down' : 'up') : null"
           >
@@ -116,9 +115,7 @@
                     tabindex="0"
                     @keypress.enter="edit($event, task)"
                   >
-                    <span
-                      class="dropdown-icon-item"
-                    >
+                    <span class="dropdown-icon-item">
                       <span
                         class="svg-icon inline edit-icon"
                         v-html="icons.edit"
@@ -133,9 +130,7 @@
                     tabindex="0"
                     @keypress.enter="moveToTop"
                   >
-                    <span
-                      class="dropdown-icon-item"
-                    >
+                    <span class="dropdown-icon-item">
                       <span
                         class="svg-icon inline push-to-top"
                         v-html="icons.top"
@@ -150,9 +145,7 @@
                     tabindex="0"
                     @keypress.enter="moveToBottom"
                   >
-                    <span
-                      class="dropdown-icon-item"
-                    >
+                    <span class="dropdown-icon-item">
                       <span
                         class="svg-icon inline push-to-bottom"
                         v-html="icons.bottom"
@@ -167,9 +160,7 @@
                     tabindex="0"
                     @keypress.enter="destroy"
                   >
-                    <span
-                      class="dropdown-icon-item delete-task-item"
-                    >
+                    <span class="dropdown-icon-item delete-task-item">
                       <span
                         class="svg-icon inline delete"
                         v-html="icons.delete"
