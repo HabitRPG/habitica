@@ -28,6 +28,8 @@
           class="filter small-text"
           :class="{active: activeFilter.label === filter}"
           @click="activateFilter(type, filter)"
+          @keypress.enter="activateFilter(type, filter)"
+          tabindex="0"
         >
           {{ $t(filter) }}
         </div>

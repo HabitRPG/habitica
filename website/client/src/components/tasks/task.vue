@@ -30,6 +30,8 @@
               'habit-control-positive-disabled': !task.up && isUser,
             }, controlClass.up.inner]"
             @click="(isUser && task.up) ? score('up') : null"
+            @keypress.enter="(isUser && task.up) ? score('up') : null"
+            tabindex="0"
           >
             <div
               v-if="!isUser"
@@ -55,7 +57,10 @@
           <div
             class="task-control daily-todo-control"
             :class="controlClass.inner"
+            tabindex="0"
+            role="checkbox"
             @click="isUser ? score(task.completed ? 'down' : 'up') : null"
+            @keypress.enter="isUser ? score(task.completed ? 'down' : 'up') : null"
           >
             <div
               v-if="!isUser"
@@ -80,6 +85,8 @@
             class="task-clickable-area"
             :class="{'task-clickable-area-user': isUser}"
             @click="edit($event, task)"
+            @keypress.enter="edit($event, task)"
+            tabindex="0"
           >
             <div class="d-flex justify-content-between">
               <h3
@@ -91,6 +98,7 @@
                 v-if="!isRunningYesterdailies && showOptions"
                 ref="taskDropdown"
                 v-b-tooltip.hover.top="$t('options')"
+                tabindex="0"
                 class="task-dropdown"
                 :right="task.type === 'reward'"
               >
@@ -105,8 +113,12 @@
                     v-if="showEdit"
                     ref="editTaskItem"
                     class="dropdown-item edit-task-item"
+                    tabindex="0"
+                    @keypress.enter="edit($event, task)"
                   >
-                    <span class="dropdown-icon-item">
+                    <span
+                      class="dropdown-icon-item"
+                    >
                       <span
                         class="svg-icon inline edit-icon"
                         v-html="icons.edit"
@@ -118,8 +130,12 @@
                     v-if="isUser"
                     class="dropdown-item"
                     @click="moveToTop"
+                    tabindex="0"
+                    @keypress.enter="moveToTop"
                   >
-                    <span class="dropdown-icon-item">
+                    <span
+                      class="dropdown-icon-item"
+                    >
                       <span
                         class="svg-icon inline push-to-top"
                         v-html="icons.top"
@@ -131,8 +147,12 @@
                     v-if="isUser"
                     class="dropdown-item"
                     @click="moveToBottom"
+                    tabindex="0"
+                    @keypress.enter="moveToBottom"
                   >
-                    <span class="dropdown-icon-item">
+                    <span
+                      class="dropdown-icon-item"
+                    >
                       <span
                         class="svg-icon inline push-to-bottom"
                         v-html="icons.bottom"
@@ -144,8 +164,12 @@
                     v-if="showDelete"
                     class="dropdown-item"
                     @click="destroy"
+                    tabindex="0"
+                    @keypress.enter="destroy"
                   >
-                    <span class="dropdown-icon-item delete-task-item">
+                    <span
+                      class="dropdown-icon-item delete-task-item"
+                    >
                       <span
                         class="svg-icon inline delete"
                         v-html="icons.delete"
@@ -173,7 +197,9 @@
                   ? 'expand': 'collapse'}Checklist`)"
                 class="collapse-checklist d-flex align-items-center expand-toggle"
                 :class="{open: !task.collapseChecklist}"
+                tabindex="0"
                 @click="collapseChecklist(task)"
+                @keypress.enter="collapseChecklist(task)"
               >
                 <div
                   class="svg-icon"
@@ -194,10 +220,12 @@
               <input
                 :id="`checklist-${item.id}-${random}`"
                 class="custom-control-input"
+                tabindex="0"
                 type="checkbox"
                 :checked="item.completed"
                 :disabled="castingSpell || !isUser"
                 @change="toggleChecklistItem(item)"
+                @keypress.enter="toggleChecklistItem(item)"
               >
               <label
                 v-markdown="item.text"
@@ -314,6 +342,8 @@
               'habit-control-negative-disabled': !task.down && isUser,
             }, controlClass.down.inner]"
             @click="(isUser && task.down) ? score('down') : null"
+            @keypress.enter="(isUser && task.down) ? score('down') : null"
+            tabindex="0"
           >
             <div
               v-if="!isUser"
@@ -378,14 +408,16 @@
     border-radius: 2px;
     position: relative;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
       z-index: 11;
     }
   }
 
   .task:not(.groupTask) {
-    &:hover {
+    &:hover,
+    &:focus-within {
       .left-control, .right-control, .task-content {
         border-color: $purple-400;
       }
@@ -394,7 +426,8 @@
 
   .task.groupTask {
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       border: $purple-400 solid 1px;
       border-radius: 3px;
       margin: -1px; // to counter the border width
@@ -466,6 +499,10 @@
     opacity: 1;
   }
 
+  .task:focus-within ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+    opacity: 1;
+  }
+
   .task-clickable-area ::v-deep .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
     opacity: 1;
 
@@ -475,6 +512,10 @@
   }
 
   .task-clickable-area ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle:hover .svg-icon {
+    color: $purple-400 !important;
+  }
+
+  .task-clickable-area ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle:focus-within .svg-icon {
     color: $purple-400 !important;
   }
 
@@ -491,7 +532,8 @@
         transition: none;
       }
 
-      &:hover {
+      &:hover,
+      &:focus {
         color: $purple-300;
 
         .svg-icon.push-to-top, .svg-icon.push-to-bottom {
@@ -983,7 +1025,6 @@ export default {
     },
     edit (e, task) {
       if (this.isRunningYesterdailies || !this.showEdit) return;
-
       const target = e.target || e.srcElement;
 
       /*
