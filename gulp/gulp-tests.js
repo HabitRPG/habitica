@@ -6,6 +6,10 @@ import nconf from 'nconf';
 import {
   pipe,
 } from './taskHelper';
+import {
+  getDevelopmentConnectionUrl,
+  getDefaultConnectionOptions,
+} from '../website/server/libs/mongodb';
 
 // TODO rewrite
 
@@ -44,7 +48,10 @@ gulp.task('test:nodemon', gulp.series(done => {
 }, 'nodemon'));
 
 gulp.task('test:prepare:mongo', cb => {
-  mongoose.connect(TEST_DB_URI, err => {
+  const mongooseOptions = getDefaultConnectionOptions();
+  const connectionUrl = getDevelopmentConnectionUrl(TEST_DB_URI);
+
+  mongoose.connect(connectionUrl, mongooseOptions, err => {
     if (err) return cb(`Unable to connect to mongo database. Are you sure it's running? \n\n${err}`);
     return mongoose.connection.dropDatabase(err2 => {
       if (err2) return cb(err2);
