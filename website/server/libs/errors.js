@@ -54,7 +54,6 @@ export const { NotFound } = common.errors;
  */
 export const { Forbidden } = common.errors;
 
-
 /**
  * @apiDefine NotificationNotFound
  * @apiError NotificationNotFound The notification was not found.

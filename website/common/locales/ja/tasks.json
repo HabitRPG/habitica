@@ -211,5 +211,7 @@
     "sessionOutdated": "セッションが古くなっています。ページを更新するか、syncボタンを押して下さい。",
     "errorTemporaryItem": "これは一時的なアイテムなので、ピン留めすることはできません。",
     "addNotes": "メモを入力する",
-    "addATitle": "タイトルを入力する"
+    "addATitle": "タイトルを入力する",
+    "sureDeleteType": "本当にこの <%= type %>を削除してもいいですか？",
+    "deleteTaskType": "<%= type %>を削除する"
 }

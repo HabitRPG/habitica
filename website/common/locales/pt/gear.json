@@ -1757,5 +1757,12 @@
     "weaponSpecialSpring2019RogueText": "Raio",
     "weaponSpecialKS2019Notes": "Curvada como o bico e garras de um grifo, essa alabarda ornamentada te motiva a superar uma tarefa intimidadora a frente. Aumenta a Força em <%= str %>.",
     "weaponSpecialKS2019Text": "Gládio de Grifo Mítico",
-    "weaponSpecialSpring2019HealerText": "Música da Primavera"
+    "weaponSpecialSpring2019HealerText": "Música da Primavera",
+    "weaponSpecialSummer2019HealerNotes": "As bolhas desta varinha captura energia curativa e mágica oceânica antiga. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada do Verão de 2019.",
+    "weaponSpecialSummer2019HealerText": "Varinha de Bolhas",
+    "weaponSpecialSummer2019MageNotes": "Fruto do seu trabalho, colhido do lago, este pequeno tesouro empodera e inspira. Aumenta a Inteligência em <%= int %>. Equipamento de Edição Limitada do Verão de 2019.",
+    "weaponSpecialSummer2019MageText": "Floração Brilhante",
+    "weaponSpecialSummer2019WarriorText": "Coral Vermelho",
+    "weaponSpecialSummer2019RogueText": "Âncora Antiga",
+    "weaponSpecialSpring2019MageNotes": "Há um mosquito embebido na gema na ponta deste cajado! Pode ou não incluir DNA de dinossauro. Aumenta a Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada da Primavera de 2019."
 }

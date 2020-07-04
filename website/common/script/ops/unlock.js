@@ -114,7 +114,6 @@ function getSet (setType, firstPath, req) {
       paths: mustachePaths,
     } = getItemsAndPathsForSet(set, mustache, mustachePrefix);
 
-
     const { beard } = content.appearances.hair;
     const beardPrefix = 'hair.beard';
 

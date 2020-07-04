@@ -45,5 +45,4 @@ schema.statics.cleanupCorruptData = function cleanupCorruptPushDevicesData (push
   return filteredPushDevices;
 };
 
-
 export const model = mongoose.model('PushDevice', schema);

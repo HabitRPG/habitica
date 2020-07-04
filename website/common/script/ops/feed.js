@@ -52,7 +52,6 @@ export default function feed (user, req = {}, analytics) {
     throw new NotFound(errorMessage('invalidFoodName', req.language));
   }
 
-
   if (!user.items.pets[pet.key]) {
     throw new NotFound(i18n.t('messagePetNotFound', req.language));
   }

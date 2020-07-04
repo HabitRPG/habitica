@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "Bocht <%= itemText %>",
-    "messageEquipped": "<%= itemText %> reikit.",
+    "messageEquipped": " <%= itemText %> reikit.",
     "messageUnEquipped": "<%= itemText %> unreikit.",
     "messageMissingEggPotion": "Ye're amissin aither that egg or that potion",
     "messageInvalidEggPotionCombo": "Ye canna cleck Quest Pet Egga wi Magic cleckin potions! Try a different egg.",

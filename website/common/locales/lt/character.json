@@ -84,7 +84,7 @@
     "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/user/settings/site' target='_blank'>the Settings &gt; Site page</a> and buy your new class's gear!",
     "armoireUnlocked": "<strong>Užburtoje Drabužinėje</strong> rasi dar įrangos! Paspaudus ant Užburtos Drabužinės tarp Atlygių, gali gauti ypatingos Aprangos! Taip pat gali gauti patirties ir augintinių maisto. ",
     "ultimGearName": "Geriausi Įrankiai - <%= ultClass %>",
-    "ultimGearText": " Surinko geriausius ginklus ir šarvų rinkinius šiai klasei: <%= ultClass %>. ",
+    "ultimGearText": "Surinko geriausius ginklus ir šarvų rinkinius šiai klasei: <%= ultClass %>.",
     "level": "Lygis",
     "levelUp": "Pakilo lygis!",
     "gainedLevel": "Tavo lygis pakilo!",

@@ -211,5 +211,7 @@
     "sessionOutdated": "Deine Sitzung ist abgelaufen. Bitte lade oder synchronisiere die Seite neu.",
     "errorTemporaryItem": "Dieser Gegenstand ist nur temporär verfügbar und kann nicht gepinnt werden.",
     "addNotes": "Notizen hinzufügen",
-    "addATitle": "Überschrift hinzufügen"
+    "addATitle": "Überschrift hinzufügen",
+    "sureDeleteType": "Möchtest Du diese <%= type %> wirklich löschen?",
+    "deleteTaskType": "Diese <%= type %> löschen"
 }

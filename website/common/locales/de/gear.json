@@ -2123,5 +2123,7 @@
     "headSpecialSummer2020RogueText": "Krokodilhelm",
     "armorSpecialSummer2020MageText": "Riemenfisch",
     "armorSpecialSummer2020WarriorText": "Regenbogenforellenschwanz",
-    "armorSpecialSummer2020RogueNotes": "Ein Krokodil ist ein geborener Schurke, so wie es auf den perfekten Moment wartet, um zuzuschlagen. Leihe Dir ihre Fähigkeiten - und ihre explosive Geschwindigkeit. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Sommerausrüstung."
+    "armorSpecialSummer2020RogueNotes": "Ein Krokodil ist ein geborener Schurke, so wie es auf den perfekten Moment wartet, um zuzuschlagen. Leihe Dir ihre Fähigkeiten - und ihre explosive Geschwindigkeit. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Sommerausrüstung.",
+    "headMystery202007Text": "Spektakulärer Schwertwalhelm",
+    "armorMystery202007Text": "Spektakuläres Schwertwalkostüm"
 }

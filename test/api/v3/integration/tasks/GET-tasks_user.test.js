@@ -179,7 +179,6 @@ describe('GET /tasks/user', () => {
     expect(dailys2[0].isDue).to.be.false;
   });
 
-
   xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
     const timezone = 240;
     await user.update({

@@ -4,7 +4,6 @@ function clearDebuffPotion (user) {
   return user.pinnedItems.filter(item => item.type !== 'debuffPotion');
 }
 
-
 export default function setDebuffPotionItems (user) {
   user.pinnedItems = clearDebuffPotion(user);
 

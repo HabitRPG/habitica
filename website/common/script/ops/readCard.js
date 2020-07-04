@@ -23,7 +23,6 @@ function markNotificationAsRead (user, cardType) {
   if (indexToRemove !== -1) user.notifications.splice(indexToRemove, 1);
 }
 
-
 export default function readCard (user, req = {}) {
   const cardType = get(req.params, 'cardType');
 

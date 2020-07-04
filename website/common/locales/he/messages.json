@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "קנית <%= itemText %>",
-    "messageEquipped": "הצטיידת ב<%= itemText %>",
+    "messageEquipped": " הצטיידת ב<%= itemText %>",
     "messageUnEquipped": "<%= itemText %> לא מצוייד.",
     "messageMissingEggPotion": "חסרה לך הביצה או התרופה הזו",
     "messageInvalidEggPotionCombo": "לא תוכלו להבקיע ביצים של חיות מחמד באמצעות שיקויים קסומים! נסו ביצים אחרות.",
