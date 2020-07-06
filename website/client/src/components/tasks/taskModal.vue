@@ -34,14 +34,14 @@
             @click="submit()"
           >
             <div
-              class="m-auto"
               v-if="purpose === 'edit'"
+              class="m-auto"
             >
               {{ $t('save') }}
             </div>
             <div
-              class="m-auto"
               v-if="purpose === 'create'"
+              class="m-auto"
             >
               {{ $t('create') }}
             </div>
@@ -135,8 +135,8 @@
           <div
             class="habit-option-container no-transition
               d-flex flex-column justify-content-center align-items-center"
-            @click="toggleUpDirection()"
             :class="!task.up ? cssClass('habit-control-disabled') : ''"
+            @click="toggleUpDirection()"
           >
             <div
               class="habit-option-button no-transition
@@ -159,8 +159,8 @@
           <div
             class="habit-option-container no-transition
               d-flex flex-column justify-content-center align-items-center"
-            @click="toggleDownDirection()"
             :class="!task.down ? cssClass('habit-control-disabled') : ''"
+            @click="toggleDownDirection()"
           >
             <div
               class="habit-option-button no-transition

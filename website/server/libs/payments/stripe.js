@@ -240,5 +240,4 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {
   }
 };
 
-
 export default api;

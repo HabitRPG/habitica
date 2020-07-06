@@ -1,9 +1,10 @@
 import express from 'express';
 import { v4 as uuid } from 'uuid';
 import bodyParser from 'body-parser';
+import http from 'http';
 
 const app = express();
-const server = require('http').createServer(app);
+const server = http.createServer(app);
 
 const PORT = process.env.TEST_WEBHOOK_APP_PORT || 3099; // eslint-disable-line no-process-env
 

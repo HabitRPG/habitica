@@ -2,6 +2,10 @@
   "name": "Habitica V3 API Documentation",
   "title": "Habitica",
   "url": "https://habitica.com",
+  "header": {
+    "title": "Introduction",
+    "filename": "apidoc/header.md"
+  },
   "template": {
     "withCompare": false
   }

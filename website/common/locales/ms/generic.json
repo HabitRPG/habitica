@@ -46,7 +46,7 @@
     "markdownImageEx": "![mandatory alt text](https://habitica.com/cake.png \"optional mouseover title\")",
     "unorderedListHTML": "+ Barang Pertama<br>+ Barang Kedua<br>+ Barang Ketiga",
     "unorderedListMarkdown": "+ First item\n+ Second item\n+ Third item",
-    "code": " `kod`",
+    "code": "`kod`",
     "achievements": "Pencapaian",
     "basicAchievs": "Basic Achievements",
     "seasonalAchievs": "Seasonal Achievements",

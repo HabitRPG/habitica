@@ -398,7 +398,6 @@ shops.getTimeTravelersCategories = function getTimeTravelersCategories (user, la
   return categories;
 };
 
-
 /* Seasonal */
 
 const flatGearArray = toArray(content.gear.flat);

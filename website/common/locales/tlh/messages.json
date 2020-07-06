@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "<%= itemText %> je'ta'",
-    "messageEquipped": "<%= itemText %> yanchoHta'.",
+    "messageEquipped": " <%= itemText %> yanchoHta'.",
     "messageUnEquipped": "<%= itemText %> unequipped.",
     "messageMissingEggPotion": "QInvetlh taSvetlh ghap DaHutlh",
     "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",

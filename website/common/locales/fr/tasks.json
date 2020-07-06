@@ -211,5 +211,7 @@
     "sessionOutdated": "Votre session a expiré. Veuillez actualiser la page ou la synchroniser.",
     "errorTemporaryItem": "Cet objet est temporaire et ne peut pas être épinglé.",
     "addATitle": "Ajouter un titre",
-    "addNotes": "Ajouter une note"
+    "addNotes": "Ajouter une note",
+    "sureDeleteType": "Voulez-vous vraiment supprimer cette <%= type %> ?",
+    "deleteTaskType": "Supprimer cette <%= type %>"
 }

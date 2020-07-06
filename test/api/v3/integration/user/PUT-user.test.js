@@ -4,7 +4,6 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-
 describe('PUT /user', () => {
   let user;
 
@@ -52,7 +51,6 @@ describe('PUT /user', () => {
 
       expect(user.tags.length).to.be.eql(userTags.length + 1);
     });
-
 
     it('validates profile.name', async () => {
       await expect(user.put('/user', {

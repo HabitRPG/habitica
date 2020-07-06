@@ -1,6 +1,9 @@
 <template>
   <div class="checklist-component">
-    <label v-once class="mb-1">{{ $t('checklist') }}</label>
+    <label
+      v-once
+      class="mb-1"
+    >{{ $t('checklist') }}</label>
     <br>
     <draggable
       v-model="checklist"
@@ -17,17 +20,19 @@
         class="inline-edit-input-group checklist-group input-group"
       >
         <span
+          v-if="!disabled"
           class="grippy"
           v-html="icons.grip"
-          v-if="!disabled"
         >
         </span>
 
-        <checkbox :checked.sync="item.completed"
-                  :disabled="disabled"
-                  class="input-group-prepend"
-                  :class="{'cursor-auto': disabled}"
-                  :id="`checklist-${item.id}`"/>
+        <checkbox
+          :id="`checklist-${item.id}`"
+          :checked.sync="item.completed"
+          :disabled="disabled"
+          class="input-group-prepend"
+          :class="{'cursor-auto': disabled}"
+        />
 
         <input
           v-model="item.text"
@@ -36,25 +41,28 @@
           :disabled="disabled"
         >
         <span
-          class="input-group-append"
           v-if="!disabled"
+          class="input-group-append"
           @click="removeChecklistItem($index)"
         >
-          <div v-once
-               class="svg-icon destroy-icon"
-               v-html="icons.destroy"
+          <div
+            v-once
+            class="svg-icon destroy-icon"
+            v-html="icons.destroy"
           >
           </div>
         </span>
       </div>
     </draggable>
     <div
-      class="inline-edit-input-group checklist-group input-group new-checklist"
       v-if="!disabled"
+      class="inline-edit-input-group checklist-group input-group new-checklist"
     >
-      <span class="input-group-prepend new-icon"
-            v-once
-            v-html="icons.positive">
+      <span
+        v-once
+        class="input-group-prepend new-icon"
+        v-html="icons.positive"
+      >
       </span>
 
       <input
@@ -82,11 +90,19 @@ import gripIcon from '@/assets/svg/grip.svg';
 import checkbox from '@/components/ui/checkbox';
 
 export default {
+  name: 'Checklist',
   components: {
     draggable,
     checkbox,
   },
-  name: 'checklist',
+  props: {
+    disabled: {
+      type: Boolean,
+    },
+    items: {
+      type: Array,
+    },
+  },
   data () {
     return {
       checklist: this.items,
@@ -99,14 +115,6 @@ export default {
         grip: gripIcon,
       }),
     };
-  },
-  props: {
-    disabled: {
-      type: Boolean,
-    },
-    items: {
-      type: Array,
-    },
   },
   methods: {
     updateChecklist () {

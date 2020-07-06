@@ -7,7 +7,6 @@ import amzLib from '../../../../../../website/server/libs/payments/amazon';
 import payments from '../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../website/common';
 
-
 describe('#upgradeGroupPlan', () => {
   let spy; let data; let user; let group; let
     uuidString;

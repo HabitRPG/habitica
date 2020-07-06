@@ -227,7 +227,6 @@
               :popover-position="'top'"
               :show-popover="true"
               @click="selectMount(item)"
-
             >
               <span slot="popoverContent">
                 <h4 class="popover-content-title">{{ item.name }}</h4>
