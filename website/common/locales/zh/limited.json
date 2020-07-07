@@ -183,5 +183,6 @@
     "summer2020CrocodileRogueSet": "鳄鱼（盗贼）",
     "summer2020RainbowTroutWarriorSet": "虹鳟鱼（战士）",
     "summer2020OarfishMageSet": "皇带鱼（法师）",
-    "summer2020SeaGlassHealerSet": "海玻璃（医师）"
+    "summer2020SeaGlassHealerSet": "海玻璃（医师）",
+    "juneYYYY": "6月<%= year %>"
 }

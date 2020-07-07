@@ -117,7 +117,7 @@
     "giftedGemsFull": "Привет <%= username %>, <%= sender %> отправил вам <%= gemAmount %> самоцветов!",
     "giftedSubscription": "Подписка в подарок",
     "giftedSubscriptionInfo": "<%= name %> дарит вам <%= months %>-мес. подписку",
-    "giftedSubscriptionFull": "Привет <%= username %>, <%= sender %> подарил вам <%= monthCount %>-мес. подписку!",
+    "giftedSubscriptionFull": "Привет <%= username %>, <%= sender %> подарил(а) вам <%= monthCount %>-мес. подписку!",
     "giftedSubscriptionWinterPromo": "Здравствуйте, <%= username %>, вы получили <%= monthCount %> мес. подписки!",
     "invitedParty": "Вы были приглашены в команду",
     "invitedGuild": "Вы были приглашены в гильдию",

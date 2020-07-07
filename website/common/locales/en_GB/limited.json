@@ -183,5 +183,6 @@
     "summer2020CrocodileRogueSet": "Crocodile (Rogue)",
     "summer2020SeaGlassHealerSet": "Sea Glass (Healer)",
     "summer2020OarfishMageSet": "Oarfish (Mage)",
-    "summer2020RainbowTroutWarriorSet": "Rainbow Trout (Warrior)"
+    "summer2020RainbowTroutWarriorSet": "Rainbow Trout (Warrior)",
+    "juneYYYY": "June <%= year %>"
 }
