@@ -4,7 +4,7 @@ import {
   createAndPopulateGroup,
 } from '../../../../../helpers/api-integration/v3';
 
-describe('Groups DELETE /tasks/:id', () => {
+describe.only('Groups DELETE /tasks/:id', () => {
   let user; let guild; let member; let member2; let
     task;
 
@@ -96,16 +96,16 @@ describe('Groups DELETE /tasks/:id', () => {
     expect(member2.notifications.length).to.equal(1);
   });
 
-  it('unlinks assigned user', async () => {
+  it('deletes task from assigned user', async () => {
     await user.del(`/tasks/${task._id}`);
 
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
 
-    expect(syncedTask.group.broken).to.equal('TASK_DELETED');
+    expect(syncedTask).to.not.exist;
   });
 
-  it('unlinks all assigned users', async () => {
+  it('deletes task from all assigned users', async () => {
     await user.del(`/tasks/${task._id}`);
 
     const memberTasks = await member.get('/tasks/user');
@@ -114,8 +114,8 @@ describe('Groups DELETE /tasks/:id', () => {
     const member2Tasks = await member2.get('/tasks/user');
     const member2SyncedTask = find(member2Tasks, findAssignedTask);
 
-    expect(syncedTask.group.broken).to.equal('TASK_DELETED');
-    expect(member2SyncedTask.group.broken).to.equal('TASK_DELETED');
+    expect(syncedTask).to.not.exist;
+    expect(member2SyncedTask).to.not.exist;
   });
 
   it('prevents a user from deleting a task they are assigned to', async () => {
@@ -127,22 +127,6 @@ describe('Groups DELETE /tasks/:id', () => {
         code: 401,
         error: 'NotAuthorized',
         message: t('cantDeleteAssignedGroupTasks'),
-      });
-  });
-
-  it('allows a user to delete a broken task', async () => {
-    const memberTasks = await member.get('/tasks/user');
-    const syncedTask = find(memberTasks, findAssignedTask);
-
-    await user.del(`/tasks/${task._id}`);
-
-    await member.del(`/tasks/${syncedTask._id}`);
-
-    await expect(member.get(`/tasks/${syncedTask._id}`))
-      .to.eventually.be.rejected.and.eql({
-        code: 404,
-        error: 'NotFound',
-        message: 'Task not found.',
       });
   });
 
