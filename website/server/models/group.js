@@ -1640,7 +1640,7 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   }, { userId: 1, _id: 1 }).exec();
 
   userTasks.forEach(async userTask => {
-    const assignedUser = await User.findOne({ _id: userTask.userId }, 'notifications').exec();
+    const assignedUser = await User.findOne({ _id: userTask.userId }, 'notifications tasksOrder').exec();
 
     let notificationIndex = assignedUser.notifications.findIndex(notification => notification
       && notification.type === 'GROUP_TASK_ASSIGNED'
@@ -1669,6 +1669,7 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
     }
 
     await Tasks.Task.remove({ _id: userTask._id });
+    removeFromArray(assignedUser.tasksOrder[`${task.type}s`], userTask._id);
     removalPromises.push(assignedUser.save());
   });
 
