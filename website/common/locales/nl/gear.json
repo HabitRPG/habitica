@@ -2079,5 +2079,15 @@
     "shieldSpecialSpring2019HealerNotes": "Dit heldere schild is eigenlijk gemaakt van met snoep beklede chocolade. Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019 Lenteuitrusting.",
     "shieldSpecialSpring2019HealerText": "Eierdop Schild",
     "shieldSpecialSpring2019WarriorNotes": "Laat de kracht van chlorofyl je vijanden op afstand houden! Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019 Lenteuitrusting.",
-    "shieldSpecialSpring2019WarriorText": "Bladerrijk Schild"
+    "shieldSpecialSpring2019WarriorText": "Bladerrijk Schild",
+    "shieldMystery201902Text": "Cryptische Confetti",
+    "shieldSpecialSummer2020HealerNotes": "Zoals de beweging van zand en water afval in een schat verandert, zo zullen jouw magie wonden in kracht veranderen. Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2020 Zomeruitrusting.",
+    "shieldSpecialSummer2020HealerText": "Getuimelde Glas Bescherming",
+    "shieldSpecialSummer2020WarriorNotes": "Deze vis die je ooit hebt gevangen was ZO GROOT, een enkele schaal was genoeg om een machtig schild te mee maken! Waargebeurd verhaal! Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2020 Zomeruitrusting.",
+    "shieldSpecialSummer2020WarriorText": "Reusachtige Forel Schub",
+    "shieldSpecialSpring2020HealerNotes": "Weer die muffe oude taken af met dit lekker ruikende schild. Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2020 Lenteuitrusting.",
+    "shieldSpecialSpring2020HealerText": "Geparfumeerd Schild",
+    "shieldSpecialSpring2020WarriorNotes": "Laat u niet misleiden door de delicate kleuren. Dit schild heeft jou gedekt! Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2020 Lenteuitrusting.",
+    "shieldSpecialSpring2020WarriorText": "Iriserend Schild",
+    "shieldSpecialWinter2020HealerNotes": "Voel je dat je te goed bent voor deze wereld, te puur? Alleen deze schoonheid van een specerij is voldoende. Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019-2020 Winteruitrusting."
 }

@@ -29,7 +29,6 @@ describe('shared.ops.reset', () => {
     tasksToRemove = [habit, todo, daily, reward];
   });
 
-
   it('resets a user', () => {
     const [, message] = reset(user);
 

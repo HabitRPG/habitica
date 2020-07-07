@@ -1846,5 +1846,15 @@
     "weaponSpecialFall2019WarriorText": "鉤爪の三叉槍",
     "weaponSpecialFall2019RogueNotes": "あなたがオーケストラを指揮しようとアリアを歌おうと、この道具はドラマチックなジェスチャーのために両手を空にしておけます！力が<%= str %>上がります。2019年秋の限定装備。",
     "weaponSpecialFall2019MageNotes": "雷を鍛造したり、要塞を建てたり、あるいはシンプルに死の恐怖に恐れおののかせたりと、この杖は巨人が行う奇跡の力をあなたに貸します。知能が<%= int %>、知覚が<%= per %>上がります。2019年秋の限定装備。",
-    "weaponSpecialFall2019HealerText": "恐ろしい守り札"
+    "weaponSpecialFall2019HealerText": "恐ろしい守り札",
+    "weaponArmoireResplendentRapierNotes": "この鋭くとがった武器であなたの剣技を見せつけてください。知覚が<%= per %>上がります。ラッキー宝箱 : 個別のアイテム。",
+    "weaponArmoireResplendentRapierText": "華麗なレイピア",
+    "weaponArmoireFloridFanNotes": "この美しい扇子は、使っていないときは折りたたみましょう。体質が<%= con %>上がります。ラッキー宝箱 : 個別のアイテム。",
+    "weaponArmoireFloridFanText": "センスのいい扇子",
+    "armorArmoireShadowMastersRobeNotes": "このなめらかな織物でできたローブはHabiticaの深い洞窟の奥の暗黒から織られました。体質が<%= con %>上がります。ラッキー宝箱：シャドウマスターセット（4個中 1 個目のアイテム）。",
+    "armorArmoireShadowMastersRobeText": "シャドウマスターのローブ",
+    "weaponArmoireLivelyMatchText": "活発なマッチ",
+    "weaponArmoireLivelyMatchNotes": "あなたがこれを持っていると、きっと誰かの好奇心に火をつけることでしょう！　力が<%= str %>上がります。ラッキー宝箱：マッチ職人セット（4個中 3個目のアイテム）。",
+    "weaponArmoireHappyBannerNotes": "この「H」はHappyのH？　HabiticaのH？　好きに選んで！　知覚が<%= per %>上がります。ラッキー宝箱：ハッピーバースデーセット（4個中 3個目のアイテム）。",
+    "weaponArmoireHappyBannerText": "ハッピーのぼり旗"
 }

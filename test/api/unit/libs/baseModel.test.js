@@ -56,7 +56,6 @@ describe('Base model plugin', () => {
     expect(sanitized).not.to.have.property('usuallySettable');
   });
 
-
   it('can make fields private', () => {
     schema.plugin(baseModel, {
       private: ['amPrivate'],

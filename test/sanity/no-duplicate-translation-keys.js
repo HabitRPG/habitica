@@ -1,5 +1,4 @@
-
-const glob = require('glob').sync;
+import { sync as glob } from 'glob';
 
 describe('Locales files', () => {
   it('do not contain duplicates of any keys', () => {

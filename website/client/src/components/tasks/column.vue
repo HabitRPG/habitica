@@ -78,9 +78,9 @@
         </div>
       </div>
       <draggable
+        v-if="taskList.length > 0"
         ref="tasksList"
         class="sortable-tasks"
-        v-if="taskList.length > 0"
         :options="{disabled: activeFilter.label === 'scheduled' || !isUser, scrollSensitivity: 64}"
         :delay-on-touch-only="true"
         :delay="100"

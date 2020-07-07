@@ -9,7 +9,7 @@
     "reachedGoldToGemCap": "Você atingiu o limite de<%= convCap %> para conversão de Ouro=>Gemas deste mês. Isto serve para prevenir abusos. O limite irá reiniciar dentro dos três primeiros dias do próximo mês.",
     "reachedGoldToGemCapQuantity": "Seu pedido de <%= quantity %> Gemas ultrapassa o limite que você pode comprar para este mês (<%= convCap %>). O limite fica disponível nos três primeiros dias de cada mês. Obrigado por assinar!",
     "retainHistory": "Guardar entradas adicionais no histórico",
-    "retainHistoryText": "Faz com que o histórico de tarefas e Afazeres completos fiquem disponíveis por mais tempo.",
+    "retainHistoryText": "Faz com que o histórico de tarefas e Afazeres concluídos fiquem disponíveis por mais tempo.",
     "doubleDrops": "Capacidade diária de drop duplicada",
     "doubleDropsText": "Complete seu estábulo mais rápido!",
     "mysteryItem": "Itens mensais exclusivos",

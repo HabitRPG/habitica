@@ -32,12 +32,10 @@
  *
  */
 
-
 // CONFIGURATION:
 // - Change the uuid below to be the user's uuid.
 // - Change ALL instances of "todos" to "habits"/"dailys"/"rewards" as
 //   needed. Do not miss any of them!
-
 
 const uuid = '30fb2640-7121-4968-ace5-f385e60ea6c5';
 

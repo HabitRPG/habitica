@@ -276,5 +276,4 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   });
 };
 
-
 export default api;
