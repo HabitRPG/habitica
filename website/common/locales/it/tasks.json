@@ -113,7 +113,7 @@
     "perfectText": "Hai completato tutte le Attività Giornaliere attive <%= count %> volte. Grazie a questa medaglia ottieni un bonus per tutte le Statistiche (pari a +livello/2) per il giorno successivo. Per i livelli superiori a 100 non c'è alcun effetto aggiuntivo oltre al bonus.",
     "perfectSingular": "Giorno Perfetto",
     "perfectSingularText": "Hai completato tutte le Attività Giornaliere attive in una giornata. Grazie a questa medaglia ottieni un bonus per tutte le Statistiche (pari a +livello/2) per il giorno successivo. Per i livelli superiori a 100 non c'è alcun effetto aggiuntivo oltre al bonus.",
-    "streakerAchievement": "Hai ottenuto la medaglia \"Perfezionista\"! I 21 giorni consecutivi sono un importante traguardo per formare abitudini. Continua ad ottenere questa medaglia per ogni altri 21 giorni addizionali, su questa Attività Giornaliera o su qualunque altra!",
+    "streakerAchievement": "Hai ottenuto la Medaglia \"Perfezionista\"! I 21 giorni consecutivi sono un importante traguardo per formare abitudini. Continua ad ottenere questa medaglia per ogni altri 21 giorni addizionali, su questa Attività Giornaliera o su qualunque altra!",
     "fortifyName": "Pozione di Fortificazione",
     "fortifyPop": "Fa tornare tutte le attività al valore neutro (colore giallo) e ripristina tutti i punti vita persi.",
     "fortify": "Fortifica",

@@ -1,8 +1,8 @@
 {
-  "noItemsAvailableForType": "Non hai <%= type %>.",
-  "foodItemType": "Cibo",
-  "eggsItemType": "Uova",
-  "hatchingPotionsItemType": "Pozioni di schiusura",
-  "specialItemType": "Oggetti speciali",
-  "lockedItem": "Oggetti bloccati"
+    "noItemsAvailableForType": "Non hai <%= type %>.",
+    "foodItemType": "Cibo",
+    "eggsItemType": "Uova",
+    "hatchingPotionsItemType": "Pozioni di Schiusa",
+    "specialItemType": "Oggetti speciali",
+    "lockedItem": "Oggetti bloccati"
 }
