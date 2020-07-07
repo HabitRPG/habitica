@@ -4,7 +4,7 @@ import {
   createAndPopulateGroup,
 } from '../../../../../helpers/api-integration/v3';
 
-describe.only('Groups DELETE /tasks/:id', () => {
+describe('Groups DELETE /tasks/:id', () => {
   let user; let guild; let member; let member2; let
     task;
 
