@@ -38,8 +38,13 @@ function evolve (user, pet, req) {
 export default function feed (user, req = {}, analytics) {
   let pet = get(req, 'params.pet');
   const foodK = get(req, 'params.food');
+  const queryAmount = get(req.query, 'amount', 1);
 
   if (!pet || !foodK) throw new BadRequest(errorMessage('missingPetFoodFeed'));
+
+  if (queryAmount < 0) {
+    throw new BadRequest(i18n.t('positiveAmountRequired', req.language));
+  }
 
   pet = content.petInfo[pet];
 
@@ -72,6 +77,7 @@ export default function feed (user, req = {}, analytics) {
 
   if (food.key === 'Saddle') {
     message = evolve(user, pet, req);
+    user.items.food[food.key] -= 1;
   } else {
     const messageParams = {
       egg: pet.text(req.language),
@@ -79,10 +85,22 @@ export default function feed (user, req = {}, analytics) {
     };
 
     if (food.target === pet.potion || pet.type === 'premium') {
-      user.items.pets[pet.key] += 5;
+      const factor = Math.min(
+        Math.ceil((50 - user.items.pets[pet.key]) / 5),
+        Math.ceil(queryAmount),
+        user.items.food[food.key],
+      );
+      user.items.pets[pet.key] += 5 * factor;
+      user.items.food[food.key] -= 1 * factor;
       message = i18n.t('messageLikesFood', messageParams, req.language);
     } else {
-      user.items.pets[pet.key] += 2;
+      const factor = Math.min(
+        Math.ceil((50 - user.items.pets[pet.key]) / 2),
+        Math.ceil(queryAmount),
+        user.items.food[food.key],
+      );
+      user.items.pets[pet.key] += 2 * factor;
+      user.items.food[food.key] -= 1 * factor;
       message = i18n.t('messageDontEnjoyFood', messageParams, req.language);
     }
 
@@ -98,7 +116,6 @@ export default function feed (user, req = {}, analytics) {
     }
   }
 
-  user.items.food[food.key] -= 1;
   if (user.markModified) user.markModified('items.food');
 
   forEach(content.animalColorAchievements, achievement => {
