@@ -1967,6 +1967,8 @@
   "shieldArmoireFiddleNotes": "A perfect instrument that always strikes the right note in company. Increases Intelligence by <%= int %>. Enchanted Armoire: Fiddler Set (Item 4 of 4).",
   "shieldArmoireLifeBuoyText": "Life Buoy",
   "shieldArmoireLifeBuoyNotes": "Oh buoy! This will come in handy if you spot someone struggling in a sea of tasks and responsibilities. Increases Constitution by <%= con %>. Enchanted Armoire: Lifeguard Set (Item 2 of 3).",
+  "shieldArmoirePiratesCompanionText": "Pirate's Companion",
+  "shieldArmoirePiratesCompanionNotes": "Perfect if you want to talk your enemies to death, this parrot never shuts up. Maybe it'll remind you about your tasks too! Increases Perception by <%= per %>. Enchanted Armoire: Pirate Set (Item 3 of 3).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
