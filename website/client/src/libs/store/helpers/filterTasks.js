@@ -15,8 +15,8 @@ const taskFilters = {
     label: 'dailies',
     filters: [
       { label: 'all', filterFn: () => true, default: true },
-      { label: 'due', filterFn: userPrefs => t => !t.completed && shouldDo(new Date(), t, userPrefs) },
-      { label: 'notDue', filterFn: userPrefs => t => t.completed || !shouldDo(new Date(), t, userPrefs) },
+      { label: 'due', filterFn: userPrefs => t => !t.completed && !(t.group && t.group.approval.requested) && shouldDo(new Date(), t, userPrefs) },
+      { label: 'notDue', filterFn: userPrefs => t => t.completed || (t.group && t.group.approval.requested) || !shouldDo(new Date(), t, userPrefs) },
     ],
   },
   todo: {

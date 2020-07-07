@@ -1305,8 +1305,8 @@ export default {
       createTag: 'tags:createTag',
     }),
     async syncTask () {
-      if (this.task && this.task.group) {
-        this.managerNotes = this.task.group.managerNotes || null;
+      if (this.task && this.task.group && this.task.group.managerNotes) {
+        this.managerNotes = this.task.group.managerNotes;
       }
       if (this.groupId && this.task.group && this.task.group.approval) {
         this.requiresApproval = this.task.group.approval.required;

@@ -1,7 +1,7 @@
 <template>
   <div class="task-wrapper">
     <div
-      class="task"
+      class="task transition"
       :class="[{
         'groupTask': task.group.id,
         'task-not-editable': !teamManagerAccess},

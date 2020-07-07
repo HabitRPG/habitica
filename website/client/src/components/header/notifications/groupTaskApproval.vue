@@ -9,7 +9,7 @@
       <div v-html="notification.data.message"></div>
       <div class="notifications-buttons">
         <div
-          class="btn btn-small btn-primary mr-2"
+          class="btn btn-small btn-success mr-2"
           @click.stop="approve()"
         >
           {{ $t('approve') }}

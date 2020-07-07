@@ -818,6 +818,16 @@ api.scoreTask = {
       }
     }
 
+    if (task.group.approval.required && task.group.approval.approved) {
+      const notificationIndex = user.notifications.findIndex(notification => notification
+         && notification.data && notification.data.task
+         && notification.data.task._id === task._id && notification.type === 'GROUP_TASK_APPROVED');
+
+      if (notificationIndex !== -1) {
+        user.notifications.splice(notificationIndex, 1);
+      }
+    }
+
     const wasCompleted = task.completed;
 
     const firstTask = !user.achievements.completedTask;

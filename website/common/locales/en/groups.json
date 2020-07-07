@@ -501,5 +501,6 @@
   "groupActivityNotificationTitle": "<%= user %> posted in <%= group %>",
   "managerNotes": "Manager's Notes",
   "assignedDateOnly": "Assigned on <strong><%= date %></strong>",
-  "assignedDateAndUser": "Assigned by <strong>@<%= username %></strong> on <strong><%= date %></strong>"
+  "assignedDateAndUser": "Assigned by <strong>@<%= username %></strong> on <strong><%= date %></strong>",
+  "claimRewards": "Claim Rewards"
 }
