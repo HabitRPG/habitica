@@ -68,7 +68,10 @@
           :placeholder="$t('addATitle')"
         >
       </div>
-      <div class="form-group mb-0">
+      <div
+        class="form-group mb-0"
+        v-if="isUserTask || isChallengeTask"
+      >
         <label
           class="d-flex align-items-center justify-content-between mb-1"
         >
@@ -181,7 +184,7 @@
           class="option mb-75"
         >
           <checklist :items.sync="task.checklist"
-                     :disableItems="groupAccessRequiredAndOnPersonalPage || !isUserTask"
+                     :disableItems="groupAccessRequiredAndOnPersonalPage"
                      :disableDrag="groupAccessRequiredAndOnPersonalPage"
           />
         </div>
