@@ -28,7 +28,6 @@ async function _evaluateAllAssignedCompletion (masterTask) {
       'group.taskId': masterTask._id,
       'group.approval.approved': true,
     }).exec();
-    completions += 1;
   } else {
     completions = await Tasks.Task.countDocuments({
       'group.taskId': masterTask._id,
