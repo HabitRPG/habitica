@@ -52,10 +52,22 @@
         </div>
       </div>
       <div class="form-group">
-        <label
-          :class="cssClassHeadings"
-          class="mb-1"
-        >{{ `${$t('text')}*` }}</label>
+        <div
+          class="d-flex"
+          :class="{'opacity-75': groupAccessRequiredAndOnPersonalPage || challengeAccessRequired}"
+        >
+          <span
+            class="svg-icon icon-10 mt-1 mr-1"
+            :class="cssClassHeadings"
+            v-html="icons.lock"
+            v-if="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+          >
+          </span>
+          <label
+            :class="cssClassHeadings"
+            class="mb-1"
+          >{{ `${$t('text')}*` }}</label>
+        </div>
         <input
           ref="inputToFocus"
           v-model="task.text"
@@ -102,7 +114,7 @@
           :class="{'opacity-75': groupAccessRequiredAndOnPersonalPage}"
         >
           <span
-            class="svg-icon icon-12 mt-1 mr-1"
+            class="svg-icon icon-10 mt-1 mr-1"
             :class="cssClassHeadings"
             v-html="icons.lock"
             v-if="groupAccessRequiredAndOnPersonalPage"
@@ -246,10 +258,18 @@
           </button>
         </div>
         <template v-if="task.type !== 'reward'">
-          <div class="d-flex align-items-center mb-1">
+          <div class="d-flex mb-1">
+            <span
+              class="svg-icon icon-10 mt-1 mr-1 opacity-75 gray-200"
+              v-html="icons.lock"
+              v-if="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+            >
+            </span>
             <label
               v-once
               class="mb-0 mr-1"
+              :class="{'opacity-75':
+                groupAccessRequiredAndOnPersonalPage || challengeAccessRequired}"
             >
               {{ $t('difficulty') }}
             </label>
@@ -259,9 +279,10 @@
               v-html="icons.information"
             ></div>
           </div>
-          <select-difficulty :value="task.priority"
-                              @select="setDifficulty($event)"
-                              :disabled="groupAccessRequiredAndOnPersonalPage"
+          <select-difficulty
+            :value="task.priority"
+            @select="setDifficulty($event)"
+            :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
           />
 
         </template>
@@ -270,7 +291,19 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <label v-once class="mb-1">{{ $t('dueDate') }}</label>
+            <div
+              class="d-flex"
+              :class="{'opacity-75':
+                groupAccessRequiredAndOnPersonalPage || challengeAccessRequired}"
+            >
+              <span
+                class="svg-icon icon-10 mt-1 mr-1 gray-200"
+                v-html="icons.lock"
+                v-if="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+              >
+              </span>
+              <label v-once class="mb-1">{{ $t('dueDate') }}</label>
+            </div>
             <datepicker
               v-model="task.date"
               :calendar-icon="icons.calendar"
@@ -288,7 +321,19 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <label v-once class="mb-1">{{ $t('startDate') }}</label>
+            <div
+              class="d-flex"
+              :class="{'opacity-75': challengeAccessRequired
+               || groupAccessRequiredAndOnPersonalPage}"
+            >
+              <span
+                class="svg-icon icon-10 mt-1 mr-1 gray-200"
+                v-html="icons.lock"
+                v-if="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              >
+              </span>
+              <label v-once class="mb-1">{{ $t('startDate') }}</label>
+            </div>
             <datepicker
               v-model="task.startDate"
               :calendar-icon="icons.calendar"
@@ -305,7 +350,19 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <label v-once class="mb-1">{{ $t('repeats') }}</label>
+            <div
+              class="d-flex"
+              :class="{'opacity-75': challengeAccessRequired
+               || groupAccessRequiredAndOnPersonalPage}"
+            >
+              <span
+                class="svg-icon icon-10 mt-1 mr-1 gray-200"
+                v-html="icons.lock"
+                v-if="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              >
+              </span>
+              <label v-once class="mb-1">{{ $t('repeats') }}</label>
+            </div>
             <select-translated-array
               :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :items="['daily', 'weekly', 'monthly', 'yearly']"
@@ -319,7 +376,19 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <label v-once class="mb-1">{{ $t('repeatEvery') }}</label>
+            <div
+              class="d-flex"
+              :class="{'opacity-75': challengeAccessRequired
+               || groupAccessRequiredAndOnPersonalPage}"
+            >
+              <span
+                class="svg-icon icon-10 mt-1 mr-1 gray-200"
+                v-html="icons.lock"
+                v-if="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              >
+              </span>
+              <label v-once class="mb-1">{{ $t('repeatEvery') }}</label>
+            </div>
             <div
               class="input-group-outer"
               :class="{
@@ -349,10 +418,22 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <label
-              v-once
-              class="d-block mb-1"
-            >{{ $t('repeatOn') }}</label>
+            <div
+              class="d-flex"
+              :class="{'opacity-75': challengeAccessRequired
+               || groupAccessRequiredAndOnPersonalPage}"
+            >
+              <span
+                class="svg-icon icon-10 mt-1 mr-1 gray-200"
+                v-html="icons.lock"
+                v-if="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              >
+              </span>
+              <label
+                v-once
+                class="d-block mb-1"
+              >{{ $t('repeatOn') }}</label>
+            </div>
             <div class="toggle-group">
               <toggle-checkbox
                 v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
@@ -427,7 +508,19 @@
           class="option mt-3 mb-3"
         >
           <div class="form-group">
-            <label v-once class="mb-1">{{ $t('resetStreak') }}</label>
+            <div
+              class="d-flex"
+              :class="{'opacity-75': challengeAccessRequired
+               || groupAccessRequiredAndOnPersonalPage}"
+            >
+              <span
+                class="svg-icon icon-10 mt-1 mr-1 gray-200"
+                v-html="icons.lock"
+                v-if="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              >
+              </span>
+              <label v-once class="mb-1">{{ $t('resetStreak') }}</label>
+            </div>
             <select-translated-array
               :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :items="['daily', 'weekly', 'monthly']"
@@ -771,10 +864,6 @@
       color: $gray-200;
     }
 
-    .opacity-75 {
-      opacity: 0.75;
-    }
-
     .option {
       position: relative;
 
@@ -988,6 +1077,10 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
+
+  .gray-200 {
+    color: $gray-200;
+  }
 
   .gold {
     width: 1rem;
@@ -1453,6 +1546,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     onClose () {
+      if (this.task.group && this.task.group.managerNotes) this.managerNotes = null;
       this.closeTagsPopup();
       this.newChecklistItem = '';
       this.$emit('cancel');

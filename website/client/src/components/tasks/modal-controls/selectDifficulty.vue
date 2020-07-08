@@ -3,6 +3,7 @@
     <select-list :items="items"
                  :key-prop="'icon'"
                  class="difficulty-select"
+                 :class="{disabled: disabled}"
                  :disabled="disabled"
                  :value="selected"
                  @select="$emit('select', $event.value)">
@@ -72,12 +73,26 @@
 </style>
 
 <style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
   .difficulty-select {
+    &.disabled {
+      background-color: $gray-700;
+    }
     // restyle the selected item
     .dropdown-toggle {
 
       &.disabled {
         box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
+
+        &::after {
+          color: $gray-300;
+          border-top-color: $gray-300;
+        }
+
+        .label {
+          color: $gray-200;
+        }
       }
 
       .label {

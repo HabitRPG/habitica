@@ -1,10 +1,20 @@
 <template>
   <div class="checklist-component">
-    <label
-      v-once
-      class="mb-1"
-    >{{ $t('checklist') }}</label>
-    <br>
+    <div
+      class="d-flex"
+      :class="{ 'opacity-75': disabled || disableItems }"
+    >
+      <span
+        class="svg-icon lock-icon icon-10 mt-1 mr-1"
+        v-html="icons.lock"
+        v-if="disabled || disableItems"
+      >
+      </span>
+      <label
+        v-once
+        class="mb-1"
+      >{{ $t('checklist') }}</label>
+    </div>
     <draggable
       v-model="checklist"
       :options="{
@@ -88,6 +98,7 @@ import deleteIcon from '@/assets/svg/delete.svg';
 import chevronIcon from '@/assets/svg/chevron.svg';
 import gripIcon from '@/assets/svg/grip.svg';
 import checkbox from '@/components/ui/checkbox';
+import lockIcon from '@/assets/svg/lock.svg';
 
 export default {
   name: 'Checklist',
@@ -119,6 +130,7 @@ export default {
         destroy: deleteIcon,
         chevron: chevronIcon,
         grip: gripIcon,
+        lock: lockIcon,
       }),
     };
   },
@@ -163,6 +175,10 @@ export default {
   @import '~@/assets/scss/colors.scss';
 
   .checklist-component {
+
+    .lock-icon {
+      color: $gray-200;
+    }
 
     .checklist-group {
       height: 2rem;

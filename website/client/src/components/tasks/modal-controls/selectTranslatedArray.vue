@@ -3,10 +3,11 @@
     <select-list :items="items"
                  :value="selected"
                  class="array-select"
+                 :class="{disabled: disabled}"
                  :disabled="disabled"
                  @select="selectItem($event)">
       <template v-slot:item="{ item }">
-          <span class="label">{{ $t(item) }}</span>
+        <span class="label">{{ $t(item) }}</span>
       </template>
     </select-list>
   </div>
@@ -16,6 +17,21 @@
 </style>
 
 <style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
+  .array-select.disabled {
+    background-color: $gray-700;
+
+    .dropdown-toggle::after {
+      color: $gray-300;
+      border-top-color: $gray-300;
+    }
+
+    .label {
+      color: $gray-200;
+    }
+  }
+
   .array-select .disabled, .array-select .disabled:hover {
     box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
   }
