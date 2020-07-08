@@ -434,8 +434,6 @@ async function scoreTask (user, task, direction, req, res) {
 
   setNextDue(task, user);
 
-  await handleGroupTask(task, delta, direction);
-
   taskScoredWebhook.send(user, {
     task,
     direction,
@@ -515,8 +513,9 @@ export async function scoreTasks (user, taskScorings, req, res) {
   const response = { user: results[0], taskResponses: [] };
 
   response.taskResponses = returnDatas.map(data => {
-    // Handle challenge tasks here so we save on one for loop
+    // Handle challenge and group tasks tasks here so we save on one for loop
     handleChallengeTask(data.task, data.delta, data.direction);
+    handleGroupTask(data.task, data.delta, data.direction);
 
     return { id: data.task._id, delta: data.delta, _tmp: data._tmp };
   });

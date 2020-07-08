@@ -23,6 +23,7 @@ import {
 import common from '../../../common';
 import apiError from '../../libs/apiError';
 
+// @TODO abstract, see api-v3/tasks/groups.js
 function canNotEditTasks (group, user, assignedUserId, taskPayload = null) {
   const isNotGroupLeader = group.leader !== user._id;
   const isManager = Boolean(group.managers[user._id]);
