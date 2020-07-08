@@ -41,7 +41,7 @@ async function _evaluateAllAssignedCompletion (masterTask) {
 }
 
 async function handleSharedCompletion (masterTask, groupMemberTask) {
-  if (!masterTask.type !== 'todo') return;
+  if (masterTask.type !== 'todo') return;
 
   if (masterTask.group.sharedCompletion === SHARED_COMPLETION.single) {
     await _deleteUnfinishedTasks(groupMemberTask);
