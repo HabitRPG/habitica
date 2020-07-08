@@ -228,7 +228,7 @@
     "weaponSpecialSpring2017HealerNotes": "La véritable magie de cette baguette réside dans sa coquille colorée, qui détient le secret d'une vie nouvelle. Augmente l'intelligence de <%= int %>. Équipement en édition limitée du printemps 2017.",
     "weaponSpecialSummer2017RogueText": "Nageoires de dragon de mer",
     "weaponSpecialSummer2017RogueNotes": "Le bord de ces nageoires est tranchant comme un rasoir. Augmente la force de <%= str %>. Équipement en édition limitée de l'été 2017.",
-    "weaponSpecialSummer2017WarriorText": "Le plus puissant des parasols",
+    "weaponSpecialSummer2017WarriorText": "Puissant parasol",
     "weaponSpecialSummer2017WarriorNotes": "Tous le craignent. Augmente la force de <%= str %>. Équipement en édition limitée de l'été 2017.",
     "weaponSpecialSummer2017MageText": "Fouets tourbillon",
     "weaponSpecialSummer2017MageNotes": "Invoquez des tourbillons magiques d'eau bouillante pour abattre vos tâches ! Augmente l'intelligence de <%= int %> et la perception de <%= per %>. Équipement en édition limitée de l'été 2017.",

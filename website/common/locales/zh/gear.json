@@ -228,7 +228,7 @@
     "weaponSpecialSpring2017HealerNotes": "这把杖中真正的魔法是一个秘密，一个新的生命正在这五颜六色的壳中。增加<%= int %>点智力。2017年春季限定版装备。",
     "weaponSpecialSummer2017RogueText": "海龙鳍",
     "weaponSpecialSummer2017RogueNotes": "这些鳍拥有着锋利的边缘。增加<%= str %>点力量。2017年夏季限定版装备。",
-    "weaponSpecialSummer2017WarriorText": "最强大遮阳伞",
+    "weaponSpecialSummer2017WarriorText": "强大的遮阳伞",
     "weaponSpecialSummer2017WarriorNotes": "恐惧之源。增加<%= str %>点力量。2017年夏季限定版装备。",
     "weaponSpecialSummer2017MageText": "漩涡藤鞭",
     "weaponSpecialSummer2017MageNotes": "召唤一种神奇的沸腾之水来打击你的任务！增加智力<%= int %>点和感知<%= per %>点。2017年夏季限定版装备。",
@@ -2111,5 +2111,13 @@
     "shieldArmoireLifeBuoyNotes": "如果你发现有人在任务和责任的海洋中挣扎，这将派上用场。增加<%= con %>点体质。魔法衣橱：救生员套装（2/3）。",
     "bodyArmoireLifeguardWhistleText": "救生员哨",
     "shieldArmoireLifeBuoyText": "救生圈",
-    "weaponArmoireBeachFlagText": "海滩旗"
+    "weaponArmoireBeachFlagText": "海滩旗",
+    "weaponSpecialSummer2020HealerNotes": "现实的电流打磨着外露的锋芒，展现躲避电流的魔术来减轻朋友的痛苦。增加<%= str %>点智力。2020年夏季限定版装备。",
+    "weaponSpecialSummer2020HealerText": "磨砂玻璃棒",
+    "weaponSpecialSummer2020MageNotes": "引导你战胜波涛汹涌的海浪，穿越最危险的海洋。增加<%= str %>点力量。2020年夏季限定版装备。",
+    "weaponSpecialSummer2020MageText": "强力桨",
+    "weaponSpecialSummer2020WarriorNotes": "敌人总想嘲笑你所选择的武器，不要上当。这个邪恶的钩子会钓走所有东西！增加<%= str %>点力量。2020年夏季限定版装备。",
+    "weaponSpecialSummer2020WarriorText": "鱼钩",
+    "weaponSpecialSummer2020RogueNotes": "敌人还未见到你的到来，但他们却在你的毒牙刃下无处可逃！增加<%= str %>点力量。2020年夏季限定版装备。",
+    "weaponSpecialSummer2020RogueText": "毒牙刃"
 }

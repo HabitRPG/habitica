@@ -7,7 +7,7 @@
     "buyGemsGoldText": "Thương nhân Alexander sẽ bán cho bạn Gems với giá 20 vàng một Gem. Hàng tháng số Gems bạn mua có thể mua ban đầu được giới hạn ở mức 25 Gems mỗi tháng, nhưng cứ mỗi 3 tháng liên tiếp mà bạn đăng ký, giới hạn này tăng thêm 5 Gems, tối đa 50 Gems mỗi tháng!",
     "mustSubscribeToPurchaseGems": "Phải đăng nhập để mua gems bằng GP",
     "reachedGoldToGemCap": "You've reached the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
-    "reachedGoldToGemCapQuantity": "Your requested amount <%= quantity %> exceeds the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
+    "reachedGoldToGemCapQuantity": "Số lượng <%= quantity %> bạn yêu cầu vượt quá lượng bạn có thể mua ở tháng này (<%= convCap %>). Số lượng đầy đủ bạn có thể mua xuất hiện lại vào trong ba ngày đầu tiên của mỗi tháng. Cảm ơn vì đã đăng ký!",
     "retainHistory": "Retain additional history entries",
     "retainHistoryText": "Làm cho những Việc cần làm đã hoàn thành cho lịch sử Công việc tồn tại lâu hơn.",
     "doubleDrops": "Daily drop caps doubled",
@@ -217,5 +217,13 @@
     "mysticHourglassNeededNoSub": "Vật phẩm này cần một Đồng hồ cát Bí ẩn. Bạn kiếm được Đồng hồ cát Bí ẩn bằng việc trở thành một Người đăng ký của Habitica.",
     "confirmCancelSub": "Bạn có chắc muốn hủy Gói đăng ký của mình không? Bạn sẽ mất tất cả lợi ích từ Gói đăng ký.",
     "giftASubscription": "Tặng một Gói đăng ký",
-    "viewSubscriptions": "Xem những Gói đăng ký"
+    "viewSubscriptions": "Xem những Gói đăng ký",
+    "mysterySet201902": "Bộ Người tình bí ẩn",
+    "mysterySet201901": "Bộ Sao Bắc cực",
+    "subWillBecomeInactive": "Sẽ trở nên không hoạt động",
+    "mysterySet201907": "Bộ Người bạn Bãi biển",
+    "mysterySet201906": "Bộ Cá Koi tốt bụng",
+    "mysterySet201905": "Bộ Rồng chói sáng",
+    "mysterySet201904": "Bộ Ngọc mắt mèo",
+    "mysterySet201903": "Bộ Vỏ trứng"
 }
