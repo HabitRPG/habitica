@@ -40,12 +40,8 @@ async function _evaluateAllAssignedCompletion (masterTask) {
   }
 }
 
-async function handleSharedCompletion (groupMemberTask) {
-  const masterTask = await Tasks.Task.findOne({
-    _id: groupMemberTask.group.taskId,
-  }).exec();
-
-  if (!masterTask || !masterTask.group || masterTask.type !== 'todo') return;
+async function handleSharedCompletion (masterTask, groupMemberTask) {
+  if (!masterTask.type !== 'todo') return;
 
   if (masterTask.group.sharedCompletion === SHARED_COMPLETION.single) {
     await _deleteUnfinishedTasks(groupMemberTask);

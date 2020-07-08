@@ -388,13 +388,19 @@ api.approveTask = {
       direction,
     });
 
-    await handleSharedCompletion(task);
-
     approvalPromises.push(task.save());
     approvalPromises.push(assignedUser.save());
     await Promise.all(approvalPromises);
 
     res.respond(200, task);
+
+    const groupTask = await Tasks.Task.findOne({
+      _id: task.group.taskId,
+    }).exec();
+
+    if (groupTask) {
+      await handleSharedCompletion(groupTask, task);
+    }
   },
 };
 

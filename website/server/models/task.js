@@ -257,6 +257,7 @@ TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
   return reminderObj;
 };
 
+// NOTE: this is used for group tasks as well
 TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta, direction) {
   const chalTask = this;
 

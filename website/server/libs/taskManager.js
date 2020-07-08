@@ -315,27 +315,30 @@ async function handleChallengeTask (task, delta, direction) {
 
       await chalTask.scoreChallengeTask(delta, direction);
     } catch (e) {
-      logger.error(e);
+      logger.error('Error scoring challenge task', e);
     }
   }
 }
 
 async function handleGroupTask (task, delta, direction) {
   if (task.group && task.group.taskId) {
-    await handleSharedCompletion(task);
+    // Wrapping everything in a try/catch block because if an error occurs
+    // using `await` it MUST NOT bubble up because the request has already been handled
     try {
       const groupTask = await Tasks.Task.findOne({
         _id: task.group.taskId,
       }).exec();
 
       if (groupTask) {
+        await handleSharedCompletion(groupTask, task);
+
         const groupDelta = groupTask.group.assignedUsers
           ? delta / groupTask.group.assignedUsers.length
           : delta;
         await groupTask.scoreChallengeTask(groupDelta, direction);
       }
     } catch (e) {
-      logger.error(e);
+      logger.error('Error handling group task', e);
     }
   }
 }
