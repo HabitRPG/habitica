@@ -14,6 +14,7 @@ import {
 } from '../../../libs/taskManager';
 import { handleSharedCompletion } from '../../../libs/groupTasks';
 import apiError from '../../../libs/apiError';
+import logger from '../../../libs/logger';
 
 const requiredGroupFields = '_id leader tasksOrder name';
 // @TODO: abstract to task lib
@@ -394,12 +395,18 @@ api.approveTask = {
 
     res.respond(200, task);
 
-    const groupTask = await Tasks.Task.findOne({
-      _id: task.group.taskId,
-    }).exec();
+    // Wrapping everything in a try/catch block because if an error occurs
+    // using `await` it MUST NOT bubble up because the request has already been handled
+    try {
+      const groupTask = await Tasks.Task.findOne({
+        _id: task.group.taskId,
+      }).exec();
 
-    if (groupTask) {
-      await handleSharedCompletion(groupTask, task);
+      if (groupTask) {
+        await handleSharedCompletion(groupTask, task);
+      }
+    } catch (e) {
+      logger.error('Error handling group task', e);
     }
   },
 };
