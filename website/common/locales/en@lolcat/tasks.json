@@ -1,5 +1,5 @@
 {
-    "clearCompleted": "Deleet Completd ",
+    "clearCompleted": "Deleet Completd",
     "clearCompletedDescription": "Completed To-Dos are deleted after 30 days for non-subscribers and 90 days for subscribers.",
     "clearCompletedConfirm": "Are you sure you want to delete your completed To-Dos?",
     "sureDeleteCompletedTodos": "Are you sure you want to delete your completed To-Dos?",
@@ -173,7 +173,7 @@
     "habitCounterDown": "Negative Counter (Resets <%= frequency %>)",
     "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
     "taskApprovalHasBeenRequested": "Approval has been requested",
-    "taskApprovalWasNotRequested": "Only a task waiting for approval can be marked as needing more work",
+    "taskApprovalWasNotRequested": "Approval has not been requested for this task.",
     "approvals": "Approvals",
     "approvalRequired": "Needs Approval",
     "repeatZero": "Daily is never due",

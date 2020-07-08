@@ -13,6 +13,7 @@ const api = {};
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {get} /api/v4/user Get the authenticated user's profile
  * @apiName UserGet
  * @apiGroup User
@@ -70,6 +71,7 @@ api.getUser = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {put} /api/v4/user Update the user
  * @apiName UserUpdate
  * @apiGroup User
@@ -110,6 +112,7 @@ api.updateUser = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/user/rebirth Use Orb of Rebirth on user
  * @apiName UserRebirth
  * @apiGroup User
@@ -149,6 +152,7 @@ api.userRebirth = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/user/reroll Reroll a user using the Fortify Potion
  * @apiName UserReroll
  * @apiGroup User
@@ -182,6 +186,7 @@ api.userReroll = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/user/reset Reset user
  * @apiName UserReset
  * @apiGroup User

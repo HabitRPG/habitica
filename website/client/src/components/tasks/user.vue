@@ -40,7 +40,7 @@
               v-for="tagsType in tagsByType"
               v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'"
               :key="tagsType.key"
-              class="tags-category d-flex"
+              class="tags-category d-flex flex-column"
             >
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <div class="tags-header">
@@ -268,7 +268,8 @@
     position: absolute;
     padding-left: 24px;
     padding-right: 24px;
-    max-width: 40vw;
+    max-width: 50vw;
+    min-width: 300px;
     width: 100%;
     z-index: 9999;
     background: $white;
@@ -287,8 +288,9 @@
     }
 
     .tags-header {
-       flex-basis: 96px;
+       flex-basis: 60px;
        flex-shrink: 0;
+       margin-left: 10px;
 
       a {
         font-size: 12px;
@@ -398,7 +400,7 @@
 </style>
 
 <script>
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import Vue from 'vue';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
@@ -511,7 +513,7 @@ export default {
       this.editingTags = true;
     },
     addTag (eventObj, key) {
-      this.tagsSnap[key].push({ id: uuid.v4(), name: this.newTag });
+      this.tagsSnap[key].push({ id: uuid(), name: this.newTag });
       this.newTag = null;
     },
     removeTag (index, key) {

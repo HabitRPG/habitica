@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> يحب <%= foodText %> كثيراً!",
     "messageDontEnjoyFood": "<%= egg %> يأكل <%= foodText %> ولكنه لا يبدو مستمتعاً.",
     "messageBought": "لقد اشتريت <%= itemText %>",
-    "messageEquipped": "<%= itemText %> equipped.",
+    "messageEquipped": " <%= itemText %> equipped.",
     "messageUnEquipped": "<%= itemText %> unequipped.",
     "messageMissingEggPotion": "تفتقد أيًا من تلك البيضة أو جرعة الفقس.",
     "messageInvalidEggPotionCombo": "لا يمكنك فقس بيض حيوانات التنقيب مع جرع فقس سحرية! جرب بيضة أخرى.",

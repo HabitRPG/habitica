@@ -23,12 +23,25 @@ import {
 import common from '../../../common';
 import apiError from '../../libs/apiError';
 
-
-function canNotEditTasks (group, user, assignedUserId) {
+function canNotEditTasks (group, user, assignedUserId, taskPayload = null) {
   const isNotGroupLeader = group.leader !== user._id;
   const isManager = Boolean(group.managers[user._id]);
   const userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
-  return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
+
+  const taskPayloadProps = taskPayload
+    ? Object.keys(taskPayload)
+    : [];
+
+  // only allow collapseChecklist to be changed by everyone
+  const allowedByTaskPayload = taskPayloadProps.length === 1
+    && taskPayloadProps.includes('collapseChecklist');
+
+  if (allowedByTaskPayload) {
+    return false;
+  }
+
+  return isNotGroupLeader && !isManager
+    && !userIsAssigningToSelf;
 }
 
 /**
@@ -514,18 +527,20 @@ api.getTask = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id && !task.userId) {
+      // @TODO: Abstract this access snippet
+      const fields = requiredGroupFields.concat(' managers');
+      const group = await Group.getGroup({ user, groupId: task.group.id, fields });
+      if (!group) throw new NotFound(res.t('taskNotFound'));
 
-    // If the task belongs to a challenge make sure the user has rights
+      const isNotGroupLeader = group.leader !== user._id;
+      if (!group.isMember(user) && isNotGroupLeader) throw new NotFound(res.t('taskNotFound'));
+    // If the task belongs to a challenge make sure the user has rights (leader, admin or members)
     } else if (task.challenge.id && !task.userId) {
-      const challenge = await Challenge.find({ _id: task.challenge.id }).select('leader').exec();
-      if (
-        !challenge
-        || (
-          user.challenges.indexOf(task.challenge.id) === -1
-          && challenge.leader !== user._id
-          && !user.contributor.admin
-        )
-      ) { // eslint-disable-line no-extra-parens
+      const challenge = await Challenge.findOne({ _id: task.challenge.id }).select('leader').exec();
+      // @TODO: Abstract this access snippet
+      if (!challenge) throw new NotFound(res.t('taskNotFound'));
+      if (!challenge.canModify(user) && !challenge.isMember(user)) {
         throw new NotFound(res.t('taskNotFound'));
       }
 
@@ -612,11 +627,11 @@ api.updateTask = {
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      //  @TODO: Abstract this access snippet
+      // @TODO: Abstract this access snippet
       const fields = requiredGroupFields.concat(' managers');
       group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (canNotEditTasks(group, user, null, req.body)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     // If the task belongs to a challenge make sure the user has rights
     } else if (task.challenge.id && !task.userId) {
@@ -749,7 +764,7 @@ api.scoreTask = {
 
 /**
  * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
- * @apiDescription Note: completed To-Dos are not sortable,
+ * @apiDescription Note: completed To Do's are not sortable,
  * do not appear in user.tasksOrder.todos, and are ordered by date of completion.
  * @apiName MoveTask
  * @apiGroup Task
@@ -1329,7 +1344,7 @@ api.unlinkOneTask = {
 /**
  * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed todos
  * @apiName ClearCompletedTodos
- * @apiDescription Deletes all of a user's completed To-Dos except
+ * @apiDescription Deletes all of a user's completed To Do's except
  * those belonging to active Challenges and Group Plans.
  * @apiGroup Task
  *

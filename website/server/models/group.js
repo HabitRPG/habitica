@@ -482,7 +482,7 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
     const query = {};
     query['invitations.party.id'] = group._id;
     // @TODO invitations are now stored like this: `'invitations.parties': []`
-    const groupInvites = await User.count(query).exec();
+    const groupInvites = await User.countDocuments(query).exec();
     memberCount += groupInvites;
 
     // Counting the members that are going to be invited by email and uuids
@@ -537,7 +537,7 @@ schema.methods.getMemberCount = async function getMemberCount () {
     query = { 'party._id': this._id };
   }
 
-  return User.count(query).exec();
+  return User.countDocuments(query).exec();
 };
 
 schema.methods.sendChat = function sendChat (options = {}) {
@@ -1415,23 +1415,12 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     } else {
       members = await User.find({ 'party._id': group._id }).select('_id').exec();
     }
-
     _.remove(members, { _id: user._id });
 
     if (members.length === 0) {
       promises.push(group.remove());
       return Promise.all(promises);
     }
-  // otherwise If the leader is leaving
-  // (or if the leader previously left, and this wasn't accounted for)
-  } else if (group.leader === user._id) {
-    const query = group.type === 'party' ? { 'party._id': group._id } : { guilds: group._id };
-    query._id = { $ne: user._id };
-    const seniorMember = await User.findOne(query).select('_id').exec();
-
-    // could be missing in case of public guild (that can have 0 members)
-    // with 1 member who is leaving
-    if (seniorMember) update.$set = { leader: seniorMember._id };
   }
   // otherwise If the leader is leaving
   // (or if the leader previously left, and this wasn't accounted for)
@@ -1720,13 +1709,7 @@ schema.methods.hasCancelled = function hasCancelled () {
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
   // Recheck the group plan count
-  let members;
-  if (this.type === 'guild') {
-    members = await User.find({ guilds: this._id }).select('_id').exec();
-  } else {
-    members = await User.find({ 'party._id': this._id }).select('_id').exec();
-  }
-  this.memberCount = members.length;
+  this.memberCount = await this.getMemberCount();
 
   if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     await stripePayments.chargeForAdditionalGroupMember(this);
@@ -1743,7 +1726,7 @@ export const model = mongoose.model('Group', schema);
 // initialize tavern if !exists (fresh installs)
 // do not run when testing as it's handled by the tests and can easily cause a race condition
 if (!nconf.get('IS_TEST')) {
-  model.count({ _id: TAVERN_ID }, (err, ct) => {
+  model.countDocuments({ _id: TAVERN_ID }, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
     new model({ // eslint-disable-line new-cap

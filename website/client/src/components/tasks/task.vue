@@ -25,13 +25,16 @@
         >
           <div
             class="task-control habit-control"
-            :class="controlClass.up.inner"
+            :class="[{
+              'habit-control-positive-enabled': task.up && isUser,
+              'habit-control-positive-disabled': !task.up && isUser,
+            }, controlClass.up.inner]"
             @click="(isUser && task.up) ? score('up') : null"
           >
             <div
-              v-if="task.group.id && !isUser"
+              v-if="!isUser"
               class="svg-icon lock"
-              :class="controlClass.up.icon"
+              :class="task.up ? controlClass.up.icon : 'positive'"
               v-html="icons.lock"
             ></div>
             <div
@@ -55,7 +58,7 @@
             @click="isUser ? score(task.completed ? 'down' : 'up') : null"
           >
             <div
-              v-if="task.group.id && !isUser && !task.completed"
+              v-if="!isUser"
               class="svg-icon lock"
               :class="controlClass.icon"
               v-html="icons.lock"
@@ -166,7 +169,6 @@
           >
             <div class="d-inline-flex">
               <div
-                v-if="isUser"
                 v-b-tooltip.hover.right="$t(`${task.collapseChecklist
                   ? 'expand': 'collapse'}Checklist`)"
                 class="collapse-checklist d-flex align-items-center expand-toggle"
@@ -186,7 +188,7 @@
               v-if="!task.collapseChecklist"
               :key="item.id"
               class="custom-control custom-checkbox checklist-item"
-              :class="{'checklist-item-done': item.completed}"
+              :class="{'checklist-item-done': item.completed, 'cursor-auto': !isUser}"
             >
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <input
@@ -307,13 +309,16 @@
         >
           <div
             class="task-control habit-control"
-            :class="controlClass.down.inner"
+            :class="[{
+              'habit-control-negative-enabled': task.down && isUser,
+              'habit-control-negative-disabled': !task.down && isUser,
+            }, controlClass.down.inner]"
             @click="(isUser && task.down) ? score('down') : null"
           >
             <div
-              v-if="task.group.id && !isUser"
+              v-if="!isUser"
               class="svg-icon lock"
-              :class="controlClass.down.icon"
+              :class="task.down ? controlClass.down.icon : 'negative'"
               v-html="icons.lock"
             ></div>
             <div
@@ -353,15 +358,18 @@
   @import '~@/assets/scss/colors.scss';
 
   .control-bottom-box {
-    border-bottom-left-radius: 0px !important;
-    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
 
   .control-top-box {
-    border-top-left-radius: 0px !important;
-    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
 
+  .cursor-auto {
+    cursor: auto;
+  }
 
   .task {
     margin-bottom: 2px;
@@ -789,7 +797,7 @@
 import moment from 'moment';
 import axios from 'axios';
 import Vue from 'vue';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import isEmpty from 'lodash/isEmpty';
 import { mapState, mapGetters, mapActions } from '@/libs/store';
 import scoreTask from '@/../../common/script/ops/scoreTask';
@@ -830,7 +838,7 @@ export default {
   props: ['task', 'isUser', 'group', 'challenge', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
-      random: uuid.v4(), // used to avoid conflicts between checkboxes ids
+      random: uuid(), // used to avoid conflicts between checkboxes ids
       icons: Object.freeze({
         positive: positiveIcon,
         negative: negativeIcon,
@@ -1005,7 +1013,8 @@ export default {
       this.$emit('moveTo', this.task, 'bottom');
     },
     destroy () {
-      if (!window.confirm(this.$t('sureDelete'))) return;
+      const type = this.$t(this.task.type);
+      if (!window.confirm(this.$t('sureDeleteType', { type }))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
     },

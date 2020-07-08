@@ -166,9 +166,9 @@
     "optional": "Optional",
     "needsText": "Please type a message.",
     "needsTextPlaceholder": "Type your message here.",
-    "copyMessageAsToDo": "Copy message as To-Do",
-    "copyAsTodo": "Copy as To-Do",
-    "messageAddedAsToDo": "Message copied as To-Do.",
+    "copyMessageAsToDo": "Copy message as To Do",
+    "copyAsTodo": "Copy as To Do",
+    "messageAddedAsToDo": "Message copied as To Do.",
     "messageWroteIn": "<%= user %> wrote in <%= group %>",
     "msgPreviewHeading": "Message Preview",
     "leaderOnlyChallenges": "Only the group leader can create challenges",
@@ -493,5 +493,6 @@
     "selectGift": "Select Gift",
     "PMUnblockUserToSendMessages": "Unblock this user to continue sending and receiving messages.",
     "PMUserDoesNotReceiveMessages": "This user is no longer receiving private messages",
-    "PMCanNotReply": "You can not reply to this conversation"
+    "PMCanNotReply": "You can not reply to this conversation",
+    "newPartyPlaceholder": "Enter your party's name."
 }

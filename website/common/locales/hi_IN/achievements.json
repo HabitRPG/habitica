@@ -1,9 +1,12 @@
 {
-  "achievement": "Achievement",
-  "share": "Share",
-  "onwards": "Onwards!",
-  "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
-  "reachedLevel": "You Reached Level <%= level %>",
-  "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
-  "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!"
+    "achievement": "Achievement",
+    "share": "Share",
+    "onwards": "Onwards!",
+    "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
+    "reachedLevel": "You Reached Level <%= level %>",
+    "achievementLostMasterclasser": "Quest Completionist: Masterclasser Series",
+    "achievementLostMasterclasserText": "Completed all sixteen quests in the Masterclasser Quest Series and solved the mystery of the Lost Masterclasser!",
+    "yourProgress": "\nआपकी प्रगति",
+    "gettingStartedDesc": "इन ऑनबोर्डिंग कार्यों को पूरा करें और जब आप एक बार काम पूरा कर लें तो आप <strong> 5 उपलब्धियां </ strong> और <strong class = \"Gold-amount\"> 100 Gold </ strong> अर्जित करेंगे।\n",
+    "onboardingProgress": "<% = प्रतिशत%>% प्रगति"
 }

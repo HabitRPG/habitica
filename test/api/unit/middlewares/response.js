@@ -16,7 +16,6 @@ describe('response middleware', () => {
     next = generateNext();
   });
 
-
   it('attaches respond method to res', () => {
     responseMiddleware(req, res, next);
 
