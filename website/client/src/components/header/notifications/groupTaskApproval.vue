@@ -1,6 +1,6 @@
 <template>
   <base-notification
-    :can-remove="canRemove"
+    :can-remove="false"
     :has-icon="false"
     :notification="notification"
     @click="action"
@@ -45,8 +45,7 @@ export default {
   },
   methods: {
     action () {
-      const groupId = this.notification.data.group.id;
-      this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId } });
+      this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId: this.notification.data.groupId } });
     },
     async approve () {
       // Redirect users to the group tasks page if the notification doesn't have data

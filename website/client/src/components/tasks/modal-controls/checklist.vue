@@ -182,10 +182,10 @@ export default {
 
     .checklist-group {
       height: 2rem;
-      border-top: 1px solid $gray-500;
+      border-bottom: 1px solid $gray-500;
 
-      &.new-checklist {
-        border-bottom: 1px solid $gray-500;
+      &:not(.new-checklist) {
+        border-top: 1px solid $gray-500;
       }
 
       .inline-edit-input  {

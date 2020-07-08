@@ -20,7 +20,13 @@
   @import '~@/assets/scss/colors.scss';
 
   .array-select.disabled {
-    background-color: $gray-700;
+    .btn-secondary:disabled, .btn-secondary.disabled, .dropdown >
+    .btn-secondary.dropdown-toggle:not(.btn-success):disabled, .dropdown >
+    .btn-secondary.dropdown-toggle:not(.btn-success).disabled, .show >
+    .btn-secondary.dropdown-toggle:not(.btn-success):disabled, .show >
+    .btn-secondary.dropdown-toggle:not(.btn-success).disabled {
+      background: $gray-700;
+    }
 
     .dropdown-toggle::after {
       color: $gray-300;

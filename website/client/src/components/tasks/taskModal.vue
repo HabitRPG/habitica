@@ -287,7 +287,8 @@
 
         </template>
         <div
-          v-if="task.type === 'todo'"
+          v-if="task.type === 'todo' && (task.date
+            || !(groupAccessRequiredAndOnPersonalPage || challengeAccessRequired))"
           class="option mt-3"
         >
           <div class="form-group">
@@ -307,7 +308,7 @@
             <datepicker
               v-model="task.date"
               :calendar-icon="icons.calendar"
-              :clear-button="!groupAccessRequiredAndOnPersonalPage"
+              :clear-button="!challengeAccessRequired && !groupAccessRequiredAndOnPersonalPage"
               :clear-button-text="$t('clear')"
               :today-button="false"
               :disabled-picker="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
@@ -920,6 +921,17 @@
       .input-group:hover {
         border-color: $gray-400;
       }
+
+      .input-group .form-control {
+        background-color: $gray-700;
+        border-color: $gray-500;
+        color: $gray-200;
+      }
+
+      svg path {
+        opacity: 0.75;
+        fill: $gray-200;
+      }
     }
 
     .vdp-datepicker {
@@ -1179,6 +1191,10 @@
     text-align: center;
     color: $gray-50;
     border: 0;
+  }
+
+  .disabled .input-group-text {
+    color: $gray-200;
   }
 
 </style>

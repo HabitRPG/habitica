@@ -176,6 +176,8 @@ export default {
       });
       this.task.group.assignedUsers.splice(0, 1);
       this.task.approvals.splice(0, 1);
+
+      this.sync();
     },
     needsWork () {
       if (!window.confirm(this.$t('confirmNeedsWork'))) return;
@@ -185,6 +187,8 @@ export default {
         userId: userIdNeedsMoreWork,
       });
       this.task.approvals.splice(0, 1);
+
+      this.sync();
     },
     showRequests () {
       this.$root.$emit('bv::show::modal', 'approval-modal');
