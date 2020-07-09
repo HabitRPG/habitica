@@ -2,6 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import validator from 'validator';
 import * as Tasks from '../models/task';
+import apiError from './apiError';
 import {
   BadRequest,
   NotAuthorized,
@@ -468,8 +469,20 @@ async function scoreTask (user, task, direction, req, res) {
 }
 
 export async function scoreTasks (user, taskScorings, req, res) {
-  const taskIds = taskScorings.map(taskScoring => taskScoring.id).filter(id => id !== undefined);
-  if (taskIds.length === 0) throw new BadRequest(res.t('taskNotFound'));
+  // Validate the parameters
+
+  // taskScorings must be array with at least one value
+  if (!taskScorings || !Array.isArray(taskScorings) || taskScorings.length < 1) {
+    throw new BadRequest(apiError('invalidTaskScorings'));
+  }
+
+  taskScorings.forEach(({ id, direction }) => {
+    if (!['up', 'down'].includes(direction)) throw new BadRequest(res.t('directionUpDown'));
+    if (typeof id !== 'string') throw new BadRequest(apiError('invalidTaskIdentifier'));
+  });
+
+  // Get an array of tasks identifiers
+  const taskIds = taskScorings.map(taskScoring => taskScoring.id);
 
   const tasks = {};
   (await Tasks.Task.findMultipleByIdOrAlias(taskIds, user._id)).forEach(task => {
@@ -489,14 +502,16 @@ export async function scoreTasks (user, taskScorings, req, res) {
   });
   const returnDatas = await Promise.all(scorePromises);
 
-  const savePromises = [returnDatas[returnDatas.length - 1].user.save()];
+  const savePromises = [user.save()];
 
+  // Handle todos removal or addition to the tasksOrder array
   const pullIDs = [];
   const pushIDs = [];
   returnDatas.forEach(returnData => {
-    if (returnData.pushTask) pushIDs.push(returnData.task._id);
-    if (returnData.pullTask) pullIDs.push(returnData.task._id);
+    if (returnData.pushTask === true) pushIDs.push(returnData.task._id);
+    if (returnData.pullTask === true) pullIDs.push(returnData.task._id);
   });
+
   const moveUpdateObject = {};
   if (pushIDs.length > 0) moveUpdateObject.$push = { 'tasksOrder.todos': { $each: pushIDs } };
   if (pullIDs.length > 0) moveUpdateObject.$pull = { 'tasksOrder.todos': { $in: pullIDs } };
@@ -505,6 +520,8 @@ export async function scoreTasks (user, taskScorings, req, res) {
   }
 
   Object.keys(tasks).forEach(identifier => {
+    // Tasks identified by an alias exists with two keys (id and alias) in the tasks object
+    // ignore the alias to avoid saving them twice
     if (validator.isUUID(String(identifier))) {
       savePromises.push(tasks[identifier].save());
     }
@@ -516,7 +533,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   const response = { user: results[0], taskResponses: [] };
 
   response.taskResponses = returnDatas.map(data => {
-    // Handle challenge and group tasks tasks here so we save on one for loop
+    // Handle challenge and group tasks tasks here because the task must have been saved first
     handleChallengeTask(data.task, data.delta, data.direction);
     handleGroupTask(data.task, data.delta, data.direction);
 

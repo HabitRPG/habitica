@@ -744,10 +744,7 @@ api.scoreTask = {
   url: '/tasks/:taskId/score/:direction',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
-
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    // Parameters are validated in scoreTasks
 
     const { user } = res.locals;
     const { taskId, direction } = req.params;

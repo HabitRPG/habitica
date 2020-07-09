@@ -40,6 +40,8 @@ api.scoreTasks = {
   url: '/tasks/bulk-score',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
+    // Body is validated in scoreTasks
+
     const { user } = res.locals;
     const data = await scoreTasks(user, req.body, req, res);
 
