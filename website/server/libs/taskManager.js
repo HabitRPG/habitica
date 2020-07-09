@@ -477,7 +477,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   }
 
   taskScorings.forEach(({ id, direction }) => {
-    if (!['up', 'down'].includes(direction)) throw new BadRequest(res.t('directionUpDown'));
+    if (!['up', 'down'].includes(direction)) throw new BadRequest(apiError('directionUpDown'));
     if (typeof id !== 'string') throw new BadRequest(apiError('invalidTaskIdentifier'));
   });
 
