@@ -67,6 +67,7 @@
     <div
       v-if="!disabled && !disableItems"
       class="inline-edit-input-group checklist-group input-group new-checklist"
+      :class="{'top-border': items.length === 0}"
     >
       <span
         v-once
@@ -176,6 +177,10 @@ export default {
 
   .checklist-component {
 
+    .top-border {
+      border-top: 1px solid $gray-500;
+    }
+
     .lock-icon {
       color: $gray-200;
     }
@@ -184,7 +189,7 @@ export default {
       height: 2rem;
       border-bottom: 1px solid $gray-500;
 
-      &:not(.new-checklist) {
+      &:first-of-type {
         border-top: 1px solid $gray-500;
       }
 
