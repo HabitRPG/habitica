@@ -722,6 +722,7 @@ api.updateTask = {
  *
  * @apiSuccess {Object} data The user stats
  * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
+ * @apiSuccess (202) {String} data.approvalRequested Acknowledgment of team task approval request
  * @apiSuccess {Number} data.delta The delta
  *
  * @apiSuccessExample {json} Example result:
@@ -814,7 +815,8 @@ api.scoreTask = {
         managerPromises.push(task.save());
         await Promise.all(managerPromises);
 
-        throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
+        res.respond(202, { approvalRequested: res.t('taskApprovalHasBeenRequested') });
+        return;
       }
     }
 
