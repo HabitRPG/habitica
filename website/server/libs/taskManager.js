@@ -494,13 +494,23 @@ export async function scoreTasks (user, taskScorings, req, res) {
 
   if (Object.keys(tasks).length === 0) throw new NotFound(res.t('taskNotFound'));
 
-  const scorePromises = [];
-  taskScorings.forEach(taskScoring => {
+  // Score each task separately to make sure changes to user._tmp don't overlap
+  // scoreTask is an async function but the only async operation happens when a group task
+  // is involved
+  // @TODO refactor user._tmp to allow more than one task scoring - breaking change
+  const returnDatas = [];
+
+  for (const taskScoring of taskScorings) {
     if (tasks[taskScoring.id]) {
-      scorePromises.push(scoreTask(user, tasks[taskScoring.id], taskScoring.direction, req, res));
+      returnDatas.push(await scoreTask( // eslint-disable-line no-await-in-loop
+        user,
+        tasks[taskScoring.id],
+        taskScoring.direction,
+        req,
+        res,
+      ));
     }
-  });
-  const returnDatas = await Promise.all(scorePromises);
+  }
 
   const savePromises = [user.save()];
 

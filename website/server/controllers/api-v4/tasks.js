@@ -10,7 +10,15 @@ const api = {};
  * @apiName ScoreTasks
  * @apiGroup Task
  *
- * @apiSuccess {Object} data The user stats
+ * @apiParam (Body) {Object[]} body An array with the data on the tasks to score
+ * @apiParam (Body) {String} body.*.id A task identifier, either the id or alias
+ * @apiParam (Body) {String="up","down"} body.*.direction The direction in which to score the task
+ *
+ * @apiParamExample {json} Request-Example:
+ * [{ "id": "a task id", "direction": "up" },
+ * { "id": "a 2nd task id", "direction": "down" }]
+ *
+ * @apiSuccess {Array} data The user stats
  * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
  * @apiSuccess {Number} data.delta The delta
  *
