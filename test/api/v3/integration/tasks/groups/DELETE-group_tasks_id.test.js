@@ -73,12 +73,7 @@ describe('Groups DELETE /tasks/:id', () => {
     });
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
 
     await user.sync();
     await member2.sync();
