@@ -210,13 +210,15 @@ TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
   userId,
   additionalQueries = {},
 ) {
-  if (!identifiers) throw new Error('Task identifier is a required argument');
+  if (!identifiers || !Array.isArray(identifiers)) throw new Error('Task identifiers is a required array argument');
   if (!userId) throw new Error('User identifier is a required argument');
 
   const query = _.cloneDeep(additionalQueries);
   query.userId = userId;
+
   const ids = [];
   const aliases = [];
+
   identifiers.forEach(identifier => {
     if (validator.isUUID(String(identifier))) {
       ids.push(identifier);
@@ -224,13 +226,15 @@ TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
       aliases.push(identifier);
     }
   });
+
   query.$or = [
     { _id: { $in: ids } },
     { alias: { $in: aliases } },
   ];
-  const task = await this.find(query).exec();
 
-  return task;
+  const tasks = await this.find(query).exec();
+
+  return tasks;
 };
 
 // Sanitize user tasks linked to a challenge

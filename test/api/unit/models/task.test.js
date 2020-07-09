@@ -154,6 +154,132 @@ describe('Task Model', () => {
       });
     });
 
+    describe('findMultipleByIdOrAlias', () => {
+      let taskWithAlias;
+      let secondTask;
+      let user;
+
+      beforeEach(async () => {
+        user = new User();
+        await user.save();
+
+        taskWithAlias = new Tasks.todo({ // eslint-disable-line new-cap
+          text: 'some text',
+          alias: 'short-name',
+          userId: user.id,
+        });
+        await taskWithAlias.save();
+
+        secondTask = new Tasks.habit({ // eslint-disable-line new-cap
+          text: 'second task',
+          alias: 'second-short-name',
+          userId: user.id,
+        });
+        await secondTask.save();
+
+        sandbox.spy(Tasks.Task, 'find');
+      });
+
+      it('throws an error if task identifiers is not passed in', async () => {
+        try {
+          await Tasks.Task.findMultipleByIdOrAlias(null, user._id);
+          throw new Error('No exception when Id is None');
+        } catch (err) {
+          expect(err).to.exist;
+          expect(err).to.be.an.instanceOf(Error);
+          expect(err.message).to.eql('Task identifiers is a required array argument');
+        }
+      });
+
+      it('throws an error if task identifiers is not an array', async () => {
+        try {
+          await Tasks.Task.findMultipleByIdOrAlias('string', user._id);
+          throw new Error('No exception when Id is None');
+        } catch (err) {
+          expect(err).to.exist;
+          expect(err).to.be.an.instanceOf(Error);
+          expect(err.message).to.eql('Task identifiers is a required array argument');
+        }
+      });
+
+      it('throws an error if user identifier is not passed in', async () => {
+        try {
+          await Tasks.Task.findMultipleByIdOrAlias([taskWithAlias._id]);
+          throw new Error('No exception when user_id is undefined');
+        } catch (err) {
+          expect(err).to.exist;
+          expect(err).to.be.an.instanceOf(Error);
+          expect(err.message).to.eql('User identifier is a required argument');
+        }
+      });
+
+      it('returns task by id', async () => {
+        const foundTasks = await Tasks.Task.findMultipleByIdOrAlias([taskWithAlias._id], user._id);
+
+        expect(foundTasks[0].text).to.eql(taskWithAlias.text);
+      });
+
+      it('returns task by alias', async () => {
+        const foundTasks = await Tasks.Task.findMultipleByIdOrAlias(
+          [taskWithAlias.alias], user._id,
+        );
+
+        expect(foundTasks[0].text).to.eql(taskWithAlias.text);
+      });
+
+      it('returns multiple tasks', async () => {
+        const foundTasks = await Tasks.Task.findMultipleByIdOrAlias(
+          [taskWithAlias.alias, secondTask._id], user._id,
+        );
+
+        expect(foundTasks.length).to.eql(2);
+        expect(foundTasks[0]._id).to.eql(taskWithAlias._id);
+        expect(foundTasks[1]._id).to.eql(secondTask._id);
+      });
+
+      it('returns a task only once if searched by both id and alias', async () => {
+        const foundTasks = await Tasks.Task.findMultipleByIdOrAlias(
+          [taskWithAlias.alias, taskWithAlias._id], user._id,
+        );
+
+        expect(foundTasks.length).to.eql(1);
+        expect(foundTasks[0].text).to.eql(taskWithAlias.text);
+      });
+
+      it('scopes alias lookup to user', async () => {
+        await Tasks.Task.findMultipleByIdOrAlias([taskWithAlias.alias], user._id);
+
+        expect(Tasks.Task.find).to.be.calledOnce;
+        expect(Tasks.Task.find).to.be.calledWithMatch({
+          $or: [
+            { _id: { $in: [] } },
+            { alias: { $in: [taskWithAlias.alias] } },
+          ],
+          userId: user._id,
+        });
+      });
+
+      it('returns empty array if tasks cannot be found', async () => {
+        const foundTasks = await Tasks.Task.findMultipleByIdOrAlias(['not-found'], user._id);
+
+        expect(foundTasks).to.eql([]);
+      });
+
+      it('accepts additional query parameters', async () => {
+        await Tasks.Task.findMultipleByIdOrAlias([taskWithAlias.alias], user._id, { foo: 'bar' });
+
+        expect(Tasks.Task.find).to.be.calledOnce;
+        expect(Tasks.Task.find).to.be.calledWithMatch({
+          $or: [
+            { _id: { $in: [] } },
+            { alias: { $in: [taskWithAlias.alias] } },
+          ],
+          userId: user._id,
+          foo: 'bar',
+        });
+      });
+    });
+
     describe('sanitizeUserChallengeTask ', () => {
     });
 
