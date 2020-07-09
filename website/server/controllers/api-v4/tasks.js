@@ -5,6 +5,7 @@ import { scoreTasks } from '../../libs/taskManager';
 const api = {};
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/tasks/bulk-score Score multiple tasks
  * @apiName ScoreTasks
  * @apiGroup Task
