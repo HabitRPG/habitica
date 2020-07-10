@@ -316,7 +316,7 @@ async function handleChallengeTask (task, delta, direction) {
 
       await chalTask.scoreChallengeTask(delta, direction);
     } catch (e) {
-      logger.error('Error scoring challenge task', e);
+      logger.error(e, 'Error scoring challenge task');
     }
   }
 }
@@ -339,7 +339,7 @@ async function handleGroupTask (task, delta, direction) {
         await groupTask.scoreChallengeTask(groupDelta, direction);
       }
     } catch (e) {
-      logger.error('Error handling group task', e);
+      logger.error(e, 'Error scoring group task');
     }
   }
 }
@@ -458,12 +458,15 @@ async function scoreTask (user, task, direction, req, res) {
   }
 
   return {
+    success: true,
     user,
     task,
     delta,
     direction,
     pullTask,
     pushTask,
+    // clone user._tmp so that it's not overwritten by other score operations
+    // when using the bulk scoring API
     _tmp: _.cloneDeep(user._tmp),
   };
 }
@@ -501,14 +504,30 @@ export async function scoreTasks (user, taskScorings, req, res) {
   const returnDatas = [];
 
   for (const taskScoring of taskScorings) {
-    if (tasks[taskScoring.id]) {
-      returnDatas.push(await scoreTask( // eslint-disable-line no-await-in-loop
-        user,
-        tasks[taskScoring.id],
-        taskScoring.direction,
-        req,
-        res,
-      ));
+    const task = tasks[taskScoring.id];
+    if (task) {
+      try {
+        returnDatas.push(await scoreTask( // eslint-disable-line no-await-in-loop
+          user,
+          task,
+          taskScoring.direction,
+          req,
+          res,
+        ));
+      // Catch errors so that successfull scores are not lost
+      } catch (taskScoreErr) {
+        logger.error(taskScoreErr, {
+          message: 'Error scoring task during a bulk scoring operation.',
+          task: task._id,
+          user: user._id,
+        });
+
+        returnDatas.push({
+          success: false,
+          error: taskScoreErr,
+          task,
+        });
+      }
     }
   }
 
@@ -517,9 +536,15 @@ export async function scoreTasks (user, taskScorings, req, res) {
   // Handle todos removal or addition to the tasksOrder array
   const pullIDs = [];
   const pushIDs = [];
+
   returnDatas.forEach(returnData => {
+    // skip tasks for which the scoring failed
+    if (returnData.success !== true) return;
+
     if (returnData.pushTask === true) pushIDs.push(returnData.task._id);
     if (returnData.pullTask === true) pullIDs.push(returnData.task._id);
+
+    savePromises.push(returnData.task.save());
   });
 
   const moveUpdateObject = {};
@@ -529,26 +554,24 @@ export async function scoreTasks (user, taskScorings, req, res) {
     savePromises.push(user.updateOne(moveUpdateObject).exec());
   }
 
-  Object.keys(tasks).forEach(identifier => {
-    // Tasks identified by an alias exists with two keys (id and alias) in the tasks object
-    // ignore the alias to avoid saving them twice
-    if (validator.isUUID(String(identifier))) {
-      savePromises.push(tasks[identifier].save());
+  await Promise.all(savePromises);
+
+  return returnDatas.map(data => {
+    const taskResponse = {
+      id: data.task._id,
+      success: data.success,
+    };
+
+    if (data.success === true) {
+      // Handle challenge and group tasks tasks here because the task must have been saved first
+      handleChallengeTask(data.task, data.delta, data.direction);
+      handleGroupTask(data.task, data.delta, data.direction);
+
+      Object.assign(taskResponse, { delta: data.delta, _tmp: data._tmp });
+    } else {
+      Object.assign(taskResponse, { error: data.error });
     }
+
+    return taskResponse;
   });
-
-  // Save results and handle request
-  const results = await Promise.all(savePromises);
-
-  const response = { user: results[0], taskResponses: [] };
-
-  response.taskResponses = returnDatas.map(data => {
-    // Handle challenge and group tasks tasks here because the task must have been saved first
-    handleChallengeTask(data.task, data.delta, data.direction);
-    handleGroupTask(data.task, data.delta, data.direction);
-
-    return { id: data.task._id, delta: data.delta, _tmp: data._tmp };
-  });
-
-  return response;
 }

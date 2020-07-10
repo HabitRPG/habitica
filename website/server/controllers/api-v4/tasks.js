@@ -51,10 +51,10 @@ api.scoreTasks = {
     // Body is validated in scoreTasks
 
     const { user } = res.locals;
-    const data = await scoreTasks(user, req.body, req, res);
+    const tasksResponses = await scoreTasks(user, req.body, req, res);
 
     const userStats = user.stats.toJSON();
-    const resJsonData = _.assign({ responses: data.taskResponses, _tmp: user._tmp }, userStats);
+    const resJsonData = _.assign({ tasks: tasksResponses, _tmp: user._tmp }, userStats);
     res.respond(200, resJsonData);
   },
 };
