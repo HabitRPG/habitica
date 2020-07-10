@@ -54,7 +54,7 @@ api.scoreTasks = {
     const tasksResponses = await scoreTasks(user, req.body, req, res);
 
     const userStats = user.stats.toJSON();
-    const resJsonData = _.assign({ tasks: tasksResponses, _tmp: user._tmp }, userStats);
+    const resJsonData = _.assign({ tasks: tasksResponses }, userStats);
     res.respond(200, resJsonData);
   },
 };
