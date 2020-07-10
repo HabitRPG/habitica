@@ -544,7 +544,9 @@ export async function scoreTasks (user, taskScorings, req, res) {
     if (returnData.pushTask === true) pushIDs.push(returnData.task._id);
     if (returnData.pullTask === true) pullIDs.push(returnData.task._id);
 
-    savePromises.push(returnData.task.save());
+    if (returnData.task.isModified()) {
+      savePromises.push(returnData.task.save());
+    }
   });
 
   const moveUpdateObject = {};
