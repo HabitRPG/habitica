@@ -1,5 +1,6 @@
 import moment from 'moment';
 import _ from 'lodash';
+import validator from 'validator';
 import * as Tasks from '../models/task';
 import apiError from './apiError';
 import {
@@ -519,6 +520,16 @@ export async function scoreTasks (user, taskScorings, req, res) {
 
   const savePromises = [user.save()];
 
+  // Save the tasks, use the tasks object and not returnDatas.*.task to avoid saving the same
+  // task twice, allows scoring the same task multiple times in a single request
+  Object.keys(tasks).forEach(identifier => {
+    // Tasks identified by an alias exists with two keys (id and alias) in the tasks object
+    // ignore the alias to avoid saving them twice
+    if (validator.isUUID(String(identifier))) {
+      savePromises.push(tasks[identifier].save());
+    }
+  });
+
   // Handle todos removal or addition to the tasksOrder array
   const pullIDs = [];
   const pushIDs = [];
@@ -526,10 +537,6 @@ export async function scoreTasks (user, taskScorings, req, res) {
   returnDatas.forEach(returnData => {
     if (returnData.pushTask === true) pushIDs.push(returnData.task._id);
     if (returnData.pullTask === true) pullIDs.push(returnData.task._id);
-
-    if (returnData.task.isModified()) {
-      savePromises.push(returnData.task.save());
-    }
   });
 
   const moveUpdateObject = {};

@@ -167,7 +167,7 @@ describe('POST /tasks/bulk-score', () => {
       expect(updatedUser.tasksOrder.todos.indexOf(todo._id)).to.equal(l - 1);
     });
 
-    it.only('uncompletes todo when direction is down', async () => {
+    it('uncompletes todo when direction is down', async () => {
       await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }, { id: todo.id, direction: 'down' }]);
       const updatedTask = await user.get(`/tasks/${todo._id}`);
 
