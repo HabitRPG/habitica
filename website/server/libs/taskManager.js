@@ -1,6 +1,5 @@
 import moment from 'moment';
 import _ from 'lodash';
-import validator from 'validator';
 import * as Tasks from '../models/task';
 import apiError from './apiError';
 import {
