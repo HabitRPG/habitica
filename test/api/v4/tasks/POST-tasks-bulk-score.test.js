@@ -437,10 +437,21 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('scores habits, dailies, todos', async () => {
-      const res = await user.post('/tasks/bulk-score', [{ id: habit.id, direction: 'down' },
+      const res = await user.post('/tasks/bulk-score', [
+        { id: habit.id, direction: 'down' },
         { id: daily.id, direction: 'up' },
         { id: todo.id, direction: 'up' },
       ]);
+
+      expect(res.tasks[0].id).to.eql(habit.id);
+      expect(res.tasks[0].delta).to.be.below(0);
+
+      expect(res.tasks[1].id).to.eql(daily.id);
+      expect(res.tasks[1].delta).to.be.greaterThan(0);
+
+      expect(res.tasks[2].id).to.eql(todo.id);
+      expect(res.tasks[2].delta).to.be.greaterThan(0);
+
       const updatedHabit = await user.get(`/tasks/${habit._id}`);
       const updatedDaily = await user.get(`/tasks/${daily._id}`);
       const updatedTodo = await user.get(`/tasks/${todo._id}`);
@@ -452,7 +463,7 @@ describe('POST /tasks/bulk-score', () => {
     });
   });
 
-  context.only('reward', () => {
+  context('reward', () => {
     it('correctly handles rewards', async () => {
       const reward = await user.post('/tasks/user', {
         text: 'test reward',
