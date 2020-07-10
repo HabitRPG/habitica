@@ -15,10 +15,6 @@ import shared from '../../common';
 import { model as Group } from '../models/group'; // eslint-disable-line import/no-cycle
 import { model as User } from '../models/user'; // eslint-disable-line import/no-cycle
 import { taskScoredWebhook } from './webhook'; // eslint-disable-line import/no-cycle
-import {
-  getResponseError,
-  getJsonResponseError,
-} from './errorHandling';
 
 import logger from './logger';
 
