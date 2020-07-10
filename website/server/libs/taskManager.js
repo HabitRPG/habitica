@@ -15,6 +15,10 @@ import shared from '../../common';
 import { model as Group } from '../models/group'; // eslint-disable-line import/no-cycle
 import { model as User } from '../models/user'; // eslint-disable-line import/no-cycle
 import { taskScoredWebhook } from './webhook'; // eslint-disable-line import/no-cycle
+import {
+  getResponseError,
+  getJsonResponseError,
+} from './errorHandling';
 
 import logger from './logger';
 
@@ -496,7 +500,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
 
   if (Object.keys(tasks).length === 0) throw new NotFound(res.t('taskNotFound'));
 
-  // Score each task separately to make sure changes to user._tmp don't overlap
+  // Score each task separately to make sure changes to user._tmp don't overlap.
   // scoreTask is an async function but the only async operation happens when a group task
   // is involved
   // @TODO refactor user._tmp to allow more than one task scoring - breaking change
@@ -505,28 +509,15 @@ export async function scoreTasks (user, taskScorings, req, res) {
   for (const taskScoring of taskScorings) {
     const task = tasks[taskScoring.id];
     if (task) {
-      try {
-        returnDatas.push(await scoreTask( // eslint-disable-line no-await-in-loop
-          user,
-          task,
-          taskScoring.direction,
-          req,
-          res,
-        ));
-      // Catch errors so that successfull scores are not lost
-      } catch (taskScoreErr) {
-        logger.error(taskScoreErr, {
-          message: 'Error scoring task during a bulk scoring operation.',
-          task: task._id,
-          user: user._id,
-        });
-
-        returnDatas.push({
-          success: false,
-          error: taskScoreErr,
-          task,
-        });
-      }
+      // If one of the task scoring fails the entire operation will result in a failure
+      // It's the only way to ensure the user doesn't end up in an inconsistent state.
+      returnDatas.push(await scoreTask( // eslint-disable-line no-await-in-loop
+        user,
+        task,
+        taskScoring.direction,
+        req,
+        res,
+      ));
     }
   }
 
@@ -537,9 +528,6 @@ export async function scoreTasks (user, taskScorings, req, res) {
   const pushIDs = [];
 
   returnDatas.forEach(returnData => {
-    // skip tasks for which the scoring failed
-    if (returnData.success !== true) return;
-
     if (returnData.pushTask === true) pushIDs.push(returnData.task._id);
     if (returnData.pullTask === true) pullIDs.push(returnData.task._id);
 
@@ -558,21 +546,10 @@ export async function scoreTasks (user, taskScorings, req, res) {
   await Promise.all(savePromises);
 
   return returnDatas.map(data => {
-    const taskResponse = {
-      id: data.task._id,
-      success: data.success,
-    };
+    // Handle challenge and group tasks tasks here because the task must have been saved first
+    handleChallengeTask(data.task, data.delta, data.direction);
+    handleGroupTask(data.task, data.delta, data.direction);
 
-    if (data.success === true) {
-      // Handle challenge and group tasks tasks here because the task must have been saved first
-      handleChallengeTask(data.task, data.delta, data.direction);
-      handleGroupTask(data.task, data.delta, data.direction);
-
-      Object.assign(taskResponse, { delta: data.delta, _tmp: data._tmp });
-    } else {
-      Object.assign(taskResponse, { error: data.error });
-    }
-
-    return taskResponse;
+    return { id: data.task._id, delta: data.delta, _tmp: data._tmp };
   });
 }

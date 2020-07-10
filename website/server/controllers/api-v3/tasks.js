@@ -750,10 +750,6 @@ api.scoreTask = {
     const { taskId, direction } = req.params;
     const [taskResponse] = await scoreTasks(user, [{ id: taskId, direction }], req, res);
 
-    if (taskResponse.success === false) {
-      throw taskResponse.error;
-    }
-
     const userStats = user.stats.toJSON();
     const resJsonData = _.assign({
       delta: taskResponse.delta,
