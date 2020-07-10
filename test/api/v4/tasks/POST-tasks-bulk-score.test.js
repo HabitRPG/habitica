@@ -16,7 +16,7 @@ describe('POST /tasks/bulk-score', () => {
   });
 
   context('all', () => {
-    it('can use an id to identify the task', async () => {
+    it('can use id to identify the task', async () => {
       const todo = await user.post('/tasks/user', {
         text: 'test todo',
         type: 'todo',
@@ -116,6 +116,8 @@ describe('POST /tasks/bulk-score', () => {
         expect(body.finalLvl).to.eql(user.stats.lvl);
       });
     });
+
+    it('fails the entire op if one task scoring fails');
   });
 
   context('todos', () => {
@@ -129,7 +131,7 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('completes todo when direction is up', async () => {
-      await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }]);
+      const res = await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }]);
       const task = await user.get(`/tasks/${todo._id}`);
 
       expect(task.completed).to.equal(true);
@@ -165,7 +167,7 @@ describe('POST /tasks/bulk-score', () => {
       expect(updatedUser.tasksOrder.todos.indexOf(todo._id)).to.equal(l - 1);
     });
 
-    it('uncompletes todo when direction is down', async () => {
+    it.only('uncompletes todo when direction is down', async () => {
       await user.post('/tasks/bulk-score', [{ id: todo.id, direction: 'up' }, { id: todo.id, direction: 'down' }]);
       const updatedTask = await user.get(`/tasks/${todo._id}`);
 
@@ -342,7 +344,7 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('increases user\'s mp when direction is up', async () => {
-      await user.post('/tasks/bulk-score', [{ id: habit.id, direction: 'up' }, {
+      const res = await user.post('/tasks/bulk-score', [{ id: habit.id, direction: 'up' }, {
         id: plusHabit.id,
         direction: 'up',
       }]);
@@ -352,7 +354,7 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('decreases user\'s mp when direction is down', async () => {
-      await user.post('/tasks/bulk-score', [{
+      const res = await user.post('/tasks/bulk-score', [{
         id: habit.id,
         direction: 'down',
       }, {
@@ -365,7 +367,7 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('increases user\'s exp when direction is up', async () => {
-      await user.post('/tasks/bulk-score', [{
+      const res = await user.post('/tasks/bulk-score', [{
         id: habit.id,
         direction: 'up',
       }, {
@@ -378,7 +380,7 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('increases user\'s gold when direction is up', async () => {
-      await user.post('/tasks/bulk-score', [{
+      const res = await user.post('/tasks/bulk-score', [{
         id: habit.id,
         direction: 'up',
       }, {
@@ -392,7 +394,7 @@ describe('POST /tasks/bulk-score', () => {
 
     it('records only one history entry per day', async () => {
       const initialHistoryLength = habit.history.length;
-      await user.post('/tasks/bulk-score', [{
+      const res = await user.post('/tasks/bulk-score', [{
         id: habit.id,
         direction: 'up',
       }, {
@@ -417,8 +419,8 @@ describe('POST /tasks/bulk-score', () => {
   });
 
   context('mixed', () => {
-    let habit; let daily; let
-      todo;
+    let habit; let daily; let todo;
+
     beforeEach(async () => {
       habit = await user.post('/tasks/user', {
         text: 'test habit',
@@ -435,7 +437,7 @@ describe('POST /tasks/bulk-score', () => {
     });
 
     it('scores habits, dailies, todos', async () => {
-      await user.post('/tasks/bulk-score', [{ id: habit.id, direction: 'down' },
+      const res = await user.post('/tasks/bulk-score', [{ id: habit.id, direction: 'down' },
         { id: daily.id, direction: 'up' },
         { id: todo.id, direction: 'up' },
       ]);
@@ -450,35 +452,47 @@ describe('POST /tasks/bulk-score', () => {
     });
   });
 
-  context('reward', () => {
-    let reward; let
-      updatedUser;
-
-    beforeEach(async () => {
-      reward = await user.post('/tasks/user', {
+  context.only('reward', () => {
+    it('correctly handles rewards', async () => {
+      const reward = await user.post('/tasks/user', {
         text: 'test reward',
         type: 'reward',
         value: 5,
       });
 
-      await user.post('/tasks/bulk-score', [{ id: reward.id, direction: 'up' }]);
-      updatedUser = await user.get('/user');
-    });
+      const res = await user.post('/tasks/bulk-score', [{ id: reward.id, direction: 'up' }]);
+      const updatedUser = await user.get('/user');
 
-    it('purchases reward', () => {
+      // purchases reward
       expect(user.stats.gp).to.equal(updatedUser.stats.gp + 5);
-    });
+      expect(res.gp).to.equal(updatedUser.stats.gp);
 
-    it('does not change user\'s mp', () => {
+      // does not change user\'s mp
       expect(user.stats.mp).to.equal(updatedUser.stats.mp);
-    });
+      expect(res.mp).to.equal(updatedUser.stats.mp);
 
-    it('does not change user\'s exp', () => {
+      // does not change user\'s exp
       expect(user.stats.exp).to.equal(updatedUser.stats.exp);
+      expect(res.exp).to.equal(updatedUser.stats.exp);
     });
 
-    it('does not allow a down direction', () => {
-      expect(user.stats.mp).to.equal(updatedUser.stats.mp);
+    it('fails if the user does not have enough gold', async () => {
+      const reward = await user.post('/tasks/user', {
+        text: 'test reward',
+        type: 'reward',
+        value: 500,
+      });
+
+      await expect(user.post('/tasks/bulk-score', [{ id: reward.id, direction: 'up' }])).to.eventually.be.rejected.and.eql({
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('messageNotEnoughGold'),
+      });
+
+      const updatedUser = await user.get('/user');
+
+      // does not purchase reward
+      expect(user.stats.gp).to.equal(updatedUser.stats.gp);
     });
   });
 });
