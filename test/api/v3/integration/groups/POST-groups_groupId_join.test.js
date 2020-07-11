@@ -204,9 +204,8 @@ describe('POST /group/:groupId/join', () => {
       });
 
       it.only('accepting a redundant party invite will let the user stay in the party', async () => {
-        console.log(invitedUser);
         await invitedUser.update({
-          party: {'party._id': party._id},
+          party: { 'party._id': party._id },
         });
         await invitedUser.post(`/groups/${party._id}/join`);
 
