@@ -203,7 +203,7 @@ describe('POST /group/:groupId/join', () => {
         await expect(invitedUser.get('/user')).to.eventually.have.nested.property('party._id', party._id);
       });
 
-      it.only('accepting a redundant party invite will let the user stay in the party', async () => {
+      it('accepting a redundant party invite will let the user stay in the party', async () => {
         await invitedUser.update({
           party: { 'party._id': party._id },
         });
