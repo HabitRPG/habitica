@@ -5,7 +5,6 @@ import {
   checkExistence,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-import { awaitAndReduce } from '@slack/client/dist/util';
 
 describe('POST /group/:groupId/join', () => {
   const PET_QUEST = 'whale';
@@ -204,15 +203,14 @@ describe('POST /group/:groupId/join', () => {
         await expect(invitedUser.get('/user')).to.eventually.have.nested.property('party._id', party._id);
       });
 
-      it('accepting a redundant party invite will let the user stay in the party', async () => {
-        const userWithAnInviteAndInParty = generateUser();
-        await userWithAnInviteAndInParty.update({
-          'party._id': party._id,
+      it.only('accepting a redundant party invite will let the user stay in the party', async () => {
+        console.log(invitedUser);
+        await invitedUser.update({
+          party: {'party._id': party._id},
         });
-        await userWithAnInviteAndInParty.sync();
-        await userWithAnInviteAndInParty.post(`/groups/${party._id}/join`);
+        await invitedUser.post(`/groups/${party._id}/join`);
 
-        await expect(userWithAnInviteAndInParty.get('/user')).to.eventually.have.nested.property('party._id', party._id);
+        await expect(invitedUser.get('/user')).to.eventually.have.nested.property('party._id', party._id);
       });
 
       it('notifies inviting user that their invitation was accepted', async () => {
