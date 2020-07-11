@@ -3,7 +3,8 @@ import path from 'path';
 import babel from 'gulp-babel';
 import os from 'os';
 import fs from 'fs';
-import { spawn } from 'child_process';
+import spawn from 'cross-spawn';
+import clean from 'rimraf';
 
 gulp.task('build:babel:server', () => gulp.src('website/server/**/*.js')
   .pipe(babel())
@@ -62,15 +63,19 @@ gulp.task('build:prepare-mongo', async () => {
 
   let error = '';
   for await (const chunk of runRsProcess.stderr) {
-    console.error('run-rs error:', chunk);
-    error += chunk;
+    const stringChunk = chunk.toString();
+    error += stringChunk;
   }
+
   const exitCode = await new Promise(resolve => {
     runRsProcess.on('close', resolve);
   });
 
-  if (exitCode) {
-    throw new Error(`run-rs error, killed with code ${exitCode}. Error: ${error}`);
+  if (exitCode || error.length > 0) {
+    // remove any leftover files
+    clean.sync(MONGO_PATH);
+
+    throw new Error(`Error running run-rs: ${error}`);
   }
 });
 

@@ -111,6 +111,7 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chalk": "^4.1.0",
+    "cross-spawn": "^7.0.3",
     "expect.js": "^0.3.1",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^5.1.1",
