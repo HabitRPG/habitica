@@ -38,7 +38,7 @@ function evolve (user, pet, req) {
 export default function feed (user, req = {}, analytics) {
   let pet = get(req, 'params.pet');
   const foodK = get(req, 'params.food');
-  let amount = Math.ceil(get(req.query, 'amount', 1));
+  let amount = get(req.query, 'amount', 1);
   let foodFactor;
 
   if (!pet || !foodK) throw new BadRequest(errorMessage('missingPetFoodFeed'));
@@ -70,8 +70,8 @@ export default function feed (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('messageAlreadyMount', req.language));
   }
 
-  if (amount < 0) {
-    throw new BadRequest(i18n.t('positiveAmountRequired', req.language));
+  if (!Number.isInteger(amount) || amount < 0) {
+    throw new BadRequest(i18n.t('invalidAmount', req.language));
   }
 
   if (amount > user.items.food[food.key]) {
