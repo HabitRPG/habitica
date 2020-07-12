@@ -41,7 +41,7 @@ describe('POST /user/feed/:pet/:food', () => {
     expect(user.items.pets['Wolf-Base']).to.equal(7);
   });
 
-  it('does not enjoy the food', async () => {
+  it('bulk feeding pet with non-preferred food', async () => {
     await user.update({
       'items.pets.Wolf-Base': 5,
       'items.food.Milk': 3,
@@ -50,7 +50,7 @@ describe('POST /user/feed/:pet/:food', () => {
     const food = content.food.Milk;
     const pet = content.petInfo['Wolf-Base'];
 
-    const res = await user.post('user/feed/Wolf-Base/Milk?amount=2');
+    const res = await user.post('/user/feed/Wolf-Base/Milk?amount=2');
     await user.sync();
     expect(res).to.eql({
       data: user.items.pets['Wolf-Base'],
@@ -100,18 +100,8 @@ describe('POST /user/feed/:pet/:food', () => {
       expect(body.pet).to.eql('Wolf-Base');
       expect(body.message).to.eql(res.message);
     });
-  });
 
-  context('sending user activity webhooks', () => {
-    before(async () => {
-      await server.start();
-    });
-
-    after(async () => {
-      await server.close();
-    });
-
-    it('sends user activity webhook when a new mount is raised', async () => {
+    it('sends user activity webhook (mount raised after full bulk feeding)', async () => {
       const uuid = generateUUID();
 
       await user.post('/user/webhook', {
