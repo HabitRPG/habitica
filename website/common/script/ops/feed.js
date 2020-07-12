@@ -38,7 +38,7 @@ function evolve (user, pet, req) {
 export default function feed (user, req = {}, analytics) {
   let pet = get(req, 'params.pet');
   const foodK = get(req, 'params.food');
-  let amount = get(req.query, 'amount', 1);
+  let amount = Number(get(req.query, 'amount', 1));
   let foodFactor;
 
   if (!pet || !foodK) throw new BadRequest(errorMessage('missingPetFoodFeed'));
