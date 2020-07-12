@@ -143,5 +143,6 @@
   "notEnoughMounts": "You have not collected enough mounts",
   "notEnoughPetsMounts": "You have not collected enough pets and mounts",
   "notEnoughFood": "You have not enough food",
-  "tooMuchFood": "You try to feed too much food to your pet, action cancelled"
+  "tooMuchFood": "You try to feed too much food to your pet, action cancelled",
+  "invalidAmount": "Invalid amount"
 }
