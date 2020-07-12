@@ -246,7 +246,7 @@ describe('shared.ops.feed', () => {
       expect(user.items.food.Milk).to.equal(2);
       expect(user.items.pets['Wolf-Base']).to.equal(-1);
       expect(user.items.mounts['Wolf-Base']).to.equal(true);
-      expect(user.items.currentPet).to.equal('');  
+      expect(user.items.currentPet).to.equal('');
     });
 
     it('does not like the food (bulk low food) ', () => {
