@@ -18,12 +18,16 @@ const api = {};
  * [{ "id": "a task id", "direction": "up" },
  * { "id": "a 2nd task id", "direction": "down" }]
  *
- * @apiSuccess {Array} data The user stats
- * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
- * @apiSuccess {Number} data.delta The delta
+ * @apiSuccess {Object} data The user stats and a tasks object
+ * @apiSuccess {Object[]} data.tasks An array of results with an object for each scored task
+ * @apiSuccess {Object[]} data.tasks.*.id The id of the task scored
+ * @apiSuccess {Object[]} data.tasks.*.delta The delta
+ * @apiSuccess {Object[]} data.tasks.*._tmp If an item was dropped when scoring a task it'll
+ * be returned in the _tmp object for that task
  *
  * @apiSuccessExample {json} Example result:
- * {"success":true,"data":{"delta":0.9746999906450404,"_tmp":{},"hp":49.06645205596985,
+ * {"success":true,"data":{"tasks": [{"id": "task id", "delta":0.9746999906450404,
+ * "_tmp":{}],"hp":50,
  * "mp":37.2008917491047,"exp":101.93810026267543,"gp":77.09694176716997,
  * "lvl":19,"class":"rogue","points":0,"str":5,"con":3,"int":3,
  * "per":8,"buffs":{"str":9,"int":9,"per":9,"con":9,"stealth":0,"streaks":false,
@@ -31,10 +35,10 @@ const api = {};
  * "training":{"int":0,"per":0,"str":0,"con":0}},"notifications":[]}
  *
  * @apiSuccessExample {json} Example result with item drop:
- * {"success":true,"data":{"delta":1.0259567046270648,
+ * {"success":true,"data":{"tasks": [{"id": "task-id", delta":1.0259567046270648,
  * "_tmp":{"quest":{"progressDelta":1.2362778290756147,"collection":1},"drop":{"target":"Zombie",
  * "canDrop":true,"value":1,"key":"RottenMeat","type":"Food",
- * "dialog":"You've found Rotten Meat! Feed this to a pet and it may grow into a sturdy steed."}},
+ * "dialog":"You've found Rotten Meat! Feed this to a pet and it may grow into a sturdy steed."}}],
  * "hp":50,"mp":66.2390716654227,"exp":143.93810026267545,"gp":135.12889840462591,"lvl":20,
  * "class":"rogue","points":0,"str":6,"con":3,"int":3,"per":8,"buffs":{"str":10,"int":10,"per":10,
  * "con":10,"stealth":0,"streaks":false,"snowball":false,"spookySparkles":false,
