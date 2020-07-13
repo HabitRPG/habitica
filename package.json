@@ -66,7 +66,7 @@
     "short-uuid": "^3.0.0",
     "stripe": "^7.15.0",
     "superagent": "^5.3.1",
-    "universal-analytics": "^0.4.22",
+    "universal-analytics": "^0.4.23",
     "useragent": "^2.1.9",
     "uuid": "^8.2.0",
     "validator": "^13.1.1",
