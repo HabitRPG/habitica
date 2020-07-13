@@ -176,7 +176,7 @@ gulp.task('test:api:unit:run', done => {
 
 gulp.task('test:api:unit:watch', () => gulp.watch(['website/server/libs/*', 'test/api/unit/**/*', 'website/server/controllers/**/*'], gulp.series('test:api:unit:run', done => done())));
 
-gulp.task('test:api-v3:integration', done => {
+gulp.task('test:api-v3:integration', gulp.series('test:prepare:mongo', done => {
   const runner = exec(
     testBin('istanbul cover --dir coverage/api-v3-integration --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v3/integration --recursive --require ./test/helpers/start-server'),
     { maxBuffer: 500 * 1024 },
@@ -189,7 +189,7 @@ gulp.task('test:api-v3:integration', done => {
   );
 
   pipe(runner);
-});
+}));
 
 gulp.task('test:api-v3:integration:watch', () => gulp.watch([
   'website/server/controllers/api-v3/**/*', 'common/script/ops/*', 'website/server/libs/*.js',
@@ -206,7 +206,7 @@ gulp.task('test:api-v3:integration:separate-server', done => {
   pipe(runner);
 });
 
-gulp.task('test:api-v4:integration', done => {
+gulp.task('test:api-v4:integration', gulp.series('test:prepare:mongo', done => {
   const runner = exec(
     testBin('istanbul cover --dir coverage/api-v4-integration --report lcovonly node_modules/mocha/bin/_mocha -- test/api/v4 --recursive --require ./test/helpers/start-server'),
     { maxBuffer: 500 * 1024 },
@@ -219,7 +219,7 @@ gulp.task('test:api-v4:integration', done => {
   );
 
   pipe(runner);
-});
+}));
 
 gulp.task('test:api-v4:integration:separate-server', done => {
   const runner = exec(
@@ -231,11 +231,16 @@ gulp.task('test:api-v4:integration:separate-server', done => {
   pipe(runner);
 });
 
+gulp.task('test:api:unit', gulp.series(
+  'test:prepare:mongo',
+  'test:api:unit:run',
+  done => done(),
+));
+
 gulp.task('test', gulp.series(
   'test:sanity',
   'test:content',
   'test:common',
-  'test:prepare:mongo',
   'test:api:unit:run',
   'test:api-v3:integration',
   'test:api-v4:integration',
@@ -243,14 +248,7 @@ gulp.task('test', gulp.series(
 ));
 
 gulp.task('test:api-v3', gulp.series(
-  'test:prepare:mongo',
-  'test:api:unit:run',
+  'test:api:unit',
   'test:api-v3:integration',
-  done => done(),
-));
-
-gulp.task('test:api:unit', gulp.series(
-  'test:prepare:mongo',
-  'test:api:unit:run',
   done => done(),
 ));
