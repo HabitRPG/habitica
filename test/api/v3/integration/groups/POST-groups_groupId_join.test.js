@@ -207,6 +207,7 @@ describe('POST /group/:groupId/join', () => {
         await invitedUser.update({
           'party._id': party._id,
         });
+        await expect(invitedUser.get('/user')).to.eventually.have.nested.property('party._id', party._id);
         await invitedUser.post(`/groups/${party._id}/join`);
 
         await expect(invitedUser.get('/user')).to.eventually.have.nested.property('party._id', party._id);
