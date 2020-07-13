@@ -141,5 +141,8 @@
   "clickOnPotionToHatch": "Click on a hatching potion to use it on your <%= eggName %> and hatch a new pet!",
   "notEnoughPets": "You have not collected enough pets",
   "notEnoughMounts": "You have not collected enough mounts",
-  "notEnoughPetsMounts": "You have not collected enough pets and mounts"
+  "notEnoughPetsMounts": "You have not collected enough pets and mounts",
+  "notEnoughFood": "You don't have enough food",
+  "tooMuchFood": "You're trying to feed too much food to your pet, action cancelled",
+  "invalidAmount": "Invalid amount of food, must be a positive integer"
 }
