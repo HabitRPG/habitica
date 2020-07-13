@@ -1,20 +1,9 @@
 <template>
   <div class="checklist-component">
-    <div
-      class="d-flex"
-      :class="{ 'opacity-75': disabled || disableItems }"
-    >
-      <span
-        class="svg-icon lock-icon icon-10 mt-1 mr-1"
-        v-html="icons.lock"
-        v-if="disabled || disableItems"
-      >
-      </span>
-      <label
-        v-once
-        class="mb-1"
-      >{{ $t('checklist') }}</label>
-    </div>
+    <lockable-label
+      :locked="disabled || disableItems"
+      :text="$t('checklist')"
+    />
     <draggable
       v-model="checklist"
       :options="{
@@ -99,13 +88,14 @@ import deleteIcon from '@/assets/svg/delete.svg';
 import chevronIcon from '@/assets/svg/chevron.svg';
 import gripIcon from '@/assets/svg/grip.svg';
 import checkbox from '@/components/ui/checkbox';
-import lockIcon from '@/assets/svg/lock.svg';
+import lockableLabel from './lockableLabel';
 
 export default {
   name: 'Checklist',
   components: {
-    draggable,
     checkbox,
+    draggable,
+    lockableLabel,
   },
   props: {
     disabled: {
@@ -131,7 +121,6 @@ export default {
         destroy: deleteIcon,
         chevron: chevronIcon,
         grip: gripIcon,
-        lock: lockIcon,
       }),
     };
   },
@@ -295,15 +284,6 @@ export default {
           opacity: 1;
         }
       }
-    }
-
-    label {
-      height: 1.5rem;
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 1.71;
-      letter-spacing: normal;
-      color: $gray-50;
     }
   }
 </style>

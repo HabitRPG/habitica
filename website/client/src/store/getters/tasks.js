@@ -141,6 +141,8 @@ export function getTaskClasses (store) {
         return `task-${color}-modal-content`;
       case 'create-modal-content':
         return 'task-purple-modal-content';
+      case 'edit-modal-headings':
+        return `task-${color}-modal-headings`;
       case 'edit-modal-text':
         return `task-${color}-modal-text`;
       case 'edit-modal-icon':
@@ -153,6 +155,8 @@ export function getTaskClasses (store) {
         return `task-${color}-modal-habit-control-disabled`;
       case 'create-modal-bg':
         return 'task-purple-modal-bg';
+      case 'create-modal-headings':
+        return 'task-purple-modal-headings';
       case 'create-modal-text':
         return 'task-purple-modal-text';
       case 'create-modal-input':

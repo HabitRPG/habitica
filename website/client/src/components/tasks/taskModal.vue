@@ -19,14 +19,14 @@
       <div class="d-flex align-items-center mb-3">
         <h2
           class="my-auto"
-          :class="cssClassHeadings"
+          :class="cssClass('headings')"
         >
           {{ title }}
         </h2>
         <div class="ml-auto d-flex align-items-center">
           <button
             class="cancel-task-btn mr-3"
-            :class="cssClassHeadings"
+            :class="cssClass('headings')"
             @click="cancel()"
             type="button"
           >{{ $t('cancel') }}</button>
@@ -52,22 +52,11 @@
         </div>
       </div>
       <div class="form-group">
-        <div
-          class="d-flex"
-          :class="{'opacity-75': groupAccessRequiredAndOnPersonalPage || challengeAccessRequired}"
-        >
-          <span
-            class="svg-icon icon-10 mt-1 mr-1"
-            :class="cssClassHeadings"
-            v-html="icons.lock"
-            v-if="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
-          >
-          </span>
-          <label
-            :class="cssClassHeadings"
-            class="mb-1"
-          >{{ `${$t('text')}*` }}</label>
-        </div>
+        <lockable-label
+          :classOverride="cssClass('headings')"
+          :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+          :text="`${$t('text')}*`"
+        />
         <input
           ref="inputToFocus"
           v-model="task.text"
@@ -88,13 +77,13 @@
           class="d-flex align-items-center justify-content-between mb-1"
         >
           <span
-            :class="cssClassHeadings"
+            :class="cssClass('headings')"
           >{{ $t('notes') }}</span>
           <small>
             <a
               target="_blank"
               href="http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet"
-              :class="cssClassHeadings"
+              :class="cssClass('headings')"
             >{{ $t('markdownHelpLink') }}</a>
           </small>
         </label>
@@ -109,25 +98,11 @@
         class="form-group mb-0 mt-3"
         v-if="showManagerNotes"
       >
-        <div
-          class="d-flex"
-          :class="{'opacity-75': groupAccessRequiredAndOnPersonalPage}"
-        >
-          <span
-            class="svg-icon icon-10 mt-1 mr-1"
-            :class="cssClassHeadings"
-            v-html="icons.lock"
-            v-if="groupAccessRequiredAndOnPersonalPage"
-          >
-          </span>
-          <label
-            class="d-flex align-items-center justify-content-between mb-1"
-          >
-            <span
-              :class="cssClassHeadings"
-            >{{ $t('managerNotes') }}</span>
-          </label>
-        </div>
+        <lockable-label
+          :classOverride="cssClass('headings')"
+          :locked="groupAccessRequiredAndOnPersonalPage"
+          :text="$t('managerNotes')"
+        />
         <textarea
           v-model="managerNotes"
           class="form-control input-notes"
@@ -139,7 +114,7 @@
       <div
         v-if="task.group && task.group.assignedDate && !task.group.assigningUsername"
         class="mt-3 mb-n2"
-        :class="cssClassHeadings"
+        :class="cssClass('headings')"
         v-html="$t('assignedDateOnly', {
           date: formattedDate(task.group.assignedDate),
         })"
@@ -148,7 +123,7 @@
       <div
         v-if="task.group && task.group.assignedDate && task.group.assigningUsername"
         class="mt-3 mb-n2"
-        :class="cssClassHeadings"
+        :class="cssClass('headings')"
         v-html="$t('assignedDateAndUser', {
           username: task.group.assigningUsername,
           date: formattedDate(task.group.assignedDate),
@@ -258,24 +233,14 @@
           </button>
         </div>
         <template v-if="task.type !== 'reward'">
-          <div class="d-flex mb-1">
-            <span
-              class="svg-icon icon-10 mt-1 mr-1 opacity-75 gray-200"
-              v-html="icons.lock"
-              v-if="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
-            >
-            </span>
-            <label
-              v-once
-              class="mb-0 mr-1"
-              :class="{'opacity-75':
-                groupAccessRequiredAndOnPersonalPage || challengeAccessRequired}"
-            >
-              {{ $t('difficulty') }}
-            </label>
+          <div class="d-flex">
+            <lockable-label
+              :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+              :text="$t('difficulty')"
+            />
             <div
               v-b-tooltip.hover.righttop="$t('difficultyHelp')"
-              class="svg-icon info-icon mb-auto"
+              class="svg-icon info-icon mb-auto ml-1"
               v-html="icons.information"
             ></div>
           </div>
@@ -292,19 +257,10 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <div
-              class="d-flex"
-              :class="{'opacity-75':
-                groupAccessRequiredAndOnPersonalPage || challengeAccessRequired}"
-            >
-              <span
-                class="svg-icon icon-10 mt-1 mr-1 gray-200"
-                v-html="icons.lock"
-                v-if="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
-              >
-              </span>
-              <label v-once class="mb-1">{{ $t('dueDate') }}</label>
-            </div>
+            <lockable-label
+              :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+              :text="$t('dueDate')"
+            />
             <datepicker
               v-model="task.date"
               :calendar-icon="icons.calendar"
@@ -322,19 +278,10 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <div
-              class="d-flex"
-              :class="{'opacity-75': challengeAccessRequired
-               || groupAccessRequiredAndOnPersonalPage}"
-            >
-              <span
-                class="svg-icon icon-10 mt-1 mr-1 gray-200"
-                v-html="icons.lock"
-                v-if="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
-              >
-              </span>
-              <label v-once class="mb-1">{{ $t('startDate') }}</label>
-            </div>
+            <lockable-label
+              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :text="$t('startDate')"
+            />
             <datepicker
               v-model="task.startDate"
               :calendar-icon="icons.calendar"
@@ -351,19 +298,10 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <div
-              class="d-flex"
-              :class="{'opacity-75': challengeAccessRequired
-               || groupAccessRequiredAndOnPersonalPage}"
-            >
-              <span
-                class="svg-icon icon-10 mt-1 mr-1 gray-200"
-                v-html="icons.lock"
-                v-if="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
-              >
-              </span>
-              <label v-once class="mb-1">{{ $t('repeats') }}</label>
-            </div>
+            <lockable-label
+              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :text="$t('repeats')"
+            />
             <select-translated-array
               :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :items="['daily', 'weekly', 'monthly', 'yearly']"
@@ -377,19 +315,10 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <div
-              class="d-flex"
-              :class="{'opacity-75': challengeAccessRequired
-               || groupAccessRequiredAndOnPersonalPage}"
-            >
-              <span
-                class="svg-icon icon-10 mt-1 mr-1 gray-200"
-                v-html="icons.lock"
-                v-if="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
-              >
-              </span>
-              <label v-once class="mb-1">{{ $t('repeatEvery') }}</label>
-            </div>
+            <lockable-label
+              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :text="$t('repeatEvery')"
+            />
             <div
               class="input-group-outer"
               :class="{
@@ -419,22 +348,10 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <div
-              class="d-flex"
-              :class="{'opacity-75': challengeAccessRequired
-               || groupAccessRequiredAndOnPersonalPage}"
-            >
-              <span
-                class="svg-icon icon-10 mt-1 mr-1 gray-200"
-                v-html="icons.lock"
-                v-if="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
-              >
-              </span>
-              <label
-                v-once
-                class="d-block mb-1"
-              >{{ $t('repeatOn') }}</label>
-            </div>
+            <lockable-label
+              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :text="$t('repeatOn')"
+            />
             <div class="toggle-group">
               <toggle-checkbox
                 v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
@@ -509,19 +426,10 @@
           class="option mt-3 mb-3"
         >
           <div class="form-group">
-            <div
-              class="d-flex"
-              :class="{'opacity-75': challengeAccessRequired
-               || groupAccessRequiredAndOnPersonalPage}"
-            >
-              <span
-                class="svg-icon icon-10 mt-1 mr-1 gray-200"
-                v-html="icons.lock"
-                v-if="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
-              >
-              </span>
-              <label v-once class="mb-1">{{ $t('resetStreak') }}</label>
-            </div>
+            <lockable-label
+              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :text="$t('resetStreak')"
+            />
             <select-translated-array
               :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :items="['daily', 'weekly', 'monthly']"
@@ -1090,10 +998,6 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .gray-200 {
-    color: $gray-200;
-  }
-
   .gold {
     width: 1rem;
     height: 1rem;
@@ -1212,6 +1116,7 @@ import checklist from './modal-controls/checklist';
 import SelectTag from './modal-controls/selectTag';
 import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
+import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
 
 import informationIcon from '@/assets/svg/information.svg';
 import positiveIcon from '@/assets/svg/positive.svg';
@@ -1222,7 +1127,6 @@ import goldIcon from '@/assets/svg/gold.svg';
 import chevronIcon from '@/assets/svg/chevron.svg';
 import calendarIcon from '@/assets/svg/calendar.svg';
 import gripIcon from '@/assets/svg/grip.svg';
-import lockIcon from '@/assets/svg/lock.svg';
 
 export default {
   components: {
@@ -1233,6 +1137,7 @@ export default {
     selectDifficulty,
     selectTranslatedArray,
     toggleCheckbox,
+    lockableLabel,
   },
   directives: {
     markdown: markdownDirective,
@@ -1253,7 +1158,6 @@ export default {
         streak: streakIcon,
         calendar: calendarIcon,
         grip: gripIcon,
-        lock: lockIcon,
       }),
       requiresApproval: false, // We can't set task.group fields so we use this field to toggle
       sharedCompletion: 'singleCompletion',
@@ -1377,11 +1281,6 @@ export default {
     },
     selectedTags () {
       return this.getTagsFor(this.task);
-    },
-    cssClassHeadings () {
-      const textClass = this.cssClass('text');
-      if (textClass.indexOf('purple') !== -1 || textClass.indexOf('worst') !== -1) return null;
-      return textClass;
     },
   },
   watch: {
