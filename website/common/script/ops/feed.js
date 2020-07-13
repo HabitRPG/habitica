@@ -100,10 +100,10 @@ export default function feed (user, req = {}, analytics) {
     };
 
     if (food.target === pet.potion || pet.type === 'premium') {
-      user.items.pets[pet.key] += 5 * amount;
+      user.items.pets[pet.key] += foodFactor * amount;
       message = i18n.t('messageLikesFood', messageParams, req.language);
     } else {
-      user.items.pets[pet.key] += 2 * amount;
+      user.items.pets[pet.key] += foodFactor * amount;
       message = i18n.t('messageDontEnjoyFood', messageParams, req.language);
     }
 
