@@ -17,7 +17,7 @@
             <div
               v-if="label !== 'skip'"
               :id="key"
-              class="box"
+              class="gear box"
               :class="{white: equippedItems[key] && equippedItems[key].indexOf('base_0') === -1}"
             >
               <div :class="`shop_${equippedItems[key]}`"></div>
@@ -39,9 +39,12 @@
                 :user="user"
               />
             </b-popover>
-            <h3 v-if="label !== 'skip'">
+            <span
+              v-if="label !== 'skip'"
+              class="gear-label"
+            >
               {{ label }}
-            </h3>
+            </span>
           </div>
         </div>
       </div>
@@ -60,7 +63,7 @@
             <div
               v-if="label !== 'skip'"
               :id="key + 'C'"
-              class="box"
+              class="gear box"
               :class="{white: costumeItems[key] && costumeItems[key].indexOf('base_0') === -1}"
             >
               <div :class="`shop_${costumeItems[key]}`"></div>
@@ -68,7 +71,7 @@
             <!-- Show background on 8th tile rather than a piece of equipment.-->
             <div
               v-if="label === 'skip'"
-              class="box"
+              class="gear box"
               :class="{white: user.preferences.background}"
               style="overflow:hidden"
             >
@@ -91,12 +94,18 @@
                 :user="user"
               />
             </b-popover>
-            <h3 v-if="label !== 'skip'">
+            <span
+              v-if="label !== 'skip'"
+              class="gear-label"
+            >
               {{ label }}
-            </h3>
-            <h3 v-else>
+            </span>
+            <span
+              v-else
+              class="gear-label"
+            >
               {{ $t('background') }}
-            </h3>
+            </span>
           </div>
         </div>
       </div>
@@ -667,9 +676,9 @@ export default {
   }
 
   .item-wrapper {
-    h3 {
-      text-align: center;
-    }
+    text-align: center;
+    vertical-align: top;
+    margin-bottom: 0.5rem;
   }
 
   .pet-mount-row {
@@ -684,4 +693,31 @@ export default {
   .save-row {
     margin-top: 1em;
   }
+
+
+    .gear.box {
+      vertical-align: top;
+      margin: 0 auto;
+    }
+
+    .gear-label {
+      margin: 0 auto;
+      margin-top: 0.5rem;
+      min-height: 1rem;
+      font-family: Roboto;
+      font-size: 12px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.33;
+      letter-spacing: normal;
+      text-align: center;
+      color: $gray-200;
+
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 </style>
