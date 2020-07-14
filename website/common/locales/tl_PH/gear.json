@@ -297,7 +297,7 @@
     "weaponMystery301404Text": "Tungkod ng Steampunk",
     "weaponMystery301404Notes": "Maganda na gamitin sa paglipat ng bayan. Walang benepisyo.",
     "weaponArmoireBasicCrossbowText": "Payak na Pana",
-    "weaponArmoireBasicCrossbowNotes": "Ang pana na ito ay kayang tumagos sa baluti ng isang gawain mula sa malayo! Dinaragdagan ang Lakas ng <%= str %>, Pangunawa ng <%= per %>. at Pangangatawan ng <%= con %>. Marahuyong Armoire: Nagsasariling Gamit.\n",
+    "weaponArmoireBasicCrossbowNotes": "Ang pana na ito ay kayang tumagos sa baluti ng isang gawain mula sa malayo! Dinaragdagan ang Lakas ng <%= str %>, Pangunawa ng <%= per %>. at Pangangatawan ng <%= con %>. Marahuyong Armoire: Nagsasariling Gamit.",
     "weaponArmoireLunarSceptreText": "Nakakaginhawang Lunar na Setro",
     "weaponArmoireLunarSceptreNotes": "Ang panggagamot na kapangyarihan nito ay nagpapalaki at nagpapaliit. Dinaragdagan ang Pangangatawan ng <%= con %> at Katalinuhan ng <%= int %>. Marahuyong Armoire: Nakakaginhawang Lunar na Pangkat (Kagamitang 3 ng 3)",
     "weaponArmoireRancherLassoText": "Lasso ng Rantsero",

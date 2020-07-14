@@ -150,7 +150,7 @@
     "invalidTaskType": "Dapat ang uri ng gawain ay isa sa mga \"habit\", \"daily\", \"todo\", \"reward\".",
     "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
     "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
-    "cantDeleteChallengeTasks": "Hindi maaaring alisin ang isang gawain na kasama sa isang hamon.\n",
+    "cantDeleteChallengeTasks": "Hindi maaaring alisin ang isang gawain na kasama sa isang hamon.",
     "checklistOnlyDailyTodo": "Checklists are supported only on Dailies and To-Dos",
     "checklistItemNotFound": "No checklist item was found with given id.",
     "itemIdRequired": "Kailangan na ang \"itemId\" ay balido na UUID.",

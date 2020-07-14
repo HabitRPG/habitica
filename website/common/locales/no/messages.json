@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "Kjøpte <%= itemText %>",
-    "messageEquipped": "<%= itemText %> tatt på.",
+    "messageEquipped": " <%= itemText %> tatt på.",
     "messageUnEquipped": "Du tok av <%= itemText %>.",
     "messageMissingEggPotion": "Du mangler enten egget eller eleksiret.",
     "messageInvalidEggPotionCombo": "Du kan ikke klekke Kjæledyregg fra Oppdrag med Magiske Klekkeelisker! Prøv et annet egg.",

@@ -128,7 +128,7 @@
     "clear": "Nascondi",
     "endTour": "Fine giro",
     "audioTheme": "Tema sonoro",
-    "audioTheme_off": "Off",
+    "audioTheme_off": "Disattivato",
     "audioTheme_danielTheBard": "Daniel il Bardo",
     "audioTheme_wattsTheme": "Tema di Watts",
     "audioTheme_gokulTheme": "Tema Gokul",
@@ -230,7 +230,7 @@
     "streakAchievement": "Hai ottenuto una Medaglia Serie!",
     "firstStreakAchievement": "Serie di 21 giorni",
     "streakAchievementCount": "<%= streaks %> serie di 21 giorni",
-    "twentyOneDays": "Hai completato la tua Daily per 21 giorni di fila!",
+    "twentyOneDays": "Hai completato la tua Attività Giornaliera per 21 giorni di fila!",
     "dontBreakStreak": "Ottimo lavoro. Non interrompere la serie!",
     "dontStop": "Non fermarti ora!",
     "levelUpShare": "Sono salito di livello in Habitica migliorando le mie abitudini nella vita reale!",
@@ -243,7 +243,7 @@
     "you": "(tu)",
     "enableDesktopNotifications": "Abilita notifiche desktop",
     "online": "online",
-    "onlineCount": "<%= count %> online",
+    "onlineCount": "<%= count %> attivi",
     "loading": "Caricamento...",
     "userIdRequired": "L'ID Utente è richesto",
     "resetFilters": "Disattiva tutti i filtri",
@@ -294,5 +294,7 @@
     "loadEarlierMessages": "Carica messaggi precedenti",
     "demo": "Demo",
     "congratulations": "Congratulazioni!",
-    "options": "Opzioni"
+    "options": "Opzioni",
+    "onboardingAchievs": "Medaglie Iniziali",
+    "finish": "Finito"
 }

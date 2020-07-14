@@ -641,7 +641,7 @@ export default {
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
-        if (!this.$refs.columnBackground) return;
+        if (!this.$refs.columnBackground || !this.$refs.tasksList) return;
 
         const tasksWrapperEl = this.$refs.tasksWrapper;
 

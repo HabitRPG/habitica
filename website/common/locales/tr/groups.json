@@ -329,7 +329,7 @@
     "approvalRequested": "Onay Talebi Gönderildi",
     "refreshApprovals": "Onayları Yenile",
     "refreshGroupTasks": "Grup İşlerini Yenile",
-    "claimedBy": "Üzerinde çalışanlar: <%= claimingUsers %>",
+    "claimedBy": "\n\nÜzerinde çalışanlar: <%= claimingUsers %>",
     "cantDeleteAssignedGroupTasks": "Sana atanmış grup işlerini silemezsin.",
     "confirmGuildPlanCreation": "Bu grubu oluşturmak istiyor musun?",
     "groupPlanUpgraded": "<strong><%= groupName %></strong> Grup Planı'na yükseltildi!",

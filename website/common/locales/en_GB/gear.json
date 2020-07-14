@@ -228,7 +228,7 @@
     "weaponSpecialSpring2017HealerNotes": "The true magic of this wand is the secret of new life inside the colourful shell. Increases Intelligence by <%= int %>. Limited Edition 2017 Spring Gear.",
     "weaponSpecialSummer2017RogueText": "Sea Dragon Fins",
     "weaponSpecialSummer2017RogueNotes": "The edges of these fins are razor-sharp. Increases Strength by <%= str %>. Limited Edition 2017 Summer Gear.",
-    "weaponSpecialSummer2017WarriorText": "The Mightiest Beach Umbrella",
+    "weaponSpecialSummer2017WarriorText": "Mightiest Beach Umbrella",
     "weaponSpecialSummer2017WarriorNotes": "All fear it. Increases Strength by <%= str %>. Limited Edition 2017 Summer Gear.",
     "weaponSpecialSummer2017MageText": "Whirlpool Whips",
     "weaponSpecialSummer2017MageNotes": "Summon up magical whips of boiling water to smite your tasks! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2017 Summer Gear.",
@@ -2139,5 +2139,9 @@
     "weaponSpecialSummer2020WarriorNotes": "If your foes mock your choice of weapon, don't take the bait. This wicked hook is the reel deal! Increases Strength by <%= str %>. Limited Edition 2020 Summer Gear.",
     "weaponSpecialSummer2020WarriorText": "Fish Hook",
     "weaponSpecialSummer2020RogueNotes": "Your enemies don't see you coming, but your Fangs are inescapable! Increases Strength by <%= str %>. Limited Edition 2020 Summer Gear.",
-    "weaponSpecialSummer2020RogueText": "Fang Blade"
+    "weaponSpecialSummer2020RogueText": "Fang Blade",
+    "headMystery202007Notes": "This helm will tune you in to the complex and beautiful songs of your fellow cetaceans. Confers no benefit. July 2020 Subscriber Item.",
+    "headMystery202007Text": "Outstanding Orca Helm",
+    "armorMystery202007Notes": "Swim, flip, dive, and race with this handsome and powerful tail! Confers no benefit. July 2020 Subscriber Item.",
+    "armorMystery202007Text": "Outstanding Orca Costume"
 }

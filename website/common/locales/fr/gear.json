@@ -228,7 +228,7 @@
     "weaponSpecialSpring2017HealerNotes": "La véritable magie de cette baguette réside dans sa coquille colorée, qui détient le secret d'une vie nouvelle. Augmente l'intelligence de <%= int %>. Équipement en édition limitée du printemps 2017.",
     "weaponSpecialSummer2017RogueText": "Nageoires de dragon de mer",
     "weaponSpecialSummer2017RogueNotes": "Le bord de ces nageoires est tranchant comme un rasoir. Augmente la force de <%= str %>. Équipement en édition limitée de l'été 2017.",
-    "weaponSpecialSummer2017WarriorText": "Le plus puissant des parasols",
+    "weaponSpecialSummer2017WarriorText": "Puissant parasol",
     "weaponSpecialSummer2017WarriorNotes": "Tous le craignent. Augmente la force de <%= str %>. Équipement en édition limitée de l'été 2017.",
     "weaponSpecialSummer2017MageText": "Fouets tourbillon",
     "weaponSpecialSummer2017MageNotes": "Invoquez des tourbillons magiques d'eau bouillante pour abattre vos tâches ! Augmente l'intelligence de <%= int %> et la perception de <%= per %>. Équipement en édition limitée de l'été 2017.",
@@ -2139,5 +2139,9 @@
     "weaponSpecialSummer2020HealerNotes": "Au fur et à mesure que les courants usent les arêtes vives, votre magie adoucira la douleur de vos amis. Augmente l'intelligence de <%= int %>. Équipement en édition limitée de l'été 2020.",
     "weaponSpecialSummer2020HealerText": "Bâton de verre dépoli",
     "weaponSpecialSummer2020MageNotes": "Menez votre barque à travers les mers les plus traîtresses et les batailles les plus turbulentes. Augmente l'intelligence de <%= int %> et la perception de <%= per %>. Équipement en édition limitée de l'été 2020.",
-    "weaponSpecialSummer2020MageText": "Puissante rame"
+    "weaponSpecialSummer2020MageText": "Puissante rame",
+    "headMystery202007Notes": "Ce casque vous permettra de vous mettre au diapason des chants complexes et magnifiques de vos compagnons cétacés. Ne confère aucun bonus. Équipement d'abonnement de juillet 2020.",
+    "headMystery202007Text": "Casque d'épaulard époustouflant",
+    "armorMystery202007Notes": "Nagez, sautez, plongez et faites la course avec cette belle et puissante queue ! Ne confère aucun bonus. Équipement d'abonnement de juillet 2020.",
+    "armorMystery202007Text": "Costume d'épaulard époustouflant"
 }
