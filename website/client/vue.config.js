@@ -110,7 +110,7 @@ module.exports = {
       .rule('eslint')
       .use('eslint-loader')
       .loader('eslint-loader')
-      .tap(options => {
+      .tap((options = {}) => {
         options.quiet = true;
         return options;
       });
@@ -150,5 +150,5 @@ module.exports = {
       },
     },
   },
-  lintOnSave: process.env.NODE_ENV !== 'production',
+  lintOnSave: process.env.NODE_ENV !== 'production' ? true : 'default',
 };
