@@ -10,7 +10,7 @@
         v-html="message"
       ></div>
       <div
-        v-if="!userIsAssigned"
+        v-if="!userIsAssigned && !task.completed"
         class="ml-auto mr-2"
       >
         <a
@@ -19,7 +19,7 @@
         >{{ $t('claim') }}</a>
       </div>
       <div
-        v-if="userIsAssigned && !approvalRequested"
+        v-if="userIsAssigned && !approvalRequested && !task.completed"
         class="ml-auto mr-2"
       >
         <a
