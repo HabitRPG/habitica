@@ -22,16 +22,20 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .lock-icon {
-    margin-top: 5px;
-  }
-
   label {
     height: 1.5rem;
     font-size: 14px;
     font-weight: bold;
     line-height: 1.71;
     letter-spacing: normal;
+  }
+
+  .gray-200 {
+    color: $gray-200;
+  }
+
+  .lock-icon {
+    margin-top: 5px;
   }
 </style>
 
