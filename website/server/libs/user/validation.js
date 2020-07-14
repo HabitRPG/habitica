@@ -16,7 +16,7 @@ export function nameContainsSlur (username) {
 }
 
 export function nameContainsNewline (username) {
-  if (username.includes('\n') || username.includes('\\n')) {
+  if (username.includes('\n') {
     return true;
   }
   return false;
