@@ -41,10 +41,10 @@
     "inspectpack": "^4.5.2",
     "intro.js": "^2.9.3",
     "jquery": "^3.5.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "nconf": "^0.10.0",
-    "sass": "^1.26.9",
+    "sass": "^1.26.10",
     "sass-loader": "^8.0.2",
     "smartbanner.js": "^1.16.0",
     "svg-inline-loader": "^0.8.2",
@@ -58,7 +58,7 @@
     "vue-mugen-scroll": "^0.2.6",
     "vue-router": "^3.3.4",
     "vue-template-compiler": "^2.6.11",
-    "vuedraggable": "^2.23.2",
+    "vuedraggable": "^2.24.0",
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#5d237615463a84a23dd6f3f77c6ab577d68593ec",
     "webpack": "^4.43.0"
   }
