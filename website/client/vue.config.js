@@ -110,7 +110,7 @@ module.exports = {
       .rule('eslint')
       .use('eslint-loader')
       .loader('eslint-loader')
-      .tap((options = {}) => {
+      .tap(options = {} => {
         options.quiet = true;
         return options;
       });
