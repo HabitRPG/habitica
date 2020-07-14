@@ -2143,5 +2143,11 @@
     "headMystery202007Notes": "Ce casque vous permettra de vous mettre au diapason des chants complexes et magnifiques de vos compagnons cétacés. Ne confère aucun bonus. Équipement d'abonnement de juillet 2020.",
     "headMystery202007Text": "Casque d'épaulard époustouflant",
     "armorMystery202007Notes": "Nagez, sautez, plongez et faites la course avec cette belle et puissante queue ! Ne confère aucun bonus. Équipement d'abonnement de juillet 2020.",
-    "armorMystery202007Text": "Costume d'épaulard époustouflant"
+    "armorMystery202007Text": "Costume d'épaulard époustouflant",
+    "armorArmoirePirateOutfitText": "Tenue de pirate",
+    "shieldArmoirePiratesCompanionNotes": "Parfait si vous voulez abreuver vos ennemis de paroles, ce perroquet ne sait pas se taire. Peut-être aussi qu'il vous rappellera vos tâches ! Augmente la perception de <%= per %>. Armoire enchantée : augmente de piraterie (objet 3 de 3).",
+    "shieldArmoirePiratesCompanionText": "Compagnon de piraterie",
+    "armorArmoirePirateOutfitNotes": "Attention, marins d'eau douce ! C'est la tenue parfaite pour nettoyer le pont et compter son butin. Augmente la constitution et l'intelligence de <%= attrs %> chacune. Armoire enchantée : ensemble de piraterie (objet 2 de 3).",
+    "weaponArmoireHandyHookNotes": "Qui a besoin de ses poings ? Ce crochet a assez de punch pour faire face à n'importe quoi. Augmente la force de <%= str %>. Armoire enchantée : ensemble de piraterie (objet 1 de 3).",
+    "weaponArmoireHandyHookText": "Crochet de droite"
 }
