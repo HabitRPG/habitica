@@ -211,5 +211,7 @@
     "sessionOutdated": "你的会期已过期。请刷新或同步。",
     "errorTemporaryItem": "这件物品是限定的不能被固定。",
     "addNotes": "添加注释",
-    "addATitle": "添加一个标题"
+    "addATitle": "添加一个标题",
+    "sureDeleteType": "你确定要删除<%= type %>吗？",
+    "deleteTaskType": "删除<%= type %>"
 }

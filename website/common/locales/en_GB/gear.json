@@ -2143,5 +2143,11 @@
     "headMystery202007Notes": "This helm will tune you in to the complex and beautiful songs of your fellow cetaceans. Confers no benefit. July 2020 Subscriber Item.",
     "headMystery202007Text": "Outstanding Orca Helm",
     "armorMystery202007Notes": "Swim, flip, dive, and race with this handsome and powerful tail! Confers no benefit. July 2020 Subscriber Item.",
-    "armorMystery202007Text": "Outstanding Orca Costume"
+    "armorMystery202007Text": "Outstanding Orca Costume",
+    "shieldArmoirePiratesCompanionNotes": "Perfect if you want to talk your enemies to death, this parrot never shuts up. Maybe it'll remind you about your tasks too! Increases Perception by <%= per %>. Enchanted Armoire: Pirate Set (Item 3 of 3).",
+    "shieldArmoirePiratesCompanionText": "Pirate's Companion",
+    "armorArmoirePirateOutfitNotes": "Avast, ye landlubbers! The perfect outfit for swabbing the deck and counting your spoils. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Pirate Set (Item 2 of 3).",
+    "armorArmoirePirateOutfitText": "Pirate Outfit",
+    "weaponArmoireHandyHookNotes": "Who needs opposable thumbs? This hook is “handy” enough for anyone. Increases Strength by <%= str %>. Enchanted Armoire: Pirate Set (Item 1 of 3).",
+    "weaponArmoireHandyHookText": "Handy Hook"
 }

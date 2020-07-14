@@ -228,7 +228,7 @@
     "weaponSpecialSpring2017HealerNotes": "Die eigentliche Magie dieses Zauberstabs ist das Geheimnis neuen Lebens in der farbenfrohen Schale. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2017 Frühlingsausrüstung.",
     "weaponSpecialSummer2017RogueText": "Seedrachenflosse",
     "weaponSpecialSummer2017RogueNotes": "Der Rand dieser Flosse ist rasiermesserscharf. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2017 Sommerausrüstung.",
-    "weaponSpecialSummer2017WarriorText": "Der Mächtigste Sonnenschirm",
+    "weaponSpecialSummer2017WarriorText": "Mächtigster Sonnenschirm",
     "weaponSpecialSummer2017WarriorNotes": "Alle fürchten ihn. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2017 Sommerausrüstung.",
     "weaponSpecialSummer2017MageText": "Whirlpool-Peitschen",
     "weaponSpecialSummer2017MageNotes": "Beschwöre magische Peitschen aus blubberndem Wasser, um Deine Aufgaben zu züchtigen! Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2017 Sommerausrüstung.",
@@ -2125,5 +2125,9 @@
     "armorSpecialSummer2020WarriorText": "Regenbogenforellenschwanz",
     "armorSpecialSummer2020RogueNotes": "Ein Krokodil ist ein geborener Schurke, so wie es auf den perfekten Moment wartet, um zuzuschlagen. Leihe Dir ihre Fähigkeiten - und ihre explosive Geschwindigkeit. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Sommerausrüstung.",
     "headMystery202007Text": "Spektakulärer Schwertwalhelm",
-    "armorMystery202007Text": "Spektakuläres Schwertwalkostüm"
+    "armorMystery202007Text": "Spektakuläres Schwertwalkostüm",
+    "shieldArmoirePiratesCompanionNotes": "Perfekt, wenn Du Deine Gegner totquatschen willst, denn dieser Papagei hält nie den Schnabel. Vielleicht wird er Dich auch an Deine Aufgaben erinnern! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Piraten-Set (Gegenstand 3 von 3).",
+    "shieldArmoirePiratesCompanionText": "Piratenkamerad",
+    "armorArmoirePirateOutfitText": "Piraten Montur",
+    "weaponArmoireHandyHookText": "Handlicher Haken"
 }

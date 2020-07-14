@@ -72,7 +72,7 @@
     "scrollsText2": "vytvoř si prázdnou družinu",
     "scrollsPre": "Tuto Výpravu jsi ještě neodemkl!",
     "alreadyEarnedQuestLevel": "Tuto Výpravu jsi si již vysloužil dosažením Úrovně <%= level %>. ",
-    "alreadyEarnedQuestReward": "Tuto Výpravu sis již vysloužil dokončením Výpravy <%= priorQuest %>. ",
+    "alreadyEarnedQuestReward": "Tuto Výpravu sis již vysloužil dokončením Výpravy <%= priorQuest %>.",
     "completedQuests": "Dokončil následující výpravy",
     "mustComplete": "Nejdříve musíš dokončit <%= quest %>.",
     "mustLevel": "Musíš být na Úrovni <%= level %>, abys mohl začít tuto Výpravu.",
