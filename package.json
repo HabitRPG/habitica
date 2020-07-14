@@ -102,6 +102,7 @@
     "client:unit": "cd website/client && npm run test:unit",
     "start": "gulp nodemon",
     "debug": "gulp nodemon --inspect",
+    "mongo:dev": "run-rs -v 4.2.8 -l ubuntu1804 --keep --dbpath mongodb-data --number 1 --quiet",
     "postinstall": "gulp build && cd website/client && npm install",
     "apidoc": "gulp apidoc"
   },
@@ -110,11 +111,13 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chalk": "^4.1.0",
+    "cross-spawn": "^7.0.3",
     "expect.js": "^0.3.1",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^5.1.1",
     "monk": "^7.3.0",
     "require-again": "^2.0.0",
+    "run-rs": "^0.6.2",
     "sinon": "^9.0.2",
     "sinon-chai": "^3.5.0",
     "sinon-stub-promise": "^4.0.0"
