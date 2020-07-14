@@ -28,7 +28,7 @@
         class="btn btn-primary"
         @click="close()"
       >
-        {{ $t('yesterDailiesCallToAction') }}
+        <loading-spinner />
       </button>
     </div>
   </b-modal>
@@ -80,10 +80,12 @@
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 import Task from './tasks/task';
+import LoadingSpinner from './ui/loadingSpinner';
 
 export default {
   components: {
     Task,
+    LoadingSpinner,
   },
   props: ['yesterDailies'],
   data () {
