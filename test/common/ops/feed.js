@@ -113,6 +113,30 @@ describe('shared.ops.feed', () => {
         done();
       }
     });
+
+    it('does not allow bulk-feeding query amount above food owned', done => {
+      user.items.pets['Wolf-Base'] = 5;
+      user.items.food.Meat = 6;
+      try {
+        feed(user, { params: { pet: 'Wolf-Base', food: 'Meat' }, query: { amount: 8 } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('notEnoughFood'));
+        done();
+      }
+    });
+
+    it('does not allow bulk-over-feeding pet', done => {
+      user.items.pets['Wolf-Base'] = 45;
+      user.items.food.Meat = 3;
+      try {
+        feed(user, { params: { pet: 'Wolf-Base', food: 'Meat' }, query: { amount: 2 } });
+      } catch (err) {
+        expect(err).to.be.an.instanceof(NotAuthorized);
+        expect(err.message).to.equal(i18n.t('tooMuchFood'));
+        done();
+      }
+    });
   });
 
   context('successful feeding', () => {
@@ -186,6 +210,61 @@ describe('shared.ops.feed', () => {
 
       expect(user.items.food.Milk).to.equal(1);
       expect(user.items.pets['Wolf-Base']).to.equal(7);
+    });
+
+    it('evolves the pet into a mount when feeding user.items.pets[pet] >= 50 preferred food (bulk)', () => {
+      user.items.pets['Wolf-Base'] = 5;
+      user.items.food.Meat = 10;
+      user.items.currentPet = 'Wolf-Base';
+
+      const pet = content.petInfo['Wolf-Base'];
+
+      const [data, message] = feed(user, { params: { pet: 'Wolf-Base', food: 'Meat' }, query: { amount: 9 } });
+      expect(data).to.eql(user.items.pets['Wolf-Base']);
+      expect(message).to.eql(i18n.t('messageEvolve', {
+        egg: pet.text(),
+      }));
+
+      expect(user.items.food.Meat).to.equal(1);
+      expect(user.items.pets['Wolf-Base']).to.equal(-1);
+      expect(user.items.mounts['Wolf-Base']).to.equal(true);
+      expect(user.items.currentPet).to.equal('');
+    });
+
+    it('evolves the pet into a mount when feeding user.items.pets[pet] >= 50 wrong food (bulk)', () => {
+      user.items.pets['Wolf-Base'] = 5;
+      user.items.food.Milk = 25;
+      user.items.currentPet = 'Wolf-Base';
+
+      const pet = content.petInfo['Wolf-Base'];
+
+      const [data, message] = feed(user, { params: { pet: 'Wolf-Base', food: 'Milk' }, query: { amount: 23 } });
+      expect(data).to.eql(user.items.pets['Wolf-Base']);
+      expect(message).to.eql(i18n.t('messageEvolve', {
+        egg: pet.text(),
+      }));
+      expect(user.items.food.Milk).to.equal(2);
+      expect(user.items.pets['Wolf-Base']).to.equal(-1);
+      expect(user.items.mounts['Wolf-Base']).to.equal(true);
+      expect(user.items.currentPet).to.equal('');
+    });
+
+    it('does not like the food (bulk low food) ', () => {
+      user.items.pets['Wolf-Base'] = 5;
+      user.items.food.Milk = 5;
+
+      const food = content.food.Milk;
+      const pet = content.petInfo['Wolf-Base'];
+
+      const [data, message] = feed(user, { params: { pet: 'Wolf-Base', food: 'Milk' }, query: { amount: 5 } });
+      expect(data).to.eql(user.items.pets['Wolf-Base']);
+      expect(message).to.eql(i18n.t('messageDontEnjoyFood', {
+        egg: pet.text(),
+        foodText: food.textThe(),
+      }));
+
+      expect(user.items.food.Milk).to.equal(0);
+      expect(user.items.pets['Wolf-Base']).to.equal(15);
     });
 
     it('awards All Your Base achievement', () => {
