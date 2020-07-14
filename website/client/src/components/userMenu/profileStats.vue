@@ -715,9 +715,15 @@ export default {
       color: $gray-200;
 
       text-overflow: ellipsis;
+
+      // the following 4 lines are needed for the 2 line clamp
+      // the non-prefixes not supported "anywhere" but these "-webkit"-ones are
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+
+      // breaks the long words without a space
+      word-break: break-word;
     }
 </style>
