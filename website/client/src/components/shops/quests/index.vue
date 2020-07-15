@@ -521,9 +521,12 @@ export default {
     categories () {
       if (this.shop.categories) {
         this.shop.categories.forEach(category => {
-          this.$set(this.viewOptions, category.identifier, {
-            selected: false,
-          });
+          // do not reset the viewOptions if already set once
+          if (typeof this.viewOptions[category.identifier] === 'undefined') {
+            this.$set(this.viewOptions, category.identifier, {
+              selected: false,
+            });
+          }
         });
 
         return this.shop.categories;
