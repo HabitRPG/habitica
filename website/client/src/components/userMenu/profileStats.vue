@@ -707,10 +707,7 @@ export default {
       font-family: Roboto;
       font-size: 12px;
       font-weight: bold;
-      font-stretch: normal;
-      font-style: normal;
       line-height: 1.33;
-      letter-spacing: normal;
       text-align: center;
       color: $gray-200;
 
