@@ -2129,5 +2129,9 @@
     "shieldArmoirePiratesCompanionNotes": "Perfekt, wenn Du Deine Gegner totquatschen willst, denn dieser Papagei hält nie den Schnabel. Vielleicht wird er Dich auch an Deine Aufgaben erinnern! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Piraten-Set (Gegenstand 3 von 3).",
     "shieldArmoirePiratesCompanionText": "Piratenkamerad",
     "armorArmoirePirateOutfitText": "Piraten Montur",
-    "weaponArmoireHandyHookText": "Handlicher Haken"
+    "weaponArmoireHandyHookText": "Handlicher Haken",
+    "shieldSpecialSummer2020WarriorNotes": "Dieser Fisch, den Du einmal gefangen hattest, war SO GROß, dass eine einzige Schuppe ausreichte, um einen mächtigen Schild zu machen! Wahre Geschichte! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2020 Sommerausrüstung.",
+    "headSpecialSummer2020MageNotes": "Wer braucht schon eine Krone bei diesem Kamm? Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Sommerausrüstung.",
+    "headSpecialSummer2020RogueNotes": "Vervollständige Deine schurkenhafte Tarnung mit diesem Helm! Vielleicht kannst Du Deine Feinde mit Deinen Krokodilstränen austricksen... Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Sommerausrüstung.",
+    "armorArmoirePirateOutfitNotes": "Halt' ein, ihr Landratten! Die perfekte Montur, um das Deck zu schrubben und Deine Beute zu zählen. Erhöht Ausdauer und Intelligenz jeweils um <%= attrs %>. Verzauberter Schrank: Piraten-Set (Gegenstand 2 von 3)."
 }
