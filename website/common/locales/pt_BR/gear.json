@@ -1503,7 +1503,7 @@
     "shieldArmoireSoftGreenPillowText": "Almofada Verde Suave",
     "shieldArmoireSoftGreenPillowNotes": "O guerreiro prático carrega um travesseiro para qualquer expedição. Afaste essas tarefas irritantes... mesmo enquanto você cochila. Aumenta Constituição em <%= con %>e Inteligência em <%= int %>. Armário Encantado: Conjunto Loungewear Verde (Item 3 de 3).",
     "shieldArmoireMightyQuillText": "Pena Poderosa",
-    "shieldArmoireMightyQuillNotes": "Mais poderoso que a espada, dizem eles! Aumenta a Percepção em <% = per%>. Armário Encantado: Conjunto do Escriba (Item 2 de 3).",
+    "shieldArmoireMightyQuillNotes": "Mais poderoso que a espada, dizem eles! Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto do Escriba (Item 2 de 3).",
     "back": "Acessório de Fundo",
     "backCapitalized": "Acessório para costas",
     "backBase0Text": "Sem Acessório de Fundo",

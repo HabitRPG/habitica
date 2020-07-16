@@ -145,5 +145,8 @@
     "notEnoughPetsMounts": "Non hai collezionato abbastanza animali e cavalcature",
     "filterByWacky": "Stravagante",
     "gryphatrice": "Griffatrice",
-    "wackyPets": "Animali Stravaganti"
+    "wackyPets": "Animali Stravaganti",
+    "invalidAmount": "Quantità di cibo non valida, deve essere un numero positivo intero",
+    "tooMuchFood": "Stai cercando di dar da mangiare al tuo animale troppo cibo, l'azione è stata annullata",
+    "notEnoughFood": "Non hai abbastanza cibo"
 }

@@ -145,5 +145,8 @@
     "notEnoughPetsMounts": "まだ十分な数のペットと乗騎を集めていません",
     "wackyPets": "へんてこなペット",
     "filterByWacky": "へんてこ",
-    "gryphatrice": "グリファトリス"
+    "gryphatrice": "グリファトリス",
+    "invalidAmount": "えさの量が正しくありません。整数を入力してください",
+    "tooMuchFood": "ペットにえさを与えられる量を超えました。この操作はキャンセルされます",
+    "notEnoughFood": "えさが足りません"
 }

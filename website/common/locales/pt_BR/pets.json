@@ -145,5 +145,8 @@
     "notEnoughPetsMounts": "Você AINDA não coletou mascotes e montarias suficientes",
     "wackyPets": "Mascotes Malucos",
     "filterByWacky": "Maluco",
-    "gryphatrice": "Grifotriz"
+    "gryphatrice": "Grifotriz",
+    "invalidAmount": "Quantidade inválida de alimentos, deve ser um número inteiro positivo",
+    "tooMuchFood": "Você está tentando dar muita comida para seu mascote, ação cancelada",
+    "notEnoughFood": "Você não tem comida suficiente"
 }
