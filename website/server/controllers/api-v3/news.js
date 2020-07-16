@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'PET QUEST BUNDLE AND SEAFOAM!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: GOOD STARTER QUESTS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,38 +31,22 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/14/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_aquatic_amigos_bundle center-block"></div>
-        <h3>Discounted Pet Quest Bundle: Aquatic Amigos!</h3>
+        <div class="scene_basilist center-block"></div>
         <p>
-          If you're looking to add some splashy pets to your Habitica stable, you're in luck! From
-          now until July 31, you can purchase the Aquatic Amigos Pet Quest Bundle and receive the
-          Axolotl, Cuttlefish, and Octopus quests, all for only 7 Gems! That's a discount of 5 Gems
-          from the price of purchasing them separately. Check it out in the <a href='/shops/quests'>
-          Quest Shop</a> today!
+          This month's <a
+          href='https://habitica.wordpress.com/2020/07/15/easy-starter-quests-for-beginners/'
+          target='_blank'>featured Wiki article</a> is about Easy Starter Quests for Beginners! We
+          hope that it will help you as you take on Habitica's bosses and your tasks! Be sure to
+          check it out, and let us know what you think by reaching out on <a
+          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
+          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
+          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
-        <div class="small mb-3">
-          by PainterProphet, Streak, James Danger, hazel, RiverMori, UncommonCriminal, Urse,
-          RBrinks, TokenKnight, wolvenhalo, Lemoness, and SabreCat
-        </div>
-        <div class="promo_seafoam center-block"></div>
-        <h3>Seafoam!</h3>
-        <p>
-          Throw some Seafoam at your friends and they will turn into a cheerful sea star until
-          their next cron! You can buy the Seafoam in the <a href='/shops/seasonal'>Seasonal
-          Shop</a> for 15 Gold. Plus, if you get splashed by Seafoam, you'll receive the Aquatic
-          Friends badge!
-        </p>
-        <p>
-          Don't want to be a sea star? Just buy some Sand from your Rewards column to reverse it.
-        </p>
-        <p>
-          Seafoam will be available in the Seasonal Shop until July 31st!
-        </p>
-        <div class="small mb-3">by Lemoness</div>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
