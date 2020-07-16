@@ -379,9 +379,12 @@ export default {
       normalGroups.push(setCategory);
 
       normalGroups.forEach(category => {
-        this.$set(this.viewOptions, category.identifier, {
-          selected: false,
-        });
+        // do not reset the viewOptions if already set once
+        if (typeof this.viewOptions[category.identifier] === 'undefined') {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: false,
+          });
+        }
       });
 
       return normalGroups;

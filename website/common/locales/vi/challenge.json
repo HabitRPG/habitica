@@ -118,7 +118,7 @@
     "challengeMinimum": "Tối thiểu 1 Gem cho những Thử thách công khai (Giúp ngăn ngừa spam, có ích lắm đó)",
     "participantsTitle": "Những người tham gia",
     "shortName": "Tên Ngắn",
-    "shortNamePlaceholder": "Nên thêm Nhãn nào để có thể nhận diện Thử thách của bạn?nhãn",
+    "shortNamePlaceholder": "Nhãn ngắn gọn nào nên được sử dụng để nhận dạng Thử thách của bạn?",
     "updateChallenge": "Cập nhật Thử thách",
     "haveNoChallenges": "Nhóm này không có Thử thách nào.",
     "loadMore": "Nạp Thêm",

@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "Nusipirkai \"<%= itemText %>\"",
-    "messageEquipped": "<%= itemText %> uždėta(s).",
+    "messageEquipped": " <%= itemText %> uždėta(s).",
     "messageUnEquipped": "<%= itemText %> nuimta(s).",
     "messageMissingEggPotion": "Tau trūksta arba tokio kiaušinio arba tokio eliksyro.",
     "messageInvalidEggPotionCombo": "Negalima Misijos gyvūnams naudoti Stebuklingų Perėjimosi Eliksyrų! Pabandyk naudoti ant kito kiaušinio.",
