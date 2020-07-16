@@ -678,6 +678,10 @@ api.updateTask = {
       task.group.sharedCompletion = sanitizedObj.sharedCompletion;
     }
 
+    if (task.frequency === 'monthly' && task) {
+      task.daysOfMonth = [ moment(task.startDate).date() ];
+    }
+
     setNextDue(task, user);
     const savedTask = await task.save();
 
