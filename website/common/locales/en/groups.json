@@ -293,6 +293,7 @@
   "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
   "youHaveBeenAssignedTask": "<%= managerName %> has assigned you the task <span class=\"notification-bold\"><%= taskText %></span>.",
   "yourTaskHasBeenApproved": "Your task <span class=\"notification-green notification-bold\"><%= taskText %></span> has been approved.",
+  "thisTaskApproved": "This task was approved",
   "taskClaimed": "<%= userName %> has claimed the task <span class=\"notification-bold\"><%= taskText %></span>.",
   "taskNeedsWork": "<span class=\"notification-bold\"><%= managerName %></span> marked <span class=\"notification-bold\"><%= taskText %></span> as needing additional work.",
   "userHasRequestedTaskApproval": "<span class=\"notification-bold\"><%= user %></span> requests approval for <span class=\"notification-bold\"><%= taskName %></span>",

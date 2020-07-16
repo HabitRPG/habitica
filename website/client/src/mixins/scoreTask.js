@@ -62,10 +62,6 @@ export default {
       const { firstDrops } = tmp;
       const { quest } = tmp;
 
-      if (response.data.data.approvalRequested) {
-        this.text(response.data.data.approvalRequested, null, false);
-      }
-
       if (crit) {
         const critBonus = crit * 100 - 100;
         this.crit(critBonus);

@@ -1111,6 +1111,7 @@ import toggleSwitch from '@/components/ui/toggleSwitch';
 import toggleCheckbox from '@/components/ui/toggleCheckbox';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
+import sync from '@/mixins/sync';
 import checklist from './modal-controls/checklist';
 import SelectTag from './modal-controls/selectTag';
 import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
@@ -1138,6 +1139,7 @@ export default {
     toggleCheckbox,
     lockableLabel,
   },
+  mixins: [sync],
   directives: {
     markdown: markdownDirective,
   },
@@ -1446,6 +1448,7 @@ export default {
       } else {
         this.saveTask(this.task);
         this.$emit('taskEdited', this.task);
+        if (this.groupId) this.sync();
       }
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
@@ -1471,28 +1474,23 @@ export default {
       this.requiresApproval = truthy;
     },
     async toggleAssignment (memberId) {
-      const assignedIndex = this.assignedMembers.indexOf(memberId);
-
-      if (assignedIndex === -1) {
-        if (this.purpose === 'create') {
-          return;
-        }
-
-        await this.$store.dispatch('tasks:unassignTask', {
-          taskId: this.task._id,
-          userId: memberId,
-        });
-        return;
-      }
-
       if (this.purpose === 'create') {
         return;
       }
 
-      await this.$store.dispatch('tasks:assignTask', {
-        taskId: this.task._id,
-        userId: memberId,
-      });
+      const assignedIndex = this.assignedMembers.indexOf(memberId);
+
+      if (assignedIndex === -1) {
+        await this.$store.dispatch('tasks:unassignTask', {
+          taskId: this.task._id,
+          userId: memberId,
+        });
+      } else {
+        await this.$store.dispatch('tasks:assignTask', {
+          taskId: this.task._id,
+          userId: memberId,
+        });
+      }
     },
     focusInput () {
       this.$refs.inputToFocus.focus();

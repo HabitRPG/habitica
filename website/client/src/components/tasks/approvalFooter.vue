@@ -2,7 +2,8 @@
   <div>
     <approval-modal :task="task" />
     <div
-      v-if="!approvalRequested && !multipleApprovalsRequested || !userIsManager"
+      v-if="!approvalRequested && !multipleApprovalsRequested
+        || !userIsManager && !task.group.approval.approved"
       class="claim-bottom-message d-flex align-items-center"
     >
       <div
@@ -43,6 +44,15 @@
       class="claim-bottom-message d-flex align-items-center"
     >
       <a @click="showRequests()">{{ $t('viewRequests') }}</a>
+    </div>
+    <div
+      v-if="userIsAssigned && task.group.approval.approved && !task.completed"
+      class="claim-bottom-message d-flex align-items-center justify-content-around"
+    >
+      <a
+        class="approve-color"
+        @click="$emit('claimRewards')"
+      >{{ $t('claimRewards') }}</a>
     </div>
   </div>
 </template>

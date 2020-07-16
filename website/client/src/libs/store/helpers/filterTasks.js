@@ -15,16 +15,16 @@ const taskFilters = {
     label: 'dailies',
     filters: [
       { label: 'all', filterFn: () => true, default: true },
-      { label: 'due', filterFn: userPrefs => t => !t.completed && !(t.group && t.group.approval.requested) && shouldDo(new Date(), t, userPrefs) },
-      { label: 'notDue', filterFn: userPrefs => t => t.completed || (t.group && t.group.approval.requested) || !shouldDo(new Date(), t, userPrefs) },
+      { label: 'due', filterFn: userPrefs => t => !t.completed && shouldDo(new Date(), t, userPrefs) },
+      { label: 'notDue', filterFn: userPrefs => t => t.completed || !shouldDo(new Date(), t, userPrefs) },
     ],
   },
   todo: {
     label: 'todos',
     filters: [
-      { label: 'remaining', filterFn: t => !t.completed && !(t.group && t.group.approval.requested), default: true }, // active
-      { label: 'scheduled', filterFn: t => !t.completed && t.date && !(t.group && t.group.approval.requested), sort: t => t.date },
-      { label: 'complete2', filterFn: t => t.completed || (t.group && t.group.approval.requested) },
+      { label: 'remaining', filterFn: t => !t.completed, default: true }, // active
+      { label: 'scheduled', filterFn: t => !t.completed && t.date, sort: t => t.date },
+      { label: 'complete2', filterFn: t => t.completed },
     ],
   },
   reward: {

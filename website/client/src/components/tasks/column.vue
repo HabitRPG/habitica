@@ -474,8 +474,8 @@ export default {
         } if (this.activeFilter.label === 'all') {
           return this.taskList
             .reduce(
-              (count, t) => (!t.completed && !(t.group && t.group.approval.requested)
-                && shouldDo(new Date(), t, this.getUserPreferences) ? count + 1 : count),
+              (count, t) => (!t.completed && shouldDo(new Date(), t, this.getUserPreferences)
+                ? count + 1 : count),
               0,
             );
         }
@@ -669,11 +669,11 @@ export default {
       if (!taskList) return [];
       return taskList.filter(task => {
         if (filter === 'complete2') {
-          return task.completed || (task.group && task.group.approval.requested);
+          return task.completed;
         }
         if (filter === 'due') return task.isDue;
         if (filter === 'notDue') return !task.isDue;
-        return !task.completed && !(task.group && task.group.approval.requested);
+        return !task.completed;
       });
     },
     filterByTagList (taskList, tagList = []) {

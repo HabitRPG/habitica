@@ -16,7 +16,7 @@
       />
       <div
         class="d-flex"
-        :class="{'task-not-scoreable': isUser !== true}"
+        :class="{'task-not-scoreable': isUser !== true || task.group.approval.requested }"
       >
         <!-- Habits left side control-->
         <div
@@ -59,9 +59,8 @@
           <div
             class="task-control daily-todo-control"
             :class="controlClass.inner"
-            @click="isUser ? score(task.completed
-              || task.group.approval.requested ? 'down' : 'up'
-            ) : null"
+            @click="isUser && !task.group.approval.requested
+              ? score(task.completed ? 'down' : 'up' ) : null"
           >
             <div
               v-if="!isUser"
@@ -357,6 +356,7 @@
         v-if="task.group.id"
         :task="task"
         :group="group"
+        @claimRewards="score('up')"
       />
     </div>
   </div>
