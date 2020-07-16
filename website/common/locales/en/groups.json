@@ -261,7 +261,7 @@
   "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
   "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
   "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
-  "assignedTo": "Assigned To",
+  "assignedTo": "Assign To",
   "assignedToUser": "Assigned to <strong><%= userName %></strong>",
   "assignedToMembers": "Assigned to <strong><%= userCount %> members</strong>",
   "assignedToYouAndMembers": "Assigned to you and <strong><%= userCount %> members</strong>",

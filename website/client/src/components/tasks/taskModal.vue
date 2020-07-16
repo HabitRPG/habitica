@@ -132,7 +132,7 @@
       </div>
     </div>
     <div
-      class="task-modal-content px-4 pt-3 pb-1"
+      class="task-modal-content px-4 pt-3"
       :class="cssClass('content')"
       @click="handleClick($event)"
     >
@@ -519,8 +519,8 @@
               </div>
             </div>
           </div>
-          <div class="form-group flex-group mt-3 mb-3">
-            <label v-once class="mb-1 flex">{{ $t('approvalRequired') }}</label>
+          <div class="form-group flex-group mt-3 mb-4">
+            <label v-once class="mb-0 flex">{{ $t('approvalRequired') }}</label>
             <toggle-switch
               class="d-inline-block"
               :checked="requiresApproval"
@@ -650,19 +650,19 @@
           v-if="purpose !== 'create'
             && !challengeAccessRequired
             && !groupAccessRequiredAndOnPersonalPage"
-         class="d-flex justify-content-center align-items-middle"
+          class="d-flex justify-content-center"
         >
           <button
-            class="delete-task-btn mb-3"
+            class="delete-task-btn mb-4 d-flex"
             type="button"
             @click="destroy()"
           >
             <div
-              class="svg-icon d-inline-b mt-1 mb-1"
+              class="svg-icon"
               v-once
               v-html="icons.destroy"
             ></div>
-            <span class="delete-text mt-1 mb-1">
+            <span class="delete-text mt-1">
               {{ $t('deleteTaskType', { type: $t(task.type) }) }}
             </span>
           </button>
@@ -672,7 +672,7 @@
     <div
       v-if="purpose === 'create'"
       slot="modal-footer"
-      class="task-modal-footer d-flex justify-content-center align-items-center"
+      class="task-modal-footer d-flex justify-content-center align-items-center pb-4"
       @click="handleClick($event)"
     >
       <button
@@ -901,7 +901,6 @@
 
     .task-modal-footer {
       margin: 0;
-      padding: 1.5rem 24px;
       width: 100%;
 
       .cancel-task-btn {
