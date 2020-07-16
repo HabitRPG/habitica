@@ -415,6 +415,9 @@
             <div class="col-12">
               <select-tag :selected-tags="task.tags"
                           :all-tags="user.tags"
+                          :add-new="true"
+                          :empty-message="$t('addTags')"
+                          :search-placeholder="$t('enterTag')"
                           @changed="task.tags = $event"
                           @addNew="addTag"
                           ref="selectTag" />
@@ -459,64 +462,14 @@
               class="col-12 mb-1"
             >{{ $t('assignedTo') }}</label>
             <div class="col-12">
-              <div
-                class="dropdown inline-dropdown"
-                @click="showAssignedSelect = !showAssignedSelect"
-              >
-                <span
-                  v-if="assignedMembers && assignedMembers.length === 0"
-                  class="btn dropdown-toggle btn-secondary"
-                >{{ $t('none') }}</span>
-                <span
-                  v-else
-                  class="btn dropdown-toggle btn-secondary"
-                >
-                  <span
-                    v-for="memberId in assignedMembers"
-                    :key="memberId"
-                    class="mr-1"
-                  >{{ memberNamesById[memberId] }}</span>
-                </span>
-              </div>
-              <div
-                v-if="showAssignedSelect"
-                class="category-box"
-              >
-                <div class="container">
-                  <div class="row">
-                    <div
-                      v-for="member in members"
-                      :key="member._id"
-                      class="form-check col-6"
-                    >
-                      <div class="custom-control custom-checkbox">
-                        <input
-                          :id="`assigned-${member._id}`"
-                          v-model="assignedMembers"
-                          class="custom-control-input"
-                          type="checkbox"
-                          :value="member._id"
-                          @change="toggleAssignment(member._id)"
-                        >
-                        <label
-                          v-once
-                          class="custom-control-label"
-                          :for="`assigned-${member._id}`"
-                        >{{ member.profile.name }}</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <button
-                      class="btn btn-primary"
-                      type="button"
-                      @click.stop.prevent="showAssignedSelect = !showAssignedSelect"
-                    >
-                      {{ $t('close') }}
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <select-tag
+                :all-tags="membersNameAndId"
+                :empty-message="$t('unassigned')"
+                :search-placeholder="$t('chooseTeamMember')"
+                :selected-tags="assignedMembers"
+                @toggle="toggleAssignment($event)"
+                ref="assignMembers"
+              />
             </div>
           </div>
           <div class="form-group flex-group mt-3 mb-4">
@@ -1164,6 +1117,7 @@ export default {
       sharedCompletion: 'singleCompletion',
       managerNotes: '',
       members: [],
+      membersNameAndId: [],
       memberNamesById: {},
       assignedMembers: [],
       managers: [],
@@ -1330,7 +1284,12 @@ export default {
           includeAllPublicFields: true,
         });
         this.members = members;
+        this.membersNameAndId = [];
         this.members.forEach(member => {
+          this.membersNameAndId.push({
+            id: member._id,
+            name: member.auth.local.username,
+          });
           this.memberNamesById[member._id] = member.profile.name;
         });
         this.assignedMembers = [];

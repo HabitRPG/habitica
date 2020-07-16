@@ -4,7 +4,7 @@
     :class="{ 'break': maxTags === 0 }"
   >
     <template v-if="tags.length === 0">
-      <div class="tags-none">{{ $t('addTags') }}</div>
+      <div class="tags-none">{{ emptyMessage }}</div>
     </template>
     <template v-else>
       <div
@@ -152,6 +152,13 @@ export default {
     },
   },
   props: {
+    addNew: {
+      type: Boolean,
+      default: false,
+    },
+    emptyMessage: {
+      type: String,
+    },
     tags: {
       type: Array,
     },

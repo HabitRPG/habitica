@@ -267,6 +267,8 @@
   "assignedToYouAndMembers": "Assigned to you and <strong><%= userCount %> members</strong>",
   "youAreAssigned": "You are assigned to this task",
   "taskIsUnassigned": "This task is unassigned",
+  "unassigned": "Unassigned",
+  "chooseTeamMember": "Choose a team member",
   "confirmClaim": "Are you sure you want to claim this task?",
   "confirmUnClaim": "Are you sure you want to unclaim this task?",
   "confirmApproval": "Are you sure you want to approve this task?",

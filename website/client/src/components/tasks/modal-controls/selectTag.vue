@@ -11,27 +11,33 @@
       <b-dropdown-header>
         <div class="mb-2">
           <b-form-input type="text"
-                        :placeholder="$t('enterTag')"
+                        :placeholder="searchPlaceholder"
                         v-model="search"
                         @keyup.enter="handleSubmit"
           />
         </div>
 
-        <tagList v-if="selectedTags.length > 0"
-                 :tags="selectedTagsAsObjects"
-                 @remove-tag="removeTag($event)"
-                 :max-tags="0" />
+        <tag-list v-if="selectedTags.length > 0"
+                  :add-new="addNew"
+                  :tags="selectedTagsAsObjects"
+                  @remove-tag="removeTag($event)"
+                  :max-tags="0" />
 
       </b-dropdown-header>
       <template v-slot:button-content>
         <tag-list :tags="selectedTagsAsObjects"
+                  :add-new="addNew"
+                  :empty-message="emptyMessage"
                   @remove-tag="removeTag($event)"/>
       </template>
-      <div :class="{
-        'item-group': true,
-        'add-new': availableToSelect.length === 0 && search !== '',
-        'scroll': availableToSelect.length > 5
-      }">
+      <div
+        v-if="addNew || availableToSelect.length > 0"
+        :class="{
+          'item-group': true,
+          'add-new': availableToSelect.length === 0 && search !== '',
+          'scroll': availableToSelect.length > 5
+        }"
+      >
         <b-dropdown-item-button
           v-for="tag in availableToSelect"
           :key="tag.id"
@@ -43,7 +49,7 @@
           <div class="challenge" v-if="tag.challenge">{{$t('challenge')}}</div>
         </b-dropdown-item-button>
 
-        <div class="hint">
+        <div v-if="addNew" class="hint">
           {{$t('pressEnterToAddTag', { tagName: search })}}
         </div>
       </div>
@@ -185,11 +191,14 @@ export default {
     },
     selectTag (tag) {
       this.selectedTags.push(tag.id);
+      this.$emit('toggle', tag.id);
     },
     removeTag ($event) {
       const foundIndex = this.selectedTags.findIndex(t => t === $event);
 
       this.selectedTags.splice(foundIndex, 1);
+
+      this.$emit('toggle', $event);
     },
     hideCallback ($event) {
       if (this.preventHide) {
@@ -204,6 +213,7 @@ export default {
       this.preventHide = true;
     },
     handleSubmit () {
+      if (!this.addNew) return;
       const { search } = this;
       this.$emit('addNew', search);
 
@@ -237,10 +247,20 @@ export default {
     },
   },
   props: {
-    selectedTags: {
-      type: Array,
+    addNew: {
+      type: Boolean,
+      default: false,
     },
     allTags: {
+      type: Array,
+    },
+    emptyMessage: {
+      type: String,
+    },
+    searchPlaceholder: {
+      type: String,
+    },
+    selectedTags: {
       type: Array,
     },
   },
