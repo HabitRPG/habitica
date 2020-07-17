@@ -312,6 +312,11 @@ const armor = {
     con: 6,
     set: 'fiddler',
   },
+  pirateOutfit: {
+    con: 4,
+    int: 4,
+    set: 'pirate',
+  },
 };
 
 const body = {
@@ -807,6 +812,10 @@ const shield = {
     con: 12,
     set: 'lifeguard',
   },
+  piratesCompanion: {
+    per: 8,
+    set: 'pirate',
+  },
 };
 
 const headAccessory = {
@@ -1076,6 +1085,10 @@ const weapon = {
   beachFlag: {
     per: 12,
     set: 'lifeguard',
+  },
+  handyHook: {
+    str: 8,
+    set: 'pirate',
   },
 };
 

@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> jako voli <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> jede <%= foodText %>, ali mu se baš ne sviđa.",
     "messageBought": "Kupio/la si <%= itemText %>",
-    "messageEquipped": "<%= itemText %> opremljen.",
+    "messageEquipped": " <%= itemText %> opremljen.",
     "messageUnEquipped": "<%= itemText %> je uklonjen.",
     "messageMissingEggPotion": "Nedostaje ti ili to jaje, ili taj napitak",
     "messageInvalidEggPotionCombo": "Ne možeš izleći Jaja Pustolovnih ljubimaca koristeći Čarobne napitke! Pokušaj drugo jaje.",

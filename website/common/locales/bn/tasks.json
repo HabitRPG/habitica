@@ -1,7 +1,7 @@
 {
     "clearCompleted": "সমাপ্ত কাজগুলো মুছুন",
-    "clearCompletedDescription": "সম্পন্ন হওয়া কাজ গুলো নন-সাবস্ক্রাইবারদের ৩০ দিন এবং সাবস্ক্রাইবারদের ৯০ দিন পর মুছে ফেলা হয়।",
-    "clearCompletedConfirm": "Are you sure you want to delete your completed To-Dos?",
+    "clearCompletedDescription": "সমাপ্ত হওয়া কাজ গুলো নন-সাবস্ক্রাইবারদের ৩০ দিন এবং সাবস্ক্রাইবারদের ৯০ দিন পর মুছে ফেলা হয়।",
+    "clearCompletedConfirm": "আপনি কি নিশ্চিত আপনি নিজের সম্পন্ন কাজগুলো মুছে ফেলতে চান?",
     "sureDeleteCompletedTodos": "Are you sure you want to delete your completed To-Dos?",
     "lotOfToDos": "Your most recent 30 completed To-Dos are shown here. You can see older completed To-Dos from Data > Data Display Tool or Data > Export Data > User Data.",
     "deleteToDosExplanation": "If you click the button below, all of your completed To-Dos and archived To-Dos will be permanently deleted, except for To-Dos from active challenges and Group Plans. Export them first if you want to keep a record of them.",

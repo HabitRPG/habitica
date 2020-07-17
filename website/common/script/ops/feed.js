@@ -38,6 +38,8 @@ function evolve (user, pet, req) {
 export default function feed (user, req = {}, analytics) {
   let pet = get(req, 'params.pet');
   const foodK = get(req, 'params.food');
+  let amount = Number(get(req.query, 'amount', 1));
+  let foodFactor;
 
   if (!pet || !foodK) throw new BadRequest(errorMessage('missingPetFoodFeed'));
 
@@ -68,9 +70,28 @@ export default function feed (user, req = {}, analytics) {
     throw new NotAuthorized(i18n.t('messageAlreadyMount', req.language));
   }
 
+  if (!Number.isInteger(amount) || amount < 0) {
+    throw new BadRequest(i18n.t('invalidAmount', req.language));
+  }
+
+  if (amount > user.items.food[food.key]) {
+    throw new NotAuthorized(i18n.t('notEnoughFood', req.language));
+  }
+
+  if (food.target === pet.potion || pet.type === 'premium') {
+    foodFactor = 5;
+  } else {
+    foodFactor = 2;
+  }
+
+  if ((user.items.pets[pet.key] + (amount * foodFactor)) >= (50 + foodFactor)) {
+    throw new NotAuthorized(i18n.t('tooMuchFood', req.language));
+  }
+
   let message;
 
   if (food.key === 'Saddle') {
+    amount = 1;
     message = evolve(user, pet, req);
   } else {
     const messageParams = {
@@ -79,10 +100,10 @@ export default function feed (user, req = {}, analytics) {
     };
 
     if (food.target === pet.potion || pet.type === 'premium') {
-      user.items.pets[pet.key] += 5;
+      user.items.pets[pet.key] += foodFactor * amount;
       message = i18n.t('messageLikesFood', messageParams, req.language);
     } else {
-      user.items.pets[pet.key] += 2;
+      user.items.pets[pet.key] += foodFactor * amount;
       message = i18n.t('messageDontEnjoyFood', messageParams, req.language);
     }
 
@@ -98,7 +119,7 @@ export default function feed (user, req = {}, analytics) {
     }
   }
 
-  user.items.food[food.key] -= 1;
+  user.items.food[food.key] -= 1 * amount;
   if (user.markModified) user.markModified('items.food');
 
   forEach(content.animalColorAchievements, achievement => {

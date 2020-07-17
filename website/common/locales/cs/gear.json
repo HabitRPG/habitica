@@ -27,7 +27,7 @@
     "weaponWarrior1Text": "Meč",
     "weaponWarrior1Notes": "Obyčejný vojákův meč. Zvyšuje sílu o <%= str %>.",
     "weaponWarrior2Text": "Sekera",
-    "weaponWarrior2Notes": "Oboustranná sečná zbraň. Zvyšuje Sílu o <%= str %>",
+    "weaponWarrior2Notes": "Oboustranná sečná zbraň. Zvyšuje Sílu o <%= str %>.",
     "weaponWarrior3Text": "Řemdih",
     "weaponWarrior3Notes": "Těžká palice s brutálními ostny. Zvyšuje sílu o <%= str %>.",
     "weaponWarrior4Text": "Safírová čepel",

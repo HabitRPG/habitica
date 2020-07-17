@@ -42,3 +42,7 @@ yarn.lock
 
 # webstorm fake webpack for path intellisense
 webpack.webstorm.config
+
+# mongodb replica set for local dev
+mongodb-*.tgz
+/mongodb-data

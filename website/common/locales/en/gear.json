@@ -501,6 +501,8 @@
   "weaponArmoireFiddlersBowNotes": "You can coax music out of anything with this! ...A violin might work best, though. Increases Strength by <%= str %>. Enchanted Armoire: Fiddler Set (Item 3 of 4).",
   "weaponArmoireBeachFlagText": "Beach Flag",
   "weaponArmoireBeachFlagNotes": "Rally the troops around your sandcastle and let everyone know where to come for help! Increases Perception by <%= per %>. Enchanted Armoire: Lifeguard Set (Item 1 of 3).",
+  "weaponArmoireHandyHookText": "Handy Hook",
+  "weaponArmoireHandyHookNotes": "Who needs opposable thumbs? This hook is “handy” enough for anyone. Increases Strength by <%= str %>. Enchanted Armoire: Pirate Set (Item 1 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1078,6 +1080,8 @@
   "armorArmoireBoxArmorNotes": "Box Armor: It fits, therefore you sits... uh, therefore you wear it into battle, like the bold knight you are! Increases Perception and Constitution by <%= attrs %> each. Enchanted Armoire: Paper Knight Set (Item 3 of 3).",
   "armorArmoireFiddlersCoatText": "Fiddler's Coat",
   "armorArmoireFiddlersCoatNotes": "A practical outfit to give you plenty of room to move! Increases Constitution by <%= con %>. Enchanted Armoire: Fiddler Set (Item 2 of 4).",
+  "armorArmoirePirateOutfitText": "Pirate Outfit",
+  "armorArmoirePirateOutfitNotes": "Avast, ye landlubbers! The perfect outfit for swabbing the deck and counting your spoils. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Pirate Set (Item 2 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1963,6 +1967,8 @@
   "shieldArmoireFiddleNotes": "A perfect instrument that always strikes the right note in company. Increases Intelligence by <%= int %>. Enchanted Armoire: Fiddler Set (Item 4 of 4).",
   "shieldArmoireLifeBuoyText": "Life Buoy",
   "shieldArmoireLifeBuoyNotes": "Oh buoy! This will come in handy if you spot someone struggling in a sea of tasks and responsibilities. Increases Constitution by <%= con %>. Enchanted Armoire: Lifeguard Set (Item 2 of 3).",
+  "shieldArmoirePiratesCompanionText": "Pirate's Companion",
+  "shieldArmoirePiratesCompanionNotes": "Perfect if you want to talk your enemies to death, this parrot never shuts up. Maybe it'll remind you about your tasks too! Increases Perception by <%= per %>. Enchanted Armoire: Pirate Set (Item 3 of 3).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
