@@ -145,5 +145,8 @@
     "notEnoughPetsMounts": "You have not collected enough pets and mounts",
     "wackyPets": "Wacky Pets",
     "filterByWacky": "Wacky",
-    "gryphatrice": "Gryphatrice"
+    "gryphatrice": "Gryphatrice",
+    "invalidAmount": "Invalid amount of food, must be a positive integer",
+    "tooMuchFood": "You're trying to feed too much food to your pet, action cancelled",
+    "notEnoughFood": "You don't have enough food"
 }

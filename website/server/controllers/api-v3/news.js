@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: GOOD STARTER QUESTS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,25 +31,22 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/29/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_202007 center-block"></div>
+        <div class="scene_basilist center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can explore
-          Underwater Ruins, go Swimming Among Jellyfish, and relax in a Beach Cabana. Check them
-          out under User Icon > Backgrounds on web and Menu > Inventory > Customize Avatar on
-          mobile!
+          This month's <a
+          href='https://habitica.wordpress.com/2020/07/15/easy-starter-quests-for-beginners/'
+          target='_blank'>featured Wiki article</a> is about Easy Starter Quests for Beginners! We
+          hope that it will help you as you take on Habitica's bosses and your tasks! Be sure to
+          check it out, and let us know what you think by reaching out on <a
+          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
+          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
+          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
-        <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including a new
-          set of Pirate Accessories. Better work hard on your real-life tasks to earn all the
-          pieces! Enjoy :)
-        </p>
-        <div class="small mb-3">
-          by gawrone, Vikte, -Tyr-, Vyllan, a_diamond, katieslug, shanaqui, and SabreCat
-        </div>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });

@@ -12,25 +12,25 @@
 }
 .hair_base_15_brown {
   background-image: url('~@/assets/images/sprites/spritesmith-main-4.png');
-  background-position: -91px 0px;
+  background-position: 0px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_15_brown {
   background-image: url('~@/assets/images/sprites/spritesmith-main-4.png');
-  background-position: -116px -0px;
+  background-position: -25px -0px;
   width: 60px;
   height: 60px;
 }
 .hair_base_15_candycane {
   background-image: url('~@/assets/images/sprites/spritesmith-main-4.png');
-  background-position: -728px -1092px;
+  background-position: -91px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_15_candycane {
   background-image: url('~@/assets/images/sprites/spritesmith-main-4.png');
-  background-position: -753px -1092px;
+  background-position: -116px -0px;
   width: 60px;
   height: 60px;
 }
@@ -1980,13 +1980,13 @@
 }
 .hair_base_19_holly {
   background-image: url('~@/assets/images/sprites/spritesmith-main-4.png');
-  background-position: 0px 0px;
+  background-position: -728px -1092px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_19_holly {
   background-image: url('~@/assets/images/sprites/spritesmith-main-4.png');
-  background-position: -25px -0px;
+  background-position: -753px -1092px;
   width: 60px;
   height: 60px;
 }

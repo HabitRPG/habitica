@@ -47,7 +47,7 @@
     "faqQuestion11": "我怎么才能上报遇到的bug，或者请求新增一个功能？",
     "iosFaqAnswer11": "你可以在 菜单 > 关于 > 报告一个漏洞，或者 菜单 > 关于 >发送反馈，报告一个漏洞，请求一个新功能，或发送其他反馈！我们会尽力帮助你的。",
     "androidFaqAnswer11": "你可以报告一个漏洞，请求一个功能，或者给我们发送反馈通过 关于> 报告漏洞， 或者 关于 >  给我们发送反馈！ 我们会尽力协助你。",
-    "webFaqAnswer11": "想要上报一个Bug，点击[【帮助】→【报告一个Bug】](https://habitica.com/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac)并关注你的聊天信息。\n\n如果你不能登录Habitica，提交你登录时的详细状况（不是你的密码！）到[<%= techAssistanceEmail %>](<%= wikiTechAssistanceEmail %>)。不用担心，我们会马上解决问题的！\n\n新功能增添的请求都在Google Form中收集，进入[【帮助】→【请求一个新功能】](https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link)，然后按说明操作。嗒哒！",
+    "webFaqAnswer11": "想要上报一个Bug，点击[【帮助】→【报告一个Bug】](https://habitica.com/groups/guild/a29da26b-37de-4a71-b0c6-48e72a900dac)并关注你的聊天信息。如果你不能登录Habitica，提交你登录时的详细状况（不是你的密码！）到[<%= techAssistanceEmail %>](<%= wikiTechAssistanceEmail %>)。不用担心，我们会马上解决问题的！新功能增添的请求都在Google Form中收集，进入[【帮助】→【请求一个新功能】](https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link)，然后按说明操作。嗒哒！",
     "faqQuestion12": "怎么打世界Boss？",
     "iosFaqAnswer12": "世界Boss是出现在酒馆的特殊怪物。所有活跃的玩家都会自动参与首领战，玩家们的完成的任务和技能都会对首领造成伤害。\n\n你可以像平时那样完成副本。你完成的任务和技能会被算入世界Boss以及你队伍首领的进度当中。\n\n世界Boss并不会伤害你以及你的账户。它会有一个愤怒值，取决于用户跳过的每日任务。如果愤怒值满了，它会攻击一个NPC并使这个NPC的形象产生永久性改变。\n\n你可以前往维基了解更多关于[过去的世界Boss](http://habitica.fandom.com/zh/wiki/世界Boss)的信息。",
     "androidFaqAnswer12": "世界Boss是出现在酒馆的特殊怪物。所有活跃的玩家都会自动参与首领战，玩家们的完成的任务和技能都会对首领造成伤害。\n\n你可以像平时那样完成副本。你完成的任务和技能会被算入世界Boss以及你队伍首领的进度当中。\n\n世界Boss并不会伤害你以及你的账户。它会有一个愤怒值，取决于用户跳过的每日任务。如果愤怒值满了，它会攻击一个NPC并使这个NPC的形象产生永久性改变。\n\n你可以前往维基了解更多关于[过去的世界Boss](http://habitica.fandom.com/zh/wiki/世界Boss)的信息。",

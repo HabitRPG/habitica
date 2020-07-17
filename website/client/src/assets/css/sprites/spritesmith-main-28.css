@@ -1,12 +1,12 @@
 .Pet-Wolf-Dessert {
   background-image: url('~@/assets/images/sprites/spritesmith-main-28.png');
-  background-position: -82px 0px;
+  background-position: 0px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Wolf-Ember {
   background-image: url('~@/assets/images/sprites/spritesmith-main-28.png');
-  background-position: -164px -500px;
+  background-position: -82px 0px;
   width: 81px;
   height: 99px;
 }
@@ -252,19 +252,19 @@
 }
 .Pet-Yarn-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-28.png');
-  background-position: 0px 0px;
+  background-position: -164px -500px;
   width: 81px;
   height: 99px;
 }
 .Pet_HatchingPotion_Amber {
   background-image: url('~@/assets/images/sprites/spritesmith-main-28.png');
-  background-position: -315px -500px;
+  background-position: -246px -500px;
   width: 68px;
   height: 68px;
 }
 .Pet_HatchingPotion_Aquatic {
   background-image: url('~@/assets/images/sprites/spritesmith-main-28.png');
-  background-position: -552px -600px;
+  background-position: -315px -500px;
   width: 68px;
   height: 68px;
 }
@@ -384,7 +384,7 @@
 }
 .Pet_HatchingPotion_IcySnow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-28.png');
-  background-position: -246px -500px;
+  background-position: -552px -600px;
   width: 68px;
   height: 68px;
 }

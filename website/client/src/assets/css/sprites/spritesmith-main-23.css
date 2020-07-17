@@ -1,12 +1,12 @@
 .Mount_Icon_Cactus-Frost {
   background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
-  background-position: -82px 0px;
+  background-position: 0px 0px;
   width: 81px;
   height: 99px;
 }
 .Mount_Icon_Cactus-Ghost {
   background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
-  background-position: -82px -1100px;
+  background-position: -82px 0px;
   width: 81px;
   height: 99px;
 }
@@ -996,7 +996,7 @@
 }
 .Mount_Icon_FlyingPig-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
-  background-position: 0px 0px;
+  background-position: -82px -1100px;
   width: 81px;
   height: 99px;
 }

@@ -1,150 +1,150 @@
 .Pet-Dragon-Ember {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -492px -100px;
+  background-position: -82px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Fairy {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -82px -1103px;
+  background-position: -164px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Floral {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -164px 0px;
+  background-position: 0px -103px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Fluorite {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: 0px -103px;
+  background-position: -82px -103px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Frost {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -82px -103px;
+  background-position: -164px -103px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Ghost {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -164px -103px;
+  background-position: -246px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Glass {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -246px 0px;
+  background-position: -246px -100px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Glow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -246px -100px;
+  background-position: 0px -203px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: 0px -203px;
+  background-position: -82px -203px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Holly {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -82px -203px;
+  background-position: -164px -203px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Hydra {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -164px -203px;
+  background-position: -246px -203px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-IcySnow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -246px -203px;
+  background-position: -328px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Peppermint {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -328px 0px;
+  background-position: -328px -100px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Rainbow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -328px -100px;
+  background-position: -328px -200px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -328px -200px;
+  background-position: 0px -303px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-RoseQuartz {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: 0px -303px;
+  background-position: -82px -303px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-RoyalPurple {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -82px -303px;
+  background-position: -164px -303px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Ruby {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -164px -303px;
+  background-position: -246px -303px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-SandSculpture {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -246px -303px;
+  background-position: -328px -303px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -328px -303px;
+  background-position: -410px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Shadow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -410px 0px;
+  background-position: -410px -100px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Shimmer {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -410px -100px;
+  background-position: -410px -200px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Silver {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -410px -200px;
+  background-position: -410px -300px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -410px -300px;
+  background-position: -492px 0px;
   width: 81px;
   height: 99px;
 }
 .Pet-Dragon-Spooky {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -492px 0px;
+  background-position: -492px -100px;
   width: 81px;
   height: 99px;
 }
@@ -996,7 +996,7 @@
 }
 .Pet-Gryphon-Shade {
   background-image: url('~@/assets/images/sprites/spritesmith-main-26.png');
-  background-position: -82px 0px;
+  background-position: -82px -1103px;
   width: 81px;
   height: 99px;
 }

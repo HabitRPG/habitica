@@ -80,5 +80,9 @@
   "APPLE_AUTH_CLIENT_ID": "",
   "APPLE_AUTH_KEY_ID": "",
   "BLOCKED_IPS": "",
-  "LOG_AMPLITUDE_EVENTS": "false"
+  "LOG_AMPLITUDE_EVENTS": "false",
+  "RATE_LIMITER_ENABLED": "false",
+  "REDIS_HOST": "aaabbbcccdddeeefff",
+  "REDIS_PORT": "1234",
+  "REDIS_PASSWORD": "12345678"
 }

@@ -86,7 +86,7 @@
     "timeTravelersTitleNoSub": "<%= linkStartTyler %>Tyler<%= linkEnd %> e <%= linkStartVicky %>Vicky<%= linkEnd %>",
     "timeTravelersTitle": "Misteriosi viaggiatori del tempo",
     "timeTravelersPopoverNoSub": "Hai bisogno di una Clessidra Mistica per evocare i misteriosi viaggiatori del tempo! Gli <%= linkStart %>abbonati<%= linkEnd %> ne ottengono una ogni tre mesi di abbonamento consecutivi. Torna qui quando avrai una Clessidra Mistica, e i viaggiatori del tempo ti porteranno un raro animale, cavalcatura o set di Oggetti Misteriosi dal passato...o forse persino dal futuro.",
-    "timeTravelersPopoverNoSubMobile": "Pare che tu abbia bisogno di una Clessidra Mistica aprire il portale temporale ed evocare i misteriosi viaggiatori del tempo.",
+    "timeTravelersPopoverNoSubMobile": "Pare che tu abbia bisogno di una Clessidra Mistica per aprire il portale temporale ed evocare i Misteriosi Viaggiatori del Tempo.",
     "timeTravelersPopover": "La tua Clessidra Mistica ha aperto il nostro portale temporale! Scegli cosa vorresti recuperare dal passato o dal futuro.",
     "timeTravelersAlreadyOwned": "Congratulazioni! Possiedi già tutto ciò che i Viaggiatori del Tempo possono attualmente offrire. Grazie per il tuo supporto al sito!",
     "mysticHourglassPopover": "La Clessidra Mistica ti permette di acquistare alcuni oggetti a disponibilità limitata, come i set mensili di Oggetti Misteriosi le ricompense degli eventi mondiali, dal passato!",
