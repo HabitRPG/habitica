@@ -755,133 +755,18 @@ api.scoreTask = {
     const [taskResponse] = await scoreTasks(user, [{ id: taskId, direction }], req, res);
 
     const userStats = user.stats.toJSON();
-    const resJsonData = _.assign({
-      delta: taskResponse.delta,
-      _tmp: user._tmp,
-    }, userStats);
 
-<<<<<<< HEAD
-=======
-      const managerIds = Object.keys(group.managers);
-      managerIds.push(group.leader);
+    // group tasks that require a manager's approval
+    if (taskResponse.requiresApproval === true) {
+      res.respond(200, { requiresApproval: true }, taskResponse.message);
+    } else {
+      const resJsonData = _.assign({
+        delta: taskResponse.delta,
+        _tmp: user._tmp,
+      }, userStats);
 
-      if (managerIds.indexOf(user._id) !== -1) {
-        task.group.approval.approved = true;
-        task.group.approval.requested = true;
-        task.group.approval.requestedDate = new Date();
-      } else {
-        if (task.group.approval.requested) {
-          throw new NotAuthorized(res.t('taskRequiresApproval'));
-        }
-
-        task.group.approval.requested = true;
-        task.group.approval.requestedDate = new Date();
-
-        const managers = await User.find({ _id: managerIds }, 'notifications preferences').exec(); // Use this method so we can get access to notifications
-
-        // @TODO: we can use the User.pushNotification function because
-        // we need to ensure notifications are translated
-        const managerPromises = [];
-        managers.forEach(manager => {
-          manager.addNotification('GROUP_TASK_APPROVAL', {
-            message: res.t('userHasRequestedTaskApproval', {
-              user: user.profile.name,
-              taskName: task.text,
-            }, manager.preferences.language),
-            groupId: group._id,
-            // user task id, used to match the notification when the task is approved
-            taskId: task._id,
-            userId: user._id,
-            groupTaskId: task.group.taskId, // the original task id
-            direction,
-          });
-          managerPromises.push(manager.save());
-        });
-
-        managerPromises.push(task.save());
-        await Promise.all(managerPromises);
-
-        res.respond(202, { approvalRequested: res.t('taskApprovalHasBeenRequested') });
-        return;
-      }
+      res.respond(200, resJsonData);
     }
-
-    if (task.group.approval.required && task.group.approval.approved) {
-      const notificationIndex = user.notifications.findIndex(notification => notification
-         && notification.data && notification.data.task
-         && notification.data.task._id === task._id && notification.type === 'GROUP_TASK_APPROVED');
-
-      if (notificationIndex !== -1) {
-        user.notifications.splice(notificationIndex, 1);
-      }
-    }
-
-    const wasCompleted = task.completed;
-
-    const firstTask = !user.achievements.completedTask;
-    const [delta] = common.ops.scoreTask({ task, user, direction }, req, res.analytics);
-    // Drop system (don't run on the client,
-    // as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up' && !firstTask) common.fns.randomDrop(user, { task, delta }, req, res.analytics);
-
-    // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
-    // TODO move to common code?
-    let taskOrderPromise;
-    if (task.type === 'todo') {
-      if (!wasCompleted && task.completed) {
-        // @TODO: mongoose's push and pull should be atomic and help with
-        // our concurrency issues. If not, we need to use this update $pull and $push
-        taskOrderPromise = user.update({
-          $pull: { 'tasksOrder.todos': task._id },
-        }).exec();
-        // user.tasksOrder.todos.pull(task._id);
-      } else if (
-        wasCompleted
-        && !task.completed
-        && user.tasksOrder.todos.indexOf(task._id) === -1
-      ) {
-        taskOrderPromise = user.update({
-          $push: { 'tasksOrder.todos': task._id },
-        }).exec();
-        // user.tasksOrder.todos.push(task._id);
-      }
-    }
-
-    setNextDue(task, user);
-
-    const promises = [
-      user.save(),
-      task.save(),
-    ];
-
-    if (task.group && task.group.taskId) {
-      await handleSharedCompletion(task);
-      try {
-        const groupTask = await Tasks.Task.findOne({
-          _id: task.group.taskId,
-        }).exec();
-
-        if (groupTask) {
-          const groupDelta = groupTask.group.assignedUsers
-            ? delta / groupTask.group.assignedUsers.length
-            : delta;
-          await groupTask.scoreChallengeTask(groupDelta, direction);
-        }
-      } catch (e) {
-        logger.error(e);
-      }
-    }
-
-    // Save results and handle request
-    if (taskOrderPromise) promises.push(taskOrderPromise);
-    const results = await Promise.all(promises);
-
-    const savedUser = results[0];
-
-    const userStats = savedUser.stats.toJSON();
-    const resJsonData = _.assign({ delta, _tmp: user._tmp }, userStats);
->>>>>>> sabrecat/teams-2020
-    res.respond(200, resJsonData);
   },
 };
 

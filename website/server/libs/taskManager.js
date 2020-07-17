@@ -375,7 +375,11 @@ async function scoreTask (user, task, direction, req, res) {
       task.group.approval.requestedDate = new Date();
     } else {
       if (task.group.approval.requested) {
-        throw new NotAuthorized(res.t('taskRequiresApproval'));
+        return {
+          task,
+          requiresApproval: true,
+          message: res.t('taskRequiresApproval'),
+        };
       }
 
       task.group.approval.requested = true;
@@ -405,7 +409,21 @@ async function scoreTask (user, task, direction, req, res) {
       managerPromises.push(task.save());
       await Promise.all(managerPromises);
 
-      throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
+      return {
+        task,
+        requiresApproval: true,
+        message: res.t('taskApprovalHasBeenRequested'),
+      };
+    }
+  }
+
+  if (task.group.approval.required && task.group.approval.approved) {
+    const notificationIndex = user.notifications.findIndex(notification => notification
+       && notification.data && notification.data.task
+       && notification.data.task._id === task._id && notification.type === 'GROUP_TASK_APPROVED');
+
+    if (notificationIndex !== -1) {
+      user.notifications.splice(notificationIndex, 1);
     }
   }
 
@@ -459,8 +477,6 @@ async function scoreTask (user, task, direction, req, res) {
   }
 
   return {
-    success: true,
-    user,
     task,
     delta,
     direction,
@@ -526,7 +542,7 @@ export async function scoreTasks (user, taskScorings, req, res) {
   Object.keys(tasks).forEach(identifier => {
     // Tasks identified by an alias exists with two keys (id and alias) in the tasks object
     // ignore the alias to avoid saving them twice
-    if (validator.isUUID(String(identifier))) {
+    if (validator.isUUID(String(identifier)) && tasks[identifier].isModified()) {
       savePromises.push(tasks[identifier].save());
     }
   });
@@ -553,6 +569,13 @@ export async function scoreTasks (user, taskScorings, req, res) {
     // Handle challenge and group tasks tasks here because the task must have been saved first
     handleChallengeTask(data.task, data.delta, data.direction);
     handleGroupTask(data.task, data.delta, data.direction);
+
+    // Handle group tasks that require approval
+    if (data.requiresApproval === true) {
+      return {
+        id: data.task._id, message: data.message, requiresApproval: true,
+      };
+    }
 
     return { id: data.task._id, delta: data.delta, _tmp: data._tmp };
   });
