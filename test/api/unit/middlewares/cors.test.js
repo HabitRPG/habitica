@@ -6,7 +6,7 @@ import {
 } from '../../../helpers/api-unit.helper';
 import cors from '../../../../website/server/middlewares/cors';
 
-describe.only('cors middleware', () => {
+describe('cors middleware', () => {
   let res; let req; let
     next;
 
