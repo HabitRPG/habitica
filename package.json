@@ -60,6 +60,8 @@
     "paypal-ipn": "3.0.0",
     "paypal-rest-sdk": "^1.8.1",
     "ps-tree": "^1.0.0",
+    "rate-limiter-flexible": "^2.1.7",
+    "redis": "^3.0.2",
     "regenerator-runtime": "^0.13.5",
     "remove-markdown": "^0.3.0",
     "rimraf": "^3.0.2",
