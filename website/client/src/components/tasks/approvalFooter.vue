@@ -2,7 +2,8 @@
   <div>
     <approval-modal :task="task" />
     <div
-      v-if="!approvalRequested && !multipleApprovalsRequested"
+      v-if="!approvalRequested && !multipleApprovalsRequested
+        || !userIsManager && !task.group.approval.approved"
       class="claim-bottom-message d-flex align-items-center"
     >
       <div
@@ -10,7 +11,7 @@
         v-html="message"
       ></div>
       <div
-        v-if="!userIsAssigned"
+        v-if="!userIsAssigned && !task.completed"
         class="ml-auto mr-2"
       >
         <a
@@ -19,7 +20,7 @@
         >{{ $t('claim') }}</a>
       </div>
       <div
-        v-if="userIsAssigned"
+        v-if="userIsAssigned && !approvalRequested && !task.completed"
         class="ml-auto mr-2"
       >
         <a
@@ -43,6 +44,15 @@
       class="claim-bottom-message d-flex align-items-center"
     >
       <a @click="showRequests()">{{ $t('viewRequests') }}</a>
+    </div>
+    <div
+      v-if="userIsAssigned && task.group.approval.approved && !task.completed"
+      class="claim-bottom-message d-flex align-items-center justify-content-around"
+    >
+      <a
+        class="approve-color"
+        @click="$emit('claimRewards')"
+      >{{ $t('claimRewards') }}</a>
     </div>
   </div>
 </template>
@@ -176,6 +186,8 @@ export default {
       });
       this.task.group.assignedUsers.splice(0, 1);
       this.task.approvals.splice(0, 1);
+
+      this.sync();
     },
     needsWork () {
       if (!window.confirm(this.$t('confirmNeedsWork'))) return;
@@ -185,6 +197,8 @@ export default {
         userId: userIdNeedsMoreWork,
       });
       this.task.approvals.splice(0, 1);
+
+      this.sync();
     },
     showRequests () {
       this.$root.$emit('bv::show::modal', 'approval-modal');

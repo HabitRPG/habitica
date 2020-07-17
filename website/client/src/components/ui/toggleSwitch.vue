@@ -89,18 +89,18 @@
   .toggle-switch-inner:before {
     content: "";
     padding-left: 10px;
-    background-color: $purple-400;
+    background-color: $green-50;
   }
 
   .toggle-switch-inner:after {
     content: "";
     padding-right: 10px;
-    background-color: $gray-200;
+    background-color: $gray-300;
     text-align: right;
   }
 
   .toggle-switch-switch {
-    box-shadow: 0 1px 2px 0 rgba($black, 0.32);
+    box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
     display: block;
     width: 20px;
     margin: -2px;
@@ -113,6 +113,10 @@
     right: 22px;
     border-radius: 100px;
     transition: all 0.3s ease-in 0s;
+
+    &:focus {
+      border: 1px solid $purple-400;
+    }
   }
 
   .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {

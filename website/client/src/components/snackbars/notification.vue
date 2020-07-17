@@ -2,7 +2,7 @@
   <transition name="fade">
     <div
       v-if="show"
-      class="notification callout animated"
+      class="notification callout animated pt-0"
       :class="classes"
       @click="handleOnClick()"
     >
