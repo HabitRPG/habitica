@@ -55,6 +55,19 @@ export const { NotFound } = common.errors;
 export const { Forbidden } = common.errors;
 
 /**
+ * @apiDefine TooManyRequests
+ * @apiError TooManyRequests The client made too many requests to the API and was rate limited.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 429 TooManyRequests
+ *     {
+ *       "error": "TooManyRequests",
+ *       "message": "Access forbidden."
+ *     }
+ */
+export const { TooManyRequests } = common.errors;
+
+/**
  * @apiDefine NotificationNotFound
  * @apiError NotificationNotFound The notification was not found.
  *
