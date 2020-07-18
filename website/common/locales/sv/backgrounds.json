@@ -258,7 +258,7 @@
     "backgrounds042017": "SET 35: Utgiven April 2017",
     "backgroundBugCoveredLogText": "Insektsfylld stock",
     "backgroundBugCoveredLogNotes": "Sök igenom en Insektsfylld stock.",
-    "backgroundGiantBirdhouseText": "Gigantiskt fågelbo",
+    "backgroundGiantBirdhouseText": "Gigantiskt Fågelbo",
     "backgroundGiantBirdhouseNotes": "Titta ner från en Gigantisk fågelholk.",
     "backgroundMistShroudedMountainText": "Dimmtäckt berg",
     "backgroundMistShroudedMountainNotes": "Bestig ett dimmtäckt berg.",
@@ -506,5 +506,9 @@
     "backgroundTeaPartyText": "Te Party",
     "backgroundElegantBallroomNotes": "Dansa hela natten i ett Elegant Balrum.",
     "backgroundElegantBallroomText": "Elegant Balrum",
-    "backgrounds022020": "SET 69: Släpptes Februari 2020"
+    "backgrounds022020": "SET 69: Släpptes Februari 2020",
+    "backgroundButterflyGardenText": "Fjärilsträdgård",
+    "backgroundAmongGiantFlowersText": "Bland Gigantiska Blommor",
+    "backgrounds032020": "SET 70: Släpptes Mars 2020",
+    "backgroundButterflyGardenNotes": "Festa med pollinatörer i en Fjärilsträdgård."
 }

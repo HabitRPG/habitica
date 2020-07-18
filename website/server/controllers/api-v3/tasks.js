@@ -26,11 +26,26 @@ import common from '../../../common';
 import logger from '../../libs/logger';
 import apiError from '../../libs/apiError';
 
-function canNotEditTasks (group, user, assignedUserId) {
+// @TODO abstract, see api-v3/tasks/groups.js
+function canNotEditTasks (group, user, assignedUserId, taskPayload = null) {
   const isNotGroupLeader = group.leader !== user._id;
   const isManager = Boolean(group.managers[user._id]);
   const userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
-  return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
+
+  const taskPayloadProps = taskPayload
+    ? Object.keys(taskPayload)
+    : [];
+
+  // only allow collapseChecklist to be changed by everyone
+  const allowedByTaskPayload = taskPayloadProps.length === 1
+    && taskPayloadProps.includes('collapseChecklist');
+
+  if (allowedByTaskPayload) {
+    return false;
+  }
+
+  return isNotGroupLeader && !isManager
+    && !userIsAssigningToSelf;
 }
 
 /**
@@ -105,7 +120,8 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                      for "Good habits"-
  * @apiParam (Body) {Boolean} [down=true] Only valid for type "habit" If true, enables
  *                                        the "-" under "Directions/Action" for "Bad habits"
- * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost in gold of the reward
+ * @apiParam (Body) {Number} [value=0] Only valid for type "reward." The cost
+ *                                     in gold of the reward. Should be greater then or equal to 0.
  *
  * @apiParamExample {json} Request-Example:
  *     {
@@ -174,6 +190,8 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                                     underscores and dashes.
  * @apiError (400) {BadRequest} Value-ValidationFailed `x` is not a valid enum value
  *                                                     for path `(body param)`.
+ * @apiError (400) {BadRequest} Value-ValidationFailed Reward cost should be a
+ *                                                      positive number or 0.`.
  * @apiError (401) {NotAuthorized} NoAccount There is no account that uses those credentials.
  *
  * @apiErrorExample {json} Error-Response:
@@ -202,7 +220,7 @@ api.createUserTasks = {
 
     tasks.forEach(task => {
       // Track when new users (first 7 days) create tasks
-      if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+      if (moment().diff(user.auth.timestamps.created, 'days') < 7 && user.flags.welcomed) {
         res.analytics.track('task create', {
           uuid: user._id,
           hitType: 'event',
@@ -513,18 +531,20 @@ api.getTask = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id && !task.userId) {
+      // @TODO: Abstract this access snippet
+      const fields = requiredGroupFields.concat(' managers');
+      const group = await Group.getGroup({ user, groupId: task.group.id, fields });
+      if (!group) throw new NotFound(res.t('taskNotFound'));
 
-    // If the task belongs to a challenge make sure the user has rights
+      const isNotGroupLeader = group.leader !== user._id;
+      if (!group.isMember(user) && isNotGroupLeader) throw new NotFound(res.t('taskNotFound'));
+    // If the task belongs to a challenge make sure the user has rights (leader, admin or members)
     } else if (task.challenge.id && !task.userId) {
-      const challenge = await Challenge.find({ _id: task.challenge.id }).select('leader').exec();
-      if (
-        !challenge
-        || (
-          user.challenges.indexOf(task.challenge.id) === -1
-          && challenge.leader !== user._id
-          && !user.contributor.admin
-        )
-      ) { // eslint-disable-line no-extra-parens
+      const challenge = await Challenge.findOne({ _id: task.challenge.id }).select('leader').exec();
+      // @TODO: Abstract this access snippet
+      if (!challenge) throw new NotFound(res.t('taskNotFound'));
+      if (!challenge.canModify(user) && !challenge.isMember(user)) {
         throw new NotFound(res.t('taskNotFound'));
       }
 
@@ -611,11 +631,11 @@ api.updateTask = {
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      //  @TODO: Abstract this access snippet
+      // @TODO: Abstract this access snippet
       const fields = requiredGroupFields.concat(' managers');
       group = await Group.getGroup({ user, groupId: task.group.id, fields });
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      if (canNotEditTasks(group, user, null, req.body)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     // If the task belongs to a challenge make sure the user has rights
     } else if (task.challenge.id && !task.userId) {
@@ -797,10 +817,11 @@ api.scoreTask = {
 
     const wasCompleted = task.completed;
 
-    const [delta] = common.ops.scoreTask({ task, user, direction }, req);
+    const firstTask = !user.achievements.completedTask;
+    const [delta] = common.ops.scoreTask({ task, user, direction }, req, res.analytics);
     // Drop system (don't run on the client,
     // as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up') common.fns.randomDrop(user, { task, delta }, req, res.analytics);
+    if (direction === 'up' && !firstTask) common.fns.randomDrop(user, { task, delta }, req, res.analytics);
 
     // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
     // TODO move to common code?
@@ -899,7 +920,7 @@ api.scoreTask = {
 
 /**
  * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
- * @apiDescription Note: completed To-Dos are not sortable,
+ * @apiDescription Note: completed To Do's are not sortable,
  * do not appear in user.tasksOrder.todos, and are ordered by date of completion.
  * @apiName MoveTask
  * @apiGroup Task
@@ -1479,7 +1500,7 @@ api.unlinkOneTask = {
 /**
  * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed todos
  * @apiName ClearCompletedTodos
- * @apiDescription Deletes all of a user's completed To-Dos except
+ * @apiDescription Deletes all of a user's completed To Do's except
  * those belonging to active Challenges and Group Plans.
  * @apiGroup Task
  *

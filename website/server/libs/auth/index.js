@@ -203,9 +203,11 @@ async function registerLocal (req, res, { isV3 = false }) {
       } else {
         sendTxnEmail(savedUser, 'welcome');
       }
-    });
+    })
+    .catch(err => logger.error(err));
 
   if (!existingUser) {
+    savedUser._ABtests['20200625_drops'] = '12345678'.indexOf(savedUser._id.slice(0, 1)) !== -1 ? 'boosted' : 'control';
     res.analytics.track('register', {
       category: 'acquisition',
       type: 'local',

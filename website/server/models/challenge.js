@@ -11,7 +11,7 @@ import { // eslint-disable-line import/no-cycle
 import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
-import { sendNotification as sendPushNotification } from '../libs/pushNotifications';
+import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
 import { syncableAttrs, setNextDue } from '../libs/taskManager';
 
 const { Schema } = mongoose;
@@ -234,8 +234,21 @@ async function _addTaskFn (challenge, tasks, memberId) {
     }));
   });
 
-  // Update the user
-  toSave.unshift(User.update({ _id: memberId }, updateTasksOrderQ).exec());
+  // Update the tag list of the user document of a participating member of the challenge
+  // such that a tag representing the challenge into which the task to be added will
+  // be added to the user tag list if and only if the tag does not exist already.
+  const addToChallengeTagSet = {
+    $addToSet: {
+      tags: {
+        id: challenge._id,
+        name: challenge.shortName,
+        challenge: true,
+      },
+    },
+  };
+  const updateUserParams = { ...updateTasksOrderQ, ...addToChallengeTagSet };
+  toSave.unshift(User.update({ _id: memberId }, updateUserParams).exec());
+
   return Promise.all(toSave);
 }
 
@@ -244,7 +257,7 @@ schema.methods.addTasks = async function challengeAddTasks (tasks) {
   const challenge = this;
   const membersIds = await _fetchMembersIds(challenge._id);
 
-  const queue = new TaskQueue(Promise, 25); // process only 5 users concurrently
+  const queue = new TaskQueue(Promise, 25); // process only this many users concurrently
 
   await Promise.all(membersIds.map(queue.wrap(memberId => _addTaskFn(challenge, tasks, memberId))));
 };

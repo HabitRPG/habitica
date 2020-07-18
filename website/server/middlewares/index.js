@@ -9,6 +9,7 @@ import methodOverride from 'method-override';
 import passport from 'passport';
 import basicAuth from 'express-basic-auth';
 import helmet from 'helmet';
+import setupExpress from '../libs/setupExpress';
 import errorHandler from './errorHandler';
 import notFoundHandler from './notFound';
 import cors from './cors';
@@ -21,6 +22,7 @@ import {
   forceSSL,
   forceHabitica,
 } from './redirects';
+import ipBlocker from './ipBlocker';
 import v1 from './v1';
 import v2 from './v2';
 import appRoutes from './appRoutes';
@@ -38,14 +40,14 @@ const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
 export default function attachMiddlewares (app, server) {
-  app.set('view engine', 'pug');
-  app.set('views', `${__dirname}/../../views`);
+  setupExpress(app);
 
   app.use(domainMiddleware(server, mongoose));
 
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
 
-  app.use(helmet()); // See https://helmetjs.github.io/ for the list of headers enabled by default
+  // See https://helmetjs.github.io/ for the list of headers enabled by default
+  app.use(helmet());
 
   // add res.respond and res.t
   app.use(responseHandler);
@@ -55,6 +57,8 @@ export default function attachMiddlewares (app, server) {
   // app.use(favicon(`${PUBLIC_DIR}/favicon.ico`));
 
   app.use(maintenanceMode);
+
+  app.use(ipBlocker);
 
   app.use(cors);
   app.use(forceSSL);

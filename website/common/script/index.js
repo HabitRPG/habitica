@@ -88,7 +88,6 @@ import updateTask from './ops/updateTask';
 import * as statHelpers from './statHelpers';
 import { unEquipByType } from './ops/unequip';
 
-
 const api = {};
 api.content = content;
 api.errors = errors;

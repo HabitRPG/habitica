@@ -15,7 +15,7 @@ import * as tags from './tags';
 import * as hall from './hall';
 import * as shops from './shops';
 import * as snackbars from './snackbars';
-import * as worldState from './world-state';
+import * as worldState from './worldState';
 
 // Actions should be named as 'actionName' and can be accessed as 'namespace:actionName'
 // Example: fetch in user.js -> 'user:fetch'

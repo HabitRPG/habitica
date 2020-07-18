@@ -95,7 +95,7 @@ export class AbstractBuyOperation {
 
     this.extractAndValidateParams(this.user, this.req);
 
-    const resultObj = this.executeChanges(this.user, this.item, this.req);
+    const resultObj = this.executeChanges(this.user, this.item, this.req, this.analytics);
 
     if (this.analytics) {
       this.sendToAnalytics(this.analyticsData());

@@ -1,4 +1,3 @@
-
 import path from 'path';
 import nconf from 'nconf';
 import setupNconf from '../../../../website/server/libs/setupNconf';

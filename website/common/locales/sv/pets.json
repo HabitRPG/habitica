@@ -142,5 +142,7 @@
     "clickOnPotionToHatch": "Klicka på en kläckningsdryck för att använda den på ditt <%= eggName %> och kläck ett nytt husdjur!",
     "notEnoughPets": "Du har inte samlat ihop nog med husdjur",
     "notEnoughMounts": "Du har inte samlat ihop nog med riddjur",
-    "notEnoughPetsMounts": "Du har inte samlat ihop nog med husdjur och riddjur"
+    "notEnoughPetsMounts": "Du har inte samlat ihop nog med husdjur och riddjur",
+    "filterByWacky": "Knasig",
+    "wackyPets": "Knasiga Sällskapsdjur"
 }

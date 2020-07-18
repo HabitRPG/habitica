@@ -46,7 +46,6 @@ export function setNextDue (task, user, dueDateOption) {
     now = dateTaskIsDue;
   }
 
-
   const optionsForShouldDo = user.preferences.toObject();
   optionsForShouldDo.now = now;
   task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
@@ -108,7 +107,7 @@ export async function createTasks (req, res, options = {}) {
       // are the onboarding ones
       if (!user.achievements.createdTask && user.flags.welcomed) {
         user.addAchievement('createdTask');
-        shared.onboarding.checkOnboardingStatus(user);
+        shared.onboarding.checkOnboardingStatus(user, req, res.analytics);
       }
     }
 

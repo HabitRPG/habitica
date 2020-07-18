@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "Comprat <%= itemText %>",
-    "messageEquipped": "<%= itemText %> equipat.",
+    "messageEquipped": " <%= itemText %> equipat.",
     "messageUnEquipped": "<%= itemText %> desequipat.",
     "messageMissingEggPotion": "No tens la poció o ou requerits.",
     "messageInvalidEggPotionCombo": "No pots eclosionar Ous de mascotes de missió amb Pocions Màgiques! Prova amb un altre ou.",

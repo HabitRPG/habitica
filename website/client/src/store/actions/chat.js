@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Vue from 'vue';
 import * as Analytics from '@/libs/analytics';
 
 export async function getChat (store, payload) {
@@ -70,8 +71,15 @@ export async function clearFlagCount (store, payload) {
 }
 
 export async function markChatSeen (store, payload) {
-  if (store.state.user.newMessages) delete store.state.user.newMessages[payload.groupId];
   const url = `/api/v4/groups/${payload.groupId}/chat/seen`;
   const response = await axios.post(url);
+
+  if (store.state.user.data.newMessages[payload.groupId]) {
+    Vue.delete(store.state.user.data.newMessages, payload.groupId);
+  }
+  if (payload.notificationId) {
+    store.state.notificationsRemoved.push(payload.notificationId);
+  }
+
   return response.data.data;
 }

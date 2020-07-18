@@ -11,7 +11,9 @@ import apiError from '../../../../../website/server/libs/apiError';
 
 describe('GET /groups', () => {
   let user;
+  let userInGuild;
   const NUMBER_OF_PUBLIC_GUILDS = 3; // 2 + the tavern
+  const NUMBER_OF_PUBLIC_GUILDS_USER_IS_LEADER = 2;
   const NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER = 1;
   const NUMBER_OF_USERS_PRIVATE_GUILDS = 1;
   const NUMBER_OF_GROUPS_USER_CAN_VIEW = 5;
@@ -33,14 +35,20 @@ describe('GET /groups', () => {
       name: 'public guild - is member',
       type: 'guild',
       privacy: 'public',
+      summary: 'ohayou kombonwa',
+      description: 'oyasumi',
     });
     await leader.post(`/groups/${publicGuildUserIsMemberOf._id}/invite`, { uuids: [user._id] });
     await user.post(`/groups/${publicGuildUserIsMemberOf._id}/join`);
+
+    userInGuild = await generateUser({ guilds: [publicGuildUserIsMemberOf._id] });
 
     publicGuildNotMember = await generateGroup(leader, {
       name: 'public guild - is not member',
       type: 'guild',
       privacy: 'public',
+      summary: 'Natsume Soseki',
+      description: 'Kinnosuke no Hondana',
       categories,
     });
 
@@ -149,6 +157,35 @@ describe('GET /groups', () => {
       const guilds = await user.get('/groups?type=privateGuilds&minMemberCount=3');
 
       expect(guilds.length).to.equal(0);
+    });
+
+    it('filters public guilds by leader role', async () => {
+      const guilds = await user.get('/groups?type=publicGuilds&leader=true');
+      expect(guilds.length).to.equal(NUMBER_OF_PUBLIC_GUILDS_USER_IS_LEADER);
+    });
+
+    it('filters public guilds by member role', async () => {
+      const guilds = await userInGuild.get('/groups?type=publicGuilds&member=true');
+      expect(guilds.length).to.equal(1);
+      expect(guilds[0].name).to.have.string('is member');
+    });
+
+    it('filters public guilds by single-word search term', async () => {
+      const guilds = await user.get('/groups?type=publicGuilds&search=kom');
+      expect(guilds.length).to.equal(1);
+      expect(guilds[0].summary).to.have.string('ohayou kombonwa');
+    });
+
+    it('filters public guilds by single-word search term left and right-padded by spaces', async () => {
+      const guilds = await user.get('/groups?type=publicGuilds&search=++++ohayou+kombonwa+++++');
+      expect(guilds.length).to.equal(1);
+      expect(guilds[0].summary).to.have.string('ohayou kombonwa');
+    });
+
+    it('filters public guilds by two-words search term separated by multiple spaces', async () => {
+      const guilds = await user.get('/groups?type=publicGuilds&search=kinnosuke+++++hon');
+      expect(guilds.length).to.equal(1);
+      expect(guilds[0].description).to.have.string('Kinnosuke');
     });
   });
 

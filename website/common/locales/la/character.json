@@ -80,7 +80,7 @@
     "autoEquipPopoverText": "Select this option to automatically equip gear as soon as you purchase it.",
     "costumeDisabled": "You have disabled your costume.",
     "gearAchievement": "\"Armamenta Ultima\" Rem Perfectam meruisti propter tuum progrediendum ad maximam collationem armamentorum pro professione. Has collationes completas obtinuisti:",
-    "gearAchievementNotification": "\"Armamenta Ultima\" Rem Perfectam meruisti propter tuum progrediendum ad maximam collationem armamentorum pro professione.",
+    "gearAchievementNotification": "\"Armamenta Ultima\" Rem Perfectam meruisti propter tuum progrediendum ad maximam collationem armamentorum pro professione!",
     "moreGearAchievements": "To attain more Ultimate Gear badges, change classes on <a href='/user/settings/site' target='_blank'>the Settings &gt; Site page</a> and buy your new class's gear!",
     "armoireUnlocked": "For more equipment, check out the <strong>Enchanted Armoire!</strong> Click on the Enchanted Armoire Reward for a random chance at special Equipment! It may also give you random XP or food items.",
     "ultimGearName": "Armamentum Ultimum - <%= ultClass %>",
@@ -104,7 +104,7 @@
     "allocatePerPop": "Adde Punctum Perceptioni",
     "allocateInt": "Puncta Intelligentiae distributa:",
     "allocateIntPop": "Adde Punctum Intelligentiae",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Stat Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
+    "noMoreAllocate": "Gradu centesimo facto nullis punctis proprietatis afficeris. Pergas, si vis, gradus assequi aut iter novum gradu primo ineas utens <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe Renascientiae</a>.",
     "stats": "Statisticae",
     "achievs": "Res Gestae",
     "strength": "Vis",
@@ -226,5 +226,7 @@
     "statPoints": "Stat Points",
     "pts": "pts",
     "chatCastSpellParty": "<%= username %> <%= spell %> conturbernio incantat.",
-    "chatCastSpellUser": "<%= username %> <%= spell %> super <%= target %> incantat."
+    "chatCastSpellUser": "<%= username %> <%= spell %> super <%= target %> incantat.",
+    "purchasePetItemConfirm": "Hanc rem emens numerum rerum superabis, quibus rebus tibi opus est ad incubanda <%= itemText %> animalia, quae incubari possunt. Certe visne?",
+    "purchaseForGold": "<%=cost %> aurine emere?"
 }

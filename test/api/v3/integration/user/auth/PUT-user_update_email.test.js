@@ -9,7 +9,6 @@ import {
   sha1Encrypt as sha1EncryptPassword,
 } from '../../../../../../website/server/libs/password';
 
-
 const ENDPOINT = '/user/auth/update-email';
 
 describe('PUT /user/auth/update-email', () => {

@@ -4,6 +4,7 @@ import moment from 'moment';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
 import {
+  EVENTS,
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
@@ -2240,10 +2241,6 @@ const quests = {
     completion: t('questDustBunniesCompletion'),
     value: 1,
     category: 'unlockable',
-    unlockCondition: {
-      condition: 'party invite',
-      text: t('createAccountReward'),
-    },
     boss: {
       name: t('questDustBunniesBoss'),
       hp: 100,
@@ -3578,12 +3575,87 @@ const quests = {
       unlock: t('questRubyUnlockText'),
     },
   },
+  waffle: {
+    text: t('questWaffleText'),
+    notes: t('questWaffleNotes'),
+    completion: t('questWaffleCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    event: EVENTS.spring2020,
+    boss: {
+      name: t('questWaffleBoss'),
+      hp: 500,
+      str: 2,
+      rage: {
+        title: t('questWaffleRageTitle'),
+        description: t('questWaffleRageDescription'),
+        value: 50,
+        progressDrain: 0.5,
+        effect: t('questWaffleRageEffect'),
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Dessert',
+          text: t('questWaffleDropDessertPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Dessert',
+          text: t('questWaffleDropDessertPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Dessert',
+          text: t('questWaffleDropDessertPotion'),
+        },
+      ],
+      gp: 40,
+      exp: 500,
+      unlock: t('questWaffleUnlockText'),
+    },
+  },
+  fluorite: {
+    text: t('questFluoriteText'),
+    notes: t('questFluoriteNotes'),
+    completion: t('questFluoriteCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questFluoriteBoss'),
+      hp: 1200,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Fluorite',
+          text: t('questFluoriteDropFluoritePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fluorite',
+          text: t('questFluoriteDropFluoritePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fluorite',
+          text: t('questFluoriteDropFluoritePotion'),
+        },
+      ],
+      gp: 70,
+      exp: 750,
+      unlock: t('questFluoriteUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {
   defaults(v, {
     key,
     canBuy () {
+      if (v.event) {
+        return moment().isBetween(v.event.start, v.event.end);
+      }
       return true;
     },
   });

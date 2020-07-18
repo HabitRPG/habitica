@@ -55,6 +55,18 @@ describe('POST /tasks/user', () => {
       });
     });
 
+    it('returns an error if reward value is a negative number', async () => {
+      await expect(user.post('/tasks/user', {
+        type: 'reward',
+        text: 'reward with negative value',
+        value: -10,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'reward validation failed',
+      });
+    });
+
     it('does not update user.tasksOrder.{taskType} when the task is not saved because invalid', async () => {
       const originalHabitsOrder = (await user.get('/user')).tasksOrder.habits;
       await expect(user.post('/tasks/user', {
@@ -674,7 +686,6 @@ describe('POST /tasks/user', () => {
         message: 'daily validation failed',
       });
     });
-
 
     it('can create checklists', async () => {
       const task = await user.post('/tasks/user', {

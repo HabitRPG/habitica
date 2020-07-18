@@ -1,7 +1,7 @@
 // Currently this holds helpers for challenge api,
 // but we should break this up into submodules as it expands
 import omit from 'lodash/omit';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { model as Challenge } from '../../models/challenge';
 import {
   model as Group,
@@ -108,4 +108,36 @@ export function cleanUpTask (task) {
   }
 
   return cleansedTask;
+}
+
+// Create an aggregation query for querying challenges.
+// Ensures that official challenges are listed first.
+export function createChallengeQuery (query) {
+  return Challenge.aggregate()
+    .match(query)
+    .addFields({
+      isOfficial: {
+        $cond: {
+          if: { $isArray: '$categories' },
+          then: {
+            $gt: [
+              {
+                $size: {
+                  $filter: {
+                    input: '$categories',
+                    as: 'cat',
+                    cond: {
+                      $eq: ['$$cat.slug', 'habitica_official'],
+                    },
+                  },
+                },
+              },
+              0,
+            ],
+          },
+          else: false,
+        },
+      },
+    })
+    .sort('-isOfficial -createdAt');
 }

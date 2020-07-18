@@ -215,7 +215,6 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   return googleRes;
 };
 
-
 api.cancelSubscribe = async function cancelSubscribe (user, headers) {
   const { plan } = user.purchased;
 
@@ -254,6 +253,5 @@ api.cancelSubscribe = async function cancelSubscribe (user, headers) {
     headers,
   });
 };
-
 
 export default api;

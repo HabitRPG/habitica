@@ -81,6 +81,16 @@ describe('POST /user/webhook', () => {
     expect(webhook.type).to.eql('taskActivity');
   });
 
+  it('ignores protected fields', async () => {
+    body.failures = 3;
+    body.lastFailureAt = new Date();
+
+    const webhook = await user.post('/user/webhook', body);
+
+    expect(webhook.failures).to.eql(0);
+    expect(webhook.lastFailureAt).to.eql(undefined);
+  });
+
   it('successfully adds the webhook', async () => {
     expect(user.webhooks).to.eql([]);
 

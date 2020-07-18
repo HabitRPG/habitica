@@ -187,6 +187,16 @@ const basicAchievs = {
     titleKey: 'achievementRosyOutlook',
     textKey: 'achievementRosyOutlookText',
   },
+  bugBonanza: {
+    icon: 'achievement-bugBonanza',
+    titleKey: 'achievementBugBonanza',
+    textKey: 'achievementBugBonanzaText',
+  },
+  bareNecessities: {
+    icon: 'achievement-bareNecessities',
+    titleKey: 'achievementBareNecessities',
+    textKey: 'achievementBareNecessitiesText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

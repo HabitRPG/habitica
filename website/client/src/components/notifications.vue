@@ -13,7 +13,6 @@
     <testing />
     <testingletiant />
     <rebirth-enabled />
-    <drops-enabled />
     <contributor />
     <won-challenge />
     <ultimate-gear />
@@ -34,6 +33,7 @@
     <lost-masterclasser />
     <mind-over-matter />
     <onboarding-complete />
+    <first-drops />
   </div>
 </template>
 
@@ -128,7 +128,6 @@ import questInvitation from './achievements/questInvitation';
 import testing from './achievements/testing';
 import testingletiant from './achievements/testingletiant';
 import rebirthEnabled from './achievements/rebirthEnabled';
-import dropsEnabled from './achievements/dropsEnabled';
 import contributor from './achievements/contributor';
 import invitedFriend from './achievements/invitedFriend';
 import joinedChallenge from './achievements/joinedChallenge';
@@ -144,6 +143,7 @@ import mindOverMatter from './achievements/mindOverMatter';
 import loginIncentives from './achievements/login-incentives';
 import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
+import firstDrops from './achievements/firstDrops';
 
 const NOTIFICATIONS = {
   CHALLENGE_JOINED_ACHIEVEMENT: {
@@ -170,6 +170,7 @@ const NOTIFICATIONS = {
     achievement: true,
     label: $t => $t('modalContribAchievement'),
     modalId: 'contributor',
+    sticky: true,
   },
   ACHIEVEMENT_ALL_YOUR_BASE: {
     achievement: true,
@@ -310,6 +311,22 @@ const NOTIFICATIONS = {
       achievement: 'rosyOutlook', // defined manually until the server sends all the necessary data
     },
   },
+  ACHIEVEMENT_BUG_BONANZA: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementBugBonanza')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'bugBonanza', // defined manually until the server sends all the necessary data
+    },
+  },
+  ACHIEVEMENT_BARE_NECESSITIES: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementBareNecessities')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'bareNecessities', // defined manually until the server sends all the necessary data
+    },
+  },
 };
 
 export default {
@@ -333,7 +350,6 @@ export default {
     testing,
     testingletiant,
     rebirthEnabled,
-    dropsEnabled,
     contributor,
     loginIncentives,
     verifyUsername,
@@ -342,12 +358,12 @@ export default {
     mindOverMatter,
     justAddWater,
     onboardingComplete,
+    firstDrops,
   },
   mixins: [notifications, guide],
   data () {
     // Levels that already display modals and should not trigger generic Level Up
     const unlockLevels = {
-      3: 'drop system',
       10: 'class system',
       50: 'Orb of Rebirth',
     };
@@ -361,7 +377,7 @@ export default {
     const handledNotifications = {};
 
     [
-      'GUILD_PROMPT', 'DROPS_ENABLED', 'REBIRTH_ENABLED', 'WON_CHALLENGE', 'STREAK_ACHIEVEMENT',
+      'GUILD_PROMPT', 'REBIRTH_ENABLED', 'WON_CHALLENGE', 'STREAK_ACHIEVEMENT',
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
       'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
@@ -369,7 +385,7 @@ export default {
       'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
       'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
       'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT_TICKLED_PINK', 'ACHIEVEMENT_ROSY_OUTLOOK', 'ACHIEVEMENT',
-      'ONBOARDING_COMPLETE',
+      'ONBOARDING_COMPLETE', 'FIRST_DROPS', 'ACHIEVEMENT_BUG_BONANZA', 'ACHIEVEMENT_BARE_NECESSITIES',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -545,7 +561,7 @@ export default {
         this.text(config.label(this.$t), () => {
           this.notificationData = data;
           this.$root.$emit('bv::show::modal', config.modalId);
-        }, true, 10000);
+        }, !config.sticky, 10000);
       }
     },
     debounceCheckUserAchievements: debounce(function debounceCheck () {
@@ -732,6 +748,13 @@ export default {
 
         // @TODO: Use factory function instead
         switch (notification.type) { // eslint-disable-line default-case
+          case 'FIRST_DROPS':
+            if (notification.data) {
+              this.$store.state.firstDropsOptions.egg = notification.data.egg;
+              this.$store.state.firstDropsOptions.hatchingPotion = notification.data.hatchingPotion;
+              this.$root.$emit('bv::show::modal', 'first-drops');
+            }
+            break;
           case 'GUILD_PROMPT':
             // @TODO: I'm pretty sure we can find better names for these
             if (notification.data.textletiant === -1) {
@@ -739,9 +762,6 @@ export default {
             } else {
               this.$root.$emit('bv::show::modal', 'testingletiant');
             }
-            break;
-          case 'DROPS_ENABLED':
-            this.$root.$emit('bv::show::modal', 'drops-enabled');
             break;
           case 'REBIRTH_ENABLED':
             this.$root.$emit('bv::show::modal', 'rebirth-enabled');
@@ -779,6 +799,8 @@ export default {
           case 'ACHIEVEMENT_PEARLY_PRO':
           case 'ACHIEVEMENT_TICKLED_PINK':
           case 'ACHIEVEMENT_ROSY_OUTLOOK':
+          case 'ACHIEVEMENT_BUG_BONANZA':
+          case 'ACHIEVEMENT_BARE_NECESSITIES':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
@@ -795,10 +817,8 @@ export default {
             break;
           }
           case 'CRON':
-            if (notification.data) {
-              if (notification.data.hp) this.hp(notification.data.hp, 'hp');
-              if (notification.data.mp && this.userHasClass) this.mp(notification.data.mp);
-            }
+            // Not needed because it's shown already by the userHp and userMp watchers
+            // Keeping an empty block so that it gets read
             break;
           case 'SCORED_TASK':
             // Search if it is a read notification

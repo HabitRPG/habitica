@@ -4,6 +4,12 @@
   height: 219px;
 }
 
+.Pet_HatchingPotion_Dessert {
+  background: url("~@/assets/images/animated/Pet_HatchingPotion_Dessert.gif") no-repeat;
+  width: 68px;
+  height: 68px;
+}
+
 .Pet_HatchingPotion_Veggie {
   background: url("~@/assets/images/animated/Pet_HatchingPotion_Veggie.gif") no-repeat;
   width: 68px;

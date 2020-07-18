@@ -37,10 +37,12 @@
     "royalPurpleGryphon": "Gryphus Purpureus Regius",
     "noEggs": "Ulla ova non habes.",
     "eggSingular": "ovum",
-    "eggs": "ova",
+    "eggs": "Ova",
     "mountName": "<%= mount(locale) %> <%= potion(locale) %>",
     "petName": "<%= egg(locale) %> <%= potion(locale) %>",
     "hatchedPet": "Incubuisti novum animal nominatum <%= potion %> <%= egg %>!",
     "hatchAPot": "Incubas novum animal nominatum <%= potion %> <%= egg %>?",
-    "noHatchingPotions": "Ullas potiones incubantes non habes."
+    "noHatchingPotions": "Ullas potiones incubantes non habes.",
+    "hopefulHippogriffMount": "Hopeful Hippogriff (Pet)",
+    "hopefulHippogriffPet": "Hopeful Hippogriff (Pet)"
 }

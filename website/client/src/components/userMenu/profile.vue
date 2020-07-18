@@ -1,20 +1,34 @@
 <template>
   <div
-    v-if="user"
+    v-if="!user && userLoaded"
+  >
+    <error404 />
+  </div>
+  <div
+    v-else-if="userLoaded"
     class="profile"
   >
     <div class="header">
+      <span
+        class="close-icon svg-icon inline icon-10"
+        @click="close()"
+        v-html="icons.close"
+      ></span>
       <div class="profile-actions">
-        <button
-          v-b-tooltip.hover.left="$t('sendMessage')"
-          class="btn btn-secondary message-icon"
-          @click="sendMessage()"
+        <router-link
+          :to="{ path: '/private-messages', query: { uuid: user._id } }"
+          replace
         >
-          <div
-            class="svg-icon message-icon"
-            v-html="icons.message"
-          ></div>
-        </button>
+          <button
+            v-b-tooltip.hover.left="$t('sendMessage')"
+            class="btn btn-secondary message-icon"
+          >
+            <div
+              class="svg-icon message-icon"
+              v-html="icons.message"
+            ></div>
+          </button>
+        </router-link>
         <button
           v-b-tooltip.hover.bottom="$t('sendGems')"
           class="btn btn-secondary gift-icon"
@@ -28,12 +42,13 @@
         <button
           v-if="user._id !== userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1"
           v-b-tooltip.hover.right="$t('blockWarning')"
-          class="btn btn-secondary remove-icon"
+          class="btn btn-secondary block-icon"
           @click="blockUser()"
         >
           <div
-            class="svg-icon remove-icon"
-            v-html="icons.remove"
+            v-once
+            class="svg-icon block-icon"
+            v-html="icons.block"
           ></div>
         </button>
         <button
@@ -314,7 +329,7 @@
             >
               <div
                 :id="achievKey + '-achievement'"
-                class="box achievement-container"
+                class="box achievement-container d-flex align-items-center justify-content-center"
                 :class="{'achievement-unearned': !achievement.earned}"
               >
                 <b-popover
@@ -348,16 +363,16 @@
                 ></div>
               </div>
             </div>
-            <div
-              v-if="achievementsCategories[key].number > 5"
-              class="btn btn-flat btn-show-more"
-              @click="toggleAchievementsCategory(key)"
-            >
-              {{ achievementsCategories[key].open ?
-                $t('hideAchievements', {category: $t(key+'Achievs')}) :
-                $t('showAllAchievements', {category: $t(key+'Achievs')})
-              }}
-            </div>
+          </div>
+          <div
+            v-if="achievementsCategories[key].number > 5"
+            class="btn btn-flat btn-show-more"
+            @click="toggleAchievementsCategory(key)"
+          >
+            {{ achievementsCategories[key].open ?
+              $t('hideAchievements', {category: $t(key+'Achievs')}) :
+              $t('showAllAchievements', {category: $t(key+'Achievs')})
+            }}
           </div>
         </div>
       </div>
@@ -491,7 +506,7 @@
     width: 12px;
   }
 
-  .remove-icon {
+  .block-icon {
     width: 16px;
     color: $gray-100;
   }
@@ -555,6 +570,7 @@
 
     .achievement-wrapper {
       width: 94px;
+      min-width: 94px !important;
       max-width: 94px;
       margin-right: 12px;
       margin-left: 12px;
@@ -564,7 +580,6 @@
     .box {
       margin: 0 auto;
       margin-bottom: 1em;
-      padding-top: 1.2em;
       background: $white;
     }
 
@@ -706,7 +721,7 @@ import profileStats from './profileStats';
 
 import message from '@/assets/svg/message.svg';
 import gift from '@/assets/svg/gift.svg';
-import remove from '@/assets/svg/remove.svg';
+import block from '@/assets/svg/block.svg';
 import positive from '@/assets/svg/positive.svg';
 import dots from '@/assets/svg/dots.svg';
 import megaphone from '@/assets/svg/broken-megaphone.svg';
@@ -714,6 +729,8 @@ import lock from '@/assets/svg/lock.svg';
 import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
+import svgClose from '@/assets/svg/close.svg';
+import error404 from '../404';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
@@ -724,13 +741,14 @@ export default {
   components: {
     MemberDetails,
     profileStats,
+    error404,
   },
   props: ['userId', 'startingPage'],
   data () {
     return {
       icons: Object.freeze({
         message,
-        remove,
+        block,
         positive,
         gift,
         dots,
@@ -739,6 +757,7 @@ export default {
         lock,
         member,
         staff,
+        close: svgClose,
       }),
       adminToolsLoaded: false,
       userIdToMessage: '',
@@ -756,7 +775,8 @@ export default {
       achievements: {},
       achievementsCategories: {}, // number, open
       content: Content,
-      user: undefined,
+      user: null,
+      userLoaded: false,
     };
   },
   computed: {
@@ -816,55 +836,64 @@ export default {
   },
   methods: {
     async loadUser () {
-      let user = this.userLoggedIn;
+      let user = null;
 
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
       this.hero = {};
+      this.userLoaded = false;
       this.adminToolsLoaded = false;
 
       const profileUserId = this.userId;
 
       if (profileUserId && profileUserId !== this.userLoggedIn._id) {
         const response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
-        user = response.data.data;
+        if (response.response && response.response.status === 404) {
+          user = null;
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: this.$t('messageDeletedUser'),
+            type: 'error',
+            timeout: false,
+          });
+        } else if (response.status && response.status === 200) {
+          user = response.data.data;
+        }
+      } else {
+        user = this.userLoggedIn;
       }
 
-      this.editingProfile.name = user.profile.name;
-      this.editingProfile.imageUrl = user.profile.imageUrl;
-      this.editingProfile.blurb = user.profile.blurb;
+      if (user) {
+        this.editingProfile.name = user.profile.name;
+        this.editingProfile.imageUrl = user.profile.imageUrl;
+        this.editingProfile.blurb = user.profile.blurb;
 
-      if (!user.achievements.quests) user.achievements.quests = {};
-      if (!user.achievements.challenges) user.achievements.challenges = {};
-      // @TODO: this common code should handle the above
-      this.achievements = achievementsLib.getAchievementsForProfile(user);
+        if (!user.achievements.quests) user.achievements.quests = {};
+        if (!user.achievements.challenges) user.achievements.challenges = {};
+        // @TODO: this common code should handle the above
+        this.achievements = achievementsLib.getAchievementsForProfile(user);
 
-      const achievementsCategories = {};
-      Object.keys(this.achievements).forEach(category => {
-        achievementsCategories[category] = {
-          open: false,
-          number: Object.keys(this.achievements[category].achievements).length,
-        };
-      });
+        const achievementsCategories = {};
+        Object.keys(this.achievements).forEach(category => {
+          achievementsCategories[category] = {
+            open: false,
+            number: Object.keys(this.achievements[category].achievements).length,
+          };
+        });
 
-      this.achievementsCategories = achievementsCategories;
+        this.achievementsCategories = achievementsCategories;
 
-      // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
-      user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
+        // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
+        user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
 
-      this.user = user;
+        this.user = user;
+      }
+
+      this.userLoaded = true;
     },
     selectPage (page) {
       this.selectedPage = page || 'profile';
       window.history.replaceState(null, null, '');
-    },
-    sendMessage () {
-      this.$store.dispatch('user:newPrivateMessageTo', {
-        member: this.user,
-      });
-
-      this.$router.push('/private-messages');
-      this.$root.$emit('bv::hide::modal', 'profile');
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];
@@ -991,6 +1020,9 @@ export default {
     toggleAchievementsCategory (categoryKey) {
       const status = this.achievementsCategories[categoryKey].open;
       this.achievementsCategories[categoryKey].open = !status;
+    },
+    close () {
+      this.$root.$emit('bv::hide::modal', 'profile');
     },
   },
 };

@@ -75,7 +75,6 @@ describe('shared.ops.buyGem', () => {
       expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
     });
 
-
     context('Failure conditions', () => {
       it('returns an error when key is not provided', done => {
         try {
@@ -119,7 +118,7 @@ describe('shared.ops.buyGem', () => {
           buyGem(user, { params: { type: 'gems', key: 'gem' } });
         } catch (err) {
           expect(err).to.be.an.instanceof(NotAuthorized);
-          expect(err.message).to.equal(i18n.t('reachedGoldToGemCap', { convCap: planGemLimits.convCap }));
+          expect(err.message).to.equal(i18n.t('maxBuyGems', { convCap: planGemLimits.convCap }));
           done();
         }
       });

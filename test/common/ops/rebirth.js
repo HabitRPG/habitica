@@ -173,7 +173,6 @@ describe('shared.ops.rebirth', () => {
 
   it('resets a user\'s flags', () => {
     user.flags.itemsEnabled = true;
-    user.flags.dropsEnabled = true;
     user.flags.classSelected = true;
     user.flags.rebirthEnabled = true;
     user.flags.levelDrops = { test: 'test' };
@@ -181,7 +180,6 @@ describe('shared.ops.rebirth', () => {
     rebirth(user);
 
     expect(user.flags.itemsEnabled).to.be.false;
-    expect(user.flags.dropsEnabled).to.be.false;
     expect(user.flags.classSelected).to.be.false;
     expect(user.flags.rebirthEnabled).to.be.false;
     expect(user.flags.levelDrops).to.be.empty;

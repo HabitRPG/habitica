@@ -47,7 +47,7 @@ export class BuyGemOperation extends AbstractGoldItemOperation { // eslint-disab
     super.canUserPurchase(user, item);
 
     if (user.purchased.plan.gemsBought >= this.convCap) {
-      throw new NotAuthorized(this.i18n('reachedGoldToGemCap', { convCap: this.convCap }));
+      throw new NotAuthorized(this.i18n('maxBuyGems', { convCap: this.convCap }));
     }
 
     if (user.purchased.plan.gemsBought + this.quantity > this.convCap) {

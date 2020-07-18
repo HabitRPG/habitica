@@ -227,7 +227,7 @@
             ></i>
             <div
               v-if="!user.purchased.background[bg.key]"
-              class="purchase-background single"
+              class="purchase-background single d-flex align-items-center justify-content-center"
             >
               <div
                 class="svg-icon hourglass"
@@ -237,16 +237,12 @@
             </div>
             <span
               v-if="!user.purchased.background[bg.key]"
-              class="badge badge-pill badge-item badge-svg"
-              :class="{
-                'item-selected-badge': isBackgroundPinned(bg),
-                'hide': !isBackgroundPinned(bg)}"
-              @click.prevent.stop="togglePinned(bg)"
+              class="badge-top"
+              @click.stop.prevent="togglePinned(bg)"
             >
-              <span
-                class="svg-icon inline icon-12 color"
-                v-html="icons.pin"
-              ></span>
+              <pin-badge
+                :pinned="isBackgroundPinned(bg)"
+              />
             </span>
           </div>
         </div>
@@ -295,7 +291,7 @@
               ></i>
               <div
                 v-if="!user.purchased.background[bg.key]"
-                class="purchase-background single"
+                class="purchase-background single d-flex align-items-center justify-content-center"
               >
                 <div
                   class="svg-icon gem"
@@ -305,16 +301,12 @@
               </div>
               <span
                 v-if="!user.purchased.background[bg.key]"
-                class="badge badge-pill badge-item badge-svg"
-                :class="{
-                  'item-selected-badge': isBackgroundPinned(bg),
-                  'hide': !isBackgroundPinned(bg)}"
-                @click.prevent.stop="togglePinned(bg)"
+                class="badge-top"
+                @click.stop.prevent="togglePinned(bg)"
               >
-                <span
-                  class="svg-icon inline icon-12 color"
-                  v-html="icons.pin"
-                ></span>
+                <pin-badge
+                  :pinned="isBackgroundPinned(bg)"
+                />
               </span>
             </div>
             <div
@@ -1095,38 +1087,14 @@
       }
     }
 
-    .badge-svg {
-      left: calc((100% - 18px) / 2);
-      cursor: pointer;
-      color: $gray-400;
-      background: $white;
-      padding: 4.5px 6px;
-
-      &.item-selected-badge {
-        background: $purple-300;
-        color: $white;
-      }
-    }
-
-    .icon-12 {
-      width: 12px;
-      height: 12px;
-    }
-
-    span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
-      color: #a5a1ac;
-    }
-
-    span.badge.badge-pill.badge-item.badge-svg.hide {
-      display: none;
-    }
-
     .background-button {
       margin-bottom: 15px;
-    }
 
-    .background-button:hover {
-      span.badge.badge-pill.badge-item.badge-svg.hide {
+      .badge-pin:not(.pinned) {
+        display: none;
+      }
+
+      &:hover .badge-pin {
         display: block;
       }
     }
@@ -1142,6 +1110,7 @@ import usernameForm from './settings/usernameForm';
 import shops from '@/../../common/script/libs/shops';
 import guide from '@/mixins/guide';
 import notifications from '@/mixins/notifications';
+import PinBadge from '@/components/ui/pinBadge';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import bodySettings from './avatarModal/body-settings';
 import skinSettings from './avatarModal/skin-settings';
@@ -1158,7 +1127,6 @@ import backgroundsIcon from '@/assets/svg/backgrounds.svg';
 import gem from '@/assets/svg/gem.svg';
 import hourglass from '@/assets/svg/hourglass.svg';
 import gold from '@/assets/svg/gold.svg';
-import pin from '@/assets/svg/pin.svg';
 import arrowRight from '@/assets/svg/arrow_right.svg';
 import arrowLeft from '@/assets/svg/arrow_left.svg';
 import svgClose from '@/assets/svg/close.svg';
@@ -1170,14 +1138,14 @@ import content from '@/../../common/script/content/index';
 export default {
   components: {
     avatar,
+    bodySettings,
+    extraSettings,
+    hairSettings,
+    PinBadge,
+    skinSettings,
+    subMenu,
     toggleSwitch,
     usernameForm,
-    bodySettings,
-    skinSettings,
-    hairSettings,
-    extraSettings,
-
-    subMenu,
   },
   mixins: [guide, notifications, avatarEditorUtilies],
   data () {
@@ -1198,7 +1166,6 @@ export default {
         backgroundsIcon,
         gem,
         hourglass,
-        pin,
         gold,
         arrowRight,
         arrowLeft,

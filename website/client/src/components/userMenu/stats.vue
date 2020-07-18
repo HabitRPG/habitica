@@ -100,7 +100,7 @@
             </li>
           </ul>
         </div>
-        <div ng-if="user.flags.dropsEnabled">
+        <div>
           <h3 v-once>
             {{ $t('pets') }}
           </h3>

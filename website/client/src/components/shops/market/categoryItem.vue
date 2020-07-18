@@ -12,39 +12,41 @@
       {{ gemsLeft }}
     </div>
     <span
-      class="badge badge-pill badge-item badge-svg"
-      :class="{'item-selected-badge': item.pinned, 'hide': !item.pinned}"
+      class="badge-top"
       @click.prevent.stop="togglePinned(item)"
     >
-      <span
-        class="svg-icon inline icon-12 color"
-        v-html="icons.pin"
-      ></span>
+      <pin-badge
+        :pinned="item.pinned"
+      />
     </span>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .badge-pin:not(.pinned) {
+      display: none;
+    }
+
+  .item:hover .badge-pin {
+    display: block;
+  }
+</style>
 
 <script>
 import { mapState } from '@/libs/store';
 import CountBadge from '@/components/ui/countBadge';
 
-import svgPin from '@/assets/svg/pin.svg';
+import PinBadge from '@/components/ui/pinBadge';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import pinUtils from '../../../mixins/pinUtils';
 
 export default {
   components: {
     CountBadge,
+    PinBadge,
   },
   mixins: [pinUtils],
   props: ['item'],
-  data () {
-    return {
-      icons: Object.freeze({
-        pin: svgPin,
-      }),
-    };
-  },
   computed: {
     ...mapState({
       user: 'user.data',

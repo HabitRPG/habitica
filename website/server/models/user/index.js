@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+import logger from '../../libs/logger';
 import schema from './schema'; // eslint-disable-line import/no-cycle
 
 import './hooks'; // eslint-disable-line import/no-cycle
@@ -32,4 +33,5 @@ mongoose.model('User')
   .then(foundMods => {
     // Using push to maintain the reference to mods
     mods.push(...foundMods);
-  });
+  })
+  .catch(err => logger.error(err));

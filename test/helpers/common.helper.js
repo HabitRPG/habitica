@@ -10,7 +10,6 @@ import {
 
 export { translate } from './translate';
 
-
 export function generateUser (options = {}) {
   const user = new User(options).toObject();
 

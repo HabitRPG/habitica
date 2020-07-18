@@ -37,14 +37,12 @@
               slot-scope="ctx"
             >
               <span
-                class="badge badge-pill badge-item badge-svg"
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
+                class="badge-top"
                 @click.prevent.stop="togglePinned(ctx.item)"
               >
-                <span
-                  class="svg-icon inline icon-12 color"
-                  v-html="icons.pin"
-                ></span>
+                <pin-badge
+                  :pinned="ctx.item.pinned"
+                />
               </span>
             </template>
           </shopItem>
@@ -55,14 +53,14 @@
 </template>
 
 <script>
+import PinBadge from '@/components/ui/pinBadge';
 import ShopItem from './shopItem';
 
 import pinUtils from '@/mixins/pinUtils';
 
-import svgPin from '@/assets/svg/pin.svg';
-
 export default {
   components: {
+    PinBadge,
     ShopItem,
   },
   mixins: [pinUtils],
@@ -71,13 +69,6 @@ export default {
     npcName: String,
     featuredText: String,
     featuredItems: Array,
-  },
-  data () {
-    return {
-      icons: Object.freeze({
-        pin: svgPin,
-      }),
-    };
   },
   methods: {
     featuredItemSelected (item) {
@@ -103,6 +94,14 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .badge-pin:not(.pinned) {
+      display: none;
+    }
+
+  .item:hover .badge-pin {
+    display: block;
   }
 
   .content {

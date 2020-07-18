@@ -4,7 +4,6 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-
 describe('PUT /user', () => {
   let user;
 
@@ -52,7 +51,6 @@ describe('PUT /user', () => {
 
       expect(user.tags.length).to.be.eql(userTags.length + 1);
     });
-
 
     it('validates profile.name', async () => {
       await expect(user.put('/user', {
@@ -107,6 +105,7 @@ describe('PUT /user', () => {
       'customization gem purchases': { 'purchased.background.tavern': true, 'purchased.skin.bear': true },
       notifications: [{ type: 123 }],
       webhooks: { webhooks: [{ url: 'https://foobar.com' }] },
+      secret: { secret: { text: 'Some new text' } },
     };
 
     each(protectedOperations, (data, testName) => {
@@ -125,10 +124,11 @@ describe('PUT /user', () => {
   context('Sub-Level Protected Operations', () => {
     const protectedOperations = {
       'class stat': { 'stats.class': 'wizard' },
-      'flags unless whitelisted': { 'flags.dropsEnabled': true },
+      'flags unless whitelisted': { 'flags.chatRevoked': true },
       webhooks: { 'preferences.webhooks': [1, 2, 3] },
       sleep: { 'preferences.sleep': true },
       'disable classes': { 'preferences.disableClasses': true },
+      secret: { secret: { text: 'Some new text' } },
     };
 
     each(protectedOperations, (data, testName) => {

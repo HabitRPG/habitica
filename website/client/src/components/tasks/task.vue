@@ -25,13 +25,16 @@
         >
           <div
             class="task-control habit-control"
-            :class="controlClass.up.inner"
+            :class="[{
+              'habit-control-positive-enabled': task.up && isUser,
+              'habit-control-positive-disabled': !task.up && isUser,
+            }, controlClass.up.inner]"
             @click="(isUser && task.up) ? score('up') : null"
           >
             <div
-              v-if="task.group.id && !isUser"
+              v-if="!isUser"
               class="svg-icon lock"
-              :class="controlClass.up.icon"
+              :class="task.up ? controlClass.up.icon : 'positive'"
               v-html="icons.lock"
             ></div>
             <div
@@ -55,7 +58,7 @@
             @click="isUser ? score(task.completed ? 'down' : 'up') : null"
           >
             <div
-              v-if="task.group.id && !isUser && !task.completed"
+              v-if="!isUser"
               class="svg-icon lock"
               :class="controlClass.icon"
               v-html="icons.lock"
@@ -166,8 +169,7 @@
           >
             <div class="d-inline-flex">
               <div
-                v-if="isUser"
-                v-b-tooltip.hover.bottom="$t(`${task.collapseChecklist
+                v-b-tooltip.hover.right="$t(`${task.collapseChecklist
                   ? 'expand': 'collapse'}Checklist`)"
                 class="collapse-checklist d-flex align-items-center expand-toggle"
                 :class="{open: !task.collapseChecklist}"
@@ -186,7 +188,7 @@
               v-if="!task.collapseChecklist"
               :key="item.id"
               class="custom-control custom-checkbox checklist-item"
-              :class="{'checklist-item-done': item.completed}"
+              :class="{'checklist-item-done': item.completed, 'cursor-auto': !isUser}"
             >
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <input
@@ -307,13 +309,16 @@
         >
           <div
             class="task-control habit-control"
-            :class="controlClass.down.inner"
+            :class="[{
+              'habit-control-negative-enabled': task.down && isUser,
+              'habit-control-negative-disabled': !task.down && isUser,
+            }, controlClass.down.inner]"
             @click="(isUser && task.down) ? score('down') : null"
           >
             <div
-              v-if="task.group.id && !isUser"
+              v-if="!isUser"
               class="svg-icon lock"
-              :class="controlClass.down.icon"
+              :class="task.down ? controlClass.down.icon : 'negative'"
               v-html="icons.lock"
             ></div>
             <div
@@ -353,15 +358,18 @@
   @import '~@/assets/scss/colors.scss';
 
   .control-bottom-box {
-    border-bottom-left-radius: 0px !important;
-    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
 
   .control-top-box {
-    border-top-left-radius: 0px !important;
-    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
 
+  .cursor-auto {
+    cursor: auto;
+  }
 
   .task {
     margin-bottom: 2px;
@@ -789,7 +797,7 @@
 import moment from 'moment';
 import axios from 'axios';
 import Vue from 'vue';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import isEmpty from 'lodash/isEmpty';
 import { mapState, mapGetters, mapActions } from '@/libs/store';
 import scoreTask from '@/../../common/script/ops/scoreTask';
@@ -830,7 +838,7 @@ export default {
   props: ['task', 'isUser', 'group', 'challenge', 'dueDate'], // @TODO: maybe we should store the group on state?
   data () {
     return {
-      random: uuid.v4(), // used to avoid conflicts between checkboxes ids
+      random: uuid(), // used to avoid conflicts between checkboxes ids
       icons: Object.freeze({
         positive: positiveIcon,
         negative: negativeIcon,
@@ -976,10 +984,18 @@ export default {
     edit (e, task) {
       if (this.isRunningYesterdailies || !this.showEdit) return;
 
-      // Prevent clicking on a link from opening the edit modal
       const target = e.target || e.srcElement;
 
-      if (target.tagName === 'A') return; // clicked on a link
+      /*
+       * Prevent clicking on a link from opening the edit modal
+       *
+       * Ascend up the ancestors of the click target, up until the node defining the click handler.
+       * If any of them is an <a> element, don't open the edit task popup.
+       * Needed in case of a link, with a bold and/or italic link description
+       */
+      for (let element = target; !element.classList.contains('task-clickable-area'); element = element.parentNode) {
+        if (element.tagName === 'A') return; // clicked on a link
+      }
 
       const isDropdown = this.$refs.taskDropdown && this.$refs.taskDropdown.$el.contains(target);
       const isEditAction = this.$refs.editTaskItem && this.$refs.editTaskItem.contains(target);
@@ -997,7 +1013,8 @@ export default {
       this.$emit('moveTo', this.task, 'bottom');
     },
     destroy () {
-      if (!window.confirm(this.$t('sureDelete'))) return;
+      const type = this.$t(this.task.type);
+      if (!window.confirm(this.$t('sureDeleteType', { type }))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
     },
@@ -1051,6 +1068,7 @@ export default {
       const tmp = response.data.data._tmp || {};
       const { crit } = tmp;
       const { drop } = tmp;
+      const { firstDrops } = tmp;
       const { quest } = tmp;
 
       if (crit) {
@@ -1061,11 +1079,20 @@ export default {
       if (quest && user.party.quest && user.party.quest.key) {
         const userQuest = Content.quests[user.party.quest.key];
         if (quest.progressDelta && userQuest.boss) {
-          this.quest('questDamage', quest.progressDelta.toFixed(1));
+          this.damage(quest.progressDelta.toFixed(1));
         } else if (quest.collection && userQuest.collect) {
           user.party.quest.progress.collectedItems += 1;
           this.quest('questCollection', quest.collection);
         }
+      }
+
+      if (firstDrops) {
+        if (!user.items.eggs[firstDrops.egg]) Vue.set(user.items.eggs, firstDrops.egg, 0);
+        if (!user.items.hatchingPotions[firstDrops.hatchingPotion]) {
+          Vue.set(user.items.hatchingPotions, firstDrops.hatchingPotion, 0);
+        }
+        user.items.eggs[firstDrops.egg] += 1;
+        user.items.hatchingPotions[firstDrops.hatchingPotion] += 1;
       }
 
       if (drop) {
@@ -1088,7 +1115,7 @@ export default {
           }
 
           if (!user.items[type][drop.key]) {
-            Vue.set(user, `items.${type}.${drop.key}`, 0);
+            Vue.set(user.items[type], drop.key, 0);
           }
           user.items[type][drop.key] += 1;
         }

@@ -108,7 +108,6 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
   )(checks);
 };
 
-
 /**
  * Sends a message to a user. Archives a copy in sender's inbox.
  *
@@ -250,7 +249,6 @@ schema.methods.addAchievement = function addAchievement (achievement) {
     seen: false,
   });
 };
-
 
 /**
  * Adds an achievement and a related notification to the user, saving it directly to the database
@@ -477,13 +475,13 @@ schema.methods.canGetGems = async function canObtainGems () {
   const groups = await getUserGroupData(user);
 
   return groups
-    .every(g => !g.isSubscribed() || g.leader === user._id || g.leaderOnly.getGems !== true);
+    .every(g => !g.hasActiveGroupPlan() || g.leader === user._id || g.leaderOnly.getGems !== true);
 };
 
 schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
   const groups = await getUserGroupData(this);
 
-  return groups.some(g => g.isSubscribed());
+  return groups.some(g => g.hasActiveGroupPlan());
 };
 
 schema.methods.isAdmin = function isAdmin () {
@@ -497,8 +495,16 @@ schema.methods.toJSONWithInbox = async function userToJSONWithInbox () {
   const toJSON = user.toJSON();
 
   if (toJSON.inbox) {
-    toJSON.inbox.messages = await inboxLib.getUserInbox(user, { asArray: false });
+    toJSON.inbox.messages = await inboxLib.getUserInbox(user, {
+      asArray: false,
+    });
   }
 
   return toJSON;
+};
+
+schema.methods.getSecretData = function getSecretData () {
+  const user = this;
+
+  return user.secret;
 };

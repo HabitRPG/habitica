@@ -1,8 +1,8 @@
 {
-  "noItemsAvailableForType": "You have no <%= type %>.",
-  "foodItemType": "Food",
-  "eggsItemType": "Eggs",
-  "hatchingPotionsItemType": "Poțiuni de Eclozat",
-  "specialItemType": "Special items",
-  "lockedItem": "Obiect blocat"
+    "noItemsAvailableForType": "Nu ai niciun/nicio <%= type %>.",
+    "foodItemType": "Mâncare Companion",
+    "eggsItemType": "Ouă",
+    "hatchingPotionsItemType": "Poțiuni de Eclozat",
+    "specialItemType": "Obiecte Speciale",
+    "lockedItem": "Obiect blocat"
 }

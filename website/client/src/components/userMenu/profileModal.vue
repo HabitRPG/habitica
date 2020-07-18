@@ -45,7 +45,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'profile');
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica:show-profile');
   },
   methods: {

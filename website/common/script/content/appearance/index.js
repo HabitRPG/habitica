@@ -21,7 +21,6 @@ forOwn(backgrounds, (value, key) => {
   });
 });
 
-
 const appearances = {
   hair,
   shirt: shirts,

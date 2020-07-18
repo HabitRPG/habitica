@@ -21,7 +21,7 @@ schema.plugin(baseModel, {
   // noSet is not used as updating uses a whitelist and creating only accepts
   // specific params (password, email, username, ...)
   noSet: [],
-  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests'],
+  private: ['auth.local.hashed_password', 'auth.local.passwordHashMethod', 'auth.local.salt', '_cronSignature', '_ABtests', 'secret'],
   toJSONTransform: function userToJSON (plainObj, originalDoc) {
     plainObj._tmp = originalDoc._tmp; // be sure to send down drop notifs
 
@@ -44,7 +44,6 @@ function _populateDefaultTasks (user, taskTypes) {
   let defaultsData;
   if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
     defaultsData = common.content.userDefaultsMobile;
-    user.flags.welcomed = true;
   } else {
     defaultsData = common.content.userDefaults;
   }

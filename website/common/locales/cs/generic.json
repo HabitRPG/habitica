@@ -61,7 +61,7 @@
     "newGroupTitle": "Nová skupina",
     "subscriberItem": "Záhadný předmět",
     "newSubscriberItem": "Máš nové <span class=\"notification-bold-blue\">Záhadné předměty</span>",
-    "subscriberItemText": "Předplatitelé obdrží každý měsíc záhadný předmět. Ten je zpravidla představen týden před koncem měsíce. Pro více informací mrkni na stránku 'Mystery Item' na wiki.",
+    "subscriberItemText": "Předplatitelé obdrží každý měsíc záhadný předmět. Tento bude k mání na začátku měsíce. Pro více informací mrkni na stránku 'Mystery Item' na wiki.",
     "all": "Vše",
     "none": "Žádné",
     "more": "<%= count %> více",

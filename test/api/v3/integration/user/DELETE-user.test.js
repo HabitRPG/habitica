@@ -346,4 +346,23 @@ describe('DELETE /user', () => {
       await expect(checkExistence('users', user._id)).to.eventually.eql(false);
     });
   });
+
+  context('user with Apple auth', async () => {
+    beforeEach(async () => {
+      user = await generateUser({
+        auth: {
+          apple: {
+            id: 'apple-id',
+          },
+        },
+      });
+    });
+
+    it('deletes a Apple user', async () => {
+      await user.del('/user', {
+        password: DELETE_CONFIRMATION,
+      });
+      await expect(checkExistence('users', user._id)).to.eventually.eql(false);
+    });
+  });
 });

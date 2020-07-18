@@ -154,6 +154,7 @@
           <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           <div
             v-for="item in group"
+            v-show="show('pet', item)"
             :key="item.key"
             v-drag.drop.food="item.key"
             class="pet-group"
@@ -183,7 +184,7 @@
           </div>
         </div>
         <div
-          v-if="petGroup.key !== 'specialPets' && petGroup.key !== 'wackyPets'"
+          v-if="petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
           class="btn btn-flat btn-show-more"
           @click="setShowMore(petGroup.key)"
         >
@@ -216,6 +217,7 @@
           <!-- eslint-enable vue/no-use-v-if-with-v-for -->
           <div
             v-for="item in group"
+            v-show="show('mount', item)"
             :key="item.key"
             class="pet-group"
           >
@@ -688,6 +690,11 @@ export default {
     setShowMore (key) {
       this.$_openedItemRows_toggleByType(key, !this.$_openedItemRows_isToggled(key));
     },
+    show (type, item) {
+      return item.canFind === undefined
+        || isOwned(type, item, this.userItems)
+        || item.canFind;
+    },
     getAnimalList (animalGroup, type) {
       const { key } = animalGroup;
 
@@ -706,11 +713,14 @@ export default {
             const eggKey = specialKey.split('-')[0];
             const potionKey = specialKey.split('-')[1];
 
+            const { canFind, text } = this.content[`${type}Info`][specialKey];
+
             animals.push({
               key: specialKey,
               eggKey,
               potionKey,
-              name: this.content[`${type}Info`][specialKey].text(),
+              name: text(),
+              canFind,
               isOwned () {
                 return isOwned(type, this, userItems);
               },
@@ -790,7 +800,7 @@ export default {
       const pets = this.listAnimals(animalGroup, 'pet', hideMissing, sortBy, searchText);
 
       // Don't group special
-      if (animalGroup.key === 'specialPets' || animalGroup.key === 'wackyPets') {
+      if (animalGroup.key === 'specialPets' || (animalGroup.key === 'wackyPets' && sortBy !== 'sortByColor')) {
         return { none: pets };
       }
 

@@ -4,11 +4,17 @@
   line-height: 1.33;
   color: $gray-200;
   padding: 4px 8px;
-  box-shadow: 0 1px 1px 0 rgba($black, 0.12);
+  box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
 }
 
 .badge-pill {
   border-radius: 100px;
+}
+
+.badge-round {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 100%;
 }
 
 .badge-default {
@@ -16,9 +22,27 @@
   box-shadow: none;
 }
 
+.badge-dialog {
+  position: absolute;
+  left: -16px;
+  top: -16px;
+
+  .badge-pin {
+    width: 36px;
+    height: 36px;
+    padding: 0.5rem;
+  }
+}
+
 .badge-item {
   position: absolute;
   top: -9px;
+}
+
+.badge-top {
+  position: absolute;
+  left: calc((100% - 24px) / 2);
+  top: -12px;
 }
 
 .badge-purple {

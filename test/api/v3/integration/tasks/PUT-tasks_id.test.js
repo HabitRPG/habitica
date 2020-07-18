@@ -530,5 +530,15 @@ describe('PUT /tasks/:id', () => {
 
       expect(savedReward.value).to.eql(100);
     });
+
+    it('returns an error if reward value is a negative number', async () => {
+      await expect(user.put(`/tasks/${reward._id}`, {
+        value: -10,
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: 'reward validation failed',
+      });
+    });
   });
 });

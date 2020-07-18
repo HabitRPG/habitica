@@ -22,7 +22,7 @@ describe('redirects middleware', () => {
       const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(true);
-      req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('http');
+      req.protocol = 'http';
       req.originalUrl = '/static/front';
 
       const attachRedirects = requireAgain(pathToRedirectsMiddleware);
@@ -37,7 +37,7 @@ describe('redirects middleware', () => {
       const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(true);
-      req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('https');
+      req.protocol = 'https';
       req.originalUrl = '/static/front';
 
       const attachRedirects = requireAgain(pathToRedirectsMiddleware);
@@ -51,7 +51,7 @@ describe('redirects middleware', () => {
       const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('https://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(false);
-      req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('http');
+      req.protocol = 'http';
       req.originalUrl = '/static/front';
 
       const attachRedirects = requireAgain(pathToRedirectsMiddleware);
@@ -65,7 +65,7 @@ describe('redirects middleware', () => {
       const nconfStub = sandbox.stub(nconf, 'get');
       nconfStub.withArgs('BASE_URL').returns('http://habitica.com');
       nconfStub.withArgs('IS_PROD').returns(true);
-      req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('http');
+      req.protocol = 'http';
       req.originalUrl = '/static/front';
 
       const attachRedirects = requireAgain(pathToRedirectsMiddleware);
@@ -81,7 +81,7 @@ describe('redirects middleware', () => {
       nconfStub.withArgs('IS_PROD').returns(true);
       nconfStub.withArgs('SKIP_SSL_CHECK_KEY').returns('test-key');
 
-      req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('http');
+      req.protocol = 'http';
       req.originalUrl = '/static/front';
       req.query.skipSSLCheck = 'test-key';
 
@@ -97,7 +97,7 @@ describe('redirects middleware', () => {
       nconfStub.withArgs('IS_PROD').returns(true);
       nconfStub.withArgs('SKIP_SSL_CHECK_KEY').returns('test-key');
 
-      req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('http');
+      req.protocol = 'http';
       req.originalUrl = '/static/front?skipSSLCheck=INVALID';
       req.query.skipSSLCheck = 'INVALID';
 
@@ -114,7 +114,7 @@ describe('redirects middleware', () => {
       nconfStub.withArgs('IS_PROD').returns(true);
       nconfStub.withArgs('SKIP_SSL_CHECK_KEY').returns(null);
 
-      req.header = sandbox.stub().withArgs('x-forwarded-proto').returns('http');
+      req.protocol = 'http';
       req.originalUrl = '/static/front';
       req.query.skipSSLCheck = 'INVALID';
 

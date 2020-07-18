@@ -283,7 +283,7 @@
     "passwordResetEmailHtml": "If you requested a password reset for <strong><%= username %></strong> on Habitica, <a href=\"<%= passwordResetLink %>\">click here</a> to set a new one. The link will expire after 24 hours.<br/><br>If you haven't requested a password reset, please ignore this email.",
     "invalidLoginCredentialsLong": "Uh-oh - your email address / username or password is incorrect.\n- Make sure they are typed correctly. Your username and password are case-sensitive.\n- You may have signed up with Facebook or Google-sign-in, not email so double-check by trying them.\n- If you forgot your password, click \"Forgot Password\".",
     "invalidCredentials": "No hay ninguna cuenta que use esas credenciales.",
-    "accountSuspended": "This account, User ID \"<%= userId %>\", has been blocked for breaking the [Community Guidelines](https://habitica.com/static/community-guidelines) or [Terms of Service](https://habitica.com/static/terms). For details or to ask to be unblocked, please email our Community Manager at <%= communityManagerEmail %> or ask your parent or guardian to email them. Please copy your User ID into the email and include your username.",
+    "accountSuspended": "Esta cuenta, con ID de usuario \"<%= userId %>\", ha sido bloqueada por romper las Normas de la Comunidad (https://habitica.com/static/community-guidelines) o los Términos de Servicio (https://habitica.com/static/terms). Para más detalles o solicitar el desbloqueo de la cuenta, por favor manda un email a nuestro Community Manager a <%= communityManagerEmail %> o pídele a tu padre o tutor que mande el email. Por favor incluye tu @NombreUsuario en el email.",
     "accountSuspendedTitle": "Account has been suspended",
     "unsupportedNetwork": "Esta red no es suportada por el momento.",
     "cantDetachSocial": "Account lacks another authentication method; can't detach this authentication method.",
@@ -325,10 +325,12 @@
     "muchmuchMoreDesc": "Our fully customizable task list means that you can shape Habitica to fit your personal goals. Work on creative projects, emphasize self-care, or pursue a different dream -- it's all up to you.",
     "levelUpAnywhere": "Sube de Nivel en Cualquier Lugar",
     "levelUpAnywhereDesc": "Our mobile apps make it simple to keep track of your tasks on-the-go. Accomplish your goals with a single tap, no matter where you are.",
-    "joinMany": "¡Únete a más de 2,000,000 de personas que se divierten mientras logran sus objetivos!",
+    "joinMany": "¡Únete a más de <%= userCountInMillions %> millones de personas que se divierten mientras logran sus objetivos!",
     "joinToday": "Únete hoy a Habitica",
     "signup": "Regístrate",
     "getStarted": "Get Started!",
     "mobileApps": "Aplicaciones Móviles",
-    "learnMore": "Aprende Más"
+    "learnMore": "Aprende Más",
+    "minPasswordLength": "La contraseña debe contener 8 caracteres o más.",
+    "communityInstagram": "Instagram"
 }

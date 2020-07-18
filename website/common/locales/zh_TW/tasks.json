@@ -8,7 +8,7 @@
     "addMultipleTip": "<strong>提示：</strong>要新增多個<%= taskType %>，把每一項分別使用「Shift + Enter」換行，然後按下「Enter」",
     "addsingle": "新增單項",
     "addATask": "新增一個<%= type %>",
-    "editATask": "編輯一個<%= type %>",
+    "editATask": "編輯<%= type %>",
     "createTask": "創造一個<%= type %>",
     "addTaskToUser": "新增任務",
     "scheduled": "已排程",
@@ -199,7 +199,7 @@
     "monthlyRepeatHelpContent": "這個任務每X月會結算一次",
     "yearlyRepeatHelpContent": "這個任務每X年會結算一次",
     "resets": "重設",
-    "summaryStart": "每<%= everyX %><%= frequencyPlural %>重複<%= frequency %>次 ",
+    "summaryStart": "每<%= everyX %><%= frequencyPlural %>重複<%= frequency %>次",
     "nextDue": "下個截止日期",
     "checkOffYesterDailies": "勾選你昨天做過的每日任務：",
     "yesterDailiesTitle": "你昨天有一些每日任務沒有完成，你想要現在完成他們嗎？",
@@ -209,5 +209,9 @@
     "repeatDayError": "請確定你每週至少有選擇一天。",
     "searchTasks": "搜尋標題和介紹...",
     "sessionOutdated": "你的瀏覽器session已過期。請重整或同步。",
-    "errorTemporaryItem": "這個項目是暫存的不能被釘選。"
+    "errorTemporaryItem": "這個項目是暫存的不能被釘選。",
+    "addNotes": "添加註釋",
+    "addATitle": "添加一個標題",
+    "sureDeleteType": "你確定要刪除<%= type %>嗎？",
+    "deleteTaskType": "刪除<%= type %>"
 }

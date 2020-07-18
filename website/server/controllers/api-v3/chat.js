@@ -22,7 +22,7 @@ import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
-import { highlightMentions } from '../../libs/highlightMentions';
+import highlightMentions from '../../libs/highlightMentions';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
 
@@ -91,7 +91,6 @@ api.getChat = {
 function getBannedWordsFromText (message) {
   return getMatchesByWordArray(message, bannedWords);
 }
-
 
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
@@ -247,7 +246,6 @@ api.postChat = {
       user.party.lastMessageSeen = newChatMessage.id;
       toSave.push(user.save());
     }
-
 
     await Promise.all(toSave);
 

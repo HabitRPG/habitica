@@ -41,7 +41,7 @@ export default class Store {
 
   // Actions should be called using store.dispatch(ACTION_NAME, ...ARGS)
   // They get passed the store instance and any additional argument passed to dispatch()
-  dispatch (type, ...args) {
+  async dispatch (type, ...args) {
     const action = this._actions[type];
 
     if (!action) throw new Error(`Action "${type}" not found.`);

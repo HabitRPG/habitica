@@ -3,6 +3,7 @@ import findIndex from 'lodash/findIndex';
 import get from 'lodash/get';
 import keys from 'lodash/keys';
 import upperFirst from 'lodash/upperFirst';
+import moment from 'moment';
 import i18n from '../i18n';
 import content from '../content/index';
 import {
@@ -34,9 +35,11 @@ function evolve (user, pet, req) {
   }, req.language);
 }
 
-export default function feed (user, req = {}) {
+export default function feed (user, req = {}, analytics) {
   let pet = get(req, 'params.pet');
   const foodK = get(req, 'params.food');
+  let amount = Number(get(req.query, 'amount', 1));
+  let foodFactor;
 
   if (!pet || !foodK) throw new BadRequest(errorMessage('missingPetFoodFeed'));
 
@@ -51,7 +54,6 @@ export default function feed (user, req = {}) {
     throw new NotFound(errorMessage('invalidFoodName', req.language));
   }
 
-
   if (!user.items.pets[pet.key]) {
     throw new NotFound(i18n.t('messagePetNotFound', req.language));
   }
@@ -60,7 +62,7 @@ export default function feed (user, req = {}) {
     throw new NotFound(i18n.t('messageFoodNotFound', req.language));
   }
 
-  if (pet.type === 'special') {
+  if (pet.type === 'special' || pet.type === 'wacky') {
     throw new NotAuthorized(i18n.t('messageCannotFeedPet', req.language));
   }
 
@@ -68,9 +70,28 @@ export default function feed (user, req = {}) {
     throw new NotAuthorized(i18n.t('messageAlreadyMount', req.language));
   }
 
+  if (!Number.isInteger(amount) || amount < 0) {
+    throw new BadRequest(i18n.t('invalidAmount', req.language));
+  }
+
+  if (amount > user.items.food[food.key]) {
+    throw new NotAuthorized(i18n.t('notEnoughFood', req.language));
+  }
+
+  if (food.target === pet.potion || pet.type === 'premium') {
+    foodFactor = 5;
+  } else {
+    foodFactor = 2;
+  }
+
+  if ((user.items.pets[pet.key] + (amount * foodFactor)) >= (50 + foodFactor)) {
+    throw new NotAuthorized(i18n.t('tooMuchFood', req.language));
+  }
+
   let message;
 
   if (food.key === 'Saddle') {
+    amount = 1;
     message = evolve(user, pet, req);
   } else {
     const messageParams = {
@@ -79,10 +100,10 @@ export default function feed (user, req = {}) {
     };
 
     if (food.target === pet.potion || pet.type === 'premium') {
-      user.items.pets[pet.key] += 5;
+      user.items.pets[pet.key] += foodFactor * amount;
       message = i18n.t('messageLikesFood', messageParams, req.language);
     } else {
-      user.items.pets[pet.key] += 2;
+      user.items.pets[pet.key] += foodFactor * amount;
       message = i18n.t('messageDontEnjoyFood', messageParams, req.language);
     }
 
@@ -94,11 +115,11 @@ export default function feed (user, req = {}) {
 
     if (!user.achievements.fedPet && user.addAchievement) {
       user.addAchievement('fedPet');
-      checkOnboardingStatus(user);
+      checkOnboardingStatus(user, req, analytics);
     }
   }
 
-  user.items.food[food.key] -= 1;
+  user.items.food[food.key] -= 1 * amount;
   if (user.markModified) user.markModified('items.food');
 
   forEach(content.animalColorAchievements, achievement => {
@@ -117,6 +138,16 @@ export default function feed (user, req = {}) {
       }
     }
   });
+
+  if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
+    analytics.track('pet feed', {
+      uuid: user._id,
+      foodKey: food.key,
+      petKey: pet.key,
+      category: 'behavior',
+      headers: req.headers,
+    });
+  }
 
   return [
     user.items.pets[pet.key],

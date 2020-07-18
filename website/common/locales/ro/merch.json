@@ -1,20 +1,14 @@
 {
-  "merch" : "Marfă",
-  "merchandiseDescription": "Looking for t-shirts, mugs, or stickers to show off your Habitica pride? Click here!",
-
-  "merch-teespring-summary" : "Teespring este o platforma care permit oricui să creeze și să vândă produse de înaltă calitate adorate de clienți, fără costuri sau riscuri asociate. ",
-  "merch-teespring-goto" : "Cumpără un tricou Habitica",
-
-  "merch-teespring-mug-summary" : "Teespring is a platform that makes it easy for anyone to create and sell high-quality products people love, with no cost or risk.",
-  "merch-teespring-mug-goto" : "Cumpără o Cană Habitica",
-
-  "merch-teespring-eu-summary" : "EUROPEAN VERSION : Teespring is a platform that makes it easy for anyone to create and sell high-quality products people love, with no cost or risk.",
-  "merch-teespring-eu-goto" : "Cumpărați un tricou Habitica",
-
-  "merch-teespring-mug-eu-summary" : "EUROPEAN VERSION : Teespring is a platform that makes it easy for anyone to create and sell high-quality products people love, with no cost or risk.",
-  "merch-teespring-mug-eu-goto" : "Cumpără o Cană Habitica (UE)",
-
-  "merch-stickermule-summary" : "Stick proud Melior wherever you (or someone else) need a reminder of both present and future accomplishments!",
-  "merch-stickermule-goto" : "Cumpărați stickere Habitica"
-
+    "merch": "Marfă",
+    "merchandiseDescription": "Căutați tricouri, căni sau autocolante pentru a vă arăta mândria de la Habitica? Click aici!",
+    "merch-teespring-summary": "Teespring este o platforma care permit oricui să creeze și să vândă produse de înaltă calitate adorate de clienți, fără costuri sau riscuri asociate.",
+    "merch-teespring-goto": "Cumpără un tricou Habitica",
+    "merch-teespring-mug-summary": "Teespring este o platformă care ușurează oricui să creeze și să vândă produse de înaltă calitate pe care le iubesc, fără costuri sau riscuri.",
+    "merch-teespring-mug-goto": "Cumpără o Cană Habitica",
+    "merch-teespring-eu-summary": "VERSIUNEA EUROPEANĂ: Teespring este o platformă care facilitează oricui să creeze și să vândă produse de înaltă calitate pe care le iubesc, fără costuri sau riscuri.",
+    "merch-teespring-eu-goto": "Cumpărați un tricou Habitica",
+    "merch-teespring-mug-eu-summary": "VERSIUNEA EUROPEANĂ: Teespring este o platformă care facilitează oricui să creeze și să vândă produse de înaltă calitate pe care le iubesc, fără costuri sau riscuri.",
+    "merch-teespring-mug-eu-goto": "Cumpără o Cană Habitica (UE)",
+    "merch-stickermule-summary": "Lipiți mândru Melior oriunde voi (sau altcineva) aveți nevoie să vă aminti atât de realizările prezente, cât și de cele viitoare!",
+    "merch-stickermule-goto": "Cumpărați stickere Habitica"
 }

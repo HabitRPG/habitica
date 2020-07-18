@@ -15,13 +15,17 @@
         class="onboarding-complete-banner d-block"
         src="~@/assets/images/onboarding-complete-banner@2x.png"
       >
-      <h3>{{ $t('congratulations') }}</h3>
+      <h3 v-once>
+        {{ $t('onboardingComplete') }}
+      </h3>
       <p
+        v-once
         class="onboarding-complete-text"
         v-html="$t('onboardingCompleteDesc')"
       ></p>
       <div class="notifications-buttons">
         <div
+          v-once
           class="btn btn-small btn-primary btn-block"
         >
           {{ $t('viewAchievements') }}

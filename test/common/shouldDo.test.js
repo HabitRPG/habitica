@@ -377,7 +377,6 @@ describe('shouldDo', () => {
         m: false,
       };
 
-
       [0, 1, 2, 3, 4, 5, 6].forEach(weekday => {
         day = moment().add(1, 'weeks').day(weekday).toDate();
 

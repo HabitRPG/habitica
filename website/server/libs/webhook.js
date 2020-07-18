@@ -1,6 +1,7 @@
 import got from 'got';
 import { isURL } from 'validator';
 import nconf from 'nconf';
+import moment from 'moment';
 import logger from './logger';
 import { // eslint-disable-line import/no-cycle
   model as User,
@@ -8,11 +9,63 @@ import { // eslint-disable-line import/no-cycle
 
 const IS_PRODUCTION = nconf.get('IS_PROD');
 
-function sendWebhook (url, body) {
+function sendWebhook (webhook, body, user) {
+  const { url, lastFailureAt } = webhook;
+
   got.post(url, {
-    body,
-    json: true,
-  }).catch(err => logger.error(err));
+    json: body,
+    timeout: 30000, // wait up to 30s before timing out
+    retry: 3, // retry the request up to 3 times
+  // Not calling .json() to parse the response because we simply ignore it
+  }).catch(webhookErr => {
+    // Log the error
+    logger.error(webhookErr, {
+      extraMessage: 'Error while sending a webhook request.',
+      userId: user._id,
+      webhookId: webhook.id,
+    });
+
+    let _failuresReset = false;
+
+    // Reset failures if the last one happened more than 1 month ago
+    const oneMonthAgo = moment().subtract(1, 'months');
+    if (!lastFailureAt || moment(lastFailureAt).isBefore(oneMonthAgo)) {
+      webhook.failures = 0;
+      _failuresReset = true;
+    }
+
+    // Increase the number of failures
+    webhook.failures += 1;
+    webhook.lastFailureAt = new Date();
+
+    // Disable a webhook with too many failures
+    if (webhook.failures >= 10) {
+      webhook.enabled = false;
+      webhook.failures = 0;
+      webhook.lastFailureAt = undefined;
+      _failuresReset = true;
+    }
+
+    const update = {
+      $set: {
+        'webhooks.$.lastFailureAt': webhook.lastFailureAt,
+        'webhooks.$.enabled': webhook.enabled,
+      },
+    };
+
+    if (_failuresReset) {
+      update.$set['webhooks.$.failures'] = webhook.failures;
+    } else {
+      update.$inc = {
+        'webhooks.$.failures': 1,
+      };
+    }
+
+    return User.update({
+      _id: user._id,
+      'webhooks.id': webhook.id,
+    }, update).exec();
+  }).catch(err => logger.error(err)); // log errors that might have happened in the previous catch
 }
 
 function isValidWebhook (hook) {
@@ -60,7 +113,7 @@ export class WebhookSender {
     this.attachDefaultData(user, body);
 
     hooks.forEach(hook => {
-      sendWebhook(hook.url, body);
+      sendWebhook(hook, body, user);
     });
   }
 }

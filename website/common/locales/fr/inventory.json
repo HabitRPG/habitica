@@ -1,8 +1,8 @@
 {
-  "noItemsAvailableForType": "Vous n'avez pas <%= type %>.",
-  "foodItemType": "de nourriture",
-  "eggsItemType": "d'œufs",
-  "hatchingPotionsItemType": "de potions d'éclosion",
-  "specialItemType": "d'objets spéciaux",
-  "lockedItem": "Verrouillé"
+    "noItemsAvailableForType": "Vous n'avez pas <%= type %>.",
+    "foodItemType": "de nourriture pour familier",
+    "eggsItemType": "d'œufs",
+    "hatchingPotionsItemType": "de potions d'éclosion",
+    "specialItemType": "d'objets spéciaux",
+    "lockedItem": "Verrouillé"
 }

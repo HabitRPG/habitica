@@ -12,7 +12,7 @@
     "messageLikesFood": "Το <%= foodText %> πραγματικά άρεσε στο <%= egg %>!",
     "messageDontEnjoyFood": "Το <%= egg %> έφαγε το <%= foodText %> αλλά δε φαίνεται να του άρεσε.",
     "messageBought": "Ο/Η/Το <%= itemText %> αγοράστηκε",
-    "messageEquipped": "<%= itemText %> εξοπλίστηκς.",
+    "messageEquipped": " <%= itemText %> εξοπλίστηκς.",
     "messageUnEquipped": "<%= itemText %> unequipped.",
     "messageMissingEggPotion": "Σου λείπει είτε αυτό το αυγό ή αυτό το φίλτρο",
     "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",

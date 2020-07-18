@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'MARCH BACKGROUNDS AND ARMOIRE ITEMS! HOPEFUL HIPPOGRIFFS IN THE TIME TRAVELERS SHOP!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: GOOD STARTER QUESTS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,33 +31,22 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>3/3/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_202003 center-block"></div>
-        <h3>March Backgrounds and Armoire Items!</h3>
+        <div class="scene_basilist center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can dally among
-          Giant Flowers, admire a fancy Succulent Garden, and party with pollinators in the
-          Butterfly Garden. Check them out under User Icon > Backgrounds!
+          This month's <a
+          href='https://habitica.wordpress.com/2020/07/15/easy-starter-quests-for-beginners/'
+          target='_blank'>featured Wiki article</a> is about Easy Starter Quests for Beginners! We
+          hope that it will help you as you take on Habitica's bosses and your tasks! Be sure to
+          check it out, and let us know what you think by reaching out on <a
+          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
+          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
+          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
-        <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Baseball Set. Better work hard on your real-life tasks to earn all the pieces! Enjoy :)
-        </p>
-        <div class="small mb-3">
-          by Vikte, Mantichore, FolleMente, Aspiring Advocate, QuartzFox, katieslug, and SabreCat
-        </div>
-        <div class="Pet-Hippogriff-Hopeful center-block"></div>
-        <h3>Hopeful Hippogriffs in the Time Travelers' Shop!</h3>
-        <p>
-          The <a href='/shops/time'>Time Travelers</a> have traveled back in time to obtain some
-          rare Hopeful Hippogriff pets and mounts! You can buy them with Mystic Hourglasses, which
-          are awarded to <a href='/user/settings/subscription'>long-term subscribers</a>. Thanks
-          for helping us to keep Habitica running!
-        </p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });

@@ -103,7 +103,21 @@
                 :popover-position="'top'"
                 :show-event-badge="false"
                 @click="itemSelected(item)"
-              />
+              >
+                <template
+                  slot="itemBadge"
+                  slot-scope="ctx"
+                >
+                  <span
+                    class="badge-top"
+                    @click.prevent.stop="togglePinned(ctx.item)"
+                  >
+                    <pin-badge
+                      :pinned="ctx.item.pinned"
+                    />
+                  </span>
+                </template>
+              </shopItem>
             </div>
           </div>
         </div>
@@ -181,14 +195,12 @@
                   slot-scope="ctx"
                 >
                   <span
-                    class="badge badge-pill badge-item badge-svg"
-                    :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
+                    class="badge-top"
                     @click.prevent.stop="togglePinned(ctx.item)"
                   >
-                    <span
-                      class="svg-icon inline icon-12 color"
-                      v-html="icons.pin"
-                    ></span>
+                    <pin-badge
+                      :pinned="ctx.item.pinned"
+                    />
                   </span>
                 </template>
               </shopItem>
@@ -204,43 +216,6 @@
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/variables.scss';
-
-  .badge-svg {
-    left: calc((100% - 18px) / 2);
-    cursor: pointer;
-    color: $gray-400;
-    background: $white;
-    padding: 4.5px 6px;
-
-    &.item-selected-badge {
-      background: $purple-300;
-      color: $white;
-    }
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg:not(.item-selected-badge) {
-    color: #a5a1ac;
-  }
-
-  span.badge.badge-pill.badge-item.badge-svg.hide {
-    display: none;
-  }
-
-  .item:hover {
-    span.badge.badge-pill.badge-item.badge-svg.hide {
-      display: block;
-    }
-  }
-
-  .icon-12 {
-    width: 12px;
-    height: 12px;
-  }
-
-  .hand-cursor {
-    cursor: pointer;
-  }
-
 
   .featured-label {
     margin: 24px auto;
@@ -271,6 +246,14 @@
   .seasonal {
     .standard-page {
       position: relative;
+    }
+
+    .badge-pin:not(.pinned) {
+        display: none;
+      }
+
+    .item:hover .badge-pin {
+      display: block;
     }
 
     h3.classgroup {
@@ -390,21 +373,20 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _reverse from 'lodash/reverse';
-import { mapState } from '@/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 
-import ShopItem from '../shopItem';
 import Checkbox from '@/components/ui/checkbox';
+import PinBadge from '@/components/ui/pinBadge';
+import ShopItem from '../shopItem';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import buyMixin from '@/mixins/buy';
 import currencyMixin from '../_currencyMixin';
 import pinUtils from '@/mixins/pinUtils';
 
-import svgPin from '@/assets/svg/pin.svg';
 import svgWarrior from '@/assets/svg/warrior.svg';
 import svgWizard from '@/assets/svg/wizard.svg';
 import svgRogue from '@/assets/svg/rogue.svg';
 import svgHealer from '@/assets/svg/healer.svg';
-
 
 import isPinned from '@/../../common/script/libs/isPinned';
 import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinnedItems';
@@ -415,9 +397,10 @@ import shops from '@/../../common/script/libs/shops';
 
 export default {
   components: {
+    Checkbox,
+    PinBadge,
     ShopItem,
     toggleSwitch,
-    Checkbox,
   },
   mixins: [buyMixin, currencyMixin, pinUtils],
   data () {
@@ -427,7 +410,6 @@ export default {
       searchTextThrottled: null,
 
       icons: Object.freeze({
-        pin: svgPin,
         warrior: svgWarrior,
         wizard: svgWizard,
         rogue: svgRogue,
@@ -452,8 +434,6 @@ export default {
       featuredGearBought: false,
 
       backgroundUpdate: new Date(),
-
-      broken: false,
     };
   },
   computed: {
@@ -461,6 +441,9 @@ export default {
       content: 'content',
       user: 'user.data',
       userStats: 'user.data.stats',
+    }),
+    ...mapGetters({
+      broken: 'worldState.brokenSeasonalShop',
     }),
 
     usersOfficalPinnedItems () {
@@ -476,7 +459,10 @@ export default {
 
       const itemsNotOwned = seasonal.featured.items
         .filter(item => !this.user.items.gear.owned[item.key]);
-      seasonal.featured.items = itemsNotOwned;
+      seasonal.featured.items = _map(itemsNotOwned, e => ({
+        ...e,
+        pinned: isPinned(this.user, e, this.usersOfficalPinnedItems),
+      }));
 
       // If we are out of gear, show the spells
       // @TODO: add dates to check instead?
@@ -531,14 +517,11 @@ export default {
     }, 250),
   },
   async mounted () {
-    const worldState = await this.$store.dispatch('worldState:getWorldState');
-    this.broken = worldState && worldState.worldBoss && worldState.worldBoss.extra
-      && worldState.worldBoss.extra.worldDmg && worldState.worldBoss.extra.worldDmg.seasonalShop;
-  },
-  created () {
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });
+
+    await this.$store.dispatch('worldState:getWorldState');
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');
@@ -609,7 +592,6 @@ export default {
       return false;
     },
     itemSelected (item) {
-      if (item.locked) return;
       this.$root.$emit('buyModal::showItem', item);
     },
   },

@@ -137,7 +137,7 @@
     "unsubscribeAllEmailsText": "By checking this box, I certify that I understand that by unsubscribing from all emails, Habitica will never be able to notify me via email about important changes to the site or my account.",
     "unsubscribeAllPush": "Check to Unsubscribe from all Push Notifications",
     "correctlyUnsubscribedEmailType": "Ab \"<%= emailType %>\" epistulis electronicis puriter insubscriptus es.",
-    "subscriptionRateText": "Recurrere $<%= price %> USD <%= months %> quasque mentes",
+    "subscriptionRateText": "Recurrere <strong>$<%= price %> USD</strong> quasque <strong><%= months %> mentes",
     "recurringText": "recurring",
     "benefits": "Beneficia",
     "coupon": "Tessera Nummaria",

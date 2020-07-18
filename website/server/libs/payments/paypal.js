@@ -20,7 +20,6 @@ import {
   NotFound,
 } from '../errors';
 
-
 const BASE_URL = nconf.get('BASE_URL');
 const { i18n } = shared;
 
@@ -97,13 +96,11 @@ api.checkout = async function checkout (options = {}) {
     }
   }
 
-
   if (!gift || gift.type === 'gems') {
     const receiver = gift ? gift.member : user;
     const receiverCanGetGems = await receiver.canGetGems();
     if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
   }
-
 
   const createPayment = {
     intent: 'sale',

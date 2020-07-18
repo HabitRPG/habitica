@@ -3,6 +3,9 @@ import defaults from 'lodash/defaults';
 import each from 'lodash/each';
 import moment from 'moment';
 import t from './translation';
+import {
+  EVENTS,
+} from './constants';
 
 function hasQuestAchievementFunction (key) {
   return user => user.achievements.quests
@@ -70,11 +73,26 @@ const premium = {
     value: 2,
     text: t('hatchingPotionShimmer'),
     limited: true,
+    event: EVENTS.spring2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2018 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
   },
   Fairy: {
     value: 2,
     text: t('hatchingPotionFairy'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMay'),
+      previousDate: t('mayYYYY', { year: 2017 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-06-02');
+    },
   },
   Floral: {
     value: 2,
@@ -85,6 +103,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionAquatic'),
     limited: true,
+    event: EVENTS.summer2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJuly'),
+      previousDate: t('juneYYYY', { year: 2017 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-08-02');
+    },
   },
   Ember: {
     value: 2,
@@ -198,11 +224,26 @@ const premium = {
     value: 2,
     text: t('hatchingPotionCelestial'),
     limited: true,
+    event: EVENTS.spring2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
   },
   Sunshine: {
     value: 2,
     text: t('hatchingPotionSunshine'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMay'),
+      previousDate: t('mayYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-06-02');
+    },
   },
   Bronze: {
     value: 2,
@@ -215,6 +256,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionWatery'),
     limited: true,
+    event: EVENTS.summer2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJuly'),
+      previousDate: t('juneYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-08-02');
+    },
   },
   Silver: {
     value: 2,
@@ -253,13 +302,57 @@ const premium = {
     canBuy: hasQuestAchievementFunction('ruby'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
+  BirchBark: {
+    value: 2,
+    text: t('hatchingPotionBirchBark'),
+    limited: true,
+    event: EVENTS.spring2020,
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndMarch'),
+    }),
+  },
+  Fluorite: {
+    value: 2,
+    text: t('hatchingPotionFluorite'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('fluorite'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
+  SandSculpture: {
+    value: 2,
+    text: t('hatchingPotionSandSculpture'),
+    limited: true,
+    event: EVENTS.summer2020,
+    canBuy () {
+      return moment().isBefore('2020-08-02');
+    },
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndJuly'),
+    }),
+  },
 };
 
 const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    _season: '_PENDING_',
+    event: EVENTS.spring2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-05-02');
+    },
+  },
+  Dessert: {
+    text: t('hatchingPotionDessert'),
+    limited: true,
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+    canBuy: hasQuestAchievementFunction('waffle'),
   },
 };
 
@@ -303,7 +396,7 @@ each(wacky, (pot, key) => {
     notes: t('hatchingPotionNotes', {
       potText: pot.text,
     }),
-    _addlNotes: pot._seasont && pot._season !== '_PENDING_' ? t('eventAvailability', {
+    _addlNotes: pot._season && pot._season !== '_PENDING_' ? t('eventAvailability', {
       date: t(`dateEnd${pot._season}`),
     }) : null,
     premium: false,

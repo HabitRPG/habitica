@@ -1,8 +1,8 @@
 {
     "clearCompleted": "Vymaž dokončené úkoly",
     "clearCompletedDescription": "Splněné úkoly jsou smazány pro ne-odběratele po 30 dnech, a pro odběratele po 90 dnech.",
-    "clearCompletedConfirm": "Jsi si jistý, že chceš smazat tvé hotové úkoly?",
-    "sureDeleteCompletedTodos": "Jsi si jistý, že chceš smazat tvé hotové úkoly?",
+    "clearCompletedConfirm": "Jsi si jistý, že chceš smazat své hotové úkoly?",
+    "sureDeleteCompletedTodos": "Jsi si jistý, že chceš smazat své hotové úkoly?",
     "lotOfToDos": "Zde vidíš svých posledních 30 splněných úkolů z Úkolníčku. Starší splněné úkoly můžeš najít v Data > Nástroj zobrazení dat nebo Data > Export dat > Data uživatele.",
     "deleteToDosExplanation": "Pokud klikneš na tlačítko níže, všechny tvé hotové a archivované Úkoly budou permanentně smazány, kromě Úkolů z aktivních výzev a ze skupinových plánů. Prvně je vyexportuj, pokud chceš ponechat jejich záznam.",
     "addMultipleTip": "<strong>Tip:</strong> K přidání více <%= taskType %> najednou, stiskni po zadání každého \"Shift + Enter\" a nakonec pro potvrzení \"Enter.\"",
@@ -199,7 +199,7 @@
     "monthlyRepeatHelpContent": "Tento úkol bude muset výt splněn každých X měsíců",
     "yearlyRepeatHelpContent": "Tento úkol bude muset výt splněn každých X let",
     "resets": "Resetuje",
-    "summaryStart": "Opakuje se <%= frequency %> každý <%= everyX %><%= frequencyPlural %>. ",
+    "summaryStart": "Opakuje se <%= frequency %> každý <%= everyX %><%= frequencyPlural %>",
     "nextDue": "Další termíny splnění",
     "checkOffYesterDailies": "Odškrtni jakékoliv Denní úkoly, které jsi včera udělal:",
     "yesterDailiesTitle": "Tyto Denní úkoly jsi ponechal včera neodškrtnuté! Chceš některé z nich odškrtnout teď?",
@@ -209,5 +209,9 @@
     "repeatDayError": "Prosím, ujisti se, že máš alespoň jeden den v týdnu vybraný.",
     "searchTasks": "Vyhledat názvy a popisy...",
     "sessionOutdated": "Tvá relace je zastaralá. Prosím, zkus ji obnovit nebo synchronizovat.",
-    "errorTemporaryItem": "Tento předmět je dočasný a nemůže být připnut."
+    "errorTemporaryItem": "Tento předmět je dočasný a nemůže být připnut.",
+    "sureDeleteType": "Chceš tohle <%= type %> opravdu smazat?",
+    "deleteTaskType": "Tohle <%= type %> smazat",
+    "addNotes": "Přidej poznámky",
+    "addATitle": "Přidej název"
 }

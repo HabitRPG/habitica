@@ -161,4 +161,4 @@ gulp.task('sprites:checkCompiledDimensions', gulp.series('sprites:main', 'sprite
   done();
 }));
 
-gulp.task('sprites:compile', gulp.series('sprites:clean', 'sprites:main', 'sprites:largeSprites', 'sprites:checkCompiledDimensions', done => done()));
+gulp.task('sprites:compile', gulp.series('sprites:clean', 'sprites:checkCompiledDimensions', done => done()));
