@@ -86,14 +86,14 @@
         <div class="left-column">
           <button
             class="btn"
-            :class="{'btn-primary': !costumeMode, 'btn-light': costumeMode}"
+            :class="{'btn-primary': !costumeMode, 'btn-secondary': costumeMode}"
             @click="selectDrawerTab('equipment')"
           >
             {{ $t('battleGear') }}
           </button>
           <button
             class="btn"
-            :class="{'btn-primary': costumeMode, 'btn-light': !costumeMode}"
+            :class="{'btn-primary': costumeMode, 'btn-secondary': !costumeMode}"
             @click="selectDrawerTab('costume')"
           >
             {{ $t('costume') }}
@@ -273,10 +273,6 @@
 
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
-
-.btn-light {
-  color: $gray-50
-}
 
 .title-row-tabs {
   display: flex;
