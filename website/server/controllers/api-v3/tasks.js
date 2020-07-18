@@ -678,8 +678,8 @@ api.updateTask = {
       task.group.sharedCompletion = sanitizedObj.sharedCompletion;
     }
 
-    if (task.frequency === 'monthly' && task) {
-      task.daysOfMonth = [ moment(task.startDate).date() ];
+    if (task.frequency === 'monthly' && task.startDate) {
+      task.daysOfMonth = [moment(task.startDate).date()];
     }
 
     setNextDue(task, user);
