@@ -15,6 +15,10 @@ export function nameContainsSlur (username) {
   return false;
 }
 
+export function nameContainsNewline (username) {
+  return username.includes('\n');
+}
+
 function usernameIsForbidden (username) {
   const forbidddenWordsMatched = getMatchesByWordArray(username, forbiddenUsernames);
   return forbidddenWordsMatched.length > 0;
@@ -30,6 +34,7 @@ export function verifyDisplayName (displayName, res) {
   const issues = [];
   if (displayName.length < 1 || displayName.length > 30) issues.push(res.t('displaynameIssueLength'));
   if (nameContainsSlur(displayName)) issues.push(res.t('displaynameIssueSlur'));
+  if (nameContainsNewline(displayName)) issues.push(res.t('displaynameIssueNewline'));
 
   return issues;
 }
