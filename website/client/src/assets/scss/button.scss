@@ -1,14 +1,19 @@
 .btn {
+  height: 2rem;
   cursor: pointer;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: bold;
   line-height: 1.71;
   border: 1px solid transparent;
-  padding: 0.25rem 1rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 2px;
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   color: $white;
+
+  &::content {
+    height: 1.5rem;
+  }
 
   &:hover, &:focus {
     box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
@@ -42,24 +47,26 @@
   background: $purple-200;
   border: 1px solid transparent;
 
-  &:hover:not(:disabled):not(.disabled) {
-    background: #5d3b9c;
-    border: 1px solid transparent;
+  &:not(:disabled):not(.disabled) {
+    &:hover {
+      background: #5d3b9c;
+      border: 1px solid transparent;
+    }
+
+    &:active, &.active {
+      background: $purple-200;
+      border: 1px solid transparent;
+
+      &:focus {
+        box-shadow: none;
+        border-color: $purple-400;
+      }
+    }
   }
 
   &:focus {
     background: $purple-200;
     border-color: $purple-400;
-  }
-
-  &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
-    box-shadow: none;
-    border-color: $purple-400;
-  }
-
-  &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
-    background: $purple-200;
-    border: 1px solid transparent;
   }
 
   &:disabled, &.disabled {

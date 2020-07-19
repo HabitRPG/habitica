@@ -5,92 +5,89 @@
     @mouseMoved="mouseMoved($event)"
   >
     <div class="standard-sidebar d-none d-sm-block">
-      <div>
-        <div
-          id="npmMattStable"
-          class="npc_matt"
-        ></div>
-        <b-popover
-          triggers="hover"
-          placement="right"
-          target="npmMattStable"
-        >
-          <h4
-            v-once
-            class="popover-content-title"
-          >
-            {{ $t('mattBoch') }}
-          </h4>
+      <filter-sidebar>
+        <div slot="header">
           <div
-            v-once
-            class="popover-content-text"
+            id="npmMattStable"
+            class="npc_matt"
+          ></div>
+          <b-popover
+            triggers="hover"
+            placement="right"
+            target="npmMattStable"
           >
-            {{ $t('mattBochText1') }}
-          </div>
-        </b-popover>
-      </div>
-      <div class="form-group">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
-        >
-      </div>
-      <div class="form">
-        <h2 v-once>
-          {{ $t('filter') }}
-        </h2>
-        <h3 v-once>
-          {{ $t('pets') }}
-        </h3>
-        <div class="form-group">
-          <div
-            v-for="petGroup in petGroups"
-            :key="petGroup.key"
-            class="form-check"
+            <h4
+              v-once
+              class="popover-content-title"
+            >
+              {{ $t('mattBoch') }}
+            </h4>
+            <div
+              v-once
+              class="popover-content-text"
+            >
+              {{ $t('mattBochText1') }}
+            </div>
+          </b-popover>
+        </div>
+        <div class="form-group" slot="search">
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
           >
-            <div class="custom-control custom-checkbox">
-              <input
-                :id="petGroup.key"
-                v-model="viewOptions[petGroup.key].selected"
-                class="custom-control-input"
-                type="checkbox"
-                :disabled="viewOptions[petGroup.key].animalCount == 0"
-              >
-              <label
-                v-once
-                class="custom-control-label"
-                :for="petGroup.key"
-              >{{ petGroup.label }}</label>
+        </div>
+
+        <filter-group :title="$t('pets')">
+          <div class="form-group">
+            <div
+              v-for="petGroup in petGroups"
+              :key="petGroup.key"
+              class="form-check"
+            >
+              <div class="custom-control custom-checkbox">
+                <input
+                  :id="petGroup.key"
+                  v-model="viewOptions[petGroup.key].selected"
+                  class="custom-control-input"
+                  type="checkbox"
+                  :disabled="viewOptions[petGroup.key].animalCount == 0"
+                >
+                <label
+                  v-once
+                  class="custom-control-label"
+                  :for="petGroup.key"
+                >{{ petGroup.label }}</label>
+              </div>
             </div>
           </div>
-        </div>
-        <h3 v-once>
-          {{ $t('mounts') }}
-        </h3>
-        <div class="form-group">
-          <div
-            v-for="mountGroup in mountGroups"
-            :key="mountGroup.key"
-            class="form-check"
-          >
-            <div class="custom-control custom-checkbox">
-              <input
-                :id="mountGroup.key"
-                v-model="viewOptions[mountGroup.key].selected"
-                class="custom-control-input"
-                type="checkbox"
-                :disabled="viewOptions[mountGroup.key].animalCount == 0"
-              >
-              <label
-                v-once
-                class="custom-control-label"
-                :for="mountGroup.key"
-              >{{ mountGroup.label }}</label>
+        </filter-group>
+        <filter-group :title="$t('mounts')">
+          <div class="form-group">
+            <div
+              v-for="mountGroup in mountGroups"
+              :key="mountGroup.key"
+              class="form-check"
+            >
+              <div class="custom-control custom-checkbox">
+                <input
+                  :id="mountGroup.key"
+                  v-model="viewOptions[mountGroup.key].selected"
+                  class="custom-control-input"
+                  type="checkbox"
+                  :disabled="viewOptions[mountGroup.key].animalCount == 0"
+                >
+                <label
+                  v-once
+                  class="custom-control-label"
+                  :for="mountGroup.key"
+                >{{ mountGroup.label }}</label>
+              </div>
             </div>
           </div>
-        </div>
+        </filter-group>
+
         <div class="form-group clearfix">
           <h3 class="float-left">
             {{ $t('hideMissing') }}
@@ -101,7 +98,7 @@
             @change="updateHideMissing"
           />
         </div>
-      </div>
+      </filter-sidebar>
     </div>
     <div class="standard-page">
       <div class="clearfix">
@@ -497,6 +494,8 @@ import petMixin from '@/mixins/petMixin';
 
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 import { isOwned } from '../../../libs/createAnimal';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import FilterGroup from '@/components/ui/filterGroup';
 
 // TODO Normalize special pets and mounts
 // import Store from '@/store';
@@ -507,6 +506,8 @@ let lastMouseMoveEvent = {};
 
 export default {
   components: {
+    FilterGroup,
+    FilterSidebar,
     PetItem,
     FoodItem,
     MountItem,
