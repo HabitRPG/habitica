@@ -289,6 +289,8 @@ function _getMembersForItem (type) {
       req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     }
     req.checkQuery('lastId').optional().notEmpty().isUUID();
+    // Allow an arbitrary number of results (up to 60)
+    req.checkQuery('limit', res.t('groupIdRequired')).optional().notEmpty().isInt({ min: 1, max: 60 });
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -379,7 +381,7 @@ function _getMembersForItem (type) {
 
     if (lastId) query._id = { $gt: lastId };
 
-    let limit = 30;
+    let limit = req.query.limit ? Number(req.query.limit) : 30;
 
     // Allow for all challenges members to be returned
     if (type === 'challenge-members' && req.query.includeAllMembers === 'true') {
@@ -402,9 +404,9 @@ function _getMembersForItem (type) {
 
 /**
  * @api {get} /api/v3/groups/:groupId/members Get members for a group
- * @apiDescription With a limit of 30 member per request.
+ * @apiDescription With a limit of 30 member per request (by default).
  * To get all members run requests against this routes (updating the lastId query parameter)
- * until you get less than 30 results.
+ * until you get less than 30 results (or the specified limit).
  * @apiName GetMembersForGroup
  * @apiGroup Member
  *
@@ -412,6 +414,8 @@ function _getMembersForItem (type) {
  * @apiParam (Query) {UUID} lastId Query parameter to specify the last member
  *                                 returned in a previous request to this route and
  *                                 get the next batch of results.
+ * @apiParam (Query) {Number} limit=30 BETA Query parameter
+ *                                     to specify the number of results to return. Max is 60.
  * @apiParam (Query) {Boolean} includeAllPublicFields Query parameter available
  *                                                    only when fetching a party. If === `true`
  *                                                    then all public fields for members
@@ -446,7 +450,7 @@ api.getMembersForGroup = {
 
 /**
  * @api {get} /api/v3/groups/:groupId/invites Get invites for a group
- * @apiDescription With a limit of 30 member per request. To get all invites run
+ * @apiDescription With a limit of 30 member per request (by default). To get all invites run
  * requests against this routes (updating the lastId query parameter)
  * until you get less than 30 results.
  * @apiName GetInvitesForGroup
@@ -456,6 +460,8 @@ api.getMembersForGroup = {
  * @apiParam (Query) {UUID} lastId Query parameter to specify the last invite
  *                                 returned in a previous request to this route and
  *                                 get the next batch of results.
+ * @apiParam (Query) {Number} limit=30 BETA Query parameter
+ *                                     to specify the number of results to return. Max is 60.
  *
  * @apiSuccess {array} data An array of invites, sorted by _id
  *
@@ -486,7 +492,7 @@ api.getInvitesForGroup = {
 
 /**
  * @api {get} /api/v3/challenges/:challengeId/members Get members for a challenge
- * @apiDescription With a limit of 30 member per request.
+ * @apiDescription With a limit of 30 member per request (by default).
  * To get all members run requests against this routes (updating the lastId query parameter)
  * until you get less than 30 results.
  * BETA You can also use ?includeAllMembers=true. This option is currently in BETA
@@ -500,6 +506,8 @@ api.getInvitesForGroup = {
  * @apiParam (Query) {UUID} lastId Query parameter to specify the last member returned
  *                                 in a previous request to this route and
  *                                 get the next batch of results.
+ * @apiParam (Query) {Number} limit=30 BETA Query parameter to
+ *                                     specify the number of results to return. Max is 60.
  * @apiParam (Query) {String} includeAllMembers BETA Query parameter - If 'true' all
  *                                              challenge members are returned.
 
