@@ -117,7 +117,7 @@ describe('GET /challenges/:challengeId/members', () => {
     expect(res[0].profile).to.have.all.keys(['name']);
   });
 
-  it('returns only first 30 members if req.query.includeAllMembers is not true', async () => {
+  it('returns only first 30 members if req.query.includeAllMembers is not true and req.query.limit is undefined', async () => {
     const group = await generateGroup(user, { type: 'party', name: generateUUID() });
     const challenge = await generateChallenge(user, group);
     await user.post(`/challenges/${challenge._id}/join`);
@@ -136,7 +136,7 @@ describe('GET /challenges/:challengeId/members', () => {
     });
   });
 
-  it('returns only first 30 members if req.query.includeAllMembers is not defined', async () => {
+  it('returns only first 30 members if req.query.includeAllMembers is not defined and req.query.limit is undefined', async () => {
     const group = await generateGroup(user, { type: 'party', name: generateUUID() });
     const challenge = await generateChallenge(user, group);
     await user.post(`/challenges/${challenge._id}/join`);
@@ -154,6 +154,68 @@ describe('GET /challenges/:challengeId/members', () => {
       expect(member.profile).to.have.all.keys(['name']);
     });
   });
+
+  it('returns an error if req.query.limit is over 60', async () => {
+    const group = await generateGroup(user, { type: 'party', privacy: 'private' });
+    const challenge = await generateChallenge(user, group);
+    const anotherUser = await generateUser();
+
+    await expect(anotherUser.get(`/challenges/${challenge._id}/members?limit=61`)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
+  it('returns an error if req.query.limit is under 1', async () => {
+    const group = await generateGroup(user, { type: 'party', privacy: 'private' });
+    const challenge = await generateChallenge(user, group);
+    const anotherUser = await generateUser();
+
+    await expect(anotherUser.get(`/challenges/${challenge._id}/members?limit=-13`)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
+  it('returns an error if req.query.limit is not an integer', async () => {
+    const group = await generateGroup(user, { type: 'party', privacy: 'private' });
+    const challenge = await generateChallenge(user, group);
+    const anotherUser = await generateUser();
+
+    await expect(anotherUser.get(`/challenges/${challenge._id}/members?limit=true`)).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
+  it('returns up to 60 members when req.query.limit is specified', async () => {
+    const group = await generateGroup(user, { type: 'party', name: generateUUID() });
+    const challenge = await generateChallenge(user, group);
+    await user.post(`/challenges/${challenge._id}/join`);
+
+    const usersToGenerate = [];
+    for (let i = 0; i < 62; i += 1) {
+      usersToGenerate.push(generateUser({ challenges: [challenge._id] }));
+    }
+    await Promise.all(usersToGenerate);
+
+    let res = await user.get(`/challenges/${challenge._id}/members?limit=57`);
+    expect(res.length).to.equal(57);
+    res.forEach(member => {
+      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
+      expect(member.profile).to.have.all.keys(['name']);
+    });
+
+    res = await user.get(`/challenges/${challenge._id}/members?limit=60&lastId=${res[res.length - 1]._id}`);
+    expect(res.length).to.equal(6);
+    res.forEach(member => {
+      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
+      expect(member.profile).to.have.all.keys(['name']);
+    });
+  }).timeout(30000);
 
   it('returns all members if req.query.includeAllMembers is true', async () => {
     const group = await generateGroup(user, { type: 'party', name: generateUUID() });
