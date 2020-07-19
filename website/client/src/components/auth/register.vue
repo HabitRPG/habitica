@@ -29,6 +29,7 @@
         :placeholder="$t(showFormLabel?'emailPlaceholder':'email')"
         :class="{'input-invalid': emailInvalid, 'input-valid': emailValid}"
       >
+      <div v-if="emailInvalid" class="input-error">{{ $t('notAnEmail') }}</div>
     </div>
     <div class="form-group">
       <label v-if="showFormLabel" v-once for="passwordInput">{{ $t('password') }}</label>
