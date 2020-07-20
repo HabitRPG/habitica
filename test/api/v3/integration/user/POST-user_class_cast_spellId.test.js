@@ -161,6 +161,22 @@ describe('POST /user/class/cast/:spellId', () => {
       });
   });
 
+  it.only('Issue #12361: returns an error if chilling frost has already been cast', async () => {
+    await user.update({
+      'stats.class': 'wizard',
+      'stats.lvl': 15,
+      'stats.mp': 400,
+      'stats.buffs.streaks': true,
+    })
+    const result = await user.post('/user/class/cast/frost');
+    expect(result.to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('spellWizardFrostAlreadyCast'),
+    }))
+    expect(result.user.stats.mp).to.equal(400);
+  });
+
   it('returns an error if targeted party member doesn\'t exist', async () => {
     const { groupLeader } = await createAndPopulateGroup({
       groupDetails: { type: 'party', privacy: 'private' },

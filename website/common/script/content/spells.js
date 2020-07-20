@@ -712,7 +712,11 @@ each(spells, spellClass => {
     const _cast = spell.cast;
     spell.cast = function castSpell (user, target, req) {
       _cast(user, target, req);
-      user.stats.mp -= spell.mana;
+      // For Chilling Frost, deduct MP only if chilling frost was not previously casted.
+      // See #12361 for more details. @TODO: Add a condition for redundant stealth skill as well.
+      if (!(spell.key === 'frost' && user.stats.buffs.streaks === true)) {
+        user.stats.mp -= spell.mana;
+      }
     };
   });
 });
