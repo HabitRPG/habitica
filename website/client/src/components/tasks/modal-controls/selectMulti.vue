@@ -1,7 +1,7 @@
-<template>
+multi<template>
   <div>
     <b-dropdown
-      class="inline-dropdown select-tag"
+      class="inline-dropdown select-multi"
       @show="wasOpened()"
       @hide="hideCallback($event)"
       @toggle="openOrClose($event)"
@@ -17,18 +17,20 @@
           />
         </div>
 
-        <tag-list v-if="selectedTags.length > 0"
+        <multi-list v-if="selectedItems.length > 0"
                   :add-new="addNew"
-                  :tags="selectedTagsAsObjects"
-                  @remove-tag="removeTag($event)"
-                  :max-tags="0" />
+                  :pill-invert="pillInvert"
+                  :items="selectedItemsAsObjects"
+                  @remove-item="removeItem($event)"
+                  :max-items="0" />
 
       </b-dropdown-header>
       <template v-slot:button-content>
-        <tag-list :tags="selectedTagsAsObjects"
+        <multi-list :items="selectedItemsAsObjects"
                   :add-new="addNew"
+                  :pill-invert="pillInvert"
                   :empty-message="emptyMessage"
-                  @remove-tag="removeTag($event)"/>
+                  @remove-item="removeItem($event)"/>
       </template>
       <div
         v-if="addNew || availableToSelect.length > 0"
@@ -39,14 +41,14 @@
         }"
       >
         <b-dropdown-item-button
-          v-for="tag in availableToSelect"
-          :key="tag.id"
-          @click.prevent.stop="selectTag(tag)"
-          class="ignore-hide tag-item"
-          :class="{ 'none': tag.id === 'none', selectListItem: true }"
+          v-for="item in availableToSelect"
+          :key="item.id"
+          @click.prevent.stop="selectItem(item)"
+          class="ignore-hide multi-item"
+          :class="{ 'none': item.id === 'none', selectListItem: true }"
         >
-          <div class="label" v-markdown="tag.name"></div>
-          <div class="challenge" v-if="tag.challenge">{{$t('challenge')}}</div>
+          <div class="label" v-markdown="item.name"></div>
+          <div class="challenge" v-if="item.challenge">{{$t('challenge')}}</div>
         </b-dropdown-item-button>
 
         <div v-if="addNew" class="hint">
@@ -63,7 +65,7 @@
 
   $itemHeight: 2rem;
 
-  .select-tag {
+  .select-multi {
     .dropdown-toggle {
       padding-left: 0.75rem;
     }
@@ -84,7 +86,7 @@
       pointer-events: none;
     }
 
-    .tag-item button {
+    .multi-item button {
       height: $itemHeight;
       display: flex;
 
@@ -153,7 +155,7 @@
 
 <script>
 import Vue from 'vue';
-import TagList from '@/components/tasks/modal-controls/tagList';
+import MultiList from '@/components/tasks/modal-controls/multiList';
 import markdownDirective from '@/directives/markdown';
 
 export default {
@@ -161,19 +163,24 @@ export default {
     markdown: markdownDirective,
   },
   components: {
-    TagList,
+    MultiList,
   },
   data () {
     return {
       preventHide: true,
       isOpened: false,
-      showTagsSelect: false,
-      selected: this.selectedTags,
+      selected: this.selectedItems,
       search: '',
     };
   },
+  created () {
+    document.addEventListener('keyup', this.handleEsc);
+  },
+  beforeDestroy () {
+    document.removeEventListener('keyup', this.handleEsc);
+  },
   methods: {
-    closeTagsPopup () {
+    closeSelectPopup () {
       this.preventHide = false;
       this.isOpened = false;
       Vue.nextTick(() => {
@@ -182,21 +189,21 @@ export default {
     },
     openOrClose ($event) {
       if (this.isOpened) {
-        this.closeTagsPopup();
+        this.closeSelectPopup();
         $event.preventDefault();
       }
     },
     closeIfOpen () {
-      this.closeTagsPopup();
+      this.closeSelectPopup();
     },
-    selectTag (tag) {
-      this.selectedTags.push(tag.id);
-      this.$emit('toggle', tag.id);
+    selectItem (item) {
+      this.selectedItems.push(item.id);
+      this.$emit('toggle', item.id);
     },
-    removeTag ($event) {
-      const foundIndex = this.selectedTags.findIndex(t => t === $event);
+    removeItem ($event) {
+      const foundIndex = this.selectedItems.findIndex(t => t === $event);
 
-      this.selectedTags.splice(foundIndex, 1);
+      this.selectedItems.splice(foundIndex, 1);
 
       this.$emit('toggle', $event);
     },
@@ -212,6 +219,11 @@ export default {
       this.isOpened = true;
       this.preventHide = true;
     },
+    handleEsc (e) {
+      if (e.keyCode === 27) {
+        this.closeSelectPopup();
+      }
+    },
     handleSubmit () {
       if (!this.addNew) return;
       const { search } = this;
@@ -221,23 +233,23 @@ export default {
     },
   },
   computed: {
-    selectedTagsIdList () {
-      return this.selectedTags
-        ? this.selectedTags.map(t => t)
+    selectedItemsIdList () {
+      return this.selectedItems
+        ? this.selectedItems.map(t => t)
         : [];
     },
-    allTagsMap () {
+    allItemsMap () {
       const obj = {};
-      this.allTags.forEach(t => {
+      this.allItems.forEach(t => {
         obj[t.id] = t;
       });
       return obj;
     },
-    selectedTagsAsObjects () {
-      return this.selectedTags.map(t => this.allTagsMap[t]);
+    selectedItemsAsObjects () {
+      return this.selectedItems.map(t => this.allItemsMap[t]);
     },
     availableToSelect () {
-      const availableItems = this.allTags.filter(t => !this.selectedTagsIdList.includes(t.id));
+      const availableItems = this.allItems.filter(t => !this.selectedItemsIdList.includes(t.id));
 
       const searchString = this.search.toLowerCase();
 
@@ -251,16 +263,20 @@ export default {
       type: Boolean,
       default: false,
     },
-    allTags: {
+    allItems: {
       type: Array,
     },
     emptyMessage: {
       type: String,
     },
+    pillInvert: {
+      type: Boolean,
+      default: false,
+    },
     searchPlaceholder: {
       type: String,
     },
-    selectedTags: {
+    selectedItems: {
       type: Array,
     },
   },
@@ -271,7 +287,7 @@ export default {
   },
   mounted () {
     this.$refs.dropdown.clickOutHandler = () => {
-      this.closeTagsPopup();
+      this.closeSelectPopup();
     };
   },
 };

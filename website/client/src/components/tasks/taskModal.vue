@@ -7,14 +7,13 @@
     @hidden="onClose()"
     @show="handleOpen()"
     @shown="focusInput()"
-    :hide-footer="purpose !== 'create'"
+    :hide-footer="true"
   >
     <div
       v-if="task"
       slot="modal-header"
       class="task-modal-header p-4"
       :class="cssClass('bg')"
-      @click="handleClick($event)"
     >
       <div class="d-flex align-items-center mb-3">
         <h2
@@ -71,7 +70,7 @@
       </div>
       <div
         class="form-group mb-0"
-        v-if="isUserTask || isChallengeTask"
+        v-if="isUserTask || isChallengeTask || isOriginalChallengeTask"
       >
         <label
           class="d-flex align-items-center justify-content-between mb-1"
@@ -132,18 +131,16 @@
       </div>
     </div>
     <div
-      class="task-modal-content px-4 pt-3"
+      class="task-modal-content px-4"
       :class="cssClass('content')"
-      @click="handleClick($event)"
     >
       <form
         v-if="task"
         @submit.stop.prevent="submit()"
-        @click="handleClick($event)"
       >
         <div
           v-if="task.type === 'reward'"
-          class="option"
+          class="option mt-3"
         >
           <div class="form-group">
             <label v-once class="mb-1">{{ $t('cost') }}</label>
@@ -168,7 +165,7 @@
         </div>
         <div
           v-if="checklistEnabled"
-          class="option mb-75"
+          class="option mt-3"
         >
           <checklist :items.sync="task.checklist"
                      :disableItems="groupAccessRequiredAndOnPersonalPage"
@@ -177,7 +174,7 @@
         </div>
         <div
           v-if="task.type === 'habit'"
-          class="d-flex justify-content-center"
+          class="d-flex justify-content-center mt-3"
         >
           <button
             type="button"
@@ -233,7 +230,7 @@
           </button>
         </div>
         <template v-if="task.type !== 'reward'">
-          <div class="d-flex">
+          <div class="d-flex mt-3">
             <lockable-label
               :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
               :text="$t('difficulty')"
@@ -405,7 +402,7 @@
         </div>
         <div
           v-if="isUserTask"
-          class="tags-select option mt-3 mb-3"
+          class="tags-select option mt-3"
         >
           <div class="tags-inline form-group row">
             <label
@@ -413,20 +410,20 @@
               class="col-12 mb-1"
             >{{ $t('tags') }}</label>
             <div class="col-12">
-              <select-tag :selected-tags="task.tags"
-                          :all-tags="user.tags"
-                          :add-new="true"
-                          :empty-message="$t('addTags')"
-                          :search-placeholder="$t('enterTag')"
-                          @changed="task.tags = $event"
-                          @addNew="addTag"
-                          ref="selectTag" />
+              <select-multi :selected-items="task.tags"
+                            :all-items="user.tags"
+                            :add-new="true"
+                            :empty-message="$t('addTags')"
+                            :search-placeholder="$t('enterTag')"
+                            @changed="task.tags = $event"
+                            @addNew="addTag"
+                            ref="selectTag" />
             </div>
           </div>
         </div>
         <div
           v-if="task.type === 'habit'"
-          class="option mt-3 mb-3"
+          class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
@@ -443,7 +440,7 @@
         </div>
         <div
           v-if="groupId"
-          class="option group-options mt-3 mb-3"
+          class="option group-options mt-3"
         >
           <div
             v-if="task.type === 'todo'"
@@ -462,11 +459,12 @@
               class="col-12 mb-1"
             >{{ $t('assignedTo') }}</label>
             <div class="col-12">
-              <select-tag
-                :all-tags="membersNameAndId"
+              <select-multi
+                :all-items="membersNameAndId"
                 :empty-message="$t('unassigned')"
+                :pill-invert="true"
                 :search-placeholder="$t('chooseTeamMember')"
-                :selected-tags="assignedMembers"
+                :selected-items="assignedMembers"
                 @toggle="toggleAssignment($event)"
                 ref="assignMembers"
               />
@@ -483,7 +481,7 @@
         </div>
         <div
           v-if="advancedSettingsAvailable"
-          class="advanced-settings mb-3"
+          class="advanced-settings mt-3"
         >
           <div
             class="advanced-settings-toggle d-flex justify-content-between align-items-center"
@@ -582,20 +580,6 @@
                   </div>
                 </div>
               </div>
-              <!--.option(v-if="isUserTask && task.type !== 'reward'").form-group
-  label(v-once)
-    span.float-left {{ $t('attributeAllocation') }}
-    .svg-icon.info-icon(v-html="ic
-    ons.information", v-b-tooltip.hover.righttop.html="$t('attributeAllocationHelp')")
-  .attributes
-    .custom-control.custom-radio.custom-
-    control-inline(v-for="attr in ATTRIBUTES", :key="attr")
-      input.custom-control-input(:id="`attribute-${a
-      ttr}`", type="radio", :value="attr", v-model="task.attribute", :disabled="us
-      er.preferences.allocationMode !== 'taskbased'")
-              label.custom-control-label.attr-
-              description(:for="`attribute-${attr}`", v-once, v-b-pop
-              over.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}-->
             </div>
           </b-collapse>
         </div>
@@ -603,10 +587,10 @@
           v-if="purpose !== 'create'
             && !challengeAccessRequired
             && !groupAccessRequiredAndOnPersonalPage"
-          class="d-flex justify-content-center"
+          class="d-flex justify-content-center mt-4 mb-3"
         >
           <button
-            class="delete-task-btn mb-4 d-flex"
+            class="delete-task-btn d-flex"
             type="button"
             @click="destroy()"
           >
@@ -620,23 +604,27 @@
             </span>
           </button>
         </div>
+        <div
+          v-if="purpose === 'create'"
+          slot="modal-footer"
+          class="task-modal-footer d-flex justify-content-center align-items-center mt-4 mb-3"
+        >
+          <button
+            class="btn btn-primary btn-footer
+            d-flex align-items-center justify-content-center"
+            :class="{disabled: !canSave}"
+            @click="submit()"
+            type="button"
+          >
+            {{ $t('create') }}
+          </button>
+        </div>
+        <div
+          v-else
+          class="task-modal-footer mt-4"
+        >
+        </div>
       </form>
-    </div>
-    <div
-      v-if="purpose === 'create'"
-      slot="modal-footer"
-      class="task-modal-footer d-flex justify-content-center align-items-center pb-4"
-      @click="handleClick($event)"
-    >
-      <button
-        class="btn btn-primary btn-footer
-          d-flex align-items-center justify-content-center"
-        :class="{disabled: !canSave}"
-        @click="submit()"
-        type="button"
-      >
-        {{ $t('create') }}
-      </button>
     </div>
   </b-modal>
 </template>
@@ -660,7 +648,6 @@
     }
 
     .habit-option-container {
-      margin-bottom: 0.5rem;
       &, &:focus, &:active, &:hover {
         outline: 0;
         border: 0;
@@ -1066,7 +1053,7 @@ import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
 import sync from '@/mixins/sync';
 import checklist from './modal-controls/checklist';
-import SelectTag from './modal-controls/selectTag';
+import SelectMulti from './modal-controls/selectMulti';
 import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
 import selectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import lockableLabel from '@/components/tasks/modal-controls/lockableLabel';
@@ -1083,7 +1070,7 @@ import gripIcon from '@/assets/svg/grip.svg';
 
 export default {
   components: {
-    SelectTag,
+    SelectMulti,
     Datepicker,
     toggleSwitch,
     checklist,
@@ -1257,12 +1244,6 @@ export default {
       this.managers.push(groupResponse.data.data.leader._id);
     }
   },
-  created () {
-    document.addEventListener('keyup', this.handleEsc);
-  },
-  beforeDestroy () {
-    document.removeEventListener('keyup', this.handleEsc);
-  },
   methods: {
     ...mapActions({
       saveTask: 'tasks:save',
@@ -1315,9 +1296,6 @@ export default {
 
       return this.getTaskClasses(this.task, `${this.purpose === 'edit' ? 'edit' : 'create'}-modal-${suffix}`);
     },
-    closeTagsPopup () {
-      this.showTagsSelect = false;
-    },
     setDifficulty (level) {
       if (this.challengeAccessRequired) return;
       this.task.priority = level;
@@ -1329,9 +1307,6 @@ export default {
     toggleDownDirection () {
       if (this.challengeAccessRequired) return;
       this.task.down = !this.task.down;
-    },
-    toggleTagSelect () {
-      this.showTagsSelect = !this.showTagsSelect;
     },
     weekdaysMin (dayNumber) {
       return moment.weekdaysMin(dayNumber);
@@ -1423,7 +1398,6 @@ export default {
     },
     onClose () {
       if (this.task.group && this.task.group.managerNotes) this.managerNotes = null;
-      this.closeTagsPopup();
       this.newChecklistItem = '';
       this.$emit('cancel');
     },
@@ -1453,16 +1427,6 @@ export default {
     },
     focusInput () {
       this.$refs.inputToFocus.focus();
-    },
-    handleEsc (e) {
-      if (e.keyCode === 27) {
-        this.closeTagsPopup();
-      }
-    },
-    handleClick (e) {
-      if (this.$refs.popup && !this.$refs.popup.$el.parentNode.contains(e.target)) {
-        this.closeTagsPopup();
-      }
     },
     async addTag (name) {
       const tagResult = await this.createTag({ name });
