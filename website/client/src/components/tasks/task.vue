@@ -16,7 +16,8 @@
       />
       <div
         class="d-flex"
-        :class="{'task-not-scoreable': isUser !== true || task.group.approval.requested }"
+        :class="{'task-not-scoreable': isUser !== true || task.group.approval.requested
+          && !(task.group.approval.approved && task.type === 'habit')}"
       >
         <!-- Habits left side control-->
         <div
@@ -32,8 +33,11 @@
             :class="[{
               'habit-control-positive-enabled': task.up && isUser,
               'habit-control-positive-disabled': !task.up && isUser,
+              'task-not-scoreable': isUser !== true
+                || (task.group.approval.requested && !task.group.approval.approved),
             }, controlClass.up.inner]"
-            @click="(isUser && task.up) ? score('up') : null"
+            @click="(isUser && task.up && (!task.group.approval.requested
+              || task.group.approval.approved)) ? score('up') : null"
           >
             <div
               v-if="!isUser"
@@ -93,7 +97,7 @@
               <h3
                 v-markdown="task.text"
                 class="task-title"
-                :class="{ 'has-notes': task.notes }"
+                :class="{ 'has-notes': task.notes || (!isUser && task.group.managerNotes)}"
               ></h3>
               <menu-dropdown
                 v-if="!isRunningYesterdailies && showOptions"
@@ -165,7 +169,7 @@
               </menu-dropdown>
             </div>
             <div
-              v-markdown="task.notes"
+              v-markdown="displayNotes"
               class="task-notes small-text"
               :class="{'has-checklist': task.notes && hasChecklist}"
             ></div>
@@ -320,8 +324,11 @@
             :class="[{
               'habit-control-negative-enabled': task.down && isUser,
               'habit-control-negative-disabled': !task.down && isUser,
+              'task-not-scoreable': isUser !== true
+                || (task.group.approval.requested && !task.group.approval.approved),
             }, controlClass.down.inner]"
-            @click="(isUser && task.down) ? score('down') : null"
+            @click="(isUser && task.down && (!task.group.approval.requested
+              || task.group.approval.approved)) ? score('down') : null"
           >
             <div
               v-if="!isUser"
@@ -952,7 +959,7 @@ export default {
 
       return this.task.challenge.shortName ? this.task.challenge.shortName.toString() : '';
     },
-    isChallangeTask () {
+    isChallengeTask () {
       return !isEmpty(this.task.challenge);
     },
     isGroupTask () {
@@ -961,7 +968,7 @@ export default {
     taskCategory () {
       let taskCategory = 'default';
       if (this.isGroupTask) taskCategory = 'group';
-      else if (this.isChallangeTask) taskCategory = 'challenge';
+      else if (this.isChallengeTask) taskCategory = 'challenge';
       return taskCategory;
     },
     showDelete () {
@@ -976,6 +983,10 @@ export default {
     teamManagerAccess () {
       if (!this.isGroupTask || !this.group) return true;
       return (this.group.leader._id === this.user._id || this.group.managers[this.user._id]);
+    },
+    displayNotes () {
+      if (this.isGroupTask && !this.isUser) return this.task.group.managerNotes;
+      return this.task.notes;
     },
   },
   methods: {

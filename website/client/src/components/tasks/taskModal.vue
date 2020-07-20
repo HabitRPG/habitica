@@ -587,7 +587,7 @@
           v-if="purpose !== 'create'
             && !challengeAccessRequired
             && !groupAccessRequiredAndOnPersonalPage"
-          class="d-flex justify-content-center mt-4 mb-3"
+          class="d-flex justify-content-center mt-4 mb-4"
         >
           <button
             class="delete-task-btn d-flex"
@@ -607,7 +607,7 @@
         <div
           v-if="purpose === 'create'"
           slot="modal-footer"
-          class="task-modal-footer d-flex justify-content-center align-items-center mt-4 mb-3"
+          class="task-modal-footer d-flex justify-content-center align-items-center mt-4 mb-4"
         >
           <button
             class="btn btn-primary btn-footer
@@ -673,6 +673,7 @@
     .modal-content {
       border-radius: 8px;
       border: none;
+      box-shadow: 0 14px 28px 0 rgba($black, 0.24), 0 10px 10px 0 rgba($black, 0.28);
     }
 
     .modal-body {
@@ -1051,7 +1052,6 @@ import toggleSwitch from '@/components/ui/toggleSwitch';
 import toggleCheckbox from '@/components/ui/toggleCheckbox';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
-import sync from '@/mixins/sync';
 import checklist from './modal-controls/checklist';
 import SelectMulti from './modal-controls/selectMulti';
 import selectDifficulty from '@/components/tasks/modal-controls/selectDifficulty';
@@ -1079,7 +1079,6 @@ export default {
     toggleCheckbox,
     lockableLabel,
   },
-  mixins: [sync],
   directives: {
     markdown: markdownDirective,
   },
@@ -1380,9 +1379,8 @@ export default {
           this.createTask(this.task);
         }
       } else {
-        this.saveTask(this.task);
+        await this.saveTask(this.task);
         this.$emit('taskEdited', this.task);
-        if (this.groupId) this.sync();
       }
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },

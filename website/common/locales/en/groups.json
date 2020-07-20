@@ -265,7 +265,7 @@
   "assignedToUser": "Assigned to <strong><%= userName %></strong>",
   "assignedToMembers": "Assigned to <strong><%= userCount %> members</strong>",
   "assignedToYouAndMembers": "Assigned to you and <strong><%= userCount %> members</strong>",
-  "youAreAssigned": "You are assigned to this task",
+  "youAreAssigned": "Assigned to you",
   "taskIsUnassigned": "This task is unassigned",
   "unassigned": "Unassigned",
   "chooseTeamMember": "Choose a team member",
