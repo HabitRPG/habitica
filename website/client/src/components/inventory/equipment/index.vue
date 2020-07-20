@@ -1,50 +1,43 @@
 <template>
   <div class="row">
     <div class="standard-sidebar d-none d-sm-block">
-      <div class="form-group">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
-        >
-      </div>
-      <div class="form">
-        <h2 v-once>
-          {{ $t('filter') }}
-        </h2>
-        <h3>{{ groupBy === 'type' ? $t('equipmentType') : $t('class') }}</h3>
-        <div class="form-group">
-          <div
-            v-for="group in itemsGroups"
-            :key="group.key"
-            class="form-check"
+      <filter-sidebar>
+        <div class="form-group" slot="search">
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
           >
-            <div class="custom-control custom-checkbox">
-              <input
-                :id="groupBy + group.key"
-                v-model="viewOptions[group.key].selected"
-                class="custom-control-input"
-                type="checkbox"
-              >
-              <label
-                v-once
-                class="custom-control-label"
-                :for="groupBy + group.key"
-              >{{ group.label }}</label>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <div class="form">
+          <filter-group :title="groupBy === 'type' ? $t('equipmentType') : $t('class')">
+            <checkbox v-for="group in itemsGroups"
+                      :key="group.key"
+                      :id="groupBy + group.key"
+                      :checked.sync="viewOptions[group.key].selected"
+                      :text="group.label"/>
+          </filter-group>
+        </div>
+      </filter-sidebar>
     </div>
     <div class="standard-page">
       <div class="clearfix">
-        <h1
-          v-once
-          class="float-left mb-4 page-header"
-        >
-          {{ $t('equipment') }}
-        </h1>
+        <div class="mb-4">
+          <button
+            class="page-header btn-flat"
+            @click="selectDrawerTab('equipment')"
+          >
+            {{ $t('battleGear') }}
+          </button>
+          <button
+            class="page-header btn-flat"
+            @click="selectDrawerTab('costume')"
+          >
+            {{ $t('costume') }}
+          </button>
+        </div>
 
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
@@ -83,22 +76,6 @@
       </div>
 
       <div class="settings-line">
-        <div class="left-column">
-          <button
-            class="btn"
-            :class="{'btn-primary': !costumeMode, 'btn-secondary': costumeMode}"
-            @click="selectDrawerTab('equipment')"
-          >
-            {{ $t('battleGear') }}
-          </button>
-          <button
-            class="btn"
-            :class="{'btn-primary': costumeMode, 'btn-secondary': !costumeMode}"
-            @click="selectDrawerTab('costume')"
-          >
-            {{ $t('costume') }}
-          </button>
-        </div>
         <div class="space"></div>
         <div class="right-column">
           <div class="toggle-group inline">
@@ -274,6 +251,10 @@
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 
+.page-header.btn-flat {
+  background: transparent;
+}
+
 .title-row-tabs {
   display: flex;
   justify-content: center;
@@ -337,6 +318,9 @@ import EquipGearModal from './equipGearModal';
 
 // export constant to a different path?
 import { UNEQUIP_PET_MOUNT, UNEQUIP_COSTUME, UNEQUIP_EQUIPPED } from '../../../../../common/script/ops/unequip';
+import FilterGroup from '@/components/ui/filterGroup';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import Checkbox from '@/components/ui/checkbox';
 
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -351,6 +335,9 @@ const sortGearTypeMap = {
 export default {
   name: 'Equipment',
   components: {
+    Checkbox,
+    FilterSidebar,
+    FilterGroup,
     Item,
     ItemRows,
     EquipmentAttributesPopover,

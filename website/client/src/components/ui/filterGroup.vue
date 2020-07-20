@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 v-once>
+    <h3>
       {{ title }}
     </h3>
     <div class="form-group">

@@ -17,13 +17,12 @@
 
         <div class="form">
           <filter-group :title="$t('equipmentType')">
-
-          <checkbox v-for="group in groups"
-                    :key="group.key"
-                    :id="group.key"
-                    :checked.sync="group.selected"
-                    :text="$t(group.key)"/>
-        </filter-group>
+            <checkbox v-for="group in groups"
+                      :key="group.key"
+                      :id="group.key"
+                      :checked.sync="group.selected"
+                      :text="$t(group.key)"/>
+          </filter-group>
         </div>
       </filter-sidebar>
     </div>
