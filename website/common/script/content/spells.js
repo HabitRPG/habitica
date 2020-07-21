@@ -5,6 +5,7 @@ import statsComputed from '../libs/statsComputed'; // eslint-disable-line import
 import setDebuffPotionItems from '../libs/setDebuffPotionItems'; // eslint-disable-line import/no-cycle
 import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
 import updateStats from '../fns/updateStats';
+// import * as Tasks from '../../../server/models/task';
 
 /*
   ---------------------------------------------------------------
@@ -712,9 +713,21 @@ each(spells, spellClass => {
     const _cast = spell.cast;
     spell.cast = function castSpell (user, target, req) {
       _cast(user, target, req);
-      // For Chilling Frost, deduct MP only if chilling frost was not previously casted.
-      // See #12361 for more details. @TODO: Add a condition for redundant stealth skill as well.
-      if (!(spell.key === 'frost' && user.stats.buffs.streaks === true)) {
+      // For Chilling Frost and Stealth skills, we deduct MP only if they
+      // were not previously casted.
+      // See #12361 for more details.
+      // const incompleteDailiesDue = Tasks.Task.find({
+      //   userId: user._id,
+      //   type: 'daily',
+      //   $and: [
+      //     { type: 'daily', completed: false, isDue: true },
+      //   ],
+      // }).exec();
+      const chillingFrostAlreadyCast = (spell.key === 'frost' && user.stats.buffs.streaks === true);
+      // const stealthAlreadyCast = (spell.key === 'stealth' &&
+      // user.stats.buffs.stealth >= incompleteDailiesDue.length);
+      // if (!(chillingFrostAlreadyCast || stealthAlreadyCast)) {
+      if (!(chillingFrostAlreadyCast)) {
         user.stats.mp -= spell.mana;
       }
     };

@@ -10,7 +10,6 @@ import {
   model as Group,
 } from '../models/group';
 import apiError from './apiError';
-// import { getUnfilteredTaskList } from '../../client/src/store/getters/tasks';
 
 const partyMembersFields = 'profile.name stats achievements items.special notifications flags pinnedItems';
 // Excluding notifications and flags from the list of public fields to return.
@@ -167,17 +166,19 @@ async function castSpell (req, res, { isV3 = false }) {
     // Check if chilling frost or stealh skill has been previously casted or not.
     // See #12361 for more details.
     const spellName = spell.key;
-    // const incompleteDailiesDue = getUnfilteredTaskList('daily').filter(daily => (daily.completed == false && daily.isDue === true)).length;
+    const incompleteDailiesDue = await Tasks.Task.find({
+      userId: user._id,
+      type: 'daily',
+      $and: [
+        {type: 'daily', completed: false, isDue: true },
+      ],
+    }).exec();
     if (spellName === 'frost' && user.stats.buffs.streaks) {
-      console.log(spellName);
       throw new BadRequest(res.t('spellWizardFrostAlreadyCast'));
     }
-    // else if (spellName === 'stealth' && user.stats.buffs.stealth >= incompleteDailiesDue) {
-    //   console.log(spellName);
-    //   console.log(`user.stats.buffs.stealth = ${user.stats.buffs.stealth}`);
-    //   console.log(`incomplete and due dailies ${incompleteDailiesDue}`)
-    //   throw new BadRequest(res.t('spellRogueStealthMaxedOut'));
-    // } 
+    else if (spellName === 'stealth' && user.stats.buffs.stealth >= incompleteDailiesDue.length) {
+      throw new BadRequest(res.t('spellRogueStealthMaxedOut'));
+    } 
     else {
       await castSelfSpell(req, user, spell, quantity);
 
