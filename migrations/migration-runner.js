@@ -18,7 +18,7 @@ function setUpServer () {
 setUpServer();
 
 // Replace this with your migration
-const processUsers = require().default;
+const processUsers = require('./archive/2020/20200721_summer_splash_orcas').default;
 
 processUsers()
   .then(() => {
