@@ -618,6 +618,7 @@
         margin-right: 8px;
         background: $gray-600;
         color: $gray-300;
+        height: fit-content;
       }
     }
   }
