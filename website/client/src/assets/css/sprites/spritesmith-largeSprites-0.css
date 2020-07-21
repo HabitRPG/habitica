@@ -16,6 +16,12 @@
   width: 282px;
   height: 147px;
 }
+.promo_orcas {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -1019px -592px;
+  width: 219px;
+  height: 147px;
+}
 .promo_sand_sculpture_potions {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: -1019px -296px;
@@ -84,13 +90,13 @@
 }
 .scene_nakonana {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1019px -722px;
+  background-position: -1019px -740px;
   width: 141px;
   height: 169px;
 }
 .scene_strength {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1019px -592px;
+  background-position: -1239px -592px;
   width: 192px;
   height: 129px;
 }
