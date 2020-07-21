@@ -9,7 +9,7 @@
     "reachedGoldToGemCap": "Osiągnąłeś limit <%= convCap %> zakupów klejnotów za złoto. Limit ten zapobiega nadużyciom. Limit wyzeruje się w pierwszych dniach kolejnego miesiąca.",
     "reachedGoldToGemCapQuantity": "Ilość na która wyraziłeś zapotrzebowanie<%= quantity %> przekracza limit ilości wymian <%= convCap %> na ten miesiąc. Limit resetuje się w pierwszych trzech dniach każdego miesiąca. Dziękujemy, że nas wspierasz!",
     "retainHistory": "Zachowuj dodatkowe wpisy w historii konta",
-    "retainHistoryText": "Historia ukończonych Do-Zrobienia i zadań jest dostępna dłużej.",
+    "retainHistoryText": "Historia ukończonych Do Zrobienia i zadań jest dostępna dłużej.",
     "doubleDrops": "Dzienny limit łupów podwojony",
     "doubleDropsText": "Zapełnij swoją stajnię szybciej!",
     "mysteryItem": "Wyjątkowe comiesięczne przedmioty",
@@ -203,7 +203,7 @@
     "gemBenefit4": "Zresetuj Statystyki Swojego awatara i zmień jego klasę.",
     "subscriptionBenefitLeadin": "Wspieraj Habitikę zostając subskrybentem, aby dostać te wspaniałe nagrody!",
     "subscriptionBenefit1": "Kupiec Alexander sprzeda Ci klejnoty z marketu, każdy za 20 Dukatów!",
-    "subscriptionBenefit2": "Historia ukończonych Do-Zrobienia i zadań jest dostępna dłużej.",
+    "subscriptionBenefit2": "Historia ukończonych Do Zrobienia i zadań jest dostępna dłużej.",
     "subscriptionBenefit3": "Odkryj więcej przedmiotów w Habitice z podwojoną szansą na drop.",
     "subscriptionBenefit4": "Unikalne kosmetyczne przedmioty dla Twojej postaci każdego miesiąca.",
     "subscriptionBenefit5": "Otrzymaj ekskluzywnego zwierzaka - Purpurowego królewskiego Jackalope, kiedy zostaniesz nowym Abonamentem.",
@@ -249,5 +249,7 @@
     "doubleDropCap": "Podwojenie wypadania Przedmiotów",
     "monthlyMysteryItems": "Co Miesięczny Tajemniczy Przedmiot",
     "subscribersReceiveBenefits": "Abonenci otrzymują przydatne korzyści!",
-    "giftASubscription": "Podaruj Abonament"
+    "giftASubscription": "Podaruj Abonament",
+    "mysterySet202007": "Zestaw Wybitnej Orki",
+    "mysterySet202006": "Zestaw Wielobarwnego Merfolka"
 }

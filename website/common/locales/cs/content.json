@@ -4,7 +4,7 @@
     "armoireText": "Začarovaná almara",
     "armoireNotesFull": "Otevři almaru a náhodně získej speciální Vybavení, Body zkušeností nebo jídlo! Zbývá následující Vybavení:",
     "armoireLastItem": "Našel jsi poslední kousek vzácného Vybavení v Začarované almaře.",
-    "armoireNotesEmpty": "Almara bude ukrývat nové Vybavení každý první týden v měsíci. Do té doby na ni můžeš klikat a získáš Zkušenostní body a Jídlo!",
+    "armoireNotesEmpty": "Almara bude ukrývat nové vybavení každý první týden v měsíci. Do té doby na ni můžeš klikat a získáš zkušenostní body a jídlo pro mazlíčky!",
     "dropEggWolfText": "vlk",
     "dropEggWolfMountText": "vlk",
     "dropEggWolfAdjective": "věrný",
@@ -357,5 +357,6 @@
     "hatchingPotionFluorite": "Kazivcový",
     "hatchingPotionSandSculpture": "Písková socha",
     "hatchingPotionBirchBark": "Březová kůra",
-    "hatchingPotionRuby": "Rubín"
+    "hatchingPotionRuby": "Rubín",
+    "hatchingPotionDessert": "Cukroví"
 }

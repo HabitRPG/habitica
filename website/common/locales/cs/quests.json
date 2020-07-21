@@ -45,7 +45,7 @@
     "collected": "Získáno",
     "collectionItems": "<%= number %> <%= items %>",
     "itemsToCollect": "Předměty ke sbírání",
-    "bossDmg1": "Každý splnění Denní úkol, úkol z Úkolníčku a každý pozitivní zvyk zraní Bosse. Zraň ho víc červenějšími úkoly nebo Brutální ranou nebo Vzplanutím ohňů. Boss zraní každého účastníka výpravy za každý nesplněný Denní úkol (újma je násobena jeho Silou) navíc k normálnímu zranění, takže udržuj skupinu zdravou plněním úkolů. <strong>Veškerá zranění příšeře i vám se přičítají na kronu (na konci dne).</strong>",
+    "bossDmg1": "Každý splněný denní úkol, úkol z úkolníčku a každý pozitivní zvyk zraní bosse. Zraň ho víc červenějšími úkoly nebo brutální ranou nebo Vzplanutím ohňů. Boss zraní každého účastníka výpravy za každý nesplněný denní úkol (újma je násobena jeho silou) navíc k normálnímu zranění, takže udržuj skupinu zdravou plněním úkolů. <strong>Veškerá zranění příšeře i vám se přičítají na kronu (na konci dne).</strong>",
     "bossDmg2": "Jen ti, kteří přijmou pozvání, budou bojovat proti příšeře a rozdělí si odměnu za výpravu.",
     "bossDmg1Broken": "Každý splnění Denní úkol, úkol z Úkolníčku a každý pozitivní zvyk zraní příšeru... Zraň jí víc červenějšími úkoly nebo Brutální ranou nebo Vzplanutím ohňů... Příšera zraní každého účastníka výpravy za každý nesplněný Denní úkol (újma je násobena jeho Silou) navíc k normálnímu zranění, takže udržuj skupinu zdravou plněním úkolů. <strong>Veškerá zranění příšeře i vám se přičítají na kronu (na konci dne).</strong>",
     "bossDmg2Broken": "Jen ti, kteří přijmou pozvání, budou bojovat proti příšeře a rozdělí si odměnu za výpravu...",
@@ -129,5 +129,6 @@
     "rageStrikes": "Rage Strikes",
     "chatItemQuestFinish": "Všechny položky byly nalezeny! Družina získala své odměny.",
     "questInvitationNotificationInfo": "Byli jste pozváni, abyste se připojili k výpravě",
-    "hatchingPotionQuests": "Výpravy pro kouzelný lektvar"
+    "hatchingPotionQuests": "Výpravy pro kouzelný lektvar",
+    "bossDamage": "Ublížil/a jsi bossovi!"
 }
