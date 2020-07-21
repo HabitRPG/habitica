@@ -816,10 +816,11 @@ api.scoreTask = {
         managerPromises.push(task.save());
         await Promise.all(managerPromises);
 
-        res.respond(202, {
-          data: { approvalRequested: true },
-          message: res.t('taskApprovalHasBeenRequested'),
-        });
+        res.respond(
+          202,
+          { approvalRequested: true },
+          res.t('taskApprovalHasBeenRequested'),
+        );
         return;
       }
     }
