@@ -18,19 +18,19 @@ multi<template>
         </div>
 
         <multi-list v-if="selectedItems.length > 0"
-                  :add-new="addNew"
-                  :pill-invert="pillInvert"
-                  :items="selectedItemsAsObjects"
-                  @remove-item="removeItem($event)"
-                  :max-items="0" />
+                    :add-new="addNew"
+                    :pill-invert="pillInvert"
+                    :items="selectedItemsAsObjects"
+                    @remove-item="removeItem($event)"
+                    :max-items="0" />
 
       </b-dropdown-header>
       <template v-slot:button-content>
         <multi-list :items="selectedItemsAsObjects"
-                  :add-new="addNew"
-                  :pill-invert="pillInvert"
-                  :empty-message="emptyMessage"
-                  @remove-item="removeItem($event)"/>
+                    :add-new="addNew"
+                    :pill-invert="pillInvert"
+                    :empty-message="emptyMessage"
+                    @remove-item="removeItem($event)"/>
       </template>
       <div
         v-if="addNew || availableToSelect.length > 0"

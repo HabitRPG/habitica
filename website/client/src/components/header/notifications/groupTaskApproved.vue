@@ -26,17 +26,19 @@
 <script>
 import BaseNotification from './base';
 import scoreTask from '@/mixins/scoreTask';
+import sync from '@/mixins/sync';
 
 export default {
   components: {
     BaseNotification,
   },
   props: ['notification', 'canRemove'],
-  mixins: [scoreTask],
+  mixins: [scoreTask, sync],
   methods: {
-    action () {
+    async action () {
       const { task, direction } = this.notification.data;
-      this.taskScore(task, direction);
+      await this.taskScore(task, direction);
+      this.sync();
     },
   },
 };

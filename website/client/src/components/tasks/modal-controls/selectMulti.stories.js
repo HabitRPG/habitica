@@ -2,11 +2,11 @@
 import { storiesOf } from '@storybook/vue';
 import { withKnobs, number } from '@storybook/addon-knobs';
 
-import TagList from './modal-controls/tagList';
-import SelectTag from './modal-controls/selectTag';
+import MultiList from './multiList';
+import SelectMulti from './selectMulti';
 import getStore from '@/store';
 
-const stories = storiesOf('Tags', module);
+const stories = storiesOf('Multiple Select List', module);
 
 stories.addDecorator(withKnobs);
 
@@ -62,10 +62,10 @@ const allTags = [
 
 stories
   .add('tag-list', () => ({
-    components: { TagList },
+    components: { MultiList },
     template: `
       <div style="position: absolute; margin: 20px">
-        <TagList :max-tags="maxTags" :tags="tagList"></TagList>
+        <MultiList :max-items="maxTags" :items="tagList"></MultiList>
       </div>
     `,
     props: {
@@ -78,20 +78,21 @@ stories
     },
   }))
   .add('select-tag', () => ({
-    components: { SelectTag },
+    components: { SelectMulti },
     template: `
         <div style="position: absolute; margin: 20px">
-          <SelectTag :selectedTags="tagList" 
-                     :all-tags="allTags"
-                     style="width: 400px"
-                     @changed="tagList = $event"
-                     @addNew="added = $event">
-            
-          </SelectTag>
-          
+          <SelectMulti :selectedItems="tagList"
+                       :add-new="true"
+                       :all-items="allTags"
+                       style="width: 400px"
+                       @changed="tagList = $event"
+                       @addNew="added = $event">
+
+          </SelectMulti>
+
           <br/>
           <br/>
-          
+
           Added event: {{ added }}
         </div>
     `,
@@ -109,13 +110,13 @@ stories
     },
   }))
   .add('longer select-tag', () => ({
-    components: { SelectTag },
+    components: { SelectMulti },
     template: `
         <div style="position: absolute; margin: 20px">
-            <SelectTag :selectedTags="tagList"
-                       :all-tags="allTags"
-                       style="width: 400px"
-                       @changed="tagList = $event"></SelectTag>
+            <SelectMulti :selectedItems="tagList"
+                         :all-items="allTags"
+                         style="width: 400px"
+                         @changed="tagList = $event"></SelectMulti>
         </div>
     `,
     store,
