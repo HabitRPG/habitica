@@ -183,7 +183,7 @@
               <div
                 v-b-tooltip.hover.right="$t(`${task.collapseChecklist
                   ? 'expand': 'collapse'}Checklist`)"
-                class="collapse-checklist d-flex align-items-center expand-toggle"
+                class="collapse-checklist mb-2 d-flex align-items-center expand-toggle"
                 :class="{open: !task.collapseChecklist}"
                 @click="collapseChecklist(task)"
               >
@@ -566,7 +566,6 @@
     line-height: 1.2;
     text-align: center;
     color: $gray-200;
-    margin-bottom: 9px;
 
     &.open {
     }
@@ -929,6 +928,7 @@ export default {
       return classes;
     },
     showStreak () {
+      if (!this.task.userId) return false;
       if (this.task.streak !== undefined) return true;
       if (this.task.type === 'habit' && (this.task.up || this.task.down)) return true;
       return false;
