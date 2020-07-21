@@ -73,7 +73,8 @@ describe('PUT /tasks/:id', () => {
     // score up to trigger approval
     const response = await member2.post(`/tasks/${syncedTask._id}/score/up`);
 
-    expect(response.approvalRequested).to.equal(t('taskApprovalHasBeenRequested'));
+    expect(response.data.approvalRequested).to.equal(true);
+    expect(response.message).to.equal(t('taskApprovalHasBeenRequested'));
   });
 
   it('member updates a group task value - not allowed', async () => {
