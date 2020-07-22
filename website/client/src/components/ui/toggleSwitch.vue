@@ -122,6 +122,7 @@
 
     &:focus {
       border: 1px solid $purple-400;
+      outline: none;
     }
   }
 

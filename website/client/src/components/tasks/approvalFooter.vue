@@ -2,8 +2,6 @@
   <div>
     <approval-modal :task="task" />
     <div
-      v-if="!approvalRequested && !multipleApprovalsRequested
-        || !userIsManager && !task.group.approval.approved"
       class="claim-bottom-message d-flex align-items-center"
     >
       <div
