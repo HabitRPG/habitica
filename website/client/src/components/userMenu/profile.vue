@@ -570,6 +570,7 @@
     .achievement-wrapper {
       width: 94px;
       max-width: 94px;
+      min-width: 94px;
       margin-right: 12px;
       margin-left: 12px;
       padding: 0px;
