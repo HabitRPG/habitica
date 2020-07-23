@@ -213,5 +213,6 @@
     "mentioning": "Zmínka",
     "buyGemsGoldCapBase": "Drahokamy zastropovány na <%= amount %>",
     "chatExtensionDesc": "Rozšíření Chat pro Habitica přidává intuitivní chatovací okno do habitica.com. To umožňuje uživatelům povídat si v Taverně, s jejich družinou a každém cechu, ve které jsou členy.",
-    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Rozšíření Chrome Chat</a> a <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Rozšíření Firefox Chat</a>"
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Rozšíření Chrome Chat</a> a <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Rozšíření Firefox Chat</a>",
+    "displaynameIssueNewline": "Zobrazovaná jména nesmí obsahovat zpětné lomítko následované písmenem N."
 }

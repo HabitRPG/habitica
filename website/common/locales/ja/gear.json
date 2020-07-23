@@ -1914,5 +1914,9 @@
     "headArmoireDeerstalkerCapNotes": "この帽子は田舎への小旅行時におすすめですが、事件を解決する時にかぶることもできます！知能が<%= int %>上がります。ラッキー宝箱：探偵セット（4個中1個目のアイテム）。",
     "headArmoireDeerstalkerCapText": "ハンチング帽",
     "headArmoireAstronomersHatNotes": "天体観測や魔法学校の入学にもってこいの帽子です。体質が<%= con %>上がります。ラッキー宝箱：天文学魔道士セット（3個中2個目のアイテム）。",
-    "headArmoireAstronomersHatText": "天文学者の帽子"
+    "headArmoireAstronomersHatText": "天文学者の帽子",
+    "armorArmoireInvernessCapeNotes": "この丈夫な服なら、どんな天気でも手がかりを探せます。知覚と知能がそれぞれ<%= attrs %>上がります。ラッキー宝箱：探偵セット（4個中2個目のアイテム）。",
+    "armorArmoireInvernessCapeText": "インバネスコート",
+    "weaponArmoireMagnifyingGlassNotes": "おや！証拠品の一部だ！近づいてこの虫眼鏡で調べてみましょう。知覚が<%= per %>上がります。ラッキー宝箱：探偵セット（4個中3個目のアイテム）。",
+    "weaponArmoireMagnifyingGlassText": "虫眼鏡"
 }

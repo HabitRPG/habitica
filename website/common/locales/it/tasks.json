@@ -106,7 +106,7 @@
     "startDateHelp": "Imposta la data in cui l'attività sarà \"attiva\". Non sarà necessario completarla prima di quel giorno.",
     "streaks": "Medaglie Serie",
     "streakName": "<%= count %> medaglie Serie",
-    "streakText": "Ha completato <%= count %> serie di 21 giorni nelle Attività Giornaliere",
+    "streakText": "Ha completato una serie di <%= count %> giorni su 21 nelle Attività Giornaliere",
     "streakSingular": "Perfezionista",
     "streakSingularText": "Ha completato una serie di 21 giorni su una Attività Giornaliera",
     "perfectName": "<%= count %> Giorni Perfetti",
