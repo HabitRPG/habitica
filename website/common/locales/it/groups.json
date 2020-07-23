@@ -392,7 +392,7 @@
     "privateGuild": "Gilda privata",
     "charactersRemaining": "<%= characters %> caratteri rimasti",
     "guildSummary": "Riassunto",
-    "guildSummaryPlaceholder": "Scrivi una breve traduzione per pubblicizzare la tua Gilda con gli altri Habitichiani. Qual è l'obbiettivo principale della tua Gilda e perché le persone dovrebbero aggiungersi? Prova a inserire parole chiavi utili nella descrizione facendo in modo che gli Habitichiani possano trovarla facilmente quando fanno una ricerca!",
+    "guildSummaryPlaceholder": "Scrivi una breve traduzione per pubblicizzare la tua Gilda con gli altri Habitanti. Qual è l'obbiettivo principale della tua Gilda e perché le persone dovrebbero aggiungersi? Prova a inserire parole chiavi utili nella descrizione facendo in modo che gli Habitanti possano trovarla facilmente quando fanno una ricerca!",
     "groupDescription": "Descrizione",
     "guildDescriptionPlaceholder": "Usa questa sezione per andare più in dettaglio su tutte quelle cose che i membri della Gilda dovrebbero sapere sulla tua Gilda. Consigli e link utili, e frasi di incoraggiamento vanno tutti qui!",
     "markdownFormattingHelp": "[Guida per la formattazione (in inglese)](http://habitica.fandom.com/wiki/Markdown_Cheat_Sheet)",

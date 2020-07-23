@@ -17,7 +17,7 @@
     "questOwnerReceived": "Właściciel misji otrzymał również",
     "youWillReceive": "Otrzymasz",
     "questOwnerWillReceive": "Właściciel misji otrzyma również",
-    "youReceived": "Otrzymałeś",
+    "youReceived": "Otrzymałeś(-aś)",
     "dropQuestCongrats": "Gratulacje za zdobycie tego zwoju misji! Teraz możesz zaprosić swoją drużynę i od razu rozpocząć misję, albo powrócić do niej w dowolnym momencie z poziomu Ekwipunek > Misje.",
     "questSend": "Naciśnięcie \"Zaproś\" wyśle zaproszenie do członków twojej drużyny. Gdy już wszyscy członkowie zaakceptują lub odrzucą zaproszenie, misja zostanie rozpoczęta. Możesz zobaczyć jej status pod Społeczność > Drużyna.",
     "questSendBroken": "Naciśnięcie \"Zaproś\" wyśle zaproszenie do członków twojej drużyny... Gdy już wszyscy członkowie zaakceptują lub odrzucą zaproszenie, misja zostanie rozpoczęta... Możesz zobaczyć jej status pod Społeczność > Drużyna...",
@@ -45,12 +45,12 @@
     "collected": "Zebrano",
     "collectionItems": "<%= number %> <%= items %>",
     "itemsToCollect": "Przedmioty do zebrania",
-    "bossDmg1": "Każde zakończone Codzienne i Do-Zrobienia oraz każdy pozytywny Nawyk rani bossa. Zrań go bardziej czerwieńszymi zadaniami lub Brutalnym uderzeniem i Eksplozją płomieni. Boss zada obrażenia każdemu uczestnikowi misji za każde pominięte Codzienne (pomnożone przez siłę bossa) jako dodatek do standardowych obrażeń, więc utrzymuj swoją drużynę w zdrowiu przez wypełnianie swoich Codziennych! <strong>Wszystkie obrażenia zadane bossowi i przez niego będą podsumowane przez crona (twoje przejście do następnego dnia).</strong>",
+    "bossDmg1": "Każde zakończone Codzienne i Do Zrobienia oraz każdy pozytywny Nawyk rani bossa. Zrań go bardziej czerwieńszymi zadaniami lub Brutalnym uderzeniem i Eksplozją płomieni. Boss zada obrażenia każdemu uczestnikowi misji za każde pominięte Codzienne (pomnożone przez siłę bossa) jako dodatek do standardowych obrażeń, więc utrzymuj swoją drużynę w zdrowiu przez wypełnianie swoich Codziennych! <strong>Wszystkie obrażenia zadane bossowi i przez niego będą podsumowane na koniec tury (twoje przejście do następnego dnia).</strong>",
     "bossDmg2": "Tylko uczestnicy będą mogli walczyć z bossem i brać udział w podziale łupów.",
-    "bossDmg1Broken": "Każde zakończone zadanie Codzienne i Do-Zrobienia i każdy pozytywny Nawyk zadają obrażenia bossowi... Zrań go bardziej czerwieńszymi zadaniami lub Brutalnym uderzeniem i Eksplozją płomieni... Boss zada obrażenia każdemu uczestnikowi misji za każde zadanie Codzienne, którego nie ukończono (pomnożone przez siłę bossa) oprócz standardowych obrażeń, więc pilnuj stanu zdrowia swojej drużyny, wypełniając codzienne zadania... <strong>Wszystkie obrażenia zadane bossowi lub przez niego będą podsumowane przez crona (rozpoczęcie nowego dnia)...</strong>",
+    "bossDmg1Broken": "Każde zakończone zadanie Codzienne i Do Zrobienia i każdy pozytywny Nawyk zadają obrażenia bossowi... Zrań go bardziej czerwieńszymi zadaniami lub Brutalnym uderzeniem i Eksplozją płomieni... Boss zada obrażenia każdemu uczestnikowi misji za każde zadanie Codzienne, którego nie ukończono (pomnożone przez siłę bossa) oprócz standardowych obrażeń, więc pilnuj stanu zdrowia swojej drużyny, wypełniając codzienne zadania... <strong>Wszystkie obrażenia zadane bossowi lub przez niego będą podsumowane na koniec tury (rozpoczęcie nowego dnia)...</strong>",
     "bossDmg2Broken": "Tylko uczestnicy będą mogli walczyć z bossem i brać udział w podziale łupów...",
-    "tavernBossInfo": "Wypełniaj swoje Codzienne i Do-Zrobienia, aby zadawać obrażenia Globalnemu Bossowi. Niewypełnione Codzienne powodują wzrastanie Furii. Kiedy pasek Furii się zapełni, Globalny Boss zaatakuje NPC'a. Globalny Boss nigdy nie skrzywdzi indywidualnych graczy. Liczą się wyłącznie zadania aktywnych graczy, którzy aktualnie nie wypoczywają w Gospodzie.",
-    "tavernBossInfoBroken": "Wypełnij zadania Codzienne i Do-Zrobienia i zdobądź punkty za pozytywne Nawyki, aby zadać obrażenia Globalnemu Bossowi... Niedokończone Codzienne wypełniają pasek wzrastania Furii... Kiedy pasek Furii się wypełni, Globalny Boss zaatakuje bohatera niezależnego... Globalny Boss nigdy nie zada obrażeń indywidualnym graczom, ani ich kontom... Liczą się wyłącznie zadania aktywnych graczy, którzy nie wypoczywają w Gospodzie...",
+    "tavernBossInfo": "Wypełniaj swoje Codzienne i Do Zrobienia, aby zadawać obrażenia Globalnemu Bossowi. Niewypełnione Codzienne powodują wzrastanie Furii. Kiedy pasek Furii się zapełni, Globalny Boss zaatakuje NPC'a. Globalny Boss nigdy nie skrzywdzi indywidualnych graczy. Liczą się wyłącznie zadania aktywnych graczy, którzy aktualnie nie wypoczywają w Karczmie.",
+    "tavernBossInfoBroken": "Wypełnij zadania Codzienne i Do Zrobienia i zdobądź punkty za pozytywne Nawyki, aby zadać obrażenia Globalnemu Bossowi... Niedokończone Codzienne wypełniają pasek wzrastania Furii... Kiedy pasek Furii się wypełni, Globalny Boss zaatakuje bohatera niezależnego... Globalny Boss nigdy nie zada obrażeń indywidualnym graczom, ani ich kontom... Liczą się wyłącznie zadania aktywnych graczy, którzy nie wypoczywają w Karczmie...",
     "bossColl1": "Aby zbierać przedmioty, wykonuj pozytywne zadania. Przedmioty misyjne znajdujesz tak samo jak zwykłe; możesz sprawdzić zdobyte przedmioty misyjne najeżdżając na ikonę postępu zadania.",
     "bossColl2": "Tylko uczestnicy mogą zbierać przedmioty i brać udział w podziale łupów.",
     "bossColl1Broken": "Aby zbierać przedmioty, wykonuj pozytywne zadania. Przedmioty misyjne znajdujesz tak samo jak zwykłe; możesz sprawdzić zdobyte przedmioty misyjne najeżdżając na ikonę postępu zadania...",
@@ -139,5 +139,6 @@
     "tavernBossTired": "<%= bossName %> próbuje wyzwolić <%= rageName %> ale zmęczenie na to nie pozwala.",
     "questInvitationNotificationInfo": "Zostałeś(-aś) zaproszony(-a) do przyłączenia się do misji",
     "questAlreadyStartedFriendly": "To wyzwanie już się zaczęło, jednak zawsze możesz załapać się na kolejne!",
-    "questAlreadyStarted": "Wyzwanie już się zaczęło."
+    "questAlreadyStarted": "Wyzwanie już się zaczęło.",
+    "bossDamage": "Boss oberwał od Ciebie!"
 }

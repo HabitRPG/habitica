@@ -10,7 +10,7 @@
     "maintenanceInfoTitle": "Informazioni sulla manutenzione di Habitica",
     "maintenanceInfoWhat": "Cosa sta succedendo?",
     "maintenanceInfoWhatText": "Il 21 maggio, Habitica sarà chiuso per manutenzione per la maggior parte del giorno. Non subirai alcun danno e il tuo account non subirà alcun cambiamento durante il weekend, anche se non potrai accedere e spuntare le tue Attività Giornaliere in tempo! Faremo del nostro meglio per far sì che la manutenzione duri il meno possibile, e pubblicheremo aggiornamenti frequenti sul <a href='https://twitter.com/habitica' target='_blank'>nostro account Twitter</a>. Alla fine della manutenzione, per ringraziarvi della vostra pazienza, riceverete tutti un animale raro!",
-    "maintenanceInfoWhy": "Perchè questo sta succedendo?",
+    "maintenanceInfoWhy": "Perché sta succedendo questo?",
     "maintenanceInfoWhyText": "Durante gli scorsi mesi, abbiamo completamente rinnovato il \"dietro le quinte\" di Habitica. Entrando nello specifico, abbiamo riscritto l'API. Sebbene possa sembrare non troppo diverso in superficie, è tutto un altro mondo in profondità. Questo permetterà MOLTA più flessibilità quando vorremo aggiungere nuove funzionalità in futuro, e quindi migliorare le performance!",
     "maintenanceInfoTechDetails": "Vuoi maggiori dettagli sul lato tecnico del processo? Visita <a href='http://devs.habitica.com/' target='_blank'>The Forge, il nostro dev blog</a>.",
     "maintenanceInfoMore": "Maggiori informazioni",

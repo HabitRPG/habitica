@@ -439,7 +439,7 @@
     "armorSpecialPageArmorText": "一页护甲",
     "armorSpecialPageArmorNotes": "把你认为很棒的东西全部装进你的背包带走吧！增加<%= con %>点体质。",
     "armorSpecialRoguishRainbowMessengerRobesText": "俏皮彩虹使者长袍",
-    "armorSpecialRoguishRainbowMessengerRobesNotes": "这些生动的条纹长袍将使你能够顺利、安全地穿越强风。增加<%= str %>点力量。",
+    "armorSpecialRoguishRainbowMessengerRobesNotes": "多彩的条纹长袍将助你顺利、安全地穿越巨风。增加<%= str %>点力量。",
     "armorSpecialSneakthiefRobesText": "潜行小偷长袍",
     "armorSpecialSneakthiefRobesNotes": "这些长袍将帮助你在深夜里隐藏你，但也会让你在悄然潜行时自由行动！增加<%= int %>点智力.",
     "armorSpecialSnowSovereignRobesText": "雪之主长袍",

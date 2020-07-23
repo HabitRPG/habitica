@@ -53,5 +53,11 @@ describe('POST /user/auth/verify-display-name', async () => {
         displayName: 'this is a very long display name over 30 characters',
       })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueLength')] });
     });
+
+    it('errors if display name contains a newline', async () => {
+      await expect(user.post(ENDPOINT, {
+        displayName: 'namecontainsnewline\n',
+      })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueNewline')] });
+    });
   });
 });
