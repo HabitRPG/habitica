@@ -47,7 +47,7 @@
     "itemsToCollect": "Items to Collect",
     "bossDmg1": "Mỗi lần hoàn thành Việc hằng ngày và Việc cần làm và mỗi Thói quen tích cực gây sát thương boss. Gây sát thương nó nhiều hơn với công việc màu đỏ hoặc Brutal Smash và Burst of Flames. Boss sẽ gây sát thương cho mỗi người tham gia nhiệm vụ cho mỗi ngày bạn đã bỏ lỡ (nhân với sức mạnh của boss) ngoài những sát thương thông thường của bạn, vì vậy giữ cho nhóm của bạn lành mạnh bằng cách hoàn thành Việc hằng ngày! <strong>Tất cả các sát thương đến và từ boss được tính theo cron (thời điểm bắt đầu ngày mới) .</strong>",
     "bossDmg2": "Only participants will fight the boss and share in the quest loot.",
-    "bossDmg1Broken": "Mỗi lần hoàn thành Việc hằng ngày và Việc cần làm và mỗi Thói quen tích cực gây sát thương boss. Gây sát thương nó nhiều hơn với công việc màu đỏ hoặc Brutal Smash và Burst of Flames. Boss sẽ gây sát thương cho mỗi người tham gia nhiệm vụ cho mỗi ngày bạn đã bỏ lỡ (nhân với sức mạnh của boss) ngoài những sát thương thông thường của bạn, vì vậy giữ cho nhóm của bạn lành mạnh bằng cách hoàn thành Việc hằng ngày! <strong>Tất cả các sát thương đến và từ boss được tính theo cron (thời điểm bắt đầu ngày mới) .</strong>",
+    "bossDmg1Broken": "Mỗi lần hoàn thành Việc hằng ngày và Việc cần làm và mỗi Thói quen tích cực gây sát thương cho quái. Gây sát thương nó nhiều hơn với công việc màu đỏ hoặc Cú chém tàn bạo và Ngọn lửa bùng nổ .Quái vật sẽ gây sát thương cho mỗi người tham gia nhiệm vụ cho mỗi Việc hàng ngày bạn đã bỏ lỡ (nhân với Sức mạnh của quái vật) ngoài những sát thương thông thường của bạn, vì vậy giữ cho Tổ đội của bạn khỏe mạnh bằng cách hoàn thành Việc hằng ngày... <strong>Tất cả các sát thương đến từ Quái vật được tung ra ra theo cron (thời điểm bắt đầu ngày mới)...</strong>",
     "bossDmg2Broken": "Only participants will fight the boss and share in the quest loot...",
     "tavernBossInfo": "Complete Dailies and To-Dos and score positive Habits to damage the World Boss! Incomplete Dailies fill the Rage Bar. When the Rage bar is full, the World Boss will attack an NPC. A World Boss will never damage individual players or accounts in any way. Only active accounts not resting in the Inn will have their tasks tallied.",
     "tavernBossInfoBroken": "Complete Dailies and To-Dos and score positive Habits to damage the World Boss... Incomplete Dailies fill the Exhaust Strike Bar... When the Exhaust Strike bar is full, the World Boss will attack an NPC... A World Boss will never damage individual players or accounts in any way... Only active accounts not resting in the Inn will have their tasks tallied...",
@@ -130,5 +130,6 @@
     "chatBossDamage": "<%= username %> tấn công <%= bossName %> với <%= userDamage %> sát thương. <%= bossName %> tấn công tổ đội với <%= bossDamage %> sát thương.",
     "chatQuestStarted": "Nhiệm vụ của bạn, <%= questName %>, đã bắt đầu.",
     "questInvitationNotificationInfo": "Bạn đã được mời tham gia một Nhiệm vụ",
-    "hatchingPotionQuests": "Nhiệm vụ Lọ thuốc Ấp trứng Ma thuật"
+    "hatchingPotionQuests": "Nhiệm vụ Lọ thuốc Ấp trứng Ma thuật",
+    "bossDamage": "Bạn đã gây sát thương cho con quái!"
 }

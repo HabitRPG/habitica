@@ -213,5 +213,6 @@
     "mentioning": "Erwähnung",
     "chatExtensionDesc": "Die Chat Erweiterung für Habitica fügt eine intuitive Chatbox für habitica.com hinzu. Sie erlaubt Benutzern, in der Taverne, ihrer Party und all ihren Gilden zu chatten.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chat Erweiterung</a> und <a target='blank' href='https://addons.mozilla.org/de/firefox/addon/habitica-chat-client-2/'>Firefox Chat Erweiterung</a>",
-    "buyGemsGoldCapBase": "Edelsteinobergrenze bei <%= amount %>"
+    "buyGemsGoldCapBase": "Edelsteinobergrenze bei <%= amount %>",
+    "displaynameIssueNewline": "Anzeigenamen dürfen keinen Backslash gefolgt von einem Buchstaben N enthalten."
 }
