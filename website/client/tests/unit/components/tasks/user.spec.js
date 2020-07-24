@@ -11,7 +11,7 @@ describe('Tasks User', () => {
       const activeChallengeTag = {
         id: '1',
         name: 'Challenge1',
-        challenge: 'true',
+        challenge: true,
       };
       const state = {
         user: {
@@ -38,7 +38,7 @@ describe('Tasks User', () => {
       const inactiveChallengeTag = {
         id: '1',
         name: 'Challenge1',
-        challenge: 'false',
+        challenge: false,
       };
       const state = {
         user: {

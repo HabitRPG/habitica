@@ -485,7 +485,7 @@ export default {
       userTags.forEach(t => {
         if (t.group) {
           tagsByType.groups.tags.push(t);
-        } else if (t.challenge && t.challenge === 'true') {
+        } else if (t.challenge) {
           tagsByType.challenges.tags.push(t);
         } else {
           tagsByType.user.tags.push(t);
