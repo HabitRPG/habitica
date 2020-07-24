@@ -51,7 +51,7 @@
     "messageGroupChatFlagAlreadyReported": "Již jsi tento příspěvek nahlásil",
     "messageGroupChatNotFound": "Zpráva nenalezena!",
     "messageGroupChatAdminClearFlagCount": "Pouze admin může smazat počet označení!",
-    "messageCannotFlagSystemMessages": "Nemůžeš nahlásit systémovou zprávu. Pokud potřebuješ nahlásit porušení Zásad Komunity, které se vztahuje na tuto zprávu, prosím, pošlete emailem screenshot a vysvětlení na Lemoness na <%= communityManagerEmail %>",
+    "messageCannotFlagSystemMessages": "Nemůžeš nahlásit systémovou zprávu. Pokud potřebuješ nahlásit porušení Zásad Komunity, které se vztahuje na tuto zprávu, prosím, pošlete emailem screenshot a vysvětlení našemu Community Manažerovi na <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, vypadá to, že posíláš moc zpráv! Počkej prosím minutku a zkus to znovu. Chat v Krčmě může mít jenom 200 zpráv v jeden čas, takže Habitica podporuje posílání delších, více promyšlených zpráv a odpovědí. Nemůžeme se dočkat, až se s námi podělíš o tom, co máš na srdci. :)",
     "messageCannotLeaveWhileQuesting": "Nemůžeš přijmout tuto pozvánku do družiny, během účasti ve výpravě. Pokud se chceš připojit k této družině, musíš nejdříve ukončit aktuální výpravu, což můžeš učinit v záložce \"Družina\". Svitek výpravy ti bude vrácen zpět.",
     "messageUserOperationProtected": "cesta `<%= operation %>` nebyla uložena, protože je chráněná.",
@@ -59,10 +59,11 @@
     "messageNotificationNotFound": "Oznámení nenalezeno.",
     "messageNotAbleToBuyInBulk": "Tento předmět nelze nakoupit v množství větším, než je 1.",
     "notificationsRequired": "Id upozornění je potřeba.",
-    "unallocatedStatsPoints": "Máš <span class=\"notification-bold-blue\"><%= points %>nepřidělených vlastnostních bodů</span>",
-    "beginningOfConversation": "Toto je začátek tvé konverzace s uživatelem <%= userName %>. Nezapomeň být milý, ucitvý a drž se směrnic komunity!",
+    "unallocatedStatsPoints": "Máš <span class=\"notification-bold-blue\"><%= points %> nepřidělený(ch) vlastnostní(ch) bod(ů)</span>",
+    "beginningOfConversation": "Toto je začátek tvé konverzace s uživatelem <%= userName %>.",
     "messageDeletedUser": "Omlouváme se, ale tento uživatel smazal svůj účet.",
     "messageMissingDisplayName": "Chybí zobrazované jméno.",
     "canDeleteNow": "Nyní můžete zprávu smazat.",
-    "reportedMessage": "Tuto zprávu jste nahlásili moderátorům."
+    "reportedMessage": "Tuto zprávu jste nahlásili moderátorům.",
+    "beginningOfConversationReminder": "Nezapomeňte být milí, taktní a respektujte Zásady komunity!"
 }

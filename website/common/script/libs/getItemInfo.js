@@ -8,7 +8,6 @@ import isPinned from './isPinned';
 import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
-
 function lockQuest (quest, user) {
   if (quest.key === 'lostMasterclasser1') return !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3);
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;

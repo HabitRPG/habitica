@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "購買了 <%= itemText %>",
-    "messageEquipped": "裝備了<%= itemText %>。",
+    "messageEquipped": " 裝備了<%= itemText %>。",
     "messageUnEquipped": "<%= itemText %> unequipped.",
     "messageMissingEggPotion": "妳沒選擇藥水或者寵物蛋",
     "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",

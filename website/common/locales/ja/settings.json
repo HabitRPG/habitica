@@ -213,5 +213,6 @@
     "suggestMyUsername": "ユーザー名を提案してもらう",
     "chatExtensionDesc": "Habiticaのチャット拡張機能は、すべてのhabitica.comに直感的なチャットボックスを追加します。キャンプ場や参加しているパーティー・ギルドでユーザーがチャットできます。",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chromeのチャット拡張機能</a>と<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefoxのチャット拡張機能</a>",
-    "buyGemsGoldCapBase": "ジェムの購入可能数は<%= amount %>です"
+    "buyGemsGoldCapBase": "ジェムの購入可能数は<%= amount %>です",
+    "displaynameIssueNewline": "表示名はバックスラッシュとNの文字を連続して使うことができません。"
 }

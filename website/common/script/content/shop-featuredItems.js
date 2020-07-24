@@ -25,8 +25,8 @@ const featuredItems = {
   quests () {
     return [
       {
-        type: 'quests',
-        path: 'quests.rock',
+        type: 'bundles',
+        path: 'bundles.aquaticAmigos',
       },
       {
         type: 'quests',

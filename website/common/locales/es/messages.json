@@ -12,7 +12,7 @@
     "messageLikesFood": "¡A <%= egg %> le gusta mucho<%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> se come <%= foodText %> pero no parece que lo disfrute.",
     "messageBought": "Has comprado <%= itemText %>",
-    "messageEquipped": "<%= itemText %> equipado.",
+    "messageEquipped": " <%= itemText %> equipado.",
     "messageUnEquipped": "Te has quitado <%= itemText %>.",
     "messageMissingEggPotion": "No tienes ese huevo o poción",
     "messageInvalidEggPotionCombo": "¡No puedes hacer eclosionar a un huevo mascota de misión con una poción de eclosión mágica! Inténtalo con un huevo diferente.",

@@ -145,5 +145,8 @@
     "notEnoughPetsMounts": "你還未收集足夠的寵物和坐騎",
     "wackyPets": "古怪寵物",
     "filterByWacky": "古怪",
-    "gryphatrice": "獅鷲"
+    "gryphatrice": "獅鷲",
+    "invalidAmount": "食物數量無效，必須為正整數",
+    "tooMuchFood": "你正在餵寵物過多食物，行動已取消",
+    "notEnoughFood": "你沒有足夠的食物"
 }

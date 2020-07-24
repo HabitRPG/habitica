@@ -34,14 +34,14 @@
             @click="submit()"
           >
             <div
-              class="m-auto"
               v-if="purpose === 'edit'"
+              class="m-auto"
             >
               {{ $t('save') }}
             </div>
             <div
-              class="m-auto"
               v-if="purpose === 'create'"
+              class="m-auto"
             >
               {{ $t('create') }}
             </div>
@@ -135,8 +135,8 @@
           <div
             class="habit-option-container no-transition
               d-flex flex-column justify-content-center align-items-center"
-            @click="toggleUpDirection()"
             :class="!task.up ? cssClass('habit-control-disabled') : ''"
+            @click="toggleUpDirection()"
           >
             <div
               class="habit-option-button no-transition
@@ -159,8 +159,8 @@
           <div
             class="habit-option-container no-transition
               d-flex flex-column justify-content-center align-items-center"
-            @click="toggleDownDirection()"
             :class="!task.down ? cssClass('habit-control-disabled') : ''"
+            @click="toggleDownDirection()"
           >
             <div
               class="habit-option-button no-transition
@@ -707,7 +707,9 @@
             class="svg-icon d-inline-b mt-1 mb-1"
             v-html="icons.destroy"
           ></div>
-          <span class="delete-text mt-1 mb-1">{{ $t('deleteTask') }}</span>
+          <span class="delete-text mt-1 mb-1">
+            {{ $t('deleteTaskType', { type: $t(task.type) }) }}
+          </span>
         </div>
       </form>
     </div>
@@ -1455,7 +1457,8 @@ export default {
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
     destroy () {
-      if (!window.confirm(this.$t('sureDelete'))) return;
+      const type = this.$t(this.task.type);
+      if (!window.confirm(this.$t('sureDeleteType', { type }))) return;
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('bv::hide::modal', 'task-modal');

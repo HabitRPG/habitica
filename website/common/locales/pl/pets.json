@@ -138,12 +138,15 @@
     "clickOnPetToFeed": "Kliknij na Chowańca, aby nakarmić go <%= foodName %> i patrz jak rośnie!",
     "dragThisPotion": "Przeciągnij ten <%= potionName %> na jajo i wykluj nowego Chowańca!",
     "clickOnEggToHatch": "Kliknij na jajo, aby użyć <%= potionName %> eliksir wyklucia i wykluć nowego Chowańca!",
-    "hatchDialogText": "Wylej swój <%= potionName %>eliksir wyklucia na jajo <%= eggName %>, a wykluje isę z niego <%= petName %>.",
+    "hatchDialogText": "Wylej swój <%= potionName %>eliksir wyklucia na jajo <%= eggName %>, a wykluje się z niego <%= petName %>.",
     "clickOnPotionToHatch": "Kliknij na eliksir wyklucia by użyć go na swoim <%= eggName %> i wykluć nowego chowańca!",
     "notEnoughPets": "Nie zebrałeś/aś wystarczająco chowańców",
     "notEnoughMounts": "Nie zabrałeś/aś wystarczająco wierzchowców",
     "notEnoughPetsMounts": "Nie zebrałeś/aś wystarczająco chowańców i wierzchowców",
     "wackyPets": "Zwariowane chowańce",
     "filterByWacky": "Zwariowane",
-    "gryphatrice": "Bazyligryfek"
+    "gryphatrice": "Bazyligryfek",
+    "invalidAmount": "Błędna ilość jedzenia, musi być dodatnią liczbą całkowitą",
+    "tooMuchFood": "Próbujesz nakarmić chowańca zbyt dużą ilością jedzenia, akcja została anulowana",
+    "notEnoughFood": "Nie masz wystarczającej ilości jedzenia"
 }

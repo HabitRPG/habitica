@@ -213,5 +213,6 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome聊天室擴充功能</a>與<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox聊天室附加元件</a>",
     "onlyPrivateSpaces": "只在私人空間",
     "everywhere": "每個地方",
-    "buyGemsGoldCapBase": "寶石上限是<%= amount %>"
+    "buyGemsGoldCapBase": "寶石上限是<%= amount %>",
+    "displaynameIssueNewline": "角色名不能不得包含反斜杠（/），後跟字母N。"
 }

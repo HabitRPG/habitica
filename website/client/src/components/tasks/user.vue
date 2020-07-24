@@ -40,7 +40,7 @@
               v-for="tagsType in tagsByType"
               v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'"
               :key="tagsType.key"
-              class="tags-category d-flex"
+              class="tags-category d-flex flex-column"
             >
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <div class="tags-header">
@@ -268,7 +268,8 @@
     position: absolute;
     padding-left: 24px;
     padding-right: 24px;
-    max-width: 40vw;
+    max-width: 50vw;
+    min-width: 300px;
     width: 100%;
     z-index: 9999;
     background: $white;
@@ -287,8 +288,9 @@
     }
 
     .tags-header {
-       flex-basis: 96px;
+       flex-basis: 60px;
        flex-shrink: 0;
+       margin-left: 10px;
 
       a {
         font-size: 12px;

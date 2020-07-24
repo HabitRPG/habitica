@@ -687,7 +687,6 @@ describe('POST /tasks/user', () => {
       });
     });
 
-
     it('can create checklists', async () => {
       const task = await user.post('/tasks/user', {
         text: 'test daily',

@@ -8,7 +8,7 @@
     "brokenChallenge": "Neveikianti Iššūkio Nuoroda: ši užduotis buvo iššūkio dalis, bet iššūkis (ar grupė) buvo ištrintas. Ką norėtumėte daryti su likusiomis užduotimis?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Šis iššūkis buvo pabaigtas ir laimėtoja(s) yra <span class=\"badge\"><%= user %></span>! Ka norėtume daryti su likusiomis užduotimis? ",
+    "challengeCompleted": "Šis iššūkis buvo pabaigtas ir laimėtoja(s) yra <span class=\"badge\"><%= user %></span>! Ka norėtume daryti su likusiomis užduotimis?",
     "unsubChallenge": "Neveikianti Iššūkio Nuoroda: ši užduotis buvo dalis iššūkio, kurį jūs palikote. Ką norite daryti su likusiomis užduotimis?",
     "challengeWinner": "Laimėjo šiuos iššūkius",
     "challenges": "Iššūkiai",

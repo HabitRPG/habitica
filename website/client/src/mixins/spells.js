@@ -137,6 +137,11 @@ export default {
         targetId,
         pinType: spell.pinType,
       });
+
+      if (apiResult.data.data.user) {
+        Object.assign(this.$store.state.user.data, apiResult.data.data.user);
+      }
+
       let msg = '';
 
       switch (type) {
@@ -165,12 +170,6 @@ export default {
           });
           break;
       }
-
-      if (spell.pinType === 'card') {
-        const newUserGp = apiResult.data.data.user.stats.gp;
-        this.$store.state.user.data.stats.gp = newUserGp;
-      }
-
 
       this.markdown(msg); // @TODO: mardown directive?
 

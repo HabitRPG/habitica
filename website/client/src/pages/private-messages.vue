@@ -656,6 +656,7 @@ export default {
         backer: data.backer,
         contributor: data.contributor,
         userStyles: data.userStyles,
+        canReceive: true,
       };
 
       this.$store.state.privateMessageOptions = {};
@@ -896,6 +897,7 @@ export default {
         username: this.user.auth.local.username,
         contributor: this.user.contributor,
         backer: this.user.backer,
+        canReceive: true,
       });
 
       // Remove the placeholder message
