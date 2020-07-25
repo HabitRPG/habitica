@@ -1100,7 +1100,6 @@ export default {
     toggleCheckbox,
     lockableLabel,
   },
-  mixins: [sync],
   directives: {
     markdown: markdownDirective,
   },
@@ -1403,7 +1402,6 @@ export default {
       } else {
         await this.saveTask(this.task);
         this.$emit('taskEdited', this.task);
-        if (this.groupId) this.sync();
       }
       this.$root.$emit('bv::hide::modal', 'task-modal');
     },
@@ -1448,11 +1446,6 @@ export default {
     },
     focusInput () {
       this.$refs.inputToFocus.focus();
-    },
-    async addTag (name) {
-      const tagResult = await this.createTag({ name });
-
-      this.task.tags.push(tagResult.id);
     },
     async addTag (name) {
       const tagResult = await this.createTag({ name });
