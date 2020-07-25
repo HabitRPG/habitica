@@ -1,9 +1,11 @@
 <template>
-  <button class="toggle-checkbox"
+  <button
+    class="toggle-checkbox"
     :class="{checked: isChecked}"
-    @click="isChecked = !isChecked"
     type="button"
-    :disabled="disabled">
+    :disabled="disabled"
+    @click="isChecked = !isChecked"
+  >
     {{ text }}
   </button>
 </template>

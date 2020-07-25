@@ -4,10 +4,10 @@
     :no-close-on-esc="true"
     :no-close-on-backdrop="true"
     size="sm"
+    :hide-footer="true"
     @hidden="onClose()"
     @show="handleOpen()"
     @shown="focusInput()"
-    :hide-footer="true"
   >
     <div
       v-if="task"
@@ -26,9 +26,11 @@
           <button
             class="cancel-task-btn mr-3"
             :class="cssClass('headings')"
-            @click="cancel()"
             type="button"
-          >{{ $t('cancel') }}</button>
+            @click="cancel()"
+          >
+            {{ $t('cancel') }}
+          </button>
           <button
             class="btn btn-secondary d-flex align-items-center justify-content-center"
             :class="{disabled: !canSave}"
@@ -52,7 +54,7 @@
       </div>
       <div class="form-group">
         <lockable-label
-          :classOverride="cssClass('headings')"
+          :class-override="cssClass('headings')"
           :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
           :text="`${$t('text')}*`"
         />
@@ -69,8 +71,8 @@
         >
       </div>
       <div
-        class="form-group mb-0"
         v-if="isUserTask || isChallengeTask || isOriginalChallengeTask"
+        class="form-group mb-0"
       >
         <label
           class="d-flex align-items-center justify-content-between mb-1"
@@ -94,11 +96,11 @@
         ></textarea>
       </div>
       <div
-        class="form-group mb-0 mt-3"
         v-if="showManagerNotes"
+        class="form-group mb-0 mt-3"
       >
         <lockable-label
-          :classOverride="cssClass('headings')"
+          :class-override="cssClass('headings')"
           :locked="groupAccessRequiredAndOnPersonalPage"
           :text="$t('managerNotes')"
         />
@@ -143,7 +145,10 @@
           class="option mt-3"
         >
           <div class="form-group">
-            <label v-once class="mb-1">{{ $t('cost') }}</label>
+            <label
+              v-once
+              class="mb-1"
+            >{{ $t('cost') }}</label>
             <div class="input-group">
               <div class="input-group-prepend input-group-icon align-items-center">
                 <div
@@ -167,9 +172,10 @@
           v-if="checklistEnabled"
           class="option mt-3"
         >
-          <checklist :items.sync="task.checklist"
-                     :disableItems="groupAccessRequiredAndOnPersonalPage"
-                     :disableDrag="groupAccessRequiredAndOnPersonalPage"
+          <checklist
+            :items.sync="task.checklist"
+            :disable-items="groupAccessRequiredAndOnPersonalPage"
+            :disable-drag="groupAccessRequiredAndOnPersonalPage"
           />
         </div>
         <div
@@ -243,10 +249,9 @@
           </div>
           <select-difficulty
             :value="task.priority"
-            @select="setDifficulty($event)"
             :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+            @select="setDifficulty($event)"
           />
-
         </template>
         <div
           v-if="task.type === 'todo' && (task.date
@@ -332,7 +337,6 @@
                   required="required"
                   :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
                 >
-
               </div>
               <div class="input-group-spaced input-group-text">
                 {{ repeatSuffix }}
@@ -352,8 +356,8 @@
             <div class="toggle-group">
               <toggle-checkbox
                 v-for="(day, dayNumber) in ['su','m','t','w','th','f','s']"
-                :tab-index="dayNumber"
                 :key="dayNumber"
+                :tab-index="dayNumber"
                 :checked.sync="task.repeat[day]"
                 :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
                 :text="weekdaysMin(dayNumber)"
@@ -410,14 +414,16 @@
               class="col-12 mb-1"
             >{{ $t('tags') }}</label>
             <div class="col-12">
-              <select-multi :selected-items="task.tags"
-                            :all-items="user.tags"
-                            :add-new="true"
-                            :empty-message="$t('addTags')"
-                            :search-placeholder="$t('enterTag')"
-                            @changed="task.tags = $event"
-                            @addNew="addTag"
-                            ref="selectTag" />
+              <select-multi
+                ref="selectTag"
+                :selected-items="task.tags"
+                :all-items="user.tags"
+                :add-new="true"
+                :empty-message="$t('addTags')"
+                :search-placeholder="$t('enterTag')"
+                @changed="task.tags = $event"
+                @addNew="addTag"
+              />
             </div>
           </div>
         </div>
@@ -446,7 +452,10 @@
             v-if="task.type === 'todo'"
             class="form-group"
           >
-            <label v-once class="mb-1">{{ $t('sharedCompletion') }}</label>
+            <label
+              v-once
+              class="mb-1"
+            >{{ $t('sharedCompletion') }}</label>
             <select-translated-array
               :items="['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']"
               :value="sharedCompletion"
@@ -460,18 +469,21 @@
             >{{ $t('assignedTo') }}</label>
             <div class="col-12">
               <select-multi
+                ref="assignMembers"
                 :all-items="membersNameAndId"
                 :empty-message="$t('unassigned')"
                 :pill-invert="true"
                 :search-placeholder="$t('chooseTeamMember')"
                 :selected-items="assignedMembers"
                 @toggle="toggleAssignment($event)"
-                ref="assignMembers"
               />
             </div>
           </div>
           <div class="form-group flex-group mt-3 mb-4">
-            <label v-once class="mb-0 flex">{{ $t('approvalRequired') }}</label>
+            <label
+              v-once
+              class="mb-0 flex"
+            >{{ $t('approvalRequired') }}</label>
             <toggle-switch
               class="d-inline-block"
               :checked="requiresApproval"
@@ -506,12 +518,15 @@
                 class="option mt-3"
               >
                 <div class="form-group">
-                  <label v-once class="mb-1">{{ $t('restoreStreak') }}</label>
+                  <label
+                    v-once
+                    class="mb-1"
+                  >{{ $t('restoreStreak') }}</label>
                   <div class="input-group">
                     <div class="input-group-prepend streak-addon input-group-icon">
                       <div
-                        class="svg-icon"
                         v-once
+                        class="svg-icon"
                         v-html="icons.streak"
                       ></div>
                     </div>
@@ -531,8 +546,14 @@
                 class="option mt-3"
               >
                 <div class="form-group">
-                  <label v-once class="mb-1">{{ $t('restoreStreak') }}</label>
-                  <div class="row streak-inputs" :class="{'both': task.up && task.down}">
+                  <label
+                    v-once
+                    class="mb-1"
+                  >{{ $t('restoreStreak') }}</label>
+                  <div
+                    class="row streak-inputs"
+                    :class="{'both': task.up && task.down}"
+                  >
                     <div
                       v-if="task.up"
                       class="positive"
@@ -541,8 +562,8 @@
                       <div class="input-group">
                         <div class="input-group-prepend positive-addon input-group-icon">
                           <div
-                            class="svg-icon"
                             v-once
+                            class="svg-icon"
                             v-html="icons.positive"
                           ></div>
                         </div>
@@ -563,8 +584,8 @@
                       <div class="input-group">
                         <div class="input-group-prepend negative-addon input-group-icon">
                           <div
-                            class="svg-icon"
                             v-once
+                            class="svg-icon"
                             v-html="icons.negative"
                           ></div>
                         </div>
@@ -595,8 +616,8 @@
             @click="destroy()"
           >
             <div
-              class="svg-icon"
               v-once
+              class="svg-icon"
               v-html="icons.destroy"
             ></div>
             <span class="delete-text mt-1">
@@ -613,8 +634,8 @@
             class="btn btn-primary btn-footer
             d-flex align-items-center justify-content-center"
             :class="{disabled: !canSave}"
-            @click="submit()"
             type="button"
+            @click="submit()"
           >
             {{ $t('create') }}
           </button>

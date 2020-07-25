@@ -2,13 +2,17 @@
   <div>
     <b-dropdown
       class="inline-dropdown"
-      @show="isOpened = true"
-      @hide="isOpened = false"
       :toggle-class="isOpened ? 'active' : null"
       :disabled="disabled"
+      @show="isOpened = true"
+      @hide="isOpened = false"
     >
       <template v-slot:button-content>
-        <slot name="item" v-bind:item="selected" v-bind:button="true">
+        <slot
+          name="item"
+          :item="selected"
+          :button="true"
+        >
           <!-- Fallback content -->
           {{ value }}
         </slot>
@@ -20,13 +24,16 @@
         :class="{active: item === selected, selectListItem: true}"
         @click="selectItem(item)"
       >
-        <slot name="item" v-bind:item="item" v-bind:button="false">
+        <slot
+          name="item"
+          :item="item"
+          :button="false"
+        >
           <!-- Fallback content -->
           {{ item }}
         </slot>
       </b-dropdown-item>
     </b-dropdown>
-
   </div>
 </template>
 
@@ -37,12 +44,6 @@
 
 <script>
 export default {
-  data () {
-    return {
-      isOpened: false,
-      selected: this.value,
-    };
-  },
   props: {
     items: {
       type: Array,
@@ -57,6 +58,12 @@ export default {
     disabledProp: {
       type: String,
     },
+  },
+  data () {
+    return {
+      isOpened: false,
+      selected: this.value,
+    };
   },
   methods: {
     selectItem (item) {

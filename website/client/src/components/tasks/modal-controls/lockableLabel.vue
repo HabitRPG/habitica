@@ -4,11 +4,11 @@
     :class="[{ 'opacity-75': locked }, classOverride]"
   >
     <span
+      v-if="locked"
       v-once
       class="svg-icon lock-icon icon-10 mr-1"
       :class="classOverride ? classOverride : 'gray-200'"
       v-html="icons.lock"
-      v-if="locked"
     >
     </span>
     <label

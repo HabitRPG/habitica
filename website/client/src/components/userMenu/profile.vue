@@ -18,9 +18,10 @@
             v-b-tooltip.hover.left="$t('sendMessage')"
             class="btn btn-secondary message-icon"
           >
-            <div class="svg-icon message-icon"
-                 v-html="icons.message"
-                 v-once
+            <div
+              v-once
+              class="svg-icon message-icon"
+              v-html="icons.message"
             ></div>
           </button>
         </router-link>

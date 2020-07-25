@@ -1,20 +1,28 @@
 <template>
   <div>
-    <select-list :items="items"
-                 :key-prop="'icon'"
-                 class="difficulty-select"
-                 :class="{disabled: disabled}"
-                 :disabled="disabled"
-                 :value="selected"
-                 @select="$emit('select', $event.value)">
+    <select-list
+      :items="items"
+      :key-prop="'icon'"
+      class="difficulty-select"
+      :class="{disabled: disabled}"
+      :disabled="disabled"
+      :value="selected"
+      @select="$emit('select', $event.value)"
+    >
       <template v-slot:item="{ item, button }">
-        <div v-if="item" class="difficulty-item" :class="{ 'isButton': button }">
+        <div
+          v-if="item"
+          class="difficulty-item"
+          :class="{ 'isButton': button }"
+        >
           <span class="label">{{ item.label }}</span>
 
-          <div class="svg-icon" >
-            <span v-for="n in item.stars"
-                  v-html="icons.difficultyTrivial"
-            :key="n">
+          <div class="svg-icon">
+            <span
+              v-for="n in item.stars"
+              :key="n"
+              v-html="icons.difficultyTrivial"
+            >
 
             </span>
           </div>
@@ -135,6 +143,14 @@ export default {
   components: {
     selectList,
   },
+  props: {
+    disabled: {
+      type: Boolean,
+    },
+    value: {
+      type: Number,
+    },
+  },
   data () {
     const items = [
       {
@@ -169,14 +185,6 @@ export default {
       }),
       selected: items.find(i => i.value === this.value),
     };
-  },
-  props: {
-    disabled: {
-      type: Boolean,
-    },
-    value: {
-      type: Number,
-    },
   },
 };
 </script>

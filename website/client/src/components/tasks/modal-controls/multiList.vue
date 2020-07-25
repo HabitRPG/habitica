@@ -4,21 +4,23 @@
     :class="{ 'break': maxItems === 0 }"
   >
     <template v-if="items.length === 0">
-      <div class="items-none">{{ emptyMessage }}</div>
+      <div class="items-none">
+        {{ emptyMessage }}
+      </div>
     </template>
     <template v-else>
       <div
+        v-for="item in truncatedSelectedItems"
         :key="item.id"
         :title="item.name"
         class="multi-item mr-1 d-inline-flex align-items-center"
         :class="{'margin-adjust': maxItems !== 0, 'pill-invert': pillInvert}"
-        v-for="item in truncatedSelectedItems"
 
         @click.stop="removeItem($event, item)"
       >
         <div
-          class="multi-label my-auto ml-75 mr-2"
           v-markdown="item.name"
+          class="multi-label my-auto ml-75 mr-2"
         ></div>
         <div
           class="remove ml-auto mr-75"
@@ -26,10 +28,10 @@
         ></div>
       </div>
       <div
-        class="items-more ml-75"
         v-if="remainingSelectedItems.length > 0"
+        class="items-more ml-75"
       >
-        +{{remainingSelectedItems.length}}
+        +{{ remainingSelectedItems.length }}
       </div>
     </template>
   </div>
@@ -135,6 +137,26 @@ export default {
     markdown: markdownDirective,
   },
   components: {},
+  props: {
+    addNew: {
+      type: Boolean,
+      default: false,
+    },
+    emptyMessage: {
+      type: String,
+    },
+    maxItems: {
+      type: Number,
+      default: 3,
+    },
+    pillInvert: {
+      type: Boolean,
+      default: false,
+    },
+    items: {
+      type: Array,
+    },
+  },
   data () {
     return {
       icons: Object.freeze({
@@ -156,26 +178,6 @@ export default {
       }
 
       return this.items.slice(this.maxItems);
-    },
-  },
-  props: {
-    addNew: {
-      type: Boolean,
-      default: false,
-    },
-    emptyMessage: {
-      type: String,
-    },
-    maxItems: {
-      type: Number,
-      default: 3,
-    },
-    pillInvert: {
-      type: Boolean,
-      default: false,
-    },
-    items: {
-      type: Array,
     },
   },
   methods: {
