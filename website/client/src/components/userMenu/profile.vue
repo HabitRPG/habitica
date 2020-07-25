@@ -570,6 +570,7 @@
     .achievement-wrapper {
       width: 94px;
       max-width: 94px;
+      min-width: 94px;
       margin-right: 12px;
       margin-left: 12px;
       padding: 0px;
@@ -617,6 +618,7 @@
         margin-right: 8px;
         background: $gray-600;
         color: $gray-300;
+        height: fit-content;
       }
     }
   }

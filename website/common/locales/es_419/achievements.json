@@ -75,5 +75,11 @@
     "onboardingComplete": "¡Completaste tus tareas de incorporación!",
     "achievementRosyOutlookModalText": "¡Has domesticado todas las monturas de algodón de azúcar rosa!",
     "achievementRosyOutlookText": "Has domesticado todas las monturas de algodón de azúcar rosa.",
-    "achievementRosyOutlook": "Rosy Outlook"
+    "achievementRosyOutlook": "Rosy Outlook",
+    "achievementBareNecessitiesModalText": "¡Completaste las misiones de las mascotas Mono, Perezoso, y Brote de Árbol!",
+    "achievementBareNecessitiesText": "Ha completado las misiones de las mascotas Mono, Perezoso, y Brote de Árbol. ",
+    "achievementBareNecessities": "Necesidades Básicas",
+    "achievementBugBonanzaModalText": "¡Completaste las misiones de las mascotas Escarabajo, Mariposa, Caracol y Araña!",
+    "achievementBugBonanza": "Bonanza de insectos",
+    "achievementBugBonanzaText": "Completó las misiones de las mascotas Escarabajo, Mariposa, Caracol y Araña."
 }

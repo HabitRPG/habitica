@@ -84,7 +84,7 @@ export default {
       }
 
       &:focus, &:active {
-        outline: 0;
+        outline: 1px solid $purple-400;
       }
     }
 

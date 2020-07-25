@@ -8,6 +8,8 @@ import {
 import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
+import getUtcOffset from '../fns/getUtcOffset';
+
 import statsComputed from '../libs/statsComputed';
 import { checkOnboardingStatus } from '../libs/onboarding';
 
@@ -194,14 +196,14 @@ function _lastHistoryEntryWasToday (lastHistoryEntry, user) {
     return false;
   }
 
-  const { timezoneOffset } = user.preferences;
+  const timezoneUtcOffset = getUtcOffset(user);
   const { dayStart } = user.preferences;
 
   // Adjust the last entry date according to the user's timezone and CDS
-  const dateWithTimeZone = moment(lastHistoryEntry.date).zone(timezoneOffset);
+  const dateWithTimeZone = moment(lastHistoryEntry.date).utcOffset(timezoneUtcOffset);
   if (dateWithTimeZone.hour() < dayStart) dateWithTimeZone.subtract(1, 'day');
 
-  return moment().zone(timezoneOffset).isSame(dateWithTimeZone, 'day');
+  return moment().utcOffset(timezoneUtcOffset).isSame(dateWithTimeZone, 'day');
 }
 
 function _updateLastHistoryEntry (lastHistoryEntry, task, direction, times) {
@@ -233,7 +235,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (
     task.group && task.group.approval && task.group.approval.required
-    && !task.group.approval.approved
+    && !task.group.approval.approved && !(task.type === 'todo' && cron)
   ) return 0;
 
   // This is for setting one-time temporary flags,

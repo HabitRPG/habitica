@@ -25,7 +25,13 @@
           :for="toggleId"
         >
           <span class="toggle-switch-inner"></span>
-          <span class="toggle-switch-switch"></span>
+          <span
+            class="toggle-switch-switch"
+            tabindex="0"
+            @focus="handleFocus"
+            @blur="handleBlur"
+            @keyup.space="handleSpace"
+          ></span>
         </label>
       </div>
     </div>
@@ -116,6 +122,7 @@
 
     &:focus {
       border: 1px solid $purple-400;
+      outline: none;
     }
   }
 
@@ -155,6 +162,7 @@ export default {
       toggleId: this.generateId(),
       // The container requires a unique id to link it to the pop-over
       containerId: this.generateId(),
+      focused: false,
     };
   },
   computed: {
@@ -163,8 +171,19 @@ export default {
     },
   },
   methods: {
+    handleBlur () {
+      this.focused = false;
+    },
     handleChange ({ target: { checked } }) {
       this.$emit('change', checked);
+    },
+    handleFocus () {
+      this.focused = true;
+    },
+    handleSpace () {
+      if (this.focused) {
+        document.getElementById(this.toggleId).click();
+      }
     },
     generateId () {
       return `id-${Math.random().toString(36).substr(2, 16)}`;

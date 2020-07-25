@@ -46,7 +46,8 @@ describe('POST /tasks/:id/score/:direction', () => {
 
     const response = await member.post(`/tasks/${syncedTask._id}/score/${direction}`);
 
-    expect(response.approvalRequested).to.equal(t('taskApprovalHasBeenRequested'));
+    expect(response.data.approvalRequested).to.equal(true);
+    expect(response.message).to.equal(t('taskApprovalHasBeenRequested'));
 
     const updatedTask = await member.get(`/tasks/${syncedTask._id}`);
 

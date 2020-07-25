@@ -25,6 +25,9 @@ const api = {};
  * @apiSuccess {Object[]} data.tasks.*._tmp If an item was dropped when scoring a task it'll
  * be returned in the _tmp object for that task
  *
+ * @apiSuccess (202) {Boolean} data.requiresApproval Approval was requested for team task
+ * @apiSuccess (202) {String} message Acknowledgment of team task approval request
+ *
  * @apiSuccessExample {json} Example result:
  * {"success":true,"data":{"tasks": [{"id": "task id", "delta":0.9746999906450404,
  * "_tmp":{}],"hp":50,

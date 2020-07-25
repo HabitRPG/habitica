@@ -228,7 +228,7 @@ export default {
       const members = await this.$store.dispatch('members:getGroupMembers', { groupId: this.searchId });
       this.group.members = members;
 
-      await this.loadTasks();
+      this.loadTasks();
     },
     async loadTasks () {
       this.tasksByType = {

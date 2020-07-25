@@ -120,7 +120,8 @@ export function canEdit (store) {
 function _nonInteractive (task) {
   return (task.group && task.group.id && !task.userId)
     || (task.challenge && task.challenge.id && !task.userId)
-    || (task.group && task.group.approval && task.group.approval.requested);
+    || (task.group && task.group.approval && task.group.approval.requested
+      && task.type !== 'habit');
 }
 
 export function getTaskClasses (store) {

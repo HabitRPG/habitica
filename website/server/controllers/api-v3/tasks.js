@@ -719,8 +719,10 @@ api.updateTask = {
  *
  * @apiSuccess {Object} data The user stats
  * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
- * @apiSuccess (202) {String} data.approvalRequested Acknowledgment of team task approval request
  * @apiSuccess {Number} data.delta The delta
+ *
+ * @apiSuccess (202) {Boolean} data.requiresApproval Approval was requested for team task
+ * @apiSuccess (202) {String} message Acknowledgment of team task approval request
  *
  * @apiSuccessExample {json} Example result:
  * {"success":true,"data":{"delta":0.9746999906450404,"_tmp":{},"hp":49.06645205596985,
@@ -758,7 +760,7 @@ api.scoreTask = {
 
     // group tasks that require a manager's approval
     if (taskResponse.requiresApproval === true) {
-      res.respond(200, { requiresApproval: true }, taskResponse.message);
+      res.respond(202, { requiresApproval: true }, taskResponse.message);
     } else {
       const resJsonData = _.assign({
         delta: taskResponse.delta,

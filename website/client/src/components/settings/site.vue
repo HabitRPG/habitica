@@ -559,6 +559,7 @@ import resetModal from './resetModal';
 import deleteModal from './deleteModal';
 import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import changeClass from '@/../../common/script/ops/changeClass';
+import getUtcOffset from '@/../../common/script/fns/getUtcOffset';
 import notificationsMixin from '../../mixins/notifications';
 import sounds from '../../libs/sounds';
 import { buildAppleAuthUrl } from '../../libs/auth';
@@ -616,17 +617,8 @@ export default {
       return ['off', ...this.content.audioThemes];
     },
     timezoneOffsetToUtc () {
-      let offset = this.user.preferences.timezoneOffset;
-      const sign = offset > 0 ? '-' : '+';
-
-      offset = Math.abs(offset) / 60;
-
-      const hour = Math.floor(offset);
-
-      const minutesInt = (offset - hour) * 60;
-      const minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
-
-      return `UTC${sign}${hour}:${minutes}`;
+      const offsetString = moment().utcOffset(getUtcOffset(this.user)).format('Z');
+      return `UTC${offsetString}`;
     },
     dayStart () {
       return this.user.preferences.dayStart;
