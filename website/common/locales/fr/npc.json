@@ -90,7 +90,7 @@
     "pathRequired": "La chaîne de chemin d'accès est requise",
     "unlocked": "Les objets ont été débloqués",
     "alreadyUnlocked": "Ensemble complet déjà débloqué.",
-    "alreadyUnlockedPart": "Ensemble déjà partiellement débloqué.",
+    "alreadyUnlockedPart": "Ensemble déjà partiellement débloqué. Il revient moins cher d'acheter les objets restants individuellement.",
     "invalidQuantity": "La quantité à acheter doit être un nombre entier positif.",
     "USD": "(USD)",
     "newStuff": "Nouveautés par Bailey",
@@ -171,5 +171,6 @@
     "paymentAutoRenew": "Cet abonnement se renouvellera automatiquement jusqu'à son annulation. Si vous devez annuler cet abonnement, vous pouvez le faire depuis les paramètres.",
     "paymentCanceledDisputes": "Nous avons envoyé la confirmation d'annulation à votre adresse email. Si vous ne recevez pas cet email, veuillez nous contacter pour éviter de futurs problèmes de facturation.",
     "cannotUnpinItem": "Cet objet ne peut pas être désépinglé.",
-    "paymentSubBillingWithMethod": "Votre abonnement sera facturé <strong><%= amount %></strong> tous les <strong><%= months %> mois</strong> via <strong><%= paymentMethod %></strong>."
+    "paymentSubBillingWithMethod": "Votre abonnement sera facturé <strong><%= amount %></strong> tous les <strong><%= months %> mois</strong> via <strong><%= paymentMethod %></strong>.",
+    "invalidUnlockSet": "Cet ensemble d'objets est invalide et ne peux être débloqué."
 }

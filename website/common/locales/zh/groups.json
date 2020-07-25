@@ -43,7 +43,7 @@
     "errorNotInParty": "你没有参加队伍",
     "noPartyText": "你并不处于一个队伍中或者你的队伍还在载入中。你也可以创建一个新队伍来邀请朋友，或者如果你想加入一个队伍，你可以把下方你的用户ID给他们，然后返回这里查看邀请信息：",
     "LFG": "招募队友，宣传你的队伍，或加入一个已有队伍，请到<%= linkStart %>集结队伍（寻找小组）<%= linkEnd %>公会。",
-    "wantExistingParty": "想加入一个队伍吗？ 点击<%= linkStart %>Party Wanted Guild<%= linkEnd %>把这个用户ID填上：",
+    "wantExistingParty": "想加入一个队伍吗？点击<%= linkStart %>Party Wanted Guild<%= linkEnd %>把这个用户ID填上：",
     "joinExistingParty": "加入别人的队伍",
     "usernameCopied": "用户名已经复制到剪贴板。",
     "needPartyToStartQuest": "哇哦！在你开始一个副本之前，你需要<a href='http://habitica.fandom.com/wiki/Party' target='_blank'>创建或加入一个队伍</a>！",
@@ -383,9 +383,9 @@
     "guildLeader": "公会会长",
     "member": "成员",
     "guildSize": "公会大小",
-    "goldTier": "金奖",
-    "silverTier": "银奖",
-    "bronzeTier": "铜奖",
+    "goldTier": "金牌",
+    "silverTier": "银牌",
+    "bronzeTier": "铜牌",
     "privacySettings": "隐私设置",
     "onlyLeaderCreatesChallenges": "只有公会会长能创建挑战",
     "onlyLeaderCreatesChallengesDetail": "选择此选项后，普通组成员无法为该团队创建挑战。",
@@ -493,5 +493,6 @@
     "selectGift": "选择礼物",
     "PMUnblockUserToSendMessages": "取消阻止该用户以继续发送和接收消息。",
     "PMUserDoesNotReceiveMessages": "这个用户不再接收私人消息",
-    "PMCanNotReply": "你不能回复此谈话"
+    "PMCanNotReply": "你不能回复此谈话",
+    "newPartyPlaceholder": "输入你的队伍名称。"
 }

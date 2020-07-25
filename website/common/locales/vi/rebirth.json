@@ -5,7 +5,7 @@
     "rebirthStartOver": "Phục Sinh sẽ bắt đầu nhân vật của bạn từ Cấp Độ 1",
     "rebirthAdvList1": "Máu của bạn trở lại đầy đủ.",
     "rebirthAdvList2": "Bạn không có Điểm kinh nghiệm hay Vàng.",
-    "rebirthAdvList3": "Những Thói Quen, Công Việc Hằng Ngày và Việc Cần Làm của bạn sẽ reset về màu vàng, và chuỗi công việc sẽ reset, trừ công việc nhiệm vụ ra.",
+    "rebirthAdvList3": "Những Thói Quen, Công Việc Hằng Ngày và Việc Cần Làm của bạn sẽ đặt lại về màu vàng, và chuỗi công việc sẽ đặt lại, trừ công việc nhiệm vụ ra.",
     "rebirthAdvList4": "Bạn sẽ bắt đầu là một Chiến Binh cho đến khi bạn có thể lựa chọn một nhân vật mới.",
     "rebirthInherit": "Nhân vật mới của bạn được thừa hưởng một vài điều từ người tiền nhiệm của mình.",
     "rebirthInList1": "Công việc, lịch sử, trang bị, và cài đặt được giữ nguyên.",
@@ -21,9 +21,10 @@
     "rebirthOrb": "Dùng Thiên Thể Phục Sinh để bắt đầu lại từ đầu sau khi vượt qua cấp độ <%= level %>.",
     "rebirthOrb100": "Dùng Thiên Thể Phục Sinh để bắt đầu lại từ đầu sau khi vượt qua cấp độ 100 hoặc cao hơn.",
     "rebirthOrbNoLevel": "Dùng Viên Ngọc Phục Sinh để bắt đầu lại từ đầu.",
-    "rebirthPop": "Ngay lập tức tái tạo lại nhân vật của bạn như một Chiến binh level 1 trong khi vẫn giữ được thành tích, sưu tầm và trang bị. Nhiệm vụ của bạn và lịch sử của công việc sẽ vẫn còn nhưng chúng sẽ được đặt lại thành màu vàng. Các chuỗi công việc của bạn sẽ được gỡ bỏ ngoại trừ các nhiệm vụ thử thách. Vàng, Kinh nghiệm của bạn, Mana, và các hiệu ứng của tất cả Tuyệt chiêu sẽ bị xóa. Tất cả điều này sẽ có hiệu lực ngay lập tức. Để biết thêm thông tin, hãy xem trang <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Thiên Thể Phục Sinh</a>trên wiki.",
+    "rebirthPop": "Ngay lập tức tái tạo lại nhân vật của bạn là một Chiến binh cấp độ 1 trong khi vẫn giữ được thành tích, sưu tầm và trang bị. Công việc của bạn và lịch sử của công việc sẽ vẫn còn nhưng chúng sẽ được đặt lại thành màu vàng. Các chuỗi công việc của bạn sẽ được gỡ bỏ ngoại trừ các công việc thuộc về Thử thách còn hoạt động và Kế hoạch Nhóm. Vàng, Kinh nghiệm của bạn, Mana, và các hiệu ứng của tất cả Kỹ năng sẽ bị xóa. Tất cả điều này sẽ có hiệu lực ngay lập tức. Để biết thêm thông tin, hãy xem trang <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Quả cầu Phục Sinh</a> trên wiki.",
     "rebirthName": "Thiên Thể Phục Sinh",
     "reborn": "Phục Sinh, cấp độ cao nhất <%= reLevel %>",
     "confirmReborn": "Bạn có chắc không?",
-    "rebirthComplete": "Bạn đã được Phục Sinh!"
+    "rebirthComplete": "Bạn đã được Phục Sinh!",
+    "nextFreeRebirth": "<strong><%= days %> ngày</strong> tới lúc <strong>MIỄN PHÍ</strong> Quả cầu Tái sinh"
 }

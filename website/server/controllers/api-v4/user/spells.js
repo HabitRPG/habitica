@@ -14,6 +14,7 @@ const api = {};
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/user/class/cast/:spellId Cast a skill (spell) on a target
  * @apiName UserCast
  * @apiGroup User

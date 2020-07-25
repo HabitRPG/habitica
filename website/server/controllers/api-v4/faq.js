@@ -33,6 +33,7 @@ function _deleteOtherPlatformsAnswers (faqObject, platform) {
 }
 
 /**
+ * @apiIgnore
  * @api {get} /api/v4/faq Get faq in json format
  * @apiDescription Does not require authentication.
  * @apiName FaqGet

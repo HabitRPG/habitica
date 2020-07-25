@@ -12,7 +12,6 @@ const SLACK_CONFIG = {
 const LOCALES = './website/common/locales/';
 const ENGLISH_LOCALE = `${LOCALES}en/`;
 
-
 function getArrayOfLanguages () {
   const languages = fs.readdirSync(LOCALES);
   languages.shift(); // Remove README.md from array of languages

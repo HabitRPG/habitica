@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Votre ruse augmente la Perception de toute l'équipe ! (Basé sur : Perception sans bonus)",
     "spellRogueStealthText": "Furtivité",
     "spellRogueStealthNotes": "À chaque exécution de ce sort, quelques-unes de vos tâches quotidiennes non réalisées d'ici cette nuit n'infligeront pas de dégâts. Leur combo et leur couleur ne changeront pas. (Basé sur : PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Nombre de quotidiennes évitées : <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Nombre de quotidiennes qui seront évitées : <%= number %>.",
     "spellRogueStealthMaxedOut": "Vous avez déjà évité toutes vos quotidiennes ; nul besoin d'utiliser cette compétence à nouveau.",
     "spellHealerHealText": "Lumière de guérison",
     "spellHealerHealNotes": "Une lumière éblouissante vous soigne ! (Basé sur : Constitution et Intelligence)",

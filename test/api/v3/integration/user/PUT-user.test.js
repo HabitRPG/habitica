@@ -4,7 +4,6 @@ import {
   translate as t,
 } from '../../../../helpers/api-integration/v3';
 
-
 describe('PUT /user', () => {
   let user;
 
@@ -53,7 +52,6 @@ describe('PUT /user', () => {
       expect(user.tags.length).to.be.eql(userTags.length + 1);
     });
 
-
     it('validates profile.name', async () => {
       await expect(user.put('/user', {
         'profile.name': ' ', // string should be trimmed
@@ -93,6 +91,14 @@ describe('PUT /user', () => {
         code: 400,
         error: 'BadRequest',
         message: t('displaynameIssueSlur'),
+      });
+
+      await expect(user.put('/user', {
+        'profile.name': 'namecontainsnewline\n',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('displaynameIssueNewline'),
       });
     });
   });

@@ -432,7 +432,6 @@ describe('User Model', () => {
       user = new User();
     });
 
-
     it('returns false if user does not have customer id', () => {
       expect(user.isSubscribed()).to.be.undefined;
     });
@@ -557,7 +556,6 @@ describe('User Model', () => {
       expect(user.hasNotCancelled()).to.be.false;
     });
   });
-
 
   context('hasCancelled', () => {
     let user;

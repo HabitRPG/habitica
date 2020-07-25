@@ -1,8 +1,8 @@
 {
-  "noItemsAvailableForType": "Nemáš žiadne <%= type %>.",
-  "foodItemType": "Jedlo",
-  "eggsItemType": "Vajíčka",
-  "hatchingPotionsItemType": "Liahoxíry",
-  "specialItemType": "Špeciálne predmety",
-  "lockedItem": "Zamknutý predmet"
+    "noItemsAvailableForType": "Nemáš žiadne <%= type %>.",
+    "foodItemType": "Jedlo pre zvieratá",
+    "eggsItemType": "Vajíčka",
+    "hatchingPotionsItemType": "Liahoxíry",
+    "specialItemType": "Špeciálne predmety",
+    "lockedItem": "Zamknutý predmet"
 }

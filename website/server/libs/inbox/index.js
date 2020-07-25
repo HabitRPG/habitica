@@ -24,7 +24,7 @@ export async function sentMessage (sender, receiver, message, translate) {
         message: messageSent.unformattedText,
         identifier: 'newPM',
         category: 'newPM',
-        payload: { replyTo: sender._id, senderName, message },
+        payload: { replyTo: sender._id, senderName, message: messageSent.unformattedText },
       },
     );
   }

@@ -166,7 +166,7 @@
     "optional": "Facultatif",
     "needsText": "Veuillez écrire un message.",
     "needsTextPlaceholder": "Écrivez votre message ici.",
-    "copyMessageAsToDo": "Copier le message comme A Faire",
+    "copyMessageAsToDo": "Copier le message comme tâche à faire",
     "copyAsTodo": "Copier comme tâche à faire",
     "messageAddedAsToDo": "Message copié comme tâche à faire.",
     "messageWroteIn": "<%= user %> a écrit dans <%= group %>",
@@ -493,5 +493,6 @@
     "selectGift": "Choisir le cadeau",
     "PMUnblockUserToSendMessages": "Débloquez cette personne pour continuer à envoyer et recevoir des messages.",
     "PMUserDoesNotReceiveMessages": "Cette personne ne reçoit plus de messages privés",
-    "PMCanNotReply": "Vous ne pouvez pas répondre à cette conversation"
+    "PMCanNotReply": "Vous ne pouvez pas répondre à cette conversation",
+    "newPartyPlaceholder": "Indiquez le nom de votre équipe."
 }
