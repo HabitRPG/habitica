@@ -91,7 +91,9 @@
               <div
                 class="btn btn-primary checklist-icons"
                 @click="saveWebhook(webhook, index)"
-              > {{ $t('subUpdateTitle') }} </div>
+              >
+                {{ $t('subUpdateTitle') }}
+              </div>
             </td>
           </tr>
           <tr>

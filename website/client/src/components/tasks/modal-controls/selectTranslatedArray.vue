@@ -1,11 +1,13 @@
 <template>
   <div>
-    <select-list :items="items"
-                 :value="selected"
-                 class="array-select"
-                 :class="{disabled: disabled}"
-                 :disabled="disabled"
-                 @select="selectItem($event)">
+    <select-list
+      :items="items"
+      :value="selected"
+      class="array-select"
+      :class="{disabled: disabled}"
+      :disabled="disabled"
+      @select="selectItem($event)"
+    >
       <template v-slot:item="{ item }">
         <span class="label">{{ $t(item) }}</span>
       </template>
@@ -50,6 +52,15 @@ export default {
   components: {
     selectList,
   },
+  props: {
+    items: {
+      type: Array,
+    },
+    disabled: {
+      type: Boolean,
+    },
+    value: [String, Number, Object],
+  },
   data () {
     return {
       selected: this.items.find(i => i === this.value),
@@ -60,15 +71,6 @@ export default {
       this.selected = item;
       this.$emit('select', item);
     },
-  },
-  props: {
-    items: {
-      type: Array,
-    },
-    disabled: {
-      type: Boolean,
-    },
-    value: [String, Number, Object],
   },
 };
 </script>

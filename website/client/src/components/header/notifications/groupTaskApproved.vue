@@ -32,8 +32,8 @@ export default {
   components: {
     BaseNotification,
   },
-  props: ['notification', 'canRemove'],
   mixins: [scoreTask, sync],
+  props: ['notification', 'canRemove'],
   methods: {
     async action () {
       const { task, direction } = this.notification.data;

@@ -3,7 +3,7 @@
     v-if="message"
     class="claim-top-message d-flex align-content-center"
     :class="{ 'approval-action': userIsAdmin || task.group.approval.approved,
-      'approval-pending': !userIsAdmin && !task.group.approval.approved }"
+              'approval-pending': !userIsAdmin && !task.group.approval.approved }"
   >
     <div
       class="m-auto"

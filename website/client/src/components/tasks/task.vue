@@ -3,9 +3,9 @@
     <div
       class="task transition"
       :class="[{
-        'groupTask': task.group.id,
-        'task-not-editable': !teamManagerAccess},
-        `type_${task.type}`
+                 'groupTask': task.group.id,
+                 'task-not-editable': !teamManagerAccess},
+               `type_${task.type}`
       ]"
       @click="castEnd($event, task)"
     >
@@ -187,9 +187,10 @@
                 :class="{open: !task.collapseChecklist}"
                 @click="collapseChecklist(task)"
               >
-                <div v-once
-                     class="svg-icon"
-                     v-html="icons.checklist"
+                <div
+                  v-once
+                  class="svg-icon"
+                  v-html="icons.checklist"
                 ></div>
                 <span>{{ checklistProgress }}</span>
               </div>

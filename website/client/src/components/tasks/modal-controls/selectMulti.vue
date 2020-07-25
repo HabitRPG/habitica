@@ -1,36 +1,40 @@
 multi<template>
   <div>
     <b-dropdown
+      ref="dropdown"
       class="inline-dropdown select-multi"
+      :toggle-class="isOpened ? 'active' : null"
       @show="wasOpened()"
       @hide="hideCallback($event)"
       @toggle="openOrClose($event)"
-      :toggle-class="isOpened ? 'active' : null"
-      ref="dropdown"
     >
       <b-dropdown-header>
         <div class="mb-2">
-          <b-form-input type="text"
-                        :placeholder="searchPlaceholder"
-                        v-model="search"
-                        @keyup.enter="handleSubmit"
+          <b-form-input
+            v-model="search"
+            type="text"
+            :placeholder="searchPlaceholder"
+            @keyup.enter="handleSubmit"
           />
         </div>
 
-        <multi-list v-if="selectedItems.length > 0"
-                    :add-new="addNew"
-                    :pill-invert="pillInvert"
-                    :items="selectedItemsAsObjects"
-                    @remove-item="removeItem($event)"
-                    :max-items="0" />
-
+        <multi-list
+          v-if="selectedItems.length > 0"
+          :add-new="addNew"
+          :pill-invert="pillInvert"
+          :items="selectedItemsAsObjects"
+          :max-items="0"
+          @remove-item="removeItem($event)"
+        />
       </b-dropdown-header>
       <template v-slot:button-content>
-        <multi-list :items="selectedItemsAsObjects"
-                    :add-new="addNew"
-                    :pill-invert="pillInvert"
-                    :empty-message="emptyMessage"
-                    @remove-item="removeItem($event)"/>
+        <multi-list
+          :items="selectedItemsAsObjects"
+          :add-new="addNew"
+          :pill-invert="pillInvert"
+          :empty-message="emptyMessage"
+          @remove-item="removeItem($event)"
+        />
       </template>
       <div
         v-if="addNew || availableToSelect.length > 0"
@@ -43,20 +47,30 @@ multi<template>
         <b-dropdown-item-button
           v-for="item in availableToSelect"
           :key="item.id"
-          @click.prevent.stop="selectItem(item)"
           class="ignore-hide multi-item"
           :class="{ 'none': item.id === 'none', selectListItem: true }"
+          @click.prevent.stop="selectItem(item)"
         >
-          <div class="label" v-markdown="item.name"></div>
-          <div class="challenge" v-if="item.challenge">{{$t('challenge')}}</div>
+          <div
+            v-markdown="item.name"
+            class="label"
+          ></div>
+          <div
+            v-if="item.challenge"
+            class="challenge"
+          >
+            {{ $t('challenge') }}
+          </div>
         </b-dropdown-item-button>
 
-        <div v-if="addNew" class="hint">
-          {{$t('pressEnterToAddTag', { tagName: search })}}
+        <div
+          v-if="addNew"
+          class="hint"
+        >
+          {{ $t('pressEnterToAddTag', { tagName: search }) }}
         </div>
       </div>
     </b-dropdown>
-
   </div>
 </template>
 
@@ -165,6 +179,28 @@ export default {
   components: {
     MultiList,
   },
+  props: {
+    addNew: {
+      type: Boolean,
+      default: false,
+    },
+    allItems: {
+      type: Array,
+    },
+    emptyMessage: {
+      type: String,
+    },
+    pillInvert: {
+      type: Boolean,
+      default: false,
+    },
+    searchPlaceholder: {
+      type: String,
+    },
+    selectedItems: {
+      type: Array,
+    },
+  },
   data () {
     return {
       preventHide: true,
@@ -173,11 +209,47 @@ export default {
       search: '',
     };
   },
+  computed: {
+    selectedItemsIdList () {
+      return this.selectedItems
+        ? this.selectedItems.map(t => t)
+        : [];
+    },
+    allItemsMap () {
+      const obj = {};
+      this.allItems.forEach(t => {
+        obj[t.id] = t;
+      });
+      return obj;
+    },
+    selectedItemsAsObjects () {
+      return this.selectedItems.map(t => this.allItemsMap[t]);
+    },
+    availableToSelect () {
+      const availableItems = this.allItems.filter(t => !this.selectedItemsIdList.includes(t.id));
+
+      const searchString = this.search.toLowerCase();
+
+      const filteredItems = availableItems.filter(i => i.name.toLowerCase().includes(searchString));
+
+      return filteredItems;
+    },
+  },
+  watch: {
+    selected () {
+      this.$emit('changed', this.selected);
+    },
+  },
   created () {
     document.addEventListener('keyup', this.handleEsc);
   },
   beforeDestroy () {
     document.removeEventListener('keyup', this.handleEsc);
+  },
+  mounted () {
+    this.$refs.dropdown.clickOutHandler = () => {
+      this.closeSelectPopup();
+    };
   },
   methods: {
     closeSelectPopup () {
@@ -231,64 +303,6 @@ export default {
 
       this.search = '';
     },
-  },
-  computed: {
-    selectedItemsIdList () {
-      return this.selectedItems
-        ? this.selectedItems.map(t => t)
-        : [];
-    },
-    allItemsMap () {
-      const obj = {};
-      this.allItems.forEach(t => {
-        obj[t.id] = t;
-      });
-      return obj;
-    },
-    selectedItemsAsObjects () {
-      return this.selectedItems.map(t => this.allItemsMap[t]);
-    },
-    availableToSelect () {
-      const availableItems = this.allItems.filter(t => !this.selectedItemsIdList.includes(t.id));
-
-      const searchString = this.search.toLowerCase();
-
-      const filteredItems = availableItems.filter(i => i.name.toLowerCase().includes(searchString));
-
-      return filteredItems;
-    },
-  },
-  props: {
-    addNew: {
-      type: Boolean,
-      default: false,
-    },
-    allItems: {
-      type: Array,
-    },
-    emptyMessage: {
-      type: String,
-    },
-    pillInvert: {
-      type: Boolean,
-      default: false,
-    },
-    searchPlaceholder: {
-      type: String,
-    },
-    selectedItems: {
-      type: Array,
-    },
-  },
-  watch: {
-    selected () {
-      this.$emit('changed', this.selected);
-    },
-  },
-  mounted () {
-    this.$refs.dropdown.clickOutHandler = () => {
-      this.closeSelectPopup();
-    };
   },
 };
 </script>
