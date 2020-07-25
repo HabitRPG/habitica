@@ -201,6 +201,7 @@
     border-color: transparent;
     transition: background 0.15s ease-in;
     resize: none;
+    overflow: hidden;
 
     &:hover {
       background-color: rgba($black, 0.1);

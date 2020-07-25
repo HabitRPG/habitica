@@ -79,19 +79,19 @@
               >
             </td>
             <td>
-              <a
-                class="btn btn-warning checklist-icons"
+              <div
+                class="btn btn-danger checklist-icons mr-2"
                 @click="deleteWebhook(webhook, index)"
               >
                 <span
                   class="glyphicon glyphicon-trash"
                   :tooltip="$t('delete')"
-                >Delete</span>
-              </a>
-              <a
-                class="btn btn-success checklist-icons"
+                > {{ $t('delete') }} </span>
+              </div>
+              <div
+                class="btn btn-primary checklist-icons"
                 @click="saveWebhook(webhook, index)"
-              >Update</a>
+              > {{ $t('subUpdateTitle') }} </div>
             </td>
           </tr>
           <tr>

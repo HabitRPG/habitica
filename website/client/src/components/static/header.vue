@@ -128,7 +128,7 @@
     </div>
     <router-link
       v-if="$route.name === 'home'"
-      class="btn btn-primary login-button pull-right"
+      class="btn btn-primary btn-front login-button pull-right"
       to="/login"
     >
       {{ $t('login') }}

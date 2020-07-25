@@ -235,7 +235,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (
     task.group && task.group.approval && task.group.approval.required
-    && !task.group.approval.approved
+    && !task.group.approval.approved && !(task.type === 'todo' && cron)
   ) return 0;
 
   // This is for setting one-time temporary flags,
