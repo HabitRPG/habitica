@@ -17,8 +17,8 @@ const IS_TEST = process.env.NODE_ENV === 'test'; // eslint-disable-line no-proce
 // before trying to load data
 let isUserLoggedIn = false;
 
-// eg, 240 - this will be converted on server as -(offset/60)
-const browserTimezoneOffset = moment().zone();
+// eg, -240 - this will be converted on server as (offset/60)
+const browserTimezoneUtcOffset = moment().utcOffset();
 
 axios.defaults.headers.common['x-client'] = 'habitica-web';
 
@@ -71,7 +71,7 @@ export default function () {
       // store the timezone offset in case it's different than the one in
       // user.preferences.timezoneOffset and change it after the user is synced
       // in app.vue
-      browserTimezoneOffset,
+      browserTimezoneUtcOffset,
       tasks: asyncResourceFactory(), // user tasks
       // @TODO use asyncresource?
       completedTodosStatus: 'NOT_LOADED',
