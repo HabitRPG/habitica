@@ -10,6 +10,7 @@ import {
   model as Group,
 } from '../models/group';
 import apiError from './apiError';
+import { chillingFrostAlreadyCast } from '../../common/script/content/spells';
 
 const partyMembersFields = 'profile.name stats achievements items.special notifications flags pinnedItems';
 // Excluding notifications and flags from the list of public fields to return.
@@ -163,23 +164,26 @@ async function castSpell (req, res, { isV3 = false }) {
       task: results[1],
     });
   } else if (targetType === 'self') {
-    // Check if chilling frost or stealh skill has been previously casted or not.
+    // Check if chilling frost skill has been previously casted or not.
     // See #12361 for more details.
     const spellName = spell.key;
-    const incompleteDailiesDue = await Tasks.Task.find({
-      userId: user._id,
-      type: 'daily',
-      $and: [
-        {type: 'daily', completed: false, isDue: true },
-      ],
-    }).exec();
-    if (spellName === 'frost' && user.stats.buffs.streaks) {
+    if (!chillingFrostAlreadyCast(spellName, user)) {
       throw new BadRequest(res.t('spellWizardFrostAlreadyCast'));
     }
-    else if (spellName === 'stealth' && user.stats.buffs.stealth >= incompleteDailiesDue.length) {
-      throw new BadRequest(res.t('spellRogueStealthMaxedOut'));
-    } 
     else {
+      // Check if stealth skill has been previously casted or not.
+      // See #12361 for more details.
+      if(spellName === 'stealth') {
+        const incompleteDailiesDue = await Tasks.Task.countDocuments({
+          userId: user._id,
+          type: 'daily',
+          completed: false,
+          isDue: true,
+        }).exec();
+        if(user.stats.buffs.stealth >= incompleteDailiesDue) {
+          throw new BadRequest(res.t('spellRogueStealthMaxedOut'));
+        }
+      }
       await castSelfSpell(req, user, spell, quantity);
 
       let userToJson = user;

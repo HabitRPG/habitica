@@ -161,7 +161,7 @@ describe('POST /user/class/cast/:spellId', () => {
       });
   });
 
-  it.only('Issue #12361: returns an error if chilling frost has already been cast', async () => {
+  it('Issue #12361: returns an error if chilling frost has already been cast', async () => {
     await user.update({
       'stats.class': 'wizard',
       'stats.lvl': 15,
