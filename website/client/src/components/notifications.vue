@@ -2,7 +2,7 @@
   <div>
     <yesterdaily-modal
       :yester-dailies="yesterDailies"
-      @run-cron="runYesterDailiesAction()"
+      :cron-action="runCronAction"
     />
     <armoire-empty />
     <new-stuff />
@@ -692,18 +692,16 @@ export default {
       });
 
       if (this.yesterDailies.length === 0) {
-        this.runYesterDailiesAction();
+        this.runCronAction();
         return;
       }
 
       this.levelBeforeYesterdailies = this.user.stats.lvl;
       this.$root.$emit('bv::show::modal', 'yesterdaily');
     },
-    async runYesterDailiesAction () {
+    async runCronAction () {
       // Run Cron
       await axios.post('/api/v4/cron');
-
-      // Notifications
 
       // Sync
       await Promise.all([

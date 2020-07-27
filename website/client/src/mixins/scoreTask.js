@@ -54,7 +54,11 @@ export default {
       }
 
       Analytics.updateUser();
-      const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);
+      const response = await this.$store.dispatch('tasks:score', {
+        taskId: task._id,
+        direction,
+      });
+
       // used to notify drops, critical hits and other bonuses
       const tmp = response.data.data._tmp || {};
       const { crit } = tmp;

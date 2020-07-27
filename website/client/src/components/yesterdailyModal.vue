@@ -21,14 +21,17 @@
         :task="task"
         :is-user="true"
         :due-date="dueDate"
+        :is-yesterdaily="true"
       />
     </div>
     <div class="start-day text-center">
       <button
+        :disabled="isLoading"
         class="btn btn-primary"
-        @click="close()"
+        @click="processYesterdailies()"
       >
-        <loading-spinner />
+        <span v-if="!isLoading">{{ $t('yesterDailiesCallToAction') }}</span>
+        <loading-spinner v-else />
       </button>
     </div>
   </b-modal>
@@ -87,9 +90,17 @@ export default {
     Task,
     LoadingSpinner,
   },
-  props: ['yesterDailies'],
+  props: {
+    yesterDailies: {
+      type: Array,
+    },
+    cronAction: {
+      type: Function,
+    },
+  },
   data () {
     return {
+      isLoading: false,
       dueDate: moment().subtract(1, 'days'),
     };
   },
@@ -104,9 +115,22 @@ export default {
     },
   },
   methods: {
-    async close () {
+    async processYesterdailies () {
+      if (this.isLoading) return;
+      this.isLoading = true;
+
+      const bulkScoreParams = this.yesterDailies
+        .filter(yesterdaily => yesterdaily.completed)
+        .map(yesterdaily => ({ id: yesterdaily._id, direction: 'up' }));
+
+      if (bulkScoreParams.length > 0) {
+        await this.$store.dispatch('tasks:bulkScore', bulkScoreParams);
+      }
+
+      await this.cronAction();
+
       this.$root.$emit('bv::hide::modal', 'yesterdaily');
-      this.$emit('run-cron');
+      this.isLoading = false;
     },
   },
 };

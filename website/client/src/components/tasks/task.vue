@@ -846,7 +846,18 @@ export default {
     markdown: markdownDirective,
   },
   mixins: [scoreTask],
-  props: ['task', 'isUser', 'group', 'challenge', 'dueDate'], // @TODO: maybe we should store the group on state?
+  // @TODO: maybe we should store the group on state?
+  props: {
+    task: {},
+    isUser: {},
+    group: {},
+    challenge: {},
+    dueDate: {},
+    isYesterdaily: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       random: uuid(), // used to avoid conflicts between checkboxes ids
@@ -1042,7 +1053,11 @@ export default {
       setTimeout(() => this.$root.$emit('castEnd', task, 'task', e), 0);
     },
     score (direction) {
-      this.taskScore(this.task, direction);
+      if (this.isYesterdaily === true) {
+        this.task.completed = !this.task.completed;
+      } else {
+        this.taskScore(this.task, direction);
+      }
     },
     handleBrokenTask (task) {
       if (this.$store.state.isRunningYesterdailies) return;
