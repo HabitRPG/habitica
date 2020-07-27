@@ -416,11 +416,10 @@ function _getMembersForItem (type) {
  *                                 get the next batch of results.
  * @apiParam (Query) {Number} limit=30 BETA Query parameter
  *                                     to specify the number of results to return. Max is 60.
- * @apiParam (Query) {Boolean} includeAllPublicFields Query parameter available
- *                                                    only when fetching a party. If === `true`
+ * @apiParam (Query) {Boolean} includeAllPublicFields If set to `true`
  *                                                    then all public fields for members
- *                                                    will be returned (like when making a request
- *                                                    for a single member).
+ *                                                    will be returned (similar to when making
+ *                                                    a request for a single member).
  *
  * @apiSuccess {Array} data An array of members, sorted by _id
  *
@@ -462,6 +461,10 @@ api.getMembersForGroup = {
  *                                 get the next batch of results.
  * @apiParam (Query) {Number} limit=30 BETA Query parameter
  *                                     to specify the number of results to return. Max is 60.
+ * @apiParam (Query) {Boolean} includeAllPublicFields If set to `true`
+ *                                                    then all public fields for members
+ *                                                    will be returned (similar to when making
+ *                                                    a request for a single member).
  *
  * @apiSuccess {array} data An array of invites, sorted by _id
  *
@@ -508,6 +511,10 @@ api.getInvitesForGroup = {
  *                                 get the next batch of results.
  * @apiParam (Query) {Number} limit=30 BETA Query parameter to
  *                                     specify the number of results to return. Max is 60.
+ * @apiParam (Query) {Boolean} includeAllPublicFields If set to `true`
+ *                                                    then all public fields for members
+ *                                                    will be returned (similar to when making
+ *                                                    a request for a single member).
  * @apiParam (Query) {String} includeAllMembers BETA Query parameter - If 'true' all
  *                                              challenge members are returned.
 
