@@ -35,7 +35,7 @@ api.getNews = {
           </div>
         </div>
         <hr/>
-        <div class="achievement_freshwaterFriends2x center-block"></div>
+        <div class="achievement-freshwaterFriends2x center-block"></div>
         <p>
           We're releasing a new achievement so you can celebrate your successes in the world of
           Habitican Pet collecting! Earn the Freshwater Friends achievement by collecting all
