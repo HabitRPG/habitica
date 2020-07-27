@@ -544,20 +544,23 @@ api.joinGroup = {
       // Check if was invited to party
       const inviterParty = _.find(user.invitations.parties, { id: group._id });
       if (inviterParty) {
-        inviter = inviterParty.inviter;
+        // Check if the user is already a member of the party or not. Only make the user leave the
+        // party if the user is not a member of the party. See #12291 for more details.
+        if (user.party._id !== group._id) {
+          inviter = inviterParty.inviter;
 
-        // If user was in a different party (when partying solo you can be invited to a new party)
-        // make them leave that party before doing anything
-        if (user.party._id) {
-          const userPreviousParty = await Group.getGroup({ user, groupId: user.party._id });
+          // If user was in a different party (when partying solo you can be invited to a new party)
+          // make them leave that party before doing anything
+          if (user.party._id) {
+            const userPreviousParty = await Group.getGroup({ user, groupId: user.party._id });
 
-          if (userPreviousParty.memberCount === 1 && user.party.quest.key) {
-            throw new NotAuthorized(res.t('messageCannotLeaveWhileQuesting'));
+            if (userPreviousParty.memberCount === 1 && user.party.quest.key) {
+              throw new NotAuthorized(res.t('messageCannotLeaveWhileQuesting'));
+            }
+
+            if (userPreviousParty) await userPreviousParty.leave(user);
           }
-
-          if (userPreviousParty) await userPreviousParty.leave(user);
         }
-
         // Clear all invitations of new user
         user.invitations.parties = [];
         user.invitations.party = {};
@@ -603,7 +606,14 @@ api.joinGroup = {
       group.leader = user._id; // If new user is only member -> set as leader
     }
 
-    group.memberCount += 1;
+    if (group.type === 'party') {
+      // For parties we count the number of members from the database to get the correct value.
+      // See #12275 on why this is necessary and only done for parties.
+      const currentMembers = await group.getMemberCount();
+      group.memberCount = currentMembers + 1;
+    } else {
+      group.memberCount += 1;
+    }
 
     let promises = [group.save(), user.save()];
 
@@ -948,7 +958,14 @@ api.removeGroupMember = {
     }
 
     if (isInGroup) {
-      group.memberCount -= 1;
+      // For parties we count the number of members from the database to get the correct value.
+      // See #12275 on why this is necessary and only done for parties.
+      if (group.type === 'party') {
+        const currentMembers = await group.getMemberCount();
+        group.memberCount = currentMembers - 1;
+      } else {
+        group.memberCount -= 1;
+      }
 
       if (group.quest && group.quest.leader === member._id) {
         group.quest.key = undefined;

@@ -1,5 +1,5 @@
 {
-    "termsAndAgreement": "<a href='/static/privacy'>아래에 있는 버튼을 클릭함으로써, 당신은 당신이 서비스 약관<a href='/static/terms'> 과 <a href='/static/privacy'> 개인정보 정책 </a>을 읽었고 이에 동의했음을 나타냅니다.",
+    "termsAndAgreement": "아래에 있는 버튼을 클릭함으로써, 당신은 당신이 서비스 약관<a href='/static/terms'> 과 <a href='/static/privacy'> 개인정보 정책 을 읽었고 이에 동의했음을 나타냅니다</a>.",
     "FAQ": "FAQ",
     "althaireQuote": "정기적으로 퀘스트를 하는건 내가 모든 일일과제와 해야 할 일을 하도록 동기를 부여해줘요. 저의 가장 큰 동기부여는 제 파티의 기대를 저버리지 않도록 하는 것입니다.",
     "sendLink": "링크 보내기",
@@ -8,7 +8,7 @@
     "forgotPassword": "비밀번호를 잊으셨습니까?",
     "elmiQuote": "매일 아침 저는 일어나면서 골드를 벌 수 있기를 기대해요!",
     "dreimQuote": "지난 여름 제가 [Habitica]를 발견했을 즈음이, 전체 시험 과목의 반 정도를 불합격했던 때였어요. 일일 과제 덕분에… 저는 스스로 준비하고 단련할 수 있었고, 실제로 몇 달 전 좋은 성적으로 모든 시험을 통과했어요.",
-    "dragonsilverQuote": "얼마나 긴 시간이라 말하긴 어렵지만 저는 수십 년 동안 과제를 정리하는 여러 방법을 시도해 왔어요… [Habitica]는 실제로 제가 과제를 단순히 리스트로 만들었을 때보다 정확히 완료하도록 도운 유일한 방법입니다.",
+    "dragonsilverQuote": "제가 수십 년 동안 시간과 과제를 정리하는 많은 방법들을 말할 수도 없어요… [Habitica]는 제가 과제를 단순히 리스트로 만들기보다 정확히 완료하도록 도운 유일한 방법입니다.",
     "companyVideos": "동영상",
     "companyPrivacy": "사생활",
     "companyDonate": "기부하기",

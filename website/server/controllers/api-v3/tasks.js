@@ -658,7 +658,7 @@ api.updateTask = {
     if (!challenge && task.userId && task.challenge && task.challenge.id) {
       sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
     } else if (!group && task.userId && task.group && task.group.id) {
-      sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
+      sanitizedObj = Tasks.Task.sanitizeUserGroupTask(updatedTaskObj);
     } else {
       sanitizedObj = Tasks.Task.sanitize(updatedTaskObj);
     }
@@ -676,6 +676,9 @@ api.updateTask = {
     }
     if (sanitizedObj.sharedCompletion) {
       task.group.sharedCompletion = sanitizedObj.sharedCompletion;
+    }
+    if (sanitizedObj.managerNotes) {
+      task.group.managerNotes = sanitizedObj.managerNotes;
     }
 
     setNextDue(task, user);
@@ -719,6 +722,8 @@ api.updateTask = {
  *
  * @apiSuccess {Object} data The user stats
  * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
+ * @apiSuccess (202) {Boolean} data.approvalRequested Approval was requested for team task
+ * @apiSuccess (202) {String} message Acknowledgment of team task approval request
  * @apiSuccess {Number} data.delta The delta
  *
  * @apiSuccessExample {json} Example result:
@@ -811,7 +816,22 @@ api.scoreTask = {
         managerPromises.push(task.save());
         await Promise.all(managerPromises);
 
-        throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
+        res.respond(
+          202,
+          { approvalRequested: true },
+          res.t('taskApprovalHasBeenRequested'),
+        );
+        return;
+      }
+    }
+
+    if (task.group.approval.required && task.group.approval.approved) {
+      const notificationIndex = user.notifications.findIndex(notification => notification
+         && notification.data && notification.data.task
+         && notification.data.task._id === task._id && notification.type === 'GROUP_TASK_APPROVED');
+
+      if (notificationIndex !== -1) {
+        user.notifications.splice(notificationIndex, 1);
       }
     }
 

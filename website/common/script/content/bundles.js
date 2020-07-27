@@ -126,7 +126,7 @@ const bundles = {
       'octopus',
     ],
     canBuy () {
-      return moment().isBetween('2018-06-12', '2018-07-02');
+      return moment().isBetween('2020-07-14', '2020-08-02');
     },
     type: 'quests',
     value: 7,

@@ -245,7 +245,6 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
     });
   }
 
-
   const subscriptionBlock = common.content.subscriptionBlocks[planId];
   const subscriptionLength = subscriptionBlock.months * 30;
 
@@ -345,7 +344,6 @@ api.subscribe = async function subscribe (options) {
     groupId,
   });
 };
-
 
 api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMember (group) {
   // @TODO: Can we get this from the content plan?

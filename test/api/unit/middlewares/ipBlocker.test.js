@@ -57,7 +57,7 @@ describe('ipBlocker middleware', () => {
   });
 
   it('does not throw when the ip does not match', () => {
-    req.headers['x-forwarded-for'] = '192.168.1.1';
+    req.ip = '192.168.1.1';
     sandbox.stub(nconf, 'get').withArgs('BLOCKED_IPS').returns('192.168.1.2');
     const attachIpBlocker = requireAgain(pathToIpBlocker).default;
     attachIpBlocker(req, res, next);
@@ -65,27 +65,9 @@ describe('ipBlocker middleware', () => {
     checkErrorNotThrown(next);
   });
 
-  it('throws when a matching ip exist in x-forwarded-for', () => {
-    req.headers['x-forwarded-for'] = '192.168.1.1';
+  it('throws when the ip is blocked', () => {
+    req.ip = '192.168.1.1';
     sandbox.stub(nconf, 'get').withArgs('BLOCKED_IPS').returns('192.168.1.1');
-    const attachIpBlocker = requireAgain(pathToIpBlocker).default;
-    attachIpBlocker(req, res, next);
-
-    checkErrorThrown(next);
-  });
-
-  it('trims ips in x-forwarded-for', () => {
-    req.headers['x-forwarded-for'] = '192.168.1.1';
-    sandbox.stub(nconf, 'get').withArgs('BLOCKED_IPS').returns(',  192.168.1.1 ,   192.168.1.4, ');
-    const attachIpBlocker = requireAgain(pathToIpBlocker).default;
-    attachIpBlocker(req, res, next);
-
-    checkErrorThrown(next);
-  });
-
-  it('works when multiple ips are passed in x-forwarded-for', () => {
-    req.headers['x-forwarded-for'] = '192.168.1.4';
-    sandbox.stub(nconf, 'get').withArgs('BLOCKED_IPS').returns('192.168.1.1, 192.168.1.4, 192.168.1.3');
     const attachIpBlocker = requireAgain(pathToIpBlocker).default;
     attachIpBlocker(req, res, next);
 

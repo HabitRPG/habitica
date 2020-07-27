@@ -1,7 +1,9 @@
 <template>
   <div class="checklist-component">
-    <label v-once class="mb-1">{{ $t('checklist') }}</label>
-    <br>
+    <lockable-label
+      :locked="disabled || disableItems"
+      :text="$t('checklist')"
+    />
     <draggable
       v-model="checklist"
       :options="{
@@ -17,44 +19,50 @@
         class="inline-edit-input-group checklist-group input-group"
       >
         <span
+          v-if="!disabled && !disableDrag"
           class="grippy"
           v-html="icons.grip"
-          v-if="!disabled"
         >
         </span>
 
-        <checkbox :checked.sync="item.completed"
-                  :disabled="disabled"
-                  class="input-group-prepend"
-                  :class="{'cursor-auto': disabled}"
-                  :id="`checklist-${item.id}`"/>
+        <checkbox
+          :id="`checklist-${item.id}`"
+          :checked.sync="item.completed"
+          :disabled="disabled || disableItems"
+          class="input-group-prepend"
+          :class="{'cursor-auto': disabled || disableItems}"
+        />
 
         <input
           v-model="item.text"
           class="inline-edit-input checklist-item form-control"
           type="text"
-          :disabled="disabled"
+          :disabled="disabled || disableItems"
         >
         <span
+          v-if="!disabled && !disableItems"
           class="input-group-append"
-          v-if="!disabled"
           @click="removeChecklistItem($index)"
         >
-          <div v-once
-               class="svg-icon destroy-icon"
-               v-html="icons.destroy"
+          <div
+            v-once
+            class="svg-icon destroy-icon"
+            v-html="icons.destroy"
           >
           </div>
         </span>
       </div>
     </draggable>
     <div
+      v-if="!disabled && !disableItems"
       class="inline-edit-input-group checklist-group input-group new-checklist"
-      v-if="!disabled"
+      :class="{'top-border': items.length === 0}"
     >
-      <span class="input-group-prepend new-icon"
-            v-once
-            v-html="icons.positive">
+      <span
+        v-once
+        class="input-group-prepend new-icon"
+        v-html="icons.positive"
+      >
       </span>
 
       <input
@@ -80,13 +88,29 @@ import deleteIcon from '@/assets/svg/delete.svg';
 import chevronIcon from '@/assets/svg/chevron.svg';
 import gripIcon from '@/assets/svg/grip.svg';
 import checkbox from '@/components/ui/checkbox';
+import lockableLabel from './lockableLabel';
 
 export default {
+  name: 'Checklist',
   components: {
-    draggable,
     checkbox,
+    draggable,
+    lockableLabel,
   },
-  name: 'checklist',
+  props: {
+    disabled: {
+      type: Boolean,
+    },
+    disableDrag: {
+      type: Boolean,
+    },
+    disableItems: {
+      type: Boolean,
+    },
+    items: {
+      type: Array,
+    },
+  },
   data () {
     return {
       checklist: this.items,
@@ -99,14 +123,6 @@ export default {
         grip: gripIcon,
       }),
     };
-  },
-  props: {
-    disabled: {
-      type: Boolean,
-    },
-    items: {
-      type: Array,
-    },
   },
   methods: {
     updateChecklist () {
@@ -150,12 +166,20 @@ export default {
 
   .checklist-component {
 
+    .top-border {
+      border-top: 1px solid $gray-500;
+    }
+
+    .lock-icon {
+      color: $gray-200;
+    }
+
     .checklist-group {
       height: 2rem;
-      border-top: 1px solid $gray-500;
+      border-bottom: 1px solid $gray-500;
 
-      &.new-checklist {
-        border-bottom: 1px solid $gray-500;
+      &:first-of-type {
+        border-top: 1px solid $gray-500;
       }
 
       .inline-edit-input  {
@@ -164,7 +188,7 @@ export default {
 
       .input-group-prepend {
         margin-left: 0.375rem;
-        margin-top: 0.475rem;
+        margin-top: 0.375rem;
         margin-right: 0;
         padding: 0;
         &:not(.new-icon) {
@@ -175,6 +199,8 @@ export default {
           margin-left: 0.688rem;
           margin-top: 0.625rem;
           margin-bottom: 0.625rem;
+          height: 10px;
+          width: 13px;
         }
       }
 
@@ -258,15 +284,6 @@ export default {
           opacity: 1;
         }
       }
-    }
-
-    label {
-      height: 1.5rem;
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 1.71;
-      letter-spacing: normal;
-      color: $gray-50;
     }
   }
 </style>

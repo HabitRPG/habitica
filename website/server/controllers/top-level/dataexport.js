@@ -317,7 +317,7 @@ api.exportUserPrivateMessages = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    const { timezoneOffset } = user.preferences;
+    const timezoneUtcOffset = user.getUtcOffset();
     const dateFormat = user.preferences.dateFormat.toUpperCase();
     const TO = res.t('to');
     const FROM = res.t('from');
@@ -329,7 +329,7 @@ api.exportUserPrivateMessages = {
     inbox.forEach((message, index) => {
       const recipientLabel = message.sent ? TO : FROM;
       const messageUser = message.user;
-      const timestamp = moment.utc(message.timestamp).zone(timezoneOffset).format(`${dateFormat} HH:mm:ss`);
+      const timestamp = moment.utc(message.timestamp).utcOffset(timezoneUtcOffset).format(`${dateFormat} HH:mm:ss`);
       const text = md.render(message.text);
       const pageIndex = `(${index + 1}/${inbox.length})`;
       messages += `

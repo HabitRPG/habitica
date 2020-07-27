@@ -74,7 +74,6 @@ export function setUserStyles (newMessage, user) {
     userStyles.items.currentPet = userCopy.items.currentPet;
   }
 
-
   if (userCopy.preferences) {
     userStyles.preferences = {};
     if (userCopy.preferences.style) userStyles.preferences.style = userCopy.preferences.style;

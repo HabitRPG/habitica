@@ -201,7 +201,7 @@
     "hatchingPotionThunderstorm": "Burzowy",
     "hatchingPotionGhost": "Duch",
     "hatchingPotionRoyalPurple": "Purpura królewska",
-    "hatchingPotionHolly": "Ostrokrzewowy",
+    "hatchingPotionHolly": "Świąteczny",
     "hatchingPotionCupid": "Amor",
     "hatchingPotionShimmer": "Migoczący",
     "hatchingPotionFairy": "Bajeczny",
@@ -356,5 +356,7 @@
     "hatchingPotionAmber": "Bursztynowy",
     "hatchingPotionRuby": "Rubinowy",
     "hatchingPotionDessert": "Słodyczowy",
-    "hatchingPotionBirchBark": "Kora Brzozowa"
+    "hatchingPotionBirchBark": "Kora Brzozowa",
+    "hatchingPotionSandSculpture": "Piaskowa Rzeźba",
+    "hatchingPotionFluorite": "Fluorytowy"
 }

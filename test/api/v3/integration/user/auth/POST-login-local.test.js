@@ -10,7 +10,6 @@ import {
   sha1Encrypt as sha1EncryptPassword,
 } from '../../../../../../website/server/libs/password';
 
-
 describe('POST /user/auth/local/login', () => {
   let api;
   let user;

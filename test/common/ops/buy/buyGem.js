@@ -75,7 +75,6 @@ describe('shared.ops.buyGem', () => {
       expect(user.stats.gp).to.equal(goldPoints - planGemLimits.convRate * 2);
     });
 
-
     context('Failure conditions', () => {
       it('returns an error when key is not provided', done => {
         try {

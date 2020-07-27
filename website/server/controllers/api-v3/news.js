@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR MULTICHROME MERFOLK SET!';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG POSTS: CHALLENGES AND CATHB’S FAVORITES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,19 +31,43 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>6/29/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/23/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_202006 center-block"></div>
+        <div class="scene_tools center-block"></div>
+        <h3>Use Case Spotlight: Challenges</h3>
         <p>
-          Reminder: this is the last day to receive the Multichrome Merfolk Set when you <a
-          href='/user/settings/subscription'>sign up for a new Habitica subscription</a>!
-          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
-          you can get!
+          This month's <a
+          href='https://habitica.wordpress.com/2020/07/23/use-case-spotlight-challenges/'
+          target='_blank'>Use Case Spotlight</a> is about Challenges! It features a number of great
+          suggestions submitted by Habiticans in the <a
+          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
+          We hope it helps any of you who might be looking for a fun motivation and accountability
+          boost.
         </p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <p>
+          Plus, we're collecting user submissions for the next spotlight! How do you use Habitica
+          to help you support your friends and family? We’ll be featuring player-submitted examples
+          in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the
+          Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica
+          to improve your life and get things done!
+        </p>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="scene_cathb center-block"></div>
+        <h3>Guild Spotlight: CathB's Favorites</h3>
+        <p>
+          For this year's Guild Spotlight series, we're highlighting some favorites from Habitica's
+          staff, moderators, and some high-level contributors!
+        </p>
+        <p>
+          This month we're sharing some <a
+          href='https://habitica.wordpress.com/2020/07/23/guild-spotlights-our-favourites-6/'
+          target='_blank'>picks from longtime socialite CathB!</a> If you want to curate your
+          Habitica experience and join active, positive Guilds, this is a great way to pick up some
+          new ideas for Guilds to join.
+        </p>
+        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });

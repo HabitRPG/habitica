@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Xóa Công việc đã hoàn thành",
-    "clearCompletedDescription": "Những Việc cần làm đã hoàn thành sẽ được xóa sau 30 ngày cho người không đăng ký và 90 ngày cho những người đăng ký.",
+    "clearCompletedDescription": "Những Việc cần làm đã hoàn thành sẽ được xóa sau 30 ngày cho người không đăng ký và 90 ngày cho Người đăng ký.",
     "clearCompletedConfirm": "Có chắc là bạn muốn xóa những Việc cần làm đã hoàn thành của mình không?",
     "sureDeleteCompletedTodos": "Có chắc là bạn muốn xóa những Việc cần làm đã hoàn thành của mình không?",
     "lotOfToDos": "30 Việc cần làm đã hoàn thành gần đây nhất của bạn được hiển thị ở đây. Bạn có thể xem việc cần làm đã hoàn thành cũ hơn từ Dữ liệu > Công cụ hiển thị dữ liệu hoặc Dữ liệu > Xuất dữ liệu > Dữ liệu người dùng.",
@@ -70,7 +70,7 @@
     "resetStreak": "Đặt lại streak",
     "todo": "Việc cần làm",
     "todos": "Việc cần làm",
-    "newTodo": "Thêm việc cần làm",
+    "newTodo": "Việc cần làm mới",
     "newTodoBulk": "Việc Cần Làm mới (một cho mỗi dòng)",
     "todosDesc": "Việc cần làm cần được hoàn thành một lần. Thêm danh mục vào Việc cần làm của bạn để tăng giá trị của chúng.",
     "dueDate": "Thời hạn",
@@ -137,7 +137,7 @@
     "dailyHelp4": "Để thay đổi thời điểm bắt đầu ngày mới của bạn, hãy tới <%= linkStart %> Cài Đặt > Trang<%= linkEnd %> > Tuỳ Chọn Bắt Đầu Ngày.",
     "dailyHelp5": "Để có ý tưởng, hãy xem <a href='http://habitica.wikia.com/wiki/Sample_Dailies' target='_blank'>mẫu Việc Hàng Ngày</a>!",
     "toDoHelp1": "Việc Cần Làm bắt đầu từ màu vàng, và sẽ đỏ dần (giá trị hơn) theo thời gian bạn cần để hoàn thành nó.",
-    "toDoHelp2": "Việc Hàng Ngày sẽ không bao giờ làm thương bạn! Chúng sẽ luôn cho bạn Vàng và Điểm Kinh Nghiệm.",
+    "toDoHelp2": "Việc cần làm sẽ không bao giờ làm thương bạn! Chúng sẽ luôn cho bạn Vàng và Điểm Kinh Nghiệm.",
     "toDoHelp3": "Chia nhỏ Việc Cần Làm thành một danh mục những việc nhỏ sẽ làm nó nhìn đỡ sợ hơn, và sẽ tăng Điểm Kinh Nghiệm cho bạn nữa!",
     "toDoHelp4": "Để có ý tưởng, hãy xem <a href='http://habitica.wikia.com/wiki/Sample_To-Dos' target='_blank'>mẫu Việc Cần Làm</a>!",
     "rewardHelp1": "Trang Bị bạn mua cho hình đại diện của bạn được lưu tại <%= linkStart %>Kho Hàng > Trang Bị<%= linkEnd %>.",
@@ -151,7 +151,7 @@
     "invalidTasksType": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\".",
     "invalidTasksTypeExtra": "Task type must be one of \"habits\", \"dailys\", \"todos\", \"rewards\", \"completedTodos\".",
     "cantDeleteChallengeTasks": "A task belonging to a challenge can't be deleted.",
-    "checklistOnlyDailyTodo": "Checklists are supported only on Dailies and To-Dos",
+    "checklistOnlyDailyTodo": "Danh mục chỉ được hỗ trợ cho Việc hằng ngày và Việc cần làm",
     "checklistItemNotFound": "No checklist item was found with given id.",
     "itemIdRequired": "\"itemId\" must be a valid UUID.",
     "tagNotFound": "No tag item was found with given id.",
@@ -211,5 +211,7 @@
     "sessionOutdated": "Your session is outdated. Please refresh or sync.",
     "errorTemporaryItem": "This item is temporary and cannot be pinned.",
     "addNotes": "Thêm ghi chú",
-    "addATitle": "Thêm một tiêu đề"
+    "addATitle": "Thêm một tiêu đề",
+    "sureDeleteType": "Bạn có chắc muốn xóa <%= type %> này không?",
+    "deleteTaskType": "Xóa <%= type %> này"
 }

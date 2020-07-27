@@ -202,6 +202,7 @@
     "currentUsername": "Current username:",
     "displaynameIssueLength": "Display Names must be between 1 and 30 characters.",
     "displaynameIssueSlur": "Display Names may not contain inappropriate language.",
+    "displaynameIssueNewline": "Display Names may not contain backslashes followed by the letter N.",
     "goToSettings": "Go to Settings",
     "usernameVerifiedConfirmation": "Your username, <%= username %>, is confirmed!",
     "usernameNotVerified": "Please confirm your username.",

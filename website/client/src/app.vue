@@ -297,7 +297,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset', 'isUserLoaded', 'notificationsRemoved']),
+    ...mapState(['isUserLoggedIn', 'browserTimezoneUtcOffset', 'isUserLoaded', 'notificationsRemoved']),
     ...mapState({ user: 'user.data' }),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
@@ -369,7 +369,6 @@ export default {
 
       const isApiCall = url.indexOf('api/v4') !== -1;
       const userV = response.data && response.data.userV;
-      const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
 
       if (this.isUserLoaded && isApiCall && userV) {
         const oldUserV = this.user._v;
@@ -381,9 +380,14 @@ export default {
         // exclude chat seen requests because with real time chat they would be too many
         const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
         // exclude POST /api/v4/cron because the user is synced automatically after cron runs
+        const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
+        // exclude skills casting as they already return the synced user
+        const isCast = url.indexOf('/api/v4/user/class/cast') !== -1 && method === 'post';
 
         // Something has changed on the user object that was not tracked here, sync the user
-        if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
+        if (
+          userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync && !isCast
+        ) {
           Promise.all([
             this.$store.dispatch('user:fetch', { forceLoad: true }),
             this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
@@ -489,9 +493,10 @@ export default {
         this.hideLoadingScreen();
 
         // Adjust the timezone offset
-        if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
+        const browserTimezoneOffset = -this.browserTimezoneUtcOffset;
+        if (this.user.preferences.timezoneOffset !== browserTimezoneOffset) {
           this.$store.dispatch('user:set', {
-            'preferences.timezoneOffset': this.browserTimezoneOffset,
+            'preferences.timezoneOffset': browserTimezoneOffset,
           });
         }
 

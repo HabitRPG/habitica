@@ -1,7 +1,7 @@
 {
     "messageLostItem": "<%= itemText %>‌ات شکسته. ",
     "messageTaskNotFound": "کار موردنظر پیدا نشد.",
-    "messageDuplicateTaskID": " کاری با شناسه‌ی مشابه وجود دارد.",
+    "messageDuplicateTaskID": "کاری با شناسه‌ی مشابه وجود دارد.",
     "messageTagNotFound": "برچسب موردنظر پیدا نشد.",
     "messagePetNotFound": ":حیوان خانگی موردنظر در user.items.pets پیدا نشد.",
     "messageFoodNotFound": ":غذا در user.items.food پیدا نشد.",
@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "Bought <%= itemText %>",
-    "messageEquipped": "<%= itemText %> equipped.",
+    "messageEquipped": " <%= itemText %> equipped.",
     "messageUnEquipped": "<%= itemText %> unequipped.",
     "messageMissingEggPotion": "You're missing either that egg or that potion",
     "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",

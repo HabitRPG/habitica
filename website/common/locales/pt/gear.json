@@ -1764,5 +1764,8 @@
     "weaponSpecialSummer2019MageText": "Floração Brilhante",
     "weaponSpecialSummer2019WarriorText": "Coral Vermelho",
     "weaponSpecialSummer2019RogueText": "Âncora Antiga",
-    "weaponSpecialSpring2019MageNotes": "Há um mosquito embebido na gema na ponta deste cajado! Pode ou não incluir DNA de dinossauro. Aumenta a Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada da Primavera de 2019."
+    "weaponSpecialSpring2019MageNotes": "Há um mosquito embebido na gema na ponta deste cajado! Pode ou não incluir DNA de dinossauro. Aumenta a Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada da Primavera de 2019.",
+    "weaponSpecialSummer2019WarriorNotes": "Agora você está lutando com fractais! Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2019.",
+    "weaponSpecialSummer2019RogueNotes": "Essa antiga e formidável arma irá ajudá-lo a vencer qualquer batalha submarina. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2019.",
+    "weaponSpecialSpring2019HealerNotes": "Sua canção de flores e chuva irá acalmar os espíritos de todos que escutam. Aumenta inteligência em <%= int %>. Equipamento de Edição Limitada da Primavera de 2019."
 }

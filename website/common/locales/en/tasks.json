@@ -211,5 +211,8 @@
   "repeatDayError": "Please ensure that you have at least one day of the week selected.",
   "searchTasks": "Search titles and descriptions...",
   "sessionOutdated": "Your session is outdated. Please refresh or sync.",
-  "errorTemporaryItem": "This item is temporary and cannot be pinned."
+  "errorTemporaryItem": "This item is temporary and cannot be pinned.",
+  "addTags": "Add tags...",
+  "enterTag": "Enter a tag",
+  "pressEnterToAddTag": "Press Enter to add tag: '<%= tagName %>'"
 }

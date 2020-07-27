@@ -6,7 +6,7 @@
       @click="click()"
     >
       <div
-        class="item pet-slot"
+        class="item pet-slot transition"
         :class="{'item-empty': !isOwned(), 'highlight': highlightBorder}"
       >
         <slot

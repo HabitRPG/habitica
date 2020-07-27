@@ -1,4 +1,3 @@
-
 import {
   generateUser,
 } from '../../helpers/common.helper';
@@ -26,7 +25,6 @@ describe('setDebuffPotionItems', () => {
 
     const firstSetResult = [...setDebuffPotionItems(user).pinnedItems];
     const secondSetResult = [...setDebuffPotionItems(user).pinnedItems];
-
 
     expect(firstSetResult).to.be.deep.equal(secondSetResult);
   });

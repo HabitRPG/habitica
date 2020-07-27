@@ -80,9 +80,9 @@
         </div>
       </div>
       <draggable
+        v-if="taskList.length > 0"
         ref="tasksList"
         class="sortable-tasks"
-        v-if="taskList.length > 0"
         :options="{disabled: activeFilter.label === 'scheduled' || !isUser, scrollSensitivity: 64}"
         :delay-on-touch-only="true"
         :delay="100"
@@ -203,6 +203,7 @@
     border-color: transparent;
     transition: background 0.15s ease-in;
     resize: none;
+    overflow: hidden;
 
     &:hover {
       background-color: rgba($black, 0.1);
@@ -642,7 +643,7 @@ export default {
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
-        if (!this.$refs.columnBackground) return;
+        if (!this.$refs.columnBackground || !this.$refs.tasksList) return;
 
         const tasksWrapperEl = this.$refs.tasksWrapper;
 

@@ -116,7 +116,7 @@ describe('GET /groups/:groupId/members', () => {
     expect(memberRes.inbox.messages).to.not.exist;
   });
 
-  it('returns only first 30 members', async () => {
+  it('returns only first 30 members by default (req.query.limit not specified)', async () => {
     const group = await generateGroup(user, { type: 'party', name: generateUUID() });
 
     const usersToGenerate = [];
@@ -132,6 +132,60 @@ describe('GET /groups/:groupId/members', () => {
       expect(member.profile).to.have.all.keys(['name']);
     });
   });
+
+  it('returns an error if req.query.limit is over 60', async () => {
+    await generateGroup(user, { type: 'party', name: generateUUID() });
+
+    await expect(user.get('/groups/party/members?limit=61')).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
+  it('returns an error if req.query.limit is under 1', async () => {
+    await generateGroup(user, { type: 'party', name: generateUUID() });
+
+    await expect(user.get('/groups/party/members?limit=0')).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
+  it('returns an error if req.query.limit is not an integer', async () => {
+    await generateGroup(user, { type: 'party', name: generateUUID() });
+
+    await expect(user.get('/groups/party/members?limit=1.1')).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: t('invalidReqParams'),
+    });
+  });
+
+  it('returns up to 60 members when req.query.limit is specified', async () => {
+    const group = await generateGroup(user, { type: 'party', name: generateUUID() });
+
+    const usersToGenerate = [];
+    for (let i = 0; i < 62; i += 1) {
+      usersToGenerate.push(generateUser({ party: { _id: group._id } }));
+    }
+    await Promise.all(usersToGenerate);
+
+    let res = await user.get('/groups/party/members?limit=60');
+    expect(res.length).to.equal(60);
+    res.forEach(member => {
+      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
+      expect(member.profile).to.have.all.keys(['name']);
+    });
+
+    res = await user.get(`/groups/party/members?limit=60&lastId=${res[res.length - 1]._id}`);
+    expect(res.length).to.equal(3);
+    res.forEach(member => {
+      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
+      expect(member.profile).to.have.all.keys(['name']);
+    });
+  }).timeout(30000);
 
   it('returns only first 30 members even when ?includeAllMembers=true', async () => {
     const group = await generateGroup(user, { type: 'party', name: generateUUID() });

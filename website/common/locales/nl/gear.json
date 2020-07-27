@@ -228,7 +228,7 @@
     "weaponSpecialSpring2017HealerNotes": "De echte magie van deze stok is het geheim van nieuw leven in de kleurrijke schil. Verhoogt intelligentie met <%= int %>.  Beperkte oplage zomeruitrusting 2017.",
     "weaponSpecialSummer2017RogueText": "Zeedraken Vinnen",
     "weaponSpecialSummer2017RogueNotes": "De randen van deze vinnen zijn vlijmscherp. Verhoogt kracht met <%= str %>. Beperkte oplage zomeruitrusting 2017.",
-    "weaponSpecialSummer2017WarriorText": "De Krachtigste Parasol",
+    "weaponSpecialSummer2017WarriorText": "Machtigste parasol",
     "weaponSpecialSummer2017WarriorNotes": "Het benauwt eenieder. Verhoogt kracht met <%= str %>. Beperkte oplage Zomeruitrusting 2017.",
     "weaponSpecialSummer2017MageText": "Draaikolkzwepen",
     "weaponSpecialSummer2017MageNotes": "Roep magische zwepen van kokend water op om je taken mee neer te slaan! Verhoogt intelligentie met <%= int %> en perceptie met <%= per %>. Beperkte oplage Zomeruitrusting 2017.",
@@ -2089,5 +2089,14 @@
     "shieldSpecialSpring2020HealerText": "Geparfumeerd Schild",
     "shieldSpecialSpring2020WarriorNotes": "Laat u niet misleiden door de delicate kleuren. Dit schild heeft jou gedekt! Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2020 Lenteuitrusting.",
     "shieldSpecialSpring2020WarriorText": "Iriserend Schild",
-    "shieldSpecialWinter2020HealerNotes": "Voel je dat je te goed bent voor deze wereld, te puur? Alleen deze schoonheid van een specerij is voldoende. Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019-2020 Winteruitrusting."
+    "shieldSpecialWinter2020HealerNotes": "Voel je dat je te goed bent voor deze wereld, te puur? Alleen deze schoonheid van een specerij is voldoende. Verhoogt Weerbaarheid met <%= con %>. Beperkte Oplage 2019-2020 Winteruitrusting.",
+    "shieldArmoireTrustyUmbrellaNotes": "Mysteries gaan vaak gepaard met slecht weer, dus wees voorbereid! Verhoogt Intelligentie met <%= int %>. Betoverde Kabinet: Detective Set (Voorwerp 4 van 4).",
+    "shieldArmoireTrustyUmbrellaText": "Betrouwbare Paraplu",
+    "shieldArmoireMightyPizzaNotes": "Natuurlijk, het is een redelijk goed schild, maar we raden je ten zeerste aan om deze fijne, fijne pizza te eten. Verhoogt Perceptie met <%= per %>. Betoverde Kabinet: Chef Set (Voorwerp 4 van 4).",
+    "shieldArmoireMightyPizzaText": "Machtige Pizza",
+    "shieldMystery201902Notes": "Dit glitterpapier vormt magische harten die langzaam drijven en dansen in de lucht. Geeft geen voordeel. Abonnee Uitrusting van februari 2019.",
+    "headMystery202007Notes": "Deze helm stemt je af op de complexe en mooie liedjes van je mede-walvisachtigen. Geeft geen voordeel. Abonnee Uitrusting van juli 2020.",
+    "headMystery202007Text": "Uitstekende Orca Helm",
+    "armorMystery202007Notes": "Zwem, draai, duik en race met deze knappe en krachtige staart! Geeft geen voordeel. Abonnee Uitrusting van juli 2020.",
+    "armorMystery202007Text": "Uitstekend Orca-kostuum"
 }

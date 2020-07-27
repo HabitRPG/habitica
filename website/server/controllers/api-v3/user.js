@@ -862,9 +862,14 @@ api.equip = {
  *
  * @apiParam (Path) {String} pet
  * @apiParam (Path) {String} food
+ * @apiParam (Query) {Number} [amount] The amount of food to feed.
+ *                                     Note: Pet can eat 50 units.
+ *                                     Preferred food offers 5 units per food,
+ *                                     other food 2 units.
  *
  * @apiParamExample {url} Example-URL
  * https://habitica.com/api/v3/user/feed/Armadillo-Shade/Chocolate
+ * https://habitica.com/api/v3/user/feed/Armadillo-Shade/Chocolate?amount=9
  *
  * @apiSuccess {Number} data The pet value
  * @apiSuccess {String} message Success message
@@ -877,6 +882,8 @@ api.equip = {
  * @apiError {BadRequest} InvalidPet Invalid pet name supplied.
  * @apiError {NotFound} FoodNotOwned :food not found in user.items.food
  *                                   Note: also sent if food name is invalid.
+ * @apiError {NotAuthorized} notEnoughFood :Not enough food to feed the pet as requested.
+ * @apiError {NotAuthorized} tooMuchFood :You try to feed too much food. Action ancelled.
  *
  *
  */

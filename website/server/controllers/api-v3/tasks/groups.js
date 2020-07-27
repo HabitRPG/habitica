@@ -237,7 +237,7 @@ api.assignTask = {
       });
     }
 
-    promises.push(group.syncTask(task, assignedUser));
+    promises.push(group.syncTask(task, assignedUser, user));
     promises.push(group.save());
     await Promise.all(promises);
 
@@ -362,7 +362,7 @@ api.approveTask = {
     const firstNotificationIndex = firstManagerNotifications.findIndex(notification => notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL');
     let direction = 'up';
     if (firstManagerNotifications[firstNotificationIndex]) {
-      direction = firstManagerNotifications[firstNotificationIndex].direction;
+      direction = firstManagerNotifications[firstNotificationIndex].direction || direction;
     }
 
     // Remove old notifications
@@ -380,11 +380,7 @@ api.approveTask = {
     assignedUser.addNotification('GROUP_TASK_APPROVED', {
       message: res.t('yourTaskHasBeenApproved', { taskText: task.text }),
       groupId: group._id,
-    });
-
-    assignedUser.addNotification('SCORED_TASK', {
-      message: res.t('yourTaskHasBeenApproved', { taskText: task.text }),
-      scoreTask: task,
+      task,
       direction,
     });
 

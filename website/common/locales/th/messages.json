@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "ซื้อ <%= itemText %>",
-    "messageEquipped": "คุณสวม <%= itemText %>",
+    "messageEquipped": " คุณสวม <%= itemText %>",
     "messageUnEquipped": "คุณถอด <%= itemText %>",
     "messageMissingEggPotion": "คุณยังขาดไข่หรือน้ำยาอยู่",
     "messageInvalidEggPotionCombo": "คุณไม่สามารถใช้น้ำยาวิเศษฟักไข่ที่ได้มาจากการทำเควสท์! ลองใช้กับไข่ใบอื่นดูอีกครั้ง",

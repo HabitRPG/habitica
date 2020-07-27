@@ -380,7 +380,7 @@ export default {
       'GUILD_PROMPT', 'REBIRTH_ENABLED', 'WON_CHALLENGE', 'STREAK_ACHIEVEMENT',
       'ULTIMATE_GEAR_ACHIEVEMENT', 'REBIRTH_ACHIEVEMENT', 'GUILD_JOINED_ACHIEVEMENT',
       'CHALLENGE_JOINED_ACHIEVEMENT', 'INVITED_FRIEND_ACHIEVEMENT', 'NEW_CONTRIBUTOR_LEVEL',
-      'CRON', 'SCORED_TASK', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
+      'CRON', 'LOGIN_INCENTIVE', 'ACHIEVEMENT_ALL_YOUR_BASE', 'ACHIEVEMENT_BACK_TO_BASICS',
       'GENERIC_ACHIEVEMENT', 'ACHIEVEMENT_PARTY_UP', 'ACHIEVEMENT_PARTY_ON', 'ACHIEVEMENT_BEAST_MASTER',
       'ACHIEVEMENT_MOUNT_MASTER', 'ACHIEVEMENT_TRIAD_BINGO', 'ACHIEVEMENT_DUST_DEVIL', 'ACHIEVEMENT_ARID_AUTHORITY',
       'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
@@ -729,7 +729,6 @@ export default {
       if (!after || after.length === 0 || !Array.isArray(after)) return;
 
       const notificationsToRead = [];
-      const scoreTaskNotification = [];
 
       after.forEach(notification => {
         // This notification type isn't implemented here
@@ -820,23 +819,6 @@ export default {
             // Not needed because it's shown already by the userHp and userMp watchers
             // Keeping an empty block so that it gets read
             break;
-          case 'SCORED_TASK':
-            // Search if it is a read notification
-            for (let i = 0; i < this.alreadyReadNotification.length; i += 1) {
-              if (this.alreadyReadNotification[i] === notification.id) {
-                markAsRead = false; // Do not let it be read again
-                break;
-              }
-            }
-
-            // Only process the notification if it is an unread notification
-            if (markAsRead) {
-              scoreTaskNotification.push(notification);
-
-              // Add to array of read notifications
-              this.alreadyReadNotification.push(notification.id);
-            }
-            break;
           case 'LOGIN_INCENTIVE':
             if (this.user.flags.tour.intro === this.TOUR_END && this.user.flags.welcomed) {
               this.notificationData = notification.data;
@@ -862,40 +844,9 @@ export default {
         if (markAsRead) notificationsToRead.push(notification.id);
       });
 
-      const userReadNotifsPromise = false;
-
       if (notificationsToRead.length > 0) {
         await axios.post('/api/v4/notifications/read', {
           notificationIds: notificationsToRead,
-        });
-      }
-
-      // @TODO this code is never run because userReadNotifsPromise is never true
-      if (userReadNotifsPromise) {
-        userReadNotifsPromise.then(() => {
-          // Only run this code for scoring approved tasks
-          if (scoreTaskNotification.length > 0) {
-            const approvedTasks = [];
-            for (let i = 0; i < scoreTaskNotification.length; i += 1) {
-              // Array with all approved tasks
-              const scoreData = scoreTaskNotification[i].data;
-              let direction = 'up';
-              if (scoreData.direction) direction = scoreData.direction;
-
-              approvedTasks.push({
-                params: {
-                  task: scoreData.scoreTask,
-                  direction,
-                },
-              });
-
-              // Show notification of task approved
-              this.markdown(scoreTaskNotification[i].data.message);
-            }
-
-            // Score approved tasks
-            // TODO: User.bulkScore(approvedTasks);
-          }
         });
       }
 
