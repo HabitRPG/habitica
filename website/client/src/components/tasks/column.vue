@@ -127,6 +127,7 @@
               <span
                 class="badge-top"
                 @click.prevent.stop="togglePinned(ctx.item)"
+                @keypress.enter.prevent.stop="togglePinned(ctx.item)"
               >
                 <pin-badge
                   :pinned="ctx.item.pinned"
@@ -152,6 +153,10 @@
   }
 
   .item:hover .badge-pin {
+    display: block;
+  }
+
+  .item:focus-within .badge-pin {
     display: block;
   }
 
