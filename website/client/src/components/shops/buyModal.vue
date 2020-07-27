@@ -149,7 +149,9 @@
           v-else
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
-            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked"
+            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
+            !preventHealthPotion ||
+            !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
           :class="{'notEnough': !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
           @click="buyItem()"
@@ -534,6 +536,7 @@ export default {
     buyItem () {
       // @TODO: I  think we should buying to the items.
       // Turn the items into classes, and use polymorphism
+      console.log(this.item);
       if (this.item.buy) {
         this.item.buy();
         this.$emit('buyPressed', this.item);
