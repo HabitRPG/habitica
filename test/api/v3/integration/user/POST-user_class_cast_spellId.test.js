@@ -177,11 +177,7 @@ describe('POST /user/class/cast/:spellId', () => {
     expect(user.stats.mp).to.equal(400);
   });
 
-  it.only('Issue #12361: returns an error if stealth has already been cast', async () => {
-    const task = await user.post('/tasks/user', {
-      text: 'test daily',
-      type: 'daily',
-    });
+  it('Issue #12361: returns an error if stealth has already been cast', async () => {
     await user.update({
       'stats.class': 'rogue',
       'stats.lvl': 15,
@@ -194,8 +190,8 @@ describe('POST /user/class/cast/:spellId', () => {
         error: 'BadRequest',
         message: t('spellRogueStealthMaxedOut'),
       });
-      expect(user.stats.mp).to.equal(400);
-  })
+    expect(user.stats.mp).to.equal(400);
+  });
 
   it('returns an error if targeted party member doesn\'t exist', async () => {
     const { groupLeader } = await createAndPopulateGroup({
