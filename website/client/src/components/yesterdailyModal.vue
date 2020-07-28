@@ -82,6 +82,7 @@
 <script>
 import moment from 'moment';
 import { mapState } from '@/libs/store';
+import scoreTask from '@/mixins/scoreTask';
 import Task from './tasks/task';
 import LoadingSpinner from './ui/loadingSpinner';
 
@@ -90,6 +91,7 @@ export default {
     Task,
     LoadingSpinner,
   },
+  mixins: [scoreTask],
   props: {
     yesterDailies: {
       type: Array,
@@ -124,7 +126,10 @@ export default {
         .map(yesterdaily => ({ id: yesterdaily._id, direction: 'up' }));
 
       if (bulkScoreParams.length > 0) {
-        await this.$store.dispatch('tasks:bulkScore', bulkScoreParams);
+        const bulkScoresponse = await this.$store.dispatch('tasks:bulkScore', bulkScoreParams);
+        bulkScoresponse.data.data.tasks.forEach(taskResponse => {
+          this.handleTaskScoreNotifications(taskResponse._tmp || {});
+        });
       }
 
       await this.cronAction();
