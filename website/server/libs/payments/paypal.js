@@ -3,7 +3,7 @@ import nconf from 'nconf';
 import moment from 'moment';
 import util from 'util';
 import _ from 'lodash';
-import ipn from 'paypal-ipn';
+import paypalIpn from 'pp-ipn';
 import paypal from 'paypal-rest-sdk';
 import cc from 'coupon-code';
 import shared from '../../../common';
@@ -72,7 +72,7 @@ api.paypalBillingAgreementGet = util
 api.paypalBillingAgreementCancel = util
   .promisify(paypal.billingAgreement.cancel.bind(paypal.billingAgreement));
 
-api.ipnVerifyAsync = util.promisify(ipn.verify.bind(ipn));
+api.ipnVerifyAsync = util.promisify(paypalIpn.verify.bind(paypalIpn));
 
 api.checkout = async function checkout (options = {}) {
   const { gift, user } = options;
