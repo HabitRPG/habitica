@@ -19,8 +19,6 @@ export default {
       if (this.castingSpell) return;
       const { user } = this;
 
-      const Content = this.$store.state.content;
-
       if (task.group.approval.required && !task.group.approval.approved) {
         task.group.approval.requested = true;
         const groupResponse = await axios.get(`/api/v4/groups/${task.group.id}`);
@@ -59,12 +57,19 @@ export default {
         direction,
       });
 
-      // used to notify drops, critical hits and other bonuses
-      const tmp = response.data.data._tmp || {};
-      const { crit } = tmp;
-      const { drop } = tmp;
-      const { firstDrops } = tmp;
-      const { quest } = tmp;
+      this.handleTaskScoreNotifications(response.data.data._tmp || {});
+    },
+    async handleTaskScoreNotifications (tmpObject = {}) {
+      const { user } = this;
+      const Content = this.$store.state.content;
+
+      // _tmp is used to notify drops, critical hits and other bonuses
+      const {
+        crit,
+        drop,
+        firstDrops,
+        quest,
+      } = tmpObject;
 
       if (crit) {
         const critBonus = crit * 100 - 100;
