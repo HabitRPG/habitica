@@ -132,10 +132,10 @@ export default {
         });
       }
 
-      await this.cronAction();
-
       this.$root.$emit('bv::hide::modal', 'yesterdaily');
       this.isLoading = false;
+
+      await this.cronAction();
     },
   },
 };
