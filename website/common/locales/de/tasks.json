@@ -213,5 +213,8 @@
     "addNotes": "Notizen hinzufügen",
     "addATitle": "Überschrift hinzufügen",
     "sureDeleteType": "Möchtest Du diese <%= type %> wirklich löschen?",
-    "deleteTaskType": "Diese <%= type %> löschen"
+    "deleteTaskType": "Diese <%= type %> löschen",
+    "pressEnterToAddTag": "Drücke Enter um das Tag '<%= tagName %>' hinzuzufügen",
+    "enterTag": "Gib ein Tag ein",
+    "addTags": "Tags hinzufügen…"
 }

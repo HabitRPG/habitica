@@ -1812,5 +1812,8 @@
     "weaponSpecialSummer2019HealerText": "Bublinová hůlka",
     "armorSpecialSpring2019MageText": "Jantarová róba",
     "armorSpecialSpring2019RogueText": "Mrakové brnění",
-    "weaponSpecialWinter2020RogueText": "Tyč lucerny"
+    "weaponSpecialWinter2020RogueText": "Tyč lucerny",
+    "weaponSpecialFall2019RogueNotes": "Ať už dirigujete orchestr nebo zpíváte árii, toto nápomocné zařízení uvolňuje vaše ruce pro dramatická gesta! Zvyšuje sílu o <%= str %>. Limitovaná edice podzimní výzbroj 2019.",
+    "weaponSpecialSummer2019HealerNotes": "Bubliny z hůlky zachycují léčivou energii a prastarou magii oceánů. Zvyšuje inteligenci o <%= int %>. Limitovaná Edice Letní výzbroj 2019.",
+    "weaponSpecialSummer2019MageNotes": "ovoce tvých snah, poprvé sklizen, tento malý poklad posiluje a inspiruje. Zvyšuje inteligenci o <%= int %>. Limitovaná edice letní výzbroj 2019."
 }
