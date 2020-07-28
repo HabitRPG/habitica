@@ -7,6 +7,7 @@
     :no-close-on-backdrop="true"
     :no-close-on-esc="true"
     @hide="$emit('hide')"
+    @hidden="$emit('hidden')"
   >
     <h1 class="header-welcome text-center">
       {{ $t('welcomeBack') }}
@@ -132,10 +133,10 @@ export default {
         });
       }
 
-      this.$root.$emit('bv::hide::modal', 'yesterdaily');
-      this.isLoading = false;
-
       await this.cronAction();
+
+      this.isLoading = false;
+      this.$root.$emit('bv::hide::modal', 'yesterdaily');
     },
   },
 };

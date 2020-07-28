@@ -3,6 +3,7 @@
     <yesterdaily-modal
       :yester-dailies="yesterDailies"
       :cron-action="runCronAction"
+      @hidden="afterYesterdailies()"
     />
     <armoire-empty />
     <new-stuff />
@@ -397,7 +398,6 @@ export default {
       unlockLevels,
       lastShownNotifications,
       alreadyReadNotification,
-      isRunningYesterdailies: false,
       nextCron: null,
       handledNotifications,
     };
@@ -666,15 +666,13 @@ export default {
 
       // Setup a listener that executes 10 seconds after the next cron time
       this.nextCron = Number(nextCron.format('x'));
-      this.$store.state.isRunningYesterdailies = false;
     },
     async runYesterDailies () {
       if (this.$store.state.isRunningYesterdailies) return;
       this.$store.state.isRunningYesterdailies = true;
 
       if (!this.user.needsCron) {
-        this.scheduleNextCron();
-        this.handleUserNotifications(this.user.notifications);
+        this.afterYesterdailies();
         return;
       }
 
@@ -692,12 +690,12 @@ export default {
       });
 
       if (this.yesterDailies.length === 0) {
-        this.runCronAction();
-        return;
+        await this.runCronAction();
+        this.afterYesterdailies();
+      } else {
+        this.levelBeforeYesterdailies = this.user.stats.lvl;
+        this.$root.$emit('bv::show::modal', 'yesterdaily');
       }
-
-      this.levelBeforeYesterdailies = this.user.stats.lvl;
-      this.$root.$emit('bv::show::modal', 'yesterdaily');
     },
     async runCronAction () {
       // Run Cron
@@ -709,16 +707,16 @@ export default {
         this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
       ]);
 
-      this.$store.state.isRunningYesterdailies = false;
-
       if (
         this.levelBeforeYesterdailies > 0
         && this.levelBeforeYesterdailies < this.user.stats.lvl
       ) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
-
+    },
+    afterYesterdailies () {
       this.scheduleNextCron();
+      this.$store.state.isRunningYesterdailies = false;
       this.handleUserNotifications(this.user.notifications);
     },
     async handleUserNotifications (after) {
