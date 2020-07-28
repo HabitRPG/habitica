@@ -167,15 +167,35 @@ describe('POST /user/class/cast/:spellId', () => {
       'stats.lvl': 15,
       'stats.mp': 400,
       'stats.buffs.streaks': true,
-    })
-    const result = await user.post('/user/class/cast/frost');
-    expect(result.to.eventually.be.rejected.and.eql({
-      code: 400,
-      error: 'BadRequest',
-      message: t('spellWizardFrostAlreadyCast'),
-    }))
-    expect(result.user.stats.mp).to.equal(400);
+    });
+    await expect(user.post('/user/class/cast/frost'))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('spellWizardFrostAlreadyCast'),
+      });
+    expect(user.stats.mp).to.equal(400);
   });
+
+  it.only('Issue #12361: returns an error if stealth has already been cast', async () => {
+    const task = await user.post('/tasks/user', {
+      text: 'test daily',
+      type: 'daily',
+    });
+    await user.update({
+      'stats.class': 'rogue',
+      'stats.lvl': 15,
+      'stats.mp': 400,
+      'stats.buffs.stealth': 1,
+    });
+    await expect(user.post('/user/class/cast/stealth'))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('spellRogueStealthMaxedOut'),
+      });
+      expect(user.stats.mp).to.equal(400);
+  })
 
   it('returns an error if targeted party member doesn\'t exist', async () => {
     const { groupLeader } = await createAndPopulateGroup({

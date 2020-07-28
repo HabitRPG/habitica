@@ -167,20 +167,19 @@ async function castSpell (req, res, { isV3 = false }) {
     // Check if chilling frost skill has been previously casted or not.
     // See #12361 for more details.
     const spellName = spell.key;
-    if (!chillingFrostAlreadyCast(spellName, user)) {
+    if (chillingFrostAlreadyCast(spellName, user)) {
       throw new BadRequest(res.t('spellWizardFrostAlreadyCast'));
-    }
-    else {
+    } else {
       // Check if stealth skill has been previously casted or not.
       // See #12361 for more details.
-      if(spellName === 'stealth') {
+      if (spellName === 'stealth') {
         const incompleteDailiesDue = await Tasks.Task.countDocuments({
           userId: user._id,
           type: 'daily',
           completed: false,
           isDue: true,
         }).exec();
-        if(user.stats.buffs.stealth >= incompleteDailiesDue) {
+        if (user.stats.buffs.stealth >= incompleteDailiesDue) {
           throw new BadRequest(res.t('spellRogueStealthMaxedOut'));
         }
       }
