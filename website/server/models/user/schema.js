@@ -135,6 +135,7 @@ export default new Schema({
     rosyOutlook: Boolean,
     bugBonanza: Boolean,
     bareNecessities: Boolean,
+    freshwaterFriends: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
