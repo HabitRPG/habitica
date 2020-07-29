@@ -21,11 +21,14 @@ export default {
 
       if (task.group.approval.required && !task.group.approval.approved) {
         task.group.approval.requested = true;
-        const groupResponse = await axios.get(`/api/v4/groups/${task.group.id}`);
-        const managers = Object.keys(groupResponse.data.data.managers);
-        managers.push(groupResponse.data.data.leader._id);
-        if (managers.indexOf(user._id) !== -1) {
-          task.group.approval.approved = true;
+        const { data: groupPlans } = await this.$store.dispatch('guilds:getGroupPlans');
+        const groupPlan = groupPlans.find(g => g.id === task.group.id);
+        if (groupPlan) {
+          const managers = Object.keys(groupPlan.managers);
+          managers.push(groupPlan.leader);
+          if (managers.indexOf(user._id) !== -1) {
+            task.group.approval.approved = true;
+          }
         }
       }
     },
