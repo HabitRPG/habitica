@@ -82,6 +82,7 @@
 
 <script>
 import moment from 'moment';
+import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import scoreTask from '@/mixins/scoreTask';
 import Task from './tasks/task';
@@ -137,6 +138,8 @@ export default {
 
       this.isLoading = false;
       this.$root.$emit('bv::hide::modal', 'yesterdaily');
+
+      Analytics.updateUser();
     },
   },
 };

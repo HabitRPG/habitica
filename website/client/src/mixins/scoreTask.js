@@ -15,9 +15,9 @@ export default {
     }),
   },
   methods: {
-    async taskScore (task, direction) {
-      if (this.castingSpell) return;
+    async beforeTaskScore (task) {
       const { user } = this;
+      if (this.castingSpell) return;
 
       if (task.group.approval.required && !task.group.approval.approved) {
         task.group.approval.requested = true;
@@ -28,14 +28,8 @@ export default {
           task.group.approval.approved = true;
         }
       }
-
-      try {
-        scoreTask({ task, user, direction });
-      } catch (err) {
-        this.text(err.message);
-        return;
-      }
-
+    },
+    playTaskScoreSound (task, direction) {
       switch (task.type) { // eslint-disable-line default-case
         case 'habit':
           this.$root.$emit('playSound', direction === 'up' ? 'Plus_Habit' : 'Minus_Habit');
@@ -50,6 +44,20 @@ export default {
           this.$root.$emit('playSound', 'Reward');
           break;
       }
+    },
+    async taskScore (task, direction) {
+      const { user } = this;
+
+      await this.beforeTaskScore(task);
+
+      try {
+        scoreTask({ task, user, direction });
+      } catch (err) {
+        this.text(err.message);
+        return;
+      }
+
+      this.playTaskScoreSound(task, direction);
 
       Analytics.updateUser();
       const response = await this.$store.dispatch('tasks:score', {

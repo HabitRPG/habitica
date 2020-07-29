@@ -1052,9 +1052,11 @@ export default {
     castEnd (e, task) {
       setTimeout(() => this.$root.$emit('castEnd', task, 'task', e), 0);
     },
-    score (direction) {
+    async score (direction) {
       if (this.isYesterdaily === true) {
+        await this.beforeTaskScore(this.task);
         this.task.completed = !this.task.completed;
+        this.playTaskScoreSound(this.task, direction);
       } else {
         this.taskScore(this.task, direction);
       }
