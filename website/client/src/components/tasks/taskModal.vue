@@ -264,13 +264,8 @@
               :text="$t('dueDate')"
             />
             <datepicker
-              v-model="task.date"
-              :calendar-icon="icons.calendar"
-              :clear-button="!challengeAccessRequired && !groupAccessRequiredAndOnPersonalPage"
-              :clear-button-text="$t('clear')"
-              :today-button="false"
-              :disabled-picker="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
-              :class="{disabled: challengeAccessRequired || groupAccessRequiredAndOnPersonalPage}"
+              :date.sync="task.date"
+              :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :highlighted="calendarHighlights"
             />
           </div>
@@ -285,12 +280,8 @@
               :text="$t('startDate')"
             />
             <datepicker
-              v-model="task.startDate"
-              :calendar-icon="icons.calendar"
-              :clear-button="false"
-              :today-button="false"
-              :disabled-picker="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
-              :class="{disabled: challengeAccessRequired || groupAccessRequiredAndOnPersonalPage}"
+              :date.sync="task.startDate"
+              :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :highlighted="calendarHighlights"
             />
           </div>
@@ -787,27 +778,12 @@
       }
     }
 
-    .vdp-datepicker.disabled, .input-group-outer.disabled {
-      .input-group:hover {
-        border-color: $gray-400;
-      }
+    .datetime-buttons {
+      display: flex;
+      flex-direction: row;
 
-      .input-group .form-control {
-        background-color: $gray-700;
-        border-color: $gray-500;
-        color: $gray-200;
-      }
-
-      svg path {
-        opacity: 0.75;
-        fill: $gray-200;
-      }
-    }
-
-    .vdp-datepicker {
-      .input-group-append {
-        width: auto;
-        min-width: 2rem;
+      .btn {
+        flex: 1;
       }
     }
 
@@ -1067,8 +1043,8 @@
 <script>
 import axios from 'axios';
 import clone from 'lodash/clone';
-import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
+import Datepicker from '@/components/ui/datepicker';
 import toggleSwitch from '@/components/ui/toggleSwitch';
 import toggleCheckbox from '@/components/ui/toggleCheckbox';
 import markdownDirective from '@/directives/markdown';

@@ -59,7 +59,7 @@
     "vue-router": "^3.3.4",
     "vue-template-compiler": "^2.6.11",
     "vuedraggable": "^2.24.0",
-    "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#5d237615463a84a23dd6f3f77c6ab577d68593ec",
+    "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#153d339e4dbebb73733658aeda1d5b7fcc55b0a0",
     "webpack": "^4.44.0"
   }
 }
