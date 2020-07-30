@@ -81,5 +81,8 @@
     "yourProgress": "Votre progression",
     "achievementBareNecessitiesModalText": "Vous avez réalisé les quêtes de familier singe, paresseux et arbrisseaux !",
     "achievementBareNecessitiesText": "A réalisé les quêtes de familier singe, paresseux et arbrisseaux.",
-    "achievementBareNecessities": "Le strict nécessaire"
+    "achievementBareNecessities": "Le strict nécessaire",
+    "achievementFreshwaterFriendsModalText": "Vous avez complété les quêtes d'axolotl, de grenouille et d'hippopotame !",
+    "achievementFreshwaterFriendsText": "A complété les quêtes d'axolotl, de grenouille et d'hippopotame.",
+    "achievementFreshwaterFriends": "Marins d'eau douce"
 }

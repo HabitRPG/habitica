@@ -138,7 +138,7 @@
     "dailyHelp5": "Schau Dir zur Inspiration diese <a href='http://habitica.fandom.com/wiki/Sample_Dailies' target='_blank'>Beispiele von Tagesaufgaben</a> an!",
     "toDoHelp1": "Einmalige Aufgaben sind anfangs gelb, werden aber röter (wertvoller) je später sie beendet werden.",
     "toDoHelp2": "To-Dos werden Dir niemals Schaden zufügen! Sie verleihen nur Gold und Erfahrung.",
-    "toDoHelp3": "To-Dos mit der Kontrollliste in kleinere Teilaufgaben zu unterteilen macht sie weniger beängstigend, und wird Deine Punkte erhöhen!",
+    "toDoHelp3": "To-Dos mit der Checkliste in kleinere Teilaufgaben zu unterteilen macht sie weniger beängstigend und wird Deine Punkte erhöhen!",
     "toDoHelp4": "Zur Inspiration kannst Du Dir diese <a href='https://habitica.fandom.com/de/wiki/Beispiele_f%C3%BCr_To-Dos' target='_blank'>Beispiele von To-Dos</a> durchsehen!",
     "rewardHelp1": "Die Ausrüstung, die Du für Deinen Avatar kaufst, ist unter <%= linkStart %>Inventar > Ausrüstung<%= linkEnd %> gelagert.",
     "rewardHelp2": "Ausrüstungsgegenstände beeinflussen Deine Attribute (<%= linkStart %>Avatar > Werte<%= linkEnd %>).",
