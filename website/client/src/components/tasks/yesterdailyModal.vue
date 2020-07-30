@@ -128,10 +128,20 @@ export default {
         .map(yesterdaily => ({ id: yesterdaily._id, direction: 'up' }));
 
       if (bulkScoreParams.length > 0) {
-        const bulkScoresponse = await this.$store.dispatch('tasks:bulkScore', bulkScoreParams);
-        bulkScoresponse.data.data.tasks.forEach(taskResponse => {
-          this.handleTaskScoreNotifications(taskResponse._tmp || {});
-        });
+        try {
+          const bulkScoresponse = await this.$store.dispatch('tasks:bulkScore', bulkScoreParams);
+          bulkScoresponse.data.data.tasks.forEach(taskResponse => {
+            this.handleTaskScoreNotifications(taskResponse._tmp || {});
+          });
+        } catch (err) {
+          // Reset the modal so that it can be used again
+          // Then throw the error again to make sure it's handled correctly
+          // and the user is notified.
+
+          this.yesterDailies.forEach(y => { y.completed = false; });
+          this.isLoading = false;
+          throw err;
+        }
       }
 
       await this.cronAction();
