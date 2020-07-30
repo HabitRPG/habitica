@@ -10,7 +10,6 @@ import {
   model as Group,
 } from '../models/group';
 import apiError from './apiError';
-import { chillingFrostAlreadyCast } from '../../common/script/content/spells';
 
 const partyMembersFields = 'profile.name stats achievements items.special notifications flags pinnedItems';
 // Excluding notifications and flags from the list of public fields to return.
@@ -164,34 +163,28 @@ async function castSpell (req, res, { isV3 = false }) {
       task: results[1],
     });
   } else if (targetType === 'self') {
-    // Check if chilling frost skill has been previously casted or not.
-    // See #12361 for more details.
     const spellName = spell.key;
-    if (chillingFrostAlreadyCast(spellName, user)) {
-      throw new BadRequest(res.t('spellWizardFrostAlreadyCast'));
-    } else {
-      // Check if stealth skill has been previously casted or not.
-      // See #12361 for more details.
-      if (spellName === 'stealth') {
-        const incompleteDailiesDue = await Tasks.Task.countDocuments({
-          userId: user._id,
-          type: 'daily',
-          completed: false,
-          isDue: true,
-        }).exec();
-        if (user.stats.buffs.stealth >= incompleteDailiesDue) {
-          throw new BadRequest(res.t('spellRogueStealthMaxedOut'));
-        }
+    // Check if stealth skill has been previously casted or not.
+    // See #12361 for more details.
+    if (spellName === 'stealth') {
+      const incompleteDailiesDue = await Tasks.Task.countDocuments({
+        userId: user._id,
+        type: 'daily',
+        completed: false,
+        isDue: true,
+      }).exec();
+      if (user.stats.buffs.stealth >= incompleteDailiesDue) {
+        throw new BadRequest(res.t('spellAlreadyCast'));
       }
-      await castSelfSpell(req, user, spell, quantity);
-
-      let userToJson = user;
-      if (isV3) userToJson = await userToJson.toJSONWithInbox();
-
-      res.respond(200, {
-        user: userToJson,
-      });
     }
+    await castSelfSpell(req, user, spell, quantity);
+
+    let userToJson = user;
+    if (isV3) userToJson = await userToJson.toJSONWithInbox();
+
+    res.respond(200, {
+      user: userToJson,
+    });
   } else if (targetType === 'tasks') { // new target type in v3: when all the user's tasks are necessary
     const response = await castMultiTaskSpell(req, user, spell, quantity);
     if (isV3) response.user = await response.user.toJSONWithInbox();

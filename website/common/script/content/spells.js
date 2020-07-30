@@ -105,6 +105,9 @@ spells.wizard = {
     target: 'self',
     notes: t('spellWizardFrostNotes'),
     cast (user) {
+      // Check if chilling frost skill has been previously casted or not.
+      // See #12361 for more details.
+      if (user.stats.buffs.streaks === true) throw new NotAuthorized(t('spellAlreadyCast')(user.language));
       user.stats.buffs.streaks = true;
     },
   },
@@ -705,10 +708,6 @@ spells.special = {
     },
   },
 };
-
-export function chillingFrostAlreadyCast (spellName, user) {
-  return (spellName === 'frost' && user.stats.buffs.streaks === true);
-}
 
 each(spells, spellClass => {
   each(spellClass, (spell, key) => {

@@ -168,11 +168,12 @@ describe('POST /user/class/cast/:spellId', () => {
       'stats.mp': 400,
       'stats.buffs.streaks': true,
     });
+    await user.sync();
     await expect(user.post('/user/class/cast/frost'))
       .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('spellWizardFrostAlreadyCast'),
+        code: 401,
+        error: 'NotAuthorized',
+        message: t('spellAlreadyCast'),
       });
     expect(user.stats.mp).to.equal(400);
   });
@@ -184,11 +185,12 @@ describe('POST /user/class/cast/:spellId', () => {
       'stats.mp': 400,
       'stats.buffs.stealth': 1,
     });
+    await user.sync();
     await expect(user.post('/user/class/cast/stealth'))
       .to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('spellRogueStealthMaxedOut'),
+        message: t('spellAlreadyCast'),
       });
     expect(user.stats.mp).to.equal(400);
   });
