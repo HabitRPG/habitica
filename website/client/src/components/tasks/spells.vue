@@ -42,7 +42,7 @@
                 :key="key"
                 v-b-popover.hover.auto="skillNotes(skill)"
                 class="col-12 col-md-3"
-                @click="castStart(skill)"
+                @click="!spellDisabled(key) ? castStart(skill) : null"
               >
                 <!-- eslint-enable vue/no-use-v-if-with-v-for -->
                 <div class="spell col-12 row">
