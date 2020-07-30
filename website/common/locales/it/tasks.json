@@ -213,5 +213,8 @@
     "sureDeleteType": "Sei sicuro di voler eliminare questo <%= type %>?",
     "deleteTaskType": "Elimina questo <%= type %>",
     "addNotes": "Aggiungi nota",
-    "addATitle": "Aggiungi un titolo"
+    "addATitle": "Aggiungi un titolo",
+    "pressEnterToAddTag": "Premi invio per aggiungere l'etichetta: '<%= tagName %>'",
+    "enterTag": "Aggiungi una etichetta",
+    "addTags": "Aggiungi etichette..."
 }
