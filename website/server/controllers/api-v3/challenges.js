@@ -659,7 +659,7 @@ api.exportChallengeCsv = {
 };
 
 /**
- * @api {put} /api/v3/challenges/:challengeId Update the name, description, or summary of a challenge
+ * @api {put} /api/v3/challenges/:challengeId Update a challenge's name, description, or summary
  *
  * @apiName UpdateChallenge
  * @apiGroup Challenge
