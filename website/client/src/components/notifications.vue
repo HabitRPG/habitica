@@ -449,6 +449,10 @@ export default {
 
       const money = after - before;
       let bonus;
+      // NOTE: the streak bonus snackbar
+      // is not shown when bulk scoring (for example in the RYA modal)
+      // is used as it bypass the client side scoring
+      // and doesn't populate the _tmp object
       if (this.user._tmp) {
         bonus = this.user._tmp.streakBonus || 0;
       }
