@@ -85,8 +85,8 @@ import moment from 'moment';
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import scoreTask from '@/mixins/scoreTask';
-import Task from './tasks/task';
-import LoadingSpinner from './ui/loadingSpinner';
+import Task from './task';
+import LoadingSpinner from '../ui/loadingSpinner';
 
 export default {
   components: {

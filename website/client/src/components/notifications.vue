@@ -117,7 +117,7 @@ import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 
-import yesterdailyModal from './yesterdailyModal';
+import yesterdailyModal from './tasks/yesterdailyModal';
 import newStuff from './achievements/newStuff';
 import death from './achievements/death';
 import lowHealth from './achievements/lowHealth';
