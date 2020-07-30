@@ -153,12 +153,12 @@ describe('GET /tasks/user', () => {
   });
 
   xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
-    const timezone = 420;
+    const timezoneOffset = 420;
     await user.update({
       'preferences.dayStart': 0,
-      'preferences.timezoneOffset': timezone,
+      'preferences.timezoneOffset': timezoneOffset,
     });
-    const startDate = moment().zone(timezone).subtract('4', 'days').startOf('day')
+    const startDate = moment().utcOffset(-timezoneOffset).subtract('4', 'days').startOf('day')
       .toISOString();
     await user.post('/tasks/user', [
       {
@@ -180,12 +180,12 @@ describe('GET /tasks/user', () => {
   });
 
   xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
-    const timezone = 240;
+    const timezoneOffset = 240;
     await user.update({
       'preferences.dayStart': 0,
-      'preferences.timezoneOffset': timezone,
+      'preferences.timezoneOffset': timezoneOffset,
     });
-    const startDate = moment().zone(timezone).subtract('4', 'days').startOf('day')
+    const startDate = moment().utcOffset(-timezoneOffset).subtract('4', 'days').startOf('day')
       .toISOString();
     await user.post('/tasks/user', [
       {
@@ -207,12 +207,12 @@ describe('GET /tasks/user', () => {
   });
 
   xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
-    const timezone = 540;
+    const timezoneOffset = 540;
     await user.update({
       'preferences.dayStart': 0,
-      'preferences.timezoneOffset': timezone,
+      'preferences.timezoneOffset': timezoneOffset,
     });
-    const startDate = moment().zone(timezone).subtract('4', 'days').startOf('day')
+    const startDate = moment().utcOffset(-timezoneOffset).subtract('4', 'days').startOf('day')
       .toISOString();
     await user.post('/tasks/user', [
       {

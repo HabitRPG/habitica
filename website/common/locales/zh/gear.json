@@ -881,7 +881,7 @@
     "headSpecialPageHelmText": "一页头盔",
     "headSpecialPageHelmNotes": "锁子甲：为了时尚和实用。增加<%= per %>点感知。",
     "headSpecialRoguishRainbowMessengerHoodText": "俏皮彩虹信使兜帽",
-    "headSpecialRoguishRainbowMessengerHoodNotes": "这个明亮的兜帽散发出一种鲜艳的光芒，可以保护你不受恶劣天气的影响。增加<%= con %>点体质。",
+    "headSpecialRoguishRainbowMessengerHoodNotes": "发光兜帽焕发出多彩的光芒，使你不受恶劣天气的影响。增加<%= con %>点体质。",
     "headSpecialClandestineCowlText": "神秘斗篷",
     "headSpecialClandestineCowlNotes": "当你从人物中抢夺金子和战利品时，小心地隐藏你的脸！增加<%= per %>点感知。",
     "headSpecialSnowSovereignCrownText": "冰雪大帝的皇冠",

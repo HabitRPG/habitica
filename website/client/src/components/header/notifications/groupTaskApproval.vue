@@ -1,6 +1,6 @@
 <template>
   <base-notification
-    :can-remove="canRemove"
+    :can-remove="false"
     :has-icon="false"
     :notification="notification"
     @click="action"
@@ -9,13 +9,13 @@
       <div v-html="notification.data.message"></div>
       <div class="notifications-buttons">
         <div
-          class="btn btn-small btn-success"
+          class="btn btn-small btn-success mr-2"
           @click.stop="approve()"
         >
           {{ $t('approve') }}
         </div>
         <div
-          class="btn btn-small btn-warning"
+          class="btn btn-small btn-secondary"
           @click.stop="needsWork()"
         >
           {{ $t('needsWork') }}
@@ -45,8 +45,7 @@ export default {
   },
   methods: {
     action () {
-      const groupId = this.notification.data.group.id;
-      this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId } });
+      this.$router.push({ name: 'groupPlanDetailTaskInformation', params: { groupId: this.notification.data.groupId } });
     },
     async approve () {
       // Redirect users to the group tasks page if the notification doesn't have data

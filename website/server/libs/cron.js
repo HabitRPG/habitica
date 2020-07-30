@@ -172,7 +172,7 @@ function resetHabitCounters (user, tasksByType, now, daysMissed) {
       break;
     }
     const thatDay = moment(now)
-      .zone(user.preferences.timezoneOffset + user.preferences.dayStart * 60)
+      .utcOffset(user.getUtcOffset() - user.preferences.dayStart * 60)
       .subtract({ days: i });
     if (thatDay.day() === 1) {
       resetWeekly = true;
@@ -281,14 +281,14 @@ function awardLoginIncentives (user) {
 // Perform various beginning-of-day reset actions.
 export function cron (options = {}) {
   const {
-    user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs,
+    user, tasksByType, analytics, now = new Date(), daysMissed, timezoneUtcOffsetFromUserPrefs,
   } = options;
   let _progress = { down: 0, up: 0, collectedItems: 0 };
 
   // Record pre-cron values of HP and MP to show notifications later
   const beforeCronStats = _.pick(user.stats, ['hp', 'mp']);
 
-  user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
+  user.preferences.timezoneOffsetAtLastCron = -timezoneUtcOffsetFromUserPrefs;
   // User is only allowed a certain number of drops a day. This resets the count.
   if (user.items.lastDrop.count > 0) user.items.lastDrop.count = 0;
 

@@ -6,7 +6,7 @@
       @click="click($event)"
     >
       <div
-        class="item"
+        class="item transition"
         :class="{'item-active': active }"
       >
         <countBadge
