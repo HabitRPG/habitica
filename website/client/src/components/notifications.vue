@@ -710,6 +710,10 @@ export default {
         this.$store.dispatch('user:fetch', { forceLoad: true }),
         this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
       ]);
+    },
+    afterYesterdailies () {
+      this.scheduleNextCron();
+      this.$store.state.isRunningYesterdailies = false;
 
       if (
         this.levelBeforeYesterdailies > 0
@@ -717,10 +721,6 @@ export default {
       ) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
-    },
-    afterYesterdailies () {
-      this.scheduleNextCron();
-      this.$store.state.isRunningYesterdailies = false;
       this.handleUserNotifications(this.user.notifications);
     },
     async handleUserNotifications (after) {

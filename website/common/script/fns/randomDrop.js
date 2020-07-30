@@ -37,6 +37,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
     size(user.items.eggs) < 1
     && size(user.items.hatchingPotions) < 1
   ) {
+    // @TODO why are we using both _tmp.firstDrops and the FIRST_DROPS notification?
     user._tmp.firstDrops = firstDrops(user);
     return;
   }
@@ -150,6 +151,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
       }, req.language);
     }
 
+    // @TODO use notifications
     user._tmp.drop = drop;
     user.items.lastDrop.date = Number(new Date());
     user.items.lastDrop.count += 1;
