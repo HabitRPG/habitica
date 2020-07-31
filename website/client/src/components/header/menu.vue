@@ -323,7 +323,7 @@
               </router-link>
               <a
                 class="topbar-dropdown-item dropdown-item"
-                href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents"
+                href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestAF') }}</a>
               <a
@@ -672,6 +672,10 @@
       margin-right: 12px;
       margin-left: 12px;
     }
+  }
+
+  a.item-with-icon:focus {
+    outline: none;
   }
 
   .menu-icon {

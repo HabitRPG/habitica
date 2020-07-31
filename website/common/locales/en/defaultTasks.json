@@ -9,7 +9,7 @@
   "defaultHabit3Notes": "Sample Good or Bad Habits: +/- Took Stairs/Elevator ; +/- Drank Water/Soda",
 
   "defaultHabit4Text": "Add a task to Habitica",
-  "defaultHabit4Notes": "Either a Habit, a Daily, or a To-Do",
+  "defaultHabit4Notes": "Either a Habit, a Daily, or a To Do",
 
   "defaultHabit5Text": "Tap here to edit this into a bad habit you'd like to quit",
   "defaultHabit5Notes": "Or delete from the edit screen",
@@ -17,7 +17,7 @@
   "defaultDaily1Text": "Use Habitica to keep track of your tasks",
 
   "defaultTodo1Text": "Join Habitica (Check me off!)",
-  "defaultTodoNotes": "You can either complete this To-Do, edit it, or remove it.",
+  "defaultTodoNotes": "You can either complete this To Do, edit it, or remove it.",
 
   "defaultTodo2Text": "Finish Justin's task walkthrough",
   "defaultTodo2Notes": "Visit all the sections of the bottom bar",
@@ -59,7 +59,7 @@
   "schoolDailyText": "Finish homework",
   "schoolDailyNotes": "Tap to choose your homework schedule!",
   "schoolTodoText": "Finish assignment for class",
-  "schoolTodoNotes": "Tap to name the assignment and choose a due date!]",
+  "schoolTodoNotes": "Tap to name the assignment and choose a due date!",
 
   "selfCareHabit": "Take a short break",
   "selfCareDailyText": "5 minutes of quiet breathing",

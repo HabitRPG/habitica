@@ -2,7 +2,8 @@
   <div
     v-if="message"
     class="claim-top-message d-flex align-content-center"
-    :class="{'approval-action': userIsAdmin, 'approval-pending': !userIsAdmin}"
+    :class="{ 'approval-action': userIsAdmin || task.group.approval.approved,
+              'approval-pending': !userIsAdmin && !task.group.approval.approved }"
   >
     <div
       class="m-auto"
@@ -47,13 +48,18 @@ export default {
 
       if (approvalsLength === 1 && !userIsRequesting) {
         return this.$t('userRequestsApproval', { userName: approvals[0].userId.profile.name });
-      } if (approvalsLength > 1 && !userIsRequesting) {
+      }
+      if (approvalsLength > 1 && !userIsRequesting) {
         return this.$t('userCountRequestsApproval', { userCount: approvalsLength });
-      } if (
-        (approvalsLength === 1 && userIsRequesting)
+      }
+      if ((approvalsLength === 1 && userIsRequesting)
         || (this.task.group.approval
-          && this.task.group.approval.requested && !this.task.group.approval.approved)) {
+          && this.task.group.approval.requested
+          && !this.task.group.approval.approved)) {
         return this.$t('youAreRequestingApproval');
+      }
+      if (this.task.group.approval.approved && !this.task.completed) {
+        return this.$t('thisTaskApproved');
       }
       return null;
     },

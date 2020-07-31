@@ -283,7 +283,6 @@ api.rejectQuest = {
   },
 };
 
-
 /**
  * @api {post} /api/v3/groups/:groupId/quests/force-start Force-start a pending quest
  * @apiName ForceQuestStart

@@ -192,6 +192,16 @@ const basicAchievs = {
     titleKey: 'achievementBugBonanza',
     textKey: 'achievementBugBonanzaText',
   },
+  bareNecessities: {
+    icon: 'achievement-bareNecessities',
+    titleKey: 'achievementBareNecessities',
+    textKey: 'achievementBareNecessitiesText',
+  },
+  freshwaterFriends: {
+    icon: 'achievement-freshwaterFriends',
+    titleKey: 'achievementFreshwaterFriends',
+    textKey: 'achievementFreshwaterFriendsText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

@@ -3,6 +3,10 @@ import nconf from 'nconf';
 import repl from 'repl';
 import gulp from 'gulp';
 import logger from '../website/server/libs/logger';
+import {
+  getDevelopmentConnectionUrl,
+  getDefaultConnectionOptions,
+} from '../website/server/libs/mongodb';
 
 // Add additional properties to the repl's context
 const improveRepl = context => {
@@ -26,13 +30,14 @@ const improveRepl = context => {
   context.Group = require('../website/server/models/group').model; // eslint-disable-line global-require
   context.User = require('../website/server/models/user').model; // eslint-disable-line global-require
 
-  const isProd = nconf.get('NODE_ENV') === 'production';
-  const mongooseOptions = !isProd ? {} : {
-    keepAlive: 1,
-    connectTimeoutMS: 30000,
-  };
+  const IS_PROD = nconf.get('NODE_ENV') === 'production';
+  const NODE_DB_URI = nconf.get('NODE_DB_URI');
+
+  const mongooseOptions = getDefaultConnectionOptions();
+  const connectionUrl = IS_PROD ? NODE_DB_URI : getDevelopmentConnectionUrl(NODE_DB_URI);
+
   mongoose.connect(
-    nconf.get('NODE_DB_URI'),
+    connectionUrl,
     mongooseOptions,
     err => {
       if (err) throw err;

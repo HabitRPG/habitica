@@ -90,7 +90,6 @@ describe('shops', () => {
         },
       });
 
-
       const shopWizardItems = shared.shops.getMarketGearCategories(userWithItems).find(x => x.identifier === 'wizard').items.filter(x => x.klass === 'wizard' && (x.owned === false || x.owned === undefined));
       expect(shopWizardItems.length).to.eql(0);
     });
@@ -121,7 +120,6 @@ describe('shops', () => {
           },
         },
       });
-
 
       const shopWizardItems = shared.shops.getMarketGearCategories(userWithItems).find(x => x.identifier === 'wizard').items.filter(x => x.klass === 'wizard' && (x.owned === false || x.owned === undefined));
       expect(shopWizardItems.find(item => item.key === 'weapon_wizard_5').locked).to.eql(false);

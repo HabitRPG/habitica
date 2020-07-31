@@ -182,10 +182,10 @@ export default {
     remove () {
       if (this.notification.type === 'NEW_CHAT_MESSAGE') {
         const groupId = this.notification.data.group.id;
-        this.$store.dispatch('chat:markChatSeen', { groupId });
-        if (this.user.newMessages[groupId]) {
-          this.$delete(this.user.newMessages, groupId);
-        }
+        this.$store.dispatch('chat:markChatSeen', {
+          groupId,
+          notificationId: this.notification.id,
+        });
       } else {
         this.readNotification({ notificationId: this.notification.id });
       }

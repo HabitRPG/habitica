@@ -40,7 +40,7 @@
                 v-for="(skill, key) in spells[user.stats.class]"
                 v-if="user.stats.lvl >= skill.lvl"
                 :key="key"
-                v-b-popover.hover.auto="skill.notes()"
+                v-b-popover.hover.auto="skillNotes(skill)"
                 class="col-12 col-md-3"
                 @click="castStart(skill)"
               >
@@ -204,16 +204,15 @@
 </style>
 
 <script>
-import spells from '@/../../common/script/content/spells';
+import spells, { stealthBuffsToAdd } from '@/../../common/script/content/spells';
 
-import { mapState } from '@/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import spellsMixin from '@/mixins/spells';
 import Drawer from '@/components/ui/drawer';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
 
 import mana from '@/assets/svg/mana.svg';
-import * as quests from '@/../../common/script/content/quests';
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 
 export default {
@@ -227,7 +226,6 @@ export default {
   data () {
     return {
       spells,
-      quests,
       applyingAction: false,
       spell: {},
       icons: Object.freeze({
@@ -239,6 +237,9 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
+    ...mapGetters({
+      getUnfilteredTaskList: 'tasks:getUnfilteredTaskList',
+    }),
     openStatus () {
       return this.$store.state.spellOptions.spellDrawOpen ? 1 : 0;
     },
@@ -269,14 +270,9 @@ export default {
       );
     },
     spellDisabled (skill) {
-      if (skill === 'frost' && this.user.stats.buffs.streaks) {
-        return true;
-      }
-      // @TODO: Implement
-      // } else if (skill === 'stealth' && this.user.stats.buffs.stealth
-      // >= this.user.dailys.length) {
-      //   return true;
-      // }
+      const incompleteDailiesDue = this.getUnfilteredTaskList('daily').filter(daily => !daily.completed && daily.isDue).length;
+      if (skill === 'frost' && this.user.stats.buffs.streaks) return true;
+      if (skill === 'stealth' && this.user.stats.buffs.stealth >= incompleteDailiesDue) return true;
 
       return false;
     },
@@ -290,31 +286,11 @@ export default {
       } else if (skill.key === 'stealth') {
         notes = this.$t('spellRogueStealthDaliesAvoided', {
           originalText: notes,
-          number: this.user.stats.buffs.stealth,
+          number: stealthBuffsToAdd(this.user),
         });
       }
 
       return notes;
-    },
-    questProgress () {
-      const { user } = this;
-      if (!user.party.quest) return 0;
-
-      const userQuest = this.quests[user.party.quest.key];
-
-      if (!userQuest) {
-        return 0;
-      }
-
-      if (userQuest.boss && user.party.quest.progress.up > 0) {
-        return user.party.quest.progress.up;
-      }
-
-      if (userQuest.collect && user.party.quest.progress.collectedItems > 0) {
-        return user.party.quest.progress.collectedItems;
-      }
-
-      return 0;
     },
     // @TODO: Move to mouse move component??
     mouseMoved ($event) {

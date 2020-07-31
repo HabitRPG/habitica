@@ -19,7 +19,6 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
     const { key } = this;
     if (!key) throw new BadRequest(this.i18n('missingKeyParam'));
 
-
     if (!includes(keys(content.timeTravelStable.mounts), key)) {
       throw new NotAuthorized(this.i18n('notAllowedHourglass'));
     }

@@ -237,7 +237,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'payments-success-modal');
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.paymentData = {};
     this.$root.$off('habitica:payments-success');
   },

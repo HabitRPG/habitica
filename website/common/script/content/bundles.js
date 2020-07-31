@@ -126,7 +126,7 @@ const bundles = {
       'octopus',
     ],
     canBuy () {
-      return moment().isBetween('2018-06-12', '2018-07-02');
+      return moment().isBetween('2020-07-14', '2020-08-02');
     },
     type: 'quests',
     value: 7,
@@ -217,6 +217,21 @@ const bundles = {
     ],
     canBuy () {
       return moment().isBetween('2019-11-14', '2019-12-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
+  jungleBuddies: {
+    key: 'jungleBuddies',
+    text: t('jungleBuddiesText'),
+    notes: t('jungleBuddiesNotes', { date: moment('2020-05-31').format('LL') }),
+    bundleKeys: [
+      'monkey',
+      'sloth',
+      'treeling',
+    ],
+    canBuy () {
+      return moment().isBetween('2020-05-19', '2020-06-02');
     },
     type: 'quests',
     value: 7,

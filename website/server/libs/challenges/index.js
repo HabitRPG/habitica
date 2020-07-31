@@ -1,7 +1,7 @@
 // Currently this holds helpers for challenge api,
 // but we should break this up into submodules as it expands
 import omit from 'lodash/omit';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { model as Challenge } from '../../models/challenge';
 import {
   model as Group,

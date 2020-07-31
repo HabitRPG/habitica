@@ -1,4 +1,3 @@
-
 import {
   generateUser,
 } from '../../helpers/common.helper';
@@ -35,7 +34,6 @@ describe('getDebuffPotionItems', () => {
     user.stats.buffs.spookySparkles = true;
     user.stats.buffs.snowball = true;
     user.stats.buffs.shinySeed = true;
-
 
     const result = getDebuffPotionItems(user);
 

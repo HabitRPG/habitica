@@ -27,22 +27,22 @@
         <small>{{ post.credits }}</small>
       </div>
     </div>
-
-    <div class="modal-footer">
+    <div class="modal-footer d-flex align-items-center pb-0">
       <a
-        class="btn btn-info"
         href="http://habitica.fandom.com/wiki/Whats_New"
         target="_blank"
-      > {{ this.$t('newsArchive') }}</a>
+        class="mr-auto"
+      >{{ this.$t('newsArchive') }}</a>
       <button
-        class="btn btn-secondary"
+        class="btn btn-secondary ml-auto"
         @click="tellMeLater()"
       >
         {{ this.$t('tellMeLater') }}
       </button>
       <button
-        class="btn btn-warning"
-        @click="dismissAlert()"
+
+        class="btn btn-primary"
+        @click="dismissAlert();"
       >
         {{ this.$t('dismissAlert') }}
       </button>
@@ -156,7 +156,7 @@ export default {
       this.posts = this.posts.slice(0, 2);
     }
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('bv::show::modal');
   },
   methods: {

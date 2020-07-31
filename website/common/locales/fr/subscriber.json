@@ -7,7 +7,7 @@
     "buyGemsGoldText": "Alexander le marchand vous vendra les gemmes au prix de 20 pièces d'or par gemme. Ses envois mensuels sont initialement plafonnés à 25 gemmes par mois, mais cette limite augmente de 5 gemmes tous les trois mois d'abonnement consécutifs, jusqu'à un maximum de 50 gemmes par mois !",
     "mustSubscribeToPurchaseGems": "Vous devez être abonné pour acheter des gemmes avec de l'or",
     "reachedGoldToGemCap": "Vous avez atteint la limite de conversion d'or en gemme de <%= convCap %> pour ce mois. Ceci permet de limiter les abus et une accumulation de trophées qui ne seraient pas dans l'esprit du jeu. Le compte est remis à zéro chaque mois, au cours des trois premiers jours.",
-    "reachedGoldToGemCapQuantity": "La quantité demandée de <%= quantity %> dépasse le palier de conversion d'or en gemmes de ce mois, qui est de <%= convCap %>. Ce palier sert à empêcher les abus. Il est réinitialisé dans les trois premiers jours de chaque mois.",
+    "reachedGoldToGemCapQuantity": "La quantité demandée de <%= quantity %> dépasse la quantité que vous pouvez acheter ce mois (<%= convCap %>). La quantité totale devient disponible dans les trois premiers jours de chaque mois. Merci pour votre abonnement !",
     "retainHistory": "Conservation de plus d'entrées de l'historique",
     "retainHistoryText": "Rend les tâches à faire terminées et l'historique des tâches disponibles plus longtemps.",
     "doubleDrops": "Limite journalière de butin doublée",
@@ -203,7 +203,7 @@
     "gemBenefit4": "Réinitialiser les points d'attribut de votre avatar et changer sa classe.",
     "subscriptionBenefitLeadin": "Soutenez Habitica en vous abonnant et vous bénéficierez de ces avantages !",
     "subscriptionBenefit1": "Alexandre le marchand vous vendra maintenant des gemmes au marché, au prix de 20 pièces d'or la gemme !",
-    "subscriptionBenefit2": "Les tâches À Faire complétées et l'historique des tâches sont disponibles plus longtemps.",
+    "subscriptionBenefit2": "Les tâches à faire complétées et l'historique des tâches sont disponibles plus longtemps.",
     "subscriptionBenefit3": "Découvrez plus d'objets avec une limite de butin quotidienne doublée.",
     "subscriptionBenefit4": "Des objets cosmétiques uniques pour embellir votre avatar chaque mois.",
     "subscriptionBenefit5": "Obtenez le familier jackalope pourpre royal lorsque vous vous abonnez.",
@@ -248,5 +248,9 @@
     "subscribersReceiveBenefits": "Les personnes abonnées reçoivent ces bénéfices utiles !",
     "mysterySet202003": "Ensemble de combat barbelé",
     "giftASubscription": "Offrez un abonnement",
-    "mysterySet202004": "Ensemble du merveilleux monarque"
+    "mysterySet202004": "Ensemble du merveilleux monarque",
+    "mysterySet202005": "Ensemble de la merveilleuse wyverne",
+    "mysterySet202006": "Ensemble de sirène multichromé",
+    "mysterySet202007": "Ensemble d'épaulard époustouflant",
+    "mysterySet202008": "Ensemble d'oracle du hibou"
 }

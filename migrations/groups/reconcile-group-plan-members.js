@@ -45,7 +45,7 @@ async function fixGroupPlanMembers () {
     pause();
     groupPlanCount += 1;
 
-    const canonicalMemberCount = await dbUsers.count(
+    const canonicalMemberCount = await dbUsers.countDocuments(
       {
         $or:
           [

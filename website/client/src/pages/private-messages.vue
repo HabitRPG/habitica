@@ -429,11 +429,12 @@
       }
 
       &.has-content {
-        --textarea-auto-height: 80px
+        --textarea-auto-height: 80px;
       }
 
-      max-height: var(--textarea-auto-height, 40px);
+      height: var(--textarea-auto-height, 40px);
       min-height: var(--textarea-auto-height, 40px);
+      max-height: 300px;
     }
   }
 
@@ -655,6 +656,7 @@ export default {
         backer: data.backer,
         contributor: data.contributor,
         userStyles: data.userStyles,
+        canReceive: true,
       };
 
       this.$store.state.privateMessageOptions = {};
@@ -662,8 +664,9 @@ export default {
       this.selectConversation(this.initiatedConversation.uuid);
     }
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off(EVENTS.RESYNC_COMPLETED);
+    this.$root.$off(EVENTS.PM_REFRESH);
   },
   computed: {
     ...mapState({ user: 'user.data' }),
@@ -894,6 +897,7 @@ export default {
         username: this.user.auth.local.username,
         contributor: this.user.contributor,
         backer: this.user.backer,
+        canReceive: true,
       });
 
       // Remove the placeholder message

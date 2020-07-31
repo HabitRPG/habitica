@@ -26,30 +26,8 @@ export default function ipBlocker (req, res, next) {
   // If there are no IPs to block, skip the middleware
   if (blockedIps.length === 0) return next();
 
-  // If x-forwarded-for is undefined we're not behind the production proxy
-  const originIpsRaw = req.header('x-forwarded-for');
-  if (!originIpsRaw) return next();
-
-  // Format xxx.xxx.xxx.xxx, xxx.xxx.xxx.xxx (comma separated list of ip)
-  const originIps = originIpsRaw
-    .split(',')
-    .map(originIp => originIp.trim());
-
-  // We try to match any of the origins IPs against the blocked IPs list.
-  //
-  // In case we're behind a Google Cloud Load Balancer the last ip
-  // in the list is added by the load balancer.
-  // See https://cloud.google.com/load-balancing/docs/https#target-proxies
-  // In particular:
-  // << A Google Cloud external HTTP(S) load balancer adds two IP addresses to the header:
-  // the IP address of the requesting client and the external IP address of the load balancer's
-  // forwarding rule, in that order.
-  // Therefore, the IP address that immediately precedes the Google Cloud load balancer's
-  // IP address is the IP address of the system that contacts the load balancer.
-  // The system might be a client, or it might be another proxy server, outside Google Cloud,
-  // that forwards requests on behalf of a client. >>
-
-  const match = originIps.find(originIp => blockedIps.includes(originIp)) !== undefined;
+  // Is the client IP, req.ip, blocked?
+  const match = blockedIps.find(blockedIp => blockedIp === req.ip) !== undefined;
 
   if (match === true) {
     // Not translated because no user is loaded at this point

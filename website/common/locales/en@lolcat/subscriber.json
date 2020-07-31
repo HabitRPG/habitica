@@ -7,7 +7,7 @@
     "buyGemsGoldText": "Alexander the Merchant will sell you Gems at a cost of 20 Gold per Gem. His monthly shipments are initially capped at 25 Gems per month, but for every 3 consecutive months that you are subscribed, this cap increases by 5 Gems, up to a maximum of 50 Gems per month!",
     "mustSubscribeToPurchaseGems": "Must subscribe to purchase gems with GP",
     "reachedGoldToGemCap": "You've reached the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
-    "reachedGoldToGemCapQuantity": "Your requested amount <%= quantity %> exceeds the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
+    "reachedGoldToGemCapQuantity": "U ASKD 4 2 MENY GEMZ: <%= quantity %> IZ MOAR THAN TEH GEMZ U CAN BAI 4 DIS MONTH (<%= convCap %>). U CAN HAS MOAR NEXT MONTH--TEH FUL AMOUNT BECUMZ AVAILABL IN TEH FIRS 3 DAIZ OF EECH MONTH. THX 4 SUBSCRAIBIN!!!!",
     "retainHistory": "Retain additional history entries",
     "retainHistoryText": "Makes completed To-Dos and task history available for longer.",
     "doubleDrops": "Daily drop caps doubled",

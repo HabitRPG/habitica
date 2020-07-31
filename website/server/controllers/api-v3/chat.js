@@ -92,7 +92,6 @@ function getBannedWordsFromText (message) {
   return getMatchesByWordArray(message, bannedWords);
 }
 
-
 /**
  * @api {post} /api/v3/groups/:groupId/chat Post chat message to a group
  * @apiName PostChat
@@ -247,7 +246,6 @@ api.postChat = {
       user.party.lastMessageSeen = newChatMessage.id;
       toSave.push(user.save());
     }
-
 
     await Promise.all(toSave);
 

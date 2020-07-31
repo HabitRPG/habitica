@@ -5,6 +5,7 @@ import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
 import pickBy from 'lodash/pickBy';
 import size from 'lodash/size';
+import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
@@ -45,6 +46,8 @@ export default function randomDrop (user, options, req = {}, analytics) {
 
   let chance = min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
   chance *= task.priority // Task priority: +50% for Medium, +100% for Hard
+    // A/B test experiment: start users with +75% drops, diminishing by 5% per level gained
+    * ('12345678'.indexOf(user._id.slice(0, 1)) !== -1 ? (1 + Math.max(0, 80 - (5 * user.stats.lvl)) / 100) : 1)
     * (1 + (task.streak / 100 || 0)) // Streak bonus: +1% per streak
     * (1 + statsComputed(user).per / 100) // PERception: +1% per point
     * (1 + (user.contributor.level / 40 || 0)) // Contrib levels: +2.5% per level
@@ -81,10 +84,12 @@ export default function randomDrop (user, options, req = {}, analytics) {
     return;
   }
 
-  if (predictableRandom() < chance) {
+  const firstFoodDrop = size(user.items.food) < 1;
+
+  if (firstFoodDrop || predictableRandom() < chance) {
     rarity = predictableRandom();
 
-    if (rarity > 0.6) { // food 40% chance
+    if (firstFoodDrop || rarity > 0.6) { // food 40% chance
       drop = cloneDropItem(randomVal(filter(content.food, {
         canDrop: true,
       })));
@@ -149,7 +154,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
     user.items.lastDrop.date = Number(new Date());
     user.items.lastDrop.count += 1;
 
-    if (analytics) {
+    if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
       analytics.track('dropped item', {
         uuid: user._id,
         itemKey: drop.key,

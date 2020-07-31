@@ -58,7 +58,7 @@
     "achievementCreatedTask": "Set up yer Task",
     "hideAchievements": "Don' wanna see <%= category %>",
     "showAllAchievements": "Let's see <%= category %>",
-    "onboardingCompleteDesc": "Ye've earned <strong>5 Medals </strong> an' <strong class=\"gold-amount\">100</strong> gold fer kermpletin' th' list.",
+    "onboardingCompleteDesc": "Ye've earned <strong>5 Medals </strong> an' <strong class=\"gold-amount\">100 Gold</strong> fer kermpletin' th' list.",
     "earnedAchievement": "Ye've earned a Medal!",
     "viewAchievements": "View Medals",
     "letsGetStarted": "Get on wiv it!",
@@ -71,9 +71,11 @@
     "achievementTickledPinkText": "'as collected all Cotton Candy Pink Critters.",
     "achievementTickledPink": "Pickled Pink",
     "foundNewItemsCTA": "Head t' yer inventory an' try combinin' yer new 'atchin' potion an' egg!",
-    "foundNewItemsExplanation": "Completin' tasks gives ye a chance ta find new items, like eggs, 'atchin' potions, an' vittles.",
-    "foundNewItems": "Ye found somethin' new!",
+    "foundNewItemsExplanation": "Completin' tasks gives ye a chance ta find items, like eggs, 'atchin' potions, an' vittles.",
+    "foundNewItems": "Ye found sumpthin' new!",
     "achievementBugBonanzaModalText": "Ye've kermpleted th' Beetle, Butterfly, Snail, an' Spidey pet quests!",
     "achievementBugBonanzaText": "'as kermpleted Beetle, Butterfly, Snail, an' Spidey pet quests.",
-    "achievementBugBonanza": "Crawly Catcher"
+    "achievementBugBonanza": "Crawly Catcher",
+    "yourProgress": "Yer Progress",
+    "onboardingComplete": "Ye've kermplet'd yer onboardin' tasks!"
 }

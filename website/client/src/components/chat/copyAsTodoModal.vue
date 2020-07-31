@@ -81,7 +81,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'copyAsTodo');
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica::copy-as-todo');
   },
   methods: {

@@ -78,6 +78,7 @@
         </div>
       </div>
       <draggable
+        v-if="taskList.length > 0"
         ref="tasksList"
         class="sortable-tasks"
         :options="{disabled: activeFilter.label === 'scheduled' || !isUser, scrollSensitivity: 64}"
@@ -168,7 +169,7 @@
     @supports (display: grid) {
       display: grid;
       justify-content: center;
-      grid-column-gap: 16px;
+      grid-column-gap: 10px;
       grid-row-gap: 4px;
       grid-template-columns: repeat(auto-fill, 94px);
     }
@@ -177,7 +178,7 @@
       display: flex;
       flex-wrap: wrap;
       & > div {
-        margin: 0 16px 4px 0;
+        margin: 0 10px 4px 0;
       }
     }
   }
@@ -200,6 +201,7 @@
     border-color: transparent;
     transition: background 0.15s ease-in;
     resize: none;
+    overflow: hidden;
 
     &:hover {
       background-color: rgba($black, 0.1);
@@ -515,7 +517,7 @@ export default {
       this.loadCompletedTodos();
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');
     if (this.type !== 'todo') return;
     this.$root.$off(EVENTS.RESYNC_COMPLETED);
@@ -639,7 +641,7 @@ export default {
     },
     setColumnBackgroundVisibility () {
       this.$nextTick(() => {
-        if (!this.$refs.columnBackground) return;
+        if (!this.$refs.columnBackground || !this.$refs.tasksList) return;
 
         const tasksWrapperEl = this.$refs.tasksWrapper;
 

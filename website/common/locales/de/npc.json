@@ -90,7 +90,7 @@
     "pathRequired": "Pfad ist erforderlich",
     "unlocked": "Gegenstände wurden freigeschaltet",
     "alreadyUnlocked": "Komplettes Set ist bereits freigeschaltet.",
-    "alreadyUnlockedPart": "Set ist bereits teilweise freigeschaltet.",
+    "alreadyUnlockedPart": "Set ist bereits teilweise freigeschaltet. Es ist günstiger die übrigen Gegenstände einzeln zu kaufen.",
     "invalidQuantity": "Die zu kaufende Menge muss eine positive ganze Zahl sein.",
     "USD": "(USD)",
     "newStuff": "Neuigkeiten von Bailey",
@@ -122,7 +122,7 @@
     "skillsTitle": "Fertigkeiten",
     "toDo": "To-Do",
     "moreClass": "Mehr Informationen zu dem Klassen-System erhältst du auf <a href='http://habitica.fandom.com/wiki/Class_System' target='_blank'>Wikia</a>.",
-    "tourWelcome": "Willkommen in Habitica! Dies ist Deine Aufgabenliste. Hake eine Aufgabe ab, um weiterzumachen!",
+    "tourWelcome": "Willkommen in Habitica! Dies ist Deine To-Do-Liste. Hake ein To-Do ab, um weiterzumachen!",
     "tourExp": "Gut gemacht! Eine Aufgabe abzuhaken bringt Dir Erfahrung und Gold ein!",
     "tourDailies": "Diese Spalte ist für Tagesaufgaben. Um weiterzumachen füge eine Aufgabe hinzu, die Du jeden Tag erledigen möchtest. <strong>Beispiele für Tagesaufgaben sind</strong>: <strong>Das Bett machen</strong>, <strong>Zahnseide benutzen</strong>, <strong>Geschäfts-E-Mails durchschauen</strong>",
     "tourCron": "Großartig! Deine Tagesaufgaben werden jeden Tag zurückgesetzt.",
@@ -171,5 +171,6 @@
     "paymentAutoRenew": "Dieses Abonnement wird automatisch erneuert bis es gekündigt wird. Wenn Du dieses Abonnement kündigen musst, kannst Du dies in Deinen Einstellungen tun.",
     "paymentCanceledDisputes": "Wir haben eine Bestätigung der Kündigung an Deine E-Mailadresse gesendet. Falls Du die E-Mail nicht erhältst, kontaktiere uns bitte um zu verhindern, dass es zu Zahlungsstreitigkeiten kommt.",
     "cannotUnpinItem": "Dieser Gegenstand kann nicht von der Pinnwand entfernt werden.",
-    "paymentSubBillingWithMethod": "Dein Abonnement wird in Höhe von <strong>$<%= amount %></strong> alle <strong><%= months %> Monat(e)</strong> per <strong><%= paymentMethod %></strong> abgerechnet."
+    "paymentSubBillingWithMethod": "Dein Abonnement wird in Höhe von <strong>$<%= amount %></strong> alle <strong><%= months %> Monat(e)</strong> per <strong><%= paymentMethod %></strong> abgerechnet.",
+    "invalidUnlockSet": "Dieses Set an Gegenständen ist abgelaufen und kann nicht freigeschaltet werden."
 }

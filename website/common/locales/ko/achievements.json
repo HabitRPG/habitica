@@ -1,7 +1,7 @@
 {
     "achievement": "업적",
     "share": "공유하기",
-    "onwards": "야호!",
+    "onwards": "앞으로!",
     "levelup": "당신의 실제 삶의 목표들을 달성함으로써 레벨 업 했고 이제 완전히 회복되었어요!",
     "reachedLevel": "레벨<%= level %>에 도달했습니다.",
     "achievementLostMasterclasser": "퀘스트 완료자: 마스터클래서 시리즈",

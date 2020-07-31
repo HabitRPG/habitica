@@ -125,7 +125,7 @@ export default {
       });
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica::pay-with-amazon');
   },
   methods: {

@@ -43,7 +43,6 @@ describe('shared.ops.purchase', () => {
       }
     });
 
-
     it('returns error when unknown type is provided', done => {
       try {
         purchase(user, { params: { type: 'randomType', key: 'gem' } });
@@ -95,7 +94,6 @@ describe('shared.ops.purchase', () => {
         done();
       }
     });
-
 
     it('returns error when item is not found', done => {
       const params = { key: 'notExisting', type: 'food' };

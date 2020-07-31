@@ -135,7 +135,7 @@
     "weaponSpecialSummerWarriorText": "뱃사람의 사시미칼",
     "weaponSpecialSummerWarriorNotes": "어떤 할 일 목록에도 이 끝내주는 칼이랑 얽히고 싶은 일은 없을 걸! 근력을 <%= str %>만큼 증가시켜준다. 2014년 여름 장비 한정판.",
     "weaponSpecialSummerMageText": "해초 건지개",
-    "weaponSpecialSummerMageNotes": "이 삼지창은 해조를 효과적으로 찍는 데 사용됩니다. 매우 잘 자라는 켈프를 수확할 때! 지력을 <%= int %>만큼, 통찰력을 <%= per %>만큼 증가시킵니다. 2014년 여름 한정판 장비.\n",
+    "weaponSpecialSummerMageNotes": "이 삼지창은 해조를 효과적으로 찍는 데 사용됩니다. 매우 잘 자라는 켈프를 수확할 때! 지력을 <%= int %>만큼, 통찰력을 <%= per %>만큼 증가시킵니다. 2014년 여름 한정판 장비.",
     "weaponSpecialSummerHealerText": "샐로가의 지팡이",
     "weaponSpecialSummerHealerNotes": "이 지팡이는 아쿠아마린과 살아있는 산호로 만든 것으로 물고기 떼를 매우 잘 끌어들입니다. 지능을 <%= int %>만큼 증가시킵니다. 2014년 여름 한정판 장비.",
     "weaponSpecialFallRogueText": "은 말뚝",

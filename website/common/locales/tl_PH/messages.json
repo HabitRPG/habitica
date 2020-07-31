@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "Binili ang <%= itemText %>",
-    "messageEquipped": "Nakasuot ang <%= itemText %>.",
+    "messageEquipped": " Nakasuot ang <%= itemText %>.",
     "messageUnEquipped": "Hinubad ang <%= itemText %> ",
     "messageMissingEggPotion": "Kinukulang ka ng itlog o ng gayuma.",
     "messageInvalidEggPotionCombo": "Hindi ka maaaring magpisa ng Pagsubok na Gayuma sa Itlog gamit ang Salamangkang Nakapagpapapipisa na Gayuma! Sumubok ng ibang itlog.",

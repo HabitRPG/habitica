@@ -6,7 +6,7 @@
       @click="click()"
     >
       <div
-        class="item pet-slot"
+        class="item pet-slot transition"
         :class="{'item-empty': !isOwned()}"
       >
         <slot
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { mapState } from '@/libs/store';
 import { isOwned } from '../../../libs/createAnimal';
 
@@ -54,7 +54,7 @@ export default {
   },
   data () {
     return Object.freeze({
-      itemId: uuid.v4(),
+      itemId: uuid(),
     });
   },
   computed: {

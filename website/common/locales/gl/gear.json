@@ -311,7 +311,7 @@
     "weaponArmoireBatWandText": "Variña dos Morcegos",
     "weaponArmoireBatWandNotes": "Esta variña pode converter calquera tarefa nun morcego! Axítaa e obsérvaas irse voando. Aumenta a Intelixencia de <%= int %> e a Percepción de <%= per %>. Armario Encantado: Obxecto independente.",
     "weaponArmoireShepherdsCrookText": "Shepherd's Crook",
-    "weaponArmoireShepherdsCrookNotes": "Útil para agrupar grifos. Aumenta a Constitución de <%= con %>. Armario Encantado: Lote de Pastor (Obxecto 1 de 3).\n",
+    "weaponArmoireShepherdsCrookNotes": "Útil para agrupar grifos. Aumenta a Constitución de <%= con %>. Armario Encantado: Lote de Pastor (Obxecto 1 de 3).",
     "weaponArmoireCrystalCrescentStaffText": "Bastón de Cristal Crecente",
     "weaponArmoireCrystalCrescentStaffNotes": "Convoca o poder da lúa crecente con este bastón brillante! Aumenta a Intelixencia e a Forza de <%= attrs %> cada unha.  Armario Encantado: Lote do Cristal Crecente (Obxecto 3 de 3).",
     "weaponArmoireBlueLongbowText": "Arco Longo Azul",

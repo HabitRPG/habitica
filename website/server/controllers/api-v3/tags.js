@@ -19,7 +19,6 @@ import {
  *                                                       belonging to the user.
  */
 
-
 const api = {};
 
 /**

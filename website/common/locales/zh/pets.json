@@ -145,5 +145,8 @@
     "notEnoughPetsMounts": "您还没有收集足够的宠物和坐骑",
     "filterByWacky": "古怪",
     "wackyPets": "古怪宠物",
-    "gryphatrice": "狮鹫蛇"
+    "gryphatrice": "狮鹫蛇",
+    "invalidAmount": "食物数量无效，必须为正整数",
+    "tooMuchFood": "你正在喂宠物过多食物，行动已取消",
+    "notEnoughFood": "你没有足够的食物"
 }

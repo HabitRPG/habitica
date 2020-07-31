@@ -130,7 +130,6 @@ describe('POST /user/reset', () => {
       },
     });
 
-
     await hero.post('/user/reset');
 
     const heroRes = await admin.get(`/hall/heroes/${hero.auth.local.username}`);

@@ -145,5 +145,8 @@
     "notEnoughPetsMounts": "Du hast noch nicht genug Haus- und Reittiere gesammelt",
     "wackyPets": "Durchgeknallte Haustiere",
     "filterByWacky": "Durchgeknallt",
-    "gryphatrice": "Greifatrice"
+    "gryphatrice": "Greifatrice",
+    "tooMuchFood": "Du versuchst zu viel Futter an Dein Haustier zu verfüttern, Aktion abgebrochen",
+    "notEnoughFood": "Du hast nicht genug Futter",
+    "invalidAmount": "Ungültige Menge Futter, positiver Integer benötigt"
 }

@@ -299,7 +299,6 @@ describe('Webhook Model', () => {
         });
       });
 
-
       context('type is globalActivity', () => {
         let config;
 

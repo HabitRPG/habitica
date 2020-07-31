@@ -379,9 +379,12 @@ export default {
       normalGroups.push(setCategory);
 
       normalGroups.forEach(category => {
-        this.$set(this.viewOptions, category.identifier, {
-          selected: false,
-        });
+        // do not reset the viewOptions if already set once
+        if (typeof this.viewOptions[category.identifier] === 'undefined') {
+          this.$set(this.viewOptions, category.identifier, {
+            selected: false,
+          });
+        }
       });
 
       return normalGroups;
@@ -395,7 +398,7 @@ export default {
       this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
-  created () {
+  mounted () {
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });

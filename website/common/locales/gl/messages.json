@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "Compraches ",
-    "messageEquipped": "<%= itemText %> equipado",
+    "messageEquipped": " <%= itemText %> equipado",
     "messageUnEquipped": "<%= itemText %> desequipado.",
     "messageMissingEggPotion": "Fáltache ou ben o ovo ou ben a poción",
     "messageInvalidEggPotionCombo": "Non podesfacer eclosionar Ovos de Misións con Pocións de Eclosión Máxicas! Proba cun ovo diferente.",

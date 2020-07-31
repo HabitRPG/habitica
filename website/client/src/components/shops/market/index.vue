@@ -161,7 +161,7 @@
 import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _throttle from 'lodash/throttle';
-import { mapState } from '@/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 
 import KeysToKennel from './keysToKennel';
 import EquipmentSection from './equipmentSection';
@@ -221,8 +221,6 @@ export default {
 
       hideLocked: false,
       hidePinned: false,
-
-      broken: false,
     };
   },
   computed: {
@@ -231,6 +229,9 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
+    }),
+    ...mapGetters({
+      broken: 'worldState.brokenMarket',
     }),
     market () {
       return shops.getMarketShop(this.user);
@@ -303,10 +304,7 @@ export default {
     }, 250),
   },
   async mounted () {
-    const worldState = await this.$store.dispatch('worldState:getWorldState');
-    this.broken = worldState && worldState.worldBoss
-      && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg
-      && worldState.worldBoss.extra.worldDmg.market;
+    await this.$store.dispatch('worldState:getWorldState');
   },
   methods: {
     sellItem (itemScope) {

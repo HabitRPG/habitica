@@ -100,8 +100,6 @@ const bannedSlurs = [
   'trannies',
   'nigger',
   'niggers',
-  'nigga',
-  'niggas',
   'fags',
   'faggot',
   'faggots',

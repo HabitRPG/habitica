@@ -53,7 +53,7 @@ h1 {
 
 h2 {
   font-size: 20px;
-  line-height: 1.2;
+  line-height: 1.4;
   margin-bottom: 16px;
 }
 
@@ -72,4 +72,8 @@ h4 {
 .textCondensed {
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: bold;
+}
+
+.opacity-75 {
+  opacity: 0.75;
 }

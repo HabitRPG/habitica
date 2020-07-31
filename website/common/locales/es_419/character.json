@@ -226,7 +226,7 @@
     "statPoints": "Puntos de estadisticas",
     "pts": "pts",
     "purchaseForGold": "¿Comprar por  <%= cost %> monedas de oro?",
-    "chatCastSpellUser": "<%= username %> lanza <%= spell %> en <%= target %>.",
-    "chatCastSpellParty": "<%= username %> lanza <%= spell %> para el grupo",
+    "chatCastSpellUser": "<%= username %> usar<%= spell %> en <%= target %>.",
+    "chatCastSpellParty": "<%= username %> usar<%= spell %> para el grupo.",
     "purchasePetItemConfirm": "Este pago va a exceder el numero de artículos que necesitas para incubar todas las  <%=itemText%> mascotas. ¿Estas seguro?"
 }

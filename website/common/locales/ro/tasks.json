@@ -8,7 +8,7 @@
     "addMultipleTip": "<strong>Sfat</strong> Pentru a adăuga multiple <%= taskType %>, separă-le pe fiecare utilizând o linie de pauză (Shift + Enter) și apoi apasă ”Enter.”",
     "addsingle": "Adaugă Individual",
     "addATask": "Adaugă un/o <%= type %>",
-    "editATask": "Editează un/o <%= type %>",
+    "editATask": "Editează <%= type %>",
     "createTask": "Crează <%= type %>",
     "addTaskToUser": "Adaugă o Sarcină",
     "scheduled": "Programat",
@@ -199,7 +199,7 @@
     "monthlyRepeatHelpContent": "Această sarcină va avea termen limită la fiecare X luni",
     "yearlyRepeatHelpContent": "Această sarcină va avea termen limită la fiecare X ani",
     "resets": "Se resetează",
-    "summaryStart": "Repetă <%= frequency %> la fiecare <%= everyX %> <%= frequencyPlural %> ",
+    "summaryStart": "Repetă <%= frequency %> la fiecare <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Următoarele Termene Limită",
     "checkOffYesterDailies": "Bifează Cotidienele făcute ieri:",
     "yesterDailiesTitle": "Ți-ai lăsat aceste Cotidiene nebifate ieri! Dorești să le bifezi pe oricare dintre ele acum?",
@@ -209,5 +209,7 @@
     "repeatDayError": "Te rugăm să te asiguri că ai măcar una din zilele săptămânii selectate.",
     "searchTasks": "Caută titluri și descrieri...",
     "sessionOutdated": "Sesiunea ta este învechită. Reîmprospătează sau sincronizează.",
-    "errorTemporaryItem": "Acest obiect este temporar și nu poate fi scos în evidență."
+    "errorTemporaryItem": "Acest obiect este temporar și nu poate fi scos în evidență.",
+    "addNotes": "Adaugă notițe",
+    "addATitle": "Adaugă un titlu"
 }
