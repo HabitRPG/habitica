@@ -280,9 +280,9 @@ export default {
       let notes = skill.notes();
 
       if (skill.key === 'frost' && this.spellDisabled(skill.key)) {
-        notes = this.$t('spellWizardFrostAlreadyCast');
+        notes = this.$t('spellAlreadyCast');
       } else if (skill.key === 'stealth' && this.spellDisabled(skill.key)) {
-        notes = this.$t('spellRogueStealthMaxedOut');
+        notes = this.$t('spellAlreadyCast');
       } else if (skill.key === 'stealth') {
         notes = this.$t('spellRogueStealthDaliesAvoided', {
           originalText: notes,
