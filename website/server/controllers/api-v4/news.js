@@ -44,7 +44,6 @@ api.getNews = {
   },
 };
 
-
 /**
  * @api {post} /api/v4/news create a new news post
  * @apiName CreateNewsPost

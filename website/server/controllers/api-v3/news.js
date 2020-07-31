@@ -3,13 +3,6 @@ import { model as NewsPost } from '../../models/newsPost';
 
 const api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from
-// controllers
-<<<<<<< HEAD
-
-=======
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR SUMMER SPLASH OUTFITS, SUMMER AVATAR CUSTOMIZATIONS, MAGIC HATCHING POTIONS, AND SEAFOAM';
->>>>>>> develop
 const worldDmg = { // @TODO
   bailey: false,
 };
