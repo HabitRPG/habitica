@@ -681,6 +681,15 @@ api.updateTask = {
       task.group.managerNotes = sanitizedObj.managerNotes;
     }
 
+    // If the task was set to repeat monthly on a day of the month, and the start date was updated,
+    // the task will then need to be updated to repeat on the same day of the month as the new
+    // start date. For example, if the start date is updated to 7/2/2020, the daily should
+    // repeat on the 2nd day of the month. It's possible that a task can repeat monthly on a
+    // week of the month, in which case we won't update the repetition at all.
+    if (task.frequency === 'monthly' && task.daysOfMonth.length && task.startDate) {
+      task.daysOfMonth = [moment(task.startDate).date()];
+    }
+
     setNextDue(task, user);
     const savedTask = await task.save();
 
