@@ -51,6 +51,8 @@ describe('shared.ops.spells', () => {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(i18n.t('spellAlreadyCast'));
       expect(user.stats.mp).to.eql(400)
+
+      done()
     }
   });
 });
