@@ -424,8 +424,9 @@ export default {
     },
     async questAccept (partyId) {
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: partyId, action: 'quests/accept' });
+      quest.progress.up = this.user.party.quest.progress.up;
       this.user.party.quest = quest;
-      this.group.quest.members = quest.members;
+      this.group.quest = quest;
     },
     async questReject (partyId) {
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: partyId, action: 'quests/reject' });
