@@ -266,6 +266,10 @@ export default {
     reset () {
       // @TODO: Ensure we are using all of these
       // some vars are set in the payments mixin. We should try to edit in one place
+      if (window.amazon) {
+        window.amazon.Login.logout();
+      }
+
       this.amazonPayments.modal = null;
       this.amazonPayments.type = null;
       this.amazonPayments.loggedIn = false;

@@ -2,8 +2,9 @@
   <b-modal
     id="amazon-payment"
     title="Amazon"
-    :hide-footer="true"
     size="md"
+    :hide-footer="true"
+    @hide="reset()"
   >
     <h2 class="text-center">
       Continue with Amazon
@@ -58,10 +59,12 @@ import pick from 'lodash/pick';
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
+import paymentsMixin from '@/mixins/payments';
 
 const habiticaUrl = `${window.location.protocol}//${window.location.host}`;
 
 export default {
+  mixins: [paymentsMixin],
   data () {
     return {
       amazonPayments: {
@@ -201,6 +204,9 @@ export default {
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+
+      this.reset();
+
       if (url) {
         window.location.assign(url);
       } else {
