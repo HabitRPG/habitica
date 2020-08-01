@@ -1,9 +1,11 @@
 import {
   generateUser,
+  translate as t,
 } from '../../helpers/common.helper';
 import spells from '../../../website/common/script/content/spells';
 import {
   NotAuthorized,
+  BadRequest
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 
@@ -36,20 +38,19 @@ describe('shared.ops.spells', () => {
     }
   });
 
-  it('Issue #12361: returns an error if chilling frost has already been cast', async () => {
-    await user.update({
-      'stats.class': 'wizard',
-      'stats.lvl': 15,
-      'stats.mp': 400,
-      'stats.buffs.streaks': true,
-    });
-    await user.sync();
-    await expect(user.post('/user/class/cast/frost'))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('spellAlreadyCast'),
-      });
-    expect(user.stats.mp).to.equal(400);
+  it.only('Issue #12361: returns an error if chilling frost has already been cast', async () => {
+    user.stats.class = 'wizard';
+    user.stats.lvl = 15;
+    user.stats.mp = 400;
+    user.stats.buffs.streaks = true;
+
+    const spell = spells.wizard.frost;
+    try {
+      spell.cast(user, null, { language: 'en' });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('spellAlreadyCast'));
+      expect(user.stats.mp).to.eql(400)
+    }
   });
 });
