@@ -38,7 +38,7 @@ describe('shared.ops.spells', () => {
     }
   });
 
-  it.only('Issue #12361: returns an error if chilling frost has already been cast', async () => {
+  it('Issue #12361: returns an error if chilling frost has already been cast', done => {
     user.stats.class = 'wizard';
     user.stats.lvl = 15;
     user.stats.mp = 400;
@@ -52,7 +52,7 @@ describe('shared.ops.spells', () => {
       expect(err.message).to.equal(i18n.t('spellAlreadyCast'));
       expect(user.stats.mp).to.eql(400)
 
-      done()
+      done();
     }
   });
 });
