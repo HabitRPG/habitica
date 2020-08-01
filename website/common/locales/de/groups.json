@@ -249,11 +249,11 @@
     "onlyCreatorOrAdminCanDeleteChat": "Keine Berechtigung diese Nachricht zu löschen!",
     "onlyGroupLeaderCanEditTasks": "Nicht berechtigt, Aufgaben zu bearbeiten!",
     "onlyGroupTasksCanBeAssigned": "Nur Team-Aufgaben können verteilt werden",
-    "assignedTo": "Zugewiesen an",
+    "assignedTo": "Zuweisen an",
     "assignedToUser": "<strong><%= userName %></strong> zugewiesen",
     "assignedToMembers": "<strong><%= userCount %></strong> Mitgliedern zugewiesen",
     "assignedToYouAndMembers": "Dir und <strong><%= userCount %> Mitliedern</strong> zugewiesen",
-    "youAreAssigned": "Du bist dieser Aufgabe zugewiesen",
+    "youAreAssigned": "Dir zugewiesen",
     "taskIsUnassigned": "Diese Aufgabe ist niemandem zugewiesen",
     "confirmClaim": "Bist Du sicher, dass Du diese Aufgabe beanspruchen möchtest?",
     "confirmUnClaim": "Bist Du sicher, dass Du diese Aufgabe abgeben möchtest?",
@@ -494,5 +494,12 @@
     "PMCanNotReply": "Du kannst auf diese Nachricht nicht antworten",
     "PMUnblockUserToSendMessages": "Entblocke diese Person, um wieder Nachrichten versenden und empfangen zu können.",
     "PMUserDoesNotReceiveMessages": "Diese Person empfängt keine privaten Nachrichten mehr",
-    "newPartyPlaceholder": "Gib den Namen Deiner Party ein."
+    "newPartyPlaceholder": "Gib den Namen Deiner Party ein.",
+    "chooseTeamMember": "Wähle ein Teammitglied",
+    "unassigned": "Nicht zugewiesen",
+    "claimRewards": "Belohnung einfordern",
+    "assignedDateAndUser": "Zugewiesen am <strong><%= date %></strong> von <strong>@<%= username %></strong>",
+    "assignedDateOnly": "Zugewiesen am <strong><%= date %></strong>",
+    "managerNotes": "Manager-Notizen",
+    "thisTaskApproved": "Dieser Aufgabe wurde zugestimmt"
 }

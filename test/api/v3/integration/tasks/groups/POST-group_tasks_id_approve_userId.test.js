@@ -58,22 +58,14 @@ describe('POST /tasks/:id/approve/:userId', () => {
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
 
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
-
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
     await user.post(`/tasks/${task._id}/approve/${member._id}`);
 
     await member.sync();
 
-    expect(member.notifications.length).to.equal(3);
+    expect(member.notifications.length).to.equal(2);
     expect(member.notifications[1].type).to.equal('GROUP_TASK_APPROVED');
     expect(member.notifications[1].data.message).to.equal(t('yourTaskHasBeenApproved', { taskText: task.text }));
-    expect(member.notifications[2].type).to.equal('SCORED_TASK');
-    expect(member.notifications[2].data.message).to.equal(t('yourTaskHasBeenApproved', { taskText: task.text }));
 
     memberTasks = await member.get('/tasks/user');
     syncedTask = find(memberTasks, findAssignedTask);
@@ -93,21 +85,13 @@ describe('POST /tasks/:id/approve/:userId', () => {
     let memberTasks = await member.get('/tasks/user');
     let syncedTask = find(memberTasks, findAssignedTask);
 
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
-
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
     await member2.post(`/tasks/${task._id}/approve/${member._id}`);
     await member.sync();
 
-    expect(member.notifications.length).to.equal(3);
+    expect(member.notifications.length).to.equal(2);
     expect(member.notifications[1].type).to.equal('GROUP_TASK_APPROVED');
     expect(member.notifications[1].data.message).to.equal(t('yourTaskHasBeenApproved', { taskText: task.text }));
-    expect(member.notifications[2].type).to.equal('SCORED_TASK');
-    expect(member.notifications[2].data.message).to.equal(t('yourTaskHasBeenApproved', { taskText: task.text }));
 
     memberTasks = await member.get('/tasks/user');
     syncedTask = find(memberTasks, findAssignedTask);
@@ -125,12 +109,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
     await member2.post(`/tasks/${task._id}/assign/${member._id}`);
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
 
     await user.sync();
     await member2.sync();
@@ -157,14 +136,9 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
-
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
     await member2.post(`/tasks/${task._id}/approve/${member._id}`);
+
     await expect(user.post(`/tasks/${task._id}/approve/${member._id}`))
       .to.eventually.be.rejected.and.to.eql({
         code: 401,
@@ -197,13 +171,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
-
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
     await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
 
     const groupTasks = await user.get(`/tasks/group/${guild._id}?type=completedTodos`);
@@ -226,13 +194,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
-
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
     await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
 
     const member2Tasks = await member2.get('/tasks/user');
@@ -258,13 +220,7 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
-
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
     await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
 
     const groupTasks = await user.get(`/tasks/group/${guild._id}`);
@@ -287,21 +243,10 @@ describe('POST /tasks/:id/approve/:userId', () => {
 
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
-
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
     const member2Tasks = await member2.get('/tasks/user');
     const member2SyncedTask = find(member2Tasks, findAssignedTask);
-    await expect(member2.post(`/tasks/${member2SyncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
+    await member2.post(`/tasks/${member2SyncedTask._id}/score/up`);
 
     await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member._id}`);
     await user.post(`/tasks/${sharedCompletionTask._id}/approve/${member2._id}`);

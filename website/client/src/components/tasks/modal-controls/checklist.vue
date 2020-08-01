@@ -1,10 +1,9 @@
 <template>
   <div class="checklist-component">
-    <label
-      v-once
-      class="mb-1"
-    >{{ $t('checklist') }}</label>
-    <br>
+    <lockable-label
+      :locked="disabled || disableItems"
+      :text="$t('checklist')"
+    />
     <draggable
       v-model="checklist"
       :options="{
@@ -20,7 +19,7 @@
         class="inline-edit-input-group checklist-group input-group"
       >
         <span
-          v-if="!disabled"
+          v-if="!disabled && !disableDrag"
           class="grippy"
           v-html="icons.grip"
         >
@@ -29,19 +28,19 @@
         <checkbox
           :id="`checklist-${item.id}`"
           :checked.sync="item.completed"
-          :disabled="disabled"
+          :disabled="disabled || disableItems"
           class="input-group-prepend"
-          :class="{'cursor-auto': disabled}"
+          :class="{'cursor-auto': disabled || disableItems}"
         />
 
         <input
           v-model="item.text"
           class="inline-edit-input checklist-item form-control"
           type="text"
-          :disabled="disabled"
+          :disabled="disabled || disableItems"
         >
         <span
-          v-if="!disabled"
+          v-if="!disabled && !disableItems"
           class="input-group-append"
           @click="removeChecklistItem($index)"
         >
@@ -55,8 +54,9 @@
       </div>
     </draggable>
     <div
-      v-if="!disabled"
+      v-if="!disabled && !disableItems"
       class="inline-edit-input-group checklist-group input-group new-checklist"
+      :class="{'top-border': items.length === 0}"
     >
       <span
         v-once
@@ -88,15 +88,23 @@ import deleteIcon from '@/assets/svg/delete.svg';
 import chevronIcon from '@/assets/svg/chevron.svg';
 import gripIcon from '@/assets/svg/grip.svg';
 import checkbox from '@/components/ui/checkbox';
+import lockableLabel from './lockableLabel';
 
 export default {
   name: 'Checklist',
   components: {
-    draggable,
     checkbox,
+    draggable,
+    lockableLabel,
   },
   props: {
     disabled: {
+      type: Boolean,
+    },
+    disableDrag: {
+      type: Boolean,
+    },
+    disableItems: {
       type: Boolean,
     },
     items: {
@@ -158,12 +166,20 @@ export default {
 
   .checklist-component {
 
+    .top-border {
+      border-top: 1px solid $gray-500;
+    }
+
+    .lock-icon {
+      color: $gray-200;
+    }
+
     .checklist-group {
       height: 2rem;
-      border-top: 1px solid $gray-500;
+      border-bottom: 1px solid $gray-500;
 
-      &.new-checklist {
-        border-bottom: 1px solid $gray-500;
+      &:first-of-type {
+        border-top: 1px solid $gray-500;
       }
 
       .inline-edit-input  {
@@ -172,7 +188,7 @@ export default {
 
       .input-group-prepend {
         margin-left: 0.375rem;
-        margin-top: 0.475rem;
+        margin-top: 0.375rem;
         margin-right: 0;
         padding: 0;
         &:not(.new-icon) {
@@ -183,6 +199,8 @@ export default {
           margin-left: 0.688rem;
           margin-top: 0.625rem;
           margin-bottom: 0.625rem;
+          height: 10px;
+          width: 13px;
         }
       }
 
@@ -266,15 +284,6 @@ export default {
           opacity: 1;
         }
       }
-    }
-
-    label {
-      height: 1.5rem;
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 1.71;
-      letter-spacing: normal;
-      color: $gray-50;
     }
   }
 </style>

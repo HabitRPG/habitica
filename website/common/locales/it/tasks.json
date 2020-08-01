@@ -106,7 +106,7 @@
     "startDateHelp": "Imposta la data in cui l'attività sarà \"attiva\". Non sarà necessario completarla prima di quel giorno.",
     "streaks": "Medaglie Serie",
     "streakName": "<%= count %> medaglie Serie",
-    "streakText": "Ha completato <%= count %> serie di 21 giorni nelle Attività Giornaliere",
+    "streakText": "Ha completato una serie di <%= count %> giorni su 21 nelle Attività Giornaliere",
     "streakSingular": "Perfezionista",
     "streakSingularText": "Ha completato una serie di 21 giorni su una Attività Giornaliera",
     "perfectName": "<%= count %> Giorni Perfetti",
@@ -213,5 +213,8 @@
     "sureDeleteType": "Sei sicuro di voler eliminare questo <%= type %>?",
     "deleteTaskType": "Elimina questo <%= type %>",
     "addNotes": "Aggiungi nota",
-    "addATitle": "Aggiungi un titolo"
+    "addATitle": "Aggiungi un titolo",
+    "pressEnterToAddTag": "Premi invio per aggiungere l'etichetta: '<%= tagName %>'",
+    "enterTag": "Aggiungi una etichetta",
+    "addTags": "Aggiungi etichette..."
 }

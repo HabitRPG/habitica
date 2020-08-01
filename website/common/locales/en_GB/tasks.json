@@ -213,5 +213,8 @@
     "addNotes": "Add notes",
     "addATitle": "Add a title",
     "sureDeleteType": "Are you sure you want to delete this <%= type %>?",
-    "deleteTaskType": "Delete this <%= type %>"
+    "deleteTaskType": "Delete this <%= type %>",
+    "pressEnterToAddTag": "Press Enter to add tag: '<%= tagName %>'",
+    "enterTag": "Enter a tag",
+    "addTags": "Add tags..."
 }

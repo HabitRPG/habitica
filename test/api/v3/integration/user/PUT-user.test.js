@@ -92,6 +92,14 @@ describe('PUT /user', () => {
         error: 'BadRequest',
         message: t('displaynameIssueSlur'),
       });
+
+      await expect(user.put('/user', {
+        'profile.name': 'namecontainsnewline\n',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('displaynameIssueNewline'),
+      });
     });
   });
 

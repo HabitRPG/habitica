@@ -213,5 +213,6 @@
     "mentioning": "回复",
     "chatExtensionDesc": "Habitica的聊天扩展程序为所有habitica.com添加了直观的聊天框。它允许用户在酒馆，他们的聚会以及他们所在的任何行会中聊天。",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome聊天扩展</a>和<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox聊天扩展</a>",
-    "buyGemsGoldCapBase": "宝石上限是<%= amount %>"
+    "buyGemsGoldCapBase": "宝石上限是<%= amount %>",
+    "displaynameIssueNewline": "角色名不能不得包含反斜杠（/），后跟字母N。"
 }

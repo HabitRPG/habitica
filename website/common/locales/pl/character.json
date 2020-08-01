@@ -134,7 +134,7 @@
     "changeClass": "Zmień Klasę i odzyskaj Punkty Statystyk",
     "lvl10ChangeClass": "Aby zmienić klasę musisz być na co najmniej 10 poziomie.",
     "changeClassConfirmCost": "Jesteś pewien, że chcesz zmienić swoją klasę za 3 klejnoty?",
-    "invalidClass": "Niepoprawna klasa. Prosimy określić \"wojownik\", \"łotrzyk\", \"czarownik\" czy \"medyk\".",
+    "invalidClass": "Niepoprawna klasa. Prosimy określić \"wojownik\", \"łotrzyk\", \"czarownik\" czy \"uzdrowiciel\".",
     "levelPopover": "Każdy zdobyty poziom daje Ci jeden punkt, który możesz przydzielić do wybranej przez siebie statystyki. Możesz zrobić to ręcznie lub pozwolić, by gra zdecydowała za Ciebie, używając jednej z opcji automatycznego przydzielania.",
     "unallocated": "Nieprzydzielone Punkty Statystyk",
     "haveUnallocated": "Masz <%= points %> nieprzydzielonych Punktów Statystyk",

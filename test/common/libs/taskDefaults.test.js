@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 import taskDefaults from '../../../website/common/script/libs/taskDefaults';
+import getUtcOffset from '../../../website/common/script/fns/getUtcOffset';
 import { generateUser } from '../../helpers/common.helper';
 
 describe('taskDefaults', () => {
@@ -72,7 +73,7 @@ describe('taskDefaults', () => {
 
     expect(task.startDate).to.eql(
       moment()
-        .zone(user.preferences.timezoneOffset, 'hour')
+        .utcOffset(getUtcOffset(user))
         .startOf('day')
         .subtract(1, 'day')
         .toDate(),

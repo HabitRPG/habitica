@@ -24,36 +24,38 @@
           {{ $t('gemsPopoverTitle') }}
         </h3>
         <div class="panel-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  v-model="gift.gems.amount"
-                  class="form-control"
-                  type="number"
-                  placeholder="Number of Gems"
-                  min="0"
-                  :max="gift.gems.fromBalance ? userLoggedIn.balance * 4 : 9999"
-                >
-              </div>
+          <div class="d-flex mb-3">
+            <div class="form-group mb-0">
+              <input
+                v-model="gift.gems.amount"
+                class="form-control"
+                type="number"
+                placeholder="Number of Gems"
+                min="0"
+                :max="gift.gems.fromBalance ? userLoggedIn.balance * 4 : 9999"
+              >
             </div>
-            <div class="col-md-6">
-              <div class="btn-group">
-                <button
-                  class="btn btn-secondary"
-                  :class="{active: gift.gems.fromBalance}"
-                  @click="gift.gems.fromBalance = true"
-                >
-                  {{ $t('sendGiftFromBalance') }}
-                </button>
-                <button
-                  class="btn btn-secondary"
-                  :class="{active: !gift.gems.fromBalance}"
-                  @click="gift.gems.fromBalance = false"
-                >
-                  {{ $t('sendGiftPurchase') }}
-                </button>
-              </div>
+            <div class="btn-group ml-auto">
+              <button
+                class="btn"
+                :class="{
+                  'btn-primary': gift.gems.fromBalance,
+                  'btn-secondary': !gift.gems.fromBalance,
+                }"
+                @click="gift.gems.fromBalance = true"
+              >
+                {{ $t('sendGiftFromBalance') }}
+              </button>
+              <button
+                class="btn"
+                :class="{
+                  'btn-primary': !gift.gems.fromBalance,
+                  'btn-secondary': gift.gems.fromBalance,
+                }"
+                @click="gift.gems.fromBalance = false"
+              >
+                {{ $t('sendGiftPurchase') }}
+              </button>
             </div>
           </div>
           <div class="row">
@@ -77,7 +79,7 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-md-12">
-              <div class="form-group">
+              <div class="form-group mb-0">
                 <!-- eslint-disable vue/no-use-v-if-with-v-for -->
                 <div
                   v-for="block in subscriptionBlocks"

@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: GOOD STARTER QUESTS!';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA’S NAMING DAY!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,22 +31,31 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/16/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/31/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_basilist center-block"></div>
+        <div class="achievement-habiticaDay2x center-block"></div>
+        <h3>Habitica Naming Day</h3>
         <p>
-          This month's <a
-          href='https://habitica.wordpress.com/2020/07/15/easy-starter-quests-for-beginners/'
-          target='_blank'>featured Wiki article</a> is about Easy Starter Quests for Beginners! We
-          hope that it will help you as you take on Habitica's bosses and your tasks! Be sure to
-          check it out, and let us know what you think by reaching out on <a
-          href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
-          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
-          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
+          Happy Habitica Naming day! In honor of the day when we changed the name of the app from
+          HabitRPG to Habitica, we've given everyone an achievement, as well as some delicious cake
+          for your pets and mounts.
         </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
+        <div class="small mb-3">by Lemoness and SabreCat</div>
+        <div class="promo_naming_day_2020 center-block"></div>
+        <h3>Habitica Purple Gryphons</h3>
+        <p>
+          Speaking of pets and mounts, we've given all users Royal Purple Gryphon rewards!
+          Depending on how many Naming Days you've celebrated with us, you've received Melior (a
+          Purple Gryphon mount), his little sister Meliora (a Purple Gryphon pet), a Purple Gryphon
+          Helm, the Purple Gryphon Wing Cloak, or the latest addition, the Purple Gryphon Tail!
+        </p>
+        <p>
+          Thanks for being a Habitica user -- you all mean so much to us. We hope that you enjoy
+          your presents!
+        </p>
+        <div class="small mb-3">by Lemoness, Beffymaroo, and Baconsaur</div>
       </div>
       `,
     });

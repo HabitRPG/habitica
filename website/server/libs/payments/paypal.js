@@ -3,7 +3,7 @@ import nconf from 'nconf';
 import moment from 'moment';
 import util from 'util';
 import _ from 'lodash';
-import ipn from 'paypal-ipn';
+import paypalIpn from 'pp-ipn';
 import paypal from 'paypal-rest-sdk';
 import cc from 'coupon-code';
 import shared from '../../../common';
@@ -21,6 +21,7 @@ import {
 } from '../errors';
 
 const BASE_URL = nconf.get('BASE_URL');
+const PAYPAL_MODE = nconf.get('PAYPAL_MODE');
 const { i18n } = shared;
 
 // This is the plan.id for paypal subscriptions.
@@ -33,7 +34,7 @@ _.each(shared.content.subscriptionBlocks, block => {
 });
 
 paypal.configure({
-  mode: nconf.get('PAYPAL_MODE'), // sandbox or live
+  mode: PAYPAL_MODE, // sandbox or live
   client_id: nconf.get('PAYPAL_CLIENT_ID'),
   client_secret: nconf.get('PAYPAL_CLIENT_SECRET'),
 });
@@ -72,7 +73,7 @@ api.paypalBillingAgreementGet = util
 api.paypalBillingAgreementCancel = util
   .promisify(paypal.billingAgreement.cancel.bind(paypal.billingAgreement));
 
-api.ipnVerifyAsync = util.promisify(ipn.verify.bind(ipn));
+api.ipnVerifyAsync = util.promisify(paypalIpn.verify.bind(paypalIpn));
 
 api.checkout = async function checkout (options = {}) {
   const { gift, user } = options;
@@ -257,7 +258,9 @@ api.subscribeCancel = async function subscribeCancel (options = {}) {
 };
 
 api.ipn = async function ipnApi (options = {}) {
-  await this.ipnVerifyAsync(options);
+  await this.ipnVerifyAsync(options, {
+    allow_sandbox: PAYPAL_MODE === 'sandbox',
+  });
 
   const { txn_type, recurring_payment_id } = options;
 
