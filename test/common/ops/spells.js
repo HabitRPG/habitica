@@ -1,11 +1,10 @@
 import {
   generateUser,
-  translate as t,
 } from '../../helpers/common.helper';
 import spells from '../../../website/common/script/content/spells';
 import {
   NotAuthorized,
-  BadRequest
+  BadRequest,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 
@@ -50,7 +49,7 @@ describe('shared.ops.spells', () => {
     } catch (err) {
       expect(err).to.be.an.instanceof(BadRequest);
       expect(err.message).to.equal(i18n.t('spellAlreadyCast'));
-      expect(user.stats.mp).to.eql(400)
+      expect(user.stats.mp).to.eql(400);
 
       done();
     }
