@@ -104,10 +104,10 @@ spells.wizard = {
     lvl: 14,
     target: 'self',
     notes: t('spellWizardFrostNotes'),
-    cast (user) {
+    cast (user, target, req) {
       // Check if chilling frost skill has been previously casted or not.
       // See #12361 for more details.
-      if (user.stats.buffs.streaks === true) throw new BadRequest(t('spellAlreadyCast')(user.language));
+      if (user.stats.buffs.streaks === true) throw new BadRequest(t('spellAlreadyCast')(req.language));
       user.stats.buffs.streaks = true;
     },
   },
