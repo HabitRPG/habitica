@@ -28,6 +28,7 @@ import apiErrors from './errors/apiErrorMessages';
 import commonErrors from './errors/commonErrorMessages';
 import autoAllocate from './fns/autoAllocate';
 import crit from './fns/crit';
+import getUtcOffset from './fns/getUtcOffset';
 import handleTwoHanded from './fns/handleTwoHanded';
 import predictableRandom from './fns/predictableRandom';
 import randomDrop from './fns/randomDrop';
@@ -86,7 +87,6 @@ import unlock from './ops/unlock';
 import updateTask from './ops/updateTask';
 // TODO under api.libs.statHelpers?
 import * as statHelpers from './statHelpers';
-
 
 const api = {};
 api.content = content;
@@ -152,6 +152,7 @@ api.fns = {
   resetGear,
   ultimateGear,
   updateStats,
+  getUtcOffset,
 };
 
 api.ops = {

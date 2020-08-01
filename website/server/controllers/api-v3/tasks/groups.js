@@ -21,6 +21,7 @@ const types = Tasks.tasksTypes.map(type => `${type}s`);
 // _allCompletedTodos is currently in BETA and is likely to be removed in future
 types.push('completedTodos', '_allCompletedTodos');
 
+// @TODO abstract this snipped (also see api-v3/tasks.js)
 function canNotEditTasks (group, user, assignedUserId) {
   const isNotGroupLeader = group.leader !== user._id;
   const isManager = Boolean(group.managers[user._id]);
@@ -236,7 +237,7 @@ api.assignTask = {
       });
     }
 
-    promises.push(group.syncTask(task, assignedUser));
+    promises.push(group.syncTask(task, assignedUser, user));
     promises.push(group.save());
     await Promise.all(promises);
 
@@ -361,7 +362,7 @@ api.approveTask = {
     const firstNotificationIndex = firstManagerNotifications.findIndex(notification => notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL');
     let direction = 'up';
     if (firstManagerNotifications[firstNotificationIndex]) {
-      direction = firstManagerNotifications[firstNotificationIndex].direction;
+      direction = firstManagerNotifications[firstNotificationIndex].direction || direction;
     }
 
     // Remove old notifications
@@ -379,11 +380,7 @@ api.approveTask = {
     assignedUser.addNotification('GROUP_TASK_APPROVED', {
       message: res.t('yourTaskHasBeenApproved', { taskText: task.text }),
       groupId: group._id,
-    });
-
-    assignedUser.addNotification('SCORED_TASK', {
-      message: res.t('yourTaskHasBeenApproved', { taskText: task.text }),
-      scoreTask: task,
+      task,
       direction,
     });
 

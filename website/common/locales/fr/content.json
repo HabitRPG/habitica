@@ -356,5 +356,7 @@
     "hatchingPotionAurora": "Aurore",
     "hatchingPotionRuby": "Rubis",
     "hatchingPotionBirchBark": "Écorce de bouleau",
-    "hatchingPotionDessert": "Confiserie"
+    "hatchingPotionDessert": "Confiserie",
+    "hatchingPotionFluorite": "Fluorine",
+    "hatchingPotionSandSculpture": "Sculpture de sable"
 }

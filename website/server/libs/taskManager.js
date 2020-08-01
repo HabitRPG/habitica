@@ -46,7 +46,6 @@ export function setNextDue (task, user, dueDateOption) {
     now = dateTaskIsDue;
   }
 
-
   const optionsForShouldDo = user.preferences.toObject();
   optionsForShouldDo.now = now;
   task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
@@ -101,6 +100,7 @@ export async function createTasks (req, res, options = {}) {
         newTask.group.approval.required = true;
       }
       newTask.group.sharedCompletion = taskData.sharedCompletion || SHARED_COMPLETION.default;
+      newTask.group.managerNotes = taskData.managerNotes || '';
     } else {
       newTask.userId = user._id;
 

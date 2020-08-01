@@ -10,7 +10,7 @@
 
   "spellWizardFrostText": "Chilling Frost",
   "spellWizardFrostNotes": "With one cast, ice freezes all your streaks so they won't reset to zero tomorrow! ",
-  "spellWizardFrostAlreadyCast": " You have already cast this today. Your streaks are frozen, and there's no need to cast this again.",
+  "spellWizardFrostAlreadyCast": "You have already cast this today. Your streaks are frozen, and there's no need to cast this again.",
 
 
   "spellWarriorSmashText": "Brutal Smash",
@@ -36,8 +36,8 @@
 
   "spellRogueStealthText": "Stealth",
   "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-  "spellRogueStealthDaliesAvoided": "<%= originalText %> Number of dailies avoided: <%= number %>.",
-  "spellRogueStealthMaxedOut": " You have already avoided all your dailies; there's no need to cast this again.",
+  "spellRogueStealthDaliesAvoided": "<%= originalText %> Number of dailies that will be avoided: <%= number %>.",
+  "spellRogueStealthMaxedOut": "You have already avoided all your dailies; there's no need to cast this again.",
 
   "spellHealerHealText": "Healing Light",
   "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",

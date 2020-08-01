@@ -72,10 +72,18 @@ describe('#calculateSubscriptionTerminationDate', () => {
 
   it('returns current terminated date if it exists and is later than newly calculated date', () => {
     const expectedTerminationDate = moment().add({ months: 5 }).toDate();
-    plan.terminationDate = expectedTerminationDate;
+    plan.dateTerminated = expectedTerminationDate;
 
     const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, groupPlanId);
 
     expect(terminationDate).to.equal(expectedTerminationDate);
+  });
+
+  it('returns the calculated termination date if the plan does not have one', () => {
+    nextBill = moment().add(5, 'days');
+    const expectedTerminationDate = moment().add(5, 'days');
+
+    const terminationDate = calculateSubscriptionTerminationDate(nextBill, plan, groupPlanId);
+    expect(expectedTerminationDate.diff(terminationDate, 'days')).to.eql(0);
   });
 });

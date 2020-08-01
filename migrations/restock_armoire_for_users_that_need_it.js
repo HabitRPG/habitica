@@ -25,7 +25,6 @@ const monk = require('monk'); // eslint-disable-line import/no-extraneous-depend
 
 const dbUsers = monk(connectionString).get('users', { castIds: false });
 
-
 function processUsers (lastId) {
   // specify a query to limit the affected users (empty for all users):
   const query = {
@@ -85,7 +84,6 @@ function updateUser (user) {
   count += 1;
 
   const set = { migration: migrationName, 'flags.armoireEmpty': false };
-
 
   if (user.flags.armoireEmpty) {
     // this user believes their armoire has no more items in it

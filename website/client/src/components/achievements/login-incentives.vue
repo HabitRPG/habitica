@@ -20,6 +20,7 @@
             class="avatar"
             :member="user"
             :avatar-only="true"
+            :hide-class-badge="true"
             :with-background="true"
           />
         </div>

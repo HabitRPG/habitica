@@ -1744,5 +1744,10 @@
     "twoHandedItem": "Two-handed item.",
     "shieldSpecialKS2019Text": "Scutum Gryphi Mythicis",
     "headSpecialKS2019Text": "Cassis Gryphi Mythicis",
-    "armorSpecialKS2019Text": "Arma Gryphi Mythicis"
+    "armorSpecialKS2019Text": "Arma Gryphi Mythicis",
+    "weaponArmoireBambooCaneText": "Ferula Bambusae",
+    "weaponArmoireSlingshotText": "Funda",
+    "weaponArmoireJugglingBallsText": "Sphaera Praestigia",
+    "weaponArmoireVernalTaperText": "Cerneus Vernus",
+    "weaponSpecialSpring2019RogueText": "Fulmen"
 }

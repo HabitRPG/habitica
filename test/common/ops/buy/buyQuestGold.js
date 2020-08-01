@@ -141,7 +141,6 @@ describe('shared.ops.buyQuest', () => {
     }
   });
 
-
   it('does not buy Gem-premium Quests', done => {
     user.stats.gp = 9999;
     try {

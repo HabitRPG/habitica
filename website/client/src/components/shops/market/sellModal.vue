@@ -196,7 +196,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'sell-modal');
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('sellItem');
   },
   methods: {

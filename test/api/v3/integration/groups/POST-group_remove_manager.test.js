@@ -75,12 +75,7 @@ describe('POST /group/:groupId/remove-manager', () => {
     await nonLeader.post(`/tasks/${task._id}/assign/${nonManager._id}`);
     const memberTasks = await nonManager.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
-    await expect(nonManager.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
+    await nonManager.post(`/tasks/${syncedTask._id}/score/up`);
 
     const updatedGroup = await leader.post(`/groups/${groupToUpdate._id}/remove-manager`, {
       managerId: nonLeader._id,

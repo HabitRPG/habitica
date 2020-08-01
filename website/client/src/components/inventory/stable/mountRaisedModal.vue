@@ -102,7 +102,7 @@ export default {
   mounted () {
     this.$root.$on('habitica::mount-raised', this.openDialog);
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica::mount-raised', this.openDialog);
   },
   methods: {

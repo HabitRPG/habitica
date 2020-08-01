@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> rất thích <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> ăn <%= foodText %> nhưng có vẻ không thích nó.",
     "messageBought": "Đã mua <%= itemText %>",
-    "messageEquipped": "Đã trang bị <%= itemText %>.",
+    "messageEquipped": " Đã trang bị <%= itemText %>.",
     "messageUnEquipped": "<%= itemText %> đã gỡ bỏ",
     "messageMissingEggPotion": "Bạn thiếu trứng hoặc lọ thuốc đó",
     "messageInvalidEggPotionCombo": "Bạn không thể làm nở Trứng Thú Nhiệm Vụ với Thuốc Nở Ma Thuật! Thử với một quả trứng khác.",
@@ -60,7 +60,10 @@
     "messageNotAbleToBuyInBulk": "Vật phẩm này không thể mua với số lượng lớn hơn 1.",
     "notificationsRequired": "Cần có ids thông báo.",
     "unallocatedStatsPoints": "Bạn có <span class=\"notification-bold-blue\"><%= points %> Điểm Chỉ số chưa phân bổ</span>",
-    "beginningOfConversation": "Đây là mở đầu của cuộc trò chuyện với <%= userName %>. Hãy tôn trọng nhau, và tuân theo Các điều khoản của Cộng đồng!",
+    "beginningOfConversation": "Đây là mở đầu của cuộc trò chuyện với <%= userName %>.",
     "messageDeletedUser": "Xin lỗi, người dùng này đã xóa tài khoản của mình.",
-    "messageMissingDisplayName": "Thiếu tên hiển thị."
+    "messageMissingDisplayName": "Thiếu tên hiển thị.",
+    "canDeleteNow": "Bạn bây giờ có thể xóa tin nhắn nếu bạn muốn.",
+    "reportedMessage": "Bạn đã báo cáo tin nhắn này tới Điều hành viên.",
+    "beginningOfConversationReminder": "Nhớ là hãy tốt bụng, tôn trọng, và tuân theo Nội quy Cộng đồng!"
 }

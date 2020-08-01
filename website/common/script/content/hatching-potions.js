@@ -86,6 +86,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionFairy'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMay'),
+      previousDate: t('mayYYYY', { year: 2017 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-06-02');
+    },
   },
   Floral: {
     value: 2,
@@ -96,6 +103,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionAquatic'),
     limited: true,
+    event: EVENTS.summer2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJuly'),
+      previousDate: t('juneYYYY', { year: 2017 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-08-02');
+    },
   },
   Ember: {
     value: 2,
@@ -222,6 +237,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSunshine'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMay'),
+      previousDate: t('mayYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-06-02');
+    },
   },
   Bronze: {
     value: 2,
@@ -234,6 +256,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionWatery'),
     limited: true,
+    event: EVENTS.summer2020,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJuly'),
+      previousDate: t('juneYYYY', { year: 2019 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-08-02');
+    },
   },
   Silver: {
     value: 2,
@@ -282,6 +312,25 @@ const premium = {
     },
     _addlNotes: t('premiumPotionAddlNotes', {
       date: t('dateEndMarch'),
+    }),
+  },
+  Fluorite: {
+    value: 2,
+    text: t('hatchingPotionFluorite'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('fluorite'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
+  SandSculpture: {
+    value: 2,
+    text: t('hatchingPotionSandSculpture'),
+    limited: true,
+    event: EVENTS.summer2020,
+    canBuy () {
+      return moment().isBefore('2020-08-02');
+    },
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndJuly'),
     }),
   },
 };

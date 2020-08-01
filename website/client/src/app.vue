@@ -218,11 +218,6 @@
     opacity: 0.48;
   }
 
-  /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal {
-    overflow-y: scroll !important;
-  }
-
   .modal-backdrop {
     opacity: .9 !important;
     background-color: $purple-100 !important;
@@ -297,7 +292,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset', 'isUserLoaded']),
+    ...mapState(['isUserLoggedIn', 'browserTimezoneUtcOffset', 'isUserLoaded', 'notificationsRemoved']),
     ...mapState({ user: 'user.data' }),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
@@ -361,13 +356,59 @@ export default {
       showSpinner: false,
     });
 
-    // Set up Error interceptors
-    axios.interceptors.response.use(response => {
-      if (this.user && response.data && response.data.notifications) {
-        this.$set(this.user, 'notifications', response.data.notifications);
+    axios.interceptors.response.use(response => { // Set up Response interceptors
+      // Verify that the user was not updated from another browser/app/client
+      // If it was, sync
+      const { url } = response.config;
+      const { method } = response.config;
+
+      const isApiCall = url.indexOf('api/v4') !== -1;
+      const userV = response.data && response.data.userV;
+
+      if (this.isUserLoaded && isApiCall && userV) {
+        const oldUserV = this.user._v;
+        this.user._v = userV;
+
+        // Do not sync again if already syncing
+        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
+        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
+        // exclude chat seen requests because with real time chat they would be too many
+        const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
+        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
+        const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
+        // exclude skills casting as they already return the synced user
+        const isCast = url.indexOf('/api/v4/user/class/cast') !== -1 && method === 'post';
+
+        // Something has changed on the user object that was not tracked here, sync the user
+        if (
+          userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync && !isCast
+        ) {
+          Promise.all([
+            this.$store.dispatch('user:fetch', { forceLoad: true }),
+            this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
+          ]);
+        }
       }
+
+      // Store the app version from the server
+      const serverAppVersion = response.data && response.data.appVersion;
+
+      if (serverAppVersion && this.$store.state.serverAppVersion !== response.data.appVersion) {
+        this.$store.state.serverAppVersion = serverAppVersion;
+      }
+
+      // Store the notifications, filtering those that have already been read
+      // See store/index.js on why this is necessary
+      if (this.user && response.data && response.data.notifications) {
+        const filteredNotifications = response.data.notifications.filter(serverNotification => {
+          if (this.notificationsRemoved.includes(serverNotification.id)) return false;
+          return true;
+        });
+        this.$set(this.user, 'notifications', filteredNotifications);
+      }
+
       return response;
-    }, error => {
+    }, error => { // Set up Error interceptors
       if (error.response.status >= 400) {
         const isBanned = this.checkForBannedUser(error);
         if (isBanned === true) return null; // eslint-disable-line consistent-return
@@ -425,51 +466,6 @@ export default {
       return Promise.reject(error);
     });
 
-    axios.interceptors.response.use(response => {
-      // Verify that the user was not updated from another browser/app/client
-      // If it was, sync
-      const { url } = response.config;
-      const { method } = response.config;
-
-      const isApiCall = url.indexOf('api/v4') !== -1;
-      const userV = response.data && response.data.userV;
-      const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
-
-      if (this.isUserLoaded && isApiCall && userV) {
-        const oldUserV = this.user._v;
-        this.user._v = userV;
-
-        // Do not sync again if already syncing
-        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
-        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
-        // exclude chat seen requests because with real time chat they would be too many
-        const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
-        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
-
-        // Something has changed on the user object that was not tracked here, sync the user
-        if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
-          Promise.all([
-            this.$store.dispatch('user:fetch', { forceLoad: true }),
-            this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
-          ]);
-        }
-      }
-
-      // Verify the client is updated
-      // const serverAppVersion = response.data.appVersion;
-      // let serverAppVersionState = this.$store.state.serverAppVersion;
-      // if (isApiCall && !serverAppVersionState) {
-      //   this.$store.state.serverAppVersion = serverAppVersion;
-      // } else if (isApiCall && serverAppVersionState !== serverAppVersion) {
-      //   if (document.activeElement.tagName !== 'INPUT'
-      // || confirm(this.$t('habiticaHasUpdated'))) {
-      //     location.reload(true);
-      //   }
-      // }
-
-      return response;
-    });
-
     // Setup listener for title
     this.$store.watch(state => state.title, title => {
       document.title = title;
@@ -492,9 +488,10 @@ export default {
         this.hideLoadingScreen();
 
         // Adjust the timezone offset
-        if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
+        const browserTimezoneOffset = -this.browserTimezoneUtcOffset;
+        if (this.user.preferences.timezoneOffset !== browserTimezoneOffset) {
           this.$store.dispatch('user:set', {
-            'preferences.timezoneOffset': this.browserTimezoneOffset,
+            'preferences.timezoneOffset': browserTimezoneOffset,
           });
         }
 
@@ -745,5 +742,6 @@ export default {
 <style src="@/assets/css/sprites/spritesmith-main-25.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-26.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-27.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-28.css"></style>
 <style src="@/assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

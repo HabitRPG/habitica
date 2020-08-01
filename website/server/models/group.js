@@ -482,7 +482,7 @@ schema.statics.validateInvitations = async function getInvitationErr (invites, r
     const query = {};
     query['invitations.party.id'] = group._id;
     // @TODO invitations are now stored like this: `'invitations.parties': []`
-    const groupInvites = await User.count(query).exec();
+    const groupInvites = await User.countDocuments(query).exec();
     memberCount += groupInvites;
 
     // Counting the members that are going to be invited by email and uuids
@@ -537,7 +537,7 @@ schema.methods.getMemberCount = async function getMemberCount () {
     query = { 'party._id': this._id };
   }
 
-  return User.count(query).exec();
+  return User.countDocuments(query).exec();
 };
 
 schema.methods.sendChat = function sendChat (options = {}) {
@@ -1415,23 +1415,12 @@ schema.methods.leave = async function leaveGroup (user, keep = 'keep-all', keepC
     } else {
       members = await User.find({ 'party._id': group._id }).select('_id').exec();
     }
-
     _.remove(members, { _id: user._id });
 
     if (members.length === 0) {
       promises.push(group.remove());
       return Promise.all(promises);
     }
-  // otherwise If the leader is leaving
-  // (or if the leader previously left, and this wasn't accounted for)
-  } else if (group.leader === user._id) {
-    const query = group.type === 'party' ? { 'party._id': group._id } : { guilds: group._id };
-    query._id = { $ne: user._id };
-    const seniorMember = await User.findOne(query).select('_id').exec();
-
-    // could be missing in case of public guild (that can have 0 members)
-    // with 1 member who is leaving
-    if (seniorMember) update.$set = { leader: seniorMember._id };
   }
   // otherwise If the leader is leaving
   // (or if the leader previously left, and this wasn't accounted for)
@@ -1483,6 +1472,7 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
   updateCmd.$set['group.approval.required'] = taskToSync.group.approval.required;
   updateCmd.$set['group.assignedUsers'] = taskToSync.group.assignedUsers;
   updateCmd.$set['group.sharedCompletion'] = taskToSync.group.sharedCompletion;
+  updateCmd.$set['group.managerNotes'] = taskToSync.group.managerNotes;
 
   const taskSchema = Tasks[taskToSync.type];
 
@@ -1503,26 +1493,8 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
     updateCmd.$pull = { checklist: { linkId: { $in: [options.removedCheckListItemId] } } };
   }
 
-  if (options.updateCheckListItems && options.updateCheckListItems.length > 0) {
-    const checkListIdsToRemove = [];
-    const checkListItemsToAdd = [];
-
-    options.updateCheckListItems.forEach(updateCheckListItem => {
-      checkListIdsToRemove.push(updateCheckListItem.id);
-      const newCheckList = { completed: false };
-      newCheckList.linkId = updateCheckListItem.id;
-      newCheckList.text = updateCheckListItem.text;
-      checkListItemsToAdd.push(newCheckList);
-    });
-
-    updateCmd.$pull = { checklist: { linkId: { $in: checkListIdsToRemove } } };
-    await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
-
-    delete updateCmd.$pull;
-    updateCmd.$push = { checklist: { $each: checkListItemsToAdd } };
-    await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
-
-    return;
+  if (options.updateCheckListItems) {
+    updateCmd.$set.checklist = taskToSync.checklist;
   }
 
   // Updating instead of loading and saving for performances,
@@ -1530,7 +1502,7 @@ schema.methods.updateTask = async function updateTask (taskToSync, options = {})
   await taskSchema.update(updateQuery, updateCmd, { multi: true }).exec();
 };
 
-schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
+schema.methods.syncTask = async function groupSyncTask (taskToSync, user, assigningUser) {
   const group = this;
   const toSave = [];
 
@@ -1581,6 +1553,10 @@ schema.methods.syncTask = async function groupSyncTask (taskToSync, user) {
   matchingTask.group.approval.required = taskToSync.group.approval.required;
   matchingTask.group.assignedUsers = taskToSync.group.assignedUsers;
   matchingTask.group.sharedCompletion = taskToSync.group.sharedCompletion;
+  matchingTask.group.managerNotes = taskToSync.group.managerNotes;
+  if (assigningUser && user._id !== assigningUser._id) {
+    matchingTask.group.assigningUsername = assigningUser.auth.local.username;
+  }
 
   //  sync checklist
   if (taskToSync.checklist) {
@@ -1643,15 +1619,48 @@ schema.methods.unlinkTask = async function groupUnlinkTask (
 
 schema.methods.removeTask = async function groupRemoveTask (task) {
   const group = this;
+  const removalPromises = [];
 
-  // Set the task as broken
-  await Tasks.Task.update({
+  // Delete individual task copies and related notifications
+  const userTasks = await Tasks.Task.find({
     userId: { $exists: true },
     'group.id': group.id,
     'group.taskId': task._id,
-  }, {
-    $set: { 'group.broken': 'TASK_DELETED' },
-  }, { multi: true }).exec();
+  }, { userId: 1, _id: 1 }).exec();
+
+  userTasks.forEach(async userTask => {
+    const assignedUser = await User.findOne({ _id: userTask.userId }, 'notifications tasksOrder').exec();
+
+    let notificationIndex = assignedUser.notifications.findIndex(notification => notification
+      && notification.type === 'GROUP_TASK_ASSIGNED'
+      && notification.data && notification.data.taskId === task._id);
+
+    if (notificationIndex !== -1) {
+      assignedUser.notifications.splice(notificationIndex, 1);
+    }
+
+    notificationIndex = assignedUser.notifications.findIndex(notification => notification
+      && notification.type === 'GROUP_TASK_NEEDS_WORK'
+      && notification.data && notification.data.task
+      && notification.data.task.id === userTask._id);
+
+    if (notificationIndex !== -1) {
+      assignedUser.notifications.splice(notificationIndex, 1);
+    }
+
+    notificationIndex = assignedUser.notifications.findIndex(notification => notification
+      && notification.type === 'GROUP_TASK_APPROVED'
+      && notification.data && notification.data.task
+      && notification.data.task._id === userTask._id);
+
+    if (notificationIndex !== -1) {
+      assignedUser.notifications.splice(notificationIndex, 1);
+    }
+
+    await Tasks.Task.remove({ _id: userTask._id });
+    removeFromArray(assignedUser.tasksOrder[`${task.type}s`], userTask._id);
+    removalPromises.push(assignedUser.save());
+  });
 
   // Get Managers
   const managerIds = Object.keys(group.managers);
@@ -1659,14 +1668,15 @@ schema.methods.removeTask = async function groupRemoveTask (task) {
   const managers = await User.find({ _id: managerIds }, 'notifications').exec(); // Use this method so we can get access to notifications
 
   // Remove old notifications
-  const removalPromises = [];
   managers.forEach(manager => {
-    const notificationIndex = manager.notifications.findIndex(notification => notification && notification.data && notification.data.groupTaskId === task._id && notification.type === 'GROUP_TASK_APPROVAL');
+    const notificationIndex = manager.notifications.findIndex(notification => notification
+      && notification.data && notification.data.groupTaskId === task._id
+      && notification.type === 'GROUP_TASK_APPROVAL');
 
     if (notificationIndex !== -1) {
       manager.notifications.splice(notificationIndex, 1);
-      removalPromises.push(manager.save());
     }
+    removalPromises.push(manager.save());
   });
 
   removeFromArray(group.tasksOrder[`${task.type}s`], task._id);
@@ -1720,13 +1730,7 @@ schema.methods.hasCancelled = function hasCancelled () {
 
 schema.methods.updateGroupPlan = async function updateGroupPlan (removingMember) {
   // Recheck the group plan count
-  let members;
-  if (this.type === 'guild') {
-    members = await User.find({ guilds: this._id }).select('_id').exec();
-  } else {
-    members = await User.find({ 'party._id': this._id }).select('_id').exec();
-  }
-  this.memberCount = members.length;
+  this.memberCount = await this.getMemberCount();
 
   if (this.purchased.plan.paymentMethod === stripePayments.constants.PAYMENT_METHOD) {
     await stripePayments.chargeForAdditionalGroupMember(this);
@@ -1743,7 +1747,7 @@ export const model = mongoose.model('Group', schema);
 // initialize tavern if !exists (fresh installs)
 // do not run when testing as it's handled by the tests and can easily cause a race condition
 if (!nconf.get('IS_TEST')) {
-  model.count({ _id: TAVERN_ID }, (err, ct) => {
+  model.countDocuments({ _id: TAVERN_ID }, (err, ct) => {
     if (err) throw err;
     if (ct > 0) return;
     new model({ // eslint-disable-line new-cap

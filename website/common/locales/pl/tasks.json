@@ -199,7 +199,7 @@
     "monthlyRepeatHelpContent": "To zadanie należy wypełniać co X miesięcy",
     "yearlyRepeatHelpContent": "To zadanie należy wypełniać co X lat",
     "resets": "Resetowany",
-    "summaryStart": "Powtarzaj <%= frequency %> co <%= everyX %> <%= frequencyPlural %> ",
+    "summaryStart": "Powtarzaj <%= frequency %> co <%= everyX %> <%= frequencyPlural %>",
     "nextDue": "Następny termin",
     "checkOffYesterDailies": "Zaznacz wszelkie Codzienne, które wczoraj wykonałeś:",
     "yesterDailiesTitle": "Zostawiłeś wczoraj niezaznaczone Dzienne! Czy chcesz potwierdzić wykonanie któregoś z nich?",

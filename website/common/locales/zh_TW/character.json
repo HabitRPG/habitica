@@ -156,7 +156,7 @@
     "optOutOfClasses": "暫時不選擇",
     "optOutOfPMs": "暫時不選擇",
     "chooseClass": "選擇您的職業",
-    "chooseClassLearnMarkdown": "[了解更多關於Habitica的職業系統](http://habitica.fandom.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[了解更多關於Habitica的職業系統](https://habitica.fandom.com/wiki/Class_System)",
     "optOutOfClassesText": "不知道該選甚麼職業？想晚點再決定嗎？可以暫時不選擇—您將暫時成為沒有任何特殊技能的戰士。您隨時可到wiki頁面了解職業系統，並在「玩家圖示 > 設定」中啟用職業。",
     "selectClass": "選擇<%= heroClass %>",
     "select": "選擇",

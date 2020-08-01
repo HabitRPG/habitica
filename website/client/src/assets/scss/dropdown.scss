@@ -1,20 +1,27 @@
 .dropdown > .btn {
-  padding: 9px 15.5px;
+  padding: 0.25rem 0.75rem;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: normal;
   line-height: 1.43;
 }
 
+.dropdown-toggle:hover {
+  --caret-color: #{$purple-200};
+}
+
 .dropdown.show > .dropdown-toggle:not(.btn-success) {
   color: $purple-200;
-  border-color: $purple-500 !important;
+  border-color: $purple-400 !important;
   box-shadow: none;
+
+  &::after {
+    --caret-color: #{$purple-200};
+  }
 }
 
 .dropdown-toggle::after {
-  margin-left: 16px;
-  border-top: 6px solid;
+  border-top-color: var(--caret-color);
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   vertical-align: 0;
@@ -23,14 +30,18 @@
 .dropdown-menu {
   padding: 0px;
   border: none;
-  border-radius: 4px;
-  box-shadow: 0 2px 2px 0 rgba($black, 0.15), 0 1px 4px 0 rgba($white, 0.1);
+  border-radius: 2px;
+  box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+
 }
 
+// shared dropdown-item styles
 .dropdown-item {
+  // header items & not selectList-items
   padding-left: 24px;
   padding-top: 8px;
   padding-bottom: 8px;
+
   font-size: 14px;
   line-height: 1.71;
   color: $gray-50;
@@ -42,8 +53,8 @@
   }
 
 
-  &:active, &:hover, &.active {
-    background-color: rgba(#d5c8ff, 0.32);
+  &:active, &:hover, &:focus, &.active {
+    background-color: rgba($purple-600, 0.32);
     color: $purple-200;
   }
 
@@ -86,16 +97,28 @@
 
   .dropdown-toggle {
     width: 100% !important;
+    height: 32px;
     text-align: left;
   }
 
   .dropdown-toggle::after {
     position: absolute;
-    right: 16px;
-    top: 17px;
+    right: 12px;
+    top: 14px;
   }
 
   .dropdown-menu.show {
     width: 100% !important;
+  }
+}
+
+// selectList.vue items sizing
+.selectListItem .dropdown-item {
+  padding: 0.25rem 0.75rem;
+  height: 32px;
+
+  &:active, &:hover, &:focus, &.active {
+    background-color: rgba($purple-600, 0.25);
+    color: $purple-300;
   }
 }

@@ -235,15 +235,16 @@ describe('Group Task Methods', () => {
         });
       });
 
-      it('removes an assigned task and unlinks assignees', async () => {
+      it('removes assigned tasks when master task is deleted', async () => {
         await guild.syncTask(task, leader);
         await guild.removeTask(task);
 
         const updatedLeader = await User.findOne({ _id: leader._id });
-        const updatedLeadersTasks = await Tasks.Task.find({ _id: { $in: updatedLeader.tasksOrder[`${taskType}s`] } });
+        const updatedLeadersTasks = await Tasks.Task.find({ userId: leader._id, type: taskType });
         const syncedTask = find(updatedLeadersTasks, findLinkedTask);
 
-        expect(syncedTask.group.broken).to.equal('TASK_DELETED');
+        expect(updatedLeader.tasksOrder[`${taskType}s`]).to.not.include(task._id);
+        expect(syncedTask).to.not.exist;
       });
 
       it('unlinks and deletes group tasks for a user when remove-all is specified', async () => {

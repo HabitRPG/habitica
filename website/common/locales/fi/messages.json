@@ -12,7 +12,7 @@
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
     "messageBought": "Ostit <%= itemText %>:n",
-    "messageEquipped": "<%= itemText %> otettu käyttöön.",
+    "messageEquipped": " <%= itemText %> otettu käyttöön.",
     "messageUnEquipped": "<%= itemText %> otettu pois käytöstä.",
     "messageMissingEggPotion": "Sinulta puuttuu joko kyseinen muna tai taikajuoma",
     "messageInvalidEggPotionCombo": "Et voi saada seikkailumunia kuoriutumaan taianomaisilla hautomisjuomilla! Kokeile toista munaa.",

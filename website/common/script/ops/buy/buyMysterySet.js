@@ -26,17 +26,18 @@ export default function buyMysterySet (user, req = {}, analytics) {
 
   each(mysterySet.items, item => {
     user.items.gear.owned[item.key] = true;
-    if (analytics) {
-      analytics.track('acquire item', {
-        uuid: user._id,
-        itemKey: item.key,
-        itemType: 'Subscriber Gear',
-        acquireMethod: 'Hourglass',
-        category: 'behavior',
-        headers: req.headers,
-      });
-    }
   });
+
+  if (analytics) {
+    analytics.track('acquire item', {
+      uuid: user._id,
+      itemKey: mysterySet.key,
+      itemType: 'Subscriber Gear',
+      acquireMethod: 'Hourglass',
+      category: 'behavior',
+      headers: req.headers,
+    });
+  }
 
   // Here we need to trigger vue reactivity through reassign object
   user.items.gear.owned = {

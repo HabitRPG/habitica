@@ -2,23 +2,24 @@ import escapeRegExp from 'lodash/escapeRegExp';
 import habiticaMarkdown from 'habitica-markdown';
 
 import { model as User } from '../models/user';
+import logger from './logger';
 
 const mentionRegex = /\B@[-\w]+/g;
-const codeTokenTypes = ['code_block', 'code_inline', 'fence'];
+const ignoreTokenTypes = ['code_block', 'code_inline', 'fence', 'link_open'];
 
 /**
- * Container class for text blocks and code blocks combined
- * Blocks have the properties `text` and `isCodeBlock`
+ * Container class for valid text blocks and text blocks that should be ignored.
+ * Blocks have the properties `text` and `ignore`
  */
-class TextWithCodeBlocks {
+class TextBlocks {
   constructor (blocks) {
     this.blocks = blocks;
-    this.textBlocks = blocks.filter(block => !block.isCodeBlock);
-    this.allText = this.textBlocks.map(block => block.text).join('\n');
+    this.validBlocks = blocks.filter(block => !block.ignore);
+    this.allValidText = this.validBlocks.map(block => block.text).join('\n');
   }
 
-  transformTextBlocks (transform) {
-    this.textBlocks.forEach(block => {
+  transformValidBlocks (transform) {
+    this.validBlocks.forEach(block => {
       block.text = transform(block.text);
     });
   }
@@ -32,18 +33,31 @@ class TextWithCodeBlocks {
  * Since tokens have both order and can be nested until infinite depth,
  * use a branching recursive algorithm to maintain order and check all tokens.
  */
-function findCodeBlocks (tokens, aggregator) {
-  const result = aggregator || [];
-  const [head, ...tail] = tokens;
-  if (!head) {
-    return result;
+function findIgnoreBlocks (tokens) {
+  // Links span multiple tokens, so keep local state of whether we're in a link
+  let inLink = false;
+
+  function recursor (ts, result) {
+    const [head, ...tail] = ts;
+    if (!head) {
+      return result;
+    }
+
+    if (!inLink && ignoreTokenTypes.includes(head.type)) {
+      result.push(head);
+    }
+
+    if (head.type.includes('link')) {
+      inLink = !inLink;
+    } else if (inLink && head.type === 'text') {
+      const linkBlock = result[result.length - 1];
+      linkBlock.textContents = (linkBlock.textContents || []).concat(head.content);
+    }
+
+    return recursor(tail, head.children ? recursor(head.children, result) : result);
   }
 
-  if (codeTokenTypes.includes(head.type)) {
-    result.push(head);
-  }
-
-  return findCodeBlocks(tail, head.children ? findCodeBlocks(head.children, result) : result);
+  return recursor(tokens, []);
 }
 
 /**
@@ -57,7 +71,19 @@ function withOptionalIndentation (content) {
   return content.split('\n').map(line => `\\s*${line}`).join('\n');
 }
 
-function createCodeBlockRegex ({ content, type, markup }) {
+/* This is essentially a workaround around the fact that markdown-it doesn't
+ * provide sourcemap functionality and is the most brittle part of this code.
+ *
+ * Known errors (Not supported markdown link variants):
+ * - [a](<b)c>) https://spec.commonmark.org/0.29/#example-489
+ * - [link](\(foo\)) https://spec.commonmark.org/0.29/#example-492
+ * - [link](foo(and(bar))) https://spec.commonmark.org/0.29/#example-493
+ * - [link](foo\(and\(bar\)) https://spec.commonmark.org/0.29/#example-494
+ * - [link](<foo(and(bar)>) https://spec.commonmark.org/0.29/#example-495
+ * - [link](foo\)\:) https://spec.commonmark.org/0.29/#example-496
+ */
+function toSourceMapRegex (token) {
+  const { type, content, markup } = token;
   const contentRegex = escapeRegExp(content);
   let regexStr = '';
 
@@ -65,42 +91,57 @@ function createCodeBlockRegex ({ content, type, markup }) {
     regexStr = withOptionalIndentation(contentRegex);
   } else if (type === 'fence') {
     regexStr = `\\s*${markup}.*\n${withOptionalIndentation(contentRegex)}\\s*${markup}`;
-  } else { // type === code_inline
+  } else if (type === 'code_inline') {
     regexStr = `${markup} ?${contentRegex} ?${markup}`;
+  } else if (type === 'link_open') {
+    const texts = token.textContents.map(escapeRegExp);
+    regexStr = markup === 'linkify' || markup === 'autolink' ? texts[0]
+      : `\\[[^\\]]*${texts.join('[^\\]]*')}[^\\]]*\\]\\([^)]*\\)`;
+  } else {
+    throw new Error(`No source mapping regex defined for ignore blocks of type ${type}`);
   }
 
-  return new RegExp(regexStr);
+  return new RegExp(regexStr, 's');
 }
 
 /**
- * Uses habiticaMarkdown to determine what part of the text are code blocks
+ * Uses habiticaMarkdown to determine which text blocks should be ignored (links and code blocks)
  * according to the specification here: https://spec.commonmark.org/0.29/
  */
-function findTextAndCodeBlocks (text) {
+function findTextBlocks (text) {
   // For token description see https://markdown-it.github.io/markdown-it/#Token
   // The second parameter is mandatory even if not used, see
   // https://markdown-it.github.io/markdown-it/#MarkdownIt.parse
   const tokens = habiticaMarkdown.parse(text, {});
-  const codeBlocks = findCodeBlocks(tokens);
+  const ignoreBlockRegexes = findIgnoreBlocks(tokens).map(toSourceMapRegex);
 
   const blocks = [];
-  let remainingText = text;
-  codeBlocks.forEach(codeBlock => {
-    const codeBlockRegex = createCodeBlockRegex(codeBlock);
-    const match = remainingText.match(codeBlockRegex);
+  let index = 0;
+  ignoreBlockRegexes.forEach(regex => {
+    const targetText = text.substr(index);
+    const match = targetText.match(regex);
+
+    if (!match) {
+      logger.error(
+        new Error('Failed to match source-mapping regex to find ignore block'),
+        { text, targetText, regex: String(regex) },
+      );
+      return;
+    }
 
     if (match.index) {
-      blocks.push({ text: remainingText.substr(0, match.index), isCodeBlock: false });
+      blocks.push({ text: targetText.substr(0, match.index), ignore: false });
     }
-    blocks.push({ text: match[0], isCodeBlock: true });
 
-    remainingText = remainingText.substr(match.index + match[0].length);
+    blocks.push({ text: match[0], ignore: true });
+    index += match.index + match[0].length;
   });
 
-  if (remainingText) {
-    blocks.push({ text: remainingText, isCodeBlock: false });
+  if (index < text.length) {
+    blocks.push({ text: text.substr(index), ignore: false });
   }
-  return new TextWithCodeBlocks(blocks);
+
+  return new TextBlocks(blocks);
 }
 
 /**
@@ -108,11 +149,12 @@ function findTextAndCodeBlocks (text) {
  * a link towards the user's profile page.
  * - Only works if there are no more that 5 user mentions
  * - Skips mentions in code blocks as defined by https://spec.commonmark.org/0.29/
+ * - Skips mentions in links
  */
 export default async function highlightMentions (text) {
-  const textAndCodeBlocks = findTextAndCodeBlocks(text);
+  const textBlocks = findTextBlocks(text);
 
-  const mentions = textAndCodeBlocks.allText.match(mentionRegex);
+  const mentions = textBlocks.allValidText.match(mentionRegex);
   let members = [];
 
   if (mentions && mentions.length <= 5) {
@@ -127,9 +169,9 @@ export default async function highlightMentions (text) {
       const regex = new RegExp(`@${username}(?![\\-\\w])`, 'g');
       const replacement = `[@${username}](/profile/${member._id})`;
 
-      textAndCodeBlocks.transformTextBlocks(blockText => blockText.replace(regex, replacement));
+      textBlocks.transformValidBlocks(blockText => blockText.replace(regex, replacement));
     });
   }
 
-  return [textAndCodeBlocks.rebuild(), mentions, members];
+  return [textBlocks.rebuild(), mentions, members];
 }

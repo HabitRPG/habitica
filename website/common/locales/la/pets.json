@@ -42,5 +42,7 @@
     "petName": "<%= egg(locale) %> <%= potion(locale) %>",
     "hatchedPet": "Incubuisti novum animal nominatum <%= potion %> <%= egg %>!",
     "hatchAPot": "Incubas novum animal nominatum <%= potion %> <%= egg %>?",
-    "noHatchingPotions": "Ullas potiones incubantes non habes."
+    "noHatchingPotions": "Ullas potiones incubantes non habes.",
+    "hopefulHippogriffMount": "Hopeful Hippogriff (Pet)",
+    "hopefulHippogriffPet": "Hopeful Hippogriff (Pet)"
 }

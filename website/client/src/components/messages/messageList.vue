@@ -226,8 +226,6 @@ export default {
   beforeDestroy () {
     this.$el.removeEventListener('selectstart', () => this.handleSelectStart());
     this.$el.removeEventListener('mouseup', () => this.handleSelectChange());
-  },
-  destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
   },
   computed: {

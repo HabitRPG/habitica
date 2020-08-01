@@ -34,7 +34,6 @@ export function setUpLogging () { // eslint-disable-line import/prefer-default-e
 
     _LTracker.push({
       err,
-      vm,
       info,
     });
   };

@@ -1,20 +1,14 @@
 {
-  "merch" : "Zboží",
-  "merchandiseDescription": "Hledáš trička, hrníčky nebo nálepky, abys ukázal/a svou hrdost na zemi Habitica? Klikni sem!",
-
-  "merch-teespring-summary" : "Díky platformě Teespring je snadné vytvářet a prodávat kvalitní produkty, které se budou líbit, a to bez poplatků či rizika.",
-  "merch-teespring-goto" : "Pořiď si tričko Habitica",
-
-  "merch-teespring-mug-summary" : "Díky platformě Teespring je snadné vytvářet a prodávat kvalitní produkty, které se budou líbit, a to bez poplatků či rizika.",
-  "merch-teespring-mug-goto" : "Pořiď si hrníček Habitica",
-
-  "merch-teespring-eu-summary" : "EVROPSKÁ VERZE : Díky platformě Teespring je snadné vytvářet a prodávat kvalitní produkty, které se budou líbit, a to bez poplatků či rizika.",
-  "merch-teespring-eu-goto" : "Získej tričko Habiticy (EU)",
-
-  "merch-teespring-mug-eu-summary" : "EVROPSKÁ VERZE : Díky platformě Teespring je snadné vytvářet a prodávat kvalitní produkty, které se budou líbit, a to bez poplatků či rizika.",
-  "merch-teespring-mug-eu-goto" : "Získej hrníček Habitcy (EU)",
-
-  "merch-stickermule-summary" : "Nalep hrdého Meliora kamkoliv to budeš ty (nebo někdo jiný) potřebovat, aby sis připomněl své nynější a budoucí úspěchy",
-  "merch-stickermule-goto" : "Pořiď si nálepky Habitica"
-
+    "merch": "Zboží",
+    "merchandiseDescription": "Hledáš trička, hrníčky nebo nálepky, abys ukázal/a svou hrdost na zemi Habitica? Klikni sem!",
+    "merch-teespring-summary": "Díky platformě Teespring je snadné vytvářet a prodávat kvalitní produkty, které se budou líbit, a to bez poplatků či rizika.",
+    "merch-teespring-goto": "Pořiď si tričko Habitica",
+    "merch-teespring-mug-summary": "Díky platformě Teespring je snadné vytvářet a prodávat kvalitní produkty, které se budou líbit, a to bez poplatků či rizika.",
+    "merch-teespring-mug-goto": "Pořiď si hrníček Habitica",
+    "merch-teespring-eu-summary": "EVROPSKÁ VERZE : Díky platformě Teespring je snadné vytvářet a prodávat kvalitní produkty, které se budou líbit, a to bez poplatků či rizika.",
+    "merch-teespring-eu-goto": "Získej tričko Habitica (EU)",
+    "merch-teespring-mug-eu-summary": "EVROPSKÁ VERZE : Díky platformě Teespring je snadné vytvářet a prodávat kvalitní produkty, které se budou líbit, a to bez poplatků či rizika.",
+    "merch-teespring-mug-eu-goto": "Získej hrníček Habitca (EU)",
+    "merch-stickermule-summary": "Nalep hrdého Meliora kamkoliv to budeš ty (nebo někdo jiný) potřebovat, aby sis připomněl své nynější a budoucí úspěchy!",
+    "merch-stickermule-goto": "Pořiď si nálepky Habitica"
 }

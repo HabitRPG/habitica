@@ -1,7 +1,7 @@
 <template>
   <div v-if="emptyItem">
     <div class="item-wrapper">
-      <div class="item item-empty">
+      <div class="item transition item-empty">
         <div class="item-content"></div>
       </div><span
         v-if="label"
@@ -15,7 +15,7 @@
       @click="click"
     >
       <div
-        class="item"
+        class="item transition"
         :class="{'item-active': active, 'highlight-border':highlightBorder }"
       >
         <slot
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 export default {
   props: {
@@ -79,7 +79,7 @@ export default {
   },
   data () {
     return Object.freeze({
-      itemId: uuid.v4(),
+      itemId: uuid(),
     });
   },
   methods: {
