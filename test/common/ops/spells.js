@@ -25,7 +25,7 @@ describe('shared.ops.spells', () => {
     const spell = spells.healer.heal;
 
     try {
-      spell.cast(user);
+      spell.cast(user, null, { language: 'en' });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('messageHealthAlreadyMax'));
@@ -34,5 +34,22 @@ describe('shared.ops.spells', () => {
 
       done();
     }
+  });
+
+  it('Issue #12361: returns an error if chilling frost has already been cast', async () => {
+    await user.update({
+      'stats.class': 'wizard',
+      'stats.lvl': 15,
+      'stats.mp': 400,
+      'stats.buffs.streaks': true,
+    });
+    await user.sync();
+    await expect(user.post('/user/class/cast/frost'))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('spellAlreadyCast'),
+      });
+    expect(user.stats.mp).to.equal(400);
   });
 });

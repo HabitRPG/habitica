@@ -161,23 +161,6 @@ describe('POST /user/class/cast/:spellId', () => {
       });
   });
 
-  it('Issue #12361: returns an error if chilling frost has already been cast', async () => {
-    await user.update({
-      'stats.class': 'wizard',
-      'stats.lvl': 15,
-      'stats.mp': 400,
-      'stats.buffs.streaks': true,
-    });
-    await user.sync();
-    await expect(user.post('/user/class/cast/frost'))
-      .to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: t('spellAlreadyCast'),
-      });
-    expect(user.stats.mp).to.equal(400);
-  });
-
   it('Issue #12361: returns an error if stealth has already been cast', async () => {
     await user.update({
       'stats.class': 'rogue',
