@@ -33,6 +33,8 @@
             <router-link :to="{'name': 'userProfile', 'params': {'userId': hero._id}}">
               profile link
             </router-link>
+            <br>
+            language: {{ hero.preferences.language }}
           </div>
 
           <div class="accordion-group">
@@ -504,8 +506,6 @@ import content from '@/../../common/script/content';
 import notifications from '@/mixins/notifications';
 
 export default {
-  components: {
-  },
   directives: {
     markdown: markdownDirective,
   },
@@ -551,8 +551,6 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
   },
-  // async mounted () {
-  // },
   methods: {
     authMethodExists (authMethod) {
       if (this.hero.auth[authMethod] && this.hero.auth[authMethod].length !== 0) return true;
