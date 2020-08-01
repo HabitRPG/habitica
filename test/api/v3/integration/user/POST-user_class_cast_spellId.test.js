@@ -171,8 +171,8 @@ describe('POST /user/class/cast/:spellId', () => {
     await user.sync();
     await expect(user.post('/user/class/cast/frost'))
       .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
+        code: 400,
+        error: 'BadRequest',
         message: t('spellAlreadyCast'),
       });
     expect(user.stats.mp).to.equal(400);

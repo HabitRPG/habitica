@@ -1,6 +1,6 @@
 import each from 'lodash/each';
 import t from './translation';
-import { NotAuthorized } from '../libs/errors';
+import { NotAuthorized, BadRequest } from '../libs/errors';
 import statsComputed from '../libs/statsComputed'; // eslint-disable-line import/no-cycle
 import setDebuffPotionItems from '../libs/setDebuffPotionItems'; // eslint-disable-line import/no-cycle
 import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
@@ -107,7 +107,7 @@ spells.wizard = {
     cast (user) {
       // Check if chilling frost skill has been previously casted or not.
       // See #12361 for more details.
-      if (user.stats.buffs.streaks === true) throw new NotAuthorized(t('spellAlreadyCast')(user.language));
+      if (user.stats.buffs.streaks === true) throw new BadRequest(t('spellAlreadyCast')(user.language));
       user.stats.buffs.streaks = true;
     },
   },
