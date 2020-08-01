@@ -229,8 +229,8 @@ spells.healer = {
     lvl: 11,
     target: 'self',
     notes: t('spellHealerHealNotes'),
-    cast (user) {
-      if (user.stats.hp >= 50) throw new NotAuthorized(t('messageHealthAlreadyMax')(user.language));
+    cast (user, target, req) {
+      if (user.stats.hp >= 50) throw new NotAuthorized(t('messageHealthAlreadyMax')(req.language));
       user.stats.hp += (statsComputed(user).con + statsComputed(user).int + 5) * 0.075;
       if (user.stats.hp > 50) user.stats.hp = 50;
     },
