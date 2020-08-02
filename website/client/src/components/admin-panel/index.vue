@@ -558,9 +558,12 @@ export default {
       return `${date} UTC`;
     },
     formatTimeZone (timezoneOffset) {
-      const timeZone = (timezoneOffset / 60) * -1;
-      const sign = (timeZone < 0) ? '' : '+'; // "-" is already in place in the number
-      return `${sign}${timeZone} UTC`;
+      // convert reverse offset to time zone in "+/-H:MM UTC" format
+      const sign = (timezoneOffset < 0) ? '+' : '-'; // reverse the sign
+      const timezoneHours = Math.floor(Math.abs(timezoneOffset) / 60);
+      const timezoneMinutes = Math.floor((Math.abs(timezoneOffset) / 60 - timezoneHours) * 60);
+      const timezoneMinutesDisplay = (timezoneMinutes) ? `:${timezoneMinutes}` : ''; // don't display :00
+      return `${sign}${timezoneHours}${timezoneMinutesDisplay} UTC`;
     },
   },
   methods: {
