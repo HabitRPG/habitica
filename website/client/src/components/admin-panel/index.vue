@@ -131,16 +131,16 @@
               </p>
               <div>
                 Account created:
-                <strong>{{ formatDate(hero.auth.timestamps.created) }}</strong>
+                <strong>{{ hero.auth.timestamps.created | formatDate }}</strong>
               </div>
               <div>
                 Most recent cron:
-                <strong>{{ formatDate(hero.auth.timestamps.loggedin) }}</strong>
+                <strong>{{ hero.auth.timestamps.loggedin | formatDate }}</strong>
                 ("auth.timestamps.loggedin")
               </div>
               <div v-if="this.errors.cron">
                 "lastCron" value:
-                <strong>{{ formatDate(hero.lastCron) }}</strong>
+                <strong>{{ hero.lastCron | formatDate }}</strong>
                 <br>
                 <span class="errorMessage">
                   ERROR: cron probably crashed before finishing
@@ -149,11 +149,11 @@
               </div>
               <div class="subsection-start">
                 Time zone:
-                <strong>{{ formatTimeZone(hero.preferences.timezoneOffset) }}</strong>
+                <strong>{{ hero.preferences.timezoneOffset | formatTimeZone }}</strong>
               </div>
               <div v-if="this.errors.timezone">
                 Time zone at previous cron:
-                <strong>{{ formatTimeZone(hero.preferences.timezoneOffsetAtLastCron) }}</strong>
+                <strong>{{ hero.preferences.timezoneOffsetAtLastCron | formatTimeZone }}</strong>
                 <div class="errorMessage">
                   ERROR: the player's current time zone is different than their time zone when
                   their previous cron ran. This can be because:
@@ -245,7 +245,7 @@
             </h3>
             <div v-if="expandAvatar">
               <div>Drops Today: {{ hero.items.lastDrop.count }}</div>
-              <div>Most Recent Drop: {{ formatDate(hero.items.lastDrop.date) }}</div>
+              <div>Most Recent Drop: {{ hero.items.lastDrop.date | formatDate }}</div>
               <div>Use Costume: {{ hero.preferences.costume ? 'on' : 'off' }}</div>
               <div class="subsection-start">
                 Equipped Gear:
@@ -551,19 +551,22 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
   },
+  filters: {
+    formatDate (inputDate) {
+      if (!inputDate) return '';
+      const date = moment(inputDate).utcOffset(0).format('YYYY-MM-DD HH:mm');
+      return `${date} UTC`;
+    },
+    formatTimeZone (timezoneOffset) {
+      const timeZone = (timezoneOffset / 60) * -1;
+      const sign = (timeZone < 0) ? '' : '+'; // "-" is already in place in the number
+      return `${sign}${timeZone} UTC`;
+    },
+  },
   methods: {
     authMethodExists (authMethod) {
       if (this.hero.auth[authMethod] && this.hero.auth[authMethod].length !== 0) return true;
       return false;
-    },
-    formatDate (inputDate) {
-      const date = moment(inputDate).utcOffset(0).format('YYYY-MM-DD HH:mm');
-      return `${date} UTC`;
-    },
-    formatTimeZone (inputTimeZoneOffset) {
-      const timeZone = (inputTimeZoneOffset / 60) * -1;
-      const sign = (timeZone < 0) ? '' : '+'; // "-" is already in place in the number
-      return `${sign}${timeZone} UTC`;
     },
     formatEquipment (gearWorn) {
       const gearTypes = ['head', 'armor', 'weapon', 'shield', 'headAccessory', 'eyewear',
@@ -578,7 +581,6 @@ export default {
       });
       return equipmentList;
     },
-
     collateItemData () {
       // items.special includes many items but we are interested in these only:
       const specialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
