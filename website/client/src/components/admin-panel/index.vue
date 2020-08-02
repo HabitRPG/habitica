@@ -27,15 +27,12 @@
         class="row"
       >
         <div class="form col-12">
-          <h2>@{{ hero.auth.local.username }} &nbsp; / &nbsp; {{ hero.profile.name }}</h2>
-          <div class="form-group">
-            {{ hero._id }} &nbsp;
-            <router-link :to="{'name': 'userProfile', 'params': {'userId': hero._id}}">
-              profile link
-            </router-link>
-            <br>
-            language: {{ hero.preferences.language }}
-          </div>
+          <basic-details
+            :userId="hero._id"
+            :auth="hero.auth"
+            :preferences="hero.preferences"
+            :profile="hero.profile"
+          />
 
           <div class="accordion-group">
             <h3
@@ -505,7 +502,12 @@ import { mapState } from '@/libs/store';
 import content from '@/../../common/script/content';
 import notifications from '@/mixins/notifications';
 
+import BasicDetails from './user-support/basicDetails';
+
 export default {
+  components: {
+    BasicDetails,
+  },
   directives: {
     markdown: markdownDirective,
   },
