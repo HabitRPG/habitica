@@ -644,8 +644,8 @@ export default {
     await this.reload();
 
     // close members modal if the Private Messages page is opened in an existing tab
-    this.$root.$emit('habitica::dismiss-modal', 'profile');
-    this.$root.$emit('habitica::dismiss-modal', 'members-modal');
+    this.$root.$emit('bv::hide::modal', 'profile');
+    this.$root.$emit('bv::hide::modal', 'members-modal');
 
     const data = this.$store.state.privateMessageOptions;
     if (data && data.userIdToMessage) {
