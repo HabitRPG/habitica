@@ -1,90 +1,24 @@
-.promo_aquatic_amigos_bundle {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -622px;
-  width: 423px;
-  height: 147px;
-}
 .promo_armoire_backgrounds_202007 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -812px 0px;
+  background-position: 0px 0px;
   width: 423px;
-  height: 147px;
-}
-.promo_mystery_202007 {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -812px -616px;
-  width: 282px;
   height: 147px;
 }
 .promo_mystery_202008 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -812px -459px;
+  background-position: 0px -148px;
   width: 294px;
   height: 156px;
 }
-.promo_naming_day_2020 {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -812px -296px;
-  width: 285px;
-  height: 162px;
-}
-.promo_orcas {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -426px -473px;
-  width: 219px;
-  height: 147px;
-}
-.promo_sand_sculpture_potions {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -812px -148px;
-  width: 423px;
-  height: 147px;
-}
-.promo_seafoam {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -473px;
-  width: 425px;
-  height: 148px;
-}
-.promo_splashy_skins {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -409px -286px;
-  width: 375px;
-  height: 186px;
-}
-.customize-option.promo_splashy_skins {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -434px -301px;
-  width: 60px;
-  height: 60px;
-}
-.promo_summer_splash_2019 {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -286px;
-  width: 408px;
-  height: 186px;
-}
-.promo_summer_splash_2020 {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -367px 0px;
-  width: 444px;
-  height: 198px;
-}
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1098px -296px;
+  background-position: -424px -181px;
   width: 96px;
   height: 69px;
 }
-.scene_cathb {
+.scene_rewards {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -770px;
-  width: 141px;
-  height: 167px;
-}
-.scene_tools {
-  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px 0px;
-  width: 366px;
-  height: 285px;
+  background-position: -424px 0px;
+  width: 207px;
+  height: 180px;
 }
