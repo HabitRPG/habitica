@@ -47,10 +47,10 @@
     "itemsToCollect": "Předměty ke sbírání",
     "bossDmg1": "Každý splněný denní úkol, úkol z úkolníčku a každý pozitivní zvyk zraní bosse. Zraň ho víc červenějšími úkoly nebo brutální ranou nebo Vzplanutím ohňů. Boss zraní každého účastníka výpravy za každý nesplněný denní úkol (újma je násobena jeho silou) navíc k normálnímu zranění, takže udržuj skupinu zdravou plněním úkolů. <strong>Veškerá zranění příšeře i vám se přičítají na kronu (na konci dne).</strong>",
     "bossDmg2": "Jen ti, kteří přijmou pozvání, budou bojovat proti příšeře a rozdělí si odměnu za výpravu.",
-    "bossDmg1Broken": "Každý splnění Denní úkol, úkol z Úkolníčku a každý pozitivní zvyk zraní příšeru... Zraň jí víc červenějšími úkoly nebo Brutální ranou nebo Vzplanutím ohňů... Příšera zraní každého účastníka výpravy za každý nesplněný Denní úkol (újma je násobena jeho Silou) navíc k normálnímu zranění, takže udržuj skupinu zdravou plněním úkolů. <strong>Veškerá zranění příšeře i vám se přičítají na kronu (na konci dne).</strong>",
+    "bossDmg1Broken": "Každé splnění denního úkolu, úkolu z úkolníčku a každý pozitivní zvyk zraní bosse... Zraň jej víc červenějšími úkoly, brutální ranou nebo vzplanutím ohňů... Boss zraní každého účastníka výpravy za každý nesplněný denní úkol (újma je násobena jeho silou) navíc k normálnímu zranění, takže udržuj svou družinu zdravou plněním svých denních úkolů... <strong>Veškerá zranění Bossovi i vám se započtou podle kronu (na konci tvého dne).</strong>",
     "bossDmg2Broken": "Jen ti, kteří přijmou pozvání, budou bojovat proti příšeře a rozdělí si odměnu za výpravu...",
     "tavernBossInfo": "Plň denní úkoly a úkoly v úkolníčku a buduj zvyky aby jsi zranil Světovou příšeru! Nesplněné denní úkoly živí příšeřin vztek. Když je vzteku již moc, příšera zaútočí na nějakou nehráčskou postavu. Světová příšera nikdy nijak nezraní jednotlivé hráče nebo jejich účty. Pouze aktivní hráči, kteří neodpočívají v Hostinci, se mohou podílet na boji proti příšeře.",
-    "tavernBossInfoBroken": "Splň denní úkoly a úkoly v Úkolníčku a zraň tak Světovou příšeru... Nesplněné denní úkoly naplní lištu Výpadu... Když se tato lišta naplní, příšera zaútočí na nějakou nehráčskou postavu... Světová příšera nikdy nezraní jednotlivé hráče... Pouze aktivní hráči, kteří neodpočívají v Hostinci se mohou podílet na zranění příšery...",
+    "tavernBossInfoBroken": "Plň denní úkoly a úkoly v úkolníčku a zraň tak světového bosse... Nesplněné denní úkoly naplní ukazatel omračujícího útoku... Když se tento ukazatel naplní, světový boss zaútočí na nějakou nehráčskou postavu... Světový boss nikdy nezraní jednotlivé hráče ani nijak nepoškodí jejich účty... Započítávají se pouze úkoly aktivních hráčů, kteří neodpočívají v krčmě...",
     "bossColl1": "To collect items, do your positive tasks. Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon.",
     "bossColl2": "Jen ti, kteří přijmou pozvání, mohou sbírat předměty a rozdělit si odměnu za výpravu.",
     "bossColl1Broken": "To collect items, do your positive tasks... Quest items drop just like normal items; you can monitor your quest item drops by hovering over the quest progress icon...",
@@ -71,8 +71,8 @@
     "scrollsText1": "Pro účast na výpravě musíš být členem družiny. Pokud chceš na výpravu na vlastní pěst,",
     "scrollsText2": "vytvoř si prázdnou družinu",
     "scrollsPre": "Tuto Výpravu jsi ještě neodemkl!",
-    "alreadyEarnedQuestLevel": "Tuto Výpravu jsi si již vysloužil dosažením Úrovně <%= level %>. ",
-    "alreadyEarnedQuestReward": "Tuto Výpravu sis již vysloužil dokončením Výpravy <%= priorQuest %>.",
+    "alreadyEarnedQuestLevel": "Tuto výpravu jsi si již vysloužil dosažením úrovně <%= level %>.",
+    "alreadyEarnedQuestReward": "Tuto výpravu sis již vysloužil dokončením výpravy <%= priorQuest %>.",
     "completedQuests": "Dokončil následující výpravy",
     "mustComplete": "Nejdříve musíš dokončit <%= quest %>.",
     "mustLevel": "Musíš být na Úrovni <%= level %>, abys mohl začít tuto Výpravu.",
@@ -130,5 +130,6 @@
     "chatItemQuestFinish": "Všechny položky byly nalezeny! Družina získala své odměny.",
     "questInvitationNotificationInfo": "Byli jste pozváni, abyste se připojili k výpravě",
     "hatchingPotionQuests": "Výpravy pro kouzelný lektvar",
-    "bossDamage": "Ublížil/a jsi bossovi!"
+    "bossDamage": "Ublížil/a jsi bossovi!",
+    "questAlreadyStarted": "Výprava už začala."
 }

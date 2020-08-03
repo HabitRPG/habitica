@@ -81,5 +81,8 @@
     "onboardingComplete": "Você completou suas tarefas de integração!",
     "achievementBareNecessitiesModalText": "Você completou a missão dos mascotes Macaco, Bicho-preguiça e Broto de Árvore!",
     "achievementBareNecessitiesText": "Completou a missão dos mascotes Macaco, Bicho-preguiça e Broto de Árvore.",
-    "achievementBareNecessities": "Necessidades Básicas"
+    "achievementBareNecessities": "Necessidades Básicas",
+    "achievementFreshwaterFriendsModalText": "Você completou as missões dos mascotes Salamandra, Sapo e Hipopótamo!",
+    "achievementFreshwaterFriendsText": "Completou as missões dos mascotes Salamandra, Sapo e Hipopótamo.",
+    "achievementFreshwaterFriends": "Amigos de Água Doce"
 }

@@ -2,8 +2,9 @@
   <b-modal
     id="amazon-payment"
     title="Amazon"
-    :hide-footer="true"
     size="md"
+    :hide-footer="true"
+    @hide="reset()"
   >
     <h2 class="text-center">
       Continue with Amazon
@@ -58,10 +59,12 @@ import pick from 'lodash/pick';
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
+import paymentsMixin from '@/mixins/payments';
 
 const habiticaUrl = `${window.location.protocol}//${window.location.host}`;
 
 export default {
+  mixins: [paymentsMixin],
   data () {
     return {
       amazonPayments: {
@@ -201,6 +204,7 @@ export default {
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+
       if (url) {
         window.location.assign(url);
       } else {
@@ -245,8 +249,6 @@ export default {
             paymentType: 'Amazon',
           });
 
-          this.$root.$emit('bv::hide::modal', 'amazon-payment');
-
           const newGroup = response.data.data;
           if (newGroup && newGroup._id) {
             // Handle new user signup
@@ -275,6 +277,7 @@ export default {
           this.storePaymentStatusAndReload();
         } catch (e) {
           this.$set(this, 'amazonButtonEnabled', true);
+          this.$root.$emit('bv::hide::modal', 'amazon-payment');
           // @TODO: do we need this? this.amazonPaymentsreset();
         }
       }
