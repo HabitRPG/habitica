@@ -36,6 +36,6 @@ describe('PUT /news/:newsID', () => {
     expect(updatedPost.credits).to.equal(existingPost.credits);
     expect(updatedPost.text).to.equal(existingPost.text);
     expect(updatedPost.published).to.equal(existingPost.published);
-    expect(updatedPost.id).to.equal(existingPost._id);
+    expect(updatedPost._id).to.equal(existingPost._id);
   });
 });

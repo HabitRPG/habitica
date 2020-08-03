@@ -7,7 +7,7 @@ describe('POST /news/tell-me-later', () => {
   let user;
 
   beforeEach(async () => {
-    NewsPost.updateLastNewsPost({ id: '1234', publishDate: new Date(), title: 'Title' });
+    NewsPost.updateLastNewsPost({ _id: '1234', publishDate: new Date(), title: 'Title' });
     user = await generateUser();
   });
 
