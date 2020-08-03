@@ -56,6 +56,7 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_ROSY_OUTLOOK',
   'ACHIEVEMENT_BUG_BONANZA',
   'ACHIEVEMENT_BARE_NECESSITIES',
+  'ACHIEVEMENT_FRESHWATER_FRIENDS',
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
 ];
 

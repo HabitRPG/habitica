@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA BLOG POSTS: CHALLENGES AND CATHB’S FAVORITES!';
+const LAST_ANNOUNCEMENT_TITLE = 'HABITICA’S NAMING DAY!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,43 +31,31 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/23/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>7/31/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_tools center-block"></div>
-        <h3>Use Case Spotlight: Challenges</h3>
+        <div class="achievement-habiticaDay2x center-block"></div>
+        <h3>Habitica Naming Day</h3>
         <p>
-          This month's <a
-          href='https://habitica.wordpress.com/2020/07/23/use-case-spotlight-challenges/'
-          target='_blank'>Use Case Spotlight</a> is about Challenges! It features a number of great
-          suggestions submitted by Habiticans in the <a
-          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
-          We hope it helps any of you who might be looking for a fun motivation and accountability
-          boost.
+          Happy Habitica Naming day! In honor of the day when we changed the name of the app from
+          HabitRPG to Habitica, we've given everyone an achievement, as well as some delicious cake
+          for your pets and mounts.
+        </p>
+        <div class="small mb-3">by Lemoness and SabreCat</div>
+        <div class="promo_naming_day_2020 center-block"></div>
+        <h3>Habitica Purple Gryphons</h3>
+        <p>
+          Speaking of pets and mounts, we've given all users Royal Purple Gryphon rewards!
+          Depending on how many Naming Days you've celebrated with us, you've received Melior (a
+          Purple Gryphon mount), his little sister Meliora (a Purple Gryphon pet), a Purple Gryphon
+          Helm, the Purple Gryphon Wing Cloak, or the latest addition, the Purple Gryphon Tail!
         </p>
         <p>
-          Plus, we're collecting user submissions for the next spotlight! How do you use Habitica
-          to help you support your friends and family? We’ll be featuring player-submitted examples
-          in Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the
-          Use Case Spotlight Guild now. We look forward to learning more about how you use Habitica
-          to improve your life and get things done!
+          Thanks for being a Habitica user -- you all mean so much to us. We hope that you enjoy
+          your presents!
         </p>
-        <div class="small mb-3">by shanaqui</div>
-        <div class="scene_cathb center-block"></div>
-        <h3>Guild Spotlight: CathB's Favorites</h3>
-        <p>
-          For this year's Guild Spotlight series, we're highlighting some favorites from Habitica's
-          staff, moderators, and some high-level contributors!
-        </p>
-        <p>
-          This month we're sharing some <a
-          href='https://habitica.wordpress.com/2020/07/23/guild-spotlights-our-favourites-6/'
-          target='_blank'>picks from longtime socialite CathB!</a> If you want to curate your
-          Habitica experience and join active, positive Guilds, this is a great way to pick up some
-          new ideas for Guilds to join.
-        </p>
-        <div class="small mb-3">by shanaqui</div>
+        <div class="small mb-3">by Lemoness, Beffymaroo, and Baconsaur</div>
       </div>
       `,
     });

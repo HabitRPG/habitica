@@ -249,11 +249,11 @@
     "onlyCreatorOrAdminCanDeleteChat": "Not authorised to delete this message!",
     "onlyGroupLeaderCanEditTasks": "Not authorised to manage tasks!",
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
-    "assignedTo": "Assigned To",
+    "assignedTo": "Assign To",
     "assignedToUser": "Assigned to <strong><%= userName %></strong>",
     "assignedToMembers": "Assigned to <strong><%= userCount %> members</strong>",
     "assignedToYouAndMembers": "Assigned to you and <strong><%= userCount %> members</strong>",
-    "youAreAssigned": "You are assigned to this task",
+    "youAreAssigned": "Assigned to you",
     "taskIsUnassigned": "This task is unassigned",
     "confirmClaim": "Are you sure you want to claim this task?",
     "confirmUnClaim": "Are you sure you want to unclaim this task?",
@@ -494,5 +494,12 @@
     "PMUnblockUserToSendMessages": "Unblock this user to continue sending and receiving messages.",
     "PMUserDoesNotReceiveMessages": "This user is no longer receiving private messages",
     "PMCanNotReply": "You can not reply to this conversation",
-    "newPartyPlaceholder": "Enter your party's name."
+    "newPartyPlaceholder": "Enter your party's name.",
+    "claimRewards": "Claim Rewards",
+    "assignedDateAndUser": "Assigned by <strong>@<%= username %></strong> on <strong><%= date %></strong>",
+    "assignedDateOnly": "Assigned on <strong><%= date %></strong>",
+    "managerNotes": "Manager's Notes",
+    "thisTaskApproved": "This task was approved",
+    "chooseTeamMember": "Choose a team member",
+    "unassigned": "Unassigned"
 }

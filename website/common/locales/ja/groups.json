@@ -253,7 +253,7 @@
     "assignedToUser": "<strong><%= userName %></strong>に割り当て",
     "assignedToMembers": "<strong><%= userCount %>人のメンバー</strong>に割り当てました",
     "assignedToYouAndMembers": "あなたと<strong><%= userCount %>人のメンバー</strong>に割り当てました",
-    "youAreAssigned": "このタスクはあなたに割り当てられています",
+    "youAreAssigned": "あなたに割り当てられています",
     "taskIsUnassigned": "このタスクは誰にも割り当てられていません",
     "confirmClaim": "本当にこのタスクを担当しますか？",
     "confirmUnClaim": "本当にこのタスクの担当を解除しますか？",
@@ -494,5 +494,11 @@
     "PMUnblockUserToSendMessages": "メッセージの送信と受信を続けるには、このユーザーのブロックを解除しましょう。",
     "PMUserDoesNotReceiveMessages": "このユーザーはもはやプライベートメッセージを受信していません",
     "PMCanNotReply": "この会話に返信することはできません",
-    "newPartyPlaceholder": "パーティーの名前を入力してください。"
+    "newPartyPlaceholder": "パーティーの名前を入力してください。",
+    "assignedDateAndUser": "<strong><%= date %></strong>に<strong>@<%= username %></strong>に割り当てられました",
+    "assignedDateOnly": "<strong><%= date %></strong>に割り当てられました",
+    "managerNotes": "管理者からのお知らせ",
+    "thisTaskApproved": "このタスクは承認されています",
+    "chooseTeamMember": "チームメンバーを選んでください",
+    "unassigned": "未割り当て"
 }

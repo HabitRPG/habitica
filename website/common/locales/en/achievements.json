@@ -81,5 +81,8 @@
   "achievementBugBonanzaModalText": "You completed the Beetle, Butterfly, Snail, and Spider pet quests!",
   "achievementBareNecessities": "Bare Necessities",
   "achievementBareNecessitiesText": "Has completed Monkey, Sloth, and Treeling pet quests.",
-  "achievementBareNecessitiesModalText": "You completed the Monkey, Sloth, and Treeling pet quests!"
+  "achievementBareNecessitiesModalText": "You completed the Monkey, Sloth, and Treeling pet quests!",
+  "achievementFreshwaterFriends": "Freshwater Friends",
+  "achievementFreshwaterFriendsText": "Has completed Axolotl, Frog, and Hippo pet quests.",
+  "achievementFreshwaterFriendsModalText": "You completed the Axolotl, Frog, and Hippo pet quests!"
 }

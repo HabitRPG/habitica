@@ -213,5 +213,8 @@
     "addNotes": "メモを入力する",
     "addATitle": "タイトルを入力する",
     "sureDeleteType": "本当にこの <%= type %>を削除してもいいですか？",
-    "deleteTaskType": "<%= type %>を削除する"
+    "deleteTaskType": "<%= type %>を削除する",
+    "pressEnterToAddTag": "Enterキーでタグを追加：'<%= tagName %>'",
+    "enterTag": "タグを入力してください",
+    "addTags": "タグを追加…"
 }

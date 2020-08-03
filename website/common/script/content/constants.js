@@ -298,6 +298,11 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
     'sloth',
     'treeling',
   ],
+  freshwaterFriends: [
+    'axolotl',
+    'frog',
+    'hippo',
+  ],
 };
 
 export const ANIMAL_COLOR_ACHIEVEMENTS = [

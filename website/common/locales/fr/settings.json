@@ -213,5 +213,6 @@
     "mentioning": "Mentions",
     "chatExtensionDesc": "L'extension de discussion pour Habitica ajoute une fenêtre de discussion intuitive à tout habitica.com. Cela permet à chacun de discuter dans la taverne, avec son équipe ou dans les guildes.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Extension de discussion Chrome</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Extension de discussion Firefox</a>",
-    "buyGemsGoldCapBase": "Limite de gemmes à <%= amount %>"
+    "buyGemsGoldCapBase": "Limite de gemmes à <%= amount %>",
+    "displaynameIssueNewline": "Les pseudo ne peuvent pas contenir d'antislashes suivis de la lettre N."
 }

@@ -1540,6 +1540,8 @@
   "headMystery202006Notes": "The positive energy of these radiant purple stones will draw the sea's friendliest creatures to your side. Confers no benefit. June 2020 Subscriber Item.",
   "headMystery202007Text": "Outstanding Orca Helm",
   "headMystery202007Notes": "This helm will tune you in to the complex and beautiful songs of your fellow cetaceans. Confers no benefit. July 2020 Subscriber Item.",
+  "headMystery202008Text": "Owlish Oracle Headdress",
+  "headMystery202008Notes": "WHO? WHO? WHO approaches, seeking your counsel? Confers no benefit. August 2020 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -2099,6 +2101,8 @@
   "bodyMystery202002Notes": "For when your heart is warm but the breezes of February are brisk. Confers no benefit. February 2020 Subscriber Item.",
   "bodyMystery202003Text": "Barbed Pauldrons",
   "bodyMystery202003Notes": "They're like shoulder pads that are on a whole other level. Confers no benefit. March 2020 Subscriber Item.",
+  "bodyMystery202008Text": "Owlish Oracle Mantle",
+  "bodyMystery202008Notes": "For now, your wings lie furled. But when you have concluded dispensing your wisdom, or you sight your prey in the grass, watch out! Confers no benefit. August 2020 Subscriber Item.",
 
   "bodyArmoireCozyScarfText": "Cozy Scarf",
   "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Lamplighter's Set (Item 4 of 4).",

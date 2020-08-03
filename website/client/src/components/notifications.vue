@@ -328,6 +328,14 @@ const NOTIFICATIONS = {
       achievement: 'bareNecessities', // defined manually until the server sends all the necessary data
     },
   },
+  ACHIEVEMENT_FRESHWATER_FRIENDS: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementFreshwaterFriends')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'freshwaterFriends', // defined manually until the server sends all the necessary data
+    },
+  },
 };
 
 export default {
@@ -387,6 +395,7 @@ export default {
       'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
       'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT_TICKLED_PINK', 'ACHIEVEMENT_ROSY_OUTLOOK', 'ACHIEVEMENT',
       'ONBOARDING_COMPLETE', 'FIRST_DROPS', 'ACHIEVEMENT_BUG_BONANZA', 'ACHIEVEMENT_BARE_NECESSITIES',
+      'ACHIEVEMENT_FRESHWATER_FRIENDS',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -806,6 +815,7 @@ export default {
           case 'ACHIEVEMENT_ROSY_OUTLOOK':
           case 'ACHIEVEMENT_BUG_BONANZA':
           case 'ACHIEVEMENT_BARE_NECESSITIES':
+          case 'ACHIEVEMENT_FRESHWATER_FRIENDS':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
