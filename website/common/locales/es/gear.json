@@ -1924,7 +1924,7 @@
     "armorSpecialKS2019Notes": "Brillando desde adentro como el noble corazón de un grifo, esta armadura resplandeciente te alienta a enorgullecerte de tus logros. Aumenta la Constitución en <% = con%>.",
     "weaponArmoireFiddlersBowNotes": "¡Puedes sacar música de cualquier cosa con esto! ... Sin embargo, un violín podría funcionar mejor. Aumenta la fuerza en <% = str%>. Armario encantado: conjunto de violinista (artículo 3 de 4).",
     "weaponArmoireFiddlersBowText": "Arco de violinista",
-    "weaponArmoirePaperCutterNotes": "Esto puede no parecer temible, pero ¿nunca ha tenido un corte de papel? Aumenta la fuerza en <% = str%>. Armario encantado: conjunto de caballero de papel (artículo 1 de 3).",
+    "weaponArmoirePaperCutterNotes": "Esto puede no parecer temible, pero ¿nunca ha tenido un corte de papel? Aumenta la fuerza en <% = str %>. Armario encantado: conjunto de caballero de papel (artículo 1 de 3).",
     "weaponArmoireBaseballBatNotes": "¡Consigue un jonrón con esos buenos hábitos! Aumenta la Constitución en <% = con%>. Armario encantado: conjunto de béisbol (artículo 3 de 4).",
     "weaponSpecialSpring2020HealerText": "Bastón de lirio de espada",
     "weaponSpecialSpring2020MageNotes": "¡Siguen cayendo sobre tu cabeza! Pero nunca los detendrás quejándote. Aumenta la inteligencia en <% = int%> y la percepción en <% = per%>. Edición limitada 2020 Spring Gear.",
