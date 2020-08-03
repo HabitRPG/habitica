@@ -162,7 +162,7 @@
                   progress on the group doc? Each user could have different progress.-->
                 <span
                   class="float-right"
-                >{{ user.party.quest.progress.up | floor(10) }} {{ $t('pendingDamageLabel') }}</span> <!-- eslint-disable-line max-len -->
+                >{{ (user.party.quest.progress.up || 0) | floor(10) }} {{ $t('pendingDamageLabel') }}</span> <!-- eslint-disable-line max-len -->
                 <!-- player's pending damage uses floor so you
                   don't overestimate damage you've already done-->
               </div>
@@ -424,7 +424,6 @@ export default {
     },
     async questAccept (partyId) {
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: partyId, action: 'quests/accept' });
-      quest.progress.up = this.user.party.quest.progress.up;
       this.user.party.quest = quest;
       this.group.quest = quest;
     },
