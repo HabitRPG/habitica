@@ -62,7 +62,7 @@ schema.statics.lastNewsPost = function lastNewsPost () {
 };
 
 schema.statics.updateLastNewsPost = function updateLastNewsPost (newPost) {
-  if (!cachedLastNewsPost || cachedLastNewsPost.id !== newPost.id) {
+  if (!cachedLastNewsPost || cachedLastNewsPost._id !== newPost._id) {
     if (!cachedLastNewsPost || cachedLastNewsPost.publishDate < newPost.publishDate) {
       cachedLastNewsPost = newPost;
     }
