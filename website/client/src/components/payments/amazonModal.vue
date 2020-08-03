@@ -205,8 +205,6 @@ export default {
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
 
-      this.reset();
-
       if (url) {
         window.location.assign(url);
       } else {
@@ -251,8 +249,6 @@ export default {
             paymentType: 'Amazon',
           });
 
-          this.$root.$emit('bv::hide::modal', 'amazon-payment');
-
           const newGroup = response.data.data;
           if (newGroup && newGroup._id) {
             // Handle new user signup
@@ -281,6 +277,7 @@ export default {
           this.storePaymentStatusAndReload();
         } catch (e) {
           this.$set(this, 'amazonButtonEnabled', true);
+          this.$root.$emit('bv::hide::modal', 'amazon-payment');
           // @TODO: do we need this? this.amazonPaymentsreset();
         }
       }
