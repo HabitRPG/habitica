@@ -1933,6 +1933,14 @@
     "headArmoireEarflapHatText": "耳あてつき帽子",
     "armorArmoireDuffleCoatNotes": "氷の世界をこの本場の心地よいウールのコートを来て旅しましょう。体質と知覚がそれぞれ<%= attrs %>上がります。ラッキー宝箱：ダッフルコートセット（2個中1個目のアイテム）。",
     "armorArmoireDuffleCoatText": "ダッフルコート",
-    "weaponArmoireFiddlersBowNotes": "これで何とでも音楽を上手く奏でられるでしょう！……もっとも、バイオリンが一番上手くいくかも。力が<%= str %>上がります。ラッキー宝箱：バイオリン弾きセット（4個中3個目のアイテム）。",
-    "weaponArmoireFiddlersBowText": "バイオリンの弓"
+    "weaponArmoireFiddlersBowNotes": "これでどんな音楽でも上手く奏でられるでしょう！……もっとも、バイオリンが一番上手くいくかも。力が<%= str %>上がります。ラッキー宝箱：バイオリン弾きセット（4個中3個目のアイテム）。",
+    "weaponArmoireFiddlersBowText": "バイオリンの弓",
+    "headArmoireFiddlersCapNotes": "この陽気な帽子をかぶって、誰の奏でる曲で誰が踊っているのか、みんなに教えてあげましょう！知覚が<%= per %>上がります。ラッキー宝箱：バイオリン弾きセット（4個中1個目のアイテム）。",
+    "headArmoireFiddlersCapText": "バイオリン弾きの帽子",
+    "armorArmoireFiddlersCoatNotes": "動く余裕のたっぷりある、実用的なコートです。体質が<%= con %>上がります。ラッキー宝箱：バイオリン弾きセット（4個中2個目のアイテム）。",
+    "armorArmoireFiddlersCoatText": "バイオリン弾きのコート",
+    "bodyMystery202008Notes": "今のところ、マントの翼は折りたたまれています。しかし、知恵を授け終えたとき、あるいは草むらの中にえさを見つけたときは、気をつけて！効果なし。2020年8月の寄付会員アイテム。",
+    "bodyMystery202008Text": "フクロウ賢者のマント",
+    "headMystery202008Notes": "ホーホー、そこにいるのは誰じゃ？助言をお望みかな？効果なし。2020年8月の寄付会員アイテム。",
+    "headMystery202008Text": "フクロウ賢者の頭飾り"
 }

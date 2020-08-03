@@ -107,7 +107,7 @@
     "email": "Email",
     "registerWithSocial": "Registruj se přes <%= network %>",
     "registeredWithSocial": "Registrovaný přes <%= network %>",
-    "loginNameDescription": "This is what you use to log in to Habitica. To change it, use the form below. If instead you want to change the Display Name that appears on your avatar and in chat messages, go to the User Icon &gt; Profile and click the Edit button.",
+    "loginNameDescription": "Tímto se příhlašuješ do Habitica. Pro změnu použij formulář níže. Jestliže však chceš změnit zobrazované jméno, které  se ukazuje u tvého avataru a ve zprávách chatu, pak jdi přes ikonu \"Uživatel\" &gt; \"Profil\" a klikni na tlačítko \"Upravit\".",
     "emailNotifications": "Emailová upozornění",
     "wonChallenge": "Vyhrál jsi výzvu!",
     "newPM": "Obdržena soukromá zpráva",

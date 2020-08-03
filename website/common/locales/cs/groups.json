@@ -1,9 +1,9 @@
 {
-    "tavern": "Chat v krčmě",
-    "tavernChat": "Chat v krčmě",
+    "tavern": "Pokec v krčmě",
+    "tavernChat": "Pokec v krčmě",
     "innCheckOut": "Odhlásit se z hostince",
     "innCheckIn": "Odpočívat v hostinci",
-    "innText": "Odpočíváš v Hostinci! Zatímco tu budeš, tvé Denní úkoly ti na konci dne nijak neublíží, ale vždy se resetují. Ale pozor: pokud jsi v boji s příšerou, ublíží ti nesplněné úkoly tvých přátel v družině, pokud také nejsou v Hostinci! Navíc, jakákoliv újma, kterou uštědříš příšeře (nebo nasbírané předměty) se ti nepřipíšou dokud se z Hostince neodhlásíš.",
+    "innText": "Odpočíváš v hostinci! Zatímco tu budeš, tvé denní úkoly ti na konci dne nijak neublíží, ale vždy se resetují. Ale pozor: pokud jsi v boji s příšerou, ublíží ti nesplněné úkoly tvých přátel v družině, pokud také nejsou v hostinci! Navíc, jakákoliv újma, kterou uštědříš příšeře (nebo nasbírané předměty) se ti nepřipíšou dokud se z hostince neodhlásíš.",
     "innTextBroken": "Odpočíváš v Hostinci, asi... Zatímco tu budeš, tvé Denní úkoly ti na konci dne nijak neublíží, ale vždy se resetují... Pokud jsi v boji s příšerou, ublíží ti nesplněné úkoly tvých přátel v družině... Pokud také nejsou v Hostinci... Navíc, jakákoliv újma, kterou uštědříš příšeře (nebo nasbírané předměty) se ti nepřipíšou dokud se z Hostince neodhlásíš... Jsem tak unavený...",
     "innCheckOutBanner": "Aktuálně odpočíváš v krčmě. Nesplněné denní úkoly ti nezpůsobí žádné poškození, ale ani nepřispěješ k pokroku v aktivní výpravě.",
     "innCheckOutBannerShort": "Jste přihlášeni v krčmě.",
