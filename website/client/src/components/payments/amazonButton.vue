@@ -74,6 +74,7 @@ export default {
     setupAmazon () {
       if (this.isAmazonSetup) return;
       this.isAmazonSetup = true;
+      this.amazonLogout();
       this.showButton();
     },
     showButton () {
