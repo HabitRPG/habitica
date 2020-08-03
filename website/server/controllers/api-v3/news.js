@@ -69,7 +69,6 @@ api.getNews = {
  * Prevent this specific Bailey message from appearing automatically.
  * @apiGroup News
  *
- *
  * @apiSuccess {Object} data An empty Object
  *
  */

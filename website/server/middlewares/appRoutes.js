@@ -39,7 +39,6 @@ const v4RouterOverrides = [
   'GET-/news',
   'GET-/user',
   'PUT-/user',
-  'POST-/news/tell-me-later',
   'POST-/user/class/cast/:spellId',
   'POST-/user/rebirth',
   'POST-/user/reset',

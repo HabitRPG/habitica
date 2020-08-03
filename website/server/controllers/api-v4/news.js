@@ -204,7 +204,7 @@ api.deleteNews = {
  * @apiSuccess {Object} data An empty Object
  *
  */
-api.MarkNewsRead = {
+api.markNewsRead = {
   method: 'POST',
   middlewares: [authWithHeaders()],
   url: '/news/read',
@@ -213,33 +213,6 @@ api.MarkNewsRead = {
 
     const { _id } = NewsPost.lastNewsPost();
     user.flags.lastNewStuffRead = _id;
-
-    await user.save();
-    res.respond(200, {});
-  },
-};
-
-/**
- * @api {post} /api/v4/news/tell-me-later Get latest Bailey announcement in a second moment
- * @apiName TellMeLaterNews
- * @apiGroup News
- *
- * @apiSuccess {Object} data An empty Object
- *
- */
-api.tellMeLaterNews = {
-  method: 'POST',
-  middlewares: [authWithHeaders()],
-  url: '/news/tell-me-later',
-  async handler (req, res) {
-    const { user } = res.locals;
-
-    const { _id, title } = NewsPost.lastNewsPost();
-    user.flags.lastNewStuffRead = _id;
-
-    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
-    if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
-    user.addNotification('NEW_STUFF', { title: title.toUpperCase() }, true); // seen by default
 
     await user.save();
     res.respond(200, {});
