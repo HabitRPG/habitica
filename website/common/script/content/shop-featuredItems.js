@@ -9,28 +9,28 @@ const featuredItems = {
         path: 'armoire',
       },
       {
-        type: 'premiumHatchingPotion',
-        path: 'premiumHatchingPotions.SandSculpture',
+        type: 'hatchingPotions',
+        path: 'hatchingPotions.Shade',
       },
       {
         type: 'eggs',
-        path: 'eggs.Dragon',
+        path: 'eggs.TigerCub',
       },
       {
         type: 'food',
-        path: 'food.Chocolate',
+        path: 'food.Saddle',
       },
     ];
   },
   quests () {
     return [
       {
-        type: 'bundles',
-        path: 'bundles.aquaticAmigos',
+        type: 'quests',
+        path: 'quests.snail',
       },
       {
         type: 'quests',
-        path: 'quests.peacock',
+        path: 'quests.alligator',
       },
       {
         type: 'quests',
