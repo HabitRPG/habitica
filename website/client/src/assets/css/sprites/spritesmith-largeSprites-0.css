@@ -12,19 +12,25 @@
 }
 .promo_mystery_202007 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -812px -453px;
+  background-position: -812px -616px;
   width: 282px;
   height: 147px;
 }
 .promo_mystery_202008 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -812px -296px;
+  background-position: -812px -459px;
   width: 294px;
   height: 156px;
 }
+.promo_naming_day_2020 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -812px -296px;
+  width: 285px;
+  height: 162px;
+}
 .promo_orcas {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -812px -601px;
+  background-position: -426px -473px;
   width: 219px;
   height: 147px;
 }
@@ -66,7 +72,7 @@
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -1107px -296px;
+  background-position: -1098px -296px;
   width: 96px;
   height: 69px;
 }

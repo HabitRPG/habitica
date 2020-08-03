@@ -112,7 +112,6 @@ export async function loginSocial (req, res) { // eslint-disable-line import/pre
   }
 
   if (!existingUser) {
-    savedUser._ABtests['20200625_drops'] = '12345678'.indexOf(savedUser._id.slice(0, 1)) !== -1 ? 'boosted' : 'control';
     res.analytics.track('register', {
       category: 'acquisition',
       type: network,
