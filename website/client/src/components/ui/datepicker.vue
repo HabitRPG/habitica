@@ -1,7 +1,7 @@
 <template>
   <datepicker
     v-model="value"
-    @change="upDate($event)"
+    @input="upDate($event)"
     :calendarButton="true"
     :calendarButtonIconContent="icons.calendar"
     :bootstrapStyling="true"
@@ -15,14 +15,14 @@
     <div slot="beforeCalendarHeader">
       <div class="datetime-buttons">
        <button
-          class="btn btn-secondary"
+          class="btn btn-flat"
           @click="setToday()"
           type="button"
         >
           {{ $t('today') }}
         </button>
         <button
-            class="btn btn-secondary"
+            class="btn btn-flat"
             @click="setTomorrow()"
             type="button"
           >
@@ -75,7 +75,7 @@ export default {
   @import '~@/assets/scss/colors.scss';
 
   .vdp-datepicker__calendar {
-    bottom: 2.5rem;
+    bottom: 2.125rem;  // 2rem input control height + 0.125rem margin above
   }
 
  .vdp-datepicker {
@@ -120,9 +120,14 @@ export default {
         height: 1.5rem;
         border-radius: 2px;
         background-color: $gray-600;
+        color: $gray-100;
 
         &:not(:hover) {
           box-shadow: none;
+        }
+
+        &:hover {
+          color: $purple-300;
         }
       }
     }
