@@ -15,3 +15,15 @@
   border-left: 4px solid transparent;
   border-bottom: 0;
 }
+
+* {
+  transition: none;
+}
+
+.transition {
+  transition-duration: 0.15s;
+  transition-property: border-color, color;
+  transition-property: border-color, box-shadow, color;
+  transition-property: border-color, box-shadow, color;
+  transition-timing-function: ease-in;
+}

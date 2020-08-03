@@ -65,7 +65,7 @@
     "foundNewItems": "आपको नए आइटम मिले!",
     "hideAchievements": "<% = श्रेणी%> छुपाएं",
     "showAllAchievements": "सभी <% = श्रेणी%> दिखाएं",
-    "onboardingCompleteDescSmall": "यदि आप और भी अधिक चाहते हैं, तो उपलब्धियां देखें और इकट्ठा करना शुरू करें!",
+    "onboardingCompleteDescSmall": "यदि आप और भी अधिक चाहते हैं, तो कार्यसाधन देखें और इकट्ठा करना शुरू करें!",
     "earnedAchievement": "आपने एक उपलब्धि अर्जित की!",
     "viewAchievements": "कार्यसाधन देखें",
     "letsGetStarted": "आएँ शुरू करें!",
@@ -80,6 +80,6 @@
     "achievementFedPet": "एक पालतू पशु को खिलाएं",
     "achievementHatchedPetModalText": "अपनी सूची के लिए सिर और एक हैचिंग पोशन और एक अंडे के संयोजन का प्रयास करें",
     "achievementHatchedPetText": "अपने पहले पालतू हैच।",
-    "onboardingCompleteDesc": "आपने सूची पूरी करने के लिए <strong>5 उपलब्धियां </strong> और <strong class=\"gold-amount\">100 Gold</strong> अर्जित किया।",
+    "onboardingCompleteDesc": "आपने सूची पूरी करने के लिए <strong>5 कार्यसाधन </strong> और <strong class=\"gold-amount\">100 Gold</strong> अर्जित किया।",
     "onboardingComplete": "आपने अपने ऑनबोर्डिंग कार्यों को पूरा किया!"
 }

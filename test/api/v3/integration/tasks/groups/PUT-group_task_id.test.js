@@ -71,12 +71,10 @@ describe('PUT /tasks/:id', () => {
     const syncedTask = find(memberTasks, memberTask => memberTask.group.taskId === habit._id);
 
     // score up to trigger approval
-    await expect(member2.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
+    const response = await member2.post(`/tasks/${syncedTask._id}/score/up`);
+
+    expect(response.data.approvalRequested).to.equal(true);
+    expect(response.message).to.equal(t('taskApprovalHasBeenRequested'));
   });
 
   it('member updates a group task value - not allowed', async () => {

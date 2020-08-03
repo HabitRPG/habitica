@@ -2149,5 +2149,11 @@
     "shieldArmoirePiratesCompanionText": "Compagnon de piraterie",
     "armorArmoirePirateOutfitNotes": "Attention, marins d'eau douce ! C'est la tenue parfaite pour nettoyer le pont et compter son butin. Augmente la constitution et l'intelligence de <%= attrs %> chacune. Armoire enchantée : ensemble de piraterie (objet 2 de 3).",
     "weaponArmoireHandyHookNotes": "Qui a besoin de ses poings ? Ce crochet a assez de punch pour faire face à n'importe quoi. Augmente la force de <%= str %>. Armoire enchantée : ensemble de piraterie (objet 1 de 3).",
-    "weaponArmoireHandyHookText": "Crochet de droite"
+    "weaponArmoireHandyHookText": "Crochet de droite",
+    "bodyMystery202008Notes": "Pour l'instant, vos ailes sont enroulées. Mais quand vous aurez fini de dispenser votre sagesse, ou que vous aurez vu votre proie dans l'herbe, méfiez-vous ! Ne confère aucun bonus. Équipement d'abonnement d'août 2020.",
+    "bodyMystery202008Text": "Manteau d'oracle du hibou",
+    "backSpecialNamingDay2020Notes": "Joyeuse fête du nommage ! Faites tournoyer cette queue de feu et de pixels alors que vous célébrez Habitica. Ne confère aucun bonus.",
+    "backSpecialNamingDay2020Text": "Queue de griffon pourpre royal",
+    "headMystery202008Notes": "Où ? Où ? Où vous trouveront toutes les personnes qui ont besoin de vos conseils ! ? Ne confère aucun bonus. Équipement d'abonnement d'août 2020.",
+    "headMystery202008Text": "Coiffe d'oracle du hibou"
 }

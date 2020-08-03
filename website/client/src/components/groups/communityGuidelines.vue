@@ -11,7 +11,7 @@
     <div class="col-md-auto col-md-12 col-xl-4">
       <button
         v-once
-        class="btn btn-info btn-follow-guidelines"
+        class="btn btn-secondary btn-follow-guidelines"
         @click="acceptCommunityGuidelines()"
       >
         {{ $t('acceptCommunityGuidelines') }}

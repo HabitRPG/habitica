@@ -2149,5 +2149,11 @@
     "armorMystery202007Notes": "Nade, vire, mergulhe e corra com esta bela e poderosa cauda! Não traz nenhum benefício. Item de Assinante de Julho de 2020.",
     "armorMystery202007Text": "Esplêndido Traje Orca",
     "armorSpecialSummer2020HealerNotes": "Você é tão paciente quanto o oceano, tão forte quanto as correntes, tão confiável quanto as marés. Aumenta a Constituição em <%= con %>. Edição Limitada 2020 Equipamento de Verão.",
-    "armorSpecialSummer2020MageNotes": "Aproveite o poder das profundezas do mar com esta armadura de remos. Aumenta a inteligência em <%= int %>. Edição Limitada 2020 Equipamento de Verão."
+    "armorSpecialSummer2020MageNotes": "Aproveite o poder das profundezas do mar com esta armadura de remos. Aumenta a inteligência em <%= int %>. Edição Limitada 2020 Equipamento de Verão.",
+    "headMystery202008Notes": "U! U! Uma pessoa se aproxima, pedindo conselhos? Não concede benefícios. Item de Assinante, Agosto de 2020.",
+    "headMystery202008Text": "Cocar do Oráculo Coruja",
+    "bodyMystery202008Notes": "Por enquanto, suas asas estão enroladas. Mas, quando tiver terminado de distribuir sua sabedoria, ou ao ver sua presa na grama, tome cuidado! Não concede benefícios. Item de Assinante, Agosto de 2020.",
+    "bodyMystery202008Text": "Manta do Oráculo Coruja",
+    "backSpecialNamingDay2020Notes": "Feliz Aniversário do Habitica! Agite esta cauda ardente e pixelizada enquanto celebra o Habitica. Não concede benefícios.",
+    "backSpecialNamingDay2020Text": "Cauda de Grifo Roxo Real"
 }

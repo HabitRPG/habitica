@@ -213,5 +213,8 @@
     "addNotes": "添加注释",
     "addATitle": "添加一个标题",
     "sureDeleteType": "你确定要删除<%= type %>吗？",
-    "deleteTaskType": "删除<%= type %>"
+    "deleteTaskType": "删除<%= type %>",
+    "pressEnterToAddTag": "按“Enter”添加标签：'<%= tagName %>'",
+    "enterTag": "输入标签",
+    "addTags": "添加标签..."
 }

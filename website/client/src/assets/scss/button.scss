@@ -52,9 +52,11 @@
     border-color: $purple-400;
   }
 
-  &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
-    box-shadow: none;
-    border-color: $purple-400;
+  &:not(:disabled):not(.disabled) {
+    &:active:focus, &.active:focus {
+      box-shadow: none;
+      border-color: $purple-400;
+    }
   }
 
   &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {

@@ -2149,5 +2149,11 @@
     "armorArmoirePirateOutfitNotes": "Avast, ye landlubbers! The perfect outfit for swabbing the deck and counting your spoils. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Pirate Set (Item 2 of 3).",
     "armorArmoirePirateOutfitText": "Pirate Outfit",
     "weaponArmoireHandyHookNotes": "Who needs opposable thumbs? This hook is “handy” enough for anyone. Increases Strength by <%= str %>. Enchanted Armoire: Pirate Set (Item 1 of 3).",
-    "weaponArmoireHandyHookText": "Handy Hook"
+    "weaponArmoireHandyHookText": "Handy Hook",
+    "bodyMystery202008Notes": "For now, your wings lie furled. But when you have concluded dispensing your wisdom, or you sight your prey in the grass, watch out! Confers no benefit. August 2020 Subscriber Item.",
+    "bodyMystery202008Text": "Owlish Oracle Mantle",
+    "backSpecialNamingDay2020Notes": "Happy Naming Day! Swish this fiery, pixely tail about as you celebrate Habitica. Confers no benefit.",
+    "backSpecialNamingDay2020Text": "Royal Purple Gryphon Tail",
+    "headMystery202008Notes": "WHO? WHO? WHO approaches, seeking your counsel? Confers no benefit. August 2020 Subscriber Item.",
+    "headMystery202008Text": "Owlish Oracle Headdress"
 }

@@ -1,6 +1,6 @@
 {
     "npc": "NPC",
-    "npcAchievementName": "<%= key %>NPC",
+    "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Đã ủng hộ dự án trên Kickstater ở mức cao nhất!",
     "welcomeTo": "Chào mừng tới",
     "welcomeBack": "Mừng quay trở về!",
