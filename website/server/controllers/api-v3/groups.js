@@ -4,6 +4,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as Group,
   basicFields as basicGroupFields,
+  TAVERN_ID,
 } from '../../models/group';
 import {
   model as User,
@@ -344,7 +345,14 @@ api.getGroups = {
     }
 
     if (req.query.member) {
-      filters._id = { $in: user.guilds };
+      // Includes 'guilds' nor 'publicGuilds' type.
+      if (req.query.type === 'publicGuilds' || req.query.type === 'guilds') {
+        filters._id = { $ne: TAVERN_ID, $in: user.guilds };
+      } else { // No 'guilds' nor 'publicGuilds' type.
+        filters._id = { $in: user.guilds };
+      }
+    } else if (req.query.type === 'publicGuilds' || req.query.type === 'guilds') { // Includes 'guilds' nor 'publicGuilds' type.
+      filters._id = { $ne: TAVERN_ID };
     }
 
     if (req.query.search) {
