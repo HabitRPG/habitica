@@ -106,11 +106,42 @@ import moment from 'moment';
 
 import filters from '../mixins/filters';
 
+function resetData (self) {
+  self.cronError = false;
+  self.timezoneDiffError = false;
+  self.timezoneMissingError = false;
+  self.errorsOrWarningsExist = false;
+  self.expand = false;
+
+  const cronDate1 = moment(self.auth.timestamps.loggedin);
+  const cronDate2 = moment(self.lastCron);
+  const maxAllowableSecondsDifference = 60; // expect cron to take less than this many seconds
+  if (Math.abs(cronDate1.diff(cronDate2, 'seconds')) > maxAllowableSecondsDifference) {
+    self.cronError = true;
+    self.errorsOrWarningsExist = true;
+  }
+
+  // compare the user's time zones to see if they're different
+  if (self.preferences.timezoneOffset === undefined
+    || self.preferences.timezoneOffsetAtLastCron === undefined) {
+    self.timezoneMissingError = true;
+    self.errorsOrWarningsExist = true;
+  } else if (self.preferences.timezoneOffset !== self.preferences.timezoneOffsetAtLastCron) {
+    self.timezoneDiffError = true;
+    self.errorsOrWarningsExist = true;
+  }
+  self.expand = self.errorsOrWarningsExist;
+}
+
 export default {
   mixins: [
     filters,
   ],
   props: {
+    resetCounter: {
+      type: Number,
+      required: true,
+    },
     auth: {
       type: Object,
       required: true,
@@ -144,25 +175,13 @@ export default {
       return `${sign}${timezoneHours}${timezoneMinutesDisplay} UTC`;
     },
   },
+  watch: {
+    resetCounter () {
+      resetData(this);
+    },
+  },
   mounted () {
-    const cronDate1 = moment(this.auth.timestamps.loggedin);
-    const cronDate2 = moment(this.lastCron);
-    const maxAllowableSecondsDifference = 60; // expect cron to take less than this many seconds
-    if (Math.abs(cronDate1.diff(cronDate2, 'seconds')) > maxAllowableSecondsDifference) {
-      this.cronError = true;
-      this.errorsOrWarningsExist = true;
-    }
-
-    // compare the user's time zones to see if they're different
-    if (this.preferences.timezoneOffset === undefined
-      || this.preferences.timezoneOffsetAtLastCron === undefined) {
-      this.timezoneMissingError = true;
-      this.errorsOrWarningsExist = true;
-    } else if (this.preferences.timezoneOffset !== this.preferences.timezoneOffsetAtLastCron) {
-      this.timezoneDiffError = true;
-      this.errorsOrWarningsExist = true;
-    }
-    this.expand = this.errorsOrWarningsExist;
+    resetData(this);
   },
   methods: {
     authMethodExists (authMethod) {

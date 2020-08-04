@@ -108,6 +108,7 @@
             :auth="hero.auth"
             :preferences="hero.preferences"
             :lastCron="hero.lastCron"
+            :resetCounter="this.resetCounter"
           />
 
           <div class="accordion-group">
@@ -433,6 +434,7 @@ export default {
   mixins: [notifications, styleHelper, filters],
   data () {
     return {
+      resetCounter: 0,
       hero: {},
       heroID: '',
       party: {},
@@ -922,6 +924,7 @@ export default {
       this.expandUpdateItems = false;
       this.expandContrib = false;
       this.itemTypes.forEach(itemType => { this.expandItemType[itemType] = false; });
+      this.resetCounter += 1; // tell child components to reinstantiate from scratch
     },
     async saveHero () {
       this.hero.contributor.admin = this.hero.contributor.level > 7;
