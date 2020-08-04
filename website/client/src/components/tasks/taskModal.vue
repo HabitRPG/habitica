@@ -133,6 +133,12 @@
       </div>
     </div>
     <div
+      v-if="task && isUserTask && task.type === 'daily'"
+      class="summary-sentence py-3 px-4"
+      v-html="summarySentence"
+    >
+    </div>
+    <div
       class="task-modal-content px-4"
       :class="cssClass('content')"
     >
@@ -1046,6 +1052,11 @@
     }
   }
 
+  .summary-sentence {
+    background-color: $gray-700;
+    line-height: 1.71;
+  }
+
   .input-group-text {
     font-size: 14px;
     font-weight: bold;
@@ -1067,6 +1078,9 @@
 <script>
 import axios from 'axios';
 import clone from 'lodash/clone';
+import forEach from 'lodash/forEach';
+import keys from 'lodash/keys';
+import pickBy from 'lodash/pickBy';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment';
 import toggleSwitch from '@/components/ui/toggleSwitch';
@@ -1136,6 +1150,15 @@ export default {
         per: 'perception',
       },
       calendarHighlights: { dates: [new Date()] },
+      expandDayString: {
+        su: 'Sunday',
+        m: 'Monday',
+        t: 'Tuesday',
+        w: 'Wednesday',
+        th: 'Thursday',
+        f: 'Friday',
+        s: 'Saturday',
+      },
     };
   },
   computed: {
@@ -1244,6 +1267,11 @@ export default {
     selectedTags () {
       return this.getTagsFor(this.task);
     },
+    summarySentence () {
+      return `This is ${this.formattedDifficulty(this.task.priority)}
+        task that will repeat
+        ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}`;
+    },
   },
   watch: {
     task () {
@@ -1333,6 +1361,104 @@ export default {
     },
     formattedDate (date) {
       return moment(date).format('MM/DD/YYYY');
+    },
+    formattedDays (frequency, repeat, daysOfMonth, weeksOfMonth, startDate) {
+      let activeDays;
+      const dayStringArray = [];
+      switch (frequency) {
+        case 'weekly':
+          activeDays = keys(pickBy(repeat, value => value === true));
+          if (activeDays.length === 0) return ' on <strong>no days</strong>.';
+          if (activeDays.length === 7) return ' on <strong>every day of the week</strong>.';
+          dayStringArray.push(' on <strong>');
+          forEach(activeDays, (value, index) => {
+            if (activeDays.length > 1 && index === activeDays.length - 1) dayStringArray.push(' and');
+            dayStringArray.push(` ${this.expandDayString[value]}`);
+            if (activeDays.length > 2 && index !== activeDays.length - 1) dayStringArray.push(',');
+          });
+          dayStringArray.push('</strong>.');
+          break;
+        case 'monthly':
+          dayStringArray.push(' on <strong>the ');
+          if (daysOfMonth.length > 0) {
+            forEach(daysOfMonth, (value, index) => {
+              const stringDay = String(value);
+              const stringFinalDigit = stringDay.slice(-1);
+              let ordinalSuffix = 'th';
+              if (stringFinalDigit === '1' && stringDay !== '11') ordinalSuffix = 'st';
+              if (stringFinalDigit === '2' && stringDay !== '12') ordinalSuffix = 'nd';
+              if (stringFinalDigit === '3' && stringDay !== '13') ordinalSuffix = 'rd';
+              if (daysOfMonth.length > 1 && index === daysOfMonth.length - 1) dayStringArray.push(' and');
+              dayStringArray.push(`${stringDay}${ordinalSuffix}`);
+              if (daysOfMonth.length > 2 && index !== daysOfMonth.length - 1) dayStringArray.push(',');
+            });
+            dayStringArray.push('</strong>.');
+          } else if (weeksOfMonth.length > 0) {
+            switch (weeksOfMonth[0]) {
+              case 0:
+                dayStringArray.push('first');
+                break;
+              case 1:
+                dayStringArray.push('second');
+                break;
+              case 2:
+                dayStringArray.push('third');
+                break;
+              case 3:
+                dayStringArray.push('fourth');
+                break;
+              case 4:
+                dayStringArray.push('fifth');
+                break;
+              default:
+                break;
+            }
+            activeDays = keys(pickBy(repeat, value => value === true));
+            dayStringArray.push(` ${this.expandDayString[activeDays[0]]} of the month</strong>.`);
+          }
+          break;
+        case 'yearly':
+          return ` on <strong>${moment(startDate).format('MMMM Do')}</strong>.`;
+        default:
+          return '.';
+      }
+      return dayStringArray.join('');
+    },
+    formattedDifficulty (priority) {
+      switch (priority) {
+        case 0.1:
+          return 'a <strong>trivial</strong>';
+        case 1:
+          return 'an <strong>easy</strong>';
+        case 1.5:
+          return 'a <strong>medium</strong>';
+        case 2:
+          return 'a <strong>hard</strong>';
+        default:
+          return null;
+      }
+    },
+    formattedRepeatInterval (frequency, everyX) {
+      const numericX = Number(everyX);
+      switch (frequency) {
+        case 'daily':
+          if (numericX === 1) return '<strong>every day</strong>';
+          if (numericX === 2) return '<strong>every other day</strong>';
+          return `<strong>every ${numericX} days</strong>`;
+        case 'weekly':
+          if (numericX === 1) return '<strong>every week</strong>';
+          if (numericX === 2) return '<strong>every other week</strong>';
+          return `<strong>every ${numericX} weeks</strong>`;
+        case 'monthly':
+          if (numericX === 1) return '<strong>every month</strong>';
+          if (numericX === 2) return '<strong>every other month</strong>';
+          return `<strong>every ${numericX} months</strong>`;
+        case 'yearly':
+          if (numericX === 1) return '<strong>every year</strong>';
+          return `<strong>every ${everyX} years</strong>`;
+        default:
+          return null;
+      }
     },
     calculateMonthlyRepeatDays (newRepeatsOn) {
       if (!this.task) return;
