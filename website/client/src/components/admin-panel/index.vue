@@ -13,7 +13,6 @@
             type="text"
             :placeholder="'User ID or Username; blank for your account'"
             :style="{ 'min-width': '45ch' }"
-            @keyup.enter="loadHero(heroID)"
           >
           <input
             type="submit"
