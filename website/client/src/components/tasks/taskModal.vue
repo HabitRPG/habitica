@@ -263,7 +263,8 @@
           />
         </template>
         <div
-          v-if="task.type === 'todo' && !groupAccessRequiredAndOnPersonalPage"
+          v-if="task.type === 'todo' && !groupAccessRequiredAndOnPersonalPage
+            && (!challengeAccessRequired || task.date)"
           class="option mt-3"
         >
           <div class="form-group">
