@@ -49,7 +49,6 @@
               >
                 Player has had privilege(s) removed.
               </p>
-
               <form @submit.prevent="saveHero()">
                 <div class="checkbox">
                   <label>
@@ -97,7 +96,6 @@
                     </small>
                   </span>
                 </div>
-
                 <input
                   type="submit"
                   value="Save"
@@ -107,92 +105,11 @@
             </div>
           </div>
 
-          <div class="accordion-group">
-            <h3
-              class="expand-toggle"
-              :class="{'open': expandAuthEtc}"
-              @click="expandAuthEtc = !expandAuthEtc"
-            >
-              Timestamps, Time Zone, Authentication, Email Address
-              <span
-                v-if="errors.authEtc"
-                v-html="errorsHeading"
-              ></span>
-            </h3>
-            <div v-if="expandAuthEtc">
-              <p
-                v-if="errors.authEtc"
-                class="errorMessage"
-              >
-                See error(s) below.
-              </p>
-              <div>
-                Account created:
-                <strong>{{ hero.auth.timestamps.created | formatDate }}</strong>
-              </div>
-              <div>
-                Most recent cron:
-                <strong>{{ hero.auth.timestamps.loggedin | formatDate }}</strong>
-                ("auth.timestamps.loggedin")
-              </div>
-              <div v-if="this.errors.cron">
-                "lastCron" value:
-                <strong>{{ hero.lastCron | formatDate }}</strong>
-                <br>
-                <span class="errorMessage">
-                  ERROR: cron probably crashed before finishing
-                  ("auth.timestamps.loggedin" and "lastCron" dates are different).
-                </span>
-              </div>
-              <div class="subsection-start">
-                Time zone:
-                <strong>{{ hero.preferences.timezoneOffset | formatTimeZone }}</strong>
-              </div>
-              <div v-if="this.errors.timezone">
-                Time zone at previous cron:
-                <strong>{{ hero.preferences.timezoneOffsetAtLastCron | formatTimeZone }}</strong>
-                <div class="errorMessage">
-                  ERROR: the player's current time zone is different than their time zone when
-                  their previous cron ran. This can be because:
-                  <ul>
-                    <li>daylight savings started or stopped <sup>*</sup></li>
-                    <li>the player changed zones due to travel <sup>*</sup></li>
-                    <li>the player has devices set to different zones <sup>**</sup></li>
-                    <li>the player uses a VPN with varying zones <sup>**</sup></li>
-                    <li>something similarly unpleasant is happening. <sup>**</sup></li>
-                    <li><em>* The problem should fix itself in about a day.</em></li>
-                    <li><em>** One of these causes is probably happening if the time zones stay
-                    different for more than a day.</em></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="subsection-start">
-                Local authentication:
-                <span v-if="hero.auth.local.email">Yes, &nbsp;
-                  <strong>{{ hero.auth.local.email }}</strong></span>
-                <span v-else><strong>None</strong></span>
-              </div>
-              <div>
-                Google authentication:
-                <pre v-if="authMethodExists('google')">{{ hero.auth.google }}</pre>
-                <span v-else><strong>None</strong></span>
-              </div>
-              <div>
-                Facebook authentication:
-                <pre v-if="authMethodExists('facebook')">{{ hero.auth.facebook }}</pre>
-                <span v-else><strong>None</strong></span>
-              </div>
-              <div>
-                Apple ID authentication:
-                <pre v-if="authMethodExists('apple')">{{ hero.auth.apple }}</pre>
-                <span v-else><strong>None</strong></span>
-              </div>
-              <div class="subsection-start">
-                Full "auth" object for checking above is correct:
-                <pre>{{ hero.auth }}</pre>
-              </div>
-            </div>
-          </div>
+          <cron-and-auth
+            :auth="hero.auth"
+            :preferences="hero.preferences"
+            :lastCron="hero.lastCron"
+          />
 
           <div class="accordion-group">
             <h3
@@ -464,6 +381,11 @@
 </template>
 
 <style lang="scss" scoped>
+  .ownedItem {
+    font-weight: bold;
+  }
+</style>
+<style lang="scss">
   .accordion-group .accordion-group {
     margin-left: 1em;
   }
@@ -485,33 +407,31 @@
       margin-left: 5px;
     }
   }
-  .ownedItem {
-    font-weight: bold;
-  }
   .errorMessage {
     font-weight: bold;
   }
 </style>
 
 <script>
-import moment from 'moment';
-
 import markdownDirective from '@/directives/markdown';
 import styleHelper from '@/mixins/styleHelper';
 import { mapState } from '@/libs/store';
 import content from '@/../../common/script/content';
 import notifications from '@/mixins/notifications';
 
+import filters from './mixins/filters';
 import BasicDetails from './user-support/basicDetails';
+import CronAndAuth from './user-support/cronAndAuth';
 
 export default {
   components: {
     BasicDetails,
+    CronAndAuth,
   },
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [notifications, styleHelper],
+  mixins: [notifications, styleHelper, filters],
   data () {
     return {
       hero: {},
@@ -523,7 +443,6 @@ export default {
       content,
       collatedItemData: {},
       expandPriv: false,
-      expandAuthEtc: false,
       expandParty: false,
       expandAvatar: false,
       expandItems: false,
@@ -543,9 +462,6 @@ export default {
       errorsHeading: '- ERROR EXISTS',
       errors: {
         priv: '',
-        cron: '',
-        authEtc: '',
-        timezone: '',
         partyOrQuest: '',
       },
     };
@@ -553,26 +469,7 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
   },
-  filters: {
-    formatDate (inputDate) {
-      if (!inputDate) return '';
-      const date = moment(inputDate).utcOffset(0).format('YYYY-MM-DD HH:mm');
-      return `${date} UTC`;
-    },
-    formatTimeZone (timezoneOffset) {
-      // convert reverse offset to time zone in "+/-H:MM UTC" format
-      const sign = (timezoneOffset < 0) ? '+' : '-'; // reverse the sign
-      const timezoneHours = Math.floor(Math.abs(timezoneOffset) / 60);
-      const timezoneMinutes = Math.floor((Math.abs(timezoneOffset) / 60 - timezoneHours) * 60);
-      const timezoneMinutesDisplay = (timezoneMinutes) ? `:${timezoneMinutes}` : ''; // don't display :00
-      return `${sign}${timezoneHours}${timezoneMinutesDisplay} UTC`;
-    },
-  },
   methods: {
-    authMethodExists (authMethod) {
-      if (this.hero.auth[authMethod] && this.hero.auth[authMethod].length !== 0) return true;
-      return false;
-    },
     formatEquipment (gearWorn) {
       const gearTypes = ['head', 'armor', 'weapon', 'shield', 'headAccessory', 'eyewear',
         'body', 'back'];
@@ -982,9 +879,6 @@ export default {
       // initialise error messages for this user
       this.errors = {
         priv: '',
-        cron: '',
-        authEtc: '',
-        timezone: '',
         partyOrQuest: '',
       };
 
@@ -1000,20 +894,6 @@ export default {
           // This isn't a code error situation but we want it to be obvious that
           // the user has had privilege(s) removed, so we set an "error":
           this.errors.priv = true;
-      }
-
-      // compare the two cron dates to see if cron may have crashed
-      const cronDate1 = moment(this.hero.auth.timestamps.loggedin);
-      const cronDate2 = moment(this.hero.lastCron);
-      const maxAllowableSecondsDifference = 60; // expect cron to take less than this many seconds
-      if (Math.abs(cronDate1.diff(cronDate2, 'seconds')) > maxAllowableSecondsDifference) {
-          this.errors.cron = true;
-          this.errors.authEtc = true; // this section can have errors from multiple souces
-      }
-
-      if (this.hero.preferences.timezoneOffset !== this.hero.preferences.timezoneOffsetAtLastCron) {
-          this.errors.timezone = true;
-          this.errors.authEtc = true;
       }
 
       this.hasParty = false;
@@ -1037,7 +917,6 @@ export default {
 
       // collapse all sections except those with errors
       this.expandPriv = this.errors.priv;
-      this.expandAuthEtc = this.errors.authEtc;
       this.expandParty = this.errors.partyOrQuest;
       this.expandAvatar = false;
       this.expandItems = false;
