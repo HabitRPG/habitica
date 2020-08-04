@@ -133,7 +133,8 @@
       </div>
     </div>
     <div
-      v-if="task && isUserTask && task.type === 'daily'"
+      v-if="(groupAccessRequiredAndOnPersonalPage || challengeAccessRequired)
+        && (task.type === 'daily' || task.type  === 'todo')"
       class="summary-sentence py-3 px-4"
       v-html="summarySentence"
     >
@@ -241,7 +242,10 @@
             </div>
           </button>
         </div>
-        <template v-if="task.type !== 'reward'">
+        <template
+          v-if="task.type !== 'reward'
+            && !(groupAccessRequiredAndOnPersonalPage || challengeAccessRequired)"
+        >
           <div class="d-flex mt-3">
             <lockable-label
               :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
@@ -260,13 +264,12 @@
           />
         </template>
         <div
-          v-if="task.type === 'todo' && (task.date
-            || !(groupAccessRequiredAndOnPersonalPage || challengeAccessRequired))"
+          v-if="task.type === 'todo'
+            && !(groupAccessRequiredAndOnPersonalPage || challengeAccessRequired)"
           class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
-              :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
               :text="$t('dueDate')"
             />
             <datepicker
@@ -282,12 +285,12 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily'"
+          v-if="task.type === 'daily'
+            && !(groupAccessRequiredAndOnPersonalPage || challengeAccessRequired)"
           class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
-              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :text="$t('startDate')"
             />
             <datepicker
@@ -302,16 +305,15 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily'"
+          v-if="task.type === 'daily'
+            && !(groupAccessRequiredAndOnPersonalPage || challengeAccessRequired)"
           class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
-              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :text="$t('repeats')"
             />
             <select-translated-array
-              :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :items="['daily', 'weekly', 'monthly', 'yearly']"
               :value="task.frequency"
               @select="task.frequency = $event"
@@ -319,20 +321,15 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily'"
+          v-if="task.type === 'daily'
+            && !(groupAccessRequiredAndOnPersonalPage || challengeAccessRequired)"
           class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
-              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :text="$t('repeatEvery')"
             />
-            <div
-              class="input-group-outer"
-              :class="{
-                disabled: challengeAccessRequired || groupAccessRequiredAndOnPersonalPage
-              }"
-            >
+            <div class="input-group-outer">
               <div class="input-group">
                 <input
                   v-model="task.everyX"
@@ -341,7 +338,6 @@
                   min="0"
                   max="9999"
                   required="required"
-                  :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
                 >
               </div>
               <div class="input-group-spaced input-group-text">
@@ -351,12 +347,12 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily' && task.frequency === 'weekly'"
+          v-if="task.type === 'daily' && task.frequency === 'weekly'
+            && !(groupAccessRequiredAndOnPersonalPage || challengeAccessRequired)"
           class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
-              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :text="$t('repeatOn')"
             />
             <div class="toggle-group">
@@ -365,7 +361,6 @@
                 :key="dayNumber"
                 :tab-index="dayNumber"
                 :checked.sync="task.repeat[day]"
-                :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
                 :text="weekdaysMin(dayNumber)"
               />
             </div>
@@ -1268,9 +1263,21 @@ export default {
       return this.getTagsFor(this.task);
     },
     summarySentence () {
-      return `This is ${this.formattedDifficulty(this.task.priority)}
+      if (this.task.type === 'daily' && moment().isBefore(this.task.startDate)) {
+        return `This is ${this.formattedDifficulty(this.task.priority)}
         task that will repeat
-        ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}`;
+        ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}
+        starting on <strong>${moment(this.task.startDate).format('MM/DD/YYYY')}</strong>.`;
+      }
+      if (this.task.type === 'daily') {
+        return `This is ${this.formattedDifficulty(this.task.priority)}
+        task that repeats
+        ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}.`;
+      }
+      if (this.task.date) {
+        return `This is ${this.formattedDifficulty(this.task.priority)} task that is due <strong>${moment(this.task.date).format('MM/DD/YYYY')}.`;
+      }
+      return `This is ${this.formattedDifficulty(this.task.priority)} task.`;
     },
   },
   watch: {
@@ -1368,15 +1375,15 @@ export default {
       switch (frequency) {
         case 'weekly':
           activeDays = keys(pickBy(repeat, value => value === true));
-          if (activeDays.length === 0) return ' on <strong>no days</strong>.';
-          if (activeDays.length === 7) return ' on <strong>every day of the week</strong>.';
+          if (activeDays.length === 0) return ' on <strong>no days</strong>';
+          if (activeDays.length === 7) return ' on <strong>every day of the week</strong>';
           dayStringArray.push(' on <strong>');
           forEach(activeDays, (value, index) => {
             if (activeDays.length > 1 && index === activeDays.length - 1) dayStringArray.push(' and');
             dayStringArray.push(` ${this.expandDayString[value]}`);
             if (activeDays.length > 2 && index !== activeDays.length - 1) dayStringArray.push(',');
           });
-          dayStringArray.push('</strong>.');
+          dayStringArray.push('</strong>');
           break;
         case 'monthly':
           dayStringArray.push(' on <strong>the ');
@@ -1392,7 +1399,7 @@ export default {
               dayStringArray.push(`${stringDay}${ordinalSuffix}`);
               if (daysOfMonth.length > 2 && index !== daysOfMonth.length - 1) dayStringArray.push(',');
             });
-            dayStringArray.push('</strong>.');
+            dayStringArray.push('</strong>');
           } else if (weeksOfMonth.length > 0) {
             switch (weeksOfMonth[0]) {
               case 0:
@@ -1414,13 +1421,13 @@ export default {
                 break;
             }
             activeDays = keys(pickBy(repeat, value => value === true));
-            dayStringArray.push(` ${this.expandDayString[activeDays[0]]} of the month</strong>.`);
+            dayStringArray.push(` ${this.expandDayString[activeDays[0]]} of the month</strong>`);
           }
           break;
         case 'yearly':
-          return ` on <strong>${moment(startDate).format('MMMM Do')}</strong>.`;
+          return ` on <strong>${moment(startDate).format('MMMM Do')}</strong>`;
         default:
-          return '.';
+          return '';
       }
       return dayStringArray.join('');
     },
