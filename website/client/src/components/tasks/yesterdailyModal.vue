@@ -130,8 +130,41 @@ export default {
       if (bulkScoreParams.length > 0) {
         try {
           const bulkScoresponse = await this.$store.dispatch('tasks:bulkScore', bulkScoreParams);
+
+          // Bundle critical hits and quests updates into a single notification
+          const bundledTmp = {};
+
           bulkScoresponse.data.data.tasks.forEach(taskResponse => {
-            this.handleTaskScoreNotifications(taskResponse._tmp || {});
+            taskResponse._tmp = taskResponse._tmp || {};
+            const tmp = taskResponse._tmp;
+            if (tmp.crit) {
+              if (!bundledTmp.crit) {
+                bundledTmp.crit = 0;
+              }
+
+              bundledTmp.crit += tmp.crit;
+
+              tmp.crit = undefined;
+            }
+
+            if (tmp.quest) {
+              if (!bundledTmp.quest) {
+                bundledTmp.quest = { progressDelta: 0, collection: 0 };
+              }
+
+              if (tmp.quest.progressDelta) {
+                bundledTmp.quest.progressDelta += tmp.quest.progressDelta;
+              }
+              if (tmp.quest.collection) bundledTmp.quest.collection += tmp.quest.collection;
+
+              tmp.quest = undefined;
+            }
+          });
+
+          this.handleTaskScoreNotifications(bundledTmp);
+
+          bulkScoresponse.data.data.tasks.forEach(taskResponse => {
+            this.handleTaskScoreNotifications(taskResponse._tmp);
           });
         } catch (err) {
           // Reset the modal so that it can be used again
