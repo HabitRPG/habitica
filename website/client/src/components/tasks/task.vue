@@ -422,7 +422,7 @@
     position: relative;
 
     &:hover:not(.task-not-editable),
-    &:focus-visible:not(.task-not-editable) {
+    &:focus-within:not(.task-not-editable) {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
       z-index: 11;
     }
@@ -430,7 +430,7 @@
 
   .task:not(.groupTask) {
     &:hover,
-    &:focus-visible {
+    &:focus-within {
       .left-control, .right-control, .task-content {
         border-color: $purple-400;
       }
@@ -438,8 +438,8 @@
   }
 
   .task.groupTask {
-    &:hover:not(.task-not-editable)
-    &:focus-visible:not(.task-not-editable) {
+    &:hover:not(.task-not-editable),
+    &:focus-within:not(.task-not-editable) {
       border: $purple-400 solid 1px;
       border-radius: 3px;
       margin: -1px; // to counter the border width
