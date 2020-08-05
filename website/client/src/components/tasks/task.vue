@@ -532,7 +532,7 @@
     color: $purple-400 !important;
   }
 
-  .task-clickable-area ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle:focus-visible .svg-icon {
+  .task-clickable-area ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle:focus-within .svg-icon {
     color: $purple-400 !important;
   }
 
