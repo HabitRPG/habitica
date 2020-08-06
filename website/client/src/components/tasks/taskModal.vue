@@ -1289,7 +1289,8 @@ export default {
         this.members.forEach(member => {
           this.membersNameAndId.push({
             id: member._id,
-            name: member.auth.local.username,
+            name: member.profile.name,
+            addlText: `@${member.auth.local.username}`,
           });
           this.memberNamesById[member._id] = member.profile.name;
         });
