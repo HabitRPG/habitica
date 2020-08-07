@@ -1,5 +1,4 @@
 import monk from 'monk'; // eslint-disable-line import/no-extraneous-dependencies
-import { concat } from 'lodash';
 
 const migrationName = 'tag-challenge-field-string2bool.js';
 
@@ -17,13 +16,14 @@ export default async function processUsers () {
       $elemMatch: {
         challenge: {
           $exists: true,
-          $type: "string",
+          $type: 'string',
         },
       },
     },
   };
 
-  while (true) {
+  while (true) { // eslint-disable-line no-constant-condition
+    // eslint-disable-next-line no-await-in-loop
     const users = await dbUsers.find(query, {
       sort: { _id: 1 },
       limit: 250,
@@ -47,28 +47,28 @@ async function updateUser (user) {
   count += 1;
 
   const query = {
-    _id: user._id
+    _id: user._id,
   };
   let update = {
     $set: {
-      "tags.$[element].challenge": true
-    }
+      'tags.$[element].challenge': true,
+    },
   };
   let opts = {
     multi: true,
-    arrayFilters: [{ "element.challenge": "true" }]
+    arrayFilters: [{ 'element.challenge': 'true' }],
   };
 
   await dbUsers.update(query, update, opts);
 
   update = {
     $set: {
-      "tags.$[element].challenge": false
-    }
+      'tags.$[element].challenge': false,
+    },
   };
   opts = {
     multi: true,
-    arrayFilters: [{ "element.challenge": "false" }]
+    arrayFilters: [{ 'element.challenge': 'false' }],
   };
 
   dbUsers.update(query, update, opts);
