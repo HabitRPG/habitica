@@ -45,9 +45,11 @@
                 @click="!spellDisabled(key) ? castStart(skill) : null"
               >
                 <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-                <div class="spell col-12 row">
+                <div
+                  class="spell col-12 row"
+                  :class="{'disabled': spellDisabled(key)}"
+                >
                   <div class="col-8 details">
-                    <a :class="{'disabled': spellDisabled(key)}"></a>
                     <div
                       class="img"
                       :class="`shop_${skill.key} shop-sprite item-img`"
@@ -88,9 +90,6 @@
     }
   }
 
-  .drawer-container {
-  }
-
   .drawer-slider {
     margin-top: 1em;
   }
@@ -100,7 +99,7 @@
     white-space: initial;
   }
 
-  .spell:hover {
+  .spell:hover:not(.disabled) {
     cursor: pointer;
     border: solid 2px #50b5e9;
   }
@@ -116,9 +115,8 @@
     padding-left: 0;
     overflow: hidden;
 
-    .disabled {
+    &.disabled {
       opacity: 0.5;
-      cursor: default;
     }
 
     .details {
@@ -132,7 +130,7 @@
 
       span {
         display: inline-block;
-        width: 50%;
+        height: 2rem;
         padding-bottom: .7em;
         vertical-align: bottom;
       }
