@@ -116,6 +116,11 @@
     padding-left: 0;
     overflow: hidden;
 
+    .disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
     .details {
       text-align: left;
       padding-top: .5em;
