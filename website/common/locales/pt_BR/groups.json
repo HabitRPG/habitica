@@ -249,11 +249,11 @@
     "onlyCreatorOrAdminCanDeleteChat": "Não autorizado a deletar essa mensagem!",
     "onlyGroupLeaderCanEditTasks": "Não tem autorização para gerenciar tarefas!",
     "onlyGroupTasksCanBeAssigned": "Apenas tarefas de grupo podem ser designadas",
-    "assignedTo": "Atribuída a",
+    "assignedTo": "Atribuir a",
     "assignedToUser": "Designada para  <strong><%= userName %></strong>",
     "assignedToMembers": "Designada para <strong><%= userCount %> membros</strong>",
     "assignedToYouAndMembers": "Designada para você e <strong><%= userCount %> membros</strong>",
-    "youAreAssigned": "Você foi designado(a) para esta tarefa",
+    "youAreAssigned": "Designada a você",
     "taskIsUnassigned": "Ninguém assumiu esta tarefa",
     "confirmClaim": "Você tem certeza que quer assumir esta tarefa?",
     "confirmUnClaim": "Você tem certeza que quer abandonar esta tarefa?",
@@ -494,5 +494,12 @@
     "PMUnblockUserToSendMessages": "Desbloqueie esse usuário para continuar enviando ou recebendo mensagens.",
     "PMUserDoesNotReceiveMessages": "Este usuário não está mais recebendo mensagens privadas",
     "PMCanNotReply": "Você não pode responder a essa conversa",
-    "newPartyPlaceholder": "Insira o nome do seu grupo."
+    "newPartyPlaceholder": "Insira o nome do seu grupo.",
+    "claimRewards": "Reivindicar Recompensas",
+    "assignedDateAndUser": "Designado por <strong>@<%= username %></strong> em <strong><%= date %></strong>",
+    "assignedDateOnly": "Designado em <strong><%= date %></strong>",
+    "managerNotes": "Notas do Administrador",
+    "thisTaskApproved": "Esta tarefa foi aprovada",
+    "chooseTeamMember": "Escolha um membro do time",
+    "unassigned": "Não designado"
 }

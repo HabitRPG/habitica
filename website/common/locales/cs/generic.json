@@ -248,7 +248,7 @@
     "userIdRequired": "Je potřeba uživatelské ID",
     "resetFilters": "Vyčisti všechny fltry",
     "applyFilters": "Použij filtry",
-    "wantToWorkOn": "I want to work on:",
+    "wantToWorkOn": "Na tom chci pracovat:",
     "categories": "Kategorie",
     "habiticaOfficial": "Oficiální Habitica",
     "animals": "Zvířata",
@@ -284,7 +284,7 @@
     "dismissAll": "Označit vše jako přečtené",
     "messages": "Zprávy",
     "emptyMessagesLine1": "Nemáš žádné zprávy",
-    "emptyMessagesLine2": "Pošli zprávu a zahaj konverzaci!",
+    "emptyMessagesLine2": "Novou zprávu uživateli/Česku můžeš poslat tak, že navštívíš jeho/její profil a klikneš na tlačítko “Zprávy”.",
     "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> ti poslal/a zprávu",
     "letsgo": "Pojďmě!",
     "selected": "Vybrané",
@@ -295,5 +295,6 @@
     "demo": "Ukázka",
     "options": "Možnosti",
     "finish": "Dokončit",
-    "congratulations": "Gratulujeme!"
+    "congratulations": "Gratulujeme!",
+    "onboardingAchievs": "Začátečnické úspěchy"
 }

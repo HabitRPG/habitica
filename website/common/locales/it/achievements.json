@@ -81,5 +81,8 @@
     "achievementKickstarter2019Text": "Sostenitore del Progetto Kickstarter 2019",
     "achievementKickstarter2019": "Sostenitore su Kickstarter",
     "achievementAridAuthorityModalText": "Hai domato tutte le Cavalcature del Deserto!",
-    "onboardingCompleteDesc": "Hai guadagnato<strong>5 Medaglie</strong> e <strong class=\"gold-amount\">100 Oro</strong> per aver completato l'elenco."
+    "onboardingCompleteDesc": "Hai guadagnato<strong>5 Medaglie</strong> e <strong class=\"gold-amount\">100 Oro</strong> per aver completato l'elenco.",
+    "achievementFreshwaterFriendsModalText": "Hai completato le missioni Axolotl, Rana e Ippopotamo!",
+    "achievementFreshwaterFriendsText": "Completa le missioni Axolotl, Rana e Ippopotamo.",
+    "achievementFreshwaterFriends": "Marinai d'Acqua Dolce"
 }

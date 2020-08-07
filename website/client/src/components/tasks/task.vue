@@ -223,14 +223,14 @@
             <div
               v-if="task.type === 'todo' && task.date"
               class="d-flex align-items-center"
-              :class="{'due-overdue': isDueOverdue}"
+              :class="{'due-overdue': checkIfOverdue() }"
             >
               <div
                 v-b-tooltip.hover.bottom="$t('dueDate')"
                 class="svg-icon calendar"
                 v-html="icons.calendar"
               ></div>
-              <span>{{ dueIn }}</span>
+              <span>{{ formatDueDate() }}</span>
             </div>
             <div class="icons-right d-flex justify-content-end">
               <div
@@ -934,24 +934,6 @@ export default {
       if (this.task.type === 'habit' && (this.task.up || this.task.down)) return true;
       return false;
     },
-    timeTillDue () {
-      // this.task && is necessary to make sure the computed property updates correctly
-      const endOfToday = moment().endOf('day');
-      const endOfDueDate = moment(this.task && this.task.date).endOf('day');
-
-      return moment.duration(endOfDueDate.diff(endOfToday));
-    },
-    isDueOverdue () {
-      return this.timeTillDue.asDays() <= 0;
-    },
-    dueIn () {
-      const dueIn = this.timeTillDue.asDays() === 0
-        ? this.$t('today')
-        : this.timeTillDue.humanize(true);
-
-      // this.task && is necessary to make sure the computed property updates correctly
-      return this.task && this.task.date && this.$t('dueIn', { dueIn });
-    },
     hasTags () {
       return this.task.tags && this.task.tags.length > 0;
     },
@@ -1000,6 +982,22 @@ export default {
       if (this.castingSpell) return;
       item.completed = !item.completed; // @TODO this should go into the action?
       this.scoreChecklistItem({ taskId: this.task._id, itemId: item.id });
+    },
+    calculateTimeTillDue () {
+      const endOfToday = moment().endOf('day');
+      const endOfDueDate = moment(this.task.date).endOf('day');
+
+      return moment.duration(endOfDueDate.diff(endOfToday));
+    },
+    checkIfOverdue () {
+      return this.calculateTimeTillDue().asDays() <= 0;
+    },
+    formatDueDate () {
+      const dueIn = this.calculateTimeTillDue().asDays() === 0
+        ? this.$t('today')
+        : this.calculateTimeTillDue().humanize(true);
+
+      return this.task.date && this.$t('dueIn', { dueIn });
     },
     edit (e, task) {
       if (this.isRunningYesterdailies || !this.showEdit) return;

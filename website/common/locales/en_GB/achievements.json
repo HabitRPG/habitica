@@ -81,5 +81,8 @@
     "yourProgress": "Your Progress",
     "achievementBareNecessitiesModalText": "You completed the Monkey, Sloth, and Treeling pet quests!",
     "achievementBareNecessitiesText": "Has completed Monkey, Sloth, and Treeling pet quests.",
-    "achievementBareNecessities": "Bare Necessities"
+    "achievementBareNecessities": "Bare Necessities",
+    "achievementFreshwaterFriendsModalText": "You completed the Axolotl, Frog, and Hippo pet quests!",
+    "achievementFreshwaterFriendsText": "Has completed Axolotl, Frog, and Hippo pet quests.",
+    "achievementFreshwaterFriends": "Freshwater Friends"
 }

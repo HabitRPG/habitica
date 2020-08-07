@@ -429,7 +429,7 @@
     "armorSpecialFinnedOceanicArmorText": "海鳞衣",
     "armorSpecialFinnedOceanicArmorNotes": "尽管看上去精致漂亮，这件护甲让你变得像火焰珊瑚一样碰不得。增加<%= str %>点力量。",
     "armorSpecialPyromancersRobesText": "烈焰术士长袍",
-    "armorSpecialPyromancersRobesNotes": "这些优雅的长袍给予每一次攻击和法术一阵空灵的火。增加<%= con %>点体质。",
+    "armorSpecialPyromancersRobesNotes": "这些优雅的长袍有助于释放连击、召唤空灵的火。增加<%= con %>点体质。",
     "armorSpecialBardRobesText": "吟游诗人长袍",
     "armorSpecialBardRobesNotes": "这件五颜六色的长袍可能看起来很突出，但是你可以在任何情况下唱你自己的歌了。增加<%= per %>点感知。",
     "armorSpecialLunarWarriorArmorText": "月亮战士护甲",
@@ -2149,5 +2149,11 @@
     "armorSpecialSummer2020RogueNotes": "鳄鱼的伪装塑造完美的盗贼，拥有了鳄鱼的技能——爆炸速度，等待绝佳时机，带来致命一击。增加<%= per %>点感知。2020年夏季限定版装备。",
     "armorSpecialSummer2020RogueText": "鳄鱼伪装",
     "weaponArmoireHandyHookNotes": "有人持反对的意见？这钩子对所有人都很“方便”。增加<%= str %>点力量。魔法衣橱：海盗套装（1/3）。",
-    "weaponArmoireHandyHookText": "便捷钓钩"
+    "weaponArmoireHandyHookText": "便捷钓钩",
+    "bodyMystery202008Notes": "此刻，两翼张开。但当你凝练智慧，或捕食草丛中猎物时，请小心！没有属性加成。2020年8月订阅者物品。",
+    "bodyMystery202008Text": "猫头鹰的预言斗篷",
+    "backSpecialNamingDay2020Notes": "命名节快乐！甩动火红像素尾来一起庆祝吧！没有属性加成。",
+    "backSpecialNamingDay2020Text": "紫御狮鹫之尾",
+    "headMystery202008Notes": "谁？是谁？到底是谁向你走近寻求忠告？没有属性加成。2020年8月订阅者物品。",
+    "headMystery202008Text": "猫头鹰的预言头饰"
 }

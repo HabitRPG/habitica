@@ -174,7 +174,7 @@ api.ipn = {
 
     paypalPayments
       .ipn(req.body)
-      .catch(err => logger.error(err));
+      .catch(err => logger.error(err, 'Error handling Paypal IPN message.'));
   },
 };
 

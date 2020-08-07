@@ -494,5 +494,12 @@
     "PMUnblockUserToSendMessages": "取消阻止该用户以继续发送和接收消息。",
     "PMUserDoesNotReceiveMessages": "这个用户不再接收私人消息",
     "PMCanNotReply": "你不能回复此谈话",
-    "newPartyPlaceholder": "输入你的队伍名称。"
+    "newPartyPlaceholder": "输入你的队伍名称。",
+    "assignedDateAndUser": "<strong><%= date %></strong>由<strong>@<%= username %></strong>分配",
+    "assignedDateOnly": "<strong><%= date %></strong>分配",
+    "claimRewards": "领取奖励",
+    "thisTaskApproved": "这任务已批准",
+    "managerNotes": "经理的须知",
+    "chooseTeamMember": "选择一个团队成员",
+    "unassigned": "未分配"
 }
