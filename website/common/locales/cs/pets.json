@@ -70,7 +70,7 @@
     "triadBingoName": "Bingo trojice",
     "triadBingoText": "Našel všech 90 mazlíčků, zkrotil všech 90  zkrocených zvířat, a našel všech 90 mazlíčků ZNOVU (JAK JSI TO UDĚLAL!)",
     "triadBingoText2": " a vypustil plnou stáj celkem <%= count %>krát",
-    "triadBingoAchievement": "Získal jsi ocenění \"Bingo trojice\" za nalezení všech mazlíčků, zkrocení všech zvířat, a nalezení mazlíčku znovu!",
+    "triadBingoAchievement": "Získal jsi ocenění \"Bingo trojice\" za nalezení všech mazlíčků, zkrocení všech zvířat, a znovunalezení všech mazlíčku ještě jednou!",
     "dropsEnabled": "Nalézání přemětů povoleno!",
     "itemDrop": "Nalezen předmět!",
     "firstDrop": "Odemknuto nalézání předmětů! Od teď máš malou šanci nalézt předmět při dokončení úkolů, včetně vajec, lektvarů a jídla! Právě nalezeno <strong> vejce zvířátka <%= eggText %></strong>! <%= eggNotes %>",
