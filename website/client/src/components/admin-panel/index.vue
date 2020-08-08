@@ -149,28 +149,10 @@
             </div>
           </div>
 
-          <div class="accordion-group">
-            <h3
-              class="expand-toggle"
-              :class="{'open': expandAvatar}"
-              @click="expandAvatar = !expandAvatar"
-            >
-              Current Avatar Appearance, Drop Count Today
-            </h3>
-            <div v-if="expandAvatar">
-              <div>Drops Today: {{ hero.items.lastDrop.count }}</div>
-              <div>Most Recent Drop: {{ hero.items.lastDrop.date | formatDate }}</div>
-              <div>Use Costume: {{ hero.preferences.costume ? 'on' : 'off' }}</div>
-              <div class="subsection-start">
-                Equipped Gear:
-                <ul v-html="formatEquipment(hero.items.gear.equipped)"></ul>
-              </div>
-              <div>
-                Costume:
-                <ul v-html="formatEquipment(hero.items.gear.costume)"></ul>
-              </div>
-            </div>
-          </div>
+          <avatar-and-drops
+            :items="hero.items"
+            :preferences="hero.preferences"
+          />
 
           <div class="accordion-group">
             <h3
@@ -422,11 +404,13 @@ import notifications from '@/mixins/notifications';
 import filters from './mixins/filters';
 import BasicDetails from './user-support/basicDetails';
 import CronAndAuth from './user-support/cronAndAuth';
+import AvatarAndDrops from './user-support/avatarAndDrops';
 
 export default {
   components: {
     BasicDetails,
     CronAndAuth,
+    AvatarAndDrops,
   },
   directives: {
     markdown: markdownDirective,
@@ -445,7 +429,6 @@ export default {
       collatedItemData: {},
       expandPriv: false,
       expandParty: false,
-      expandAvatar: false,
       expandItems: false,
       expandItemType: {
         eggs: false,
@@ -471,19 +454,6 @@ export default {
     ...mapState({ user: 'user.data' }),
   },
   methods: {
-    formatEquipment (gearWorn) {
-      const gearTypes = ['head', 'armor', 'weapon', 'shield', 'headAccessory', 'eyewear',
-        'body', 'back'];
-      let equipmentList = '';
-      gearTypes.forEach(gearType => {
-        const key = gearWorn[gearType] || '';
-        const description = (key)
-          ? `<strong>${key}</strong> : ${this.getItemDescription('gear', gearWorn[gearType])}`
-          : 'none';
-        equipmentList += `<li>${gearType} : ${description}</li>\n`;
-      });
-      return equipmentList;
-    },
     collateItemData () {
       // items.special includes many items but we are interested in these only:
       const specialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
@@ -919,7 +889,6 @@ export default {
       // collapse all sections except those with errors
       this.expandPriv = this.errors.priv;
       this.expandParty = this.errors.partyOrQuest;
-      this.expandAvatar = false;
       this.expandItems = false;
       this.expandUpdateItems = false;
       this.expandContrib = false;
