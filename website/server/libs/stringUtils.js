@@ -4,8 +4,8 @@ export function removePunctuationFromString (str) {
 
 // NOTE: the wordsToMatch aren't escaped in order to support regular expressions,
 // so this method should not be used if wordsToMatch contains unsanitized user input
-export function getMatchesByWordArray (str, wordsToMatch) {
 
+export function getMatchesByWordArray (str, wordsToMatch) {
   // remove accented characters from the string, which would trip up the regEx
   // later on, by using the built-in Unicode normalisation methods
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
