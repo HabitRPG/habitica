@@ -130,7 +130,7 @@
 
       span {
         display: inline-block;
-        height: 2rem;
+        width: 50%;
         padding-bottom: .7em;
         vertical-align: bottom;
       }
