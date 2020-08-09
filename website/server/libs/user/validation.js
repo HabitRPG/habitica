@@ -1,16 +1,16 @@
 import bannedSlurs from '../bannedSlurs';
 import bannedWords from '../bannedWords';
-import { getMatchesByWordArray } from '../stringUtils';
+import { getMatchesByWordArray, normalizeUnicodeString } from '../stringUtils';
 import forbiddenUsernames from '../forbiddenUsernames';
 
 export function stringContainsProfanity (str, profanityType = 'bannedWord') {
   const bannedRegexes = profanityType === 'slur'
-    ? bannedSlurs.map(word => new RegExp(`.*${word}.*`, 'i'))
-    : bannedWords.map(word => new RegExp(`.*${word}.*`, 'i'));
+    ? bannedSlurs.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'))
+    : bannedWords.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'));
 
   for (let i = 0; i < bannedRegexes.length; i += 1) {
     const regEx = bannedRegexes[i];
-    const match = str.match(regEx);
+    const match = normalizeUnicodeString(str).match(regEx);
     if (match !== null && match[0] !== null) {
       return true;
     }
