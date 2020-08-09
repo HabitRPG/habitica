@@ -211,5 +211,7 @@
     "mentioning": "Mentioning",
     "suggestMyUsername": "Suggest my username",
     "everywhere": "Everywhere",
-    "onlyPrivateSpaces": "Only in private spaces"
+    "onlyPrivateSpaces": "Only in private spaces",
+    "blurbIssueSlur": "The About text may not contain inappropriate language.",
+    "bannedSlurUsedInProfile": "Your display name or About text contained inappropriate language, and your chat privileges have been revoked."
 }

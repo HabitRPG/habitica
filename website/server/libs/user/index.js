@@ -102,6 +102,17 @@ function checkPreferencePurchase (user, path, item) {
   return _.get(user.purchased, itemPath);
 }
 
+async function checkNewInputForProfanity (user, res, newValue) {
+  if (stringContainsProfanity(newValue, 'slur') || stringContainsProfanity(newValue)) {
+    if (stringContainsProfanity(newValue, 'slur')) {
+      user.flags.chatRevoked = true;
+      await user.save();
+      throw new BadRequest(res.t('bannedSlurUsedInProfile'));
+    }
+    throw new BadRequest(res.t('displaynameIssueSlur'));
+  }
+}
+
 export async function update (req, res, { isV3 = false }) {
   const { user } = res.locals;
 
@@ -111,8 +122,13 @@ export async function update (req, res, { isV3 = false }) {
     const newName = req.body['profile.name'];
     if (newName === null) throw new BadRequest(res.t('invalidReqParams'));
     if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
-    if (stringContainsProfanity(newName, 'slur') || stringContainsProfanity(newName)) throw new BadRequest(res.t('displaynameIssueSlur'));
     if (nameContainsNewline(newName)) throw new BadRequest(res.t('displaynameIssueNewline'));
+    await checkNewInputForProfanity(user, res, newName);
+  }
+
+  if (req.body['profile.blurb'] !== undefined) {
+    const newBlurb = req.body['profile.blurb'];
+    await checkNewInputForProfanity(user, res, newBlurb);
   }
 
   _.each(req.body, (val, key) => {
