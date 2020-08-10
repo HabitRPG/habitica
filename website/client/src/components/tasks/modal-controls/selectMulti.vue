@@ -57,9 +57,15 @@ multi<template>
           ></div>
           <div
             v-if="item.challenge"
-            class="challenge"
+            class="addl-text"
           >
             {{ $t('challenge') }}
+          </div>
+          <div
+            v-else-if="item.addlText"
+            class="addl-text"
+          >
+            {{ item.addlText }}
           </div>
         </b-dropdown-item-button>
 
@@ -111,7 +117,7 @@ multi<template>
         flex: 1;
       }
 
-      .challenge {
+      .addl-text {
         height: 1rem;
         font-size: 12px;
         font-weight: normal;
@@ -128,7 +134,7 @@ multi<template>
       }
 
       &:hover {
-        .challenge {
+        .addl-text {
           color: $purple-300;
         }
       }
