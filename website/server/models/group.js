@@ -151,7 +151,7 @@ export const schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
+  noSet: ['_id', 'balance', 'quest', 'memberCount', 'chat', 'bannedWordsAllowed', 'challengeCount', 'tasksOrder', 'purchased', 'managers'],
   private: ['purchased.plan'],
   toJSONTransform (plainObj, originalDoc) {
     if (plainObj.purchased) plainObj.purchased.active = originalDoc.hasActiveGroupPlan();
