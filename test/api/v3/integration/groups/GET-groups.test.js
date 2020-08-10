@@ -14,7 +14,7 @@ describe('GET /groups', () => {
   let userInGuild;
   const NUMBER_OF_PUBLIC_GUILDS = 2;
   const NUMBER_OF_PUBLIC_GUILDS_USER_IS_LEADER = 2;
-  const NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER = 0;
+  const NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER = 1;
   const NUMBER_OF_USERS_PRIVATE_GUILDS = 1;
   const NUMBER_OF_GROUPS_USER_CAN_VIEW = 5;
   const GUILD_PER_PAGE = 30;
@@ -244,19 +244,18 @@ describe('GET /groups', () => {
 
   it('makes sure that the tavern doesn\'t show up when guilds is passed as a query', async () => {
     const guilds = await user.get('/groups?type=guilds');
-    expect(guilds[0]._id !== TAVERN_ID);
+    expect(guilds.find(g => g.id === TAVERN_ID)).to.be.undefined;
   });
 
   it('makes sure that the tavern doesn\'t show up when publicGuilds is passed as a query', async () => {
     const guilds = await user.get('/groups?type=publicGuilds');
-    expect(guilds[0]._id !== TAVERN_ID);
+    expect(guilds.find(g => g.id === TAVERN_ID)).to.be.undefined;
   });
 
   it('returns all the user\'s guilds when guilds passed in as query', async () => {
     await expect(user.get('/groups?type=guilds'))
       .to.eventually.have.a
-      // + 4 created, -1 for no more tavern.
-      .lengthOf(NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER + NUMBER_OF_USERS_PRIVATE_GUILDS + 4 - 1);
+      .lengthOf(NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER + NUMBER_OF_USERS_PRIVATE_GUILDS);
   });
 
   it('returns all private guilds user is a part of when privateGuilds passed in as query', async () => {
@@ -266,7 +265,7 @@ describe('GET /groups', () => {
 
   it('returns a list of groups user has access to', async () => {
     await expect(user.get('/groups?type=privateGuilds,publicGuilds,party,tavern'))
-      .to.eventually.have.lengthOf(NUMBER_OF_GROUPS_USER_CAN_VIEW);
+      .to.eventually.have.lengthOf(NUMBER_OF_GROUPS_USER_CAN_VIEW - 1); // -1 for no Tavern.
   });
 
   it('returns a list of groups user has access to', async () => {
