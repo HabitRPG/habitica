@@ -325,7 +325,7 @@
     "approvalsTitle": "承認待ちのタスク",
     "upgradeTitle": "アップグレード",
     "blankApprovalsDescription": "あなたのグループが、あなたの承認を必要とするタスクを片付けた場合はここに表示されます!タスクの編集にて承認の条件について設定することができます。",
-    "userIsClamingTask": "<%= username %>が担当しています：<%= task %>",
+    "userIsClamingTask": "`<%= username %>が担当しています：`<%= task %>",
     "approvalRequested": "承認が申請されました",
     "refreshApprovals": "承認の更新",
     "refreshGroupTasks": "グループタスクの更新",

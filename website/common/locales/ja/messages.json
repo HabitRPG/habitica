@@ -54,7 +54,7 @@
     "messageCannotFlagSystemMessages": "システムメッセージを報告することはできません。このメッセージに関してコミュニティガイドラインの違反を報告する必要がある場合は、スクリーンショットと説明をコミュニティ管理者（<%= communityManagerEmail %>）にメールで送ってください。",
     "messageGroupChatSpam": "おおっと!たくさんのメッセージを投稿しすぎたようです!少しだけ待ってから再度お試しください。キャンプ場では200個のメッセージまでしか一度に表示されませんので,Habiticaでは熟慮と吟味がなされた返信を奨励しています。あなたが言いかけたことを楽しみにしています。:)",
     "messageCannotLeaveWhileQuesting": "あなたはクエストを実行中のため、このパーティーへの招待を承認できません。もしこのパーティーに加わりたい場合は、まずパーティー画面から実行中のクエストを中止してください。中止したクエストの巻物は手元に戻ります。",
-    "messageUserOperationProtected": "「<%= operation %>」パスは、保護されたパスなので保存できません。",
+    "messageUserOperationProtected": "`<%= operation %>`パスは、保護されたパスなので保存できません。",
     "messageUserOperationNotFound": "<%= operation %> の操作は見つかりません",
     "messageNotificationNotFound": "通知はありません。",
     "messageNotAbleToBuyInBulk": "このアイテムは1つ以上購入することができません。",

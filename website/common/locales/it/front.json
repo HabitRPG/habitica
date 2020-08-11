@@ -200,7 +200,7 @@
     "terms": "Termini e condizioni",
     "testimonialHeading": "Cosa dicono gli utenti...",
     "tumblr": "Tumblr",
-    "localStorageTryFirst": "Se stai avendo problemi con Habitica, premi il bottone qui sotto per cancellare i dati locali e la maggior parte dei cookies di questo sito (gli altri siti non verranno affetti). Dopo averlo fatto dovrai accedere nuovamente, quindi assicurati di conoscere i tuoi dati di Log-In, che possono essere trovati in Impostazioni -> <%= linkStart %>Sito<%= linkEnd %>.",
+    "localStorageTryFirst": "Se stai avendo problemi con Habitica, premi il pulsante qui sotto per cancellare i dati locali e la maggior parte dei cookies di questo sito (gli altri siti non verranno affetti). Dopo averlo fatto dovrai accedere nuovamente, quindi assicurati di conoscere i tuoi dati di Log-In, che possono essere trovati in Impostazioni -> <%= linkStart %>Sito<%= linkEnd %>.",
     "localStorageTryNext": "Se il problema persiste, per favore <%= linkStart %>segnalate un bug<%= linkEnd %> se non lo avete già fatto.",
     "localStorageClearing": "Pulizia dati in corso",
     "localStorageClearingExplanation": "Stiamo cancellando dal tuo browser i dati locali di Habitica. Verrai disconnesso e inviato alla pagina principale. Per favore, attendi.",
