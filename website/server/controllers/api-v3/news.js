@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'AUGUST 2020 SUBSCRIBER ITEMS AND OFFICIAL CHALLENGES!';
+const LAST_ANNOUNCEMENT_TITLE = 'BACK TO SCHOOL CHALLENGE, NEW BACKGROUNDS, AND NEW ENCHANTED ARMOIRE ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,65 +31,37 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/3/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/11/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="achievement-habiticaDay2x center-block"></div>
-        <h3>August Subscriber Set Revealed!</h3>
+        <div class="scene_reading center-block"></div>
+        <h3>Official Habitica Challenge: Back-to-School Preparation!</h3>
         <p>
-          The August Subscriber Items been revealed: the Owlish Oracle Item Set! <a
-          href='/user/settings/subscription'>Subscribe to Habitica by August 30</a> to receive
-          this exciting set! If you're already an active subscriber, reload the site and then head
-          to Inventory > Items to claim your gear!
-        </p>
-        <p>
-          Subscribers also receive the ability to buy Gems with Gold -- the longer you subscribe,
-          the more Gems you can buy per month! There are other perks as well, such as longer access
-          to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep
-          Habitica running. Thank you very much for your support -- it means a lot to us.
+          The school year is looming large for many scholarly Habiticans, so we've prepared a
+          special <a href='/challenges/8d6e280a-4dc8-4957-b2b4-feb07ce9ff6b'>Back-to-School
+          Challenge</a> to help with the transition between summer and semester. Check it out now
+          for a chance to win: five lucky winners will get a badge for their profile and their
+          choice of a <a href='https://habitica.wikia.com/wiki/Subscription'
+          target='_blank'>gift subscription</a> or Gems!
         </p>
         <div class="small mb-3">by Beffymaroo</div>
-        <div class="scene_rewards center-block"></div>
-        <h3>August 2020 Resolution Success Challenge and Take This Challenge</h3>
+        <div class="promo_armoire_backgrounds_202008 center-block"></div>
+        <h3>August Backgrounds and Armoire Items!</h3>
         <p>
-          The Habitica team has launched a special official Challenge series hosted in the <a
-          href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99' target='_blank'>Official New
-          Year's Resolution Guild</a>. These Challenges are designed to help you build and maintain
-          goals that are destined for success and then stick with them as the year progresses. For
-          this month's Challenge, <a href='/challenges/b6579eaa-7f9d-43b3-9475-f63940c7b6c6'>Count
-          Your Treasure</a>, we're focusing on the importance of rewards! It has a 15 Gem prize,
-          which will be awarded to five lucky winners on September 1st.
+          We’ve added three new backgrounds to the Background Shop! Now your avatar can stroll
+          through Habit City's Productivity Plaza, enjoy the outdoors by Camping Out, or bask in
+          the splendor of the Jungle Canopy. Check them out under User Icon > Backgrounds on web
+          and Menu > Inventory > Customize Avatar on mobile!
         </p>
         <p>
-          Congratulations to the winners of July's Challenge, @Jefferwocky, @Hyumi-chan, @stinawp,
-          @JumpingJill, and @GreaneWolf!
-        </p>
-        <p>
-          The next Take This Challenge has also launched, "<a
-          href='/challenges/6f35ca9a-a978-450e-b9c9-b6bc1cd04d91'>Achievement Unlocked:
-          Self-Care!</a>", with a focus on being kind to ourselves. Be sure to check it out to earn
-          additional pieces of the Take This armor set!
-        </p>
-        <p>
-          <a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that
-          seeks to inform the gamer community about mental health issues, to provide education
-          about mental disorders and mental illness prevention, and to reduce the stigma of mental
-          illness.
-        </p>
-        <p>
-          Congratulations to the winners of the last Take This Challenge, "+2 Intelligence Bonus!":
-          grand prize winner @Tetrakatus, and runners-up @spinelissad, @DKimmortal,
-          @ewaeaweaeaweaeaeae, @CaptainBobcat, and @Antrolana! Plus, all participants in that
-          Challenge have received a piece of the <a
-          href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set'
-          target='_blank'>Take This item set</a> if they hadn't completed it already. It is located
-          in your Rewards column. Enjoy!
+          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
+          Heroic Herbalist Set. Better work hard on your real-life tasks to earn all the pieces!
+          Enjoy :)
         </p>
         <div class="small mb-3">
-          by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat
+          by AnnDeLune, katieslug, Alonquain,-Tyr-, OuttaMyMind, shanaqui and SabreCat
         </div>
-        <div class="promo_take_this center-block"></div>
       </div>
       `,
     });

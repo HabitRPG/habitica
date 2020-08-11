@@ -1082,6 +1082,8 @@
   "armorArmoireFiddlersCoatNotes": "A practical outfit to give you plenty of room to move! Increases Constitution by <%= con %>. Enchanted Armoire: Fiddler Set (Item 2 of 4).",
   "armorArmoirePirateOutfitText": "Pirate Outfit",
   "armorArmoirePirateOutfitNotes": "Avast, ye landlubbers! The perfect outfit for swabbing the deck and counting your spoils. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Pirate Set (Item 2 of 3).",
+  "armorArmoireHeroicHerbalistRobeText": "Heroic Herbalist Robe",
+  "armorArmoireHeroicHerbalistRobeNotes": "Always smells pleasantly of all kinds of herbs. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Heroic Herbalist Set (Item 1 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1677,6 +1679,8 @@
   "headArmoireBaseballCapNotes": "Let everyone know that you're on Team Habitica! Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Baseball Set (Item 1 of 4).",
   "headArmoireFiddlersCapText": "Fiddler's Cap",
   "headArmoireFiddlersCapNotes": "Put on this jaunty cap to let everyone know who's dancing to whose tune! Increases Perception by <%= per %>. Enchanted Armoire: Fiddler Set (Item 1 of 4).",
+  "headArmoireHeroicHerbalistCrispinetteText": "Heroic Herbalist Crispinette",
+  "headArmoireHeroicHerbalistCrispinetteNotes": "This handy headdress will help you keep your hair out of the way... It doesn't hurt that it also adds to the mystique. Increases Intelligence by <%= int %>. Enchanted Armoire: Heroic Herbalist Set (Item 3 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1971,6 +1975,8 @@
   "shieldArmoireLifeBuoyNotes": "Oh buoy! This will come in handy if you spot someone struggling in a sea of tasks and responsibilities. Increases Constitution by <%= con %>. Enchanted Armoire: Lifeguard Set (Item 2 of 3).",
   "shieldArmoirePiratesCompanionText": "Pirate's Companion",
   "shieldArmoirePiratesCompanionNotes": "Perfect if you want to talk your enemies to death, this parrot never shuts up. Maybe it'll remind you about your tasks too! Increases Perception by <%= per %>. Enchanted Armoire: Pirate Set (Item 3 of 3).",
+  "shieldArmoireMortarAndPestleText": "Mortar and Pestle",
+  "shieldArmoireMortarAndPestleNotes": "The most important equipment in the herbalist's arsenal! Grind up your ingredients for your herbal concoctions, and put your back into it! Increases Constitution by <%= con %>. Enchanted Armoire: Heroic Herbalist Set (Item 2 of 3).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
