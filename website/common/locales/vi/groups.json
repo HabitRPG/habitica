@@ -249,11 +249,11 @@
     "onlyCreatorOrAdminCanDeleteChat": "Not authorized to delete this message!",
     "onlyGroupLeaderCanEditTasks": "Not authorized to manage tasks!",
     "onlyGroupTasksCanBeAssigned": "Only group tasks can be assigned",
-    "assignedTo": "Assigned To",
+    "assignedTo": "Giao cho",
     "assignedToUser": "Assigned to  <%= userName %>",
     "assignedToMembers": "Assigned to <%= userCount %> members",
     "assignedToYouAndMembers": "Assigned to you and <%= userCount %> members",
-    "youAreAssigned": "You are assigned to this task",
+    "youAreAssigned": "Đã giao cho bạn",
     "taskIsUnassigned": "This task is unassigned",
     "confirmClaim": "Are you sure you want to claim this task?",
     "confirmUnClaim": "Are you sure you want to unclaim this task?",
@@ -494,5 +494,12 @@
     "newPartyPlaceholder": "Nhập tên Tổ đội của bạn.",
     "taskClaimed": "<%= userName %>đã nhận công việc <span class=\"notification-bold\"><%= taskText %></span>.",
     "youHaveBeenAssignedTask": "<%= managerName %> đã phân công bạn công việc <span class=\"notification-bold\"><%= taskText %></span>.",
-    "userWithUsernameOrUserIdNotFound": "Tên đặng nhập hoặc ID Người chơi không tìm thấy."
+    "userWithUsernameOrUserIdNotFound": "Tên đặng nhập hoặc ID Người chơi không tìm thấy.",
+    "claimRewards": "Nhận Phần thưởng",
+    "assignedDateAndUser": "Đã được giao bởi <strong>@<%= username %></strong> vào <strong><%= date %></strong>",
+    "assignedDateOnly": "Đã được giao vào ngày <strong><%= date %></strong>",
+    "managerNotes": "Ghi chú của người Quản lí",
+    "thisTaskApproved": "Công việc này đã được công nhận",
+    "chooseTeamMember": "Chọn một thành viên trong nhóm",
+    "unassigned": "Chưa giao"
 }

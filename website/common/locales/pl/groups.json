@@ -249,11 +249,11 @@
     "onlyCreatorOrAdminCanDeleteChat": "Nie masz uprawnień do usunięcia tej wiadomości!",
     "onlyGroupLeaderCanEditTasks": "Nie masz uprawnień do zarządzania zadaniami!",
     "onlyGroupTasksCanBeAssigned": "Można przypisywać wyłącznie zadania grupowe",
-    "assignedTo": "Przyznany do",
+    "assignedTo": "Przypisz do",
     "assignedToUser": "Przyznany do <strong><%= userName %></strong>",
     "assignedToMembers": "Przyznano do <strong><%= userCount %> użytkowników</strong>",
     "assignedToYouAndMembers": "Przyznany do ciebie i <strong><%= userCount %> użytkowników</strong>",
-    "youAreAssigned": "Zostałeś/aś przyznany/a do tego zadania",
+    "youAreAssigned": "Przypisane do Ciebie",
     "taskIsUnassigned": "To zadanie nie jest przypisane",
     "confirmClaim": "Czy jesteś pewny, że chcesz sobie rościć to zadanie?",
     "confirmUnClaim": "Czy jesteś pewien, że chcesz odpuścić roszczenia do tego zadania?",
@@ -494,5 +494,9 @@
     "PMUnblockUserToSendMessages": "Odblokuj tego użytkownika, aby móc wysyłać oraz otrzymywać wiadomości.",
     "PMUserDoesNotReceiveMessages": "Ten użytkownik nie otrzymuje wiadomości prywatnych",
     "PMCanNotReply": "Nie możesz odpowiadać w tym wątku",
-    "newPartyPlaceholder": "Wprowadź nazwę twojej drużyny."
+    "newPartyPlaceholder": "Wprowadź nazwę twojej drużyny.",
+    "managerNotes": "Notatki Menedżera",
+    "thisTaskApproved": "Te zadanie zostało zatwierdzone",
+    "chooseTeamMember": "Wybierz członka grupy",
+    "unassigned": "Nieprzypisane"
 }

@@ -49,7 +49,7 @@
     "attributeAllocation": "Přidělení vlastnostních bodů",
     "attributeAllocationHelp": "Rozdělení vlastnostních bodů je možnost, která poskytuje metody pro Habiticu pro automatické přidělení získaného bodu k vlastnostem hned, jakmile se dostaneš na novou úroveň. <br/><br/>Můžeš si nastavit tvé Automatické Přidělení bodů na základě tvých úkolů v sekci Statistiky ve tvém profilu.",
     "progress": "Pokrok",
-    "daily": "Denně",
+    "daily": "Denní úkol",
     "dailies": "Denní úkoly",
     "newDaily": "Nový denní úkol",
     "newDailyBulk": "Nové Denní úkoly (jeden na řádek)",
@@ -210,8 +210,8 @@
     "searchTasks": "Vyhledat názvy a popisy...",
     "sessionOutdated": "Tvá relace je zastaralá. Prosím, zkus ji obnovit nebo synchronizovat.",
     "errorTemporaryItem": "Tento předmět je dočasný a nemůže být připnut.",
-    "sureDeleteType": "Chceš tohle <%= type %> opravdu smazat?",
-    "deleteTaskType": "Tohle <%= type %> smazat",
+    "sureDeleteType": "Chceš tento <%= type %> opravdu smazat?",
+    "deleteTaskType": "Tento <%= type %> smazat",
     "addNotes": "Přidej poznámky",
     "addATitle": "Přidej název"
 }
