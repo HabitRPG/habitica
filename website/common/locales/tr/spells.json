@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Senin el çabuklukların tüm partinin sezgisini artırdı! (Baz alınan: Kutsanmamış Sezgi)",
     "spellRogueStealthText": "Gizlilik",
     "spellRogueStealthNotes": "Her kullanımla yerine getirmediğin bazı Günlük İşlerin bu gece sana zarar vermeyecek ve tamamlama serileri/renkleri değişmeyecek. (Baz alınan: Sezgi)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Kaçınılan günlük iş sayısı: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> Kaçınılan günlük iş sayısı: <%- number %>.",
     "spellRogueStealthMaxedOut": "Tüm günlük işlerinden zaten kaçındın; bunu tekrar uygulamana gerek yok.",
     "spellHealerHealText": "İyileştirici Işık",
     "spellHealerHealNotes": "Parlayan ışık sağlığını geri kazandırır! (Baz alınan: Bünye ve Zeka)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Mücadele işlerine büyü yapamazsın.",
     "groupTasksNoCast": "Grup işlerine büyü yapamazsın.",
     "spellNotOwned": "Bu yeteneğe sahip değilsin.",
-    "spellLevelTooHigh": "Bu yeteneği kullanmak için <%= level %>. seviyeye ulaşmalısın."
+    "spellLevelTooHigh": "Bu yeteneği kullanmak için <%- level %>. seviyeye ulaşmalısın."
 }

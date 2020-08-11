@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "Nincsen <%= type %>.",
+  "noItemsAvailableForType": "Nincsen <%- type %>.",
   "foodItemType": "Élelem",
   "eggsItemType": "Tojások",
   "hatchingPotionsItemType": "Keltetőfőzetek",

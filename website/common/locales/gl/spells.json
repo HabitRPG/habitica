@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Discreción",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Número de tarefas diarias evitadas: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> Número de tarefas diarias evitadas: <%- number %>.",
     "spellRogueStealthMaxedOut": "Xa evitaches todos os teus diarios; non precisas volver a botalo.",
     "spellHealerHealText": "Luz Curativa",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Non está permitido botar unha habilidade nas tarefas do desafío.",
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "Non tes esta habilidade.",
-    "spellLevelTooHigh": "Tes que ser de nivel <%= level %> para usar esta habilidade."
+    "spellLevelTooHigh": "Tes que ser de nivel <%- level %> para usar esta habilidade."
 }

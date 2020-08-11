@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Näppärät taitosi vahvistavat koko seurueesi Tarkkaavaisuutta! (Perustuu vahvistamattomaan Tarkkaavaisuuteen)",
     "spellRogueStealthText": "Lymyily",
     "spellRogueStealthNotes": "Joka kerta kun käytät tätä taitoa, muutama tekemättömistä päivittäisistä tehtävistäsi eivät aiheuta vahinkoa tänään. Niiden putkien pituudet ja värit eivät muutu. (Perustuu Tarkkaavaisuuteen)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Päivittäisiä tehtäviä vältetty: <%= number %>",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> Päivittäisiä tehtäviä vältetty: <%- number %>",
     "spellRogueStealthMaxedOut": "Olet jo välttänyt kaikki päivittäiset tehtäväsi; tätä kykyä ei tarvitse käyttää uudestaan.",
     "spellHealerHealText": "Parantava valo",
     "spellHealerHealNotes": "Hohtava valo parantaa terveyttäsi! (Perustuu Kestävyyteen ja Älykkyyteen)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Kykyjä ei voi käyttää haastetehtäviin.",
     "groupTasksNoCast": "Kykyjä ei voi käyttää ryhmätehtäviin.",
     "spellNotOwned": "Et omaa tätä kykyä.",
-    "spellLevelTooHigh": "Sinun on oltava tasolla <%= level %> käyttääksesi tätä kykyä."
+    "spellLevelTooHigh": "Sinun on oltava tasolla <%- level %> käyttääksesi tätä kykyä."
 }
