@@ -52,6 +52,11 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+  .toggle-switch-outer {
+    display: flex;
+    align-items: center;
+  }
+
   .toggle-switch {
     position: relative;
     width: 40px;

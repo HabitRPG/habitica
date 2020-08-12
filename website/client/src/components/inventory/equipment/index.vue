@@ -24,22 +24,24 @@
     </div>
     <div class="standard-page">
       <div class="clearfix">
-        <div class="mb-4">
+        <div class="mb-4 float-left">
           <button
-            class="page-header btn-flat"
+            class="page-header btn-flat equipment-type-button"
+            :class="{'active': !costumeMode}"
             @click="selectDrawerTab('equipment')"
           >
             {{ $t('battleGear') }}
           </button>
           <button
-            class="page-header btn-flat"
+            class="page-header btn-flat equipment-type-button"
+            :class="{'active': costumeMode}"
             @click="selectDrawerTab('costume')"
           >
             {{ $t('costume') }}
           </button>
         </div>
 
-        <div class="float-right">
+        <div class="float-right top-menu">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
           <b-dropdown
             :text="$t(selectedSortGearBy)"
@@ -72,31 +74,41 @@
               {{ $t('class') }}
             </b-dropdown-item>
           </b-dropdown>
+
+          <span class="divider"></span>
+          <b-dropdown
+            text="Unequip"
+            right="right"
+          >
+            <b-dropdown-item
+              @click="unequipBattleGear()"
+            >
+              {{ $t('battleGear') }}
+            </b-dropdown-item>
+            <b-dropdown-item
+              @click="unequipCostume()"
+            >
+              {{ $t('costume') }}
+            </b-dropdown-item>
+            <b-dropdown-item
+              @click="unequipPetMount()"
+            >
+              {{ $t('petAndMount') }}
+            </b-dropdown-item>
+            <b-dropdown-item
+              @click="unequipBackground()"
+            >
+              {{ $t('background') }}
+            </b-dropdown-item>
+            <b-dropdown-item
+              @click="unequipAllItems()"
+            >
+              {{ $t('allItems') }}
+            </b-dropdown-item>
+          </b-dropdown>
         </div>
       </div>
 
-      <div class="settings-line">
-        <div class="space"></div>
-        <div class="right-column">
-          <div class="toggle-group inline">
-            <toggle-switch
-              class="inline"
-              :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
-              :checked="user.preferences[drawerPreference]"
-              :hover-text="$t(drawerPreference+'PopoverText')"
-              :bold-label="true"
-              @change="changeDrawerPreference"
-            />
-          </div>
-          <button class="btn btn-danger" @click="unequipItems()">
-            {{ $t(costumeMode ? 'unequipCostume' : 'unequipBattleGear') }}
-          </button>
-
-          <button class="btn btn-danger" @click="unequipPetMountBackground()">
-            {{ $t('unequipPetMountBackground') }}
-          </button>
-        </div>
-      </div>
       <drawer
         :no-title-bottom-padding="true"
         :error-message="(costumeMode && !user.preferences.costume) ? $t('costumeDisabled') : null"
@@ -122,7 +134,13 @@
         <div slot="drawer-header">
           <div class="drawer-tab-container">
             <div class="clearfix">
-
+              <toggle-switch
+                class="float-right align-with-tab"
+                :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
+                :checked="user.preferences[drawerPreference]"
+                :hover-text="$t(drawerPreference+'PopoverText')"
+                @change="changeDrawerPreference"
+              />
             </div>
           </div>
         </div>
@@ -292,6 +310,41 @@
   .toggle-group {
     vertical-align: middle;
   }
+}
+
+
+.equipment-type-button {
+  height: 2rem;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: condensed;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: $gray-10;
+
+  margin-right: 1.125rem;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 2.5rem;
+
+  &.active, &:hover {
+    color: $purple-300;
+    box-shadow: 0px -0.25rem 0px $purple-300 inset;
+    outline: none;
+  }
+}
+
+.divider {
+  width: 0.063rem;
+  height: 2rem;
+  background-color: $gray-500;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.top-menu {
+  display: flex;
+  align-items: center;
 }
 </style>
 
@@ -586,6 +639,16 @@ export default {
       this.$store.dispatch('user:unequip', {
         type: UNEQUIP_PET_MOUNT,
       });
+    },
+    unequipBattleGear () {
+    },
+    unequipCostume () {
+    },
+    unequipPetMount () {
+    },
+    unequipBackground () {
+    },
+    unequipAllItems () {
     },
   },
 };
