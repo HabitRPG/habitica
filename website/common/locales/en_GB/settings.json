@@ -213,5 +213,6 @@
     "newPMNotificationTitle": "New Message from <%= name %>",
     "chatExtensionDesc": "The Chat Extension for Habitica adds an intuitive chat box to all of habitica.com. It allows users to chat in the Tavern, their party, and any guilds they are in.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chat Extension</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox Chat Extension</a>",
-    "buyGemsGoldCapBase": "Gem cap at <%= amount %>"
+    "buyGemsGoldCapBase": "Gem cap at <%= amount %>",
+    "displaynameIssueNewline": "Display Names may not contain backslashes followed by the letter N."
 }

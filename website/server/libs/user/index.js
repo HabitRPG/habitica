@@ -6,7 +6,7 @@ import {
   NotAuthorized,
 } from '../errors';
 import { model as User, schema as UserSchema } from '../../models/user';
-import { nameContainsSlur } from './validation';
+import { nameContainsSlur, nameContainsNewline } from './validation';
 
 export async function get (req, res, { isV3 = false }) {
   const { user } = res.locals;
@@ -112,6 +112,7 @@ export async function update (req, res, { isV3 = false }) {
     if (newName === null) throw new BadRequest(res.t('invalidReqParams'));
     if (newName.length > 30) throw new BadRequest(res.t('displaynameIssueLength'));
     if (nameContainsSlur(newName)) throw new BadRequest(res.t('displaynameIssueSlur'));
+    if (nameContainsNewline(newName)) throw new BadRequest(res.t('displaynameIssueNewline'));
   }
 
   _.each(req.body, (val, key) => {

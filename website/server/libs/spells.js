@@ -163,6 +163,20 @@ async function castSpell (req, res, { isV3 = false }) {
       task: results[1],
     });
   } else if (targetType === 'self') {
+    const spellName = spell.key;
+    // Check if stealth skill has been previously casted or not.
+    // See #12361 for more details.
+    if (spellName === 'stealth') {
+      const incompleteDailiesDue = await Tasks.Task.countDocuments({
+        userId: user._id,
+        type: 'daily',
+        completed: false,
+        isDue: true,
+      }).exec();
+      if (user.stats.buffs.stealth >= incompleteDailiesDue) {
+        throw new BadRequest(res.t('spellAlreadyCast'));
+      }
+    }
     await castSelfSpell(req, user, spell, quantity);
 
     let userToJson = user;

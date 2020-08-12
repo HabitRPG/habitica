@@ -64,7 +64,7 @@ async function cronAsync (req, res) {
 
     user = await User.findOne({ _id: user._id }).exec();
     res.locals.user = user;
-    const { daysMissed, timezoneOffsetFromUserPrefs } = user.daysUserHasMissed(now, req);
+    const { daysMissed, timezoneUtcOffsetFromUserPrefs } = user.daysUserHasMissed(now, req);
 
     await updateLastCron(user, now);
 
@@ -94,7 +94,7 @@ async function cronAsync (req, res) {
       now,
       daysMissed,
       analytics,
-      timezoneOffsetFromUserPrefs,
+      timezoneUtcOffsetFromUserPrefs,
       headers: req.headers,
     });
 

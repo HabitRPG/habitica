@@ -8,8 +8,9 @@
 //------------------------------
 global._ = require('lodash');
 global.chai = require('chai');
-chai.use(require('sinon-chai'));
 chai.use(require('chai-as-promised'));
+chai.use(require('chai-moment'));
+chai.use(require('sinon-chai'));
 
 global.expect = chai.expect;
 global.sinon = require('sinon');

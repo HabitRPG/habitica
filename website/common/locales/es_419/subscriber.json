@@ -214,5 +214,6 @@
     "purchaseAll": "Purchase Set",
     "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
     "gemsRemaining": "Gemas restantes",
-    "notEnoughGemsToBuy": "No puedes comprar ese número de gemas"
+    "notEnoughGemsToBuy": "No puedes comprar ese número de gemas",
+    "viewSubscriptions": "Ver suscripciones"
 }

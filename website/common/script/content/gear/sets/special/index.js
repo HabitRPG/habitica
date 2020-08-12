@@ -1326,6 +1326,12 @@ const back = {
     value: 0,
     canOwn: ownsItem('back_special_turkeyTailGilded'),
   },
+  namingDay2020: {
+    text: t('backSpecialNamingDay2020Text'),
+    notes: t('backSpecialNamingDay2020Notes'),
+    value: 0,
+    canOwn: ownsItem('back_special_namingDay2020'),
+  },
 };
 
 const body = {

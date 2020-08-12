@@ -57,10 +57,10 @@
       background: $purple-200;
       border: 1px solid transparent;
 
-      &:focus {
-        box-shadow: none;
-        border-color: $purple-400;
-      }
+  &:not(:disabled):not(.disabled) {
+    &:active:focus, &.active:focus {
+      box-shadow: none;
+      border-color: $purple-400;
     }
   }
 

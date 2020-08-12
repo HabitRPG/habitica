@@ -2131,7 +2131,7 @@
     "headSpecialSummer2020HealerText": "Capacete Cravejado de Vidro",
     "armorArmoirePirateOutfitNotes": "Basta, seus marinheiros de água doce! A roupa perfeita para esfregar o convés e contar seus espólios. Aumenta a Constituição e a Inteligência em <%= attrs %> cada. Gabinete Encantado: Conjunto de Piratas (Item 2 de 3).",
     "armorSpecialSummer2020HealerText": "Regalia de Ondas Quebradas",
-    "shieldArmoirePiratesCompanionNotes": "Perfeito, se você quiser matar seus inimigos com palavras, este papagaio nunca se cala. Talvez ele também possa lembrar você de suas tarefas! Aumenta a Percepção em <%= por %>. Gabinete Encantado: Conjunto de Piratas (Item 3 de 3).",
+    "shieldArmoirePiratesCompanionNotes": "Perfeito, se você quiser matar seus inimigos com palavras, este papagaio nunca se cala. Talvez ele também possa lembrar você de suas tarefas! Aumenta a Percepção em <%= per %>. Gabinete Encantado: Conjunto de Piratas (Item 3 de 3).",
     "shieldArmoirePiratesCompanionText": "O Companheiro do Pirata",
     "shieldSpecialSummer2020HealerNotes": "Como o movimento da areia e da água transforma o lixo em tesouro, assim também suas feridas mágicas transformarão as feridas em força. Aumenta a Constituição em <%= con %>. Edição Limitada 2020 Equipamento de Verão.",
     "shieldSpecialSummer2020HealerText": "Égide de Vidro Tombado",
@@ -2143,11 +2143,17 @@
     "headSpecialSummer2020MageText": "Crista do Regaleco",
     "headSpecialSummer2020WarriorNotes": "\"Trute\" a sua força e habilidade com este capacete altamente visível. Aumenta a Força em <%= str %>. Edição Limitada 2020 Equipamento de Verão.",
     "headSpecialSummer2020WarriorText": "Boné do Peixe Cintilante",
-    "headSpecialSummer2020RogueNotes": "Complete o seu disfarce Gatuno com este capacete! Talvez você possa enganar os seus inimigos com as suas lágrimas de crocodilo... Aumenta a Percepção em <%= por %>. Edição Limitada 2020 Equipamento de Verão.",
+    "headSpecialSummer2020RogueNotes": "Complete o seu disfarce Gatuno com este capacete! Talvez você possa enganar os seus inimigos com as suas lágrimas de crocodilo... Aumenta a Percepção em <%= per %>. Edição Limitada 2020 Equipamento de Verão.",
     "headSpecialSummer2020RogueText": "Capacete do Crocodilo",
     "armorArmoirePirateOutfitText": "Roupa de Pirata",
     "armorMystery202007Notes": "Nade, vire, mergulhe e corra com esta bela e poderosa cauda! Não traz nenhum benefício. Item de Assinante de Julho de 2020.",
     "armorMystery202007Text": "Esplêndido Traje Orca",
     "armorSpecialSummer2020HealerNotes": "Você é tão paciente quanto o oceano, tão forte quanto as correntes, tão confiável quanto as marés. Aumenta a Constituição em <%= con %>. Edição Limitada 2020 Equipamento de Verão.",
-    "armorSpecialSummer2020MageNotes": "Aproveite o poder das profundezas do mar com esta armadura de remos. Aumenta a inteligência em <%= int %>. Edição Limitada 2020 Equipamento de Verão."
+    "armorSpecialSummer2020MageNotes": "Aproveite o poder das profundezas do mar com esta armadura de remos. Aumenta a inteligência em <%= int %>. Edição Limitada 2020 Equipamento de Verão.",
+    "headMystery202008Notes": "U! U! Uma pessoa se aproxima, pedindo conselhos? Não concede benefícios. Item de Assinante, Agosto de 2020.",
+    "headMystery202008Text": "Cocar do Oráculo Coruja",
+    "bodyMystery202008Notes": "Por enquanto, suas asas estão enroladas. Mas, quando tiver terminado de distribuir sua sabedoria, ou ao ver sua presa na grama, tome cuidado! Não concede benefícios. Item de Assinante, Agosto de 2020.",
+    "bodyMystery202008Text": "Manta do Oráculo Coruja",
+    "backSpecialNamingDay2020Notes": "Feliz Aniversário do Habitica! Agite esta cauda ardente e pixelizada enquanto celebra o Habitica. Não concede benefícios.",
+    "backSpecialNamingDay2020Text": "Cauda de Grifo Roxo Real"
 }

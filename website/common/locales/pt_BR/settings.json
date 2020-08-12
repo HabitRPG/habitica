@@ -213,5 +213,6 @@
     "mentioning": "Menção",
     "chatExtensionDesc": "As extensões de bate-papo para o Habitica adiciona uma caixa intuitiva de conversação para todos os espaços sociais do habitica.com. Isso permite que os usuários conversem na Taverna, em seu grupo e nas guildas as quais fazem parte.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Extensão de Bate-papo para o Chrome</a> e <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Extensão de bate-papo para o Firefox</a>",
-    "buyGemsGoldCapBase": "Limite de gemas em <%= amount %>"
+    "buyGemsGoldCapBase": "Limite de gemas em <%= amount %>",
+    "displaynameIssueNewline": "Os nomes de exibição não podem conter barras invertidas seguidas pela letra N."
 }

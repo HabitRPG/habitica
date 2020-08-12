@@ -13,6 +13,15 @@ export function getTagsFor (store) {
     .map(tag => tag.name);
 }
 
+export function getTagsByIdList (store) {
+  return function tagsByIdListFunc (taskIdArray) {
+    return (taskIdArray || []).length > 0
+      ? store.state.user.data.tags
+        .filter(tag => taskIdArray.indexOf(tag.id) !== -1)
+      : [];
+  };
+}
+
 function getTaskColor (task) {
   if (task.type === 'reward' || task.byHabitica) return 'purple';
 
@@ -110,7 +119,9 @@ export function canEdit (store) {
 
 function _nonInteractive (task) {
   return (task.group && task.group.id && !task.userId)
-    || (task.challenge && task.challenge.id && !task.userId);
+    || (task.challenge && task.challenge.id && !task.userId)
+    || (task.group && task.group.approval && task.group.approval.requested
+      && task.type !== 'habit');
 }
 
 export function getTaskClasses (store) {
@@ -132,6 +143,8 @@ export function getTaskClasses (store) {
         return `task-${color}-modal-content`;
       case 'create-modal-content':
         return 'task-purple-modal-content';
+      case 'edit-modal-headings':
+        return `task-${color}-modal-headings`;
       case 'edit-modal-text':
         return `task-${color}-modal-text`;
       case 'edit-modal-icon':
@@ -144,6 +157,8 @@ export function getTaskClasses (store) {
         return `task-${color}-modal-habit-control-disabled`;
       case 'create-modal-bg':
         return 'task-purple-modal-bg';
+      case 'create-modal-headings':
+        return 'task-purple-modal-headings';
       case 'create-modal-text':
         return 'task-purple-modal-text';
       case 'create-modal-input':
