@@ -12,7 +12,7 @@
       </div>
       <span
         v-if="hoverText"
-        :id="hoverId"
+        :id="containerId"
         class="svg-icon inline icon-16  float-left"
         v-html="icons.information"
       >
@@ -44,7 +44,7 @@
     </div>
     <b-popover
       v-if="hoverText"
-      :target="hoverId"
+      :target="containerId"
       triggers="hover"
       placement="top"
     >
