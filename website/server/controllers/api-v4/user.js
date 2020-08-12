@@ -245,7 +245,6 @@ api.verifyDisplayName = {
   },
 };
 
-
 /**
  * @api {post} /api/v4/user/unequip/:type Unequip all items by type
  * @apiName UserUnEquipByType
@@ -268,7 +267,7 @@ api.verifyDisplayName = {
  * }
  *
  */
-api.equip = {
+api.unequip = {
   method: 'POST',
   middlewares: [authWithHeaders()],
   url: '/user/unequip/:type',
