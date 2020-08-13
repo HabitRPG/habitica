@@ -1,6 +1,6 @@
 {
     "habiticaBackSoon": "Bare rolig, Habitica er snart tilbage!",
-    "importantMaintenance": "Vi udfører vigtig vedligeholdelse og forventer at være færdige <%= localDate %> i din tidszone.",
+    "importantMaintenance": "Vi udfører vigtig vedligeholdelse og forventer at være færdige <%- localDate %> i din tidszone.",
     "maintenance": "Vedligeholdelse",
     "maintenanceMoreInfo": "Vil du vide mere om vores vedligeholdelse? <%= linkStart %>Check vores infoside<%= linkEnd %>.",
     "noDamageKeepStreaks": "Du vil IKKE blive skadet eller miste stribepræstationer!",

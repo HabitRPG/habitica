@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "Δεν έχεις <%= type %>",
+  "noItemsAvailableForType": "Δεν έχεις <%- type %>",
   "foodItemType": "Φαγητό",
   "eggsItemType": "Αυγά",
   "hatchingPotionsItemType": "Φίλτρα εκκόλαψης",

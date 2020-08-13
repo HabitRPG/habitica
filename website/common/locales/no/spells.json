@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Usynlighet",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Antall daglige unngått: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> Antall daglige unngått: <%- number %>.",
     "spellRogueStealthMaxedOut": "Du har allerede unngått alle dine daglige; du trenger ikke kaste denne igjen.",
     "spellHealerHealText": "Helbredende lys",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Å kaste en ferdighet på en utfordringsoppgave er ikke tillatt.",
     "groupTasksNoCast": "Å kaste en ferdighet på en gruppeoppgave er ikke tillatt.",
     "spellNotOwned": "Du eier ikke denne ferdigheten.",
-    "spellLevelTooHigh": "Du må være på nivå <%= level %> for å benytte denne ferdigheten."
+    "spellLevelTooHigh": "Du må være på nivå <%- level %> for å benytte denne ferdigheten."
 }

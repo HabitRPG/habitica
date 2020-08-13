@@ -111,7 +111,7 @@
     "emailNotifications": "",
     "wonChallenge": "",
     "newPM": "",
-    "newPMInfo": "New Message from <%= name %>: <%= message %>",
+    "newPMInfo": "New Message from <%- name %>: <%- message %>",
     "giftedGems": "",
     "giftedGemsInfo": "",
     "giftedGemsFull": "",

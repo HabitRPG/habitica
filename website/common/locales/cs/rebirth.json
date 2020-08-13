@@ -14,17 +14,17 @@
     "rebirthInList4": "Věci získané pomocí Drahokamů nebo mazlíčci a jezdecká zvířata zůstávají.",
     "rebirthEarnAchievement": "Také dostaneš ocenění za začátek nového dobrodružství!",
     "beReborn": "Buď znovuzrozen",
-    "rebirthAchievement": "Začal jsi nové dobrodružství! Tohle je Znovuzrození číslo <%= number %> a nejvyšší úroveň, které jsi dosáhl je <%= level %>. K dosažení dalšího ocenění začni nové dobrodružství až dosáhneš ještě vyšší úrovně!",
-    "rebirthAchievement100": "Začal jsi nové dobrodružství! Toto je tvé <%= number %>. Znovuzrození. Dosáhl jsi úrovně 100 nebo vyšší. Aby sis udržel toto ocenění, začni další dobrodružství po dosažení nejméně sté úrovně!",
+    "rebirthAchievement": "Začal jsi nové dobrodružství! Tohle je Znovuzrození číslo <%- number %> a nejvyšší úroveň, které jsi dosáhl je <%- level %>. K dosažení dalšího ocenění začni nové dobrodružství až dosáhneš ještě vyšší úrovně!",
+    "rebirthAchievement100": "Začal jsi nové dobrodružství! Toto je tvé <%- number %>. Znovuzrození. Dosáhl jsi úrovně 100 nebo vyšší. Aby sis udržel toto ocenění, začni další dobrodružství po dosažení nejméně sté úrovně!",
     "rebirthBegan": "Začal nové dobrodružství",
-    "rebirthText": "Začal <%= rebirths %> nových dobrodružství",
-    "rebirthOrb": "Použil Kouli Znovozrození, aby začal znova, po dosáhnutí úrovně <%= level %>.",
+    "rebirthText": "Začal <%- rebirths %> nových dobrodružství",
+    "rebirthOrb": "Použil Kouli Znovozrození, aby začal znova, po dosáhnutí úrovně <%- level %>.",
     "rebirthOrb100": "Použil Kouli znovuzrození, aby začal odznovu po dosažení úrovně 100 nebo vyšší.",
     "rebirthOrbNoLevel": "Použil Kouli Znovozrození, aby začal znova.",
     "rebirthPop": "Obnoví tvou postavu a vrátí jí na 1. úroveň s povoláním Válečníka, zatímco ti zůstanou všechny úspěchy, celá sbírka a vybavení. Tvoje úkoly zůstanou i s historií, ale vrátí se na žlutou barvu. Tvé řady úspěchů se resetují, zůstanou úkoly patřící do aktivních výzev a do Skupiny. Tvé zlato, zkušenosti, mana a efekty všech schopností budou odstraněny. Toto vše nastane s okamžitou platností. Pro více informací se podívej na wiki stránku: <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>.",
     "rebirthName": "Koule znovuzrození",
-    "reborn": "Znovuzrozen, maximální úroveň <%= reLevel %>",
+    "reborn": "Znovuzrozen, maximální úroveň <%- reLevel %>",
     "confirmReborn": "Jsi si jistý?",
     "rebirthComplete": "Byl jste znovuzrozen!",
-    "nextFreeRebirth": "<strong><%= days %> dni</strong> do <strong>bezplatného</strong> Koule znovuzrození"
+    "nextFreeRebirth": "<strong><%- days %> dni</strong> do <strong>bezplatného</strong> Koule znovuzrození"
 }

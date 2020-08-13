@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "חשאיות",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> מספר המטלות היומיות שהתחמקתם: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> מספר המטלות היומיות שהתחמקתם: <%- number %>.",
     "spellRogueStealthMaxedOut": "כבר התחמקתם מכל המטלות היומיות שלכם; אין צורך להשתמש ביכולת זו שוב.",
     "spellHealerHealText": "אור מרפא",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "לא ניתן להשתמש ביכולות מיוחדות על משימות של אתגרים.",
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "אין לכם את היכולת הזו.",
-    "spellLevelTooHigh": "עליכם להיות בדרגה <%= level %> כדי להשתמש ביכולת מיוחדת."
+    "spellLevelTooHigh": "עליכם להיות בדרגה <%- level %> כדי להשתמש ביכולת מיוחדת."
 }

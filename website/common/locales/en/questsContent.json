@@ -809,7 +809,7 @@
   "questWaffleUnlockText": "Unlocks Confection Hatching Potions for purchase in the Market",
 
   "jungleBuddiesText": "Jungle Buddies Quest Bundle",
-  "jungleBuddiesNotes": "Contains 'Monstrous Mandrill and the Mischief Monkeys', 'The Somnolent Sloth', and 'The Tangle Tree'. Available until <%= date %>.",
+  "jungleBuddiesNotes": "Contains 'Monstrous Mandrill and the Mischief Monkeys', 'The Somnolent Sloth', and 'The Tangle Tree'. Available until <%- date %>.",
 
   "questFluoriteText": "A Bright Fluorite Fright",
   "questFluoriteNotes": "Unusual minerals are in high demand these days, so you and a few friends have trekked deep into the mines of the Meandering Mountains, in search of exciting ores. It’s a long and boring expedition, until @-Tyr- stumbles over a large rock, sitting right in the middle of the tunnel.<br><br>“This should help brighten things up,” says @nirbhao, before conjuring up an orb of light.<br><br>A warm brightness fills the tunnel, but something odd starts happening to that large rock. Feeding on the magical light, it begins to glow with fluorescent blues, greens and purples. Then it rears upright into a vaguely humanoid shape, complete with glowing red eyes fixed right on you! You jump into action with flashing spells and shining weapons.",

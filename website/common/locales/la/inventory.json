@@ -1,5 +1,5 @@
 {
-    "noItemsAvailableForType": "Non est tibi <%= type %>.",
+    "noItemsAvailableForType": "Non est tibi <%- type %>.",
     "foodItemType": "Cibus",
     "eggsItemType": "Ova",
     "hatchingPotionsItemType": "Potiones Incubantes",

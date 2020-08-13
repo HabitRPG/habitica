@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "Kamu tidak punya <%= type %>.",
+  "noItemsAvailableForType": "Kamu tidak punya <%- type %>.",
   "foodItemType": "Makanan",
   "eggsItemType": "Telur",
   "hatchingPotionsItemType": "Ramuan Penetas",
