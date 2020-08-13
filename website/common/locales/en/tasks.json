@@ -81,6 +81,7 @@
   "complete2": "Complete",
   "dated": "Dated",
   "today": "Today",
+  "tomorrow": "Tomorrow",
   "dueIn": "Due <%= dueIn %>",
   "due": "Due",
   "notDue": "Not Due",

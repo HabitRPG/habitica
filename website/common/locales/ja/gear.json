@@ -1942,5 +1942,17 @@
     "bodyMystery202008Notes": "今のところ、マントの翼は折りたたまれています。しかし、知恵を授け終えたとき、あるいは草むらの中にえさを見つけたときは、気をつけて！効果なし。2020年8月の寄付会員アイテム。",
     "bodyMystery202008Text": "フクロウ賢者のマント",
     "headMystery202008Notes": "ホーホー、そこにいるのは誰じゃ？助言をお望みかな？効果なし。2020年8月の寄付会員アイテム。",
-    "headMystery202008Text": "フクロウ賢者の頭飾り"
+    "headMystery202008Text": "フクロウ賢者の頭飾り",
+    "weaponArmoirePaperCutterNotes": "見た目は怖くないかもしれませんが、紙で指を切ったことのない人はいないでしょ？力が<%= str %>上がります。ラッキー宝箱：紙の騎士セット（3個中1個目のアイテム）。",
+    "weaponArmoirePaperCutterText": "紙の剣",
+    "shieldArmoireFiddleNotes": "楽団の中にいても、常に正しい音を奏でられる、完璧な楽器です。知能が<%= int %>上がります。ラッキー宝箱：バイオリン弾きセット（4個中4個目のアイテム）。",
+    "shieldArmoireFiddleText": "バイオリン弾きのバイオリン",
+    "armorArmoireBoxArmorNotes": "箱型の鎧：あなたにぴったり合っているから、しっかり座って……じゃない、あなたにぴったり合っているから、戦闘で着れば、勇敢な戦士のようになりますよ！知覚と体質がそれぞれ<%= attrs %>上がります。ラッキー宝箱：紙の騎士セット（3個中3個目のアイテム）。",
+    "armorArmoireBoxArmorText": "箱型の鎧",
+    "shieldArmoireHobbyHorseNotes": "自分への純粋なごほうびのために、このりりしいおもちゃの馬にまたがりましょう！知覚と体質がそれぞれ<%= attrs %>上がります。ラッキー宝箱：紙の騎士セット（3個中2個目のアイテム）。",
+    "shieldArmoireHobbyHorseText": "おもちゃの馬",
+    "weaponArmoireBambooCaneNotes": "散歩の完璧なお供であり、チャールストンを踊るのにも適しています。知能、知覚、体質がそれぞれ<%= attrs %>上がります。ラッキー宝箱：ボート遊びセット（3個中1個目のアイテム）。",
+    "weaponArmoireBambooCaneText": "竹のステッキ",
+    "armorArmoireBoatingJacketNotes": "このジャケットとネクタイを着ていれば、しゃれたヨットの上やおんぼろ自動車に乗っていても、ネコのようにくつろげます。力と知能と知覚がそれぞれ<%= attrs %>上がります。ラッキー宝箱：ボート遊びセット（3個中1個目のアイテム）。",
+    "armorArmoireBoatingJacketText": "ボート乗りのジャケット"
 }

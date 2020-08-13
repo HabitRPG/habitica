@@ -144,7 +144,7 @@ export default {
         challengeId: this.challengeId,
         winnerId: this.winner._id,
       });
-      this.$root.$emit('habitica::dismiss-modal', 'close-challenge-modal');
+      this.$root.$emit('bv::hide::modal', 'close-challenge-modal');
       this.$router.push('/challenges/myChallenges');
     },
     async deleteChallenge () {
@@ -153,7 +153,7 @@ export default {
         challengeId: this.challengeId,
         prize: this.prize,
       });
-      this.$root.$emit('habitica::dismiss-modal', 'close-challenge-modal');
+      this.$root.$emit('bv::hide::modal', 'close-challenge-modal');
       this.$router.push('/challenges/myChallenges');
     },
   },

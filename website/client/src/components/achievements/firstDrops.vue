@@ -126,7 +126,7 @@ export default {
         egg: '',
         hatchingPotion: '',
       };
-      this.$root.$emit('habitica::dismiss-modal', 'first-drops');
+      this.$root.$emit('bv::hide::modal', 'first-drops');
     },
     toInventory () {
       this.$router.push('/inventory/items');
