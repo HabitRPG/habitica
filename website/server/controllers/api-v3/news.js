@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BACK TO SCHOOL CHALLENGE, NEW BACKGROUNDS, AND NEW ENCHANTED ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: MYSTIC HOURGLASSES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,37 +31,21 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/11/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/13/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_reading center-block"></div>
-        <h3>Official Habitica Challenge: Back-to-School Preparation!</h3>
+        <div class="promo_time_travelers center-block"></div>
         <p>
-          The school year is looming large for many scholarly Habiticans, so we've prepared a
-          special <a href='/challenges/8d6e280a-4dc8-4957-b2b4-feb07ce9ff6b'>Back-to-School
-          Challenge</a> to help with the transition between summer and semester. Check it out now
-          for a chance to win: five lucky winners will get a badge for their profile and their
-          choice of a <a href='https://habitica.wikia.com/wiki/Subscription'
-          target='_blank'>gift subscription</a> or Gems!
+          This month's <a href='https://habitica.wordpress.com/2020/08/12/mystic-hourglass/'
+          target='_blank'>featured Wiki article</a> is about Mystic Hourglasses! We hope that it
+          will help you learn more about Habitica's Mysterious Time Travelers and all their shop
+          has to offer. Be sure to check it out, and let us know what you think by reaching out on
+          <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
+          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
+          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_armoire_backgrounds_202008 center-block"></div>
-        <h3>August Backgrounds and Armoire Items!</h3>
-        <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can stroll
-          through Habit City's Productivity Plaza, enjoy the outdoors by Camping Out, or bask in
-          the splendor of the Jungle Canopy. Check them out under User Icon > Backgrounds on web
-          and Menu > Inventory > Customize Avatar on mobile!
-        </p>
-        <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Heroic Herbalist Set. Better work hard on your real-life tasks to earn all the pieces!
-          Enjoy :)
-        </p>
-        <div class="small mb-3">
-          by AnnDeLune, katieslug, Alonquain,-Tyr-, OuttaMyMind, shanaqui and SabreCat
-        </div>
+        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
       </div>
       `,
     });
