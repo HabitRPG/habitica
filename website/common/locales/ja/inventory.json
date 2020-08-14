@@ -1,5 +1,5 @@
 {
-    "noItemsAvailableForType": "<%= type %>を持っていません。",
+    "noItemsAvailableForType": "<%- type %>を持っていません。",
     "foodItemType": "ペットのえさ",
     "eggsItemType": "たまご",
     "hatchingPotionsItemType": "たまごがえしの薬",

@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Dina listiga talanger förbättrar hela ditt Sällskaps Uppmärksamhet! (Baserat på: oförbättrad UPP)",
     "spellRogueStealthText": "Smygande",
     "spellRogueStealthNotes": "För varje kast av besvärjelsen så kommer några av dina ogjorda Dagliga Uppgifter inte skada dig under natten. Deras färg och följder kommer inte ändras. (Baserat på: UPP)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Antal Dagliga Utmaningar undvikna: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> Antal Dagliga Utmaningar undvikna: <%- number %>.",
     "spellRogueStealthMaxedOut": "Du har redan undvikit alla dina Dagliga Utmaningar; du behöver inte kasta den här igen.",
     "spellHealerHealText": "Helande ljus",
     "spellHealerHealNotes": "Ett sken återställer din hälsa! (Baserat på: TÅL och INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Att kasta en färdighet på Utmaningsuppgifter är inte tillåtet.",
     "groupTasksNoCast": "Det är inte tillåtet att kasta en färdighet på gruppuppgifter.",
     "spellNotOwned": "Du äger inte denna färdighet.",
-    "spellLevelTooHigh": "Du måste vara level <%= level %> för att använda den här färdigheten."
+    "spellLevelTooHigh": "Du måste vara level <%- level %> för att använda den här färdigheten."
 }

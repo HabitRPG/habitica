@@ -3,6 +3,8 @@
     <approval-modal :task="task" />
     <div
       class="claim-bottom-message d-flex align-items-center"
+      v-if="!(userIsAssigned && task.group.approval.approved
+        && !task.completed && task.type !== 'habit')"
     >
       <div
         class="mr-auto ml-2"
@@ -108,7 +110,7 @@ export default {
         assignedUsers.forEach(userId => {
           const index = findIndex(this.group.members, member => member._id === userId);
           const assignedMember = this.group.members[index];
-          assignedUsersNames.push(assignedMember.profile.name);
+          assignedUsersNames.push(`@${assignedMember.auth.local.username}`);
         });
       }
 

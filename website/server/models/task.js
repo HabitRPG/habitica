@@ -363,9 +363,9 @@ export const DailySchema = new Schema(_.defaults({
   },
   streak: { $type: Number, default: 0 },
   // Days of the month that the daily should repeat on
-  daysOfMonth: { $type: [Number], default: [] },
+  daysOfMonth: { $type: [Number], default: () => [] },
   // Weeks of the month that the daily should repeat on
-  weeksOfMonth: { $type: [Number], default: [] },
+  weeksOfMonth: { $type: [Number], default: () => [] },
   isDue: { $type: Boolean },
   nextDue: [{ $type: String }],
   yesterDaily: { $type: Boolean, default: true, required: true },

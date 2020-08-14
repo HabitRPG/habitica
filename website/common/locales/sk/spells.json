@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Zakrádanie",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Počet denných úloh, ktorým si sa vyhol: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> Počet denných úloh, ktorým si sa vyhol: <%- number %>.",
     "spellRogueStealthMaxedOut": "Dnes si sa vyhol všetkým tvojim denným úlohám, takže je zbytočné zosielať kúzlo znovu.",
     "spellHealerHealText": "Liečivá žiara",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Zoslanie kúzla na úlohu z výzvy nie je povolené.",
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "Nevlastníš toto kúzlo.",
-    "spellLevelTooHigh": "Musíš byť level <%= level %>, aby si použil toto kúzlo."
+    "spellLevelTooHigh": "Musíš byť level <%- level %>, aby si použil toto kúzlo."
 }
