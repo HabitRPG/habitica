@@ -103,8 +103,10 @@ function checkPreferencePurchase (user, path, item) {
 }
 
 async function checkNewInputForProfanity (user, res, newValue) {
-  if (stringContainsProfanity(newValue, 'slur') || stringContainsProfanity(newValue)) {
-    if (stringContainsProfanity(newValue, 'slur')) {
+  const containsSlur = stringContainsProfanity(newValue, 'slur');
+  const containsBannedWord = stringContainsProfanity(newValue);
+  if (containsSlur || containsBannedWord) {
+    if (containsSlur) {
       user.flags.chatRevoked = true;
       await user.save();
       throw new BadRequest(res.t('bannedSlurUsedInProfile'));
