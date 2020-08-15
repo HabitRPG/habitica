@@ -48,7 +48,7 @@ export function verifyDisplayName (displayName, res) {
   return issues;
 }
 
-export function verifyUsername (username, res, newUser = false) {
+export function verifyUsername (username, res, newUser = true) {
   const slurMessage = newUser
     ? res.t('usernameIssueSlur')
     : res.t('bannedSlurUsedInProfile');

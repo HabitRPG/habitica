@@ -10,7 +10,10 @@ export function removePunctuationFromString (str) {
 // so this method should not be used if wordsToMatch contains unsanitized user input
 export function getMatchesByWordArray (str, wordsToMatch) {
   const matchedWords = [];
-  const wordRegexs = wordsToMatch.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'));
+  const wordRegexs = wordsToMatch.map(word => {
+    const normalizedWord = removePunctuationFromString(normalizeUnicodeString(word));
+    return new RegExp(`\\b([^a-z]+)?${normalizedWord}([^a-z]+)?\\b`, 'i');
+  });
   for (let i = 0; i < wordRegexs.length; i += 1) {
     const regEx = wordRegexs[i];
     const match = removePunctuationFromString(normalizeUnicodeString(str)).match(regEx);
