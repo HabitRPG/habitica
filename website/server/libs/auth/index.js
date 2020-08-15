@@ -106,7 +106,7 @@ async function registerLocal (req, res, { isV3 = false }) {
   const validationErrors = req.validationErrors();
   if (validationErrors) throw validationErrors;
 
-  const issues = verifyUsername(req.body.username, res);
+  const issues = verifyUsername(req.body.username, res, true);
   if (issues.length > 0) throw new BadRequest(issues.join(' '));
 
   let { email, username } = req.body;

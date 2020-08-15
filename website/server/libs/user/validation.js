@@ -44,11 +44,14 @@ export function verifyDisplayName (displayName, res) {
   return issues;
 }
 
-export function verifyUsername (username, res) {
+export function verifyUsername (username, res, newUser = false) {
+  const slurMessage = newUser
+    ? res.t('usernameIssueSlur')
+    : res.t('bannedSlurUsedInProfile');
   const issues = [];
   if (username.length < 1 || username.length > 20) issues.push(res.t('usernameIssueLength'));
   if (usernameContainsInvalidCharacters(username)) issues.push(res.t('usernameIssueInvalidCharacters'));
-  if (stringContainsProfanity(username, 'slur') || stringContainsProfanity(username)) issues.push(res.t('usernameIssueSlur'));
+  if (stringContainsProfanity(username, 'slur') || stringContainsProfanity(username)) issues.push(slurMessage);
   if (usernameIsForbidden(username)) issues.push(res.t('usernameIssueForbidden'));
 
   return issues;
