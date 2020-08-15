@@ -158,13 +158,6 @@ describe('PUT /user/auth/update-username', async () => {
         error: 'BadRequest',
         message: [t('usernameIssueLength'), t('bannedSlurUsedInProfile')].join(' '),
       });
-      await expect(user.put(ENDPOINT, {
-        username: 'somethingTESTPLACEHOLDERSLURWORDHEREotherword',
-      })).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: [t('usernameIssueLength'), t('bannedSlurUsedInProfile')].join(' '),
-      });
     });
 
     it('errors if new username is not allowed', async () => {
