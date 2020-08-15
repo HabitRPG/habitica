@@ -48,7 +48,7 @@
               >
                 Player has had privilege(s) removed.
               </p>
-              <form @submit.prevent="saveHero()">
+              <form @submit.prevent="saveHeroOld()">
                 <div class="checkbox">
                   <label>
                     <input
@@ -220,7 +220,7 @@
                   click its "Change" button.
                   The item path and current value (if any) will be inserted below.
                 </p>
-                <form @submit.prevent="saveHero()">
+                <form @submit.prevent="saveHeroOld()">
                   <div>
                     <input
                       v-model="hero.itemPath"
@@ -260,74 +260,12 @@
             </div>
           </div>
 
-          <div class="accordion-group">
-            <h3
-              class="expand-toggle"
-              :class="{'open': expandContrib}"
-              @click="expandContrib = !expandContrib"
-            >
-              Contributor Details
-            </h3>
-            <div v-if="expandContrib">
-              <form @submit.prevent="saveHero()">
-                <div class="form-group form-inline">
-                  <label>Title</label>
-                  <input
-                    v-model="hero.contributor.text"
-                    class="form-control"
-                    type="text"
-                    :style="{ 'min-width': '50ch' }"
-                  >
-                  <small>
-                    Common titles:
-                    <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher,
-                      Linguist, Linguistic Scribe, Scribe, Socialite, Storyteller</strong>.
-                  </small>
-                  <small>
-                    Rare titles:
-                    Advisor, Chamberlain, Designer, Mathematician, Shirtster, Spokesperson,
-                    Statistician, Tinker, Transcriber, Troubadour.
-                  </small>
-                </div>
-                <div class="form-group form-inline">
-                  <label>Tier</label>
-                  <input
-                    v-model="hero.contributor.level"
-                    class="form-control"
-                    type="number"
-                    :style="{ 'width': '10ch' }"
-                  >
-                  <small>
-                    1-7 for normal contributors, 8 for moderators, 9 for staff.
-                    This determines which items, pets, mounts are available, and name-tag coloring.
-                    Tiers 8 and 9 are automatically given admin status.
-                    <a
-                      target="_blank"
-                      href="https://trello.com/c/wkFzONhE/277-contributor-gear"
-                    >More details (1-7)</a>,&nbsp;
-                    <a
-                      target="_blank"
-                      href="https://github.com/HabitRPG/habitica/issues/3801"
-                    >more details (8-9)</a>
-                  </small>
-                </div>
-                <div class="form-group">
-                  <label>Contributions</label>
-                  <textarea
-                    v-model="hero.contributor.contributions"
-                    class="form-control"
-                    cols="5"
-                    rows="5"
-                  ></textarea>
-                </div>
-                <input
-                  type="submit"
-                  value="Save"
-                  class="btn btn-primary"
-                >
-              </form>
-            </div>
-          </div>
+          <contributor-details
+            :hero="hero"
+            :resetCounter="this.resetCounter"
+            @clear-data="clearData"
+          />
+
         </div>
       </div>
     </div>
@@ -378,6 +316,7 @@ import BasicDetails from './user-support/basicDetails';
 import CronAndAuth from './user-support/cronAndAuth';
 import PartyAndQuest from './user-support/partyAndQuest';
 import AvatarAndDrops from './user-support/avatarAndDrops';
+import ContributorDetails from './user-support/contributorDetails';
 
 export default {
   components: {
@@ -385,6 +324,7 @@ export default {
     CronAndAuth,
     PartyAndQuest,
     AvatarAndDrops,
+    ContributorDetails,
   },
   directives: {
     markdown: markdownDirective,
@@ -413,7 +353,6 @@ export default {
         special: false,
       },
       expandUpdateItems: false,
-      expandContrib: false,
       itemTypes: ['eggs', 'hatchingPotions', 'food', 'pets', 'mounts', 'quests', 'gear', 'special'],
       errorsHeading: '- ERROR EXISTS',
       errors: {
@@ -425,6 +364,10 @@ export default {
     ...mapState({ user: 'user.data' }),
   },
   methods: {
+    clearData: function clearData () {
+      this.hero = {};
+    },
+
     collateItemData () {
       // items.special includes many items but we are interested in these only:
       const specialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
@@ -664,11 +607,10 @@ export default {
       this.expandPriv = this.errors.priv;
       this.expandItems = false;
       this.expandUpdateItems = false;
-      this.expandContrib = false;
       this.itemTypes.forEach(itemType => { this.expandItemType[itemType] = false; });
       this.resetCounter += 1; // tell child components to reinstantiate from scratch
     },
-    async saveHero () {
+    async saveHeroOld () {
       this.hero.contributor.admin = this.hero.contributor.level > 7;
       await this.$store.dispatch('hall:updateHero', { heroDetails: this.hero });
       this.text('User updated');
