@@ -36,7 +36,7 @@ describe('POST /user/auth/verify-display-name', async () => {
       })).to.eventually.eql({ isUsable: false, issues: [t('displaynameIssueSlur')] });
     });
 
-    it.only('errors if display name contains a slur', async () => {
+    it('errors if display name contains a slur', async () => {
       await expect(user.post(ENDPOINT, {
         displayName: 'TESTPLACEHOLDERSLURWORDHERE_otherword',
       })).to.eventually.eql({
