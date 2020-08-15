@@ -13,9 +13,9 @@ export function getMatchesByWordArray (str, wordsToMatch) {
   const wordRegexs = wordsToMatch.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'));
   for (let i = 0; i < wordRegexs.length; i += 1) {
     const regEx = wordRegexs[i];
-    const match = normalizeUnicodeString(str).match(regEx);
+    const match = removePunctuationFromString(normalizeUnicodeString(str)).match(regEx);
     if (match !== null && match[0] !== null) {
-      const trimmedMatch = removePunctuationFromString(match[0]).trim();
+      const trimmedMatch = match[0].trim();
       matchedWords.push(trimmedMatch);
     }
   }

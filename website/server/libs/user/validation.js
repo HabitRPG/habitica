@@ -1,6 +1,10 @@
 import bannedSlurs from '../bannedSlurs';
 import bannedWords from '../bannedWords';
-import { getMatchesByWordArray, normalizeUnicodeString } from '../stringUtils';
+import {
+  getMatchesByWordArray,
+  normalizeUnicodeString,
+  removePunctuationFromString,
+} from '../stringUtils';
 import forbiddenUsernames from '../forbiddenUsernames';
 
 export function stringContainsProfanity (str, profanityType = 'bannedWord') {
@@ -10,7 +14,7 @@ export function stringContainsProfanity (str, profanityType = 'bannedWord') {
 
   for (let i = 0; i < bannedRegexes.length; i += 1) {
     const regEx = bannedRegexes[i];
-    const match = normalizeUnicodeString(str).match(regEx);
+    const match = removePunctuationFromString(normalizeUnicodeString(str)).match(regEx);
     if (match !== null && match[0] !== null) {
       return true;
     }
