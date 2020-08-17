@@ -5,7 +5,7 @@
     :calendarButton="true"
     :calendarButtonIconContent="icons.calendar"
     :bootstrapStyling="true"
-    :clear-button="false"
+    :clear-button="clearButton || false"
     :today-button="false"
     :disabled-picker="disabled"
     :class="{disabled: disabled}"
@@ -42,7 +42,7 @@ export default {
   components: {
     datepicker,
   },
-  props: ['date', 'disabled', 'highlighted'],
+  props: ['date', 'disabled', 'highlighted', 'clearButton'],
   data () {
     return {
       value: this.date,
@@ -193,6 +193,26 @@ export default {
       font-weight: bold;
       text-align: center;
       color: $gray-50;
+    }
+  }
+
+  .vdp-datepicker__clear-button {
+    background: transparent !important;
+
+    .input-group-text {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      margin: 0.625rem 0.75rem;
+
+      i {
+        width: 12px;
+      }
+
+      span {
+        font-style: normal;
+        color: $gray-200;
+      }
     }
   }
 </style>
