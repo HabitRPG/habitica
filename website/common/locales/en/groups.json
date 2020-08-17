@@ -293,6 +293,7 @@
   "claim": "Claim Task",
   "removeClaim": "Remove Claim",
   "onlyGroupLeaderCanManageSubscription": "Only the group leader can manage the group's subscription",
+  "onlyPrivateGuildsCanUpgrade": "Only private guilds can be upgraded to a group plan.",
   "youHaveBeenAssignedTask": "<%- managerName %> has assigned you the task <span class=\"notification-bold\"><%- taskText %></span>.",
   "yourTaskHasBeenApproved": "Your task <span class=\"notification-green notification-bold\"><%- taskText %></span> has been approved.",
   "thisTaskApproved": "This task was approved",

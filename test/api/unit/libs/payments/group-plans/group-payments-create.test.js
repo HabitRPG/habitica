@@ -12,6 +12,7 @@ import { model as Group } from '../../../../../../website/server/models/group';
 import {
   generateGroup,
 } from '../../../../../helpers/api-unit.helper';
+import i18n from '../../../../../../website/common/script/i18n';
 
 describe('Purchasing a group plan for group', () => {
   const EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_GOOGLE = 'Google_subscription';
@@ -33,10 +34,13 @@ describe('Purchasing a group plan for group', () => {
     group = generateGroup({
       name: groupName,
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     await group.save();
+
+    user.guilds.push(group._id);
+    await user.save();
 
     data = {
       user,
@@ -112,6 +116,30 @@ describe('Purchasing a group plan for group', () => {
     expect(updatedGroup.purchased.plan.dateCreated).to.exist;
   });
 
+  it('does not create a group plan for a public guild', async () => {
+    const publicGroup = generateGroup({
+      name: groupName,
+      type: 'guild',
+      privacy: 'public',
+      leader: user._id,
+    });
+    await publicGroup.save();
+
+    expect(publicGroup.purchased.plan.planId).to.not.exist;
+    data.groupId = publicGroup._id;
+
+    await expect(api.createSubscription(data))
+      .to.eventually.be.rejected.and.to.eql({
+        httpCode: 401,
+        name: 'NotAuthorized',
+        message: i18n.t('onlyPrivateGuildsCanUpgrade'),
+      });
+
+    const updatedGroup = await Group.findById(publicGroup._id).exec();
+
+    expect(updatedGroup.purchased.plan.planId).to.not.exist;
+  });
+
   it('sends an email', async () => {
     expect(group.purchased.plan.planId).to.not.exist;
     data.groupId = group._id;
@@ -148,8 +176,6 @@ describe('Purchasing a group plan for group', () => {
   });
 
   it('grants all members of a group a subscription', async () => {
-    user.guilds.push(group._id);
-    await user.save();
     expect(group.purchased.plan.planId).to.not.exist;
     data.groupId = group._id;
 
@@ -169,7 +195,7 @@ describe('Purchasing a group plan for group', () => {
     expect(updatedLeader.items.mounts['Jackalope-RoyalPurple']).to.be.true;
   });
 
-  it('sends an email to member of group who was not a subscriber', async () => {
+  it.only('sends an email to member of group who was not a subscriber', async () => {
     const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.guilds.push(group._id);
@@ -302,8 +328,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -356,8 +380,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -419,8 +441,6 @@ describe('Purchasing a group plan for group', () => {
 
     data.gift = undefined;
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -455,8 +475,6 @@ describe('Purchasing a group plan for group', () => {
 
     data.gift = undefined;
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -483,8 +501,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -511,8 +527,6 @@ describe('Purchasing a group plan for group', () => {
 
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -541,8 +555,6 @@ describe('Purchasing a group plan for group', () => {
 
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -566,8 +578,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await recipient.cancelSubscription();
@@ -589,8 +599,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await recipient.cancelSubscription();
@@ -611,8 +619,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -632,8 +638,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -653,8 +657,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -688,8 +690,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -713,8 +713,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -726,13 +724,15 @@ describe('Purchasing a group plan for group', () => {
     const group2 = generateGroup({
       name: 'test group2',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     data.groupId = group2._id;
     await group2.save();
     recipient.guilds.push(group2._id);
     await recipient.save();
+    user.guilds.push(group2._id);
+    await user.save();
 
     await api.createSubscription(data);
 
@@ -757,8 +757,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -770,13 +768,15 @@ describe('Purchasing a group plan for group', () => {
     const group2 = generateGroup({
       name: 'test group2',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     data.groupId = group2._id;
     await group2.save();
     recipient.guilds.push(group2._id);
     await recipient.save();
+    user.guilds.push(group2._id);
+    await user.save();
 
     await api.createSubscription(data);
 
@@ -806,8 +806,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -835,8 +833,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -864,8 +860,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -894,8 +888,6 @@ describe('Purchasing a group plan for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
