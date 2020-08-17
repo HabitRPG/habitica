@@ -12,7 +12,7 @@ import apiError from '../../../../../website/server/libs/apiError';
 describe('GET /groups', () => {
   let user;
   let userInGuild;
-  const NUMBER_OF_PUBLIC_GUILDS = 3; // 2 + the tavern
+  const NUMBER_OF_PUBLIC_GUILDS = 2;
   const NUMBER_OF_PUBLIC_GUILDS_USER_IS_LEADER = 2;
   const NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER = 1;
   const NUMBER_OF_USERS_PRIVATE_GUILDS = 1;
@@ -236,9 +236,20 @@ describe('GET /groups', () => {
       await expect(user.get('/groups?type=publicGuilds&paginate=true&page=1'))
         .to.eventually.have.a.lengthOf(GUILD_PER_PAGE);
       const page2 = await expect(user.get('/groups?type=publicGuilds&paginate=true&page=2'))
-        .to.eventually.have.a.lengthOf(1 + 4); // 1 created now, 4 by other tests
-      expect(page2[4].name).to.equal('guild with less members');
+        // 1 created now, 4 by other tests, -1 for no more tavern.
+        .to.eventually.have.a.lengthOf(1 + 4 - 1);
+      expect(page2[3].name).to.equal('guild with less members');
     }).timeout(10000);
+  });
+
+  it('makes sure that the tavern doesn\'t show up when guilds is passed as a query', async () => {
+    const guilds = await user.get('/groups?type=guilds');
+    expect(guilds.find(g => g.id === TAVERN_ID)).to.be.undefined;
+  });
+
+  it('makes sure that the tavern doesn\'t show up when publicGuilds is passed as a query', async () => {
+    const guilds = await user.get('/groups?type=publicGuilds');
+    expect(guilds.find(g => g.id === TAVERN_ID)).to.be.undefined;
   });
 
   it('returns all the user\'s guilds when guilds passed in as query', async () => {
@@ -254,7 +265,7 @@ describe('GET /groups', () => {
 
   it('returns a list of groups user has access to', async () => {
     await expect(user.get('/groups?type=privateGuilds,publicGuilds,party,tavern'))
-      .to.eventually.have.lengthOf(NUMBER_OF_GROUPS_USER_CAN_VIEW);
+      .to.eventually.have.lengthOf(NUMBER_OF_GROUPS_USER_CAN_VIEW - 1); // -1 for no Tavern.
   });
 
   it('returns a list of groups user has access to', async () => {
