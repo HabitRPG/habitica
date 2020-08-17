@@ -267,6 +267,7 @@
               :date.sync="task.date"
               :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
               :highlighted="calendarHighlights"
+              :clear-button="true"
             />
           </div>
         </div>
