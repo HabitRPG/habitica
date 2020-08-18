@@ -105,22 +105,27 @@ export default {
   methods: {
     getItemDescription (itemType, key) {
       // Returns item name. Also returns other info for equipment.
+
       const simpleItemTypes = ['eggs', 'hatchingPotions', 'food', 'quests', 'special'];
       if (simpleItemTypes.includes(itemType) && content[itemType][key]) {
         return content[itemType][key].text();
       }
+
       if (itemType === 'mounts' && content.mountInfo[key]) {
         return content.mountInfo[key].text();
       }
+
       if (itemType === 'pets' && content.petInfo[key]) {
         return content.petInfo[key].text();
       }
+
       if (itemType === 'gear' && content.gear.flat[key]) {
         const name = content.gear.flat[key].text();
         const description = _getGearSetDescription(key);
         if (description) return `${name} -- ${description}`;
         return name;
       }
+
       return 'NO NAME - invalid item?';
     },
   },

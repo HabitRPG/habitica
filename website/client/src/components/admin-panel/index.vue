@@ -5,6 +5,7 @@
   >
     <div class="well">
       <h1>Admin Panel</h1>
+
       <div class="row">
         <form @submit.prevent="loadHero(heroID)" class="form-inline">
           <input
@@ -21,6 +22,7 @@
           >
         </form>
       </div>
+
       <div
         v-if="hero && hero.profile"
         class="row"

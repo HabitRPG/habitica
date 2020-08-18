@@ -25,12 +25,12 @@
 
 <script>
 import filters from '../mixins/filters';
-import formatItems from '../mixins/formatItems';
+import getItemDescription from '../mixins/getItemDescription';
 
 export default {
   mixins: [
     filters,
-    formatItems,
+    getItemDescription,
   ],
   props: {
     items: {

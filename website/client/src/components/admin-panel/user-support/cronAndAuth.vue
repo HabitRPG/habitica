@@ -7,7 +7,7 @@
     >
       Timestamps, Time Zone, Authentication, Email Address
       <span
-      v-if="errorsOrWarningsExist"
+        v-if="errorsOrWarningsExist"
       >- ERRORS / WARNINGS EXIST</span>
     </h3>
     <div v-if="expand">
@@ -64,7 +64,7 @@
 
           <div v-if="this.timezoneMissingError">
             ERROR: One of the player's time zones is missing.
-            This is expected and okay if it's their time zone at last cron
+            This is expected and okay if it's the "Time zone at previous cron"
             AND if it's their first day in Habitica.
             Otherwise an error has occurred.
           </div>

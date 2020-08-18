@@ -309,7 +309,5 @@ export default {
   mounted () {
     resetData(this);
   },
-  methods: {
-  },
 };
 </script>
