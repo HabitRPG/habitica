@@ -127,14 +127,14 @@
     "rageAttack": "Ataque de ira:",
     "bossRage": "<%- currentRage %>/<%- maxRage %> Ira",
     "rageStrikes": "Golpe fulminante",
-    "tavernBossTired": "<%- bossName %> intenta soltar <%- rageName %> pero está demasiado cansado.",
-    "chatQuestCancelled": "<%- username %> canceló la misión de equipo <%- questName %>.",
-    "chatQuestAborted": "<%- username %> ha abandonado la misión de equipo <%- questName %>.",
+    "tavernBossTired": "<%= bossName %> intenta soltar <%- rageName %> pero está demasiado cansado.",
+    "chatQuestCancelled": "<%= username %> canceló la misión de equipo <%- questName %>.",
+    "chatQuestAborted": "<%= username %> ha abandonado la misión de equipo <%- questName %>.",
     "chatItemQuestFinish": "Todos los objetos han sido encontrados! El equipo ha recibido sus recompensas.",
-    "chatFindItems": "<%- username %> encontró <%- items %>.",
-    "chatBossDefeated": "Has vencido a <%- bossName %>! Miembros del equipo que han participado recibirán las recompensas de la victoria.",
-    "chatBossDamage": "<%- username %> ataca a <%- bossName %>, infligiendo <%- userDamage %> de daño. <%- bossName %> ataca al equipo, infligiendo <%- bossDamage %> de daño.",
+    "chatFindItems": "<%= username %> encontró <%- items %>.",
+    "chatBossDefeated": "Has vencido a <%= bossName %>! Miembros del equipo que han participado recibirán las recompensas de la victoria.",
+    "chatBossDamage": "<%= username %> ataca a <%= bossName %>, infligiendo <%- userDamage %> de daño. <%= bossName %> ataca al equipo, infligiendo <%- bossDamage %> de daño.",
     "chatQuestStarted": "Tu misión, <%- questName %>, ha comenzado.",
     "hatchingPotionQuests": "Misiones de Pociónes de Eclosión Mágicas",
-    "chatBossDontAttack": "<%- username %> ataca a <%- bossName %> infligiendo <%- userDamage %> de daño. <%- bossName %> no ataca, porque respeta que hay algunos errores después del mantenimiento , y no quiere herir a nadie injustamente. Continuará su furia pronto!"
+    "chatBossDontAttack": "<%= username %> ataca a <%= bossName %> infligiendo <%- userDamage %> de daño. <%= bossName %> no ataca, porque respeta que hay algunos errores después del mantenimiento , y no quiere herir a nadie injustamente. Continuará su furia pronto!"
 }

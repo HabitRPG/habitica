@@ -61,7 +61,7 @@ describe('POST /user/buy-gear/:key', () => {
       .to.eventually.be.rejected.and.eql({
         code: 401,
         error: 'NotAuthorized',
-        message: 'You can\'t buy this item.',
+        message: 'You can’t buy this item.',
       });
   });
 });
