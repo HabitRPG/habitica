@@ -195,7 +195,7 @@ describe('Purchasing a group plan for group', () => {
     expect(updatedLeader.items.mounts['Jackalope-RoyalPurple']).to.be.true;
   });
 
-  it.only('sends an email to member of group who was not a subscriber', async () => {
+  it('sends an email to member of group who was not a subscriber', async () => {
     const recipient = new User();
     recipient.profile.name = 'recipient';
     recipient.guilds.push(group._id);
@@ -205,17 +205,17 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    expect(sender.sendTxn).to.be.calledTwice;
-    expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
-    expect(sender.sendTxn.firstCall.args[2]).to.eql([
+    expect(sender.sendTxn).to.be.calledThrice;
+    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(recipient._id);
+    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-member-join');
+    expect(sender.sendTxn.secondCall.args[2]).to.eql([
       { name: 'LEADER', content: user.profile.name },
       { name: 'GROUP_NAME', content: group.name },
       { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE },
     ]);
     // confirm that the other email sent is appropriate:
-    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-subscription-begins');
+    expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(group.leader);
+    expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-subscription-begins');
   });
 
   it('sends one email to subscribed member of group, stating subscription is cancelled (Stripe)', async () => {
@@ -231,17 +231,17 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    expect(sender.sendTxn).to.be.calledTwice;
-    expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
-    expect(sender.sendTxn.firstCall.args[2]).to.eql([
+    expect(sender.sendTxn).to.be.calledThrice;
+    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(recipient._id);
+    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-member-join');
+    expect(sender.sendTxn.secondCall.args[2]).to.eql([
       { name: 'LEADER', content: user.profile.name },
       { name: 'GROUP_NAME', content: group.name },
       { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL },
     ]);
     // confirm that the other email sent is not a cancel-subscription email:
-    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-subscription-begins');
+    expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(group.leader);
+    expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-subscription-begins');
   });
 
   it('sends one email to subscribed member of group, stating subscription is cancelled (Amazon)', async () => {
@@ -264,17 +264,17 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    expect(sender.sendTxn).to.be.calledTwice;
-    expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
-    expect(sender.sendTxn.firstCall.args[2]).to.eql([
+    expect(sender.sendTxn).to.be.calledThrice;
+    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(recipient._id);
+    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-member-join');
+    expect(sender.sendTxn.secondCall.args[2]).to.eql([
       { name: 'LEADER', content: user.profile.name },
       { name: 'GROUP_NAME', content: group.name },
       { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL },
     ]);
     // confirm that the other email sent is not a cancel-subscription email:
-    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-subscription-begins');
+    expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(group.leader);
+    expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-subscription-begins');
 
     amzLib.getBillingAgreementDetails.restore();
   });
@@ -301,17 +301,17 @@ describe('Purchasing a group plan for group', () => {
 
     await api.createSubscription(data);
 
-    expect(sender.sendTxn).to.be.calledTwice;
-    expect(sender.sendTxn.firstCall.args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.firstCall.args[1]).to.equal('group-member-join');
-    expect(sender.sendTxn.firstCall.args[2]).to.eql([
+    expect(sender.sendTxn).to.be.calledThrice;
+    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(recipient._id);
+    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-member-join');
+    expect(sender.sendTxn.secondCall.args[2]).to.eql([
       { name: 'LEADER', content: user.profile.name },
       { name: 'GROUP_NAME', content: group.name },
       { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL },
     ]);
     // confirm that the other email sent is not a cancel-subscription email:
-    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-subscription-begins');
+    expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(group.leader);
+    expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-subscription-begins');
 
     paypalPayments.paypalBillingAgreementGet.restore();
     paypalPayments.paypalBillingAgreementCancel.restore();
@@ -781,6 +781,9 @@ describe('Purchasing a group plan for group', () => {
     await api.createSubscription(data);
 
     const updatedGroup = await Group.findById(group._id).exec();
+    updatedGroup.memberCount = 2;
+    await updatedGroup.save();
+
     await updatedGroup.leave(recipient);
 
     updatedUser = await User.findById(recipient._id).exec();
