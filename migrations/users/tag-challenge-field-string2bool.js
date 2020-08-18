@@ -1,17 +1,13 @@
-import monk from 'monk'; // eslint-disable-line import/no-extraneous-dependencies
+import { model as User } from '../../website/server/models/user';
 
-const migrationName = 'tag-challenge-field-string2bool.js';
-
-const connectionString = 'mongodb://localhost:27017/habitica-dev?auto_reconnect=true'; // FOR TEST DATABASE
-
-const dbUsers = monk(connectionString).get('users', { castIds: false });
+const MIGRATION_NAME = 'tag-challenge-field-string2bool';
 
 const progressCount = 1000;
 let count = 0;
 
 export default async function processUsers () {
   const query = {
-    migration: { $ne: migrationName },
+    migration: { $ne: MIGRATION_NAME },
     tags: {
       $elemMatch: {
         challenge: {
@@ -24,10 +20,12 @@ export default async function processUsers () {
 
   while (true) { // eslint-disable-line no-constant-condition
     // eslint-disable-next-line no-await-in-loop
-    const users = await dbUsers.find(query, {
-      sort: { _id: 1 },
-      limit: 250,
-    });
+    const users = await User.find(query)
+      .sort({ _id: 1 })
+      .limit(250)
+      .select({ _id: 1 })
+      .lean()
+      .exec();
 
     if (users.length === 0) {
       console.warn('All appropriate users found and modified.');
@@ -43,35 +41,36 @@ export default async function processUsers () {
   }
 }
 
+/*
+db.users.update({ "auth.local.username": "satou2"}, { $set: { "tags.7.challenge": "true" }})
+db.users.updateOne({
+  _id: 'bd95ca4c-8db2-4e8d-8492-b83746b90993'
+}, {
+  $set: {
+      'tags.$[element].challenge': true,
+    }
+}, {
+  arrayFilters: [{ 'element.challenge': 'true' }]
+})
+*/
 async function updateUser (user) {
   count += 1;
 
   const query = {
     _id: user._id,
   };
-  let update = {
+
+  const update = {
     $set: {
       'tags.$[element].challenge': true,
     },
   };
-  let opts = {
-    multi: true,
+
+  const opts = {
     arrayFilters: [{ 'element.challenge': 'true' }],
   };
 
-  await dbUsers.update(query, update, opts);
-
-  update = {
-    $set: {
-      'tags.$[element].challenge': false,
-    },
-  };
-  opts = {
-    multi: true,
-    arrayFilters: [{ 'element.challenge': 'false' }],
-  };
-
-  dbUsers.update(query, update, opts);
-
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
+
+  return User.updateOne(query, update, opts).exec();
 }
