@@ -217,9 +217,14 @@ describe('Canceling a subscription for group', () => {
     await api.cancelSubscription(data);
 
     expect(sender.sendTxn).to.be.have.callCount(6);
-    expect(sender.sendTxn.getCall(4).args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.getCall(4).args[1]).to.equal('group-member-cancel');
-    expect(sender.sendTxn.getCall(4).args[2]).to.eql([
+    const recipientCall = sender.sendTxn.getCalls().find(call => {
+      const isRecipient = call.args[0]._id === recipient._id;
+      const isGroupMemberCancel = call.args[1] === 'group-member-cancel';
+      return isRecipient && isGroupMemberCancel;
+    });
+    expect(recipientCall.args[0]._id).to.equal(recipient._id);
+    expect(recipientCall.args[1]).to.equal('group-member-cancel');
+    expect(recipientCall.args[2]).to.eql([
       { name: 'LEADER', content: user.profile.name },
       { name: 'GROUP_NAME', content: group.name },
     ]);
