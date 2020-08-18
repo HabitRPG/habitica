@@ -24,7 +24,7 @@
     "inviteParty": "",
     "questInvitation": "",
     "questInvitationTitle": "",
-    "questInvitationInfo": "Invitation for the Quest <%- quest %>",
+    "questInvitationInfo": "Invitation for the Quest <%= quest %>",
     "invitedToQuest": "",
     "askLater": "",
     "questLater": "",

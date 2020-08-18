@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Deine listigen Talente heben die Wahrnehmung der gesamten Party! (Basiert auf: Wahrnehmung ohne Boni)",
     "spellRogueStealthText": "Schleichen",
     "spellRogueStealthNotes": "Mit jeder Anwendung werden einige Deiner unerledigten Tagesaufgaben keinen Schaden verursachen. Ihre Strähnen und Farben bleiben erhalten. (Basiert auf: Wahrnehmung)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> <%- number %> Tagesaufgaben wird ausgewichen.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> <%= number %> Tagesaufgaben wird ausgewichen.",
     "spellRogueStealthMaxedOut": "Du bist all Deinen Tagesaufgaben bereits ausgewichen; Du brauchst diese Fähigkeit nicht erneut anzuwenden.",
     "spellHealerHealText": "Heilendes Licht",
     "spellHealerHealNotes": "Gleißendes Licht heilt Dich! (Basiert auf: Ausdauer und Intelligenz)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Fähigkeiten auf Wettbewerbsaufgaben anzuwenden ist nicht erlaubt.",
     "groupTasksNoCast": "Fähigkeiten auf Gruppenaufgaben anzuwenden ist nicht erlaubt.",
     "spellNotOwned": "Diese Fähigkeit besitzt Du nicht.",
-    "spellLevelTooHigh": "Du musst Level <%- level %> sein, um diese Fähigkeit benutzen zu können."
+    "spellLevelTooHigh": "Du musst Level <%= level %> sein, um diese Fähigkeit benutzen zu können."
 }

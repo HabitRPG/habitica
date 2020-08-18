@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "لا يوجد لديك <%- type %>",
+  "noItemsAvailableForType": "لا يوجد لديك <%= type %>",
   "foodItemType": "طعام",
   "eggsItemType": "بيض",
   "hatchingPotionsItemType": "جرعات الفقس",

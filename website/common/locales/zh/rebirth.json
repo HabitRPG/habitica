@@ -14,17 +14,17 @@
     "rebirthInList4": "用宝石购买或者掉落得到的物品（比如宠物和坐骑）保留。",
     "rebirthEarnAchievement": "你会因为开始一段新冒险而获得一个成就！",
     "beReborn": "重生",
-    "rebirthAchievement": "你开始了一段新冒险！这是你的第<%- number %>次冒险，你曾经获得的最高级别是<%- level %>级。有这个成就加持，当你开始下一次新冒险会达到更高的水平！",
-    "rebirthAchievement100": "恭喜你开始一段新的冒险！你已经完成了<%- number %>次冒险，这意味着你到达过100级乃至更高的等级。当新冒险的等级再次超过100级并选择再次重生，该成就数目将叠加！",
+    "rebirthAchievement": "你开始了一段新冒险！这是你的第<%= number %>次冒险，你曾经获得的最高级别是<%= level %>级。有这个成就加持，当你开始下一次新冒险会达到更高的水平！",
+    "rebirthAchievement100": "恭喜你开始一段新的冒险！你已经完成了<%= number %>次冒险，这意味着你到达过100级乃至更高的等级。当新冒险的等级再次超过100级并选择再次重生，该成就数目将叠加！",
     "rebirthBegan": "开始新的冒险",
-    "rebirthText": "完成了<%- rebirths %> 次新冒险",
-    "rebirthOrb": "达到<%- level %>级后，使用重生球重新开始一段旅程。",
+    "rebirthText": "完成了<%= rebirths %> 次新冒险",
+    "rebirthOrb": "达到<%= level %>级后，使用重生球重新开始一段旅程。",
     "rebirthOrb100": "在达到100级或更高等级的情况下，使用重生之球重新开始。",
     "rebirthOrbNoLevel": "使用重生之球重新开始。",
     "rebirthPop": "立即重置你的角色成为1级战士，同时保留成就、物品、装备。将保留你的任务和历史，但重置为黄色；移除挑战任务和团队套餐任务之外的任务历史；移除金币、经验值以及魔法值和技能。上述内容将立即生效。更多信息请查看wiki<a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>重生球</a>页面。",
     "rebirthName": "重生球",
-    "reborn": "重生，最高级别 <%- reLevel %>",
+    "reborn": "重生，最高级别 <%= reLevel %>",
     "confirmReborn": "你确定吗？",
     "rebirthComplete": "你已经重生了！",
-    "nextFreeRebirth": "距离下个<strong>免费</strong>的重生球还有<strong><%- days %>天</strong>"
+    "nextFreeRebirth": "距离下个<strong>免费</strong>的重生球还有<strong><%= days %>天</strong>"
 }

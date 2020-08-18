@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "¡Tu talento para el engaño incrementa la percepción de tu equipo! (Basado en: PER sin potenciar)",
     "spellRogueStealthText": "Sigilo",
     "spellRogueStealthNotes": "Con cada invocación, algunas de tus tareas diarias no te causarán daño esta noche. Sus rachas y colores no cambiarán. (Basado en: PER)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Número de tareas diarias evitadas: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Número de tareas diarias evitadas: <%= number %>.",
     "spellRogueStealthMaxedOut": "Ya has evitado todas tus tareas diarias; no hace falta que vuelvas a lanzar este hechizo.",
     "spellHealerHealText": "Luz Sanadora",
     "spellHealerHealNotes": "¡Una brillante luz restaura tu salud! (Basado en: INT y CON)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "No se pueden lanzar hechizos sobre tareas de desafíos.",
     "groupTasksNoCast": "Las habilidades no se pueden usar con tareas de grupo.",
     "spellNotOwned": "No posees esta habilidad.",
-    "spellLevelTooHigh": "Debes ser nivel <%- level %> para usar esta habilidad."
+    "spellLevelTooHigh": "Debes ser nivel <%= level %> para usar esta habilidad."
 }

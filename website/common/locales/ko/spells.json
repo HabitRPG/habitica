@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "스텔스",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> 피한 일일과제의 개수: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> 피한 일일과제의 개수: <%= number %>.",
     "spellRogueStealthMaxedOut": "당신은 모든 일일과제를 이미 피했습니다. 이 마법을 더 이상 걸 필요가 없습니다.",
     "spellHealerHealText": "치유의 빛",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "도전 과제에는 스킬을 사용하실 수 없습니다. ",
     "groupTasksNoCast": "그룹 과제에는 마법 주문을 거는 기술을 사용할 수 없습니다.",
     "spellNotOwned": "해당 스킬을 가지고 있지 않습니다. ",
-    "spellLevelTooHigh": "이 스킬을 사용하시려면 <%- level %>이 되셔야 합니다. "
+    "spellLevelTooHigh": "이 스킬을 사용하시려면 <%= level %>이 되셔야 합니다. "
 }

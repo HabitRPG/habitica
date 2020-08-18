@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "Nemaš nimalo <%- type %>.",
+  "noItemsAvailableForType": "Nemaš nimalo <%= type %>.",
   "foodItemType": "hrane",
   "eggsItemType": "jaja",
   "hatchingPotionsItemType": "čarobnih napitaka za izlijeganje",

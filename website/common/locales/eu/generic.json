@@ -1,6 +1,6 @@
 {
     "languageName": "Euskara",
-    "stringNotFound": "Ez da aurkitu '<%- string %>' katea.",
+    "stringNotFound": "Ez da aurkitu '<%= string %>' katea.",
     "titleIndex": "Habitica | Zure bizitzaren rol-jokoa",
     "habitica": "Habitica",
     "habiticaLink": "<a href='http://habitica.fandom.com/wiki/Habitica' target='_blank'>Habitica</a>",

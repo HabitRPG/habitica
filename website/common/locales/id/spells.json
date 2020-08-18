@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Bakat Penuh Akal-mu meningkatkan Persepsi Party-mu! (Berdasarkan: PER tanpa buff)",
     "spellRogueStealthText": "Tidak Tampak",
     "spellRogueStealthNotes": "Dengan setiap rapalan, Beberapa keseharianmu yang belum selesai tidak akan memberi damage sewaktu malam. Runtunan dan warnanya juga tidak akan berubah, (Berdasarkan: PER)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Jumlah keseharian yang dihindari: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Jumlah keseharian yang dihindari: <%= number %>.",
     "spellRogueStealthMaxedOut": "Kamu telah menghindari semua keseharianmu; tidak perlu merapal mantra ini lagi.",
     "spellHealerHealText": "Cahaya Penyembuh",
     "spellHealerHealNotes": "Sinaran cahaya menyembuhkan nyawamu! (Berdasarkan: KET dan KEC)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Menggunakan kemampuan pada tugas tantangan tidak diperbolehkan.",
     "groupTasksNoCast": "Menggunakan kemampuan pada tugas kelompok tidak diperbolehkan.",
     "spellNotOwned": "Kamu tidak mempunyai kemampuan ini.",
-    "spellLevelTooHigh": "Kamu harus mencapai level <%- level %> untuk menggunakan kemampuan ini."
+    "spellLevelTooHigh": "Kamu harus mencapai level <%= level %> untuk menggunakan kemampuan ini."
 }

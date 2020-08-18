@@ -693,7 +693,7 @@
     "questWaffleDropDessertPotion": "Confection Hatching Potion",
     "questWaffleRageEffect": "`Awful Waffle uses MAPLE MIRE!` Sticky sappy syrup slows your swings and spells!",
     "questWaffleRageDescription": "Maple Mire: This bar fills when you don't complete your Dailies. When it is full, the Awful Waffle will set back the party's attack progress!",
-    "jungleBuddiesNotes": "Contains 'Monstrous Mandrill and the Mischief Monkeys', 'The Somnolent Sloth', and 'The Tangle Tree'. Available until <%- date %>.",
+    "jungleBuddiesNotes": "Contains 'Monstrous Mandrill and the Mischief Monkeys', 'The Somnolent Sloth', and 'The Tangle Tree'. Available until <%= date %>.",
     "jungleBuddiesText": "Jungle Buddies Quest Bundle",
     "questFluoriteUnlockText": "Unlocks Fluorite Hatching Potions for purchase in the Market",
     "questFluoriteDropFluoritePotion": "Fluorite Hatching Potion",
