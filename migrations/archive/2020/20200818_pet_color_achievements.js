@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const MIGRATION_NAME = '20200218_pet_color_achievements';
+const MIGRATION_NAME = '20200818_pet_color_achievements';
 import { model as User } from '../../../website/server/models/user';
 
 const progressCount = 1000;
@@ -14,31 +14,31 @@ async function updateUser (user) {
 
   if (user && user.items && user.items.pets) {
     const pets = user.items.pets;
-    if (pets['Wolf-CottonCandyPink'] > 0
-      && pets['TigerCub-CottonCandyPink'] > 0
-      && pets['PandaCub-CottonCandyPink'] > 0
-      && pets['LionCub-CottonCandyPink'] > 0
-      && pets['Fox-CottonCandyPink'] > 0
-      && pets['FlyingPig-CottonCandyPink'] > 0
-      && pets['Dragon-CottonCandyPink'] > 0
-      && pets['Cactus-CottonCandyPink'] > 0
-      && pets['BearCub-CottonCandyPink'] > 0) {
-        set['achievements.tickledPink'] = true;
+    if (pets['Wolf-Golden'] > 0
+      && pets['TigerCub-Golden'] > 0
+      && pets['PandaCub-Golden'] > 0
+      && pets['LionCub-Golden'] > 0
+      && pets['Fox-Golden'] > 0
+      && pets['FlyingPig-Golden'] > 0
+      && pets['Dragon-Golden'] > 0
+      && pets['Cactus-Golden'] > 0
+      && pets['BearCub-Golden'] > 0) {
+        set['achievements.goodAsGold'] = true;
       }
   }
 
   if (user && user.items && user.items.mounts) {
     const mounts = user.items.mounts;
-    if (mounts['Wolf-CottonCandyPink']
-      && mounts['TigerCub-CottonCandyPink']
-      && mounts['PandaCub-CottonCandyPink']
-      && mounts['LionCub-CottonCandyPink']
-      && mounts['Fox-CottonCandyPink']
-      && mounts['FlyingPig-CottonCandyPink']
-      && mounts['Dragon-CottonCandyPink']
-      && mounts['Cactus-CottonCandyPink']
-      && mounts['BearCub-CottonCandyPink'] ) {
-        set['achievements.rosyOutlook'] = true;
+    if (mounts['Wolf-Golden']
+      && mounts['TigerCub-Golden']
+      && mounts['PandaCub-Golden']
+      && mounts['LionCub-Golden']
+      && mounts['Fox-Golden']
+      && mounts['FlyingPig-Golden']
+      && mounts['Dragon-Golden']
+      && mounts['Cactus-Golden']
+      && mounts['BearCub-Golden'] ) {
+        set['achievements.allThatGlitters'] = true;
       }
   }
 
@@ -50,7 +50,7 @@ async function updateUser (user) {
 module.exports = async function processUsers () {
   let query = {
     migration: { $ne: MIGRATION_NAME },
-    'auth.timestamps.loggedin': { $gt: new Date('2020-02-01') },
+    'auth.timestamps.loggedin': { $gt: new Date('2020-08-01') },
   };
 
   const fields = {
