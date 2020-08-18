@@ -1,12 +1,12 @@
 // this variables are used to determine which shop npc/backgrounds should be loaded
-// possible values are: normal, fall, habitoween, thanksgiving, winter, nye, birthday, valentines, normal, summer
+// possible values are: normal, fall, habitoween, thanksgiving, winter, nye, birthday, valentines, normal, normal
 // more to be added on future seasons
 
-$npc_market_flavor: 'summer';
-$npc_quests_flavor: 'summer';
-$npc_seasonal_flavor: 'summer';
-$npc_timetravelers_flavor: 'summer';
-$npc_tavern_flavor: 'summer';
+$npc_market_flavor: 'normal';
+$npc_quests_flavor: 'normal';
+$npc_seasonal_flavor: 'normal';
+$npc_timetravelers_flavor: 'normal';
+$npc_tavern_flavor: 'normal';
 
 $restingToolbarHeight: 40px;
 $menuToolbarHeight: 56px;

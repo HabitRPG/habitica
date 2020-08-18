@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Tvoji varalački talenti jačaju Percepciju tvoje cijele Družine! (Na osnovi: neojačane PER)",
     "spellRogueStealthText": "Tajnost",
     "spellRogueStealthNotes": "Sa svakom bačenom čarolijom, nekolicina tvojih neobavljenih Svakodnevnih zadataka ti neće večeras nauditi. Njihovi nizovi i boje se neće promijeniti. (Na osnovi: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Broj izbjegnutih svakodnevnih zadataka: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> Broj izbjegnutih svakodnevnih zadataka: <%- number %>.",
     "spellRogueStealthMaxedOut": "Već si izbjegao/la sve svoje svakodnevne zadatke; nema potrebe koristiti ovu vještinu ponovno. ",
     "spellHealerHealText": "Iscjeljujuće svjetlo",
     "spellHealerHealNotes": "Blistavo svjetlo ti vraća zdravlje! (Na osnovi: KON i INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Upotreba vještina na zadatke izazova nije dozvoljeno.",
     "groupTasksNoCast": "Upotreba vještina na grupne zadatke nije dozvoljeno. ",
     "spellNotOwned": "Ne posjeduješ ovu vještinu.",
-    "spellLevelTooHigh": "Moraš biti level <%= level %> da bi koristio/la ovu vještinu."
+    "spellLevelTooHigh": "Moraš biti level <%- level %> da bi koristio/la ovu vještinu."
 }

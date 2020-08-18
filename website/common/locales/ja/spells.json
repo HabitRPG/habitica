@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "あなたの巧みな才能により、パーティ全員の知覚に勢いボーナスがつきます!　( 基準 : 勢いなしの知覚値 )",
     "spellRogueStealthText": "ステルス",
     "spellRogueStealthNotes": "唱えるたびに、日課のいくつかをやり残しても、今夜はダメージを受けずに済むようになります。連続実行やタスクの色にも影響を与えません。（基準：知覚）",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %>回避する日課：<%= number %>件。",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %>回避する日課：<%- number %>件。",
     "spellRogueStealthMaxedOut": "すでに全ての日課を回避しています。再度唱える必要はありません。",
     "spellHealerHealText": "ヒール",
     "spellHealerHealNotes": "まばゆい光が体力を回復します！ (基準 : 体質と知能)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "スキルはチャレンジのタスクには唱えられません。",
     "groupTasksNoCast": "スキルはグループのタスクには唱えられません。",
     "spellNotOwned": "あなたはこのスキルを習得していません。",
-    "spellLevelTooHigh": "このスキルを使うにはレベル<%= level %>が必要です。"
+    "spellLevelTooHigh": "このスキルを使うにはレベル<%- level %>が必要です。"
 }

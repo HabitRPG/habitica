@@ -1,5 +1,5 @@
 {
-    "noItemsAvailableForType": "Du har ingen <%= type %>.",
+    "noItemsAvailableForType": "Du har ingen <%- type %>.",
     "foodItemType": "Mad",
     "eggsItemType": "Æg",
     "hatchingPotionsItemType": "Udrugningseliksirer",

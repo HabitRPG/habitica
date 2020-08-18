@@ -101,7 +101,7 @@
     "commGuidePara007": "El personal de Habitica tiene etiquetas violetas marcadas con coronas. Su titulo es \"Heroico\".",
     "commGuidePara008": "Los moderadores tienen etiquetas azul oscuro marcadas con estrellas. Su titulo es \"Guardian\". La unica excepcion es Bailey, que al ser un NPC, tiene una etiqueta negra y verde marcada con una estrella.",
     "commGuidePara009": "Los actuales miembros del personal son (de izquierda a derecha):",
-    "commGuideAKA": "<%= habitName %> también conocido como <%= realName %>",
+    "commGuideAKA": "<%- habitName %> también conocido como <%- realName %>",
     "commGuideOnTrello": "en Trello",
     "commGuideOnGitHub": "en GitHub",
     "commGuidePara010": "También hay varios Moderadores que ayudan a los miembros del personal. Fueron seleccionados cuidadosamente, así que, por favor, respétalos y escucha lo que sugieren.",

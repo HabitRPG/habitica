@@ -244,7 +244,7 @@ export default {
   methods: {
     close () {
       this.paymentData = {};
-      this.$root.$emit('habitica::dismiss-modal', 'payments-success-modal');
+      this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
   },
 };

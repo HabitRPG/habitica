@@ -8,7 +8,7 @@
     "achievementLostMasterclasserText": "Masterclasser क्वेस्ट श्रृंखला में सभी सोलह quests को पूरा किया और खोया Masterclasser का रहस्य सुलझाया!",
     "yourProgress": "आपकी प्रगति",
     "gettingStartedDesc": "इन ऑनबोर्डिंग कार्यों को पूरा करें और जब आप एक बार काम पूरा कर लें तो आप <strong>5 कार्यसिद्धियां </ strong> और <strong class = \"gold-amount\"> 100 Gold </ strong> अर्जित करेंगे!",
-    "onboardingProgress": "<%= percentage %>% प्रगति",
+    "onboardingProgress": "<%- percentage %>% प्रगति",
     "achievementHatchedPet": "हैच ए पेट",
     "achievementBareNecessitiesModalText": "आपने बंदर, स्लॉथ और ट्रेलिंग पालतू quests को पूरा किया!",
     "achievementBareNecessitiesText": "बंदर, स्लॉथ और ट्रेलिंग पालतू quests पूरा कर लिया है।",

@@ -3,7 +3,7 @@
     "share": "Udostępnij",
     "onwards": "Naprzód!",
     "levelup": "Realizując życiowe cele, osiągnąłeś wyższy poziom i jesteś teraz w pełni wyleczony!",
-    "reachedLevel": "Osiągnąłeś poziom <%= level %>",
+    "reachedLevel": "Osiągnąłeś poziom <%- level %>",
     "achievementLostMasterclasser": "Realizator misji: Mistrzowie Klas",
     "achievementLostMasterclasserText": "Wykonano wszystkie szesnaście misji w cyklu Mistrzów Klas i rozwiązano zagadkę Zaginionego Mistrza!",
     "achievementAridAuthorityModalText": "Oswoiłeś wszystkie Pustynne Wierzchowce!",
@@ -23,8 +23,8 @@
     "achievementBackToBasicsModalText": "Zebrałeś wszystkie Podstawowe Zwierzaki!",
     "achievementBackToBasicsText": "Zebrano wszystkie podstawowe zwierzaki.",
     "achievementBackToBasics": "Powrót do podstaw",
-    "hideAchievements": "Ukryj <%= category %>",
-    "showAllAchievements": "Pokaż Wszystkie <%= category %>",
+    "hideAchievements": "Ukryj <%- category %>",
+    "showAllAchievements": "Pokaż Wszystkie <%- category %>",
     "earnedAchievement": "Zdobyłeś osiągnięcie!",
     "viewAchievements": "Zobacz Osiągnięcia",
     "letsGetStarted": "Zaczynajmy!",
@@ -65,7 +65,7 @@
     "achievementJustAddWater": "H2O – Wystarczy Kropla",
     "foundNewItemsExplanation": "Wykonywanie zadań daje Ci szansę na znalezienie przedmiotów, takich jak Jaja, Eliksiry Wyklucia, oraz Jedzonko dla Zwierzaków.",
     "gettingStartedDesc": "Ukończ swoje aktualne zadania, aby otrzymać <strong> 5 Osiągnięć </strong> oraz <strong class=\"gold-amount\">100 Dukatów</strong>!",
-    "onboardingProgress": "<%= percentage %>% postępu",
+    "onboardingProgress": "<%- percentage %>% postępu",
     "achievementRosyOutlookModalText": "Oswoiłeś wszystkie Różowe Wierzchowce!",
     "achievementRosyOutlookText": "Oswoił wszystkie Różowe Wierzchowce.",
     "achievementTickledPinkModalText": "Oswoiłeś wszystkie Różowe Zwierzaki!",
@@ -81,5 +81,8 @@
     "achievementTickledPink": "Łaskocący Róż",
     "achievementAllYourBase": "Wszystkie podstawowe",
     "achievementMindOverMatterModalText": "Wypełniłeś(-aś) misje z chowańcami: Skałą, Piankowym Śluzem i Przędzą!",
-    "achievementMindOverMatterText": "Ukończono misje z chowańcami: Skałą, Piankowym Śluzem i Przędzą."
+    "achievementMindOverMatterText": "Ukończono misje z chowańcami: Skałą, Piankowym Śluzem i Przędzą.",
+    "achievementFreshwaterFriendsModalText": "Ukończyłeś(-aś) misje z chowańcami: Aksolotlem, Żabą i Hipopotamem!",
+    "achievementFreshwaterFriendsText": "Ukończono misje z chowańcami: Aksolotlem, Żabą i Hipciem.",
+    "achievementFreshwaterFriends": "Słodkowodni Przyjaciele"
 }

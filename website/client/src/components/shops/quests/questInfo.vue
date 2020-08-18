@@ -28,8 +28,8 @@
         <dt>{{ $t('difficulty') + ':' }}</dt>
         <dd>
           <div
-            v-for="star of stars()"
-            :key="star"
+            v-for="(star, index) of stars()"
+            :key="index"
             class="svg-icon inline icon-16"
             v-html="icons[star]"
           ></div>

@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Seus astutos talentos buffam a Percepção de todo seu Grupo! (Baseado em: PER sem buffs)",
     "spellRogueStealthText": "Furtividade",
     "spellRogueStealthNotes": "Com cada uso, algumas de suas Diárias não feitas não causarão dano hoje. Seus combos e cores não mudarão também. (Baseado em: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Número de Diárias que serão evitadas: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> Número de Diárias que serão evitadas: <%- number %>.",
     "spellRogueStealthMaxedOut": "Você já se esquivou de todas as suas Diárias; não há necessidade de fazer isso novamente.",
     "spellHealerHealText": "Luz Curadora",
     "spellHealerHealNotes": "Uma luz brilhante restaura sua vida! (Baseado em: CON e INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "O uso de habilidades em tarefas de desafio não é permitido.",
     "groupTasksNoCast": "Não é permitido usar habilidades em tarefas de time.",
     "spellNotOwned": "Você não possui essa habilidade.",
-    "spellLevelTooHigh": "Você precisa ser nível <%= level %> para usar essa habilidade."
+    "spellLevelTooHigh": "Você precisa ser nível <%- level %> para usar essa habilidade."
 }

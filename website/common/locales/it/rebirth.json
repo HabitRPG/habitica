@@ -14,17 +14,17 @@
     "rebirthInList4": "Gli oggetti ottenuti con le Gemme o trovati tramite drop (come animali e cavalcature) rimangono.",
     "rebirthEarnAchievement": "Ottieni inoltre una Medaglia per aver iniziato una nuova avventura!",
     "beReborn": "Rinasci",
-    "rebirthAchievement": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%= number %> per te, il livello più alto che hai raggiunto è <%= level %>. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto un livello ancora più alto!",
-    "rebirthAchievement100": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%= number %> per te, il livello più alto che hai raggiunto è 100 o superiore. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto almeno il livello 100!",
+    "rebirthAchievement": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%- number %> per te, il livello più alto che hai raggiunto è <%- level %>. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto un livello ancora più alto!",
+    "rebirthAchievement100": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%- number %> per te, il livello più alto che hai raggiunto è 100 o superiore. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto almeno il livello 100!",
     "rebirthBegan": "Ha cominciato una nuova avventura",
-    "rebirthText": "Ha cominciato <%= rebirths %> nuove avventure",
-    "rebirthOrb": "Ha utilizzato una Sfera della Rinascita per ricominciare dopo aver raggiunto il livello <%= level %>.",
+    "rebirthText": "Ha cominciato <%- rebirths %> nuove avventure",
+    "rebirthOrb": "Ha utilizzato una Sfera della Rinascita per ricominciare dopo aver raggiunto il livello <%- level %>.",
     "rebirthOrb100": "Ha utilizzato una Sfera della Rinascita per ricominciare dopo aver raggiunto il livello 100+.",
     "rebirthOrbNoLevel": "Ha utilizzato una Sfera della Rinascita per ricominciare da capo.",
     "rebirthPop": "Fai ripartire subito il tuo personaggio dal Livello 1 come Guerriero mantenendo medaglie, oggetti collezionabili ed equipaggiamento. Le tue attività e la loro cronologia rimarranno, ma torneranno al colore giallo. I contatori serie verranno resettati per tutte le attività, eccetto quelle appartenenti alle Sfide ed ai Piani di Gruppo. Il tuo oro, esperienza, mana ed effetti di tutte le abilità verranno rimossi. Tutto questo avrà effetto immediatamente. Per maggiori informazioni, visita la pagina della Wiki sulla <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Sfera della Rinascita</a>.",
     "rebirthName": "Sfera della Rinascita",
-    "reborn": "Rinascita, livello massimo <%= reLevel %>",
+    "reborn": "Rinascita, livello massimo <%- reLevel %>",
     "confirmReborn": "Sei sicuro/a?",
     "rebirthComplete": "Rinascita completata!",
-    "nextFreeRebirth": "<strong><%= days %> giorni </strong> alla Sfera di rinascita <strong>GRATUITA</strong>"
+    "nextFreeRebirth": "<strong><%- days %> giorni </strong> alla Sfera di rinascita <strong>GRATUITA</strong>"
 }

@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "Jūs neturite <%= type %>",
+  "noItemsAvailableForType": "Jūs neturite <%- type %>",
   "foodItemType": "Maistas",
   "eggsItemType": "Kiaušiniai",
   "hatchingPotionsItemType": "Eliksyrai išperėjimui",

@@ -14,17 +14,17 @@
     "rebirthInList4": "Items obtained from Sapphires or Loot (such as pets an' mounts) remain.",
     "rebirthEarnAchievement": "Ye also earn an Achievement fer embarkin' on a new adventure!",
     "beReborn": "Be Reborn",
-    "rebirthAchievement": "Ye've begun a new adventure! 'tis be Rebirth <%= number %> fer ye, 'n th' highest Level ye've attained be <%= level %>. To stack 'tis Achievement, begin ye next new adventure when ye've reached an even higher Level!",
-    "rebirthAchievement100": "Ye've begun a new voyage! This be Rebirth <%= number %> fer ye, an' th' highest Level ye've attained be 100 or higher. T' stack this Achievement, begin yer nex' new voyage when ye've reached at least 100!",
+    "rebirthAchievement": "Ye've begun a new adventure! 'tis be Rebirth <%- number %> fer ye, 'n th' highest Level ye've attained be <%- level %>. To stack 'tis Achievement, begin ye next new adventure when ye've reached an even higher Level!",
+    "rebirthAchievement100": "Ye've begun a new voyage! This be Rebirth <%- number %> fer ye, an' th' highest Level ye've attained be 100 or higher. T' stack this Achievement, begin yer nex' new voyage when ye've reached at least 100!",
     "rebirthBegan": "Embarked on a New Adventure",
-    "rebirthText": "Embarked on <%= rebirths %> New Adventures",
-    "rebirthOrb": "Used an Orb o' Rebirth t' start o'er aft attainin' Level <%= level %>.",
+    "rebirthText": "Embarked on <%- rebirths %> New Adventures",
+    "rebirthOrb": "Used an Orb o' Rebirth t' start o'er aft attainin' Level <%- level %>.",
     "rebirthOrb100": "Used an Orb o' Rebirth t' start over aft attainin' Level 100 or higher.",
     "rebirthOrbNoLevel": "Used an Orb o' Rebirth t' start o'er.",
     "rebirthPop": "Instantly restart yer character as a Level 1 Mercenary while retainin' achievements, treasures, 'n equipment. Yer tasks 'n their history will remain but they'll be reset t' yellow. Yer streaks will be cast overboard 'cept from challenge tasks. Yer Doubloons, Experience, Mana, an' the effects o' all Skills will be cast overboard. All o' this will take effect immediately. Fer more information, explore th' wiki's <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb o' Rebirth</a> page.",
     "rebirthName": "Orb o' Rebirth",
-    "reborn": "Reborn, max level <%= reLevel %>",
+    "reborn": "Reborn, max level <%- reLevel %>",
     "confirmReborn": "Be ye positive?",
     "rebirthComplete": "Ye've been reborn!",
-    "nextFreeRebirth": "<strong><%= days %> days</strong> afore ye can use yon <strong>FREE</strong> Orb o' Rebirth"
+    "nextFreeRebirth": "<strong><%- days %> days</strong> afore ye can use yon <strong>FREE</strong> Orb o' Rebirth"
 }

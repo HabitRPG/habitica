@@ -3,7 +3,7 @@
     "share": "Share",
     "onwards": "Onwardz!",
     "levelup": "BY ACCOMPLISHIN UR REAL-LIFE GOALS, U LEVELD UP AN IZ NOW FULE HEELD!",
-    "reachedLevel": "U reechd level <%= level %>",
+    "reachedLevel": "U reechd level <%- level %>",
     "achievementLostMasterclasser": "Kwest completionist: masterclasr seriez",
     "achievementLostMasterclasserText": "Completd al sixtin kwestz in teh masterclasr quest seriez an solvd teh mystery for teh losed masterclaser!",
     "achievementAridAuthority": "Arid authoritie",

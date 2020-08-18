@@ -1,5 +1,5 @@
 {
-    "noItemsAvailableForType": "Je hebt geen <%= type %>.",
+    "noItemsAvailableForType": "Je hebt geen <%- type %>.",
     "foodItemType": "Dierenvoeding",
     "eggsItemType": "Eieren",
     "hatchingPotionsItemType": "Uitbroeddrank",
