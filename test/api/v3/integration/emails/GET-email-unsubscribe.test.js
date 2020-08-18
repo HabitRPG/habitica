@@ -53,7 +53,7 @@ describe('GET /email/unsubscribe', () => {
 
     const unsubscribedMessage = await user.get(`/email/unsubscribe?code=${code}`);
 
-    expect(unsubscribedMessage).to.equal('<h1>Unsubscribed successfully!</h1> You won’t receive any other email from Habitica.');
+    expect(unsubscribedMessage).to.equal('<h1>Unsubscribed successfully!</h1> You won\'t receive any other email from Habitica.');
   });
 
   it('returns okay when email is already unsubscribed', async () => {
@@ -63,6 +63,6 @@ describe('GET /email/unsubscribe', () => {
 
     const unsubscribedMessage = await user.get(`/email/unsubscribe?code=${code}`);
 
-    expect(unsubscribedMessage).to.equal('<h1>Unsubscribed successfully!</h1> You won’t receive any other email from Habitica.');
+    expect(unsubscribedMessage).to.equal('<h1>Unsubscribed successfully!</h1> You won\'t receive any other email from Habitica.');
   });
 });
