@@ -35,6 +35,7 @@ api.getNews = {
           </div>
         </div>
         <hr/>
+        <div class="promo_golden_achievements center-block"></div>
         <p>
           We're releasing a new achievement so you can celebrate your successes in the world of
           Habitican pet collecting! Earn the Good as Gold and All That Glitters achievements by
