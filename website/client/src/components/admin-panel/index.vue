@@ -33,76 +33,10 @@
             :profile="hero.profile"
           />
 
-          <div class="accordion-group">
-            <h3
-              class="expand-toggle"
-              :class="{'open': expandPriv}"
-              @click="expandPriv = !expandPriv"
-            >
-              Privileges, Gem Balance
-            </h3>
-            <div v-if="expandPriv">
-              <p
-                v-if="errors.priv"
-                class="errorMessage"
-              >
-                Player has had privilege(s) removed.
-              </p>
-              <form @submit.prevent="saveHeroOld()">
-                <div class="checkbox">
-                  <label>
-                    <input
-                      v-if="hero.flags"
-                      v-model="hero.flags.chatShadowMuted"
-                      type="checkbox"
-                    > Shadow Mute
-                  </label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input
-                      v-if="hero.flags"
-                      v-model="hero.flags.chatRevoked"
-                      type="checkbox"
-                    > Mute (Revoke Chat Privileges)
-                  </label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input
-                      v-model="hero.auth.blocked"
-                      type="checkbox"
-                    > Ban / Block
-                  </label>
-                </div>
-                <div class="form-inline">
-                  <label>
-                    Balance
-                    <input
-                      v-model="hero.balance"
-                      class="form-control"
-                      type="number"
-                      step="0.25"
-                      :style="{ 'width': '15ch' }"
-                    >
-                  </label>
-                  <span>
-                    <small>
-                      Balance is in USD, not in Gems.
-                      E.g., if this number is 1, it means 4 Gems.
-                      Arrows change Balance by 0.25 (i.e., 1 Gem per click).
-                      Do not use when awarding tiers; tier gems are automatic.
-                    </small>
-                  </span>
-                </div>
-                <input
-                  type="submit"
-                  value="Save"
-                  class="btn btn-primary"
-                >
-              </form>
-            </div>
-          </div>
+          <privileges-and-gems
+            :hero="hero"
+            :resetCounter="this.resetCounter"
+          />
 
           <cron-and-auth
             :auth="hero.auth"
@@ -316,6 +250,7 @@ import BasicDetails from './user-support/basicDetails';
 import CronAndAuth from './user-support/cronAndAuth';
 import PartyAndQuest from './user-support/partyAndQuest';
 import AvatarAndDrops from './user-support/avatarAndDrops';
+import PrivilegesAndGems from './user-support/privilegesAndGems';
 import ContributorDetails from './user-support/contributorDetails';
 
 export default {
@@ -324,6 +259,7 @@ export default {
     CronAndAuth,
     PartyAndQuest,
     AvatarAndDrops,
+    PrivilegesAndGems,
     ContributorDetails,
   },
   directives: {
@@ -340,7 +276,6 @@ export default {
       partyNotExistError: false,
       content,
       collatedItemData: {},
-      expandPriv: false,
       expandItems: false,
       expandItemType: {
         eggs: false,
@@ -354,10 +289,6 @@ export default {
       },
       expandUpdateItems: false,
       itemTypes: ['eggs', 'hatchingPotions', 'food', 'pets', 'mounts', 'quests', 'gear', 'special'],
-      errorsHeading: '- ERROR EXISTS',
-      errors: {
-        priv: '',
-      },
     };
   },
   computed: {
@@ -568,23 +499,11 @@ export default {
       const hero = await this.$store.dispatch('hall:getHero', { uuid });
       this.hero = { ...hero };
 
-      // initialise error messages for this user
-      this.errors = {
-        priv: '',
-      };
-
       if (!this.hero.flags) {
         this.hero.flags = {
           chatRevoked: false,
           chatShadowMuted: false,
         };
-      }
-
-      if (this.hero.flags.chatRevoked || this.hero.flags.chatShadowMuted
-          || this.hero.auth.blocked) {
-          // This isn't a code error situation but we want it to be obvious that
-          // the user has had privilege(s) removed, so we set an "error":
-          this.errors.priv = true;
       }
 
       this.hasParty = false;
@@ -604,7 +523,6 @@ export default {
       this.collatedItemData = this.collateItemData();
 
       // collapse all sections except those with errors
-      this.expandPriv = this.errors.priv;
       this.expandItems = false;
       this.expandUpdateItems = false;
       this.itemTypes.forEach(itemType => { this.expandItemType[itemType] = false; });
