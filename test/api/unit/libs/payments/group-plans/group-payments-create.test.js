@@ -206,16 +206,27 @@ describe('Purchasing a group plan for group', () => {
     await api.createSubscription(data);
 
     expect(sender.sendTxn).to.be.calledThrice;
-    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-member-join');
-    expect(sender.sendTxn.secondCall.args[2]).to.eql([
+    const recipientCall = sender.sendTxn.getCalls().find(call => {
+      const isRecipient = call.args[0]._id === recipient._id;
+      const isJoin = call.args[1] === 'group-member-join';
+      return isRecipient && isJoin;
+    });
+    expect(recipientCall.args[0]._id).to.equal(recipient._id);
+    expect(recipientCall.args[1]).to.equal('group-member-join');
+    expect(recipientCall.args[2]).to.eql([
       { name: 'LEADER', content: user.profile.name },
       { name: 'GROUP_NAME', content: group.name },
       { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NONE },
     ]);
+
     // confirm that the other email sent is appropriate:
-    expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-subscription-begins');
+    const leaderCall = sender.sendTxn.getCalls().find(call => {
+      const isLeader = call.args[0]._id === group.leader;
+      const isSubscriptionBegin = call.args[1] === 'group-subscription-begins';
+      return isLeader && isSubscriptionBegin;
+    });
+    expect(leaderCall.args[0]._id).to.equal(group.leader);
+    expect(leaderCall.args[1]).to.equal('group-subscription-begins');
   });
 
   it('sends one email to subscribed member of group, stating subscription is cancelled (Stripe)', async () => {
@@ -232,16 +243,27 @@ describe('Purchasing a group plan for group', () => {
     await api.createSubscription(data);
 
     expect(sender.sendTxn).to.be.calledThrice;
-    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-member-join');
-    expect(sender.sendTxn.secondCall.args[2]).to.eql([
+    const recipientCall = sender.sendTxn.getCalls().find(call => {
+      const isRecipient = call.args[0]._id === recipient._id;
+      const isJoin = call.args[1] === 'group-member-join';
+      return isRecipient && isJoin;
+    });
+    expect(recipientCall.args[0]._id).to.equal(recipient._id);
+    expect(recipientCall.args[1]).to.equal('group-member-join');
+    expect(recipientCall.args[2]).to.eql([
       { name: 'LEADER', content: user.profile.name },
       { name: 'GROUP_NAME', content: group.name },
       { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL },
     ]);
+
     // confirm that the other email sent is not a cancel-subscription email:
-    expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-subscription-begins');
+    const leaderCall = sender.sendTxn.getCalls().find(call => {
+      const isLeader = call.args[0]._id === group.leader;
+      const isSubscriptionBegin = call.args[1] === 'group-subscription-begins';
+      return isLeader && isSubscriptionBegin;
+    });
+    expect(leaderCall.args[0]._id).to.equal(group.leader);
+    expect(leaderCall.args[1]).to.equal('group-subscription-begins');
   });
 
   it('sends one email to subscribed member of group, stating subscription is cancelled (Amazon)', async () => {
@@ -265,16 +287,27 @@ describe('Purchasing a group plan for group', () => {
     await api.createSubscription(data);
 
     expect(sender.sendTxn).to.be.calledThrice;
-    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-member-join');
-    expect(sender.sendTxn.secondCall.args[2]).to.eql([
+    const recipientCall = sender.sendTxn.getCalls().find(call => {
+      const isRecipient = call.args[0]._id === recipient._id;
+      const isJoin = call.args[1] === 'group-member-join';
+      return isRecipient && isJoin;
+    });
+    expect(recipientCall.args[0]._id).to.equal(recipient._id);
+    expect(recipientCall.args[1]).to.equal('group-member-join');
+    expect(recipientCall.args[2]).to.eql([
       { name: 'LEADER', content: user.profile.name },
       { name: 'GROUP_NAME', content: group.name },
       { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL },
     ]);
+
     // confirm that the other email sent is not a cancel-subscription email:
-    expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-subscription-begins');
+    const leaderCall = sender.sendTxn.getCalls().find(call => {
+      const isLeader = call.args[0]._id === group.leader;
+      const isSubscriptionBegin = call.args[1] === 'group-subscription-begins';
+      return isLeader && isSubscriptionBegin;
+    });
+    expect(leaderCall.args[0]._id).to.equal(group.leader);
+    expect(leaderCall.args[1]).to.equal('group-subscription-begins');
 
     amzLib.getBillingAgreementDetails.restore();
   });
@@ -302,16 +335,27 @@ describe('Purchasing a group plan for group', () => {
     await api.createSubscription(data);
 
     expect(sender.sendTxn).to.be.calledThrice;
-    expect(sender.sendTxn.secondCall.args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.secondCall.args[1]).to.equal('group-member-join');
-    expect(sender.sendTxn.secondCall.args[2]).to.eql([
+    const recipientCall = sender.sendTxn.getCalls().find(call => {
+      const isRecipient = call.args[0]._id === recipient._id;
+      const isJoin = call.args[1] === 'group-member-join';
+      return isRecipient && isJoin;
+    });
+    expect(recipientCall.args[0]._id).to.equal(recipient._id);
+    expect(recipientCall.args[1]).to.equal('group-member-join');
+    expect(recipientCall.args[2]).to.eql([
       { name: 'LEADER', content: user.profile.name },
       { name: 'GROUP_NAME', content: group.name },
       { name: 'PREVIOUS_SUBSCRIPTION_TYPE', content: EMAIL_TEMPLATE_SUBSCRIPTION_TYPE_NORMAL },
     ]);
+
     // confirm that the other email sent is not a cancel-subscription email:
-    expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(group.leader);
-    expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-subscription-begins');
+    const leaderCall = sender.sendTxn.getCalls().find(call => {
+      const isLeader = call.args[0]._id === group.leader;
+      const isSubscriptionBegin = call.args[1] === 'group-subscription-begins';
+      return isLeader && isSubscriptionBegin;
+    });
+    expect(leaderCall.args[0]._id).to.equal(group.leader);
+    expect(leaderCall.args[1]).to.equal('group-subscription-begins');
 
     paypalPayments.paypalBillingAgreementGet.restore();
     paypalPayments.paypalBillingAgreementCancel.restore();
