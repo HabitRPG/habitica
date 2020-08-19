@@ -8,7 +8,7 @@
     "brokenChallenge": "Neispravna poveznica izazova: ovaj je zadatak bio dio izazova, ali je izazov (ili grupa) izbrisan/a. Što želiš učiti s osiroćenim zadacima?",
     "keepThem": "Zadrži Zadatke",
     "removeThem": "Ukloni Zadatke",
-    "challengeCompleted": "Ovaj je izazov izvršen i pobjednik je <span class=\"badge\"><%= user %></span>! Što želiš učiniti s osiroćenim zadacima?",
+    "challengeCompleted": "Ovaj je izazov izvršen i pobjednik je <span class=\"badge\"><%- user %></span>! Što želiš učiniti s osiroćenim zadacima?",
     "unsubChallenge": "Neispravna poveznica izazova: ovaj je zadatak bio dio izazova, no ti si napustio/la izazov. Što želiš učiniti s osiroćenim zadacima?",
     "challengeWinner": "bio/la je pobjednik/ca sljedećih izazova",
     "challenges": "Izazovi",

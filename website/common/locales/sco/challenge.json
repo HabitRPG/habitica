@@ -8,7 +8,7 @@
     "brokenChallenge": "Braken Challenge Airtin: this task wis pairt o a challenge, but the challenge (or group) haes been deletit. Whit tae dae wi the orphant tasks?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "This challenge has been feenisht, an the winner wis <span class=\"badge\"><%= user %></span>! Whit tae dae wi the orphant tasks?",
+    "challengeCompleted": "This challenge has been feenisht, an the winner wis <span class=\"badge\"><%- user %></span>! Whit tae dae wi the orphant tasks?",
     "unsubChallenge": "Braken Challenge Airtin: this task wis pairt o a challenge, but ye hiv unsubscribed frae the challenge. Whit tae dae wi the orphant tasks?",
     "challengeWinner": "Wis the winner in the follaein challenges",
     "challenges": "Challenges",

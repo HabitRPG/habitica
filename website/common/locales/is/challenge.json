@@ -8,7 +8,7 @@
     "brokenChallenge": "Hlekkurinn í áskoranirnar er óvirkur: Þetta verkefni var hluti af áskorun (eða hópi) en hefur verið fjarlægt úr henni. Hvað myndirðu vilja gera við þessi munaðarlausu verkefni?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Þessari áskorun hefur verið lokið. Sigurvegarinn er <span class=\"badge\"><%= user %></span>! Hvað viltu gera við eftirstandandi verkefni?",
+    "challengeCompleted": "Þessari áskorun hefur verið lokið. Sigurvegarinn er <span class=\"badge\"><%- user %></span>! Hvað viltu gera við eftirstandandi verkefni?",
     "unsubChallenge": "Hlekkurinn í áskorunina er óvirkur: Þetta verkefni var hluti af áskorun en þú hefur afskráð þig úr henni. Hvað myndirðu vilja gera?",
     "challengeWinner": "Sigraði eftirfarandi áskoranir",
     "challenges": "Áskoranir",

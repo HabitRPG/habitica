@@ -8,7 +8,7 @@
     "brokenChallenge": "Enlace al Desafío roto: esta tarea era parte de un desafío pero el desafío (o grupo) ha sido eliminado. ¿Qué hacemos con las tareas huérfanas?",
     "keepThem": "Conservar Tareas",
     "removeThem": "Eliminar Tareas",
-    "challengeCompleted": "Este desafío ha sido completado ¡y el ganador es <span class=\"badge\"><%= user %></span>! ¿Qué hacemos con las tareas huérfanas?",
+    "challengeCompleted": "Este desafío ha sido completado ¡y el ganador es <span class=\"badge\"><%- user %></span>! ¿Qué hacemos con las tareas huérfanas?",
     "unsubChallenge": "Enlace al Desafío roto: esta tarea era parte de un Desafío, pero te has dado de baja del mismo. ¿Qué hacemos con las tareas huérfanas?",
     "challengeWinner": "Fue el ganador en los siguientes desafíos",
     "challenges": "Desafíos",

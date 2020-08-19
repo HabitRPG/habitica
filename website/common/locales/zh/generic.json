@@ -285,7 +285,7 @@
     "messages": "私信",
     "emptyMessagesLine1": "你没有任何私信",
     "emptyMessagesLine2": "如果你想发信息给别的玩家，你可以通过他们的主页，然后点击“消息”按钮。",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span>给你发送了一条私信",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span>给你发送了一条私信",
     "letsgo": "我们出发吧！",
     "selected": "已选择",
     "howManyToBuy": "你想买多少呢？",

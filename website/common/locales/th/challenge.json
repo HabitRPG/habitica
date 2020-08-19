@@ -8,7 +8,7 @@
     "brokenChallenge": "ลิงก์ Challenge ที่พัง: Task นี้เป็นส่วนหนึ่งของ Challenge แต่ว่า Challenge (หรือ Group) ได้ถูกลบไปแล้ว คุณต้องการจะทำอย่างไรกับกับ Task ที่ถูกทอดทิ้งนี้?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Challenge นี้เสร็จสิ้นแล้ว และผู้ชนะคือ <span class=\"badge\"><%= user %></span>! จะทำอย่างไรกับงานที่เหลือ?",
+    "challengeCompleted": "Challenge นี้เสร็จสิ้นแล้ว และผู้ชนะคือ <span class=\"badge\"><%- user %></span>! จะทำอย่างไรกับงานที่เหลือ?",
     "unsubChallenge": "ลิงก์ Challenge ที่พัง: Task นี้เป็นส่วนหนึ่งของ Challenge แต่ว่าคุณได้ unsubscribe จาก Challenge ไปแล้ว จะทำอย่างไรกับงานที่เหลือ?",
     "challengeWinner": "เป็นผู้ชนะของ Challenge เหล่านี้",
     "challenges": "Challenges",

@@ -8,7 +8,7 @@
     "brokenChallenge": "Bojāta izaicinājuma saite: šis uzdevums bija iekļauts izaicinājumā, bet šobrīd izaicinājums (vai grupa) ir izdzēsts. Ko vēlaties iesākt ar atlikušajiem uzdevumiem?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Šis izaicinājums ir pabeigts un uzvarētājs ir <span class=\"badge\"><%= user %></span>! Ko darīt ar pārpalikušajiem uzdevumiem?",
+    "challengeCompleted": "Šis izaicinājums ir pabeigts un uzvarētājs ir <span class=\"badge\"><%- user %></span>! Ko darīt ar pārpalikušajiem uzdevumiem?",
     "unsubChallenge": "Bojāta izacinājuma saite: šis uzdevums bija daļa no izaicinājuma, taču jūs esat attiecies no izaicinājuma. Ko darīt ar pārpalikušajiem uzdevumiem?",
     "challengeWinner": "Bija uzvarētājs sekojošajos izaicinājumos",
     "challenges": "Izaicinājumi",
