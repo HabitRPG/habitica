@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "你的狡猾天份強化了整個隊伍的感知！（基於：未增益感知）",
     "spellRogueStealthText": "潛行",
     "spellRogueStealthNotes": "伴隨著每一次施放，一些你未完成的每日任務今晚不會造成傷害，他們的連擊和顏色不會改變。（基於：感知）",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> 阻止的每日任務數量：<%= number %>。",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> 阻止的每日任務數量：<%- number %>。",
     "spellRogueStealthMaxedOut": "您已阻止您所有的每日任務；沒有必要再次施放。",
     "spellHealerHealText": "治療之光",
     "spellHealerHealNotes": "閃耀光芒回復了你的生命值！（基於：體質和智力）",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "你無法在挑戰任務上使用技能。",
     "groupTasksNoCast": "你無法在群組任務上使用技能。",
     "spellNotOwned": "你不擁有這項技能。",
-    "spellLevelTooHigh": "你需要達到等級<%= level %>才能使用這個技能。"
+    "spellLevelTooHigh": "你需要達到等級<%- level %>才能使用這個技能。"
 }

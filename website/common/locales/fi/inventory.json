@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "Sinulta puuttuu <%= type %>.",
+  "noItemsAvailableForType": "Sinulta puuttuu <%- type %>.",
   "foodItemType": "Ruoka",
   "eggsItemType": "Munat",
   "hatchingPotionsItemType": "Hautomisjuomat",

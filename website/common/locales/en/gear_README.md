@@ -11,11 +11,11 @@ To maintain consistency in equipment descriptions, the following guidelines have
 * **No bonus:**
 "Confers no benefit."
 * **Single or all Stat bonus:**
-"Increases (Strength/Intelligence/Constitution/Perception/all Stats) by (<%= str %>/<%= int %>/<%= con %>/<%= per %>/<%= attrs %>)."
+"Increases (Strength/Intelligence/Constitution/Perception/all Stats) by (<%- str %>/<%- int %>/<%- con %>/<%- per %>/<%- attrs %>)."
 * **Two Stats, same bonus:**
-"Increases (Strength/Intelligence/Constitution) and (Intelligence/Constitution/Perception) by <%= attrs %> each."
+"Increases (Strength/Intelligence/Constitution) and (Intelligence/Constitution/Perception) by <%- attrs %> each."
 * **Two Stats, different bonus:**
-"Increases (Strength/Intelligence/Constitution) by (<%= str %>/<%= int %>/<%= con %>) and (Intelligence/Constitution/Perception) by (<%= int %>/<%= con %>/<%= per %>)]."
+"Increases (Strength/Intelligence/Constitution) by (<%- str %>/<%- int %>/<%- con %>) and (Intelligence/Constitution/Perception) by (<%- int %>/<%- con %>/<%- per %>)]."
 
 ## Event/Origin
 Examples of wording:

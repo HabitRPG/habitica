@@ -202,6 +202,16 @@ const basicAchievs = {
     titleKey: 'achievementFreshwaterFriends',
     textKey: 'achievementFreshwaterFriendsText',
   },
+  goodAsGold: {
+    icon: 'achievement-goodAsGold',
+    titleKey: 'achievementGoodAsGold',
+    textKey: 'achievementGoodAsGoldText',
+  },
+  allThatGlitters: {
+    icon: 'achievement-allThatGlitters',
+    titleKey: 'achievementAllThatGlitters',
+    textKey: 'achievementAllThatGlittersText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

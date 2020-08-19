@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BACK TO SCHOOL CHALLENGE, NEW BACKGROUNDS, AND NEW ENCHANTED ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,37 +31,31 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/11/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/18/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_reading center-block"></div>
-        <h3>Official Habitica Challenge: Back-to-School Preparation!</h3>
+        <div class="promo_golden_achievements center-block"></div>
         <p>
-          The school year is looming large for many scholarly Habiticans, so we've prepared a
-          special <a href='/challenges/8d6e280a-4dc8-4957-b2b4-feb07ce9ff6b'>Back-to-School
-          Challenge</a> to help with the transition between summer and semester. Check it out now
-          for a chance to win: five lucky winners will get a badge for their profile and their
-          choice of a <a href='https://habitica.wikia.com/wiki/Subscription'
-          target='_blank'>gift subscription</a> or Gems!
-        </p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <div class="promo_armoire_backgrounds_202008 center-block"></div>
-        <h3>August Backgrounds and Armoire Items!</h3>
-        <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can stroll
-          through Habit City's Productivity Plaza, enjoy the outdoors by Camping Out, or bask in
-          the splendor of the Jungle Canopy. Check them out under User Icon > Backgrounds on web
-          and Menu > Inventory > Customize Avatar on mobile!
+          We're releasing a new achievement so you can celebrate your successes in the world of
+          Habitican pet collecting! Earn the Good as Gold and All That Glitters achievements by
+          collecting Golden pets and mounts and you'll earn a nifty badge for your profile.
         </p>
         <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Heroic Herbalist Set. Better work hard on your real-life tasks to earn all the pieces!
-          Enjoy :)
+          If you already have all the Golden pets and/or mounts in your stable, you'll receive the
+          badge automatically! Check your profile and celebrate your new achievement with pride.
         </p>
-        <div class="small mb-3">
-          by AnnDeLune, katieslug, Alonquain,-Tyr-, OuttaMyMind, shanaqui and SabreCat
-        </div>
+        <div class="small mb-3">by Jokerat and SabreCat</div>
+        <h3>Task Scoring and Notification Improvements!</h3>
+        <p>
+          We've made an improvement to scoring your tasks via the Record Yesterday's Activity tool
+          on web! Previously, you'd see your stats increase as you checked things off in that
+          modal. Once the change goes live, you'll only see your stats increase and get
+          notifications about rewards and damage once you click to start a new day. You'll also
+          receive reduced popups with totals in stats gained rather than individual stat changes.
+          We hope you enjoy this change!
+        </p>
+        <div class="small mb-3">by paglias, negue, and Apollo</div>
       </div>
       `,
     });

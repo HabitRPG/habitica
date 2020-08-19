@@ -14,17 +14,17 @@
     "rebirthInList4": "Les objets obtenus à partir de gemmes ou de butin (comme les familiers et les montures) sont conservés.",
     "rebirthEarnAchievement": "Vous avez également obtenu un succès pour avoir commencé une nouvelle aventure !",
     "beReborn": "Renaître",
-    "rebirthAchievement": "Vous avez commencé une nouvelle aventure ! C'est votre renaissance n°<%= number %> et le niveau le plus élevé que vous avez atteint est <%= level %>. Pour cumuler ce succès, commencez votre nouvelle aventure une fois que vous aurez atteint un niveau encore plus élevé !",
-    "rebirthAchievement100": "Vous avez commencé une nouvelle aventure ! C'est votre renaissance <%= number %>, et le plus haut niveau que vous ayez atteint est 100 ou plus. Pour obtenir ce succès une fois de plus, commencez votre prochaine nouvelle aventure lorsque vous aurez atteint la prochaine centaine !",
+    "rebirthAchievement": "Vous avez commencé une nouvelle aventure ! C'est votre renaissance n°<%- number %> et le niveau le plus élevé que vous avez atteint est <%- level %>. Pour cumuler ce succès, commencez votre nouvelle aventure une fois que vous aurez atteint un niveau encore plus élevé !",
+    "rebirthAchievement100": "Vous avez commencé une nouvelle aventure ! C'est votre renaissance <%- number %>, et le plus haut niveau que vous ayez atteint est 100 ou plus. Pour obtenir ce succès une fois de plus, commencez votre prochaine nouvelle aventure lorsque vous aurez atteint la prochaine centaine !",
     "rebirthBegan": "A commencé une nouvelle aventure",
-    "rebirthText": "A débuté <%= rebirths %> nouvelles aventures",
-    "rebirthOrb": "A utilisé un orbe de renaissance pour recommencer à zéro après avoir atteint le niveau  <%= level %>.",
+    "rebirthText": "A débuté <%- rebirths %> nouvelles aventures",
+    "rebirthOrb": "A utilisé un orbe de renaissance pour recommencer à zéro après avoir atteint le niveau  <%- level %>.",
     "rebirthOrb100": "A utilisé un orbe de renaissance pour recommencer à zéro après avoir atteint le niveau 100 ou plus.",
     "rebirthOrbNoLevel": "A utilisé un orbe de renaissance pour recommencer à zéro.",
     "rebirthPop": "Recommencez instantanément avec un avatar guerrier de niveau 1, tout en conservant vos succès, votre butin et votre équipement. Les tâches et leur historique seront également conservés mais ramenés à la couleur jaune. Vos combos seront remis à zéro, sauf pour les tâches de provenant de défis ou de groupes. Votre or, votre expérience, votre mana et les effets de vos compétences seront supprimés. Tout ceci prendra effet immédiatement. Pour plus d'informations, rendez-vous sur la page du wiki consacrée à <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>l'orbe de renaissance</a>.",
     "rebirthName": "Orbe de renaissance",
-    "reborn": "Né à nouveau, niveau maximum <%= reLevel %>",
+    "reborn": "Né à nouveau, niveau maximum <%- reLevel %>",
     "confirmReborn": "Confirmez-vous ?",
     "rebirthComplete": "Vous avez été ressuscité !",
-    "nextFreeRebirth": "<strong><%= days %> jours</strong> avant un orbe de résurrection <strong>GRATUIT</strong>"
+    "nextFreeRebirth": "<strong><%- days %> jours</strong> avant un orbe de résurrection <strong>GRATUIT</strong>"
 }

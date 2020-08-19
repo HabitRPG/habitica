@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "Nie posiadasz <%= type %>.",
+  "noItemsAvailableForType": "Nie posiadasz <%- type %>.",
   "foodItemType": "Pożywienie",
   "eggsItemType": "Jaja",
   "hatchingPotionsItemType": "Eliksiry wyklucia",

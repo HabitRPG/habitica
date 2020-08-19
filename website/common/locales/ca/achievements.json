@@ -3,7 +3,7 @@
     "share": "Compartir",
     "onwards": "Endavant!",
     "levelup": "Al complir els teus objectius a la vida real, has pujat de nivell i has recuperat la salut!",
-    "reachedLevel": "Has assolit el nivell <%= level %>",
+    "reachedLevel": "Has assolit el nivell <%- level %>",
     "achievementLostMasterclasser": "Completador d'aventures: Sèrie Arximestra",
     "achievementLostMasterclasserText": "Per haver completat les setze missions de la sèrie Arximestra i haver resolt el misteri de l'arximestra perduda!",
     "achievementMindOverMatterText": "Per haver completat les missions de la Roca, el Llim i el Fil.",

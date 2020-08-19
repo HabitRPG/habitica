@@ -1,5 +1,6 @@
 import isString from 'lodash/isString';
 import clone from 'lodash/clone';
+import forEach from 'lodash/forEach';
 import template from 'lodash/template';
 
 const i18n = {
@@ -36,9 +37,16 @@ function t (stringName) {
 
   const clonedVars = clone(vars) || {};
 
+  forEach(clonedVars, (val, key) => {
+    if (typeof clonedVars[key] === 'string') {
+      clonedVars[key] = clonedVars[key].replace(/'/g, '’');
+    }
+  });
+
   clonedVars.locale = locale;
 
   if (string) {
+    string = string.replace(/'/g, '’');
     try {
       return template(string)(clonedVars);
     } catch (_error) {

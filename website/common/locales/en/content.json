@@ -257,7 +257,7 @@
   "questEggRobotMountText": "Robot",
   "questEggRobotAdjective": "a futuristic",
 
-  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+  "eggNotes": "Find a hatching potion to pour on this egg, and it will hatch into <%- eggAdjective(locale) %> <%- eggText(locale) %>.",
 
   "hatchingPotionBase": "Base",
   "hatchingPotionWhite": "White",
@@ -303,8 +303,8 @@
   "hatchingPotionFluorite": "Fluorite",
   "hatchingPotionSandSculpture": "Sand Sculpture",
 
-  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
-  "premiumPotionAddlNotes": "Not usable on quest pet eggs. Available for purchase until <%= date(locale) %>.",
+  "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%- potText(locale) %> pet.",
+  "premiumPotionAddlNotes": "Not usable on quest pet eggs. Available for purchase until <%- date(locale) %>.",
   "premiumPotionUnlimitedNotes": "Not usable on quest pet eggs.",
 
   "foodMeat": "Meat",

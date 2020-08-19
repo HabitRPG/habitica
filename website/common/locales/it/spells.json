@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Le tue astute capacità fanno guadagnare a tutta la tua squadra un bonus di Percezione! (Dipende da: PER senza bonus)",
     "spellRogueStealthText": "Furtività",
     "spellRogueStealthNotes": "Con ogni utilizzo, alcune delle tue Attività Giornaliere non completate non ti danneggeranno stanotte. Il loro colore e contatore serie non cambierà. (Dipende da: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Numero di Attività Giornaliere evitate: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%- originalText %> Numero di Attività Giornaliere evitate: <%- number %>.",
     "spellRogueStealthMaxedOut": "Hai già schivato tutte le tue attività giornaliere; non c'è bisogno di lanciarla di nuovo.",
     "spellHealerHealText": "Luce Curativa",
     "spellHealerHealNotes": "Un avvolgente bagliore ti fa recuperare Salute! (Dipende da: COS e INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Non è possibile usare abilità sulle attività delle sfide.",
     "groupTasksNoCast": "Non è possibile usare abilità sulle attività di gruppo.",
     "spellNotOwned": "Non possiedi questa abilità.",
-    "spellLevelTooHigh": "Devi raggiungere il livello <%= level %> per usare questa abilità."
+    "spellLevelTooHigh": "Devi raggiungere il livello <%- level %> per usare questa abilità."
 }
