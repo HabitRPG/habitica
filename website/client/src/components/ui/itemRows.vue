@@ -19,10 +19,12 @@
     </div>
     <div
       v-if="items.length > itemsPerRow"
-      class="btn btn-flat btn-show-more"
+      class="btn btn-flat btn-show-more mb-4"
       @click="toggleItemsToShow()"
     >
-      {{ showAll ? $t('showLess') : $t('showMore') }}
+      <span class="button-text">
+        {{ showAll ? $t('showLess') : $t('showMore') }}
+      </span>
     </div>
     <div
       v-else
@@ -32,12 +34,29 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .fill-height {
     height: 38px; // button + margin + padding
   }
 
   .item-rows {
     margin-right: -24px;
+  }
+
+  .btn-show-more {
+    height: 2rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+
+    .button-text {
+       height: 1.5rem;
+       font-size: 14px;
+       font-weight: bold;
+       line-height: 1.71;
+       text-align: center;
+       color: $gray-100;
+    }
   }
 </style>
 

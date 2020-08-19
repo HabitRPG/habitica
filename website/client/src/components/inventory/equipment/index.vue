@@ -76,36 +76,7 @@
           </b-dropdown>
 
           <span class="divider"></span>
-          <b-dropdown
-            text="Unequip"
-            right="right"
-          >
-            <b-dropdown-item
-              @click="unequipBattleGear()"
-            >
-              {{ $t('battleGear') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              @click="unequipCostume()"
-            >
-              {{ $t('costume') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              @click="unequipPetMount()"
-            >
-              {{ $t('petAndMount') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              @click="unequipBackground()"
-            >
-              {{ $t('background') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              @click="unequipAllItems()"
-            >
-              {{ $t('allItems') }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <unequip-dropdown />
         </div>
       </div>
 
@@ -369,11 +340,10 @@ import i18n from '@/../../common/script/i18n';
 
 import EquipGearModal from './equipGearModal';
 
-// export constant to a different path?
-import { UNEQUIP_PET_MOUNT, UNEQUIP_COSTUME, UNEQUIP_EQUIPPED } from '../../../../../common/script/ops/unequip';
 import FilterGroup from '@/components/ui/filterGroup';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import Checkbox from '@/components/ui/checkbox';
+import UnequipDropdown from '@/components/inventory/equipment/unequipDropdown';
 
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -388,6 +358,7 @@ const sortGearTypeMap = {
 export default {
   name: 'Equipment',
   components: {
+    UnequipDropdown,
     Checkbox,
     FilterSidebar,
     FilterGroup,
@@ -629,26 +600,6 @@ export default {
         CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE,
         CONSTANTS.drawerStateValues.DRAWER_CLOSED,
       );
-    },
-    unequipItems () {
-      this.$store.dispatch('user:unequip', {
-        type: this.costumeMode ? UNEQUIP_COSTUME : UNEQUIP_EQUIPPED,
-      });
-    },
-    unequipPetMountBackground () {
-      this.$store.dispatch('user:unequip', {
-        type: UNEQUIP_PET_MOUNT,
-      });
-    },
-    unequipBattleGear () {
-    },
-    unequipCostume () {
-    },
-    unequipPetMount () {
-    },
-    unequipBackground () {
-    },
-    unequipAllItems () {
     },
   },
 };
