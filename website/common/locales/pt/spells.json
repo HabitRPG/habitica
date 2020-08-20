@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Os teus talentos traiçoeiros aumentam a Percepção de toda a tua Equipa! (Baseado em: PER)",
     "spellRogueStealthText": "Furtividade",
     "spellRogueStealthNotes": "A cada conjuração, algumas de suas Diárias não cumpridas não causarão danos esta noite. Seus combos e cores não mudarão. (Baseado em: PER)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %>  Número de tarefas diárias evitado: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %>  Número de tarefas diárias evitado: <%= number %>.",
     "spellRogueStealthMaxedOut": "Você já evitou todas as suas tarefas diárias; não há necessidade de lançar isso de novo.",
     "spellHealerHealText": "Luz Curadora",
     "spellHealerHealNotes": "Luz brilhante restora a sua saúde! (Baseado em: CON e INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "O uso de habilidade em tarefas de desafio não é permitido.",
     "groupTasksNoCast": "Não é permitido lançar uma habilidade sobre uma tarefa de grupo.",
     "spellNotOwned": "Você não possui essa habilidade.",
-    "spellLevelTooHigh": "Você precisa ter nível <%- level %> para usar essa habilidade."
+    "spellLevelTooHigh": "Você precisa ter nível <%= level %> para usar essa habilidade."
 }

@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW PET COLLECTION BADGES!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POSTS: GUILD AND USE CASE SPOTLIGHTS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,31 +31,43 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/18/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/20/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_golden_achievements center-block"></div>
+        <div class="scene_public_space center-block"></div>
+        <h3>Use Case Spotlight: Supporting Your Loved Ones</h3>
         <p>
-          We're releasing a new achievement so you can celebrate your successes in the world of
-          Habitican pet collecting! Earn the Good as Gold and All That Glitters achievements by
-          collecting Golden pets and mounts and you'll earn a nifty badge for your profile.
+          This month's <a href='https://habitica.wordpress.com/2020/08/20/use-case-spotlight-supporting-your-loved-ones/'
+          target="_blank">Use Case Spotlight</a> is about Supporting Your Loved Ones! It features
+          a number of great suggestions submitted by Habiticans in the <a
+          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
+          We hope it helps any of you who might be looking for ways to be there for the people you
+          care about.
         </p>
         <p>
-          If you already have all the Golden pets and/or mounts in your stable, you'll receive the
-          badge automatically! Check your profile and celebrate your new achievement with pride.
+          Plus, we're collecting user submissions for the next spotlight! How do you use Habitica
+          to create positivity in your life? We’ll be featuring player-submitted examples in Use
+          Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case
+          Spotlight Guild now. We look forward to learning more about how you use Habitica to
+          improve your life and get things done!
         </p>
-        <div class="small mb-3">by Jokerat and SabreCat</div>
-        <h3>Task Scoring and Notification Improvements!</h3>
+        <div class="small mb-3">by shanaqui</div>
+        <div class="scene_CernyPie center-block"></div>
+        <h3>Guild Spotlight: CernyPie's Favorites</h3>
         <p>
-          We've made an improvement to scoring your tasks via the Record Yesterday's Activity tool
-          on web! Previously, you'd see your stats increase as you checked things off in that
-          modal. Once the change goes live, you'll only see your stats increase and get
-          notifications about rewards and damage once you click to start a new day. You'll also
-          receive reduced popups with totals in stats gained rather than individual stat changes.
-          We hope you enjoy this change!
+          For this year's Guild Spotlight series, we're highlighting some favorites from Habitica's
+          staff, moderators, and some high-level contributors!
         </p>
-        <div class="small mb-3">by paglias, negue, and Apollo</div>
+        <p>
+          This month we're sharing some <a
+          href='https://habitica.wordpress.com/2020/08/20/guild-spotlights-our-favourites-7/'
+          target='_blank'>picks from legendary socialite CernyPie</a>! If you want to curate your
+          Habitica experience and join active, positive Guilds, this is a great way to pick up some
+          new ideas for Guilds to join.
+        </p>
+        <div class="small mb-3">by shanaqui</div>
+
       </div>
       `,
     });

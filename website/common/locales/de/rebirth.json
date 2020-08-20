@@ -14,17 +14,17 @@
     "rebirthInList4": "Gegenstände, die Du durch Edelsteine oder Beute erhalten hast (wie z.B. Tiere und Reittiere), bleiben erhalten.",
     "rebirthEarnAchievement": "Du erhältst den Erfolg für das Beginnen eines neuen Abenteuers!",
     "beReborn": "Werde wiedergeboren",
-    "rebirthAchievement": "Du hast ein neues Abenteuer begonnen! Das ist Deine <%- number %>. Wiedergeburt. Dein höchstes jemals erreichtes Level ist <%- level %>. Um diesen Erfolg zu stapeln, beginne Dein nächstes Abenteuer wenn Du ein noch höheres Level erreicht hast!",
-    "rebirthAchievement100": "Du hast ein neues Abenteuer begonnen! Das ist Deine <%- number %>. Wiedergeburt. Dein höchstes jemals erreichtes Level ist 100 oder mehr. Um diesen Erfolg zu stapeln, beginne Dein nächstes Abenteuer wenn Du mindestens Level 100 erreicht hast!",
+    "rebirthAchievement": "Du hast ein neues Abenteuer begonnen! Das ist Deine <%= number %>. Wiedergeburt. Dein höchstes jemals erreichtes Level ist <%= level %>. Um diesen Erfolg zu stapeln, beginne Dein nächstes Abenteuer wenn Du ein noch höheres Level erreicht hast!",
+    "rebirthAchievement100": "Du hast ein neues Abenteuer begonnen! Das ist Deine <%= number %>. Wiedergeburt. Dein höchstes jemals erreichtes Level ist 100 oder mehr. Um diesen Erfolg zu stapeln, beginne Dein nächstes Abenteuer wenn Du mindestens Level 100 erreicht hast!",
     "rebirthBegan": "Hat ein neues Abenteuer begonnen",
-    "rebirthText": "Hat <%- rebirths %> neue Abenteuer begonnen",
-    "rebirthOrb": "Hat eine Sphäre der Wiedergeburt verwendet um noch einmal von vorne zu beginnen, nachdem Level <%- level %> erreicht wurde.",
+    "rebirthText": "Hat <%= rebirths %> neue Abenteuer begonnen",
+    "rebirthOrb": "Hat eine Sphäre der Wiedergeburt verwendet um noch einmal von vorne zu beginnen, nachdem Level <%= level %> erreicht wurde.",
     "rebirthOrb100": "Hat eine Sphäre der Wiedergeburt verwendet um noch einmal von vorne zu beginnen, nachdem Level 100 oder höher erreicht wurde.",
     "rebirthOrbNoLevel": "Hat eine Sphäre der Wiedergeburt verwendet um noch einmal von vorne zu beginnen.",
     "rebirthPop": "Beginne sofort von vorn mit einem Charakter auf Level 1, aber behalte Erfolge, Sammelgegenstände und Ausrüstung. Deine Aufgaben und ihre Verläufe bleiben erhalten, werden aber auf gelb zurückgesetzt. Deine Strähnen verfallen, ausser für Aufgaben, die von aktiven Herausforderungen oder Gruppenplänen stammen. Gold, Erfahrung, Mana und alle Effekte von Fähigkeiten werden entfernt. All das wird sofort in Kraft treten. Für mehr Informationen schau im Wiki auf Seite <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> nach.",
     "rebirthName": "Sphäre der Wiedergeburt",
-    "reborn": "Wiedergeboren, max. Level <%- reLevel %>",
+    "reborn": "Wiedergeboren, max. Level <%= reLevel %>",
     "confirmReborn": "Bist Du sicher?",
     "rebirthComplete": "Du wurdest wiedergeboren!",
-    "nextFreeRebirth": "<strong><%- days %> Tage</strong> bis zur <strong>KOSTENLOSEN</strong> Sphäre der Wiedergeburt"
+    "nextFreeRebirth": "<strong><%= days %> Tage</strong> bis zur <strong>KOSTENLOSEN</strong> Sphäre der Wiedergeburt"
 }

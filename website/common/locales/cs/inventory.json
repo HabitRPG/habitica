@@ -1,5 +1,5 @@
 {
-    "noItemsAvailableForType": "Nemáš žádné <%- type %>.",
+    "noItemsAvailableForType": "Nemáš žádné <%= type %>.",
     "foodItemType": "Jídlo",
     "eggsItemType": "Vejce",
     "hatchingPotionsItemType": "Líhnoucí lektvary",

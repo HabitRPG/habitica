@@ -1,5 +1,5 @@
 {
-    "noItemsAvailableForType": "Нямате <%- type %>.",
+    "noItemsAvailableForType": "Нямате <%= type %>.",
     "foodItemType": "Храна за любимци",
     "eggsItemType": "Яйца",
     "hatchingPotionsItemType": "Излюпващи Отвари",

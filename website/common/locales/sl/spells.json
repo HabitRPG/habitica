@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "S svojimi talenti okrepite dojemanje celotne druščine! (Temelji na: osnovnem DOJ)",
     "spellRogueStealthText": "Prikritost",
     "spellRogueStealthNotes": "Z vsakim čaranjem nocoj nekaj vaših nedokončanih dnevnih nalog ne bo povzročilo škode in njihov niz ter barva bosta ostala ista. (Temelji na: DOJ)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Število izognjenih dnevnih nalog: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Število izognjenih dnevnih nalog: <%= number %>.",
     "spellRogueStealthMaxedOut": "Izognili ste se že vsem svojim dnevnim nalogam. Ni potrebe po ponovnem čaranju.",
     "spellHealerHealText": "Zdravilna svetloba",
     "spellHealerHealNotes": "Sijoča svetloba vam povrne zdravje! (Temelji na: TRD in INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Veščine ne morete uporabiti na nalogi iz izziva.",
     "groupTasksNoCast": "Veščine ne morete uporabiti na skupinski nalogi.",
     "spellNotOwned": "Nimate te veščine.",
-    "spellLevelTooHigh": "Za uporabo te veščine morate biti vsaj stopnje <%- level %>."
+    "spellLevelTooHigh": "Za uporabo te veščine morate biti vsaj stopnje <%= level %>."
 }
