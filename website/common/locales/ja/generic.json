@@ -285,7 +285,7 @@
     "messages": "メッセージ",
     "emptyMessagesLine1": "メッセージはありません",
     "emptyMessagesLine2": "ユーザーのプロフィールを見に行って「メッセージ」ボタンを押すと、新しいメッセージを送ることができます。",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span>からのメッセージが届きました",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span>からのメッセージが届きました",
     "letsgo": "レッツゴー！",
     "selected": "選択中",
     "howManyToBuy": "いくつ買いますか？",

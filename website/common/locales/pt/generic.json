@@ -285,7 +285,7 @@
     "messages": "Mensagens",
     "emptyMessagesLine1": "Não tem quaisquer mensagens",
     "emptyMessagesLine2": "Envie uma mensagem para começar a conversa!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> enviou-lhe uma mensagem",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> enviou-lhe uma mensagem",
     "letsgo": "Vamos a Isto!",
     "selected": "Seleccionado",
     "howManyToBuy": "Quantos quer comprar?",

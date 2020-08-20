@@ -213,5 +213,8 @@
     "addNotes": "Thêm ghi chú",
     "addATitle": "Thêm một tiêu đề",
     "sureDeleteType": "Bạn có chắc muốn xóa <%= type %> này không?",
-    "deleteTaskType": "Xóa <%= type %> này"
+    "deleteTaskType": "Xóa <%= type %> này",
+    "pressEnterToAddTag": "Nhấn Enter để thêm thẻ: '<%= tagName %>'",
+    "enterTag": "Nhập một thẻ",
+    "addTags": "Thêm thẻ..."
 }

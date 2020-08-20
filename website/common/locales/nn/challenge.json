@@ -8,7 +8,7 @@
     "brokenChallenge": "Brote utfordringslenke: denne oppgåve var del av ei utfordring, men utfordringa (eller gruppa) er sletta. Kva skal skje med dei gjennverande oppgåvene?",
     "keepThem": "Behald oppgåvene",
     "removeThem": "Fjern oppgåvene",
-    "challengeCompleted": "This challenge has been completed, and the winner was <span class=\"badge\"><%= user %></span>! What to do with the orphan tasks?",
+    "challengeCompleted": "This challenge has been completed, and the winner was <span class=\"badge\"><%- user %></span>! What to do with the orphan tasks?",
     "unsubChallenge": "Broken Challenge Link: this task was part of a challenge, but you have unsubscribed from the challenge. What to do with the orphan tasks?",
     "challengeWinner": "Was the winner in the following challenges",
     "challenges": "Challenges",

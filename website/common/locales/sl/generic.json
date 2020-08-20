@@ -285,7 +285,7 @@
     "messages": "Sporočila",
     "emptyMessagesLine1": "Nimate nobenih sporočil",
     "emptyMessagesLine2": "Pošljite sporočilo in začnite pogovor!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
     "letsgo": "Pojdimo!",
     "selected": "Izbrano",
     "howManyToBuy": "Koliko bi jih radi kupili?",

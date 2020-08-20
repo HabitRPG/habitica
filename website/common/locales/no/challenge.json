@@ -8,7 +8,7 @@
     "brokenChallenge": "Brutt utfordringslenke: denne oppgaven var del av en utfordring, men utfordringen (eller gruppa) er slettet. Hva skal skje med de gjennværende oppgavene?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Denne utfordringen er fullført, og vinneren er <span class=\"badge\"><%= user %></span>! Hva skal skje med de gjenstående oppgavene?",
+    "challengeCompleted": "Denne utfordringen er fullført, og vinneren er <span class=\"badge\"><%- user %></span>! Hva skal skje med de gjenstående oppgavene?",
     "unsubChallenge": "Brutt utfordringslenke: denne oppgaven er del av en utfordring du ikke lenger deltar i. Hva skal skje med de gjenværende oppgavene?",
     "challengeWinner": "Har vunnet følgende utfordringer",
     "challenges": "Utfordringer",

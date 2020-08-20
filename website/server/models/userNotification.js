@@ -57,6 +57,8 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_BUG_BONANZA',
   'ACHIEVEMENT_BARE_NECESSITIES',
   'ACHIEVEMENT_FRESHWATER_FRIENDS',
+  'ACHIEVEMENT_GOOD_AS_GOLD',
+  'ACHIEVEMENT_ALL_THAT_GLITTERS',
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
 ];
 

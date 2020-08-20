@@ -285,7 +285,7 @@
     "messages": "Üzenetek",
     "emptyMessagesLine1": "Nincsenek új üzeneteid",
     "emptyMessagesLine2": "Küldj egy üzenetet hogy beszélgetést kezdeményezz!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> üzenetet küldött neked",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> üzenetet küldött neked",
     "letsgo": "Gyerünk!",
     "selected": "Kiválasztott",
     "howManyToBuy": "Hány darabot szeretnél venni?",

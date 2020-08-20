@@ -285,7 +285,7 @@
     "messages": "Messages",
     "emptyMessagesLine1": "You don't have any messages",
     "emptyMessagesLine2": "Send a message to start a conversation!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> نے آپکو پَیغَام بِھیجَایا ہے",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> نے آپکو پَیغَام بِھیجَایا ہے",
     "letsgo": "Let's Go!",
     "selected": "Selected",
     "howManyToBuy": "How many would you like to buy?",

@@ -10,7 +10,6 @@
 
   "spellWizardFrostText": "Chilling Frost",
   "spellWizardFrostNotes": "With one cast, ice freezes all your streaks so they won't reset to zero tomorrow! ",
-  "spellWizardFrostAlreadyCast": "You have already cast this today. Your streaks are frozen, and there's no need to cast this again.",
 
 
   "spellWarriorSmashText": "Brutal Smash",
@@ -76,5 +75,6 @@
   "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
   "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
   "spellNotOwned": "You don't own this skill.",
-  "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+  "spellLevelTooHigh": "You must be level <%= level %> to use this skill.",
+  "spellAlreadyCast": "You've cast this skill already. It won't have any additional effect."
 }

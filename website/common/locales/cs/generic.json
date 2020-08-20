@@ -285,7 +285,7 @@
     "messages": "Zprávy",
     "emptyMessagesLine1": "Nemáš žádné zprávy",
     "emptyMessagesLine2": "Novou zprávu uživateli/Česku můžeš poslat tak, že navštívíš jeho/její profil a klikneš na tlačítko “Zprávy”.",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> ti poslal/a zprávu",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> ti poslal/a zprávu",
     "letsgo": "Pojďmě!",
     "selected": "Vybrané",
     "howManyToBuy": "Kolik by jsi chtěl koupit?",

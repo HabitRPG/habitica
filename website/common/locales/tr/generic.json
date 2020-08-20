@@ -285,7 +285,7 @@
     "messages": "Mesajlar",
     "emptyMessagesLine1": "Hiç mesajın yok",
     "emptyMessagesLine2": "Konuşma başlatmak için bir mesaj gönder!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sana bir mesaj gönderdi",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sana bir mesaj gönderdi",
     "letsgo": "Haydi!",
     "selected": "Seçilmiş",
     "howManyToBuy": "Kaç tane satın almak istersin?",

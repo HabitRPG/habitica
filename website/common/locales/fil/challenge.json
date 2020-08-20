@@ -8,7 +8,7 @@
     "brokenChallenge": "Sirang Link ng Hamon: ang gawaing ito ay naging parte ng isang hamon, ngunit ang hamon (o grupo) ay inalis na. Ano ang gagawin sa mga inabandonang gawain??",
     "keepThem": "Panatilihin ang mga Gawain",
     "removeThem": "Alisin ang mga Gawain",
-    "challengeCompleted": "Ang hamong ito ay nakumpleto na, at ang nanalo ay si <span class=\"badge\"><%= user %></span>! Ano ang gagawin sa mga inabandonang gawain?",
+    "challengeCompleted": "Ang hamong ito ay nakumpleto na, at ang nanalo ay si <span class=\"badge\"><%- user %></span>! Ano ang gagawin sa mga inabandonang gawain?",
     "unsubChallenge": "Sirang Link ng Hamon: ang gawaing ito ay naging parte ng isang hamon kung saan ikaw ay nag-unsubscribe. Ano ang gagawin sa mga inabandonang gawain?",
     "challengeWinner": "Ang nanalo sa mga sumusunod na hamon",
     "challenges": "Mga Hamon",

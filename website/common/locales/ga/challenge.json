@@ -8,7 +8,7 @@
     "brokenChallenge": "Nasc Bhriste Dúshlán: Bhí an tasc seo mar chuid de dúshlán, ach tá an dúshlán (nó grúpa) scriosta. Cad a dhéanamh leis na tascanna dílleachta?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Tá an dúshlán curtha i gcrích, agus ba é an buaiteoir <span class=\"badge\"><%= user %></span>! Cad a dhéanamh leis na tascanna dílleachta?",
+    "challengeCompleted": "Tá an dúshlán curtha i gcrích, agus ba é an buaiteoir <span class=\"badge\"><%- user %></span>! Cad a dhéanamh leis na tascanna dílleachta?",
     "unsubChallenge": "Nasc Bhriste Dúshlán: Bhí an tasc seo mar chuid de dúshlán, ach tú an díliostáilte tá dúshlán. Cad a dhéanamh leis na tascanna dílleachta?",
     "challengeWinner": "Bhuaigh an dúshláin seo a leanas",
     "challenges": "Dúshláin",

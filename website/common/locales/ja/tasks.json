@@ -72,7 +72,7 @@
     "todos": "To Do",
     "newTodo": "新しいTo Do",
     "newTodoBulk": "新しいTo Do （１行に１つ）",
-    "todosDesc": "To Doは1度きりで完了します。To Doの価値を上げるために、チェックリストを追加しましょう。",
+    "todosDesc": "To Doは1度きりで完了するタスクです。To Doの報酬を増やすために、チェックリストを追加しましょう。",
     "dueDate": "期限",
     "remaining": "有効",
     "complete": "完了",

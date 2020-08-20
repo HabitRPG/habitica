@@ -285,7 +285,7 @@
     "messages": "Mesaje",
     "emptyMessagesLine1": "Nu ai nici un mesaj",
     "emptyMessagesLine2": "Poți trimite un mesaj nou unui utilizator vizitând profilul său și făcând click pe butonul „Mesaj”.",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> ți-a trimis un mesaj",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> ți-a trimis un mesaj",
     "letsgo": "Înainte!",
     "selected": "Selectat",
     "howManyToBuy": "Câte vrei să cumperi?",
