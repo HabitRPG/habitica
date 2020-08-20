@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Talentele tale complicate păstrează Percepția întregii Echipe! (Bazat pe: PER nesporit)",
     "spellRogueStealthText": "Discreție",
     "spellRogueStealthNotes": "Cu fiecare aruncare a vrăjii, câteva dintre Cotidianele voastre nefăcute nu vor provoca daune în această seară. Șirulși culorile lor nu se vor schimba. (Pe baza: PER)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Numumărul de Cotidiene evitate: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Numumărul de Cotidiene evitate: <%= number %>.",
     "spellRogueStealthMaxedOut": "Ți-ai evitat deja Cotidienele; nu e nevoie să invoci asta din nou.",
     "spellHealerHealText": "Lumină vindecătoare",
     "spellHealerHealNotes": "Lumina strălucitoare îți restabilește sănătatea! (Bazat pe: CON și INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Aplicarea unei abilități în sarcinile de la provocări nu este permisă.",
     "groupTasksNoCast": "Nu este permisă aplicarea unei abilități în sarcinile grupului.",
     "spellNotOwned": "Nu dețineți această abilitate.",
-    "spellLevelTooHigh": "Pentru a utiliza această abilitate trebuie să fiți nivelul <%- level %>."
+    "spellLevelTooHigh": "Pentru a utiliza această abilitate trebuie să fiți nivelul <%= level %>."
 }

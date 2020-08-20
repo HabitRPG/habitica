@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Je listige talenten versterken de Perceptie van je gehele Gezelschap! (Gebaseerd op: oorspronkelijke PER)",
     "spellRogueStealthText": "Heimelijkheid",
     "spellRogueStealthNotes": "Met elke spreuk zullen een aantel van je onafgemaakte Dagtaken je deze nacht niet kunnen vinden. Hun series en kleur zullen niet veranderen. (Gebaseerd op: PER)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Aantal Dagtaken vermeden: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Aantal Dagtaken vermeden: <%= number %>.",
     "spellRogueStealthMaxedOut": "Je hebt al je Dagtaken al vermeden; het is niet nodig deze spreuk nogmaals te gebruiken.",
     "spellHealerHealText": "Helend Licht",
     "spellHealerHealNotes": "Glanzend licht herstelt je wonden! (Gebaseerd op LIC en INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Het uitspreken van een vaardigheid op uitdagingstaken is niet toegestaan.",
     "groupTasksNoCast": "Je mag geen vaardigheden gebruiken op groepstaken.",
     "spellNotOwned": "Je bezit deze vaardigheid niet.",
-    "spellLevelTooHigh": "Je moet Niveau <%- level %> zijn om deze vaardigheid te gebruiken."
+    "spellLevelTooHigh": "Je moet Niveau <%= level %> zijn om deze vaardigheid te gebruiken."
 }

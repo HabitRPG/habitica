@@ -1,5 +1,5 @@
 {
-    "noItemsAvailableForType": "Bạn không có <%- type %>",
+    "noItemsAvailableForType": "Bạn không có <%= type %>",
     "foodItemType": "Thức ăn thú cưng",
     "eggsItemType": "Trứng",
     "hatchingPotionsItemType": "Thuốc Ấp Trứng",

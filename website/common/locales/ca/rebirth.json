@@ -14,17 +14,17 @@
     "rebirthInList4": "Es conserven els objectes obtinguts de gemmes o de botíns (com mascotes i muntures).",
     "rebirthEarnAchievement": "També guanyes un assoliment per començar una nova aventura!",
     "beReborn": "Ser Renascut",
-    "rebirthAchievement": "Has començat una nova aventura! Aquest és el renaixement <%- number %> per a tu, i el nivell més alt que has aconseguit és <%- level %>. Per millorar aquest assoliment, comença la teva pròxima aventura quan hagis arribat a un nivell encara més alt!",
-    "rebirthAchievement100": "Has començat una nova aventura! Aquest és el renaixement <%- number %> per a tu, i el nivell més alt que has aconseguit és 100 o superior. Per millorar aquest assoliment, comença la teva pròxima aventura quan hagis arribat com a mínim al nivell 100!",
+    "rebirthAchievement": "Has començat una nova aventura! Aquest és el renaixement <%= number %> per a tu, i el nivell més alt que has aconseguit és <%= level %>. Per millorar aquest assoliment, comença la teva pròxima aventura quan hagis arribat a un nivell encara més alt!",
+    "rebirthAchievement100": "Has començat una nova aventura! Aquest és el renaixement <%= number %> per a tu, i el nivell més alt que has aconseguit és 100 o superior. Per millorar aquest assoliment, comença la teva pròxima aventura quan hagis arribat com a mínim al nivell 100!",
     "rebirthBegan": "Comença una Nova Aventura",
-    "rebirthText": "Comença <%- rebirths %> Nova Aventura",
-    "rebirthOrb": "Utilitza una orbe de renaixement per començar de nou després d'arribar al nivell <%- level %>.",
+    "rebirthText": "Comença <%= rebirths %> Nova Aventura",
+    "rebirthOrb": "Utilitza una orbe de renaixement per començar de nou després d'arribar al nivell <%= level %>.",
     "rebirthOrb100": "Has utilizat una esfera de renaixement per tornar a començar després d'arribar o superar el nivell 100.",
     "rebirthOrbNoLevel": "Has utilitzat una esfera de renaixement per tornar a començar.",
     "rebirthPop": "Reinicia instantment el teu personatge com a guerrer de nivell 1, mantenint els assoliments, les col·leccions i l'equipament. Es conservaran les tasques i l'historial però tornaran a ser grogues. S'eliminaran totes les ràfegues menys les de les tasques que pertanyin a reptes actius i a grups. S'eliminarà l'or, l'experiència, la màgia i els efectes de les habilitats. Tot això tindrà efecte immediat. Per més informació, mira la pàgina de la wili <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Esfera de renaixement</a>.",
     "rebirthName": "Esfera de renaixement",
-    "reborn": "Reneix, nivell màxim <%- reLevel %>",
+    "reborn": "Reneix, nivell màxim <%= reLevel %>",
     "confirmReborn": "N'estàs segur?",
     "rebirthComplete": "Has tornat a nèixer!",
-    "nextFreeRebirth": "<strong><%- days %> dies</strong> fins a tenir l'esfera de renaixement <strong>GRATUÏTA</strong>"
+    "nextFreeRebirth": "<strong><%= days %> dies</strong> fins a tenir l'esfera de renaixement <strong>GRATUÏTA</strong>"
 }

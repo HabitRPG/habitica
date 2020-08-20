@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "אין לך <%- type %>",
+  "noItemsAvailableForType": "אין לך <%= type %>",
   "foodItemType": "אוכל",
   "eggsItemType": "ביצים",
   "hatchingPotionsItemType": "שיקויי בקיעה",

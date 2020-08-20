@@ -693,7 +693,7 @@
     "questWaffleText": "An die Waffe(l) gegen den Scherzkeks: Desaster-Frühstück!",
     "questWaffleRageEffect": "`Fürchterliche Waffel setzt AHORNSUMPF ein!` Schmieriger saftiger Sirup lässt Deine Schläge und Sprüche stocken!",
     "questWaffleCompletion": "Angeschlagen und reich bebuttert, aber trotzdem triumphierend, genießt Ihr den süßen Sieg über die fürchterliche Waffel, die in eine klebrig-schleimige Pfütze zusammensinkt.<br><br>\"Wow, dieses Monster habt Ihr gründlich eingeschmiert\", sagt Lady Glaciate beeindruckt.<br><br>\"Ein Zuckerschlecken!\" strahlt der April-Scherzkeks.<br><br>\"Trotzdem irgendwie schade,\" findet @beffymaroo. \"Die sah irgendwie lecker aus.\"<br><br>Der Scherzkeks zaubert einen Satz Schlüpfelixier-Flaschen aus seinem Cape, füllt sie mit der sirupartigen Masse der Waffel-Überreste und mischt eine Prise glitzernden Staub hinein. Farben wirbeln durch die Flüssigkeit – neue Schlüpfelixiere! Er wirft sie Euch in die Arme. \"Das ganze Abenteuer hat mir Appetit gemacht. Wer kommt mit zum Frühstück?\"",
-    "jungleBuddiesNotes": "Beinhaltet 'Monströser Mandrill und die Albernen Affen', 'Das verschlafene Faultier' und 'Das Baumgewirr'. Verfügbar bis zum <%- date %>.",
+    "jungleBuddiesNotes": "Beinhaltet 'Monströser Mandrill und die Albernen Affen', 'Das verschlafene Faultier' und 'Das Baumgewirr'. Verfügbar bis zum <%= date %>.",
     "jungleBuddiesText": "\"Jungle Freunde\" Quest-Paket",
     "questFluoriteUnlockText": "Schaltet den Kauf von Fluorit-Schlüpfelixieren auf dem Marktplatz frei",
     "questFluoriteDropFluoritePotion": "Fluorit-Schlüpfelixier",

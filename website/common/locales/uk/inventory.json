@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "У вас немає <%- type %>.",
+  "noItemsAvailableForType": "У вас немає <%= type %>.",
   "foodItemType": "Їжа",
   "eggsItemType": "Яйця",
   "hatchingPotionsItemType": "Зілля Дозрівання",

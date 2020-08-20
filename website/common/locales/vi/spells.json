@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Stealth",
     "spellRogueStealthNotes": "Với mỗi lần tung chiêu, một vài Việc hàng ngày chưa làm của bạn sẽ không gây sát thương tối nay. Chuỗi liên tục của chúng và màu sắc sẽ không đổi. (Dựa vào: Điểm Nhận thức)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Số Việc hằng ngày sẽ được tránh: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Số Việc hằng ngày sẽ được tránh: <%= number %>.",
     "spellRogueStealthMaxedOut": "Bạn đã tránh hết tất cả Việc hằng ngày của mình; không cần dùng lại kỹ năng này.",
     "spellHealerHealText": "Healing Light",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%- level %> to use this skill."
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

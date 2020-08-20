@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Sėlinimas",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Kartų išvengta užduočių: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Kartų išvengta užduočių: <%= number %>.",
     "spellRogueStealthMaxedOut": "Jau vengi šios dienos užduočių; nebūtina naudoti šio sugebėjimo dar kartą.",
     "spellHealerHealText": "Gydanti Šviesa",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Negalima naudoti sugebėjimu ant užduočių, kurios yra gautos iš iššūkių.",
     "groupTasksNoCast": "Negalima naudoti sugebėjimų ant grupės užduočių.",
     "spellNotOwned": "Neturi šio sugebėjimo.",
-    "spellLevelTooHigh": "Naudoti šiam sugebėjimui turi pasiekti <%- level %> lygį."
+    "spellLevelTooHigh": "Naudoti šiam sugebėjimui turi pasiekti <%= level %> lygį."
 }
