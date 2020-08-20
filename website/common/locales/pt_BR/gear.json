@@ -2155,5 +2155,10 @@
     "bodyMystery202008Notes": "Por enquanto, suas asas estão enroladas. Mas, quando tiver terminado de distribuir sua sabedoria, ou ao ver sua presa na grama, tome cuidado! Não concede benefícios. Item de Assinante, Agosto de 2020.",
     "bodyMystery202008Text": "Manta do Oráculo Coruja",
     "backSpecialNamingDay2020Notes": "Feliz Aniversário do Habitica! Agite esta cauda ardente e pixelizada enquanto celebra o Habitica. Não concede benefícios.",
-    "backSpecialNamingDay2020Text": "Cauda de Grifo Roxo Real"
+    "backSpecialNamingDay2020Text": "Cauda de Grifo Roxo Real",
+    "shieldArmoireMortarAndPestleText": "Morteiro e Pistilo",
+    "headArmoireHeroicHerbalistCrispinetteNotes": "Este prático adorno para cabeça irá ajudá-lo a manter o seu cabelo fora do caminho... Não faz mal que também aumente o misticismo. Aumenta a inteligência em <%= int %>. Armário Encantado: Conjunto Herbalista Heroico (Item 3 de 3).",
+    "headArmoireHeroicHerbalistCrispinetteText": "Adorno do Herbalista Heroico (cabeça)",
+    "armorArmoireHeroicHerbalistRobeNotes": "Sempre cheira agradavelmente a todos os tipos de ervas. Aumenta a Constituição e a Inteligência em <%= attrs %> cada. Armário Encantado: Conjunto Herbalista Heroico (Item 1 de 3).",
+    "armorArmoireHeroicHerbalistRobeText": "Manto do Herbalista Heroico"
 }
