@@ -4,6 +4,8 @@ import {
   generateUser,
 } from '../../helpers/common.helper';
 import {
+  UNEQUIP_ALL,
+  UNEQUIP_BACKGROUND,
   UNEQUIP_COSTUME,
   UNEQUIP_EQUIPPED,
   UNEQUIP_PET_MOUNT,
@@ -63,9 +65,32 @@ describe('shared.ops.unequip', () => {
     });
   });
 
-  context('Pet, Mount, Background', () => {
-    it('should unequip Pet, Mount, Background', () => {
+  context('Pet and Mount', () => {
+    it('should unequip Pet and Mount', () => {
       unEquipByType(user, { params: { type: UNEQUIP_PET_MOUNT } });
+
+      expect(user.items.currentMount).to.eq('');
+      expect(user.items.currentPet).to.eq('');
+    });
+  });
+
+  context('Background', () => {
+    it('should unequip Background', () => {
+      unEquipByType(user, { params: { type: UNEQUIP_BACKGROUND } });
+
+      expect(user.preferences.background).to.eq('');
+    });
+  });
+
+  context('All Items', () => {
+    it('should unequip all Items', () => {
+      unEquipByType(user, { params: { type: UNEQUIP_ALL } });
+
+      expect(user.items.gear.equipped.weapon).to.eq('weapon_base_0');
+      expect(user.items.gear.equipped.shield).to.eq('shield_base_0');
+
+      expect(user.items.gear.costume.weapon).to.eq('weapon_base_0');
+      expect(user.items.gear.costume.shield).to.eq('shield_base_0');
 
       expect(user.items.currentMount).to.eq('');
       expect(user.items.currentPet).to.eq('');
