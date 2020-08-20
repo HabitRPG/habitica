@@ -6,25 +6,25 @@
 }
 .promo_armoire_backgrounds_202008 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -187px;
+  background-position: -376px -148px;
   width: 423px;
   height: 147px;
 }
 .promo_golden_achievements {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -187px;
+  background-position: -295px -383px;
   width: 246px;
   height: 112px;
 }
 .promo_mystery_202008 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -335px;
+  background-position: 0px -383px;
   width: 294px;
   height: 156px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -671px -187px;
+  background-position: -800px -168px;
   width: 96px;
   height: 69px;
 }
@@ -34,15 +34,27 @@
   width: 375px;
   height: 186px;
 }
+.scene_CernyPie {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -800px 0px;
+  width: 141px;
+  height: 167px;
+}
+.scene_public_space {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -187px;
+  width: 345px;
+  height: 195px;
+}
 .scene_reading {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -295px -335px;
+  background-position: -208px -540px;
   width: 171px;
   height: 144px;
 }
 .scene_rewards {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -492px;
+  background-position: 0px -540px;
   width: 207px;
   height: 180px;
 }
