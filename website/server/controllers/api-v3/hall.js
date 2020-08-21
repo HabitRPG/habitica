@@ -228,6 +228,7 @@ const gemsPerTier = {
  *    "purchased": {"ads": true},
  *    "contributor": {
  *      "admin": true,
+ *      "newsPoster": false,
  *      "contributions": "Improving API documentation",
  *      "level": 5,
  *      "text": "Scribe, Blacksmith"

@@ -158,6 +158,7 @@ export default new Schema({
       max: 9,
     },
     admin: Boolean,
+    newsPoster: Boolean,
     sudo: Boolean,
     // Artisan, Friend, Blacksmith, etc
     text: String,

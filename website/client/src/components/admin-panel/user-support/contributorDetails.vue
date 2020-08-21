@@ -18,17 +18,15 @@
             Moderator abilities (see flags, clear flags, use this admin form)
           </label>
         </div>
-        <!--
         <div class="checkbox">
           <label>
             <input
-              v-model="hero.contributor.cmsEditor"
+              v-model="hero.contributor.newsPoster"
               type="checkbox"
             >
-            Bailey CMS access
+            News poster (Bailey CMS)
           </label>
         </div>
-        -->
         <div class="form-group form-inline">
           <label>Title</label>
           <input
