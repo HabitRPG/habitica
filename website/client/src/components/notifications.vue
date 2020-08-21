@@ -389,7 +389,7 @@ export default {
   data () {
     // Levels that already display modals and should not trigger generic Level Up
     const unlockLevels = {
-      10: 'class system',
+      10: 'Class system',
       50: 'Orb of Rebirth',
     };
 
@@ -661,13 +661,7 @@ export default {
     showLevelUpNotifications (newlevel) {
       this.lvl();
       this.playSound('Level_Up');
-      // NOTE this code isn't actually used because no modal is shown when a quest is dropped
-      // In case it's added again it should keep in mind that it will not work
-      // when the user progress to the next level using the RYA modal
-      // as it doesn't score the tasks on the client side and thus this.user._tmp is not filled
-      // with any value
-      // if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
-      if (this.unlockLevels[`${newlevel}`]) return;
+      if (this.unlockLevels[newlevel]) return;
       if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('bv::show::modal', 'level-up');
     },
     playSound (sound) {

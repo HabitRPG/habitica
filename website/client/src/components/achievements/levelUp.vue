@@ -1,79 +1,111 @@
 <template>
   <b-modal
     id="level-up"
-    :title="$t('levelUpShare')"
+    :title="$t('reachedLevel', {level: user.stats.lvl})"
     size="sm"
-    :hide-footer="true"
-    :hide-header="true"
   >
     <div class="modal-body text-center">
-      <h2>{{ $t('reachedLevel', {level: user.stats.lvl}) }}</h2>
-      <avatar
-        class="avatar"
-        :member="user"
-      />
-      <p class="text">
-        {{ $t('levelup') }}
-      </p>
-      <button
-        class="btn btn-primary"
-        @click="close()"
-      >
-        {{ $t('onwards') }}
-      </button>
+      <div class="sparkly-avatar">
+        <span v-html="starGroup" class="star-group mirror"></span>
+        <avatar class="avatar" :member="user"/>
+        <span v-html="starGroup" class="star-group"></span>
+      </div>
+      <hr>
+      <p class="text">{{ $t('levelup') }}</p>
+    </div>
+    <template v-slot:modal-footer v-bind:class="{ greyed: greyFooter }">
+      <button class="btn btn-primary" @click="close()">{{ $t('onwards') }}</button>
       <br>
       <!-- @TODO: Keep this? .checkboxinput(type='checkbox', v-model=
 'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
 label(style='display:inline-block') {{ $t('dontShowAgain') }}
       -->
-    </div>
+    </template>
   </b-modal>
 </template>
 
 <style lang="scss">
   #level-up {
-    h2 {
+    @media (min-width: 576px) {
+      .modal-sm {
+        max-width: 330px;
+      }
+    }
+
+    .modal-header {
+      padding: 0;
+      text-align: center;
+      border: none;
+    }
+
+    .modal-header h5 {
+      margin: 31px auto 16px auto;
       color: #4f2a93;
     }
 
-    .modal-content {
-      min-width: 28em;
+    .modal-header button {
+      position: absolute;
+      right: 18px;
+      top: 12px;
     }
 
     .modal-body {
-      padding-top: 1em;
+      padding: 0;
     }
 
-    .modal-footer {
-      margin-top: 0;
+    .sparkly-avatar {
+      display: flex;
     }
 
-    .herobox {
-      margin: auto 8.3em;
-      width: 6em;
-      height: 9em;
-      padding-top: 0;
-      cursor: default;
+    .star-group {
+      margin: auto;
+    }
+
+    .star-group svg {
+      height: 64px;
+      width: 40px;
+    }
+
+    .mirror svg {
+      transform: scaleX(-1);
     }
 
     .character-sprites {
+      margin-left: -2rem !important;
+    }
+
+    .class-badge {
+      display: none !important;
+    }
+
+    hr {
       margin: 0;
-      width: 0;
+      border: 0;
+      border-top: 25px solid #ff3ff9;
+      opacity: 0.2;
     }
 
     .text {
       font-size: 14px;
       text-align: center;
       color: #686274;
-      margin-top: 1em;
+      margin: 0 24px 24px 24px;
       min-height: 0px;
     }
-  }
-</style>
 
-<style scoped>
-  .avatar {
-    margin-left: 6.8em;
+    .modal-footer {
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+
+    .modal-footer button {
+      margin: 0 auto 32px auto;
+    }
+
+    .greyed {
+      background-color: #f9f9f9;
+    }
   }
 </style>
 
@@ -82,6 +114,8 @@ import Avatar from '../avatar';
 import { mapState } from '@/libs/store';
 import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
 import styleHelper from '@/mixins/styleHelper';
+import starGroup from '@/assets/svg/star-group.svg';
+import sparkles from '@/assets/svg/sparkles-left.svg';
 
 export default {
   components: {
@@ -92,12 +126,17 @@ export default {
     return {
       statsAllocationBoxIsOpen: true,
       maxHealth,
+      starGroup,
+      sparkles,
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
     showAllocation () {
       return this.$store.getters['members:hasClass'](this.user) && !this.user.preferences.automaticAllocation;
+    },
+    greyFooter () {
+      return false;
     },
   },
   methods: {
