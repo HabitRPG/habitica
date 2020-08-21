@@ -38,6 +38,7 @@ yarn.lock
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
 /.vscode
 
 # webstorm fake webpack for path intellisense

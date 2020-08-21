@@ -4,7 +4,6 @@ import moment from 'moment';
 import _ from 'lodash';
 import shared from '../../common';
 import baseModel from '../libs/baseModel';
-import { InternalServerError } from '../libs/errors';
 import { preenHistory } from '../libs/preening';
 import { SHARED_COMPLETION } from '../libs/groupTasks'; // eslint-disable-line import/no-cycle
 
@@ -191,10 +190,8 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
   userId,
   additionalQueries = {},
 ) {
-  // not using i18n strings because these errors
-  // are meant for devs who forgot to pass some parameters
-  if (!identifier) throw new InternalServerError('Task identifier is a required argument');
-  if (!userId) throw new InternalServerError('User identifier is a required argument');
+  if (!identifier) throw new Error('Task identifier is a required argument');
+  if (!userId) throw new Error('User identifier is a required argument');
 
   const query = _.cloneDeep(additionalQueries);
 
@@ -208,6 +205,38 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
   const task = await this.findOne(query).exec();
 
   return task;
+};
+
+TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
+  identifiers,
+  userId,
+  additionalQueries = {},
+) {
+  if (!identifiers || !Array.isArray(identifiers)) throw new Error('Task identifiers is a required array argument');
+  if (!userId) throw new Error('User identifier is a required argument');
+
+  const query = _.cloneDeep(additionalQueries);
+  query.userId = userId;
+
+  const ids = [];
+  const aliases = [];
+
+  identifiers.forEach(identifier => {
+    if (validator.isUUID(String(identifier))) {
+      ids.push(identifier);
+    } else {
+      aliases.push(identifier);
+    }
+  });
+
+  query.$or = [
+    { _id: { $in: ids } },
+    { alias: { $in: aliases } },
+  ];
+
+  const tasks = await this.find(query).exec();
+
+  return tasks;
 };
 
 // Sanitize user tasks linked to a challenge
@@ -244,6 +273,7 @@ TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
   return reminderObj;
 };
 
+// NOTE: this is used for group tasks as well
 TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta, direction) {
   const chalTask = this;
 

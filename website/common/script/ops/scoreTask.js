@@ -241,7 +241,12 @@ export default function scoreTask (options = {}, req = {}, analytics) {
   // This is for setting one-time temporary flags,
   // such as streakBonus or itemDropped. Useful for notifying
   // the API consumer, then cleared afterwards
+  // Keep user._tmp.leveledUp if it already exists
+  // To make sure infos on level ups don't get lost when bulk scoring multiple tasks
+  const oldLeveledUp = user._tmp && user._tmp.leveledUp;
   user._tmp = {};
+
+  if (oldLeveledUp) user._tmp.leveledUp = oldLeveledUp;
 
   // If they're trying to purchase a too-expensive reward, don't allow them to do that.
   if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));

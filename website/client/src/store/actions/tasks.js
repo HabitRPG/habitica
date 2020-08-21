@@ -122,6 +122,18 @@ export async function save (store, editedTask) {
   if (originalTask) Object.assign(originalTask, response.data.data);
 }
 
+export async function score (store, { taskId, direction }) {
+  const res = await axios.post(`/api/v4/tasks/${taskId}/score/${direction}`);
+  return res;
+}
+
+// params must be an array of objects with this format
+// [ {id: task1Id, direction: task1Direction } , {id: task2Id, direction: task2Direction } ]
+export async function bulkScore (store, params) {
+  const res = await axios.post('/api/v4/tasks/bulk-score', params);
+  return res;
+}
+
 export async function scoreChecklistItem (store, { taskId, itemId }) {
   await axios.post(`/api/v4/tasks/${taskId}/checklist/${itemId}/score`);
 }

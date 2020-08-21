@@ -73,7 +73,7 @@ describe('PUT /tasks/:id', () => {
     // score up to trigger approval
     const response = await member2.post(`/tasks/${syncedTask._id}/score/up`);
 
-    expect(response.data.approvalRequested).to.equal(true);
+    expect(response.data.requiresApproval).to.equal(true);
     expect(response.message).to.equal(t('taskApprovalHasBeenRequested'));
   });
 
