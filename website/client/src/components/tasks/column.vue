@@ -371,7 +371,7 @@ export default {
     draggable,
   },
   mixins: [buyMixin, notifications],
-  // Set default values for props
+  // @TODO Set default values for props
   // allows for better control of props values
   // allows for better control of where this component is called
   props: {
