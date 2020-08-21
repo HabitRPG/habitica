@@ -123,11 +123,13 @@
       font-weight: bold;
       line-height: 1.67;
       text-align: center;
-      color: $white;
+      color: $gray-400;
+      text-decoration: none !important;
       border-bottom: 2px solid transparent;
       padding: 0px 8px 8px 8px;
 
-      &-active {
+      &-active, &:hover {
+        color: $white !important;
         border-color: $purple-400;
       }
     }
