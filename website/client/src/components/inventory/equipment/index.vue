@@ -132,7 +132,7 @@
             :popover-position="'top'"
             :show-popover="flatGear[activeItems[group]]
               && Boolean(flatGear[activeItems[group]].text)"
-            @click="equipItem(flatGear[activeItems[group]])"
+            @click="openEquipDialog(flatGear[activeItems[group]])"
           >
             <template
               slot="popoverContent"
