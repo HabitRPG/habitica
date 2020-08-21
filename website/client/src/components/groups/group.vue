@@ -106,7 +106,7 @@
         <div class="col-12 buttons-wrapper">
           <div class="button-container">
             <button
-              v-if="isLeader && !group.purchased.active"
+              v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
               class="btn btn-success btn-success"
               @click="upgradeGroup()"
             >
