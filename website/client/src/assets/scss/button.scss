@@ -87,21 +87,18 @@
   }
 
   &:not(:disabled):not(.disabled) {
-    &:active:focus,
-    &.active:focus {
+    &:active, &.active {
       color: $purple-300;
-      box-shadow: none;
-      border-color: $purple-400;
-    }
 
-    &:active,
-    &.active {
-      color: $purple-300;
+      &:focus {
+        color: $purple-300;
+        box-shadow: none;
+        border-color: $purple-400;
+      }
 
       &.dropdown-toggle {
         color: $gray-50;
       }
-
 
       background: $white;
       border: 1px solid transparent;
