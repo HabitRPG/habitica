@@ -8,7 +8,7 @@
     "brokenChallenge": "Sai đường link đến Thử Thách: công việc này từng là một phần của thử thách, nhưng thử thách (hoặc nhóm) đã bị xoá. Bạn muốn làm gì với những công việc con?",
     "keepThem": "Giữ Công việc",
     "removeThem": "Xoá Công việc",
-    "challengeCompleted": "Thử thách này đã được hoàn thành, và người chiến thắng là <span class=\"badge\"><%= user %></span>! Bạn muốn làm gì với những công việc con?",
+    "challengeCompleted": "Thử thách này đã được hoàn thành, và người chiến thắng là <span class=\"badge\"><%- user %></span>! Bạn muốn làm gì với những công việc con?",
     "unsubChallenge": "Sai đường link đến Thử Thách: công việc này từng là một phần của thử thách, nhưng bạn đã dỡ đăng kí cho thử thách. Bạn muốn làm gì với những công việc con?",
     "challengeWinner": "Từng là người chiến thắng của những thử thách sau",
     "challenges": "Những thử thách",

@@ -8,7 +8,7 @@
     "brokenChallenge": "깨진 도전 링크: 이 과제는 도전의 일부였으나 그 도전 (또는 그룹)이 삭제되었습니다. 따로 남겨진 이 과제를 어떻게 하시겠습니까?",
     "keepThem": "과제 유지",
     "removeThem": "과제 삭제",
-    "challengeCompleted": "도전을 끝냈습니다. 도전우승자는 <span class=\"badge\"><%=user %></span> 입니다! 남아있는 과제를 어떻게 하시겠습니까?",
+    "challengeCompleted": "도전을 끝냈습니다. 도전우승자는 <span class=\"badge\"><%- user %></span> 입니다! 남아있는 과제를 어떻게 하시겠습니까?",
     "unsubChallenge": "깨진 도전 링크: 이 과제는 도전의 일부였으나 유저가 구독을 해지하였습니다. 따로 남겨진 이 과제를 어떻게 하시겠습니까?",
     "challengeWinner": "이 아래 도전의 우승자입니다",
     "challenges": "도전",

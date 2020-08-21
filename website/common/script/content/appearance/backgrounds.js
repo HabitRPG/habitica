@@ -390,6 +390,11 @@ const backgrounds = {
     swimming_among_jellyfish: { },
     underwater_ruins: { },
   },
+  backgrounds082020: {
+    camping_out: { },
+    jungle_canopy: { },
+    productivity_plaza: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

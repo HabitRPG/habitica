@@ -8,7 +8,7 @@
     "brokenChallenge": "Defekt udfordringslink: denne opgave var en del af en udfordring, men udfordringen (eller gruppen) er blevet fjernet. Hvad vil du gøre med de gruppeløse opgaver?",
     "keepThem": "Behold Opgaver",
     "removeThem": "Fjern Opgaver",
-    "challengeCompleted": "Denne udfordring er afsluttet, og vinderen blev <span class=\"badge\"><%= user %></span>! Hvad vil du gøre med de gruppeløse opgaver?",
+    "challengeCompleted": "Denne udfordring er afsluttet, og vinderen blev <span class=\"badge\"><%- user %></span>! Hvad vil du gøre med de gruppeløse opgaver?",
     "unsubChallenge": "Defekt Udfordringslink: denne opgave var en del af en udfordring, som du ikke længere abonnerer på. Hvad vil du gøre med de gruppeløse opgaver?",
     "challengeWinner": "Vandt de følgende udfordringer",
     "challenges": "Udfordringer",

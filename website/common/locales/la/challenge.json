@@ -8,7 +8,7 @@
     "brokenChallenge": "Ruptus Nexus Provocationis: hoc munus erat pars provocationis, sed provocatio (aut grex) deleta est.  Quid vis facere orbis muneris?",
     "keepThem": "Conserva Munera",
     "removeThem": "Dele Munera",
-    "challengeCompleted": "Haec provocatio perfecta est, et victor erat <span class=\"badge\"><%= user %> </span>! Quid vis facere orbis muneris?",
+    "challengeCompleted": "Haec provocatio perfecta est, et victor erat <span class=\"badge\"><%- user %></span>! Quid vis facere orbis muneris?",
     "unsubChallenge": "Ruptus Nexus Provocationis: hoc munus erat pars provocationis, sed de provocatione discessisti. Quid vis facere orbis muneris?",
     "challengeWinner": "Erat victor in sequentibus provocationibus",
     "challenges": "Provocationes",

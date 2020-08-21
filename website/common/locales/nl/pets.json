@@ -145,5 +145,8 @@
     "notEnoughPetsMounts": "Je hebt niet genoeg huis- en rijdieren verzameld",
     "filterByWacky": "Maf",
     "gryphatrice": "Grifalisk",
-    "wackyPets": "Maffe Huisdieren"
+    "wackyPets": "Maffe Huisdieren",
+    "invalidAmount": "Ongeldige hoeveelheid voedsel, moet een positief geheel getal zijn",
+    "tooMuchFood": "Je probeert je huisdier teveel voedsel te voeren, handeling geannuleerd",
+    "notEnoughFood": "Je hebt niet genoeg voedsel"
 }

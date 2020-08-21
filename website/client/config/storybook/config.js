@@ -2,7 +2,6 @@
 import { configure } from '@storybook/vue';
 import './margin.css';
 import '../../src/assets/scss/index.scss';
-import '../../src/assets/scss/spacing.scss';
 import '../../src/assets/css/sprites.css';
 
 import '../../src/assets/css/sprites/spritesmith-main-0.css';

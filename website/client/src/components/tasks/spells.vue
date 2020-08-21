@@ -42,12 +42,14 @@
                 :key="key"
                 v-b-popover.hover.auto="skillNotes(skill)"
                 class="col-12 col-md-3"
-                @click="castStart(skill)"
+                @click="!spellDisabled(key) ? castStart(skill) : null"
               >
                 <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-                <div class="spell col-12 row">
+                <div
+                  class="spell col-12 row"
+                  :class="{'disabled': spellDisabled(key)}"
+                >
                   <div class="col-8 details">
-                    <a :class="{'disabled': spellDisabled(key)}"></a>
                     <div
                       class="img"
                       :class="`shop_${skill.key} shop-sprite item-img`"
@@ -88,9 +90,6 @@
     }
   }
 
-  .drawer-container {
-  }
-
   .drawer-slider {
     margin-top: 1em;
   }
@@ -100,7 +99,7 @@
     white-space: initial;
   }
 
-  .spell:hover {
+  .spell:hover:not(.disabled) {
     cursor: pointer;
     border: solid 2px #50b5e9;
   }
@@ -115,6 +114,10 @@
     padding-right: 0;
     padding-left: 0;
     overflow: hidden;
+
+    &.disabled {
+      opacity: 0.5;
+    }
 
     .details {
       text-align: left;
@@ -280,9 +283,9 @@ export default {
       let notes = skill.notes();
 
       if (skill.key === 'frost' && this.spellDisabled(skill.key)) {
-        notes = this.$t('spellWizardFrostAlreadyCast');
+        notes = this.$t('spellAlreadyCast');
       } else if (skill.key === 'stealth' && this.spellDisabled(skill.key)) {
-        notes = this.$t('spellRogueStealthMaxedOut');
+        notes = this.$t('spellAlreadyCast');
       } else if (skill.key === 'stealth') {
         notes = this.$t('spellRogueStealthDaliesAvoided', {
           originalText: notes,

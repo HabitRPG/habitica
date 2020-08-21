@@ -285,7 +285,7 @@
     "messages": "Meddelanden",
     "emptyMessagesLine1": "Du har inga meddelanden",
     "emptyMessagesLine2": "Skicka ett meddelande för att starta en konversation!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> skickade ett meddelande till dig",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> skickade ett meddelande till dig",
     "letsgo": "Låt Oss Gå!",
     "selected": "Valda",
     "howManyToBuy": "Hur många vill du köpa?",

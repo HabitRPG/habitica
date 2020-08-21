@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "O uso de habilidades em tarefas de desafio não é permitido.",
     "groupTasksNoCast": "Não é permitido usar habilidades em tarefas de time.",
     "spellNotOwned": "Você não possui essa habilidade.",
-    "spellLevelTooHigh": "Você precisa ser nível <%= level %> para usar essa habilidade."
+    "spellLevelTooHigh": "Você precisa ser nível <%= level %> para usar essa habilidade.",
+    "spellAlreadyCast": "Você já usou esta habilidade. Ela não terá nenhum efeito adicional."
 }

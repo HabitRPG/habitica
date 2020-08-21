@@ -1767,5 +1767,14 @@
     "weaponSpecialSpring2019MageNotes": "Há um mosquito embebido na gema na ponta deste cajado! Pode ou não incluir DNA de dinossauro. Aumenta a Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada da Primavera de 2019.",
     "weaponSpecialSummer2019WarriorNotes": "Agora você está lutando com fractais! Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2019.",
     "weaponSpecialSummer2019RogueNotes": "Essa antiga e formidável arma irá ajudá-lo a vencer qualquer batalha submarina. Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Verão de 2019.",
-    "weaponSpecialSpring2019HealerNotes": "Sua canção de flores e chuva irá acalmar os espíritos de todos que escutam. Aumenta inteligência em <%= int %>. Equipamento de Edição Limitada da Primavera de 2019."
+    "weaponSpecialSpring2019HealerNotes": "Sua canção de flores e chuva irá acalmar os espíritos de todos que escutam. Aumenta inteligência em <%= int %>. Equipamento de Edição Limitada da Primavera de 2019.",
+    "weaponSpecialFall2019WarriorNotes": "Prepare para rasgar seus oponentes com presas de um corvo! Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Outono de 2019.",
+    "weaponSpecialFall2019WarriorText": "Tridente de Presa",
+    "weaponSpecialFall2019RogueNotes": "Se você está conduzindo uma orquestra ou cantando uma ária, esse dispositivo útil mantém suas mãos livres para gestos dramáticos! Aumenta Força em <%= str %>. Equipamento de Edição Limitada do Outono de 2019.",
+    "weaponSpecialFall2019RogueText": "Pauta de Música",
+    "weaponSpecialWinter2020RogueText": "Vara Lanterna",
+    "weaponSpecialFall2019HealerNotes": "Esse filactério pode chamar os espíritos das antigas tarefas derrotadas e usar os seus poderes curativos. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada do Outono de 2019.",
+    "weaponSpecialFall2019HealerText": "Filactério Assustador",
+    "weaponSpecialFall2019MageNotes": "Seja forjando relâmpagos, edificando fortificações, ou simplesmente tacando terror nos corações dos mortais, esse bastão empresta o poder dos gigantes para fazer maravilhas. Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada do Outono de 2019.",
+    "weaponSpecialFall2019MageText": "Bastão Caolho"
 }

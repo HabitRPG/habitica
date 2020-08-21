@@ -8,7 +8,7 @@
     "brokenChallenge": "Bruten utmaningslänk: den här uppgiften var en del av en utmaning, men utmaningen (eller gruppen) har tagits bort. Vad vill du göra med de kvarblivna uppgifterna?",
     "keepThem": "Behåll uppgifter",
     "removeThem": "Ta bort uppgifter",
-    "challengeCompleted": "Den här utmaningen är avslutad, och vinnaren blev <span class=\"badge\"><%= user %></span>! Vad vill du göra med de kvarvarande uppgifterna?",
+    "challengeCompleted": "Den här utmaningen är avslutad, och vinnaren blev <span class=\"badge\"><%- user %></span>! Vad vill du göra med de kvarvarande uppgifterna?",
     "unsubChallenge": "Trasig utmaningslänk: den här uppgiften var en del av en utmaning, men du har slutat följa utmaningen. Vad vill du göra med de kvarblivna uppgifterna?",
     "challengeWinner": "Var vinnaren av de följande utmaningarna",
     "challenges": "Utmaningar",

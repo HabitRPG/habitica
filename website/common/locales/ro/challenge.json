@@ -8,7 +8,7 @@
     "brokenChallenge": "Legătură întreruptă către provocare: această sarcină a fost o parte a unei provocări, dar provocarea (sau grupul) a fost șters. Ce dorești să faci cu sarcinile rămase?",
     "keepThem": "Păstrează Sarcini",
     "removeThem": "Elimină Sarcini",
-    "challengeCompleted": "Acest țel a fost îndeplinit, iar câștigătorul a fost <span class=\"badge\"><%= user %></span>! Ce vrei să faci cu sarcinile rămase?",
+    "challengeCompleted": "Acest țel a fost îndeplinit, iar câștigătorul a fost <span class=\"badge\"><%- user %></span>! Ce vrei să faci cu sarcinile rămase?",
     "unsubChallenge": "Legătură stricată către provocare: acest țel a făcut parte dintr-o provocare, dar te-ai dezabonat de la provocare. Ce vrei să faci cu țelurile rămase?",
     "challengeWinner": "A câștigat următoarele provocări",
     "challenges": "Provocări",

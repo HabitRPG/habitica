@@ -298,6 +298,11 @@ export const QUEST_SERIES_ACHIEVEMENTS = {
     'sloth',
     'treeling',
   ],
+  freshwaterFriends: [
+    'axolotl',
+    'frog',
+    'hippo',
+  ],
 };
 
 export const ANIMAL_COLOR_ACHIEVEMENTS = [
@@ -335,5 +340,12 @@ export const ANIMAL_COLOR_ACHIEVEMENTS = [
     petNotificationType: 'ACHIEVEMENT_TICKLED_PINK',
     mountAchievement: 'rosyOutlook',
     mountNotificationType: 'ACHIEVEMENT_ROSY_OUTLOOK',
+  },
+  {
+    color: 'Golden',
+    petAchievement: 'goodAsGold',
+    petNotificationType: 'ACHIEVEMENT_GOOD_AS_GOLD',
+    mountAchievement: 'allThatGlitters',
+    mountNotificationType: 'ACHIEVEMENT_ALL_THAT_GLITTERS',
   },
 ];

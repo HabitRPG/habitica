@@ -8,7 +8,7 @@
     "brokenChallenge": "Rompita Defia Ligilo: tiu tasko estis parto de defio, sed la defio (aŭ grupo) estis foriginta. Fari kion kun la orfaj taskoj?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Tiu defio estis finita, kaj la venkinto estis <span class=\"badge\"><%= user %></span>! Fari kion kun la orfaj taskoj?",
+    "challengeCompleted": "Tiu defio estis finita, kaj la venkinto estis <span class=\"badge\"><%- user %></span>! Fari kion kun la orfaj taskoj?",
     "unsubChallenge": "Rompita Defia Ligilo: tiu tasko estis parto de defio, sed vi malabonis la defion. Fari kion kun la orfaj taskoj?",
     "challengeWinner": "Estis la venkinto de la jenaj defioj",
     "challenges": "Defioj",

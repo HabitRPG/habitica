@@ -8,7 +8,7 @@
     "brokenChallenge": "チャレンジのリンク切れ：このタスクはもともとチャレンジの一部でしたが、チャレンジ（もしくはグループ）が削除されました。残されたタスクはどうしますか？",
     "keepThem": "タスクを残す",
     "removeThem": "タスクを消す",
-    "challengeCompleted": "チャレンジ終了です！　<span class=\"badge\"><%= user %></span>が優勝しました！　残ったタスクはどうしますか？",
+    "challengeCompleted": "チャレンジ終了です！　<span class=\"badge\"><%- user %></span>が優勝しました！　残ったタスクはどうしますか？",
     "unsubChallenge": "チャレンジのリンク切れ：このタスクはもともとチャレンジの一部でしたが、あなたがチャレンジ登録を取り消しました。残されたタスクはどうしますか？",
     "challengeWinner": "以下のチャレンジで優勝しました",
     "challenges": "チャレンジ",

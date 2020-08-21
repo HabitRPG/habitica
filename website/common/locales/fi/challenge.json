@@ -8,7 +8,7 @@
     "brokenChallenge": "Haasteen linkki hajonnut: tämä tehtävä oli osa haastetta (tai ryhmää), joka on poistettu. Mitä haluat tehdä jäljelle jääneille tehtäville?",
     "keepThem": "Säilytä tehtävät",
     "removeThem": "Poista tehtävät",
-    "challengeCompleted": "Tämä haaste on päättynyt, ja voittaja oli <span class=\"badge\"><%= user %></span>! Mitä haluat tehdä haasteeseen kuuluneille tehtäville?",
+    "challengeCompleted": "Tämä haaste on päättynyt, ja voittaja oli <span class=\"badge\"><%- user %></span>! Mitä haluat tehdä haasteeseen kuuluneille tehtäville?",
     "unsubChallenge": "Haasteen linkki hajonnut: tämä tehtävä oli osa haastetta, josta olet luopunut. Mitä haluat tehdä jäljelle jääneille tehtäville?",
     "challengeWinner": "Oli voittaja seuraavissa haasteissa",
     "challenges": "Haasteet",

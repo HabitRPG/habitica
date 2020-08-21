@@ -8,7 +8,7 @@
     "brokenChallenge": "Povezava do izziva je prekinjena: ta naloga je bila del izziva, a sta bila izziv (ali skupina) izbrisana. Kaj želite storiti s preostalimi nalogami izziva?",
     "keepThem": "Obdrži naloge",
     "removeThem": "Odstrani naloge",
-    "challengeCompleted": "Ta izziv je bil zaključen in zmagovalec je bil <span class='badge'><%= user %></span>! Kaj želite storiti s preostalimi nalogami izziva?",
+    "challengeCompleted": "Ta izziv je bil zaključen in zmagovalec je bil <span class='badge'><%- user %></span>! Kaj želite storiti s preostalimi nalogami izziva?",
     "unsubChallenge": "Povezava do izziva je prekinjena: ta naloga je bilo del izziva od katerega ste se odjavili. Kaj želite storiti s preostalimi nalogami izziva?",
     "challengeWinner": "Zmagovalec naslednjih izzivov",
     "challenges": "Izzivi",

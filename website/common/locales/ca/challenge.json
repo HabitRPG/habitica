@@ -8,7 +8,7 @@
     "brokenChallenge": "L'enllaç al repte s'ha perdut: Aquesta tasca era part d'un repte, però el repte (o el grup) ha estat eliminat. Què vols fer amb les tasques òrfenes?",
     "keepThem": "Mantenir les tasques",
     "removeThem": "Eliminar les tasques",
-    "challengeCompleted": "Aquest repte ha estat completat, i el guanyador ha estat <span class=\"badge\"><%= user %></span>! Què vols fer amb les tasques òrfenes?",
+    "challengeCompleted": "Aquest repte ha estat completat, i el guanyador ha estat <span class=\"badge\"><%- user %></span>! Què vols fer amb les tasques òrfenes?",
     "unsubChallenge": "L'enllaç al repte s'ha perdut: Aquesta tasca era part d'un repte, però t'has donat de baixa del repte. Què vols fer amb les tasques òrfenes?",
     "challengeWinner": "Ha estat el guanyador dels següents reptes",
     "challenges": "Reptes",

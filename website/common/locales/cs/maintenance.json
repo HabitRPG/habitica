@@ -14,7 +14,7 @@
     "maintenanceInfoWhyText": "Pár posledních měsíců jsme zemi Habitica v pozadí důkladně rekonstruovali. Specificky, jsme přepsali API. I když to na povrchu možná nevypadá o tolik jinak, pod povrchem je to naprosto nový svět. V budoucnosti nám toto povolí vytvořit mnohem snadněji mnoho funkcí a zlepšit celkovou hratelnost!",
     "maintenanceInfoTechDetails": "Chcete více detailů ohledně technické stránky procesu? Navštivte <a href='http://devs.habitica.com/' target='_blank'>Kovárnu, náš blog o vývoji</a>.",
     "maintenanceInfoMore": "Více informací",
-    "maintenanceInfoAccountChanges": "Jaké změn, ve svém účtu, si budu moci všimnout, až bude přepis dokončen? ",
+    "maintenanceInfoAccountChanges": "Jakých změn ve svém účtu si budu moci všimnout, až bude přepis dokončen?",
     "maintenanceInfoAccountChangesText": "Nejdříve nebudou žádné viditelné změny až na zlepšení výkonu pro funkce jako např. Výzvy. Pokuď si všimneš jakékoli změny, která tam nemá být, napiš nám email na <%= hrefTechAssistanceEmail %> a my se na to podíváme!",
     "maintenanceInfoAddFeatures": "Jaké vylepšení se přidají do země Habitica?",
     "maintenanceInfoAddFeaturesText": "Dokončení tohoto přepisu nám dovolí začít budovat vylepšený chat a Cechy, plány pro organizace a rodiny a další produktivní funkce, například Měsíčky a možnost si nahrát včerejší aktivitu! To jsou všechno funkce, které jsou jednotlivé, takže bude trvat déle je zavést,pokud bychom však nezačali s tímto přepisem, nebylo by možné je začít provádět.",

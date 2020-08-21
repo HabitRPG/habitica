@@ -285,7 +285,7 @@
     "messages": "Viestit",
     "emptyMessagesLine1": "Sinulla ei ole viestejä",
     "emptyMessagesLine2": "Aloita keskustelu lähettämällä viesti!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> lähetti sinulle viestin",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> lähetti sinulle viestin",
     "letsgo": "Mennään!",
     "selected": "Valitut",
     "howManyToBuy": "Kuinka monta haluaisit ostaa?",

@@ -8,7 +8,7 @@
     "brokenChallenge": "Challenge Link wuz brokd: dis task wuz part of challenge, but challenge (or groop) wuz deletd. Whut 2 do wif babby tasks?",
     "keepThem": "Kep taskz",
     "removeThem": "Remove taskz",
-    "challengeCompleted": "Dis challenge wuz completd, and winnur wuz <span class=\"badge\"><%= user %></span>! Whut 2 do wif babby tasks?",
+    "challengeCompleted": "Dis challenge wuz completd, and winnur wuz <span class=\"badge\"><%- user %></span>! Whut 2 do wif babby tasks?",
     "unsubChallenge": "Challenge Link wuz brokd: dis task wuz part of challenge, but u wuz unsubscriebd frum teh challenge. Whut 2 do wif babby tasks?",
     "challengeWinner": "Wuz teh winnar in teh followeeng challengez",
     "challenges": "Challengez",

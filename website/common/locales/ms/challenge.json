@@ -8,7 +8,7 @@
     "brokenChallenge": "Pautan Cabaran Terputus: Tugas ini adalah sebahagian daripada satu cabaran (atau kumpulan) tetapi ia telah dipadamkan. Apa yang anda ingin lakukan dengan tugasan individu?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Cabaran ini sudah selesai, dan juara cabaran ini ialah <span class=\"badge\"><%= user %></span>! Apa yang anda ingin lakukan dengan tugasan individu?",
+    "challengeCompleted": "Cabaran ini sudah selesai, dan juara cabaran ini ialah <span class=\"badge\"><%- user %></span>! Apa yang anda ingin lakukan dengan tugasan individu?",
     "unsubChallenge": "Pautan Cabaran Terputus: Tugas ini adalah sebahagian daripada satu cabaran, tetapi anda telah dinyahlanggan dari cabaran tersebut. Apa yang anda ingin lakukan dengan tugasan individu?",
     "challengeWinner": "Adalah juara dalam cabaran-cabaran tersebut",
     "challenges": "Cabaran-cabaran",

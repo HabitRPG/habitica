@@ -201,7 +201,6 @@ function resetHabitCounters (user, tasksByType, now, daysMissed) {
 }
 
 function trackCronAnalytics (analytics, user, _progress, options) {
-  user._ABtests['20200625_drops'] = '12345678'.indexOf(user._id.slice(0, 1)) !== -1 ? 'boosted' : 'control';
   analytics.track('Cron', {
     category: 'behavior',
     gaLabel: 'Cron Count',
