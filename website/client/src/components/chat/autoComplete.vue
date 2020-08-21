@@ -209,13 +209,11 @@ export default {
       return this.icons[`tier${message.contributor.level}`];
     },
     select (result) {
-      const focusedElement = document.getElementsByClassName('user-entry');
       let newText = this.text;
       const targetName = `${result.username || result.displayName} `;
       newText = newText.replace(new RegExp(`${this.currentSearch}$`), targetName);
       this.$emit('select', newText);
       this.resetSelection();
-      focusedElement[0].focus();
     },
     setHover (result) {
       this.resetSelection();
