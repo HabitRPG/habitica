@@ -109,8 +109,6 @@ export default {
   width: 1rem;
   height: 1rem;
   color: $gray-200;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
   margin-right: 0.5rem;
 }
 

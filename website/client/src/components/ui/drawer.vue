@@ -70,6 +70,7 @@
   }
 
   .drawer-title {
+    height: 2rem;
     position: relative;
     background-color: $gray-10;
     box-shadow: 0 1px 2px 0 rgba($black, 0.2);
@@ -77,9 +78,11 @@
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
     text-align: center;
-    line-height: 1.67;
+    line-height: 1.33;
     color: $white;
-    padding: 6px 0;
+
+    font-size: 12px;
+    font-weight: bold;
     display: flex;
 
     &.no-padding {
@@ -121,12 +124,11 @@
     &-text {
       font-size: 12px;
       font-weight: bold;
-      line-height: 1.67;
       text-align: center;
       color: $gray-400;
       text-decoration: none !important;
       border-bottom: 2px solid transparent;
-      padding: 0px 8px 8px 8px;
+      padding: 0.5rem;
 
       &-active, &:hover {
         color: $white !important;
