@@ -517,7 +517,7 @@
 
   .task ::v-deep .habitica-menu-dropdown:focus-within {
     opacity: 1;
-    border: 1px solid $gray-50;
+    outline: $purple-400 solid 1px;
   }
 
   .task-clickable-area ::v-deep .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {

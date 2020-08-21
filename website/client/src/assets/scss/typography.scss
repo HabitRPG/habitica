@@ -77,3 +77,7 @@ h4 {
 .opacity-75 {
   opacity: 0.75;
 }
+
+*:focus {
+  outline: $purple-400 solid 1px;
+}
