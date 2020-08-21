@@ -26,4 +26,14 @@ export default {
     line-height: 1.71;
     color: $gray-100;
   }
+
+  .form-group ::v-deep {
+    .form-check {
+      margin-bottom: 0.5rem;
+    }
+
+    .custom-checkbox {
+      height: 1.5rem;
+    }
+  }
 </style>

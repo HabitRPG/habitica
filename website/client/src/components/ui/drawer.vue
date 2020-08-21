@@ -6,7 +6,9 @@
       @click="toggle()"
     >
       <div  class="title-row">
-        <slot name="drawer-title-row">{{ title }}</slot>
+        <slot name="drawer-title-row">
+          <div class="text-only">{{ title }}</div>
+        </slot>
       </div>
       <div
         class="drawer-toggle-icon svg-icon icon-10"
@@ -88,6 +90,10 @@
     &.no-padding {
       padding-bottom: 0;
     }
+  }
+
+  .text-only {
+    padding-top: 0.5rem;
   }
 
   .title-row {

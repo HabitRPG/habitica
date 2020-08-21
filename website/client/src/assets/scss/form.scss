@@ -42,16 +42,16 @@ input, textarea, input.form-control, textarea.form-control {
   }
 
   &.input-search {
-    background-repeat: no-repeat;
-    background-position: center left 16px;
-    background-size: 16px 16px;
-    background-image: url(~@/assets/svg/for-css/search.svg);
-    padding-left: 40px;
-
     height: 2rem;
     border-radius: 2px;
     border: solid 1px $gray-400;
     background-color: $white;
+
+    font-size: 14px;
+    line-height: 1.71;
+    color: $gray-200;
+
+    padding: 0.25rem 1rem 0.25rem 0.75rem;
   }
 
   &.input-valid, &.input-invalid {
