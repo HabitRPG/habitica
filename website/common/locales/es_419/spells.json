@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "¡Tus talentos de pícaro mejoran al Percepción de tu Grupo entero! (Basado en PER no reforzado)",
     "spellRogueStealthText": "Sigilo",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Numero de diarias evitadas: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Numero de diarias evitadas: <%= number %>.",
     "spellRogueStealthMaxedOut": "Ya haz evitado todas tus tareas diaria; no hay necesidad de conjurar esto denuevo.",
     "spellHealerHealText": "Luz Curativa",
     "spellHealerHealNotes": "¡Luz brillante recupera tu salud! (Basado en: CON e INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Conjurar esta habilidad en tareas de desafío no está permitido.",
     "groupTasksNoCast": "No está permitido conjurar una habilidad en las tareas grupales.",
     "spellNotOwned": "No tienes esta habilidad.",
-    "spellLevelTooHigh": "Debes ser nivel <%- level %> para utilizar esta habilidad."
+    "spellLevelTooHigh": "Debes ser nivel <%= level %> para utilizar esta habilidad."
 }

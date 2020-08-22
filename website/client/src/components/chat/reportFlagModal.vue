@@ -6,7 +6,7 @@
     :hide-footer="true"
   >
     <div class="modal-body">
-      <strong v-html="$t('abuseFlagModalHeading', reportData)"></strong>
+      <strong v-html="$t('abuseFlagModalHeading')"></strong>
       <blockquote>
         <div v-markdown="abuseObject.text"></div>
       </blockquote>
@@ -113,14 +113,6 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-    reportData () {
-      let reportMessage = this.abuseObject.user;
-      const isSystemMessage = this.abuseObject.uuid === 'system';
-      if (isSystemMessage) reportMessage = this.$t('systemMessage');
-      return {
-        name: `<span class='text-danger'>${reportMessage}</span>`,
-      };
-    },
   },
   mounted () {
     this.$root.$on('habitica::report-chat', this.handleReport);

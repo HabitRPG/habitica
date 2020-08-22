@@ -91,6 +91,10 @@ async function createSubscription (data) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
 
+    if (group.privacy !== 'private') {
+      throw new NotAuthorized(shared.i18n.t('onlyPrivateGuildsCanUpgrade'));
+    }
+
     recipient = group;
     itemPurchased = 'Group-Subscription';
     purchaseType = 'group-subscribe';

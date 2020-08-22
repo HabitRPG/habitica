@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "你与朋友们分享了你的天赋。所有队员获得了感知上的增益！（法术强度与未增益的感知值有关）",
     "spellRogueStealthText": "潜行",
     "spellRogueStealthNotes": "今晚，你未完成的一些每日任务将不会对你造成伤害，它们的连击数和颜色也保持不变。（法术强度与感知值有关）",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> 阻止的每日任务数量：<%- number %>。",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> 阻止的每日任务数量：<%= number %>。",
     "spellRogueStealthMaxedOut": "你已经阻止了所有你的每日任务；没有必要再次施放。",
     "spellHealerHealText": "治愈之光",
     "spellHealerHealNotes": "圣光笼罩着你，治愈了你的伤口。你的生命值恢复了！（法术强度与体质值以及智力值有关）",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "不允许在挑战任务上使用技能。",
     "groupTasksNoCast": "不允许在小组任务上使用技能。",
     "spellNotOwned": "你没有拥有这个技能。",
-    "spellLevelTooHigh": "等级<%- level %>才能使用这个技能。"
+    "spellLevelTooHigh": "等级<%= level %>才能使用这个技能。"
 }

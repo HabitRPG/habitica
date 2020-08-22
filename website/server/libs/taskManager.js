@@ -1,13 +1,25 @@
 import moment from 'moment';
 import _ from 'lodash';
+import validator from 'validator';
 import * as Tasks from '../models/task';
+import apiError from './apiError';
 import {
   BadRequest,
+  NotAuthorized,
+  NotFound,
 } from './errors';
 import {
   SHARED_COMPLETION,
+  handleSharedCompletion,
 } from './groupTasks';
 import shared from '../../common';
+import { model as Group } from '../models/group'; // eslint-disable-line import/no-cycle
+import { model as User } from '../models/user'; // eslint-disable-line import/no-cycle
+import { taskScoredWebhook } from './webhook'; // eslint-disable-line import/no-cycle
+
+import logger from './logger';
+
+const requiredGroupFields = '_id leader tasksOrder name';
 
 async function _validateTaskAlias (tasks, res) {
   const tasksWithAliases = tasks.filter(task => task.alias);
@@ -290,4 +302,281 @@ export function moveTask (order, taskId, to) {
   } else {
     order.splice(to, 0, taskId);
   }
+}
+
+async function handleChallengeTask (task, delta, direction) {
+  if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
+    // Wrapping everything in a try/catch block because if an error occurs
+    // using `await` it MUST NOT bubble up because the request has already been handled
+    try {
+      const chalTask = await Tasks.Task.findOne({
+        _id: task.challenge.taskId,
+      }).exec();
+
+      if (!chalTask) return;
+
+      await chalTask.scoreChallengeTask(delta, direction);
+    } catch (e) {
+      logger.error(e, 'Error scoring challenge task');
+    }
+  }
+}
+
+async function handleGroupTask (task, delta, direction) {
+  if (task.group && task.group.taskId) {
+    // Wrapping everything in a try/catch block because if an error occurs
+    // using `await` it MUST NOT bubble up because the request has already been handled
+    try {
+      const groupTask = await Tasks.Task.findOne({
+        _id: task.group.taskId,
+      }).exec();
+
+      if (groupTask) {
+        await handleSharedCompletion(groupTask, task);
+
+        const groupDelta = groupTask.group.assignedUsers
+          ? delta / groupTask.group.assignedUsers.length
+          : delta;
+        await groupTask.scoreChallengeTask(groupDelta, direction);
+      }
+    } catch (e) {
+      logger.error(e, 'Error scoring group task');
+    }
+  }
+}
+
+/**
+ * Scores a task.
+ * @param user the user that is making the operation
+ * @param task The task to score
+ * @param direction "up" or "down" depending on how the task should be scored
+ *
+ * @return Response Data
+*/
+async function scoreTask (user, task, direction, req, res) {
+  if (task.type === 'daily' || task.type === 'todo') {
+    if (task.completed && direction === 'up') {
+      throw new NotAuthorized(res.t('sessionOutdated'));
+    } else if (!task.completed && direction === 'down') {
+      throw new NotAuthorized(res.t('sessionOutdated'));
+    }
+  }
+
+  if (task.group.approval.required && !task.group.approval.approved) {
+    const fields = requiredGroupFields.concat(' managers');
+    const group = await Group.getGroup({ user, groupId: task.group.id, fields });
+
+    const managerIds = Object.keys(group.managers);
+    managerIds.push(group.leader);
+
+    if (managerIds.indexOf(user._id) !== -1) {
+      task.group.approval.approved = true;
+      task.group.approval.requested = true;
+      task.group.approval.requestedDate = new Date();
+    } else {
+      if (task.group.approval.requested) {
+        return {
+          task,
+          requiresApproval: true,
+          message: res.t('taskRequiresApproval'),
+        };
+      }
+
+      task.group.approval.requested = true;
+      task.group.approval.requestedDate = new Date();
+
+      const managers = await User.find({ _id: managerIds }, 'notifications preferences').exec(); // Use this method so we can get access to notifications
+
+      // @TODO: we can use the User.pushNotification function because
+      // we need to ensure notifications are translated
+      const managerPromises = [];
+      managers.forEach(manager => {
+        manager.addNotification('GROUP_TASK_APPROVAL', {
+          message: res.t('userHasRequestedTaskApproval', {
+            user: user.profile.name,
+            taskName: task.text,
+          }, manager.preferences.language),
+          groupId: group._id,
+          // user task id, used to match the notification when the task is approved
+          taskId: task._id,
+          userId: user._id,
+          groupTaskId: task.group.taskId, // the original task id
+          direction,
+        });
+        managerPromises.push(manager.save());
+      });
+
+      managerPromises.push(task.save());
+      await Promise.all(managerPromises);
+
+      return {
+        task,
+        requiresApproval: true,
+        message: res.t('taskApprovalHasBeenRequested'),
+      };
+    }
+  }
+
+  if (task.group.approval.required && task.group.approval.approved) {
+    const notificationIndex = user.notifications.findIndex(notification => notification
+       && notification.data && notification.data.task
+       && notification.data.task._id === task._id && notification.type === 'GROUP_TASK_APPROVED');
+
+    if (notificationIndex !== -1) {
+      user.notifications.splice(notificationIndex, 1);
+    }
+  }
+
+  const wasCompleted = task.completed;
+
+  const firstTask = !user.achievements.completedTask;
+  const [delta] = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
+  // Drop system (don't run on the client,
+  // as it would only be discarded since ops are sent to the API, not the results)
+  if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task, delta }, req, res.analytics);
+
+  // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
+  // TODO move to common code?
+  let pullTask = false;
+  let pushTask = false;
+  if (task.type === 'todo') {
+    if (!wasCompleted && task.completed) {
+      // @TODO: mongoose's push and pull should be atomic and help with
+      // our concurrency issues. If not, we need to use this update $pull and $push
+      pullTask = true;
+      // user.tasksOrder.todos.pull(task._id);
+    } else if (
+      wasCompleted
+      && !task.completed
+      && user.tasksOrder.todos.indexOf(task._id) === -1
+    ) {
+      pushTask = true;
+      // user.tasksOrder.todos.push(task._id);
+    }
+  }
+
+  setNextDue(task, user);
+
+  taskScoredWebhook.send(user, {
+    task,
+    direction,
+    delta,
+    user,
+  });
+
+  // Track when new users (first 7 days) score tasks
+  if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
+    res.analytics.track('task score', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      taskType: task.type,
+      direction,
+      headers: req.headers,
+    });
+  }
+
+  return {
+    task,
+    delta,
+    direction,
+    pullTask,
+    pushTask,
+    // clone user._tmp so that it's not overwritten by other score operations
+    // when using the bulk scoring API
+    _tmp: _.cloneDeep(user._tmp),
+  };
+}
+
+export async function scoreTasks (user, taskScorings, req, res) {
+  // Validate the parameters
+
+  // taskScorings must be array with at least one value
+  if (!taskScorings || !Array.isArray(taskScorings) || taskScorings.length < 1) {
+    throw new BadRequest(apiError('invalidTaskScorings'));
+  }
+
+  taskScorings.forEach(({ id, direction }) => {
+    if (!['up', 'down'].includes(direction)) throw new BadRequest(apiError('directionUpDown'));
+    if (typeof id !== 'string') throw new BadRequest(apiError('invalidTaskIdentifier'));
+  });
+
+  // Get an array of tasks identifiers
+  const taskIds = taskScorings.map(taskScoring => taskScoring.id);
+
+  const tasks = {};
+  (await Tasks.Task.findMultipleByIdOrAlias(taskIds, user._id)).forEach(task => {
+    tasks[task._id] = task;
+    if (task.alias) {
+      tasks[task.alias] = task;
+    }
+  });
+
+  if (Object.keys(tasks).length === 0) throw new NotFound(res.t('taskNotFound'));
+
+  // Score each task separately to make sure changes to user._tmp don't overlap.
+  // scoreTask is an async function but the only async operation happens when a group task
+  // is involved
+  // @TODO refactor user._tmp to allow more than one task scoring - breaking change
+  const returnDatas = [];
+
+  for (const taskScoring of taskScorings) {
+    const task = tasks[taskScoring.id];
+    if (task) {
+      // If one of the task scoring fails the entire operation will result in a failure
+      // It's the only way to ensure the user doesn't end up in an inconsistent state.
+      returnDatas.push(await scoreTask( // eslint-disable-line no-await-in-loop
+        user,
+        task,
+        taskScoring.direction,
+        req,
+        res,
+      ));
+    }
+  }
+
+  const savePromises = [user.save()];
+
+  // Save the tasks, use the tasks object and not returnDatas.*.task to avoid saving the same
+  // task twice, allows scoring the same task multiple times in a single request
+  Object.keys(tasks).forEach(identifier => {
+    // Tasks identified by an alias exists with two keys (id and alias) in the tasks object
+    // ignore the alias to avoid saving them twice
+    if (validator.isUUID(String(identifier)) && tasks[identifier].isModified()) {
+      savePromises.push(tasks[identifier].save());
+    }
+  });
+
+  // Handle todos removal or addition to the tasksOrder array
+  const pullIDs = [];
+  const pushIDs = [];
+
+  returnDatas.forEach(returnData => {
+    if (returnData.pushTask === true) pushIDs.push(returnData.task._id);
+    if (returnData.pullTask === true) pullIDs.push(returnData.task._id);
+  });
+
+  const moveUpdateObject = {};
+  if (pushIDs.length > 0) moveUpdateObject.$push = { 'tasksOrder.todos': { $each: pushIDs } };
+  if (pullIDs.length > 0) moveUpdateObject.$pull = { 'tasksOrder.todos': { $in: pullIDs } };
+  if (pushIDs.length > 0 || pullIDs.length > 0) {
+    savePromises.push(user.updateOne(moveUpdateObject).exec());
+  }
+
+  await Promise.all(savePromises);
+
+  return returnDatas.map(data => {
+    // Handle challenge and group tasks tasks here because the task must have been saved first
+    handleChallengeTask(data.task, data.delta, data.direction);
+    handleGroupTask(data.task, data.delta, data.direction);
+
+    // Handle group tasks that require approval
+    if (data.requiresApproval === true) {
+      return {
+        id: data.task._id, message: data.message, requiresApproval: true,
+      };
+    }
+
+    return { id: data.task._id, delta: data.delta, _tmp: data._tmp };
+  });
 }

@@ -2,6 +2,7 @@ import axios from 'axios';
 import omit from 'lodash/omit';
 import findIndex from 'lodash/findIndex';
 import * as Analytics from '@/libs/analytics';
+import { loadAsyncResource } from '@/libs/asyncResource';
 
 export async function getPublicGuilds (store, payload) {
   const params = {
@@ -201,7 +202,14 @@ export async function removeManager (store, payload) {
   return response;
 }
 
-export async function getGroupPlans () {
-  const response = await axios.get('/api/v4/group-plans');
-  return response.data.data;
+export function getGroupPlans (store, forceLoad = false) {
+  return loadAsyncResource({
+    store,
+    path: 'groupPlans',
+    url: '/api/v4/group-plans',
+    deserialize (response) {
+      return response.data.data;
+    },
+    forceLoad,
+  });
 }

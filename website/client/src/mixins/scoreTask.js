@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Vue from 'vue';
 
 import * as Analytics from '@/libs/analytics';
@@ -15,29 +14,24 @@ export default {
     }),
   },
   methods: {
-    async taskScore (task, direction) {
-      if (this.castingSpell) return;
+    async beforeTaskScore (task) {
       const { user } = this;
-
-      const Content = this.$store.state.content;
+      if (this.castingSpell) return;
 
       if (task.group.approval.required && !task.group.approval.approved) {
         task.group.approval.requested = true;
-        const groupResponse = await axios.get(`/api/v4/groups/${task.group.id}`);
-        const managers = Object.keys(groupResponse.data.data.managers);
-        managers.push(groupResponse.data.data.leader._id);
-        if (managers.indexOf(user._id) !== -1) {
-          task.group.approval.approved = true;
+        const { data: groupPlans } = await this.$store.dispatch('guilds:getGroupPlans');
+        const groupPlan = groupPlans.find(g => g.id === task.group.id);
+        if (groupPlan) {
+          const managers = Object.keys(groupPlan.managers);
+          managers.push(groupPlan.leader);
+          if (managers.indexOf(user._id) !== -1) {
+            task.group.approval.approved = true;
+          }
         }
       }
-
-      try {
-        scoreTask({ task, user, direction });
-      } catch (err) {
-        this.text(err.message);
-        return;
-      }
-
+    },
+    playTaskScoreSound (task, direction) {
       switch (task.type) { // eslint-disable-line default-case
         case 'habit':
           this.$root.$emit('playSound', direction === 'up' ? 'Plus_Habit' : 'Minus_Habit');
@@ -52,15 +46,40 @@ export default {
           this.$root.$emit('playSound', 'Reward');
           break;
       }
+    },
+    async taskScore (task, direction) {
+      const { user } = this;
+
+      await this.beforeTaskScore(task);
+
+      try {
+        scoreTask({ task, user, direction });
+      } catch (err) {
+        this.text(err.message);
+        return;
+      }
+
+      this.playTaskScoreSound(task, direction);
 
       Analytics.updateUser();
-      const response = await axios.post(`/api/v4/tasks/${task._id}/score/${direction}`);
-      // used to notify drops, critical hits and other bonuses
-      const tmp = response.data.data._tmp || {};
-      const { crit } = tmp;
-      const { drop } = tmp;
-      const { firstDrops } = tmp;
-      const { quest } = tmp;
+      const response = await this.$store.dispatch('tasks:score', {
+        taskId: task._id,
+        direction,
+      });
+
+      this.handleTaskScoreNotifications(response.data.data._tmp || {});
+    },
+    async handleTaskScoreNotifications (tmpObject = {}) {
+      const { user } = this;
+      const Content = this.$store.state.content;
+
+      // _tmp is used to notify drops, critical hits and other bonuses
+      const {
+        crit,
+        drop,
+        firstDrops,
+        quest,
+      } = tmpObject;
 
       if (crit) {
         const critBonus = crit * 100 - 100;
@@ -126,6 +145,9 @@ export default {
         } else if (drop.type === 'Quest') {
           // TODO $rootScope.selectedQuest = Content.quests[drop.key];
           // $rootScope.openModal('questDrop', {controller:'PartyCtrl', size:'sm'});
+          // NOTE if a modal is shown again for quest drops
+          // this code will likely need changes, see the NOTE
+          // https://github.com/HabitRPG/habitica/blob/develop/website/client/src/components/notifications.vue#L640-L646
         } else {
           // Keep support for another type of drops that might be added
           this.drop(drop.dialog);

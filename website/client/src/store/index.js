@@ -132,7 +132,7 @@ export default function () {
       notificationStore: [],
       modalStack: [],
       equipmentDrawerOpen: true,
-      groupPlans: [],
+      groupPlans: asyncResourceFactory(),
       isRunningYesterdailies: false,
       privateMessageOptions: {
         userIdToMessage: '',

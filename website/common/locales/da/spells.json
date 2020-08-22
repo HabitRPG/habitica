@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Dit talent for tricks booster hele dit Holds Opfattelse! (Baseret på: Ikke-boostet OPF)",
     "spellRogueStealthText": "Snigen",
     "spellRogueStealthNotes": "Hver gang du bruger denne evne, vil nogle få af dine ufærdige Daglige ikke skade dig i løbet af natten. Deres striber og farver vil ikke ændre sig. (Baseret på: OPF)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Antal daglige opgaver undgået: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Antal daglige opgaver undgået: <%= number %>.",
     "spellRogueStealthMaxedOut": "Du har allerede undgået alle dine daglige opgaver; der er ingen grund til at bruge denne evne igen.",
     "spellHealerHealText": "Helende Lys",
     "spellHealerHealNotes": "Et skinnende lys genskaber dit liv! (Baseret på: KON og INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Det er ikke tilladt at kaste evner på en udfordrings-opgave.",
     "groupTasksNoCast": "Det er ikke tilladt at kaste en evne på en gruppe opgave.",
     "spellNotOwned": "Du ejer ikke denne evne.",
-    "spellLevelTooHigh": "Du skal være niveau <%- level %> for at bruge denne evne."
+    "spellLevelTooHigh": "Du skal være niveau <%= level %> for at bruge denne evne."
 }

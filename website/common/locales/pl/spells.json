@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Dzielisz się talentem z drużyną. Cała twoja drużyna zyskuje wzmocnienie do Percepcji! (Bazuje na: Niewzmocnionej PER)",
     "spellRogueStealthText": "Ukrycie",
     "spellRogueStealthNotes": "Rzucasz zaklęcie i kilka z Twoich nie wykonanych codziennych nie zadaje Ci dzisiaj obrażeń. Serie i kolory nie ulegną zmianie. (Bazuje na: PER)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Liczba Codziennych, które będą pominięte: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Liczba Codziennych, które będą pominięte: <%= number %>.",
     "spellRogueStealthMaxedOut": "Uniknąłeś już wszystkich codziennych zadań. Nie ma potrzeby rzucania zaklęcia jeszcze raz.",
     "spellHealerHealText": "Leczące światło",
     "spellHealerHealNotes": "Światło spowija twoje ciało, lecząc rany. Odzyskujesz zdrowie! (Bazuje na: KON i INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Rzucanie czaru na zadania z wyzwań nie jest dozwolone.",
     "groupTasksNoCast": "Nie można używać umiejętności na zadaniach grupowych.",
     "spellNotOwned": "Nie posiadasz tej umiejętności.",
-    "spellLevelTooHigh": "Ta umiejętność wymaga poziomu <%- level %>."
+    "spellLevelTooHigh": "Ta umiejętność wymaga poziomu <%= level %>."
 }

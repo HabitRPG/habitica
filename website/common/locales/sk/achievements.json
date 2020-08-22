@@ -3,7 +3,7 @@
     "share": "Zdieľaj",
     "onwards": "Vpred!",
     "levelup": "Plnením cieľov v reálnom živote si získal level a bol si vyliečený!",
-    "reachedLevel": "Dosiahol si level <%- level %>",
+    "reachedLevel": "Dosiahol si level <%= level %>",
     "achievementLostMasterclasser": "Plniteľ výprav: Séria majstra zberateľa",
     "achievementLostMasterclasserText": "Splnil všetkých šestnásť výprav v sérii výprav Majster zberateľ a vyriešil záhady Strateného majstra zberateľa!",
     "achievementMindOverMatter": "Myseľ nad hmotou",
@@ -11,8 +11,8 @@
     "foundNewItemsCTA": "Pozri sa do invetára a skús zkombinovať tvoj nový liahnucí elixíra vajíčko!",
     "foundNewItemsExplanation": "Plnením úloh máš šancu nájsť predmety ako vajcia, elixíry na liahnutie a potravu pre zvieratká.",
     "foundNewItems": "Našiel si nové predmety!",
-    "hideAchievements": "Schovať <%- category %>",
-    "showAllAchievements": "Zobrazit všetky <%- kategorie %>",
+    "hideAchievements": "Schovať <%= category %>",
+    "showAllAchievements": "Zobrazit všetky <%= kategorie %>",
     "onboardingCompleteDescSmall": "Ak chceš viac, pozri si úspechy a začni zbierať!",
     "onboardingCompleteDesc": "Získal si <strong>5 úspechov</strong> a <strong class=\"gold-amount\">100 zlatiek</strong> za dokončenie zoznamu.",
     "onboardingComplete": "Dokončil si tvoje úvodné tasky!",
@@ -20,6 +20,6 @@
     "viewAchievements": "Zobraziť úspechy",
     "letsGetStarted": "Poďme na to!",
     "yourProgress": "Tvoj postup",
-    "onboardingProgress": "<%- percentage %>% postup",
+    "onboardingProgress": "<%= percentage %>% postup",
     "gettingStartedDesc": "Po splnení úvodných úloh a získaš <strong>5 úspechov</strong> a <strong class=\"gold-amount\">100 zlatiek</strong>!"
 }

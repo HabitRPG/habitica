@@ -14,17 +14,17 @@
     "rebirthInList4": "Voorwerpen die je verkregen hebt met Edelstenen of uit willekeurige vondsten (zoals huis- en rijdieren) blijven behouden.",
     "rebirthEarnAchievement": "Je verdient ook een Prestatie voor het beginnen van een nieuw avontuur!",
     "beReborn": "Herboren worden",
-    "rebirthAchievement": "Je bent een nieuw avontuur begonnen! Dit is Hergeboorte <%- number %> voor jou en het hoogste Niveau dat je behaald hebt is <%- level %>.  Begin je volgende nieuwe avontuur als je een nog hoger niveau hebt bereikt om deze Prestatie nog een keer te behalen!",
-    "rebirthAchievement100": "Je bent een nieuw avontuur begonnen! Dit is Hergeboorte <%- number %> voor je en het hoogste Niveau dat je hebt bereikt is 100 of hoger. Om deze prestatie nog een keer te behalen, begin dan je nieuwe avontuur wanneer je op zijn minst Niveau 100 hebt bereikt!",
+    "rebirthAchievement": "Je bent een nieuw avontuur begonnen! Dit is Hergeboorte <%= number %> voor jou en het hoogste Niveau dat je behaald hebt is <%= level %>.  Begin je volgende nieuwe avontuur als je een nog hoger niveau hebt bereikt om deze Prestatie nog een keer te behalen!",
+    "rebirthAchievement100": "Je bent een nieuw avontuur begonnen! Dit is Hergeboorte <%= number %> voor je en het hoogste Niveau dat je hebt bereikt is 100 of hoger. Om deze prestatie nog een keer te behalen, begin dan je nieuwe avontuur wanneer je op zijn minst Niveau 100 hebt bereikt!",
     "rebirthBegan": "Is een Nieuw Avontuur begonnen",
-    "rebirthText": "Is <%- rebirths %> Nieuwe Avonturen begonnen",
-    "rebirthOrb": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van Niveau <%- level %>.",
+    "rebirthText": "Is <%= rebirths %> Nieuwe Avonturen begonnen",
+    "rebirthOrb": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van Niveau <%= level %>.",
     "rebirthOrb100": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen na het bereiken van Niveau 100 of hoger.",
     "rebirthOrbNoLevel": "Heeft een Bol der Hergeboorte gebruikt om opnieuw te beginnen.",
     "rebirthPop": "Herstart je personage direct als een Niveau 1 Krijger zonder je prestaties, verzamelobjecten en uitrusting te verliezen. Je taken - behalve taken die horen uitdagingen of onderdeel zijn van een groepsplan - en hun geschiedenis zal hetzelfde blijven maar ze worden gereset naar een gele kleur en de series worden verwijderd. Je Goud, Ervaring, Mana en de effecten van al je Vaardigheden gaan verloren. Dit alles gaat direct in werking. Voor meer informatie zie de pagina van de <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Bol der Hergeboorte</a>.",
     "rebirthName": "Bol der Hergeboorte",
-    "reborn": "Herboren, maximale Niveau <%- reLevel %>",
+    "reborn": "Herboren, maximale Niveau <%= reLevel %>",
     "confirmReborn": "Weet je het zeker?",
     "rebirthComplete": "Je bent herboren!",
-    "nextFreeRebirth": "<strong><%- days %> dagen</strong> tot <strong>GRATIS</strong> Bol der Hergeboorte"
+    "nextFreeRebirth": "<strong><%= days %> dagen</strong> tot <strong>GRATIS</strong> Bol der Hergeboorte"
 }

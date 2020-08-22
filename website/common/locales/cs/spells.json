@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Tvé lstivé talenty přidají bonus celé tvé družině k Vnímání! (Vypočteno na základě: VNM před bonusem)",
     "spellRogueStealthText": "Plížení",
     "spellRogueStealthNotes": "S každým sesláním kouzla ti pár z tvých nesplněných úkolů dnes v noci neublíží. Jejich série a barva zůstane nezměněna. (Vypočteno na základě: VNM)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Počet denních úkolů, kterým ses vyhnul: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Počet denních úkolů, kterým ses vyhnul: <%= number %>.",
     "spellRogueStealthMaxedOut": "Už ses vyhnul všem svým denním úkolům, takže není důvod tuto schopnost používat znovu.",
     "spellHealerHealText": "Léčivé světlo",
     "spellHealerHealNotes": "Zářivé světlo obnovuje tvé zdraví! (Vypočteno na základě: OBR a INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Použití schopnosti na úkol z výzvy není povoleno.",
     "groupTasksNoCast": "Používání schopností na skupinové úkoly není povoleno.",
     "spellNotOwned": "Nevlastníte tuto schopnost.",
-    "spellLevelTooHigh": "Pro použití této schopnosti musíte být úroveň <%- level %>."
+    "spellLevelTooHigh": "Pro použití této schopnosti musíte být úroveň <%= level %>."
 }

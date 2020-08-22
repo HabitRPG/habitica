@@ -31,10 +31,13 @@ describe('#upgradeGroupPlan', () => {
     group = generateGroup({
       name: 'test group',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     await group.save();
+
+    user.guilds.push(group._id);
+    await user.save();
 
     spy = sinon.stub(amzLib, 'authorizeOnBillingAgreement');
     spy.resolves([]);

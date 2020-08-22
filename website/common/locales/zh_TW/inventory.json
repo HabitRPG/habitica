@@ -1,5 +1,5 @@
 {
-    "noItemsAvailableForType": "您沒有<%- type %>。",
+    "noItemsAvailableForType": "您沒有<%= type %>。",
     "foodItemType": "寵物食品",
     "eggsItemType": "蛋",
     "hatchingPotionsItemType": "孵化藥水",
