@@ -1,25 +1,64 @@
 <template>
   <b-modal
     id="level-up"
-    :title="$t('reachedLevel', {level: user.stats.lvl})"
+    :title="title"
     size="sm"
   >
     <div class="modal-body text-center">
       <div class="sparkly-avatar">
-        <span v-html="starGroup" class="star-group mirror"></span>
-        <avatar class="avatar" :member="user"/>
-        <span v-html="starGroup" class="star-group"></span>
+        <span
+          class="star-group mirror"
+          v-html="starGroup"
+        ></span>
+        <avatar
+          class="avatar"
+          :member="user"
+        />
+        <span
+          class="star-group"
+          v-html="starGroup"
+        ></span>
       </div>
+
       <hr>
-      <p class="text">{{ $t('levelup') }}</p>
+      <p class="text">
+        {{ $t('levelup') }}
+      </p>
     </div>
-    <template v-slot:modal-footer v-bind:class="{ greyed: greyFooter }">
-      <button class="btn btn-primary" @click="close()">{{ $t('onwards') }}</button>
-      <br>
+
+    <template v-slot:modal-footer>
+      <div
+        v-if="displayRewardQuest"
+        class="greyed"
+      >
+        <div class="rewardList">
+          <span
+            class="sparkles"
+            v-html="sparkles"
+          ></span>
+          <span class="text">{{ $t('yourRewards') }}</span>
+          <span
+            class="sparkles mirror"
+            v-html="sparkles"
+          ></span>
+        </div>
+
+        <div :class="questClass"></div>
+        <hr>
+      </div>
+
+      <div :class="{ greyed: displayRewardQuest }">
+        <button
+          class="btn btn-primary"
+          @click="close()"
+        >
+          {{ $t('onwards') }}
+        </button>
+      </div>
       <!-- @TODO: Keep this? .checkboxinput(type='checkbox', v-model=
-'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
-label(style='display:inline-block') {{ $t('dontShowAgain') }}
-      -->
+  'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
+  label(style='display:inline-block') {{ $t('dontShowAgain') }}
+        -->
     </template>
   </b-modal>
 </template>
@@ -32,52 +71,6 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
       }
     }
 
-    .modal-header {
-      padding: 0;
-      text-align: center;
-      border: none;
-    }
-
-    .modal-header h5 {
-      margin: 31px auto 16px auto;
-      color: #4f2a93;
-    }
-
-    .modal-header button {
-      position: absolute;
-      right: 18px;
-      top: 12px;
-    }
-
-    .modal-body {
-      padding: 0;
-    }
-
-    .sparkly-avatar {
-      display: flex;
-    }
-
-    .star-group {
-      margin: auto;
-    }
-
-    .star-group svg {
-      height: 64px;
-      width: 40px;
-    }
-
-    .mirror svg {
-      transform: scaleX(-1);
-    }
-
-    .character-sprites {
-      margin-left: -2rem !important;
-    }
-
-    .class-badge {
-      display: none !important;
-    }
-
     hr {
       margin: 0;
       border: 0;
@@ -88,23 +81,105 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
     .text {
       font-size: 14px;
       text-align: center;
-      color: #686274;
-      margin: 0 24px 24px 24px;
-      min-height: 0px;
     }
 
-    .modal-footer {
+    .mirror svg {
+      transform: scaleX(-1);
+    }
+
+    header {
+      padding: 0;
+      text-align: center;
+      border: none;
+
+      h5 {
+        margin: 31px auto 16px auto;
+        color: #4f2a93;
+      }
+
+      button {
+        position: absolute;
+        right: 18px;
+        top: 12px;
+      }
+    }
+
+    .modal-body {
+      padding: 0;
+
+      .sparkly-avatar {
+        display: flex;
+      }
+
+      .star-group {
+        margin: auto;
+      }
+
+      .star-group svg {
+        height: 64px;
+        width: 40px;
+      }
+
+      .character-sprites {
+        margin-left: -2rem !important;
+      }
+
+      .class-badge {
+        display: none !important;
+      }
+
+      .text {
+        color: #686274;
+        padding: 0 24px 24px 24px;
+        margin: 0;
+      }
+    }
+
+    footer {
       margin: 0;
       padding: 0;
       border: none;
-    }
 
-    .modal-footer button {
-      margin: 0 auto 32px auto;
-    }
+      div:not(.scroll) {
+        width: 100%;
+        margin: 0;
+      }
 
-    .greyed {
-      background-color: #f9f9f9;
+      .rewardList, div:last-child {
+        display: flex;
+      }
+
+      .sparkles {
+        width: 32px;
+        margin-top: 12px;
+      }
+
+      .sparkles:not(.mirror) {
+        margin-left: auto;
+      }
+
+      .sparkles.mirror {
+        margin-right: auto;
+      }
+
+      .text {
+        font-weight: bold;
+        margin: 16px;
+        min-height: auto;
+        color: #4e4a57;
+      }
+
+      .scroll {
+        margin: -9px auto;
+      }
+
+      button {
+        margin: 0 auto 32px auto;
+      }
+
+      .greyed {
+        background-color: #f9f9f9;
+      }
     }
   }
 </style>
@@ -112,31 +187,36 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
 <script>
 import Avatar from '../avatar';
 import { mapState } from '@/libs/store';
-import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
-import styleHelper from '@/mixins/styleHelper';
 import starGroup from '@/assets/svg/star-group.svg';
 import sparkles from '@/assets/svg/sparkles-left.svg';
+
+const levelQuests = {
+  15: 'atom1',
+  30: 'vice1',
+  40: 'goldenknight1',
+  60: 'moonstone1',
+};
 
 export default {
   components: {
     Avatar,
   },
-  mixins: [styleHelper],
   data () {
     return {
-      statsAllocationBoxIsOpen: true,
-      maxHealth,
       starGroup,
       sparkles,
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-    showAllocation () {
-      return this.$store.getters['members:hasClass'](this.user) && !this.user.preferences.automaticAllocation;
+    title () {
+      return this.$t('reachedLevel', { level: this.user.stats.lvl });
     },
-    greyFooter () {
-      return false;
+    displayRewardQuest () {
+      return this.user.stats.lvl in levelQuests;
+    },
+    questClass () {
+      return `scroll inventory_quest_scroll_${levelQuests[this.user.stats.lvl]}`;
     },
   },
   methods: {
