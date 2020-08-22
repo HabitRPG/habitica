@@ -94,6 +94,40 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
 // "allowGuildInvitationsFromNonMembers": "Allow Guild invitations from non-members",
         -->
       </div>
+      <div v-if="isAdmin" class="form-group">
+        <label>
+          <strong v-once>{{ $t('languageSettings') }}</strong>
+        </label>
+        <br>
+        <div class="custom-control custom-checkbox">
+          <input
+            id="bannedWordsAllowed"
+            v-model="workingGroup.bannedWordsAllowed"
+            class="custom-control-input"
+            type="checkbox"
+          >
+          <label
+            v-once
+            class="custom-control-label"
+            for="bannedWordsAllowed"
+          >{{ $t('bannedWordsAllowed') }}</label>
+          <div
+            id="groupBannedWordsAllowedDescription"
+            class="icon"
+            :title="$t('bannedWordsAllowedDetail')"
+          >
+            <div
+              class="svg-icon"
+              v-html="icons.information"
+            ></div>
+          </div>
+          <b-tooltip
+            :title="$t('bannedWordsAllowedDetail')"
+            target="groupBannedWordsAllowedDescription"
+          />
+        </div>
+        <br>
+      </div>
       <div
         v-if="!isParty"
         class="form-group"
@@ -470,6 +504,9 @@ export default {
     isParty () {
       return this.workingGroup.type === 'party';
     },
+    isAdmin () {
+      return Boolean(this.user.contributor.admin);
+    },
   },
   watch: {
     editingGroup () {
@@ -596,6 +633,7 @@ export default {
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvitationsFromNonMembers: true,
+        bannedWordsAllowed: false,
       };
 
       if (newgroup && newgroup._id) {
@@ -616,6 +654,7 @@ export default {
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvitationsFromNonMembers: true,
+        bannedWordsAllowed: false,
       };
     },
   },
