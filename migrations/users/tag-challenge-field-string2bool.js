@@ -54,6 +54,7 @@ db.users.updateOne({
 })
 */
 async function updateUser (user) {
+  console.log('updateUser');
   count += 1;
 
   const query = {
@@ -66,11 +67,17 @@ async function updateUser (user) {
     },
   };
 
-  const opts = {
-    arrayFilters: [{ 'element.challenge': 'true' }],
-  };
-
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
 
-  return User.updateOne(query, update, opts).exec();
+  return User.bulkWrite(
+    [
+      {
+        updateOne: {
+          filter: query,
+          update,
+          arrayFilters: [{ 'element.challenge': 'true' }],
+        },
+      },
+    ],
+  );
 }
