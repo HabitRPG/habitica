@@ -98,13 +98,11 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
 import moment from 'moment';
-
-import filters from '../mixins/filters';
+import formatDate from '../filters/formatDate';
 
 function resetData (self) {
   self.cronError = false;
@@ -134,9 +132,18 @@ function resetData (self) {
 }
 
 export default {
-  mixins: [
-    filters,
-  ],
+  filters: {
+    formatDate,
+    formatTimeZone (timezoneOffset) {
+      if (timezoneOffset === undefined) return 'No value recorded.';
+      // convert reverse offset to time zone in "+/-H:MM UTC" format
+      const sign = (timezoneOffset < 0) ? '+' : '-'; // reverse the sign
+      const timezoneHours = Math.floor(Math.abs(timezoneOffset) / 60);
+      const timezoneMinutes = Math.floor((Math.abs(timezoneOffset) / 60 - timezoneHours) * 60);
+      const timezoneMinutesDisplay = (timezoneMinutes) ? `:${timezoneMinutes}` : ''; // don't display :00
+      return `${sign}${timezoneHours}${timezoneMinutesDisplay} UTC`;
+    },
+  },
   props: {
     resetCounter: {
       type: Number,
@@ -163,17 +170,6 @@ export default {
       errorsOrWarningsExist: false,
       expand: false,
     };
-  },
-  filters: {
-    formatTimeZone (timezoneOffset) {
-      if (timezoneOffset === undefined) return 'No value recorded.';
-      // convert reverse offset to time zone in "+/-H:MM UTC" format
-      const sign = (timezoneOffset < 0) ? '+' : '-'; // reverse the sign
-      const timezoneHours = Math.floor(Math.abs(timezoneOffset) / 60);
-      const timezoneMinutes = Math.floor((Math.abs(timezoneOffset) / 60 - timezoneHours) * 60);
-      const timezoneMinutesDisplay = (timezoneMinutes) ? `:${timezoneMinutes}` : ''; // don't display :00
-      return `${sign}${timezoneHours}${timezoneMinutesDisplay} UTC`;
-    },
   },
   watch: {
     resetCounter () {

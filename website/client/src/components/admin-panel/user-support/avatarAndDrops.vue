@@ -24,12 +24,14 @@
 </template>
 
 <script>
-import filters from '../mixins/filters';
+import formatDate from '../filters/formatDate';
 import getItemDescription from '../mixins/getItemDescription';
 
 export default {
+  filters: {
+    formatDate,
+  },
   mixins: [
-    filters,
     getItemDescription,
   ],
   props: {

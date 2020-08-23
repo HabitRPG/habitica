@@ -247,7 +247,6 @@ import { mapState } from '@/libs/store';
 import content from '@/../../common/script/content';
 import notifications from '@/mixins/notifications';
 
-import filters from './mixins/filters';
 import BasicDetails from './user-support/basicDetails';
 import CronAndAuth from './user-support/cronAndAuth';
 import PartyAndQuest from './user-support/partyAndQuest';
@@ -267,7 +266,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  mixins: [notifications, styleHelper, filters],
+  mixins: [notifications, styleHelper],
   data () {
     return {
       resetCounter: 0,
