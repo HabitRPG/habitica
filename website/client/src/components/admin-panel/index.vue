@@ -7,7 +7,10 @@
       <h1>Admin Panel</h1>
 
       <div class="row">
-        <form @submit.prevent="loadHero(heroID)" class="form-inline">
+        <form
+          class="form-inline"
+          @submit.prevent="loadHero(heroID)"
+        >
           <input
             v-model="heroID"
             class="form-control"
@@ -29,7 +32,7 @@
       >
         <div class="form col-12">
           <basic-details
-            :userId="hero._id"
+            :user-id="hero._id"
             :auth="hero.auth"
             :preferences="hero.preferences"
             :profile="hero.profile"
@@ -37,24 +40,24 @@
 
           <privileges-and-gems
             :hero="hero"
-            :resetCounter="this.resetCounter"
+            :reset-counter="resetCounter"
           />
 
           <cron-and-auth
             :auth="hero.auth"
             :preferences="hero.preferences"
-            :lastCron="hero.lastCron"
-            :resetCounter="this.resetCounter"
+            :last-cron="hero.lastCron"
+            :reset-counter="resetCounter"
           />
 
           <party-and-quest
-            :userId="hero._id"
+            :user-id="hero._id"
             :username="hero.auth.local.username"
-            :userHasParty="hasParty"
-            :partyNotExistError="partyNotExistError"
-            :userPartyData="hero.party"
-            :groupPartyData="party"
-            :resetCounter="this.resetCounter"
+            :user-has-party="hasParty"
+            :party-not-exist-error="partyNotExistError"
+            :user-party-data="hero.party"
+            :group-party-data="party"
+            :reset-counter="resetCounter"
           />
 
           <avatar-and-drops
@@ -115,8 +118,8 @@
                         class="form-group form-inline"
                       >
                         <form
-                          @submit.prevent="changeData(item.path, item.value)"
                           value="Change"
+                          @submit.prevent="changeData(item.path, item.value)"
                         >
                           <span>{{ item.valueForDisplay }} : </span>
                           <span :class="{ ownedItem: !item.neverOwned }">{{ item.key }} :</span>
@@ -198,10 +201,9 @@
 
           <contributor-details
             :hero="hero"
-            :resetCounter="this.resetCounter"
+            :reset-counter="resetCounter"
             @clear-data="clearData"
           />
-
         </div>
       </div>
     </div>

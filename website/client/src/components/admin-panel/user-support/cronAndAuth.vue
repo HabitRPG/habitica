@@ -27,7 +27,7 @@
         <strong>{{ auth.timestamps.loggedin | formatDate }}</strong>
         ("auth.timestamps.loggedin")
       </div>
-      <div v-if="this.cronError">
+      <div v-if="cronError">
         "lastCron" value:
         <strong>{{ lastCron | formatDate }}</strong>
         <br>
@@ -40,12 +40,12 @@
         Time zone:
         <strong>{{ preferences.timezoneOffset | formatTimeZone }}</strong>
       </div>
-      <div v-if="this.timezoneDiffError || this.timezoneMissingError">
+      <div v-if="timezoneDiffError || timezoneMissingError">
         Time zone at previous cron:
         <strong>{{ preferences.timezoneOffsetAtLastCron | formatTimeZone }}</strong>
 
         <div class="errorMessage">
-          <div v-if="this.timezoneDiffError">
+          <div v-if="timezoneDiffError">
             ERROR: the player's current time zone is different than their time zone when
             their previous cron ran. This can be because:
             <ul>
@@ -58,11 +58,11 @@
             <p>
               <em>* The problem should fix itself in about a day.</em><br>
               <em>** One of these causes is probably happening if the time zones stay
-              different for more than a day.</em>
+                different for more than a day.</em>
             </p>
           </div>
 
-          <div v-if="this.timezoneMissingError">
+          <div v-if="timezoneMissingError">
             ERROR: One of the player's time zones is missing.
             This is expected and okay if it's the "Time zone at previous cron"
             AND if it's their first day in Habitica.

@@ -68,7 +68,10 @@
             cols="5"
             rows="5"
           ></textarea>
-          <div class="markdowPreview" v-markdown="hero.contributor.contributions"></div>
+          <div
+            v-markdown="hero.contributor.contributions"
+            class="markdowPreview"
+          ></div>
         </div>
         <input
           type="submit"
