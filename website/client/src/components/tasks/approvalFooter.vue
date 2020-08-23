@@ -2,9 +2,9 @@
   <div>
     <approval-modal :task="task" />
     <div
-      class="claim-bottom-message d-flex align-items-center"
       v-if="!(userIsAssigned && task.group.approval.approved
         && !task.completed && task.type !== 'habit')"
+      class="claim-bottom-message d-flex align-items-center"
     >
       <div
         class="mr-auto ml-2"

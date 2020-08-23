@@ -134,7 +134,7 @@
     </div>
     <div
       v-if="groupAccessRequiredAndOnPersonalPage
-        && (task.type === 'daily' || task.type  === 'todo')"
+        && (task.type === 'daily' || task.type === 'todo')"
       class="summary-sentence py-3 px-4"
       v-html="summarySentence"
     >
