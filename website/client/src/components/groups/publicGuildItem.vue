@@ -261,7 +261,7 @@ export default {
     },
     async join () {
       // @TODO: This needs to be in the notifications where users will now accept invites
-      if (this.guild.cancelledPlan && !window.confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) {
+      if (this.guild.cancelledPlan && !window.confirm(window.env.t('aboutToJoinCancelledGroupPlan'))) { // eslint-disable-line no-alert
         return;
       }
       await this.$store.dispatch('guilds:join', { groupId: this.guild._id, type: 'guild' });

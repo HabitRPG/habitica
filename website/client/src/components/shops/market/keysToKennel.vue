@@ -85,7 +85,7 @@ export default {
         purchaseType: 'keys',
         pinType: 'keys',
         buy: () => {
-          if (!window.confirm(this.$t('releasePetsConfirm'))) return;
+          if (!window.confirm(this.$t('releasePetsConfirm'))) return; // eslint-disable-line no-alert
           try {
             this.$store.dispatch('shops:releasePets', { user: this.user });
             this.text(this.$t('releasePetsSuccess'));
@@ -93,7 +93,7 @@ export default {
             // Reload because achievement is set in user.save instead of common
             window.location.reload(true);
           } catch (err) {
-            window.alert(err.message);
+            window.alert(err.message); // eslint-disable-line no-alert
           }
         },
       },
@@ -108,7 +108,7 @@ export default {
         purchaseType: 'keys',
         pinType: 'keys',
         buy: () => {
-          if (!window.confirm(this.$t('releaseMountsConfirm'))) return;
+          if (!window.confirm(this.$t('releaseMountsConfirm'))) return; // eslint-disable-line no-alert
           try {
             this.$store.dispatch('shops:releaseMounts', { user: this.user });
             this.text(this.$t('releaseMountsSuccess'));
@@ -116,7 +116,7 @@ export default {
             // Reload because achievement is set in user.save instead of common
             window.location.reload(true);
           } catch (err) {
-            window.alert(err.message);
+            window.alert(err.message); // eslint-disable-line no-alert
           }
         },
       },
@@ -131,7 +131,7 @@ export default {
         purchaseType: 'keys',
         pinType: 'keys',
         buy: () => {
-          if (!window.confirm(this.$t('releaseBothConfirm'))) return;
+          if (!window.confirm(this.$t('releaseBothConfirm'))) return; // eslint-disable-line no-alert
           try {
             this.$store.dispatch('shops:releaseBoth', { user: this.user });
             this.text(this.$t('releaseBothSuccess'));
@@ -139,7 +139,7 @@ export default {
             // Reload because achievement is set in user.save instead of common
             window.location.reload(true);
           } catch (err) {
-            window.alert(err.message);
+            window.alert(err.message); // eslint-disable-line no-alert
           }
         },
       },

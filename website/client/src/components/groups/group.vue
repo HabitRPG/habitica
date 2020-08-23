@@ -599,7 +599,7 @@ export default {
       return this.user.notifications.some(n => n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId);
     },
     async join () {
-      if (this.group.cancelledPlan && !window.confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+      if (this.group.cancelledPlan && !window.confirm(this.$t('aboutToJoinCancelledGroupPlan'))) { // eslint-disable-line no-alert
         return;
       }
       await this.$store.dispatch('guilds:join', { groupId: this.group._id, type: 'guild' });
@@ -613,7 +613,7 @@ export default {
       });
 
       // @TODO: Get challenges and ask to keep or remove
-      if (!window.confirm('Are you sure you want to leave?')) return;
+      if (!window.confirm('Are you sure you want to leave?')) return; // eslint-disable-line no-alert
       const keep = true;
       this.leave(keep);
     },

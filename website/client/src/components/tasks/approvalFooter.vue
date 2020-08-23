@@ -162,7 +162,7 @@ export default {
       this.sync();
     },
     async unassign () {
-      if (!window.confirm(this.$t('confirmUnClaim'))) return;
+      if (!window.confirm(this.$t('confirmUnClaim'))) return; // eslint-disable-line no-alert
 
       let taskId = this.task._id;
       // If we are on the user task
@@ -191,7 +191,7 @@ export default {
       this.sync();
     },
     needsWork () {
-      if (!window.confirm(this.$t('confirmNeedsWork'))) return;
+      if (!window.confirm(this.$t('confirmNeedsWork'))) return; // eslint-disable-line no-alert
       const userIdNeedsMoreWork = this.task.group.assignedUsers[0];
       this.$store.dispatch('tasks:needsWork', {
         taskId: this.task._id,

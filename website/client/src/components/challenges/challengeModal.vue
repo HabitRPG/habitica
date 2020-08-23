@@ -545,7 +545,7 @@ export default {
       if (this.workingChallenge.prize > this.maxPrize) errors.push(this.$t('cantAfford'));
 
       if (errors.length > 0) {
-        window.alert(errors.join('\n'));
+        window.alert(errors.join('\n')); // eslint-disable-line no-alert
         this.loading = false;
         return;
       }

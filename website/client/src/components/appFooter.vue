@@ -530,7 +530,7 @@ export default {
       });
     },
     async addMissedDay (numberOfDays) {
-      if (!window.confirm(`Are you sure you want to reset the day by ${numberOfDays} day(s)?`)) return;
+      if (!window.confirm(`Are you sure you want to reset the day by ${numberOfDays} day(s)?`)) return; // eslint-disable-line no-alert
 
       const date = moment(this.user.lastCron).subtract(numberOfDays, 'days').toDate();
 

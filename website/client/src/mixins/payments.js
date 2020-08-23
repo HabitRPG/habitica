@@ -136,7 +136,7 @@ export default {
           // @TODO handle with normal notifications?
           const responseStatus = response.status;
           if (responseStatus >= 400) {
-            window.alert(`Error: ${response.message}`);
+            window.alert(`Error: ${response.message}`); // eslint-disable-line no-alert
             return;
           }
 
@@ -217,7 +217,7 @@ export default {
           // Success
           window.location.reload(true);
           // error
-          window.alert(response.message);
+          window.alert(response.message); // eslint-disable-line no-alert
         },
       });
     },
@@ -260,7 +260,7 @@ export default {
       this.amazonPayments.type = data.type;
     },
     amazonOnError (error) {
-      window.alert(error.getErrorMessage());
+      window.alert(error.getErrorMessage()); // eslint-disable-line no-alert
       this.reset();
     },
     // Make sure the amazon session is reset between different sessions and after each purchase
@@ -336,7 +336,7 @@ export default {
 
         this.loading = false;
       } catch (e) {
-        window.alert(e.response.data.message);
+        window.alert(e.response.data.message); // eslint-disable-line no-alert
       }
     },
   },

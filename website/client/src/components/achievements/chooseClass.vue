@@ -216,7 +216,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
-      if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) return;
+      if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) return; // eslint-disable-line no-alert
       this.$store.dispatch('user:changeClass', { query: { class: heroClass } });
     },
     clickDisableClasses () {
