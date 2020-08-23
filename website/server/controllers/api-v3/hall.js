@@ -344,11 +344,10 @@ api.updateHero = {
  * @apiUse NoAccount
  * @apiUse NoUser
  * @apiUse NotAdmin
- * // XXX add others missing from here
  * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
-api.getHeroParty = { // XXX tests
+api.getHeroParty = { // @TODO XXX add tests
   method: 'GET',
   url: '/hall/heroes/party/:groupId',
   middlewares: [authWithHeaders(), ensureAdmin],
@@ -367,11 +366,8 @@ api.getHeroParty = { // XXX tests
       .select(heroPartyAdminFields)
       .exec();
 
-    if (!party) throw new NotFound(apiError('groupWithIDNotFound', { groupId })); // XXX check that's handled nicely // groupWithIDNotFound: 'Group with id \"<%= groupId %>\" not found.',
+    if (!party) throw new NotFound(apiError('groupWithIDNotFound', { groupId }));
     const partyRes = party.toJSON({ minimize: true });
-    // //// // supply to the possible absence of hero.contributor
-    // //// // if we didn't pass minimize: true it would have returned all fields as empty
-    // //// if (!heroRes.contributor) heroRes.contributor = {};
     res.respond(200, partyRes);
   },
 };
