@@ -102,7 +102,7 @@ export default {
               scope: 'payments:widget',
               popup: true,
             }, response => {
-              if (response.error) return window.alert(response.error); // eslint-disable-line no-alert
+              if (response.error) return window.alert(response.error); // eslint-disable-line
 
               const url = '/amazon/verifyAccessToken';
               return axios.post(url, response).catch(e => {
