@@ -1,7 +1,6 @@
 <template>
   <datepicker
     v-model="value"
-    @input="upDate($event)"
     :calendarButton="true"
     :calendarButtonIconContent="icons.calendar"
     :bootstrapStyling="true"
@@ -11,22 +10,23 @@
     :class="{disabled: disabled}"
     :highlighted="highlighted"
     calendar-class="calendar-padding"
+    @input="upDate($event)"
   >
     <div slot="beforeCalendarHeader">
       <div class="datetime-buttons">
-       <button
+        <button
           class="btn btn-flat"
-          @click="setToday()"
           type="button"
+          @click="setToday()"
         >
           {{ $t('today') }}
         </button>
         <button
-            class="btn btn-flat"
-            @click="setTomorrow()"
-            type="button"
-          >
-            {{ $t('tomorrow') }}
+          class="btn btn-flat"
+          type="button"
+          @click="setTomorrow()"
+        >
+          {{ $t('tomorrow') }}
         </button>
       </div>
     </div>
