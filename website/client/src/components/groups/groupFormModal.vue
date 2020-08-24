@@ -401,6 +401,7 @@ export default {
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvitationsFromNonMembers: true,
+        bannedWordsAllowed: null,
       },
       categoryOptions: [
         {
@@ -539,6 +540,8 @@ export default {
 
       this.workingGroup.leader = editingGroup.leader;
 
+      this.workingGroup.bannedWordsAllowed = editingGroup.bannedWordsAllowed;
+
       if (editingGroup._id) this.getMembers();
     },
   },
@@ -633,7 +636,6 @@ export default {
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvitationsFromNonMembers: true,
-        bannedWordsAllowed: false,
       };
 
       if (newgroup && newgroup._id) {
@@ -654,7 +656,6 @@ export default {
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvitationsFromNonMembers: true,
-        bannedWordsAllowed: false,
       };
     },
   },

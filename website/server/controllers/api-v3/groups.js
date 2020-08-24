@@ -114,6 +114,17 @@ api.createGroup = {
   url: '/groups',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
+
+    // Once the request body gets sanitized by the group variable
+    // the bannedWordsAllowed property within the request body gets dropped
+    // which prevents us from making conditional operations with it
+    let isBannedWordsAllowed;
+    if (req.body.bannedWordsAllowed === true) {
+      isBannedWordsAllowed = true;
+    } else {
+      isBannedWordsAllowed = false;
+    }
+
     const { user } = res.locals;
     const group = new Group(Group.sanitize(req.body));
     group.leader = user._id;
@@ -135,6 +146,14 @@ api.createGroup = {
       if (user.party._id) throw new NotAuthorized(res.t('messageGroupAlreadyInParty'));
 
       user.party._id = group._id;
+    }
+
+    if (user.contributor.admin) {
+      if (isBannedWordsAllowed) {
+        group.bannedWordsAllowed = true;
+      } else {
+        group.bannedWordsAllowed = false;
+      }
     }
 
     const results = await Promise.all([user.save(), group.save()]);
@@ -470,6 +489,14 @@ api.updateGroup = {
     const group = await Group.getGroup({ user, groupId: req.params.groupId, optionalMembership });
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
+
+    if (user.contributor.admin) {
+      if (req.body.bannedWordsAllowed === true) {
+        group.bannedWordsAllowed = true;
+      } else {
+        group.bannedWordsAllowed = false;
+      }
+    }
 
     if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
     else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
