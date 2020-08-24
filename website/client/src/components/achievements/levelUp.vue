@@ -7,10 +7,10 @@
     :ok-title="$t('onwards')"
     v-bind:footer-class="{ greyed: displayRewardQuest }"
   >
-    <section class="flex">
+    <section class="d-flex">
       <span
         class="star-group mirror"
-        v-html="starGroup"
+        v-html="icons.starGroup"
       ></span>
       <avatar
         class="avatar"
@@ -18,12 +18,14 @@
       />
       <span
         class="star-group"
-        v-html="starGroup"
+        v-html="icons.starGroup"
       ></span>
     </section>
 
-    <hr>
-    <p class="text">
+    <p
+      class="text"
+      v-once
+    >
       {{ $t('levelup') }}
     </p>
 
@@ -31,20 +33,22 @@
       v-if="displayRewardQuest"
       class="greyed"
     >
-      <div class="your-rewards flex">
+      <div
+        class="your-rewards d-flex"
+        v-once
+      >
         <span
           class="sparkles"
-          v-html="sparkles"
+          v-html="icons.sparkles"
         ></span>
         <span class="text">{{ $t('yourRewards') }}</span>
         <span
           class="sparkles mirror"
-          v-html="sparkles"
+          v-html="icons.sparkles"
         ></span>
       </div>
 
       <div :class="questClass"></div>
-      <hr>
     </section>
     <!-- @TODO: Keep this? .checkboxinput(type='checkbox', v-model=
 'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
@@ -54,7 +58,14 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
 </template>
 
 <style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
   #level-up {
+    .modal-content {
+      border-radius: 8px;
+      box-shadow: 0 14px 28px 0 rgba($black, 0.24), 0 10px 10px 0 rgba($black, 0.28);
+    }
+
     @media (min-width: 576px) {
       .modal-sm {
         max-width: 330px;
@@ -66,8 +77,8 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
       border: none;
 
       h5 {
-        margin: 31px auto 16px auto;
-        color: #4f2a93;
+        margin: 31px auto 16px;
+        color: $purple-200;
       }
 
       button {
@@ -75,16 +86,6 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
         right: 18px;
         top: 12px;
       }
-    }
-
-    section {
-      width: 100%;
-      margin: 0;
-    }
-
-    hr {
-      margin: 0;
-      border-top: 25px solid rgb(255 63 249 / .2);
     }
 
     footer {
@@ -96,12 +97,8 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
       }
     }
 
-    .flex {
-      display: flex;
-    }
-
     .greyed {
-      background-color: #f9f9f9;
+      background-color: $gray-700;
     }
 
     .modal-body {
@@ -130,7 +127,7 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
     }
 
     .text {
-      margin: 0 24px 24px 24px;
+      margin: 25px 24px 24px;
       min-height: auto;
     }
 
@@ -146,12 +143,16 @@ label(style='display:inline-block') {{ $t('dontShowAgain') }}
       .text {
         font-weight: bold;
         margin: 16px;
-        color: #4e4a57;
+        color: $gray-50;
       }
     }
 
+    section.greyed {
+      padding-bottom: 17px
+    }
+
     .scroll {
-      margin: -9px auto;
+      margin: -11px auto 0;
     }
   }
 </style>
@@ -175,8 +176,10 @@ export default {
   },
   data () {
     return {
-      starGroup,
-      sparkles,
+      icons: Object.freeze({
+        starGroup,
+        sparkles,
+      }),
     };
   },
   computed: {
