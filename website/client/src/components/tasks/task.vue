@@ -400,6 +400,10 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+    *:focus {
+      outline: $purple-400 solid 1px;
+    }
+
   .control-bottom-box {
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
