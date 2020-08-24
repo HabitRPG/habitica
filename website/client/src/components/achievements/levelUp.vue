@@ -1,65 +1,55 @@
 <template>
   <b-modal
     id="level-up"
-    :title="title"
     size="sm"
+    :title="title"
+    ok-only
+    :ok-title="$t('onwards')"
+    v-bind:footer-class="{ greyed: displayRewardQuest }"
   >
-    <div class="modal-body text-center">
-      <div class="sparkly-avatar">
+    <section class="flex">
+      <span
+        class="star-group mirror"
+        v-html="starGroup"
+      ></span>
+      <avatar
+        class="avatar"
+        :member="user"
+      />
+      <span
+        class="star-group"
+        v-html="starGroup"
+      ></span>
+    </section>
+
+    <hr>
+    <p class="text">
+      {{ $t('levelup') }}
+    </p>
+
+    <section
+      v-if="displayRewardQuest"
+      class="greyed"
+    >
+      <div class="your-rewards flex">
         <span
-          class="star-group mirror"
-          v-html="starGroup"
+          class="sparkles"
+          v-html="sparkles"
         ></span>
-        <avatar
-          class="avatar"
-          :member="user"
-        />
+        <span class="text">{{ $t('yourRewards') }}</span>
         <span
-          class="star-group"
-          v-html="starGroup"
+          class="sparkles mirror"
+          v-html="sparkles"
         ></span>
       </div>
 
+      <div :class="questClass"></div>
       <hr>
-      <p class="text">
-        {{ $t('levelup') }}
-      </p>
-    </div>
-
-    <template v-slot:modal-footer>
-      <div
-        v-if="displayRewardQuest"
-        class="greyed"
-      >
-        <div class="rewardList">
-          <span
-            class="sparkles"
-            v-html="sparkles"
-          ></span>
-          <span class="text">{{ $t('yourRewards') }}</span>
-          <span
-            class="sparkles mirror"
-            v-html="sparkles"
-          ></span>
-        </div>
-
-        <div :class="questClass"></div>
-        <hr>
-      </div>
-
-      <div :class="{ greyed: displayRewardQuest }">
-        <button
-          class="btn btn-primary"
-          @click="close()"
-        >
-          {{ $t('onwards') }}
-        </button>
-      </div>
-      <!-- @TODO: Keep this? .checkboxinput(type='checkbox', v-model=
-  'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
-  label(style='display:inline-block') {{ $t('dontShowAgain') }}
-        -->
-    </template>
+    </section>
+    <!-- @TODO: Keep this? .checkboxinput(type='checkbox', v-model=
+'user.preferences.suppressModals.levelUp', @change='changeLevelupSuppress()')
+label(style='display:inline-block') {{ $t('dontShowAgain') }}
+      -->
   </b-modal>
 </template>
 
@@ -71,25 +61,8 @@
       }
     }
 
-    hr {
-      margin: 0;
-      border: 0;
-      border-top: 25px solid #ff3ff9;
-      opacity: 0.2;
-    }
-
-    .text {
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .mirror svg {
-      transform: scaleX(-1);
-    }
-
     header {
       padding: 0;
-      text-align: center;
       border: none;
 
       h5 {
@@ -104,82 +77,81 @@
       }
     }
 
-    .modal-body {
-      padding: 0;
+    section {
+      width: 100%;
+      margin: 0;
+    }
 
-      .sparkly-avatar {
-        display: flex;
-      }
-
-      .star-group {
-        margin: auto;
-      }
-
-      .star-group svg {
-        height: 64px;
-        width: 40px;
-      }
-
-      .character-sprites {
-        margin-left: -2rem !important;
-      }
-
-      .class-badge {
-        display: none !important;
-      }
-
-      .text {
-        color: #686274;
-        padding: 0 24px 24px 24px;
-        margin: 0;
-      }
+    hr {
+      margin: 0;
+      border-top: 25px solid rgb(255 63 249 / .2);
     }
 
     footer {
-      margin: 0;
       padding: 0;
       border: none;
 
-      div:not(.scroll) {
-        width: 100%;
-        margin: 0;
+      button {
+        margin: 0 auto 32px auto;
       }
+    }
 
-      .rewardList, div:last-child {
-        display: flex;
+    .flex {
+      display: flex;
+    }
+
+    .greyed {
+      background-color: #f9f9f9;
+    }
+
+    .modal-body {
+      padding: 0;
+    }
+
+    .mirror {
+      transform: scaleX(-1);
+    }
+
+    .star-group {
+      margin: auto;
+
+      svg {
+        height: 64px;
+        width: 40px;
       }
+    }
+
+    .avatar {
+      cursor: auto;
+    }
+
+    .class-badge {
+      display: none !important;
+    }
+
+    .text {
+      margin: 0 24px 24px 24px;
+      min-height: auto;
+    }
+
+    .your-rewards {
+      margin: 0 auto;
+      width: fit-content;
 
       .sparkles {
         width: 32px;
         margin-top: 12px;
       }
 
-      .sparkles:not(.mirror) {
-        margin-left: auto;
-      }
-
-      .sparkles.mirror {
-        margin-right: auto;
-      }
-
       .text {
         font-weight: bold;
         margin: 16px;
-        min-height: auto;
         color: #4e4a57;
       }
+    }
 
-      .scroll {
-        margin: -9px auto;
-      }
-
-      button {
-        margin: 0 auto 32px auto;
-      }
-
-      .greyed {
-        background-color: #f9f9f9;
-      }
+    .scroll {
+      margin: -9px auto;
     }
   }
 </style>
@@ -220,9 +192,6 @@ export default {
     },
   },
   methods: {
-    close () {
-      this.$root.$emit('bv::hide::modal', 'level-up');
-    },
     changeLevelupSuppress () {
       // @TODO: dispatch set({"preferences.suppressModals.levelUp":
       // user.preferences.suppressModals.levelUp?true: false})
