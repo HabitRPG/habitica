@@ -412,13 +412,13 @@ export default {
       this.$root.$emit('bv::show::modal', 'participant-list');
     },
     async questAbort () {
-      if (!window.confirm(this.$t('sureAbort'))) return;
-      if (!window.confirm(this.$t('doubleSureAbort'))) return;
+      if (!window.confirm(this.$t('sureAbort'))) return; // eslint-disable-line no-alert
+      if (!window.confirm(this.$t('doubleSureAbort'))) return; // eslint-disable-line no-alert
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/abort' });
       this.group.quest = quest;
     },
     async questLeave () {
-      if (!window.confirm(this.$t('sureLeave'))) return;
+      if (!window.confirm(this.$t('sureLeave'))) return; // eslint-disable-line no-alert
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/leave' });
       this.group.quest = quest;
     },

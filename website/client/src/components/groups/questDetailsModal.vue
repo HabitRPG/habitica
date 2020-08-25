@@ -262,7 +262,7 @@ export default {
       for (const uuid in this.group.quest.members) {
         if (this.group.quest.members[uuid]) count += 1;
       }
-      if (!window.confirm(this.$t('questConfirm', {
+      if (!window.confirm(this.$t('questConfirm', { // eslint-disable-line no-alert
         questmembers: count,
         totalmembers: this.group.memberCount,
       }))) return;
@@ -274,7 +274,7 @@ export default {
       this.close();
     },
     async questCancel () {
-      if (!window.confirm(this.$t('sureCancel'))) return;
+      if (!window.confirm(this.$t('sureCancel'))) return; // eslint-disable-line no-alert
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/cancel' });
       this.group.quest = quest;
       this.close();

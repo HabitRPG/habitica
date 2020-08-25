@@ -577,7 +577,7 @@ export default {
 
         if (
           petsRemaining < 0
-          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text }))
+          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text })) // eslint-disable-line no-alert
         ) return;
       }
 

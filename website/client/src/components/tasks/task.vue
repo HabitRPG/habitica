@@ -1043,7 +1043,7 @@ export default {
     },
     destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return;
+      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
     },
