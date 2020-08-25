@@ -114,7 +114,6 @@ api.createGroup = {
   url: '/groups',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-
     // Once the request body gets sanitized by the group variable
     // the bannedWordsAllowed property within the request body gets dropped
     // which prevents us from making conditional operations with it

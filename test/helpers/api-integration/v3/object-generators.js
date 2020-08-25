@@ -80,6 +80,8 @@ export async function generateGroup (leader, details = {}, update = {}) {
   const group = await leader.post('/groups', details);
   const apiGroup = new ApiGroup(group);
 
+  update.bannedWordsAllowed = update.bannedWordsAllowed || null;
+
   await apiGroup.update(update);
 
   return apiGroup;
@@ -121,15 +123,16 @@ async function _upgradeToGroupPlan (groupLeader, group) {
 // invitees: an array of user objects that correspond to the invitees of the group
 // leader: the leader user object
 // group: the group object
-export async function createAndPopulateGroup (settings = {}) {
+export async function createAndPopulateGroup (settings = {}, update = {}) {
   const numberOfMembers = settings.members || 0;
   const numberOfInvites = settings.invites || 0;
   const upgradeToGroupPlan = settings.upgradeToGroupPlan || false;
   const { groupDetails } = settings;
+  const { groupDetailsUpdate } = update;
   const leaderDetails = settings.leaderDetails || { balance: 10 };
 
   const groupLeader = await generateUser(leaderDetails);
-  const group = await generateGroup(groupLeader, groupDetails);
+  const group = await generateGroup(groupLeader, groupDetails, groupDetailsUpdate);
 
   const groupMembershipTypes = {
     party: { 'party._id': group._id },
