@@ -64,7 +64,7 @@ export default {
       this.task.approvals.splice(index, 1);
     },
     needsWork (index) {
-      if (!window.confirm(this.$t('confirmNeedsWork'))) return;
+      if (!window.confirm(this.$t('confirmNeedsWork'))) return; // eslint-disable-line no-alert
       const userIdNeedsMoreWork = this.task.group.assignedUsers[index];
       this.$store.dispatch('tasks:needsWork', {
         taskId: this.task._id,

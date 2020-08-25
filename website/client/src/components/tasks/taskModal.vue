@@ -134,7 +134,7 @@
     </div>
     <div
       v-if="groupAccessRequiredAndOnPersonalPage
-        && (task.type === 'daily' || task.type  === 'todo')"
+        && (task.type === 'daily' || task.type === 'todo')"
       class="summary-sentence py-3 px-4"
       v-html="summarySentence"
     >
@@ -1523,7 +1523,7 @@ export default {
     },
     destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return;
+      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('bv::hide::modal', 'task-modal');

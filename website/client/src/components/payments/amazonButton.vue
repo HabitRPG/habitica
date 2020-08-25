@@ -102,11 +102,11 @@ export default {
               scope: 'payments:widget',
               popup: true,
             }, response => {
-              if (response.error) return window.alert(response.error);
+              if (response.error) return window.alert(response.error); // eslint-disable-line
 
               const url = '/amazon/verifyAccessToken';
               return axios.post(url, response).catch(e => {
-                window.alert(e.message);
+                window.alert(e.message); // eslint-disable-line no-alert
               });
             });
           },

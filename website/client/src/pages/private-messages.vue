@@ -626,48 +626,6 @@ export default {
       }
     });
   },
-  async mounted () {
-    // notification click to refresh
-    this.$root.$on(EVENTS.PM_REFRESH, async () => {
-      await this.reload();
-
-      this.selectFirstConversation();
-    });
-
-    // header sync button
-    this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
-      await this.reload();
-
-      this.selectFirstConversation();
-    });
-
-    await this.reload();
-
-    // close members modal if the Private Messages page is opened in an existing tab
-    this.$root.$emit('bv::hide::modal', 'profile');
-    this.$root.$emit('bv::hide::modal', 'members-modal');
-
-    const data = this.$store.state.privateMessageOptions;
-    if (data && data.userIdToMessage) {
-      this.initiatedConversation = {
-        uuid: data.userIdToMessage,
-        user: data.displayName,
-        username: data.username,
-        backer: data.backer,
-        contributor: data.contributor,
-        userStyles: data.userStyles,
-        canReceive: true,
-      };
-
-      this.$store.state.privateMessageOptions = {};
-
-      this.selectConversation(this.initiatedConversation.uuid);
-    }
-  },
-  beforeDestroy () {
-    this.$root.$off(EVENTS.RESYNC_COMPLETED);
-    this.$root.$off(EVENTS.PM_REFRESH);
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     canLoadMore () {
@@ -818,6 +776,48 @@ export default {
       return !this.selectedConversation || !this.selectedConversation.key
         || this.disabledTexts !== null;
     },
+  },
+  async mounted () {
+    // notification click to refresh
+    this.$root.$on(EVENTS.PM_REFRESH, async () => {
+      await this.reload();
+
+      this.selectFirstConversation();
+    });
+
+    // header sync button
+    this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
+      await this.reload();
+
+      this.selectFirstConversation();
+    });
+
+    await this.reload();
+
+    // close members modal if the Private Messages page is opened in an existing tab
+    this.$root.$emit('bv::hide::modal', 'profile');
+    this.$root.$emit('bv::hide::modal', 'members-modal');
+
+    const data = this.$store.state.privateMessageOptions;
+    if (data && data.userIdToMessage) {
+      this.initiatedConversation = {
+        uuid: data.userIdToMessage,
+        user: data.displayName,
+        username: data.username,
+        backer: data.backer,
+        contributor: data.contributor,
+        userStyles: data.userStyles,
+        canReceive: true,
+      };
+
+      this.$store.state.privateMessageOptions = {};
+
+      this.selectConversation(this.initiatedConversation.uuid);
+    }
+  },
+  beforeDestroy () {
+    this.$root.$off(EVENTS.RESYNC_COMPLETED);
+    this.$root.$off(EVENTS.PM_REFRESH);
   },
 
   methods: {
