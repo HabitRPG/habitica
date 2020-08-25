@@ -3647,6 +3647,41 @@ const quests = {
       unlock: t('questFluoriteUnlockText'),
     },
   },
+  windup: {
+    text: t('questWindupText'),
+    notes: t('questWindupNotes'),
+    completion: t('questWindupCompletion'),
+    value: 1,
+    category: 'timeTravelers',
+    canBuy () {
+      return false;
+    },
+    boss: {
+      name: t('questWindupBoss'),
+      hp: 1000,
+      str: 1,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Windup',
+          text: t('questWindupDropWindupPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Windup',
+          text: t('questWindupDropWindupPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Windup',
+          text: t('questWindupDropWindupPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 425,
+      unlock: t('questWindupUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {
