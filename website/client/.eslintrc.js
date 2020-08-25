@@ -14,8 +14,6 @@ module.exports = {
     // TODO find a way to let eslint understand webpack aliases
     'import/no-unresolved': 'off',
     'vue/no-v-html': 'off',
-    'vue/require-prop-types': 'off',
-    'vue/require-default-prop': 'off',
     'vue/html-self-closing': ['error', {
       html: {
         void: 'never',
