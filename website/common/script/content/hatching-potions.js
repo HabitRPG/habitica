@@ -333,6 +333,13 @@ const premium = {
       date: t('dateEndJuly'),
     }),
   },
+  Windup: {
+    value: 2,
+    text: t('hatchingPotionWindup'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('windup'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {
