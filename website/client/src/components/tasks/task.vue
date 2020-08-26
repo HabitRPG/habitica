@@ -401,7 +401,9 @@
   @import '~@/assets/scss/colors.scss';
 
     *:focus {
-      outline: $purple-400 solid 1px;
+      outline: none;
+      border: $purple-400 solid 1px;
+      border-radius: 2px;
     }
 
   .control-bottom-box {
@@ -521,7 +523,9 @@
 
   .task ::v-deep .habitica-menu-dropdown:focus-within {
     opacity: 1;
-    outline: $purple-400 solid 1px;
+    outline: none;
+    border: $purple-400 solid 1px;
+    border-radius: 2px;
   }
 
   .task-clickable-area ::v-deep .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
