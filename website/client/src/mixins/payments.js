@@ -263,9 +263,17 @@ export default {
       window.alert(error.getErrorMessage());
       this.reset();
     },
+    // Make sure the amazon session is reset between different sessions and after each purchase
+    amazonLogout () {
+      if (window.amazon && window.amazon.Login && typeof window.amazon.Login.logout === 'function') {
+        window.amazon.Login.logout();
+      }
+    },
     reset () {
       // @TODO: Ensure we are using all of these
       // some vars are set in the payments mixin. We should try to edit in one place
+      this.amazonLogout();
+
       this.amazonPayments.modal = null;
       this.amazonPayments.type = null;
       this.amazonPayments.loggedIn = false;

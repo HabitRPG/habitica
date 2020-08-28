@@ -347,35 +347,40 @@ schema.methods.cancelSubscription = async function cancelSubscription (options =
   return payments.cancelSubscription(options);
 };
 
+schema.methods.getUtcOffset = function getUtcOffset () {
+  return common.fns.getUtcOffset(this);
+};
+
 schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   // If the user's timezone has changed (due to travel or daylight savings),
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
   // CDS = Custom Day Start time.
-  let timezoneOffsetFromUserPrefs = this.preferences.timezoneOffset;
-  const timezoneOffsetAtLastCron = Number.isFinite(this.preferences.timezoneOffsetAtLastCron)
-    ? this.preferences.timezoneOffsetAtLastCron
-    : timezoneOffsetFromUserPrefs;
-  let timezoneOffsetFromBrowser = typeof req.header === 'function' && Number(req.header('x-user-timezoneoffset'));
-  timezoneOffsetFromBrowser = Number.isFinite(timezoneOffsetFromBrowser)
-    ? timezoneOffsetFromBrowser
-    : timezoneOffsetFromUserPrefs;
+  let timezoneUtcOffsetFromUserPrefs = this.getUtcOffset();
+  const timezoneUtcOffsetAtLastCron = Number.isFinite(this.preferences.timezoneOffsetAtLastCron)
+    ? -this.preferences.timezoneOffsetAtLastCron
+    : timezoneUtcOffsetFromUserPrefs;
+
+  let timezoneUtcOffsetFromBrowser = typeof req.header === 'function' && -Number(req.header('x-user-timezoneoffset'));
+  timezoneUtcOffsetFromBrowser = Number.isFinite(timezoneUtcOffsetFromBrowser)
+    ? timezoneUtcOffsetFromBrowser
+    : timezoneUtcOffsetFromUserPrefs;
   // NB: All timezone offsets can be 0, so can't use `... || ...` to apply non-zero defaults
 
-  if (timezoneOffsetFromBrowser !== timezoneOffsetFromUserPrefs) {
+  if (timezoneUtcOffsetFromBrowser !== timezoneUtcOffsetFromUserPrefs) {
     // The user's browser has just told Habitica that the user's timezone has
     // changed so store and use the new zone.
-    this.preferences.timezoneOffset = timezoneOffsetFromBrowser;
-    timezoneOffsetFromUserPrefs = timezoneOffsetFromBrowser;
+    this.preferences.timezoneOffset = -timezoneUtcOffsetFromBrowser;
+    timezoneUtcOffsetFromUserPrefs = timezoneUtcOffsetFromBrowser;
   }
 
   // How many days have we missed using the user's current timezone:
   let daysMissed = daysSince(this.lastCron, defaults({ now }, this.preferences));
 
-  if (timezoneOffsetAtLastCron !== timezoneOffsetFromUserPrefs) {
+  if (timezoneUtcOffsetAtLastCron !== timezoneUtcOffsetFromUserPrefs) {
     // Give the user extra time based on the difference in timezones
-    if (timezoneOffsetAtLastCron < timezoneOffsetFromUserPrefs) {
-      const differenceBetweenTimezonesInMinutes = timezoneOffsetFromUserPrefs - timezoneOffsetAtLastCron; // eslint-disable-line max-len
+    if (timezoneUtcOffsetAtLastCron > timezoneUtcOffsetFromUserPrefs) {
+      const differenceBetweenTimezonesInMinutes = timezoneUtcOffsetAtLastCron - timezoneUtcOffsetFromUserPrefs; // eslint-disable-line max-len
       now = moment(now).subtract(differenceBetweenTimezonesInMinutes, 'minutes'); // eslint-disable-line no-param-reassign, max-len
     }
 
@@ -384,13 +389,13 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     const daysMissedNewZone = daysMissed;
     const daysMissedOldZone = daysSince(this.lastCron, defaults({
       now,
-      timezoneOffsetOverride: timezoneOffsetAtLastCron,
+      timezoneUtcOffsetOverride: timezoneUtcOffsetAtLastCron,
     }, this.preferences));
 
-    if (timezoneOffsetAtLastCron < timezoneOffsetFromUserPrefs) {
+    if (timezoneUtcOffsetAtLastCron > timezoneUtcOffsetFromUserPrefs) {
       // The timezone change was in the unsafe direction.
-      // E.g., timezone changes from UTC+1 (offset -60) to UTC+0 (offset 0).
-      //    or timezone changes from UTC-4 (offset 240) to UTC-5 (offset 300).
+      // E.g., timezone changes from UTC+1 (utcOffset 60) to UTC+0 (offset 0).
+      //    or timezone changes from UTC-4 (utcOffset -240) to UTC-5 (utcOffset -300).
       // Local time changed from, for example, 03:00 to 02:00.
 
       if (daysMissedOldZone > 0 && daysMissedNewZone > 0) {
@@ -419,20 +424,21 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
         // timezone interprets as being in today.
 
         daysMissed = 0; // prevent cron running now
-        const timezoneOffsetDiff = timezoneOffsetAtLastCron - timezoneOffsetFromUserPrefs;
-        // e.g., for dangerous zone change: 240 - 300 = -60 or  -660 - -600 = -60
+        const timezoneOffsetDiff = timezoneUtcOffsetFromUserPrefs - timezoneUtcOffsetAtLastCron;
+        // e.g., for dangerous zone change: -300 - -240 = -60 or 600 - 660= -60
 
         this.lastCron = moment(this.lastCron).subtract(timezoneOffsetDiff, 'minutes');
         // NB: We don't change this.auth.timestamps.loggedin so that will still record
         // the time that the previous cron actually ran.
         // From now on we can ignore the old timezone:
-        this.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
+        // This is still timezoneOffset for backwards compatibility reasons.
+        this.preferences.timezoneOffsetAtLastCron = -timezoneUtcOffsetAtLastCron;
       } else {
         // Both old and new timezones indicate that cron should
         // NOT run.
         daysMissed = 0; // prevent cron running now
       }
-    } else if (timezoneOffsetAtLastCron > timezoneOffsetFromUserPrefs) {
+    } else if (timezoneUtcOffsetAtLastCron < timezoneUtcOffsetFromUserPrefs) {
       daysMissed = daysMissedNewZone;
       // TODO: Either confirm that there is nothing that could possibly go wrong
       // here and remove the need for this else branch, or fix stuff.
@@ -445,7 +451,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     }
   }
 
-  return { daysMissed, timezoneOffsetFromUserPrefs };
+  return { daysMissed, timezoneUtcOffsetFromUserPrefs };
 };
 
 async function getUserGroupData (user) {

@@ -131,10 +131,10 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2020-02-02')) {
-    user.achievements.habitBirthdays = 1;
-    user.items.gear.owned.armor_special_birthday = true;
-    user.items.gear.equipped.armor = 'armor_special_birthday';
+  if (moment().isBefore('2020-08-03')) {
+    user.migration = '20200731_naming_day';
+    user.achievements.habiticaDays = 1;
+    user.items.mounts['Gryphon-RoyalPurple'] = true;
     user.items.food = {
       Cake_Skeleton: 1,
       Cake_Base: 1,

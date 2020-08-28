@@ -494,5 +494,12 @@
     "PMUnblockUserToSendMessages": "取消阻止該用戶以繼續發送和接收消息。",
     "PMUserDoesNotReceiveMessages": "這個用戶不再接收私人消息",
     "PMCanNotReply": "你不能回复此談話",
-    "newPartyPlaceholder": "輸入你的隊伍名稱。"
+    "newPartyPlaceholder": "輸入你的隊伍名稱。",
+    "claimRewards": "領取獎勵",
+    "assignedDateAndUser": "<strong><%= date %></strong>由<strong>@<%= username %></strong>分配",
+    "assignedDateOnly": "<strong><%= date %></strong>分配",
+    "managerNotes": "經理的須知",
+    "thisTaskApproved": "這任務已批准",
+    "chooseTeamMember": "選擇一個團隊成員",
+    "unassigned": "未分配"
 }

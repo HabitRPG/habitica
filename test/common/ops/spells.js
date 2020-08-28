@@ -4,6 +4,7 @@ import {
 import spells from '../../../website/common/script/content/spells';
 import {
   NotAuthorized,
+  BadRequest,
 } from '../../../website/common/script/libs/errors';
 import i18n from '../../../website/common/script/i18n';
 
@@ -25,12 +26,30 @@ describe('shared.ops.spells', () => {
     const spell = spells.healer.heal;
 
     try {
-      spell.cast(user);
+      spell.cast(user, null, { language: 'en' });
     } catch (err) {
       expect(err).to.be.an.instanceof(NotAuthorized);
       expect(err.message).to.equal(i18n.t('messageHealthAlreadyMax'));
       expect(user.stats.hp).to.eql(50);
       expect(user.stats.mp).to.eql(200);
+
+      done();
+    }
+  });
+
+  it('Issue #12361: returns an error if chilling frost has already been cast', done => {
+    user.stats.class = 'wizard';
+    user.stats.lvl = 15;
+    user.stats.mp = 400;
+    user.stats.buffs.streaks = true;
+
+    const spell = spells.wizard.frost;
+    try {
+      spell.cast(user, null, { language: 'en' });
+    } catch (err) {
+      expect(err).to.be.an.instanceof(BadRequest);
+      expect(err.message).to.equal(i18n.t('spellAlreadyCast'));
+      expect(user.stats.mp).to.eql(400);
 
       done();
     }

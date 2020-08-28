@@ -2,15 +2,16 @@
   <div>
     <approval-modal :task="task" />
     <div
-      v-if="!approvalRequested && !multipleApprovalsRequested"
       class="claim-bottom-message d-flex align-items-center"
+      v-if="!(userIsAssigned && task.group.approval.approved
+        && !task.completed && task.type !== 'habit')"
     >
       <div
         class="mr-auto ml-2"
         v-html="message"
       ></div>
       <div
-        v-if="!userIsAssigned"
+        v-if="!userIsAssigned && !task.completed"
         class="ml-auto mr-2"
       >
         <a
@@ -19,7 +20,7 @@
         >{{ $t('claim') }}</a>
       </div>
       <div
-        v-if="userIsAssigned"
+        v-if="userIsAssigned && !approvalRequested && !task.completed"
         class="ml-auto mr-2"
       >
         <a
@@ -43,6 +44,16 @@
       class="claim-bottom-message d-flex align-items-center"
     >
       <a @click="showRequests()">{{ $t('viewRequests') }}</a>
+    </div>
+    <div
+      v-if="userIsAssigned && task.group.approval.approved
+        && !task.completed && task.type !== 'habit'"
+      class="claim-bottom-message d-flex align-items-center justify-content-around"
+    >
+      <a
+        class="approve-color"
+        @click="$emit('claimRewards')"
+      >{{ $t('claimRewards') }}</a>
     </div>
   </div>
 </template>
@@ -99,7 +110,7 @@ export default {
         assignedUsers.forEach(userId => {
           const index = findIndex(this.group.members, member => member._id === userId);
           const assignedMember = this.group.members[index];
-          assignedUsersNames.push(assignedMember.profile.name);
+          assignedUsersNames.push(`@${assignedMember.auth.local.username}`);
         });
       }
 
@@ -176,6 +187,8 @@ export default {
       });
       this.task.group.assignedUsers.splice(0, 1);
       this.task.approvals.splice(0, 1);
+
+      this.sync();
     },
     needsWork () {
       if (!window.confirm(this.$t('confirmNeedsWork'))) return;
@@ -185,6 +198,8 @@ export default {
         userId: userIdNeedsMoreWork,
       });
       this.task.approvals.splice(0, 1);
+
+      this.sync();
     },
     showRequests () {
       this.$root.$emit('bv::show::modal', 'approval-modal');

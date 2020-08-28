@@ -761,7 +761,7 @@ describe('User Model', () => {
     });
   });
 
-  context('days missed', () => {
+  describe('daysUserHasMissed', () => {
     // http://forbrains.co.uk/international_tools/earth_timezones
     let user;
 
@@ -769,24 +769,51 @@ describe('User Model', () => {
       user = new User();
     });
 
-    it('should not cron early when going back a timezone', () => {
-      const yesterday = moment('2017-12-05T00:00:00.000-06:00'); // 11 pm on 4 Texas
-      const timezoneOffset = moment().zone('-06:00').zone();
-      user.lastCron = yesterday;
-      user.preferences.timezoneOffset = timezoneOffset;
+    it('correctly calculates days missed since lastCron', () => {
+      const now = moment();
+      user.lastCron = moment(now).subtract(5, 'days');
 
-      const today = moment('2017-12-06T00:00:00.000-06:00'); // 11 pm on 4 Texas
-      const req = {};
-      req.header = () => timezoneOffset + 60;
+      const { daysMissed } = user.daysUserHasMissed(now);
 
-      const { daysMissed } = user.daysUserHasMissed(today, req);
+      expect(daysMissed).to.eql(5);
+    });
 
+    it('uses timezone from preferences to calculate days missed', () => {
+      const now = moment('2017-07-08 01:00:00Z');
+      user.lastCron = moment('2017-07-04 13:00:00Z');
+      user.preferences.timezoneOffset = 120;
+
+      const { daysMissed } = user.daysUserHasMissed(now);
+
+      expect(daysMissed).to.eql(3);
+    });
+
+    it('uses timezone at last cron to calculate days missed', () => {
+      const now = moment('2017-09-08 13:00:00Z');
+      user.lastCron = moment('2017-09-06 01:00:00+02:00');
+      user.preferences.timezoneOffset = 0;
+      user.preferences.timezoneOffsetAtLastCron = -120;
+
+      const { daysMissed } = user.daysUserHasMissed(now);
+
+      expect(daysMissed).to.eql(2);
+    });
+
+    it('respects new timezone that drags time into same day', () => {
+      user.lastCron = moment('2017-12-05T00:00:00.000-06:00');
+      user.preferences.timezoneOffset = 360;
+      const today = moment('2017-12-06T00:00:00.000-06:00');
+      const requestWithMinus7Timezone = { header: () => 420 };
+
+      const { daysMissed } = user.daysUserHasMissed(today, requestWithMinus7Timezone);
+
+      expect(user.preferences.timezoneOffset).to.eql(420);
       expect(daysMissed).to.eql(0);
     });
 
     it('should not cron early when going back a timezone with a custom day start', () => {
       const yesterday = moment('2017-12-05T02:00:00.000-08:00');
-      const timezoneOffset = moment().zone('-08:00').zone();
+      const timezoneOffset = 480;
       user.lastCron = yesterday;
       user.preferences.timezoneOffset = timezoneOffset;
       user.preferences.dayStart = 2;

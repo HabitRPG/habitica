@@ -33,26 +33,29 @@ function sanitizeOptions (o) {
   const ref = Number(o.dayStart || 0);
   const dayStart = !Number.isNaN(ref) && ref >= 0 && ref <= 24 ? ref : 0;
 
-  let timezoneOffset;
-  const timezoneOffsetDefault = Number(moment().zone());
+  let timezoneUtcOffset;
+  const timezoneUtcOffsetDefault = moment().utcOffset();
 
-  if (Number.isFinite(o.timezoneOffsetOverride)) {
-    timezoneOffset = Number(o.timezoneOffsetOverride);
+  if (Number.isFinite(o.timezoneUtcOffset)) {
+    // Options were already sanitized
+    timezoneUtcOffset = o.timezoneUtcOffset;
+  } else if (Number.isFinite(o.timezoneUtcOffsetOverride)) {
+    timezoneUtcOffset = o.timezoneUtcOffsetOverride;
   } else if (Number.isFinite(o.timezoneOffset)) {
-    timezoneOffset = Number(o.timezoneOffset);
+    timezoneUtcOffset = -o.timezoneOffset;
   } else {
-    timezoneOffset = timezoneOffsetDefault;
+    timezoneUtcOffset = timezoneUtcOffsetDefault;
   }
-  if (timezoneOffset > 720 || timezoneOffset < -840) {
-    // timezones range from -12 (offset +720) to +14 (offset -840)
-    timezoneOffset = timezoneOffsetDefault;
+  if (timezoneUtcOffset < -720 || timezoneUtcOffset > 840) {
+    // timezones range from -12 (offset -720) to +14 (offset 840)
+    timezoneUtcOffset = timezoneUtcOffsetDefault;
   }
 
-  const now = o.now ? moment(o.now).zone(timezoneOffset) : moment().zone(timezoneOffset);
+  const now = moment(o.now).utcOffset(timezoneUtcOffset);
   // return a new object, we don't want to add "now" to user object
   return {
     dayStart,
-    timezoneOffset,
+    timezoneUtcOffset,
     now,
   };
 }
@@ -81,7 +84,7 @@ export function startOfDay (options = {}) {
   const o = sanitizeOptions(options);
   const dayStart = moment(o.now).startOf('day').add({ hours: o.dayStart });
 
-  if (moment(o.now).hour() < o.dayStart) {
+  if (o.now.hour() < o.dayStart) {
     dayStart.subtract({ days: 1 });
   }
 
@@ -119,7 +122,7 @@ export function shouldDo (day, dailyTask, options = {}) {
   // NB: The user's day start date has already been converted to the PREVIOUS
   // day's date if the time portion was before CDS.
 
-  const startDate = moment(dailyTask.startDate).zone(o.timezoneOffset).startOf('day');
+  const startDate = moment(dailyTask.startDate).utcOffset(o.timezoneUtcOffset).startOf('day');
 
   if (startDate > startOfDayWithCDSTime.startOf('day') && !options.nextDue) {
     return false; // Daily starts in the future

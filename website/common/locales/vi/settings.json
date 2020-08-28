@@ -213,5 +213,6 @@
     "mentioning": "Nhắc tên",
     "onlyPrivateSpaces": "Chỉ trong không gian riêng tư",
     "everywhere": "Mọi nơi",
-    "suggestMyUsername": "Gợi ý tên đăng nhập của tôi"
+    "suggestMyUsername": "Gợi ý tên đăng nhập của tôi",
+    "displaynameIssueNewline": "Tên hiển thị có thể không chứa dấu chéo ngược theo sau chữ N."
 }

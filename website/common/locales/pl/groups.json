@@ -166,9 +166,9 @@
     "optional": "Opcjonalne",
     "needsText": "Proszę wpisz wiadomość.",
     "needsTextPlaceholder": "Wpisz swoją wiadomość tutaj.",
-    "copyMessageAsToDo": "Kopiuj wiadomość jako Do-Zrobienia",
-    "copyAsTodo": "Kopiuj wiadomość jako Do-Zrobienia",
-    "messageAddedAsToDo": "Wiadomość skopiowana jako Do-Zrobienia.",
+    "copyMessageAsToDo": "Kopiuj wiadomość jako Do Zrobienia",
+    "copyAsTodo": "Kopiuj jako Do Zrobienia",
+    "messageAddedAsToDo": "Wiadomość skopiowana jako Do Zrobienia.",
     "messageWroteIn": "<%= user %> napisał w <%= group %>",
     "msgPreviewHeading": "Podgląd wiadomości",
     "leaderOnlyChallenges": "Tylko przywódca grupy może tworzyć wyzwania",
@@ -493,5 +493,6 @@
     "selectGift": "Wybierz Prezent",
     "PMUnblockUserToSendMessages": "Odblokuj tego użytkownika, aby móc wysyłać oraz otrzymywać wiadomości.",
     "PMUserDoesNotReceiveMessages": "Ten użytkownik nie otrzymuje wiadomości prywatnych",
-    "PMCanNotReply": "Nie możesz odpowiadać w tym wątku"
+    "PMCanNotReply": "Nie możesz odpowiadać w tym wątku",
+    "newPartyPlaceholder": "Wprowadź nazwę twojej drużyny."
 }

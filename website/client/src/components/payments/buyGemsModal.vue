@@ -295,6 +295,7 @@
 </style>
 
 <script>
+import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import markdown from '@/directives/markdown';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
@@ -305,10 +306,7 @@ import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
 import heart from '@/assets/svg/health.svg';
 import logo from '@/assets/svg/habitica-logo.svg';
 
-import fourGems from '@/assets/svg/4-gems.svg';
 import twentyOneGems from '@/assets/svg/21-gems.svg';
-import fortyTwoGems from '@/assets/svg/42-gems.svg';
-import eightyFourGems from '@/assets/svg/84-gems.svg';
 
 import amazonButton from '@/components/payments/amazonButton';
 
@@ -326,16 +324,12 @@ export default {
         logo,
         check: checkIcon,
         creditCardIcon,
-        fourGems,
         heart,
         twentyOneGems,
-        fortyTwoGems,
-        eightyFourGems,
       }),
       gemAmount: 0,
-      subscriptionPlan: '',
-      selectedPage: 'subscribe',
       planGemLimits,
+      alreadyTracked: false,
     };
   },
   computed: {
@@ -348,6 +342,20 @@ export default {
         && this.user.purchased.plan.gemsBought
         >= (this.user.purchased.plan.consecutive.gemCapExtra + this.planGemLimits.convCap);
     },
+  },
+  mounted () {
+    this.$root.$on('bv::show::modal', (modalId, data = {}) => {
+      // Track opening of gems modal unless it's been already tracked
+      // For example the gems button in the menu already tracks the event by itself
+      if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
+        Analytics.track({
+          hitType: 'event',
+          eventCategory: 'button',
+          eventAction: 'click',
+          eventLabel: 'Gems > Wallet',
+        });
+      }
+    });
   },
   methods: {
     close () {

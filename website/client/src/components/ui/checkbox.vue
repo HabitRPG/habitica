@@ -6,18 +6,24 @@
         v-model="isChecked"
         class="custom-control-input"
         type="checkbox"
+        :disabled="disabled"
       >
       <label
-        v-once
         class="custom-control-label"
+        :class="{disabled: disabled}"
         :for="id"
+        :disabled="disabled"
       >{{ text }}</label>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-  label {
+  .custom-control.custom-checkbox {
+    margin-bottom: 0 !important;
+  }
+
+  label:not(:disabled):not(.disabled) {
     cursor: pointer;
   }
 </style>
@@ -26,6 +32,7 @@
 export default {
   props: {
     checked: Boolean,
+    disabled: Boolean,
     id: String,
     text: String,
   },
@@ -35,6 +42,9 @@ export default {
     };
   },
   watch: {
+    checked (after) {
+      this.isChecked = after;
+    },
     isChecked (after) {
       this.$emit('update:checked', after);
     },

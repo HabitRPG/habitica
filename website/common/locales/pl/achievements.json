@@ -74,5 +74,12 @@
     "achievementHatchedPetModalText": "Udaj się do ekwipunku, aby połączyć Eliksir Wyklucia z Jajkiem",
     "achievementMindOverMatter": "Twój Umysł - Twoja Siła",
     "onboardingComplete": "Wykonałeś wszystkie twoje aktualne zadania!",
-    "yourProgress": "Twój Postęp"
+    "yourProgress": "Twój Postęp",
+    "achievementBareNecessitiesModalText": "Ukończyłeś(-aś) misje z chowańcami: Małpką, Leniwcem i Drzewkiem!",
+    "achievementBareNecessitiesText": "Zakończono misję z chowańcami: Małpą, Leniwcem i Drzewkiem.",
+    "achievementBareNecessities": "Pierwotne instynkty",
+    "achievementTickledPink": "Łaskocący Róż",
+    "achievementAllYourBase": "Wszystkie podstawowe",
+    "achievementMindOverMatterModalText": "Wypełniłeś(-aś) misje z chowańcami: Skałą, Piankowym Śluzem i Przędzą!",
+    "achievementMindOverMatterText": "Ukończono misje z chowańcami: Skałą, Piankowym Śluzem i Przędzą."
 }

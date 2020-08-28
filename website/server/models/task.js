@@ -128,16 +128,17 @@ export const TaskSchema = new Schema({
   },
 
   group: {
-    id: { $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for task group.'] },
+    id: { $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for group task.'] },
     broken: { $type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED'] },
-    assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for task group user.'] }],
+    assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group assigned user.'] }],
     assignedDate: { $type: Date },
-    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid for task group task.'] },
+    assigningUsername: { $type: String },
+    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid for group task.'] },
     approval: {
       required: { $type: Boolean, default: false },
       approved: { $type: Boolean, default: false },
       dateApproved: { $type: Date },
-      approvingUser: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid task group approvingUser.'] },
+      approvingUser: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group approving user.'] },
       requested: { $type: Boolean, default: false },
       requestedDate: { $type: Date },
     },
@@ -146,6 +147,7 @@ export const TaskSchema = new Schema({
       enum: _.values(SHARED_COMPLETION),
       default: SHARED_COMPLETION.single,
     },
+    managerNotes: { $type: String },
   },
 
   reminders: [reminderSchema],
@@ -215,6 +217,16 @@ TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTas
 
   return _.pick(initialSanitization, [
     'streak', 'checklist', 'attribute', 'reminders',
+    'tags', 'notes', 'collapseChecklist',
+    'alias', 'yesterDaily', 'counterDown', 'counterUp',
+  ]);
+};
+
+TaskSchema.statics.sanitizeUserGroupTask = function sanitizeUserGroupTask (taskObj) {
+  const initialSanitization = this.sanitize(taskObj);
+
+  return _.pick(initialSanitization, [
+    'streak', 'attribute', 'reminders',
     'tags', 'notes', 'collapseChecklist',
     'alias', 'yesterDaily', 'counterDown', 'counterUp',
   ]);

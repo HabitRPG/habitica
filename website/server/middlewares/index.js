@@ -9,6 +9,7 @@ import methodOverride from 'method-override';
 import passport from 'passport';
 import basicAuth from 'express-basic-auth';
 import helmet from 'helmet';
+import setupExpress from '../libs/setupExpress';
 import errorHandler from './errorHandler';
 import notFoundHandler from './notFound';
 import cors from './cors';
@@ -39,8 +40,7 @@ const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
 export default function attachMiddlewares (app, server) {
-  app.set('view engine', 'pug');
-  app.set('views', `${__dirname}/../../views`);
+  setupExpress(app);
 
   app.use(domainMiddleware(server, mongoose));
 

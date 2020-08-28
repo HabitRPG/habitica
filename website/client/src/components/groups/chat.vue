@@ -250,6 +250,7 @@ export default {
 
     selectedAutocomplete (newText) {
       this.newMessage = newText;
+      this.$refs['user-entry'].focus();
     },
 
     fetchRecentMessages () {

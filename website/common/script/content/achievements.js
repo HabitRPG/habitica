@@ -197,6 +197,11 @@ const basicAchievs = {
     titleKey: 'achievementBareNecessities',
     textKey: 'achievementBareNecessitiesText',
   },
+  freshwaterFriends: {
+    icon: 'achievement-freshwaterFriends',
+    titleKey: 'achievementFreshwaterFriends',
+    textKey: 'achievementFreshwaterFriendsText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

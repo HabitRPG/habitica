@@ -12,25 +12,25 @@
 }
 .hair_bangs_2_pumpkin {
   background-image: url('~@/assets/images/sprites/spritesmith-main-3.png');
-  background-position: -91px 0px;
+  background-position: 0px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_pumpkin {
   background-image: url('~@/assets/images/sprites/spritesmith-main-3.png');
-  background-position: -116px -15px;
+  background-position: -25px -15px;
   width: 60px;
   height: 60px;
 }
 .hair_bangs_2_purple {
   background-image: url('~@/assets/images/sprites/spritesmith-main-3.png');
-  background-position: -728px -1092px;
+  background-position: -91px 0px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_bangs_2_purple {
   background-image: url('~@/assets/images/sprites/spritesmith-main-3.png');
-  background-position: -753px -1107px;
+  background-position: -116px -15px;
   width: 60px;
   height: 60px;
 }
@@ -1500,13 +1500,13 @@
 }
 .hair_base_10_white {
   background-image: url('~@/assets/images/sprites/spritesmith-main-3.png');
-  background-position: 0px 0px;
+  background-position: -728px -1092px;
   width: 90px;
   height: 90px;
 }
 .customize-option.hair_base_10_white {
   background-image: url('~@/assets/images/sprites/spritesmith-main-3.png');
-  background-position: -25px -15px;
+  background-position: -753px -1107px;
   width: 60px;
   height: 60px;
 }
