@@ -276,6 +276,7 @@
               :date.sync="task.date"
               :disabled="challengeAccessRequired"
               :highlighted="calendarHighlights"
+              :clear-button="true"
             />
           </div>
         </div>
