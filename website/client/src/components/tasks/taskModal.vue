@@ -696,19 +696,9 @@
       box-shadow: 0 14px 28px 0 rgba($black, 0.24), 0 10px 10px 0 rgba($black, 0.28);
     }
 
-    .modal-body {
-      // the body has a margin/padding that can't be found
-      // if found please remove that padding and this style
-      // margin-bottom: -2rem;
-    }
-
     .modal-header, .modal-body, .modal-footer {
       padding: 0px;
       border: none;
-    }
-
-    .cursor-auto {
-      cursor: auto;
     }
 
     .cursor-auto {
