@@ -35,6 +35,7 @@
   "NODE_DB_URI": "mongodb://localhost:27017/habitica-dev?replicaSet=rs",
   "TEST_DB_URI": "mongodb://localhost:27017/habitica-test?replicaSet=rs",
   "MONGODB_POOL_SIZE": "10",
+  "NEW_USER_CHAT_MODE": "normal",
   "NODE_ENV": "development",
   "PATH": "bin:node_modules/.bin:/usr/local/bin:/usr/bin:/bin",
   "PAYPAL_BILLING_PLANS_basic_12mo": "basic_12mo",

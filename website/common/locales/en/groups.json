@@ -277,6 +277,7 @@
   "userCountRequestsApproval": "<strong><%= userCount %> members</strong> request approval",
   "youAreRequestingApproval": "You are requesting approval",
   "chatPrivilegesRevoked": "You cannot do this because your chat privileges have been removed. For details or to ask if your privileges can be returned, please email our Community Manager at admin@habitica.com or ask your parent or guardian to email them. Please include your @Username in the email. If a moderator has already told you that your chat ban is temporary, you do not need to send an email.",
+  "chatPrivilegesOffByDefault": "WIP - special message for when NEW_USER_CHAT_MODE is 'muted' to replace normal chatPrivilegesRevoked message",
   "newChatMessagePlainNotification": "New message in <%= groupName %> by <%= authorName %>. Click here to open the chat page!",
   "newChatMessageTitle": "New message in <%= groupName %>",
   "exportInbox": "Export Messages",

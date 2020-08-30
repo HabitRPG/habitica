@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
+import nconf from 'nconf';
 import shared from '../../../common';
 import { // eslint-disable-line import/no-cycle
   getDefaultOwnedGear,
@@ -13,6 +14,10 @@ import { schema as WebhookSchema } from '../webhook';
 const { Schema } = mongoose;
 
 const RESTRICTED_EMAIL_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
+
+const NEW_USER_CHAT_MODE = nconf.get('NEW_USER_CHAT_MODE') || 'normal';
+// expected values are "normal", "shadowmuted", or "muted";
+// anything else equates to "normal", which is neither muted nor shadow-muted
 
 // User schema definition
 export default new Schema({
@@ -257,8 +262,8 @@ export default new Schema({
       $type: Schema.Types.Mixed,
       default: () => ({}),
     },
-    chatRevoked: Boolean,
-    chatShadowMuted: Boolean,
+    chatRevoked: { $type: Boolean, default: NEW_USER_CHAT_MODE === 'muted' },
+    chatShadowMuted: { $type: Boolean, default: NEW_USER_CHAT_MODE === 'shadowmuted' },
     // Used to track the status of recapture emails sent to each user,
     // can be 0 - no email sent - 1, 2, 3 or 4 - 4 means no more email will be sent to the user
     recaptureEmailsPhase: { $type: Number, default: 0 },
