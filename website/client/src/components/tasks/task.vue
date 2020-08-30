@@ -400,11 +400,14 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-    *:focus {
-      outline: none;
-      border: $purple-400 solid 1px;
+  *:focus {
+    outline: none;
+    border: $purple-400 solid 1px;
+
+    :not(task-best-control-inner-habit) { // round icon
       border-radius: 2px;
     }
+  }
 
   .control-bottom-box {
     border-bottom-left-radius: 0 !important;
@@ -494,6 +497,15 @@
     &-user {
       padding-right: 0px;
     }
+
+    &:focus {
+      border-radius: 2px;
+      margin: -1px; // to counter the border width
+    }
+
+    &:focus .task-notes:not(:empty) {
+      margin-bottom: -4px; // to counter extra height from notes and border
+    }
   }
 
   .task-title + .task-dropdown ::v-deep .dropdown-menu {
@@ -526,6 +538,7 @@
     outline: none;
     border: $purple-400 solid 1px;
     border-radius: 2px;
+    margin: -1px;
   }
 
   .task-clickable-area ::v-deep .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
@@ -566,6 +579,10 @@
             stroke: $purple-300;
           }
         }
+      }
+
+      &:focus {
+        border-radius: 2px;
       }
     }
   }
