@@ -583,6 +583,7 @@
 
       &:focus {
         border-radius: 2px;
+        margin: -1px;
       }
     }
   }
