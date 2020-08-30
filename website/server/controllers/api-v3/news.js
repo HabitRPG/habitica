@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SPECIAL TIME TRAVELERS’ QUEST: WIND-UP HATCHING POTIONS!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR OWLISH ORACLE SET!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,22 +31,19 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/25/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/27/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="quest_windup center-block"></div>
+        <div class="promo_mystery_202008 center-block"></div>
         <p>
-          Hello Habiticans! We've released a brand-new quest in the Time Travelers' shop! It will
-          be available at the cost of one <a
-          href='https://habitica.fandom.com/wiki/Mystic_Hourglass' target='_blank'>Mystic
-          Hourglass</a>, and is not limited, so you can buy it anytime you like, and as many times
-          as you like. Have a <a href='/shops/time'>Whirl with a Wind-Up Warrior</a>, and earn some
-          wacky wind-up pets by completing your real-life tasks!
+          Reminder: August 31 is the last day to receive the Owlish Oracle Set when you <a
+          href="/user/settings/subscription">sign up for a new Habitica subscription</a>!
+          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
+          you can get!
         </p>
-        <div class="small mb-3">
-          by Beffymaroo, Great and Powerful, Vikte, a_diamond, SphinxWithoutASecret, and SabreCat
-        </div>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });

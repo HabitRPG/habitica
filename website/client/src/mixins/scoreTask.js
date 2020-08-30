@@ -16,7 +16,7 @@ export default {
   methods: {
     async beforeTaskScore (task) {
       const { user } = this;
-      if (this.castingSpell) return;
+      if (this.castingSpell) return false;
 
       if (task.group.approval.required && !task.group.approval.approved) {
         task.group.approval.requested = true;
@@ -30,6 +30,8 @@ export default {
           }
         }
       }
+
+      return true;
     },
     playTaskScoreSound (task, direction) {
       switch (task.type) { // eslint-disable-line default-case
@@ -50,7 +52,8 @@ export default {
     async taskScore (task, direction) {
       const { user } = this;
 
-      await this.beforeTaskScore(task);
+      const canScoreTask = await this.beforeTaskScore(task);
+      if (!canScoreTask) return;
 
       try {
         scoreTask({ task, user, direction });
