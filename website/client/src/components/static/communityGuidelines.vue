@@ -7,7 +7,10 @@
       {{ $t('commGuideHeadingWelcome') }}
     </h2>
     <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/intro.png">
+      <img
+        src="~@/assets/images/community-guidelines/intro.png"
+        :alt="$t('commGuideHeadingWelcome')"
+      >
       <div class="media-body">
         <p v-html="$t('commGuidePara001')"></p>
         <p v-html="$t('commGuidePara002')"></p>
@@ -23,7 +26,10 @@
         <p v-html="$t('commGuidePara015')"></p>
         <p v-html="$t('commGuidePara016')"></p>
       </div>
-      <img src="~@/assets/images/community-guidelines/publicSpaces.png">
+      <img
+        src="~@/assets/images/community-guidelines/publicSpaces.png"
+        :alt="$t('commGuideHeadingInteractions')"
+      >
     </div>
     <ul>
       <li v-html="$t('commGuideList02A')"></li>
@@ -47,7 +53,10 @@
       {{ $t('commGuideHeadingTavern') }}
     </h3>
     <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/tavern.png">
+      <img
+        src="~@/assets/images/community-guidelines/tavern.png"
+        :alt="$t('tavern')"
+      >
       <div class="media-body">
         <p v-html="$t('commGuidePara022')"></p>
         <p v-html="$t('commGuidePara023')"></p>
@@ -68,7 +77,10 @@
         <p v-html="$t('commGuidePara029')"></p>
         <p v-html="$t('commGuidePara031')"></p>
       </div>
-      <img src="~@/assets/images/community-guidelines/publicGuilds.png">
+      <img
+        src="~@/assets/images/community-guidelines/publicGuilds.png"
+        :alt="$t('publicGuilds')"
+      >
     </div>
     <p v-html="$t('commGuidePara033')"></p>
     <p v-html="$t('commGuidePara035')"></p>
@@ -82,7 +94,10 @@
       {{ $t('commGuideHeadingInfractions') }}
     </h3>
     <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/infractions.png">
+      <img
+        src="~@/assets/images/community-guidelines/infractions.png"
+        :alt="$t('commGuideHeadingInfractions')"
+      >
       <div class="media-body">
         <p v-html="$t('commGuidePara050')"></p>
         <p v-html="$t('commGuidePara051')"></p>
@@ -126,7 +141,10 @@
         <p v-html="$t('commGuidePara058')"></p>
         <p v-html="$t('commGuidePara059')"></p>
       </div>
-      <img src="~@/assets/images/community-guidelines/consequences.png">
+      <img
+        src="~@/assets/images/community-guidelines/consequences.png"
+        :alt="$t('commGuideHeadingConsequences')"
+      >
     </div>
     <p v-html="$t('commGuidePara060')"></p>
     <ul>
@@ -166,7 +184,10 @@
       {{ $t('commGuideHeadingRestoration') }}
     </h3>
     <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/restoration.png">
+      <img
+        src="~@/assets/images/community-guidelines/restoration.png"
+        :alt="$t('commGuideHeadingRestoration')"
+      >
       <div class="media-body">
         <p v-html="$t('commGuidePara061')"></p>
         <p v-html="$t('commGuidePara062')"></p>
@@ -181,7 +202,10 @@
     <p v-html="$t('commGuidePara008')"></p>
     <p v-html="$t('commGuidePara009')"></p>
     <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/staff.png">
+      <img
+        src="~@/assets/images/community-guidelines/staff.png"
+        :alt="$t('staff')"
+      >
       <div class="media-body">
         <ul>
           <li>{{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}</li>
@@ -197,7 +221,10 @@
     </div>
     <p v-html="$t('commGuidePara010')"></p>
     <div class="media align-items-center">
-      <img src="~@/assets/images/community-guidelines/moderators.png">
+      <img
+        src="~@/assets/images/community-guidelines/moderators.png"
+        :alt="$t('moderator')"
+      >
       <div class="media-body">
         <p v-html="$t('commGuidePara011')"></p>
         <ul>
