@@ -5,6 +5,7 @@
       <img
         class="not-found-img"
         src="~@/assets/images/404.png"
+        alt="Not found"
       >
       <h1 class="not-found">
         Sometimes even the bravest adventurer gets lost.
