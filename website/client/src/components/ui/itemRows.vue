@@ -48,6 +48,7 @@
     height: 2rem;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+    border-radius: 2px;
 
     .button-text {
        height: 1.5rem;
@@ -56,6 +57,12 @@
        line-height: 1.71;
        text-align: center;
        color: $gray-100;
+    }
+
+    &:hover {
+      .button-text {
+        color: $purple-300;
+      }
     }
   }
 </style>

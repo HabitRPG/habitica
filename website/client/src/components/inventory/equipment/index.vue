@@ -225,6 +225,7 @@
 
 .align-with-tab {
   margin-top: 3px;
+  margin-right: 3px;
 }
 
 .drawer-tab-text {
