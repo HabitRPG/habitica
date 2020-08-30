@@ -134,7 +134,7 @@
     </div>
     <div
       v-if="groupAccessRequiredAndOnPersonalPage
-        && (task.type === 'daily' || task.type  === 'todo')"
+        && (task.type === 'daily' || task.type === 'todo')"
       class="summary-sentence py-3 px-4"
       v-html="summarySentence"
     >
@@ -697,19 +697,9 @@
       box-shadow: 0 14px 28px 0 rgba($black, 0.24), 0 10px 10px 0 rgba($black, 0.28);
     }
 
-    .modal-body {
-      // the body has a margin/padding that can't be found
-      // if found please remove that padding and this style
-      // margin-bottom: -2rem;
-    }
-
     .modal-header, .modal-body, .modal-footer {
       padding: 0px;
       border: none;
-    }
-
-    .cursor-auto {
-      cursor: auto;
     }
 
     .cursor-auto {
@@ -1524,7 +1514,7 @@ export default {
     },
     destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return;
+      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('bv::hide::modal', 'task-modal');

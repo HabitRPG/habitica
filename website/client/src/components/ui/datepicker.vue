@@ -1,7 +1,6 @@
 <template>
   <datepicker
     v-model="value"
-    @input="upDate($event)"
     :calendarButton="true"
     :calendarButtonIconContent="icons.calendar"
     :bootstrapStyling="true"
@@ -11,22 +10,29 @@
     :class="{disabled: disabled}"
     :highlighted="highlighted"
     calendar-class="calendar-padding"
+    @input="upDate($event)"
   >
+    <div slot="afterDateInput"
+         class="vdp-datepicker__clear-button"
+         v-if="clearButton && value"
+         v-html="icons.close"
+         @click="upDate(null)">
+    </div>
     <div slot="beforeCalendarHeader">
       <div class="datetime-buttons">
-       <button
+        <button
           class="btn btn-flat"
-          @click="setToday()"
           type="button"
+          @click="setToday()"
         >
           {{ $t('today') }}
         </button>
         <button
-            class="btn btn-flat"
-            @click="setTomorrow()"
-            type="button"
-          >
-            {{ $t('tomorrow') }}
+          class="btn btn-flat"
+          type="button"
+          @click="setTomorrow()"
+        >
+          {{ $t('tomorrow') }}
         </button>
       </div>
     </div>
@@ -37,6 +43,7 @@
 import moment from 'moment';
 import datepicker from 'vuejs-datepicker';
 import calendarIcon from '@/assets/svg/calendar.svg';
+import closeIcon from '@/assets/svg/close.svg';
 
 export default {
   components: {
@@ -48,6 +55,7 @@ export default {
       value: this.date,
       icons: Object.freeze({
         calendar: calendarIcon,
+        close: closeIcon,
       }),
     };
   },
@@ -198,21 +206,14 @@ export default {
 
   .vdp-datepicker__clear-button {
     background: transparent !important;
+    display: block;
+    height: 30px;
+    cursor: pointer;
 
-    .input-group-text {
-      background: transparent;
-      border: 0;
-      padding: 0;
-      margin: 0.625rem 0.75rem;
-
-      i {
-        width: 12px;
-      }
-
-      span {
-        font-style: normal;
-        color: $gray-200;
-      }
+    svg {
+      margin: auto 0.75rem;
+      width: 0.75rem;
+      height: 30px;
     }
   }
 </style>

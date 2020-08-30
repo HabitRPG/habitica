@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POSTS: GUILD AND USE CASE SPOTLIGHTS!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR OWLISH ORACLE SET!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,43 +31,19 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/20/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>8/27/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_public_space center-block"></div>
-        <h3>Use Case Spotlight: Supporting Your Loved Ones</h3>
+        <div class="promo_mystery_202008 center-block"></div>
         <p>
-          This month's <a href='https://habitica.wordpress.com/2020/08/20/use-case-spotlight-supporting-your-loved-ones/'
-          target="_blank">Use Case Spotlight</a> is about Supporting Your Loved Ones! It features
-          a number of great suggestions submitted by Habiticans in the <a
-          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
-          We hope it helps any of you who might be looking for ways to be there for the people you
-          care about.
+          Reminder: August 31 is the last day to receive the Owlish Oracle Set when you <a
+          href="/user/settings/subscription">sign up for a new Habitica subscription</a>!
+          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
+          you can get!
         </p>
-        <p>
-          Plus, we're collecting user submissions for the next spotlight! How do you use Habitica
-          to create positivity in your life? We’ll be featuring player-submitted examples in Use
-          Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use Case
-          Spotlight Guild now. We look forward to learning more about how you use Habitica to
-          improve your life and get things done!
-        </p>
-        <div class="small mb-3">by shanaqui</div>
-        <div class="scene_CernyPie center-block"></div>
-        <h3>Guild Spotlight: CernyPie's Favorites</h3>
-        <p>
-          For this year's Guild Spotlight series, we're highlighting some favorites from Habitica's
-          staff, moderators, and some high-level contributors!
-        </p>
-        <p>
-          This month we're sharing some <a
-          href='https://habitica.wordpress.com/2020/08/20/guild-spotlights-our-favourites-7/'
-          target='_blank'>picks from legendary socialite CernyPie</a>! If you want to curate your
-          Habitica experience and join active, positive Guilds, this is a great way to pick up some
-          new ideas for Guilds to join.
-        </p>
-        <div class="small mb-3">by shanaqui</div>
-
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });
