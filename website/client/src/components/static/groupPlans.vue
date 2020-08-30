@@ -8,6 +8,7 @@
           <img
             class="party"
             src="../../assets/images/group-plans-static/party@3x.png"
+            :alt="$t('party')"
           >
           <h1>{{ $t('groupPlanTitle') }}</h1>
           <p>{{ $t('groupPlanDesc') }}</p>
@@ -59,6 +60,7 @@
           <img
             class="big-gem"
             src="../../assets/images/group-plans-static/big-gem@3x.png"
+            :alt="$t('gems')"
           >
           <h2>{{ $t('inGameBenefits') }}</h2>
           <p>{{ $t('inGameBenefitsDesc') }}</p>
