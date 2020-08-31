@@ -4,7 +4,7 @@
     :calendarButton="true"
     :calendarButtonIconContent="icons.calendar"
     :bootstrapStyling="true"
-    :clear-button="clearButton || false"
+    :clear-button="false"
     :today-button="false"
     :disabled-picker="disabled"
     :class="{disabled: disabled}"
