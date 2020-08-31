@@ -119,7 +119,6 @@
     #melior {
       margin: 0 auto;
       width: 70.9px;
-      margin-bottom: 1em;
     }
 
     .row {
