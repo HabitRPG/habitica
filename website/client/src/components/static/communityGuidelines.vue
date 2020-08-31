@@ -67,7 +67,10 @@
       <div class="media-body">
         <p v-html="$t('commGuidePara027')"></p>
       </div>
-      <img src="~@/assets/images/community-guidelines/backCorner.png">
+      <img
+        src="~@/assets/images/community-guidelines/backCorner.png"
+        alt=""
+      >
     </div>
     <h3 id="guilds">
       {{ $t('commGuideHeadingPublicGuilds') }}

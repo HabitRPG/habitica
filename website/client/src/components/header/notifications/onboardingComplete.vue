@@ -14,6 +14,7 @@
       <img
         class="onboarding-complete-banner d-block"
         src="~@/assets/images/onboarding-complete-banner@2x.png"
+        alt=""
       >
       <h3 v-once>
         {{ $t('onboardingComplete') }}

@@ -152,11 +152,13 @@
                       v-if="!group.quest.extra.worldDmg.seasonalShop"
                       class="rage-strike"
                       src="~@/assets/images/world-boss/rage_strike@2x.png"
+                      alt=""
                     >
                     <img
                       v-if="group.quest.extra.worldDmg.seasonalShop"
                       class="rage-strike-active"
                       src="~@/assets/images/world-boss/rage_strike-seasonalShop@2x.png"
+                      alt=""
                     >
                   </div>
                   <div
@@ -167,11 +169,13 @@
                       v-if="!group.quest.extra.worldDmg.market"
                       class="rage-strike"
                       src="~@/assets/images/world-boss/rage_strike@2x.png"
+                      alt=""
                     >
                     <img
                       v-if="group.quest.extra.worldDmg.market"
                       class="rage-strike-active"
                       src="~@/assets/images/world-boss/rage_strike-market@2x.png"
+                      alt=""
                     >
                   </div>
                   <div
@@ -182,11 +186,13 @@
                       v-if="!group.quest.extra.worldDmg.quests"
                       class="rage-strike"
                       src="~@/assets/images/world-boss/rage_strike@2x.png"
+                      alt=""
                     >
                     <img
                       v-if="group.quest.extra.worldDmg.quests"
                       class="rage-strike-active"
                       src="~@/assets/images/world-boss/rage_strike-quests@2x.png"
+                      alt=""
                     >
                   </div>
                 </div>
