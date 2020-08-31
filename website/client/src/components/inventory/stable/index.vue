@@ -180,13 +180,12 @@
             </petItem>
           </div>
         </div>
-        <div
-          v-if="petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
-          class="btn btn-flat btn-show-more"
-          @click="setShowMore(petGroup.key)"
-        >
-          {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
-        </div>
+        <show-more-button
+            v-if="petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
+             @click="setShowMore(petGroup.key)"
+            :show-all="$_openedItemRows_isToggled(petGroup.key)"
+            class="show-more-button"
+          />
       </div>
       <h2>
         {{ $t('mounts') }}
@@ -240,13 +239,11 @@
             </mountItem>
           </div>
         </div>
-        <div
+        <show-more-button
           v-if="mountGroup.key !== 'specialMounts'"
-          class="btn btn-flat btn-show-more"
           @click="setShowMore(mountGroup.key)"
-        >
-          {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
-        </div>
+          :show-all="$_openedItemRows_isToggled(mountGroup.key)"
+        />
       </div>
       <inventoryDrawer>
         <template
@@ -329,125 +326,43 @@
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/modal.scss';
 
-  .standard-page .clearfix .float-right {
-    margin-right: 24px;
-  }
-
-  .inventory-item-container {
-    padding: 20px;
-    border: 1px solid;
-    display: inline-block;
-  }
-
-  .hatchablePopover {
-    width: 180px
-  }
-
-  .potionEggGroup {
-    margin: 0 auto;
-  }
-
-  .potionEggBackground {
-    display: inline-flex;
-    align-items: center;
-
-    width: 112px;
-    height: 112px;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-
-    &:first-child {
-      margin-right: 24px;
-    }
-
-    & div {
-      margin: 0 auto;
-    }
-  }
-
-  .GreyedOut {
-    opacity: 0.3;
-  }
-
-  .item.item-empty {
-    width: 94px;
-    height: 92px;
-    border-radius: 2px;
-    background-color: #edecee;
-  }
-
-  .npc_matt {
-    margin-bottom: 17px;
-  }
-
   .stable {
 
     .standard-page {
-      padding-right:0;
+      padding-right: 0;
     }
 
     .svg-icon.inline.icon-16 {
       vertical-align: bottom;
     }
-  }
 
-  .last {
-    margin-right: 0 !important;
-  }
 
-  .no-focus:focus {
-    background-color: inherit;
-    color: inherit;
-  }
-
-  .popover-content-text {
-    margin-bottom: 0;
-  }
-
-  .foodInfo {
-    position: absolute;
-    left: -500px;
-
-    z-index: 1080;
-
-    &.mouse {
-      position: fixed;
-      pointer-events: none
+    .standard-page .clearfix .float-right {
+      margin-right: 24px;
     }
 
-    .food-icon {
-      margin: 0 auto 8px;
-      transform: scale(1.5);
+    .inventory-item-container {
+      padding: 20px;
+      border: 1px solid;
+      display: inline-block;
     }
 
-    .popover {
-      position: inherit;
-      width: 180px;
+    .hatchablePopover {
+      width: 180px
     }
-
-    .popover-content {
-      color: white;
-      margin: 15px;
-      text-align: center;
-    }
-  }
-
-  .hatchablePopover {
-    width: 180px;
 
     .potionEggGroup {
       margin: 0 auto;
-      margin-top: 10px;
     }
 
     .potionEggBackground {
       display: inline-flex;
       align-items: center;
 
-      width: 64px;
-      height: 64px;
-      border-radius: 2px;
-      background-color: #4e4a57;
+      width: 112px;
+      height: 112px;
+      border-radius: 4px;
+      background-color: #f9f9f9;
 
       &:first-child {
         margin-right: 24px;
@@ -455,6 +370,87 @@
 
       & div {
         margin: 0 auto;
+      }
+    }
+
+    .GreyedOut {
+      opacity: 0.3;
+    }
+
+    .item.item-empty {
+      background-color: #edecee;
+    }
+
+    .npc_matt {
+      margin-bottom: 17px;
+    }
+
+
+    .last {
+      margin-right: 0 !important;
+    }
+
+    .no-focus:focus {
+      background-color: inherit;
+      color: inherit;
+    }
+
+    .popover-content-text {
+      margin-bottom: 0;
+    }
+
+    .foodInfo {
+      position: absolute;
+      left: -500px;
+
+      z-index: 1080;
+
+      &.mouse {
+        position: fixed;
+        pointer-events: none
+      }
+
+      .food-icon {
+        margin: 0 auto 8px;
+        transform: scale(1.5);
+      }
+
+      .popover {
+        position: inherit;
+        width: 180px;
+      }
+
+      .popover-content {
+        color: white;
+        margin: 15px;
+        text-align: center;
+      }
+    }
+
+    .hatchablePopover {
+      width: 180px;
+
+      .potionEggGroup {
+        margin: 0 auto;
+        margin-top: 10px;
+      }
+
+      .potionEggBackground {
+        display: inline-flex;
+        align-items: center;
+
+        width: 64px;
+        height: 64px;
+        border-radius: 2px;
+        background-color: #4e4a57;
+
+        &:first-child {
+          margin-right: 24px;
+        }
+
+        & div {
+          margin: 0 auto;
+        }
       }
     }
   }
@@ -496,6 +492,7 @@ import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalMan
 import { isOwned } from '../../../libs/createAnimal';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
+import ShowMoreButton from '@/components/ui/showMoreButton';
 
 // TODO Normalize special pets and mounts
 // import Store from '@/store';
@@ -506,6 +503,7 @@ let lastMouseMoveEvent = {};
 
 export default {
   components: {
+    ShowMoreButton,
     FilterGroup,
     FilterSidebar,
     PetItem,

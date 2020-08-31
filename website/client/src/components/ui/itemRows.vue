@@ -17,15 +17,11 @@
         {{ noItemsLabel }}
       </p>
     </div>
-    <div
+    <show-more-button
       v-if="items.length > itemsPerRow"
-      class="btn btn-flat btn-show-more mb-4"
       @click="toggleItemsToShow()"
-    >
-      <span class="button-text">
-        {{ showAll ? $t('showLess') : $t('showMore') }}
-      </span>
-    </div>
+      :show-all="showAll"
+    />
     <div
       v-else
       class="fill-height"
@@ -41,29 +37,7 @@
   }
 
   .item-rows {
-    margin-right: -24px;
-  }
-
-  .btn-show-more {
-    height: 2rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    border-radius: 2px;
-
-    .button-text {
-       height: 1.5rem;
-       font-size: 14px;
-       font-weight: bold;
-       line-height: 1.71;
-       text-align: center;
-       color: $gray-100;
-    }
-
-    &:hover {
-      .button-text {
-        color: $purple-300;
-      }
-    }
+    margin-right: -1.5rem;
   }
 </style>
 
@@ -71,9 +45,11 @@
 import _take from 'lodash/take';
 import ResizeDirective from '@/directives/resize.directive';
 import openedItemRowsMixin from '@/mixins/openedItemRows';
+import ShowMoreButton from '@/components/ui/showMoreButton';
 
 
 export default {
+  components: { ShowMoreButton },
   directives: {
     resize: ResizeDirective,
   },
