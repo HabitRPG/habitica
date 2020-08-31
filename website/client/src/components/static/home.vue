@@ -18,6 +18,7 @@
             <img
               src="~@/assets/images/home/home-main@3x.png"
               width="357px"
+              alt=""
             >
             <h1>{{ $t('motivateYourself') }}</h1>
             <p class="section-main">
@@ -173,6 +174,7 @@
               src="~@/assets/images/home/track-habits@3x.png"
               width="354px"
               height="228px"
+              :alt="$t('todos')"
             >
             <strong>{{ $t('trackYourGoals') }}</strong>
             <p>{{ $t('trackYourGoalsDesc') }}</p>
@@ -182,6 +184,7 @@
               src="~@/assets/images/home/earn-rewards@3x.png"
               width="316px"
               height="244px"
+              :alt="$t('rewards')"
             >
             <strong>{{ $t('earnRewards') }}</strong>
             <p>{{ $t('earnRewardsDesc') }}</p>
@@ -191,6 +194,7 @@
               src="~@/assets/images/home/battle-monsters@3x.png"
               width="303px"
               height="244px"
+              :alt="$t('greenblue')"
             >
             <strong>{{ $t('battleMonsters') }}</strong>
             <p>{{ $t('battleMonstersDesc') }}</p>
@@ -220,6 +224,7 @@
               src="~@/assets/images/home/health-fitness@3x.png"
               width="300px"
               height="300px"
+              :alt="$t('health_fitness')"
             >
             <strong>{{ $t('healthAndFitness') }}</strong>
             <p>{{ $t('healthAndFitnessDesc') }}</p>
@@ -229,6 +234,7 @@
               src="~@/assets/images/home/school-work@3x.png"
               width="300px"
               height="300px"
+              :alt="$t('work')"
             >
             <strong>{{ $t('schoolAndWork') }}</strong>
             <p>{{ $t('schoolAndWorkDesc') }}</p>
@@ -238,6 +244,7 @@
               src="~@/assets/images/home/much-more@3x.png"
               width="300px"
               height="300px"
+              :alt="$t('other')"
             >
             <strong>{{ $t('muchmuchMore') }}</strong>
             <p>{{ $t('muchmuchMoreDesc') }}</p>
