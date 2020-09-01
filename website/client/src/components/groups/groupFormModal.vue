@@ -94,7 +94,10 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
 // "allowGuildInvitationsFromNonMembers": "Allow Guild invitations from non-members",
         -->
       </div>
-      <div v-if="isAdmin" class="form-group">
+      <div
+        v-if="isAdmin && workingGroup.id"
+        class="form-group"
+      >
         <label>
           <strong v-once>{{ $t('languageSettings') }}</strong>
         </label>
@@ -117,11 +120,13 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
             :title="$t('bannedWordsAllowedDetail')"
           >
             <div
+              v-once
               class="svg-icon"
               v-html="icons.information"
             ></div>
           </div>
           <b-tooltip
+            v-once
             :title="$t('bannedWordsAllowedDetail')"
             target="groupBannedWordsAllowedDescription"
           />

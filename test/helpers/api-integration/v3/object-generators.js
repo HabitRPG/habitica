@@ -80,8 +80,6 @@ export async function generateGroup (leader, details = {}, update = {}) {
   const group = await leader.post('/groups', details);
   const apiGroup = new ApiGroup(group);
 
-  update.bannedWordsAllowed = update.bannedWordsAllowed || null;
-
   await apiGroup.update(update);
 
   return apiGroup;

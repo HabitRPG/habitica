@@ -79,4 +79,56 @@ describe('PUT /group', () => {
     expect(updatedGroup.leader.profile.name).to.eql(nonLeader.profile.name);
     expect(updatedGroup.name).to.equal(groupUpdatedName);
   });
+
+  it('allows for an admin to update the bannedWordsAllow property for an existing guild', async () => {
+    const { group, groupLeader } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'public guild',
+        type: 'guild',
+        privacy: 'public',
+      },
+    });
+
+    const updateGroupDetails = {
+      id: group._id,
+      name: 'public guild',
+      type: 'guild',
+      privacy: 'public',
+      bannedWordsAllowed: true,
+    };
+
+    // Make guild leader into admin
+    await groupLeader.post('/debug/make-admin');
+    await groupLeader.sync();
+
+    // Update the bannedWordsAllowed property for the group
+    const response = await groupLeader.put(`/groups/${group._id}`, updateGroupDetails);
+
+    expect(groupLeader.contributor.admin).to.eql(true);
+    expect(response.bannedWordsAllowed).to.eql(true);
+  });
+
+  it('does not allow for a non-admin to update the bannedWordsAllow property for an existing guild', async () => {
+    const { group, groupLeader } = await createAndPopulateGroup({
+      groupDetails: {
+        name: 'public guild',
+        type: 'guild',
+        privacy: 'public',
+      },
+    });
+
+    const updateGroupDetails = {
+      id: group._id,
+      name: 'public guild',
+      type: 'guild',
+      privacy: 'public',
+      bannedWordsAllowed: true,
+    };
+
+    // Update the bannedWordsAllowed property for the group
+    const response = await groupLeader.put(`/groups/${group._id}`, updateGroupDetails);
+
+    expect(groupLeader.contributor.admin).to.eql(undefined);
+    expect(response.bannedWordsAllowed).to.eql(undefined);
+  });
 });

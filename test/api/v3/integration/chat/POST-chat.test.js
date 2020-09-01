@@ -324,14 +324,12 @@ describe('POST /chat', () => {
           name: 'public guild',
           type: 'guild',
           privacy: 'public',
-          bannedWordsAllowed: true,
         },
         members: 1,
-      }, {
-        groupDetailsUpdate: {
-          bannedWordsAllowed: true,
-        },
       });
+
+      // Update the bannedWordsAllowed property for the group
+      group.update({ bannedWordsAllowed: true });
 
       const message = await members[0].post(`/groups/${group._id}/chat`, { message: testBannedWordMessage });
 
