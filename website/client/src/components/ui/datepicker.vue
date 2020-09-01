@@ -1,9 +1,9 @@
 <template>
   <datepicker
     v-model="value"
-    :calendarButton="true"
-    :calendarButtonIconContent="icons.calendar"
-    :bootstrapStyling="true"
+    :calendar-button="true"
+    :calendar-button-icon-content="icons.calendar"
+    :bootstrap-styling="true"
     :clear-button="false"
     :today-button="false"
     :disabled-picker="disabled"
