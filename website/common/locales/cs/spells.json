@@ -6,7 +6,7 @@
     "spellWizardEarthText": "Zemětřesení",
     "spellWizardEarthNotes": "Tvá psychická síla otřásá zemí a tvá družina získává bonus k Inteligenci! (Vypočteno na základě: INT před bonusem)",
     "spellWizardFrostText": "Ledový mráz",
-    "spellWizardFrostNotes": "S jedním sesláním kouzla led zmrazil všechny tvé série, takže se žádná zítra nezresetuje na 0!",
+    "spellWizardFrostNotes": "S jedním sesláním kouzla led zmrazil všechny tvé série, takže se žádná zítra nezresetuje na 0! ",
     "spellWizardFrostAlreadyCast": "Toto kouzlo už jsi dnes seslal. Tvé série jsou zmraženy a tak není důvod sesílat tohle kouzlo znovu.",
     "spellWarriorSmashText": "Brutální rána",
     "spellWarriorSmashNotes": "Úkoly ti více zmodrají/méně zčervenají, a uštědříš extra poškození Bossům! (Vypočteno na základě: SÍL)",
@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Tvé lstivé talenty přidají bonus celé tvé družině k Vnímání! (Vypočteno na základě: VNM před bonusem)",
     "spellRogueStealthText": "Plížení",
     "spellRogueStealthNotes": "S každým sesláním kouzla ti pár z tvých nesplněných úkolů dnes v noci neublíží. Jejich série a barva zůstane nezměněna. (Vypočteno na základě: VNM)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Počet denních úkolů, kterým ses vyhnul: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Počet denních úkolů, kterým se vyhneš: <%= number %>.",
     "spellRogueStealthMaxedOut": "Už ses vyhnul všem svým denním úkolům, takže není důvod tuto schopnost používat znovu.",
     "spellHealerHealText": "Léčivé světlo",
     "spellHealerHealNotes": "Zářivé světlo obnovuje tvé zdraví! (Vypočteno na základě: OBR a INT)",
@@ -51,9 +51,10 @@
     "spellSpecialSandText": "Písek",
     "spellSpecialSandNotes": "Zvrať kouzlo, které z tebe udělalo mořskou hvězdu.",
     "partyNotFound": "Družina nenalezena",
-    "targetIdUUID": "„cílovéId\" musí být platné ID uživatele. ",
+    "targetIdUUID": "„ targetId\" musí být platné ID uživatele.",
     "challengeTasksNoCast": "Použití schopnosti na úkol z výzvy není povoleno.",
     "groupTasksNoCast": "Používání schopností na skupinové úkoly není povoleno.",
     "spellNotOwned": "Nevlastníte tuto schopnost.",
-    "spellLevelTooHigh": "Pro použití této schopnosti musíte být úroveň <%= level %>."
+    "spellLevelTooHigh": "Pro použití této schopnosti musíte být úroveň <%= level %>.",
+    "spellAlreadyCast": "Tahle dovednost už byla použita. Nebude mít tedy žádný další efekt."
 }

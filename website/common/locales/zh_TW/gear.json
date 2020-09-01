@@ -2155,5 +2155,11 @@
     "backSpecialNamingDay2020Notes": "命名節快樂！甩動火紅像素尾來一起慶祝吧！沒有屬性加成。",
     "backSpecialNamingDay2020Text": "紫禦獅鷲之尾",
     "headMystery202008Notes": "誰？是誰？到底是誰向你走近尋求忠告？沒有屬性加成。 2020年8月訂閱者物品。",
-    "headMystery202008Text": "貓頭鷹的預言頭飾"
+    "headMystery202008Text": "貓頭鷹的預言頭飾",
+    "shieldArmoireMortarAndPestleNotes": "草藥師最重要的裝備！把草藥丟進去，磨磨磨！增加<%= con %>點體質。魔法衣櫥：英雄草藥師套裝（2/3）。",
+    "shieldArmoireMortarAndPestleText": "研缽和研杵",
+    "headArmoireHeroicHerbalistCrispinetteNotes": "這款便攜頭飾將幫助你保持頭髮柔順……同時也增加了神秘感，有益無害。增加<%= int %>點智力。魔法衣櫥：英雄草藥師套裝（3/3）。",
+    "headArmoireHeroicHerbalistCrispinetteText": "藥師英雄髮箍",
+    "armorArmoireHeroicHerbalistRobeNotes": "總是聞起來有各種草藥的芬芳。增加體質、智力各<％= attrs％>點。魔法衣櫥：英雄草藥師套裝（1/3）。",
+    "armorArmoireHeroicHerbalistRobeText": "藥師英雄長袍"
 }

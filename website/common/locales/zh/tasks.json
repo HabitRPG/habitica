@@ -110,9 +110,9 @@
     "streakSingular": "连击者",
     "streakSingularText": "在每日任务里完成过一个21天连击",
     "perfectName": "<%= count %>次完美日",
-    "perfectText": "已完成每日任务<%= count %>天。伴随这些成就，明天你会得到全属性+level/2 的增益魔法。等级大于100不得到增益。",
+    "perfectText": "已完成每日任务<%= count %>天。你将获得完美日成就，且在明天你会得到全属性+level/2 的增益。等级高于100的部分不会得到增益。",
     "perfectSingular": "完美日",
-    "perfectSingularText": "在一天内完成了所有的每日任务。伴随着个成就，明天你会得到全属性+level/2 的增益魔法。等级大于100不得到增益。",
+    "perfectSingularText": "已完成当日的所有任务。你将获得完美日成就，且在明天你会得到全属性+level/2 的增益。等级高于100的部分不会得到增益。",
     "streakerAchievement": "你已经获得“连击”成就！21天是养成习惯的一个里程碑！你在这个任务或其他任务每完成额外的21天会继续堆叠这个成就！",
     "fortifyName": "稳固药剂",
     "fortifyPop": "将所有任务恢复至中性状态（黄色），并补充所有损失的生命值。",
@@ -216,5 +216,6 @@
     "deleteTaskType": "删除<%= type %>",
     "pressEnterToAddTag": "按“Enter”添加标签：'<%= tagName %>'",
     "enterTag": "输入标签",
-    "addTags": "添加标签..."
+    "addTags": "添加标签...",
+    "tomorrow": "明天"
 }

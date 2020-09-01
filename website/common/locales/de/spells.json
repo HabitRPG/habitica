@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Fähigkeiten auf Wettbewerbsaufgaben anzuwenden ist nicht erlaubt.",
     "groupTasksNoCast": "Fähigkeiten auf Gruppenaufgaben anzuwenden ist nicht erlaubt.",
     "spellNotOwned": "Diese Fähigkeit besitzt Du nicht.",
-    "spellLevelTooHigh": "Du musst Level <%= level %> sein, um diese Fähigkeit benutzen zu können."
+    "spellLevelTooHigh": "Du musst Level <%= level %> sein, um diese Fähigkeit benutzen zu können.",
+    "spellAlreadyCast": "Du hast diese Fähigkeit bereits angewendet. Sie wird keinen zusätzlichen Effekt geben."
 }

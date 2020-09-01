@@ -501,5 +501,6 @@
     "managerNotes": "Notas do Administrador",
     "thisTaskApproved": "Esta tarefa foi aprovada",
     "chooseTeamMember": "Escolha um membro do time",
-    "unassigned": "Não designado"
+    "unassigned": "Não designado",
+    "onlyPrivateGuildsCanUpgrade": "Apenas guildas privadas podem ser atualizadas para um plano de grupo."
 }
