@@ -216,5 +216,6 @@
     "deleteTaskType": "Supprimer cette <%= type %>",
     "pressEnterToAddTag": "Appuyez sur Entrée pour ajouter l'étiquette : '<%= tagName %>'",
     "enterTag": "Entrez une étiquette",
-    "addTags": "Ajouter des étiquettes ..."
+    "addTags": "Ajouter des étiquettes ...",
+    "tomorrow": "Demain"
 }

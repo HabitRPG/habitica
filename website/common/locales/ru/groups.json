@@ -249,7 +249,7 @@
     "onlyCreatorOrAdminCanDeleteChat": "Вы не авторизованы чтобы удаить это сообщение!",
     "onlyGroupLeaderCanEditTasks": "Вы не авторизованы, чтобы редактировать задачи!",
     "onlyGroupTasksCanBeAssigned": "Можно назначать только командные задачи",
-    "assignedTo": "Назначено",
+    "assignedTo": "Назначить",
     "assignedToUser": "Назначено для <strong><%- userName %></strong>",
     "assignedToMembers": "Назначено <strong><%= userCount %> участникам</strong>",
     "assignedToYouAndMembers": "Назначено вам и <strong><%= userCount %> участникам</strong>",

@@ -26,7 +26,7 @@
     "achievementMindOverMatter": "L'esprit l'emporte sur la matière",
     "achievementLostMasterclasserModalText": "Vous avez achevé les 16 quêtes de la série de quêtes de la maîtresse des classes, et résolu le mystère de la maîtresse des classes oubliée !",
     "achievementKickstarter2019Text": "A soutenu le projet Kickstarter de pin's en 2019",
-    "achievementKickstarter2019": "Soutien du projet Kickstarter de pin",
+    "achievementKickstarter2019": "Soutien du Kickstarter de pin's",
     "achievementUndeadUndertakerModalText": "Vous avez dompté toutes les montures zombies !",
     "achievementUndeadUndertakerText": "A dompté toutes les montures zombies.",
     "achievementUndeadUndertaker": "Le croque-mort-vivant",
@@ -75,7 +75,7 @@
     "foundNewItems": "Vous avez trouvé de nouveaux objets !",
     "achievementBugBonanzaModalText": "Vous avez terminé les quêtes des familiers scarabée, papillon, escargot et araignée !",
     "achievementBugBonanzaText": "A terminé les quêtes des familiers scarabée, papillon, escargot et araignée.",
-    "achievementBugBonanza": "Manne d'insectes",
+    "achievementBugBonanza": "Insectes à gogo",
     "onboardingCompleteDescSmall": "Si vous en voulez plus, allez regarder les succès et commencez à les collectionner !",
     "onboardingComplete": "Vous avez terminé vos tâches de démarrage !",
     "yourProgress": "Votre progression",
@@ -84,5 +84,11 @@
     "achievementBareNecessities": "Le strict nécessaire",
     "achievementFreshwaterFriendsModalText": "Vous avez complété les quêtes d'axolotl, de grenouille et d'hippopotame !",
     "achievementFreshwaterFriendsText": "A complété les quêtes d'axolotl, de grenouille et d'hippopotame.",
-    "achievementFreshwaterFriends": "Marins d'eau douce"
+    "achievementFreshwaterFriends": "Marins d'eau douce",
+    "achievementAllThatGlittersModalText": "Vous avez dompté toutes les montures en or !",
+    "achievementAllThatGlittersText": "A dompté toutes les montures en or.",
+    "achievementAllThatGlitters": "Tout ce qui brille",
+    "achievementGoodAsGoldModalText": "Vous avez trouvé tous les familiers en or !",
+    "achievementGoodAsGoldText": "A trouvé tous les familiers en or.",
+    "achievementGoodAsGold": "Un cœur d'or"
 }

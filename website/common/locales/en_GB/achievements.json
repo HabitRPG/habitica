@@ -84,5 +84,11 @@
     "achievementBareNecessities": "Bare Necessities",
     "achievementFreshwaterFriendsModalText": "You completed the Axolotl, Frog, and Hippo pet quests!",
     "achievementFreshwaterFriendsText": "Has completed Axolotl, Frog, and Hippo pet quests.",
-    "achievementFreshwaterFriends": "Freshwater Friends"
+    "achievementFreshwaterFriends": "Freshwater Friends",
+    "achievementAllThatGlittersModalText": "You tamed all the Golden Mounts!",
+    "achievementAllThatGlittersText": "Has tamed all Golden Mounts.",
+    "achievementAllThatGlitters": "All That Glitters",
+    "achievementGoodAsGoldModalText": "You collected all the Golden Pets!",
+    "achievementGoodAsGoldText": "Has collected all Golden pets.",
+    "achievementGoodAsGold": "Good As Gold"
 }

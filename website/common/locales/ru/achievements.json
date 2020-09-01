@@ -17,8 +17,8 @@
     "achievementBackToBasicsText": "Собраны все базовые питомцы.",
     "achievementBackToBasicsModalText": "Вы собрали всех базовых питомцев!",
     "achievementAllYourBase": "Основы",
-    "achievementAllYourBaseText": "Приручены все базовые скакуны.",
-    "achievementAllYourBaseModalText": "Вы приручили всех базовых скакунов!",
+    "achievementAllYourBaseText": "Собраны все базовые скакуны.",
+    "achievementAllYourBaseModalText": "Вы собрали всех базовых скакунов!",
     "achievementAridAuthority": "Засушливые земли",
     "achievementDustDevilModalText": "Вы собрали всех пустынных питомцев!",
     "achievementDustDevilText": "Собраны все пустынные питомцы.",
@@ -84,5 +84,11 @@
     "foundNewItemsExplanation": "Выполнение заданий дает вам возможность получить новые предметы: яйца, инкубационные эликсиры или корм для питомцев.",
     "achievementFreshwaterFriends": "Пресноводные друзья",
     "achievementFreshwaterFriendsModalText": "Вы выполнили квесты питомцев: Аксолотля, Лягушонка и Бегемота!",
-    "achievementFreshwaterFriendsText": "Завершил(а) квесты питомцев: Аксолотля, Лягушонка и Бегемота."
+    "achievementFreshwaterFriendsText": "Завершил(а) квесты питомцев: Аксолотля, Лягушонка и Бегемота.",
+    "achievementAllThatGlittersModalText": "Вы собрали всех золотых скакунов!",
+    "achievementAllThatGlittersText": "Собраны все золотые скакуны.",
+    "achievementAllThatGlitters": "Все, что блестит",
+    "achievementGoodAsGoldModalText": "Вы собрали всех золотых питомцев!",
+    "achievementGoodAsGoldText": "Собраны все золотые питомцы.",
+    "achievementGoodAsGold": "На вес золота"
 }
