@@ -115,6 +115,7 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
             for="bannedWordsAllowed"
           >{{ $t('bannedWordsAllowed') }}</label>
           <div
+            v-once
             id="groupBannedWordsAllowedDescription"
             class="icon"
             :title="$t('bannedWordsAllowedDetail')"
