@@ -121,16 +121,15 @@ async function _upgradeToGroupPlan (groupLeader, group) {
 // invitees: an array of user objects that correspond to the invitees of the group
 // leader: the leader user object
 // group: the group object
-export async function createAndPopulateGroup (settings = {}, update = {}) {
+export async function createAndPopulateGroup (settings = {}) {
   const numberOfMembers = settings.members || 0;
   const numberOfInvites = settings.invites || 0;
   const upgradeToGroupPlan = settings.upgradeToGroupPlan || false;
   const { groupDetails } = settings;
-  const { groupDetailsUpdate } = update;
   const leaderDetails = settings.leaderDetails || { balance: 10 };
 
   const groupLeader = await generateUser(leaderDetails);
-  const group = await generateGroup(groupLeader, groupDetails, groupDetailsUpdate);
+  const group = await generateGroup(groupLeader, groupDetails);
 
   const groupMembershipTypes = {
     party: { 'party._id': group._id },
