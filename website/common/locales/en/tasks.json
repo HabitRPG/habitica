@@ -45,8 +45,6 @@
   "repeats": "Repeats",
   "repeatEvery": "Repeat Every",
   "repeatOn": "Repeat On",
-  "dailyRepeatHelpContent": "This task will be due every X days. You can set that value below.",
-  "weeklyRepeatHelpContent": "This task will be due on the highlighted days below. Click on a day to activate/deactivate it.",
   "repeatDays": "Every X Days",
   "repeatWeek": "On Certain Days of the Week",
   "day": "Day",
