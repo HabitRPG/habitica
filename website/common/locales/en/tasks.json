@@ -12,7 +12,6 @@
   "theseAreYourTasks": "These are your <%= taskType %>",
   "habit": "Habit",
   "habits": "Habits",
-  "habitsDesc": "Habits don't have a rigid schedule. You can check them off multiple times per day.",
   "positive": "Positive",
   "negative": "Negative",
   "yellowred": "Weak",
