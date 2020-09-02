@@ -91,7 +91,6 @@
   "streakCoins": "Streak Bonus!",
   "taskToTop": "To top",
   "taskToBottom": "To bottom",
-  "dailiesRestingInInn": "You're Resting in the Inn! Your Dailies will NOT hurt you tonight, but they WILL still refresh every day. If you're in a quest, you won't deal damage/collect items until you check out of the Inn, but you can still be injured by a Boss if your Party mates skip their own Dailies.",
   "habitHelp1": "Good Habits are things that you do often. They award Gold and Experience every time you click the <%= plusIcon %>.",
   "habitHelp2": "Bad Habits are things you want to avoid doing. They remove Health every time you click the <%= minusIcon %>.",
   "habitHelp3": "For inspiration, check out these <a href='http://habitica.fandom.com/wiki/Sample_Habits' target='_blank'>sample Habits</a>!",
