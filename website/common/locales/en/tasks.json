@@ -55,7 +55,6 @@
   "remaining": "Active",
   "complete": "Done",
   "complete2": "Complete",
-  "dated": "Dated",
   "today": "Today",
   "tomorrow": "Tomorrow",
   "dueIn": "Due <%= dueIn %>",
