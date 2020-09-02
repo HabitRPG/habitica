@@ -91,7 +91,6 @@
   "streakCoins": "Streak Bonus!",
   "taskToTop": "To top",
   "taskToBottom": "To bottom",
-  "newbieGuild": "More questions? Ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>!",
   "dailyHelp1": "Dailies repeat <%= emphasisStart %>every day<%= emphasisEnd %> that they are active. Click the <%= pencilIcon %> to change the days a Daily is active.",
   "dailyHelp2": "If you don't complete active Dailies, you lose Health when your day rolls over.",
   "dailyHelp3": "Dailies turn <%= emphasisStart %>redder<%= emphasisEnd %> when you miss them, and <%= emphasisStart %>bluer<%= emphasisEnd %> when you complete them. The redder the Daily, the more it will reward you... or hurt you.",
