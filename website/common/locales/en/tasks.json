@@ -124,7 +124,6 @@
   "year": "Year",
   "years": "Years",
   "resets": "Resets",
-  "summaryStart": "Repeats <%= frequency %> every <%= everyX %> <%= frequencyPlural %>",
   "nextDue": "Next Due Dates",
   "checkOffYesterDailies": "Check off any Dailies you did yesterday:",
   "yesterDailiesTitle": "You left these Dailies unchecked yesterday! Do you want to check off any of them now?",
