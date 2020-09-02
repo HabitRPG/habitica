@@ -12,8 +12,6 @@
   "theseAreYourTasks": "These are your <%= taskType %>",
   "habit": "Habit",
   "habits": "Habits",
-  "newHabit": "New Habit",
-  "newHabitBulk": "New Habits (one per line)",
   "habitsDesc": "Habits don't have a rigid schedule. You can check them off multiple times per day.",
   "positive": "Positive",
   "negative": "Negative",
