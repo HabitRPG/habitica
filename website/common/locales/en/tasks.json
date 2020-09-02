@@ -66,8 +66,6 @@
   "rewards": "Rewards",
   "gold": "Gold",
   "silver": "Silver (100 silver = 1 gold)",
-  "newReward": "New Reward",
-  "newRewardBulk": "New Rewards (one per line)",
   "price": "Price",
   "tags": "Tags",
   "editTags": "Edit",
