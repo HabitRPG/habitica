@@ -85,7 +85,6 @@
   "fortifyName": "Fortify Potion",
   "fortifyPop": "Return all tasks to neutral value (yellow color), and restore all lost Health.",
   "fortify": "Fortify",
-  "confirmFortify": "Are you sure?",
   "fortifyComplete": "Fortify complete!",
   "deleteTaskType": "Delete this <%= type %>",
   "sureDeleteType": "Are you sure you want to delete this <%= type %>?",
