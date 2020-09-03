@@ -1513,10 +1513,10 @@ export default {
           this.task.group.assignedUsers = this.assignedMembers;
           this.$emit('taskCreated', this.task);
         } else {
-          this.createTask(this.task);
+          this.createTask(this.task, this.isUserTask);
         }
       } else {
-        await this.saveTask(this.task);
+        await this.saveTask(this.task, this.isUserTask);
         this.$emit('taskEdited', this.task);
       }
       this.$root.$emit('bv::hide::modal', 'task-modal');

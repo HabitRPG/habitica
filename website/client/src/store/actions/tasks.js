@@ -2,6 +2,7 @@ import axios from 'axios';
 import compact from 'lodash/compact';
 import omit from 'lodash/omit';
 import { loadAsyncResource } from '@/libs/asyncResource';
+import { shouldDo } from '@/../../common/script/cron';
 
 export function fetchUserTasks (store, options = {}) {
   return loadAsyncResource({
@@ -84,8 +85,14 @@ function sanitizeChecklist (task) {
   }
 }
 
+function updateIsDue (store, task, isUserTask) {
+  if (isUserTask) {
+    task.isDue = shouldDo(new Date(), task, store.state.user.data.preferences);
+  }
+}
+
 // Supply an array to create multiple tasks
-export async function create (store, createdTask) {
+export async function create (store, createdTask, isUserTask) {
   // Treat all create actions as if we are adding multiple tasks
   const payload = Array.isArray(createdTask) ? createdTask : [createdTask];
 
@@ -94,6 +101,7 @@ export async function create (store, createdTask) {
     const list = store.state.tasks.data[type];
 
     sanitizeChecklist(t);
+    updateIsDue(store, t, isUserTask);
 
     list.unshift(t);
     store.state.user.data.tasksOrder[type].unshift(t._id);
@@ -108,12 +116,13 @@ export async function create (store, createdTask) {
   });
 }
 
-export async function save (store, editedTask) {
+export async function save (store, editedTask, isUserTask) {
   const taskId = editedTask._id;
   const { type } = editedTask;
   const originalTask = store.state.tasks.data[`${type}s`].find(t => t._id === taskId);
 
   sanitizeChecklist(editedTask);
+  updateIsDue(store, editedTask, isUserTask);
 
   if (originalTask) Object.assign(originalTask, editedTask);
 

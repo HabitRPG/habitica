@@ -100,7 +100,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'copyAsTodo');
     },
     saveTodo () {
-      this.createTask(this.task);
+      this.createTask(this.task, true);
       this.text(this.$t('messageAddedAsToDo'));
       this.$root.$emit('bv::hide::modal', 'copyAsTodo');
     },

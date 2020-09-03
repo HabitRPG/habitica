@@ -614,7 +614,7 @@ export default {
 
       this.quickAddText = '';
       this.quickAddRows = 1;
-      this.createTask(tasks);
+      this.createTask(tasks, this.isUser);
       this.$refs.quickAdd.blur();
       return true;
     },
