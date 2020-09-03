@@ -133,18 +133,18 @@
       </div>
     </div>
     <div
-      v-if="groupAccessRequiredAndOnPersonalPage
+      v-if="task && groupAccessRequiredAndOnPersonalPage
         && (task.type === 'daily' || task.type === 'todo')"
       class="summary-sentence py-3 px-4"
       v-html="summarySentence"
     >
     </div>
     <div
+      v-if="task"
       class="task-modal-content px-4"
       :class="cssClass('content')"
     >
       <form
-        v-if="task"
         @submit.stop.prevent="submit()"
       >
         <div
