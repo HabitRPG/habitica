@@ -41,6 +41,7 @@
   "progress": "Progress",
   "daily": "Daily",
   "dailies": "Dailies",
+  "dailysDesc": "Dailies repeat on a regular basis. Choose the schedule that works best for you!",
   "streakCounter": "Streak Counter",
   "repeat": "Repeat",
   "repeats": "Repeats",
