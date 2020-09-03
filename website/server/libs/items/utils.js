@@ -60,7 +60,7 @@ export function validateItemPath (itemPath) {
 
 // When passed a value of an item in the user object it'll convert the
 // value to the correct format.
-// Example a numeric string like "5" applied to a food item (expecting an interger)
+// Example a numeric string like "5" applied to a food item (expecting an integer)
 // will be converted to the number 5
 export function castItemVal (itemPath, itemVal) {
   if (
