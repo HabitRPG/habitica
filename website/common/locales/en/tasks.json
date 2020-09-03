@@ -52,6 +52,7 @@
   "resetStreak": "Reset Streak",
   "todo": "To Do",
   "todos": "To Do's",
+  "todosDesc": "To Do's need to be completed once. Add checklists to your To Do's to increase their value.",
   "dueDate": "Due Date",
   "remaining": "Active",
   "complete": "Done",
