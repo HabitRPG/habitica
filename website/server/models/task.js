@@ -277,7 +277,7 @@ TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
 TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta, direction) {
   const chalTask = this;
 
-  chalTask.value += delta;
+  if (chalTask.type !== 'reward') chalTask.value += delta;
 
   if (chalTask.type === 'habit' || chalTask.type === 'daily') {
     // Add only one history entry per day
