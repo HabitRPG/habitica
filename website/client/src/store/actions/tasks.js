@@ -111,24 +111,32 @@ export async function create (store, createdTask, isUserTask) {
   const data = Array.isArray(response.data.data) ? response.data.data : [response.data.data];
 
   data.forEach(taskRes => {
-    const taskData = store.state.tasks.data[`${taskRes.type}s`].find(t => t._id === taskRes._id);
-    Object.assign(taskData, taskRes);
+    const tasksArr = store.state.tasks.data[`${taskRes.type}s`];
+    const taskDataIndex = tasksArr.findIndex(t => t._id === taskRes._id);
+    if (taskDataIndex !== -1) {
+      Object.assign(tasksArr[taskDataIndex], taskRes);
+    }
   });
 }
 
 export async function save (store, editedTask, isUserTask) {
   const taskId = editedTask._id;
   const { type } = editedTask;
-  const originalTask = store.state.tasks.data[`${type}s`].find(t => t._id === taskId);
+  const tasksArr = store.state.tasks.data[`${type}s`];
+  const originalTaskIndex = tasksArr.findIndex(t => t._id === taskId);
 
   sanitizeChecklist(editedTask);
   updateIsDue(store, editedTask, isUserTask);
 
-  if (originalTask) Object.assign(originalTask, editedTask);
+  if (originalTaskIndex !== -1) {
+    tasksArr[originalTaskIndex] = { ...tasksArr[originalTaskIndex], ...editedTask };
+  }
 
   const taskDataToSend = omit(editedTask, ['history']);
   const response = await axios.put(`/api/v4/tasks/${taskId}`, taskDataToSend);
-  if (originalTask) Object.assign(originalTask, response.data.data);
+  if (originalTaskIndex !== -1) {
+    tasksArr[originalTaskIndex] = { ...tasksArr[originalTaskIndex], ...response.data.data };
+  }
 }
 
 export async function score (store, { taskId, direction }) {
