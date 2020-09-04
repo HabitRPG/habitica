@@ -114,7 +114,7 @@ export async function create (store, createdTask, isUserTask) {
     const tasksArr = store.state.tasks.data[`${taskRes.type}s`];
     const taskDataIndex = tasksArr.findIndex(t => t._id === taskRes._id);
     if (taskDataIndex !== -1) {
-      Object.assign(tasksArr[taskDataIndex], taskRes);
+        tasksArr[taskDataIndex] = { ...tasksArr[taskDataIndex], ...taskRes };
     }
   });
 }
