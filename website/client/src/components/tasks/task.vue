@@ -399,9 +399,13 @@
 <!-- eslint-disable max-len -->
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
+  .task-best-control-inner-habit:focus {
+    transition: none;
+  }
 
   *:focus {
     outline: none;
+    transition: none;
     border: $purple-400 solid 1px;
 
     :not(task-best-control-inner-habit) { // round icon
@@ -493,6 +497,7 @@
   .task-clickable-area {
     padding: 7px 8px;
     padding-bottom: 0px;
+    border: transparent solid 1px;
 
     &-user {
       padding-right: 0px;
@@ -500,7 +505,7 @@
 
     &:focus {
       border-radius: 2px;
-      margin: -1px; // to counter the border width
+      border: $purple-400 solid 1px;
     }
 
     &:focus .task-notes:not(:empty) {
@@ -535,10 +540,12 @@
 
   .task ::v-deep .habitica-menu-dropdown:focus-within {
     opacity: 1;
-    outline: none;
     border: $purple-400 solid 1px;
     border-radius: 2px;
-    margin: -1px;
+  }
+
+  .task ::v-deep .habitica-menu-dropdown {
+    border: transparent solid 1px;
   }
 
   .task-clickable-area ::v-deep .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
@@ -558,7 +565,7 @@
   }
 
   .task-dropdown {
-    max-height: 16px;
+    max-height: 18px;
   }
 
   .task-dropdown ::v-deep .dropdown-menu {
@@ -583,7 +590,6 @@
 
       &:focus {
         border-radius: 2px;
-        margin: -1px;
       }
     }
   }
@@ -636,8 +642,10 @@
     line-height: 1.2;
     text-align: center;
     color: $gray-200;
+    border: transparent solid 1px;
 
-    &.open {
+    &:focus {
+      border: $purple-400 solid 1px;
     }
 
     span {
@@ -775,6 +783,11 @@
     transition-duration: 0.15s;
     transition-property: border-color, background, color;
     transition-timing-function: ease-in;
+    border: transparent solid 1px;
+
+    &:focus {
+      border: $purple-400 solid 1px;
+    }
   }
   .left-control {
     border-top-left-radius: 2px;
