@@ -109,11 +109,7 @@
 </style>
 
 <script>
-import markdownDirective from '@/directives/markdown';
-import styleHelper from '@/mixins/styleHelper';
 import { mapState } from '@/libs/store';
-import content from '@/../../common/script/content';
-import notifications from '@/mixins/notifications';
 
 import BasicDetails from './user-support/basicDetails';
 import ItemsOwned from './user-support/itemsOwned';
@@ -133,10 +129,6 @@ export default {
     PrivilegesAndGems,
     ContributorDetails,
   },
-  directives: {
-    markdown: markdownDirective,
-  },
-  mixins: [notifications, styleHelper],
   data () {
     return {
       resetCounter: 0,
@@ -145,7 +137,6 @@ export default {
       party: {},
       hasParty: false,
       partyNotExistError: false,
-      content,
     };
   },
   computed: {
