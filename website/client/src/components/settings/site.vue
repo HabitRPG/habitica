@@ -781,7 +781,7 @@ export default {
     openDayStartModal () {
       const nextCron = this.calculateNextCron();
       // @TODO: Add generic modal
-      if (!window.confirm(this.$t('sureChangeCustomDayStartTime', { time: nextCron }))) return;
+      if (!window.confirm(this.$t('sureChangeCustomDayStartTime', { time: nextCron }))) return; // eslint-disable-line no-alert
       this.saveDayStart();
       // $rootScope.openModal('change-day-start', { scope: $scope });
     },
@@ -807,12 +807,12 @@ export default {
         this.user.flags.verifiedUsername = true;
       } else if (attribute === 'email') {
         this.user.auth.local.email = updates.newEmail;
-        window.alert(this.$t('emailSuccess'));
+        window.alert(this.$t('emailSuccess')); // eslint-disable-line no-alert
       }
     },
     async changeDisplayName (newName) {
       await axios.put('/api/v4/user/', { 'profile.name': newName });
-      window.alert(this.$t('displayNameSuccess'));
+      window.alert(this.$t('displayNameSuccess')); // eslint-disable-line no-alert
       this.user.profile.name = newName;
       this.temporaryDisplayName = newName;
     },
@@ -844,17 +844,17 @@ export default {
       }
     },
     async changeClassForUser (confirmationNeeded) {
-      if (confirmationNeeded && !window.confirm(this.$t('changeClassConfirmCost'))) return;
+      if (confirmationNeeded && !window.confirm(this.$t('changeClassConfirmCost'))) return; // eslint-disable-line no-alert
       try {
         changeClass(this.user);
         await axios.post('/api/v4/user/change-class');
       } catch (e) {
-        window.alert(e.message);
+        window.alert(e.message); // eslint-disable-line no-alert
       }
     },
     async addLocalAuth () {
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
-      window.alert(this.$t('addedLocalAuth'));
+      window.alert(this.$t('addedLocalAuth')); // eslint-disable-line no-alert
     },
     restoreEmptyUsername () {
       if (this.usernameUpdates.username.length < 1) {

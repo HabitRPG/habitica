@@ -2155,5 +2155,7 @@
     "shieldArmoireLifeBuoyNotes": "Ow-Booy! Dit zal goed van pas komen wanneer je iemand kopje onder ziet gaan in een zee van taken en verantwoordelijkheden. Verhoogt Constitutie met <%= con %>. Betoverd Kabinet: Levenslijnset (Item 2 van 3).",
     "shieldArmoireLifeBuoyText": "Reddingsboei",
     "shieldArmoireFiddleNotes": "Een perfect instrument dat in elk gezelschap een vrolijke noot brengt. Verhoogt Intelligentie met <%= int %>. Betoverd Kabinet: Violisten Set (Item 4 van 4).",
-    "backMystery202001Text": "Vijf Fabelstaarten"
+    "backMystery202001Text": "Vijf Fabelstaarten",
+    "armorArmoireHeroicHerbalistRobeNotes": "Ruikt altijd prettig naar allerlei kruiden. Verhoogt Weerbaarheid en Intelligentie met <%= attrs %>. Betoverde Kabinet: Heldhaftige Kruidkundige Set (Voorwerp 1 van 3).",
+    "armorArmoireHeroicHerbalistRobeText": "Heldhaftig Kruidkundig Gewaad"
 }

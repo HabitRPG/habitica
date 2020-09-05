@@ -12,7 +12,7 @@
 }
 .promo_golden_achievements {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -295px -383px;
+  background-position: -419px -540px;
   width: 246px;
   height: 112px;
 }
@@ -21,6 +21,12 @@
   background-position: 0px -383px;
   width: 294px;
   height: 156px;
+}
+.promo_mystery_202009 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -295px -383px;
+  width: 282px;
+  height: 147px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
@@ -40,6 +46,12 @@
   width: 141px;
   height: 167px;
 }
+.scene_achievement {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -540px;
+  width: 210px;
+  height: 210px;
+}
 .scene_public_space {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -187px;
@@ -48,13 +60,13 @@
 }
 .scene_reading {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -208px -540px;
+  background-position: -578px -383px;
   width: 171px;
   height: 144px;
 }
 .scene_rewards {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -540px;
+  background-position: -211px -540px;
   width: 207px;
   height: 180px;
 }

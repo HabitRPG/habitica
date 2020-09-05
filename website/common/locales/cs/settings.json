@@ -135,7 +135,7 @@
     "unsubscribedTextOthers": "Již nedostaneš ze země Habitica žádný další email.",
     "unsubscribeAllEmails": "Zaškrtni, aby ses odhlásil z emailů",
     "unsubscribeAllEmailsText": "Zaškrtnutím toho políčka potvrzuji, že rozumím tomu, že kvůli odhlášení se z emailů mě nebude moci nikdy nikdo kontaktovat emailem o důležitých změnách na stránce nebo v mém účtu ze země Habitica.",
-    "unsubscribeAllPush": "Check to Unsubscribe from all Push Notifications",
+    "unsubscribeAllPush": "Zaškrtni pro odhlášení všech notifikací typu push",
     "correctlyUnsubscribedEmailType": "Úspěšně ses odhlásil z \"<%= emailType %>\" emailů.",
     "subscriptionRateText": "Opakovaně <strong>$<%= price %> USD</strong> každý/é <%= months %> měsíc(e)",
     "recurringText": "opakující se",

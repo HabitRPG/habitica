@@ -77,5 +77,11 @@
     "achievementBugBonanzaText": "'as kermpleted Beetle, Butterfly, Snail, an' Spidey pet quests.",
     "achievementBugBonanza": "Crawly Catcher",
     "yourProgress": "Yer Progress",
-    "onboardingComplete": "Ye've kermplet'd yer onboardin' tasks!"
+    "onboardingComplete": "Ye've kermplet'd yer onboardin' tasks!",
+    "achievementAllThatGlittersModalText": "Ye've tamed all th' Golden Steeds!",
+    "achievementAllThatGlittersText": "'As tamed all yon Golden Steeds.",
+    "achievementAllThatGlitters": "All That be Glitterin'",
+    "achievementGoodAsGoldModalText": "Ye've collected all th' Golden Critters!",
+    "achievementGoodAsGoldText": "'as collected all Golden Critters.",
+    "onboardingCompleteDescSmall": "Iffen ye be wantin' e'en more, check out yon Medals an' start kerllectin'!"
 }

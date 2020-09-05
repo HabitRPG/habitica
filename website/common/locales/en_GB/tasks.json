@@ -216,5 +216,6 @@
     "deleteTaskType": "Delete this <%= type %>",
     "pressEnterToAddTag": "Press Enter to add tag: '<%= tagName %>'",
     "enterTag": "Enter a tag",
-    "addTags": "Add tags..."
+    "addTags": "Add tags...",
+    "tomorrow": "Tomorrow"
 }

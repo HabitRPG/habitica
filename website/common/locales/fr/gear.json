@@ -2155,5 +2155,11 @@
     "backSpecialNamingDay2020Notes": "Joyeuse fête du nommage ! Faites tournoyer cette queue de feu et de pixels alors que vous célébrez Habitica. Ne confère aucun bonus.",
     "backSpecialNamingDay2020Text": "Queue de griffon pourpre royal",
     "headMystery202008Notes": "Où ? Où ? Où vous trouveront toutes les personnes qui ont besoin de vos conseils ! ? Ne confère aucun bonus. Équipement d'abonnement d'août 2020.",
-    "headMystery202008Text": "Coiffe d'oracle du hibou"
+    "headMystery202008Text": "Coiffe d'oracle du hibou",
+    "shieldArmoireMortarAndPestleNotes": "L'équipement le plus important de l'arsenal d'herboristerie ! Réduisez vos ingrédients en poudre pour vos concoctions, et mettez-y du votre ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble d'herboristerie héroïque (objet 2 de 3).",
+    "shieldArmoireMortarAndPestleText": "Mortier et pilon",
+    "headArmoireHeroicHerbalistCrispinetteNotes": "Cette coiffure pratique vous aidera à ne pas vous laisser décoiffer... Cela ne fait pas de mal qu'elle ajoute aussi au mystère. Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble d'herboristerie héroïque (objet 3 de 3).",
+    "headArmoireHeroicHerbalistCrispinetteText": "Crispinette d'herboristerie héroïque",
+    "armorArmoireHeroicHerbalistRobeNotes": "Sent toujours délicieusement toutes sortes d'herbes. Augmente la constitution et l'intelligence de <%= attrs %> chacune. Armoire enchantée : ensemble d'herboristerie héroïque (objet 1 de 3).",
+    "armorArmoireHeroicHerbalistRobeText": "Robe d'herboristerie héroïque"
 }

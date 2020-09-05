@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Non è possibile usare abilità sulle attività delle sfide.",
     "groupTasksNoCast": "Non è possibile usare abilità sulle attività di gruppo.",
     "spellNotOwned": "Non possiedi questa abilità.",
-    "spellLevelTooHigh": "Devi raggiungere il livello <%= level %> per usare questa abilità."
+    "spellLevelTooHigh": "Devi raggiungere il livello <%= level %> per usare questa abilità.",
+    "spellAlreadyCast": "Hai già lanciato questa abilità. Non avrà alcun effetto aggiuntivo."
 }

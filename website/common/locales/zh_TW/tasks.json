@@ -216,5 +216,6 @@
     "deleteTaskType": "刪除<%= type %>",
     "pressEnterToAddTag": "按“Enter”添加標籤：'<%= tagName %>'",
     "enterTag": "輸入標籤",
-    "addTags": "添加標籤..."
+    "addTags": "添加標籤...",
+    "tomorrow": "明天"
 }

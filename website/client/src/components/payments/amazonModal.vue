@@ -122,7 +122,7 @@ export default {
             this.amazonPayments.orderReferenceId = response.data.data.orderReferenceId;
             this.amazonInitWidgets();
           } else {
-            window.alert(response.message);
+            window.alert(response.message); // eslint-disable-line no-alert
           }
         }
       });

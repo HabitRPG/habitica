@@ -33,10 +33,13 @@ describe('Stripe - Upgrade Group Plan', () => {
     group = generateGroup({
       name: 'test group',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     await group.save();
+
+    user.guilds.push(group._id);
+    await user.save();
 
     spy = sinon.stub(stripe.subscriptions, 'update');
     spy.resolves([]);

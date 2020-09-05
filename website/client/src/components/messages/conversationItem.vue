@@ -73,19 +73,16 @@ export default {
   components: {
     userLabel,
   },
+  filters: {
+    timeAgo (value) {
+      return moment(value).fromNow();
+    },
+  },
   props: [
     'activeKey', 'uuid', 'backer', 'displayName',
     'username', 'contributor', 'lastMessageText',
     'lastMessageDate',
   ],
-  computed: {
-    ...mapState({
-      userLoggedIn: 'user.data',
-    }),
-    isBlocked () {
-      return this.userLoggedIn.inbox.blocks.includes(this.uuid);
-    },
-  },
   data () {
     return {
       icons: Object.freeze({
@@ -94,9 +91,12 @@ export default {
       }),
     };
   },
-  filters: {
-    timeAgo (value) {
-      return moment(value).fromNow();
+  computed: {
+    ...mapState({
+      userLoggedIn: 'user.data',
+    }),
+    isBlocked () {
+      return this.userLoggedIn.inbox.blocks.includes(this.uuid);
     },
   },
   methods: {

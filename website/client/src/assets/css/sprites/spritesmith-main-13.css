@@ -1,6 +1,18 @@
+.Pet_Currency_Gem {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
+  background-position: -1913px -902px;
+  width: 68px;
+  height: 68px;
+}
+.Pet_Currency_Gem1x {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
+  background-position: -1992px -592px;
+  width: 15px;
+  height: 13px;
+}
 .Pet_Currency_Gem2x {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1931px -1025px;
+  background-position: -1902px -1211px;
   width: 30px;
   height: 26px;
 }
@@ -12,25 +24,49 @@
 }
 .PixelPaw {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1913px -854px;
+  background-position: -1913px -1040px;
   width: 51px;
   height: 51px;
 }
 .PixelPaw002 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1905px -923px;
+  background-position: -1905px -1109px;
   width: 51px;
   height: 51px;
 }
-.pet_key {
+.inventory_special_thankyou {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
   background-position: -1929px -642px;
   width: 68px;
   height: 68px;
 }
-.rebirth_orb {
+.inventory_special_trinket {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
   background-position: -1935px -763px;
+  width: 68px;
+  height: 68px;
+}
+.inventory_special_valentine {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
+  background-position: -1844px -902px;
+  width: 68px;
+  height: 68px;
+}
+.knockout {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
+  background-position: -1844px -854px;
+  width: 120px;
+  height: 47px;
+}
+.pet_key {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
+  background-position: -1844px -971px;
+  width: 68px;
+  height: 68px;
+}
+.rebirth_orb {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
+  background-position: -1913px -971px;
   width: 68px;
   height: 68px;
 }
@@ -42,7 +78,7 @@
 }
 .shop_armoire {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1844px -854px;
+  background-position: -1844px -1040px;
   width: 68px;
   height: 68px;
 }
@@ -78,61 +114,61 @@
 }
 .notif_inventory_present_04 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1957px -923px;
+  background-position: -1965px -1040px;
   width: 28px;
   height: 28px;
 }
 .notif_inventory_present_05 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1844px -996px;
+  background-position: -1957px -1109px;
   width: 28px;
   height: 28px;
 }
 .notif_inventory_present_06 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1873px -996px;
+  background-position: -1844px -1182px;
   width: 28px;
   height: 28px;
 }
 .notif_inventory_present_07 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1902px -996px;
+  background-position: -1873px -1182px;
   width: 28px;
   height: 28px;
 }
 .notif_inventory_present_08 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1931px -996px;
+  background-position: -1902px -1182px;
   width: 28px;
   height: 28px;
 }
 .notif_inventory_present_09 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1960px -996px;
+  background-position: -1931px -1182px;
   width: 28px;
   height: 28px;
 }
 .notif_inventory_present_10 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1844px -1025px;
+  background-position: -1960px -1182px;
   width: 28px;
   height: 28px;
 }
 .notif_inventory_present_11 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1873px -1025px;
+  background-position: -1844px -1211px;
   width: 28px;
   height: 28px;
 }
 .notif_inventory_present_12 {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1902px -1025px;
+  background-position: -1873px -1211px;
   width: 28px;
   height: 28px;
 }
 .notif_inventory_special_birthday {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1989px -996px;
+  background-position: -1982px -971px;
   width: 20px;
   height: 24px;
 }
@@ -144,43 +180,43 @@
 }
 .notif_inventory_special_getwell {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1965px -883px;
+  background-position: -1965px -1069px;
   width: 20px;
   height: 22px;
 }
 .notif_inventory_special_goodluck {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1986px -923px;
+  background-position: -1982px -929px;
   width: 20px;
   height: 26px;
 }
 .notif_inventory_special_greeting {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1986px -883px;
+  background-position: -1986px -1069px;
   width: 20px;
   height: 22px;
 }
 .notif_inventory_special_nye {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1962px -1025px;
+  background-position: -1982px -902px;
   width: 24px;
   height: 26px;
 }
 .notif_inventory_special_thankyou {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1987px -1025px;
+  background-position: -1982px -996px;
   width: 20px;
   height: 24px;
 }
 .notif_inventory_special_valentine {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1844px -1054px;
+  background-position: -1986px -1109px;
   width: 20px;
   height: 24px;
 }
 .npc_bailey {
   background-image: url('~@/assets/images/sprites/spritesmith-main-13.png');
-  background-position: -1844px -923px;
+  background-position: -1844px -1109px;
   width: 60px;
   height: 72px;
 }

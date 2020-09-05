@@ -29,7 +29,7 @@ import {
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
-import {
+import { // eslint-disable-line import/no-cycle
   syncableAttrs,
 } from '../libs/taskManager';
 import {

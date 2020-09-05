@@ -148,7 +148,7 @@ export default {
       this.$router.push('/challenges/myChallenges');
     },
     async deleteChallenge () {
-      if (!window.confirm(this.$t('sureDelCha'))) return;
+      if (!window.confirm(this.$t('sureDelCha'))) return; // eslint-disable-line no-alert
       this.challenge = await this.$store.dispatch('challenges:deleteChallenge', {
         challengeId: this.challengeId,
         prize: this.prize,

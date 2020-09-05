@@ -72,7 +72,7 @@
     "achievementTickledPink": "Cócegas rosa",
     "foundNewItemsCTA": "Vá para o seu Inventário e tente combinar sua nova poção de eclosão com algum ovo!",
     "foundNewItemsExplanation": "A conclusão de tarefas oferece a chance de encontrar itens, como ovos, poções de eclosão e comida para mascotes.",
-    "foundNewItems": "Você encontrou todos os novos itens!",
+    "foundNewItems": "Você encontrou novos itens!",
     "achievementBugBonanzaModalText": "Você completou as missões dos mascotes Besouro, Borboleta, Caracol e Aranha!",
     "achievementBugBonanzaText": "Completou as missões dos mascotes Besouro, Borboleta, Caracol e Aranha.",
     "achievementBugBonanza": "Inseto próspero",
@@ -90,5 +90,6 @@
     "achievementAllThatGlitters": "Tudo que Reluz",
     "achievementGoodAsGoldModalText": "Você coletou todos os Mascotes Dourados!",
     "achievementGoodAsGoldText": "Coletou todos os mascotes Dourados.",
-    "achievementGoodAsGold": "Só o Ouro"
+    "achievementGoodAsGold": "Só o Ouro",
+    "yourRewards": "Suas Recompensas"
 }

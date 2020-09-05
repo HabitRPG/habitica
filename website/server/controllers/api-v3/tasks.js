@@ -3,14 +3,11 @@ import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   taskActivityWebhook,
-  taskScoredWebhook,
 } from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
-import { handleSharedCompletion } from '../../libs/groupTasks';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
-import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
@@ -21,9 +18,9 @@ import {
   getTasks,
   moveTask,
   setNextDue,
+  scoreTasks,
 } from '../../libs/taskManager';
 import common from '../../../common';
-import logger from '../../libs/logger';
 import apiError from '../../libs/apiError';
 
 // @TODO abstract, see api-v3/tasks/groups.js
@@ -736,9 +733,10 @@ api.updateTask = {
  *
  * @apiSuccess {Object} data The user stats
  * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
- * @apiSuccess (202) {Boolean} data.approvalRequested Approval was requested for team task
- * @apiSuccess (202) {String} message Acknowledgment of team task approval request
  * @apiSuccess {Number} data.delta The delta
+ *
+ * @apiSuccess (202) {Boolean} data.requiresApproval Approval was requested for team task
+ * @apiSuccess (202) {String} message Acknowledgment of team task approval request
  *
  * @apiSuccessExample {json} Example result:
  * {"success":true,"data":{"delta":0.9746999906450404,"_tmp":{},"hp":49.06645205596985,
@@ -766,188 +764,24 @@ api.scoreTask = {
   url: '/tasks/:taskId/score/:direction',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
-
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    // Parameters are validated in scoreTasks
 
     const { user } = res.locals;
-    const { taskId } = req.params;
+    const { taskId, direction } = req.params;
+    const [taskResponse] = await scoreTasks(user, [{ id: taskId, direction }], req, res);
 
-    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
-    const { direction } = req.params;
+    const userStats = user.stats.toJSON();
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    // group tasks that require a manager's approval
+    if (taskResponse.requiresApproval === true) {
+      res.respond(202, { requiresApproval: true }, taskResponse.message);
+    } else {
+      const resJsonData = _.assign({
+        delta: taskResponse.delta,
+        _tmp: user._tmp,
+      }, userStats);
 
-    if (task.type === 'daily' || task.type === 'todo') {
-      if (task.completed && direction === 'up') {
-        throw new NotAuthorized(res.t('sessionOutdated'));
-      } else if (!task.completed && direction === 'down') {
-        throw new NotAuthorized(res.t('sessionOutdated'));
-      }
-    }
-
-    if (task.group.approval.required && !task.group.approval.approved) {
-      const fields = requiredGroupFields.concat(' managers');
-      const group = await Group.getGroup({ user, groupId: task.group.id, fields });
-
-      const managerIds = Object.keys(group.managers);
-      managerIds.push(group.leader);
-
-      if (managerIds.indexOf(user._id) !== -1) {
-        task.group.approval.approved = true;
-        task.group.approval.requested = true;
-        task.group.approval.requestedDate = new Date();
-      } else {
-        if (task.group.approval.requested) {
-          throw new NotAuthorized(res.t('taskRequiresApproval'));
-        }
-
-        task.group.approval.requested = true;
-        task.group.approval.requestedDate = new Date();
-
-        const managers = await User.find({ _id: managerIds }, 'notifications preferences').exec(); // Use this method so we can get access to notifications
-
-        // @TODO: we can use the User.pushNotification function because
-        // we need to ensure notifications are translated
-        const managerPromises = [];
-        managers.forEach(manager => {
-          manager.addNotification('GROUP_TASK_APPROVAL', {
-            message: res.t('userHasRequestedTaskApproval', {
-              user: user.profile.name,
-              taskName: task.text,
-            }, manager.preferences.language),
-            groupId: group._id,
-            // user task id, used to match the notification when the task is approved
-            taskId: task._id,
-            userId: user._id,
-            groupTaskId: task.group.taskId, // the original task id
-            direction,
-          });
-          managerPromises.push(manager.save());
-        });
-
-        managerPromises.push(task.save());
-        await Promise.all(managerPromises);
-
-        res.respond(
-          202,
-          { approvalRequested: true },
-          res.t('taskApprovalHasBeenRequested'),
-        );
-        return;
-      }
-    }
-
-    if (task.group.approval.required && task.group.approval.approved) {
-      const notificationIndex = user.notifications.findIndex(notification => notification
-         && notification.data && notification.data.task
-         && notification.data.task._id === task._id && notification.type === 'GROUP_TASK_APPROVED');
-
-      if (notificationIndex !== -1) {
-        user.notifications.splice(notificationIndex, 1);
-      }
-    }
-
-    const wasCompleted = task.completed;
-
-    const firstTask = !user.achievements.completedTask;
-    const [delta] = common.ops.scoreTask({ task, user, direction }, req, res.analytics);
-    // Drop system (don't run on the client,
-    // as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up' && !firstTask) common.fns.randomDrop(user, { task, delta }, req, res.analytics);
-
-    // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
-    // TODO move to common code?
-    let taskOrderPromise;
-    if (task.type === 'todo') {
-      if (!wasCompleted && task.completed) {
-        // @TODO: mongoose's push and pull should be atomic and help with
-        // our concurrency issues. If not, we need to use this update $pull and $push
-        taskOrderPromise = user.update({
-          $pull: { 'tasksOrder.todos': task._id },
-        }).exec();
-        // user.tasksOrder.todos.pull(task._id);
-      } else if (
-        wasCompleted
-        && !task.completed
-        && user.tasksOrder.todos.indexOf(task._id) === -1
-      ) {
-        taskOrderPromise = user.update({
-          $push: { 'tasksOrder.todos': task._id },
-        }).exec();
-        // user.tasksOrder.todos.push(task._id);
-      }
-    }
-
-    setNextDue(task, user);
-
-    const promises = [
-      user.save(),
-      task.save(),
-    ];
-
-    if (task.group && task.group.taskId) {
-      await handleSharedCompletion(task);
-      try {
-        const groupTask = await Tasks.Task.findOne({
-          _id: task.group.taskId,
-        }).exec();
-
-        if (groupTask) {
-          const groupDelta = groupTask.group.assignedUsers
-            ? delta / groupTask.group.assignedUsers.length
-            : delta;
-          await groupTask.scoreChallengeTask(groupDelta, direction);
-        }
-      } catch (e) {
-        logger.error(e);
-      }
-    }
-
-    // Save results and handle request
-    if (taskOrderPromise) promises.push(taskOrderPromise);
-    const results = await Promise.all(promises);
-
-    const savedUser = results[0];
-
-    const userStats = savedUser.stats.toJSON();
-    const resJsonData = _.assign({ delta, _tmp: user._tmp }, userStats);
-    res.respond(200, resJsonData);
-
-    taskScoredWebhook.send(user, {
-      task,
-      direction,
-      delta,
-      user,
-    });
-
-    if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
-      // Wrapping everything in a try/catch block because if an error occurs
-      // using `await` it MUST NOT bubble up because the request has already been handled
-      try {
-        const chalTask = await Tasks.Task.findOne({
-          _id: task.challenge.taskId,
-        }).exec();
-
-        if (!chalTask) return;
-
-        await chalTask.scoreChallengeTask(delta, direction);
-      } catch (e) {
-        logger.error(e);
-      }
-    }
-
-    // Track when new users (first 7 days) score tasks
-    if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
-      res.analytics.track('task score', {
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        taskType: task.type,
-        direction,
-        headers: req.headers,
-      });
+      res.respond(200, resJsonData);
     }
   },
 };

@@ -216,5 +216,6 @@
     "deleteTaskType": "<%= type %>を削除する",
     "pressEnterToAddTag": "Enterキーでタグを追加：'<%= tagName %>'",
     "enterTag": "タグを入力してください",
-    "addTags": "タグを追加…"
+    "addTags": "タグを追加…",
+    "tomorrow": "明日"
 }

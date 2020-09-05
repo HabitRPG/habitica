@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "不允许在挑战任务上使用技能。",
     "groupTasksNoCast": "不允许在小组任务上使用技能。",
     "spellNotOwned": "你没有拥有这个技能。",
-    "spellLevelTooHigh": "等级<%= level %>才能使用这个技能。"
+    "spellLevelTooHigh": "等级<%= level %>才能使用这个技能。",
+    "spellAlreadyCast": "你已经释放了该技能。无法得到更多加成。"
 }
