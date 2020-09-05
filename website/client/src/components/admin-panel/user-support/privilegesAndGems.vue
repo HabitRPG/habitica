@@ -12,7 +12,7 @@
         v-if="errorsOrWarningsExist"
         class="errorMessage"
       >
-        Player has had privilege(s) removed.
+        Player has had privileges removed or has moderation notes.
       </p>
 
       <form @submit.prevent="saveHero({hero, msg: 'Privileges or Gems'})">
@@ -62,6 +62,19 @@
             </small>
           </span>
         </div>
+        <div class="form-group">
+          <label>Moderation Notes</label>
+          <textarea
+            v-model="hero.secret.text"
+            class="form-control"
+            cols="5"
+            rows="5"
+          ></textarea>
+          <div
+            v-markdown="hero.secret.text"
+            class="markdownPreview"
+          ></div>
+        </div>
         <input
           type="submit"
           value="Save"
@@ -73,18 +86,23 @@
 </template>
 
 <script>
+import markdownDirective from '@/directives/markdown';
 import saveHero from '../mixins/saveHero';
 
 function resetData (self) {
   self.errorsOrWarningsExist = false;
   self.expand = false;
-  if (self.hero.flags.chatRevoked || self.hero.flags.chatShadowMuted || self.hero.auth.blocked) {
+  if (self.hero.flags.chatRevoked || self.hero.flags.chatShadowMuted || self.hero.auth.blocked
+      || self.hero.secret.text) {
     self.errorsOrWarningsExist = true;
     self.expand = true;
   }
 }
 
 export default {
+  directives: {
+    markdown: markdownDirective,
+  },
   mixins: [
     saveHero,
   ],

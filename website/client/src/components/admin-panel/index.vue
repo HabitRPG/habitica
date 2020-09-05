@@ -106,6 +106,10 @@
   .errorMessage {
     font-weight: bold;
   }
+  .markdownPreview {
+    margin-left: 3em;
+    margin-top: 1em;
+  }
 </style>
 
 <script>

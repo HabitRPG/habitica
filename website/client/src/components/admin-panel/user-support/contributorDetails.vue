@@ -70,7 +70,7 @@
           ></textarea>
           <div
             v-markdown="hero.contributor.contributions"
-            class="markdowPreview"
+            class="markdownPreview"
           ></div>
         </div>
         <input
@@ -82,13 +82,6 @@
     </div>
   </div>
 </template>
-
-<style>
-  .markdowPreview {
-    margin-left: 3em;
-    margin-top: 1em;
-  }
-</style>
 
 <script>
 import markdownDirective from '@/directives/markdown';
