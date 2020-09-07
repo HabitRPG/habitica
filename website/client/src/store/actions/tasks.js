@@ -1,8 +1,8 @@
 import axios from 'axios';
+import Vue from 'vue';
 import compact from 'lodash/compact';
 import omit from 'lodash/omit';
 import { loadAsyncResource } from '@/libs/asyncResource';
-import { shouldDo } from '@/../../common/script/cron';
 
 export function fetchUserTasks (store, options = {}) {
   return loadAsyncResource({
@@ -85,14 +85,8 @@ function sanitizeChecklist (task) {
   }
 }
 
-function updateIsDue (store, task, isUserTask) {
-  if (isUserTask) {
-    task.isDue = shouldDo(new Date(), task, store.state.user.data.preferences);
-  }
-}
-
 // Supply an array to create multiple tasks
-export async function create (store, createdTask, isUserTask) {
+export async function create (store, createdTask) {
   // Treat all create actions as if we are adding multiple tasks
   const payload = Array.isArray(createdTask) ? createdTask : [createdTask];
 
@@ -101,7 +95,6 @@ export async function create (store, createdTask, isUserTask) {
     const list = store.state.tasks.data[type];
 
     sanitizeChecklist(t);
-    updateIsDue(store, t, isUserTask);
 
     list.unshift(t);
     store.state.user.data.tasksOrder[type].unshift(t._id);
@@ -114,29 +107,23 @@ export async function create (store, createdTask, isUserTask) {
     const tasksArr = store.state.tasks.data[`${taskRes.type}s`];
     const taskDataIndex = tasksArr.findIndex(t => t._id === taskRes._id);
     if (taskDataIndex !== -1) {
-      tasksArr[taskDataIndex] = { ...tasksArr[taskDataIndex], ...taskRes };
+      Vue.set(tasksArr, taskDataIndex, { ...tasksArr[taskDataIndex], ...taskRes });
     }
   });
 }
 
-export async function save (store, editedTask, isUserTask) {
+export async function save (store, editedTask) {
   const taskId = editedTask._id;
   const { type } = editedTask;
-  const tasksArr = store.state.tasks.data[`${type}s`];
-  const originalTaskIndex = tasksArr.findIndex(t => t._id === taskId);
+  const originalTask = store.state.tasks.data[`${type}s`].find(t => t._id === taskId);
 
   sanitizeChecklist(editedTask);
-  updateIsDue(store, editedTask, isUserTask);
 
-  if (originalTaskIndex !== -1) {
-    tasksArr[originalTaskIndex] = { ...tasksArr[originalTaskIndex], ...editedTask };
-  }
+  if (originalTask) Object.assign(originalTask, editedTask);
 
   const taskDataToSend = omit(editedTask, ['history']);
   const response = await axios.put(`/api/v4/tasks/${taskId}`, taskDataToSend);
-  if (originalTaskIndex !== -1) {
-    tasksArr[originalTaskIndex] = { ...tasksArr[originalTaskIndex], ...response.data.data };
-  }
+  if (originalTask) Object.assign(originalTask, response.data.data);
 }
 
 export async function score (store, { taskId, direction }) {
