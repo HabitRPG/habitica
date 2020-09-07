@@ -38,7 +38,7 @@
     "gulp.spritesmith": "^6.9.0",
     "habitica-markdown": "^3.0.0",
     "helmet": "^3.23.3",
-    "image-size": "^0.8.3",
+    "image-size": "^0.9.1",
     "in-app-purchase": "^1.11.3",
     "js2xmlparser": "^4.0.1",
     "jsonwebtoken": "^8.5.1",
