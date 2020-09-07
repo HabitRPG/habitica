@@ -129,7 +129,14 @@ function collateItemData (self) {
       basePath = 'items.gear.owned';
       ownedItems = self.hero.items.gear.owned || {};
       allItems = content.gear.flat;
+    } else if (itemType === 'pets' || itemType === 'mounts') {
+      // add the non-Standard pets and mounts
+      const ucItemType = (itemType === 'pets') ? 'Pets' : 'Mounts';
+      self.petMountSubTypes.forEach(subType => {
+        allItems = { ...allItems, ...content[subType + ucItemType] };
+      });
     }
+
     const itemData = []; // all items for this itemType
 
     // Collate data for items that the user owns or used to own:
@@ -225,6 +232,7 @@ export default {
       },
       itemTypes: ['eggs', 'hatchingPotions', 'food', 'pets', 'mounts', 'quests', 'gear', 'special'],
       nonIntegerTypes: ['mounts', 'gear'],
+      petMountSubTypes: ['premium', 'quest', 'special', 'wacky'], // e.g., 'premiumPets'
       // items.special includes many things but we are interested in these only:
       specialItems: ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'],
       collatedItemData: {},
