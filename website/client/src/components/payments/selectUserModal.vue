@@ -67,7 +67,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/modal.scss';
+  @import '~@/assets/scss/mixins.scss';
 
   #select-user-modal {
     @include centeredModal();
