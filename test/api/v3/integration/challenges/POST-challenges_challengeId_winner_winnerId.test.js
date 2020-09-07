@@ -159,7 +159,7 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
 
       expect(testTask.challenge.broken).to.eql('CHALLENGE_CLOSED');
       expect(testTask.challenge.winner).to.eql(winningUser.profile.name);
-      expect(challengeTag.challenge).to.eql('false');
+      expect(challengeTag.challenge).to.eql(false);
     });
   });
 });
