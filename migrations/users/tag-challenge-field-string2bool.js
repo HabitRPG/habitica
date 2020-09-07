@@ -23,7 +23,7 @@ export default async function processUsers () {
     const users = await User.find(query)
       .sort({ _id: 1 })
       .limit(250)
-      .select({ _id: 1 })
+      .select({ _id: 1, tags: 1 })
       .lean()
       .exec();
 
@@ -41,43 +41,33 @@ export default async function processUsers () {
   }
 }
 
-/*
-db.users.update({ "auth.local.username": "satou2"}, { $set: { "tags.7.challenge": "true" }})
-db.users.updateOne({
-  _id: 'bd95ca4c-8db2-4e8d-8492-b83746b90993'
-}, {
-  $set: {
-      'tags.$[element].challenge': true,
-    }
-}, {
-  arrayFilters: [{ 'element.challenge': 'true' }]
-})
-*/
 async function updateUser (user) {
-  console.log('updateUser');
   count += 1;
-
-  const query = {
-    _id: user._id,
-  };
-
-  const update = {
-    $set: {
-      'tags.$[element].challenge': true,
-    },
-  };
-
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
+  let requiresUpdate = false;
 
-  return User.bulkWrite(
-    [
-      {
-        updateOne: {
-          filter: query,
-          update,
-          arrayFilters: [{ 'element.challenge': 'true' }],
-        },
-      },
-    ],
-  );
+  if (user && user.tags) {
+    user.tags.forEach(tag => {
+      if (tag && typeof tag.challenge === 'string') {
+        requiresUpdate = true;
+        if (tag.challenge === 'true') {
+          tag.challenge = true;
+        } else if (tag.challenge === 'false') {
+          tag.challenge = false;
+        } else {
+          tag.challenge = null;
+        }
+      }
+    });
+  }
+
+  if (requiresUpdate) {
+    const set = {
+      migration: MIGRATION_NAME,
+      tags: user.tags,
+    };
+    return User.update({ _id: user._id }, { $set: set }).exec();
+  }
+
+  return null;
 }
