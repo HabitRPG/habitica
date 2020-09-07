@@ -216,5 +216,6 @@
     "deleteTaskType": "Xóa <%= type %> này",
     "pressEnterToAddTag": "Nhấn Enter để thêm thẻ: '<%= tagName %>'",
     "enterTag": "Nhập một thẻ",
-    "addTags": "Thêm thẻ..."
+    "addTags": "Thêm thẻ...",
+    "tomorrow": "Ngày mai"
 }

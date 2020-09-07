@@ -80,7 +80,7 @@ export default {
         return;
       }
 
-      if (!window.confirm(this.$t('confirmNeedsWork'))) return;
+      if (!window.confirm(this.$t('confirmNeedsWork'))) return; // eslint-disable-line no-alert
 
       await this.$store.dispatch('tasks:needsWork', {
         taskId: this.notification.data.groupTaskId,

@@ -216,5 +216,6 @@
     "addATitle": "Aggiungi un titolo",
     "pressEnterToAddTag": "Premi invio per aggiungere l'etichetta: '<%= tagName %>'",
     "enterTag": "Aggiungi una etichetta",
-    "addTags": "Aggiungi etichette..."
+    "addTags": "Aggiungi etichette...",
+    "tomorrow": "Domani"
 }

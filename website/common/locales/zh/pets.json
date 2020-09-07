@@ -64,7 +64,7 @@
     "stableMountMasterProgress": "坐骑大师进度：<%= number %>坐骑已驯服",
     "mountAchievement": "由于你驯养了所有坐骑，你获得了“坐骑大师”成就！",
     "mountMasterName": "坐骑大师",
-    "mountMasterText": "你驯养了90只坐骑（比变态困难还要困难的困难！恭喜这位冒险者！）",
+    "mountMasterText": "已驯服90只坐骑（比变态困难还要困难的困难！恭喜这位冒险者！）",
     "mountMasterText2": " 并且释放了全部90只坐骑共<%= count %> 次",
     "beastMountMasterName": "驯兽师和坐骑大师",
     "triadBingoName": "三全大师称号",

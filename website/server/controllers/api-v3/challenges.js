@@ -371,10 +371,7 @@ api.getUserChallenges = {
       { _id: { $in: user.challenges } }, // Challenges where the user is participating
     ];
 
-    const { owned } = req.query;
-    if (!owned) {
-      orOptions.push({ leader: user._id });
-    }
+    orOptions.push({ leader: user._id });
 
     if (!req.query.member) {
       orOptions.push({
@@ -386,6 +383,7 @@ api.getUserChallenges = {
       $and: [{ $or: orOptions }],
     };
 
+    const { owned } = req.query;
     if (owned) {
       if (owned === 'not_owned') {
         query.$and.push({ leader: { $ne: user._id } });

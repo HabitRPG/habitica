@@ -607,14 +607,14 @@ export default {
         groupId: this.groupId,
         memberId,
       });
-      window.alert(this.$t('managerAdded'));
+      window.alert(this.$t('managerAdded')); // eslint-disable-line no-alert
     },
     async removeManager (memberId) {
       await this.$store.dispatch('guilds:removeManager', {
         groupId: this.groupId,
         memberId,
       });
-      window.alert(this.$t('managerRemoved'));
+      window.alert(this.$t('managerRemoved')); // eslint-disable-line no-alert
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'members-modal');
@@ -672,7 +672,7 @@ export default {
       groupData.leader = member._id;
       await this.$store.dispatch('guilds:update', { group: groupData });
 
-      window.alert(this.$t('leaderChanged'));
+      window.alert(this.$t('leaderChanged')); // eslint-disable-line no-alert
 
       groupData.leader = member;
       this.$root.$emit('updatedGroup', groupData);
