@@ -73,7 +73,7 @@
           <ul>
             <li>
               <a
-                target="_blanck"
+                target="_blank"
                 href="/static/community-guidelines"
               >{{ $t('communityGuidelines') }}</a>
             </li>
