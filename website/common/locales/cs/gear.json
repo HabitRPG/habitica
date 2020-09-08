@@ -1925,5 +1925,12 @@
     "armorArmoireHeroicHerbalistRobeNotes": "Vždy voní příjemně po rozmanitých bylinkách. Zvyšuje obranu a inteligenci o <%= attrs %>. Začarovaná truhla: sada odvážného bylinkáře (předmět 1 ze 3).",
     "armorSpecialFall2019RogueNotes": "Tento outfit je zakončen bílými rukavicemi a je ideální na plánování ve tvé soukromé lóži nebo na překvapivé výstupy po schodišti. Zvyšuje vnímání o <%= per %>. Limitovaná edice 2019 podzimní výzbroj.",
     "armorSpecialSummer2019HealerNotes": "Pluj pohodlně skrze pobřežní vody s tímto elegantním ocasem. Zvyšuje obranu o <%= con %>. Limitovaná edice 2019 letní výzbroj.",
-    "armorSpecialKS2019Notes": "Září zevnitř jako ušlechtilé srdce gryfona, toto skvělé brnění tě nadchne a budeš se moci chlubit svými úspěchy. Zvyšuje obranu o <%= con %>."
+    "armorSpecialKS2019Notes": "Září zevnitř jako ušlechtilé srdce gryfona, toto skvělé brnění tě nadchne a budeš se moci chlubit svými úspěchy. Zvyšuje obranu o <%= con %>.",
+    "armorMystery202007Notes": "Plav, skákej, potápěj se a závoď s tímto nádherným a silným ocasem! Nepřináší žádné výhody. Červenec 2020 předmět pro předplatitele.",
+    "armorMystery202007Text": "Neuvěřitelný velrybí kostým",
+    "armorMystery202006Text": "Pestrobarevné ocasy mořských pannen",
+    "armorMystery201910Notes": "Toto tajuplné brnění tě ochrání před viditelnými i neviditelnými děsy. Nepřináší žádné výhody. Říjen 2019 předmět pro předplatitele.",
+    "armorMystery201910Text": "Tajemné brnění",
+    "armorMystery201906Text": "Ocas ryby koi",
+    "armorMystery201906Notes": "Ušetříme tě hlášek o leklé rybě. O počkej, ups. Nepřináší žádné výhody. Červen 2019 předmět pro předplatitele."
 }

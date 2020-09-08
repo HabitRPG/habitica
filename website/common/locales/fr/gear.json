@@ -2161,5 +2161,9 @@
     "headArmoireHeroicHerbalistCrispinetteNotes": "Cette coiffure pratique vous aidera à ne pas vous laisser décoiffer... Cela ne fait pas de mal qu'elle ajoute aussi au mystère. Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble d'herboristerie héroïque (objet 3 de 3).",
     "headArmoireHeroicHerbalistCrispinetteText": "Crispinette d'herboristerie héroïque",
     "armorArmoireHeroicHerbalistRobeNotes": "Sent toujours délicieusement toutes sortes d'herbes. Augmente la constitution et l'intelligence de <%= attrs %> chacune. Armoire enchantée : ensemble d'herboristerie héroïque (objet 1 de 3).",
-    "armorArmoireHeroicHerbalistRobeText": "Robe d'herboristerie héroïque"
+    "armorArmoireHeroicHerbalistRobeText": "Robe d'herboristerie héroïque",
+    "headAccessoryMystery202009Notes": "Ces appendices plumeux vous aideront à trouver votre chemin même dans l'obscurité de la nuit. Ne confère aucun bonus. Équipement d'abonnement de septembre 2020.",
+    "headAccessoryMystery202009Text": "Antennes de mite merveilleuse",
+    "backMystery202009Notes": "Laissez ces gigantesques ailes vous emmener vers de nouveaux sommets ! Ne confère aucun bonus. Équipement d'abonnement de septembre 2020.",
+    "backMystery202009Text": "Ailes de mite merveilleuse"
 }
