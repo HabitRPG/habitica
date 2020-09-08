@@ -501,5 +501,6 @@
     "assignedDateAndUser": "Zugewiesen am <strong><%= date %></strong> von <strong>@<%- username %></strong>",
     "assignedDateOnly": "Zugewiesen am <strong><%= date %></strong>",
     "managerNotes": "Manager-Notizen",
-    "thisTaskApproved": "Dieser Aufgabe wurde zugestimmt"
+    "thisTaskApproved": "Dieser Aufgabe wurde zugestimmt",
+    "onlyPrivateGuildsCanUpgrade": "Nur bei privaten Gilden kann ein Upgrade zu einem Gruppenplan durchgeführt werden."
 }

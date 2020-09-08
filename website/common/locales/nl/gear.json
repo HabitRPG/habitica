@@ -2157,5 +2157,9 @@
     "shieldArmoireFiddleNotes": "Een perfect instrument dat in elk gezelschap een vrolijke noot brengt. Verhoogt Intelligentie met <%= int %>. Betoverd Kabinet: Violisten Set (Item 4 van 4).",
     "backMystery202001Text": "Vijf Fabelstaarten",
     "armorArmoireHeroicHerbalistRobeNotes": "Ruikt altijd prettig naar allerlei kruiden. Verhoogt Weerbaarheid en Intelligentie met <%= attrs %>. Betoverde Kabinet: Heldhaftige Kruidkundige Set (Voorwerp 1 van 3).",
-    "armorArmoireHeroicHerbalistRobeText": "Heldhaftig Kruidkundig Gewaad"
+    "armorArmoireHeroicHerbalistRobeText": "Heldhaftig Kruidkundig Gewaad",
+    "headArmoireHeroicHerbalistCrispinetteNotes": "Deze handige hoofdtooi helpt je om je haar uit de weg te houden ... Het doet geen pijn dat het ook bijdraagt aan de mystiek. Verhoogt Intelligentie met <%= int %>. Betoverde Kabinet: Heldhaftige Kruidkundige Set (Voorwerp 3 van 3).",
+    "headArmoireHeroicHerbalistCrispinetteText": "Heldhaftige Kruidkundige Crispinette",
+    "shieldArmoireMortarAndPestleNotes": "De belangrijkste uitrusting in het arsenaal van de kruidkundige! Maal uw ingrediënten voor uw kruidenbrouwsels, en steek er uw rug in! Verhoogt Weerbaarheid met <%= con %>. Betoverde Kabinet: Heroïsche Kruidkundige Set (voorwerp 2 van 3).",
+    "shieldArmoireMortarAndPestleText": "Mortier en stamper"
 }

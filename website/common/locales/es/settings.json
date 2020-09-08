@@ -2,7 +2,7 @@
     "settings": "Ajustes",
     "language": "Idioma",
     "americanEnglishGovern": "En caso de que hubiese alguna discrepancia en las traducciones, prima la versión en inglés estadounidense.",
-    "helpWithTranslation": "¿Te gustaría ayudar con la traducción de Habitica? ¡Genial! Entonces visita <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\"> la Aspiring Linguists Guild</a>",
+    "helpWithTranslation": "¿Te gustaría ayudar con la traducción de Habitica? ¡Genial! ¡Visita <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">la Aspiring Linguists Guild</a>!",
     "showHeaderPop": "Muestra tu personaje, las barras de vida y experiencia, y el equipo.",
     "stickyHeader": "Cabecera fija",
     "stickyHeaderPop": "Pegar la cabecera a la parte superior de la ventana. Si no está seleccionada significa que la cabecera se perderá de vista al bajar por la página.",
@@ -213,5 +213,6 @@
     "mentioning": "Menciones",
     "chatExtensionDesc": "La Extensión de Chat para Habitica añade un intuitivo cuadro de chat a habitica.com. Permite a los usuarios conversar en la Taberna, su equipo, y cualquier gremio en el que estén.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Extensión de Chat para Chrome</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Extension de Chat para Firefox</a>",
-    "buyGemsGoldCapBase": "Límite de gemas en <%= amount %>"
+    "buyGemsGoldCapBase": "Límite de gemas en <%= amount %>",
+    "displaynameIssueNewline": "Los Nombres Públicos no pueden contener barras invertidas seguidas por la letra N."
 }
