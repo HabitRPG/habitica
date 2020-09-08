@@ -10,27 +10,33 @@
   width: 423px;
   height: 147px;
 }
+.promo_armoire_backgrounds_202009 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: 0px -383px;
+  width: 423px;
+  height: 147px;
+}
 .promo_golden_achievements {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -419px -540px;
+  background-position: -295px -531px;
   width: 246px;
   height: 112px;
 }
 .promo_mystery_202008 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -383px;
+  background-position: 0px -531px;
   width: 294px;
   height: 156px;
 }
 .promo_mystery_202009 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -295px -383px;
+  background-position: -424px -383px;
   width: 282px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -800px -168px;
+  background-position: -800px -537px;
   width: 96px;
   height: 69px;
 }
@@ -42,13 +48,13 @@
 }
 .scene_CernyPie {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -800px 0px;
+  background-position: 0px -688px;
   width: 141px;
   height: 167px;
 }
 .scene_achievement {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -540px;
+  background-position: -800px 0px;
   width: 210px;
   height: 210px;
 }
@@ -60,13 +66,13 @@
 }
 .scene_reading {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -578px -383px;
+  background-position: -800px -392px;
   width: 171px;
   height: 144px;
 }
 .scene_rewards {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -211px -540px;
+  background-position: -800px -211px;
   width: 207px;
   height: 180px;
 }

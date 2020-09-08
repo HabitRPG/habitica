@@ -503,6 +503,8 @@
   "weaponArmoireBeachFlagNotes": "Rally the troops around your sandcastle and let everyone know where to come for help! Increases Perception by <%= per %>. Enchanted Armoire: Lifeguard Set (Item 1 of 3).",
   "weaponArmoireHandyHookText": "Handy Hook",
   "weaponArmoireHandyHookNotes": "Who needs opposable thumbs? This hook is “handy” enough for anyone. Increases Strength by <%= str %>. Enchanted Armoire: Pirate Set (Item 1 of 3).",
+  "weaponArmoireGuardiansCrookText": "Guardian's Crook",
+  "weaponArmoireGuardiansCrookNotes": "This shepherd's crook could come in handy next time you take your Pets for a stroll in the countryside... Increases Strength by <%= str %>. Enchanted Armoire: Guardian of the Grazers Set (Item 2 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1084,6 +1086,8 @@
   "armorArmoirePirateOutfitNotes": "Avast, ye landlubbers! The perfect outfit for swabbing the deck and counting your spoils. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Pirate Set (Item 2 of 3).",
   "armorArmoireHeroicHerbalistRobeText": "Heroic Herbalist Robe",
   "armorArmoireHeroicHerbalistRobeNotes": "Always smells pleasantly of all kinds of herbs. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Heroic Herbalist Set (Item 1 of 3).",
+  "armorArmoireGuardiansGownText": "Guardian's Gown",
+  "armorArmoireGuardiansGownNotes": "A lovely rustic gown, with surprisingly sturdy seams! Increases Intelligence by <%= int %>. Enchanted Armoire: Guardian of the Grazers Set (Item 3 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1681,6 +1685,8 @@
   "headArmoireFiddlersCapNotes": "Put on this jaunty cap to let everyone know who's dancing to whose tune! Increases Perception by <%= per %>. Enchanted Armoire: Fiddler Set (Item 1 of 4).",
   "headArmoireHeroicHerbalistCrispinetteText": "Heroic Herbalist Crispinette",
   "headArmoireHeroicHerbalistCrispinetteNotes": "This handy headdress will help you keep your hair out of the way... It doesn't hurt that it also adds to the mystique. Increases Intelligence by <%= int %>. Enchanted Armoire: Heroic Herbalist Set (Item 3 of 3).",
+  "headArmoireGuardiansBonnetText": "Guardian's Bonnet",
+  "headArmoireGuardiansBonnetNotes": "Don this fetching bonnet to help you herd your tasks! Increases Constitution by <%= con %>. Enchanted Armoire: Guardian of the Grazers Set (Item 1 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
