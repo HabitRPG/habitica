@@ -308,13 +308,13 @@
         <div class="col-12 col-md-5 text-right">
           <span class="ml-4">
             <a
-              target="_blanck"
+              target="_blank"
               href="/static/privacy"
             >{{ $t('privacy') }}</a>
           </span>
           <span class="ml-4">
             <a
-              target="_blanck"
+              target="_blank"
               href="/static/terms"
             >{{ $t('terms') }}</a>
           </span>
