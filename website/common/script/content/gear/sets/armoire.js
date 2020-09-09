@@ -322,6 +322,10 @@ const armor = {
     int: 7,
     set: 'herbalist',
   },
+  guardiansGown: {
+    int: 7,
+    set: 'grazerGuardian',
+  },
 };
 
 const body = {
@@ -643,6 +647,10 @@ const head = {
   heroicHerbalistCrispinette: {
     int: 9,
     set: 'herbalist',
+  },
+  guardiansBonnet: {
+    con: 8,
+    set: 'grazerGuardian',
   },
 };
 
@@ -1102,6 +1110,10 @@ const weapon = {
   handyHook: {
     str: 8,
     set: 'pirate',
+  },
+  guardiansCrook: {
+    str: 10,
+    set: 'grazerGuardian',
   },
 };
 

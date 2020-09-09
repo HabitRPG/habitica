@@ -1257,7 +1257,7 @@
     "headArmoireBirdsNestText": "Nido di Uccello",
     "headArmoireBirdsNestNotes": "Se inizi a sentire movimento e cinguettii, il tuo nuovo copricapo potrebbe essere diventato nuovi amici. Aumenta Intelligenza di <%= int %>. Scrigno Incantato: Oggetto Indipendente.",
     "headArmoirePaperBagText": "Sacchetto di Carta",
-    "headArmoirePaperBagNotes": "Questa busta è un elmo divertente ma sorprendentemente efficace (non preoccuparti, sappiamo che hai un bell'aspetto là sotto!). Aumenta Costituzione di <%= con %>. Scrigno Incantato: Oggetto Indipendente.",
+    "headArmoirePaperBagNotes": "Questa busta è un elmo divertente ma sorprendentemente efficace (non preoccuparti, sappiamo che hai un bell'aspetto là sotto!). Aumenta la Costituzione di <%= con %>. Scrigno Incantato: Oggetto Indipendente.",
     "headArmoireBigWigText": "Grande Parrucca",
     "headArmoireBigWigNotes": "Alcune parrucche incipriate sono per sembrare più autoritari, ma questa è solo per ridere! Aumenta Forza di <%= str %>. Scrigno Incantato: Oggetto Indipendente.",
     "headArmoireGlassblowersHatText": "Copricapo del Soffiatore di Vetro",
@@ -2161,5 +2161,9 @@
     "headArmoireHeroicHerbalistCrispinetteNotes": "Questo pratico copricapo ti aiuterà a tenere i capelli a bada... Nonché aggiunge anche un alone di mistero. Aumenta l'intelligenza di <%= int %>. Scrigno Incantato: Set dell'Eroico Erborista (oggetto 3 di 3).",
     "headArmoireHeroicHerbalistCrispinetteText": "Velo dell'Eroico Erborista",
     "armorArmoireHeroicHerbalistRobeNotes": "Profuma piacevolmente di ogni tipo d'erba. Aumenta la costituzione e l'intelligenza di <%= attrs %> ciascuno. Scrigno Incantato: Set dell'Eroico Erborista (Oggetto 1 di 3).",
-    "armorArmoireHeroicHerbalistRobeText": "Veste dell'Eroico Erborista"
+    "armorArmoireHeroicHerbalistRobeText": "Veste dell'Eroico Erborista",
+    "headAccessoryMystery202009Notes": "Queste appendici piumate ti aiuteranno a trovare la strada anche nella più buia delle notti. Non conferisce alcun bonus. Oggetto abbonati settembre 2020.",
+    "headAccessoryMystery202009Text": "Fantastiche Antenne da Falena",
+    "backMystery202009Notes": "Lascia che queste enormi ali ti portino in alto! Non conferisce alcun bonus. Oggetto abbonati settembre 2020.",
+    "backMystery202009Text": "Fantastiche ali da Falena"
 }

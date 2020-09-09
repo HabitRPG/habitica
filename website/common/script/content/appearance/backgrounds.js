@@ -395,6 +395,11 @@ const backgrounds = {
     jungle_canopy: { },
     productivity_plaza: { },
   },
+  backgrounds092020: {
+    flying_over_an_autumn_forest: { },
+    giant_autumn_leaf: { },
+    herding_sheep_in_autumn: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
