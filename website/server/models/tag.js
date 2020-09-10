@@ -13,7 +13,7 @@ export const schema = new Schema({
     required: true,
   },
   name: { $type: String, required: true },
-  challenge: { $type: String },
+  challenge: { $type: Schema.Types.Mixed },
   group: { $type: String },
 }, {
   strict: true,
