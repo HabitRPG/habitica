@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'SEPTEMBER BACKGROUNDS AND ARMOIRE ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: MYSTERY ITEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,23 +31,22 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/8/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/10/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_202009 center-block"></div>
+        <div class="promo_mystery_202009 center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can perch on a
-          Giant Leaf, mingle with a Herd of Sheep, and enjoy the view while Flying Over an Autumn
-          Forest. Find them via Menu > Inventory > Customize Avatar on mobile!
-        </p>
-        <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Guardian of the Grazers Set. Better work hard on your real-life tasks to earn all the
-          pieces! Enjoy :)
+          This month's <a href='https://habitica.wordpress.com/2020/09/09/mystery-item/'
+          target='_blank'>featured Wiki article</a> is about Mystery Items (also known as
+          Subscriber Gear)! We hope that it will help you as learn about the benefits of a Habitica
+          Subscription. Be sure to check it out, and let us know what you think by reaching out on
+          <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
+          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
+          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
         </p>
         <div class="small mb-3">
-          by Daikagaru, Eslyn, AnnDeLune, sarajea, Tigergurke, QuartzFox, shanaqui, and SabreCat
+          by shanaqui and the Wiki Wizards
         </div>
       </div>
       `,
