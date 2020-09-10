@@ -549,7 +549,7 @@ export default {
     createTask (type) {
       this.openCreateBtn = false;
       this.creatingTask = taskDefaults({ type, text: '' }, this.user);
-      this.creatingTask.tags = this.selectedTags;
+      this.creatingTask.tags = this.selectedTags.slice();
 
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {

@@ -1,9 +1,8 @@
-import sortBy from 'lodash/sortBy';
 import { shouldDo } from '@/../../common/script/cron';
 
 // Library / Utility function
 import { orderSingleTypeTasks } from '@/libs/store/helpers/orderTasks';
-import { getActiveFilter } from '@/libs/store/helpers/filterTasks';
+import { getActiveFilter, sortAndFilterTasks } from '@/libs/store/helpers/filterTasks';
 
 
 // Return all the tags belonging to an user task
@@ -232,30 +231,14 @@ export function getFilteredTaskList ({ state, getters }) {
     // check if task list has been passed as override props
     // assumption: type will always be passed as param
     let requestedTasks = getters['tasks:getUnfilteredTaskList'](type);
-
-    const userPreferences = state.user.data.preferences;
+    const selectedFilter = getActiveFilter(type, filterType);
     const taskOrderForType = state.user.data.tasksOrder[type];
 
     // order tasks based on user set task order
     // Still needs unit test for this..
-    if (requestedTasks.length > 0 && ['scheduled', 'due'].indexOf(filterType.label) === -1) {
+    if (requestedTasks.length > 0 && !selectedFilter.sort) {
       requestedTasks = orderSingleTypeTasks(requestedTasks, taskOrderForType);
     }
-
-    let selectedFilter = getActiveFilter(type, filterType);
-    // Pass user preferences to the filter function which uses currying
-    if (type === 'daily' && (filterType === 'due' || filterType === 'notDue')) {
-      selectedFilter = {
-        ...selectedFilter,
-        filterFn: selectedFilter.filterFn(userPreferences),
-      };
-    }
-
-    requestedTasks = requestedTasks.filter(selectedFilter.filterFn);
-    if (selectedFilter.sort) {
-      requestedTasks = sortBy(requestedTasks, selectedFilter.sort);
-    }
-
-    return requestedTasks;
+    return sortAndFilterTasks(requestedTasks, selectedFilter);
   };
 }
