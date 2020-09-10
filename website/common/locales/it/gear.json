@@ -305,7 +305,7 @@
     "weaponArmoireMythmakerSwordText": "Spada del Costruttore di Leggende",
     "weaponArmoireMythmakerSwordNotes": "Nonostante possa sembrare umile, questa spada ha forgiato numerosi eroi mitici. Aumenta la Percezione e la Forza di <%= attrs %> ciascuna. Scrigno Incantato: Set della Toga Dorata (Oggetto 3 di 3).",
     "weaponArmoireIronCrookText": "Bastone Uncinato di Ferro",
-    "weaponArmoireIronCrookNotes": "Fieramente forgiato dal ferro, questo bastone di ferro è ottimo per condurre le pecore al pascolo. Aumenta la Percezione e la Forza di <%= attrs %> ciascuna. Scrigno Incantato: Set del Ferro Uncinato (Oggetto 3 di 3).",
+    "weaponArmoireIronCrookNotes": "Fieramente forgiato dal ferro, questo bastone di ferro è ottimo per condurre le pecore al pascolo. Aumenta la Percezione e la Forza di <%= attrs %> ciascuna. Scrigno Incantato: Set del Ferro Uncinato (oggetto 3 di 3).",
     "weaponArmoireGoldWingStaffText": "Bastone dell'Ala Dorata",
     "weaponArmoireGoldWingStaffNotes": "Le ali su questo bastone svolazzano e si agitani continuamente. Aumenta tutte le statistiche di <%= attrs %>. Scrigno Incantato: Oggetto Indipendente.",
     "weaponArmoireBatWandText": "Bacchetta del Pipistrello",
@@ -2165,5 +2165,11 @@
     "headAccessoryMystery202009Notes": "Queste appendici piumate ti aiuteranno a trovare la strada anche nella più buia delle notti. Non conferisce alcun bonus. Oggetto abbonati settembre 2020.",
     "headAccessoryMystery202009Text": "Fantastiche Antenne da Falena",
     "backMystery202009Notes": "Lascia che queste enormi ali ti portino in alto! Non conferisce alcun bonus. Oggetto abbonati settembre 2020.",
-    "backMystery202009Text": "Fantastiche ali da Falena"
+    "backMystery202009Text": "Fantastiche ali da Falena",
+    "headArmoireGuardiansBonnetNotes": "Indossa questa graziosa cuffietta per aiutarti a gestire i tuoi compiti! Aumenta la costituzione di <%= con %>. Scrigno Incantato: set Protettrice del Pascolo (oggetto 1 di 3).",
+    "weaponArmoireGuardiansCrookNotes": "Questo bastone da pastore potrebbe tornare utile la prossima volta che porti i tuoi animali a fare una passeggiata in campagna... Aumenta la forza di <%= str %>. Scrigno Incantato: set Protettrice del Pascolo (oggetto 2 di 3).",
+    "armorArmoireGuardiansGownNotes": "Un delizioso abito rustico, con cuciture sorprendentemente robuste! Aumenta l'intelligenza di <%= int %>. Scrigno Incantato: set Protettrice del Pascolo (oggetto 3 di 3).",
+    "armorArmoireGuardiansGownText": "Abito da Pastorella",
+    "weaponArmoireGuardiansCrookText": "Vincastro da Pastore",
+    "headArmoireGuardiansBonnetText": "Cuffietta da pastorella"
 }

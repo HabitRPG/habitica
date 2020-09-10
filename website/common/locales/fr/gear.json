@@ -2165,5 +2165,11 @@
     "headAccessoryMystery202009Notes": "Ces appendices plumeux vous aideront à trouver votre chemin même dans l'obscurité de la nuit. Ne confère aucun bonus. Équipement d'abonnement de septembre 2020.",
     "headAccessoryMystery202009Text": "Antennes de mite merveilleuse",
     "backMystery202009Notes": "Laissez ces gigantesques ailes vous emmener vers de nouveaux sommets ! Ne confère aucun bonus. Équipement d'abonnement de septembre 2020.",
-    "backMystery202009Text": "Ailes de mite merveilleuse"
+    "backMystery202009Text": "Ailes de mite merveilleuse",
+    "headArmoireGuardiansBonnetNotes": "Mettez ce joli bonnet pour vous aider à accomplir vos tâches ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de gardiennage des brouteurs (objet 1 de 3).",
+    "headArmoireGuardiansBonnetText": "Bonnet de bergerie",
+    "armorArmoireGuardiansGownNotes": "Une belle blouse rustique, avec des coutures étonnamment robustes ! Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble de gardiennage des brouteurs (objet 3 de 3).",
+    "armorArmoireGuardiansGownText": "Blouse de bergerie",
+    "weaponArmoireGuardiansCrookNotes": "Ce crochet de bergerie pourrait vous être utile la prochaine fois que vous emmènerez vos familiers dans les pâturages... Augmente la force de <%= str %>. Armoire enchantée : ensemble de gardiennage des brouteurs (objet 2 de 3).",
+    "weaponArmoireGuardiansCrookText": "Crochet de bergerie"
 }

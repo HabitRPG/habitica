@@ -56,5 +56,5 @@
     "groupTasksNoCast": "Il est interdit d'utiliser une compétence sur des tâches de groupe.",
     "spellNotOwned": "Vous ne possédez pas cette compétence.",
     "spellLevelTooHigh": "Vous devez être au niveau <%= level %>  pour utiliser cette compétence.",
-    "spellAlreadyCast": "Vous avez déjà utilisé cette compétence. Elle n'aura pas d'effet additionnel."
+    "spellAlreadyCast": "Utiliser cette compétence n'ajoutera pas d'effet supplémentaire."
 }
