@@ -2161,5 +2161,7 @@
     "headArmoireHeroicHerbalistCrispinetteNotes": "Deze handige hoofdtooi helpt je om je haar uit de weg te houden ... Het doet geen pijn dat het ook bijdraagt aan de mystiek. Verhoogt Intelligentie met <%= int %>. Betoverde Kabinet: Heldhaftige Kruidkundige Set (Voorwerp 3 van 3).",
     "headArmoireHeroicHerbalistCrispinetteText": "Heldhaftige Kruidkundige Crispinette",
     "shieldArmoireMortarAndPestleNotes": "De belangrijkste uitrusting in het arsenaal van de kruidkundige! Maal uw ingrediënten voor uw kruidenbrouwsels, en steek er uw rug in! Verhoogt Weerbaarheid met <%= con %>. Betoverde Kabinet: Heroïsche Kruidkundige Set (voorwerp 2 van 3).",
-    "shieldArmoireMortarAndPestleText": "Mortier en stamper"
+    "shieldArmoireMortarAndPestleText": "Mortier en stamper",
+    "weaponArmoireGuardiansCrookNotes": "Deze herdersstaf kan van pas komen de volgende keer dat u uw huisdieren meeneemt op het platteland... Verhoogt Kracht met <%= str %>. Betoverde Kabinet: Bewaarder van de Grazers Set (Voorwerp 2 van 3).",
+    "weaponArmoireGuardiansCrookText": "Bewaardersstok"
 }
