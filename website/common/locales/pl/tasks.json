@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Usuń zakończone",
-    "clearCompletedDescription": "Zakończone Do-Zrobienia zostają usunięte po 30 dniach dla nie-abonentów i bo 90 dniach dla abonentów.",
-    "clearCompletedConfirm": "Jesteś pewien, że chcesz usunąć zakończone Do-Zrobienia?",
+    "clearCompletedDescription": "Zakończone Do Zrobienia zostają usunięte po 30 dniach dla osób bez subskrypcji i po 90 dniach dla subskrybentów.",
+    "clearCompletedConfirm": "Jesteś pewien, że chcesz usunąć zakończone Do Zrobienia?",
     "addMultipleTip": "<strong>Porada:</strong> W celu dodania wielu <%= taskType %>, oddziel każde z nich wstawiając znak końca linii (Shift + Enter), a następnie wciśnij \"Enter.\"",
     "addATask": "Dodaj <%= type %>",
     "editATask": "Edytuj <%= type %>",
@@ -127,5 +127,6 @@
     "checkOffYesterDailies": "Zaznacz wszelkie Codzienne, które wczoraj wykonałeś:",
     "yesterDailiesCallToAction": "Rozpocznij nowy dzień!",
     "sessionOutdated": "Twoja sesja jest przedawniona. Prosimy o odświeżenie lub zsynchronizowanie.",
-    "errorTemporaryItem": "Ten przedmiot jest tymczasowy i nie można go przypiąć."
+    "errorTemporaryItem": "Ten przedmiot jest tymczasowy i nie można go przypiąć.",
+    "addATitle": "Dodaj nazwę"
 }

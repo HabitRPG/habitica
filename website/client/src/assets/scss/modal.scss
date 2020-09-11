@@ -1,15 +1,4 @@
-
 @import '~@/assets/scss/colors.scss';
-
-@mixin centeredModal() {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-
-  header, footer {
-    border: 0;
-  }
-}
 
 .modal {
   z-index: 1350;

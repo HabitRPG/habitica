@@ -501,5 +501,6 @@
     "managerNotes": "Note del manager",
     "thisTaskApproved": "Questa attività è stata approvata",
     "chooseTeamMember": "Scegli un membro della squadra",
-    "unassigned": "Non assegnato"
+    "unassigned": "Non assegnato",
+    "onlyPrivateGuildsCanUpgrade": "Solo le gilde private possono essere aggiornate ad un piano di gruppo."
 }

@@ -2165,5 +2165,11 @@
     "headAccessoryMystery202009Notes": "Esses apêndices emplumados te ajudarão a encontrar seu caminho, mesmo na escuridão da noite. Não confere benefícios. Item de assinante de Setembro de 2020.",
     "headAccessoryMystery202009Text": "Antenas de Mariposa Maravilhosa",
     "backMystery202009Notes": "Deixe que essas asas enormes te levem a novas alturas! Não confere benefícios. Item de assinante de Setembro de 2020.",
-    "backMystery202009Text": "Asas de Mariposa Maravilhosa"
+    "backMystery202009Text": "Asas de Mariposa Maravilhosa",
+    "headArmoireGuardiansBonnetNotes": "Utilize essa boina encantadora para ajudar você a reunir suas tarefas! Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto Guardião dos Pastos (Item 1 de 3).",
+    "headArmoireGuardiansBonnetText": "Boina do Guardião",
+    "armorArmoireGuardiansGownNotes": "Um belo traje rústico, com costuras surpreendentemente robustas! Aumenta a inteligência em <%= int %>. Armário Encantado: Conjunto Guardião dos Pastos (Item 3 de 3).",
+    "armorArmoireGuardiansGownText": "Vestido da Guardiã",
+    "weaponArmoireGuardiansCrookNotes": "Este cajado do pastor pode vir a ser útil na próxima vez que você levar seus mascotes para um passeio no campo... Aumenta a Força em <%= str %>. Armário Encantado: Conjunto Guardião dos Pastos (Item 2 de 3).",
+    "weaponArmoireGuardiansCrookText": "Cajado do Guardião"
 }
