@@ -1,19 +1,6 @@
 {
     "rebirthNew": "",
     "rebirthUnlock": "",
-    "rebirthBegin": "",
-    "rebirthStartOver": "",
-    "rebirthAdvList1": "",
-    "rebirthAdvList2": "",
-    "rebirthAdvList3": "",
-    "rebirthAdvList4": "",
-    "rebirthInherit": "",
-    "rebirthInList1": "",
-    "rebirthInList2": "",
-    "rebirthInList3": "",
-    "rebirthInList4": "",
-    "rebirthEarnAchievement": "",
-    "beReborn": "",
     "rebirthAchievement": "",
     "rebirthAchievement100": "",
     "rebirthBegan": "",
@@ -23,7 +10,5 @@
     "rebirthOrbNoLevel": "",
     "rebirthPop": "",
     "rebirthName": "",
-    "reborn": "",
-    "confirmReborn": "",
     "rebirthComplete": ""
 }

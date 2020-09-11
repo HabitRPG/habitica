@@ -1,19 +1,6 @@
 {
     "rebirthNew": "Renacimiento: ¡Una nueva aventura disponible!",
     "rebirthUnlock": "¡Has desbloqueado el Renacimiento! Este objeto especial del Mercado te permite empezar un nuevo juego desde el nivel 1 manteniendo tus tareas, logros, mascotas, y más. ¡Úsalo para darle nueva vida a Habitica si sientes que ya lo lograste todo, o para tener la experiencia de nuevas funciones con la perspectiva de un personaje nuevo!",
-    "rebirthBegin": "Renacimiento: Empieza una nueva aventura",
-    "rebirthStartOver": "Renacimiento reinicia a tu personaje al nivel 1.",
-    "rebirthAdvList1": "Tu barra de Salud vuelve a estar llena.",
-    "rebirthAdvList2": "Usted no tiene Experiencia u Oro.",
-    "rebirthAdvList3": "Tus Hábitos, Diarias y Pendientes vuelven al color amarillo, y las rachas se reinician, exceptuando a las tareas de desafios.",
-    "rebirthAdvList4": "Comienzas como Guerrero hasta que consigas una nueva clase.",
-    "rebirthInherit": "Tu nuevo personaje hereda unas pocas cosas de su predecesor:",
-    "rebirthInList1": "Las tareas, historial y los ajustes permanecen.",
-    "rebirthInList2": "La afiliación a Desafíos, Gremios y Equipos permanece.",
-    "rebirthInList3": "Las Gemas, los niveles de sponsor y los niveles de colaborador permanecen.",
-    "rebirthInList4": "Permanecerán los artículos obtenidos con gemas o por botín (como mascotas y monturas).",
-    "rebirthEarnAchievement": "¡También recibirás un Logro por haber empezado una nueva aventura!",
-    "beReborn": "Renacer",
     "rebirthAchievement": "¡Has comenzado una nueva aventura! Éste es tu Renacimiento número <%= number %>, y el Nivel más alto que has alcanzado es <%= level %>. Para acumular este Logro, ¡empieza tu aventura siguiente después de haber conseguido un nivel aún más alto!",
     "rebirthAchievement100": "¡Has comenzado una nueva aventura! Éste es tu Renacimiento número <%= number %>, y el Nivel más alto que has alcanzado es 100 o más. Para acumular este Logro, ¡empieza tu aventura siguiente cuando hayas alcanzado como mínimo el nivel 100!",
     "rebirthBegan": "Comenzó una nueva aventura",
@@ -23,7 +10,5 @@
     "rebirthOrbNoLevel": "Ha utilizado una esfera de renacimiento para comenzar de nuevo.",
     "rebirthPop": "Reinicia instantáneamente tu personaje a Guerrero nivel 1, manteniendo tus Logros, Coleccionables y Equipamiento. Tus Tareas y su historial se mantendrán pero se volverás amarillas.\nTus rachas serán removidas exceptuando aquellas de tareas que provengan de desafíos. Tu Oro, Experiencia, Maná, y los efectos de todas las Habilidades serán removidas. Todo esto tomará efecto inmediatamente. Para mas información, ve la página <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Esfera de renacimiento</a> en la Wiki.",
     "rebirthName": "Esfera de Renacimiento",
-    "reborn": "Renacido, nivel máximo <%= reLevel %>",
-    "confirmReborn": "¿Estás seguro?",
     "rebirthComplete": "¡Haz sido revivido!"
 }

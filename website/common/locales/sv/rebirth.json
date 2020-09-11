@@ -1,19 +1,6 @@
 {
     "rebirthNew": "Pånyttfödelse: Nytt Äventyr Tillgängligt!",
     "rebirthUnlock": "Du har låst upp Pånyttfödelse! Detta speciella marknadsföremål tillåter dig att börja ett nytt spel från nivå 1 utan att förlora alla dina uppgifter, bedrifter, husdjur med mera. Använd den för att blåsa nytt liv i Habitica om du känner att du redan har uppnått allt, eller för att uppleva nya funktioner utifrån en ny karaktärs synvinkel!",
-    "rebirthBegin": "Pånyttfödelse: Starta ett Nytt Äventyr",
-    "rebirthStartOver": "Återfödelse startar om din karaktär från nivå 1.",
-    "rebirthAdvList1": "Du återvänder till full Hälsa.",
-    "rebirthAdvList2": "Du har ingen erfarenhet eller guld.",
-    "rebirthAdvList3": "Dina Vanor, Dagliga Utmaningar och Att-göra återställs till gult. Likaså återställs dina följder, med undantag för uppgifter för utmaningar.",
-    "rebirthAdvList4": "Du har startklassen Krigare tills du låser upp klass-systemet.",
-    "rebirthInherit": "Din nya karaktär ärver vissa saker från dess föregångare:",
-    "rebirthInList1": "Uppgifter, historik, utrustning, och inställningar är kvar.",
-    "rebirthInList2": "Utmaning-, Gille- och Sällskapsmedlemskap är kvar.",
-    "rebirthInList3": "Juveler, Stödjarnivå och Medarbetarnivå är kvar.",
-    "rebirthInList4": "Objekt erhållna från Diamanter eller fynd (t.ex husdjur och riddjur) kommer att finnas kvar.",
-    "rebirthEarnAchievement": "Du får även en Bedrift för att du börjar på ett nytt äventyr!",
-    "beReborn": "Bli pånyttfödd",
     "rebirthAchievement": "Du har börjat på ett nytt äventyr! Det här är Pånyttfödelse nummer <%= number %> för dig, och den högsta Leveln du har nått är <%= level %>. För att stapla denna Bedrift, börja ditt nästa nya äventyr när du har nått en ännu högre Level!",
     "rebirthAchievement100": "Du har börjat på ett nytt äventyr! Det här är Pånyttfödelse nummer <%= number %> för dig, och den högsta Leveln du har nått är 100 eller högre. För att stapla denna Bedrift, börja ditt nästa nya äventyr när du har nått minst 100!",
     "rebirthBegan": "Började på ett Nytt Äventyr",
@@ -23,7 +10,5 @@
     "rebirthOrbNoLevel": "Använde en Återfödelsens Sfär för att börja om.",
     "rebirthPop": "Starta om din karaktär omedelbart vid nivå 1 och behåll dina prestationer, samlarobjekt och utrustning. Dina uppgifter och deras historik kommer behållas men de kommer att bli återställda till gult. Dina följer kommer att bli borttagna förutom på utmanings-uppgifter. Allt ditt guld, erfarenhet, mana och alla effekter från Förmågor kommer att bli borttaget. Detta kommer att träda i kraft omedelbart. För mer information, se wikins <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Återfödelsens sfär</a> sida.",
     "rebirthName": "Pånyttfödelsesfär",
-    "reborn": "Pånyttfödd, max nivå <%= reLevel %>",
-    "confirmReborn": "Är du säker?",
     "rebirthComplete": "Du har återfötts!"
 }
