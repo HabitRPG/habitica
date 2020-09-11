@@ -637,7 +637,10 @@ export default {
       // as default filter for daily
       // and set the filter as 'due' only when the component first
       // loads and not on subsequent reloads.
-      if (type === 'daily' && filter === '' && this.user.preferences.dailyDueDefaultView) {
+      if (
+        type === 'daily' && filter === '' && !this.challenge
+        && this.user.preferences.dailyDueDefaultView
+      ) {
         filter = 'due'; // eslint-disable-line no-param-reassign
       }
 
