@@ -95,6 +95,46 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
         -->
       </div>
       <div
+        v-if="isAdmin && workingGroup.id"
+        class="form-group"
+      >
+        <label>
+          <strong v-once>{{ $t('languageSettings') }}</strong>
+        </label>
+        <br>
+        <div class="custom-control custom-checkbox">
+          <input
+            id="bannedWordsAllowed"
+            v-model="workingGroup.bannedWordsAllowed"
+            class="custom-control-input"
+            type="checkbox"
+          >
+          <label
+            v-once
+            class="custom-control-label"
+            for="bannedWordsAllowed"
+          >{{ $t('bannedWordsAllowed') }}</label>
+          <div
+            v-once
+            id="groupBannedWordsAllowedDescription"
+            class="icon"
+            :title="$t('bannedWordsAllowedDetail')"
+          >
+            <div
+              v-once
+              class="svg-icon"
+              v-html="icons.information"
+            ></div>
+          </div>
+          <b-tooltip
+            v-once
+            :title="$t('bannedWordsAllowedDetail')"
+            target="groupBannedWordsAllowedDescription"
+          />
+        </div>
+        <br>
+      </div>
+      <div
         v-if="!isParty"
         class="form-group"
       >
@@ -367,6 +407,7 @@ export default {
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvitationsFromNonMembers: true,
+        bannedWordsAllowed: null,
       },
       categoryOptions: [
         {
@@ -470,6 +511,9 @@ export default {
     isParty () {
       return this.workingGroup.type === 'party';
     },
+    isAdmin () {
+      return Boolean(this.user.contributor.admin);
+    },
   },
   watch: {
     editingGroup () {
@@ -501,6 +545,8 @@ export default {
       this.workingGroup.onlyLeaderCreatesChallenges = editingGroup.leaderOnly.challenges;
 
       this.workingGroup.leader = editingGroup.leader;
+
+      this.workingGroup.bannedWordsAllowed = editingGroup.bannedWordsAllowed;
 
       if (editingGroup._id) this.getMembers();
     },
