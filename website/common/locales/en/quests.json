@@ -1,8 +1,6 @@
 {
   "quests": "Quests",
   "quest": "quest",
-  "whereAreMyQuests": "Quests are now available on their own page! Click on Inventory -> Quests to find them.",
-  "yourQuests": "Your Quests",
   "petQuests": "Pet and Mount Quests",
   "unlockableQuests": "Unlockable Quests",
   "goldQuests": "Masterclasser Quest Lines",
@@ -46,7 +44,6 @@
   "bossRageDescription": "When this bar fills, the boss will unleash a special attack!",
   "startAQuest": "START A QUEST",
   "startQuest": "Start Quest",
-  "getMoreQuests": "Get more quests",
   "questInvitationDoesNotExist": "No quest invitation has been sent out yet.",
   "questInviteNotFound": "No quest invitation found.",
   "guildQuestsNotSupported": "Guilds cannot be invited on quests.",
