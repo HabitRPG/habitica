@@ -353,10 +353,8 @@ const router = new VueRouter({
 
 const store = getStore();
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const { isUserLoggedIn, isUserLoaded } = store.state;
-  const isUserAdmin = isUserLoaded && store.state.user.data.contributor
-    && store.state.user.data.contributor.admin;
   const routeRequiresLogin = to.meta.requiresLogin !== false;
   const routeRequiresAdmin = to.meta.requiresAdmin;
 
@@ -387,17 +385,15 @@ router.beforeEach((to, from, next) => {
     });
   }
 
-  if (!isUserAdmin && routeRequiresAdmin) {
-    // Redirect non-admin users when trying to access an page.
-    // TODO: prevent redirection happening when an admin goes directly to admin-panel URL
-    // (e.g., reloading site when already viewing Panel or opening Panel in new tab) - currently
-    // `isUserAdmin` is false when this code is executed on a reload (even for admins).
-    // Redirection is commmented-out until that's fixed.
-    // return next({ name: 'tasks' });
-  }
-
   if (isUserLoggedIn && (to.name === 'login' || to.name === 'register')) {
     return next({ name: 'tasks' });
+  }
+
+  if (routeRequiresAdmin) {
+    // Redirect non-admin users when trying to access an page.
+    if (!isUserLoaded) await store.dispatch('user:fetch');
+    const isAdmin = store.state.user.data.contributor && store.state.user.data.contributor.admin;
+    if (!isAdmin) return next({ name: 'tasks' });
   }
 
   // Redirect old guild urls
