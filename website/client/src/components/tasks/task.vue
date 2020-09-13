@@ -572,6 +572,7 @@
     .dropdown-item {
       cursor: pointer !important;
       transition: none;
+      border: transparent solid 1px;
 
       * {
         transition: none;
@@ -590,6 +591,7 @@
 
       &:focus {
         border-radius: 2px;
+        border: $purple-400 solid 1px;
       }
     }
   }
