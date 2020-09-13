@@ -626,12 +626,8 @@
     }
   }
 
-  .checklist {
-    &.isOpen {
-      margin-bottom: 2px;
-    }
-
-    margin-top: -3px;
+  .checklist.isOpen {
+    margin-bottom: 2px;
   }
 
   .collapse-checklist {
