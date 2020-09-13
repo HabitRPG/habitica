@@ -66,7 +66,7 @@
   "equipmentBonus": "Equipment",
   "equipmentBonusText": "Stat bonuses provided by your equipped battle gear. See the Equipment tab under Inventory to select your battle gear.",
   "classBonusText": "Your class (Warrior, if you haven't unlocked or selected another class) uses its own equipment more effectively than gear from other classes. Equipped gear from your current class gets a 50% boost to the Stat bonus it grants.",
-  "classEquipBonus": "Class Bonus",
+  "equipBonus": "Bonus",
   "battleGear": "Battle Gear",
   "gear": "Gear",
   "battleGearText": "This is the gear you wear into battle; it affects numbers when interacting with your tasks.",

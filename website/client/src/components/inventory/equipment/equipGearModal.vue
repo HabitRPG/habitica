@@ -4,11 +4,12 @@
     id="equipgear-modal"
     :visible="true"
     :hide-header="true"
+    :hide-footer="true"
     @change="onChange($event)"
   >
     <div class="close">
       <span
-        class="svg-icon inline icon-10"
+        class="svg-icon"
         aria-hidden="true"
         @click="hideDialog()"
         v-html="icons.close"
@@ -27,7 +28,7 @@
           :sprites-margin="'0px auto auto -1px'"
           :show-visual-buffs="false"
         />
-        <h4 class="title">
+        <h4 class="title mt-3">
           {{ itemText }}
         </h4>
         <div
@@ -36,7 +37,7 @@
         ></div>
         <span
           v-if="showClassTag"
-          class="classTag"
+          class="classTag mt-3"
         >
           <span
             class="svg-icon inline icon-24"
@@ -54,10 +55,17 @@
           :item="item"
         />
         <button
-          class="btn btn-primary"
+          class="btn"
+          :class="{'btn-primary': !isEquipped, 'btn-secondary': isEquipped }"
           @click="equipItem()"
         >
-          {{ $t(isEquipped ? 'unequip' : 'equip') }}
+          <span
+            class="svg-icon inline icon-16 mr-2"
+            v-html="isEquipped ? icons.unEquip : icons.equip"
+          ></span>
+          <span class="button-label">
+            {{ $t(isEquipped ? 'unequip' : 'equip') }}
+          </span>
         </button>
       </div>
     </div>
@@ -76,8 +84,42 @@
   #equipgear-modal {
     @include centeredModal();
 
+    .modal-content {
+      border-radius: 8px;
+      box-shadow: 0 14px 28px 0 #1a181d3d, 0 10px 10px 0 #1a181d47;
+    }
+
+    .modal-body {
+      padding: 2rem 1.5rem;
+    }
+
+    .close {
+      position: absolute;
+      top: 1.125rem;
+      right: 1.125rem;
+      width: 0.75rem;
+      height: 0.75rem;
+      cursor: pointer;
+    }
+
+    .svg-icon {
+      ::v-deep {
+        path {
+          stroke: $gray-200 !important;
+          fill: $gray-200 !important;
+        }
+      }
+    }
+
     .modal-dialog {
       width: 330px;
+    }
+
+    .text {
+      font-size: 0.875rem;
+      line-height: 1.71;
+      text-align: center;
+      color: $gray-50;
     }
 
     .content {
@@ -89,7 +131,6 @@
     }
 
     .inner-content {
-      margin: 33px auto auto;
       width: 282px;
     }
 
@@ -126,8 +167,7 @@
 
     .attributesGrid {
       background-color: $gray-500;
-
-      margin: 10px 0 24px;
+      margin: 1.5rem 0;
     }
 
     .avatar {
@@ -139,9 +179,9 @@
       }
     }
 
-    button.btn.btn-primary {
-      margin-top: 24px;
-      margin-bottom: 24px;
+    button.btn {
+      display: inline-flex;
+      align-items: center;
     }
   }
 </style>
@@ -149,11 +189,13 @@
 <script>
 import { mapState } from '@/libs/store';
 
-import svgClose from '@/assets/svg/close.svg';
+import svgCloseDialog from '@/assets/svg/close-dialog.svg';
 import svgWarrior from '@/assets/svg/warrior.svg';
 import svgWizard from '@/assets/svg/wizard.svg';
 import svgRogue from '@/assets/svg/rogue.svg';
 import svgHealer from '@/assets/svg/healer.svg';
+import svgEquipIcon from '@/assets/svg/equip.svg';
+import svgUnEquipIcon from '@/assets/svg/unequip.svg';
 
 import Avatar from '@/components/avatar';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';
@@ -180,11 +222,13 @@ export default {
   data () {
     return {
       icons: Object.freeze({
-        close: svgClose,
+        close: svgCloseDialog,
         warrior: svgWarrior,
         wizard: svgWizard,
         rogue: svgRogue,
         healer: svgHealer,
+        equip: svgEquipIcon,
+        unEquip: svgUnEquipIcon,
       }),
     };
   },
