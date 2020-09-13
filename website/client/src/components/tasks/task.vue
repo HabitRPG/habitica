@@ -507,10 +507,6 @@
       border-radius: 2px;
       border: $purple-400 solid 1px;
     }
-
-    &:focus .task-notes:not(:empty) {
-      margin-bottom: -4px; // to counter extra height from notes and border
-    }
   }
 
   .task-title + .task-dropdown ::v-deep .dropdown-menu {
