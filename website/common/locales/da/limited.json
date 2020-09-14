@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Særudgave",
-    "seasonalEdition": "Årstidsudgave",
-    "winterColors": "Vinterfarver",
     "annoyingFriends": "Irriterende venner",
     "annoyingFriendsText": "Fik kastet snebold på sig <%= count %> gange af holdmedlemmer.",
     "alarmingFriends": "Foruroligende Venner",
@@ -61,7 +58,6 @@
     "nye2": "Godt Nytår! Må du udføre mange Perfekte Dage.",
     "nye3": "Godt Nytår! Må din To-Do-liste forblive kort og overskuelig.",
     "nye4": "Godt nytår! Må du undgå at blive angrebet af vrede Hippogriffer.",
-    "holidayCard": "Modtog et højtidskort!",
     "mightyBunnySet": "Kraftfuld Kanin (Kriger)",
     "magicMouseSet": "Magisk Mus (Magiker)",
     "lovingPupSet": "Kærlig Hvalp (Helbreder)",

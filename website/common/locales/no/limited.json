@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Tidsbegrensede",
-    "seasonalEdition": "Sesongs Utgave",
-    "winterColors": "Vinterfarger",
     "annoyingFriends": "Plagsomme venner",
     "annoyingFriendsText": "Har fått <%= count %> snøballer kastet på seg av klanmedlemmer.",
     "alarmingFriends": "Urovekkende Venner",
@@ -61,7 +58,6 @@
     "nye2": "Gledelig Nyttår! Kan du tjene mange perfekte dager.",
     "nye3": "Gledelig Nyttår! Kan dine gjøremål holde seg få og søte.",
     "nye4": "Gledelig Nyttår! Kan du ikke bli angrepet av en sinna griff.",
-    "holidayCard": "Fikk et ferie kort!",
     "mightyBunnySet": "Mektig Kanin (Kriger)",
     "magicMouseSet": "Magisk Mus (Magiker)",
     "lovingPupSet": "Kjærlig Valp (Helbreder)",

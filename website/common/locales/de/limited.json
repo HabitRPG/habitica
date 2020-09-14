@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Limitierte Ausgabe",
-    "seasonalEdition": "Jahreszeiten-Edition",
-    "winterColors": "Winterfarben",
     "annoyingFriends": "Nervige Freunde",
     "annoyingFriendsText": "Wurde <%= count %> mal von Partymitgliedern mit Schneebällen beworfen.",
     "alarmingFriends": "Unheimliche Freunde",
@@ -61,7 +58,6 @@
     "nye2": "Fröhliches neues Jahr! Mögest Du viele Perfekte Tage verdienen.",
     "nye3": "Fröhliches neues Jahr! Möge Deine Aufgabenliste kurz und knackig bleiben.",
     "nye4": "Fröhliches neues Jahr! Mögest Du nicht von einem vandalierenden Hippogreif angegriffen werden.",
-    "holidayCard": "Du hast eine Grußkarte erhalten!",
     "mightyBunnySet": "Mächtiges Häschen (Krieger)",
     "magicMouseSet": "Magische Maus (Magier)",
     "lovingPupSet": "Liebevoller Welpe (Heiler)",

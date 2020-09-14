@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "限量版",
-    "seasonalEdition": "季度版",
-    "winterColors": "冬日颜色",
     "annoyingFriends": "吵闹的朋友",
     "annoyingFriendsText": "被你的队友砸了<%= count %>次雪球。",
     "alarmingFriends": "惊人的朋友",
@@ -61,7 +58,6 @@
     "nye2": "新年快乐！愿你拥有很多完美日。",
     "nye3": "新年快乐！愿你的待办列表永远简短而甜蜜。",
     "nye4": "新年快乐！但愿你别被暴怒的河马狮鹫攻击。",
-    "holidayCard": "收到一封节日贺卡！",
     "mightyBunnySet": "强力兔（战士）",
     "magicMouseSet": "魔力鼠（法师）",
     "lovingPupSet": "可爱犬（医师）",
