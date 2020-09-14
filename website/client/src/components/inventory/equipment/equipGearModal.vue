@@ -9,7 +9,7 @@
   >
     <div class="close">
       <span
-        class="svg-icon"
+        class="svg-icon color"
         aria-hidden="true"
         @click="hideDialog()"
         v-html="icons.close"
@@ -24,6 +24,7 @@
           :member="user"
           :avatar-only="true"
           :with-background="true"
+          :hide-class-badge="true"
           :override-avatar-gear="memberOverrideAvatarGear(item)"
           :sprites-margin="'0px auto auto -1px'"
           :show-visual-buffs="false"
@@ -60,7 +61,7 @@
           @click="equipItem()"
         >
           <span
-            class="svg-icon inline icon-16 mr-2"
+            class="svg-icon color inline icon-16 mr-2"
             v-html="isEquipped ? icons.unEquip : icons.equip"
           ></span>
           <span class="button-label">
@@ -100,14 +101,10 @@
       width: 0.75rem;
       height: 0.75rem;
       cursor: pointer;
-    }
+      opacity: 1;
 
-    .svg-icon {
-      ::v-deep {
-        path {
-          stroke: $gray-200 !important;
-          fill: $gray-200 !important;
-        }
+      .svg-icon.color {
+        color: $gray-200;
       }
     }
 
@@ -183,13 +180,21 @@
       display: inline-flex;
       align-items: center;
     }
+
+    .btn-primary .svg-icon.color {
+      color: $purple-500;
+    }
+
+    .btn-secondary .svg-icon.color {
+      color: $gray-200;
+    }
   }
 </style>
 
 <script>
 import { mapState } from '@/libs/store';
 
-import svgCloseDialog from '@/assets/svg/close-dialog.svg';
+import svgClose from '@/assets/svg/close.svg';
 import svgWarrior from '@/assets/svg/warrior.svg';
 import svgWizard from '@/assets/svg/wizard.svg';
 import svgRogue from '@/assets/svg/rogue.svg';
@@ -222,7 +227,7 @@ export default {
   data () {
     return {
       icons: Object.freeze({
-        close: svgCloseDialog,
+        close: svgClose,
         warrior: svgWarrior,
         wizard: svgWizard,
         rogue: svgRogue,

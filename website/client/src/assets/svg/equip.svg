@@ -1,22 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
-    <defs>
-        <path id="m6c1g6blya" d="M14 2V0h-2v2h-2v2h2v2h2V4h2V2h-2zm-2 5.932h2c0 4.055-2.982 7.494-6.998 8.068h-.004C2.982 15.426 0 11.987 0 7.932V3l7-3v2.176L2 4.319v3.613c0 2.945 2.13 5.494 5 6.041 2.871-.549 5-3.097 5-6.041z"/>
-    </defs>
-    <g fill="none" fill-rule="evenodd" opacity=".75">
-        <g>
-            <g>
-                <g>
-                    <g transform="translate(-157 -532) translate(24 54) translate(121 470) translate(12 8)">
-                        <mask id="t3pjjjjzlb" fill="#fff">
-                            <use xlink:href="#m6c1g6blya"/>
-                        </mask>
-                        <use fill="#000" xlink:href="#m6c1g6blya"/>
-                        <g fill="#BDA8FF" mask="url(#t3pjjjjzlb)">
-                            <path d="M0 0H16V16H0z"/>
-                        </g>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
+<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#878190;" d="M12,7.9h2c0,4.1-3,7.5-7,8.1h0h0c-4-0.6-7-4-7-8.1V3l7-3v2.2
+	L2,4.3v3.6c0,2.9,2.1,5.5,5,6C9.9,13.4,12,10.9,12,7.9z M14,2V0h-2v2h-2v2h2v2h2V4h2V2H14z"/>
 </svg>
