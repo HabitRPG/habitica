@@ -1,20 +1,3 @@
 {
-  "merch" : "Mercadoria",
-  "merchandiseDescription": "Procurando camisetas, canecas ou adesivos para mostrar seu orgulho do Habitica? Clique aqui!",
-
-  "merch-teespring-summary" : "A Teespring é uma plataforma que torna mais fácil para qualquer um criar e vender produtos de alta qualidade que as pessoas gostam, sem qualquer custo ou risco associado.",
-  "merch-teespring-goto" : "Obter uma T-shirt Habitica",
-
-  "merch-teespring-mug-summary" : "A Teespring é uma plataforma que torna mais fácil para qualquer um criar e vender produtos de alta qualidade que as pessoas gostam, sem qualquer custo ou risco associado.",
-  "merch-teespring-mug-goto" : "Comprar uma Caneca do Habitica",
-
-  "merch-teespring-eu-summary" : "VERSÃO EUROPEIA: Teespring é uma plataforma que torna mais fácil para qualquer pessoa criar e vender produtos de alta qualidade que as pessoas gostam, sem qualquer custo ou risco associado.",
-  "merch-teespring-eu-goto" : "Encomende uma Camisola Habitica (EU)",
-
-  "merch-teespring-mug-eu-summary" : "VERSÃO EUROPEIA: Teespring é uma plataforma que torna mais fácil para qualquer pessoa criar e vender produtos de alta qualidade que as pessoas gostam, sem qualquer custo ou risco associado.",
-  "merch-teespring-mug-eu-goto" : "Comprar uma Caneca do Habitica (EU)",
-
-  "merch-stickermule-summary" : "Continua orgulhoso Mellor em qualquer lado que tu (ou outra pessoa) necessitem de uma notificação nos teus feitos presentes e futuros!",
-  "merch-stickermule-goto" : "Encomenda autocolantes Habitica"
-
+  "merch" : "Mercadoria"
 }
