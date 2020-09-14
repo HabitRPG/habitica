@@ -30,7 +30,8 @@
       <div>
         Party:
         <span v-if="userHasParty">
-          yes (party ID {{ groupPartyData._id }})
+          yes: party ID {{ groupPartyData._id }},
+          member count {{ groupPartyData.memberCount }} (may be wrong)
           <br>
           <span v-if="userIsPartyLeader">User is the party leader</span>
           <span v-else>Party leader is
