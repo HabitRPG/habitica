@@ -161,6 +161,8 @@
     "subscribersReceiveBenefits": "Subscribers receive these useful benefits!",
     "monthlyMysteryItems": "Monthly Mystery Items",
     "doubleDropCap": "Double the Drops",
+    "subscriptionAlreadySubscribedLeadIn": "Thanks for subscribing!",
+    "gemsPurchaseNote": "Subscribers can buy gems for gold in the Market! For easy access, you can also pin the gem to your Rewards column.",
     "youAreSubscribed": "You are subscribed to Habitica",
     "subscriptionCanceled": "Your subscription is canceled",
     "subscriptionInactiveDate": "Your subscription benefits will become inactive on <strong><%= date %></strong>",
