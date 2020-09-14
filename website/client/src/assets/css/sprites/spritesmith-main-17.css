@@ -58,6 +58,12 @@
   width: 105px;
   height: 105px;
 }
+.Mount_Body_LionCub-Turquoise {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-17.png');
+  background-position: -212px -532px;
+  width: 105px;
+  height: 105px;
+}
 .Mount_Body_LionCub-Watery {
   background-image: url('~@/assets/images/sprites/spritesmith-main-17.png');
   background-position: -318px -532px;
@@ -79,12 +85,6 @@
 .Mount_Body_LionCub-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-17.png');
   background-position: -650px 0px;
-  width: 105px;
-  height: 105px;
-}
-.Mount_Body_LionCub-turquoise {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-17.png');
-  background-position: -212px -532px;
   width: 105px;
   height: 105px;
 }

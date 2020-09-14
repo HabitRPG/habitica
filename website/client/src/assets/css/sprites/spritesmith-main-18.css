@@ -1174,6 +1174,12 @@
   width: 135px;
   height: 135px;
 }
+.Mount_Body_Wolf-Turquoise {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-18.png');
+  background-position: -816px -816px;
+  width: 135px;
+  height: 135px;
+}
 .Mount_Body_Wolf-Watery {
   background-image: url('~@/assets/images/sprites/spritesmith-main-18.png');
   background-position: -952px 0px;
@@ -1195,12 +1201,6 @@
 .Mount_Body_Wolf-Zombie {
   background-image: url('~@/assets/images/sprites/spritesmith-main-18.png');
   background-position: -952px -408px;
-  width: 135px;
-  height: 135px;
-}
-.Mount_Body_Wolf-turquoise {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-18.png');
-  background-position: -816px -816px;
   width: 135px;
   height: 135px;
 }
