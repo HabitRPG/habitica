@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: MYSTERY ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW MAGIC HATCHING POTION QUEST: TURQUOISE!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,23 +31,20 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/10/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/15/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_202009 center-block"></div>
+        <div class="quest_turquoise center-block"></div>
         <p>
-          This month's <a href='https://habitica.wordpress.com/2020/09/09/mystery-item/'
-          target='_blank'>featured Wiki article</a> is about Mystery Items (also known as
-          Subscriber Gear)! We hope that it will help you as learn about the benefits of a Habitica
-          Subscription. Be sure to check it out, and let us know what you think by reaching out on
-          <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
-          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
-          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
+          Grab your shovel and head for the Flourishing Fields--treasure awaits! Get the latest
+          Magic Hatching Potion quest, "Turquoise Treasure Toil", to earn historic Turquoise Magic
+          Hatching Potions by completing your real-life tasks!
         </p>
-        <div class="small mb-3">
-          by shanaqui and the Wiki Wizards
+        <div class="small">
+          Art by gawrone, QuartzFox, beffymaroo, starsystemic, Tyche_Alba, and loremi
         </div>
+        <div class="small mb-3">Writing by FactAndFiction</div>
       </div>
       `,
     });
