@@ -170,7 +170,7 @@
     "limitedOffer": "Disponibile fino al <%= date %>",
     "paymentCanceledDisputes": "Abbiamo inviato una conferma per l'annullamento alla tua email. Se non vedi l'email, ti preghiamo di contattarci per evitare future controversie sulla fatturazione.",
     "paymentAutoRenew": "Questo abbonamento si rinnoverà automaticamente fino a quando non verrà annullato. Se è necessario annullare questo abbonamento, è possibile farlo dalle proprie impostazioni.",
-    "paymentSubBillingWithMethod": "Il tuo abbonamento verrà fatturato <strong>$<% = amount %></strong> ogni <strong><%=months %> mesi</strong> tramite <strong><%= paymentMethod%></strong>.",
+    "paymentSubBillingWithMethod": "Il tuo abbonamento verrà fatturato <strong>$<%= amount %></strong> ogni <strong><%= months %> mesi</strong> tramite <strong><%= paymentMethod %></strong>.",
     "invalidUnlockSet": "Questo set di elementi non è valido e non può essere sbloccato.",
     "cannotUnpinItem": "Questo oggetto non può essere rimosso."
 }

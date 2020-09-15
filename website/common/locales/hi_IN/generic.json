@@ -113,7 +113,7 @@
     "memberSince": "- से सदस्य",
     "lastLoggedIn": "- अंतिम ऑनलाइन",
     "notPorted": "यह सुविधा अभी तक मूल साइट से रखी नहीं है.",
-    "buyThis": "खरीदें इस <% = text%> <% = price%> अपने <% = gems%> रत्न के साथ?",
+    "buyThis": "खरीदें इस <%= text %> <%= price %> अपने <%= gems %> रत्न के साथ?",
     "noReachServer": "सर्वर वर्तमान में नहीं लग रहा, बाद में पुन: प्रयास करें",
     "errorUpCase": "त्रुटि:",
     "newPassSent": "If we have your email on file, instructions for setting a new password have been sent to your email.",

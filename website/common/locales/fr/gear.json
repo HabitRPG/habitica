@@ -191,7 +191,7 @@
     "weaponSpecialSpring2016WarriorText": "Maillet en fromage",
     "weaponSpecialSpring2016WarriorNotes": "Personne n'a autant d'amis que la souris qui a de tendres fromages. Augmente la force de <%= str %>. Équipement en édition limitée du printemps 2016.",
     "weaponSpecialSpring2016MageText": "Bâton des cloches",
-    "weaponSpecialSpring2016MageNotes": "Abra-chat-da-bra ! C'est si éblouissant que vous pourriez bien vous hypnotiser vous-même ! Oh... ça tinte... Augmente l'intelligence de <%= int%> et la perception de <%= per%>. Équipement en édition limitée du printemps 2016.",
+    "weaponSpecialSpring2016MageNotes": "Abra-chat-da-bra ! C'est si éblouissant que vous pourriez bien vous hypnotiser vous-même ! Oh... ça tinte... Augmente l'intelligence de <%= int %> et la perception de <%= per %>. Équipement en édition limitée du printemps 2016.",
     "weaponSpecialSpring2016HealerText": "Baguette fleur-de-printemps",
     "weaponSpecialSpring2016HealerNotes": "D'un geste et d'un clin d’œil, vous faites fleurir les champs et les forêts ! Ou donnez un coup sur la tête des souris pénibles. Augmente l'intelligence de <%= int %>. Équipement en édition limitée du printemps 2016.",
     "weaponSpecialSummer2016RogueText": "Baguette électrique",

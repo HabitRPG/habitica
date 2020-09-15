@@ -14,7 +14,7 @@
     "rebirthInList4": "Các vật phẩm nhận được từ Gems hay Đồ Rơi (ví dụ như thú nuôi và thú cưỡi) được giữ nguyên. ",
     "rebirthEarnAchievement": "Bạn cũng kiếm được được một Chiến Tích để bắt đầu một cuộc phiêu lưu mới!",
     "beReborn": "Hãy Phục Sinh",
-    "rebirthAchievement": "Bạn đã bắt đầu một cuộc phiêu lưu mới ! Đây là Rebirth <%= number %> cho bạn, và Cấp Độ cao nhất bạn đã đạt đến là <%= level%> . Để chồng Chiến Tích nà, bắt đầu cuộc phiêu lưu mới của bạn khi bạn đã đạt đến một Cấp Độ cao hơn nữa!",
+    "rebirthAchievement": "Bạn đã bắt đầu một cuộc phiêu lưu mới ! Đây là Rebirth <%= number %> cho bạn, và Cấp Độ cao nhất bạn đã đạt đến là <%= level %> . Để chồng Chiến Tích nà, bắt đầu cuộc phiêu lưu mới của bạn khi bạn đã đạt đến một Cấp Độ cao hơn nữa!",
     "rebirthAchievement100": "Bạn đã bắt đầu một cuộc phiêu lưu mới! Đây là Phục Sinh thứ <%= number %> cho bạn, và Cấp Độ cao nhất bạn đã đạt được là 100 hoặc cao hơn. Để tăng Chiến Tích này, bắt đầu cuộc phiêu lưu tiếp theo khi bạn đã đạt ít nhất cấp độ 100!",
     "rebirthBegan": "Bắt đầu một cuộc phiêu lưu mới",
     "rebirthText": "Bắt đầu <%= rebirths %> những cuộc phiêu lưu mới",

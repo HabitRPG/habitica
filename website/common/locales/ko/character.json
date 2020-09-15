@@ -168,7 +168,7 @@
     "youDied": "죽었습니다!",
     "dieText": "1 레벨이 내려가고, 모든 골드와, 장비 하나를 잃었도다. 일어나세요 해비티어여, 일어나 다시 시작하세요! 나쁜 습관을 물리치시고, 일일과제에 소홀하지 말고, 흔들릴 때에는 체력 물약으로 죽음을 멀리하세요!",
     "sureReset": "Are you sure? This will reset your character's class and allocated Stat Points (you'll get them all back to re-allocate), and costs 3 Gems.",
-    "purchaseFor": "보석 <%=cost%> 개로 구입하시겠습니까?",
+    "purchaseFor": "보석 <%= cost %> 개로 구입하시겠습니까?",
     "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "마나가 부족합니다.",
     "invalidTarget": "You can't cast a skill on that.",

@@ -198,7 +198,7 @@
     "sendGiftPurchase": "Kjøp",
     "sendGiftMessagePlaceholder": "Personlig melding (valgfri)",
     "sendGiftSubscription": "<%= months %> Måned(er): $<%= price %> USD",
-    "gemGiftsAreOptional": "Vær oppmerksom på at Habitica aldri vil kreve at du gir bort juveler til andre spillere. Tigge folk for juveler er et <strong>brudd på Samfunnsretningslinjne</strong>, og alle slike tilfeller bør rapporteres til <%= hrefTechAssistanceEmail%>.",
+    "gemGiftsAreOptional": "Vær oppmerksom på at Habitica aldri vil kreve at du gir bort juveler til andre spillere. Tigge folk for juveler er et <strong>brudd på Samfunnsretningslinjne</strong>, og alle slike tilfeller bør rapporteres til <%= hrefTechAssistanceEmail %>.",
     "battleWithFriends": "Kamp monstere med venner",
     "startPartyWithFriends": "Start en Klan med dine venner!",
     "startAParty": "Start en Klan",

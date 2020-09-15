@@ -77,9 +77,19 @@
     "achievementRosyOutlookText": "Has domesticado todas las monturas de algodón de azúcar rosa.",
     "achievementRosyOutlook": "Rosy Outlook",
     "achievementBareNecessitiesModalText": "¡Completaste las misiones de las mascotas Mono, Perezoso, y Brote de Árbol!",
-    "achievementBareNecessitiesText": "Ha completado las misiones de las mascotas Mono, Perezoso, y Brote de Árbol. ",
+    "achievementBareNecessitiesText": "Completó las misiones de mascota de Mono, Perezoso y Brote de Árbol.",
     "achievementBareNecessities": "Necesidades Básicas",
     "achievementBugBonanzaModalText": "¡Completaste las misiones de las mascotas Escarabajo, Mariposa, Caracol y Araña!",
     "achievementBugBonanza": "Bonanza de insectos",
-    "achievementBugBonanzaText": "Completó las misiones de las mascotas Escarabajo, Mariposa, Caracol y Araña."
+    "achievementBugBonanzaText": "Completó las misiones de las mascotas Escarabajo, Mariposa, Caracol y Araña.",
+    "achievementGoodAsGold": "Bueno como el Oro",
+    "achievementFreshwaterFriendsModalText": "¡Completaste las misiones de mascota de Ajolote, Rana e Hipopótamo!",
+    "achievementAllThatGlittersModalText": "¡Domaste todas las Monturas Doradas!",
+    "achievementAllThatGlittersText": "Ha domado todas las Monturas Doradas.",
+    "achievementAllThatGlitters": "Todo lo que brilla",
+    "achievementGoodAsGoldText": "Coleccionó todas las Mascotas Doradas.",
+    "achievementGoodAsGoldModalText": "¡Coleccionaste todas las Mascotas Doradas!",
+    "achievementFreshwaterFriendsText": "Completó las misiones de mascota de Ajolote, Rana e Hipopótamo.",
+    "achievementFreshwaterFriends": "Amigos De Agua Dulce",
+    "yourRewards": "Tus Recompensas"
 }
