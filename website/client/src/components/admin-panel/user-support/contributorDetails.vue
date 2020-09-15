@@ -73,6 +73,19 @@
             class="markdownPreview"
           ></div>
         </div>
+        <div class="form-group">
+          <label>Moderation Notes</label>
+          <textarea
+            v-model="hero.secret.text"
+            class="form-control"
+            cols="5"
+            rows="3"
+          ></textarea>
+          <div
+            v-markdown="hero.secret.text"
+            class="markdownPreview"
+          ></div>
+        </div>
         <input
           type="submit"
           value="Save and Clear Data"

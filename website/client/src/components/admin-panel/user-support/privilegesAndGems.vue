@@ -15,7 +15,7 @@
         Player has had privileges removed or has moderation notes.
       </p>
 
-      <form @submit.prevent="saveHero({hero, msg: 'Privileges or Gems'})">
+      <form @submit.prevent="saveHero({hero, msg: 'Privileges or Gems or Moderation Notes'})">
         <div class="checkbox">
           <label>
             <input
@@ -93,7 +93,11 @@ function resetData (self) {
   self.errorsOrWarningsExist = false;
   self.expand = false;
   if (self.hero.flags.chatRevoked || self.hero.flags.chatShadowMuted || self.hero.auth.blocked
-      || self.hero.secret.text) {
+      || (self.hero.secret.text && !self.hero.contributor.level)) {
+    // We automatically expand this section if the user has had privileges removed.
+    // We also expand if they have secret.text UNLESS they have a contributor tier because
+    // in that case the notes are probably about their contributions and can be seen in the
+    // Contributor Details section (which will be automatically expanded because of their tier).
     self.errorsOrWarningsExist = true;
     self.expand = true;
   }
