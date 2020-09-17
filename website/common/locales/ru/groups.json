@@ -494,5 +494,6 @@
     "PMUnblockUserToSendMessages": "Разблокируйте этого пользователя, чтобы продолжить отправлять и получать сообщения.",
     "PMUserDoesNotReceiveMessages": "Этот пользователь больше не может получать личные сообщения",
     "PMCanNotReply": "Вы не можете ответить на этот разговор",
-    "newPartyPlaceholder": "Введите название вашей команды."
+    "newPartyPlaceholder": "Введите название вашей команды.",
+    "languageSettings": "Настройка языка"
 }

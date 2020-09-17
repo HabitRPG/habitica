@@ -2167,5 +2167,9 @@
     "armorArmoireGuardiansGownNotes": "Een heerlijke rustieke japon, met verrassend stevige naden! Verhoogt Intelligentie met <%= int %>. Betoverde Kabinet: Bewaarder van de Grazers Set (Voorwerp 3 van 3).",
     "armorArmoireGuardiansGownText": "Bewaarders Japon",
     "headArmoireGuardiansBonnetNotes": "Draag deze apporterende pet om u te helpen uw taken te hoeden! Verhoogt Weerbaarheid met <%= con %>. Betoverde Kabinet: Bewaarder van de Grazers Set (Voorwerp 1 van 3).",
-    "headArmoireGuardiansBonnetText": "Bewaarders Pet"
+    "headArmoireGuardiansBonnetText": "Bewaarders Pet",
+    "backMystery202009Notes": "Laat deze enorme vleugels je naar nieuwe hoogten brengen! Geeft geen voordeel. September 2020 Abonnee Uitrusting.",
+    "backMystery202009Text": "Geweldige Mot Vleugels",
+    "headAccessoryMystery202009Notes": "Deze gevederde aanhangsels helpen je zelfs in het donker van de nacht je weg te vinden. Geeft geen voordeel. September 2020 Abonnee Uitrusting.",
+    "headAccessoryMystery202009Text": "Geweldige Mot Antennes"
 }

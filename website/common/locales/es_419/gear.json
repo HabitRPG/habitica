@@ -1758,5 +1758,16 @@
     "weaponSpecialSpring2019RogueNotes": "Estas armas contienen el poder del cielo y la lluvia. Recomendamos no usarlas durante inmersiones en agua. Aumenta la fuerza en <% = str%>. Equipamiento de Primavera Edición limitada 2019.",
     "weaponSpecialSummer2019RogueText": "Ancla Anticuada",
     "weaponSpecialSpring2019HealerNotes": "Tu canción de flores y lluvia calmará los espíritus de todos los que la oigan. Aumenta Inteligencia en <%= int %>. Equipo de Primavera de Edición Limitada 2019.",
-    "weaponSpecialSpring2019HealerText": "Canto Primaveral"
+    "weaponSpecialSpring2019HealerText": "Canto Primaveral",
+    "weaponArmoireBaseballBatNotes": "¡Anota un cuadrangular a esos buenos hábitos! Aumenta la Constitución en <% = con %>. Arsenal Encantado: Conjunto de Béisbol (Artículo 3 de 4).",
+    "weaponSpecialFall2019WarriorText": "Tridente de Garra",
+    "weaponSpecialFall2019RogueNotes": "Sea que estés dirigiendo la orquesta o cantando un aria, ¡este útil dispositivo mantiene tus manos libres para gestos dramáticos! Aumenta la Fuerza en <%= str %>. Equipo de Otoño de 2019, Edición Limitada.",
+    "weaponSpecialFall2019RogueText": "Atril de Música",
+    "weaponSpecialSummer2019MageNotes": "Fruto de tu esfuerzo y obtenido del estanque, este pequeño tesoro da poder e inspira. Aumenta la Inteligencia en <%= int %>. Equipo de Verano de 2019, Edición Limitada.",
+    "weaponSpecialSummer2019HealerNotes": "Las burbujas de esta varita capturan energía sanadora y magia oceánica antigua. Aumenta la Inteligencia en <%= int %>. Edición Limitada de verano de 2019.",
+    "weaponSpecialSummer2019HealerText": "Varita de Burbujas",
+    "weaponSpecialSummer2019WarriorNotes": "¡Ahora estás luchando con fractales! Aumenta la Fuerza en <%= str %>. Equipo de Primavera de 2019, Edición Limitada.",
+    "weaponSpecialSummer2019RogueNotes": "Esta antigua y formidable arma te ayudará a ganar cualquier batalla submarina. Aumenta la Fuerza en <%= str %>. Equipo de Verano de 2019, Edición Limitada.",
+    "weaponSpecialSummer2019MageText": "Floración Brillante",
+    "weaponSpecialSummer2019WarriorText": "Coral Rojo"
 }

@@ -507,7 +507,7 @@
     "backgroundHallOfHeroesText": "Salón de los héroes",
     "backgroundElegantBallroomText": "Sala de baile elegante",
     "backgrounds022020": "CONJUNTO 69: lanzado en febrero de 2020",
-    "backgroundStrawberryPatchText": "Terreno de fresas",
+    "backgroundStrawberryPatchText": "Huerto de fresas",
     "backgroundHotAirBalloonNotes": "Elévate sobre el paisaje en un globo aerostático.",
     "backgroundHotAirBalloonText": "Globo aerostático",
     "backgroundHabitCityRooftopsNotes": "Salta intrépidamente entre los techos de la ciudad Hábito.",
@@ -534,5 +534,7 @@
     "backgroundVikingShipNotes": "Navega a la aventura en un Barco Vikingo.",
     "backgroundVikingShipText": "Barco Vikingo",
     "backgroundRelaxationRiverText": "Río Relajante",
-    "backgroundStrawberryPatchNotes": "Recolecta golosinas frescas de un Huerto de Fresas."
+    "backgroundStrawberryPatchNotes": "Recolecta golosinas frescas de un Huerto de Fresas.",
+    "backgroundSaltLakeText": "Lago Salado",
+    "backgroundRelaxationRiverNotes": "Flota lánguidamente por el Río Relajante."
 }

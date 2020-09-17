@@ -501,5 +501,9 @@
     "managerNotes": "Notes de la personne responsable",
     "thisTaskApproved": "Cette tâche a été approuvée",
     "chooseTeamMember": "Choisissez un membre de l'équipe",
-    "unassigned": "Non assigné"
+    "unassigned": "Non assigné",
+    "bannedWordsAllowedDetail": "En activant cette option, l'utilisation de mots bannis sur cette guilde sera autorisée.",
+    "bannedWordsAllowed": "Autoriser les mots bannis",
+    "languageSettings": "Paramètres de langue",
+    "onlyPrivateGuildsCanUpgrade": "Seules les guildes privées peuvent être améliorée en offre de groupe."
 }
