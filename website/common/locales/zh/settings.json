@@ -122,7 +122,7 @@
     "subscriptionRateText": "每<strong><<%= months %>月</strong>充值<strong><%= price %>美元</strong>",
     "benefits": "好处",
     "coupon": "优惠券",
-    "couponText": "我们有时会举办送优惠码或特别装备的活动（例如那些来我们的Wondercon摊位的朋友）",
+    "couponText": "有时我们会举办送推广码或特殊装备的活动（例如那些来我们的Wondercon摊位的朋友）",
     "apply": "申请",
     "promoCode": "优惠码",
     "promoCodeApplied": "优惠码已生效！请查看物品栏",
