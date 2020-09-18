@@ -126,7 +126,7 @@
   .modal-body {
 
     .group-content {
-      padding: 0.25rem 1.5rem;
+      padding: 0.25rem 1rem;
     }
 
     .popover-content-attr {

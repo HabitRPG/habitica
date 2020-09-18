@@ -7,13 +7,8 @@
     :hide-footer="true"
     @change="onChange($event)"
   >
-    <div class="close">
-      <span
-        class="svg-icon color"
-        aria-hidden="true"
-        @click="hideDialog()"
-        v-html="icons.close"
-      ></span>
+    <div class="dialog-close">
+      <close-icon @click="hideDialog()" />
     </div>
     <div
       v-if="item != null"
@@ -41,11 +36,11 @@
           class="classTag mt-3"
         >
           <span
-            class="svg-icon inline icon-24"
+            class="svg-icon inline icon-16"
             v-html="icons[itemClass]"
           ></span>
           <span
-            class="className textCondensed"
+            class="className"
             :class="itemClass"
           >{{ getClassName(itemClass) }}</span>
         </span>
@@ -78,7 +73,6 @@
 </template>
 
 <style lang="scss">
-
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/modal.scss';
 
@@ -94,22 +88,20 @@
       padding: 2rem 1.5rem;
     }
 
-    .close {
+    .dialog-close {
       position: absolute;
-      top: 1.125rem;
-      right: 1.125rem;
-      width: 0.75rem;
-      height: 0.75rem;
+      top: 0.75rem;
+      right: 1rem;
       cursor: pointer;
       opacity: 1;
-
-      .svg-icon.color {
-        color: $gray-200;
-      }
     }
 
     .modal-dialog {
       width: 330px;
+
+      .text {
+        min-height: 0;
+      }
     }
 
     .text {
@@ -140,10 +132,11 @@
 
     .className {
       height: 24px;
-      font-size: 16px;
-      line-height: 1.5;
+      font-size: 0.875rem;
+      line-height: 1.71;
       text-align: left;
       margin-left: 8px;
+      font-weight: bold;
     }
 
     .healer {
@@ -162,9 +155,15 @@
       color: $wizard-color;
     }
 
+    .title {
+      color: $gray-10;
+    }
+
     .attributesGrid {
       background-color: $gray-500;
-      margin: 1.5rem 0;
+      margin: 1rem 0 1.5rem;
+      border-radius: 4px;
+      border: 1px solid #f4f4f4;
     }
 
     .avatar {
@@ -204,11 +203,13 @@ import svgUnEquipIcon from '@/assets/svg/unequip.svg';
 
 import Avatar from '@/components/avatar';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';
+import closeIcon from '@/components/shared/closeIcon';
 
 export default {
   components: {
     Avatar,
     attributesGrid,
+    closeIcon,
   },
   props: {
     item: {
