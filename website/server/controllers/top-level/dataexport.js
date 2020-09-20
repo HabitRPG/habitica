@@ -112,14 +112,15 @@ async function _getUserDataForExport (user, xmlMode = false) {
     // object maps cant be parsed
     userData.inbox.messages = _(userData.inbox.messages)
       .map(m => {
-        const flags = Object.keys(m.flags);
-        m.flags = flags;
+        m.flags = Object.keys(m.flags);
 
         return m;
       })
       .value();
 
-    // _id gets parsed as an bytearray => which gets casted to a chararray => "weird chars"
+    userData.newMessages = _.map(userData.newMessages, (msg, id) => ({ id, ...msg }));
+
+    // _id gets parsed as a bytearray => which gets cast to a chararray => "weird chars"
     userData.unpinnedItems = userData.unpinnedItems.map(i => ({
       path: i.path,
       type: i.type,
