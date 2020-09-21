@@ -1,5 +1,6 @@
 <template>
-  <button title="close dialog">
+  <button title="close dialog"
+          @click="$emit('click', $event)">
     <div v-once
          class="svg-icon"
          v-html="icons.close"
@@ -39,13 +40,13 @@ export default {
     width: 1rem;
     height: 1rem;
 
-    svg path {
+    ::v-deep svg path {
       stroke: $gray-200;
     }
 
     &:hover {
-      svg path {
-        color: $gray-100;
+      ::v-deep svg path {
+        stroke: $gray-100;
       }
     }
   }
