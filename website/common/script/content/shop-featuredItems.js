@@ -38,7 +38,7 @@ const featuredItems = {
       },
     ];
   },
-  seasonal: 'summer2019Warrior',
+  seasonal: 'fall2019Mage',
   timeTravelers: [
     // TODO
   ],

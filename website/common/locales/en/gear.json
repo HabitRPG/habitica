@@ -368,6 +368,15 @@
   "weaponSpecialSummer2020HealerText": "Frosted Glass Rod",
   "weaponSpecialSummer2020HealerNotes": "As the currents wear away sharp edges, so shall your magic soften your friends' pain. Increases Intelligence by <%= int %>. Limited Edition 2020 Summer Gear.",
 
+  "weaponSpecialFall2020RogueText": "Sharp Katar",
+  "weaponSpecialFall2020RogueNotes": "Pierce your foe with one sharp strike! Even the thickest armor will give way to your blade. Increases Strength by <%= str %>. Limited Edition 2020 Autumn Gear.",
+  "weaponSpecialFall2020WarriorText": "Spectre's Sword",
+  "weaponSpecialFall2020WarriorNotes": "This sword went into the afterlife with a powerful Warrior, and returns for you to wield! Increases Strength by <%= str %>. Limited Edition 2020 Autumn Gear.",
+  "weaponSpecialFall2020MageText": "Three Visions",
+  "weaponSpecialFall2020MageNotes": "If aught should escape your mage sight, the brilliant crystals atop this staff shall illuminate what you overlooked. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2020 Autumn Gear.",
+  "weaponSpecialFall2020HealerText": "Cocoon Cane",
+  "weaponSpecialFall2020HealerNotes": "Now that your transformation is complete, this remnant of your life as a pupa now serves as the divining rod with which you measure destinies. Increases Intelligence by <%= int %>. Limited Edition 2020 Autumn Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -854,6 +863,15 @@
   "armorSpecialSummer2020MageNotes": "Harness the power of the sea's depths with this oar-mazing armor. Increases Intelligence by <%= int %>. Limited Edition 2020 Summer Gear.",
   "armorSpecialSummer2020HealerText": "Regalia of Tumbling Waves",
   "armorSpecialSummer2020HealerNotes": "You are as patient as the ocean, as strong as the currents, as dependable as the tides. Increases Constitution by <%= con %>. Limited Edition 2020 Summer Gear.",
+
+  "armorSpecialFall2020RogueText": "Statuesque Armor",
+  "armorSpecialFall2020RogueNotes": "Take on the strength of stone with this armor, guaranteed to repel the fiercest attacks. Increases Perception by <%= per %>. Limited Edition 2020 Autumn Gear.",
+  "armorSpecialFall2020WarriorText": "Revenant's Robes",
+  "armorSpecialFall2020WarriorNotes": "These robes once guarded a powerful Warrior from harm. They say the Warrior's spirit lingers in the cloth to guard a worthy successor. Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
+  "armorSpecialFall2020MageText": "Aloft Upon Enlightenment",
+  "armorSpecialFall2020MageNotes": "These wide-winged robes give the impression of hovering or flight, symbolizing the far-seeing perspective granted by vast knowledge. Increases Intelligence by <%= int %>. Limited Edition 2020 Autumn Gear.",
+  "armorSpecialFall2020HealerText": "Hawkmoth Wings",
+  "armorSpecialFall2020HealerNotes": "Your splendor unfurls by night, and those who witness you in flight wonder at what this omen could mean. Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1439,6 +1457,15 @@
   "headSpecialSummer2020HealerText": "Glass-Studded Helm",
   "headSpecialSummer2020HealerNotes": "Stand tall, that beachcombers may keep their hands out of your hair. Increases Intelligence by <%= int %>. Limited Edition 2020 Summer Gear.",
 
+  "headSpecialFall2020RogueText": "Two-Headed Stone Mask",
+  "headSpecialFall2020RogueNotes": "Look twice, act once: this mask makes it easy. Increases Perception by <%= per %>. Limited Edition 2020 Autumn Gear.",
+  "headSpecialFall2020WarriorText": "Creepy Cowl",
+  "headSpecialFall2020WarriorNotes": "The Warrior who once wore this never flinched from the weightiest tasks! But others may flinch from you when you wear it... Increases Strength by <%= str %>. Limited Edition 2020 Autumn Gear.",
+  "headSpecialFall2020MageText": "Awakened Clarity",
+  "headSpecialFall2020MageNotes": "With this cap seated perfectly on your brow, your third eye opens, allowing you to focus on what is otherwise invisible: mana flows, restless spirits, and forgotten To-Dos. Increases Perception by <%= per %>. Limited Edition 2020 Autumn Gear.",
+  "headSpecialFall2020HealerText": "Death's Head Mask",
+  "headSpecialFall2020HealerNotes": "The dreadful pallor of this skull-like visage shines as a warning to all mortals: Time is fleeting! Attend to thy deadlines, before it is too late! Increases Intelligence by <%= int %>. Limited Edition 2020 Autumn Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1881,6 +1908,13 @@
   "shieldSpecialSummer2020WarriorNotes": "This fish you caught one time was SO BIG, a single scale was enough to make a mighty shield! True story! Increases Constitution by <%= con %>. Limited Edition 2020 Summer Gear.",
   "shieldSpecialSummer2020HealerText": "Tumbled Glass Aegis",
   "shieldSpecialSummer2020HealerNotes": "As the motion of sand and water turns trash to treasure, so shall your magic turn wounds to strength. Increases Constitution by <%= con %>. Limited Edition 2020 Summer Gear.",
+
+  "shieldSpecialFall2020RogueText": "Swift Katar",
+  "shieldSpecialFall2020RogueNotes": "Wielding a katar, you'd better be quick on your feet... This blade will serve you well if you strike fast, but don't over-commit! Increases Strength by <%= str %>. Limited Edition 2020 Autumn Gear.",
+  "shieldSpecialFall2020WarriorText": "Spirit's Shield",
+  "shieldSpecialFall2020WarriorNotes": "It may look insubstantial, but this spectral shield can keep you safe from all kinds of harm. Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
+  "shieldSpecialFall2020HealerText": "Cocoon Carryall",
+  "shieldSpecialFall2020HealerNotes": "Is it another moth you carry, still undergoing metamorphosis? Or simply a silken handbag, containing your tools of healing and prophecy? Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",

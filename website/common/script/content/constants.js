@@ -45,6 +45,7 @@ export const EVENTS = {
   winter2020: { start: '2019-12-19', end: '2020-02-02' },
   spring2020: { start: '2020-03-17', end: '2020-05-02' },
   summer2020: { start: '2020-06-18', end: '2020-08-02' },
+  fall2020:   { start: '2020-09-21', end: '2020-11-02' },
 };
 
 export const SEASONAL_SETS = {
@@ -214,6 +215,12 @@ export const SEASONAL_SETS = {
     'fall2019LichSet',
     'fall2019OperaticSpecterSet',
     'fall2019RavenSet',
+
+    // fall 2020
+    'fall2020TwoHeadedRogueSet',
+    'fall2020WraithWarriorSet',
+    'fall2020ThirdEyeMageSet',
+    'fall2020DeathsHeadMothHealerSet',
   ],
 };
 
