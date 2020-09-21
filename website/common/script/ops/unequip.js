@@ -56,7 +56,7 @@ export function unEquipByType (user, req = {}) {
       unequipEquipment(user, UNEQUIP_COSTUME);
       unequipEquipment(user, UNEQUIP_EQUIPPED);
 
-      message = i18n.t('messagePetMountBackgroundUnEquipped', {}, req.language);
+      message = i18n.t('messageAllUnEquipped', {}, req.language);
       break;
     }
 
