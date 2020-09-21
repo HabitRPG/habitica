@@ -89,11 +89,7 @@
     }
 
     .dialog-close {
-      position: absolute;
-      top: 0.75rem;
-      right: 1rem;
-      cursor: pointer;
-      opacity: 1;
+
     }
 
     .modal-dialog {
