@@ -1,20 +1,9 @@
 import {
-  model as Group,
-  TAVERN_ID as tavernId,
-} from '../../models/group';
+  getCurrentEvent,
+  getWorldBoss,
+} from '../../libs/worldState';
 
 const api = {};
-
-async function getWorldBoss () {
-  const tavern = await Group
-    .findById(tavernId)
-    .select('quest.progress quest.key quest.active quest.extra')
-    .exec();
-  if (tavern && tavern.quest && tavern.quest.active) {
-    return tavern.quest;
-  }
-  return {};
-}
 
 /**
  * @api {get} /api/v3/world-state Get the state for the game world
@@ -30,6 +19,7 @@ async function getWorldBoss () {
  * @apiSuccess {Object} data.worldBoss.progress.hp Number, Current Health of the world boss
  * @apiSuccess {Object} data.worldBoss.progress.rage Number, Current Rage of the world boss
  * @apiSuccess {Object} data.npcImageSuffix String, trailing component of NPC image filenames
+ * @apiSuccess {Object} data.currentEvent The current active event
  *
  */
 api.getWorldState = {
@@ -40,6 +30,8 @@ api.getWorldState = {
 
     worldState.worldBoss = await getWorldBoss();
     worldState.npcImageSuffix = 'spring';
+
+    worldState.currentEvent = getCurrentEvent();
 
     res.respond(200, worldState);
   },

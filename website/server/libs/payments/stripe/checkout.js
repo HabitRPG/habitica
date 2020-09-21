@@ -13,6 +13,7 @@ import {
   NotAuthorized,
 } from '../../errors';
 import payments from '../payments'; // eslint-disable-line import/no-cycle
+import { getGemsBlock } from '../gems'; // eslint-disable-line import/no-cycle
 import stripeConstants from './constants';
 
 function getGiftAmount (gift) {
@@ -27,10 +28,14 @@ function getGiftAmount (gift) {
   return `${(gift.gems.amount / 4) * 100}`;
 }
 
-async function buyGems (gift, user, token, stripeApi) {
-  let amount = 500; // $5
+async function buyGems (gemsBlock, gift, user, token, stripeApi) {
+  let amount;
 
-  if (gift) amount = getGiftAmount(gift);
+  if (gift) {
+    amount = getGiftAmount(gift);
+  } else {
+    amount = gemsBlock.price;
+  }
 
   if (!gift || gift.type === 'gems') {
     const receiver = gift ? gift.member : user;
@@ -80,12 +85,13 @@ async function buySubscription (sub, coupon, email, user, token, groupId, stripe
   return { subResponse: response, subId: subscriptionId };
 }
 
-async function applyGemPayment (user, response, gift) {
+async function applyGemPayment (user, response, gemsBlock, gift) {
   let method = 'buyGems';
   const data = {
     user,
     customerId: response.id,
     paymentMethod: stripeConstants.PAYMENT_METHOD,
+    gemsBlock,
     gift,
   };
 
@@ -97,11 +103,12 @@ async function applyGemPayment (user, response, gift) {
   await payments[method](data);
 }
 
-async function checkout (options, stripeInc) {
+export async function checkout (options, stripeInc) {
   const {
     token,
     user,
     gift,
+    gemsBlock,
     sub,
     groupId,
     email,
@@ -123,6 +130,11 @@ async function checkout (options, stripeInc) {
     gift.member = member;
   }
 
+  let block;
+  if (!sub && !gift) {
+    block = getGemsBlock(gemsBlock);
+  }
+
   if (sub) {
     const { subId, subResponse } = await buySubscription(
       sub, coupon, email, user, token, groupId, stripeApi,
@@ -130,7 +142,7 @@ async function checkout (options, stripeInc) {
     subscriptionId = subId;
     response = subResponse;
   } else {
-    response = await buyGems(gift, user, token, stripeApi);
+    response = await buyGems(block, gift, user, token, stripeApi);
   }
 
   if (sub) {
@@ -143,10 +155,7 @@ async function checkout (options, stripeInc) {
       groupId,
       subscriptionId,
     });
-    return;
+  } else {
+    await applyGemPayment(user, response, block, gift);
   }
-
-  await applyGemPayment(user, response, gift);
 }
-
-export { checkout }; // eslint-disable-line import/prefer-default-export

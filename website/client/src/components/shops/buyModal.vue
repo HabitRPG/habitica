@@ -363,12 +363,6 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .close-icon {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-  }
-
   .hourglass-nonsub {
     color: $yellow-5;
     font-size: 12px;

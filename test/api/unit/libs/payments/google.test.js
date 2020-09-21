@@ -5,7 +5,6 @@ import googlePayments from '../../../../../website/server/libs/payments/google';
 import iap from '../../../../../website/server/libs/inAppPurchases';
 import { model as User } from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
-import { mockFindById, restoreFindById } from '../../../../helpers/mongoose.helper';
 
 const { i18n } = common;
 
@@ -14,7 +13,7 @@ describe('Google Payments', () => {
 
   describe('verifyGemPurchase', () => {
     let sku; let user; let token; let receipt; let signature; let
-      headers;
+      headers; const gemsBlock = common.content.gems['21gems'];
     let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let
       paymentBuyGemsStub;
 
@@ -103,8 +102,9 @@ describe('Google Payments', () => {
       expect(paymentBuyGemsStub).to.be.calledWith({
         user,
         paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
-        amount: 5.25,
+        gemsBlock,
         headers,
+        gift: undefined,
       });
       expect(user.canGetGems).to.be.calledOnce;
       user.canGetGems.restore();
@@ -113,8 +113,6 @@ describe('Google Payments', () => {
     it('gifts gems', async () => {
       const receivingUser = new User();
       await receivingUser.save();
-
-      mockFindById(receivingUser);
 
       const gift = { uuid: receivingUser._id };
       await googlePayments.verifyGemPurchase({
@@ -132,12 +130,17 @@ describe('Google Payments', () => {
 
       expect(paymentBuyGemsStub).to.be.calledOnce;
       expect(paymentBuyGemsStub).to.be.calledWith({
-        user: receivingUser,
+        user,
         paymentMethod: googlePayments.constants.PAYMENT_METHOD_GOOGLE,
-        amount: 5.25,
+        gemsBlock,
         headers,
+        gift: {
+          type: 'gems',
+          gems: { amount: 21 },
+          member: sinon.match({ _id: receivingUser._id }),
+          uuid: receivingUser._id,
+        },
       });
-      restoreFindById();
     });
   });
 

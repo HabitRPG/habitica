@@ -2,6 +2,7 @@
   <div
     :id="buttonId"
     class="amazon-pay-button"
+    :class="{disabled}"
   ></div>
 </template>
 
@@ -14,8 +15,11 @@ import paymentsMixin from '@/mixins/payments';
 export default {
   mixins: [paymentsMixin],
   props: {
-    amazonData: Object,
-    amazonDisabled: {
+    amazonData: {
+      type: Object,
+      required: true,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
@@ -25,6 +29,7 @@ export default {
       amazonPayments: {
         modal: null,
         type: null,
+        gemsBlock: null,
         gift: null,
         loggedIn: false,
         paymentSelected: false,
@@ -42,7 +47,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
     ...mapState(['isAmazonReady']),
     amazonPaymentsCanCheckout () {
       if (this.amazonPayments.type === 'single') {
@@ -87,7 +91,7 @@ export default {
           size: 'large',
           agreementType: 'BillingAgreement',
           onSignIn: async contract => { // @TODO send to modal
-            if (this.amazonDisabled === true) return null;
+            if (this.disabled === true) return null;
             // if (!this.checkGemAmount(this.amazonData)) return;
             this.amazonPayments.billingAgreementId = contract.getAmazonBillingAgreementId();
 
@@ -96,7 +100,7 @@ export default {
             return this.$root.$emit('habitica::pay-with-amazon', this.amazonPayments);
           },
           authorization: () => {
-            if (this.amazonDisabled === true) return;
+            if (this.disabled === true) return;
 
             window.amazon.Login.authorize({
               scope: 'payments:widget',
@@ -117,3 +121,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  .amazon-pay-button.disabled {
+    .amazonpay-button-inner-image {
+      cursor: default !important;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+</style>

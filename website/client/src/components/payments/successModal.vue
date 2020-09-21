@@ -33,7 +33,7 @@
               class="svg-icon"
               v-html="icons.gem"
             ></div>
-            <span>20</span>
+            <span>{{ paymentData.gemsBlock.gems }}</span>
           </div>
         </template>
         <template

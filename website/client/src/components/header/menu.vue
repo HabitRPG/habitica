@@ -6,10 +6,10 @@
     <send-gems-modal />
     <select-user-modal />
     <b-navbar
+      id="habitica-menu"
       class="topbar navbar-inverse static-top"
       toggleable="lg"
       type="dark"
-      :class="navbarZIndexClass"
     >
       <b-navbar-brand
         class="brand"
@@ -399,6 +399,12 @@
   </div>
 </template>
 
+<style lang="scss">
+body.modal-open #habitica-menu {
+  z-index: 1035;
+}
+</style>
+
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/utils.scss';
@@ -546,22 +552,13 @@
   }
 
   .topbar {
+    z-index: 1080;
     background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right top no-repeat;
     min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
 
     a {
       color: white !important;
-    }
-  }
-
-  .navbar-z-index {
-    &-normal {
-      z-index: 1080;
-    }
-
-    &-modal {
-      z-index: 1035;
     }
   }
 
@@ -764,12 +761,6 @@ export default {
       groupPlans: 'groupPlans.data',
       modalStack: 'modalStack',
     }),
-    navbarZIndexClass () {
-      if (this.modalStack.length > 0) {
-        return 'navbar-z-index-modal';
-      }
-      return 'navbar-z-index-normal';
-    },
   },
   mounted () {
     this.getUserGroupPlans();

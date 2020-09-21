@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 import * as sender from '../../../../../website/server/libs/email';
+import common from '../../../../../website/common';
 import api from '../../../../../website/server/libs/payments/payments';
 import * as analytics from '../../../../../website/server/libs/analyticsService';
 import * as notifications from '../../../../../website/server/libs/pushNotifications';
@@ -9,6 +10,7 @@ import { translate as t } from '../../../../helpers/api-integration/v3';
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper';
+import * as worldState from '../../../../../website/server/libs/worldState';
 
 describe('payments/index', () => {
   let user; let group; let data; let
@@ -555,6 +557,7 @@ describe('payments/index', () => {
     beforeEach(() => {
       data = {
         user,
+        gemsBlock: common.content.gems['21gems'],
         paymentMethod: 'payment',
         headers: {
           'x-client': 'habitica-web',
@@ -564,27 +567,56 @@ describe('payments/index', () => {
     });
 
     context('Self Purchase', () => {
-      it('amount property defaults to 5', async () => {
-        expect(user.balance).to.eql(0);
-
-        await api.buyGems(data);
-
-        expect(user.balance).to.eql(5);
-      });
-
-      it('can set amount that is purchased', async () => {
-        data.amount = 13;
-
-        await api.buyGems(data);
-
-        expect(user.balance).to.eql(13);
-      });
-
       it('sends a donation email', async () => {
         await api.buyGems(data);
 
         expect(sender.sendTxn).to.be.calledOnce;
         expect(sender.sendTxn).to.be.calledWith(data.user, 'donation');
+      });
+    });
+
+    context('No Active Promotion', () => {
+      beforeEach(() => {
+        sinon.stub(worldState, 'getCurrentEvent').returns(null);
+      });
+
+      afterEach(() => {
+        worldState.getCurrentEvent.restore();
+      });
+
+      it('does not apply a discount', async () => {
+        const balanceBefore = user.balance;
+
+        await api.buyGems(data);
+
+        const balanceAfter = user.balance;
+        const balanceDiff = balanceAfter - balanceBefore;
+
+        expect(balanceDiff * 4).to.eql(21);
+      });
+    });
+
+    context('Active Promotion', () => {
+      beforeEach(() => {
+        sinon.stub(worldState, 'getCurrentEvent').returns({
+          ...common.content.events.fall2020,
+          event: 'fall2020',
+        });
+      });
+
+      afterEach(() => {
+        worldState.getCurrentEvent.restore();
+      });
+
+      it('applies a discount', async () => {
+        const balanceBefore = user.balance;
+
+        await api.buyGems(data);
+
+        const balanceAfter = user.balance;
+        const balanceDiff = balanceAfter - balanceBefore;
+
+        expect(balanceDiff * 4).to.eql(30);
       });
     });
 

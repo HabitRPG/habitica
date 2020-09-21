@@ -17,6 +17,7 @@ import { // eslint-disable-line import/no-cycle
   basicFields as basicGroupFields,
 } from '../../models/group';
 import { model as Coupon } from '../../models/coupon';
+import { getGemsBlock } from './gems'; // eslint-disable-line import/no-cycle
 
 // TODO better handling of errors
 
@@ -109,9 +110,10 @@ api.authorize = function authorize (inputSet) {
  */
 api.checkout = async function checkout (options = {}) {
   const {
-    gift, user, orderReferenceId, headers,
+    gift, user, orderReferenceId, headers, gemsBlock: gemsBlockKey,
   } = options;
-  let amount = 5;
+  let amount;
+  let gemsBlock;
 
   if (gift) {
     gift.member = await User.findById(gift.uuid).exec();
@@ -124,6 +126,9 @@ api.checkout = async function checkout (options = {}) {
     } else if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) {
       amount = common.content.subscriptionBlocks[gift.subscription.key].price;
     }
+  } else {
+    gemsBlock = getGemsBlock(gemsBlockKey);
+    amount = gemsBlock.price / 100;
   }
 
   if (!gift || gift.type === this.constants.GIFT_TYPE_GEMS) {
@@ -170,6 +175,7 @@ api.checkout = async function checkout (options = {}) {
     user,
     paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
+    gemsBlock,
   };
 
   if (gift) {
