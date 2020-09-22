@@ -63,6 +63,21 @@ api.getNews = {
           Everyone has hastened down to the Flourishing Fields to celebrate this spooky harvest
           festival. Be sure to check out all the outfits that people are sporting!
         </p>
+        <h3>Fall Gem Sale! September 22-30</h3>
+        <p>
+          For the first time ever, Habitica is offering a Gem sale to kick off the fun of Fall
+          Festival! Receive bonus Gems with each Gem purchase on web or mobile - the more Gems you
+          buy, the bigger the bonus! Use them to grab past Fall Festival Gear from the Seasonal
+          Shop, Quests, Magic Hatching Potions, and more. Find more details via Menu > Gems on
+          mobile, or tapping the Gem on the top menu bar on web.
+        </p>
+        <p>
+          Be sure to update your mobile app to see details, although the promo will still work even
+          if you can't see the promotional information.
+        </p>
+        <p>
+          Thanks so much for your support. 💜 Gem purchases help keep us running ad-free!
+        </p>
       </div>
       `,
     });
