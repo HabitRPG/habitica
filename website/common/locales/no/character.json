@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Vær oppmerksom på at ditt Visningsnavn, profilbilde, og \"om meg\" må følge <a href='https://habitica.com/static/community-guidelines' target='_blank'>retningslinjene</a> (f.eks. ingen banning, ikke noe +18 temaer, ingen fornærmelser, etc). Hvis du har spørsmål om noe er akseptert eller ikke, er du velkommen til å sende en mail til <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Vær oppmerksom på at ditt Visningsnavn, profilbilde, og \"om meg\" må følge <a href='https://habitica.com/static/community-guidelines' target='_blank'>Samfunnsretningslinjene</a> (f.eks. ingen banning, ikke noe +18 temaer, ingen fornærmelser, etc). Hvis du har spørsmål om noe er akseptert eller ikke, er du velkommen til å sende en mail til <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Tilpass din Avatar",
     "editAvatar": "Rediger avatar",
@@ -104,7 +104,7 @@
     "allocatePerPop": "Add a Point to Perception",
     "allocateInt": "Poeng tildelt Intelligens:",
     "allocateIntPop": "Add a Point to Intelligence",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Stat Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
+    "noMoreAllocate": "Nå som du har nådd nivå 100 vil du ikke få flere Stat Points. Du kan fortsette å gå opp i nivå, eller starte et nytt eventyr fra nivå 1 ved å bruke <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Gjenfødelseskule</a>!",
     "stats": "Egenskaper",
     "achievs": "Prestasjoner",
     "strength": "Styrke",
@@ -156,7 +156,7 @@
     "optOutOfClasses": "Avslå",
     "optOutOfPMs": "Avslå",
     "chooseClass": "Choose your Class",
-    "chooseClassLearnMarkdown": "[Learn more about Habitica's class system](http://habitica.wikia.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Lær mer om Habiticas klassesystem](https://habitica.wikia.com/wiki/Class_System)",
     "optOutOfClassesText": "Can't be bothered with classes? Want to choose later? Opt out - you'll be a warrior with no special abilities. You can read about the class system later on the wiki and enable classes at any time under User Icon > Settings.",
     "selectClass": "Select <%= heroClass %>",
     "select": "Velg",
@@ -166,8 +166,8 @@
     "streaksFrozenText": "Gjennomføringskjede på ikke gjennomførte daglige aktiviteter vil ikke resettes på slutten av dagen.",
     "respawn": "Gjenoppstå!",
     "youDied": "Du døde!",
-    "dieText": "Du har mistet et nivå, alt gullet ditt, og et tilfeldig stykke utstyr. Reis deg, Habitant, og prøv igjen! Styr de dårlige vanene, vær på vakt når du fullfører daglige oppgaver, og hold døden på en armlengdes avstand med en Livselikser om du nøler!",
-    "sureReset": "Are you sure? This will reset your character's class and allocated Stat Points (you'll get them all back to re-allocate), and costs 3 Gems.",
+    "dieText": "Du har mistet et nivå, alt gullet ditt, og et tilfeldig stykke utstyr. Reis deg, Habitant, og prøv igjen! Styr de dårlige vanene, vær på vakt når du fullfører daglige oppgaver, og hold døden på en armlengdes avstand med en Livseliksir om du nøler!",
+    "sureReset": "Er du sikker? Dette vil nullstille karakterens klasse og tildelte Statistikkpoeng (du får dem alle tilbake for å tildele på nytt), og koster 3 Juveler.",
     "purchaseFor": "Kjøpe for <%= cost %> Juveler?",
     "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
     "notEnoughMana": "Ikke nok mana",
@@ -223,6 +223,10 @@
     "bodyAccess": "Body Access.",
     "mainHand": "Main-Hand",
     "offHand": "Off-Hand",
-    "statPoints": "Stat Points",
-    "pts": "pts"
+    "statPoints": "Statistikkpoeng",
+    "pts": "pts",
+    "chatCastSpellUser": "<%= username %> kaster en <%= spell %> på <%= target %>.",
+    "chatCastSpellParty": "<%= username %> kaster en <%= spell %> for klanen.",
+    "purchasePetItemConfirm": "Denne handelen vil overskride antall gjenstander du trenger å klekke alle mulige <%= itemText %> kjæledyr. Er du sikker?",
+    "purchaseForGold": "Kjøp for <%= cost %> Gull?"
 }

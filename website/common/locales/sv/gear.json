@@ -27,7 +27,7 @@
     "weaponWarrior1Text": "Svärd",
     "weaponWarrior1Notes": "Ett enkelt soldatsvärd. Ökar Styrka med <%= str %>.",
     "weaponWarrior2Text": "Yxa",
-    "weaponWarrior2Notes": "Dubbelsidigt huggvapen. Ökar Styrka med <%= str %>",
+    "weaponWarrior2Notes": "Dubbelsidigt huggvapen. Ökar Styrka med <%= str %>.",
     "weaponWarrior3Text": "Morgonstjärna",
     "weaponWarrior3Notes": "Tung klubba med grova spetsar. Ökar Styrka med <%= str %>.",
     "weaponWarrior4Text": "Safirklinga",
