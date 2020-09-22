@@ -61,7 +61,7 @@
     "newGroupTitle": "Ny gruppe",
     "subscriberItem": "Mystisk objekt",
     "newSubscriberItem": "You have new <span class=\"notification-bold-blue\">Mystery Items</span>",
-    "subscriberItemText": "Hver måned vil abonnenter motta en mystisk gjenstand. De slippes som regel en uke før måneden ender. Se wikiens 'Mystisk Gjenstand'-side for mer informasjon.",
+    "subscriberItemText": "Hver måned vil abonnenter motta en mystisk gjenstand. Den blir tilgjengelig i starten av måneden. Se wikiens 'Mystisk Gjenstand'-side for mer informasjon.",
     "all": "Alle",
     "none": "Ingen",
     "more": "<%= count %> more",
@@ -284,11 +284,17 @@
     "dismissAll": "Dismiss All",
     "messages": "Messages",
     "emptyMessagesLine1": "You don't have any messages",
-    "emptyMessagesLine2": "Send a message to start a conversation!",
+    "emptyMessagesLine2": "Du kan sende en ny melding til en bruker ved å besøke vedkommendes profil og klikke på \"Melding\" -knappen.",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
     "letsgo": "Let's Go!",
     "selected": "Selected",
     "howManyToBuy": "How many would you like to buy?",
     "habiticaHasUpdated": "There is a new Habitica update. Refresh to get the latest version!",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Contact the Moderation Team",
+    "loadEarlierMessages": "Last inn tidligere meldinger",
+    "demo": "Demo",
+    "congratulations": "Gratulerer!",
+    "onboardingAchievs": "Innføringsprestasjoner",
+    "options": "Alternativer",
+    "finish": "Ferdig"
 }

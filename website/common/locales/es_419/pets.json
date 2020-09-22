@@ -93,7 +93,7 @@
     "petName": "<%= egg(locale) %> <%= potion(locale) %>",
     "mountName": "<%= mount(locale) %> <%= potion(locale) %>",
     "keyToPets": "Llave de las Residencias de Mascotas",
-    "keyToPetsDesc": "Libera todas las Mascotas estándar para que puedas coleccionarlas de nuevo. (Las Mascotas de Misión y las raras no son  afectadas.)",
+    "keyToPetsDesc": "Libera todas las Mascotas estándar para que puedas coleccionarlas de nuevo. (Las Mascotas de Misión y las raras no son afectadas.)",
     "keyToMounts": "Llave de las Residencias de Monturas",
     "keyToMountsDesc": "Libera todas las monturas estándar para que puedas volver a recolectarlas. (Las Monturas de misión y las Monturas raras no son afectadas.)",
     "keyToBoth": "Llave Maestra de las Residencias",

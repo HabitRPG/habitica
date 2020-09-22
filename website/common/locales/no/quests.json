@@ -45,7 +45,7 @@
     "collected": "Samlet",
     "collectionItems": "<%= number %> <%= items %>",
     "itemsToCollect": "Gjenstander å samle",
-    "bossDmg1": "Hver fullførte Daglige og Gjøremål og hver positiv Vane skader sjefsmonsteret. Skad det mer med rødere oppgaver eller Sønderknus og Flammeutbrudd. Sjefsmonstre vil skade hver oppdragsdeltaker for hver Daglige du glemmer (multiplisert med Sjefsmonsteret's styrke) i tillegg til den vanlige skaden, så hold klanen frisk ved å fullføre dine Daglige! <strong>All skade til og fra et sjefsmonster blir kalkulert ved cron (når dagen er omme).</strong>",
+    "bossDmg1": "Hver fullførte Daglige Gjøremål og Gjøremål og hver positiv Vane skader sjefsmonsteret. Skad det mer med rødere oppgaver eller Sønderknus og Ildkule. Sjefsmonstre vil skade hver oppdragsdeltaker for hvet Daglige Gjøremål du glemmer (multiplisert med Sjefsmonsteret's styrke) i tillegg til den vanlige skaden, så hold klanen frisk ved å fullføre dine Daglige Gjøremål! <strong>All skade til og fra et sjefsmonster blir kalkulert ved cron (når dagen er omme).</strong>",
     "bossDmg2": "Bare deltagere vil sloss mot sjefsmonsteret og dele belønningen.",
     "bossDmg1Broken": "Hver fullførte Daglige og Gjøremål og hver positiv Vane skader sjefsmonsteret... Skad det mer med rødere oppgaver eller Sønderknus og Flammeutbrudd... Sjefsmonstre vil skade hver oppdragsdeltaker for hver Daglige du glemmer (multiplisert med Sjefsmonsteret's styrke) i tillegg til den vanlige skaden, så hold klanen frisk ved å fullføre dine Daglige... <strong>All skade til og fra et sjefsmonster blir kalkulert ved cron (når dagen er omme)...</strong>",
     "bossDmg2Broken": "Bare deltagere vil sloss mot sjefsmonsteret og dele belønningen....",
