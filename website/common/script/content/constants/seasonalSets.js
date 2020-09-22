@@ -165,6 +165,12 @@ const SEASONAL_SETS = {
     'fall2019LichSet',
     'fall2019OperaticSpecterSet',
     'fall2019RavenSet',
+
+    // fall 2020
+    'fall2020TwoHeadedRogueSet',
+    'fall2020WraithWarriorSet',
+    'fall2020ThirdEyeMageSet',
+    'fall2020DeathsHeadMothHealerSet',
   ],
 };
 
