@@ -6,7 +6,7 @@
     "spellWizardEarthText": "Terremoto",
     "spellWizardEarthNotes": "Tu poder mental sacude la tierra y mejora la inteligencia de tu Partido! (Basado en: INT sin blindaje)",
     "spellWizardFrostText": "Helada Escalofriante",
-    "spellWizardFrostNotes": "¡Con un conjuro, El hielo congela todas tus rachas haciendo que no se reinicien a cero mañana!",
+    "spellWizardFrostNotes": "¡Con un conjuro, el hielo congela todas tus rachas para que no se reinicien a cero mañana! ",
     "spellWizardFrostAlreadyCast": "Ya lanzaste este hechizo hoy dia. Tus rachas estan congeladas y no hay necesidad de lanzar este hechizo denuevo.",
     "spellWarriorSmashText": "Golpe Brutal",
     "spellWarriorSmashNotes": "¡Haces que una tarea se vuelve más azul/menos rojo y haces daño extra a Jefes! (Basada en: FUE)",
@@ -23,7 +23,7 @@
     "spellRogueToolsOfTradeText": "Herramientas del Oficio",
     "spellRogueToolsOfTradeNotes": "¡Tus talentos de pícaro mejoran al Percepción de tu Grupo entero! (Basado en PER no reforzado)",
     "spellRogueStealthText": "Sigilo",
-    "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
+    "spellRogueStealthNotes": "Con cada invocación, algunas de las Diaras que no hiciste no te causarán daño esta noche. Sus rachas y colores no cambiarán. (Basado en: PER)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Numero de diarias que serán evitadas: <%= number %>.",
     "spellRogueStealthMaxedOut": "Ya haz evitado todas tus tareas diaria; no hay necesidad de conjurar esto denuevo.",
     "spellHealerHealText": "Luz Curativa",
@@ -56,5 +56,5 @@
     "groupTasksNoCast": "No está permitido conjurar una habilidad en las tareas grupales.",
     "spellNotOwned": "No tienes esta habilidad.",
     "spellLevelTooHigh": "Debes ser nivel <%= level %> para utilizar esta habilidad.",
-    "spellAlreadyCast": "Ya has lanzado esta habilidad. No tendrá ningún efecto adicional."
+    "spellAlreadyCast": "Usar esta habilidad no tendrá ningún efecto adicional."
 }

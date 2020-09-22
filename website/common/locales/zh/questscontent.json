@@ -703,9 +703,16 @@
     "questFluoriteCompletion": "战斗开始，这水晶生物似乎总是轻易地被你的灯光秀分散了注意力。 “如此闪亮……”它喃喃自语。<br> <br>“当然！” @nirbhao惊呼。 “必须是萤石元素。 水晶生物只想要那些能让它发光的光。“让我们帮助它发光。” <br> <br>你点燃了火炬、魔法碎片，水晶生物愉快地咯咯笑，发出更明亮的光，它很高兴能够再次闪闪发光，为此它沉积出丰富的萤石晶体。<br><br>@nirbhao说：“这将成为新孵化药水的理想成分，药水将使我们的宠物像这位萤石朋友一样发光。”",
     "questWindupNotes": "Habit城市总是很不安分，但这并不意味着你为逃离这一切做好了充足准备。你前往Habitica最好的时钟商场“良好守时”，然而咯吱声、吱吱声，混合着尖叫声从商场里溢出。叹气，你明明只是想去那修个手表。青铜巨人咔吱咔吱追逐驱赶，绰号为“伟大而强大”的店老板慌乱地逃出门。<br> <br>“Ki-！Ki-！Ki！”手臂咔吱挥舞，摧毁上上下下。齿轮发出刺耳的声音以示抗议。<br> <br>“我的机器人Clankton发疯了！ 它想杀了我！”那个以“强大”为名的家伙绝望地尖叫。 <br> <br>虽然手表坏了，但你还是知道何时该打架。你跳上前， 守护惊慌的制表师。 @Vikte和@a_diamond也站出来给予帮助！<br> <br>“ Ki-！Ki-！Ki-！”伴随着每一次打击，Clankton都在进行着吟唱。 <br> <br>等等，那机械刺耳的单调声音是不是在隐藏杀戮的原因？",
     "questWindupText": "失控的发条战士",
-    "questWindupUnlockText": "解锁在市场上购买发条孵化药水",
+    "questWindupUnlockText": "在市场上解锁发条孵化药水以购买",
     "questWindupDropWindupPotion": "发条孵化药水",
     "questWindupBoss": "Clankton",
     "questWindupCompletion": "不断躲避攻击，你终于发现了奇怪的地方：一条黄铜色条纹尾巴从机器人的底盘冒出。你将一只手伸入研磨齿轮中，然后一拔……一只发条虎崽瑟瑟发抖，它紧靠着你的衬衫。<br> <br>发条机器人立即停止摆动，露出微笑，它的齿轮咔嗒一声回到原位。 “Ki-Ki-Kitty！Kitty进了我！“<br> <br>“太棒了！”那个叫“强大”的家伙愧疚地说。“ 我一直在努力开发发条宠物药水。但最近，我每日沉迷“整理工作坊”……我想我忘了跟踪新物种的变化。 ” <br> <br>你跟随修补匠和Clankton走入商店。零件，工具和药水到处都是。“强大”拿走了你的手表，递给了你一些药水。<br> <br>“拿着。 显然，他们和你一起更加安全！”",
-    "questTurquoiseText": "探寻绿松石宝藏"
+    "questTurquoiseText": "探寻绿松石宝藏",
+    "questTurquoiseUnlockText": "在市场中解锁绿松石孵化药水以购买",
+    "questTurquoiseDropTurquoisePotion": "绿松石孵化药水",
+    "questTurquoiseCollectTurquoiseGems": "绿松石宝石",
+    "questTurquoiseCollectNeptuneRunes": "海王星卢恩符文",
+    "questTurquoiseCollectSagittariusRunes": "射手座卢恩符文",
+    "questTurquoiseCompletion": "热得满头大汗，队伍在土堆旁停下来休息，大家看着新发现的符文和宝石。\"<br><br>\"难以置信，\"@QuartzFox喃喃自语。\"历史书将重新书写。\"<br><br>\"我们应该把这些材料带回Habitica大学进行分析。\"@gawrone说。\"有很多东西需要研究，我们还可以制作绿松石药水! 谁知道我们还能在这附近发现什么埋藏的东西呢？\"<br><br>@starsystemic也说道。\"只要努力工作，就会有惊人的成就！\"",
+    "questTurquoiseNotes": "@gawrone跑进你的房间，一手托着Habitica的文献，另一只手拿着一本皮装书。这本皮装书布满灰尘，异常的大。<br><br>\"你绝对猜不到我发现了什么！\"他说。\"全盛田野之所以如此肥沃，是因为那里曾是一片汪洋。据传，有一个古老的民族曾居住在海底的魔法城市。通过被遗忘的地图，我找到了最有可能存在的位置! 拿上你的铁锹!\"<br><br>第二天晚上，你们如约见面，@QuartzFox和@starsystemic也加入了队伍，开始一同挖掘。在地下深处，你发现了一张卢恩符文，在其附近还有一颗绿松石石！<br><br>\"继续挖！\" @gawrone催促道。\"如果我们还能更多，那么就可以制作古老药水，还原历史！\""
 }

@@ -21,9 +21,10 @@
     "rebirthOrb": "Brukte en Gjenfødelseskule til å starte på nytt etter å ha nådd Nivå <%= level %>.",
     "rebirthOrb100": "Brukte en Gjenfødselskule til å starte på nytt etter å ha nådd Nivå 100 eller høyere.",
     "rebirthOrbNoLevel": "Bruke en Gjenfødelseskule til å starte på nytt.",
-    "rebirthPop": "Instantly restart your character as a Level 1 Warrior while retaining achievements, collectibles, and equipment. Your tasks and their history will remain but they will be reset to yellow. Your streaks will be removed except from challenge tasks. Your Gold, Experience, Mana, and the effects of all Skills will be removed. All of this will take effect immediately. For more information, see the wiki's <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> page.",
+    "rebirthPop": "Start karakteren din umiddelbart som en nivå 1-Kriger mens du beholder prestasjoner, samleobjekter og utstyr. Oppgavene dine og historikken blir værende, men de blir tilbakestilt til gule. Dine gjennomføringskjeder vil bli fjernet bortsett fra oppgaver som tilhører aktive Utfordringer og Gruppeplaner. Ditt Gull, Erfaring, Mana og effekten av alle Ferdigheter vil bli fjernet. Alt dette vil tre i kraft umiddelbart. For mer informasjon, se wikiens <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Gjenfødelseskule</a> side.",
     "rebirthName": "Gjenfødelseskule",
     "reborn": "Gjenfødt, maksnivå <%= reLevel %>",
     "confirmReborn": "Er du sikker?",
-    "rebirthComplete": "Du har blitt gjenfødt!"
+    "rebirthComplete": "Du har blitt gjenfødt!",
+    "nextFreeRebirth": "<strong><%= days %> dager</strong> til <strong>GRATIS</strong> Gjenfødelseskule"
 }

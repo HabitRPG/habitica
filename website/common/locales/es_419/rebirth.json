@@ -5,7 +5,7 @@
     "rebirthStartOver": "Renacimiento reinicia a tu personaje al nivel 1.",
     "rebirthAdvList1": "Tu barra de Salud vuelve a estar llena.",
     "rebirthAdvList2": "Usted no tiene Experiencia u Oro.",
-    "rebirthAdvList3": "Tus Hábitos, Diarias y Pendientes vuelven al color amarillo, y las rachas se reinician, exceptuando a las tareas de desafios.",
+    "rebirthAdvList3": "Tus Hábitos, Diarias y Pendientes vuelven al color amarillo y las rachas se reinician, exceptuando a las tareas de desafíos.",
     "rebirthAdvList4": "Comienzas como Guerrero hasta que consigas una nueva clase.",
     "rebirthInherit": "Tu nuevo personaje hereda unas pocas cosas de su predecesor:",
     "rebirthInList1": "Las tareas, historial y los ajustes permanecen.",
@@ -21,9 +21,10 @@
     "rebirthOrb": "Ha utilizado una esfera de renacimiento para empezar de nuevo luego de alcanzar el nivel <%= level %>.",
     "rebirthOrb100": "Ha usado una Esfera de renacimiento para volver a empezar al alcanzar el nivel 100 o más.",
     "rebirthOrbNoLevel": "Ha utilizado una esfera de renacimiento para comenzar de nuevo.",
-    "rebirthPop": "Reinicia instantáneamente tu personaje a Guerrero nivel 1, manteniendo tus Logros, Coleccionables y Equipamiento. Tus Tareas y su historial se mantendrán pero se volverás amarillas.\nTus rachas serán removidas exceptuando aquellas de tareas que provengan de desafíos. Tu Oro, Experiencia, Maná, y los efectos de todas las Habilidades serán removidas. Todo esto tomará efecto inmediatamente. Para mas información, ve la página <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Esfera de renacimiento</a> en la Wiki.",
+    "rebirthPop": "Reinicia instantáneamente tu personaje a Guerrero nivel 1, manteniendo tus logros, coleccionables y equipamiento. Tus tareas y su historial se mantendrán pero se volverán amarillas. Tus rachas serán removidas exceptuando aquellas que pertenezcan a Desafíos activos y Planes Grupales. Tu Oro, Experiencia, Maná, y los efectos de todas las Habilidades serán removidas. Todo esto tomará efecto inmediatamente. Para mas información, ve la página <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> en la Wiki.",
     "rebirthName": "Esfera de Renacimiento",
     "reborn": "Renacido, nivel máximo <%= reLevel %>",
     "confirmReborn": "¿Estás seguro?",
-    "rebirthComplete": "¡Haz sido revivido!"
+    "rebirthComplete": "¡Haz sido revivido!",
+    "nextFreeRebirth": "<strong><%= days %> días</strong> hasta un Orbe de Renacimiento <strong>GRATIS</strong>"
 }
