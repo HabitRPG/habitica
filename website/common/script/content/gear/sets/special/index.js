@@ -972,6 +972,7 @@ const eyewear = {
     text: t('eyewearSpecialFall2019RogueText'),
     notes: t('eyewearSpecialFall2019RogueNotes'),
     value: 20,
+    canBuy: () => CURRENT_SEASON === 'fall',
   },
   fall2019Healer: {
     event: EVENTS.fall2019,
@@ -980,6 +981,7 @@ const eyewear = {
     text: t('eyewearSpecialFall2019HealerText'),
     notes: t('eyewearSpecialFall2019HealerNotes'),
     value: 20,
+    canBuy: () => CURRENT_SEASON === 'fall',
   },
   ks2019: {
     text: t('eyewearSpecialKS2019Text'),

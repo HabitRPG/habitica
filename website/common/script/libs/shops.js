@@ -22,6 +22,7 @@ const shops = {};
 /* Market */
 
 shops.getMarketShop = function getMarketShop (user, language) {
+  const officialPinned = getOfficialPinnedItems(user);
   return {
     identifier: 'market',
     text: i18n.t('market'),
@@ -30,7 +31,9 @@ shops.getMarketShop = function getMarketShop (user, language) {
     categories: shops.getMarketCategories(user, language),
     featured: {
       text: i18n.t('featuredItems'),
-      items: featuredItems.market().map(i => getItemInfo(user, i.type, get(content, i.path))),
+      items: officialPinned.length > 0
+        ? officialPinned.map(i => getItemInfo(user, i.type, get(content, i.path)))
+        : featuredItems.market().map(i => getItemInfo(user, i.type, get(content, i.path))),
     },
   };
 };
