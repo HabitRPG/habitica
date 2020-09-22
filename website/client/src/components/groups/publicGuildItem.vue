@@ -202,7 +202,7 @@
       margin-top: 2em;
 
       .gem {
-        width: 25px;
+        width: 24px;
         display: inline-block;
         vertical-align: bottom;
         margin-right: .8em;
