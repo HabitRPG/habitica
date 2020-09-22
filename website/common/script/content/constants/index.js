@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export const CURRENT_SEASON = moment().isBefore('2020-08-02') ? 'summer' : '_NONE_';
+export const CURRENT_SEASON = moment().isBefore('2020-11-02') ? 'fall' : '_NONE_';
 
 export const CLASSES = [
   'warrior',

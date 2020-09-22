@@ -5,29 +5,30 @@
         {{ `${$t('lockedItem')}` }}
       </h4>
       <div
-        v-if="isWrongClass"
-        class="popover-content-text"
+        v-if="item.currency === 'gems'"
+      >
+        {{ `${$t('messageNotAvailable')}` }}
+      </div>
+      <div
+        v-else-if="isWrongClass"
       >
         {{ `${$t('classLockedItem')}` }}
       </div>
-      <div
-        v-else
-        class="popover-content-text"
-      >
+      <div v-else>
         {{ `${$t('tierLockedItem')}` }}
       </div>
-      <p></p>
     </div>
     <div v-else>
       <h4 class="popover-content-title">
         {{ itemText }}
       </h4>
-      <div class="popover-content-text">
+      <div>
         {{ itemNotes }}
       </div>
       <attributesGrid
         :user="user"
         :item="item"
+        class="mt-3 mb-2"
       />
     </div>
   </div>

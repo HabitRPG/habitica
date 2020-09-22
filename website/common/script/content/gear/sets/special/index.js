@@ -1,8 +1,8 @@
-import moment from 'moment';
 import defaults from 'lodash/defaults';
 import upperFirst from 'lodash/upperFirst';
 import {
   CLASSES,
+  CURRENT_SEASON,
   EVENTS,
 } from '../../../constants';
 import { ownsItem } from '../../gear-helper';
@@ -11,8 +11,6 @@ import * as contributorGear from './special-contributor';
 import * as takeThisGear from './special-takeThis';
 import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
-
-const CURRENT_SEASON = moment().isBefore('2020-11-02') ? 'fall' : '_NONE_';
 
 const armor = {
   0: backerGear.armorSpecial0,

@@ -106,7 +106,6 @@
         </div>
         <div
           v-if="item.event"
-          :class="item.purchaseType === 'gear' ? 'mt-4' : 'mt-2'"
         >
           {{ limitedString }}
         </div>
@@ -313,8 +312,12 @@ export default {
       return 'gold';
     },
     limitedString () {
-      return this.item.owned === false ? ''
-        : this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
+      if (this.item.owned === false
+        || moment().isAfter(seasonalShopConfig.dateRange.end)
+      ) return null;
+      return this.$t('limitedOffer', {
+        date: moment(seasonalShopConfig.dateRange.end).format('LL'),
+      });
     },
   },
   methods: {

@@ -223,6 +223,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         value: item.twoHanded ? 2 : 1,
         currency: 'gems',
         pinType: 'gear',
+        locked: !item.canBuy(user),
       });
       break;
     case 'marketGear':
