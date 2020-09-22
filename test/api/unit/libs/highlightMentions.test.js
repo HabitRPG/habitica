@@ -171,28 +171,32 @@ describe('highlightMentions', () => {
   it('github issue 12118, method crashes when square brackets are used', async () => {
     const text = '[test]';
 
-    let err;
+    const result = await highlightMentions(text);
 
-    try {
-      await highlightMentions(text);
-    } catch (e) {
-      err = e;
-    }
-
-    expect(err).to.be.undefined;
+    expect(result[0]).to.equal(text);
   });
 
   it('github issue 12138, method crashes when regex chars are used in code block', async () => {
     const text = '`[test]`';
 
-    let err;
+    const result = await highlightMentions(text);
 
-    try {
-      await highlightMentions(text);
-    } catch (e) {
-      err = e;
-    }
+    expect(result[0]).to.equal(text);
+  });
 
-    expect(err).to.be.undefined;
+  it('github issue 12586, method crashes when empty link is used', async () => {
+    const text = '[]()';
+
+    const result = await highlightMentions(text);
+
+    expect(result[0]).to.equal(text);
+  });
+
+  it('github issue 12586, method crashes when link without title is used', async () => {
+    const text = '[](www.google.com)';
+
+    const result = await highlightMentions(text);
+
+    expect(result[0]).to.equal(text);
   });
 });
