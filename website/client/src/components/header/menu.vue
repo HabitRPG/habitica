@@ -679,8 +679,31 @@ body.modal-open #habitica-menu {
     margin-left: 24px;
   }
 
+  @keyframes rotateGemColors {
+    /* Gems are green by default, so we rotate through ROYGBIV starting with green. */
+    20% {
+      fill: #46A7D9; /* Blue */
+    }
+    40% {
+      fill: #925CF3; /* Purple */
+    }
+    60% {
+      fill: #DE3F3F; /* Red */
+    }
+    80% {
+      fill: #FA8537; /* Orange */
+    }
+    100% {
+      fill: #FFB445; /* Yellow */
+    }
+  }
+
   .gem:hover {
     cursor: pointer;
+
+    & ::v-deep path:nth-child(1) {
+      animation: rotateGemColors 3s linear infinite alternate;
+    }
   }
 
   .message-count {
