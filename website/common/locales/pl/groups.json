@@ -498,5 +498,9 @@
     "managerNotes": "Notatki Menedżera",
     "thisTaskApproved": "Te zadanie zostało zatwierdzone",
     "chooseTeamMember": "Wybierz członka grupy",
-    "unassigned": "Nieprzypisane"
+    "unassigned": "Nieprzypisane",
+    "claimRewards": "Odbierz Nagrody",
+    "assignedDateAndUser": "Przypisano przez <strong>@<%- username %></strong> w dniu <strong><%= date %></strong>",
+    "assignedDateOnly": "Przypisano <strong><%= date %></strong>",
+    "onlyPrivateGuildsCanUpgrade": "Tylko gildie prywatne podlegają aktualizacji do planu grupowego."
 }

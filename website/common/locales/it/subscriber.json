@@ -5,7 +5,7 @@
     "buyGemsGold": "Acquista Gemme usando l'oro",
     "mustSubscribeToPurchaseGems": "Devi abbonarti per poter convertire l'oro in gemme",
     "reachedGoldToGemCap": "Hai raggiunto il tuo limite di conversione Oro=>Gemme (<%= convCap %>) per questo mese. Questo limite serve a prevenire l'abuso di questa funzione, il cosiddetto \"farming\". Il limite viene resettato entro i primi tre giorni di ogni mese.",
-    "reachedGoldToGemCapQuantity": "La quantità richiesta <%= quantità%> supera l'importo che è possibile acquistare per questo mese (<%= convCap%>). L'intero importo diventa disponibile entro i primi tre giorni di ogni mese. Grazie per esserti iscritto!",
+    "reachedGoldToGemCapQuantity": "La quantità richiesta <%= quantity %> supera l'importo che è possibile acquistare per questo mese (<%= convCap %>). L'intero importo diventa disponibile entro i primi tre giorni di ogni mese. Grazie per esserti iscritto!",
     "mysteryItem": "Oggetti mensili esclusivi",
     "mysteryItemText": "Ogni mese riceverai un oggetto davvero unico per il tuo avatar! In più, ogni tre mesi di abbonamento consecutivi, i Misteriosi Viaggiatori del Tempo ti permetteranno di ottenere oggetti antichi (e futuri!).",
     "exclusiveJackalopePet": "Animale esclusivo",

@@ -14,8 +14,8 @@
     "messageBought": "Kjøpte <%= itemText %>",
     "messageEquipped": " <%= itemText %> tatt på.",
     "messageUnEquipped": "Du tok av <%= itemText %>.",
-    "messageMissingEggPotion": "Du mangler enten egget eller eleksiret.",
-    "messageInvalidEggPotionCombo": "Du kan ikke klekke Kjæledyregg fra Oppdrag med Magiske Klekkeelisker! Prøv et annet egg.",
+    "messageMissingEggPotion": "Du mangler enten egget eller eliksiren.",
+    "messageInvalidEggPotionCombo": "Du kan ikke klekke Kjæledyregg fra Oppdrag med Magiske Klekke-eliksir! Prøv et annet egg.",
     "messageAlreadyPet": "Du har allerede det kjæledyret. Prøv å klekke en annen kombinasjon!",
     "messageHatched": "Egget ditt klekket! Besøk stallen din for å bruke kjæledyret.",
     "messageNotEnoughGold": "Ikke nok Gull",
@@ -31,7 +31,7 @@
     "messageAlreadyOwnGear": "Du har dette utstyret. Utstyr det ved å gå til utstyr siden.",
     "previousGearNotOwned": "You need to purchase a lower level gear before this one.",
     "messageHealthAlreadyMax": "Du har allerede maksimum helse.",
-    "messageHealthAlreadyMin": "Å nei! Du har allerede gått tom for liv, så det er for sent for å kjøpe en helseeleksir, men ikke bekymre deg - Du kan bli gjenopplivet!",
+    "messageHealthAlreadyMin": "Å nei! Du har allerede gått tom for liv, så det er for sent for å kjøpe en Livseliksir, men ikke bekymre deg - Du kan bli gjenopplivet!",
     "armoireEquipment": "<%= image %> Du fant et stykke sjeldent utstyr i Skapet: <%= dropText %>! Fantastisk!",
     "armoireFood": "<%= image %> You rummage in the Armoire and find <%= dropText %>. What's that doing in here?",
     "armoireExp": "Du kjemper med Skapet og får Erfaring! Ta det!",
@@ -60,7 +60,10 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Varslings-ID er påkrevd",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
+    "beginningOfConversation": "Dette er begynnelsen på samtalen din med <% = userName %>.",
     "messageDeletedUser": "Sorry, this user has deleted their account.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Missing display name.",
+    "canDeleteNow": "Du kan nå slette meldingen hvis du ønsker det.",
+    "reportedMessage": "Du har rapportert denne meldingen til moderatorene.",
+    "beginningOfConversationReminder": "Husk å være snill, respektfull og følg Retningslinjene for Fellesskapet!"
 }

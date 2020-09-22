@@ -79,7 +79,7 @@
     "challengeMemberNotFound": "Bruker ble ikke funnet blant Utfordringens medlemmer",
     "onlyGroupLeaderChal": "Bare gruppelederen kan opprette Utfordringer",
     "tavChalsMinPrize": "Prize must be at least 1 Gem for Public Challenges.",
-    "cantAfford": "Du har ikke råd til denne premien. Kjøp flere Juveler, eller sett ned premieverdien. ",
+    "cantAfford": "Du har ikke råd til denne premien. Kjøp flere Juveler, eller sett ned premieverdien.",
     "challengeIdRequired": "\"challengeld\" må være en gyldig UUID.",
     "winnerIdRequired": "\"winnerId\" må være en gyldig UUID.",
     "challengeNotFound": "Utfordringen ble ikke funnet, eller så har du ikke tilgang til den.",

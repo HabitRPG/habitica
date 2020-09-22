@@ -26,19 +26,19 @@ const featuredItems = {
     return [
       {
         type: 'quests',
-        path: 'quests.snail',
+        path: 'quests.squirrel',
       },
       {
         type: 'quests',
-        path: 'quests.alligator',
+        path: 'quests.cow',
       },
       {
         type: 'quests',
-        path: 'quests.fluorite',
+        path: 'quests.turquoise',
       },
     ];
   },
-  seasonal: 'summer2019Warrior',
+  seasonal: 'fall2019Mage',
   timeTravelers: [
     // TODO
   ],

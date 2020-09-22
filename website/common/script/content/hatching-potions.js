@@ -340,6 +340,13 @@ const premium = {
     canBuy: hasQuestAchievementFunction('windup'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
+  Turquoise: {
+    value: 2,
+    text: t('hatchingPotionTurquoise'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('turquoise'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {

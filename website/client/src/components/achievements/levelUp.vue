@@ -5,7 +5,7 @@
     :title="title"
     ok-only
     :ok-title="$t('onwards')"
-    v-bind:footer-class="{ greyed: displayRewardQuest }"
+    :footer-class="{ greyed: displayRewardQuest }"
   >
     <section class="d-flex">
       <span
@@ -23,8 +23,8 @@
     </section>
 
     <p
-      class="text"
       v-once
+      class="text"
     >
       {{ $t('levelup') }}
     </p>
@@ -34,8 +34,8 @@
       class="greyed"
     >
       <div
-        class="your-rewards d-flex"
         v-once
+        class="your-rewards d-flex"
       >
         <span
           class="sparkles"

@@ -122,7 +122,7 @@
     "subscriptionRateText": "Redepositar <strong>$<%= price %> dólares</strong> a cada <strong><%= months %> meses</strong>",
     "benefits": "Benefícios",
     "coupon": "Cupom",
-    "couponText": "Às vezes temos eventos e distribuímos códigos promocionais para equipamentos especiais (por exemplo: para aqueles que passam nos nossos estandes da Wondercon)",
+    "couponText": "Às vezes temos eventos e distribuímos códigos promocionais para equipamentos especiais (por exemplo: para aqueles que passam no nosso estande da Wondercon)",
     "apply": "Aplicar",
     "promoCode": "Código promocional",
     "promoCodeApplied": "Código promocional aplicado! Verifique seu inventário",

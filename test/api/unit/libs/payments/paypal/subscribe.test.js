@@ -8,7 +8,7 @@ import common from '../../../../../../website/common';
 
 const { i18n } = common;
 
-describe('subscribe', () => {
+describe('paypal - subscribe', () => {
   const subKey = 'basic_3mo';
   let coupon; let sub; let
     approvalHerf;
