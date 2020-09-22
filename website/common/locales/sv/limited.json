@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Begränsad Upplaga",
-    "seasonalEdition": "Säsongsutgåva",
-    "winterColors": "Vinterfärger",
     "annoyingFriends": "Jobbiga Vänner",
     "annoyingFriendsText": "Fick <%= count %> snöbollar kastade på sig av sällskapsmedlemmar.",
     "alarmingFriends": "Oroväckande Vänner",
@@ -61,7 +58,6 @@
     "nye2": "Gott nytt år! Må du få mången Perfekt Dag.",
     "nye3": "Gott Nytt År! Må din Att-göra lista vara kort och bra.",
     "nye4": "Gott Nytt År! Må du inte bli attackerad av en arg Hippogriff.",
-    "holidayCard": "Mottog ett högtids-kort!",
     "mightyBunnySet": "Mäktig kanin (Krigare)",
     "magicMouseSet": "Magisk mus (Magiker)",
     "lovingPupSet": "Kärleksfull valp (Helare)",

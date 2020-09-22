@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Ribotas Tiražas",
-    "seasonalEdition": "Sezoninis Tiražas",
-    "winterColors": "Žiemos Spalvos",
     "annoyingFriends": "Erzinantys Draugai",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "Gąsdinantys Draugai",
@@ -61,7 +58,6 @@
     "nye2": "Su Naujaisiais Metais| Linkiu daug Tobulų Dienų.",
     "nye3": "Su Naujaisiais Metais! Linkiu kuo mažiau neužbaigtų užduočių.",
     "nye4": "Su Naujaisiais Metais! Linkiu tau nebūti užpultam pasiutusio Hipogrifo.",
-    "holidayCard": "Gavai šventinę atvirut!",
     "mightyBunnySet": "Galingasis Triušis (Karys)",
     "magicMouseSet": "Stebuklingoji Pelė (Magas)",
     "lovingPupSet": "Mylintis Šunytis (Gydytojas)",

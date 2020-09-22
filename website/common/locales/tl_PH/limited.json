@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Limitadong Edisyon",
-    "seasonalEdition": "Pana-panahonang Edisyon",
-    "winterColors": "Kulay Taglamig",
     "annoyingFriends": "Makukulit na mga Kaibigan",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "Nakaka-Alarmang Kaibigan",
@@ -61,7 +58,6 @@
     "nye2": "Manigong Bagong Taon! Ikaw sana ay makakuha ng Perpektong Araw.",
     "nye3": "Manigong Bagong Taon! Sana maging kaunti ang iyong mga Dapat Gawin.",
     "nye4": "Manigong Bagong Taon! Sana ikaw ay hindi atakihin ng nagwawalang Hippogriff.",
-    "holidayCard": "Nakatanggap ng card na pang okasyon!",
     "mightyBunnySet": "Makapangyarihang Kuneho (Mandirigma)",
     "magicMouseSet": "Masalamangkerong Daga (Salamagkero)",
     "lovingPupSet": "Mapagmahal na Tuta (Manggagamot)",

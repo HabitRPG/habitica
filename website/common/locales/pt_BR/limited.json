@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Edição Limitada",
-    "seasonalEdition": "Edição Sazonal",
-    "winterColors": "Cores de Inverno",
     "annoyingFriends": "Amigos Irritantes",
     "annoyingFriendsText": "Foi atingido(a) por bolas de neve <%= count %> vezes por membros do grupo.",
     "alarmingFriends": "Amigos Alarmantes",
@@ -61,7 +58,6 @@
     "nye2": "Feliz Ano Novo! Que você conquiste vários Dias Perfeitos.",
     "nye3": "Feliz Ano Novo! Que a sua lista de Afazeres continue curta e doce.",
     "nye4": "Feliz Ano Novo! Que você não seja atacado por um Hipogrifo enfurecido.",
-    "holidayCard": "Recebeu um cartão de feriado comemorativo!",
     "mightyBunnySet": "Coelhinho Poderoso (Guerreiro)",
     "magicMouseSet": "Ratinho Encantado (Mago)",
     "lovingPupSet": "Canino Amoroso (Curandeiro)",
