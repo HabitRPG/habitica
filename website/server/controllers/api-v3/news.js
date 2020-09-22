@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'GUILD AND USE CASE SPOTLIGHTS!';
+const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL BEGINS! NOW WITH A SALE ON GEMS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,43 +31,38 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/17/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/22/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="scene_squall center-block"></div>
-        <h3>Guild Spotlight: Squall's Favorites</h3>
+        <div class="promo_fall_festival_2020 center-block"></div>
+        <h3>Limited Edition Class Outfits</h3>
         <p>
-          For this year's Guild Spotlight series, we're highlighting some favorites from Habitica's
-          staff, moderators, and some high-level contributors!
+          From now until October 31st, limited edition outfits are available in the Rewards column!
+          Depending on your class, you can be a Wraith Warrior, Death's Head Moth Healer, Third Eye
+          Mage, or Two-Headed Rogue. You'd better get productive to earn enough gold before your
+          time runs out...
         </p>
+        <div class="small mb-3">by Gawrone, Vikte, jjgame83, and SabreCat</div>
+        <div class="promo_fall_festival_2019 center-block"></div>
+        <h3>Seasonal Shop Opens</h3>
         <p>
-          This month we're sharing some <a
-          href='https://habitica.wordpress.com/2020/09/17/guild-spotlights-our-favourites-8/'
-          target='_blank'>picks from Champion Blacksmith Squall!</a> If you want to curate your
-          Habitica experience and join active, positive Guilds, this is a great way to pick up some
-          new ideas for Guilds to join.
+          The <a href='/shops/seasonal'>Seasonal Shop</a> has opened! It's stocking autumnal
+          Seasonal Edition goodies at the moment, including past fall outfits. Everything there
+          will be available to purchase during the Fall Festival event each year, but it's only
+          open until October 31st, so be sure to stock up now, or you'll have to wait a year to
+          buy these items again!
         </p>
-        <div class='small mb-3'>by shanaqui</div>
-        <div class='scene_positivity center-block'></div>
-        <h3>Use Case Spotlight: Creating Positivity</h3>
+        <div class="small mb-3">
+          by Gawrone, jjgame83, AnnDeLune, ʂʈєƒąʃųƥągųʂ, Katy133, Lilith of Alfheim, Definitely not
+          a villain, ShoGirlGeek. cataclysms, maxpendragon, Vikte, QuartzFox, Lemoness, Beffymaroo
+          and SabreCat
+        </div>
+        <div class="npc_justin center-block"></div>
         <p>
-          This month's <a
-          href='https://habitica.wordpress.com/2020/09/17/use-case-spotlight-creating-positivity/'
-          target='_blank'>Use Case Spotlight</a> is about Creating Positivity! It features a number
-          of great suggestions submitted by Habiticans in the <a
-          href='/groups/guild/1d3a10bf-60aa-4806-a38b-82d1084a59e6'>Use Case Spotlights Guild</a>.
-          We hope it helps any of you who might be looking for ways to foster motivation and a good
-          mood.
+          Everyone has hastened down to the Flourishing Fields to celebrate this spooky harvest
+          festival. Be sure to check out all the outfits that people are sporting!
         </p>
-        <p>
-          Plus, we're collecting user submissions for the next spotlight! How do you use Habitica
-          to make time for and manage your hobbies? We’ll be featuring player-submitted examples in
-          Use Case Spotlights on the Habitica Blog next month, so post your suggestions in the Use
-          Case Spotlight Guild now. We look forward to learning more about how you use Habitica to
-          improve your life and get things done!
-        </p>
-        <div class="small mb-3">by shanaqui</div>
       </div>
       `,
     });
