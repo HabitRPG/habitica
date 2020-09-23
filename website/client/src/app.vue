@@ -26,7 +26,6 @@
       id="app"
       :class="{
         'casting-spell': castingSpell,
-        'resting': showRestingBanner
       }"
     >
       <!-- <banned-account-modal /> -->
@@ -38,31 +37,8 @@
       <router-view v-if="!isUserLoggedIn || isStaticPage" />
       <template v-else>
         <template v-if="isUserLoaded">
-          <div
-            v-show="showRestingBanner"
-            ref="restingBanner"
-            class="resting-banner"
-          >
-            <span class="content">
-              <span class="label d-inline d-sm-none">{{ $t('innCheckOutBannerShort') }}</span>
-              <span class="label d-none d-sm-inline">{{ $t('innCheckOutBanner') }}</span>
-              <span class="separator">|</span>
-              <span
-                class="resume"
-                @click="resumeDamage()"
-              >{{ $t('resumeDamage') }}</span>
-            </span>
-            <div
-              class="closepadding"
-              @click="hideBanner()"
-            >
-              <span
-                class="svg-icon inline icon-10"
-                aria-hidden="true"
-                v-html="icons.close"
-              ></span>
-            </div>
-          </div>
+          <damage-paused-banner />
+          <gems-promo-banner />
           <notifications-display />
           <app-menu />
           <div
@@ -99,27 +75,17 @@
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
 
   #app {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-
-    &.resting {
-      --banner-resting-height: #{$restingToolbarHeight};
-    }
-
-    &.giftingBanner {
-      --banner-gifting-height: 2.5rem;
-    }
   }
 
   #loading-screen-inapp {
     #melior {
       margin: 0 auto;
       width: 70.9px;
-      margin-bottom: 1em;
     }
 
     .row {
@@ -144,15 +110,6 @@
     cursor: crosshair;
   }
 
-  .closepadding {
-    margin: 11px 24px;
-    display: inline-block;
-    position: relative;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-  }
-
   .container-fluid {
     flex: 1 0 auto;
   }
@@ -173,50 +130,10 @@
     margin-top: .5em;
     margin-bottom: .5em;
   }
-
-  .resting-banner {
-    width: 100%;
-    height: $restingToolbarHeight;
-    background-color: $blue-10;
-    top: 0;
-    z-index: 1300;
-    display: flex;
-
-    .content {
-      line-height: 1.71;
-      text-align: center;
-      color: $white;
-      padding: 8px 38px 8px 8px;
-      margin: auto;
-    }
-
-    @media only screen and (max-width: 768px) {
-      .content {
-        font-size: 12px;
-        line-height: 1.4;
-      }
-    }
-
-    .separator {
-      color: $blue-100;
-      margin: 0px 15px;
-    }
-
-    .resume {
-      font-weight: bold;
-      cursor: pointer;
-      white-space:nowrap;
-    }
-  }
 </style>
 
 <style lang='scss'>
   @import '~@/assets/scss/colors.scss';
-
-  .closepadding span svg path {
-    stroke: #FFF;
-    opacity: 0.48;
-  }
 
   .modal-backdrop {
     opacity: .9 !important;
@@ -235,6 +152,8 @@ import { loadProgressBar } from 'axios-progress-bar';
 
 import AppMenu from './components/header/menu';
 import AppHeader from './components/header/index';
+import DamagePausedBanner from './components/header/banners/damagePaused';
+import GemsPromoBanner from './components/header/banners/gemsPromo';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
@@ -256,8 +175,6 @@ import {
   removeLocalSetting,
 } from '@/libs/userlocalManager';
 
-import svgClose from '@/assets/svg/close.svg';
-
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
@@ -266,6 +183,8 @@ export default {
     AppMenu,
     AppHeader,
     AppFooter,
+    DamagePausedBanner,
+    GemsPromoBanner,
     notificationsDisplay,
     snackbars,
     BuyModal,
@@ -278,9 +197,6 @@ export default {
   mixins: [notifications, spellsMixin],
   data () {
     return {
-      icons: Object.freeze({
-        close: svgClose,
-      }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
 
@@ -299,9 +215,6 @@ export default {
     },
     castingSpell () {
       return this.$store.state.spellOptions.castingSpell;
-    },
-    showRestingBanner () {
-      return !this.bannerHidden && this.user && this.user.preferences.sleep;
     },
     noMargin () {
       return ['privateMessages'].includes(this.$route.name);
@@ -513,13 +426,9 @@ export default {
     } else {
       this.hideLoadingScreen();
     }
-
-    this.initializeModalStack();
   },
   beforeDestroy () {
     this.$root.$off('playSound');
-    this.$root.$off('bv::modal::hidden');
-    this.$root.$off('bv::show::modal');
     this.$root.$off('buyModal::showItem');
     this.$root.$off('selectMembersModal::showItem');
   },
@@ -548,112 +457,6 @@ export default {
 
       this.$store.dispatch('auth:logout', { redirectToLogin: true });
       return true;
-    },
-    initializeModalStack () {
-      // Manage modals
-      this.$root.$on('bv::show::modal', (modalId, data = {}) => {
-        if (data.fromRoot) return;
-        const { modalStack } = this.$store.state;
-
-        this.trackGemPurchase(modalId, data);
-
-        // Add new modal to the stack
-        const prev = modalStack[modalStack.length - 1];
-        const prevId = prev ? prev.modalId : undefined;
-        modalStack.push({ modalId, prev: prevId });
-      });
-
-      this.$root.$on('bv::modal::hidden', bvEvent => {
-        let modalId = bvEvent.target && bvEvent.target.id;
-
-        // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
-        if (!modalId) {
-          modalId = bvEvent.vueTarget && bvEvent.vueTarget.id;
-        }
-
-        if (!modalId) {
-          return;
-        }
-
-        const { modalStack } = this.$store.state;
-
-        const modalOnTop = modalStack[modalStack.length - 1];
-
-        // Check for invalid modal. Event systems can send multiples
-        if (!this.validStack(modalStack)) return;
-
-        // If we are moving forward
-        if (modalOnTop && modalOnTop.prev === modalId) return;
-
-        // Remove modal from stack
-        this.$store.state.modalStack.pop();
-
-        // Get previous modal
-        const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
-
-        if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, { fromRoot: true });
-      });
-
-      // Dismiss modal aggressively. Pass a modal ID to remove a modal instance from the stack
-      // (both the stack entry itself and its "prev" reference) so we don't reopen it
-      this.$root.$on('habitica::dismiss-modal', oldModal => {
-        if (!oldModal) return;
-        this.$root.$emit('bv::hide::modal', oldModal);
-        let removeIndex = this.$store.state.modalStack
-          .map(modal => modal.modalId)
-          .indexOf(oldModal);
-        if (removeIndex >= 0) {
-          this.$store.state.modalStack.splice(removeIndex, 1);
-        }
-        removeIndex = this.$store.state.modalStack
-          .map(modal => modal.prev)
-          .indexOf(oldModal);
-        if (removeIndex >= 0) {
-          delete this.$store.state.modalStack[removeIndex].prev;
-        }
-      });
-    },
-    validStack (modalStack) {
-      const modalsThatCanShowTwice = ['profile'];
-      const modalCount = {};
-      const prevAndCurrent = 2;
-
-      for (const current of modalStack) {
-        if (!modalCount[current.modalId]) modalCount[current.modalId] = 0;
-        modalCount[current.modalId] += 1;
-        if (
-          modalCount[current.modalId] > prevAndCurrent
-          && modalsThatCanShowTwice.indexOf(current.modalId) === -1
-        ) {
-          this.$store.state.modalStack = [];
-          return false;
-        }
-
-        if (!current.prev) continue; // eslint-disable-line
-        if (!modalCount[current.prev]) modalCount[current.prev] = 0;
-        modalCount[current.prev] += 1;
-        if (
-          modalCount[current.prev] > prevAndCurrent
-          && modalsThatCanShowTwice.indexOf(current.prev) === -1
-        ) {
-          this.$store.state.modalStack = [];
-          return false;
-        }
-      }
-
-      return true;
-    },
-    trackGemPurchase (modalId, data) {
-      // Track opening of gems modal unless it's been already tracked
-      // For example the gems button in the menu already tracks the event by itself
-      if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'button',
-          eventAction: 'click',
-          eventLabel: 'Gems > Wallet',
-        });
-      }
     },
     itemSelected (item) {
       this.selectedItemToBuy = item;
@@ -699,12 +502,6 @@ export default {
     },
     hideLoadingScreen () {
       this.loading = false;
-    },
-    hideBanner () {
-      this.bannerHidden = true;
-    },
-    resumeDamage () {
-      this.$store.dispatch('user:sleep');
     },
   },
 };

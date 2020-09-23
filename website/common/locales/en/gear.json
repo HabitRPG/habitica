@@ -368,6 +368,15 @@
   "weaponSpecialSummer2020HealerText": "Frosted Glass Rod",
   "weaponSpecialSummer2020HealerNotes": "As the currents wear away sharp edges, so shall your magic soften your friends' pain. Increases Intelligence by <%= int %>. Limited Edition 2020 Summer Gear.",
 
+  "weaponSpecialFall2020RogueText": "Sharp Katar",
+  "weaponSpecialFall2020RogueNotes": "Pierce your foe with one sharp strike! Even the thickest armor will give way to your blade. Increases Strength by <%= str %>. Limited Edition 2020 Autumn Gear.",
+  "weaponSpecialFall2020WarriorText": "Spectre's Sword",
+  "weaponSpecialFall2020WarriorNotes": "This sword went into the afterlife with a powerful Warrior, and returns for you to wield! Increases Strength by <%= str %>. Limited Edition 2020 Autumn Gear.",
+  "weaponSpecialFall2020MageText": "Three Visions",
+  "weaponSpecialFall2020MageNotes": "If aught should escape your mage sight, the brilliant crystals atop this staff shall illuminate what you overlooked. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2020 Autumn Gear.",
+  "weaponSpecialFall2020HealerText": "Cocoon Cane",
+  "weaponSpecialFall2020HealerNotes": "Now that your transformation is complete, this remnant of your life as a pupa now serves as the divining rod with which you measure destinies. Increases Intelligence by <%= int %>. Limited Edition 2020 Autumn Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -503,6 +512,8 @@
   "weaponArmoireBeachFlagNotes": "Rally the troops around your sandcastle and let everyone know where to come for help! Increases Perception by <%= per %>. Enchanted Armoire: Lifeguard Set (Item 1 of 3).",
   "weaponArmoireHandyHookText": "Handy Hook",
   "weaponArmoireHandyHookNotes": "Who needs opposable thumbs? This hook is “handy” enough for anyone. Increases Strength by <%= str %>. Enchanted Armoire: Pirate Set (Item 1 of 3).",
+  "weaponArmoireGuardiansCrookText": "Guardian's Crook",
+  "weaponArmoireGuardiansCrookNotes": "This shepherd's crook could come in handy next time you take your Pets for a stroll in the countryside... Increases Strength by <%= str %>. Enchanted Armoire: Guardian of the Grazers Set (Item 2 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -853,6 +864,15 @@
   "armorSpecialSummer2020HealerText": "Regalia of Tumbling Waves",
   "armorSpecialSummer2020HealerNotes": "You are as patient as the ocean, as strong as the currents, as dependable as the tides. Increases Constitution by <%= con %>. Limited Edition 2020 Summer Gear.",
 
+  "armorSpecialFall2020RogueText": "Statuesque Armor",
+  "armorSpecialFall2020RogueNotes": "Take on the strength of stone with this armor, guaranteed to repel the fiercest attacks. Increases Perception by <%= per %>. Limited Edition 2020 Autumn Gear.",
+  "armorSpecialFall2020WarriorText": "Revenant's Robes",
+  "armorSpecialFall2020WarriorNotes": "These robes once guarded a powerful Warrior from harm. They say the Warrior's spirit lingers in the cloth to guard a worthy successor. Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
+  "armorSpecialFall2020MageText": "Aloft Upon Enlightenment",
+  "armorSpecialFall2020MageNotes": "These wide-winged robes give the impression of hovering or flight, symbolizing the far-seeing perspective granted by vast knowledge. Increases Intelligence by <%= int %>. Limited Edition 2020 Autumn Gear.",
+  "armorSpecialFall2020HealerText": "Hawkmoth Wings",
+  "armorSpecialFall2020HealerNotes": "Your splendor unfurls by night, and those who witness you in flight wonder at what this omen could mean. Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1082,6 +1102,10 @@
   "armorArmoireFiddlersCoatNotes": "A practical outfit to give you plenty of room to move! Increases Constitution by <%= con %>. Enchanted Armoire: Fiddler Set (Item 2 of 4).",
   "armorArmoirePirateOutfitText": "Pirate Outfit",
   "armorArmoirePirateOutfitNotes": "Avast, ye landlubbers! The perfect outfit for swabbing the deck and counting your spoils. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Pirate Set (Item 2 of 3).",
+  "armorArmoireHeroicHerbalistRobeText": "Heroic Herbalist Robe",
+  "armorArmoireHeroicHerbalistRobeNotes": "Always smells pleasantly of all kinds of herbs. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Heroic Herbalist Set (Item 1 of 3).",
+  "armorArmoireGuardiansGownText": "Guardian's Gown",
+  "armorArmoireGuardiansGownNotes": "A lovely rustic gown, with surprisingly sturdy seams! Increases Intelligence by <%= int %>. Enchanted Armoire: Guardian of the Grazers Set (Item 3 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1433,6 +1457,15 @@
   "headSpecialSummer2020HealerText": "Glass-Studded Helm",
   "headSpecialSummer2020HealerNotes": "Stand tall, that beachcombers may keep their hands out of your hair. Increases Intelligence by <%= int %>. Limited Edition 2020 Summer Gear.",
 
+  "headSpecialFall2020RogueText": "Two-Headed Stone Mask",
+  "headSpecialFall2020RogueNotes": "Look twice, act once: this mask makes it easy. Increases Perception by <%= per %>. Limited Edition 2020 Autumn Gear.",
+  "headSpecialFall2020WarriorText": "Creepy Cowl",
+  "headSpecialFall2020WarriorNotes": "The Warrior who once wore this never flinched from the weightiest tasks! But others may flinch from you when you wear it... Increases Strength by <%= str %>. Limited Edition 2020 Autumn Gear.",
+  "headSpecialFall2020MageText": "Awakened Clarity",
+  "headSpecialFall2020MageNotes": "With this cap seated perfectly on your brow, your third eye opens, allowing you to focus on what is otherwise invisible: mana flows, restless spirits, and forgotten To-Dos. Increases Perception by <%= per %>. Limited Edition 2020 Autumn Gear.",
+  "headSpecialFall2020HealerText": "Death's Head Mask",
+  "headSpecialFall2020HealerNotes": "The dreadful pallor of this skull-like visage shines as a warning to all mortals: Time is fleeting! Attend to thy deadlines, before it is too late! Increases Intelligence by <%= int %>. Limited Edition 2020 Autumn Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1677,6 +1710,10 @@
   "headArmoireBaseballCapNotes": "Let everyone know that you're on Team Habitica! Increases Constitution and Strength by <%= attrs %> each. Enchanted Armoire: Baseball Set (Item 1 of 4).",
   "headArmoireFiddlersCapText": "Fiddler's Cap",
   "headArmoireFiddlersCapNotes": "Put on this jaunty cap to let everyone know who's dancing to whose tune! Increases Perception by <%= per %>. Enchanted Armoire: Fiddler Set (Item 1 of 4).",
+  "headArmoireHeroicHerbalistCrispinetteText": "Heroic Herbalist Crispinette",
+  "headArmoireHeroicHerbalistCrispinetteNotes": "This handy headdress will help you keep your hair out of the way... It doesn't hurt that it also adds to the mystique. Increases Intelligence by <%= int %>. Enchanted Armoire: Heroic Herbalist Set (Item 3 of 3).",
+  "headArmoireGuardiansBonnetText": "Guardian's Bonnet",
+  "headArmoireGuardiansBonnetNotes": "Don this fetching bonnet to help you herd your tasks! Increases Constitution by <%= con %>. Enchanted Armoire: Guardian of the Grazers Set (Item 1 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -1872,6 +1909,13 @@
   "shieldSpecialSummer2020HealerText": "Tumbled Glass Aegis",
   "shieldSpecialSummer2020HealerNotes": "As the motion of sand and water turns trash to treasure, so shall your magic turn wounds to strength. Increases Constitution by <%= con %>. Limited Edition 2020 Summer Gear.",
 
+  "shieldSpecialFall2020RogueText": "Swift Katar",
+  "shieldSpecialFall2020RogueNotes": "Wielding a katar, you'd better be quick on your feet... This blade will serve you well if you strike fast, but don't over-commit! Increases Strength by <%= str %>. Limited Edition 2020 Autumn Gear.",
+  "shieldSpecialFall2020WarriorText": "Spirit's Shield",
+  "shieldSpecialFall2020WarriorNotes": "It may look insubstantial, but this spectral shield can keep you safe from all kinds of harm. Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
+  "shieldSpecialFall2020HealerText": "Cocoon Carryall",
+  "shieldSpecialFall2020HealerNotes": "Is it another moth you carry, still undergoing metamorphosis? Or simply a silken handbag, containing your tools of healing and prophecy? Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
@@ -1971,6 +2015,8 @@
   "shieldArmoireLifeBuoyNotes": "Oh buoy! This will come in handy if you spot someone struggling in a sea of tasks and responsibilities. Increases Constitution by <%= con %>. Enchanted Armoire: Lifeguard Set (Item 2 of 3).",
   "shieldArmoirePiratesCompanionText": "Pirate's Companion",
   "shieldArmoirePiratesCompanionNotes": "Perfect if you want to talk your enemies to death, this parrot never shuts up. Maybe it'll remind you about your tasks too! Increases Perception by <%= per %>. Enchanted Armoire: Pirate Set (Item 3 of 3).",
+  "shieldArmoireMortarAndPestleText": "Mortar and Pestle",
+  "shieldArmoireMortarAndPestleNotes": "The most important equipment in the herbalist's arsenal! Grind up your ingredients for your herbal concoctions, and put your back into it! Increases Constitution by <%= con %>. Enchanted Armoire: Heroic Herbalist Set (Item 2 of 3).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
@@ -2022,6 +2068,8 @@
   "backMystery202004Notes": "Make a quick flutter to the nearest flowery meadow or migrate across the continent with these beautiful wings! Confers no benefit. April 2020 Subscriber Item.",
   "backMystery202005Text": "Wondrous Wyvern Wings",
   "backMystery202005Notes": "Despite their slight tatters, these wings can still carry you wherever you need to travel. Confers no benefit. May 2020 Subscriber Item.",
+  "backMystery202009Text": "Marvelous Moth Wings",
+  "backMystery202009Notes": "Let these huge wings take you to new heights! Confers no benefit. September 2020 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
@@ -2210,6 +2258,8 @@
   "headAccessoryMystery202004Notes": "They twitch just a bit if the scent of flowers drifts by--use them to find a pretty garden! Confers no benefit. April 2020 Subscriber Item.",
   "headAccessoryMystery202005Text": "Wondrous Wyvern Horns",
   "headAccessoryMystery202005Notes": "With such mighty horns, what creature dares challenge you? Confers no benefit. May 2020 Subscriber Item.",
+  "headAccessoryMystery202009Text": "Marvelous Moth Antennae",
+  "headAccessoryMystery202009Notes": "These feathery appendages will help you find your way even in the dark of night. Confers no benefit. September 2020 Subscriber Item.",
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 

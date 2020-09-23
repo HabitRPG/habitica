@@ -285,7 +285,7 @@
     "messages": "Съобщения",
     "emptyMessagesLine1": "Нямате съобщения",
     "emptyMessagesLine2": "Можете да изпратите ново съобщение на потребител, като посетите профила им и докоснете бутона \"Съобщение\".",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> Ви изпрати съобщение",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> Ви изпрати съобщение",
     "letsgo": "Хойде!",
     "selected": "Избрано",
     "howManyToBuy": "Колко искате да купите?",

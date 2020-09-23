@@ -192,7 +192,7 @@
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/modal.scss';
+  @import '~@/assets/scss/mixins.scss';
 
   #buy-modal {
     @include centeredModal();
@@ -362,12 +362,6 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-
-  .close-icon {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-  }
 
   .hourglass-nonsub {
     color: $yellow-5;
@@ -577,7 +571,7 @@ export default {
 
         if (
           petsRemaining < 0
-          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text }))
+          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text })) // eslint-disable-line no-alert
         ) return;
       }
 

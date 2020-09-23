@@ -67,7 +67,7 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/modal.scss';
+  @import '~@/assets/scss/mixins.scss';
 
   #select-user-modal {
     @include centeredModal();
@@ -177,7 +177,7 @@ export default {
   },
   methods: {
     close () {
-      this.$root.$emit('habitica::dismiss-modal', 'select-user-modal');
+      this.$root.$emit('bv::hide::modal', 'select-user-modal');
     },
     searchUser: debounce(async function userSearch (searchTerm) {
       this.foundUser = {};

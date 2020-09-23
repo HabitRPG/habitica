@@ -317,6 +317,15 @@ const armor = {
     int: 4,
     set: 'pirate',
   },
+  heroicHerbalistRobe: {
+    con: 7,
+    int: 7,
+    set: 'herbalist',
+  },
+  guardiansGown: {
+    int: 7,
+    set: 'grazerGuardian',
+  },
 };
 
 const body = {
@@ -635,6 +644,14 @@ const head = {
     per: 6,
     set: 'fiddler',
   },
+  heroicHerbalistCrispinette: {
+    int: 9,
+    set: 'herbalist',
+  },
+  guardiansBonnet: {
+    con: 8,
+    set: 'grazerGuardian',
+  },
 };
 
 const shield = {
@@ -815,6 +832,10 @@ const shield = {
   piratesCompanion: {
     per: 8,
     set: 'pirate',
+  },
+  mortarAndPestle: {
+    con: 9,
+    set: 'herbalist',
   },
 };
 
@@ -1089,6 +1110,10 @@ const weapon = {
   handyHook: {
     str: 8,
     set: 'pirate',
+  },
+  guardiansCrook: {
+    str: 10,
+    set: 'grazerGuardian',
   },
 };
 

@@ -92,7 +92,7 @@
     "whichQuestStart": "Hvilken quest vil du starte?",
     "getMoreQuests": "Få flere quests",
     "unlockedAQuest": "Du har fundet en quest!",
-    "leveledUpReceivedQuest": "Du er steget til <strong>Niveau <%=level%></strong> og har modtaget en quest-skriftrulle!",
+    "leveledUpReceivedQuest": "Du er steget til <strong>Niveau <%= level %></strong> og har modtaget en quest-skriftrulle!",
     "questInvitationDoesNotExist": "Ingen quest invitation er blevet udsendt endnu.",
     "questInviteNotFound": "Ingen questinvitation fundet.",
     "guildQuestsNotSupported": "Klaner kan ikke blive inviteret på quests.",

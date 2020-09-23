@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Sınırlı Sürüm",
-    "seasonalEdition": "Mevsimsel Sürüm",
-    "winterColors": "Kış Renkleri",
     "annoyingFriends": "Sinir Bozucu Arkadaşlar",
     "annoyingFriendsText": "Takım üyeleri tarafından atılan kar toplarını <%= count %> kere yedin.",
     "alarmingFriends": "Telaşlı Arkadaşlar",
@@ -61,7 +58,6 @@
     "nye2": "Mutlu Yıllar! Pek çok Mükemmel Gün kazanman dileğiyle.",
     "nye3": "Mutlu Yıllar! Yapılacaklar listenin kısa ve sevimli kalması dileğiyle.",
     "nye4": "Mutlu yıllar! Öfkeli bir Hipogrif saldırısına uğramaman dileğiyle.",
-    "holidayCard": "Bir bayram kartı aldın!",
     "mightyBunnySet": "Kudretli Tavşan (Savaşçı)",
     "magicMouseSet": "Sihirli Fare (Büyücü)",
     "lovingPupSet": "Sevgi Dolu Köpecik (Şifacı)",

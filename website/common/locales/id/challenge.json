@@ -8,7 +8,7 @@
     "brokenChallenge": "Tautan Tantangan Rusak: tugas ini sebelumnya merupakan bagian dari sebuah tantangan, tapi tantangan tersebut (atau grup) sudah dihapus. Apa yang akan kamu lakukan kepada tugas tak bertuan ini?",
     "keepThem": "Simpan Tugas",
     "removeThem": "Hapus Tugas",
-    "challengeCompleted": "Tantangan ini telah diselesaikan, dan pemenangnya adalah <span class=\"badge\"><%= user %></span>! Apa yang akan dilakukan dengan tugas yang tertinggal?",
+    "challengeCompleted": "Tantangan ini telah diselesaikan, dan pemenangnya adalah <span class=\"badge\"><%- user %></span>! Apa yang akan dilakukan dengan tugas yang tertinggal?",
     "unsubChallenge": "Tautan Tantangan Rusak: tugas ini sebelumnya merupakan bagian dari sebuah tantangan, tapi kamu sudah tidak melakukan tantangannya. Apa yang akan kamu lakukan?",
     "challengeWinner": "Adalah pemenang dari tantangan berikut",
     "challenges": "Tantangan",

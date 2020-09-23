@@ -21,10 +21,13 @@ describe('Canceling a subscription for group', () => {
     group = generateGroup({
       name: 'test group',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     await group.save();
+
+    user.guilds.push(group._id);
+    await user.save();
 
     data = {
       user,
@@ -141,6 +144,8 @@ describe('Canceling a subscription for group', () => {
 
   it('prevents non group leader from managing subscription', async () => {
     const groupMember = new User();
+    groupMember.guilds.push(group._id);
+    await groupMember.save();
     data.user = groupMember;
     data.groupId = group._id;
 
@@ -162,7 +167,9 @@ describe('Canceling a subscription for group', () => {
 
     let updatedGroup = await Group.findById(group._id).exec();
     const newLeader = new User();
+    newLeader.profile.name = 'newLeader';
     updatedGroup.leader = newLeader._id;
+    await newLeader.save();
     await updatedGroup.save();
 
     await api.cancelSubscription(data);
@@ -185,8 +192,6 @@ describe('Canceling a subscription for group', () => {
         'user-agent': '',
       },
     };
-    user.guilds.push(group._id);
-    await user.save();
     expect(group.purchased.plan.planId).to.not.exist;
     data.groupId = group._id;
     await api.createSubscription(data);
@@ -211,10 +216,15 @@ describe('Canceling a subscription for group', () => {
     await api.createSubscription(data);
     await api.cancelSubscription(data);
 
-    expect(sender.sendTxn).to.be.have.callCount(4);
-    expect(sender.sendTxn.thirdCall.args[0]._id).to.equal(recipient._id);
-    expect(sender.sendTxn.thirdCall.args[1]).to.equal('group-member-cancel');
-    expect(sender.sendTxn.thirdCall.args[2]).to.eql([
+    expect(sender.sendTxn).to.be.have.callCount(6);
+    const recipientCall = sender.sendTxn.getCalls().find(call => {
+      const isRecipient = call.args[0]._id === recipient._id;
+      const isGroupMemberCancel = call.args[1] === 'group-member-cancel';
+      return isRecipient && isGroupMemberCancel;
+    });
+    expect(recipientCall.args[0]._id).to.equal(recipient._id);
+    expect(recipientCall.args[1]).to.equal('group-member-cancel');
+    expect(recipientCall.args[2]).to.eql([
       { name: 'LEADER', content: user.profile.name },
       { name: 'GROUP_NAME', content: group.name },
     ]);
@@ -246,8 +256,6 @@ describe('Canceling a subscription for group', () => {
     recipient.guilds.push(group._id);
     await recipient.save();
 
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -259,11 +267,13 @@ describe('Canceling a subscription for group', () => {
     const group2 = generateGroup({
       name: 'test group2',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     data.groupId = group2._id;
     await group2.save();
+    user.guilds.push(group2._id);
+    await user.save();
     recipient.guilds.push(group2._id);
     await recipient.save();
 
@@ -285,8 +295,6 @@ describe('Canceling a subscription for group', () => {
   });
 
   it('does cancel a leader subscription with two cancelled group plans', async () => {
-    user.guilds.push(group._id);
-    await user.save();
     data.groupId = group._id;
 
     await api.createSubscription(data);
@@ -298,7 +306,7 @@ describe('Canceling a subscription for group', () => {
     const group2 = generateGroup({
       name: 'test group2',
       type: 'guild',
-      privacy: 'public',
+      privacy: 'private',
       leader: user._id,
     });
     user.guilds.push(group2._id);

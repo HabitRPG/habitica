@@ -144,16 +144,16 @@ export default {
         challengeId: this.challengeId,
         winnerId: this.winner._id,
       });
-      this.$root.$emit('habitica::dismiss-modal', 'close-challenge-modal');
+      this.$root.$emit('bv::hide::modal', 'close-challenge-modal');
       this.$router.push('/challenges/myChallenges');
     },
     async deleteChallenge () {
-      if (!window.confirm(this.$t('sureDelCha'))) return;
+      if (!window.confirm(this.$t('sureDelCha'))) return; // eslint-disable-line no-alert
       this.challenge = await this.$store.dispatch('challenges:deleteChallenge', {
         challengeId: this.challengeId,
         prize: this.prize,
       });
-      this.$root.$emit('habitica::dismiss-modal', 'close-challenge-modal');
+      this.$root.$emit('bv::hide::modal', 'close-challenge-modal');
       this.$router.push('/challenges/myChallenges');
     },
   },

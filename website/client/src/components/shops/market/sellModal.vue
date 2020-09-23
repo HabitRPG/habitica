@@ -83,9 +83,8 @@
   </b-modal>
 </template>
 <style lang="scss">
-
-  @import '~@/assets/scss/modal.scss';
   @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/mixins.scss';
 
   #sell-modal {
     @include centeredModal();

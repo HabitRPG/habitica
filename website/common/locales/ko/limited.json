@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "한정판",
-    "seasonalEdition": "계절판",
-    "winterColors": "겨울의 색깔",
     "annoyingFriends": "짜증나는 친구들",
     "annoyingFriendsText": "파티원들이 던진 눈덩이를 <%= count %>번 맞았습니다.",
     "alarmingFriends": "놀란 친구들",
@@ -61,7 +58,6 @@
     "nye2": "새해 복 많이 받으세요! 올해도 완벽한 날들 많이 이루시길.",
     "nye3": "새해 복 많이 받으세요! 당신의 할 일 목록이 짧고 달콤하게 유지되길.",
     "nye4": "Happy New Year! May you not get attacked by a raging Hippogriff.",
-    "holidayCard": "명절 카드를 받았습니다!",
     "mightyBunnySet": "강한 토끼 (전사)",
     "magicMouseSet": "마법의 쥐 (마법사)",
     "lovingPupSet": "다정한 강아지 (힐러)",

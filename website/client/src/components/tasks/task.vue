@@ -846,7 +846,18 @@ export default {
     markdown: markdownDirective,
   },
   mixins: [scoreTask],
-  props: ['task', 'isUser', 'group', 'challenge', 'dueDate'], // @TODO: maybe we should store the group on state?
+  // @TODO: maybe we should store the group on state?
+  props: {
+    task: {},
+    isUser: {},
+    group: {},
+    challenge: {},
+    dueDate: {},
+    isYesterdaily: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       random: uuid(), // used to avoid conflicts between checkboxes ids
@@ -1032,15 +1043,21 @@ export default {
     },
     destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return;
+      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
     },
     castEnd (e, task) {
       setTimeout(() => this.$root.$emit('castEnd', task, 'task', e), 0);
     },
-    score (direction) {
-      this.taskScore(this.task, direction);
+    async score (direction) {
+      if (this.isYesterdaily === true) {
+        await this.beforeTaskScore(this.task);
+        this.task.completed = !this.task.completed;
+        this.playTaskScoreSound(this.task, direction);
+      } else {
+        this.taskScore(this.task, direction);
+      }
     },
     handleBrokenTask (task) {
       if (this.$store.state.isRunningYesterdailies) return;

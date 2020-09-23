@@ -73,7 +73,7 @@
           <ul>
             <li>
               <a
-                target="_blanck"
+                target="_blank"
                 href="/static/community-guidelines"
               >{{ $t('communityGuidelines') }}</a>
             </li>
@@ -308,13 +308,13 @@
         <div class="col-12 col-md-5 text-right">
           <span class="ml-4">
             <a
-              target="_blanck"
+              target="_blank"
               href="/static/privacy"
             >{{ $t('privacy') }}</a>
           </span>
           <span class="ml-4">
             <a
-              target="_blanck"
+              target="_blank"
               href="/static/terms"
             >{{ $t('terms') }}</a>
           </span>
@@ -530,7 +530,7 @@ export default {
       });
     },
     async addMissedDay (numberOfDays) {
-      if (!window.confirm(`Are you sure you want to reset the day by ${numberOfDays} day(s)?`)) return;
+      if (!window.confirm(`Are you sure you want to reset the day by ${numberOfDays} day(s)?`)) return; // eslint-disable-line no-alert
 
       const date = moment(this.user.lastCron).subtract(numberOfDays, 'days').toDate();
 

@@ -1,6 +1,6 @@
 import each from 'lodash/each';
 import t from './translation';
-import { NotAuthorized } from '../libs/errors';
+import { NotAuthorized, BadRequest } from '../libs/errors';
 import statsComputed from '../libs/statsComputed'; // eslint-disable-line import/no-cycle
 import setDebuffPotionItems from '../libs/setDebuffPotionItems'; // eslint-disable-line import/no-cycle
 import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
@@ -104,7 +104,10 @@ spells.wizard = {
     lvl: 14,
     target: 'self',
     notes: t('spellWizardFrostNotes'),
-    cast (user) {
+    cast (user, target, req) {
+      // Check if chilling frost skill has been previously casted or not.
+      // See #12361 for more details.
+      if (user.stats.buffs.streaks === true) throw new BadRequest(t('spellAlreadyCast')(req.language));
       user.stats.buffs.streaks = true;
     },
   },
@@ -226,8 +229,8 @@ spells.healer = {
     lvl: 11,
     target: 'self',
     notes: t('spellHealerHealNotes'),
-    cast (user) {
-      if (user.stats.hp >= 50) throw new NotAuthorized(t('messageHealthAlreadyMax')(user.language));
+    cast (user, target, req) {
+      if (user.stats.hp >= 50) throw new NotAuthorized(t('messageHealthAlreadyMax')(req.language));
       user.stats.hp += (statsComputed(user).con + statsComputed(user).int + 5) * 0.075;
       if (user.stats.hp > 50) user.stats.hp = 50;
     },

@@ -27,7 +27,7 @@
     "weaponWarrior1Text": "Ξίφος",
     "weaponWarrior1Notes": "Κοινό ξίφος στρατιώτη. Αυξάνει τη Δύναμη κατά <%= str %>.",
     "weaponWarrior2Text": "Tσεκούρι",
-    "weaponWarrior2Notes": "Δικοπο όπλο τεμαχισμού. Αυξάνει την Δύναμη κατά <%= str %>",
+    "weaponWarrior2Notes": "Δίκοπο όπλο τεμαχισμού. Αυξάνει την Δύναμη κατά <%= str %>.",
     "weaponWarrior3Text": "Ο \"Αυγερινός\"",
     "weaponWarrior3Notes": "Βαρύ ρόπαλο με άγρια καρφιά. Αυξάνει τη Δύναμη κατά <%= str %>.",
     "weaponWarrior4Text": "Ζαφειρένια λεπίδα",

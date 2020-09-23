@@ -27,7 +27,7 @@
     "weaponWarrior1Text": "Sverd",
     "weaponWarrior1Notes": "Vanlig soldatsverd. Øker Styrke med <%= str %>.",
     "weaponWarrior2Text": "Øks",
-    "weaponWarrior2Notes": "Tosidet hoggvåpen. Øker styrke med<%= str %>",
+    "weaponWarrior2Notes": "Tosidet hoggvåpen. Øker styrke med<%= str %>.",
     "weaponWarrior3Text": "Morgenstjerne",
     "weaponWarrior3Notes": "Tung klubbe med pigger. Øker Styrke med <%= str %>",
     "weaponWarrior4Text": "Safirklinge",
@@ -1741,5 +1741,6 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
     "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
-    "twoHandedItem": "Two-handed item."
+    "twoHandedItem": "Two-handed item.",
+    "headSpecialWinter2020MageNotes": "Åh! Hvordan klokkene / Søte gyldne klokkene / Alt ser ut til å si, / \"Kast 'Ildkule'\" Øker Sansing med <% = per%>. Begrenset utgave 2019-2020 Vinterutstyr."
 }

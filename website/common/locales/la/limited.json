@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Editio Finita",
-    "seasonalEdition": "Editio Tempestiva",
-    "winterColors": "Colores Hiemales",
     "annoyingFriends": "Amici Vexantes",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "Amici Trepidi",
@@ -61,7 +58,6 @@
     "nye2": "Happy New Year! May you earn many a Perfect Day.",
     "nye3": "Happy New Year! May your To-Do list stay short and sweet.",
     "nye4": "Happy New Year! May you not get attacked by a raging Hippogriff.",
-    "holidayCard": "Received a holiday card!",
     "mightyBunnySet": "Cuniculus Fortis (Bellator)",
     "magicMouseSet": "Mus Magus (Magus)",
     "lovingPupSet": "Catulus Amans (Sanator)",

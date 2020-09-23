@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Edición Limitada",
-    "seasonalEdition": "Edición de Tempada",
-    "winterColors": "Cores de Inverno",
     "annoyingFriends": "Amigos Irritantes",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "Amigos Alarmantes",
@@ -61,7 +58,6 @@
     "nye2": "Feliz Ano Novo! Que obteñas un Día Perfecto.",
     "nye3": "Feliz Ano Novo! Que a túa lista de Tarefas se manteña curta e fácil.",
     "nye4": "Feliz Ano Novo! Que non che ataque un feroz Hipogrifo.",
-    "holidayCard": "Recibiches unha tarxeta de felicitacións!",
     "mightyBunnySet": "Gran Coello (Guerreiro)",
     "magicMouseSet": "Rato Máxico (Mago)",
     "lovingPupSet": "Canciño Afectuoso (Curandeiro)",

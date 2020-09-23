@@ -2,6 +2,8 @@
   <div>
     <approval-modal :task="task" />
     <div
+      v-if="!(userIsAssigned && task.group.approval.approved
+        && !task.completed && task.type !== 'habit')"
       class="claim-bottom-message d-flex align-items-center"
     >
       <div
@@ -108,7 +110,7 @@ export default {
         assignedUsers.forEach(userId => {
           const index = findIndex(this.group.members, member => member._id === userId);
           const assignedMember = this.group.members[index];
-          assignedUsersNames.push(assignedMember.profile.name);
+          assignedUsersNames.push(`@${assignedMember.auth.local.username}`);
         });
       }
 
@@ -160,7 +162,7 @@ export default {
       this.sync();
     },
     async unassign () {
-      if (!window.confirm(this.$t('confirmUnClaim'))) return;
+      if (!window.confirm(this.$t('confirmUnClaim'))) return; // eslint-disable-line no-alert
 
       let taskId = this.task._id;
       // If we are on the user task
@@ -189,7 +191,7 @@ export default {
       this.sync();
     },
     needsWork () {
-      if (!window.confirm(this.$t('confirmNeedsWork'))) return;
+      if (!window.confirm(this.$t('confirmNeedsWork'))) return; // eslint-disable-line no-alert
       const userIdNeedsMoreWork = this.task.group.assignedUsers[0];
       this.$store.dispatch('tasks:needsWork', {
         taskId: this.task._id,

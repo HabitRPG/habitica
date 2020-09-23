@@ -38,7 +38,7 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/modal.scss';
+  @import '~@/assets/scss/mixins.scss';
 
   #mount-raised-modal {
     @include centeredModal();

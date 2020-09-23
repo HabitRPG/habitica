@@ -136,6 +136,8 @@ export default new Schema({
     bugBonanza: Boolean,
     bareNecessities: Boolean,
     freshwaterFriends: Boolean,
+    goodAsGold: Boolean,
+    allThatGlitters: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

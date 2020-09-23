@@ -2,7 +2,8 @@
   <div>
     <yesterdaily-modal
       :yester-dailies="yesterDailies"
-      @run-cron="runYesterDailiesAction()"
+      :cron-action="runCronAction"
+      @hidden="afterYesterdailies()"
     />
     <armoire-empty />
     <new-stuff />
@@ -116,7 +117,7 @@ import { mapState } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 
-import yesterdailyModal from './yesterdailyModal';
+import yesterdailyModal from './tasks/yesterdailyModal';
 import newStuff from './achievements/newStuff';
 import death from './achievements/death';
 import lowHealth from './achievements/lowHealth';
@@ -335,6 +336,22 @@ const NOTIFICATIONS = {
       achievement: 'freshwaterFriends', // defined manually until the server sends all the necessary data
     },
   },
+  ACHIEVEMENT_GOOD_AS_GOLD: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementGoodAsGold')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'goodAsGold', // defined manually until the server sends all the necessary data
+    },
+  },
+  ACHIEVEMENT_ALL_THAT_GLITTERS: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementAllThatGlitters')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'allThatGlitters', // defined manually until the server sends all the necessary data
+    },
+  },
 };
 
 export default {
@@ -372,7 +389,7 @@ export default {
   data () {
     // Levels that already display modals and should not trigger generic Level Up
     const unlockLevels = {
-      10: 'class system',
+      10: 'Class system',
       50: 'Orb of Rebirth',
     };
 
@@ -394,7 +411,7 @@ export default {
       'ACHIEVEMENT_MONSTER_MAGUS', 'ACHIEVEMENT_UNDEAD_UNDERTAKER', 'ACHIEVEMENT_PRIMED_FOR_PAINTING',
       'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT_TICKLED_PINK', 'ACHIEVEMENT_ROSY_OUTLOOK', 'ACHIEVEMENT',
       'ONBOARDING_COMPLETE', 'FIRST_DROPS', 'ACHIEVEMENT_BUG_BONANZA', 'ACHIEVEMENT_BARE_NECESSITIES',
-      'ACHIEVEMENT_FRESHWATER_FRIENDS',
+      'ACHIEVEMENT_FRESHWATER_FRIENDS', 'ACHIEVEMENT_GOOD_AS_GOLD', 'ACHIEVEMENT_ALL_THAT_GLITTERS',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -406,7 +423,6 @@ export default {
       unlockLevels,
       lastShownNotifications,
       alreadyReadNotification,
-      isRunningYesterdailies: false,
       nextCron: null,
       handledNotifications,
     };
@@ -458,6 +474,10 @@ export default {
 
       const money = after - before;
       let bonus;
+      // NOTE: the streak bonus snackbar
+      // is not shown when bulk scoring (for example in the RYA modal)
+      // is used as it bypass the client side scoring
+      // and doesn't populate the _tmp object
       if (this.user._tmp) {
         bonus = this.user._tmp.streakBonus || 0;
       }
@@ -600,6 +620,7 @@ export default {
       }
 
       // Lvl evaluation
+      // @TODO use LEVELED_UP notification, would remove the need to check for yesterdailies
       if (afterLvl !== beforeLvl) {
         if (afterLvl <= beforeLvl || this.$store.state.isRunningYesterdailies) return;
         this.showLevelUpNotifications(afterLvl);
@@ -640,8 +661,7 @@ export default {
     showLevelUpNotifications (newlevel) {
       this.lvl();
       this.playSound('Level_Up');
-      if (this.user._tmp && this.user._tmp.drop && this.user._tmp.drop.type === 'Quest') return;
-      if (this.unlockLevels[`${newlevel}`]) return;
+      if (this.unlockLevels[newlevel]) return;
       if (!this.user.preferences.suppressModals.levelUp) this.$root.$emit('bv::show::modal', 'level-up');
     },
     playSound (sound) {
@@ -675,15 +695,13 @@ export default {
 
       // Setup a listener that executes 10 seconds after the next cron time
       this.nextCron = Number(nextCron.format('x'));
-      this.$store.state.isRunningYesterdailies = false;
     },
     async runYesterDailies () {
       if (this.$store.state.isRunningYesterdailies) return;
       this.$store.state.isRunningYesterdailies = true;
 
       if (!this.user.needsCron) {
-        this.scheduleNextCron();
-        this.handleUserNotifications(this.user.notifications);
+        this.afterYesterdailies();
         return;
       }
 
@@ -701,25 +719,25 @@ export default {
       });
 
       if (this.yesterDailies.length === 0) {
-        this.runYesterDailiesAction();
-        return;
+        await this.runCronAction();
+        this.afterYesterdailies();
+      } else {
+        this.levelBeforeYesterdailies = this.user.stats.lvl;
+        this.$root.$emit('bv::show::modal', 'yesterdaily');
       }
-
-      this.levelBeforeYesterdailies = this.user.stats.lvl;
-      this.$root.$emit('bv::show::modal', 'yesterdaily');
     },
-    async runYesterDailiesAction () {
+    async runCronAction () {
       // Run Cron
       await axios.post('/api/v4/cron');
-
-      // Notifications
 
       // Sync
       await Promise.all([
         this.$store.dispatch('user:fetch', { forceLoad: true }),
         this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
       ]);
-
+    },
+    afterYesterdailies () {
+      this.scheduleNextCron();
       this.$store.state.isRunningYesterdailies = false;
 
       if (
@@ -728,8 +746,6 @@ export default {
       ) {
         this.showLevelUpNotifications(this.user.stats.lvl);
       }
-
-      this.scheduleNextCron();
       this.handleUserNotifications(this.user.notifications);
     },
     async handleUserNotifications (after) {
@@ -810,6 +826,8 @@ export default {
           case 'ACHIEVEMENT_BUG_BONANZA':
           case 'ACHIEVEMENT_BARE_NECESSITIES':
           case 'ACHIEVEMENT_FRESHWATER_FRIENDS':
+          case 'ACHIEVEMENT_GOOD_AS_GOLD':
+          case 'ACHIEVEMENT_ALL_THAT_GLITTERS':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

@@ -8,7 +8,7 @@
     "brokenChallenge": "Nefunkční odkaz na výzvu: tento úkol byl součástí výzvy, ale ta (nebo skupina, která ji vytvořila) byla odstraněna. Co chceš dělat s osiřelými úkoly?",
     "keepThem": "Ponechat úkoly",
     "removeThem": "Odstranit úkoly",
-    "challengeCompleted": "Výzva byla ukončena a vítězem se stal <span class=\"badge\"><%= user %></span>! Co chceš dělat s osiřelými úkoly?",
+    "challengeCompleted": "Výzva byla ukončena a vítězem se stal <span class=\"badge\"><%- user %></span>! Co chceš dělat s osiřelými úkoly?",
     "unsubChallenge": "Nefunkční odkaz na výzvu: tento úkol byl součástí výzvy, ze které jsi se odepsal. Co chceš dělat s osiřelými úkoly?",
     "challengeWinner": "Stal se výhercem následujících výzev",
     "challenges": "Výzvy",

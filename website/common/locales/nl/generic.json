@@ -285,7 +285,7 @@
     "messages": "Berichten",
     "emptyMessagesLine1": "Je hebt geen berichten",
     "emptyMessagesLine2": "Stuur een bericht om een gesprek te beginnen!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> heeft je een bericht gestuurd",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> heeft je een bericht gestuurd",
     "letsgo": "Laten we gaan!",
     "selected": "Geselecteerd",
     "howManyToBuy": "Hoeveel wil je kopen?",

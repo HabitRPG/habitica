@@ -285,7 +285,7 @@
     "messages": "Pesan",
     "emptyMessagesLine1": "Kamu tidak memiliki pesan apapun",
     "emptyMessagesLine2": "Kirim sebuah pesan untuk memulai obrolan!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> mengirim-mu sebuah pesan",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> mengirim-mu sebuah pesan",
     "letsgo": "Ayo Pergi!",
     "selected": "Dipilih",
     "howManyToBuy": "Berapa banyak yang ingin kamu beli?",

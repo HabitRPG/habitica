@@ -216,7 +216,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
-      if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) return;
+      if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) return; // eslint-disable-line no-alert
       this.$store.dispatch('user:changeClass', { query: { class: heroClass } });
     },
     clickDisableClasses () {
@@ -225,30 +225,31 @@ export default {
     classGear (heroClass) {
       if (heroClass === 'rogue') {
         return {
-          armor: 'armor_special_summer2020Rogue',
-          head: 'head_special_summer2020Rogue',
-          shield: 'shield_special_summer2020Rogue',
-          weapon: 'weapon_special_summer2020Rogue',
+          armor: 'armor_special_fall2020Rogue',
+          head: 'head_special_fall2020Rogue',
+          shield: 'shield_special_fall2020Rogue',
+          weapon: 'weapon_special_fall2020Rogue',
         };
       } if (heroClass === 'wizard') {
         return {
-          armor: 'armor_special_summer2020Mage',
-          head: 'head_special_summer2020Mage',
-          weapon: 'weapon_special_summer2020Mage',
+          armor: 'armor_special_fall2020Mage',
+          head: 'head_special_fall2020Mage',
+          weapon: 'weapon_special_fall2020Mage',
+          shield: 'shield_warrior_0',
         };
       } if (heroClass === 'healer') {
         return {
-          armor: 'armor_special_summer2020Healer',
-          head: 'head_special_summer2020Healer',
-          shield: 'shield_special_summer2020Healer',
-          weapon: 'weapon_special_summer2020Healer',
+          armor: 'armor_special_fall2020Healer',
+          head: 'head_special_fall2020Healer',
+          shield: 'shield_special_fall2020Healer',
+          weapon: 'weapon_special_fall2020Healer',
         };
       }
       return {
-        armor: 'armor_special_summer2020Warrior',
-        head: 'head_special_summer2020Warrior',
-        shield: 'shield_special_summer2020Warrior',
-        weapon: 'weapon_special_summer2020Warrior',
+        armor: 'armor_special_fall2020Warrior',
+        head: 'head_special_fall2020Warrior',
+        shield: 'shield_special_fall2020Warrior',
+        weapon: 'weapon_special_fall2020Warrior',
       };
     },
     selectionBox (selectedClass, heroClass) {

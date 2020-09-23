@@ -8,7 +8,7 @@
     "brokenChallenge": "Link za izazov je nevažeći: Ovaj zadatak bio je deo izazova, ali su izazov ili grupa obrisani. Šta želite da uradite sa zadacima iz ovog izazova?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Izazov je završen i pobednik je <span class=\"badge\"><%= user %></span>! Šta želite da uradite?",
+    "challengeCompleted": "Izazov je završen i pobednik je <span class=\"badge\"><%- user %></span>! Šta želite da uradite?",
     "unsubChallenge": "Link za izazov je nevažeći: Ovaj zadatak  bio je deo izazova, ali ste Vi prestali da pratite izazov. Šta želite da uradite sa zadacima iz ovog izazova?",
     "challengeWinner": "Pobednik u sledećim izazovima",
     "challenges": "Izazovi",

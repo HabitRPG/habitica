@@ -1,19 +1,6 @@
 {
     "rebirthNew": "Renascimento: Disponível Nova Aventura!",
     "rebirthUnlock": "Você liberou o Renascimento! Esse item especial do Mercado o permite começar um novo jogo do nível 1 mantendo suas tarefas, conquistas, mascotes, e mais. Use-o para respirar uma vida nova em Habitica se sentir que já conquistou tudo, ou para experimentar novas funcionalidades com olhos frescos de um personagem iniciante!",
-    "rebirthBegin": "Renascimento: Comece uma Nova Aventura",
-    "rebirthStartOver": "Renascer reinicia o seu personagem ao nível 1.",
-    "rebirthAdvList1": "Você recupera a Vida toda.",
-    "rebirthAdvList2": "Não tem qualquer Experiência ou Ouro.",
-    "rebirthAdvList3": "Os seus Hábitos, Tarefas Diárias e Afazeres reiniciam para amarelo, e os elementos reiniciam, exceto as tarefas de desafios.",
-    "rebirthAdvList4": "Tem a classe inicial de Guerreiro até que adquira uma nova classe.",
-    "rebirthInherit": "Seu novo personagem herda algumas coisas de seu antecessor:",
-    "rebirthInList1": "Tarefas, histórico, equipamento, e configurações permanecem.",
-    "rebirthInList2": "Desafio, Corporação, e membros de Equipa permanecem.",
-    "rebirthInList3": "Gemas, níveis de apoiador, e níveis de colaborador permanecem.",
-    "rebirthInList4": "Items obtidos com Gemas ou drops (como mascotes ou montarias) ficam.",
-    "rebirthEarnAchievement": "Também ganha uma Conquista por começar uma nova aventura!",
-    "beReborn": "Renasça",
     "rebirthAchievement": "Você iniciou uma nova aventura! Esse é o seu Renascimento número <%= number %>, e o nível mais alto que você atingiu foi <%= level %>. Para acumular essa Conquista, comece sua próxima nova aventura quando atingir um Nível ainda maior!",
     "rebirthAchievement100": "Você iniciou uma nova aventura! Esse é seu <%= number %> º Renascimento, e o nível mais alto que você atingiu foi 100 ou maior. Para acumular essa Conquista, comece sua próxima aventura quando atingir pelo menos nível 100!",
     "rebirthBegan": "Iniciou uma Nova Aventura",
@@ -23,7 +10,5 @@
     "rebirthOrbNoLevel": "Utilizou uma Orbe de Renascimento para recomeçar tudo outra vez.",
     "rebirthPop": "Recomece instantaneamente o seu personagem como um Guerreiro de Nível 1, mantendo, no entanto, conquistas, colecionáveis e equipamento. As suas tarefas e o historial das mesmas irá manter-se mas serão reinizializadas a amarelo. Os seus combos serão removidos excepto em tarefas de desafio. O seu Ouro, Esperiencia, Mana e efeitos das todas as suas Habilidades serão removidos. Tudo isto terá efeito imediato. Para mais informação, veja a página de wiki acerca da <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe de Renascimento</a>.",
     "rebirthName": "Orbe do Renascimento",
-    "reborn": "Renascido, nível max <%= reLevel %>",
-    "confirmReborn": "Tem certeza?",
     "rebirthComplete": "Você renasceu!"
 }

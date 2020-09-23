@@ -40,7 +40,7 @@ export default {
     async accept () {
       const group = this.notification.data;
 
-      if (group.cancelledPlan && !window.confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+      if (group.cancelledPlan && !window.confirm(this.$t('aboutToJoinCancelledGroupPlan'))) { // eslint-disable-line no-alert
         return;
       }
 

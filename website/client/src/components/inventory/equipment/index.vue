@@ -107,7 +107,7 @@
                 class="float-right align-with-tab"
                 :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
                 :checked="user.preferences[drawerPreference]"
-                :hover-text="$t(drawerPreference+'PopoverText')"
+                :hover-text="$t(`${drawerPreference}PopoverText`)"
                 @change="changeDrawerPreference"
               />
             </div>

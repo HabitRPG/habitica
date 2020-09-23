@@ -9,36 +9,36 @@ const featuredItems = {
         path: 'armoire',
       },
       {
-        type: 'premiumHatchingPotion',
-        path: 'premiumHatchingPotions.SandSculpture',
+        type: 'hatchingPotions',
+        path: 'hatchingPotions.Shade',
       },
       {
         type: 'eggs',
-        path: 'eggs.Dragon',
+        path: 'eggs.TigerCub',
       },
       {
         type: 'food',
-        path: 'food.Chocolate',
+        path: 'food.Saddle',
       },
     ];
   },
   quests () {
     return [
       {
-        type: 'bundles',
-        path: 'bundles.aquaticAmigos',
+        type: 'quests',
+        path: 'quests.squirrel',
       },
       {
         type: 'quests',
-        path: 'quests.peacock',
+        path: 'quests.cow',
       },
       {
         type: 'quests',
-        path: 'quests.fluorite',
+        path: 'quests.turquoise',
       },
     ];
   },
-  seasonal: 'summer2019Warrior',
+  seasonal: 'fall2019Mage',
   timeTravelers: [
     // TODO
   ],

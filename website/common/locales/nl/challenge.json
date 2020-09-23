@@ -8,7 +8,7 @@
     "brokenChallenge": "Gebroken Uitdagingslink: deze taak was onderdeel van een uitdaging, maar de uitdaging (of groep) is verwijderd. Wat wil je doen met de bijbehorende taken?",
     "keepThem": "Behouden",
     "removeThem": "Verwijderen",
-    "challengeCompleted": "Deze uitdaging is voltooid en de winnaar was <span class='badge'><%= user %></span>! Wat wil je doen met de bijbehorende taken?",
+    "challengeCompleted": "Deze uitdaging is voltooid en de winnaar was <span class='badge'><%- user %></span>! Wat wil je doen met de bijbehorende taken?",
     "unsubChallenge": "Gebroken Uitdagingslink: deze taak was onderdeel van een uitdaging, maar jij hebt je teruggetrokken uit de uitdaging. Wat wil je doen met de bijbehorende taken?",
     "challengeWinner": "Heeft de volgende uitdagingen gewonnen",
     "challenges": "Uitdagingen",

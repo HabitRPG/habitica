@@ -285,7 +285,7 @@
     "messages": "Poruke",
     "emptyMessagesLine1": "Nemaš novih poruka",
     "emptyMessagesLine2": "Pošalji poruku da bi započeo/la razgovor!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> ti je poslao/la poruku",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> ti je poslao/la poruku",
     "letsgo": "Idemo!",
     "selected": "Odabrano",
     "howManyToBuy": "Koliko bi ih htio/la kupiti?",

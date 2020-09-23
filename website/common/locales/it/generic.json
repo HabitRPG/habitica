@@ -285,7 +285,7 @@
     "messages": "Messaggi",
     "emptyMessagesLine1": "Non hai alcun messaggio",
     "emptyMessagesLine2": "Puoi inviare un nuovo messaggio ad un utente visitando il suo profilo e cliccando il pulsante \"Messaggio\".",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> ti ha scritto un messaggio",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> ti ha scritto un messaggio",
     "letsgo": "Andiamo!",
     "selected": "Selezionato",
     "howManyToBuy": "Quanti vorresti comprarne?",

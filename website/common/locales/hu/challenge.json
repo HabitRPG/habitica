@@ -8,7 +8,7 @@
     "brokenChallenge": "Érvénytelen kihívás link: ez a feladat része volt egy kihívásnak, de a kihívást (vagy a csoportot) törölték. Mit szeretnél csinálni a megmaradó feladatokkal?",
     "keepThem": "Feladatok megtartása",
     "removeThem": "Feladatok eltávolítása",
-    "challengeCompleted": "A kihívás véget ért, a nyertes: <span class=\"badge\"><%= user %></span>! Mit szeretnél csinálni a megmaradó feladatokkal?",
+    "challengeCompleted": "A kihívás véget ért, a nyertes: <span class=\"badge\"><%- user %></span>! Mit szeretnél csinálni a megmaradó feladatokkal?",
     "unsubChallenge": "Érvénytelen kihívás link: ez a feladat része volt egy kihívásnak, de te leiratkoztál róla. Mit szeretnél csinálni a megmaradó feladatokkal?",
     "challengeWinner": "A következő kihívásokat nyerte meg",
     "challenges": "Kihívások",

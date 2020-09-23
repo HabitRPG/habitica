@@ -8,7 +8,7 @@
     "brokenChallenge": "Broken Challenge Link: Ovaj zadatak je bio dio izazova, ali je izazov (ili grupa) obrisan. Sta raditi sa aktivnim zadacima na tabli?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Ovaj izazov je završen, i pobjednik je bio <span class=\"badge\"><%= user %></span>! Šta raditi sa zadacima siročadi?",
+    "challengeCompleted": "Ovaj izazov je završen, i pobjednik je bio <span class=\"badge\"><%- user %></span>! Šta raditi sa zadacima siročadi?",
     "unsubChallenge": "Broken Challenge Link: this task was part of a challenge, but you have unsubscribed from the challenge. What to do with the orphan tasks?",
     "challengeWinner": "Was the winner in the following challenges",
     "challenges": "Izazovi",

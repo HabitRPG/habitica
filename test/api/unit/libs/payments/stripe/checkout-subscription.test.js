@@ -12,7 +12,7 @@ import common from '../../../../../../website/common';
 
 const { i18n } = common;
 
-describe('checkout with subscription', () => {
+describe('stripe - checkout with subscription', () => {
   const subKey = 'basic_3mo';
   const stripe = stripeModule('test');
   let user; let group; let data; let gift; let sub;

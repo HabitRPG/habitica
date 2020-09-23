@@ -3,27 +3,26 @@ import { SEASONAL_SETS } from '../content/constants';
 export default {
   opened: true,
 
-  currentSeason: 'Summer',
+  currentSeason: 'Fall',
 
-  dateRange: { start: '2020-06-17', end: '2020-07-31' },
+  dateRange: { start: '2020-09-22', end: '2020-10-31' },
 
   availableSets: [
-    ...SEASONAL_SETS.summer,
+    ...SEASONAL_SETS.fall,
   ],
 
   pinnedSets: {
-    healer: 'summer2020SeaGlassHealerSet',
-    rogue: 'summer2020CrocodileRogueSet',
-    warrior: 'summer2020RainbowTroutWarriorSet',
-    wizard: 'summer2020OarfishMageSet',
+    healer: 'fall2020DeathsHeadMothHealerSet',
+    rogue: 'fall2020TwoHeadedRogueSet',
+    warrior: 'fall2020WraithWarriorSet',
+    wizard: 'fall2020ThirdEyeMageSet',
   },
 
   availableSpells: [
-    'seafoam',
   ],
 
   availableQuests: [
   ],
 
-  featuredSet: 'summer2019WaterLilyMageSet',
+  featuredSet: 'fall2020WraithWarriorSet',
 };

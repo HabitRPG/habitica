@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "מהדורה מוגבלת",
-    "seasonalEdition": "מהדורה עונתית",
-    "winterColors": "צבעי חורף",
     "annoyingFriends": "חברים מרגיזים",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "חברים מפחידים",
@@ -61,7 +58,6 @@
     "nye2": "שנה טובה! שתרוויחו הרבה ״יום מושלם״.",
     "nye3": "שנה טובה! שרשימת המשימות שלכם תהיה קצרה ומתוקה.",
     "nye4": "שנה טובה! שלא תותקפו על ידי היפוגריפון זועם.",
-    "holidayCard": "קיבלו כרטיס לחגים!",
     "mightyBunnySet": "ארנב כוחני (לוחם)",
     "magicMouseSet": "עכבר קסום (מכשף)",
     "lovingPupSet": "כלבון אוהב (מרפא)",

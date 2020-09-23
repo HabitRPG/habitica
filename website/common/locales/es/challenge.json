@@ -8,7 +8,7 @@
     "brokenChallenge": "Enlace al desafío interrumpido: esta tarea formaba parte de un desafío, pero el desafío (o el grupo) se ha eliminado. ¿Qué hacemos con las tareas del desafío?",
     "keepThem": "Mantener tareas",
     "removeThem": "Quitar tareas",
-    "challengeCompleted": "Este desafío ha finalizado y el ganador es ¡<span class=\"badge\"><%= user %></span>! ¿Qué hacemos con las tareas del desafío?",
+    "challengeCompleted": "Este desafío ha finalizado y el ganador es ¡<span class=\"badge\"><%- user %></span>! ¿Qué hacemos con las tareas del desafío?",
     "unsubChallenge": "Enlace al desafío interrumpido: esta tarea formaba parte de un desafío, pero ya no participas en él. ¿Qué hacemos con las tareas del desafío?",
     "challengeWinner": "Ha ganado los siguientes desafíos",
     "challenges": "Desafíos",
