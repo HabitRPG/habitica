@@ -28,6 +28,12 @@
   width: 96px;
   height: 69px;
 }
+.promo_vampire_potions {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -424px -434px;
+  width: 423px;
+  height: 147px;
+}
 .scene_positivity {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px 0px;
