@@ -179,5 +179,10 @@
     "summer2020CrocodileRogueSet": "Crocodile (Voleur)",
     "summer2020SeaGlassHealerSet": "Verre marin (Guérisseur)",
     "summer2020OarfishMageSet": "Poisson ruban (Mage)",
-    "summer2020RainbowTroutWarriorSet": "Truite arc-en-ciel (Guerrier)"
+    "summer2020RainbowTroutWarriorSet": "Truite arc-en-ciel (Guerrier)",
+    "juneYYYY": "Juin <%= year %>",
+    "fall2020TwoHeadedRogueSet": "Bicéphale (voleur)",
+    "fall2020ThirdEyeMageSet": "Troisième œil (Mage)",
+    "fall2020DeathsHeadMothHealerSet": "Tête de mort de la mite (guérisseur)",
+    "fall2020WraithWarriorSet": "Spectre (guerrier)"
 }
