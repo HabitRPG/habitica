@@ -32,7 +32,7 @@ schema.plugin(baseModel, {
     delete plainObj.filters;
 
     if (plainObj.flags && originalDoc.isSelected('flags.lastNewStuffRead')) {
-      plainObj.flags.newStuff = this.checkNewStuff();
+      plainObj.flags.newStuff = originalDoc.checkNewStuff();
     }
 
     return plainObj;
