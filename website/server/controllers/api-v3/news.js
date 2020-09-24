@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL BEGINS! NOW WITH A SALE ON GEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW VAMPIRE MAGIC HATCHING POTIONS, PLUS THE RETURN OF GHOST AND SHADOW POTIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,53 +31,28 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/22/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/24/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_fall_festival_2020 center-block"></div>
-        <h3>Limited Edition Class Outfits</h3>
+        <div class="promo_vampire_potions center-block"></div>
         <p>
-          From now until October 31st, limited edition outfits are available in the Rewards column!
-          Depending on your class, you can be a Wraith Warrior, Death's Head Moth Healer, Third Eye
-          Mage, or Two-Headed Rogue. You'd better get productive to earn enough gold before your
-          time runs out...
+          There's a new pet breed in town! Between now and October 31st, you can buy Magic Hatching
+          Potions from <a href='/shops/market'>the Market</a> and use them to hatch any standard
+          pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Potion Pets aren't
+          picky, so they'll happily eat any kind of food that you feed them!
         </p>
-        <div class="small mb-3">by Gawrone, Vikte, jjgame83, and SabreCat</div>
-        <div class="promo_fall_festival_2019 center-block"></div>
-        <h3>Seasonal Shop Opens</h3>
         <p>
-          The <a href='/shops/seasonal'>Seasonal Shop</a> has opened! It's stocking autumnal
-          Seasonal Edition goodies at the moment, including past fall outfits. Everything there
-          will be available to purchase during the Fall Festival event each year, but it's only
-          open until October 31st, so be sure to stock up now, or you'll have to wait a year to
-          buy these items again!
+          For this Gala, we've brought back Ghost and Shadow Potions, and added a brand-new potion:
+          Vampire!
+        </p>
+        <p>
+          After they're gone, it will be at least a year before these Hatching Potions are
+          available again, so be sure to get them now!
         </p>
         <div class="small mb-3">
-          by Gawrone, jjgame83, AnnDeLune, ʂʈєƒąʃųƥągųʂ, Katy133, Lilith of Alfheim, Definitely not
-          a villain, ShoGirlGeek. cataclysms, maxpendragon, Vikte, QuartzFox, Lemoness, Beffymaroo
-          and SabreCat
+          by QuartzFox, Hermi, jjgame83, OuttaMyMind, loremi, and SabreCat
         </div>
-        <div class="npc_justin center-block"></div>
-        <p>
-          Everyone has hastened down to the Flourishing Fields to celebrate this spooky harvest
-          festival. Be sure to check out all the outfits that people are sporting!
-        </p>
-        <h3>Fall Gem Sale! September 22-30</h3>
-        <p>
-          For the first time ever, Habitica is offering a Gem sale to kick off the fun of Fall
-          Festival! Receive bonus Gems with each Gem purchase on web or mobile - the more Gems you
-          buy, the bigger the bonus! Use them to grab past Fall Festival Gear from the Seasonal
-          Shop, Quests, Magic Hatching Potions, and more. Find more details via Menu > Gems on
-          mobile, or tapping the Gem on the top menu bar on web.
-        </p>
-        <p>
-          Be sure to update your mobile app to see details, although the promo will still work even
-          if you can't see the promotional information.
-        </p>
-        <p>
-          Thanks so much for your support. 💜 Gem purchases help keep us running ad-free!
-        </p>
       </div>
       `,
     });
