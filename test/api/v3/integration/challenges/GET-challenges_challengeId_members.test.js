@@ -66,7 +66,6 @@ describe('GET /challenges/:challengeId/members', () => {
         },
       },
       flags: {
-        newStuff: false,
         verifiedUsername: true,
       },
     });
@@ -88,7 +87,6 @@ describe('GET /challenges/:challengeId/members', () => {
         },
       },
       flags: {
-        newStuff: false,
         verifiedUsername: true,
       },
     });
@@ -112,7 +110,6 @@ describe('GET /challenges/:challengeId/members', () => {
         },
       },
       flags: {
-        newStuff: false,
         verifiedUsername: true,
       },
     });

@@ -62,7 +62,6 @@ describe('GET /groups/:groupId/members', () => {
         },
       },
       flags: {
-        newStuff: false,
         verifiedUsername: true,
       },
     });
