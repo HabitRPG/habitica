@@ -1071,8 +1071,10 @@ export default {
       this.scoreChecklistItem({ taskId: this.task._id, itemId: item.id });
     },
     calculateTimeTillDue () {
-      const endOfToday = moment().endOf('day');
-      const endOfDueDate = moment(this.task.date).endOf('day');
+      const dayEnd = m => m.endOf('day').add(this.user.preferences.dayStart, 'hours');
+
+      const endOfToday = dayEnd(moment());
+      const endOfDueDate = dayEnd(moment(this.task.date));
 
       return moment.duration(endOfDueDate.diff(endOfToday));
     },
@@ -1080,9 +1082,8 @@ export default {
       return this.calculateTimeTillDue().asDays() <= 0;
     },
     formatDueDate () {
-      const dueIn = this.calculateTimeTillDue().asDays() === 0
-        ? this.$t('today')
-        : this.calculateTimeTillDue().humanize(true);
+      const timeTillDue = this.calculateTimeTillDue();
+      const dueIn = timeTillDue.asDays() === 0 ? this.$t('today') : timeTillDue.humanize(true);
 
       return this.task.date && this.$t('dueIn', { dueIn });
     },
