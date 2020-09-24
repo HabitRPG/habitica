@@ -2200,5 +2200,6 @@
     "weaponSpecialFall2020WarriorNotes": "Cette épée est allée dans l'au-delà avec un puissant guerrier, et revient pour que vous puissiez la brandir ! Augmente la force de <%= str %>. Équipement d'automne en édition limitée 2020.",
     "weaponSpecialFall2020WarriorText": "L'épée du Spectre",
     "weaponSpecialFall2020RogueNotes": "Percez votre ennemi d'un coup sec ! Même l'armure la plus épaisse ne pourra rien face à votre lame. Augmente la force de <%= str %>. Equipement d'automne en édition limitée 2020.",
-    "weaponSpecialFall2020RogueText": "Katar aiguisé"
+    "weaponSpecialFall2020RogueText": "Katar aiguisé",
+    "armorSpecialFall2020WarriorText": "Toges du revenant"
 }
