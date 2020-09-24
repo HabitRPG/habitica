@@ -62,23 +62,23 @@ schema.statics.lastNewsPost = function lastNewsPost () {
 };
 
 schema.statics.updateLastNewsPost = function updateLastNewsPost (newPost) {
-  if (!cachedLastNewsPost || cachedLastNewsPost._id !== newPost._id) {
-    if (!cachedLastNewsPost || cachedLastNewsPost.publishDate < newPost.publishDate) {
-      cachedLastNewsPost = newPost;
-    }
+  if (
+    (!cachedLastNewsPost || cachedLastNewsPost._id !== newPost._id)
+    && (!cachedLastNewsPost || cachedLastNewsPost.publishDate < newPost.publishDate)
+  ) {
+    cachedLastNewsPost = newPost;
   }
 };
 
 export const model = mongoose.model('NewsPost', schema);
 
-setInterval(() => {
+function getAndUpdateLastNewsPost () {
   model.getLastPost().then(lastPost => {
     if (lastPost) {
       model.updateLastNewsPost(lastPost);
     }
   }).catch(err => logger.error(err));
-}, NEWS_CACHE_TIME);
+}
 
-model.getLastPost().then(newsPost => {
-  model.updateLastNewsPost(newsPost);
-}).catch(err => logger.error(err));
+setInterval(() => getAndUpdateLastNewsPost(), NEWS_CACHE_TIME);
+getAndUpdateLastNewsPost();
