@@ -31,7 +31,7 @@ schema.plugin(baseModel, {
 
     delete plainObj.filters;
 
-    if (plainObj.flags) {
+    if (plainObj.flags && originalDoc.isSelected('flags.lastNewStuffRead')) {
       plainObj.flags.newStuff = this.checkNewStuff();
     }
 
