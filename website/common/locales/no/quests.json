@@ -47,7 +47,7 @@
     "itemsToCollect": "Gjenstander å samle",
     "bossDmg1": "Hver fullførte Daglige Gjøremål og Gjøremål og hver positiv Vane skader sjefsmonsteret. Skad det mer med rødere oppgaver eller Sønderknus og Ildkule. Sjefsmonstre vil skade hver oppdragsdeltaker for hvet Daglige Gjøremål du glemmer (multiplisert med Sjefsmonsteret's styrke) i tillegg til den vanlige skaden, så hold klanen frisk ved å fullføre dine Daglige Gjøremål! <strong>All skade til og fra et sjefsmonster blir kalkulert ved cron (når dagen er omme).</strong>",
     "bossDmg2": "Bare deltagere vil sloss mot sjefsmonsteret og dele belønningen.",
-    "bossDmg1Broken": "Hver fullførte Daglige og Gjøremål og hver positiv Vane skader sjefsmonsteret... Skad det mer med rødere oppgaver eller Sønderknus og Flammeutbrudd... Sjefsmonstre vil skade hver oppdragsdeltaker for hver Daglige du glemmer (multiplisert med Sjefsmonsteret's styrke) i tillegg til den vanlige skaden, så hold klanen frisk ved å fullføre dine Daglige... <strong>All skade til og fra et sjefsmonster blir kalkulert ved cron (når dagen er omme)...</strong>",
+    "bossDmg1Broken": "Hver fullførte Daglige Gjøremål og Gjøremål og hver positive Vane skader sjefsmonsteret... Skad det mer med rødere oppgaver eller Sønderknus og Ildkule... Sjefsmonsteret vil skade hver oppdragsdeltaker for hvert Daglige Gjøremål du glemmer (multiplisert med Sjefsmonsterets styrke) i tillegg til den vanlige skaden, så hold klanen frisk ved å fullføre dine Daglige Gjøremål... <strong>All skade til og fra et sjefsmonster blir kalkulert ved cron (når dagen er omme)...</strong>",
     "bossDmg2Broken": "Bare deltagere vil sloss mot sjefsmonsteret og dele belønningen....",
     "tavernBossInfo": "Fullfør Daglige, Gjøremål og positive Vaner for å skade Verdensmonsteret! Ugjorte Daglige vil fylle Raserimåleren. Når Raserimåleren er full vil Verdensmonsteret angripe en NPC. Et Verdensmonster vil aldri skade individuelle spillere eller brukerkontoer på noen måte. Bare aktive brukerkontoer som ikke hviler i vertshuset vil få deres oppgaver telt med.",
     "tavernBossInfoBroken": "Fullfør Daglige, Gjøremål og positive Vaner for å skade Verdensmonsteret... Ugjorte Daglige vil fylle Utmattelsesmåleren... Når Utmattelsesmåleren er full vil Verdensmonsteret angripe en NPC... Et Verdensmonster vil aldri skade individuelle spillere eller brukerkontoer på noen måte... Bare aktive brukerkontoer som ikke hviler i vertshuset vil få deres oppgaver telt med...",
@@ -126,5 +126,7 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
     "rageAttack": "Rage Attack:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "rageStrikes": "Rage Strikes",
+    "bossDamage": "Du skadet sjefsmonsteret!",
+    "questInvitationNotificationInfo": "Du ble invitert til å delta i et oppdrag"
 }
