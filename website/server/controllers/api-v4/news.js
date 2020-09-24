@@ -76,11 +76,9 @@ api.createNews = {
     const newsPost = new NewsPost(NewsPost.sanitize(postData));
     await newsPost.save();
 
-    if (newsPost.published) {
-      NewsPost.updateLastNewsPost(newsPost);
-    }
+    res.respond(201, newsPost);
 
-    res.respond(201, newsPost.toJSON());
+    if (newsPost.published) NewsPost.updateLastNewsPost(newsPost);
   },
 };
 
@@ -158,11 +156,9 @@ api.updateNews = {
     _.merge(newsPost, NewsPost.sanitize(req.body));
     const savedPost = await newsPost.save();
 
-    if (newsPost.published) {
-      await NewsPost.updateLastNewsPost(newsPost);
-    }
+    res.respond(200, savedPost);
 
-    res.respond(200, savedPost.toJSON());
+    if (newsPost.published) NewsPost.updateLastNewsPost(newsPost);
   },
 };
 
@@ -184,6 +180,7 @@ api.deleteNews = {
   url: '/news/:postId',
   middlewares: [authWithHeaders(), ensureNewsPoster],
   async handler (req, res) {
+    req.checkParams('postId', apiError('postIdRequired')).notEmpty();
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
