@@ -294,13 +294,12 @@ schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComp
   if (!jsonUser.flags.verifiedUsername) jsonUser.auth.local.username = null;
 
   if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
-
-  jsonUser.flags.newStuff = this.checkNewStuff(jsonUser.flags.lastNewStuffRead);
 };
 
-schema.statics.checkNewStuff = function checkNewStuff (lastReadID) {
+// Returns true if the user has read the last news post
+schema.methods.checkNewStuff = function checkNewStuff () {
   const lastNewsPost = NewsPost.lastNewsPost();
-  return Boolean(lastNewsPost && lastReadID !== lastNewsPost._id);
+  return Boolean(lastNewsPost && this.flags && this.flags.lastNewStuffRead !== lastNewsPost._id);
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
@@ -504,11 +503,6 @@ schema.methods.isAdmin = function isAdmin () {
 
 schema.methods.isNewsPoster = function isNewsPoster () {
   return this.contributor && this.contributor.newsPoster;
-};
-
-schema.methods.checkNewStuff = function checkNewStuff () {
-  const lastNewsPost = NewsPost.lastNewsPost();
-  return Boolean(lastNewsPost && this.flags.lastNewStuffRead !== lastNewsPost._id);
 };
 
 // When converting to json add inbox messages from the Inbox collection

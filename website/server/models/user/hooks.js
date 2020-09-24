@@ -31,6 +31,10 @@ schema.plugin(baseModel, {
 
     delete plainObj.filters;
 
+    if (plainObj.flags) {
+      plainObj.flags.newStuff = this.checkNewStuff();
+    }
+
     return plainObj;
   },
 });
