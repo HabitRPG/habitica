@@ -121,7 +121,7 @@
     "choosePaymentMethod": "Scegli il metodo di pagamento",
     "buyGemsSupportsDevs": "Comprare Gemme supporta gli sviluppatori e aiuta Habitica a continuare a funzionare",
     "support": "SUPPORTA",
-    "gemBenefitLeadin": "Le gemme ti permettono di comprare simpatici extra per il tuo account, tra cui:",
+    "gemBenefitLeadin": "Cosa puoi comprare con le Gemme?",
     "gemBenefit1": "Costumi unici e alla moda per il tuo avatar.",
     "gemBenefit2": "Sfondi per immergere il tuo avatar nel mondi di Habitica!",
     "gemBenefit3": "Entusiasmanti Missioni che hanno come ricompensa uova di animali.",
@@ -136,7 +136,7 @@
     "notEnoughGemsToBuy": "Non puoi comprare quella quantità di Gemme",
     "subWillBecomeInactive": "Diventerà inattivo",
     "confirmCancelSub": "Sei sicuro di voler cancellare il tuo abbonamento? Perderai tutti i tuoi benefici.",
-    "mysticHourglassNeededNoSub": "Questo articolo ha bisogno di una Clessidra Mistica. Tu ne ottieni una essendo un abbonato/un' abbonata di Habitica.",
+    "mysticHourglassNeededNoSub": "Questo articolo ha bisogno di una Clessidra Mistica. Ne otterrai sottoscrivendo un abbonamento ad Habitica.",
     "giftASubscription": "Regala un Abbonamento",
     "viewSubscriptions": "Guarda Abbonamenti",
     "subscribersReceiveBenefits": "Gli abbonati riceveranno questi utili vantaggi!",
@@ -172,5 +172,10 @@
     "mysterySet202007": "Set Orca Eccezionale",
     "mysterySet202006": "Set Tritone Multicromatico",
     "mysterySet202008": "Set Gufo Oracolo",
-    "mysterySet202009": "Set della Fantastica Falena"
+    "mysterySet202009": "Set della Fantastica Falena",
+    "usuallyGems": "Normalmente <%= originalGems %>",
+    "supportHabitica": "Sostieni Habitica",
+    "cancelSubInfoApple": "Segui le <a href=\"https://support.apple.com/en-us/HT202039\">istruzioni ufficiali di Apple</a> per annullare l'abbonamento o per vedere la data di scadenza dell'abbonamento se l'hai già annullato. Questa schermata non è in grado di mostrarti se il tuo abbonamento è stato annullato.",
+    "cancelSubInfoGoogle": "Vai nella sezione \"Account\"> \"Abbonamenti\" dell'app Google Play Store per annullare l'abbonamento o per vedere la data di scadenza dell'abbonamento se l'hai già annullato. Questa schermata non è in grado di mostrarti se il tuo abbonamento è stato annullato.",
+    "organization": "Organizzazione"
 }
