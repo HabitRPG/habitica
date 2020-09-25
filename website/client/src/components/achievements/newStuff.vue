@@ -6,45 +6,53 @@
     :hide-footer="true"
     no-close-on-esc
     no-close-on-backdrop
+    @show="onShow()"
   >
     <div class="modal-body">
+      <div class="bailey-header d-flex align-items-center mb-3">
+        <div class="npc_bailey mr-3"></div>
+        <h1 v-once>
+          {{ $t('newStuff') }}
+        </h1>
+      </div>
       <div
         v-for="(post, index) in posts"
-        :key="index"
-        :class="index == (posts.length - 1) ? 'bailey bailey-last' : 'bailey'"
+        :key="post._id"
+        class="bailey"
+        :class="{'bailey-last': index == (posts.length - 1)}"
       >
         <small
           v-if="!post.published"
           class="draft"
-        >DRAFT</small><h2 class="title">
-          {{ post.publishDate | date }} - {{ post.title }}
+        >DRAFT</small>
+        <h2 class="title">
+          {{ getPostDate(post) }} - {{ post.title }}
         </h2>
+
         <hr>
-        <div
-          class="markdown"
-          v-html="renderMarkdown(post.text)"
-        ></div>
+
+        <div v-markdown="post.text"></div>
         <small>{{ post.credits }}</small>
       </div>
     </div>
+
     <div class="modal-footer d-flex align-items-center pb-0">
       <a
         href="http://habitica.fandom.com/wiki/Whats_New"
         target="_blank"
         class="mr-auto"
-      >{{ this.$t('newsArchive') }}</a>
+      >{{ $t('newsArchive') }}</a>
       <button
         class="btn btn-secondary ml-auto"
         @click="tellMeLater()"
       >
-        {{ this.$t('tellMeLater') }}
+        {{ $t('tellMeLater') }}
       </button>
       <button
-
         class="btn btn-primary"
-        @click="dismissAlert();"
+        @click="dismissAlert()"
       >
-        {{ this.$t('dismissAlert') }}
+        {{ $t('dismissAlert') }}
       </button>
     </div>
   </b-modal>
@@ -55,9 +63,11 @@
 </style>
 
 <style lang='scss' scoped>
-.modal-body {
-  padding-top: 2em;
+h1 {
+  color: #4F2A93;
+  margin-bottom: 0;
 }
+
 .bailey {
   margin-bottom: 60px;
   .title {
@@ -81,6 +91,7 @@
     margin: auto;
   }
 }
+
 .bailey-last {
   margin-bottom: 10px;
 }
@@ -132,15 +143,12 @@
 
 <script>
 import moment from 'moment';
-import habiticaMarkdown from 'habitica-markdown';
+import markdownDirective from '@/directives/markdown';
 import { mapState } from '@/libs/store';
 
 export default {
-  filters: {
-    date (value) {
-      // @TODO: Vue doesn't support this so we cant user preference
-      return moment(value).format('l');
-    },
+  directives: {
+    markdown: markdownDirective,
   },
   data () {
     return {
@@ -150,26 +158,29 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
   },
-  async mounted () {
-    this.posts = (await this.$store.dispatch('user:getNews')).data.data;
-    if (this.posts.length > 2) {
-      this.posts = this.posts.slice(0, 2);
-    }
-  },
-  beforeDestroy () {
-    this.$root.$off('bv::show::modal');
-  },
   methods: {
+    async onShow () {
+      this.posts = await this.$store.dispatch('news:fetch');
+      if (this.posts.length > 2) {
+        this.posts = this.posts.slice(0, 2);
+      }
+    },
+    getPostDate (post) {
+      const date = moment(post.publishedDate);
+
+      if (this.user.preferences.dateFormat) {
+        return date.format(this.user.preferences.dateFormat.toUpperCase());
+      }
+
+      return date.format('l');
+    },
     tellMeLater () {
-      this.$store.dispatch('user:newStuffLater');
+      this.$store.dispatch('news:remindMeLater');
       this.$root.$emit('bv::hide::modal', 'new-stuff');
     },
     dismissAlert () {
-      this.$store.dispatch('user:newStuffRead');
+      this.$store.dispatch('news:markAsRead');
       this.$root.$emit('bv::hide::modal', 'new-stuff');
-    },
-    renderMarkdown (text) {
-      return habiticaMarkdown.unsafeHTMLRender(text);
     },
   },
 };

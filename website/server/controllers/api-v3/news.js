@@ -79,14 +79,17 @@ api.tellMeLaterNews = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    const { _id, title } = NewsPost.lastNewsPost();
-    user.flags.lastNewStuffRead = _id;
+    const lastNewsPost = NewsPost.lastNewsPost();
+    if (lastNewsPost) {
+      user.flags.lastNewStuffRead = lastNewsPost._id;
 
-    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
-    if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
-    user.addNotification('NEW_STUFF', { title: title.toUpperCase() }, true); // seen by default
+      const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
+      if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
+      user.addNotification('NEW_STUFF', { title: lastNewsPost.title.toUpperCase() }, true); // seen by default
 
-    await user.save();
+      await user.save();
+    }
+
     res.respond(200, {});
   },
 };

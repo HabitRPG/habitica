@@ -28,6 +28,7 @@ schema.statics.getLastPost = async function getLastPost () {
     published: true,
     publishDate: { $lte: new Date() },
   }).sort({ publishDate: -1 }).exec();
+
   return post;
 };
 
@@ -37,8 +38,7 @@ schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 })
     query = this.find({
       published: true,
       publishDate: { $lte: new Date() },
-    })
-      .select('title publishDate credits text');
+    });
   } else {
     query = this.find();
   }

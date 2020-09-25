@@ -131,11 +131,6 @@ export async function openMysteryItem (store) {
   return axios.post('/api/v4/user/open-mystery-item');
 }
 
-export function newStuffLater (store) {
-  store.state.user.data.flags.newStuff = false;
-  return axios.post('/api/v4/news/tell-me-later');
-}
-
 export async function rebirth () {
   const result = await axios.post('/api/v4/user/rebirth');
 
@@ -171,15 +166,6 @@ export function unblock (store, params) {
   const index = store.state.user.data.inbox.blocks.indexOf(params.uuid);
   store.state.user.data.inbox.blocks.splice(index, 1);
   return axios.post(`/api/v4/user/block/${params.uuid}`);
-}
-
-export function newStuffRead (store) {
-  store.state.user.data.flags.newStuff = false;
-  return axios.post('/api/v4/news/read');
-}
-
-export function getNews () {
-  return axios.get('/api/v4/news');
 }
 
 export function markPrivMessagesRead (store) {

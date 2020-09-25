@@ -208,10 +208,13 @@ api.markNewsRead = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    const { _id } = NewsPost.lastNewsPost();
-    user.flags.lastNewStuffRead = _id;
+    const lastNewsPost = NewsPost.lastNewsPost();
+    if (lastNewsPost) {
+      user.flags.lastNewStuffRead = lastNewsPost._id;
 
-    await user.save();
+      await user.save();
+    }
+
     res.respond(200, {});
   },
 };

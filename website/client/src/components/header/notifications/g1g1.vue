@@ -2,7 +2,6 @@
   <div
     class="notification d-flex flex-column justify-content-center text-center"
   >
-
     <strong
       v-once
       class="mx-auto mb-2"
