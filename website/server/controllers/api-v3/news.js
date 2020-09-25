@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: MYSTERY ITEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW VAMPIRE MAGIC HATCHING POTIONS, PLUS THE RETURN OF GHOST AND SHADOW POTIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,22 +31,27 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/10/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/24/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_202009 center-block"></div>
+        <div class="promo_vampire_potions center-block"></div>
         <p>
-          This month's <a href='https://habitica.wordpress.com/2020/09/09/mystery-item/'
-          target='_blank'>featured Wiki article</a> is about Mystery Items (also known as
-          Subscriber Gear)! We hope that it will help you as learn about the benefits of a Habitica
-          Subscription. Be sure to check it out, and let us know what you think by reaching out on
-          <a href='https://twitter.com/habitica' target='_blank'>Twitter</a>, <a
-          href='http://blog.habitrpg.com' target='_blank'>Tumblr</a>, and <a
-          href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
+          There's a new pet breed in town! Between now and October 31st, you can buy Magic Hatching
+          Potions from <a href='/shops/market'>the Market</a> and use them to hatch any standard
+          pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Potion Pets aren't
+          picky, so they'll happily eat any kind of food that you feed them!
+        </p>
+        <p>
+          For this Gala, we've brought back Ghost and Shadow Potions, and added a brand-new potion:
+          Vampire!
+        </p>
+        <p>
+          After they're gone, it will be at least a year before these Hatching Potions are
+          available again, so be sure to get them now!
         </p>
         <div class="small mb-3">
-          by shanaqui and the Wiki Wizards
+          by QuartzFox, Hermi, jjgame83, OuttaMyMind, loremi, and SabreCat
         </div>
       </div>
       `,

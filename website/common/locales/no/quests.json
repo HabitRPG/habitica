@@ -72,5 +72,7 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
     "rageAttack": "Rage Attack:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Rage",
-    "rageStrikes": "Rage Strikes"
+    "rageStrikes": "Rage Strikes",
+    "bossDamage": "Du skadet sjefsmonsteret!",
+    "questInvitationNotificationInfo": "Du ble invitert til å delta i et oppdrag"
 }

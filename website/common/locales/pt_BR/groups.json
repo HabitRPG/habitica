@@ -502,5 +502,8 @@
     "thisTaskApproved": "Esta tarefa foi aprovada",
     "chooseTeamMember": "Escolha um membro do time",
     "unassigned": "Não designado",
-    "onlyPrivateGuildsCanUpgrade": "Apenas guildas privadas podem ser atualizadas para um plano de grupo."
+    "onlyPrivateGuildsCanUpgrade": "Apenas guildas privadas podem ser atualizadas para um plano de grupo.",
+    "bannedWordsAllowedDetail": "Com esta opção selecionada, será permitido o uso de palavras banidas nesta guilda.",
+    "bannedWordsAllowed": "Permitir palavras banidas",
+    "languageSettings": "Configurações de Idioma"
 }

@@ -4,6 +4,8 @@
       :id="itemId"
       class="item-wrapper"
       @click="click()"
+      @keypress.enter="click()"
+      tabindex="0"
     >
       <div
         class="item"
@@ -63,7 +65,7 @@
     <b-popover
       v-if="showPopover"
       :target="itemId"
-      triggers="hover"
+      triggers="hover, focus"
       :placement="popoverPosition"
     >
       <slot

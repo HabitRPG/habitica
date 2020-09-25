@@ -1,14 +1,14 @@
 {
     "spellWizardFireballText": "Ildkule",
     "spellWizardFireballNotes": "You summon XP and deal fiery damage to Bosses! (Based on: INT)",
-    "spellWizardMPHealText": "Eterisk kule",
+    "spellWizardMPHealText": "Etherisk Bølge",
     "spellWizardMPHealNotes": "You sacrifice Mana so the rest of your Party, except Mages, gains MP! (Based on: INT)",
     "spellWizardEarthText": "Jordskjelv",
     "spellWizardEarthNotes": "Your mental power shakes the earth and buffs your Party's Intelligence! (Based on: Unbuffed INT)",
-    "spellWizardFrostText": "Bitende kulde",
-    "spellWizardFrostNotes": "With one cast, ice freezes all your streaks so they won't reset to zero tomorrow!",
+    "spellWizardFrostText": "Bitende Kulde",
+    "spellWizardFrostNotes": "Med et kast fryser isen alle gjennomføringskjedene dine, slik at de ikke tilbakestilles til null i morgen! ",
     "spellWizardFrostAlreadyCast": "Du har allerede kastet denne i dag. Din gjennomføringskjede er frossen, og det er ikke behov for å caste denne igjen.",
-    "spellWarriorSmashText": "Brutal Smell",
+    "spellWarriorSmashText": "Sønderknus",
     "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
     "spellWarriorDefensiveStanceText": "defensiv holdning",
     "spellWarriorDefensiveStanceNotes": "You crouch low and gain a buff to Constitution! (Based on: Unbuffed CON)",
@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Usynlighet",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Antall daglige unngått: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Antall daglige gjøremål som vil bli unngått: <%= number %>.",
     "spellRogueStealthMaxedOut": "Du har allerede unngått alle dine daglige; du trenger ikke kaste denne igjen.",
     "spellHealerHealText": "Helbredende lys",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Å kaste en ferdighet på en utfordringsoppgave er ikke tillatt.",
     "groupTasksNoCast": "Å kaste en ferdighet på en gruppeoppgave er ikke tillatt.",
     "spellNotOwned": "Du eier ikke denne ferdigheten.",
-    "spellLevelTooHigh": "Du må være på nivå <%= level %> for å benytte denne ferdigheten."
+    "spellLevelTooHigh": "Du må være på nivå <%= level %> for å benytte denne ferdigheten.",
+    "spellAlreadyCast": "Å bruke denne ferdigheten vil ikke ha noen ekstra effekt."
 }

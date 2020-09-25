@@ -14,7 +14,10 @@ describe('payments - stripe - #checkout', () => {
   });
 
   it('verifies credentials', async () => {
-    await expect(user.post(endpoint, { id: 123 })).to.eventually.be.rejected.and.include({
+    await expect(user.post(
+      `${endpoint}?gemsBlock=4gems`,
+      { id: 123 },
+    )).to.eventually.be.rejected.and.include({
       code: 401,
       error: 'Error',
       // message: 'Invalid API Key provided: aaaabbbb********************1111',

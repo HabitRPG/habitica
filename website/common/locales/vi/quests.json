@@ -84,7 +84,7 @@
     "chatItemQuestFinish": "Tất cả vật phẩm đã được tìm thấy! Tổ đội đã nhận phần thưởng của mình.",
     "chatFindItems": "<%= username %> đã tìm được <%= items %>.",
     "chatBossDefeated": "Bạn đã đánh bại <%= bossName %>! Thành viên Tổ đội tham gia Nhiệm vụ nhận phần thưởng chiến thắng.",
-    "chatBossDontAttack": "<%= username %> tấn công <%= bossName %> với <%= userDamage%> sát thương. <%= bossName %> không tấn công, bởi vì nó tôn trọng sự thật rằng có một vài lỗi bảo trì, và nó không muốn tổn thương bất cứ ai một cách không công bằng. Nó sẽ tiếp tục cơn cuồng nộ của mình sớm thôi!",
+    "chatBossDontAttack": "<%= username %> tấn công <%= bossName %> với <%= userDamage %> sát thương. <%= bossName %> không tấn công, bởi vì nó tôn trọng sự thật rằng có một vài lỗi bảo trì, và nó không muốn tổn thương bất cứ ai một cách không công bằng. Nó sẽ tiếp tục cơn cuồng nộ của mình sớm thôi!",
     "questAlreadyStartedFriendly": "Nhiệm vụ đã bắt đầu rồi, nhưng bạn luôn có thể bắt kịp cái tiếp theo!",
     "questAlreadyStarted": "Nhiệm vụ đã bắt đầu rồi."
 }

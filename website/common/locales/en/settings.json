@@ -23,6 +23,7 @@
     "invalidLevel": "Invalid value: Level must be 1 or greater.",
     "enableClass": "Enable Class System",
     "enableClassPop": "You opted out of the class system initially. Would you like now to opt-in?",
+    "resetAccount": "Reset Account",
     "resetAccPop": "Start over, removing all levels, gold, gear, history, and tasks.",
     "deleteAccount": "Delete Account",
     "deleteAccPop": "Cancel and remove your Habitica account.",
