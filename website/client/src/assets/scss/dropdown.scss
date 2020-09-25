@@ -85,6 +85,9 @@
   font-stretch: normal;
   font-style: normal;
   text-align: right;
+
+  margin-top: calc(0.25rem + 1px); // Padding of the dropdown buttons + button border width
+  margin-bottom: 0.25rem;
 }
 
 .dropdown-icon-item {
