@@ -26,13 +26,13 @@
           class="draft"
         >DRAFT</small>
         <h2 class="title">
-          {{ getPostDate(post) }} - {{ post.title }}
+          {{ getPostDate(post) }} - {{ post.title.toUpperCase() }}
         </h2>
 
         <hr>
 
-        <div v-markdown="post.text"></div>
-        <small>{{ post.credits }}</small>
+        <div v-html="renderMarkdown(post.text)" class="markdown"></div>
+        <small>by {{ post.credits }}</small>
       </div>
     </div>
 
@@ -69,7 +69,8 @@ h1 {
 }
 
 .bailey {
-  margin-bottom: 60px;
+  margin-bottom: 1rem;
+
   .title {
     display: inline;
   }
@@ -93,7 +94,7 @@ h1 {
 }
 
 .bailey-last {
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 </style>
 
@@ -143,13 +144,10 @@ h1 {
 
 <script>
 import moment from 'moment';
-import markdownDirective from '@/directives/markdown';
+import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
 
 export default {
-  directives: {
-    markdown: markdownDirective,
-  },
   data () {
     return {
       posts: [],
@@ -165,14 +163,11 @@ export default {
         this.posts = this.posts.slice(0, 2);
       }
     },
+    renderMarkdown (text) {
+      return habiticaMarkdown.unsafeHTMLRender(text);
+    },
     getPostDate (post) {
-      const date = moment(post.publishedDate);
-
-      if (this.user.preferences.dateFormat) {
-        return date.format(this.user.preferences.dateFormat.toUpperCase());
-      }
-
-      return date.format('l');
+      return moment(post.publishedDate).format(this.user.preferences.dateFormat.toUpperCase());
     },
     tellMeLater () {
       this.$store.dispatch('news:remindMeLater');
