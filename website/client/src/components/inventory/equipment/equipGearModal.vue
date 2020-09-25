@@ -51,7 +51,7 @@
           :item="item"
         />
         <button
-          class="btn"
+          class="btn with-icon"
           :class="{'btn-primary': !isEquipped, 'btn-secondary': isEquipped }"
           @click="equipItem()"
         >
@@ -174,14 +174,6 @@
     button.btn {
       display: inline-flex;
       align-items: center;
-    }
-
-    .btn-primary .svg-icon.color {
-      color: $purple-500;
-    }
-
-    .btn-secondary .svg-icon.color {
-      color: $gray-200;
     }
   }
 </style>

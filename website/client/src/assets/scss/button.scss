@@ -41,21 +41,27 @@
 .btn-primary {
   background: $purple-200;
   border: 1px solid transparent;
+  --icon-color: #{$purple-500};
 
   &:focus {
     background: $purple-200;
     border-color: $purple-400;
+    --icon-color: #{$white};
   }
 
   &:not(:disabled):not(.disabled) {
     &:hover {
       background: #5d3b9c;
       border: 1px solid transparent;
+
+      --icon-color: #{$white};
     }
 
     &:active, &.active {
       background: $purple-200;
       border: 1px solid transparent;
+
+      --icon-color: #{$white};
     }
 
     &:active:focus, &.active:focus {
@@ -65,10 +71,19 @@
   }
 
   &:disabled, &.disabled {
-    background: $purple-200;
+    background: $gray-700;
     border: 1px solid transparent;
     cursor: default;
-    opacity: 0.75;
+    color: $gray-50;
+
+    --icon-color: #{$gray-300};
+  }
+
+
+  &.with-icon {
+    .svg-icon.color {
+      color: var(--icon-color);
+    }
   }
 }
 
@@ -80,15 +95,20 @@
   border: 1px solid transparent;
   color: $gray-50;
 
+  --icon-color: #{$gray-200};
+
   &:focus, &:active {
     color: $gray-50;
     background: $white;
     border-color: $purple-400;
+
+    --icon-color: #{$purple-300};
   }
 
   &:not(:disabled):not(.disabled) {
     &:active, &.active {
       color: $purple-300;
+      --icon-color: #{$purple-300};
 
       &:focus {
         color: $purple-300;
@@ -113,6 +133,8 @@
 
       background: $white !important;
       border: 1px solid transparent;
+
+      --icon-color: #{$purple-300};
     }
   }
 
@@ -122,6 +144,14 @@
     border: 1px solid transparent;
     cursor: default;
     opacity: 0.75;
+
+    --icon-color: #{$gray-300};
+  }
+
+  &.with-icon {
+    .svg-icon.color {
+      color: var(--icon-color);
+    }
   }
 }
 
