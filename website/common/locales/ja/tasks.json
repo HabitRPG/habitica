@@ -1,6 +1,6 @@
 {
     "clearCompleted": "完了済みを削除",
-    "clearCompletedDescription": "完了済みのTo Doは、寄付会員は90日後、それ以外の場合は30日後に削除されます。",
+    "clearCompletedDescription": "完了済みのTo Doは、有料会員は90日後、それ以外の場合は30日後に削除されます。",
     "clearCompletedConfirm": "完了した To Do を削除します。よろしいですか?",
     "addMultipleTip": "<strong>Tip:</strong> 複数の<%= taskType %>を追加するには、改行 (Shift + Enter) でそれぞれを分割し、Enterキーで確定して下さい",
     "addATask": "<%= type %>の追加",
