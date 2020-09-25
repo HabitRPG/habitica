@@ -8,6 +8,8 @@
       v-if="withPin"
       class="badge-dialog"
       @click.prevent.stop="togglePinned()"
+      @keypress.enter.prevent.stop="togglePinned()"
+      tabindex="0"
     >
       <pin-badge
         :pinned="isPinned"
@@ -18,6 +20,8 @@
         class="svg-icon icon-12 close-icon"
         aria-hidden="true"
         @click="hideDialog()"
+        @keypress.enter="hideDialog()"
+        tabindex="0"
         v-html="icons.close"
       ></span>
     </div>
@@ -145,10 +149,13 @@
           v-else
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
-            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked"
+            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
+            !preventHealthPotion ||
+            !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
           :class="{'notEnough': !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
           @click="buyItem()"
+          tabindex="0"
         >
           {{ $t('buyNow') }}
         </button>
@@ -289,6 +296,10 @@
       margin-top: 24px;
       margin-bottom: 24px;
       min-width: 6rem;
+
+      &:focus {
+        border: 2px solid black;
+      }
     }
 
     .balance {
