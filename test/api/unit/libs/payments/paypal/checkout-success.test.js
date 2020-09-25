@@ -2,11 +2,13 @@
 import paypalPayments from '../../../../../../website/server/libs/payments/paypal';
 import payments from '../../../../../../website/server/libs/payments/payments';
 import { model as User } from '../../../../../../website/server/models/user';
+import common from '../../../../../../website/common';
 
-describe('checkout success', () => {
+describe('paypal - checkout success', () => {
   const subKey = 'basic_3mo';
   let user; let gift; let customerId; let
     paymentId;
+  const gemsBlockKey = '21gems'; const gemsBlock = common.content.gems[gemsBlockKey];
   let paypalPaymentExecuteStub; let paymentBuyGemsStub; let
     paymentsCreateSubscritionStub;
 
@@ -28,7 +30,7 @@ describe('checkout success', () => {
 
   it('purchases gems', async () => {
     await paypalPayments.checkoutSuccess({
-      user, gift, paymentId, customerId,
+      user, gift, paymentId, customerId, gemsBlock: gemsBlockKey,
     });
 
     expect(paypalPaymentExecuteStub).to.be.calledOnce;
@@ -38,6 +40,7 @@ describe('checkout success', () => {
       user,
       customerId,
       paymentMethod: 'Paypal',
+      gemsBlock,
     });
   });
 

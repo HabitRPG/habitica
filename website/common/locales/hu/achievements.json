@@ -15,7 +15,7 @@
     "achievementLostMasterclasserModalText": "Mind a tizenhat küldetést a Kasztmester sorozatban teljesítette, és feltárta az Elveszett Kasztmester rejtélyét!",
     "hideAchievements": "<%= category %> elrejtése",
     "showAllAchievements": "Minden <%= category %> megtekintése",
-    "onboardingCompleteDesc": "<strong>5  Teljesítményt</strong> és <strong class=\"gold-amount\">100</strong> Aranyat szerztél a lista befejezéséért.",
+    "onboardingCompleteDesc": "<strong>5 Teljesítményt</strong> és <strong class=\"gold-amount\">100</strong> Aranyat szerztél a lista befejezéséért.",
     "earnedAchievement": "Teljesítményt szerzett!",
     "viewAchievements": "Teljesítmények megtekintése",
     "letsGetStarted": "Kezdjük el!",

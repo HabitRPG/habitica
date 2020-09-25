@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Limitovaná edice",
-    "seasonalEdition": "Sezónní edice",
-    "winterColors": "Zimní barvy",
     "annoyingFriends": "Otravní přátelé",
     "annoyingFriendsText": "Byl zkoulován <%= count %> krát členy party.",
     "alarmingFriends": "Strašliví přátelé",
@@ -61,7 +58,6 @@
     "nye2": "Šťastný nový rok! Ať si zasloužíš perfektní den.",
     "nye3": "Šťastný nový rok! Ať je úkolů v tvém úkolníčku málo.",
     "nye4": "Šťastný nový rok! Ať tě nenapadne řádící gryf.",
-    "holidayCard": "Obdržel jsi přání!",
     "mightyBunnySet": "Mocný Králík (válečník)",
     "magicMouseSet": "Kouzelná Myš (mág)",
     "lovingPupSet": "Milující Štěně (léčitel)",

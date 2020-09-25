@@ -100,7 +100,7 @@
     "giftedGemsInfo": "<%= name %> heeft je <%= amount %> edelstenen cadeau gedaan",
     "giftedGemsFull": "Hallo <%= username %>, <%= sender %> heeft je <%= gemAmount %> edelstenen gestuurd!",
     "giftedSubscription": "Geschonken abonnement",
-    "giftedSubscriptionInfo": "<%= name%> heeft je een abonnement van <%= months %> maanden cadeau gedaan",
+    "giftedSubscriptionInfo": "<%= name %> heeft je een abonnement van <%= months %> maanden cadeau gedaan",
     "giftedSubscriptionFull": "Hallo <%= username %>, <%= sender %> heeft je een abonnement van <%= monthCount %> maanden gestuurd!",
     "invitedParty": "Je bent uitgenodigd voor een Gezelschap",
     "invitedGuild": "Uitgenodigd voor een gilde",

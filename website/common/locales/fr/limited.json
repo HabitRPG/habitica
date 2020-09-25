@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Édition Limitée",
-    "seasonalEdition": "Édition saisonnière",
-    "winterColors": "Couleurs Hivernales",
     "annoyingFriends": "Amis Pénibles",
     "annoyingFriendsText": "A été <%= count %> fois victime d'une boule de neige lancée par un membre de l'équipe.",
     "alarmingFriends": "Amis Inquiétants",
@@ -61,7 +58,6 @@
     "nye2": "Bonne Année ! Que vous obteniez de nombreux jours parfaits.",
     "nye3": "Bonne Année ! Que votre liste de taches à faire reste réduite et simple.",
     "nye4": "Bonne Année ! Que vous évitiez les attaques d'hippogriffes enragés.",
-    "holidayCard": "A reçu une carte postale !",
     "mightyBunnySet": "Puissant Lapin (Guerrier)",
     "magicMouseSet": "Souris Magique (Mage)",
     "lovingPupSet": "Chiot Affectueux (Guérisseur)",
@@ -183,5 +179,10 @@
     "summer2020CrocodileRogueSet": "Crocodile (Voleur)",
     "summer2020SeaGlassHealerSet": "Verre marin (Guérisseur)",
     "summer2020OarfishMageSet": "Poisson ruban (Mage)",
-    "summer2020RainbowTroutWarriorSet": "Truite arc-en-ciel (Guerrier)"
+    "summer2020RainbowTroutWarriorSet": "Truite arc-en-ciel (Guerrier)",
+    "juneYYYY": "Juin <%= year %>",
+    "fall2020TwoHeadedRogueSet": "Bicéphale (voleur)",
+    "fall2020ThirdEyeMageSet": "Troisième œil (Mage)",
+    "fall2020DeathsHeadMothHealerSet": "Tête de mort de la mite (guérisseur)",
+    "fall2020WraithWarriorSet": "Spectre (guerrier)"
 }

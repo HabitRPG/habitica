@@ -46,15 +46,26 @@ export default {
       const encodedString = JSON.stringify(gift);
       return encodeURIComponent(encodedString);
     },
-    openPaypalGift (data) {
-      if (!this.checkGemAmount(data)) return;
+    openPaypalGift (giftData) {
+      if (!this.checkGemAmount(giftData)) return;
 
-      const gift = this.encodeGift(data.giftedTo, data.gift);
+      const gift = this.encodeGift(giftData.giftedTo, giftData.gift);
       const url = `/paypal/checkout?gift=${gift}`;
 
-      this.openPaypal(url, `gift-${data.gift.type === 'gems' ? 'gems' : 'subscription'}`, data);
+      this.openPaypal({
+        url,
+        type: `gift-${giftData.gift.type === 'gems' ? 'gems' : 'subscription'}`,
+        giftData,
+      });
     },
-    openPaypal (url, type, giftData) {
+    openPaypal (data = {}) {
+      const {
+        type,
+        giftData,
+        gemsBlock,
+      } = data;
+      let { url } = data;
+
       const appState = {
         paymentMethod: 'paypal',
         paymentCompleted: false,
@@ -68,6 +79,11 @@ export default {
       if (type.indexOf('gift-') === 0) {
         appState.gift = giftData.gift;
         appState.giftReceiver = giftData.receiverName;
+      }
+
+      if (type === 'gems') {
+        appState.gemsBlock = gemsBlock;
+        url += `?gemsBlock=${gemsBlock.key}`;
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
@@ -97,7 +113,8 @@ export default {
 
       sub = sub && subscriptionBlocks[sub];
 
-      let amount = 500; // 500 = $5
+      let amount;
+      if (data.gemsBlock) amount = data.gemsBlock.price;
       if (sub) amount = sub.price * 100;
       if (data.gift && data.gift.type === 'gems') amount = (data.gift.gems.amount / 4) * 100;
       if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
@@ -109,14 +126,18 @@ export default {
       if (data.gift && data.gift.type === 'gems') paymentType = 'gift-gems';
       if (data.gift && data.gift.type === 'subscription') paymentType = 'gift-subscription';
 
+      const label = (sub && paymentType !== 'gift-subscription')
+        ? this.$t('subscribe')
+        : this.$t('checkout');
+
       window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
         address: false,
         amount,
         name: 'Habitica',
-        description: sub ? this.$t('subscribe') : this.$t('checkout'),
+        description: label,
         // image: '/apple-touch-icon-144-precomposed.png',
-        panelLabel: sub ? this.$t('subscribe') : this.$t('checkout'),
+        panelLabel: label,
         token: async res => {
           let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
 
@@ -126,6 +147,7 @@ export default {
             res.paymentType = 'Stripe';
           }
 
+          if (data.gemsBlock) url += `&gemsBlock=${data.gemsBlock.key}`;
           if (data.gift) url += `&gift=${this.encodeGift(data.uuid, data.gift)}`;
           if (data.subscription) url += `&sub=${sub.key}`;
           if (data.coupon) url += `&coupon=${data.coupon}`;
@@ -160,6 +182,8 @@ export default {
           } else if (paymentType.indexOf('gift-') === 0) {
             appState.gift = data.gift;
             appState.giftReceiver = data.receiverName;
+          } else if (paymentType === 'gems') {
+            appState.gemsBlock = data.gemsBlock;
           }
 
 
@@ -232,6 +256,10 @@ export default {
     },
     amazonPaymentsInit (data) {
       if (data.type !== 'single' && data.type !== 'subscription') return;
+
+      if (data.type === 'single') {
+        this.amazonPayments.gemsBlock = data.gemsBlock;
+      }
 
       if (data.gift) {
         if (data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;

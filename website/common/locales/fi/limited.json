@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Rajoitettu painos",
-    "seasonalEdition": "Kausiluonteinen painos",
-    "winterColors": "Talven värit",
     "annoyingFriends": "Ärsyttävät ystävät",
     "annoyingFriendsText": "Heitetty lumipallolla <%= count %> kertaa seurueen jäsenten toimesta.",
     "alarmingFriends": "Huolestuttavat ystävät",
@@ -61,7 +58,6 @@
     "nye2": "Hyvää uutta vuotta! Tuokoon uusi vuosi sinulle paljon täydellisiä päiviä.",
     "nye3": "Hyvää uutta vuotta! Pysyköön tehtävälistasi lyhyenä ja mukavana.",
     "nye4": "Hyvää uutta vuotta! Älköön raivoisa Hevoskotka käykö kimppuusi.",
-    "holidayCard": "Sait juhlapäiväkortin!",
     "mightyBunnySet": "Mahtava Pupu (Soturi)",
     "magicMouseSet": "Taikahiiri (Velho)",
     "lovingPupSet": "Loving Pup (Healer)",

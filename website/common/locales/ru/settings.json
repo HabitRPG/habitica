@@ -122,7 +122,7 @@
     "subscriptionRateText": "Автоплатеж <strong>$<%= price %> (долл. США)</strong> раз в <strong><%= months %> мес.</strong>",
     "benefits": "Преимущества",
     "coupon": "Промо",
-    "couponText": "Иногда мы проводим различные мероприятия и раздаем купоны на особую экипировку (например, заглянувшим к нам на стенд на Wondercon)",
+    "couponText": "Иногда мы проводим различные мероприятия и раздаем промокоды на особую экипировку (например, заглянувшим к нам на стенд на Wondercon)",
     "apply": "Применить",
     "promoCode": "Промокод",
     "promoCodeApplied": "Промокод принят! Проверьте инвентарь",
@@ -181,5 +181,6 @@
     "newPMNotificationTitle": "Новое сообщение от <%= name %>",
     "chatExtensionDesc": "Чат расширение для Habitica добавит интуитивно-понятное окно чата для всего сайта habitica.com. Оно позволяет пользователям общаться в таверне, их команде и всех их гильдиях.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>чат расширение для Chrome</a> и <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>чат расширение для Firefox</a>",
-    "displaynameIssueNewline": "Отображаемые имена не могут содержать обратную косую черту, за которой следует буква N."
+    "displaynameIssueNewline": "Отображаемые имена не могут содержать обратную косую черту, за которой следует буква N.",
+    "resetAccount": "Сброс учетной записи"
 }

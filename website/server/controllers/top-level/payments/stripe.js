@@ -32,11 +32,10 @@ api.checkout = {
     const { user } = res.locals;
     const gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     const sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
-    const { groupId } = req.query;
-    const { coupon } = req.query;
+    const { groupId, coupon, gemsBlock } = req.query;
 
     await stripePayments.checkout({
-      token, user, gift, sub, groupId, coupon,
+      token, user, gemsBlock, gift, sub, groupId, coupon,
     });
 
     res.respond(200, {});
