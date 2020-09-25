@@ -68,7 +68,7 @@
     "notAccteptedType": "Le type doit faire partie de [eggs, hatchingPotions, premiumHatchingPotions, food, quests, gear]",
     "contentKeyNotFound": "Clé non trouvée pour le contenu <%= type %>",
     "plusGem": "+<%= count %> gemmes",
-    "typeNotSellable": "cet objet n'est pas vendable. Il doit faire partie des objets suivants <%= acceptedTypes %>",
+    "typeNotSellable": "Cet objet n'est pas vendable. Il doit faire partie des objets suivants <%= acceptedTypes %>",
     "userItemsKeyNotFound": "Clé non trouvée pour user.items <%= type %>",
     "userItemsNotEnough": "Vous n'avez pas assez de <%= type %>",
     "pathRequired": "La chaîne de chemin d'accès est requise",
