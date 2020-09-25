@@ -1937,5 +1937,11 @@
     "headSpecialWinter2020WarriorText": "Tiara se sněhovými vločkami",
     "headSpecialNye2019Notes": "Získal/a jsi provokativní party klobouček! Nasaď si ho s pýchou zatímco odbíjí Nový rok! Nepřináší žádné výhody.",
     "headSpecialNye2019Text": "Provokativní party klobouček",
-    "headSpecialFall2019WarriorText": "Helma z obsidiánové lebky"
+    "headSpecialFall2019WarriorText": "Helma z obsidiánové lebky",
+    "headSpecialSummer2020WarriorNotes": "Předveď svou sílu a schopnosti s touto velmi nápadnou pokrývkou hlavy. Zvyšuje sílu o <%= str %>. Limitovaná edice 2020 letní výzbroj.",
+    "headSpecialSummer2020WarriorText": "Nápadná rybí čapka",
+    "headSpecialSummer2020RogueNotes": "Zakonči své loupežnické krytí touto helmou! Možná můžeš udolat své nepřátele krokodýlími slzami... Zvyšuje vnímání o <%= per %>. Limitovaná edice 2020 letní výzbroj.",
+    "headSpecialSummer2020RogueText": "Krokodýlová helma",
+    "headSpecialSpring2020HealerNotes": "Upoutej své nepřátele tímto doplňkem do vlasů vyrobeným z květin! Zvyšuje inteligenci o <%= int %>. Limitovaná edice 2020 jarní výzbroj.",
+    "weaponArmoireGuardiansCrookText": "Ochráncova hůl"
 }

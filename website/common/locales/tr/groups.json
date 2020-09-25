@@ -190,7 +190,7 @@
     "invitedFriend": "Bir Arkadaş Davet Ettin",
     "invitedFriendText": "Bu kullanıcı, macerasına ortak olan bir arkadaşını (veya arkadaşlarını) davet etti!",
     "inviteAlertInfo2": "Veya bağlantıyı paylaş (kopyala/yapıştır):",
-    "inviteLimitReached": "Maksimum sayıda eposta davetiyesi zaten gönderdin. Spamlamayı önlemek için bir sınırımız var, ancak daha fazlasını istersen, lütfen <% = techAssistanceEmail%> adresinden bizimle iletişime geç!",
+    "inviteLimitReached": "Maksimum sayıda eposta davetiyesi zaten gönderdin. Spamlamayı önlemek için bir sınırımız var, ancak daha fazlasını istersen, lütfen <%= techAssistanceEmail %> adresinden bizimle iletişime geç!",
     "sendGiftHeading": "<%= name %> adlı kullanıcıya hediye gönder",
     "sendGiftGemsBalance": "<%= number %> Elmastan",
     "sendGiftCost": "Toplam: $<%= cost %> USD",

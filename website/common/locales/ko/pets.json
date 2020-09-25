@@ -61,5 +61,10 @@
     "hatchedPet": "새로운 <%= potion %> <%= egg %>를 부화시켰습니다!",
     "premiumPotionNoDropExplanation": "마법 부화 포션은 퀘스트로 얻은 알에 쓸 수 없습니다. 마법 부화 포션을 얻는 유일한 방법은 랜덤으로 받는 것이 아니라, 아래에서 사는 것입니다.",
     "dropsExplanationEggs": "알을 더 빨리 얻고, 일반 알을 기다리기 싫고, 퀘스트를 반복하여 퀘스트 알을 얻기 위해 Gems를 쓰십시오.",
-    "dropsExplanation": "이 아이템들을 가지기 위해 과제를 완성하면서 나오는 보상을 기다리기 싫다면, Gems로 더 빨리 얻을 수 있습니다. 과제를 완성할 때 얻는 보상에 대해서 <a href=\"http://habitica.fandom.com/wiki/Drops\">를 참고하세요.</a>"
+    "dropsExplanation": "이 아이템들을 가지기 위해 과제를 완성하면서 나오는 보상을 기다리기 싫다면, Gems로 더 빨리 얻을 수 있습니다. 과제를 완성할 때 얻는 보상에 대해서 <a href=\"http://habitica.fandom.com/wiki/Drops\">를 참고하세요.</a>",
+    "keyToMountsDesc": "모든 기본 탑승펫을 개방하고 다시 수집하세요. (퀘스트 탑승펫과 희귀 탑승펫에는 영향을 주지 않습니다.)",
+    "keyToPetsDesc": "모든 기본 펫을 개방하고 다시 수집하세요. (퀘스트 펫과 희귀 펫에는 영향을 주지 않습니다.)",
+    "hatchedPetGeneric": "새로운 펫을 부화시켰습니다!",
+    "mountNotOwned": "이 탈것을 가지고 있지 않습니다.",
+    "mountMasterName": "탈것 마스터"
 }

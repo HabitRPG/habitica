@@ -12,7 +12,7 @@
       v-for="(images, category) in imgs"
       :key="category"
     >
-      <h2>{{ $t('pk' + category) }}</h2>
+      <h2>{{ $t(`pk${category}`) }}</h2>
       <div v-if="Array.isArray(images)">
         <div
           v-for="img in images"
@@ -29,7 +29,7 @@
           v-for="(images, secondaryCategory) in images"
           :key="secondaryCategory"
         >
-          <h3>{{ $t('pk' + secondaryCategory) }}</h3>
+          <h3>{{ $t(`pk${secondaryCategory}`) }}</h3>
           <div
             v-for="img in images"
             :key="img"
