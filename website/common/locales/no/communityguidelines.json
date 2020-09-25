@@ -98,7 +98,7 @@
     "commGuidePara063": "If you do not understand your consequences, or the nature of your infraction, ask the Staff/Moderators for help so you can avoid committing infractions in the future. If you feel a particular decision was unfair, you can contact the staff to discuss it at <a href='mailto:admin@habitica.com' target='_blank'>admin@habitica.com</a>.",
     "commGuideHeadingMeet": "Møt Personalet og Moderatorene!",
     "commGuidePara006": "Habitica has some tireless knights-errant who join forces with the staff members to keep the community calm, contented, and free of trolls. Each has a specific domain, but will sometimes be called to serve in other social spheres.",
-    "commGuidePara007": "Stav har lilla merkelap med kroner. De har tittelen \"Heroic\".",
+    "commGuidePara007": "Stav har lilla merkelapper markert med kroner. De har tittelen \"Heltemodig\".",
     "commGuidePara008": "Moderatorene har mørkeblå merkelapper merket med stjerner. De har tittelen \"Guardian\". Det eneste unntaket er Bailey, som en NPC, har en svart og grønn merkelapp markert med en stjerne.",
     "commGuidePara009": "Gjeldende Stab er (fra venstre til høyre):",
     "commGuideAKA": "<%= habitName %> også kjent som <%= realName %>",

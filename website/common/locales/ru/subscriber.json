@@ -121,7 +121,7 @@
     "choosePaymentMethod": "Выберите ваш метод оплаты",
     "buyGemsSupportsDevs": "Покупка самоцветов поддерживает разработчиков и помогает работе Habitica",
     "support": "Поддержка",
-    "gemBenefitLeadin": "Самоцветы дают возможность купить веселые дополнения для аккаунта, в том числе:",
+    "gemBenefitLeadin": "Что можно купить Самоцветами?",
     "gemBenefit1": "Уникальные и стильные костюмы для вашего аватара.",
     "gemBenefit2": "Фоны для вовлечения Вашего аватара в страну Habitica!",
     "gemBenefit3": "Потрясающие квестовые серии, дающие трофейные яйца питомцев.",
@@ -165,5 +165,8 @@
     "subMonths": "Мес. подписки",
     "mysterySet202007": "Набор Крутой косатки",
     "gemsPurchaseNote": "Подписчики могут купить самоцветы за золото! Чтобы было проще, вы можете просто добавить самоцвет в колонку наград.",
-    "subscriptionAlreadySubscribedLeadIn": "Спасибо за подписку!"
+    "subscriptionAlreadySubscribedLeadIn": "Спасибо за подписку!",
+    "organization": "Организация",
+    "supportHabitica": "Поддержать Habitica",
+    "usuallyGems": "Обычно <%= originalGems %>"
 }

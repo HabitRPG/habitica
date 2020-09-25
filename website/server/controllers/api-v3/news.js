@@ -31,7 +31,7 @@ api.getNews = {
             <div class="mr-3 ${baileyClass}"></div>
             <div class="media-body">
               <h1 class="align-self-center">${res.t('newStuff')}</h1>
-              <h2>${lastNewsPost.title}</h2>
+              <h2>${lastNewsPost.title.toUpperCase()}</h2>
             </div>
           </div>
           <hr/>
@@ -40,7 +40,7 @@ api.getNews = {
             ${lastNewsPost.text}
           </p>
           <div class="small">
-            ${lastNewsPost.credits}
+            by ${lastNewsPost.credits}
           </div>
         </div>
         `,

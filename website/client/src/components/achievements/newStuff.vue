@@ -18,7 +18,7 @@
       <div
         v-for="(post, index) in posts"
         :key="post._id"
-        class="bailey"
+        class="static-view bailey"
         :class="{'bailey-last': index == (posts.length - 1)}"
       >
         <small
@@ -31,7 +31,7 @@
 
         <hr>
 
-        <div v-html="renderMarkdown(post.text)" class="markdown"></div>
+        <div v-html="renderMarkdown(post.text)"></div>
         <small>by {{ post.credits }}</small>
       </div>
     </div>
@@ -63,13 +63,19 @@
 </style>
 
 <style lang='scss' scoped>
+@import '~@/assets/scss/colors.scss';
+
 h1 {
-  color: #4F2A93;
+  color: $purple-200;
   margin-bottom: 0;
 }
 
 .bailey {
   margin-bottom: 1rem;
+
+  &.bailey-last {
+    margin-bottom: 0;
+  }
 
   .title {
     display: inline;
@@ -80,66 +86,9 @@ h1 {
   }
 
   h2 {
-    color: #4F2A93;
-  }
-
-  div {
-    font-size: 16px;
-  }
-
-  .center-block {
-    display: block;
-    margin: auto;
+    color: $purple-200;
   }
 }
-
-.bailey-last {
-  margin-bottom: 0;
-}
-</style>
-
-<style>
-  .bailey .markdown-img {
-    display: block;
-    margin: auto;
-  }
-
-  .bailey .markdown h1 {
-    color: #4F2A93 !important;
-    font-size: 2.5rem !important;
-    margin-top: 4rem !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .bailey .markdown h2 {
-    color: #4F2A93 !important;
-    font-size: 2rem !important;
-    margin-top: 3.5rem !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .bailey .markdown h3 {
-    color: #4F2A93 !important;
-    font-size: 1.75rem !important;
-    margin-top: 3rem !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .bailey .markdown h4 {
-    color: #4F2A93 !important;
-    font-size: 1.5rem !important;
-    margin-top: 2rem !important;
-    margin-bottom: 1rem !important;
-  }
-
-  .bailey div {
-    font-size: 16px;
-  }
-
-  .bailey .center-block {
-    display: block;
-    margin: auto;
-  }
 </style>
 
 <script>
