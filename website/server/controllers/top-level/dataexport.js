@@ -1,14 +1,12 @@
 import _ from 'lodash';
 import moment from 'moment';
-import * as js2xml from 'js2xmlparser';
 // import Pageres from 'pageres';
 // import nconf from 'nconf';
 // import got from 'got';
 import md from 'habitica-markdown';
 import csvStringify from '../../libs/csvStringify';
-import {
-  NotFound,
-} from '../../libs/errors';
+import { marshallUserData } from '../../libs/xmlMarshaller';
+import { NotFound } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import * as inboxLib from '../../libs/inbox';
 // import { model as User } from '../../models/user';
@@ -85,7 +83,7 @@ api.exportUserHistory = {
 
 // Convert user to json and attach tasks divided by type and inbox messages
 // at user.tasks[`${taskType}s`] (user.tasks.{dailys/habits/...})
-async function _getUserDataForExport (user, xmlMode = false) {
+async function _getUserDataForExport (user) {
   const userData = user.toJSON();
   userData.tasks = {};
 
@@ -107,29 +105,6 @@ async function _getUserDataForExport (user, xmlMode = false) {
     .forEach((tasksPerType, taskType) => {
       userData.tasks[`${taskType}s`] = tasksPerType;
     });
-
-  if (xmlMode) {
-    // object maps cant be parsed
-    userData.inbox.messages = _(userData.inbox.messages)
-      .map(m => {
-        const flags = Object.keys(m.flags);
-        m.flags = flags;
-
-        return m;
-      })
-      .value();
-
-    // _id gets parsed as an bytearray => which gets casted to a chararray => "weird chars"
-    userData.unpinnedItems = userData.unpinnedItems.map(i => ({
-      path: i.path,
-      type: i.type,
-    }));
-
-    userData.pinnedItems = userData.pinnedItems.map(i => ({
-      path: i.path,
-      type: i.type,
-    }));
-  }
 
   return userData;
 }
@@ -171,13 +146,8 @@ api.exportUserDataXml = {
   url: '/export/userdata.xml',
   middlewares: [authWithSession],
   async handler (req, res) {
-    const userData = await _getUserDataForExport(res.locals.user, true);
-    const xmlData = js2xml.parse('user', userData, {
-      cdataInvalidChars: true,
-      declaration: {
-        include: false,
-      },
-    });
+    const userData = await _getUserDataForExport(res.locals.user);
+    const xmlData = marshallUserData(userData);
 
     res.set({
       'Content-Type': 'text/xml',
