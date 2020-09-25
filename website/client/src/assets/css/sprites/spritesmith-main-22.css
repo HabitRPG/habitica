@@ -1,12 +1,30 @@
+.Mount_Head_Sheep-CottonCandyBlue {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-22.png');
+  background-position: -393px -816px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Sheep-CottonCandyPink {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-22.png');
+  background-position: -499px -816px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Sheep-Desert {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-22.png');
+  background-position: -605px -816px;
+  width: 105px;
+  height: 105px;
+}
 .Mount_Head_Sheep-Golden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-22.png');
-  background-position: -665px -816px;
+  background-position: -711px -816px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Sheep-Red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-22.png');
-  background-position: -771px -816px;
+  background-position: -817px -816px;
   width: 105px;
   height: 105px;
 }
@@ -666,7 +684,7 @@
 }
 .Mount_Head_TigerCub-StarryNight {
   background-image: url('~@/assets/images/sprites/spritesmith-main-22.png');
-  background-position: -544px -816px;
+  background-position: -272px -816px;
   width: 120px;
   height: 120px;
 }
@@ -1291,18 +1309,6 @@
 .Mount_Head_Wolf-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-22.png');
   background-position: -136px -816px;
-  width: 135px;
-  height: 135px;
-}
-.Mount_Head_Wolf-Spooky {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-22.png');
-  background-position: -272px -816px;
-  width: 135px;
-  height: 135px;
-}
-.Mount_Head_Wolf-StarryNight {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-22.png');
-  background-position: -408px -816px;
   width: 135px;
   height: 135px;
 }
