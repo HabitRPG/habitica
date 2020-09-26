@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import TaskColumn from '@/components/tasks/column.vue';
 import Store from '@/libs/store';
 
@@ -19,9 +19,12 @@ describe('Task Column', () => {
     };
     const stubs = ['b-modal']; // <b-modal> is a custom component and not tested here
 
-    return mount(TaskColumn, {
-      propsData: {
-        type,
+    return shallowMount(TaskColumn, {
+      propsData: { type },
+      store: {
+        getters: {
+          'tasks:getFilteredTaskList': () => [],
+        },
       },
       mocks,
       stubs,
