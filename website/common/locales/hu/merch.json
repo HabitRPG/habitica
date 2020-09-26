@@ -1,20 +1,3 @@
 {
-  "merch" : "Termékek",
-  "merchandiseDescription": "Pólót, bögrét, vagy matricát keresel, hogy mindenhol a Habitica-val kérkedj? Kattints ide!",
-
-  "merch-teespring-summary" : "A \"Treespring\" egy olyan platform, ahol bárki könnyedén készíthet és értékesíthet kiváló termékeket, költség és kockázat nélkül.",
-  "merch-teespring-goto" : "Szerezz egy Habitica pólót",
-
-  "merch-teespring-mug-summary" : "A \"Treespring\" egy olyan platform, ahol bárki könnyedén készíthet és értékesíthet kiváló termékeket, költség és kockázat nélkül.",
-  "merch-teespring-mug-goto" : "Szerezz egy Habitica bögrét",
-
-  "merch-teespring-eu-summary" : "EURÓPAI VERZIÓ: A \"Treespring\" egy olyan platform, ahol bárki könnyedén készíthet és értékesíthet kiváló termékeket, költség és kockázat nélkül.",
-  "merch-teespring-eu-goto" : "Szerezz egy Habitica pólót (EU)",
-
-  "merch-teespring-mug-eu-summary" : "EURÓPAI VERZIÓ: A \"Treespring\" egy olyan platform, ahol bárki könnyedén készíthet és értékesíthet kiváló termékeket, költség és kockázat nélkül.",
-  "merch-teespring-mug-eu-goto" : "Szerezz egy Habitica bögrét (EU)",
-
-  "merch-stickermule-summary" : "Ragaszd Meliort bárhova, ahol neked (vagy másnak) szükséged van emlékeztetőre a jelenlegi vagy jövőbeli eredményeidről!",
-  "merch-stickermule-goto" : "Szerezz egy Habitica matricát"
-
+  "merch" : "Termékek"
 }

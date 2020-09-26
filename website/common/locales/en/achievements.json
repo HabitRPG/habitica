@@ -4,6 +4,7 @@
   "onwards": "Onwards!",
   "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
   "reachedLevel": "You Reached Level <%= level %>",
+  "yourRewards": "Your Rewards",
   "gettingStartedDesc": "Complete these onboarding tasks and you’ll earn <strong>5 Achievements</strong> and <strong class=\"gold-amount\">100 Gold</strong> once you’re done!",
   "onboardingProgress": "<%= percentage %>% progress",
   "yourProgress": "Your Progress",
@@ -84,5 +85,11 @@
   "achievementBareNecessitiesModalText": "You completed the Monkey, Sloth, and Treeling pet quests!",
   "achievementFreshwaterFriends": "Freshwater Friends",
   "achievementFreshwaterFriendsText": "Has completed Axolotl, Frog, and Hippo pet quests.",
-  "achievementFreshwaterFriendsModalText": "You completed the Axolotl, Frog, and Hippo pet quests!"
+  "achievementFreshwaterFriendsModalText": "You completed the Axolotl, Frog, and Hippo pet quests!",
+  "achievementGoodAsGold": "Good As Gold",
+  "achievementGoodAsGoldText": "Has collected all Golden pets.",
+  "achievementGoodAsGoldModalText": "You collected all the Golden Pets!",
+  "achievementAllThatGlitters": "All That Glitters",
+  "achievementAllThatGlittersText": "Has tamed all Golden Mounts.",
+  "achievementAllThatGlittersModalText": "You tamed all the Golden Mounts!"
 }

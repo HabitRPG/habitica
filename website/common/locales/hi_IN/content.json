@@ -4,7 +4,7 @@
     "armoireText": "जादुई अलमारी ",
     "armoireNotesFull": "Open the Armoire to randomly receive special Equipment, Experience, or food! Equipment pieces remaining:",
     "armoireLastItem": "आपको मिला है जादुई अल्मरीकी आखिरी अपूर्व सामग्री।",
-    "armoireNotesEmpty": "The Armoire will have new Equipment in the first week of every month. Until then, keep clicking for Experience and Food!",
+    "armoireNotesEmpty": "Armoire में हर महीने के पहले सप्ताह में नए उपकरण होंगे। तब तक के लिए एक्सपीरियंस और फूड पर क्लिक करते रहें!",
     "dropEggWolfText": "भेड़िया",
     "dropEggWolfMountText": "भेड़िया ",
     "dropEggWolfAdjective": "a loyal",
@@ -306,5 +306,8 @@
     "foodSaddleText": "Saddle",
     "foodSaddleNotes": "Instantly raises one of your pets into a mount.",
     "foodSaddleSellWarningNote": "Hey! This is a pretty useful item! Are you familiar with how to use a Saddle with your Pets?",
-    "foodNotes": "पालतू को यह खिलाओ और पालतू शायद घोड़ी के जैसे बनेगा"
+    "foodNotes": "पालतू को यह खिलाओ और पालतू शायद घोड़ी के जैसे बनेगा",
+    "questEggDolphinAdjective": "एक चपर",
+    "questEggDolphinMountText": "डॉल्फिन",
+    "questEggDolphinText": "डॉल्फिन"
 }

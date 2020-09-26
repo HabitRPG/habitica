@@ -18,7 +18,6 @@ import * as slack from '../../libs/slack';
 import { chatReporterFactory } from '../../libs/chatReporting/chatReporterFactory';
 import { getAuthorEmailFromMessage } from '../../libs/chat';
 import bannedWords from '../../libs/bannedWords';
-import guildsAllowingBannedWords from '../../libs/guildsAllowingBannedWords';
 import { getMatchesByWordArray } from '../../libs/stringUtils';
 import bannedSlurs from '../../libs/bannedSlurs';
 import apiError from '../../libs/apiError';
@@ -172,7 +171,7 @@ api.postChat = {
 
     // prevent banned words being posted, except in private guilds/parties
     // and in certain public guilds with specific topics
-    if (group.privacy === 'public' && !guildsAllowingBannedWords[group._id]) {
+    if (group.privacy === 'public' && !group.bannedWordsAllowed) {
       const matchedBadWords = getBannedWordsFromText(req.body.message);
       if (matchedBadWords.length > 0) {
         throw new BadRequest(res.t('bannedWordUsed', { swearWordsUsed: matchedBadWords.join(', ') }));

@@ -750,13 +750,13 @@ export default {
           const { code } = query;
           const hasError = query.hasError === 'true';
           if (hasError) {
-            window.alert(query.message);
+            window.alert(query.message); // eslint-disable-line no-alert
             this.$router.push({ name: 'login' });
             return;
           }
 
           if (!code) {
-            window.alert(this.$t('invalidPasswordResetCode'));
+            window.alert(this.$t('invalidPasswordResetCode')); // eslint-disable-line no-alert
             this.$router.push({ name: 'login' });
             return;
           }
@@ -797,12 +797,12 @@ export default {
     async register () {
       // @TODO do not use alert
       if (!this.email) {
-        window.alert(this.$t('missingEmail'));
+        window.alert(this.$t('missingEmail')); // eslint-disable-line no-alert
         return;
       }
 
       if (this.password !== this.passwordConfirm) {
-        window.alert(this.$t('passwordConfirmationMatch'));
+        window.alert(this.$t('passwordConfirmationMatch')); // eslint-disable-line no-alert
         return;
       }
 
@@ -918,7 +918,7 @@ export default {
     },
     async forgotPasswordLink () {
       if (!this.username) {
-        window.alert(this.$t('missingEmail'));
+        window.alert(this.$t('missingEmail')); // eslint-disable-line no-alert
         return;
       }
 
@@ -926,17 +926,17 @@ export default {
         email: this.username,
       });
 
-      window.alert(this.$t('newPassSent'));
+      window.alert(this.$t('newPassSent')); // eslint-disable-line no-alert
     },
     async resetPasswordSetNewOneLink () {
       if (!this.password) {
-        window.alert(this.$t('missingNewPassword'));
+        window.alert(this.$t('missingNewPassword')); // eslint-disable-line no-alert
         return;
       }
 
       if (this.password !== this.passwordConfirm) {
         // @TODO i18n and don't use alerts
-        window.alert(this.$t('passwordConfirmationMatch'));
+        window.alert(this.$t('passwordConfirmationMatch')); // eslint-disable-line no-alert
         return;
       }
 
@@ -947,7 +947,7 @@ export default {
       });
 
       if (res.data.message) {
-        window.alert(res.data.message);
+        window.alert(res.data.message); // eslint-disable-line no-alert
       }
 
       this.password = '';

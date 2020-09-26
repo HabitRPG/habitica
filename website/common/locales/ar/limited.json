@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "الإصدارات المحدودة",
-    "seasonalEdition": "إصدار موسمي",
-    "winterColors": "ألوان الشتاء",
     "annoyingFriends": "الأصدقاء المزعجون",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "Alarming Friends",
@@ -61,7 +58,6 @@
     "nye2": "Happy New Year! May you earn many a Perfect Day.",
     "nye3": "Happy New Year! May your To-Do list stay short and sweet.",
     "nye4": "Happy New Year! May you not get attacked by a raging Hippogriff.",
-    "holidayCard": "Received a holiday card!",
     "mightyBunnySet": "Mighty Bunny (Warrior)",
     "magicMouseSet": "Magic Mouse (Mage)",
     "lovingPupSet": "Loving Pup (Healer)",

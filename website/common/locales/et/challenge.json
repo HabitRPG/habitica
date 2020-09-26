@@ -8,7 +8,7 @@
     "brokenChallenge": "Katkine link: see ülesanne oli osa väljakutsest, aga väljakutse (või grupp) on kustutatud. Mida teha ülejäänud ülesannetega?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "See väljakutse on lõppenud, ja võitjaks sai <span class=\"badge\"><%= user %></span>! MIda teha ülejäänud ülesannetega?",
+    "challengeCompleted": "See väljakutse on lõppenud, ja võitjaks sai <span class=\"badge\"><%- user %></span>! MIda teha ülejäänud ülesannetega?",
     "unsubChallenge": "Katkine link: see ülesanne oli osa väljakutsest, aga sa oled väljakutsest loobunud. Mida teha ülejäänud ülesannetega?",
     "challengeWinner": "Võitis järgnevad väljakutsed",
     "challenges": "Väljakutsed",

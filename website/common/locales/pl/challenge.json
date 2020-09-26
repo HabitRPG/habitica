@@ -8,7 +8,7 @@
     "brokenChallenge": "Nieprawidłowy link do wyzwania – to zadanie było częścią wyzwania, jednak wyzwanie (lub grupa) zostało usunięte. Co zrobić z porzuconym zadaniem?",
     "keepThem": "Zachowaj Zadania",
     "removeThem": "Usuń Zadania",
-    "challengeCompleted": "Wyzwanie zakończone! Jego zwycięzcą jest <span class=\"badge\"><%= user %></span>! Co chcesz zrobić z porzuconymi zadaniami?",
+    "challengeCompleted": "Wyzwanie zakończone! Jego zwycięzcą jest <span class=\"badge\"><%- user %></span>! Co chcesz zrobić z porzuconymi zadaniami?",
     "unsubChallenge": "Nieprawidłowy link do wyzwania – to zadanie było częścią wyzwania, ale wypisałeś się z niego. Co zrobić z porzuconym zadaniem?",
     "challengeWinner": "Jest zwycięzcą następujących wyzwań",
     "challenges": "Wyzwania",

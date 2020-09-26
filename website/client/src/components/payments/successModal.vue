@@ -33,7 +33,7 @@
               class="svg-icon"
               v-html="icons.gem"
             ></div>
-            <span>20</span>
+            <span>{{ paymentData.gemsBlock.gems }}</span>
           </div>
         </template>
         <template
@@ -244,7 +244,7 @@ export default {
   methods: {
     close () {
       this.paymentData = {};
-      this.$root.$emit('habitica::dismiss-modal', 'payments-success-modal');
+      this.$root.$emit('bv::hide::modal', 'payments-success-modal');
     },
   },
 };

@@ -95,6 +95,46 @@ label.custom-control-label(v-once) {{ $t('allowGuildInvitationsFromNonMembers') 
         -->
       </div>
       <div
+        v-if="isAdmin && workingGroup.id"
+        class="form-group"
+      >
+        <label>
+          <strong v-once>{{ $t('languageSettings') }}</strong>
+        </label>
+        <br>
+        <div class="custom-control custom-checkbox">
+          <input
+            id="bannedWordsAllowed"
+            v-model="workingGroup.bannedWordsAllowed"
+            class="custom-control-input"
+            type="checkbox"
+          >
+          <label
+            v-once
+            class="custom-control-label"
+            for="bannedWordsAllowed"
+          >{{ $t('bannedWordsAllowed') }}</label>
+          <div
+            v-once
+            id="groupBannedWordsAllowedDescription"
+            class="icon"
+            :title="$t('bannedWordsAllowedDetail')"
+          >
+            <div
+              v-once
+              class="svg-icon"
+              v-html="icons.information"
+            ></div>
+          </div>
+          <b-tooltip
+            v-once
+            :title="$t('bannedWordsAllowedDetail')"
+            target="groupBannedWordsAllowedDescription"
+          />
+        </div>
+        <br>
+      </div>
+      <div
         v-if="!isParty"
         class="form-group"
       >
@@ -367,6 +407,7 @@ export default {
         guildLeaderCantBeMessaged: true,
         privateGuild: true,
         allowGuildInvitationsFromNonMembers: true,
+        bannedWordsAllowed: null,
       },
       categoryOptions: [
         {
@@ -470,6 +511,9 @@ export default {
     isParty () {
       return this.workingGroup.type === 'party';
     },
+    isAdmin () {
+      return Boolean(this.user.contributor.admin);
+    },
   },
   watch: {
     editingGroup () {
@@ -502,6 +546,8 @@ export default {
 
       this.workingGroup.leader = editingGroup.leader;
 
+      this.workingGroup.bannedWordsAllowed = editingGroup.bannedWordsAllowed;
+
       if (editingGroup._id) this.getMembers();
     },
   },
@@ -531,7 +577,7 @@ export default {
     async submit () {
       if (this.$store.state.user.data.balance < 1 && !this.workingGroup.id) {
         // @TODO: Add proper notifications
-        window.alert(this.$t('notEnoughGems'));
+        window.alert(this.$t('notEnoughGems')); // eslint-disable-line no-alert
         return;
         // @TODO return $rootScope.openModal('buyGems', {track:"Gems > Gems > Create Group"});
       }
@@ -545,12 +591,12 @@ export default {
       if (!this.isParty && (!this.workingGroup.categories || this.workingGroup.categories.length === 0)) errors.push(this.$t('categoiresRequired'));
 
       if (errors.length > 0) {
-        window.alert(errors.join('\n'));
+        window.alert(errors.join('\n')); // eslint-disable-line no-alert
         return;
       }
 
       // @TODO: Add proper notifications
-      if (!this.workingGroup.id && !window.confirm(this.$t('confirmGuild'))) return;
+      if (!this.workingGroup.id && !window.confirm(this.$t('confirmGuild'))) return; // eslint-disable-line no-alert
 
       if (!this.workingGroup.privateGuild) {
         this.workingGroup.privacy = 'public';

@@ -285,7 +285,7 @@
     "messages": "Beskeder",
     "emptyMessagesLine1": "Du har ingen beskeder",
     "emptyMessagesLine2": "Send en besked for at starte en samtale!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sendte en besked",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sendte en besked",
     "letsgo": "Lad os komme i gang!",
     "selected": "Valgt",
     "howManyToBuy": "Hvor mange vil du købe?",

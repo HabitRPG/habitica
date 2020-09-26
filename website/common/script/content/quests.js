@@ -3647,6 +3647,82 @@ const quests = {
       unlock: t('questFluoriteUnlockText'),
     },
   },
+  windup: {
+    text: t('questWindupText'),
+    notes: t('questWindupNotes'),
+    completion: t('questWindupCompletion'),
+    value: 1,
+    category: 'timeTravelers',
+    canBuy () {
+      return false;
+    },
+    boss: {
+      name: t('questWindupBoss'),
+      hp: 1000,
+      str: 1,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Windup',
+          text: t('questWindupDropWindupPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Windup',
+          text: t('questWindupDropWindupPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Windup',
+          text: t('questWindupDropWindupPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 425,
+      unlock: t('questWindupUnlockText'),
+    },
+  },
+  turquoise: {
+    text: t('questTurquoiseText'),
+    notes: t('questTurquoiseNotes'),
+    completion: t('questTurquoiseCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      turquoiseGem: {
+        text: t('questTurquoiseCollectTurquoiseGems'),
+        count: 25,
+      },
+      sagittariusRune: {
+        text: t('questTurquoiseCollectSagittariusRunes'),
+        count: 10,
+      },
+      neptuneRune: {
+        text: t('questTurquoiseCollectNeptuneRunes'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Turquoise',
+          text: t('questTurquoiseDropTurquoisePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Turquoise',
+          text: t('questTurquoiseDropTurquoisePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Turquoise',
+          text: t('questTurquoiseDropTurquoisePotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questTurquoiseUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {

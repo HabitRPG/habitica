@@ -7,7 +7,7 @@ import {
 import { model as User } from '../../../../../../website/server/models/user';
 import common from '../../../../../../website/common';
 
-describe('subscribeSuccess', () => {
+describe('paypal - subscribeSuccess', () => {
   const subKey = 'basic_3mo';
   let user; let group; let block; let groupId; let token; let headers; let
     customerId;

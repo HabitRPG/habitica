@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Posebno izdanje",
-    "seasonalEdition": "Sezonsko izdanje",
-    "winterColors": "Zimske boje",
     "annoyingFriends": "Dosadni prijatelji",
     "annoyingFriendsText": "Broj puta koje su te članovi družine pogodili grudom snijega: <%= count %>.",
     "alarmingFriends": "Zastrašujući prijatelji",
@@ -61,7 +58,6 @@
     "nye2": "Sretna Nova Godina! I da proživiš mnoštvo Savršenih dana.",
     "nye3": "Sretna Nova Godina! Neka ti popis obaveza ostane kratak, ali sladak.",
     "nye4": "Sretna Nova Godina! I da te ne napadne pobješnjeli Hipogrif.",
-    "holidayCard": "Dobio/la si čestitku!",
     "mightyBunnySet": "Moćni kunić (Ratnik)",
     "magicMouseSet": "Magični miš (Čarobnjak)",
     "lovingPupSet": "Šesni štenac (Iscjelitelj)",

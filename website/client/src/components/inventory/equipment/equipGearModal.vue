@@ -71,7 +71,7 @@
 <style lang="scss">
 
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/modal.scss';
+  @import '~@/assets/scss/mixins.scss';
 
   #equipgear-modal {
     @include centeredModal();

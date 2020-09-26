@@ -14,7 +14,10 @@ describe('payments - stripe - #checkout', () => {
   });
 
   it('verifies credentials', async () => {
-    await expect(user.post(endpoint, { id: 123 })).to.eventually.be.rejected.and.include({
+    await expect(user.post(
+      `${endpoint}?gemsBlock=4gems`,
+      { id: 123 },
+    )).to.eventually.be.rejected.and.include({
       code: 401,
       error: 'Error',
       // message: 'Invalid API Key provided: aaaabbbb********************1111',
@@ -32,7 +35,7 @@ describe('payments - stripe - #checkout', () => {
       stripePayments.checkout.restore();
     });
 
-    it('cancels a user subscription', async () => {
+    it('creates a user subscription', async () => {
       user = await generateUser({
         'profile.name': 'sender',
         'purchased.plan.customerId': 'customer-id',
@@ -48,7 +51,7 @@ describe('payments - stripe - #checkout', () => {
       expect(stripeCheckoutSubscriptionStub.args[0][0].groupId).to.eql(undefined);
     });
 
-    it('cancels a group subscription', async () => {
+    it('creates a group subscription', async () => {
       user = await generateUser({
         'profile.name': 'sender',
         'purchased.plan.customerId': 'customer-id',

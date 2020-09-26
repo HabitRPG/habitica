@@ -8,7 +8,7 @@
     "brokenChallenge": "Link de Desafio Quebrado: esta tarefa fazia parte de um desafio, mas o desafio (ou grupo) foi excluído. O que deseja fazer com as tarefas do desafio que ficaram?",
     "keepThem": "Manter Tarefas",
     "removeThem": "Remover Tarefas",
-    "challengeCompleted": "Esse desafio está encerrado e o vencedor foi <span class=\"badge\"><%= user %></span>! O que deseja fazer com as tarefas do desafio que ficaram?",
+    "challengeCompleted": "Esse desafio está encerrado e o vencedor foi <span class=\"badge\"><%- user %></span>! O que deseja fazer com as tarefas do desafio que ficaram?",
     "unsubChallenge": "Link de Desafio Quebrado: essa tarefa era parte de um desafio, mas você saiu do desafio. O que deseja fazer com as tarefas do desafio que ficaram?",
     "challengeWinner": "Vencedor(a) dos seguintes desafios",
     "challenges": "Desafios",

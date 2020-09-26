@@ -10,7 +10,7 @@ import common from '../../../../../../website/common';
 
 const { i18n } = common;
 
-describe('cancel subscription', () => {
+describe('stripe - cancel subscription', () => {
   const subKey = 'basic_3mo';
   const stripe = stripeModule('test');
   let user; let groupId; let

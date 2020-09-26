@@ -2155,5 +2155,11 @@
     "backSpecialNamingDay2020Notes": "Happy Naming Day! Swish this fiery, pixely tail about as you celebrate Habitica. Confers no benefit.",
     "backSpecialNamingDay2020Text": "Royal Purple Gryphon Tail",
     "headMystery202008Notes": "WHO? WHO? WHO approaches, seeking your counsel? Confers no benefit. August 2020 Subscriber Item.",
-    "headMystery202008Text": "Owlish Oracle Headdress"
+    "headMystery202008Text": "Owlish Oracle Headdress",
+    "shieldArmoireMortarAndPestleNotes": "The most important equipment in the herbalist's arsenal! Grind up your ingredients for your herbal concoctions, and put your back into it! Increases Constitution by <%= con %>. Enchanted Armoire: Heroic Herbalist Set (Item 2 of 3).",
+    "shieldArmoireMortarAndPestleText": "Mortar and Pestle",
+    "headArmoireHeroicHerbalistCrispinetteNotes": "This handy headdress will help you keep your hair out of the way... It doesn't hurt that it also adds to the mystique. Increases Intelligence by <%= int %>. Enchanted Armoire: Heroic Herbalist Set (Item 3 of 3).",
+    "headArmoireHeroicHerbalistCrispinetteText": "Heroic Herbalist Crispinette",
+    "armorArmoireHeroicHerbalistRobeNotes": "Always smells pleasantly of all kinds of herbs. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Heroic Herbalist Set (Item 1 of 3).",
+    "armorArmoireHeroicHerbalistRobeText": "Heroic Herbalist Robe"
 }

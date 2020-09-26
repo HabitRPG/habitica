@@ -1,4 +1,4 @@
-import { shouldDo } from '@/../../common/script/cron';
+import sortBy from 'lodash/sortBy';
 
 // Task filter data
 // @TODO find a way to include user preferences w.r.t sort and defaults
@@ -15,8 +15,8 @@ const taskFilters = {
     label: 'dailies',
     filters: [
       { label: 'all', filterFn: () => true, default: true },
-      { label: 'due', filterFn: userPrefs => t => !t.completed && shouldDo(new Date(), t, userPrefs) },
-      { label: 'notDue', filterFn: userPrefs => t => t.completed || !shouldDo(new Date(), t, userPrefs) },
+      { label: 'due', filterFn: t => !t.completed && t.isDue },
+      { label: 'notDue', filterFn: t => t.completed || !t.isDue },
     ],
   },
   todo: {
@@ -37,6 +37,34 @@ const taskFilters = {
   },
 };
 
+const challengeFilters = {
+  habit: {
+    label: 'habits',
+    filters: [
+      { label: 'all', filterFn: () => true, default: true },
+    ],
+  },
+  daily: {
+    label: 'dailies',
+    filters: [
+      { label: 'all', filterFn: () => true, default: true },
+    ],
+  },
+  todo: {
+    label: 'todos',
+    filters: [
+      { label: 'all', filterFn: () => true, default: true }, // active
+      { label: 'scheduled', filterFn: t => t.date, sort: t => t.date },
+    ],
+  },
+  reward: {
+    label: 'rewards',
+    filters: [
+      { label: 'all', filterFn: () => true, default: true },
+    ],
+  },
+};
+
 function typeLabel (filterList) {
   return type => filterList[type].label;
 }
@@ -53,7 +81,12 @@ function filterLabel (filterList) {
   };
 }
 
-export const getFilterLabels = filterLabel(taskFilters);
+export function getFilterLabels (type, isChallenge) {
+  if (isChallenge) {
+    return filterLabel(challengeFilters)(type);
+  }
+  return filterLabel(taskFilters)(type);
+}
 
 function activeFilter (filterList) {
   return (type, filterType = '') => {
@@ -65,4 +98,17 @@ function activeFilter (filterList) {
   };
 }
 
-export const getActiveFilter = activeFilter(taskFilters);
+export function getActiveFilter (type, filterType, isChallenge) {
+  if (isChallenge) {
+    return activeFilter(challengeFilters)(type, filterType);
+  }
+  return activeFilter(taskFilters)(type, filterType);
+}
+
+export function sortAndFilterTasks (tasks, selectedFilter) {
+  let sortedTasks = tasks.filter(selectedFilter.filterFn);
+  if (selectedFilter.sort) {
+    sortedTasks = sortBy(sortedTasks, selectedFilter.sort);
+  }
+  return sortedTasks;
+}

@@ -8,7 +8,7 @@
     "brokenChallenge": "O Enlace ao Desafío non funciona: esta tarefa formaba parte dun desafío, pero eliminouse o desafío (ou o grupo). Que queres facer coas tarefas orfas?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Este desafío completouse, e @ gañador(a) era <span class=\"badge\"><%= user %></span>! Que facemos coas tarefas orfas?",
+    "challengeCompleted": "Este desafío completouse, e @ gañador(a) era <span class=\"badge\"><%- user %></span>! Que facemos coas tarefas orfas?",
     "unsubChallenge": "O Enlace ao Desafío non funciona: esta tarefa formaba parte dun desafío, pero abandoaches o desafío. Que facemos coas tarefas orfas?",
     "challengeWinner": "Foi o vencedor dos desafíos seguintes",
     "challenges": "Desafíos",

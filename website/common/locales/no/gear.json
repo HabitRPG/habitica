@@ -27,7 +27,7 @@
     "weaponWarrior1Text": "Sverd",
     "weaponWarrior1Notes": "Vanlig soldatsverd. Øker Styrke med <%= str %>.",
     "weaponWarrior2Text": "Øks",
-    "weaponWarrior2Notes": "Tosidet hoggvåpen. Øker styrke med<%= str %>",
+    "weaponWarrior2Notes": "Tosidet hoggvåpen. Øker styrke med<%= str %>.",
     "weaponWarrior3Text": "Morgenstjerne",
     "weaponWarrior3Notes": "Tung klubbe med pigger. Øker Styrke med <%= str %>",
     "weaponWarrior4Text": "Safirklinge",
@@ -1024,7 +1024,7 @@
     "headSpecialSummer2017MageNotes": "This hat is composed entirely of a swirling, inverted whirlpool. Increases Perception by <%= per %>. Limited Edition 2017 Summer Gear.",
     "headSpecialSummer2017HealerText": "Crown of Sea Creatures",
     "headSpecialSummer2017HealerNotes": "This helm is made up of friendly sea creatures who are temporarily resting on your head, giving you sage advice. Increases Intelligence by <%= int %>. Limited Edition 2017 Summer Gear.",
-    "headSpecialFall2017RogueText": "Jack-o-Lantern Helm",
+    "headSpecialFall2017RogueText": "Gresskarlykthjelm",
     "headSpecialFall2017RogueNotes": "Ready for treats? Time to don this festive, glowing helm! Increases Perception by <%= per %>. Limited Edition 2017 Autumn Gear.",
     "headSpecialFall2017WarriorText": "Candy Corn Helm",
     "headSpecialFall2017WarriorNotes": "This helm might look like a treat, but wayward tasks won't find it so sweet! Increases Strength by <%= str %>. Limited Edition 2017 Autumn Gear.",
@@ -1068,7 +1068,7 @@
     "headSpecialFall2018HealerNotes": "This helm is fashioned from a carnivorous plant renowned for its ability to dispatch zombies and other inconveniences. Just watch out that it doesn't chew on your head. Increases Intelligence by <%= int %>. Limited Edition 2018 Autumn Gear.",
     "headSpecialNye2018Text": "Outlandish Party Hat",
     "headSpecialNye2018Notes": "You've received an Outlandish Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
-    "headSpecialWinter2019RogueText": "Poinsettia Helm",
+    "headSpecialWinter2019RogueText": "Julestjernehjelm",
     "headSpecialWinter2019RogueNotes": "This leafy helm will attain its brightest red color right around the darkest days of winter, helping you blend in with holiday decor! Increases Perception by <%= per %>. Limited Edition 2018-2019 Winter Gear.",
     "headSpecialWinter2019WarriorText": "Glacial Helm",
     "headSpecialWinter2019WarriorNotes": "It's important to keep a cool head! This icy helm will protect you from any opponent's blows. Increases Strength by <%= str %>. Limited Edition 2018-2019 Winter Gear.",
@@ -1741,5 +1741,6 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
     "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
-    "twoHandedItem": "Two-handed item."
+    "twoHandedItem": "Two-handed item.",
+    "headSpecialWinter2020MageNotes": "Åh! Hvordan klokkene / Søte gyldne klokkene / Alt ser ut til å si, / \"Kast 'Ildkule'\" Øker Sansing med <% = per%>. Begrenset utgave 2019-2020 Vinterutstyr."
 }

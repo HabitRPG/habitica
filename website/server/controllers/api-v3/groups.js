@@ -471,6 +471,14 @@ api.updateGroup = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
+    if (user.contributor.admin) {
+      if (req.body.bannedWordsAllowed === true) {
+        group.bannedWordsAllowed = true;
+      } else {
+        group.bannedWordsAllowed = false;
+      }
+    }
+
     if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
     else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
@@ -1198,7 +1206,7 @@ api.inviteToGroup = {
  * @apiParamExample {String} party:
  *     /api/v3/groups/party/add-manager
  *
- * @apiBody (Body) {UUID} managerId The user _id of the member to promote to manager
+ * @apiParam (Body) {UUID} managerId The user _id of the member to promote to manager
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -1248,7 +1256,7 @@ api.addGroupManager = {
  * @apiParamExample {String} party:
  *     /api/v3/groups/party/add-manager
  *
- * @apiBody (Body) {UUID} managerId The user _id of the member to remove
+ * @apiParam (Body) {UUID} managerId The user _id of the member to remove
  *
  * @apiSuccess {Object} group The group
  *

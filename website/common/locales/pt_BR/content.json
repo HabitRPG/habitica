@@ -149,7 +149,7 @@
     "questEggPeacockText": "Pavão",
     "questEggPeacockMountText": "Pavão",
     "questEggPeacockAdjective": "uma galopante",
-    "questEggButterflyText": "Lagarto",
+    "questEggButterflyText": "Lagarta",
     "questEggButterflyMountText": "Borboleta",
     "questEggButterflyAdjective": "uma fofa",
     "questEggNudibranchText": "Lesma Marinha",
@@ -358,5 +358,7 @@
     "hatchingPotionBirchBark": "Casca de bétula",
     "hatchingPotionDessert": "Confecção",
     "hatchingPotionFluorite": "Fluorita",
-    "hatchingPotionSandSculpture": "Escultura de areia"
+    "hatchingPotionSandSculpture": "Escultura de areia",
+    "hatchingPotionWindup": "De Corda",
+    "hatchingPotionTurquoise": "Turquesa"
 }

@@ -162,7 +162,7 @@
                   progress on the group doc? Each user could have different progress.-->
                 <span
                   class="float-right"
-                >{{ user.party.quest.progress.up | floor(10) }} {{ $t('pendingDamageLabel') }}</span> <!-- eslint-disable-line max-len -->
+                >{{ (user.party.quest.progress.up || 0) | floor(10) }} {{ $t('pendingDamageLabel') }}</span> <!-- eslint-disable-line max-len -->
                 <!-- player's pending damage uses floor so you
                   don't overestimate damage you've already done-->
               </div>
@@ -412,19 +412,20 @@ export default {
       this.$root.$emit('bv::show::modal', 'participant-list');
     },
     async questAbort () {
-      if (!window.confirm(this.$t('sureAbort'))) return;
-      if (!window.confirm(this.$t('doubleSureAbort'))) return;
+      if (!window.confirm(this.$t('sureAbort'))) return; // eslint-disable-line no-alert
+      if (!window.confirm(this.$t('doubleSureAbort'))) return; // eslint-disable-line no-alert
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/abort' });
       this.group.quest = quest;
     },
     async questLeave () {
-      if (!window.confirm(this.$t('sureLeave'))) return;
+      if (!window.confirm(this.$t('sureLeave'))) return; // eslint-disable-line no-alert
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/leave' });
       this.group.quest = quest;
     },
     async questAccept (partyId) {
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: partyId, action: 'quests/accept' });
       this.user.party.quest = quest;
+      this.group.quest = quest;
     },
     async questReject (partyId) {
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: partyId, action: 'quests/reject' });

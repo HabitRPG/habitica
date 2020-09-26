@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'HABITICA’S NAMING DAY!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW VAMPIRE MAGIC HATCHING POTIONS, PLUS THE RETURN OF GHOST AND SHADOW POTIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,31 +31,28 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>7/31/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/24/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="achievement-habiticaDay2x center-block"></div>
-        <h3>Habitica Naming Day</h3>
+        <div class="promo_vampire_potions center-block"></div>
         <p>
-          Happy Habitica Naming day! In honor of the day when we changed the name of the app from
-          HabitRPG to Habitica, we've given everyone an achievement, as well as some delicious cake
-          for your pets and mounts.
-        </p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
-        <div class="promo_naming_day_2020 center-block"></div>
-        <h3>Habitica Purple Gryphons</h3>
-        <p>
-          Speaking of pets and mounts, we've given all users Royal Purple Gryphon rewards!
-          Depending on how many Naming Days you've celebrated with us, you've received Melior (a
-          Purple Gryphon mount), his little sister Meliora (a Purple Gryphon pet), a Purple Gryphon
-          Helm, the Purple Gryphon Wing Cloak, or the latest addition, the Purple Gryphon Tail!
+          There's a new pet breed in town! Between now and October 31st, you can buy Magic Hatching
+          Potions from <a href='/shops/market'>the Market</a> and use them to hatch any standard
+          pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Potion Pets aren't
+          picky, so they'll happily eat any kind of food that you feed them!
         </p>
         <p>
-          Thanks for being a Habitica user -- you all mean so much to us. We hope that you enjoy
-          your presents!
+          For this Gala, we've brought back Ghost and Shadow Potions, and added a brand-new potion:
+          Vampire!
         </p>
-        <div class="small mb-3">by Lemoness, Beffymaroo, and Baconsaur</div>
+        <p>
+          After they're gone, it will be at least a year before these Hatching Potions are
+          available again, so be sure to get them now!
+        </p>
+        <div class="small mb-3">
+          by QuartzFox, Hermi, jjgame83, OuttaMyMind, loremi, and SabreCat
+        </div>
       </div>
       `,
     });

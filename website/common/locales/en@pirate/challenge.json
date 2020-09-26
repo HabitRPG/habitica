@@ -8,7 +8,7 @@
     "brokenChallenge": "Broken Challenge Link: Ye task was part o' a challenge, but th' challenge (or group) has be deleted. What to do wit' th' orphan tasks?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Ye challenge has be completed, 'n th' winner was <span class=\"badge\"><%= user %></span>! What to do wit' th' orphan tasks?",
+    "challengeCompleted": "Ye challenge has be completed, 'n th' winner was <span class=\"badge\"><%- user %></span>! What to do wit' th' orphan tasks?",
     "unsubChallenge": "Broken Challenge Link: Ye task was part o' a challenge, but ye've unsubscribed from t' challenge. What to do wit' t' orphan tasks?",
     "challengeWinner": "Was t' victor in t' followin' challenges",
     "challenges": "Challenges",

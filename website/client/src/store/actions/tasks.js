@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Vue from 'vue';
 import compact from 'lodash/compact';
 import omit from 'lodash/omit';
 import { loadAsyncResource } from '@/libs/asyncResource';
@@ -103,8 +104,11 @@ export async function create (store, createdTask) {
   const data = Array.isArray(response.data.data) ? response.data.data : [response.data.data];
 
   data.forEach(taskRes => {
-    const taskData = store.state.tasks.data[`${taskRes.type}s`].find(t => t._id === taskRes._id);
-    Object.assign(taskData, taskRes);
+    const tasksArr = store.state.tasks.data[`${taskRes.type}s`];
+    const taskDataIndex = tasksArr.findIndex(t => t._id === taskRes._id);
+    if (taskDataIndex !== -1) {
+      Vue.set(tasksArr, taskDataIndex, { ...tasksArr[taskDataIndex], ...taskRes });
+    }
   });
 }
 
@@ -120,6 +124,18 @@ export async function save (store, editedTask) {
   const taskDataToSend = omit(editedTask, ['history']);
   const response = await axios.put(`/api/v4/tasks/${taskId}`, taskDataToSend);
   if (originalTask) Object.assign(originalTask, response.data.data);
+}
+
+export async function score (store, { taskId, direction }) {
+  const res = await axios.post(`/api/v4/tasks/${taskId}/score/${direction}`);
+  return res;
+}
+
+// params must be an array of objects with this format
+// [ {id: task1Id, direction: task1Direction } , {id: task2Id, direction: task2Direction } ]
+export async function bulkScore (store, params) {
+  const res = await axios.post('/api/v4/tasks/bulk-score', params);
+  return res;
 }
 
 export async function scoreChecklistItem (store, { taskId, itemId }) {

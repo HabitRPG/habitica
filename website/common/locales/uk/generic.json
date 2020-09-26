@@ -285,7 +285,7 @@
     "messages": "Повідомлення",
     "emptyMessagesLine1": "Повідомлення відсутні",
     "emptyMessagesLine2": "Send a message to start a conversation!",
-    "userSentMessage": "<span class=\"notification-bold\"><%= user %></span> sent you a message",
+    "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
     "letsgo": "Let's Go!",
     "selected": "Обрано",
     "howManyToBuy": "Скільки ви хочете придбати?",
