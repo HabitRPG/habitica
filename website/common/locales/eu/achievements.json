@@ -6,5 +6,5 @@
     "reachedLevel": "<%= level %>. mailara heldu zara",
     "achievementLostMasterclasser": "",
     "achievementLostMasterclasserText": "",
-    "foundNewItemsExplanation": "Egitekoak burutzeak hainbat gai aurkitzeko aukera ematen dizu. Hala nola, arraultzak, txitatzeko edabeak edo etxe-animali janaria."
+    "foundNewItemsExplanation": "Egitekoak burutzeak hainbat gai aurkitzeko aukera ematen dizu. Hala nola, arraultzak, eklosionatzeko edabeak edo etxe-animali janaria."
 }
