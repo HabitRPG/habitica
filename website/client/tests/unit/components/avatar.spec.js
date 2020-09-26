@@ -31,7 +31,6 @@ context('avatar.vue', () => {
     });
 
     vm.$store = generateStore();
-    vm.$mount();
   });
 
   afterEach(() => {
