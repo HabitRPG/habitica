@@ -58,5 +58,7 @@
     "foundNewItems": "Yeni eşyalar buldun!",
     "onboardingCompleteDescSmall": "Daha fazlasını istiyorsan Başarımlara göz at ve toplamaya başla!",
     "yourProgress": "İlerlemen",
-    "yourRewards": "Ödüllerin"
+    "yourRewards": "Ödüllerin",
+    "foundNewItemsCTA": "Envanterine git ve yeni kuluçka iksirini ve yumurtayı birleştirmeyi dene!",
+    "foundNewItemsExplanation": "Görevleri tamamlamak size yumurta, kuluçka iksiri ve yiyecek gibi eşyaları bulma şansı verir."
 }
