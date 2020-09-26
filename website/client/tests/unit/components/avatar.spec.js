@@ -1,30 +1,33 @@
 import Vue from 'vue';
+import merge from 'lodash/merge';
+
 import Avatar from '@/components/avatar';
 import generateStore from '@/store';
 
-context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tests
+context('avatar.vue', () => {
   let Constructr;
   let vm;
+
+  const baseMember = {
+    stats: {
+      buffs: {},
+      class: 'warrior',
+    },
+    preferences: {
+      hair: {},
+    },
+    items: {
+      gear: {
+        equipped: {},
+      },
+    },
+  };
 
   beforeEach(() => {
     Constructr = Vue.extend(Avatar);
 
     vm = new Constructr({
-      propsData: {
-        member: {
-          stats: {
-            buffs: {},
-          },
-          preferences: {
-            hair: {},
-          },
-          items: {
-            gear: {
-              equipped: {},
-            },
-          },
-        },
-      },
+      propsData: { member: baseMember },
     });
 
     vm.$store = generateStore();
@@ -37,11 +40,11 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
 
   describe('hasClass', () => {
     beforeEach(() => {
-      vm.member = {
+      vm.member = merge({
         stats: { lvl: 17 },
         preferences: { disableClasses: true },
         flags: { classSelected: false },
-      };
+      }, baseMember);
     });
 
     it('accurately reports class status', () => {
@@ -55,10 +58,6 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
   });
 
   describe('isBuffed', () => {
-    beforeEach(() => {
-      vm.member.stats.buffs = {};
-    });
-
     it('accurately reports if buffed', () => {
       expect(vm.isBuffed).to.equal(undefined);
 
@@ -69,32 +68,23 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
   });
 
   describe('paddingTop', () => {
-    beforeEach(() => {
-      vm.member.items = {
-        gear: {
-          equipped: {},
-          warrior: {},
-        },
-      };
-    });
-
     xit('defaults to 27px', () => {
       vm.avatarOnly = true;
       expect(vm.paddingTop).to.equal('27px');
     });
 
     it('is 24px if user has a pet', () => {
-      vm.member.items = {
+      vm.member.items = merge({
         currentPet: { name: 'Foo' },
-      };
+      }, baseMember.items);
 
       expect(vm.paddingTop).to.equal('24px');
     });
 
     it('is 0px if user has a mount', () => {
-      vm.member.items = {
-        currentMount: { name: 'Bar' },
-      };
+      vm.member.items = merge({
+        currentMount: 'Bar',
+      }, baseMember.items);
 
       expect(vm.paddingTop).to.equal('0px');
     });
@@ -106,26 +96,25 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
   });
 
   describe('costumeClass', () => {
-    beforeEach(() => {
-      vm.member.preferences = {};
-    });
-
     it('returns if showing equipped gear', () => {
       expect(vm.costumeClass).to.equal('equipped');
     });
+
     it('returns if wearing a costume', () => {
-      vm.member.preferences = { costume: true };
+      vm.member.preferences = { costume: true, hair: {} };
+      vm.member.items.gear.costume = {};
+
       expect(vm.costumeClass).to.equal('costume');
     });
   });
 
   describe('visualBuffs', () => {
     it('returns an array of buffs', () => {
-      vm.member = {
+      vm.member = merge({
         stats: {
           class: 'warrior',
         },
-      };
+      }, baseMember);
 
       expect(vm.visualBuffs).to.include({ snowball: 'avatar_snowball_warrior' });
       expect(vm.visualBuffs).to.include({ spookySparkles: 'ghost' });
@@ -136,7 +125,10 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
 
   describe('backgroundClass', () => {
     beforeEach(() => {
-      vm.member.preferences = { background: 'pony' };
+      vm.member.preferences = {
+        hair: {},
+        background: 'pony',
+      };
     });
 
     it('shows the background', () => {
@@ -159,17 +151,11 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
 
   describe('specialMountClass', () => {
     it('checks if riding a Kangaroo', () => {
-      vm.member = {
-        stats: {
-          class: 'None',
-        },
-        items: {},
-      };
-
       expect(vm.specialMountClass).to.equal(null);
 
       vm.member.items = {
-        currentMount: ['Kangaroo'],
+        currentMount: 'Kangaroo',
+        gear: { equipped: {} },
       };
 
       expect(vm.specialMountClass).to.equal('offset-kangaroo');
@@ -178,24 +164,22 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
 
   describe('skinClass', () => {
     it('returns current skin color', () => {
-      vm.member = {
-        stats: {},
+      vm.member = merge({
         preferences: {
           skin: 'blue',
         },
-      };
+      }, baseMember);
 
       expect(vm.skinClass).to.equal('skin_blue');
     });
 
     it('returns if sleep or not', () => {
-      vm.member = {
-        stats: {},
+      vm.member = merge({
         preferences: {
           skin: 'blue',
           sleep: false,
         },
-      };
+      }, baseMember);
 
       expect(vm.skinClass).to.equal('skin_blue');
 
@@ -208,14 +192,14 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
   context('methods', () => {
     describe('getGearClass', () => {
       beforeEach(() => {
-        vm.member = {
+        vm.member = merge({
           items: {
             gear: {
               equipped: { Hat: 'Fancy Tophat' },
             },
           },
           preferences: { costume: false },
-        };
+        }, baseMember);
       });
 
       it('returns undefined if no match', () => {
@@ -240,7 +224,7 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
       });
 
       beforeEach(() => {
-        vm.member = {
+        vm.member = merge({
           items: {
             gear: {
               equipped: {
@@ -252,13 +236,13 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
             },
           },
           preferences: { costume: false },
-        };
+        }, baseMember);
       });
     });
 
     describe('show avatar', () => {
       beforeEach(() => {
-        vm.member = {
+        vm.member = merge({
           stats: {
             buffs: {
               snowball: false,
@@ -267,7 +251,7 @@ context.only('avatar.vue', () => { // eslint-disable-line mocha/no-exclusive-tes
               shinySeed: false,
             },
           },
-        };
+        }, baseMember);
       });
       it('does if not showing visual buffs', () => {
         expect(vm.showAvatar()).to.equal(true);
