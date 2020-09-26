@@ -7,5 +7,12 @@
     "achievementLostMasterclasser": "",
     "achievementLostMasterclasserText": "",
     "foundNewItemsExplanation": "Egitekoak burutzeak hainbat gai aurkitzeko aukera ematen dizu. Hala nola, arraultzak, eklosionatzeko edabeak edo etxe-animali janaria.",
-    "onboardingComplete": "Zure hastapen egitekoak burutu dituzu!"
+    "onboardingComplete": "Zure hastapen egitekoak burutu dituzu!",
+    "letsGetStarted": "Hasi gaitezen!",
+    "yourRewards": "Zure sariak",
+    "foundNewItems": "Gai berriak aurkitu dituzu!",
+    "hideAchievements": "Ezkutatu <%= category %>",
+    "showAllAchievements": "Erakutsi <%= category %> guztiak",
+    "onboardingCompleteDescSmall": "Are gehiago nahi baduzu, ikustatu Lorpenak eta hasi bildumatzen!",
+    "yourProgress": "Zure aurrerapena"
 }
