@@ -121,7 +121,7 @@
     "choosePaymentMethod": "选择你的付款方式",
     "buyGemsSupportsDevs": "购买宝石支持开发人员，并帮助Habitica成长",
     "support": "支持",
-    "gemBenefitLeadin": "宝石允许您为您的帐户购买额外有趣的物品，包括：",
+    "gemBenefitLeadin": "宝石可以购买什么？",
     "gemBenefit1": "您的角色的独特而时尚的服装。",
     "gemBenefit2": "将您的角色带入Habitica世界的背景！",
     "gemBenefit3": "掉落副本宠物蛋的令人兴奋的系列副本。",
@@ -174,5 +174,10 @@
     "mysterySet202008": "猫头鹰神谕套装",
     "mysterySet202009": "非凡蛾套装",
     "gemsPurchaseNote": "订阅者可以在市场中通过金币兑换宝石! 为了方便使用，你还可以将宝石钉在奖励栏中。",
-    "subscriptionAlreadySubscribedLeadIn": "感谢你的订阅！"
+    "subscriptionAlreadySubscribedLeadIn": "感谢你的订阅！",
+    "usuallyGems": "通常 <%= originalGems %>",
+    "supportHabitica": "支持Habitica",
+    "cancelSubInfoApple": "请查看<a href=\"https://support.apple.com/en-us/HT202039\"> Apple的官方说明</a>取消订阅；如果已经取消订阅，请查看订阅的终止日期再次进行确认。本页面无法显示你的订阅是否已取消。",
+    "cancelSubInfoGoogle": "请进入Google Play商店应用的“帐户”>“订阅”部分，取消你的订阅；如果已经取消订阅，请查看订阅的终止日期再次进行确认。本页面无法显示你的订阅是否已取消。",
+    "organization": "组织"
 }
