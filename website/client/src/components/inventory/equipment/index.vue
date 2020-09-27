@@ -440,6 +440,8 @@ export default {
     this.costumeMode = getLocalSetting(
       CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB,
     ) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
+
+    this.$store.state.title = 'Equipment | Inventory | Habitica';
   },
   methods: {
     selectDrawerTab (tabName) {

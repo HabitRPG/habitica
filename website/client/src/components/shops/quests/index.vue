@@ -544,6 +544,7 @@ export default {
     }, 250),
   },
   async mounted () {
+    this.$store.state.title = 'Quests | Shops | Habitica';
     await this.$store.dispatch('worldState:getWorldState');
   },
   methods: {

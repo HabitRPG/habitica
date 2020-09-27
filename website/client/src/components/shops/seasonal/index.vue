@@ -517,6 +517,7 @@ export default {
     }, 250),
   },
   async mounted () {
+    this.$store.state.title = 'Seasonal Shop | Shops | Habitica';
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });

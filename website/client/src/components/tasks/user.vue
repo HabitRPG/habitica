@@ -495,6 +495,9 @@ export default {
       return tagsByType;
     },
   },
+  mounted () {
+    this.$store.state.title = 'Tasks | Habitica';
+  },
   watch: {
     searchText: throttle(function throttleSearch () {
       this.searchTextThrottled = this.searchText.toLowerCase();

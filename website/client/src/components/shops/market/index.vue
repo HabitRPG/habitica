@@ -304,6 +304,7 @@ export default {
     }, 250),
   },
   async mounted () {
+    this.$store.state.title = 'Market | Shops | Habitica';
     await this.$store.dispatch('worldState:getWorldState');
   },
   methods: {

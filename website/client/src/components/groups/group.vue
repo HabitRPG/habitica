@@ -497,7 +497,7 @@ export default {
     if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
     await this.fetchGuild();
-
+    this.$store.state.title = `${this.group.name} | Habitica`;
     this.$root.$on('updatedGroup', this.onGroupUpdate);
   },
   beforeDestroy () {
@@ -505,7 +505,7 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
-
+    debugger;
     next();
   },
   methods: {

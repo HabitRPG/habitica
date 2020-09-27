@@ -506,6 +506,9 @@ export default {
       return this.groups.some(g => g.selected);
     },
   },
+  mounted () {
+    this.$store.state.title = 'Items | Inventory | Habitica';
+  },
   watch: {
     searchText: throttle(function throttleSearch () {
       this.searchTextThrottled = this.searchText.toLowerCase();

@@ -675,6 +675,9 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
   },
+  mounted () {
+    this.$store.state.title = 'Stable | Inventory | Habitica';
+  },
   watch: {
     searchText: _throttle(function throttleSearch () {
       const search = this.searchText.toLowerCase();
