@@ -72,6 +72,11 @@
       </div>
 
       <div class="subsection-start">
+        API Token (first and last characters only):
+        <strong>{{ apiTokenObscured }}</strong>
+      </div>
+
+      <div class="subsection-start">
         Local authentication:
         <span v-if="auth.local.email">Yes, &nbsp;
           <strong>{{ auth.local.email }}</strong></span>
@@ -147,6 +152,10 @@ export default {
   props: {
     resetCounter: {
       type: Number,
+      required: true,
+    },
+    apiTokenObscured: {
+      type: String,
       required: true,
     },
     auth: {

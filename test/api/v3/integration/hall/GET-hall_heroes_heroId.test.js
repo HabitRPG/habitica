@@ -8,8 +8,8 @@ describe('GET /heroes/:heroId', () => {
   let user;
 
   const heroFields = [
-    '_id', 'id', 'auth', 'balance', 'contributor', 'flags', 'items', 'lastCron',
-    'party', 'preferences', 'profile', 'purchased', 'secret',
+    '_id', 'id', 'apiTokenObscured', 'auth', 'balance', 'contributor', 'flags', 'items',
+    'lastCron', 'party', 'preferences', 'profile', 'purchased', 'secret',
   ];
 
   before(async () => {
@@ -75,5 +75,13 @@ describe('GET /heroes/:heroId', () => {
     await generateUser({}, { username: 'TestUpperCaseName123' });
     const heroRes = await user.get('/hall/heroes/TestuPPerCasEName123');
     expect(heroRes.auth.local.username).to.equal('TestUpperCaseName123');
+  });
+
+  it('returns only part of the API Token', async () => {
+    const hero = await generateUser();
+    const heroRes = await user.get(`/hall/heroes/${hero._id}`);
+    expect(heroRes.apiToken).to.not.exist;
+    expect(heroRes.apiTokenObscured).to.exist;
+    expect(heroRes.apiTokenObscured.length).to.be.lessThan(36);
   });
 });
