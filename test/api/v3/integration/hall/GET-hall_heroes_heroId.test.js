@@ -8,7 +8,7 @@ describe('GET /heroes/:heroId', () => {
   let user;
 
   const heroFields = [
-    '_id', 'id', 'auth', 'balance', 'contributor', 'items', 'lastCron',
+    '_id', 'id', 'auth', 'balance', 'contributor', 'flags', 'items', 'lastCron',
     'party', 'preferences', 'profile', 'purchased', 'secret',
   ];
 
