@@ -2140,7 +2140,7 @@
     "armorArmoirePirateOutfitText": "海盗外套",
     "armorMystery202007Notes": "游泳、翻转、潜水、竞速，帅气强大的鲸尾！没有属性加成。2020年7月订阅者物品。",
     "armorMystery202007Text": "极品逆戟鲸服装",
-    "armorSpecialSummer2020HealerNotes": "像大洋一般平静，如激流一般英勇，同潮汐一般可靠。增加<%= str %>点体质。2020年夏季限定版装备。",
+    "armorSpecialSummer2020HealerNotes": "像大洋一般平静，如激流一般英勇，同潮汐一般可靠。增加<%= con %>点体质。2020年夏季限定版装备。",
     "armorSpecialSummer2020HealerText": "弄潮儿的盛装",
     "armorSpecialSummer2020MageNotes": "这款拥有皇带鱼之力的盔甲能充分利用海洋的力量。增加<%= int %>点智力。2020年夏季限定版装备。",
     "armorSpecialSummer2020MageText": "皇带鱼盔",
@@ -2171,5 +2171,7 @@
     "headArmoireGuardiansBonnetText": "守护者之帽",
     "armorArmoireGuardiansGownText": "守护者的长袍",
     "weaponArmoireGuardiansCrookNotes": "下次你带着宠物去郊外散步的时候，这个牧羊人的钩子就可以派上用场了...... 增加<%= str %>点力量。魔法衣橱：牧羊人的守护者套装（2/3）。",
-    "weaponArmoireGuardiansCrookText": "守护者之钩"
+    "weaponArmoireGuardiansCrookText": "守护者之钩",
+    "armorSpecialFall2020WarriorNotes": "这件长袍曾经保护过一位强大的勇士，使其不受伤害。据说战士的灵魂会留在布上，来保护下一位有价值的继承人。增加<%= con %>点体质。2020年秋季限定版装备。",
+    "armorSpecialFall2020WarriorText": "归者的袍服"
 }
