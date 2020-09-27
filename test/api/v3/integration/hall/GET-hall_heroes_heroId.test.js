@@ -8,9 +8,8 @@ describe('GET /heroes/:heroId', () => {
   let user;
 
   const heroFields = [
-    '_id', 'id', 'balance', 'profile', 'purchased',
-    'contributor', 'secret', 'auth', 'items',
-    'preferences', 'lastCron', 'party',
+    '_id', 'id', 'auth', 'balance', 'contributor', 'items', 'lastCron',
+    'party', 'preferences', 'profile', 'purchased', 'secret',
   ];
 
   before(async () => {

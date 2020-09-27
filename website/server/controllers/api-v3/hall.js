@@ -145,7 +145,7 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'contributor secret balance profile.name purchased items preferences auth lastCron flags.chatRevoked flags.chatShadowMuted party';
+const heroAdminFields = 'auth balance contributor flags.chatRevoked flags.chatShadowMuted items lastCron party preferences profile.name purchased secret';
 
 const heroPartyAdminFields = 'balance challengeCount leader leaderOnly memberCount purchased quest';
 // must never include Party name, description, summary, leaderMessage

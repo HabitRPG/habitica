@@ -8,9 +8,8 @@ describe('PUT /heroes/:heroId', () => {
   let user;
 
   const heroFields = [
-    '_id', 'balance', 'profile', 'purchased',
-    'contributor', 'secret', 'auth', 'items', 'flags',
-    'preferences', 'lastCron', 'party',
+    '_id', 'auth', 'balance', 'contributor', 'flags', 'items', 'lastCron',
+    'party', 'preferences', 'profile', 'purchased', 'secret',
   ];
 
   before(async () => {
