@@ -2173,5 +2173,12 @@
     "weaponArmoireGuardiansCrookNotes": "下次你带着宠物去郊外散步的时候，这个牧羊人的钩子就可以派上用场了...... 增加<%= str %>点力量。魔法衣橱：牧羊人的守护者套装（2/3）。",
     "weaponArmoireGuardiansCrookText": "守护者之钩",
     "armorSpecialFall2020WarriorNotes": "这件长袍曾经保护过一位强大的勇士，使其不受伤害。据说战士的灵魂会留在布上，来保护下一位有价值的继承人。增加<%= con %>点体质。2020年秋季限定版装备。",
-    "armorSpecialFall2020WarriorText": "归者的袍服"
+    "armorSpecialFall2020WarriorText": "归者的袍服",
+    "weaponSpecialFall2020HealerText": "茧状甘蔗",
+    "weaponSpecialFall2020MageNotes": "如果有什么东西逃过了你的视线，这根法杖上将闪烁照亮你所忽略的东西。增加<%= int %>点智力和<%= per %>点感知。2020年秋季限定版装备。",
+    "weaponSpecialFall2020MageText": "三视",
+    "weaponSpecialFall2020WarriorNotes": "这把剑指引着强大的战士进入来世，归者舞剑守护着你！增加 <%= str %>点力量。2020年秋季限定版装备。",
+    "weaponSpecialFall2020WarriorText": "鬼刃",
+    "weaponSpecialFall2020RogueNotes": "锋利的一击刺穿你的敌人！即使是最坚硬的盔甲也会被你的刀刃所伤。增加 <%= str %>点力量。2020年秋季限定版装备。",
+    "weaponSpecialFall2020RogueText": "尖锐刺客爪"
 }
