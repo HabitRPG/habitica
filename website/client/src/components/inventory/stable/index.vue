@@ -30,7 +30,10 @@
             </div>
           </b-popover>
         </div>
-        <div class="form-group" slot="search">
+        <div
+          slot="search"
+          class="form-group"
+        >
           <input
             v-model="searchText"
             class="form-control input-search"
@@ -181,11 +184,11 @@
           </div>
         </div>
         <show-more-button
-            v-if="petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
-             @click="setShowMore(petGroup.key)"
-            :show-all="$_openedItemRows_isToggled(petGroup.key)"
-            class="show-more-button"
-          />
+          v-if="petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
+          :show-all="$_openedItemRows_isToggled(petGroup.key)"
+          class="show-more-button"
+          @click="setShowMore(petGroup.key)"
+        />
       </div>
       <h2>
         {{ $t('mounts') }}
@@ -241,8 +244,8 @@
         </div>
         <show-more-button
           v-if="mountGroup.key !== 'specialMounts'"
-          @click="setShowMore(mountGroup.key)"
           :show-all="$_openedItemRows_isToggled(mountGroup.key)"
+          @click="setShowMore(mountGroup.key)"
         />
       </div>
       <inventoryDrawer>
@@ -324,8 +327,6 @@
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
-
-
 
   .inventory-item-container {
     padding: 20px;
