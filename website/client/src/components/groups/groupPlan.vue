@@ -486,6 +486,7 @@ export default {
   },
   mounted () {
     this.activePage = this.PAGES.BENEFITS;
+    this.$store.state.title = 'Group Plans | Habitica';
   },
   methods: {
     launchModal () {

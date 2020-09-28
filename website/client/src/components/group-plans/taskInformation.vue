@@ -224,6 +224,7 @@ export default {
       this.group = await this.$store.dispatch('guilds:getGroup', {
         groupId: this.searchId,
       });
+      this.$store.state.title = `${this.group.name} | Group | Habitica`;
 
       const members = await this.$store.dispatch('members:getGroupMembers', { groupId: this.searchId });
       this.group.members = members;

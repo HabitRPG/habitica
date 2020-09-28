@@ -843,6 +843,7 @@ export default {
     },
   },
   async mounted () {
+    this.$store.state.title = 'Tavern | Guilds | Habitica';
     this.group = await this.$store.dispatch('guilds:getGroup', { groupId: TAVERN_ID });
   },
   methods: {

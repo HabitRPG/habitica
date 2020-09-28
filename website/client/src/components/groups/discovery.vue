@@ -155,6 +155,9 @@ export default {
       return this.guilds.filter(guild => filterGuild(guild, filters, search, user));
     },
   },
+  mounted () {
+    this.$store.state.title = 'Discover | Guilds | Habitica';
+  },
   methods: {
     async updateSearch (eventData) {
       // this.search = eventData.searchTerm; @TODO: Probably don't need this anymore

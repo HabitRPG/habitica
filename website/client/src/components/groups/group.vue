@@ -505,7 +505,6 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
-    debugger;
     next();
   },
   methods: {

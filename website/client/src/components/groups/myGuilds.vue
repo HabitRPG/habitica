@@ -165,6 +165,9 @@ export default {
       });
     },
   },
+  mounted () {
+    this.$store.state.title = 'My Guilds | Guilds | Habitica';
+  },
   created () {
     this.fetchGuilds();
   },

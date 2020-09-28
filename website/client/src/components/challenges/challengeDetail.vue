@@ -433,6 +433,7 @@ export default {
         this.$router.push('/challenges/findChallenges');
         return;
       }
+      this.$store.state.title = `${this.challenge.name} | Challenges | Habitica`;
       const tasks = await this.$store.dispatch('tasks:getChallengeTasks', { challengeId: this.searchId });
       this.tasksByType = {
         habit: [],

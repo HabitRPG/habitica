@@ -218,6 +218,7 @@ export default {
     },
   },
   mounted () {
+    this.$store.state.title = 'My Challenges | Challenges | Habitica';
     this.loadChallenges();
   },
   methods: {
