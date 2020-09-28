@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Phiên Bản Giới Hạn",
-    "seasonalEdition": "Phiên Bản Theo Mùa",
-    "winterColors": "Sắc Màu Mùa Đông",
     "annoyingFriends": "Người Bạn Rắc Rối",
     "annoyingFriendsText": "Bị ném tuyết <%= count %> lần bởi thành viên trong nhóm.",
     "alarmingFriends": "Người Bạn Nguy Hiểm",
@@ -61,7 +58,6 @@
     "nye2": "Chúc mừng năm mới! Mong bạn có được nhiều Ngày hoàn hảo",
     "nye3": "Chúc mừng năm mới! Mong danh sách Việc cần làm của bạn giữ được ngắn gọn và ngọt ngào.",
     "nye4": "Chúc mừng Năm Mới! Chắc là bạn không bị tấn công bởi một con Hippogriff đang cuồng nộ.",
-    "holidayCard": "Đã nhận được thiệp chúc mừng!",
     "mightyBunnySet": "Mighty Bunny (Warrior)",
     "magicMouseSet": "Magic Mouse (Mage)",
     "lovingPupSet": "Loving Pup (Healer)",

@@ -1,10 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-    <g fill="none" fill-rule="evenodd">
-        <path fill="#24CC8F" d="M0 9l5-7h14l5 7-12 13z"/>
-        <path fill="#FFF" d="M7 8.8L6 4h6zM17 8.8L18 4h-6z" opacity=".25"/>
-        <path fill="#FFF" d="M7 8.8L12 4l5 4.8zM2.6 8.8L6 4l1 4.8z" opacity=".5"/>
-        <path fill="#1B996B" d="M21.4 8.8L18 4l-1 4.8zM2.6 8.8H7l5 10.3z" opacity=".35"/>
-        <path fill="#FFF" d="M21.4 8.8H17l-5 10.3z" opacity=".5"/>
-        <path fill="#FFF" d="M7 8.8h10l-5 10.3z" opacity=".25"/>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Icon/Currency/Gem/24x24" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="-g-Gem" transform="translate(0.000000, 2.000000)">
+            <polygon id="Shape" fill="#24CC8F" points="0 7 5 0 19 0 24 7 12 20"></polygon>
+            <polygon id="Shape" fill="#FFFFFF" opacity="0.25" points="7 6.8 6 2 12 2"></polygon>
+            <polygon id="Shape" fill="#FFFFFF" opacity="0.25" points="17 6.8 18 2 12 2"></polygon>
+            <polygon id="Shape" fill="#FFFFFF" opacity="0.5" points="7 6.8 12 2 17 6.8"></polygon>
+            <polygon id="Shape" fill="#FFFFFF" opacity="0.5" points="2.6 6.8 6 2 7 6.8"></polygon>
+            <polygon id="Shape" fill="#34313A" opacity="0.11" points="21.4 6.8 18 2 17 6.8"></polygon>
+            <polygon id="Shape" fill="#34313A" opacity="0.11" points="2.6 6.8 7 6.8 12 17.1"></polygon>
+            <polygon id="Shape" fill="#FFFFFF" opacity="0.5" points="21.4 6.8 17 6.8 12 17.1"></polygon>
+            <polygon id="Shape" fill="#FFFFFF" opacity="0.25" points="7 6.8 17 6.8 12 17.1"></polygon>
+        </g>
     </g>
 </svg>

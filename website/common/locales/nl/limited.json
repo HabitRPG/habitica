@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Beperkte oplage",
-    "seasonalEdition": "Seizoenseditie",
-    "winterColors": "Winterkleuren",
     "annoyingFriends": "Irritante vrienden",
     "annoyingFriendsText": "Is <%= count %> keer geraakt met een sneeuwbal door gezelschapsleden.",
     "alarmingFriends": "Verontrustende vrienden",
@@ -61,7 +58,6 @@
     "nye2": "Gelukkig nieuwjaar! Dat je maar veel perfecte dagen mag afronden.",
     "nye3": "Gelukkig nieuwjaar! Dat je To-do-lijst kort en bondig moge zijn.",
     "nye4": "Gelukkig nieuwjaar! Dat je maar niet aangevallen mag worden door een woedende hippogrief.",
-    "holidayCard": "Ansichtkaart ontvangen!",
     "mightyBunnySet": "Machtig konijn (Krijger)",
     "magicMouseSet": "Magische muis (Magiër)",
     "lovingPupSet": "Liefdevolle pup (Genezer)",

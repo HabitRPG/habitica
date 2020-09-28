@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Edición limitada",
-    "seasonalEdition": "Edición de temporada",
-    "winterColors": "Colores de Invierno",
     "annoyingFriends": "Amigos Molestos",
     "annoyingFriendsText": "Tus compañeros de equipo te han lanzado <%= count %> bolas de nieve.",
     "alarmingFriends": "Amigos Alarmantes",
@@ -61,7 +58,6 @@
     "nye2": "¡Feliz Año Nuevo! Que ganes muchos Días Perfectos.",
     "nye3": "¡Feliz Año Nuevo! Que tu lista de Pendientes se quede corta y agradable.",
     "nye4": "¡Feliz Año Nuevo! Que no te ataque un Hipogrifón furioso.",
-    "holidayCard": "¡Tarjeta de vacaciones recibida!",
     "mightyBunnySet": "Conejo Poderoso (Guerrero)",
     "magicMouseSet": "Ratón Mágico (Mago)",
     "lovingPupSet": "Cachorro Adorable (Sanador)",

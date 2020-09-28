@@ -121,7 +121,7 @@
     "choosePaymentMethod": "Choisissez votre moyen de paiement",
     "buyGemsSupportsDevs": "Acheter des gemmes soutient les développeurs et aide à maintenir Habitica en état de marche",
     "support": "SUPPORT",
-    "gemBenefitLeadin": "Les gemmes vous permettent d'acheter des suppléments marrants pour votre compte, comme :",
+    "gemBenefitLeadin": "Que pouvez-vous acheter avec des gemmes ?",
     "gemBenefit1": "des costumes uniques et à la mode pour votre avatar.",
     "gemBenefit2": "des arrière-plans pour immerger votre avatar dans le monde d'Habitica !",
     "gemBenefit3": "des séries de quêtes pour obtenir des œufs de familiers.",
@@ -174,5 +174,10 @@
     "mysterySet202008": "Ensemble d'oracle du hibou",
     "mysterySet202009": "Ensemble de mite merveilleuse",
     "gemsPurchaseNote": "Avec l'abonnement, vous pouvez acheter les gemmes pour de l'or au marché ! Pour un accès facile, vous pouvez aussi les épingler dans votre colonne Récompenses.",
-    "subscriptionAlreadySubscribedLeadIn": "Merci pour votre abonnement !"
+    "subscriptionAlreadySubscribedLeadIn": "Merci pour votre abonnement !",
+    "supportHabitica": "Soutenir Habitica",
+    "cancelSubInfoApple": "Veuillez suivre <a href=\"https://support.apple.com/en-us/HT202039\" target=\"_blank\">les instructions officielles d'Apple</a> pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne pourra pas vous indiquer si votre abonnement a été annulé.",
+    "cancelSubInfoGoogle": "Veuillez vous rendre dans la section \"Mes jeux et applications\" > \"Abonnements\" du Play Store Google pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne pourra pas vous indiquer si votre abonnement a été annulé.",
+    "organization": "Organisation",
+    "usuallyGems": "Généralement <%= originalGems %>"
 }

@@ -295,7 +295,10 @@
       &-control {
         &-bg { background: $gray-600; }
         &-inner {
-          border: 1px solid $gray-300;
+          &:not(:focus) {
+            border: 1px solid $gray-300 !important;
+          }
+
           opacity: 0.75;
 
           .negative, .positive {
