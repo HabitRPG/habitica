@@ -20,16 +20,16 @@
 
       <div>
         Account created:
-        <strong>{{ auth.timestamps.created | formatDate }}</strong>
+        <strong>{{ hero.auth.timestamps.created | formatDate }}</strong>
       </div>
       <div>
         Most recent cron:
-        <strong>{{ auth.timestamps.loggedin | formatDate }}</strong>
+        <strong>{{ hero.auth.timestamps.loggedin | formatDate }}</strong>
         ("auth.timestamps.loggedin")
       </div>
       <div v-if="cronError">
         "lastCron" value:
-        <strong>{{ lastCron | formatDate }}</strong>
+        <strong>{{ hero.lastCron | formatDate }}</strong>
         <br>
         <span class="errorMessage">
           ERROR: cron probably crashed before finishing
@@ -38,11 +38,11 @@
       </div>
       <div class="subsection-start">
         Time zone:
-        <strong>{{ preferences.timezoneOffset | formatTimeZone }}</strong>
+        <strong>{{ hero.preferences.timezoneOffset | formatTimeZone }}</strong>
       </div>
       <div v-if="timezoneDiffError || timezoneMissingError">
         Time zone at previous cron:
-        <strong>{{ preferences.timezoneOffsetAtLastCron | formatTimeZone }}</strong>
+        <strong>{{ hero.preferences.timezoneOffsetAtLastCron | formatTimeZone }}</strong>
 
         <div class="errorMessage">
           <div v-if="timezoneDiffError">
@@ -78,28 +78,28 @@
 
       <div class="subsection-start">
         Local authentication:
-        <span v-if="auth.local.email">Yes, &nbsp;
-          <strong>{{ auth.local.email }}</strong></span>
+        <span v-if="hero.auth.local.email">Yes, &nbsp;
+          <strong>{{ hero.auth.local.email }}</strong></span>
         <span v-else><strong>None</strong></span>
       </div>
       <div>
         Google authentication:
-        <pre v-if="authMethodExists('google')">{{ auth.google }}</pre>
+        <pre v-if="authMethodExists('google')">{{ hero.auth.google }}</pre>
         <span v-else><strong>None</strong></span>
       </div>
       <div>
         Facebook authentication:
-        <pre v-if="authMethodExists('facebook')">{{ auth.facebook }}</pre>
+        <pre v-if="authMethodExists('facebook')">{{ hero.auth.facebook }}</pre>
         <span v-else><strong>None</strong></span>
       </div>
       <div>
         Apple ID authentication:
-        <pre v-if="authMethodExists('apple')">{{ auth.apple }}</pre>
+        <pre v-if="authMethodExists('apple')">{{ hero.auth.apple }}</pre>
         <span v-else><strong>None</strong></span>
       </div>
       <div class="subsection-start">
         Full "auth" object for checking above is correct:
-        <pre>{{ auth }}</pre>
+        <pre>{{ hero.auth }}</pre>
       </div>
     </div>
   </div>
@@ -116,8 +116,8 @@ function resetData (self) {
   self.errorsOrWarningsExist = false;
   self.expand = false;
 
-  const cronDate1 = moment(self.auth.timestamps.loggedin);
-  const cronDate2 = moment(self.lastCron);
+  const cronDate1 = moment(self.hero.auth.timestamps.loggedin);
+  const cronDate2 = moment(self.hero.lastCron);
   const maxAllowableSecondsDifference = 60; // expect cron to take less than this many seconds
   if (Math.abs(cronDate1.diff(cronDate2, 'seconds')) > maxAllowableSecondsDifference) {
     self.cronError = true;
@@ -125,11 +125,12 @@ function resetData (self) {
   }
 
   // compare the user's time zones to see if they're different
-  if (self.preferences.timezoneOffset === undefined
-    || self.preferences.timezoneOffsetAtLastCron === undefined) {
+  const newTimezone = self.hero.preferences.timezoneOffset;
+  const oldTimezone = self.hero.preferences.timezoneOffsetAtLastCron;
+  if (newTimezone === undefined || oldTimezone === undefined) {
     self.timezoneMissingError = true;
     self.errorsOrWarningsExist = true;
-  } else if (self.preferences.timezoneOffset !== self.preferences.timezoneOffsetAtLastCron) {
+  } else if (newTimezone !== oldTimezone) {
     self.timezoneDiffError = true;
     self.errorsOrWarningsExist = true;
   }
@@ -154,20 +155,8 @@ export default {
       type: Number,
       required: true,
     },
-    apiTokenObscured: {
-      type: String,
-      required: true,
-    },
-    auth: {
+    hero: {
       type: Object,
-      required: true,
-    },
-    preferences: {
-      type: Object,
-      required: true,
-    },
-    lastCron: {
-      type: String,
       required: true,
     },
   },
@@ -190,7 +179,7 @@ export default {
   },
   methods: {
     authMethodExists (authMethod) {
-      if (this.auth[authMethod] && this.auth[authMethod].length !== 0) return true;
+      if (this.hero.auth[authMethod] && this.hero.auth[authMethod].length !== 0) return true;
       return false;
     },
   },

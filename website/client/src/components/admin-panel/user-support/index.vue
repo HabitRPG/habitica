@@ -20,10 +20,7 @@
         />
 
         <cron-and-auth
-          :apiTokenObscured="hero.apiTokenObscured"
-          :auth="hero.auth"
-          :preferences="hero.preferences"
-          :last-cron="hero.lastCron"
+          :hero="hero"
           :reset-counter="resetCounter"
         />
 
