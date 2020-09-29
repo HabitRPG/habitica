@@ -9,7 +9,7 @@ describe('PUT /heroes/:heroId', () => {
   let user;
 
   const heroFields = [
-    '_id', 'apiToken', 'auth', 'balance', 'contributor', 'flags', 'items', 'lastCron',
+    '_id', 'auth', 'balance', 'contributor', 'flags', 'items', 'lastCron',
     'party', 'preferences', 'profile', 'purchased', 'secret',
   ];
 
@@ -231,12 +231,26 @@ describe('PUT /heroes/:heroId', () => {
     const originalToken = hero.apiToken;
 
     // make any change to the user except the Token
-    const heroRes = await user.put(`/hall/heroes/${hero._id}`, {
+    await user.put(`/hall/heroes/${hero._id}`, {
       contributor: { text: 'Astronaut' },
     });
 
     const updatedHero = await User.findById(hero._id).exec();
     expect(updatedHero.apiToken).to.equal(originalToken);
+    expect(updatedHero.apiTokenObscured).to.not.exist;
+  });
+
+  it('does update API Token when admin changes it', async () => {
+    const hero = await generateUser();
+    const originalToken = hero.apiToken;
+
+    // change the user's API Token
+    await user.put(`/hall/heroes/${hero._id}`, {
+      changeApiToken: true,
+    });
+
+    const updatedHero = await User.findById(hero._id).exec();
+    expect(updatedHero.apiToken).to.not.equal(originalToken);
     expect(updatedHero.apiTokenObscured).to.not.exist;
   });
 });

@@ -4,6 +4,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { ensureAdmin } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
+import uuid from '../../../common/script/libs/uuid';
 import {
   NotFound,
 } from '../../libs/errors';
@@ -220,9 +221,8 @@ const gemsPerTier = {
  * @apiGroup Hall
  * @apiPermission Admin
  *
- * @apiDescription Update user's gem balance, contributions and contribution tier,
- * or admin status. Grant items. Block / unblock user's account.
- * Revoke / unrevoke chat privileges.
+ * @apiDescription Update various details in the user's User document,
+ * including but not limited to privileges, gems, contributions, items.
  *
  * @apiExample Example Body:
  * {
@@ -240,8 +240,12 @@ const gemsPerTier = {
  *      "level": 5,
  *      "text": "Scribe, Blacksmith"
  *    },
+ *    "secret": {
+ *      "text": "child with permission to use site",
+ *    },
  *    "itemPath": "items.pets.BearCub-Skeleton",
- *    "itemVal": 1
+ *    "itemVal": 5,
+ *    "changeApiToken": true,
  * }
  *
  * @apiSuccess {Object} data The updated user object
@@ -321,6 +325,8 @@ api.updateHero = {
         hero.secret.text = updateData.secret.text;
       }
     }
+
+    if (updateData.changeApiToken) hero.apiToken = uuid();
 
     const savedHero = await hero.save();
     const heroJSON = savedHero.toJSON();

@@ -71,9 +71,31 @@
         </div>
       </div>
 
-      <div class="subsection-start">
-        API Token (first and last characters only):
-        <strong>{{ apiTokenObscured }}</strong>
+      <div class="subsection-start form-inline">
+        API Token (first and last characters only): &nbsp;
+        <strong>{{ hero.apiTokenObscured }}</strong>
+        <form @submit.prevent="changeApiToken()">
+          <input
+            type="submit"
+            value="Change API Token"
+            class="btn btn-primary"
+          >
+        </form>
+        <div
+          v-if="tokenModified"
+          class="form-inline"
+        >
+          <strong>API Token has been changed. Tell the player something like this:</strong>
+          <br>
+          I've given you a new API Token.
+          You'll need to log out of the website and mobile app then log back in
+          otherwise they won't work correctly.
+          If you have trouble logging out, for the website go to
+          https://habitica.com/static/clear-browser-data and click the red button there,
+          and for the Android app, clear its data.
+          For the iOS app, if you can't log out you might need to uninstall it,
+          reboot your phone, then reinstall it.
+        </div>
       </div>
 
       <div class="subsection-start">
@@ -108,6 +130,7 @@
 <script>
 import moment from 'moment';
 import formatDate from '../filters/formatDate';
+import saveHero from '../mixins/saveHero';
 
 function resetData (self) {
   self.cronError = false;
@@ -150,6 +173,9 @@ export default {
       return `${sign}${timezoneHours}${timezoneMinutesDisplay} UTC`;
     },
   },
+  mixins: [
+    saveHero,
+  ],
   props: {
     resetCounter: {
       type: Number,
@@ -165,6 +191,7 @@ export default {
       cronError: false,
       timezoneDiffError: false,
       timezoneMissingError: false,
+      tokenModified: false,
       errorsOrWarningsExist: false,
       expand: false,
     };
@@ -181,6 +208,12 @@ export default {
     authMethodExists (authMethod) {
       if (this.hero.auth[authMethod] && this.hero.auth[authMethod].length !== 0) return true;
       return false;
+    },
+    async changeApiToken () {
+      this.hero.changeApiToken = true;
+      await this.saveHero({ hero: this.hero, msg: 'API Token' });
+      this.tokenModified = true;
+      this.hero.apiTokenObscured = ''; // old Token is wrong; no point showing new one
     },
   },
 };
