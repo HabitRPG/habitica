@@ -1,36 +1,42 @@
 .promo_armoire_backgrounds_202009 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: 0px -434px;
+  background-position: 0px -452px;
   width: 423px;
   height: 147px;
 }
-.promo_fall_festival_2019 {
+.promo_fall_customizations {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
   background-position: 0px -244px;
+  width: 336px;
+  height: 207px;
+}
+.promo_fall_festival_2019 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -532px 0px;
   width: 360px;
   height: 189px;
 }
 .promo_fall_festival_2020 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -532px 0px;
+  background-position: -532px -190px;
   width: 360px;
   height: 174px;
 }
 .promo_mystery_202009 {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -532px -175px;
+  background-position: 0px -600px;
   width: 282px;
   height: 147px;
 }
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -532px -323px;
+  background-position: -532px -365px;
   width: 96px;
   height: 69px;
 }
 .promo_vampire_potions {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -424px -434px;
+  background-position: -424px -452px;
   width: 423px;
   height: 147px;
 }
@@ -42,7 +48,7 @@
 }
 .scene_squall {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -361px -244px;
+  background-position: -337px -244px;
   width: 141px;
   height: 169px;
 }
