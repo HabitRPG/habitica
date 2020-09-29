@@ -153,8 +153,9 @@ const premium = {
     canBuy () {
       return moment().isBefore('2020-11-02');
     },
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndOctober'),
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndOctober'),
+      previousDate: t('septemberYYYY', { year: 2018 }),
     }),
   },
   Holly: {
@@ -287,8 +288,9 @@ const premium = {
     canBuy () {
       return moment().isBefore('2020-11-02');
     },
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndOctober'),
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndOctober'),
+      previousDate: t('septemberYYYY', { year: 2019 }),
     }),
   },
   Amber: {
