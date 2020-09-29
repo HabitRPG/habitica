@@ -145,7 +145,9 @@ api.getHeroes = {
 // Note, while the following routes are called getHero / updateHero
 // they can be used by admins to get/update any user
 
-const heroAdminFields = 'apiToken auth balance contributor flags items lastCron party preferences profile.name purchased secret';
+const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile.name purchased secret';
+const heroAdminFieldsToFetch = `apiToken ${heroAdminFields}`;
+const heroAdminFieldsToShow = `apiTokenObscured ${heroAdminFields}`;
 
 const heroPartyAdminFields = 'balance challengeCount leader leaderOnly memberCount purchased quest';
 // must never include Party name, description, summary, leaderMessage
@@ -187,7 +189,7 @@ api.getHero = {
 
     const hero = await User
       .findOne(query)
-      .select(heroAdminFields)
+      .select(heroAdminFieldsToFetch)
       .exec();
 
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
@@ -324,7 +326,7 @@ api.updateHero = {
     const heroJSON = savedHero.toJSON();
     heroJSON.secret = savedHero.getSecretData();
     const responseHero = { _id: heroJSON._id }; // only respond with important fields
-    heroAdminFields.split(' ').forEach(field => {
+    heroAdminFieldsToShow.split(' ').forEach(field => {
       _.set(responseHero, field, _.get(heroJSON, field));
     });
 
