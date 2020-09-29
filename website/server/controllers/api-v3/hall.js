@@ -4,7 +4,7 @@ import { authWithHeaders } from '../../middlewares/auth';
 import { ensureAdmin } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
-import uuid from '../../../common/script/libs/uuid';
+import common from '../../../common';
 import {
   NotFound,
 } from '../../libs/errors';
@@ -326,7 +326,7 @@ api.updateHero = {
       }
     }
 
-    if (updateData.changeApiToken) hero.apiToken = uuid();
+    if (updateData.changeApiToken) hero.apiToken = common.uuid();
 
     const savedHero = await hero.save();
     const heroJSON = savedHero.toJSON();
