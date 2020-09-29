@@ -150,7 +150,7 @@
     "buyGemsGoldCap": "ジェムの購入可能数が <%= amount %> 個になりました",
     "mysticHourglass": "<%= amount %> 個の「神秘の砂時計」",
     "purchasedPlanExtraMonths": "あなたは <strong> <%= months %> カ月分 </strong>の寄付（有料利用）延長クレジットをもっています。",
-    "consecutiveSubscription": "継続的な寄付",
+    "consecutiveSubscription": "継続的な有料プラン",
     "consecutiveMonths": "継続月数 :",
     "gemCapExtra": "ジェムの購入可能数ボーナス",
     "mysticHourglasses": "神秘の砂時計 :",
