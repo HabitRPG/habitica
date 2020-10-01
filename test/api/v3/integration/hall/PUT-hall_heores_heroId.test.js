@@ -224,7 +224,7 @@ describe('PUT /heroes/:heroId', () => {
   });
 
   it('does not accidentally update API Token', async () => {
-    // This test has been included because hall.js contains code to produce
+    // This test has been included because hall.js will contain code to produce
     // a truncated version of the API Token, and we want to be sure that
     // the real Token is not modified by bugs in that code.
     const hero = await generateUser();

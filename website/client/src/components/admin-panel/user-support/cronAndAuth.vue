@@ -72,8 +72,7 @@
       </div>
 
       <div class="subsection-start form-inline">
-        API Token (first and last characters only): &nbsp;
-        <strong>{{ hero.apiTokenObscured }}</strong>
+        API Token: &nbsp;
         <form @submit.prevent="changeApiToken()">
           <input
             type="submit"
@@ -213,7 +212,6 @@ export default {
       this.hero.changeApiToken = true;
       await this.saveHero({ hero: this.hero, msg: 'API Token' });
       this.tokenModified = true;
-      this.hero.apiTokenObscured = ''; // old Token is wrong; no point showing new one
     },
   },
 };

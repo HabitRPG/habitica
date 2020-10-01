@@ -147,8 +147,8 @@ api.getHeroes = {
 // they can be used by admins to get/update any user
 
 const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile.name purchased secret';
-const heroAdminFieldsToFetch = `apiToken ${heroAdminFields}`;
-const heroAdminFieldsToShow = `apiTokenObscured ${heroAdminFields}`;
+const heroAdminFieldsToFetch = heroAdminFields; // these variables will make more sense when...
+const heroAdminFieldsToShow = heroAdminFields;  // ... apiTokenObscured is added
 
 const heroPartyAdminFields = 'balance challengeCount leader leaderOnly memberCount purchased quest';
 // must never include Party name, description, summary, leaderMessage
@@ -196,11 +196,6 @@ api.getHero = {
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
     const heroRes = hero.toJSON({ minimize: true });
     heroRes.secret = hero.getSecretData();
-
-    // Allow admins to see part of the API Token for user verification purposes
-    // without revealing it all, which would violate the user's security/privacy.
-    heroRes.apiTokenObscured = `${heroRes.apiToken.slice(0, 4)}...${heroRes.apiToken.slice(-4)}`;
-    heroRes.apiToken = undefined;
 
     // supply to the possible absence of hero.contributor
     // if we didn't pass minimize: true it would have returned all fields as empty
