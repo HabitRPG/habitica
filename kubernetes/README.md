@@ -3,8 +3,9 @@ This is a set of sample Kubernetes configuration files to launch Habitica under 
 
 ## Prerequisites
 * An AWS account.
+* An AWS Subscription. [Get acess to free credits for Open Source Projects here](https://aws.amazon.com/blogs/opensource/aws-promotional-credits-open-source-projects/)
 * A working Kubernetes installation.
-* A basic understanding of how to use Kubernetes. https://kubernetes.io/
+* A basic understanding of how to use Kubernetes. https://kubernetes.io/ 
 * A persistent volume for MongoDB data.
 * Docker images of Habitica.
   + You can use your own, or use the one included in the YAML files.
