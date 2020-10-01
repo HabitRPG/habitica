@@ -40,6 +40,10 @@
         Time zone:
         <strong>{{ hero.preferences.timezoneOffset | formatTimeZone }}</strong>
       </div>
+      <div>
+        Custom Day Start time (CDS):
+        <strong>{{ hero.preferences.dayStart }}</strong>
+      </div>
       <div v-if="timezoneDiffError || timezoneMissingError">
         Time zone at previous cron:
         <strong>{{ hero.preferences.timezoneOffsetAtLastCron | formatTimeZone }}</strong>
