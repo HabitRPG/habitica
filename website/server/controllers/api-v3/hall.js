@@ -148,7 +148,7 @@ api.getHeroes = {
 
 const heroAdminFields = 'auth balance contributor flags items lastCron party preferences profile.name purchased secret';
 const heroAdminFieldsToFetch = heroAdminFields; // these variables will make more sense when...
-const heroAdminFieldsToShow = heroAdminFields;  // ... apiTokenObscured is added
+const heroAdminFieldsToShow = heroAdminFields; // ... apiTokenObscured is added
 
 const heroPartyAdminFields = 'balance challengeCount leader leaderOnly memberCount purchased quest';
 // must never include Party name, description, summary, leaderMessage
