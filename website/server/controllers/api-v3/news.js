@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR SEPTEMBER DEALS! FALL AVATAR CUSTOMIZATIONS! COSTUME CHALLENGE!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW SUBSCRIBER ITEMS! MONTHLY HABITICA CHALLENGES! BACK-TO-SCHOOL CHALLENGE AWARDED!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,50 +31,73 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/29/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/1/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_202009 center-block"></div>
-        <h3>Last Chance for Marvelous Moth Set</h3>
+        <div class="promo_mystery_202010 center-block"></div>
+        <h3>October Subscriber Item Revealed!</h3>
         <p>
-          Reminder: this is the last day to receive the Marvelous Moth Set when you <a
-          href='/user/settings/subscription'>sign up for a new Habitica subscription</a>!
-          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
-          you can get!
+          The October Subscriber Item has been revealed: the Beguilingly Batty Item Set! <a
+          href='/user/settings/subscription'>Subscribe to Habitica</a> by October 31st to receive
+          this exciting set! If you're already an active subscriber, reload the site and then head
+          to Inventory > Items to claim your gear!
         </p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <p>
+          Subscribers also receive the ability to buy Gems with Gold -- the longer you subscribe,
+          the more Gems you can buy per month! There are other perks as well, such as longer access
+          to uncompressed data and a cute Jackalope pet. Best of all, subscriptions let us keep
+          Habitica running. Thank you very much for your support -- it means a lot to us.
+        </p>
         <div class="small mb-3">by Beffymaroo</div>
-        <h3>Last Chance to Get In On the Fall Gem Sale!</h3>
+        <div class="scene_strength center-block"></div>
+        <h3>October 2020 Resolution Success Challenge and Take This Challenge</h3>
         <p>
-          Don't forget, our special Fall Gem Sale ends on Sept 30. Bonus Gems are included with
-          every Gem purchase until the sale ends. Be sure to stock up now so you have plenty of
-          Gems for Gala goodies, Quests, and more!
-        </p>
-        <div class="promo_fall_customizations center-block"></div>
-        <h3>Supernatural Skins and Haunted Hair Colors</h3>
-        <p>
-          The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye
-          your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. Get
-          them before October 31st!
+          The Habitica team has launched a special official Challenge series hosted in the <a
+          href='/groups/guild/6e6a8bd3-9f5f-4351-9188-9f11fcd80a99'>Official New Year's Resolution
+          Guild</a>. These Challenges are designed to help you build and maintain goals that are
+          destined for success and then stick with them as the year progresses. For this month's
+          Challenge, <a href='/challenges/b2aecf4f-d5d6-42b2-af51-f12d33bd5392'>Staying Strong</a>,
+          we're focusing on boosting your motivation heading into the final quarter of the year!
+          It has a 15 Gem prize, which will be awarded to five lucky winners on November 2nd.
         </p>
         <p>
-          The Supernatural Skin Set is also available until October 31st! Now your avatar can
-          become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.
+          Congratulations to the winners of September's Challenge, @Baileythebookworm,
+          @FlyingRhino, @RJBPrincess, @frogedog, and @Gardath!
         </p>
         <p>
-          Seasonal Edition items recur unchanged every year, but they are only available to
-          purchase during a short period of time. Find these exciting skins and hair colors in Menu
-          > Customize Avatar. Get them now, or you'll have to wait until next year!
+          The next Take This Challenge has also launched, "<a
+          href='/challenges/0e075e70-2763-4716-a6e2-b2650555c0d6'>Do One Thing Well!</a>", with a
+          focus on single-tasking and distraction management. Be sure to check it out to earn
+          additional pieces of the Take This armor set!
         </p>
-        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
-        <div class="achievement-costumeContest2x center-block"></div>
-        <h3>Official Habitica Costume Challenge!</h3>
         <p>
-          The Community Costume Challenge has begun! Between now and October 31st, dress up as your
-          avatar in real life and post a photo on social media to get the coveted Costume Challenge
-          badge and a chance to be featured on Habitica's social media accounts! Read the full
-          rules on <a href='/challenges/39539048-3cf0-4e65-bb05-c8294a64eed3'>the Challenge page</a>.
+          <a href='http://www.takethis.org/' target='_blank'>Take This</a> is a nonprofit that
+          seeks to inform the gamer community about mental health issues, to provide education
+          about mental disorders and mental illness prevention, and to reduce the stigma of
+          mental illness.
+        </p>
+        <p>
+          Congratulations to the winners of the last Take This Challenge, "Feed Me, Seymour!":
+          grand prize winner @Bebebebee, and runners-up @heidinagtegaal, @DMGdealer,
+          @incessantnibbler, @Chenaniah1001, and @maddcappcafe! Plus, all participants in that
+          Challenge have received a piece of the <a
+          href='http://habitica.wikia.com/wiki/Event_Item_Sequences#Take_This_Armor_Set'
+          target='_blank'>Take This item set</a> if they hadn't completed it already. It is located
+          in your Rewards column. Enjoy!
+        </p>
+        <div class="small mb-3">
+          by Doctor B, the Take This team, Lemoness, Beffymaroo, and SabreCat
+        </div>
+        <div class="promo_take_this center-block"></div>
+        <h3>Back-to-School Preparation Challenge Winners</h3>
+        <p>
+          The winners of the Habitica Back-to-School Preparation Challenge have been selected!
+          Congratulations to: Anna_2410, nickkk99, SSkittles, pechepoint and Amber2311!
+        </p>
+        <p>
+          Thank you to everyone who participated! We're excited to help you pursue your goals
+          through the new school year and beyond!
         </p>
         <div class="small mb-3">by Beffymaroo</div>
       </div>
