@@ -25,7 +25,6 @@
         <div class="col-12 col-md-6">
           <div class="row icon-row">
             <div
-              class="col-4 offset-4"
               :class="{ 'offset-8': isParty }"
             >
               <div
@@ -58,7 +57,7 @@
             </div>
             <div
               v-if="!isParty"
-              class="col-4"
+              class="offset-1"
             >
               <div
                 class="item-with-icon"
@@ -225,12 +224,15 @@
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 1em;
     text-align: center;
-    min-width: 80px;
-    max-width: 120px;
+    min-width: 100px;
     height: 76px;
 
+    &:last-of-type {
+      margin-right: 1rem;
+    }
+
     .svg-icon.shield, .svg-icon.gem {
-      width: 28px;
+      min-width: 28px;
       height: auto;
       margin: 0 auto;
       display: inline-block;
@@ -312,6 +314,7 @@
 
   .icon-row {
     margin-top: 1em;
+    justify-content: flex-end;
 
     .number {
       font-size: 22px;
