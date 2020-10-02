@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-inverse fixed-top navbar-expand-sm">
+  <nav class="navbar navbar-inverse fixed-top navbar-expand-md">
     <div class="navbar-header">
       <router-link
         class="nav-item"
