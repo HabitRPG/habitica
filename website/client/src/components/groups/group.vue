@@ -29,6 +29,9 @@
             >
               <div
                 class="item-with-icon"
+                tabindex="0"
+                role="button"
+                @keyup.enter="showMemberModal()"
                 @click="showMemberModal()"
               >
                 <div
@@ -61,6 +64,9 @@
             >
               <div
                 class="item-with-icon"
+                tabindex="0"
+                role="button"
+                @keyup.enter="showMemberModal()"
                 @click="showGroupGems()"
               >
                 <div
