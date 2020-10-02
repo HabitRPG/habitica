@@ -2,8 +2,8 @@
   <div class="class-badge d-flex justify-content-center">
     <div
       class="align-self-center svg-icon"
-      :aria-label="$t(memberClass)"
       v-html="icons[memberClass]"
+      :aria-label="$t(memberClass)"
     ></div>
   </div>
 </template>

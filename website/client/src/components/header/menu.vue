@@ -11,16 +11,15 @@
       type="dark"
       :class="navbarZIndexClass"
     >
-      <b-navbar-brand class="brand">
+      <b-navbar-brand
+        class="brand"
+        aria-label="Habitica"
+      >
         <div
           class="logo svg-icon d-none d-xl-block"
-          :aria-label="$t('habitica')"
           v-html="icons.logo"
         ></div>
-        <div
-          class="svg-icon gryphon d-xs-block d-xl-none"
-          :aria-label="$t('habitica')"
-        ></div>
+        <div class="svg-icon gryphon d-xs-block d-xl-none"></div>
       </b-navbar-brand>
       <b-navbar-toggle
         class="menu-toggle"
