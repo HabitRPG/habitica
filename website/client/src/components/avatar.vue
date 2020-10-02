@@ -227,7 +227,7 @@ export default {
       return this.member.preferences.costume ? 'costume' : 'equipped';
     },
     specialMountClass () {
-      if (!this.avatarOnly && this.member.items.currentMount && this.member.items.currentMount.indexOf('Kangaroo') !== -1) {
+      if (!this.avatarOnly && this.member.items.currentMount && this.member.items.currentMount.includes('Kangaroo')) {
         return 'offset-kangaroo';
       }
 

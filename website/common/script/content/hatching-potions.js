@@ -149,6 +149,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionGhost'),
     limited: true,
+    event: EVENTS.fall2020,
+    canBuy () {
+      return moment().isBefore('2020-11-02');
+    },
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndOctober'),
+      previousDate: t('septemberYYYY', { year: 2018 }),
+    }),
   },
   Holly: {
     value: 2,
@@ -276,6 +284,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionShadow'),
     limited: true,
+    event: EVENTS.fall2020,
+    canBuy () {
+      return moment().isBefore('2020-11-02');
+    },
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndOctober'),
+      previousDate: t('septemberYYYY', { year: 2019 }),
+    }),
   },
   Amber: {
     value: 2,
@@ -346,6 +362,18 @@ const premium = {
     limited: true,
     canBuy: hasQuestAchievementFunction('turquoise'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
+  Vampire: {
+    value: 2,
+    text: t('hatchingPotionVampire'),
+    limited: true,
+    event: EVENTS.fall2020,
+    canBuy () {
+      return moment().isBefore('2020-11-02');
+    },
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndOctober'),
+    }),
   },
 };
 

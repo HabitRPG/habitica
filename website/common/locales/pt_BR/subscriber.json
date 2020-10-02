@@ -121,7 +121,7 @@
     "choosePaymentMethod": "Escolha seu método de pagamento",
     "buyGemsSupportsDevs": "A compra de Gemas dá o apoio necessário para os desenvolvedores continuarem movimentando o Habitica",
     "support": "SUPORTE",
-    "gemBenefitLeadin": "As Gemas permitem que você compre coisas divertidas para sua conta, incluindo:",
+    "gemBenefitLeadin": "O que você pode comprar com Gemas?",
     "gemBenefit1": "Trajes únicos e elegantes para o seu avatar.",
     "gemBenefit2": "Cenários para a imersão do seu avatar no mundo do Habitica!",
     "gemBenefit3": "Sequências empolgantes de Missões que dropam ovos de mascotes.",
@@ -174,5 +174,10 @@
     "mysterySet202008": "Conjunto do Oráculo Coruja",
     "mysterySet202009": "Conjunto Mariposa Maravilhosa",
     "gemsPurchaseNote": "Assinantes podem comprar Gemas com ouro no Mercado! Para facilitar o acesso, você também pode fixar a Gema na sua coluna Recompensas.",
-    "subscriptionAlreadySubscribedLeadIn": "Obrigado por assinar!"
+    "subscriptionAlreadySubscribedLeadIn": "Obrigado por assinar!",
+    "usuallyGems": "Normalmente <%= originalGems %>",
+    "supportHabitica": "Suporte Habitica",
+    "organization": "Organização",
+    "cancelSubInfoApple": "Siga as <a href=\"https://support.apple.com/en-us/HT202039\">instruções oficiais da Apple</a> para cancelar sua assinatura ou para ver a data de término da assinatura, caso já a tenha cancelado. Esta tela não mostra se sua assinatura foi cancelada.",
+    "cancelSubInfoGoogle": "Vá para a seção \"Conta\" > \"Assinaturas\" do aplicativo Google Play Store para cancelar sua assinatura ou para ver a data de término da assinatura, caso já a tenha cancelado. Esta tela não mostra se sua assinatura foi cancelada."
 }

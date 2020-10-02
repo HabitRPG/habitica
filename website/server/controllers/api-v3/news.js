@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'FALL FESTIVAL BEGINS! NOW WITH A SALE ON GEMS!';
+const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR SEPTEMBER DEALS! FALL AVATAR CUSTOMIZATIONS! COSTUME CHALLENGE!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,53 +31,52 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/22/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>9/29/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_fall_festival_2020 center-block"></div>
-        <h3>Limited Edition Class Outfits</h3>
+        <div class="promo_mystery_202009 center-block"></div>
+        <h3>Last Chance for Marvelous Moth Set</h3>
         <p>
-          From now until October 31st, limited edition outfits are available in the Rewards column!
-          Depending on your class, you can be a Wraith Warrior, Death's Head Moth Healer, Third Eye
-          Mage, or Two-Headed Rogue. You'd better get productive to earn enough gold before your
-          time runs out...
+          Reminder: this is the last day to receive the Marvelous Moth Set when you <a
+          href='/user/settings/subscription'>sign up for a new Habitica subscription</a>!
+          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
+          you can get!
         </p>
-        <div class="small mb-3">by Gawrone, Vikte, jjgame83, and SabreCat</div>
-        <div class="promo_fall_festival_2019 center-block"></div>
-        <h3>Seasonal Shop Opens</h3>
+        <p>Thanks so much for your support! You help keep Habitica running.</p>
+        <div class="small mb-3">by Beffymaroo</div>
+        <h3>Last Chance to Get In On the Fall Gem Sale!</h3>
         <p>
-          The <a href='/shops/seasonal'>Seasonal Shop</a> has opened! It's stocking autumnal
-          Seasonal Edition goodies at the moment, including past fall outfits. Everything there
-          will be available to purchase during the Fall Festival event each year, but it's only
-          open until October 31st, so be sure to stock up now, or you'll have to wait a year to
-          buy these items again!
+          Don't forget, our special Fall Gem Sale ends on Sept 30. Bonus Gems are included with
+          every Gem purchase until the sale ends. Be sure to stock up now so you have plenty of
+          Gems for Gala goodies, Quests, and more!
         </p>
-        <div class="small mb-3">
-          by Gawrone, jjgame83, AnnDeLune, ʂʈєƒąʃųƥągųʂ, Katy133, Lilith of Alfheim, Definitely not
-          a villain, ShoGirlGeek. cataclysms, maxpendragon, Vikte, QuartzFox, Lemoness, Beffymaroo
-          and SabreCat
-        </div>
-        <div class="npc_justin center-block"></div>
+        <div class="promo_fall_customizations center-block"></div>
+        <h3>Supernatural Skins and Haunted Hair Colors</h3>
         <p>
-          Everyone has hastened down to the Flourishing Fields to celebrate this spooky harvest
-          festival. Be sure to check out all the outfits that people are sporting!
-        </p>
-        <h3>Fall Gem Sale! September 22-30</h3>
-        <p>
-          For the first time ever, Habitica is offering a Gem sale to kick off the fun of Fall
-          Festival! Receive bonus Gems with each Gem purchase on web or mobile - the more Gems you
-          buy, the bigger the bonus! Use them to grab past Fall Festival Gear from the Seasonal
-          Shop, Quests, Magic Hatching Potions, and more. Find more details via Menu > Gems on
-          mobile, or tapping the Gem on the top menu bar on web.
+          The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye
+          your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. Get
+          them before October 31st!
         </p>
         <p>
-          Be sure to update your mobile app to see details, although the promo will still work even
-          if you can't see the promotional information.
+          The Supernatural Skin Set is also available until October 31st! Now your avatar can
+          become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.
         </p>
         <p>
-          Thanks so much for your support. 💜 Gem purchases help keep us running ad-free!
+          Seasonal Edition items recur unchanged every year, but they are only available to
+          purchase during a short period of time. Find these exciting skins and hair colors in Menu
+          > Customize Avatar. Get them now, or you'll have to wait until next year!
         </p>
+        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
+        <div class="achievement-costumeContest2x center-block"></div>
+        <h3>Official Habitica Costume Challenge!</h3>
+        <p>
+          The Community Costume Challenge has begun! Between now and October 31st, dress up as your
+          avatar in real life and post a photo on social media to get the coveted Costume Challenge
+          badge and a chance to be featured on Habitica's social media accounts! Read the full
+          rules on <a href='/challenges/39539048-3cf0-4e65-bb05-c8294a64eed3'>the Challenge page</a>.
+        </p>
+        <div class="small mb-3">by Beffymaroo</div>
       </div>
       `,
     });

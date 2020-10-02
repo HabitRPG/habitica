@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import TaskColumn from '@/components/tasks/column.vue';
 import Store from '@/libs/store';
 
@@ -7,10 +7,6 @@ localVue.use(Store);
 
 describe('Task Column', () => {
   let wrapper;
-  let store; let
-    getters;
-  let habits; let taskListOverride; let
-    tasks;
 
   function makeWrapper (additionalSetup = {}) {
     const type = 'habit';
@@ -19,9 +15,12 @@ describe('Task Column', () => {
     };
     const stubs = ['b-modal']; // <b-modal> is a custom component and not tested here
 
-    return mount(TaskColumn, {
-      propsData: {
-        type,
+    return shallowMount(TaskColumn, {
+      propsData: { type },
+      store: {
+        getters: {
+          'tasks:getFilteredTaskList': () => [],
+        },
       },
       mocks,
       stubs,
@@ -56,6 +55,9 @@ describe('Task Column', () => {
   });
 
   describe('Computed Properties', () => {
+    let taskListOverride;
+    let habits;
+
     beforeEach(() => {
       habits = [
         { id: 1 },
@@ -67,14 +69,14 @@ describe('Task Column', () => {
         { id: 4 },
       ];
 
-      getters = {
+      const getters = {
         // (...) => { ... } will return a value
         // (...) => (...) => { ... } will return a function
         // Task Column expects a function
         'tasks:getFilteredTaskList': () => () => habits,
       };
 
-      store = new Store({ getters });
+      const store = new Store({ getters });
 
       wrapper = makeWrapper({ store });
     });
@@ -103,6 +105,8 @@ describe('Task Column', () => {
   });
 
   describe('Methods', () => {
+    let tasks;
+
     describe('Filter By Tags', () => {
       beforeEach(() => {
         tasks = [
