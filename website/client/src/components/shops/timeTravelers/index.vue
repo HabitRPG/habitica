@@ -399,7 +399,10 @@ export default {
     }, 250),
   },
   mounted () {
-    this.$store.state.title = 'Time Travelers | Shops | Habitica';
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('timeTravelers'),
+      section: this.$t('shops'),
+    });
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });

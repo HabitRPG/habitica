@@ -676,7 +676,10 @@ export default {
     },
   },
   mounted () {
-    this.$store.state.title = 'Stable | Inventory | Habitica';
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('stable'),
+      section: this.$t('inventory'),
+    });
   },
   watch: {
     searchText: _throttle(function throttleSearch () {

@@ -496,7 +496,9 @@ export default {
     },
   },
   mounted () {
-    this.$store.state.title = 'Tasks | Habitica';
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('tasks'),
+    });
   },
   watch: {
     searchText: throttle(function throttleSearch () {

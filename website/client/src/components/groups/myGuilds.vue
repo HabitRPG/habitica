@@ -166,7 +166,10 @@ export default {
     },
   },
   mounted () {
-    this.$store.state.title = 'My Guilds | Guilds | Habitica';
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('myGuilds'),
+      section: this.$t('guilds'),
+    });
   },
   created () {
     this.fetchGuilds();

@@ -156,7 +156,10 @@ export default {
     },
   },
   mounted () {
-    this.$store.state.title = 'Discover | Guilds | Habitica';
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('guildsDiscovery'),
+      section: this.$t('guilds'),
+    });
   },
   methods: {
     async updateSearch (eventData) {

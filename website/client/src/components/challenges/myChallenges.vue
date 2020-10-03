@@ -218,7 +218,10 @@ export default {
     },
   },
   mounted () {
-    this.$store.state.title = 'My Challenges | Challenges | Habitica';
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('myChallenges'),
+      section: this.$t('challenges'),
+    });
     this.loadChallenges();
   },
   methods: {

@@ -441,7 +441,10 @@ export default {
       CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB,
     ) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
 
-    this.$store.state.title = 'Equipment | Inventory | Habitica';
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('equipment'),
+      section: this.$t('inventory'),
+    });
   },
   methods: {
     selectDrawerTab (tabName) {
