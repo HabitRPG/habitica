@@ -7,7 +7,7 @@ const POSTS_PER_PAGE = 10;
 
 export const schema = new Schema({
   title: { $type: String },
-  author: { $type: String },
+  author: { $type: String, ref: 'User' },
   credits: { $type: String },
   publishDate: { $type: Date },
   published: { $type: Boolean },
@@ -19,7 +19,7 @@ export const schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id'],
+  noSet: ['_id', 'author'],
   timestamps: true,
 });
 

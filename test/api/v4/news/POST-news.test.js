@@ -35,6 +35,7 @@ describe('POST /news', () => {
     expect(response.credits).to.equal(newsPost.credits);
     expect(response.text).to.equal(newsPost.text);
     expect(response.published).to.equal(newsPost.published);
+    expect(response.author).to.equal(user._id);
     expect(response._id).to.exist;
 
     const res = await user.get('/news');

@@ -65,15 +65,8 @@ api.createNews = {
   url: '/news',
   middlewares: [authWithHeaders(), ensureNewsPoster],
   async handler (req, res) {
-    const postData = {
-      title: req.body.title,
-      publishDate: req.body.publishDate,
-      published: req.body.published,
-      credits: req.body.credits,
-      text: req.body.text,
-    };
-
-    const newsPost = new NewsPost(NewsPost.sanitize(postData));
+    const newsPost = new NewsPost(NewsPost.sanitize(req.body));
+    newsPost.author = res.locals.user._id;
     await newsPost.save();
 
     res.respond(201, newsPost);
@@ -109,7 +102,7 @@ api.getPost = {
   })],
   noLanguage: true,
   async handler (req, res) {
-    req.checkParams('postId', apiError('postIdRequired')).notEmpty();
+    req.checkParams('postId', apiError('postIdRequired')).notEmpty().isUUID();
     const { user } = res.locals;
 
     const newsPost = await NewsPost.findById(req.params.postId).exec();
@@ -146,7 +139,7 @@ api.updateNews = {
   url: '/news/:postId',
   middlewares: [authWithHeaders(), ensureNewsPoster],
   async handler (req, res) {
-    req.checkParams('postId', apiError('postIdRequired')).notEmpty();
+    req.checkParams('postId', apiError('postIdRequired')).notEmpty().isUUID();
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
@@ -180,7 +173,7 @@ api.deleteNews = {
   url: '/news/:postId',
   middlewares: [authWithHeaders(), ensureNewsPoster],
   async handler (req, res) {
-    req.checkParams('postId', apiError('postIdRequired')).notEmpty();
+    req.checkParams('postId', apiError('postIdRequired')).notEmpty().isUUID();
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
