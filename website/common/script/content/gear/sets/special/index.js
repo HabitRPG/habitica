@@ -1,4 +1,5 @@
 import moment from 'moment';
+import cloneDeep from 'lodash/cloneDeep';
 import defaults from 'lodash/defaults';
 import upperFirst from 'lodash/upperFirst';
 import {
@@ -13,6 +14,11 @@ import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
 const CURRENT_SEASON = moment().isBefore('2020-11-02') ? 'fall' : '_NONE_';
+const gearEvents = cloneDeep(EVENTS);
+gearEvents.fall2020.end = gearEvents.fall2020SecondPromo.end;
+['winter', 'birthday', 'gaymerx', 'fall2020Interim', 'fall2020SecondPromo'].forEach(nonGearEvent => {
+  delete gearEvents[nonGearEvent];
+});
 
 const armor = {
   0: backerGear.armorSpecial0,
@@ -648,14 +654,13 @@ const armorStats = {
   wizard: { int: 9 },
 };
 
-Object.keys(EVENTS).forEach(event => {
-  if (['winter', 'birthday', 'gaymerx'].indexOf(event) !== -1) return;
+Object.keys(gearEvents).forEach(event => {
   CLASSES.forEach(klass => {
     const classNameString = klass === 'wizard' ? 'mage' : klass;
     const eventString = `${event}${upperFirst(classNameString)}`;
     const textString = `armorSpecial${upperFirst(event)}${upperFirst(classNameString)}`;
     defaults(armor[eventString], {
-      event: EVENTS[event],
+      event: gearEvents[event],
       specialClass: klass,
       text: t(`${textString}Text`),
       notes: t(`${textString}Notes`, armorStats[klass]),
@@ -1638,14 +1643,13 @@ const headStats = {
   wizard: { per: 7 },
 };
 
-Object.keys(EVENTS).forEach(event => {
-  if (['winter', 'birthday', 'gaymerx'].indexOf(event) !== -1) return;
+Object.keys(gearEvents).forEach(event => {
   CLASSES.forEach(klass => {
     const classNameString = klass === 'wizard' ? 'mage' : klass;
     const eventString = `${event}${upperFirst(classNameString)}`;
     const textString = `headSpecial${upperFirst(event)}${upperFirst(classNameString)}`;
     defaults(head[eventString], {
-      event: EVENTS[event],
+      event: gearEvents[event],
       specialClass: klass,
       text: t(`${textString}Text`),
       notes: t(`${textString}Notes`, headStats[klass]),
@@ -2361,15 +2365,14 @@ const shieldStats = {
   warrior: { con: 7 },
 };
 
-Object.keys(EVENTS).forEach(event => {
-  if (['winter', 'birthday', 'gaymerx'].indexOf(event) !== -1) return;
+Object.keys(gearEvents).forEach(event => {
   CLASSES.forEach(klass => {
     if (klass === 'wizard') return;
     const eventString = `${event}${upperFirst(klass)}`;
     const textString = klass === 'rogue' ? `weaponSpecial${upperFirst(event)}Rogue`
       : `shieldSpecial${upperFirst(event)}${upperFirst(klass)}`;
     defaults(shield[eventString], {
-      event: EVENTS[event],
+      event: gearEvents[event],
       specialClass: klass,
       text: t(`${textString}Text`),
       notes: t(`${textString}Notes`, shieldStats[klass]),
@@ -2979,14 +2982,13 @@ const weaponCosts = {
   wizard: 160,
 };
 
-Object.keys(EVENTS).forEach(event => {
-  if (['winter', 'birthday', 'gaymerx'].indexOf(event) !== -1) return;
+Object.keys(gearEvents).forEach(event => {
   CLASSES.forEach(klass => {
     const classNameString = klass === 'wizard' ? 'mage' : klass;
     const eventString = `${event}${upperFirst(classNameString)}`;
     const textString = `weaponSpecial${upperFirst(event)}${upperFirst(classNameString)}`;
     defaults(weapon[eventString], {
-      event: EVENTS[event],
+      event: gearEvents[event],
       specialClass: klass,
       text: t(`${textString}Text`),
       notes: t(`${textString}Notes`, weaponStats[klass]),

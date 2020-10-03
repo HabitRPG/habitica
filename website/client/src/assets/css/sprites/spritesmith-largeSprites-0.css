@@ -28,9 +28,15 @@
   width: 282px;
   height: 147px;
 }
+.promo_mystery_202010 {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -283px -600px;
+  width: 282px;
+  height: 147px;
+}
 .promo_take_this {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -532px -365px;
+  background-position: -893px -170px;
   width: 96px;
   height: 69px;
 }
@@ -48,7 +54,13 @@
 }
 .scene_squall {
   background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
-  background-position: -337px -244px;
+  background-position: -893px 0px;
   width: 141px;
   height: 169px;
+}
+.scene_strength {
+  background-image: url('~@/assets/images/sprites/spritesmith-largeSprites-0.png');
+  background-position: -337px -244px;
+  width: 192px;
+  height: 129px;
 }
