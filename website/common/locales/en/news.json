@@ -1,8 +1,3 @@
 {
-  "newsPostNotFound": "News Post not found or you don't have access.",
-  "isPublished": "Is Published",
-  "publishDate": "Publish Date",
-  "credits": "Credits",
-  "baileyHistory": "Bailey History",
-  "newsText": "Text"
+  "newsPostNotFound": "News Post not found or you don't have access."
 }
