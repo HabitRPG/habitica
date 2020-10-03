@@ -1,26 +1,16 @@
 <template>
-  <div
-    class="static-view"
-    v-html="html"
-  ></div>
+  <news-content ref="newsContent" />
 </template>
 
-<style lang='scss'>
-@import '~@/assets/scss/static.scss';
-</style>
-
 <script>
-import axios from 'axios';
+import newsContent from '../news/newsContent';
 
 export default {
-  data () {
-    return {
-      html: '',
-    };
+  components: {
+    newsContent,
   },
-  async mounted () {
-    const response = await axios.get('/api/v4/news');
-    this.html = response.data.html;
+  mounted () {
+    this.$refs.newsContent.getPosts();
   },
 };
 </script>
