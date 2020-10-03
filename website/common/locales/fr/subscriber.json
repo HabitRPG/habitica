@@ -176,7 +176,7 @@
     "gemsPurchaseNote": "Avec l'abonnement, vous pouvez acheter les gemmes pour de l'or au marché ! Pour un accès facile, vous pouvez aussi les épingler dans votre colonne Récompenses.",
     "subscriptionAlreadySubscribedLeadIn": "Merci pour votre abonnement !",
     "supportHabitica": "Soutenir Habitica",
-    "cancelSubInfoApple": "Veuillez suivre <a href=\"https://support.apple.com/en-us/HT202039\" target=\"_blank\">les instructions officielles d'Apple</a> pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne pourra pas vous indiquer si votre abonnement a été annulé.",
+    "cancelSubInfoApple": "Veuillez suivre <a href=\"https://support.apple.com/en-us/HT202039\">les instructions officielles d'Apple</a> pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne pourra pas vous indiquer si votre abonnement a été annulé.",
     "cancelSubInfoGoogle": "Veuillez vous rendre dans la section \"Mes jeux et applications\" > \"Abonnements\" du Play Store Google pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne pourra pas vous indiquer si votre abonnement a été annulé.",
     "organization": "Organisation",
     "usuallyGems": "Généralement <%= originalGems %>"

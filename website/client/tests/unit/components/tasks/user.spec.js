@@ -6,6 +6,19 @@ const localVue = createLocalVue();
 localVue.use(Store);
 
 describe('Tasks User', () => {
+  function createWrapper (challengeTag) {
+    const store = new Store({
+      state: { user: { data: { tags: [challengeTag] } } },
+      getters: {},
+    });
+    return shallowMount(User, {
+      store,
+      localVue,
+      mocks: { $t: s => s },
+      stubs: ['b-tooltip'],
+    });
+  }
+
   describe('Computed Properties', () => {
     it('should render a challenge tag under challenge header in tag filter popup when the challenge is active', () => {
       const activeChallengeTag = {
@@ -13,20 +26,7 @@ describe('Tasks User', () => {
         name: 'Challenge1',
         challenge: true,
       };
-      const state = {
-        user: {
-          data: {
-            tags: [activeChallengeTag],
-          },
-        },
-      };
-      const getters = {};
-      const store = new Store({ state, getters });
-      const wrapper = shallowMount(User, {
-        store,
-        localVue,
-      });
-
+      const wrapper = createWrapper(activeChallengeTag);
       const computedTagsByType = wrapper.vm.tagsByType;
 
       expect(computedTagsByType.challenges.tags.length).to.equal(1);
@@ -40,20 +40,7 @@ describe('Tasks User', () => {
         name: 'Challenge1',
         challenge: false,
       };
-      const state = {
-        user: {
-          data: {
-            tags: [inactiveChallengeTag],
-          },
-        },
-      };
-      const getters = {};
-      const store = new Store({ state, getters });
-      const wrapper = shallowMount(User, {
-        store,
-        localVue,
-      });
-
+      const wrapper = createWrapper(inactiveChallengeTag);
       const computedTagsByType = wrapper.vm.tagsByType;
 
       expect(computedTagsByType.challenges.tags.length).to.equal(0);

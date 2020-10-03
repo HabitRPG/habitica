@@ -565,12 +565,16 @@ export default {
         }
 
         const ownedPets = reduce(this.user.items.pets, (sum, petValue, petKey) => {
-          if (petKey.includes(this.item.key) && petValue > 0) return sum + 1;
+          if (petKey.includes(this.item.key) && petValue > 0
+            && !petKey.includes('JackOLantern') // Jack-O-Lantern has "Ghost" version
+          ) return sum + 1;
           return sum;
         }, 0);
 
         const ownedMounts = reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
-          if (mountKey.includes(this.item.key) && mountValue === true) return sum + 1;
+          if (mountKey.includes(this.item.key) && mountValue === true
+            && !mountKey.includes('JackOLantern')
+          ) return sum + 1;
           return sum;
         }, 0);
 
