@@ -107,9 +107,22 @@ export default {
   },
   methods: {
     async onShow () {
-      this.posts = await this.$store.dispatch('news:fetch');
-      if (this.posts.length > 2) {
-        this.posts = this.posts.slice(0, 2);
+      const postsFromServer = await this.$store.dispatch('news:fetch');
+
+      // Show the last published post + any draft for the authorized users
+      this.posts = [];
+
+      const lastPublishedPost = postsFromServer
+        .find(p => p.published && moment().isAfter(p.publishDate));
+
+      if (lastPublishedPost) this.posts.push(lastPublishedPost);
+
+      // If the user is authorized, show any draft
+      if (this.user.contributor.newsPoster) {
+        this.posts.unshift(
+          ...postsFromServer
+            .filter(p => !p.published || moment().isBefore(p.publishDate)),
+        );
       }
     },
     renderMarkdown (text) {

@@ -42,12 +42,14 @@ schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 })
   } else {
     query = this.find();
   }
+
   let page = 0;
   if (typeof options.page !== 'undefined') {
     page = options.page;
   }
 
-  return query.sort({ publishDate: -1 })
+  return query
+    .sort({ publishDate: -1 })
     .limit(POSTS_PER_PAGE)
     .skip(POSTS_PER_PAGE * Number(page))
     .exec();
