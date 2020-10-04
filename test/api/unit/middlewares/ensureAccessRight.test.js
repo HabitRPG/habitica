@@ -47,7 +47,7 @@ describe('ensure access middlewares', () => {
       ensureNewsPoster(req, res, next);
 
       const calledWith = next.getCall(0).args;
-      expect(calledWith[0].message).to.equal(i18n.t('noNewsPosterAccess'));
+      expect(calledWith[0].message).to.equal(apiError('noNewsPosterAccess'));
       expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
     });
 
