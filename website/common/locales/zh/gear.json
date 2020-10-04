@@ -1771,7 +1771,7 @@
     "weaponSpecialSpring2019WarriorText": "树茎剑",
     "weaponSpecialSpring2019RogueText": "闪电箭",
     "weaponArmoireSlingshotText": "弹弓",
-    "weaponArmoireJugglingBallsNotes": "Habitica居民是多任务处理的大师，所以你应该毫不费力地将所有这些球保持在空中！增加<％= int％>点智力。魔法衣橱：独立物品。",
+    "weaponArmoireJugglingBallsNotes": "Habitica居民是多任务处理的大师，所以你应该毫不费力地将所有这些球保持在空中！增加<%= int %>点智力。魔法衣橱：独立物品。",
     "weaponArmoireJugglingBallsText": "杂耍球",
     "weaponSpecialSummer2019HealerNotes": "这支魔杖的气泡捕捉到治疗能量和古老的海洋魔法。增加<％= int％>点智力。2019年夏季限定版装备。",
     "weaponSpecialSummer2019HealerText": "泡泡魔棒",
