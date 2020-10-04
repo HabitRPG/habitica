@@ -1,9 +1,17 @@
 {
-  "achievement": "إنجاز",
-  "share": "شارك",
-  "onwards": "فصاعداً!",
-  "levelup": "من خلال تحقيق أهداف حياتك الحقيقية ، قمت بالحصول على مرتبة أعلي وشفيت الآن بالكامل!",
-  "reachedLevel": "لقد وصلت إلى المستوى<%= level %>",
-  "achievementLostMasterclasser": "مهام المتحدي: سلسلة مستوي الخبير",
-  "achievementLostMasterclasserText": "لقد أكملت جميع المهام الستة عشرة في سلسلة أسئلة مستوي الخبير وأجبت علي مستوي الخبير المفقود! "
+    "achievement": "إنجاز",
+    "share": "شارك",
+    "onwards": "فصاعداً!",
+    "levelup": "من خلال تحقيق أهداف حياتك الحقيقية ، قمت بالحصول على مرتبة أعلي وشفيت الآن بالكامل!",
+    "reachedLevel": "لقد وصلت إلى المستوى<%= level %>",
+    "achievementLostMasterclasser": "مهام المتحدي: سلسلة مستوي الخبير",
+    "achievementLostMasterclasserText": "لقد أكملت جميع المهام الستة عشرة في سلسلة أسئلة مستوي الخبير وأجبت علي مستوي الخبير المفقود! ",
+    "foundNewItems": "لقد وجدت عناصر جديدة !",
+    "onboardingCompleteDescSmall": "لو اردت المزيد الق نظرة على الانجازات و ابدأ فى تجميعها !",
+    "onboardingComplete": "لقد انجزت مهمات بدء اللعبة !",
+    "earnedAchievement": "لقد حققت انجاز !",
+    "viewAchievements": "اظهر الانجازات",
+    "letsGetStarted": "فلنبدأ !",
+    "yourProgress": "تقدمك",
+    "yourRewards": "جوائزك"
 }
