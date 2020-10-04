@@ -20,10 +20,12 @@ export default {
   @import '~@/assets/scss/colors.scss';
 
   h3 {
+    font-family: Roboto, sans-serif;
     height: 1.5rem;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
     line-height: 1.71;
+    letter-spacing: normal;
     color: $gray-100;
   }
 
