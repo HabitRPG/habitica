@@ -116,20 +116,12 @@
         border-color: $purple-400;
       }
 
-      &.dropdown-toggle {
-        color: $gray-50;
-      }
-
       background: $white;
       border: 1px solid transparent;
     }
 
     &:hover {
       color: $purple-300;
-
-      &.dropdown-toggle {
-        color: $gray-50;
-      }
 
       background: $white !important;
       border: 1px solid transparent;

@@ -1,9 +1,10 @@
 <template>
   <b-dropdown
     right="right"
+    toggle-class="with-icon"
   >
      <template v-slot:button-content>
-       <span class="svg-icon inline"
+       <span class="svg-icon inline color"
             v-html="icons.unequipIcon">
       </span>
       <span class="button-label" v-once>{{ $t('unequip') }}</span>
@@ -108,7 +109,6 @@ export default {
 .svg-icon {
   width: 1rem;
   height: 1rem;
-  color: $gray-200;
   margin-right: 0.5rem;
 }
 
@@ -118,7 +118,6 @@ export default {
   font-size: 14px;
   font-weight: bold;
   line-height: 1.71;
-  color: $gray-50;
 }
 
 </style>
