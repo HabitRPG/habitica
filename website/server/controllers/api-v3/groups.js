@@ -471,6 +471,14 @@ api.updateGroup = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
+    if (user.contributor.admin) {
+      if (req.body.bannedWordsAllowed === true) {
+        group.bannedWordsAllowed = true;
+      } else {
+        group.bannedWordsAllowed = false;
+      }
+    }
+
     if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
     else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 

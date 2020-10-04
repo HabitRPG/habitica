@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Limit'd Edition",
-    "seasonalEdition": "Seas'nal Edition",
-    "winterColors": "Winter Colours",
     "annoyingFriends": "Annoyin' Mates",
     "annoyingFriendsText": "Got snowball'd <%= count %> times by crew members.",
     "alarmingFriends": "Alarmin' Buckos",
@@ -61,7 +58,6 @@
     "nye2": "Happy New Year! May ye earn many a Perfect Day.",
     "nye3": "Happy New Year! May yer T'-Do list stay short and sweet.",
     "nye4": "Happy New Year! May ye not get attacked by a ragin' Hippogriff.",
-    "holidayCard": "Received a holiday card!",
     "mightyBunnySet": "Mighty Bunny (Warrior)",
     "magicMouseSet": "Magic Mouse (Mage)",
     "lovingPupSet": "Loving Pup (Doc)",

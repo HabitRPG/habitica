@@ -1,10 +1,15 @@
 import * as analytics from '../analyticsService';
+import { getCurrentEvent } from '../worldState'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   getUserInfo,
   sendTxn as txnEmail,
 } from '../email';
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 import shared from '../../../common';
+import {
+  BadRequest,
+} from '../errors';
+import apiError from '../apiError';
 
 function getGiftMessage (data, byUsername, gemAmount, language) {
   const senderMsg = shared.i18n.t('giftedGemsFull', {
@@ -55,12 +60,25 @@ async function buyGemGift (data) {
   await data.gift.member.save();
 }
 
-function getAmountForGems (data) {
-  const amount = data.amount || 5;
+export function getGemsBlock (gemsBlock) {
+  const block = shared.content.gems[gemsBlock];
 
+  if (!block) throw new BadRequest(apiError('invalidGemsBlock'));
+
+  return block;
+}
+
+function getAmountForGems (data) {
   if (data.gift) return data.gift.gems.amount / 4;
 
-  return amount;
+  const { gemsBlock } = data;
+
+  const currentEvent = getCurrentEvent();
+  if (currentEvent && currentEvent.gemsPromo && currentEvent.gemsPromo[gemsBlock.key]) {
+    return currentEvent.gemsPromo[gemsBlock.key] / 4;
+  }
+
+  return gemsBlock.gems / 4;
 }
 
 function updateUserBalance (data, amount) {
@@ -72,7 +90,7 @@ function updateUserBalance (data, amount) {
   data.user.balance += amount;
 }
 
-async function buyGems (data) {
+export async function buyGems (data) {
   const amt = getAmountForGems(data);
 
   updateUserBalance(data, amt);
@@ -96,5 +114,3 @@ async function buyGems (data) {
 
   await data.user.save();
 }
-
-export { buyGems }; // eslint-disable-line import/prefer-default-export

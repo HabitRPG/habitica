@@ -1,9 +1,9 @@
 <template>
   <datepicker
     v-model="value"
-    :calendarButton="true"
-    :calendarButtonIconContent="icons.calendar"
-    :bootstrapStyling="true"
+    :calendar-button="true"
+    :calendar-button-icon-content="icons.calendar"
+    :bootstrap-styling="true"
     :clear-button="false"
     :today-button="false"
     :disabled-picker="disabled"
@@ -12,11 +12,13 @@
     calendar-class="calendar-padding"
     @input="upDate($event)"
   >
-    <div slot="afterDateInput"
-         class="vdp-datepicker__clear-button"
-         v-if="clearButton && value"
-         v-html="icons.close"
-         @click="upDate(null)">
+    <div
+      v-if="clearButton && value"
+      slot="afterDateInput"
+      class="vdp-datepicker__clear-button"
+      @click="upDate(null)"
+      v-html="icons.close"
+    >
     </div>
     <div slot="beforeCalendarHeader">
       <div class="datetime-buttons">

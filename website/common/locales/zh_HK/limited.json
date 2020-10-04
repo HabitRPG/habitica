@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "限量版",
-    "seasonalEdition": "季度版",
-    "winterColors": "冬日顏色",
     "annoyingFriends": "吵鬧的朋友",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "愛嚇人的朋友",
@@ -61,7 +58,6 @@
     "nye2": "Happy New Year! May you earn many a Perfect Day.",
     "nye3": "Happy New Year! May your To-Do list stay short and sweet.",
     "nye4": "Happy New Year! May you not get attacked by a raging Hippogriff.",
-    "holidayCard": "收到壹封節日賀卡!",
     "mightyBunnySet": "勇敢小兔 (戰士)",
     "magicMouseSet": "魔法老鼠 (法師)",
     "lovingPupSet": "可愛小狗 (醫者)",

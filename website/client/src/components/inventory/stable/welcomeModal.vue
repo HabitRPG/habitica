@@ -24,7 +24,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '~@/assets/scss/modal.scss';
+  @import '~@/assets/scss/mixins.scss';
 
   #welcome-modal {
     @include centeredModal();

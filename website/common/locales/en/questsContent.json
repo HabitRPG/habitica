@@ -823,5 +823,14 @@
   "questWindupCompletion": "As you dodge the attacks, you notice something odd: a stripy brass tail sticking out of the robot’s chassis. You plunge a hand amid the grinding gears and pull out… a trembling wind-up tiger cub. It snuggles against your shirt.<br><br>The clockwork robot immediately stops flailing and smiles, its cogs clicking back into place. “Ki-Ki-Kitty! Kitty got in me!”<br><br>“Great!” the Powerful says, blushing. “I’ve been working hard on these wind-up pet potions. I guess I lost track of my new creations. I’ve been missing my ‘Tidy the workshop’ daily a lot lately…”<br><br>You follow the tinkerer and Clankton inside. Parts, tools and potions cover every surface. “Powerful” takes your watch, but hands you a few potions.<br><br>“Take these. Clearly they’ll be safer with you!”",
   "questWindupBoss": "Clankton",
   "questWindupDropWindupPotion": "Wind-Up Hatching Potion",
-  "questWindupUnlockText": "Unlocks Wind-Up Hatching Potions for purchase in the Market"
+  "questWindupUnlockText": "Unlocks Wind-Up Hatching Potions for purchase in the Market",
+
+  "questTurquoiseText": "Turquoise Treasure Toil",
+  "questTurquoiseNotes": "@gawrone runs into your room holding their Habitican Diploma in one hand and an extraordinarily large and dusty leather-bound tome in the other.<br><br>“You’ll never guess what I’ve discovered!” they say. “The reason the Flourishing Fields are so fertile is that they were once covered with a vast ocean. It’s rumored that an ancient people once inhabited that ocean floor in enchanted cities. I’ve used forgotten maps to find the most likely location! Get your shovel!”<br><br>The next evening you meet up, @QuartzFox and @starsystemic joining the party, and begin to dig. Deep in the ground you find a rune, with a turquoise gem nearby!<br><br>“Keep digging!” @gawrone urges. “If we find enough, we can make one of their ancient potions and history at the same time!”",
+  "questTurquoiseCompletion": "Hot and sweaty, your team finally stops to rest beside the upturned dirt and looks at the pile of runes and gems you’ve found.<br><br>“Unbelievable,” murmurs @QuartzFox. “This will rewrite the history books.”<br><br>“Let me take these materials back to Habitica University for analysis,” says @gawrone. “There should be plenty to study and to make some turquoise potions for all of us! Who knows what else we could find buried around here?”<br><br>@starsystemic chimes in: “It’s amazing how much you can get accomplished with some hard work!”",
+  "questTurquoiseCollectSagittariusRunes": "Sagittarius Runes",
+  "questTurquoiseCollectNeptuneRunes": "Neptune Runes",
+  "questTurquoiseCollectTurquoiseGems": "Turquoise Gems",
+  "questTurquoiseDropTurquoisePotion": "Turquoise Hatching Potion",
+  "questTurquoiseUnlockText": "Unlocks Turquoise Hatching Potions for purchase in the Market"
 }

@@ -8,8 +8,8 @@
           v-for="step in stepsNum"
           :key="step"
         >
-          <h3>{{ $t('step'+step) }}</h3>
-          <p v-markdown="$t('webStep'+step+'Text', stepVars[step])"></p>
+          <h3>{{ $t(`step${step}`) }}</h3>
+          <p v-markdown="$t(`webStep${step}Text`, stepVars[step])"></p>
           <hr>
         </div>
         <p

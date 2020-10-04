@@ -327,6 +327,11 @@
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/mixins.scss';
+
+  .standard-page .clearfix .float-right {
+    margin-right: 24px;
+  }
 
   .inventory-item-container {
     padding: 20px;

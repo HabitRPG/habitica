@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "สินค้าจำนวนจำกัด",
-    "seasonalEdition": "สินค้าเทศกาล",
-    "winterColors": "Winter Colors",
     "annoyingFriends": "Annoying Friends",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "Alarming Friends",
@@ -61,7 +58,6 @@
     "nye2": "สุขสันต์วันปีใหม่! ขอให้คุณมีวันที่สมบูรณ์แบบหลายวัน",
     "nye3": "สุขสันต์วันปีใหม่! ขอให้รายการสิ่งที่คุณต้องทำนั้นสั้นและเรียบง่าย",
     "nye4": "สุขสันต์วันปีใหม่! ขอให้คุณไม่ถูกโจมตีโดยฮิปโปกริฟคลั่ง!",
-    "holidayCard": "คุณได้รับการ์ดวันหยุด!",
     "mightyBunnySet": "Mighty Bunny (Warrior)",
     "magicMouseSet": "Magic Mouse (Mage)",
     "lovingPupSet": "Loving Pup (Healer)",

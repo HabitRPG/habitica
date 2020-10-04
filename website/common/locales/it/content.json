@@ -200,7 +200,7 @@
     "hatchingPotionEmber": "Brace",
     "hatchingPotionThunderstorm": "Tempesta",
     "hatchingPotionGhost": "Fantasma",
-    "hatchingPotionRoyalPurple": "Viola Regale",
+    "hatchingPotionRoyalPurple": "Porpora",
     "hatchingPotionHolly": "Agrifoglio",
     "hatchingPotionCupid": "Cupido",
     "hatchingPotionShimmer": "Scintillante",
@@ -358,5 +358,7 @@
     "premiumPotionUnlimitedNotes": "Non utilizzabile su uova di animali ottenute dalle missioni.",
     "hatchingPotionDessert": "Dolcetto",
     "hatchingPotionBirchBark": "Corteccia di Betulla",
-    "hatchingPotionRuby": "Rubino"
+    "hatchingPotionRuby": "Rubino",
+    "hatchingPotionWindup": "Carica a Molla",
+    "hatchingPotionTurquoise": "Turchese"
 }

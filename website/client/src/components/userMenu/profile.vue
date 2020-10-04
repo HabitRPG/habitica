@@ -314,7 +314,7 @@
         class="row category-row"
       >
         <h3 class="col-12 text-center mb-3">
-          {{ $t(key+'Achievs') }}
+          {{ $t(`${key}Achievs`) }}
         </h3>
         <div class="col-12">
           <div class="row achievements-row justify-content-center">
@@ -366,8 +366,8 @@
             @click="toggleAchievementsCategory(key)"
           >
             {{ achievementsCategories[key].open ?
-              $t('hideAchievements', {category: $t(key+'Achievs')}) :
-              $t('showAllAchievements', {category: $t(key+'Achievs')})
+              $t('hideAchievements', {category: $t(`${key}Achievs`)}) :
+              $t('showAllAchievements', {category: $t(`${key}Achievs`)})
             }}
           </div>
         </div>

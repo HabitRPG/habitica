@@ -15,10 +15,10 @@
         <h3 class="panel-heading clearfix">
           <div class="float-right">
             <span
-              v-if="gift.gems.fromBalance"
+              v-if="fromBal"
             >{{ $t('sendGiftGemsBalance', {number: userLoggedIn.balance * 4}) }}</span>
             <span
-              v-if="!gift.gems.fromBalance"
+              v-else
             >{{ $t('sendGiftCost', {cost: gift.gems.amount / 4}) }}</span>
           </div>
           {{ $t('gemsPopoverTitle') }}
@@ -32,15 +32,15 @@
                 type="number"
                 placeholder="Number of Gems"
                 min="0"
-                :max="gift.gems.fromBalance ? userLoggedIn.balance * 4 : 9999"
+                :max="fromBal ? userLoggedIn.balance * 4 : 9999"
               >
             </div>
             <div class="btn-group ml-auto">
               <button
                 class="btn"
                 :class="{
-                  'btn-primary': gift.gems.fromBalance,
-                  'btn-secondary': !gift.gems.fromBalance,
+                  'btn-primary': fromBal,
+                  'btn-secondary': !fromBal,
                 }"
                 @click="gift.gems.fromBalance = true"
               >
@@ -49,8 +49,8 @@
               <button
                 class="btn"
                 :class="{
-                  'btn-primary': !gift.gems.fromBalance,
-                  'btn-secondary': gift.gems.fromBalance,
+                  'btn-primary': !fromBal,
+                  'btn-secondary': fromBal,
                 }"
                 @click="gift.gems.fromBalance = false"
               >
@@ -120,39 +120,15 @@
       >
         {{ $t("send") }}
       </button>
-      <div
+      <payments-buttons
         v-else
-        class="payments-column mx-auto"
-        :class="{'payments-disabled': !gift.subscription.key && gift.gems.amount < 1}"
-      >
-        <button
-          class="purchase btn btn-primary payment-button payment-item"
-          :disabled="!gift.subscription.key && gift.gems.amount < 1"
-          @click="showStripe({gift, uuid: userReceivingGems._id, receiverName})"
-        >
-          <div
-            class="svg-icon credit-card-icon"
-            v-html="icons.creditCardIcon"
-          ></div>
-          {{ $t('card') }}
-        </button>
-        <button
-          class="btn payment-item paypal-checkout payment-button"
-          :disabled="!gift.subscription.key && gift.gems.amount < 1"
-          @click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})"
-        >
-          &nbsp;
-          <img
-            src="~@/assets/images/paypal-checkout.png"
-            :alt="$t('paypal')"
-          >&nbsp;
-        </button>
-        <amazon-button
-          class="payment-item mb-0"
-          :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}"
-          :amazon-disabled="!gift.subscription.key && gift.gems.amount < 1"
-        />
-      </div>
+        :disabled="!gift.subscription.key && gift.gems.amount < 1"
+        :stripe-fn="() => showStripe({gift, uuid: userReceivingGems._id, receiverName})"
+        :paypal-fn="() => openPaypalGift({
+          gift: gift, giftedTo: userReceivingGems._id, receiverName,
+        })"
+        :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}"
+      />
     </div>
   </b-modal>
 </template>
@@ -194,15 +170,14 @@ import { mapState } from '@/libs/store';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import paymentsMixin from '@/mixins/payments';
 import notificationsMixin from '@/mixins/notifications';
-import amazonButton from '@/components/payments/amazonButton';
-import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+import paymentsButtons from '@/components/payments/buttons/list';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
   components: {
-    amazonButton,
+    paymentsButtons,
   },
   mixins: [paymentsMixin, notificationsMixin],
   data () {
@@ -223,9 +198,6 @@ export default {
       },
       sendingInProgress: false,
       userReceivingGems: null,
-      icons: Object.freeze({
-        creditCardIcon,
-      }),
     };
   },
   computed: {

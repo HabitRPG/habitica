@@ -193,7 +193,7 @@
     "weaponSpecialSpring2016MageText": "Cajado de Sinos",
     "weaponSpecialSpring2016MageNotes": "Abra-Gata-Bra! Tão deslumbrante, você devia se hipnotizar! Ooh. Ele brilha... Aumenta Inteligência em <%= int %>. e percepção em <%= per %>. Edição Limitada 2016 Equipamento de Primavera.",
     "weaponSpecialSpring2016HealerText": "Varinha de Flor da Primavera",
-    "weaponSpecialSpring2016HealerNotes": "Com o aceno e uma piscada, você faz os campos e florestas florescerem! ou acerta ratos problemáticos na cabeça. Aumenta a inteligência em <%=int%> . Equipamento de Edição Limitada da Primavera 2016.",
+    "weaponSpecialSpring2016HealerNotes": "Com o aceno e uma piscada, você faz os campos e florestas florescerem! ou acerta ratos problemáticos na cabeça. Aumenta a inteligência em <%= int %> . Equipamento de Edição Limitada da Primavera 2016.",
     "weaponSpecialSummer2016RogueText": "Varinha Elétrica",
     "weaponSpecialSummer2016RogueNotes": "Qualquer um que lute contra você receberá uma surpresa chocante... Aumenta Força em <%= str %>. Edição Limitada Equipamento de Verão 2016.",
     "weaponSpecialSummer2016WarriorText": "Espada com Gancho",

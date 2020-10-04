@@ -28,7 +28,7 @@
             role="tabpanel"
           >
             <div
-              v-markdown="$t('webFaqAnswer' + index, replacements)"
+              v-markdown="$t(`webFaqAnswer${index}`, replacements)"
               class="card-body"
             ></div>
           </b-collapse>

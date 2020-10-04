@@ -5,6 +5,7 @@ import t from './translation';
 import { tasksByCategory } from './tasks';
 
 import {
+  EVENTS,
   CLASSES,
   GEAR_TYPES,
   ITEM_LIST,
@@ -29,6 +30,7 @@ import { backgroundsTree, backgroundsFlat } from './appearance/backgrounds';
 import bundles from './bundles';
 import spells from './spells'; // eslint-disable-line import/no-cycle
 import subscriptionBlocks from './subscriptionBlocks';
+import gemsBlock from './gems';
 import faq from './faq';
 import timeTravelers from './time-travelers';
 
@@ -51,6 +53,7 @@ api.itemList = ITEM_LIST;
 api.gear = gear;
 api.spells = spells;
 api.subscriptionBlocks = subscriptionBlocks;
+api.gems = gemsBlock;
 
 api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme', 'maflTheme', 'pizildenTheme', 'farvoidTheme', 'spacePenguinTheme', 'lunasolTheme', 'triumphTheme'];
 
@@ -91,19 +94,9 @@ api.armoire = {
   },
 };
 
-/*
-   ---------------------------------------------------------------
-   Classes
-   ---------------------------------------------------------------
-   */
+api.events = EVENTS;
 
 api.classes = CLASSES;
-
-/*
-   ---------------------------------------------------------------
-   Gear Types
-   ---------------------------------------------------------------
-   */
 
 api.gearTypes = GEAR_TYPES;
 
@@ -192,7 +185,6 @@ api.specialMounts = stable.specialMounts;
 api.mountInfo = stable.mountInfo;
 
 // For seasonal events, change this constant:
-
 const FOOD_SEASON = 'Normal';
 
 api.food = {
