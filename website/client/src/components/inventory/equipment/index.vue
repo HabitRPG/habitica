@@ -144,8 +144,8 @@
               slot="itemBadge"
               slot-scope="context"
             >
-              <starBadge
-                :selected="true"
+              <equip-badge
+                :equipped="true"
                 :show="!costumeMode || user.preferences.costume"
                 @click="equipItem(context.item)"
               />
@@ -189,8 +189,8 @@
                 slot="itemBadge"
                 slot-scope="context"
               >
-                <starBadge
-                  :selected="activeItems[context.item.type] === context.item.key"
+                <equip-badge
+                  :equipped="activeItems[context.item.type] === context.item.key"
                   :show="!costumeMode || user.preferences.costume"
                   @click="equipItem(context.item)"
                 />
@@ -334,7 +334,6 @@ import toggleSwitch from '@/components/ui/toggleSwitch';
 import Item from '@/components/inventory/item';
 import ItemRows from '@/components/ui/itemRows';
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
-import StarBadge from '@/components/ui/starBadge';
 import Drawer from '@/components/ui/drawer';
 
 import i18n from '@/../../common/script/i18n';
@@ -345,6 +344,7 @@ import FilterGroup from '@/components/ui/filterGroup';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import Checkbox from '@/components/ui/checkbox';
 import UnequipDropdown from '@/components/inventory/equipment/unequipDropdown';
+import EquipBadge from '@/components/ui/equipBadge';
 
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -359,6 +359,7 @@ const sortGearTypeMap = {
 export default {
   name: 'Equipment',
   components: {
+    EquipBadge,
     UnequipDropdown,
     Checkbox,
     FilterSidebar,
@@ -366,7 +367,6 @@ export default {
     Item,
     ItemRows,
     EquipmentAttributesPopover,
-    StarBadge,
     Drawer,
     toggleSwitch,
     EquipGearModal,
