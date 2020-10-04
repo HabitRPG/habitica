@@ -336,7 +336,7 @@
     "groupPlanCreated": "<strong><%- groupName %></strong> が作成されました！",
     "onlyGroupLeaderCanInviteToGroupPlan": "有料プランが有効化されているグループには、グループのリーダーだけがユーザーを招待できます。",
     "paymentDetails": "支払いについての詳細",
-    "aboutToJoinCancelledGroupPlan": "あなたはプランが中止されたグループに参加しようとしています。無料の寄付会員特典を得ることはできません。",
+    "aboutToJoinCancelledGroupPlan": "有料プランがキャンセルされたグループに参加しようとしています。参加しても有料プランの特典を無料で受けることはできません。",
     "cannotChangeLeaderWithActiveGroupPlan": "グループにアクティブなプランがある間はリーダーを変更できません。",
     "leaderCannotLeaveGroupWithActiveGroup": "リーダーはアクティブなプランを持つグループから脱退することはできません",
     "youHaveGroupPlan": "あなたはグループプランのメンバーのため、無料で寄付会員特典が受けられます。あなたがもはやグループプランのメンバーではなくなったときに、寄付会員特典は終了します。",
