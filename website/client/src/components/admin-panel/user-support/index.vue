@@ -153,11 +153,9 @@ export default {
       this.hasParty = false;
       this.partyNotExistError = false;
       if (this.hero.party && this.hero.party._id) {
-        let party;
         try {
-          party = await this.$store.dispatch('hall:getHeroParty', { groupId: this.hero.party._id });
+          this.party = await this.$store.dispatch('hall:getHeroParty', { groupId: this.hero.party._id });
           this.hasParty = true;
-          this.party = { ...party };
         } catch (e) {
           // the API's error message isn't worth reporting ("Request failed with status code 404")
           this.partyNotExistError = true;

@@ -195,11 +195,12 @@ api.getHero = {
 
     if (!hero) throw new NotFound(res.t('userWithIDNotFound', { userId: heroId }));
     const heroRes = hero.toJSON({ minimize: true });
-    heroRes.secret = hero.getSecretData();
-
     // supply to the possible absence of hero.contributor
     // if we didn't pass minimize: true it would have returned all fields as empty
     if (!heroRes.contributor) heroRes.contributor = {};
+
+    heroRes.secret = hero.getSecretData();
+
     res.respond(200, heroRes);
   },
 };
@@ -367,7 +368,7 @@ api.getHeroParty = { // @TODO XXX add tests
 
     const { groupId } = req.params;
 
-    const query = { _id: groupId };
+    const query = { _id: groupId, type: 'party' };
 
     const party = await Group
       .findOne(query)
@@ -375,7 +376,7 @@ api.getHeroParty = { // @TODO XXX add tests
       .exec();
 
     if (!party) throw new NotFound(apiError('groupWithIDNotFound', { groupId }));
-    const partyRes = party.toJSON({ minimize: true });
+    const partyRes = party.toJSON();
     res.respond(200, partyRes);
   },
 };

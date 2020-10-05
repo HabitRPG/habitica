@@ -52,7 +52,7 @@ const HeroesPage = () => import(/* webpackChunkName: "hall" */'@/components/hall
 
 // Admin Panel
 const AdminPanelPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel');
-const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel-user" */'@/components/admin-panel/user-support');
+const AdminPanelUserPage = () => import(/* webpackChunkName: "admin-panel" */'@/components/admin-panel/user-support');
 
 // Except for tasks that are always loaded all the other main level
 // All the main level
@@ -351,7 +351,7 @@ const router = new VueRouter({
       children: [
         {
           name: 'adminPanelUser',
-          path: '/admin-panel/:userIdentifier', // User ID or Username
+          path: ':userIdentifier', // User ID or Username
           component: AdminPanelUserPage,
           meta: { requiresAdmin: true },
         },
