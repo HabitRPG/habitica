@@ -27,8 +27,6 @@ describe('POST /news', () => {
   });
 
   it('creates news posts', async () => {
-    const firstResponse = await user.get('/news');
-    const previousCont = firstResponse.length;
     const response = await user.post('/news', newsPost);
 
     expect(response.title).to.equal(newsPost.title);
@@ -37,7 +35,7 @@ describe('POST /news', () => {
     expect(response._id).to.exist;
 
     const res = await user.get('/news');
-    expect(res.length).to.be.equal(previousCont + 1);
+    expect(res[0]._id).to.equal(response._id);
     expect(res[0].title).to.equal(newsPost.title);
     expect(res[0].text).to.equal(newsPost.text);
   });
