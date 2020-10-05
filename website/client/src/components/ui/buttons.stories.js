@@ -83,7 +83,7 @@ stories
     components: { },
     data () {
       return {
-        items: ['one', 'two', 'three']
+        items: ['one', 'two', 'three'],
       };
     },
     template: `      
