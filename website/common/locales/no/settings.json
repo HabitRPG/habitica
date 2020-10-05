@@ -2,7 +2,7 @@
     "settings": "Innstillinger",
     "language": "Språk",
     "americanEnglishGovern": "Om det er ulikheter i oversettelsene, er det Amerikansk Engelsk som gjelder.",
-    "helpWithTranslation": "Vil du hjelpe til med å oversette Habitica? Bra! Besøk <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">dette</a> Trello kortet.",
+    "helpWithTranslation": "Vil du hjelpe til med å oversette Habitica? Flott! Besøk <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists Guild</a>!",
     "stickyHeader": "Header sitter fast",
     "newTaskEdit": "Åpne nye oppgaver i redigeringsmodus",
     "dailyDueDefaultView": "Lag \"må gjøres\" fanen standard",
@@ -46,13 +46,13 @@
     "misc": "Diverse",
     "showHeader": "Vis header",
     "changePass": "Endre passord",
-    "changeUsername": "Change Username",
+    "changeUsername": "Endre Brukernavn",
     "changeEmail": "Endre Epostadresse",
     "newEmail": "Ny Epostadresse",
     "oldPass": "Gammelt passord",
     "newPass": "Nytt passord",
     "confirmPass": "Bekreft passord",
-    "newUsername": "New Username",
+    "newUsername": "Nytt Brukernavn",
     "dangerZone": "Faresone",
     "resetText1": "ADVARSEL! Dette tilbakestiller mange deler av kontoen din. Dette anbefales ikke, men noen finner det nyttig i begynnelsen etter å ha testet ut siden en liten stund.",
     "resetText2": "You will lose all your levels, Gold, and Experience points. All your tasks (except those from challenges) will be deleted permanently and you will lose all of their historical data. You will lose all your equipment but you will be able to buy it all back, including all limited edition equipment or subscriber Mystery items that you already own (you will need to be in the correct class to re-buy class-specific gear). You will keep your current class and your pets and mounts. You might prefer to use an Orb of Rebirth instead, which is a much safer option and which will preserve your tasks and equipment.",
@@ -176,5 +176,6 @@
     "usernameVerifiedConfirmation": "Your username, <%= username %>, is confirmed!",
     "usernameNotVerified": "Please confirm your username.",
     "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
-    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!"
+    "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chatutvidelse</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox Chatutvidelse</a>"
 }

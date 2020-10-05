@@ -48,7 +48,7 @@
     "guildQuestsNotSupported": "Los gremios no pueden ser invitados a misiones.",
     "questNotOwned": "No posees ese pergamino de misión.",
     "questNotGoldPurchasable": "La misión \"<%= key %>\" es una misión no comprable con Oro.",
-    "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
+    "questNotGemPurchasable": "La Misión \"<%= key %>\" no puede ser comprada con Gemas.",
     "questLevelTooHigh": "Debes ser de nivel <%= level %> para empezar esta misión.",
     "questAlreadyUnderway": "Tu equipo ya esta en una misión. Intenta denuevo cuando la misión actual haya terminado.",
     "questAlreadyAccepted": "Ya aceptaste la invitación a la misión.",
@@ -64,7 +64,7 @@
     "questNotPending": "No hay misión activa para empezar.",
     "questOrGroupLeaderOnlyStartQuest": "Solo el lider del grupo o misión puede forzar el inicio de la misión",
     "loginIncentiveQuest": "Para desbloquear esta misión, ¡Ingresa a Habitica en <%= count %> días distintos!",
-    "loginReward": "<%= count %> Check-ins",
+    "loginReward": "<%= count %> Registros",
     "questBundles": "Paquetes de misiones con descuento",
     "noQuestToStart": "¿No puedes encontrar una misión para iniciar? ¡Intenta revisar la Tienda de Misiones en el Mercado  para ver nuevas misiones!",
     "pendingDamage": "<%= damage %> daño pendiente",
@@ -82,5 +82,9 @@
     "chatBossDamage": "<%= username %> ataca a <%= bossName %>, infligiendo <%= userDamage %> de daño. <%= bossName %> ataca al equipo, infligiendo <%= bossDamage %> de daño.",
     "chatQuestStarted": "Tu misión, <%= questName %>, ha comenzado.",
     "hatchingPotionQuests": "Misiones de Pociónes de Eclosión Mágicas",
-    "chatBossDontAttack": "<%= username %> ataca a <%= bossName %> infligiendo <%= userDamage %> de daño. <%= bossName %> no ataca, porque respeta que hay algunos errores después del mantenimiento , y no quiere herir a nadie injustamente. Continuará su furia pronto!"
+    "chatBossDontAttack": "<%= username %> ataca a <%= bossName %> infligiendo <%= userDamage %> de daño. <%= bossName %> no ataca, porque respeta que hay algunos errores después del mantenimiento , y no quiere herir a nadie injustamente. Continuará su furia pronto!",
+    "questAlreadyStartedFriendly": "La misión ya ha comenzado, ¡pero siempre puedes participar en la próxima!",
+    "questAlreadyStarted": "La misión ya ha comenzado.",
+    "bossDamage": "¡Hiciste daño al jefe!",
+    "questInvitationNotificationInfo": "Fuiste invitado a unirte a una misión"
 }
