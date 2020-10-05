@@ -80,6 +80,11 @@
   margin: 0 auto;
 }
 
+.drawer-content .item.item-empty:hover {
+  border-color: transparent;
+  box-shadow: none;
+}
+
 .item .item-content {
   margin: auto;
   display: block;
