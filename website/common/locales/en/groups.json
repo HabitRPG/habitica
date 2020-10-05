@@ -77,7 +77,6 @@
   "guildBankPop2": "Gems which your guild leader can use for challenge prizes.",
   "guildGems": "Guild Gems",
   "group": "Group",
-  "groupPlans": "Group Plans",
   "editGroup": "Edit Group",
   "newGroupName": "<%= groupType %> Name",
   "groupName": "Group Name",
