@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 
 import ChatCard from '@/components/chat/chatCard.vue';
@@ -5,6 +6,7 @@ import Store from '@/libs/store';
 
 const localVue = createLocalVue();
 localVue.use(Store);
+localVue.use(Vue.directive('b-tooltip', {}));
 
 describe('ChatCard', () => {
   function createMessage (text) {

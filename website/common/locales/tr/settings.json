@@ -178,5 +178,7 @@
     "changeUsernameDisclaimer": "Yakında giriş adlarını özgün ve aleni kullanıcı adlarına dönüştüreceğiz. Bu kullanıcı adı davetler, sohbetlerdeki @bahisler ve mesajlaşmalar için kullanılacak.",
     "verifyUsernameVeteranPet": "Onayladıktan sonra bu Kıdemli Hayvanlardan biri seni bekliyor olacak!",
     "newPMNotificationTitle": "<%= name %> 'den yeni mesaj",
-    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'> Chrome Sohbet Eklentisi</a> ve <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'> Firefox Sohbet Eklentisi </a>"
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'> Chrome Sohbet Eklentisi</a> ve <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'> Firefox Sohbet Eklentisi </a>",
+    "subscriptionReminders": "Abonelik Anımsatıcıları",
+    "resetAccount": "Hesabı Sıfırla"
 }

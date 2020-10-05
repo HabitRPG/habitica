@@ -290,5 +290,10 @@
     "selected": "Seçilmiş",
     "howManyToBuy": "Kaç tane satın almak istersin?",
     "habiticaHasUpdated": "Yeni bir Habitica güncellemesi var. En son sürümü kullanmak için sayfayı yenile!",
-    "contactForm": "Moderasyon Takımı ile İletişime Geç"
+    "contactForm": "Moderasyon Takımı ile İletişime Geç",
+    "loadEarlierMessages": "Önceki Mesajları Yükle",
+    "congratulations": "Tebrikler!",
+    "onboardingAchievs": "İlk Katılım Başarıları",
+    "options": "Seçenekler",
+    "finish": "Bitiş"
 }
