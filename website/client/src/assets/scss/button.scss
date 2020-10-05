@@ -30,6 +30,12 @@
     cursor: default;
     opacity: 0.75;
   }
+
+  &.with-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 .btn-front {
