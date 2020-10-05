@@ -208,7 +208,7 @@ export default {
   },
   data () {
     return {
-      open: true,
+      isOpened: true,
       icons: Object.freeze({
         expand: expandIcon,
         minimize: minimizeIcon,
@@ -219,13 +219,17 @@ export default {
     isOpen () {
       // Open status is a number so we can tell if the value was passed
       if (this.openStatus !== undefined) return this.openStatus === 1;
-      return this.open;
+      return this.isOpened;
     },
   },
   methods: {
     toggle () {
-      this.open = !this.isOpen;
-      this.$emit('toggled', this.open);
+      this.isOpened = !this.isOpen;
+      this.$emit('toggled', this.isOpened);
+    },
+    open () {
+      this.isOpened = true;
+      this.$emit('toggled', this.isOpened);
     },
   },
 };

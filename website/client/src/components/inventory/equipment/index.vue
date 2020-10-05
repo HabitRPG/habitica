@@ -553,6 +553,7 @@ export default {
         this.costumeMode = false;
       }
       setLocalSetting(CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB, tabNameValue);
+      this.$store.state.equipmentDrawerOpen = true;
     },
     openEquipDialog (item) {
       this.gearToEquip = item;

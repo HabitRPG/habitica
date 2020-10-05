@@ -805,9 +805,6 @@ export default {
 
       return groupBy(mounts, groupKey);
     },
-    hasDrawerTabItems (index) {
-      return this.drawerTabs && this.drawerTabs[index].items.length !== 0;
-    },
     // Actions
     updateHideMissing (newVal) {
       this.hideMissing = newVal;

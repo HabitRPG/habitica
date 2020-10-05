@@ -3,6 +3,7 @@
     class="inventoryDrawer"
     :no-title-bottom-padding="true"
     :error-message="inventoryDrawerErrorMessage(selectedDrawerItemType)"
+    ref="drawer"
   >
     <div slot="drawer-title-row" class="title-row-tabs">
       <div class="drawer-tab" v-for="(tab, index) of filteredTabs"
@@ -10,7 +11,7 @@
         <a
           class="drawer-tab-text"
           :class="{'drawer-tab-text-active': filteredTabs[selectedDrawerTab].key === tab.key}"
-          @click.prevent.stop="tabSelected(index)"
+          @click.prevent.stop="tabSelected(index); $refs.drawer.open();"
         >{{ tab.label }}</a>
       </div>
     </div>
