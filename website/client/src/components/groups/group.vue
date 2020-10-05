@@ -498,7 +498,8 @@ export default {
     if (!this.searchId) this.searchId = this.groupId;
     await this.fetchGuild();
     this.$store.dispatch('common:setTitle', {
-      section: this.group.name,
+      section: this.t$('groupPlans'),
+      subSection:this.group.name,
     });
     this.$root.$on('updatedGroup', this.onGroupUpdate);
   },
