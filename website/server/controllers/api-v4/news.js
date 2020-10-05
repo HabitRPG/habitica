@@ -15,14 +15,19 @@ const api = {};
  */
 
 /**
- * @api {get} /api/v4/news Get latest Bailey announcement
+ * @apiDefine NewsPostNotFound
+ * @apiError (404) {NotFound} NewsPostNotFound The specified news post could not be found.
+ */
+
+/**
+ * @api {get} /api/v4/news Get latest Bailey announcements
  * @apiName GetNews
  * @apiGroup News
  *
  * @apiParam (Query) {Number} [page] This parameter can be used to specify the page number
  *           (the initial page is number 0 and not required).
  *
- * @apiSuccess {Object} html Latest Bailey html
+ * @apiSuccess {Array} Data An array of Bailey posts
  *
  */
 api.getNews = {
@@ -35,21 +40,23 @@ api.getNews = {
   async handler (req, res) {
     const { user } = res.locals;
     const { page } = req.query;
+
     let isNewsPoster = false;
     if (user) {
       isNewsPoster = user.isNewsPoster();
     }
+
     const results = await NewsPost.getNews(isNewsPoster, { page });
     res.respond(200, results);
   },
 };
 
 /**
- * @api {post} /api/v4/news create a new news post
+ * @api {post} /api/v4/news Create a new news post
  * @apiName CreateNewsPost
  * @apiGroup News
  *
- * @apiSuccess {Object} data The create news post (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/newsPost.js" target="_blank">/website/server/models/newsPost.js</a>)
+ * @apiSuccess {Object} data The created news post (See <a href="https://github.com/HabitRPG/habitica/blob/develop/website/server/models/newsPost.js" target="_blank">/website/server/models/newsPost.js</a>)
  *
  * @apiSuccessExample {json} Post:
  *     HTTP/1.1 200 OK
@@ -76,7 +83,7 @@ api.createNews = {
 };
 
 /**
- * @api {get} /api/v4/news/:postId get news post
+ * @api {get} /api/v4/news/:postId Get a specific news post
  * @apiName GetNewsPost
  * @apiGroup News
  *
@@ -92,6 +99,7 @@ api.createNews = {
  *     }
  *
  * @apiUse postIdRequired
+ * @apiUse NewsPostNotFound
  *
  */
 api.getPost = {
@@ -115,7 +123,7 @@ api.getPost = {
 };
 
 /**
- * @api {put} /api/v4/news/:postId Update news post
+ * @api {put} /api/v4/news/:postId Update a news post
  * @apiName UpdateNewsPost
  * @apiGroup News
  *
@@ -131,6 +139,7 @@ api.getPost = {
  *     }
  *
  * @apiUse postIdRequired
+ * @apiUse NewsPostNotFound
  *
  * @apiPermission NewsPoster
  */
@@ -156,15 +165,16 @@ api.updateNews = {
 };
 
 /**
- * @api {delete} /api/v4/news/:postId delete news post
+ * @api {delete} /api/v4/news/:postId Delete a news post
  * @apiName DeleteNewsPost
  * @apiGroup News
  *
  * @apiParam (Path) {String} postId The posts _id
  *
- * @apiSuccess {Object} data An empty Object
+ * @apiSuccess {Object} data An empty object
  *
  * @apiUse postIdRequired
+ * @apiUse NewsPostNotFound
  *
  * @apiPermission NewsPoster
  */
@@ -187,12 +197,11 @@ api.deleteNews = {
 };
 
 /**
- * @api {post} /api/v4/news/read Mark latest Bailey announcement as read
+ * @api {post} /api/v4/news/read Mark the latest Bailey announcement as read
  * @apiName MarkNewsRead
  * @apiGroup News
  *
  * @apiSuccess {Object} data An empty Object
- *
  */
 api.markNewsRead = {
   method: 'POST',
