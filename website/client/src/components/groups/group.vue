@@ -66,7 +66,7 @@
                 class="item-with-icon"
                 tabindex="0"
                 role="button"
-                @keyup.enter="showMemberModal()"
+                @keyup.enter="showGroupGems()"
                 @click="showGroupGems()"
               >
                 <div
