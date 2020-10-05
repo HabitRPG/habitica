@@ -28,15 +28,12 @@
           </label>
         </div>
         <div class="form-group">
-          <div class="form-inline">
-            <label>Title</label>
-            <input
-              v-model="hero.contributor.text"
-              class="form-control"
-              type="text"
-              :style="{ 'min-width': '50ch' }"
-            >
-          </div>
+          <label>Title</label>
+          <input
+            v-model="hero.contributor.text"
+            class="form-control textField"
+            type="text"
+          >
           <small>
             Common titles:
             <strong>Ambassador, Artisan, Bard, Blacksmith, Challenger, Comrade, Fletcher,
@@ -51,9 +48,8 @@
           <label>Tier</label>
           <input
             v-model="hero.contributor.level"
-            class="form-control"
+            class="form-control levelField"
             type="number"
-            :style="{ 'width': '10ch' }"
           >
           <small>
             1-7 for normal contributors, 8 for moderators, 9 for staff.
@@ -96,6 +92,15 @@
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .levelField {
+    min-width: 10ch;
+  }
+  .textField {
+    min-width: 50ch;
+  }
+</style>
 
 <script>
 import markdownDirective from '@/directives/markdown';

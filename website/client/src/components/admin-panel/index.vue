@@ -3,20 +3,19 @@
     v-if="user.contributor.admin"
     class="row standard-page"
   >
-    <div class="well">
+    <div class="well col-12">
       <h1>Admin Panel</h1>
 
-      <div class="row">
+      <div>
         <form
           class="form-inline"
           @submit.prevent="loadHero(userIdentifier)"
         >
           <input
             v-model="userIdentifier"
-            class="form-control"
+            class="form-control uidField"
             type="text"
             :placeholder="'User ID or Username; blank for your account'"
-            :style="{ 'min-width': '45ch' }"
           >
           <input
             type="submit"
@@ -26,12 +25,18 @@
         </form>
       </div>
 
-      <div class="row">
+      <div>
         <router-view @changeUserIdentifier="changeUserIdentifier" />
       </div>
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .uidField {
+    min-width: 45ch;
+  }
+</style>
 
 <script>
 import VueRouter from 'vue-router';
