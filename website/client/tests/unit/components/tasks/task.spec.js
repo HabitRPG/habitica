@@ -79,10 +79,17 @@ describe('Task', () => {
     });
 
     it('formats due date to tomorrow if today but before dayStart', () => {
-      const now = setClockTo('2019-06-12T04:23:37+02:00');
+      const now = setClockTo('2019-06-12T04:23:37+07:00');
       wrapper = makeWrapper({ date: now.add(8, 'hours') }, { preferences: { dayStart: 7 } });
 
       expect(wrapper.vm.formatDueDate()).to.equal('dueIn{"dueIn":"in a day"}');
+    });
+
+    it('formats due date to today if due tomorrow before dayStart', () => {
+      const now = setClockTo('2017-07-02T20:21:27Z');
+      wrapper = makeWrapper({ date: now.add(5, 'hours') }, { preferences: { dayStart: 5 } });
+
+      expect(wrapper.vm.formatDueDate()).to.equal('dueIn{"dueIn":"today"}');
     });
   });
 });

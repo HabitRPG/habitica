@@ -1071,8 +1071,10 @@ export default {
       this.scoreChecklistItem({ taskId: this.task._id, itemId: item.id });
     },
     calculateTimeTillDue () {
-      const endOfToday = moment().subtract(this.user.preferences.dayStart, 'hours').endOf('day');
-      const endOfDueDate = moment(this.task.date).endOf('day');
+      const endOfDay = time => time.subtract(this.user.preferences.dayStart, 'hours').endOf('day');
+
+      const endOfToday = endOfDay(moment());
+      const endOfDueDate = endOfDay(moment(this.task.date));
 
       return moment.duration(endOfDueDate.diff(endOfToday));
     },
