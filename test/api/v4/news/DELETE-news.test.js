@@ -1,5 +1,7 @@
+import { v4 } from 'uuid';
 import {
   generateUser,
+  translate as t,
 } from '../../../helpers/api-integration/v4';
 
 describe('DELETE /news/:newsID', () => {
@@ -19,10 +21,18 @@ describe('DELETE /news/:newsID', () => {
 
   it('disallows access to non-newsPosters', async () => {
     const nonAdminUser = await generateUser({ 'contributor.newsPoster': false });
-    await expect(nonAdminUser.post('/news')).to.eventually.be.rejected.and.eql({
+    await expect(nonAdminUser.del(`/news/${v4()}`)).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
       message: 'You don\'t have news poster access.',
+    });
+  });
+
+  it('returns an error if the post does not exist', async () => {
+    await expect(user.del(`/news/${v4()}`)).to.eventually.be.rejected.and.eql({
+      code: 404,
+      error: 'NotFound',
+      message: t('newsPostNotFound'),
     });
   });
 

@@ -498,11 +498,11 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
 };
 
 schema.methods.isAdmin = function isAdmin () {
-  return this.contributor && this.contributor.admin;
+  return Boolean(this.contributor && this.contributor.admin);
 };
 
 schema.methods.isNewsPoster = function isNewsPoster () {
-  return this.contributor && this.contributor.newsPoster;
+  return Boolean(this.contributor && this.contributor.newsPoster);
 };
 
 // When converting to json add inbox messages from the Inbox collection

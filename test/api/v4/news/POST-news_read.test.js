@@ -16,5 +16,7 @@ describe('POST /news/read', () => {
     await user.sync();
 
     expect(user.flags.lastNewStuffRead).to.equal('1234');
+    // fetching the user because newStuff is a computed property
+    expect((await user.get('/user')).flags.newStuff).to.equal(false);
   });
 });

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { model as User } from '../../../../website/server/models/user';
+import { model as NewsPost } from '../../../../website/server/models/newsPost';
 import { model as Group } from '../../../../website/server/models/group';
 import common from '../../../../website/common';
 
@@ -825,6 +826,45 @@ describe('User Model', () => {
       const { daysMissed } = user.daysUserHasMissed(today, req);
 
       expect(daysMissed).to.eql(0);
+    });
+  });
+
+  it('isNewsPoster', async () => {
+    const user = new User();
+    await user.save();
+
+    expect(user.isNewsPoster()).to.equal(false);
+
+    user.contributor.newsPoster = true;
+    expect(user.isNewsPoster()).to.equal(true);
+  });
+
+  describe('checkNewStuff', () => {
+    let user;
+
+    beforeEach(() => {
+      user = new User();
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('no last news post', () => {
+      sandbox.stub(NewsPost, 'lastNewsPost').returns(null);
+      expect(user.checkNewStuff()).to.equal(false);
+    });
+
+    it('last news post read', () => {
+      sandbox.stub(NewsPost, 'lastNewsPost').returns({ _id: '123' });
+      user.flags.lastNewStuffRead = '123';
+      expect(user.checkNewStuff()).to.equal(false);
+    });
+
+    it('last news post not read', () => {
+      sandbox.stub(NewsPost, 'lastNewsPost').returns({ _id: '123' });
+      user.flags.lastNewStuffRead = '124';
+      expect(user.checkNewStuff()).to.equal(true);
     });
   });
 });

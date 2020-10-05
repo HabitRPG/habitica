@@ -18,6 +18,8 @@ describe('POST /news/tell-me-later', () => {
     await user.sync();
 
     expect(user.flags.lastNewStuffRead).to.equal('1234');
+    // fetching the user because newStuff is a computed property
+    expect((await user.get('/user')).flags.newStuff).to.equal(false);
     expect(user.notifications.length).to.equal(initialNotifications + 1);
 
     const notification = user.notifications[user.notifications.length - 1];
