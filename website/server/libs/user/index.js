@@ -6,6 +6,7 @@ import {
   NotAuthorized,
 } from '../errors';
 import { model as User, schema as UserSchema } from '../../models/user';
+import { model as NewsPost } from '../../models/newsPost';
 import { nameContainsSlur, nameContainsNewline } from './validation';
 
 export async function get (req, res, { isV3 = false }) {
@@ -54,7 +55,6 @@ const updatablePaths = [
   'profile',
   'stats',
   'inbox.optOut',
-  'tags',
 ];
 
 // This tells us for which paths users can call `PUT /user`.
@@ -121,9 +121,7 @@ export async function update (req, res, { isV3 = false }) {
       throw new NotAuthorized(res.t('mustPurchaseToSet', { val, key }));
     }
 
-    if (acceptablePUTPaths[key] && key !== 'tags') {
-      _.set(user, key, val);
-    } else if (key === 'tags') {
+    if (key === 'tags') {
       if (!Array.isArray(val)) throw new BadRequest('mustBeArray');
 
       const removedTagsIds = [];
@@ -160,6 +158,15 @@ export async function update (req, res, { isV3 = false }) {
           tags: tagId,
         },
       }, { multi: true }).exec());
+    } else if (key === 'flags.newStuff' && isV3 !== false) {
+      // flags.newStuff was removed from the user schema and is only returned for compatibility
+      // reasons but we're keeping the ability to set it in API v3
+      const lastNewsPost = NewsPost.lastNewsPost();
+      if (lastNewsPost) {
+        user.flags.lastNewStuffRead = lastNewsPost._id;
+      }
+    } else if (acceptablePUTPaths[key]) {
+      _.set(user, key, val);
     } else {
       throw new NotAuthorized(res.t('messageUserOperationProtected', { operation: key }));
     }
