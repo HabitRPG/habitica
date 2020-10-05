@@ -158,7 +158,7 @@
     "subscribersReceiveBenefits": "有料会員はこれらの有益な特典を受けられます！",
     "cancelYourSubscription": "有料プランをキャンセルしますか？",
     "needToUpdateCard": "カードを更新する必要がありますか？",
-    "subscriptionInactiveDate": "あなたの寄付会員特典は<strong><%= date %></strong>に無効になります",
+    "subscriptionInactiveDate": "有料プランの特典は<strong><%= date %></strong>に無効になります",
     "youAreSubscribed": "あなたはHabiticaの有料プランに加入しています",
     "readyToResubscribe": "有料プランを再開する準備ができましたか？",
     "subscriptionCanceled": "有料プランはキャンセルされました",
