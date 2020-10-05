@@ -22,7 +22,7 @@
     border-color: $purple-400;
   }
 
-  &:active, &.active:not(.btn-flat), &:disabled, &.disabled {
+  &:active, &.active:not(.btn-flat) {
     box-shadow: none;
   }
 
