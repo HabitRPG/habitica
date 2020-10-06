@@ -121,7 +121,7 @@ export default {
   watch: {
     userIdentifier () {
       // close modal if the page is opened in an existing tab from the modal
-      this.$root.$emit('habitica::dismiss-modal', 'profile');
+      this.$root.$emit('bv::hide::modal', 'profile');
 
       this.loadHero(this.userIdentifier);
     },

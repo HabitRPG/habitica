@@ -45,8 +45,6 @@ import { mapState } from '@/libs/store';
 const { isNavigationFailure, NavigationFailureType } = VueRouter;
 
 export default {
-  components: {
-  },
   data () {
     return {
       userIdentifier: '',
