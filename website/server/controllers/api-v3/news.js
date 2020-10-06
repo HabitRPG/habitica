@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR SEPTEMBER DEALS! FALL AVATAR CUSTOMIZATIONS! COSTUME CHALLENGE!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW BACKGROUNDS AND ARMOIRE ITEMS! PLUS, SPOOKY SPARKLES IN THE SEASONAL SHOP!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,52 +31,41 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/29/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/1/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_mystery_202009 center-block"></div>
-        <h3>Last Chance for Marvelous Moth Set</h3>
+        <div class="promo_armoire_backgrounds_202010 center-block"></div>
+        <h3>October Backgrounds and Armoire Items!</h3>
         <p>
-          Reminder: this is the last day to receive the Marvelous Moth Set when you <a
-          href='/user/settings/subscription'>sign up for a new Habitica subscription</a>!
-          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
-          you can get!
-        </p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-        <h3>Last Chance to Get In On the Fall Gem Sale!</h3>
-        <p>
-          Don't forget, our special Fall Gem Sale ends on Sept 30. Bonus Gems are included with
-          every Gem purchase until the sale ends. Be sure to stock up now so you have plenty of
-          Gems for Gala goodies, Quests, and more!
-        </p>
-        <div class="promo_fall_customizations center-block"></div>
-        <h3>Supernatural Skins and Haunted Hair Colors</h3>
-        <p>
-          The Seasonal Edition Haunted Hair Colors are now available for purchase! Now you can dye
-          your avatar's hair Pumpkin, Midnight, Candy Corn, Ghost White, Zombie, or Halloween. Get
-          them before October 31st!
+          We’ve added three new backgrounds to the Background Shop! Now your avatar can dare to
+          visit a Haunted Forest, brave the Spooky Scarecrow Field, or bask in the glow of the
+          Crescent Moon. Check them out under User Icon > Backgrounds on web and Menu > Inventory >
+          Customize Avatar on mobile!
         </p>
         <p>
-          The Supernatural Skin Set is also available until October 31st! Now your avatar can
-          become an Ogre, Skeleton, Pumpkin, Candy Corn, Reptile, or Dread Shade.
+          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
+          Autumn Enchanter Set. Better work hard on your real-life tasks to earn all the pieces!
+          Enjoy :)
+        </p>
+        <div class="small mb-3">by AnnDeLune and SabreCat</div>
+        <div class="promo_spooky_sparkles center-block"></div>
+        <h3>Spooky Sparkles in Seasonal Shop</h3>
+        <p>
+          There's a new Gold-purchasable item in the <a href='/shops/seasonal'>Seasonal Shop</a>:
+          Spooky Sparkles! Buy some and then cast it on your friends. I wonder what it will do?
         </p>
         <p>
-          Seasonal Edition items recur unchanged every year, but they are only available to
-          purchase during a short period of time. Find these exciting skins and hair colors in Menu
-          > Customize Avatar. Get them now, or you'll have to wait until next year!
+          If you have Spooky Sparkles cast on you, you will receive the "Alarming Friends" badge!
+          Don't worry, any mysterious effects will wear off the next day.... or you can cancel them
+          early by buying an Opaque Potion!
         </p>
-        <div class="small mb-3">by Lemoness, mariahm, and crystalphoenix</div>
-        <div class="achievement-costumeContest2x center-block"></div>
-        <h3>Official Habitica Costume Challenge!</h3>
         <p>
-          The Community Costume Challenge has begun! Between now and October 31st, dress up as your
-          avatar in real life and post a photo on social media to get the coveted Costume Challenge
-          badge and a chance to be featured on Habitica's social media accounts! Read the full
-          rules on <a href='/challenges/39539048-3cf0-4e65-bb05-c8294a64eed3'>the Challenge page</a>.
+          While you're at it, be sure to check out all the other items in the Seasonal Shop! There
+          are lots of equipment items from the previous Fall Festivals. The Seasonal Shop will only
+          be open until October 31st, so stock up now.
         </p>
-        <div class="small mb-3">by Beffymaroo</div>
+        <div class="small mb-3">by Lemoness and SabreCat</div>
       </div>
       `,
     });
