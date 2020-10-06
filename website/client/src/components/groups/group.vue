@@ -10,7 +10,7 @@
     <group-gems-modal />
     <div class="col-12 col-sm-8 standard-page">
       <div class="row">
-        <div class="col-12 col-md-6 title-details">
+        <div class="col-12 col-md-4 title-details">
           <h1>{{ group.name }}</h1>
           <div>
             <span class="mr-1 ml-0">
@@ -22,40 +22,36 @@
             </span>
           </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-8">
           <div class="row icon-row">
             <div
-              :class="{ 'offset-8': isParty }"
+              class="item-with-icon"
+              tabindex="0"
+              role="button"
+              @keyup.enter="showMemberModal()"
+              @click="showMemberModal()"
             >
               <div
-                class="item-with-icon"
-                tabindex="0"
-                role="button"
-                @keyup.enter="showMemberModal()"
-                @click="showMemberModal()"
+                v-if="group.memberCount > 1000"
+                class="svg-icon shield"
+                v-html="icons.goldGuildBadgeIcon"
+              ></div>
+              <div
+                v-if="group.memberCount > 100 && group.memberCount < 999"
+                class="svg-icon shield"
+                v-html="icons.silverGuildBadgeIcon"
+              ></div>
+              <div
+                v-if="group.memberCount < 100"
+                class="svg-icon shield"
+                v-html="icons.bronzeGuildBadgeIcon"
+              ></div>
+              <span class="number">{{ group.memberCount | abbrNum }}</span>
+              <div
+                v-once
+                class="member-list label"
               >
-                <div
-                  v-if="group.memberCount > 1000"
-                  class="svg-icon shield"
-                  v-html="icons.goldGuildBadgeIcon"
-                ></div>
-                <div
-                  v-if="group.memberCount > 100 && group.memberCount < 999"
-                  class="svg-icon shield"
-                  v-html="icons.silverGuildBadgeIcon"
-                ></div>
-                <div
-                  v-if="group.memberCount < 100"
-                  class="svg-icon shield"
-                  v-html="icons.bronzeGuildBadgeIcon"
-                ></div>
-                <span class="number">{{ group.memberCount | abbrNum }}</span>
-                <div
-                  v-once
-                  class="member-list label"
-                >
-                  {{ $t('memberList') }}
-                </div>
+                {{ $t('memberList') }}
               </div>
             </div>
             <div
@@ -230,7 +226,7 @@
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 1em;
     text-align: center;
-    min-width: 100px;
+    min-width: 120px;
     height: 76px;
 
     &:last-of-type {
