@@ -156,6 +156,19 @@ export default function randomDrop (user, options, req = {}, analytics) {
     user.items.lastDrop.date = Number(new Date());
     user.items.lastDrop.count += 1;
 
+    const dropN = user.items.lastDrop.count;
+    const dropCapReached = dropN === maxDropCount;
+
+    if (dropCapReached && user.addNotification) {
+      const prevNotifIndex = user.notifications.findIndex(n => n.type === 'DROP_CAP_REACHED');
+      if (prevNotifIndex !== -1) user.notifications.splice(prevNotifIndex, 1);
+
+      user.addNotification('DROP_CAP_REACHED', {
+        message: i18n.t('dropCapReached', req.language),
+        items: dropN,
+      });
+    }
+
     if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
       analytics.track('dropped item', {
         uuid: user._id,
@@ -165,7 +178,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
         headers: req.headers,
       });
 
-      if (user.items.lastDrop.count === maxDropCount) {
+      if (dropCapReached) {
         analytics.track('drop cap reached', {
           uuid: user._id,
           dropCap: maxDropCount,
