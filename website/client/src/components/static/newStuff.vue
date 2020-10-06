@@ -1,5 +1,7 @@
 <template>
-  <news-content ref="newsContent" />
+  <div class="p-2">
+    <news-content ref="newsContent" />
+  </div>
 </template>
 
 <script>

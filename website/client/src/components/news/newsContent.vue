@@ -99,7 +99,8 @@ export default {
       return habiticaMarkdown.unsafeHTMLRender(text);
     },
     getPostDate (post) {
-      return moment(post.publishedDate).format(this.user.preferences.dateFormat.toUpperCase());
+      const format = this.user ? this.user.preferences.dateFormat.toUpperCase() : 'MM/DD/yyyy';
+      return moment(post.publishedDate).format(format);
     },
   },
 };
