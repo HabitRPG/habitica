@@ -1,3 +1,4 @@
+import md from 'habitica-markdown';
 import { authWithHeaders } from '../../middlewares/auth';
 import { model as NewsPost } from '../../models/newsPost';
 
@@ -35,9 +36,8 @@ api.getNews = {
             </div>
           </div>
           <hr/>
-          <div class="promo_armoire_backgrounds_202005 center-block"></div>
           <p>
-            ${lastNewsPost.text}
+            ${md.unsafeHTMLRender(lastNewsPost.text)}
           </p>
           <div class="small">
             by ${lastNewsPost.credits}
