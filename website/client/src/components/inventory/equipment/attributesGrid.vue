@@ -26,7 +26,7 @@
         <span
           class="popover-content-attr-cell label bold"
           :class="{'hasValue': hasClassBonus(attr) }"
-        >{{ $t('equipBonus') }}:</span>
+        >{{ $t('classEquipBonus') }}:</span>
         <span
           class="popover-content-attr-cell label"
           :class="{'hasValue': hasClassBonus(attr) }"
