@@ -3,6 +3,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../helpers/api-integration/v4';
+import { model as NewsPost } from '../../../../website/server/models/newsPost';
 
 describe('PUT /news/:newsID', () => {
   let user;
@@ -47,5 +48,51 @@ describe('PUT /news/:newsID', () => {
     expect(updatedPost.text).to.equal(existingPost.text);
     expect(updatedPost.published).to.equal(existingPost.published);
     expect(updatedPost._id).to.equal(existingPost._id);
+  });
+
+  context('calls updateLastNewsPost', () => {
+    beforeEach(async () => {
+      NewsPost.remove({ });
+    });
+
+    it('updates post data', async () => {
+      const existingPost = await user.post('/news', newsPost);
+      const updatedPost = await user.put(`/news/${existingPost._id}`, {
+        title: 'Changed Title',
+      });
+
+      expect(NewsPost.lastNewsPost().title).to.equal(updatedPost.title);
+    });
+
+    it('updated post is not published', async () => {
+      const oldPost = await user.post('/news', { ...newsPost, publishDate: new Date() });
+      const newUnpublished = await user.post('/news', { ...newsPost, published: false });
+      await user.put(`/news/${newUnpublished._id}`, {
+        title: 'Changed Title',
+      });
+
+      expect(NewsPost.lastNewsPost()._id).to.equal(oldPost._id);
+    });
+
+    it('updated post is published', async () => {
+      await user.post('/news', { ...newsPost, publishDate: new Date() });
+      const newUnpublished = await user.post('/news', { ...newsPost, published: false, publishDate: new Date() });
+      await user.put(`/news/${newUnpublished._id}`, {
+        publishDate: new Date(),
+        published: true,
+      });
+
+      expect(NewsPost.lastNewsPost()._id).to.equal(newUnpublished._id);
+    });
+
+    it('updated post publishDate is in future', async () => {
+      const oldPost = await user.post('/news', { ...newsPost, publishDate: new Date() });
+      const newUnpublished = await user.post('/news', newsPost);
+      await user.put(`/news/${newUnpublished._id}`, {
+        publishDate: Date.now() + 50000,
+      });
+
+      expect(NewsPost.lastNewsPost()._id).to.equal(oldPost._id);
+    });
   });
 });

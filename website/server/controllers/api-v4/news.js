@@ -78,7 +78,7 @@ api.createNews = {
 
     res.respond(201, newsPost);
 
-    if (newsPost.published) NewsPost.updateLastNewsPost(newsPost);
+    NewsPost.updateLastNewsPost(newsPost);
   },
 };
 
@@ -160,7 +160,7 @@ api.updateNews = {
 
     res.respond(200, savedPost);
 
-    if (newsPost.published) NewsPost.updateLastNewsPost(newsPost);
+    NewsPost.updateLastNewsPost(newsPost);
   },
 };
 

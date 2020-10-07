@@ -64,9 +64,13 @@ schema.statics.lastNewsPost = function lastNewsPost () {
 };
 
 schema.statics.updateLastNewsPost = function updateLastNewsPost (newPost) {
+  const isSame = !cachedLastNewsPost ? false : cachedLastNewsPost._id === newPost._id;
+  const isPublished = newPost.published;
+  const isNewer = !cachedLastNewsPost ? true : cachedLastNewsPost.publishDate < newPost.publishDate;
+  const isInFuture = newPost.publishDate > (new Date());
   if (
-    (!cachedLastNewsPost || cachedLastNewsPost._id !== newPost._id)
-    && (!cachedLastNewsPost || cachedLastNewsPost.publishDate < newPost.publishDate)
+    isSame // if the same post it could have been updated
+    || (isPublished && isNewer && !isInFuture)
   ) {
     cachedLastNewsPost = newPost;
   }
@@ -83,7 +87,7 @@ function getAndUpdateLastNewsPost () {
 }
 
 export function refreshNewsPost (interval) {
-  setInterval(() => getAndUpdateLastNewsPost(), interval);
+  return setInterval(() => getAndUpdateLastNewsPost(), interval);
 }
 
 // Fetches the last news post and refresh it every 5 minutes
