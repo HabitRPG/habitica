@@ -2,6 +2,7 @@ import { v4 } from 'uuid';
 import {
   generateUser,
   translate as t,
+  sleep,
 } from '../../../helpers/api-integration/v4';
 import { model as NewsPost } from '../../../../website/server/models/newsPost';
 
@@ -52,14 +53,15 @@ describe('PUT /news/:newsID', () => {
 
   context('calls updateLastNewsPost', () => {
     beforeEach(async () => {
-      NewsPost.remove({ });
+      await NewsPost.remove({ });
     });
 
     it('updates post data', async () => {
-      const existingPost = await user.post('/news', newsPost);
+      const existingPost = await user.post('/news', { ...newsPost, publishDate: new Date() });
       const updatedPost = await user.put(`/news/${existingPost._id}`, {
         title: 'Changed Title',
       });
+      await sleep(0.05);
 
       expect(NewsPost.lastNewsPost().title).to.equal(updatedPost.title);
     });
@@ -70,6 +72,7 @@ describe('PUT /news/:newsID', () => {
       await user.put(`/news/${newUnpublished._id}`, {
         title: 'Changed Title',
       });
+      await sleep(0.05);
 
       expect(NewsPost.lastNewsPost()._id).to.equal(oldPost._id);
     });
@@ -81,6 +84,7 @@ describe('PUT /news/:newsID', () => {
         publishDate: new Date(),
         published: true,
       });
+      await sleep(0.05);
 
       expect(NewsPost.lastNewsPost()._id).to.equal(newUnpublished._id);
     });
@@ -91,6 +95,7 @@ describe('PUT /news/:newsID', () => {
       await user.put(`/news/${newUnpublished._id}`, {
         publishDate: Date.now() + 50000,
       });
+      await sleep(0.05);
 
       expect(NewsPost.lastNewsPost()._id).to.equal(oldPost._id);
     });

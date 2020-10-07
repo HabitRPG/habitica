@@ -1,6 +1,7 @@
 import moment from 'moment';
 import {
   generateUser,
+  sleep,
 } from '../../../helpers/api-integration/v4';
 import { model as NewsPost } from '../../../../website/server/models/newsPost';
 
@@ -44,7 +45,7 @@ describe('POST /news', () => {
 
   context('calls updateLastNewsPost', () => {
     beforeEach(async () => {
-      NewsPost.remove({ });
+      await NewsPost.remove({ });
     });
 
     afterEach(async () => {
@@ -55,24 +56,29 @@ describe('POST /news', () => {
     it('new post is published and the most recent one', async () => {
       newsPost.publishDate = new Date();
       const newPost = await user.post('/news', newsPost);
+      await sleep(0.05);
       expect(NewsPost.lastNewsPost()._id).to.equal(newPost._id);
     });
 
     it('new post is not published', async () => {
       newsPost.published = false;
       const newPost = await user.post('/news', newsPost);
+      await sleep(0.05);
       expect(NewsPost.lastNewsPost()._id).to.not.equal(newPost._id);
     });
 
     it('new post is published but in the future', async () => {
       newsPost.publishDate = moment().add({ days: 1 }).toDate();
       const newPost = await user.post('/news', newsPost);
+      await sleep(0.05);
       expect(NewsPost.lastNewsPost()._id).to.not.equal(newPost._id);
     });
 
     it('new post is published but not the most recent one', async () => {
       const oldPost = await user.post('/news', newsPost);
       newsPost.publishDate = moment().subtract({ days: 1 }).toDate();
+      await user.post('/news', newsPost);
+      await sleep(0.05);
       expect(NewsPost.lastNewsPost()._id).to.equal(oldPost._id);
     });
   });
