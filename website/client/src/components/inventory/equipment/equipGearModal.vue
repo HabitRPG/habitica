@@ -51,7 +51,7 @@
           :item="item"
         />
         <button
-          class="btn with-icon"
+          class="btn with-icon mt-4"
           :class="{'btn-primary': !isEquipped, 'btn-secondary': isEquipped }"
           @click="equipItem()"
         >
@@ -157,7 +157,7 @@
 
     .attributesGrid {
       background-color: $gray-500;
-      margin: 1rem 0 1.5rem;
+      margin: 1rem 0 0;
       border-radius: 4px;
       border: 1px solid #f4f4f4;
     }
