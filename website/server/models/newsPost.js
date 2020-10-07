@@ -23,15 +23,6 @@ schema.plugin(baseModel, {
   timestamps: true,
 });
 
-schema.statics.getLastPost = async function getLastPost () {
-  const post = await this.findOne({
-    published: true,
-    publishDate: { $lte: new Date() },
-  }).sort({ publishDate: -1 }).exec();
-
-  return post;
-};
-
 schema.statics.getNews = async function getNews (isAdmin, options = { page: 0 }) {
   let query;
   if (!isAdmin) {
@@ -59,6 +50,15 @@ const NEWS_CACHE_TIME = 5 * 60 * 1000;
 
 let cachedLastNewsPost = null;
 
+schema.statics.getLastPostFromDatabase = async function getLastPostFromDatabase () {
+  const post = await this.findOne({
+    published: true,
+    publishDate: { $lte: new Date() },
+  }).sort({ publishDate: -1 }).exec();
+
+  return post;
+};
+
 schema.statics.lastNewsPost = function lastNewsPost () {
   return cachedLastNewsPost;
 };
@@ -75,12 +75,17 @@ schema.statics.updateLastNewsPost = function updateLastNewsPost (newPost) {
 export const model = mongoose.model('NewsPost', schema);
 
 function getAndUpdateLastNewsPost () {
-  model.getLastPost().then(lastPost => {
+  model.getLastPostFromDatabase().then(lastPost => {
     if (lastPost) {
       model.updateLastNewsPost(lastPost);
     }
   }).catch(err => logger.error(err));
 }
 
-setInterval(() => getAndUpdateLastNewsPost(), NEWS_CACHE_TIME);
+export function refreshNewsPost (interval) {
+  setInterval(() => getAndUpdateLastNewsPost(), interval);
+}
+
+// Fetches the last news post and refresh it every 5 minutes
 getAndUpdateLastNewsPost();
+refreshNewsPost(NEWS_CACHE_TIME);
