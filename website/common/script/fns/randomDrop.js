@@ -159,7 +159,9 @@ export default function randomDrop (user, options, req = {}, analytics) {
     const dropN = user.items.lastDrop.count;
     const dropCapReached = dropN === maxDropCount;
 
-    if (dropCapReached && user.addNotification) {
+    // Unsubscribed users get a notification when they reach the drop cap
+    // One per day
+    if (dropCapReached && user.addNotification && user.isSubscribed && !user.isSubscribed()) {
       const prevNotifIndex = user.notifications.findIndex(n => n.type === 'DROP_CAP_REACHED');
       if (prevNotifIndex !== -1) user.notifications.splice(prevNotifIndex, 1);
 
