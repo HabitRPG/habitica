@@ -63,7 +63,7 @@ describe('NewsPost Model', () => {
     it('does not update the post if new one is from the past', () => {
       const previousPost = { _id: '1234', publishDate: new Date(), title: 'Title' };
       NewsPost.updateLastNewsPost(previousPost);
-      const newPost = { _id: '1235', publishDate: moment.subtract({ days: 1 }).toDate(), title: 'Title' };
+      const newPost = { _id: '1235', publishDate: moment().subtract({ days: 1 }).toDate(), title: 'Title' };
       NewsPost.updateLastNewsPost(newPost);
       expect(NewsPost.lastNewsPost()._id).to.equal(previousPost._id);
     });
