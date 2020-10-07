@@ -93,7 +93,7 @@
     "taskNotFound": "タスクが見つかりませんでした。",
     "invalidTaskType": "タスクは、\"habit\", \"daily\", \"todo\", \"reward\" のいずれかの種類でなくてはなりません。",
     "invalidTasksType": "タスクは、週間、日課、To-Do、ごほうびのいずれかの種類でなくてはなりません。",
-    "invalidTasksTypeExtra": "タスクは、週間、日課、To-Do、ごほうび、完了済みのTo-Doのいずれかの種類でなくてはなりません。",
+    "invalidTasksTypeExtra": "タスクは、週間、日課、To Do、ごほうび、完了済みのTo Doのいずれかの種類でなくてはなりません。",
     "cantDeleteChallengeTasks": "チャレンジに関連したタスクは削除できません。",
     "checklistOnlyDailyTodo": "チェックリストは、日課とTo Doにのみ対応しています",
     "checklistItemNotFound": "該当する id に対応したチェックリストは見つかりませんでした。",

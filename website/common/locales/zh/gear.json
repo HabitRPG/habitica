@@ -1771,7 +1771,7 @@
     "weaponSpecialSpring2019WarriorText": "树茎剑",
     "weaponSpecialSpring2019RogueText": "闪电箭",
     "weaponArmoireSlingshotText": "弹弓",
-    "weaponArmoireJugglingBallsNotes": "Habitica居民是多任务处理的大师，所以你应该毫不费力地将所有这些球保持在空中！增加<％= int％>点智力。魔法衣橱：独立物品。",
+    "weaponArmoireJugglingBallsNotes": "Habitica居民是多任务处理的大师，所以你应该毫不费力地将所有这些球保持在空中！增加<%= int %>点智力。魔法衣橱：独立物品。",
     "weaponArmoireJugglingBallsText": "杂耍球",
     "weaponSpecialSummer2019HealerNotes": "这支魔杖的气泡捕捉到治疗能量和古老的海洋魔法。增加<％= int％>点智力。2019年夏季限定版装备。",
     "weaponSpecialSummer2019HealerText": "泡泡魔棒",
@@ -2201,5 +2201,9 @@
     "armorSpecialFall2020MageText": "悟道高空",
     "armorSpecialFall2020RogueNotes": "用这套铠甲拥有石头的坚硬，保证能抵挡最猛烈的攻击。增加<%= per %>点感知。2020年秋季限定版装备。",
     "armorSpecialFall2020RogueText": "雕像之盔",
-    "weaponSpecialFall2020HealerNotes": "破蛹蛾出，你的转变已经完成，这段蛹化作衡量命运的占卜棒。增加<%= int %>点智力。2020年秋季限定版装备。"
+    "weaponSpecialFall2020HealerNotes": "破蛹蛾出，你的转变已经完成，这段蛹化作衡量命运的占卜棒。增加<%= int %>点智力。2020年秋季限定版装备。",
+    "backMystery202010Notes": "你是寂静的夜！ 紫翼是午夜的云！眨眼一晃而过。没有属性加成。2020年10月订阅者物品。",
+    "backMystery202010Text": "诱惑蝙蝠翼",
+    "headMystery202010Notes": "我们分享给你一个回声笑话，关于蝙蝠.蝠..fu...f....没有属性加成。2020年10月订阅者物品。",
+    "headMystery202010Text": "蝙蝠耳"
 }

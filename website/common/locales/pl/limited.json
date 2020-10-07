@@ -180,5 +180,10 @@
     "summer2020CrocodileRogueSet": "Krokodyl (Łotrzyk)",
     "summer2020SeaGlassHealerSet": "Szkło Morskie (Uzdrowiciel)",
     "summer2020OarfishMageSet": "Wstęgor (Mag)",
-    "summer2020RainbowTroutWarriorSet": "Pstrąg Tęczowy (Wojownik)"
+    "summer2020RainbowTroutWarriorSet": "Pstrąg Tęczowy (Wojownik)",
+    "septemberYYYY": "Wrzesień <%= year %>",
+    "fall2020TwoHeadedRogueSet": "Dwugłowy (Łotrzyk)",
+    "fall2020ThirdEyeMageSet": "Trzecie Oko (Mag)",
+    "fall2020DeathsHeadMothHealerSet": "Czaszka Ćmy (Uzdrowiciel)",
+    "fall2020WraithWarriorSet": "Widmo (Wojownik)"
 }

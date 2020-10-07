@@ -8,9 +8,9 @@
     "losingHealthWarning2": "¡No dejes que tu salud llegue a cero! Si esto sucede, perderás un nivel, tu Oro y un artículo de equipamiento.",
     "toRegainHealth": "Para recuperar salud:",
     "lowHealthTips1": "¡Sube de nivel para sanar completamente!",
-    "lowHealthTips2": "Compra una Poción desSalud de la columna de Recompensas para recuperar 15 Puntos de vida.",
-    "losingHealthQuickly": "¿Estás perdiendo salud rápidamente?",
-    "lowHealthTips3": "Las Diarias incompletas te hacen daño por la noche, así que ¡sé cuidadoso de no añadir demasiadas al principio!",
+    "lowHealthTips2": "Compra una Poción de Salud de la columna de Recompensas para recuperar 15 Puntos de Salud.",
+    "losingHealthQuickly": "¿Estás perdiendo salud muy rápido?",
+    "lowHealthTips3": "Las Diarias incompletas te hacen daño por la noche, así que ¡ten cuidado de no añadir demasiadas al principio!",
     "lowHealthTips4": "Si una Diaria no vence en un día en específico, puedes desactivarla haciendo clic en el ícono del lápiz.",
     "goodLuck": "¡Buena suerte!",
     "cannotRevive": "No puede revivir si no está muerto"

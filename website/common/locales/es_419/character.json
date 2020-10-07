@@ -166,7 +166,7 @@
     "streaksFrozenText": "No se reiniciarán las Rachas de las Diarias sin cumplir al final del día.",
     "respawn": "¡Reaparecer!",
     "youDied": "¡Has muerto!",
-    "dieText": "Has perdido un Nivel, todo tu Oro, y una pieza de Equipamiento al azar. ¡Levántate Habitero e inténtalo otra vez! ¡Domina esos Hábitos negativos, mantente atento para cumplir las Diarias y mantén a la muerte a raya con una Poción de Salud cuando flaqueas!",
+    "dieText": "Has perdido un Nivel, todo tu Oro, y una pieza de Equipamiento al azar. ¡Levántate Habitero e inténtalo otra vez! ¡Domina esos Hábitos negativos, mantente atento para cumplir las Diarias y mantén la muerte a raya con una Poción de Salud cuando flaqueas!",
     "sureReset": "¿Estás seguro? Esto reiniciará la clase de tu personaje y los Puntos de Atributo asignados (los recuperarás todos para re-asignarlos), y te costará 3 Gemas.",
     "purchaseFor": "¿Comprar por <%= cost %> Gemas?",
     "purchaseForHourglasses": "Compar por <%= cost %> Relojes de Arena?",
