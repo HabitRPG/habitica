@@ -25,7 +25,7 @@
     cursor: pointer;
     display: none;
     left: -9px;
-    color: $gray-400;
+    color: $gray-200;
     background: $white;
     padding: 0.375rem;
 
