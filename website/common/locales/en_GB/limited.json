@@ -180,5 +180,6 @@
     "summer2020SeaGlassHealerSet": "Sea Glass (Healer)",
     "summer2020OarfishMageSet": "Oarfish (Mage)",
     "summer2020RainbowTroutWarriorSet": "Rainbow Trout (Warrior)",
-    "juneYYYY": "June <%= year %>"
+    "juneYYYY": "June <%= year %>",
+    "fall2020WraithWarriorSet": "Wraith (Warrior)"
 }
