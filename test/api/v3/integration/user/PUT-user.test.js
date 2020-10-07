@@ -104,7 +104,9 @@ describe('PUT /user', () => {
     });
 
     it('can set flags.newStuff to false', async () => {
-      NewsPost.updateLastNewsPost({ _id: '1234', publishDate: new Date(), title: 'Title' });
+      NewsPost.updateLastNewsPost({
+        _id: '1234', publishDate: new Date(), title: 'Title', published: true,
+      });
 
       await user.update({
         'flags.lastNewStuffRead': '123',
