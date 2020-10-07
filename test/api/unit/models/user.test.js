@@ -5,84 +5,86 @@ import { model as Group } from '../../../../website/server/models/group';
 import common from '../../../../website/common';
 
 describe('User Model', () => {
-  it('keeps user._tmp when calling .toJSON', () => {
-    const user = new User({
-      auth: {
-        local: {
-          username: 'username',
-          lowerCaseUsername: 'username',
-          email: 'email@email.email',
-          salt: 'salt',
-          hashed_password: 'hashed_password', // eslint-disable-line camelcase
+  describe('.toJSON()', () => {
+    it('keeps user._tmp when calling .toJSON', () => {
+      const user = new User({
+        auth: {
+          local: {
+            username: 'username',
+            lowerCaseUsername: 'username',
+            email: 'email@email.email',
+            salt: 'salt',
+            hashed_password: 'hashed_password', // eslint-disable-line camelcase
+          },
         },
-      },
+      });
+
+      user._tmp = { ok: true };
+      user._nonTmp = { ok: true };
+
+      expect(user._tmp).to.eql({ ok: true });
+      expect(user._nonTmp).to.eql({ ok: true });
+
+      const toObject = user.toObject();
+      const toJSON = user.toJSON();
+
+      expect(toObject).to.not.have.keys('_tmp');
+      expect(toObject).to.not.have.keys('_nonTmp');
+
+      expect(toJSON).to.have.any.key('_tmp');
+      expect(toJSON._tmp).to.eql({ ok: true });
+      expect(toJSON).to.not.have.keys('_nonTmp');
     });
 
-    user._tmp = { ok: true };
-    user._nonTmp = { ok: true };
+    it('can add computed stats to a JSONified user object', () => {
+      const user = new User();
+      const userToJSON = user.toJSON();
 
-    expect(user._tmp).to.eql({ ok: true });
-    expect(user._nonTmp).to.eql({ ok: true });
+      expect(userToJSON.stats.maxMP).to.not.exist;
+      expect(userToJSON.stats.maxHealth).to.not.exist;
+      expect(userToJSON.stats.toNextLevel).to.not.exist;
 
-    const toObject = user.toObject();
-    const toJSON = user.toJSON();
+      User.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
 
-    expect(toObject).to.not.have.keys('_tmp');
-    expect(toObject).to.not.have.keys('_nonTmp');
+      expect(userToJSON.stats.maxMP).to.exist;
+      expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
+      expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
+    });
 
-    expect(toJSON).to.have.any.key('_tmp');
-    expect(toJSON._tmp).to.eql({ ok: true });
-    expect(toJSON).to.not.have.keys('_nonTmp');
-  });
+    it('can transform user object without mongoose helpers', async () => {
+      const user = new User();
+      await user.save();
+      const userToJSON = await User.findById(user._id).lean().exec();
 
-  it('can add computed stats to a JSONified user object', () => {
-    const user = new User();
-    const userToJSON = user.toJSON();
+      expect(userToJSON.stats.maxMP).to.not.exist;
+      expect(userToJSON.stats.maxHealth).to.not.exist;
+      expect(userToJSON.stats.toNextLevel).to.not.exist;
+      expect(userToJSON.id).to.not.exist;
 
-    expect(userToJSON.stats.maxMP).to.not.exist;
-    expect(userToJSON.stats.maxHealth).to.not.exist;
-    expect(userToJSON.stats.toNextLevel).to.not.exist;
+      User.transformJSONUser(userToJSON);
 
-    User.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
+      expect(userToJSON.id).to.equal(userToJSON._id);
+      expect(userToJSON.stats.maxMP).to.not.exist;
+      expect(userToJSON.stats.maxHealth).to.not.exist;
+      expect(userToJSON.stats.toNextLevel).to.not.exist;
+    });
 
-    expect(userToJSON.stats.maxMP).to.exist;
-    expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
-    expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
-  });
+    it('can transform user object without mongoose helpers (including computed stats)', async () => {
+      const user = new User();
+      await user.save();
+      const userToJSON = await User.findById(user._id).lean().exec();
 
-  it('can transform user object without mongoose helpers', async () => {
-    const user = new User();
-    await user.save();
-    const userToJSON = await User.findById(user._id).lean().exec();
+      expect(userToJSON.stats.maxMP).to.not.exist;
+      expect(userToJSON.stats.maxHealth).to.not.exist;
+      expect(userToJSON.stats.toNextLevel).to.not.exist;
 
-    expect(userToJSON.stats.maxMP).to.not.exist;
-    expect(userToJSON.stats.maxHealth).to.not.exist;
-    expect(userToJSON.stats.toNextLevel).to.not.exist;
-    expect(userToJSON.id).to.not.exist;
+      User.transformJSONUser(userToJSON, true);
 
-    User.transformJSONUser(userToJSON);
-
-    expect(userToJSON.id).to.equal(userToJSON._id);
-    expect(userToJSON.stats.maxMP).to.not.exist;
-    expect(userToJSON.stats.maxHealth).to.not.exist;
-    expect(userToJSON.stats.toNextLevel).to.not.exist;
-  });
-
-  it('can transform user object without mongoose helpers (including computed stats)', async () => {
-    const user = new User();
-    await user.save();
-    const userToJSON = await User.findById(user._id).lean().exec();
-
-    expect(userToJSON.stats.maxMP).to.not.exist;
-    expect(userToJSON.stats.maxHealth).to.not.exist;
-    expect(userToJSON.stats.toNextLevel).to.not.exist;
-
-    User.transformJSONUser(userToJSON, true);
-
-    expect(userToJSON.id).to.equal(userToJSON._id);
-    expect(userToJSON.stats.maxMP).to.exist;
-    expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
-    expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
+      expect(userToJSON.id).to.equal(userToJSON._id);
+      expect(userToJSON.stats.maxMP).to.exist;
+      expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
+      expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
+    });
   });
 
   context('achievements', () => {
@@ -853,18 +855,21 @@ describe('User Model', () => {
     it('no last news post', () => {
       sandbox.stub(NewsPost, 'lastNewsPost').returns(null);
       expect(user.checkNewStuff()).to.equal(false);
+      expect(user.toJSON().flags.newStuff).to.equal(false);
     });
 
     it('last news post read', () => {
       sandbox.stub(NewsPost, 'lastNewsPost').returns({ _id: '123' });
       user.flags.lastNewStuffRead = '123';
       expect(user.checkNewStuff()).to.equal(false);
+      expect(user.toJSON().flags.newStuff).to.equal(false);
     });
 
     it('last news post not read', () => {
       sandbox.stub(NewsPost, 'lastNewsPost').returns({ _id: '123' });
       user.flags.lastNewStuffRead = '124';
       expect(user.checkNewStuff()).to.equal(true);
+      expect(user.toJSON().flags.newStuff).to.equal(true);
     });
   });
 });
