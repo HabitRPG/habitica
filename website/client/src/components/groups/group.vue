@@ -10,7 +10,7 @@
     <group-gems-modal />
     <div class="col-12 col-sm-8 standard-page">
       <div class="row">
-        <div class="col-12 col-md-4 title-details">
+        <div class="col-12 col-md-6 title-details">
           <h1>{{ group.name }}</h1>
           <div>
             <span class="mr-1 ml-0">
@@ -22,7 +22,7 @@
             </span>
           </div>
         </div>
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-6">
           <div class="row icon-row">
             <div
               class="item-with-icon"
@@ -54,10 +54,7 @@
                 {{ $t('memberList') }}
               </div>
             </div>
-            <div
-              v-if="!isParty"
-              class="offset-1"
-            >
+            <div v-if="!isParty">
               <div
                 class="item-with-icon"
                 tabindex="0"
@@ -228,13 +225,14 @@
     text-align: center;
     min-width: 120px;
     height: 76px;
+    margin-right: 1rem;
 
     &:last-of-type {
-      margin-right: 1rem;
+      margin-left: 0.5rem;
     }
 
     .svg-icon.shield, .svg-icon.gem {
-      min-width: 28px;
+      width: 28px;
       height: auto;
       margin: 0 auto;
       display: inline-block;
