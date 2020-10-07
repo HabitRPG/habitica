@@ -3,6 +3,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
+import { model as NewsPost } from '../../../../../website/server/models/newsPost';
 
 describe('PUT /user', () => {
   let user;
@@ -100,6 +101,22 @@ describe('PUT /user', () => {
         error: 'BadRequest',
         message: t('displaynameIssueNewline'),
       });
+    });
+
+    it('can set flags.newStuff to false', async () => {
+      NewsPost.updateLastNewsPost({ _id: '1234', publishDate: new Date(), title: 'Title' });
+
+      await user.update({
+        'flags.lastNewStuffRead': '123',
+      });
+
+      await user.put('/user', {
+        'flags.newStuff': false,
+      });
+
+      await user.sync();
+
+      expect(user.flags.lastNewStuffRead).to.eql('1234');
     });
   });
 

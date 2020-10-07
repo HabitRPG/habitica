@@ -158,7 +158,7 @@ export async function update (req, res, { isV3 = false }) {
           tags: tagId,
         },
       }, { multi: true }).exec());
-    } else if (key === 'flags.newStuff' && isV3 !== false) {
+    } else if (key === 'flags.newStuff' && val === false && isV3 !== false) {
       // flags.newStuff was removed from the user schema and is only returned for compatibility
       // reasons but we're keeping the ability to set it in API v3
       const lastNewsPost = NewsPost.lastNewsPost();
