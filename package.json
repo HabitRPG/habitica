@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.161.4",
+  "version": "4.162.0",
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.11.6",
@@ -120,7 +120,7 @@
     "mocha": "^5.1.1",
     "monk": "^7.3.2",
     "require-again": "^2.0.0",
-    "run-rs": "^0.7.0",
+    "run-rs": "^0.6.2",
     "sinon": "^9.1.0",
     "sinon-chai": "^3.5.0",
     "sinon-stub-promise": "^4.0.0"

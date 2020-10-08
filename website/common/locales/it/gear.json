@@ -2201,5 +2201,9 @@
     "weaponSpecialFall2020WarriorNotes": "Questa spada è stata nell'aldilà con un potente guerriero ed ora è tornata per essere impugnata da te! Aumenta la forza di <%= str %>. Edizione limitata autunno 2020.",
     "weaponSpecialFall2020WarriorText": "Spada Spettrale",
     "weaponSpecialFall2020RogueNotes": "Trafiggi il tuo nemico con un colpo netto! Anche l'armatura più resistente cadrà sotto la tua lama. Aumenta la forza di <%= str %>. Edizione limitata autunno 2020.",
-    "weaponSpecialFall2020RogueText": "Katara Affilata"
+    "weaponSpecialFall2020RogueText": "Katara Affilata",
+    "backMystery202010Notes": "Sei tu la notte! Vola silenziosamente come una nuvola di mezzanotte con queste veloci ali viola. Non conferisce alcun bonus. Oggetto abbonati ottobre 2020.",
+    "backMystery202010Text": "Incantevoli Ali da Pipistrello",
+    "headMystery202010Notes": "Ti risparmieremo un'altra battuta sull'ecolocalizzazione... zione... zione. Non conferisce alcun bonus. Oggetto abbonati ottobre 2020.",
+    "headMystery202010Text": "Orecchie da Pipistrello"
 }
