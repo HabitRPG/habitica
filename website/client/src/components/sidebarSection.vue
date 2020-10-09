@@ -22,21 +22,21 @@
           :target="tooltipId"
         />
       </div>
-      <div
+      <button
         class="section-toggle ml-auto"
         @click="toggle"
       >
-        <div
+        <span
           v-if="visible"
           class="svg-icon"
           v-html="icons.upIcon"
-        ></div>
-        <div
+        ></span>
+        <span
           v-else
           class="svg-icon"
           v-html="icons.downIcon"
-        ></div>
-      </div>
+        ></span>
+      </button>
     </div>
     <div
       v-show="visible"
@@ -65,6 +65,8 @@
   }
 
   .section-toggle {
+    border: 0;
+    background: transparent;
     cursor: pointer;
   }
 
