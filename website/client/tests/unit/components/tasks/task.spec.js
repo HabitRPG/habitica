@@ -89,6 +89,8 @@ describe('Task', () => {
       expect(wrapper.vm.formatDueDate()).to.equal('dueIn{"dueIn":"in a day"}');
     });
 
+    // This test may be flaky, not sure yet.  If it fails unexpectedly for you,
+    // please turn it off by using `xit` i.o. `it` and let https://github.com/benkelaar know.
     it('formats due date to today if due tomorrow before dayStart', () => {
       setClockTo('2017-07-02T20:21:27Z');
       const date = moment('2017-07-03T01:30:02Z');
