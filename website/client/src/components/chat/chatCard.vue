@@ -34,8 +34,7 @@
       <div
         ref="markdownContainer"
         class="text markdown"
-        :class="'text-' + languageAlign"
-        :style="'direction:' + languageDirection"
+        :style="{'text-align': languageAlign, 'direction': languageDirection}"
         v-html="parseMarkdown(msg.text)"
       ></div>
       <hr>
@@ -166,7 +165,6 @@
     .text {
       font-size: 14px;
       color: #4e4a57;
-      text-align: left;
       min-height: 0rem;
     }
   }
@@ -289,7 +287,6 @@ export default {
       this.languageAlign = 'right';
       this.languageDirection = 'rtl';
     }
-    return console.log(this.msg.text);
   },
   mounted () {
     const links = this.$refs.markdownContainer.getElementsByTagName('a');
