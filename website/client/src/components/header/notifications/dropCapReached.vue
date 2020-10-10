@@ -17,6 +17,7 @@
 
 <script>
 import BaseNotification from './base';
+import * as Analytics from '@/libs/analytics';
 
 export default {
   components: {
@@ -29,6 +30,13 @@ export default {
   methods: {
     action () {
       this.$root.$emit('bv::show::modal', 'drop-cap-reached');
+
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'drop-cap-reached',
+        eventAction: 'click',
+        eventLabel: 'Drop Cap Reached > Notification Click',
+      });
     },
   },
 };
