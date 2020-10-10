@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     action () {
-      this.$root.$emit('bv::show::modal', 'drop-cap-reached');
+      this.$root.$emit('habitica:drop-cap-reached', this.notification);
 
       Analytics.track({
         hitType: 'event',
