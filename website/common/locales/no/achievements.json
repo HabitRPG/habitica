@@ -1,6 +1,5 @@
 {
     "achievement": "Prestasjon",
-    "share": "Del",
     "onwards": "Videre!",
     "levelup": "Ved å fullføre dine mål i det virkelige liv gikk du opp i nivå og har nå full helse!",
     "reachedLevel": "Du har nådd nivå <%= level %>",

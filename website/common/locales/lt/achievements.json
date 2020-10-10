@@ -1,6 +1,5 @@
 {
   "achievement": "Achievement",
-  "share": "Dalintis",
   "onwards": "Pirmyn!",
   "levelup": "Įgyvendindamas savo realaus gyvenimo tikslus, tu pasiekei aukštesnį lygį ir visiškai pasveikai!",
   "reachedLevel": "Tu pasiekei lygį <%= level %>",
