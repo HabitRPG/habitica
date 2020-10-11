@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="user.contributor.admin"
-    class="row standard-page"
-  >
+  <div class="row standard-page">
     <div class="well col-12">
       <h1>Admin Panel</h1>
 

@@ -19,7 +19,9 @@ describe('POST /debug/make-admin', () => {
 
     await user.sync();
 
-    expect(user.contributor.admin).to.eql(true);
+    expect(user.contributor.admin).to.eql(true); // @TODO make this unnecessary
+    expect(user.contributor.priv.userSupport).to.eql(true);
+    expect(user.contributor.priv.userSupportPlus).to.eql(true);
   });
 
   it('returns error when not in production mode', async () => {

@@ -110,7 +110,7 @@ const router = new VueRouter({
   scrollBehavior () {
     return { x: 0, y: 0 };
   },
-  // meta defaults: requiresLogin true, requiresAdmin false
+  // meta defaults: requiresLogin true, privilegeNeeded empty
   routes: [
     {
       name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
@@ -347,13 +347,22 @@ const router = new VueRouter({
       name: 'adminPanel',
       path: '/admin-panel',
       component: AdminPanelPage,
-      meta: { requiresAdmin: true },
+      meta: {
+        privilegeNeeded: [ // any one of these is enough to give access
+          'userSupport',
+          'newsPoster',
+        ],
+      },
       children: [
         {
           name: 'adminPanelUser',
           path: ':userIdentifier', // User ID or Username
           component: AdminPanelUserPage,
-          meta: { requiresAdmin: true },
+          meta: {
+            privilegeNeeded: [
+              'userSupport',
+            ],
+          },
         },
       ],
     },
@@ -370,7 +379,7 @@ const store = getStore();
 router.beforeEach(async (to, from, next) => {
   const { isUserLoggedIn, isUserLoaded } = store.state;
   const routeRequiresLogin = to.meta.requiresLogin !== false;
-  const routeRequiresAdmin = to.meta.requiresAdmin;
+  const routePrivilegeNeeded = to.meta.privilegeNeeded;
 
   if (to.name === 'redirect') return handleRedirect(to, from, next);
 
@@ -403,11 +412,13 @@ router.beforeEach(async (to, from, next) => {
     return next({ name: 'tasks' });
   }
 
-  if (routeRequiresAdmin) {
-    // Redirect non-admin users when trying to access an page.
+  if (routePrivilegeNeeded) {
+    // Redirect non-admin users when trying to access a page.
     if (!isUserLoaded) await store.dispatch('user:fetch');
-    const isAdmin = store.state.user.data.contributor && store.state.user.data.contributor.admin;
-    if (!isAdmin) return next({ name: 'tasks' });
+    const userHasPriv = routePrivilegeNeeded.some(
+      privName => store.state.user.data.contributor.priv[privName],
+    );
+    if (!userHasPriv) return next({ name: 'tasks' });
   }
 
   // Redirect old guild urls
