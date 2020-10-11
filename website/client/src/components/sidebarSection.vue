@@ -22,21 +22,7 @@
           :target="tooltipId"
         />
       </div>
-      <button
-        class="section-toggle ml-auto"
-        @click="toggle"
-      >
-        <span
-          v-if="visible"
-          class="svg-icon"
-          v-html="icons.upIcon"
-        ></span>
-        <span
-          v-else
-          class="svg-icon"
-          v-html="icons.downIcon"
-        ></span>
-      </button>
+      <SidebarButton :visible="visible" @click="toggle" />
     </div>
     <div
       v-show="visible"
@@ -64,29 +50,22 @@
     margin-top: 1em;
   }
 
-  .section-toggle {
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-  }
-
   .section-info {
     cursor: help;
   }
 
-  .section-info .svg-icon,
-  .section-toggle .svg-icon {
+  .section-info .svg-icon {
     width: 16px;
   }
 </style>
 
 <script>
 import { v4 as uuid } from 'uuid';
-import upIcon from '@/assets/svg/up.svg';
-import downIcon from '@/assets/svg/down.svg';
+import SidebarButton from './sidebarButton';
 import informationIcon from '@/assets/svg/information.svg';
 
 export default {
+  components: { SidebarButton },
   props: {
     title: {
       required: true,
@@ -103,8 +82,6 @@ export default {
       tooltipId: uuid(),
       visible: this.show,
       icons: {
-        upIcon,
-        downIcon,
         information: informationIcon,
       },
     };
