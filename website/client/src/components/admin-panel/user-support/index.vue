@@ -138,8 +138,7 @@ export default {
       const id = userIdentifier.replace(/@/, ''); // allow "@name" to be entered
       this.$emit('changeUserIdentifier', id); // change user identifier in Admin Panel's form
 
-      const hero = await this.$store.dispatch('hall:getHero', { uuid: id });
-      this.hero = { ...hero };
+      this.hero = await this.$store.dispatch('hall:getHero', { uuid: id });
 
       if (!this.hero.flags) {
         this.hero.flags = {
