@@ -49,7 +49,7 @@
       <a
         v-once
         class="standard-link d-block mb-3"
-        @click="toLearnMore()"
+        @click="toWiki()"
       >
         {{ $t('dropCapLearnMore') }}
       </a>
@@ -191,6 +191,7 @@
 <script>
 import closeIcon from '@/assets/svg/close.svg';
 import sparkles from '@/assets/svg/star-group.svg';
+import * as Analytics from '@/libs/analytics';
 
 export default {
   data () {
@@ -215,9 +216,26 @@ export default {
     close () {
       this.$root.$emit('bv::hide::modal', 'drop-cap-reached');
     },
-    toLearnMore () {
+    toWiki () {
       window.open('https://habitica.fandom.com/wiki/Drops', '_blank');
+
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'drop-cap-reached',
+        eventAction: 'click',
+        eventLabel: 'Drop Cap Reached > Modal > Wiki',
+      });
+    },
+    toLearnMore () {
       this.close();
+      this.$router.push('/user/settings/subscription');
+
+      Analytics.track({
+        hitType: 'event',
+        eventCategory: 'drop-cap-reached',
+        eventAction: 'click',
+        eventLabel: 'Drop Cap Reached > Modal > Subscriptions',
+      });
     },
   },
 };
