@@ -94,9 +94,11 @@ function determineQuestStatus (self) {
           + 'in the party\'s data ("quest.members" needs to be fixed).';
       }
     } else if (questIsActive) {
-      self.questErrors = 'ERROR: Quest is running but there is no "key" to say which quest it is '
-        + '(this means the other data and errors in this section are unreliable, '
-        + 'and there may be more errors not shown here).';
+      self.questErrors = 'ERROR: Quest is running but there is no "key" to say which quest it is. '
+        + 'This means the other data and errors in this section are unreliable, '
+        + 'and there may be more errors not shown here.'
+        + 'Other errors here may tell you which key to add.'
+        + 'After fixing, check for more errors.';
       // @TODO display a similar message for when it happens during invitation stage
     }
   }
@@ -173,8 +175,9 @@ function determineQuestStatus (self) {
         + `is different than the quest's "key" (${groupQuestData.key}).<br>`;
     }
   } else if (self.userPartyData.quest.key) {
-    self.questErrors += 'ERROR: User has a "key" for the quest but perhaps should not '
-      + 'have (no quest exists or user not participating or quest is in erroneous state).<br>';
+    self.questErrors += `ERROR: User has a "key" for the quest (${self.userPartyData.quest.key})`
+      + 'but perhaps should not have (no quest exists, or user not participating, '
+      + 'or quest is in erroneous state).<br>';
   }
 
   // Display details of quest (name, type, progress, etc).
