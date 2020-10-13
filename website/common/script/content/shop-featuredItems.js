@@ -44,18 +44,34 @@ const featuredItems = {
     ];
   },
   quests () {
+    if (moment().isBefore('2020-11-02')) {
+      return [
+        {
+          type: 'bundles',
+          path: 'bundles.sandySidekicks',
+        },
+        {
+          type: 'quests',
+          path: 'quests.taskwoodsTerror1',
+        },
+        {
+          type: 'quests',
+          path: 'quests.ruby',
+        },
+      ];
+    }
     return [
       {
         type: 'quests',
-        path: 'quests.squirrel',
+        path: 'quests.gryphon',
       },
       {
         type: 'quests',
-        path: 'quests.cow',
+        path: 'quests.hedgehog',
       },
       {
         type: 'quests',
-        path: 'quests.turquoise',
+        path: 'quests.rat',
       },
     ];
   },

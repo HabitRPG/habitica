@@ -4,7 +4,7 @@ const api = {};
 
 // @TODO export this const, cannot export it from here because only routes are exported from
 // controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW BACKGROUNDS AND ARMOIRE ITEMS! PLUS, SPOOKY SPARKLES IN THE SEASONAL SHOP!';
+const LAST_ANNOUNCEMENT_TITLE = 'NEW DISCOUNTED PET QUEST BUNDLE: SANDY SIDEKICKS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -31,41 +31,33 @@ api.getNews = {
           <div class="mr-3 ${baileyClass}"></div>
           <div class="media-body">
             <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>10/1/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+            <h2>10/13/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
           </div>
         </div>
         <hr/>
-        <div class="promo_armoire_backgrounds_202010 center-block"></div>
-        <h3>October Backgrounds and Armoire Items!</h3>
+        <div class="promo_sandy_sidekicks_bundle center-block"></div>
         <p>
-          We’ve added three new backgrounds to the Background Shop! Now your avatar can dare to
-          visit a Haunted Forest, brave the Spooky Scarecrow Field, or bask in the glow of the
-          Crescent Moon. Check them out under User Icon > Backgrounds on web and Menu > Inventory >
-          Customize Avatar on mobile!
+          If you are looking to add some desert-dwelling pets to your Habitica stable, you're in
+          luck! From now until Oct 31, you can purchase the Sandy Sidekicks Pet Quest Bundle and
+          receive the Spider, Snake, and Armadillo quests, all for only 7 Gems! That's a discount
+          of 5 Gems from the price of purchasing them separately. Check it out in the <a
+          href='/shops/quests'>Quest Shop</a> today!
         </p>
+        <div class="small">by SabreCat</div>
+        <div class="small">
+          Art by: Beffymaroo, starsystemic, PainterProphet, krajzega, Tipsy, Arcosine, Eevachu,
+          RBrinks, Darkly, UncommonCriminal, and EmeraldOx
+        </div>
+        <div class="small mb-3">Writing by: emiausti, Arcosine, felipena, and Daniel the Bard</div>
         <p>
-          Plus, there’s new Gold-purchasable equipment in the Enchanted Armoire, including the
-          Autumn Enchanter Set. Better work hard on your real-life tasks to earn all the pieces!
-          Enjoy :)
+          If snakes and/or spiders are something you'd prefer not to see in Habitica due to a
+          phobia, check out the <a
+          href='http://habitica.wikia.com/wiki/Phobia_Protection_Extension' target='_blank'>Phobia
+          Protection Extension</a> which will hide any pets, mounts, backgrounds, quest bosses, or
+          equipment featuring snakes and/or spiders (as well as rats, bees, beetles, zombies,
+          skeletons, moths, or any combination thereof). We hope that it helps make everyone's
+          Habitica experience fun!
         </p>
-        <div class="small mb-3">by AnnDeLune and SabreCat</div>
-        <div class="promo_spooky_sparkles center-block"></div>
-        <h3>Spooky Sparkles in Seasonal Shop</h3>
-        <p>
-          There's a new Gold-purchasable item in the <a href='/shops/seasonal'>Seasonal Shop</a>:
-          Spooky Sparkles! Buy some and then cast it on your friends. I wonder what it will do?
-        </p>
-        <p>
-          If you have Spooky Sparkles cast on you, you will receive the "Alarming Friends" badge!
-          Don't worry, any mysterious effects will wear off the next day.... or you can cancel them
-          early by buying an Opaque Potion!
-        </p>
-        <p>
-          While you're at it, be sure to check out all the other items in the Seasonal Shop! There
-          are lots of equipment items from the previous Fall Festivals. The Seasonal Shop will only
-          be open until October 31st, so stock up now.
-        </p>
-        <div class="small mb-3">by Lemoness and SabreCat</div>
       </div>
       `,
     });
