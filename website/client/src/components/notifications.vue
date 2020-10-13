@@ -35,6 +35,7 @@
     <mind-over-matter />
     <onboarding-complete />
     <first-drops />
+    <drop-cap-reached-modal />
   </div>
 </template>
 
@@ -145,6 +146,7 @@ import loginIncentives from './achievements/login-incentives';
 import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
 import firstDrops from './achievements/firstDrops';
+import DropCapReachedModal from '@/components/achievements/dropCapReached';
 
 const NOTIFICATIONS = {
   CHALLENGE_JOINED_ACHIEVEMENT: {
@@ -384,6 +386,7 @@ export default {
     justAddWater,
     onboardingComplete,
     firstDrops,
+    DropCapReachedModal,
   },
   mixins: [notifications, guide],
   data () {
