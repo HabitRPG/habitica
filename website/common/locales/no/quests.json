@@ -18,7 +18,7 @@
     "askLater": "Spør senere",
     "buyQuest": "Kjøp oppdrag",
     "accepted": "Godtatt",
-    "declined": "Declined",
+    "declined": "Avvist",
     "rejected": "Avslått",
     "pending": "Ubesvart",
     "questCollection": "+ <%= val %> oppdragsgjenstand(er) funnet",

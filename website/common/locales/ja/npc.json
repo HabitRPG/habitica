@@ -119,7 +119,7 @@
     "welcome3notes": "あなたが生活を改善するほどに、あなたのアバターもレベルアップして、ペット・クエスト・装備など色々なものがアンロックされていきます！",
     "imReady": "Habitica をはじめる",
     "limitedOffer": "<%= date %>まで購入可能",
-    "paymentAutoRenew": "この有料プランはキャンセルするまで自動更新されます。もしこの有料プランをキャンセルする必要があるときは、設定からキャンセルできます。",
+    "paymentAutoRenew": "この有料プランは解約するまで自動更新されます。有料プランを解約する必要がある場合は、設定から解約できます。",
     "paymentCanceledDisputes": "キャンセルの承認のメールをあなたに送りました。もしそのメールが見つからない場合は、今後の請求についての論争を防ぐために、私たちにご連絡をお願いいたします。",
     "cannotUnpinItem": "このアイテムはピン留めを外せません。",
     "paymentSubBillingWithMethod": "あなたの有料プランは、<strong><%= months %>ヶ月</strong>ごとに<strong><%= paymentMethod %></strong>によって <strong>$<%= amount %></strong> 請求されます。",

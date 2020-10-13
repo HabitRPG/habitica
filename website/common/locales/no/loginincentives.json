@@ -5,7 +5,7 @@
     "awesome": "Fantastisk!",
     "countLeft": "Innlogginger til din neste belønning: <%= count %>",
     "incentivesDescription": "Når det gjelder å bygge vaner, regelmessighet er nøkkelen. Hver dag logger inn, så kommer du nærmere en premie.",
-    "checkinEarned": "Ditt Innloggingsantall gikk opp",
+    "checkinEarned": "Ditt Innloggingsantall gikk opp!",
     "unlockedCheckInReward": "Du låste opp en Innloggingspremie!",
     "checkinProgressTitle": "Fremskritt til neste",
     "incentiveBackgroundsUnlockedWithCheckins": "Låste ensfargede bakgrunner vil bli låst opp med daglige inlogginger.",

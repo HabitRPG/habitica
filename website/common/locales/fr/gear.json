@@ -2205,5 +2205,13 @@
     "backMystery202010Notes": "La nuit vous appartient ! Alors volez aussi silencieusement qu'un nuage de minuit avec ces douces ailes pourpres. Ne confère aucun bonus. Équipement d'abonnement d'octobre 2020.",
     "backMystery202010Text": "Ailes de chauve-souris séduisantes",
     "headMystery202010Notes": "On vous épargnera une nouvelle blague sur l'écholocation... cation... cation. Ne confère aucun bonus. Équipement d'abonnement d'octobre 2020.",
-    "headMystery202010Text": "Oreilles de chauve-souris"
+    "headMystery202010Text": "Oreilles de chauve-souris",
+    "weaponArmoireEnchantersStaffNotes": "Les pierres vertes de ce bâton sont remplies de la puissance du changement qui traverse le vent d'automne. Augmente la perception de <%= per %>. Armoire enchantée : ensemble d'enchantement d'automne (objet 3 de 4).",
+    "armorArmoireAutumnEnchantersCloakText": "Cape d'enchantement d'automne",
+    "armorArmoireAutumnEnchantersCloakNotes": "Un sorcier aussi habile que vous doit afficher toute sa puissance. Augmente l'intelligence de 12. Armoire enchantée : ensemble d'enchantement d'automne (objet 2 de 4).",
+    "headArmoireHornsOfAutumnNotes": "Puisez dans la puissance de l'air vif de la saison et canalisez-la par votre magie ! Augmente la force de <%= str %>. Armoire enchantée : ensemble d'enchantement d'automne (objet 1 de 4).",
+    "headArmoireHornsOfAutumnText": "Cornes d'automne",
+    "shieldArmoireDarkAutumnFlameNotes": "Ces flammes envoûtantes dansent avec une énergie intense et inquiétante, même dans les nuits les plus fraîches de l'automne. Augmente la constitution de <%= con %>. Armoire enchantée : ensemble d'enchantement d'automne (objet 4 de 4).",
+    "shieldArmoireDarkAutumnFlameText": "Flamme sombre d'automne",
+    "weaponArmoireEnchantersStaffText": "Bâton d'enchantement"
 }

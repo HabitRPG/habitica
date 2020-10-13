@@ -99,7 +99,7 @@
     "giftedGems": "ジェムを贈られました",
     "giftedGemsInfo": "<%= name %> さんから <%= amount %> ジェムを贈られました",
     "giftedGemsFull": "こんにちは、<%= userName %>。<%= sender %> から <%= gemAmount %> 個のジェムのプレゼントが届きました!",
-    "giftedSubscription": "プレゼントされた有料プラン",
+    "giftedSubscription": "有料プランをプレゼントされました",
     "giftedSubscriptionInfo": "<%= name %> から <%= months %> カ月分の有料プランをプレゼントされました",
     "giftedSubscriptionFull": "こんにちは、<%= userName %>。<%= sender %> から <%= monthCount %> カ月分の有料プランをプレゼントされました！",
     "invitedParty": "パーティーへ招待されました",
@@ -112,7 +112,7 @@
     "invitedQuest": "クエストへ招待されました",
     "kickedGroup": "グループから追い出されました",
     "remindersToLogin": "Habitica へのチェックインを通知する",
-    "unsubscribedSuccessfully": "購読を中止しました!",
+    "unsubscribedSuccessfully": "有料プランを正常に解約しました！",
     "unsubscribedTextUsers": "Habitica からのメールをすべて停止しました。<a href=\"/user/settings/notifications\">設定 > 通知</a>受け取りたいメールだけを有効にすることができます(要ログイン)。",
     "unsubscribedTextOthers": "Habitica からの他のメールは発信されません。",
     "unsubscribeAllEmails": "チェックすると、メールの購読解除",
@@ -122,7 +122,7 @@
     "subscriptionRateText": "<strong><%= months %>カ月</strong> ごとに <strong><%= price %>米ドル</strong> ずつ",
     "benefits": "メリット",
     "coupon": "クーポン",
-    "couponText": "イベントをときどき行い、特別なアイテムのクーポン コードを配布しています。( たとえば、Wondercon で私たちのブースを訪れていただいた方向け)",
+    "couponText": "イベントで特別なアイテムのプロモーションコードを配布しています。(たとえば、Wonderconで私たちのブースを訪れた人に対して)",
     "apply": "適用",
     "promoCode": "プロモコード",
     "promoCodeApplied": "プロモコードが適用されました!　所持品を確認してください",
@@ -181,5 +181,6 @@
     "newPMNotificationTitle": "<%= name %>からの新しいメッセージ",
     "chatExtensionDesc": "Habiticaのチャット拡張機能は、すべてのhabitica.comに直感的なチャットボックスを追加します。キャンプ場や参加しているパーティー・ギルドでユーザーがチャットできます。",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chromeのチャット拡張機能</a>と<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefoxのチャット拡張機能</a>",
-    "displaynameIssueNewline": "表示名はバックスラッシュとNの文字を連続して使うことができません。"
+    "displaynameIssueNewline": "表示名はバックスラッシュとNの文字を連続して使うことができません。",
+    "resetAccount": "アカウントのリセット"
 }

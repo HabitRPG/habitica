@@ -1804,5 +1804,13 @@
     "weaponSpecialFall2019HealerText": "Filacteria Temible",
     "weaponSpecialFall2019MageNotes": "Sea forjando rayos, erigiendo fortificaciones o, simplemente, infundiendo terror en los corazones de los mortales, este bastón presta el poder de los gigantes para haver maravillas. Aumenta la Inteligencia en <%= int %> y la Percepción en <%= per %>. Equipo de Otoño de 2019, Edición Limitada.",
     "weaponSpecialFall2019MageText": "Bastón Tuerto",
-    "weaponSpecialFall2019WarriorNotes": "¡Prepárate para desgarrar a tus enemigos con las garras de un cuervo! Aumenta la Fuerza en <%= str %>. Equipo de Batalla de Otoño 2019, Edición Limitada."
+    "weaponSpecialFall2019WarriorNotes": "¡Prepárate para desgarrar a tus enemigos con las garras de un cuervo! Aumenta la Fuerza en <%= str %>. Equipo de Batalla de Otoño 2019, Edición Limitada.",
+    "weaponSpecialFall2020RogueText": "Katar Afilado",
+    "weaponSpecialFall2020WarriorNotes": "Esta espada fue al más allá con un poderoso guerrero, ¡y regresa para que la manejes! Aumenta la fuerza en <% = str%>. Edición limitada de otoño 2020.",
+    "weaponSpecialFall2020WarriorText": "Espada del Espectro",
+    "weaponSpecialFall2020RogueNotes": "¡Atraviesa a tu enemigo con un golpe seco! Incluso la armadura más gruesa dará paso a tu espada. Aumenta la fuerza en <% = str%>. Edición limitada de otoño 2020.",
+    "weaponSpecialFall2020MageText": "Tres Visiones",
+    "weaponSpecialFall2020MageNotes": "Si algo escapa a tu vista de mago, los cristales brillantes sobre este bastón iluminarán lo que pasaste por alto. Aumenta la inteligencia en un <% = int%> y la percepción en un <% = per%>. Edición limitada de otoño 2020.",
+    "weaponSpecialFall2020HealerText": "Caña Capullo",
+    "weaponSpecialFall2020HealerNotes": "Ahora que tu transformación está completa, este remanente de tu vida como pupa ahora sirve como la vara adivina con la que mides los destinos. Aumenta la inteligencia en <% = int%>. Edición limitada de otoño 2020."
 }
