@@ -108,6 +108,7 @@ export async function buyGems (data) {
     gift: Boolean(data.gift),
     purchaseValue: amt,
     headers: data.headers,
+    firstPurchase: data.user.purchased.txnCount === 1,
   });
 
   if (data.gift) await buyGemGift(data);

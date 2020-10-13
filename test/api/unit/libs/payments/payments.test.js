@@ -248,6 +248,7 @@ describe('payments/index', () => {
           quantity: 1,
           gift: true,
           purchaseValue: 15,
+          firstPurchase: true,
           headers: {
             'x-client': 'habitica-web',
             'user-agent': '',
@@ -345,6 +346,7 @@ describe('payments/index', () => {
           quantity: 1,
           gift: false,
           purchaseValue: 15,
+          firstPurchase: true,
           headers: {
             'x-client': 'habitica-web',
             'user-agent': '',
