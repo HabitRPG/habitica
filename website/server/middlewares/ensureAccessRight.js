@@ -13,6 +13,16 @@ export function ensureAdmin (req, res, next) {
   return next();
 }
 
+export function ensureNewsPoster (req, res, next) {
+  const { user } = res.locals;
+
+  if (!user.contributor.newsPoster) {
+    return next(new NotAuthorized(apiError('noNewsPosterAccess')));
+  }
+
+  return next();
+}
+
 export function ensureSudo (req, res, next) {
   const { user } = res.locals;
 
