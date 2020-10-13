@@ -1,6 +1,5 @@
 {
     "achievement": "Úspěch",
-    "share": "Sdílet",
     "onwards": "Kupředu!",
     "levelup": "Dosáhl/a jsi svých cílů v reálném životě, a proto jsi postoupil/a na vyšší úroveň a jsi plně vyléčen/a!",
     "reachedLevel": "Dosáhl/a jsi úrovně <%= level %>",

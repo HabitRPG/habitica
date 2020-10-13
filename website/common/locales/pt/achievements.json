@@ -1,6 +1,5 @@
 {
     "achievement": "Conquista",
-    "share": "Compartilhar",
     "onwards": "Em frente!",
     "levelup": "Ao concretizar os seus objetivos de vida real, você ganhou um nível e está agora completamente curado!",
     "reachedLevel": "Alcançou o nível <%= level %>",

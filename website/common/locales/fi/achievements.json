@@ -1,6 +1,5 @@
 {
     "achievement": "Saavutus",
-    "share": "Jaa",
     "onwards": "Eteenpäin!",
     "levelup": "Saavuttamalla tosielämän tavoitteesi nousit seuraavalle tasolle, ja parannuit täydellisesti!",
     "reachedLevel": "Saavutit tason <%= level %>",

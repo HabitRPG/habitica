@@ -1,6 +1,5 @@
 {
     "achievement": "Medal",
-    "share": "Share",
     "onwards": "Onward, t'ward th' ship!",
     "levelup": "By accomplishin' yer real life goals, ye leveled up n' are now fully healed!",
     "reachedLevel": "Ye Now Be Level <%= level %>",
