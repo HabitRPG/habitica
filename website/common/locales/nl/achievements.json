@@ -1,6 +1,5 @@
 {
     "achievement": "Prestatie",
-    "share": "Delen",
     "onwards": "Vooruit!",
     "levelup": "Door het volbrengen van de doelen in je echte leven ben je een niveau gestegen en volledig genezen!",
     "reachedLevel": "Je hebt niveau <%= level %> bereikt",

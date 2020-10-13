@@ -1,6 +1,5 @@
 {
     "achievement": "Præstation",
-    "share": "Del",
     "onwards": "Fremad!",
     "levelup": "Ved at opnå dine mål fra den virkelige verden er du steget i niveau, og er nu fuldt helet igen!",
     "reachedLevel": "Du har nået niveau <%= level %>",

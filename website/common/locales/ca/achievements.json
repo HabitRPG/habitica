@@ -1,6 +1,5 @@
 {
     "achievement": "Assoliment",
-    "share": "Compartir",
     "onwards": "Endavant!",
     "levelup": "Al complir els teus objectius a la vida real, has pujat de nivell i has recuperat la salut!",
     "reachedLevel": "Has assolit el nivell <%= level %>",
