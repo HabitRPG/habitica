@@ -8,10 +8,13 @@ export default {
         type: 'info',
       });
 
-      if (clearData) this.$emit('clear-data');
-      // Use clearData when the saved changes may affect data in other components
-      // (e.g., adding a contributor tier will increase the Gem balance)
-      // The admin should re-fetch the data if they need to keep working on that user.
+      if (clearData) {
+        // Use clearData when the saved changes may affect data in other components
+        // (e.g., adding a contributor tier will increase the Gem balance)
+        // The admin should re-fetch the data if they need to keep working on that user.
+        this.$emit('clear-data');
+        this.$router.push({ name: 'adminPanel' });
+      }
     },
   },
 };
