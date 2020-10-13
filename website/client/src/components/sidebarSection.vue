@@ -22,7 +22,10 @@
           :target="tooltipId"
         />
       </div>
-      <SidebarButton :visible="visible" @click="toggle" />
+      <SidebarButton
+        :visible="visible"
+        @click="toggle"
+      />
     </div>
     <div
       v-show="visible"
