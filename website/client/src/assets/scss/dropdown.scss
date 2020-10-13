@@ -3,7 +3,6 @@
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  line-height: 1.43;
 }
 
 .dropdown-toggle:hover {
@@ -25,6 +24,8 @@
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   vertical-align: 0;
+  margin-left: 1rem;
+  margin-bottom: 0.1rem;
 }
 
 .dropdown-menu {
@@ -75,10 +76,17 @@
 .dropdown-label {
   font-size: 14px;
   font-weight: bold;
-  line-height: 1.43;
-  color: $gray-10;
+  line-height: 1.71;
   margin-right: 20px;
   margin-left: 20px;
+
+  height: 1.5rem;
+  font-stretch: normal;
+  font-style: normal;
+  text-align: right;
+
+  margin-top: calc(0.25rem + 1px); // Padding of the dropdown buttons + button border width
+  margin-bottom: 0.25rem;
 }
 
 .dropdown-icon-item {

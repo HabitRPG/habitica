@@ -4,6 +4,7 @@
       v-for="attr in ATTRIBUTES"
       :key="attr"
       class="popover-content-attr"
+      :class="`attr-${attr}`"
     >
       <div class="group-content">
         <span
@@ -11,7 +12,7 @@
           :class="{'hasValue': hasSumValue(attr) }"
         >{{ `${$t(attr)}: ` }}</span>
         <span
-          class="popover-content-attr-cell label value"
+          class="popover-content-attr-cell label key-value value"
           :class="{'green': hasSumValue(attr) }"
         >{{ `${stats.sum[attr]}` }}</span>
         <span
@@ -53,6 +54,16 @@
     width: calc(50% - 1px);
     background-color: $gray-50;
 
+    .attr-str, .attr-int {
+      padding-top: 0.25rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .attr-con, .attr-per {
+      padding-bottom: 0.75rem;
+      padding-top: 0.5rem;
+    }
+
     &:nth-of-type(even) {
       margin-left: 1px;
     }
@@ -70,12 +81,12 @@
   }
 
   .popover-content-attr-cell {
-    width: 70%;
+    width: 65%;
     text-align: left;
 
     &:nth-of-type(even) {
       text-align: right;
-      width: 30%;
+      width: 35%;
     }
 
     &.key {
@@ -115,7 +126,7 @@
   .modal-body {
 
     .group-content {
-      padding: 8px 17px;
+      padding: 0.25rem 1rem;
     }
 
     .popover-content-attr {
@@ -129,32 +140,43 @@
 
     .popover-content-attr-cell {
       &.key {
-        color: $gray-400;
-        font-size: 16px;
+        color: $gray-100;
+        font-size: 0.875rem;
         font-weight: bold;
-        line-height: 1.25;
+        line-height: 1.71;
+
+        opacity: 0.5;
 
         &.hasValue {
-          color: $gray-50;
+          opacity: 1;
         }
       }
 
       &.label {
-        color: $gray-400;
-        font-size: 12px;
-        font-weight: bold;
+        color: $gray-100;
+        font-size: 0.75rem;
         line-height: 1.33;
+        opacity: 0.5;
+
+        &.bold {
+          font-weight: bold;
+        }
+
+        &.key-value {
+          line-height: 1.71;
+        }
 
         &.hasValue {
-          color: $gray-200;
+          opacity: 1;
         }
       }
 
       &.label.value {
+        text-align: right;
 
         &.green {
           color: $green-10;
-
+          opacity: 1;
         }
       }
     }
