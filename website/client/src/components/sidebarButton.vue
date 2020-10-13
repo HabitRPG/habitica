@@ -1,6 +1,10 @@
 <template>
-  <button
+  <div
     class="toggle ml-auto"
+    role="button"
+    :aria-expanded="visible"
+    tabindex="0"
+    @keyup.enter="$emit('click')"
     @click="$emit('click')"
   >
     <span
@@ -13,14 +17,20 @@
       class="svg-icon"
       v-html="icons.downIcon"
     ></span>
-  </button>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.toggle {
+@import '~@/assets/scss/colors.scss';
+
+  .toggle {
     border: 0;
     background: transparent;
     cursor: pointer;
+    &:focus {
+      outline: none;
+      border: $purple-400 solid 1px;
+    }
   }
 
   .svg-icon {
