@@ -34,8 +34,9 @@
       <div
         ref="markdownContainer"
         class="text markdown"
-        :style="{'text-align': languageAlign, 'direction': languageDirection}"
+        :style="{'text-align': languageAlign}"
         v-html="parseMarkdown(msg.text)"
+        dir="auto"
       ></div>
       <hr>
       <div
@@ -237,7 +238,6 @@ export default {
       }),
       reported: false,
       languageAlign: 'left',
-      languageDirection: 'ltr',
     };
   },
   computed: {
@@ -281,11 +281,10 @@ export default {
     },
   },
   beforeMount () {
-    const regexCheckLang = /^[\u0600-\u06FF]/;
-    const result = regexCheckLang.test(this.msg.text);
-    if (result) {
+    const regexCheckLang = /^[\u0591-\u07FF\u200F\u202B\u202E\uFB1D-\uFDFD\uFE70-\uFEFC]/;
+    const langCheckResult = regexCheckLang.test(this.msg.text);
+    if (langCheckResult) {
       this.languageAlign = 'right';
-      this.languageDirection = 'rtl';
     }
   },
   mounted () {
