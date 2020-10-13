@@ -2192,5 +2192,15 @@
     "weaponSpecialFall2020WarriorNotes": "Dieses Schwert hat einen starken Krieger ins Leben nach dem Tod begleitet und kehrt nun zurück, um von Dir geführt zu werden! Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2020 Herbstausrüstung.",
     "weaponSpecialFall2020WarriorText": "Schwert des Schreckgespenstes",
     "weaponSpecialFall2020RogueNotes": "Ersteche Deinen Gegner mit einem scharfen Hieb! Selbst die stärkste Rüstung wird Deinem Dolch nachgeben. Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2020 Herbstausrüstung.",
-    "weaponSpecialFall2020RogueText": "Scharfer Katar"
+    "weaponSpecialFall2020RogueText": "Scharfer Katar",
+    "backMystery202010Notes": "Du bist die Nacht! Also fliege so leise wie eine Mitternachtswolke mit diesen flinken lila Flügeln. Gewährt keinen Attributbonus. Abonnentengegenstand, Oktober 2020.",
+    "backMystery202010Text": "Verführerische Fledermausflügel",
+    "headMystery202010Notes": "Wir ersparen Dir einen weiteren Witz über Echoortung... ortung... tung. Gewährt keinen Attributbonus. Abonnentengegenstand, Oktober 2020.",
+    "headMystery202010Text": "Fledermausohren",
+    "armorSpecialFall2020RogueNotes": "Eigne Dir mit dieser Rüstung steinerne Stärke an, sie wehrt die wildesten Attacken ab. Garantiert! Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Herbstausrüstung.",
+    "weaponSpecialFall2020MageNotes": "Sollte Deinem Magierblick etwas entgangen sein, werden die funkelnden Kristalle auf diesem Stab erleuchten was Du übersehen hast. Erhöht Intelligenz um <%= int %> und Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Herbstausrüstung.",
+    "armorSpecialFall2020HealerNotes": "Dieses Kleides Pracht entfaltet sich erst bei Nacht und als du dann flögest, in schwärmender Tracht, ein jeder sich wundert, wo er geht und steht, welche Zeichen du birgst, die noch niemand versteht. Erhöht Konstitution um <%= con %>. Limitierte Ausgabe 2020 Herbstausrüstung.",
+    "armorSpecialFall2020MageNotes": "Diese weitläufig schwingenden Roben erleichtern einen schwebenden Gang und symbolisieren den enormen Weitblick, der nur den Wissenden vergönnt ist. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2020 Herbstausrüstung.",
+    "headSpecialFall2020WarriorNotes": "Die Krieger, welche dies einst trugen, schreckten selbst vor den schwierigsten Aufgaben nicht zurück! Doch mögen andere vor dir erschrecken, wenn du diese Gugel trägst... Erhöht Stärke um <%= str %>. Limitierte Ausgabe 2020 Herbstausrüstung.",
+    "headSpecialFall2020MageNotes": "Sitzt diese Kappe direkt auf deinen Brauen, so öffnet sich dein drittes Auge und erlaubt dir fokussieren was sonst unsichtbar: Die Strömung der Magie, ruhelose Geister und vergessene Aufgaben. Erhöht Wahrnehmung um <%= per %>. Limitierte Ausgabe 2020 Herbstausrüstung."
 }

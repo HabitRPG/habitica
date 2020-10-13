@@ -1,8 +1,8 @@
 {
-    "achievement": "Feliciter eventa",
+    "achievement": "Res Perfectae",
     "share": "Parti",
     "onwards": "Profice!",
-    "levelup": "Perveniendo ad scopos externae vitae ad gradum novum ascendisti et temet persanavisti!",
+    "levelup": "Perveniendo ad scopos externae vitae ad gradum novum ascendisti et temet ipse persanavisti!",
     "reachedLevel": "Gradum <%= level %> Pervenisti",
     "achievementLostMasterclasser": "Qui Perficit Investigationem: Masterclasser Thesaurus",
     "achievementLostMasterclasserText": "Sedecim investigationes ad Investigationum Masterclasser Thesaurum pertinentes finivit et arcanum Magistrae Ordinum Oblitae solvit!",
