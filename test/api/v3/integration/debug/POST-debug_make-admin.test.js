@@ -3,7 +3,7 @@ import {
   generateUser,
 } from '../../../../helpers/api-integration/v3';
 
-describe('POST /debug/make-admin (pended for v3 prod testing)', () => {
+describe('POST /debug/make-admin', () => {
   let user;
 
   before(async () => {
@@ -19,7 +19,9 @@ describe('POST /debug/make-admin (pended for v3 prod testing)', () => {
 
     await user.sync();
 
-    expect(user.contributor.admin).to.eql(true);
+    expect(user.contributor.admin).to.eql(true); // @TODO make this unnecessary
+    expect(user.contributor.priv.userSupport).to.eql(true);
+    expect(user.contributor.priv.userSupportPlus).to.eql(true);
   });
 
   it('returns error when not in production mode', async () => {

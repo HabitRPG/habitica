@@ -111,6 +111,12 @@
             class="admin-action"
             @click="adminUnblockUser()"
           >un-ban</span>
+          <router-link
+            :to="{ name: 'adminPanelUser', params: { userIdentifier: userId } }"
+            replace
+          >
+            Admin Panel
+          </router-link>
         </div>
       </div>
       <div class="row">

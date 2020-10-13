@@ -60,7 +60,7 @@ export function validateItemPath (itemPath) {
 
 // When passed a value of an item in the user object it'll convert the
 // value to the correct format.
-// Example a numeric string like "5" applied to a food item (expecting an interger)
+// Example a numeric string like "5" applied to a food item (expecting an integer)
 // will be converted to the number 5
 export function castItemVal (itemPath, itemVal) {
   if (
@@ -73,13 +73,19 @@ export function castItemVal (itemPath, itemVal) {
     return Number(itemVal);
   }
 
-  if (
-    itemPath.indexOf('items.mounts') === 0
-    || itemPath.indexOf('items.gear.owned') === 0
-  ) {
-    if (itemVal === 'true') return true;
-    if (itemVal === 'false') return false;
+  if (itemPath.indexOf('items.mounts') === 0) {
+    // Mounts are true when you own them and null when you have used Keys to the Kennel
+    // to release them.
+    // They are never false but allow 'false' to be null in case of user error.
+    if (itemVal === 'null' || itemVal === 'false') return null;
+    if (itemVal) return true; // any truthy value
+    return null; // any false value
+  }
 
+  if (itemPath.indexOf('items.gear.owned') === 0) {
+    // Gear is true when you own it and false if you previously owned it but lost it (e.g., Death)
+    // It is never null but allow 'null' to be false in case of user error.
+    if (itemVal === 'false' || itemVal === 'null') return false;
     return Boolean(itemVal);
   }
 
