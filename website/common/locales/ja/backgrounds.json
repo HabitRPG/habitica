@@ -542,8 +542,12 @@
     "backgroundBeachCabanaNotes": "海の家の日陰でゆっくりしましょう。",
     "backgroundBeachCabanaText": "海の家",
     "backgrounds072020": "セット74：2020年7月リリース",
-    "backgroundJungleCanopyText": "ジャングル林冠",
-    "backgroundCampingOutNotes": "野宿して野外を楽しむ。",
+    "backgroundJungleCanopyText": "密林の天蓋",
+    "backgroundCampingOutNotes": "野宿して野外を楽しもう。",
     "backgroundCampingOutText": "野宿",
-    "backgrounds082020": "セット75：2020年8月リリース"
+    "backgrounds082020": "セット75：2020年8月リリース",
+    "backgroundJungleCanopyNotes": "密林の天蓋の厳かな蒸し暑さに浸ろう。",
+    "backgrounds092020": "セット76： 2020年9月リリース",
+    "backgroundProductivityPlazaNotes": "ハビットシティのプロダクティビティ広場を通って、思索の散歩をしよう。",
+    "backgroundProductivityPlazaText": "プロダクティビティ広場"
 }

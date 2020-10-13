@@ -2201,5 +2201,9 @@
     "weaponSpecialFall2020WarriorText": "Épée de spectre",
     "weaponSpecialFall2020RogueNotes": "Transpercez votre ennemi d'un seul coup ! Même l'armure la plus épaisse cédera sous votre lame. Augmente la force de <%= str %>. Équipement en édition limitée de l'automne 2020.",
     "weaponSpecialFall2020RogueText": "Katar aiguisé",
-    "armorSpecialFall2020WarriorText": "Toges de revenant"
+    "armorSpecialFall2020WarriorText": "Toges de revenant",
+    "backMystery202010Notes": "La nuit vous appartient ! Alors volez aussi silencieusement qu'un nuage de minuit avec ces douces ailes pourpres. Ne confère aucun bonus. Équipement d'abonnement d'octobre 2020.",
+    "backMystery202010Text": "Ailes de chauve-souris séduisantes",
+    "headMystery202010Notes": "On vous épargnera une nouvelle blague sur l'écholocation... cation... cation. Ne confère aucun bonus. Équipement d'abonnement d'octobre 2020.",
+    "headMystery202010Text": "Oreilles de chauve-souris"
 }
