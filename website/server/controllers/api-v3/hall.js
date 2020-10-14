@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import validator from 'validator';
 import { authWithHeaders } from '../../middlewares/auth';
-import { ensureAdmin } from '../../middlewares/ensureAccessRight';
+import { ensureAdmin, ensurePriv } from '../../middlewares/ensureAccessRight';
 import { model as User } from '../../models/user';
 import { model as Group } from '../../models/group';
 import common from '../../../common';
@@ -341,10 +341,10 @@ api.updateHero = {
  * @apiParam (Path) {UUID} groupId party's group ID
  * @apiName GetHeroParty
  * @apiGroup Hall
- * @apiPermission Admin
+ * @apiPermission userSupport
  *
  * @apiDescription Returns some basic information about a given Party,
- # to assist admins with user support.
+ * to assist admins with user support.
  *
  * @apiSuccess {Object} data The party object (contains computed fields
  * that are not in the Group model)
@@ -352,14 +352,14 @@ api.updateHero = {
  * @apiUse NoAuthHeaders
  * @apiUse NoAccount
  * @apiUse NoUser
- * @apiUse NotAdmin
+ * @apiUse NoPrivs
  * @apiUse groupIdRequired
  * @apiUse GroupNotFound
  */
 api.getHeroParty = { // @TODO XXX add tests
   method: 'GET',
   url: '/hall/heroes/party/:groupId',
-  middlewares: [authWithHeaders(), ensureAdmin],
+  middlewares: [ authWithHeaders(), ensurePriv('userSupport') ],
   async handler (req, res) {
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
 

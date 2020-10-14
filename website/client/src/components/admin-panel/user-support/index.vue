@@ -22,7 +22,7 @@
           :reset-counter="resetCounter"
         />
 
-        <party-and-quest
+        <party-and-quest v-if="adminHasPrivForParty"
           :user-id="hero._id"
           :username="hero.auth.local.username"
           :user-has-party="hasParty"
@@ -112,6 +112,7 @@ export default {
       party: {},
       hasParty: false,
       partyNotExistError: false,
+      adminHasPrivForParty: true,
     };
   },
   computed: {
@@ -149,13 +150,19 @@ export default {
 
       this.hasParty = false;
       this.partyNotExistError = false;
+      this.adminHasPrivForParty = true;
       if (this.hero.party && this.hero.party._id) {
         try {
           this.party = await this.$store.dispatch('hall:getHeroParty', { groupId: this.hero.party._id });
           this.hasParty = true;
         } catch (e) {
-          // the API's error message isn't worth reporting ("Request failed with status code 404")
-          this.partyNotExistError = true;
+          if (e.message.includes('status code 401')) {
+            // @TODO is there a better way to recognise NotAuthorized error?
+            this.adminHasPrivForParty = false;
+          } else {
+            // the API's error message isn't worth reporting ("Request failed with status code 404")
+            this.partyNotExistError = true;
+          }
         }
       }
 

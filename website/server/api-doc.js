@@ -57,6 +57,19 @@
  */
 
 /**
+ * @apiDefine NoPrivs You don't have the required privileges.
+ *
+ * @apiError (401) {NotAuthorized} NoPrivs User does not have the required admin privileges.
+ *
+ * @apiErrorExample User does not have the required privileges.
+ * {
+ *   "success": false,
+ *   "error": "NotAuthorized",
+ *   "message": "You don't have the required privileges."
+ * }
+ */
+
+/**
  * @apiDefine NoUser No user
  * @apiError (404) {NotFound} NoUser The specified user could not be found.
  *
