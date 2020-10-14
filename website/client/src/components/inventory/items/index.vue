@@ -36,23 +36,14 @@
         </h1>
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(sortBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              :active="sortBy === 'quantity'"
-              @click="sortBy = 'quantity'"
-            >
-              {{ $t('quantity') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              :active="sortBy === 'AZ'"
-              @click="sortBy = 'AZ'"
-            >
-              {{ $t('AZ') }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+            :right="true"
+            :items="['quantity', 'AZ']"
+            :value="sortBy"
+            @select="sortBy = $event"
+            class="inline"
+            :inlineDropdown="false"
+          />
         </div>
       </div>
 
@@ -358,6 +349,7 @@ import DragDropDirective from '@/directives/dragdrop.directive';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
 import FilterGroup from '@/components/ui/filterGroup';
 import Checkbox from '@/components/ui/checkbox';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
@@ -380,6 +372,7 @@ let lastMouseMoveEvent = {};
 export default {
   name: 'Items',
   components: {
+    SelectTranslatedArray,
     Checkbox,
     FilterGroup,
     Item,

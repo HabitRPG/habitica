@@ -43,19 +43,15 @@
 
         <div class="float-right top-menu">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(selectedSortGearBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              v-for="sort in sortGearBy"
-              :key="sort"
-              :active="selectedSortGearBy === sort"
-              @click="selectedSortGearBy = sort"
-            >
-              {{ $t(sort) }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+            :right="true"
+            :items="sortGearBy"
+            :value="selectedSortGearBy"
+            @select="selectedSortGearBy = $event"
+            class="inline"
+            :inlineDropdown="false"
+          />
+
           <span class="dropdown-label">{{ $t('groupBy2') }}</span>
           <b-dropdown
             :text="$t(groupBy === 'type' ? 'equipmentType' : 'class')"
@@ -345,6 +341,7 @@ import FilterSidebar from '@/components/ui/filterSidebar';
 import Checkbox from '@/components/ui/checkbox';
 import UnequipDropdown from '@/components/inventory/equipment/unequipDropdown';
 import EquipBadge from '@/components/ui/equipBadge';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -359,6 +356,7 @@ const sortGearTypeMap = {
 export default {
   name: 'Equipment',
   components: {
+    SelectTranslatedArray,
     EquipBadge,
     UnequipDropdown,
     Checkbox,

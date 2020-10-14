@@ -113,19 +113,14 @@
         </h1>
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(selectedSortBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              v-for="sort in sortByItems"
-              :key="sort"
-              :active="selectedSortBy === sort"
-              @click="selectedSortBy = sort"
-            >
-              {{ $t(sort) }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+            :right="true"
+            :items="sortByItems"
+            :value="selectedSortBy"
+            @select="selectedSortBy = $event"
+            class="inline"
+            :inlineDropdown="false"
+          />
         </div>
       </div>
       <h2 class="mb-3">
@@ -467,6 +462,7 @@ import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
 import ShowMoreButton from '@/components/ui/showMoreButton';
 import EquipBadge from '@/components/ui/equipBadge';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 // TODO Normalize special pets and mounts
 // import Store from '@/store';
@@ -477,6 +473,7 @@ let lastMouseMoveEvent = {};
 
 export default {
   components: {
+    SelectTranslatedArray,
     EquipBadge,
     ShowMoreButton,
     FilterGroup,
