@@ -1749,5 +1749,6 @@
     "weaponArmoireSlingshotText": "Funda",
     "weaponArmoireJugglingBallsText": "Sphaera Praestigia",
     "weaponArmoireVernalTaperText": "Cerneus Vernus",
-    "weaponSpecialSpring2019RogueText": "Fulmen"
+    "weaponSpecialSpring2019RogueText": "Fulmen",
+    "weaponSpecialSpring2019RogueNotes": "Haec arma potentiam caeli et imbris cohibent. ... Ea vim addit per <%= str %>. ..."
 }

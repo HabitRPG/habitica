@@ -1,10 +1,9 @@
+import md from 'habitica-markdown';
 import { authWithHeaders } from '../../middlewares/auth';
+import { model as NewsPost } from '../../models/newsPost';
 
 const api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from
-// controllers
-const LAST_ANNOUNCEMENT_TITLE = 'NEW VAMPIRE MAGIC HATCHING POTIONS, PLUS THE RETURN OF GHOST AND SHADOW POTIONS!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -24,38 +23,42 @@ api.getNews = {
   async handler (req, res) {
     const baileyClass = worldDmg.bailey ? 'npc_bailey_broken' : 'npc_bailey';
 
-    res.status(200).send({
-      html: `
-      <div class="bailey">
-        <div class="media align-items-center">
-          <div class="mr-3 ${baileyClass}"></div>
-          <div class="media-body">
-            <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>9/24/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+    const lastNewsPost = NewsPost.lastNewsPost();
+    if (lastNewsPost) {
+      res.status(200).send({
+        html: `
+        <div class="bailey">
+          <div class="media align-items-center">
+            <div class="mr-3 ${baileyClass}"></div>
+            <div class="media-body">
+              <h1 class="align-self-center">${res.t('newStuff')}</h1>
+              <h2>${lastNewsPost.title.toUpperCase()}</h2>
+            </div>
+          </div>
+          <hr/>
+          <p>
+            ${md.unsafeHTMLRender(lastNewsPost.text)}
+          </p>
+          <div class="small">
+            by ${lastNewsPost.credits}
           </div>
         </div>
-        <hr/>
-        <div class="promo_vampire_potions center-block"></div>
-        <p>
-          There's a new pet breed in town! Between now and October 31st, you can buy Magic Hatching
-          Potions from <a href='/shops/market'>the Market</a> and use them to hatch any standard
-          pet egg. (Magic Hatching Potions do not work on Quest Pet eggs.) Magic Potion Pets aren't
-          picky, so they'll happily eat any kind of food that you feed them!
-        </p>
-        <p>
-          For this Gala, we've brought back Ghost and Shadow Potions, and added a brand-new potion:
-          Vampire!
-        </p>
-        <p>
-          After they're gone, it will be at least a year before these Hatching Potions are
-          available again, so be sure to get them now!
-        </p>
-        <div class="small mb-3">
-          by QuartzFox, Hermi, jjgame83, OuttaMyMind, loremi, and SabreCat
+        `,
+      });
+    } else {
+      res.status(200).send({
+        html: `
+        <div class="bailey">
+          <div class="media align-items-center">
+            <div class="mr-3 ${baileyClass}"></div>
+            <div class="media-body">
+              <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            </div>
+          </div>
         </div>
-      </div>
-      `,
-    });
+        `,
+      });
+    }
   },
 };
 
@@ -65,7 +68,6 @@ api.getNews = {
  * @apiDescription Add a notification to allow viewing of the latest "New Stuff by Bailey" message.
  * Prevent this specific Bailey message from appearing automatically.
  * @apiGroup News
- *
  *
  * @apiSuccess {Object} data An empty Object
  *
@@ -77,13 +79,17 @@ api.tellMeLaterNews = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.flags.newStuff = false;
+    const lastNewsPost = NewsPost.lastNewsPost();
+    if (lastNewsPost) {
+      user.flags.lastNewStuffRead = lastNewsPost._id;
 
-    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
-    if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
-    user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
+      const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
+      if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
+      user.addNotification('NEW_STUFF', { title: lastNewsPost.title.toUpperCase() }, true); // seen by default
 
-    await user.save();
+      await user.save();
+    }
+
     res.respond(200, {});
   },
 };

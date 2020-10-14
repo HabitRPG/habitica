@@ -3,6 +3,7 @@
     <div
       class="align-self-center svg-icon"
       v-html="icons[memberClass]"
+      :aria-label="$t(memberClass)"
     ></div>
   </div>
 </template>

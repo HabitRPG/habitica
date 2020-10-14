@@ -65,7 +65,7 @@
     <b-popover
       v-if="showPopover"
       :target="itemId"
-      triggers="hover, focus"
+      triggers="hover focus"
       :placement="popoverPosition"
     >
       <slot

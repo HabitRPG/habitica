@@ -13,6 +13,16 @@ export function ensureAdmin (req, res, next) { // @TODO replace with ensurePriv
   return next();
 }
 
+export function ensureNewsPoster (req, res, next) { // @TODO replace with ensurePriv
+  const { user } = res.locals;
+
+  if (!user.contributor.newsPoster) {
+    return next(new NotAuthorized(apiError('noNewsPosterAccess')));
+  }
+
+  return next();
+}
+
 export function ensureSudo (req, res, next) { // @TODO replace with ensurePriv
   const { user } = res.locals;
 
