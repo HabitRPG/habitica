@@ -100,7 +100,7 @@ export default {
     },
     getPostDate (post) {
       const format = this.user ? this.user.preferences.dateFormat.toUpperCase() : 'MM/DD/yyyy';
-      return moment(post.publishedDate).format(format);
+      return moment(post.publishDate).format(format);
     },
   },
 };
