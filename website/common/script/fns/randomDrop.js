@@ -161,7 +161,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
     const isEnrolledInDropCapTest = user._ABtests.dropCapNotif
       && user._ABtests.dropCapNotif.includes('drop-cap-notif-');
     const hasActiveDropCapNotif = isEnrolledInDropCapTest
-      && user._ABtests.dropCapNotif.includes('drop-cap-notif-enabled');
+      && user._ABtests.dropCapNotif === 'drop-cap-notif-enabled';
 
     // Unsubscribed users get a notification when they reach the drop cap
     // One per day
