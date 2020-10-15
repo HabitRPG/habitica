@@ -142,11 +142,11 @@
     "dateEndNovember": "11月30日",
     "dateEndJanuary": "1月31日",
     "dateEndFebruary": "2月29日",
-    "winterPromoGiftHeader": "寄付会員特典を贈って、無料で寄付会員特典をもらおう！",
-    "winterPromoGiftDetails1": "1月6日までの間に限り、誰かに寄付会員特典を贈ると、同じだけの期間分、無料で寄付会員になれます！",
-    "winterPromoGiftDetails2": "もしあなたや贈る相手がすでに定期的な寄付会員特典を受けている場合、贈られた寄付会員特典は、既存の寄付会員特典がキャンセルされるか期限が切れた後にのみ有効になります。どうぞご注意ください。皆様のサポートに感謝します！ <3",
+    "winterPromoGiftHeader": "有料プランをプレゼントすると、同じ月数の有料プランに無料で加入できます！",
+    "winterPromoGiftDetails1": "1月6日までの間に限り、誰かに有料プランをプレゼントすると、あなた自身も同じ月数の有料プランに無料で加入できます！",
+    "winterPromoGiftDetails2": "もしあなたやプレゼントする相手がすでに定期的な有料プランに加入している場合、プレゼントした有料プランは、すでに加入している有料プランを解約するか期限が切れた後にのみ有効になります。どうぞご注意ください。皆様のご支援に心から感謝します！ <3",
     "discountBundle": "セット",
-    "g1g1Announcement": "寄付会員特典を贈って、無料で寄付会員になれるイベントがただいま開催中です！",
+    "g1g1Announcement": "有料プランをプレゼントすると、有料プランに無料で加入できるイベントがただいま開催中です！",
     "g1g1Details": "友達のプロフィールから有料プランをプレゼントしましょう。そうすれば、あなたも同じ月数の有料プランを無料で受けられますよ！",
     "spring2019OrchidWarriorSet": "蘭（戦士）",
     "spring2019AmberMageSet": "琥珀（魔道士）",
@@ -179,5 +179,11 @@
     "summer2020CrocodileRogueSet": "クロコダイル（盗賊）",
     "summer2020SeaGlassHealerSet": "シーグラス（治療師）",
     "summer2020OarfishMageSet": "リュウグウノツカイ（魔道士）",
-    "summer2020RainbowTroutWarriorSet": "ニジマス（戦士）"
+    "summer2020RainbowTroutWarriorSet": "ニジマス（戦士）",
+    "juneYYYY": "<%= year %>年6月",
+    "septemberYYYY": "<%= year %>年9月",
+    "fall2020TwoHeadedRogueSet": "双頭（盗賊）",
+    "fall2020ThirdEyeMageSet": "第三の目（魔道士）",
+    "fall2020DeathsHeadMothHealerSet": "ドクロメンガタスズメ（治療師）",
+    "fall2020WraithWarriorSet": "レイス（戦士）"
 }

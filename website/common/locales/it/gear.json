@@ -2205,5 +2205,13 @@
     "backMystery202010Notes": "Sei tu la notte! Vola silenziosamente come una nuvola di mezzanotte con queste veloci ali viola. Non conferisce alcun bonus. Oggetto abbonati ottobre 2020.",
     "backMystery202010Text": "Incantevoli Ali da Pipistrello",
     "headMystery202010Notes": "Ti risparmieremo un'altra battuta sull'ecolocalizzazione... zione... zione. Non conferisce alcun bonus. Oggetto abbonati ottobre 2020.",
-    "headMystery202010Text": "Orecchie da Pipistrello"
+    "headMystery202010Text": "Orecchie da Pipistrello",
+    "shieldArmoireDarkAutumnFlameNotes": "Queste fiamme ipnotiche danzano con un'energia vivace ma inquietante anche nelle notti più fredde dell'autunno. Aumenta la costituzione di<%= con %>. Scrigno incantato: Set dello Stregone Autunnale (oggetto 4 di 4).",
+    "headArmoireHornsOfAutumnNotes": "Attira il potere dell'aria frizzantina ed incanalalo attraverso la tua magia! Aumenta la forza di <%= str %>. Scrigno incantato: Set dello Stregone Autunnale (oggetto 1 di 4).",
+    "shieldArmoireDarkAutumnFlameText": "Fiamma autunnale oscura",
+    "headArmoireHornsOfAutumnText": "Corna d'autunno",
+    "armorArmoireAutumnEnchantersCloakNotes": "Uno stregone abile come te oltre ad essere potente lo deve anche sembrare. Aumenta l'intelligenza di 12. Scrigno incantato: Set dello Stregone Autunnale (oggetto 2 di 4).",
+    "armorArmoireAutumnEnchantersCloakText": "Mantello dello Stregone Autunnale",
+    "weaponArmoireEnchantersStaffNotes": "Le pietre verdi su questo bastone racchiudono il potere del cambiamento che scorre forte nel vento autunnale. Aumenta la percezione di <%= per %>. Scrigno Incantato: Set dello Stregone Autunnale. (Oggetto 3 di 4).",
+    "weaponArmoireEnchantersStaffText": "Bastone dello Stregone"
 }

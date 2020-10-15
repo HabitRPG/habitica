@@ -1609,7 +1609,7 @@
     "bodyMystery201711Notes": "这个柔软的针织围巾在风中看起来相当雄伟。没有属性加成。2017年11月订阅者物品。",
     "bodyMystery201901Text": "北极星护肩",
     "bodyMystery201901Notes": "这套闪闪发光的护肩非常坚固，但却可以像一缕缕跳舞的光束一样轻盈地靠在您的肩膀上。没有属性加成。2019年1月订阅者物品。",
-    "bodyArmoireCozyScarfText": "舒適溫暖的領巾",
+    "bodyArmoireCozyScarfText": "舒服的围巾",
     "bodyArmoireCozyScarfNotes": "这条上等的围巾能让您在寒冷环境下工作时，还能保持温暖。增加体质、感知各<%= attrs %>点。魔法衣橱：点灯人套装（4/4）。",
     "headAccessory": "头部配件",
     "headAccessoryCapitalized": "头部配件",
@@ -1775,7 +1775,7 @@
     "weaponArmoireJugglingBallsText": "杂耍球",
     "weaponSpecialSummer2019HealerNotes": "这支魔杖的气泡捕捉到治疗能量和古老的海洋魔法。增加<％= int％>点智力。2019年夏季限定版装备。",
     "weaponSpecialSummer2019HealerText": "泡泡魔棒",
-    "weaponSpecialSummer2019MageNotes": "这是从池中摘得的最初的硕果，这是赋予力量、激发灵感的小小宝藏。增加<％= int％>点智力。2019年夏季限定版装备。",
+    "weaponSpecialSummer2019MageNotes": "这是从池中摘得的最初的硕果，这是赋予力量、激发灵感的小小宝藏。增加<%= int %>点智力。2019年夏季限定版装备。",
     "weaponSpecialSummer2019MageText": "灿烂的绽放",
     "weaponSpecialSummer2019WarriorNotes": "现在你正在与分形作斗争！增加<％= str％>点力量。2019年夏季限定版装备。",
     "weaponSpecialSummer2019WarriorText": "红珊瑚",
@@ -2205,5 +2205,13 @@
     "backMystery202010Notes": "你是寂静的夜！ 紫翼是午夜的云！眨眼一晃而过。没有属性加成。2020年10月订阅者物品。",
     "backMystery202010Text": "诱惑蝙蝠翼",
     "headMystery202010Notes": "我们分享给你一个回声笑话，关于蝙蝠.蝠..fu...f....没有属性加成。2020年10月订阅者物品。",
-    "headMystery202010Text": "蝙蝠耳"
+    "headMystery202010Text": "蝙蝠耳",
+    "shieldArmoireDarkAutumnFlameNotes": "即使在秋季最寒冷的夜晚，这些令人着迷的火焰也舞动着活泼又躁动不安的能量。增加<%= con %>点体质。魔法衣橱：秋日的魔法师套装（4/4）。",
+    "shieldArmoireDarkAutumnFlameText": "深秋暗焰",
+    "armorArmoireAutumnEnchantersCloakNotes": "你需要像个老练强大的魔法师。增加12点智力。魔法衣橱：秋日的魔法师套装（2/4）。",
+    "headArmoireHornsOfAutumnNotes": "汲取秋日里快活的气息，将它转化为魔力！增加 <%= str %>点力量。魔法衣橱：秋日的魔法师套装（1/4）。",
+    "headArmoireHornsOfAutumnText": "秋日的号角",
+    "weaponArmoireEnchantersStaffText": "魔法杖",
+    "armorArmoireAutumnEnchantersCloakText": "秋日魔法斗篷",
+    "weaponArmoireEnchantersStaffNotes": "法杖上镶嵌的绿石，拥有改变秋风力量。增加<%= per %>点感知。魔法衣橱：秋日的魔法师套装（3/4）。"
 }

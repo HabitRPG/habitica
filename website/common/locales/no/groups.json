@@ -362,5 +362,8 @@
     "PMUnblockUserToSendMessages": "Fjern blokkeringen av denne brukeren for å fortsette å sende og motta meldinger.",
     "PMUserDoesNotReceiveMessages": "Denne brukeren mottar ikke lenger private meldinger",
     "PMCanNotReply": "Du kan ikke svare på denne samtalen",
-    "PMDisabled": "Deaktiver private meldinger"
+    "PMDisabled": "Deaktiver private meldinger",
+    "bannedWordsAllowedDetail": "Når dette alternativet er valgt, vil bruk av forbudte ord i dette lauget være tillatt.",
+    "bannedWordsAllowed": "Tillat forbudte ord",
+    "languageSettings": "Språkinstillinger"
 }

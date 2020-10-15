@@ -158,10 +158,18 @@ export default function randomDrop (user, options, req = {}, analytics) {
 
     const dropN = user.items.lastDrop.count;
     const dropCapReached = dropN === maxDropCount;
+    const isEnrolledInDropCapTest = user._ABtests.dropCapNotif
+      && user._ABtests.dropCapNotif.includes('drop-cap-notif-');
+    const hasActiveDropCapNotif = isEnrolledInDropCapTest
+      && user._ABtests.dropCapNotif === 'drop-cap-notif-enabled';
 
     // Unsubscribed users get a notification when they reach the drop cap
     // One per day
-    if (dropCapReached && user.addNotification && user.isSubscribed && !user.isSubscribed()) {
+    if (
+      hasActiveDropCapNotif && dropCapReached
+      && user.addNotification
+      && user.isSubscribed && !user.isSubscribed()
+    ) {
       const prevNotifIndex = user.notifications.findIndex(n => n.type === 'DROP_CAP_REACHED');
       if (prevNotifIndex !== -1) user.notifications.splice(prevNotifIndex, 1);
 
@@ -169,7 +177,9 @@ export default function randomDrop (user, options, req = {}, analytics) {
         message: i18n.t('dropCapReached', req.language),
         items: dropN,
       });
+    }
 
+    if (isEnrolledInDropCapTest) {
       analytics.track('drop cap reached', {
         uuid: user._id,
         dropCap: maxDropCount,
