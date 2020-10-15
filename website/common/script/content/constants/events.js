@@ -1,10 +1,5 @@
 /* eslint-disable key-spacing */
 
-// IMPORTANT: The end date should be one to two days AFTER the actual end of
-// the event, to allow people in different timezones to still buy the
-// event gear up until at least the actual end of the event.
-// Unless we want a precise ending, for example during a gems sale.
-
 // gem block: number of gems
 const gemsPromo = {
   '4gems': 5,
@@ -13,6 +8,10 @@ const gemsPromo = {
   '84gems': 125,
 };
 
+// IMPORTANT: The end date should be one to two days AFTER the actual end of
+// the event, to allow people in different timezones to still buy the
+// event gear up until at least the actual end of the event.
+// Unless we want a precise ending, for example during a Gems sale / promotion.
 export const EVENTS = {
   fall2020SecondPromo: {
     start: '2020-10-29T08:00-04:00',

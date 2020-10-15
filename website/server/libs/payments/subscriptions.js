@@ -172,6 +172,8 @@ async function createSubscription (data) {
     txnEmail(data.user, emailType);
   }
 
+  if (!group && !data.promo) data.user.purchased.txnCount += 1;
+
   if (!data.promo) {
     analytics.trackPurchase({
       uuid: data.user._id,
@@ -184,10 +186,9 @@ async function createSubscription (data) {
       gift: Boolean(data.gift),
       purchaseValue: block.price,
       headers: data.headers,
+      firstPurchase: !group && data.user.purchased.txnCount === 1,
     });
   }
-
-  if (!group && !data.promo) data.user.purchased.txnCount += 1;
 
   if (data.gift) {
     const byUserName = getUserInfo(data.user, ['name']).name;

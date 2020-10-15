@@ -832,5 +832,8 @@
   "questTurquoiseCollectNeptuneRunes": "Neptune Runes",
   "questTurquoiseCollectTurquoiseGems": "Turquoise Gems",
   "questTurquoiseDropTurquoisePotion": "Turquoise Hatching Potion",
-  "questTurquoiseUnlockText": "Unlocks Turquoise Hatching Potions for purchase in the Market"
+  "questTurquoiseUnlockText": "Unlocks Turquoise Hatching Potions for purchase in the Market",
+
+  "sandySidekicksText": "Sandy Sidekicks Quest Bundle",
+  "sandySidekicksNotes": "Contains 'The Indulgent Armadillo', 'The Serpent of Distraction', and 'The Icy Arachnid'. Available until <%= date %>."
 }
