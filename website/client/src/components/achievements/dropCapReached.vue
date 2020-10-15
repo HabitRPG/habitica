@@ -3,6 +3,7 @@
     id="drop-cap-reached"
     size="md"
     :hide-header="true"
+    :hide-footer="!hasSubscription"
   >
     <div class="text-center">
       <div
@@ -192,6 +193,7 @@
 import closeIcon from '@/assets/svg/close.svg';
 import sparkles from '@/assets/svg/star-group.svg';
 import * as Analytics from '@/libs/analytics';
+import { mapState } from '@/libs/store';
 
 export default {
   data () {
@@ -202,6 +204,12 @@ export default {
       }),
       maxItems: null,
     };
+  },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    hasSubscription () {
+      return Boolean(this.user.purchased.plan.customerId);
+    },
   },
   mounted () {
     this.$root.$on('habitica:drop-cap-reached', notification => {
