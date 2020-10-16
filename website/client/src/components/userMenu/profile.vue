@@ -672,8 +672,7 @@
       height: 1px;
       position: relative;
       vertical-align: middle;
-      width: 90%;
-      left: 16px;
+      width: 100%;
     }
   }
 

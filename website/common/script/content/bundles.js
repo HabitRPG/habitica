@@ -236,6 +236,21 @@ const bundles = {
     type: 'quests',
     value: 7,
   },
+  sandySidekicks: {
+    key: 'sandySidekicks',
+    text: t('sandySidekicksText'),
+    notes: t('sandySidekicksNotes', { date: moment('2020-10-31').format('LL') }),
+    bundleKeys: [
+      'armadillo',
+      'snake',
+      'spider',
+    ],
+    canBuy () {
+      return moment().isBetween('2020-10-13', '2020-11-02');
+    },
+    type: 'quests',
+    value: 7,
+  },
 };
 
 export default bundles;

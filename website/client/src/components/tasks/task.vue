@@ -36,11 +36,11 @@
               'task-not-scoreable': isUser !== true
                 || (task.group.approval.requested && !task.group.approval.approved),
             }, controlClass.up.inner]"
+            tabindex="0"
             @click="(isUser && task.up && (!task.group.approval.requested
               || task.group.approval.approved)) ? score('up') : null"
             @keypress.enter="(isUser && task.up && (!task.group.approval.requested
               || task.group.approval.approved)) ? score('up') : null"
-            tabindex="0"
           >
             <div
               v-if="!isUser"
@@ -66,11 +66,11 @@
           <div
             class="task-control daily-todo-control"
             :class="controlClass.inner"
+            tabindex="0"
             @click="isUser && !task.group.approval.requested
               ? score(task.completed ? 'down' : 'up' ) : null"
             @keypress.enter="isUser && !task.group.approval.requested
               ? score(task.completed ? 'down' : 'up' ) : null"
-            tabindex="0"
           >
             <div
               v-if="!isUser"
@@ -97,9 +97,9 @@
           <div
             class="task-clickable-area"
             :class="{'task-clickable-area-user': isUser}"
+            tabindex="0"
             @click="edit($event, task)"
             @keypress.enter="edit($event, task)"
-            tabindex="0"
           >
             <div class="d-flex justify-content-between">
               <h3
@@ -140,8 +140,8 @@
                   <div
                     v-if="isUser"
                     class="dropdown-item"
-                    @click="moveToTop"
                     tabindex="0"
+                    @click="moveToTop"
                     @keypress.enter="moveToTop"
                   >
                     <span class="dropdown-icon-item">
@@ -155,8 +155,8 @@
                   <div
                     v-if="isUser"
                     class="dropdown-item"
-                    @click="moveToBottom"
                     tabindex="0"
+                    @click="moveToBottom"
                     @keypress.enter="moveToBottom"
                   >
                     <span class="dropdown-icon-item">
@@ -170,8 +170,8 @@
                   <div
                     v-if="showDelete"
                     class="dropdown-item"
-                    @click="destroy"
                     tabindex="0"
+                    @click="destroy"
                     @keypress.enter="destroy"
                   >
                     <span class="dropdown-icon-item delete-task-item">
@@ -349,11 +349,11 @@
               'task-not-scoreable': isUser !== true
                 || (task.group.approval.requested && !task.group.approval.approved),
             }, controlClass.down.inner]"
+            tabindex="0"
             @click="(isUser && task.down && (!task.group.approval.requested
               || task.group.approval.approved)) ? score('down') : null"
             @keypress.enter="(isUser && task.down && (!task.group.approval.requested
               || task.group.approval.approved)) ? score('down') : null"
-            tabindex="0"
           >
             <div
               v-if="!isUser"
@@ -373,9 +373,9 @@
           v-if="task.type === 'reward'"
           class="right-control d-flex align-items-center justify-content-center reward-control"
           :class="controlClass.bg"
+          tabindex="0"
           @click="isUser ? score('down') : null"
           @keypress.enter="isUser ? score('down') : null"
-          tabindex="0"
         >
           <div
             class="svg-icon"
@@ -1071,7 +1071,7 @@ export default {
       this.scoreChecklistItem({ taskId: this.task._id, itemId: item.id });
     },
     calculateTimeTillDue () {
-      const endOfToday = moment().endOf('day');
+      const endOfToday = moment().subtract(this.user.preferences.dayStart, 'hours').endOf('day');
       const endOfDueDate = moment(this.task.date).endOf('day');
 
       return moment.duration(endOfDueDate.diff(endOfToday));
@@ -1080,9 +1080,8 @@ export default {
       return this.calculateTimeTillDue().asDays() <= 0;
     },
     formatDueDate () {
-      const dueIn = this.calculateTimeTillDue().asDays() === 0
-        ? this.$t('today')
-        : this.calculateTimeTillDue().humanize(true);
+      const timeTillDue = this.calculateTimeTillDue();
+      const dueIn = timeTillDue.asDays() === 0 ? this.$t('today') : timeTillDue.humanize(true);
 
       return this.task.date && this.$t('dueIn', { dueIn });
     },

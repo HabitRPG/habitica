@@ -132,11 +132,6 @@ export async function openMysteryItem (store) {
   return axios.post('/api/v4/user/open-mystery-item');
 }
 
-export function newStuffLater (store) {
-  store.state.user.data.flags.newStuff = false;
-  return axios.post('/api/v4/news/tell-me-later');
-}
-
 export async function rebirth () {
   const result = await axios.post('/api/v4/user/rebirth');
 

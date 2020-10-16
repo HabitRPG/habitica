@@ -177,7 +177,8 @@
     "subscriptionAlreadySubscribedLeadIn": "Danke für's Abonnieren!",
     "usuallyGems": "Normalerweise <%= originalGems %>",
     "supportHabitica": "Unterstütze Habitica",
-    "cancelSubInfoApple": "Bitte folge der <a href=\"https://support.apple.com/de-de/HT202039\">offiziellen Anleitung von Apple</a>, um Dein Abonnement zu kündigen oder um das Kündigungsdatum zu sehen, wenn Du das Abonnement bereits gekündigt hast. Dieser Bildschirm kann Dir nicht anzeigen, ob Dein Abonnement beendet wurde.",
-    "cancelSubInfoGoogle": "Bitte gehe zum Abschnitt \"Account\" > \"Abonnements\" im Google Play Store, um Dein Abonnement zu kündigen oder um das Kündigungsdatum zu sehen, wenn Du das Abonnement bereits gekündigt hast. Dieser Bildschirm kann Dir nicht anzeigen, ob Dein Abonnement beendet wurde.",
-    "organization": "Organisation"
+    "cancelSubInfoApple": "Bitte folge der <a href=\"https://support.apple.com/de-de/HT202039\">offiziellen Anleitung von Apple</a>, um Dein Abonnement zu kündigen oder um das Kündigungsdatum zu sehen, wenn Du das Abonnement bereits gekündigt hast. Diese Ansicht kann Dir nicht anzeigen, ob Dein Abonnement beendet wurde.",
+    "cancelSubInfoGoogle": "Bitte gehe zum Abschnitt \"Account\" > \"Abonnements\" im Google Play Store, um Dein Abonnement zu kündigen oder um das Kündigungsdatum zu sehen, wenn Du das Abonnement bereits gekündigt hast. Diese Ansicht kann Dir nicht anzeigen, ob Dein Abonnement beendet wurde.",
+    "organization": "Organisation",
+    "mysterySet202010": "Verführerisches Fledermaus-Set"
 }

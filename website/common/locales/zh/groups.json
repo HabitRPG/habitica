@@ -362,5 +362,8 @@
     "managerNotes": "经理的须知",
     "chooseTeamMember": "选择一个团队成员",
     "unassigned": "未分配",
-    "onlyPrivateGuildsCanUpgrade": "只有私人公会可以升级为团队计划。"
+    "onlyPrivateGuildsCanUpgrade": "只有私人公会可以升级为团队计划。",
+    "bannedWordsAllowedDetail": "选择该选项后，在该公会中将允许使用违禁词语。",
+    "bannedWordsAllowed": "允许屏蔽字符",
+    "languageSettings": "语言设置"
 }

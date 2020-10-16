@@ -22,6 +22,7 @@ import * as inboxLib from '../../libs/inbox'; // eslint-disable-line import/no-c
 import amazonPayments from '../../libs/payments/amazon'; // eslint-disable-line import/no-cycle
 import stripePayments from '../../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import paypalPayments from '../../libs/payments/paypal'; // eslint-disable-line import/no-cycle
+import { model as NewsPost } from '../newsPost';
 
 const { daysSince } = common;
 
@@ -295,6 +296,12 @@ schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComp
   if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
 };
 
+// Returns true if the user has read the last news post
+schema.methods.checkNewStuff = function checkNewStuff () {
+  const lastNewsPost = NewsPost.lastNewsPost();
+  return Boolean(lastNewsPost && this.flags && this.flags.lastNewStuffRead !== lastNewsPost._id);
+};
+
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
 // to a JSONified User stats object
 schema.statics.addComputedStatsToJSONObj = function addComputedStatsToUserJSONObj (
@@ -491,7 +498,11 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
 };
 
 schema.methods.isAdmin = function isAdmin () {
-  return this.contributor && this.contributor.admin;
+  return Boolean(this.contributor && this.contributor.admin);
+};
+
+schema.methods.isNewsPoster = function isNewsPoster () {
+  return Boolean(this.contributor && this.contributor.newsPoster);
 };
 
 // When converting to json add inbox messages from the Inbox collection

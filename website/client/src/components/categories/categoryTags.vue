@@ -22,12 +22,15 @@
 export default {
   props: {
     categories: {
+      type: Array,
       required: true,
     },
     owner: {
+      type: Boolean,
       default: false,
     },
     member: {
+      type: Boolean,
       default: false,
     },
   },
