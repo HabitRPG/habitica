@@ -61,7 +61,7 @@
       <li
         v-if="!user.purchased.plan.customerId"
         class="topbar-dropdown-item dropdown-item dropdown-separated
-          d-flex flex-column justify-content-center align-items-center subs-info"
+          d-flex flex-column justify-content-center align-items-center dropdown-inactive subs-info"
       >
         <span
           v-once
@@ -109,12 +109,6 @@
 .subs-info {
   padding-top: 1.438rem;
   padding-bottom: 0;
-  cursor: default;
-
-  &:active, &:hover, &:focus {
-    background: transparent;
-    color: inherit;
-  }
 }
 
 .subs-benefits {
