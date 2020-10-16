@@ -321,7 +321,7 @@ describe('cron middleware', () => {
         cronMiddleware(req, res, async err => {
           if (err) return reject(err);
           user = await User.findById(user._id).exec();
-          expect(user._ABtests.dropCapNotif).to.be.equal('not-enrolled');
+          expect(user._ABtests.dropCapNotif).to.be.equal('drop-cap-notif-not-enrolled');
 
           return resolve();
         });

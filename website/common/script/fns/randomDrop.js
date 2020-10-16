@@ -159,7 +159,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
     const dropN = user.items.lastDrop.count;
     const dropCapReached = dropN === maxDropCount;
     const isEnrolledInDropCapTest = user._ABtests.dropCapNotif
-      && user._ABtests.dropCapNotif.includes('drop-cap-notif-');
+      && user._ABtests.dropCapNotif !== 'drop-cap-notif-not-enrolled';
     const hasActiveDropCapNotif = isEnrolledInDropCapTest
       && user._ABtests.dropCapNotif === 'drop-cap-notif-enabled';
 

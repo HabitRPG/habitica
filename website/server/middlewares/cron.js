@@ -66,7 +66,7 @@ function dropCapABTest (user, req) {
     } else if (testGroup <= 0.2) {
       user._ABtests.dropCapNotif = 'drop-cap-notif-disabled';
     } else {
-      user._ABtests.dropCapNotif = 'not-enrolled';
+      user._ABtests.dropCapNotif = 'drop-cap-notif-not-enrolled';
     }
     user.markModified('_ABtests');
   }
