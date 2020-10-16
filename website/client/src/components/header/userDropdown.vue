@@ -24,13 +24,6 @@
       class="user-dropdown"
     >
       <a
-        class="topbar-dropdown-item dropdown-item edit-avatar dropdown-separated"
-        @click="showAvatar('body', 'size')"
-      >
-        <h3>{{ user.profile.name }}</h3>
-        <span class="small-text">{{ $t('editAvatar') }}</span>
-      </a>
-      <a
         class="topbar-dropdown-item nav-link dropdown-item
          dropdown-separated d-flex justify-content-between align-items-center"
         @click.prevent="showPrivateMessages()"
@@ -43,20 +36,12 @@
       </a>
       <a
         class="topbar-dropdown-item dropdown-item"
-        @click="showAvatar('backgrounds', '2020')"
-      >{{ $t('backgrounds') }}</a>
-      <a
-        class="topbar-dropdown-item dropdown-item"
-        @click="showProfile('stats')"
-      >{{ $t('stats') }}</a>
-      <a
-        class="topbar-dropdown-item dropdown-item"
-        @click="showProfile('achievements')"
-      >{{ $t('achievements') }}</a>
-      <a
-        class="topbar-dropdown-item dropdown-item dropdown-separated"
         @click="showProfile('profile')"
       >{{ $t('profile') }}</a>
+      <a
+        class="topbar-dropdown-item dropdown-item dropdown-separated"
+        @click="showAvatar('body', 'size')"
+      >{{ $t('editAvatar') }}</a>
       <router-link
         class="topbar-dropdown-item dropdown-item"
         :to="{name: 'site'}"
@@ -75,19 +60,36 @@
       >{{ $t('logout') }}</a>
       <li
         v-if="!user.purchased.plan.customerId"
-        @click="showBuyGemsModal()"
+        class="topbar-dropdown-item dropdown-item dropdown-separated
+          d-flex flex-column justify-content-center align-items-center subs-info"
       >
-        <div class="topbar-dropdown-item dropdown-item text-center">
-          <h3 class="purple">
-            {{ $t('needMoreGems') }}
-          </h3>
-          <span class="small-text">{{ $t('needMoreGemsInfo') }}</span>
-        </div>
-        <div class="learn-background py-2 text-center">
-          <button class="btn btn-primary btn-lg learn-button">
-            {{ $t('learnMore') }}
-          </button>
-        </div>
+        <span
+          v-once
+          class="purple d-block font-weight-bold mb-3"
+        >
+          {{ $t('lookingForMoreItems') }}
+        </span>
+        <img
+          class="swords mb-3"
+          srcset="
+        ~@/assets/images/swords.png,
+        ~@/assets/images/swords@2x.png 2x,
+        ~@/assets/images/swords@3x.png 3x"
+          src="~@/assets/images/swords.png"
+        >
+        <p
+          v-once
+          class="subs-benefits mb-3"
+        >
+          {{ $t('dropCapSubs') }}
+        </p>
+        <button
+          v-once
+          class="btn btn-primary mb-4"
+          @click="$router.push({name: 'subscription'})"
+        >
+          {{ $t('learnMore') }}
+        </button>
       </li>
     </div>
   </menu-dropdown>
@@ -96,39 +98,36 @@
 <style lang='scss' scoped>
 @import '~@/assets/scss/colors.scss';
 
-.edit-avatar {
-  h3 {
-    color: $gray-10;
-    margin-bottom: 0px;
-  }
-
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
-
 .user-dropdown {
   width: 14.75em;
 }
 
-.learn-background {
-    background: url('~@/assets/images/gem-rain.png') bottom left no-repeat,
-                url('~@/assets/images/gold-rain.png') bottom right no-repeat;
-}
-
-.learn-button {
-  margin: 0.75em 0.75em 0.75em 1em;
-}
-
 .purple {
-  color: $purple-200;
+  color: $purple-300;
 }
 
-.small-text {
-  color: $gray-200;
+.subs-info {
+  padding-top: 1.438rem;
+  padding-bottom: 0;
+  cursor: default;
+
+  &:active, &:hover, &:focus {
+    background: transparent;
+    color: inherit;
+  }
+}
+
+.subs-benefits {
+  font-size: 0.75rem;
+  line-height: 1.33;
   font-style: normal;
-  display: block;
   white-space: normal;
-  font-weight: bold;
+  text-align: center;
+}
+
+.swords {
+  width: 7rem;
+  height: 3rem;
 }
 </style>
 

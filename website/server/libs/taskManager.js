@@ -465,7 +465,7 @@ async function scoreTask (user, task, direction, req, res) {
   });
 
   const isEnrolledInDropCapTest = user._ABtests.dropCapNotif
-    && user._ABtests.dropCapNotif.includes('drop-cap-notif-');
+    && user._ABtests.dropCapNotif !== 'drop-cap-notif-not-enrolled';
 
   // Track when new users (first 7 days) score tasks
   // or if they're enrolled in the Drop Cap A/B Test
