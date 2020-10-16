@@ -3,9 +3,9 @@
     <div
       :id="itemId"
       class="item-wrapper"
+      tabindex="0"
       @click="click()"
       @keypress.enter="click()"
-      tabindex="0"
     >
       <div
         class="item"
