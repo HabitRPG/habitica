@@ -36,12 +36,20 @@
       </a>
       <a
         class="topbar-dropdown-item dropdown-item"
+        @click="showAvatar('body', 'size')"
+      >{{ $t('editAvatar') }}</a>
+      <a
+        class="topbar-dropdown-item dropdown-item"
         @click="showProfile('profile')"
       >{{ $t('profile') }}</a>
       <a
+        class="topbar-dropdown-item dropdown-item"
+        @click="showProfile('stats')"
+      >{{ $t('stats') }}</a>
+      <a
         class="topbar-dropdown-item dropdown-item dropdown-separated"
-        @click="showAvatar('body', 'size')"
-      >{{ $t('editAvatar') }}</a>
+        @click="showProfile('achievements')"
+      >{{ $t('achievements') }}</a>
       <router-link
         class="topbar-dropdown-item dropdown-item"
         :to="{name: 'site'}"
