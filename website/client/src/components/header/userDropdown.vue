@@ -109,6 +109,12 @@
 .subs-info {
   padding-top: 1.438rem;
   padding-bottom: 0;
+  cursor: default;
+
+  &:active, &:hover, &:focus {
+    background: transparent;
+    color: inherit;
+  }
 }
 
 .subs-benefits {
