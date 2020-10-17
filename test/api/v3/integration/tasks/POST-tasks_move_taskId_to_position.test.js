@@ -91,7 +91,9 @@ describe('POST /tasks/:taskId/move/to/:position', () => {
 
     const taskToMove = tasks[1];
     expect(taskToMove.text).to.equal('habit 2');
-    const newOrder = await user.post(`/tasks/${tasks[1]._id}/move/to/-1`);
+    await user.post(`/tasks/${tasks[1]._id}/move/to/-1`);
+    await user.sync();
+    const newOrder = user.tasksOrder.habits;
     expect(newOrder[4]).to.equal(taskToMove._id);
     expect(newOrder.length).to.equal(5);
   });
