@@ -5,7 +5,7 @@ import {
   generateNext,
 } from '../../../helpers/api-unit.helper';
 import i18n from '../../../../website/common/script/i18n';
-import { ensureAdmin, ensureSudo } from '../../../../website/server/middlewares/ensureAccessRight';
+import { ensureAdmin, ensureSudo, ensureNewsPoster } from '../../../../website/server/middlewares/ensureAccessRight';
 import { NotAuthorized } from '../../../../website/server/libs/errors';
 import apiError from '../../../../website/server/libs/apiError';
 
@@ -34,6 +34,27 @@ describe('ensure access middlewares', () => {
       res.locals = { user: { contributor: { admin: true } } };
 
       ensureAdmin(req, res, next);
+
+      expect(next).to.be.calledOnce;
+      expect(next.args[0]).to.be.empty;
+    });
+  });
+
+  context('ensure newsPoster', () => {
+    it('returns not authorized when user is not a newsPoster', () => {
+      res.locals = { user: { contributor: { newsPoster: false } } };
+
+      ensureNewsPoster(req, res, next);
+
+      const calledWith = next.getCall(0).args;
+      expect(calledWith[0].message).to.equal(apiError('noNewsPosterAccess'));
+      expect(calledWith[0] instanceof NotAuthorized).to.equal(true);
+    });
+
+    it('passes when user is a newsPoster', () => {
+      res.locals = { user: { contributor: { newsPoster: true } } };
+
+      ensureNewsPoster(req, res, next);
 
       expect(next).to.be.calledOnce;
       expect(next.args[0]).to.be.empty;

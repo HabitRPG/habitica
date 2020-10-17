@@ -10,7 +10,7 @@
 @import '~@/assets/scss/colors.scss';
 
 .message-count {
-  background-color: $blue-50;
+  background-color: $red-50;
   border-radius: 50%;
   height: 20px;
   width: 20px;
@@ -31,7 +31,6 @@
   right: 0.3em;
   top: -0.8em;
   padding: 0.2em;
-  background-color: $red-50;
 }
 
 .message-count.top-count-gray {

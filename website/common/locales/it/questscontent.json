@@ -714,5 +714,7 @@
     "questTurquoiseDropTurquoisePotion": "Pozione di schiusa Turchese",
     "questTurquoiseCollectTurquoiseGems": "Gemme Turchesi",
     "questTurquoiseCollectNeptuneRunes": "Rune di Nettuno",
-    "questTurquoiseCollectSagittariusRunes": "Rune del Sagittario"
+    "questTurquoiseCollectSagittariusRunes": "Rune del Sagittario",
+    "sandySidekicksNotes": "Contiene \"L' Armadillo Indulgente\", \"La Serpe della Distrazione\" e \"L' Aracnide Ghiacciato\". Disponibile fino a <?= date %>.",
+    "sandySidekicksText": "Pacchetto missione Compagni sabbiosi"
 }
