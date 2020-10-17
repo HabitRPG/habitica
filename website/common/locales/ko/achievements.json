@@ -1,6 +1,5 @@
 {
     "achievement": "업적",
-    "share": "공유하기",
     "onwards": "앞으로!",
     "levelup": "당신의 실제 삶의 목표들을 달성함으로써 레벨 업 했고 이제 완전히 회복되었어요!",
     "reachedLevel": "레벨<%= level %>을 달성했습니다",
