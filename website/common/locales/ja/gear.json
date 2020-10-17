@@ -1956,5 +1956,9 @@
     "armorArmoireBoatingJacketNotes": "このジャケットとネクタイを着ていれば、しゃれたヨットの上やおんぼろ自動車に乗っていても、ネコのようにくつろげます。力と知能と知覚がそれぞれ<%= attrs %>上がります。ラッキー宝箱：ボート遊びセット（3個中1個目のアイテム）。",
     "armorArmoireBoatingJacketText": "ボート乗りのジャケット",
     "weaponArmoireNephriteBowNotes": "この弓は特別な翡翠の矢じりで射る弓で、あなたの最も手に負えない悪習さえも射すくめます。知能が<%= int %>、力が<%= str %>上がります。ラッキー宝箱：ネフライトアーチャーセット（3個中1個目のアイテム）。",
-    "weaponArmoireNephriteBowText": "ネフライトの弓"
+    "weaponArmoireNephriteBowText": "ネフライトの弓",
+    "headArmoireNephriteHelmNotes": "軟玉彫りの羽根飾りが頭についたこのヘルメットは、あなたの狙撃能力を高める魔法がかかっています。知覚が<%= per %>、知能が<%= int %>上がります。ラッキー宝箱：ネフライトアーチャーセット（3個中2個目のアイテム）。",
+    "headArmoireNephriteHelmText": "ネフライトのヘルメット",
+    "armorArmoireNephriteArmorNotes": "このリング状の強い鋼をベースに作られた翡翠飾りのよろいは、あなたを「明日やろう」から守ります！力が<%= str %>、知覚が<%= per %>上がります。ラッキー宝箱：ネフライトアーチャーセット（3個中3個目のアイテム）。",
+    "armorArmoireNephriteArmorText": "ネフライトのよろい"
 }

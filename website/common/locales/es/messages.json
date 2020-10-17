@@ -53,5 +53,6 @@
     "messageMissingDisplayName": "Falta el nombre público.",
     "reportedMessage": "Has reportado este mensaje a los moderadores.",
     "canDeleteNow": "Ahora puedes eliminar el mensaje si lo deseas.",
-    "beginningOfConversationReminder": "¡Recuerda ser amable, respetuoso, y seguir las Normas de la Comunidad!"
+    "beginningOfConversationReminder": "¡Recuerda ser amable, respetuoso, y seguir las Normas de la Comunidad!",
+    "newsPostNotFound": "Publicación de noticia no encontrada o no tienes acceso a ella."
 }

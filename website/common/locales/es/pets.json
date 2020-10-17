@@ -110,5 +110,8 @@
     "notEnoughPetsMounts": "No has reunido suficientes mascotas ni monturas",
     "wackyPets": "Mascotas Chifladas",
     "filterByWacky": "Chiflado",
-    "gryphatrice": "Grifotriz"
+    "gryphatrice": "Grifotriz",
+    "invalidAmount": "Cantidad de comida inválida, debe ser una cantidad entera positiva",
+    "tooMuchFood": "Estas tratando de dar demasiada comida a tu mascota, acción cancelada",
+    "notEnoughFood": "No tienes suficiente comida"
 }
