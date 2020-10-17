@@ -184,5 +184,6 @@
     "fall2020TwoHeadedRogueSet": "Zweiköpfig (Schurke)",
     "fall2020ThirdEyeMageSet": "Drittes Auge (Magier)",
     "fall2020DeathsHeadMothHealerSet": "Totenkopfschwärmer (Heiler)",
-    "fall2020WraithWarriorSet": "Gespenst (Krieger)"
+    "fall2020WraithWarriorSet": "Gespenst (Krieger)",
+    "septemberYYYY": "September <%= year %>"
 }

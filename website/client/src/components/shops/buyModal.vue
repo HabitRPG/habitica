@@ -7,9 +7,9 @@
     <span
       v-if="withPin"
       class="badge-dialog"
+      tabindex="0"
       @click.prevent.stop="togglePinned()"
       @keypress.enter.prevent.stop="togglePinned()"
-      tabindex="0"
     >
       <pin-badge
         :pinned="isPinned"
@@ -19,9 +19,9 @@
       <span
         class="svg-icon icon-12 close-icon"
         aria-hidden="true"
+        tabindex="0"
         @click="hideDialog()"
         @keypress.enter="hideDialog()"
-        tabindex="0"
         v-html="icons.close"
       ></span>
     </div>
@@ -154,8 +154,8 @@
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
           :class="{'notEnough': !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
-          @click="buyItem()"
           tabindex="0"
+          @click="buyItem()"
         >
           {{ $t('buyNow') }}
         </button>

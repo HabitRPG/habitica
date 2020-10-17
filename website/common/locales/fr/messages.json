@@ -53,5 +53,6 @@
     "messageMissingDisplayName": "Il manque le pseudo.",
     "reportedMessage": "Vous avez signalé ce message à l'équipe de modération.",
     "canDeleteNow": "Vous pouvez maintenant supprimer ce message si vous le souhaitez.",
-    "beginningOfConversationReminder": "N'oubliez pas de communiquer avec politesse et respect, tout en suivant les règles de vie en communauté !"
+    "beginningOfConversationReminder": "N'oubliez pas de communiquer avec politesse et respect, tout en suivant les règles de vie en communauté !",
+    "newsPostNotFound": "Message de nouveautés non trouvé ou vous n'y avez pas accès."
 }

@@ -44,7 +44,7 @@
 
   font-size: 14px;
   line-height: 1.71;
-  color: $gray-50;
+  color: $gray-50 !important;
   cursor: pointer;
 
   &:focus {
@@ -54,16 +54,16 @@
 
 
   &:active, &:hover, &:focus, &.active {
-    background-color: rgba($purple-600, 0.32);
-    color: $purple-200;
+    background-color: rgba($purple-600, 0.32) !important;
+    color: $purple-200 !important;
   }
 
   &.dropdown-inactive {
     cursor: default;
 
     &:active, &:hover, &.active {
-      background-color: inherit;
-      color: inherit;
+      background-color: inherit !important;
+      color: inherit !important;
     }
   }
 }

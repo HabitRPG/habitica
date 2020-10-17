@@ -60,6 +60,7 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_GOOD_AS_GOLD',
   'ACHIEVEMENT_ALL_THAT_GLITTERS',
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
+  'DROP_CAP_REACHED',
 ];
 
 const { Schema } = mongoose;

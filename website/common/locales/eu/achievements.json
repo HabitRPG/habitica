@@ -1,6 +1,5 @@
 {
     "achievement": "Lorpena",
-    "share": "Partekatu",
     "onwards": "Aurrera!",
     "levelup": "Bizitza errealeko helburuak lortu dituzunez, mailaz igo zara eta osasuna berreskuratu duzu!",
     "reachedLevel": "<%= level %>. mailara heldu zara",

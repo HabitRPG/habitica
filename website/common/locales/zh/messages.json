@@ -53,5 +53,6 @@
     "messageMissingDisplayName": "缺少角色名。",
     "reportedMessage": "你已将此信息上报给管理员。",
     "canDeleteNow": "请确认你确实想要删除此信息。",
-    "beginningOfConversationReminder": "记住要善待和尊重他人并遵守社区准则！"
+    "beginningOfConversationReminder": "记住要善待和尊重他人并遵守社区准则！",
+    "newsPostNotFound": "找不到该条新闻信息，或你无权访问。"
 }

@@ -180,5 +180,7 @@
     "subscriptionReminders": "Przypomnienia o subskrypcji",
     "newPMNotificationTitle": "Nowa wiadomość od <%= name %>",
     "chatExtensionDesc": "Rozszerzenie czatu dla Habitica dodaje intuicyjne okno czatu na wszystkich stronach habitica.com. Pozwala ono użytkownikom rozmawiać w Tawernie, swoich drużynach i gildiach do których przynależą.",
-    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>rozszerzenie Chrome Chat</a> oraz <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>rozszerzenie Firefox Chat</a>"
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>rozszerzenie Chrome Chat</a> oraz <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>rozszerzenie Firefox Chat</a>",
+    "displaynameIssueNewline": "Nazwy gracza nie mogą zawierać ukośnika z następującą po nim literą N.",
+    "resetAccount": "Zresetuj konto"
 }
