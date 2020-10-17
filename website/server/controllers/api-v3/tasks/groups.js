@@ -122,8 +122,9 @@ api.getGroupTasks = {
  * @apiGroup Task
  *
  * @apiParam (Path) {String} taskId The task _id
- * @apiParam (Path) {Number} position Where to move the task (-1 means push to bottom).
- *                                    First position is 0
+ * @apiParam (Path) {Number} position Where to move the task.
+ *                                    0 = top of the list ("push to top").
+ *                                   -1 = bottom of the list ("push to bottom").
  *
  * @apiSuccess {Array} data The new tasks order (group.tasksOrder.{task.type}s)
  */
