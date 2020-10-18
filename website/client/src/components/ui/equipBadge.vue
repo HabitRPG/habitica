@@ -8,11 +8,13 @@
     <div
       class="svg-icon color equip-icon"
       v-html="icons.equip"
+      v-once
     >
     </div>
     <div
       class="svg-icon color unequip-icon"
       v-html="icons.unEquip"
+      v-once
     >
     </div>
   </span>

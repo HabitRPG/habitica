@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h3>
+    <h4>
       {{ title }}
-    </h3>
+    </h4>
     <div class="form-group">
       <slot></slot>
     </div>
@@ -19,14 +19,8 @@ export default {
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  h3 {
-    font-family: Roboto, sans-serif;
-    height: 1.5rem;
-    font-size: 0.875rem;
-    font-weight: bold;
-    line-height: 1.71;
-    letter-spacing: normal;
-    color: $gray-100;
+  h4 {
+    min-height: 1.5rem;
   }
 
   .form-group ::v-deep {
@@ -35,7 +29,8 @@ export default {
     }
 
     .custom-checkbox {
-      height: 1.5rem;
+      // min height for longer labels
+      min-height: 1.5rem;
     }
   }
 </style>
