@@ -10,6 +10,7 @@ export function getMatchesByWordArray (str, wordsToMatch) {
   // later on, by using the built-in Unicode normalisation methods
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
   // https://www.unicode.org/reports/tr15/#Canon_Compat_Equivalence
+  // https://unicode-table.com/en/#combining-diacritical-marks
 
   const normalizedStr = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
