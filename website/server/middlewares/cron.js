@@ -61,9 +61,9 @@ function dropCapABTest (user, req) {
   if (isWeb && !user._ABtests.dropCapNotif && !user.isSubscribed()) {
     const testGroup = Math.random();
     // Enroll 20% of users, splitting them 50/50
-    if (testGroup <= 0.1) {
+    if (testGroup <= 0.25) {
       user._ABtests.dropCapNotif = 'drop-cap-notif-enabled';
-    } else if (testGroup <= 0.2) {
+    } else if (testGroup <= 0.5) {
       user._ABtests.dropCapNotif = 'drop-cap-notif-disabled';
     } else {
       user._ABtests.dropCapNotif = 'drop-cap-notif-not-enrolled';

@@ -311,8 +311,8 @@ describe('cron middleware', () => {
       });
     });
 
-    it('does not enroll 80% of users', async () => {
-      sandbox.stub(Math, 'random').returns(0.5);
+    it('does not enroll 50% of users', async () => {
+      sandbox.stub(Math, 'random').returns(0.6);
       user.lastCron = moment(new Date()).subtract({ days: 2 });
       await user.save();
       req.headers['x-client'] = 'habitica-web';
@@ -328,8 +328,8 @@ describe('cron middleware', () => {
       });
     });
 
-    it('enables the new notification for 10% of users', async () => {
-      sandbox.stub(Math, 'random').returns(0.1);
+    it('enables the new notification for 25% of users', async () => {
+      sandbox.stub(Math, 'random').returns(0.25);
       user.lastCron = moment(new Date()).subtract({ days: 2 });
       await user.save();
       req.headers['x-client'] = 'habitica-web';
@@ -345,8 +345,8 @@ describe('cron middleware', () => {
       });
     });
 
-    it('disables the new notification for 10% of users', async () => {
-      sandbox.stub(Math, 'random').returns(0.2);
+    it('disables the new notification for 25% of users', async () => {
+      sandbox.stub(Math, 'random').returns(0.5);
       user.lastCron = moment(new Date()).subtract({ days: 2 });
       await user.save();
       req.headers['x-client'] = 'habitica-web';
