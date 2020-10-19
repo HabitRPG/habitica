@@ -250,37 +250,6 @@
   }
 }
 
-.settings-line {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-
-  .left-column, .right-column {
-    margin-bottom: 1.5rem;
-  }
-
-  .left-column * {
-//    margin-right: 0.5rem;
-  }
-
-  .right-column *:not(:first-child) {
-    margin-left: 0.5rem;
-  }
-
-  .space {
-    flex: 1;
-  }
-
-  .inline {
-    display: inline-block;
-  }
-
-  .toggle-group {
-    vertical-align: middle;
-  }
-}
-
-
 .equipment-type-button {
   height: 2rem;
   font-size: 24px;
