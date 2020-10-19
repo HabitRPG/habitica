@@ -94,7 +94,7 @@
         <button
           v-once
           class="btn btn-primary mb-4"
-          @click="$router.push({name: 'subscription'})"
+          @click="toLearnMore()"
         >
           {{ $t('learnMore') }}
         </button>
@@ -173,15 +173,15 @@ export default {
     showProfile (startingPage) {
       this.$router.push({ name: startingPage });
     },
-    showBuyGemsModal () {
+    toLearnMore () {
       Analytics.track({
         hitType: 'event',
         eventCategory: 'button',
         eventAction: 'click',
-        eventLabel: 'Gems > User Dropdown',
+        eventLabel: 'User Dropdown > Subscriptions',
       });
 
-      this.$root.$emit('bv::show::modal', 'buy-gems', { alreadyTracked: true });
+      this.$router.push({ name: 'subscription' });
     },
     logout () {
       this.$store.dispatch('auth:logout');

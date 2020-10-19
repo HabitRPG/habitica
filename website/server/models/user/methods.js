@@ -525,3 +525,23 @@ schema.methods.getSecretData = function getSecretData () {
 
   return user.secret;
 };
+
+// Enroll users in the Drop Cap A/B Test
+schema.methods.enrollInDropCapABTest = function enrollInDropCapABTest (xClientHeader) {
+  // Only target users that use web for cron and aren't subscribed.
+  // Those using mobile aren't excluded as they may use it later
+  const isWeb = xClientHeader === 'habitica-web';
+
+  if (isWeb && !this._ABtests.dropCapNotif && !this.isSubscribed()) {
+    const testGroup = Math.random();
+    // Enroll 20% of users, splitting them 50/50
+    if (testGroup <= 0.25) {
+      this._ABtests.dropCapNotif = 'drop-cap-notif-enabled';
+    } else if (testGroup <= 0.5) {
+      this._ABtests.dropCapNotif = 'drop-cap-notif-disabled';
+    } else {
+      this._ABtests.dropCapNotif = 'drop-cap-notif-not-enrolled';
+    }
+    this.markModified('_ABtests');
+  }
+};
