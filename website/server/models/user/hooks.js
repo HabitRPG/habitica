@@ -12,6 +12,9 @@ import {
 import {
   model as Tag,
 } from '../tag';
+import {
+  model as NewsPost,
+} from '../newsPost';
 import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
@@ -129,6 +132,12 @@ function pinBaseItems (user) {
 }
 
 function _setUpNewUser (user) {
+  // Mark the last news post as read
+  const lastNewsPost = NewsPost.lastNewsPost();
+  if (lastNewsPost) {
+    user.flags.lastNewStuffRead = lastNewsPost._id;
+  }
+
   let taskTypes;
   const iterableFlags = user.flags.toObject();
 
@@ -154,6 +163,8 @@ function _setUpNewUser (user) {
   }
 
   user.markModified('items achievements');
+
+  user.enrollInDropCapABTest(user.registeredThrough);
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];

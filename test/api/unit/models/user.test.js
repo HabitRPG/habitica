@@ -592,6 +592,50 @@ describe('User Model', () => {
   });
 
   context('pre-save hook', () => {
+    it('enrolls users that signup through web in the Drop Cap AB test', async () => {
+      let user = new User();
+      user.registeredThrough = 'habitica-web';
+      user = await user.save();
+      expect(user._ABtests.dropCapNotif).to.exist;
+    });
+
+    it('does not enroll users that signup through modal in the Drop Cap AB test', async () => {
+      let user = new User();
+      user.registeredThrough = 'habitica-ios';
+      user = await user.save();
+      expect(user._ABtests.dropCapNotif).to.not.exist;
+    });
+
+    it('marks the last news post as read for new users', async () => {
+      const lastNewsPost = { _id: '1' };
+      sandbox.stub(NewsPost, 'lastNewsPost').returns(lastNewsPost);
+
+      let user = new User();
+      expect(user.isNew).to.equal(true);
+      user = await user.save();
+
+      expect(user.checkNewStuff()).to.equal(false);
+      expect(user.toJSON().flags.newStuff).to.equal(false);
+      expect(user.flags.lastNewStuffRead).to.equal(lastNewsPost._id);
+    });
+
+    it('does not mark the last news post as read for existing users', async () => {
+      const lastNewsPost = { _id: '1' };
+      const lastNewsPostStub = sandbox.stub(NewsPost, 'lastNewsPost');
+      lastNewsPostStub.returns(lastNewsPost);
+
+      let user = new User();
+      user = await user.save();
+
+      expect(user.isNew).to.equal(false);
+      user.profile.name = 'new name';
+
+      lastNewsPostStub.returns({ _id: '2' });
+      user = await user.save();
+
+      expect(user.flags.lastNewStuffRead).to.equal(lastNewsPost._id); // not _id: 2
+    });
+
     it('does not try to award achievements when achievements or items not selected in query', async () => {
       let user = new User();
       user = await user.save(); // necessary for user.isSelected to work correctly
