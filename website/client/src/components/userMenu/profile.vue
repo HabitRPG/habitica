@@ -833,6 +833,10 @@ export default {
   mounted () {
     this.loadUser();
     this.selectPage(this.startingPage);
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('user'),
+      subSection: this.$t(this.startingPage),
+    });
   },
   methods: {
     async loadUser () {

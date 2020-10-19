@@ -13,3 +13,14 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('settings'),
+      subSection: this.$t('dataExport'),
+    });
+  },
+};
+</script>

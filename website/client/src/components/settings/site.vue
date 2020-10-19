@@ -678,6 +678,11 @@ export default {
     this.emailUpdates.newEmail = this.user.auth.local.email || null;
     this.localAuth.username = this.user.auth.local.username || null;
     this.soundIndex = 0;
+
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('settings'),
+    });
+
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
