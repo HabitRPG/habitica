@@ -136,6 +136,8 @@ export default new Schema({
     freshwaterFriends: Boolean,
     goodAsGold: Boolean,
     allThatGlitters: Boolean,
+    boneCollector: Boolean,
+    skeletonCrew: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
