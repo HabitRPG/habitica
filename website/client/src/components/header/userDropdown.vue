@@ -39,6 +39,10 @@
         @click="showAvatar('body', 'size')"
       >{{ $t('editAvatar') }}</a>
       <a
+        class="topbar-dropdown-item dropdown-item dropdown-separated"
+        @click="showAvatar('backgrounds', '2020')"
+      >{{ $t('backgrounds') }}</a>
+      <a
         class="topbar-dropdown-item dropdown-item"
         @click="showProfile('profile')"
       >{{ $t('profile') }}</a>
