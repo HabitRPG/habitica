@@ -147,7 +147,7 @@
   "cannotLeaveWhileActiveQuest": "You cannot leave Party during an active quest. Please leave the quest first.",
   "onlyLeaderCanRemoveMember": "Only group leader can remove a member!",
   "cannotRemoveCurrentLeader": "You cannot remove the group leader. Assign a new a leader first.",
-  "cannotRemoveQuestLeader": "You cannot remove the owner of the active quest. Abort the quest first.",
+  "cannotRemoveQuestOwner": "You cannot remove the owner of the active quest. Abort the quest first.",
   "memberCannotRemoveYourself": "You cannot remove yourself!",
   "groupMemberNotFound": "User not found among group's members",
   "mustBeGroupMember": "Must be member of the group.",
