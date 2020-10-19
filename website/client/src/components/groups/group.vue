@@ -485,6 +485,7 @@ export default {
     // call again the method if the route changes (when this route is already active)
     $route: 'fetchGuild',
     partyStore () {
+      debugger;
       if (this.$store.state.party._id) {
         this.group = this.$store.state.party;
       } else {
@@ -498,8 +499,8 @@ export default {
     if (!this.searchId) this.searchId = this.groupId;
     await this.fetchGuild();
     this.$store.dispatch('common:setTitle', {
-      section: this.t$('groupPlans'),
-      subSection:this.group.name,
+      section: this.$t('groupPlans'),
+      subSection: this.group.name,
     });
     this.$root.$on('updatedGroup', this.onGroupUpdate);
   },
@@ -517,6 +518,10 @@ export default {
     onGroupUpdate (group) {
       const updatedGroup = extend(this.group, group);
       this.$set(this.group, updatedGroup);
+      this.$store.dispatch('common:setTitle', {
+        section: this.$t('groupPlans'),
+        subSection: group.name,
+      });
     },
 
     /**
