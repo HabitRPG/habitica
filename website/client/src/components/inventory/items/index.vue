@@ -5,71 +5,45 @@
     @mouseMoved="mouseMoved($event)"
   >
     <div class="standard-sidebar d-none d-sm-block">
-      <div class="form-group">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
-        >
-      </div>
-      <div class="form">
-        <h2 v-once>
-          {{ $t('filter') }}
-        </h2>
-        <h3 v-once>
-          {{ $t('equipmentType') }}
-        </h3>
-        <div class="form-group">
-          <div
-            v-for="group in groups"
-            :key="group.key"
-            class="form-check"
+      <filter-sidebar>
+        <div class="form-group" slot="search">
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
           >
-            <div class="custom-control custom-checkbox">
-              <input
-                :id="group.key"
-                v-model="group.selected"
-                class="custom-control-input"
-                type="checkbox"
-              >
-              <label
-                v-once
-                class="custom-control-label"
-                :for="group.key"
-              >{{ $t(group.key) }}</label>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <div class="form">
+          <filter-group :title="$t('equipmentType')">
+            <checkbox v-for="group in groups"
+                      :key="group.key"
+                      :id="group.key"
+                      :checked.sync="group.selected"
+                      :text="$t(group.key)"/>
+          </filter-group>
+        </div>
+      </filter-sidebar>
     </div>
     <div class="standard-page">
       <div class="clearfix">
         <h1
           v-once
-          class="float-left mb-4 page-header"
+          class="float-left mb-3 page-header"
         >
           {{ $t('items') }}
         </h1>
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(sortBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              :active="sortBy === 'quantity'"
-              @click="sortBy = 'quantity'"
-            >
-              {{ $t('quantity') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              :active="sortBy === 'AZ'"
-              @click="sortBy = 'AZ'"
-            >
-              {{ $t('AZ') }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+            :right="true"
+            :items="['quantity', 'AZ']"
+            :value="sortBy"
+            @select="sortBy = $event"
+            class="inline"
+            :inlineDropdown="false"
+          />
         </div>
       </div>
 
@@ -80,7 +54,7 @@
         :key="group.key"
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-        <h2 class="d-flex align-items-center mb-3">
+        <h2 class="d-flex align-items-center mb-3 sub-header">
           {{ $t(group.key) }}
           <span
             v-if="group.key != 'special'"
@@ -320,6 +294,8 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .eggInfo, .hatchingPotionInfo {
     position: absolute;
     left: -500px;
@@ -347,6 +323,7 @@
       text-align: center;
     }
   }
+
 </style>
 
 <script>
@@ -356,6 +333,7 @@ import moment from 'moment';
 import Item from '@/components/inventory/item';
 import ItemRows from '@/components/ui/itemRows';
 import CountBadge from '@/components/ui/countBadge';
+import FilterSidebar from '@/components/ui/filterSidebar';
 
 import cardsModal from './cards-modal';
 
@@ -369,6 +347,9 @@ import { createAnimal } from '@/libs/createAnimal';
 import notifications from '@/mixins/notifications';
 import DragDropDirective from '@/directives/dragdrop.directive';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
+import FilterGroup from '@/components/ui/filterGroup';
+import Checkbox from '@/components/ui/checkbox';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
@@ -391,6 +372,9 @@ let lastMouseMoveEvent = {};
 export default {
   name: 'Items',
   components: {
+    SelectTranslatedArray,
+    Checkbox,
+    FilterGroup,
     Item,
     ItemRows,
     HatchedPetDialog,
@@ -398,6 +382,7 @@ export default {
     startQuestModal,
     cardsModal,
     QuestInfo,
+    FilterSidebar,
   },
   directives: {
     drag: DragDropDirective,
