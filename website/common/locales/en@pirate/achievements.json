@@ -43,7 +43,7 @@
     "achievementPrimedForPainting": "Plann'd fer Paintin'",
     "achievementPurchasedEquipmentModalText": "Ee-quitment be a way ta customize yer avatar an' improve yer stats",
     "achievementPurchasedEquipmentText": "Bought their first piece o' ee-quitment.",
-    "achievementPurchasedEquipment": "Buy Ee-quitment",
+    "achievementPurchasedEquipment": "Buy a piece' o' Ee-quitment",
     "achievementFedPetModalText": "There be many differen' types o' vittles, but critters kin be picky",
     "achievementFedPetText": "Fed their firs' critter.",
     "achievementFedPet": "Feed a Critter",
@@ -83,5 +83,9 @@
     "achievementAllThatGlitters": "All That be Glitterin'",
     "achievementGoodAsGoldModalText": "Ye've collected all th' Golden Critters!",
     "achievementGoodAsGoldText": "'as collected all Golden Critters.",
-    "onboardingCompleteDescSmall": "Iffen ye be wantin' e'en more, check out yon Medals an' start kerllectin'!"
+    "onboardingCompleteDescSmall": "Iffen ye be wantin' e'en more, check out yon Medals an' start kerllectin'!",
+    "achievementFreshwaterFriendsText": "'as kermpleted Axolotl, Frog, an' Hippo critter Adventures.",
+    "achievementFreshwaterFriends": "Non-Briny Buckos",
+    "achievementBareNecessitiesModalText": "Ye kermpleted th' Monkey, Sloth, an' Treeling critter Adventures!",
+    "yourRewards": "Loot"
 }
