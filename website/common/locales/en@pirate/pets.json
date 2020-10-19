@@ -23,7 +23,7 @@
     "mantisShrimp": "Mantis Shrimp",
     "mammoth": "Woolly Mammoth",
     "orca": "Orca",
-    "royalPurpleGryphon": "Royal Purple Gryphon",
+    "royalPurpleGryphon": "Princely Indigo Gryphon",
     "phoenix": "Phoenix",
     "magicalBee": "Magical Bee",
     "hopefulHippogriffPet": "Hopeful Hippogriff",
@@ -88,7 +88,7 @@
     "mountsAndPetsReleased": "Mounts an' pets released",
     "mountsReleased": "Mounts released",
     "welcomeStable": "Welcome t' th' Stable!",
-    "welcomeStableText": "Welcome t' th' Stable!  I be Matt, th' master o' th' beasts. Ever' time ye kermplete a task, ye'll 'ave a random chance t' receieve an Egg or an 'Atchin' Potion to 'atch Critters.  When ye hatch a Critter, it'll appear here! Click a Critter's image t' add it t' yer Avatar. Feed 'em with th' Critter Vittles ye find an' they'll grow into hardy Mounts.",
+    "welcomeStableText": "Welcome t' th' Stable! I be Matt, th' master o' th' beasts. Ever' time ye kermplete a task, ye'll 'ave a random chance t' receieve an Egg or an 'Atchin' Potion to 'atch Critters. When ye hatch a Critter, it'll appear here! Click a Critter's image t' add it t' yer Avatar. Feed 'em with th' Critter Vittles ye find an' they'll grow into hardy Mounts.",
     "petLikeToEat": "What does my pet like t' eat?",
     "petLikeToEatText": "Critters'll grow no matter what ye feed 'em, but they'll grow faster if ye feed 'em th' one kind o' Critter Vittles tha' they like best. Experiment t' find out th' pattern, or see th' answers here: <br/> <a href=\"http://habitica.fandom.com/wiki/Food_Preferences\" target=\"_blank\">http://habitica.fandom.com/wiki/Food_Preferences</a>",
     "filterByStandard": "Standard",
@@ -110,5 +110,8 @@
     "notEnoughPetsMounts": "Ye haven't collected enough pets an' mounts",
     "wackyPets": "Pirate's Wacky Pets",
     "filterByWacky": "Wacky",
-    "gryphatrice": "Griffytrice"
+    "gryphatrice": "Griffytrice",
+    "invalidAmount": "Invalid amount of Vittles, must be a positive integer",
+    "tooMuchFood": "Ye be wantin to feed too many vittles to yer critter, action cancelled",
+    "notEnoughFood": "Ye don't ave enough Vittles"
 }
