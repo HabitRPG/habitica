@@ -909,10 +909,11 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
  *
  * @apiError (400) {BadRequest} userIdrequired "memberId" cannot be empty or not a UUID
  * @apiError (400) {NotAuthorized} onlyLeaderCanRemoveMember Only the group
+                                                             leader can remove members.
  * @apiError (400) {NotAuthorized} memberCannotRemoveYourself Group leader cannot remove themselves
  * @apiError (400) {NotAuthorized} cannotRemoveQuestOwner Group leader cannot remove
- *  
- * @apiError (404) {NotFound} groupMemberNotFound Group member was not found                                                       owner of an active quest
+                                                          the owner of an active quest
+ * @apiError (404) {NotFound} groupMemberNotFound Group member was not found
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -977,7 +978,7 @@ api.removeGroupMember = {
       }
 
       if (group.quest && group.quest.leader === member._id) {
-        throw new NotAuthorized(res.t('cannotRemoveQuestLeader'));
+        throw new NotAuthorized(res.t('cannotRemoveQuestOwner'));
       } else if (group.quest && group.quest.members) {
         // remove member from quest
         delete group.quest.members[member._id];
