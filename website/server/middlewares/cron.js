@@ -52,26 +52,6 @@ async function unlockUser (user) {
   }).exec();
 }
 
-// Enroll users in the Drop Cap A/B Test
-function dropCapABTest (user, req) {
-  // Only target users that use web for cron and aren't subscribed.
-  // Those using mobile aren't excluded as they may use it later
-  const isWeb = req.headers['x-client'] === 'habitica-web';
-
-  if (isWeb && !user._ABtests.dropCapNotif && !user.isSubscribed()) {
-    const testGroup = Math.random();
-    // Enroll 20% of users, splitting them 50/50
-    if (testGroup <= 0.25) {
-      user._ABtests.dropCapNotif = 'drop-cap-notif-enabled';
-    } else if (testGroup <= 0.5) {
-      user._ABtests.dropCapNotif = 'drop-cap-notif-disabled';
-    } else {
-      user._ABtests.dropCapNotif = 'drop-cap-notif-not-enrolled';
-    }
-    user.markModified('_ABtests');
-  }
-}
-
 async function cronAsync (req, res) {
   let { user } = res.locals;
   if (!user) return null; // User might not be available when authentication is not mandatory
@@ -86,7 +66,7 @@ async function cronAsync (req, res) {
     res.locals.user = user;
     const { daysMissed, timezoneUtcOffsetFromUserPrefs } = user.daysUserHasMissed(now, req);
 
-    dropCapABTest(user, req);
+    user.enrollInDropCapABTest(req.headers['x-client']);
     await updateLastCron(user, now);
 
     if (daysMissed <= 0) {
