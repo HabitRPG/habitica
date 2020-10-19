@@ -384,6 +384,17 @@ export default {
       memberResults: [],
     };
   },
+  watch: {
+    challenge: {
+      handler (newVal) {
+        this.$store.dispatch('common:setTitle', {
+          section: this.$t('challenge'),
+          subSection: newVal.name,
+        });
+      },
+      deep: true,
+    },
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
     isMember () {
