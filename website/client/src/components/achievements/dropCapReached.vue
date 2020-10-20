@@ -3,7 +3,7 @@
     id="drop-cap-reached"
     size="md"
     :hide-header="true"
-    :hide-footer="!hasSubscription"
+    :hide-footer="hasSubscription"
   >
     <div class="text-center">
       <div
@@ -235,15 +235,15 @@ export default {
       });
     },
     toLearnMore () {
-      this.close();
-      this.$router.push('/user/settings/subscription');
-
       Analytics.track({
         hitType: 'event',
         eventCategory: 'drop-cap-reached',
         eventAction: 'click',
         eventLabel: 'Drop Cap Reached > Modal > Subscriptions',
       });
+
+      this.close();
+      this.$router.push('/user/settings/subscription');
     },
   },
 };

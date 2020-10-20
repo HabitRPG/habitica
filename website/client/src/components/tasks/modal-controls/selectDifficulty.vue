@@ -7,6 +7,7 @@
       :class="{disabled: disabled}"
       :disabled="disabled"
       :value="selected"
+      :hide-icon="true"
       @select="$emit('select', $event.value)"
     >
       <template v-slot:item="{ item, button }">
