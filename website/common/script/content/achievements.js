@@ -212,6 +212,16 @@ const basicAchievs = {
     titleKey: 'achievementAllThatGlitters',
     textKey: 'achievementAllThatGlittersText',
   },
+  boneCollector: {
+    icon: 'achievement-boneCollector',
+    titleKey: 'achievementBoneCollector',
+    textKey: 'achievementBoneCollectorText',
+  },
+  skeletonCrew: {
+    icon: 'achievement-skeletonCrew',
+    titleKey: 'achievementSkeletonCrew',
+    textKey: 'achievementSkeletonCrewText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
