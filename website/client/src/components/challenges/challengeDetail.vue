@@ -385,14 +385,13 @@ export default {
     };
   },
   watch: {
-    challenge: {
+    'challenge.name': {
       handler (newVal) {
         this.$store.dispatch('common:setTitle', {
           section: this.$t('challenge'),
           subSection: newVal.name,
         });
       },
-      deep: true,
     },
   },
   computed: {

@@ -485,7 +485,6 @@ export default {
     // call again the method if the route changes (when this route is already active)
     $route: 'fetchGuild',
     partyStore () {
-      debugger;
       if (this.$store.state.party._id) {
         this.group = this.$store.state.party;
       } else {
