@@ -689,7 +689,15 @@ api.updateTask = {
       && task.daysOfMonth.length
       && task.startDate
     ) {
-      task.daysOfMonth = [moment(task.startDate).date()];
+      // This updates the start date time to midnight in the user's timezone.
+      task.startDate = moment(task.startDate).utcOffset(
+        -user.preferences.timezoneOffset,
+      ).hour(0).toDate();
+      // We also need to aware of the user's timezone. Start date is represented as UTC, so the
+      // start date and day of month might be different
+      task.daysOfMonth = [moment(task.startDate).utcOffset(
+        -user.preferences.timezoneOffset,
+      ).date()];
     }
 
     setNextDue(task, user);
