@@ -180,5 +180,10 @@
     "cancelSubInfoApple": "Bitte folge der <a href=\"https://support.apple.com/de-de/HT202039\">offiziellen Anleitung von Apple</a>, um Dein Abonnement zu kündigen oder um das Kündigungsdatum zu sehen, wenn Du das Abonnement bereits gekündigt hast. Diese Ansicht kann Dir nicht anzeigen, ob Dein Abonnement beendet wurde.",
     "cancelSubInfoGoogle": "Bitte gehe zum Abschnitt \"Account\" > \"Abonnements\" im Google Play Store, um Dein Abonnement zu kündigen oder um das Kündigungsdatum zu sehen, wenn Du das Abonnement bereits gekündigt hast. Diese Ansicht kann Dir nicht anzeigen, ob Dein Abonnement beendet wurde.",
     "organization": "Organisation",
-    "mysterySet202010": "Verführerisches Fledermaus-Set"
+    "mysterySet202010": "Verführerisches Fledermaus-Set",
+    "dropCapExplanation": "Morgen, wenn Deine Tagesaufgaben zurückgesetzt werden, wird es auch wieder Beute zu finden geben. Bis dahin machst Du aber auch weiterhin Questfortschritte und verdienst Goldstücke und Erfahrung, wenn Du Aufgaben abschließt.",
+    "dropCapSubs": "Habitica-Abonnenten können täglich doppelt so viele Zufallsgegenstände finden und erhalten jeden Monat zusätzlich neue, mysteriöse Gegenstände als Überraschung!",
+    "lookingForMoreItems": "Suchst Du nach mehr Gegenständen?",
+    "dropCapLearnMore": "Lerne mehr über Habiticas Beute-System",
+    "dropCapReached": "Du hast für heute alle Gegenstände gefunden!"
 }

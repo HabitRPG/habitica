@@ -4,5 +4,7 @@
     "eggsItemType": "蛋",
     "hatchingPotionsItemType": "孵化药水",
     "specialItemType": "特殊物品",
-    "lockedItem": "已锁定物品"
+    "lockedItem": "已锁定物品",
+    "allItems": "所有物品",
+    "petAndMount": "宠物和坐骑"
 }

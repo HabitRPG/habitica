@@ -54,5 +54,10 @@
     "reportedMessage": "Você reportou esta mensagem aos moderadores.",
     "canDeleteNow": "Agora você pode excluir a mensagem, se desejar.",
     "beginningOfConversationReminder": "Lembre-se de ser gentil, respeitoso(a) e seguir as Diretrizes da Comunidade!",
-    "newsPostNotFound": "Notícias não encontrada ou você não tem acesso."
+    "newsPostNotFound": "Notícias não encontrada ou você não tem acesso.",
+    "messageAllUnEquipped": "Tudo desequipado.",
+    "messageBackgroundUnEquipped": "Cenário desequipado.",
+    "messagePetMountUnEquipped": "Mascote e Montaria desequipados.",
+    "messageBattleGearUnEquipped": "Equipamento de Batalha desequipado.",
+    "messageCostumeUnEquipped": "Item desequipado."
 }
