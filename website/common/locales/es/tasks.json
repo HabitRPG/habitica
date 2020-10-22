@@ -129,5 +129,11 @@
     "sessionOutdated": "Tu sesión no está sincronizada. Por favor, refresca o sincroniza.",
     "errorTemporaryItem": "Este artículo es temporal y no puede ser fijado.",
     "addNotes": "Añadir notas",
-    "addATitle": "Añadir un título"
+    "addATitle": "Añadir un título",
+    "pressEnterToAddTag": "Pulsa Enter para añadir la etiqueta: '<%= tagName %>'",
+    "enterTag": "Introduce una etiqueta",
+    "addTags": "Añade etiquetas...",
+    "sureDeleteType": "¿Estás seguro de que quieres eliminar este <%= type %>?",
+    "deleteTaskType": "Elimina este <%= type %>",
+    "tomorrow": "Mañana"
 }

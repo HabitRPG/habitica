@@ -161,9 +161,9 @@
     "mysterySet202007": "Conjunto de orca destacada",
     "mysterySet202005": "Conjunto de wiverno maravilloso",
     "mysterySet202003": "Colección de combatiente espinoso",
-    "cancelSubInfoApple": "Por favor, sigue las instucciones oficiales</a> de Apple <a href=\"https://support.apple.com/en-us/HT202039\"> para cancelar tu suscripción o ver la fecha de vencimiento de tu suscripción si ya la has cancelado. Esta pantalla no es capaz de enseñarte si tu suscripción se ha cancelado.",
+    "cancelSubInfoApple": "Por favor, sigue las instucciones oficiales <a href=\"https://support.apple.com/en-us/HT202039\">de Apple</a> para cancelar tu suscripción o ver la fecha de vencimiento de tu suscripción si ya la has cancelado. Esta pantalla no es capaz de enseñarte si tu suscripción se ha cancelado.",
     "organization": "Organización",
-    "cancelSubAlternatives": "Si estás teniendo problemas técnicos o Habitica no parece estar funcionando como te gustaría, por favor, considera </a> contactar con nosotros <a href='mailto:admin@habitica.com'>. Queremos ayudarte a sacar el máximo provecho a Habitica.",
+    "cancelSubAlternatives": "Si estás teniendo problemas técnicos o Habitica no parece estar funcionando como te gustaría, por favor, considera <a href='mailto:admin@habitica.com'>contactar con nosotros</a>. Queremos ayudarte a sacar el máximo provecho a Habitica.",
     "cancelYourSubscription": "¿Quieres cancelar tu suscripción?",
     "readyToResubscribe": "¿Estás listo para volver a suscribirte?",
     "needToUpdateCard": "¿Necesitas actualizar tu tarjeta?",
@@ -177,5 +177,6 @@
     "usuallyGems": "Habitualmente <%= originalGems %>",
     "supportHabitica": "Apoya a Habitica",
     "backgroundAlreadyOwned": "Ya posees este fondo.",
-    "mysterySet202010": "Colección de murcielago seductor"
+    "mysterySet202010": "Colección de murcielago seductor",
+    "doubleDropCap": "Duplica los objetos"
 }
