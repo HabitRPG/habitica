@@ -269,7 +269,7 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
 
       expect(leader.post(`/groups/${party._id}/removeMember/${partyMember._id}`))
         .to.eventually.be.rejected.and.eql({
-          code: 403,
+          code: 401,
           text: t('cannotRemoveQuestOwner'),
         });
     });
