@@ -1,6 +1,5 @@
 {
     "achievement": "Afrek",
-    "share": "Deila",
     "onwards": "Áfram!",
     "levelup": "Með því að ljúka markmiðum í lífinu þínu hefurðu komist upp á næsta stig og ert nú með fullt líf!",
     "reachedLevel": "Þú hefur náð <%= level %> stigi",

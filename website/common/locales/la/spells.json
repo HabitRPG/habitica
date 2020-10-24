@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Talenta vafra tua Perceptionem Partium tuam augent! (Secundum: PER sine augmento)",
     "spellRogueStealthText": "Furtivus",
     "spellRogueStealthNotes": "Cum quisque incantatione, pauca Cotidiana imperfecta non vulnerabunt hac note. Et series tuae et colores tui non mutabunt. (Secundum: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Numerus Cotidianorum vitavisti est: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Numerus Cotidianorum, quae vitabuntur, est: <%= number %>.",
     "spellRogueStealthMaxedOut": "Tota Cotidiana tua iam vitavisti; non necesse est incantare iterum.",
     "spellHealerHealText": "Lux Sanans",
     "spellHealerHealNotes": "Lux lucens valitudinem tuam restituit! (Secundum: ROB et INT)",

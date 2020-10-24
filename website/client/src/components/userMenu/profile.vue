@@ -488,10 +488,10 @@
     margin-right: 1em;
 
     button {
-      width: 40px;
-      height: 40px;
-      padding: .7em;
-      margin-right: .5em;
+      width: 32px;
+      height: 32px;
+      padding: 0.5em;
+      margin-right: 0.5em;
     }
   }
 
@@ -672,8 +672,7 @@
       height: 1px;
       position: relative;
       vertical-align: middle;
-      width: 90%;
-      left: 16px;
+      width: 100%;
     }
   }
 

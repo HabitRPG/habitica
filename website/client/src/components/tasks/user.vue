@@ -251,10 +251,6 @@
     padding-top: 16px;
   }
 
-  .input-search, .search-button {
-    height: 40px;
-  }
-
   .tasks-navigation {
     margin-bottom: 20px;
   }

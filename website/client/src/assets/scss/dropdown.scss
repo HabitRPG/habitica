@@ -1,9 +1,8 @@
 .dropdown > .btn {
-  padding: 0.25rem 0.75rem;
+  padding: 0.219rem 0.75rem;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  line-height: 1.43;
 }
 
 .dropdown-toggle:hover {
@@ -25,6 +24,8 @@
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   vertical-align: 0;
+  margin-left: 1rem;
+  margin-bottom: 0.1rem;
 }
 
 .dropdown-menu {
@@ -44,7 +45,7 @@
 
   font-size: 14px;
   line-height: 1.71;
-  color: $gray-50;
+  color: $gray-50 !important;
   cursor: pointer;
 
   &:focus {
@@ -54,16 +55,16 @@
 
 
   &:active, &:hover, &:focus, &.active {
-    background-color: rgba($purple-600, 0.32);
-    color: $purple-200;
+    background-color: rgba($purple-600, 0.25) !important;
+    color: $purple-300 !important;
   }
 
   &.dropdown-inactive {
     cursor: default;
 
     &:active, &:hover, &.active {
-      background-color: inherit;
-      color: inherit;
+      background-color: inherit !important;
+      color: inherit !important;
     }
   }
 }
@@ -75,10 +76,17 @@
 .dropdown-label {
   font-size: 14px;
   font-weight: bold;
-  line-height: 1.43;
-  color: $gray-10;
+  line-height: 1.71;
   margin-right: 20px;
   margin-left: 20px;
+
+  height: 1.5rem;
+  font-stretch: normal;
+  font-style: normal;
+  text-align: right;
+
+  margin-top: calc(0.25rem + 1px); // Padding of the dropdown buttons + button border width
+  margin-bottom: 0.25rem;
 }
 
 .dropdown-icon-item {

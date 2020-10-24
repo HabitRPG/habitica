@@ -27,7 +27,7 @@
     "weaponWarrior1Text": "Miecz",
     "weaponWarrior1Notes": "Miecz zwykłego żołnierza. Zwiększa Siłę o <%= str %>.",
     "weaponWarrior2Text": "Topór",
-    "weaponWarrior2Notes": "Dwustronna broń sieczna. Zwiększa Siłę o <%= str %>",
+    "weaponWarrior2Notes": "Dwustronna broń sieczna. Zwiększa Siłę o <%= str %>.",
     "weaponWarrior3Text": "Gwiazda Poranna",
     "weaponWarrior3Notes": "Ciężka maczuga z ostrymi kolcami. Zwiększa Siłę o <%= str %>.",
     "weaponWarrior4Text": "Szafirowy miecz",

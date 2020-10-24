@@ -6,6 +6,9 @@
       class="array-select"
       :class="{disabled: disabled}"
       :disabled="disabled"
+      :right="right"
+      :hide-icon="false"
+      :inline-dropdown="inlineDropdown"
       @select="selectItem($event)"
     >
       <template v-slot:item="{ item }">
@@ -60,6 +63,13 @@ export default {
       type: Boolean,
     },
     value: [String, Number, Object],
+    right: {
+      type: Boolean,
+    },
+    inlineDropdown: {
+      type: Boolean,
+      default: true,
+    },
   },
   data () {
     return {

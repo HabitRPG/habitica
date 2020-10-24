@@ -25,43 +25,41 @@
         <div class="col-12 col-md-6">
           <div class="row icon-row">
             <div
-              class="col-4 offset-4"
-              :class="{ 'offset-8': isParty }"
+              class="item-with-icon"
+              tabindex="0"
+              role="button"
+              @keyup.enter="showMemberModal()"
+              @click="showMemberModal()"
             >
               <div
-                class="item-with-icon"
-                @click="showMemberModal()"
+                v-if="group.memberCount > 1000"
+                class="svg-icon shield"
+                v-html="icons.goldGuildBadgeIcon"
+              ></div>
+              <div
+                v-if="group.memberCount > 100 && group.memberCount < 999"
+                class="svg-icon shield"
+                v-html="icons.silverGuildBadgeIcon"
+              ></div>
+              <div
+                v-if="group.memberCount < 100"
+                class="svg-icon shield"
+                v-html="icons.bronzeGuildBadgeIcon"
+              ></div>
+              <span class="number">{{ group.memberCount | abbrNum }}</span>
+              <div
+                v-once
+                class="member-list label"
               >
-                <div
-                  v-if="group.memberCount > 1000"
-                  class="svg-icon shield"
-                  v-html="icons.goldGuildBadgeIcon"
-                ></div>
-                <div
-                  v-if="group.memberCount > 100 && group.memberCount < 999"
-                  class="svg-icon shield"
-                  v-html="icons.silverGuildBadgeIcon"
-                ></div>
-                <div
-                  v-if="group.memberCount < 100"
-                  class="svg-icon shield"
-                  v-html="icons.bronzeGuildBadgeIcon"
-                ></div>
-                <span class="number">{{ group.memberCount | abbrNum }}</span>
-                <div
-                  v-once
-                  class="member-list label"
-                >
-                  {{ $t('memberList') }}
-                </div>
+                {{ $t('memberList') }}
               </div>
             </div>
-            <div
-              v-if="!isParty"
-              class="col-4"
-            >
+            <div v-if="!isParty">
               <div
                 class="item-with-icon"
+                tabindex="0"
+                role="button"
+                @keyup.enter="showGroupGems()"
                 @click="showGroupGems()"
               >
                 <div
@@ -225,9 +223,13 @@
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 1em;
     text-align: center;
-    min-width: 80px;
-    max-width: 120px;
+    min-width: 120px;
     height: 76px;
+    margin-right: 1rem;
+
+    &:last-of-type {
+      margin-left: 0.5rem;
+    }
 
     .svg-icon.shield, .svg-icon.gem {
       width: 28px;
@@ -312,6 +314,7 @@
 
   .icon-row {
     margin-top: 1em;
+    justify-content: flex-end;
 
     .number {
       font-size: 22px;

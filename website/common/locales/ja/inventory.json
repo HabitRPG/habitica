@@ -4,5 +4,7 @@
     "eggsItemType": "たまご",
     "hatchingPotionsItemType": "たまごがえしの薬",
     "specialItemType": "特別なアイテム",
-    "lockedItem": "ロックされたアイテム"
+    "lockedItem": "ロックされたアイテム",
+    "allItems": "全てのアイテム",
+    "petAndMount": "ペットと乗騎"
 }

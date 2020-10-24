@@ -179,5 +179,11 @@
     "spring2020LapisLazuliRogueSet": "Lapislázuli (Pícaro)",
     "spring2020IrisHealerSet": "Iris (Sanador)",
     "spring2020PuddleMageSet": "Charco (Mago)",
-    "spring2020BeetleWarriorSet": "Escarabajo Rinoceronte (Guerrero)"
+    "spring2020BeetleWarriorSet": "Escarabajo Rinoceronte (Guerrero)",
+    "juneYYYY": "Junio <%= year %>",
+    "septemberYYYY": "Septiembre <%= year %>",
+    "fall2020TwoHeadedRogueSet": "Bicéfalo (Pícaro)",
+    "fall2020ThirdEyeMageSet": "Tercer ojo (Mago)",
+    "fall2020DeathsHeadMothHealerSet": "Polilla cabeza de la muerte (Sanador)",
+    "fall2020WraithWarriorSet": "Espectro (Guerrero)"
 }

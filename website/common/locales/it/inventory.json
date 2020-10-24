@@ -4,5 +4,7 @@
     "eggsItemType": "Uova",
     "hatchingPotionsItemType": "Pozioni di Schiusa",
     "specialItemType": "Oggetti speciali",
-    "lockedItem": "Oggetti bloccati"
+    "lockedItem": "Oggetti bloccati",
+    "allItems": "Tutti gli oggetti",
+    "petAndMount": "Animali e cavalcature"
 }

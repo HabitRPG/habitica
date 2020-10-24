@@ -293,4 +293,107 @@ describe('cron middleware', () => {
       });
     });
   });
+
+  context('Drop Cap A/B Test', async () => {
+    it('enrolls web users', async () => {
+      user.lastCron = moment(new Date()).subtract({ days: 2 });
+      await user.save();
+      req.headers['x-client'] = 'habitica-web';
+
+      await new Promise((resolve, reject) => {
+        cronMiddleware(req, res, async err => {
+          if (err) return reject(err);
+          user = await User.findById(user._id).exec();
+          expect(user._ABtests.dropCapNotif).to.be.a.string;
+
+          return resolve();
+        });
+      });
+    });
+
+    it('does not enroll 50% of users', async () => {
+      sandbox.stub(Math, 'random').returns(0.6);
+      user.lastCron = moment(new Date()).subtract({ days: 2 });
+      await user.save();
+      req.headers['x-client'] = 'habitica-web';
+
+      await new Promise((resolve, reject) => {
+        cronMiddleware(req, res, async err => {
+          if (err) return reject(err);
+          user = await User.findById(user._id).exec();
+          expect(user._ABtests.dropCapNotif).to.be.equal('drop-cap-notif-not-enrolled');
+
+          return resolve();
+        });
+      });
+    });
+
+    it('enables the new notification for 25% of users', async () => {
+      sandbox.stub(Math, 'random').returns(0.25);
+      user.lastCron = moment(new Date()).subtract({ days: 2 });
+      await user.save();
+      req.headers['x-client'] = 'habitica-web';
+
+      await new Promise((resolve, reject) => {
+        cronMiddleware(req, res, async err => {
+          if (err) return reject(err);
+          user = await User.findById(user._id).exec();
+          expect(user._ABtests.dropCapNotif).to.be.equal('drop-cap-notif-enabled');
+
+          return resolve();
+        });
+      });
+    });
+
+    it('disables the new notification for 25% of users', async () => {
+      sandbox.stub(Math, 'random').returns(0.5);
+      user.lastCron = moment(new Date()).subtract({ days: 2 });
+      await user.save();
+      req.headers['x-client'] = 'habitica-web';
+
+      await new Promise((resolve, reject) => {
+        cronMiddleware(req, res, async err => {
+          if (err) return reject(err);
+          user = await User.findById(user._id).exec();
+          expect(user._ABtests.dropCapNotif).to.be.equal('drop-cap-notif-disabled');
+
+          return resolve();
+        });
+      });
+    });
+
+    it('does not affect subscribers', async () => {
+      sandbox.stub(Math, 'random').returns(0.2);
+      user.lastCron = moment(new Date()).subtract({ days: 2 });
+      await user.save();
+      req.headers['x-client'] = 'habitica-web';
+      sandbox.stub(User.prototype, 'isSubscribed').returns(true);
+
+      await new Promise((resolve, reject) => {
+        cronMiddleware(req, res, async err => {
+          if (err) return reject(err);
+          user = await User.findById(user._id).exec();
+          expect(user._ABtests.dropCapNotif).to.not.exist;
+
+          return resolve();
+        });
+      });
+    });
+
+    it('does not affect mobile users', async () => {
+      user.lastCron = moment(new Date()).subtract({ days: 2 });
+      await user.save();
+      req.headers['x-client'] = 'habitica-ios';
+
+      await new Promise((resolve, reject) => {
+        cronMiddleware(req, res, async err => {
+          if (err) return reject(err);
+          user = await User.findById(user._id).exec();
+          expect(user._ABtests.dropCapNotif).to.not.exist;
+
+          return resolve();
+        });
+      });
+    });
+  });
 });

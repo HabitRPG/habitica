@@ -1,6 +1,5 @@
 {
   "achievement": "Achievement",
-  "share": "Share",
   "onwards": "Onwards!",
   "levelup": "By accomplishing your real life goals, you leveled up and are now fully healed!",
   "reachedLevel": "You Reached Level <%= level %>",
@@ -91,5 +90,11 @@
   "achievementGoodAsGoldModalText": "You collected all the Golden Pets!",
   "achievementAllThatGlitters": "All That Glitters",
   "achievementAllThatGlittersText": "Has tamed all Golden Mounts.",
-  "achievementAllThatGlittersModalText": "You tamed all the Golden Mounts!"
+  "achievementAllThatGlittersModalText": "You tamed all the Golden Mounts!",
+  "achievementBoneCollector": "Bone Collector",
+  "achievementBoneCollectorText": "Has collected all Skeleton pets.",
+  "achievementBoneCollectorModalText": "You collected all the Skeleton Pets!",
+  "achievementSkeletonCrew": "Skeleton Crew",
+  "achievementSkeletonCrewText": "Has tamed all Skeleton Mounts.",
+  "achievementSkeletonCrewModalText": "You tamed all the Skeleton Mounts!"
 }
