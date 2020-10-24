@@ -833,10 +833,6 @@ export default {
   mounted () {
     this.loadUser();
     this.selectPage(this.startingPage);
-    this.$store.dispatch('common:setTitle', {
-      section: this.$t('user'),
-      subSection: this.$t(this.startingPage),
-    });
   },
   methods: {
     async loadUser () {
@@ -898,6 +894,10 @@ export default {
     selectPage (page) {
       this.selectedPage = page || 'profile';
       window.history.replaceState(null, null, '');
+      this.$store.dispatch('common:setTitle', {
+        section: this.$t('user'),
+        subSection: this.$t(this.startingPage),
+      });
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];

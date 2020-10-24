@@ -777,7 +777,6 @@ export default {
       // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
-    this.setTitle();
   },
   methods: {
     // eslint-disable-next-line func-names

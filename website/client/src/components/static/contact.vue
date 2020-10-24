@@ -69,8 +69,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {
-      section: this.$t('help'),
-      subSection: this.$t('contactUs'),
+      section: this.$t('contactUs'),
     });
   },
 };

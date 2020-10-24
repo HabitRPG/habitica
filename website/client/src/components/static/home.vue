@@ -910,7 +910,7 @@ export default {
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
     this.$store.dispatch('common:setTitle', {
-      fullTitle: this.$t('socialTitle'),
+      fullTitle: 'Habitica - Gamify Your Life',
     });
   },
   methods: {
