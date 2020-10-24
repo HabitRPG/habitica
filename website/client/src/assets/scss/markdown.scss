@@ -15,7 +15,11 @@
   }
 
   h3 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
     margin-bottom: 4px;
+
+    line-height: 1.5;
     margin-top: 6px;
     color: $gray-10;
   }
@@ -27,6 +31,9 @@
   h4 {
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
+    font-size: 14px;
+    line-height: 1.43;
+    color: $gray-100;
   }
 
   a {

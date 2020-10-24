@@ -774,9 +774,6 @@
   }
 
   .left-control, .right-control, .task-control {
-    transition-duration: 0.15s;
-    transition-property: border-color, background, color;
-    transition-timing-function: ease-in;
     border: transparent solid 1px;
 
     &:focus {
