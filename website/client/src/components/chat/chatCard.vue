@@ -34,7 +34,6 @@
       <div
         ref="markdownContainer"
         class="text markdown"
-        :style="{'text-align': languageAlign}"
         v-html="parseMarkdown(msg.text)"
         dir="auto"
       ></div>
@@ -166,6 +165,7 @@
     .text {
       font-size: 14px;
       color: #4e4a57;
+      text-align: left !important;
       min-height: 0rem;
     }
   }
@@ -237,7 +237,6 @@ export default {
         liked: likedIcon,
       }),
       reported: false,
-      languageAlign: 'left',
     };
   },
   computed: {
@@ -279,13 +278,6 @@ export default {
       const date = moment(this.msg.timestamp).toDate();
       return date.toString();
     },
-  },
-  beforeMount () {
-    const regexCheckLang = /^[\u0591-\u07FF\u200F\u202B\u202E\uFB1D-\uFDFD\uFE70-\uFEFC]/;
-    const langCheckResult = regexCheckLang.test(this.msg.text);
-    if (langCheckResult) {
-      this.languageAlign = 'right';
-    }
   },
   mounted () {
     const links = this.$refs.markdownContainer.getElementsByTagName('a');
