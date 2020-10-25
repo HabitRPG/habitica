@@ -127,7 +127,7 @@
     "gemBenefit3": "Entusiasmanti Missioni che hanno come ricompensa uova di animali.",
     "gemBenefit4": "Resetta le statistiche del tuo avatar e cambia la sua classe.",
     "subscriptionBenefit1": "Alexander il Mercante ti venderà ora delle Gemme nel Mercato al prezzo di 20 Oro l'una!",
-    "subscriptionBenefit3": "Scopri ancora più oggetti in Habitica con un tetto di drop giornaliero raddoppiato.",
+    "subscriptionBenefit3": "Scopri ancora più oggetti in Habitica con un bottino giornaliero raddoppiato.",
     "subscriptionBenefit4": "Ogni mese un costume unico e alla moda per il tuo avatar.",
     "subscriptionBenefit5": "Riceverai il Lepronte Porpora una volta diventato un nuovo Abbonato.",
     "subscriptionBenefit6": "Ottieni Clessidre Mistiche per comprare oggetti nel negozio dei Viaggiatori del Tempo!",
@@ -178,5 +178,10 @@
     "cancelSubInfoApple": "Segui le <a href=\"https://support.apple.com/en-us/HT202039\">istruzioni ufficiali di Apple</a> per annullare l'abbonamento o per vedere la data di scadenza dell'abbonamento se l'hai già annullato. Questa schermata non è in grado di mostrarti se il tuo abbonamento è stato annullato.",
     "cancelSubInfoGoogle": "Vai nella sezione \"Account\"> \"Abbonamenti\" dell'app Google Play Store per annullare l'abbonamento o per vedere la data di scadenza dell'abbonamento se l'hai già annullato. Questa schermata non è in grado di mostrarti se il tuo abbonamento è stato annullato.",
     "organization": "Organizzazione",
-    "mysterySet202010": "Set Ammaliante da Pipistrello"
+    "mysterySet202010": "Set Ammaliante da Pipistrello",
+    "dropCapLearnMore": "Scopri di più sulla gestione del bottino di Habitica",
+    "dropCapSubs": "Gli abbonati di Habitica possono trovare il doppio degli oggetti casuali ogni giorno e ricevere oggetti misteriosi ogni mese!",
+    "lookingForMoreItems": "Vuoi più oggetti?",
+    "dropCapExplanation": "Riinizierai a trovare nuovi oggetti da domani. Continuerai comunque a guadagnare oro, esperienza e progressi nelle missioni quando completerai delle attività.",
+    "dropCapReached": "Hai trovato tutti gli oggetti per oggi!"
 }

@@ -180,5 +180,10 @@
     "cancelSubInfoGoogle": "Veuillez vous rendre dans la section \"Mes jeux et applications\" > \"Abonnements\" du Play Store Google pour annuler votre abonnement, ou voir la date d'expiration de votre abonnement si vous l'avez déjà annulé. Cet écran ne pourra pas vous indiquer si votre abonnement a été annulé.",
     "organization": "Organisation",
     "usuallyGems": "Généralement <%= originalGems %>",
-    "mysterySet202010": "Ensemble de la chauve-souris joyeuse"
+    "mysterySet202010": "Ensemble de la chauve-souris joyeuse",
+    "dropCapSubs": "Les titulaires d'un abonnement peuvent trouver le double d'objet chaque jour et reçoivent des objets mystères chaque mois !",
+    "lookingForMoreItems": "Vous voulez plus d'objets ?",
+    "dropCapLearnMore": "En apprendre plus sur le système de butin de Habitica",
+    "dropCapExplanation": "Vous recommencerez à trouver du butin dès demain. Cependant, vous continuerez à gagner de l'or et de l'expérience, et votre quête continuera de progresser lorsque vous remplirez vos tâches.",
+    "dropCapReached": "Vous avez trouvé tous les objets du jour !"
 }

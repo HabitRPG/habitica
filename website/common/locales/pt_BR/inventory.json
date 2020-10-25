@@ -4,5 +4,7 @@
     "eggsItemType": "Ovos",
     "hatchingPotionsItemType": "Poções de eclosão",
     "specialItemType": "Itens especiais",
-    "lockedItem": "Item bloqueado"
+    "lockedItem": "Item bloqueado",
+    "allItems": "Todos os itens",
+    "petAndMount": "Mascote e Montaria"
 }

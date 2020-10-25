@@ -180,5 +180,10 @@
     "organization": "Organização",
     "cancelSubInfoApple": "Siga as <a href=\"https://support.apple.com/en-us/HT202039\">instruções oficiais da Apple</a> para cancelar sua assinatura ou para ver a data de término da assinatura, caso já a tenha cancelado. Esta tela não mostra se sua assinatura foi cancelada.",
     "cancelSubInfoGoogle": "Vá para a seção \"Conta\" > \"Assinaturas\" do aplicativo Google Play Store para cancelar sua assinatura ou para ver a data de término da assinatura, caso já a tenha cancelado. Esta tela não mostra se sua assinatura foi cancelada.",
-    "mysterySet202010": "Conjunto Sedutoramente Extravagante"
+    "mysterySet202010": "Conjunto Sedutoramente Extravagante",
+    "dropCapSubs": "Os assinantes do Habitica podem encontrar o dobro dos itens aleatórios por dia e receber mensalmente itens misteriosos!",
+    "lookingForMoreItems": "Procurando por mais itens?",
+    "dropCapLearnMore": "Aprenda mais sobre o sistema de Drop do Habitica",
+    "dropCapExplanation": "Seus Drops serão reiniciados com as suas tarefas amanhã. No entanto, você continuará recebendo Ouro, Experiência e progredindo na Missão ao completar tarefas.",
+    "dropCapReached": "Você encontrou todos os itens por hoje!"
 }

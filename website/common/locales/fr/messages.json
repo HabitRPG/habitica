@@ -54,5 +54,10 @@
     "reportedMessage": "Vous avez signalé ce message à l'équipe de modération.",
     "canDeleteNow": "Vous pouvez maintenant supprimer ce message si vous le souhaitez.",
     "beginningOfConversationReminder": "N'oubliez pas de communiquer avec politesse et respect, tout en suivant les règles de vie en communauté !",
-    "newsPostNotFound": "Message de nouveautés non trouvé ou vous n'y avez pas accès."
+    "newsPostNotFound": "Message de nouveautés non trouvé ou vous n'y avez pas accès.",
+    "messageAllUnEquipped": "Tout retiré.",
+    "messageBackgroundUnEquipped": "Arrière-plan retiré.",
+    "messagePetMountUnEquipped": "Familier et monture retirés.",
+    "messageCostumeUnEquipped": "Costume retiré.",
+    "messageBattleGearUnEquipped": "Équipement de combat retiré."
 }
