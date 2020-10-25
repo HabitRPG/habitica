@@ -514,6 +514,8 @@
   "weaponArmoireHandyHookNotes": "Who needs opposable thumbs? This hook is “handy” enough for anyone. Increases Strength by <%= str %>. Enchanted Armoire: Pirate Set (Item 1 of 3).",
   "weaponArmoireGuardiansCrookText": "Guardian's Crook",
   "weaponArmoireGuardiansCrookNotes": "This shepherd's crook could come in handy next time you take your Pets for a stroll in the countryside... Increases Strength by <%= str %>. Enchanted Armoire: Guardian of the Grazers Set (Item 2 of 3).",
+  "weaponArmoireEnchantersStaffText": "Enchanter's Staff",
+  "weaponArmoireEnchantersStaffNotes": "The green stones on this staff are filled with the power of change that flows strong through the autumn wind. Increases Perception by <%= per %>. Enchanted Armoire: Autumn Enchanter Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1106,6 +1108,8 @@
   "armorArmoireHeroicHerbalistRobeNotes": "Always smells pleasantly of all kinds of herbs. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Heroic Herbalist Set (Item 1 of 3).",
   "armorArmoireGuardiansGownText": "Guardian's Gown",
   "armorArmoireGuardiansGownNotes": "A lovely rustic gown, with surprisingly sturdy seams! Increases Intelligence by <%= int %>. Enchanted Armoire: Guardian of the Grazers Set (Item 3 of 3).",
+  "armorArmoireAutumnEnchantersCloakText": "Autumn Enchanter's Cloak",
+  "armorArmoireAutumnEnchantersCloakNotes": "A sorcerer as skilled as you needs to look as powerful as they feel. Increases Intelligence by 12. Enchanted Armoire: Autumn Enchanter Set (Item 2 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1716,6 +1720,8 @@
   "headArmoireHeroicHerbalistCrispinetteNotes": "This handy headdress will help you keep your hair out of the way... It doesn't hurt that it also adds to the mystique. Increases Intelligence by <%= int %>. Enchanted Armoire: Heroic Herbalist Set (Item 3 of 3).",
   "headArmoireGuardiansBonnetText": "Guardian's Bonnet",
   "headArmoireGuardiansBonnetNotes": "Don this fetching bonnet to help you herd your tasks! Increases Constitution by <%= con %>. Enchanted Armoire: Guardian of the Grazers Set (Item 1 of 3).",
+  "headArmoireHornsOfAutumnText": "Horns of Autumn",
+  "headArmoireHornsOfAutumnNotes": "Draw the power of the season's brisk air and channel it through your magic! Increases Strength by <%= str %>. Enchanted Armoire: Autumn Enchanter Set (Item 1 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -2019,6 +2025,8 @@
   "shieldArmoirePiratesCompanionNotes": "Perfect if you want to talk your enemies to death, this parrot never shuts up. Maybe it'll remind you about your tasks too! Increases Perception by <%= per %>. Enchanted Armoire: Pirate Set (Item 3 of 3).",
   "shieldArmoireMortarAndPestleText": "Mortar and Pestle",
   "shieldArmoireMortarAndPestleNotes": "The most important equipment in the herbalist's arsenal! Grind up your ingredients for your herbal concoctions, and put your back into it! Increases Constitution by <%= con %>. Enchanted Armoire: Heroic Herbalist Set (Item 2 of 3).",
+  "shieldArmoireDarkAutumnFlameText": "Dark Autumn Flame",
+  "shieldArmoireDarkAutumnFlameNotes": "These mesmerizing flames dance with lively but foreboding energy even in autumn's chilliest nights. Increases Constitution by <%= con %>. Enchanted Armoire: Autumn Enchanter Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",

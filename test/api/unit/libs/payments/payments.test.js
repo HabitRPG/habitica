@@ -421,10 +421,22 @@ describe('payments/index', () => {
     });
 
     context('Mystery Items', () => {
-      it('awards mystery items when within the timeframe for a mystery item', async () => {
-        const mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
-        const fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
+      let clock;
+      const mayMysteryItem = 'armor_mystery_201605';
 
+      beforeEach(() => {
+        const mayMysteryItemTimeframe = new Date(2016, 4, 31); // May 31st 2016
+        clock = sinon.useFakeTimers({
+          now: mayMysteryItemTimeframe,
+          toFake: ['Date'],
+        });
+      });
+
+      afterEach(() => {
+        if (clock) clock.restore();
+      });
+
+      it('awards mystery items when within the timeframe for a mystery item', async () => {
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
 
         const oldNotificationsCount = user.notifications.length;
@@ -437,14 +449,9 @@ describe('payments/index', () => {
         expect(user.purchased.plan.mysteryItems).to.include('head_mystery_201605');
         expect(user.notifications.length).to.equal(oldNotificationsCount + 1);
         expect(user.notifications[0].type).to.equal('NEW_MYSTERY_ITEMS');
-
-        fakeClock.restore();
       });
 
       it('does not award mystery item when user already owns the item', async () => {
-        const mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
-        const fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
-        const mayMysteryItem = 'armor_mystery_201605';
         user.items.gear.owned[mayMysteryItem] = true;
 
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
@@ -453,14 +460,9 @@ describe('payments/index', () => {
 
         expect(user.purchased.plan.mysteryItems).to.have.a.lengthOf(1);
         expect(user.purchased.plan.mysteryItems).to.include('head_mystery_201605');
-
-        fakeClock.restore();
       });
 
       it('does not award mystery item when user already has the item in the mystery box', async () => {
-        const mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
-        const fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
-        const mayMysteryItem = 'armor_mystery_201605';
         user.purchased.plan.mysteryItems = [mayMysteryItem];
 
         sandbox.spy(user.purchased.plan.mysteryItems, 'push');
@@ -470,8 +472,6 @@ describe('payments/index', () => {
 
         expect(user.purchased.plan.mysteryItems.push).to.be.calledOnce;
         expect(user.purchased.plan.mysteryItems.push).to.be.calledWith('head_mystery_201605');
-
-        fakeClock.restore();
       });
     });
   });
