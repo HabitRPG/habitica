@@ -83,22 +83,6 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
       });
     });
 
-    it('does not issue invites if the user is of insufficient Level', async () => {
-      const LEVELED_QUEST = 'atom1';
-      const LEVELED_QUEST_REQ = questScrolls[LEVELED_QUEST].lvl;
-      const leaderUpdate = {};
-      leaderUpdate[`items.quests.${LEVELED_QUEST}`] = 1;
-      leaderUpdate['stats.lvl'] = LEVELED_QUEST_REQ - 1;
-
-      await leader.update(leaderUpdate);
-
-      await expect(leader.post(`/groups/${questingGroup._id}/quests/invite/${LEVELED_QUEST}`)).to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('questLevelTooHigh', { level: LEVELED_QUEST_REQ }),
-      });
-    });
-
     it('does not issue invites if a quest is already underway', async () => {
       const QUEST_IN_PROGRESS = 'atom1';
       const leaderUpdate = {};
@@ -210,6 +194,18 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
 
       const returnedGroup = await groupLeader.get(`/groups/${group._id}`);
       expect(returnedGroup.chat[0]._meta).to.be.undefined;
+    });
+
+    it('successfully issues a quest invitation when quest level is higher than user level', async () => {
+      const LEVELED_QUEST = 'atom1';
+      const LEVELED_QUEST_REQ = questScrolls[LEVELED_QUEST].lvl;
+      const leaderUpdate = {};
+      leaderUpdate[`items.quests.${LEVELED_QUEST}`] = 1;
+      leaderUpdate['stats.lvl'] = LEVELED_QUEST_REQ - 1;
+
+      await leader.update(leaderUpdate);
+
+      await leader.post(`/groups/${questingGroup._id}/quests/invite/${LEVELED_QUEST}`);
     });
 
     context('sending quest activity webhooks', () => {
