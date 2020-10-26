@@ -224,7 +224,10 @@ export default {
       this.group = await this.$store.dispatch('guilds:getGroup', {
         groupId: this.searchId,
       });
-
+      this.$store.dispatch('common:setTitle', {
+        subSection: this.group.name,
+        section: this.$t('group'),
+      });
       const members = await this.$store.dispatch('members:getGroupMembers', { groupId: this.searchId });
       this.group.members = members;
 

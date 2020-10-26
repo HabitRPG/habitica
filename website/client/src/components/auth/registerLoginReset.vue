@@ -745,6 +745,7 @@ export default {
   watch: {
     $route: {
       handler () {
+        this.setTitle();
         if (this.resetPasswordSetNewOne) {
           const { query } = this.$route;
           const { code } = query;
@@ -760,7 +761,6 @@ export default {
             this.$router.push({ name: 'login' });
             return;
           }
-
           this.resetPasswordSetNewOneData.code = query.code;
           this.resetPasswordSetNewOneData.hasError = hasError;
         }
@@ -897,6 +897,18 @@ export default {
         // is reloaded and correct for the logged in user
         window.location.href = redirectTo;
       }
+    },
+    setTitle () {
+      if (this.resetPasswordSetNewOne) {
+        return;
+      }
+      let title = 'login';
+      if (this.registering) {
+        title = 'register';
+      }
+      this.$store.dispatch('common:setTitle', {
+        section: this.$t(title),
+      });
     },
     handleSubmit () {
       if (this.registering) {

@@ -165,6 +165,12 @@ export default {
       });
     },
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('myGuilds'),
+      section: this.$t('guilds'),
+    });
+  },
   created () {
     this.fetchGuilds();
   },

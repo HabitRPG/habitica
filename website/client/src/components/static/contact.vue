@@ -67,5 +67,10 @@ export default {
       goToModForm(this.user);
     },
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('contactUs'),
+    });
+  },
 };
 </script>

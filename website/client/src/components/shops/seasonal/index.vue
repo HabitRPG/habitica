@@ -517,6 +517,11 @@ export default {
     }, 250),
   },
   async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('seasonalShop'),
+      section: this.$t('shops'),
+    });
+
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });

@@ -486,6 +486,9 @@ export default {
   },
   mounted () {
     this.activePage = this.PAGES.BENEFITS;
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('groupPlans'),
+    });
   },
   methods: {
     launchModal () {
