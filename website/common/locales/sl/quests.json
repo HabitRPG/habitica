@@ -49,7 +49,6 @@
     "questNotOwned": "Nimate tega zvitka z dogodivščino.",
     "questNotGoldPurchasable": "Dogodivščina \"<%= key %>\" ni na voljo za nakup z zlatom.",
     "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
-    "questLevelTooHigh": "Za začetek te dogodivščine morate biti vsaj stopnje <%= level %>.",
     "questAlreadyUnderway": "Vaša druščina je že na dogodivščini. Poskusite znova, ko bo trenutna zaključena.",
     "questAlreadyAccepted": "Vabilo na dogodivščino ste že sprejeli.",
     "noActiveQuestToLeave": "Ni aktivne dogodivščine, ki bi jo lahko zapustili",

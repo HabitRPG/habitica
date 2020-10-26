@@ -49,7 +49,6 @@
     "questNotOwned": "Neturiu šio misijų rankraščio.",
     "questNotGoldPurchasable": "Misijos \"<%= key %>\" negalima nusipirkti už Auksą.",
     "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
-    "questLevelTooHigh": "Turi pasiekti <%= level %> lygį prieš pradedant šią misiją.",
     "questAlreadyUnderway": "Tavo grupė jau turi misiją. Pabandyk vėl jai pasibaigus.",
     "questAlreadyAccepted": "Jau sutikai su misijos pakvietimu.",
     "noActiveQuestToLeave": "Negali palikti neegzistuojančios misijos",

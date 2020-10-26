@@ -49,7 +49,6 @@
     "questNotOwned": "Du eier ikke denne oppdragsrullen.",
     "questNotGoldPurchasable": "Oppdrag \"<%= key %>\" kan ikke kjøpes med gull.",
     "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
-    "questLevelTooHigh": "Du må være minst nivå <%= level %> for å starte dette oppdraget.",
     "questAlreadyUnderway": "Klanen din er allerede på oppdrag. Prøv igjen når pågående oppdrag er utført.",
     "questAlreadyAccepted": "Du har allerede godtatt oppdragsinvitasjonen.",
     "noActiveQuestToLeave": "Ingen aktive oppdrag å forlate.",

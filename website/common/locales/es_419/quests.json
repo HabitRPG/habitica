@@ -49,7 +49,6 @@
     "questNotOwned": "No posees ese pergamino de misión.",
     "questNotGoldPurchasable": "La misión \"<%= key %>\" es una misión no comprable con Oro.",
     "questNotGemPurchasable": "La Misión \"<%= key %>\" no puede ser comprada con Gemas.",
-    "questLevelTooHigh": "Debes ser de nivel <%= level %> para empezar esta misión.",
     "questAlreadyUnderway": "Tu equipo ya esta en una misión. Intenta denuevo cuando la misión actual haya terminado.",
     "questAlreadyAccepted": "Ya aceptaste la invitación a la misión.",
     "noActiveQuestToLeave": "No hay una misión activa para abandonar",
