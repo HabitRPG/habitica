@@ -362,6 +362,35 @@ function _getMembersForItem (type) {
   };
 }
 
+async function _getMemberTasksFromChallenge (challengeId, memberId, user, res) {
+  const member = await User.findById(memberId).select(`${nameFields} challenges`).exec();
+  if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
+
+  const challenge = await Challenge.findById(challengeId).exec();
+  if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+  // optionalMembership is set to true because even if you're
+  // not member of the group you may be able to access the challenge
+  // for example if you've been booted from it, are the leader or a site admin
+  const group = await Group.getGroup({
+    user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true,
+  });
+  if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+  if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
+
+  const challengeTasks = await Tasks.Task.find({
+    userId: memberId,
+    'challenge.id': challengeId,
+  })
+    .select('-tags') // We don't want to return the tags publicly TODO same for other data?
+    .exec();
+
+  return challengeTasks.map(task => {
+    task.checklist = []; // Clear checklists as they are private
+    return task.toJSON({ minimize: true });
+  });
+}
+
 async function _handleGetMembersForChallenge (req, res) {
   req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
   req.checkQuery('lastId').optional().notEmpty().isUUID();
@@ -424,6 +453,15 @@ async function _handleGetMembersForChallenge (req, res) {
 
   // manually call toJSON with minimize: true so empty paths aren't returned
   members.forEach(member => User.transformJSONUser(member, addComputedStats));
+  if (req.query.includeTasks === 'true') {
+    const tasksPremises = members.map(
+      member => _getMemberTasksFromChallenge(challengeId, member.id, user, res),
+    );
+    const everyMemberTasks = await Promise.all(tasksPremises);
+    members.forEach((member, i) => {
+      member.tasks = everyMemberTasks[i];
+    });
+  }
   res.respond(200, members);
 }
 
@@ -632,32 +670,12 @@ api.getChallengeMemberProgress = {
     const member = await User.findById(memberId).select(`${nameFields} challenges`).exec();
     if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
 
-    const challenge = await Challenge.findById(challengeId).exec();
-    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-
-    // optionalMembership is set to true because even if you're
-    // not member of the group you may be able to access the challenge
-    // for example if you've been booted from it, are the leader or a site admin
-    const group = await Group.getGroup({
-      user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true,
-    });
-    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
-    if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
-
-    const chalTasks = await Tasks.Task.find({
-      userId: memberId,
-      'challenge.id': challengeId,
-    })
-      .select('-tags') // We don't want to return the tags publicly TODO same for other data?
-      .exec();
+    const challengeTasks = await _getMemberTasksFromChallenge(challengeId, memberId, user, res);
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     const response = member.toJSON({ minimize: true });
     delete response.challenges;
-    response.tasks = chalTasks.map(chalTask => {
-      chalTask.checklist = []; // Clear checklists as they are private
-      return chalTask.toJSON({ minimize: true });
-    });
+    response.tasks = challengeTasks;
     res.respond(200, response);
   },
 };

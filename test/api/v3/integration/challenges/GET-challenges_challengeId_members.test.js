@@ -259,6 +259,32 @@ describe('GET /challenges/:challengeId/members', () => {
     expect(resIds).to.eql(expectedIds.sort());
   });
 
+  it('supports using req.query.includeTasks in order to add challenge-related tasks of all members', async () => {
+    const group = await generateGroup(user, { type: 'party', name: generateUUID() });
+    const challenge = await generateChallenge(user, group);
+    await user.post(`/challenges/${challenge._id}/join`);
+
+    const usersToGenerate = [];
+    for (let i = 0; i < 8; i += 1) {
+      usersToGenerate.push(generateUser({ challenges: [challenge._id] }));
+    }
+    await Promise.all(usersToGenerate);
+    await user.post(`/tasks/challenge/${challenge._id}`, [{ type: 'habit', text: 'Some task' }]);
+    await user.post(`/tasks/challenge/${challenge._id}`, [{ type: 'daily', text: 'Some different task' }]);
+
+    const res = await user.get(`/challenges/${challenge._id}/members?includeTasks=true`);
+    expect(res.length).to.equal(9);
+    res.forEach(member => {
+      expect(member).to.have.property('tasks');
+      expect(member.tasks).to.be.an('array');
+      expect(member.tasks).to.have.lengthOf(2);
+      member.tasks.forEach(task => {
+        expect(task).to.include.all.keys(['type', 'text', 'id', 'challenge', 'group']);
+        expect(task.challenge.id).to.be.equal(challenge._id);
+      });
+    });
+  });
+
   it('supports using req.query.search to get search members', async () => {
     const group = await generateGroup(user, { type: 'party', name: generateUUID() });
     const challenge = await generateChallenge(user, group);
