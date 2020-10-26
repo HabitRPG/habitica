@@ -278,16 +278,12 @@ api.getMemberAchievements = {
 // We should create factory functions. See Webhooks for a good example
 function _getMembersForItem (type) {
   // check for allowed `type`
-  if (['group-members', 'group-invites', 'challenge-members'].indexOf(type) === -1) {
-    throw new Error('Type must be one of "group-members", "group-invites", "challenge-members"');
+  if (['group-members', 'group-invites'].indexOf(type) === -1) {
+    throw new Error('Type must be one of "group-members", "group-invites"');
   }
 
   return async function handleGetMembersForItem (req, res) {
-    if (type === 'challenge-members') {
-      req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    } else {
-      req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
-    }
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.checkQuery('lastId').optional().notEmpty().isUUID();
     // Allow an arbitrary number of results (up to 60)
     req.checkQuery('limit', res.t('groupIdRequired')).optional().notEmpty().isInt({ min: 1, max: 60 });
@@ -296,49 +292,18 @@ function _getMembersForItem (type) {
     if (validationErrors) throw validationErrors;
 
     const { groupId } = req.params;
-    const { challengeId } = req.params;
     const { lastId } = req.query;
     const { user } = res.locals;
-    let challenge;
-    let group;
 
-    if (type === 'challenge-members') {
-      challenge = await Challenge.findById(challengeId).select('_id type leader group').exec();
-      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-
-      // optionalMembership is set to true because even
-      // if you're not member of the group you may be able to access the challenge
-      // for example if you've been booted from it, are the leader or a site admin
-      group = await Group.getGroup({
-        user,
-        groupId: challenge.group,
-        fields: '_id type privacy',
-        optionalMembership: true,
-      });
-
-      if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
-    } else {
-      group = await Group.getGroup({ user, groupId, fields: '_id type' });
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-    }
+    const group = await Group.getGroup({ user, groupId, fields: '_id type' });
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
     const query = {};
     let fields = nameFields;
     // add computes stats to the member info when items and stats are available
     let addComputedStats = false;
 
-    if (type === 'challenge-members') {
-      query.challenges = challenge._id;
-
-      if (req.query.includeAllPublicFields === 'true') {
-        fields = memberFields;
-        addComputedStats = true;
-      }
-
-      if (req.query.search) {
-        query['auth.local.username'] = { $regex: req.query.search };
-      }
-    } else if (type === 'group-members') {
+    if (type === 'group-members') {
       if (group.type === 'guild') {
         query.guilds = group._id;
 
@@ -381,12 +346,7 @@ function _getMembersForItem (type) {
 
     if (lastId) query._id = { $gt: lastId };
 
-    let limit = req.query.limit ? Number(req.query.limit) : 30;
-
-    // Allow for all challenges members to be returned
-    if (type === 'challenge-members' && req.query.includeAllMembers === 'true') {
-      limit = 0; // no limit
-    }
+    const limit = req.query.limit ? Number(req.query.limit) : 30;
 
     const members = await User
       .find(query)
