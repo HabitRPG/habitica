@@ -402,6 +402,71 @@ function _getMembersForItem (type) {
   };
 }
 
+async function _handleGetMembersForChallenge (req, res) {
+  req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+  req.checkQuery('lastId').optional().notEmpty().isUUID();
+  // Allow an arbitrary number of results (up to 60)
+  req.checkQuery('limit', res.t('groupIdRequired')).optional().notEmpty().isInt({ min: 1, max: 60 });
+
+  const validationErrors = req.validationErrors();
+  if (validationErrors) throw validationErrors;
+
+  const { challengeId } = req.params;
+  const { lastId } = req.query;
+  const { user } = res.locals;
+
+  const challenge = await Challenge.findById(challengeId).select('_id type leader group').exec();
+  if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+
+  // optionalMembership is set to true because even
+  // if you're not member of the group you may be able to access the challenge
+  // for example if you've been booted from it, are the leader or a site admin
+  const group = await Group.getGroup({
+    user,
+    groupId: challenge.group,
+    fields: '_id type privacy',
+    optionalMembership: true,
+  });
+
+  if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+
+  const query = {};
+  let fields = nameFields;
+  // add computes stats to the member info when items and stats are available
+  let addComputedStats = false;
+  query.challenges = challenge._id;
+
+  if (req.query.includeAllPublicFields === 'true') {
+    fields = memberFields;
+    addComputedStats = true;
+  }
+
+  if (req.query.search) {
+    query['auth.local.username'] = { $regex: req.query.search };
+  }
+
+  if (lastId) query._id = { $gt: lastId };
+
+  let limit = req.query.limit ? Number(req.query.limit) : 30;
+
+  // Allow for all challenges members to be returned
+  if (req.query.includeAllMembers === 'true') {
+    limit = 0; // no limit
+  }
+
+  const members = await User
+    .find(query)
+    .sort({ _id: 1 })
+    .limit(limit)
+    .select(fields)
+    .lean()
+    .exec();
+
+  // manually call toJSON with minimize: true so empty paths aren't returned
+  members.forEach(member => User.transformJSONUser(member, addComputedStats));
+  res.respond(200, members);
+}
+
 /**
  * @api {get} /api/v3/groups/:groupId/members Get members for a group
  * @apiDescription With a limit of 30 member per request (by default).
@@ -420,6 +485,9 @@ function _getMembersForItem (type) {
  *                                                    then all public fields for members
  *                                                    will be returned (similar to when making
  *                                                    a request for a single member).
+ * @apiParam (Query) {Boolean} includeTasks If set to `true`, then
+ *                                response should include all tasks per user
+ *                                related to the challenge
  *
  * @apiSuccess {Array} data An array of members, sorted by _id
  *
@@ -527,7 +595,7 @@ api.getMembersForChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId/members',
   middlewares: [authWithHeaders()],
-  handler: _getMembersForItem('challenge-members'),
+  handler: _handleGetMembersForChallenge,
 };
 
 /**
