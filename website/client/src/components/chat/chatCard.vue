@@ -34,8 +34,8 @@
       <div
         ref="markdownContainer"
         class="text markdown"
-        v-html="parseMarkdown(msg.text)"
         dir="auto"
+        v-html="parseMarkdown(msg.text)"
       ></div>
       <hr>
       <div
@@ -165,7 +165,7 @@
     .text {
       font-size: 14px;
       color: #4e4a57;
-      text-align: left !important;
+      text-align: initial;
       min-height: 0rem;
     }
   }

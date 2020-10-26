@@ -21,6 +21,7 @@
     </p>
     <div
       class="text markdown"
+      dir="auto"
       v-html="parseMarkdown(msg.text)"
     ></div>
     <div
@@ -118,7 +119,7 @@
     .text {
       font-size: 14px;
       color: $gray-50;
-      text-align: left !important;
+      text-align: initial;
       min-height: 0rem;
     }
   }
