@@ -304,6 +304,10 @@ export default {
     }, 250),
   },
   async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('market'),
+      section: this.$t('shops'),
+    });
     await this.$store.dispatch('worldState:getWorldState');
   },
   methods: {

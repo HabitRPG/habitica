@@ -781,6 +781,9 @@ export default {
     },
   },
   async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('messages'),
+    });
     // notification click to refresh
     this.$root.$on(EVENTS.PM_REFRESH, async () => {
       await this.reload();

@@ -49,7 +49,6 @@
     "questNotOwned": "Je bezit deze queesterol niet.",
     "questNotGoldPurchasable": "Deze queeste \\\"<%= key %>\\\" is niet met goud verkrijgbaar.",
     "questNotGemPurchasable": "Queeste \"<%= key %>\" is geen Edelsteen-koopbare queeste.",
-    "questLevelTooHigh": "Je moet niveau <%= level %> zijn om deze queeste te beginnen.",
     "questAlreadyUnderway": "Jouw gezelschap is al op een queeste. Probeer het opnieuw wanneer deze queeste is beëindigd.",
     "questAlreadyAccepted": "Je hebt de queesteuitnodiging al geaccepteerd.",
     "noActiveQuestToLeave": "Geen actieve queeste om te verlaten",

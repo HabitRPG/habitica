@@ -909,6 +909,9 @@ export default {
       // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
     });
+    this.$store.dispatch('common:setTitle', {
+      fullTitle: 'Habitica - Gamify Your Life',
+    });
   },
   methods: {
     // eslint-disable-next-line func-names

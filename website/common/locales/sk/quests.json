@@ -49,7 +49,6 @@
     "questNotOwned": "Nevlastníš tento zvitok s výpravou.",
     "questNotGoldPurchasable": "Výprava \"<%= key %>\" sa nedá kúpiť so zlatom.",
     "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
-    "questLevelTooHigh": "Musíš byť level <%= level %>, aby si začal túto výpravu.",
     "questAlreadyUnderway": "Tvoja družina je práve na výprave. Skús to znovu, keď vaša súčasná výprava skončí.",
     "questAlreadyAccepted": "Túto pozvánku si už prijal.",
     "noActiveQuestToLeave": "Žiadna aktívna výprava, ktorá by sa dala opustiť",

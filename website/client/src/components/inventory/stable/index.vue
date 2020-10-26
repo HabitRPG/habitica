@@ -645,6 +645,12 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('stable'),
+      section: this.$t('inventory'),
+    });
+  },
   watch: {
     searchText: _throttle(function throttleSearch () {
       const search = this.searchText.toLowerCase();

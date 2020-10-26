@@ -500,7 +500,10 @@ export default {
     if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
     await this.fetchGuild();
-
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('groupPlans'),
+      subSection: this.group.name,
+    });
     this.$root.$on('updatedGroup', this.onGroupUpdate);
   },
   beforeDestroy () {
@@ -508,7 +511,6 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
-
     next();
   },
   methods: {
@@ -518,6 +520,10 @@ export default {
     onGroupUpdate (group) {
       const updatedGroup = extend(this.group, group);
       this.$set(this.group, updatedGroup);
+      this.$store.dispatch('common:setTitle', {
+        section: this.$t('groupPlans'),
+        subSection: group.name,
+      });
     },
 
     /**

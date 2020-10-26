@@ -508,6 +508,11 @@ export default {
     this.costumeMode = getLocalSetting(
       CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB,
     ) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
+
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('equipment'),
+      section: this.$t('inventory'),
+    });
   },
   methods: {
     selectDrawerTab (tabName) {

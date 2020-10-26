@@ -49,7 +49,6 @@
     "questNotOwned": "Bu görev parşömenine sahip değilsin.",
     "questNotGoldPurchasable": "\"<%= key %>\" görevi Altın ile satın alınabilen bir görev değil.",
     "questNotGemPurchasable": "\"<%= key %>\" görevi Elmas ile satın alınabilen bir görev değil.",
-    "questLevelTooHigh": "Bu göreve başlamak için <%= level %>. seviye olmalısın.",
     "questAlreadyUnderway": "Takımın zaten bir görevde. Şu anki görev sona erdiğinde tekrar dene.",
     "questAlreadyAccepted": "Görev davetini zaten kabul ettin.",
     "noActiveQuestToLeave": "Ayrılınacak aktif bir görev bulunmuyor",

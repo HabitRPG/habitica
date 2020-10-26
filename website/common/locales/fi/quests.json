@@ -49,7 +49,6 @@
     "questNotOwned": "Et omista kyseistä jahtikääröä.",
     "questNotGoldPurchasable": "Jahtia \"<%= key %>\" ei voi ostaa kullalla.",
     "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
-    "questLevelTooHigh": "Sinun on oltava tasolla <%= level %> aloittaaksesi tämän jahdin.",
     "questAlreadyUnderway": "Seurueesi on jo jahdissa. Yritä uudelleen, kun nykyinen jahti on päättynyt.",
     "questAlreadyAccepted": "Olet  jo hyväksynyt jahtikutsun.",
     "noActiveQuestToLeave": "Ei aktiivista jahtia, josta poistua.",

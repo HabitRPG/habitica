@@ -105,6 +105,10 @@ export default {
     ...mapState({ user: 'user.data' }),
   },
   async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('settings'),
+      subSection: this.$t('notifications'),
+    });
     // If ?unsubFrom param is passed with valid email type,
     // automatically unsubscribe users from that email and
     // show an alert

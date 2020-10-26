@@ -111,6 +111,8 @@ const router = new VueRouter({
     return { x: 0, y: 0 };
   },
   // meta defaults: requiresLogin true, privilegeNeeded empty
+  // NOTE: when adding a new route entry make sure to implement the `common:setTitle` action
+  // in the route component to set a specific subtitle for the page.
   routes: [
     {
       name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },

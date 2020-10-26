@@ -49,7 +49,6 @@
     "questNotOwned": "你还没拥有那个副本卷轴。",
     "questNotGoldPurchasable": "副本“<%= key %>”不能用金币购买。",
     "questNotGemPurchasable": "副本“<%= key %>”不可用宝石进行购买。",
-    "questLevelTooHigh": "你必须达到等级<%= level %>来开始这个副本。",
     "questAlreadyUnderway": "你的队伍已经开始一个副本。当前副本结束后请再试一次。",
     "questAlreadyAccepted": "你已经接收副本邀请。",
     "noActiveQuestToLeave": "没有正在进行的副本可供退出",

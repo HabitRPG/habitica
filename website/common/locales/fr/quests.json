@@ -49,7 +49,6 @@
     "questNotOwned": "Vous ne possédez pas ce parchemin de quête.",
     "questNotGoldPurchasable": "La quête \"<%= key %>\" n'est pas achetable avec de l'or.",
     "questNotGemPurchasable": "La quête \"<%= key %>\" n'est pas achetable avec des Gemmes.",
-    "questLevelTooHigh": "Vous devez être au moins au niveau <%= level %> pour commencer cette quête.",
     "questAlreadyUnderway": "Votre équipe est déjà en quête. Essayez à nouveau lorsque la quête actuelle sera terminée.",
     "questAlreadyAccepted": "Vous avez déjà accepté l'invitation à la quête.",
     "noActiveQuestToLeave": "Il n'y a pas de quête active à quitter",

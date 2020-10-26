@@ -491,6 +491,11 @@ export default {
       return tagsByType;
     },
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('tasks'),
+    });
+  },
   watch: {
     searchText: throttle(function throttleSearch () {
       this.searchTextThrottled = this.searchText.toLowerCase();
