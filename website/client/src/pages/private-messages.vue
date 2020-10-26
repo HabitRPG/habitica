@@ -152,6 +152,7 @@
             <textarea
               ref="textarea"
               v-model="newMessage"
+              dir="auto"
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
               :maxlength="MAX_MESSAGE_LENGTH"
