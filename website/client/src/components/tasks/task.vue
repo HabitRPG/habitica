@@ -104,7 +104,7 @@
             <div class="d-flex justify-content-between">
               <h3
                 v-markdown="task.text"
-                class="task-title"
+                class="task-title markdown"
                 :class="{ 'has-notes': task.notes || (!isUser && task.group.managerNotes)}"
               ></h3>
               <menu-dropdown
