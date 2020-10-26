@@ -359,7 +359,7 @@ api.updateHero = {
 api.getHeroParty = { // @TODO XXX add tests
   method: 'GET',
   url: '/hall/heroes/party/:groupId',
-  middlewares: [ authWithHeaders(), ensurePriv('userSupport') ],
+  middlewares: [authWithHeaders(), ensurePriv('userSupport')],
   async handler (req, res) {
     req.checkParams('groupId', apiError('groupIdRequired')).notEmpty().isUUID();
 

@@ -22,7 +22,8 @@
           :reset-counter="resetCounter"
         />
 
-        <party-and-quest v-if="adminHasPrivForParty"
+        <party-and-quest
+          v-if="adminHasPrivForParty"
           :user-id="hero._id"
           :username="hero.auth.local.username"
           :user-has-party="hasParty"
