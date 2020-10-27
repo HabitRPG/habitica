@@ -144,21 +144,21 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2020-08-03')) {
-    user.migration = '20200731_naming_day';
-    user.achievements.habiticaDays = 1;
-    user.items.mounts['Gryphon-RoyalPurple'] = true;
+  if (moment().isBefore('2020-11-02')) {
+    user.migration = '20201029_habitoween_ladder';
+    user.items.pets['JackOLantern-Base'] = true;
+    user.items.currentPet = 'JackOLantern-Base';
     user.items.food = {
-      Cake_Skeleton: 1,
-      Cake_Base: 1,
-      Cake_CottonCandyBlue: 1,
-      Cake_CottonCandyPink: 1,
-      Cake_Shade: 1,
-      Cake_White: 1,
-      Cake_Golden: 1,
-      Cake_Zombie: 1,
-      Cake_Desert: 1,
-      Cake_Red: 1,
+      Candy_Skeleton: 1,
+      Candy_Base: 1,
+      Candy_CottonCandyBlue: 1,
+      Candy_CottonCandyPink: 1,
+      Candy_Shade: 1,
+      Candy_White: 1,
+      Candy_Golden: 1,
+      Candy_Zombie: 1,
+      Candy_Desert: 1,
+      Candy_Red: 1,
     };
   }
 
