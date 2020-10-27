@@ -183,7 +183,7 @@ function _sendDataToAmplitude (eventType, data, loggerOnly) {
     logger.info('Amplitude Event', amplitudeData);
   }
 
-  if (loggerOnly) return new Promise();
+  if (loggerOnly) return Promise.resolve(null);
 
   return amplitude
     .track(amplitudeData)
