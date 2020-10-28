@@ -82,14 +82,22 @@ export function setUser () {
   window.ga('set', { userId: user._id });
 }
 
-export function track (properties) {
+export function track (properties, options = {}) {
   // Use nextTick to avoid blocking the UI
   Vue.nextTick(() => {
     if (_doesNotHaveRequiredFields(properties)) return;
     if (_doesNotHaveAllowedHitType(properties)) return;
 
-    amplitude.getInstance().logEvent(properties.eventAction, properties);
-    window.ga('send', properties);
+    const trackOnServer = options && options.trackOnServer === true;
+    console.log('sending analytics event', options, properties);
+    if (trackOnServer === true) {
+      // Track an event on the server
+      const store = getStore();
+      store.dispatch('analytics:trackEvent', properties);
+    } else {
+      amplitude.getInstance().logEvent(properties.eventAction, properties);
+      window.ga('send', properties);
+    }
   });
 }
 
