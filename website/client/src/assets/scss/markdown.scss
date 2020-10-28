@@ -1,3 +1,20 @@
+@mixin h3Markdown {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  margin-bottom: 4px;
+
+  line-height: 1.25;
+  margin-top: 6px;
+  color: $gray-10;
+
+  font-weight: normal;
+}
+
+// task titles are h3 by default
+h3.markdown {
+  @include h3Markdown;
+}
+
 .markdown {
   p {
     margin-bottom: 8px;
@@ -18,13 +35,7 @@
   }
 
   h3 {
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 16px;
-    margin-bottom: 4px;
-
-    line-height: 1.25;
-    margin-top: 6px;
-    color: $gray-10;
+    @include h3Markdown;
   }
 
   h1, h2, h3, h4 {
