@@ -35,7 +35,7 @@ api.checkout = {
     const { groupId, coupon, gemsBlock } = req.query;
 
     await stripePayments.checkout({
-      token, user, gemsBlock, gift, sub, groupId, coupon,
+      token, user, gemsBlock, gift, sub, groupId, coupon, headers: req.headers,
     });
 
     res.respond(200, {});
