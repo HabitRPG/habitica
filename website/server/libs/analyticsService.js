@@ -185,7 +185,6 @@ function _sendDataToAmplitude (eventType, data, loggerOnly) {
 
   if (loggerOnly) return Promise.resolve(null);
 
-  console.log('sending to amplitude', amplitudeData);
   return amplitude
     .track(amplitudeData)
     .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
@@ -240,7 +239,6 @@ function _sendDataToGoogle (eventType, data) {
   }
 
   const promise = new Promise((resolve, reject) => {
-    console.log('sending to ga', eventData);
     ga.event(eventData, err => {
       if (err) return reject(err);
       return resolve();
