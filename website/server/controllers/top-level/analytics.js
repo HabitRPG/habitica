@@ -29,7 +29,6 @@ api.trackEvent = {
     const { user } = res.locals;
     const eventProperties = req.body;
 
-    console.log('received action to track event on server', req.params.eventName, eventProperties, 'for', user._id);
     res.analytics.track(req.params.eventName, {
       uuid: user._id,
       headers: req.headers,
