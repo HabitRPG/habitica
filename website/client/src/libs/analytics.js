@@ -89,7 +89,6 @@ export function track (properties, options = {}) {
     if (_doesNotHaveAllowedHitType(properties)) return;
 
     const trackOnServer = options && options.trackOnServer === true;
-    console.log('sending analytics event', options, properties);
     if (trackOnServer === true) {
       // Track an event on the server
       const store = getStore();
