@@ -518,9 +518,16 @@ export default {
       this.newTag = null;
     },
     removeTag (index, key) {
+      debugger;
       const tagId = this.tagsSnap[key][index].id;
       const indexInSelected = this.selectedTags.indexOf(tagId);
-      if (indexInSelected !== -1) this.$delete(this.selectedTags, indexInSelected);
+      const indexInTempSelected = this.temporarilySelectedTags.indexOf(tagId);
+      if (indexInSelected !== -1) {
+        this.$delete(this.selectedTags, indexInSelected);
+      }
+      if (indexInTempSelected !== -1) {
+        this.$delete(this.temporarilySelectedTags, indexInTempSelected);
+      }
       this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {
@@ -586,6 +593,7 @@ export default {
     },
     toggleTag (tag) {
       const { temporarilySelectedTags } = this;
+      debugger;
       const tagI = temporarilySelectedTags.indexOf(tag.id);
       if (tagI === -1) {
         temporarilySelectedTags.push(tag.id);
