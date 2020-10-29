@@ -1808,7 +1808,7 @@
     "weaponSpecialFall2020RogueText": "Katar Afilado",
     "weaponSpecialFall2020WarriorNotes": "Esta espada fue al más allá con un poderoso guerrero, ¡y regresa para que la manejes! Aumenta la fuerza en <% = str%>. Edición limitada de otoño 2020.",
     "weaponSpecialFall2020WarriorText": "Espada del Espectro",
-    "weaponSpecialFall2020RogueNotes": "¡Atraviesa a tu enemigo con un golpe seco! Incluso la armadura más gruesa dará paso a tu espada. Aumenta la fuerza en <% = str%>. Edición limitada de otoño 2020.",
+    "weaponSpecialFall2020RogueNotes": "¡Atraviesa a tu enemigo con un golpe seco! Incluso la armadura más gruesa dará paso a tu espada. Aumenta la fuerza en <%= str %>. Edición limitada de otoño 2020.",
     "weaponSpecialFall2020MageText": "Tres Visiones",
     "weaponSpecialFall2020MageNotes": "Si algo escapa a tu vista de mago, los cristales brillantes sobre este bastón iluminarán lo que pasaste por alto. Aumenta la inteligencia en un <% = int%> y la percepción en un <% = per%>. Edición limitada de otoño 2020.",
     "weaponSpecialFall2020HealerText": "Caña Capullo",
