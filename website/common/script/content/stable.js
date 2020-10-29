@@ -98,6 +98,7 @@ const canFindSpecial = {
     'JackOLantern-Base': false,
     'JackOLantern-Glow': false,
     'JackOLantern-Ghost': false,
+    'JackOLantern-RoyalPurple': false,
     // Naming Day
     'Gryphon-RoyalPurple': false,
     // Summer Splash Orca
@@ -172,6 +173,7 @@ const specialPets = {
   'Fox-Veteran': 'veteranFox',
   'JackOLantern-Glow': 'glowJackolantern',
   'Gryphon-Gryphatrice': 'gryphatrice',
+  'JackOLantern-RoyalPurple': 'royalPurpleJackolantern',
 };
 
 const specialMounts = {

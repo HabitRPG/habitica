@@ -184,5 +184,6 @@
     "fall2020WraithWarriorSet": "Espectro (Guerreiro(a))",
     "fall2020DeathsHeadMothHealerSet": "Mariposa da Cabeça da Morte (Curandeiro(a))",
     "fall2020TwoHeadedRogueSet": "Duas Cabeças (Gatuno(a))",
-    "fall2020ThirdEyeMageSet": "Terceiro Olho (Mago(a))"
+    "fall2020ThirdEyeMageSet": "Terceiro Olho (Mago(a))",
+    "septemberYYYY": "Setembro <%= year %>"
 }

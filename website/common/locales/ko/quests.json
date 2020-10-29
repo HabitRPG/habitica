@@ -49,7 +49,6 @@
     "questNotOwned": "퀘스트 스크롤을 소유하고 있지 않습니다.",
     "questNotGoldPurchasable": "퀘스트\"<%=key %>\" 는 금으로 살수 있는 퀘스트가 아니다.",
     "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
-    "questLevelTooHigh": "이 퀘스트는 레벨 <%= level %> 이 되어야 시작할 수 있습니다.",
     "questAlreadyUnderway": "당신의 파티는 이미 퀘스트가 있습니다. 지금 하고있는 퀘스트 완료 후에 다시 시도 하세요.",
     "questAlreadyAccepted": "당신은 퀘스트 요청을 이미 수락 하셧습니다.",
     "noActiveQuestToLeave": "활성화된 퀘스트가 없습니다.",

@@ -73,7 +73,6 @@ api.inviteToQuest = {
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!quest) throw new NotFound(apiError('questNotFound', { key: questKey }));
     if (!user.items.quests[questKey]) throw new NotAuthorized(res.t('questNotOwned'));
-    if (user.stats.lvl < quest.lvl) throw new NotAuthorized(res.t('questLevelTooHigh', { level: quest.lvl }));
     if (group.quest.key) throw new NotAuthorized(res.t('questAlreadyUnderway'));
 
     const members = await User.find({
@@ -157,7 +156,7 @@ api.inviteToQuest = {
       questName: questKey,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 
@@ -218,7 +217,7 @@ api.acceptQuest = {
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 
@@ -279,7 +278,7 @@ api.rejectQuest = {
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 
@@ -339,7 +338,7 @@ api.forceStart = {
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 

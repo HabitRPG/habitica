@@ -32,9 +32,9 @@ describe('Sidebar Section', () => {
 
   it('hides contents', () => {
     expect(wrapper.find('.section-body').element.style.display).to.not.eq('none');
-    wrapper.find('.section-toggle').trigger('click');
+    wrapper.find('[role="button"').trigger('click');
     expect(wrapper.find('.section-body').element.style.display).to.eq('none');
-    wrapper.find('.section-toggle').trigger('click');
+    wrapper.find('[role="button"').trigger('click');
     expect(wrapper.find('.section-body').element.style.display).to.not.eq('none');
   });
 

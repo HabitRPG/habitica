@@ -49,7 +49,6 @@
     "questNotOwned": "Du ejer ikke den quest-skriftrulle.",
     "questNotGoldPurchasable": "Quest \"<%= key %>\" er ikke en quest, der kan købes for Guld.",
     "questNotGemPurchasable": "Quest \"<%= key %>\" skal ikke købes med Ædelsten.",
-    "questLevelTooHigh": "Du skal være niveau <%= level %> for at starte denne quest.",
     "questAlreadyUnderway": "Din gruppe er allerede på en quest. Prøv igen når den nuværende quest er afsluttet.",
     "questAlreadyAccepted": "Du har allerede accepteret questinvitationen.",
     "noActiveQuestToLeave": "Ingen aktiv quest at forlade",
