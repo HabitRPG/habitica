@@ -2095,7 +2095,7 @@
     "backMystery202005Notes": "虽然翅膀有些破烂，但它还能让你飞向你的目的地。没有属性加成。2020年5月订阅者物品。",
     "backMystery202005Text": "奇妙飞龙翅膀",
     "weaponArmoireFiddlersBowText": "小提琴手琴弓",
-    "shieldArmoireFiddleNotes": "完美的乐器使你与正确的音符同行。增加<%= per %>点智力。魔法衣橱：小提琴手套装（4/4）。",
+    "shieldArmoireFiddleNotes": "完美的乐器助你与正确的音符同行。增加<%= int %>点智力。魔法衣橱：小提琴手套装（4/4）。",
     "headArmoireFiddlersCapNotes": "戴上这顶高贵的帽子，大家都为你的曲调而舞。增加<%= per %>点感知。魔法衣橱：小提琴手套装（2/4）。",
     "shieldArmoireFiddleText": "小提琴手的小提琴",
     "headArmoireFiddlersCapText": "小提琴手帽子",

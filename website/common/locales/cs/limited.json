@@ -180,5 +180,8 @@
     "spring2020IrisHealerSet": "Iris (Léčitel)",
     "spring2020PuddleMageSet": "Louže (Mág)",
     "summer2020SeaGlassHealerSet": "Mořské sklo (Léčitel)",
-    "summer2020OarfishMageSet": "Hlístoun (Mág)"
+    "summer2020OarfishMageSet": "Hlístoun (Mág)",
+    "septemberYYYY": "Září <%= year %>",
+    "fall2020ThirdEyeMageSet": "Třetí oko (mág)",
+    "fall2020DeathsHeadMothHealerSet": "Smrtihlav (léčitel)"
 }

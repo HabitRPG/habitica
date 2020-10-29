@@ -46,11 +46,11 @@
     "achievementDustDevil": "모래의 악마",
     "onboardingCompleteDesc": "리스트를 완수한 보상으로 <strong>5개의 업적</strong>과 <strong class=\"gold-amount\">100 골드</strong>를 얻었습니다.",
     "achievementMindOverMatterText": "바위, 슬라임, 털실 펫 퀘스트를 완료했습니다.",
-    "achievementPearlyProModalText": "모든 흰 탈것 동물을 모았군요!",
-    "achievementPearlyProText": "모든 흰색 탑승펫을 길들였습니다.",
+    "achievementPearlyProModalText": "당신은 모든 하얀색 탑승펫을 길들였습니다!",
+    "achievementPearlyProText": "모든 하얀색 탑승펫을 길들였습니다.",
     "achievementPearlyPro": "진주색 전문가",
-    "achievementPrimedForPaintingModalText": "모든 흰 동물을 모았군요!",
-    "achievementPrimedForPaintingText": "모든 흰색 펫을 모았습니다.",
+    "achievementPrimedForPaintingModalText": "하얀색 동물을 모두 모았군요!",
+    "achievementPrimedForPaintingText": "모든 하얀색 펫을 모았습니다.",
     "achievementPrimedForPainting": "색칠하기 준비됨",
     "achievementPurchasedEquipmentModalText": "장비는 아바타를 꾸미고 능력치를 올릴 수 있는 방법입니다",
     "achievementPurchasedEquipmentText": "첫 장비를 구입했습니다.",
@@ -70,5 +70,9 @@
     "foundNewItems": "새로운 아이템을 찾았습니다!",
     "onboardingCompleteDescSmall": "더 많은 것을 얻고 싶다면, 업적을 확인하고 수집을 시작하세요!",
     "onboardingComplete": "신규 사용자 과제를 완료했습니다!",
-    "yourProgress": "내 진행상황"
+    "yourProgress": "내 진행상황",
+    "achievementRosyOutlookText": "벚꽃색 탑승펫을 모두 길들였습니다.",
+    "achievementRosyOutlookModalText": "당신은 모든 벚꽃색 탑승펫을 길들였습니다!",
+    "achievementTickledPinkModalText": "당신은 모든 벚꽃색 펫을 길들였습니다!",
+    "achievementTickledPinkText": "벚꽃색 펫을 모두 길들였습니다."
 }
