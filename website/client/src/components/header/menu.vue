@@ -46,15 +46,18 @@
         class="collapse navbar-collapse"
       >
         <b-navbar-nav class="menu-list">
-          <b-nav-item
-            class="topbar-item"
-            :class="{'active': $route.path === '/'}"
-            tag="li"
-            :to="{name: 'tasks'}"
-            exact="exact"
+          <li
+            class="topbar-item droppable"
+            :class="{
+              'active': $route.path === '/'}"
           >
-            {{ $t('tasks') }}
-          </b-nav-item>
+            <router-link
+              class="nav-link"
+              :to="{name: 'tasks'}"
+            >
+              {{ $t('tasks') }}
+            </router-link>
+          </li>
           <li
             class="topbar-item droppable"
             :class="{
@@ -147,15 +150,19 @@
               </router-link>
             </div>
           </li>
-          <b-nav-item
+          <li
             v-if="user.party._id"
-            class="topbar-item"
-            :class="{'active': $route.path.startsWith('/party')}"
-            tag="li"
-            :to="{name: 'party'}"
+            class="topbar-item droppable"
+            :class="{
+              'active': $route.path.startsWith('/party')}"
           >
-            {{ $t('party') }}
-          </b-nav-item>
+            <router-link
+              class="nav-link"
+              :to="{name: 'party'}"
+            >
+              {{ $t('party') }}
+            </router-link>
+          </li>
           <b-nav-item
             v-if="!user.party._id"
             class="topbar-item"
