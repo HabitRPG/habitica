@@ -518,7 +518,6 @@ export default {
       this.newTag = null;
     },
     removeTag (index, key) {
-      debugger;
       const tagId = this.tagsSnap[key][index].id;
       const indexInSelected = this.selectedTags.indexOf(tagId);
       const indexInTempSelected = this.temporarilySelectedTags.indexOf(tagId);
@@ -593,7 +592,6 @@ export default {
     },
     toggleTag (tag) {
       const { temporarilySelectedTags } = this;
-      debugger;
       const tagI = temporarilySelectedTags.indexOf(tag.id);
       if (tagI === -1) {
         temporarilySelectedTags.push(tag.id);
