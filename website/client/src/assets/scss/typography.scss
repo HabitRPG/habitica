@@ -52,10 +52,6 @@ h1, h2, h5, h6 {
   color: $gray-10;
 }
 
-h3, h4 {
-  font-weight: bold;
-}
-
 h1 {
   font-size: 24px;
   line-height: 1.67;
@@ -68,15 +64,17 @@ h2 {
   margin-bottom: 16px;
 }
 
-h3 {
+h3, h4 {
+  font-weight: bold;
   font-size: 0.875rem;
   line-height: 1.71;
+}
+
+h3 {
   color: $gray-10;
 }
 
 h4 {
-  font-size: 0.875rem;
-  line-height: 1.71;
   color: $gray-100;
 }
 
