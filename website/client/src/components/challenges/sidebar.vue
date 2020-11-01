@@ -1,19 +1,18 @@
 <template>
   <div class="standard-sidebar d-none d-sm-block">
-    <div class="form-group">
-      <input
-        v-model="searchTerm"
-        class="form-control search"
-        type="text"
-        :placeholder="$t('search')"
+    <filter-sidebar>
+      <div
+        slot="search"
+        class="form-group"
       >
-    </div>
-    <form>
-      <h2 v-once>
-        {{ $t('filter') }}
-      </h2>
-      <div class="form-group">
-        <h3>{{ $t('category') }}</h3>
+        <input
+          v-model="searchTerm"
+          class="form-control input-search"
+          type="text"
+          :placeholder="$t('search')"
+        >
+      </div>
+      <filter-group :title="$t('category')">
         <div
           v-for="group in categoryOptions"
           :key="group.key"
@@ -34,12 +33,8 @@
             >{{ $t(group.label) }}</label>
           </div>
         </div>
-      </div>
-      <div
-        v-if="$route.name !== 'findChallenges'"
-        class="form-group"
-      >
-        <h3>{{ $t('membership') }}</h3>
+      </filter-group>
+      <filter-group :title="$t('role')">
         <div
           v-for="group in roleOptions"
           :key="group.key"
@@ -60,9 +55,33 @@
             >{{ $t(group.label) }}</label>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <h3>{{ $t('ownership') }}</h3>
+      </filter-group>
+      <filter-group :title="$t('membership')"
+        v-if="$route.name !== 'findChallenges'"
+        class="form-group"
+      >
+        <div
+          v-for="group in roleOptions"
+          :key="group.key"
+          class="form-check"
+        >
+          <div class="custom-control custom-checkbox">
+            <input
+              :id="group.key"
+              v-model="roleFilters"
+              class="custom-control-input"
+              type="checkbox"
+              :value="group.key"
+            >
+            <label
+              v-once
+              class="custom-control-label"
+              :for="group.key"
+            >{{ $t(group.label) }}</label>
+          </div>
+        </div>
+      </filter-group>
+      <filter-group :title="$t('ownership')">
         <div
           v-for="group in ownershipOptions"
           :key="group.key"
@@ -83,15 +102,18 @@
             >{{ $t(group.label) }}</label>
           </div>
         </div>
-      </div>
-    </form>
+      </filter-group>
+    </filter-sidebar>
   </div>
 </template>
 
 <script>
 import throttle from 'lodash/throttle';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import FilterGroup from '@/components/ui/filterGroup';
 
 export default {
+  components: { FilterGroup, FilterSidebar },
   data () {
     return {
       categoryFilters: [],

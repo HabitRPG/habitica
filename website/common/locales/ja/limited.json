@@ -160,7 +160,7 @@
     "marchYYYY": "<%= year %>年3月",
     "decemberYYYY": "<%= year %>年12月",
     "augustYYYY": "<%= year %>年9月",
-    "eventAvailabilityReturning": "<%= availableDate(locale) %>まで購入できます。このポーションは<%= previousDate(locale) %>まで購入可能でした。",
+    "eventAvailabilityReturning": "<%= availableDate(locale) %>まで購入できます。このたまごがえしの薬は前回は<%= previousDate(locale) %>に販売しました。",
     "spring2020LapisLazuliRogueSet": "ラピスラズリ（盗賊）",
     "spring2020IrisHealerSet": "アイリス（治療師）",
     "spring2020PuddleMageSet": "水溜り（魔道士）",
