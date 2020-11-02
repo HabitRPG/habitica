@@ -514,12 +514,12 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('updates days of month when start date updated', async () => {
-      const date2 = moment.utc('2020-07-01').toDate();
+      const date2 = moment.utc('2020-07-03').toDate();
       const savedMonthly = await user.put(`/tasks/${monthly._id}`, {
         startDate: date2,
       });
 
-      expect(savedMonthly.daysOfMonth).to.deep.equal([moment(date2).date()]);
+      expect(savedMonthly.daysOfMonth).to.deep.equal([moment.utc(date2).date()]);
     });
 
     it('updates next due when start date updated', async () => {
