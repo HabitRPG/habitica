@@ -39,7 +39,7 @@ const featuredItems = {
       },
       {
         type: 'food',
-        path: 'food.potatoe',
+        path: 'food.Potatoe',
       },
     ];
   },
