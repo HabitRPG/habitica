@@ -138,19 +138,14 @@
         </h2>
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(selectedSortItemsBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              v-for="sort in sortItemsBy"
-              :key="sort"
-              :active="selectedSortItemsBy === sort"
-              @click="selectedSortItemsBy = sort"
-            >
-              {{ $t(sort) }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+            :right="true"
+            :value="selectedSortItemsBy"
+            :items="sortItemsBy"
+            :inline-dropdown="false"
+            class="inline"
+            @select="selectedSortItemsBy = $event"
+          />
         </div>
       </div>
       <div
@@ -398,11 +393,13 @@ import i18n from '@/../../common/script/i18n';
 import shops from '@/../../common/script/libs/shops';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 export default {
   components: {
     FilterGroup,
     FilterSidebar,
+    SelectTranslatedArray,
     Checkbox,
     PinBadge,
     ShopItem,

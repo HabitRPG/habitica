@@ -146,7 +146,7 @@ function _setUpNewUser (user) {
   user.preferences.background = 'violet';
   if (moment().isBefore('2020-11-02')) {
     user.migration = '20201029_habitoween_ladder';
-    user.items.pets['JackOLantern-Base'] = true;
+    user.items.pets['JackOLantern-Base'] = 5;
     user.items.currentPet = 'JackOLantern-Base';
     user.items.food = {
       Candy_Skeleton: 1,
