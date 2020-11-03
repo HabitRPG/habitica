@@ -13,18 +13,13 @@ const gemsPromo = {
 // event gear up until at least the actual end of the event.
 // Unless we want a precise ending, for example during a Gems sale / promotion.
 export const EVENTS = {
-  fall2020SecondPromo: {
-    start: '2020-10-29T08:00-04:00',
-    end: '2020-11-02T20:00-05:00',
-    gemsPromo,
-  },
-  fall2020Interim: {
-    start: '2020-09-30T20:00-04:00',
-    end: '2020-10-29T08:00-04:00',
+  noCurrentEvent: {
+    start: '2020-10-31T20:00-04:00',
+    end: '2020-12-17T08:00-04:00',
   },
   fall2020:   {
     start: '2020-09-22T08:00-04:00',
-    end: '2020-09-30T20:00-04:00',
+    end: '2020-10-31T20:00-04:00',
     gemsPromo,
   },
   // Dates from this point on (^) are in the RFC 2822 format, see https://momentjs.com/docs/#/parsing/string/
