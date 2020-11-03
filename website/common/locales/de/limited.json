@@ -185,5 +185,6 @@
     "fall2020ThirdEyeMageSet": "Drittes Auge (Magier)",
     "fall2020DeathsHeadMothHealerSet": "Totenkopfschwärmer (Heiler)",
     "fall2020WraithWarriorSet": "Gespenst (Krieger)",
-    "septemberYYYY": "September <%= year %>"
+    "septemberYYYY": "September <%= year %>",
+    "royalPurpleJackolantern": "Purpurne Kürbislaterne"
 }

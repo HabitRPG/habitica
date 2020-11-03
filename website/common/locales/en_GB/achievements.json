@@ -90,5 +90,11 @@
     "achievementGoodAsGoldModalText": "You collected all the Golden Pets!",
     "achievementGoodAsGoldText": "Has collected all Golden pets.",
     "achievementGoodAsGold": "Good As Gold",
-    "yourRewards": "Your Rewards"
+    "yourRewards": "Your Rewards",
+    "achievementSkeletonCrewModalText": "You tamed all the Skeleton Mounts!",
+    "achievementSkeletonCrewText": "Has tamed all Skeleton Mounts.",
+    "achievementSkeletonCrew": "Skeleton Crew",
+    "achievementBoneCollectorModalText": "You collected all the Skeleton Pets!",
+    "achievementBoneCollectorText": "Has collected all Skeleton pets.",
+    "achievementBoneCollector": "Bone Collector"
 }

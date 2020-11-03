@@ -2213,5 +2213,9 @@
     "headArmoireHornsOfAutumnText": "秋日的号角",
     "weaponArmoireEnchantersStaffText": "魔法杖",
     "armorArmoireAutumnEnchantersCloakText": "秋日魔法斗篷",
-    "weaponArmoireEnchantersStaffNotes": "法杖上镶嵌的绿石，拥有改变秋风力量。增加<%= per %>点感知。魔法衣橱：秋日的魔法师套装（3/4）。"
+    "weaponArmoireEnchantersStaffNotes": "法杖上镶嵌的绿石，拥有改变秋风力量。增加<%= per %>点感知。魔法衣橱：秋日的魔法师套装（3/4）。",
+    "shieldMystery202011Notes": "这根法杖能驾驭秋风的力量。是用来施展奥义，还是用来制作超棒的树叶堆，由你来选择! 没有属性加成。2020年11月订阅者物品。",
+    "shieldMystery202011Text": "覆叶拐杖",
+    "headMystery202011Notes": "不仅时尚，还让你拥有季节变化的力量！ 没有属性加成。2020年11月的订阅者物品。",
+    "headMystery202011Text": "覆叶魔术师帽"
 }

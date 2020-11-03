@@ -90,5 +90,11 @@
     "achievementGoodAsGoldModalText": "你集齐了所有金色宠物！",
     "achievementGoodAsGoldText": "已集齐所有金色宠物。",
     "achievementGoodAsGold": "骄爱比黄金",
-    "yourRewards": "奖励"
+    "yourRewards": "奖励",
+    "achievementSkeletonCrewModalText": "你驯服了所有骷髅坐骑！",
+    "achievementSkeletonCrewText": "已驯服所有骷髅坐骑。",
+    "achievementSkeletonCrew": "骷髅团队",
+    "achievementBoneCollectorModalText": "你集齐了所有骷髅宠物！",
+    "achievementBoneCollectorText": "已集齐所有骷髅宠物。",
+    "achievementBoneCollector": "骨骼收藏家"
 }
