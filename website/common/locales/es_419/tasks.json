@@ -73,7 +73,7 @@
     "startDate": "Día de inicio",
     "streaks": "Logros de racha",
     "streakName": "<%= count %> Logros de racha",
-    "streakText": "Ha completado <%= count %> una racha de 21 días en las tareas diarias",
+    "streakText": "Ha completado <%= count %> rachas de 21 días en Tareas Diarias",
     "streakSingular": "Buena Racha",
     "streakSingularText": "Ha completado una racha de 21 días en una tarea Diaria",
     "perfectName": "<%= count %> Días perfectos",

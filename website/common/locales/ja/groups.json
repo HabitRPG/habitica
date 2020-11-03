@@ -365,5 +365,7 @@
     "bannedWordsAllowedDetail": "このオプションを選択すると、このギルドで不適切な言葉の使用が許可されます。",
     "bannedWordsAllowed": "不適切な言葉の使用を許可する",
     "languageSettings": "言語設定",
-    "onlyPrivateGuildsCanUpgrade": "プライベートギルドのみがグループプランにアップデートできます。"
+    "onlyPrivateGuildsCanUpgrade": "プライベートギルドのみがグループプランにアップデートできます。",
+    "features": "機能",
+    "cannotRemoveQuestOwner": "実行中のクエストのオーナーは削除できません。先にクエストを中断してください。"
 }

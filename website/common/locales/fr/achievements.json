@@ -90,5 +90,11 @@
     "achievementGoodAsGoldModalText": "Vous avez trouvé tous les familiers en or !",
     "achievementGoodAsGoldText": "A trouvé tous les familiers en or.",
     "achievementGoodAsGold": "Un cœur d'or",
-    "yourRewards": "Vos récompenses"
+    "yourRewards": "Vos récompenses",
+    "achievementSkeletonCrewModalText": "Vous avez dompté toutes les montures squelettes !",
+    "achievementSkeletonCrewText": "A dompté toutes les montures squelettes.",
+    "achievementSkeletonCrew": "Un os à ronger",
+    "achievementBoneCollector": "Sac dos",
+    "achievementBoneCollectorModalText": "Vous avez collecté tous les familiers squelettes !",
+    "achievementBoneCollectorText": "A collecté tous les familiers squelettes."
 }

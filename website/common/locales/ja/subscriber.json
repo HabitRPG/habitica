@@ -176,12 +176,13 @@
     "cancelSubInfoApple": "あなたのsubscriptionをキャンセルしたい、もしくはすでにキャンセルしたsubscriptionの終了日を確認するには、<a href=\"https://support.apple.com/en-us/HT202039\">Apple's official instructions</a>にアクセスして、内容にしたがってください。この画面上ではあなたがsubscriptionをキャンセルしているかどうかは表示されません。",
     "organization": "組織",
     "usuallyGems": "普段は<%= originalGems %>",
-    "mysterySet202009": "オーマイ蛾セット",
+    "mysterySet202009": "マーベラスな蛾セット",
     "supportHabitica": "Habiticaを支援する",
     "dropCapExplanation": "明日にはドロップアイテム上限はタスクと共にリセットされます。しかしこの後もタスクの完了によって、ゴールドと経験値を得ること、クエストの進行はできます。",
     "dropCapReached": "一日のドロップアイテム上限に達しました！",
     "dropCapSubs": "Habiticaの有料会員は、ランダム入手アイテム上限を2倍にでき、ミステリーアイテムを受け取れます！",
     "lookingForMoreItems": "さらにアイテムを探しますか？",
     "dropCapLearnMore": "Habiticaのドロップアイテムシステムにさらに詳しく",
-    "mysterySet202010": "飛んでるトンデモこうもりセット"
+    "mysterySet202010": "トンデモこうもりセット",
+    "mysterySet202011": "木の葉の魔法使いセット"
 }

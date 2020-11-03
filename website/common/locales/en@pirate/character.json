@@ -1,7 +1,7 @@
 {
     "communityGuidelinesWarning": "Please keep in mind that yer Sea Name, profile photo, n' blurb must comply wit' th' <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If ye 'ave any questions about whether or nah somethin' be appropriate, feel free t' email <%= hrefBlankCommunityManagerEmail %>!",
-    "profile": "Yerself",
-    "avatar": "Personalize Yerself",
+    "profile": "Profile",
+    "avatar": "Personalize Yer Look",
     "editAvatar": "Edit Pirate",
     "noDescription": "Ar! This Habitican hasn't added a description.",
     "noPhoto": "Arr! This Habitican hasn't added a photo.",
