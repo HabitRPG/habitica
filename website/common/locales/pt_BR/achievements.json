@@ -90,5 +90,11 @@
     "achievementGoodAsGoldModalText": "Você coletou todos os Mascotes Dourados!",
     "achievementGoodAsGoldText": "Coletou todos os mascotes Dourados.",
     "achievementGoodAsGold": "Só o Ouro",
-    "yourRewards": "Suas Recompensas"
+    "yourRewards": "Suas Recompensas",
+    "achievementSkeletonCrew": "Equipe Esqueleto",
+    "achievementBoneCollector": "Colecionador de Ossos",
+    "achievementSkeletonCrewModalText": "Você domou todas as Montarias Esqueleto!",
+    "achievementBoneCollectorModalText": "Você coletou todos os Mascotes Esqueleto!",
+    "achievementSkeletonCrewText": "Domou todas as Montarias Esqueleto.",
+    "achievementBoneCollectorText": "Coletou todos os Mascotes Esqueletos."
 }

@@ -365,5 +365,6 @@
     "languageSettings": "Ajustes de idioma",
     "thisTaskApproved": "Esta tarea fue aprobada",
     "onlyPrivateGuildsCanUpgrade": "Sólo los Gremios privados pueden actualizarse a un plan de grupo.",
-    "chooseTeamMember": "Elije a un miembro del equipo"
+    "chooseTeamMember": "Elije a un miembro del equipo",
+    "cannotRemoveQuestOwner": "No puedes eliminar el dueño delmisión activo. Abandonar el misión primero."
 }

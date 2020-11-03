@@ -17,7 +17,7 @@
     "filter": "フィルター",
     "groups": "グループ",
     "category": "カテゴリ",
-    "membership": "会員登録状況",
+    "membership": "参加状況",
     "ownership": "オーナー",
     "participating": "参加",
     "createChallenge": "チャレンジを作成する",
@@ -100,5 +100,6 @@
     "viewProgress": "進捗を見る",
     "selectMember": "メンバーを選択",
     "confirmKeepChallengeTasks": "チャレンジのタスクをそのままにしておきますか？",
-    "selectParticipant": "参加者を選ぶ"
+    "selectParticipant": "参加者を選ぶ",
+    "filters": "フィルター"
 }

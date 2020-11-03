@@ -365,5 +365,7 @@
     "onlyPrivateGuildsCanUpgrade": "只有私人公会可以升级为团队计划。",
     "bannedWordsAllowedDetail": "选择该选项后，在该公会中将允许使用违禁词语。",
     "bannedWordsAllowed": "允许屏蔽字符",
-    "languageSettings": "语言设置"
+    "languageSettings": "语言设置",
+    "cannotRemoveQuestOwner": "无法移除当前任务的参与者。请先中止该任务。",
+    "features": "特性"
 }
