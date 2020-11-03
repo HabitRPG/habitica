@@ -516,6 +516,8 @@
   "weaponArmoireGuardiansCrookNotes": "This shepherd's crook could come in handy next time you take your Pets for a stroll in the countryside... Increases Strength by <%= str %>. Enchanted Armoire: Guardian of the Grazers Set (Item 2 of 3).",
   "weaponArmoireEnchantersStaffText": "Enchanter's Staff",
   "weaponArmoireEnchantersStaffNotes": "The green stones on this staff are filled with the power of change that flows strong through the autumn wind. Increases Perception by <%= per %>. Enchanted Armoire: Autumn Enchanter Set (Item 3 of 4).",
+  "weaponArmoireClubOfClubsText": "Club of... Clubs",
+  "weaponArmoireClubOfClubsNotes": "This stylish club won't tip your hand too early about your intentions toward those sneaky old tasks. Increases Strength by <%= str %>. Enchanted Armoire: Jack of Clubs Set (Item 2 of 3).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1110,6 +1112,8 @@
   "armorArmoireGuardiansGownNotes": "A lovely rustic gown, with surprisingly sturdy seams! Increases Intelligence by <%= int %>. Enchanted Armoire: Guardian of the Grazers Set (Item 3 of 3).",
   "armorArmoireAutumnEnchantersCloakText": "Autumn Enchanter's Cloak",
   "armorArmoireAutumnEnchantersCloakNotes": "A sorcerer as skilled as you needs to look as powerful as they feel. Increases Intelligence by 12. Enchanted Armoire: Autumn Enchanter Set (Item 2 of 4).",
+  "armorArmoireDoubletOfClubsText": "Doublet Of Clubs",
+  "armorArmoireDoubletOfClubsNotes": "Who knows what's in the cards, but you'll look stylish at any event in this doublet and cape! Increases Constitution by <%= con %>. Enchanted Armoire: Jack of Clubs Set (Item 3 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1724,6 +1728,8 @@
   "headArmoireGuardiansBonnetNotes": "Don this fetching bonnet to help you herd your tasks! Increases Constitution by <%= con %>. Enchanted Armoire: Guardian of the Grazers Set (Item 1 of 3).",
   "headArmoireHornsOfAutumnText": "Horns of Autumn",
   "headArmoireHornsOfAutumnNotes": "Draw the power of the season's brisk air and channel it through your magic! Increases Strength by <%= str %>. Enchanted Armoire: Autumn Enchanter Set (Item 1 of 4).",
+  "headArmoireCapOfClubsText": "Cap of Clubs",
+  "headArmoireCapOfClubsNotes": "Let everyone know about your latest achievements with this literal feather in your cap! Increases Intelligence by <%= int %>. Enchanted Armoire: Jack of Clubs Set (Item 1 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",

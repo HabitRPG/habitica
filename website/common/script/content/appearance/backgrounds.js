@@ -405,6 +405,11 @@ const backgrounds = {
     haunted_forest: { },
     spooky_scarecrow_field: { },
   },
+  backgrounds112020: {
+    mystical_observatory: { },
+    resting_in_the_inn: { },
+    river_of_lava: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

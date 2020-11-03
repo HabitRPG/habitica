@@ -464,12 +464,8 @@ async function scoreTask (user, task, direction, req, res) {
     user,
   });
 
-  const isEnrolledInDropCapTest = user._ABtests.dropCapNotif
-    && user._ABtests.dropCapNotif !== 'drop-cap-notif-not-enrolled';
-
   // Track when new users (first 7 days) score tasks
-  // or if they're enrolled in the Drop Cap A/B Test
-  if (moment().diff(user.auth.timestamps.created, 'days') < 7 || isEnrolledInDropCapTest) {
+  if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
     res.analytics.track('task score', {
       uuid: user._id,
       hitType: 'event',
