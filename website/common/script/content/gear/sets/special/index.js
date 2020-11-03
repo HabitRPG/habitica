@@ -15,8 +15,7 @@ import t from '../../../translation';
 
 const CURRENT_SEASON = moment().isBefore('2020-11-02') ? 'fall' : '_NONE_';
 const gearEvents = cloneDeep(EVENTS);
-gearEvents.fall2020.end = gearEvents.fall2020SecondPromo.end;
-['winter', 'birthday', 'gaymerx', 'fall2020Interim', 'fall2020SecondPromo'].forEach(nonGearEvent => {
+['winter', 'birthday', 'gaymerx', 'noCurrentEvent'].forEach(nonGearEvent => {
   delete gearEvents[nonGearEvent];
 });
 
