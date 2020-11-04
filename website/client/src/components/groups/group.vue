@@ -501,7 +501,7 @@ export default {
     if (!this.searchId) this.searchId = this.groupId;
     await this.fetchGuild();
     this.$store.dispatch('common:setTitle', {
-      section: this.$t('groupPlans'),
+      section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('guilds'),
       subSection: this.group.name,
     });
     this.$root.$on('updatedGroup', this.onGroupUpdate);
@@ -521,7 +521,7 @@ export default {
       const updatedGroup = extend(this.group, group);
       this.$set(this.group, updatedGroup);
       this.$store.dispatch('common:setTitle', {
-        section: this.$t('groupPlans'),
+        section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('guilds'),
         subSection: group.name,
       });
     },
@@ -584,7 +584,6 @@ export default {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
         return;
       }
-
       if (this.isParty) {
         await this.$store.dispatch('party:getParty', true);
         this.group = this.$store.state.party.data;
@@ -596,7 +595,7 @@ export default {
         const group = await this.$store.dispatch('guilds:getGroup', { groupId: this.searchId });
         this.$set(this, 'group', group);
         this.$store.dispatch('common:setTitle', {
-          section: this.$t('guilds'),
+          section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('guilds'),
           subSection: group.name,
         });
       }
