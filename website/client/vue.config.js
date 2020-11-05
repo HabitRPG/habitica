@@ -148,10 +148,6 @@ module.exports = {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },
-      '^/analytics': {
-        target: DEV_BASE_URL,
-        changeOrigin: true,
-      },
     },
   },
 };
