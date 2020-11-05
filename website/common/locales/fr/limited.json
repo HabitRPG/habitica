@@ -185,5 +185,6 @@
     "fall2020ThirdEyeMageSet": "Troisième œil (Mage)",
     "fall2020DeathsHeadMothHealerSet": "Tête de mort de la mite (Guérisseur)",
     "fall2020WraithWarriorSet": "Spectre (Guerrier)",
-    "septemberYYYY": "Septembre <%= year %>"
+    "septemberYYYY": "Septembre <%= year %>",
+    "royalPurpleJackolantern": "Citrouille d'Habitoween pourpre royal"
 }

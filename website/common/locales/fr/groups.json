@@ -365,5 +365,7 @@
     "bannedWordsAllowedDetail": "En activant cette option, l'utilisation de mots bannis sur cette guilde sera autorisée.",
     "bannedWordsAllowed": "Autoriser les mots bannis",
     "languageSettings": "Paramètres de langue",
-    "onlyPrivateGuildsCanUpgrade": "Seules les guildes privées peuvent être améliorée en offre de groupe."
+    "onlyPrivateGuildsCanUpgrade": "Seules les guildes privées peuvent être améliorée en offre de groupe.",
+    "features": "Fonctionnalités",
+    "cannotRemoveQuestOwner": "Vous ne pouvez pas retirer le propriétaire de la quête active. Annulez d'abord la quête."
 }

@@ -221,10 +221,10 @@
     "joinedGuildText": "Ventured into the social side of Habitica by joining a Guild!",
     "badAmountOfGemsToPurchase": "Amount must be at least 1.",
     "groupPolicyCannotGetGems": "The policy of one group you're part of prevents its members from obtaining gems.",
-    "viewParty": "View Party",
-    "newGuildPlaceholder": "Enter your guild's name.",
-    "guildBank": "Guild Bank",
-    "chatPlaceholder": "Type your message to Guild members here",
+    "viewParty": "Продивитись гурт",
+    "newGuildPlaceholder": "Введіть назву вашої гільдії.",
+    "guildBank": "Банк гільдії",
+    "chatPlaceholder": "Введіть тут повідомлення для учасників гільдії",
     "partyChatPlaceholder": "Type your message to Party members here",
     "fetchRecentMessages": "Fetch Recent Messages",
     "like": "Like",
@@ -339,5 +339,6 @@
     "sharedCompletion": "Shared Completion",
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned user finishes",
-    "allAssignedCompletion": "All - Completes when all assigned users finish"
+    "allAssignedCompletion": "All - Completes when all assigned users finish",
+    "newPartyPlaceholder": "Введіть назву вашого гурту."
 }
