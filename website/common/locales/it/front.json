@@ -1,6 +1,6 @@
 {
     "FAQ": "Domande frequenti (FAQ)",
-    "termsAndAgreement": "Cliccando il pulsante qui sotto, affermi di aver letto e approvato i <a href='/static/terms'>Termini del servizio</a> e l'<a href='/static/privacy'>Informativa sulla Privacy</a>.",
+    "termsAndAgreement": "Cliccando il pulsante qui sotto, confermi di aver letto e approvato i <a href='/static/terms'>Termini del servizio</a> e l'<a href='/static/privacy'>Informativa sulla Privacy</a>.",
     "accept1Terms": "Cliccando il bottone qui sotto, accetto i",
     "accept2Terms": "e l'",
     "chores": "Faccende di casa",

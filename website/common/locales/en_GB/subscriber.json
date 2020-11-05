@@ -121,7 +121,7 @@
     "choosePaymentMethod": "Choose your payment method",
     "buyGemsSupportsDevs": "Purchasing Gems supports the developers and helps keep Habitica running",
     "support": "SUPPORT",
-    "gemBenefitLeadin": "Gems allow you to buy fun extras for your account, including:",
+    "gemBenefitLeadin": "What can you buy with Gems?",
     "gemBenefit1": "Unique and fashionable costumes for your avatar.",
     "gemBenefit2": "Backgrounds to immerse your avatar in the world of Habitica!",
     "gemBenefit3": "Exciting Quest chains that drop pet eggs.",
@@ -171,5 +171,18 @@
     "mysterySet202005": "Wondrous Wyvern Set",
     "mysterySet202006": "Multichrome Merfolk Set",
     "mysterySet202007": "Outstanding Orca Set",
-    "mysterySet202008": "Owlish Oracle Set"
+    "mysterySet202008": "Owlish Oracle Set",
+    "mysterySet202010": "Beguilingly Batty Set",
+    "mysterySet202009": "Marvellous Moth Set",
+    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple's official instructions</a> to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "cancelSubInfoGoogle": "Please go to the \"Account\" > \"Subscriptions\" section of the Google Play Store app to cancel your subscription or to see your subscription's termination date if you have already cancelled it. This screen is not able to show you whether your subscription has been cancelled.",
+    "organization": "Organisation",
+    "dropCapSubs": "Habitica subscribers can find twice as many random items each day and receive monthly mystery items!",
+    "lookingForMoreItems": "Looking for More Items?",
+    "dropCapLearnMore": "Learn more about Habitica’s drop system",
+    "dropCapExplanation": "Your drops will reset with your tasks tomorrow. However, you’ll continue to earn Gold, Experience, and Quest progress when completing tasks.",
+    "dropCapReached": "You found all items for the day!",
+    "usuallyGems": "Usually <%= originalGems %>",
+    "supportHabitica": "Support Habitica",
+    "mysterySet202011": "Foliated Magus Set"
 }

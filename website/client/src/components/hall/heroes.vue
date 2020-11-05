@@ -314,6 +314,9 @@ export default {
     ...mapState({ user: 'user.data' }),
   },
   async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('hallContributors'),
+    });
     this.heroes = await this.$store.dispatch('hall:getHeroes');
   },
   methods: {

@@ -122,7 +122,7 @@
     "subscriptionRateText": "Recurring <strong>$<%= price %> USD</strong> every <strong><%= months %> months</strong>",
     "benefits": "Benefits",
     "coupon": "Coupon",
-    "couponText": "We sometimes have events and give out coupon codes for special gear (eg, those who stop by our Wondercon booth)",
+    "couponText": "We sometimes have events and give out promo codes for special gear (eg, those who stop by our Wondercon booth)",
     "apply": "Apply",
     "promoCode": "Promo Code",
     "promoCodeApplied": "Promo Code Applied! Check your inventory",
@@ -181,5 +181,6 @@
     "newPMNotificationTitle": "New Message from <%= name %>",
     "chatExtensionDesc": "The Chat Extension for Habitica adds an intuitive chat box to all of habitica.com. It allows users to chat in the Tavern, their party, and any guilds they are in.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chat Extension</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox Chat Extension</a>",
-    "displaynameIssueNewline": "Display Names may not contain backslashes followed by the letter N."
+    "displaynameIssueNewline": "Display Names may not contain backslashes followed by the letter N.",
+    "resetAccount": "Reset Account"
 }

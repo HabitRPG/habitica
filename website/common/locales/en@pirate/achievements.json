@@ -40,7 +40,7 @@
     "achievementPrimedForPaintingModalText": "Ye 'ave collected all th' White Critters!",
     "achievementPrimedForPaintingText": "'as collected all th' White Critters.",
     "achievementPrimedForPainting": "Plann'd fer Paintin'",
-    "achievementPurchasedEquipmentModalText": "Ee-quitment be a way ta customize yer avatar an' improve yer stats",
+    "achievementPurchasedEquipmentModalText": "Ee-quitment be a way ta customize yer avatar an' improve yer Stats",
     "achievementPurchasedEquipmentText": "Bought their first piece o' ee-quitment.",
     "achievementPurchasedEquipment": "Buy a piece' o' Ee-quitment",
     "achievementFedPetModalText": "There be many differen' types o' vittles, but critters kin be picky",
@@ -90,5 +90,11 @@
     "achievementGoodAsGold": "'S Good As Doubloons",
     "achievementFreshwaterFriendsModalText": "Ye kermpleted th' Axolotl, Frog an' Hippo critter Adventures!",
     "achievementBareNecessities": "Bare Necessities",
-    "achievementBareNecessitiesText": "'As kermpeted Monkey, Sloth, an' Treelin' Critter Adventures."
+    "achievementBareNecessitiesText": "'As kermpeted Monkey, Sloth, an' Treelin' Critter Adventures.",
+    "achievementBoneCollector": "Bone Collector",
+    "achievementBoneCollectorModalText": "Ye've collected all th' Skelet'n Critters!",
+    "achievementSkeletonCrewModalText": "Ye've tamed all th' Skelet'n Steeds!",
+    "achievementSkeletonCrewText": "'As tamed all Skelet'n Steeds.",
+    "achievementSkeletonCrew": "Skelet'n Crew",
+    "achievementBoneCollectorText": "'As collected all Skelet'n Critters."
 }

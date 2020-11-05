@@ -56,7 +56,7 @@
     "habitBirthday": "Festança de Aniversário do Habitica",
     "habitBirthdayText": "Celebrou a Festança de Aniversário do Habitica!",
     "habitBirthdayPluralText": "Comemorou <%= count %> Festas de Aniversário do Habitica!",
-    "habiticaDay": "Dia da Nomeação do Habitica ",
+    "habiticaDay": "Dia da Nomeação do Habitica",
     "habiticaDaySingularText": "Celebrou o Dia da Nomeação do Habitica! Obrigado por ser um usuário fantástico.",
     "habiticaDayPluralText": "Comemorou <%= count %> Aniversário(s) da Nomeação do Habitica! Obrigado por ser um usuário fantástico.",
     "achievementDilatory": "Salvador de Lentópolis",

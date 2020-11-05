@@ -361,5 +361,11 @@
     "managerNotes": "Manager's Notes",
     "thisTaskApproved": "This task was approved",
     "chooseTeamMember": "Choose a team member",
-    "unassigned": "Unassigned"
+    "unassigned": "Unassigned",
+    "bannedWordsAllowedDetail": "With this option selected, the use of banned words in this guild will be allowed.",
+    "bannedWordsAllowed": "Allow banned words",
+    "languageSettings": "Language Settings",
+    "onlyPrivateGuildsCanUpgrade": "Only private guilds can be upgraded to a group plan.",
+    "cannotRemoveQuestOwner": "You cannot remove the owner of the active quest. Abort the quest first.",
+    "features": "Features"
 }

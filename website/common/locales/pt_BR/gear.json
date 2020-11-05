@@ -1927,7 +1927,7 @@
     "headSpecialFall2019WarriorText": "Capacete de Caveira Obsidiana",
     "headSpecialFall2019RogueNotes": "Você encontrou esse chapéu em um leilão de roupas possivelmente amaldiçoadas ou no sótão de um avô excêntrico? Qualquer que seja sua origem, sua idade e seu desgaste, te dar um ar de mistério. Aumenta a percepção em <%= per %>. Equipamento de Edição Limitada do Outono de 2019.",
     "headSpecialFall2019RogueText": "Chapéu de Ópera Antiquado",
-    "headSpecialSummer2019HealerNotes": "A estrutura espiralada dessa concha o ajudará a ouvir qualquer pedido de ajuda nos sete mares. Aumenta a Inteligência em <%= int %>. Equipamento de Edição Limitada do Verão de 2019.",
+    "headSpecialSummer2019HealerNotes": "A estrutura espiralada dessa concha te ajudará a ouvir qualquer pedido de ajuda nos sete mares. Aumenta a Inteligência em <%= int %>. Equipamento de Edição Limitada do Verão de 2019.",
     "headSpecialSummer2019HealerText": "Coroa de Concha",
     "headSpecialSummer2019MageNotes": "Ao contrário do que acredita o senso comum, sua cabeça não é um lugar apropriado para os sapos empoleirar-se. Aumenta a percepção em <%= per %>. Equipamento de Edição Limitada do Verão de 2019.",
     "headSpecialSummer2019MageText": "Chapéu de Lírio",
