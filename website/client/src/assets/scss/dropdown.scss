@@ -6,7 +6,7 @@
 }
 
 .dropdown-toggle:hover {
-  --caret-color: #{$purple-200};
+  --caret-color: #{$purple-300};
 }
 
 .dropdown.show > .dropdown-toggle:not(.btn-success) {
@@ -15,7 +15,7 @@
   box-shadow: none;
 
   &::after {
-    --caret-color: #{$purple-200};
+    --caret-color: #{$purple-300};
   }
 }
 
@@ -54,8 +54,12 @@
   }
 
   &:active, &:hover, &:focus, &.active {
-    background-color: rgba($purple-600, 0.25) !important;
+    background-color: inherit !important;
     color: $purple-300 !important;
+  }
+
+  &:hover {
+    background-color: rgba($purple-600, 0.25) !important;
   }
 
   &.dropdown-inactive {
@@ -125,7 +129,10 @@
   height: 32px;
 
   &:active, &:hover, &:focus, &.active {
-    background-color: rgba($purple-600, 0.25);
     color: $purple-300;
+  }
+
+  &:hover {
+    background-color: rgba($purple-600, 0.25);
   }
 }
