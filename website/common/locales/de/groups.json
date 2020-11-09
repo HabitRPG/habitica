@@ -365,5 +365,7 @@
     "onlyPrivateGuildsCanUpgrade": "Nur bei privaten Gilden kann ein Upgrade zu einem Gruppenplan durchgeführt werden.",
     "bannedWordsAllowedDetail": "Durch Auswahl dieser Option, wird das Verwenden verbotener Wörter in dieser Gilde zugelassen.",
     "bannedWordsAllowed": "Verbotene Wörter zulassen",
-    "languageSettings": "Spracheinstellungen"
+    "languageSettings": "Spracheinstellungen",
+    "cannotRemoveQuestOwner": "Du kannst die Person, welche die aktive Quest besitzt nicht entfernen. Breche erst die Quest ab.",
+    "features": "Funktionen"
 }

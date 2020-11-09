@@ -2213,5 +2213,15 @@
     "armorArmoireAutumnEnchantersCloakNotes": "Ein erfahrener Zauberer wie Du muss so mächtig aussehen wie er sich fühlt. Erhöht Intelligenz um 12. Verzauberter Schrank: Herbstzauberer-Set (Gegenstand 2 von 4).",
     "armorArmoireAutumnEnchantersCloakText": "Herbstzauberer-Umhang",
     "weaponArmoireEnchantersStaffText": "Zauberer-Stab",
-    "weaponArmoireEnchantersStaffNotes": "Die grünen Steine an diesem Stab sind mit der Kraft der Veränderung erfüllt, die im Herbstwind besonders stark fließt. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Herbstzauberer-Set (Gegenstand 3 von 4)."
+    "weaponArmoireEnchantersStaffNotes": "Die grünen Steine an diesem Stab sind mit der Kraft der Veränderung erfüllt, die im Herbstwind besonders stark fließt. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Herbstzauberer-Set (Gegenstand 3 von 4).",
+    "shieldMystery202011Notes": "Zügle die Kraft des Herbstwinds mit diesem Zauberstab. Benutze ihn für geheimnisvolle Magie oder um großartige Laubhaufen zu kreieren, ganz nach Deinem Belieben! Gewährt keinen Attributbonus. November 2020 Abonnentengegenstand.",
+    "shieldMystery202011Text": "Belaubter Zauberstab",
+    "headMystery202011Notes": "Nutze die Kraft des Jahreszeitenwechsels und sehe auch noch stylisch dabei aus! Gewährt keinen Attributbonus. November 2020 Abonnentengegenstand.",
+    "headMystery202011Text": "Belaubter Zauberhut",
+    "headArmoireCapOfClubsNotes": "Lasse alle wissen was Du erreicht hast und nehme es auf deine eigene Kappe! Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Kreuzbube Set (Gegenstand 1 von 3).",
+    "headArmoireCapOfClubsText": "Kreuzkappe",
+    "armorArmoireDoubletOfClubsNotes": "Wer weiß was für Dich noch in den Karten steht, aber mit diesem Wams mit Umhang siehst Du in jedem Fall stilvoll dabei aus! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Kreuzbube Set (Gegenstand 3 von 3).",
+    "armorArmoireDoubletOfClubsText": "Wams des Kreuzes",
+    "weaponArmoireClubOfClubsNotes": "Diese stilvolle Keule lässt heimtückischen Aufgaben keine Chance Deine Pläne durchkreuzen. Erhöht Stärke um <%= str %>. Verzauberter Schrank: Kreuzbube Set (Gegenstand 2 von 3).",
+    "weaponArmoireClubOfClubsText": "Keule des Kreuzes"
 }

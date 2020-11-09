@@ -75,7 +75,7 @@
     "achievementBugBonanzaModalText": "Você completou as missões dos mascotes Besouro, Borboleta, Caracol e Aranha!",
     "achievementBugBonanzaText": "Completou as missões dos mascotes Besouro, Borboleta, Caracol e Aranha.",
     "achievementBugBonanza": "Inseto próspero",
-    "yourProgress": "Seu progresso",
+    "yourProgress": "Seu Progresso",
     "onboardingCompleteDescSmall": "Se você quiser ainda mais, dê uma olhada nas Conquistas e comece a coletá-las!",
     "onboardingComplete": "Você completou suas tarefas de integração!",
     "achievementBareNecessitiesModalText": "Você completou a missão dos mascotes Macaco, Bicho-preguiça e Broto de Árvore!",
@@ -90,5 +90,11 @@
     "achievementGoodAsGoldModalText": "Você coletou todos os Mascotes Dourados!",
     "achievementGoodAsGoldText": "Coletou todos os mascotes Dourados.",
     "achievementGoodAsGold": "Só o Ouro",
-    "yourRewards": "Suas Recompensas"
+    "yourRewards": "Suas Recompensas",
+    "achievementSkeletonCrew": "Equipe Esqueleto",
+    "achievementBoneCollector": "Colecionador de Ossos",
+    "achievementSkeletonCrewModalText": "Você domou todas as Montarias Esqueleto!",
+    "achievementBoneCollectorModalText": "Você coletou todos os Mascotes Esqueleto!",
+    "achievementSkeletonCrewText": "Domou todas as Montarias Esqueleto.",
+    "achievementBoneCollectorText": "Coletou todos os Mascotes Esqueletos."
 }

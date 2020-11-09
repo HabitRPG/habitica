@@ -90,5 +90,11 @@
     "achievementAllThatGlittersText": "Hat alle goldenen Reittiere gezähmt.",
     "achievementAllThatGlitters": "Alles, was glänzt",
     "achievementGoodAsGold": "So gut wie Gold",
-    "yourRewards": "Deine Belohnungen"
+    "yourRewards": "Deine Belohnungen",
+    "achievementSkeletonCrewModalText": "Du hast alle Skelett-Reittiere gezähmt!",
+    "achievementSkeletonCrewText": "Hat alle Skelett-Reittiere gezähmt.",
+    "achievementSkeletonCrew": "Skelettbande",
+    "achievementBoneCollectorModalText": "Du hast alle Skelett-Haustiere gesammelt!",
+    "achievementBoneCollectorText": "Hat alle Skelett-Hautiere gesammelt.",
+    "achievementBoneCollector": "Knochensammlung"
 }

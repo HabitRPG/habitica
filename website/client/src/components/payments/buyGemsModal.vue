@@ -181,7 +181,7 @@
   }
 
   // Fall 2020 events styles
-  #buy-gems.event-fall2020, #buy-gems.event-fall2020SecondPromo {
+  /* #buy-gems.event-fall2020, #buy-gems.event-fall2020SecondPromo {
     .header-wrap {
       padding-top: 4.5rem;
       padding-bottom: 1.5rem;
@@ -207,9 +207,9 @@
     .close-icon:hover svg path {
       stroke: $gray-400;
     }
-  }
+  } */
 
-  #buy-gems.event-fall2020 {
+  /* #buy-gems.event-fall2020 {
     .header-wrap {
       background-image: url('~@/assets/images/gems/fall-header-bg@2x.png');
       background-size: 100%;
@@ -221,7 +221,7 @@
       background-image: url('~@/assets/images/gems/spooky-header-bg@2x.png');
       background-size: 100%;
     }
-  }
+  } */
 </style>
 
 <style lang="scss" scoped>

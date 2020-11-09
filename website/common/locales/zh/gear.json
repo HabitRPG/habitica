@@ -2067,7 +2067,7 @@
     "shieldSpecialSpring2020WarriorNotes": "不要让精致的颜色欺骗你。这个盾牌会遮住你！增加<%= con %>点体质。2020年春季限定版装备。",
     "headSpecialSpring2020HealerNotes": "用这个花朵制作的头饰迷惑你的敌人!增加<%= int %>点智力。2020年春季限定版装备。",
     "headSpecialSpring2020WarriorNotes": "你的敌人的打击会扫过这个甲虫启发的头盔！增加<%= str %>点力量。2020年春季限定版装备。",
-    "headSpecialSpring2020RogueNotes": "它这么漂亮和珍贵，你要把它从你自己的头偷去！增加<%= per %>点感知。2020年春季限定版装备。",
+    "headSpecialSpring2020RogueNotes": "它是如此醒目珍贵，你恨不得将其从头上偷偷摘下。增加<%= per %>点感知。2020年春季限定版装备。",
     "armorSpecialSpring2020HealerNotes": "用柔软的鸢尾花叶子和花瓣包裹自己，欺骗敌人低估你的治愈能力。增加<%= con %>点体质。2020年春季限定版装备。",
     "armorSpecialSpring2020WarriorNotes": "这种坚硬的甲壳会使在最压碎的攻击下确保你的安全。增加<%= con %>点体质。2020年春季限定版装备。",
     "armorSpecialSpring2020RogueNotes": "暮、宝石、最深的海的颜色！增加<%= per %>点感知。2020年春季限定版装备。",
@@ -2213,5 +2213,9 @@
     "headArmoireHornsOfAutumnText": "秋日的号角",
     "weaponArmoireEnchantersStaffText": "魔法杖",
     "armorArmoireAutumnEnchantersCloakText": "秋日魔法斗篷",
-    "weaponArmoireEnchantersStaffNotes": "法杖上镶嵌的绿石，拥有改变秋风力量。增加<%= per %>点感知。魔法衣橱：秋日的魔法师套装（3/4）。"
+    "weaponArmoireEnchantersStaffNotes": "法杖上镶嵌的绿石，拥有改变秋风力量。增加<%= per %>点感知。魔法衣橱：秋日的魔法师套装（3/4）。",
+    "shieldMystery202011Notes": "这根法杖能驾驭秋风的力量。是用来施展奥义，还是用来制作超棒的树叶堆，由你来选择! 没有属性加成。2020年11月订阅者物品。",
+    "shieldMystery202011Text": "覆叶拐杖",
+    "headMystery202011Notes": "不仅时尚，还让你拥有季节变化的力量！ 没有属性加成。2020年11月的订阅者物品。",
+    "headMystery202011Text": "覆叶魔术师帽"
 }

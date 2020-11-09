@@ -90,5 +90,11 @@
     "achievementGoodAsGoldModalText": "黄金のペットをすべて集めました！",
     "achievementGoodAsGoldText": "黄金のペットをすべて集めました。",
     "achievementGoodAsGold": "値千金",
-    "yourRewards": "あなたのごほうび"
+    "yourRewards": "あなたのごほうび",
+    "achievementBoneCollectorModalText": "骨のペットをすべて集めました！",
+    "achievementBoneCollectorText": "骨のペットをすべて集めました。",
+    "achievementBoneCollector": "ボーン・コレクター",
+    "achievementSkeletonCrewModalText": "骨の乗騎をすべて手なづけました！",
+    "achievementSkeletonCrewText": "骨の乗騎をすべて手なづけました。",
+    "achievementSkeletonCrew": "ドクロ団"
 }

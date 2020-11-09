@@ -154,6 +154,10 @@
   }
 }
 
+.show > .btn-secondary.dropdown-toggle:not(.btn-success):not(:disabled):not(.disabled) {
+  --icon-color: #{$purple-300};
+}
+
 .btn-danger {
   background: $maroon-100;
   border: 1px solid transparent;

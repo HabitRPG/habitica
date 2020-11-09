@@ -184,5 +184,6 @@
     "fall2020ThirdEyeMageSet": "Terzo Occhio (Mago)",
     "fall2020DeathsHeadMothHealerSet": "Sfinge Testa di Morto (Guaritore)",
     "fall2020WraithWarriorSet": "Spettro (Guerriero)",
-    "septemberYYYY": "Settembre <%= year %>"
+    "septemberYYYY": "Settembre <%= year %>",
+    "royalPurpleJackolantern": "Zucca di Halloween Porpora"
 }
