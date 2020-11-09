@@ -3,8 +3,7 @@
     <span class="dropdown-label">{{ label }}</span>
     <select-list :items="items"
                  :value="selectedItem"
-                 class="array-select"
-                 :class="'inline'"
+                 class="array-select inline"
                  :right="true"
                  key-prop="id"
                  :hide-icon="false"
