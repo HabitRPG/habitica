@@ -1,10 +1,6 @@
 <template>
   <div v-if="user.stats.lvl > 10">
-    <div
-      v-if="potionClickMode"
-      ref="clickPotionInfo"
-      class="dragInfo mouse"
-    >
+    <div v-if="potionClickMode" ref="clickPotionInfo" class="dragInfo mouse">
       <div class="spell col-12 row">
         <div class="col-8 details">
           <p class="title">
@@ -16,10 +12,7 @@
           <!-- @TODO make that translatable-->
         </div>
         <div class="col-4 mana">
-          <div
-            class="img"
-            :class="`shop_${spell.key} shop-sprite item-img`"
-          ></div>
+          <div class="img" :class="`shop_${spell.key} shop-sprite item-img`"></div>
         </div>
       </div>
     </div>
@@ -34,34 +27,23 @@
       >
         <div slot="drawer-slider">
           <div class="container spell-container">
-            <div class="row">
+            <div class="spell-container-row">
               <!-- eslint-disable vue/no-use-v-if-with-v-for -->
               <div
                 v-for="(skill, key) in spells[user.stats.class]"
                 v-if="user.stats.lvl >= skill.lvl"
                 :key="key"
                 v-b-popover.hover.auto="skillNotes(skill)"
-                class="col-12 col-md-3"
                 @click="!spellDisabled(key) ? castStart(skill) : null"
               >
                 <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-                <div
-                  class="spell col-12 row"
-                  :class="{'disabled': spellDisabled(key)}"
-                >
-                  <div class="col-8 details">
-                    <div
-                      class="img"
-                      :class="`shop_${skill.key} shop-sprite item-img`"
-                    ></div>
-                    <span class="title">{{ skill.text() }}</span>
+                <div class="spell col-12 row" :class="{ disabled: spellDisabled(key) }">
+                  <div class="col-12 details">
+                    <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
                   </div>
-                  <div class="col-4 mana">
+                  <div class="col-12 mana">
                     <div class="mana-text">
-                      <div
-                        class="svg-icon"
-                        v-html="icons.mana"
-                      ></div>
+                      <div class="svg-icon" v-html="icons.mana"></div>
                       <div>{{ skill.mana }}</div>
                     </div>
                   </div>
@@ -76,138 +58,155 @@
 </template>
 
 <style lang="scss" scoped>
-  .drawer-wrapper {
-    width: 100vw;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 19;
+.drawer-wrapper {
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 19;
 
-    .drawer-container {
-      left: auto !important;
-      right: auto !important;
-      min-width: 60%;
-    }
+  .drawer-container {
+    left: auto !important;
+    right: auto !important;
+    width: 35em;
+  }
+}
+
+.spell-container {
+  white-space: initial;
+  margin-right: -0.65em;
+}
+
+.spell-container-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1.5em;
+  margin-right: -1em;
+  margin-left: -1em;
+}
+
+.spell-skills {
+  flex: 0 0 auto;
+  width: 6em;
+}
+
+.spell:hover:not(.disabled) {
+  cursor: pointer;
+  border: solid 2px #50b5e9;
+}
+
+.spell {
+  background: #ffffff;
+  border: solid 2px transparent;
+  margin-bottom: 1.3em;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16),
+    0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  color: #4e4a57;
+  padding-right: 0;
+  padding-left: 0;
+  overflow: hidden;
+
+  &.disabled {
+    opacity: 0.5;
   }
 
-  .drawer-slider {
-    margin-top: 1em;
-  }
-
-  .spell-container {
-    margin-top: .5em;
-    white-space: initial;
-  }
-
-  .spell:hover:not(.disabled) {
-    cursor: pointer;
-    border: solid 2px #50b5e9;
-  }
-
-  .spell {
-    background: #ffffff;
-    border: solid 2px transparent;
-    margin-bottom: 1em;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-    border-radius: 1000px;
-    color: #4e4a57;
-    padding-right: 0;
-    padding-left: 0;
-    overflow: hidden;
-
-    &.disabled {
-      opacity: 0.5;
-    }
-
-    .details {
-      text-align: left;
-      padding-top: .5em;
-      padding-right: .1em;
-
-      .img {
-        display: inline-block;
-      }
-
-      span {
-        display: inline-block;
-        width: 50%;
-        padding-bottom: .7em;
-        vertical-align: bottom;
-      }
-
-      .notes {
-        font-weight: normal;
-        color: #686274;
-      }
-    }
+  .details {
+    text-align: center;
+    padding-top: 0.5em;
+    min-height: 4em;
 
     .img {
-      margin: 0 auto;
+      display: inline-block;
     }
 
-    .mana-text {
-      margin-bottom: .2em;
-      padding-top: 1.1em;
-
-      div {
-        display: inline-block;
-        vertical-align: bottom;
-      }
-
-      .svg-icon {
-        width: 16px;
-        height: 16px;
-        margin-right: .2em;
-      }
+    span {
+      display: inline-block;
+      width: 50%;
+      padding-bottom: 0.7em;
+      vertical-align: bottom;
     }
 
-    .mana {
-      padding: .2em;
-      background-color: rgba(70, 167, 217, 0.24);
-      color: #2995cd;
+    .notes {
+      font-weight: normal;
+      color: #686274;
+    }
+  }
+
+  .img {
+    margin: 0 auto;
+  }
+
+  .mana-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+
+    .svg-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 0.2em;
+    }
+  }
+
+  .mana {
+    background-color: rgba(70, 167, 217, 0.24);
+    color: #2995cd;
+    font-weight: bold;
+    text-align: center;
+    min-height: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.dragInfo {
+  position: absolute;
+  left: -500px;
+  z-index: 1080;
+
+  .spell {
+    border-radius: 1000px;
+    min-width: 224px;
+    height: 52px;
+    font-size: 12px;
+    padding-left: 0.5em;
+
+    .title {
       font-weight: bold;
-      text-align: center;
+      margin-bottom: 0.2em;
     }
   }
 
-  .dragInfo {
-    position: absolute;
-    left: -500px;
-    z-index: 1080;
-
-    .spell {
-      border-radius: 1000px;
-      min-width: 224px;
-      height: 52px;
-      font-size: 12px;
-      padding-left: .5em;
-
-      .title {
-        font-weight: bold;
-        margin-bottom: .2em;
-      }
-    }
-
-    .mana {
-      border-radius: 0 1000px 1000px 0;
-    }
-
-    &.mouse {
-      position: fixed;
-      pointer-events: none
-    }
-    .potion-icon {
-      margin: 0 auto;
-    }
-    .popover {
-      position: inherit;
-      width: 100px;
-    }
+  .mana {
+    border-radius: 0 1000px 1000px 0;
   }
+
+  &.mouse {
+    position: fixed;
+    pointer-events: none;
+  }
+  .potion-icon {
+    margin: 0 auto;
+  }
+  .popover {
+    position: inherit;
+    width: 100px;
+  }
+}
 </style>
 
 <script>
-import spells, { stealthBuffsToAdd } from '@/../../common/script/content/spells';
+import spells, {
+  stealthBuffsToAdd,
+} from '@/../../common/script/content/spells';
 
 import { mapState, mapGetters } from '@/libs/store';
 import notifications from '@/mixins/notifications';
@@ -216,7 +215,11 @@ import Drawer from '@/components/ui/drawer';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
 
 import mana from '@/assets/svg/mana.svg';
-import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
+import {
+  CONSTANTS,
+  setLocalSetting,
+  getLocalSetting,
+} from '@/libs/userlocalManager';
 
 export default {
   components: {
@@ -260,10 +263,8 @@ export default {
       this.$store.state.spellOptions.spellDrawOpen = newState;
 
       if (newState) {
-        setLocalSetting(
-          CONSTANTS.keyConstants.SPELL_DRAWER_STATE,
-          CONSTANTS.drawerStateValues.DRAWER_OPEN,
-        );
+        setLocalSetting(CONSTANTS.keyConstants.SPELL_DRAWER_STATE,
+          CONSTANTS.drawerStateValues.DRAWER_OPEN);
         return;
       }
 
@@ -274,9 +275,12 @@ export default {
     },
     spellDisabled (skill) {
       const incompleteDailiesDue = this.getUnfilteredTaskList('daily').filter(daily => !daily.completed && daily.isDue).length;
-      if (skill === 'frost' && this.user.stats.buffs.streaks) return true;
-      if (skill === 'stealth' && this.user.stats.buffs.stealth >= incompleteDailiesDue) return true;
-
+      if (skill === 'frost' && this.user.stats.buffs.streaks) {
+        return true;
+      }
+      if (skill === 'stealth' && this.user.stats.buffs.stealth >= incompleteDailiesDue) {
+        return true;
+      }
       return false;
     },
     skillNotes (skill) {
