@@ -520,7 +520,13 @@ export default {
     removeTag (index, key) {
       const tagId = this.tagsSnap[key][index].id;
       const indexInSelected = this.selectedTags.indexOf(tagId);
-      if (indexInSelected !== -1) this.$delete(this.selectedTags, indexInSelected);
+      const indexInTempSelected = this.temporarilySelectedTags.indexOf(tagId);
+      if (indexInSelected !== -1) {
+        this.$delete(this.selectedTags, indexInSelected);
+      }
+      if (indexInTempSelected !== -1) {
+        this.$delete(this.temporarilySelectedTags, indexInTempSelected);
+      }
       this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {
