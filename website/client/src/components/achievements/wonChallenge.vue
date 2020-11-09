@@ -15,7 +15,6 @@
           <div class="achievement-karaoke-2x"></div>
         </div>
         <div class="col-4">
-          <!-- @TODO: +generatedAvatar({sleep: false})-->
           <avatar
             class="avatar"
             :member="user"
@@ -39,32 +38,6 @@
       </button>
     </div>
     <div class="modal-footer">
-      <div class="col-3">
-        <a
-          class="twitter-share-button"
-          href="https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/social/won-challenge&count=none"
-        >{{ $t('tweet') }}</a>
-      </div>
-      <div
-        class="col-4"
-        style="margin-left:.8em"
-      >
-        <div
-          class="fb-share-button"
-          data-href="#{env.BASE_URL}/social/won-challenge"
-          data-layout="button"
-        ></div>
-      </div>
-      <div
-        class="col-4"
-        style="margin-left:.8em"
-      >
-        <a
-          class="tumblr-share-button"
-          data-href="#{env.BASE_URL}/social/won-challenge"
-          data-notes="none"
-        ></a>
-      </div>
     </div>
   </b-modal>
 </template>
@@ -81,6 +54,10 @@
     margin-bottom: 1.5em;
     margin-top: 1.5em;
   }
+
+  .modal-footer {
+    border-top: none;
+  }
 </style>
 
 <script>
@@ -96,9 +73,9 @@ export default {
     markdown: markdownDirective,
   },
   data () {
-    const tweet = this.$t('wonChallengeShare');
+    // const tweet = this.$t('wonChallengeShare');
     return {
-      tweet,
+      // tweet,
       notification: null,
     };
   },
