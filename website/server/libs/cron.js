@@ -225,7 +225,7 @@ function trackCronAnalytics (analytics, user, _progress, options) {
       user,
       questName: user.party.quest.key,
       headers: options.headers,
-    });
+    }, true);
   }
 }
 
