@@ -811,7 +811,7 @@ export default {
             this.$root.$emit('bv::show::modal', 'rebirth-enabled');
             break;
           case 'WON_CHALLENGE':
-            this.$root.$emit('bv::show::modal', 'won-challenge');
+            this.$root.$emit('habitica:won-challenge', notification);
             break;
           case 'STREAK_ACHIEVEMENT':
             this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {

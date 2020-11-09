@@ -5,8 +5,11 @@
     size="md"
     :hide-footer="true"
   >
-    <div class="modal-body text-center">
-      <h4 v-markdown="user.achievements.challenges[user.achievements.challenges.length - 1]"></h4>
+    <div
+      v-if="notification"
+      class="modal-body text-center"
+    >
+      <h4 v-markdown="notification.data.name"></h4>
       <div class="row">
         <div class="col-4">
           <div class="achievement-karaoke-2x"></div>
@@ -23,9 +26,12 @@
           <div class="achievement-karaoke-2x"></div>
         </div>
       </div>
-      <p>{{ $t('congratulations') }}</p>
+      <p v-once>
+        {{ $t('congratulations') }}
+      </p>
       <br>
       <button
+        v-once
         class="btn btn-primary"
         @click="close()"
       >
@@ -93,10 +99,20 @@ export default {
     const tweet = this.$t('wonChallengeShare');
     return {
       tweet,
+      notification: null,
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
+  },
+  mounted () {
+    this.$root.$on('habitica:won-challenge', notification => {
+      this.notification = notification;
+      this.$root.$emit('bv::show::modal', 'won-challenge');
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:won-challenge');
   },
   methods: {
     close () {
