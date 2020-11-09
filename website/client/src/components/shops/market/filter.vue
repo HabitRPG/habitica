@@ -1,11 +1,11 @@
 <template>
   <filter-sidebar>
     <filter-group>
-      <checkbox :checked.sync="viewOptions[viewOptionKey].selected"
+      <checkbox :checked.sync="viewOptionEntry.selected"
                 :id="`category-${viewOptionKey}`"
                 :key="viewOptionKey"
-                :text="viewOptions[viewOptionKey].text"
-                v-for="viewOptionKey in Object.keys(viewOptions)"
+                :text="viewOptionEntry.text"
+                v-for="(viewOptionEntry, viewOptionKey) in viewOptions"
       />
     </filter-group>
     <div class="form-group clearfix">
