@@ -183,7 +183,7 @@ export default {
         eventCategory: 'button',
         eventAction: 'click',
         eventLabel: 'User Dropdown > Subscriptions',
-      }, { trackOnServer: true });
+      });
 
       this.$router.push({ name: 'subscription' });
     },

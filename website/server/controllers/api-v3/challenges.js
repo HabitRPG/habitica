@@ -221,7 +221,6 @@ api.createChallenge = {
       groupID: group._id,
       groupName: group.privacy === 'private' ? null : group.name,
       groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
-      headers: req.headers,
     });
 
     res.respond(201, response);
@@ -287,7 +286,6 @@ api.joinChallenge = {
       groupID: group._id,
       groupName: group.privacy === 'private' ? null : group.name,
       groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
-      headers: req.headers,
     });
 
     res.respond(200, response);
@@ -337,7 +335,6 @@ api.leaveChallenge = {
       groupID: challenge.group._id,
       groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
       groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
-      headers: req.headers,
     });
 
     res.respond(200, {});
@@ -751,7 +748,6 @@ api.deleteChallenge = {
       groupID: challenge.group._id,
       groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
       groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
-      headers: req.headers,
     });
 
     res.respond(200, {});
@@ -802,7 +798,6 @@ api.selectChallengeWinner = {
       groupID: challenge.group._id,
       groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
       groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
-      headers: req.headers,
     });
 
     res.respond(200, {});

@@ -174,7 +174,7 @@ function _formatDataForAmplitude (data) {
   return ampData;
 }
 
-function _sendDataToAmplitude (eventType, data, loggerOnly) {
+function _sendDataToAmplitude (eventType, data) {
   const amplitudeData = _formatDataForAmplitude(data);
 
   amplitudeData.event_type = eventType;
@@ -182,8 +182,6 @@ function _sendDataToAmplitude (eventType, data, loggerOnly) {
   if (LOG_AMPLITUDE_EVENTS) {
     logger.info('Amplitude Event', amplitudeData);
   }
-
-  if (loggerOnly) return Promise.resolve(null);
 
   return amplitude
     .track(amplitudeData)
@@ -314,9 +312,9 @@ function _setOnce (dataToSetOnce, uuid) {
 }
 
 // There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
-async function track (eventType, data, loggerOnly = false) {
+async function track (eventType, data) {
   const promises = [
-    _sendDataToAmplitude(eventType, data, loggerOnly),
+    _sendDataToAmplitude(eventType, data),
     _sendDataToGoogle(eventType, data),
   ];
   if (data.user && data.user.registeredThrough) {

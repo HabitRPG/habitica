@@ -63,7 +63,7 @@ api.checkoutSuccess = {
     if (!customerId) throw new BadRequest(apiError('missingCustomerId'));
 
     await paypalPayments.checkoutSuccess({
-      user, gemsBlock, gift, paymentId, customerId, headers: req.headers,
+      user, gemsBlock, gift, paymentId, customerId,
     });
 
     if (req.query.noRedirect) {
