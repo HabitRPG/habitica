@@ -1,52 +1,52 @@
 <template>
-  <div class="form">
-    <h2 v-once>
-      {{ $t('filter') }}
-    </h2>
-    <div class="form-group">
-      <checkbox
-        v-for="viewOptionKey in Object.keys(viewOptions)"
-        :id="`category-${viewOptionKey}`"
-        :key="viewOptionKey"
-        :checked.sync="viewOptions[viewOptionKey].selected"
-        :text="viewOptions[viewOptionKey].text"
+  <filter-sidebar>
+    <filter-group>
+      <checkbox :checked.sync="viewOptionEntry.selected"
+                :id="`category-${viewOptionKey}`"
+                :key="viewOptionKey"
+                :text="viewOptionEntry.text"
+                v-for="(viewOptionEntry, viewOptionKey) in viewOptions"
       />
-    </div>
+    </filter-group>
     <div class="form-group clearfix">
       <h3
-        v-once
-        class="float-left"
+          class="float-left"
+          v-once
       >
         {{ $t('hideLocked') }}
       </h3>
       <toggle-switch
-        v-model="lockedChecked"
-        class="float-right"
-        @change="$emit('update:hideLocked', $event)"
+          @change="$emit('update:hideLocked', $event)"
+          class="float-right"
+          v-model="lockedChecked"
       />
     </div>
     <div class="form-group clearfix">
       <h3
-        v-once
-        class="float-left"
+          class="float-left"
+          v-once
       >
         {{ $t('hidePinned') }}
       </h3>
       <toggle-switch
-        v-model="pinnedChecked"
-        class="float-right"
-        @change="$emit('update:hidePinned', $event)"
+          @change="$emit('update:hidePinned', $event)"
+          class="float-right"
+          v-model="pinnedChecked"
       />
     </div>
-  </div>
+  </filter-sidebar>
 </template>
 
 <script>
 import Checkbox from '@/components/ui/checkbox';
 import toggleSwitch from '@/components/ui/toggleSwitch';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import FilterGroup from '@/components/ui/filterGroup';
 
 export default {
   components: {
+    FilterGroup,
+    FilterSidebar,
     Checkbox,
     toggleSwitch,
   },
