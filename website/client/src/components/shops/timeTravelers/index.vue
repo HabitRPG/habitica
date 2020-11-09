@@ -78,19 +78,15 @@
         class="clearfix"
       >
         <div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
-            :text="$t(selectedSortItemsBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              v-for="sort in sortItemsBy"
-              :key="sort"
-              :active="selectedSortItemsBy === sort"
-              @click="selectedSortItemsBy = sort"
-            >
-              {{ $t(sort) }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <span class="dropdown-label">{{ $t('sortBy') }}</span>
+          <select-translated-array
+              :right="true"
+              :value="selectedSortItemsBy"
+              :items="sortItemsBy"
+              :inline-dropdown="false"
+              class="inline"
+              @select="selectedSortItemsBy = $event"
+          />
         </div>
       </div>
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -301,9 +297,11 @@ import isPinned from '@/../../common/script/libs/isPinned';
 import shops from '@/../../common/script/libs/shops';
 
 import pinUtils from '@/mixins/pinUtils';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 export default {
   components: {
+    SelectTranslatedArray,
     ShopItem,
     Item,
     ItemRows,

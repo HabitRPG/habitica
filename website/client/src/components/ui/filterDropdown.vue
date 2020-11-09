@@ -1,35 +1,31 @@
 <template>
   <span>
     <span class="dropdown-label">{{ label }}</span>
-    <b-dropdown right="right">
-      <span
-        slot="button-content"
-        :class="{'dropdown-icon-item': withIcon}"
-      >
-        <slot
-          name="item"
-          :item="selectedItem"
-        ></slot>
-      </span>
-      <b-dropdown-item
-        v-for="item in items"
-        :key="item.id"
-        :active="selectedItem.id === item.id"
-        @click="selectItem(item)"
-      >
+    <select-list :items="items"
+                 :value="selectedItem"
+                 class="array-select inline"
+                 :right="true"
+                 key-prop="id"
+                 :hide-icon="false"
+                 :inline-dropdown="false"
+                 @select="selectItem($event)">
+      <template v-slot:item="{ item }">
         <span :class="{'dropdown-icon-item': withIcon}">
-          <slot
+           <slot
             name="item"
             :item="item"
           ></slot>
         </span>
-      </b-dropdown-item>
-    </b-dropdown>
+      </template>
+    </select-list>
   </span>
 </template>
 
 <script>
+import SelectList from '@/components/ui/selectList';
+
 export default {
+  components: { SelectList },
   props: {
     label: String,
     items: Array,
