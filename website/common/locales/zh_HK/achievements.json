@@ -4,5 +4,15 @@
     "levelup": "在完成你的任務後，你將升級並且恢復滿你的生命值！",
     "reachedLevel": "你達到第<%= level %>級",
     "achievementLostMasterclasser": "完成任務的專家：大師鑑別者係列",
-    "achievementLostMasterclasserText": "完成大師鑑別者係列任務的全部6個任務，解開失傳的大師鑑別者的神秘面紗！"
+    "achievementLostMasterclasserText": "完成大師鑑別者係列任務的全部6個任務，解開失傳的大師鑑別者的神秘面紗！",
+    "onboardingCompleteDesc": "完成任務後，你獲得了<strong>5個成就</strong>和<strong class=\"gold-amount\">100枚金幣</strong>。",
+    "onboardingComplete": "你完成了新手任務！",
+    "earnedAchievement": "你得到了一個成就！",
+    "viewAchievements": "看成就",
+    "letsGetStarted": "我們開始吧！",
+    "yourProgress": "你的成就",
+    "onboardingProgress": "<%= percentage %>% 完成",
+    "gettingStartedDesc": "完成這些新手任務，你就會獲得<strong>5項成就</strong>和<strong class=\"gold-amount\">100枚金幣</strong>！",
+    "yourRewards": "獎勵",
+    "onboardingCompleteDescSmall": "如果你想獲得更多勳章，查查你的成就列表開始收集吧！"
 }

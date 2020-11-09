@@ -1,7 +1,7 @@
 {
   "name": "habitica",
   "description": "A habit tracker app which treats your goals like a Role Playing Game.",
-  "version": "4.168.2",
+  "version": "4.168.3",
   "main": "./website/server/index.js",
   "dependencies": {
     "@babel/core": "^7.12.3",
@@ -48,7 +48,7 @@
     "method-override": "^3.0.0",
     "moment": "^2.29.1",
     "moment-recur": "^1.0.7",
-    "mongoose": "^5.10.11",
+    "mongoose": "^5.10.13",
     "morgan": "^1.10.0",
     "nconf": "^0.10.0",
     "node-gcm": "^1.0.3",

@@ -177,5 +177,12 @@
     "youAreSubscribed": "Estás suscrito a Habitica",
     "doubleDropCap": "Duplica el Botín",
     "monthlyMysteryItems": "Artículos Misteriosos Mensuales",
-    "subscribersReceiveBenefits": "¡Los suscriptores reciben estos útiles beneficios!"
+    "subscribersReceiveBenefits": "¡Los suscriptores reciben estos útiles beneficios!",
+    "dropCapSubs": "¡Los suscriptores de Habitica pueden encontrar el doble de objetos al azar cada día y recibir mensualmente objetos de misterio!",
+    "lookingForMoreItems": "¿Buscando Más Objetos?",
+    "dropCapLearnMore": "Aprende más sobre el sistema de botines de Habitica",
+    "dropCapExplanation": "Tu botín se reajustará con tus tareas mañana. Sin embargo, seguirás ganando Oro, Experiencia y Progreso en las misiones cuando completes las tareas.",
+    "dropCapReached": "¡Encontraste todos los objetos del día!",
+    "mysterySet202011": "Conjunto de Mago Foliado",
+    "mysterySet202010": "Conjunto de Murciélago Cautivador"
 }

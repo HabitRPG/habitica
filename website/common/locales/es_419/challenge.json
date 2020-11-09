@@ -100,5 +100,6 @@
     "viewProgress": "Ver Progreso",
     "selectMember": "Seleccionar miembro",
     "confirmKeepChallengeTasks": "¿Quieres mantener las tareas del reto?",
-    "selectParticipant": "Seleccionar un Participante"
+    "selectParticipant": "Seleccionar un Participante",
+    "filters": "filtros"
 }

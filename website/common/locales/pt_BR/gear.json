@@ -2213,5 +2213,15 @@
     "shieldArmoireDarkAutumnFlameNotes": "Estas chamas hipnotizantes dançam com uma energia viva, mas agourenta, mesmo nas noites mais frias de outono. Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto Encantadores de Outono (Item 4 de 4).",
     "shieldArmoireDarkAutumnFlameText": "Chama Escura de Outono",
     "headArmoireHornsOfAutumnNotes": "Extraia o poder do ar fresco da estação e canalize-o por meio de sua magia! Aumenta a Força em <%= str %>. Armário Encantado: Conjunto Encantadores de Outono (Item 1 de 4).",
-    "headArmoireHornsOfAutumnText": "Chifres de Outono"
+    "headArmoireHornsOfAutumnText": "Chifres de Outono",
+    "shieldMystery202011Notes": "Aproveite a força do vento de outono com este cajado. Use para magia arcana ou para fazer pilhas de folhas incríveis, a escolha é sua! Não concede benefícios. Item de assinante de Novembro de 2020.",
+    "shieldMystery202011Text": "Cajado Folheado",
+    "headArmoireCapOfClubsNotes": "Deixe todos saberem sobre suas últimas conquistas com esta pena literal em seu chapéu! Aumenta a inteligência em <%= int %>. Armário Encantado: Conjunto Valete de Paus (Item 1 de 3).",
+    "headArmoireCapOfClubsText": "Chapéu de Paus",
+    "headMystery202011Notes": "Domine o poder da mudança das estações ao mesmo tempo que fica muito elegante! Não concede benefícios. Item de assinante de Novembro de 2020.",
+    "headMystery202011Text": "Chapéu de Mago Folheado",
+    "armorArmoireDoubletOfClubsNotes": "Quem sabe o que está nas cartas, mas você ficará estiloso(a) em qualquer evento com este gibão e capa! Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto Valete de Paus (Item 3 de 3).",
+    "armorArmoireDoubletOfClubsText": "Gibão de Paus",
+    "weaponArmoireClubOfClubsNotes": "Esta clava estilosa não vai denunciar muito cedo suas intenções em relação a essas tarefas antigas e sorrateiras. Aumenta a força em <%= str %>. Armário Encantado: Conjunto Valete de Paus (Item 2 de 3).",
+    "weaponArmoireClubOfClubsText": "Clava de Paus"
 }
