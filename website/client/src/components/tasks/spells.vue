@@ -68,7 +68,7 @@
   .drawer-container {
     left: auto !important;
     right: auto !important;
-    width: 35em;
+    min-width: 34em;
   }
 }
 
@@ -81,7 +81,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  gap: 1.5em;
+  gap: 2em;
   margin-right: -1em;
   margin-left: -1em;
 }
@@ -116,6 +116,7 @@
     text-align: center;
     padding-top: 0.5em;
     min-height: 4em;
+    width: 3.6em;
 
     .img {
       display: inline-block;
