@@ -68,7 +68,7 @@
   .drawer-container {
     left: auto !important;
     right: auto !important;
-    min-width: 34em;
+    min-width: 38em;
   }
 }
 
