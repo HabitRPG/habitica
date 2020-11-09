@@ -214,6 +214,13 @@ const premium = {
     value: 2,
     text: t('hatchingPotionFrost'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndNovember'),
+      previousDate: t('novemberYYYY', { year: 2018 }),
+    }),
+    canBuy () {
+      return moment().isBefore('2020-12-02');
+    },
   },
   IcySnow: {
     value: 2,
@@ -373,6 +380,17 @@ const premium = {
     },
     _addlNotes: t('premiumPotionAddlNotes', {
       date: t('dateEndOctober'),
+    }),
+  },
+  AutumnLeaf: {
+    value: 2,
+    text: t('hatchingPotionAutumnLeaf'),
+    limited: true,
+    canBuy () {
+      return moment().isBefore('2020-12-02');
+    },
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndNovember'),
     }),
   },
 };
