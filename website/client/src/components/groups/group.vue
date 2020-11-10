@@ -588,7 +588,7 @@ export default {
         await this.$store.dispatch('party:getParty', true);
         this.group = this.$store.state.party.data;
         this.$store.dispatch('common:setTitle', {
-          section: this.$t('party'),
+          section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('party'),
           subSection: this.group.name,
         });
       } else {
