@@ -90,5 +90,11 @@
     "achievementGoodAsGoldModalText": "Вы собрали всех золотых питомцев!",
     "achievementGoodAsGoldText": "Собраны все золотые питомцы.",
     "achievementGoodAsGold": "На вес золота",
-    "yourRewards": "Ваши награды"
+    "yourRewards": "Ваши награды",
+    "achievementSkeletonCrewModalText": "Вы собрали всех костяных скакунов!",
+    "achievementSkeletonCrewText": "Собраны все костяные скакуны.",
+    "achievementSkeletonCrew": "Костяк состава",
+    "achievementBoneCollectorModalText": "Вы собрали всех костяных питомцев!",
+    "achievementBoneCollectorText": "Собраны все костяные питомцы.",
+    "achievementBoneCollector": "Собиратель(-ница) костей"
 }

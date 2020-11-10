@@ -14,5 +14,15 @@
     "onboardingProgress": "<%= percentage %>% 完成",
     "gettingStartedDesc": "完成這些新手任務，你就會獲得<strong>5項成就</strong>和<strong class=\"gold-amount\">100枚金幣</strong>！",
     "yourRewards": "獎勵",
-    "onboardingCompleteDescSmall": "如果你想獲得更多勳章，查查你的成就列表開始收集吧！"
+    "onboardingCompleteDescSmall": "如果你想獲得更多勳章，查查你的成就列表開始收集吧！",
+    "achievementJustAddWater": "只需加水",
+    "achievementMindOverMatterModalText": "你完成了岩石，萊姆和毛線寵物任務！",
+    "achievementMindOverMatterText": "已完成岩石，萊姆和毛線寵物任務。",
+    "achievementMindOverMatter": "精神高於物質",
+    "achievementLostMasterclasserModalText": "你完成了所有大師級任務系列的十六個任務，並解開了失傳的大師的奧秘！",
+    "foundNewItemsCTA": "去物品欄，嘗試結合你的新孵化藥水和蛋！",
+    "foundNewItemsExplanation": "完成任務使你有機會找到物品，如蛋、孵化藥水和食物。",
+    "foundNewItems": "你找到了新物品！",
+    "hideAchievements": "隱藏<%= category %>",
+    "showAllAchievements": "列出所有<%= category %>"
 }
