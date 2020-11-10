@@ -3,11 +3,16 @@
     right="right"
     toggle-class="with-icon"
   >
-     <template v-slot:button-content>
-       <span class="svg-icon inline color"
-            v-html="icons.unequipIcon">
+    <template v-slot:button-content>
+      <span
+        class="svg-icon inline color"
+        v-html="icons.unequipIcon"
+      >
       </span>
-      <span class="button-label" v-once>{{ $t('unequip') }}</span>
+      <span
+        v-once
+        class="button-label"
+      >{{ $t('unequip') }}</span>
     </template>
     <b-dropdown-item
       @click="unequipBattleGear()"
@@ -34,7 +39,7 @@
     >
       {{ $t('allItems') }}
     </b-dropdown-item>
-</b-dropdown>
+  </b-dropdown>
 </template>
 
 <script>
@@ -49,7 +54,7 @@ import {
 import unequipIcon from '@/assets/svg/unequip.svg';
 
 export default {
-  name: 'unequipDropdown',
+  name: 'UnequipDropdown',
   data () {
     return {
       icons: Object.freeze({

@@ -6,7 +6,10 @@
   >
     <div class="standard-sidebar d-none d-sm-block">
       <filter-sidebar>
-        <div class="form-group" slot="search">
+        <div
+          slot="search"
+          class="form-group"
+        >
           <input
             v-model="searchText"
             class="form-control input-search"
@@ -17,11 +20,13 @@
 
         <div class="form">
           <filter-group :title="$t('equipmentType')">
-            <checkbox v-for="group in groups"
-                      :key="group.key"
-                      :id="group.key"
-                      :checked.sync="group.selected"
-                      :text="$t(group.key)"/>
+            <checkbox
+              v-for="group in groups"
+              :id="group.key"
+              :key="group.key"
+              :checked.sync="group.selected"
+              :text="$t(group.key)"
+            />
           </filter-group>
         </div>
       </filter-sidebar>
@@ -40,9 +45,9 @@
             :right="true"
             :items="['quantity', 'AZ']"
             :value="sortBy"
-            @select="sortBy = $event"
             class="inline"
-            :inlineDropdown="false"
+            :inline-dropdown="false"
+            @select="sortBy = $event"
           />
         </div>
       </div>

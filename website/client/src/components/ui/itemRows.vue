@@ -19,8 +19,8 @@
     </div>
     <show-more-button
       v-if="items.length > itemsPerRow"
-      @click="toggleItemsToShow()"
       :show-all="showAll"
+      @click="toggleItemsToShow()"
     />
     <div
       v-else

@@ -2,7 +2,10 @@
   <div class="row">
     <div class="standard-sidebar d-none d-sm-block">
       <filter-sidebar>
-        <div class="form-group" slot="search">
+        <div
+          slot="search"
+          class="form-group"
+        >
           <input
             v-model="searchText"
             class="form-control input-search"
@@ -13,11 +16,13 @@
 
         <div class="form">
           <filter-group :title="groupBy === 'type' ? $t('equipmentType') : $t('class')">
-            <checkbox v-for="group in itemsGroups"
-                      :key="group.key"
-                      :id="groupBy + group.key"
-                      :checked.sync="viewOptions[group.key].selected"
-                      :text="group.label"/>
+            <checkbox
+              v-for="group in itemsGroups"
+              :id="groupBy + group.key"
+              :key="group.key"
+              :checked.sync="viewOptions[group.key].selected"
+              :text="group.label"
+            />
           </filter-group>
         </div>
       </filter-sidebar>
@@ -47,9 +52,9 @@
             :right="true"
             :items="sortGearBy"
             :value="selectedSortGearBy"
-            @select="selectedSortGearBy = $event"
             class="inline"
-            :inlineDropdown="false"
+            :inline-dropdown="false"
+            @select="selectedSortGearBy = $event"
           />
 
           <span class="dropdown-label">{{ $t('groupBy2') }}</span>
@@ -81,7 +86,10 @@
         :open-status="openStatus"
         @toggled="drawerToggled"
       >
-        <div slot="drawer-title-row" class="title-row-tabs">
+        <div
+          slot="drawer-title-row"
+          class="title-row-tabs"
+        >
           <div class="drawer-tab">
             <a
               class="drawer-tab-text"

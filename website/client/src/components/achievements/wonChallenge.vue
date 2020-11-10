@@ -2,101 +2,186 @@
   <b-modal
     id="won-challenge"
     :title="$t('wonChallenge')"
-    size="md"
-    :hide-footer="true"
+    size="sm"
+    :hide-header="true"
   >
-    <div class="modal-body text-center">
-      <h4 v-markdown="user.achievements.challenges[user.achievements.challenges.length - 1]"></h4>
-      <div class="row">
-        <div class="col-4">
-          <div class="achievement-karaoke-2x"></div>
-        </div>
-        <div class="col-4">
-          <!-- @TODO: +generatedAvatar({sleep: false})-->
-          <avatar
-            class="avatar"
-            :member="user"
-            :avatar-only="true"
-          />
-        </div>
-        <div class="col-4">
-          <div class="achievement-karaoke-2x"></div>
-        </div>
+    <close-icon @click="close()" />
+    <div
+      class="text-center"
+    >
+      <h1
+        v-once
+        class="header purple"
+      >
+        {{ $t('wonChallenge') }}
+      </h1>
+      <div class="d-flex align-items-center justify-content-center mb-4">
+        <div
+          v-once
+          class="svg-icon sparkles sparkles-rotate"
+          v-html="icons.sparkles"
+        ></div>
+        <div class="achievement-karaoke-2x"></div>
+        <div
+          v-once
+          class="svg-icon sparkles"
+          v-html="icons.sparkles"
+        ></div>
       </div>
-      <p>{{ $t('congratulations') }}</p>
-      <br>
+      <p
+        class="mb-4 chal-desc"
+        v-html="$t('wonChallengeDesc', {challengeName: challengeName})"
+      >
+      </p>
+    </div>
+    <div
+      v-if="notification"
+      slot="modal-footer"
+      class="pt-3 w-100"
+    >
+      <div class="d-flex align-items-center justify-content-center mb-3">
+        <div
+          v-once
+          class="svg-icon stars"
+          v-html="icons.stars"
+        ></div>
+        <strong v-once>{{ $t('yourReward') }}</strong>
+        <div
+          v-once
+          class="svg-icon stars stars-rotate"
+          v-html="icons.stars"
+        ></div>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-center mb-4">
+        <div
+          v-once
+          class="svg-icon gem mr-1"
+          v-html="icons.gem"
+        ></div>
+        <strong>{{ notification.data.prize }}</strong>
+      </div>
       <button
+        v-once
         class="btn btn-primary"
         @click="close()"
       >
-        {{ $t('hurray') }}
+        {{ $t('onwards') }}
       </button>
-    </div>
-    <div class="modal-footer">
-      <div class="col-3">
-        <a
-          class="twitter-share-button"
-          href="https://twitter.com/intent/tweet?text=#{tweet}&via=habitica&url=#{env.BASE_URL}/social/won-challenge&count=none"
-        >{{ $t('tweet') }}</a>
-      </div>
-      <div
-        class="col-4"
-        style="margin-left:.8em"
-      >
-        <div
-          class="fb-share-button"
-          data-href="#{env.BASE_URL}/social/won-challenge"
-          data-layout="button"
-        ></div>
-      </div>
-      <div
-        class="col-4"
-        style="margin-left:.8em"
-      >
-        <a
-          class="tumblr-share-button"
-          data-href="#{env.BASE_URL}/social/won-challenge"
-          data-notes="none"
-        ></a>
-      </div>
     </div>
   </b-modal>
 </template>
 
-<style scoped>
-  .achievement-karaoke-2x {
-    margin: 0 auto;
-    margin-top: 6em;
+<style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
+  #won-challenge {
+    .modal-body {
+      padding: 0 1.5rem;
+    }
+
+    .modal-footer {
+      background: $gray-700;
+      border-top: none;
+      padding: 0 1.5rem 2rem 1.5rem;
+    }
+
+    .modal-dialog {
+      width: 20.625rem;
+      font-size: 0.875rem;
+      line-height: 1.71;
+      text-align: center;
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
+  .purple {
+    color: $purple-300;
   }
 
-  .avatar {
-    width: 140px;
-    margin: 0 auto;
-    margin-bottom: 1.5em;
-    margin-top: 1.5em;
+  .header {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .sparkles {
+    width: 2.5rem;
+    height: 4rem;
+    margin-left: 2rem;
+
+    &.sparkles-rotate {
+      transform: rotate(180deg);
+      margin-right: 2rem;
+      margin-left: 0rem;
+    }
+  }
+
+  .stars {
+    width: 2rem;
+    height: 1.063rem;
+    margin-right: 1.25rem;
+
+    &.stars-rotate {
+      transform: rotate(180deg);
+      margin-left: 1.25rem;
+      margin-right: 0rem;
+    }
+  }
+
+  .gem {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .chal-desc ::v-deep p {
+    display: inline;
   }
 </style>
 
 <script>
+import habiticaMarkdown from 'habitica-markdown';
+import closeIcon from '@/components/shared/closeIcon';
+import sparkles from '@/assets/svg/star-group.svg';
+import gem from '@/assets/svg/gem.svg';
+import stars from '@/assets/svg/sparkles-left.svg';
 import { mapState } from '@/libs/store';
-import markdownDirective from '@/directives/markdown';
-import Avatar from '../avatar';
 
 export default {
   components: {
-    Avatar,
-  },
-  directives: {
-    markdown: markdownDirective,
+    closeIcon,
   },
   data () {
-    const tweet = this.$t('wonChallengeShare');
+    // const tweet = this.$t('wonChallengeShare');
     return {
-      tweet,
+      // tweet,
+      notification: null,
+      icons: Object.freeze({
+        sparkles,
+        gem,
+        stars,
+      }),
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
+    challengeName () {
+      if (!this.notification) return null;
+      return habiticaMarkdown.render(String(this.notification.data.name));
+    },
+  },
+  mounted () {
+    this.$root.$on('habitica:won-challenge', notification => {
+      this.notification = notification;
+      this.$root.$emit('bv::show::modal', 'won-challenge');
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:won-challenge');
   },
   methods: {
     close () {
