@@ -132,7 +132,7 @@
     "healerText": "Helare står ogenomträngliga för skada, och breder ut det skyddet till andra. Missade dagliga uppgifter och dåliga vanor bekymrar dem inte så mycket, och de har sätt att återställa hälsan efter misslyckanden. Spela en helare om du gillar att hjälpa andra i ditt sällskap, eller om tanken av att smita undan döden genom hårt arbete inspirerar dig!",
     "optOutOfClasses": "Välj Bort",
     "chooseClass": "Välj din Klass",
-    "chooseClassLearnMarkdown": "[Lär dig mer om Habiticas klassystem](http://habitica.fandom.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Lär dig mer om Habiticas klassystem](https://habitica.fandom.com/wiki/Class_System)",
     "optOutOfClassesText": "Vill du inte besväras med klasser? Vill du välja senare? Hoppa av - du kommer att vara en krigare utan speciella förmågor. Du kan läsa mer om klass-systemet senare på vår wiki och aktivera klasser när som helst under Användarikon > Inställningar.",
     "selectClass": "Välj <%= heroClass %>",
     "select": "Välj",

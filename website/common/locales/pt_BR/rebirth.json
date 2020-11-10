@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Renascimento: Nova Aventura Disponível!",
-    "rebirthUnlock": "Você liberou o Renascimento! Esse item especial do Mercado te permite começar um novo jogo no nível 1 mantendo suas tarefas, conquistas, mascotes e mais. Use-o para respirar uma vida nova no Habitica se sentir que já conquistou tudo ou para experimentar novas funcionalidades com olhos frescos de um personagem iniciante!",
+    "rebirthUnlock": "Você liberou o Renascimento! Esse item especial do Mercado te permite começar um novo jogo no nível 1 mantendo suas tarefas, conquistas, mascotes e mais. Use-o para dar nova vida ao Habitica se sentir que já conquistou tudo ou para experimentar novas funcionalidades com os olhos frescos de um personagem iniciante!",
     "rebirthAchievement": "Você iniciou uma nova aventura! Esse é o seu Renascimento número <%= number %>. O nível mais alto que você atingiu foi <%= level %>. Para acumular essa Conquista, comece sua próxima nova aventura quando atingir um Nível ainda maior!",
     "rebirthAchievement100": "Você iniciou uma nova aventura! Esse é seu <%= number %>º Renascimento e o nível mais alto que você atingiu foi 100 ou maior. Para acumular essa Conquista, comece sua próxima aventura quando atingir pelo menos nível 100!",
     "rebirthBegan": "Iniciou uma Nova Aventura",

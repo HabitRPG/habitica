@@ -217,7 +217,7 @@
     "userIsNotManager": "El usuario no es un Mánager",
     "canOnlyApproveTaskOnce": "Esta tarea ya ha sido aprobada.",
     "addTaskToGroupPlan": "Crear",
-    "joinedGuild": "Unido a un Gremio",
+    "joinedGuild": "Se unió a un Gremio",
     "joinedGuildText": "¡Adéntrate en la parte social de Habitica uniéndote a un Gremio!",
     "badAmountOfGemsToPurchase": "La cantidad debe ser al menos 1.",
     "groupPolicyCannotGetGems": "La política de un grupo de los que formas parte evita que sus miembros obtengan gemas.",
@@ -325,7 +325,7 @@
     "gettingStarted": "Empezar",
     "congratsOnGroupPlan": "¡Felicidades por crear tu grupo nuevo! Aquí tienes algunas respuestas a algunas de las preguntas más frecuentes.",
     "whatsIncludedGroup": "Qué se incluye en la suscripción",
-    "whatsIncludedGroupDesc": "Todos los miembros del grupo reciben los beneficios de una suscripción completamente, incluidos los artículos mensuales de suscriptor, la posibilidad de comprar gemas con oro y la montura de Jackalope Púrpura Real, que es exclusiva para usuarios miembros de un Plan de Grupo.",
+    "whatsIncludedGroupDesc": "Todos los miembros del grupo reciben los beneficios de una suscripción completamente, incluidos los artículos mensuales de suscriptor, la posibilidad de comprar gemas con oro y la montura de Jackalope púrpura real, que es exclusiva para usuarios miembros de un Plan de Grupo.",
     "howDoesBillingWork": "¿Cómo funciona la facturación?",
     "howDoesBillingWorkDesc": "Los líderes del grupo reciben una factura mensual basada en el número de miembros del grupo. Este cargo incluye el precio de $9 (dólares estadounidenses) para la suscripción del líder del grupo, más $3 por cada miembro adicional del grupo. Por ejemplo: un grupo de cuatro usuarios costará $18 al mes, ya que el grupo consta de 1 grupo líder + 3 miembros del grupo.",
     "howToAssignTask": "¿Cómo asignas una tarea?",
@@ -366,5 +366,6 @@
     "thisTaskApproved": "Esta tarea fue aprobada",
     "onlyPrivateGuildsCanUpgrade": "Sólo los Gremios privados pueden actualizarse a un plan de grupo.",
     "chooseTeamMember": "Elije a un miembro del equipo",
-    "cannotRemoveQuestOwner": "No puedes eliminar el dueño delmisión activo. Abandonar el misión primero."
+    "cannotRemoveQuestOwner": "No puedes eliminar el dueño delmisión activo. Abandonar el misión primero.",
+    "features": "Características"
 }

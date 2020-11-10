@@ -195,5 +195,7 @@
     "letsgo": "Vamos a Isto!",
     "selected": "Seleccionado",
     "howManyToBuy": "Quantos quer comprar?",
-    "contactForm": "Contactar a Equipa de Moderadores"
+    "contactForm": "Contactar a Equipa de Moderadores",
+    "loadEarlierMessages": "Carregar Mensagens Anteriores",
+    "finish": "Finalizar"
 }
