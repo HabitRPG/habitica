@@ -117,9 +117,9 @@
             :right="true"
             :items="sortByItems"
             :value="selectedSortBy"
-            @select="selectedSortBy = $event"
             class="inline"
-            :inlineDropdown="false"
+            :inline-dropdown="false"
+            @select="selectedSortBy = $event"
           />
         </div>
       </div>

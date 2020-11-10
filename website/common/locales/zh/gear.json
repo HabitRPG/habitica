@@ -2067,7 +2067,7 @@
     "shieldSpecialSpring2020WarriorNotes": "不要让精致的颜色欺骗你。这个盾牌会遮住你！增加<%= con %>点体质。2020年春季限定版装备。",
     "headSpecialSpring2020HealerNotes": "用这个花朵制作的头饰迷惑你的敌人!增加<%= int %>点智力。2020年春季限定版装备。",
     "headSpecialSpring2020WarriorNotes": "你的敌人的打击会扫过这个甲虫启发的头盔！增加<%= str %>点力量。2020年春季限定版装备。",
-    "headSpecialSpring2020RogueNotes": "它这么漂亮和珍贵，你要把它从你自己的头偷去！增加<%= per %>点感知。2020年春季限定版装备。",
+    "headSpecialSpring2020RogueNotes": "它是如此醒目珍贵，你恨不得将其从头上偷偷摘下。增加<%= per %>点感知。2020年春季限定版装备。",
     "armorSpecialSpring2020HealerNotes": "用柔软的鸢尾花叶子和花瓣包裹自己，欺骗敌人低估你的治愈能力。增加<%= con %>点体质。2020年春季限定版装备。",
     "armorSpecialSpring2020WarriorNotes": "这种坚硬的甲壳会使在最压碎的攻击下确保你的安全。增加<%= con %>点体质。2020年春季限定版装备。",
     "armorSpecialSpring2020RogueNotes": "暮、宝石、最深的海的颜色！增加<%= per %>点感知。2020年春季限定版装备。",

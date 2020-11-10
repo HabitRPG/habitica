@@ -2002,5 +2002,9 @@
     "headArmoireHornsOfAutumnNotes": "秋のすがすがしい空気から魔法の力を引き出し、あなたの魔法に注ぎ込みましょう！力が<%= str %>上がります。ラッキー宝箱：秋の魔法使いセット（4個中1個目のアイテム）。",
     "headArmoireHornsOfAutumnText": "秋の角",
     "armorArmoireAutumnEnchantersCloakNotes": "あなたのような熟練した魔術師は、実力にふさわしい見た目でなければなりません！知能が12上がります。ラッキー宝箱：秋の魔法使いセット（4個中2個目のアイテム）。",
-    "armorArmoireAutumnEnchantersCloakText": "秋の魔法使いのマント"
+    "armorArmoireAutumnEnchantersCloakText": "秋の魔法使いのマント",
+    "shieldArmoireDarkAutumnFlameNotes": "この魅惑的な炎は秋の最も寒い夜でさえ、活発に、しかし不吉なエネルギーをたたえながら踊ります。体質が<%= con %>上がります。ラッキー宝箱：秋の魔法使いセット（4個中4個目のアイテム）。",
+    "shieldArmoireDarkAutumnFlameText": "暗黒の秋の炎",
+    "weaponArmoireClubOfClubsNotes": "このおしゃれなクラブを使っていれば、こっそり留まっている古いタスクにあなたの関心が向くまでは、早々に手の内を見せることはありません。力が<%= str %>上がります。ラッキー宝箱：クラブのジャックセット（3個中2個目のアイテム）。",
+    "weaponArmoireClubOfClubsText": "クラブの……クラブ（こん棒）"
 }

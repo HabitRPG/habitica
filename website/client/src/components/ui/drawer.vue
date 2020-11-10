@@ -5,9 +5,11 @@
       :class="{'no-padding': noTitleBottomPadding}"
       @click="toggle()"
     >
-      <div  class="title-row">
+      <div class="title-row">
         <slot name="drawer-title-row">
-          <div class="text-only">{{ title }}</div>
+          <div class="text-only">
+            {{ title }}
+          </div>
         </slot>
       </div>
       <div

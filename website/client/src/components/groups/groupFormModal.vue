@@ -532,6 +532,7 @@ export default {
         this.workingGroup.privateGuild = false;
       }
 
+      this.workingGroup.categories = [];
       if (editingGroup.categories) {
         editingGroup.categories.forEach(category => {
           this.workingGroup.categories.push(category.slug);

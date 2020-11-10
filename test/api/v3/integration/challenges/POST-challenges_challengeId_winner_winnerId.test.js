@@ -103,7 +103,15 @@ describe('POST /challenges/:challengeId/winner/:winnerId', () => {
       await expect(winningUser.sync()).to.eventually.have.nested.property('achievements.challenges').to.include(challenge.name);
       // 2 because winningUser just joined the challenge, which now awards an achievement
       expect(winningUser.notifications.length).to.equal(2);
-      expect(winningUser.notifications[1].type).to.equal('WON_CHALLENGE');
+
+      const notif = winningUser.notifications[1];
+      expect(notif.type).to.equal('WON_CHALLENGE');
+      expect(notif.data).to.eql({
+        id: challenge._id,
+        name: challenge.name,
+        prize: challenge.prize,
+        leader: challenge.leader,
+      });
     });
 
     it('gives winner gems as reward', async () => {

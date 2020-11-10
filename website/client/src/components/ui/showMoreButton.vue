@@ -1,6 +1,7 @@
 <template>
-  <button class="btn btn-flat btn-show-more mb-4"
-          @click="$emit('click')"
+  <button
+    class="btn btn-flat btn-show-more mb-4"
+    @click="$emit('click')"
   >
     <span class="button-text">
       {{ showAll ? $t('showLess') : $t('showMore') }}
