@@ -32,7 +32,9 @@
             <br>
             {{ $t('beeminderDesc') }}
           </li>
-          <li><div v-html="$t('chatExtension')"> </div>
+          <li>
+            <div v-html="$t('chatExtension')">
+            </div>
             <span>{{ $t('chatExtensionDesc') }}</span>
           </li>
           <li>
@@ -43,8 +45,10 @@
             <br>
             {{ $t('dataToolDesc') }}
           </li>
-          <li><div v-html="$t('otherExtensions')"></div>
-          <span>{{ $t('otherDesc') }}</span></li>
+          <li>
+            <div v-html="$t('otherExtensions')"></div>
+            <span>{{ $t('otherDesc') }}</span>
+          </li>
         </ul>
         <hr>
       </div>

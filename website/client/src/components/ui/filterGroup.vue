@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'filterGroup',
+  name: 'FilterGroup',
   props: ['title'],
 };
 </script>
