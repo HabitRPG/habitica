@@ -7,7 +7,6 @@
   >
     <close-icon @click="close()" />
     <div
-      v-if="notification"
       class="text-center"
     >
       <h1
@@ -30,9 +29,9 @@
         ></div>
       </div>
       <p
-        class="mb-4"
+        class="mb-4 chal-desc"
+        v-html="$t('wonChallengeDesc', {challengeName: challengeName})"
       >
-        {{ $t('wonChallengeDesc', {challengeName: notification.data.name}) }}
       </p>
     </div>
     <div
@@ -138,9 +137,14 @@
     width: 1.5rem;
     height: 1.5rem;
   }
+
+  .chal-desc ::v-deep p {
+    display: inline;
+  }
 </style>
 
 <script>
+import habiticaMarkdown from 'habitica-markdown';
 import closeIcon from '@/components/shared/closeIcon';
 import sparkles from '@/assets/svg/star-group.svg';
 import gem from '@/assets/svg/gem.svg';
@@ -165,6 +169,10 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
+    challengeName () {
+      if (!this.notification) return null;
+      return habiticaMarkdown.render(String(this.notification.data.name));
+    },
   },
   mounted () {
     this.$root.$on('habitica:won-challenge', notification => {
