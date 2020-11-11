@@ -412,13 +412,6 @@ router.beforeEach((to, from, next) => {
     });
   }
 
-  Analytics.track({
-    hitType: 'pageview',
-    eventCategory: 'navigation',
-    eventAction: 'navigate',
-    page: to.name || to.path,
-  });
-
   if ((to.name === 'userProfile' || to.name === 'userProfilePage') && from.name !== null) {
     let startingPage = 'profile';
     if (to.params.startingPage !== undefined) {

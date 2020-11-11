@@ -36,7 +36,7 @@ export default {
         eventCategory: 'drop-cap-reached',
         eventAction: 'click',
         eventLabel: 'Drop Cap Reached > Notification Click',
-      }, { trackOnServer: true });
+      });
     },
   },
 };

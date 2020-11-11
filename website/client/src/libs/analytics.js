@@ -88,14 +88,14 @@ export function track (properties, options = {}) {
     if (_doesNotHaveRequiredFields(properties)) return;
     if (_doesNotHaveAllowedHitType(properties)) return;
 
-    const trackOnServer = options && options.trackOnServer === true;
-    if (trackOnServer === true) {
-      // Track an event on the server
-      const store = getStore();
-      store.dispatch('analytics:trackEvent', properties);
-    } else {
+    const trackOnClient = options && options.trackOnClient === true;
+    // Track events on the server by default
+    if (trackOnClient === true) {
       amplitude.getInstance().logEvent(properties.eventAction, properties);
       window.ga('send', properties);
+    } else {
+      const store = getStore();
+      store.dispatch('analytics:trackEvent', properties);
     }
   });
 }

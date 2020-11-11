@@ -611,14 +611,6 @@ export default {
       }
     },
     purchaseGems () {
-      if (this.item.key === 'rebirth_orb') {
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'button',
-          eventAction: 'click',
-          eventLabel: 'Gems > Rebirth',
-        });
-      }
       this.$root.$emit('bv::show::modal', 'buy-gems');
     },
     togglePinned () {
