@@ -386,7 +386,6 @@ import size from 'lodash/size';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
 
-import * as Analytics from '@/libs/analytics';
 import spellsMixin from '@/mixins/spells';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import numberInvalid from '@/mixins/numberInvalid';

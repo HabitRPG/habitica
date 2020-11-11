@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import getStore from '@/store';
-import * as Analytics from '@/libs/analytics';
 import handleRedirect from './handleRedirect';
 
 import ParentPage from '@/components/parentPage';
