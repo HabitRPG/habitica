@@ -80,7 +80,7 @@ const requiredGroupFields = '_id leader tasksOrder name';
  *                                                               "per", "con"
  * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {String} [notes] Extra notes
- * @apiParam (Body) {String} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
  *                                                            1.5, 2; eqivalent of Trivial,
  *                                                            Easy, Medium, Hard.
@@ -253,7 +253,7 @@ api.createUserTasks = {
  *                                                               "int", "per", "con".
  * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {String} [notes] Extra notes
- * @apiParam (Body) {String} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
  *                                                            1.5, 2; eqivalent of Trivial,
  *                                                            Easy, Medium, Hard.
@@ -567,7 +567,7 @@ api.getTask = {
  *                                                               "per", "con".
  * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {String} [notes] Extra notes
- * @apiParam (Body) {String} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
  *                                                            1.5, 2; eqivalent of Trivial,
  *                                                            Easy, Medium, Hard.
