@@ -14,18 +14,16 @@ async function updateUser (user) {
   count++;
 
   let set = {};
-  let newDate = new Date(user.date);
-  if(isValidDate(newDate)) {
+  const newDate = new Date(user.date);
+  if (isValidDate(newDate)) {
     set = {
-      'date': newDate
+      date: newDate
     }
   } else {
     set = {
-      'date': ''
+      date: ''
     }
-  }
-
-  set.migration = MIGRATION_NAME;
+  };
 
   if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
   return await Tasks.Task.update({_id: user._id}, {$set: set}).exec();
@@ -33,20 +31,15 @@ async function updateUser (user) {
 
 module.exports = async function processUsers () {
   let query = {
-    migration: {$ne: MIGRATION_NAME}
+    date: {$exists: true}
   };
 
-  const fields = {
-    _id: 1,
-    items: 1,
-  };
 
   while (true) { // eslint-disable-line no-constant-condition
     const users = await Tasks.Task // eslint-disable-line no-await-in-loop
       .find(query)
       .limit(250)
       .sort({_id: 1})
-      .select(fields)
       .lean()
       .exec();
 
@@ -65,5 +58,5 @@ module.exports = async function processUsers () {
 };
 
 function isValidDate(d) {
-  return Object.prototype.toString.call(d) === "[object Date]" && !isNaN(d.getTime());
+  return !isNaN(d.getTime());
 }
