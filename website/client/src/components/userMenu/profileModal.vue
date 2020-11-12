@@ -40,7 +40,6 @@ export default {
   },
   watch: {
     startingPage () {
-      console.log('watch triggered!');
       this.selectedPage = this.startingPage;
     },
   },
@@ -63,9 +62,6 @@ export default {
     onHidden () {
       if (this.$route.path !== window.location.pathname) {
         this.$router.push({ path: this.$route.path });
-        this.startingPage = 'tavern';
-        console.log(this.pathDecode('section'));
-        console.log(this.pathDecode('subsection'));
         window.history.replaceState(null, null, '');
         this.$store.dispatch('common:setTitle', {
           section: this.$t(this.pathDecode('section')),
