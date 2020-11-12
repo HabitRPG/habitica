@@ -35,7 +35,14 @@ export default {
       userId: undefined,
       startingPage: undefined,
       path: undefined,
+      selectedPage: '',
     };
+  },
+  watch: {
+    startingPage () {
+      console.log('watch triggered!');
+      this.selectedPage = this.startingPage;
+    },
   },
   mounted () {
     this.$root.$on('habitica:show-profile', data => {
@@ -44,6 +51,7 @@ export default {
       this.path = data.path;
       this.$root.$emit('bv::show::modal', 'profile');
     });
+    this.selectPage(this.startingPage);
   },
   beforeDestroy () {
     this.$root.$off('habitica:show-profile');
@@ -54,8 +62,28 @@ export default {
     },
     onHidden () {
       if (this.$route.path !== window.location.pathname) {
-        this.$router.go(-1);
+        this.$router.push({ path: this.$route.path });
+        this.startingPage = 'tavern';
+        console.log(this.pathDecode('section'));
+        console.log(this.pathDecode('subsection'));
+        window.history.replaceState(null, null, '');
+        this.$store.dispatch('common:setTitle', {
+          section: this.$t(this.pathDecode('section')),
+          subSection: this.$t(this.pathDecode('subsection')),
+        });
       }
+    },
+    pathDecode (section) {
+      const str = this.$route.path;
+      const firstI = str.indexOf('/') + 1;
+      const secondI = str.lastIndexOf('/');
+      let newstr = '';
+      if (section === 'section') {
+        newstr = str.slice(firstI, secondI);
+      } else if (section === 'subsection') {
+        newstr = str.slice(secondI + 1);
+      }
+      return newstr;
     },
   },
 };
