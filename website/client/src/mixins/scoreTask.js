@@ -1,6 +1,5 @@
 import Vue from 'vue';
 
-import * as Analytics from '@/libs/analytics';
 import notifications from './notifications';
 import scoreTask from '@/../../common/script/ops/scoreTask';
 import { mapState } from '@/libs/store';
@@ -64,7 +63,6 @@ export default {
 
       this.playTaskScoreSound(task, direction);
 
-      Analytics.updateUser();
       const response = await this.$store.dispatch('tasks:score', {
         taskId: task._id,
         direction,
