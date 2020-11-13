@@ -50,7 +50,6 @@ export default {
       this.path = data.path;
       this.$root.$emit('bv::show::modal', 'profile');
     });
-    this.selectPage(this.startingPage);
   },
   beforeDestroy () {
     this.$root.$off('habitica:show-profile');
