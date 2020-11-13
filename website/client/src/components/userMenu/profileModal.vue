@@ -63,10 +63,16 @@ export default {
       if (this.$route.path !== window.location.pathname) {
         this.$router.push({ path: this.$route.path });
         window.history.replaceState(null, null, '');
-        this.$store.dispatch('common:setTitle', {
-          section: this.$t(this.pathDecode('section')),
-          subSection: this.$t(this.pathDecode('subsection')),
-        });
+        if (this.$t(this.pathDecode('section')) === 'String \'\' not found.') {
+          this.$store.dispatch('common:setTitle', {
+            section: this.$t(this.pathDecode('subsection')),
+          });
+        } else {
+          this.$store.dispatch('common:setTitle', {
+            section: this.$t(this.pathDecode('section')),
+            subSection: this.$t(this.pathDecode('subsection')),
+          });
+        }
       }
     },
     pathDecode (section) {
@@ -78,6 +84,15 @@ export default {
         newstr = str.slice(firstI, secondI);
       } else if (section === 'subsection') {
         newstr = str.slice(secondI + 1);
+      }
+      if (newstr === 'seasonal') {
+        newstr = 'seasonalShop';
+      } else if (newstr === 'discovery') {
+        newstr = 'guildsDiscovery';
+      } else if (newstr === 'group-plans') {
+        newstr = 'groupPlans';
+      } else if (newstr === 'time') {
+        newstr = 'timeTravelers';
       }
       return newstr;
     },
