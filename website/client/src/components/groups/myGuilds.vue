@@ -114,7 +114,7 @@ import groupUtilities from '@/mixins/groupsUtilities';
 
 
 import PublicGuildItem from './publicGuildItem';
-import Sidebar from './sidebar';
+import Sidebar from './groupSidebar';
 
 import greyBadgeIcon from '@/assets/svg/grey-badge.svg';
 import positiveIcon from '@/assets/svg/positive.svg';

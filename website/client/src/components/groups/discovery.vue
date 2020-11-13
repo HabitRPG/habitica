@@ -92,7 +92,7 @@ b-dropdown(:text="$t('sort')", right=true)
 import MugenScroll from 'vue-mugen-scroll';
 import debounce from 'lodash/debounce';
 import PublicGuildItem from './publicGuildItem';
-import Sidebar from './sidebar';
+import Sidebar from './groupSidebar';
 import groupUtilities from '@/mixins/groupsUtilities';
 
 import positiveIcon from '@/assets/svg/positive.svg';
