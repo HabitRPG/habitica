@@ -11,3 +11,9 @@
 .inline-block {
     display: inline-block;
 }
+
+.component-showcase {
+    position: absolute;
+    margin: 20px;
+    width: calc(100% - 40px);
+}

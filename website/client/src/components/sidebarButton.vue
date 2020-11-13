@@ -28,6 +28,7 @@
     background: transparent;
     cursor: pointer;
     &:focus {
+      // Fix keyboard inaccessible #12656
       outline: none;
       border: $purple-400 solid 1px;
     }

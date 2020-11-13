@@ -1,37 +1,38 @@
 <template>
   <filter-sidebar>
     <filter-group>
-      <checkbox :checked.sync="viewOptionEntry.selected"
-                :id="`category-${viewOptionKey}`"
-                :key="viewOptionKey"
-                :text="viewOptionEntry.text"
-                v-for="(viewOptionEntry, viewOptionKey) in viewOptions"
+      <checkbox
+        v-for="(viewOptionEntry, viewOptionKey) in viewOptions"
+        :id="`category-${viewOptionKey}`"
+        :key="viewOptionKey"
+        :checked.sync="viewOptionEntry.selected"
+        :text="viewOptionEntry.text"
       />
     </filter-group>
     <div class="form-group clearfix">
       <h3
-          class="float-left"
-          v-once
+        v-once
+        class="float-left"
       >
         {{ $t('hideLocked') }}
       </h3>
       <toggle-switch
-          @change="$emit('update:hideLocked', $event)"
-          class="float-right"
-          v-model="lockedChecked"
+        v-model="lockedChecked"
+        class="float-right"
+        @change="$emit('update:hideLocked', $event)"
       />
     </div>
     <div class="form-group clearfix">
       <h3
-          class="float-left"
-          v-once
+        v-once
+        class="float-left"
       >
         {{ $t('hidePinned') }}
       </h3>
       <toggle-switch
-          @change="$emit('update:hidePinned', $event)"
-          class="float-right"
-          v-model="pinnedChecked"
+        v-model="pinnedChecked"
+        class="float-right"
+        @change="$emit('update:hidePinned', $event)"
       />
     </div>
   </filter-sidebar>
