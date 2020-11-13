@@ -2217,5 +2217,11 @@
     "shieldMystery202011Notes": "Sfrutta la potenza del vento autunnale con questo bastone. Usalo per la magia arcana o per creare fantastici mucchi di foglie, a te la scelta! Non conferisce alcun bonus. Oggetto abbonati novembre 2020.",
     "shieldMystery202011Text": "Bastone foglioso",
     "headMystery202011Notes": "Sfrutta il potere del cambio di stagione restando anche alla moda! Non conferisce alcun bonus. Oggetto abbonati novembre 2020.",
-    "headMystery202011Text": "Cappello del mago foglioso"
+    "headMystery202011Text": "Cappello del mago foglioso",
+    "headArmoireCapOfClubsNotes": "Sul cappello, sul cappello che noi portiamo c'è una lunga, c'è una lunga penna... bianca. Usala per sfoggiare i tuoi successi! Aumenta l'intelligenza di <%= int %>. Scrigno Incantato: Set del Fante di Fiori (Oggetto 2 di 3).",
+    "headArmoireCapOfClubsText": "Cappello di Fiori",
+    "armorArmoireDoubletOfClubsText": "Farsetto di fiori",
+    "armorArmoireDoubletOfClubsNotes": "Nessuno sa cosa rivelano le carte, ma sarai elegante in ogni evento con questo farsetto e mantello! Aumenta la costituzione di <%= con %>. Scrigno Incantato: Set del Fante di Fiori (Oggetto 2 di 3).",
+    "weaponArmoireClubOfClubsNotes": "Questa bella picca non svelerà subito i suoi intenti verso quei tuoi vecchi subdoli compiti. Aumenta la forza di <%= str %>. Scrigno Incantato: Set del Fante di Fiori (Oggetto 2 di 3).",
+    "weaponArmoireClubOfClubsText": "Picca di... fiori"
 }

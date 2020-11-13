@@ -3,7 +3,10 @@
     <slot name="header"></slot>
     <slot name="search"></slot>
     <div class="form">
-      <h3 v-once class="filter-label">
+      <h3
+        v-once
+        class="filter-label"
+      >
         {{ $t('filters') }}
       </h3>
       <slot></slot>
@@ -13,7 +16,7 @@
 
 <script>
 export default {
-  name: 'filterSidebar',
+  name: 'FilterSidebar',
 };
 </script>
 

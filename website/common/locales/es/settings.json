@@ -22,7 +22,7 @@
     "fixValPop": "Permite cambiar manualmente valores como tu Salud, Nivel y el Oro.",
     "invalidLevel": "Valor erróneo: El Nivel debe ser 1 o mayor.",
     "enableClass": "Activar Sistema de Clases",
-    "enableClassPop": "Inicialmente decidiste no utilizar el sistema de clases. ¿Quieres usarlo ahora?",
+    "enableClassPop": "Inicialmente renunciaste a usar el sistema de clases. ¿Quieres usarlo ahora?",
     "resetAccPop": "Empezar de nuevo, eliminando todo el oro, niveles, equipo, historial, y tareas.",
     "deleteAccount": "Eliminar cuenta",
     "deleteAccPop": "Cancelar y quitar esta cuenta de Habitica.",

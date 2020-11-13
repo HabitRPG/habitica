@@ -1,19 +1,19 @@
 <template>
   <div class="row quests">
     <div class="standard-sidebar d-none d-sm-block">
-      <div class="form-group">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
+      <filter-sidebar>
+        <div
+          slot="search"
+          class="form-group"
         >
-      </div>
-      <div class="form">
-        <h2 v-once>
-          {{ $t('filter') }}
-        </h2>
-        <div class="form-group">
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
+          >
+        </div>
+        <filter-group>
           <div
             v-for="category in categories"
             :key="category.identifier"
@@ -33,7 +33,7 @@
               >{{ category.text }}</label>
             </div>
           </div>
-        </div>
+        </filter-group>
         <div class="form-group clearfix">
           <h3
             v-once
@@ -58,7 +58,7 @@
             class="float-right"
           />
         </div>
-      </div>
+      </filter-sidebar>
     </div>
     <div class="standard-page">
       <div class="featuredItems">
@@ -122,19 +122,14 @@
       <div class="clearfix">
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(selectedSortItemsBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              v-for="sort in sortItemsBy"
-              :key="sort"
-              :active="selectedSortItemsBy === sort"
-              @click="selectedSortItemsBy = sort"
-            >
-              {{ $t(sort) }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+              :right="true"
+              :value="selectedSortItemsBy"
+              :items="sortItemsBy"
+              :inline-dropdown="false"
+              class="inline"
+              @select="selectedSortItemsBy = $event"
+          />
         </div>
       </div>
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -346,6 +341,8 @@
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/variables.scss';
 
+  // these styles may be applied to other pages too
+
   .featured-label {
     margin: 24px auto;
   }
@@ -474,10 +471,16 @@ import QuestInfo from './questInfo.vue';
 import shops from '@/../../common/script/libs/shops';
 
 import isPinned from '@/../../common/script/libs/isPinned';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import FilterGroup from '@/components/ui/filterGroup';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 
 export default {
   components: {
+    SelectTranslatedArray,
+    FilterGroup,
+    FilterSidebar,
     ShopItem,
     Item,
     CountBadge,

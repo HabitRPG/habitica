@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import getStore from '@/store';
-import * as Analytics from '@/libs/analytics';
 import handleRedirect from './handleRedirect';
 
 import ParentPage from '@/components/parentPage';
+
+// NOTE: when adding a page make sure to implement setTitle
 
 // Static Pages
 const StaticWrapper = () => import(/* webpackChunkName: "entry" */'@/components/static/staticWrapper');
@@ -409,13 +410,6 @@ router.beforeEach((to, from, next) => {
       },
     });
   }
-
-  Analytics.track({
-    hitType: 'pageview',
-    eventCategory: 'navigation',
-    eventAction: 'navigate',
-    page: to.name || to.path,
-  });
 
   if ((to.name === 'userProfile' || to.name === 'userProfilePage') && from.name !== null) {
     let startingPage = 'profile';

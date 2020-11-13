@@ -2213,5 +2213,15 @@
     "headArmoireHornsOfAutumnText": "Cornes d'automne",
     "shieldArmoireDarkAutumnFlameNotes": "Ces flammes envoûtantes dansent avec une énergie intense et inquiétante, même dans les nuits les plus fraîches de l'automne. Augmente la constitution de <%= con %>. Armoire enchantée : ensemble d'enchantement d'automne (objet 4 de 4).",
     "shieldArmoireDarkAutumnFlameText": "Flamme sombre d'automne",
-    "weaponArmoireEnchantersStaffText": "Bâton d'enchantement"
+    "weaponArmoireEnchantersStaffText": "Bâton d'enchantement",
+    "shieldMystery202011Notes": "Exploitez la puissance des vents d'automne avec ce bâton. Utilisez-le pour la magie arcanique ou pour faire de magnifiques tas de feuilles, vous choisissez ! Ne confère aucun bonus. Équipement d'abonnement de novembre 2020.",
+    "shieldMystery202011Text": "Bâton folié",
+    "headArmoireCapOfClubsNotes": "Faites savoir à tout le monde quelles sont vos dernières réalisations avec cette plume littérale à votre casquette ! Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble du valet de trèfle (objet 1 de 3).",
+    "headArmoireCapOfClubsText": "Casquette de trèfles",
+    "headMystery202011Notes": "Maniez la puissance des saisons changeantes tout en ayant du style ! Ne confère aucun bonus. Équipement d'abonnement de novembre 2020.",
+    "headMystery202011Text": "Chapeau de magie foliée",
+    "armorArmoireDoubletOfClubsNotes": "Qui sait ce que les cartes vous réservent, mais vous aurez invariablement du style avec ce doublet et cette cape ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble du valet de trèfles (objet 3 de 3).",
+    "armorArmoireDoubletOfClubsText": "Doublet de trèfles",
+    "weaponArmoireClubOfClubsNotes": "Cette matraque stylisée ne révélera pas votre main trop tôt à propos de vos intentions envers ces vilaines tâches. Augmente la force de <%= str %>. Armoire enchantée : ensemble du valet de trèfle (objet 2 de 3).",
+    "weaponArmoireClubOfClubsText": "Matraque de trèfle"
 }

@@ -168,5 +168,6 @@
     "subscriptionAlreadySubscribedLeadIn": "Спасибо за подписку!",
     "organization": "Организация",
     "supportHabitica": "Поддержать Habitica",
-    "usuallyGems": "Обычно <%= originalGems %>"
+    "usuallyGems": "Обычно <%= originalGems %>",
+    "dropCapLearnMore": "Подробнее о системе трофеев Habitica"
 }

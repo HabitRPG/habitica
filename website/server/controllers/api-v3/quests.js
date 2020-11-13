@@ -156,7 +156,7 @@ api.inviteToQuest = {
       questName: questKey,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 
@@ -217,7 +217,7 @@ api.acceptQuest = {
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 
@@ -278,7 +278,7 @@ api.rejectQuest = {
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 
@@ -338,7 +338,7 @@ api.forceStart = {
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 

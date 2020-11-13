@@ -1,13 +1,19 @@
 <template>
   <drawer
+    ref="drawer"
     class="inventoryDrawer"
     :no-title-bottom-padding="true"
     :error-message="inventoryDrawerErrorMessage(selectedDrawerItemType)"
-    ref="drawer"
   >
-    <div slot="drawer-title-row" class="title-row-tabs">
-      <div class="drawer-tab" v-for="(tab, index) of filteredTabs"
-           :key="tab.key">
+    <div
+      slot="drawer-title-row"
+      class="title-row-tabs"
+    >
+      <div
+        v-for="(tab, index) of filteredTabs"
+        :key="tab.key"
+        class="drawer-tab"
+      >
         <a
           class="drawer-tab-text"
           :class="{'drawer-tab-text-active': filteredTabs[selectedDrawerTab].key === tab.key}"

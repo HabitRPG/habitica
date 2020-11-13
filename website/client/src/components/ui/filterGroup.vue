@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>
+    <h4 v-if="title">
       {{ title }}
     </h4>
     <div class="form-group">
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'filterGroup',
+  name: 'FilterGroup',
   props: ['title'],
 };
 </script>

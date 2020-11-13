@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill.",
+    "spellAlreadyCast": "इस कौशल का उपयोग करने से कोई अतिरिक्त प्रभाव नहीं पड़ेगा।"
 }

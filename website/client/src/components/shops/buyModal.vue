@@ -386,7 +386,6 @@ import size from 'lodash/size';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
 
-import * as Analytics from '@/libs/analytics';
 import spellsMixin from '@/mixins/spells';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import numberInvalid from '@/mixins/numberInvalid';
@@ -611,14 +610,6 @@ export default {
       }
     },
     purchaseGems () {
-      if (this.item.key === 'rebirth_orb') {
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'button',
-          eventAction: 'click',
-          eventLabel: 'Gems > Rebirth',
-        });
-      }
       this.$root.$emit('bv::show::modal', 'buy-gems');
     },
     togglePinned () {
