@@ -29,7 +29,7 @@
     "weaponWarrior2Text": "Tua",
     "weaponWarrior2Notes": "Double-bitted chopping weapon. Increases Strength by <%= str %>",
     "weaponWarrior3Text": "Morning Star",
-    "weaponWarrior3Notes": "Chlub Trom le spíce fhuiltigh. Méaduithe neart ag <% = str %>.",
+    "weaponWarrior3Notes": "Chlub Trom le spíce fhuiltigh. Méaduithe neart ag <%= str %>.",
     "weaponWarrior4Text": "Sapphire Lann",
     "weaponWarrior4Notes": "Claíomh bhfuil greamanna ar nós na gaoithe ó thuaidh imeall. Méaduithe neart ag <%= str %>.",
     "weaponWarrior5Text": "Ruby Claíomh",

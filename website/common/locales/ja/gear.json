@@ -2026,5 +2026,17 @@
     "backMystery202009Notes": "大きな羽は、未踏の高さに連れて行ってくれるでしょう！効果なし。2020年09月の有料会員アイテム。",
     "backMystery202009Text": "マーベラスな蛾の羽",
     "backMystery202010Notes": "あなたは夜そのもの！ですから、この紫色の素早い羽根で、夜の雲のように静かに飛びましょう！効果なし。2020年10月の有料会員アイテム。",
-    "backMystery202010Text": "トンデモこうもりの翼"
+    "backMystery202010Text": "トンデモこうもりの翼",
+    "weaponSpecialSpring2020RogueNotes": "素早く振れば、刃はいっそう青く見えるでしょう！力が<%= str %>上がります。2020年春の限定装備。",
+    "weaponSpecialSpring2020RogueText": "青金石の刃",
+    "headAccessoryMystery202009Notes": "この羽毛の生えた付属肢は、闇夜の中でもあなたの道を探す助けになるでしょう。効果なし。2020年09月の有料会員アイテム。",
+    "headAccessoryMystery202009Text": "マーベラスな蛾の触覚",
+    "weaponSpecialSpring2020WarriorNotes": "戦うにしろ、飛ぶにしろ、役に立つ羽根です！力が<%= str %>上がります。2020年春の限定装備。",
+    "weaponSpecialSpring2020WarriorText": "とがらせた羽",
+    "weaponSpecialSpring2020MageNotes": "雨つぶはあなたの頭上に降り続けています！でも、あなたが文句を言っても雨が止むことは決してありません。（訳注：B.J.トーマスの楽曲「Raindrops Keep Fallin' on My Head」（邦題：雨にぬれても）の歌詞のパロディ。）知能が<%= int %>、知覚が<%= per %>上がります。2020年春の限定装備。",
+    "weaponSpecialSpring2020MageText": "雨つぶ",
+    "armorSpecialSpring2020RogueNotes": "もっとも深い海のそこにあった、暁の空の色の、たくさんの宝石です！知覚が<%= per %>上がります。2020年春の限定装備。",
+    "armorSpecialSpring2020RogueText": "ウルトラマリンのよろい",
+    "weaponSpecialSpring2020HealerNotes": "アイリス（アヤメ科アヤメ属の総称）の花は美しいですが、葉は剣のよう……花の見た目に騙されてはいけません。このつえは鋼のように頑丈です！知能が<%= int %>上がります。2020年春の限定装備。",
+    "weaponSpecialSpring2020HealerText": "グラジオラスのつえ"
 }

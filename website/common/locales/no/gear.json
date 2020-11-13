@@ -93,7 +93,7 @@
     "weaponSpecialTridentOfCrashingTidesText": "Trefork for krasjende tidevann",
     "weaponSpecialTridentOfCrashingTidesNotes": "Gir deg evnen for å kommandere fisk, og gir også mektige stikk til dine oppgaver. Øker Visdom med <%= int %>.",
     "weaponSpecialTaskwoodsLanternText": "Lanterne fra Oppgaveskogen",
-    "weaponSpecialTaskwoodsLanternNotes": "Gitt i tidenes begynnelse til vaktespøkelsen av Oppgaveskogen, kan denne lanternen belyser det dypeste mørket og veve kraftig trolldom. Øker Sansingen og Visdommen med <% = attrs %> hver.",
+    "weaponSpecialTaskwoodsLanternNotes": "Gitt i tidenes begynnelse til vaktespøkelsen av Oppgaveskogen, kan denne lanternen belyser det dypeste mørket og veve kraftig trolldom. Øker Sansingen og Visdommen med <%= attrs %> hver.",
     "weaponSpecialBardInstrumentText": "Skaldisk Lutt",
     "weaponSpecialBardInstrumentNotes": "Klimpre en lystig melodi på denne magiske lutten! Øker Visdom og Sansing med <%= attrs %> hver.",
     "weaponSpecialLunarScytheText": "Måneljå",
@@ -1742,5 +1742,5 @@
     "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
     "twoHandedItem": "Two-handed item.",
-    "headSpecialWinter2020MageNotes": "Åh! Hvordan klokkene / Søte gyldne klokkene / Alt ser ut til å si, / \"Kast 'Ildkule'\" Øker Sansing med <% = per%>. Begrenset utgave 2019-2020 Vinterutstyr."
+    "headSpecialWinter2020MageNotes": "Åh! Hvordan klokkene / Søte gyldne klokkene / Alt ser ut til å si, / \"Kast 'Ildkule'\" Øker Sansing med <%= per %>. Begrenset utgave 2019-2020 Vinterutstyr."
 }
