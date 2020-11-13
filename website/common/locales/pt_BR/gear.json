@@ -1773,7 +1773,7 @@
     "weaponSpecialSpring2019MageText": "Cajado de Âmbar",
     "weaponSpecialSpring2019MageNotes": "Há um mosquito embutido na pedra no final deste cajado! Pode ou não incluir DNA de Dinossauro. Aumenta a Inteligencia em <%= int %> e Percepção <%= per %>. Equipamento de Edição Limitada Primavera de 2019.",
     "weaponSpecialSpring2019HealerText": "Canção de Primavera",
-    "weaponSpecialSpring2019HealerNotes": "Sua canção de flores e chuva vai acalmar os espíritos de todos que a ouvem. Aumenta Inteligência em <% = int %>. Equipamento de Edição Limitada Primavera de 2019.",
+    "weaponSpecialSpring2019HealerNotes": "Sua canção de flores e chuva vai acalmar os espíritos de todos que a ouvem. Aumenta Inteligência em <%= int %>. Equipamento de Edição Limitada Primavera de 2019.",
     "weaponArmoireJugglingBallsText": "Bolas de Malabarismo",
     "weaponArmoireJugglingBallsNotes": "Habiticanos são mestre em multitarefa, então você não deve ter problemas para manter todas essas bolas no ar! Aumenta a Inteligência em <%= int %>. Armário Encantado: Item Independente.",
     "weaponArmoireSlingshotText": "Estilingue",
