@@ -500,8 +500,10 @@ export default {
     if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
     await this.fetchGuild();
+
+    const type = this.isParty ? 'party' : 'guilds';
     this.$store.dispatch('common:setTitle', {
-      section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('guilds'),
+      section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t(type),
       subSection: this.group.name,
     });
     this.$root.$on('updatedGroup', this.onGroupUpdate);
@@ -520,8 +522,9 @@ export default {
     onGroupUpdate (group) {
       const updatedGroup = extend(this.group, group);
       this.$set(this.group, updatedGroup);
+      const type = this.isParty ? 'party' : 'guilds';
       this.$store.dispatch('common:setTitle', {
-        section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('guilds'),
+        section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t(type),
         subSection: group.name,
       });
     },
