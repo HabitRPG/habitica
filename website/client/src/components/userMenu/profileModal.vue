@@ -38,11 +38,6 @@ export default {
       selectedPage: '',
     };
   },
-  watch: {
-    startingPage () {
-      this.selectedPage = this.startingPage;
-    },
-  },
   mounted () {
     this.$root.$on('habitica:show-profile', data => {
       this.userId = data.userId;
@@ -60,40 +55,9 @@ export default {
     },
     onHidden () {
       if (this.$route.path !== window.location.pathname) {
-        this.$router.push({ path: this.$route.path });
-        window.history.replaceState(null, null, '');
-        if (this.$t(this.pathDecode('section')) === 'String \'\' not found.') {
-          this.$store.dispatch('common:setTitle', {
-            section: this.$t(this.pathDecode('subsection')),
-          });
-        } else {
-          this.$store.dispatch('common:setTitle', {
-            section: this.$t(this.pathDecode('section')),
-            subSection: this.$t(this.pathDecode('subsection')),
-          });
-        }
+        this.$router.go(-1);
+        this.$root.$emit('restoreTitle');
       }
-    },
-    pathDecode (section) {
-      const str = this.$route.path;
-      const firstI = str.indexOf('/') + 1;
-      const secondI = str.lastIndexOf('/');
-      let newstr = '';
-      if (section === 'section') {
-        newstr = str.slice(firstI, secondI);
-      } else if (section === 'subsection') {
-        newstr = str.slice(secondI + 1);
-      }
-      if (newstr === 'seasonal') {
-        newstr = 'seasonalShop';
-      } else if (newstr === 'discovery') {
-        newstr = 'guildsDiscovery';
-      } else if (newstr === 'group-plans') {
-        newstr = 'groupPlans';
-      } else if (newstr === 'time') {
-        newstr = 'timeTravelers';
-      }
-      return newstr;
     },
   },
 };

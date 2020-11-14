@@ -782,6 +782,7 @@ export default {
       content: Content,
       user: null,
       userLoaded: false,
+      oldTitle: '',
     };
   },
   computed: {
@@ -838,6 +839,11 @@ export default {
   mounted () {
     this.loadUser();
     this.selectPage(this.startingPage);
+    this.$root.$on('restoreTitle', () => {
+      this.$store.dispatch('common:setTitle', {
+        fullTitle: this.oldTitle,
+      });
+    });
   },
   methods: {
     async loadUser () {
@@ -899,6 +905,7 @@ export default {
     selectPage (page) {
       this.selectedPage = page || 'profile';
       window.history.replaceState(null, null, '');
+      this.oldTitle = this.$store.state.title;
       this.$store.dispatch('common:setTitle', {
         section: this.$t('user'),
         subSection: this.$t(this.startingPage),
