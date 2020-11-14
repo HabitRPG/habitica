@@ -12,7 +12,9 @@ const { i18n } = common;
 
 describe('stripe - cancel subscription', () => {
   const subKey = 'basic_3mo';
-  const stripe = stripeModule('test');
+  const stripe = stripeModule('test', {
+    apiVersion: '2020-08-27',
+  });
   let user; let groupId; let
     group;
 

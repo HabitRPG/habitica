@@ -14,7 +14,9 @@ const { i18n } = common;
 
 describe('stripe - checkout with subscription', () => {
   const subKey = 'basic_3mo';
-  const stripe = stripeModule('test');
+  const stripe = stripeModule('test', {
+    apiVersion: '2020-08-27',
+  });
   let user; let group; let data; let gift; let sub;
   let groupId; let email; let headers; let coupon;
   let customerIdResponse; let subscriptionId; let

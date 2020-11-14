@@ -9,7 +9,9 @@ import stripePayments from '../../../../../../website/server/libs/payments/strip
 import payments from '../../../../../../website/server/libs/payments/payments';
 
 describe('Stripe - Upgrade Group Plan', () => {
-  const stripe = stripeModule('test');
+  const stripe = stripeModule('test', {
+    apiVersion: '2020-08-27',
+  });
   let spy; let data; let user; let
     group;
 
