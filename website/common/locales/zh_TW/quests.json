@@ -49,7 +49,6 @@
     "questNotOwned": "您沒有此副本卷軸。",
     "questNotGoldPurchasable": "副本〈<%= key %>〉無法使用金幣購買。",
     "questNotGemPurchasable": "無法使用寶石購買〈<%= key %>〉副本。",
-    "questLevelTooHigh": "您必須達到等級<%= level %>才能開始此副本。",
     "questAlreadyUnderway": "您的隊伍已經正在進行副本。請等到目前的副本結束後再試一次。",
     "questAlreadyAccepted": "你已經接受了副本邀請。",
     "noActiveQuestToLeave": "沒有正在進行的副本可供離開",

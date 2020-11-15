@@ -53,5 +53,11 @@
     "messageMissingDisplayName": "Missing display name.",
     "reportedMessage": "You have reported this message to moderators.",
     "canDeleteNow": "You can now delete the message if you wish.",
-    "beginningOfConversationReminder": "Remember to be kind, respectful, and follow the Community Guidelines!"
+    "beginningOfConversationReminder": "Remember to be kind, respectful, and follow the Community Guidelines!",
+    "newsPostNotFound": "News Post not found or you don’t have access.",
+    "messageAllUnEquipped": "Everything unequipped.",
+    "messageBackgroundUnEquipped": "Background unequipped.",
+    "messagePetMountUnEquipped": "Pet and Mount unequipped.",
+    "messageCostumeUnEquipped": "Costume unequipped.",
+    "messageBattleGearUnEquipped": "Battle Gear unequipped."
 }

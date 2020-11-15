@@ -35,6 +35,7 @@
     <mind-over-matter />
     <onboarding-complete />
     <first-drops />
+    <drop-cap-reached-modal />
   </div>
 </template>
 
@@ -145,6 +146,7 @@ import loginIncentives from './achievements/login-incentives';
 import onboardingComplete from './achievements/onboardingComplete';
 import verifyUsername from './settings/verifyUsername';
 import firstDrops from './achievements/firstDrops';
+import DropCapReachedModal from '@/components/achievements/dropCapReached';
 
 const NOTIFICATIONS = {
   CHALLENGE_JOINED_ACHIEVEMENT: {
@@ -186,7 +188,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementBackToBasics')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'backToBasics', // defined manually until the server sends all the necessary data
+      achievement: 'backToBasics',
     },
   },
   ACHIEVEMENT_DUST_DEVIL: {
@@ -194,7 +196,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementDustDevil')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'dustDevil', // defined manually until the server sends all the necessary data
+      achievement: 'dustDevil',
     },
   },
   ACHIEVEMENT_ARID_AUTHORITY: {
@@ -202,7 +204,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementAridAuthority')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'aridAuthority', // defined manually until the server sends all the necessary data
+      achievement: 'aridAuthority',
     },
   },
   ACHIEVEMENT_PARTY_UP: {
@@ -212,7 +214,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('achievementPartyUp'),
-      achievement: 'partyUp', // defined manually until the server sends all the necessary data
+      achievement: 'partyUp',
     },
   },
   ACHIEVEMENT_PARTY_ON: {
@@ -222,7 +224,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('achievementPartyOn'),
-      achievement: 'partyOn', // defined manually until the server sends all the necessary data
+      achievement: 'partyOn',
     },
   },
   ACHIEVEMENT_BEAST_MASTER: {
@@ -232,7 +234,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('beastAchievement'),
-      achievement: 'beastMaster', // defined manually until the server sends all the necessary data
+      achievement: 'beastMaster',
     },
   },
   ACHIEVEMENT_MOUNT_MASTER: {
@@ -242,7 +244,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('mountAchievement'),
-      achievement: 'mountMaster', // defined manually until the server sends all the necessary data
+      achievement: 'mountMaster',
     },
   },
   ACHIEVEMENT_TRIAD_BINGO: {
@@ -252,7 +254,7 @@ const NOTIFICATIONS = {
     data: {
       message: $t => $t('achievement'),
       modalText: $t => $t('triadBingoAchievement'),
-      achievement: 'triadBingo', // defined manually until the server sends all the necessary data
+      achievement: 'triadBingo',
     },
   },
   ACHIEVEMENT_MONSTER_MAGUS: {
@@ -260,7 +262,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementMonsterMagus')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'monsterMagus', // defined manually until the server sends all the necessary data
+      achievement: 'monsterMagus',
     },
   },
   ACHIEVEMENT_UNDEAD_UNDERTAKER: {
@@ -268,7 +270,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementUndeadUndertaker')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'undeadUndertaker', // defined manually until the server sends all the necessary data
+      achievement: 'undeadUndertaker',
     },
   },
   ACHIEVEMENT: { // data filled in handleUserNotifications
@@ -285,7 +287,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementPrimedForPainting')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'primedForPainting', // defined manually until the server sends all the necessary data
+      achievement: 'primedForPainting',
     },
   },
   ACHIEVEMENT_PEARLY_PRO: {
@@ -293,7 +295,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementPearlyPro')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'pearlyPro', // defined manually until the server sends all the necessary data
+      achievement: 'pearlyPro',
     },
   },
   ACHIEVEMENT_TICKLED_PINK: {
@@ -301,7 +303,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementTickledPink')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'tickledPink', // defined manually until the server sends all the necessary data
+      achievement: 'tickledPink',
     },
   },
   ACHIEVEMENT_ROSY_OUTLOOK: {
@@ -309,7 +311,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementRosyOutlook')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'rosyOutlook', // defined manually until the server sends all the necessary data
+      achievement: 'rosyOutlook',
     },
   },
   ACHIEVEMENT_BUG_BONANZA: {
@@ -317,7 +319,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementBugBonanza')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'bugBonanza', // defined manually until the server sends all the necessary data
+      achievement: 'bugBonanza',
     },
   },
   ACHIEVEMENT_BARE_NECESSITIES: {
@@ -325,7 +327,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementBareNecessities')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'bareNecessities', // defined manually until the server sends all the necessary data
+      achievement: 'bareNecessities',
     },
   },
   ACHIEVEMENT_FRESHWATER_FRIENDS: {
@@ -333,7 +335,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementFreshwaterFriends')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'freshwaterFriends', // defined manually until the server sends all the necessary data
+      achievement: 'freshwaterFriends',
     },
   },
   ACHIEVEMENT_GOOD_AS_GOLD: {
@@ -341,7 +343,7 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementGoodAsGold')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'goodAsGold', // defined manually until the server sends all the necessary data
+      achievement: 'goodAsGold',
     },
   },
   ACHIEVEMENT_ALL_THAT_GLITTERS: {
@@ -349,7 +351,23 @@ const NOTIFICATIONS = {
     label: $t => `${$t('achievement')}: ${$t('achievementAllThatGlitters')}`,
     modalId: 'generic-achievement',
     data: {
-      achievement: 'allThatGlitters', // defined manually until the server sends all the necessary data
+      achievement: 'allThatGlitters',
+    },
+  },
+  ACHIEVEMENT_BONE_COLLECTOR: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementBoneCollector')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'boneCollector',
+    },
+  },
+  ACHIEVEMENT_SKELETON_CREW: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementSkeletonCrew')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'skeletonCrew',
     },
   },
 };
@@ -384,6 +402,7 @@ export default {
     justAddWater,
     onboardingComplete,
     firstDrops,
+    DropCapReachedModal,
   },
   mixins: [notifications, guide],
   data () {
@@ -412,6 +431,7 @@ export default {
       'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT_TICKLED_PINK', 'ACHIEVEMENT_ROSY_OUTLOOK', 'ACHIEVEMENT',
       'ONBOARDING_COMPLETE', 'FIRST_DROPS', 'ACHIEVEMENT_BUG_BONANZA', 'ACHIEVEMENT_BARE_NECESSITIES',
       'ACHIEVEMENT_FRESHWATER_FRIENDS', 'ACHIEVEMENT_GOOD_AS_GOLD', 'ACHIEVEMENT_ALL_THAT_GLITTERS',
+      'ACHIEVEMENT_BONE_COLLECTOR', 'ACHIEVEMENT_SKELETON_CREW',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -791,7 +811,7 @@ export default {
             this.$root.$emit('bv::show::modal', 'rebirth-enabled');
             break;
           case 'WON_CHALLENGE':
-            this.$root.$emit('bv::show::modal', 'won-challenge');
+            this.$root.$emit('habitica:won-challenge', notification);
             break;
           case 'STREAK_ACHIEVEMENT':
             this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {
@@ -828,6 +848,8 @@ export default {
           case 'ACHIEVEMENT_FRESHWATER_FRIENDS':
           case 'ACHIEVEMENT_GOOD_AS_GOLD':
           case 'ACHIEVEMENT_ALL_THAT_GLITTERS':
+          case 'ACHIEVEMENT_BONE_COLLECTOR':
+          case 'ACHIEVEMENT_SKELETON_CREW':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

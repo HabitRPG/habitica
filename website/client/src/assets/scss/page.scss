@@ -20,5 +20,18 @@ body {
 }
 
 .page-header {
-  color: $purple-200;
+  color: $purple-300;
+
+  height: 2rem;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.33;
+}
+
+.sub-header {
+  height: 1.75rem;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.4;
+  color: $gray-10;
 }

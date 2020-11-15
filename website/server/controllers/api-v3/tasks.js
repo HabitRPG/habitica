@@ -794,9 +794,9 @@ api.scoreTask = {
  * @apiGroup Task
  *
  * @apiParam (Path) {String} taskId The task _id or alias
- * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list.
- é                           -1 = bottom of the list.
- é                           (-1 means push to bottom). First position is 0
+ * @apiParam (Path) {Number} position Where to move the task.
+ *                                    0 = top of the list ("push to top").
+ *                                   -1 = bottom of the list ("push to bottom").
  *
  * @apiSuccess {Array} data The new tasks order for the specific type that the taskID belongs to.
  *
@@ -837,9 +837,8 @@ api.moveTask = {
     pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
     await user.update(pullQuery).exec();
 
-    // Handle push to bottom
     let position = to;
-    if (to === -1) position = [`tasksOrder.${task.type}s`].length - 1;
+    if (to === -1) position = order.length - 1; // push to bottom
 
     const updateQuery = { $push: {} };
     updateQuery.$push[`tasksOrder.${task.type}s`] = {

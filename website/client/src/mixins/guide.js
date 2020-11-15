@@ -143,12 +143,6 @@ export default {
 
       return null;
     },
-    hoyo (user) {
-      // @TODO: What is was the timeout for?
-      // @TODO move to analytics
-      window.amplitude.setUserId(user._id);
-      window.ga('set', { userId: user._id });
-    },
     goto (chapter, page, force) {
       if (chapter === 'intro' && this.user.flags.welcomed !== true) {
         // @TODO: Add dispatch User.set({'flags.welcomed': true});

@@ -41,6 +41,13 @@ const ANIMAL_COLOR_ACHIEVEMENTS = [
     mountAchievement: 'allThatGlitters',
     mountNotificationType: 'ACHIEVEMENT_ALL_THAT_GLITTERS',
   },
+  {
+    color: 'Skeleton',
+    petAchievement: 'boneCollector',
+    petNotificationType: 'ACHIEVEMENT_BONE_COLLECTOR',
+    mountAchievement: 'skeletonCrew',
+    mountNotificationType: 'ACHIEVEMENT_SKELETON_CREW',
+  },
 ];
 
 export default ANIMAL_COLOR_ACHIEVEMENTS;

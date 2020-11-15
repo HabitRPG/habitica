@@ -1,6 +1,5 @@
 {
     "achievement": "Osiągnięcie",
-    "share": "Udostępnij",
     "onwards": "Naprzód!",
     "levelup": "Realizując życiowe cele, osiągnąłeś wyższy poziom i jesteś teraz w pełni wyleczony!",
     "reachedLevel": "Osiągnąłeś poziom <%= level %>",
@@ -91,5 +90,6 @@
     "achievementGoodAsGoldModalText": "Zebrałeś(-aś) wszystkie złote chowańce!",
     "achievementGoodAsGoldText": "Zebrane wszystkie złote chowańce.",
     "achievementGoodAsGold": "Na wagę złota",
-    "yourRewards": "Twoje Nagrody"
+    "yourRewards": "Twoje Nagrody",
+    "achievementBoneCollector": "Kolekcjoner Kości"
 }

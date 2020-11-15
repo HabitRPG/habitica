@@ -2,14 +2,14 @@
   <div class="payments-column mx-auto mt-auto">
     <button
       v-if="stripeAvailable"
-      class="btn btn-primary payment-button payment-item"
+      class="btn btn-primary payment-button payment-item with-icon"
       :class="{disabled}"
       :disabled="disabled"
       @click="stripeFn()"
     >
       <div
         v-once
-        class="svg-icon credit-card-icon"
+        class="svg-icon color credit-card-icon"
         v-html="icons.creditCardIcon"
       ></div>
       {{ $t('card') }}

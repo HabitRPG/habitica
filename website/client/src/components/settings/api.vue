@@ -32,8 +32,11 @@
             <br>
             {{ $t('beeminderDesc') }}
           </li>
-          <li v-html="$t('chatExtension')"></li>
-          <span>{{ $t('chatExtensionDesc') }}</span>
+          <li>
+            <div v-html="$t('chatExtension')">
+            </div>
+            <span>{{ $t('chatExtensionDesc') }}</span>
+          </li>
           <li>
             <a
               target="_blank"
@@ -42,8 +45,10 @@
             <br>
             {{ $t('dataToolDesc') }}
           </li>
-          <li v-html="$t('otherExtensions')"></li>
-          <span>{{ $t('otherDesc') }}</span>
+          <li>
+            <div v-html="$t('otherExtensions')"></div>
+            <span>{{ $t('otherDesc') }}</span>
+          </li>
         </ul>
         <hr>
       </div>
@@ -129,6 +134,10 @@
   .section {
     margin-top: 2em;
   }
+  li span
+  {
+    display: block;
+  }
 </style>
 
 <script>
@@ -154,6 +163,10 @@ export default {
     },
   },
   mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('settings'),
+      subSection: this.$t('API'),
+    });
     window.addEventListener('message', this.receiveMessage, false);
   },
   destroy () {

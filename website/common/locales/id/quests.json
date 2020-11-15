@@ -49,7 +49,6 @@
     "questNotOwned": "Kamu tidak memiliki gulungan misi tersebut.",
     "questNotGoldPurchasable": "Misi \"<%= key %>\" tidak dapat dibeli dengan Emas.",
     "questNotGemPurchasable": "Misi \"<%= key %>\" tidak dapat dibeli dengan Permata.",
-    "questLevelTooHigh": "Kamu harus berada di level <%= level %> untuk memulai misi ini.",
     "questAlreadyUnderway": "Party-mu telah berada dalam misi. Coba lagi ketika misi telah selesai.",
     "questAlreadyAccepted": "Kamu telah menerima undangan misi.",
     "noActiveQuestToLeave": "Tidak ada misi aktif untuk ditinggalkan",

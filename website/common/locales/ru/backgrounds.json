@@ -1,5 +1,5 @@
 {
-    "backgrounds": "Фон",
+    "backgrounds": "Фоны",
     "background": "Фон",
     "backgroundShop": "Лавка фонов",
     "backgroundShopText": "Лавка фонов",
@@ -554,5 +554,9 @@
     "backgrounds092020": "Набор 76: Выпущен в сентябре 2020",
     "backgroundHauntedForestText": "Проклятый лес",
     "backgroundCrescentMoonText": "Полумесяц",
-    "backgrounds102020": "Набор 77: Выпущен в октябре 2020"
+    "backgrounds102020": "Набор 77: Выпущен в октябре 2020",
+    "backgroundRiverOfLavaText": "Поток лавы",
+    "backgroundRestingInTheInnText": "Отдых в гостинице",
+    "backgroundMysticalObservatoryText": "Мистическая обсерватория",
+    "backgrounds112020": "Набор 78: Выпущен в ноябре 2020"
 }

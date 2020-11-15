@@ -384,6 +384,16 @@ export default {
       memberResults: [],
     };
   },
+  watch: {
+    'challenge.name': {
+      handler (newVal) {
+        this.$store.dispatch('common:setTitle', {
+          section: this.$t('challenge'),
+          subSection: newVal.name,
+        });
+      },
+    },
+  },
   computed: {
     ...mapState({ user: 'user.data' }),
     isMember () {
@@ -433,6 +443,10 @@ export default {
         this.$router.push('/challenges/findChallenges');
         return;
       }
+      this.$store.dispatch('common:setTitle', {
+        subSection: this.challenge.name,
+        section: this.$t('challenges'),
+      });
       const tasks = await this.$store.dispatch('tasks:getChallengeTasks', { challengeId: this.searchId });
       this.tasksByType = {
         habit: [],

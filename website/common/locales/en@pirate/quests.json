@@ -49,7 +49,6 @@
     "questNotOwned": "Ye don't own that adventure scroll.",
     "questNotGoldPurchasable": "Adventure \"<%= key %>\" doesn't be a Doubloon-purchasable adventure.",
     "questNotGemPurchasable": "Adventure \"<%= key %>\" doesn't be a Sapphire-purchasable adventure.",
-    "questLevelTooHigh": "Ye must be level <%= level %> t' begin this adventure.",
     "questAlreadyUnderway": "Yer crew already be on a adventure. Try again when th' current adventure has ended.",
     "questAlreadyAccepted": "Ye already accepted th' adventure invitation.",
     "noActiveQuestToLeave": "No active adventure t' leave",

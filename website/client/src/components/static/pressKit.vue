@@ -172,5 +172,10 @@ export default {
       ],
     });
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('presskit'),
+    });
+  },
 };
 </script>

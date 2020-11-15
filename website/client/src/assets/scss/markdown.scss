@@ -1,32 +1,52 @@
+@mixin h3Markdown {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  margin-bottom: 4px;
+
+  line-height: 1.25;
+  margin-top: 6px;
+  color: $gray-10;
+
+  font-weight: normal;
+}
+
+// task titles are h3 by default
+h3.markdown {
+  @include h3Markdown;
+}
+
 .markdown {
   p {
     margin-bottom: 8px;
   }
 
   h1 {
+    font-size: 24px;
+    line-height: 1.67;
     margin-bottom: 10px;
     margin-top: 14px;
-    line-height: 1.17;
   }
 
   h2 {
     margin-bottom: 6px;
     margin-top: 10px;
+    font-size: 20px;
+    line-height: 1.4;
   }
 
   h3 {
-    margin-bottom: 4px;
-    margin-top: 6px;
-    color: $gray-10;
+    @include h3Markdown;
   }
 
-  h1, h2, h3 {
+  h1, h2, h3, h4 {
     font-weight: normal;
   }
 
   h4 {
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 14px;
+    line-height: 1.43;
+    color: $gray-10;
   }
 
   a {

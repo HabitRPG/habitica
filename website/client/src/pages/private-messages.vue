@@ -152,6 +152,7 @@
             <textarea
               ref="textarea"
               v-model="newMessage"
+              dir="auto"
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
               :maxlength="MAX_MESSAGE_LENGTH"
@@ -781,6 +782,9 @@ export default {
     },
   },
   async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('messages'),
+    });
     // notification click to refresh
     this.$root.$on(EVENTS.PM_REFRESH, async () => {
       await this.reload();

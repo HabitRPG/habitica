@@ -184,5 +184,7 @@
     "fall2020TwoHeadedRogueSet": "双头（盗贼）",
     "fall2020ThirdEyeMageSet": "三眼（法师）",
     "fall2020DeathsHeadMothHealerSet": "死亡头颅蛾（医者）",
-    "fall2020WraithWarriorSet": "魅影（战士）"
+    "fall2020WraithWarriorSet": "魅影（战士）",
+    "septemberYYYY": "<%= year %>9月",
+    "royalPurpleJackolantern": "皇家紫杰克南瓜灯"
 }

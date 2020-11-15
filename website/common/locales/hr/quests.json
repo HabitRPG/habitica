@@ -49,7 +49,6 @@
     "questNotOwned": "Ne posjeduješ taj pustolovni svitak.",
     "questNotGoldPurchasable": "Pustolovinu \"<%= key %>\" se ne može kupiti zlatnicima.",
     "questNotGemPurchasable": "Pustolovinu \"<%= key %>\" se ne može kupiti Draguljima.",
-    "questLevelTooHigh": "Moraš biti level <%= level %> da bi započeo/la ovu pustolovinu.",
     "questAlreadyUnderway": "Tvoja družina je već na pustolovini. Pokušaj ponovno kad trenutna pustolovina završi.",
     "questAlreadyAccepted": "Već si prihvatio/la poziv za pustolovinu.",
     "noActiveQuestToLeave": "Nema aktivnih pustolovina koje možeš napustiti",

@@ -49,7 +49,6 @@
     "questNotOwned": "You don't own that quest scroll.",
     "questNotGoldPurchasable": "Misi \"<%= key %>\" bukan sesuatu misi yang boleh dibeli dengan syiling emas",
     "questNotGemPurchasable": "Quest \"<%= key %>\" is not a Gem-purchasable quest.",
-    "questLevelTooHigh": "You must be level <%= level %> to begin this quest.",
     "questAlreadyUnderway": "Your party is already on a quest. Try again when the current quest has ended.",
     "questAlreadyAccepted": "You already accepted the quest invitation.",
     "noActiveQuestToLeave": "No active quest to leave",

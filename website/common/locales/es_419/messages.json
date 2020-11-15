@@ -53,5 +53,11 @@
     "messageMissingDisplayName": "Nombre de Usuario ausente.",
     "canDeleteNow": "Ahora puedes borrar el mensaje si lo desea.",
     "reportedMessage": "Has reportado este mensaje a los moderadores.",
-    "beginningOfConversationReminder": "¡Recuerda de ser amable, respetuoso, y seguir las Normas de la Comunidad!"
+    "beginningOfConversationReminder": "¡Recuerda de ser amable, respetuoso, y seguir las Normas de la Comunidad!",
+    "newsPostNotFound": "No se ha encontrado la publicación nueva o no tienes acceso.",
+    "messageAllUnEquipped": "Todo sin equipar.",
+    "messageBackgroundUnEquipped": "Fondo no equipado.",
+    "messagePetMountUnEquipped": "Mascota y Montura no equipados.",
+    "messageCostumeUnEquipped": "Disfraz no equipado.",
+    "messageBattleGearUnEquipped": "Equipo de Batalla no equipado."
 }

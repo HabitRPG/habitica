@@ -49,7 +49,6 @@
     "questNotOwned": "Du besitzt diese Quest-Schriftrolle nicht.",
     "questNotGoldPurchasable": "Quest \"<%= key %>\" ist nicht mit Gold käuflich.",
     "questNotGemPurchasable": "Quest \"<%= key %>\" ist nicht mit Edelsteinen käuflich.",
-    "questLevelTooHigh": "Du musst Level <%= level %> haben, um diese Quest zu starten.",
     "questAlreadyUnderway": "Deine Party nimmt bereits an einer Quest teil. Versuche es erneut, wenn die Quest abgeschlossen ist.",
     "questAlreadyAccepted": "Du hast die Questeinladung bereits angenommen.",
     "noActiveQuestToLeave": "Keine Quest zum Verlassen aktiv",

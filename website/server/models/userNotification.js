@@ -59,7 +59,10 @@ const NOTIFICATION_TYPES = [
   'ACHIEVEMENT_FRESHWATER_FRIENDS',
   'ACHIEVEMENT_GOOD_AS_GOLD',
   'ACHIEVEMENT_ALL_THAT_GLITTERS',
+  'ACHIEVEMENT_BONE_COLLECTOR',
+  'ACHIEVEMENT_SKELETON_CREW',
   'ACHIEVEMENT', // generic achievement notification, details inside `notification.data`
+  'DROP_CAP_REACHED',
 ];
 
 const { Schema } = mongoose;

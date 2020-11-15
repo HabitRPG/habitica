@@ -87,6 +87,12 @@ export default {
       return '/api/v4/coupons';
     },
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('settings'),
+      subSection: this.$t('promoCode'),
+    });
+  },
   methods: {
     generateCodes () {
       // $http.post(ApiUrl.get() + '/api/v2/coupons/generate/
