@@ -123,7 +123,7 @@
       <payments-buttons
         v-else
         :disabled="!gift.subscription.key && gift.gems.amount < 1"
-        :stripe-fn="() => showStripe({gift, uuid: userReceivingGems._id, receiverName})"
+        :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGems._id, receiverName})"
         :paypal-fn="() => openPaypalGift({
           gift: gift, giftedTo: userReceivingGems._id, receiverName,
         })"

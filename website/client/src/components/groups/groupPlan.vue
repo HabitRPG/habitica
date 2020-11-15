@@ -524,7 +524,7 @@ export default {
       }
 
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        this.showStripe(paymentData);
+        this.redirectToStripe(paymentData);
       }
 
       return null;

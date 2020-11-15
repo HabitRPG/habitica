@@ -5,12 +5,13 @@ import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks
 import { mapState } from '@/libs/store';
 import encodeParams from '@/libs/encodeParams';
 import notificationsMixin from '@/mixins/notifications';
-import * as Analytics from '@/libs/analytics';
+// import * as Analytics from '@/libs/analytics';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 
 const { STRIPE_PUB_KEY } = process.env;
 
-const habiticaUrl = `${window.location.protocol}//${window.location.host}`;
+// const habiticaUrl = `${window.location.protocol}//${window.location.host}`;
+let stripeInstance = null;
 
 export default {
   mixins: [notificationsMixin],
@@ -100,7 +101,10 @@ export default {
       // Listen for changes to local storage, indicating that the payment completed
       window.addEventListener('storage', localStorageChangeHandled);
     },
-    redirectToStripe (data) {
+    async redirectToStripe (data) {
+      if (!stripeInstance) {
+        stripeInstance = window.Stripe(STRIPE_PUB_KEY);
+      }
       if (!this.checkGemAmount(data)) return;
 
       let sub = false;
@@ -120,95 +124,97 @@ export default {
       if (data.gift && data.gift.type === 'gems') paymentType = 'gift-gems';
       if (data.gift && data.gift.type === 'subscription') paymentType = 'gift-subscription';
 
-      window.StripeCheckout.open({
-        key: STRIPE_PUB_KEY,
-        token: async res => {
-          const url = '/stripe/checkout-session';
+      const url = '/stripe/checkout-session';
 
-          if (data.groupToCreate) { //TODO
-            //url = '/api/v4/groups/create-plan?a=a';
-            res.groupToCreate = data.groupToCreate;
-            res.paymentType = 'Stripe';
-          }
+      /* if (data.groupToCreate) { // @TODO
+        // url = '/api/v4/groups/create-plan?a=a';
+        res.groupToCreate = data.groupToCreate;
+        res.paymentType = 'Stripe';
+      } */
 
-          const postData = {};
+      const postData = {};
 
-          if (data.gemsBlock) postData.gemsBlock = data.gemsBlock.key;
-          if (data.gift) {
-            data.gift.uuid = data.uuid;
-            postData.gift = data.gift;
-          }
-          if (data.subscription) postData.sub = sub.key;
-          if (data.coupon) postData.coupon = data.coupon;
-          if (data.groupId) postData.groupId = data.groupId;
+      if (data.gemsBlock) postData.gemsBlock = data.gemsBlock.key;
+      if (data.gift) {
+        data.gift.uuid = data.uuid;
+        postData.gift = data.gift;
+      }
+      if (data.subscription) postData.sub = sub.key;
+      if (data.coupon) postData.coupon = data.coupon;
+      if (data.groupId) postData.groupId = data.groupId;
 
-          const response = await axios.post(url, postData);
+      // @TODO proper error handling
+      const response = await axios.post(url, postData);
 
-          // @TODO handle with normal notifications?
-          const responseStatus = response.status;
-          if (responseStatus >= 400) {
-            window.alert(`Error: ${response.message}`); // eslint-disable-line no-alert
-            return;
-          }
+      try {
+        const checkoutSessionResult = await stripeInstance.redirectToCheckout({
+          sessionId: response.data.sessionId,
+        });
+        if (checkoutSessionResult.error) { // @TODO proper error handling
+          console.error(checkoutSessionResult.error);
+          alert(checkoutSessionResult.error.message);
+        }
+      } catch (err) { // @TODO proper error handling
+        console.error(err);
+        alert(err);
+      }
 
-          const appState = {
-            paymentMethod: 'stripe',
-            paymentCompleted: true,
-            paymentType,
-          };
-          if (paymentType === 'subscription') {
-            appState.subscriptionKey = sub.key;
-          } else if (paymentType === 'groupPlan') {
-            appState.subscriptionKey = sub.key;
+      const appState = {
+        paymentMethod: 'stripe',
+        paymentCompleted: true,
+        paymentType,
+      };
+      if (paymentType === 'subscription') {
+        appState.subscriptionKey = sub.key;
+      } else if (paymentType === 'groupPlan') {
+        appState.subscriptionKey = sub.key;
 
-            if (data.groupToCreate) {
-              appState.newGroup = true;
-              appState.group = pick(data.groupToCreate, ['_id', 'memberCount', 'name']);
-            } else {
-              appState.newGroup = false;
-              appState.group = pick(data.group, ['_id', 'memberCount', 'name']);
-            }
-          } else if (paymentType.indexOf('gift-') === 0) {
-            appState.gift = data.gift;
-            appState.giftReceiver = data.receiverName;
-          } else if (paymentType === 'gems') {
-            appState.gemsBlock = data.gemsBlock;
-          }
+        if (data.groupToCreate) {
+          appState.newGroup = true;
+          appState.group = pick(data.groupToCreate, ['_id', 'memberCount', 'name']);
+        } else {
+          appState.newGroup = false;
+          appState.group = pick(data.group, ['_id', 'memberCount', 'name']);
+        }
+      } else if (paymentType.indexOf('gift-') === 0) {
+        appState.gift = data.gift;
+        appState.giftReceiver = data.receiverName;
+      } else if (paymentType === 'gems') {
+        appState.gemsBlock = data.gemsBlock;
+      }
 
+      setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
 
-          setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+      /* @TODO redo const newGroup = response.data.data;
+      if (newGroup && newGroup._id) {
+        // @TODO this does not do anything as we reload just below
+        // @TODO: Just append? or $emit?
 
-          const newGroup = response.data.data;
-          if (newGroup && newGroup._id) {
-            // @TODO this does not do anything as we reload just below
-            // @TODO: Just append? or $emit?
+        // Handle new user signup
+        if (!this.$store.state.isUserLoggedIn) {
+          Analytics.track({
+            hitType: 'event',
+            eventCategory: 'group-plans-static',
+            eventAction: 'view',
+            eventLabel: 'paid-with-stripe',
+          });
 
-            // Handle new user signup
-            if (!this.$store.state.isUserLoggedIn) {
-              Analytics.track({
-                hitType: 'event',
-                eventCategory: 'group-plans-static',
-                eventAction: 'view',
-                eventLabel: 'paid-with-stripe',
-              });
+          window.location.assign(`${habiticaUrl}/group-pla
+            ns/${newGroup._id}/task-information?showGroupOverview=true`);
+          return;
+        }
 
-              window.location.assign(`${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`);
-              return;
-            }
+        this.user.guilds.push(newGroup._id);
+        window.location.assign(`${habiticaUrl}/group-plans/${newGroup._id}/task-information`);
+        return;
+      }
 
-            this.user.guilds.push(newGroup._id);
-            window.location.assign(`${habiticaUrl}/group-plans/${newGroup._id}/task-information`);
-            return;
-          }
+      if (data.groupId) {
+        window.location.assign(`${habiticaUrl}/group-plans/${data.groupId}/task-information`);
+        return;
+      }
 
-          if (data.groupId) {
-            window.location.assign(`${habiticaUrl}/group-plans/${data.groupId}/task-information`);
-            return;
-          }
-
-          window.location.reload(true);
-        },
-      });
+      window.location.reload(true); */
     },
     showStripeEdit (config) {
       let groupId;
