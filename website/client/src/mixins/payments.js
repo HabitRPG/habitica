@@ -100,7 +100,7 @@ export default {
       // Listen for changes to local storage, indicating that the payment completed
       window.addEventListener('storage', localStorageChangeHandled);
     },
-    showStripe (data) {
+    redirectToStripe (data) {
       if (!this.checkGemAmount(data)) return;
 
       let sub = false;
@@ -113,12 +113,6 @@ export default {
 
       sub = sub && subscriptionBlocks[sub];
 
-      let amount;
-      if (data.gemsBlock) amount = data.gemsBlock.price;
-      if (sub) amount = sub.price * 100;
-      if (data.gift && data.gift.type === 'gems') amount = (data.gift.gems.amount / 4) * 100;
-      if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
-
       let paymentType;
       if (sub === false && !data.gift) paymentType = 'gems';
       if (sub !== false && !data.gift) paymentType = 'subscription';
@@ -126,34 +120,29 @@ export default {
       if (data.gift && data.gift.type === 'gems') paymentType = 'gift-gems';
       if (data.gift && data.gift.type === 'subscription') paymentType = 'gift-subscription';
 
-      const label = (sub && paymentType !== 'gift-subscription')
-        ? this.$t('subscribe')
-        : this.$t('checkout');
-
       window.StripeCheckout.open({
         key: STRIPE_PUB_KEY,
-        address: false,
-        amount,
-        name: 'Habitica',
-        description: label,
-        // image: '/apple-touch-icon-144-precomposed.png',
-        panelLabel: label,
         token: async res => {
-          let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
+          const url = '/stripe/checkout-session';
 
-          if (data.groupToCreate) {
-            url = '/api/v4/groups/create-plan?a=a';
+          if (data.groupToCreate) { //TODO
+            //url = '/api/v4/groups/create-plan?a=a';
             res.groupToCreate = data.groupToCreate;
             res.paymentType = 'Stripe';
           }
 
-          if (data.gemsBlock) url += `&gemsBlock=${data.gemsBlock.key}`;
-          if (data.gift) url += `&gift=${this.encodeGift(data.uuid, data.gift)}`;
-          if (data.subscription) url += `&sub=${sub.key}`;
-          if (data.coupon) url += `&coupon=${data.coupon}`;
-          if (data.groupId) url += `&groupId=${data.groupId}`;
+          const postData = {};
 
-          const response = await axios.post(url, res);
+          if (data.gemsBlock) postData.gemsBlock = data.gemsBlock.key;
+          if (data.gift) {
+            data.gift.uuid = data.uuid;
+            postData.gift = data.gift;
+          }
+          if (data.subscription) postData.sub = sub.key;
+          if (data.coupon) postData.coupon = data.coupon;
+          if (data.groupId) postData.groupId = data.groupId;
+
+          const response = await axios.post(url, postData);
 
           // @TODO handle with normal notifications?
           const responseStatus = response.status;

@@ -16,7 +16,7 @@ import payments from '../payments'; // eslint-disable-line import/no-cycle
 import { getGemsBlock } from '../gems'; // eslint-disable-line import/no-cycle
 import stripeConstants from './constants';
 
-function getGiftAmount (gift) {
+function getGiftAmount (gift) {//TODO
   if (gift.type === 'subscription') {
     return `${shared.content.subscriptionBlocks[gift.subscription.key].price * 100}`;
   }
@@ -28,7 +28,7 @@ function getGiftAmount (gift) {
   return `${(gift.gems.amount / 4) * 100}`;
 }
 
-async function buyGems (gemsBlock, gift, user, token, stripeApi) {
+async function buyGems (gemsBlock, gift, user, token, stripeApi) {//TODO
   let amount;
 
   if (gift) {
@@ -52,7 +52,7 @@ async function buyGems (gemsBlock, gift, user, token, stripeApi) {
   return response;
 }
 
-async function buySubscription (sub, coupon, email, user, token, groupId, stripeApi) {
+async function buySubscription (sub, coupon, email, user, token, groupId, stripeApi) {//TODO
   if (sub.discount) {
     if (!coupon) throw new BadRequest(shared.i18n.t('couponCodeRequired'));
     coupon = await Coupon // eslint-disable-line no-param-reassign
@@ -85,7 +85,7 @@ async function buySubscription (sub, coupon, email, user, token, groupId, stripe
   return { subResponse: response, subId: subscriptionId };
 }
 
-async function applyGemPayment (user, response, gemsBlock, gift) {
+async function applyGemPayment (user, response, gemsBlock, gift) {//TODO
   let method = 'buyGems';
   const data = {
     user,
@@ -103,7 +103,7 @@ async function applyGemPayment (user, response, gemsBlock, gift) {
   await payments[method](data);
 }
 
-export async function checkout (options, stripeInc) {
+export async function checkout (options, stripeInc) { //TODO
   const {
     token,
     user,

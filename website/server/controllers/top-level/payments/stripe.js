@@ -8,6 +8,40 @@ const api = {};
 
 /**
  * @apiIgnore Payments are considered part of the private API
+ * @api {post} /stripe/checkout-session Create a Stripe Checkout Session
+ * @apiName StripeCheckout
+ * @apiGroup Payments
+ *
+ * @apiParam (Body) {String} gemsBlock If purchasing a gem block, its key
+ * @apiParam (Body) {Object} gift The gift object
+ * @apiParam (Body) {String} sub If purchasing a subscription, its key
+ * @apiParam (Body) {UUID} groupId If purchasing a group plan, the group id
+ * @apiParam (Body) {String} [coupon] Subscription Coupon
+ *
+ * @apiSuccess {String} data.sessionId The created checkout session id
+ * */
+api.createCheckoutSession = { //TODO
+  method: 'POST',
+  url: '/stripe/checkout-session',
+  middlewares: [authWithHeaders()],
+  async handler (req, res) {
+    // @TODO: These quer params need to be changed to body
+    const token = req.body.id;
+    const { user } = res.locals;
+    const gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
+    const sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
+    const { groupId, coupon, gemsBlock } = req.query;
+
+    await stripePayments.checkout({
+      token, user, gemsBlock, gift, sub, groupId, coupon, headers: req.headers,
+    });
+
+    res.respond(200, {});
+  },
+};
+
+/**
+ * @apiIgnore Payments are considered part of the private API
  * @api {post} /stripe/checkout Stripe checkout
  * @apiName StripeCheckout
  * @apiGroup Payments
@@ -22,7 +56,7 @@ const api = {};
  *
  * @apiSuccess {Object} data Empty object
  * */
-api.checkout = {
+api.checkout = { //TODO
   method: 'POST',
   url: '/stripe/checkout',
   middlewares: [authWithHeaders()],
@@ -52,7 +86,7 @@ api.checkout = {
  *
  * @apiSuccess {Object} data Empty object
  * */
-api.subscribeEdit = {
+api.subscribeEdit = { //TODO
   method: 'POST',
   url: '/stripe/subscribe/edit',
   middlewares: [authWithHeaders()],
@@ -73,7 +107,7 @@ api.subscribeEdit = {
  * @apiName StripeSubscribeCancel
  * @apiGroup Payments
  * */
-api.subscribeCancel = {
+api.subscribeCancel = { //TODO
   method: 'GET',
   url: '/stripe/subscribe/cancel',
   middlewares: [authWithHeaders()],
@@ -91,7 +125,7 @@ api.subscribeCancel = {
   },
 };
 
-api.handleWebhooks = {
+api.handleWebhooks = { //TODO
   method: 'POST',
   url: '/stripe/webhooks',
   async handler (req, res) {
