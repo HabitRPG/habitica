@@ -5,7 +5,7 @@ import handleRedirect from './handleRedirect';
 
 import ParentPage from '@/components/parentPage';
 
-// NOTE: when adding a page make sure to implement setTitle
+// NOTE: when adding a page make sure to implement the `common:setTitle` action
 
 // Static Pages
 const StaticWrapper = () => import(/* webpackChunkName: "entry" */'@/components/static/staticWrapper');

@@ -50,6 +50,11 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: 'Admin Panel',
+    });
+  },
   methods: {
     changeUserIdentifier (newId) {
       // If we've accessed the admin panel from a URL that had a user identifier in it,
