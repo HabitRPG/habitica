@@ -61,6 +61,7 @@ export default {
     onHidden () {
       if (this.$route.path !== window.location.pathname) {
         this.$router.go(-1);
+        this.$root.$emit('habitica: restoreTitle');
       }
     },
   },

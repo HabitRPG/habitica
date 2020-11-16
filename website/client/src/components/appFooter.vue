@@ -596,7 +596,7 @@ export default {
       await axios.post('/api/v4/debug/make-admin');
 
       // @TODO: Notification.text('You are now an admin!
-      // Go to the Hall of Heroes to change your contributor level.');
+      // Reload the website then go to Help > Admin Panel to set contributor level, etc.');
       // @TODO: sync()
     },
     openModifyInventoryModal  () {
