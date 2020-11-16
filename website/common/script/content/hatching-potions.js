@@ -393,6 +393,13 @@ const premium = {
       date: t('dateEndNovember'),
     }),
   },
+  BlackPearl: {
+    value: 2,
+    text: t('hatchingPotionBlackPearl'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('blackPearl'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {

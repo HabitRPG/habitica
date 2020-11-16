@@ -3723,6 +3723,38 @@ const quests = {
       unlock: t('questTurquoiseUnlockText'),
     },
   },
+  blackPearl: {
+    text: t('questBlackPearlText'),
+    notes: t('questBlackPearlNotes'),
+    completion: t('questBlackPearlCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questBlackPearlBoss'),
+      hp: 725,
+      str: 1.75,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'BlackPearl',
+          text: t('questBlackPearlDropBlackPearlPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'BlackPearl',
+          text: t('questBlackPearlDropBlackPearlPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'BlackPearl',
+          text: t('questBlackPearlDropBlackPearlPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 450,
+      unlock: t('questBlackPearlUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {
