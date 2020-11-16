@@ -35,7 +35,6 @@ export default {
       userId: undefined,
       startingPage: undefined,
       path: undefined,
-      selectedPage: '',
     };
   },
   mounted () {
@@ -56,7 +55,7 @@ export default {
     onHidden () {
       if (this.$route.path !== window.location.pathname) {
         this.$router.go(-1);
-        this.$root.$emit('restoreTitle');
+        this.$root.$emit('habitica: restoreTitle');
       }
     },
   },
