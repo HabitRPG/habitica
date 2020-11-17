@@ -25,18 +25,18 @@ api.createCheckoutSession = { //TODO
   url: '/stripe/checkout-session',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    // @TODO: These quer params need to be changed to body
-    const token = req.body.id;
     const { user } = res.locals;
-    const gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
-    const sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
-    const { groupId, coupon, gemsBlock } = req.query;
+    const {
+      gift, sub, gemsBlock, coupon, groupId,
+    } = req.body;
 
-    await stripePayments.checkout({
-      token, user, gemsBlock, gift, sub, groupId, coupon, headers: req.headers,
+    const session = await stripePayments.createCheckoutSession({
+      user, gemsBlock, gift, sub, groupId, coupon, headers: req.headers,
     });
 
-    res.respond(200, {});
+    res.respond(200, {
+      sessionId: session.id,
+    });
   },
 };
 
@@ -125,11 +125,11 @@ api.subscribeCancel = { //TODO
   },
 };
 
-api.handleWebhooks = { //TODO
+api.handleWebhooks = {
   method: 'POST',
   url: '/stripe/webhooks',
   async handler (req, res) {
-    await stripePayments.handleWebhooks({ requestBody: req.body });
+    await stripePayments.handleWebhooks({ body: req.body, headers: req.headers });
 
     return res.respond(200, {});
   },

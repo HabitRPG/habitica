@@ -15,6 +15,19 @@ export default function (to, from, next) {
       window.close();
       break;
     }
+    case 'stripe-success-checkout': {
+      const appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+      if (appState) {
+        const newAppState = JSON.parse(appState);
+        newAppState.paymentCompleted = true;
+        setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(newAppState));
+      }
+      break;
+    }
+    case 'stripe-error-checkout': {
+      // @TODO
+      break;
+    }
     default:
       next({ name: 'notFound' });
   }

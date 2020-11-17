@@ -1,4 +1,5 @@
 import cc from 'coupon-code';
+import nconf from 'nconf';
 
 import { getStripeApi } from './api';
 import { model as User } from '../../../models/user'; // eslint-disable-line import/no-cycle
@@ -101,6 +102,91 @@ async function applyGemPayment (user, response, gemsBlock, gift) {//TODO
   }
 
   await payments[method](data);
+}
+
+const BASE_URL = nconf.get('BASE_URL');
+
+export async function createCheckoutSession (options, stripeInc) {
+  const {
+    user,
+    gift,
+    gemsBlock,
+    sub,
+    groupId,
+    headers,
+    coupon,
+  } = options;
+
+  // @TODO: We need to mock this, but curently we don't have correct
+  // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  let stripeApi = getStripeApi();
+  if (stripeInc) stripeApi = stripeInc;
+
+  if (gift) { //TODO
+    const member = await User.findById(gift.uuid).exec();
+    gift.member = member;
+    throw new Error('not implemented');
+  }
+
+  if (sub) throw new Error('not implemented'); //TODO
+
+  let block;
+  if (!sub && !gift) {
+    block = getGemsBlock(gemsBlock);
+  }
+
+  //TODO
+  /* if (sub) {
+    const { subId, subResponse } = await buySubscription(
+      sub, coupon, email, user, token, groupId, stripeApi,
+    );
+    subscriptionId = subId;
+    response = subResponse;
+  } else {
+    response = await buyGems(block, gift, user, token, stripeApi);
+  } */
+
+  /* if (sub) {
+    await payments.createSubscription({
+      user,
+      customerId: response.id,
+      paymentMethod: this.constants.PAYMENT_METHOD,
+      sub,
+      headers,
+      groupId,
+      subscriptionId,
+    });
+  } else {
+    await applyGemPayment(user, response, block, gift);
+  } */
+
+  const session = await stripeApi.checkout.sessions.create({
+    payment_method_types: ['card'],
+    metadata: {
+      type: 'gems',
+      block: block.key,
+    },
+    line_items: [{
+      price_data: {
+        product_data: {
+          name: block.key,
+          metadata: {
+            type: 'gems',
+            block: block.key,
+          },
+          //TODO images, description, ...? see api docs
+        },
+        unit_amount: block.price,
+        currency: 'usd',
+      },
+      quantity: 1,
+    }],
+    mode: 'payment',
+    success_url: `${BASE_URL}/redirect/stripe-success-checkout`,
+    cancel_url: `${BASE_URL}/redirect/stripe-error-checkout`,
+  });
+
+  return session;
 }
 
 export async function checkout (options, stripeInc) { //TODO

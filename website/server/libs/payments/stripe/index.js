@@ -1,4 +1,5 @@
 import moment from 'moment';
+import nconf from 'nconf';
 
 import logger from '../../logger';
 import {
@@ -14,7 +15,7 @@ import { // eslint-disable-line import/no-cycle
 } from '../../../models/group';
 import shared from '../../../../common';
 import stripeConstants from './constants';
-import { checkout } from './checkout'; // eslint-disable-line import/no-cycle
+import { checkout, createCheckoutSession } from './checkout'; // eslint-disable-line import/no-cycle
 import { getStripeApi, setStripeApi } from './api';
 
 const { i18n } = shared;
@@ -24,6 +25,8 @@ const api = {};
 api.constants = { ...stripeConstants };
 
 api.setStripeApi = setStripeApi;
+
+api.createCheckoutSession = createCheckoutSession; //TODO apidocs
 
 /**
  * Allows for purchasing a user subscription, group subscription or gems with Stripe
@@ -38,7 +41,7 @@ api.setStripeApi = setStripeApi;
  * @param  options.headers  The request headers to store on analytics
  * @return undefined
  */
-api.checkout = checkout;//TODO documentation
+api.checkout = checkout;
 
 /**
  * Edits a subscription created by Stripe
@@ -169,6 +172,7 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
   group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
 };
 
+const endpointSecret = nconf.get('STRIPE_WEBHOOKS_ENDPOINT_SECRET');
 /**
  * Handle webhooks from stripes
  *
@@ -179,18 +183,30 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
  * @return undefined
  */
 api.handleWebhooks = async function handleWebhooks (options, stripeInc) {//TODO
-  const { requestBody } = options;
+  const { body, headers } = options;
 
   // @TODO: We need to mock this, but curently we don't have correct
   // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
   let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
-  // Verify the event by fetching it from Stripe
-  const event = await stripeApi.events.retrieve(requestBody.id);
+  let event;
+
+  try {
+    // Verify the event by fetching it from Stripe
+    event = stripeApi.webhooks.constructEvent(body, headers['stripe-signature'], endpointSecret);
+  } catch (err) {
+    logger.error(new Error('Error handling Stripe webhook'), { event, err });
+    throw new BadRequest(`Webhook Error: ${err.message}`);
+  }
 
   switch (event.type) {
-    case 'customer.subscription.deleted': {
+    case 'checkout.session.completed': {
+      const session = event.data.object;
+      console.log(JSON.stringify(event, null, 4));
+      break;
+    }
+    case 'customer.subscription.deleted': {  //TODO
       // event.request !== null means that the user itself cancelled the subscrioption,
       // the cancellation on our side has been already handled
       if (event.request !== null) break;
@@ -235,7 +251,7 @@ api.handleWebhooks = async function handleWebhooks (options, stripeInc) {//TODO
       break;
     }
     default: {
-      logger.error(new Error(`Missing handler for Stripe webhook ${event.type}`), { event });
+      logger.error(new Error(`Missing handler for Stripe webhook ${event.type}`));
     }
   }
 };

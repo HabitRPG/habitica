@@ -145,23 +145,12 @@ export default {
 
       // @TODO proper error handling
       const response = await axios.post(url, postData);
-
-      try {
-        const checkoutSessionResult = await stripeInstance.redirectToCheckout({
-          sessionId: response.data.sessionId,
-        });
-        if (checkoutSessionResult.error) { // @TODO proper error handling
-          console.error(checkoutSessionResult.error);
-          alert(checkoutSessionResult.error.message);
-        }
-      } catch (err) { // @TODO proper error handling
-        console.error(err);
-        alert(err);
-      }
+      console.log(response);
+      console.log(response.data, response.data.data);
 
       const appState = {
         paymentMethod: 'stripe',
-        paymentCompleted: true,
+        paymentCompleted: false,
         paymentType,
       };
       if (paymentType === 'subscription') {
@@ -184,6 +173,19 @@ export default {
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+
+      try {
+        const checkoutSessionResult = await stripeInstance.redirectToCheckout({
+          sessionId: response.data.data.sessionId,
+        });
+        if (checkoutSessionResult.error) { // @TODO proper error handling
+          console.error(checkoutSessionResult.error);
+          alert(checkoutSessionResult.error.message);
+        }
+      } catch (err) { // @TODO proper error handling
+        console.error(err);
+        alert(err);
+      }
 
       /* @TODO redo const newGroup = response.data.data;
       if (newGroup && newGroup._id) {
