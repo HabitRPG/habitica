@@ -776,6 +776,7 @@ export default {
       content: Content,
       user: null,
       userLoaded: false,
+      oldTitle: null,
     };
   },
   computed: {
@@ -831,7 +832,18 @@ export default {
   },
   mounted () {
     this.loadUser();
+    this.oldTitle = this.$store.state.title;
     this.selectPage(this.startingPage);
+    this.$root.$on('habitica:restoreTitle', () => {
+      if (this.oldTitle) {
+        this.$store.dispatch('common:setTitle', {
+          fullTitle: this.oldTitle,
+        });
+      }
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:restoreTitle');
   },
   methods: {
     async loadUser () {
