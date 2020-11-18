@@ -11,7 +11,7 @@ describe('GET /heroes/party/:groupId', () => {
 
   before(async () => {
     user = await generateUser({
-      contributor: { admin: true },
+      'contributor.priv.userSupport': true,
     });
   });
 
@@ -21,7 +21,7 @@ describe('GET /heroes/party/:groupId', () => {
     await expect(nonAdmin.get(`/hall/heroes/party/${party._id}`)).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
-      message: t('noAdminAccess'),
+      message: apiError('noPrivAccess'),
     });
   });
 
