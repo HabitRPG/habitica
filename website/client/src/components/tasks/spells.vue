@@ -41,10 +41,15 @@
                   <div class="col-12 details">
                     <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
                   </div>
-                  <div class="col-12 mana">
+                  <div class="col-12 mana" v-if="!spellDisabled(key)">
                     <div class="mana-text">
                       <div class="svg-icon" v-html="icons.mana"></div>
                       <div>{{ skill.mana }}</div>
+                    </div>
+                  </div>
+                  <div class="col-12 mana" v-else>
+                    <div class="mana-text">
+                      <div>Level {{ skill.lvl }}</div>
                     </div>
                   </div>
                 </div>
@@ -93,23 +98,30 @@
 
 .spell:hover:not(.disabled) {
   cursor: pointer;
-  border: solid 2px #50b5e9;
+  border: solid 2px #925cf3;
+  box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
 }
 
 .spell {
   background: #ffffff;
-  border: solid 2px transparent;
+  border: solid 2px #4e4a57;
   margin-bottom: 1.3em;
   border-radius: 2px;
-  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16),
-    0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
   color: #4e4a57;
   padding-right: 0;
   padding-left: 0;
   overflow: hidden;
+  max-width: 10em;
 
   &.disabled {
-    opacity: 0.5;
+    background-color: #34313a;
+    box-shadow: none;
+    max-width: 8.6em;
+
+    .mana{
+      background-color: rgba(26, 24, 29, 0.5);
+    }
   }
 
   .details {
