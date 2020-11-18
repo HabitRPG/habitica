@@ -42,5 +42,5 @@ export function ensurePriv (priv) {
     }
 
     return next();
-  }
+  };
 }
