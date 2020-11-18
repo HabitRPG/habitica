@@ -57,6 +57,16 @@
             Tiers 8 and 9 are automatically given admin status.
           </small>
         </div>
+        <div
+          v-if="hero.secret.text"
+          class="form-group"
+        >
+          <label>Moderation Notes</label>
+          <div
+            v-markdown="hero.secret.text"
+            class="markdownPreview"
+          ></div>
+        </div>
         <div class="form-group">
           <label>Contributions</label>
           <textarea
@@ -71,7 +81,7 @@
           ></div>
         </div>
         <div class="form-group">
-          <label>Moderation Notes</label>
+          <label>Edit Moderation Notes</label>
           <textarea
             v-model="hero.secret.text"
             class="form-control"
