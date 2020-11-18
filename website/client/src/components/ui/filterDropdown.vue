@@ -1,17 +1,19 @@
 <template>
   <span>
     <span class="dropdown-label">{{ label }}</span>
-    <select-list :items="items"
-                 :value="selectedItem"
-                 class="array-select inline"
-                 :right="true"
-                 key-prop="id"
-                 :hide-icon="false"
-                 :inline-dropdown="false"
-                 @select="selectItem($event)">
+    <select-list
+      :items="items"
+      :value="selectedItem"
+      class="array-select inline"
+      :right="true"
+      key-prop="id"
+      :hide-icon="false"
+      :inline-dropdown="false"
+      @select="selectItem($event)"
+    >
       <template v-slot:item="{ item }">
         <span :class="{'dropdown-icon-item': withIcon}">
-           <slot
+          <slot
             name="item"
             :item="item"
           ></slot>
