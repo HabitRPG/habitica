@@ -24,5 +24,14 @@
     "foundNewItemsExplanation": "完成任務使你有機會找到物品，如蛋、孵化藥水和食物。",
     "foundNewItems": "你找到了新物品！",
     "hideAchievements": "隱藏<%= category %>",
-    "showAllAchievements": "列出所有<%= category %>"
+    "showAllAchievements": "列出所有<%= category %>",
+    "achievementDustDevil": "沙塵惡魔",
+    "achievementAllYourBaseModalText": "你馴服了所有基礎坐騎！",
+    "achievementAllYourBaseText": "已經馴服了所有基礎坐騎。",
+    "achievementAllYourBase": "你所有的基礎坐騎",
+    "achievementBackToBasicsModalText": "你集齊了所有基礎寵物！",
+    "achievementBackToBasicsText": "已經集齊所有基礎寵物。",
+    "achievementBackToBasics": "返璞歸真",
+    "achievementJustAddWaterModalText": "你完成了章魚、海馬、墨魚、鯨魚、海龜、海兔、海蛇及海豚的寵物任務！",
+    "achievementJustAddWaterText": "已完成章魚、海馬、墨魚、鯨魚、海龜、海兔、海蛇及海豚的寵物任務。"
 }
