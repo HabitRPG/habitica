@@ -1,18 +1,17 @@
 <template>
   <div v-if="user.stats.lvl > 10">
     <div v-if="potionClickMode" ref="clickPotionInfo" class="dragInfo mouse">
-      <div class="spell col-12 row">
-        <div class="col-8 details">
-          <p class="title">
-            {{ spell.text() }}
-          </p>
+      <div class="spell">
+        <div class='spell-border'>
+          <div class="mana">
+            <div class="img" :class="`shop_${spell.key} shop-sprite item-img`"></div>
+          </div>
+        </div>
+        <div class="details">
           <p class="notes">
-            {{ `Click on a ${spell.target} to cast!` }}
+            {{ "Select a task" }}
           </p>
           <!-- @TODO make that translatable-->
-        </div>
-        <div class="col-4 mana">
-          <div class="img" :class="`shop_${spell.key} shop-sprite item-img`"></div>
         </div>
       </div>
     </div>
@@ -140,11 +139,6 @@
       padding-bottom: 0.7em;
       vertical-align: bottom;
     }
-
-    .notes {
-      font-weight: normal;
-      color: #686274;
-    }
   }
 
   .img {
@@ -177,6 +171,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
   }
 }
 
@@ -184,22 +179,62 @@
   position: absolute;
   left: -500px;
   z-index: 1080;
+  color: #e1e0e3;
+  border: none;
+  background-color: transparent;
+  box-shadow: transparent;
 
   .spell {
-    border-radius: 1000px;
-    min-width: 224px;
-    height: 52px;
-    font-size: 12px;
-    padding-left: 0.5em;
+    border-radius: 4px;
+    width: 93px;
+    height: 7em;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: transparent;
+    .spell-border{
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      width: 62px;
+      height: 62px;
+      background-color: #46a7d9;
+      margin-left: 1.1em;
+      margin-bottom: 0.5em;
 
-    .title {
-      font-weight: bold;
-      margin-bottom: 0.2em;
+      .mana{
+        width: 60px;
+        height: 60px;
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        margin-left: 1px;
+        margin-right: 1px;
+
+        .img{
+          background-color: #f9f9f9;
+          clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+      }
     }
-  }
+    .details{
+      width: 100%;
+      height: 1em;
+      border-radius: 4px;
+      background-color: rgba(52, 49, 58, 0.96);
 
-  .mana {
-    border-radius: 0 1000px 1000px 0;
+      .notes {
+        font-family: Roboto;
+        font-size: 12px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+        color: #e1e0e3;
+        height: 100%;
+      }
+    }
   }
 
   &.mouse {
