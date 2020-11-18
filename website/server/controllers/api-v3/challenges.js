@@ -221,6 +221,7 @@ api.createChallenge = {
       groupID: group._id,
       groupName: group.privacy === 'private' ? null : group.name,
       groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
+      prize: response.prize,
       headers: req.headers,
     });
 
@@ -751,6 +752,7 @@ api.deleteChallenge = {
       groupID: challenge.group._id,
       groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
       groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+      prize: challenge.prize,
       headers: req.headers,
     });
 
@@ -802,6 +804,7 @@ api.selectChallengeWinner = {
       groupID: challenge.group._id,
       groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
       groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+      prize: challenge.prize,
       headers: req.headers,
     });
 
