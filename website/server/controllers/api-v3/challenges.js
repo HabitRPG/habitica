@@ -367,6 +367,11 @@ api.getUserChallenges = {
   url: '/challenges/user',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
+    req.checkQuery('page').notEmpty().isInt({ min: 0 }, apiError('queryPageInteger'));
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
     const CHALLENGES_PER_PAGE = 10;
     const { page } = req.query;
 
