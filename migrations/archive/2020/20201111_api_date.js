@@ -21,7 +21,7 @@ async function updateUser (user) {
     }
   } else {
     set = {
-      date: ''
+      date: undefined
     }
   };
 
