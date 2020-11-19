@@ -279,7 +279,8 @@ describe('GET /challenges/:challengeId/members', () => {
       expect(member.tasks).to.be.an('array');
       expect(member.tasks).to.have.lengthOf(2);
       member.tasks.forEach(task => {
-        expect(task).to.include.all.keys(['type', 'text', 'id', 'challenge', 'group']);
+        expect(task).to.include.all.keys(['type', 'value', 'priority', 'text', '_id', 'userId']);
+        expect(task).to.not.have.any.keys(['tags', 'checklist']);
         expect(task.challenge.id).to.be.equal(challenge._id);
       });
     });
