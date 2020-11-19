@@ -38,6 +38,14 @@ export async function handleWebhooks (options, stripeInc) {//TODO
   }
 
   switch (event.type) {
+    case 'payment_intent.created':
+    case 'charge.succeeded':
+    case 'payment_method.attached':
+    case 'customer.created':
+    case 'payment_intent.succeeded': {
+      // Events sent when a payment is being made
+      break;
+    }
     case 'checkout.session.completed': {
       const session = event.data.object;
       const { metadata } = session;

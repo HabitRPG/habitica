@@ -102,8 +102,8 @@ export async function createCheckoutSession (options, stripeInc) {
   const metadata = {
     type,
     userId: user._id,
-    gift,
-    gemsBlock,
+    gift: gift ? JSON.stringify(gift) : undefined,
+    gemsBlock: gemsBlock ? gemsBlock.key : undefined,
   };
 
   const session = await stripeApi.checkout.sessions.create({
@@ -121,8 +121,8 @@ export async function createCheckoutSession (options, stripeInc) {
       quantity: 1,
     }],
     mode: 'payment',
-    success_url: `${BASE_URL}/redirect/stripe-success-checkout`,
-    cancel_url: `${BASE_URL}/redirect/stripe-error-checkout`,
+    success_url: `http://localhost:8080/redirect/stripe-success-checkout`, //TODO use BASE_URL
+    cancel_url: `http://localhost:8080/redirect/stripe-error-checkout`, //TODO use BASE_URL
   });
 
   return session;

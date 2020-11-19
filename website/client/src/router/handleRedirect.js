@@ -22,6 +22,7 @@ export default function (to, from, next) {
         newAppState.paymentCompleted = true;
         setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(newAppState));
       }
+      next({ name: 'tasks' });
       break;
     }
     case 'stripe-error-checkout': {

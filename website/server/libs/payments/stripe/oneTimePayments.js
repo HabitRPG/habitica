@@ -57,7 +57,10 @@ export async function getOneTimePaymentInfo (gemsBlockKey, gift, user) {
 
 export async function applyGemPayment (session) {
   const { metadata } = session;
-  const { gemsBlock, gift } = metadata;
+  const { gemsBlock: gemsBlockKey, gift: giftStringified } = metadata;
+
+  const gemsBlock = gemsBlockKey ? getGemsBlock(gemsBlockKey) : undefined;
+  const gift = giftStringified ? JSON.parse(giftStringified) : undefined;
 
   const user = await User.findById(metadata.userId).exec();
   if (!user) throw new NotFound(`User ${metadata.userId} not found.`);
