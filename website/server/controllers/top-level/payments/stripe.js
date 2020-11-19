@@ -20,7 +20,7 @@ const api = {};
  *
  * @apiSuccess {String} data.sessionId The created checkout session id
  * */
-api.createCheckoutSession = { //TODO
+api.createCheckoutSession = {
   method: 'POST',
   url: '/stripe/checkout-session',
   middlewares: [authWithHeaders()],
