@@ -320,12 +320,6 @@ describe('GET challenges/user', () => {
       expect(challenges.length).to.eql(1);
     });
 
-    it('does not page challenges if page parameter is absent', async () => {
-      const challenges = await user.get('/challenges/user?page=0');
-
-      expect(challenges.length).to.be.above(11);
-    });
-
     it('paginates challenges', async () => {
       const challenges = await user.get('/challenges/user?page=0');
       const challengesPaged = await user.get('/challenges/user?page=1&owned=owned');
