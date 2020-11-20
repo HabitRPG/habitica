@@ -1,46 +1,23 @@
 <template>
-  <div class="sidebar">
+  <div class="sidebar px-4">
     <div
-      class="px-3"
       :class="{'guild-background': !isParty}"
     >
       <div class="buttons-wrapper">
-        <div class="button-container">
-          <button
-            v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
-            class="btn btn-success btn-success"
-            @click="$emit('upgradeGroup')"
-          >
-            {{ $t('upgrade') }}
-          </button>
-        </div>
-        <div class="button-container" v-if="!isParty">
-          <button
-            v-if="isLeader || isAdmin"
-            v-once
-            class="btn btn-primary"
-            @click="$emit('updateGuild')"
-          >
-            {{ $t('edit') }}
-          </button>
-        </div>
-        <div class="button-container">
+        <div class="button-container button-with-menu-row">
           <button
             v-if="!isMember"
             class="btn btn-success btn-success"
             @click="$emit('join')"
           >
-            {{ $t('join') }}
+             <span v-once>{{ $t('join') }}</span>
           </button>
-        </div>
-        <div v-if="isParty"
-             class="button-container party-invite-row">
           <button
-            v-once
+            v-if="isMember"
             class="btn btn-primary inline"
             @click="$emit('showInviteModal')"
           >
-            {{ $t('invite') }}
+            <span v-once>{{ $t('invite') }}</span>
           </button>
           <b-dropdown
             right="right"
@@ -56,10 +33,28 @@
               </span>
             </template>
             <b-dropdown-item
+              v-if="!isMember"
+              @click="$emit('showInviteModal')">
+              <span v-once>{{ $t('invite') }}</span>
+            </b-dropdown-item>
+            <b-dropdown-item
                 v-if="isLeader || isAdmin"
                 @click="$emit('updateGuild')">
               <span v-once>
                 {{ $t('edit') }}
+              </span>
+            </b-dropdown-item>
+            <b-dropdown-item
+                v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
+                @click="$emit('upgradeGroup')">
+              <span v-once>
+                {{ $t('upgrade') }}
+              </span>
+            </b-dropdown-item>
+            <b-dropdown-item
+              @click="$emit('messageLeader')">
+              <span v-once>
+                {{ $t(isParty ? 'messagePartyLeader' : 'messageGuildLeader') }}
               </span>
             </b-dropdown-item>
             <b-dropdown-item
@@ -71,23 +66,6 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-        <div class="button-container" v-if="!isParty">
-          <button
-            v-once
-            class="btn btn-primary"
-            @click="$emit('showInviteModal')"
-          >
-            {{ $t('invite') }}
-          </button>
-          <!-- @TODO: hide the invitation button
-            if there's an active group plan and the player is not the leader-->
-        </div>
-        <div class="button-container">
-          <!-- @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader')
-           {{$t('messageGuildLeader')}} // Suggest making the button
-            visible to the leader too - useful for them to test how
-             the feature works or to send a note to themself. -- Alys-->
-        </div>
         <div class="button-container">
           <!-- @TODO: V2 button.btn.btn-primary(v-once,
             v-if='isMember && !isParty') {{$t('donateGems')}}
@@ -98,7 +76,7 @@
         </div>
       </div>
     </div>
-    <div class="px-3 py-3">
+    <div class="py-3">
       <quest-sidebar-section
         v-if="isParty"
         :group="group"
@@ -119,20 +97,6 @@
         <group-challenges :group-id="searchId" />
       </sidebar-section>
     </div>
-    <div class="text-center" v-if="!isParty">
-      <button
-        v-if="isMember"
-        class="btn btn-danger"
-        @click="$emit('leave')"
-      >
-        {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
-      </button>
-    </div>
-    {{ group }}
-    Leader: {{ isLeader }}
-    IsAdmin: {{ isAdmin }}
-    IsMember: {{ isMember }}
-    SearchId {{ searchId }}
   </div>
 </template>
 
@@ -180,7 +144,7 @@ export default {
   }
 
   .button-container {
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
 
     button {
       width: 100%;
@@ -192,7 +156,7 @@ export default {
     height: 246px;
   }
 
-  .party-invite-row {
+  .button-with-menu-row {
     display: flex;
   }
 
@@ -200,5 +164,19 @@ export default {
     width: 4px;
     height: 1rem;
     object-fit: contain;
+  }
+
+  .dropdown-link {
+    text-decoration: none;
+  }
+
+  .divider {
+    width: calc(100% + 3rem);
+    height: 0.063rem;
+    margin-top: 1.5rem;
+    margin-right: -1.5rem;
+    margin-left: -1.5rem;
+    margin-bottom: 0.688rem;
+    background-color: $gray-500;
   }
 </style>

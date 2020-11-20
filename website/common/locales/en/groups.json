@@ -251,6 +251,7 @@
   "inviteEmailUsernameInfo": "Invite users via a valid email or username. If an email isn't registered yet, we'll invite them to join.",
   "emailOrUsernameInvite": "Email address or username",
   "messageGuildLeader": "Message Guild Leader",
+  "messagePartyLeader": "Message Party Leader",
   "donateGems": "Donate Gems",
   "updateGuild": "Update Guild",
   "viewMembers": "View Members",

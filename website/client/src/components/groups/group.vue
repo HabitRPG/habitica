@@ -106,6 +106,7 @@
       class="col-12 col-sm-4"
       @leave="clickLeave()"
       @join="join()"
+      @messageLeader="messageLeader()"
       @upgradeGroup="upgradeGroup"
       @updateGuild="updateGuild"
       @showInviteModal="showInviteModal()"
@@ -549,6 +550,9 @@ export default {
     },
     showGroupGems () {
       this.$root.$emit('bv::show::modal', 'group-gems-modal');
+    },
+    messageLeader () {
+      window.open(`/private-messages?uuid=${this.group.leader.id}`);
     },
   },
 };
