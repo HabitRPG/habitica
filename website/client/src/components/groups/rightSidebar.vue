@@ -17,7 +17,7 @@
             class="btn btn-primary inline"
             @click="$emit('showInviteModal')"
           >
-            <span v-once>{{ $t('invite') }}</span>
+            <span v-once>{{ $t(isParty ? 'inviteToParty' : 'inviteToGuild') }}</span>
           </button>
           <b-dropdown
             right="right"
