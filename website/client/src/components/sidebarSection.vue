@@ -39,8 +39,16 @@
 <style lang="scss" scoped>
   .section {
     border-top: 1px solid #e1e0e3;
+    /* To have the divider full width */
+    margin-right: -1.5rem;
+    margin-left: -1.5rem;
+
+    /* change back the content padding*/
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
     margin-top: 1em;
-    padding-top: 1em;
+    padding-top: 0.688em;
   }
 
   .section:last-of-type {

@@ -25,14 +25,34 @@
       </div>
     </div>
     <div
+      v-if="user.party.quest && user.party.quest.RSVPNeeded"
+      class="quest-active-section quest-invite"
+    >
+      <span>{{ $t('wouldYouParticipate') }}</span>
+      <div class="buttons">
+        <button
+          class="btn btn-primary accept"
+          @click="questAccept(group._id)"
+        >
+          {{ $t('accept') }}
+        </button>
+        <button
+          class="btn btn-primary reject"
+          @click="questReject(group._id)"
+        >
+          {{ $t('reject') }}
+        </button>
+      </div>
+    </div>
+    <div
       v-if="onPendingQuest && !onActiveQuest"
-      class="row quest-active-section quest-pending-section"
+      class="quest-active-section quest-pending-section"
     >
       <div class="titles">
         <strong>{{ questData.text() }} </strong>
         <p class="members">{{ acceptedCount }} / {{ group.memberCount }} Members accepted</p>
       </div>
-         <div class="quest-icon">
+      <div class="quest-icon">
         <div
           class="quest"
           :class="`inventory_quest_scroll_${questData.key}`"
@@ -45,24 +65,6 @@
         @click="openQuestDetails()"
       >
         {{ $t('details') }}
-      </button>
-    </div>
-    <div
-      v-if="user.party.quest && user.party.quest.RSVPNeeded"
-      class="row quest-active-section quest-invite"
-    >
-      <span>{{ $t('wouldYouParticipate') }}</span>
-      <button
-        class="btn btn-primary accept"
-        @click="questAccept(group._id)"
-      >
-        {{ $t('accept') }}
-      </button>
-      <button
-        class="btn btn-primary reject"
-        @click="questReject(group._id)"
-      >
-        {{ $t('reject') }}
       </button>
     </div>
     <div
@@ -268,27 +270,31 @@
 
   .quest-pending-section {
     display: flex;
+    margin-bottom: 0.5rem;
 
     .titles {
       flex: 1;
-      padding-left: 0.75rem;
-      height: 1rem;
-      margin-top: 0.25rem;
-      margin-bottom: 1.5rem;
+      margin-top: 1rem;
       font-size: 0.75rem;
       line-height: 1.33;
-      color: $blue-10;
+
+      strong {
+        min-height: 1rem;
+        font-weight: bold;
+        color: $gray-100;
+        margin-bottom: 0.25rem  ;
+      }
+
+      .members {
+        min-height: 1rem;
+        color: $blue-10;
+        margin: 0;
+      }
     }
 
     .quest-icon {
-      width: 3rem;
-      height: 3rem;
-      margin: 0.75rem 0.9rem 1rem 1.5rem;
-
-      .quest {
-        margin-left: -10px;
-        margin-top: -10px;
-      }
+      width: 4.25rem;
+      height: 4.25rem;
     }
   }
 
@@ -331,11 +337,17 @@
     background-color: #2995cd;
     color: #fff;
     padding: 1em;
+    display: flex;
 
     span {
       margin-top: .3em;
       font-size: 14px;
       font-weight: bold;
+      flex: 1;
+    }
+
+    .buttons {
+
     }
 
     .accept, .reject {
