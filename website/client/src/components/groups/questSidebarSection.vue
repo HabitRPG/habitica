@@ -26,26 +26,26 @@
     </div>
     <div
       v-if="onPendingQuest && !onActiveQuest"
-      class="row quest-active-section"
+      class="row quest-active-section quest-pending-section"
     >
-      <div class="col-2">
+      <div class="titles">
+        <strong>{{ questData.text() }} </strong>
+        <p class="members">{{ acceptedCount }} / {{ group.memberCount }} Members accepted</p>
+      </div>
+         <div class="quest-icon">
         <div
           class="quest"
           :class="`inventory_quest_scroll_${questData.key}`"
         ></div>
       </div>
-      <div class="col-6 titles">
-        <strong>{{ questData.text() }}</strong>
-        <p>{{ acceptedCount }} / {{ group.memberCount }}</p>
-      </div>
-      <div class="col-4">
-        <button
-          class="btn btn-secondary"
-          @click="openQuestDetails()"
-        >
-          {{ $t('details') }}
-        </button>
-      </div>
+    </div>
+    <div>
+      <button
+        class="btn btn-secondary full-width"
+        @click="openQuestDetails()"
+      >
+        {{ $t('details') }}
+      </button>
     </div>
     <div
       v-if="user.party.quest && user.party.quest.RSVPNeeded"
@@ -264,6 +264,36 @@
       margin: 0 auto;
       margin-bottom: 2em;
     }
+  }
+
+  .quest-pending-section {
+    display: flex;
+
+    .titles {
+      flex: 1;
+      padding-left: 0.75rem;
+      height: 1rem;
+      margin-top: 0.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.75rem;
+      line-height: 1.33;
+      color: $blue-10;
+    }
+
+    .quest-icon {
+      width: 3rem;
+      height: 3rem;
+      margin: 0.75rem 0.9rem 1rem 1.5rem;
+
+      .quest {
+        margin-left: -10px;
+        margin-top: -10px;
+      }
+    }
+  }
+
+  .full-width {
+    width: 100%;
   }
 
   .quest-active-section {

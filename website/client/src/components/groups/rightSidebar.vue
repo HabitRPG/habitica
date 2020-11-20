@@ -1,10 +1,10 @@
 <template>
   <div class="sidebar">
     <div
-      class="row"
+      class="px-3"
       :class="{'guild-background': !isParty}"
     >
-      <div class="col-12 buttons-wrapper">
+      <div class="buttons-wrapper">
         <div class="button-container">
           <button
             v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
@@ -14,7 +14,7 @@
             {{ $t('upgrade') }}
           </button>
         </div>
-        <div class="button-container">
+        <div class="button-container" v-if="!isParty">
           <button
             v-if="isLeader || isAdmin"
             v-once
@@ -28,12 +28,50 @@
           <button
             v-if="!isMember"
             class="btn btn-success btn-success"
-            @click="join()"
+            @click="$emit('join')"
           >
             {{ $t('join') }}
           </button>
         </div>
-        <div class="button-container">
+        <div v-if="isParty"
+             class="button-container party-invite-row">
+          <button
+            v-once
+            class="btn btn-primary inline"
+            @click="$emit('showInviteModal')"
+          >
+            {{ $t('invite') }}
+          </button>
+          <b-dropdown
+            right="right"
+            toggle-class="with-icon"
+            class="ml-2"
+            :no-caret="true"
+          >
+            <template v-slot:button-content>
+              <span
+                class="svg-icon inline menuIcon"
+                v-html="icons.menuIcon"
+              >
+              </span>
+            </template>
+            <b-dropdown-item
+                v-if="isLeader || isAdmin"
+                @click="$emit('updateGuild')">
+              <span v-once>
+                {{ $t('edit') }}
+              </span>
+            </b-dropdown-item>
+            <b-dropdown-item
+                v-if="isMember"
+                @click="$emit('leave')">
+              <span v-once>
+                {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
+              </span>
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+        <div class="button-container" v-if="!isParty">
           <button
             v-once
             class="btn btn-primary"
@@ -81,7 +119,7 @@
         <group-challenges :group-id="searchId" />
       </sidebar-section>
     </div>
-    <div class="text-center">
+    <div class="text-center" v-if="!isParty">
       <button
         v-if="isMember"
         class="btn btn-danger"
@@ -91,6 +129,10 @@
       </button>
     </div>
     {{ group }}
+    Leader: {{ isLeader }}
+    IsAdmin: {{ isAdmin }}
+    IsMember: {{ isMember }}
+    SearchId {{ searchId }}
   </div>
 </template>
 
@@ -99,6 +141,8 @@ import groupChallenges from '@/components/challenges/groupChallenges';
 import questSidebarSection from '@/components/groups/questSidebarSection';
 import sidebarSection from '@/components/sidebarSection';
 import markdownDirective from '@/directives/markdown';
+
+import menuIcon from '@/assets/svg/menu.svg';
 
 export default {
   components: {
@@ -110,6 +154,13 @@ export default {
     markdown: markdownDirective,
   },
   props: ['isParty', 'isLeader', 'isAdmin', 'isMember', 'searchId', 'group'],
+  data () {
+    return {
+      icons: Object.freeze({
+        menuIcon,
+      }),
+    };
+  },
 };
 </script>
 
@@ -139,5 +190,15 @@ export default {
   .guild-background {
     background-image: url('~@/assets/images/groups/grassy-meadow-backdrop.png');
     height: 246px;
+  }
+
+  .party-invite-row {
+    display: flex;
+  }
+
+  .menuIcon {
+    width: 4px;
+    height: 1rem;
+    object-fit: contain;
   }
 </style>

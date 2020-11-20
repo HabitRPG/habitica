@@ -136,3 +136,41 @@ export const groupCollectionQuestNotStarted = {
   summary: 'Party',
   id: '96ea599a-737b-47e2-ac17-8bd85b6ab62a',
 };
+
+export const groupCollectionQuestPending = {
+  leaderOnly: { challenges: false, getGems: false },
+  quest: {
+    progress: { collect: {} },
+    active: false,
+    members: { '05ca98f4-4706-47b5-8d02-142e6e78ba2e': true, 'b3b0be03-3f62-49ae-b776-b16419ef32cf': null },
+    extra: {},
+    key: 'atom1',
+    leader: '05ca98f4-4706-47b5-8d02-142e6e78ba2e',
+  },
+  tasksOrder: {
+    habits: ['320496be-d663-4711-a7da-03205a2204b2'],
+    dailys: ['0c6a3ecd-dbaf-4a34-bb61-1a2ecd3daa0e', '686e7766-9cef-4b77-8c8f-f4d6c5b63a85'],
+    todos: ['76b3ef3e-1b01-4f24-a37e-0320f31d8132'],
+    rewards: ['76dad8ea-0d95-47c3-ad9a-8e136ad80b7f'],
+  },
+  purchased: { active: true },
+  privacy: 'private',
+  chat: [],
+  memberCount: 2,
+  challengeCount: 0,
+  balance: 0,
+  _id: '96ea599a-737b-47e2-ac17-8bd85b6ab62a',
+  type: 'party',
+  name: "MyDisplay2's Party",
+  managers: {},
+  categories: [],
+  leader: {
+    auth: { local: { username: 'test2' } },
+    flags: { verifiedUsername: true },
+    profile: { name: 'MyDisplay2' },
+    _id: '05ca98f4-4706-47b5-8d02-142e6e78ba2e',
+    id: '05ca98f4-4706-47b5-8d02-142e6e78ba2e',
+  },
+  summary: "MyDisplay2's Party",
+  id: '96ea599a-737b-47e2-ac17-8bd85b6ab62a',
+};

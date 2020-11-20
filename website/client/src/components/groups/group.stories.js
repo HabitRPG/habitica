@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/vue';
 import {
   createStory,
   groupBossQuestParticipating,
-  groupCollectionQuestNotStarted,
+  groupCollectionQuestNotStarted, groupCollectionQuestPending,
 } from '@/components/groups/group.stories.utils';
 
 storiesOf('Group Components|Party/Quest States', module)
@@ -11,13 +11,17 @@ storiesOf('Group Components|Party/Quest States', module)
     template: `
       <div class="component-showcase">
         <right-sidebar :group="group" :is-party="true"
+                       :is-leader="true" :is-member="true"
                        class="col-12"/>
       </div>
     `,
     data () {
       return {
         group: {
-          quest: {},
+          quest: {
+          },
+          purchased: {
+          },
         },
       };
     },
@@ -33,7 +37,7 @@ storiesOf('Group Components|Party/Quest States', module)
   .add('Quest Owner/Quest Not Started', () => createStory({
     template: `
       <div class="component-showcase">
-        <right-sidebar :group="group" :is-party="true" class="col-12"/>
+        <right-sidebar :group="group" :is-party="true" :is-member="true" class="col-12"/>
       </div>
     `,
     data () {
@@ -53,20 +57,22 @@ storiesOf('Group Components|Party/Quest States', module)
   .add('Member/Quest Invite Pending', () => createStory({
     template: `
       <div class="component-showcase">
-        <right-sidebar :group="group" :is-party="true" class="col-12"/>
+        <right-sidebar :group="group" :is-party="true"
+                       :is-member="true"
+                       class="col-12"/>
       </div>
     `,
     data () {
       return {
-        group: {
-          quest: {},
-        },
+        group: groupCollectionQuestPending,
       };
     },
     user: {
       data: {
         party: {
-
+          quest: {
+            RSVPNeeded: true,
+          },
         },
       },
     },
@@ -75,7 +81,7 @@ storiesOf('Group Components|Party/Quest States', module)
   .add('Collection Quest/Quest Owner Participating', () => createStory({
     template: `
       <div class="component-showcase">
-        <right-sidebar :group="group" :is-party="true" class="col-12"/>
+        <right-sidebar :group="group" :is-party="true" :is-member="true" class="col-12"/>
       </div>
     `,
     data () {
@@ -97,7 +103,7 @@ storiesOf('Group Components|Party/Quest States', module)
   .add('Collection Quest/Not Participating', () => createStory({
     template: `
       <div class="component-showcase">
-        <right-sidebar :group="group" :is-party="true" class="col-12"/>
+        <right-sidebar :group="group" :is-party="true" :is-member="true" class="col-12"/>
       </div>
     `,
     data () {
@@ -119,7 +125,7 @@ storiesOf('Group Components|Party/Quest States', module)
   .add('Boss Quest/Participating', () => createStory({
     template: `
       <div class="component-showcase">
-        <right-sidebar :group="group" :is-party="true" class="col-12"/>
+        <right-sidebar :group="group" :is-party="true" :is-member="true" class="col-12"/>
       </div>
     `,
     data () {
@@ -139,7 +145,29 @@ storiesOf('Group Components|Party/Quest States', module)
   .add('Boss Quest/Rage Enabled', () => createStory({
     template: `
       <div class="component-showcase">
-        <right-sidebar :group="group" :is-party="true" class="col-12"/>
+        <right-sidebar :group="group" :is-party="true" :is-member="true" class="col-12"/>
+      </div>
+    `,
+    data () {
+      return {
+        group: {
+          quest: {},
+        },
+      };
+    },
+    user: {
+      data: {
+        party: {
+
+        },
+      },
+    },
+    challengeOptions: {},
+  }))
+  .add('Not a party', () => createStory({
+    template: `
+      <div class="component-showcase">
+        <right-sidebar :group="group" :is-party="false" :is-member="true" class="col-12"/>
       </div>
     `,
     data () {
