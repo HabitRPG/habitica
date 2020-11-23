@@ -64,8 +64,6 @@ export async function createCheckoutSession (options, stripeInc) {
   let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
-  if (sub) throw new Error('not implemented'); //TODO
-
   //TODO
   /* if (sub) {
     const { subId, subResponse } = await buySubscription(
@@ -97,6 +95,8 @@ export async function createCheckoutSession (options, stripeInc) {
   let type = 'gems';
   if (gift) {
     type = gift.type === 'gems' ? 'gift-gems' : 'gift-sub';
+  } else if (sub) {
+    type = 'subscription';
   }
 
   const metadata = {
@@ -106,10 +106,15 @@ export async function createCheckoutSession (options, stripeInc) {
     gemsBlock: gemsBlock ? gemsBlock.key : undefined,
   };
 
-  const session = await stripeApi.checkout.sessions.create({
-    payment_method_types: ['card'],
-    metadata,
-    line_items: [{
+  let lineItems;
+
+  if (type === 'subscription') {
+    lineItems = [{
+      price: sub.key,
+      quantity: 1,
+    }];
+  } else {
+    lineItems = [{
       price_data: {
         product_data: {
           name: JSON.stringify(metadata, null, 4), //TODO copy for name (gift, gems, subs)
@@ -119,8 +124,14 @@ export async function createCheckoutSession (options, stripeInc) {
         currency: 'usd',
       },
       quantity: 1,
-    }],
-    mode: 'payment',
+    }];
+  }
+
+  const session = await stripeApi.checkout.sessions.create({
+    payment_method_types: ['card'],
+    metadata,
+    line_items: lineItems,
+    mode: type === 'subscription' ? 'subscription' : 'payment',
     success_url: `http://localhost:8080/redirect/stripe-success-checkout`, //TODO use BASE_URL
     cancel_url: `http://localhost:8080/redirect/stripe-error-checkout`, //TODO use BASE_URL
   });
