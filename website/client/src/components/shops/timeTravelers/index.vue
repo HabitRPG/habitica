@@ -74,12 +74,12 @@
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
           <select-translated-array
-              :right="true"
-              :value="selectedSortItemsBy"
-              :items="sortItemsBy"
-              :inline-dropdown="false"
-              class="inline"
-              @select="selectedSortItemsBy = $event"
+            :right="true"
+            :value="selectedSortItemsBy"
+            :items="sortItemsBy"
+            :inline-dropdown="false"
+            class="inline"
+            @select="selectedSortItemsBy = $event"
           />
         </div>
       </div>
