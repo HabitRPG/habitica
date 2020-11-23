@@ -99,11 +99,12 @@
         <div class="col-12 col-md-6 text-right">
           <span v-if="isLeader || isAdmin">
             <b-dropdown
-              class="create-dropdown"
+              class="create-dropdown select-list"
               :text="$t('addTaskToChallenge')"
               :variant="'success'"
             >
               <b-dropdown-item
+                class="selectListItem"
                 v-for="type in columns"
                 :key="type"
                 @click="createTask(type)"
