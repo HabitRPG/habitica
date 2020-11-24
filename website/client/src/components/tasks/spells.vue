@@ -106,7 +106,6 @@
   border: solid 2px #4e4a57;
   margin-bottom: 1.3em;
   border-radius: 2px;
-  box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
   color: #4e4a57;
   padding-right: 0;
   padding-left: 0;
@@ -230,7 +229,6 @@
         height: 100%;
         padding-left: 2px;
         padding-right: 2px;
-        padding-right: 1px;
       }
     }
   }
