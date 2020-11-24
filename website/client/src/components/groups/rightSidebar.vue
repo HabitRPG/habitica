@@ -10,7 +10,7 @@
             class="btn btn-success btn-success"
             @click="$emit('join')"
           >
-             <span v-once>{{ $t('join') }}</span>
+             <span v-once>{{ $t(isParty ? 'joinParty' : 'joinGuild') }}</span>
           </button>
           <button
             v-if="isMember"
@@ -34,49 +34,46 @@
             </template>
             <b-dropdown-item
               v-if="!isMember"
+              class="selectListItem"
               @click="$emit('showInviteModal')">
               <span v-once>{{ $t('invite') }}</span>
             </b-dropdown-item>
             <b-dropdown-item
-                v-if="isLeader || isAdmin"
-                @click="$emit('updateGuild')">
+              v-if="isLeader || isAdmin"
+              class="selectListItem"
+              @click="$emit('updateGuild')">
               <span v-once>
-                {{ $t('edit') }}
+                {{ isParty ? $t('editParty') : $t('editGuild') }}
               </span>
             </b-dropdown-item>
             <b-dropdown-item
-                v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
-                @click="$emit('upgradeGroup')">
+              class="selectListItem"
+              v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
+              @click="$emit('upgradeGroup')">
               <span v-once>
-                {{ $t('upgrade') }}
+                {{ $t('upgradeToGroup') }}
               </span>
             </b-dropdown-item>
             <b-dropdown-item
+              class="selectListItem"
               @click="$emit('messageLeader')">
               <span v-once>
                 {{ $t(isParty ? 'messagePartyLeader' : 'messageGuildLeader') }}
               </span>
             </b-dropdown-item>
             <b-dropdown-item
-                v-if="isMember"
-                @click="$emit('leave')">
+              class="selectListItem"
+              v-if="isMember"
+              @click="$emit('leave')">
               <span v-once>
-                {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
+                {{ isParty ? $t('leaveParty') : $t('leaveGuild') }}
               </span>
             </b-dropdown-item>
           </b-dropdown>
         </div>
-        <div class="button-container">
-          <!-- @TODO: V2 button.btn.btn-primary(v-once,
-            v-if='isMember && !isParty') {{$t('donateGems')}}
-            // Suggest removing the isMember restriction
-             - it's okay if non-members donate to a public
-             guild. Also probably allow it for parties
-             if parties can buy imagery. -- Alys-->
-        </div>
       </div>
     </div>
-    <div class="py-3">
+    <div>
       <quest-sidebar-section
         v-if="isParty"
         :group="group"
@@ -124,6 +121,11 @@ export default {
         menuIcon,
       }),
     };
+  },
+  computed: {
+    isGuild () {
+      return !this.group.purchased?.plan?.customerId;
+    },
   },
 };
 </script>
