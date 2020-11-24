@@ -32,11 +32,32 @@
                 v-for="(skill, key) in spells[user.stats.class]"
                 v-if="user.stats.lvl >= skill.lvl"
                 :key="key"
-                v-b-popover.hover.auto="skillNotes(skill)"
+                :id="`spell_${skill.key}`"
                 @click="!spellDisabled(key) ? castStart(skill) : null"
               >
+                  <b-popover
+                    :target="`spell_${skill.key}`"
+                    triggers="hover"
+                    placement="top"
+                    custom-class="popover-class"
+                  >
+                    <div class="popover-wrapper">
+                      <div class="popover-title">
+                        <div class="popover-title-text">{{skill.text()}}</div>
+                        <div class="popover-mana">
+                          <div class="popover-svg-icon" v-html="icons.mana"></div>
+                          <div class="popover-mana-count">{{skill.mana}}</div>
+                        </div>
+                      </div>
+                      <div class="popover-descroption">
+                        {{skillNotes(skill)}}
+                      </div>
+                    </div>
+                  </b-popover>
                 <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-                <div class="spell col-12 row" :class="{ disabled: spellDisabled(key) }">
+                <div
+                class="spell col-12 row"
+                :class="{ disabled: spellDisabled(key) }">
                   <div class="col-12 details">
                     <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
                   </div>
@@ -76,6 +97,35 @@
   }
 }
 
+.popover-class{
+   .popover-wrapper{
+     display: flex;
+     flex-direction: column;
+     gap: 0.1em;
+     .popover-title{
+       display: flex;
+       justify-content: space-between;
+       padding-bottom: 0.5em;
+       .popover-title-text{
+         font-weight: bold;
+       }
+       .popover-mana{
+         display: flex;
+         flex-direction: row;
+         gap: 2px;
+         .popover-svg-icon{
+           width: 1em;
+         }
+         .popover-mana-count{
+           font-weight: bold;
+           color: #50b5e9;
+           font-size: 1em;
+         }
+       }
+     }
+   }
+}
+
 .spell-container {
   white-space: initial;
   margin-right: -0.65em;
@@ -111,7 +161,7 @@
   padding-left: 0;
   overflow: hidden;
   max-width: 10em;
-
+  box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
   &.disabled {
     background-color: #34313a;
     box-shadow: none;
@@ -191,7 +241,7 @@
     margin-bottom: 0;
     background-color: transparent;
     border: none;
-    box-shadow: transparent;
+    box-shadow: none;
     .spell-border{
       clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
       width: 62px;
