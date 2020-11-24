@@ -396,8 +396,8 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     if (savedWinner.preferences.pushNotifications.wonChallenge !== false) {
       sendPushNotification(savedWinner,
         {
-          title: challenge.name,
-          message: shared.i18n.t('wonChallenge', savedWinner.preferences.language),
+          title: shared.i18n.t('wonChallenge', savedWinner.preferences.language)
+          message: shared.i18n.t('wonChallengeDesc', {'challengeName': challenge.name}, savedWinner.preferences.language),
           identifier: 'wonChallenge',
         });
     }
