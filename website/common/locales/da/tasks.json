@@ -73,7 +73,7 @@
     "startDate": "Startdato",
     "streaks": "Stribe-præstationer",
     "streakName": "<%= count %> Stribe-præstationer",
-    "streakText": "Har opnået <%=count %> 21-dags striber på Daglige",
+    "streakText": "Har opnået <%= count %> 21-dags striber på Daglige",
     "streakSingular": "Striber",
     "streakSingularText": "Har opnået en 21-dags stribe på en Daglig",
     "perfectName": "<%= count %> perfekte dage",

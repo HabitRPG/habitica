@@ -716,5 +716,7 @@
     "questTurquoiseCompletion": "热得满头大汗，队伍在土堆旁停下来休息，大家看着新发现的符文和宝石。\"<br><br>\"难以置信，\"@QuartzFox喃喃自语。\"历史书将重新书写。\"<br><br>\"我们应该把这些材料带回Habitica大学进行分析。\"@gawrone说。\"有很多东西需要研究，我们还可以制作绿松石药水! 谁知道我们还能在这附近发现什么埋藏的东西呢？\"<br><br>@starsystemic也说道。\"只要努力工作，就会有惊人的成就！\"",
     "questTurquoiseNotes": "@gawrone跑进你的房间，一手托着Habitica的文献，另一只手拿着一本皮装书。这本皮装书布满灰尘，异常的大。<br><br>\"你绝对猜不到我发现了什么！\"他说。\"全盛田野之所以如此肥沃，是因为那里曾是一片汪洋。据传，有一个古老的民族曾居住在海底的魔法城市。通过被遗忘的地图，我找到了最有可能存在的位置! 拿上你的铁锹!\"<br><br>第二天晚上，你们如约见面，@QuartzFox和@starsystemic也加入了队伍，开始一同挖掘。在地下深处，你发现了一张卢恩符文，在其附近还有一颗绿松石石！<br><br>\"继续挖！\" @gawrone催促道。\"如果我们还能更多，那么就可以制作古老药水，还原历史！\"",
     "sandySidekicksNotes": "包括“放纵的犰狳”、“分心蛇”和“寒霜蜘蛛”。<%= date %>前可购买。",
-    "sandySidekicksText": "沙地搭档副本集"
+    "sandySidekicksText": "沙地搭档副本集",
+    "questBlackPearlUnlockText": "在市场上解锁黑珍珠孵化药水以购买",
+    "questBlackPearlDropBlackPearlPotion": "黑珍珠孵化药水"
 }

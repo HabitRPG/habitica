@@ -75,7 +75,7 @@
     "chatItemQuestFinish": "Alle voorwerpen gevonden! Het gezelschap heeft hun beloningen ontvangen.",
     "chatFindItems": "<%= username %> heeft <%= items %> gevonden.",
     "chatBossDefeated": "Je hebt <%= bossName %> verslagen! Leden van het gezelschap ontvangen de beloningen van de overwinning.",
-    "chatBossDontAttack": "<%= gebruikersnaam %> valt < = bossName %> aan voor <%= userDamage %> schade. <%= bossName %> valt niet aan, omdat het respect heeft voor het feit dat er na het onderhoud enkele bugs zijn en het niemand onrechtvaardig wil kwetsen. Het zal binnenkort zijn opmars voortzetten!",
+    "chatBossDontAttack": "<%= gebruikersnaam %> valt <%= bossName %> aan voor <%= userDamage %> schade. <%= bossName %> valt niet aan, omdat het respect heeft voor het feit dat er na het onderhoud enkele bugs zijn en het niemand onrechtvaardig wil kwetsen. Het zal binnenkort zijn opmars voortzetten!",
     "chatBossDamage": "<%= username %> valt <%= bossName %> aan voor <%= userDamage %> schade. <%= bossName %> valt gezelschap aan voor <%= bossDamage %> schade.",
     "chatQuestStarted": "Je queeste, <%= questName %>, is begonnen.",
     "questAlreadyStartedFriendly": "De queeste is al begonnen, maar je kunt altijd de volgende pakken!",

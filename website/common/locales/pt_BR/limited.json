@@ -186,5 +186,6 @@
     "fall2020TwoHeadedRogueSet": "Duas Cabeças (Gatuno(a))",
     "fall2020ThirdEyeMageSet": "Terceiro Olho (Mago(a))",
     "septemberYYYY": "Setembro <%= year %>",
-    "royalPurpleJackolantern": "Jack da Lanterna Roxa"
+    "royalPurpleJackolantern": "Jack da Lanterna Roxa",
+    "novemberYYYY": "Novembro <%= year %>"
 }
