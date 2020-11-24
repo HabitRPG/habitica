@@ -9,7 +9,7 @@
         </div>
         <div class="details">
           <p class="notes">
-            {{ "Select a task" }}
+            {{ `Click on a ${spell.target} to cast!` }}
           </p>
           <!-- @TODO make that translatable-->
         </div>
@@ -187,7 +187,7 @@
   .spell {
     border-radius: 4px;
     width: 93px;
-    height: 7em;
+    height: 8.3em;
     padding-bottom: 0;
     margin-bottom: 0;
     background-color: transparent;
@@ -225,14 +225,12 @@
       background-color: rgba(52, 49, 58, 0.96);
 
       .notes {
-        font-family: Roboto;
         font-size: 12px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        letter-spacing: normal;
         color: #e1e0e3;
         height: 100%;
+        padding-left: 2px;
+        padding-right: 2px;
+        padding-right: 1px;
       }
     }
   }
