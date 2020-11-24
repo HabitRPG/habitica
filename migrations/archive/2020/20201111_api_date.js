@@ -31,6 +31,7 @@ async function updateUser (user) {
 
 module.exports = async function processUsers () {
   let query = {
+    type: 'todo',
     date: {$exists: true}
   };
 
