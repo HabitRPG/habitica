@@ -1,26 +1,14 @@
-import cc from 'coupon-code';
 import nconf from 'nconf';
 
 import { getStripeApi } from './api';
-import { model as Coupon } from '../../../models/coupon';
 import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
 } from '../../../models/group';
-import shared from '../../../../common';
-import {
-  BadRequest,
-} from '../../errors';
 import { getOneTimePaymentInfo } from './oneTimePayments'; // eslint-disable-line import/no-cycle
+import { checkSubData } from './subscriptions'; // eslint-disable-line import/no-cycle
 
 async function buySubscription (sub, coupon, email, user, token, groupId, stripeApi) {//TODO
-  if (sub.discount) {
-    if (!coupon) throw new BadRequest(shared.i18n.t('couponCodeRequired'));
-    coupon = await Coupon // eslint-disable-line no-param-reassign
-      .findOne({ _id: cc.validate(coupon), event: sub.key }).exec();
-    if (!coupon) throw new BadRequest(shared.i18n.t('invalidCoupon'));
-  }
-
   const customerObject = {
     email,
     metadata: { uuid: user._id },
@@ -64,34 +52,6 @@ export async function createCheckoutSession (options, stripeInc) {
   let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
-  //TODO
-  /* if (sub) {
-    const { subId, subResponse } = await buySubscription(
-      sub, coupon, email, user, token, groupId, stripeApi,
-    );
-    subscriptionId = subId;
-    response = subResponse;
-  } else { */
-  const {
-    amount,
-    gemsBlock,
-  } = await getOneTimePaymentInfo(gemsBlockKey, gift, user, stripeApi);
-  /* } */
-
-  /* if (sub) {
-    await payments.createSubscription({
-      user,
-      customerId: response.id,
-      paymentMethod: this.constants.PAYMENT_METHOD,
-      sub,
-      headers,
-      groupId,
-      subscriptionId,
-    });
-  } else {
-    await applyGemPayment(user, response, block, gift);
-  } */
-
   let type = 'gems';
   if (gift) {
     type = gift.type === 'gems' ? 'gift-gems' : 'gift-sub';
@@ -103,17 +63,27 @@ export async function createCheckoutSession (options, stripeInc) {
     type,
     userId: user._id,
     gift: gift ? JSON.stringify(gift) : undefined,
-    gemsBlock: gemsBlock ? gemsBlock.key : undefined,
+    sub: sub ? JSON.stringify(sub) : undefined,
   };
 
   let lineItems;
 
   if (type === 'subscription') {
+    await checkSubData(sub, coupon);
+
     lineItems = [{
       price: sub.key,
       quantity: 1,
+      //TODO description, images directly from plan setup
     }];
   } else {
+    const {
+      amount,
+      gemsBlock,
+    } = await getOneTimePaymentInfo(gemsBlockKey, gift, user, stripeApi);
+
+    metadata.gemsBlock = gemsBlock ? gemsBlock.key : undefined;
+
     lineItems = [{
       price_data: {
         product_data: {

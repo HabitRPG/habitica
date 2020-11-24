@@ -27,8 +27,10 @@ api.createCheckoutSession = {
   async handler (req, res) {
     const { user } = res.locals;
     const {
-      gift, sub, gemsBlock, coupon, groupId,
+      gift, sub: subKey, gemsBlock, coupon, groupId,
     } = req.body;
+
+    const sub = subKey ? shared.content.subscriptionBlocks[subKey] : false;
 
     const session = await stripePayments.createCheckoutSession({
       user, gemsBlock, gift, sub, groupId, coupon, headers: req.headers,

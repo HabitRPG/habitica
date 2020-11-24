@@ -1,4 +1,5 @@
 import nconf from 'nconf';
+import moment from 'moment';
 
 import logger from '../../logger';
 import { model as User } from '../../../models/user'; // eslint-disable-line import/no-cycle
@@ -14,10 +15,11 @@ import { // eslint-disable-line import/no-cycle
 } from '../../../models/group';
 import shared from '../../../../common';
 import { applyGemPayment } from './oneTimePayments'; // eslint-disable-line import/no-cycle
+import { applySubscription } from './subscriptions'; // eslint-disable-line import/no-cycle
 
 const endpointSecret = nconf.get('STRIPE_WEBHOOKS_ENDPOINT_SECRET');
 
-export async function handleWebhooks (options, stripeInc) {//TODO
+export async function handleWebhooks (options, stripeInc) {
   const { body, headers } = options;
 
   // @TODO: We need to mock this, but curently we don't have correct
@@ -39,27 +41,36 @@ export async function handleWebhooks (options, stripeInc) {//TODO
 
   switch (event.type) {
     case 'payment_intent.created':
+    case 'payment_intent.succeeded':
     case 'charge.succeeded':
     case 'payment_method.attached':
     case 'customer.created':
-    case 'payment_intent.succeeded': {
-      // Events sent when a payment is being made
+    case 'customer.updated':
+    case 'customer.deleted':
+    case 'customer.subscription.created':
+    case 'customer.subscription.updated':
+    case 'invoice.created':
+    case 'invoice.updated':
+    case 'invoice.finalized':
+    case 'invoice.paid':
+    case 'invoice.payment_succeeded': {
+      // Events sent even if not active in the Stripe dashboard when a payment is being made
+      // This is to avoid error logs from the webhook handler not being implemented
       break;
     }
     case 'checkout.session.completed': {
       const session = event.data.object;
       const { metadata } = session;
 
-      if (metadata.type !== 'sub') {
+      if (metadata.type !== 'subscription') {
         await applyGemPayment(session);
       } else {
-        //TODO
-        throw new Error('Not implemented');
+        await applySubscription(session);
       }
 
       break;
     }
-    case 'customer.subscription.deleted': {  //TODO
+    case 'customer.subscription.deleted': {
       // event.request !== null means that the user itself cancelled the subscrioption,
       // the cancellation on our side has been already handled
       if (event.request !== null) break;
@@ -78,7 +89,7 @@ export async function handleWebhooks (options, stripeInc) {//TODO
           'purchased.plan.paymentMethod': this.constants.PAYMENT_METHOD,
         }).select(groupFields).exec();
 
-        if (!group) throw new NotFound(i18n.t('groupNotFound'));
+        if (!group) throw new NotFound(shared.i18n.t('groupNotFound'));
         groupId = group._id;
 
         user = await User.findById(group.leader).exec();
@@ -89,7 +100,7 @@ export async function handleWebhooks (options, stripeInc) {//TODO
         }).exec();
       }
 
-      if (!user) throw new NotFound(i18n.t('userNotFound'));
+      if (!user) throw new NotFound(shared.i18n.t('userNotFound'));
 
       await stripeApi.customers.del(customerId);
 

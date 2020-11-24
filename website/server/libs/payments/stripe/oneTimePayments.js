@@ -56,22 +56,23 @@ export async function getOneTimePaymentInfo (gemsBlockKey, gift, user) {
 }
 
 export async function applyGemPayment (session) {
-  const { metadata } = session;
-  const { gemsBlock: gemsBlockKey, gift: giftStringified } = metadata;
+  const { metadata, customer: customerId } = session;
+  const { gemsBlock: gemsBlockKey, gift: giftStringified, userId } = metadata;
 
   const gemsBlock = gemsBlockKey ? getGemsBlock(gemsBlockKey) : undefined;
   const gift = giftStringified ? JSON.parse(giftStringified) : undefined;
 
   const user = await User.findById(metadata.userId).exec();
-  if (!user) throw new NotFound(`User ${metadata.userId} not found.`);
+  if (!user) throw new NotFound(shared.i18n.t('userWithIDNotFound', { userId }));
 
   let method = 'buyGems';
   const data = {
     user,
-    customerId: session.customer,
+    customerId,
     paymentMethod: stripeConstants.PAYMENT_METHOD,
     gemsBlock,
     gift,
+    //headers
   };
 
   if (gift) {
@@ -80,9 +81,7 @@ export async function applyGemPayment (session) {
 
     const member = await User.findById(gift.uuid).exec();
     if (!member) {
-      throw new NotFound(shared.i18n.t(
-        'userWithIDNotFound', { userId: gift.uuid }, user.preferences.language,
-      ));
+      throw new NotFound(shared.i18n.t('userWithIDNotFound', { userId: gift.uuid }));
     }
     gift.member = member;
   }
