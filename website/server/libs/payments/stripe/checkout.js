@@ -16,16 +16,6 @@ async function buySubscription (sub, coupon, email, user, token, groupId, stripe
     plan: sub.key,
   };
 
-  if (groupId) {
-    customerObject.quantity = sub.quantity;
-    const groupFields = basicGroupFields.concat(' purchased');
-    const group = await Group.getGroup({
-      user, groupId, populateLeader: false, groupFields,
-    });
-    const membersCount = await group.getMemberCount();
-    customerObject.quantity = membersCount + sub.quantity - 1;
-  }
-
   const response = await stripeApi.customers.create(customerObject);
 
   let subscriptionId;
@@ -71,9 +61,22 @@ export async function createCheckoutSession (options, stripeInc) {
   if (type === 'subscription') {
     await checkSubData(sub, coupon);
 
+    let quantity = 1;
+
+    if (groupId) {
+      quantity = sub.quantity;
+      const groupFields = basicGroupFields.concat(' purchased');
+      const group = await Group.getGroup({
+        user, groupId, populateLeader: false, groupFields,
+      });
+      const membersCount = await group.getMemberCount();
+      quantity = membersCount + sub.quantity - 1;
+      metadata.groupId = groupId;
+    }
+
     lineItems = [{
       price: sub.key,
-      quantity: 1,
+      quantity,
       //TODO description, images directly from plan setup
     }];
   } else {

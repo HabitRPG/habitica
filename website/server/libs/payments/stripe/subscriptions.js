@@ -22,12 +22,14 @@ export async function checkSubData (sub, coupon) {
 
 export async function applySubscription (session) {
   const { metadata, customer: customerId, subscription: subscriptionId } = session;
-  const { sub: subStringified, userId } = metadata;
+  const { sub: subStringified, userId, groupId } = metadata;
 
   const sub = subStringified ? JSON.parse(subStringified) : undefined;
 
   const user = await User.findById(metadata.userId).exec();
   if (!user) throw new NotFound(shared.i18n.t('userWithIDNotFound', { userId }));
+
+  console.log('applying sub', groupId);
 
   await payments.createSubscription({
     user,
@@ -35,7 +37,7 @@ export async function applySubscription (session) {
     paymentMethod: stripeConstants.PAYMENT_METHOD,
     sub,
     //headers,
-    //groupId,
+    groupId,
     subscriptionId,
   });
 }

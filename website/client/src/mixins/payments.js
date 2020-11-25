@@ -145,8 +145,6 @@ export default {
 
       // @TODO proper error handling
       const response = await axios.post(url, postData);
-      console.log(response);
-      console.log(response.data, response.data.data);
 
       const appState = {
         paymentMethod: 'stripe',
