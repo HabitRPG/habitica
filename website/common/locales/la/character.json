@@ -185,5 +185,5 @@
     "chatCastSpellParty": "<%= username %> <%= spell %> conturbernio incantat.",
     "chatCastSpellUser": "<%= username %> <%= spell %> super <%= target %> incantat.",
     "purchasePetItemConfirm": "Hanc rem emens numerum rerum superabis, quibus rebus tibi opus est ad incubanda <%= itemText %> animalia, quae incubari possunt. Certe visne?",
-    "purchaseForGold": "<%=cost %> aurine emere?"
+    "purchaseForGold": "<%= cost %> aurine emere?"
 }

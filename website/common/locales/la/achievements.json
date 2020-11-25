@@ -41,7 +41,7 @@
     "achievementDustDevilText": "Omnia animalia coloris deserti collegit.",
     "achievementLostMasterclasserModalText": "Sedecim investigationes ad Investigationum Masterclasser Thesaurum pertinentes perfecisti et arcanum Magistrae Ordinum Oblitae solvisti!",
     "gettingStartedDesc": "Munus crea, quod perficias; tum praemia observa. Merebis <strong>5 res perfectas</strong> et <strong class=\"gold amount\">100 nummi auri</strong> cum primum finivisti!",
-    "showAllAchievements": "Praebe omnia <%=category %>",
+    "showAllAchievements": "Praebe omnia <%= category %>",
     "onboardingCompleteDesc": "Album perficiens <strong>5 res perfectas</strong> et <strong class=\"gold-amount\">100</strong> nummos auri meruisti.",
     "earnedAchievement": "Rem perfectam meruisti!",
     "viewAchievements": "Res perfectas inspice",

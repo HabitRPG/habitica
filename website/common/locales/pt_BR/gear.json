@@ -1940,7 +1940,7 @@
     "eyewearSpecialFall2019HealerNotes": "Fortaleça-se contra os inimigos mais difíceis com esta máscara inescrutável. Equipamento de Edição Limitada do Outono de 2019.",
     "eyewearMystery201907Notes": "Fique incrível enquanto protege seus olhos dos raios UV prejudiciais! Não confere benefícios. Item de Assinante em Julho de 2019.",
     "eyewearSpecialFall2019HealerText": "Viseira Sombria",
-    "shieldSpecialSummer2019WarriorNotes": "Encarapace-se atrás deste forte escudo redondo, gravado com a estampa do seu réptil favorito. Aumenta constituição em <%=com %>. Equipamento de Edição Limitada de Verão de 2019.",
+    "shieldSpecialSummer2019WarriorNotes": "Encarapace-se atrás deste forte escudo redondo, gravado com a estampa do seu réptil favorito. Aumenta constituição em <%= con %>. Equipamento de Edição Limitada de Verão de 2019.",
     "eyewearMystery201907Text": "Doces Óculos de Sol",
     "eyewearSpecialFall2019RogueNotes": "Você pensaria que uma máscara completa protegeria melhor sua identidade, mas as pessoas tendem a ficar muito impressionadas com seu design rígido para notar qualquer recurso de identificação que possa ser revelado. Equipamento de Edição Limitada do Outono de 2019.",
     "eyewearSpecialFall2019RogueText": "Meia-Máscara de Osso Branco",

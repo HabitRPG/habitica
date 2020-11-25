@@ -130,7 +130,7 @@
     "winter2019PyrotechnicSet": "Pyrotechnic (Mage)",
     "winter2019WinterStarSet": "Winter Star (Healer)",
     "winter2019PoinsettiaSet": "Poinsettia (Dief)",
-    "eventAvailability": "Verkrijgbaar voor aankoop tot <%=date(locale) %>.",
+    "eventAvailability": "Verkrijgbaar voor aankoop tot <%= date(locale) %>.",
     "dateEndMarch": "30 april",
     "dateEndApril": "19 april",
     "dateEndMay": "31 mei",
