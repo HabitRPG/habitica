@@ -317,7 +317,7 @@
     "weaponArmoireBlueLongbowText": "蓝色长弓",
     "weaponArmoireBlueLongbowNotes": "准备...瞄准...开火！这把弓的射程非常远。增加<%= per %>点感知，<%= con %>点体质以及<%= str %>点力量。魔法衣橱：钢铁弓箭手套装（3/3）。",
     "weaponArmoireGlowingSpearText": "光之矛",
-    "weaponArmoireGlowingSpearNotes": "这把长毛能把任务催眠，方便你展开攻击。增加<%= str %>点力量。魔法衣橱：独立装备。",
+    "weaponArmoireGlowingSpearNotes": "这把长矛能将不羁的任务催眠，方便你展开攻击。增加<%= str %>点力量。魔法衣橱：独立装备。",
     "weaponArmoireBarristerGavelText": "大律师锤",
     "weaponArmoireBarristerGavelNotes": "秩序！增加力量、体质各<%= attrs %>点。魔法衣橱：大律师套装（3/3）。",
     "weaponArmoireJesterBatonText": "小丑手杖",

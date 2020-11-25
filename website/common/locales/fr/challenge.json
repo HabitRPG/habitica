@@ -101,5 +101,7 @@
     "selectMember": "Choisir un membre",
     "confirmKeepChallengeTasks": "Voulez-vous conserver les tâches du défi ?",
     "selectParticipant": "Sélectionnez un participant",
-    "filters": "Filtres"
+    "filters": "Filtres",
+    "wonChallengeDesc": "Vous avez remporté le défi de <%= challengeName %> ! Votre victoire a été enregistrée dans vos succès.",
+    "yourReward": "Votre récompense"
 }

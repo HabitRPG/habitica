@@ -384,16 +384,6 @@ export default {
       memberResults: [],
     };
   },
-  watch: {
-    'challenge.name': {
-      handler (newVal) {
-        this.$store.dispatch('common:setTitle', {
-          section: this.$t('challenge'),
-          subSection: newVal.name,
-        });
-      },
-    },
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     isMember () {
@@ -408,6 +398,16 @@ export default {
     },
     canJoin () {
       return !this.isMember;
+    },
+  },
+  watch: {
+    'challenge.name': {
+      handler (newVal) {
+        this.$store.dispatch('common:setTitle', {
+          section: this.$t('challenge'),
+          subSection: newVal.name,
+        });
+      },
     },
   },
   mounted () {

@@ -2147,7 +2147,7 @@
     "armorSpecialSummer2020HealerText": "Ornat der tosenden Wellen",
     "armorSpecialSummer2020MageNotes": "Nutze die Macht der Meerestiefen mit dieser berauschenden Rüstung. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2020 Sommerausrüstung.",
     "armorSpecialSummer2020WarriorNotes": "Mit diesen schillernden Schuppen wirst Du der glänzendste Fisch im öden Strom sein! Erhöht Ausdauer um <%= con %>. Limitierte Ausgabe 2020 Sommerausrüstung.",
-    "weaponArmoireHandyHookNotes": "Wer braucht schon opponierbare Daumen? Dieser Haken ist \"handlich\" genug für jeden. Erhöht Stärke um <%= str %>. Verzauberter Schrank: Piratenset (Gegenstand 1 von 3).",
+    "weaponArmoireHandyHookNotes": "Wer braucht schon zwei Hände? Dieser Haken ist \"handlich\" genug für jeden. Erhöht Stärke um <%= str %>. Verzauberter Schrank: Piratenset (Gegenstand 1 von 3).",
     "weaponSpecialSummer2020HealerNotes": "Wie die Strömung scharfe Kanten abträgt, so soll Deine Magie die Schmerzen Deiner Freunde lindern. Erhöht Intelligenz um <%= int %>. Limitierte Ausgabe 2020 Sommerausrüstung.",
     "weaponSpecialSummer2020HealerText": "Milchglas-Stab",
     "headMystery202008Text": "\"Oiliges Orakel\"-Kopfschmuck",

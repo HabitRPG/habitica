@@ -101,5 +101,7 @@
     "selectMember": "メンバーを選択",
     "confirmKeepChallengeTasks": "チャレンジのタスクをそのままにしておきますか？",
     "selectParticipant": "参加者を選ぶ",
-    "filters": "フィルター"
+    "filters": "フィルター",
+    "wonChallengeDesc": "あなたは<%= challengeName %>で優勝しました！あなたの実績欄に勝利が記録されます。",
+    "yourReward": "あなたのごほうび"
 }

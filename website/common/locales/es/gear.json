@@ -751,7 +751,7 @@
     "armorArmoireCannoneerRagsText": "Harapos de cañonero",
     "armorArmoireCannoneerRagsNotes": "Estos harapos son más duros de lo que aparentan. Suma <%= con %> de constitución. Armario encantado: conjunto de cañonero (artículo 2 de 3).",
     "armorArmoireFalconerArmorText": "Armadura del Halcón",
-    "armorArmoireFalconerArmorNotes": "Aléjate de los ataques al talón con esta armadura robusta! Aumenta la Constitución <%=con %>. Armario encantado:Conjunto del Halcón(Objeto 1 de 3).",
+    "armorArmoireFalconerArmorNotes": "Aléjate de los ataques al talón con esta armadura robusta! Aumenta la Constitución <%= con %>. Armario encantado:Conjunto del Halcón(Objeto 1 de 3).",
     "armorArmoireVermilionArcherArmorText": "Armadura de arquero bermellón",
     "armorArmoireVermilionArcherArmorNotes": "Esta armadura está hecha de un metal rojo con un encantamiento especial para ofrecer la máxima protección, las mínimas restricciones y un gran estilo. Suma <%= per %> de percepción. Armario encantado: conjunto de arquero bermellón (artículo 2 de 3).",
     "armorArmoireOgreArmorText": "Armadura de Ogro",
@@ -1951,5 +1951,13 @@
     "weaponSpecialSummer2020MageText": "Remo poderoso",
     "weaponSpecialSummer2020WarriorNotes": "Si tus enemigos se mofan de tu elección de armamento, no piques. ¡Este anzuelo es atrautentico! Aumenta la fuerza un <%= str %>. Edición limitada de Equipamiento Verano 2020.",
     "weaponSpecialSummer2020RogueNotes": "¡Tus enemigos no te ven venir, pero tus garras son ineludibles! Aumenta la Fuerza un <%= str %>. Edición limitada de Equipamiento Verano 2020.",
-    "backSpecialNamingDay2020Text": "Cola de Grifo púrpura real"
+    "backSpecialNamingDay2020Text": "Cola de Grifo púrpura real",
+    "armorSpecialSpring2019MageNotes": "Este atuendo acumula poder de la resina mágica embebida en las fibras de corteza antigua que componen el tejido. Aumenta la Inteligencia en <%= int %>. Equipamiento de edición limitada Primavera 2019.",
+    "armorSpecialSummer2019HealerNotes": "Deslízate impecablemente por cálidas aguas costeras con esta elegante cola. Aumenta la Constitución en <%= con %>. Equipamiento de edición limitada Verano 2019.",
+    "armorSpecialFall2019RogueNotes": "Este atuendo viene completo con guantes blancos, y es ideal para pavonearte en tu palco privado sobre el escenario o hacer entradas impactantes bajando por grandes escalinatas. Aumenta la Percepción en <%= per %>. Equipamiento de edición limitada Otoño 2019.",
+    "weaponArmoireClubOfClubsNotes": "Este estiloso garrote no revelará tu mano demasiado pronto con respecto a tus intenciones para con esas viejas tareas escurridizas. Armario Encantado: Conjunto de la Sota de Tréboles (Artículo 2 de 3).",
+    "weaponArmoireClubOfClubsText": "Garrote de... Tréboles",
+    "weaponArmoireEnchantersStaffNotes": "Las piedras verdes de este bastón están colmadas del poder del cambio que fluye con fuerza en el viento del otoño. Incrementa la Percepción en <%= per %>. Armario Encantado: Conjunto de Hechicero Otoñal (Artículo 3 de 4).",
+    "weaponArmoireEnchantersStaffText": "Bastón de Hechicero",
+    "armorSpecialSpring2019RogueNotes": "Una pelusa muy dura. Aumenta la Percepción en <% = per%>. Equipamiento de edición limitada Primavera 2019."
 }

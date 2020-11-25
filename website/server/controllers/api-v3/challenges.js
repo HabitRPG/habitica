@@ -221,6 +221,7 @@ api.createChallenge = {
       groupID: group._id,
       groupName: group.privacy === 'private' ? null : group.name,
       groupType: group._id === TAVERN_ID ? 'tavern' : group.type,
+      prize: response.prize,
       headers: req.headers,
     });
 
@@ -350,11 +351,15 @@ api.leaveChallenge = {
  * @apiGroup Challenge
  * @apiDescription Get challenges the user has access to. Includes public challenges,
  * challenges belonging to the user's group, and challenges the user has already joined.
+ * Returns 10 results per page.
  *
  * @apiSuccess {Object[]} challenges An array of challenges sorted with official
  *                                   challenges first, followed by the challenges
  *                                   in order from newest to oldest.
  *
+ * @apiParam (Query) {Number} page This parameter can be used to specify the page number
+                                   for the user challenges result (the initial page is number 0).
+ * @apiError (400) {BadRequest} queryPageInteger Page query parameter must be a positive integer
  * @apiUse SuccessfulChallengeRequest
  *
  * @apiUse ChallengeArrayExample
@@ -366,6 +371,11 @@ api.getUserChallenges = {
   url: '/challenges/user',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
+    req.checkQuery('page').notEmpty().isInt({ min: 0 }, apiError('queryPageInteger'));
+
+    const validationErrors = req.validationErrors();
+    if (validationErrors) throw validationErrors;
+
     const CHALLENGES_PER_PAGE = 10;
     const { page } = req.query;
 
@@ -751,6 +761,7 @@ api.deleteChallenge = {
       groupID: challenge.group._id,
       groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
       groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+      prize: challenge.prize,
       headers: req.headers,
     });
 
@@ -802,6 +813,7 @@ api.selectChallengeWinner = {
       groupID: challenge.group._id,
       groupName: challenge.group.privacy === 'private' ? null : challenge.group.name,
       groupType: challenge.group._id === TAVERN_ID ? 'tavern' : challenge.group.type,
+      prize: challenge.prize,
       headers: req.headers,
     });
 

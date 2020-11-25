@@ -56,7 +56,7 @@ describe('GET challenges/user', () => {
     });
     context('all challenges', () => {
       it('should return challenges user has joined', async () => {
-        const challenges = await nonMember.get('/challenges/user');
+        const challenges = await nonMember.get('/challenges/user?page=0');
 
         const foundChallenge = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge).to.exist;
@@ -65,14 +65,14 @@ describe('GET challenges/user', () => {
       });
 
       it('should not return challenges a non-member has not joined', async () => {
-        const challenges = await nonMember.get('/challenges/user');
+        const challenges = await nonMember.get('/challenges/user?page=0');
 
         const foundChallenge2 = _.find(challenges, { _id: challenge2._id });
         expect(foundChallenge2).to.not.exist;
       });
 
       it('should return challenges user has created', async () => {
-        const challenges = await user.get('/challenges/user');
+        const challenges = await user.get('/challenges/user?page=0');
 
         const foundChallenge1 = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge1).to.exist;
@@ -85,7 +85,7 @@ describe('GET challenges/user', () => {
       });
 
       it('should return challenges in user\'s group', async () => {
-        const challenges = await member.get('/challenges/user');
+        const challenges = await member.get('/challenges/user?page=0');
 
         const foundChallenge1 = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge1).to.exist;
@@ -98,7 +98,7 @@ describe('GET challenges/user', () => {
       });
 
       it('should return newest challenges first', async () => {
-        let challenges = await user.get('/challenges/user');
+        let challenges = await user.get('/challenges/user?page=0');
 
         let foundChallengeIndex = _.findIndex(challenges, { _id: challenge2._id });
         expect(foundChallengeIndex).to.eql(0);
@@ -106,7 +106,7 @@ describe('GET challenges/user', () => {
         const newChallenge = await generateChallenge(user, publicGuild);
         await user.post(`/challenges/${newChallenge._id}/join`);
 
-        challenges = await user.get('/challenges/user');
+        challenges = await user.get('/challenges/user?page=0');
 
         foundChallengeIndex = _.findIndex(challenges, { _id: newChallenge._id });
         expect(foundChallengeIndex).to.eql(0);
@@ -125,7 +125,7 @@ describe('GET challenges/user', () => {
         const privateChallenge = await generateChallenge(groupLeader, group);
         await groupLeader.post(`/challenges/${privateChallenge._id}/join`);
 
-        const challenges = await nonMember.get('/challenges/user');
+        const challenges = await nonMember.get('/challenges/user?page=0');
 
         const foundChallenge = _.find(challenges, { _id: privateChallenge._id });
         expect(foundChallenge).to.not.exist;
@@ -149,7 +149,7 @@ describe('GET challenges/user', () => {
         });
         await groupLeader.post(`/challenges/${privateChallenge._id}/join`);
 
-        const challenges = await nonMember.get('/challenges/user?categories=academics&owned=not_owned');
+        const challenges = await nonMember.get('/challenges/user?page=0&categories=academics&owned=not_owned');
 
         const foundChallenge = _.find(challenges, { _id: privateChallenge._id });
         expect(foundChallenge).to.not.exist;
@@ -158,7 +158,7 @@ describe('GET challenges/user', () => {
 
     context('my challenges', () => {
       it('should return challenges user has joined', async () => {
-        const challenges = await nonMember.get(`/challenges/user?member=${true}`);
+        const challenges = await nonMember.get(`/challenges/user?page=0&member=${true}`);
 
         const foundChallenge = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge).to.exist;
@@ -167,7 +167,7 @@ describe('GET challenges/user', () => {
       });
 
       it('should return challenges user has created', async () => {
-        const challenges = await user.get(`/challenges/user?member=${true}`);
+        const challenges = await user.get(`/challenges/user?page=0&member=${true}`);
 
         const foundChallenge1 = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge1).to.exist;
@@ -180,7 +180,7 @@ describe('GET challenges/user', () => {
       });
 
       it('should return challenges user has created if filter by owned', async () => {
-        const challenges = await user.get(`/challenges/user?member=${true}&owned=owned`);
+        const challenges = await user.get(`/challenges/user?member=${true}&owned=owned&page=0`);
 
         const foundChallenge1 = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge1).to.exist;
@@ -193,7 +193,7 @@ describe('GET challenges/user', () => {
       });
 
       it('should not return challenges user has created if filter by not owned', async () => {
-        const challenges = await user.get(`/challenges/user?owned=not_owned&member=${true}`);
+        const challenges = await user.get(`/challenges/user?page=0&owned=not_owned&member=${true}`);
 
         const foundChallenge1 = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge1).to.not.exist;
@@ -202,7 +202,7 @@ describe('GET challenges/user', () => {
       });
 
       it('should not return challenges in user groups', async () => {
-        const challenges = await member.get(`/challenges/user?member=${true}`);
+        const challenges = await member.get(`/challenges/user?page=0&member=${true}`);
 
         const foundChallenge1 = _.find(challenges, { _id: challenge._id });
         expect(foundChallenge1).to.not.exist;
@@ -253,7 +253,7 @@ describe('GET challenges/user', () => {
     });
 
     it('should return official challenges first', async () => {
-      const challenges = await user.get('/challenges/user');
+      const challenges = await user.get('/challenges/user?page=0');
 
       const foundChallengeIndex = _.findIndex(challenges, { _id: officialChallenge._id });
       expect(foundChallengeIndex).to.eql(0);
@@ -274,7 +274,7 @@ describe('GET challenges/user', () => {
       const newChallenge = await generateChallenge(user, publicGuild);
       await user.post(`/challenges/${newChallenge._id}/join`);
 
-      challenges = await user.get('/challenges/user');
+      challenges = await user.get('/challenges/user?page=0');
 
       const foundChallengeIndex = _.findIndex(challenges, { _id: newChallenge._id });
       expect(foundChallengeIndex).to.eql(1);
@@ -314,16 +314,10 @@ describe('GET challenges/user', () => {
     it('returns public guilds filtered by category', async () => {
       const categoryChallenge = await generateChallenge(user, guild, { categories });
       await user.post(`/challenges/${categoryChallenge._id}/join`);
-      const challenges = await user.get(`/challenges/user?categories=${categories[0].slug}`);
+      const challenges = await user.get(`/challenges/user?page=0&categories=${categories[0].slug}`);
 
       expect(challenges[0]._id).to.eql(categoryChallenge._id);
       expect(challenges.length).to.eql(1);
-    });
-
-    it('does not page challenges if page parameter is absent', async () => {
-      const challenges = await user.get('/challenges/user');
-
-      expect(challenges.length).to.be.above(11);
     });
 
     it('paginates challenges', async () => {
@@ -335,7 +329,7 @@ describe('GET challenges/user', () => {
     });
 
     it('filters by owned', async () => {
-      const challenges = await member.get('/challenges/user?owned=owned');
+      const challenges = await member.get('/challenges/user?page=0&owned=owned');
 
       expect(challenges.length).to.eql(0);
     });

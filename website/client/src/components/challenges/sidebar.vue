@@ -56,8 +56,9 @@
           </div>
         </div>
       </filter-group>
-      <filter-group :title="$t('membership')"
+      <filter-group
         v-if="$route.name !== 'findChallenges'"
+        :title="$t('membership')"
         class="form-group"
       >
         <div
