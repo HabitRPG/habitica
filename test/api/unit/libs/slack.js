@@ -112,6 +112,7 @@ describe('slack', () => {
 
     it('noops if no flagging url is provided', () => {
       sandbox.stub(nconf, 'get').withArgs('SLACK_FLAGGING_URL').returns('');
+      nconf.get.withArgs('IS_TEST').returns(true);
       sandbox.stub(logger, 'error');
       const reRequiredSlack = requireAgain('../../../../website/server/libs/slack');
 
