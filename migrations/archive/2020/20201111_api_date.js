@@ -5,28 +5,20 @@
 
 const MIGRATION_NAME = '20201111_api_date';
 
-import * as Tasks from '../website/server/models/task';
+import * as Tasks from '../../../website/server/models/task';
 
 const progressCount = 1000;
 let count = 0;
 
-async function updateUser (user) {
+async function updateUser (todo) {
   count++;
 
-  let set = {};
-  const newDate = new Date(user.date);
-  if (isValidDate(newDate)) {
-    set = {
-      date: newDate
-    }
-  } else {
-    set = {
-      date: undefined
-    }
-  };
+  if (count % progressCount === 0) console.warn(`${count} ${todo._id}`);
 
-  if (count % progressCount === 0) console.warn(`${count} ${user._id}`);
-  return await Tasks.Task.update({_id: user._id}, {$set: set}).exec();
+  const newDate = new Date(todo.date);
+  if (isValidDate(newDate)) return;
+
+  return await Tasks.Task.update({_id: todo._id, type: 'todo'}, {$unset: {date: ''}}).exec();
 }
 
 module.exports = async function processUsers () {
@@ -35,10 +27,16 @@ module.exports = async function processUsers () {
     date: {$exists: true}
   };
 
+  const fields = {
+    _id: 1,
+    type: 1,
+    date: 1,
+  };
 
   while (true) { // eslint-disable-line no-constant-condition
     const users = await Tasks.Task // eslint-disable-line no-await-in-loop
       .find(query)
+      .select(fields)
       .limit(250)
       .sort({_id: 1})
       .lean()
