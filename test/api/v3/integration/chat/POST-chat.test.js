@@ -355,7 +355,7 @@ describe('POST /chat', () => {
   context('banned slur', () => {
     beforeEach(() => {
       sandbox.spy(email, 'sendTxn');
-      sandbox.stub(IncomingWebhook.prototype, 'send');
+      sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());
     });
 
     afterEach(() => {
