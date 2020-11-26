@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar px-4">
     <div
-      :class="{'guild-background': !isParty}"
+      :class="{'group-background': isGroup}"
     >
       <div class="buttons-wrapper">
         <div class="button-container button-with-menu-row">
@@ -123,8 +123,8 @@ export default {
     };
   },
   computed: {
-    isGuild () {
-      return !this.group.purchased?.plan?.customerId;
+    isGroup () {
+      return Boolean(this.group.purchased?.plan?.customerId);
     },
   },
 };
@@ -153,7 +153,7 @@ export default {
     }
   }
 
-  .guild-background {
+  .group-background {
     background-image: url('~@/assets/images/groups/grassy-meadow-backdrop.png');
     height: 246px;
   }
