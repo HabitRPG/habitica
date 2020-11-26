@@ -1,4 +1,4 @@
-import { IncomingWebhook } from '@slack/client';
+import { IncomingWebhook } from '@slack/webhook';
 import nconf from 'nconf';
 import { v4 as generateUUID } from 'uuid';
 import {

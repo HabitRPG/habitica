@@ -1,7 +1,7 @@
 import { find } from 'lodash';
 import moment from 'moment';
 import nconf from 'nconf';
-import { IncomingWebhook } from '@slack/client';
+import { IncomingWebhook } from '@slack/webhook';
 import {
   generateUser,
   translate as t,

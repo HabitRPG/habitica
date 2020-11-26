@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { IncomingWebhook } from '@slack/client';
+import { IncomingWebhook } from '@slack/webhook';
 import requireAgain from 'require-again';
 import nconf from 'nconf';
 import moment from 'moment';
