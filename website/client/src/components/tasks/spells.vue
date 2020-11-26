@@ -61,7 +61,12 @@
                   <div class="col-12 details">
                     <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
                   </div>
-                  <div class="col-12 mana" v-if="!spellDisabled(key)">
+                  <div class="col-12 mana" v-if="user.stats.lvl<skill.lvl">
+                    <div class="mana-text">
+                      <div>Level {{ skill.lvl }}</div>
+                    </div>
+                  </div>
+                  <div class="col-12 mana" v-else-if="spellDisabled(key)===true">
                     <div class="mana-text">
                       <div class="svg-icon" v-html="icons.mana"></div>
                       <div>{{ skill.mana }}</div>
@@ -69,7 +74,8 @@
                   </div>
                   <div class="col-12 mana" v-else>
                     <div class="mana-text">
-                      <div>Level {{ skill.lvl }}</div>
+                      <div class="svg-icon" v-html="icons.mana"></div>
+                      <div>{{ skill.mana }}</div>
                     </div>
                   </div>
                 </div>
