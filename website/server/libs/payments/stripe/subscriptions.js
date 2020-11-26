@@ -29,8 +29,6 @@ export async function applySubscription (session) {
   const user = await User.findById(metadata.userId).exec();
   if (!user) throw new NotFound(shared.i18n.t('userWithIDNotFound', { userId }));
 
-  console.log('applying sub', groupId);
-
   await payments.createSubscription({
     user,
     customerId,

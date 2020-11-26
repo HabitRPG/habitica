@@ -77,7 +77,6 @@ async function createSubscription (data) {
   let recipientIsSubscribed = recipient.isSubscribed();
 
   //  If we are buying a group subscription
-  console.log('has group id?', data.groupId);
   if (data.groupId) {
     const groupFields = basicGroupFields.concat(' purchased');
     group = await Group.getGroup({
@@ -87,17 +86,14 @@ async function createSubscription (data) {
     if (!group) {
       throw new NotFound(shared.i18n.t('groupNotFound'));
     }
-    console.log('found');
 
     if (!group.leader === data.user._id) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
     }
-    console.log('is leader');
 
     if (group.privacy !== 'private') {
       throw new NotAuthorized(shared.i18n.t('onlyPrivateGuildsCanUpgrade'));
     }
-    console.log('is private');
 
     recipient = group;
     itemPurchased = 'Group-Subscription';
@@ -108,7 +104,6 @@ async function createSubscription (data) {
     recipient.purchased.plan.quantity = data.sub.quantity;
 
     await this.addSubscriptionToGroupUsers(group);
-    console.log('adding sub to user');
   }
 
   const { plan } = recipient.purchased;
@@ -130,7 +125,6 @@ async function createSubscription (data) {
   } else {
     if (!plan.dateTerminated) plan.dateTerminated = today;
 
-    console.log('creating plan', data.groupId, data.subscriptionId);
     Object.assign(plan, { // override plan with new values
       planId: block.key,
       customerId: data.customerId,
@@ -260,9 +254,7 @@ async function createSubscription (data) {
     }
   }
 
-  if (group) console.log('saving group');
   if (group) await group.save();
-  if (group) console.log('saved group');
   if (data.user && data.user.isModified()) await data.user.save();
   if (data.gift) await data.gift.member.save();
 

@@ -62,7 +62,6 @@ export async function handleWebhooks (options, stripeInc) {
       const session = event.data.object;
       const { metadata } = session;
 
-      console.log('checkout session', metadata);
       if (metadata.type !== 'subscription') {
         await applyGemPayment(session);
       } else {
