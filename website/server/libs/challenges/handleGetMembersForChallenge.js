@@ -11,7 +11,7 @@ import { NotFound } from '../errors';
 
 async function getMembersTasksForChallenge (members, challenge) {
   const challengeTasks = await Tasks.Task.find({
-    userId: { $in: members.map(m => m.id) },
+    userId: { $in: members.map(m => m._id) },
     'challenge.id': challenge.id,
   })
     .select('-tags -checklist') // We don't want to return tags and checklists publicly
@@ -81,12 +81,15 @@ export async function handleGetMembersForChallenge (req, res) {
     .lean()
     .exec();
 
-  members.forEach(member => User.transformJSONUser(member, addComputedStats));
-  if (req.query.includeTasks === 'true') {
-    const memberIdToTasksMap = await getMembersTasksForChallenge(members, challenge);
-    for (const member of members) {
-      member.tasks = memberIdToTasksMap[member.id];
-    }
+  const includeTasks = req.query.includeTasks === 'true';
+  let memberIdToTasksMap;
+  if (includeTasks) {
+    memberIdToTasksMap = await getMembersTasksForChallenge(members, challenge);
   }
+
+  members.forEach(member => {
+    User.transformJSONUser(member, addComputedStats);
+    if (includeTasks) member.tasks = memberIdToTasksMap[member.id];
+  });
   res.respond(200, members);
 }

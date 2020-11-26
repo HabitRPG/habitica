@@ -363,25 +363,6 @@ function _getMembersForItem (type) {
   };
 }
 
-async function _getMemberTasksFromChallenge (challenge, member, user, res) {
-  // optionalMembership is set to true because even if you're
-  // not member of the group you may be able to access the challenge
-  // for example if you've been booted from it, are the leader or a site admin
-  const group = await Group.getGroup({
-    user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true,
-  });
-  if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
-  if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
-
-  return Tasks.Task.find({
-    userId: member.id,
-    'challenge.id': challenge.id,
-  })
-    .select('-tags -checklist') // We don't want to return tags and checklists publicly
-    .lean()
-    .exec();
-}
-
 /**
  * @api {get} /api/v3/groups/:groupId/members Get members for a group
  * @apiDescription With a limit of 30 member per request (by default).
@@ -494,6 +475,8 @@ api.getInvitesForGroup = {
  *                                 get the next batch of results.
  * @apiParam (Query) {Number} limit=30 BETA Query parameter to
  *                                     specify the number of results to return. Max is 60.
+ * @apiParam (Query) {Boolean} includeTasks BETA Query parameter - If 'true'
+ *                                                    then include challenge tasks of each member
  * @apiParam (Query) {Boolean} includeAllPublicFields If set to `true`
  *                                                    then all public fields for members
  *                                                    will be returned (similar to when making
@@ -588,8 +571,22 @@ api.getChallengeMemberProgress = {
     if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
     const challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+    if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
+    // optionalMembership is set to true because even if you're
+    // not member of the group you may be able to access the challenge
+    // for example if you've been booted from it, are the leader or a site admin
+    const group = await Group.getGroup({
+      user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true,
+    });
+    if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
 
-    const challengeTasks = await _getMemberTasksFromChallenge(challenge, member, user, res);
+    const challengeTasks = await Tasks.Task.find({
+      userId: member.id,
+      'challenge.id': challenge.id,
+    })
+      .select('-tags -checklist') // We don't want to return tags and checklists publicly
+      .lean()
+      .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     const response = member.toJSON({ minimize: true });
