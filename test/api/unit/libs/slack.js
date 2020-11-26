@@ -12,7 +12,7 @@ describe('slack', () => {
     let data;
 
     beforeEach(() => {
-      sandbox.stub(IncomingWebhook.prototype, 'send');
+      sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());
       data = {
         authorEmail: 'author@example.com',
         flagger: {

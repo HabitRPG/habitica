@@ -133,7 +133,7 @@ describe('POST /chat', () => {
   describe('shadow-mute user', () => {
     beforeEach(() => {
       sandbox.spy(email, 'sendTxn');
-      sandbox.stub(IncomingWebhook.prototype, 'send');
+      sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());
     });
 
     afterEach(() => {
