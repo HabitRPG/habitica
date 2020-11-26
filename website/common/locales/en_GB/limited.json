@@ -181,5 +181,10 @@
     "summer2020OarfishMageSet": "Oarfish (Mage)",
     "summer2020RainbowTroutWarriorSet": "Rainbow Trout (Warrior)",
     "juneYYYY": "June <%= year %>",
-    "fall2020WraithWarriorSet": "Wraith (Warrior)"
+    "fall2020WraithWarriorSet": "Wraith (Warrior)",
+    "septemberYYYY": "September <%= year %>",
+    "fall2020TwoHeadedRogueSet": "Two-Headed (Rogue)",
+    "fall2020ThirdEyeMageSet": "Third Eye (Mage)",
+    "fall2020DeathsHeadMothHealerSet": "Death's Head Moth (Healer)",
+    "royalPurpleJackolantern": "Royal Purple Jack-O-Lantern"
 }

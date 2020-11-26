@@ -100,5 +100,8 @@
     "viewProgress": "Vedi il Progresso",
     "selectMember": "Seleziona Partecipante",
     "confirmKeepChallengeTasks": "Vuoi tenere le attività della sfida?",
-    "selectParticipant": "Seleziona un partecipante"
+    "selectParticipant": "Seleziona un partecipante",
+    "filters": "Filtri",
+    "wonChallengeDesc": "<%= challengeName %> ti ha scelto come vincitore! La tua vittoria sarà registrata nelle tue Medaglie.",
+    "yourReward": "La tua ricompensa"
 }

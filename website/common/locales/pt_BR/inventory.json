@@ -2,7 +2,7 @@
     "noItemsAvailableForType": "Você não possui <%= type %>.",
     "foodItemType": "Comida para Mascote",
     "eggsItemType": "Ovos",
-    "hatchingPotionsItemType": "Poções de eclosão",
+    "hatchingPotionsItemType": "Poções de Eclosão",
     "specialItemType": "Itens especiais",
     "lockedItem": "Item bloqueado",
     "allItems": "Todos os itens",

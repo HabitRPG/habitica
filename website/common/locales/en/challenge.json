@@ -98,5 +98,7 @@
   "viewProgress": "View Progress",
   "selectMember": "Select Member",
   "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
-  "selectParticipant": "Select a Participant"
+  "selectParticipant": "Select a Participant",
+  "yourReward": "Your Reward",
+  "wonChallengeDesc": "<%= challengeName %> selected you as the winner! Your win has been recorded in your Achievements."
 }

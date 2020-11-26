@@ -370,6 +370,22 @@ const NOTIFICATIONS = {
       achievement: 'skeletonCrew',
     },
   },
+  ACHIEVEMENT_SEEING_RED: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementSeeingRed')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'seeingRed',
+    },
+  },
+  ACHIEVEMENT_RED_LETTER_DAY: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementRedLetterDay')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'redLetterDay',
+    },
+  },
 };
 
 export default {
@@ -431,7 +447,8 @@ export default {
       'ACHIEVEMENT_PEARLY_PRO', 'ACHIEVEMENT_TICKLED_PINK', 'ACHIEVEMENT_ROSY_OUTLOOK', 'ACHIEVEMENT',
       'ONBOARDING_COMPLETE', 'FIRST_DROPS', 'ACHIEVEMENT_BUG_BONANZA', 'ACHIEVEMENT_BARE_NECESSITIES',
       'ACHIEVEMENT_FRESHWATER_FRIENDS', 'ACHIEVEMENT_GOOD_AS_GOLD', 'ACHIEVEMENT_ALL_THAT_GLITTERS',
-      'ACHIEVEMENT_BONE_COLLECTOR', 'ACHIEVEMENT_SKELETON_CREW',
+      'ACHIEVEMENT_BONE_COLLECTOR', 'ACHIEVEMENT_SKELETON_CREW', 'ACHIEVEMENT_SEEING_RED',
+      'ACHIEVEMENT_RED_LETTER_DAY',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -811,7 +828,7 @@ export default {
             this.$root.$emit('bv::show::modal', 'rebirth-enabled');
             break;
           case 'WON_CHALLENGE':
-            this.$root.$emit('bv::show::modal', 'won-challenge');
+            this.$root.$emit('habitica:won-challenge', notification);
             break;
           case 'STREAK_ACHIEVEMENT':
             this.text(`${this.$t('streaks')}: ${this.user.achievements.streak}`, () => {
@@ -850,6 +867,8 @@ export default {
           case 'ACHIEVEMENT_ALL_THAT_GLITTERS':
           case 'ACHIEVEMENT_BONE_COLLECTOR':
           case 'ACHIEVEMENT_SKELETON_CREW':
+          case 'ACHIEVEMENT_SEEING_RED':
+          case 'ACHIEVEMENT_RED_LETTER_DAY':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

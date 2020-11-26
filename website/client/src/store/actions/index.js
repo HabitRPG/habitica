@@ -17,6 +17,7 @@ import * as shops from './shops';
 import * as snackbars from './snackbars';
 import * as worldState from './worldState';
 import * as news from './news';
+import * as analytics from './analytics';
 
 // Actions should be named as 'actionName' and can be accessed as 'namespace:actionName'
 // Example: fetch in user.js -> 'user:fetch'
@@ -39,6 +40,7 @@ const actions = flattenAndNamespace({
   snackbars,
   worldState,
   news,
+  analytics,
 });
 
 export default actions;

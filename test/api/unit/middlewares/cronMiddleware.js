@@ -311,25 +311,8 @@ describe('cron middleware', () => {
       });
     });
 
-    it('does not enroll 50% of users', async () => {
-      sandbox.stub(Math, 'random').returns(0.6);
-      user.lastCron = moment(new Date()).subtract({ days: 2 });
-      await user.save();
-      req.headers['x-client'] = 'habitica-web';
-
-      await new Promise((resolve, reject) => {
-        cronMiddleware(req, res, async err => {
-          if (err) return reject(err);
-          user = await User.findById(user._id).exec();
-          expect(user._ABtests.dropCapNotif).to.be.equal('drop-cap-notif-not-enrolled');
-
-          return resolve();
-        });
-      });
-    });
-
-    it('enables the new notification for 25% of users', async () => {
-      sandbox.stub(Math, 'random').returns(0.25);
+    it('enables the new notification for 50% of users', async () => {
+      sandbox.stub(Math, 'random').returns(0.5);
       user.lastCron = moment(new Date()).subtract({ days: 2 });
       await user.save();
       req.headers['x-client'] = 'habitica-web';
@@ -345,8 +328,8 @@ describe('cron middleware', () => {
       });
     });
 
-    it('disables the new notification for 25% of users', async () => {
-      sandbox.stub(Math, 'random').returns(0.5);
+    it('disables the new notification for 50% of users', async () => {
+      sandbox.stub(Math, 'random').returns(0.51);
       user.lastCron = moment(new Date()).subtract({ days: 2 });
       await user.save();
       req.headers['x-client'] = 'habitica-web';

@@ -75,8 +75,8 @@
     "achievementRosyOutlookModalText": "¡Has domesticado todas las monturas de algodón de azúcar rosa!",
     "achievementRosyOutlookText": "Ha domesticado todas las monturas de algodón de azúcar rosa.",
     "achievementRosyOutlook": "Perspectiva Rosa",
-    "achievementBareNecessitiesModalText": "¡Completaste las misiones de las mascotas Mono, Perezoso, y Brote de Árbol!",
-    "achievementBareNecessitiesText": "Completó las misiones de mascota de Mono, Perezoso y Brote de Árbol.",
+    "achievementBareNecessitiesModalText": "¡Completaste las misiones de las mascotas Mono, Perezoso, y Arbolito!",
+    "achievementBareNecessitiesText": "Completó las misiones de mascota de Mono, Perezoso y Arbolito.",
     "achievementBareNecessities": "Necesidades Básicas",
     "achievementBugBonanzaModalText": "¡Completaste las misiones de las mascotas Escarabajo, Mariposa, Caracol y Araña!",
     "achievementBugBonanza": "Bonanza de insectos",
@@ -90,5 +90,11 @@
     "achievementGoodAsGoldModalText": "¡Coleccionaste todas las Mascotas Doradas!",
     "achievementFreshwaterFriendsText": "Completó las misiones de mascota de Ajolote, Rana e Hipopótamo.",
     "achievementFreshwaterFriends": "Amigos De Agua Dulce",
-    "yourRewards": "Tus Recompensas"
+    "yourRewards": "Tus Recompensas",
+    "achievementBoneCollectorModalText": "¡Coleccionaste a todas las Mascotas Esqueléticas!",
+    "achievementBoneCollectorText": "Has coleccionado todas las Mascotas Esqueléticas.",
+    "achievementBoneCollector": "Colector de los Huesos",
+    "achievementSkeletonCrewText": "Has domado a todas las Monturas Esqueléticas.",
+    "achievementSkeletonCrew": "Tripulación de los Esqueletos",
+    "achievementSkeletonCrewModalText": "¡Domaste a todas las Monturas Esqueléticas!"
 }

@@ -1,9 +1,12 @@
 <template>
-  <button title="close dialog"
-          @click="$emit('click', $event)">
-    <div v-once
-         class="svg-icon"
-         v-html="icons.close"
+  <button
+    title="close dialog"
+    @click="$emit('click', $event)"
+  >
+    <div
+      v-once
+      class="svg-icon"
+      v-html="icons.close"
     ></div>
   </button>
 </template>
@@ -12,7 +15,7 @@
 import svgClose from '@/assets/svg/close.svg';
 
 export default {
-  name: 'closeIcon',
+  name: 'CloseIcon',
   data () {
     return {
       icons: Object.freeze({

@@ -104,7 +104,7 @@
             <div class="d-flex justify-content-between">
               <h3
                 v-markdown="task.text"
-                class="task-title"
+                class="task-title markdown"
                 :class="{ 'has-notes': task.notes || (!isUser && task.group.managerNotes)}"
               ></h3>
               <menu-dropdown
@@ -467,13 +467,8 @@
 
   .task-title {
     padding-bottom: 8px;
-    color: $gray-10;
-    font-weight: normal;
-    margin-bottom: 0px;
+
     margin-right: 15px;
-    line-height: 1.43;
-    font-size: 14px;
-    min-width: 0px;
     overflow-wrap: break-word;
 
     // markdown p-tag, can't find without ::v-deep
@@ -774,9 +769,6 @@
   }
 
   .left-control, .right-control, .task-control {
-    transition-duration: 0.15s;
-    transition-property: border-color, background, color;
-    transition-timing-function: ease-in;
     border: transparent solid 1px;
 
     &:focus {

@@ -41,7 +41,7 @@
     "customDayStart": "Tilpasset start på dagen",
     "sureChangeCustomDayStartTime": "Are you sure you want to change your Custom Day Start time? Your Dailies will next reset the first time you use Habitica after <%= time %>. Make sure you have completed your Dailies before then!",
     "customDayStartHasChanged": "Din tilpassede start på dagen har blitt forandret.",
-    "nextCron": "Dine Daglige vil nullstille første gang du bruker Habitica etter <% = time %>. Sørg for at du har fullført dine Dailies før denne tiden!",
+    "nextCron": "Dine Daglige vil nullstille første gang du bruker Habitica etter <%= time %>. Sørg for at du har fullført dine Dailies før denne tiden!",
     "customDayStartInfo1": "Habitica har som standardinnstilling at den sjekker og resetter dine Daglige ved midnatt i din tidssone hvert døgn. Du kan sette din egen innstilling for denne tiden her.",
     "misc": "Diverse",
     "showHeader": "Vis header",

@@ -365,5 +365,7 @@
     "onlyPrivateGuildsCanUpgrade": "Solo le gilde private possono essere aggiornate ad un piano di gruppo.",
     "bannedWordsAllowedDetail": "Selezionando questa opzione consentirai l'uso di parole vietate in questa gilda.",
     "bannedWordsAllowed": "Consenti parole vietate",
-    "languageSettings": "Impostazioni della lingua"
+    "languageSettings": "Impostazioni della lingua",
+    "cannotRemoveQuestOwner": "Non puoi rimuovere il proprietario della missione attiva. Interrompi prima la missione.",
+    "features": "Caratteristiche"
 }

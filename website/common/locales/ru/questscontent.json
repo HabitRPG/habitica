@@ -698,5 +698,8 @@
     "jungleBuddiesText": "Набор квестов «Братва из джунглей»",
     "questFluoriteText": "Яркий флюоритовый ужас",
     "questWindupUnlockText": "Позволяет покупать на рынке заводные инкубационные эликсиры",
-    "questWindupDropWindupPotion": "Заводной инкубационный эликсир"
+    "questWindupDropWindupPotion": "Заводной инкубационный эликсир",
+    "questBlackPearlUnlockText": "Позволяет покупать на рынке черно-жемчужные инкубационные эликсиры",
+    "questBlackPearlDropBlackPearlPotion": "Черно-жемчужный инкубационный эликсир",
+    "questBlackPearlBoss": "Астероидея"
 }

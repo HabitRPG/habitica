@@ -500,8 +500,10 @@ export default {
     if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
     await this.fetchGuild();
+
+    const type = this.isParty ? 'party' : 'guilds';
     this.$store.dispatch('common:setTitle', {
-      section: this.$t('groupPlans'),
+      section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t(type),
       subSection: this.group.name,
     });
     this.$root.$on('updatedGroup', this.onGroupUpdate);
@@ -520,8 +522,9 @@ export default {
     onGroupUpdate (group) {
       const updatedGroup = extend(this.group, group);
       this.$set(this.group, updatedGroup);
+      const type = this.isParty ? 'party' : 'guilds';
       this.$store.dispatch('common:setTitle', {
-        section: this.$t('groupPlans'),
+        section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t(type),
         subSection: group.name,
       });
     },
@@ -584,13 +587,20 @@ export default {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
         return;
       }
-
       if (this.isParty) {
         await this.$store.dispatch('party:getParty', true);
         this.group = this.$store.state.party.data;
+        this.$store.dispatch('common:setTitle', {
+          section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('party'),
+          subSection: this.group.name,
+        });
       } else {
         const group = await this.$store.dispatch('guilds:getGroup', { groupId: this.searchId });
         this.$set(this, 'group', group);
+        this.$store.dispatch('common:setTitle', {
+          section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('guilds'),
+          subSection: group.name,
+        });
       }
 
       const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
@@ -614,13 +624,6 @@ export default {
       await this.$store.dispatch('guilds:join', { groupId: this.group._id, type: 'guild' });
     },
     clickLeave () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Leave Party',
-      });
-
       // @TODO: Get challenges and ask to keep or remove
       if (!window.confirm('Are you sure you want to leave?')) return; // eslint-disable-line no-alert
       const keep = true;

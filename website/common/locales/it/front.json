@@ -1,6 +1,6 @@
 {
     "FAQ": "Domande frequenti (FAQ)",
-    "termsAndAgreement": "Cliccando il pulsante qui sotto, affermi di aver letto e approvato i <a href='/static/terms'>Termini del servizio</a> e l'<a href='/static/privacy'>Informativa sulla Privacy</a>.",
+    "termsAndAgreement": "Cliccando il pulsante qui sotto, confermi di aver letto e approvato i <a href='/static/terms'>Termini del servizio</a> e l'<a href='/static/privacy'>Informativa sulla Privacy</a>.",
     "accept1Terms": "Cliccando il bottone qui sotto, accetto i",
     "accept2Terms": "e l'",
     "chores": "Faccende di casa",
@@ -38,7 +38,7 @@
     "marketing2Header": "Competi con gli amici, unisciti ai gruppi di interesse",
     "marketing2Lead1Title": "Produttività sociale",
     "marketing2Lead1": "Puoi giocare ad Habitica da solo, ma il bello viene quando inizi a collaborare, competere e condividere le tue responsabilità. La parte più importante di un programma di automiglioramento è la responsabilità sociale, e quale ambiente migliore per la responsabilità e la competizione se non un videogioco?",
-    "marketing2Lead2Title": "Combatti mostri",
+    "marketing2Lead2Title": "Combatti i mostri",
     "marketing2Lead2": "Cosa sarebbe un gioco di ruolo senza delle battaglie? Combatti i mostri insieme alla tua squadra. I mostri sono la \"modalità super responsabilità\" - il giorno che salti palestra è il giorno che il mostro danneggia *tutti!*",
     "marketing2Lead3Title": "Sfida gli altri",
     "marketing2Lead3": "Le sfide ti permettono di competere con i tuoi amici e utenti di tutto il mondo. Al termine della sfida, chi ha dato il meglio di sé riceve dei premi speciali.",

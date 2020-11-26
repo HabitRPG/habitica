@@ -222,6 +222,16 @@ const basicAchievs = {
     titleKey: 'achievementSkeletonCrew',
     textKey: 'achievementSkeletonCrewText',
   },
+  seeingRed: {
+    icon: 'achievement-seeingRed',
+    titleKey: 'achievementSeeingRed',
+    textKey: 'achievementSeeingRedText',
+  },
+  redLetterDay: {
+    icon: 'achievement-redLetterDay',
+    titleKey: 'achievementRedLetterDay',
+    textKey: 'achievementRedLetterDayText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

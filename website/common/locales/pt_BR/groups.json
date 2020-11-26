@@ -164,7 +164,7 @@
     "onlyGroupLeaderCanEditTasks": "Não tem autorização para gerenciar tarefas!",
     "onlyGroupTasksCanBeAssigned": "Apenas tarefas de grupo podem ser designadas",
     "assignedTo": "Atribuir a",
-    "assignedToUser": "Designada para  <strong><%- userName %></strong>",
+    "assignedToUser": "Designada para <strong><%- userName %></strong>",
     "assignedToMembers": "Designada para <strong><%= userCount %> membros</strong>",
     "assignedToYouAndMembers": "Designada para você e <strong><%= userCount %> membros</strong>",
     "youAreAssigned": "Designada a você",
@@ -365,5 +365,7 @@
     "onlyPrivateGuildsCanUpgrade": "Apenas guildas privadas podem ser atualizadas para um plano de grupo.",
     "bannedWordsAllowedDetail": "Com esta opção selecionada, será permitido o uso de palavras banidas nesta guilda.",
     "bannedWordsAllowed": "Permitir palavras banidas",
-    "languageSettings": "Configurações de Idioma"
+    "languageSettings": "Configurações de Idioma",
+    "cannotRemoveQuestOwner": "Você não pode remover o(a) proprietário(a) da missão em andamento. Aborte a missão primeiro.",
+    "features": "Funcionalidades"
 }

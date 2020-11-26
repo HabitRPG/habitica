@@ -226,7 +226,7 @@ export default {
       });
       this.$store.dispatch('common:setTitle', {
         subSection: this.group.name,
-        section: this.$t('group'),
+        section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('group'),
       });
       const members = await this.$store.dispatch('members:getGroupMembers', { groupId: this.searchId });
       this.group.members = members;

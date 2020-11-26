@@ -100,5 +100,8 @@
     "viewProgress": "Ver Progreso",
     "selectMember": "Seleccionar miembro",
     "confirmKeepChallengeTasks": "¿Quieres mantener las tareas del reto?",
-    "selectParticipant": "Seleccionar un Participante"
+    "selectParticipant": "Seleccionar un Participante",
+    "filters": "filtros",
+    "wonChallengeDesc": "¡<%= challengeName %> te seleccionó como el ganador! Tu victoria ha sido registrada en tus Logros.",
+    "yourReward": "Tu Recompensa"
 }

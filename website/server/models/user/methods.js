@@ -534,13 +534,11 @@ schema.methods.enrollInDropCapABTest = function enrollInDropCapABTest (xClientHe
 
   if (isWeb && !this._ABtests.dropCapNotif && !this.isSubscribed()) {
     const testGroup = Math.random();
-    // Enroll 20% of users, splitting them 50/50
-    if (testGroup <= 0.25) {
+    // Enroll 100% of users, splitting them 50/50
+    if (testGroup <= 0.50) {
       this._ABtests.dropCapNotif = 'drop-cap-notif-enabled';
-    } else if (testGroup <= 0.5) {
-      this._ABtests.dropCapNotif = 'drop-cap-notif-disabled';
     } else {
-      this._ABtests.dropCapNotif = 'drop-cap-notif-not-enrolled';
+      this._ABtests.dropCapNotif = 'drop-cap-notif-disabled';
     }
     this.markModified('_ABtests');
   }

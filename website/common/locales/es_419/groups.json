@@ -365,5 +365,7 @@
     "bannedWordsAllowedDetail": "Con esta opción seleccionada, se permitirá el uso de palabras prohibidas en este Gremio.",
     "bannedWordsAllowed": "Permitir palabras prohibidas",
     "languageSettings": "Configuración de Lenguaje",
-    "newPartyPlaceholder": "Ingresa el nombre de tu Grupo."
+    "newPartyPlaceholder": "Ingresa el nombre de tu Grupo.",
+    "cannotRemoveQuestOwner": "No puedes eliminar al dueño de la misión activa. Aborta la misión primero.",
+    "features": "Características"
 }

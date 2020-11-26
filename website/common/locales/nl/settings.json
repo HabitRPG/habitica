@@ -68,7 +68,7 @@
     "thirdPartyApps": "Applicaties van derden",
     "dataToolDesc": "Een webpagina die je bepaalde informatie van je Habitica account laat zien, zoals statistieken over je taken, uitrusting en vaardigheden.",
     "beeminder": "Beeminder",
-    "beeminderDesc": "Laat Beeminder automatisch je Habitica To-do's controleren. Je kan richten op het halen van een voorgenomen aantal voltooide To-do's per dag of per week, of je kan je wijden aan het langzaam verlagen van je resterende aantal onvoltooide To-do's. (Met \"toewijden\" bedoelt Beeminder onder dreiging van het betalen van echt geld! Maar je kan ook gewoon Beeminders fancy grafieken leuk vinden.)",
+    "beeminderDesc": "Laat Beeminder automatisch je Habitica To-Do's controleren. Je kan richten op het halen van een voorgenomen aantal voltooide To-Do's per dag of per week, of je kan je wijden aan het langzaam verlagen van je resterende aantal onvoltooide To-Do's. (Met \"toewijden\" bedoelt Beeminder onder dreiging van het betalen van echt geld! Maar je kan ook gewoon Beeminders fancy grafieken leuk vinden.)",
     "chromeChatExtension": "Chrome Chat Extensie",
     "chromeChatExtensionDesc": "De Chrome Chat Extensie voor Habitica voegt een intuïtieve chat box toe aan heel habitica.com. Het laat gebruikers chatten in de Herberg, hun gezelschap en andere gildes waar ze inzitten.",
     "otherExtensions": "<a target='blank' href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations'>Andere extensies</a>",
@@ -122,7 +122,7 @@
     "subscriptionRateText": "Herhalend <strong>$<%= price %> USD</strong> elke <strong> <%= months %> maanden </strong>",
     "benefits": "Voordelen",
     "coupon": "Kadobon",
-    "couponText": "We hebben soms evenementen waar we vouchercodes weggeven voor speciale uitrusting. (Bijv. voor diegenen die langskomen bij onze Wondercon-stand.)",
+    "couponText": "We hebben soms evenementen waar we promotiecodes weggeven voor speciale uitrusting. (Bijv. voor diegenen die langskomen bij onze Wondercon-stand.)",
     "apply": "Toepassen",
     "promoCode": "Promotiecode",
     "promoCodeApplied": "Promotiecode toegepast! Kijk in je boedel",
@@ -180,5 +180,6 @@
     "subscriptionReminders": "Herinneringen Abonnementen",
     "newPMNotificationTitle": "Nieuw Bericht van <%= name %>",
     "chatExtensionDesc": "De Chat Uitbreiding voor Habitica voegt een intuïtieve chat box toe aan habitica.com. Hierdoor kunnen gebruikers chatten in de Herberg, hun gezelschap, en de gildes waar ze in zitten.",
-    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chat Extentie</a> en <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox Chat Extentie</a>"
+    "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chat Extentie</a> en <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox Chat Extentie</a>",
+    "resetAccount": "Account Terugstellen"
 }

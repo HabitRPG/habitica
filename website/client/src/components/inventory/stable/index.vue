@@ -117,9 +117,9 @@
             :right="true"
             :items="sortByItems"
             :value="selectedSortBy"
-            @select="selectedSortBy = $event"
             class="inline"
-            :inlineDropdown="false"
+            :inline-dropdown="false"
+            @select="selectedSortBy = $event"
           />
         </div>
       </div>
@@ -645,12 +645,6 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
   },
-  mounted () {
-    this.$store.dispatch('common:setTitle', {
-      subSection: this.$t('stable'),
-      section: this.$t('inventory'),
-    });
-  },
   watch: {
     searchText: _throttle(function throttleSearch () {
       const search = this.searchText.toLowerCase();
@@ -661,6 +655,12 @@ export default {
         setLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE, this.selectedSortBy);
       },
     },
+  },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('stable'),
+      section: this.$t('inventory'),
+    });
   },
   methods: {
     setShowMore (key) {

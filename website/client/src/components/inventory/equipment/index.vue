@@ -2,7 +2,10 @@
   <div class="row">
     <div class="standard-sidebar d-none d-sm-block">
       <filter-sidebar>
-        <div class="form-group" slot="search">
+        <div
+          slot="search"
+          class="form-group"
+        >
           <input
             v-model="searchText"
             class="form-control input-search"
@@ -13,11 +16,13 @@
 
         <div class="form">
           <filter-group :title="groupBy === 'type' ? $t('equipmentType') : $t('class')">
-            <checkbox v-for="group in itemsGroups"
-                      :key="group.key"
-                      :id="groupBy + group.key"
-                      :checked.sync="viewOptions[group.key].selected"
-                      :text="group.label"/>
+            <checkbox
+              v-for="group in itemsGroups"
+              :id="groupBy + group.key"
+              :key="group.key"
+              :checked.sync="viewOptions[group.key].selected"
+              :text="group.label"
+            />
           </filter-group>
         </div>
       </filter-sidebar>
@@ -47,29 +52,28 @@
             :right="true"
             :items="sortGearBy"
             :value="selectedSortGearBy"
-            @select="selectedSortGearBy = $event"
             class="inline"
-            :inlineDropdown="false"
+            :inline-dropdown="false"
+            @select="selectedSortGearBy = $event"
           />
 
           <span class="dropdown-label">{{ $t('groupBy2') }}</span>
-          <b-dropdown
-            :text="$t(groupBy === 'type' ? 'equipmentType' : 'class')"
-            right="right"
+
+          <select-list
+            :items="groupByItems"
+            :value="groupBy"
+            class="array-select"
+            :class="{disabled: disabled}"
+            :disabled="disabled"
+            :right="true"
+            :hide-icon="false"
+            :inline-dropdown="false"
+            @select="groupBy = $event"
           >
-            <b-dropdown-item
-              :active="groupBy === 'type'"
-              @click="groupBy = 'type'"
-            >
-              {{ $t('equipmentType') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              :active="groupBy === 'class'"
-              @click="groupBy = 'class'"
-            >
-              {{ $t('class') }}
-            </b-dropdown-item>
-          </b-dropdown>
+            <template v-slot:item="{ item }">
+              <span class="label">{{ groupByLabel(item) }}</span>
+            </template>
+          </select-list>
 
           <span class="divider"></span>
           <unequip-dropdown />
@@ -82,7 +86,10 @@
         :open-status="openStatus"
         @toggled="drawerToggled"
       >
-        <div slot="drawer-title-row" class="title-row-tabs">
+        <div
+          slot="drawer-title-row"
+          class="title-row-tabs"
+        >
           <div class="drawer-tab">
             <a
               class="drawer-tab-text"
@@ -311,6 +318,7 @@ import Checkbox from '@/components/ui/checkbox';
 import UnequipDropdown from '@/components/inventory/equipment/unequipDropdown';
 import EquipBadge from '@/components/ui/equipBadge';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
+import SelectList from '@/components/ui/selectList';
 
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -325,6 +333,7 @@ const sortGearTypeMap = {
 export default {
   name: 'Equipment',
   components: {
+    SelectList,
     SelectTranslatedArray,
     EquipBadge,
     UnequipDropdown,
@@ -344,6 +353,9 @@ export default {
       searchText: null,
       searchTextThrottled: null,
       costumeMode: false,
+      groupByItems: [
+        'type', 'class',
+      ],
       groupBy: 'type', // or 'class'
       gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
         weapon: i18n.t('weaponCapitalized'),
@@ -574,6 +586,13 @@ export default {
         CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE,
         CONSTANTS.drawerStateValues.DRAWER_CLOSED,
       );
+    },
+    groupByLabel (type) {
+      switch (type) {
+        case 'type': return i18n.t('equipmentType');
+        case 'class': return i18n.t('class');
+        default: return '';
+      }
     },
   },
 };

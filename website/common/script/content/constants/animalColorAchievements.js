@@ -48,6 +48,13 @@ const ANIMAL_COLOR_ACHIEVEMENTS = [
     mountAchievement: 'skeletonCrew',
     mountNotificationType: 'ACHIEVEMENT_SKELETON_CREW',
   },
+  {
+    color: 'Red',
+    petAchievement: 'seeingRed',
+    petNotificationType: 'ACHIEVEMENT_SEEING_RED',
+    mountAchievement: 'redLetterDay',
+    mountNotificationType: 'ACHIEVEMENT_RED_LETTER_DAY',
+  },
 ];
 
 export default ANIMAL_COLOR_ACHIEVEMENTS;
