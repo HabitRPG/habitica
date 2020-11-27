@@ -66,12 +66,7 @@ export async function handleGetMembersForChallenge (req, res) {
 
   if (lastId) query._id = { $gt: lastId };
 
-  let limit = req.query.limit ? Number(req.query.limit) : 30;
-
-  // Allow for all challenges members to be returned
-  if (req.query.includeAllMembers === 'true') {
-    limit = 0; // no limit
-  }
+  const limit = req.query.limit ? Number(req.query.limit) : 30;
 
   const members = await User
     .find(query)

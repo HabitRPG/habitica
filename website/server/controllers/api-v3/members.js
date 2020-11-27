@@ -481,8 +481,6 @@ api.getInvitesForGroup = {
  *                                                    then all public fields for members
  *                                                    will be returned (similar to when making
  *                                                    a request for a single member).
- * @apiParam (Query) {String} includeAllMembers BETA Query parameter - If 'true' all
- *                                              challenge members are returned.
 
  * @apiSuccess {Array} data An array of members, sorted by _id
  *
@@ -571,7 +569,6 @@ api.getChallengeMemberProgress = {
     if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
     const challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-    if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
     // optionalMembership is set to true because even if you're
     // not member of the group you may be able to access the challenge
     // for example if you've been booted from it, are the leader or a site admin
@@ -579,6 +576,7 @@ api.getChallengeMemberProgress = {
       user, groupId: challenge.group, fields: '_id type privacy', optionalMembership: true,
     });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
+    if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
 
     const challengeTasks = await Tasks.Task.find({
       userId: member.id,

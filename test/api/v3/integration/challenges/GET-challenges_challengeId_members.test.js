@@ -117,26 +117,7 @@ describe('GET /challenges/:challengeId/members', () => {
     expect(res[0].profile).to.have.all.keys(['name']);
   });
 
-  it('returns only first 30 members if req.query.includeAllMembers is not true and req.query.limit is undefined', async () => {
-    const group = await generateGroup(user, { type: 'party', name: generateUUID() });
-    const challenge = await generateChallenge(user, group);
-    await user.post(`/challenges/${challenge._id}/join`);
-
-    const usersToGenerate = [];
-    for (let i = 0; i < 31; i += 1) {
-      usersToGenerate.push(generateUser({ challenges: [challenge._id] }));
-    }
-    await Promise.all(usersToGenerate);
-
-    const res = await user.get(`/challenges/${challenge._id}/members?includeAllMembers=not-true`);
-    expect(res.length).to.equal(30);
-    res.forEach(member => {
-      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
-      expect(member.profile).to.have.all.keys(['name']);
-    });
-  });
-
-  it('returns only first 30 members if req.query.includeAllMembers is not defined and req.query.limit is undefined', async () => {
+  it('returns only first 30 members if req.query.limit is undefined', async () => {
     const group = await generateGroup(user, { type: 'party', name: generateUUID() });
     const challenge = await generateChallenge(user, group);
     await user.post(`/challenges/${challenge._id}/join`);
@@ -216,25 +197,6 @@ describe('GET /challenges/:challengeId/members', () => {
       expect(member.profile).to.have.all.keys(['name']);
     });
   }).timeout(30000);
-
-  it('returns all members if req.query.includeAllMembers is true', async () => {
-    const group = await generateGroup(user, { type: 'party', name: generateUUID() });
-    const challenge = await generateChallenge(user, group);
-    await user.post(`/challenges/${challenge._id}/join`);
-
-    const usersToGenerate = [];
-    for (let i = 0; i < 31; i += 1) {
-      usersToGenerate.push(generateUser({ challenges: [challenge._id] }));
-    }
-    await Promise.all(usersToGenerate);
-
-    const res = await user.get(`/challenges/${challenge._id}/members?includeAllMembers=true`);
-    expect(res.length).to.equal(32);
-    res.forEach(member => {
-      expect(member).to.have.all.keys(['_id', 'auth', 'flags', 'id', 'profile']);
-      expect(member.profile).to.have.all.keys(['name']);
-    });
-  });
 
   it('supports using req.query.lastId to get more members', async function test () {
     this.timeout(30000); // @TODO: times out after 8 seconds
