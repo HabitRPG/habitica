@@ -359,8 +359,8 @@ function _getMembersForItem (type) {
         // Creates a RegExp expression when querying for profile.name
         const escapedSearch = escapeRegExp(req.query.search);
         query.$or = [
-          { 'profile.name': { $regex: new RegExp(escapedSearch, 'i') } }, 
-          { 'auth.local.username': { $regex: req.query.search } }
+          { 'profile.name': { $regex: new RegExp(escapedSearch, 'i') } },
+          { 'auth.local.username': { $regex: req.query.search } },
         ];
       }
     } else if (type === 'group-invites') {
