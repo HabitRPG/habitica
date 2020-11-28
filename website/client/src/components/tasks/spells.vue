@@ -9,13 +9,13 @@
         </div>
         <div class="details">
           <p class="notes">
-            {{ `Click on a ${spell.target} to cast!` }}
+            {{ `Select a ${spell.target}` }}
           </p>
           <!-- @TODO make that translatable-->
         </div>
       </div>
     </div>
-    <div class="drawer-wrapper d-flex justify-content-center">
+    <div class="drawer-wrapper">
       <drawer
         v-if="user.stats.class && !user.preferences.disableClasses"
         v-mousePosition="30"
@@ -25,12 +25,10 @@
         @toggled="drawerToggled"
       >
         <div slot="drawer-slider">
-          <div class="container spell-container">
-            <div class="spell-container-row">
+          <div class="spell-container">
               <!-- eslint-disable vue/no-use-v-if-with-v-for -->
               <div
                 v-for="(skill, key) in spells[user.stats.class]"
-                v-if="user.stats.lvl >= skill.lvl"
                 :key="key"
                 :id="`spell_${skill.key}`"
                 @click="!spellDisabled(key) ? castStart(skill) : null"
@@ -49,30 +47,30 @@
                           <div class="popover-mana-count">{{skill.mana}}</div>
                         </div>
                       </div>
-                      <div class="popover-descroption">
+                      <div class="popover-description">
                         {{skillNotes(skill)}}
                       </div>
                     </div>
                   </b-popover>
                 <!-- eslint-enable vue/no-use-v-if-with-v-for -->
                 <div
-                class="spell col-12 row"
-                :class="{ disabled: spellDisabled(key) }">
-                  <div class="col-12 details">
+                class="spell"
+                :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }">
+                  <div class="details">
                     <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
                   </div>
-                  <div class="col-12 mana" v-if="user.stats.lvl<skill.lvl">
+                  <div class="mana" v-if="user.stats.lvl<skill.lvl">
                     <div class="mana-text">
                       <div>Level {{ skill.lvl }}</div>
                     </div>
                   </div>
-                  <div class="col-12 mana" v-else-if="spellDisabled(key)===true">
+                  <div class="mana" v-else-if="spellDisabled(key)===true">
                     <div class="mana-text">
                       <div class="svg-icon" v-html="icons.mana"></div>
                       <div>{{ skill.mana }}</div>
                     </div>
                   </div>
-                  <div class="col-12 mana" v-else>
+                  <div class="mana" v-else>
                     <div class="mana-text">
                       <div class="svg-icon" v-html="icons.mana"></div>
                       <div>{{ skill.mana }}</div>
@@ -82,7 +80,6 @@
               </div>
             </div>
           </div>
-        </div>
       </drawer>
     </div>
   </div>
@@ -95,11 +92,13 @@
   bottom: 0;
   left: 0;
   z-index: 19;
+  display: flex;
+  justify-content: center;
 
   .drawer-container {
     left: auto !important;
     right: auto !important;
-    min-width: 38em;
+    min-width: 25.5rem;
   }
 }
 
@@ -114,18 +113,20 @@
        padding-bottom: 0.5em;
        .popover-title-text{
          font-weight: bold;
+         font-size: 1.1em;
        }
        .popover-mana{
          display: flex;
-         flex-direction: row;
          gap: 2px;
+         justify-content: center;
+         align-items: center;
          .popover-svg-icon{
-           width: 1em;
+           width: 1.3em;
          }
          .popover-mana-count{
            font-weight: bold;
            color: #50b5e9;
-           font-size: 1em;
+           font-size: 1.1em;
          }
        }
      }
@@ -134,7 +135,74 @@
 
 .spell-container {
   white-space: initial;
-  margin-right: -0.65em;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-left: -2rem;
+  margin-right: -1.5rem;
+  margin-top: -0.14rem;
+  .spell {
+    background: #ffffff;
+    border: solid 2px #4e4a57;
+    margin-bottom: 1rem;
+    border-radius: 2px;
+    color: #4e4a57;
+    padding-right: 0;
+    padding-left: 0;
+    overflow: hidden;
+    width: 4.6rem;
+    height: 4.6rem;
+    box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+    &.disabled {
+      background-color: #34313a;
+      box-shadow: none;
+
+      .mana{
+        background-color: rgba(26, 24, 29, 0.5);
+      }
+    }
+
+    .details {
+      text-align: center;
+      height: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .img {
+        display: block;
+        text-align: center;
+      }
+    }
+
+    .img {
+      margin: 0 auto;
+    }
+
+    .mana-text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.2rem;
+      text-align: center;
+
+      .svg-icon {
+        width: 16px;
+        height: 14px;
+      }
+    }
+
+    .mana {
+      background-color: rgba(70, 167, 217, 0.24);
+      color: #2995cd;
+      font-weight: bold;
+      height: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 3px;
+    }
+  }
 }
 
 .spell-container-row {
@@ -157,79 +225,6 @@
   box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
 }
 
-.spell {
-  background: #ffffff;
-  border: solid 2px #4e4a57;
-  margin-bottom: 1.3em;
-  border-radius: 2px;
-  color: #4e4a57;
-  padding-right: 0;
-  padding-left: 0;
-  overflow: hidden;
-  max-width: 10em;
-  box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
-  &.disabled {
-    background-color: #34313a;
-    box-shadow: none;
-    max-width: 8.6em;
-
-    .mana{
-      background-color: rgba(26, 24, 29, 0.5);
-    }
-  }
-
-  .details {
-    text-align: center;
-    padding-top: 0.5em;
-    min-height: 4em;
-    width: 3.6em;
-
-    .img {
-      display: inline-block;
-    }
-
-    span {
-      display: inline-block;
-      width: 50%;
-      padding-bottom: 0.7em;
-      vertical-align: bottom;
-    }
-  }
-
-  .img {
-    margin: 0 auto;
-  }
-
-  .mana-text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    div {
-      display: inline-block;
-      vertical-align: bottom;
-    }
-
-    .svg-icon {
-      width: 16px;
-      height: 16px;
-      margin-right: 0.2em;
-    }
-  }
-
-  .mana {
-    background-color: rgba(70, 167, 217, 0.24);
-    color: #2995cd;
-    font-weight: bold;
-    text-align: center;
-    min-height: 2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-  }
-}
-
 .dragInfo {
   position: absolute;
   left: -500px;
@@ -241,8 +236,8 @@
 
   .spell {
     border-radius: 4px;
-    width: 93px;
-    height: 8.3em;
+    width: 5.9rem;
+    height: 6.5rem;
     padding-bottom: 0;
     margin-bottom: 0;
     background-color: transparent;
@@ -263,9 +258,11 @@
         background-color: #f9f9f9;
         border-radius: 4px;
         margin-top: 1px;
-        margin-bottom: 1px;
-        margin-left: 1px;
-        margin-right: 1px;
+        margin-left: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
 
         .img{
           background-color: #f9f9f9;
@@ -275,16 +272,18 @@
     }
     .details{
       width: 100%;
-      height: 1em;
+      height: 2em;
       border-radius: 4px;
       background-color: rgba(52, 49, 58, 0.96);
 
       .notes {
-        font-size: 12px;
+        font-size: 13px;
         color: #e1e0e3;
+        text-align: center;
         height: 100%;
-        padding-left: 2px;
-        padding-right: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
