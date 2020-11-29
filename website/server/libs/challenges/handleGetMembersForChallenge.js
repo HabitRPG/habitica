@@ -84,7 +84,7 @@ export async function handleGetMembersForChallenge (req, res) {
 
   members.forEach(member => {
     User.transformJSONUser(member, addComputedStats);
-    if (includeTasks) member.tasks = memberIdToTasksMap[member.id];
+    if (includeTasks) member.tasks = memberIdToTasksMap[member._id];
   });
   res.respond(200, members);
 }
