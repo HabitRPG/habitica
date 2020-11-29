@@ -5,7 +5,6 @@ import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks
 import { mapState } from '@/libs/store';
 import encodeParams from '@/libs/encodeParams';
 import notificationsMixin from '@/mixins/notifications';
-// import * as Analytics from '@/libs/analytics';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 
 const { STRIPE_PUB_KEY } = process.env;
@@ -133,7 +132,6 @@ export default {
         postData.paymentType = 'Stripe';
       }
 
-
       if (data.gemsBlock) postData.gemsBlock = data.gemsBlock.key;
       if (data.gift) {
         data.gift.uuid = data.uuid;
@@ -156,9 +154,14 @@ export default {
       } else if (paymentType === 'groupPlan') {
         appState.subscriptionKey = sub.key;
 
+        // Handle new user signup
+        if (!this.$store.state.isUserLoggedIn) {
+          appState.newSignup = true;
+        }
+
         if (data.groupToCreate) {
           appState.newGroup = true;
-          appState.group = pick(data.groupToCreate, ['_id', 'memberCount', 'name']);
+          appState.group = pick(response.data.data.group, ['_id', 'memberCount', 'name']);
         } else {
           appState.newGroup = false;
           appState.group = pick(data.group, ['_id', 'memberCount', 'name']);
@@ -184,37 +187,6 @@ export default {
         console.error(err);
         alert(err);
       }
-
-      /* @TODO redo const newGroup = response.data.data;
-      if (newGroup && newGroup._id) {
-        // @TODO this does not do anything as we reload just below
-        // @TODO: Just append? or $emit?
-
-        // Handle new user signup
-        if (!this.$store.state.isUserLoggedIn) {
-          Analytics.track({
-            hitType: 'event',
-            eventCategory: 'group-plans-static',
-            eventAction: 'view',
-            eventLabel: 'paid-with-stripe',
-          });
-
-          window.location.assign(`${habiticaUrl}/group-pla
-            ns/${newGroup._id}/task-information?showGroupOverview=true`);
-          return;
-        }
-
-        this.user.guilds.push(newGroup._id);
-        window.location.assign(`${habiticaUrl}/group-plans/${newGroup._id}/task-information`);
-        return;
-      }
-
-      if (data.groupId) {
-        window.location.assign(`${habiticaUrl}/group-plans/${data.groupId}/task-information`);
-        return;
-      }
-
-      window.location.reload(true); */
     },
     showStripeEdit (config) {
       let groupId;

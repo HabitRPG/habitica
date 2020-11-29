@@ -208,6 +208,14 @@ api.createGroupPlan = {
       headers: req.headers,
     });
 
+    // do not remove chat flags data as we've just created the group
+    const groupResponse = savedGroup.toJSON();
+    // the leader is the authenticated user
+    groupResponse.leader = {
+      _id: user._id,
+      profile: { name: user.profile.name },
+    };
+
     if (req.body.paymentType === 'Stripe') {
       const {
         gift, sub: subKey, gemsBlock, coupon,
@@ -222,6 +230,7 @@ api.createGroupPlan = {
 
       res.respond(200, {
         sessionId: session.id,
+        group: groupResponse,
       });
     } else if (req.body.paymentType === 'Amazon') {
       const { billingAgreementId } = req.body;
@@ -241,14 +250,7 @@ api.createGroupPlan = {
         headers,
       });
 
-      const response = savedGroup.toJSON();
-      // the leader is the authenticated user
-      response.leader = {
-        _id: user._id,
-        profile: { name: user.profile.name },
-      };
-
-      res.respond(201, response); // do not remove chat flags data as we've just created the group
+      res.respond(201, groupResponse);
     }
   },
 };
