@@ -101,6 +101,7 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
+        _id: '05ca98f4-4706-47b5-8d02-142e6e78ba2e',
         party: {
 
         },

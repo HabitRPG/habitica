@@ -208,8 +208,10 @@ import goldIcon from '@/assets/svg/gold.svg';
 import difficultyStarIcon from '@/assets/svg/difficulty-star.svg';
 import questDialogDrops from '../shops/quests/questDialogDrops';
 import questDialogContent from '../shops/quests/questDialogContent';
+import questActionsMixin from './questActions.mixin';
 
 export default {
+  mixins: [questActionsMixin],
   components: {
     questDialogDrops,
     questDialogContent,
@@ -258,26 +260,18 @@ export default {
   },
   methods: {
     async questConfirm () {
-      let count = 0;
-      for (const uuid in this.group.quest.members) {
-        if (this.group.quest.members[uuid]) count += 1;
+      const accepted = await this.questActionsConfirmQuest();
+
+      if (accepted) {
+        this.close();
       }
-      if (!window.confirm(this.$t('questConfirm', { // eslint-disable-line no-alert
-        questmembers: count,
-        totalmembers: this.group.memberCount,
-      }))) return;
-      this.questForceStart();
-    },
-    async questForceStart () {
-      const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/force-start' });
-      this.group.quest = quest;
-      this.close();
     },
     async questCancel () {
-      if (!window.confirm(this.$t('sureCancel'))) return; // eslint-disable-line no-alert
-      const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/cancel' });
-      this.group.quest = quest;
-      this.close();
+      const accepted = await this.questActionsCancelQuest();
+
+      if (accepted) {
+        this.close();
+      }
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'quest-details');

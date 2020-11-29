@@ -44,6 +44,7 @@
   "bossRageDescription": "When this bar fills, the boss will unleash a special attack!",
   "startAQuest": "START A QUEST",
   "startQuest": "Start Quest",
+  "abandonQuest": "Abandon Quest",
   "questInvitationDoesNotExist": "No quest invitation has been sent out yet.",
   "questInviteNotFound": "No quest invitation found.",
   "guildQuestsNotSupported": "Guilds cannot be invited on quests.",

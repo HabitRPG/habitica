@@ -61,11 +61,27 @@
     </div>
     <div v-if="onPendingQuest || onActiveQuest">
       <button
-        class="btn btn-secondary full-width"
+        class="btn btn-secondary full-width mb-1"
         @click="openQuestDetails()"
       >
         {{ $t('details') }}
       </button>
+    </div>
+    <div v-if="userIsQuestLeader && !onActiveQuest">
+      <button
+        class="btn btn-success full-width"
+        @click="startQuest()"
+      >
+        {{ $t('startQuest') }}
+      </button>
+    </div>
+    <div v-if="userIsQuestLeader && !onActiveQuest">
+      <a
+        class="abandon-quest text-center full-width"
+        @click="abandonQuest()"
+      >
+        {{ $t('abandonQuest') }}
+      </a>
     </div>
     <div
       v-if="!onPendingQuest && onActiveQuest"
@@ -373,6 +389,15 @@
       background-color: #f74e52;
     }
   }
+
+  .abandon-quest {
+    font-size: 0.875rem;
+    line-height: 1.71;
+    color: $maroon-50;
+    width: 100%;
+    display: block;
+    margin-top: 1rem;
+  }
 </style>
 
 <script>
@@ -383,8 +408,10 @@ import percent from '@/../../common/script/libs/percent';
 import sidebarSection from '../sidebarSection';
 
 import questIcon from '@/assets/svg/quest.svg';
+import questActionsMixin from '@/components/groups/questActions.mixin';
 
 export default {
+  mixins: [questActionsMixin],
   components: {
     sidebarSection,
   },
@@ -402,6 +429,10 @@ export default {
       if (!this.group.quest || !this.group.quest.members) return false;
       return Boolean(this.group.quest.members[this.user._id]);
     },
+    userIsQuestLeader () {
+      if (!this.group.quest) return false;
+      return this.group.quest.leader === this.user._id;
+    },
     onPendingQuest () {
       return Boolean(this.group.quest.key) && !this.group.quest.active;
     },
@@ -417,9 +448,8 @@ export default {
     },
     canEditQuest () {
       if (!this.group.quest) return false;
-      const isQuestLeader = this.group.quest.leader === this.user._id;
       const isPartyLeader = this.group.leader._id === this.user._id;
-      return isQuestLeader || isPartyLeader;
+      return this.userIsQuestLeader || isPartyLeader;
     },
     isMemberOfPendingQuest () {
       const userid = this.user._id;
@@ -476,6 +506,12 @@ export default {
     async questReject (partyId) {
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: partyId, action: 'quests/reject' });
       this.user.party.quest = quest;
+    },
+    startQuest () {
+      this.questActionsConfirmQuest();
+    },
+    abandonQuest () {
+      this.questActionsCancelQuest();
     },
   },
 };
