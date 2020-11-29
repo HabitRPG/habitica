@@ -6,7 +6,7 @@
     >
       <div class="col-12 text-center">
         <div
-          class="svg-icon"
+          class="svg-icon quest-icon color"
           v-html="icons.questIcon"
         ></div>
         <h4 v-once>
@@ -59,7 +59,7 @@
         ></div>
       </div>
     </div>
-    <div>
+    <div v-if="onPendingQuest || onActiveQuest">
       <button
         class="btn btn-secondary full-width"
         @click="openQuestDetails()"
@@ -250,21 +250,25 @@
 
   .no-quest-section {
     padding: 2em;
-    color: $gray-300;
 
     h4 {
-      color: $gray-300;
+      margin-bottom: 0;
     }
 
     p {
-      margin-bottom: 2em;
+      margin-bottom: 1em;
+      color: $gray-100;
+      font-size: 0.75rem;
+      line-height: 1.33;
     }
 
-    .svg-icon {
-      height: 30px;
-      width: 30px;
-      margin: 0 auto;
-      margin-bottom: 2em;
+    .quest-icon {
+      width: 1.125rem;
+      height: 1.25rem;
+      margin: 0 auto 0.5em;
+      object-fit: contain;
+      border-radius: 2px;
+      color: $gray-200;
     }
   }
 

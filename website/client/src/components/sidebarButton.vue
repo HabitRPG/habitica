@@ -14,7 +14,7 @@
     ></span>
     <span
       v-else
-      class="svg-icon"
+      class="svg-icon down-icon color-stroke"
       v-html="icons.downIcon"
     ></span>
   </div>
@@ -36,6 +36,10 @@
 
   .svg-icon {
     width: 16px;
+  }
+
+  .down-icon {
+    color: $gray-300;
   }
 </style>
 
