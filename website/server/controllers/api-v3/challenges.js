@@ -359,6 +359,17 @@ api.leaveChallenge = {
  *
  * @apiParam (Query) {Number} page This parameter can be used to specify the page number
                                    for the user challenges result (the initial page is number 0).
+ * @apiParam (Query) {String} [member] If set to `true` it limits results to challenges where the
+                                       user is a member.
+ * @apiParam (Query) {String} [owned] If set to `owned` it limits results to challenges owned
+                                      by the user. If set to `not_owned` it limits results
+                                      to challenges not owned by the user.
+ * @apiParam (Query) {String} [search] Optional query parameter to filter results to challenges
+                                       that include (even partially) the search query parameter
+                                       in the name or description.
+ * @apiParam (Query) {String} [categories] Optional comma separated list of categories.
+                                           If set it limits results to challenges that are part
+                                           of the given categories.
  * @apiError (400) {BadRequest} queryPageInteger Page query parameter must be a positive integer
  * @apiUse SuccessfulChallengeRequest
  *
