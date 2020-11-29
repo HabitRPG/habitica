@@ -579,8 +579,8 @@ api.getChallengeMemberProgress = {
     if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
 
     const challengeTasks = await Tasks.Task.find({
-      userId: member.id,
-      'challenge.id': challenge.id,
+      userId: member._id,
+      'challenge.id': challenge._id,
     })
       .select('-tags -checklist') // We don't want to return tags and checklists publicly
       .lean()
