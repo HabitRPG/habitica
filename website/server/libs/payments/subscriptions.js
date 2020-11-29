@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 
-import * as analytics from '../analyticsService';
+import { getAnalyticsServiceByEnvironment } from '../analyticsService';
 import * as slack from '../slack'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   getUserInfo,
@@ -21,6 +21,7 @@ import calculateSubscriptionTerminationDate from './calculateSubscriptionTermina
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
+const analytics = getAnalyticsServiceByEnvironment();
 
 function _findMysteryItems (user, dateMoment) {
   const pushedItems = [];
