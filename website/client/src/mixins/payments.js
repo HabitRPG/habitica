@@ -124,15 +124,15 @@ export default {
       if (data.gift && data.gift.type === 'gems') paymentType = 'gift-gems';
       if (data.gift && data.gift.type === 'subscription') paymentType = 'gift-subscription';
 
-      const url = '/stripe/checkout-session';
-
-      /* if (data.groupToCreate) { // @TODO
-        // url = '/api/v4/groups/create-plan?a=a';
-        res.groupToCreate = data.groupToCreate;
-        res.paymentType = 'Stripe';
-      } */
-
+      let url = '/stripe/checkout-session';
       const postData = {};
+
+      if (data.groupToCreate) {
+        url = '/api/v4/groups/create-plan';
+        postData.groupToCreate = data.groupToCreate;
+        postData.paymentType = 'Stripe';
+      }
+
 
       if (data.gemsBlock) postData.gemsBlock = data.gemsBlock.key;
       if (data.gift) {
