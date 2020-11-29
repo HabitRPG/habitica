@@ -33,20 +33,6 @@
               </span>
             </template>
             <b-dropdown-item
-              v-if="!isMember"
-              class="selectListItem"
-              @click="$emit('showInviteModal')">
-              <span v-once>{{ $t('invite') }}</span>
-            </b-dropdown-item>
-            <b-dropdown-item
-              v-if="isLeader || isAdmin"
-              class="selectListItem"
-              @click="$emit('updateGuild')">
-              <span v-once>
-                {{ isParty ? $t('editParty') : $t('editGuild') }}
-              </span>
-            </b-dropdown-item>
-            <b-dropdown-item
               class="selectListItem"
               v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
               @click="$emit('upgradeGroup')">
@@ -55,10 +41,24 @@
               </span>
             </b-dropdown-item>
             <b-dropdown-item
+              v-if="!isMember"
+              class="selectListItem"
+              @click="$emit('showInviteModal')">
+              <span v-once>{{ $t(isParty ? 'inviteToParty' : 'inviteToGuild') }}</span>
+            </b-dropdown-item>
+            <b-dropdown-item
               class="selectListItem"
               @click="$emit('messageLeader')">
               <span v-once>
                 {{ $t(isParty ? 'messagePartyLeader' : 'messageGuildLeader') }}
+              </span>
+            </b-dropdown-item>
+            <b-dropdown-item
+              v-if="isLeader || isAdmin"
+              class="selectListItem"
+              @click="$emit('updateGuild')">
+              <span v-once>
+                {{ isParty ? $t('editParty') : $t('editGuild') }}
               </span>
             </b-dropdown-item>
             <b-dropdown-item
