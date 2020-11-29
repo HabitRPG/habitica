@@ -338,15 +338,26 @@ async function trackPurchase (data) {
 }
 
 // Stub for non-prod environments
-// @TODO instead of exporting a different interface why not have track
-// and trackPurchase be no ops when not in production?
 const mockAnalyticsService = {
   track: () => { },
   trackPurchase: () => { },
 };
 
+// Return the production or mock service based on the current environment
+function getServiceByEnvironment () {
+  if (nconf.get('IS_PROD')) {
+    return {
+      track,
+      trackPurchase,
+    };
+  }
+
+  return mockAnalyticsService;
+}
+
 export {
   track,
   trackPurchase,
   mockAnalyticsService,
+  getServiceByEnvironment as getAnalyticsServiceByEnvironment,
 };
