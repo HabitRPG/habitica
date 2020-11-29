@@ -42,17 +42,21 @@ export async function handleWebhooks (options, stripeInc) {
   switch (event.type) {
     case 'payment_intent.created':
     case 'payment_intent.succeeded':
+    case 'payment_intent.payment_failed':
     case 'charge.succeeded':
+    case 'charge.failed':
     case 'payment_method.attached':
     case 'customer.created':
     case 'customer.updated':
     case 'customer.deleted':
     case 'customer.subscription.created':
     case 'customer.subscription.updated':
+    case 'invoiceitem.created':
     case 'invoice.created':
     case 'invoice.updated':
     case 'invoice.finalized':
     case 'invoice.paid':
+    case 'invoice.upcoming':
     case 'invoice.payment_succeeded': {
       // Events sent even if not active in the Stripe dashboard when a payment is being made
       // This is to avoid error logs from the webhook handler not being implemented
