@@ -116,7 +116,6 @@ describe('GET /challenges/:challengeId/members/:memberId', () => {
     }]);
 
     const memberProgress = await user.get(`/challenges/${challenge._id}/members/${user._id}`);
-    expect(memberProgress.tasks[0]).not.to.have.key('tags');
-    expect(memberProgress.tasks[0].checklist).to.eql([]);
+    expect(memberProgress.tasks[0]).to.not.have.any.keys(['tags', 'checklist']);
   });
 });
