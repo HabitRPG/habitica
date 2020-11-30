@@ -175,7 +175,7 @@
     "goToSettings": "Go t' Settin's",
     "usernameVerifiedConfirmation": "Yer seaname, <%= username %>, be confirm'd!",
     "usernameNotVerified": "Please confirm yer seaname.",
-    "changeUsernameDisclaimer": "Yer username be used fer invitations, @mentions in chat, 'n messagin'.  It must be 1 t' 20 characters, containin' only letters A t' Z, numbers 0 t' 9, hyphens, or underscores, an' cannae include any inappropriate terms.",
+    "changeUsernameDisclaimer": "Yer username be used fer invitations, @mentions in chat, 'n messagin'. It must be 1 t' 20 characters, containin' only letters A t' Z, numbers 0 t' 9, hyphens, or underscores, an' cannae include any inappropriate terms.",
     "verifyUsernameVeteranPet": "One o' these Veteran Pets will be waitin' fer ye after ye've finish'd confirmin'!",
     "subscriptionReminders": "Don' ferget about yer Subscriptions",
     "newPMNotificationTitle": "There be a Message from <%= name %>",

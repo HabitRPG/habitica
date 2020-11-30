@@ -96,5 +96,11 @@
     "achievementBoneCollector": "ボーン・コレクター",
     "achievementSkeletonCrewModalText": "骨の乗騎をすべて手なづけました！",
     "achievementSkeletonCrewText": "骨の乗騎をすべて手なづけました。",
-    "achievementSkeletonCrew": "ドクロ団"
+    "achievementSkeletonCrew": "ドクロ団",
+    "achievementSeeingRed": "顔が真っ赤",
+    "achievementRedLetterDayModalText": "赤い乗騎をすべて手なづけました！",
+    "achievementRedLetterDayText": "赤い乗騎をすべて手なづけました。",
+    "achievementSeeingRedModalText": "赤いペットをすべて集めました！",
+    "achievementSeeingRedText": "赤いペットをすべて集めました。",
+    "achievementRedLetterDay": "赤マル記念日"
 }

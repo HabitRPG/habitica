@@ -345,7 +345,7 @@
     "questAxolotlRageDescription": "This bar fills when you don't complete your Dailies. When it is full, the Magical Axolotl will heal 30% of its remaining health!",
     "questAxolotlRageEffect": "`Magical Axolotl uses AXOLOTL REGENERATION!`\n\n`A curtain of colorful bubbles obscures the monster for a moment, and when it clears, some of its wounds have vanished!`",
     "questTurtleText": "거북이를 안내하세요",
-    "questTurtleNotes": "도와주세요! 이 거대한 바다 거북이 그녀의 둥지로 가는 길을 찾지 못하고 있어요. 그녀는 매년 알을 낳으러 돌아가는데, 이번 해에는 Inkomplete Bay가 빨간색 일일과제와 완료하지 못한 할 일로 만들어진 독성의 과제 표류물로 가득 차 있어요. @JessicaChase가 말하길,  \"그녀는 패닉상태에 엉망이에요!\" <br>\n<br>@UncommonCriminal 이 끄덕였어요. \"왜냐면 그녀의 길 찾는 능력이 막막하고 혼란스럽기 때문이지.\"<br><br>@Scarabsi 이 네 손을 잡으며 \"그녀의 길을 막는 과제 표류물을 청소하는 걸 도와줄 수 있니? 매우 위험한 일이지만, 우리는 그녀를 도와야만 해!\"",
+    "questTurtleNotes": "도와주세요! 이 거대한 바다 거북이 그녀의 둥지로 가는 길을 찾지 못하고 있어요. 그녀는 매년 알을 낳으러 돌아가는데, 이번 해에는 Inkomplete Bay가 빨간색 일일과제와 완료하지 못한 할 일로 만들어진 독성의 과제 표류물로 가득 차 있어요. @JessicaChase가 말하길, \"그녀는 패닉상태에 엉망이에요!\" <br><br>@UncommonCriminal 이 끄덕였어요. \"왜냐면 그녀의 길 찾는 능력이 막막하고 혼란스럽기 때문이지.\"<br><br>@Scarabsi 이 네 손을 잡으며 \"그녀의 길을 막는 과제 표류물을 청소하는 걸 도와줄 수 있니? 매우 위험한 일이지만, 우리는 그녀를 도와야만 해!\"",
     "questTurtleCompletion": "너의 용감한 일이 우리의 바다 거북이 그녀의 바다로 갈 수 있게 물을 정화시켜주었어. 너, @Bambin, 그리고 @JaizakAripaik 는 모래 깊숙히 그녀가 품은 알들을 낳는 걸 보았고 그 알들은 수백의 작은 바다 거북들로 자라고 성장할 수 있게 되었어. 그녀는 네게 먹이를 주고 키워주길 바라며 네게 세개의 알들을 주었어. 훗날, 그들은 큰 바다 거북이 될거야.",
     "questTurtleBoss": "과제 표류물",
     "questTurtleDropTurtleEgg": "거북이 (알)",

@@ -132,7 +132,7 @@
     "healerText": "Y sĩ đứng vững trước mọi mối nguy hại, để bảo vệ được những người khác. Những việc hàng ngày bị bỏ lỡ hoặc Thói quen xấu không ảnh hưởng nhiều đến họ, và họ có nhiều cách để hồi phục máu từ thất bại. Trở thành một Y sĩ nếu như bạn thích hỗ trợ người chơi khác trong nhóm, và ý tưởng qua mặt Tử thần dựa vào sự chăm chỉ tạo nên động lực cho bạn.",
     "optOutOfClasses": "Dời lại",
     "chooseClass": "Chọn Chủng tộc của bạn",
-    "chooseClassLearnMarkdown": "[Tìm hiểu thêm về hệ thống chức nghiệp của Habitica] (https://habitica.wikia.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Tìm hiểu thêm về hệ thống chức nghiệp của Habitica](https://habitica.wikia.com/wiki/Class_System)",
     "optOutOfClassesText": "Không muốn bận tâm đến chủng tộc? Bạn muốn chọn sau? Hãy bỏ qua - bạn sẽ được làm Chiến binh và không có kỹ năng đặc biệt nào. Bạn có thể đọc hiểu về hệ thống chủng tộc trên wiki vào lúc khác và chọn chủng tộc vào bất cứ lúc nào tại Hình tượng Người dùng > Cài đặt",
     "selectClass": "Chọn <%= heroClass %>",
     "select": "Chọn",

@@ -96,5 +96,11 @@
     "achievementSkeletonCrew": "Equipaggio scheletrico",
     "achievementBoneCollectorModalText": "Hai collezionato tutti gli animali scheletro!",
     "achievementBoneCollectorText": "Ha collezionato tutti gli animali scheletro.",
-    "achievementBoneCollector": "Collezionista di ossa"
+    "achievementBoneCollector": "Collezionista di ossa",
+    "achievementSeeingRedModalText": "Hai collezionato tutti gli animali rossi!",
+    "achievementSeeingRedText": "Ha collezionato tutti gli animali rossi.",
+    "achievementSeeingRed": "Vedere rosso",
+    "achievementRedLetterDayModalText": "Hai collezionato tutte le cavalcature rosse!",
+    "achievementRedLetterDayText": "Ha collezionato tutte le cavalcature rosse.",
+    "achievementRedLetterDay": "Tappeto Rosso"
 }

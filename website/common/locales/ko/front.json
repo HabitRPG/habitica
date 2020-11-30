@@ -1,5 +1,5 @@
 {
-    "termsAndAgreement": "아래에 있는 버튼을 클릭함으로써, 당신은 당신이 서비스 약관<a href='/static/terms'> 과 <a href='/static/privacy'> 개인정보 정책 을 읽었고 이에 동의했음을 나타냅니다</a>.",
+    "termsAndAgreement": "아래에 있는 버튼을 클릭함으로써, 당신은 당신이 <a href='/static/terms'>서비스 약관</a> 과 <a href='/static/privacy'> 개인정보 정책 을</a> 읽었고 이에 동의했음을 나타냅니다.",
     "FAQ": "FAQ",
     "sendLink": "링크 보내기",
     "forgotPasswordSteps": "Habitica 계정으로 등록할 메일 주소를 입력하세요.",

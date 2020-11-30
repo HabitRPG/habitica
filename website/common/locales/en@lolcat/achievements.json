@@ -25,5 +25,19 @@
     "achievementBackToBasics": "Bak 2 baesikz",
     "achievementMindOverMatterModalText": "U completd teh rok, sml, an yarn pet kwestz!",
     "achievementMindOverMatterText": "Haz completd rok, sml, an yarn pet kwestz.",
-    "achievementLostMasterclasserModalText": "U completd al sixtin kwestz in teh masterclasr quest seriez an solvd teh mystery for teh losed masterclaser!"
+    "achievementLostMasterclasserModalText": "U completd al sixtin kwestz in teh masterclasr quest seriez an solvd teh mystery for teh losed masterclaser!",
+    "foundNewItemsExplanation": "Completesing task givez u item like eggss, hatches potionez and fooz.",
+    "foundNewItems": "You gots new items1!1!!",
+    "hideAchievements": "Hidez <%=category%>",
+    "showAllAchievements": "show alls <%=category%>r",
+    "onboardingCompleteDescSmall": "If wants extraz, you checks Achieves an' starts collect!1!!",
+    "onboardingCompleteDesc": "You has earned <strong>5 Achievements</strong> ands <strong class=\"gold-amount\">100 Gold</strong> fors complete list.",
+    "onboardingComplete": "You didz complete onbording tasks!!",
+    "earnedAchievement": "You has earned achieves!!1!",
+    "viewAchievements": "See Achieveded",
+    "letsGetStarted": "Let us starts !11!!!",
+    "yourProgress": "Ur Progrusses",
+    "onboardingProgress": "<%=percentage%>% progresses",
+    "gettingStartedDesc": "Cumplete dese onboarding tasks and you does earnz <strong>5 achievemnts</strong> and <strong class=\"gold-amount\">100gold</strong> once done!!!",
+    "yourRewards": "Ur rewardzz"
 }
