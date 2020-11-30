@@ -63,8 +63,6 @@
             :items="groupByItems"
             :value="groupBy"
             class="array-select"
-            :class="{disabled: disabled}"
-            :disabled="disabled"
             :right="true"
             :hide-icon="false"
             :inline-dropdown="false"

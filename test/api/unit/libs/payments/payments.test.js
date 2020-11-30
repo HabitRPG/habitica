@@ -32,8 +32,8 @@ describe('payments/index', () => {
 
     sandbox.stub(sender, 'sendTxn');
     sandbox.stub(user, 'sendMessage');
-    sandbox.stub(analytics, 'trackPurchase');
-    sandbox.stub(analytics, 'track');
+    sandbox.stub(analytics.mockAnalyticsService, 'trackPurchase');
+    sandbox.stub(analytics.mockAnalyticsService, 'track');
     sandbox.stub(notifications, 'sendNotification');
 
     data = {
@@ -237,8 +237,8 @@ describe('payments/index', () => {
       it('tracks subscription purchase as gift', async () => {
         await api.createSubscription(data);
 
-        expect(analytics.trackPurchase).to.be.calledOnce;
-        expect(analytics.trackPurchase).to.be.calledWith({
+        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledOnce;
+        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledWith({
           uuid: user._id,
           groupId: undefined,
           itemPurchased: 'Subscription',
@@ -335,8 +335,8 @@ describe('payments/index', () => {
       it('tracks subscription purchase', async () => {
         await api.createSubscription(data);
 
-        expect(analytics.trackPurchase).to.be.calledOnce;
-        expect(analytics.trackPurchase).to.be.calledWith({
+        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledOnce;
+        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledWith({
           uuid: user._id,
           groupId: undefined,
           itemPurchased: 'Subscription',

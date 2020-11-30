@@ -1,4 +1,4 @@
-import * as analytics from '../analyticsService';
+import { getAnalyticsServiceByEnvironment } from '../analyticsService';
 import { getCurrentEvent } from '../worldState'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   getUserInfo,
@@ -10,6 +10,8 @@ import {
   BadRequest,
 } from '../errors';
 import apiError from '../apiError';
+
+const analytics = getAnalyticsServiceByEnvironment();
 
 function getGiftMessage (data, byUsername, gemAmount, language) {
   const senderMsg = shared.i18n.t('giftedGemsFull', {
