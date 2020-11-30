@@ -283,6 +283,7 @@ li {
   margin: 0 auto;
   color: #e1e0e3;
 }
+
 .debug-group {
   position: absolute;
   background: #fff;
