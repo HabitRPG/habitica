@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import nconf from 'nconf';
-import apn from 'apn';
+import apn from '@parse/node-apn';
 import gcmLib from 'node-gcm'; // works with FCM notifications too
 import logger from './logger';
 import { // eslint-disable-line import/no-cycle
