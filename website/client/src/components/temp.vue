@@ -15,7 +15,7 @@
     </div>
     <div
       class="member-stats"
-      :class="{'col-8': !expanded && !isHeader}"
+      :class="{'col-11': !expanded && !isHeader}"
     >
       <div class="d-flex align-items-center profile-first-row">
         <class-badge
@@ -32,7 +32,7 @@
                 :contributor="member.contributor"
               />
             </span>
-            <span v-else>{{ member.profile.name }}</span>
+            <span>{{ member.profile.name }}</span>
             <div
               v-if="isBuffed"
               v-b-tooltip.hover.bottom="$t('buffed')"
@@ -57,31 +57,6 @@
           </div>
         </div>
       </div>
-      <stats-bar
-        :icon="icons.health"
-        :value="member.stats.hp"
-        :max-value="MAX_HEALTH"
-        :tooltip="$t('health')"
-        progress-class="bg-health"
-        :condensed="condensed"
-      />
-      <stats-bar
-        :icon="icons.experience"
-        :value="member.stats.exp"
-        :max-value="toNextLevel"
-        :tooltip="$t('experience')"
-        progress-class="bg-experience"
-        :condensed="condensed"
-      />
-      <stats-bar
-        v-if="hasClass"
-        :icon="icons.mana"
-        :value="member.stats.mp"
-        :max-value="maxMP"
-        :tooltip="$t('mana')"
-        progress-class="bg-mana"
-        :condensed="condensed"
-      />
     </div>
   </div>
 </template>

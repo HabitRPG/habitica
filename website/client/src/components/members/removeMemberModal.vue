@@ -57,6 +57,8 @@ export default {
       removeMessage: '',
     };
   },
+
+
   methods: {
     async confirmRemoveMember () {
       await this.$store.dispatch('members:removeMember', {
@@ -64,7 +66,6 @@ export default {
         groupId: this.groupId,
         message: this.removeMessage,
       });
-
       this.removeMessage = '';
       this.$emit('member-removed', this.memberToRemove);
       this.close();

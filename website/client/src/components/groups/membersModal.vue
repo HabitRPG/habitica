@@ -133,14 +133,61 @@
               </b-dropdown-item>
               <b-dropdown-item
                 v-if="shouldShowLeaderFunctions(member._id)"
-                @click="promoteToLeader(member)"
+                @click="$bvModal.show('bv-modal-example')"
               >
+              <!-- <b-modal id="bv-modal-example" hide-footer>
+                  <template #modal-title>
+                    OWNERSHIP REQUEST
+                  </template>
+                  <div class="d-block text-center">
+                    <span>Do you wanna transfer ownership</span>
+                    <b-button class="mt-3" block
+                    @click="promoteToLeader(member)">YES</b-button>
+                  </div>
+                  <b-button
+                  class="mt-3" block
+                  @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
+                </b-modal> -->
+                  <b-modal
+                      id="bv-modal-example"
+                      :title="$t('createGuild')"
+                      size="md"
+                      :hide-footer="true"
+                    >
+                      <template #modal-title>
+                        LEADERSHIP TRANSFER
+                      </template>
+                      <loading-gryphon v-if="loading" />
+                      <div class="d-block text-center">
+                        <span>Do you wanna transfer ownership to:</span>
+                      </div>
+                      <div
+                        class="row"
+                      >
+                        <div class="col-4">
+                        </div>
+                        <div class="col-8 no-padding-right">
+                          <avat
+                            :member="member"
+                            :class-badge-position="'next-to-name'"
+                          />
+                        </div>
+                      </div>
+                      <div class="d-block text-center">
+                        <b-button class="mt-3" block
+                        @click="promoteToLeader(member)">YES</b-button>
+                      </div>
+                      <b-button
+                        class="mt-3" block
+                      @click="$bvModal.hide('bv-modal-example')">CLOSE</b-button>
+                    </b-modal>
                 <span class="dropdown-icon-item">
                   <div
                     class="svg-icon inline"
                     v-html="icons.starIcon"
                   ></div>
-                  <span class="text">{{ $t('promoteToLeader') }}</span>
+                  <span class="text"
+                  @click="$bvModal.show('bv-modal-example')">{{ $t('promoteToLeader') }}</span>
                 </span>
               </b-dropdown-item>
               <b-dropdown-item
@@ -260,7 +307,10 @@
     .no-padding-left {
       padding-left: 0;
     }
-
+    .no-padding-right {
+      padding-left: 250px;
+      margin-left: 0 auto;
+    }
     .modal-body {
       padding-left: 0;
       padding-right: 0;
@@ -381,15 +431,17 @@ import { mapState } from '@/libs/store';
 
 import removeMemberModal from '@/components/members/removeMemberModal';
 import loadingGryphon from '@/components/ui/loadingGryphon';
-import MemberDetails from '../memberDetails';
 import blockIcon from '@/assets/svg/block.svg';
 import messageIcon from '@/assets/members/message.svg';
 import starIcon from '@/assets/members/star.svg';
 import dots from '@/assets/svg/dots.svg';
+import MemberDetails from '../memberDetails.vue';
+import Avat from '../temp.vue';
 
 export default {
   components: {
     MemberDetails,
+    Avat,
     removeMemberModal,
     loadingGryphon,
   },

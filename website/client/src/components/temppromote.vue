@@ -9,8 +9,8 @@
         :member="member"
         :hide-class-badge="classBadgePosition !== 'under-avatar'"
         @click.native="$emit('click')"
-        @mouseover.native="$emit('on-hover')"
-        @mouseout.native="$emit('on-hover')"
+        @mouseover.native="$emit('onHover')"
+        @mouseout.native="$emit('onHover')"
       />
     </div>
     <div
