@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { IncomingWebhook } from '@slack/client';
+import { IncomingWebhook } from '@slack/webhook';
 import requireAgain from 'require-again';
 import nconf from 'nconf';
 import moment from 'moment';
@@ -12,7 +12,7 @@ describe('slack', () => {
     let data;
 
     beforeEach(() => {
-      sandbox.stub(IncomingWebhook.prototype, 'send');
+      sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());
       data = {
         authorEmail: 'author@example.com',
         flagger: {
@@ -112,6 +112,7 @@ describe('slack', () => {
 
     it('noops if no flagging url is provided', () => {
       sandbox.stub(nconf, 'get').withArgs('SLACK_FLAGGING_URL').returns('');
+      nconf.get.withArgs('IS_TEST').returns(true);
       sandbox.stub(logger, 'error');
       const reRequiredSlack = requireAgain('../../../../website/server/libs/slack');
 
