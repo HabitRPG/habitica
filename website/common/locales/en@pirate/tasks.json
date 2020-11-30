@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Be Rid o' What's Done",
-    "clearCompletedDescription": "Completed T'-Do's are scuttled aft 30 days fer non-subscribers 'n 90 days fer subscribers.",
+    "clearCompletedDescription": "Completed T' Do's are scuttled aft 30 days fer non-subscribers an' 90 days fer subscribers.",
     "clearCompletedConfirm": "Are ye sure ye wants t' scuttle yer completed T'-Do's?",
     "addMultipleTip": "<strong>Tip:</strong> T' add multiple <%= taskType %>, separate each one usin' a line break (Shift + Enter) 'n then press \"Enter.\"",
     "addATask": "Add a <%= type %>",
@@ -95,7 +95,7 @@
     "invalidTasksType": "Task type must be one o' \"habits\", \"dailys\", \"t'-dos\", \"rewards\".",
     "invalidTasksTypeExtra": "Task type must be one o' \"habits\", \"dailys\", \"t'-dos\", \"rewards\", \"completedT'-dos\".",
     "cantDeleteChallengeTasks": "A task belongin' t' a challenge can't be deleted.",
-    "checklistOnlyDailyTodo": "Checklists are supported only on Dailies 'n T' Do's",
+    "checklistOnlyDailyTodo": "Checklists are supported only on Dailies an' T' Do's",
     "checklistItemNotFound": "No checklist item was found wit' given id.",
     "itemIdRequired": "\"itemId\" must be a valid UUID.",
     "tagNotFound": "No tag item was found wit' given id.",

@@ -96,5 +96,11 @@
     "achievementSkeletonCrew": "Skelettbande",
     "achievementBoneCollectorModalText": "Du hast alle Skelett-Haustiere gesammelt!",
     "achievementBoneCollectorText": "Hat alle Skelett-Hautiere gesammelt.",
-    "achievementBoneCollector": "Knochensammlung"
+    "achievementBoneCollector": "Knochensammlung",
+    "achievementRedLetterDayModalText": "Du hast alle Roten Reittiere gezähmt!",
+    "achievementRedLetterDayText": "Hat alle Roten Reittiere gezähmt.",
+    "achievementSeeingRedModalText": "Du hast alle Roten Haustiere gesammelt!",
+    "achievementSeeingRedText": "Hat alle roten Haustiere gesammelt.",
+    "achievementSeeingRed": "Rot Sehen",
+    "achievementRedLetterDay": "Roter Faden"
 }

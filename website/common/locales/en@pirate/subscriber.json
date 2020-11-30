@@ -141,5 +141,16 @@
     "mysterySet201906": "Kindly Koi-fish Set",
     "mysterySet201905": "Dazzlin' Dragon Set",
     "mysterySet201904": "Oppy-lent Opal Set",
-    "mysterySet201903": "Egg-squeezit Set"
+    "mysterySet201903": "Egg-squeezit Set",
+    "mysterySet201912": "Polar Pixie Set",
+    "mysterySet201911": "Crystal Charmer Set",
+    "mysterySet201910": "Cryptic Flame Set",
+    "mysterySet201909": "Affable Acorn Set",
+    "mysterySet201908": "Footloose Faun Set",
+    "mysticHourglassNeededNoSub": "This item requires a Mystic Hourglass. Ye earn Mystic Hourglasses by bein' a Habitica subscriber.",
+    "cancelSubInfoApple": "Please follow <a href=\"https://support.apple.com/en-us/HT202039\">Apple's official instructions</a> t' cancel yer subscription or t' see yer subscription's termination date if ye have already cancell'd it. This screen be not able t' show ye whether yer subscription has been cancelled.",
+    "cancelSubInfoGoogle": "Please go t' th' \"Account\" > \"Subscriptions\" section o' th' Google Play Store app t' cancel yer subscription or t' see yer subscription's termination date if ye have already cancelled it. This screen be not able t' show ye whether yer subscription has been cancelled.",
+    "organization": "Organization",
+    "giftASubscription": "Gift a Subscription",
+    "viewSubscriptions": "View Subscriptions"
 }

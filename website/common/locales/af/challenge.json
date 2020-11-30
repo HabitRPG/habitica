@@ -8,7 +8,7 @@
     "brokenChallenge": "Gebreekte Uitdaging Skakel: Die taak was deel van n uitdaging, maar die uitdaging ( of groep ) is verwyder. Wat wil jy doen met die  alleenstaande take?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Die uitdaging is gevoltooi, and die wenner was <span class=\"badge\"><%- user %></span>!  Wat wil jy doen met die alleen staande take?",
+    "challengeCompleted": "Die uitdaging is gevoltooi, and die wenner was <span class=\"badge\"><%- user %></span>! Wat wil jy doen met die alleen staande take?",
     "unsubChallenge": "Gebreukte Uitdaging Skakel: hierdie taak was deel van 'n uitdaging, maar jy het uitgeteken uit die uitdaging uit. Wat wil jy doen met die oorblywende take?",
     "challenges": "Uitdagings",
     "endDate": "Ends",

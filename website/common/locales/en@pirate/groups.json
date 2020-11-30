@@ -357,5 +357,7 @@
     "languageSettings": "Language Settin's",
     "onlyPrivateGuildsCanUpgrade": "Only private ships can be upgraded to a squadron.",
     "chooseTeamMember": "Choose ye a team member",
-    "unassigned": "Unassigned"
+    "unassigned": "Unassigned",
+    "bannedWordsAllowedDetail": "Wit' this option selected, th' use of banned words in this guild will be allowed.",
+    "usernameOrUserId": "Seaname or Pirate ID"
 }

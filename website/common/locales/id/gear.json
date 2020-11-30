@@ -1453,7 +1453,7 @@
     "shieldArmoireRoyalCaneText": "Tongkat Kerajaan",
     "shieldArmoireRoyalCaneNotes": "Bersorak untuk Sang Penguasa, nyanyikan pujian untuknya! Meningkatkan Ketahanan, Kecerdasan, dan Persepsi masing-masing sebesar <%= attrs %>. Peti Ajaib: Set Kerajaan (Item 2 dari 3).",
     "shieldArmoireDragonTamerShieldText": "Perisai Penjinak Naga",
-    "shieldArmoireDragonTamerShieldNotes": "Membingungkan Musuh dengan tameng berbentuk naga. Meningkatkan Persepsi sebesar <%=per %>. Peti Ajaib : Set Penakluk Naga (Item 2 dari 3).",
+    "shieldArmoireDragonTamerShieldNotes": "Membingungkan Musuh dengan tameng berbentuk naga. Meningkatkan Persepsi sebesar <%= per %>. Peti Ajaib : Set Penakluk Naga (Item 2 dari 3).",
     "shieldArmoireMysticLampText": "Lampu Mistis",
     "shieldArmoireMysticLampNotes": "Lampu mistik ini bisa menerangi goa tergelap sekalipun! Meningkatkan Persepsi sebesar <%= per %>. Peti Ajaib. Item Tersendiri.",
     "shieldArmoireFloralBouquetText": "Buket Bunga",

@@ -183,7 +183,7 @@
     "claim": "Taak Opeisen",
     "removeClaim": "Verwijder eis",
     "onlyGroupLeaderCanManageSubscription": "Alleen de groepsleider kan het groepsabonnement beheren",
-    "yourTaskHasBeenApproved": "Je taak  <span class=\"notification-green\"><%- taskText %></span> is goedgekeurd.",
+    "yourTaskHasBeenApproved": "Je taak <span class=\"notification-green\"><%- taskText %></span> is goedgekeurd.",
     "taskNeedsWork": "<span class=\"notification-bold\"><%- managerName %></span> heeft <span class=\"notification-bold\"><%- taskText %></span> op 'werk nodig' gezet.",
     "userHasRequestedTaskApproval": "<span class=\"notification-bold\"><%- user %></span> vraagt om toestemming voor <span class=\"notification-bold\"><%- taskName %></span>",
     "approve": "Goedkeuren",

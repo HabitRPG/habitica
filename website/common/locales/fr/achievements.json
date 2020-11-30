@@ -96,5 +96,11 @@
     "achievementSkeletonCrew": "Un os à ronger",
     "achievementBoneCollector": "Sac dos",
     "achievementBoneCollectorModalText": "Vous avez collecté tous les familiers squelettes !",
-    "achievementBoneCollectorText": "A collecté tous les familiers squelettes."
+    "achievementBoneCollectorText": "A collecté tous les familiers squelettes.",
+    "achievementRedLetterDayModalText": "Vous avez dompté toutes les montures rouges !",
+    "achievementRedLetterDayText": "A dompté toutes les montures rouges.",
+    "achievementRedLetterDay": "Lanterne rouge",
+    "achievementSeeingRed": "Dans le rouge",
+    "achievementSeeingRedModalText": "Vous avez collecté tous les familiers rouges !",
+    "achievementSeeingRedText": "A collecté tous les familiers rouges."
 }
