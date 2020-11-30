@@ -60,7 +60,7 @@
                     <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
                   </div>
                   <div class="mana" v-if="user.stats.lvl<skill.lvl">
-                    <div class="mana-text">
+                    <div class="mana-text level">
                       <div>Level {{ skill.lvl }}</div>
                     </div>
                   </div>
@@ -107,6 +107,9 @@
      display: flex;
      flex-direction: column;
      gap: 0.1em;
+     .popover-description{
+       text-align: left;
+     }
      .popover-title{
        display: flex;
        justify-content: space-between;
@@ -114,6 +117,7 @@
        .popover-title-text{
          font-weight: bold;
          font-size: 1.1em;
+         color: #ffffff;
        }
        .popover-mana{
          display: flex;
@@ -145,20 +149,29 @@
     background: #ffffff;
     border: solid 2px #4e4a57;
     margin-bottom: 1rem;
-    border-radius: 2px;
+    border-radius: 4px;
     color: #4e4a57;
     padding-right: 0;
     padding-left: 0;
     overflow: hidden;
     width: 4.6rem;
     height: 4.6rem;
-    box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+
+    &:hover{
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
+      border-radius: 2px;
+    }
     &.disabled {
       background-color: #34313a;
       box-shadow: none;
 
       .mana{
         background-color: rgba(26, 24, 29, 0.5);
+      }
+
+      .level{
+        color: #c3c0c7;
+        font-weight: normal;
       }
     }
 
