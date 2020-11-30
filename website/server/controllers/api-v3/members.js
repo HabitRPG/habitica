@@ -322,9 +322,12 @@ function _getMembersForItem (type) {
       }
 
       if (req.query.search) {
-        // Creates a RegExp expression when querying for profile.name
+        // Creates a RegExp expression when querying for profile.name and auth.local.username
         const escapedSearch = escapeRegExp(req.query.search);
-        query['profile.name'] = { $regex: new RegExp(escapedSearch, 'i') };
+        query.$or = [
+          { 'profile.name': { $regex: new RegExp(escapedSearch, 'i') } },
+          { 'auth.local.username': { $regex: new RegExp(req.query.search, 'i') } },
+        ];
       }
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
