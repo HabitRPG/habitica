@@ -19,8 +19,8 @@
       <drawer
       v-if="user.stats.class && !user.preferences.disableClasses"
       v-mousePosition="30"
-      :title="`${this.user.stats.class.charAt(0).toUpperCase()}
-      ${this.user.stats.class.slice(1)} Skills`"
+      :title="`${this.user.stats.class.charAt(0).toUpperCase()}${this.user.stats.class.slice(1)}
+      Skills`"
       :open-status="openStatus" @mouseMoved="mouseMoved($event)"
       @toggled="drawerToggled">
         <div slot="drawer-slider">
