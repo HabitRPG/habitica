@@ -35,7 +35,6 @@ export async function applySubscription (session) {
     customerId,
     paymentMethod: stripeConstants.PAYMENT_METHOD,
     sub,
-    //headers,
     groupId,
     subscriptionId,
   });

@@ -72,7 +72,6 @@ export async function applyGemPayment (session) {
     paymentMethod: stripeConstants.PAYMENT_METHOD,
     gemsBlock,
     gift,
-    //headers
   };
 
   if (gift) {

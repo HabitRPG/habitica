@@ -1,7 +1,6 @@
 import moment from 'moment';
 
 import {
-  BadRequest,
   NotAuthorized,
   NotFound,
 } from '../../errors';
@@ -14,7 +13,6 @@ import shared from '../../../../common';
 import stripeConstants from './constants';
 import { handleWebhooks } from './webhooks'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
-  checkout,
   createCheckoutSession,
   createEditCardCheckoutSession,
 } from './checkout';
@@ -44,7 +42,7 @@ api.createEditCardCheckoutSession = createEditCardCheckoutSession; //TODO apidoc
  * @param  options.headers  The request headers to store on analytics
  * @return undefined
  */
-api.checkout = checkout;
+ //TODO remove
 
 /**
  * Edits a subscription created by Stripe
@@ -56,44 +54,9 @@ api.checkout = checkout;
  *
  * @return undefined
  */
-api.editSubscription = async function editSubscription (options, stripeInc) {//TODO
-  const { token, groupId, user } = options;
-  let customerId;
+//TODO remove
 
-  // @TODO: We need to mock this, but curently we don't have correct
-  // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
-  let stripeApi = getStripeApi();
-  if (stripeInc) stripeApi = stripeInc;
-
-  if (groupId) {
-    const groupFields = basicGroupFields.concat(' purchased');
-    const group = await Group.getGroup({
-      user, groupId, populateLeader: false, groupFields,
-    });
-
-    if (!group) {
-      throw new NotFound(i18n.t('groupNotFound'));
-    }
-
-    const allowedManagers = [group.leader, group.purchased.plan.owner];
-
-    if (allowedManagers.indexOf(user._id) === -1) {
-      throw new NotAuthorized(i18n.t('onlyGroupLeaderCanManageSubscription'));
-    }
-    customerId = group.purchased.plan.customerId;
-  } else {
-    customerId = user.purchased.plan.customerId;
-  }
-
-  if (!customerId) throw new NotAuthorized(i18n.t('missingSubscription'));
-  if (!token) throw new BadRequest('Missing req.body.id');
-
-  // @TODO: Handle Stripe Error response
-  const subscriptions = await stripeApi.subscriptions.list({ customer: customerId });
-  const subscriptionId = subscriptions.data[0].id;
-  await stripeApi.subscriptions.update(subscriptionId, { card: token });
-};
-
+//TODO move to stripe/subscriptions
 /**
  * Cancels a subscription created by Stripe
  *
@@ -162,6 +125,7 @@ api.cancelSubscription = async function cancelSubscription (options, stripeInc) 
   });
 };
 
+//TODO move to stripe/subscriptions
 api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMember (group) {//TODO
   const stripeApi = getStripeApi();
   const plan = shared.content.subscriptionBlocks.group_monthly;

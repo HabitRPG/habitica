@@ -13,22 +13,6 @@ import shared from '../../../../common';
 import { getOneTimePaymentInfo } from './oneTimePayments'; // eslint-disable-line import/no-cycle
 import { checkSubData } from './subscriptions'; // eslint-disable-line import/no-cycle
 
-async function buySubscription (sub, coupon, email, user, token, groupId, stripeApi) {//TODO
-  const customerObject = {
-    email,
-    metadata: { uuid: user._id },
-    card: token,
-    plan: sub.key,
-  };
-
-  const response = await stripeApi.customers.create(customerObject);
-
-  let subscriptionId;
-  if (groupId) subscriptionId = response.subscriptions.data[0].id;
-
-  return { subResponse: response, subId: subscriptionId };
-}
-
 const BASE_URL = nconf.get('BASE_URL');
 
 export async function createCheckoutSession (options, stripeInc) {
@@ -38,7 +22,6 @@ export async function createCheckoutSession (options, stripeInc) {
     gemsBlock: gemsBlockKey,
     sub,
     groupId,
-    headers,
     coupon,
   } = options;
 
