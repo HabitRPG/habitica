@@ -15,7 +15,7 @@ import { // eslint-disable-line import/no-cycle
 } from '../../../models/group';
 import shared from '../../../../common';
 import { applyGemPayment } from './oneTimePayments'; // eslint-disable-line import/no-cycle
-import { applySubscription } from './subscriptions'; // eslint-disable-line import/no-cycle
+import { applySubscription, handlePaymentMethodChange } from './subscriptions'; // eslint-disable-line import/no-cycle
 
 const endpointSecret = nconf.get('STRIPE_WEBHOOKS_ENDPOINT_SECRET');
 
@@ -43,6 +43,8 @@ export async function handleWebhooks (options, stripeInc) {
     case 'payment_intent.created':
     case 'payment_intent.succeeded':
     case 'payment_intent.payment_failed':
+    case 'setup_intent.created':
+    case 'setup_intent.succeeded':
     case 'charge.succeeded':
     case 'charge.failed':
     case 'payment_method.attached':
@@ -66,7 +68,9 @@ export async function handleWebhooks (options, stripeInc) {
       const session = event.data.object;
       const { metadata } = session;
 
-      if (metadata.type !== 'subscription') {
+      if (metadata.type === 'edit-card-group' || metadata.type === 'edit-card-user') {
+        await handlePaymentMethodChange(session);
+      } else if (metadata.type !== 'subscription') {
         await applyGemPayment(session);
       } else {
         await applySubscription(session);

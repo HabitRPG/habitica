@@ -93,13 +93,14 @@ api.subscribeEdit = { //TODO
   url: '/stripe/subscribe/edit',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const token = req.body.id;
     const { groupId } = req.body;
     const { user } = res.locals;
 
-    await stripePayments.editSubscription({ token, groupId, user });
+    const session = await stripePayments.createEditCardCheckoutSession({ groupId, user });
 
-    res.respond(200, {});
+    res.respond(200, {
+      sessionId: session.id,
+    });
   },
 };
 

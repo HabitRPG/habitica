@@ -13,7 +13,11 @@ import { // eslint-disable-line import/no-cycle
 import shared from '../../../../common';
 import stripeConstants from './constants';
 import { handleWebhooks } from './webhooks'; // eslint-disable-line import/no-cycle
-import { checkout, createCheckoutSession } from './checkout'; // eslint-disable-line import/no-cycle
+import { // eslint-disable-line import/no-cycle
+  checkout,
+  createCheckoutSession,
+  createEditCardCheckoutSession,
+} from './checkout';
 import { getStripeApi, setStripeApi } from './api';
 
 const { i18n } = shared;
@@ -25,6 +29,7 @@ api.constants = { ...stripeConstants };
 api.setStripeApi = setStripeApi;
 
 api.createCheckoutSession = createCheckoutSession; //TODO apidocs
+api.createEditCardCheckoutSession = createEditCardCheckoutSession; //TODO apidocs
 
 /**
  * Allows for purchasing a user subscription, group subscription or gems with Stripe

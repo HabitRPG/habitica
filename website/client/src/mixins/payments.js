@@ -188,29 +188,36 @@ export default {
         alert(err);
       }
     },
-    showStripeEdit (config) {
+    async redirectToStripeEdit (config) {
+      if (!stripeInstance) {
+        stripeInstance = window.Stripe(STRIPE_PUB_KEY);
+      }
+
       let groupId;
       if (config && config.groupId) {
         groupId = config.groupId;
       }
 
-      window.StripeCheckout.open({
-        key: STRIPE_PUB_KEY,
-        address: false,
-        name: this.$t('subUpdateTitle'),
-        description: this.$t('subUpdateDescription'),
-        panelLabel: this.$t('subUpdateCard'),
-        token: async data => {
-          data.groupId = groupId;
-          const url = '/stripe/subscribe/edit';
-          const response = await axios.post(url, data);
-
-          // Success
-          window.location.reload(true);
-          // error
-          window.alert(response.message); // eslint-disable-line no-alert
-        },
+      const response = await axios.post('/stripe/subscribe/edit', {
+        groupId,
       });
+
+      // @TODO app state for editing?
+
+      try {
+        const checkoutSessionResult = await stripeInstance.redirectToCheckout({
+          sessionId: response.data.data.sessionId,
+        });
+        if (checkoutSessionResult.error) { // @TODO proper error handling
+          console.error(checkoutSessionResult.error);
+          alert(checkoutSessionResult.error.message);
+        }
+      } catch (err) { // @TODO proper error handling
+        console.error(err);
+        alert(err);
+      }
+
+      // @TODO remove old strings if not used subUpdateDescription, subUpdateCard
     },
     checkGemAmount (data) {
       const isGem = data && data.gift && data.gift.type === 'gems';

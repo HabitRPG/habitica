@@ -8,6 +8,7 @@ import {
 import payments from '../payments'; // eslint-disable-line import/no-cycle
 import stripeConstants from './constants';
 import { model as User } from '../../../models/user'; // eslint-disable-line import/no-cycle
+import { getStripeApi } from './api';
 
 export async function checkSubData (sub, coupon) {
   if (!sub.canSubscribe) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
@@ -37,5 +38,25 @@ export async function applySubscription (session) {
     //headers,
     groupId,
     subscriptionId,
+  });
+}
+
+export async function handlePaymentMethodChange (session, stripeInc) {
+  // @TODO: We need to mock this, but curently we don't have correct
+  // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  let stripeApi = getStripeApi();
+  if (stripeInc) stripeApi = stripeInc;
+
+  const { metadata, setup_intent: setupIntent } = session;
+  //TODO check if sub is still active?
+  const { userId, groupId } = metadata;
+
+  const intent = await stripeApi.setupIntents.retrieve(setupIntent);
+  const { customer: customerId, payment_method: paymentMethodId } = intent;
+  const subscriptionId = intent.metadata.subscription_id;
+
+  // Update the payment method on the subscription
+  await stripeApi.subscriptions.update(subscriptionId, {
+    default_payment_method: paymentMethodId,
   });
 }
