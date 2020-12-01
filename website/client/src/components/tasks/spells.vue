@@ -19,7 +19,7 @@
       <drawer
         v-if="user.stats.class && !user.preferences.disableClasses"
         v-mousePosition="30"
-        :title="$t('skillsTitle')"
+        :title="`${this.user.stats.class.charAt(0).toUpperCase()}${this.user.stats.class.slice(1)} Skills`"
         :open-status="openStatus"
         @mouseMoved="mouseMoved($event)"
         @toggled="drawerToggled"
@@ -109,6 +109,7 @@
      gap: 0.1em;
      .popover-description{
        text-align: left;
+       color: #ffffff;
      }
      .popover-title{
        display: flex;
@@ -156,10 +157,9 @@
     overflow: hidden;
     width: 4.6rem;
     height: 4.6rem;
-
+    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
     &:hover{
-      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 8px 0 rgba(26, 24, 29, 0.12);
-      border-radius: 2px;
+      box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
     }
     &.disabled {
       background-color: #34313a;
@@ -170,7 +170,7 @@
       }
 
       .level{
-        color: #c3c0c7;
+        color: #ffffff;
         font-weight: normal;
       }
     }
@@ -198,15 +198,16 @@
       align-items: center;
       gap: 0.2rem;
       text-align: center;
+      color: #033f5e;
 
       .svg-icon {
         width: 16px;
-        height: 14px;
+        height: 16px;
       }
     }
 
     .mana {
-      background-color: rgba(70, 167, 217, 0.24);
+      background-color: rgba(70, 167, 217, 0.15);
       color: #2995cd;
       font-weight: bold;
       height: 1.5rem;
@@ -248,38 +249,43 @@
   box-shadow: transparent;
 
   .spell {
-    border-radius: 4px;
     width: 5.9rem;
-    height: 6.5rem;
+    height: 8rem;
     padding-bottom: 0;
     margin-bottom: 0;
     background-color: transparent;
     border: none;
     box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
     .spell-border{
+      display: inline-block;
+      position: relative;
+      width: 76px;
+      height: 76px;
+      background: #46a7d9;
+      box-sizing: border-box;
       clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-      width: 62px;
-      height: 62px;
-      background-color: #46a7d9;
-      margin-left: 1.1em;
-      margin-bottom: 0.5em;
-
+      border-radius: 0 0 0 0.25em;
       .mana{
-        width: 60px;
-        height: 60px;
-        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        width: 72px;
+        height: 72px;
         background-color: #f9f9f9;
-        border-radius: 4px;
-        margin-top: 1px;
-        margin-left: 2px;
         display: flex;
         justify-content: center;
         align-items: center;
-        text-align: center;
-
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        position: absolute;
+        top: 2px;
+        left: 2px;
         .img{
-          background-color: #f9f9f9;
           clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+          background-color: #f9f9f9;
+          display: block;
+          text-align: center;
         }
       }
     }
@@ -291,7 +297,7 @@
 
       .notes {
         font-size: 13px;
-        color: #e1e0e3;
+        color: #ffffff;
         text-align: center;
         height: 100%;
         display: flex;
