@@ -17,69 +17,64 @@
     </div>
     <div class="drawer-wrapper">
       <drawer
-        v-if="user.stats.class && !user.preferences.disableClasses"
-        v-mousePosition="30"
-        :title="`${this.user.stats.class.charAt(0).toUpperCase()}${this.user.stats.class.slice(1)} Skills`"
-        :open-status="openStatus"
-        @mouseMoved="mouseMoved($event)"
-        @toggled="drawerToggled"
-      >
+      v-if="user.stats.class && !user.preferences.disableClasses"
+      v-mousePosition="30"
+      :title="`${this.user.stats.class.charAt(0).toUpperCase()}
+      ${this.user.stats.class.slice(1)} Skills`"
+      :open-status="openStatus" @mouseMoved="mouseMoved($event)"
+      @toggled="drawerToggled">
         <div slot="drawer-slider">
           <div class="spell-container">
-              <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-              <div
-                v-for="(skill, key) in spells[user.stats.class]"
-                :key="key"
-                :id="`spell_${skill.key}`"
-                @click="!spellDisabled(key) ? castStart(skill) : null"
-              >
-                  <b-popover
-                    :target="`spell_${skill.key}`"
-                    triggers="hover"
-                    placement="top"
-                    custom-class="popover-class"
-                  >
-                    <div class="popover-wrapper">
-                      <div class="popover-title">
-                        <div class="popover-title-text">{{skill.text()}}</div>
-                        <div class="popover-mana">
-                          <div class="popover-svg-icon" v-html="icons.mana"></div>
-                          <div class="popover-mana-count">{{skill.mana}}</div>
-                        </div>
-                      </div>
-                      <div class="popover-description">
-                        {{skillNotes(skill)}}
-                      </div>
-                    </div>
-                  </b-popover>
-                <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-                <div
-                class="spell"
-                :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }">
-                  <div class="details">
-                    <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
-                  </div>
-                  <div class="mana" v-if="user.stats.lvl<skill.lvl">
-                    <div class="mana-text level">
-                      <div>Level {{ skill.lvl }}</div>
+            <!-- eslint-disable vue/no-use-v-if-with-v-for -->
+            <div
+            v-for="(skill, key) in spells[user.stats.class]"
+            :key="key" :id="`spell_${skill.key}`"
+            @click="!spellDisabled(key) ? castStart(skill) : null">
+              <b-popover
+              :target="`spell_${skill.key}`"
+              triggers="hover"
+              placement="top"
+              custom-class="popover-class">
+                <div class="popover-wrapper">
+                  <div class="popover-title">
+                    <div class="popover-title-text">{{skill.text()}}</div>
+                    <div class="popover-mana">
+                      <div class="popover-svg-icon" v-html="icons.mana"></div>
+                      <div class="popover-mana-count">{{skill.mana}}</div>
                     </div>
                   </div>
-                  <div class="mana" v-else-if="spellDisabled(key)===true">
-                    <div class="mana-text">
-                      <div class="svg-icon" v-html="icons.mana"></div>
-                      <div>{{ skill.mana }}</div>
-                    </div>
+                  <div class="popover-description">
+                    {{skillNotes(skill)}}
                   </div>
-                  <div class="mana" v-else>
-                    <div class="mana-text">
-                      <div class="svg-icon" v-html="icons.mana"></div>
-                      <div>{{ skill.mana }}</div>
-                    </div>
+                </div>
+              </b-popover>
+              <!-- eslint-enable vue/no-use-v-if-with-v-for -->
+              <div class="spell"
+              :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }">
+                <div class="details">
+                  <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
+                </div>
+                <div class="mana" v-if="user.stats.lvl<skill.lvl">
+                  <div class="mana-text level">
+                    <div>Level {{ skill.lvl }}</div>
+                  </div>
+                </div>
+                <div class="mana" v-else-if="spellDisabled(key)===true">
+                  <div class="mana-text">
+                    <div class="svg-icon" v-html="icons.mana"></div>
+                    <div>{{ skill.mana }}</div>
+                  </div>
+                </div>
+                <div class="mana" v-else>
+                  <div class="mana-text">
+                    <div class="svg-icon" v-html="icons.mana"></div>
+                    <div>{{ skill.mana }}</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </drawer>
     </div>
   </div>
@@ -102,40 +97,40 @@
   }
 }
 
-.popover-class{
-   .popover-wrapper{
-     display: flex;
-     flex-direction: column;
-     gap: 0.1em;
-     .popover-description{
-       text-align: left;
-       color: #ffffff;
-     }
-     .popover-title{
-       display: flex;
-       justify-content: space-between;
-       padding-bottom: 0.5em;
-       .popover-title-text{
-         font-weight: bold;
-         font-size: 1.1em;
-         color: #ffffff;
-       }
-       .popover-mana{
-         display: flex;
-         gap: 2px;
-         justify-content: center;
-         align-items: center;
-         .popover-svg-icon{
-           width: 1.3em;
-         }
-         .popover-mana-count{
-           font-weight: bold;
-           color: #50b5e9;
-           font-size: 1.1em;
-         }
-       }
-     }
-   }
+.popover-class {
+  .popover-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    .popover-description {
+      text-align: left;
+      color: #ffffff;
+    }
+    .popover-title {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 0.5em;
+      .popover-title-text {
+        font-weight: bold;
+        font-size: 1.1em;
+        color: #ffffff;
+      }
+      .popover-mana {
+        display: flex;
+        gap: 2px;
+        justify-content: center;
+        align-items: center;
+        .popover-svg-icon {
+          width: 1.3em;
+        }
+        .popover-mana-count {
+          font-weight: bold;
+          color: #50b5e9;
+          font-size: 1.1em;
+        }
+      }
+    }
+  }
 }
 
 .spell-container {
@@ -157,19 +152,21 @@
     overflow: hidden;
     width: 4.6rem;
     height: 4.6rem;
-    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
-    &:hover{
-      box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12),
+      0 1px 2px 0 rgba(26, 24, 29, 0.24);
+    &:hover {
+      box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16),
+        0 3px 6px 0 rgba(26, 24, 29, 0.24);
     }
     &.disabled {
       background-color: #34313a;
       box-shadow: none;
 
-      .mana{
+      .mana {
         background-color: rgba(26, 24, 29, 0.5);
       }
 
-      .level{
+      .level {
         color: #ffffff;
         font-weight: normal;
       }
@@ -236,7 +233,8 @@
 .spell:hover:not(.disabled) {
   cursor: pointer;
   border: solid 2px #925cf3;
-  box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+  box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16),
+    0 1px 4px 0 rgba(26, 24, 29, 0.12);
 }
 
 .dragInfo {
@@ -261,7 +259,7 @@
     align-items: center;
     flex-direction: column;
     gap: 0.5rem;
-    .spell-border{
+    .spell-border {
       display: inline-block;
       position: relative;
       width: 76px;
@@ -270,7 +268,7 @@
       box-sizing: border-box;
       clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
       border-radius: 0 0 0 0.25em;
-      .mana{
+      .mana {
         width: 72px;
         height: 72px;
         background-color: #f9f9f9;
@@ -281,7 +279,7 @@
         position: absolute;
         top: 2px;
         left: 2px;
-        .img{
+        .img {
           clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
           background-color: #f9f9f9;
           display: block;
@@ -289,7 +287,7 @@
         }
       }
     }
-    .details{
+    .details {
       width: 100%;
       height: 2em;
       border-radius: 4px;
