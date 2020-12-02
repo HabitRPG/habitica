@@ -264,32 +264,32 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1.5rem;
     .spell-border {
-      display: inline-block;
-      position: relative;
-      width: 76px;
-      height: 76px;
+      width: 59px;
+      height: 62px;
       background: #46a7d9;
+      border-radius: 4px;
       box-sizing: border-box;
-      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-      border-radius: 0 0 0 0.25em;
+      transform: rotate(45deg);
+      padding: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       .mana {
-        width: 72px;
-        height: 72px;
+        width: 58px;
+        height: 58px;
         background-color: #f9f9f9;
+        border-radius: 4px;
         display: flex;
         justify-content: center;
         align-items: center;
-        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-        position: absolute;
-        top: 2px;
-        left: 2px;
+        overflow: hidden;
         .img {
-          clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
           background-color: #f9f9f9;
           display: block;
           text-align: center;
+          transform: rotate(-45deg);
         }
       }
     }
