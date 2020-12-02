@@ -49,26 +49,29 @@
                 </div>
               </b-popover>
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-              <div class="spell"
+              <div class='spell-border'
               :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }">
-                <div class="details">
-                  <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
-                </div>
-                <div class="mana" v-if="user.stats.lvl<skill.lvl">
-                  <div class="mana-text level">
-                    <div>Level {{ skill.lvl }}</div>
+                <div class="spell"
+                :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }">
+                  <div class="details">
+                    <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
                   </div>
-                </div>
-                <div class="mana" v-else-if="spellDisabled(key)===true">
-                  <div class="mana-text">
-                    <div class="svg-icon" v-html="icons.mana"></div>
-                    <div>{{ skill.mana }}</div>
+                  <div class="mana" v-if="user.stats.lvl<skill.lvl">
+                    <div class="mana-text level">
+                      <div>Level {{ skill.lvl }}</div>
+                    </div>
                   </div>
-                </div>
-                <div class="mana" v-else>
-                  <div class="mana-text">
-                    <div class="svg-icon" v-html="icons.mana"></div>
-                    <div>{{ skill.mana }}</div>
+                  <div class="mana" v-else-if="spellDisabled(key)===true">
+                    <div class="mana-text">
+                      <div class="svg-icon" v-html="icons.mana"></div>
+                      <div>{{ skill.mana }}</div>
+                    </div>
+                  </div>
+                  <div class="mana" v-else>
+                    <div class="mana-text">
+                      <div class="svg-icon" v-html="icons.mana"></div>
+                      <div>{{ skill.mana }}</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -141,77 +144,87 @@
   margin-left: -2rem;
   margin-right: -1.5rem;
   margin-top: -0.14rem;
-  .spell {
-    background: #ffffff;
-    border: solid 2px #4e4a57;
-    margin-bottom: 1rem;
+  box-sizing: content-box;
+  .spell-border{
+    padding: 2px;
+    background-color: transparent;
     border-radius: 4px;
-    color: #4e4a57;
-    padding-right: 0;
-    padding-left: 0;
-    overflow: hidden;
-    width: 4.6rem;
-    height: 4.6rem;
-    box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12),
-      0 1px 2px 0 rgba(26, 24, 29, 0.24);
-    &:hover {
-      box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16),
-        0 3px 6px 0 rgba(26, 24, 29, 0.24);
-    }
-    &.disabled {
-      background-color: #34313a;
-      box-shadow: none;
+    margin-bottom: 1rem;
 
-      .mana {
-        background-color: rgba(26, 24, 29, 0.5);
+    &:hover:not(.disabled){
+      background-color: #925cf3;
+      cursor: pointer;
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+    }
+    .spell {
+      background: #ffffff;
+      border-radius: 4px;
+      color: #4e4a57;
+      padding-right: 0;
+      padding-left: 0;
+      overflow: hidden;
+      width: 4.5rem;
+      height: 4.6rem;
+      box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12),
+        0 1px 2px 0 rgba(26, 24, 29, 0.24);
+      &:hover {
+        box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16),
+          0 3px 6px 0 rgba(26, 24, 29, 0.24);
+      }
+      &.disabled {
+        background-color: #34313a;
+        box-shadow: none;
+
+        .mana {
+          background-color: rgba(26, 24, 29, 0.5);
+        }
+
+        .level {
+          color: #ffffff;
+          font-weight: normal;
+        }
       }
 
-      .level {
-        color: #ffffff;
-        font-weight: normal;
-      }
-    }
+      .details {
+        text-align: center;
+        height: 3.1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-    .details {
-      text-align: center;
-      height: 3rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+        .img {
+          display: block;
+          text-align: center;
+        }
+      }
 
       .img {
-        display: block;
+        margin: 0 auto;
+      }
+
+      .mana-text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.2rem;
         text-align: center;
+        color: #033f5e;
+
+        .svg-icon {
+          width: 16px;
+          height: 16px;
+        }
       }
-    }
 
-    .img {
-      margin: 0 auto;
-    }
-
-    .mana-text {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.2rem;
-      text-align: center;
-      color: #033f5e;
-
-      .svg-icon {
-        width: 16px;
-        height: 16px;
+      .mana {
+        background-color: rgba(70, 167, 217, 0.15);
+        color: #2995cd;
+        font-weight: bold;
+        height: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
-    }
-
-    .mana {
-      background-color: rgba(70, 167, 217, 0.15);
-      color: #2995cd;
-      font-weight: bold;
-      height: 1.5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-bottom: 3px;
     }
   }
 }
@@ -228,13 +241,6 @@
 .spell-skills {
   flex: 0 0 auto;
   width: 6em;
-}
-
-.spell:hover:not(.disabled) {
-  cursor: pointer;
-  border: solid 2px #925cf3;
-  box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16),
-    0 1px 4px 0 rgba(26, 24, 29, 0.12);
 }
 
 .dragInfo {
