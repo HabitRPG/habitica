@@ -24,7 +24,7 @@ export const EVENTS = {
   winter2021Promo: {
     start: '2020-12-17T08:00-04:00',
     end: '2021-01-07T20:00-04:00',
-    g1g1: true,
+    promo: 'g1g1',
   },
   noCurrentEvent2020: {
     start: '2020-10-31T20:00-04:00',
