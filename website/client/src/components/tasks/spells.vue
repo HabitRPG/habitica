@@ -19,16 +19,17 @@
       <drawer
       v-if="user.stats.class && !user.preferences.disableClasses"
       v-mousePosition="30"
-      :title="`${this.user.stats.class.charAt(0).toUpperCase()}${this.user.stats.class.slice(1)}
-      Skills`"
-      :open-status="openStatus" @mouseMoved="mouseMoved($event)"
+      :title="handleDrawerClassText(user.stats.class)"
+      :open-status="openStatus"
+      @mouseMoved="mouseMoved($event)"
       @toggled="drawerToggled">
         <div slot="drawer-slider">
           <div class="spell-container">
             <!-- eslint-disable vue/no-use-v-if-with-v-for -->
             <div
             v-for="(skill, key) in spells[user.stats.class]"
-            :key="key" :id="`spell_${skill.key}`"
+            :key="key"
+            :id="`spell_${skill.key}`"
             @click="!spellDisabled(key) ? castStart(skill) : null">
               <b-popover
               :target="`spell_${skill.key}`"
@@ -49,9 +50,11 @@
                 </div>
               </b-popover>
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-              <div class='spell-border'
+              <div
+              class='spell-border'
               :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }">
-                <div class="spell"
+                <div
+                class="spell"
                 :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }">
                   <div class="details">
                     <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
@@ -145,16 +148,17 @@
   margin-right: -1.5rem;
   margin-top: -0.14rem;
   box-sizing: content-box;
-  .spell-border{
+  .spell-border {
     padding: 2px;
     background-color: transparent;
     border-radius: 4px;
     margin-bottom: 1rem;
 
-    &:hover:not(.disabled){
+    &:hover:not(.disabled) {
       background-color: #925cf3;
       cursor: pointer;
-      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
+      box-shadow: 0 4px 4px 0 rgba(26, 24, 29, 0.16),
+        0 1px 4px 0 rgba(26, 24, 29, 0.12);
     }
     .spell {
       background: #ffffff;
@@ -430,6 +434,15 @@ export default {
       } else {
         this.lastMouseMoveEvent = $event;
       }
+    },
+    handleDrawerClassText (drawerClass) {
+      let drawerClassString = drawerClass.toLowerCase();
+      if (drawerClassString === 'wizard') {
+        drawerClassString = 'Mage Skills';
+      } else {
+        drawerClassString = `${drawerClass.charAt(0).toUpperCase()}${drawerClass.slice(1)} Skills`;
+      }
+      return drawerClassString;
     },
   },
 };
