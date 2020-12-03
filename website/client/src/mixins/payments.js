@@ -180,11 +180,11 @@ export default {
           sessionId: response.data.data.sessionId,
         });
         if (checkoutSessionResult.error) { // @TODO proper error handling
-          console.error(checkoutSessionResult.error);
+          console.error(checkoutSessionResult.error); // eslint-disable-line
           alert(checkoutSessionResult.error.message);
         }
       } catch (err) { // @TODO proper error handling
-        console.error(err);
+        console.error(err); // eslint-disable-line
         alert(err);
       }
     },
@@ -209,11 +209,11 @@ export default {
           sessionId: response.data.data.sessionId,
         });
         if (checkoutSessionResult.error) { // @TODO proper error handling
-          console.error(checkoutSessionResult.error);
+          console.error(checkoutSessionResult.error); // eslint-disable-line
           alert(checkoutSessionResult.error.message);
         }
       } catch (err) { // @TODO proper error handling
-        console.error(err);
+        console.error(err); // eslint-disable-line
         alert(err);
       }
 
