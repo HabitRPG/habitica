@@ -47,8 +47,6 @@ export async function createCheckoutSession (options, stripeInc) {
   let lineItems;
 
   if (type === 'subscription') {
-    await checkSubData(sub, coupon);
-
     let quantity = 1;
 
     if (groupId) {
@@ -64,6 +62,8 @@ export async function createCheckoutSession (options, stripeInc) {
       quantity = membersCount + sub.quantity - 1;
       metadata.groupId = groupId;
     }
+
+    await checkSubData(sub, true, coupon);
 
     lineItems = [{
       price: sub.key,

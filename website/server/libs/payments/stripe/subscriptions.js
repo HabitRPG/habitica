@@ -17,8 +17,12 @@ import {
   NotFound,
 } from '../../errors';
 
-export async function checkSubData (sub, coupon) {
-  if (!sub.canSubscribe) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
+export async function checkSubData (sub, isGroup = false, coupon) {
+  if (!sub || !sub.canSubscribe) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
+  if (
+    (sub.target === 'group' && !isGroup)
+    || (sub.target === 'user' && isGroup)
+  ) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
 
   if (sub.discount) {
     if (!coupon) throw new BadRequest(shared.i18n.t('couponCodeRequired'));
@@ -65,8 +69,12 @@ export async function handlePaymentMethodChange (session, stripeInc) {
   });
 }
 
-export async function chargeForAdditionalGroupMember (group) {
-  const stripeApi = getStripeApi();
+export async function chargeForAdditionalGroupMember (group, stripeInc) {
+  // @TODO: We need to mock this, but curently we don't have correct
+  // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  let stripeApi = getStripeApi();
+  if (stripeInc) stripeApi = stripeInc;
+
   const plan = shared.content.subscriptionBlocks.group_monthly;
 
   await stripeApi.subscriptions.update(
