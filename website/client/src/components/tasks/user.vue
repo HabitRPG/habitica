@@ -300,6 +300,11 @@
       }
     }
 
+    .tags-list {
+      max-height: 400px;
+      overflow-y: scroll;
+    }
+
     .tag-edit-input {
       border-bottom: 1px solid $gray-500 !important;
 
