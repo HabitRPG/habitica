@@ -1,7 +1,7 @@
 import { find } from 'lodash';
 import moment from 'moment';
 import nconf from 'nconf';
-import { IncomingWebhook } from '@slack/client';
+import { IncomingWebhook } from '@slack/webhook';
 import {
   generateUser,
   translate as t,
@@ -20,7 +20,7 @@ describe('POST /chat/:chatId/flag', () => {
     admin = await generateUser({ balance: 1, 'contributor.admin': true });
     anotherUser = await generateUser({ 'auth.timestamps.created': moment().subtract(USER_AGE_FOR_FLAGGING + 1, 'days').toDate() });
     newUser = await generateUser({ 'auth.timestamps.created': moment().subtract(1, 'days').toDate() });
-    sandbox.stub(IncomingWebhook.prototype, 'send');
+    sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());
 
     group = await user.post('/groups', {
       name: 'Test Guild',

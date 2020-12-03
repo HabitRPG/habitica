@@ -400,6 +400,16 @@ const backgrounds = {
     giant_autumn_leaf: { },
     herding_sheep_in_autumn: { },
   },
+  backgrounds102020: {
+    crescent_moon: { },
+    haunted_forest: { },
+    spooky_scarecrow_field: { },
+  },
+  backgrounds112020: {
+    mystical_observatory: { },
+    resting_in_the_inn: { },
+    river_of_lava: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

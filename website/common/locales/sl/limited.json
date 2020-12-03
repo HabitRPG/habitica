@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Omejena serija",
-    "seasonalEdition": "Sezonska serija",
-    "winterColors": "Zimske barve",
     "annoyingFriends": "Nadležni prijatelji",
     "annoyingFriendsText": "Člani druščine so te <%= count %>-krat kepali.",
     "alarmingFriends": "Strašljivi prijatelji",
@@ -61,7 +58,6 @@
     "nye2": "Srečno novo leto! Želim ti, da bi dosegel mnogo Popolnih dni.",
     "nye3": "Srečno novo leto! Želim ti, da bi bil tvoj seznam opravil čudovito kratek.",
     "nye4": "Srečno novo leto! Želim ti, da te ne bi napadel razjarjeni hipogrif!",
-    "holidayCard": "Prejel praznično kartico!",
     "mightyBunnySet": "Mogočni zajček (bojevnik)",
     "magicMouseSet": "Čarobna miška (čarovnik)",
     "lovingPupSet": "Ljubeči kuža (zdravilec)",

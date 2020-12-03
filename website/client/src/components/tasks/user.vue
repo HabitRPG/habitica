@@ -251,10 +251,6 @@
     padding-top: 16px;
   }
 
-  .input-search, .search-button {
-    height: 40px;
-  }
-
   .tasks-navigation {
     margin-bottom: 20px;
   }
@@ -500,6 +496,11 @@ export default {
       this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('tasks'),
+    });
+  },
   methods: {
     ...mapActions({ setUser: 'user:set' }),
     checkMouseOver: throttle(function throttleSearch () {
@@ -519,7 +520,13 @@ export default {
     removeTag (index, key) {
       const tagId = this.tagsSnap[key][index].id;
       const indexInSelected = this.selectedTags.indexOf(tagId);
-      if (indexInSelected !== -1) this.$delete(this.selectedTags, indexInSelected);
+      const indexInTempSelected = this.temporarilySelectedTags.indexOf(tagId);
+      if (indexInSelected !== -1) {
+        this.$delete(this.selectedTags, indexInSelected);
+      }
+      if (indexInTempSelected !== -1) {
+        this.$delete(this.temporarilySelectedTags, indexInTempSelected);
+      }
       this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {

@@ -25,43 +25,41 @@
         <div class="col-12 col-md-6">
           <div class="row icon-row">
             <div
-              class="col-4 offset-4"
-              :class="{ 'offset-8': isParty }"
+              class="item-with-icon"
+              tabindex="0"
+              role="button"
+              @keyup.enter="showMemberModal()"
+              @click="showMemberModal()"
             >
               <div
-                class="item-with-icon"
-                @click="showMemberModal()"
+                v-if="group.memberCount > 1000"
+                class="svg-icon shield"
+                v-html="icons.goldGuildBadgeIcon"
+              ></div>
+              <div
+                v-if="group.memberCount > 100 && group.memberCount < 999"
+                class="svg-icon shield"
+                v-html="icons.silverGuildBadgeIcon"
+              ></div>
+              <div
+                v-if="group.memberCount < 100"
+                class="svg-icon shield"
+                v-html="icons.bronzeGuildBadgeIcon"
+              ></div>
+              <span class="number">{{ group.memberCount | abbrNum }}</span>
+              <div
+                v-once
+                class="member-list label"
               >
-                <div
-                  v-if="group.memberCount > 1000"
-                  class="svg-icon shield"
-                  v-html="icons.goldGuildBadgeIcon"
-                ></div>
-                <div
-                  v-if="group.memberCount > 100 && group.memberCount < 999"
-                  class="svg-icon shield"
-                  v-html="icons.silverGuildBadgeIcon"
-                ></div>
-                <div
-                  v-if="group.memberCount < 100"
-                  class="svg-icon shield"
-                  v-html="icons.bronzeGuildBadgeIcon"
-                ></div>
-                <span class="number">{{ group.memberCount | abbrNum }}</span>
-                <div
-                  v-once
-                  class="member-list label"
-                >
-                  {{ $t('memberList') }}
-                </div>
+                {{ $t('memberList') }}
               </div>
             </div>
-            <div
-              v-if="!isParty"
-              class="col-4"
-            >
+            <div v-if="!isParty">
               <div
                 class="item-with-icon"
+                tabindex="0"
+                role="button"
+                @keyup.enter="showGroupGems()"
                 @click="showGroupGems()"
               >
                 <div
@@ -225,9 +223,13 @@
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 1em;
     text-align: center;
-    min-width: 80px;
-    max-width: 120px;
+    min-width: 120px;
     height: 76px;
+    margin-right: 1rem;
+
+    &:last-of-type {
+      margin-left: 0.5rem;
+    }
 
     .svg-icon.shield, .svg-icon.gem {
       width: 28px;
@@ -312,6 +314,7 @@
 
   .icon-row {
     margin-top: 1em;
+    justify-content: flex-end;
 
     .number {
       font-size: 22px;
@@ -498,6 +501,11 @@ export default {
     if (!this.searchId) this.searchId = this.groupId;
     await this.fetchGuild();
 
+    const type = this.isParty ? 'party' : 'guilds';
+    this.$store.dispatch('common:setTitle', {
+      section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t(type),
+      subSection: this.group.name,
+    });
     this.$root.$on('updatedGroup', this.onGroupUpdate);
   },
   beforeDestroy () {
@@ -505,7 +513,6 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
-
     next();
   },
   methods: {
@@ -515,6 +522,11 @@ export default {
     onGroupUpdate (group) {
       const updatedGroup = extend(this.group, group);
       this.$set(this.group, updatedGroup);
+      const type = this.isParty ? 'party' : 'guilds';
+      this.$store.dispatch('common:setTitle', {
+        section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t(type),
+        subSection: group.name,
+      });
     },
 
     /**
@@ -575,13 +587,20 @@ export default {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
         return;
       }
-
       if (this.isParty) {
         await this.$store.dispatch('party:getParty', true);
         this.group = this.$store.state.party.data;
+        this.$store.dispatch('common:setTitle', {
+          section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('party'),
+          subSection: this.group.name,
+        });
       } else {
         const group = await this.$store.dispatch('guilds:getGroup', { groupId: this.searchId });
         this.$set(this, 'group', group);
+        this.$store.dispatch('common:setTitle', {
+          section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('guilds'),
+          subSection: group.name,
+        });
       }
 
       const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
@@ -605,13 +624,6 @@ export default {
       await this.$store.dispatch('guilds:join', { groupId: this.group._id, type: 'guild' });
     },
     clickLeave () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Leave Party',
-      });
-
       // @TODO: Get challenges and ask to keep or remove
       if (!window.confirm('Are you sure you want to leave?')) return; // eslint-disable-line no-alert
       const keep = true;

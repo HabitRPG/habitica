@@ -326,6 +326,14 @@ const armor = {
     int: 7,
     set: 'grazerGuardian',
   },
+  autumnEnchantersCloak: {
+    int: 12,
+    set: 'autumnEnchanter',
+  },
+  doubletOfClubs: {
+    con: 10,
+    set: 'jackOfClubs',
+  },
 };
 
 const body = {
@@ -652,6 +660,14 @@ const head = {
     con: 8,
     set: 'grazerGuardian',
   },
+  hornsOfAutumn: {
+    str: 12,
+    set: 'autumnEnchanter',
+  },
+  capOfClubs: {
+    int: 10,
+    set: 'jackOfClubs',
+  },
 };
 
 const shield = {
@@ -836,6 +852,10 @@ const shield = {
   mortarAndPestle: {
     con: 9,
     set: 'herbalist',
+  },
+  darkAutumnFlame: {
+    con: 12,
+    set: 'autumnEnchanter',
   },
 };
 
@@ -1114,6 +1134,14 @@ const weapon = {
   guardiansCrook: {
     str: 10,
     set: 'grazerGuardian',
+  },
+  enchantersStaff: {
+    per: 12,
+    set: 'autumnEnchanter',
+  },
+  clubOfClubs: {
+    str: 10,
+    set: 'jackOfClubs',
   },
 };
 

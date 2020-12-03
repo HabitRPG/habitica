@@ -471,6 +471,14 @@ api.updateGroup = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
+    if (user.contributor.admin) {
+      if (req.body.bannedWordsAllowed === true) {
+        group.bannedWordsAllowed = true;
+      } else {
+        group.bannedWordsAllowed = false;
+      }
+    }
+
     if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
     else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
@@ -900,9 +908,11 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
  *     /api/v3/groups/party/removeMember/[User's ID]?message=Bye
  *
  * @apiError (400) {BadRequest} userIdrequired "memberId" cannot be empty or not a UUID
- * @apiError (400) {NotAuthorized} onlyLeaderCanRemoveMember Only the group
+ * @apiError (401) {NotAuthorized} onlyLeaderCanRemoveMember Only the group
                                                              leader can remove members.
- * @apiError (400) {NotAuthorized} memberCannotRemoveYourself Group leader cannot remove themselves
+ * @apiError (401) {NotAuthorized} memberCannotRemoveYourself Group leader cannot remove themselves
+ * @apiError (401) {NotAuthorized} cannotRemoveQuestOwner Group leader cannot remove
+                                                          the owner of an active quest
  * @apiError (404) {NotFound} groupMemberNotFound Group member was not found
  *
  * @apiSuccess {Object} data An empty object
@@ -968,8 +978,7 @@ api.removeGroupMember = {
       }
 
       if (group.quest && group.quest.leader === member._id) {
-        group.quest.key = undefined;
-        group.quest.leader = undefined;
+        throw new NotAuthorized(res.t('cannotRemoveQuestOwner'));
       } else if (group.quest && group.quest.members) {
         // remove member from quest
         delete group.quest.members[member._id];

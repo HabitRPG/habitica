@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Limitált kiadás",
-    "seasonalEdition": "Szezonális kiadás",
-    "winterColors": "Téli színek",
     "annoyingFriends": "Idegesítő barátok",
     "annoyingFriendsText": "A csapattagjaid <%= count %> alkalommal dobtak meg hógolyóval.",
     "alarmingFriends": "Ijesztő barátok",
@@ -61,7 +58,6 @@
     "nye2": "Boldog új évet! Kívánom hogy legyen sok tökéletes napod.",
     "nye3": "Boldog új évet! Kívánom hogy legyen a teendőid listája rövid és élvezetes mint mindig.",
     "nye4": "Boldog új évet! Kívánom hogy ne támadjon meg téged egy dühöngő hippogriff se.",
-    "holidayCard": "Egy ünnepi üdvözlőkártyád érkezett!",
     "mightyBunnySet": "Tekintélyes nyuszi (harcos)",
     "magicMouseSet": "Varázsegér (mágus)",
     "lovingPupSet": "Szerető kutyus (gyógyító)",

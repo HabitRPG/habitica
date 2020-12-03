@@ -137,6 +137,11 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('features'),
+    });
+  },
   methods: {
     playButtonClick () {
       this.$router.push('/register');

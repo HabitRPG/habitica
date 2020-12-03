@@ -30,7 +30,9 @@
           :key="filter"
           class="filter small-text"
           :class="{active: activeFilter.label === filter}"
+          tabindex="0"
           @click="activateFilter(type, filter)"
+          @keypress.enter="activateFilter(type, filter)"
         >
           {{ $t(filter) }}
         </div>
@@ -128,6 +130,7 @@
               <span
                 class="badge-top"
                 @click.prevent.stop="togglePinned(ctx.item)"
+                @keypress.enter.prevent.stop="togglePinned(ctx.item)"
               >
                 <pin-badge
                   :pinned="ctx.item.pinned"
@@ -153,6 +156,10 @@
   }
 
   .item:hover .badge-pin {
+    display: block;
+  }
+
+  .item:focus-within .badge-pin {
     display: block;
   }
 
@@ -637,7 +644,10 @@ export default {
       // as default filter for daily
       // and set the filter as 'due' only when the component first
       // loads and not on subsequent reloads.
-      if (type === 'daily' && filter === '' && this.user.preferences.dailyDueDefaultView) {
+      if (
+        type === 'daily' && filter === '' && !this.challenge
+        && this.user.preferences.dailyDueDefaultView
+      ) {
         filter = 'due'; // eslint-disable-line no-param-reassign
       }
 

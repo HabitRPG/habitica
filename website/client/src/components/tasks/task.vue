@@ -36,7 +36,10 @@
               'task-not-scoreable': isUser !== true
                 || (task.group.approval.requested && !task.group.approval.approved),
             }, controlClass.up.inner]"
+            tabindex="0"
             @click="(isUser && task.up && (!task.group.approval.requested
+              || task.group.approval.approved)) ? score('up') : null"
+            @keypress.enter="(isUser && task.up && (!task.group.approval.requested
               || task.group.approval.approved)) ? score('up') : null"
           >
             <div
@@ -63,7 +66,10 @@
           <div
             class="task-control daily-todo-control"
             :class="controlClass.inner"
+            tabindex="0"
             @click="isUser && !task.group.approval.requested
+              ? score(task.completed ? 'down' : 'up' ) : null"
+            @keypress.enter="isUser && !task.group.approval.requested
               ? score(task.completed ? 'down' : 'up' ) : null"
           >
             <div
@@ -91,18 +97,21 @@
           <div
             class="task-clickable-area"
             :class="{'task-clickable-area-user': isUser}"
+            tabindex="0"
             @click="edit($event, task)"
+            @keypress.enter="edit($event, task)"
           >
             <div class="d-flex justify-content-between">
               <h3
                 v-markdown="task.text"
-                class="task-title"
+                class="task-title markdown"
                 :class="{ 'has-notes': task.notes || (!isUser && task.group.managerNotes)}"
               ></h3>
               <menu-dropdown
                 v-if="!isRunningYesterdailies && showOptions"
                 ref="taskDropdown"
                 v-b-tooltip.hover.top="$t('options')"
+                tabindex="0"
                 class="task-dropdown"
                 :right="task.type === 'reward'"
               >
@@ -117,6 +126,8 @@
                     v-if="showEdit"
                     ref="editTaskItem"
                     class="dropdown-item edit-task-item"
+                    tabindex="0"
+                    @keypress.enter="edit($event, task)"
                   >
                     <span class="dropdown-icon-item">
                       <span
@@ -129,7 +140,9 @@
                   <div
                     v-if="isUser"
                     class="dropdown-item"
+                    tabindex="0"
                     @click="moveToTop"
+                    @keypress.enter="moveToTop"
                   >
                     <span class="dropdown-icon-item">
                       <span
@@ -142,7 +155,9 @@
                   <div
                     v-if="isUser"
                     class="dropdown-item"
+                    tabindex="0"
                     @click="moveToBottom"
+                    @keypress.enter="moveToBottom"
                   >
                     <span class="dropdown-icon-item">
                       <span
@@ -155,7 +170,9 @@
                   <div
                     v-if="showDelete"
                     class="dropdown-item"
+                    tabindex="0"
                     @click="destroy"
+                    @keypress.enter="destroy"
                   >
                     <span class="dropdown-icon-item delete-task-item">
                       <span
@@ -185,7 +202,9 @@
                   ? 'expand': 'collapse'}Checklist`)"
                 class="collapse-checklist mb-2 d-flex align-items-center expand-toggle"
                 :class="{open: !task.collapseChecklist}"
+                tabindex="0"
                 @click="collapseChecklist(task)"
+                @keypress.enter="collapseChecklist(task)"
               >
                 <div
                   v-once
@@ -207,10 +226,12 @@
               <input
                 :id="`checklist-${item.id}-${random}`"
                 class="custom-control-input"
+                tabindex="0"
                 type="checkbox"
                 :checked="item.completed"
                 :disabled="castingSpell || !isUser"
                 @change="toggleChecklistItem(item)"
+                @keypress.enter="toggleChecklistItem(item)"
               >
               <label
                 v-markdown="item.text"
@@ -328,7 +349,10 @@
               'task-not-scoreable': isUser !== true
                 || (task.group.approval.requested && !task.group.approval.approved),
             }, controlClass.down.inner]"
+            tabindex="0"
             @click="(isUser && task.down && (!task.group.approval.requested
+              || task.group.approval.approved)) ? score('down') : null"
+            @keypress.enter="(isUser && task.down && (!task.group.approval.requested
               || task.group.approval.approved)) ? score('down') : null"
           >
             <div
@@ -349,7 +373,9 @@
           v-if="task.type === 'reward'"
           class="right-control d-flex align-items-center justify-content-center reward-control"
           :class="controlClass.bg"
+          tabindex="0"
           @click="isUser ? score('down') : null"
+          @keypress.enter="isUser ? score('down') : null"
         >
           <div
             class="svg-icon"
@@ -373,6 +399,19 @@
 <!-- eslint-disable max-len -->
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
+  .task-best-control-inner-habit:focus {
+    transition: none;
+  }
+
+  *:focus {
+    outline: none;
+    transition: none;
+    border: $purple-400 solid 1px;
+
+    :not(task-best-control-inner-habit) { // round icon
+      border-radius: 2px;
+    }
+  }
 
   .control-bottom-box {
     border-bottom-left-radius: 0 !important;
@@ -395,14 +434,16 @@
     border-radius: 2px;
     position: relative;
 
-    &:hover:not(.task-not-editable) {
+    &:hover:not(.task-not-editable),
+    &:focus-within:not(.task-not-editable) {
       box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
       z-index: 11;
     }
   }
 
   .task:not(.groupTask) {
-    &:hover {
+    &:hover,
+    &:focus-within {
       .left-control, .right-control, .task-content {
         border-color: $purple-400;
       }
@@ -410,7 +451,8 @@
   }
 
   .task.groupTask {
-    &:hover:not(.task-not-editable) {
+    &:hover:not(.task-not-editable),
+    &:focus-within:not(.task-not-editable) {
       border: $purple-400 solid 1px;
       border-radius: 3px;
       margin: -1px; // to counter the border width
@@ -425,13 +467,8 @@
 
   .task-title {
     padding-bottom: 8px;
-    color: $gray-10;
-    font-weight: normal;
-    margin-bottom: 0px;
+
     margin-right: 15px;
-    line-height: 1.43;
-    font-size: 14px;
-    min-width: 0px;
     overflow-wrap: break-word;
 
     // markdown p-tag, can't find without ::v-deep
@@ -455,9 +492,15 @@
   .task-clickable-area {
     padding: 7px 8px;
     padding-bottom: 0px;
+    border: transparent solid 1px;
 
     &-user {
       padding-right: 0px;
+    }
+
+    &:focus {
+      border-radius: 2px;
+      border: $purple-400 solid 1px;
     }
   }
 
@@ -482,6 +525,20 @@
     opacity: 1;
   }
 
+  .task:focus-within ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle {
+    opacity: 1;
+  }
+
+  .task ::v-deep .habitica-menu-dropdown:focus-within {
+    opacity: 1;
+    border: $purple-400 solid 1px;
+    border-radius: 2px;
+  }
+
+  .task ::v-deep .habitica-menu-dropdown {
+    border: transparent solid 1px;
+  }
+
   .task-clickable-area ::v-deep .habitica-menu-dropdown.open .habitica-menu-dropdown-toggle {
     opacity: 1;
 
@@ -494,20 +551,26 @@
     color: $purple-400 !important;
   }
 
+  .task-clickable-area ::v-deep .habitica-menu-dropdown .habitica-menu-dropdown-toggle:focus-within .svg-icon {
+    color: $purple-400 !important;
+  }
+
   .task-dropdown {
-    max-height: 16px;
+    max-height: 18px;
   }
 
   .task-dropdown ::v-deep .dropdown-menu {
     .dropdown-item {
       cursor: pointer !important;
       transition: none;
+      border: transparent solid 1px;
 
       * {
         transition: none;
       }
 
-      &:hover {
+      &:hover,
+      &:focus {
         color: $purple-300;
 
         .svg-icon.push-to-top, .svg-icon.push-to-bottom {
@@ -515,6 +578,11 @@
             stroke: $purple-300;
           }
         }
+      }
+
+      &:focus {
+        border-radius: 2px;
+        border: $purple-400 solid 1px;
       }
     }
   }
@@ -551,12 +619,8 @@
     }
   }
 
-  .checklist {
-    &.isOpen {
-      margin-bottom: 2px;
-    }
-
-    margin-top: -3px;
+  .checklist.isOpen {
+    margin-bottom: 2px;
   }
 
   .collapse-checklist {
@@ -567,8 +631,10 @@
     line-height: 1.2;
     text-align: center;
     color: $gray-200;
+    border: transparent solid 1px;
 
-    &.open {
+    &:focus {
+      border: $purple-400 solid 1px;
     }
 
     span {
@@ -703,9 +769,11 @@
   }
 
   .left-control, .right-control, .task-control {
-    transition-duration: 0.15s;
-    transition-property: border-color, background, color;
-    transition-timing-function: ease-in;
+    border: transparent solid 1px;
+
+    &:focus {
+      border: $purple-400 solid 1px;
+    }
   }
   .left-control {
     border-top-left-radius: 2px;
@@ -995,7 +1063,7 @@ export default {
       this.scoreChecklistItem({ taskId: this.task._id, itemId: item.id });
     },
     calculateTimeTillDue () {
-      const endOfToday = moment().endOf('day');
+      const endOfToday = moment().subtract(this.user.preferences.dayStart, 'hours').endOf('day');
       const endOfDueDate = moment(this.task.date).endOf('day');
 
       return moment.duration(endOfDueDate.diff(endOfToday));
@@ -1004,15 +1072,13 @@ export default {
       return this.calculateTimeTillDue().asDays() <= 0;
     },
     formatDueDate () {
-      const dueIn = this.calculateTimeTillDue().asDays() === 0
-        ? this.$t('today')
-        : this.calculateTimeTillDue().humanize(true);
+      const timeTillDue = this.calculateTimeTillDue();
+      const dueIn = timeTillDue.asDays() === 0 ? this.$t('today') : timeTillDue.humanize(true);
 
       return this.task.date && this.$t('dueIn', { dueIn });
     },
     edit (e, task) {
       if (this.isRunningYesterdailies || !this.showEdit) return;
-
       const target = e.target || e.srcElement;
 
       /*

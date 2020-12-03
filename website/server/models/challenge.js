@@ -379,7 +379,12 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
       winner.balance += challenge.prize / 4;
     }
 
-    winner.addNotification('WON_CHALLENGE');
+    winner.addNotification('WON_CHALLENGE', {
+      id: challenge._id,
+      name: challenge.name,
+      prize: challenge.prize,
+      leader: challenge.leader,
+    });
 
     const savedWinner = await winner.save();
 

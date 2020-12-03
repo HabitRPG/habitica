@@ -26,6 +26,13 @@
   label:not(:disabled):not(.disabled) {
     cursor: pointer;
   }
+
+  .custom-control.custom-checkbox {
+    display: flex;
+    flex-direction: row;
+
+    justify-items: center;
+  }
 </style>
 
 <script>

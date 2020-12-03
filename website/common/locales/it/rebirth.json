@@ -1,19 +1,6 @@
 {
     "rebirthNew": "Rinascita: una nuova avventura è disponibile!",
     "rebirthUnlock": "Hai sbloccato Rinascita! Questo speciale oggetto del Mercato ti permette di iniziare una nuova partita al livello 1, mantenendo però le tue attività, gli obiettivi, gli animali ed altro. Usalo per dare nuova vita ad Habitica se senti di avere già ottenuto tutto, oppure per provare le nuove funzionalità con gli occhi di un personaggio principiante!",
-    "rebirthBegin": "Rinascita: comincia una nuova avventura",
-    "rebirthStartOver": "La rinascita riporta il tuo personaggio al livello 1.",
-    "rebirthAdvList1": "Recuperi tutti i punti Salute.",
-    "rebirthAdvList2": "Ripartirai senza punti Esperienza nè Oro.",
-    "rebirthAdvList3": "Tutte le tue Abitudini, Attività Giornaliere e Cose da Fare si resettano tornando al colore giallo e le serie si azzerano, eccetto per le attività delle sfide.",
-    "rebirthAdvList4": "La tua classe iniziale sarà Guerriero fino a quando non otterrai una nuova classe.",
-    "rebirthInherit": "Il tuo nuovo personaggio eredita delle cose dal suo predecessore:",
-    "rebirthInList1": "Attività, cronologia, equipaggiamento ed impostazioni rimangono.",
-    "rebirthInList2": "Le sfide, le gilde e la tua squadra rimangono.",
-    "rebirthInList3": "Gemme, gradi di sostenitore e livelli di contribuzione rimangono.",
-    "rebirthInList4": "Gli oggetti ottenuti con le Gemme o trovati tramite drop (come animali e cavalcature) rimangono.",
-    "rebirthEarnAchievement": "Ottieni inoltre una Medaglia per aver iniziato una nuova avventura!",
-    "beReborn": "Rinasci",
     "rebirthAchievement": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%= number %> per te, il livello più alto che hai raggiunto è <%= level %>. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto un livello ancora più alto!",
     "rebirthAchievement100": "Hai iniziato una nuova avventura! Questa è la rinascita numero <%= number %> per te, il livello più alto che hai raggiunto è 100 o superiore. Per ottenere un'altra medaglia, inizia una nuova avventura quando avrai raggiunto almeno il livello 100!",
     "rebirthBegan": "Ha cominciato una nuova avventura",
@@ -23,8 +10,6 @@
     "rebirthOrbNoLevel": "Ha utilizzato una Sfera della Rinascita per ricominciare da capo.",
     "rebirthPop": "Fai ripartire subito il tuo personaggio dal Livello 1 come Guerriero mantenendo medaglie, oggetti collezionabili ed equipaggiamento. Le tue attività e la loro cronologia rimarranno, ma torneranno al colore giallo. I contatori serie verranno resettati per tutte le attività, eccetto quelle appartenenti alle Sfide ed ai Piani di Gruppo. Il tuo oro, esperienza, mana ed effetti di tutte le abilità verranno rimossi. Tutto questo avrà effetto immediatamente. Per maggiori informazioni, visita la pagina della Wiki sulla <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Sfera della Rinascita</a>.",
     "rebirthName": "Sfera della Rinascita",
-    "reborn": "Rinascita, livello massimo <%= reLevel %>",
-    "confirmReborn": "Sei sicuro/a?",
     "rebirthComplete": "Rinascita completata!",
     "nextFreeRebirth": "<strong><%= days %> giorni </strong> alla Sfera di rinascita <strong>GRATUITA</strong>"
 }

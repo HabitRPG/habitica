@@ -46,7 +46,7 @@ a, a:not([href]):not([tabindex]) {
 }
 
 // Headers
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h5, h6 {
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: bold;
   color: $gray-10;
@@ -64,16 +64,18 @@ h2 {
   margin-bottom: 16px;
 }
 
+h3, h4 {
+  font-weight: bold;
+  font-size: 0.875rem;
+  line-height: 1.71;
+}
+
 h3 {
-  font-size: 16px;
-  line-height: 1.5;
-  color: $gray-50;
-  margin-bottom: 4px;
+  color: $gray-10;
 }
 
 h4 {
-  font-size: 14px;
-  line-height: 1.43;
+  color: $gray-100;
 }
 
 .textCondensed {

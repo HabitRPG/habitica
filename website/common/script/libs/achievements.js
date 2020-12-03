@@ -204,6 +204,10 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'freshwaterFriends', language });
   _addSimple(result, user, { path: 'goodAsGold', language });
   _addSimple(result, user, { path: 'allThatGlitters', language });
+  _addSimple(result, user, { path: 'boneCollector', language });
+  _addSimple(result, user, { path: 'skeletonCrew', language });
+  _addSimple(result, user, { path: 'seeingRed', language });
+  _addSimple(result, user, { path: 'redLetterDay', language });
 
   _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
   _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });

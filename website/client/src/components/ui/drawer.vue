@@ -2,9 +2,16 @@
   <div class="drawer-container">
     <div
       class="drawer-title"
+      :class="{'no-padding': noTitleBottomPadding}"
       @click="toggle()"
     >
-      {{ title }}
+      <div class="title-row">
+        <slot name="drawer-title-row">
+          <div class="text-only">
+            {{ title }}
+          </div>
+        </slot>
+      </div>
       <div
         class="drawer-toggle-icon svg-icon icon-10"
         :class="{ closed: !isOpen }"
@@ -59,7 +66,7 @@
   .drawer-toggle-icon {
     position: absolute;
     right: 16px;
-    top: 16px;
+    bottom: 0;
 
     &.closed {
       top: 10px;
@@ -67,6 +74,7 @@
   }
 
   .drawer-title {
+    height: 2rem;
     position: relative;
     background-color: $gray-10;
     box-shadow: 0 1px 2px 0 rgba($black, 0.2);
@@ -74,9 +82,30 @@
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
     text-align: center;
-    line-height: 1.67;
+    line-height: 1.33;
     color: $white;
-    padding: 6px 0;
+
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+
+    &.no-padding {
+      padding-bottom: 0;
+    }
+  }
+
+  .text-only {
+    padding-top: 0.5rem;
+  }
+
+  .title-row {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    & > div {
+      flex: 1;
+    }
   }
 
   .drawer-content {
@@ -103,13 +132,14 @@
     &-text {
       font-size: 12px;
       font-weight: bold;
-      line-height: 1.67;
       text-align: center;
-      color: $white;
+      color: $gray-400;
+      text-decoration: none !important;
       border-bottom: 2px solid transparent;
-      padding: 0px 8px 8px 8px;
+      padding: 0.5rem;
 
-      &-active {
+      &-active, &:hover {
+        color: $white !important;
         border-color: $purple-400;
       }
     }
@@ -167,7 +197,6 @@ export default {
   props: {
     title: {
       type: String,
-      required: true,
     },
     errorMessage: {
       type: String,
@@ -175,10 +204,13 @@ export default {
     openStatus: {
       type: Number,
     },
+    noTitleBottomPadding: {
+      type: Boolean,
+    },
   },
   data () {
     return {
-      open: true,
+      isOpened: true,
       icons: Object.freeze({
         expand: expandIcon,
         minimize: minimizeIcon,
@@ -189,13 +221,17 @@ export default {
     isOpen () {
       // Open status is a number so we can tell if the value was passed
       if (this.openStatus !== undefined) return this.openStatus === 1;
-      return this.open;
+      return this.isOpened;
     },
   },
   methods: {
     toggle () {
-      this.open = !this.isOpen;
-      this.$emit('toggled', this.open);
+      this.isOpened = !this.isOpen;
+      this.$emit('toggled', this.isOpened);
+    },
+    open () {
+      this.isOpened = true;
+      this.$emit('toggled', this.isOpened);
     },
   },
 };

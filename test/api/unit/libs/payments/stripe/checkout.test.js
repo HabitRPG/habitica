@@ -4,16 +4,17 @@ import { model as User } from '../../../../../../website/server/models/user';
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 import payments from '../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../website/common';
+import apiError from '../../../../../../website/server/libs/apiError';
 
 const { i18n } = common;
 
-describe('checkout', () => {
+describe('stripe - checkout', () => {
   const subKey = 'basic_3mo';
   const stripe = stripeModule('test');
   let stripeChargeStub; let paymentBuyGemsStub; let
     paymentCreateSubscritionStub;
   let user; let gift; let groupId; let email; let headers; let coupon; let customerIdResponse; let
-    token;
+    token; const gemsBlockKey = '21gems'; const gemsBlock = common.content.gems[gemsBlockKey];
 
   beforeEach(() => {
     user = new User();
@@ -89,6 +90,7 @@ describe('checkout', () => {
     await expect(stripePayments.checkout({
       token,
       user,
+      gemsBlock: gemsBlockKey,
       gift,
       groupId,
       email,
@@ -101,6 +103,25 @@ describe('checkout', () => {
     });
   });
 
+  it('should error if the gems block is invalid', async () => {
+    gift = undefined;
+
+    await expect(stripePayments.checkout({
+      token,
+      user,
+      gemsBlock: 'invalid',
+      gift,
+      groupId,
+      email,
+      headers,
+      coupon,
+    }, stripe)).to.eventually.be.rejected.and.to.eql({
+      httpCode: 400,
+      message: apiError('invalidGemsBlock'),
+      name: 'BadRequest',
+    });
+  });
+
   it('should purchase gems', async () => {
     gift = undefined;
     sinon.stub(user, 'canGetGems').resolves(true);
@@ -108,6 +129,7 @@ describe('checkout', () => {
     await stripePayments.checkout({
       token,
       user,
+      gemsBlock: gemsBlockKey,
       gift,
       groupId,
       email,
@@ -117,7 +139,7 @@ describe('checkout', () => {
 
     expect(stripeChargeStub).to.be.calledOnce;
     expect(stripeChargeStub).to.be.calledWith({
-      amount: 500,
+      amount: 499,
       currency: 'usd',
       card: token,
     });
@@ -128,6 +150,7 @@ describe('checkout', () => {
       customerId: customerIdResponse,
       paymentMethod: 'Stripe',
       gift,
+      gemsBlock,
     });
     expect(user.canGetGems).to.be.calledOnce;
     user.canGetGems.restore();
@@ -167,6 +190,7 @@ describe('checkout', () => {
       customerId: customerIdResponse,
       paymentMethod: 'Gift',
       gift,
+      gemsBlock: undefined,
     });
   });
 
@@ -205,6 +229,7 @@ describe('checkout', () => {
       customerId: customerIdResponse,
       paymentMethod: 'Gift',
       gift,
+      gemsBlock: undefined,
     });
   });
 });

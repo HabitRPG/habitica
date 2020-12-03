@@ -720,6 +720,12 @@ export default {
       return moment(this.user.purchased.plan.dateTerminated).format('MM/DD/YYYY');
     },
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('settings'),
+      subSection: this.$t('subscription'),
+    });
+  },
   methods: {
     async applyCoupon (coupon) {
       const response = await axios.post(`/api/v4/coupons/validate/${coupon}`);

@@ -10,7 +10,7 @@
     "gearNotOwned": "Bu eşyaya sahip değilsin.",
     "noGearItemsOfType": "Bunların hiçbirine sahip değilsin.",
     "noGearItemsOfClass": "Bütün sınıf ekipmanına sahipsin! Daha fazlası gündönümü ve ekinoks zamanına yakın düzenlenen Büyük Galalar esnasında satışa çıkacak.",
-    "classLockedItem": "Bu eşya sadece belli bir sınıfa özeldir. Sınıfını Kullanıcı İkonu > Ayarlar > Karakter İnşası sekmesinden değiştirebilirsin!",
+    "classLockedItem": "Bu eşya sadece belirli bir sınıfa özeldir. Sınıfını, Kullanıcı İkonu > Ayarlar > Karakter İnşası sekmesinden değiştirebilirsin!",
     "tierLockedItem": "Bu eşyanın kilidi bu serideki önceki eşyaları aldığında açılacaktır. Çalışmaya devam et!",
     "sortByType": "Tür",
     "sortByPrice": "Fiyat",
@@ -171,7 +171,7 @@
     "weaponSpecialSummer2015HealerText": "Dalgaların Asası",
     "weaponSpecialSummer2015HealerNotes": "Deniz tutmasını da, denize tutulmayı da iyileştirir! Zekayı <%= int %> puan arttırır. Sınırlı Sürüm 2015 Yaz Ekipmanı.",
     "weaponSpecialFall2015RogueText": "Yarasa-vaş Baltası",
-    "weaponSpecialFall2015RogueNotes": "Korkutucu Yapılacak İşler bile bu baltanın kanat çırpışı karşısında boyun eğer. Gücü <%= str %> puan arttırır. Sınırlı Sürüm 2015 Güz Ekipmanı.",
+    "weaponSpecialFall2015RogueNotes": "Dehşetli Yapılacak İşler bile bu baltanın kanat çırpışı karşısında boyun eğer. Gücü <%= str %> puan arttırır. Sınırlı Sürüm 2015 Güz Ekipmanı.",
     "weaponSpecialFall2015WarriorText": "Ahşap Kalas",
     "weaponSpecialFall2015WarriorNotes": "Mısır tarlalarında basamak olarak kullanmak için ideal; görevlere şamar vurmak için de. Gücü <%= str %> puan arttırır. Sınırlı Sürüm 2015 Güz Ekipmanı.",
     "weaponSpecialFall2015MageText": "Efsunlu İplik",
@@ -1747,5 +1747,9 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "Ağırdan Alma Vebası ile savaşmış doktorlar tarafından giyilmiş, otantik bir maske. Bünyeyi ve Zekayı <%= attrs %> puan arttırır.. Efsunlu Gardırop: Veba Doktoru Seti (3 Eşyadan 2'ncisi).",
     "eyewearArmoireGoofyGlassesText": "Şapşal Gözlük",
     "eyewearArmoireGoofyGlassesNotes": "Kimlik gizlemek veya yalnızca takım arkadaşlarını güldürmek için ideal. Sezgiyi <%= per %> puan arttırır. Efsunlu Gardırop: Bağımsız Eşya.",
-    "twoHandedItem": "Çift elli eşya."
+    "twoHandedItem": "Çift elli eşya.",
+    "weaponSpecialSpring2019MageNotes": "Asanın ucundaki taşa gömülü bir sivrisinek mevcut! Dinozor DNA'sı içerebilir, belki de içermez. Zekayı <%= int %>, Sezgiyi <%= per %> artırır. Sınırlı sürüm 2019 İlkbahar Ekipmanı.",
+    "weaponSpecialSpring2019MageText": "Amber Asa",
+    "weaponSpecialSpring2019WarriorNotes": "Kötü alışkanlıklar bu kılıcın önünde diz çöküyor. Gücü <%= str %> artırır. Sınırlı Sürüm 2019 İlkbahar Ekipmanı.",
+    "weaponSpecialSpring2019RogueText": "Şimşek"
 }

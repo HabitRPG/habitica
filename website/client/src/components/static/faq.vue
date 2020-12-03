@@ -28,7 +28,7 @@
             role="tabpanel"
           >
             <div
-              v-markdown="$t('webFaqAnswer' + index, replacements)"
+              v-markdown="$t(`webFaqAnswer${index}`, replacements)"
               class="card-body"
             ></div>
           </b-collapse>
@@ -111,6 +111,12 @@ export default {
       // },
       // "webFaqStillNeedHelp": "If you have a question that isn't on this list or on the [Wiki FAQ](http://habitica.fandom.com/wiki/FAQ), come ask in the <%= linkStart %>Habitica Help guild<%= linkEnd %>! We're happy to help."
     };
+  },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('help'),
+      subSection: this.$t('faq'),
+    });
   },
   methods: {
     isVisible (heading) {

@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Limitd Edishun",
-    "seasonalEdition": "Seasonal Edishun",
-    "winterColors": "Wintah Colors",
     "annoyingFriends": "Annoyin Frandz",
     "annoyingFriendsText": "Getd snowbald <%= count %> tiemz by party membrz.",
     "alarmingFriends": "Alarmin Frandz",
@@ -61,7 +58,6 @@
     "nye2": "Happeh New Yer! Cud u earn lotz da perfik dai.",
     "nye3": "Happeh New Yer! Cud ur to-do list stay short an sweet.",
     "nye4": "Happeh New Yer! Cud u not git attackd by ragin hippogriff.",
-    "holidayCard": "Received a holiday card!",
     "mightyBunnySet": "Mighty Bunny (Warrior)",
     "magicMouseSet": "Magic Mouse (Mage)",
     "lovingPupSet": "Loving Pup (Healer)",

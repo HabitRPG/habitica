@@ -1,4 +1,4 @@
-import apn from 'apn/mock';
+import apn from '@parse/node-apn/mock';
 import _ from 'lodash';
 import nconf from 'nconf';
 import gcmLib from 'node-gcm'; // works with FCM notifications too

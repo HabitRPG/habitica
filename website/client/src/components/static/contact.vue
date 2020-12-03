@@ -62,6 +62,11 @@ export default {
       user: 'user.data',
     }),
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('contactUs'),
+    });
+  },
   methods: {
     modForm () {
       goToModForm(this.user);

@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Limitovaná edice",
-    "seasonalEdition": "Sezónní edice",
-    "winterColors": "Zimní barvy",
     "annoyingFriends": "Otravní přátelé",
     "annoyingFriendsText": "Byl zkoulován <%= count %> krát členy party.",
     "alarmingFriends": "Strašliví přátelé",
@@ -61,7 +58,6 @@
     "nye2": "Šťastný nový rok! Ať si zasloužíš perfektní den.",
     "nye3": "Šťastný nový rok! Ať je úkolů v tvém úkolníčku málo.",
     "nye4": "Šťastný nový rok! Ať tě nenapadne řádící gryf.",
-    "holidayCard": "Obdržel jsi přání!",
     "mightyBunnySet": "Mocný Králík (válečník)",
     "magicMouseSet": "Kouzelná Myš (mág)",
     "lovingPupSet": "Milující Štěně (léčitel)",
@@ -168,7 +164,7 @@
     "spring2019RobinHealerSet": "Červenka (Léčitel)",
     "spring2019AmberMageSet": "Jantar (Mág)",
     "spring2019OrchidWarriorSet": "Orchidej (válečník)",
-    "augustYYYY": "Srpen <%=rok %>",
+    "augustYYYY": "Srpen <%= year %>",
     "winter2020LanternSet": "Lucerna (Zloděj)",
     "winter2020WinterSpiceSet": "Zimní koření (Léčitel)",
     "winter2020CarolOfTheMageSet": "Mágova koleda (Mág)",
@@ -184,5 +180,8 @@
     "spring2020IrisHealerSet": "Iris (Léčitel)",
     "spring2020PuddleMageSet": "Louže (Mág)",
     "summer2020SeaGlassHealerSet": "Mořské sklo (Léčitel)",
-    "summer2020OarfishMageSet": "Hlístoun (Mág)"
+    "summer2020OarfishMageSet": "Hlístoun (Mág)",
+    "septemberYYYY": "Září <%= year %>",
+    "fall2020ThirdEyeMageSet": "Třetí oko (mág)",
+    "fall2020DeathsHeadMothHealerSet": "Smrtihlav (léčitel)"
 }

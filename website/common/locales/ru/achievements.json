@@ -1,6 +1,5 @@
 {
     "achievement": "Достижение",
-    "share": "Поделиться",
     "onwards": "Вперёд!",
     "levelup": "Выполняя свои жизненные цели, вы повышаете уровень и полностью восстанавливаете здоровье!",
     "reachedLevel": "Вы достигли <%= level %> уровня",
@@ -71,7 +70,7 @@
     "achievementRosyOutlook": "Розовые перспективы",
     "achievementTickledPink": "Радостный розовый",
     "foundNewItemsCTA": "Зайдите в свой инвентарь и попробуйте объединить ваш новый инкубационный эликсир и яйцо!",
-    "foundNewItems": "Вы нашли новыйе предметы!",
+    "foundNewItems": "Вы нашли новые предметы!",
     "yourProgress": "Ваш прогресс",
     "onboardingComplete": "Вы выполнили свои первые задания!",
     "achievementBareNecessitiesModalText": "Вы выполнили квесты питомцев: Мартышки, Ленивца и Кустика!",
@@ -81,7 +80,7 @@
     "achievementBugBonanzaText": "Завершил(а) квесты питомцев: Жука, Бабочки, Улитки и Паука.",
     "achievementBugBonanza": "Золотой жук",
     "onboardingCompleteDescSmall": "Хотите больше? Посмотрите список Достижений и начинайте собирать!",
-    "foundNewItemsExplanation": "Выполнение заданий дает вам возможность получить новые предметы: яйца, инкубационные эликсиры или корм для питомцев.",
+    "foundNewItemsExplanation": "За выполнение заданий вы можете получить яйца, инкубационные эликсиры или корм для питомцев.",
     "achievementFreshwaterFriends": "Пресноводные друзья",
     "achievementFreshwaterFriendsModalText": "Вы выполнили квесты питомцев: Аксолотля, Лягушонка и Бегемота!",
     "achievementFreshwaterFriendsText": "Завершил(а) квесты питомцев: Аксолотля, Лягушонка и Бегемота.",
@@ -91,5 +90,17 @@
     "achievementGoodAsGoldModalText": "Вы собрали всех золотых питомцев!",
     "achievementGoodAsGoldText": "Собраны все золотые питомцы.",
     "achievementGoodAsGold": "На вес золота",
-    "yourRewards": "Ваши награды"
+    "yourRewards": "Ваши награды",
+    "achievementSkeletonCrewModalText": "Вы собрали всех костяных скакунов!",
+    "achievementSkeletonCrewText": "Собраны все костяные скакуны.",
+    "achievementSkeletonCrew": "Костяк состава",
+    "achievementBoneCollectorModalText": "Вы собрали всех костяных питомцев!",
+    "achievementBoneCollectorText": "Собраны все костяные питомцы.",
+    "achievementBoneCollector": "Собиратель(-ница) костей",
+    "achievementRedLetterDay": "Красный день",
+    "achievementRedLetterDayModalText": "Вы собрали всех красных скакунов!",
+    "achievementRedLetterDayText": "Собраны все красные скакуны.",
+    "achievementSeeingRedModalText": "Вы собрали всех красных питомцев!",
+    "achievementSeeingRedText": "Собраны все красные питомцы.",
+    "achievementSeeingRed": "Действует, как красная тряпка на быка"
 }

@@ -304,6 +304,10 @@ export default {
     }, 250),
   },
   async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('market'),
+      section: this.$t('shops'),
+    });
     await this.$store.dispatch('worldState:getWorldState');
   },
   methods: {
@@ -325,18 +329,6 @@ export default {
         default:
           return mappedItems;
       }
-    },
-    hasOwnedItemsForType (type) {
-      return this.ownedItems(type).length > 0;
-    },
-    inventoryDrawerErrorMessage (type) {
-      if (!this.hasOwnedItemsForType(type)) {
-        // @TODO: Change any places using similar locales
-        // from `pets.json` and use these new locales from 'inventory.json'
-        return this.$t('noItemsAvailableForType', { type: this.$t(`${type}ItemType`) });
-      }
-
-      return null;
     },
     itemSelected (item) {
       this.$root.$emit('buyModal::showItem', item);

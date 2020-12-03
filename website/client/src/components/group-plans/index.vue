@@ -51,7 +51,8 @@ export default {
       groupPlans: 'groupPlans.data',
     }),
     currentGroup () {
-      const groupFound = this.groupPlans.find(group => group._id === this.groupId);
+      const groupFound = this.groupPlans
+        && this.groupPlans.find(group => group._id === this.groupId);
 
       return groupFound;
     },

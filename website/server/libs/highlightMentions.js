@@ -94,7 +94,7 @@ function toSourceMapRegex (token) {
   } else if (type === 'code_inline') {
     regexStr = `${markup} ?${contentRegex} ?${markup}`;
   } else if (type === 'link_open') {
-    const texts = token.textContents.map(escapeRegExp);
+    const texts = token.textContents ? token.textContents.map(escapeRegExp) : [''];
     regexStr = markup === 'linkify' || markup === 'autolink' ? texts[0]
       : `\\[[^\\]]*${texts.join('[^\\]]*')}[^\\]]*\\]\\([^)]*\\)`;
   } else {

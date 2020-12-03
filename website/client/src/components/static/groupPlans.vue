@@ -274,6 +274,9 @@ export default {
       // Load external scripts after the app has been rendered
       setupPayments();
     });
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('groupPlans'),
+    });
   },
   methods: {
     goToNewGroupPage () {

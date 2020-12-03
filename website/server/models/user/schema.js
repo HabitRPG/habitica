@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 import validator from 'validator';
 import shared from '../../../common';
 import { // eslint-disable-line import/no-cycle
@@ -9,8 +9,6 @@ import { schema as SubscriptionPlanSchema } from '../subscriptionPlan';
 import { schema as TagSchema } from '../tag';
 import { schema as UserNotificationSchema } from '../userNotification';
 import { schema as WebhookSchema } from '../webhook';
-
-const { Schema } = mongoose;
 
 const RESTRICTED_EMAIL_DOMAINS = Object.freeze(['habitica.com', 'habitrpg.com']);
 
@@ -138,6 +136,10 @@ export default new Schema({
     freshwaterFriends: Boolean,
     goodAsGold: Boolean,
     allThatGlitters: Boolean,
+    boneCollector: Boolean,
+    skeletonCrew: Boolean,
+    seeingRed: Boolean,
+    redLetterDay: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
@@ -160,6 +162,7 @@ export default new Schema({
       max: 9,
     },
     admin: Boolean,
+    newsPoster: Boolean,
     sudo: Boolean,
     // Artisan, Friend, Blacksmith, etc
     text: String,
@@ -247,7 +250,11 @@ export default new Schema({
     },
     dropsEnabled: { $type: Boolean, default: false }, // unused
     itemsEnabled: { $type: Boolean, default: false },
-    newStuff: { $type: Boolean, default: false },
+    lastNewStuffRead: { $type: String, default: '' },
+    // The newStuff field was changed to be a computed property when returning the user in json,
+    // so that it doesn't have to be updated for each bailey post.
+    // See models/user/hooks#toJSONTransform
+    // newStuff: { $type: Boolean, default: false },
     rewrite: { $type: Boolean, default: true },
     classSelected: { $type: Boolean, default: false },
     mathUpdates: Boolean,

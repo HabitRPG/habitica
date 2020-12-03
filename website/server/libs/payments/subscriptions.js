@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 
-import * as analytics from '../analyticsService';
+import { getAnalyticsServiceByEnvironment } from '../analyticsService';
 import * as slack from '../slack'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   getUserInfo,
@@ -21,6 +21,7 @@ import calculateSubscriptionTerminationDate from './calculateSubscriptionTermina
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
+const analytics = getAnalyticsServiceByEnvironment();
 
 function _findMysteryItems (user, dateMoment) {
   const pushedItems = [];
@@ -172,6 +173,8 @@ async function createSubscription (data) {
     txnEmail(data.user, emailType);
   }
 
+  if (!group && !data.promo) data.user.purchased.txnCount += 1;
+
   if (!data.promo) {
     analytics.trackPurchase({
       uuid: data.user._id,
@@ -184,10 +187,9 @@ async function createSubscription (data) {
       gift: Boolean(data.gift),
       purchaseValue: block.price,
       headers: data.headers,
+      firstPurchase: !group && data.user.purchased.txnCount === 1,
     });
   }
-
-  if (!group && !data.promo) data.user.purchased.txnCount += 1;
 
   if (data.gift) {
     const byUserName = getUserInfo(data.user, ['name']).name;

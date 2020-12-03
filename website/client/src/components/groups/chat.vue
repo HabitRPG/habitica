@@ -18,6 +18,7 @@
         <textarea
           ref="user-entry"
           v-model="newMessage"
+          dir="auto"
           :placeholder="placeholder"
           :class="{'user-entry': newMessage}"
           :maxlength="MAX_MESSAGE_LENGTH"

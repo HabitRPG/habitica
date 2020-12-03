@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Edycja limitowana",
-    "seasonalEdition": "Edycja sezonowa",
-    "winterColors": "Zimowe barwy",
     "annoyingFriends": "Złośliwi znajomi",
     "annoyingFriendsText": "Dostał <%= count %> razy śnieżką od członków Drużyny.",
     "alarmingFriends": "Niepokojący przyjaciele",
@@ -61,7 +58,6 @@
     "nye2": "Szczęśliwego Nowego Roku! Obyś zdobył wiele doskonałych dni.",
     "nye3": "Szczęśliwego Nowego Roku! Niech twoja lista zadań Do Zrobienia pozostanie krótka i przyjemna.",
     "nye4": "Szczęśliwego Nowego Roku! Obyś nie został zaatakowany przez rozwścieczonego hipogryfa.",
-    "holidayCard": "Dostałeś kartkę wakacyjną!",
     "mightyBunnySet": "Poteżny króliczek (Wojownik)",
     "magicMouseSet": "Magiczna myszka (Mag)",
     "lovingPupSet": "Kochane szczenię (Uzdrowiciel)",
@@ -184,5 +180,10 @@
     "summer2020CrocodileRogueSet": "Krokodyl (Łotrzyk)",
     "summer2020SeaGlassHealerSet": "Szkło Morskie (Uzdrowiciel)",
     "summer2020OarfishMageSet": "Wstęgor (Mag)",
-    "summer2020RainbowTroutWarriorSet": "Pstrąg Tęczowy (Wojownik)"
+    "summer2020RainbowTroutWarriorSet": "Pstrąg Tęczowy (Wojownik)",
+    "septemberYYYY": "Wrzesień <%= year %>",
+    "fall2020TwoHeadedRogueSet": "Dwugłowy (Łotrzyk)",
+    "fall2020ThirdEyeMageSet": "Trzecie Oko (Mag)",
+    "fall2020DeathsHeadMothHealerSet": "Czaszka Ćmy (Uzdrowiciel)",
+    "fall2020WraithWarriorSet": "Widmo (Wojownik)"
 }

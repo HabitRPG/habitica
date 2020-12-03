@@ -4,5 +4,7 @@
     "eggsItemType": "Яйца",
     "hatchingPotionsItemType": "Инкубационные эликсиры",
     "specialItemType": "Особые предметы",
-    "lockedItem": "Закрытый предмет"
+    "lockedItem": "Закрытый предмет",
+    "allItems": "Все предметы",
+    "petAndMount": "Питомца и скакуна"
 }

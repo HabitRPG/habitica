@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Limited Edition",
-    "seasonalEdition": "Seasonal Edition",
-    "winterColors": "Winter Colours",
     "annoyingFriends": "Annoying Friends",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "Alarming Friends",
@@ -61,7 +58,6 @@
     "nye2": "Happy New Year! May you earn many a Perfect Day.",
     "nye3": "Happy New Year! May your To Do list stay short and sweet.",
     "nye4": "Happy New Year! May you not get attacked by a raging Hippogriff.",
-    "holidayCard": "Received a holiday card!",
     "mightyBunnySet": "Mighty Bunny (Warrior)",
     "magicMouseSet": "Magic Mouse (Mage)",
     "lovingPupSet": "Loving Pup (Healer)",
@@ -184,5 +180,11 @@
     "summer2020SeaGlassHealerSet": "Sea Glass (Healer)",
     "summer2020OarfishMageSet": "Oarfish (Mage)",
     "summer2020RainbowTroutWarriorSet": "Rainbow Trout (Warrior)",
-    "juneYYYY": "June <%= year %>"
+    "juneYYYY": "June <%= year %>",
+    "fall2020WraithWarriorSet": "Wraith (Warrior)",
+    "septemberYYYY": "September <%= year %>",
+    "fall2020TwoHeadedRogueSet": "Two-Headed (Rogue)",
+    "fall2020ThirdEyeMageSet": "Third Eye (Mage)",
+    "fall2020DeathsHeadMothHealerSet": "Death's Head Moth (Healer)",
+    "royalPurpleJackolantern": "Royal Purple Jack-O-Lantern"
 }

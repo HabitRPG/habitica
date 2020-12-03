@@ -5,7 +5,7 @@
   font-weight: bold;
   line-height: 1.71;
   border: 1px solid transparent;
-  padding: 0.219rem 1rem;
+  padding: 0.219rem 0.75rem;
   border-radius: 2px;
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   color: $white;
@@ -22,13 +22,20 @@
     border-color: $purple-400;
   }
 
-  &:active, &.active:not(.btn-flat), &:disabled, &.disabled {
+  &:active, &.active:not(.btn-flat) {
     box-shadow: none;
   }
 
   &:disabled, &.disabled {
     cursor: default;
     opacity: 0.75;
+  }
+
+  &.with-icon {
+    height: 2rem; // otherwise would something set the height to 33px
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 }
 
@@ -41,34 +48,49 @@
 .btn-primary {
   background: $purple-200;
   border: 1px solid transparent;
-
-  &:hover:not(:disabled):not(.disabled) {
-    background: #5d3b9c;
-    border: 1px solid transparent;
-  }
+  --icon-color: #{$purple-500};
 
   &:focus {
     background: $purple-200;
     border-color: $purple-400;
+    --icon-color: #{$white};
   }
 
   &:not(:disabled):not(.disabled) {
+    &:hover {
+      background: #5d3b9c;
+      border: 1px solid transparent;
+
+      --icon-color: #{$white};
+    }
+
+    &:active, &.active {
+      background: $purple-200;
+      border: 1px solid transparent;
+
+      --icon-color: #{$white};
+    }
+
     &:active:focus, &.active:focus {
       box-shadow: none;
       border-color: $purple-400;
     }
   }
 
-  &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
-    background: $purple-200;
-    border: 1px solid transparent;
-  }
-
   &:disabled, &.disabled {
-    background: $purple-200;
+    background: $gray-700;
     border: 1px solid transparent;
     cursor: default;
-    opacity: 0.75;
+    color: $gray-50;
+
+    --icon-color: #{$gray-300};
+  }
+
+
+  &.with-icon {
+    .svg-icon.color {
+      color: var(--icon-color);
+    }
   }
 }
 
@@ -80,28 +102,26 @@
   border: 1px solid transparent;
   color: $gray-50;
 
+  --icon-color: #{$gray-200};
+
   &:focus, &:active {
     color: $gray-50;
     background: $white;
     border-color: $purple-400;
+
+    --icon-color: #{$purple-300};
   }
 
   &:not(:disabled):not(.disabled) {
-    &:active:focus,
-    &.active:focus {
+    &:active, &.active {
       color: $purple-300;
-      box-shadow: none;
-      border-color: $purple-400;
-    }
+      --icon-color: #{$purple-300};
 
-    &:active,
-    &.active {
-      color: $purple-300;
-
-      &.dropdown-toggle {
-        color: $gray-50;
+      &:focus {
+        color: $purple-300;
+        box-shadow: none;
+        border-color: $purple-400;
       }
-
 
       background: $white;
       border: 1px solid transparent;
@@ -110,12 +130,10 @@
     &:hover {
       color: $purple-300;
 
-      &.dropdown-toggle {
-        color: $gray-50;
-      }
-
       background: $white !important;
       border: 1px solid transparent;
+
+      --icon-color: #{$purple-300};
     }
   }
 
@@ -125,7 +143,19 @@
     border: 1px solid transparent;
     cursor: default;
     opacity: 0.75;
+
+    --icon-color: #{$gray-300};
   }
+
+  &.with-icon {
+    .svg-icon.color {
+      color: var(--icon-color);
+    }
+  }
+}
+
+.show > .btn-secondary.dropdown-toggle:not(.btn-success):not(:disabled):not(.disabled) {
+  --icon-color: #{$purple-300};
 }
 
 .btn-danger {

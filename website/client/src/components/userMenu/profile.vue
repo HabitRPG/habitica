@@ -314,7 +314,7 @@
         class="row category-row"
       >
         <h3 class="col-12 text-center mb-3">
-          {{ $t(key+'Achievs') }}
+          {{ $t(`${key}Achievs`) }}
         </h3>
         <div class="col-12">
           <div class="row achievements-row justify-content-center">
@@ -366,8 +366,8 @@
             @click="toggleAchievementsCategory(key)"
           >
             {{ achievementsCategories[key].open ?
-              $t('hideAchievements', {category: $t(key+'Achievs')}) :
-              $t('showAllAchievements', {category: $t(key+'Achievs')})
+              $t('hideAchievements', {category: $t(`${key}Achievs`)}) :
+              $t('showAllAchievements', {category: $t(`${key}Achievs`)})
             }}
           </div>
         </div>
@@ -488,10 +488,10 @@
     margin-right: 1em;
 
     button {
-      width: 40px;
-      height: 40px;
-      padding: .7em;
-      margin-right: .5em;
+      width: 32px;
+      height: 32px;
+      padding: 0.5em;
+      margin-right: 0.5em;
     }
   }
 
@@ -672,8 +672,7 @@
       height: 1px;
       position: relative;
       vertical-align: middle;
-      width: 90%;
-      left: 16px;
+      width: 100%;
     }
   }
 
@@ -777,6 +776,7 @@ export default {
       content: Content,
       user: null,
       userLoaded: false,
+      oldTitle: null,
     };
   },
   computed: {
@@ -832,7 +832,18 @@ export default {
   },
   mounted () {
     this.loadUser();
+    this.oldTitle = this.$store.state.title;
     this.selectPage(this.startingPage);
+    this.$root.$on('habitica:restoreTitle', () => {
+      if (this.oldTitle) {
+        this.$store.dispatch('common:setTitle', {
+          fullTitle: this.oldTitle,
+        });
+      }
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:restoreTitle');
   },
   methods: {
     async loadUser () {
@@ -894,6 +905,10 @@ export default {
     selectPage (page) {
       this.selectedPage = page || 'profile';
       window.history.replaceState(null, null, '');
+      this.$store.dispatch('common:setTitle', {
+        section: this.$t('user'),
+        subSection: this.$t(this.startingPage),
+      });
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];

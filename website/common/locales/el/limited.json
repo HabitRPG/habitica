@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Περιορισμένη Έκδοση",
-    "seasonalEdition": "Εποχιακή Έκδοση",
-    "winterColors": "Χρώματα Του Χειμώνα",
     "annoyingFriends": "Ενοχλητικοί Φίλοι",
     "annoyingFriendsText": "Έλαβε χιονόμπαλες <%= count %> φορές από μέλη της παρέας.",
     "alarmingFriends": "Alarming Friends",
@@ -61,7 +58,6 @@
     "nye2": "Happy New Year! May you earn many a Perfect Day.",
     "nye3": "Happy New Year! May your To-Do list stay short and sweet.",
     "nye4": "Happy New Year! May you not get attacked by a raging Hippogriff.",
-    "holidayCard": "Έλαβες μια Κάρτα Εορτών!",
     "mightyBunnySet": "Mighty Bunny (Warrior)",
     "magicMouseSet": "Magic Mouse (Mage)",
     "lovingPupSet": "Loving Pup (Healer)",

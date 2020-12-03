@@ -56,5 +56,5 @@
     "groupTasksNoCast": "Používání schopností na skupinové úkoly není povoleno.",
     "spellNotOwned": "Nevlastníte tuto schopnost.",
     "spellLevelTooHigh": "Pro použití této schopnosti musíte být úroveň <%= level %>.",
-    "spellAlreadyCast": "Tahle dovednost už byla použita. Nebude mít tedy žádný další efekt."
+    "spellAlreadyCast": "Použití této dovednosti nebude mít žádný další efekt."
 }
