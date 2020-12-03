@@ -68,7 +68,7 @@ export async function createCheckoutSession (options, stripeInc) {
     lineItems = [{
       price: sub.key,
       quantity,
-      //TODO description, images directly from plan setup
+      // @TODO proper copy
     }];
   } else {
     const {
@@ -81,8 +81,8 @@ export async function createCheckoutSession (options, stripeInc) {
     lineItems = [{
       price_data: {
         product_data: {
-          name: JSON.stringify(metadata, null, 4), //TODO copy for name (gift, gems, subs)
-          //TODO images, description, ...? see api docs
+          name: JSON.stringify(metadata, null, 4),
+          // @TODO proper copy
         },
         unit_amount: amount,
         currency: 'usd',
@@ -96,8 +96,8 @@ export async function createCheckoutSession (options, stripeInc) {
     metadata,
     line_items: lineItems,
     mode: type === 'subscription' ? 'subscription' : 'payment',
-    success_url: `http://localhost:8080/redirect/stripe-success-checkout`, //TODO use BASE_URL
-    cancel_url: `http://localhost:8080/redirect/stripe-error-checkout`, //TODO use BASE_URL
+    success_url: `${BASE_URL}/redirect/stripe-success-checkout`,
+    cancel_url: `${BASE_URL}/redirect/stripe-error-checkout`,
   });
 
   return session;
@@ -166,8 +166,8 @@ export async function createEditCardCheckoutSession (options, stripeInc) {
         subscription_id: subscriptionId,
       },
     },
-    success_url: `http://localhost:8080/redirect/stripe-success-checkout`, //TODO use BASE_URL
-    cancel_url: `http://localhost:8080/redirect/stripe-error-checkout`, //TODO use BASE_URL
+    success_url: `${BASE_URL}/redirect/stripe-success-checkout`,
+    cancel_url: `${BASE_URL}/redirect/stripe-error-checkout`,
   });
 
   return session;

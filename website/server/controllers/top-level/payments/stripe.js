@@ -12,10 +12,10 @@ const api = {};
  * @apiName StripeCheckout
  * @apiGroup Payments
  *
- * @apiParam (Body) {String} gemsBlock If purchasing a gem block, its key
- * @apiParam (Body) {Object} gift The gift object
- * @apiParam (Body) {String} sub If purchasing a subscription, its key
- * @apiParam (Body) {UUID} groupId If purchasing a group plan, the group id
+ * @apiParam (Body) {String} [gemsBlock] If purchasing a gem block, its key
+ * @apiParam (Body) {Object} [gift] The gift object
+ * @apiParam (Body) {String} [sub] If purchasing a subscription, its key
+ * @apiParam (Body) {UUID} [groupId] If purchasing a group plan, the group id
  * @apiParam (Body) {String} [coupon] Subscription Coupon
  *
  * @apiSuccess {String} data.sessionId The created checkout session id
@@ -48,7 +48,7 @@ api.createCheckoutSession = {
  * @apiName StripeSubscribeEdit
  * @apiGroup Payments
  *
- * @apiParam (Body) {UUID} groupId If editing a group plan, the group id
+ * @apiParam (Body) {UUID} [groupId] If editing a group plan, the group id
  *
  * @apiSuccess {String} data.sessionId The created checkout session id
  * */
@@ -73,6 +73,9 @@ api.subscribeEdit = {
  * @api {get} /stripe/subscribe/cancel Cancel Stripe subscription
  * @apiName StripeSubscribeCancel
  * @apiGroup Payments
+ *
+ * @apiParam (Body) {UUID} [groupId] If editing a group plan, the group id
+ *
  * */
 api.subscribeCancel = {
   method: 'GET',

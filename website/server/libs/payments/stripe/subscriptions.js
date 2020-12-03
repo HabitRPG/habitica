@@ -1,14 +1,21 @@
 import cc from 'coupon-code';
+import moment from 'moment';
+
 import { model as Coupon } from '../../../models/coupon';
 import shared from '../../../../common';
-import {
-  BadRequest,
-  NotFound,
-} from '../../errors';
 import payments from '../payments'; // eslint-disable-line import/no-cycle
 import stripeConstants from './constants';
 import { model as User } from '../../../models/user'; // eslint-disable-line import/no-cycle
 import { getStripeApi } from './api';
+import { // eslint-disable-line import/no-cycle
+  model as Group,
+  basicFields as basicGroupFields,
+} from '../../../models/group';
+import {
+  NotAuthorized,
+  BadRequest,
+  NotFound,
+} from '../../errors';
 
 export async function checkSubData (sub, coupon) {
   if (!sub.canSubscribe) throw new BadRequest(shared.i18n.t('missingSubscriptionCode'));
@@ -46,16 +53,87 @@ export async function handlePaymentMethodChange (session, stripeInc) {
   let stripeApi = getStripeApi();
   if (stripeInc) stripeApi = stripeInc;
 
-  const { metadata, setup_intent: setupIntent } = session;
-  //TODO check if sub is still active?
-  const { userId, groupId } = metadata;
+  const { setup_intent: setupIntent } = session;
 
   const intent = await stripeApi.setupIntents.retrieve(setupIntent);
-  const { customer: customerId, payment_method: paymentMethodId } = intent;
+  const { payment_method: paymentMethodId } = intent;
   const subscriptionId = intent.metadata.subscription_id;
 
   // Update the payment method on the subscription
   await stripeApi.subscriptions.update(subscriptionId, {
     default_payment_method: paymentMethodId,
+  });
+}
+
+export async function chargeForAdditionalGroupMember (group) {
+  const stripeApi = getStripeApi();
+  const plan = shared.content.subscriptionBlocks.group_monthly;
+
+  await stripeApi.subscriptions.update(
+    group.purchased.plan.subscriptionId,
+    {
+      plan: plan.key,
+      quantity: group.memberCount + plan.quantity - 1,
+    },
+  );
+
+  group.purchased.plan.quantity = group.memberCount + plan.quantity - 1;
+}
+
+export async function cancelSubscription (options, stripeInc) {
+  const { groupId, user, cancellationReason } = options;
+  let customerId;
+
+  // @TODO: We need to mock this, but curently we don't have correct
+  // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
+  let stripeApi = getStripeApi();
+  if (stripeInc) stripeApi = stripeInc;
+
+  if (groupId) {
+    const groupFields = basicGroupFields.concat(' purchased');
+    const group = await Group.getGroup({
+      user, groupId, populateLeader: false, groupFields,
+    });
+
+    if (!group) {
+      throw new NotFound(shared.i18n.t('groupNotFound'));
+    }
+
+    const allowedManagers = [group.leader, group.purchased.plan.owner];
+
+    if (allowedManagers.indexOf(user._id) === -1) {
+      throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
+    }
+    customerId = group.purchased.plan.customerId;
+  } else {
+    customerId = user.purchased.plan.customerId;
+  }
+
+  if (!customerId) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
+
+  // @TODO: Handle error response
+  const customer = await stripeApi
+    .customers.retrieve(customerId, { expand: ['subscriptions'] })
+    .catch(err => err);
+  let nextBill = moment().add(30, 'days').unix() * 1000;
+
+  if (customer && (customer.subscription || customer.subscriptions)) {
+    let { subscription } = customer;
+    if (!subscription && customer.subscriptions) {
+      [subscription] = customer.subscriptions.data;
+    }
+    await stripeApi.customers.del(customerId);
+
+    if (subscription && subscription.current_period_end) {
+      nextBill = subscription.current_period_end * 1000; // timestamp in seconds
+    }
+  }
+
+  await payments.cancelSubscription({
+    user,
+    groupId,
+    nextBill,
+    paymentMethod: this.constants.PAYMENT_METHOD,
+    cancellationReason,
   });
 }
