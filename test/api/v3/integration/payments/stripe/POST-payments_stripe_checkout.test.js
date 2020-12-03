@@ -4,7 +4,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 
-describe('payments - stripe - #checkout', () => {
+xdescribe('payments - stripe - #checkout', () => {
   const endpoint = '/stripe/checkout';
   let user; let
     group;
