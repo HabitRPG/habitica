@@ -8,7 +8,7 @@ import apiError from '../../../../../../website/server/libs/apiError';
 
 const { i18n } = common;
 
-describe('stripe - checkout', () => {
+xdescribe('stripe - checkout', () => {
   const subKey = 'basic_3mo';
   const stripe = stripeModule('test', {
     apiVersion: '2020-08-27',

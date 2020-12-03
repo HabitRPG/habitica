@@ -18,7 +18,7 @@ import stripePayments from '../../../../../../website/server/libs/payments/strip
 
 const { i18n } = common;
 
-describe.only('Stripe - Subscriptions', () => {
+describe('Stripe - Subscriptions', () => {
   describe('checkSubData', () => {
     it('does not throw if the subscription can be used', async () => {
       const sub = common.content.subscriptionBlocks['basic_3mo']; // eslint-disable-line dot-notation
