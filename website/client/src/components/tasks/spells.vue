@@ -1,10 +1,17 @@
 <template>
   <div v-if="user.stats.lvl > 10">
-    <div v-if="potionClickMode" ref="clickPotionInfo" class="dragInfo mouse">
+    <div
+      v-if="potionClickMode"
+      ref="clickPotionInfo"
+      class="dragInfo mouse"
+    >
       <div class="spell">
-        <div class='spell-border'>
+        <div class="spell-border">
           <div class="mana">
-            <div class="img" :class="`shop_${spell.key} shop-sprite item-img`"></div>
+            <div
+              class="img"
+              :class="`shop_${spell.key} shop-sprite item-img`"
+            ></div>
           </div>
         </div>
         <div class="details">
@@ -17,62 +24,92 @@
     </div>
     <div class="drawer-wrapper">
       <drawer
-      v-if="user.stats.class && !user.preferences.disableClasses"
-      v-mousePosition="30"
-      :title="handleDrawerClassText(user.stats.class)"
-      :open-status="openStatus"
-      @mouseMoved="mouseMoved($event)"
-      @toggled="drawerToggled">
+        v-if="user.stats.class && !user.preferences.disableClasses"
+        v-mousePosition="30"
+        :title="handleDrawerClassText(user.stats.class)"
+        :open-status="openStatus"
+        @mouseMoved="mouseMoved($event)"
+        @toggled="drawerToggled"
+      >
         <div slot="drawer-slider">
           <div class="spell-container">
             <!-- eslint-disable vue/no-use-v-if-with-v-for -->
             <div
-            v-for="(skill, key) in spells[user.stats.class]"
-            :key="key"
-            :id="`spell_${skill.key}`"
-            @click="!spellDisabled(key) ? castStart(skill) : null">
+              v-for="(skill, key) in spells[user.stats.class]"
+              :id="`spell_${skill.key}`"
+              :key="key"
+              @click="!spellDisabled(key) ? castStart(skill) : null"
+            >
               <b-popover
-              :target="`spell_${skill.key}`"
-              triggers="hover"
-              placement="top"
-              custom-class="popover-class">
+                :target="`spell_${skill.key}`"
+                triggers="hover"
+                placement="top"
+                custom-class="popover-class"
+              >
                 <div class="popover-wrapper">
                   <div class="popover-title">
-                    <div class="popover-title-text">{{skill.text()}}</div>
+                    <div class="popover-title-text">
+                      {{ skill.text() }}
+                    </div>
                     <div class="popover-mana">
-                      <div class="popover-svg-icon" v-html="icons.mana"></div>
-                      <div class="popover-mana-count">{{skill.mana}}</div>
+                      <div
+                        class="popover-svg-icon"
+                        v-html="icons.mana"
+                      ></div>
+                      <div class="popover-mana-count">
+                        {{ skill.mana }}
+                      </div>
                     </div>
                   </div>
                   <div class="popover-description">
-                    {{skillNotes(skill)}}
+                    {{ skillNotes(skill) }}
                   </div>
                 </div>
               </b-popover>
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <div
-              class='spell-border'
-              :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }">
+                class="spell-border"
+                :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }"
+              >
                 <div
-                class="spell"
-                :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }">
+                  class="spell"
+                  :class="{ disabled: spellDisabled(key) || user.stats.lvl<skill.lvl }"
+                >
                   <div class="details">
-                    <div class="img" :class="`shop_${skill.key} shop-sprite item-img`"></div>
+                    <div
+                      class="img"
+                      :class="`shop_${skill.key} shop-sprite item-img`"
+                    ></div>
                   </div>
-                  <div class="mana" v-if="user.stats.lvl<skill.lvl">
+                  <div
+                    v-if="user.stats.lvl<skill.lvl"
+                    class="mana"
+                  >
                     <div class="mana-text level">
                       <div>Level {{ skill.lvl }}</div>
                     </div>
                   </div>
-                  <div class="mana" v-else-if="spellDisabled(key)===true">
+                  <div
+                    v-else-if="spellDisabled(key)===true"
+                    class="mana"
+                  >
                     <div class="mana-text">
-                      <div class="svg-icon" v-html="icons.mana"></div>
+                      <div
+                        class="svg-icon"
+                        v-html="icons.mana"
+                      ></div>
                       <div>{{ skill.mana }}</div>
                     </div>
                   </div>
-                  <div class="mana" v-else>
+                  <div
+                    v-else
+                    class="mana"
+                  >
                     <div class="mana-text">
-                      <div class="svg-icon" v-html="icons.mana"></div>
+                      <div
+                        class="svg-icon"
+                        v-html="icons.mana"
+                      ></div>
                       <div>{{ skill.mana }}</div>
                     </div>
                   </div>
