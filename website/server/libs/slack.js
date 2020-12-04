@@ -111,7 +111,6 @@ function sendFlagNotification ({
     .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
-// CLEANER WAY TO DO THIS FUNCTION?!?!?!?!
 function sendInboxFlagNotification ({
   messageUserEmail,
   flagger,
