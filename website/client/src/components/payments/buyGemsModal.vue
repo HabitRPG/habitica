@@ -397,19 +397,21 @@ export default {
     await this.$store.dispatch('worldState:getWorldState');
 
     this.$root.$on('bv::show::modal', (modalId, data = {}) => {
-      // We force reloading the world state every time the modal is reopened
-      // To make sure the promo status is always up to date
-      this.$store.dispatch('worldState:getWorldState', { forceLoad: true });
+      if (modalId === 'buy-gems') {
+        // We force reloading the world state every time the modal is reopened
+        // To make sure the promo status is always up to date
+        this.$store.dispatch('worldState:getWorldState', { forceLoad: true });
 
-      // Track opening of gems modal unless it's been already tracked
-      // For example the gems button in the menu already tracks the event by itself
-      if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'button',
-          eventAction: 'click',
-          eventLabel: 'Gems > Wallet',
-        });
+        // Track opening of gems modal unless it's been already tracked
+        // For example the gems button in the menu already tracks the event by itself
+        if (data.alreadyTracked !== true) {
+          Analytics.track({
+            hitType: 'event',
+            eventCategory: 'button',
+            eventAction: 'click',
+            eventLabel: 'Gems > Wallet',
+          });
+        }
       }
     });
   },

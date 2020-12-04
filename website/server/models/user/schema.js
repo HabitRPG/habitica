@@ -138,6 +138,8 @@ export default new Schema({
     allThatGlitters: Boolean,
     boneCollector: Boolean,
     skeletonCrew: Boolean,
+    seeingRed: Boolean,
+    redLetterDay: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

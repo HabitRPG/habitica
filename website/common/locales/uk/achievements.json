@@ -39,5 +39,11 @@
     "achievementMonsterMagusText": "Зібрані всі улюбленці-зомбі.",
     "achievementAridAuthorityText": "Зібрані всі пустельні скакуни.",
     "achievementAridAuthorityModalText": "Ви зібрали всіх пустельних скакунів!",
-    "achievementDustDevil": "Пиловий диявол"
+    "achievementDustDevil": "Пиловий диявол",
+    "achievementPurchasedEquipment": "Придбайте частину спорядження",
+    "achievementFedPetModalText": "Є багато різних типів їжі, але тваринки можуть бути вибадливими",
+    "achievementFedPet": "Погодуйте тваринку",
+    "achievementHatchedPetModalText": "Прямуйте до вашого інвентарю і спробуйте об'єднати зілля вилуплення і яйце",
+    "achievementHatchedPetText": "Виведіть їхню першу тваринку",
+    "achievementCompletedTaskModalText": "Відмітьте будь-яке зі своїх завдань, щоб здобути винагороди"
 }

@@ -1,4 +1,4 @@
-import { IncomingWebhook } from '@slack/client';
+import { IncomingWebhook } from '@slack/webhook';
 import nconf from 'nconf';
 import { v4 as generateUUID } from 'uuid';
 import {
@@ -133,7 +133,7 @@ describe('POST /chat', () => {
   describe('shadow-mute user', () => {
     beforeEach(() => {
       sandbox.spy(email, 'sendTxn');
-      sandbox.stub(IncomingWebhook.prototype, 'send');
+      sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());
     });
 
     afterEach(() => {
@@ -355,7 +355,7 @@ describe('POST /chat', () => {
   context('banned slur', () => {
     beforeEach(() => {
       sandbox.spy(email, 'sendTxn');
-      sandbox.stub(IncomingWebhook.prototype, 'send');
+      sandbox.stub(IncomingWebhook.prototype, 'send').returns(Promise.resolve());
     });
 
     afterEach(() => {

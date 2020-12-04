@@ -43,32 +43,25 @@
             >
           </div>
           <div class="col">
-            <select
-              class="form-control"
-              @change="changeSortOption($event)"
-            >
-              <option
-                v-for="sortOption in sortOptions"
-                :key="sortOption.value"
-                :value="sortOption.value"
-              >
-                {{ sortOption.text }}
-              </option>
-            </select>
+            <select-list :items="sortOptions"
+                         @select="changeSortOption($event)"
+                         :value="optionEntryBySelectedValue"
+                         key-prop="value">
+              <template v-slot:item="{ item }">
+                <span class="label" v-if="item">{{ item.text }}</span>
+              </template>
+            </select-list>
           </div>
           <div class="col-3">
-            <select
-              class="form-control"
-              @change="changeSortDirection($event)"
-            >
-              <option
-                v-for="sortDirection in sortDirections"
-                :key="sortDirection.value"
-                :value="sortDirection.value"
-              >
-                {{ sortDirection.text }}
-              </option>
-            </select>
+
+            <select-list :items="sortDirections"
+                         @select="changeSortDirection($event)"
+                         :value="directionEntryBySelectedValue"
+                         key-prop="value">
+              <template v-slot:item="{ item }">
+                <span class="label" v-if="item">{{ item.text }}</span>
+              </template>
+            </select-list>
           </div>
         </div>
       </div>
@@ -386,9 +379,11 @@ import blockIcon from '@/assets/svg/block.svg';
 import messageIcon from '@/assets/members/message.svg';
 import starIcon from '@/assets/members/star.svg';
 import dots from '@/assets/svg/dots.svg';
+import SelectList from '@/components/ui/selectList';
 
 export default {
   components: {
+    SelectList,
     MemberDetails,
     removeMemberModal,
     loadingGryphon,
@@ -396,7 +391,11 @@ export default {
   props: ['hideBadge'],
   data () {
     return {
-      sortOption: {},
+      sortOption: {
+        // default sort options
+        value: 'stats.class',
+        direction: 'asc',
+      },
       sortDirty: false,
       selectedPage: 'members',
       members: [],
@@ -509,6 +508,12 @@ export default {
 
       return sortedMembers;
     },
+    optionEntryBySelectedValue () {
+      return this.sortOptions.find(o => o.value === this.sortOption.value);
+    },
+    directionEntryBySelectedValue () {
+      return this.sortDirections.find(o => o.value === this.sortOption.direction);
+    },
   },
   watch: {
     // Watches `searchTerm` and if present, performs a `searchMembers` action
@@ -620,11 +625,11 @@ export default {
       this.$root.$emit('bv::hide::modal', 'members-modal');
     },
     changeSortOption (e) {
-      this.sortOption.value = e.target.value;
+      this.sortOption.value = e.value;
       this.sort();
     },
     changeSortDirection (e) {
-      this.sortOption.direction = e.target.value;
+      this.sortOption.direction = e.value;
       this.sort();
     },
     sort () {

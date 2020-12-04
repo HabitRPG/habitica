@@ -96,5 +96,11 @@
     "achievementSkeletonCrew": "骷髅团队",
     "achievementBoneCollectorModalText": "你集齐了所有骷髅宠物！",
     "achievementBoneCollectorText": "已集齐所有骷髅宠物。",
-    "achievementBoneCollector": "骨骼收藏家"
+    "achievementBoneCollector": "骨骼收藏家",
+    "achievementRedLetterDayModalText": "你驯服了所有红色坐骑！",
+    "achievementRedLetterDayText": "已驯服所有红色坐骑。",
+    "achievementRedLetterDay": "大喜之日",
+    "achievementSeeingRedModalText": "你集齐了所有红色宠物！",
+    "achievementSeeingRedText": "已集齐所有红色宠物。",
+    "achievementSeeingRed": "火冒三丈"
 }

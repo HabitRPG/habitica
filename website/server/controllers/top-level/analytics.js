@@ -19,7 +19,7 @@ api.trackEvent = {
   method: 'POST',
   url: '/analytics/track/:eventName',
   // we authenticate these requests to make sure they actually came from a real user
-  middlewares: [authWithHeaders()],
+  middlewares: [authWithHeaders({ optional: true })],
   async handler (req, res) {
     // As of now only web can track events using this route
     if (req.headers['x-client'] !== 'habitica-web') {
@@ -30,7 +30,7 @@ api.trackEvent = {
     const eventProperties = req.body;
 
     res.analytics.track(req.params.eventName, {
-      uuid: user._id,
+      uuid: user ? user._id : null,
       headers: req.headers,
       category: 'behaviour',
       gaLabel: 'local',

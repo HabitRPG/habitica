@@ -299,7 +299,7 @@
     "weaponArmoireBasicCrossbowText": "Paprastas Arbaletas",
     "weaponArmoireBasicCrossbowNotes": "Šis arbaletas gali perdurti užduotis šarvus per didelį atstumą. Padidiną jėgą <%= str %> taškų, įžvalgumą <%= per %> taškų, ir tvirtumą <%= con %> taškų. Užburtos Drabužinės nepriklausomas įrankis.",
     "weaponArmoireLunarSceptreText": "Raminančio Mėnulio Skeptras",
-    "weaponArmoireLunarSceptreNotes": "Šios lazdelės gydomoji galia nepailsdamai pulsuoja. Padidina Tvirtumą <=% con %> tašku(ais) ir Protą <%= int %> tašku(ais). Užburta Drabužinė: Raminančio Mėnulio Rinkinys (3 iš 3).",
+    "weaponArmoireLunarSceptreNotes": "Šios lazdelės gydomoji galia nepailsdamai pulsuoja. Padidina Tvirtumą <%= con %> tašku(ais) ir Protą <%= int %> tašku(ais). Užburta Drabužinė: Raminančio Mėnulio Rinkinys (3 iš 3).",
     "weaponArmoireRancherLassoText": "Rančos Kilpinė",
     "weaponArmoireRancherLassoNotes": "Kilpinės: idealūs įrankiai ginimui ir ganymui. Padidina Jėgą <%= str %> tašku(ais), Protą <%= int %> tašku(ais) ir Įžvalgumą <%= per %> tašku(ais). Užburta Drabužinė: Rančos Rinkinys (3 iš 3).",
     "weaponArmoireMythmakerSwordText": "Mitus Kuriantis Kardas",

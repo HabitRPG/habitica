@@ -100,5 +100,8 @@
     "viewProgress": "View Progress",
     "selectMember": "Select Member",
     "confirmKeepChallengeTasks": "D'ya want t' keep challenge tasks?",
-    "selectParticipant": "Select a Participant"
+    "selectParticipant": "Select a Participant",
+    "wonChallengeDesc": "<%= challengeName %> selected ye as th' winner! Yer win has been recorded in yer Achievements.",
+    "yourReward": "Yer Reward",
+    "filters": "Filters"
 }

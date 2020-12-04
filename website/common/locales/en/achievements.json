@@ -96,5 +96,11 @@
   "achievementBoneCollectorModalText": "You collected all the Skeleton Pets!",
   "achievementSkeletonCrew": "Skeleton Crew",
   "achievementSkeletonCrewText": "Has tamed all Skeleton Mounts.",
-  "achievementSkeletonCrewModalText": "You tamed all the Skeleton Mounts!"
+  "achievementSkeletonCrewModalText": "You tamed all the Skeleton Mounts!",
+  "achievementSeeingRed": "Seeing Red",
+  "achievementSeeingRedText": "Has collected all Red pets.",
+  "achievementSeeingRedModalText": "You collected all the Red Pets!",
+  "achievementRedLetterDay": "Red Letter Day",
+  "achievementRedLetterDayText": "Has tamed all Red Mounts.",
+  "achievementRedLetterDayModalText": "You tamed all the Red Mounts!"
 }

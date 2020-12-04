@@ -835,5 +835,12 @@
   "questTurquoiseUnlockText": "Unlocks Turquoise Hatching Potions for purchase in the Market",
 
   "sandySidekicksText": "Sandy Sidekicks Quest Bundle",
-  "sandySidekicksNotes": "Contains 'The Indulgent Armadillo', 'The Serpent of Distraction', and 'The Icy Arachnid'. Available until <%= date %>."
+  "sandySidekicksNotes": "Contains 'The Indulgent Armadillo', 'The Serpent of Distraction', and 'The Icy Arachnid'. Available until <%= date %>.",
+
+  "questBlackPearlText": "A Startling Starry Idea",
+  "questBlackPearlNotes": "You’ve been feeling uninspired lately, so when @jjgame83 suggests a trip to Lively Lake, you jump at the chance for a change of scenery. As @QuartzFox lays out a picnic on the shore, you find something glinting in the shallows. A strange black pearl.<br><br>“I wish I had a new idea,” you sigh.<br><br>A chill washes over the shore. The lake turns to black ink. The stars rise as noon becomes midnight in a heartbeat.<br><br>“Those aren’t good signs,” says @PixelStormArt.<br><br>A towering mass of arms bursts from the lake in a spray of foam, and from its beak, it booms: “BEHOLD ASTEROIDEA, THE IDEA FROM BEYOND THE STARS!”<br><br>A tentacle slams down onto the picnic basket. Good idea or not, you leap into action.",
+  "questBlackPearlCompletion": "As you batter and blast the beastie, it sheds black pearls across the sands. Their glistening surfaces catch your eye as you dodge another smashing tentacle.<br><br>You may be in mortal peril, but you can’t help thinking of how beautifully they glimmer. Then you can’t help thinking that this is a terrible time for a new potion idea.<br><br>Suddenly the monster freezes. @jjgame83 and @PixelStormArt exchange baffled looks and lower their weapons.<br><br>“YOU HAVE YOUR WISH, MORTAL. MY WORK IS DONE.”<br><br>Asteroidea vanishes, and the sky and waters clear. @QuartzFox stares at you. “Care to explain?”<br><br>You try your best, and together you fill the picnic basket with black pearls. An afternoon of alchemy later, you have to admit it was a pretty good idea.",
+  "questBlackPearlBoss": "Asteroidea",
+  "questBlackPearlDropBlackPearlPotion": "Black Pearl Hatching Potion",
+  "questBlackPearlUnlockText": "Unlocks Black Pearl Hatching Potions for purchase in the Market"
 }

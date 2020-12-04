@@ -299,6 +299,8 @@
   "hatchingPotionWindup": "Wind-Up",
   "hatchingPotionTurquoise": "Turquoise",
   "hatchingPotionVampire": "Vampire",
+  "hatchingPotionAutumnLeaf": "Autumn Leaf",
+  "hatchingPotionBlackPearl": "Black Pearl",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs. Available for purchase until <%= date(locale) %>.",

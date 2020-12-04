@@ -182,7 +182,7 @@
     "offHand": "Mână nedominantă",
     "statPoints": "Stat Points",
     "pts": "pcte",
-    "purchasePetItemConfirm": "Această achiziție ar depăși numărul de articole de care aveți nevoie pentru a ecloza toate animalele de companie <% = itemText %> posibile. Esti sigur?",
+    "purchasePetItemConfirm": "Această achiziție ar depăși numărul de articole de care aveți nevoie pentru a ecloza toate animalele de companie <%= itemText %> posibile. Esti sigur?",
     "chatCastSpellUser": "<%= username %> a folosit<%= spell %> pe <%= target %>.",
     "chatCastSpellParty": "<%= username %> a folosit <%= spell %> pentru echipă.",
     "purchaseForGold": "Cumpără pentru <%= cost %> Aur?"

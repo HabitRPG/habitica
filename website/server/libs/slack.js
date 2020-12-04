@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { IncomingWebhook } from '@slack/client';
+import { IncomingWebhook } from '@slack/webhook';
 import nconf from 'nconf';
 import moment from 'moment';
 import logger from './logger';
@@ -10,27 +10,29 @@ const SLACK_FLAGGING_FOOTER_LINK = nconf.get('SLACK_FLAGGING_FOOTER_LINK');
 const SLACK_SUBSCRIPTIONS_URL = nconf.get('SLACK_SUBSCRIPTIONS_URL');
 const BASE_URL = nconf.get('BASE_URL');
 const IS_PRODUCTION = nconf.get('IS_PROD');
+const IS_TEST = nconf.get('IS_TEST');
 
-const SKIP_FLAG_METHODS = IS_PRODUCTION && !SLACK_FLAGGING_URL;
-const SKIP_SUB_METHOD = IS_PRODUCTION && !SLACK_SUBSCRIPTIONS_URL;
+const SKIP_FLAG_METHODS = (IS_PRODUCTION || IS_TEST) && !SLACK_FLAGGING_URL;
+const SKIP_SUB_METHOD = (IS_PRODUCTION || IS_TEST) && !SLACK_SUBSCRIPTIONS_URL;
 
 let flagSlack;
 let subscriptionSlack;
 
 try {
-  flagSlack = new IncomingWebhook(SLACK_FLAGGING_URL);
-  subscriptionSlack = new IncomingWebhook(SLACK_SUBSCRIPTIONS_URL);
-} catch (err) {
-  logger.error(err);
-
-  if (!IS_PRODUCTION) {
+  if (IS_TEST || IS_PRODUCTION) {
+    flagSlack = new IncomingWebhook(SLACK_FLAGGING_URL);
+    subscriptionSlack = new IncomingWebhook(SLACK_SUBSCRIPTIONS_URL);
+  } else {
     subscriptionSlack = {
-      send (data) {
+      // async so that it works like the original Slack send method
+      async send (data) {
         logger.info('Data sent to slack', data);
       },
     };
     flagSlack = subscriptionSlack;
   }
+} catch (err) {
+  logger.error(err, 'Error setting up Slack.');
 }
 
 /**
@@ -90,21 +92,23 @@ function sendFlagNotification ({
 
   const timestamp = `${moment(message.timestamp).utc().format('YYYY-MM-DD HH:mm')} UTC`;
 
-  flagSlack.send({
-    text,
-    attachments: [{
-      fallback: 'Flag Message',
-      color: 'danger',
-      author_name: `${authorName}\n${timestamp}`,
-      title,
-      title_link: titleLink,
-      text: message.text,
-      footer,
-      mrkdwn_in: [
-        'text',
-      ],
-    }],
-  });
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Flag Message',
+        color: 'danger',
+        author_name: `${authorName}\n${timestamp}`,
+        title,
+        title_link: titleLink,
+        text: message.text,
+        footer,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
 function sendInboxFlagNotification ({
@@ -152,21 +156,23 @@ function sendInboxFlagNotification ({
 
   const authorName = `${sender} wrote this message to ${recipient}.`;
 
-  flagSlack.send({
-    text,
-    attachments: [{
-      fallback: 'Flag Message',
-      color: 'danger',
-      author_name: authorName,
-      title,
-      title_link: titleLink,
-      text: messageText,
-      footer,
-      mrkdwn_in: [
-        'text',
-      ],
-    }],
-  });
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Flag Message',
+        color: 'danger',
+        author_name: authorName,
+        title,
+        title_link: titleLink,
+        text: messageText,
+        footer,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
 function sendSubscriptionNotification ({
@@ -189,9 +195,11 @@ function sendSubscriptionNotification ({
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month recurring subscription using ${paymentMethod} on ${timestamp}`;
   }
 
-  subscriptionSlack.send({
-    text,
-  });
+  subscriptionSlack
+    .send({
+      text,
+    })
+    .catch(err => logger.error(err, 'Error while sending subscription data to Slack.'));
 }
 
 function sendShadowMutedPostNotification ({
@@ -220,20 +228,22 @@ function sendShadowMutedPostNotification ({
     uuid: author.id,
   });
 
-  flagSlack.send({
-    text,
-    attachments: [{
-      fallback: 'Shadow-Muted Message',
-      color: 'danger',
-      author_name: authorName,
-      title,
-      title_link: titleLink,
-      text: message,
-      mrkdwn_in: [
-        'text',
-      ],
-    }],
-  });
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Shadow-Muted Message',
+        color: 'danger',
+        author_name: authorName,
+        title,
+        title_link: titleLink,
+        text: message,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
 function sendSlurNotification ({
@@ -265,20 +275,22 @@ function sendSlurNotification ({
     uuid: author.id,
   });
 
-  flagSlack.send({
-    text,
-    attachments: [{
-      fallback: 'Slur Message',
-      color: 'danger',
-      author_name: authorName,
-      title,
-      title_link: titleLink,
-      text: message,
-      mrkdwn_in: [
-        'text',
-      ],
-    }],
-  });
+  flagSlack
+    .send({
+      text,
+      attachments: [{
+        fallback: 'Slur Message',
+        color: 'danger',
+        author_name: authorName,
+        title,
+        title_link: titleLink,
+        text: message,
+        mrkdwn_in: [
+          'text',
+        ],
+      }],
+    })
+    .catch(err => logger.error(err, 'Error while sending flag data to Slack.'));
 }
 
 export {

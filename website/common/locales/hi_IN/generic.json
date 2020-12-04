@@ -1,6 +1,6 @@
 {
     "languageName": "हिन्दी",
-    "stringNotFound": "स्ट्रिंग '<% = string %>' नहीं मिला.",
+    "stringNotFound": "स्ट्रिंग '<%= string %>' नहीं मिला.",
     "habitica": "हबीटिका",
     "onward": "Onward!",
     "done": "Done",

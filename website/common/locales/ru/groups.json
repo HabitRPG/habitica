@@ -355,5 +355,6 @@
     "PMUserDoesNotReceiveMessages": "Этот пользователь больше не может получать личные сообщения",
     "PMCanNotReply": "Вы не можете ответить на этот разговор",
     "newPartyPlaceholder": "Введите название вашей команды.",
-    "languageSettings": "Настройка языка"
+    "languageSettings": "Настройка языка",
+    "features": "Функции и возможности"
 }

@@ -151,7 +151,7 @@
     "cannotInviteSelfToGroup": "Sebe ne morete povabiti v skupino.",
     "userAlreadyInvitedToGroup": "UserID: <%= userId %>, User \"<%= username %>\" already invited to that group.",
     "userAlreadyPendingInvitation": "UserID: <%= userId %>, User \"<%= username %>\" already pending invitation.",
-    "userAlreadyInAParty": "UserID: <%= userId %>, User \"<%= username %>\"  already in a party.",
+    "userAlreadyInAParty": "UserID: <%= userId %>, User \"<%= username %>\" already in a party.",
     "userWithIDNotFound": "Uporabnik z UUID '<%= userid %>' ne obstaja.",
     "userWithUsernameNotFound": "User with username \"<%= username %>\" not found.",
     "userHasNoLocalRegistration": "Uporabnik nima lokalne registracije (uporabniško ime, e-pošta, geslo).",

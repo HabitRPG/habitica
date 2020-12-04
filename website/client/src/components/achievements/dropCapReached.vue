@@ -232,7 +232,7 @@ export default {
         eventCategory: 'drop-cap-reached',
         eventAction: 'click',
         eventLabel: 'Drop Cap Reached > Modal > Wiki',
-      }, { trackOnServer: true });
+      });
     },
     toLearnMore () {
       Analytics.track({
@@ -240,7 +240,7 @@ export default {
         eventCategory: 'drop-cap-reached',
         eventAction: 'click',
         eventLabel: 'Drop Cap Reached > Modal > Subscriptions',
-      }, { trackOnServer: true });
+      });
 
       this.close();
       this.$router.push('/user/settings/subscription');

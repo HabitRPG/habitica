@@ -521,7 +521,7 @@
     "armorSpecialSummer2015MageText": "Damtan ng Manghuhula",
     "armorSpecialSummer2015MageNotes": "Isang natatagong kapangyarihan ang nasa manggas nito. Dinaragdagan ang Katalinuhan ng <%= int %>. Limitadong Edisyon 2015 Pangtagaraw na Kagamitan.",
     "armorSpecialSummer2015HealerText": "Baluti ng Mandaragat",
-    "armorSpecialSummer2015HealerNotes": "Ang baluti na ito ay pinapaalam sa lahat na ikaw ay isang matapat na mangangalakal ng dagat na hindi kailanman gagawa ng masama. Dinaragdagan ang Pangangatawan ng <%= con =%>. Limitadong Edisyon 2015 Pangtagaraw na Kagamitan.",
+    "armorSpecialSummer2015HealerNotes": "Ang baluti na ito ay pinapaalam sa lahat na ikaw ay isang matapat na mangangalakal ng dagat na hindi kailanman gagawa ng masama. Dinaragdagan ang Pangangatawan ng <%= con %>. Limitadong Edisyon 2015 Pangtagaraw na Kagamitan.",
     "armorSpecialFall2015RogueText": "Baluti ng Digma",
     "armorSpecialFall2015RogueNotes": "Lumipad sa digmaan! Dinaragdagan ang Pangunawa ng  <%= per =>. Limitadong Edisyon 2015 Pangtagsibol na Kagamitan.",
     "armorSpecialFall2015WarriorText": "Baluti ng Panakot ng Ibon",

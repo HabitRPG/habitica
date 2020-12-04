@@ -1,19 +1,19 @@
 <template>
   <div class="row seasonal">
     <div class="standard-sidebar d-none d-sm-block">
-      <div class="form-group">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
+      <filter-sidebar>
+        <div
+          slot="search"
+          class="form-group"
         >
-      </div>
-      <div class="form">
-        <h2 v-once>
-          {{ $t('filter') }}
-        </h2>
-        <div class="form-group">
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
+          >
+        </div>
+        <filter-group>
           <checkbox
             v-for="category in filterCategories"
             :id="`category-${category.key}`"
@@ -21,7 +21,7 @@
             :checked.sync="viewOptions[category.key].selected"
             :text="category.value"
           />
-        </div>
+        </filter-group>
         <div class="form-group clearfix">
           <h3
             v-once
@@ -34,7 +34,7 @@
             class="float-right"
           />
         </div>
-      </div>
+      </filter-sidebar>
     </div>
     <div class="standard-page">
       <div class="featuredItems">
@@ -138,19 +138,14 @@
         </h2>
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(selectedSortItemsBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              v-for="sort in sortItemsBy"
-              :key="sort"
-              :active="selectedSortItemsBy === sort"
-              @click="selectedSortItemsBy = sort"
-            >
-              {{ $t(sort) }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+            :right="true"
+            :value="selectedSortItemsBy"
+            :items="sortItemsBy"
+            :inline-dropdown="false"
+            class="inline"
+            @select="selectedSortItemsBy = $event"
+          />
         </div>
       </div>
       <div
@@ -216,6 +211,8 @@
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/variables.scss';
+
+  // these styles may be applied to other pages too
 
   .featured-label {
     margin: 24px auto;
@@ -394,9 +391,15 @@ import getOfficialPinnedItems from '@/../../common/script/libs/getOfficialPinned
 import i18n from '@/../../common/script/i18n';
 
 import shops from '@/../../common/script/libs/shops';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import FilterGroup from '@/components/ui/filterGroup';
 
 export default {
   components: {
+    SelectTranslatedArray,
+    FilterGroup,
+    FilterSidebar,
     Checkbox,
     PinBadge,
     ShopItem,
