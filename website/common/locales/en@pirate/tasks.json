@@ -46,7 +46,7 @@
     "days": "Days",
     "restoreStreak": "Adjust Streak",
     "resetStreak": "Reset Streak",
-    "todo": "To-Do",
+    "todo": "T' Do",
     "todos": "T' Do's",
     "todosDesc": "T' Do's needs t' be completed once. Add checklists t' yer T'-Dos t' increase thar value.",
     "dueDate": "Due Date",
@@ -127,5 +127,13 @@
     "checkOffYesterDailies": "Check off any Dailies ye did yesterday:",
     "yesterDailiesCallToAction": "Start My New Day!",
     "sessionOutdated": "Yer session be outdated. Refresh or sync.",
-    "errorTemporaryItem": "This item be temporary 'n cannot be pinned."
+    "errorTemporaryItem": "This item be temporary 'n cannot be pinned.",
+    "pressEnterToAddTag": "Press Enter t' add tag: '<%= tagName %>'",
+    "enterTag": "Enter a tag",
+    "addTags": "Add tags...",
+    "sureDeleteType": "Are ye sure ye want t' delete this <%= type %>?",
+    "deleteTaskType": "Delete this <%= type %>",
+    "tomorrow": "'Morrow",
+    "addNotes": "Add notes",
+    "addATitle": "Add a title"
 }

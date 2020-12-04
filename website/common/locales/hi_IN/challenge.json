@@ -101,5 +101,7 @@
     "selectMember": "Select Member",
     "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
     "selectParticipant": "Select a Participant",
-    "filters": "Filters"
+    "filters": "Filters",
+    "wonChallengeDesc": "<%= challengeName %> आपको विजेता के रूप में चुना गया! आपकी जीत को आपकी उपलब्धियों में दर्ज किया गया है.",
+    "yourReward": "आपका पुरस्कृत"
 }

@@ -1741,5 +1741,7 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
     "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
-    "twoHandedItem": "양손 아이템."
+    "twoHandedItem": "양손 아이템.",
+    "shieldMystery202011Text": "잎 장식 지팡이",
+    "headMystery202011Text": "잎 장식 마법사 모자"
 }
