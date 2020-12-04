@@ -72,7 +72,6 @@
               >
                 <div
                   class="spell"
-                  :class="{ disabled: spellDisabled(key) || user.stats.lvl < skill.lvl }"
                 >
                   <div class="details">
                     <div
@@ -151,7 +150,7 @@
 
     .popover-description {
       text-align: left;
-      color: #ffffff;
+      color: $white;
     }
 
     .popover-title {
@@ -162,7 +161,7 @@
       .popover-title-text {
         font-weight: bold;
         font-size: 1.1em;
-        color: #ffffff;
+        color: $white;
       }
 
       .popover-mana {
@@ -177,7 +176,7 @@
 
         .popover-mana-count {
           font-weight: bold;
-          color: #50b5e9;
+          color: $blue-100;
           font-size: 1.1em;
         }
       }
@@ -208,6 +207,22 @@
         0 1px 4px 0 rgba(26, 24, 29, 0.12);
     }
 
+    &.disabled {
+      .spell {
+        background-color: $gray-10;
+        box-shadow: none !important;
+
+        .mana {
+          background-color: rgba(26, 24, 29, 0.5);
+        }
+
+        .level {
+          color: $white;
+          font-weight: normal;
+        }
+      }
+    }
+
     .spell {
       background: $white;
       border-radius: 4px;
@@ -223,20 +238,6 @@
       &:hover {
         box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16),
           0 3px 6px 0 rgba(26, 24, 29, 0.24);
-      }
-
-      &.disabled {
-        background-color: $gray-10;
-        box-shadow: none;
-
-        .mana {
-          background-color: rgba(26, 24, 29, 0.5);
-        }
-
-        .level {
-          color: $white;
-          font-weight: normal;
-        }
       }
 
       .details {
@@ -387,10 +388,11 @@
 </style>
 
 <script>
+import throttle from 'lodash/throttle';
+
 import spells, {
   stealthBuffsToAdd,
 } from '@/../../common/script/content/spells';
-
 import { mapState, mapGetters } from '@/libs/store';
 import notifications from '@/mixins/notifications';
 import spellsMixin from '@/mixins/spells';
@@ -493,15 +495,14 @@ export default {
       return notes;
     },
     // @TODO: Move to mouse move component??
-    mouseMoved ($event) {
-      // @TODO: throttle
+    mouseMoved: throttle(function mouseMoved ($event) {
       if (this.potionClickMode) {
         this.$refs.clickPotionInfo.style.left = `${$event.x + 20}px`;
         this.$refs.clickPotionInfo.style.top = `${$event.y + 20}px`;
       } else {
         this.lastMouseMoveEvent = $event;
       }
-    },
+    }, 10),
   },
 };
 </script>
