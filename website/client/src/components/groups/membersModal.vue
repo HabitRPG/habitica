@@ -43,23 +43,32 @@
             >
           </div>
           <div class="col">
-            <select-list :items="sortOptions"
-                         @select="changeSortOption($event)"
-                         :value="optionEntryBySelectedValue"
-                         key-prop="value">
+            <select-list
+              :items="sortOptions"
+              :value="optionEntryBySelectedValue"
+              key-prop="value"
+              @select="changeSortOption($event)"
+            >
               <template v-slot:item="{ item }">
-                <span class="label" v-if="item">{{ item.text }}</span>
+                <span
+                  v-if="item"
+                  class="label"
+                >{{ item.text }}</span>
               </template>
             </select-list>
           </div>
           <div class="col-3">
-
-            <select-list :items="sortDirections"
-                         @select="changeSortDirection($event)"
-                         :value="directionEntryBySelectedValue"
-                         key-prop="value">
+            <select-list
+              :items="sortDirections"
+              :value="directionEntryBySelectedValue"
+              key-prop="value"
+              @select="changeSortDirection($event)"
+            >
               <template v-slot:item="{ item }">
-                <span class="label" v-if="item">{{ item.text }}</span>
+                <span
+                  v-if="item"
+                  class="label"
+                >{{ item.text }}</span>
               </template>
             </select-list>
           </div>
