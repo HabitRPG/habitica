@@ -25,8 +25,6 @@ export async function createCheckoutSession (options, stripeInc) {
     coupon,
   } = options;
 
-  console.log(options);
-
   // @TODO: We need to mock this, but curently we don't have correct
   // Dependency Injection. And the Stripe Api doesn't seem to be a singleton?
   let stripeApi = getStripeApi();
