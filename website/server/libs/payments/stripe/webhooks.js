@@ -122,10 +122,11 @@ export async function handleWebhooks (options, stripeInc) {
         break;
       }
       default: {
-        logger.error(new Error(`Missing handler for Stripe webhook ${event.type}`));
+        throw new BadRequest(`Missing handler for Stripe webhook ${event.type}`);
       }
     }
   } catch (err) {
     logger.error(new Error('Error handling Stripe webhook'), { event, err });
+    throw err;
   }
 }
