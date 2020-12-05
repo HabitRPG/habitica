@@ -9,7 +9,7 @@ import common from '../../../../../../website/common';
 
 const { i18n } = common;
 
-xdescribe('stripe - edit subscription', () => {
+describe('stripe - edit subscription', () => {
   const subKey = 'basic_3mo';
   const stripe = stripeModule('test', {
     apiVersion: '2020-08-27',
