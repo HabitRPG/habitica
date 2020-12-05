@@ -28,7 +28,7 @@
       v-if="user.party.quest && user.party.quest.RSVPNeeded"
       class="quest-active-section quest-invite"
     >
-      <span>{{ $t('wouldYouParticipate') }}</span>
+      <span class="participate">{{ $t('wouldYouParticipate') }}</span>
       <div class="buttons">
         <button
           class="btn btn-primary accept"
@@ -46,7 +46,7 @@
     </div>
     <div
       v-if="onPendingQuest && !onActiveQuest"
-      class="quest-active-section quest-pending-section"
+      class="quest-pending-section"
     >
       <div class="titles">
         <strong>{{ questData.text() }} </strong>
@@ -301,10 +301,13 @@
       line-height: 1.33;
 
       strong {
+        display: block;
         min-height: 1rem;
         font-weight: bold;
+        font-size: 0.75rem;
+        line-height: 1.33;
         color: $gray-100;
-        margin-bottom: 0.25rem  ;
+        margin-bottom: 0.25rem;
       }
 
       .members-invited {
@@ -330,8 +333,17 @@
   }
 
   .quest-active-section {
+    margin-bottom: 0.5rem;
+
+    .participate {
+      font-size: 0.75rem;
+      font-weight: bold;
+      line-height: 1.33;
+      color: $white;
+    }
+
     .titles {
-        padding-top: .5em;
+      padding-top: .5em;
     }
 
     .quest-box {
@@ -363,18 +375,19 @@
   .quest-invite {
     background-color: #2995cd;
     color: #fff;
-    padding: 1em;
     display: flex;
 
-    span {
-      margin-top: .3em;
-      font-size: 14px;
-      font-weight: bold;
+    .participate {
+      margin-top: 0.75rem;
+      margin-bottom: 0.75rem;
+      margin-left: 1rem;
       flex: 1;
     }
 
     .buttons {
-
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      margin-right: 0.5rem;
     }
 
     .accept, .reject {

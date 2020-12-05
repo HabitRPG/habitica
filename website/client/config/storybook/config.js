@@ -34,12 +34,14 @@ import '../../src/assets/css/sprites/spritesmith-main-26.css';
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import StoreModule from '@/libs/store';
+import i18n from '../../../common/script/i18n';
 
 // couldn't inject the languages easily,
 // so just a "$t()" string to show that this will be translated
-Vue.prototype.$t = function translateString (...args) {
+i18n.t = function translateString (...args) {
   return `$t(${JSON.stringify(args)})`;
 };
+Vue.prototype.$t = i18n.t;
 
 Vue.use(BootstrapVue);
 Vue.use(StoreModule);
