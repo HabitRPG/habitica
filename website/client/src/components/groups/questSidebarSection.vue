@@ -20,7 +20,7 @@
           class="btn btn-secondary"
           @click="openStartQuestModal()"
         >
-          {{ $t('startAQuest') }}
+          {{ $t('selectQuest') }}
         </button>
       </div>
     </div>

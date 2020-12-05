@@ -43,6 +43,7 @@
   "bossRageTitle": "Rage",
   "bossRageDescription": "When this bar fills, the boss will unleash a special attack!",
   "startAQuest": "START A QUEST",
+  "selectQuest": "Select Quest",
   "startQuest": "Start Quest",
   "abandonQuest": "Abandon Quest",
   "questInvitationDoesNotExist": "No quest invitation has been sent out yet.",

@@ -27,6 +27,7 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
+        _id: 'some-user',
         party: {
 
         },
@@ -54,6 +55,7 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
+        _id: 'some-user',
         party: {
 
         },
@@ -81,6 +83,7 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
+        _id: 'some-user',
         party: {
 
         },
@@ -124,6 +127,7 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
+        _id: 'some-user',
         party: {
           quest: {
             RSVPNeeded: true,
@@ -148,6 +152,7 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
+        _id: 'some-user',
         party: {
 
         },
@@ -170,6 +175,7 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
+        _id: 'some-user',
         party: {
 
         },
@@ -190,6 +196,7 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
+        _id: 'some-user',
         party: {
 
         },
@@ -212,6 +219,7 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
+        _id: 'some-user',
         party: {
 
         },
@@ -234,6 +242,7 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
+        _id: 'some-user',
         party: {
 
         },
