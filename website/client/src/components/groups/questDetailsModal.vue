@@ -211,11 +211,11 @@ import questDialogContent from '../shops/quests/questDialogContent';
 import questActionsMixin from './questActions.mixin';
 
 export default {
-  mixins: [questActionsMixin],
   components: {
     questDialogDrops,
     questDialogContent,
   },
+  mixins: [questActionsMixin],
   props: ['group'],
   data () {
     return {

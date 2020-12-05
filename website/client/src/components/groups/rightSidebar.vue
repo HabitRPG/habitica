@@ -10,7 +10,7 @@
             class="btn btn-success btn-success"
             @click="$emit('join')"
           >
-             <span v-once>{{ $t(isParty ? 'joinParty' : 'joinGuild') }}</span>
+            <span v-once>{{ $t(isParty ? 'joinParty' : 'joinGuild') }}</span>
           </button>
           <button
             v-if="isMember"
@@ -33,9 +33,10 @@
               </span>
             </template>
             <b-dropdown-item
-              class="selectListItem"
               v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
-              @click="$emit('upgradeGroup')">
+              class="selectListItem"
+              @click="$emit('upgradeGroup')"
+            >
               <span v-once>
                 {{ $t('upgradeToGroup') }}
               </span>
@@ -43,12 +44,14 @@
             <b-dropdown-item
               v-if="!isMember"
               class="selectListItem"
-              @click="$emit('showInviteModal')">
+              @click="$emit('showInviteModal')"
+            >
               <span v-once>{{ $t(isParty ? 'inviteToParty' : 'inviteToGuild') }}</span>
             </b-dropdown-item>
             <b-dropdown-item
               class="selectListItem"
-              @click="$emit('messageLeader')">
+              @click="$emit('messageLeader')"
+            >
               <span v-once>
                 {{ $t(isParty ? 'messagePartyLeader' : 'messageGuildLeader') }}
               </span>
@@ -56,15 +59,17 @@
             <b-dropdown-item
               v-if="isLeader || isAdmin"
               class="selectListItem"
-              @click="$emit('updateGuild')">
+              @click="$emit('updateGuild')"
+            >
               <span v-once>
                 {{ isParty ? $t('editParty') : $t('editGuild') }}
               </span>
             </b-dropdown-item>
             <b-dropdown-item
-              class="selectListItem"
               v-if="isMember"
-              @click="$emit('leave')">
+              class="selectListItem"
+              @click="$emit('leave')"
+            >
               <span v-once>
                 {{ isParty ? $t('leaveParty') : $t('leaveGuild') }}
               </span>
