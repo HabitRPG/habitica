@@ -10,7 +10,7 @@
           v-html="icons.questIcon"
         ></div>
         <h4 v-once>
-          {{ $t('youAreNotOnQuest') }}
+          {{ $t('yourPartyIsNotOnQuest') }}
         </h4>
         <p v-once>
           {{ $t('questDescription') }}
@@ -50,7 +50,9 @@
     >
       <div class="titles">
         <strong>{{ questData.text() }} </strong>
-        <p class="members">{{ acceptedCount }} / {{ group.memberCount }} Members accepted</p>
+        <a class="members-invited" @click="openQuestDetails()">
+          {{ $t('membersAccepted', {accepted: acceptedCount, invited: group.memberCount})}}
+        </a>
       </div>
       <div class="quest-icon">
         <div
@@ -305,10 +307,15 @@
         margin-bottom: 0.25rem  ;
       }
 
-      .members {
+      .members-invited {
         min-height: 1rem;
         color: $blue-10;
         margin: 0;
+
+        &:hover, &:focus {
+          color: $blue-10;
+          text-decoration: underline;
+        }
       }
     }
 
@@ -397,6 +404,11 @@
     width: 100%;
     display: block;
     margin-top: 1rem;
+
+    &:hover, &:focus {
+      color: $maroon-50;
+      text-decoration: underline;
+    }
   }
 </style>
 

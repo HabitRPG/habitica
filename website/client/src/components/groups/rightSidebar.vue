@@ -89,7 +89,6 @@
       </sidebar-section>
       <sidebar-section
         :title="$t('challenges')"
-        :tooltip="$t('challengeDetails')"
       >
         <group-challenges :group-id="searchId" />
       </sidebar-section>
