@@ -74,7 +74,7 @@ export async function createCheckoutSession (options, stripeInc) {
     const {
       amount,
       gemsBlock,
-    } = await getOneTimePaymentInfo(gemsBlockKey, gift, user, stripeApi);
+    } = await getOneTimePaymentInfo(gemsBlockKey, gift, user);
 
     metadata.gemsBlock = gemsBlock ? gemsBlock.key : undefined;
 
