@@ -33,7 +33,7 @@ export async function handleWebhooks (options, stripeInc) {
     // Verify the event by fetching it from Stripe
     event = stripeApi.webhooks.constructEvent(body, headers['stripe-signature'], endpointSecret);
   } catch (err) {
-    logger.error(new Error('Error verifying Stripe webhook'), { event, err });
+    logger.error(new Error('Error verifying Stripe webhook'), { err });
     throw new BadRequest(`Webhook Error: ${err.message}`);
   }
 
