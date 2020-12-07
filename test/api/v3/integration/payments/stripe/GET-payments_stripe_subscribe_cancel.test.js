@@ -5,7 +5,7 @@ import {
 } from '../../../../../helpers/api-integration/v3';
 import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 
-xdescribe('payments - stripe - #subscribeCancel', () => {
+describe('payments - stripe - #subscribeCancel', () => {
   const endpoint = '/stripe/subscribe/cancel?noRedirect=true';
   let user; let group; let
     stripeCancelSubscriptionStub;
