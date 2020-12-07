@@ -71,7 +71,7 @@
     "universal-analytics": "^0.4.23",
     "useragent": "^2.1.9",
     "uuid": "^8.3.1",
-    "validator": "^13.1.17",
+    "validator": "^13.5.1",
     "vinyl-buffer": "^1.0.1",
     "winston": "^3.3.3",
     "winston-loggly-bulk": "^3.1.1",
