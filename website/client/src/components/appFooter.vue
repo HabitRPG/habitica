@@ -167,7 +167,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-md-5 text-copyright">
+        <div class="col-12 col-md-5 text-center text-md-left">
           © 2020 Habitica. All rights reserved.
           <div v-if="IS_PRODUCTION && isUserLoaded"
                class="debug float-left">
@@ -217,7 +217,7 @@
           <div class="logo svg-icon"
                v-html="icons.gryphon"></div>
         </div>
-        <div class="col-12 col-md-5 text-footer-links">
+        <div class="col-12 col-md-5 text-center text-md-right my-1">
           <span class="ml-4">
             <a target="_blank"
                href="/static/privacy">{{ $t('privacy') }}</a>
@@ -265,12 +265,6 @@ li {
   justify-content: flex-end;
   flex-shrink: 1;
 }
-.text-footer-links{
-  text-align: right;
-}
-.text-copyright{
-  text-align: left;
-}
 // smaller than desktop
 @media only screen and (max-width: 992px) {
   .social-circle {
@@ -285,29 +279,8 @@ li {
     display: flex;
     flex-direction: column;
   }
-  .text-copyright{
-    text-align: center;
-  }
-  .copyright {
-    order: 3;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .copyright-text {
-    text-align: center;
-  }
   .logo-container {
     order: 1;
-  }
-  .text-footer-links {
-    order: 2;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    display: flex;
-    justify-content: center;
-    text-align: center !important;
   }
 }
 .social-circle {
