@@ -913,7 +913,7 @@ export default {
         this.initiatedConversation = null;
       }
 
-      this.selectedConversation.lastMessageText = this.newMessage;  // update when result comes back
+      this.selectedConversation.lastMessageText = this.newMessage; // update when result comes back
       this.selectedConversation.date = new Date();
 
       this.scrollToBottom();
