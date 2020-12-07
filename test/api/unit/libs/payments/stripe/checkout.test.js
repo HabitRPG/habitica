@@ -12,8 +12,6 @@ import {
 } from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../website/server/models/group';
-import payments from '../../../../../../website/server/libs/payments/payments';
-import stripePayments from '../../../../../../website/server/libs/payments/stripe';
 
 const { i18n } = common;
 
@@ -284,13 +282,23 @@ describe('Stripe - Checkout', () => {
   describe('createEditCardCheckoutSession', () => {
     let user;
     const sessionId = 'session-id';
+    const customerId = 'customerId';
+    const subscriptionId = 'subscription-id';
+    let subscriptionsListStub;
 
     beforeEach(() => {
       user = new User();
       sandbox.stub(stripe.checkout.sessions, 'create').returns(sessionId);
+      subscriptionsListStub = sandbox.stub(stripe.subscriptions, 'list');
+      subscriptionsListStub.resolves({ data: [{ id: subscriptionId }] });
     });
 
-    it.only('throws if customer does not exists', async () => {
+    it('throws if no valid data is supplied', async () => {
+      await expect(createEditCardCheckoutSession({}, stripe))
+        .to.eventually.be.rejected;
+    });
+
+    it('throws if customer does not exists', async () => {
       await expect(createEditCardCheckoutSession({ user }, stripe))
         .to.eventually.be.rejected.and.to.eql({
           httpCode: 401,
@@ -298,12 +306,171 @@ describe('Stripe - Checkout', () => {
           message: i18n.t('missingSubscription'),
         });
     });
-    it('throws if subscription does not exists');
-    it('throws if no valid data is supplied');
-    it('change card for user subscription');
-    it('throws if group does not exists');
-    it('throws if user is not allowed to change group plan');
-    it('change card for group plans - leader');
-    it('change card for group plans - plan owner');
+
+    it('throws if subscription does not exists', async () => {
+      user.purchased.plan.customerId = customerId;
+      subscriptionsListStub.resolves({ data: [] });
+
+      await expect(createEditCardCheckoutSession({ user }, stripe))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 401,
+          name: 'NotAuthorized',
+          message: i18n.t('missingSubscription'),
+        });
+    });
+    it('change card for user subscription', async () => {
+      user.purchased.plan.customerId = customerId;
+
+      const metadata = {
+        userId: user._id,
+        type: 'edit-card-user',
+      };
+
+      const res = await createEditCardCheckoutSession({ user }, stripe);
+      expect(res).to.equal(sessionId);
+      expect(subscriptionsListStub).to.be.calledOnce;
+      expect(subscriptionsListStub).to.be.calledWith({ customer: customerId });
+
+      expect(stripe.checkout.sessions.create).to.be.calledOnce;
+      expect(stripe.checkout.sessions.create).to.be.calledWith({
+        mode: 'setup',
+        payment_method_types: ['card'],
+        metadata,
+        customer: customerId,
+        setup_intent_data: {
+          metadata: {
+            customer_id: customerId,
+            subscription_id: subscriptionId,
+          },
+        },
+        ...redirectUrls,
+      });
+    });
+
+    it('throws if group does not exists', async () => {
+      const groupId = 'invalid';
+
+      await expect(createEditCardCheckoutSession({ user, groupId }, stripe))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 404,
+          name: 'NotFound',
+          message: i18n.t('groupNotFound'),
+        });
+    });
+
+    describe('with group', () => {
+      let group; let groupId;
+      beforeEach(async () => {
+        group = generateGroup({
+          name: 'test group',
+          type: 'guild',
+          privacy: 'public',
+          leader: user._id,
+        });
+        groupId = group._id;
+        await group.save();
+      });
+
+      it('throws if user is not allowed to change group plan', async () => {
+        const anotherUser = new User();
+        anotherUser.guilds.push(groupId);
+        await anotherUser.save();
+
+        await expect(createEditCardCheckoutSession({ user: anotherUser, groupId }, stripe))
+          .to.eventually.be.rejected.and.to.eql({
+            httpCode: 401,
+            name: 'NotAuthorized',
+            message: i18n.t('onlyGroupLeaderCanManageSubscription'),
+          });
+      });
+
+      it('throws if customer does not exists (group)', async () => {
+        await expect(createEditCardCheckoutSession({ user, groupId }, stripe))
+          .to.eventually.be.rejected.and.to.eql({
+            httpCode: 401,
+            name: 'NotAuthorized',
+            message: i18n.t('missingSubscription'),
+          });
+      });
+
+      it('throws if subscription does not exists (group)', async () => {
+        group.purchased.plan.customerId = customerId;
+        subscriptionsListStub.resolves({ data: [] });
+
+        await expect(createEditCardCheckoutSession({ user, groupId }, stripe))
+          .to.eventually.be.rejected.and.to.eql({
+            httpCode: 401,
+            name: 'NotAuthorized',
+            message: i18n.t('missingSubscription'),
+          });
+      });
+
+      it('change card for group plans - leader', async () => {
+        group.purchased.plan.customerId = customerId;
+        await group.save();
+
+        const metadata = {
+          userId: user._id,
+          type: 'edit-card-group',
+          groupId,
+        };
+
+        const res = await createEditCardCheckoutSession({ user, groupId }, stripe);
+        expect(res).to.equal(sessionId);
+        expect(subscriptionsListStub).to.be.calledOnce;
+        expect(subscriptionsListStub).to.be.calledWith({ customer: customerId });
+
+        expect(stripe.checkout.sessions.create).to.be.calledOnce;
+        expect(stripe.checkout.sessions.create).to.be.calledWith({
+          mode: 'setup',
+          payment_method_types: ['card'],
+          metadata,
+          customer: customerId,
+          setup_intent_data: {
+            metadata: {
+              customer_id: customerId,
+              subscription_id: subscriptionId,
+            },
+          },
+          ...redirectUrls,
+        });
+      });
+
+      it('change card for group plans - plan owner', async () => {
+        const anotherUser = new User();
+        anotherUser.guilds.push(groupId);
+        await anotherUser.save();
+
+        group.purchased.plan.customerId = customerId;
+        group.purchased.plan.owner = anotherUser._id;
+        await group.save();
+
+        const metadata = {
+          userId: anotherUser._id,
+          type: 'edit-card-group',
+          groupId,
+        };
+
+        const res = await createEditCardCheckoutSession({ user: anotherUser, groupId }, stripe);
+        expect(res).to.equal(sessionId);
+        expect(subscriptionsListStub).to.be.calledOnce;
+        expect(subscriptionsListStub).to.be.calledWith({ customer: customerId });
+
+        expect(stripe.checkout.sessions.create).to.be.calledOnce;
+        expect(stripe.checkout.sessions.create).to.be.calledWith({
+          mode: 'setup',
+          payment_method_types: ['card'],
+          metadata,
+          customer: customerId,
+          setup_intent_data: {
+            metadata: {
+              customer_id: customerId,
+              subscription_id: subscriptionId,
+            },
+          },
+          ...redirectUrls,
+        });
+      });
+    });
   });
 });

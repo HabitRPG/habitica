@@ -150,7 +150,7 @@ export async function createEditCardCheckoutSession (options, stripeInc) {
 
   if (!subscriptionId) {
     const subscriptions = await stripeApi.subscriptions.list({ customer: customerId });
-    subscriptionId = subscriptions.data[0].id;
+    subscriptionId = subscriptions.data[0] && subscriptions.data[0].id;
   }
 
   if (!subscriptionId) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
