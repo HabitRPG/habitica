@@ -15,7 +15,7 @@ import * as subscriptions from '../../../../../../website/server/libs/payments/s
 
 const { i18n } = common;
 
-describe('Stripe - Webhooks', () => {
+describe.only('Stripe - Webhooks', () => {
   const stripe = stripeModule('test', {
     apiVersion: '2020-08-27',
   });
@@ -296,7 +296,7 @@ describe('Stripe - Webhooks', () => {
       sandbox.stub(subscriptions, 'handlePaymentMethodChange').resolves({});
     });
 
-    it.only('handles changing an user sub', async () => {
+    it('handles changing an user sub', async () => {
       session.metadata.type = 'edit-card-user';
 
       await stripePayments.handleWebhooks({ body, headers }, stripe);
@@ -306,8 +306,34 @@ describe('Stripe - Webhooks', () => {
       expect(subscriptions.handlePaymentMethodChange).to.have.been.calledWith(session);
     });
 
-    it('handles changing a group sub');
-    it('applies a subscription');
-    it('handles a one time payment');
+    it('handles changing a group sub', async () => {
+      session.metadata.type = 'edit-card-group';
+
+      await stripePayments.handleWebhooks({ body, headers }, stripe);
+
+      expect(stripe.webhooks.constructEvent).to.have.been.calledOnce;
+      expect(subscriptions.handlePaymentMethodChange).to.have.been.calledOnce;
+      expect(subscriptions.handlePaymentMethodChange).to.have.been.calledWith(session);
+    });
+
+    it('applies a subscription', async () => {
+      session.metadata.type = 'subscription';
+
+      await stripePayments.handleWebhooks({ body, headers }, stripe);
+
+      expect(stripe.webhooks.constructEvent).to.have.been.calledOnce;
+      expect(subscriptions.applySubscription).to.have.been.calledOnce;
+      expect(subscriptions.applySubscription).to.have.been.calledWith(session);
+    });
+
+    it('handles a one time payment', async () => {
+      session.metadata.type = 'something else';
+
+      await stripePayments.handleWebhooks({ body, headers }, stripe);
+
+      expect(stripe.webhooks.constructEvent).to.have.been.calledOnce;
+      expect(oneTimePayments.applyGemPayment).to.have.been.calledOnce;
+      expect(oneTimePayments.applyGemPayment).to.have.been.calledWith(session);
+    });
   });
 });
