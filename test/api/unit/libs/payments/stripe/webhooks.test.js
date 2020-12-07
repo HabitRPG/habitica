@@ -10,6 +10,8 @@ import stripePayments from '../../../../../../website/server/libs/payments/strip
 import payments from '../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../website/common';
 import logger from '../../../../../../website/server/libs/logger';
+import * as oneTimePayments from '../../../../../../website/server/libs/payments/stripe/oneTimePayments';
+import * as subscriptions from '../../../../../../website/server/libs/payments/stripe/subscriptions';
 
 const { i18n } = common;
 
@@ -275,5 +277,37 @@ describe('Stripe - Webhooks', () => {
         expect(cancelSubscriptionOpts.groupId).to.equal(subscriber._id);
       });
     });
+  });
+
+  describe('checkout.session.completed', () => {
+    const eventType = 'checkout.session.completed';
+    let event;
+    let constructEventStub;
+    const session = {};
+
+    beforeEach(() => {
+      session.metadata = {};
+      event = { type: eventType, data: { object: session } };
+      constructEventStub = sandbox.stub(stripe.webhooks, 'constructEvent');
+      constructEventStub.returns(event);
+
+      sandbox.stub(oneTimePayments, 'applyGemPayment').resolves({});
+      sandbox.stub(subscriptions, 'applySubscription').resolves({});
+      sandbox.stub(subscriptions, 'handlePaymentMethodChange').resolves({});
+    });
+
+    it.only('handles changing an user sub', async () => {
+      session.metadata.type = 'edit-card-user';
+
+      await stripePayments.handleWebhooks({ body, headers }, stripe);
+
+      expect(stripe.webhooks.constructEvent).to.have.been.calledOnce;
+      expect(subscriptions.handlePaymentMethodChange).to.have.been.calledOnce;
+      expect(subscriptions.handlePaymentMethodChange).to.have.been.calledWith(session);
+    });
+
+    it('handles changing a group sub');
+    it('applies a subscription');
+    it('handles a one time payment');
   });
 });
