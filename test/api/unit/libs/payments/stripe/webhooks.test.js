@@ -15,7 +15,7 @@ import * as subscriptions from '../../../../../../website/server/libs/payments/s
 
 const { i18n } = common;
 
-describe.only('Stripe - Webhooks', () => {
+describe('Stripe - Webhooks', () => {
   const stripe = stripeModule('test', {
     apiVersion: '2020-08-27',
   });
