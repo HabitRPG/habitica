@@ -282,8 +282,24 @@ describe('Stripe - Checkout', () => {
   });
 
   describe('createEditCardCheckoutSession', () => {
-    it('throws if customer does not exists');
+    let user;
+    const sessionId = 'session-id';
+
+    beforeEach(() => {
+      user = new User();
+      sandbox.stub(stripe.checkout.sessions, 'create').returns(sessionId);
+    });
+
+    it.only('throws if customer does not exists', async () => {
+      await expect(createEditCardCheckoutSession({ user }, stripe))
+        .to.eventually.be.rejected.and.to.eql({
+          httpCode: 401,
+          name: 'NotAuthorized',
+          message: i18n.t('missingSubscription'),
+        });
+    });
     it('throws if subscription does not exists');
+    it('throws if no valid data is supplied');
     it('change card for user subscription');
     it('throws if group does not exists');
     it('throws if user is not allowed to change group plan');
