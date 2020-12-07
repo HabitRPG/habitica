@@ -882,12 +882,11 @@ export default {
     },
     sendPrivateMessage () {
       if (!this.newMessage) return;
-
       const messages = this.messagesByConversation[this.selectedConversation.key];
 
       messages.push({
         sent: true,
-        text: this.newMessage,
+        text: this.newMessage, // will update if text has @mention link
         timestamp: new Date(),
         toUser: this.selectedConversation.name,
         toUserName: this.selectedConversation.username,
@@ -914,7 +913,7 @@ export default {
         this.initiatedConversation = null;
       }
 
-      this.selectedConversation.lastMessageText = this.newMessage;
+      this.selectedConversation.lastMessageText = this.newMessage;  // update when result comes back
       this.selectedConversation.date = new Date();
 
       this.scrollToBottom();
@@ -925,7 +924,12 @@ export default {
       }).then(response => {
         const newMessage = response.data.data.message;
         const messageToReset = messages[messages.length - 1];
-        messageToReset.id = newMessage.id; // just set the id, all other infos already set
+
+        // Update newest message with id and text if there's an @ mention
+        messageToReset.id = newMessage.id;
+        messageToReset.text = newMessage.text;
+        this.selectedConversation.lastMessageText = newMessage.text;
+
         Object.assign(messages[messages.length - 1], messageToReset);
         this.updateConversationsCounter += 1;
       });
