@@ -151,7 +151,7 @@
     "cannotInviteSelfToGroup": "Du kan inte bjuda in dig själv till en grupp.",
     "userAlreadyInvitedToGroup": "AnvändarID: <%= userId %> , Användare \"<%= username %>\" är redan inbjuden till den gruppen.",
     "userAlreadyPendingInvitation": "AnvändarID: <%= userId %> , Användare \"<%= username %>\" har redan en avvaktande inbjudan.",
-    "userAlreadyInAParty": "AnvändarID: <%= userId %>, Användare \"<%= username %>\" är redan medlem i ett sällskap. ",
+    "userAlreadyInAParty": "AnvändarID: <%= userId %>, Användare \"<%= username %>\" är redan medlem i ett sällskap.",
     "userWithIDNotFound": "Användaren med id \"<%= userId %>\" hittades inte.",
     "userWithUsernameNotFound": "User with username \"<%= username %>\" not found.",
     "userHasNoLocalRegistration": "Användaren är inte lokalt registrerad (användarnamn, e-post, lösenord).",

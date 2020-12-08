@@ -1,5 +1,5 @@
 {
-    "clearCompleted": "إكتمل الحذف ",
+    "clearCompleted": "إكتمل الحذف",
     "clearCompletedDescription": "يتم حذف المهام التي تم إكمالها بعد ٣٠ يومًا لغير المشتركين وبعد ٩٠ يومًا للمشتركين.",
     "clearCompletedConfirm": "هل أنت متأكد من أنك تريد حذف المهام التي أنجزتها؟",
     "addMultipleTip": "<strong>نصيحة: </strong> لإضافة عدة <%= taskType %>، افصل كل منها باستخدام فاصل أسطر (Shift + Enter) ثم اضغط على \"Enter\".",

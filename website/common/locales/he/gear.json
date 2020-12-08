@@ -1451,7 +1451,7 @@
     "shieldArmoireMidnightShieldText": "מגן חצות",
     "shieldArmoireMidnightShieldNotes": "מגן זה מגיע לשיאו בחצות! מגביר חוסן ב <%= con %> וכוח ב <%= str %>. ארמואר קסום: חפץ בלתי-תלוי.",
     "shieldArmoireRoyalCaneText": "מקל רועים מלכותי",
-    "shieldArmoireRoyalCaneNotes": "הידד לשליט, ראוי לשיר! מגביר חוסן, תבונה ותפיסה ב <%= attrs %> כל אחד. ארמואר קסום: סט מלכותי (חפץ 2 מתוך 3). ",
+    "shieldArmoireRoyalCaneNotes": "הידד לשליט, ראוי לשיר! מגביר חוסן, תבונה ותפיסה ב <%= attrs %> כל אחד. ארמואר קסום: סט מלכותי (חפץ 2 מתוך 3).",
     "shieldArmoireDragonTamerShieldText": "מגן מאלף דרקונים",
     "shieldArmoireDragonTamerShieldNotes": "הסיחו את דעתם של אויבים עם מגן בצורת דרקון זה. מגביר תפיסה ב  <%= per %>. ארמואר קסום: סט מאלף דרקונים (חפץ 2 מתוך 3).",
     "shieldArmoireMysticLampText": "מנורה מיסטית",

@@ -10,7 +10,7 @@
     "messageEvolve": "You have tamed <%= egg %>, let's go for a ride!",
     "messageLikesFood": "<%= egg %> really likes <%= foodText %>!",
     "messageDontEnjoyFood": "<%= egg %> eats <%= foodText %> but doesn't seem to enjoy it.",
-    "messageBought": "Keypti ",
+    "messageBought": "Keypti <%= itemText %>",
     "messageUnEquipped": "<%= itemText %> unequipped.",
     "messageMissingEggPotion": "You're missing either that egg or that potion",
     "messageInvalidEggPotionCombo": "You can't hatch Quest Pet Eggs with Magic Hatching Potions! Try a different egg.",

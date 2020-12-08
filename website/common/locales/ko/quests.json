@@ -21,7 +21,7 @@
     "declined": "Declined",
     "rejected": "거부함",
     "pending": "대기중",
-    "questCollection": "+ <%= val %> 개의 퀘스트 아이템을 찾았습니다. ",
+    "questCollection": "+ <%= val %> 개의 퀘스트 아이템을 찾았습니다",
     "questDamage": "보스에게 + <%= val %>의 데미지를 입혔습니다. ",
     "begin": "시작하기",
     "bossHP": "Boss HP",
