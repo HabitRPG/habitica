@@ -2223,5 +2223,9 @@
     "armorArmoireDoubletOfClubsNotes": "Quem sabe o que está nas cartas, mas você ficará estiloso(a) em qualquer evento com este gibão e capa! Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto Valete de Paus (Item 3 de 3).",
     "armorArmoireDoubletOfClubsText": "Gibão de Paus",
     "weaponArmoireClubOfClubsNotes": "Esta clava estilosa não vai denunciar muito cedo suas intenções em relação a essas tarefas antigas e sorrateiras. Aumenta a força em <%= str %>. Armário Encantado: Conjunto Valete de Paus (Item 2 de 3).",
-    "weaponArmoireClubOfClubsText": "Clava de Paus"
+    "weaponArmoireClubOfClubsText": "Clava de Paus",
+    "backMystery202012Notes": "As penas nevadas destas asas lhe darão a velocidade de um vendaval de inverno. Não confere nenhum benefício. Item para assinantes de Dezembro 2020.",
+    "backMystery202012Text": "Asas da Fênix de Gelo",
+    "headMystery202012Notes": "Esta máscara imponente apresenta olhos penetrantes que cegarão os inimigos como o brilho da luz do sol sobre a neve fresca. Não confere nenhum benefício. Item para assinantes de Dezembro 2020.",
+    "headMystery202012Text": "Máscara da Fênix de Gelo"
 }

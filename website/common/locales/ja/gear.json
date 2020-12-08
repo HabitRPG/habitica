@@ -2096,5 +2096,21 @@
     "armorSpecialFall2020WarriorText": "黄泉がえりし者のローブ",
     "armorSpecialFall2020WarriorNotes": "このローブはかつて強い戦士を守りぬきました。戦士の魂は後継者に相応しい者を守護するために布に残っていると言われています。体質が<%= con %>上がります。2020年秋の限定装備。",
     "armorSpecialFall2020RogueText": "石像のよろい",
-    "armorSpecialFall2020RogueNotes": "この石のよろいの強さをまとうと、どんな獰猛な攻撃でもはねのけることを保証します。知覚が<%= per %>上がります。2020年秋の限定装備。"
+    "armorSpecialFall2020RogueNotes": "この石のよろいの強さをまとうと、どんな獰猛な攻撃でもはねのけることを保証します。知覚が<%= per %>上がります。2020年秋の限定装備。",
+    "backMystery202012Notes": "雪の羽毛の翼は、冬の疾風のようなスピードをあなたに与えるでしょう。効果なし。2020年12月の有料会員アイテム。",
+    "backMystery202012Text": "凍てつく炎の翼",
+    "headMystery202012Notes": "この印象的なお面の鋭い目は、新雪に反射する太陽光のまぶしさのように敵の目をくらませてしまうでしょう。効果なし。2020年12月の有料会員アイテム。",
+    "headMystery202012Text": "凍てつく炎の面",
+    "armorSpecialFall2020HealerNotes": "あなたの見事な部分は夜に羽根を広げます。あなたの飛行を目撃する人々は、この前兆が何を意味するのか不思議に思うでしょう。体質が<%= con %>上がります。2020年秋の限定装備。",
+    "armorSpecialFall2020HealerText": "スズメガの羽根",
+    "armorSpecialFall2020MageNotes": "この幅の広い翼のついたローブは滑空や飛行の印象を人々に与え、膨大な知識から授かった千里眼の持ち主であることを象徴しています。知能が<%= int %>上がります。2020年秋の限定装備。",
+    "armorSpecialFall2020MageText": "悟りのその上",
+    "headSpecialFall2020WarriorNotes": "いったんこのずきんを着た戦士はハードなタスクにもおびえなくなります！これを着たら他の人はあなたにおびえるかもしれませんが……。力が<%= str %>上がります。2020年秋の限定装備。",
+    "headSpecialFall2020WarriorText": "気味の悪いずきん",
+    "headSpecialFall2020RogueNotes": "二度見て、一度に行動する――このお面なら簡単にできますね。知覚が<%= per %>上がります。2020年秋の限定装備。",
+    "headSpecialFall2020RogueText": "双頭の石像の面",
+    "headSpecialFall2020HealerText": "されこうべの面",
+    "headSpecialFall2020MageNotes": "この帽子を眉の上にぴったり装着すると、第三の目が開き、他の方法では見えないものに集中できます。マナの流れ、さまよえる魂、忘れていたTo-Doなど。知覚が<%= per %>上がります。2020年秋の限定装備。",
+    "headSpecialFall2020MageText": "目覚めた明晰さ",
+    "headSpecialFall2020HealerNotes": "このドクロの顔のような恐ろしい白い模様は人々に警告するかのように輝いています。「時とははかなきもの、手遅れになる前に、そなたの締め切りに目を向けよ！」知能が<%= int %>上がります。2020年秋の限定装備。"
 }

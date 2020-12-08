@@ -2223,5 +2223,9 @@
     "armorArmoireDoubletOfClubsText": "Farsetto di fiori",
     "armorArmoireDoubletOfClubsNotes": "Nessuno sa cosa rivelano le carte, ma sarai elegante in ogni evento con questo farsetto e mantello! Aumenta la costituzione di <%= con %>. Scrigno Incantato: Set del Fante di Fiori (Oggetto 2 di 3).",
     "weaponArmoireClubOfClubsNotes": "Questa bella picca non svelerà subito i suoi intenti verso quei tuoi vecchi subdoli compiti. Aumenta la forza di <%= str %>. Scrigno Incantato: Set del Fante di Fiori (Oggetto 2 di 3).",
-    "weaponArmoireClubOfClubsText": "Picca di... fiori"
+    "weaponArmoireClubOfClubsText": "Picca di... fiori",
+    "backMystery202012Notes": "Le piume innevate di queste ali ti daranno la velocità di una tempesta invernale. Non conferisce alcun bonus. Oggetto abbonati dicembre 2020.",
+    "backMystery202012Text": "Ali di Fuoco Ghiacciato",
+    "headMystery202012Notes": "Questa imponente maschera ha degli occhi penetranti che accecano i nemici come il riflesso del sole sulla neve fresca. Non conferisce alcun bonus. Oggetto abbonati dicembre 2020.",
+    "headMystery202012Text": "Maschera di Fuoco Ghiacciato"
 }

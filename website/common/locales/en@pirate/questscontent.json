@@ -715,5 +715,12 @@
     "questWaffleText": "Wafflin' wit' th' Fool: Disaster Breakfast!",
     "questRubyText": "Ruby Rapport",
     "questAmberDropAmberPotion": "Amber Hatchin' Potion",
-    "questAmberText": "Th' Amber Alliance"
+    "questAmberText": "Th' Amber Alliance",
+    "questBlackPearlUnlockText": "Unlocks Black Pearl Hatchin' Potions fer purchase in th' Market",
+    "questBlackPearlDropBlackPearlPotion": "Black Pearl Hatchin' Potion",
+    "questBlackPearlBoss": "Asteroidea",
+    "questTurquoiseText": "Turquoise Treasure Toil",
+    "jungleBuddiesNotes": "Contains 'Monstrous Mandrill an' th' Mischief Monkeys', 'Th' Somnolent Sloth', an' 'Th' Tangle Tree'. Available 'til <%= date %>.",
+    "questBlackPearlCompletion": "As ye batt'r an' blast th' beastie, it sheds black pearls across th' sands. Their glistening surfaces catch yer eye as ye dodge another smashing tentacle.<br><br>Ye may be in mortal peril, but ye can’t help thinkin' o' how beautifully they glimm'r. Then ye can’t help thinkin' that this be a terrible time fer a new potion idea.<br><br>Suddenly th' monster freezes. @jjgame83 an' @PixelStormArt exchange baffl'd looks an' lower their weapons.<br><br>“YE HAVE YER WISH, MORTAL. MY WORK BE DONE.”<br><br>Asteroidea vanishes, an' th' sky an' waters clear. @QuartzFox stares at ye. “Care t' explain?”<br><br>Ye try yer best, an' together ye fill th' picnic basket wit' black pearls. An afternoon o' alchemy later, ye have t' admit it was a pretty good idea.",
+    "jungleBuddiesText": "Jungle Buddies Adventure Bundle"
 }
