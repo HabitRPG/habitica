@@ -307,10 +307,9 @@
         <sidebar-section :title="$t('helpfulLinks')">
           <ul>
             <li>
-              <a
-                href
-                @click.prevent="modForm()"
-              >{{ $t('contactForm') }}</a>
+              <a href="mailto:admin@habitica.com">
+                {{ $t('reportCommunityIssues') }}
+              </a>
             </li>
             <li>
               <router-link
