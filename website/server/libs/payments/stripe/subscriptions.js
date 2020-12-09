@@ -1,6 +1,7 @@
 import cc from 'coupon-code';
 import moment from 'moment';
 
+import logger from '../../logger';
 import { model as Coupon } from '../../../models/coupon';
 import shared from '../../../../common';
 import payments from '../payments'; // eslint-disable-line import/no-cycle
@@ -119,10 +120,9 @@ export async function cancelSubscription (options, stripeInc) {
 
   if (!customerId) throw new NotAuthorized(shared.i18n.t('missingSubscription'));
 
-  // @TODO: Handle error response
   const customer = await stripeApi
     .customers.retrieve(customerId, { expand: ['subscriptions'] })
-    .catch(err => err);
+    .catch(err => logger.error(err, 'Error retrieving customer from Stripe (was likely deleted).'));
   let nextBill = moment().add(30, 'days').unix() * 1000;
 
   if (customer && (customer.subscription || customer.subscriptions)) {
