@@ -30,7 +30,7 @@
     "publicChallengesTitle": "Reptes Públics",
     "officialChallenge": "Repte oficial de Habitica",
     "by": "per",
-    "participants": "<%=nombremembres %> Participants",
+    "participants": "<%= membercount %> Participants",
     "join": "Uneix-t'hi",
     "exportChallengeCSV": "Exporta a CSV",
     "challengeCreated": "Repte creat",

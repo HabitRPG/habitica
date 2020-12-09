@@ -104,9 +104,9 @@
               :variant="'success'"
             >
               <b-dropdown-item
-                class="selectListItem"
                 v-for="type in columns"
                 :key="type"
+                class="selectListItem"
                 @click="createTask(type)"
               >{{ $t(type) }}</b-dropdown-item>
             </b-dropdown>

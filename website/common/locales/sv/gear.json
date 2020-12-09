@@ -155,7 +155,7 @@
     "weaponSpecialWinter2015HealerText": "Lugnande spira",
     "weaponSpecialWinter2015HealerNotes": "Den här spiran värmer ömma muskler och minskar stress. Ökar Intelligens med <%= int %>. Begränsad utgåva av Vinterutrustning 2014-2015.",
     "weaponSpecialSpring2015RogueText": "Exploderande pipleksak",
-    "weaponSpecialSpring2015RogueNotes": "Låt inte ljudet lura dig - dessa bomber är starkare än man tror. Ökar Styrka med <%=str %>. Begränsad utgåva av Vårutrustning 2015.",
+    "weaponSpecialSpring2015RogueNotes": "Låt inte ljudet lura dig - dessa bomber är starkare än man tror. Ökar Styrka med <%= str %>. Begränsad utgåva av Vårutrustning 2015.",
     "weaponSpecialSpring2015WarriorText": "Benklubba",
     "weaponSpecialSpring2015WarriorNotes": "Det är en riktig klubba av ben för riktigt vilda hundar och absolut inte en tuggleksak som Säsongshäxan gav dig för vem är en duktig hund? Veeem är en duktig hund?? Du är!!! Du är en duktig hund!!! Ökar Styrka med <%= str %>. Begränsad utgåva av Vårutrustning 2015.",
     "weaponSpecialSpring2015MageText": "Magikerns stav",

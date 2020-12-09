@@ -5,7 +5,7 @@
     "buyGemsGold": "Köp Juveler med Guld",
     "mustSubscribeToPurchaseGems": "Majoritieten prenumererar för att kunna köpa juveler med guld",
     "reachedGoldToGemCap": "Du har nått Guld=>Diamant-omvandlingskapaciteten <%= convCap %> för denna månad. Vi har den för att förhindra missbruk/farmning. Kapaciteten återställs under de tre första dagarna av varje månad.",
-    "reachedGoldToGemCapQuantity": "Det begärda beloppet <%= quantity %> överskrider Guld=>Juvel konverterings-begränsningen <%= convCap %> för denna månaden. Vi har detta för att förebygga missbruk/överanvändning. Begränsningen återställs  inom de första tre dagarna för varje månad.",
+    "reachedGoldToGemCapQuantity": "Det begärda beloppet <%= quantity %> överskrider Guld=>Juvel konverterings-begränsningen <%= convCap %> för denna månaden. Vi har detta för att förebygga missbruk/överanvändning. Begränsningen återställs inom de första tre dagarna för varje månad.",
     "mysteryItem": "Exklusiva föremål varje månad",
     "mysteryItemText": "Varje månad får du en unik kosmetiskt objekt för din karaktär! Dessutom, för varje tredje månad av konsekutiv prenumeration så kommer de Mysteriska Tidsresenärerna att ge dig tillgång till historiska (och framtida!) kosmetiska objekt.",
     "exclusiveJackalopePet": "Exklusivt husdjur",

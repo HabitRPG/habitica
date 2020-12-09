@@ -2223,5 +2223,9 @@
     "armorArmoireDoubletOfClubsNotes": "Qui sait ce que les cartes vous réservent, mais vous aurez invariablement du style avec ce doublet et cette cape ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble du valet de trèfles (objet 3 de 3).",
     "armorArmoireDoubletOfClubsText": "Doublet de trèfles",
     "weaponArmoireClubOfClubsNotes": "Cette matraque stylisée ne révélera pas votre main trop tôt à propos de vos intentions envers ces vilaines tâches. Augmente la force de <%= str %>. Armoire enchantée : ensemble du valet de trèfle (objet 2 de 3).",
-    "weaponArmoireClubOfClubsText": "Matraque de trèfle"
+    "weaponArmoireClubOfClubsText": "Matraque de trèfle",
+    "backMystery202012Notes": "Les plumes enneigées de ces ailes vous donneront la vitesse d'un coup de vent hivernal. Ne confère aucun bonus. Équipement d'abonnement de décembre 2020.",
+    "backMystery202012Text": "Ailes des flammes de givre",
+    "headMystery202012Notes": "Ce masque imposant comporte des yeux perçants qui aveugleront les ennemis comme l'éclat du soleil sur la neige fraîche. Ne confère aucun bonus. Équipement d'abonnement de décembre 2020.",
+    "headMystery202012Text": "Masque des flammes de givre"
 }

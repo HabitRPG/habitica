@@ -84,5 +84,6 @@
     "hatchingPotionQuests": "Magical Hatchin' Potion Adventures",
     "questAlreadyStartedFriendly": "Th' Adventure's already started, but ye kin allus catch th' next 'un!",
     "questAlreadyStarted": "Th' Adventure's already started.",
-    "questInvitationNotificationInfo": "Ye've been invited ta join an Adventure"
+    "questInvitationNotificationInfo": "Ye've been invited ta join an Adventure",
+    "bossDamage": "Ye damag'd th' boss!"
 }

@@ -160,7 +160,7 @@
     "dontBreakStreak": "잘 했습니다. 기록을 깨지 마세요!",
     "dontStop": "여기서 멈추지 마세요!",
     "wonChallengeShare": "Habitica의 도전에서 우승했습니다!",
-    "orderBy": "<%=item %>개 단위로 주문한다",
+    "orderBy": "<%= item %>개 단위로 주문한다",
     "you": "(당신)",
     "loading": "로딩중...",
     "userIdRequired": "사용자 아이디가 필요합니다",

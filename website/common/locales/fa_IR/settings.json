@@ -2,7 +2,7 @@
     "settings": "تنظیمات",
     "language": "زبان",
     "americanEnglishGovern": "اگر اختلافی در ترجمه ها وجود داشته باشد، نسخه‌ی انگلیسی‌آمریکایی معتبرتر است.",
-    "helpWithTranslation": "می خواهی که به ترجمه‌ی هبیتیکا کمک کنی؟ عالیه! به  <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\"> رو در </a> ترللو کارت سر بزن.",
+    "helpWithTranslation": "می خواهی که به ترجمه‌ی هبیتیکا کمک کنی؟ عالیه! به <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\"> رو در </a> ترللو کارت سر بزن.",
     "stickyHeader": "سربرگ چسبان",
     "newTaskEdit": "یک کار جدید را در وضعیت ویرایش باز کن.",
     "dailyDueDefaultView": "Set Dailies default to 'due' tab",

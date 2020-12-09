@@ -145,7 +145,7 @@
     "notEnoughMana": "Non satis manae.",
     "invalidTarget": "You can't cast a skill on that.",
     "youCast": "<%= spell %> incantas.",
-    "youCastTarget": "Super <%= target %> <%=spell %> incantas.",
+    "youCastTarget": "Super <%= target %> <%= spell %> incantas.",
     "youCastParty": "<%= spell %> contubernio incantas.",
     "critBonus": "Critica Plaga! Commodum: ",
     "gainedGold": "Aliquod Aurum meritavisti",

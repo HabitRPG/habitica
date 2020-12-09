@@ -55,7 +55,7 @@
     "custom": "Custom",
     "wishlist": "Wishlist",
     "wrongItemType": "Ang uri ng item ''<%= type %>'' ay hindi balido.",
-    "wrongItemPath": "Ang landas ng item ''<%= path %>'' ay hindi balido. ",
+    "wrongItemPath": "Ang landas ng item ''<%= path %>'' ay hindi balido.",
     "unpinnedItem": "You unpinned <%= item %>! It will no longer display in your Rewards column.",
     "cannotUnpinArmoirPotion": "The Health Potion and Enchanted Armoire cannot be unpinned.",
     "purchasedItem": "Binili mo ang <%= itemName %>",

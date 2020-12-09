@@ -8,7 +8,7 @@
     "brokenChallenge": "لینک خراب چالش: این کار قسمتی از یک چالش بوده اما آن چالش (یا گروهش) پاک شده‌اند. با کارهای باقی مانده چه می‌کنید؟",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "این چالش تمام شده است و  <span class=\"badge\"><%- user %></span> برنده شده بود! با کارها باقی مانده چه می‌کنید؟",
+    "challengeCompleted": "این چالش تمام شده است و <span class=\"badge\"><%- user %></span> برنده شده بود! با کارها باقی مانده چه می‌کنید؟",
     "unsubChallenge": "لینک خراب چالش: این کار قسمتی از یک چالش بوده اما شما چالش را ترک کردید. با کارهای باقیمانده چه می‌کنید؟",
     "challenges": "چالش‌ها",
     "endDate": "Ends",

@@ -44,7 +44,7 @@
     "startAQuest": "ALOITA JAHTI",
     "startQuest": "Aloita jahti",
     "questInvitationDoesNotExist": "Jahtikutsua ei ole vielä lähetetty.",
-    "questInviteNotFound": "Jahtikutsua ei löytynyt. ",
+    "questInviteNotFound": "Jahtikutsua ei löytynyt.",
     "guildQuestsNotSupported": "Kiltoja ei voida kutsua jahteihin.",
     "questNotOwned": "Et omista kyseistä jahtikääröä.",
     "questNotGoldPurchasable": "Jahtia \"<%= key %>\" ei voi ostaa kullalla.",

@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:14
 
 ENV ADMIN_EMAIL admin@habitica.com
 ENV EMAILS_COMMUNITY_MANAGER_EMAIL admin@habitica.com
