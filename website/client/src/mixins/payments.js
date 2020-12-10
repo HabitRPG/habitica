@@ -141,7 +141,6 @@ export default {
       if (data.coupon) postData.coupon = data.coupon;
       if (data.groupId) postData.groupId = data.groupId;
 
-      // @TODO proper error handling
       const response = await axios.post(url, postData);
 
       const appState = {
@@ -179,13 +178,15 @@ export default {
         const checkoutSessionResult = await stripeInstance.redirectToCheckout({
           sessionId: response.data.data.sessionId,
         });
-        if (checkoutSessionResult.error) { // @TODO proper error handling
+        if (checkoutSessionResult.error) {
           console.error(checkoutSessionResult.error); // eslint-disable-line
-          alert(checkoutSessionResult.error.message);
+          alert(`Error while redirecting to Stripe: ${checkoutSessionResult.error.message}`);
+          throw checkoutSessionResult.error;
         }
-      } catch (err) { // @TODO proper error handling
-        console.error(err); // eslint-disable-line
-        alert(err);
+      } catch (err) {
+        console.error('Error while redirecting to Stripe', err); // eslint-disable-line
+        alert(`Error while redirecting to Stripe: ${err.message}`);
+        throw err;
       }
     },
     async redirectToStripeEdit (config) {
@@ -202,22 +203,20 @@ export default {
         groupId,
       });
 
-      // @TODO app state for editing?
-
       try {
         const checkoutSessionResult = await stripeInstance.redirectToCheckout({
           sessionId: response.data.data.sessionId,
         });
-        if (checkoutSessionResult.error) { // @TODO proper error handling
+        if (checkoutSessionResult.error) {
           console.error(checkoutSessionResult.error); // eslint-disable-line
-          alert(checkoutSessionResult.error.message);
+          alert(`Error while redirecting to Stripe: ${checkoutSessionResult.error.message}`);
+          throw checkoutSessionResult.error;
         }
-      } catch (err) { // @TODO proper error handling
-        console.error(err); // eslint-disable-line
-        alert(err);
+      } catch (err) {
+        console.error('Error while redirecting to Stripe', err); // eslint-disable-line
+        alert(`Error while redirecting to Stripe: ${err.message}`);
+        throw err;
       }
-
-      // @TODO remove old strings if not used subUpdateDescription, subUpdateCard
     },
     checkGemAmount (data) {
       const isGem = data && data.gift && data.gift.type === 'gems';
