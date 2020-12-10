@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="bailey-header d-flex align-items-center mb-3">
-      <div class="npc_bailey mr-3"></div>
+      <div
+        class="mr-3"
+        :class="baileyClass"
+      ></div>
       <h1 v-once>
         {{ $t('newStuff') }}
       </h1>
@@ -73,7 +76,14 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({
+      user: 'user.data',
+      currentEvent: 'worldState.data.currentEvent',
+    }),
+    baileyClass () {
+      if (!this.currentEvent || !this.currentEvent.season) return 'npc_bailey';
+      return `npc_bailey npc_bailey_${this.currentEvent.season}`;
+    },
   },
   methods: {
     async getPosts () {

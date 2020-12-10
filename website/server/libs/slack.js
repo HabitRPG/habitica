@@ -3,6 +3,7 @@ import { IncomingWebhook } from '@slack/webhook';
 import nconf from 'nconf';
 import moment from 'moment';
 import logger from './logger';
+import { getCurrentEvent } from './worldState'; // eslint-disable-line import/no-cycle
 import { TAVERN_ID } from '../models/group'; // eslint-disable-line import/no-cycle
 
 const SLACK_FLAGGING_URL = nconf.get('SLACK_FLAGGING_URL');
@@ -188,7 +189,9 @@ function sendSubscriptionNotification ({
   let text;
   const timestamp = new Date();
   if (recipient.id) {
-    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email} using ${paymentMethod} on ${timestamp}`;
+    const currentEvent = getCurrentEvent();
+    const promoString = currentEvent && currentEvent.promo && currentEvent.promo ? ' and got a promo' : '';
+    text = `${buyer.name} ${buyer.id} ${buyer.email} bought a ${months}-month gift subscription for ${recipient.name} ${recipient.id} ${recipient.email}${promoString} using ${paymentMethod} on ${timestamp}`;
   } else if (groupId) {
     text = `${buyer.name} ${buyer.id} ${buyer.email} bought a 1-month recurring group-plan for ${groupId} using ${paymentMethod} on ${timestamp}`;
   } else {

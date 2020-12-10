@@ -9,7 +9,7 @@
         <div slot="header">
           <div
             id="npmMattStable"
-            class="npc_matt"
+            :class="mattClass"
           ></div>
           <b-popover
             triggers="hover"
@@ -530,6 +530,7 @@ export default {
       currentMount: 'user.data.items.currentMount',
       userItems: 'user.data.items',
       user: 'user.data',
+      currentEvent: 'worldState.data.currentEvent',
     }),
     petGroups () {
       const petGroups = [
@@ -643,6 +644,10 @@ export default {
     },
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
+    },
+    mattClass () {
+      if (!this.currentEvent || !this.currentEvent.season) return 'npc_matt';
+      return `npc_matt npc_matt_${this.currentEvent.season}`;
     },
   },
   watch: {

@@ -16,19 +16,23 @@ export const EVENTS = {
   noCurrentEvent2021: {
     start: '2021-01-31T20:00-04:00',
     end: '2021-03-20T08:00-04:00',
+    season: 'normal',
   },
-  winter2021: {
+  winter2021NoPromo: {
     start: '2021-01-07T20:00-04:00',
     end: '2021-01-31T20:00-04:00',
+    season: 'winter',
   },
-  winter2021Promo: {
+  winter2021: {
     start: '2020-12-17T08:00-04:00',
     end: '2021-01-07T20:00-04:00',
+    season: 'winter',
     promo: 'g1g1',
   },
   noCurrentEvent2020: {
     start: '2020-10-31T20:00-04:00',
     end: '2020-12-17T08:00-04:00',
+    season: 'normal',
   },
   fall2020:   {
     start: '2020-09-22T08:00-04:00',

@@ -283,22 +283,36 @@
         </div>
       </div>
     </div>
-    <div class="d-flex flex-column align-items-center mt-4">
+    <div class="d-flex justify-content-center align-items-start">
+      <div class="d-flex flex-column align-items-center mt-4">
+        <div
+          v-once
+          class="svg-icon svg-gift-box m-auto"
+          v-html="icons.giftBox"
+        >
+        </div>
+        <div class="muted mx-auto mt-3 mb-1">
+          {{ $t('giftSubscription') }}
+        </div>
+        <a
+          class="mx-auto"
+          @click="showSelectUser()"
+        >
+          {{ $t('giftASubscription') }}
+        </a>
+      </div>
       <div
-        v-once
-        class="svg-icon svg-gift-box m-auto"
-        v-html="icons.giftBox"
-      >
+        v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
+        class="m-5">
       </div>
-      <div class="muted mx-auto mt-3 mb-1">
-        {{ $t('giftSubscription') }}
-      </div>
-      <a
-        class="mx-auto"
-        @click="showSelectUser()"
+      <div
+        v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
+        class="ml-5 mt-3"
       >
-        {{ $t('giftASubscription') }}
-      </a>
+        <h2 v-once> {{ $t('winterPromoGiftHeader') }} </h2>
+        <p v-once> {{ $t('winterPromoGiftDetails1') }} </p>
+        <p v-once> {{ $t('winterPromoGiftDetails2') }} </p>
+      </div>
     </div>
   </div>
 </template>
@@ -597,7 +611,11 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data', credentials: 'credentials' }),
+    ...mapState({
+      user: 'user.data',
+      credentials: 'credentials',
+      currentEvent: 'worldState.data.currentEvent',
+    }),
     purchasedPlanIdInfo () {
       if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
         // @TODO: find which subs are in the common

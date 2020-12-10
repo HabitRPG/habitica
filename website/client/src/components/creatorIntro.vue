@@ -518,7 +518,10 @@
             </p>
           </div>
         </div>
-        <div class="npc-justin-textbox"></div>
+        <div
+          class="npc-justin-textbox"
+          :style="{'background-image': imageURL}"
+        ></div>
       </div>
     </div>
     <div
@@ -755,7 +758,6 @@
       top: -3.1rem;
       width: 48px;
       height: 48px;
-      background-image: url('~@/assets/images/justin_textbox.png');
     }
 
     .featured-label {
@@ -1189,7 +1191,10 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({
+      user: 'user.data',
+      currentEvent: 'worldState.data.currentEvent',
+    }),
     editing () {
       return this.$store.state.avatarEditorOptions.editingUser;
     },
@@ -1239,6 +1244,12 @@ export default {
         });
       });
       return ownedBackgrounds;
+    },
+    imageURL () {
+      if (!this.currentEvent || !this.currentEvent.season) {
+        return 'url(/static/npc/normal/npc_justin.png)';
+      }
+      return `url(/static/npc/${this.currentEvent.season}/npc_justin.png)`;
     },
   },
   watch: {

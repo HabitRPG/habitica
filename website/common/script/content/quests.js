@@ -259,8 +259,9 @@ const quests = {
   },
   evilsanta: {
     canBuy () {
-      return moment().isBetween('2019-12-19', '2020-02-02');
+      return moment().isBetween('2020-12-17T08:00-04:00', '2021-01-31T20:00-04:00');
     },
+    event: EVENTS.winter2021,
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -286,8 +287,9 @@ const quests = {
   },
   evilsanta2: {
     canBuy () {
-      return moment().isBetween('2019-12-19', '2020-02-02');
+      return moment().isBetween('2020-12-17T08:00-04:00', '2021-01-31T20:00-04:00');
     },
+    event: EVENTS.winter2021,
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
     addlNotes: t('evilSantaAddlNotes'),

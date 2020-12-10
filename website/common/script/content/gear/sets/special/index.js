@@ -19,7 +19,7 @@ const CURRENT_SEASON = findKey(EVENTS, event => {
 });
 
 const gearEvents = cloneDeep(EVENTS);
-['winter', 'birthday', 'gaymerx', 'noCurrentEvent2020', 'winter2021Promo', 'noCurrentEvent2021'].forEach(nonGearEvent => {
+['winter', 'birthday', 'gaymerx', 'noCurrentEvent2020', 'winter2021NoPromo', 'noCurrentEvent2021'].forEach(nonGearEvent => {
   delete gearEvents[nonGearEvent];
 }); // TODO maybe we can match with regex instead of manually specifying here?
 
@@ -647,6 +647,18 @@ const armor = {
   },
   fall2020Healer: {
     set: 'fall2020DeathsHeadMothHealerSet',
+  },
+  winter2021Rogue: {
+    set: 'winter2021HollyIvyRogueSet',
+  },
+  winter2021Warrior: {
+    set: 'winter2021IceFishingWarriorSet',
+  },
+  winter2021Mage: {
+    set: 'winter2021WinterMoonMageSet',
+  },
+  winter2021Healer: {
+    set: 'winter2021ArcticExplorerHealerSet',
   },
 };
 
@@ -1637,6 +1649,18 @@ const head = {
   fall2020Healer: {
     set: 'fall2020DeathsHeadMothHealerSet',
   },
+  winter2021Rogue: {
+    set: 'winter2021HollyIvyRogueSet',
+  },
+  winter2021Warrior: {
+    set: 'winter2021IceFishingWarriorSet',
+  },
+  winter2021Mage: {
+    set: 'winter2021WinterMoonMageSet',
+  },
+  winter2021Healer: {
+    set: 'winter2021ArcticExplorerHealerSet',
+  },
 };
 
 const headStats = {
@@ -2360,6 +2384,15 @@ const shield = {
   fall2020Healer: {
     set: 'fall2020DeathsHeadMothHealerSet',
   },
+  winter2021Rogue: {
+    set: 'winter2021HollyIvyRogueSet',
+  },
+  winter2021Warrior: {
+    set: 'winter2021IceFishingWarriorSet',
+  },
+  winter2021Healer: {
+    set: 'winter2021ArcticExplorerHealerSet',
+  },
 };
 
 const shieldStats = {
@@ -2968,6 +3001,18 @@ const weapon = {
   },
   fall2020Healer: {
     set: 'fall2020DeathsHeadMothHealerSet',
+  },
+  winter2021Rogue: {
+    set: 'winter2021HollyIvyRogueSet',
+  },
+  winter2021Warrior: {
+    set: 'winter2021IceFishingWarriorSet',
+  },
+  winter2021Mage: {
+    set: 'winter2021WinterMoonMageSet',
+  },
+  winter2021Healer: {
+    set: 'winter2021ArcticExplorerHealerSet',
   },
 };
 

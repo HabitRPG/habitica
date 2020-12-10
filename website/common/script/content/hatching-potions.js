@@ -226,6 +226,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionIcySnow'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJanuary'),
+      previousDate: t('decemberYYYY', { year: 2018 }),
+    }),
+    event: EVENTS.winter2021,
+    canBuy () {
+      return moment().isBetween('2020-12-22T08:00-04:00', '2021-01-31T20:00-04:00');
+    },
   },
   RoseQuartz: {
     value: 2,
@@ -311,12 +319,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionAurora'),
     limited: true,
-    canBuy () {
-      return moment().isBetween('2019-12-19', '2020-02-02');
-    },
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndJanuary'),
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJanuary'),
+      previousDate: t('decemberYYYY', { year: 2019 }),
     }),
+    event: EVENTS.winter2021,
+    canBuy () {
+      return moment().isBetween('2020-12-22T08:00-04:00', '2021-01-31T20:00-04:00');
+    },
   },
   Ruby: {
     value: 2,
@@ -399,6 +409,18 @@ const premium = {
     limited: true,
     canBuy: hasQuestAchievementFunction('blackPearl'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
+  StainedGlass: {
+    value: 2,
+    text: t('hatchingPotionStainedGlass'),
+    limited: true,
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndJanuary'),
+    }),
+    event: EVENTS.winter2021,
+    canBuy () {
+      return moment().isBetween('2020-12-22T08:00-04:00', '2021-01-31T20:00-04:00');
+    },
   },
 };
 
