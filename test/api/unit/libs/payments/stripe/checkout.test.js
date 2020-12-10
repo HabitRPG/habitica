@@ -12,6 +12,7 @@ import {
 } from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 import { model as Group } from '../../../../../../website/server/models/group';
+import * as gems from '../../../../../../website/server/libs/payments/gems';
 
 const { i18n } = common;
 
@@ -32,6 +33,7 @@ describe('Stripe - Checkout', () => {
     beforeEach(() => {
       user = new User();
       sandbox.stub(stripe.checkout.sessions, 'create').returns(sessionId);
+      sandbox.stub(gems, 'validateGiftMessage');
     });
 
     it('gems', async () => {
@@ -53,6 +55,7 @@ describe('Stripe - Checkout', () => {
         gemsBlock: gemsBlockKey,
       };
 
+      expect(gems.validateGiftMessage).to.not.be.called;
       expect(oneTimePayments.getOneTimePaymentInfo).to.be.calledOnce;
       expect(oneTimePayments.getOneTimePaymentInfo).to.be.calledWith(gemsBlockKey, undefined, user);
       expect(stripe.checkout.sessions.create).to.be.calledOnce;
@@ -101,6 +104,9 @@ describe('Stripe - Checkout', () => {
         sub: undefined,
         gemsBlock: undefined,
       };
+
+      expect(gems.validateGiftMessage).to.be.calledOnce;
+      expect(gems.validateGiftMessage).to.be.calledWith(gift, user);
 
       expect(oneTimePayments.getOneTimePaymentInfo).to.be.calledOnce;
       expect(oneTimePayments.getOneTimePaymentInfo).to.be.calledWith(undefined, gift, user);

@@ -12,6 +12,7 @@ import { // eslint-disable-line import/no-cycle
 import shared from '../../../../common';
 import { getOneTimePaymentInfo } from './oneTimePayments'; // eslint-disable-line import/no-cycle
 import { checkSubData } from './subscriptions'; // eslint-disable-line import/no-cycle
+import { validateGiftMessage } from '../gems'; // eslint-disable-line import/no-cycle
 
 const BASE_URL = nconf.get('BASE_URL');
 
@@ -33,6 +34,7 @@ export async function createCheckoutSession (options, stripeInc) {
   let type = 'gems';
   if (gift) {
     type = gift.type === 'gems' ? 'gift-gems' : 'gift-sub';
+    validateGiftMessage(gift, user);
   } else if (sub) {
     type = 'subscription';
   }

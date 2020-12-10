@@ -3,6 +3,7 @@ import amzLib from '../../../../../../website/server/libs/payments/amazon';
 import payments from '../../../../../../website/server/libs/payments/payments';
 import common from '../../../../../../website/common';
 import apiError from '../../../../../../website/server/libs/apiError';
+import * as gems from '../../../../../../website/server/libs/payments/gems';
 
 const { i18n } = common;
 
@@ -88,6 +89,7 @@ describe('Amazon Payments - Checkout', () => {
     paymentCreateSubscritionStub.resolves({});
 
     sinon.stub(common, 'uuid').returns('uuid-generated');
+    sandbox.stub(gems, 'validateGiftMessage');
   });
 
   afterEach(() => {
@@ -111,7 +113,10 @@ describe('Amazon Payments - Checkout', () => {
     if (gift) {
       expectedArgs.gift = gift;
       expectedArgs.gemsBlock = undefined;
+      expect(gems.validateGiftMessage).to.be.calledOnce;
+      expect(gems.validateGiftMessage).to.be.calledWith(gift, user);
     } else {
+      expect(gems.validateGiftMessage).to.not.be.called;
       expectedArgs.gemsBlock = gemsBlock;
     }
     expect(paymentBuyGemsStub).to.be.calledWith(expectedArgs);
