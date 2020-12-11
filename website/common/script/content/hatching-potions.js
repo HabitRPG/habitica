@@ -232,7 +232,7 @@ const premium = {
     }),
     event: EVENTS.winter2021,
     canBuy () {
-      return moment().isBetween('2020-12-22T08:00-04:00', '2021-01-31T20:00-04:00');
+      return moment().isBetween('2020-12-01T08:00-04:00', '2021-01-31T20:00-04:00');
     },
   },
   RoseQuartz: {
@@ -325,7 +325,7 @@ const premium = {
     }),
     event: EVENTS.winter2021,
     canBuy () {
-      return moment().isBetween('2020-12-22T08:00-04:00', '2021-01-31T20:00-04:00');
+      return moment().isBetween('2020-12-01T08:00-04:00', '2021-01-31T20:00-04:00');
     },
   },
   Ruby: {
@@ -419,7 +419,7 @@ const premium = {
     }),
     event: EVENTS.winter2021,
     canBuy () {
-      return moment().isBetween('2020-12-22T08:00-04:00', '2021-01-31T20:00-04:00');
+      return moment().isBetween('2020-12-01T08:00-04:00', '2021-01-31T20:00-04:00');
     },
   },
 };
