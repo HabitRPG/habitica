@@ -87,7 +87,7 @@ const bundles = {
       'penguin',
     ],
     canBuy () {
-      return CURRENT_EVENT.season === 'winter';
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'winter';
     },
     type: 'quests',
     value: 7,
