@@ -263,7 +263,7 @@ const quests = {
   },
   evilsanta: {
     canBuy () {
-      return CURRENT_EVENT.season === 'winter';
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'winter';
     },
     event: EVENTS.winter2021,
     text: t('questEvilSantaText'),
@@ -291,7 +291,7 @@ const quests = {
   },
   evilsanta2: {
     canBuy () {
-      return CURRENT_EVENT.season === 'winter';
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'winter';
     },
     event: EVENTS.winter2021,
     text: t('questEvilSanta2Text'),
