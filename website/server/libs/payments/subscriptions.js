@@ -204,7 +204,7 @@ async function createSubscription (data) {
       }, languages[0]);
 
       senderMsg = `\`${senderMsg}\``;
-      data.user.sendMessage(data.gift.member, { senderMsg });
+      data.user.sendMessage(data.gift.member, { senderMsg, save: false });
     } else {
       let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
         username: data.gift.member.profile.name,
