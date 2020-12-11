@@ -65,7 +65,7 @@ describe('Stripe - Checkout', () => {
         line_items: [{
           price_data: {
             product_data: {
-              name: JSON.stringify(metadata, null, 4),
+              name: common.i18n.t('nGems', { nGems: 21 }),
             },
             unit_amount: amount,
             currency: 'usd',
@@ -117,7 +117,7 @@ describe('Stripe - Checkout', () => {
         line_items: [{
           price_data: {
             product_data: {
-              name: JSON.stringify(metadata, null, 4),
+              name: common.i18n.t('nGemsGift', { nGems: 4 }),
             },
             unit_amount: amount,
             currency: 'usd',
@@ -132,18 +132,20 @@ describe('Stripe - Checkout', () => {
     it('subscription gift', async () => {
       const receivingUser = new User();
       await receivingUser.save();
+      const subKey = 'basic_3mo';
 
       const gift = {
         type: 'subscription',
         uuid: receivingUser._id,
         subscription: {
-          key: 'basic_3mo',
+          key: subKey,
         },
       };
       const amount = 1500;
       sandbox.stub(oneTimePayments, 'getOneTimePaymentInfo').returns({
         amount,
         gemsBlock: null,
+        subscription: common.content.subscriptionBlocks[subKey],
       });
 
       const res = await createCheckoutSession({ user, gift }, stripe);
@@ -166,7 +168,7 @@ describe('Stripe - Checkout', () => {
         line_items: [{
           price_data: {
             product_data: {
-              name: JSON.stringify(metadata, null, 4),
+              name: common.i18n.t('nMonthsSubscriptionGift', { nMonths: 3 }),
             },
             unit_amount: amount,
             currency: 'usd',

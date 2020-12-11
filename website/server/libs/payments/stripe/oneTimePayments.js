@@ -7,6 +7,7 @@ import {
 import stripeConstants from './constants';
 import shared from '../../../../common';
 import { getGemsBlock } from '../gems'; // eslint-disable-line import/no-cycle
+import { checkSubData } from './subscriptions'; // eslint-disable-line import/no-cycle
 import { model as User } from '../../../models/user'; // eslint-disable-line import/no-cycle
 
 function getGiftAmount (gift) {
@@ -36,9 +37,15 @@ export async function getOneTimePaymentInfo (gemsBlockKey, gift, user) {
 
   let amount;
   let gemsBlock = null;
+  let subscription = null;
 
   if (gift) {
     amount = getGiftAmount(gift);
+
+    if (gift.type === 'subscription') {
+      subscription = shared.content.subscriptionBlocks[gift.subscription.key];
+      await checkSubData(subscription, false, null);
+    }
   } else {
     gemsBlock = getGemsBlock(gemsBlockKey);
     amount = gemsBlock.price;
@@ -52,6 +59,7 @@ export async function getOneTimePaymentInfo (gemsBlockKey, gift, user) {
   return {
     amount,
     gemsBlock,
+    subscription,
   };
 }
 

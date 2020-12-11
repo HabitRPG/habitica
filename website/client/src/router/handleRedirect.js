@@ -23,6 +23,19 @@ export default function (to, from, next) {
         newAppState.paymentCompleted = true;
         setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(newAppState));
 
+        if (newAppState.isStripeEdit) {
+          if (newAppState.paymentType === 'subscription') {
+            return next({ name: 'subscription' });
+          }
+
+          if (newAppState.paymentType === 'groupPlan') {
+            return next({
+              name: 'groupPlanBilling',
+              params: { groupId: newAppState.groupId },
+            });
+          }
+        }
+
         const newGroup = newAppState.group;
         if (newGroup && newGroup._id) {
           // Handle new user signup
@@ -58,11 +71,22 @@ export default function (to, from, next) {
           gift,
           newGroup,
           group,
+          isStripeEdit,
+          groupId,
         } = newAppState;
+
         if (paymentType === 'subscription') {
           return next({ name: 'subscription' });
         }
+
         if (paymentType === 'groupPlan') {
+          if (isStripeEdit) {
+            return next({
+              name: 'groupPlanBilling',
+              params: { groupId },
+            });
+          }
+
           if (newGroup) {
             return next({ name: 'groupPlan' });
           }

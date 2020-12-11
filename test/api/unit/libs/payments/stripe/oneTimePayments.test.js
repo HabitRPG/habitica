@@ -4,6 +4,7 @@ import {
   getOneTimePaymentInfo,
   applyGemPayment,
 } from '../../../../../../website/server/libs/payments/stripe/oneTimePayments';
+import * as subscriptions from '../../../../../../website/server/libs/payments/stripe/subscriptions';
 import { model as User } from '../../../../../../website/server/models/user';
 import payments from '../../../../../../website/server/libs/payments/payments';
 
@@ -15,15 +16,19 @@ describe('Stripe - One Time Payments', () => {
 
     beforeEach(() => {
       user = new User();
+      sandbox.stub(subscriptions, 'checkSubData');
     });
 
     describe('gemsBlock', () => {
       it('returns the gemsBlock and amount', async () => {
-        const { gemsBlock, amount } = await getOneTimePaymentInfo('21gems', null, user);
+        const { gemsBlock, amount, subscription } = await getOneTimePaymentInfo('21gems', null, user);
         expect(gemsBlock).to.equal(common.content.gems['21gems']);
         expect(amount).to.equal(gemsBlock.price);
         expect(amount).to.equal(499);
+        expect(subscription).to.be.null;
+        expect(subscriptions.checkSubData).to.not.be.called;
       });
+
       it('throws if the gemsBlock does not exist', async () => {
         await expect(getOneTimePaymentInfo('not existant', null, user))
           .to.eventually.be.rejected.and.to.eql({
@@ -128,9 +133,12 @@ describe('Stripe - One Time Payments', () => {
           },
         };
 
-        const { gemsBlock, amount } = await getOneTimePaymentInfo(null, gift, user);
+        expect(subscriptions.checkSubData).to.not.be.called;
+
+        const { gemsBlock, amount, subscription } = await getOneTimePaymentInfo(null, gift, user);
         expect(gemsBlock).to.equal(null);
         expect(amount).to.equal('100');
+        expect(subscription).to.be.null;
       });
 
       it('returns the amount (subscription)', async () => {
@@ -143,11 +151,17 @@ describe('Stripe - One Time Payments', () => {
             key: 'basic_3mo',
           },
         };
+        const sub = common.content.subscriptionBlocks['basic_3mo']; // eslint-disable-line dot-notation
 
-        const { gemsBlock, amount } = await getOneTimePaymentInfo(null, gift, user);
+        const { gemsBlock, amount, subscription } = await getOneTimePaymentInfo(null, gift, user);
+
+        expect(subscriptions.checkSubData).to.be.calledOnce;
+        expect(subscriptions.checkSubData).to.be.calledWith(sub, false, null);
+
         expect(gemsBlock).to.equal(null);
         expect(amount).to.equal('1500');
-        expect(Number(amount)).to.equal(common.content.subscriptionBlocks['basic_3mo'].price * 100); // eslint-disable-line dot-notation
+        expect(Number(amount)).to.equal(sub.price * 100);
+        expect(subscription).to.equal(sub);
       });
     });
   });

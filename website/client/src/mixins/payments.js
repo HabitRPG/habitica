@@ -199,9 +199,19 @@ export default {
         groupId = config.groupId;
       }
 
+      const appState = {
+        paymentMethod: 'stripe',
+        isStripeEdit: true,
+        paymentCompleted: false,
+        paymentType: groupId ? 'groupPlan' : 'subscription',
+        groupId,
+      };
+
       const response = await axios.post('/stripe/subscribe/edit', {
         groupId,
       });
+
+      setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
 
       try {
         const checkoutSessionResult = await stripeInstance.redirectToCheckout({
