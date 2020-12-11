@@ -32,7 +32,7 @@ body.modal-open .habitica-top-banner {
   z-index: 1300;
 }
 
-.svg-icon {
+.close-icon.svg-icon {
   position: relative;
   top: 0;
   right: 0;

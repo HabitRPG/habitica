@@ -377,6 +377,15 @@
   "weaponSpecialFall2020HealerText": "Cocoon Cane",
   "weaponSpecialFall2020HealerNotes": "Now that your transformation is complete, this remnant of your life as a pupa now serves as the divining rod with which you measure destinies. Increases Intelligence by <%= int %>. Limited Edition 2020 Autumn Gear.",
 
+  "weaponSpecialWinter2021RogueText": "x",
+  "weaponSpecialWinter2021RogueNotes": "Increases Strength by <%= str %>. Limited Edition 2020-2021 Winter Gear.",
+  "weaponSpecialWinter2021WarriorText": "x",
+  "weaponSpecialWinter2021WarriorNotes": "Increases Strength by <%= str %>. Limited Edition 2020-2021 Winter Gear.",
+  "weaponSpecialWinter2021MageText": "Magical Moon Phaser",
+  "weaponSpecialWinter2021MageNotes": "This mighty weapon is definitely more than a phase. Channel your energy, focus on the flow of a month, and study time and space. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2020-2021 Winter Gear.",
+  "weaponSpecialWinter2021HealerText": "x",
+  "weaponSpecialWinter2021HealerNotes": "Increases Intelligence by <%= int %>. Limited Edition 2020-2021 Winter Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -878,6 +887,15 @@
   "armorSpecialFall2020MageNotes": "These wide-winged robes give the impression of hovering or flight, symbolizing the far-seeing perspective granted by vast knowledge. Increases Intelligence by <%= int %>. Limited Edition 2020 Autumn Gear.",
   "armorSpecialFall2020HealerText": "Hawkmoth Wings",
   "armorSpecialFall2020HealerNotes": "Your splendor unfurls by night, and those who witness you in flight wonder at what this omen could mean. Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
+
+  "armorSpecialWinter2021RogueText": "x",
+  "armorSpecialWinter2021RogueNotes": "Increases Perception by <%= per %>. Limited Edition 2020-2021 Winter Gear.",
+  "armorSpecialWinter2021WarriorText": "x",
+  "armorSpecialWinter2021WarriorNotes": "Increases Constitution by <%= con %>. Limited Edition 2020-2021 Winter Gear.",
+  "armorSpecialWinter2021MageText": "Flowing Moonlight Robes",
+  "armorSpecialWinter2021MageNotes": "These warm Winter Robes will keep you cozy during the cold time of the year. A fancy flowing fabric on the outside reflects the silver moonlight and lets you go with the flow, you know? Increases Intelligence by <%= int %>. Limited Edition 2020-2021 Winter Gear.",
+  "armorSpecialWinter2021HealerText": "x",
+  "armorSpecialWinter2021HealerNotes": "Increases Constitution by <%= con %>. Limited Edition 2020-2021 Winter Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1478,6 +1496,15 @@
   "headSpecialFall2020HealerText": "Death's Head Mask",
   "headSpecialFall2020HealerNotes": "The dreadful pallor of this skull-like visage shines as a warning to all mortals: Time is fleeting! Attend to thy deadlines, before it is too late! Increases Intelligence by <%= int %>. Limited Edition 2020 Autumn Gear.",
 
+  "headSpecialWinter2021RogueText": "x",
+  "headSpecialWinter2021RogueNotes": "Increases Perception by <%= per %>. Limited Edition 2020-2021 Winter Gear.",
+  "headSpecialWinter2021WarriorText": "x",
+  "headSpecialWinter2021WarriorNotes": "Increases Strength by <%= str %>. Limited Edition 2020-2021 Winter Gear.",
+  "headSpecialWinter2021MageText": "Moonlight Shadow Hood",
+  "headSpecialWinter2021MageNotes": "Let your mind get carried away, while you feel safely tucked in, under this huge homely hood. Increases Perception by <%= per %>. Limited Edition 2020-2021 Winter Gear.",
+  "headSpecialWinter2021HealerText": "x",
+  "headSpecialWinter2021HealerNotes": "Increases Intelligence by <%= int %>. Limited Edition 2020-2021 Winter Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1939,6 +1966,11 @@
   "shieldSpecialFall2020WarriorNotes": "It may look insubstantial, but this spectral shield can keep you safe from all kinds of harm. Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
   "shieldSpecialFall2020HealerText": "Cocoon Carryall",
   "shieldSpecialFall2020HealerNotes": "Is it another moth you carry, still undergoing metamorphosis? Or simply a silken handbag, containing your tools of healing and prophecy? Increases Constitution by <%= con %>. Limited Edition 2020 Autumn Gear.",
+
+  "shieldSpecialWinter2021WarriorText": "x",
+  "shieldSpecialWinter2021WarriorNotes": "Increases Constitution by <%= con %>. Limited Edition 2020-2021 Winter Gear.",
+  "shieldSpecialWinter2021HealerText": "x",
+  "shieldSpecialWinter2021HealerNotes": "Increases Constitution by <%= con %>. Limited Edition 2020-2021 Winter Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",

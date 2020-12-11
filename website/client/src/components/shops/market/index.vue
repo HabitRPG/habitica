@@ -17,7 +17,8 @@
     </div>
     <div slot="page">
       <featured-items-header
-        :broken="broken"
+        :bg-url="imageURLs.background"
+        :npc-url="imageURLs.npc"
         :npc-name="'Alex'"
         :featured-text="market.featured.text"
         :featured-items="market.featured.items"
@@ -105,7 +106,6 @@
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
 
   .fill-height {
     height: 38px; // button + margin + padding
@@ -128,18 +128,8 @@
       margin: 0 auto;
     }
 
-
     .featuredItems {
-      .background {
-        background: url('~@/assets/images/npc/#{$npc_market_flavor}/market_background.png');
-
-        background-repeat: repeat-x;
-      }
-
       .npc {
-        background: url('~@/assets/images/npc/#{$npc_market_flavor}/market_banner_npc.png');
-        background-repeat: no-repeat;
-
         .featured-label {
           position: absolute;
           bottom: -14px;
@@ -161,7 +151,7 @@
 import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _throttle from 'lodash/throttle';
-import { mapState, mapGetters } from '@/libs/store';
+import { mapState } from '@/libs/store';
 
 import KeysToKennel from './keysToKennel';
 import EquipmentSection from './equipmentSection';
@@ -229,9 +219,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
-    }),
-    ...mapGetters({
-      broken: 'worldState.brokenMarket',
+      currentEvent: 'worldState.data.currentEvent',
     }),
     market () {
       return shops.getMarketShop(this.user);
@@ -296,6 +284,18 @@ export default {
     },
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
+    },
+    imageURLs () {
+      if (!this.currentEvent || !this.currentEvent.season) {
+        return {
+          background: 'url(/static/npc/normal/market_background.png)',
+          npc: 'url(/static/npc/normal/market_banner_npc.png)',
+        };
+      }
+      return {
+        background: `url(/static/npc/${this.currentEvent.season}/market_background.png)`,
+        npc: `url(/static/npc/${this.currentEvent.season}/market_banner_npc.png)`,
+      };
     },
   },
   watch: {
