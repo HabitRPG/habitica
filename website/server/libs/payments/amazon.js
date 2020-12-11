@@ -18,7 +18,6 @@ import { // eslint-disable-line import/no-cycle
 } from '../../models/group';
 import { model as Coupon } from '../../models/coupon';
 import { getGemsBlock } from './gems'; // eslint-disable-line import/no-cycle
-import promoSubscription from './promoSubscription'; // eslint-disable-line import/no-cycle
 
 // TODO better handling of errors
 
@@ -186,8 +185,6 @@ api.checkout = async function checkout (options = {}) {
     gift.member = await User.findById(gift.uuid).exec();
     data.gift = gift;
     data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
-
-    promoSubscription(data);
   }
 
   await payments[method](data);
