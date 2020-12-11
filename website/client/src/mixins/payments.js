@@ -160,10 +160,10 @@ export default {
 
         if (data.groupToCreate) {
           appState.newGroup = true;
-          appState.group = pick(response.data.data.group, ['_id', 'memberCount', 'name']);
+          appState.group = pick(response.data.data.group, ['_id', 'memberCount', 'name', 'type']);
         } else {
           appState.newGroup = false;
-          appState.group = pick(data.group, ['_id', 'memberCount', 'name']);
+          appState.group = pick(data.group, ['_id', 'memberCount', 'name', 'type']);
         }
       } else if (paymentType.indexOf('gift-') === 0) {
         appState.gift = data.gift;

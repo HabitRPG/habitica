@@ -50,8 +50,43 @@ export default function (to, from, next) {
       return next({ name: 'tasks' });
     }
     case 'stripe-error-checkout': {
-      // @TODO
-      return null;
+      const appState = getLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE);
+      if (appState) {
+        const newAppState = JSON.parse(appState);
+        const {
+          paymentType,
+          gift,
+          newGroup,
+          group,
+        } = newAppState;
+        if (paymentType === 'subscription') {
+          return next({ name: 'subscription' });
+        }
+        if (paymentType === 'groupPlan') {
+          if (newGroup) {
+            return next({ name: 'groupPlan' });
+          }
+
+          if (group.type === 'party') {
+            return next({
+              name: 'party',
+            });
+          }
+
+          return next({
+            name: 'guild',
+            params: { groupId: group._id },
+          });
+        }
+        if (paymentType.indexOf('gift-') === 0) {
+          return next({ name: 'userProfile', params: { userId: gift.uuid } });
+        }
+        if (paymentType === 'gems') {
+          return next({ name: 'tasks', query: { openGemsModal: true } });
+        }
+      }
+
+      return next({ name: 'tasks' });
     }
     default:
       return next({ name: 'notFound' });
