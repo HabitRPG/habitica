@@ -9,7 +9,7 @@
         <div slot="header">
           <div
             id="npmMattStable"
-            :class="mattClass"
+            :class="seasonalNPC('matt')"
           ></div>
           <b-popover
             triggers="hover"
@@ -455,6 +455,7 @@ import svgInformation from '@/assets/svg/information.svg';
 import notifications from '@/mixins/notifications';
 import openedItemRowsMixin from '@/mixins/openedItemRows';
 import petMixin from '@/mixins/petMixin';
+import seasonalNPC from '@/mixins/seasonalNPC';
 
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 import { isOwned } from '../../../libs/createAnimal';
@@ -493,7 +494,7 @@ export default {
     drag: DragDropDirective,
     mousePosition: MouseMoveDirective,
   },
-  mixins: [notifications, openedItemRowsMixin, petMixin],
+  mixins: [notifications, openedItemRowsMixin, petMixin, seasonalNPC],
   data () {
     const stableSortState = getLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE) || 'standard';
 
@@ -530,7 +531,6 @@ export default {
       currentMount: 'user.data.items.currentMount',
       userItems: 'user.data.items',
       user: 'user.data',
-      currentEvent: 'worldState.data.currentEvent',
     }),
     petGroups () {
       const petGroups = [
@@ -644,10 +644,6 @@ export default {
     },
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
-    },
-    mattClass () {
-      if (!this.currentEvent || !this.currentEvent.season) return 'npc_matt';
-      return `npc_matt npc_matt_${this.currentEvent.season}`;
     },
   },
   watch: {

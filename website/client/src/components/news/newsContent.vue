@@ -3,7 +3,7 @@
     <div class="bailey-header d-flex align-items-center mb-3">
       <div
         class="mr-3"
-        :class="baileyClass"
+        :class="seasonalNPC('bailey')"
       ></div>
       <h1 v-once>
         {{ $t('newStuff') }}
@@ -68,8 +68,10 @@ h1 {
 import moment from 'moment';
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
+import seasonalNPC from '@/mixins/seasonalNPC';
 
 export default {
+  mixins: [seasonalNPC],
   data () {
     return {
       posts: [],
@@ -78,12 +80,7 @@ export default {
   computed: {
     ...mapState({
       user: 'user.data',
-      currentEvent: 'worldState.data.currentEvent',
     }),
-    baileyClass () {
-      if (!this.currentEvent || !this.currentEvent.season) return 'npc_bailey';
-      return `npc_bailey npc_bailey_${this.currentEvent.season}`;
-    },
   },
   methods: {
     async getPosts () {

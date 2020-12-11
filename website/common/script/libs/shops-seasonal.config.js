@@ -1,12 +1,20 @@
+import find from 'lodash/find';
+import upperFirst from 'lodash/upperFirst';
 import moment from 'moment';
-import { SEASONAL_SETS } from '../content/constants';
+import {
+  EVENTS,
+  SEASONAL_SETS,
+} from '../content/constants';
 
-const SHOP_OPEN = moment().isBetween('2020-12-17T08:00-04:00', '2021-01-31T20:00-04:00');
+const CURRENT_EVENT = find(EVENTS, event => {
+  moment().isBetween(event.start, event.end);
+});
+const SHOP_OPEN = CURRENT_EVENT && ['winter', 'spring', 'summer', 'fall'].includes(CURRENT_EVENT.season);
 
 export default {
   opened: SHOP_OPEN,
 
-  currentSeason: SHOP_OPEN ? 'Winter' : 'Closed',
+  currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Closed',
 
   dateRange: { start: '2020-12-17', end: '2021-01-31' },
 
@@ -25,7 +33,7 @@ export default {
     }
     : {},
 
-  availableSpells: moment().isBetween('2020-12-17T08:00-04:00', '2021-01-31T20:00-04:00')
+  availableSpells: moment().isBetween('2020-12-29T08:00-04:00', '2021-01-31T20:00-04:00')
     ? [
       'snowball',
     ]

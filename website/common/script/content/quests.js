@@ -1,5 +1,6 @@
-import each from 'lodash/each';
 import defaults from 'lodash/defaults';
+import each from 'lodash/each';
+import find from 'lodash/find';
 import moment from 'moment';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
@@ -8,6 +9,9 @@ import {
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
+const CURRENT_EVENT = find(EVENTS, event => {
+  moment().isBetween(event.start, event.end);
+});
 const userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
 const quests = {
@@ -259,7 +263,7 @@ const quests = {
   },
   evilsanta: {
     canBuy () {
-      return moment().isBetween('2020-12-17T08:00-04:00', '2021-01-31T20:00-04:00');
+      return CURRENT_EVENT.season === 'winter';
     },
     event: EVENTS.winter2021,
     text: t('questEvilSantaText'),
@@ -287,7 +291,7 @@ const quests = {
   },
   evilsanta2: {
     canBuy () {
-      return moment().isBetween('2020-12-17T08:00-04:00', '2021-01-31T20:00-04:00');
+      return CURRENT_EVENT.season === 'winter';
     },
     event: EVENTS.winter2021,
     text: t('questEvilSanta2Text'),

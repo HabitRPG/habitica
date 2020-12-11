@@ -113,6 +113,7 @@
           </div>
           <div
             v-else
+            v-once
             class="w-55 text-center"
             v-html="$t('paymentSubBillingWithMethod', {
               amount: purchasedPlanIdInfo.price,
@@ -143,6 +144,7 @@
           </div>
           <div
             v-else
+            v-once
             class="svg-icon"
             :class="paymentMethodLogo.class"
             v-html="paymentMethodLogo.icon"
@@ -150,6 +152,7 @@
           </div>
           <div
             v-if="purchasedPlanExtraMonthsDetails.months > 0"
+            v-once
             class="extra-months green-10 py-2 px-3 mt-4"
             v-html="$t('purchasedPlanExtraMonths',
                        {months: purchasedPlanExtraMonthsDetails.months})"
@@ -171,6 +174,7 @@
             {{ $t('subscriptionCanceled') }}
           </h2>
           <div
+            v-once
             class="w-75 text-center mb-4"
             v-html="$t('subscriptionInactiveDate', {date: subscriptionEndDate})"
           >
@@ -265,11 +269,13 @@
         </div>
         <div
           v-if="!hasGroupPlan && !canCancelSubscription"
+          v-once
           v-html="$t(`cancelSubInfo${user.purchased.plan.paymentMethod}`)"
         >
         </div>
         <div
           v-if="canCancelSubscription"
+          v-once
           v-html="$t('cancelSubAlternatives')"
         >
         </div>

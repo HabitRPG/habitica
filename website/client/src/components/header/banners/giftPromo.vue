@@ -3,7 +3,6 @@
     banner-id="gift-promo"
     class="gift-promo-banner"
     :show="showGiftPromoBanner"
-    height="3rem"
   >
     <div
       slot="content"
@@ -14,16 +13,19 @@
       <div
         class="svg-icon svg-gifts left-gift"
         v-html="icons.gifts"
+        v-once
       >
       </div>
       <div
         class="announce-text"
+        v-html="$t('g1g1Announcement')"
+        v-once
       >
-        {{ $t('g1g1Announcement') }}
       </div>
       <div
         class="svg-icon svg-gifts right-gift"
         v-html="icons.gifts"
+        v-once
       >
       </div>
     </div>
@@ -39,8 +41,8 @@
 
   .gift-promo-banner {
     width: 100%;
-    min-height: 2.5rem;
-    background: $teal-50;
+    min-height: 3rem;
+    background-image: linear-gradient(90deg, $teal-50 0%, $purple-400 100%);
     cursor: pointer;
   }
 
@@ -56,12 +58,11 @@
 
   .svg-gifts {
     width: 4.6rem;
-    opacity: 1;
   }
 </style>
 
 <script>
-// import * as Analytics from '@/libs/analytics';
+import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import BaseBanner from './base';
 
@@ -93,12 +94,12 @@ export default {
   },
   methods: {
     showSelectUser () {
-      /* Analytics.track({
+      Analytics.track({
         hitType: 'event',
         eventCategory: 'button',
         eventAction: 'click',
         eventLabel: 'Gift Promo Banner',
-      }); */
+      });
 
       this.$root.$emit('bv::show::modal', 'select-user-modal');
     },

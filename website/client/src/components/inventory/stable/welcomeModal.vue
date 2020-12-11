@@ -8,7 +8,7 @@
     @hide="hideFlag()"
   >
     <div class="content">
-      <div :class="mattClass"></div><h1
+      <div :class="seasonalNPC('matt')"></div><h1
         v-once
         class="page-header"
       >
@@ -58,17 +58,14 @@
 
 <script>
 import { mapState } from '@/libs/store';
+import seasonalNPC from '@/mixins/seasonalNPC';
 
 export default {
+  mixins: [seasonalNPC],
   computed: {
     ...mapState({
       hideDialog: 'user.data.flags.tutorial.common.mounts',
-      currentEvent: 'worldState.data.currentEvent',
     }),
-    mattClass () {
-      if (!this.currentEvent || !this.currentEvent.season) return 'npc_matt';
-      return `npc_matt npc_matt_${this.currentEvent.season}`;
-    },
   },
   methods: {
     hideFlag () {
