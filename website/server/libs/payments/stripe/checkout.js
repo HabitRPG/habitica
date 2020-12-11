@@ -15,6 +15,7 @@ import {
 import payments from '../payments'; // eslint-disable-line import/no-cycle
 import { getGemsBlock } from '../gems'; // eslint-disable-line import/no-cycle
 import stripeConstants from './constants';
+import promoSubscription from '../promoSubscription'; // eslint-disable-line import/no-cycle
 
 function getGiftAmount (gift) {
   if (gift.type === 'subscription') {
@@ -98,6 +99,8 @@ async function applyGemPayment (user, response, gemsBlock, gift) {
   if (gift) {
     if (gift.type === 'subscription') method = 'createSubscription';
     data.paymentMethod = 'Gift';
+
+    promoSubscription(data);
   }
 
   await payments[method](data);

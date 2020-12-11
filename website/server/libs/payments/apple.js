@@ -9,6 +9,7 @@ import {
 } from '../errors';
 import { model as IapPurchaseReceipt } from '../../models/iapPurchaseReceipt';
 import { model as User } from '../../models/user';
+import promoSubscription from './promoSubscription'; // eslint-disable-line import/no-cycle
 
 const api = {};
 
@@ -236,6 +237,8 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
         gift.subscription = sub;
         data.gift = gift;
         data.paymentMethod = this.constants.PAYMENT_METHOD_GIFT;
+
+        promoSubscription(data);
       }
 
       await payments.createSubscription(data);

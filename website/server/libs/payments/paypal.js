@@ -11,6 +11,7 @@ import payments from './payments'; // eslint-disable-line import/no-cycle
 import { getGemsBlock } from './gems'; // eslint-disable-line import/no-cycle
 import { model as Coupon } from '../../models/coupon';
 import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
+import promoSubscription from './promoSubscription'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   model as Group,
   basicFields as basicGroupFields,
@@ -162,6 +163,8 @@ api.checkoutSuccess = async function checkoutSuccess (options = {}) {
 
     data.paymentMethod = 'PayPal (Gift)';
     data.gift = gift;
+
+    promoSubscription(data);
   } else {
     data.gemsBlock = getGemsBlock(gemsBlockKey);
   }
