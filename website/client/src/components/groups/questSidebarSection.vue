@@ -44,14 +44,6 @@
         </button>
       </div>
     </div>
-    <div v-if="userIsQuestLeader && !onActiveQuest">
-      <button
-        class="btn btn-success full-width"
-        @click="startQuest()"
-      >
-        {{ $t('startQuest') }}
-      </button>
-    </div>
     <div
       v-if="!onPendingQuest && onActiveQuest"
       class="row quest-active-section"
@@ -206,6 +198,14 @@
       </button>
     </div>
     <div v-if="userIsQuestLeader && !onActiveQuest">
+      <button
+        class="btn btn-success full-width"
+        @click="startQuest()"
+      >
+        {{ $t('startQuest') }}
+      </button>
+    </div>
+    <div v-if="userIsQuestLeader && !onActiveQuest">
       <a
         class="abandon-quest text-center full-width"
         @click="abandonQuest()"
@@ -220,6 +220,15 @@
         @click="questAbort()"
       >
         {{ $t('abandonQuest') }}
+      </a>
+    </div>
+    <div v-if="userIsOnQuest">
+     <a
+        v-once
+        class="abandon-quest text-center full-width"
+        @click="questLeave()"
+      >
+        {{ $t('leaveQuest') }}
       </a>
     </div>
   </sidebar-section>
