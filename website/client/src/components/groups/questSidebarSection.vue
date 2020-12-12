@@ -372,9 +372,10 @@
   }
 
   .quest-invite {
-    background-color: #2995cd;
-    color: #fff;
+    background-color: $blue-10;
+    color: $white;
     display: flex;
+    border-radius: 2px;
 
     .participate {
       margin-top: 0.75rem;
