@@ -1,8 +1,6 @@
 <template>
   <div class="sidebar px-4">
-    <div
-      :class="{'group-background': isGroup}"
-    >
+    <div>
       <div class="buttons-wrapper">
         <div class="button-container button-with-menu-row">
           <button
@@ -36,9 +34,17 @@
               v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
               class="selectListItem"
               @click="$emit('upgradeGroup')"
+              :style="{'--hover-color': '#1ca372', '--hover-background': '#77f4c73F'}"
             >
-              <span v-once>
-                {{ $t('upgradeToGroup') }}
+              <span class="with-icon">
+                <span
+                  class="svg-icon icon-16 color"
+                  v-html="icons.sparklesIcon"
+                  v-once
+                ></span>
+                <span v-once>
+                  {{ $t('upgradeToGroup') }}
+                </span>
               </span>
             </b-dropdown-item>
             <b-dropdown-item
@@ -46,14 +52,30 @@
               class="selectListItem"
               @click="$emit('showInviteModal')"
             >
-              <span v-once>{{ $t(isParty ? 'inviteToParty' : 'inviteToGuild') }}</span>
+              <span class="with-icon">
+                <span
+                  class="svg-icon icon-16 color"
+                  v-html="icons.usersIcon"
+                  v-once
+                ></span>
+                <span v-once>
+                  {{ $t(isParty ? 'inviteToParty' : 'inviteToGuild') }}
+                </span>
+              </span>
             </b-dropdown-item>
             <b-dropdown-item
               class="selectListItem"
               @click="$emit('messageLeader')"
             >
-              <span v-once>
-                {{ $t(isParty ? 'messagePartyLeader' : 'messageGuildLeader') }}
+              <span class="with-icon">
+                <span
+                  class="svg-icon icon-16 color"
+                  v-html="icons.messageIcon"
+                  v-once
+                ></span>
+                <span v-once>
+                  {{ $t(isParty ? 'messagePartyLeader' : 'messageGuildLeader') }}
+                </span>
               </span>
             </b-dropdown-item>
             <b-dropdown-item
@@ -61,17 +83,32 @@
               class="selectListItem"
               @click="$emit('updateGuild')"
             >
-              <span v-once>
-                {{ isParty ? $t('editParty') : $t('editGuild') }}
+              <span class="with-icon">
+                <span
+                  class="svg-icon icon-16 color"
+                  v-html="icons.editIcon"
+                  v-once
+                ></span>
+                <span v-once>
+                  {{ isParty ? $t('editParty') : $t('editGuild') }}
+                </span>
               </span>
             </b-dropdown-item>
             <b-dropdown-item
               v-if="isMember"
               class="selectListItem"
               @click="$emit('leave')"
+              :style="{'--hover-color': '#c92b2b', '--hover-background': '#ffb6b83F'}"
             >
-              <span v-once>
-                {{ isParty ? $t('leaveParty') : $t('leaveGuild') }}
+              <span class="with-icon">
+                <span
+                  class="svg-icon icon-16 color"
+                  v-html="icons.levelIcon"
+                  v-once
+                ></span>
+                <span v-once>
+                  {{ isParty ? $t('leaveParty') : $t('leaveGuild') }}
+                </span>
               </span>
             </b-dropdown-item>
           </b-dropdown>
@@ -108,6 +145,12 @@ import sidebarSection from '@/components/sidebarSection';
 import markdownDirective from '@/directives/markdown';
 
 import menuIcon from '@/assets/svg/menu.svg';
+import sparklesIcon from '@/assets/svg/sparklesIcon.svg';
+import levelIcon from '@/assets/svg/level.svg';
+import editIcon from '@/assets/svg/edit.svg';
+import messageIcon from '@/assets/svg/message.svg';
+import usersIcon from '@/assets/svg/users.svg';
+
 
 export default {
   components: {
@@ -123,6 +166,11 @@ export default {
     return {
       icons: Object.freeze({
         menuIcon,
+        sparklesIcon,
+        levelIcon,
+        editIcon,
+        messageIcon,
+        usersIcon,
       }),
     };
   },
@@ -155,11 +203,6 @@ export default {
     button {
       width: 100%;
     }
-  }
-
-  .group-background {
-    background-image: url('~@/assets/images/groups/grassy-meadow-backdrop.png');
-    height: 246px;
   }
 
   .button-with-menu-row {
