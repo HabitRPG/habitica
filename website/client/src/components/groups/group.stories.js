@@ -19,6 +19,9 @@ storiesOf('Group Components|Party/Quest States', module)
     data () {
       return {
         group: {
+          leader: {
+
+          },
           quest: {
           },
           purchased: {
@@ -47,6 +50,9 @@ storiesOf('Group Components|Party/Quest States', module)
     data () {
       return {
         group: {
+          leader: {
+
+          },
           quest: {
           },
           purchased: {
@@ -75,10 +81,14 @@ storiesOf('Group Components|Party/Quest States', module)
     data () {
       return {
         group: {
+          leader: {
+
+          },
           quest: {
           },
           purchased: {
           },
+          privacy: 'private',
         },
       };
     },
@@ -176,6 +186,9 @@ storiesOf('Group Components|Party/Quest States', module)
       return {
         group: {
           quest: {},
+          leader: {
+
+          },
         },
       };
     },
@@ -220,6 +233,9 @@ storiesOf('Group Components|Party/Quest States', module)
       return {
         group: {
           quest: {},
+          leader: {
+
+          },
         },
       };
     },
@@ -243,6 +259,9 @@ storiesOf('Group Components|Party/Quest States', module)
       return {
         group: {
           quest: {},
+          leader: {
+
+          },
         },
       };
     },
