@@ -75,5 +75,10 @@
     "achievementRosyOutlookModalText": "당신은 모든 벚꽃색 탑승펫을 길들였습니다!",
     "achievementTickledPinkModalText": "당신은 모든 벚꽃색 펫을 길들였습니다!",
     "achievementTickledPinkText": "벚꽃색 펫을 모두 길들였습니다.",
-    "achievementRedLetterDay": "빨간날"
+    "achievementRedLetterDay": "빨간날",
+    "achievementRedLetterDayModalText": "빨간 탑승펫을 모두 모으셨습니다!",
+    "achievementRedLetterDayText": "빨간 탑승펫을 모두 모았다.",
+    "achievementSeeingRedModalText": "빨간 펫을 모두 모으셨습니다!",
+    "achievementSeeingRedText": "빨간 펫을 모두 모았다.",
+    "achievementSeeingRed": "적색경보"
 }

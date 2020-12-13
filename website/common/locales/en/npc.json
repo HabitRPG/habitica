@@ -98,7 +98,7 @@
   "classGearText": "Congratulations on choosing a class! I've added your new basic weapon to your inventory. Take a look below to equip it!",
   "autoAllocate": "Auto Allocate",
   "spells": "Skills",
-  "skillsTitle": "Skills",
+  "skillsTitle": "<%= classStr %> Skills",
   "toDo": "To Do",
   "tourStatsPage": "This is your Stats page! Earn achievements by completing the listed tasks.",
   "tourTavernPage": "Welcome to the Tavern, an all-ages chat room! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Pause Damage\". Come say hi!",

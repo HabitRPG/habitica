@@ -13,7 +13,6 @@
       </div>
       <img
         class="npc-background"
-        src="~@/assets/images/npc/broken/rage-strike-seasonalShop-scaled@2x.png"
       >
       <div class="modal-body">
         <div class="row">
@@ -32,7 +31,6 @@
       </div>
       <img
         class="npc-background"
-        src="~@/assets/images/npc/broken/rage-strike-market-scaled@2x.png"
       >
       <div class="modal-body">
         <div class="row">
@@ -51,7 +49,6 @@
       </div>
       <img
         class="npc-background"
-        src="~@/assets/images/npc/broken/rage-strike-quests-scaled@2x.png"
       >
       <div class="modal-body">
         <div class="row">

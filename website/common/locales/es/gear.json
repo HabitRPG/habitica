@@ -1964,5 +1964,13 @@
     "armorSpecialWinter2020WarriorNotes": "Oh poderoso pino, Oh imponente abeto, presta tu fuerza. ¡O más bién tu Constitución! Aumenta la Constitución en <%= con %>. Equipamiento de edición limitada Invierno 2019-2020.",
     "armorSpecialWinter2020RogueNotes": "Aunque es indudable que puedes capear tormentas con el calor de tu empuje y tu devoción, no hace daño abrigarse. Aumenta la Percepción en <%= per %>. Equipamiento de edición limitada Invierno 2019-2020.",
     "armorSpecialFall2019HealerNotes": "Se dice que estos atuendos están compuestos de noche pura. ¡Utiliza sabiamente el poder oscuro! Aumenta la Constitución en <%= con %>. Equipamiento de edición limitada Otoño 2019.",
-    "armorSpecialFall2019MageNotes": "Su homónimo sufrió un terrible destino. ¡Pero a ti no te engañarán tan fácilmente! Envuelvete en este manto legendario y nadie te superará. Aumenta la Inteligencia en <%= int %>. Equipamiento de edición limitada Otoño 2019."
+    "armorSpecialFall2019MageNotes": "Su homónimo sufrió un terrible destino. ¡Pero a ti no te engañarán tan fácilmente! Envuelvete en este manto legendario y nadie te superará. Aumenta la Inteligencia en <%= int %>. Equipamiento de edición limitada Otoño 2019.",
+    "armorSpecialFall2020RogueNotes": "Adquiere la fuerza de la roca con esta armadura, garantizada para repeler los ataques más feroces. Aumenta la Percepción en un <%= per %>. Edición limitada de otoño 2020.",
+    "armorSpecialSummer2020HealerNotes": "Eres tan paciente como el océano, tan fuerte como las corrientes, tan confiable como la marea. Aumenta la Constitución en <%= con %>. Equipamiento de edición limitada Verano 2020.",
+    "armorSpecialSummer2020WarriorNotes": "¡Serás el pez brillante en un arroyo aburrido, con estas deslumbrantes escamas! Incrementa la Constitución en <%= con %>. Equipamiento de Edición Limitada Verano 2020.",
+    "armorSpecialSpring2020HealerText": "Pétalos Protectores",
+    "armorSpecialSpring2020RogueNotes": "¡El color del ocaso, una multitud de piedras preciosas, desde lo profundo del océano! Incrementa la percepción en <%= per %>. Edición Limitada Equipamiento de la Primavera 2020.",
+    "armorSpecialSummer2020RogueText": "Disfraz de Cocodrilo",
+    "armorSpecialSpring2020RogueText": "Armadura Ultramarina",
+    "armorSpecialSpring2020WarriorText": "Armadura de Exoesqueleto"
 }
