@@ -155,7 +155,7 @@
     </div>
     <b-modal
       id="group-plan-modal"
-      title="Select Payment"
+      :title="activePage === PAGES.CREATE_GROUP ? 'Create your Group' : 'Select Payment'"
       size="md"
       hide-footer="hide-footer"
     >
@@ -524,7 +524,7 @@ export default {
       }
 
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        this.showStripe(paymentData);
+        this.redirectToStripe(paymentData);
       }
 
       return null;

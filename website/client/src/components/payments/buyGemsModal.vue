@@ -135,7 +135,7 @@
         </div>
         <payments-buttons
           :disabled="!selectedGemsBlock"
-          :stripe-fn="() => showStripe({ gemsBlock: selectedGemsBlock })"
+          :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
           :paypal-fn="() => openPaypal({
             url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
           })"

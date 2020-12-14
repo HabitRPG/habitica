@@ -5,6 +5,7 @@ import googlePayments from '../../../../../website/server/libs/payments/google';
 import iap from '../../../../../website/server/libs/inAppPurchases';
 import { model as User } from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
+import * as gems from '../../../../../website/server/libs/payments/gems';
 
 const { i18n } = common;
 
@@ -15,7 +16,7 @@ describe('Google Payments', () => {
     let sku; let user; let token; let receipt; let signature; let
       headers; const gemsBlock = common.content.gems['21gems'];
     let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let
-      paymentBuyGemsStub;
+      paymentBuyGemsStub; let validateGiftMessageStub;
 
     beforeEach(() => {
       sku = 'com.habitrpg.android.habitica.iap.21gems';
@@ -31,6 +32,7 @@ describe('Google Payments', () => {
       iapIsValidatedStub = sinon.stub(iap, 'isValidated')
         .returns(true);
       paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
+      validateGiftMessageStub = sinon.stub(gems, 'validateGiftMessage');
     });
 
     afterEach(() => {
@@ -38,6 +40,7 @@ describe('Google Payments', () => {
       iap.validate.restore();
       iap.isValidated.restore();
       payments.buyGems.restore();
+      gems.validateGiftMessage.restore();
     });
 
     it('should throw an error if receipt is invalid', async () => {
@@ -89,6 +92,8 @@ describe('Google Payments', () => {
         user, receipt, signature, headers,
       });
 
+      expect(validateGiftMessageStub).to.not.be.called;
+
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledWith(iap.GOOGLE, {
@@ -118,6 +123,9 @@ describe('Google Payments', () => {
       await googlePayments.verifyGemPurchase({
         user, gift, receipt, signature, headers,
       });
+
+      expect(validateGiftMessageStub).to.be.calledOnce;
+      expect(validateGiftMessageStub).to.be.calledWith(gift, user);
 
       expect(iapSetupStub).to.be.calledOnce;
       expect(iapValidateStub).to.be.calledOnce;

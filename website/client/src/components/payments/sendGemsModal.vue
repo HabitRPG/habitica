@@ -108,7 +108,9 @@
         class="form-control"
         rows="3"
         :placeholder="$t('sendGiftMessagePlaceholder')"
+        :maxlength="MAX_GIFT_MESSAGE_LENGTH"
       ></textarea>
+      <span>{{ gift.message.length || 0 }} / {{ MAX_GIFT_MESSAGE_LENGTH }}</span>
       <!--include ../formatting-help-->
     </div>
     <div class="modal-footer">
@@ -123,7 +125,7 @@
       <payments-buttons
         v-else
         :disabled="!gift.subscription.key && gift.gems.amount < 1"
-        :stripe-fn="() => showStripe({gift, uuid: userReceivingGems._id, receiverName})"
+        :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGems._id, receiverName})"
         :paypal-fn="() => openPaypalGift({
           gift: gift, giftedTo: userReceivingGems._id, receiverName,
         })"
@@ -171,6 +173,7 @@ import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import paymentsMixin from '@/mixins/payments';
 import notificationsMixin from '@/mixins/notifications';
 import paymentsButtons from '@/components/payments/buttons/list';
+import { MAX_GIFT_MESSAGE_LENGTH } from '@/../../common/script/constants';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
@@ -198,6 +201,7 @@ export default {
       },
       sendingInProgress: false,
       userReceivingGems: null,
+      MAX_GIFT_MESSAGE_LENGTH: MAX_GIFT_MESSAGE_LENGTH.toString(),
     };
   },
   computed: {

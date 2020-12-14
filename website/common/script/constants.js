@@ -11,6 +11,8 @@ export const MAX_SUMMARY_SIZE_FOR_CHALLENGES = 250;
 export const MIN_SHORTNAME_SIZE_FOR_CHALLENGES = 3;
 export const MAX_MESSAGE_LENGTH = 3000;
 
+export const MAX_GIFT_MESSAGE_LENGTH = 200;
+
 export const CHAT_FLAG_LIMIT_FOR_HIDING = 2; // hide posts that have this many flags
 export const CHAT_FLAG_FROM_MOD = 5; // a flag from a moderator counts as this many flags
 // a shadow-muted user's post starts with this many flags
