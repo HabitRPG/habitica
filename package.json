@@ -121,7 +121,7 @@
     "monk": "^7.3.2",
     "require-again": "^2.0.0",
     "run-rs": "^0.7.3",
-    "sinon": "^9.2.1",
+    "sinon": "^9.2.2",
     "sinon-chai": "^3.5.0",
     "sinon-stub-promise": "^4.0.0"
   },
