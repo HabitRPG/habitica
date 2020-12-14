@@ -5,6 +5,7 @@ import applePayments from '../../../../../website/server/libs/payments/apple';
 import iap from '../../../../../website/server/libs/inAppPurchases';
 import { model as User } from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
+import * as gems from '../../../../../website/server/libs/payments/gems';
 
 const { i18n } = common;
 
@@ -15,7 +16,7 @@ describe('Apple Payments', () => {
     let sku; let user; let token; let receipt; let
       headers;
     let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let paymentBuyGemsStub; let
-      iapGetPurchaseDataStub;
+      iapGetPurchaseDataStub; let validateGiftMessageStub;
 
     beforeEach(() => {
       token = 'testToken';
@@ -36,6 +37,7 @@ describe('Apple Payments', () => {
           transactionId: token,
         }]);
       paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
+      validateGiftMessageStub = sinon.stub(gems, 'validateGiftMessage');
     });
 
     afterEach(() => {
@@ -44,6 +46,7 @@ describe('Apple Payments', () => {
       iap.isValidated.restore();
       iap.getPurchaseData.restore();
       payments.buyGems.restore();
+      gems.validateGiftMessage.restore();
     });
 
     it('should throw an error if receipt is invalid', async () => {
@@ -143,6 +146,7 @@ describe('Apple Payments', () => {
         expect(iapIsValidatedStub).to.be.calledOnce;
         expect(iapIsValidatedStub).to.be.calledWith({});
         expect(iapGetPurchaseDataStub).to.be.calledOnce;
+        expect(validateGiftMessageStub).to.not.be.called;
 
         expect(paymentBuyGemsStub).to.be.calledOnce;
         expect(paymentBuyGemsStub).to.be.calledWith({
@@ -179,6 +183,9 @@ describe('Apple Payments', () => {
       expect(iapIsValidatedStub).to.be.calledOnce;
       expect(iapIsValidatedStub).to.be.calledWith({});
       expect(iapGetPurchaseDataStub).to.be.calledOnce;
+
+      expect(validateGiftMessageStub).to.be.calledOnce;
+      expect(validateGiftMessageStub).to.be.calledWith(gift, user);
 
       expect(paymentBuyGemsStub).to.be.calledOnce;
       expect(paymentBuyGemsStub).to.be.calledWith({

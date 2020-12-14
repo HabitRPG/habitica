@@ -2,7 +2,7 @@ import moment from 'moment';
 import shared from '../../../common';
 import iap from '../inAppPurchases';
 import payments from './payments';
-import { getGemsBlock } from './gems';
+import { getGemsBlock, validateGiftMessage } from './gems';
 import {
   NotAuthorized,
   BadRequest,
@@ -28,6 +28,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
   } = options;
 
   if (gift) {
+    validateGiftMessage(gift, user);
     gift.member = await User.findById(gift.uuid).exec();
   }
 
@@ -232,6 +233,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
       };
 
       if (gift) {
+        validateGiftMessage(gift, user);
         gift.member = await User.findById(gift.uuid).exec();
         gift.subscription = sub;
         data.gift = gift;

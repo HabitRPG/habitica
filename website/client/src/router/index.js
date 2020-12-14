@@ -425,6 +425,11 @@ router.beforeEach((to, from, next) => {
     return null;
   }
 
+  if (to.name === 'tasks' && to.query.openGemsModal === 'true') {
+    setTimeout(() => router.app.$emit('bv::show::modal', 'buy-gems'), 500);
+    return next({ name: 'tasks' });
+  }
+
   if ((to.name === 'stats' || to.name === 'achievements' || to.name === 'profile') && from.name !== null) {
     router.app.$emit('habitica:show-profile', {
       startingPage: to.name,

@@ -8,37 +8,37 @@ const api = {};
 
 /**
  * @apiIgnore Payments are considered part of the private API
- * @api {post} /stripe/checkout Stripe checkout
+ * @api {post} /stripe/checkout-session Create a Stripe Checkout Session
  * @apiName StripeCheckout
  * @apiGroup Payments
  *
- * @apiParam {String} id Body parameter - The token
- * @apiParam {String} email Body parameter - the customer email
- * @apiParam {String} gift Query parameter - stringified json object, gift
- * @apiParam {String} sub Query parameter - subscription, possible values are:
- *                        basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo
- * @apiParam {String} coupon Query parameter - coupon for the matching subscription,
- *                           required only for certain subscriptions
+ * @apiParam (Body) {String} [gemsBlock] If purchasing a gem block, its key
+ * @apiParam (Body) {Object} [gift] The gift object
+ * @apiParam (Body) {String} [sub] If purchasing a subscription, its key
+ * @apiParam (Body) {UUID} [groupId] If purchasing a group plan, the group id
+ * @apiParam (Body) {String} [coupon] Subscription Coupon
  *
- * @apiSuccess {Object} data Empty object
+ * @apiSuccess {String} data.sessionId The created checkout session id
  * */
-api.checkout = {
+api.createCheckoutSession = {
   method: 'POST',
-  url: '/stripe/checkout',
+  url: '/stripe/checkout-session',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    // @TODO: These quer params need to be changed to body
-    const token = req.body.id;
     const { user } = res.locals;
-    const gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
-    const sub = req.query.sub ? shared.content.subscriptionBlocks[req.query.sub] : false;
-    const { groupId, coupon, gemsBlock } = req.query;
+    const {
+      gift, sub: subKey, gemsBlock, coupon, groupId,
+    } = req.body;
 
-    await stripePayments.checkout({
-      token, user, gemsBlock, gift, sub, groupId, coupon, headers: req.headers,
+    const sub = subKey ? shared.content.subscriptionBlocks[subKey] : false;
+
+    const session = await stripePayments.createCheckoutSession({
+      user, gemsBlock, gift, sub, groupId, coupon,
     });
 
-    res.respond(200, {});
+    res.respond(200, {
+      sessionId: session.id,
+    });
   },
 };
 
@@ -48,22 +48,23 @@ api.checkout = {
  * @apiName StripeSubscribeEdit
  * @apiGroup Payments
  *
- * @apiParam {String} id Body parameter - The token
+ * @apiParam (Body) {UUID} [groupId] If editing a group plan, the group id
  *
- * @apiSuccess {Object} data Empty object
+ * @apiSuccess {String} data.sessionId The created checkout session id
  * */
 api.subscribeEdit = {
   method: 'POST',
   url: '/stripe/subscribe/edit',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    const token = req.body.id;
     const { groupId } = req.body;
     const { user } = res.locals;
 
-    await stripePayments.editSubscription({ token, groupId, user });
+    const session = await stripePayments.createEditCardCheckoutSession({ groupId, user });
 
-    res.respond(200, {});
+    res.respond(200, {
+      sessionId: session.id,
+    });
   },
 };
 
@@ -72,6 +73,9 @@ api.subscribeEdit = {
  * @api {get} /stripe/subscribe/cancel Cancel Stripe subscription
  * @apiName StripeSubscribeCancel
  * @apiGroup Payments
+ *
+ * @apiParam (Body) {UUID} [groupId] If editing a group plan, the group id
+ *
  * */
 api.subscribeCancel = {
   method: 'GET',
@@ -91,11 +95,20 @@ api.subscribeCancel = {
   },
 };
 
+// NOTE: due to Stripe requirements on validating webhooks, the body is not json parsed
+// for this route, see website/server/middlewares/index.js
+
+/**
+ * @apiIgnore Payments are considered part of the private API
+ * @api {post} /stripe/webhooks Stripe Webhooks handler
+ * @apiName StripeHandleWebhooks
+ * @apiGroup Payments
+ * */
 api.handleWebhooks = {
   method: 'POST',
   url: '/stripe/webhooks',
   async handler (req, res) {
-    await stripePayments.handleWebhooks({ requestBody: req.body });
+    await stripePayments.handleWebhooks({ body: req.body, headers: req.headers });
 
     return res.respond(200, {});
   },
