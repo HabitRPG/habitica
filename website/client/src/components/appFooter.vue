@@ -169,7 +169,7 @@
       <div class="row">
         <div class="col-12 col-md-5 text-center text-md-left">
           © 2020 Habitica. All rights reserved.
-          <div v-if="IS_PRODUCTION && isUserLoaded"
+          <div v-if="!IS_PRODUCTION && isUserLoaded"
                class="debug float-left">
             <button class="btn btn-primary"
                     @click="debugMenuShown = !debugMenuShown">
