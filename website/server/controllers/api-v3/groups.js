@@ -607,18 +607,9 @@ api.joinGroup = {
       group.leader = user._id; // If new user is only member -> set as leader
     }
 
+    // Set group's new memberCount
     const currentMembers = await group.getMemberCount();
     group.memberCount = currentMembers + 1;
-
-    /*// TO DELETE??
-    if (group.type === 'party') {
-      // For parties we count the number of members from the database to get the correct value.
-      // See #12275 on why this is necessary and only done for parties.
-      const currentMembers = await group.getMemberCount();
-      group.memberCount = currentMembers + 1;
-    } else {
-      group.memberCount += 1;
-    }*/
 
     let promises = [group.save(), user.save()];
 
@@ -965,18 +956,9 @@ api.removeGroupMember = {
     }
 
     if (isInGroup) {
+      // Set group's new memberCount
       const currentMembers = await group.getMemberCount();
       group.memberCount = currentMembers - 1;
-      
-      // TO DELETE?
-      // For parties we count the number of members from the database to get the correct value.
-      // See #12275 on why this is necessary and only done for parties.
-      /*if (group.type === 'party') {
-        const currentMembers = await group.getMemberCount();
-        group.memberCount = currentMembers - 1;
-      } else {
-        group.memberCount -= 1;
-      }*/
 
       if (group.quest && group.quest.leader === member._id) {
         throw new NotAuthorized(res.t('cannotRemoveQuestOwner'));
