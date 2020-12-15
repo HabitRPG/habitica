@@ -103,12 +103,18 @@
               </div>
             </div>
             <div
-              class="col-md-7"
               v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
+              class="col-md-7"
             >
-              <h4 v-once> {{ $t('winterPromoGiftHeader') }} </h4>
-              <p v-once> {{ $t('winterPromoGiftDetails1') }} </p>
-              <p v-once> {{ $t('winterPromoGiftDetails2') }} </p>
+              <h4 v-once>
+                {{ $t('winterPromoGiftHeader') }}
+              </h4>
+              <p v-once>
+                {{ $t('winterPromoGiftDetails1') }}
+              </p>
+              <p v-once>
+                {{ $t('winterPromoGiftDetails2') }}
+              </p>
             </div>
           </div>
         </div>
