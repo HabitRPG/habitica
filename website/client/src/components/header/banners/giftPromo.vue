@@ -11,21 +11,21 @@
       @click="showSelectUser"
     >
       <div
+        v-once
         class="svg-icon svg-gifts left-gift"
         v-html="icons.gifts"
-        v-once
       >
       </div>
       <div
+        v-once
         class="announce-text"
         v-html="$t('g1g1Announcement')"
-        v-once
       >
       </div>
       <div
+        v-once
         class="svg-icon svg-gifts right-gift"
         v-html="icons.gifts"
-        v-once
       >
       </div>
     </div>
