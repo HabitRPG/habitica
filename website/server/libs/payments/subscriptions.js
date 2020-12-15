@@ -198,13 +198,13 @@ async function createSubscription (data) {
     // generate the message in both languages, so both users can understand it
     const languages = [data.user.preferences.language, data.gift.member.preferences.language];
     if (data.promo) {
-      let senderMsg = shared.i18n.t(`giftedSubscription${data.promo}Promo`, {
+      let receiverMsg = shared.i18n.t(`giftedSubscription${data.promo}Promo`, {
         username: data.gift.member.profile.name,
         monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
       }, languages[0]);
 
-      senderMsg = `\`${senderMsg}\``;
-      data.user.sendMessage(data.gift.member, { senderMsg, save: false });
+      receiverMsg = `\`${receiverMsg}\``;
+      data.user.sendMessage(data.gift.member, { receiverMsg, save: false });
     } else {
       let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
         username: data.gift.member.profile.name,
