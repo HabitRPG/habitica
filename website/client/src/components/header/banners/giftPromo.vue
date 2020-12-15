@@ -3,6 +3,7 @@
     banner-id="gift-promo"
     class="gift-promo-banner"
     :show="showGiftPromoBanner"
+    height="3rem"
   >
     <div
       slot="content"

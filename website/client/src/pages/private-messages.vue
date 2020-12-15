@@ -193,7 +193,7 @@
 
   #private-message {
     height: calc(100vh - #{$menuToolbarHeight} -
-      var(--banner-gifting-height, 0px) -
+      var(--banner-gift-promo-height, 0px) -
       var(--banner-damage-paused-height, 0px) -
       var(--banner-gems-promo-height, 0px)
     ); // css variable magic :), must be 0px, 0 alone won't work
@@ -201,7 +201,7 @@
     .content {
       flex: 1;
       height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
-        var(--banner-gifting-height, 0px) -
+        var(--banner-gift-promo-height, 0px) -
         var(--banner-damage-paused-height, 0px) -
         var(--banner-gems-promo-height, 0px)
       );
