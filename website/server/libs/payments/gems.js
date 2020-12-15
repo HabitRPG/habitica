@@ -62,6 +62,17 @@ async function buyGemGift (data) {
   await data.gift.member.save();
 }
 
+const { MAX_GIFT_MESSAGE_LENGTH } = shared.constants;
+export function validateGiftMessage (gift, user) {
+  if (gift.message && gift.message.length > MAX_GIFT_MESSAGE_LENGTH) {
+    throw new BadRequest(shared.i18n.t(
+      'giftMessageTooLong',
+      { maxGiftMessageLength: MAX_GIFT_MESSAGE_LENGTH },
+      user.preferences.language,
+    ));
+  }
+}
+
 export function getGemsBlock (gemsBlock) {
   const block = shared.content.gems[gemsBlock];
 

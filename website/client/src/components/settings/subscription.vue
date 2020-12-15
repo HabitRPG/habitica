@@ -113,6 +113,7 @@
           </div>
           <div
             v-else
+            v-once
             class="w-55 text-center"
             v-html="$t('paymentSubBillingWithMethod', {
               amount: purchasedPlanIdInfo.price,
@@ -131,7 +132,7 @@
             <button
               class="btn btn-primary btn-update-card
               d-flex justify-content-center align-items-center"
-              @click="showStripeEdit()"
+              @click="redirectToStripeEdit()"
             >
               <div
                 v-once
@@ -143,6 +144,7 @@
           </div>
           <div
             v-else
+            v-once
             class="svg-icon"
             :class="paymentMethodLogo.class"
             v-html="paymentMethodLogo.icon"
@@ -150,6 +152,7 @@
           </div>
           <div
             v-if="purchasedPlanExtraMonthsDetails.months > 0"
+            v-once
             class="extra-months green-10 py-2 px-3 mt-4"
             v-html="$t('purchasedPlanExtraMonths',
                        {months: purchasedPlanExtraMonthsDetails.months})"
@@ -171,6 +174,7 @@
             {{ $t('subscriptionCanceled') }}
           </h2>
           <div
+            v-once
             class="w-75 text-center mb-4"
             v-html="$t('subscriptionInactiveDate', {date: subscriptionEndDate})"
           >
@@ -265,11 +269,13 @@
         </div>
         <div
           v-if="!hasGroupPlan && !canCancelSubscription"
+          v-once
           v-html="$t(`cancelSubInfo${user.purchased.plan.paymentMethod}`)"
         >
         </div>
         <div
           v-if="canCancelSubscription"
+          v-once
           v-html="$t('cancelSubAlternatives')"
         >
         </div>
@@ -283,22 +289,36 @@
         </div>
       </div>
     </div>
-    <div class="d-flex flex-column align-items-center mt-4">
+    <div class="d-flex justify-content-center align-items-start">
+      <div class="d-flex flex-column align-items-center mt-4">
+        <div
+          v-once
+          class="svg-icon svg-gift-box m-auto"
+          v-html="icons.giftBox"
+        >
+        </div>
+        <div class="muted mx-auto mt-3 mb-1">
+          {{ $t('giftSubscription') }}
+        </div>
+        <a
+          class="mx-auto"
+          @click="showSelectUser()"
+        >
+          {{ $t('giftASubscription') }}
+        </a>
+      </div>
       <div
-        v-once
-        class="svg-icon svg-gift-box m-auto"
-        v-html="icons.giftBox"
-      >
+        v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
+        class="m-5">
       </div>
-      <div class="muted mx-auto mt-3 mb-1">
-        {{ $t('giftSubscription') }}
-      </div>
-      <a
-        class="mx-auto"
-        @click="showSelectUser()"
+      <div
+        v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
+        class="ml-5 mt-3"
       >
-        {{ $t('giftASubscription') }}
-      </a>
+        <h2 v-once> {{ $t('winterPromoGiftHeader') }} </h2>
+        <p v-once> {{ $t('winterPromoGiftDetails1') }} </p>
+        <p v-once> {{ $t('winterPromoGiftDetails2') }} </p>
+      </div>
     </div>
   </div>
 </template>
@@ -597,7 +617,11 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data', credentials: 'credentials' }),
+    ...mapState({
+      user: 'user.data',
+      credentials: 'credentials',
+      currentEvent: 'worldState.data.currentEvent',
+    }),
     purchasedPlanIdInfo () {
       if (!this.subscriptionBlocks[this.user.purchased.plan.planId]) {
         // @TODO: find which subs are in the common

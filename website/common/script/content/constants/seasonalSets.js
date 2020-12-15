@@ -41,6 +41,12 @@ const SEASONAL_SETS = {
     'winter2020LanternSet',
     'winter2020EvergreenSet',
     'winter2020WinterSpiceSet',
+
+    // winter 2021
+    'winter2021WinterMoonMageSet',
+    'winter2021HollyIvyRogueSet',
+    'winter2021IceFishingWarriorSet',
+    'winter2021ArcticExplorerHealerSet',
   ],
   spring: [
     // spring 2014

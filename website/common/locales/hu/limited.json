@@ -52,7 +52,7 @@
     "nyeCardNotes": "Küldj egy újévi üdvözlőkártyát az egyik csapattagodnak.",
     "seasonalItems": "Szezonális tárgyak",
     "nyeCardAchievementTitle": "Régi ismerős",
-    "nyeCardAchievementText": "Boldog új évet! Küldött vagy kapott <%= count %> újévi üdvözlőkártyát. ",
+    "nyeCardAchievementText": "Boldog új évet! Küldött vagy kapott <%= count %> újévi üdvözlőkártyát.",
     "nye0": "Boldog új évet! Kívánom hogy pusztíts el sok rossz szokást.",
     "nye1": "Boldog új évet! Kívánom hogy arass sok jutalmat.",
     "nye2": "Boldog új évet! Kívánom hogy legyen sok tökéletes napod.",

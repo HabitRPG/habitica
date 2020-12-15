@@ -41,8 +41,12 @@
         <div
           class="background"
           :class="{opened: seasonal.opened}"
+          :style="{'background-image': imageURLs.background}"
         >
-          <div class="npc">
+          <div
+            class="npc"
+            :style="{'background-image': imageURLs.npc}"
+          >
             <div class="featured-label">
               <span class="rectangle"></span>
               <span class="text">Leslie</span>
@@ -56,14 +60,9 @@
             <div class="featured-label with-border closed">
               <span class="rectangle"></span>
               <span
-                v-if="!broken"
                 class="text"
                 v-html="seasonal.notes"
               ></span>
-              <span
-                v-if="broken"
-                class="text"
-              >{{ $t('seasonalShopBrokenText') }}</span>
               <span class="rectangle"></span>
             </div>
           </div>
@@ -285,8 +284,6 @@
       height: 216px;
 
       .background {
-        background: url('~@/assets/images/npc/normal/seasonal_shop_closed_background.png');
-
         background-repeat: repeat-x;
 
         width: 100%;
@@ -301,21 +298,8 @@
         justify-content: center;
         align-items: center;
       }
+
       .background.opened {
-        background: url('~@/assets/images/npc/#{$npc_seasonal_flavor}/seasonal_shop_opened_background.png');
-
-        background-repeat: repeat-x;
-      }
-
-      .background.broken {
-        background: url('~@/assets/images/npc/broken/seasonal_shop_broken_background.png');
-
-        background-repeat: repeat-x;
-      }
-
-      .background.cracked {
-        background: url('~@/assets/images/npc/broken/seasonal_shop_broken_layer.png');
-
         background-repeat: repeat-x;
       }
 
@@ -330,7 +314,6 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~@/assets/images/npc/normal/seasonal_shop_closed_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -342,12 +325,6 @@
       }
 
       .opened .npc {
-        background: url('~@/assets/images/npc/#{$npc_seasonal_flavor}/seasonal_shop_opened_npc.png');
-        background-repeat: no-repeat;
-      }
-
-      .broken .npc {
-        background: url('~@/assets/images/npc/broken/seasonal_shop_broken_npc.png');
         background-repeat: no-repeat;
       }
     }
@@ -370,7 +347,7 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _reverse from 'lodash/reverse';
-import { mapState, mapGetters } from '@/libs/store';
+import { mapState } from '@/libs/store';
 
 import Checkbox from '@/components/ui/checkbox';
 import PinBadge from '@/components/ui/pinBadge';
@@ -444,9 +421,7 @@ export default {
       content: 'content',
       user: 'user.data',
       userStats: 'user.data.stats',
-    }),
-    ...mapGetters({
-      broken: 'worldState.brokenSeasonalShop',
+      currentEvent: 'worldState.data.currentEvent',
     }),
 
     usersOfficalPinnedItems () {
@@ -512,6 +487,18 @@ export default {
 
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
+    },
+    imageURLs () {
+      if (!this.seasonal.opened || !this.currentEvent || !this.currentEvent.season) {
+        return {
+          background: 'url(/static/npc/normal/seasonal_shop_closed_background.png)',
+          npc: 'url(/static/npc/normal/seasonal_shop_closed_npc.png)',
+        };
+      }
+      return {
+        background: `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_background.png)`,
+        npc: `url(/static/npc/${this.currentEvent.season}/seasonal_shop_opened_npc.png)`,
+      };
     },
   },
   watch: {

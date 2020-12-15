@@ -51,9 +51,9 @@
     "spellSpecialSandText": "Pijesak",
     "spellSpecialSandNotes": "Obrni čaroliju koja te pretvorila u morsku zvijezdu.",
     "partyNotFound": "Družina nije pronađena",
-    "targetIdUUID": "\"targetId\" mora biti važeći Korisnikov ID. ",
+    "targetIdUUID": "\"targetId\" mora biti važeći Korisnikov ID.",
     "challengeTasksNoCast": "Upotreba vještina na zadatke izazova nije dozvoljeno.",
-    "groupTasksNoCast": "Upotreba vještina na grupne zadatke nije dozvoljeno. ",
+    "groupTasksNoCast": "Upotreba vještina na grupne zadatke nije dozvoljeno.",
     "spellNotOwned": "Ne posjeduješ ovu vještinu.",
     "spellLevelTooHigh": "Moraš biti level <%= level %> da bi koristio/la ovu vještinu."
 }

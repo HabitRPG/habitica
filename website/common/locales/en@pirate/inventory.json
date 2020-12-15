@@ -1,8 +1,10 @@
 {
     "noItemsAvailableForType": "Ye 'ave no <%= type %>.",
     "foodItemType": "Critter Vittles",
-    "eggsItemType": "Cackle Fruit",
+    "eggsItemType": "Eggs",
     "hatchingPotionsItemType": "Hatchin' Potions",
     "specialItemType": "Special items",
-    "lockedItem": "Lock'd Item"
+    "lockedItem": "Lock'd Item",
+    "allItems": "All Items",
+    "petAndMount": "Critter an' Steed"
 }

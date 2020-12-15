@@ -2,13 +2,21 @@
   <div class="featuredItems">
     <div
       class="background"
-      :class="{broken: broken}"
     ></div>
     <div
       class="background"
-      :class="{cracked: broken, broken: broken}"
+      :style="{
+        background: bgUrl,
+        'background-repeat': 'repeat-x',
+      }"
     >
-      <div class="npc">
+      <div
+        class="npc"
+        :style="{
+          background: npcUrl,
+          'background-repeat': 'no-repeat',
+        }"
+      >
         <div class="featured-label">
           <span class="rectangle"></span>
           <span class="text">{{ npcName }}</span>
@@ -65,8 +73,9 @@ export default {
   },
   mixins: [pinUtils],
   props: {
-    broken: Boolean,
     npcName: String,
+    bgUrl: String,
+    npcUrl: String,
     featuredText: String,
     featuredItems: Array,
   },
@@ -116,21 +125,6 @@ export default {
     top: 0;
     width: 100%;
     height: 216px;
-  }
-
-  .background.broken {
-    background: url('~@/assets/images/npc/broken/market_broken_background.png');
-    background-repeat: repeat-x;
-  }
-
-  .background.cracked {
-    background: url('~@/assets/images/npc/broken/market_broken_layer.png');
-    background-repeat: repeat-x;
-  }
-
-  .broken .npc {
-    background: url('~@/assets/images/npc/broken/market_broken_npc.png');
-    background-repeat: no-repeat;
   }
 }
 

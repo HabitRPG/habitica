@@ -27,7 +27,10 @@
     </b-form-group>
     <payments-buttons
       :disabled="!subscription.key"
-      :stripe-fn="() => showStripe({subscription:subscription.key, coupon:subscription.coupon})"
+      :stripe-fn="() => redirectToStripe({
+        subscription: subscription.key,
+        coupon: subscription.coupon,
+      })"
       :paypal-fn="() => openPaypal({url: paypalPurchaseLink, type: 'subscription'})"
       :amazon-data="{
         type: 'subscription',

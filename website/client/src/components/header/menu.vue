@@ -336,10 +336,6 @@
                 href="http://habitica.fandom.com/wiki/Habitica_Wiki"
                 target="_blank"
               >{{ $t('wiki') }}</a>
-              <a
-                class="topbar-dropdown-item dropdown-item"
-                @click="modForm()"
-              >{{ $t('contactForm') }}</a>
             </div>
           </li>
         </b-navbar-nav>

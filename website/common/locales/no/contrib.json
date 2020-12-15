@@ -23,7 +23,7 @@
     "contribLink": "See what prizes you've earned for your contribution!",
     "contribName": "Bidragsyter",
     "contribText": "Has contributed to Habitica, whether via code, art, music, writing, or other methods. To learn more, join the Aspiring Legends Guild!",
-    "kickstartName": "Kickstarter Støttenivå $<%= key %> ",
+    "kickstartName": "Kickstarter Støttenivå $<%= key %>",
     "kickstartText": "Støttet Kickstarterprosjektet",
     "helped": "Hjalp Habitica med å vokse",
     "hall": "Heltenes Hall",

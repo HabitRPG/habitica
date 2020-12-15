@@ -151,7 +151,7 @@
     "cannotInviteSelfToGroup": "Você não pode se convidar para um grupo.",
     "userAlreadyInvitedToGroup": "Id de Utilizador: <%= userId %>, Utilizador \"<%= username %>\" já está convidado para esse grupo.",
     "userAlreadyPendingInvitation": "Id de Utilizador: <%= userId %>, Utilizador \"<%= username %>\" já tem um convite pendente.",
-    "userAlreadyInAParty": "ID de Utilizador: <%= userId %>, Utilizador \"<%= username %>\" já pertence a uma equipa. ",
+    "userAlreadyInAParty": "ID de Utilizador: <%= userId %>, Utilizador \"<%= username %>\" já pertence a uma equipa.",
     "userWithIDNotFound": "Usuário com id \"<%= userId %>\" não encontrado.",
     "userWithUsernameNotFound": "Utilizador com nome de utilizador \"<%= username %>\" não encontrado.",
     "userHasNoLocalRegistration": "O utilizador não tem um registo local (nome de utilizador, e-mail, palavra-passe).",

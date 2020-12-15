@@ -1,8 +1,8 @@
 {
     "settings": "설정",
     "language": "언어",
-    "americanEnglishGovern": "번역상 의미하는 바가 다른 경우, 영어버전이 기준이 됩니다. ",
-    "helpWithTranslation": "Habitica의 번역을 돕고 싶으신가요? 좋습니다! 그렇다면 <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">여기</a>의 Trello 카드를 방문해 보세요.",
+    "americanEnglishGovern": "번역상 의미하는 바가 다른 경우, 영어버전이 기준이 됩니다.",
+    "helpWithTranslation": "Habitica의 번역을 돕고 싶으신가요? 좋습니다! 그렇다면 <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">여기</a>를 방문해 보세요.",
     "stickyHeader": "메뉴바를 항상 보이기",
     "newTaskEdit": "편집 모드에서 새 과제 열기",
     "dailyDueDefaultView": "일일과제에서 '예정'을 기본으로 표시합니다.",

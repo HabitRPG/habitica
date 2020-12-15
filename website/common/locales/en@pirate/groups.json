@@ -364,5 +364,6 @@
     "assignedDateOnly": "Assign'd on <strong><%= date %></strong>",
     "bannedWordsAllowed": "Allow bann'd words",
     "newPartyPlaceholder": "Enter yer crew's name.",
-    "thisTaskApproved": "This task was approved"
+    "thisTaskApproved": "This task was approved",
+    "userWithUsernameOrUserIdNotFound": "Username or User ID nah found."
 }

@@ -202,7 +202,7 @@ export default {
 
       this.paymentMethod = paymentMethod;
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        this.showStripe(paymentData);
+        this.redirectToStripe(paymentData);
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
         paymentData.type = 'subscription';
         return paymentData;

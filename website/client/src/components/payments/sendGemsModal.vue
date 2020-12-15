@@ -78,7 +78,9 @@
         </h3>
         <div class="panel-body">
           <div class="row">
-            <div class="col-md-12">
+            <div
+              :class="columnClass"
+            >
               <div class="form-group mb-0">
                 <!-- eslint-disable vue/no-use-v-if-with-v-for -->
                 <div
@@ -100,6 +102,14 @@
                 </div>
               </div>
             </div>
+            <div
+              class="col-md-7"
+              v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
+            >
+              <h4 v-once> {{ $t('winterPromoGiftHeader') }} </h4>
+              <p v-once> {{ $t('winterPromoGiftDetails1') }} </p>
+              <p v-once> {{ $t('winterPromoGiftDetails2') }} </p>
+            </div>
           </div>
         </div>
       </div>
@@ -108,7 +118,9 @@
         class="form-control"
         rows="3"
         :placeholder="$t('sendGiftMessagePlaceholder')"
+        :maxlength="MAX_GIFT_MESSAGE_LENGTH"
       ></textarea>
+      <span>{{ gift.message.length || 0 }} / {{ MAX_GIFT_MESSAGE_LENGTH }}</span>
       <!--include ../formatting-help-->
     </div>
     <div class="modal-footer">
@@ -123,7 +135,7 @@
       <payments-buttons
         v-else
         :disabled="!gift.subscription.key && gift.gems.amount < 1"
-        :stripe-fn="() => showStripe({gift, uuid: userReceivingGems._id, receiverName})"
+        :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGems._id, receiverName})"
         :paypal-fn="() => openPaypalGift({
           gift: gift, giftedTo: userReceivingGems._id, receiverName,
         })"
@@ -171,6 +183,7 @@ import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import paymentsMixin from '@/mixins/payments';
 import notificationsMixin from '@/mixins/notifications';
 import paymentsButtons from '@/components/payments/buttons/list';
+import { MAX_GIFT_MESSAGE_LENGTH } from '@/../../common/script/constants';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
@@ -198,12 +211,14 @@ export default {
       },
       sendingInProgress: false,
       userReceivingGems: null,
+      MAX_GIFT_MESSAGE_LENGTH: MAX_GIFT_MESSAGE_LENGTH.toString(),
     };
   },
   computed: {
     ...mapState({
       userLoggedIn: 'user.data',
       originalSubscriptionBlocks: 'content.subscriptionBlocks',
+      currentEvent: 'worldState.data.currentEvent',
     }),
     subscriptionBlocks () {
       let subscriptionBlocks = toArray(this.originalSubscriptionBlocks);
@@ -228,6 +243,10 @@ export default {
         return this.userReceivingGems.auth.local.username;
       }
       return this.userReceivingGems.profile.name;
+    },
+    columnClass () {
+      if (this.currentEvent && this.currentEvent.promo && this.currentEvent.promo === 'g1g1') return 'col-md-5';
+      return 'col-md-12';
     },
   },
   mounted () {

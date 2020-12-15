@@ -73,7 +73,16 @@ export default function attachMiddlewares (app, server) {
   app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware
   }));
-  app.use(bodyParser.json());
+  app.use(function bodyMiddleware (req, res, next) { // eslint-disable-line prefer-arrow-callback
+    if (req.path === '/stripe/webhooks') {
+      // Do not parse the body for `/stripe/webhooks`
+      // See https://stripe.com/docs/webhooks/signatures#verify-official-libraries
+      bodyParser.raw({ type: 'application/json' })(req, res, next);
+    } else {
+      bodyParser.json()(req, res, next);
+    }
+  });
+
   app.use(methodOverride());
 
   app.use(cookieSession({
