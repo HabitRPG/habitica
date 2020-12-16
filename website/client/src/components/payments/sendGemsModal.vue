@@ -78,9 +78,7 @@
         </h3>
         <div class="panel-body">
           <div class="row">
-            <div
-              :class="columnClass"
-            >
+            <div class="col-md-12">
               <div class="form-group mb-0">
                 <!-- eslint-disable vue/no-use-v-if-with-v-for -->
                 <div
@@ -101,20 +99,6 @@
                   </label>
                 </div>
               </div>
-            </div>
-            <div
-              v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
-              class="col-md-7"
-            >
-              <h4 v-once>
-                {{ $t('winterPromoGiftHeader') }}
-              </h4>
-              <p v-once>
-                {{ $t('winterPromoGiftDetails1') }}
-              </p>
-              <p v-once>
-                {{ $t('winterPromoGiftDetails2') }}
-              </p>
             </div>
           </div>
         </div>
@@ -224,7 +208,6 @@ export default {
     ...mapState({
       userLoggedIn: 'user.data',
       originalSubscriptionBlocks: 'content.subscriptionBlocks',
-      currentEvent: 'worldState.data.currentEvent',
     }),
     subscriptionBlocks () {
       let subscriptionBlocks = toArray(this.originalSubscriptionBlocks);
@@ -249,10 +232,6 @@ export default {
         return this.userReceivingGems.auth.local.username;
       }
       return this.userReceivingGems.profile.name;
-    },
-    columnClass () {
-      if (this.currentEvent && this.currentEvent.promo && this.currentEvent.promo === 'g1g1') return 'col-md-5';
-      return 'col-md-12';
     },
   },
   mounted () {
