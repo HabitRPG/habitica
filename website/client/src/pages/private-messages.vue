@@ -830,8 +830,6 @@ export default {
 
       await this.loadConversations();
 
-      await this.$store.dispatch('user:markPrivMessagesRead');
-
       this.loaded = true;
     },
     async loadConversations () {
@@ -964,6 +962,11 @@ export default {
       const requestUrl = `/api/v4/inbox/paged-messages?conversation=${conversationKey}&page=${this.selectedConversation.page}`;
       const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data;
+
+      const unreadMessageCount = loadedMessages.filter(msg => !msg.read).length;
+      const toUserUuid = this.selectedConversation.key;
+      await this.$store.dispatch('user:markPrivMessagesRead', unreadMessageCount);
+      await axios.get(`/api/v4/user/mark-pms-read?count=${unreadMessageCount}&to=${toUserUuid}`);
 
       /* eslint-disable max-len */
       this.messagesByConversation[conversationKey] = this.messagesByConversation[conversationKey] || [];

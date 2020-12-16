@@ -99,3 +99,16 @@ export async function clearPMs (user) {
     Inbox.remove({ ownerId: user._id }).exec(),
   ]);
 }
+
+export async function markPmsRead (to, user, count) {
+  if (user.inbox.newMessages < 0) {
+    user.inbox.newMessages = 0;
+  } 
+  user.inbox.newMessages -= count;
+
+  const findObj = { ownerId: user._id, uuid: to };
+  await Promise.all([
+    user.save(),
+    Inbox.find(findObj).updateMany({}, { $set: { read: true } }).exec(),
+  ]);
+}

@@ -128,10 +128,11 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
   });
   Object.assign(newReceiverMessage, messageDefaults(options.receiverMsg, sender));
   setUserStyles(newReceiverMessage, sender);
-
+  if (userToReceiveMessage.inbox.newMessages < 0) {
+    userToReceiveMessage.inbox.newMessages = 0;
+  }
   userToReceiveMessage.inbox.newMessages += 1;
   userToReceiveMessage._v += 1;
-
   /* @TODO disabled until mobile is ready
 
   let excerpt;
@@ -163,6 +164,7 @@ schema.methods.sendMessage = async function sendMessage (userToReceiveMessage, o
     newSenderMessage = new Inbox({
       sent: true,
       ownerId: sender._id,
+      read: true,
     });
     Object.assign(newSenderMessage, messageDefaults(senderMsg, userToReceiveMessage));
     setUserStyles(newSenderMessage, sender);

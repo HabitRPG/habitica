@@ -1,7 +1,7 @@
 import i18n from '../i18n';
 
-export default function markPmsRead (user) {
-  user.inbox.newMessages = 0;
+export default function markPmsRead (user, count) {
+  user.inbox.newMessages -= count;
 
   return [
     user.inbox.newMessages,
