@@ -15,9 +15,9 @@ describe('GET /user/mark-pms-read', () => {
     await user.update({
       'inbox.newMessages': 1,
     });
-    const unreadMessageCount = 1
+    const unreadMessageCount = 1;
     await user.get(`/user/mark-pms-read?count=${unreadMessageCount}&to=${user._id}`);
     await user.sync();
-    expect(user.inbox.newMessages).to.equal(1);
+    expect(user.inbox.newMessages).to.equal(0);
   });
 });
