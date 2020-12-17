@@ -1,11 +1,11 @@
 import {
   generateUser,
-} from '../../../../helpers/api-integration/v3';
+} from '../../../../helpers/api-integration/v4';
 
-describe('POST /user/mark-pms-read', () => {
+describe('GET /user/mark-pms-read', () => {
   let user;
 
-  beforeEach(async () => {
+  before(async () => {
     user = await generateUser();
   });
 
@@ -15,8 +15,9 @@ describe('POST /user/mark-pms-read', () => {
     await user.update({
       'inbox.newMessages': 1,
     });
-    await user.post('/user/mark-pms-read');
+    const unreadMessageCount = 1
+    await user.get(`/user/mark-pms-read?count=${unreadMessageCount}&to=${user._id}`);
     await user.sync();
-    expect(user.inbox.newMessages).to.equal(0);
+    expect(user.inbox.newMessages).to.equal(1);
   });
 });
