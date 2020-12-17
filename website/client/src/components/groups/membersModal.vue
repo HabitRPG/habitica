@@ -1,21 +1,15 @@
 <template>
   <!-- @TODO: Move this to a member directory-->
   <div>
-    <remove-member-modal
-      :member-to-remove="memberToRemove"
-      :group-id="groupId"
-      @member-removed="memberRemoved"
-    />
-    <b-modal
-      id="members-modal"
-      :title="$t('createGuild')"
-      size="md"
-      :hide-footer="true"
-    >
-      <div
-        slot="modal-header"
-        class="header-wrap"
-      >
+    <remove-member-modal :member-to-remove="memberToRemove"
+                         :group-id="groupId"
+                         @member-removed="memberRemoved" />
+    <b-modal id="members-modal"
+             :title="$t('createGuild')"
+             size="md"
+             :hide-footer="true">
+      <div slot="modal-header"
+           class="header-wrap">
         <div class="row">
           <div class="col-6">
             <h1 v-once>
@@ -23,219 +17,185 @@
             </h1>
           </div>
           <div class="col-6">
-            <button
-              class="close"
-              type="button"
-              aria-label="Close"
-              @click="close()"
-            >
+            <button class="close"
+                    type="button"
+                    aria-label="Close"
+                    @click="close()">
               <span aria-hidden="true">×</span>
             </button>
           </div>
         </div>
         <div class="row d-flex align-items-center">
           <div class="col-4">
-            <input
-              v-model="searchTerm"
-              class="form-control input-search"
-              type="text"
-              :placeholder="$t('search')"
-            >
+            <input v-model="searchTerm"
+                   class="form-control input-search"
+                   type="text"
+                   :placeholder="$t('search')">
           </div>
           <div class="col">
-            <select-list
-              :items="sortOptions"
-              :value="optionEntryBySelectedValue"
-              key-prop="value"
-              @select="changeSortOption($event)"
-            >
-              <template v-slot:item="{ item }">
-                <span
-                  v-if="item"
-                  class="label"
-                >{{ item.text }}</span>
-              </template>
-            </select-list>
+            <select class="form-control"
+                    @change="changeSortOption($event)">
+              <option v-for="sortOption in sortOptions"
+                      :key="sortOption.value"
+                      :value="sortOption.value">
+                {{ sortOption.text }}
+              </option>
+            </select>
           </div>
           <div class="col-3">
-            <select-list
-              :items="sortDirections"
-              :value="directionEntryBySelectedValue"
-              key-prop="value"
-              @select="changeSortDirection($event)"
-            >
-              <template v-slot:item="{ item }">
-                <span
-                  v-if="item"
-                  class="label"
-                >{{ item.text }}</span>
-              </template>
-            </select-list>
+            <select class="form-control"
+                    @change="changeSortDirection($event)">
+              <option v-for="sortDirection in sortDirections"
+                      :key="sortDirection.value"
+                      :value="sortDirection.value">
+                {{ sortDirection.text }}
+              </option>
+            </select>
           </div>
         </div>
       </div>
-      <div
-        v-if="sortDirty && group.type === 'party'"
-        class="row apply-options d-flex justify-content-center"
-      >
+      <div v-if="sortDirty && group.type === 'party'"
+           class="row apply-options d-flex justify-content-center">
         <a @click="applySortOptions()">{{ $t('applySortToHeader') }}</a>
       </div>
-      <div
-        v-if="invites.length > 0"
-        class="row"
-      >
+      <div v-if="invites.length > 0"
+           class="row">
         <div class="col-6 offset-3 nav">
-          <div
-            class="nav-item"
-            :class="{active: selectedPage === 'members'}"
-            @click="viewMembers()"
-          >
+          <div class="nav-item"
+               :class="{active: selectedPage === 'members'}"
+               @click="viewMembers()">
             {{ $t('members') }}
           </div>
-          <div
-            class="nav-item"
-            :class="{active: selectedPage === 'invites'}"
-            @click="viewInvites()"
-          >
+          <div class="nav-item"
+               :class="{active: selectedPage === 'invites'}"
+               @click="viewInvites()">
             {{ $t('invites') }}
           </div>
         </div>
       </div>
       <loading-gryphon v-if="loading" />
-      <div
-        v-if="selectedPage === 'members' && !loading"
-        :class="{'mt-1': invites.length === 0}"
-      >
-        <div
-          v-for="(member, index) in sortedMembers"
-          :key="member._id"
-          class="row"
-        >
+      <div v-if="selectedPage === 'members' && !loading"
+           :class="{'mt-1': invites.length === 0}">
+        <div v-for="(member, index) in sortedMembers"
+             :key="member._id"
+             class="row">
           <div class="col-11 no-padding-left">
-            <member-details
-              :member="member"
-              :class-badge-position="'next-to-name'"
-            />
+            <member-details :member="member"
+                            :class-badge-position="'next-to-name'" />
           </div>
           <div class="col-1 actions">
             <b-dropdown right="right">
-              <div
-                slot="button-content"
-                class="svg-icon inline dots"
-                v-html="icons.dots"
-              ></div>
+              <div slot="button-content"
+                   class="svg-icon inline dots"
+                   v-html="icons.dots"></div>
               <b-dropdown-item @click="sendMessage(member)">
                 <span class="dropdown-icon-item">
-                  <div
-                    class="svg-icon inline"
-                    v-html="icons.messageIcon"
-                  ></div>
+                  <div class="svg-icon inline"
+                       v-html="icons.messageIcon"></div>
                   <span class="text">{{ $t('sendMessage') }}</span>
                 </span>
               </b-dropdown-item>
-              <b-dropdown-item
-                v-if="shouldShowLeaderFunctions(member._id)"
-                @click="promoteToLeader(member)"
-              >
+              <b-dropdown-item v-if="shouldShowLeaderFunctions(member._id)"
+                               @click="$bvModal.show('bv-modal-example')">
+                <b-modal id="bv-modal-example"
+                         :title="$t('createGuild')"
+                         size="md"
+                         :hide-footer="true">
+                  <template #modal-title>
+                    LEADERSHIP TRANSFER
+                  </template>
+                  <loading-gryphon v-if="loading" />
+                  <div class="d-block text-center">
+                    <span>Do you wanna transfer ownership to:</span>
+                  </div>
+                  <div class="row">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-8 no-padding-right">
+                      <avat :member="member"
+                            :class-badge-position="'next-to-name'" />
+                    </div>
+                  </div>
+                  <div class="d-block text-center">
+                    <b-button class="mt-3"
+                              block
+                              @click="promoteToLeader(member)">YES</b-button>
+                  </div>
+                  <b-button class="mt-3"
+                            block
+                            @click="$bvModal.hide('bv-modal-example')">CLOSE</b-button>
+                </b-modal>
                 <span class="dropdown-icon-item">
-                  <div
-                    class="svg-icon inline"
-                    v-html="icons.starIcon"
-                  ></div>
-                  <span class="text">{{ $t('promoteToLeader') }}</span>
+                  <div class="svg-icon inline"
+                       v-html="icons.starIcon"></div>
+                  <span class="text"
+                        @click="$bvModal.show('bv-modal-example')">{{ $t('promoteToLeader') }}
+                        </span>
                 </span>
               </b-dropdown-item>
-              <b-dropdown-item
-                v-if="shouldShowAddManager(member._id)"
-                @click="addManager(member._id)"
-              >
+              <b-dropdown-item v-if="shouldShowAddManager(member._id)"
+                               @click="addManager(member._id)">
                 <span class="dropdown-icon-item">
-                  <div
-                    class="svg-icon inline"
-                    v-html="icons.starIcon"
-                  ></div>
+                  <div class="svg-icon inline"
+                       v-html="icons.starIcon"></div>
                   <span class="text">{{ $t('addManager') }}</span>
                 </span>
               </b-dropdown-item>
-              <b-dropdown-item
-                v-if="shouldShowRemoveManager(member._id)"
-                @click="removeManager(member._id)"
-              >
+              <b-dropdown-item v-if="shouldShowRemoveManager(member._id)"
+                               @click="removeManager(member._id)">
                 <span class="dropdown-icon-item">
-                  <div
-                    class="svg-icon inline block-icon"
-                    v-html="icons.blockIcon"
-                  ></div>
+                  <div class="svg-icon inline block-icon"
+                       v-html="icons.blockIcon"></div>
                   <span class="text">{{ $t('removeManager2') }}</span>
                 </span>
               </b-dropdown-item>
-              <b-dropdown-item
-                v-if="challengeId"
-                @click="viewProgress(member)"
-              >
+              <b-dropdown-item v-if="challengeId"
+                               @click="viewProgress(member)">
                 <span class="dropdown-icon-item">
                   <span class="text">{{ $t('viewProgress') }}</span>
                 </span>
               </b-dropdown-item>
-              <b-dropdown-item
-                v-if="shouldShowLeaderFunctions(member._id)"
-                @click="removeMember(member, index)"
-              >
+              <b-dropdown-item v-if="shouldShowLeaderFunctions(member._id)"
+                               @click="removeMember(member, index)">
                 <span class="dropdown-icon-item">
-                  <div
-                    class="svg-icon inline block-icon"
-                    v-html="icons.blockIcon"
-                  ></div>
+                  <div class="svg-icon inline block-icon"
+                       v-html="icons.blockIcon"></div>
                   <span class="text">{{ $t('removeMember') }}</span>
                 </span>
               </b-dropdown-item>
             </b-dropdown>
           </div>
         </div>
-        <div
-          v-if="isLoadMoreAvailable"
-          class="row"
-        >
+        <div v-if="isLoadMoreAvailable"
+             class="row">
           <div class="col-12 text-center">
-            <button
-              class="btn btn-secondary"
-              @click="loadMoreMembers()"
-            >
+            <button class="btn btn-secondary"
+                    @click="loadMoreMembers()">
               {{ $t('loadMore') }}
             </button>
           </div>
         </div>
-        <div
-          v-if="members.length > 3"
-          class="row gradient"
-        ></div>
+        <div v-if="members.length > 3"
+             class="row gradient"></div>
       </div>
       <div v-if="selectedPage === 'invites' && !loading">
-        <div
-          v-for="(member, index) in invites"
-          :key="member._id"
-          class="row"
-        >
+        <div v-for="(member, index) in invites"
+             :key="member._id"
+             class="row">
           <div class="col-11 no-padding-left">
             <member-details :member="member" />
           </div>
           <div class="col-1 actions">
             <b-dropdown right="right">
-              <div
-                slot="button-content"
-                class="svg-icon inline dots"
-                v-html="icons.dots"
-              ></div>
-              <b-dropdown-item
-                v-if="isLeader"
-                @click="removeInvite(member, index)"
-              >
+              <div slot="button-content"
+                   class="svg-icon inline dots"
+                   v-html="icons.dots"></div>
+              <b-dropdown-item v-if="isLeader"
+                               @click="removeInvite(member, index)">
                 <span class="dropdown-icon-item">
-                  <div
-                    v-if="isLeader"
-                    class="svg-icon inline block-icon"
-                    v-html="icons.blockIcon"
-                  ></div>
+                  <div v-if="isLeader"
+                       class="svg-icon inline block-icon"
+                       v-html="icons.blockIcon"></div>
                   <span class="text">{{ $t('removeInvite') }}</span>
                 </span>
               </b-dropdown-item>
@@ -248,132 +208,141 @@
 </template>
 
 <style lang='scss'>
-  #members-modal {
-    .modal-header {
-      background-color: #edecee;
-      border-radius: 8px 8px 0 0;
-      box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
-    }
-
-    .small-text, .character-name {
-      color: #878190;
-    }
-
-    .no-padding-left {
-      padding-left: 0;
-    }
-
-    .modal-body {
-      padding-left: 0;
-      padding-right: 0;
-      padding-bottom: 0;
-      padding-top: 0;
-    }
-
-    .member-details {
-      margin: 0;
-    }
-
-    .actions .dropdown-toggle::after {
-      content: none !important;
-    }
-  }
-</style>
-
-<style lang='scss' scoped>
-  @import '~@/assets/scss/colors.scss';
-
-  .apply-options {
-    padding: 1em;
-    margin: 0;
-    background-color: #f9f9f9;
-    color: #2995cd;
+#members-modal {
+  .modal-header {
+    background-color: #edecee;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
   }
 
-  .header-wrap {
-    width: 100%;
-  }
-
-  .form-control {
-    font-size: 0.9rem;
-  }
-
-  h1 {
-    color: #4f2a93;
-  }
-
-  .actions {
-    padding-top: 5em;
-
-    .dots {
-      height: 16px;
-      width: 4px;
-    }
-
-    .btn-group {
-      margin-left: -2em;
-      margin-top: -2em;
-    }
-
-    .action-icon {
-      margin-right: 1em;
-    }
-  }
-
-  #members-modal_modal_body {
-    padding: 0;
-    max-height: 450px;
-
-    .col-8 {
-      margin-left: 0;
-    }
-
-    .member-details {
-      margin: 0;
-    }
-
-    .member-stats {
-      width: 382px;
-      height: 147px;
-    }
-
-    .gradient {
-      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
-      height: 50px;
-      width: 100%;
-      position: absolute;
-      bottom: 0px;
-      margin-left: -15px;
-    }
-  }
-
-  .dropdown-icon-item .svg-icon {
-    width: 20px;
-  }
-
-  .nav {
-    font-weight: bold;
-    margin-bottom: .5em;
-    margin-top: .5em;
-  }
-
-  .nav-item {
-    display: inline-block;
-    font-size: 16px;
-    margin: 0 auto;
-    padding: .5em;
+  .small-text,
+  .character-name {
     color: #878190;
   }
 
-  .nav-item:hover, .nav-item.active {
-    color: #4f2a93;
-    border-bottom: 2px solid #4f2a93;
-    cursor: pointer;
+  .no-padding-left {
+    padding-left: 0;
+  }
+  .no-padding-right {
+    padding-left: 250px;
+    margin-left: 0 auto;
+  }
+  .modal-body {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-top: 0;
   }
 
-  .block-icon {
-    color:  $gray-200;
+  .member-details {
+    margin: 0;
   }
+
+  .actions .dropdown-toggle::after {
+    content: none !important;
+  }
+}
+</style>
+
+<style lang='scss' scoped>
+@import '~@/assets/scss/colors.scss';
+
+.apply-options {
+  padding: 1em;
+  margin: 0;
+  background-color: #f9f9f9;
+  color: #2995cd;
+}
+
+.header-wrap {
+  width: 100%;
+}
+
+.form-control {
+  font-size: 0.9rem;
+}
+
+h1 {
+  color: #4f2a93;
+}
+
+.actions {
+  padding-top: 5em;
+
+  .dots {
+    height: 16px;
+    width: 4px;
+  }
+
+  .btn-group {
+    margin-left: -2em;
+    margin-top: -2em;
+  }
+
+  .action-icon {
+    margin-right: 1em;
+  }
+}
+
+#members-modal_modal_body {
+  padding: 0;
+  max-height: 450px;
+
+  .col-8 {
+    margin-left: 0;
+  }
+
+  .member-details {
+    margin: 0;
+  }
+
+  .member-stats {
+    width: 382px;
+    height: 147px;
+  }
+
+  .gradient {
+    background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0),
+      #ffffff
+    );
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    margin-left: -15px;
+  }
+}
+
+.dropdown-icon-item .svg-icon {
+  width: 20px;
+}
+
+.nav {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+.nav-item {
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 auto;
+  padding: 0.5em;
+  color: #878190;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: #4f2a93;
+  border-bottom: 2px solid #4f2a93;
+  cursor: pointer;
+}
+
+.block-icon {
+  color: $gray-200;
+}
 </style>
 
 <script>
@@ -383,28 +352,24 @@ import { mapState } from '@/libs/store';
 
 import removeMemberModal from '@/components/members/removeMemberModal';
 import loadingGryphon from '@/components/ui/loadingGryphon';
-import MemberDetails from '../memberDetails';
 import blockIcon from '@/assets/svg/block.svg';
 import messageIcon from '@/assets/members/message.svg';
 import starIcon from '@/assets/members/star.svg';
 import dots from '@/assets/svg/dots.svg';
-import SelectList from '@/components/ui/selectList';
+import MemberDetails from '../memberDetails.vue';
+import Avat from '../leaderConfirmation.vue';
 
 export default {
   components: {
-    SelectList,
     MemberDetails,
+    Avat,
     removeMemberModal,
     loadingGryphon,
   },
   props: ['hideBadge'],
   data () {
     return {
-      sortOption: {
-        // default sort options
-        value: 'stats.class',
-        direction: 'asc',
-      },
+      sortOption: {},
       sortDirty: false,
       selectedPage: 'members',
       members: [],
@@ -517,12 +482,6 @@ export default {
 
       return sortedMembers;
     },
-    optionEntryBySelectedValue () {
-      return this.sortOptions.find(o => o.value === this.sortOption.value);
-    },
-    directionEntryBySelectedValue () {
-      return this.sortDirections.find(o => o.value === this.sortOption.direction);
-    },
   },
   watch: {
     // Watches `searchTerm` and if present, performs a `searchMembers` action
@@ -634,11 +593,11 @@ export default {
       this.$root.$emit('bv::hide::modal', 'members-modal');
     },
     changeSortOption (e) {
-      this.sortOption.value = e.value;
+      this.sortOption.value = e.target.value;
       this.sort();
     },
     changeSortDirection (e) {
-      this.sortOption.direction = e.value;
+      this.sortOption.direction = e.target.value;
       this.sort();
     },
     sort () {
