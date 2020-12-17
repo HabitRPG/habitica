@@ -1972,5 +1972,10 @@
     "armorSpecialSpring2020RogueNotes": "¡El color del ocaso, una multitud de piedras preciosas, desde lo profundo del océano! Incrementa la percepción en <%= per %>. Edición Limitada Equipamiento de la Primavera 2020.",
     "armorSpecialSummer2020RogueText": "Disfraz de Cocodrilo",
     "armorSpecialSpring2020RogueText": "Armadura Ultramarina",
-    "armorSpecialSpring2020WarriorText": "Armadura de Exoesqueleto"
+    "armorSpecialSpring2020WarriorText": "Armadura de Exoesqueleto",
+    "armorSpecialSpring2020WarriorNotes": "Este caparazón rígido puede mantenerte a salvo incluso de los ataques más aplastantes. Aumenta la Constitución en <% = con%>. Edición limitada 2020 Spring Gear.",
+    "armorSpecialWinter2020HealerNotes": "¡Un vestido opulento para aquellos con entusiasmo festivo! Aumenta la Constitución en <% = con%>. Equipamiento de invierno 2019-2020 de edición limitada.",
+    "armorSpecialWinter2020MageNotes": "Reciba el año nuevo cálido, cómodo y protegido contra vibraciones excesivas. Aumenta la inteligencia en <% = int%>. Equipamiento de invierno 2019-2020 de edición limitada.",
+    "weaponArmoireEveningTeaNotes": "Esta panacea ayudará a que te relajes así esas grandes tareas no parecerán tan amenazantes. Aumenta la Inteligencia en <%= int %>. Armadura encantada: Conjunto de Bata (artículo 3 de 3).",
+    "weaponArmoireEveningTeaText": "Taza de Té"
 }

@@ -94,7 +94,7 @@
     "classGearText": "Félicitations, vous avez choisi une classe ! J'ai ajouté à votre inventaire de nouvelles armes de base. Regardez ci-dessous et équipez-vous !",
     "autoAllocate": "Distribution automatique",
     "spells": "Compétences",
-    "skillsTitle": "Compétences",
+    "skillsTitle": "Compétences <%= classStr %>",
     "toDo": "À faire",
     "tourStatsPage": "Ceci est votre page de statistiques ! Remportez des succès en complétant vos tâches.",
     "tourTavernPage": "Voici la taverne, un lieu de discussions pour tout âge ! Vous pouvez empêcher vos quotidiennes de vous faire du mal en cas de maladie ou de voyage en cliquant sur \"Désactiver les dégâts\". Venez dire bonjour !",

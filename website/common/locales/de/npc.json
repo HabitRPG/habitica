@@ -94,7 +94,7 @@
     "classGearText": "Glückwunsch zur Wahl Deiner Klasse! Ich habe Deine neue Basiswaffe dem Inventar hinzugefügt. Schaue sie Dir unten an, um sie auszurüsten!",
     "autoAllocate": "Automatische Verteilung",
     "spells": "Fertigkeiten",
-    "skillsTitle": "Fertigkeiten",
+    "skillsTitle": "<%= classStr %> Fertigkeiten",
     "toDo": "To-Do",
     "tourStatsPage": "Auf dieser Seite kannst Du Deine Statuswerte im Auge behalten. Erreiche neue Erfolge indem Du die aufgelisteten Aufgaben erledigst.",
     "tourTavernPage": "Willkommen in der Taverne, einem Gesprächsraum für alle Altersklassen! Falls Du krank bist oder verreist, kannst Du verhindern, dass Du Leben durch nicht erledigte Tagesaufgaben verlierst, indem Du auf \"Im Gasthaus erholen\" klickst. Komm herein und sag Hallo!",

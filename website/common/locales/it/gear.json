@@ -2227,5 +2227,11 @@
     "backMystery202012Notes": "Le piume innevate di queste ali ti daranno la velocità di una tempesta invernale. Non conferisce alcun bonus. Oggetto abbonati dicembre 2020.",
     "backMystery202012Text": "Ali di Fuoco Ghiacciato",
     "headMystery202012Notes": "Questa imponente maschera ha degli occhi penetranti che accecano i nemici come il riflesso del sole sulla neve fresca. Non conferisce alcun bonus. Oggetto abbonati dicembre 2020.",
-    "headMystery202012Text": "Maschera di Fuoco Ghiacciato"
+    "headMystery202012Text": "Maschera di Fuoco Ghiacciato",
+    "headArmoireNightcapNotes": "Il tuo nuovo berretto da notte ha anche un bellissimo pompon! Aumenta la percezione di <%= per %>. Scrigno Incantato: Set Vestaglia (oggetto 2 di 3).",
+    "headArmoireNightcapText": "Berretto da notte",
+    "armorArmoireDressingGownNotes": "Rilassati con stile con questa bellissima vestaglia tradizionale. Aumenta la costituzione di <%= con %>. Scrigno Incantato: Set Vestaglia (oggetto 1 di 3).",
+    "armorArmoireDressingGownText": "Comoda vestaglia",
+    "weaponArmoireEveningTeaNotes": "Questa panacea ti aiuterà a rilassarti in modo che quegli enormi compiti non sembrino così minacciosi. Aumenta l'intelligenza di <%= int %>. Scrigno Incantato: Set Vestaglia (oggetto 3 di 3).",
+    "weaponArmoireEveningTeaText": "Tazza di tè"
 }
