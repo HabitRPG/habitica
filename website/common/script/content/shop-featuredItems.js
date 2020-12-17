@@ -4,7 +4,7 @@ import moment from 'moment';
 // path: 'premiumHatchingPotions.Rainbow',
 const featuredItems = {
   market () {
-    if (moment().isBefore('2020-12-01T08:00-04:00')) {
+    if (moment().isBefore('2020-12-17T08:00-04:00')) {
       return [
         {
           type: 'armoire',
@@ -64,7 +64,7 @@ const featuredItems = {
     ];
   },
   quests () {
-    if (moment().isBefore('2020-12-01T08:00-04:00')) {
+    if (moment().isBefore('2020-12-17T08:00-04:00')) {
       return [
         {
           type: 'quests',
