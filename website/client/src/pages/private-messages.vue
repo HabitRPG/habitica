@@ -924,8 +924,10 @@ export default {
         message: this.newMessage,
       }).then(response => {
         const newMessage = response.data.data.message;
-        messages[messages.length - 1] = newMessage;
-        this.selectedConversation.lastMessageText = newMessage.text;
+        const messageToReset = messages[messages.length - 1];
+        messageToReset.id = newMessage.id; // just set the id, all other infos already set
+        messageToReset.text = newMessage.text; // handle mentions
+        Object.assign(messages[messages.length - 1], messageToReset);
         this.updateConversationsCounter += 1;
       });
 
