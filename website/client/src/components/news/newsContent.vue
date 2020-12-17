@@ -3,7 +3,7 @@
     <div class="bailey-header d-flex align-items-center mb-3">
       <div
         class="mr-3"
-        :class="seasonalNPC('bailey')"
+        :class="npcClass('bailey')"
       ></div>
       <h1 v-once>
         {{ $t('newStuff') }}
