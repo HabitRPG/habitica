@@ -4,7 +4,12 @@ import {
   NotFound,
 } from '../../libs/errors';
 import { listConversations } from '../../libs/inbox/conversation.methods';
-import { clearPMs, deleteMessage, getUserInbox, markPmsRead } from '../../libs/inbox';
+import {
+  clearPMs,
+  deleteMessage,
+  getUserInbox,
+  markPmsRead,
+} from '../../libs/inbox';
 
 const api = {};
 
@@ -151,7 +156,6 @@ api.getInboxMessages = {
  * @api {post} /api/v3/user/mark-pms-read Mark Private Messages as read
  * @apiName markPmsRead
  * @apiGroup User
- * 
  * @apiParam (Path) {Integer} count The count of pms marked as read
  * @apiParam (Path) {UUID} to The uuid of user that is opposed to you in the conversation
  *
@@ -162,20 +166,18 @@ api.getInboxMessages = {
  */
 
 api.markPmsRead = {
-    method: 'GET',
-    middlewares: [authWithHeaders()],
-    url: '/user/mark-pms-read',
-    async handler (req, res) {
-      const { user } = res.locals;
-      const { count, to } = req.query;
+  method: 'GET',
+  middlewares: [authWithHeaders()],
+  url: '/user/mark-pms-read',
+  async handler (req, res) {
+    const { user } = res.locals;
+    const { count, to } = req.query;
 
-      await markPmsRead(to, user, count);
-      res.respond(200, {
-        message: res.t('pmsMarkedRead'),
-      });
-    },
-  };
-   
-  
+    await markPmsRead(to, user, count);
+    res.respond(200, {
+      message: res.t('pmsMarkedRead'),
+    });
+  },
+};
 
 export default api;

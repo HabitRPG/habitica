@@ -103,7 +103,7 @@ export async function clearPMs (user) {
 export async function markPmsRead (to, user, count) {
   if (user.inbox.newMessages < 0) {
     user.inbox.newMessages = 0;
-  } 
+  }
   user.inbox.newMessages -= count;
 
   const findObj = { ownerId: user._id, uuid: to };
