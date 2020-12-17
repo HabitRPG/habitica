@@ -9,7 +9,7 @@
         <div slot="header">
           <div
             id="npmMattStable"
-            :class="seasonalNPC('matt')"
+            :class="npcClass('matt')"
           ></div>
           <b-popover
             triggers="hover"
