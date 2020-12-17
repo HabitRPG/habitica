@@ -14,9 +14,7 @@ import * as takeThisGear from './special-takeThis';
 import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
-const CURRENT_EVENT = find(EVENTS, event => {
-  moment().isBetween(event.start, event.end);
-});
+const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end));
 
 const gearEvents = cloneDeep(EVENTS);
 ['winter', 'birthday', 'gaymerx', 'noCurrentEvent2020', 'winter2021NoPromo', 'noCurrentEvent2021'].forEach(nonGearEvent => {
