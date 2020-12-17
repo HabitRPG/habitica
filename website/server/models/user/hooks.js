@@ -144,11 +144,13 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2021-01-07T20:00-05:00')) {
-    if (user.addNotification) user.addNotification('GIFT_ONE_GET_ONE');
+  if (moment().isBefore('2020-11-30')) {
+    user.migration = '20201126_harvest_feast';
+    user.items.pets['Turkey-Base'] = 5;
+    user.items.currentPet = 'Turkey-Base';
   }
 
-  user.markModified('items achievements notifications');
+  user.markModified('items achievements');
 
   user.enrollInDropCapABTest(user.registeredThrough);
 
