@@ -9,9 +9,7 @@ import {
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
-const CURRENT_EVENT = find(EVENTS, event => {
-  moment().isBetween(event.start, event.end);
-});
+const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end));
 const userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
 const quests = {
