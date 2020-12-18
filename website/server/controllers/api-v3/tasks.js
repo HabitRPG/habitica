@@ -678,26 +678,29 @@ api.updateTask = {
       task.group.managerNotes = sanitizedObj.managerNotes;
     }
 
-    // If the daily task was set to repeat monthly on a day of the month, and the start date was
-    // updated, the task will then need to be updated to repeat on the same day of the month as the
-    // new start date. For example, if the start date is updated to 7/2/2020, the daily should
-    // repeat on the 2nd day of the month. It's possible that a task can repeat monthly on a
-    // week of the month, in which case we won't update the repetition at all.
-    if (
-      task.type === 'daily'
-      && task.frequency === 'monthly'
-      && task.daysOfMonth.length
-      && task.startDate
+    // For daily tasks, update start date based on timezone to maintain consistency
+    if (task.type === 'daily'
+        && task.startDate
     ) {
-      // This updates the start date time to midnight in the user's timezone.
       task.startDate = moment(task.startDate).utcOffset(
         -user.preferences.timezoneOffset,
-      ).hour(0).toDate();
-      // We also need to aware of the user's timezone. Start date is represented as UTC, so the
-      // start date and day of month might be different
-      task.daysOfMonth = [moment(task.startDate).utcOffset(
-        -user.preferences.timezoneOffset,
-      ).date()];
+      ).startOf('day').toDate();
+
+      // If the daily task was set to repeat monthly on a day of the month, and the start date was
+      // updated, the task will then need to be updated to repeat on the same day of the month as
+      // the new start date. For example, if the start date is updated to 7/2/2020, the daily
+      // should repeat on the 2nd day of the month. It's possible that a task can repeat monthly
+      // on a week of the month, in which case we won't update the repetition at all.
+      if (
+        task.frequency === 'monthly'
+        && task.daysOfMonth.length
+      ) {
+        // We also need to aware of the user's timezone. Start date is represented as UTC, so the
+        // start date and day of month might be different
+        task.daysOfMonth = [moment(task.startDate).utcOffset(
+          -user.preferences.timezoneOffset,
+        ).date()];
+      }
     }
 
     setNextDue(task, user);

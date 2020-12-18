@@ -378,7 +378,7 @@ export const DailySchema = new Schema(_.defaults({
   startDate: {
     $type: Date,
     default () {
-      return moment().startOf('day').toDate();
+      return moment.utc().toDate();
     },
     required: true,
   },
