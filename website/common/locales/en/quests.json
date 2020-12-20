@@ -66,7 +66,7 @@
   "cantCancelActiveQuest": "You can not cancel an active quest, use the abort functionality.",
   "onlyLeaderCancelQuest": "Only the group or quest leader can cancel the quest.",
   "questNotPending": "There is no quest to start.",
-  "membersAccepted": "<%= accepted %> / <%= invited %> Members accepted",
+  "membersParticipating": "<%= accepted %> / <%= invited %> Members participating",
   "questOrGroupLeaderOnlyStartQuest": "Only the quest leader or group leader can force start the quest",
   "loginIncentiveQuest": "To unlock this quest, check in to Habitica on <%= count %> different days!",
   "loginReward": "<%= count %> Check-ins",

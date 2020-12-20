@@ -47,6 +47,7 @@
     <div
       v-if="!onPendingQuest && onActiveQuest"
       class="row quest-active-section"
+      :class="{'not-participating': !userIsOnQuest}"
     >
       <div class="col-12 text-center">
         <div
@@ -94,19 +95,13 @@
             class="boss-info"
           >
             <div class="row">
-              <div class="col-6">
+              <div class="col-12">
                 <h4
                   v-once
-                  class="float-left"
+                  class="float-left boss-name"
                 >
                   {{ questData.boss.name() }}
                 </h4>
-              </div>
-              <div class="col-6">
-                <a
-                  class="float-right"
-                  @click="openParticipantList()"
-                >{{ $t('participantsTitle') }}</a>
               </div>
             </div>
             <div class="row">
@@ -116,13 +111,24 @@
                     class="boss-health-bar"
                     :style="{width: bossHpPercent + '%'}"
                   ></div>
+                  <div
+                    class="pending-health-bar"
+                    :style="{width: pendingHpPercent + '%'}"
+                  ></div>
                 </div>
               </div>
             </div>
             <div class="row boss-details">
               <div class="col-6">
-                <span class="float-left">
-                  {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }} / {{ parseFloat(questData.boss.hp).toFixed(2) }} <!-- eslint-disable-line max-len -->
+                <span class="float-left hp-value">
+                  <div
+                    class="svg-icon health-icon"
+                    v-html="icons.healthNoPaddingIcon"
+                  ></div>
+                  {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }}
+                  / {{ parseFloat(questData.boss.hp) }}
+                  <strong>HP</strong>
+
                   <!-- current boss hp uses ceil so
                     you don't underestimate damage needed to end quest-->
                 </span>
@@ -133,9 +139,14 @@
               >
                 <!-- @TODO: Why do we not sync quest
                   progress on the group doc? Each user could have different progress.-->
-                <span
-                  class="float-right"
-                >{{ (user.party.quest.progress.up || 0) | floor(10) }} {{ $t('pendingDamageLabel') }}</span> <!-- eslint-disable-line max-len -->
+                <span class="float-right pending-value">
+                  <div
+                    class="svg-icon sword-icon"
+                    v-html="icons.swordIcon"
+                  ></div>
+                  {{ (user.party.quest.progress.up || 0) | floor(10) }}
+                  {{ $t('pendingDamageLabel') }}
+                </span> <!-- eslint-disable-line max-len -->
                 <!-- player's pending damage uses floor so you
                   don't overestimate damage you've already done-->
               </div>
@@ -159,9 +170,14 @@
               class="row boss-details rage-details"
             >
               <div class="col-6">
-                <span
-                  class="float-left"
-                >{{ $t('rage') }} {{ parseFloat(group.quest.progress.rage).toFixed(2) }} / {{ questData.boss.rage.value }}</span> <!-- eslint-disable-line max-len -->
+                <span class="float-left rage-value">
+                  <div class="svg-icon health-icon"
+                       v-html="icons.rageIcon">
+                  </div>
+                  {{ parseFloat(group.quest.progress.rage) }}
+                  / {{ questData.boss.rage.value }}
+                  <strong v-once>{{$t('rage')}}</strong>
+                </span>
               </div>
             </div>
           </div>
@@ -177,9 +193,9 @@
         <strong>{{ questData.text() }} </strong>
         <a
           class="members-invited"
-          @click="openQuestDetails()"
+          @click="openParticipantList()"
         >
-          {{ $t('membersAccepted', {accepted: acceptedCount, invited: group.memberCount}) }}
+          {{ $t('membersParticipating', {accepted: acceptedCount, invited: group.memberCount}) }}
         </a>
       </div>
       <div class="quest-icon">
@@ -249,8 +265,17 @@
   .boss-health-bar {
     width: 80%;
     background-color: red;
-    height: 15px;
-    margin-bottom: .5em;
+    height: 0.75rem;
+    margin-bottom: 0.5rem;
+
+    display: inline-block;
+  }
+
+  .pending-health-bar {
+    height: 0.75rem;
+    background-color: $yellow-50;
+    display: inline-block;
+    margin-bottom: 0.5rem;
   }
 
   .rage-details {
@@ -258,13 +283,12 @@
   }
 
   .boss-health-bar.rage-bar {
-    margin-top: 1em;
-    background-color: orange;
+    background-color: $orange-50;
   }
 
   .grey-progress-bar {
     width: 100%;
-    height: 15px;
+    height: 0.75rem;
     background-color: #e1e0e3;
     border-radius: 2px;
     overflow: hidden;
@@ -374,9 +398,61 @@
     }
 
     .boss-info {
-      width: 90%;
       margin: 0 auto;
       text-align: left;
+
+      .boss-name {
+        font-size: 0.75rem;
+        font-weight: bold;
+        line-height: 1.33;
+        color: $gray-100;
+        margin-bottom: 0.25rem;
+      }
+
+      .boss-details {
+        margin-top: 0.5rem;
+      }
+
+      .hp-value {
+        font-size: 0.75rem;
+        line-height: 1.33;
+        color: $maroon-10;
+        display: flex;
+      }
+
+      .rage-value {
+        font-size: 0.75rem;
+        line-height: 1.33;
+        color: $orange-10;
+        display: flex;
+      }
+
+      .pending-value {
+        font-size: 0.75rem;
+        line-height: 1.33;
+        text-align: right;
+        color: $yellow-5;
+
+        display: flex;
+      }
+
+      .health-icon {
+        width: 1rem;
+        height: 1rem;
+        object-fit: contain;
+        margin-right: 0.25rem;
+      }
+
+      .sword-icon {
+        width: 1rem;
+        height: 1rem;
+        object-fit: contain;
+        margin-right: 0.25rem;
+      }
+
+      strong {
+        margin-left: 0.25rem;
+      }
     }
   }
 
@@ -461,6 +537,7 @@
         &.quest-label {
           font-weight: bold;
           margin-bottom: 0.25rem;
+          display: block;
         }
       }
 
@@ -483,6 +560,14 @@
       }
     }
   }
+
+  .not-participating {
+    opacity: 0.5;
+  }
+
+  .rage-bar-row {
+    margin-top: 0.875rem;
+  }
 </style>
 
 <script>
@@ -493,6 +578,9 @@ import percent from '@/../../common/script/libs/percent';
 import sidebarSection from '../sidebarSection';
 
 import questIcon from '@/assets/svg/quest.svg';
+import swordIcon from '@/assets/svg/sword.svg';
+import rageIcon from '@/assets/svg/rage.svg';
+import healthNoPaddingIcon from '@/assets/svg/health_no_padding.svg';
 import questActionsMixin from '@/components/groups/questActions.mixin';
 
 export default {
@@ -505,6 +593,9 @@ export default {
     return {
       icons: Object.freeze({
         questIcon,
+        healthNoPaddingIcon,
+        swordIcon,
+        rageIcon,
       }),
     };
   },
@@ -526,6 +617,9 @@ export default {
     },
     bossHpPercent () {
       return percent(this.group.quest.progress.hp, this.questData.boss.hp);
+    },
+    pendingHpPercent () {
+      return percent(this.user.party.quest.progress.up, this.questData.boss.hp);
     },
     questData () {
       if (!this.group.quest) return {};

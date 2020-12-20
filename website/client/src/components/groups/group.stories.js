@@ -2,8 +2,9 @@
 import { storiesOf } from '@storybook/vue';
 import {
   collectionQuestLeaderParticipating,
+  collectionQuestNotParticipating,
   createStory,
-  groupBossQuestParticipating,
+  groupBossQuestParticipating, groupBossQuestRage,
   groupCollectionQuestNotStarted, groupCollectionQuestPending,
 } from '@/components/groups/group.stories.utils';
 
@@ -184,19 +185,21 @@ storiesOf('Group Components|Party/Quest States', module)
     `,
     data () {
       return {
-        group: {
-          quest: {},
-          leader: {
-
-          },
-        },
+        group: collectionQuestNotParticipating,
       };
     },
     user: {
       data: {
-        _id: 'some-user',
+        _id: 'not-the-leader',
         party: {
-
+          quest: {
+            progress: {
+              up: 0,
+              down: 0,
+              collectedItems: 2,
+              collect: {},
+            },
+          },
         },
       },
     },
@@ -215,9 +218,16 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     user: {
       data: {
-        _id: 'some-user',
+        _id: 'acc2950e-9919-49bc-be7f-0ec4103e9f2b',
         party: {
-
+          quest: {
+            progress: {
+              up: 20,
+              down: 0,
+              collectedItems: 2,
+              collect: {},
+            },
+          },
         },
       },
     },
@@ -231,19 +241,21 @@ storiesOf('Group Components|Party/Quest States', module)
     `,
     data () {
       return {
-        group: {
-          quest: {},
-          leader: {
-
-          },
-        },
+        group: groupBossQuestRage,
       };
     },
     user: {
       data: {
-        _id: 'some-user',
+        _id: 'acc2950e-9919-49bc-be7f-0ec4103e9f2b',
         party: {
-
+          quest: {
+            progress: {
+              up: 20,
+              down: 0,
+              collectedItems: 2,
+              collect: {},
+            },
+          },
         },
       },
     },
