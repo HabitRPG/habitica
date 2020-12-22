@@ -410,10 +410,7 @@ const premium = {
     canBuy: hasQuestAchievementFunction('blackPearl'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
   },
-};
-
-if (moment().isAfter('2020-12-22T08:00-04:00')) {
-  premium.StainedGlass = {
+  StainedGlass: {
     value: 2,
     text: t('hatchingPotionStainedGlass'),
     limited: true,
@@ -424,8 +421,8 @@ if (moment().isAfter('2020-12-22T08:00-04:00')) {
     canBuy () {
       return moment().isBetween('2020-12-22T08:00-04:00', '2021-01-31T20:00-04:00');
     },
-  };
-}
+  },
+};
 
 const wacky = {
   Veggie: {
