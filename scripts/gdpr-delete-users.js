@@ -35,7 +35,6 @@ async function deleteAmplitudeData (userId, email) {
 }
 
 async function deleteHabiticaData (user, email) {
-  const truncatedEmail = email.slice(0, email.indexOf('@'));
   const set = {
     'auth.blocked': false,
     'auth.local.hashed_password': '$2a$10$QDnNh1j1yMPnTXDEOV38xOePEWFd4X8DSYwAM8XTmqmacG5X0DKjW',
