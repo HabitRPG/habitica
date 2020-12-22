@@ -41,7 +41,7 @@ async function deleteHabiticaData (user, email) {
     'auth.local.hashed_password': '$2a$10$QDnNh1j1yMPnTXDEOV38xOePEWFd4X8DSYwAM8XTmqmacG5X0DKjW',
     'auth.local.passwordHashMethod': 'bcrypt',
   };
-  if (!user.auth.local.email) set['auth.local.email'] = `${truncatedEmail}-gdpr@example.com`;
+  if (!user.auth.local.email) set['auth.local.email'] = `${user._id}@example.com`;
   await User.update(
     { _id: user._id },
     { $set: set },
