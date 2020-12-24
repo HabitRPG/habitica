@@ -2214,7 +2214,7 @@
     "shieldArmoireDarkAutumnFlameText": "Chama Escura de Outono",
     "headArmoireHornsOfAutumnNotes": "Extraia o poder do ar fresco da estação e canalize-o por meio de sua magia! Aumenta a Força em <%= str %>. Armário Encantado: Conjunto Encantadores de Outono (Item 1 de 4).",
     "headArmoireHornsOfAutumnText": "Chifres de Outono",
-    "shieldMystery202011Notes": "Aproveite a força do vento de outono com este cajado. Use para magia arcana ou para fazer pilhas de folhas incríveis, a escolha é sua! Não concede benefícios. Item de assinante de Novembro de 2020.",
+    "shieldMystery202011Notes": "Aproveite a força do vento de outono com este cajado. Use para praticar magia arcana ou para fazer pilhas de folhas incríveis, a escolha é sua! Não concede benefícios. Item de assinante de Novembro de 2020.",
     "shieldMystery202011Text": "Cajado Folheado",
     "headArmoireCapOfClubsNotes": "Deixe todos saberem sobre suas últimas conquistas com esta pena literal em seu chapéu! Aumenta a inteligência em <%= int %>. Armário Encantado: Conjunto Valete de Paus (Item 1 de 3).",
     "headArmoireCapOfClubsText": "Chapéu de Paus",
@@ -2227,5 +2227,11 @@
     "backMystery202012Notes": "As penas nevadas destas asas lhe darão a velocidade de um vendaval de inverno. Não confere nenhum benefício. Item para assinantes de Dezembro 2020.",
     "backMystery202012Text": "Asas da Fênix de Gelo",
     "headMystery202012Notes": "Esta máscara imponente apresenta olhos penetrantes que cegarão os inimigos como o brilho da luz do sol sobre a neve fresca. Não confere nenhum benefício. Item para assinantes de Dezembro 2020.",
-    "headMystery202012Text": "Máscara da Fênix de Gelo"
+    "headMystery202012Text": "Máscara da Fênix de Gelo",
+    "headArmoireNightcapText": "Touca de dormir",
+    "weaponArmoireEveningTeaText": "Xícara de chá",
+    "weaponArmoireEveningTeaNotes": "Esse cházinho ajudará você a relaxar para que aquelas tarefas grandes não pareçam tão ameaçadoras. Aumenta a Inteligência em <%= int %>. Armário Encantado: Conjunto Roupão confortável (Item 3 de 3).",
+    "headArmoireNightcapNotes": "Sua nova touca de dormir tem até um belo pompom saltitante! Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto Roupão confortável (Item 2 de 3).",
+    "armorArmoireDressingGownNotes": "Relaxe em estilo com este lindo roupão tradicional. Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto Roupão confortável (Item 1 de 3).",
+    "armorArmoireDressingGownText": "Roupão confortável"
 }

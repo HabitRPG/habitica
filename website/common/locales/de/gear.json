@@ -2227,5 +2227,11 @@
     "headMystery202012Notes": "Diese imposante Maske verleiht einen stechenden Blick, der Feinde blendet wie Schnee-gespiegeltes Sonnenlicht. Gewährt keinen Attributbonus. Dezember 2020 Abonnentengegenstand.",
     "backMystery202012Notes": "Die verschneiten Federn dieser Flügel werden Dir die Geschwindigkeit eines Wintersturmes verleihen. Gewährt keinen Attributbonus. Dezember 2020 Abonnentengegenstand.",
     "backMystery202012Text": "Frostfeuer Flügel",
-    "headMystery202012Text": "Frostfeuer Maske"
+    "headMystery202012Text": "Frostfeuer Maske",
+    "headArmoireNightcapNotes": "Nimm eine Mütze voll Schlaf. Jetzt sogar mit elastischem Bommel! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Schlafrock-Set (Gegenstand 2 von 3).",
+    "headArmoireNightcapText": "Nachtmütze",
+    "armorArmoireDressingGownNotes": "Entspanne mit Stil in diesem wunderschönen traditionellen Morgenrock. Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Schlafrock-Set (Gegenstand 1 von 3).",
+    "armorArmoireDressingGownText": "Gemütlicher Morgenrock",
+    "weaponArmoireEveningTeaNotes": "Dieses Allheilmittel wird dir helfen dich zu entspannen und die großen Aufgaben zu bewältigen, welche so bedrohlich aussehen. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Schlafrock-Set (Gegenstand 3 von 3).",
+    "weaponArmoireEveningTeaText": "Tasse Tee"
 }

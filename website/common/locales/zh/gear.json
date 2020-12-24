@@ -2227,5 +2227,11 @@
     "backMystery202012Notes": "这对雪白羽翼将赋予你疾风骤雨的速度。没有属性加成。2020年12月订阅者物品。",
     "headMystery202012Notes": "这款气势磅礴的面具上的双眼似乎能穿透一切。目光所及就像阳光照射在新雪上，能让敌人失明。没有属性加成。2020年12月订阅者物品。",
     "backMystery202012Text": "霜焰翅膀",
-    "headMystery202012Text": "霜焰面具"
+    "headMystery202012Text": "霜焰面具",
+    "headArmoireNightcapNotes": "你的新睡帽甚至有一个不错的弹力绒球！增加<％= per％>点感知。魔法衣橱：晨衣套装（2/3）。",
+    "headArmoireNightcapText": "睡帽",
+    "armorArmoireDressingGownNotes": "穿着这件美丽的传统晨衣，放松身心。 增加<%= con %>点体质。 魔法衣橱：晨衣套装（1/3）。",
+    "armorArmoireDressingGownText": "舒适的睡衣",
+    "weaponArmoireEveningTeaNotes": "这种灵丹妙药将帮助你放松身心，使那些大任务看起来并不那么危险。 增加<%= int %>点智力。 魔法衣橱：晨衣套装（3/3）。",
+    "weaponArmoireEveningTeaText": "一杯茶"
 }

@@ -94,7 +94,7 @@
     "classGearText": "Parabéns por ter escolhido uma classe! Eu adicionei sua nova arma básica no seu inventário. Dê uma olhada abaixo para equipá-lo!",
     "autoAllocate": "Distribuição Automática",
     "spells": "Habilidades",
-    "skillsTitle": "Habilidades",
+    "skillsTitle": "<%= classStr %> Habilidades",
     "toDo": "Afazer",
     "tourStatsPage": "Essa é a sua página de Atributos! Conquiste medalhas completando as tarefas listadas.",
     "tourTavernPage": "Boas-vindas à Taverna, uma sala de bate-papo para todas as idades! Clicando em \"Pausar Diárias\" você poderá prevenir que suas Diárias te causem dano em caso de doença ou viajem . Venha dizer 'Olá'!",

@@ -2227,5 +2227,11 @@
     "backMystery202012Notes": "Les plumes enneigées de ces ailes vous donneront la vitesse d'un coup de vent hivernal. Ne confère aucun bonus. Équipement d'abonnement de décembre 2020.",
     "backMystery202012Text": "Ailes des flammes de givre",
     "headMystery202012Notes": "Ce masque imposant comporte des yeux perçants qui aveugleront les ennemis comme l'éclat du soleil sur la neige fraîche. Ne confère aucun bonus. Équipement d'abonnement de décembre 2020.",
-    "headMystery202012Text": "Masque des flammes de givre"
+    "headMystery202012Text": "Masque des flammes de givre",
+    "headArmoireNightcapNotes": "Votre nouveau bonnet de nuit a même un joli pompon ! Augmente la perception de <%= per %>. Armoire enchantée : assortiment de robes de chambre (objet 2 de 3).",
+    "headArmoireNightcapText": "Bonnet de nuit",
+    "armorArmoireDressingGownNotes": "Détendez vous avec élégance dans cette magnifique robe de chambre traditionnelle. Augmente la constitution de <%= con %>. Armoire enchantée : assortiment de robes de chambre (objet 1 de 3).",
+    "weaponArmoireEveningTeaNotes": "Cette panacée vous aidera à vous calmer afin que ces grandes tâches semblent moins menaçantes. Augmente l'intelligence de <%= int %>. Armoire enchantée : assortiment de robes de chambre (objet 3 de 3).",
+    "armorArmoireDressingGownText": "Robe de chambre confortable",
+    "weaponArmoireEveningTeaText": "Tasse de thé"
 }
