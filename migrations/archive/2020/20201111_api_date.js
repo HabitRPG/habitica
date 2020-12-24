@@ -24,7 +24,8 @@ async function updateUser (todo) {
 module.exports = async function processUsers () {
   let query = {
     type: 'todo',
-    date: {$exists: true}
+    date: {$exists: true},
+    updatedAt: {$gt: new Date('2020-11-23')},
   };
 
   const fields = {
