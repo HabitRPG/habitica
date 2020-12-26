@@ -32,6 +32,7 @@ export async function handleWebhooks (options, stripeInc) {
   try {
     // Verify the event by fetching it from Stripe
     event = stripeApi.webhooks.constructEvent(body, headers['stripe-signature'], endpointSecret);
+    console.log(event);
   } catch (err) {
     logger.error(new Error('Error verifying Stripe webhook'), { err });
     throw new BadRequest(`Webhook Error: ${err.message}`);
@@ -80,7 +81,7 @@ export async function handleWebhooks (options, stripeInc) {
       case 'customer.subscription.deleted': {
         // event.request !== null means that the user itself cancelled the subscrioption,
         // the cancellation on our side has been already handled
-        if (event.request !== null) break;
+        if (event.request && event.request.id !== null) break;
 
         const subscription = event.data.object;
         const customerId = subscription.customer;
