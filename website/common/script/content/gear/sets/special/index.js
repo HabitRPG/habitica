@@ -1659,6 +1659,12 @@ const head = {
   winter2021Healer: {
     set: 'winter2021ArcticExplorerHealerSet',
   },
+  nye2020: {
+    text: t('headSpecialNye2020Text'),
+    notes: t('headSpecialNye2020Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_nye2020'),
+  },
 };
 
 const headStats = {
