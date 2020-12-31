@@ -8,6 +8,7 @@ import {
   NotFound,
 } from '../../libs/errors';
 import errorMessage from '../../libs/errorMessage';
+import { removeItemByPath } from '../pinnedGearUtils';
 
 export default function buyMysterySet (user, req = {}, analytics) {
   const key = get(req, 'params.key');
@@ -47,6 +48,7 @@ export default function buyMysterySet (user, req = {}, analytics) {
   if (user.markModified) user.markModified('items.gear.owned');
 
   user.purchased.plan.consecutive.trinkets -= 1;
+  removeItemByPath(user, `mystery.${mysterySet.key}`);
 
   return [
     { items: user.items, purchasedPlanConsecutive: user.purchased.plan.consecutive },

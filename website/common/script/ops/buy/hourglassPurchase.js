@@ -64,6 +64,7 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
     }
 
     user.purchased.plan.consecutive.trinkets -= 1;
+    removeItemByPath(user, `timeTravelStable.${type}.${key}`);
 
     if (type === 'pets') {
       user.items.pets = {
