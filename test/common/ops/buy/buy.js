@@ -10,6 +10,7 @@ import {
 import i18n from '../../../../website/common/script/i18n';
 import content from '../../../../website/common/script/content/index';
 import errorMessage from '../../../../website/common/script/libs/errorMessage';
+import * as pinnedGearUtils from '../../../../website/common/script/ops/pinnedGearUtils';
 
 describe('shared.ops.buy', () => {
   let user;
@@ -34,10 +35,12 @@ describe('shared.ops.buy', () => {
     });
 
     sinon.stub(analytics, 'track');
+    sinon.spy(pinnedGearUtils, 'removeItemByPath');
   });
 
   afterEach(() => {
     analytics.track.restore();
+    pinnedGearUtils.removeItemByPath.restore();
   });
 
   it('returns error when key is not provided', done => {
@@ -106,6 +109,7 @@ describe('shared.ops.buy', () => {
     expect(user.items.gear.owned).to.have.property('armor_mystery_301404', true);
     expect(user.items.gear.owned).to.have.property('head_mystery_301404', true);
     expect(user.items.gear.owned).to.have.property('eyewear_mystery_301404', true);
+    expect(pinnedGearUtils.removeItemByPath.calledOnce).to.equal(true);
   });
 
   it('buys a Quest scroll', () => {
@@ -196,5 +200,63 @@ describe('shared.ops.buy', () => {
       expect(err.message).to.equal(errorMessage('invalidQuantity'));
       done();
     }
+  });
+
+  it('Buy mount (hourglass)', () => {
+    user.purchased.plan.consecutive.trinkets = 1;
+
+    const type = 'mounts';
+    const key = 'MagicalBee-Base';
+
+    buy(user, {
+      params: {
+        key,
+        type,
+      },
+      quantity: 1,
+    });
+
+    expect(user.items.mounts[key]).to.be.true;
+    expect(pinnedGearUtils.removeItemByPath.calledOnce).to.equal(true);
+  });
+
+  it('Buy pet (hourglass)', () => {
+    user.purchased.plan.consecutive.trinkets = 1;
+
+    const type = 'pets';
+    const key = 'MagicalBee-Base';
+
+    buy(user, {
+      params: {
+        key,
+        type,
+      },
+      quantity: 1,
+    });
+
+    expect(user.items.pets[key]).to.equal(5);
+    expect(pinnedGearUtils.removeItemByPath.calledOnce).to.equal(true);
+  });
+
+  it('Buy background (hourglass)', () => {
+    user.purchased.plan.consecutive.trinkets = 1;
+
+    const type = 'backgrounds';
+    const key = 'airship';
+
+    buy(user, {
+      params: {
+        key,
+        type,
+      },
+      quantity: 1,
+    },
+    analytics,
+    {
+      hourglass: true,
+    });
+
+    expect(user.purchased.background[key]).to.be.true;
+    expect(pinnedGearUtils.removeItemByPath.calledOnce).to.equal(true);
   });
 });
