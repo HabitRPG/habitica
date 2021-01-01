@@ -80,7 +80,6 @@
                  target="_blank">{{ $t('requestFeature') }}</a>
             </li>
             <li v-html="$t('communityExtensions')"></li>
-            <li v-html="$t('communityForum')"></li>
             <li>
               <a href="https://www.facebook.com/Habitica"
                  target="_blank">{{ $t('communityFacebook') }}</a>
