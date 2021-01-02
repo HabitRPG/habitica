@@ -50,7 +50,7 @@
           :key="ctx.item.key"
           :item="ctx.item"
           :popover-position="'top'"
-          @click="gearSelected(ctx.item)"
+          @click="gearSelected(ctx.item, $event.refocusTarget)"
         >
           <template
             slot="itemBadge"
@@ -164,8 +164,8 @@ export default {
       }
       return this.$t(classType);
     },
-    gearSelected (item) {
-      this.$root.$emit('buyModal::showItem', item);
+    gearSelected (item, refocusTarget) {
+      this.$root.$emit('buyModal::showItem', item, refocusTarget);
     },
     filterGearItems () {
       const category = _filter(this.marketGearCategories, ['identifier', this.selectedGroupGearByClass]);

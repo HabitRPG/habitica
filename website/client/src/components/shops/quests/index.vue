@@ -95,7 +95,7 @@
                 :item-content-class="'inventory_quest_scroll_'+item.key"
                 :empty-item="false"
                 :popover-position="'top'"
-                @click="selectItem(item)"
+                @click="selectItem(item, $event.refocusTarget)"
               >
                 <template
                   slot="itemBadge"
@@ -164,7 +164,7 @@
               :price-type="ctx.item.currency"
               :item-content-class="ctx.item.class"
               :empty-item="false"
-              @click="selectItem(ctx.item)"
+              @click="selectItem(ctx.item, $event.refocusTarget)"
             >
               <span
                 slot="popoverContent"
@@ -216,7 +216,7 @@
                 :empty-item="false"
                 :popover-position="'top'"
                 :owned="!isNaN(userItems.quests[item.key])"
-                @click="selectItem(item)"
+                @click="selectItem(item, $event.refocusTarget)"
               >
                 <span slot="popoverContent">
                   <div class="questPopover">
@@ -286,7 +286,7 @@
             :price="item.value"
             :empty-item="false"
             :popover-position="'top'"
-            @click="selectItem(item)"
+            @click="selectItem(item, $event.refocusTarget)"
           >
             <span slot="popoverContent">
               <div class="questPopover">
@@ -592,10 +592,10 @@ export default {
 
       return false;
     },
-    selectItem (item) {
+    selectItem (item, refocusTarget) {
       this.selectedItemToBuy = item;
 
-      this.$root.$emit('bv::show::modal', 'buy-quest-modal');
+      this.$root.$emit('bv::show::modal', 'buy-quest-modal', refocusTarget);
     },
     isBuyingDependentOnPrevious (item) {
       const questsNotDependentToPrevious = ['moon2', 'moon3'];

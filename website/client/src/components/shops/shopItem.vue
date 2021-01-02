@@ -5,7 +5,7 @@
       class="item-wrapper"
       tabindex="0"
       @click="click()"
-      @keypress.enter="click()"
+      @keypress.enter="click($event)"
     >
       <div
         class="item"
@@ -320,8 +320,8 @@ export default {
     },
   },
   methods: {
-    click () {
-      this.$emit('click', {});
+    click (event) {
+      this.$emit('click', { refocusTarget: event?.target || '#app' });
     },
     getPrice () {
       if (this.item.unlockCondition && this.item.unlockCondition.condition === 'party invite' && !this.owned) return this.item.unlockCondition.text();

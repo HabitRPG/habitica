@@ -330,16 +330,16 @@ export default {
           return mappedItems;
       }
     },
-    itemSelected (item) {
-      this.$root.$emit('buyModal::showItem', item);
+    itemSelected (item, refocusTarget) {
+      this.$root.$emit('buyModal::showItem', item, refocusTarget);
     },
-    featuredItemSelected (item) {
-      if (item.purchaseType === 'gear') {
-        if (!item.locked) {
-          this.itemSelected(item);
+    featuredItemSelected (event) {
+      if (event.item.purchaseType === 'gear') {
+        if (!event.item.locked) {
+          this.itemSelected(event.item, event.refocusTarget);
         }
       } else {
-        this.itemSelected(item);
+        this.itemSelected(event.item, event.refocusTarget);
       }
     },
   },
