@@ -321,7 +321,7 @@ export default {
   },
   methods: {
     click (event) {
-      this.$emit('click', { refocusTarget: event?.target || '#app' });
+      this.$emit('click', { refocusTarget: (event && event.target) || '#app' });
     },
     getPrice () {
       if (this.item.unlockCondition && this.item.unlockCondition.condition === 'party invite' && !this.owned) return this.item.unlockCondition.text();
