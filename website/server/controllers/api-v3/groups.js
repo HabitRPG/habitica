@@ -640,7 +640,6 @@ api.joinGroup = {
         inviter.items.quests.basilist += 1;
         inviter.markModified('items.quests');
       }
-      promises.push(inviter.save());
     }
 
     if (group.type === 'party' && inviter) {
@@ -651,6 +650,7 @@ api.joinGroup = {
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
             'achievements.partyUp': { $ne: true },
+            _id: { $ne: inviter._id },
           },
           {
             $set: { 'achievements.partyUp': true },
@@ -661,8 +661,7 @@ api.joinGroup = {
 
         if (inviter) {
           if (inviter.achievements.partyUp !== true) {
-            // Since the notification list of the inviter is already
-            // updated in this save we need to add the notification here
+            inviter.achievements.partyUp = true;
             inviter.addNotification('ACHIEVEMENT_PARTY_UP');
           }
         }
@@ -675,6 +674,7 @@ api.joinGroup = {
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
             'achievements.partyOn': { $ne: true },
+            _id: { $ne: inviter._id },
           },
           {
             $set: { 'achievements.partyOn': true },
@@ -685,14 +685,14 @@ api.joinGroup = {
 
         if (inviter) {
           if (inviter.achievements.partyOn !== true) {
-            // Since the notification list of the inviter is already
-            //  updated in this save we need to add the notification here
+            inviter.achievements.partyOn = true;
             inviter.addNotification('ACHIEVEMENT_PARTY_ON');
           }
         }
       }
     }
 
+    if (inviter) promises.push(inviter.save());
     promises = await Promise.all(promises);
 
     if (group.hasNotCancelled()) {
