@@ -338,6 +338,10 @@ const armor = {
     con: 12,
     set: 'dressingGown',
   },
+  blueMoonShozoku: {
+    con: 8,
+    set: 'blueMoon',
+  },
 };
 
 const body = {
@@ -676,6 +680,10 @@ const head = {
     per: 12,
     set: 'dressingGown',
   },
+  blueMoonHelm: {
+    int: 8,
+    set: 'blueMoon',
+  },
 };
 
 const shield = {
@@ -864,6 +872,10 @@ const shield = {
   darkAutumnFlame: {
     con: 12,
     set: 'autumnEnchanter',
+  },
+  blueMoonSai: {
+    per: 8,
+    set: 'blueMoon',
   },
 };
 
@@ -1154,6 +1166,10 @@ const weapon = {
   eveningTea: {
     int: 12,
     set: 'dressingGown',
+  },
+  blueMoonSai: {
+    str: 8,
+    set: 'blueMoon',
   },
 };
 
