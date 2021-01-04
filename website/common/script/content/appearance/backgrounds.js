@@ -415,6 +415,11 @@ const backgrounds = {
     holiday_hearth: { },
     inside_an_ornament: { },
   },
+  backgrounds012021: {
+    hot_spring: { },
+    icicle_bridge: { },
+    wintry_castle: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
