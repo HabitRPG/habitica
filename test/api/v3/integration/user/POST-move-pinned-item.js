@@ -83,7 +83,7 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     expect(res).to.eql(expectedResponse);
   });
 
-  it('adjusts the order of pinned items with order mismatch', async () => {
+  it('adjusts the order of pinned items with order mismatch - existing item in order', async () => {
     const testPinnedItems = [
       { type: 'card', path: 'cardTypes.thankyou' },
       { type: 'card', path: 'cardTypes.greeting' },
@@ -123,6 +123,62 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
     expectedResponse.splice(1, 0, 'armoire');
 
     expect(res).to.eql(expectedResponse);
+  });
+
+  it('adjusts the order of pinned items with order mismatch - not existing in order', async () => {
+    const testPinnedItems = [
+      { type: 'card', path: 'cardTypes.thankyou' },
+      { type: 'card', path: 'cardTypes.greeting' },
+      { type: 'potion', path: 'potion' },
+      { type: 'armoire', path: 'armoire' },
+    ];
+
+    const testPinnedItemsOrder = [
+      'armoire',
+      'potion',
+    ];
+
+    await user.update({
+      pinnedItems: testPinnedItems,
+      pinnedItemsOrder: testPinnedItemsOrder,
+    });
+    await user.sync();
+
+    await user.post('/user/move-pinned-item/cardTypes.greeting/move/to/2');
+    await user.sync();
+
+    // The basic test
+    expect(user.pinnedItemsOrder[2]).to.equal('cardTypes.greeting');
+
+    // potion is now the last item because the 2 unacounted for cards show up
+    // at the beginning of the order
+    expect(user.pinnedItemsOrder[user.pinnedItemsOrder.length - 1]).to.equal('potion');
+  });
+
+  it('adjusts the order of pinned items with order mismatch - not existing - out of length', async () => {
+    const testPinnedItems = [
+      { type: 'card', path: 'cardTypes.thankyou' },
+      { type: 'card', path: 'cardTypes.greeting' },
+      { type: 'potion', path: 'potion' },
+      { type: 'armoire', path: 'armoire' },
+    ];
+
+    const testPinnedItemsOrder = [
+      'armoire',
+      'potion',
+    ];
+
+    await user.update({
+      pinnedItems: testPinnedItems,
+      pinnedItemsOrder: testPinnedItemsOrder,
+    });
+    await user.sync();
+
+    await user.post('/user/move-pinned-item/cardTypes.greeting/move/to/33');
+    await user.sync();
+
+    // since the target was out of bounce it added it to the last item
+    expect(user.pinnedItemsOrder[user.pinnedItemsOrder.length - 1]).to.equal('cardTypes.greeting');
   });
 
   it('cannot move pinned item that you do not have pinned', async () => {
