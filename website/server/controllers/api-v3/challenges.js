@@ -14,6 +14,7 @@ import {
 import {
   NotFound,
   NotAuthorized,
+  BadRequest
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import csvStringify from '../../libs/csvStringify';
@@ -31,6 +32,9 @@ import {
 import apiError from '../../libs/apiError';
 
 const api = {};
+
+import shared from '../../../common';
+const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = shared.constants;
 
 /**
  * @apiDefine ChallengeLeader Challenge Leader
@@ -700,6 +704,8 @@ api.exportChallengeCsv = {
  *
  * @apiError (401) {NotAuthorized} MustBeChallengeLeader Only challenge leader
  * can update the challenge.
+ * 
+ * @apiError (400) {BadRequest} summaryTooLong Summary is too long.
  */
 api.updateChallenge = {
   method: 'PUT',
@@ -722,6 +728,8 @@ api.updateChallenge = {
     });
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
+
+    if(req.body.summary && req.body.summary.length > MAX_SUMMARY_SIZE_FOR_CHALLENGES) throw new BadRequest(res.t("summaryTooLong"));
 
     _.merge(challenge, Challenge.sanitizeUpdate(req.body));
 
