@@ -105,9 +105,9 @@
     "whyReportingPostPlaceholder": "Please help our moderators by letting us know why you are reporting this post for a violation, e.g., spam, swearing, religious oaths, bigotry, slurs, adult topics, violence.",
     "optional": "Optional",
     "needsTextPlaceholder": "Type your message here.",
-    "copyMessageAsToDo": "Copy message as To-Do",
-    "copyAsTodo": "Copy as To-Do",
-    "messageAddedAsToDo": "Message copied as To-Do.",
+    "copyMessageAsToDo": "Αντιγραφή μηνύματος ως Υποχρέωση",
+    "copyAsTodo": "Αντιγραφή ως Υποχρέωση",
+    "messageAddedAsToDo": "Το μήνυμα αντιγράφηκε ως Υποχρέωση.",
     "leaderOnlyChallenges": "Only group leader can create challenges",
     "sendGift": "Στείλε ένα δώρο",
     "inviteFriends": "Invite Friends",
@@ -339,5 +339,14 @@
     "sharedCompletion": "Shared Completion",
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned user finishes",
-    "allAssignedCompletion": "All - Completes when all assigned users finish"
+    "allAssignedCompletion": "All - Completes when all assigned users finish",
+    "selectSubscription": "Επέλεξε Συνδρομή",
+    "selectGift": "Επέλεξε Δώρο",
+    "pmReported": "Σε ευχαριστούμε που ανέφερες αυτό το μήνυμα.",
+    "blockedToSendToThisUser": "Δεν μπορείς να στείλεις σε αυτόν τον παίχτη γιατί τον έχεις μπλοκάρει.",
+    "PMUnblockUserToSendMessages": "Ξεμπλοκάρισε αυτόν τον χρήστη για να συνεχίσεις να στέλνεις και να λαμβάνεις μηνύματα.",
+    "PMUserDoesNotReceiveMessages": "Αυτός ο χρήστης δεν δέχεται πλέον προσωπικά μηνύματα",
+    "PMCanNotReply": "Δεν μπορείς να απαντήσεις σε αυτή τη συζήτηση",
+    "PMDisabled": "Απενεργοποίηση Προσωπικών Μηνυμάτων",
+    "features": "Χαρακτηριστικά"
 }

@@ -123,5 +123,8 @@
     "paymentCanceledDisputes": "Nous avons envoyé la confirmation d'annulation à votre adresse email. Si vous ne recevez pas cet email, veuillez nous contacter pour éviter de futurs problèmes de facturation.",
     "cannotUnpinItem": "Cet objet ne peut pas être désépinglé.",
     "paymentSubBillingWithMethod": "Votre abonnement sera facturé <strong><%= amount %></strong> tous les <strong><%= months %> mois</strong> via <strong><%= paymentMethod %></strong>.",
-    "invalidUnlockSet": "Cet ensemble d'objets est invalide et ne peux être débloqué."
+    "invalidUnlockSet": "Cet ensemble d'objets est invalide et ne peux être débloqué.",
+    "nMonthsSubscriptionGift": "<%= nMonths %> mois d'abonnement (cadeau)",
+    "nGemsGift": "<%= nGems %> gemmes (cadeau)",
+    "nGems": "<%= nGems %> gemmes"
 }

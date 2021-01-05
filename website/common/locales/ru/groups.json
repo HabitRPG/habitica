@@ -356,5 +356,6 @@
     "PMCanNotReply": "Вы не можете ответить на этот разговор",
     "newPartyPlaceholder": "Введите название вашей команды.",
     "languageSettings": "Настройка языка",
-    "features": "Функции и возможности"
+    "features": "Функции и возможности",
+    "selectSubscription": "Выбрать подписку"
 }

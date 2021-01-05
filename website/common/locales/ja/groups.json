@@ -348,7 +348,7 @@
     "blockedToSendToThisUser": "このユーザーにブロックされているため、メッセージは送れません。",
     "PMDisabled": "メッセージを無効にする",
     "userWithUsernameOrUserIdNotFound": "ユーザー名またはユーザーIDが見つかりませんでした。",
-    "usernameOrUserId": "ユーザー名またはユーザーID",
+    "usernameOrUserId": "ユーザー名またはユーザーIDを入力",
     "sendGiftToWhom": "誰にプレゼントを贈りたいですか？",
     "selectGift": "贈り物を選ぶ",
     "PMUnblockUserToSendMessages": "メッセージの送信と受信を続けるには、このユーザーのブロックを解除しましょう。",
@@ -367,5 +367,7 @@
     "languageSettings": "言語設定",
     "onlyPrivateGuildsCanUpgrade": "プライベートギルドのみがグループプランにアップデートできます。",
     "features": "機能",
-    "cannotRemoveQuestOwner": "実行中のクエストのオーナーは削除できません。先にクエストを中断してください。"
+    "cannotRemoveQuestOwner": "実行中のクエストのオーナーは削除できません。先にクエストを中断してください。",
+    "giftMessageTooLong": "ギフトメッセージの文字数は最大<%= maxGiftMessageLength %>文字までです。",
+    "selectSubscription": "有料プランを選ぶ"
 }
