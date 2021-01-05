@@ -123,5 +123,8 @@
     "paymentCanceledDisputes": "キャンセルの承認のメールをあなたに送りました。もしそのメールが見つからない場合は、今後の請求についての論争を防ぐために、私たちにご連絡をお願いいたします。",
     "cannotUnpinItem": "このアイテムはピン留めを外せません。",
     "paymentSubBillingWithMethod": "あなたの有料プランは、<strong><%= months %>ヶ月</strong>ごとに<strong><%= paymentMethod %></strong>によって <strong>$<%= amount %></strong> 請求されます。",
-    "invalidUnlockSet": "このアイテムセットは無効なので、アンロックできません。"
+    "invalidUnlockSet": "このアイテムセットは無効なので、アンロックできません。",
+    "nGems": "<%= nGems %> ジェム",
+    "nMonthsSubscriptionGift": "<%= nMonths %>ヶ月の有料プラン（ギフト）",
+    "nGemsGift": "<%= nGems %> ジェム（ギフト）"
 }

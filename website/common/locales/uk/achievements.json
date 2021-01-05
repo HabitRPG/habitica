@@ -45,5 +45,21 @@
     "achievementFedPet": "Погодуйте тваринку",
     "achievementHatchedPetModalText": "Прямуйте до вашого інвентарю і спробуйте об'єднати зілля вилуплення і яйце",
     "achievementHatchedPetText": "Виведіть їхню першу тваринку",
-    "achievementCompletedTaskModalText": "Відмітьте будь-яке зі своїх завдань, щоб здобути винагороди"
+    "achievementCompletedTaskModalText": "Відмітьте будь-яке зі своїх завдань, щоб здобути винагороди",
+    "achievementCreatedTask": "Створи перше завдання",
+    "achievementUndeadUndertakerModalText": "Ви зібрали всіх зомбі-скакунів!",
+    "achievementUndeadUndertakerText": "Зібрані всі зомбі-скакуни.",
+    "achievementMonsterMagusModalText": "Ви зібрали всіх улюбленців-зомбі!",
+    "achievementMonsterMagus": "Маг-некромант",
+    "achievementPartyOn": "Ваша команда зросла до 4 учасників!",
+    "achievementKickstarter2019Text": "Підтримав проєкт на Kickstarter в 2019",
+    "achievementKickstarter2019": "Прихильник на Kickstarter",
+    "achievementAridAuthority": "Володар засухи",
+    "achievementPartyUp": "Ви об'єднались з учасником гурту!",
+    "achievementCreatedTaskText": "Створив(ла) своє перше завдання.",
+    "achievementCompletedTask": "Завершено завдання",
+    "achievementCreatedTaskModalText": "Додайте завдання для чого-небудь, щоб Ви хотіли завершити на цьому тижні",
+    "achievementPurchasedEquipmentText": "Придбано їхню першу частину спорядження",
+    "achievementFedPetText": "Погодовано їхню першу тваринку",
+    "achievementHatchedPet": "Виведіть тваринку"
 }

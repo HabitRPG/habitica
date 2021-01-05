@@ -101,7 +101,7 @@
     "giftedGemsFull": "Olá <%= username %>, <%= sender %> te enviou <%= gemAmount %> gemas!",
     "giftedSubscription": "Assinatura Presenteada",
     "giftedSubscriptionInfo": "<%= name %> presentou você com <%= months %> meses de assinatura",
-    "giftedSubscriptionFull": "Olá <%= username %>, <%= sender %> te envou <%= monthCount %> meses de assinatura!",
+    "giftedSubscriptionFull": "Olá <%= username %>, <%= sender %> te enviou <%= monthCount %> meses de assinatura!",
     "invitedParty": "Você foi convidado(a) para um Grupo",
     "invitedGuild": "Você foi convidado(a) para uma Guilda",
     "importantAnnouncements": "Lembretes de fazer check-in para completar tarefas e receber recompensas",
@@ -182,5 +182,6 @@
     "chatExtensionDesc": "As extensões de bate-papo para o Habitica adiciona uma caixa intuitiva de conversação para todos os espaços sociais do habitica.com. Isso permite que os usuários conversem na Taverna, em seu grupo e nas guildas as quais fazem parte.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Extensão de Bate-papo para o Chrome</a> e <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Extensão de bate-papo para o Firefox</a>",
     "displaynameIssueNewline": "Os nomes de exibição não podem conter barras invertidas seguidas pela letra N.",
-    "resetAccount": "Resetar Conta"
+    "resetAccount": "Resetar Conta",
+    "giftedSubscriptionWinterPromo": "Olá <%= username %>, você recebeu <%= monthCount %> meses de assinatura como parte de nossa promoção de presentes de férias!"
 }
