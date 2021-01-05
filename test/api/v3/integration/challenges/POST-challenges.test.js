@@ -41,6 +41,20 @@ describe('POST /challenges', () => {
     });
   });
 
+  it('returns error when creating a challenge with summary longer than the maximum length', async () => {
+    const user = await generateUser();
+
+    await expect(user.post('/challenges', {
+      group: 'habitrpg',
+      // 300 characters:
+      summary: "eofboeafboabuwfoubwefewebfouijwdhrbfewkijfhdwskufhbdcskowhfbvdkadfhgbvdcsklnwfbegvhjdcndojwiugfejvbcknwh2iugfebvjcskndh2irgfevhbckwjdohfugevbjcskdwohf3uebjckwj2orh3igbevkncw2ohr3fwdo2yr3geivbkcwd2oy3giebjvkwjdourt3gejbkfjwouyt8gefknojr2u3ugefihr2ut8ygeifhoru29t3ygefihruyt8gihefkjr2oyiegfhry3tgihjjsj",
+    })).to.eventually.be.rejected.and.eql({
+      code: 401,
+      error: 'NotAuthorized',
+      message: t('summaryTooLong'),
+    });
+  });
+
   it('returns error when creating a challenge in a public guild and you are not a member of it', async () => {
     const user = await generateUser();
     const { group } = await createAndPopulateGroup({

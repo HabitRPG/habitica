@@ -39,6 +39,18 @@ describe('PUT /challenges/:challengeId', () => {
       });
   });
 
+  it("doesn't allow summaries longer than maximum", async () => {
+    // 300 characters:
+    challenge.summary = "eofboeafboabuwfoubwefewebfouijwdhrbfewkijfhdwskufhbdcskowhfbvdkadfhgbvdcsklnwfbegvhjdcndojwiugfejvbcknwh2iugfebvjcskndh2irgfevhbckwjdohfugevbjcskdwohf3uebjckwj2orh3igbevkncw2ohr3fwdo2yr3geivbkcwd2oy3giebjvkwjdourt3gejbkfjwouyt8gefknojr2u3ugefihr2ut8ygeifhoru29t3ygefihruyt8gihefkjr2oyiegfhry3tgihjjsj"
+    await expect(member.put(`/challenges/${challenge._id}`))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('summaryTooLong'),
+      });
+  });
+
+
   it('should only allow the leader or an admin to update the challenge', async () => {
     await expect(member.put(`/challenges/${challenge._id}`))
       .to.eventually.be.rejected.and.eql({

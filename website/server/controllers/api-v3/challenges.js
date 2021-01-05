@@ -192,6 +192,7 @@ const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = shared.constants;
                                                    gems to offer this prize.
  * @apiError (400) {BadRequest} ChallengeValidationFailed Invalid or missing parameter
                                                           in challenge body.
+ * @apiError (400) {BadRequest} summaryTooLong Summary is too long.                                                        
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
@@ -204,6 +205,7 @@ api.createChallenge = {
     const { user } = res.locals;
 
     req.checkBody('group', apiError('groupIdRequired')).notEmpty();
+    if(req.body.challenge.summary && req.body.challenge.summary.length > MAX_SUMMARY_SIZE_FOR_CHALLENGES) throw new BadRequest(res.t("summaryTooLong"));
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
