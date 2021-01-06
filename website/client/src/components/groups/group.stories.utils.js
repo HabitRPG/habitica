@@ -225,7 +225,7 @@ export const groupCollectionQuestPending = {
 export const collectionQuestLeaderParticipating = {
   leaderOnly: { challenges: false, getGems: false },
   quest: {
-    progress: { collect: { fireCoral: 4, blueFins: 3 } },
+    progress: { collect: { fireCoral: 4, blueFins: 0 } },
     active: true,
     members: { '05ca98f4-4706-47b5-8d02-142e6e78ba2e': true },
     extra: {},

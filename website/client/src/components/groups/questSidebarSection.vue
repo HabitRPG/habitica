@@ -28,16 +28,16 @@
       v-if="user.party.quest && user.party.quest.RSVPNeeded"
       class="quest-active-section quest-invite"
     >
-      <span class="participate">{{ $t('wouldYouParticipate') }}</span>
+      <span class="participate">{{ $t('invitedToQuest') }}</span>
       <div class="buttons">
         <button
-          class="btn btn-primary accept"
+          class="btn btn-success accept"
           @click="questAccept(group._id)"
         >
           {{ $t('accept') }}
         </button>
         <button
-          class="btn btn-primary reject"
+          class="btn btn-danger reject"
           @click="questReject(group._id)"
         >
           {{ $t('reject') }}
@@ -76,7 +76,8 @@
                   ></div>
                 </div>
                 <div class="item-progress-row">
-                  <span class="label item-progress">
+                  <span class="label item-progress"
+                        :class="{'no-items': group.quest.progress.collect[key] === 0}">
                     {{ group.quest.progress.collect[key] }} / {{ value.count }}
                   </span>
                   <div
@@ -210,7 +211,7 @@
         class="btn btn-secondary full-width mb-1"
         @click="openQuestDetails()"
       >
-        {{ $t('details') }}
+        {{ $t('viewDetails') }}
       </button>
     </div>
     <div v-if="userIsQuestLeader && !onActiveQuest">
@@ -486,12 +487,10 @@
     }
 
     .accept {
-      background-color: #24cc8f;
       margin: 0 0.5rem 0 0;
     }
 
     .reject {
-      background-color: #f74e52;
     }
   }
 
@@ -550,7 +549,7 @@
         }
       }
 
-      .item-progress {
+      .item-progress:not(.no-items) {
         color: $green-10;
       }
 

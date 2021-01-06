@@ -9,12 +9,12 @@
   >
     <span
       v-if="visible"
-      class="svg-icon"
+      class="svg-icon icon-16"
       v-html="icons.upIcon"
     ></span>
     <span
       v-else
-      class="svg-icon down-icon color-stroke"
+      class="svg-icon icon-16 down-icon color-stroke"
       v-html="icons.downIcon"
     ></span>
   </div>
@@ -35,7 +35,7 @@
   }
 
   .svg-icon {
-    width: 16px;
+    display: flex;
   }
 
   .down-icon {
