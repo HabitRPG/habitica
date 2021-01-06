@@ -103,7 +103,7 @@
               <span class="with-icon">
                 <span
                   class="svg-icon icon-16 color"
-                  v-html="icons.levelIcon"
+                  v-html="icons.leaveIcon"
                   v-once
                 ></span>
                 <span v-once>
@@ -146,7 +146,7 @@ import markdownDirective from '@/directives/markdown';
 
 import menuIcon from '@/assets/svg/menu.svg';
 import sparklesIcon from '@/assets/svg/sparklesIcon.svg';
-import levelIcon from '@/assets/svg/level.svg';
+import leaveIcon from '@/assets/svg/leave.svg';
 import editIcon from '@/assets/svg/edit.svg';
 import messageIcon from '@/assets/svg/message.svg';
 import usersIcon from '@/assets/svg/users.svg';
@@ -167,7 +167,7 @@ export default {
       icons: Object.freeze({
         menuIcon,
         sparklesIcon,
-        levelIcon,
+        leaveIcon,
         editIcon,
         messageIcon,
         usersIcon,

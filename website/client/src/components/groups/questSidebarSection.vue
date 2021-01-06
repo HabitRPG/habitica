@@ -172,10 +172,10 @@
             >
               <div class="col-6">
                 <span class="float-left rage-value">
-                  <div class="svg-icon health-icon"
+                  <div class="svg-icon rage-icon icon-16"
                        v-html="icons.rageIcon">
                   </div>
-                  {{ parseFloat(group.quest.progress.rage) }}
+                  {{ Math.ceil(parseFloat(group.quest.progress.rage)) }}
                   / {{ questData.boss.rage.value }}
                   <strong v-once>{{$t('rage')}}</strong>
                 </span>
@@ -265,7 +265,7 @@
 
   .boss-health-bar {
     width: 80%;
-    background-color: red;
+    background-color: $red-50;
     height: 0.75rem;
     margin-bottom: 0.5rem;
 
@@ -280,7 +280,6 @@
   }
 
   .rage-details {
-    margin-bottom: 1em;
   }
 
   .boss-health-bar.rage-bar {
@@ -442,6 +441,17 @@
         height: 1rem;
         object-fit: contain;
         margin-right: 0.25rem;
+      }
+
+      .rage-icon {
+        width: 1rem;
+        height: 1rem;
+        object-fit: contain;
+        margin-right: 0.25rem;
+
+        ::v-deep svg {
+          height: 1rem;
+        }
       }
 
       .sword-icon {

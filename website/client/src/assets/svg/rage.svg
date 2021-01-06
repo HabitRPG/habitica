@@ -1,18 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16">
-    <g fill="none" fill-rule="nonzero">
-        <path fill="#24CC8F" d="M0 6l6.667-6 6.666 6-6.666 10z"/>
-        <path fill="#24CC8F" d="M0 6l6.667-6 6.666 6-6.666 10z"/>
-        <path fill="#FFF" d="M11.6 6.2l-4.933-1V1.8z" opacity=".25"/>
-        <path fill="#FFF" d="M6.667 5.2l-4.934 1 4.934-4.4z" opacity=".5"/>
-        <path fill="#5AE4B2" d="M6.667 5.2v8.4L1.733 6.2z"/>
-        <path fill="#1B996B" d="M11.6 6.2l-4.933 7.4V5.2z" opacity=".35"/>
-        <path fill="#F47825" d="M13.333 6L6.667 0 0 6l1.333 2L0 10l6.667 6 6.666-6L12 8z"/>
-        <path fill="#FFF" d="M11.6 6.2l-4.933-1V1.8z" opacity=".25"/>
-        <path fill="#FFF" d="M6.667 5.2l-4.934 1 4.934-4.4z" opacity=".5"/>
-        <path fill="#FFF" d="M6.667 5.2v8.4L5.37 11.653 1.733 6.2zM6.667 10.8V2.4l1.296 1.947L11.6 9.8z" opacity=".25"/>
-        <path fill="#B4591B" d="M11.6 6.2l-4.933 7.4V5.2zM1.733 9.8l4.934 1v3.4z" opacity=".35"/>
-        <path fill="#FFF" d="M6.667 10.8l4.933-1-4.933 4.4z" opacity=".5"/>
-        <path fill="#FFF" d="M1.733 9.8l4.934-7.4v8.4z" opacity=".25"/>
-        <path fill="#FFF" d="M3.5 9.533L4.54 8 3.5 6.467l3.167-2.8 3.166 2.8L8.793 8l1.04 1.533-3.166 2.8z" opacity=".5"/>
+    <g fill="none" fill-rule="evenodd">
+        <g fill-rule="nonzero">
+            <g>
+                <g>
+                    <g>
+                        <path fill="#24CC8F" d="M0 6L5.833 0 11.667 6 5.833 16z" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#24CC8F" d="M0 6L5.833 0 11.667 6 5.833 16z" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#FFF" d="M10.15 6.2L5.833 5.2 5.833 1.8z" opacity=".25" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#FFF" d="M5.833 5.2L1.517 6.2 5.833 1.8z" opacity=".5" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#5AE4B2" d="M5.833 5.2L5.833 13.6 1.517 6.2z" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#1B996B" d="M10.15 6.2L5.833 13.6 5.833 5.2z" opacity=".35" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#F47825" d="M11.667 6L5.833 0 0 6 1.167 8 0 10 5.833 16 11.667 10 10.5 8z" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#FFF" d="M10.15 6.2L5.833 5.2 5.833 1.8z" opacity=".25" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#FFF" d="M5.833 5.2L1.517 6.2 5.833 1.8z" opacity=".5" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#FFF" d="M5.833 5.2L5.833 13.6 4.699 11.653 1.517 6.2zM5.833 10.8L5.833 2.4 6.968 4.347 10.15 9.8z" opacity=".25" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#B4591B" d="M10.15 6.2L5.833 13.6 5.833 5.2zM1.517 9.8L5.833 10.8 5.833 14.2z" opacity=".35" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#FFF" d="M5.833 10.8L10.15 9.8 5.833 14.2z" opacity=".5" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#FFF" d="M1.517 9.8L5.833 2.4 5.833 10.8z" opacity=".25" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                        <path fill="#FFF" d="M3.063 9.533L3.973 8 3.063 6.467 5.833 3.667 8.604 6.467 7.694 8 8.604 9.533 5.833 12.333z" opacity=".5" transform="translate(-524 -2070) translate(484 1632) translate(40 438) translate(.875)"/>
+                    </g>
+                </g>
+            </g>
+        </g>
     </g>
 </svg>
