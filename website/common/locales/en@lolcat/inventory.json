@@ -1,8 +1,10 @@
 {
-  "noItemsAvailableForType": "You have no <%= type %>.",
-  "foodItemType": "Food",
-  "eggsItemType": "Eggs",
-  "hatchingPotionsItemType": "Hatching Potions",
-  "specialItemType": "Special items",
-  "lockedItem": "Locked Item"
+    "noItemsAvailableForType": "You has no <%= type %>.",
+    "foodItemType": "Food yums",
+    "eggsItemType": "Eggz",
+    "hatchingPotionsItemType": "Potions Hatches",
+    "specialItemType": "Special items",
+    "lockedItem": "Locked Itemz",
+    "allItems": "All itemz",
+    "petAndMount": "Critterz n biggies"
 }

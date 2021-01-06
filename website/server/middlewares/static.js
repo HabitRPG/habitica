@@ -27,6 +27,7 @@ export default function staticMiddleware (expressApp) {
   expressApp.use('/static/icons', express.static(`${BASE_DIR}/website/client/dist/static/icons`, { maxAge: ONE_WEEK }));
   expressApp.use('/static/merch', express.static(`${BASE_DIR}/website/client/dist/static/merch`, { maxAge: ONE_WEEK }));
   expressApp.use('/static/presskit', express.static(`${BASE_DIR}/website/client/dist/static/presskit`, { maxAge: ONE_WEEK }));
+  expressApp.use('/static/npc', express.static(`${BASE_DIR}/website/client/dist/static/npc`, { maxAge: ONE_WEEK }));
 
   /* The remaining files are not cached yet. */
   expressApp.use('/static', express.static(`${BASE_DIR}/website/client/dist/static`));

@@ -94,7 +94,7 @@
     "classGearText": "Congratulazioni per la scelta della classe! Ho aggiunto la tua nuova arma di base al tuo inventario. Dai un'occhiata giù per equipaggiarla!",
     "autoAllocate": "Assegnazione automatica dei punti",
     "spells": "Abilità",
-    "skillsTitle": "Abilità",
+    "skillsTitle": "<%= classStr %> Abilità",
     "toDo": "Cosa da Fare",
     "tourStatsPage": "Questa è la pagina delle tue Statistiche! Guadagna delle medaglie compiendo le azioni elencate.",
     "tourTavernPage": "Benvenuto nella Taverna, una chat per tutte le età! Puoi fare in modo che le tue Attività Giornaliere non ti danneggino in caso di malattia o di viaggio facendo click su \"Sospendi danni\". Vieni a farci un saluto!",
@@ -123,5 +123,8 @@
     "paymentAutoRenew": "Questo abbonamento si rinnoverà automaticamente fino a quando non verrà annullato. Se è necessario annullare questo abbonamento, è possibile farlo dalle proprie impostazioni.",
     "paymentSubBillingWithMethod": "Il tuo abbonamento verrà fatturato <strong>$<%= amount %></strong> ogni <strong><%= months %> mesi</strong> tramite <strong><%= paymentMethod %></strong>.",
     "invalidUnlockSet": "Questo set di elementi non è valido e non può essere sbloccato.",
-    "cannotUnpinItem": "Questo oggetto non può essere rimosso."
+    "cannotUnpinItem": "Questo oggetto non può essere rimosso.",
+    "nMonthsSubscriptionGift": "<%= nMonths %> mese(i) di abbonamento (Regalo)",
+    "nGemsGift": "<%= nGems %> Gemme (Regalo)",
+    "nGems": "<%= nGems %> Gemme"
 }

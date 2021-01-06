@@ -175,12 +175,13 @@
     "goToSettings": "Go t' Settin's",
     "usernameVerifiedConfirmation": "Yer seaname, <%= username %>, be confirm'd!",
     "usernameNotVerified": "Please confirm yer seaname.",
-    "changeUsernameDisclaimer": "Yer username be used fer invitations, @mentions in chat, 'n messagin'.  It must be 1 t' 20 characters, containin' only letters A t' Z, numbers 0 t' 9, hyphens, or underscores, an' cannae include any inappropriate terms.",
+    "changeUsernameDisclaimer": "Yer username be used fer invitations, @mentions in chat, 'n messagin'. It must be 1 t' 20 characters, containin' only letters A t' Z, numbers 0 t' 9, hyphens, or underscores, an' cannae include any inappropriate terms.",
     "verifyUsernameVeteranPet": "One o' these Veteran Pets will be waitin' fer ye after ye've finish'd confirmin'!",
     "subscriptionReminders": "Don' ferget about yer Subscriptions",
     "newPMNotificationTitle": "There be a Message from <%= name %>",
     "chatExtensionDesc": "Th' Chat Extension fer Habitica adds an intuitive chat box t' all o' habitica.com. It allows pirates t' chat in th' Pub, their crew, and any ships they 'ave boarded.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chat Extension</a> n' <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox Chat Extension</a>",
     "displaynameIssueNewline": "Displayed Pirate Names may not contain backslashes followed by th' letter N.",
-    "resetAccount": "Reset Yer Account"
+    "resetAccount": "Reset Yer Account",
+    "giftedSubscriptionWinterPromo": "Ahoy<%= username %>, ye receiv'd <%= monthCount %> months o' subscr'ption as part o' our holiday gift-givin' promotion!"
 }

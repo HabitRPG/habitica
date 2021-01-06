@@ -29,7 +29,7 @@
     "prizePopTavern": "Jei kas nors 'laimės' tavo iššūkį, gali jam skirti brangakmenių prizą. Gali daugiausia siūlyti tiek brangakmenių, kiek turi pats. Pastebėjimas: Šio prizo vėliau keisti negalima ir Smuklės iššūkių brangakmenių nebeatgausi juos atšaukus.",
     "publicChallengesTitle": "Public Challenges",
     "officialChallenge": "Oficialus Habitica Iššūkis",
-    "by": "sukurtas ",
+    "by": "sukurtas",
     "participants": "<%= membercount %> Dalyviai",
     "join": "Prisijungti",
     "exportChallengeCSV": "Iškelti į CSV",

@@ -94,7 +94,7 @@
     "classGearText": "¡Felicitaciones por haber escogido una clase! He añadido tu nueva arma básica a tu inventario. ¡Écha una mirada abajo para equiparla!",
     "autoAllocate": "Asignación automática",
     "spells": "Habilidades",
-    "skillsTitle": "Habilidades",
+    "skillsTitle": "<%= classStr %> Habilidades",
     "toDo": "Pendiente",
     "tourStatsPage": "¡Esta es la página de Estadísticas! Gana logros completando las tareas en la lista.",
     "tourTavernPage": "Bienvenido a la Taverna, ¡un salón de chat para todas las edades! Puedes evitar el daño de tus Diarias en caso de enfermedad o viajes haciendo clic en \"Suspender Daño\". ¡Entra, y di hola!",
@@ -123,5 +123,8 @@
     "paymentAutoRenew": "Esta suscripción se renovará automáticamente hasta que sea cancelada. Si necesitas cancelar esta suscripción, puedes hacerlo desde tus Ajustes.",
     "paymentSubBillingWithMethod": "Tu suscripción será cobrada <strong>$<%= amount %></strong> cada <strong><%= months %> mes(es)</strong> via <strong><%= paymentMethod %></strong>.",
     "invalidUnlockSet": "Este conjunto de artículos es inválido y no puede ser desbloqueado.",
-    "cannotUnpinItem": "Este artículo no puede desclavarse."
+    "cannotUnpinItem": "Este artículo no puede desclavarse.",
+    "nMonthsSubscriptionGift": "<%= nMonths %> Mes(es) de Suscripción (Regalo)",
+    "nGemsGift": "<%= nGems %> Gemas (Regalo)",
+    "nGems": "<%= nGems %> Gemas"
 }

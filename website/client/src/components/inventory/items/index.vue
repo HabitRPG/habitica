@@ -496,16 +496,16 @@ export default {
       return this.groups.some(g => g.selected);
     },
   },
+  watch: {
+    searchText: throttle(function throttleSearch () {
+      this.searchTextThrottled = this.searchText.toLowerCase();
+    }, 250),
+  },
   mounted () {
     this.$store.dispatch('common:setTitle', {
       subSection: this.$t('items'),
       section: this.$t('inventory'),
     });
-  },
-  watch: {
-    searchText: throttle(function throttleSearch () {
-      this.searchTextThrottled = this.searchText.toLowerCase();
-    }, 250),
   },
   methods: {
     userHasPet (potionKey, eggKey) {

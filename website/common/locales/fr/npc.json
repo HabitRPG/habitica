@@ -94,7 +94,7 @@
     "classGearText": "Félicitations, vous avez choisi une classe ! J'ai ajouté à votre inventaire de nouvelles armes de base. Regardez ci-dessous et équipez-vous !",
     "autoAllocate": "Distribution automatique",
     "spells": "Compétences",
-    "skillsTitle": "Compétences",
+    "skillsTitle": "Compétences <%= classStr %>",
     "toDo": "À faire",
     "tourStatsPage": "Ceci est votre page de statistiques ! Remportez des succès en complétant vos tâches.",
     "tourTavernPage": "Voici la taverne, un lieu de discussions pour tout âge ! Vous pouvez empêcher vos quotidiennes de vous faire du mal en cas de maladie ou de voyage en cliquant sur \"Désactiver les dégâts\". Venez dire bonjour !",
@@ -123,5 +123,8 @@
     "paymentCanceledDisputes": "Nous avons envoyé la confirmation d'annulation à votre adresse email. Si vous ne recevez pas cet email, veuillez nous contacter pour éviter de futurs problèmes de facturation.",
     "cannotUnpinItem": "Cet objet ne peut pas être désépinglé.",
     "paymentSubBillingWithMethod": "Votre abonnement sera facturé <strong><%= amount %></strong> tous les <strong><%= months %> mois</strong> via <strong><%= paymentMethod %></strong>.",
-    "invalidUnlockSet": "Cet ensemble d'objets est invalide et ne peux être débloqué."
+    "invalidUnlockSet": "Cet ensemble d'objets est invalide et ne peux être débloqué.",
+    "nMonthsSubscriptionGift": "<%= nMonths %> mois d'abonnement (cadeau)",
+    "nGemsGift": "<%= nGems %> gemmes (cadeau)",
+    "nGems": "<%= nGems %> gemmes"
 }

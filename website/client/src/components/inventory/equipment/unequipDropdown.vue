@@ -1,5 +1,6 @@
 <template>
   <b-dropdown
+    class="select-list"
     right="right"
     toggle-class="with-icon"
   >
@@ -15,26 +16,31 @@
       >{{ $t('unequip') }}</span>
     </template>
     <b-dropdown-item
+      class="selectListItem"
       @click="unequipBattleGear()"
     >
       {{ $t('battleGear') }}
     </b-dropdown-item>
     <b-dropdown-item
+      class="selectListItem"
       @click="unequipCostume()"
     >
       {{ $t('costume') }}
     </b-dropdown-item>
     <b-dropdown-item
+      class="selectListItem"
       @click="unequipPetMount()"
     >
       {{ $t('petAndMount') }}
     </b-dropdown-item>
     <b-dropdown-item
+      class="selectListItem"
       @click="unequipBackground()"
     >
       {{ $t('background') }}
     </b-dropdown-item>
     <b-dropdown-item
+      class="selectListItem"
       @click="unequipAllItems()"
     >
       {{ $t('allItems') }}
@@ -99,6 +105,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
+
+.select-list {
+  ::v-deep {
+    .dropdown-menu {
+      min-width: 8rem; // instead of the normal 10
+    }
+  }
+}
 
 ::v-deep {
   .btn {

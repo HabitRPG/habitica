@@ -53,7 +53,7 @@
         v-if="!group.purchased.plan.dateTerminated
           && group.purchased.plan.paymentMethod === 'Stripe'"
         class="btn btn-primary"
-        @click="showStripeEdit({groupId: group.id})"
+        @click="redirectToStripeEdit({groupId: group.id})"
       >
         {{ $t('subUpdateCard') }}
       </div>

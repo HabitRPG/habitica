@@ -39,6 +39,7 @@
         <template v-if="isUserLoaded">
           <damage-paused-banner />
           <!-- <gems-promo-banner /> -->
+          <gift-promo-banner />
           <notifications-display />
           <app-menu />
           <div
@@ -154,6 +155,7 @@ import AppMenu from './components/header/menu';
 import AppHeader from './components/header/index';
 import DamagePausedBanner from './components/header/banners/damagePaused';
 // import GemsPromoBanner from './components/header/banners/gemsPromo';
+import GiftPromoBanner from './components/header/banners/giftPromo';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
@@ -185,6 +187,7 @@ export default {
     AppFooter,
     DamagePausedBanner,
     // GemsPromoBanner,
+    GiftPromoBanner,
     notificationsDisplay,
     snackbars,
     BuyModal,
@@ -540,5 +543,7 @@ export default {
 <style src="@/assets/css/sprites/spritesmith-main-26.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-27.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-28.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-29.css"></style>
+<!-- <style src="@/assets/css/sprites/spritesmith-main-30.css"></style> -->
 <style src="@/assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

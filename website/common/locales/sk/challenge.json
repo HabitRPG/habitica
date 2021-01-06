@@ -100,5 +100,8 @@
     "viewProgress": "Pozri si pokrok",
     "selectMember": "Zvoľ člena",
     "confirmKeepChallengeTasks": "Chceš si nechať úlohy z výzvy?",
-    "selectParticipant": "Zvoľ účastníka"
+    "selectParticipant": "Zvoľ účastníka",
+    "wonChallengeDesc": "<%= challengeName %> ťa označil/a za víťaza! Tvoja výhra bude zaznamenaná v Úspechoch.",
+    "yourReward": "Tvoja odmena",
+    "filters": "Filtre"
 }

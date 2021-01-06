@@ -1,6 +1,6 @@
 {
-    "termsAndAgreement": "아래에 있는 버튼을 클릭함으로써, 당신은 당신이 서비스 약관<a href='/static/terms'> 과 <a href='/static/privacy'> 개인정보 정책 을 읽었고 이에 동의했음을 나타냅니다</a>.",
-    "FAQ": "FAQ",
+    "termsAndAgreement": "아래에 있는 버튼을 클릭함으로써, 당신은 <a href='/static/terms'>서비스 약관</a> 과 <a href='/static/privacy'> 개인정보 정책</a>을 읽었고 이에 동의했음을 표시합니다.",
+    "FAQ": "자주 하는 질문",
     "sendLink": "링크 보내기",
     "forgotPasswordSteps": "Habitica 계정으로 등록할 메일 주소를 입력하세요.",
     "emailNewPass": "메일로 비밀번호 재설정 링크 보내기",
@@ -14,6 +14,6 @@
     "chores": "집안일",
     "footerCompany": "회사",
     "footerDevs": "개발자들",
-    "communityExtensions": "<a href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>Add-ons & Extensions</a>\n(그냥 링크 같음)",
-    "clearBrowserData": "브라우저 데이터 없애기",
+    "communityExtensions": "<a href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>애드온 & 확장 프로그램</a>",
+    "clearBrowserData": "브라우저 데이터 없애기"
 }

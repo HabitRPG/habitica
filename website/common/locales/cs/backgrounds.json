@@ -207,7 +207,7 @@
     "backgroundStrangeSewersNotes": "Proklouzni podivnými stokami.",
     "backgroundRainyCityText": "Deštivé město",
     "backgroundRainyCityNotes": "Pročvachtej se deštivým městem.",
-    "backgrounds112016": "SET 30: Vydáno v listopadu 2016",
+    "backgrounds112016": "Sada 30: zveřejněna v listopadu 2016",
     "backgroundMidnightCloudsText": "Půlnoční mračna",
     "backgroundMidnightCloudsNotes": "Proleť skrz půlnoční mračna.",
     "backgroundStormyRooftopsText": "Bouřlivé střechy",
@@ -227,7 +227,7 @@
     "backgroundRedNotes": "Čupr červené pozadí.",
     "backgroundYellowText": "Žlutá",
     "backgroundYellowNotes": "Báječné žluté pozadí.",
-    "backgrounds122016": "SET 31: Vydáno v prosinci 2016",
+    "backgrounds122016": "Sada 31: zveřejněna v prosinci 2016",
     "backgroundShimmeringIcePrismText": "Třpytivé hranoly ledu",
     "backgroundShimmeringIcePrismNotes": "Protancuj mezi třpytivými hranoly ledu.",
     "backgroundWinterFireworksText": "Zimní ohňostroj",
@@ -562,5 +562,13 @@
     "backgroundFlyingOverAnAutumnForestText": "Přelet přes podzimní les",
     "backgrounds092020": "Sada 76: zveřejněna v září 2020",
     "backgroundProductivityPlazaNotes": "Inspiruj se při procházce po náměstí produktivity v Habit City.",
-    "backgroundJungleCanopyNotes": "Užij si slunce prosakující přístřeškem v džungli."
+    "backgroundJungleCanopyNotes": "Užij si slunce prosakující přístřeškem v džungli.",
+    "backgroundGingerbreadHouseText": "Perníková chaloupka",
+    "backgrounds122020": "Sada 79: Zveřejněna v prosinci 2020",
+    "backgroundRiverOfLavaText": "Proud lávy",
+    "backgroundRestingInTheInnNotes": "Pracuj v pohodlí a bezpečí svého pokoje zatímco odpočíváš v hostinci.",
+    "backgroundRestingInTheInnText": "Odpočinek v hostinci",
+    "backgroundMysticalObservatoryNotes": "Vyčti svůj osud ze hvězd, které spatříš z mystické observatoře.",
+    "backgroundMysticalObservatoryText": "Mystická observatoř",
+    "backgrounds112020": "Sada 78: Zveřejněna v listopadu 2020"
 }

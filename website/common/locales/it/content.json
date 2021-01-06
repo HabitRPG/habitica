@@ -187,7 +187,7 @@
     "hatchingPotionWhite": "Bianco",
     "hatchingPotionDesert": "Deserto",
     "hatchingPotionRed": "Rosso",
-    "hatchingPotionShade": "Ombra",
+    "hatchingPotionShade": "Oscuro",
     "hatchingPotionSkeleton": "Scheletro",
     "hatchingPotionZombie": "Zombie",
     "hatchingPotionCottonCandyPink": "Zucchero Filato Rosa",
@@ -361,5 +361,8 @@
     "hatchingPotionRuby": "Rubino",
     "hatchingPotionWindup": "Carica a Molla",
     "hatchingPotionTurquoise": "Turchese",
-    "hatchingPotionVampire": "Vampiro"
+    "hatchingPotionVampire": "Vampiro",
+    "hatchingPotionBlackPearl": "Perla Nera",
+    "hatchingPotionAutumnLeaf": "Foglia autunnale",
+    "hatchingPotionStainedGlass": "Vetrata colorata"
 }

@@ -55,7 +55,7 @@
     "classEquipBonus": "Hahmoluokka-bonus",
     "battleGear": "Taisteluvarustus",
     "gear": "Varusteet",
-    "autoEquipBattleGear": "Ota uudet varusteet automaattisesti käyttöön. ",
+    "autoEquipBattleGear": "Ota uudet varusteet automaattisesti käyttöön",
     "costume": "Asu",
     "useCostume": "Käytä asua",
     "costumePopoverText": "Klikkaamalla \"Käytä asua\" voit muokata hahmosi ulkonäköä vaikuttamatta taisteluvarusteiden tuomiin ominaisuuksiin! Voit siis pukea hahmollesi parhaat varusteet vasemmalta, ja valita oikealta itsellesi mieluisan asun.",

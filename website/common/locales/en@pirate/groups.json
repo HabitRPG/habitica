@@ -357,5 +357,17 @@
     "languageSettings": "Language Settin's",
     "onlyPrivateGuildsCanUpgrade": "Only private ships can be upgraded to a squadron.",
     "chooseTeamMember": "Choose ye a team member",
-    "unassigned": "Unassigned"
+    "unassigned": "Unassigned",
+    "bannedWordsAllowedDetail": "Wit' this option selected, th' use of banned words in this guild will be allowed.",
+    "usernameOrUserId": "Ent'r @username or Pirate ID",
+    "assignedDateAndUser": "Assign'd by <strong>@<%- username %></strong> on <strong><%= date %></strong>",
+    "assignedDateOnly": "Assign'd on <strong><%= date %></strong>",
+    "bannedWordsAllowed": "Allow bann'd words",
+    "newPartyPlaceholder": "Enter yer crew's name.",
+    "thisTaskApproved": "This task was approved",
+    "userWithUsernameOrUserIdNotFound": "Username or User ID nah found.",
+    "cannotRemoveQuestOwner": "Ye cannot remove th' owner o' th' active adventure. Abort th' adventure firs'.",
+    "giftMessageTooLong": "Th' maximum length fer gift messages be <%= maxGiftMessageLength %>.",
+    "selectSubscription": "Select Subscr'ption",
+    "features": "Features"
 }

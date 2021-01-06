@@ -495,8 +495,8 @@
     "backgrounds012020": "68.ª serie: enero de 2020",
     "backgroundClocktowerNotes": "Sitúa tu guarida secreta detrás de la torre del reloj.",
     "backgroundClocktowerText": "Torre del Reloj",
-    "backgroundAirshipText": "Nave Aérea",
-    "backgroundAirshipNotes": "Conviértete en un navegante de los cielos en tu propia Nave Aérea.",
+    "backgroundAirshipText": "Dirigible",
+    "backgroundAirshipNotes": "Conviértete en un navegante de los cielos en tu propio Dirigible.",
     "backgroundButterflyGardenText": "Jardín de mariposas",
     "backgroundAmongGiantFlowersText": "Entre flores gigantes",
     "backgroundTeaPartyText": "Fiesta del té",
@@ -569,5 +569,12 @@
     "backgroundRestingInTheInnNotes": "Trabaja desde el comfort y la seguridad de tu habitación Descansando en la Posada.",
     "backgroundRiverOfLavaNotes": "Desafía la convección paseando a lo largo de un Río de Lava.",
     "backgroundRiverOfLavaText": "Río de Lava",
-    "backgroundMysticalObservatoryNotes": "Lee tu destino en las estrellas desde un Observatorio Místico."
+    "backgroundMysticalObservatoryNotes": "Lee tu destino en las estrellas desde un Observatorio Místico.",
+    "backgroundInsideAnOrnamentNotes": "Deja que tu alegría festiva brille desde dentro de un Ornamento.",
+    "backgroundInsideAnOrnamentText": "Dentro de un Ornamento",
+    "backgroundGingerbreadHouseNotes": "Disfrute de las vistas, los aromas y (si se atreve) los sabores de una Casa de Pan de Jengibre.",
+    "backgroundGingerbreadHouseText": "Casa de Pan de Jengibre",
+    "backgrounds122020": "Colección 79: Lanzada en Diciembre del 2020",
+    "backgroundHolidayHearthText": "Corazón Navideño",
+    "backgroundHolidayHearthNotes": "Relajate, caliéntate y sécate junto a un Hogar Navideño."
 }

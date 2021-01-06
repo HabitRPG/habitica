@@ -22,7 +22,9 @@ describe('Purchasing a group plan for group', () => {
 
   let plan; let group; let user; let
     data;
-  const stripe = stripeModule('test');
+  const stripe = stripeModule('test', {
+    apiVersion: '2020-08-27',
+  });
   const groupLeaderName = 'sender';
   const groupName = 'test group';
 

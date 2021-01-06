@@ -2,10 +2,20 @@
   <b-modal
     id="select-user-modal"
     :hide-header="true"
-    :hide-footer="true"
+    :hide-footer="!currentEvent || currentEvent.promo !== 'g1g1'"
     @hide="onHide()"
   >
-    <h2 class="ml-2">
+    <div
+      class="g1g1 d-flex flex-column text-center justify-content-center align-items-center"
+      v-if="currentEvent && currentEvent.promo === 'g1g1'"
+    >
+      <h1> {{ $t('g1g1') }} </h1>
+      <p> {{ $t('g1g1Returning') }} </p>
+    </div>
+    <h2
+      class="ml-2"
+      v-else
+    >
       {{ $t('sendGift') }}
     </h2>
     <div class="d-flex flex-column align-items-center">
@@ -18,8 +28,8 @@
           v-html="icons.close"
         ></div>
       </div>
-      <div class="ml-2 mr-auto">
-        <strong> {{ $t('sendGiftToWhom') }} </strong>
+      <div class="mx-auto mt-3">
+        <h3> {{ $t('sendGiftToWhom') }} </h3>
       </div>
       <div
         class="form"
@@ -45,23 +55,53 @@
         >
           {{ $t('userWithUsernameOrUserIdNotFound') }}
         </div>
-        <div class="d-flex justify-content-center align-items-middle mt-3">
-          <a
-            class="my-auto ml-auto mr-3 cancel-link"
-            @click="close()"
-          >
-            {{ $t('cancel') }}
-          </a>
+        <div class="d-flex flex-column justify-content-center align-items-middle mt-3">
           <button
-            class="btn btn-primary my-auto mr-auto"
+            class="btn btn-primary mx-auto mt-2"
             type="submit"
             :disabled="searchCannotSubmit"
             @click="selectUser()"
           >
-            {{ $t('selectGift') }}
+            <div
+              v-if="currentEvent && currentEvent.promo === 'g1g1'"
+            >
+              {{ $t('selectSubscription') }}
+            </div>
+            <div
+              v-else
+            >
+              {{ $t('selectGift') }}
+            </div>
           </button>
+          <a
+            class="cancel-link mx-auto mt-3"
+            @click="close()"
+            >
+            {{ $t('cancel') }}
+          </a>
         </div>
       </div>
+    </div>
+    <div
+      class="g1g1-fine-print text-center pt-3"
+      slot="modal-footer"
+    >
+      <strong>
+        {{ $t ('howItWorks') }}
+      </strong>
+      <p
+        class="mx-5 mt-1"
+      >
+        {{ $t ('g1g1HowItWorks') }}
+      </p>
+      <strong>
+        {{ $t ('limitations') }}
+      </strong>
+      <p
+        class="mx-5 mt-1"
+      >
+        {{ $t ('g1g1Limitations') }}
+      </p>
     </div>
   </b-modal>
 </template>
@@ -70,11 +110,21 @@
   @import '~@/assets/scss/mixins.scss';
 
   #select-user-modal {
-    @include centeredModal();
+    .input-group {
+      margin-top: 0rem;
+    }
 
     .modal-dialog {
       width: 29.5rem;
       margin-top: 25vh;
+    }
+
+    .modal-footer {
+      padding: 0rem;
+
+      > * {
+        margin: 0rem 0.25rem 0.25rem 0.25rem;
+      }
     }
   }
 </style>
@@ -84,11 +134,12 @@
 
   a:not([href]) {
     color: $blue-10;
-    font-size: 16px;
+    font-size: 0.875rem;
+    line-height: 1.71;
   }
 
-  .form-control {
-    width: 26.5rem;
+  #selectUser {
+    width: 22rem;
     border: 0px;
     color: $gray-50;
   }
@@ -103,15 +154,26 @@
     padding: 1.5rem;
     color: $white;
 
-    .heading {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 1rem;
+    h1 {
+      font-size: 1.25rem;
+      line-height: 1.4;
+      color: $white;
     }
 
-    .details {
-      padding: 0rem 6rem;
+    p {
+      font-size: 0.75rem;
+      line-height: 1.33;
+      margin-left: 4rem;
+      margin-right: 4rem;
+      margin-bottom: 0rem;
     }
+  }
+
+  .g1g1-fine-print {
+    color: $gray-100;
+    background-color: $gray-700;
+    font-size: 0.75rem;
+    line-height: 1.33;
   }
 
   .input-error {
@@ -149,6 +211,7 @@
 <script>
 import debounce from 'lodash/debounce';
 import isUUID from 'validator/lib/isUUID';
+import { mapState } from '@/libs/store';
 import closeIcon from '@/assets/svg/close.svg';
 
 export default {
@@ -163,6 +226,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      currentEvent: 'worldState.data.currentEvent',
+    }),
     searchCannotSubmit () {
       if (this.userSearchTerm.length < 1) return true;
       return typeof this.foundUser._id === 'undefined';

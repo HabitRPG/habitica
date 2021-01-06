@@ -94,7 +94,7 @@
     "classGearText": "クラスの選択おめでとう！　あなたの新しい基本武器を所持品に加えました。下をのぞいて装備してみてください！",
     "autoAllocate": "自動割り当て",
     "spells": "スキル",
-    "skillsTitle": "スキル",
+    "skillsTitle": "<%= classStr %>スキル",
     "toDo": "To Do",
     "tourStatsPage": "これはあなたのステータスページです!　タスクを完了して実績を解除しましょう。",
     "tourTavernPage": "キャンプ場へようこそ!　年齢に関わらず参加できるチャットルームです。「ロッジで休む」をクリックすると、病気や旅行などの間に日課のダメージから身を守ることができます。よかったら一言あいさつしていってください！",
@@ -123,5 +123,8 @@
     "paymentCanceledDisputes": "キャンセルの承認のメールをあなたに送りました。もしそのメールが見つからない場合は、今後の請求についての論争を防ぐために、私たちにご連絡をお願いいたします。",
     "cannotUnpinItem": "このアイテムはピン留めを外せません。",
     "paymentSubBillingWithMethod": "あなたの有料プランは、<strong><%= months %>ヶ月</strong>ごとに<strong><%= paymentMethod %></strong>によって <strong>$<%= amount %></strong> 請求されます。",
-    "invalidUnlockSet": "このアイテムセットは無効なので、アンロックできません。"
+    "invalidUnlockSet": "このアイテムセットは無効なので、アンロックできません。",
+    "nGems": "<%= nGems %> ジェム",
+    "nMonthsSubscriptionGift": "<%= nMonths %>ヶ月の有料プラン（ギフト）",
+    "nGemsGift": "<%= nGems %> ジェム（ギフト）"
 }

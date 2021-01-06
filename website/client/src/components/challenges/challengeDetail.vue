@@ -99,13 +99,14 @@
         <div class="col-12 col-md-6 text-right">
           <span v-if="isLeader || isAdmin">
             <b-dropdown
-              class="create-dropdown"
+              class="create-dropdown select-list"
               :text="$t('addTaskToChallenge')"
               :variant="'success'"
             >
               <b-dropdown-item
                 v-for="type in columns"
                 :key="type"
+                class="selectListItem"
                 @click="createTask(type)"
               >{{ $t(type) }}</b-dropdown-item>
             </b-dropdown>
@@ -384,16 +385,6 @@ export default {
       memberResults: [],
     };
   },
-  watch: {
-    'challenge.name': {
-      handler (newVal) {
-        this.$store.dispatch('common:setTitle', {
-          section: this.$t('challenge'),
-          subSection: newVal.name,
-        });
-      },
-    },
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     isMember () {
@@ -408,6 +399,16 @@ export default {
     },
     canJoin () {
       return !this.isMember;
+    },
+  },
+  watch: {
+    'challenge.name': {
+      handler (newVal) {
+        this.$store.dispatch('common:setTitle', {
+          section: this.$t('challenge'),
+          subSection: newVal.name,
+        });
+      },
     },
   },
   mounted () {

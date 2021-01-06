@@ -25,6 +25,6 @@ export function setup () { // eslint-disable-line import/prefer-default-export
   const stripeScript = document.createElement('script');
   [firstScript] = document.getElementsByTagName('script');
   stripeScript.async = true;
-  stripeScript.src = '//checkout.stripe.com/v2/checkout.js';
+  stripeScript.src = 'https://js.stripe.com/v3/';
   firstScript.parentNode.insertBefore(stripeScript, firstScript);
 }

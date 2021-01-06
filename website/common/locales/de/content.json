@@ -207,7 +207,7 @@
     "hatchingPotionFairy": "Feenhaftes",
     "hatchingPotionStarryNight": "Sternenklare Nacht",
     "hatchingPotionRainbow": "Regenbogenfarbiges",
-    "hatchingPotionGlass": "Glasiges",
+    "hatchingPotionGlass": "Gläsernes",
     "hatchingPotionGlow": "Fluoreszierendes",
     "hatchingPotionFrost": "Frostiges",
     "hatchingPotionIcySnow": "Eisschnee",
@@ -305,8 +305,8 @@
     "foodCandyRedA": "ein Zimtbonbon",
     "foodSaddleText": "Magischer Sattel",
     "foodSaddleNotes": "Lässt eines Deiner Haustiere augenblicklich zum Reittier heranwachsen.",
-    "foodSaddleSellWarningNote": "Hey! Das ist ein sehr nützlicher Gegenstand! Bist Du vertraut damit, wie Du den Sattel mit Deinen Haustieren nutzt?",
-    "foodNotes": "Verfüttere das an ein Haustier und es wächst bald zu einem kräftigen Reittier heran.",
+    "foodSaddleSellWarningNote": "Hey! Das ist ein sehr nützlicher Gegenstand! Weißt Du, wie Du den Sattel mit Deinen Haustieren nutzt?",
+    "foodNotes": "Verfüttere dies an ein Haustier und es wächst bald zu einem kräftigen Reittier heran.",
     "hatchingPotionRoseQuartz": "Rosenquarziges",
     "hatchingPotionCelestial": "Himmlisches",
     "foodPieSkeleton": "Knochenmark-Topfkuchen",
@@ -361,5 +361,8 @@
     "hatchingPotionSandSculpture": "Sandskulptur",
     "hatchingPotionWindup": "Aufziehbares",
     "hatchingPotionTurquoise": "Türkisgrünes",
-    "hatchingPotionVampire": "Vampir"
+    "hatchingPotionVampire": "Vampir",
+    "hatchingPotionBlackPearl": "Schwarze Perle",
+    "hatchingPotionAutumnLeaf": "Herbstlaub",
+    "hatchingPotionStainedGlass": "Buntglas"
 }

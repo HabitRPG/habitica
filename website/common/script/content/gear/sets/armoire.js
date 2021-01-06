@@ -334,6 +334,14 @@ const armor = {
     con: 10,
     set: 'jackOfClubs',
   },
+  dressingGown: {
+    con: 12,
+    set: 'dressingGown',
+  },
+  blueMoonShozoku: {
+    con: 8,
+    set: 'blueMoon',
+  },
 };
 
 const body = {
@@ -668,6 +676,14 @@ const head = {
     int: 10,
     set: 'jackOfClubs',
   },
+  nightcap: {
+    per: 12,
+    set: 'dressingGown',
+  },
+  blueMoonHelm: {
+    int: 8,
+    set: 'blueMoon',
+  },
 };
 
 const shield = {
@@ -856,6 +872,10 @@ const shield = {
   darkAutumnFlame: {
     con: 12,
     set: 'autumnEnchanter',
+  },
+  blueMoonSai: {
+    per: 8,
+    set: 'blueMoon',
   },
 };
 
@@ -1142,6 +1162,14 @@ const weapon = {
   clubOfClubs: {
     str: 10,
     set: 'jackOfClubs',
+  },
+  eveningTea: {
+    int: 12,
+    set: 'dressingGown',
+  },
+  blueMoonSai: {
+    str: 8,
+    set: 'blueMoon',
   },
 };
 

@@ -85,7 +85,7 @@
     "allocatePerPop": "Adde Punctum Perceptioni",
     "allocateInt": "Puncta Intelligentiae distributa:",
     "allocateIntPop": "Adde Punctum Intelligentiae",
-    "noMoreAllocate": "Gradu centesimo facto nullis punctis proprietatis afficeris. Pergas, si vis, gradus assequi aut iter novum gradu primo ineas utens <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe Renascientiae</a>.",
+    "noMoreAllocate": "Gradu centesimo facto nullis punctis proprietatis afficeris. Pergas, si vis, gradus assequi aut iter novum gradu primo ineas utens <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orbe Renascientiae</a>!",
     "stats": "Statisticae",
     "achievs": "Res Gestae",
     "strength": "Vis",
@@ -132,7 +132,7 @@
     "healerText": "Healers stand impervious against harm, and extend that protection to others. Missed Dailies and bad Habits don't faze them much, and they have ways to recover Health from failure. Play a Healer if you enjoy assisting others in your Party, or if the idea of cheating Death through hard work inspires you!",
     "optOutOfClasses": "Removeri Opta",
     "chooseClass": "Choose your Class",
-    "chooseClassLearnMarkdown": "[Learn more about Habitica's class system](https://habitica.fandom.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Cognosce professiones in Habitica](https://habitica.fandom.com/wiki/Class_System)",
     "optOutOfClassesText": "Can't be bothered with classes? Want to choose later? Opt out - you'll be a warrior with no special abilities. You can read about the class system later on the wiki and enable classes at any time under User Icon > Settings.",
     "selectClass": "Lege <%= heroClass %>",
     "select": "Lege",
@@ -145,7 +145,7 @@
     "notEnoughMana": "Non satis manae.",
     "invalidTarget": "You can't cast a skill on that.",
     "youCast": "<%= spell %> incantas.",
-    "youCastTarget": "Super <%= target %> <%=spell %> incantas.",
+    "youCastTarget": "Super <%= target %> <%= spell %> incantas.",
     "youCastParty": "<%= spell %> contubernio incantas.",
     "critBonus": "Critica Plaga! Commodum: ",
     "gainedGold": "Aliquod Aurum meritavisti",
@@ -185,5 +185,5 @@
     "chatCastSpellParty": "<%= username %> <%= spell %> conturbernio incantat.",
     "chatCastSpellUser": "<%= username %> <%= spell %> super <%= target %> incantat.",
     "purchasePetItemConfirm": "Hanc rem emens numerum rerum superabis, quibus rebus tibi opus est ad incubanda <%= itemText %> animalia, quae incubari possunt. Certe visne?",
-    "purchaseForGold": "<%=cost %> aurine emere?"
+    "purchaseForGold": "<%= cost %> aurine emere?"
 }

@@ -26,7 +26,7 @@
     "seasonalShop": "Cửa Hàng Mùa Vụ",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Cô Phù Thuỷ Mùa Vụ<%= linkEnd %>",
-    "seasonalShopClosedText": "Cửa hàng theo mùa hiện tại đang đóng cửa!! Nó chỉ mở trong suốt Bốn Sự kiện trong mùa. ",
+    "seasonalShopClosedText": "Cửa hàng theo mùa hiện tại đang đóng cửa!! Nó chỉ mở trong suốt Bốn Sự kiện trong mùa.",
     "seasonalShopSummerText": "Happy Summer Splash!! Would you like to buy some rare items? They’ll only be available until July 31st!",
     "seasonalShopFallText": "Chúc mừng Lễ hội Mùa thu!! Bạn có muốn mua một vài vật phẩm hiếm không? Chúng chỉ có thể mua tới ngày 31 tháng 10.",
     "seasonalShopWinterText": "Happy Winter Wonderland!! Would you like to buy some rare items? They’ll only be available until January 31st!",

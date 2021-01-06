@@ -1,6 +1,6 @@
 {
-    "egg": "<% = eggType%> अंडा",
-    "potion": "<% = potionType%> औषधि",
+    "egg": "<%= eggType %> अंडा",
+    "potion": "<%= potionType %> औषधि",
     "gryphatrice": "Gryphatrice",
     "invisibleAether": "अदृश्य अथर",
     "royalPurpleJackalope": "रॉयल पर्पल जैकलोप",
@@ -38,7 +38,7 @@
     "noFoodAvailable": "आपके पास कोई पेट् फ़ूड नहीं है.",
     "food": "पालतू भोजन और काठी",
     "quickInventory": "त्वरित सूची",
-    "haveHatchablePet": "आपके पास इस पालतू जानवर को पालने के लिए <% = potion%> हैस्टिंग पोशन और <% = egg%> अंडा है! <b> हैच करने के लिए </ b> क्लिक करें!",
+    "haveHatchablePet": "आपके पास इस पालतू जानवर को पालने के लिए <%= potion %> हैस्टिंग पोशन और <%= egg %> अंडा है! <b>हैच करने के लिए</b> क्लिक करें!",
     "hatchingPotion": "हैचिंग पोटेंसी",
     "magicHatchingPotions": "जादुई हैचिंग पोटेंसी",
     "hatchingPotions": "हैचिंग पोटेंसी",

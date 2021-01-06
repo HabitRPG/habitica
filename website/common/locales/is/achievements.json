@@ -9,7 +9,7 @@
     "showAllAchievements": "Sýna öll <%= category %>",
     "hideAchievements": "Fela <%= category %>",
     "onboardingCompleteDesc": "Þú náðir <strong>5 afrekum</strong> og fékkst <strong class=\"gold-amount\">100</strong> gullpeninga fyrir að ljúka verkefnalistanum.",
-    "gettingStartedDesc": "Nú skulum við setja upp verkefni, klára verkefnið og skoða viðurkenninguna sem þú færð fyrir að klára verkefni. Þú vinnur þér inn <strong>5  afrek</strong> og <strong class=\"gold-amount\">100 gullpeninga</strong> þegar þú klárar!",
+    "gettingStartedDesc": "Nú skulum við setja upp verkefni, klára verkefnið og skoða viðurkenninguna sem þú færð fyrir að klára verkefni. Þú vinnur þér inn <strong>5 afrek</strong> og <strong class=\"gold-amount\">100 gullpeninga</strong> þegar þú klárar!",
     "viewAchievements": "Skoða Afrek",
     "letsGetStarted": "Hefjumst handa!",
     "onboardingProgress": "<%= percentage %>% árangur"

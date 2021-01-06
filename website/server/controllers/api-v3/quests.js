@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { authWithHeaders } from '../../middlewares/auth';
-import * as analytics from '../../libs/analyticsService';
+import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -19,6 +19,8 @@ import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import apiError from '../../libs/apiError';
 import { questActivityWebhook } from '../../libs/webhook';
+
+const analytics = getAnalyticsServiceByEnvironment();
 
 const questScrolls = common.content.quests;
 

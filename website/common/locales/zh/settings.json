@@ -90,8 +90,8 @@
     "addedLocalAuth": "成功加入本地端认证",
     "data": "数据",
     "email": "邮箱",
-    "registerWithSocial": "注册 <%= network %>",
-    "registeredWithSocial": "注册 <%= network %>",
+    "registerWithSocial": "使用<%= network %>注册",
+    "registeredWithSocial": "使用<%= network %>注册",
     "emailNotifications": "电子邮件通知",
     "wonChallenge": "你赢得了一项挑战！",
     "newPM": "收到私信",
@@ -182,5 +182,6 @@
     "chatExtensionDesc": "Habitica的聊天扩展程序为所有habitica.com添加了直观的聊天框。它允许用户在酒馆，他们的聚会以及他们所在的任何行会中聊天。",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome聊天扩展</a>和<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox聊天扩展</a>",
     "displaynameIssueNewline": "角色名不能不得包含反斜杠（/），后跟字母N。",
-    "resetAccount": "重置账号"
+    "resetAccount": "重置账号",
+    "giftedSubscriptionWinterPromo": "<%= username %>你好，你收到了<%= monthCount %>个月的订阅，这是我们节日送礼的一项促销活动！"
 }

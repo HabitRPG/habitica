@@ -9,7 +9,7 @@
         <div slot="header">
           <div
             id="npmMattStable"
-            class="npc_matt"
+            :class="npcClass('matt')"
           ></div>
           <b-popover
             triggers="hover"
@@ -455,6 +455,7 @@ import svgInformation from '@/assets/svg/information.svg';
 import notifications from '@/mixins/notifications';
 import openedItemRowsMixin from '@/mixins/openedItemRows';
 import petMixin from '@/mixins/petMixin';
+import seasonalNPC from '@/mixins/seasonalNPC';
 
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 import { isOwned } from '../../../libs/createAnimal';
@@ -493,7 +494,7 @@ export default {
     drag: DragDropDirective,
     mousePosition: MouseMoveDirective,
   },
-  mixins: [notifications, openedItemRowsMixin, petMixin],
+  mixins: [notifications, openedItemRowsMixin, petMixin, seasonalNPC],
   data () {
     const stableSortState = getLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE) || 'standard';
 
@@ -645,12 +646,6 @@ export default {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
   },
-  mounted () {
-    this.$store.dispatch('common:setTitle', {
-      subSection: this.$t('stable'),
-      section: this.$t('inventory'),
-    });
-  },
   watch: {
     searchText: _throttle(function throttleSearch () {
       const search = this.searchText.toLowerCase();
@@ -661,6 +656,12 @@ export default {
         setLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE, this.selectedSortBy);
       },
     },
+  },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('stable'),
+      section: this.$t('inventory'),
+    });
   },
   methods: {
     setShowMore (key) {

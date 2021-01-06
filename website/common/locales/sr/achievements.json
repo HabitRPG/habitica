@@ -11,7 +11,7 @@
     "hideAchievements": "Sakrij kategoriju",
     "showAllAchievements": "Prikaži sve kategorija",
     "onboardingCompleteDescSmall": "Ako želiš još,pogledaj Dostignuća i skupljaj!",
-    "onboardingCompleteDesc": "Zaslužio si  5 dostignuća i 100 zlatnika za završavanje liste.",
+    "onboardingCompleteDesc": "Zaslužio si <strong>5 dostignuća</strong> i <strong class=\"gold-amount\">100 zlatnika</strong> za završavanje liste.",
     "onboardingComplete": "Završio si zadate zadatke!",
     "earnedAchievement": "Zaslužio si dostignuće!",
     "viewAchievements": "Pregledaj dostignuća"

@@ -6,14 +6,14 @@
       v-once
       class="mx-auto mb-2"
     >
-      {{ $t('g1g1Announcement') }}
+      {{ $t('g1g1') }}
     </strong>
-    <p
+    <small
       v-once
-      class="mx-4"
+      class="mx-4 mb-3"
     >
       {{ $t('g1g1Details') }}
-    </p>
+    </small>
     <div
       class="btn-secondary mx-auto d-flex"
       @click="showSelectUser()"
@@ -41,19 +41,13 @@
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
 
-  p, strong {
+  small, strong {
     color: $white;
-  }
-
-  p {
-    font-size: 14px;
   }
 
   .notification {
     background-image: url('~@/assets/images/g1g1-notif.png');
-    background-size: 378px 204px;
-    width: 378px;
-    height: 204px;
+    height: 10rem;
     padding: 3rem;
     position: relative;
     overflow: hidden;

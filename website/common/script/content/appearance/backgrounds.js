@@ -410,6 +410,16 @@ const backgrounds = {
     resting_in_the_inn: { },
     river_of_lava: { },
   },
+  backgrounds122020: {
+    gingerbread_house: { },
+    holiday_hearth: { },
+    inside_an_ornament: { },
+  },
+  backgrounds012021: {
+    hot_spring: { },
+    icicle_bridge: { },
+    wintry_castle: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

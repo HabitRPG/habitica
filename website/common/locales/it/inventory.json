@@ -1,6 +1,6 @@
 {
     "noItemsAvailableForType": "Non hai <%= type %>.",
-    "foodItemType": "Cibo",
+    "foodItemType": "Cibo per Animali",
     "eggsItemType": "Uova",
     "hatchingPotionsItemType": "Pozioni di Schiusa",
     "specialItemType": "Oggetti speciali",

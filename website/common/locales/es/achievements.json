@@ -90,5 +90,17 @@
     "achievementGoodAsGoldText": "Ha coleccionado todas las mascotas Doradas.",
     "achievementGoodAsGold": "Más Bueno que el Pan",
     "yourRewards": "Tus Recompensas",
-    "achievementAllThatGlitters": "Todo lo que brilla"
+    "achievementAllThatGlitters": "Todo lo que brilla",
+    "achievementBoneCollector": "Coleccionista de huesos",
+    "achievementBoneCollectorText": "Ha reunido todas las mascotas esqueléticas.",
+    "achievementSeeingRed": "Rojo de Ira",
+    "achievementSkeletonCrewModalText": "¡Has domado todas las monturas esqueléticas!",
+    "achievementSkeletonCrewText": "Ha domado todas las monturas esqueléticas.",
+    "achievementSkeletonCrew": "Equipo esquelético",
+    "achievementBoneCollectorModalText": "¡Has reunido todas las mascotas esqueléticas!",
+    "achievementSeeingRedText": "Ha reunido todas las mascotas rojas.",
+    "achievementSeeingRedModalText": "¡Has reunido todas las mascotas rojas!",
+    "achievementRedLetterDayModalText": "¡Has domado todas las monturas rojas!",
+    "achievementRedLetterDayText": "Ha domado todas las monturas rojas.",
+    "achievementRedLetterDay": "Día señalado"
 }

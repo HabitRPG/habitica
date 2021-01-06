@@ -30,7 +30,7 @@
     "logout": "Вийти",
     "marketing1Header": "Improve Your Habits by Playing a Game",
     "marketing1Lead1Title": "Your Life, the Role Playing Game",
-    "marketing1Lead1": "Habitica — це відеогра, з допомогою якої ви можете поліпшити свої звички у реальному житті. Вона „ігрофікує“ ваше життя, перетворюючи всі ваші завдання (звички, щоденні справи та обов'язки) на маленьких потвор, яких вам потрібно побороти. Чим ліпше вам це вдаватиметься, тим більше ви просуватиметеся грою. Кожна ваша помилка у реальному житті відкидатиме назад вашого персонажа у грі.",
+    "marketing1Lead1": "Habitica — це відеогра, з допомогою якої ви можете поліпшити свої звички у реальному житті. Вона „гейміфікує“ ваше життя, перетворюючи всі ваші завдання (звички, щоденні справи та завдання) на маленьких потвор, яких вам потрібно побороти. Чим ліпше вам це вдаватиметься, тим більше ви просуватиметеся грою. Кожна ваша помилка у реальному житті відкидатиме назад вашого персонажа у грі.",
     "marketing1Lead2Title": "Отримуйте файнички",
     "marketing1Lead2": "Improve your habits to build up your avatar. Show off the sweet gear you've earned!",
     "marketing1Lead3Title": "Знаходьте випадкові призи",
@@ -119,7 +119,7 @@
     "missingNewPassword": "Missing new password.",
     "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
     "wrongPassword": "Wrong password.",
-    "incorrectDeletePhrase": "Please type <%= magicWord %> in all caps to delete your account.",
+    "incorrectDeletePhrase": "Введіть, будь ласка <%= magicWord %> великими літерами, щоб видалити обліковий запис.",
     "notAnEmail": "Email-адреса не дійсна.",
     "emailTaken": "Email-адреса уже використовується інших обліковим записом.",
     "newEmailRequired": "Missing new email address.",
@@ -183,5 +183,7 @@
     "signup": "Зареєструватися",
     "getStarted": "Get Started!",
     "mobileApps": "Мобільні додатки",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "minPasswordLength": "Пароль повинен містити не менше 8 символів.",
+    "communityInstagram": "Instagram"
 }

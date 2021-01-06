@@ -341,7 +341,7 @@
     "foodPieRedThe": "红樱桃派",
     "foodPieRedA": "一块红樱桃派",
     "hatchingPotionSilver": "银",
-    "hatchingPotionWatery": "潮湿的",
+    "hatchingPotionWatery": "潮湿",
     "hatchingPotionBronze": "青铜",
     "hatchingPotionSunshine": "阳光",
     "questEggRobotAdjective": "一个新潮的",
@@ -361,5 +361,8 @@
     "hatchingPotionSandSculpture": "沙雕",
     "hatchingPotionWindup": "发条",
     "hatchingPotionTurquoise": "绿松石",
-    "hatchingPotionVampire": "吸血鬼"
+    "hatchingPotionVampire": "吸血鬼",
+    "hatchingPotionBlackPearl": "黑珍珠",
+    "hatchingPotionAutumnLeaf": "秋叶",
+    "hatchingPotionStainedGlass": "彩绘玻璃"
 }

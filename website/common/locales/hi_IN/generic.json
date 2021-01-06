@@ -1,6 +1,6 @@
 {
     "languageName": "हिन्दी",
-    "stringNotFound": "स्ट्रिंग '<% = string %>' नहीं मिला.",
+    "stringNotFound": "स्ट्रिंग '<%= string %>' नहीं मिला.",
     "habitica": "हबीटिका",
     "onward": "Onward!",
     "done": "Done",
@@ -195,5 +195,8 @@
     "letsgo": "Let's Go!",
     "selected": "Selected",
     "howManyToBuy": "How many would you like to buy?",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Contact the Moderation Team",
+    "onboardingAchievs": "ऑनबोर्डिंग उपलब्धियां",
+    "options": "विकल्प",
+    "finish": "समाप्त"
 }

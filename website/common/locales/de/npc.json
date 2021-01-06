@@ -94,7 +94,7 @@
     "classGearText": "Glückwunsch zur Wahl Deiner Klasse! Ich habe Deine neue Basiswaffe dem Inventar hinzugefügt. Schaue sie Dir unten an, um sie auszurüsten!",
     "autoAllocate": "Automatische Verteilung",
     "spells": "Fertigkeiten",
-    "skillsTitle": "Fertigkeiten",
+    "skillsTitle": "<%= classStr %> Fertigkeiten",
     "toDo": "To-Do",
     "tourStatsPage": "Auf dieser Seite kannst Du Deine Statuswerte im Auge behalten. Erreiche neue Erfolge indem Du die aufgelisteten Aufgaben erledigst.",
     "tourTavernPage": "Willkommen in der Taverne, einem Gesprächsraum für alle Altersklassen! Falls Du krank bist oder verreist, kannst Du verhindern, dass Du Leben durch nicht erledigte Tagesaufgaben verlierst, indem Du auf \"Im Gasthaus erholen\" klickst. Komm herein und sag Hallo!",
@@ -123,5 +123,8 @@
     "paymentCanceledDisputes": "Wir haben eine Bestätigung der Kündigung an Deine E-Mailadresse gesendet. Falls Du die E-Mail nicht erhältst, kontaktiere uns bitte um zu verhindern, dass es zu Zahlungsstreitigkeiten kommt.",
     "cannotUnpinItem": "Dieser Gegenstand kann nicht von der Pinnwand entfernt werden.",
     "paymentSubBillingWithMethod": "Dein Abonnement wird in Höhe von <strong>$<%= amount %></strong> alle <strong><%= months %> Monat(e)</strong> per <strong><%= paymentMethod %></strong> abgerechnet.",
-    "invalidUnlockSet": "Dieses Set an Gegenständen ist abgelaufen und kann nicht freigeschaltet werden."
+    "invalidUnlockSet": "Dieses Set an Gegenständen ist abgelaufen und kann nicht freigeschaltet werden.",
+    "nGems": "<%= nGems %> Edelsteine",
+    "nMonthsSubscriptionGift": "<%= nMonths %> Monat(e) Abonnement (Geschenk)",
+    "nGemsGift": "<%= nGems %> Edelsteine (Geschenk)"
 }

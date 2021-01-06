@@ -48,7 +48,7 @@
     "messageNotAbleToBuyInBulk": "Denne gjenstanden kan ikke kjøpes i mengder over 1.",
     "notificationsRequired": "Varslings-ID er påkrevd.",
     "unallocatedStatsPoints": "Du har <span class=\"notification-bold-blue\"><%= points %> ufordelte Statistikkpoeng </span>",
-    "beginningOfConversation": "Dette er begynnelsen på samtalen din med <% = userName %>.",
+    "beginningOfConversation": "Dette er begynnelsen på samtalen din med <%= userName %>.",
     "messageDeletedUser": "Beklager, denne brukeren har slettet kontoen sin.",
     "messageMissingDisplayName": "Manglende visningsnavn.",
     "canDeleteNow": "Du kan nå slette meldingen hvis du ønsker det.",

@@ -220,6 +220,18 @@ describe('POST /tasks/user', () => {
     });
   });
 
+  it('errors if todo due date supplied is an invalid date', async () => {
+    await expect(user.post('/tasks/user', {
+      type: 'todo',
+      text: 'todo text',
+      date: 'invalid date',
+    })).to.eventually.be.rejected.and.eql({
+      code: 400,
+      error: 'BadRequest',
+      message: 'todo validation failed',
+    });
+  });
+
   context('sending task activity webhooks', () => {
     before(async () => {
       await server.start();

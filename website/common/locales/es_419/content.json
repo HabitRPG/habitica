@@ -119,9 +119,9 @@
     "questEggTreelingText": "Arbolito",
     "questEggTreelingMountText": "Arbolito",
     "questEggTreelingAdjective": "un frondoso",
-    "questEggAxolotlText": "Axolote",
-    "questEggAxolotlMountText": "Axolote",
-    "questEggAxolotlAdjective": "un poquito",
+    "questEggAxolotlText": "Ajolote",
+    "questEggAxolotlMountText": "Ajolote",
+    "questEggAxolotlAdjective": "un pequeño",
     "questEggTurtleText": "Tortuga marina",
     "questEggTurtleMountText": "Tortuga marina gigante",
     "questEggTurtleAdjective": "un pacifco",
@@ -361,5 +361,8 @@
     "hatchingPotionBirchBark": "Corteza de Abedul",
     "hatchingPotionAurora": "Aurora",
     "hatchingPotionAmber": "Ámbar",
-    "hatchingPotionVampire": "Vampiro"
+    "hatchingPotionVampire": "Vampiro",
+    "hatchingPotionBlackPearl": "Perla Negra",
+    "hatchingPotionAutumnLeaf": "Hojas de Otoño",
+    "hatchingPotionStainedGlass": "Vitral"
 }

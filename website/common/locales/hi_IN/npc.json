@@ -121,7 +121,7 @@
     "limitedOffer": "Available until <%= date %>",
     "paymentCanceledDisputes": "हमने आपके ईमेल को रद्द करने की पुष्टि कर दी है। यदि आप ईमेल नहीं देखते हैं, तो कृपया भविष्य के बिलिंग विवादों को रोकने के लिए हमसे संपर्क करें.",
     "paymentAutoRenew": "यह सदस्यता रद्द होने तक स्वतः नवीनीकृत हो जाएगी। यदि आपको इस सदस्यता को रद्द करने की आवश्यकता है, तो आप अपनी सेटिंग्स से ऐसा कर सकते हैं।",
-    "paymentSubBillingWithMethod": "आपकी सदस्यता को बिल भेजा जाएगा <strong> $ <% = राशि%> </ strong> हर <strong> <% = महीने%> महीने </ strong> <strong> <% = paymentMethod%> </ strong> के माध्यम से।",
+    "paymentSubBillingWithMethod": "आपकी सदस्यता को बिल भेजा जाएगा <strong>$<%= amount %></strong> every <strong><%= months %> months</strong> via <strong><%= paymentMethod %></strong>.",
     "invalidUnlockSet": "आइटम का यह सेट अमान्य है और इसे अनलॉक नहीं किया जा सकता है।",
     "cannotUnpinItem": "यह आइटम अनपिन नहीं किया जा सकता है।"
 }
