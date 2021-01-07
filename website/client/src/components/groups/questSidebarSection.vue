@@ -28,7 +28,7 @@
       v-if="user.party.quest && user.party.quest.RSVPNeeded"
       class="quest-active-section quest-invite"
     >
-      <span class="participate">{{ $t('invitedToQuest') }}</span>
+      <span class="participate">{{ $t('invitedToThisQuest') }}</span>
       <div class="buttons">
         <button
           class="btn btn-success accept"
