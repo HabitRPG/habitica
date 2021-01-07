@@ -16,9 +16,7 @@ import * as subscriptions from '../../../../../../website/server/libs/payments/s
 const { i18n } = common;
 
 describe('Stripe - Webhooks', () => {
-  const stripe = stripeModule('test', {
-    apiVersion: '2020-08-27',
-  });
+  const stripe = stripeModule('test');
   const endpointSecret = nconf.get('STRIPE_WEBHOOKS_ENDPOINT_SECRET');
   const headers = {};
   const body = {};

@@ -17,9 +17,7 @@ import * as gems from '../../../../../../website/server/libs/payments/gems';
 const { i18n } = common;
 
 describe('Stripe - Checkout', () => {
-  const stripe = stripeModule('test', {
-    apiVersion: '2020-08-27',
-  });
+  const stripe = stripeModule('test');
   const BASE_URL = nconf.get('BASE_URL');
   const redirectUrls = {
     success_url: `${BASE_URL}/redirect/stripe-success-checkout`,
