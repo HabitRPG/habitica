@@ -6,9 +6,8 @@ import {
   SEASONAL_SETS,
 } from '../content/constants';
 
-const CURRENT_EVENT = find(EVENTS, event => {
-  moment().isBetween(event.start, event.end);
-});
+const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end));
+
 const SHOP_OPEN = CURRENT_EVENT && ['winter', 'spring', 'summer', 'fall'].includes(CURRENT_EVENT.season);
 
 export default {
@@ -16,7 +15,7 @@ export default {
 
   currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Closed',
 
-  dateRange: { start: '2020-12-01', end: '2021-01-31' },
+  dateRange: { start: '2020-12-17', end: '2021-01-31' },
 
   availableSets: SHOP_OPEN
     ? [
@@ -33,7 +32,7 @@ export default {
     }
     : {},
 
-  availableSpells: moment().isBetween('2020-12-01T08:00-04:00', '2021-01-31T20:00-04:00')
+  availableSpells: moment().isBetween('2020-12-29T08:00-04:00', '2021-01-31T20:00-04:00')
     ? [
       'snowball',
     ]

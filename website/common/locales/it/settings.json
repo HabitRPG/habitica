@@ -182,5 +182,6 @@
     "chatExtensionDesc": "L'estensione di chat per Habitica aggiunge una finestra di chat intuitiva a habitica.com. Consente agli utenti di chattare nella Taverna, nella loro squadra e in qualsiasi gilda in cui si trovano.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Estensione Chat per Chrome</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Estensione Chat per Firefox</a>",
     "displaynameIssueNewline": "I nomi pubblici non possono contenere barre rovesciate seguite dalla lettera N.",
-    "resetAccount": "Reimposta account"
+    "resetAccount": "Reimposta account",
+    "giftedSubscriptionWinterPromo": "Ciao <%= username %>, hai ricevuto <%= monthCount %> mesi di abbonamento come parte della nostra promozione di regali per le feste!"
 }

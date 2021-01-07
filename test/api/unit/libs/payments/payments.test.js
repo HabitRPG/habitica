@@ -344,7 +344,7 @@ describe('payments/index', () => {
           const msg = '`Hello sender, you received 3 months of subscription as part of our holiday gift-giving promotion!`';
 
           expect(user.sendMessage).to.be.calledTwice;
-          expect(user.sendMessage).to.be.calledWith(user, { senderMsg: msg, save: false });
+          expect(user.sendMessage).to.be.calledWith(user, { receiverMsg: msg, save: false });
         });
       });
     });

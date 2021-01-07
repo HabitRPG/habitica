@@ -8,7 +8,7 @@
     @hide="hideFlag()"
   >
     <div class="content">
-      <div :class="seasonalNPC('matt')"></div><h1
+      <div :class="npcClass('matt')"></div><h1
         v-once
         class="page-header"
       >

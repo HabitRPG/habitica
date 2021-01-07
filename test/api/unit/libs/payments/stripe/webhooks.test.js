@@ -88,11 +88,11 @@ describe('Stripe - Webhooks', () => {
       sandbox.stub(payments, 'cancelSubscription').resolves({});
     });
 
-    it('does not do anything if event.request is null (subscription cancelled manually)', async () => {
+    it('does not do anything if event.request is not null (subscription cancelled manually)', async () => {
       constructEventStub.returns({
         id: 123,
         type: eventType,
-        request: 123,
+        request: { id: 123 },
       });
 
       await stripePayments.handleWebhooks({ body, headers }, stripe);
@@ -116,7 +116,7 @@ describe('Stripe - Webhooks', () => {
               customer: customerId,
             },
           },
-          request: null,
+          request: { id: null },
         });
 
         await expect(stripePayments.handleWebhooks({ body, headers }, stripe))
@@ -149,7 +149,7 @@ describe('Stripe - Webhooks', () => {
               customer: customerId,
             },
           },
-          request: null,
+          request: { id: null },
         });
 
         await stripePayments.handleWebhooks({ body, headers }, stripe);
@@ -180,7 +180,7 @@ describe('Stripe - Webhooks', () => {
               customer: customerId,
             },
           },
-          request: null,
+          request: { id: null },
         });
 
         await expect(stripePayments.handleWebhooks({ body, headers }, stripe))
@@ -218,7 +218,7 @@ describe('Stripe - Webhooks', () => {
               customer: customerId,
             },
           },
-          request: null,
+          request: { id: null },
         });
 
         await expect(stripePayments.handleWebhooks({ body, headers }, stripe))
@@ -259,7 +259,7 @@ describe('Stripe - Webhooks', () => {
               customer: customerId,
             },
           },
-          request: null,
+          request: { id: null },
         });
 
         await stripePayments.handleWebhooks({ body, headers }, stripe);

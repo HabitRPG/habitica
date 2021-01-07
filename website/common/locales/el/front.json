@@ -1,1 +1,12 @@
-{}
+{
+    "companyContribute": "Συνείσφερε",
+    "companyBlog": "Ιστολόγιο",
+    "companyAbout": "Πως Λειτουργεί",
+    "communityForum": "<a target='_blank' href='http://habitica.fandom.com/wiki/Special:Forum'>Χώρος Συζητήσεων</a>",
+    "communityInstagram": "Instagram",
+    "communityFacebook": "Facebook",
+    "clearBrowserData": "Διαγραφή Δεδομένων Προγράμματος Περιήγησης",
+    "chores": "Μικροδουλειές",
+    "termsAndAgreement": "Πατώντας το κουμπί από κάτω, υποδεικνύετε πως έχετε διαβάσει και συμφωνείτε με τους <a href='/static/terms'> Όρους Λειτουργίας</a> και <a href='/static/privacy'>Πολιτική Απορρήτου</a>.",
+    "FAQ": "Συχνές Ερωτήσεις"
+}

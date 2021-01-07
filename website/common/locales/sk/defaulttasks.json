@@ -15,5 +15,19 @@
     "defaultTag4": "Škola",
     "defaultTag5": "Tímy",
     "defaultTag6": "Domáce práce",
-    "defaultTag7": "Kreativita"
+    "defaultTag7": "Kreativita",
+    "creativityTodoNotes": "Klikni pre pridanie názvu tvojho projektu",
+    "creativityTodoText": "Dokončený kreatívny projekt",
+    "creativityDailyText": "Práca na kreatívnom projekte",
+    "choresDailyText": "Umy riady",
+    "choresHabit": "10 minút upratovania",
+    "selfCareDailyText": "5 minút hlbokého dýchania",
+    "schoolTodoText": "Dokončená úloha na predmet",
+    "schoolTodoNotes": "Dopíš názov úlohy a vyber dátum, kedy má byť dokončená!",
+    "healthTodoNotes": "Klikni pre pridanie zoznamov!",
+    "healthDailyNotes": "Klikni ak chceš spraviť úpravy!",
+    "healthDailyText": "Čistenie medzizubných priestorov",
+    "exerciseTodoNotes": "Klikni pre pridanie zoznamu!",
+    "exerciseHabit": "10 minút kardia >> + 10 minút kardia",
+    "workDailyImportantTask": "Najdôležitejšia úloha >> Pracoval na najdôležitejšej úlohe tohto dňa"
 }

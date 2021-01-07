@@ -3,9 +3,7 @@ import find from 'lodash/find';
 import t from './translation';
 import { EVENTS } from './constants';
 
-const CURRENT_EVENT = find(EVENTS, event => {
-  moment().isBetween(event.start, event.end);
-});
+const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end));
 
 /*
  ---------------------------------------------------------------

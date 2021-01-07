@@ -94,7 +94,7 @@
     "classGearText": "祝贺你选了一个职业！我已经将你的基本武器放到物品栏了。看看下面来装备它吧！",
     "autoAllocate": "自动分配",
     "spells": "技能",
-    "skillsTitle": "技能",
+    "skillsTitle": "<%= classStr %>技能",
     "toDo": "待办事项",
     "tourStatsPage": "这是你的属性点界面！完成列表任务来获得成就。",
     "tourTavernPage": "欢迎来到酒馆，一个全年龄段聊天室！如果你生病了或外出旅行，通过点击“进入酒馆”可以暂时免受每日任务的伤害。来问声好吧！",
@@ -123,5 +123,8 @@
     "paymentAutoRenew": "此订阅在被取消前会自动续订。你可以在设置里取消订阅。",
     "cannotUnpinItem": "您不能取消这个物品的固定。",
     "paymentSubBillingWithMethod": "您的订阅费用为每<strong><%= months %>月</strong><strong><%= amount %>美元</strong>=通过<strong><%= paymentMethod %></strong>。",
-    "invalidUnlockSet": "这套装是无效的，无法解锁。"
+    "invalidUnlockSet": "这套装是无效的，无法解锁。",
+    "nGemsGift": "<%= nGems %> 颗宝石（赠品）",
+    "nMonthsSubscriptionGift": "<%= nMonths %>个月订阅（赠品）",
+    "nGems": "<%= nGems %> 颗宝石"
 }
