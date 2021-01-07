@@ -14,7 +14,7 @@ import {
 import {
   NotFound,
   NotAuthorized,
-  BadRequest
+  BadRequest,
 } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import csvStringify from '../../libs/csvStringify';
@@ -31,9 +31,9 @@ import {
 } from '../../libs/challenges';
 import apiError from '../../libs/apiError';
 
-const api = {};
-
 import shared from '../../../common';
+
+const api = {};
 const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = shared.constants;
 
 /**
@@ -192,7 +192,7 @@ const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = shared.constants;
                                                    gems to offer this prize.
  * @apiError (400) {BadRequest} ChallengeValidationFailed Invalid or missing parameter
                                                           in challenge body.
- * @apiError (400) {BadRequest} summaryTooLong Summary is too long.                                                        
+ * @apiError (400) {BadRequest} summaryTooLong Summary is too long.
  *
  * @apiUse GroupNotFound
  * @apiUse UserNotFound
@@ -205,7 +205,7 @@ api.createChallenge = {
     const { user } = res.locals;
 
     req.checkBody('group', apiError('groupIdRequired')).notEmpty();
-    if(req.body.challenge.summary && req.body.challenge.summary.length > MAX_SUMMARY_SIZE_FOR_CHALLENGES) throw new BadRequest(res.t("summaryTooLong"));
+    if (req.body.challenge.summary && req.body.challenge.summary.length > MAX_SUMMARY_SIZE_FOR_CHALLENGES) throw new BadRequest(res.t('summaryTooLong'));
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -706,7 +706,7 @@ api.exportChallengeCsv = {
  *
  * @apiError (401) {NotAuthorized} MustBeChallengeLeader Only challenge leader
  * can update the challenge.
- * 
+ *
  * @apiError (400) {BadRequest} summaryTooLong Summary is too long.
  */
 api.updateChallenge = {
@@ -731,7 +731,7 @@ api.updateChallenge = {
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyLeaderUpdateChal'));
 
-    if(req.body.summary && req.body.summary.length > MAX_SUMMARY_SIZE_FOR_CHALLENGES) throw new BadRequest(res.t("summaryTooLong"));
+    if (req.body.summary && req.body.summary.length > MAX_SUMMARY_SIZE_FOR_CHALLENGES) throw new BadRequest(res.t('summaryTooLong'));
 
     _.merge(challenge, Challenge.sanitizeUpdate(req.body));
 

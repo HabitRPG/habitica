@@ -47,7 +47,7 @@ describe('POST /challenges', () => {
     await expect(user.post('/challenges', {
       group: 'habitrpg',
       // 300 characters:
-      summary: "eofboeafboabuwfoubwefewebfouijwdhrbfewkijfhdwskufhbdcskowhfbvdkadfhgbvdcsklnwfbegvhjdcndojwiugfejvbcknwh2iugfebvjcskndh2irgfevhbckwjdohfugevbjcskdwohf3uebjckwj2orh3igbevkncw2ohr3fwdo2yr3geivbkcwd2oy3giebjvkwjdourt3gejbkfjwouyt8gefknojr2u3ugefihr2ut8ygeifhoru29t3ygefihruyt8gihefkjr2oyiegfhry3tgihjjsj",
+      summary: 'eofboeafboabuwfoubwefewebfouijwdhrbfewkijfhdwskufhbdcskowhfbvdkadfhgbvdcsklnwfbegvhjdcndojwiugfejvbcknwh2iugfebvjcskndh2irgfevhbckwjdohfugevbjcskdwohf3uebjckwj2orh3igbevkncw2ohr3fwdo2yr3geivbkcwd2oy3giebjvkwjdourt3gejbkfjwouyt8gefknojr2u3ugefihr2ut8ygeifhoru29t3ygefihruyt8gihefkjr2oyiegfhry3tgihjjsj',
     })).to.eventually.be.rejected.and.eql({
       code: 401,
       error: 'NotAuthorized',
