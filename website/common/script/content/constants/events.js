@@ -23,6 +23,11 @@ export const EVENTS = {
     end: '2021-01-31T20:00-05:00',
     season: 'winter',
   },
+  winter2021Promo: { // used in tests, not an actual past event
+    start: '2020-12-01T08:00-05:00',
+    end: '2020-12-17T20:00-05:00',
+    season: 'winter',
+  },
   noCurrentEvent2020: {
     start: '2020-10-31T20:00-05:00',
     end: '2020-12-17T08:00-05:00',
