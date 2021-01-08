@@ -123,5 +123,8 @@
     "paymentAutoRenew": "此订阅在被取消前会自动续订。你可以在设置里取消订阅。",
     "cannotUnpinItem": "您不能取消这个物品的固定。",
     "paymentSubBillingWithMethod": "您的订阅费用为每<strong><%= months %>月</strong><strong><%= amount %>美元</strong>=通过<strong><%= paymentMethod %></strong>。",
-    "invalidUnlockSet": "这套装是无效的，无法解锁。"
+    "invalidUnlockSet": "这套装是无效的，无法解锁。",
+    "nGemsGift": "<%= nGems %> 颗宝石（赠品）",
+    "nMonthsSubscriptionGift": "<%= nMonths %>个月订阅（赠品）",
+    "nGems": "<%= nGems %> 颗宝石"
 }

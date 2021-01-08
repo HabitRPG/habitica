@@ -34,8 +34,8 @@
     "invitedToPrivateGuild": "Has sido invitado a unirte al Gremio privado <span class=\"notification-bold\"><%- guild %></span>",
     "invitedToPublicGuild": "Has sido invitado a unirte al Gremio <span class=\"notification-bold-blue\"><%- guild %></span>",
     "invitationAcceptedHeader": "Tu invitación ha sido Aceptada",
-    "invitationAcceptedBody": "<%= username %> aceptada tu invitación a <%= groupName %>!",
-    "systemMessage": "Mensaje Sistemico",
+    "invitationAcceptedBody": "¡<%= username %> aceptó tu invitación a <%= groupName %>!",
+    "systemMessage": "Mensaje de Sistema",
     "newMsgGuild": "<span class=\"notification-bold-blue\"><%- name %></span> tiene nuevos anuncios",
     "newMsgParty": "Tu Grupo, <span class=\"notification-bold-blue\"><%- name %></span>, tiene nuevos anuncios",
     "chat": "Chat",
@@ -341,7 +341,7 @@
     "singleCompletion": "Único: se completa cuando termina cualquier usuario asignado",
     "allAssignedCompletion": "Todo: se completa cuando todos los usuarios asignados terminan",
     "userWithUsernameOrUserIdNotFound": "Nombre de usuario o ID no encontrado.",
-    "usernameOrUserId": "Nombre de usuario o su ID",
+    "usernameOrUserId": "Ingresa @nombredeusuario o ID de Usuario",
     "sendGiftToWhom": "¿A quien te gustaría enviarle un regalo?",
     "selectGift": "Selecciona regalo",
     "pmReported": "Gracias por reportar este mensaje.",
@@ -367,5 +367,7 @@
     "languageSettings": "Configuración de Lenguaje",
     "newPartyPlaceholder": "Ingresa el nombre de tu Grupo.",
     "cannotRemoveQuestOwner": "No puedes eliminar al dueño de la misión activa. Aborta la misión primero.",
-    "features": "Características"
+    "features": "Características",
+    "giftMessageTooLong": "La longitud máxima para mensajes de regalo es <%= maxGiftMessageLength %>.",
+    "selectSubscription": "Selecciona Suscripción"
 }

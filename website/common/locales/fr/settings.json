@@ -182,5 +182,6 @@
     "chatExtensionDesc": "L'extension de discussion pour Habitica ajoute une fenêtre de discussion intuitive à tout habitica.com. Cela permet à chacun de discuter dans la taverne, avec son équipe ou dans les guildes.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Extension de discussion Chrome</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Extension de discussion Firefox</a>",
     "displaynameIssueNewline": "Les pseudo ne peuvent pas contenir d'antislashes suivis de la lettre N.",
-    "resetAccount": "Réinitialiser le compte"
+    "resetAccount": "Réinitialiser le compte",
+    "giftedSubscriptionWinterPromo": "Bonjour <%= username %>, vous avez reçu <%= monthCount %> mois de d'abonnement en cadeau dans le cadre de notre promotion de vacances !"
 }

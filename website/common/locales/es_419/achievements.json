@@ -25,7 +25,7 @@
     "achievementDustDevilText": "Ha coleccionado todas las Mascotas Desierto.",
     "achievementDustDevil": "Diablo de Polvo",
     "hideAchievements": "Ocultar <%= category %>",
-    "showAllAchievements": "Mostrar todo <%= category %>",
+    "showAllAchievements": "Mostrar Todos <%= category %>",
     "onboardingCompleteDesc": "Obtuviste <strong>5 Logros</strong> y <strong class=\"gold-amount\">100 Monedas de oro</strong> por completar la lista.",
     "earnedAchievement": "¡Has completado un logro!",
     "viewAchievements": "Ver los Logros",

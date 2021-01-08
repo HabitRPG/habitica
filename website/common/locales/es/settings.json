@@ -182,5 +182,6 @@
     "chatExtensionDesc": "La Extensión de Chat para Habitica añade un intuitivo cuadro de chat a habitica.com. Permite a los usuarios conversar en la Taberna, su equipo, y cualquier gremio en el que estén.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Extensión de Chat para Chrome</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Extension de Chat para Firefox</a>",
     "displaynameIssueNewline": "Los Nombres Públicos no pueden contener barras invertidas seguidas por la letra N.",
-    "resetAccount": "Reiniciar cuenta"
+    "resetAccount": "Reiniciar cuenta",
+    "giftedSubscriptionWinterPromo": "Hola, <%= username %>. ¡Has recibido <%= monthCount %> meses de suscripción como parte de nuestra promoción de regalos Navideños!"
 }

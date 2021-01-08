@@ -9,7 +9,7 @@
     "mysteryItem": "Αποκλειστικά μηνιαία αντικείμενα",
     "mysteryItemText": "Each month you will receive a unique cosmetic item for your avatar! Plus, for every three months of consecutive subscription, the Mysterious Time Travelers will grant you access to historic (and futuristic!) cosmetic items.",
     "exclusiveJackalopePet": "Αποκλειστικό κατοικίδιο",
-    "giftSubscription": "Θέλεις να κάνεις δώρο συνδρομή σε κάποιον/α;",
+    "giftSubscription": "Θέλεις να κάνεις δώρο τα προνόμια μιας συνδρομής σε κάποιον/α/ο;",
     "giftSubscriptionText4": "Ευχαριστούμε που υποστηρίζεις το Habitica!",
     "groupPlans": "Πλάνα Ομάδων",
     "subscribe": "Γίνε Συνδρομητής",
@@ -132,5 +132,10 @@
     "subscriptionBenefit6": "Earn Mystic Hourglasses for use in the Time Travelers' Shop!",
     "purchaseAll": "Purchase Set",
     "gemsRemaining": "gems remaining",
-    "notEnoughGemsToBuy": "You are unable to buy that amount of gems"
+    "notEnoughGemsToBuy": "You are unable to buy that amount of gems",
+    "subWillBecomeInactive": "Θα γίνει ανενεργό",
+    "confirmCancelSub": "Είσαι σίγουρος/η/ο ότι θέλεις να ακυρώσεις την συνδρομή σου; Θα χάσεις όλα τα πλεονεκτήματα συνδρομητή.",
+    "organization": "Οργάνωση",
+    "giftASubscription": "Δώρισε μία Συνδρομή",
+    "viewSubscriptions": "Δες τις Συνδρομές"
 }

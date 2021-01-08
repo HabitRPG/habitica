@@ -236,9 +236,7 @@ describe('Stripe - Subscriptions', () => {
   });
 
   describe('handlePaymentMethodChange', () => {
-    const stripe = stripeModule('test', {
-      apiVersion: '2020-08-27',
-    });
+    const stripe = stripeModule('test');
 
     it('updates the plan quantity based on the number of group members', async () => {
       const stripeIntentRetrieveStub = sandbox.stub(stripe.setupIntents, 'retrieve').resolves({
@@ -259,9 +257,7 @@ describe('Stripe - Subscriptions', () => {
   });
 
   describe('chargeForAdditionalGroupMember', () => {
-    const stripe = stripeModule('test', {
-      apiVersion: '2020-08-27',
-    });
+    const stripe = stripeModule('test');
     let stripeUpdateSubStub;
     const plan = common.content.subscriptionBlocks['group_monthly']; // eslint-disable-line dot-notation
 
@@ -302,9 +298,7 @@ describe('Stripe - Subscriptions', () => {
 
   describe('cancelSubscription', () => {
     const subKey = 'basic_3mo';
-    const stripe = stripeModule('test', {
-      apiVersion: '2020-08-27',
-    });
+    const stripe = stripeModule('test');
     let user; let groupId; let
       group;
 
