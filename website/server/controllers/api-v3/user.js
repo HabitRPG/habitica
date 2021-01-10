@@ -22,6 +22,7 @@ import {
 } from '../../libs/email';
 import * as inboxLib from '../../libs/inbox';
 import * as userLib from '../../libs/user';
+import getOfficialPinnedItems from '../../../common/script/libs/getOfficialPinnedItems';
 
 const TECH_ASSISTANCE_EMAIL = nconf.get('EMAILS_TECH_ASSISTANCE_EMAIL');
 const DELETE_CONFIRMATION = 'DELETE';
@@ -1727,9 +1728,12 @@ api.movePinnedItem = {
       user.pinnedItemsOrder = currentPinnedItems.map(item => item.path);
     }
 
-    const itemExistInPinnedArray = user.pinnedItems.findIndex(item => item.path === path);
+    const officialItems = getOfficialPinnedItems(user);
 
-    if (itemExistInPinnedArray === -1) {
+    const itemExistInPinnedArray = user.pinnedItems.findIndex(item => item.path === path);
+    const itemExistInOfficialItems = officialItems.findIndex(item => item.path === path);
+
+    if (itemExistInPinnedArray === -1 && itemExistInOfficialItems === -1) {
       throw new BadRequest(res.t('wrongItemPath', { path }, req.language));
     }
 

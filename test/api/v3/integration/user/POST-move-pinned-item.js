@@ -3,15 +3,15 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 import getOfficialPinnedItems from '../../../../../website/common/script/libs/getOfficialPinnedItems';
+import content from '../../../../../website/common/script/content';
 
 describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
   let user;
-  let officialPinnedItems;
   let officialPinnedItemPaths;
 
   beforeEach(async () => {
     user = await generateUser();
-    officialPinnedItems = getOfficialPinnedItems(user);
+    const officialPinnedItems = getOfficialPinnedItems(user);
 
     officialPinnedItemPaths = [];
     // officialPinnedItems are returned in { type: ..., path:... } format
@@ -149,6 +149,39 @@ describe('POST /user/move-pinned-item/:path/move/to/:position', () => {
 
     // The basic test
     expect(user.pinnedItemsOrder[2]).to.equal('cardTypes.greeting');
+
+    // potion is now the last item because the 2 unacounted for cards show up
+    // at the beginning of the order
+    expect(user.pinnedItemsOrder[user.pinnedItemsOrder.length - 1]).to.equal('potion');
+  });
+
+  it('adjusts the order of official pinned items with order mismatch - not existing in order', async () => {
+    const testPinnedItems = [
+      { type: 'card', path: 'cardTypes.thankyou' },
+      { type: 'card', path: 'cardTypes.greeting' },
+      { type: 'potion', path: 'potion' },
+    ];
+
+    const testPinnedItemsOrder = [
+      'potion',
+    ];
+
+    const { officialPinnedItems } = content;
+
+    // add item to pinned
+    officialPinnedItems.push({ type: 'armoire', path: 'armoire' });
+
+    await user.update({
+      pinnedItems: testPinnedItems,
+      pinnedItemsOrder: testPinnedItemsOrder,
+    });
+    await user.sync();
+
+    await user.post('/user/move-pinned-item/armoire/move/to/2');
+    await user.sync();
+
+    // The basic test
+    expect(user.pinnedItemsOrder[2]).to.equal('armoire');
 
     // potion is now the last item because the 2 unacounted for cards show up
     // at the beginning of the order
