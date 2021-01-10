@@ -8,9 +8,14 @@ import {
 
 describe('POST /tasks/user', () => {
   let user;
+  let tzoffset;
+
+  before(async () => {
+    tzoffset = new Date().getTimezoneOffset();
+  });
 
   beforeEach(async () => {
-    user = await generateUser();
+    user = await generateUser({ 'preferences.timezoneOffset': tzoffset });
   });
 
   context('validates params', async () => {
@@ -544,7 +549,7 @@ describe('POST /tasks/user', () => {
       expect(task.everyX).to.eql(5);
       expect(task.daysOfMonth).to.eql([15]);
       expect(task.weeksOfMonth).to.eql([3]);
-      expect(new Date(task.startDate)).to.eql(now);
+      expect(new Date(task.startDate)).to.eql(new Date(now.setHours(0, 0, 0, 0)));
       expect(task.isDue).to.be.true;
       expect(task.nextDue.length).to.eql(6);
     });

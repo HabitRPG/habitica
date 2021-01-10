@@ -124,6 +124,15 @@ export async function createTasks (req, res, options = {}) {
       }
     }
 
+    // set startDate to midnight in the user's timezone
+    if (taskType === 'daily') {
+      const awareStartDate = moment(newTask.startDate).utcOffset(-user.preferences.timezoneOffset);
+      if (awareStartDate.format('HMsS') !== '0000') {
+        awareStartDate.startOf('day');
+        newTask.startDate = awareStartDate.toDate();
+      }
+    }
+
     setNextDue(newTask, user);
 
     // Validate that the task is valid and throw if it isn't

@@ -10,9 +10,14 @@ import {
 
 describe('PUT /tasks/:id', () => {
   let user;
+  let tzoffset;
+
+  before(async () => {
+    tzoffset = (new Date()).getTimezoneOffset();
+  });
 
   beforeEach(async () => {
-    user = await generateUser();
+    user = await generateUser({ 'preferences.timezoneOffset': tzoffset });
   });
 
   context('validates params', () => {
@@ -503,7 +508,8 @@ describe('PUT /tasks/:id', () => {
     let monthly;
 
     beforeEach(async () => {
-      const date1 = moment.utc('2020-07-01').toDate();
+      // using date literals is discouraged here, daylight savings will break everything
+      const date1 = moment().toDate();
       monthly = await user.post('/tasks/user', {
         text: 'test monthly',
         type: 'daily',
@@ -514,7 +520,7 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('updates days of month when start date updated', async () => {
-      const date2 = moment.utc('2020-07-01').toDate();
+      const date2 = moment().add(6, 'months').toDate();
       const savedMonthly = await user.put(`/tasks/${monthly._id}`, {
         startDate: date2,
       });
@@ -523,18 +529,30 @@ describe('PUT /tasks/:id', () => {
     });
 
     it('updates next due when start date updated', async () => {
-      const date2 = moment.utc('2022-07-01').toDate();
+      const date2 = moment().add(6, 'months').toDate();
       const savedMonthly = await user.put(`/tasks/${monthly._id}`, {
         startDate: date2,
       });
 
       expect(savedMonthly.nextDue.length).to.eql(6);
-      expect(moment(savedMonthly.nextDue[0]).toDate()).to.eql(moment.utc('2022-08-01').toDate());
-      expect(moment(savedMonthly.nextDue[1]).toDate()).to.eql(moment.utc('2022-09-01').toDate());
-      expect(moment(savedMonthly.nextDue[2]).toDate()).to.eql(moment.utc('2022-10-01').toDate());
-      expect(moment(savedMonthly.nextDue[3]).toDate()).to.eql(moment.utc('2022-11-01').toDate());
-      expect(moment(savedMonthly.nextDue[4]).toDate()).to.eql(moment.utc('2022-12-01').toDate());
-      expect(moment(savedMonthly.nextDue[5]).toDate()).to.eql(moment.utc('2023-01-01').toDate());
+      expect(moment(savedMonthly.nextDue[0]).toDate()).to.eql(
+        moment(date2).add(1, 'months').startOf('day').toDate(),
+      );
+      expect(moment(savedMonthly.nextDue[1]).toDate()).to.eql(
+        moment(date2).add(2, 'months').startOf('day').toDate(),
+      );
+      expect(moment(savedMonthly.nextDue[2]).toDate()).to.eql(
+        moment(date2).add(3, 'months').startOf('day').toDate(),
+      );
+      expect(moment(savedMonthly.nextDue[3]).toDate()).to.eql(
+        moment(date2).add(4, 'months').startOf('day').toDate(),
+      );
+      expect(moment(savedMonthly.nextDue[4]).toDate()).to.eql(
+        moment(date2).add(5, 'months').startOf('day').toDate(),
+      );
+      expect(moment(savedMonthly.nextDue[5]).toDate()).to.eql(
+        moment(date2).add(6, 'months').startOf('day').toDate(),
+      );
     });
   });
 
