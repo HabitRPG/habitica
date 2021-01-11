@@ -10,11 +10,11 @@
       <button
         class="btn btn-secondary dropdown-toggle ml-2 d-flex align-items-center search-button"
         type="button"
-        :class="{ active: selectedTags.length > 0 }"
-        @click="toggleFilterPanel()"
+        :class="{ active: selectedTags.length }"
+        @click="toggleFilterPanel"
       >
         <div class="svg-icon filter-icon mr-2" v-html="icons.filter"></div>
-        <span v-once>{{ $t("tags") }}</span>
+        <span v-once>{{ $t('tags') }}</span>
       </button>
     </div>
     <task-tag-panel
@@ -46,7 +46,7 @@ export default {
     TaskTagPanel,
   },
   props: {
-    selectedTags: [],
+    selectedTags: Array,
   },
   data () {
     return {
@@ -71,18 +71,9 @@ export default {
       this.$emit('filter', tags);
     },
     toggleFilterPanel () {
-      if (this.isFilterPanelOpen) {
-        this.closeFilterPanel();
-      } else {
-        this.openFilterPanel();
-      }
-    },
-    openFilterPanel () {
-      this.isFilterPanelOpen = true;
-      this.temporarilySelectedTags = this.selectedTags.slice();
+      this.isFilterPanelOpen = !this.isFilterPanelOpen;
     },
     closeFilterPanel () {
-      this.temporarilySelectedTags = [];
       this.isFilterPanelOpen = false;
     },
   },

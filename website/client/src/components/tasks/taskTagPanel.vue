@@ -254,10 +254,10 @@
     height: 20px;
     width: 20px;
 
-    color: #C3C0C7;
+    color: $gray-400;
 
     &:hover {
-      color: #878190;
+      color: $gray-200;
     }
   }
 
@@ -276,7 +276,7 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
-import throttle from 'lodash/throttle';
+import { xor, throttle } from 'lodash';
 import draggable from 'vuedraggable';
 
 import markdown from '@/directives/markdown';
@@ -312,33 +312,20 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     tagsByType () {
-      const userTags = this.user.tags;
-      const tagsByType = {
+      return {
         challenges: {
           key: 'challenges',
-          tags: [],
+          tags: this.user.tags.filter(t => t.challenge),
         },
         groups: {
           key: 'groups',
-          tags: [],
+          tags: this.user.tags.filter(t => t.group),
         },
         user: {
           key: 'tags',
-          tags: [],
+          tags: this.user.tags.filter(t => !t.group && !t.challenge),
         },
       };
-
-      userTags.forEach(t => {
-        if (t.group) {
-          tagsByType.groups.tags.push(t);
-        } else if (t.challenge) {
-          tagsByType.challenges.tags.push(t);
-        } else {
-          tagsByType.user.tags.push(t);
-        }
-      });
-
-      return tagsByType;
     },
   },
   methods: {
@@ -347,20 +334,11 @@ export default {
       if (!this.editingTags) this.closePanel();
     }, 250),
     toggleTag (tag) {
-      const { selectedTags } = this;
-      const tagI = selectedTags.indexOf(tag.id);
-      if (tagI === -1) {
-        selectedTags.push(tag.id);
-      } else {
-        selectedTags.splice(tagI, 1);
-      }
-
+      this.selectedTags = xor(this.selectedTags, [tag.id]);
       this.applyFilters();
     },
     isTagSelected (tag) {
-      const tagId = tag.id;
-      if (this.selectedTags.indexOf(tagId) !== -1) return true;
-      return false;
+      return this.selectedTags.includes(tag.id);
     },
     removeTag (index, key) {
       const tagId = this.tagsSnap[key][index].id;
