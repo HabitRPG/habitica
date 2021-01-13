@@ -497,11 +497,6 @@
     &-user {
       padding-right: 0px;
     }
-
-    &:focus {
-      border-radius: 2px;
-      border: $purple-400 solid 1px;
-    }
   }
 
   .task-title + .task-dropdown ::v-deep .dropdown-menu {
