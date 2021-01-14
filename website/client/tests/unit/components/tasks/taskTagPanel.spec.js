@@ -29,7 +29,7 @@ describe('TaskTagPanel', () => {
         challenge: true,
       };
       const wrapper = createWrapper(activeChallengeTag);
-      const computedTagsByType = wrapper.vm.tagsByType;
+      const computedTagsByType = wrapper.vm.tags;
 
       expect(computedTagsByType.challenges.tags.length).to.equal(1);
       expect(computedTagsByType.challenges.tags[0].id).to.equal(activeChallengeTag.id);
@@ -43,7 +43,7 @@ describe('TaskTagPanel', () => {
         challenge: false,
       };
       const wrapper = createWrapper(inactiveChallengeTag);
-      const computedTagsByType = wrapper.vm.tagsByType;
+      const computedTagsByType = wrapper.vm.tags;
 
       expect(computedTagsByType.challenges.tags.length).to.equal(0);
       expect(computedTagsByType.user.tags.length).to.equal(1);
