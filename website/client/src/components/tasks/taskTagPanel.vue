@@ -332,7 +332,7 @@ export default {
       this.newTag = null;
     },
     saveTags () {
-      if (this.newTag) this.addTag(null, 'tags');
+      if (this.newTag) this.addTag();
       const tags = [...this.tags.user.tags, ...this.tags.challenges.tags];
       this.setUser({ tags });
       this.toggleEditing();
