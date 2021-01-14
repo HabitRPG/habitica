@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-md-4 offset-md-4">
+  <div class="col-12 col-md-6 offset-md-3">
     <div class="d-flex">
       <input
         v-model="searchText"
@@ -16,6 +16,7 @@
         <div class="svg-icon filter-icon mr-2" v-html="icons.filter"></div>
         <span v-once>{{ $t('tags') }}</span>
       </button>
+      <a @click="filter([])" :class="{ hidden: !selectedTags.length }">{{ $t('clearTags') }}</a>
     </div>
     <task-tag-panel
       v-if="isFilterPanelOpen"
@@ -27,9 +28,25 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .filter-icon {
     width: 16px;
     height: 16px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  a {
+    width: 30%;
+    margin: auto;
+    color: $blue-10;
+
+    &:hover, &:active, &:focus {
+      text-decoration: underline;
+    }
   }
 </style>
 

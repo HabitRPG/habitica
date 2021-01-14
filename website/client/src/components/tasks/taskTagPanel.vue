@@ -123,11 +123,13 @@
 
     .clear-selection {
       color: $maroon-50;
+      padding-left: 0;
     }
 
     .disabled-selection {
       color: $gray-50;
       cursor: default;
+      padding-left: 0;
     }
 
     .btn-primary {
