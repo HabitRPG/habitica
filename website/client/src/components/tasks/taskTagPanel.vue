@@ -1,136 +1,61 @@
 <template>
   <div class="filter-panel" @mouseleave="checkMouseOver">
-    <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-    <div
-      v-for="tagsType in tagsByType"
-      v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'"
-      :key="tagsType.key"
-      class="tags-category d-flex flex-column"
-    >
-      <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-      <div class="tags-header">
-        <strong v-once>{{ $t(tagsType.key) }}</strong>
-        <a
-          v-if="tagsType.key !== 'groups' && !editingTags"
-          class="d-block"
-          @click="editTags(tagsType.key)"
-          >{{ $t("editTags2") }}</a
+    <header class="filter-panel-footer clearfix">
+      <span v-once class="svg-icon inline" v-html="icons.tags"></span>
+      <strong v-once>{{ $t('tags') }}</strong>
+      <a
+        class="float-right"
+        :class="{'btn-filters-danger': !editingTags, 'btn-primary': editingTags}"
+        @click="editingTags ? saveTags() : resetFilters()"
+      >{{ $t(editingTags ? 'saveEdits' : 'resetFilters') }}</a>
+      <a class="btn-filters-secondary float-right" @click="toggleEditing">
+        {{ $t(editingTags ? 'cancel' : 'editTags2') }}
+      </a>
+    </header>
+    <main>
+      <section
+        v-for="tagsType in nonEmptyTags"
+        :key="tagsType.key"
+        class="tags-category d-flex flex-column"
+        :class="tagsType.key"
+      >
+        <header class="tags-header" v-once>{{ $t(tagsType.key) }}</header>
+        <draggable
+          v-model="tagsType.tags"
+          class="row"
+          :disabled="!isDraggable(tagsType.key)"
         >
-      </div>
-      <div class="tags-list container">
-        <div class="row" :class="{ 'no-gutters': !editingTags }">
-          <template v-if="editingTags && tagsType.key === 'tags'">
-            <draggable
-              v-if="tagsType.key === 'tags'"
-              v-model="tagsSnap[tagsType.key]"
-              class="row"
-            >
-              <div
-                v-for="(tag, tagIndex) in tagsSnap[tagsType.key]"
-                :key="tag.id"
-                class="col-6"
-              >
-                <div class="inline-edit-input-group tag-edit-item input-group">
-                  <div class="svg-icon inline drag" v-html="icons.drag"></div>
-                  <input
-                    v-model="tag.name"
-                    class="tag-edit-input inline-edit-input form-control"
-                    type="text"
-                  >
-                  <div
-                    class="input-group-append"
-                    @click="removeTag(tagIndex, tagsType.key)"
-                  >
-                    <div
-                      class="svg-icon destroy-icon"
-                      v-html="icons.destroy"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6 dragSpace">
-                <input
-                  v-model="newTag"
-                  class="new-tag-item edit-tag-item inline-edit-input form-control"
-                  type="text"
-                  :placeholder="$t('newTag')"
-                  @keydown.enter="addTag($event, tagsType.key)"
-                >
-              </div>
-            </draggable>
-          </template>
-          <template v-if="editingTags && tagsType.key === 'challenges'">
-            <div
-              v-for="(tag, tagIndex) in tagsSnap[tagsType.key]"
-              :key="tag.id"
-              class="col-6"
-            >
-              <div class="inline-edit-input-group tag-edit-item input-group">
-                <input
-                  v-model="tag.name"
-                  class="tag-edit-input inline-edit-input form-control"
-                  type="text"
-                >
-                <div
-                  class="input-group-append"
-                  @click="removeTag(tagIndex, tagsType.key)"
-                >
-                  <div
-                    class="svg-icon destroy-icon"
-                    v-html="icons.destroy"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </template>
-          <template v-if="!editingTags || tagsType.key === 'groups'">
-            <div v-for="tag in tagsType.tags" :key="tag.id" class="col-6">
-              <div class="custom-control custom-checkbox">
-                <input
-                  :id="`tag-${tag.id}`"
-                  class="custom-control-input"
-                  type="checkbox"
-                  :checked="isTagSelected(tag)"
-                  @change="toggleTag(tag)"
-                >
-                <label
-                  v-markdown="tag.name"
-                  class="custom-control-label"
-                  :for="`tag-${tag.id}`"
-                ></label>
-              </div>
-            </div>
-          </template>
-        </div>
-      </div>
-    </div>
-    <div class="filter-panel-footer clearfix">
-      <template v-if="editingTags === true">
-        <div class="text-center">
-          <a v-once class="mr-3 btn-filters-primary" @click="saveTags()">{{
-            $t("saveEdits")
-          }}</a>
-          <a
-            v-once
-            class="btn-filters-secondary"
-            @click="cancelTagsEditing()"
-            >{{ $t("cancel") }}</a
+          <div
+            v-for="tag in tagsType.tags"
+            :key="tag.id"
+            class="col-6 d-flex tag"
+            :class="{ editable: isEditable(tag), draggable: isDraggable(tagsType.key) }"
           >
-        </div>
-      </template>
-      <template v-else>
-        <div class="float-left">
-          <a v-once class="btn-filters-danger" @click="resetFilters()">{{
-            $t("resetFilters")
-          }}</a>
-        </div>
-        <div class="float-right">
-          <a v-once class="btn-filters-secondary" @click="closePanel()">{{
-            $t("cancel")
-          }}</a>
-        </div>
-      </template>
-    </div>
+            <span class="svg-icon inline drag-handle" v-html="icons.drag"></span>
+            <input
+              type="checkbox"
+              :checked="isTagSelected(tag)"
+              @change="toggleTag(tag)"
+              :disabled="isEditable(tag)"
+            >
+            <input
+              v-model="tag.name"
+              class="tag-edit-input inline-edit-input form-control"
+              type="text"
+              :disabled="!isEditable(tag)"
+            >
+            <span class="svg-icon inline" v-html="icons.destroy" @click="removeTag(tag)"></span>
+          </div>
+        </draggable>
+        <input
+          v-model="newTag"
+          class="new-tag-item edit-tag-item inline-edit-input form-control"
+          type="text"
+          :placeholder="$t('newTag')"
+          @keydown.enter="addTag"
+        >
+      </section>
+    </main>
   </div>
 </template>
 
@@ -139,8 +64,6 @@
 
   .filter-panel {
     position: absolute;
-    padding-left: 24px;
-    padding-right: 24px;
     max-width: 50vw;
     min-width: 300px;
     width: 100%;
@@ -153,31 +76,6 @@
     font-size: 14px;
     line-height: 1.43;
     text-overflow: ellipsis;
-
-    .tags-category {
-      border-bottom: 1px solid $gray-600;
-      padding-bottom: 24px;
-      padding-top: 24px;
-    }
-
-    .tags-header {
-      flex-basis: 60px;
-      flex-shrink: 0;
-      margin-left: 10px;
-
-      a {
-        font-size: 12px;
-        line-height: 1.33;
-        color: $blue-10;
-        margin-top: 4px;
-
-        &:focus,
-        &:hover,
-        &:active {
-          text-decoration: underline;
-        }
-      }
-    }
 
     .tag-edit-input {
       border-bottom: 1px solid $gray-500 !important;
@@ -207,52 +105,63 @@
           border-color: $purple-500;
         }
       }
-
-      .destroy-icon {
-        display: none;
-      }
-
-      &:hover .destroy-icon {
-        display: inline;
-      }
-    }
-
-    .custom-control-label {
-      margin-left: 10px;
-      word-break: break-word;
-    }
-
-    .filter-panel-footer {
-      padding-top: 16px;
-      padding-bottom: 16px;
-
-      a {
-        &:focus,
-        &:hover,
-        &:active {
-          text-decoration: underline;
-        }
-      }
-
-      .btn-filters-danger {
-        color: $red-50;
-      }
-
-      .btn-filters-primary {
-        color: $blue-10;
-      }
-
-      .btn-filters-secondary {
-        color: $gray-300;
-      }
     }
   }
 
-  .drag {
+  .svg-icon {
+    margin: auto;
+  }
+
+  header {
+    padding: 16px 12px;
+    border-bottom: 1px solid $gray-500;
+
+    .svg-icon {
+      height: 14px;
+      width: 14px;
+    }
+
+    a {
+      padding: 4px 16px;
+
+      &:focus,
+      &:hover,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+
+    .btn-filters-danger {
+      color: $red-50;
+    }
+
+    .btn-primary {
+      color: $white;
+    }
+
+    .btn-filters-secondary {
+      color: $gray-300;
+    }
+  }
+
+  main {
+    padding: 16px;
+  }
+
+  section {
+    border-bottom: 1px solid $gray-600;
+
+    header {
+      padding: 0;
+    }
+
+    &:not(.tags) .new-tag-item {
+      display: none;
+    }
+  }
+
+  .drag-handle {
     cursor: grab;
-    margin: auto 0;
-    height: 20px;
-    width: 20px;
 
     color: $gray-400;
 
@@ -261,8 +170,37 @@
     }
   }
 
-  .dragSpace {
-    padding-left: 32px;
+  .tag {
+    input:disabled {
+      opacity: 1;
+      background-color: transparent;
+    }
+
+    &.editable {
+      input[type="checkbox"] {
+        display: none;
+      }
+
+      .svg-icon {
+        display: none;
+        height: 16px;
+        width: 16px;
+      }
+
+      .svg-icon.drag-handle {
+        width: 24px;
+      }
+
+      &:hover .svg-icon {
+        display: inline;
+      }
+    }
+
+    &:not(.draggable) .svg-icon.drag-handle {
+      &,&:hover {
+        display: none;
+      }
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -279,105 +217,87 @@ import { v4 as uuid } from 'uuid';
 import { xor, throttle } from 'lodash';
 import draggable from 'vuedraggable';
 
-import markdown from '@/directives/markdown';
 import deleteIcon from '@/assets/svg/delete.svg';
 import dragIcon from '@/assets/svg/drag_indicator.svg';
+import tagsIcon from '@/assets/svg/tags.svg';
 
 import { mapState, mapActions } from '@/libs/store';
 
 export default {
-  components: {
-    draggable,
-  },
-  directives: {
-    markdown,
-  },
-  props: {
-    selectedTags: Array,
-  },
+  components: { draggable },
+  props: { selectedTags: Array },
   data () {
     return {
       icons: Object.freeze({
         destroy: deleteIcon,
         drag: dragIcon,
+        tags: tagsIcon,
       }),
-      tagsSnap: {
-        tags: [],
-        challenges: [],
-      }, // tags snapshot when being edited
       editingTags: false,
       newTag: null,
+      tags: null,
     };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-    tagsByType () {
-      return {
-        challenges: {
-          key: 'challenges',
-          tags: this.user.tags.filter(t => t.challenge),
-        },
-        groups: {
-          key: 'groups',
-          tags: this.user.tags.filter(t => t.group),
-        },
-        user: {
-          key: 'tags',
-          tags: this.user.tags.filter(t => !t.group && !t.challenge),
-        },
-      };
+    nonEmptyTags () {
+      const { tags } = this;
+      return tags
+        ? [...[tags.challenges, tags.groups].filter(type => type.tags.length), tags.user]
+        : [];
     },
+  },
+  created () {
+    this.resetTags();
   },
   methods: {
     ...mapActions({ setUser: 'user:set' }),
     checkMouseOver: throttle(function throttleClose () {
-      if (!this.editingTags) this.closePanel();
+      if (false && !this.editingTags) this.closePanel();
     }, 250),
     toggleTag (tag) {
-      this.selectedTags = xor(this.selectedTags, [tag.id]);
-      this.applyFilters();
+      this.$emit('filter', xor(this.selectedTags, [tag.id]));
     },
     isTagSelected (tag) {
       return this.selectedTags.includes(tag.id);
     },
-    removeTag (index, key) {
-      const tagId = this.tagsSnap[key][index].id;
-      const indexInSelected = this.selectedTags.indexOf(tagId);
-      if (indexInSelected !== -1) {
-        this.$delete(this.selectedTags, indexInSelected);
+    isEditable (tag) {
+      return this.editingTags && !tag.group;
+    },
+    isDraggable (tagsTypeKey) {
+      return this.editingTags && tagsTypeKey === 'tags';
+    },
+    removeTag (tag) {
+      if (this.isTagSelected(tag)) {
+        this.toggleTag(tag);
       }
-      this.$delete(this.tagsSnap[key], index);
-      this.applyFilters();
+      const tagType = tag.challenge ? this.tags.challenges : this.tags.user;
+      tagType.tags = tagType.tags.filter(t => t !== tag);
     },
-    editTags () {
-      // clone the arrays being edited so that we can revert if needed
-      this.tagsSnap.tags = this.tagsByType.user.tags.slice();
-      this.tagsSnap.challenges = this.tagsByType.challenges.tags.slice();
-      this.editingTags = true;
+    toggleEditing () {
+      this.resetTags();
+      this.editingTags = !this.editingTags;
     },
-    addTag (eventObj, key) {
-      this.tagsSnap[key].push({ id: uuid(), name: this.newTag });
+    addTag () {
+      this.tags.user.tags.push({ id: uuid(), name: this.newTag });
       this.newTag = null;
     },
     saveTags () {
       if (this.newTag) this.addTag(null, 'tags');
-
-      this.tagsByType.user.tags = this.tagsSnap.tags;
-      this.tagsByType.challenges.tags = this.tagsSnap.challenges;
-
-      this.setUser({ tags: this.tagsSnap.tags.concat(this.tagsSnap.challenges) });
-      this.cancelTagsEditing();
+      const tags = [...this.tags.user.tags, ...this.tags.challenges.tags];
+      this.setUser({ tags });
+      this.toggleEditing();
     },
-    cancelTagsEditing () {
-      this.editingTags = false;
-      this.tagsSnap = {
-        tags: [],
-        challenges: [],
-      };
-      this.newTag = null;
-    },
-    applyFilters () {
-      this.$emit('filter', this.selectedTags);
+    resetTags () {
+      const allTags = this.user.tags;
+      function groupTags (key, filter) {
+        return { key, tags: allTags.filter(filter) };
+      }
+
+      const challenges = groupTags('challenges', t => t.challenge);
+      const groups = groupTags('groups', t => t.group);
+      const user = groupTags('tags', t => !t.group && !t.challenge);
+      this.tags = { challenges, groups, user };
     },
     resetFilters () {
       this.$emit('filter', []);

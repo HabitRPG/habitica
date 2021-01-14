@@ -67,7 +67,6 @@ export default {
   },
   methods: {
     filter (tags) {
-      this.selectedTags = tags;
       this.$emit('filter', tags);
     },
     toggleFilterPanel () {
