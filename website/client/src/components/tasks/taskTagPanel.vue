@@ -2,10 +2,14 @@
   <div class="filter-panel" @mouseleave="checkMouseOver">
     <header class="filter-panel-footer clearfix">
       <span v-once class="svg-icon inline" v-html="icons.tags"></span>
-      <strong v-once>{{ $t('tags') }}</strong>
+      <h1 v-once class="inline">{{ $t('tags') }}</h1>
       <a
         class="float-right"
-        :class="{'btn-filters-danger': !editingTags, 'btn-primary': editingTags}"
+        :class="{
+          'disabled-selection': !editingTags && !selectedTags.length,
+          'clear-selection': !editingTags && selectedTags.length,
+          'btn-primary': editingTags,
+          }"
         @click="editingTags ? saveTags() : resetFilters()"
       >{{ $t(editingTags ? 'saveEdits' : 'resetFilters') }}</a>
       <a class="btn-filters-secondary float-right" @click="toggleEditing">
@@ -19,7 +23,7 @@
         class="tags-category d-flex flex-column"
         :class="tagsType.key"
       >
-        <header class="tags-header" v-once>{{ $t(tagsType.key) }}</header>
+        <h2 class="tags-header" v-once>{{ $t(tagsType.key) }}</h2>
         <draggable
           v-model="tagsType.tags"
           class="row"
@@ -34,22 +38,22 @@
             <span class="svg-icon inline drag-handle" v-html="icons.drag"></span>
             <input
               type="checkbox"
-              :checked="isTagSelected(tag)"
+              :checked="isSelected(tag)"
               @change="toggleTag(tag)"
               :disabled="isEditable(tag)"
             >
             <input
               v-model="tag.name"
-              class="tag-edit-input inline-edit-input form-control"
               type="text"
               :disabled="!isEditable(tag)"
             >
-            <span class="svg-icon inline" v-html="icons.destroy" @click="removeTag(tag)"></span>
+            <a class="svg-icon inline" v-html="icons.destroy" @click="removeTag(tag)"></a>
           </div>
         </draggable>
         <input
+          v-if="editingTags"
           v-model="newTag"
-          class="new-tag-item edit-tag-item inline-edit-input form-control"
+          class="new-tag-item edit-tag-item form-control"
           type="text"
           :placeholder="$t('newTag')"
           @keydown.enter="addTag"
@@ -64,83 +68,75 @@
 
   .filter-panel {
     position: absolute;
-    max-width: 50vw;
+    max-width: 448px;
     min-width: 300px;
     width: 100%;
     z-index: 9999;
+    font-size: 14px;
     background: $white;
     border-radius: 2px;
     box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
     top: 44px;
     left: 20vw;
-    font-size: 14px;
     line-height: 1.43;
     text-overflow: ellipsis;
+  }
 
-    .tag-edit-input {
-      border-bottom: 1px solid $gray-500 !important;
+  h1, h2 {
+    font: bold 14px "Roboto", sans-serif;
+  }
 
-      &:focus,
-      &:focus ~ .input-group-append {
-        border-color: $purple-500 !important;
-      }
-    }
-
-    .new-tag-item {
-      width: 100%;
-      background-repeat: no-repeat;
-      background-position: center left 10px;
-      border-bottom: 1px solid $gray-500 !important;
-      background-size: 10px 10px;
-      padding-left: 40px;
-      background-image: url(~@/assets/svg/for-css/positive.svg);
-    }
-
-    .tag-edit-item {
-      .input-group-append {
-        background: $white;
-        border-bottom: 1px solid $gray-500 !important;
-
-        &:focus {
-          border-color: $purple-500;
-        }
-      }
-    }
+  input {
+    // Necessary to prevent "Dark line flash" when editing
+    border-color: $gray-500 !important;
   }
 
   .svg-icon {
-    margin: auto;
+    color: $gray-200
   }
 
   header {
-    padding: 16px 12px;
+    padding: 8px 16px;
     border-bottom: 1px solid $gray-500;
 
     .svg-icon {
+      margin: auto;
       height: 14px;
       width: 14px;
+      padding-top: 3px;
+    }
+
+    h1 {
+      color: $gray-10;
+      margin: 9px;
     }
 
     a {
       padding: 4px 16px;
 
-      &:focus,
-      &:hover,
-      &:active {
-        text-decoration: underline;
+      &:not(.disabled-selection) {
+        &:focus, &:hover, &:active {
+          text-decoration: underline;
+        }
       }
     }
 
-    .btn-filters-danger {
-      color: $red-50;
+    .clear-selection {
+      color: $maroon-50;
+    }
+
+    .disabled-selection {
+      color: $gray-50;
+      cursor: default;
     }
 
     .btn-primary {
       color: $white;
+      font-weight: bold;
     }
 
     .btn-filters-secondary {
-      color: $gray-300;
+      color: $wizard-color;
     }
   }
 
@@ -149,50 +145,89 @@
   }
 
   section {
-    border-bottom: 1px solid $gray-600;
+    padding-top: 12px;
 
-    header {
+    h2 {
+      color: $gray-100;
       padding: 0;
+      margin: 0;
     }
 
-    &:not(.tags) .new-tag-item {
-      display: none;
+    &:not(.tags) {
+      padding-bottom: 6px;
+      border-bottom: 1px solid $gray-500;
+
+      .new-tag-item {
+        display: none;
+      }
     }
-  }
 
-  .drag-handle {
-    cursor: grab;
-
-    color: $gray-400;
-
-    &:hover {
-      color: $gray-200;
+    &:first-of-type {
+      padding-top: 4px;
     }
   }
 
   .tag {
+    margin: 4px 0;
+
+    .drag-handle {
+      cursor: grab;
+      top: 2px;
+      left: 6px;
+      width: 24px;
+      color: $gray-400;
+
+      &:hover {
+        color: $gray-200;
+      }
+    }
+
     input:disabled {
       opacity: 1;
       background-color: transparent;
     }
 
+    input[type=checkbox] {
+      margin: auto 7px;
+    }
+
+    input[type=text] {
+      cursor: text;
+      border: none;
+      padding: 0;
+      padding-left: 5px;
+      height: 1.71rem;
+      width: 100%;
+    }
+
     &.editable {
+      padding-left: 38px;
+
       input[type="checkbox"] {
         display: none;
       }
 
+      input[type="text"] {
+        border-bottom: 1px solid $gray-500;
+
+        &:focus {
+          border-color: $purple-500 !important;
+        }
+      }
+
       .svg-icon {
         display: none;
-        height: 16px;
+        position: absolute;
+      }
+
+      a.svg-icon {
+        top: 5px;
+        right: 12px;
         width: 16px;
       }
 
-      .svg-icon.drag-handle {
-        width: 24px;
-      }
-
       &:hover .svg-icon {
-        display: inline;
+        display: block;
       }
     }
 
@@ -200,6 +235,21 @@
       &,&:hover {
         display: none;
       }
+    }
+  }
+
+  .new-tag-item {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center left 10px;
+    border: none;
+    border-bottom: 1px solid $gray-500;
+    background-size: 10px 10px;
+    padding-left: 40px;
+    background-image: url(~@/assets/svg/for-css/positive.svg);
+
+    &:focus {
+      border-color: $purple-500 !important;
     }
   }
 
@@ -253,12 +303,12 @@ export default {
   methods: {
     ...mapActions({ setUser: 'user:set' }),
     checkMouseOver: throttle(function throttleClose () {
-      if (false && !this.editingTags) this.closePanel();
+      if (!this.editingTags) this.closePanel();
     }, 250),
     toggleTag (tag) {
       this.$emit('filter', xor(this.selectedTags, [tag.id]));
     },
-    isTagSelected (tag) {
+    isSelected (tag) {
       return this.selectedTags.includes(tag.id);
     },
     isEditable (tag) {
@@ -268,9 +318,8 @@ export default {
       return this.editingTags && tagsTypeKey === 'tags';
     },
     removeTag (tag) {
-      if (this.isTagSelected(tag)) {
-        this.toggleTag(tag);
-      }
+      if (this.isSelected(tag)) this.toggleTag(tag);
+
       const tagType = tag.challenge ? this.tags.challenges : this.tags.user;
       tagType.tags = tagType.tags.filter(t => t !== tag);
     },
