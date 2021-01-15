@@ -16,7 +16,11 @@
         <div class="svg-icon filter-icon mr-2" v-html="icons.filter"></div>
         <span v-once>{{ $t('tags') }}</span>
       </button>
-      <a @click="filter([])" class='col-md-2' :class="{ invisible: !selectedTags.length }">{{ $t('clearTags') }}</a>
+      <a
+        @click="filter([])"
+        class='col-md-2'
+        :class="{ invisible: !selectedTags.length }"
+      >{{ $t('clearTags') }}</a>
     </div>
     <task-tag-panel
       v-if="isFilterPanelOpen"

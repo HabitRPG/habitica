@@ -29,31 +29,21 @@
           class="row"
           :disabled="!isDraggable(tagsType.key)"
         >
-          <div
+          <tag-filter-button
             v-for="tag in tagsType.tags"
             :key="tag.id"
-            class="col-6 d-flex tag"
-            :class="{ editable: isEditable(tag), draggable: isDraggable(tagsType.key) }"
-          >
-            <span class="svg-icon inline drag-handle" v-html="icons.drag"></span>
-            <input
-              type="checkbox"
-              :checked="isSelected(tag)"
-              @change="toggleTag(tag)"
-              :disabled="isEditable(tag)"
-            >
-            <input
-              v-model="tag.name"
-              type="text"
-              :disabled="!isEditable(tag)"
-            >
-            <a class="svg-icon inline" v-html="icons.destroy" @click="removeTag(tag)"></a>
-          </div>
+            :selected="isSelected(tag)"
+            :editable="isEditable(tag)"
+            :draggable="isDraggable(tagsType.key)"
+            :tag="tag"
+            @toggle="toggleTag"
+            @remove="removeTag"
+          />
         </draggable>
         <input
           v-if="editingTags"
           v-model="newTag"
-          class="new-tag-item edit-tag-item form-control"
+          class="new-tag-item edit-tag-item form-control col-6"
           type="text"
           :placeholder="$t('newTag')"
           @keydown.enter="addTag"
@@ -86,15 +76,6 @@
     font: bold 14px "Roboto", sans-serif;
   }
 
-  input {
-    // Necessary to prevent "Dark line flash" when editing
-    border-color: $gray-500 !important;
-  }
-
-  .svg-icon {
-    color: $gray-200
-  }
-
   header {
     padding: 8px 16px;
     border-bottom: 1px solid $gray-500;
@@ -104,6 +85,7 @@
       height: 14px;
       width: 14px;
       padding-top: 3px;
+      color: $gray-200
     }
 
     h1 {
@@ -169,77 +151,6 @@
     }
   }
 
-  .tag {
-    margin: 4px 0;
-
-    .drag-handle {
-      cursor: grab;
-      top: 2px;
-      left: 6px;
-      width: 24px;
-      color: $gray-400;
-
-      &:hover {
-        color: $gray-200;
-      }
-    }
-
-    input:disabled {
-      opacity: 1;
-      background-color: transparent;
-    }
-
-    input[type=checkbox] {
-      margin: auto 7px;
-    }
-
-    input[type=text] {
-      cursor: text;
-      border: none;
-      padding: 0;
-      padding-left: 5px;
-      height: 1.71rem;
-      width: 100%;
-    }
-
-    &.editable {
-      padding-left: 38px;
-
-      input[type="checkbox"] {
-        display: none;
-      }
-
-      input[type="text"] {
-        border-bottom: 1px solid $gray-500;
-
-        &:focus {
-          border-color: $purple-500 !important;
-        }
-      }
-
-      .svg-icon {
-        display: none;
-        position: absolute;
-      }
-
-      a.svg-icon {
-        top: 5px;
-        right: 12px;
-        width: 16px;
-      }
-
-      &:hover .svg-icon {
-        display: block;
-      }
-    }
-
-    &:not(.draggable) .svg-icon.drag-handle {
-      &,&:hover {
-        display: none;
-      }
-    }
-  }
-
   .new-tag-item {
     width: 100%;
     background-repeat: no-repeat;
@@ -268,20 +179,21 @@ import { v4 as uuid } from 'uuid';
 import xor from 'lodash/xor';
 import draggable from 'vuedraggable';
 
-import deleteIcon from '@/assets/svg/delete.svg';
-import dragIcon from '@/assets/svg/drag_indicator.svg';
+import TagFilterButton from './tagFilterButton.vue';
+
 import tagsIcon from '@/assets/svg/tags.svg';
 
 import { mapState, mapActions } from '@/libs/store';
 
 export default {
-  components: { draggable },
+  components: {
+    TagFilterButton,
+    draggable,
+  },
   props: { selectedTags: Array },
   data () {
     return {
       icons: Object.freeze({
-        destroy: deleteIcon,
-        drag: dragIcon,
         tags: tagsIcon,
       }),
       editingTags: false,
