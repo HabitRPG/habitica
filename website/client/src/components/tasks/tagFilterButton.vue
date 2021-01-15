@@ -12,17 +12,8 @@
       :disabled="editable"
       :class="{ invisible: editable }"
     >
-    <label
-      :for="checkBoxId"
-      v-markdown="tag.name"
-      :class="{ 'd-none': editable }"
-    ></label>
-    <input
-      v-model="tag.name"
-      type="text"
-      :disabled="!editable"
-      :class="{ 'd-none': !editable }"
-    >
+    <label :for="checkBoxId" v-if="!editable" v-markdown="tag.name"></label>
+    <input type="text" v-if="editable" v-model="tag.name">
     <a class="svg-icon inline remove-button" v-html="icons.destroy" @click="remove"></a>
   </div>
 </template>
