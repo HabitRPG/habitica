@@ -1,20 +1,17 @@
 <template>
-  <div
-    class="col-6 d-flex tag"
-    :class="{ editable, draggable }"
-  >
-    <span class="svg-icon inline drag-handle" v-html="icons.drag"></span>
+  <div class="col-6 d-flex tag" :class="{ editable }">
+    <span v-if="draggable" class="svg-icon drag-handle" v-html="icons.drag"></span>
     <input
-      :id="checkBoxId"
       type="checkbox"
+      :id="checkBoxId"
       :checked="selected"
-      @change="toggle"
       :disabled="editable"
       :class="{ invisible: editable }"
+      @change="toggle"
     >
     <label :for="checkBoxId" v-if="!editable" v-markdown="tag.name"></label>
     <input type="text" v-if="editable" v-model="tag.name">
-    <a class="svg-icon inline remove-button" v-html="icons.destroy" @click="remove"></a>
+    <a class="svg-icon remove-button" v-html="icons.destroy" @click="remove"></a>
   </div>
 </template>
 
@@ -35,10 +32,9 @@
       top: 2px;
       left: 6px;
       width: 24px;
-      color: $gray-400;
 
-      &:hover {
-        color: $gray-200;
+      &:not(:hover) {
+        color: $gray-400;
       }
     }
 
@@ -68,14 +64,8 @@
       width: 16px;
     }
 
-    &:hover.editable {
-      .remove-button {
-        display: block;
-      }
-
-      &.draggable .drag-handle {
-        display: block;
-      }
+    &.editable:hover .svg-icon {
+      display: block;
     }
   }
 </style>
