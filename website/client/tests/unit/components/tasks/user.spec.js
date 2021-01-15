@@ -10,6 +10,7 @@ describe('Tasks User', () => {
     const store = new Store({
       state: { user: { data: { tags: [challengeTag] } } },
       getters: {},
+      actions: { 'common:setTitle': () => {} },
     });
     return shallowMount(User, {
       store,

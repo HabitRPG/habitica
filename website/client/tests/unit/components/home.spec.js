@@ -39,7 +39,8 @@ describe('Home', () => {
       actions: {
         'auth:register': registerStub,
         'auth:socialAuth': socialAuthStub,
-        'auth:verifyUsername': () => Promise.resolve({}),
+        'auth:verifyUsername': () => async () => ({}),
+        'common:setTitle': () => {},
       },
     });
 
