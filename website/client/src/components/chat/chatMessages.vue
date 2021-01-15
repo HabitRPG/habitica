@@ -52,7 +52,7 @@
           @click.native="showMemberModal(msg.uuid)"
         />
         <div
-          class="card"
+          class="card ml-auto"
         >
           <chat-card
             :msg="msg"
