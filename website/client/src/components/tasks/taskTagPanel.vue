@@ -1,5 +1,5 @@
 <template>
-  <div class="filter-panel" @mouseleave="checkMouseOver">
+  <div class="filter-panel" @mouseleave="closePanel">
     <header class="filter-panel-footer clearfix">
       <span v-once class="svg-icon inline" v-html="icons.tags"></span>
       <h1 v-once class="inline">{{ $t('tags') }}</h1>
@@ -10,7 +10,7 @@
           'clear-selection': !editingTags && selectedTags.length,
           'btn-primary': editingTags,
           }"
-        @click="editingTags ? saveTags() : resetFilters()"
+        @click="editingTags ? saveTags() : filter([])"
       >{{ $t(editingTags ? 'saveEdits' : 'resetFilters') }}</a>
       <a class="btn-filters-secondary float-right" @click="toggleEditing">
         {{ $t(editingTags ? 'cancel' : 'editTags2') }}
@@ -263,10 +263,9 @@
   }
 </style>
 
-
 <script>
 import { v4 as uuid } from 'uuid';
-import { xor, throttle } from 'lodash';
+import xor from 'lodash/xor';
 import draggable from 'vuedraggable';
 
 import deleteIcon from '@/assets/svg/delete.svg';
@@ -304,11 +303,14 @@ export default {
   },
   methods: {
     ...mapActions({ setUser: 'user:set' }),
-    checkMouseOver: throttle(function throttleClose () {
-      if (!this.editingTags) this.closePanel();
-    }, 250),
+    closePanel () {
+      if (!this.editingTags) this.$emit('close');
+    },
+    filter (tags) {
+      this.$emit('filter', tags);
+    },
     toggleTag (tag) {
-      this.$emit('filter', xor(this.selectedTags, [tag.id]));
+      this.filter(xor(this.selectedTags, [tag.id]));
     },
     isSelected (tag) {
       return this.selectedTags.includes(tag.id);
@@ -349,12 +351,6 @@ export default {
       const groups = groupTags('groups', t => t.group);
       const user = groupTags('tags', t => !t.group && !t.challenge);
       this.tags = { challenges, groups, user };
-    },
-    resetFilters () {
-      this.$emit('filter', []);
-    },
-    closePanel () {
-      this.$emit('close');
     },
   },
 };

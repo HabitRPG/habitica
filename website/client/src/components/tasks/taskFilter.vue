@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-md-6 offset-md-3">
+  <div class="col-12 col-md-6 offset-md-4">
     <div class="d-flex">
       <input
         v-model="searchText"
@@ -16,7 +16,7 @@
         <div class="svg-icon filter-icon mr-2" v-html="icons.filter"></div>
         <span v-once>{{ $t('tags') }}</span>
       </button>
-      <a @click="filter([])" :class="{ hidden: !selectedTags.length }">{{ $t('clearTags') }}</a>
+      <a @click="filter([])" class='col-md-2' :class="{ invisible: !selectedTags.length }">{{ $t('clearTags') }}</a>
     </div>
     <task-tag-panel
       v-if="isFilterPanelOpen"
@@ -35,12 +35,7 @@
     height: 16px;
   }
 
-  .hidden {
-    display: none;
-  }
-
   a {
-    width: 30%;
     margin: auto;
     color: $blue-10;
 
@@ -56,15 +51,9 @@ import throttle from 'lodash/throttle';
 import TaskTagPanel from './taskTagPanel';
 import filterIcon from '@/assets/svg/filter.svg';
 
-import { mapState } from '@/libs/store';
-
 export default {
-  components: {
-    TaskTagPanel,
-  },
-  props: {
-    selectedTags: Array,
-  },
+  components: { TaskTagPanel },
+  props: { selectedTags: Array },
   data () {
     return {
       searchText: null,
@@ -73,9 +62,6 @@ export default {
         filter: filterIcon,
       }),
     };
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
   },
   watch: {
     searchText: throttle(function throttleSearch () {
