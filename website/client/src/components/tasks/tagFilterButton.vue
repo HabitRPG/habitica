@@ -9,8 +9,8 @@
       :class="{ invisible: editable }"
       @change="toggle"
     >
-    <label :for="checkBoxId" v-if="!editable" v-markdown="tag.name"></label>
     <input type="text" v-if="editable" v-model="tag.name">
+    <label :for="checkBoxId" v-else v-markdown="tag.name"></label>
     <a class="svg-icon remove-button" v-html="icons.destroy" @click="remove"></a>
   </div>
 </template>

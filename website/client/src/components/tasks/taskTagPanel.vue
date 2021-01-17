@@ -3,15 +3,15 @@
     <header class="filter-panel-footer clearfix">
       <span v-once class="svg-icon inline" v-html="icons.tags"></span>
       <h1 v-once class="inline">{{ $t('tags') }}</h1>
+      <a v-if="editingTags" class="btn-primary float-right" @click="saveTags">
+        {{ $t('saveEdits') }}
+      </a>
       <a
-        class="float-right"
-        :class="{
-          'disabled-selection': !editingTags && !selectedTags.length,
-          'clear-selection': !editingTags && selectedTags.length,
-          'btn-primary': editingTags,
-          }"
-        @click="editingTags ? saveTags() : filter([])"
-      >{{ $t(editingTags ? 'saveEdits' : 'resetFilters') }}</a>
+        v-else
+        class="reset-filters float-right"
+        :class="{ 'disabled': !selectedTags.length }"
+        @click="filter([])"
+      >{{ $t('resetFilters') }}</a>
       <a class="btn-filters-secondary float-right" @click="toggleEditing">
         {{ $t(editingTags ? 'cancel' : 'editTags2') }}
       </a>
@@ -96,22 +96,21 @@
     a {
       padding: 4px 16px;
 
-      &:not(.disabled-selection) {
+      &:not(.disabled) {
         &:focus, &:hover, &:active {
           text-decoration: underline;
         }
       }
     }
 
-    .clear-selection {
+    .reset-filters {
       color: $maroon-50;
       padding-left: 0;
-    }
 
-    .disabled-selection {
-      color: $gray-50;
-      cursor: default;
-      padding-left: 0;
+      &.disabled {
+        color: $gray-50;
+        cursor: default;
+      }
     }
 
     .btn-primary {
