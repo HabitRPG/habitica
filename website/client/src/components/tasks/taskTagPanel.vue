@@ -41,7 +41,7 @@
           />
         </draggable>
         <input
-          v-if="editingTags"
+          v-if="editingTags && tagsType.key == 'tags'"
           v-model="newTag"
           class="new-tag-item edit-tag-item form-control col-6"
           type="text"
@@ -139,10 +139,6 @@
     &:not(.tags) {
       padding-bottom: 6px;
       border-bottom: 1px solid $gray-500;
-
-      .new-tag-item {
-        display: none;
-      }
     }
 
     &:first-of-type {
