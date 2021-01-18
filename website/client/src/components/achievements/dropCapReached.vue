@@ -1,32 +1,11 @@
 <template>
-  <b-modal
+  <small-modal
     id="drop-cap-reached"
-    size="md"
-    :hide-header="true"
-    :hide-footer="hasSubscription"
+    :title="$t('dropCapReached')"
+    button-text-key="learnMore"
+    @buttonClicked="toLearnMore"
   >
-    <div class="text-center">
-      <div
-        class="modal-close"
-        @click="close()"
-      >
-        <div
-          v-once
-          class="svg-icon"
-          v-html="icons.close"
-        ></div>
-      </div>
-      <h1
-        v-once
-        class="header purple"
-      >
-        {{ $t('dropCapReached') }}
-      </h1>
-      <div class="max-items-wrapper d-flex align-items-center justify-content-center">
-        <div
-          class="svg-icon sparkles sparkles-rotate"
-          v-html="icons.sparkles"
-        ></div>
+      <template #starred>
         <div class="max-items-module d-flex align-items-center justify-content-center flex-column">
           <h1 class="max-items">
             {{ maxItems }}
@@ -36,11 +15,7 @@
             class="items-text"
           >{{ $t('items') }}</span>
         </div>
-        <div
-          class="svg-icon sparkles"
-          v-html="icons.sparkles"
-        ></div>
-      </div>
+      </template>
       <p
         v-once
         class="mb-4"
@@ -54,81 +29,36 @@
       >
         {{ $t('dropCapLearnMore') }}
       </a>
-    </div>
-    <div
-      slot="modal-footer"
-      class="footer"
-    >
-      <span
-        v-once
-        class="purple d-block font-weight-bold mb-3 mt-3"
-      >
-        {{ $t('lookingForMoreItems') }}
-      </span>
-      <img
-        class="swords mb-3"
-        srcset="
-      ~@/assets/images/swords.png,
-      ~@/assets/images/swords@2x.png 2x,
-      ~@/assets/images/swords@3x.png 3x"
-        src="~@/assets/images/swords.png"
-      >
-      <p
-        v-once
-        class="subs-benefits mb-3"
-      >
-        {{ $t('dropCapSubs') }}
-      </p>
-      <button
-        v-once
-        class="btn btn-primary"
-        @click="toLearnMore()"
-      >
-        {{ $t('learnMore') }}
-      </button>
-    </div>
-  </b-modal>
+
+    <template #greyed>
+      <div v-if="!hasSubscription">
+        <span
+          v-once
+          class="purple d-block font-weight-bold mb-3 mt-3"
+        >
+          {{ $t('lookingForMoreItems') }}
+        </span>
+        <img
+          class="swords mb-3"
+          srcset="
+        ~@/assets/images/swords.png,
+        ~@/assets/images/swords@2x.png 2x,
+        ~@/assets/images/swords@3x.png 3x"
+          src="~@/assets/images/swords.png"
+        >
+        <p
+          v-once
+          class="subs-benefits mb-3"
+        >
+          {{ $t('dropCapSubs') }}
+        </p>
+      </div>
+    </template>
+  </small-modal>
 </template>
-
-<style lang="scss">
-  @import '~@/assets/scss/colors.scss';
-
-  #drop-cap-reached {
-    .modal-body {
-      padding: 0 1.5rem;
-    }
-
-    .modal-footer {
-      background: $gray-700;
-      border-top: none;
-      padding: 0 1.5rem 2rem 1.5rem;
-    }
-
-    .modal-dialog {
-      width: 20.625rem;
-      font-size: 0.875rem;
-      line-height: 1.71;
-      text-align: center;
-    }
-  }
-</style>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
-
-  .modal-close {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    padding: 4px;
-    right: 16px;
-    top: 16px;
-    cursor: pointer;
-    .svg-icon {
-      width: 12px;
-      height: 12px;
-    }
-  }
 
   .subs-benefits {
     font-size: 0.75rem;
@@ -138,22 +68,6 @@
 
   .purple {
     color: $purple-300;
-  }
-
-  .header {
-    font-size: 1.25rem;
-    line-height: 1.4;
-    text-align: center;
-    margin-top: 2rem;
-  }
-
-  .sparkles {
-    width: 2.5rem;
-    height: 4rem;
-
-    &.sparkles-rotate {
-      transform: rotate(180deg);
-    }
   }
 
   .max-items-wrapper {
@@ -190,18 +104,16 @@
 </style>
 
 <script>
-import closeIcon from '@/assets/svg/close.svg';
+import smallModal from '../ui/smallModal';
 import sparkles from '@/assets/svg/star-group.svg';
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 
 export default {
+  components: { smallModal },
   data () {
     return {
-      icons: Object.freeze({
-        close: closeIcon,
-        sparkles,
-      }),
+      icons: Object.freeze({ sparkles }),
       maxItems: null,
     };
   },
