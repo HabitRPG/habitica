@@ -96,6 +96,7 @@
   "PMUnblockUserToSendMessages": "Unblock this user to continue sending and receiving messages.",
   "block": "Block",
   "unblock": "Un-block",
+  "blockYourself": "You cannot block yourself",
   "blockWarning": "Block - This will have no effect if the player is a moderator now or becomes a moderator in future.",
   "inbox": "Inbox",
   "messageRequired": "A message is required.",

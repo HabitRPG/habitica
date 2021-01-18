@@ -18,13 +18,13 @@
     "@storybook/addon-links": "^5.3.19",
     "@storybook/addon-notes": "^5.3.21",
     "@storybook/vue": "^5.3.19",
-    "@vue/cli-plugin-babel": "^4.5.9",
-    "@vue/cli-plugin-eslint": "^4.5.9",
-    "@vue/cli-plugin-router": "^4.5.9",
-    "@vue/cli-plugin-unit-mocha": "^4.5.9",
-    "@vue/cli-service": "^4.5.9",
+    "@vue/cli-plugin-babel": "^4.5.10",
+    "@vue/cli-plugin-eslint": "^4.5.10",
+    "@vue/cli-plugin-router": "^4.5.10",
+    "@vue/cli-plugin-unit-mocha": "^4.5.10",
+    "@vue/cli-service": "^4.5.10",
     "@vue/test-utils": "1.0.0-beta.29",
-    "amplitude-js": "^7.3.3",
+    "amplitude-js": "^7.4.0",
     "axios": "^0.21.1",
     "axios-progress-bar": "^1.2.0",
     "babel-eslint": "^10.1.0",
@@ -43,8 +43,8 @@
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
-    "nconf": "^0.11.0",
-    "sass": "^1.32.0",
+    "nconf": "^0.11.1",
+    "sass": "^1.32.2",
     "sass-loader": "^8.0.2",
     "smartbanner.js": "^1.16.0",
     "svg-inline-loader": "^0.8.2",
@@ -60,6 +60,6 @@
     "vue-template-compiler": "^2.6.12",
     "vuedraggable": "^2.24.3",
     "vuejs-datepicker": "git://github.com/habitrpg/vuejs-datepicker.git#153d339e4dbebb73733658aeda1d5b7fcc55b0a0",
-    "webpack": "^4.44.2"
+    "webpack": "^4.45.0"
   }
 }

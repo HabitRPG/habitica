@@ -54,12 +54,6 @@
         <p v-html="$t('commGuidePara024')"></p>
       </div>
     </div>
-    <div class="media align-items-center">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara027')"></p>
-      </div>
-      <img src="~@/assets/images/community-guidelines/backCorner.png">
-    </div>
     <h3 id="guilds">
       {{ $t('commGuideHeadingPublicGuilds') }}
     </h3>
