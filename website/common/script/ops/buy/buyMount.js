@@ -7,6 +7,7 @@ import {
   NotAuthorized,
 } from '../../libs/errors';
 import { removeItemByPath } from '../pinnedGearUtils';
+import getItemInfo from '../../libs/getItemInfo';
 
 import { AbstractHourglassItemOperation } from './abstractBuyOperation';
 
@@ -41,8 +42,9 @@ export class BuyHourglassMountOperation extends AbstractHourglassItemOperation {
 
     if (user.markModified) user.markModified('items.mounts');
 
+    const itemInfo = getItemInfo(user, 'timeTravelersStable', { key: this.key, type: 'mounts' });
     this.subtractCurrency(user);
-    removeItemByPath(user, `timeTravelStable.mounts.${this.key}`);
+    removeItemByPath(user, itemInfo.path);
 
     const message = this.i18n('hourglassPurchase');
 

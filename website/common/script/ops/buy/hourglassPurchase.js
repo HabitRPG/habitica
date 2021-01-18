@@ -31,7 +31,7 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
 
     user.purchased.background[key] = true;
     user.purchased.plan.consecutive.trinkets -= 1;
-    const itemInfo = getItemInfo(user, 'background', content.backgroundsFlat[key]);
+    const itemInfo = (user, 'background', content.backgroundsFlat[key]);
     removeItemByPath(user, itemInfo.path);
 
     if (user.markModified) user.markModified('purchased.background');
@@ -63,8 +63,9 @@ export default function purchaseHourglass (user, req = {}, analytics, quantity =
       throw new NotAuthorized(i18n.t('notEnoughHourglasses', req.language));
     }
 
+    const itemInfo = getItemInfo(user, 'timeTravelersStable', { key, type });
     user.purchased.plan.consecutive.trinkets -= 1;
-    removeItemByPath(user, `timeTravelStable.${type}.${key}`);
+    removeItemByPath(user, itemInfo.path);
 
     if (type === 'pets') {
       user.items.pets = {
