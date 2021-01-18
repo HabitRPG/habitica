@@ -3,9 +3,9 @@
     <header class="filter-panel-footer clearfix">
       <span v-once class="svg-icon inline" v-html="icons.tags"></span>
       <h1 v-once class="inline">{{ $t('tags') }}</h1>
-      <a v-if="editingTags" class="btn-primary float-right" @click="saveTags">
+      <button v-if="editingTags" class="btn btn-primary float-right" @click="saveTags">
         {{ $t('saveEdits') }}
-      </a>
+      </button>
       <a
         v-else
         class="reset-filters float-right"
@@ -114,8 +114,7 @@
     }
 
     .btn-primary {
-      color: $white;
-      font-weight: bold;
+      margin-top: -2px;
     }
 
     .btn-filters-secondary {
@@ -174,7 +173,7 @@ import { v4 as uuid } from 'uuid';
 import xor from 'lodash/xor';
 import draggable from 'vuedraggable';
 
-import TagFilterButton from './tagFilterButton.vue';
+import TagFilterButton from './tagFilterButton';
 
 import tagsIcon from '@/assets/svg/tags.svg';
 

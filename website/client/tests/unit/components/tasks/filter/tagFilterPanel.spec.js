@@ -1,11 +1,11 @@
 import { mount, createLocalVue } from '@vue/test-utils';
-import TaskTagPanel from '@/components/tasks/taskTagPanel.vue';
+import TagFilterPanel from '@/components/tasks/filter/tagFilterPanel';
 import Store from '@/libs/store';
 
 const localVue = createLocalVue();
 localVue.use(Store);
 
-describe('TaskTagPanel', () => {
+describe('TagFilterPanel', () => {
   let wrapper;
   const setUserFake = sinon.fake();
 
@@ -15,7 +15,7 @@ describe('TaskTagPanel', () => {
 
   function createWrapper (tags = [userTag], selectedTags = []) {
     // Not shallow since we want to inspect tag button state inside the draggable.
-    return mount(TaskTagPanel, {
+    return mount(TagFilterPanel, {
       store: new Store({
         state: { user: { data: { tags } } },
         getters: {},
@@ -34,7 +34,7 @@ describe('TaskTagPanel', () => {
   afterEach(sinon.reset);
 
   function saveButton () {
-    return wrapper.find('a.btn-primary');
+    return wrapper.find('button');
   }
 
   function toggleEditButton () {

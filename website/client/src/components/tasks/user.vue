@@ -98,7 +98,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import TaskColumn from './column';
 import TaskModal from './taskModal';
-import TaskFilter from './taskFilter';
+import TaskFilter from './filter/taskFilter';
 import brokenTaskModal from './brokenTaskModal';
 import spells from './spells';
 

@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 
-import TagFilterButton from '@/components/tasks/tagFilterButton.vue';
+import TagFilterButton from '@/components/tasks/filter/tagFilterButton.vue';
 
 const localVue = createLocalVue();
 

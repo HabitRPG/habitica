@@ -22,7 +22,7 @@
         :class="{ invisible: !selectedTags.length }"
       >{{ $t('clearTags') }}</a>
     </div>
-    <task-tag-panel
+    <tag-filter-panel
       v-if="isFilterPanelOpen"
       :selectedTags="selectedTags"
       @close="closeFilterPanel"
@@ -52,11 +52,11 @@
 <script>
 import throttle from 'lodash/throttle';
 
-import TaskTagPanel from './taskTagPanel';
+import TagFilterPanel from './tagFilterPanel';
 import filterIcon from '@/assets/svg/filter.svg';
 
 export default {
-  components: { TaskTagPanel },
+  components: { TagFilterPanel },
   props: { selectedTags: Array },
   data () {
     return {
