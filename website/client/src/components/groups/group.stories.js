@@ -233,6 +233,34 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     challengeOptions: {},
   }))
+  .add('Boss Quest/Participating - No Pending', () => createStory({
+    template: `
+      <div class="component-showcase">
+        <right-sidebar :group="group" :is-party="true" :is-member="true" class="col-12"/>
+      </div>
+    `,
+    data () {
+      return {
+        group: groupBossQuestParticipating,
+      };
+    },
+    user: {
+      data: {
+        _id: 'acc2950e-9919-49bc-be7f-0ec4103e9f2b',
+        party: {
+          quest: {
+            progress: {
+              up: 0,
+              down: 0,
+              collectedItems: 2,
+              collect: {},
+            },
+          },
+        },
+      },
+    },
+    challengeOptions: {},
+  }))
   .add('Boss Quest/Rage Enabled', () => createStory({
     template: `
       <div class="component-showcase">

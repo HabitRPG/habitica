@@ -47,7 +47,6 @@
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 
-    margin-top: 1em;
     padding-top: 0.688em;
   }
 
@@ -57,8 +56,8 @@
     padding-bottom: 1em;
   }
 
-  .section-body {
-    margin-top: 0.75em;
+  .section-header {
+    margin-bottom: 0.75rem;
   }
 
   .section-info {

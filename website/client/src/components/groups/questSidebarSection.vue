@@ -81,10 +81,10 @@
                     {{ group.quest.progress.collect[key] }} / {{ value.count }}
                   </span>
                   <div
-                    v-if="userIsOnQuest"
+                    v-if="userIsOnQuest && group.quest.progress.collect[key]"
                     class="label item-progress-label"
                   >
-                    {{ parseFloat(user.party.quest.progress.collectedItems) || 0 }} items found
+                    {{ parseFloat(group.quest.progress.collect[key]) || 0 }} items found
                   </div>
                 </div>
               </div>
@@ -115,7 +115,8 @@
                   <div
                     class="pending-health-bar"
                     :style="{width: pendingHpPercent + '%'}"
-                  ></div>
+                  >
+                  </div>
                 </div>
               </div>
             </div>
@@ -135,7 +136,7 @@
                 </span>
               </div>
               <div
-                v-if="userIsOnQuest"
+                v-if="userIsOnQuest && user.party.quest.progress.up"
                 class="col-6"
               >
                 <!-- @TODO: Why do we not sync quest
