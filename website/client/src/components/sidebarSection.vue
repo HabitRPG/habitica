@@ -48,12 +48,12 @@
     padding-right: 1.5rem;
 
     padding-top: 0.688em;
+    padding-bottom: 1em;
   }
 
   .section:last-of-type {
     border-bottom: 1px solid #e1e0e3;
     margin-bottom: 1em;
-    padding-bottom: 1em;
   }
 
   .section-header {

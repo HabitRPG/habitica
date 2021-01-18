@@ -58,6 +58,7 @@
           v-once
           class="btn btn-secondary"
           @click="questConfirm()"
+          v-if="!onActiveQuest"
         >
           {{ $t('begin') }}
         </button>
@@ -267,7 +268,7 @@ export default {
       }
     },
     async questCancel () {
-      const accepted = await this.questActionsCancelQuest();
+      const accepted = await this.questActionsCancelOrAbortQuest();
 
       if (accepted) {
         this.close();

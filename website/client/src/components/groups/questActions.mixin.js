@@ -1,4 +1,9 @@
 export default {
+  computed: {
+    onActiveQuest () {
+      return this.group.quest.active;
+    },
+  },
   methods: {
     async questActionsConfirmQuest () {
       let count = 0;
@@ -19,12 +24,36 @@ export default {
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/force-start' });
       this.group.quest = quest;
     },
-    async questActionsCancelQuest () {
-      if (!window.confirm(this.$t('sureCancel'))) {
-        return;
+    // this method combines both if a quest is active or not
+    // it'll call the appropriate api endpoint
+    async questActionsCancelOrAbortQuest () {
+      if (this.onActiveQuest) {
+        if (!window.confirm(this.$t('sureAbort'))) {
+          return false;
+        }
+
+        if (!window.confirm(this.$t('doubleSureAbort'))) {
+          return false;
+        }
+
+        const quest = await this.$store.dispatch('quests:sendAction', {
+          groupId: this.group._id,
+          action: 'quests/abort',
+        });
+        this.group.quest = quest;
+      } else {
+        if (!window.confirm(this.$t('sureCancel'))) {
+          return false;
+        }
+
+        const quest = await this.$store.dispatch('quests:sendAction', {
+          groupId: this.group._id,
+          action: 'quests/cancel',
+        });
+        this.group.quest = quest;
       }
-      const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/cancel' });
-      this.group.quest = quest;
+
+      return true;
     },
   },
 };

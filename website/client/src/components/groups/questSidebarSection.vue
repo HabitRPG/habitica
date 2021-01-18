@@ -223,27 +223,10 @@
         {{ $t('startQuest') }}
       </button>
     </div>
-    <div v-if="userIsQuestLeader && !onActiveQuest">
-      <a
-        class="abandon-quest text-center full-width"
-        @click="abandonQuest()"
-      >
-        {{ $t('abandonQuest') }}
-      </a>
-    </div>
-    <div v-if="canEditQuest && onActiveQuest">
-     <a
-        v-once
-        class="abandon-quest text-center full-width"
-        @click="questAbort()"
-      >
-        {{ $t('abandonQuest') }}
-      </a>
-    </div>
     <div v-if="userIsOnQuest">
      <a
         v-once
-        class="abandon-quest text-center full-width"
+        class="leave-quest text-center full-width"
         @click="questLeave()"
       >
         {{ $t('leaveQuest') }}
@@ -505,7 +488,7 @@
     }
   }
 
-  .abandon-quest {
+  .leave-quest {
     font-size: 0.875rem;
     line-height: 1.71;
     color: $maroon-50;
@@ -622,9 +605,6 @@ export default {
     onPendingQuest () {
       return Boolean(this.group.quest.key) && !this.group.quest.active;
     },
-    onActiveQuest () {
-      return this.group.quest.active;
-    },
     bossHpPercent () {
       return percent(this.group.quest.progress.hp, this.questData.boss.hp);
     },
@@ -676,12 +656,6 @@ export default {
     openParticipantList () {
       this.$root.$emit('bv::show::modal', 'participant-list');
     },
-    async questAbort () {
-      if (!window.confirm(this.$t('sureAbort'))) return; // eslint-disable-line no-alert
-      if (!window.confirm(this.$t('doubleSureAbort'))) return; // eslint-disable-line no-alert
-      const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/abort' });
-      this.group.quest = quest;
-    },
     async questLeave () {
       if (!window.confirm(this.$t('sureLeave'))) return; // eslint-disable-line no-alert
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/leave' });
@@ -698,9 +672,6 @@ export default {
     },
     startQuest () {
       this.questActionsConfirmQuest();
-    },
-    abandonQuest () {
-      this.questActionsCancelQuest();
     },
   },
 };
