@@ -4,34 +4,35 @@
     :title="$t('dropCapReached')"
     button-text-key="learnMore"
     @buttonClicked="toLearnMore"
+    :hide-footer="hasSubscription"
   >
-      <template #starred>
-        <div class="max-items-module d-flex align-items-center justify-content-center flex-column">
-          <h1 class="max-items">
-            {{ maxItems }}
-          </h1>
-          <span
-            v-once
-            class="items-text"
-          >{{ $t('items') }}</span>
-        </div>
-      </template>
-      <p
-        v-once
-        class="mb-4"
-      >
-        {{ $t('dropCapExplanation') }}
-      </p>
-      <a
-        v-once
-        class="standard-link d-block mb-3"
-        @click="toWiki()"
-      >
-        {{ $t('dropCapLearnMore') }}
-      </a>
+    <template #starred>
+      <div class="max-items-module d-flex align-items-center justify-content-center flex-column">
+        <h1 class="max-items">
+          {{ maxItems }}
+        </h1>
+        <span
+          v-once
+          class="items-text"
+        >{{ $t('items') }}</span>
+      </div>
+    </template>
+    <p
+      v-once
+      class="mb-4"
+    >
+      {{ $t('dropCapExplanation') }}
+    </p>
+    <a
+      v-once
+      class="standard-link d-block mb-3"
+      @click="toWiki"
+    >
+      {{ $t('dropCapLearnMore') }}
+    </a>
 
     <template #greyed>
-      <div v-if="!hasSubscription">
+      <div class="text-center">
         <span
           v-once
           class="purple d-block font-weight-bold mb-3 mt-3"

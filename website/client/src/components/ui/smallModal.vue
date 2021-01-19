@@ -6,6 +6,7 @@
     ok-only
     :ok-title="$t(buttonTextKey)"
     :footer-class="{ greyed: isGreyedSlotPresent}"
+    :hide-footer="hideFooter"
   >
     <section class="d-flex">
       <span
@@ -155,6 +156,7 @@ export default {
       default: 'onwards',
     },
     hasRewards: Boolean,
+    hideFooter: Boolean,
   },
   data () {
     return {
