@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import nconf from 'nconf';
+import mongoose from 'mongoose';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   model as Group,
@@ -137,7 +138,13 @@ api.createGroup = {
       user.party._id = group._id;
     }
 
-    const results = await Promise.all([user.save(), group.save()]);
+    const session = await mongoose.startSession();
+    let results;
+    await session.withTransaction(async () => {
+      results = await Promise.all([user.save(), group.save()]);
+    });
+    session.endSession();
+
     const savedGroup = results[1];
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
