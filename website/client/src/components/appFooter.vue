@@ -209,8 +209,6 @@
                  @click="makeAdmin()">Make Admin</a>
               <a class="btn btn-secondary"
                  @click="openModifyInventoryModal()">Modify Inventory</a>
-              <a class="btn btn-secondary"
-                 @click="$root.$emit('bv::show::modal', 'drop-cap-reached')">open drop cap modal</a>
             </div>
           </div>
         </div>
