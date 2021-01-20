@@ -49,7 +49,7 @@
         >
         <p
           v-once
-          class="subs-benefits mb-3"
+          class="subs-benefits mb-0"
         >
           {{ $t('dropCapSubs') }}
         </p>

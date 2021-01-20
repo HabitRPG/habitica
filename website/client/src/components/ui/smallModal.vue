@@ -5,6 +5,7 @@
     :title="title"
     ok-only
     :ok-title="$t(buttonTextKey)"
+    @ok="$emit('buttonClicked')"
     :footer-class="{ greyed: isGreyedSlotPresent}"
     :hide-footer="hideFooter"
   >
@@ -20,10 +21,7 @@
       ></span>
     </section>
 
-    <p
-      v-once
-      class="text"
-    >
+    <p class="text">
       <slot></slot>
     </p>
 
@@ -33,11 +31,13 @@
         class="your-rewards d-flex"
       >
         <span
+          v-once
           class="sparkles"
           v-html="icons.sparkles"
         ></span>
-        <span class="text">{{ $t('yourRewards') }}</span>
+        <span v-once class="text">{{ $t('yourRewards') }}</span>
         <span
+          v-once
           class="sparkles mirror"
           v-html="icons.sparkles"
         ></span>
@@ -59,7 +59,8 @@
 
     @media (min-width: 576px) {
       .modal-sm {
-        max-width: 330px;
+        width: 20.625rem;
+        max-width: 20.625rem;
       }
     }
 
@@ -68,7 +69,7 @@
       border: none;
 
       h5 {
-        margin: 31px auto 16px;
+        margin: 2rem auto 1rem;
         color: $purple-200;
       }
 
@@ -76,6 +77,7 @@
         position: absolute;
         right: 18px;
         top: 12px;
+        font-weight: 100;
       }
     }
 
@@ -84,7 +86,7 @@
       border: none;
 
       button {
-        margin: 0 auto 32px auto;
+        margin: 0 auto 2rem auto;
       }
     }
 
@@ -104,13 +106,13 @@
       margin: auto;
 
       svg {
-        height: 64px;
-        width: 40px;
+        height: 4rem;
+        width: 2.5rem;
       }
     }
 
     .text {
-      margin: 25px 24px 24px;
+      margin: 1.5rem;
       min-height: auto !important;
     }
 
@@ -119,19 +121,19 @@
       width: fit-content;
 
       .sparkles {
-        width: 32px;
-        margin-top: 12px;
+        width: 2rem;
+        margin-top: .75rem;
       }
 
       .text {
         font-weight: bold;
-        margin: 16px;
+        margin: 1rem;
         color: $gray-50;
       }
     }
 
     section.greyed {
-      padding-bottom: 17px
+      padding: 0 1.5rem 1rem 1.5rem
     }
   }
 </style>
