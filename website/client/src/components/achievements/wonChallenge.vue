@@ -41,7 +41,7 @@ import habiticaMarkdown from 'habitica-markdown';
 
 import gem from '@/assets/svg/gem.svg';
 
-import smallModal from '../ui/smallModal';
+import smallModal from '@/components/ui/smallModal';
 
 export default {
   components: { smallModal },
@@ -55,7 +55,8 @@ export default {
   },
   computed: {
     challengeName () {
-      return this.notification ? habiticaMarkdown.render(String(this.notification.data.name)) : null;
+      return this.notification
+        ? habiticaMarkdown.render(String(this.notification.data.name)) : null;
     },
     challengePrize () {
       return this.notification ? this.notification.data.prize : 0;

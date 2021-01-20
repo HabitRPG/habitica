@@ -105,18 +105,14 @@
 </style>
 
 <script>
-import smallModal from '../ui/smallModal';
-import sparkles from '@/assets/svg/star-group.svg';
+import smallModal from '@/components/ui/smallModal';
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 
 export default {
   components: { smallModal },
   data () {
-    return {
-      icons: Object.freeze({ sparkles }),
-      maxItems: null,
-    };
+    return { maxItems: null };
   },
   computed: {
     ...mapState({ user: 'user.data' }),

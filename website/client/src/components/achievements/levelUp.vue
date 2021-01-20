@@ -29,8 +29,8 @@
 <script>
 import { mapState } from '@/libs/store';
 
-import Avatar from '../avatar';
-import smallModal from '../ui/smallModal';
+import Avatar from '@/components/avatar';
+import smallModal from '@/components/ui/smallModal';
 
 const levelQuests = {
   15: 'atom1',

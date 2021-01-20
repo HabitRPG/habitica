@@ -58,8 +58,7 @@
     }
 
     @media (min-width: 576px) {
-      .modal-sm {
-        width: 20.625rem;
+      &.modal-sm {
         max-width: 20.625rem;
       }
     }
