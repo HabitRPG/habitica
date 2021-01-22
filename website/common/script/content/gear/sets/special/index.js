@@ -2916,6 +2916,7 @@ const weapon = {
     notes: t('weaponSpecialSummer2019MageNotes', { int: 15 }),
     value: 90,
     int: 15,
+    per: 0,
     twoHanded: false,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
