@@ -100,5 +100,8 @@
     "viewProgress": "View Progress",
     "selectMember": "CHOOZE member",
     "confirmKeepChallengeTasks": "Do u want to kep challenge tasks?",
-    "selectParticipant": "CHOOZE partizipent"
+    "selectParticipant": "CHOOZE partizipent",
+    "wonChallengeDesc": "<%= challengeName %> choosd u as teh winr!!!!!!111! U can has win listd n ur acheevmntz.",
+    "yourReward": "Ur rewared",
+    "filters": "Filturz"
 }

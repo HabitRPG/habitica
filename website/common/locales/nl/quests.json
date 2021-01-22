@@ -84,5 +84,6 @@
     "hatchingPotionQuests": "Magische Uitbroed Toverdrank Queeste",
     "tavernBossTired": "<%= bossName %> probeert <%= rageName %> los te laten, maar is te moe.",
     "chatQuestCancelled": "<%= gebruikersnaam %> heeft de gezelschapszoektocht geannuleerd <%= questName %>.",
-    "chatQuestAborted": "<%= gebruikersnaam %> heeft de gezelschapszoektocht afgebroken <%= questName %>."
+    "chatQuestAborted": "<%= gebruikersnaam %> heeft de gezelschapszoektocht afgebroken <%= questName %>.",
+    "bossDamage": "Je hebt schade toegebracht aan de de Eindbaas!"
 }
