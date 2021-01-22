@@ -131,7 +131,11 @@ export const groupCollectionQuestNotStarted = {
   quest: {
     progress: { collect: {} },
     active: false,
-    members: { '05ca98f4-4706-47b5-8d02-142e6e78ba2e': true, 'b3b0be03-3f62-49ae-b776-b16419ef32cf': null },
+    members: {
+      '05ca98f4-4706-47b5-8d02-142e6e78ba2e': true,
+      'just-a-member': true,
+      'b3b0be03-3f62-49ae-b776-b16419ef32cf': null,
+    },
     extra: {},
     key: 'atom1',
     leader: '05ca98f4-4706-47b5-8d02-142e6e78ba2e',

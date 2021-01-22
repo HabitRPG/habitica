@@ -124,6 +124,27 @@ storiesOf('Group Components|Party/Quest States', module)
     },
     challengeOptions: {},
   }))
+  .add('Member/Quest accepted/Quest Not Started', () => createStory({
+    template: `
+      <div class="component-showcase">
+        <right-sidebar :group="group" :is-party="true" :is-member="true" class="col-12"/>
+      </div>
+    `,
+    data () {
+      return {
+        group: groupCollectionQuestNotStarted,
+      };
+    },
+    user: {
+      data: {
+        _id: 'just-a-member',
+        party: {
+
+        },
+      },
+    },
+    challengeOptions: {},
+  }))
   .add('Member/Quest Invite Pending', () => createStory({
     template: `
       <div class="component-showcase">

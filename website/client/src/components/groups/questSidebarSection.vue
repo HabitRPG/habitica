@@ -223,10 +223,11 @@
         {{ $t('startQuest') }}
       </button>
     </div>
-    <div v-if="userIsOnQuest">
+    <div v-if="userIsOnQuest" class="leave-quest-holder">
      <a
         v-once
-        class="leave-quest text-center full-width"
+        class="leave-quest text-center"
+        :class="{'disabled': userIsQuestLeader}"
         @click="questLeave()"
       >
         {{ $t('leaveQuest') }}
@@ -488,17 +489,27 @@
     }
   }
 
+  .leave-quest-holder {
+    display: flex;
+    justify-content: center;
+  }
+
   .leave-quest {
     font-size: 0.875rem;
     line-height: 1.71;
     color: $maroon-50;
-    width: 100%;
     display: block;
     margin-top: 1rem;
 
     &:hover, &:focus {
       color: $maroon-50;
       text-decoration: underline;
+    }
+
+    &.disabled {
+      color: $gray-200;
+      cursor: default;
+      pointer-events: none;
     }
   }
 
