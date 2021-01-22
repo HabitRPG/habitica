@@ -96,9 +96,12 @@
     "descriptionRequired": "Description is required",
     "locationRequired": "Location of challenge is required ('Add to')",
     "categoiresRequired": "One or more categories must be selected",
-    "viewProgressOf": "View Progress Of",
-    "viewProgress": "عرض التقدم",
+    "viewProgressOf": "مشاهدة ملف",
+    "viewProgress": "عرض التقد",
     "selectMember": "اختر عضو",
     "confirmKeepChallengeTasks": "هل تريد إبقاء مهمة التحدي؟",
-    "selectParticipant": "اختر مشارك"
+    "selectParticipant": "اختر مشارك",
+    "wonChallengeDesc": "<%= إسم التحدي %> إخترتك لتكون الفائز!تم تسجيل فوزك في \"إنجازاتك\".",
+    "yourReward": "مكافئاتك",
+    "filters": "فلاتر"
 }

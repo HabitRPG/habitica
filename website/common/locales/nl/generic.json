@@ -190,7 +190,7 @@
     "dismissAll": "Allen afwijzen",
     "messages": "Berichten",
     "emptyMessagesLine1": "Je hebt geen berichten",
-    "emptyMessagesLine2": "Stuur een bericht om een gesprek te beginnen!",
+    "emptyMessagesLine2": "Je kunt een nieuw bericht versturen naar een gebruiker door hun profiel te bezoeken en op de knop \"Bericht schrijven\" te drukken.",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> heeft je een bericht gestuurd",
     "letsgo": "Laten we gaan!",
     "selected": "Geselecteerd",

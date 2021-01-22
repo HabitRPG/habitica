@@ -8,10 +8,10 @@
     "messageCannotFeedPet": "Tohoto mazlíčka nemůžeš nakrmit.",
     "messageAlreadyMount": "Toto zvíře už ve stáji máš. Zkus nakrmit jiného mazlíčka.",
     "messageEvolve": "<%= egg %> už má na sobě sedlo, pojďme si zajezdit!",
-    "messageLikesFood": "<%= egg %>má opravdu rád <%= foodText %>!",
-    "messageDontEnjoyFood": "<%= egg %>snědl <%= foodText %>, ale nevypadá, že by mu to chutnalo.",
+    "messageLikesFood": "<%= egg %> má opravdu rád <%= foodText %>!",
+    "messageDontEnjoyFood": "<%= egg %> snědl <%= foodText %>, ale nevypadá, že by mu to chutnalo.",
     "messageBought": "<%= itemText %>, koupeno",
-    "messageUnEquipped": "<%= itemText %> byl odebrán.",
+    "messageUnEquipped": "<%= itemText %> byl odložen.",
     "messageMissingEggPotion": "Chybí ti buď to vejce nebo ten lektvar",
     "messageInvalidEggPotionCombo": "Nemůžeš vylíhnout vejce mazlíčků z výprav pomocí kouzelných líhnoucích lektvarů! Zkus jiné vejce.",
     "messageAlreadyPet": "Tohoto mazlíčka už máš. Zkus vylíhnout jinou kombinaci!",
@@ -53,5 +53,10 @@
     "messageMissingDisplayName": "Chybí zobrazované jméno.",
     "canDeleteNow": "Nyní můžete zprávu smazat.",
     "reportedMessage": "Tuto zprávu jste nahlásili moderátorům.",
-    "beginningOfConversationReminder": "Nezapomeňte být milí, taktní a respektujte Zásady komunity!"
+    "beginningOfConversationReminder": "Nezapomeňte být milí, taktní a respektujte Zásady komunity!",
+    "messageAllUnEquipped": "Vše odloženo.",
+    "messageBackgroundUnEquipped": "Pozadí odloženo.",
+    "messagePetMountUnEquipped": "Mazlíček a zvíře odloženi.",
+    "messageCostumeUnEquipped": "Kostým odložen.",
+    "messageBattleGearUnEquipped": "Bojová výstroj odložena."
 }

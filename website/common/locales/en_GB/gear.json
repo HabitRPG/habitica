@@ -2261,5 +2261,19 @@
     "weaponSpecialWinter2021WarriorNotes": "You can reel in the big one using this! Increases Strength by <%= str %>. Limited Edition 2020-2021 Winter Gear.",
     "weaponSpecialWinter2021WarriorText": "Mighty Fishing Rod",
     "weaponSpecialWinter2021RogueNotes": "Both disguise and weapon, this holly flail will help you handle the toughest tasks. Increases Strength by <%= str %>. Limited Edition 2020-2021 Winter Gear.",
-    "weaponSpecialWinter2021RogueText": "Holly Berry Flail"
+    "weaponSpecialWinter2021RogueText": "Holly Berry Flail",
+    "shieldArmoireBlueMoonSaiNotes": "This sai is a traditional weapon, imbued with the powers of the light side of the moon. Increases Perception by <%= per %>. Enchanted Armoire: Blue Moon Rogue Set (item 3 of 4).",
+    "shieldArmoireBlueMoonSaiText": "Light Lunar Sai",
+    "headArmoireBlueMoonHelmNotes": "This helm offers an astonishing amount of luck to its wearer, and exceptional events follow its use. Increases Intelligence by <%= int %>. Enchanted Armoire: Blue Moon Rogue Set (item 3 of 4).",
+    "headArmoireBlueMoonHelmText": "Blue Moon Helm",
+    "headMystery202101Notes": "The icy blue eyes on this feline helm will freeze even the most intimidating task on your list. Confers no benefit. January 2021 Subscriber Item.",
+    "headMystery202101Text": "Snazzy Snow Leopard Helm",
+    "armorArmoireBlueMoonShozokuNotes": "A strange serenity surrounds the wearer of this armor. Increases Constitution by <%= con %>. Enchanted Armoire: Blue Moon Rogue Set (item 4 of 4).",
+    "armorArmoireBlueMoonShozokuText": "Blue Moon Armor",
+    "armorMystery202101Notes": "Wrap yourself in warm fur and nearly endless tail floof! Confers no benefit. January 2021 Subscriber Item.",
+    "armorMystery202101Text": "Snazzy Snow Leopard Suit",
+    "weaponArmoireBlueMoonSaiNotes": "This sai is a traditional weapon, imbued with the powers of the dark side of the moon. Increases Strength by <%= str %>. Enchanted Armoire: Blue Moon Rogue Set (item 1 of 4).",
+    "weaponArmoireBlueMoonSaiText": "Dark Lunar Sai",
+    "headSpecialNye2020Notes": "You've received an Extravagant Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
+    "headSpecialNye2020Text": "Extravagant Party Hat"
 }

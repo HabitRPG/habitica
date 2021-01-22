@@ -70,7 +70,7 @@
     "level": "レベル",
     "levelUp": "レベルアップ！",
     "gainedLevel": "レベルが上がりました！",
-    "leveledUp": "実生活での目標達成で、<strong>レベル <%= level %> になりました！</strong>",
+    "leveledUp": "現実での目標達成で<strong>レベル <%= level %> になりました！</strong>",
     "huzzah": "やった！",
     "mana": "マナ",
     "hp": "体力",

@@ -74,7 +74,7 @@
     "pathRequired": "Padstring is noodzakelijk",
     "unlocked": "Voorwerpen zijn ontgrendeld",
     "alreadyUnlocked": "Volledige set is al ontgrendeld.",
-    "alreadyUnlockedPart": "Volledige set is al gedeeltelijk ontgrendeld.",
+    "alreadyUnlockedPart": "Volledige set is al gedeeltelijk ontgrendeld. Het is goedkoper de overige voorwerpen los te kopen.",
     "invalidQuantity": "Hoeveelheid om te kopen moet een positief heel getal zijn.",
     "USD": "(USD)",
     "newStuff": "Nieuwe informatie van Bailey",
@@ -94,8 +94,8 @@
     "classGearText": "Gefeliciteerd met je gekozen klasse! Ik heb je nieuwe standaardwapen in je boedel gestopt. Neem hieronder een kijkje om het te dragen!",
     "autoAllocate": "Automatische verdeling",
     "spells": "Vaardigheden",
-    "skillsTitle": "Vaardigheden",
-    "toDo": "To-Do",
+    "skillsTitle": "<%= classStr %> Vaardigheden",
+    "toDo": "To Do",
     "tourStatsPage": "Dit is jouw statistiekenpagina! Je kunt prestaties verdienen door deze taken te volbrengen.",
     "tourTavernPage": "Welcome to the Tavern, an all-ages chat room! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Pause Damage\". Come say hi!",
     "tourPartyPage": "Jouw gezelschap helpt je verantwoordelijk te blijven. Nodig je vrienden uit en speel een queeste-perkamentrol vrij!",
@@ -122,5 +122,9 @@
     "paymentSubBillingWithMethod": "Je abonnement zal afgeschreven worden: <strong>$<%= amount %></strong> elke <strong><%= months %> maanden</strong> via <strong><%= paymentMethod %></strong>.",
     "paymentCanceledDisputes": "We hebben een annuleringsbevestiging gestuurd naar je e-mailadres. Als je deze mail niet ziet, neem dan alsjeblieft contact met ons op om geschillen over toekomstige rekeningen te voorkomen.",
     "paymentAutoRenew": "Dit abonnement zal automatisch vernieuwd worden totdat het wordt geannuleerd. Als het nodig is je abonnement op te zeggen, kun je dat doen in je instellingen.",
-    "cannotUnpinItem": "Dit voorwerp kan niet losgekoppeld worden."
+    "cannotUnpinItem": "Dit voorwerp kan niet losgekoppeld worden.",
+    "invalidUnlockSet": "<%= nMonths %> Maand(en) Abonnement (Cadeau).",
+    "nGemsGift": "<%= nGems %> edelstenen (geschenk)",
+    "nGems": "<%= nGems %> edelstenen",
+    "nMonthsSubscriptionGift": "<%= nMonths %> Maand(en) Abonnement (Cadeau)"
 }
