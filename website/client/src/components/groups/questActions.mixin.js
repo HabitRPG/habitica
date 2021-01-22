@@ -32,10 +32,6 @@ export default {
           return false;
         }
 
-        if (!window.confirm(this.$t('doubleSureAbort'))) {
-          return false;
-        }
-
         const quest = await this.$store.dispatch('quests:sendAction', {
           groupId: this.group._id,
           action: 'quests/abort',

@@ -76,8 +76,10 @@
                   ></div>
                 </div>
                 <div class="item-progress-row">
-                  <span class="label item-progress"
-                        :class="{'no-items': group.quest.progress.collect[key] === 0}">
+                  <span
+                    class="label item-progress"
+                    :class="{'no-items': group.quest.progress.collect[key] === 0}"
+                  >
                     {{ group.quest.progress.collect[key] }} / {{ value.count }}
                   </span>
                   <div
@@ -89,7 +91,6 @@
                 </div>
               </div>
             </div>
-
           </div>
           <div
             v-if="questData.boss"
@@ -173,18 +174,19 @@
             >
               <div class="col-6">
                 <span class="float-left rage-value">
-                  <div class="svg-icon rage-icon icon-16"
-                       v-html="icons.rageIcon">
+                  <div
+                    class="svg-icon rage-icon icon-16"
+                    v-html="icons.rageIcon"
+                  >
                   </div>
                   {{ Math.ceil(parseFloat(group.quest.progress.rage)) }}
                   / {{ questData.boss.rage.value }}
-                  <strong v-once>{{$t('rage')}}</strong>
+                  <strong v-once>{{ $t('rage') }}</strong>
                 </span>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <div
@@ -223,8 +225,11 @@
         {{ $t('startQuest') }}
       </button>
     </div>
-    <div v-if="userIsOnQuest" class="leave-quest-holder">
-     <a
+    <div
+      v-if="userIsOnQuest"
+      class="leave-quest-holder"
+    >
+      <a
         v-once
         class="leave-quest text-center"
         :class="{'disabled': userIsQuestLeader}"
@@ -668,7 +673,10 @@ export default {
       this.$root.$emit('bv::show::modal', 'participant-list');
     },
     async questLeave () {
-      if (!window.confirm(this.$t('sureLeave'))) return; // eslint-disable-line no-alert
+      if (!window.confirm(this.$t(this.group.quest.active ? 'sureLeave' : 'sureLeaveInactive'))) {
+        return;
+      }
+
       const quest = await this.$store.dispatch('quests:sendAction', { groupId: this.group._id, action: 'quests/leave' });
       this.group.quest = quest;
     },

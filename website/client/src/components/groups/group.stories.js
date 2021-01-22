@@ -4,8 +4,8 @@ import {
   collectionQuestLeaderParticipating,
   collectionQuestNotParticipating,
   createStory,
-  groupBossQuestParticipating, groupBossQuestRage,
-  groupCollectionQuestNotStarted, groupCollectionQuestPending,
+  groupBossQuestParticipating, groupBossQuestRage, groupCollectionQuest,
+  groupCollectionQuestPending,
 } from '@/components/groups/group.stories.utils';
 
 storiesOf('Group Components|Party/Quest States', module)
@@ -111,7 +111,7 @@ storiesOf('Group Components|Party/Quest States', module)
     `,
     data () {
       return {
-        group: groupCollectionQuestNotStarted,
+        group: groupCollectionQuest(false),
       };
     },
     user: {
@@ -132,7 +132,28 @@ storiesOf('Group Components|Party/Quest States', module)
     `,
     data () {
       return {
-        group: groupCollectionQuestNotStarted,
+        group: groupCollectionQuest(false),
+      };
+    },
+    user: {
+      data: {
+        _id: 'just-a-member',
+        party: {
+
+        },
+      },
+    },
+    challengeOptions: {},
+  }))
+  .add('Member/Quest accepted/Started', () => createStory({
+    template: `
+      <div class="component-showcase">
+        <right-sidebar :group="group" :is-party="true" :is-member="true" class="col-12"/>
+      </div>
+    `,
+    data () {
+      return {
+        group: groupCollectionQuest(true),
       };
     },
     user: {

@@ -55,10 +55,10 @@
     >
       <div>
         <button
+          v-if="!onActiveQuest"
           v-once
           class="btn btn-secondary"
           @click="questConfirm()"
-          v-if="!onActiveQuest"
         >
           {{ $t('begin') }}
         </button>
