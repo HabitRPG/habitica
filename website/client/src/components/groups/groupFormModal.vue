@@ -616,14 +616,14 @@ export default {
           name: catName,
         });
       });
-      this.workingGroup.categories = serverCategories;
 
       const groupData = { ...this.workingGroup };
+      groupData.categories = serverCategories;
 
       let newgroup;
       if (groupData.id) {
         await this.$store.dispatch('guilds:update', { group: groupData });
-        this.$root.$emit('updatedGroup', this.workingGroup);
+        this.$root.$emit('updatedGroup', groupData);
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {
