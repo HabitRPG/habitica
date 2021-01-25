@@ -608,17 +608,16 @@ export default {
       };
 
       const categoryKeys = this.workingGroup.categories;
-      const serverCategories = [];
+      const categories = [];
       categoryKeys.forEach(key => {
         const catName = this.categoriesHashByKey[key];
-        serverCategories.push({
+        categories.push({
           slug: key,
           name: catName,
         });
       });
 
-      const groupData = { ...this.workingGroup };
-      groupData.categories = serverCategories;
+      const groupData = { ...this.workingGroup, categories };
 
       let newgroup;
       if (groupData.id) {
