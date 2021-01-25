@@ -9,42 +9,11 @@
     :footer-class="{ greyed: isGreyedSlotPresent}"
     :hide-footer="hideFooter"
   >
-    <section class="d-flex">
-      <span
-        class="star-group mirror"
-        v-html="icons.starGroup"
-      ></span>
-      <slot name="starred"></slot>
-      <span
-        class="star-group"
-        v-html="icons.starGroup"
-      ></span>
-    </section>
+    <slot></slot>
 
-    <p class="text">
-      <slot></slot>
-    </p>
-
-    <section class="greyed" v-if="isGreyedSlotPresent">
-      <div
-        v-if="hasRewards"
-        class="your-rewards d-flex"
-      >
-        <span
-          v-once
-          class="sparkles"
-          v-html="icons.sparkles"
-        ></span>
-        <span v-once class="text">{{ $t('yourRewards') }}</span>
-        <span
-          v-once
-          class="sparkles mirror"
-          v-html="icons.sparkles"
-        ></span>
-      </div>
-
+    <footer class="greyed" v-if="isGreyedSlotPresent && !hideFooter">
       <slot name="greyed"></slot>
-    </section>
+    </footer>
   </b-modal>
 </template>
 
@@ -97,41 +66,12 @@
       padding: 0;
     }
 
-    .mirror {
-      transform: scaleX(-1);
-    }
-
-    .star-group {
-      margin: auto;
-
-      svg {
-        height: 4rem;
-        width: 2.5rem;
-      }
-    }
-
-    .text {
+    .modal-text {
       margin: 1.5rem;
       min-height: auto !important;
     }
 
-    .your-rewards {
-      margin: 0 auto;
-      width: fit-content;
-
-      .sparkles {
-        width: 2rem;
-        margin-top: .75rem;
-      }
-
-      .text {
-        font-weight: bold;
-        margin: 1rem;
-        color: $gray-50;
-      }
-    }
-
-    section.greyed {
+    footer.greyed {
       padding: 0 1.5rem 1rem 1.5rem
     }
   }
@@ -139,9 +79,6 @@
 
 
 <script>
-import starGroup from '@/assets/svg/star-group.svg';
-import sparkles from '@/assets/svg/sparkles-left.svg';
-
 export default {
   props: {
     id: {
@@ -156,16 +93,7 @@ export default {
       type: String,
       default: 'onwards',
     },
-    hasRewards: Boolean,
     hideFooter: Boolean,
-  },
-  data () {
-    return {
-      icons: Object.freeze({
-        starGroup,
-        sparkles,
-      }),
-    };
   },
   computed: {
     isGreyedSlotPresent () {

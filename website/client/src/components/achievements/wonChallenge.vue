@@ -4,13 +4,14 @@
     :title="$t('wonChallenge')"
     has-rewards
   >
-    <template #starred>
+    <starred>
       <div class="achievement-karaoke-2x"></div>
-    </template>
+    </starred>
 
     <span v-html="$t('wonChallengeDesc', { challengeName })"></span>
 
     <template #greyed>
+      <your-rewards />
       <div class="w-100">
         <div class="d-flex align-items-center justify-content-center">
           <div
@@ -41,10 +42,16 @@ import habiticaMarkdown from 'habitica-markdown';
 
 import gem from '@/assets/svg/gem.svg';
 
-import smallModal from '@/components/ui/smallModal';
+import smallModal from '@/components/ui/modal/smallModal';
+import starred from '@/components/ui/modal/starred';
+import yourRewards from '@/components/ui/modal/your-rewards';
 
 export default {
-  components: { smallModal },
+  components: {
+    smallModal,
+    starred,
+    yourRewards,
+  },
   data () {
     // const tweet = this.$t('wonChallengeShare');
     return {

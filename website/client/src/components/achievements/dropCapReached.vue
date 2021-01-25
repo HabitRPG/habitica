@@ -6,7 +6,7 @@
     @buttonClicked="toLearnMore"
     :hide-footer="hasSubscription"
   >
-    <template #starred>
+    <starred>
       <div class="max-items-module d-flex align-items-center justify-content-center flex-column">
         <h1 class="max-items">
           {{ maxItems }}
@@ -16,16 +16,13 @@
           class="items-text"
         >{{ $t('items') }}</span>
       </div>
-    </template>
-    <p
-      v-once
-      class="mb-4"
-    >
+    </starred>
+    <p v-once class="text-center m-3">
       {{ $t('dropCapExplanation') }}
     </p>
     <a
       v-once
-      class="standard-link d-block mb-3"
+      class="standard-link d-block mb-3 text-center"
       @click="toWiki"
     >
       {{ $t('dropCapLearnMore') }}
@@ -105,12 +102,17 @@
 </style>
 
 <script>
-import smallModal from '@/components/ui/smallModal';
+import smallModal from '@/components/ui/modal/smallModal';
+import starred from '@/components/ui/modal/starred.vue';
+
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 
 export default {
-  components: { smallModal },
+  components: {
+    smallModal,
+    starred,
+  },
   data () {
     return { maxItems: null };
   },

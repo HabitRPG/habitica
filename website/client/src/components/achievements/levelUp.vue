@@ -1,17 +1,20 @@
 <template>
-  <small-modal id="level-up" :title="title" has-rewards>
-    <template #starred>
+  <small-modal id="level-up" :title="title">
+    <starred>
       <avatar
         class="avatar"
         :member="user"
-        :hide-class-badge="true"
+        hide-class-badge
       />
-    </template>
+    </starred>
 
-    {{ $t('levelup') }}
+    <p class="text">{{ $t('levelup') }}</p>
 
     <template #greyed>
-      <div :class="questClass" v-if="displayRewardQuest"></div>
+      <div v-if="displayRewardQuest">
+        <your-rewards />
+        <div :class="questClass"></div>
+      </div>
     </template>
   </small-modal>
 </template>
@@ -19,6 +22,10 @@
 <style lang="scss">
   .avatar {
     cursor: auto;
+  }
+
+  .text {
+    margin: 1rem;
   }
 
   .scroll {
@@ -30,7 +37,9 @@
 import { mapState } from '@/libs/store';
 
 import Avatar from '@/components/avatar';
-import smallModal from '@/components/ui/smallModal';
+import smallModal from '@/components/ui/modal/smallModal';
+import starred from '@/components/ui/modal/starred.vue';
+import yourRewards from '@/components/ui/modal/your-rewards.vue';
 
 const levelQuests = {
   15: 'atom1',
@@ -43,6 +52,8 @@ export default {
   components: {
     Avatar,
     smallModal,
+    starred,
+    yourRewards,
   },
   computed: {
     ...mapState({ user: 'user.data' }),
