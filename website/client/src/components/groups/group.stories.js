@@ -82,6 +82,7 @@ storiesOf('Group Components|Party/Quest States', module)
     data () {
       return {
         group: {
+          description: 'Some text',
           leader: {
 
           },

@@ -48,16 +48,12 @@
     padding-right: 1.5rem;
 
     padding-top: 0.688em;
-    padding-bottom: 1em;
+    padding-bottom: 0.75em;
   }
 
   .section:last-of-type {
     border-bottom: 1px solid #e1e0e3;
     margin-bottom: 1em;
-  }
-
-  .section-header {
-    margin-bottom: 0.75rem;
   }
 
   .section-info {
@@ -67,6 +63,21 @@
   .section-info .svg-icon {
     width: 16px;
   }
+
+  .section-body ::v-deep {
+    > *:empty {
+      display: none;
+    }
+
+    > *:not(:empty) {
+      margin-top: 0.75rem;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
 </style>
 
 <script>
