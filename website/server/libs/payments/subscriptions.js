@@ -187,7 +187,7 @@ async function createSubscription (data) {
       quantity: 1,
       gift: Boolean(data.gift),
       purchaseValue: block.price,
-      headers: data.headers,
+      headers: data.headers || { 'x-client': 'habitica-web' },
       firstPurchase: !group && data.user.purchased.txnCount === 1,
     });
   }

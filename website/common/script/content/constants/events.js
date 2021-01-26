@@ -18,14 +18,14 @@ export const EVENTS = {
     end: '2021-03-20T08:00-05:00',
     season: 'normal',
   },
-  winter2021NoPromo: {
-    start: '2021-01-07T20:00-05:00',
+  winter2021: {
+    start: '2020-12-17T08:00-05:00',
     end: '2021-01-31T20:00-05:00',
     season: 'winter',
   },
-  winter2021: {
-    start: '2020-12-17T08:00-05:00',
-    end: '2021-01-07T20:00-05:00',
+  winter2021Promo: { // used in tests, not an actual past event
+    start: '2020-12-01T08:00-05:00',
+    end: '2020-12-17T20:00-05:00',
     season: 'winter',
     promo: 'g1g1',
   },

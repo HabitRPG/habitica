@@ -408,5 +408,20 @@
     "backgroundArchaeologicalDigText": "Archaeological Dig",
     "backgroundArchaeologicalDigNotes": "Unearth secrets of the ancient past at an Archaeological Dig.",
     "backgroundScribesWorkshopText": "Scribe's Workshop",
-    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop."
+    "backgroundScribesWorkshopNotes": "Write your next great scroll in a Scribe's Workshop.",
+    "backgroundOldFashionedBakeryNotes": "Απόλαυσε λαχταριστές μυρωδιές έξω από ένα Παλιομοδίτικο Αρτοποιείο.",
+    "backgroundOldFashionedBakeryText": "Παλιομοδίτικο Αρτοποιείο",
+    "backgroundMedievalKitchenText": "Μεσαιωνική Κουζίνα",
+    "backgroundDuckPondNotes": "Τάισε υδρόβια πουλιά στην Λιμνούλα με τις Πάπιες.",
+    "backgroundDuckPondText": "Λιμνούλα με Πάπιες",
+    "backgroundFlowerMarketNotes": "Βρες τα τέλεια χρώματα για να φτιάξεις ένα μπουκέτο ή έναν κήπο σε μία Αγορά Λουλουδιών.",
+    "backgroundFlowerMarketText": "Αγορά Λουλουδιών",
+    "backgroundFieldWithColoredEggsNotes": "Κυνήγησε τον ανοιξιάτικο θυσαυρό σε ένα Λιβάδι με Χρωματιστά Αυγά.",
+    "backgroundFieldWithColoredEggsText": "Λιβάδι με Χρωματιστά Αυγά",
+    "backgroundDojoNotes": "Μάθε νέες κινήσεις σε ένα Ντότζο.",
+    "backgroundDojoText": "Ντότζο",
+    "backgroundParkWithStatueNotes": "Ακολούθησε ένα μονοπάτι γεμάτο λουλούδια μέσα από ένα Πάρκο με Άγαλμα.",
+    "backgroundParkWithStatueText": "Πάρκο με Άγαλμα",
+    "backgroundSchoolOfFishNotes": "Κολύμπησε ανάμεσα σε ένα Σχολείο Ψαριών.",
+    "backgroundSchoolOfFishText": "Σχολείο Ψαριών"
 }

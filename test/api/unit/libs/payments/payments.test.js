@@ -269,7 +269,7 @@ describe('payments/index', () => {
       context('Active Promotion', () => {
         beforeEach(() => {
           sinon.stub(worldState, 'getCurrentEvent').returns({
-            ...common.content.events.winter2021,
+            ...common.content.events.winter2021Promo,
             event: 'winter2021',
           });
         });

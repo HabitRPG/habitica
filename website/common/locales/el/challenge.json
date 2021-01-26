@@ -100,5 +100,8 @@
     "viewProgress": "Δες την Πρόοδο",
     "selectMember": "Επίλεξε Μέλος",
     "confirmKeepChallengeTasks": "Θέλεις να διατηρήσεις τις υποχρεώσεις της Πρόκλησης;",
-    "selectParticipant": "Επίλεξε έναν Συμμετέχοντα"
+    "selectParticipant": "Επίλεξε έναν Συμμετέχοντα",
+    "wonChallengeDesc": "Η πρόκληση <%= challengeName %> σε επέλεξε ως νικητή! Η νίκη σου έχει καταγραφεί στις Επιτυχίες σου.",
+    "yourReward": "Η Ανταμοιβή Σου",
+    "filters": "Φίλτρα"
 }

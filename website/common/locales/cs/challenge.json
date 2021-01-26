@@ -101,5 +101,7 @@
     "selectMember": "Vyber člena",
     "confirmKeepChallengeTasks": "Chceš ponechat úkoly z výzvy?",
     "selectParticipant": "Zvol účastníka",
-    "filters": "Filtry"
+    "filters": "Filtry",
+    "wonChallengeDesc": "Vyhrál/a jsi výzvu <%= challengeName %>! Tvá výhra je zaznamenána ve tvých úspěších.",
+    "yourReward": "Tvá odměna"
 }

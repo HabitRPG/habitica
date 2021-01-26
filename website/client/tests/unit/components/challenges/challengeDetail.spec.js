@@ -42,6 +42,7 @@ describe('Challenge Detail', () => {
           { _id: '3', type: 'reward' },
           { _id: '4', type: 'todo' },
         ],
+        'common:setTitle': () => {},
       },
       getters: {
       },

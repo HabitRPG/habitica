@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Rebirth: New Nautical Adventure Available!",
-    "rebirthUnlock": "Ye've unlocked Rebirth! 'tis special Market item allows ye t' begin a new game at level 1 while keepin' ye tasks, achievements, pets, 'n more. Use it t' breathe new life into Habitica if ye feel ye've achieved it all, or t' experience new weapons wit' th' fresh eyes 'o a beginnin' character!",
+    "rebirthUnlock": "Ye've unlocked Rebirth! 'tis special Market item allows ye t' begin a new game at level 1 while keepin' ye tasks, achievements, pets, an' more. Use it t' breathe new life into Habitica if ye feel ye've achieved it all, or t' experience new weapons wit' th' fresh eyes o' a beginnin' character!",
     "rebirthAchievement": "Ye've begun a new adventure! 'tis be Rebirth <%= number %> fer ye, 'n th' highest Level ye've attained be <%= level %>. To stack 'tis Achievement, begin ye next new adventure when ye've reached an even higher Level!",
     "rebirthAchievement100": "Ye've begun a new voyage! This be Rebirth <%= number %> fer ye, an' th' highest Level ye've attained be 100 or higher. T' stack this Achievement, begin yer nex' new voyage when ye've reached at least 100!",
     "rebirthBegan": "Embarked on a New Adventure",
