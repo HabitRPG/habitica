@@ -314,5 +314,13 @@
     "questEggRobotAdjective": "एक भविष्यवादी",
     "questEggRobotMountText": "रोबोट",
     "questEggRobotText": "रोबोट",
-    "hatchingPotionCelestial": "स्वर्गीय"
+    "hatchingPotionCelestial": "स्वर्गीय",
+    "hatchingPotionRuby": "माणिक",
+    "hatchingPotionAmber": "अंबर",
+    "hatchingPotionShadow": "साया",
+    "hatchingPotionSilver": "चांदी",
+    "hatchingPotionWatery": "तरल",
+    "hatchingPotionBronze": "पीतल",
+    "hatchingPotionSunshine": "धूप",
+    "hatchingPotionVeggie": "बगीचा"
 }
