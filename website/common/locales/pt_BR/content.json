@@ -244,11 +244,11 @@
     "foodHoneyThe": "o Mel",
     "foodHoneyA": "Mel",
     "foodCakeSkeleton": "Bolo Esquelético",
-    "foodCakeSkeletonThe": "a Bala de Ossos",
-    "foodCakeSkeletonA": "Bala de Ossos",
-    "foodCakeBase": "Bolo Comum",
-    "foodCakeBaseThe": "a Bala Básica",
-    "foodCakeBaseA": "uma Bala Básica",
+    "foodCakeSkeletonThe": "o Bolo Esquelético",
+    "foodCakeSkeletonA": "um Bolo Esquelético",
+    "foodCakeBase": "Bolo Básico",
+    "foodCakeBaseThe": "o Bolo Básico",
+    "foodCakeBaseA": "um Bolo Básico",
     "foodCakeCottonCandyBlue": "Bolo Doce Azul",
     "foodCakeCottonCandyBlueThe": "o Bolo de Bala Azul",
     "foodCakeCottonCandyBlueA": "um Bolo de Bala Azul",
@@ -364,5 +364,5 @@
     "hatchingPotionVampire": "Vampiro",
     "hatchingPotionBlackPearl": "Pérola Negra",
     "hatchingPotionAutumnLeaf": "Folha de Outono",
-    "hatchingPotionStainedGlass": "Vitral colorido"
+    "hatchingPotionStainedGlass": "Vitral Colorido"
 }

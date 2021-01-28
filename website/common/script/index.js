@@ -89,6 +89,7 @@ import updateTask from './ops/updateTask';
 // TODO under api.libs.statHelpers?
 import * as statHelpers from './statHelpers';
 import { unEquipByType } from './ops/unequip';
+import getOfficialPinnedItems from './libs/getOfficialPinnedItems';
 
 const api = {};
 api.content = content;
@@ -145,6 +146,7 @@ api.hasClass = hasClass;
 api.onboarding = onboarding;
 api.setDebuffPotionItems = setDebuffPotionItems;
 api.getDebuffPotionItems = getDebuffPotionItems;
+api.getOfficialPinnedItems = getOfficialPinnedItems;
 
 api.fns = {
   autoAllocate,

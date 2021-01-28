@@ -2171,5 +2171,22 @@
     "backMystery202009Notes": "Laat deze enorme vleugels je naar nieuwe hoogten brengen! Geeft geen voordeel. September 2020 Abonnee Uitrusting.",
     "backMystery202009Text": "Geweldige Mot Vleugels",
     "headAccessoryMystery202009Notes": "Deze gevederde aanhangsels helpen je zelfs in het donker van de nacht je weg te vinden. Geeft geen voordeel. September 2020 Abonnee Uitrusting.",
-    "headAccessoryMystery202009Text": "Geweldige Mot Antennes"
+    "headAccessoryMystery202009Text": "Geweldige Mot Antennes",
+    "headSpecialNye2020Notes": "Je hebt een Extravagante Feestmuts gekregen! Draag hem trots bij het inluiden van het nieuwe jaar! Geeft geen voordeel.",
+    "headSpecialNye2020Text": "Extravagante Feestmuts",
+    "weaponSpecialWinter2021HealerText": "Vlok-geflensde roede",
+    "weaponSpecialWinter2021RogueNotes": "Deze hulst-strijdvlegel is zowel vermomming als wapen, en helpt je de meest stugge taken aan te kunnen. Verhoogt Kracht met <%= str %>. Beperkte Oplage 2020-2021 winteruitrusting.",
+    "weaponSpecialWinter2021WarriorNotes": "Met deze hengel haal je flinkerds binnen! Verhoogt Kracht met <%= str %>. Beperkte Oplage 2020-2021 winteruitrusting.",
+    "weaponSpecialWinter2021MageNotes": "Dit machtige wapen is zeker geen fase! Kanaliseer je krachten, focus op het vloeien van de maand, en bestudeer tijd en ruimte. Verhoogt Intelligentie met <%= int %> en Perceptie met <%= per %>. Beperkte Oplage 2020-2021 winteruitrusting.",
+    "weaponSpecialWinter2021MageText": "Magisch Maan Faser",
+    "weaponSpecialWinter2021WarriorText": "Machtige Vishengel",
+    "weaponSpecialWinter2021RogueText": "Hulstbes Strijdvlegel",
+    "weaponSpecialFall2020HealerNotes": "Nu je transformatie voltooid is, dient dit overblijfsel van je verpoppingstijd als wichelroede om het lot mee te bepalen. Verhoogt Intelligentie met <%= int %>. Beperkte Oplage 2020 herfstuitrusting.",
+    "weaponSpecialFall2020HealerText": "Cocon stok",
+    "weaponSpecialFall2020MageNotes": "Mocht iets je zienersblik ontgaan zijn, dan zal het fonkelende kristal aan de tip van deze staf schijnen op wat je gemist hebt. Verhoogt Intelligentie met <%= int %>. Beperkte Oplage 2020 herfstuitrusting.",
+    "weaponSpecialFall2020MageText": "Drie Visioenen",
+    "weaponSpecialFall2020WarriorNotes": "Dit zwaard is met een machtige strijder mee het hiernamaals in gegaan, en keert terug voor jouw hantering. Verhoogt Kracht met <%= str %>.Beperkte Oplage 2020 herfstuitrusting.",
+    "weaponSpecialFall2020WarriorText": "Zwaard van de Spookgedaante",
+    "weaponSpecialFall2020RogueNotes": "Doorboor je tegenstander met een scherpe steek. Zelfs het dikste pantser zal je kling niet weerstaan. Verhoogt Kracht met <%= str %>. Beperkte Oplage 2020 herfstuitrusting.",
+    "weaponSpecialFall2020RogueText": "Scherpe Katar"
 }

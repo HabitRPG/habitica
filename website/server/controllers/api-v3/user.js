@@ -1716,7 +1716,7 @@ api.movePinnedItem = {
 
     const { user } = res.locals;
     const { path } = req.params;
-    const position = Number(req.params.position);
+    let position = Number(req.params.position);
 
     // If something has been added or removed from the inAppRewards, we need
     // to reset pinnedItemsOrder to have the correct length. Since inAppRewards
@@ -1727,16 +1727,27 @@ api.movePinnedItem = {
       user.pinnedItemsOrder = currentPinnedItems.map(item => item.path);
     }
 
+    const officialItems = common.getOfficialPinnedItems(user);
+
+    const itemExistInPinnedArray = user.pinnedItems.findIndex(item => item.path === path);
+    const itemExistInOfficialItems = officialItems.findIndex(item => item.path === path);
+
+    if (itemExistInPinnedArray === -1 && itemExistInOfficialItems === -1) {
+      throw new BadRequest(res.t('wrongItemPath', { path }, req.language));
+    }
+
     // Adjust the order
     const currentIndex = user.pinnedItemsOrder.findIndex(item => item === path);
     const currentPinnedItemPath = user.pinnedItemsOrder[currentIndex];
 
-    if (currentIndex === -1) {
-      throw new BadRequest(res.t('wrongItemPath', { path }, req.language));
+    if (currentIndex !== -1) {
+      // Remove the one we will move
+      user.pinnedItemsOrder.splice(currentIndex, 1);
+    } else {
+      // usually the array would be already fixed by the inAppRewards call
+      // but it seems something didn't work out
+      position = Math.min(position, user.pinnedItemsOrder.length - 1);
     }
-
-    // Remove the one we will move
-    user.pinnedItemsOrder.splice(currentIndex, 1);
 
     // reinsert the item in position (or just at the end)
     if (position === -1) {

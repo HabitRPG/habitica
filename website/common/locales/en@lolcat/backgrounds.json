@@ -1,5 +1,7 @@
 {
     "backgroundShop": "Bakground Shop",
     "background": "Bakground",
-    "backgrounds": "Baekgroundz"
+    "backgrounds": "Baekgroundz",
+    "noBackground": "U has no choosd bakgrownd!1!",
+    "backgroundShopText": "Bakgrownd Shop"
 }
