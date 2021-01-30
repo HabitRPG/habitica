@@ -20,16 +20,14 @@
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
 
-  .modal-dialog {
+  .modal-dialog.modal-sm {
     .modal-content {
       border-radius: 8px;
       box-shadow: 0 14px 28px 0 rgba($black, 0.24), 0 10px 10px 0 rgba($black, 0.28);
     }
 
     @media (min-width: 576px) {
-      &.modal-sm {
-        max-width: 20.625rem;
-      }
+      max-width: 20.625rem;
     }
 
     header {

@@ -8,7 +8,7 @@
       <div class="achievement-karaoke-2x"></div>
     </starred>
 
-    <span v-html="$t('wonChallengeDesc', { challengeName })"></span>
+    <div class="text" v-html="$t('wonChallengeDesc', { challengeName })"></div>
 
     <template #greyed>
       <your-rewards />
@@ -26,13 +26,13 @@
   </small-modal>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .gem {
     width: 1.5rem;
     height: 1.5rem;
   }
 
-  span p {
+  .text::v-deep p {
     display: inline;
   }
 </style>

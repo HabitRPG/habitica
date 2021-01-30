@@ -30,6 +30,7 @@
     }
 
     .text {
+      min-height: 0;
       font-weight: bold;
       margin: 1rem;
       color: $gray-50;
