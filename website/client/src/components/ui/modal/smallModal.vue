@@ -8,6 +8,7 @@
     @ok="$emit('buttonClicked')"
     :footer-class="{ greyed: isGreyedSlotPresent}"
     :hide-footer="hideFooter"
+    :static="disableLazyRender"
   >
     <slot></slot>
 
@@ -92,6 +93,9 @@ export default {
       default: 'onwards',
     },
     hideFooter: Boolean,
+  },
+  data () {
+    return { disableLazyRender: false };
   },
   computed: {
     isGreyedSlotPresent () {

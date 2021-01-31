@@ -211,6 +211,29 @@
                  @click="openModifyInventoryModal()">Modify Inventory</a>
               <a class="btn btn-secondary"
                  @click="$root.$emit('bv::show::modal', 'drop-cap-reached')">Drop cap reached</a>
+              <a class="btn btn-secondary"
+                 @click="$root.$emit('habitica:payment-success', {
+                   paymentType: 'gems',
+                   gemsBlock: { gems: 5 },
+                 })">Bought Gems</a>
+              <a class="btn btn-secondary"
+                 @click="$root.$emit('habitica:payment-success', {
+                   paymentType: 'gift-gems-balance',
+                   giftReceiver: 'Lucky User',
+                   gift: { gems: { amount: 5 } },
+                 })">Gift gems from balance success</a>
+              <a class="btn btn-secondary"
+                 @click="$root.$emit('habitica:payment-success', {
+                   paymentType: 'gift-gems',
+                   giftReceiver: 'Lucky User',
+                   gift: { gems: { amount: 5 } },
+                 })">Gift gems success</a>
+              <a class="btn btn-secondary"
+                 @click="$root.$emit('habitica:payment-success', {
+                   paymentType: 'gift-subscription',
+                   giftReceiver: 'Very lucky User',
+                   subscriptionKey: 'basic_6mo',
+                 })">Gifted Subscription</a>
             </div>
           </div>
         </div>

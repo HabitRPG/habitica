@@ -230,7 +230,7 @@ export default {
   },
   mounted () {
     this.$root.$on('habitica:payment-success', data => {
-      if (['subscription', 'groupPlan', 'gift-subscription'].indexOf(data.paymentType) !== -1) {
+      if (['subscription', 'groupPlan', 'gift-subscription'].includes(data.paymentType)) {
         data.subscription = subscriptionBlocks[data.subscriptionKey || data.gift.subscription.key];
       }
       this.paymentData = data;
