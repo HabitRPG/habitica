@@ -38,7 +38,7 @@ envVars
     envObject[key] = nconf.get(key);
   });
 
-const enableDuplicatesPlugin = process.env['npm_lifecycle_event'] !== 'storybook:serve';
+const enableDuplicatesPlugin = process.env.npm_lifecycle_event !== 'storybook:serve';
 
 const webpackPlugins = [
   new webpack.EnvironmentPlugin(envObject),
@@ -46,9 +46,9 @@ const webpackPlugins = [
 ];
 
 if (enableDuplicatesPlugin) {
-  webpackPlugins.splice(0,0,  new DuplicatesPlugin({
-        verbose: true,
-      }));
+  webpackPlugins.splice(0, 0, new DuplicatesPlugin({
+    verbose: true,
+  }));
 }
 
 module.exports = {
