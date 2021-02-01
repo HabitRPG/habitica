@@ -69,11 +69,11 @@
       display: none;
     }
 
-    > *:not(:empty) {
+    > :first-child:not(:empty) {
       margin-top: 0.75rem;
     }
 
-    p:last-of-type {
+    :last-child {
       margin-bottom: 0;
     }
   }
