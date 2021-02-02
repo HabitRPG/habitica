@@ -1151,6 +1151,8 @@
   "armorArmoireDressingGownNotes": "Relax in style with this beautiful traditional dressing gown. Increases Constitution by <%= con %>. Enchanted Armoire: Dressing Gown Set (Item 1 of 3).",
   "armorArmoireBlueMoonShozokuText": "Blue Moon Armor",
   "armorArmoireBlueMoonShozokuNotes": "A strange serenity surrounds the wearer of this armor. Increases Constitution by <%= con %>. Enchanted Armoire: Blue Moon Rogue Set (item 4 of 4).",
+  "armorArmoireSoftPinkSuitText": "Soft Pink Suit",
+  "armorArmoireSoftPinkSuitNotes": "Pink is a soothing color. Slip into this loungewear set for a bit of peace during the daily grind! Increases Perception by <%= per %>. Enchanted Armoire: Pink Loungewear Set (item 2 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1784,6 +1786,8 @@
   "headArmoireNightcapNotes": "Your new nightcap even has a nice bouncy pompom! Increases Perception by <%= per %>. Enchanted Armoire: Dressing Gown Set (Item 2 of 3).",
   "headArmoireBlueMoonHelmText": "Blue Moon Helm",
   "headArmoireBlueMoonHelmNotes": "This helm offers an astonishing amount of luck to its wearer, and exceptional events follow its use. Increases Intelligence by <%= int %>. Enchanted Armoire: Blue Moon Rogue Set (item 3 of 4).",
+  "headArmoirePinkFloppyHatText": "Pink Floppy Hat",
+  "headArmoirePinkFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a perfect pink color. Increases Intelligence by <%= int %>. Enchanted Armoire: Pink Loungewear Set (item 1 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -2098,6 +2102,8 @@
   "shieldArmoireDarkAutumnFlameNotes": "These mesmerizing flames dance with lively but foreboding energy even in autumn's chilliest nights. Increases Constitution by <%= con %>. Enchanted Armoire: Autumn Enchanter Set (Item 4 of 4).",
   "shieldArmoireBlueMoonSaiText": "Light Lunar Sai",
   "shieldArmoireBlueMoonSaiNotes": "This sai is a traditional weapon, imbued with the powers of the light side of the moon. Increases Perception by <%= per %>. Enchanted Armoire: Blue Moon Rogue Set (item 2 of 4).",
+  "shieldArmoireSoftPinkPillowText": "Soft Pink Pillow",
+  "shieldArmoireSoftPinkPillowNotes": "The sensible warrior packs a pillow for any expedition. Soften life's blows... even while you nap. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Pink Loungewear Set (item 3 of 3).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
