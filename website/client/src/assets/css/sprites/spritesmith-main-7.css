@@ -1,24 +1,18 @@
-.shield_armoire_mortarAndPestle {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -920px -264px;
-  width: 90px;
-  height: 90px;
-}
 .shield_armoire_mushroomDruidShield {
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -920px -355px;
+  background-position: -920px -352px;
   width: 90px;
   height: 90px;
 }
 .shield_armoire_mysticLamp {
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -920px -446px;
+  background-position: -920px -443px;
   width: 90px;
   height: 90px;
 }
 .shield_armoire_perchingFalcon {
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -920px -537px;
+  background-position: -920px -534px;
   width: 90px;
   height: 90px;
 }
@@ -48,19 +42,19 @@
 }
 .shield_armoire_ramHornShield {
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -920px -628px;
+  background-position: -920px -625px;
   width: 90px;
   height: 90px;
 }
 .shield_armoire_redRose {
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -920px -719px;
+  background-position: -920px -716px;
   width: 90px;
   height: 90px;
 }
 .shield_armoire_royalCane {
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -920px -810px;
+  background-position: -920px -807px;
   width: 90px;
   height: 90px;
 }
@@ -102,7 +96,7 @@
 }
 .shield_armoire_swanFeatherFan {
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -805px -819px;
+  background-position: -920px 0px;
   width: 114px;
   height: 87px;
 }
@@ -1902,7 +1896,7 @@
 }
 .slim_armor_armoire_lamplightersGreatcoat {
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -920px 0px;
+  background-position: -920px -88px;
   width: 114px;
   height: 87px;
 }
@@ -2274,7 +2268,7 @@
 }
 .weapon_armoire_guardiansCrook {
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -920px -88px;
+  background-position: -920px -176px;
   width: 114px;
   height: 87px;
 }
@@ -2328,7 +2322,7 @@
 }
 .weapon_armoire_lamplighter {
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
-  background-position: -920px -176px;
+  background-position: -920px -264px;
   width: 114px;
   height: 87px;
 }
@@ -2462,5 +2456,11 @@
   background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
   background-position: -1217px -455px;
   width: 90px;
+  height: 90px;
+}
+.weapon_armoire_weaversComb {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-7.png');
+  background-position: -805px -819px;
+  width: 114px;
   height: 90px;
 }
