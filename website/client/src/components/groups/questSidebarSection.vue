@@ -179,8 +179,8 @@
                     v-html="icons.rageIcon"
                   >
                   </div>
-                  {{ Math.ceil(parseFloat(group.quest.progress.rage)) }}
-                  / {{ questData.boss.rage.value }}
+                  <span>{{ Math.ceil(parseFloat(group.quest.progress.rage)) }}
+                    / {{ questData.boss.rage.value }}</span>
                   <strong v-once>{{ $t('rage') }}</strong>
                 </span>
               </div>
@@ -254,10 +254,8 @@
   }
 
   .boss-health-bar {
-    width: 80%;
     background-color: $red-50;
     height: 0.75rem;
-    margin-bottom: 0.5rem;
 
     display: inline-block;
   }
@@ -266,7 +264,6 @@
     height: 0.75rem;
     background-color: $yellow-50;
     display: inline-block;
-    margin-bottom: 0.5rem;
   }
 
   .rage-details {
@@ -282,6 +279,7 @@
     background-color: #e1e0e3;
     border-radius: 2px;
     overflow: hidden;
+    display: flex;
   }
 
   .collect-progress-bar {
@@ -415,6 +413,11 @@
         line-height: 1.33;
         color: $orange-10;
         display: flex;
+        height: 1rem;
+
+        .span {
+          align-self: center;
+        }
       }
 
       .pending-value {

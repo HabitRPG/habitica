@@ -1,5 +1,5 @@
 <template>
-  <div class="section">
+  <div class="section" :class="{'visible':visible}">
     <div class="section-header d-flex align-items-center">
       <h3
         v-once
@@ -49,6 +49,10 @@
 
     padding-top: 0.688em;
     padding-bottom: 0.75em;
+
+    &.visible {
+      padding-bottom: 1rem;
+    }
   }
 
   .section:last-of-type {
