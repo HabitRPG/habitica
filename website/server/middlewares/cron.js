@@ -73,13 +73,37 @@ async function cronAsync (req, res) {
       return null;
     }
 
-    const tasks = await Tasks.Task.find({
-      userId: user._id,
-      $or: [ // Exclude completed todos
-        { type: 'todo', completed: false },
-        { type: { $in: ['habit', 'daily', 'reward'] } },
-      ],
-    }).exec();
+    const teamsLed = await user.teamsLed();
+    let tasksQuery;
+
+    if (teamsLed.length > 0) {
+      tasksQuery = {
+        $and: [
+          {
+            $or: [
+              { userId: user._id },
+              { userId: { $exists: false }, 'group.id': { $in: teamsLed } },
+            ],
+          },
+          {
+            $or: [
+              { type: 'todo', completed: false },
+              { type: { $in: ['habit', 'daily'] } },
+            ],
+          },
+        ],
+      };
+    } else {
+      tasksQuery = {
+        userId: user._id,
+        $or: [
+          { type: 'todo', completed: false },
+          { type: { $in: ['habit', 'daily'] } },
+        ],
+      };
+    }
+
+    const tasks = await Tasks.Task.find(tasksQuery).exec();
 
     const tasksByType = {
       habits: [], dailys: [], todos: [], rewards: [],

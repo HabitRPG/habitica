@@ -448,20 +448,6 @@
           v-if="groupId"
           class="option group-options mt-3"
         >
-          <div
-            v-if="task.type === 'todo'"
-            class="form-group"
-          >
-            <label
-              v-once
-              class="mb-1"
-            >{{ $t('sharedCompletion') }}</label>
-            <select-translated-array
-              :items="['recurringCompletion', 'singleCompletion', 'allAssignedCompletion']"
-              :value="sharedCompletion"
-              @select="sharedCompletion = $event"
-            />
-          </div>
           <div class="form-group row mt-3 mb-3">
             <label
               v-once
@@ -478,17 +464,6 @@
                 @toggle="toggleAssignment($event)"
               />
             </div>
-          </div>
-          <div class="form-group flex-group mt-3 mb-4">
-            <label
-              v-once
-              class="mb-0 flex"
-            >{{ $t('approvalRequired') }}</label>
-            <toggle-switch
-              class="d-inline-block"
-              :checked="requiresApproval"
-              @change="updateRequiresApproval"
-            />
           </div>
         </div>
         <div
@@ -1051,7 +1026,6 @@ import keys from 'lodash/keys';
 import pickBy from 'lodash/pickBy';
 import moment from 'moment';
 import Datepicker from '@/components/ui/datepicker';
-import toggleSwitch from '@/components/ui/toggleSwitch';
 import toggleCheckbox from '@/components/ui/toggleCheckbox';
 import markdownDirective from '@/directives/markdown';
 import { mapGetters, mapActions, mapState } from '@/libs/store';
@@ -1075,7 +1049,6 @@ export default {
   components: {
     SelectMulti,
     Datepicker,
-    toggleSwitch,
     checklist,
     selectDifficulty,
     selectTranslatedArray,
@@ -1102,8 +1075,6 @@ export default {
         calendar: calendarIcon,
         grip: gripIcon,
       }),
-      requiresApproval: false, // We can't set task.group fields so we use this field to toggle
-      sharedCompletion: 'singleCompletion',
       managerNotes: '',
       members: [],
       membersNameAndId: [],
@@ -1283,9 +1254,6 @@ export default {
       if (this.task && this.task.group && this.task.group.managerNotes) {
         this.managerNotes = this.task.group.managerNotes;
       }
-      if (this.groupId && this.task.group && this.task.group.approval) {
-        this.requiresApproval = this.task.group.approval.required;
-      }
 
       if (this.groupId) {
         const members = await this.$store.dispatch('members:getGroupMembers', {
@@ -1305,9 +1273,6 @@ export default {
         this.assignedMembers = [];
         if (this.task.group && this.task.group.assignedUsers) {
           this.assignedMembers = this.task.group.assignedUsers;
-        }
-        if (this.task.group) {
-          this.sharedCompletion = this.task.group.sharedCompletion || 'singleCompletion';
         }
       }
 
@@ -1470,10 +1435,6 @@ export default {
 
       // TODO Fix up permissions on task.group so we don't have to keep doing these hacks
       if (this.groupId) {
-        this.task.requiresApproval = this.requiresApproval;
-        this.task.group.approval.required = this.requiresApproval;
-        this.task.sharedCompletion = this.sharedCompletion;
-        this.task.group.sharedCompletion = this.sharedCompletion;
         this.task.managerNotes = this.managerNotes;
         this.task.group.managerNotes = this.managerNotes;
       }
@@ -1526,11 +1487,6 @@ export default {
       if (this.task.group && this.task.group.managerNotes) this.managerNotes = null;
       this.newChecklistItem = '';
       this.$emit('cancel');
-    },
-    updateRequiresApproval (newValue) {
-      let truthy = true;
-      if (!newValue) truthy = false; // This return undefined instad of false
-      this.requiresApproval = truthy;
     },
     async toggleAssignment (memberId) {
       if (this.purpose === 'create') {
