@@ -4,9 +4,11 @@ import {
   collectionQuestLeaderParticipating,
   collectionQuestNotParticipating,
   createStory,
-  groupBossQuestParticipating, groupBossQuestRage, groupCollectionQuest,
+  groupBossQuestParticipating,
+  groupBossQuestRage,
+  groupCollectionQuest,
   groupCollectionQuestPending,
-} from '@/components/groups/group.stories.utils';
+} from './group.stories.utils';
 
 storiesOf('Group Components|Party/Quest States', module)
   .add('Not a Member', () => createStory({

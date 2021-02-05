@@ -209,15 +209,17 @@
         ></div>
       </div>
     </div>
-    <div v-if="onPendingQuest || onActiveQuest">
+    <div v-if="onPendingQuest || onActiveQuest"
+         class="quest-buttons">
       <button
-        class="btn btn-secondary full-width mb-1"
+        class="btn btn-secondary full-width"
         @click="openQuestDetails()"
       >
         {{ $t('viewDetails') }}
       </button>
     </div>
-    <div v-if="userIsQuestLeader && !onActiveQuest">
+    <div v-if="userIsQuestLeader && !onActiveQuest"
+         class="quest-buttons">
       <button
         class="btn btn-success full-width"
         @click="startQuest()"
@@ -247,6 +249,14 @@
   .svg-icon {
     height: 25px;
     width: 25px;
+  }
+
+  .quest-buttons {
+    margin-bottom: 0.25rem;
+
+    &:nth-last-of-type(2) {
+      margin-bottom: 0;
+    }
   }
 
   .quest-boss {
