@@ -79,11 +79,11 @@
     .svg-icon {
       margin: 0 0.5rem 0 0;
     }
+  }
 
-    &:not(:hover) {
-      .svg-icon {
-        color: $gray-200;
-      }
+  &:not(:hover) {
+    .with-icon .svg-icon {
+      color: $gray-200;
     }
   }
 }
