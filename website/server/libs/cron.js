@@ -352,17 +352,18 @@ export async function cron (options = {}) {
   if (!user.party.quest.progress.down) user.party.quest.progress.down = 0;
 
   tasksByType.dailys.forEach(task => {
+    const isTeamBoardTask = task.group.id && !task.userId;
     if (
-      task.group.assignedDate
+      !isTeamBoardTask && task.group.assignedDate
       && moment(task.group.assignedDate).isAfter(user.auth.timestamps.updated)
     ) return;
     const { completed } = task;
     // Deduct points for missed Daily tasks
-    let EvadeTask = 0;
+    let evadeTask = 0;
     let scheduleMisses = daysMissed;
 
     if (completed) {
-      dailyChecked += 1;
+      if (!isTeamBoardTask) dailyChecked += 1;
       if (!atLeastOneDailyDue) { // only bother checking until the first thing is found
         const thatDay = moment(now).subtract({ days: daysMissed });
         atLeastOneDailyDue = shouldDo(thatDay.toDate(), task, user.preferences);
@@ -377,15 +378,15 @@ export async function cron (options = {}) {
         if (shouldDo(thatDay.toDate(), task, user.preferences)) {
           atLeastOneDailyDue = true;
           scheduleMisses += 1;
-          if (user.stats.buffs.stealth) {
+          if (user.stats.buffs.stealth && !isTeamBoardTask) {
             user.stats.buffs.stealth -= 1;
-            EvadeTask += 1;
+            evadeTask += 1;
           }
         }
         if (multiDaysCountAsOneDay) break;
       }
 
-      if (scheduleMisses > EvadeTask) {
+      if (scheduleMisses > evadeTask) {
         // The user did not complete this due Daily
         // (but no penalty if cron is running in safe mode).
         if (CRON_SAFE_MODE) {
@@ -411,7 +412,7 @@ export async function cron (options = {}) {
               user,
               task,
               direction: 'down',
-              times: multiDaysCountAsOneDay ? 1 : scheduleMisses - EvadeTask,
+              times: multiDaysCountAsOneDay ? 1 : scheduleMisses - evadeTask,
               cron: true,
             });
 
