@@ -2,58 +2,12 @@
   <div>
     <approval-modal :task="task" />
     <div
-      v-if="!(userIsAssigned && task.group.approval.approved
-        && !task.completed && task.type !== 'habit')"
       class="claim-bottom-message d-flex align-items-center"
     >
       <div
         class="mr-auto ml-2"
         v-html="message"
       ></div>
-      <div
-        v-if="!userIsAssigned && !task.completed"
-        class="ml-auto mr-2"
-      >
-        <a
-          class="claim-color"
-          @click="claim()"
-        >{{ $t('claim') }}</a>
-      </div>
-      <div
-        v-if="userIsAssigned && !approvalRequested && !task.completed"
-        class="ml-auto mr-2"
-      >
-        <a
-          class="unclaim-color"
-          @click="unassign()"
-        >{{ $t('removeClaim') }}</a>
-      </div>
-    </div>
-    <div
-      v-if="approvalRequested && userIsManager"
-      class="claim-bottom-message d-flex align-items-center justify-content-around"
-    >
-      <a
-        class="approve-color"
-        @click="approve()"
-      >{{ $t('approveTask') }}</a>
-      <a @click="needsWork()">{{ $t('needsWork') }}</a>
-    </div>
-    <div
-      v-if="multipleApprovalsRequested && userIsManager"
-      class="claim-bottom-message d-flex align-items-center"
-    >
-      <a @click="showRequests()">{{ $t('viewRequests') }}</a>
-    </div>
-    <div
-      v-if="userIsAssigned && task.group.approval.approved
-        && !task.completed && task.type !== 'habit'"
-      class="claim-bottom-message d-flex align-items-center justify-content-around"
-    >
-      <a
-        class="approve-color"
-        @click="$emit('claimRewards')"
-      >{{ $t('claimRewards') }}</a>
     </div>
   </div>
 </template>
@@ -131,78 +85,6 @@ export default {
         && (this.group.leader.id === this.user._id || this.group.managers[this.user._id])
       ) return true;
       return false;
-    },
-    approvalRequested () {
-      if (
-        (this.task.approvals && this.task.approvals.length === 1)
-        || (this.task.group && this.task.group.approval && this.task.group.approval.requested)
-      ) {
-        return true;
-      }
-      return false;
-    },
-    multipleApprovalsRequested () {
-      if (this.task.approvals && this.task.approvals.length > 1) return true;
-      return false;
-    },
-  },
-  methods: {
-    async claim () {
-      let taskId = this.task._id;
-      // If we are on the user task
-      if (this.task.userId) {
-        taskId = this.task.group.taskId;
-      }
-
-      await this.$store.dispatch('tasks:assignTask', {
-        taskId,
-        userId: this.user._id,
-      });
-      this.task.group.assignedUsers.push(this.user._id);
-      this.sync();
-    },
-    async unassign () {
-      if (!window.confirm(this.$t('confirmUnClaim'))) return; // eslint-disable-line no-alert
-
-      let taskId = this.task._id;
-      // If we are on the user task
-      if (this.task.userId) {
-        taskId = this.task.group.taskId;
-      }
-
-      await this.$store.dispatch('tasks:unassignTask', {
-        taskId,
-        userId: this.user._id,
-      });
-      const index = this.task.group.assignedUsers.indexOf(this.user._id);
-      this.task.group.assignedUsers.splice(index, 1);
-
-      this.sync();
-    },
-    approve () {
-      const userIdToApprove = this.task.group.assignedUsers[0];
-      this.$store.dispatch('tasks:approve', {
-        taskId: this.task._id,
-        userId: userIdToApprove,
-      });
-      this.task.group.assignedUsers.splice(0, 1);
-      this.task.approvals.splice(0, 1);
-
-      this.sync();
-    },
-    needsWork () {
-      if (!window.confirm(this.$t('confirmNeedsWork'))) return; // eslint-disable-line no-alert
-      const userIdNeedsMoreWork = this.task.group.assignedUsers[0];
-      this.$store.dispatch('tasks:needsWork', {
-        taskId: this.task._id,
-        userId: userIdNeedsMoreWork,
-      });
-      this.task.approvals.splice(0, 1);
-
-      this.sync();
-    },
-    showRequests () {
-      this.$root.$emit('bv::show::modal', 'approval-modal');
     },
   },
 };
