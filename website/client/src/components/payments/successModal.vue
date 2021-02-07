@@ -1,9 +1,8 @@
 <template>
   <b-modal
     id="payments-success-modal"
-    :title="$t('accountSuspendedTitle')"
     :hide-footer="isFromBalance"
-    :modal-class="isFromBalance ? ['modal-hidden-footer'] : []"
+    size="sm"
   >
     <div slot="modal-header">
       <div class="check-container d-flex align-items-center justify-content-center">
@@ -13,15 +12,7 @@
           v-html="icons.check"
         ></div>
       </div>
-      <h2>{{ $t(isFromBalance ? 'success' : 'paymentSuccessful') }}</h2>
-    </div>
-    <div slot="modal-footer">
-      <div
-        v-once
-        class="small-text"
-      >
-        {{ $t('giftSubscriptionText4') }}
-      </div>
+      <h2>{{ title }}</h2>
     </div>
     <div class="row">
       <div class="col-12 modal-body-col">
@@ -95,110 +86,112 @@
         </button>
       </div>
     </div>
+    <template #modal-footer>
+      <div
+        v-once
+        class="small-text"
+      >
+        {{ $t('giftSubscriptionText4') }}
+      </div>
+    </template>
   </b-modal>
 </template>
 
 <style lang="scss">
 @import '~@/assets/scss/colors.scss';
 
-#payments-success-modal .modal-md {
-  max-width: 20.5rem;
-}
-
-#payments-success-modal .modal-content {
-  background: transparent;
-}
-
-#payments-success-modal.modal-hidden-footer .modal-body {
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-
-#payments-success-modal .modal-header {
-  justify-content: center;
-  padding-top: 24px;
-  padding-bottom: 0px;
-  background: $green-100;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
-  border-bottom: none;
-
-  h2 {
-    color: white;
+#payments-success-modal {
+  .modal-md {
+    max-width: 20.5rem;
   }
 
-  .check-container {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: #1CA372;
-    margin: 0 auto;
-    margin-bottom: 16px;
-  }
+  .modal-header {
+    justify-content: center;
+    padding-top: 24px;
+    padding-bottom: 0px;
+    background: $green-100;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 
-  .check {
-    width: 35.1px;
-    height: 28px;
-    color: white;
-  }
-}
+    h2 {
+      color: white;
+    }
 
-#payments-success-modal .modal-body {
-  padding-top: 16px;
-  padding-bottom: 24px;
-  background: white;
+    .check-container {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #1CA372;
+      margin: 0 auto;
+      margin-bottom: 16px;
+    }
 
-  .modal-body-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    .btn.btn-primary {
-      margin-top: 24px;
+    .check {
+      width: 35.1px;
+      height: 28px;
+      color: white;
     }
   }
 
-  .details-block {
-    background: $gray-700;
-    border-radius: 4px;
-    padding: 8px 24px;
-    margin-top: 16px;
-    display: flex;
-    flex-direction: row;
-    text-align: center;
+  .modal-body {
+    padding-top: 16px;
+    padding-bottom: 24px;
+    background: white;
+    border-radius: 8px;
 
-    &.gems {
-      padding: 12px 16px 12px 20px;
-      color: $green-10;
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 1.33;
+    .modal-body-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
 
-      .svg-icon {
-        margin-right: 8px;
-        width: 32px;
-        height: 32px;
+      .btn.btn-primary {
+        margin-top: 24px;
       }
     }
+
+    .details-block {
+      background: $gray-700;
+      border-radius: 4px;
+      padding: 8px 24px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+
+      &.gems {
+        padding: 12px 16px 12px 20px;
+        color: $green-10;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.33;
+
+        .svg-icon {
+          margin-right: 8px;
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+
+    .auto-renew {
+      margin-top: 16px;
+      color: $orange-10;
+      font-style: normal;
+    }
   }
 
-  .auto-renew {
-    margin-top: 16px;
-    color: $orange-10;
-    font-style: normal;
-  }
-}
+  .modal-footer {
+    background: $gray-700;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    justify-content: center;
+    border-top: none;
 
-#payments-success-modal .modal-footer {
-  background: $gray-700;
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
-  justify-content: center;
-  border-top: none;
-
-  .small-text {
-    font-style: normal;
+    .small-text {
+      font-style: normal;
+    }
   }
 }
 </style>
@@ -226,6 +219,9 @@ export default {
     },
     isFromBalance () {
       return this.paymentData.paymentType === 'gift-gems-balance';
+    },
+    title () {
+      return this.$t(this.isFromBalance ? 'success' : 'paymentSuccessful');
     },
   },
   mounted () {

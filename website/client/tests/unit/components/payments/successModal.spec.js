@@ -23,10 +23,12 @@ describe('Success modal', () => {
       }),
       localVue,
       mocks: { $t: (...args) => JSON.stringify(args) },
-      stubs: ['b-modal'],
+      stubs: {
+        'b-modal': {
+          template: '<div><slot name="modal-header"></slot><slot></slot><slot name="modal-footer"></slot></div>',
+        },
+      },
     });
-
-    wrapper.setData({ disableLazyRender: true });
   });
 
   it('Displays payment success when buying gems', () => {

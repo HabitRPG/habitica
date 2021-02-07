@@ -19,60 +19,10 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/mixins.scss';
 
   .modal-dialog.modal-sm {
-    .modal-content {
-      border-radius: 8px;
-      box-shadow: 0 14px 28px 0 rgba($black, 0.24), 0 10px 10px 0 rgba($black, 0.28);
-    }
-
-    @media (min-width: 576px) {
-      max-width: 20.625rem;
-    }
-
-    header {
-      padding: 0;
-      border: none;
-
-      h5 {
-        margin: 2rem auto 1rem;
-        color: $purple-200;
-      }
-
-      button {
-        position: absolute;
-        right: 18px;
-        top: 12px;
-        font-weight: 100;
-      }
-    }
-
-    footer {
-      padding: 0;
-      border: none;
-
-      button {
-        margin: 0 auto 2rem auto;
-      }
-    }
-
-    .greyed {
-      background-color: $gray-700;
-    }
-
-    .modal-body {
-      padding: 0;
-    }
-
-    .modal-text {
-      margin: 1.5rem;
-      min-height: auto !important;
-    }
-
-    footer.greyed {
-      padding: 0 1.5rem 1rem 1.5rem
-    }
+    @include smallModal();
   }
 </style>
 

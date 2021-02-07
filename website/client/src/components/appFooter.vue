@@ -234,6 +234,21 @@
                    giftReceiver: 'Very lucky User',
                    subscriptionKey: 'basic_6mo',
                  })">Gifted Subscription</a>
+              <a class="btn btn-secondary"
+                 @click="$root.$emit('habitica:payment-success', {
+                  paymentType: 'groupPlan',
+                  subscriptionKey: 'basic_6mo',
+                  newGroup: true,
+                  group: {
+                    name: 'The best group',
+                    memberCount: 5,
+                  },
+                })">Bought Group plan</a>
+              <a class="btn btn-secondary"
+                 @click="$root.$emit('habitica:payment-success', {
+                   paymentType: 'subscription',
+                   subscriptionKey: 'basic_6mo',
+                 })">Bought Subscription</a>
             </div>
           </div>
         </div>

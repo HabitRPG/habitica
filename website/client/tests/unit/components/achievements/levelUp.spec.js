@@ -1,17 +1,14 @@
-import { mount, createLocalVue } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Store from '@/libs/store';
 
 import LevelUp from '@/components/achievements/levelUp';
-import smallModal from '@/components/ui/modal/smallModal';
 
 const localVue = createLocalVue();
 localVue.use(Store);
-localVue.use(BootstrapVue);
 
 describe('LevelUp', () => {
   function createWrapper (level = 10) {
-    const wrapper = mount(LevelUp, {
+    const wrapper = shallowMount(LevelUp, {
       store: new Store({
         state: {
           user: {
@@ -30,8 +27,9 @@ describe('LevelUp', () => {
       }),
       localVue,
       mocks: { $t: (...args) => args.map(JSON.stringify).join(' ') },
+      stubs: ['b-modal'],
     });
-    wrapper.find(smallModal).setData({ disableLazyRender: true });
+
     return wrapper;
   }
 
