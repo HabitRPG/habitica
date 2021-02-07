@@ -658,6 +658,12 @@ const armor = {
   winter2021Healer: {
     set: 'winter2021ArcticExplorerHealerSet',
   },
+  birthday2021: {
+    text: t('armorSpecialBirthday2021Text'),
+    notes: t('armorSpecialBirthday2021Notes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_birthday2021'),
+  },
 };
 
 const armorStats = {

@@ -405,6 +405,8 @@
   "weaponMystery201911Notes": "The crystal ball atop this staff can show you the future, but beware! Using such dangerous knowledge can change a person in unexpected ways. Confers no benefit. November 2019 Subscriber Item.",
   "weaponMystery202002Text": "Stylish Sweetheart Parasol",
   "weaponMystery202002Notes": "An accessory that lends you an air of mystery and romance. Sun protection is a bonus! Confers no benefit. February 2020 Subscriber Item.",
+  "weaponMystery202102Text": "Charming Wand",
+  "weaponMystery202102Notes": "The glowing pink gem in this wand holds the power to spread joy and friendship far and wide! Confers no benefit. February 2021 Subscriber Item.",
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
 
@@ -646,6 +648,8 @@
   "armorSpecialBirthday2019Notes": "Happy Birthday, Habitica! Wear these Outlandish Party Robes to celebrate this wonderful day. Confers no benefit.",
   "armorSpecialBirthday2020Text": "Outrageous Party Robes",
   "armorSpecialBirthday2020Notes": "Happy Birthday, Habitica! Wear these Outrageous Party Robes to celebrate this wonderful day. Confers no benefit.",
+  "armorSpecialBirthday2021Text": "Extravagant Party Robes",
+  "armorSpecialBirthday2021Notes": "Happy Birthday, Habitica! Wear these Extravagant Party Robes to celebrate this wonderful day. Confers no benefit.",
 
   "armorSpecialGaymerxText": "Rainbow Warrior Armor",
   "armorSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special armor is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
@@ -996,6 +1000,8 @@
   "armorMystery202007Notes": "Swim, flip, dive, and race with this handsome and powerful tail! Confers no benefit. July 2020 Subscriber Item.",
   "armorMystery202101Text": "Snazzy Snow Leopard Suit",
   "armorMystery202101Notes": "Wrap yourself in warm fur and nearly endless tail floof! Confers no benefit. January 2021 Subscriber Item.",
+  "armorMystery202102Text": "Charming Dress",
+  "armorMystery202102Notes": "Sail across the universe in fine style in this buoyantly bright dress. Confers no benefit. February 2021 Subscriber Item.",
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -1145,6 +1151,8 @@
   "armorArmoireDressingGownNotes": "Relax in style with this beautiful traditional dressing gown. Increases Constitution by <%= con %>. Enchanted Armoire: Dressing Gown Set (Item 1 of 3).",
   "armorArmoireBlueMoonShozokuText": "Blue Moon Armor",
   "armorArmoireBlueMoonShozokuNotes": "A strange serenity surrounds the wearer of this armor. Increases Constitution by <%= con %>. Enchanted Armoire: Blue Moon Rogue Set (item 4 of 4).",
+  "armorArmoireSoftPinkSuitText": "Soft Pink Suit",
+  "armorArmoireSoftPinkSuitNotes": "Pink is a soothing color. Slip into this loungewear set for a bit of peace during the daily grind! Increases Perception by <%= per %>. Enchanted Armoire: Pink Loungewear Set (item 2 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1778,6 +1786,8 @@
   "headArmoireNightcapNotes": "Your new nightcap even has a nice bouncy pompom! Increases Perception by <%= per %>. Enchanted Armoire: Dressing Gown Set (Item 2 of 3).",
   "headArmoireBlueMoonHelmText": "Blue Moon Helm",
   "headArmoireBlueMoonHelmNotes": "This helm offers an astonishing amount of luck to its wearer, and exceptional events follow its use. Increases Intelligence by <%= int %>. Enchanted Armoire: Blue Moon Rogue Set (item 3 of 4).",
+  "headArmoirePinkFloppyHatText": "Pink Floppy Hat",
+  "headArmoirePinkFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a perfect pink color. Increases Intelligence by <%= int %>. Enchanted Armoire: Pink Loungewear Set (item 1 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -2091,7 +2101,9 @@
   "shieldArmoireDarkAutumnFlameText": "Dark Autumn Flame",
   "shieldArmoireDarkAutumnFlameNotes": "These mesmerizing flames dance with lively but foreboding energy even in autumn's chilliest nights. Increases Constitution by <%= con %>. Enchanted Armoire: Autumn Enchanter Set (Item 4 of 4).",
   "shieldArmoireBlueMoonSaiText": "Light Lunar Sai",
-  "shieldArmoireBlueMoonSaiNotes": "This sai is a traditional weapon, imbued with the powers of the light side of the moon. Increases Perception by <%= per %>. Enchanted Armoire: Blue Moon Rogue Set (item 3 of 4).",
+  "shieldArmoireBlueMoonSaiNotes": "This sai is a traditional weapon, imbued with the powers of the light side of the moon. Increases Perception by <%= per %>. Enchanted Armoire: Blue Moon Rogue Set (item 2 of 4).",
+  "shieldArmoireSoftPinkPillowText": "Soft Pink Pillow",
+  "shieldArmoireSoftPinkPillowNotes": "The sensible warrior packs a pillow for any expedition. Soften life's blows... even while you nap. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Pink Loungewear Set (item 3 of 3).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
@@ -2339,6 +2351,8 @@
   "headAccessoryMystery202005Notes": "With such mighty horns, what creature dares challenge you? Confers no benefit. May 2020 Subscriber Item.",
   "headAccessoryMystery202009Text": "Marvelous Moth Antennae",
   "headAccessoryMystery202009Notes": "These feathery appendages will help you find your way even in the dark of night. Confers no benefit. September 2020 Subscriber Item.",
+  "headAccessoryMystery202102Text": "Charming Tiara",
+  "headAccessoryMystery202102Notes": "Magnify your empathy and caring to new heights with this ornate golden tiara. Confers no benefit. February 2021 Subscriber Item.",
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 

@@ -17,7 +17,7 @@ export default prefill({
     setPrice: 5, availableFrom: '2020-09-25', availableUntil: '2020-11-02', text: t('hauntedColors'),
   },
   winteryHairColors: {
-    setPrice: 5, availableFrom: '2021-01-05', availableUntil: '2021-02-02', text: t('winteryColors'),
+    setPrice: 5, availableFrom: '2021-01-05', availableUntil: '2021-02-01', text: t('winteryColors'),
   },
   rainbowSkins: { setPrice: 5, text: t('rainbowSkins') },
   animalSkins: { setPrice: 5, text: t('animalSkins') },
@@ -32,6 +32,6 @@ export default prefill({
     setPrice: 5, availableFrom: '2020-06-23', availableUntil: '2020-08-02', text: t('splashySkins'),
   },
   winterySkins: {
-    setPrice: 5, availableFrom: '2021-01-05', availableUntil: '2021-02-02', text: t('winterySkins'),
+    setPrice: 5, availableFrom: '2021-01-05', availableUntil: '2021-02-01', text: t('winterySkins'),
   },
 });

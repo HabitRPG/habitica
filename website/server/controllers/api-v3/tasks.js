@@ -247,7 +247,6 @@ api.createUserTasks = {
  * @apiParam (Body) {String} text The text to be displayed for the task
  * @apiParam (Body) {String="habit","daily","todo","reward"} type Task type, options are: "habit",
  *                                                                "daily", "todo", "reward".
- * @apiParam (Body) {String} [alias] Alias to assign to task
  * @apiParam (Body) {String="str","int","per","con"} [attribute] User's attribute to use,
  *                                                               options are: "str",
  *                                                               "int", "per", "con".

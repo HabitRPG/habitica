@@ -144,9 +144,10 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2021-01-02')) {
-    user.items.gear.owned.head_special_nye = true;
-    user.items.gear.equipped.head = 'head_special_nye';
+  if (moment().isBefore('2021-02-02')) {
+    user.items.gear.owned.armor_special_birthday2021 = true;
+    user.items.gear.equipped.armor = 'armor_special_birthday2021';
+    user.achievements.habitBirthdays = 1;
   }
 
   user.markModified('items achievements');
