@@ -14,9 +14,14 @@ const gemsPromo = {
 // Unless we want a precise ending, for example during a Gems sale / promotion.
 export const EVENTS = {
   noCurrentEvent2021: {
-    start: '2021-01-31T20:00-05:00',
-    end: '2021-03-20T08:00-05:00',
+    start: '2021-02-16T08:00-05:00',
+    end: '2021-03-07T08:00-05:00',
     season: 'normal',
+  },
+  valentines2021: {
+    start: '2021-02-07T08:00-05:00',
+    end: '2021-02-16T08:00-05:00',
+    season: 'valentines',
   },
   winter2021: {
     start: '2020-12-17T08:00-05:00',
