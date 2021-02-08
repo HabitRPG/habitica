@@ -114,15 +114,20 @@ export function canEdit (store) {
   };
 }
 
-function _nonInteractive (task) {
-  return (task.group && task.group.id && !task.userId)
-    || (task.challenge && task.challenge.id && !task.userId)
-    || (task.group && task.group.approval && task.group.approval.requested
-      && task.type !== 'habit');
+function _nonInteractive (task, userId) {
+  if (task.userId) return false;
+  if (task.challenge && task.challenge.id) return true;
+  if (
+    task.group
+    && task.group.assignedUsers.length > 0
+    && task.group.assignedUsers.indexOf(userId) === -1
+  ) return true;
+  return false;
 }
 
 export function getTaskClasses (store) {
   const userPreferences = store.state.user.data.preferences;
+  const userId = store.state.user.data._id;
 
   // Purpose can be one of the following strings:
   // Edit Modal: edit-modal-bg, edit-modal-text, edit-modal-icon
@@ -171,7 +176,7 @@ export function getTaskClasses (store) {
         if (type === 'todo' || type === 'daily') {
           if (task.completed || (!shouldDo(dueDate, task, userPreferences) && type === 'daily')) {
             return {
-              bg: _nonInteractive(task) ? 'task-disabled-daily-todo-control-bg-noninteractive' : 'task-disabled-daily-todo-control-bg',
+              bg: _nonInteractive(task, userId) ? 'task-disabled-daily-todo-control-bg-noninteractive' : 'task-disabled-daily-todo-control-bg',
               checkbox: 'task-disabled-daily-todo-control-checkbox',
               inner: 'task-disabled-daily-todo-control-inner',
               content: 'task-disabled-daily-todo-control-content',
@@ -179,28 +184,28 @@ export function getTaskClasses (store) {
           }
 
           return {
-            bg: _nonInteractive(task) ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
+            bg: _nonInteractive(task, userId) ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
             checkbox: `task-${color}-control-checkbox`,
             inner: `task-${color}-control-inner-daily-todo`,
             icon: `task-${color}-control-icon`,
           };
         } if (type === 'reward') {
           return {
-            bg: _nonInteractive(task) ? 'task-reward-control-bg-noninteractive' : 'task-reward-control-bg',
+            bg: _nonInteractive(task, userId) ? 'task-reward-control-bg-noninteractive' : 'task-reward-control-bg',
           };
         } if (type === 'habit') {
           return {
             up: task.up
               ? {
-                bg: _nonInteractive(task) ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
-                inner: _nonInteractive(task) ? `task-${color}-control-inner-habit-noninteractive` : `task-${color}-control-inner-habit`,
+                bg: _nonInteractive(task, userId) ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
+                inner: _nonInteractive(task, userId) ? `task-${color}-control-inner-habit-noninteractive` : `task-${color}-control-inner-habit`,
                 icon: `task-${color}-control-icon`,
               }
               : { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },
             down: task.down
               ? {
-                bg: _nonInteractive(task) ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
-                inner: _nonInteractive(task) ? `task-${color}-control-inner-habit-noninteractive` : `task-${color}-control-inner-habit`,
+                bg: _nonInteractive(task, userId) ? `task-${color}-control-bg-noninteractive` : `task-${color}-control-bg`,
+                inner: _nonInteractive(task, userId) ? `task-${color}-control-inner-habit-noninteractive` : `task-${color}-control-inner-habit`,
                 icon: `task-${color}-control-icon`,
               }
               : { bg: 'task-disabled-habit-control-bg', inner: 'task-disabled-habit-control-inner', icon: `task-${color}-control-icon` },

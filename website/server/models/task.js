@@ -216,8 +216,6 @@ TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
   if (!userId) throw new Error('User identifier is a required argument');
 
   const query = _.cloneDeep(additionalQueries);
-  query.userId = userId;
-
   const ids = [];
   const aliases = [];
 
@@ -229,10 +227,18 @@ TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
     }
   });
 
-  query.$or = [
-    { _id: { $in: ids } },
-    { alias: { $in: aliases } },
-  ];
+  if (ids.length > 0 && aliases.length > 0) {
+    query.$or = [
+      { _id: { $in: ids } },
+      { alias: { $in: aliases } },
+    ];
+  } else if (ids.length > 0) {
+    query._id = { $in: ids };
+  } else if (aliases.length > 0) {
+    query.alias = { $in: aliases };
+  } else {
+    throw new Error('No identifiers found.'); // Should be covered by the !identifiers check, but..
+  }
 
   const tasks = await this.find(query).exec();
 

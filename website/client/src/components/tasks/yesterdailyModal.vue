@@ -84,6 +84,7 @@
 import moment from 'moment';
 import { mapState } from '@/libs/store';
 import scoreTask from '@/mixins/scoreTask';
+import sync from '@/mixins/sync';
 import Task from './task';
 import LoadingSpinner from '../ui/loadingSpinner';
 
@@ -92,7 +93,7 @@ export default {
     Task,
     LoadingSpinner,
   },
-  mixins: [scoreTask],
+  mixins: [scoreTask, sync],
   props: {
     yesterDailies: {
       type: Array,
@@ -180,6 +181,7 @@ export default {
 
       this.isLoading = false;
       this.$root.$emit('bv::hide::modal', 'yesterdaily');
+      if (this.$route.fullPath.indexOf('task-information') !== -1) this.sync();
     },
   },
 };

@@ -654,13 +654,6 @@ api.updateTask = {
     // the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
 
-    task.group.approval.required = false;
-    if (sanitizedObj.requiresApproval) {
-      task.group.approval.required = true;
-    }
-    if (sanitizedObj.sharedCompletion) {
-      task.group.sharedCompletion = sanitizedObj.sharedCompletion;
-    }
     if (sanitizedObj.managerNotes) {
       task.group.managerNotes = sanitizedObj.managerNotes;
     }

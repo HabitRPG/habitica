@@ -3,9 +3,9 @@
     <div
       class="task transition"
       :class="[{
-                 'groupTask': task.group.id,
-                 'task-not-editable': !teamManagerAccess},
-               `type_${task.type}`
+        'groupTask': task.group.id,
+        'task-not-editable': !teamManagerAccess
+      }, `type_${task.type}`
       ]"
       @click="castEnd($event, task)"
     >
@@ -16,8 +16,7 @@
       />
       <div
         class="d-flex"
-        :class="{'task-not-scoreable': isUser !== true || task.group.approval.requested
-          && !(task.group.approval.approved && task.type === 'habit')}"
+        :class="{'task-not-scoreable': showTaskLockIcon }"
       >
         <!-- Habits left side control-->
         <div
@@ -31,19 +30,16 @@
           <div
             class="task-control habit-control"
             :class="[{
-              'habit-control-positive-enabled': task.up && isUser,
-              'habit-control-positive-disabled': !task.up && isUser,
-              'task-not-scoreable': isUser !== true
-                || (task.group.approval.requested && !task.group.approval.approved),
+              'habit-control-positive-enabled': task.up && !showTaskLockIcon,
+              'habit-control-positive-disabled': !task.up && !showTaskLockIcon,
+              'task-not-scoreable': showTaskLockIcon,
             }, controlClass.up.inner]"
             tabindex="0"
-            @click="(isUser && task.up && (!task.group.approval.requested
-              || task.group.approval.approved)) ? score('up') : null"
-            @keypress.enter="(isUser && task.up && (!task.group.approval.requested
-              || task.group.approval.approved)) ? score('up') : null"
+            @click="score('up')"
+            @keypress.enter="score('up')"
           >
             <div
-              v-if="!isUser"
+              v-if="showTaskLockIcon"
               class="svg-icon lock"
               :class="task.up ? controlClass.up.icon : 'positive'"
               v-html="icons.lock"
@@ -67,13 +63,11 @@
             class="task-control daily-todo-control"
             :class="controlClass.inner"
             tabindex="0"
-            @click="isUser && !task.group.approval.requested
-              ? score(task.completed ? 'down' : 'up' ) : null"
-            @keypress.enter="isUser && !task.group.approval.requested
-              ? score(task.completed ? 'down' : 'up' ) : null"
+            @click="score(task.completed ? 'down' : 'up' )"
+            @keypress.enter="score(task.completed ? 'down' : 'up' )"
           >
             <div
-              v-if="!isUser"
+              v-if="showTaskLockIcon"
               class="svg-icon lock"
               :class="controlClass.icon"
               v-html="icons.lock"
@@ -346,19 +340,16 @@
           <div
             class="task-control habit-control"
             :class="[{
-              'habit-control-negative-enabled': task.down && isUser,
-              'habit-control-negative-disabled': !task.down && isUser,
-              'task-not-scoreable': isUser !== true
-                || (task.group.approval.requested && !task.group.approval.approved),
+              'habit-control-negative-enabled': task.down && !showTaskLockIcon,
+              'habit-control-negative-disabled': !task.down && !showTaskLockIcon,
+              'task-not-scoreable': showTaskLockIcon,
             }, controlClass.down.inner]"
             tabindex="0"
-            @click="(isUser && task.down && (!task.group.approval.requested
-              || task.group.approval.approved)) ? score('down') : null"
-            @keypress.enter="(isUser && task.down && (!task.group.approval.requested
-              || task.group.approval.approved)) ? score('down') : null"
+            @click="score('down')"
+            @keypress.enter="score('down')"
           >
             <div
-              v-if="!isUser"
+              v-if="showTaskLockIcon"
               class="svg-icon lock"
               :class="task.down ? controlClass.down.icon : 'negative'"
               v-html="icons.lock"
@@ -376,8 +367,8 @@
           class="right-control d-flex align-items-center justify-content-center reward-control"
           :class="controlClass.bg"
           tabindex="0"
-          @click="isUser ? score('down') : null"
-          @keypress.enter="isUser ? score('down') : null"
+          @click="score('down')"
+          @keypress.enter="score('down')"
         >
           <div
             class="svg-icon"
@@ -389,10 +380,9 @@
         </div>
       </div>
       <approval-footer
-        v-if="task.group.id"
+        v-if="task.group.id && !isOpenTask"
         :task="task"
         :group="group"
-        @claimRewards="score('up')"
       />
     </div>
   </div>
@@ -1048,11 +1038,25 @@ export default {
     },
     teamManagerAccess () {
       if (!this.isGroupTask || !this.group) return true;
+      if (!this.group.leader && !this.group.managers) return false;
       return (this.group.leader._id === this.user._id || this.group.managers[this.user._id]);
     },
     displayNotes () {
       if (this.isGroupTask && !this.isUser) return this.task.group.managerNotes;
       return this.task.notes;
+    },
+    isOpenTask () {
+      if (!this.isGroupTask) return false;
+      if (this.task.group.assignedUsers.length > 0) return false;
+      return true;
+    },
+    showTaskLockIcon () {
+      if (this.isUser) return false;
+      if (this.isGroupTask) {
+        if (this.isOpenTask) return false;
+        if (this.task.group.assignedUsers.indexOf(this.user._id) !== -1) return false;
+      }
+      return true;
     },
   },
   methods: {
@@ -1121,6 +1125,8 @@ export default {
       setTimeout(() => this.$root.$emit('castEnd', task, 'task', e), 0);
     },
     async score (direction) {
+      if (this.showTaskLockIcon) return;
+      if (this.task.type === 'habit' && !this.task[direction]) return;
       if (this.isYesterdaily === true) {
         await this.beforeTaskScore(this.task);
         this.task.completed = !this.task.completed;
