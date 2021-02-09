@@ -123,5 +123,6 @@
     "paymentCanceledDisputes": "Potwierdzenie anulowania zostało przesłane na Twój e-mail. Jeśli nie możesz go znaleźć, skontaktuj się z nami, aby zapobiec ewentualnym sporom w sprawie rozliczeń.",
     "cannotUnpinItem": "Ten przedmiot nie może być odpięty.",
     "paymentSubBillingWithMethod": "Twój Abonament będzie opłacany kwotą <strong>$<%= amount %></strong> co <strong><%= months %> miesięcy</strong> przy użyciu <strong><%= paymentMethod %></strong>.",
-    "invalidUnlockSet": "Ten zestaw przedmiotów jest nieważny i nie może być odblokowany."
+    "invalidUnlockSet": "Ten zestaw przedmiotów jest nieważny i nie może być odblokowany.",
+    "nGems": "<%= nGems %> Klejnotów"
 }
