@@ -2057,5 +2057,10 @@
     "armorArmoirePirateOutfitNotes": "¡Arr, marineros de agua dulce! El atuendo perfecto para fregar la cubierta y contar el botín. Aumenta la Constitución y la Inteligencia en <%= attrs %>. Armario Encantado: Conjunto de pirata (artículo 2 de 3).",
     "armorArmoirePirateOutfitText": "Atuendo de pirata",
     "armorArmoireFiddlersCoatNotes": "¡Un atuendo prárctico que te permite moverte libremente! Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto de violinista (artículo 2 de 4).",
-    "armorArmoireFiddlersCoatText": "Capa de violinista"
+    "armorArmoireFiddlersCoatText": "Capa de violinista",
+    "weaponMystery202102Text": "Varita Encantadora",
+    "armorMystery202102Text": "Vestido cautivador",
+    "armorSpecialBirthday2021Notes": "¡Feliz cumpleaños, Habitica! Viste este atuendo extravagante de fiesta para celebrar este maravilloso día. No otorga ningún beneficio.",
+    "armorSpecialBirthday2021Text": "Atuendo extravagante de fiesta",
+    "weaponMystery202102Notes": "¡La brillante gema rosa en esta varita tiene el poder de propagar la felicidad y la amistad por todas partes! No otorga ningún beneficio. Artículo de suscriptor de Febrero 2021."
 }

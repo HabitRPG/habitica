@@ -1951,5 +1951,9 @@
     "weaponSpecialFall2020WarriorNotes": "Tento meč odešel na věčnost s mocným válečníkem a navrátil se k tobě, abys jej ovládl/a! Zvyšuje sílu o <%= str %>. Výzbroj z limitované edice pro podzim 2020.",
     "weaponSpecialFall2020WarriorText": "Přízrakův meč",
     "weaponSpecialFall2020RogueText": "Ostrý katar",
-    "weaponSpecialFall2020HealerNotes": "Nyní, když je tvá přeměna dokončena, tento pozůstatek tvého života jako kukly slouží jako věštecká hůl, s níž měříš osudy. Zvyšuje inteligenci o <%= int %>. Výzbroj z limitované edice pro podzim 2020."
+    "weaponSpecialFall2020HealerNotes": "Nyní, když je tvá přeměna dokončena, tento pozůstatek tvého života jako kukly slouží jako věštecká hůl, s níž měříš osudy. Zvyšuje inteligenci o <%= int %>. Výzbroj z limitované edice pro podzim 2020.",
+    "weaponSpecialWinter2021WarriorNotes": "S tím to navijákem vytáhneš i obří kusy! Zvyšuje sílu o <%= str %>. Výzbroj z limitované edice pro zimu 2020-2021.",
+    "weaponSpecialWinter2021WarriorText": "Mocný rybářský prut",
+    "weaponSpecialWinter2021RogueNotes": "Převlek i zbraň. Tento cesmínový cep ti pomůže řešit i ty nejtěžší úkoly. Zvyšuje sílu o <%= str %>. Výzbroj z limitované edice pro podzim 2021.",
+    "weaponSpecialWinter2021RogueText": "Cep cesmínové bobule"
 }

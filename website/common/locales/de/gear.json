@@ -2267,7 +2267,7 @@
     "headSpecialNye2020Text": "Extravaganter Partyhut",
     "headMystery202101Text": "Stylischer Schneeleopardenhelm",
     "armorMystery202101Text": "Stylischer Schneeleopardenanzug",
-    "shieldArmoireBlueMoonSaiNotes": "Dieses Sai ist eine traditionelle Waffe, durchtränkt mit den Kräften der hellen Seite des Mondes. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Schattenmond Schurke-Set (Gegenstand 3 von 4).",
+    "shieldArmoireBlueMoonSaiNotes": "Dieses Sai ist eine traditionelle Waffe, durchtränkt mit den Kräften der hellen Seite des Mondes. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Schattenmond Schurke-Set (Gegenstand 2 von 4).",
     "shieldArmoireBlueMoonSaiText": "Mondlicht Sai",
     "headArmoireBlueMoonHelmNotes": "Dieser Helm bietet den Tragenden verblüffendes Glück und bemerkenswerte Ereignisse folgen jedem Gebrauch. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Schattenmond Schurke-Set (Gegenstand 3 von 4).",
     "headArmoireBlueMoonHelmText": "Schattenmond Helm",
@@ -2275,5 +2275,13 @@
     "armorArmoireBlueMoonShozokuNotes": "Eine wunderliche Gelassenheit umgibt wer diese Rüstung trägt.Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Schattenmond Schurke-Set (Gegenstand 4 von 4).",
     "armorArmoireBlueMoonShozokuText": "Schattenmond Rüstung",
     "armorMystery202101Notes": "Wickle dich in deinen warmen Pelz und erlebe beinahe endlosen Fluff! Gewährt keinen Attributbonus. Januar 2021 Abonnentengegenstand.",
-    "weaponArmoireBlueMoonSaiNotes": "Dieses Sai ist eine traditionelle Waffe, durchtränkt mit den Kräften der dunklen Seite des Mondes. Erhöht Stärke um <%= str %>. Verzauberter Schrank: Schattenmond Schurke-Set (Gegenstand 1 von 4)."
+    "weaponArmoireBlueMoonSaiNotes": "Dieses Sai ist eine traditionelle Waffe, durchtränkt mit den Kräften der dunklen Seite des Mondes. Erhöht Stärke um <%= str %>. Verzauberter Schrank: Schattenmond Schurke-Set (Gegenstand 1 von 4).",
+    "headAccessoryMystery202102Notes": "Vergrößere Deine Empathie und Zuwendung, mit diesem filigranen, goldenen Geschmeide. Gewährt keinen Attributbonus. Februar 2021 Abonnentengegenstand.",
+    "headAccessoryMystery202102Text": "Charmante Tiara",
+    "armorMystery202102Notes": "Segele wohl gekleidet durch das ganze Universum, in diesem Kleide heiterer Farbenpracht. Gewährt keinen Attributbonus. Februar 2021 Abonnentengegenstand.",
+    "armorMystery202102Text": "Charmantes Kleid",
+    "armorSpecialBirthday2021Notes": "Herzlichen Glückwunsch zum Geburtstag, Habitica! Trage Extravagante Festtageskleider um diesen wundervollen Tag zu feiern. Gewährt keinen Attributbonus.",
+    "armorSpecialBirthday2021Text": "Extravagante Festtageskleider",
+    "weaponMystery202102Notes": "Der rosa leuchtende Edelstein in diesem Zauberstab birgt die Gabe weit und breit Frohsinn und Freundschaft zu sähen! Gewährt keinen Attributbonus. Februar 2021 Abonnentengegenstand.",
+    "weaponMystery202102Text": "Charmanter Zauberstab"
 }

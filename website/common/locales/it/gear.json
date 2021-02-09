@@ -2263,7 +2263,7 @@
     "weaponSpecialWinter2021RogueNotes": "Sia travestimento che arma, questo flagello di agrifoglio ti aiuterà a gestire i compiti più difficili. Aumenta la forza di <%= str %>. Edizione limitata inverno 2020-2021.",
     "weaponSpecialWinter2021RogueText": "Mazzafrusto di bacche di agrifoglio",
     "shieldArmoireBlueMoonSaiText": "Sai della luce lunare",
-    "shieldArmoireBlueMoonSaiNotes": "Questo sai è un'arma tradizionale, intrisa dei poteri del lato chiaro della luna. Aumenta la percezione di <%= per %>. Scrigno Incantato: Set ladro della Luna Blu (oggetto 3 di 4).",
+    "shieldArmoireBlueMoonSaiNotes": "Questo sai è un'arma tradizionale, intrisa dei poteri del lato chiaro della luna. Aumenta la percezione di <%= per %>. Scrigno Incantato: Set ladro della Luna Blu (oggetto 2 di 4).",
     "headArmoireBlueMoonHelmNotes": "Questo elmo offre una straordinaria quantità di fortuna a chi lo indossa ed eventi eccezionali scaturiscono dal suo utilizzo. Aumenta l'intelligenza di <%= int %>. Scrigno Incantato: Set ladro della Luna Blu (oggetto 3 di 4).",
     "headArmoireBlueMoonHelmText": "Elmo della luna blu",
     "headMystery202101Notes": "I gelidi occhi blu su questo elmo felino congeleranno anche il compito più intimidatorio della tua lista. Non conferisce alcun bonus. Oggetto abbonati gennaio 2021.",
@@ -2275,5 +2275,13 @@
     "armorMystery202101Notes": "Avvolgiti in una calda pelliccia ed una coda fluffosa lunghissima! Non conferisce alcun bonus. Oggetto abbonati gennaio 2021.",
     "weaponArmoireBlueMoonSaiText": "Sai Lunare Oscuro",
     "headSpecialNye2020Notes": "Hai ricevuto un cappello da festa stravagante! Indossalo con orgoglio mentre festeggi il nuovo anno! Non conferisce alcun vantaggio.",
-    "headSpecialNye2020Text": "Cappello da festa stravagante"
+    "headSpecialNye2020Text": "Cappello da festa stravagante",
+    "headAccessoryMystery202102Notes": "Aumenta la tua empatia e cura a nuovi livelli con questa tiara dorata decorata. Non conferisce alcun bonus. Oggetto abbonati febbraio 2021.",
+    "headAccessoryMystery202102Text": "Tiara ammaliante",
+    "armorMystery202102Notes": "Naviga attraverso l'universo con uno stile raffinato con questo vestito vivacemente luminoso. Non conferisce alcun bonus. Oggetto abbonati febbraio 2021.",
+    "armorMystery202102Text": "Abito ammaliante",
+    "armorSpecialBirthday2021Notes": "Buon compleanno, Habitica! Indossa questi stravaganti abiti da festa per celebrare questo giorno meraviglioso. Non conferisce alcun bonus.",
+    "armorSpecialBirthday2021Text": "Abiti da festa Stravaganti",
+    "weaponMystery202102Notes": "La gemma rosa brillante in questa bacchetta ha il potere di diffondere gioia e amicizia in lungo e in largo! Non conferisce alcun bonus. Oggetto abbonati febbraio 2021.",
+    "weaponMystery202102Text": "Bacchetta ammaliante"
 }

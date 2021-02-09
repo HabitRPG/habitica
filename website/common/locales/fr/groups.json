@@ -369,5 +369,6 @@
     "features": "Fonctionnalités",
     "cannotRemoveQuestOwner": "Vous ne pouvez pas retirer le propriétaire de la quête active. Annulez d'abord la quête.",
     "giftMessageTooLong": "La longueur maximum des messages pour les cadeaux est <%= maxGiftMessageLength %>.",
-    "selectSubscription": "Choisir l'abonnement"
+    "selectSubscription": "Choisir l'abonnement",
+    "blockYourself": "Vous ne pouvez pas vous bloquer"
 }
