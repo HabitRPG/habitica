@@ -9,11 +9,6 @@
       ]"
       @click="castEnd($event, task)"
     >
-      <approval-header
-        v-if="task.group.id"
-        :task="task"
-        :group="group"
-      />
       <div
         class="d-flex"
         :class="{'task-not-scoreable': showTaskLockIcon }"
@@ -894,14 +889,12 @@ import lockIcon from '@/assets/svg/lock.svg';
 import menuIcon from '@/assets/svg/menu.svg';
 import markdownDirective from '@/directives/markdown';
 import scoreTask from '@/mixins/scoreTask';
-import approvalHeader from './approvalHeader';
 import approvalFooter from './approvalFooter';
 import MenuDropdown from '../ui/customMenuDropdown';
 
 export default {
   components: {
     approvalFooter,
-    approvalHeader,
     MenuDropdown,
   },
   directives: {
@@ -1055,6 +1048,7 @@ export default {
       if (this.isGroupTask) {
         if (this.isOpenTask) return false;
         if (this.task.group.assignedUsers.indexOf(this.user._id) !== -1) return false;
+        if (this.teamManagerAccess && this.task.completed) return false;
       }
       return true;
     },

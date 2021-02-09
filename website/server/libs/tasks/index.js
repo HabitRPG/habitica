@@ -8,7 +8,6 @@ import {
 } from './utils';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
-import { model as User } from '../../models/user';
 import * as Tasks from '../../models/task';
 import apiError from '../apiError';
 import {
@@ -336,69 +335,18 @@ async function scoreTask (user, task, direction, req, res) {
     }
   }
 
-  if (task.group.approval.required && !task.group.approval.approved) {
-    const fields = requiredGroupFields.concat(' managers');
-    const group = await Group.getGroup({ user, groupId: task.group.id, fields });
+  let localTask;
 
-    const managerIds = Object.keys(group.managers);
-    managerIds.push(group.leader);
-
-    if (managerIds.indexOf(user._id) !== -1) {
-      task.group.approval.approved = true;
-      task.group.approval.requested = true;
-      task.group.approval.requestedDate = new Date();
-    } else {
-      if (task.group.approval.requested) {
-        return {
-          task,
-          requiresApproval: true,
-          message: res.t('taskRequiresApproval'),
-        };
-      }
-
-      task.group.approval.requested = true;
-      task.group.approval.requestedDate = new Date();
-
-      const managers = await User.find({ _id: managerIds }, 'notifications preferences').exec(); // Use this method so we can get access to notifications
-
-      // @TODO: we can use the User.pushNotification function because
-      // we need to ensure notifications are translated
-      const managerPromises = [];
-      managers.forEach(manager => {
-        manager.addNotification('GROUP_TASK_APPROVAL', {
-          message: res.t('userHasRequestedTaskApproval', {
-            user: user.profile.name,
-            taskName: task.text,
-          }, manager.preferences.language),
-          groupId: group._id,
-          // user task id, used to match the notification when the task is approved
-          taskId: task._id,
-          userId: user._id,
-          groupTaskId: task.group.taskId, // the original task id
-          direction,
-        });
-        managerPromises.push(manager.save());
-      });
-
-      managerPromises.push(task.save());
-      await Promise.all(managerPromises);
-
-      return {
-        task,
-        requiresApproval: true,
-        message: res.t('taskApprovalHasBeenRequested'),
-      };
+  if (task.group.id && !task.userId && task.group.assignedUsers.length > 0) {
+    // Task is being scored from team board, and a user copy should exist
+    if (!task.group.assignedUsers.includes(user._id)) {
+      throw new BadRequest('Task has not been assigned to this user.');
     }
-  }
 
-  if (task.group.approval.required && task.group.approval.approved) {
-    const notificationIndex = user.notifications.findIndex(notification => notification
-       && notification.data && notification.data.task
-       && notification.data.task._id === task._id && notification.type === 'GROUP_TASK_APPROVED');
-
-    if (notificationIndex !== -1) {
-      user.notifications.splice(notificationIndex, 1);
-    }
+    localTask = await Tasks.Task.findOne(
+      { userId: user._id, 'group.taskId': task._id },
+    ).exec();
+    if (!localTask) throw new NotFound('Task not found.');
   }
 
   const wasCompleted = task.completed;
@@ -411,25 +359,29 @@ async function scoreTask (user, task, direction, req, res) {
 
   // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
   // TODO move to common code?
-  let pullTask = false;
-  let pushTask = false;
+  let pullTask;
+  let pushTask;
   if (task.type === 'todo') {
     if (!wasCompleted && task.completed) {
       // @TODO: mongoose's push and pull should be atomic and help with
       // our concurrency issues. If not, we need to use this update $pull and $push
-      pullTask = true;
-      // user.tasksOrder.todos.pull(task._id);
+      pullTask = localTask ? localTask._id : task._id;
     } else if (
       wasCompleted
       && !task.completed
       && user.tasksOrder.todos.indexOf(task._id) === -1
     ) {
-      pushTask = true;
-      // user.tasksOrder.todos.push(task._id);
+      pushTask = localTask ? localTask._id : task._id;
     }
   }
 
   setNextDue(task, user);
+
+  if (localTask) {
+    localTask.completed = task.completed;
+    localTask.value = task.value + delta;
+    await localTask.save();
+  }
 
   taskScoredWebhook.send(user, {
     task,
@@ -514,8 +466,8 @@ export async function scoreTasks (user, taskScorings, req, res) {
   const pushIDs = [];
 
   returnDatas.forEach(returnData => {
-    if (returnData.pushTask === true) pushIDs.push(returnData.task._id);
-    if (returnData.pullTask === true) pullIDs.push(returnData.task._id);
+    if (returnData.pushTask) pushIDs.push(returnData.pushTask);
+    if (returnData.pullTask) pullIDs.push(returnData.pullTask);
   });
 
   const moveUpdateObject = {};
@@ -531,13 +483,6 @@ export async function scoreTasks (user, taskScorings, req, res) {
     // Handle challenge and group tasks tasks here because the task must have been saved first
     handleChallengeTask(data.task, data.delta, data.direction);
     handleGroupTask(data.task, data.delta, data.direction);
-
-    // Handle group tasks that require approval
-    if (data.requiresApproval === true) {
-      return {
-        id: data.task._id, message: data.message, requiresApproval: true,
-      };
-    }
 
     return { id: data.task._id, delta: data.delta, _tmp: data._tmp };
   });
