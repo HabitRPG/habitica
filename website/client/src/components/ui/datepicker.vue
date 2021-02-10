@@ -84,10 +84,6 @@ export default {
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
 
-  .vdp-datepicker__calendar {
-    bottom: 2.125rem;  // 2rem input control height + 0.125rem margin above
-  }
-
  .vdp-datepicker {
     .input-group-append {
       width: auto;
