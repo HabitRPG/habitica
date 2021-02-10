@@ -212,7 +212,10 @@ export default {
       currentEvent: 'worldState.data.currentEvent',
     }),
     eventName () {
-      if (!this.currentEvent || !this.currentEvent.event || this.currentEvent.season === 'normal') return null;
+      if (
+        !this.currentEvent || !this.currentEvent.event
+        || this.currentEvent.season === 'normal' || this.currentEvent.season === 'valentines'
+      ) return null;
       return this.currentEvent.event.replace('NoPromo', '');
     },
   },
