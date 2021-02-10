@@ -183,6 +183,7 @@ export const questActivityWebhook = new WebhookSender({
       },
       quest: {
         key: quest.key,
+        questOwner: quest.leader,
       },
     };
 
