@@ -98,46 +98,40 @@
 </template>
 
 <style lang="scss">
-@import '~@/assets/scss/colors.scss';
+@import '~@/assets/scss/mixins.scss';
 
-#payments-success-modal {
-  .modal-md {
-    max-width: 20.5rem;
-  }
+#payments-success-modal .modal-dialog {
+  @include smallModal();
 
   .modal-header {
     justify-content: center;
     padding-top: 24px;
-    padding-bottom: 0px;
     background: $green-100;
-    border-bottom: none;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    color: white;
 
     h2 {
-      color: white;
+      margin: 1rem auto;
+      color: inherit;
     }
 
     .check-container {
-      width: 64px;
-      height: 64px;
+      width: 4rem;
+      height: 4rem;
       border-radius: 50%;
-      background: #1CA372;
+      background: $green-10;
       margin: 0 auto;
-      margin-bottom: 16px;
     }
 
     .check {
       width: 35.1px;
       height: 28px;
-      color: white;
     }
   }
 
   .modal-body {
-    padding-top: 16px;
-    padding-bottom: 24px;
-    background: white;
+    padding: 1rem 1rem 0;
     border-radius: 8px;
 
     .modal-body-col {
@@ -147,7 +141,7 @@
       text-align: center;
 
       .btn.btn-primary {
-        margin-top: 24px;
+        margin: 1.5rem auto;
       }
     }
 
@@ -157,7 +151,6 @@
       padding: 8px 24px;
       margin-top: 16px;
       display: flex;
-      flex-direction: row;
       text-align: center;
 
       &.gems {
@@ -187,7 +180,7 @@
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     justify-content: center;
-    border-top: none;
+    padding: 1rem;
 
     .small-text {
       font-style: normal;
