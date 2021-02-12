@@ -25,7 +25,7 @@ describe('Success modal', () => {
       mocks: { $t: (...args) => JSON.stringify(args) },
       stubs: {
         'b-modal': {
-          template: '<div><slot name="modal-header"></slot><slot></slot><slot name="modal-footer"></slot></div>',
+          template: '<div><slot name="modal-header"></slot><slot></slot><footer><slot name="modal-footer"></slot></footer></div>',
         },
       },
     });
@@ -38,9 +38,9 @@ describe('Success modal', () => {
     });
 
     expect(wrapper.find('h2').text()).to.equal('["paymentSuccessful"]');
-    expect(wrapper.find('.modal-body-col :first-child').text()).to.equal('["paymentYouReceived"]');
-    expect(wrapper.find('.modal-body-col .details-block').text()).to.equal('5');
-    expect(wrapper.find('div.small-text').text()).to.equal('["giftSubscriptionText4"]');
+    expect(wrapper.find('section :first-child').text()).to.equal('["paymentYouReceived"]');
+    expect(wrapper.find('.details-block').text()).to.equal('5');
+    expect(wrapper.find('footer').text()).to.equal('["giftSubscriptionText4"]');
   });
 
   it('Displays success when gifting gems from balance', () => {
@@ -51,8 +51,8 @@ describe('Success modal', () => {
     });
 
     expect(wrapper.find('h2').text()).to.equal('["success"]');
-    expect(wrapper.find('.modal-body-col :first-child').text()).to.equal('["paymentYouSentGems",{"name":"Lucky User"}]');
-    expect(wrapper.find('.modal-body-col .details-block').text()).to.equal('3');
+    expect(wrapper.find('section :first-child').text()).to.equal('["paymentYouSentGems",{"name":"Lucky User"}]');
+    expect(wrapper.find('.details-block').text()).to.equal('3');
   });
 
   it('Displays payment success when gifting gems through payment', () => {
@@ -63,9 +63,9 @@ describe('Success modal', () => {
     });
 
     expect(wrapper.find('h2').text()).to.equal('["paymentSuccessful"]');
-    expect(wrapper.find('.modal-body-col :first-child').text()).to.equal('["paymentYouSentGems",{"name":"Lucky User"}]');
-    expect(wrapper.find('.modal-body-col .details-block').text()).to.equal('7');
-    expect(wrapper.find('div.small-text').text()).to.equal('["giftSubscriptionText4"]');
+    expect(wrapper.find('section :first-child').text()).to.equal('["paymentYouSentGems",{"name":"Lucky User"}]');
+    expect(wrapper.find('.details-block').text()).to.equal('7');
+    expect(wrapper.find('footer').text()).to.equal('["giftSubscriptionText4"]');
   });
 
   it('Displays payment success when gifting subscription', () => {
@@ -76,9 +76,9 @@ describe('Success modal', () => {
     });
 
     expect(wrapper.find('h2').text()).to.equal('["paymentSuccessful"]');
-    expect(wrapper.find('.modal-body-col :first-child').text()).to.equal('["paymentYouSentSubscription",{"name":"Very lucky User","months":6}]');
-    expect(wrapper.find('.modal-body-col .details-block').exists()).to.be.false;
-    expect(wrapper.find('div.small-text').text()).to.equal('["giftSubscriptionText4"]');
+    expect(wrapper.find('section :first-child').text()).to.equal('["paymentYouSentSubscription",{"name":"Very lucky User","months":6}]');
+    expect(wrapper.find('.details-block').exists()).to.be.false;
+    expect(wrapper.find('footer').text()).to.equal('["giftSubscriptionText4"]');
   });
 
   it('Displays payment success when subscribing', () => {
@@ -88,9 +88,9 @@ describe('Success modal', () => {
     });
 
     expect(wrapper.find('h2').text()).to.equal('["paymentSuccessful"]');
-    expect(wrapper.find('.modal-body-col :first-child').text()).to.equal('["nowSubscribed"]');
-    expect(wrapper.find('.modal-body-col .details-block').text()).to.equal('["paymentSubBilling",{"amount":30,"months":6}]');
-    expect(wrapper.find('div.small-text').text()).to.equal('["giftSubscriptionText4"]');
+    expect(wrapper.find('section :first-child').text()).to.equal('["nowSubscribed"]');
+    expect(wrapper.find('.details-block').text()).to.equal('["paymentSubBilling",{"amount":30,"months":6}]');
+    expect(wrapper.find('footer').text()).to.equal('["giftSubscriptionText4"]');
   });
 
   it('Displays payment success when creating new group plan', () => {
@@ -105,9 +105,9 @@ describe('Success modal', () => {
     });
 
     expect(wrapper.find('h2').text()).to.equal('["paymentSuccessful"]');
-    expect(wrapper.find('.modal-body-col :first-child').text()).to.equal('["groupPlanCreated",{"groupName":"The best group"}]');
-    expect(wrapper.find('.modal-body-col .details-block').text()).to.equal('["paymentSubBilling",{"amount":42,"months":6}]');
-    expect(wrapper.find('div.small-text').text()).to.equal('["giftSubscriptionText4"]');
+    expect(wrapper.find('section :first-child').text()).to.equal('["groupPlanCreated",{"groupName":"The best group"}]');
+    expect(wrapper.find('.details-block').text()).to.equal('["paymentSubBilling",{"amount":42,"months":6}]');
+    expect(wrapper.find('footer').text()).to.equal('["giftSubscriptionText4"]');
   });
 
   it('Displays payment success when upgrading group plan', () => {
@@ -121,8 +121,8 @@ describe('Success modal', () => {
     });
 
     expect(wrapper.find('h2').text()).to.equal('["paymentSuccessful"]');
-    expect(wrapper.find('.modal-body-col :first-child').text()).to.equal('["groupPlanUpgraded",{"groupName":"The best group"}]');
-    expect(wrapper.find('.modal-body-col .details-block').text()).to.equal('["paymentSubBilling",{"amount":33,"months":6}]');
-    expect(wrapper.find('div.small-text').text()).to.equal('["giftSubscriptionText4"]');
+    expect(wrapper.find('section :first-child').text()).to.equal('["groupPlanUpgraded",{"groupName":"The best group"}]');
+    expect(wrapper.find('.details-block').text()).to.equal('["paymentSubBilling",{"amount":33,"months":6}]');
+    expect(wrapper.find('footer').text()).to.equal('["giftSubscriptionText4"]');
   });
 });
