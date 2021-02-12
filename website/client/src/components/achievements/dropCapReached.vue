@@ -132,9 +132,6 @@ export default {
     this.$root.$off('habitica:drop-cap-reached');
   },
   methods: {
-    close () {
-      this.$root.$emit('bv::hide::modal', 'drop-cap-reached');
-    },
     toWiki () {
       window.open('https://habitica.fandom.com/wiki/Drops', '_blank');
 
@@ -153,7 +150,7 @@ export default {
         eventLabel: 'Drop Cap Reached > Modal > Subscriptions',
       });
 
-      this.close();
+      this.$root.$emit('bv::hide::modal', 'drop-cap-reached');
       this.$router.push('/user/settings/subscription');
     },
   },

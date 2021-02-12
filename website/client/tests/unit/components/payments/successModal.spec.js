@@ -125,4 +125,17 @@ describe('Success modal', () => {
     expect(wrapper.find('.details-block').text()).to.equal('["paymentSubBilling",{"amount":33,"months":6}]');
     expect(wrapper.find('footer').text()).to.equal('["giftSubscriptionText4"]');
   });
+
+  it('Displays payment success when upgrading group plan without memberCount', () => {
+    firePaymentSuccess({
+      paymentType: 'groupPlan',
+      subscriptionKey: 'basic_3mo',
+      group: { name: 'The solo group' },
+    });
+
+    expect(wrapper.find('h2').text()).to.equal('["paymentSuccessful"]');
+    expect(wrapper.find('section :first-child').text()).to.equal('["groupPlanUpgraded",{"groupName":"The solo group"}]');
+    expect(wrapper.find('.details-block').text()).to.equal('["paymentSubBilling",{"amount":15,"months":3}]');
+    expect(wrapper.find('footer').text()).to.equal('["giftSubscriptionText4"]');
+  });
 });
