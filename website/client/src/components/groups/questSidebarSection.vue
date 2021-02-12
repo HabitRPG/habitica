@@ -228,13 +228,12 @@
       </button>
     </div>
     <div
-      v-if="userIsOnQuest"
+      v-if="userIsOnQuest && !userIsQuestLeader"
       class="leave-quest-holder"
     >
       <a
         v-once
         class="leave-quest text-center"
-        :class="{'disabled': userIsQuestLeader}"
         @click="questLeave()"
       >
         {{ $t('leaveQuest') }}
@@ -257,6 +256,10 @@
     &:nth-last-of-type(2) {
       margin-bottom: 0;
     }
+  }
+
+  .quest-buttons + .quest-buttons {
+    margin-top: 0.25rem;
   }
 
   .quest-boss {
