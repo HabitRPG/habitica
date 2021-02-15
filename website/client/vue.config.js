@@ -38,16 +38,23 @@ envVars
     envObject[key] = nconf.get(key);
   });
 
+const enableDuplicatesPlugin = process.env.npm_lifecycle_event !== 'storybook:serve';
+
+const webpackPlugins = [
+  new webpack.EnvironmentPlugin(envObject),
+  new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
+];
+
+if (enableDuplicatesPlugin) {
+  webpackPlugins.splice(0, 0, new DuplicatesPlugin({
+    verbose: true,
+  }));
+}
+
 module.exports = {
   assetsDir: 'static',
   configureWebpack: {
-    plugins: [
-      new DuplicatesPlugin({
-        verbose: true,
-      }),
-      new webpack.EnvironmentPlugin(envObject),
-      new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
-    ],
+    plugins: webpackPlugins,
   },
   chainWebpack: config => {
     // Fix issue with duplicated deps in monorepos
