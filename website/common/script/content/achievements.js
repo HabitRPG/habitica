@@ -232,6 +232,11 @@ const basicAchievs = {
     titleKey: 'achievementRedLetterDay',
     textKey: 'achievementRedLetterDayText',
   },
+  legendaryBestiary: {
+    icon: 'achievement-legendaryBestiary',
+    titleKey: 'achievementLegendaryBestiary',
+    textKey: 'achievementLegendaryBestiaryText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
