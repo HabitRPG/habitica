@@ -28,7 +28,7 @@
     "prize": "Jutalom",
     "prizePopTavern": "Ha valaki meg tudja \"nyerni\" a kihívásodat, akkor ajándékozhatsz neki drágakövet. Max = drágaköveid száma. Megjegyzés: A jutalmat nem tudod később megváltoztatni és a Fogadó kihívások nem lesznek visszatérítve, ha a kihívást visszavonják.",
     "publicChallengesTitle": "Nyilvános kihívások",
-    "officialChallenge": "Hivatalos Habitica Kihívás",
+    "officialChallenge": "Hivatalos Habitica kihívás",
     "by": "által",
     "participants": "<%= membercount %> résztvevők",
     "join": "Csatlakozom",
@@ -56,7 +56,7 @@
     "winnerNotFound": "A(z) \"<%= userId %>\" azonosítójú győztes nem található vagy nem a kihívás résztvevője.",
     "onlyChalLeaderEditTasks": "Egy kihívás feladatait csak a kihívás tulajdonosa módosíthatja.",
     "userAlreadyInChallenge": "A felhasználó már részt vesz ebben a kihívásban.",
-    "cantOnlyUnlinkChalTask": "Csak a érvénytelen, kihívásokhoz kapcsolódó feladatokat lehet törölni.",
+    "cantOnlyUnlinkChalTask": "Csak a kihívásokhoz kapcsolódó érvénytelen feladatokat lehet törölni.",
     "joinedChallenge": "Csatlakoztál egy kihíváshoz",
     "joinedChallengeText": "Ez a felhasználó próbára tette magát azzal, hogy csatlakozott egy kihíváshoz!",
     "myChallenges": "Saját kihívásaim",
@@ -100,5 +100,8 @@
     "viewProgress": "Állapot megtekintése",
     "selectMember": "Tag kiválasztása",
     "confirmKeepChallengeTasks": "Meg akarod tartani a kihíváshoz tartozó feladatokat?",
-    "selectParticipant": "Válassz ki egy résztvevőt"
+    "selectParticipant": "Válassz ki egy résztvevőt",
+    "wonChallengeDesc": "<%= challengeName %> kihívás győztese vagy! Győzelmedet a kitüntetések között megtalálhatod.",
+    "yourReward": "Jutalmad",
+    "filters": "Szűrők"
 }

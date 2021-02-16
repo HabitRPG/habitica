@@ -2283,5 +2283,11 @@
     "armorSpecialBirthday2021Notes": "Joyeux anniversaire, Habitica ! Portez ces robes de fêtes extravagantes pour célébrer ce jour merveilleux. Ne confère aucun bonus.",
     "armorSpecialBirthday2021Text": "Robes de fête extravagantes",
     "weaponMystery202102Notes": "La gemme rose qui brille dans cette baguette détient le pouvoir de répandre la joie et l'amitié au loin ! Ne confère aucun bonus. Équipement d'abonnement de février 2021.",
-    "weaponMystery202102Text": "Baguette charmeuse"
+    "weaponMystery202102Text": "Baguette charmeuse",
+    "shieldArmoireSoftPinkPillowNotes": "Le guerrier prévoyant aura toujours un oreiller dans sa besace. Ça adoucit les coups de la vie... même lorsque vous faites la sieste. Augmente la force et la constitution de <%= attrs %> chacune. Armoire enchantée : ensemble d'habits roses (objet 3 de 3).",
+    "shieldArmoireSoftPinkPillowText": "Oreiller doux rose",
+    "headArmoirePinkFloppyHatNotes": "Beaucoup de sorts ont été brodés sur ce simple chapeau, lui conférant une couleur rose parfaite. Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble d'habits roses (objet 1 de 3).",
+    "headArmoirePinkFloppyHatText": "Chapeau souple rose",
+    "armorArmoireSoftPinkSuitNotes": "Le rose est une couleur apaisante. Glissez-vous dans ces vêtements pour un peu de paix pendant vos tâches quotidiennes ! Augmente la perception de <%= per %>. Armoire enchantée : ensemble d'habits roses (objet 2 de 3).",
+    "armorArmoireSoftPinkSuitText": "Costume rose doux"
 }

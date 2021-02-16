@@ -367,5 +367,7 @@
     "bannedWordsAllowed": "Zezwól na zabronione słowa",
     "languageSettings": "Ustawienia języka",
     "blockYourself": "Nie możesz zablokować samego siebie",
-    "features": "Funkcje"
+    "features": "Funkcje",
+    "giftMessageTooLong": "Maksymalna długość wiadomości podarunkowej to <%= maxGiftMessageLength %>.",
+    "selectSubscription": "Wybierz Abonament"
 }

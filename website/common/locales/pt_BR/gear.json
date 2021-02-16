@@ -2283,5 +2283,11 @@
     "armorSpecialBirthday2021Notes": "Feliz aniversário, Habitica! Use estes Trajes de Festa Extravagantes para celebrar este dia maravilhoso. Não confere nenhum benefício.",
     "armorSpecialBirthday2021Text": "Traje de Festa Extravagante",
     "weaponMystery202102Notes": "A gema rosa brilhante nesta varinha tem o poder de espalhar a alegria e a amizade por toda parte! Não confere nenhum benefício. Item de assinante de Fevereiro de 2021.",
-    "weaponMystery202102Text": "Varinha de Condão"
+    "weaponMystery202102Text": "Varinha de Condão",
+    "shieldArmoireSoftPinkPillowNotes": "O guerreiro sensato embala um travesseiro para qualquer expedição. Suaviza os golpes da vida... mesmo enquanto tira uma soneca. Aumenta a Força e a Constituição em <%= attrs %> cada. Armário Encantado: Conjunto Traje Cor-de-Rosa (item 3 de 3).",
+    "shieldArmoireSoftPinkPillowText": "Travesseiro Rosa Macio",
+    "headArmoirePinkFloppyHatNotes": "Muitos feitiços foram costurados neste simples chapéu, dando-lhe uma cor rosa perfeita. Aumenta a inteligência em <%= int %>. Armário Encantado: Conjunto Traje Cor-de-Rosa (item 1 de 3).",
+    "headArmoirePinkFloppyHatText": "Chapéu Macio Cor-de-Rosa",
+    "armorArmoireSoftPinkSuitNotes": "O rosa é uma cor tranquilizadora. Experimente este conjunto de vestimentas para ter um pouco de paz durante a labuta diária! Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto Traje Cor-de-Rosa (item 2 de 3).",
+    "armorArmoireSoftPinkSuitText": "Traje Rosa Suave"
 }

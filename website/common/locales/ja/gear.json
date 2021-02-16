@@ -311,7 +311,7 @@
     "weaponArmoireBatWandText": "コウモリのつえ",
     "weaponArmoireBatWandNotes": "このつえは、どんなタスクでもコウモリに変えることができます!　ふりかざして、タスクが飛んでいくのを見届けましょう。知能が<%= int %>、知覚が<%= per %>上がります。ラッキー宝箱：個別のアイテム。",
     "weaponArmoireShepherdsCrookText": "牧童のかぎづえ",
-    "weaponArmoireShepherdsCrookNotes": "グリフォンたちを追いこむのに便利。体質が<%= con %>上がります。ラッキー宝箱：牧場セット(3個中1個目のアイテム )。",
+    "weaponArmoireShepherdsCrookNotes": "グリフォンたちを追いこむのに便利。体質が<%= con %>上がります。ラッキー宝箱：シェパード セット(3個中1個目のアイテム )。",
     "weaponArmoireCrystalCrescentStaffText": "水晶の三日月のつえ",
     "weaponArmoireCrystalCrescentStaffNotes": "輝くつえで、三日月の力を呼びよせましょう!　知能と力が<%= attrs %>ずつ上がります。ラッキー宝箱：クリスタルな三日月セット(3個中3個目のアイテム ) 。",
     "weaponArmoireBlueLongbowText": "青い長弓",

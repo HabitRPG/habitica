@@ -71,5 +71,6 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> életerő",
     "rageAttack": "Őrjöngő támadás:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Őrjöngés",
-    "rageStrikes": "Őrjöngéssel támad"
+    "rageStrikes": "Őrjöngéssel támad",
+    "hatchingPotionQuests": "Varázslatos keltetőfőzet küldetések"
 }

@@ -2283,5 +2283,11 @@
     "armorSpecialBirthday2021Notes": "生日快乐，Habitica！穿上这件奢华的派对长袍，庆祝这美妙的一天吧。没有属性加成。",
     "armorSpecialBirthday2021Text": "奢华的派对长袍",
     "weaponMystery202102Notes": "这根魔杖中发光的粉色宝石能将快乐和友谊传播到远方！没有属性加成。2021年2月订阅者物品。",
-    "weaponMystery202102Text": "迷人魔杖"
+    "weaponMystery202102Text": "迷人魔杖",
+    "armorArmoireSoftPinkSuitNotes": "粉红色是一种舒缓的颜色。来溜进这套休闲装，在日常工作中享受一点宁静！增加<%= per %>点感知力。魔法衣橱：粉色休闲服套装（2/3）。",
+    "shieldArmoireSoftPinkPillowNotes": "明智的战士会为任何远征准备枕头。减轻生活的打击... ...即使在你打盹的时候。力量和体质各增加<%= attrs %>点。魔法衣橱：粉色休闲服套装（3/3）。",
+    "shieldArmoireSoftPinkPillowText": "柔软的粉红色枕头",
+    "headArmoirePinkFloppyHatNotes": "许多咒语被缝进了这个简单的帽子，给它一个完美的粉红色。提高<%= int %>点智力。魔法衣橱：粉色休闲服套装（1/3）。",
+    "headArmoirePinkFloppyHatText": "粉色软帽",
+    "armorArmoireSoftPinkSuitText": "柔软的粉色套装"
 }

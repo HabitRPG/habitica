@@ -2062,5 +2062,8 @@
     "armorMystery202102Text": "Vestido cautivador",
     "armorSpecialBirthday2021Notes": "¡Feliz cumpleaños, Habitica! Viste este atuendo extravagante de fiesta para celebrar este maravilloso día. No otorga ningún beneficio.",
     "armorSpecialBirthday2021Text": "Atuendo extravagante de fiesta",
-    "weaponMystery202102Notes": "¡La brillante gema rosa en esta varita tiene el poder de propagar la felicidad y la amistad por todas partes! No otorga ningún beneficio. Artículo de suscriptor de Febrero 2021."
+    "weaponMystery202102Notes": "¡La brillante gema rosa en esta varita tiene el poder de propagar la felicidad y la amistad por todas partes! No otorga ningún beneficio. Artículo de suscriptor de Febrero 2021.",
+    "headSpecialSpring2019MageNotes": "Una resplandeciente gema ámbar otorga a este sombrero el poder de fuerzas naturales arcanas. Aumenta la Percepción en <%= per %>. Equipamiento de edición limitada Primavera 2019.",
+    "armorArmoireBoxArmorNotes": "Armadura de cajas: Si te encaja, te sientas dentro... ehm, la vistes para la batalla, ¡Cómo el valiente caballero que eres! Aumenta la Percepción y la Constitución en <%= attrs %>. Armario Encantado: Conjunto de caballero de papel (artículo 3 de 3).",
+    "armorMystery202102Notes": "Navega a través del universo con estilo en este alegremente brillante vestido. No otorga ningún beneficio. Artículo de suscriptor de Febrero 2021."
 }

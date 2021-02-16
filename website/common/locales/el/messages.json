@@ -58,5 +58,6 @@
     "reportedMessage": "Το μήνυμα αναφέρθηκε στους υπεύθυνους.",
     "messageAllUnEquipped": "Αφαιρέθηκαν τα Πάντα.",
     "messageCostumeUnEquipped": "Το Κοστούμι αφαιρέθηκε.",
-    "messageBattleGearUnEquipped": "Ο Εξοπλισμός Μάχης αφαιρέθηκε."
+    "messageBattleGearUnEquipped": "Ο Εξοπλισμός Μάχης αφαιρέθηκε.",
+    "messagePetMountUnEquipped": "Κατοικίδιο και Θηρίο αφαιρέθηκαν."
 }
