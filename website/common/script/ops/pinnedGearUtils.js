@@ -9,7 +9,6 @@ import i18n from '../i18n';
 import getItemByPathAndType from '../libs/getItemByPathAndType';
 import getOfficialPinnedItems from '../libs/getOfficialPinnedItems';
 
-
 const sortOrder = reduce(content.gearTypes, (accumulator, val, key) => {
   accumulator[val] = key;
   return accumulator;
@@ -144,7 +143,6 @@ export function togglePinnedItem (user, { item, type, path }, req = {}) {
     // check if item exists & valid to be pinned
     getItemInfo(user, type, item, officialPinnedItems, req.language);
   }
-
 
   if (path === 'armoire' || path === 'potion' || type === 'debuffPotion') {
     // @TODO: take into considertation debuffPotion type in message

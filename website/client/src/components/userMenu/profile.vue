@@ -1,10 +1,15 @@
 <template>
   <div
-    v-if="user"
+    v-if="!user && userLoaded"
+  >
+    <error404 />
+  </div>
+  <div
+    v-else-if="userLoaded"
     class="profile"
   >
     <div class="header">
-      <div class="profile-actions">
+      <div class="profile-actions d-flex">
         <router-link
           :to="{ path: '/private-messages', query: { uuid: user._id } }"
           replace
@@ -14,6 +19,7 @@
             class="btn btn-secondary message-icon"
           >
             <div
+              v-once
               class="svg-icon message-icon"
               v-html="icons.message"
             ></div>
@@ -32,12 +38,13 @@
         <button
           v-if="user._id !== userLoggedIn._id && userLoggedIn.inbox.blocks.indexOf(user._id) === -1"
           v-b-tooltip.hover.right="$t('blockWarning')"
-          class="btn btn-secondary remove-icon"
+          class="btn btn-secondary block-icon d-flex justify-content-center align-items-center"
           @click="blockUser()"
         >
           <div
-            class="svg-icon remove-icon"
-            v-html="icons.remove"
+            v-once
+            class="svg-icon block-icon"
+            v-html="icons.block"
           ></div>
         </button>
         <button
@@ -54,7 +61,7 @@
         <button
           v-if="userLoggedIn.contributor.admin"
           v-b-tooltip.hover.right="'Admin - Toggle Tools'"
-          class="btn btn-secondary positive-icon"
+          class="btn btn-secondary positive-icon d-flex justify-content-center align-items-center"
           @click="toggleAdminTools()"
         >
           <div
@@ -281,13 +288,13 @@
         </div>
         <div class="col-12 text-center">
           <button
-            class="btn btn-primary"
+            class="btn btn-primary mr-2"
             @click="save()"
           >
             {{ $t("save") }}
           </button>
           <button
-            class="btn btn-warning"
+            class="btn btn-secondary"
             @click="editing = false"
           >
             {{ $t("cancel") }}
@@ -307,7 +314,7 @@
         class="row category-row"
       >
         <h3 class="col-12 text-center mb-3">
-          {{ $t(key+'Achievs') }}
+          {{ $t(`${key}Achievs`) }}
         </h3>
         <div class="col-12">
           <div class="row achievements-row justify-content-center">
@@ -359,8 +366,8 @@
             @click="toggleAchievementsCategory(key)"
           >
             {{ achievementsCategories[key].open ?
-              $t('hideAchievements', {category: $t(key+'Achievs')}) :
-              $t('showAllAchievements', {category: $t(key+'Achievs')})
+              $t('hideAchievements', {category: $t(`${key}Achievs`)}) :
+              $t('showAllAchievements', {category: $t(`${key}Achievs`)})
             }}
           </div>
         </div>
@@ -426,6 +433,10 @@
       }
     }
 
+    .standard-page {
+      padding-bottom: 0rem;
+    }
+
     .modal-content {
       background: #f9f9f9;
     }
@@ -477,10 +488,10 @@
     margin-right: 1em;
 
     button {
-      width: 40px;
-      height: 40px;
-      padding: .7em;
-      margin-right: .5em;
+      width: 32px;
+      height: 32px;
+      padding: 0.5em;
+      margin-right: 0.5em;
     }
   }
 
@@ -495,7 +506,7 @@
     width: 12px;
   }
 
-  .remove-icon {
+  .block-icon {
     width: 16px;
     color: $gray-100;
   }
@@ -560,6 +571,7 @@
     .achievement-wrapper {
       width: 94px;
       max-width: 94px;
+      min-width: 94px;
       margin-right: 12px;
       margin-left: 12px;
       padding: 0px;
@@ -607,6 +619,7 @@
         margin-right: 8px;
         background: $gray-600;
         color: $gray-300;
+        height: fit-content;
       }
     }
   }
@@ -659,8 +672,7 @@
       height: 1px;
       position: relative;
       vertical-align: middle;
-      width: 90%;
-      left: 16px;
+      width: 100%;
     }
   }
 
@@ -710,7 +722,7 @@ import profileStats from './profileStats';
 
 import message from '@/assets/svg/message.svg';
 import gift from '@/assets/svg/gift.svg';
-import remove from '@/assets/svg/remove.svg';
+import block from '@/assets/svg/block.svg';
 import positive from '@/assets/svg/positive.svg';
 import dots from '@/assets/svg/dots.svg';
 import megaphone from '@/assets/svg/broken-megaphone.svg';
@@ -718,6 +730,7 @@ import lock from '@/assets/svg/lock.svg';
 import challenge from '@/assets/svg/challenge.svg';
 import member from '@/assets/svg/member-icon.svg';
 import staff from '@/assets/svg/tier-staff.svg';
+import error404 from '../404';
 // @TODO: EMAILS.COMMUNITY_MANAGER_EMAIL
 const COMMUNITY_MANAGER_EMAIL = 'admin@habitica.com';
 
@@ -728,13 +741,14 @@ export default {
   components: {
     MemberDetails,
     profileStats,
+    error404,
   },
   props: ['userId', 'startingPage'],
   data () {
     return {
       icons: Object.freeze({
         message,
-        remove,
+        block,
         positive,
         gift,
         dots,
@@ -760,7 +774,9 @@ export default {
       achievements: {},
       achievementsCategories: {}, // number, open
       content: Content,
-      user: undefined,
+      user: null,
+      userLoaded: false,
+      oldTitle: null,
     };
   },
   computed: {
@@ -816,51 +832,83 @@ export default {
   },
   mounted () {
     this.loadUser();
+    this.oldTitle = this.$store.state.title;
     this.selectPage(this.startingPage);
+    this.$root.$on('habitica:restoreTitle', () => {
+      if (this.oldTitle) {
+        this.$store.dispatch('common:setTitle', {
+          fullTitle: this.oldTitle,
+        });
+      }
+    });
+  },
+  beforeDestroy () {
+    this.$root.$off('habitica:restoreTitle');
   },
   methods: {
     async loadUser () {
-      let user = this.userLoggedIn;
+      let user = null;
 
       // Reset editing when user is changed. Move to watch or is this good?
       this.editing = false;
       this.hero = {};
+      this.userLoaded = false;
       this.adminToolsLoaded = false;
 
       const profileUserId = this.userId;
 
       if (profileUserId && profileUserId !== this.userLoggedIn._id) {
         const response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
-        user = response.data.data;
+        if (response.response && response.response.status === 404) {
+          user = null;
+          this.$store.dispatch('snackbars:add', {
+            title: 'Habitica',
+            text: this.$t('messageDeletedUser'),
+            type: 'error',
+            timeout: false,
+          });
+        } else if (response.status && response.status === 200) {
+          user = response.data.data;
+        }
+      } else {
+        user = this.userLoggedIn;
       }
 
-      this.editingProfile.name = user.profile.name;
-      this.editingProfile.imageUrl = user.profile.imageUrl;
-      this.editingProfile.blurb = user.profile.blurb;
+      if (user) {
+        this.editingProfile.name = user.profile.name;
+        this.editingProfile.imageUrl = user.profile.imageUrl;
+        this.editingProfile.blurb = user.profile.blurb;
 
-      if (!user.achievements.quests) user.achievements.quests = {};
-      if (!user.achievements.challenges) user.achievements.challenges = {};
-      // @TODO: this common code should handle the above
-      this.achievements = achievementsLib.getAchievementsForProfile(user);
+        if (!user.achievements.quests) user.achievements.quests = {};
+        if (!user.achievements.challenges) user.achievements.challenges = {};
+        // @TODO: this common code should handle the above
+        this.achievements = achievementsLib.getAchievementsForProfile(user);
 
-      const achievementsCategories = {};
-      Object.keys(this.achievements).forEach(category => {
-        achievementsCategories[category] = {
-          open: false,
-          number: Object.keys(this.achievements[category].achievements).length,
-        };
-      });
+        const achievementsCategories = {};
+        Object.keys(this.achievements).forEach(category => {
+          achievementsCategories[category] = {
+            open: false,
+            number: Object.keys(this.achievements[category].achievements).length,
+          };
+        });
 
-      this.achievementsCategories = achievementsCategories;
+        this.achievementsCategories = achievementsCategories;
 
-      // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
-      user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
+        // @TODO For some reason markdown doesn't seem to be handling numbers or maybe undefined?
+        user.profile.blurb = user.profile.blurb ? `${user.profile.blurb}` : '';
 
-      this.user = user;
+        this.user = user;
+      }
+
+      this.userLoaded = true;
     },
     selectPage (page) {
       this.selectedPage = page || 'profile';
       window.history.replaceState(null, null, '');
+      this.$store.dispatch('common:setTitle', {
+        section: this.$t('user'),
+        subSection: this.$t(this.startingPage),
+      });
     },
     getProgressDisplay () {
       // let currentLoginDay = Content.loginIncentives[this.user.loginIncentives];

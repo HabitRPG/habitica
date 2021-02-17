@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import defaults from 'lodash/defaults';
 import moment from 'moment';
+import getUtcOffset from '../fns/getUtcOffset';
 
 // Even though Mongoose handles task defaults,
 // we want to make sure defaults are set on the client-side before
@@ -66,7 +67,7 @@ export default function taskDefaults (task, user) {
   }
 
   if (task.type === 'daily') {
-    const now = moment().zone(user.preferences.timezoneOffset);
+    const now = moment().utcOffset(getUtcOffset(user));
     const startOfDay = now.clone().startOf('day');
     const startOfDayWithCDSTime = startOfDay
       .clone()

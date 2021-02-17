@@ -1,4 +1,3 @@
-
 import { v4 as generateUUID } from 'uuid';
 import { find } from 'lodash';
 import {
@@ -160,6 +159,23 @@ describe('POST /user/class/cast/:spellId', () => {
         error: 'BadRequest',
         message: t('groupTasksNoCast'),
       });
+  });
+
+  it('Issue #12361: returns an error if stealth has already been cast', async () => {
+    await user.update({
+      'stats.class': 'rogue',
+      'stats.lvl': 15,
+      'stats.mp': 400,
+      'stats.buffs.stealth': 1,
+    });
+    await user.sync();
+    await expect(user.post('/user/class/cast/stealth'))
+      .to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('spellAlreadyCast'),
+      });
+    expect(user.stats.mp).to.equal(400);
   });
 
   it('returns an error if targeted party member doesn\'t exist', async () => {
@@ -324,7 +340,6 @@ describe('POST /user/class/cast/:spellId', () => {
 
     expect(result.user.stats.mp).to.equal(10);
   });
-
 
   // TODO find a way to have sinon working in integration tests
   // it doesn't work when tests are running separately from server

@@ -192,6 +192,51 @@ const basicAchievs = {
     titleKey: 'achievementBugBonanza',
     textKey: 'achievementBugBonanzaText',
   },
+  bareNecessities: {
+    icon: 'achievement-bareNecessities',
+    titleKey: 'achievementBareNecessities',
+    textKey: 'achievementBareNecessitiesText',
+  },
+  freshwaterFriends: {
+    icon: 'achievement-freshwaterFriends',
+    titleKey: 'achievementFreshwaterFriends',
+    textKey: 'achievementFreshwaterFriendsText',
+  },
+  goodAsGold: {
+    icon: 'achievement-goodAsGold',
+    titleKey: 'achievementGoodAsGold',
+    textKey: 'achievementGoodAsGoldText',
+  },
+  allThatGlitters: {
+    icon: 'achievement-allThatGlitters',
+    titleKey: 'achievementAllThatGlitters',
+    textKey: 'achievementAllThatGlittersText',
+  },
+  boneCollector: {
+    icon: 'achievement-boneCollector',
+    titleKey: 'achievementBoneCollector',
+    textKey: 'achievementBoneCollectorText',
+  },
+  skeletonCrew: {
+    icon: 'achievement-skeletonCrew',
+    titleKey: 'achievementSkeletonCrew',
+    textKey: 'achievementSkeletonCrewText',
+  },
+  seeingRed: {
+    icon: 'achievement-seeingRed',
+    titleKey: 'achievementSeeingRed',
+    textKey: 'achievementSeeingRedText',
+  },
+  redLetterDay: {
+    icon: 'achievement-redLetterDay',
+    titleKey: 'achievementRedLetterDay',
+    textKey: 'achievementRedLetterDayText',
+  },
+  legendaryBestiary: {
+    icon: 'achievement-legendaryBestiary',
+    titleKey: 'achievementLegendaryBestiary',
+    textKey: 'achievementLegendaryBestiaryText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 

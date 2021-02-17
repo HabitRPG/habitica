@@ -8,6 +8,8 @@ import {
 import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
+import getUtcOffset from '../fns/getUtcOffset';
+
 import statsComputed from '../libs/statsComputed';
 import { checkOnboardingStatus } from '../libs/onboarding';
 
@@ -42,7 +44,7 @@ function _calculateDelta (task, direction, cron) {
       ) / task.checklist.length;
     }
 
-    // If To-Do, point-match the TD per checklist item completed
+    // If To Do, point-match the TD per checklist item completed
     if (task.type === 'todo' && !cron) {
       nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
@@ -80,7 +82,7 @@ function _calculateReverseDelta (task, direction) {
   // before the task was checked.
   let nextDelta = testVal - currVal;
 
-  // Checklists - If To-Do, point-match the TD per checklist item completed
+  // Checklists - If To Do, point-match the TD per checklist item completed
   if (task.checklist && task.checklist.length > 0 && task.type === 'todo') {
     nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
   }
@@ -194,14 +196,14 @@ function _lastHistoryEntryWasToday (lastHistoryEntry, user) {
     return false;
   }
 
-  const { timezoneOffset } = user.preferences;
+  const timezoneUtcOffset = getUtcOffset(user);
   const { dayStart } = user.preferences;
 
   // Adjust the last entry date according to the user's timezone and CDS
-  const dateWithTimeZone = moment(lastHistoryEntry.date).zone(timezoneOffset);
+  const dateWithTimeZone = moment(lastHistoryEntry.date).utcOffset(timezoneUtcOffset);
   if (dateWithTimeZone.hour() < dayStart) dateWithTimeZone.subtract(1, 'day');
 
-  return moment().zone(timezoneOffset).isSame(dateWithTimeZone, 'day');
+  return moment().utcOffset(timezoneUtcOffset).isSame(dateWithTimeZone, 'day');
 }
 
 function _updateLastHistoryEntry (lastHistoryEntry, task, direction, times) {
@@ -233,13 +235,18 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (
     task.group && task.group.approval && task.group.approval.required
-    && !task.group.approval.approved
+    && !task.group.approval.approved && !(task.type === 'todo' && cron)
   ) return 0;
 
   // This is for setting one-time temporary flags,
   // such as streakBonus or itemDropped. Useful for notifying
   // the API consumer, then cleared afterwards
+  // Keep user._tmp.leveledUp if it already exists
+  // To make sure infos on level ups don't get lost when bulk scoring multiple tasks
+  const oldLeveledUp = user._tmp && user._tmp.leveledUp;
   user._tmp = {};
+
+  if (oldLeveledUp) user._tmp.leveledUp = oldLeveledUp;
 
   // If they're trying to purchase a too-expensive reward, don't allow them to do that.
   if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));

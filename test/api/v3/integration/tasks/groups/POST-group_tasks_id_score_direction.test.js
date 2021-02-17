@@ -44,12 +44,11 @@ describe('POST /tasks/:id/score/:direction', () => {
     const syncedTask = find(memberTasks, findAssignedTask);
     const direction = 'up';
 
-    await expect(member.post(`/tasks/${syncedTask._id}/score/${direction}`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
+    const response = await member.post(`/tasks/${syncedTask._id}/score/${direction}`);
+
+    expect(response.data.requiresApproval).to.equal(true);
+    expect(response.message).to.equal(t('taskApprovalHasBeenRequested'));
+
     const updatedTask = await member.get(`/tasks/${syncedTask._id}`);
 
     await user.sync();
@@ -76,12 +75,7 @@ describe('POST /tasks/:id/score/:direction', () => {
     const syncedTask = find(memberTasks, findAssignedTask);
     const direction = 'up';
 
-    await expect(member.post(`/tasks/${syncedTask._id}/score/${direction}`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
+    await member.post(`/tasks/${syncedTask._id}/score/${direction}`);
     const updatedTask = await member.get(`/tasks/${syncedTask._id}`);
     await user.sync();
     await member2.sync();
@@ -111,31 +105,18 @@ describe('POST /tasks/:id/score/:direction', () => {
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
 
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
 
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskRequiresApproval'),
-      });
+    const response = await member.post(`/tasks/${syncedTask._id}/score/up`);
+    expect(response.data.requiresApproval).to.equal(true);
+    expect(response.message).to.equal(t('taskRequiresApproval'));
   });
 
   it('allows a user to score an approved task', async () => {
     const memberTasks = await member.get('/tasks/user');
     const syncedTask = find(memberTasks, findAssignedTask);
 
-    await expect(member.post(`/tasks/${syncedTask._id}/score/up`))
-      .to.eventually.be.rejected.and.to.eql({
-        code: 401,
-        error: 'NotAuthorized',
-        message: t('taskApprovalHasBeenRequested'),
-      });
+    await member.post(`/tasks/${syncedTask._id}/score/up`);
 
     await user.post(`/tasks/${task._id}/approve/${member._id}`);
 

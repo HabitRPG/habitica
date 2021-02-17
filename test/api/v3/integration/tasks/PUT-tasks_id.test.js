@@ -10,9 +10,14 @@ import {
 
 describe('PUT /tasks/:id', () => {
   let user;
+  let tzoffset;
+
+  before(async () => {
+    tzoffset = (new Date()).getTimezoneOffset();
+  });
 
   beforeEach(async () => {
-    user = await generateUser();
+    user = await generateUser({ 'preferences.timezoneOffset': tzoffset });
   });
 
   context('validates params', () => {
@@ -496,6 +501,58 @@ describe('PUT /tasks/:id', () => {
       });
 
       expect((new Date(savedDaily.startDate)).getDay()).to.eql((new Date()).getDay());
+    });
+  });
+
+  context('monthly dailys', () => {
+    let monthly;
+
+    beforeEach(async () => {
+      // using date literals is discouraged here, daylight savings will break everything
+      const date1 = moment().toDate();
+      monthly = await user.post('/tasks/user', {
+        text: 'test monthly',
+        type: 'daily',
+        frequency: 'monthly',
+        startDate: date1,
+        daysOfMonth: [date1.getDate()],
+      });
+    });
+
+    it('updates days of month when start date updated', async () => {
+      const date2 = moment().add(6, 'months').toDate();
+      const savedMonthly = await user.put(`/tasks/${monthly._id}`, {
+        startDate: date2,
+      });
+
+      expect(savedMonthly.daysOfMonth).to.deep.equal([moment(date2).date()]);
+    });
+
+    it('updates next due when start date updated', async () => {
+      const date2 = moment().add(6, 'months').toDate();
+      const savedMonthly = await user.put(`/tasks/${monthly._id}`, {
+        startDate: date2,
+      });
+
+      expect(savedMonthly.nextDue.length).to.eql(6);
+      expect(moment(savedMonthly.nextDue[0]).toDate()).to.eql(
+        moment(date2).add(1, 'months').startOf('day').toDate(),
+      );
+      expect(moment(savedMonthly.nextDue[1]).toDate()).to.eql(
+        moment(date2).add(2, 'months').startOf('day').toDate(),
+      );
+      expect(moment(savedMonthly.nextDue[2]).toDate()).to.eql(
+        moment(date2).add(3, 'months').startOf('day').toDate(),
+      );
+      expect(moment(savedMonthly.nextDue[3]).toDate()).to.eql(
+        moment(date2).add(4, 'months').startOf('day').toDate(),
+      );
+      expect(moment(savedMonthly.nextDue[4]).toDate()).to.eql(
+        moment(date2).add(5, 'months').startOf('day').toDate(),
+      );
+      expect(moment(savedMonthly.nextDue[5]).toDate()).to.eql(
+        moment(date2).add(6, 'months').startOf('day').toDate(),
+      );
     });
   });
 

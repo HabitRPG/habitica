@@ -151,6 +151,7 @@ function removeTerminatedSubscription (user) {
   _.merge(plan, {
     planId: null,
     customerId: null,
+    subscriptionId: null,
     paymentMethod: null,
   });
 
@@ -172,7 +173,7 @@ function resetHabitCounters (user, tasksByType, now, daysMissed) {
       break;
     }
     const thatDay = moment(now)
-      .zone(user.preferences.timezoneOffset + user.preferences.dayStart * 60)
+      .utcOffset(user.getUtcOffset() - user.preferences.dayStart * 60)
       .subtract({ days: i });
     if (thatDay.day() === 1) {
       resetWeekly = true;
@@ -225,7 +226,7 @@ function trackCronAnalytics (analytics, user, _progress, options) {
       user,
       questName: user.party.quest.key,
       headers: options.headers,
-    });
+    }, true);
   }
 }
 
@@ -280,14 +281,14 @@ function awardLoginIncentives (user) {
 // Perform various beginning-of-day reset actions.
 export function cron (options = {}) {
   const {
-    user, tasksByType, analytics, now = new Date(), daysMissed, timezoneOffsetFromUserPrefs,
+    user, tasksByType, analytics, now = new Date(), daysMissed, timezoneUtcOffsetFromUserPrefs,
   } = options;
   let _progress = { down: 0, up: 0, collectedItems: 0 };
 
   // Record pre-cron values of HP and MP to show notifications later
   const beforeCronStats = _.pick(user.stats, ['hp', 'mp']);
 
-  user.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
+  user.preferences.timezoneOffsetAtLastCron = -timezoneUtcOffsetFromUserPrefs;
   // User is only allowed a certain number of drops a day. This resets the count.
   if (user.items.lastDrop.count > 0) user.items.lastDrop.count = 0;
 
@@ -323,7 +324,7 @@ export function cron (options = {}) {
   // Tally each task
   let todoTally = 0;
 
-  // make uncompleted To-Dos redder (further incentive to complete them)
+  // make uncompleted To Do's redder (further incentive to complete them)
   tasksByType.todos.forEach(task => {
     if (
       task.completed

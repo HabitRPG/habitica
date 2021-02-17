@@ -4,7 +4,6 @@ import moment from 'moment';
 import _ from 'lodash';
 import shared from '../../common';
 import baseModel from '../libs/baseModel';
-import { InternalServerError } from '../libs/errors';
 import { preenHistory } from '../libs/preening';
 import { SHARED_COMPLETION } from '../libs/groupTasks'; // eslint-disable-line import/no-cycle
 
@@ -128,16 +127,17 @@ export const TaskSchema = new Schema({
   },
 
   group: {
-    id: { $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for task group.'] },
+    id: { $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for group task.'] },
     broken: { $type: String, enum: ['GROUP_DELETED', 'TASK_DELETED', 'UNSUBSCRIBED'] },
-    assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for task group user.'] }],
+    assignedUsers: [{ $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group assigned user.'] }],
     assignedDate: { $type: Date },
-    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid for task group task.'] },
+    assigningUsername: { $type: String },
+    taskId: { $type: String, ref: 'Task', validate: [v => validator.isUUID(v), 'Invalid uuid for group task.'] },
     approval: {
       required: { $type: Boolean, default: false },
       approved: { $type: Boolean, default: false },
       dateApproved: { $type: Date },
-      approvingUser: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid task group approvingUser.'] },
+      approvingUser: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group approving user.'] },
       requested: { $type: Boolean, default: false },
       requestedDate: { $type: Date },
     },
@@ -146,6 +146,7 @@ export const TaskSchema = new Schema({
       enum: _.values(SHARED_COMPLETION),
       default: SHARED_COMPLETION.single,
     },
+    managerNotes: { $type: String },
   },
 
   reminders: [reminderSchema],
@@ -189,10 +190,8 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
   userId,
   additionalQueries = {},
 ) {
-  // not using i18n strings because these errors
-  // are meant for devs who forgot to pass some parameters
-  if (!identifier) throw new InternalServerError('Task identifier is a required argument');
-  if (!userId) throw new InternalServerError('User identifier is a required argument');
+  if (!identifier) throw new Error('Task identifier is a required argument');
+  if (!userId) throw new Error('User identifier is a required argument');
 
   const query = _.cloneDeep(additionalQueries);
 
@@ -208,6 +207,38 @@ TaskSchema.statics.findByIdOrAlias = async function findByIdOrAlias (
   return task;
 };
 
+TaskSchema.statics.findMultipleByIdOrAlias = async function findByIdOrAlias (
+  identifiers,
+  userId,
+  additionalQueries = {},
+) {
+  if (!identifiers || !Array.isArray(identifiers)) throw new Error('Task identifiers is a required array argument');
+  if (!userId) throw new Error('User identifier is a required argument');
+
+  const query = _.cloneDeep(additionalQueries);
+  query.userId = userId;
+
+  const ids = [];
+  const aliases = [];
+
+  identifiers.forEach(identifier => {
+    if (validator.isUUID(String(identifier))) {
+      ids.push(identifier);
+    } else {
+      aliases.push(identifier);
+    }
+  });
+
+  query.$or = [
+    { _id: { $in: ids } },
+    { alias: { $in: aliases } },
+  ];
+
+  const tasks = await this.find(query).exec();
+
+  return tasks;
+};
+
 // Sanitize user tasks linked to a challenge
 // See http://habitica.fandom.com/wiki/Challenges#Challenge_Participant.27s_Permissions for more info
 TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTask (taskObj) {
@@ -215,6 +246,16 @@ TaskSchema.statics.sanitizeUserChallengeTask = function sanitizeUserChallengeTas
 
   return _.pick(initialSanitization, [
     'streak', 'checklist', 'attribute', 'reminders',
+    'tags', 'notes', 'collapseChecklist',
+    'alias', 'yesterDaily', 'counterDown', 'counterUp',
+  ]);
+};
+
+TaskSchema.statics.sanitizeUserGroupTask = function sanitizeUserGroupTask (taskObj) {
+  const initialSanitization = this.sanitize(taskObj);
+
+  return _.pick(initialSanitization, [
+    'streak', 'attribute', 'reminders',
     'tags', 'notes', 'collapseChecklist',
     'alias', 'yesterDaily', 'counterDown', 'counterUp',
   ]);
@@ -232,10 +273,11 @@ TaskSchema.statics.sanitizeReminder = function sanitizeReminder (reminderObj) {
   return reminderObj;
 };
 
+// NOTE: this is used for group tasks as well
 TaskSchema.methods.scoreChallengeTask = async function scoreChallengeTask (delta, direction) {
   const chalTask = this;
 
-  chalTask.value += delta;
+  if (chalTask.type !== 'reward') chalTask.value += delta;
 
   if (chalTask.type === 'habit' || chalTask.type === 'daily') {
     // Add only one history entry per day
@@ -336,7 +378,7 @@ export const DailySchema = new Schema(_.defaults({
   startDate: {
     $type: Date,
     default () {
-      return moment().startOf('day').toDate();
+      return moment.utc().toDate();
     },
     required: true,
   },
@@ -351,9 +393,9 @@ export const DailySchema = new Schema(_.defaults({
   },
   streak: { $type: Number, default: 0 },
   // Days of the month that the daily should repeat on
-  daysOfMonth: { $type: [Number], default: [] },
+  daysOfMonth: { $type: [Number], default: () => [] },
   // Weeks of the month that the daily should repeat on
-  weeksOfMonth: { $type: [Number], default: [] },
+  weeksOfMonth: { $type: [Number], default: () => [] },
   isDue: { $type: Boolean },
   nextDue: [{ $type: String }],
   yesterDaily: { $type: Boolean, default: true, required: true },
@@ -362,8 +404,7 @@ export const daily = Task.discriminator('daily', DailySchema);
 
 export const TodoSchema = new Schema(_.defaults({
   dateCompleted: Date,
-  // TODO we're getting parse errors, people have stored as "today" and "3/13". Need to run a migration & put this back to $type: Date see http://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
-  date: String, // due date for todos
+  date: Date, // due date for todos
 }, dailyTodoSchema()), subDiscriminatorOptions);
 export const todo = Task.discriminator('todo', TodoSchema);
 

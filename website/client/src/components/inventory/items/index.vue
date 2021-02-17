@@ -5,71 +5,50 @@
     @mouseMoved="mouseMoved($event)"
   >
     <div class="standard-sidebar d-none d-sm-block">
-      <div class="form-group">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
+      <filter-sidebar>
+        <div
+          slot="search"
+          class="form-group"
         >
-      </div>
-      <div class="form">
-        <h2 v-once>
-          {{ $t('filter') }}
-        </h2>
-        <h3 v-once>
-          {{ $t('equipmentType') }}
-        </h3>
-        <div class="form-group">
-          <div
-            v-for="group in groups"
-            :key="group.key"
-            class="form-check"
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
           >
-            <div class="custom-control custom-checkbox">
-              <input
-                :id="group.key"
-                v-model="group.selected"
-                class="custom-control-input"
-                type="checkbox"
-              >
-              <label
-                v-once
-                class="custom-control-label"
-                :for="group.key"
-              >{{ $t(group.key) }}</label>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <div class="form">
+          <filter-group :title="$t('equipmentType')">
+            <checkbox
+              v-for="group in groups"
+              :id="group.key"
+              :key="group.key"
+              :checked.sync="group.selected"
+              :text="$t(group.key)"
+            />
+          </filter-group>
+        </div>
+      </filter-sidebar>
     </div>
     <div class="standard-page">
       <div class="clearfix">
         <h1
           v-once
-          class="float-left mb-4 page-header"
+          class="float-left mb-3 page-header"
         >
           {{ $t('items') }}
         </h1>
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(sortBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              :active="sortBy === 'quantity'"
-              @click="sortBy = 'quantity'"
-            >
-              {{ $t('quantity') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              :active="sortBy === 'AZ'"
-              @click="sortBy = 'AZ'"
-            >
-              {{ $t('AZ') }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+            :right="true"
+            :items="['quantity', 'AZ']"
+            :value="sortBy"
+            class="inline"
+            :inline-dropdown="false"
+            @select="sortBy = $event"
+          />
         </div>
       </div>
 
@@ -80,7 +59,7 @@
         :key="group.key"
       >
         <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-        <h2 class="d-flex align-items-center mb-3">
+        <h2 class="d-flex align-items-center mb-3 sub-header">
           {{ $t(group.key) }}
           <span
             v-if="group.key != 'special'"
@@ -320,6 +299,8 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .eggInfo, .hatchingPotionInfo {
     position: absolute;
     left: -500px;
@@ -347,6 +328,7 @@
       text-align: center;
     }
   }
+
 </style>
 
 <script>
@@ -356,6 +338,7 @@ import moment from 'moment';
 import Item from '@/components/inventory/item';
 import ItemRows from '@/components/ui/itemRows';
 import CountBadge from '@/components/ui/countBadge';
+import FilterSidebar from '@/components/ui/filterSidebar';
 
 import cardsModal from './cards-modal';
 
@@ -369,6 +352,9 @@ import { createAnimal } from '@/libs/createAnimal';
 import notifications from '@/mixins/notifications';
 import DragDropDirective from '@/directives/dragdrop.directive';
 import MouseMoveDirective from '@/directives/mouseposition.directive';
+import FilterGroup from '@/components/ui/filterGroup';
+import Checkbox from '@/components/ui/checkbox';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 const allowedSpecialItems = ['snowball', 'spookySparkles', 'shinySeed', 'seafoam'];
 
@@ -391,6 +377,9 @@ let lastMouseMoveEvent = {};
 export default {
   name: 'Items',
   components: {
+    SelectTranslatedArray,
+    Checkbox,
+    FilterGroup,
     Item,
     ItemRows,
     HatchedPetDialog,
@@ -398,6 +387,7 @@ export default {
     startQuestModal,
     cardsModal,
     QuestInfo,
+    FilterSidebar,
   },
   directives: {
     drag: DragDropDirective,
@@ -418,6 +408,11 @@ export default {
       cardOptions: {
         cardType: '',
         messageOptions: 0,
+      },
+      quantitySnapshot: {
+        eggs: null,
+        hatchingPotions: null,
+        food: null,
       },
     };
   },
@@ -443,7 +438,9 @@ export default {
           if (itemQuantity > 0 && isAllowed) {
             const item = contentItems[itemKey];
 
-            const isSearched = !searchText || item.text().toLowerCase().indexOf(searchText) !== -1;
+            const isSearched = !searchText || item.text()
+              .toLowerCase()
+              .indexOf(searchText) !== -1;
             if (isSearched) {
               itemsArray.push({
                 ...item,
@@ -458,12 +455,16 @@ export default {
           }
         });
 
-        itemsArray.sort((a, b) => {
-          if (this.sortBy === 'quantity') {
-            return b.quantity - a.quantity;
-          } // AZ
-          return a.text.localeCompare(b.text);
-        });
+        if (this.sortBy === 'quantity') {
+          // Store original quantities, to avoid reordering when using items.
+          const quantitySnapshot = this.quantitySnapshot[groupKey] || Object.fromEntries(
+            itemsArray.map(item => [item.key, item.quantity]),
+          );
+          itemsArray.sort((a, b) => quantitySnapshot[b.key] - quantitySnapshot[a.key]);
+          this.quantitySnapshot[groupKey] = quantitySnapshot;
+        } else {
+          itemsArray.sort((a, b) => a.text.localeCompare(b.text));
+        }
       });
 
       const specialArray = itemsByType.special;
@@ -499,6 +500,12 @@ export default {
     searchText: throttle(function throttleSearch () {
       this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
+  },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('items'),
+      section: this.$t('inventory'),
+    });
   },
   methods: {
     userHasPet (potionKey, eggKey) {

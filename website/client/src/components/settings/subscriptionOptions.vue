@@ -25,43 +25,19 @@
         </div>
       </b-form-radio>
     </b-form-group>
-    <div class="payments-column mx-auto mt-auto">
-      <button
-        class="purchase btn btn-primary payment-button payment-item"
-        :class="{disabled: !subscription.key}"
-        :disabled="!subscription.key"
-        @click="showStripe({subscription:subscription.key, coupon:subscription.coupon})"
-      >
-        <div
-          v-once
-          class="svg-icon credit-card-icon"
-          v-html="icons.creditCardIcon"
-        ></div>
-        {{ $t('card') }}
-      </button>
-      <button
-        class="btn payment-item paypal-checkout payment-button"
-        :class="{disabled: !subscription.key}"
-        :disabled="!subscription.key"
-        @click="openPaypal(paypalPurchaseLink, 'subscription')"
-      >
-        &nbsp;
-        <img
-          src="~@/assets/images/paypal-checkout.png"
-          :alt="$t('paypal')"
-        >&nbsp;
-      </button>
-      <amazon-button
-        class="payment-item"
-        :class="{disabled: !subscription.key}"
-        :disabled="!subscription.key"
-        :amazon-data="{
-          type: 'subscription',
-          subscription: subscription.key,
-          coupon: subscription.coupon
-        }"
-      />
-    </div>
+    <payments-buttons
+      :disabled="!subscription.key"
+      :stripe-fn="() => redirectToStripe({
+        subscription: subscription.key,
+        coupon: subscription.coupon,
+      })"
+      :paypal-fn="() => openPaypal({url: paypalPurchaseLink, type: 'subscription'})"
+      :amazon-data="{
+        type: 'subscription',
+        subscription: subscription.key,
+        coupon: subscription.coupon
+      }"
+    />
   </div>
 </template>
 
@@ -69,10 +45,6 @@
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
   #subscription-form {
-    .disabled .amazonpay-button-inner-image {
-      cursor: default !important;
-    }
-
     .custom-control .custom-control-label::before,
     .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
       margin-top: 0.75rem;
@@ -110,15 +82,6 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .disabled {
-    opacity: 0.64;
-
-    .btn, .btn:hover, .btn:active {
-      box-shadow: none;
-      cursor: default !important;
-    }
-  }
-
   .subscribe-option {
     border-bottom: 1px solid $gray-600;
   }
@@ -128,14 +91,13 @@
 import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 
-import amazonButton from '@/components/payments/amazonButton';
-import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+import paymentsButtons from '@/components/payments/buttons/list';
 import paymentsMixin from '../../mixins/payments';
 import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks';
 
 export default {
   components: {
-    amazonButton,
+    paymentsButtons,
   },
   mixins: [
     paymentsMixin,
@@ -145,9 +107,6 @@ export default {
       subscription: {
         key: null,
       },
-      icons: Object.freeze({
-        creditCardIcon,
-      }),
     };
   },
   computed: {

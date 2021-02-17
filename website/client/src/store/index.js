@@ -17,8 +17,8 @@ const IS_TEST = process.env.NODE_ENV === 'test'; // eslint-disable-line no-proce
 // before trying to load data
 let isUserLoggedIn = false;
 
-// eg, 240 - this will be converted on server as -(offset/60)
-const browserTimezoneOffset = moment().zone();
+// eg, -240 - this will be converted on server as (offset/60)
+const browserTimezoneUtcOffset = moment().utcOffset();
 
 axios.defaults.headers.common['x-client'] = 'habitica-web';
 
@@ -50,12 +50,20 @@ export default function () {
     actions,
     getters,
     state: {
-      serverAppVersion: '',
+      serverAppVersion: null,
       title: 'Habitica',
       isUserLoggedIn,
-      isUserLoaded: false, // Means the user and the user's tasks are ready
+      // Means the user and the user's tasks are ready
+      // @TODO use store.user.loaded since it's an async resource?
+      isUserLoaded: false,
       isAmazonReady: false, // Whether the Amazon Payments lib can be used
       user: asyncResourceFactory(),
+      // Keep track of the ids of notifications that have been removed
+      // to make sure they don't get shown again. It happened due to concurrent requests
+      // which in some cases could result in a read notification showing up again
+      // see https://github.com/HabitRPG/habitica/issues/9242
+      notificationsRemoved: [],
+      worldState: asyncResourceFactory(),
       credentials: isUserLoggedIn ? {
         API_ID: AUTH_SETTINGS.auth.apiId,
         API_TOKEN: AUTH_SETTINGS.auth.apiToken,
@@ -63,8 +71,9 @@ export default function () {
       // store the timezone offset in case it's different than the one in
       // user.preferences.timezoneOffset and change it after the user is synced
       // in app.vue
-      browserTimezoneOffset,
+      browserTimezoneUtcOffset,
       tasks: asyncResourceFactory(), // user tasks
+      // @TODO use asyncresource?
       completedTodosStatus: 'NOT_LOADED',
       party: asyncResourceFactory(),
       partyMembers: asyncResourceFactory(),
@@ -105,6 +114,7 @@ export default function () {
         groupId: '',
         challengeId: '',
         group: {},
+        loading: false,
       },
       openedItemRows: [],
       spellOptions: {
@@ -122,7 +132,7 @@ export default function () {
       notificationStore: [],
       modalStack: [],
       equipmentDrawerOpen: true,
-      groupPlans: [],
+      groupPlans: asyncResourceFactory(),
       isRunningYesterdailies: false,
       privateMessageOptions: {
         userIdToMessage: '',

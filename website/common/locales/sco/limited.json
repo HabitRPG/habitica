@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Limitit Edeetion",
-    "seasonalEdition": "Saisonal Edeetion",
-    "winterColors": "Winter Colours",
     "annoyingFriends": "Fashin Freends",
     "annoyingFriendsText": "Gat snawbawed <%= count %> times bi pairty members.",
     "alarmingFriends": "Alairmin Freends",
@@ -61,7 +58,6 @@
     "nye2": "Happy New Year! May you earn many a Perfect Day.",
     "nye3": "Happy New Year! May your To-Do list stay short and sweet.",
     "nye4": "Happy New Year! May you not get attacked by a raging Hippogriff.",
-    "holidayCard": "Received a holiday card!",
     "mightyBunnySet": "Mighty Bunny (Warrior)",
     "magicMouseSet": "Magic Mouse (Mage)",
     "lovingPupSet": "Loving Pup (Healer)",
@@ -150,6 +146,6 @@
     "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
     "discountBundle": "bundle",
-    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Announcement": "<strong>Gift a subscription and get a subscription free</strong> event going on now!",
     "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

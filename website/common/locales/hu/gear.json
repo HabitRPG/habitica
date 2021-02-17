@@ -373,7 +373,7 @@
     "weaponArmoireSpearOfSpadesText": "Pikk ász dárda",
     "weaponArmoireSpearOfSpadesNotes": "Ez a királyi dárda tökéletes arra hogy megtámadd a legpirosabb szokásaidat és napi feladataida. Növeli a szívósságodat <%= con %> ponttal. Elvarázsolt láda: Pikk ász szett (3. tárgy a 3-ból).",
     "weaponArmoireArcaneScrollText": "Misztikus tekercs",
-    "weaponArmoireArcaneScrollNotes": "Ez az ősi feladatlista teli van egy elfeledett kor különös  szimbólumaival és varázslataival. Növeli az intelligenciádat <%= int %> ponttal. Elvarázsolt láda: Írnok szett (3. tárgy a 3-ból).",
+    "weaponArmoireArcaneScrollNotes": "Ez az ősi feladatlista teli van egy elfeledett kor különös szimbólumaival és varázslataival. Növeli az intelligenciádat <%= int %> ponttal. Elvarázsolt láda: Írnok szett (3. tárgy a 3-ból).",
     "armor": "páncél",
     "armorCapitalized": "Páncél",
     "armorBase0Text": "Egyszerű ruházat",

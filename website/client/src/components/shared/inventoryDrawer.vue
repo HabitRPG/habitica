@@ -1,12 +1,29 @@
 <template>
   <drawer
+    ref="drawer"
     class="inventoryDrawer"
-    :title="$t('quickInventory')"
+    :no-title-bottom-padding="true"
     :error-message="inventoryDrawerErrorMessage(selectedDrawerItemType)"
   >
+    <div
+      slot="drawer-title-row"
+      class="title-row-tabs"
+    >
+      <div
+        v-for="(tab, index) of filteredTabs"
+        :key="tab.key"
+        class="drawer-tab"
+      >
+        <a
+          class="drawer-tab-text"
+          :class="{'drawer-tab-text-active': filteredTabs[selectedDrawerTab].key === tab.key}"
+          @click.prevent.stop="tabSelected(index); $refs.drawer.open();"
+        >{{ tab.label }}</a>
+      </div>
+    </div>
     <div slot="drawer-header">
       <drawer-header-tabs
-        :tabs="filteredTabs"
+        :tabs="[]"
         @changedPosition="tabSelected($event)"
       >
         <div slot="right-item">
@@ -15,7 +32,7 @@
             id="petLikeToEatMarket"
             class="drawer-help-text"
           >
-            {{ $t('petLikeToEat') + ' ' }}
+            <span>{{ $t('petLikeToEat') + ' ' }}</span>
             <span
               class="svg-icon inline icon-16"
               v-html="icons.information"
@@ -177,6 +194,29 @@ export default {
   .inventoryDrawer {
     .drawer-slider {
       height: 126px;
+    }
+
+    .drawer-tab-text {
+      display: inline-block;
+    }
+
+    .drawer-help-text {
+      display: flex;
+      margin-top: 0.65rem;
+
+      .svg-icon {
+        position: inherit;
+        top: 0;
+      }
+    }
+
+    .title-row-tabs {
+      display: flex;
+      justify-content: center;
+
+      .drawer-tab {
+        background: transparent;
+      }
     }
   }
 </style>

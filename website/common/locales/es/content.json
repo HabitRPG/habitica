@@ -4,7 +4,7 @@
     "armoireText": "Armario encantado",
     "armoireNotesFull": "¡Abre el Armario Encantado para recibir aleatoriamente Equipamiento especial, Experiencia, o comida! Piezas de Equipo restantes:",
     "armoireLastItem": "Has encontrado la última pieza de Equipamiento en el Armario encantado.",
-    "armoireNotesEmpty": "El Armario Encantado tendrá nuevas piezas de Equipo la primera semana de cada mes. Hasta entonces, ¡sigue haciendo clics por Experiencia y Comida!",
+    "armoireNotesEmpty": "El Armario Encantado tendrá nuevas piezas de Equipo la primera semana de cada mes. Hasta entonces, ¡sigue haciendo clics por Experiencia y Comida para mascotas!",
     "dropEggWolfText": "Lobo",
     "dropEggWolfMountText": "Lobo",
     "dropEggWolfAdjective": "un leal",
@@ -353,5 +353,16 @@
     "questEggRobotText": "Robot",
     "premiumPotionUnlimitedNotes": "No puede usarse en huevos de Mascotas de Misiones.",
     "hatchingPotionAmber": "Ámbar",
-    "hatchingPotionAurora": "Aurora"
+    "hatchingPotionAurora": "Aurora",
+    "hatchingPotionBirchBark": "Corteza de abedul",
+    "hatchingPotionRuby": "Rubí",
+    "hatchingPotionSandSculpture": "Escultura de arena",
+    "hatchingPotionFluorite": "Fluorita",
+    "hatchingPotionDessert": "Confección",
+    "hatchingPotionVampire": "Vampiro",
+    "hatchingPotionTurquoise": "Turquesa",
+    "hatchingPotionWindup": "De cuerda",
+    "hatchingPotionBlackPearl": "Perla negra",
+    "hatchingPotionAutumnLeaf": "Hoja de otoño",
+    "hatchingPotionStainedGlass": "Vidrio pintado"
 }

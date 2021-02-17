@@ -9,7 +9,6 @@ const authorUuid = 'ed4c688c-6652-4a92-9d03-a5a79844174a'; // ... own data is do
  */
 const connectionString = 'mongodb://localhost:27017/habitrpg?auto_reconnect=true'; // FOR TEST DATABASE
 
-
 const dbUsers = monk(connectionString).get('users', { castIds: false });
 
 function processUsers (lastId) {

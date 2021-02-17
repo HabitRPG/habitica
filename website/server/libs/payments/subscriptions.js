@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 
-import * as analytics from '../analyticsService';
+import { getAnalyticsServiceByEnvironment } from '../analyticsService';
 import * as slack from '../slack'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   getUserInfo,
@@ -18,9 +18,11 @@ import {
 import shared from '../../../common';
 import { sendNotification as sendPushNotification } from '../pushNotifications'; // eslint-disable-line import/no-cycle
 import calculateSubscriptionTerminationDate from './calculateSubscriptionTerminationDate';
+import { getCurrentEvent } from '../worldState'; // eslint-disable-line import/no-cycle
 
 // @TODO: Abstract to shared/constant
 const JOINED_GROUP_PLAN = 'joined group plan';
+const analytics = getAnalyticsServiceByEnvironment();
 
 function _findMysteryItems (user, dateMoment) {
   const pushedItems = [];
@@ -89,6 +91,10 @@ async function createSubscription (data) {
 
     if (!group.leader === data.user._id) {
       throw new NotAuthorized(shared.i18n.t('onlyGroupLeaderCanManageSubscription'));
+    }
+
+    if (group.privacy !== 'private') {
+      throw new NotAuthorized(shared.i18n.t('onlyPrivateGuildsCanUpgrade'));
     }
 
     recipient = group;
@@ -168,6 +174,8 @@ async function createSubscription (data) {
     txnEmail(data.user, emailType);
   }
 
+  if (!group && !data.promo) data.user.purchased.txnCount += 1;
+
   if (!data.promo) {
     analytics.trackPurchase({
       uuid: data.user._id,
@@ -179,11 +187,10 @@ async function createSubscription (data) {
       quantity: 1,
       gift: Boolean(data.gift),
       purchaseValue: block.price,
-      headers: data.headers,
+      headers: data.headers || { 'x-client': 'habitica-web' },
+      firstPurchase: !group && data.user.purchased.txnCount === 1,
     });
   }
-
-  if (!group && !data.promo) data.user.purchased.txnCount += 1;
 
   if (data.gift) {
     const byUserName = getUserInfo(data.user, ['name']).name;
@@ -191,13 +198,13 @@ async function createSubscription (data) {
     // generate the message in both languages, so both users can understand it
     const languages = [data.user.preferences.language, data.gift.member.preferences.language];
     if (data.promo) {
-      let senderMsg = shared.i18n.t(`giftedSubscription${data.promo}Promo`, {
+      let receiverMsg = shared.i18n.t(`giftedSubscription${data.promo}Promo`, {
         username: data.gift.member.profile.name,
         monthCount: shared.content.subscriptionBlocks[data.gift.subscription.key].months,
       }, languages[0]);
 
-      senderMsg = `\`${senderMsg}\``;
-      data.user.sendMessage(data.gift.member, { senderMsg });
+      receiverMsg = `\`${receiverMsg}\``;
+      data.user.sendMessage(data.gift.member, { receiverMsg, save: false });
     } else {
       let senderMsg = shared.i18n.t('giftedSubscriptionFull', {
         username: data.gift.member.profile.name,
@@ -237,6 +244,23 @@ async function createSubscription (data) {
 
     // Only send push notifications if sending to a user other than yourself
     if (data.gift.member._id !== data.user._id) {
+      const currentEvent = getCurrentEvent();
+      if (currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1') {
+        const promoData = {
+          user: data.user,
+          gift: {
+            member: data.user,
+            subscription: {
+              key: data.gift.subscription.key,
+            },
+          },
+          paymentMethod: data.paymentMethod,
+          promo: 'Winter',
+          promoUsername: data.gift.member.auth.local.username,
+        };
+        await this.createSubscription(promoData);
+      }
+
       if (data.gift.member.preferences.pushNotifications.giftedSubscription !== false) {
         sendPushNotification(data.gift.member,
           {

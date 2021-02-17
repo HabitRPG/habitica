@@ -1,87 +1,90 @@
 import moment from 'moment';
 import { model as User } from '../../../../website/server/models/user';
+import { model as NewsPost } from '../../../../website/server/models/newsPost';
 import { model as Group } from '../../../../website/server/models/group';
 import common from '../../../../website/common';
 
 describe('User Model', () => {
-  it('keeps user._tmp when calling .toJSON', () => {
-    const user = new User({
-      auth: {
-        local: {
-          username: 'username',
-          lowerCaseUsername: 'username',
-          email: 'email@email.email',
-          salt: 'salt',
-          hashed_password: 'hashed_password', // eslint-disable-line camelcase
+  describe('.toJSON()', () => {
+    it('keeps user._tmp when calling .toJSON', () => {
+      const user = new User({
+        auth: {
+          local: {
+            username: 'username',
+            lowerCaseUsername: 'username',
+            email: 'email@email.email',
+            salt: 'salt',
+            hashed_password: 'hashed_password', // eslint-disable-line camelcase
+          },
         },
-      },
+      });
+
+      user._tmp = { ok: true };
+      user._nonTmp = { ok: true };
+
+      expect(user._tmp).to.eql({ ok: true });
+      expect(user._nonTmp).to.eql({ ok: true });
+
+      const toObject = user.toObject();
+      const toJSON = user.toJSON();
+
+      expect(toObject).to.not.have.keys('_tmp');
+      expect(toObject).to.not.have.keys('_nonTmp');
+
+      expect(toJSON).to.have.any.key('_tmp');
+      expect(toJSON._tmp).to.eql({ ok: true });
+      expect(toJSON).to.not.have.keys('_nonTmp');
     });
 
-    user._tmp = { ok: true };
-    user._nonTmp = { ok: true };
+    it('can add computed stats to a JSONified user object', () => {
+      const user = new User();
+      const userToJSON = user.toJSON();
 
-    expect(user._tmp).to.eql({ ok: true });
-    expect(user._nonTmp).to.eql({ ok: true });
+      expect(userToJSON.stats.maxMP).to.not.exist;
+      expect(userToJSON.stats.maxHealth).to.not.exist;
+      expect(userToJSON.stats.toNextLevel).to.not.exist;
 
-    const toObject = user.toObject();
-    const toJSON = user.toJSON();
+      User.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
 
-    expect(toObject).to.not.have.keys('_tmp');
-    expect(toObject).to.not.have.keys('_nonTmp');
+      expect(userToJSON.stats.maxMP).to.exist;
+      expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
+      expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
+    });
 
-    expect(toJSON).to.have.any.key('_tmp');
-    expect(toJSON._tmp).to.eql({ ok: true });
-    expect(toJSON).to.not.have.keys('_nonTmp');
-  });
+    it('can transform user object without mongoose helpers', async () => {
+      const user = new User();
+      await user.save();
+      const userToJSON = await User.findById(user._id).lean().exec();
 
-  it('can add computed stats to a JSONified user object', () => {
-    const user = new User();
-    const userToJSON = user.toJSON();
+      expect(userToJSON.stats.maxMP).to.not.exist;
+      expect(userToJSON.stats.maxHealth).to.not.exist;
+      expect(userToJSON.stats.toNextLevel).to.not.exist;
+      expect(userToJSON.id).to.not.exist;
 
-    expect(userToJSON.stats.maxMP).to.not.exist;
-    expect(userToJSON.stats.maxHealth).to.not.exist;
-    expect(userToJSON.stats.toNextLevel).to.not.exist;
+      User.transformJSONUser(userToJSON);
 
-    User.addComputedStatsToJSONObj(userToJSON.stats, userToJSON);
+      expect(userToJSON.id).to.equal(userToJSON._id);
+      expect(userToJSON.stats.maxMP).to.not.exist;
+      expect(userToJSON.stats.maxHealth).to.not.exist;
+      expect(userToJSON.stats.toNextLevel).to.not.exist;
+    });
 
-    expect(userToJSON.stats.maxMP).to.exist;
-    expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
-    expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
-  });
+    it('can transform user object without mongoose helpers (including computed stats)', async () => {
+      const user = new User();
+      await user.save();
+      const userToJSON = await User.findById(user._id).lean().exec();
 
-  it('can transform user object without mongoose helpers', async () => {
-    const user = new User();
-    await user.save();
-    const userToJSON = await User.findById(user._id).lean().exec();
+      expect(userToJSON.stats.maxMP).to.not.exist;
+      expect(userToJSON.stats.maxHealth).to.not.exist;
+      expect(userToJSON.stats.toNextLevel).to.not.exist;
 
-    expect(userToJSON.stats.maxMP).to.not.exist;
-    expect(userToJSON.stats.maxHealth).to.not.exist;
-    expect(userToJSON.stats.toNextLevel).to.not.exist;
-    expect(userToJSON.id).to.not.exist;
+      User.transformJSONUser(userToJSON, true);
 
-    User.transformJSONUser(userToJSON);
-
-    expect(userToJSON.id).to.equal(userToJSON._id);
-    expect(userToJSON.stats.maxMP).to.not.exist;
-    expect(userToJSON.stats.maxHealth).to.not.exist;
-    expect(userToJSON.stats.toNextLevel).to.not.exist;
-  });
-
-  it('can transform user object without mongoose helpers (including computed stats)', async () => {
-    const user = new User();
-    await user.save();
-    const userToJSON = await User.findById(user._id).lean().exec();
-
-    expect(userToJSON.stats.maxMP).to.not.exist;
-    expect(userToJSON.stats.maxHealth).to.not.exist;
-    expect(userToJSON.stats.toNextLevel).to.not.exist;
-
-    User.transformJSONUser(userToJSON, true);
-
-    expect(userToJSON.id).to.equal(userToJSON._id);
-    expect(userToJSON.stats.maxMP).to.exist;
-    expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
-    expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
+      expect(userToJSON.id).to.equal(userToJSON._id);
+      expect(userToJSON.stats.maxMP).to.exist;
+      expect(userToJSON.stats.maxHealth).to.equal(common.maxHealth);
+      expect(userToJSON.stats.toNextLevel).to.equal(common.tnl(user.stats.lvl));
+    });
   });
 
   context('achievements', () => {
@@ -432,7 +435,6 @@ describe('User Model', () => {
       user = new User();
     });
 
-
     it('returns false if user does not have customer id', () => {
       expect(user.isSubscribed()).to.be.undefined;
     });
@@ -558,7 +560,6 @@ describe('User Model', () => {
     });
   });
 
-
   context('hasCancelled', () => {
     let user;
     beforeEach(() => {
@@ -591,6 +592,50 @@ describe('User Model', () => {
   });
 
   context('pre-save hook', () => {
+    it('enrolls users that signup through web in the Drop Cap AB test', async () => {
+      let user = new User();
+      user.registeredThrough = 'habitica-web';
+      user = await user.save();
+      expect(user._ABtests.dropCapNotif).to.exist;
+    });
+
+    it('does not enroll users that signup through modal in the Drop Cap AB test', async () => {
+      let user = new User();
+      user.registeredThrough = 'habitica-ios';
+      user = await user.save();
+      expect(user._ABtests.dropCapNotif).to.not.exist;
+    });
+
+    it('marks the last news post as read for new users', async () => {
+      const lastNewsPost = { _id: '1' };
+      sandbox.stub(NewsPost, 'lastNewsPost').returns(lastNewsPost);
+
+      let user = new User();
+      expect(user.isNew).to.equal(true);
+      user = await user.save();
+
+      expect(user.checkNewStuff()).to.equal(false);
+      expect(user.toJSON().flags.newStuff).to.equal(false);
+      expect(user.flags.lastNewStuffRead).to.equal(lastNewsPost._id);
+    });
+
+    it('does not mark the last news post as read for existing users', async () => {
+      const lastNewsPost = { _id: '1' };
+      const lastNewsPostStub = sandbox.stub(NewsPost, 'lastNewsPost');
+      lastNewsPostStub.returns(lastNewsPost);
+
+      let user = new User();
+      user = await user.save();
+
+      expect(user.isNew).to.equal(false);
+      user.profile.name = 'new name';
+
+      lastNewsPostStub.returns({ _id: '2' });
+      user = await user.save();
+
+      expect(user.flags.lastNewStuffRead).to.equal(lastNewsPost._id); // not _id: 2
+    });
+
     it('does not try to award achievements when achievements or items not selected in query', async () => {
       let user = new User();
       user = await user.save(); // necessary for user.isSelected to work correctly
@@ -763,7 +808,7 @@ describe('User Model', () => {
     });
   });
 
-  context('days missed', () => {
+  describe('daysUserHasMissed', () => {
     // http://forbrains.co.uk/international_tools/earth_timezones
     let user;
 
@@ -771,24 +816,51 @@ describe('User Model', () => {
       user = new User();
     });
 
-    it('should not cron early when going back a timezone', () => {
-      const yesterday = moment('2017-12-05T00:00:00.000-06:00'); // 11 pm on 4 Texas
-      const timezoneOffset = moment().zone('-06:00').zone();
-      user.lastCron = yesterday;
-      user.preferences.timezoneOffset = timezoneOffset;
+    it('correctly calculates days missed since lastCron', () => {
+      const now = moment();
+      user.lastCron = moment(now).subtract(5, 'days');
 
-      const today = moment('2017-12-06T00:00:00.000-06:00'); // 11 pm on 4 Texas
-      const req = {};
-      req.header = () => timezoneOffset + 60;
+      const { daysMissed } = user.daysUserHasMissed(now);
 
-      const { daysMissed } = user.daysUserHasMissed(today, req);
+      expect(daysMissed).to.eql(5);
+    });
 
+    it('uses timezone from preferences to calculate days missed', () => {
+      const now = moment('2017-07-08 01:00:00Z');
+      user.lastCron = moment('2017-07-04 13:00:00Z');
+      user.preferences.timezoneOffset = 120;
+
+      const { daysMissed } = user.daysUserHasMissed(now);
+
+      expect(daysMissed).to.eql(3);
+    });
+
+    it('uses timezone at last cron to calculate days missed', () => {
+      const now = moment('2017-09-08 13:00:00Z');
+      user.lastCron = moment('2017-09-06 01:00:00+02:00');
+      user.preferences.timezoneOffset = 0;
+      user.preferences.timezoneOffsetAtLastCron = -120;
+
+      const { daysMissed } = user.daysUserHasMissed(now);
+
+      expect(daysMissed).to.eql(2);
+    });
+
+    it('respects new timezone that drags time into same day', () => {
+      user.lastCron = moment('2017-12-05T00:00:00.000-06:00');
+      user.preferences.timezoneOffset = 360;
+      const today = moment('2017-12-06T00:00:00.000-06:00');
+      const requestWithMinus7Timezone = { header: () => 420 };
+
+      const { daysMissed } = user.daysUserHasMissed(today, requestWithMinus7Timezone);
+
+      expect(user.preferences.timezoneOffset).to.eql(420);
       expect(daysMissed).to.eql(0);
     });
 
     it('should not cron early when going back a timezone with a custom day start', () => {
       const yesterday = moment('2017-12-05T02:00:00.000-08:00');
-      const timezoneOffset = moment().zone('-08:00').zone();
+      const timezoneOffset = 480;
       user.lastCron = yesterday;
       user.preferences.timezoneOffset = timezoneOffset;
       user.preferences.dayStart = 2;
@@ -800,6 +872,48 @@ describe('User Model', () => {
       const { daysMissed } = user.daysUserHasMissed(today, req);
 
       expect(daysMissed).to.eql(0);
+    });
+  });
+
+  it('isNewsPoster', async () => {
+    const user = new User();
+    await user.save();
+
+    expect(user.isNewsPoster()).to.equal(false);
+
+    user.contributor.newsPoster = true;
+    expect(user.isNewsPoster()).to.equal(true);
+  });
+
+  describe('checkNewStuff', () => {
+    let user;
+
+    beforeEach(() => {
+      user = new User();
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('no last news post', () => {
+      sandbox.stub(NewsPost, 'lastNewsPost').returns(null);
+      expect(user.checkNewStuff()).to.equal(false);
+      expect(user.toJSON().flags.newStuff).to.equal(false);
+    });
+
+    it('last news post read', () => {
+      sandbox.stub(NewsPost, 'lastNewsPost').returns({ _id: '123' });
+      user.flags.lastNewStuffRead = '123';
+      expect(user.checkNewStuff()).to.equal(false);
+      expect(user.toJSON().flags.newStuff).to.equal(false);
+    });
+
+    it('last news post not read', () => {
+      sandbox.stub(NewsPost, 'lastNewsPost').returns({ _id: '123' });
+      user.flags.lastNewStuffRead = '124';
+      expect(user.checkNewStuff()).to.equal(true);
+      expect(user.toJSON().flags.newStuff).to.equal(true);
     });
   });
 });

@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -22,12 +22,13 @@ jobs:
         npm ci
       env:
         CI: true
+        NODE_ENV: test
     - run: npm run lint-no-fix
   apidoc:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -42,12 +43,13 @@ jobs:
         npm ci
       env:
         CI: true
+        NODE_ENV: test
     - run: npm run apidoc
   sanity:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -62,13 +64,14 @@ jobs:
         npm ci
       env:
         CI: true
+        NODE_ENV: test
     - run: npm run test:sanity
   
   common:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -83,12 +86,13 @@ jobs:
         npm ci
       env:
         CI: true
+        NODE_ENV: test
     - run: npm run test:common
   content:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -103,13 +107,15 @@ jobs:
         npm ci
       env:
         CI: true
+        NODE_ENV: test
     - run: npm run test:content
   
   api-unit:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
+        mongodb-version: [4.2]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -118,13 +124,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo docker run --name mongo -d -p 27017:27017 mongo
+    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
+      uses: supercharge/mongodb-github-action@1.3.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: rs
     - run: cp config.json.example config.json
     - name: npm install
       run: |
         npm ci
       env:
         CI: true
+        NODE_ENV: test
     - run: npm run test:api:unit
       env:
         REQUIRES_SERVER=true: true
@@ -132,7 +143,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
+        mongodb-version: [4.2]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -141,13 +153,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo docker run --name mongo -d -p 27017:27017 mongo
+    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
+      uses: supercharge/mongodb-github-action@1.3.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: rs
     - run: cp config.json.example config.json
     - name: npm install
       run: |
         npm ci
       env:
         CI: true
+        NODE_ENV: test
     - run: npm run test:api-v3:integration
       env:
         REQUIRES_SERVER=true: true
@@ -155,7 +172,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
+        mongodb-version: [4.2]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -164,13 +182,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: sudo docker run --name mongo -d -p 27017:27017 mongo
+    - name: Start MongoDB ${{ matrix.mongodb-version }} Replica Set
+      uses: supercharge/mongodb-github-action@1.3.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: rs
     - run: cp config.json.example config.json
     - name: npm install
       run: |
         npm ci
       env:
         CI: true
+        NODE_ENV: test
     - run: npm run test:api-v4:integration
       env:
         REQUIRES_SERVER=true: true
@@ -179,7 +202,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
       with:
@@ -194,5 +217,6 @@ jobs:
         npm ci
       env:
         CI: true
+        NODE_ENV: test
     - run: npm run test:unit
       working-directory: ./website/client

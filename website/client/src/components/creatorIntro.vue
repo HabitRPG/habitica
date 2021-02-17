@@ -121,7 +121,7 @@
             v-if="editing"
             class="menu-container col-2"
             :class="{active: activeTopPage === 'backgrounds'}"
-            @click="changeTopPage('backgrounds', '2020')"
+            @click="changeTopPage('backgrounds', '2021')"
           >
             <div class="menu-item">
               <div
@@ -518,7 +518,10 @@
             </p>
           </div>
         </div>
-        <div class="npc-justin-textbox"></div>
+        <div
+          class="npc-justin-textbox"
+          :style="{'background-image': imageURL}"
+        ></div>
       </div>
     </div>
     <div
@@ -755,7 +758,6 @@
       top: -3.1rem;
       width: 48px;
       height: 48px;
-      background-image: url('~@/assets/images/justin_textbox.png');
     }
 
     .featured-label {
@@ -1182,14 +1184,17 @@ export default {
         },
       ],
 
-      bgSubMenuItems: ['2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
+      bgSubMenuItems: ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014'].map(y => ({
         id: y,
         label: y,
       })),
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({
+      user: 'user.data',
+      currentEvent: 'worldState.data.currentEvent',
+    }),
     editing () {
       return this.$store.state.avatarEditorOptions.editingUser;
     },
@@ -1206,6 +1211,7 @@ export default {
         2018: [],
         2019: [],
         2020: [],
+        2021: [],
       };
 
       // Hack to force update for now until we restructure the data
@@ -1239,6 +1245,12 @@ export default {
         });
       });
       return ownedBackgrounds;
+    },
+    imageURL () {
+      if (!this.currentEvent || !this.currentEvent.season) {
+        return 'url(/static/npc/normal/npc_justin.png)';
+      }
+      return `url(/static/npc/${this.currentEvent.season}/npc_justin.png)`;
     },
   },
   watch: {

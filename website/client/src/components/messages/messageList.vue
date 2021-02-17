@@ -216,6 +216,14 @@ export default {
       disablePerfectScroll: false,
     };
   },
+  computed: {
+    ...mapState({ user: 'user.data' }),
+    // @TODO: We need a different lazy load mechnism.
+    // But honestly, adding a paging route to chat would solve this
+    messages () {
+      return this.chat;
+    },
+  },
   mounted () {
     this.$el.addEventListener('selectstart', () => this.handleSelectStart());
     this.$el.addEventListener('mouseup', () => this.handleSelectChange());
@@ -226,17 +234,7 @@ export default {
   beforeDestroy () {
     this.$el.removeEventListener('selectstart', () => this.handleSelectStart());
     this.$el.removeEventListener('mouseup', () => this.handleSelectChange());
-  },
-  destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
-  },
-  computed: {
-    ...mapState({ user: 'user.data' }),
-    // @TODO: We need a different lazy load mechnism.
-    // But honestly, adding a paging route to chat would solve this
-    messages () {
-      return this.chat;
-    },
   },
   methods: {
     async triggerLoad () {

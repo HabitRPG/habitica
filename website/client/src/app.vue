@@ -26,7 +26,6 @@
       id="app"
       :class="{
         'casting-spell': castingSpell,
-        'resting': showRestingBanner
       }"
     >
       <!-- <banned-account-modal /> -->
@@ -38,31 +37,9 @@
       <router-view v-if="!isUserLoggedIn || isStaticPage" />
       <template v-else>
         <template v-if="isUserLoaded">
-          <div
-            v-show="showRestingBanner"
-            ref="restingBanner"
-            class="resting-banner"
-          >
-            <span class="content">
-              <span class="label d-inline d-sm-none">{{ $t('innCheckOutBannerShort') }}</span>
-              <span class="label d-none d-sm-inline">{{ $t('innCheckOutBanner') }}</span>
-              <span class="separator">|</span>
-              <span
-                class="resume"
-                @click="resumeDamage()"
-              >{{ $t('resumeDamage') }}</span>
-            </span>
-            <div
-              class="closepadding"
-              @click="hideBanner()"
-            >
-              <span
-                class="svg-icon inline icon-10"
-                aria-hidden="true"
-                v-html="icons.close"
-              ></span>
-            </div>
-          </div>
+          <damage-paused-banner />
+          <!-- <gems-promo-banner /> -->
+          <gift-promo-banner />
           <notifications-display />
           <app-menu />
           <div
@@ -99,27 +76,17 @@
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
 
   #app {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-
-    &.resting {
-      --banner-resting-height: #{$restingToolbarHeight};
-    }
-
-    &.giftingBanner {
-      --banner-gifting-height: 2.5rem;
-    }
   }
 
   #loading-screen-inapp {
     #melior {
       margin: 0 auto;
       width: 70.9px;
-      margin-bottom: 1em;
     }
 
     .row {
@@ -144,15 +111,6 @@
     cursor: crosshair;
   }
 
-  .closepadding {
-    margin: 11px 24px;
-    display: inline-block;
-    position: relative;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-  }
-
   .container-fluid {
     flex: 1 0 auto;
   }
@@ -173,55 +131,10 @@
     margin-top: .5em;
     margin-bottom: .5em;
   }
-
-  .resting-banner {
-    width: 100%;
-    height: $restingToolbarHeight;
-    background-color: $blue-10;
-    top: 0;
-    z-index: 1300;
-    display: flex;
-
-    .content {
-      line-height: 1.71;
-      text-align: center;
-      color: $white;
-      padding: 8px 38px 8px 8px;
-      margin: auto;
-    }
-
-    @media only screen and (max-width: 768px) {
-      .content {
-        font-size: 12px;
-        line-height: 1.4;
-      }
-    }
-
-    .separator {
-      color: $blue-100;
-      margin: 0px 15px;
-    }
-
-    .resume {
-      font-weight: bold;
-      cursor: pointer;
-      white-space:nowrap;
-    }
-  }
 </style>
 
 <style lang='scss'>
   @import '~@/assets/scss/colors.scss';
-
-  .closepadding span svg path {
-    stroke: #FFF;
-    opacity: 0.48;
-  }
-
-  /* @TODO: The modal-open class is not being removed. Let's try this for now */
-  .modal {
-    overflow-y: scroll !important;
-  }
 
   .modal-backdrop {
     opacity: .9 !important;
@@ -240,6 +153,9 @@ import { loadProgressBar } from 'axios-progress-bar';
 
 import AppMenu from './components/header/menu';
 import AppHeader from './components/header/index';
+import DamagePausedBanner from './components/header/banners/damagePaused';
+// import GemsPromoBanner from './components/header/banners/gemsPromo';
+import GiftPromoBanner from './components/header/banners/giftPromo';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
@@ -261,8 +177,6 @@ import {
   removeLocalSetting,
 } from '@/libs/userlocalManager';
 
-import svgClose from '@/assets/svg/close.svg';
-
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
@@ -271,6 +185,9 @@ export default {
     AppMenu,
     AppHeader,
     AppFooter,
+    DamagePausedBanner,
+    // GemsPromoBanner,
+    GiftPromoBanner,
     notificationsDisplay,
     snackbars,
     BuyModal,
@@ -283,9 +200,6 @@ export default {
   mixins: [notifications, spellsMixin],
   data () {
     return {
-      icons: Object.freeze({
-        close: svgClose,
-      }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
 
@@ -297,16 +211,13 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isUserLoggedIn', 'browserTimezoneOffset', 'isUserLoaded']),
+    ...mapState(['isUserLoggedIn', 'browserTimezoneUtcOffset', 'isUserLoaded', 'notificationsRemoved']),
     ...mapState({ user: 'user.data' }),
     isStaticPage () {
       return this.$route.meta.requiresLogin === false;
     },
     castingSpell () {
       return this.$store.state.spellOptions.castingSpell;
-    },
-    showRestingBanner () {
-      return !this.bannerHidden && this.user && this.user.preferences.sleep;
     },
     noMargin () {
       return ['privateMessages'].includes(this.$route.name);
@@ -361,13 +272,59 @@ export default {
       showSpinner: false,
     });
 
-    // Set up Error interceptors
-    axios.interceptors.response.use(response => {
-      if (this.user && response.data && response.data.notifications) {
-        this.$set(this.user, 'notifications', response.data.notifications);
+    axios.interceptors.response.use(response => { // Set up Response interceptors
+      // Verify that the user was not updated from another browser/app/client
+      // If it was, sync
+      const { url } = response.config;
+      const { method } = response.config;
+
+      const isApiCall = url.indexOf('api/v4') !== -1;
+      const userV = response.data && response.data.userV;
+
+      if (this.isUserLoaded && isApiCall && userV) {
+        const oldUserV = this.user._v;
+        this.user._v = userV;
+
+        // Do not sync again if already syncing
+        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
+        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
+        // exclude chat seen requests because with real time chat they would be too many
+        const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
+        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
+        const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
+        // exclude skills casting as they already return the synced user
+        const isCast = url.indexOf('/api/v4/user/class/cast') !== -1 && method === 'post';
+
+        // Something has changed on the user object that was not tracked here, sync the user
+        if (
+          userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync && !isCast
+        ) {
+          Promise.all([
+            this.$store.dispatch('user:fetch', { forceLoad: true }),
+            this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
+          ]);
+        }
       }
+
+      // Store the app version from the server
+      const serverAppVersion = response.data && response.data.appVersion;
+
+      if (serverAppVersion && this.$store.state.serverAppVersion !== response.data.appVersion) {
+        this.$store.state.serverAppVersion = serverAppVersion;
+      }
+
+      // Store the notifications, filtering those that have already been read
+      // See store/index.js on why this is necessary
+      if (this.user && response.data && response.data.notifications) {
+        const filteredNotifications = response.data.notifications.filter(serverNotification => {
+          if (this.notificationsRemoved.includes(serverNotification.id)) return false;
+          return true;
+        });
+        this.$set(this.user, 'notifications', filteredNotifications);
+      }
+
       return response;
-    }, error => {
+    }, error => { // Set up Error interceptors
       if (error.response.status >= 400) {
         const isBanned = this.checkForBannedUser(error);
         if (isBanned === true) return null; // eslint-disable-line consistent-return
@@ -425,51 +382,6 @@ export default {
       return Promise.reject(error);
     });
 
-    axios.interceptors.response.use(response => {
-      // Verify that the user was not updated from another browser/app/client
-      // If it was, sync
-      const { url } = response.config;
-      const { method } = response.config;
-
-      const isApiCall = url.indexOf('api/v4') !== -1;
-      const userV = response.data && response.data.userV;
-      const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
-
-      if (this.isUserLoaded && isApiCall && userV) {
-        const oldUserV = this.user._v;
-        this.user._v = userV;
-
-        // Do not sync again if already syncing
-        const isUserSync = url.indexOf('/api/v4/user') === 0 && method === 'get';
-        const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
-        // exclude chat seen requests because with real time chat they would be too many
-        const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
-        // exclude POST /api/v4/cron because the user is synced automatically after cron runs
-
-        // Something has changed on the user object that was not tracked here, sync the user
-        if (userV - oldUserV > 1 && !isCron && !isChatSeen && !isUserSync && !isTasksSync) {
-          Promise.all([
-            this.$store.dispatch('user:fetch', { forceLoad: true }),
-            this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
-          ]);
-        }
-      }
-
-      // Verify the client is updated
-      // const serverAppVersion = response.data.appVersion;
-      // let serverAppVersionState = this.$store.state.serverAppVersion;
-      // if (isApiCall && !serverAppVersionState) {
-      //   this.$store.state.serverAppVersion = serverAppVersion;
-      // } else if (isApiCall && serverAppVersionState !== serverAppVersion) {
-      //   if (document.activeElement.tagName !== 'INPUT'
-      // || confirm(this.$t('habiticaHasUpdated'))) {
-      //     location.reload(true);
-      //   }
-      // }
-
-      return response;
-    });
-
     // Setup listener for title
     this.$store.watch(state => state.title, title => {
       document.title = title;
@@ -492,9 +404,10 @@ export default {
         this.hideLoadingScreen();
 
         // Adjust the timezone offset
-        if (this.user.preferences.timezoneOffset !== this.browserTimezoneOffset) {
+        const browserTimezoneOffset = -this.browserTimezoneUtcOffset;
+        if (this.user.preferences.timezoneOffset !== browserTimezoneOffset) {
           this.$store.dispatch('user:set', {
-            'preferences.timezoneOffset': this.browserTimezoneOffset,
+            'preferences.timezoneOffset': browserTimezoneOffset,
           });
         }
 
@@ -516,13 +429,9 @@ export default {
     } else {
       this.hideLoadingScreen();
     }
-
-    this.initializeModalStack();
   },
   beforeDestroy () {
     this.$root.$off('playSound');
-    this.$root.$off('bv::modal::hidden');
-    this.$root.$off('bv::show::modal');
     this.$root.$off('buyModal::showItem');
     this.$root.$off('selectMembersModal::showItem');
   },
@@ -551,112 +460,6 @@ export default {
 
       this.$store.dispatch('auth:logout', { redirectToLogin: true });
       return true;
-    },
-    initializeModalStack () {
-      // Manage modals
-      this.$root.$on('bv::show::modal', (modalId, data = {}) => {
-        if (data.fromRoot) return;
-        const { modalStack } = this.$store.state;
-
-        this.trackGemPurchase(modalId, data);
-
-        // Add new modal to the stack
-        const prev = modalStack[modalStack.length - 1];
-        const prevId = prev ? prev.modalId : undefined;
-        modalStack.push({ modalId, prev: prevId });
-      });
-
-      this.$root.$on('bv::modal::hidden', bvEvent => {
-        let modalId = bvEvent.target && bvEvent.target.id;
-
-        // sometimes the target isn't passed to the hidden event, fallback is the vueTarget
-        if (!modalId) {
-          modalId = bvEvent.vueTarget && bvEvent.vueTarget.id;
-        }
-
-        if (!modalId) {
-          return;
-        }
-
-        const { modalStack } = this.$store.state;
-
-        const modalOnTop = modalStack[modalStack.length - 1];
-
-        // Check for invalid modal. Event systems can send multiples
-        if (!this.validStack(modalStack)) return;
-
-        // If we are moving forward
-        if (modalOnTop && modalOnTop.prev === modalId) return;
-
-        // Remove modal from stack
-        this.$store.state.modalStack.pop();
-
-        // Get previous modal
-        const modalBefore = modalOnTop ? modalOnTop.prev : undefined;
-
-        if (modalBefore) this.$root.$emit('bv::show::modal', modalBefore, { fromRoot: true });
-      });
-
-      // Dismiss modal aggressively. Pass a modal ID to remove a modal instance from the stack
-      // (both the stack entry itself and its "prev" reference) so we don't reopen it
-      this.$root.$on('habitica::dismiss-modal', oldModal => {
-        if (!oldModal) return;
-        this.$root.$emit('bv::hide::modal', oldModal);
-        let removeIndex = this.$store.state.modalStack
-          .map(modal => modal.modalId)
-          .indexOf(oldModal);
-        if (removeIndex >= 0) {
-          this.$store.state.modalStack.splice(removeIndex, 1);
-        }
-        removeIndex = this.$store.state.modalStack
-          .map(modal => modal.prev)
-          .indexOf(oldModal);
-        if (removeIndex >= 0) {
-          delete this.$store.state.modalStack[removeIndex].prev;
-        }
-      });
-    },
-    validStack (modalStack) {
-      const modalsThatCanShowTwice = ['profile'];
-      const modalCount = {};
-      const prevAndCurrent = 2;
-
-      for (const current of modalStack) {
-        if (!modalCount[current.modalId]) modalCount[current.modalId] = 0;
-        modalCount[current.modalId] += 1;
-        if (
-          modalCount[current.modalId] > prevAndCurrent
-          && modalsThatCanShowTwice.indexOf(current.modalId) === -1
-        ) {
-          this.$store.state.modalStack = [];
-          return false;
-        }
-
-        if (!current.prev) continue; // eslint-disable-line
-        if (!modalCount[current.prev]) modalCount[current.prev] = 0;
-        modalCount[current.prev] += 1;
-        if (
-          modalCount[current.prev] > prevAndCurrent
-          && modalsThatCanShowTwice.indexOf(current.prev) === -1
-        ) {
-          this.$store.state.modalStack = [];
-          return false;
-        }
-      }
-
-      return true;
-    },
-    trackGemPurchase (modalId, data) {
-      // Track opening of gems modal unless it's been already tracked
-      // For example the gems button in the menu already tracks the event by itself
-      if (modalId === 'buy-gems' && data.alreadyTracked !== true) {
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'button',
-          eventAction: 'click',
-          eventLabel: 'Gems > Wallet',
-        });
-      }
     },
     itemSelected (item) {
       this.selectedItemToBuy = item;
@@ -703,12 +506,6 @@ export default {
     hideLoadingScreen () {
       this.loading = false;
     },
-    hideBanner () {
-      this.bannerHidden = true;
-    },
-    resumeDamage () {
-      this.$store.dispatch('user:sleep');
-    },
   },
 };
 </script>
@@ -745,5 +542,8 @@ export default {
 <style src="@/assets/css/sprites/spritesmith-main-25.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-26.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-27.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-28.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-29.css"></style>
+<!-- <style src="@/assets/css/sprites/spritesmith-main-30.css"></style> -->
 <style src="@/assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

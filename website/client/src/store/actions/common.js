@@ -23,6 +23,16 @@ export function hatch (store, params) {
   // .catch((err) => console.error('equip', err));
 }
 
+export function setTitle (store, params) {
+  if (params.subSection && params.section) {
+    store.state.title = `${params.subSection} | ${params.section} | Habitica`;
+  } else if (params.section) {
+    store.state.title = `${params.section} | Habitica`;
+  } else if (params.fullTitle) {
+    store.state.title = params.fullTitle;
+  }
+}
+
 export async function feed (store, params) {
   const user = store.state.user.data;
   feedOp(user, { params });

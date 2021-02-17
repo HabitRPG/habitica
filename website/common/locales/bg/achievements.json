@@ -1,6 +1,5 @@
 {
     "achievement": "Постижение",
-    "share": "Сподели",
     "onwards": "Напред!",
     "levelup": "Изпълнявайки целите си в истинския живот, Вие качихте ниво и здравето Ви беше запълнено!",
     "reachedLevel": "Достигнахте ниво <%= level %>",
@@ -14,7 +13,7 @@
     "achievementMonsterMagus": "Магьосник на Зверове",
     "achievementPartyUp": "Присъеденихте се с член на дружината Ви!",
     "achievementPartyOn": "Дружината ви порасна до 4 члена!",
-    "achievementKickstarter2019Text": "Подкрепили са 2019ят Kickstarter Проект за Значки",
+    "achievementKickstarter2019Text": "Подкрепили са Kickstarter Проект за Значки 2019",
     "achievementKickstarter2019": "Значка за Kickstarter Подкрепа",
     "achievementAridAuthorityModalText": "Опитомихте всички Пустинни Оседлани Зверове!",
     "achievementAridAuthorityText": "Опитомили са всички Пустинни Оседлани Зверове.",
@@ -78,5 +77,20 @@
     "achievementHatchedPet": "Излюпи Животно",
     "viewAchievements": "Постижения",
     "letsGetStarted": "Нека да започнем!",
-    "onboardingProgress": "<%= percentage %>% напредък"
+    "onboardingProgress": "<%= percentage %>% напредък",
+    "achievementBareNecessitiesModalText": "Завършихте мисиите за Маймуна, Ленивец и Фиданка!",
+    "achievementBareNecessitiesText": "Завършили са всички мисии за Маймуна, Ленивец и Фиданка.",
+    "achievementBareNecessities": "От първа необходимост",
+    "achievementBoneCollectorText": "Събрали сте всички Скелети домашни любимци.",
+    "achievementBoneCollector": "Колекционер на кости",
+    "achievementAllThatGlittersModalText": "Събрахте всички оседлани Златни животни!",
+    "achievementAllThatGlittersText": "Събрали сте всички оседлани Златни животни.",
+    "achievementAllThatGlitters": "Златен телец",
+    "achievementGoodAsGoldModalText": "Събрахте всички Златни домашни любимци!",
+    "achievementGoodAsGoldText": "Събрали сте всички Златни домашни любимци.",
+    "achievementGoodAsGold": "Златно сърце",
+    "achievementFreshwaterFriendsModalText": "Завършихте мисиите за аксолотъла, жабата и хипопотама!",
+    "achievementFreshwaterFriendsText": "Завършили сте мисиите за домашни любимци за аксолотъла, жабата и хипопотама.",
+    "achievementFreshwaterFriends": "Сладководни приятели",
+    "yourRewards": "Вашите възнаграждения"
 }

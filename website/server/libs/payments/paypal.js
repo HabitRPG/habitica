@@ -3,11 +3,12 @@ import nconf from 'nconf';
 import moment from 'moment';
 import util from 'util';
 import _ from 'lodash';
-import ipn from 'paypal-ipn';
+import paypalIpn from 'pp-ipn';
 import paypal from 'paypal-rest-sdk';
 import cc from 'coupon-code';
 import shared from '../../../common';
 import payments from './payments'; // eslint-disable-line import/no-cycle
+import { getGemsBlock, validateGiftMessage } from './gems'; // eslint-disable-line import/no-cycle
 import { model as Coupon } from '../../models/coupon';
 import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
@@ -20,8 +21,8 @@ import {
   NotFound,
 } from '../errors';
 
-
 const BASE_URL = nconf.get('BASE_URL');
+const PAYPAL_MODE = nconf.get('PAYPAL_MODE');
 const { i18n } = shared;
 
 // This is the plan.id for paypal subscriptions.
@@ -34,7 +35,7 @@ _.each(shared.content.subscriptionBlocks, block => {
 });
 
 paypal.configure({
-  mode: nconf.get('PAYPAL_MODE'), // sandbox or live
+  mode: PAYPAL_MODE, // sandbox or live
   client_id: nconf.get('PAYPAL_CLIENT_ID'),
   client_secret: nconf.get('PAYPAL_CLIENT_SECRET'),
 });
@@ -73,17 +74,20 @@ api.paypalBillingAgreementGet = util
 api.paypalBillingAgreementCancel = util
   .promisify(paypal.billingAgreement.cancel.bind(paypal.billingAgreement));
 
-api.ipnVerifyAsync = util.promisify(ipn.verify.bind(ipn));
+api.ipnVerifyAsync = util.promisify(paypalIpn.verify.bind(paypalIpn));
 
 api.checkout = async function checkout (options = {}) {
-  const { gift, user } = options;
+  const { gift, user, gemsBlock: gemsBlockKey } = options;
 
-  let amount = 5.00;
+  let amount;
+  let gemsBlock;
   let description = 'Habitica Gems';
 
   if (gift) {
     const member = await User.findById(gift.uuid).exec();
     gift.member = member;
+
+    validateGiftMessage(gift, user);
 
     if (gift.type === 'gems') {
       if (gift.gems.amount <= 0) {
@@ -95,15 +99,16 @@ api.checkout = async function checkout (options = {}) {
       amount = Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
       description = 'mo. Habitica Subscription (Gift)';
     }
+  } else {
+    gemsBlock = getGemsBlock(gemsBlockKey);
+    amount = gemsBlock.price / 100;
   }
-
 
   if (!gift || gift.type === 'gems') {
     const receiver = gift ? gift.member : user;
     const receiverCanGetGems = await receiver.canGetGems();
     if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
   }
-
 
   const createPayment = {
     intent: 'sale',
@@ -141,7 +146,7 @@ api.checkout = async function checkout (options = {}) {
 
 api.checkoutSuccess = async function checkoutSuccess (options = {}) {
   const {
-    user, gift, paymentId, customerId,
+    user, gift, gemsBlock: gemsBlockKey, paymentId, customerId,
   } = options;
 
   let method = 'buyGems';
@@ -159,6 +164,8 @@ api.checkoutSuccess = async function checkoutSuccess (options = {}) {
 
     data.paymentMethod = 'PayPal (Gift)';
     data.gift = gift;
+  } else {
+    data.gemsBlock = getGemsBlock(gemsBlockKey);
   }
 
   await this.paypalPaymentExecute(paymentId, { payer_id: customerId });
@@ -260,7 +267,9 @@ api.subscribeCancel = async function subscribeCancel (options = {}) {
 };
 
 api.ipn = async function ipnApi (options = {}) {
-  await this.ipnVerifyAsync(options);
+  await this.ipnVerifyAsync(options, {
+    allow_sandbox: PAYPAL_MODE === 'sandbox',
+  });
 
   const { txn_type, recurring_payment_id } = options;
 

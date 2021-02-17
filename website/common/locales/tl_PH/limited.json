@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Limitadong Edisyon",
-    "seasonalEdition": "Pana-panahonang Edisyon",
-    "winterColors": "Kulay Taglamig",
     "annoyingFriends": "Makukulit na mga Kaibigan",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "Nakaka-Alarmang Kaibigan",
@@ -61,7 +58,6 @@
     "nye2": "Manigong Bagong Taon! Ikaw sana ay makakuha ng Perpektong Araw.",
     "nye3": "Manigong Bagong Taon! Sana maging kaunti ang iyong mga Dapat Gawin.",
     "nye4": "Manigong Bagong Taon! Sana ikaw ay hindi atakihin ng nagwawalang Hippogriff.",
-    "holidayCard": "Nakatanggap ng card na pang okasyon!",
     "mightyBunnySet": "Makapangyarihang Kuneho (Mandirigma)",
     "magicMouseSet": "Masalamangkerong Daga (Salamagkero)",
     "lovingPupSet": "Mapagmahal na Tuta (Manggagamot)",
@@ -150,6 +146,6 @@
     "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
     "discountBundle": "bundle",
-    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Announcement": "<strong>Gift a subscription and get a subscription free</strong> event going on now!",
     "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

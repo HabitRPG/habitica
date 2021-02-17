@@ -19,10 +19,10 @@
       />
       <div
         v-if="hasParty"
-        class="view-party d-flex align-items-center"
+        class="view-party d-none d-md-flex align-items-center"
       >
         <button
-          class="btn btn-primary view-party-button"
+          class="btn btn-primary"
           @click="showPartyMembers()"
         >
           {{ $t('viewParty') }}
@@ -32,7 +32,7 @@
         v-if="hasParty"
         ref="partyMembersDiv"
         v-resize="1500"
-        class="party-members d-flex"
+        class="party-members d-none d-md-flex "
         @resized="setPartyMembersWidth($event)"
       >
         <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -51,7 +51,7 @@
       </div>
       <div
         v-else
-        class="no-party d-flex justify-content-center text-center"
+        class="no-party d-none d-md-flex  justify-content-center text-center mr-4"
       >
         <div class="align-self-center">
           <h3>{{ $t('battleWithFriends') }}</h3>
@@ -83,7 +83,6 @@
     color: $header-color;
     flex-wrap: nowrap;
     position: relative;
-    max-height: 10.25rem;
   }
 
   .hide-header {
@@ -119,12 +118,6 @@
       margin-top: 16px;
     }
   }
-
-  @media only screen and (max-width: 768px) {
-    .view-party-button {
-      display: none;
-    }
-  }
 </style>
 
 <script>
@@ -153,15 +146,6 @@ export default {
       inviteModalGroup: undefined,
       inviteModalGroupType: undefined,
     };
-  },
-  watch: {
-    hideHeader () {
-      this.$nextTick(() => {
-        if (this.$refs.partyMembersDiv) {
-          this.setPartyMembersWidth({ width: this.$refs.partyMembersDiv.clientWidth });
-        }
-      });
-    },
   },
   computed: {
     ...mapGetters({
@@ -209,6 +193,15 @@ export default {
       return ['groupPlan', 'privateMessages'].includes(this.$route.name);
     },
   },
+  watch: {
+    hideHeader () {
+      this.$nextTick(() => {
+        if (this.$refs.partyMembersDiv) {
+          this.setPartyMembersWidth({ width: this.$refs.partyMembersDiv.clientWidth });
+        }
+      });
+    },
+  },
   created () {
     if (this.user.party && this.user.party._id) {
       this.$store.state.memberModalOptions.groupId = this.user.party._id;
@@ -222,8 +215,8 @@ export default {
       this.$root.$emit('bv::show::modal', 'invite-modal');
     });
   },
-  destroyed () {
-    this.$root.off('inviteModal::inviteToGroup');
+  beforeDestroy () {
+    this.$root.$off('inviteModal::inviteToGroup');
   },
   methods: {
     ...mapActions({
@@ -250,6 +243,7 @@ export default {
         groupId: party.data._id,
         viewingMembers: this.partyMembers,
         group: party.data,
+        fetchMoreMembers: p => this.$store.dispatch('members:getGroupMembers', p),
       });
     },
     setPartyMembersWidth ($event) {

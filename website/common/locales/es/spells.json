@@ -7,7 +7,7 @@
     "spellWizardEarthNotes": "¡Liberas parte de tu fuerza mental haciendo temblar la tierra potenciando la inteligencia de tu Equipo! (Basado en: INT sin potenciar)",
     "spellWizardFrostText": "Frío escalofriante",
     "spellWizardFrostNotes": "¡Con una invocación, el hielo congela todas tus rachas para que no bajen a cero mañana!· ",
-    "spellWizardFrostAlreadyCast": " ·Ya has lanzado este hechizo hoy. Tus rachas se conservarán; no es necesario que vuelvas a lanzarlo.",
+    "spellWizardFrostAlreadyCast": "Ya has lanzado este hechizo hoy. Tus rachas se conservarán, no es necesario que vuelvas a lanzarlo.",
     "spellWarriorSmashText": "Golpe Brutal",
     "spellWarriorSmashNotes": "¡Vuelves una tarea más azul/menos roja y provocas daño adicional a los Jefes! (Basado en: FUE)",
     "spellWarriorDefensiveStanceText": "Postura defensiva",
@@ -24,8 +24,8 @@
     "spellRogueToolsOfTradeNotes": "¡Tu talento para el engaño incrementa la percepción de tu equipo! (Basado en: PER sin potenciar)",
     "spellRogueStealthText": "Sigilo",
     "spellRogueStealthNotes": "Con cada invocación, algunas de tus tareas diarias no te causarán daño esta noche. Sus rachas y colores no cambiarán. (Basado en: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Número de tareas diarias evitadas: <%= number %>.",
-    "spellRogueStealthMaxedOut": " ·Ya has evitado todas tus tareas diarias; no hace falta que vuelvas a lanzar este hechizo.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Número de tareas diarias que van a ser evitadas: <%= number %>.",
+    "spellRogueStealthMaxedOut": "Ya has evitado todas tus tareas diarias; no hace falta que vuelvas a lanzar este hechizo.",
     "spellHealerHealText": "Luz Sanadora",
     "spellHealerHealNotes": "¡Una brillante luz restaura tu salud! (Basado en: INT y CON)",
     "spellHealerBrightnessText": "Claridad Abrasadora",
@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "No se pueden lanzar hechizos sobre tareas de desafíos.",
     "groupTasksNoCast": "Las habilidades no se pueden usar con tareas de grupo.",
     "spellNotOwned": "No posees esta habilidad.",
-    "spellLevelTooHigh": "Debes ser nivel <%= level %> para usar esta habilidad."
+    "spellLevelTooHigh": "Debes ser nivel <%= level %> para usar esta habilidad.",
+    "spellAlreadyCast": "Usar esta habilidad no tendrá ningún efecto adicional."
 }

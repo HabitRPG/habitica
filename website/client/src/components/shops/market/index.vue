@@ -17,7 +17,8 @@
     </div>
     <div slot="page">
       <featured-items-header
-        :broken="broken"
+        :bg-url="imageURLs.background"
+        :npc-url="imageURLs.npc"
         :npc-name="'Alex'"
         :featured-text="market.featured.text"
         :featured-items="market.featured.items"
@@ -105,7 +106,6 @@
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
 
   .fill-height {
     height: 38px; // button + margin + padding
@@ -128,18 +128,8 @@
       margin: 0 auto;
     }
 
-
     .featuredItems {
-      .background {
-        background: url('~@/assets/images/npc/#{$npc_market_flavor}/market_background.png');
-
-        background-repeat: repeat-x;
-      }
-
       .npc {
-        background: url('~@/assets/images/npc/#{$npc_market_flavor}/market_banner_npc.png');
-        background-repeat: no-repeat;
-
         .featured-label {
           position: absolute;
           bottom: -14px;
@@ -221,8 +211,6 @@ export default {
 
       hideLocked: false,
       hidePinned: false,
-
-      broken: false,
     };
   },
   computed: {
@@ -231,6 +219,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
+      currentEvent: 'worldState.data.currentEvent',
     }),
     market () {
       return shops.getMarketShop(this.user);
@@ -296,6 +285,18 @@ export default {
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
+    imageURLs () {
+      if (!this.currentEvent || !this.currentEvent.season) {
+        return {
+          background: 'url(/static/npc/normal/market_background.png)',
+          npc: 'url(/static/npc/normal/market_banner_npc.png)',
+        };
+      }
+      return {
+        background: `url(/static/npc/${this.currentEvent.season}/market_background.png)`,
+        npc: `url(/static/npc/${this.currentEvent.season}/market_banner_npc.png)`,
+      };
+    },
   },
   watch: {
     searchText: _throttle(function throttleSearch () {
@@ -303,10 +304,11 @@ export default {
     }, 250),
   },
   async mounted () {
-    const worldState = await this.$store.dispatch('worldState:getWorldState');
-    this.broken = worldState && worldState.worldBoss
-      && worldState.worldBoss.extra && worldState.worldBoss.extra.worldDmg
-      && worldState.worldBoss.extra.worldDmg.market;
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('market'),
+      section: this.$t('shops'),
+    });
+    await this.$store.dispatch('worldState:getWorldState');
   },
   methods: {
     sellItem (itemScope) {
@@ -327,18 +329,6 @@ export default {
         default:
           return mappedItems;
       }
-    },
-    hasOwnedItemsForType (type) {
-      return this.ownedItems(type).length > 0;
-    },
-    inventoryDrawerErrorMessage (type) {
-      if (!this.hasOwnedItemsForType(type)) {
-        // @TODO: Change any places using similar locales
-        // from `pets.json` and use these new locales from 'inventory.json'
-        return this.$t('noItemsAvailableForType', { type: this.$t(`${type}ItemType`) });
-      }
-
-      return null;
     },
     itemSelected (item) {
       this.$root.$emit('buyModal::showItem', item);

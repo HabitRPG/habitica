@@ -1,4 +1,3 @@
-
 import { v4 as generateUUID } from 'uuid';
 import { find } from 'lodash';
 import {
@@ -309,7 +308,6 @@ describe('POST /user/class/cast/:spellId', () => {
 
     expect(result.user.stats.mp).to.equal(10);
   });
-
 
   // TODO find a way to have sinon working in integration tests
   // it doesn't work when tests are running separately from server

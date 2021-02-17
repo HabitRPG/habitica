@@ -20,7 +20,7 @@ describe('Notifications', () => {
               lvl: 0,
             },
             flags: {},
-            preferences: {},
+            preferences: { suppressModals: {} },
             party: {
               quest: {
               },
@@ -55,6 +55,7 @@ describe('Notifications', () => {
 
     expect(wrapper.vm.userHasClass).to.be.true;
   });
+
   describe('user exp notifcation', () => {
     it('notifies when user gets more exp', () => {
       const expSpy = sinon.spy(wrapper.vm, 'exp');

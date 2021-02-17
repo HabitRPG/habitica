@@ -7,7 +7,7 @@
     "spellWizardEarthNotes": "Twoja siła umysłu trzęsie ziemią. Cała twoja drużyna zyskuje wzmocnienie do Inteligencji! (Bazuje na: Niewzmocnionej INT)",
     "spellWizardFrostText": "Przeszywający chłód",
     "spellWizardFrostNotes": "Lód pokrywa twoje zadania. Jutro żadna z twoich serii nie ulegnie wyzerowaniu! ",
-    "spellWizardFrostAlreadyCast": " Dzisiaj rzuciłeś już ten czar. Twoje serie są zamrożone, dlatego nie ma potrzeby ponownego rzucania tego czaru.",
+    "spellWizardFrostAlreadyCast": "Dzisiaj rzuciłeś już ten czar. Twoje serie są zamrożone, dlatego nie ma potrzeby ponownego rzucania tego czaru.",
     "spellWarriorSmashText": "Brutalne uderzenie",
     "spellWarriorSmashNotes": "Uderzasz zadanie całą swoją mocą. Stają się bardziej niebieskie/mniej czerwone i zadajesz Bossom dodatkowe obrażenia! Aby rzucić, kliknij na zadanie. (Bazuje na: SIŁ)",
     "spellWarriorDefensiveStanceText": "Pozycja obronna",
@@ -24,8 +24,8 @@
     "spellRogueToolsOfTradeNotes": "Dzielisz się talentem z drużyną. Cała twoja drużyna zyskuje wzmocnienie do Percepcji! (Bazuje na: Niewzmocnionej PER)",
     "spellRogueStealthText": "Ukrycie",
     "spellRogueStealthNotes": "Rzucasz zaklęcie i kilka z Twoich nie wykonanych codziennych nie zadaje Ci dzisiaj obrażeń. Serie i kolory nie ulegną zmianie. (Bazuje na: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Liczba unikniętych Codziennych: <%= number %>.",
-    "spellRogueStealthMaxedOut": " Uniknąłeś już wszystkich codziennych. Nie ma potrzeby rzucania zaklęcia jeszcze raz.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Liczba Codziennych, które będą pominięte: <%= number %>.",
+    "spellRogueStealthMaxedOut": "Uniknąłeś już wszystkich codziennych zadań. Nie ma potrzeby rzucania zaklęcia jeszcze raz.",
     "spellHealerHealText": "Leczące światło",
     "spellHealerHealNotes": "Światło spowija twoje ciało, lecząc rany. Odzyskujesz zdrowie! (Bazuje na: KON i INT)",
     "spellHealerBrightnessText": "Parząca Jasność",
@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Rzucanie czaru na zadania z wyzwań nie jest dozwolone.",
     "groupTasksNoCast": "Nie można używać umiejętności na zadaniach grupowych.",
     "spellNotOwned": "Nie posiadasz tej umiejętności.",
-    "spellLevelTooHigh": "Ta umiejętność wymaga poziomu <%= level %>."
+    "spellLevelTooHigh": "Ta umiejętność wymaga poziomu <%= level %>.",
+    "spellAlreadyCast": "Użycie tej umiejętności nie niesie ze sobą żadnych dodatkowych efektów."
 }

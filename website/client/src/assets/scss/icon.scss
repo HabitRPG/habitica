@@ -1,14 +1,14 @@
 .svg-icon {
   display: block;
-  transition: none !important;
   fill: currentColor;
 
   svg {
     display: block;
-  }
+    transition: none;
 
-  * {
-    transition: none !important;
+    path {
+      transition: none;
+    }
   }
 
   &.color {
@@ -32,7 +32,6 @@
   width: 24px;
   height: 24px;
 }
-
 
 .icon-10 {
   width: 10px;

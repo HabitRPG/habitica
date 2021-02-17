@@ -5,12 +5,12 @@ import subscriptionBlocks from '@/../../common/script/content/subscriptionBlocks
 import { mapState } from '@/libs/store';
 import encodeParams from '@/libs/encodeParams';
 import notificationsMixin from '@/mixins/notifications';
-import * as Analytics from '@/libs/analytics';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
 
 const { STRIPE_PUB_KEY } = process.env;
 
-const habiticaUrl = `${window.location.protocol}//${window.location.host}`;
+// const habiticaUrl = `${window.location.protocol}//${window.location.host}`;
+let stripeInstance = null;
 
 export default {
   mixins: [notificationsMixin],
@@ -46,15 +46,26 @@ export default {
       const encodedString = JSON.stringify(gift);
       return encodeURIComponent(encodedString);
     },
-    openPaypalGift (data) {
-      if (!this.checkGemAmount(data)) return;
+    openPaypalGift (giftData) {
+      if (!this.checkGemAmount(giftData)) return;
 
-      const gift = this.encodeGift(data.giftedTo, data.gift);
+      const gift = this.encodeGift(giftData.giftedTo, giftData.gift);
       const url = `/paypal/checkout?gift=${gift}`;
 
-      this.openPaypal(url, `gift-${data.gift.type === 'gems' ? 'gems' : 'subscription'}`, data);
+      this.openPaypal({
+        url,
+        type: `gift-${giftData.gift.type === 'gems' ? 'gems' : 'subscription'}`,
+        giftData,
+      });
     },
-    openPaypal (url, type, giftData) {
+    openPaypal (data = {}) {
+      const {
+        type,
+        giftData,
+        gemsBlock,
+      } = data;
+      let { url } = data;
+
       const appState = {
         paymentMethod: 'paypal',
         paymentCompleted: false,
@@ -68,6 +79,11 @@ export default {
       if (type.indexOf('gift-') === 0) {
         appState.gift = giftData.gift;
         appState.giftReceiver = giftData.receiverName;
+      }
+
+      if (type === 'gems') {
+        appState.gemsBlock = gemsBlock;
+        url += `?gemsBlock=${gemsBlock.key}`;
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
@@ -84,7 +100,10 @@ export default {
       // Listen for changes to local storage, indicating that the payment completed
       window.addEventListener('storage', localStorageChangeHandled);
     },
-    showStripe (data) {
+    async redirectToStripe (data) {
+      if (!stripeInstance) {
+        stripeInstance = window.Stripe(STRIPE_PUB_KEY);
+      }
       if (!this.checkGemAmount(data)) return;
 
       let sub = false;
@@ -97,11 +116,6 @@ export default {
 
       sub = sub && subscriptionBlocks[sub];
 
-      let amount = 500; // 500 = $5
-      if (sub) amount = sub.price * 100;
-      if (data.gift && data.gift.type === 'gems') amount = (data.gift.gems.amount / 4) * 100;
-      if (data.group) amount = (sub.price + 3 * (data.group.memberCount - 1)) * 100;
-
       let paymentType;
       if (sub === false && !data.gift) paymentType = 'gems';
       if (sub !== false && !data.gift) paymentType = 'subscription';
@@ -109,117 +123,110 @@ export default {
       if (data.gift && data.gift.type === 'gems') paymentType = 'gift-gems';
       if (data.gift && data.gift.type === 'subscription') paymentType = 'gift-subscription';
 
-      window.StripeCheckout.open({
-        key: STRIPE_PUB_KEY,
-        address: false,
-        amount,
-        name: 'Habitica',
-        description: sub ? this.$t('subscribe') : this.$t('checkout'),
-        // image: '/apple-touch-icon-144-precomposed.png',
-        panelLabel: sub ? this.$t('subscribe') : this.$t('checkout'),
-        token: async res => {
-          let url = '/stripe/checkout?a=a'; // just so I can concat &x=x below
+      let url = '/stripe/checkout-session';
+      const postData = {};
 
-          if (data.groupToCreate) {
-            url = '/api/v4/groups/create-plan?a=a';
-            res.groupToCreate = data.groupToCreate;
-            res.paymentType = 'Stripe';
-          }
+      if (data.groupToCreate) {
+        url = '/api/v4/groups/create-plan';
+        postData.groupToCreate = data.groupToCreate;
+        postData.paymentType = 'Stripe';
+      }
 
-          if (data.gift) url += `&gift=${this.encodeGift(data.uuid, data.gift)}`;
-          if (data.subscription) url += `&sub=${sub.key}`;
-          if (data.coupon) url += `&coupon=${data.coupon}`;
-          if (data.groupId) url += `&groupId=${data.groupId}`;
+      if (data.gemsBlock) postData.gemsBlock = data.gemsBlock.key;
+      if (data.gift) {
+        data.gift.uuid = data.uuid;
+        postData.gift = data.gift;
+      }
+      if (data.subscription) postData.sub = sub.key;
+      if (data.coupon) postData.coupon = data.coupon;
+      if (data.groupId) postData.groupId = data.groupId;
 
-          const response = await axios.post(url, res);
+      const response = await axios.post(url, postData);
 
-          // @TODO handle with normal notifications?
-          const responseStatus = response.status;
-          if (responseStatus >= 400) {
-            window.alert(`Error: ${response.message}`);
-            return;
-          }
+      const appState = {
+        paymentMethod: 'stripe',
+        paymentCompleted: false,
+        paymentType,
+      };
+      if (paymentType === 'subscription') {
+        appState.subscriptionKey = sub.key;
+      } else if (paymentType === 'groupPlan') {
+        appState.subscriptionKey = sub.key;
 
-          const appState = {
-            paymentMethod: 'stripe',
-            paymentCompleted: true,
-            paymentType,
-          };
-          if (paymentType === 'subscription') {
-            appState.subscriptionKey = sub.key;
-          } else if (paymentType === 'groupPlan') {
-            appState.subscriptionKey = sub.key;
+        // Handle new user signup
+        if (!this.$store.state.isUserLoggedIn) {
+          appState.newSignup = true;
+        }
 
-            if (data.groupToCreate) {
-              appState.newGroup = true;
-              appState.group = pick(data.groupToCreate, ['_id', 'memberCount', 'name']);
-            } else {
-              appState.newGroup = false;
-              appState.group = pick(data.group, ['_id', 'memberCount', 'name']);
-            }
-          } else if (paymentType.indexOf('gift-') === 0) {
-            appState.gift = data.gift;
-            appState.giftReceiver = data.receiverName;
-          }
+        if (data.groupToCreate) {
+          appState.newGroup = true;
+          appState.group = pick(response.data.data.group, ['_id', 'memberCount', 'name', 'type']);
+        } else {
+          appState.newGroup = false;
+          appState.group = pick(data.group, ['_id', 'memberCount', 'name', 'type']);
+        }
+      } else if (paymentType.indexOf('gift-') === 0) {
+        appState.gift = data.gift;
+        appState.giftReceiver = data.receiverName;
+      } else if (paymentType === 'gems') {
+        appState.gemsBlock = data.gemsBlock;
+      }
 
+      setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
 
-          setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
-
-          const newGroup = response.data.data;
-          if (newGroup && newGroup._id) {
-            // @TODO this does not do anything as we reload just below
-            // @TODO: Just append? or $emit?
-
-            // Handle new user signup
-            if (!this.$store.state.isUserLoggedIn) {
-              Analytics.track({
-                hitType: 'event',
-                eventCategory: 'group-plans-static',
-                eventAction: 'view',
-                eventLabel: 'paid-with-stripe',
-              });
-
-              window.location.assign(`${habiticaUrl}/group-plans/${newGroup._id}/task-information?showGroupOverview=true`);
-              return;
-            }
-
-            this.user.guilds.push(newGroup._id);
-            window.location.assign(`${habiticaUrl}/group-plans/${newGroup._id}/task-information`);
-            return;
-          }
-
-          if (data.groupId) {
-            window.location.assign(`${habiticaUrl}/group-plans/${data.groupId}/task-information`);
-            return;
-          }
-
-          window.location.reload(true);
-        },
-      });
+      try {
+        const checkoutSessionResult = await stripeInstance.redirectToCheckout({
+          sessionId: response.data.data.sessionId,
+        });
+        if (checkoutSessionResult.error) {
+          console.error(checkoutSessionResult.error); // eslint-disable-line
+          alert(`Error while redirecting to Stripe: ${checkoutSessionResult.error.message}`);
+          throw checkoutSessionResult.error;
+        }
+      } catch (err) {
+        console.error('Error while redirecting to Stripe', err); // eslint-disable-line
+        alert(`Error while redirecting to Stripe: ${err.message}`);
+        throw err;
+      }
     },
-    showStripeEdit (config) {
+    async redirectToStripeEdit (config) {
+      if (!stripeInstance) {
+        stripeInstance = window.Stripe(STRIPE_PUB_KEY);
+      }
+
       let groupId;
       if (config && config.groupId) {
         groupId = config.groupId;
       }
 
-      window.StripeCheckout.open({
-        key: STRIPE_PUB_KEY,
-        address: false,
-        name: this.$t('subUpdateTitle'),
-        description: this.$t('subUpdateDescription'),
-        panelLabel: this.$t('subUpdateCard'),
-        token: async data => {
-          data.groupId = groupId;
-          const url = '/stripe/subscribe/edit';
-          const response = await axios.post(url, data);
+      const appState = {
+        paymentMethod: 'stripe',
+        isStripeEdit: true,
+        paymentCompleted: false,
+        paymentType: groupId ? 'groupPlan' : 'subscription',
+        groupId,
+      };
 
-          // Success
-          window.location.reload(true);
-          // error
-          window.alert(response.message);
-        },
+      const response = await axios.post('/stripe/subscribe/edit', {
+        groupId,
       });
+
+      setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+
+      try {
+        const checkoutSessionResult = await stripeInstance.redirectToCheckout({
+          sessionId: response.data.data.sessionId,
+        });
+        if (checkoutSessionResult.error) {
+          console.error(checkoutSessionResult.error); // eslint-disable-line
+          alert(`Error while redirecting to Stripe: ${checkoutSessionResult.error.message}`);
+          throw checkoutSessionResult.error;
+        }
+      } catch (err) {
+        console.error('Error while redirecting to Stripe', err); // eslint-disable-line
+        alert(`Error while redirecting to Stripe: ${err.message}`);
+        throw err;
+      }
     },
     checkGemAmount (data) {
       const isGem = data && data.gift && data.gift.type === 'gems';
@@ -232,6 +239,10 @@ export default {
     },
     amazonPaymentsInit (data) {
       if (data.type !== 'single' && data.type !== 'subscription') return;
+
+      if (data.type === 'single') {
+        this.amazonPayments.gemsBlock = data.gemsBlock;
+      }
 
       if (data.gift) {
         if (data.gift.gems && data.gift.gems.amount && data.gift.gems.amount <= 0) return;
@@ -260,12 +271,20 @@ export default {
       this.amazonPayments.type = data.type;
     },
     amazonOnError (error) {
-      window.alert(error.getErrorMessage());
+      window.alert(error.getErrorMessage()); // eslint-disable-line no-alert
       this.reset();
+    },
+    // Make sure the amazon session is reset between different sessions and after each purchase
+    amazonLogout () {
+      if (window.amazon && window.amazon.Login && typeof window.amazon.Login.logout === 'function') {
+        window.amazon.Login.logout();
+      }
     },
     reset () {
       // @TODO: Ensure we are using all of these
       // some vars are set in the payments mixin. We should try to edit in one place
+      this.amazonLogout();
+
       this.amazonPayments.modal = null;
       this.amazonPayments.type = null;
       this.amazonPayments.loggedIn = false;
@@ -328,7 +347,7 @@ export default {
 
         this.loading = false;
       } catch (e) {
-        window.alert(e.response.data.message);
+        window.alert(e.response.data.message); // eslint-disable-line no-alert
       }
     },
   },

@@ -1,9 +1,10 @@
 import express from 'express';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import bodyParser from 'body-parser';
+import http from 'http';
 
 const app = express();
-const server = require('http').createServer(app);
+const server = http.createServer(app);
 
 const PORT = process.env.TEST_WEBHOOK_APP_PORT || 3099; // eslint-disable-line no-process-env
 
@@ -30,7 +31,7 @@ app.post('/webhooks/:id', (req, res) => {
 // See http://stackoverflow.com/a/37054753/2601552
 const sockets = {};
 server.on('connection', socket => {
-  const id = uuid.v4();
+  const id = uuid();
   sockets[id] = socket;
 
   socket.once('close', () => {

@@ -15,6 +15,13 @@ body {
   color: $gray-200;
 }
 
+// Restore the default styling for a elements without an href attribute
+// that was changed in bootstrap 4.5.1
+a:not([href]), a:not([href]):hover {
+  color: inherit;
+  text-decoration: none;
+}
+
 a, a:not([href]):not([tabindex]) {
   cursor: pointer;
 
@@ -39,7 +46,7 @@ a, a:not([href]):not([tabindex]) {
 }
 
 // Headers
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h5, h6 {
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: bold;
   color: $gray-10;
@@ -53,23 +60,29 @@ h1 {
 
 h2 {
   font-size: 20px;
-  line-height: 1.2;
+  line-height: 1.4;
   margin-bottom: 16px;
 }
 
+h3, h4 {
+  font-weight: bold;
+  font-size: 0.875rem;
+  line-height: 1.71;
+}
+
 h3 {
-  font-size: 16px;
-  line-height: 1.5;
-  color: $gray-50;
-  margin-bottom: 4px;
+  color: $gray-10;
 }
 
 h4 {
-  font-size: 14px;
-  line-height: 1.43;
+  color: $gray-100;
 }
 
 .textCondensed {
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: bold;
+}
+
+.opacity-75 {
+  opacity: 0.75;
 }

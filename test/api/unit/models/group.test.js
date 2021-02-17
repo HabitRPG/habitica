@@ -769,7 +769,6 @@ describe('Group Model', () => {
         expect(res.t).to.not.be.called;
       });
 
-
       it('does not throw an error if only user ids are passed in', async () => {
         await Group.validateInvitations({ uuids: ['user-id', 'user-id2'] }, res);
         expect(res.t).to.not.be.called;

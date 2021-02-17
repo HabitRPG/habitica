@@ -175,6 +175,10 @@ export default {
     },
   },
   mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('findChallenges'),
+      section: this.$t('challenges'),
+    });
     this.loadChallenges();
   },
   methods: {

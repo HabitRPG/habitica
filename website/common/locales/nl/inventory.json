@@ -4,5 +4,7 @@
     "eggsItemType": "Eieren",
     "hatchingPotionsItemType": "Uitbroeddrank",
     "specialItemType": "Speciale artikelen",
-    "lockedItem": "Vergrendeld artikel"
+    "lockedItem": "Vergrendeld artikel",
+    "allItems": "Alle Voorwerpen",
+    "petAndMount": "Huisdier en Rijdier"
 }

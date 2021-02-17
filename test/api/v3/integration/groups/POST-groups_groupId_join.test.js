@@ -203,6 +203,16 @@ describe('POST /group/:groupId/join', () => {
         await expect(invitedUser.get('/user')).to.eventually.have.nested.property('party._id', party._id);
       });
 
+      it('Issue #12291: accepting a redundant party invite will let the user stay in the party', async () => {
+        await invitedUser.update({
+          'party._id': party._id,
+        });
+        await expect(invitedUser.get('/user')).to.eventually.have.nested.property('party._id', party._id);
+        await invitedUser.post(`/groups/${party._id}/join`);
+
+        await expect(invitedUser.get('/user')).to.eventually.have.nested.property('party._id', party._id);
+      });
+
       it('notifies inviting user that their invitation was accepted', async () => {
         await invitedUser.post(`/groups/${party._id}/join`);
 

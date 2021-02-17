@@ -43,32 +43,34 @@
             >
           </div>
           <div class="col">
-            <select
-              class="form-control"
-              @change="changeSortOption($event)"
+            <select-list
+              :items="sortOptions"
+              :value="optionEntryBySelectedValue"
+              key-prop="value"
+              @select="changeSortOption($event)"
             >
-              <option
-                v-for="sortOption in sortOptions"
-                :key="sortOption.value"
-                :value="sortOption.value"
-              >
-                {{ sortOption.text }}
-              </option>
-            </select>
+              <template v-slot:item="{ item }">
+                <span
+                  v-if="item"
+                  class="label"
+                >{{ item.text }}</span>
+              </template>
+            </select-list>
           </div>
           <div class="col-3">
-            <select
-              class="form-control"
-              @change="changeSortDirection($event)"
+            <select-list
+              :items="sortDirections"
+              :value="directionEntryBySelectedValue"
+              key-prop="value"
+              @select="changeSortDirection($event)"
             >
-              <option
-                v-for="sortDirection in sortDirections"
-                :key="sortDirection.value"
-                :value="sortDirection.value"
-              >
-                {{ sortDirection.text }}
-              </option>
-            </select>
+              <template v-slot:item="{ item }">
+                <span
+                  v-if="item"
+                  class="label"
+                >{{ item.text }}</span>
+              </template>
+            </select-list>
           </div>
         </div>
       </div>
@@ -99,14 +101,21 @@
           </div>
         </div>
       </div>
-      <div v-if="selectedPage === 'members'">
+      <loading-gryphon v-if="loading" />
+      <div
+        v-if="selectedPage === 'members' && !loading"
+        :class="{'mt-1': invites.length === 0}"
+      >
         <div
           v-for="(member, index) in sortedMembers"
           :key="member._id"
           class="row"
         >
           <div class="col-11 no-padding-left">
-            <member-details :member="member" />
+            <member-details
+              :member="member"
+              :class-badge-position="'next-to-name'"
+            />
           </div>
           <div class="col-1 actions">
             <b-dropdown right="right">
@@ -154,8 +163,8 @@
               >
                 <span class="dropdown-icon-item">
                   <div
-                    class="svg-icon inline"
-                    v-html="icons.removeIcon"
+                    class="svg-icon inline block-icon"
+                    v-html="icons.blockIcon"
                   ></div>
                   <span class="text">{{ $t('removeManager2') }}</span>
                 </span>
@@ -174,8 +183,8 @@
               >
                 <span class="dropdown-icon-item">
                   <div
-                    class="svg-icon inline"
-                    v-html="icons.removeIcon"
+                    class="svg-icon inline block-icon"
+                    v-html="icons.blockIcon"
                   ></div>
                   <span class="text">{{ $t('removeMember') }}</span>
                 </span>
@@ -201,7 +210,7 @@
           class="row gradient"
         ></div>
       </div>
-      <div v-if="selectedPage === 'invites'">
+      <div v-if="selectedPage === 'invites' && !loading">
         <div
           v-for="(member, index) in invites"
           :key="member._id"
@@ -224,8 +233,8 @@
                 <span class="dropdown-icon-item">
                   <div
                     v-if="isLeader"
-                    class="svg-icon inline"
-                    v-html="icons.removeIcon"
+                    class="svg-icon inline block-icon"
+                    v-html="icons.blockIcon"
                   ></div>
                   <span class="text">{{ $t('removeInvite') }}</span>
                 </span>
@@ -233,14 +242,6 @@
             </b-dropdown>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          class="btn btn-primary"
-          @click="close()"
-        >
-          {{ $t('close') }}
-        </button>
       </div>
     </b-modal>
   </div>
@@ -254,11 +255,6 @@
       box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
     }
 
-    .modal-footer {
-      background-color: #edecee;
-      border-radius: 0 0 8px 8px;
-    }
-
     .small-text, .character-name {
       color: #878190;
     }
@@ -270,6 +266,8 @@
     .modal-body {
       padding-left: 0;
       padding-right: 0;
+      padding-bottom: 0;
+      padding-top: 0;
     }
 
     .member-details {
@@ -283,6 +281,8 @@
 </style>
 
 <style lang='scss' scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .apply-options {
     padding: 1em;
     margin: 0;
@@ -370,6 +370,10 @@
     border-bottom: 2px solid #4f2a93;
     cursor: pointer;
   }
+
+  .block-icon {
+    color:  $gray-200;
+  }
 </style>
 
 <script>
@@ -378,21 +382,29 @@ import isEmpty from 'lodash/isEmpty';
 import { mapState } from '@/libs/store';
 
 import removeMemberModal from '@/components/members/removeMemberModal';
+import loadingGryphon from '@/components/ui/loadingGryphon';
 import MemberDetails from '../memberDetails';
-import removeIcon from '@/assets/members/remove.svg';
+import blockIcon from '@/assets/svg/block.svg';
 import messageIcon from '@/assets/members/message.svg';
 import starIcon from '@/assets/members/star.svg';
 import dots from '@/assets/svg/dots.svg';
+import SelectList from '@/components/ui/selectList';
 
 export default {
   components: {
+    SelectList,
     MemberDetails,
     removeMemberModal,
+    loadingGryphon,
   },
   props: ['hideBadge'],
   data () {
     return {
-      sortOption: {},
+      sortOption: {
+        // default sort options
+        value: 'stats.class',
+        direction: 'asc',
+      },
       sortDirty: false,
       selectedPage: 'members',
       members: [],
@@ -440,7 +452,7 @@ export default {
       ],
       searchTerm: '',
       icons: Object.freeze({
-        removeIcon,
+        blockIcon,
         messageIcon,
         starIcon,
         dots,
@@ -474,6 +486,9 @@ export default {
     challengeId () {
       return this.$store.state.memberModalOptions.challengeId;
     },
+    loading () {
+      return this.$store.state.memberModalOptions.loading;
+    },
     sortedMembers () {
       let sortedMembers = this.members.slice(); // shallow clone to avoid infinite loop
 
@@ -502,18 +517,14 @@ export default {
 
       return sortedMembers;
     },
+    optionEntryBySelectedValue () {
+      return this.sortOptions.find(o => o.value === this.sortOption.value);
+    },
+    directionEntryBySelectedValue () {
+      return this.sortDirections.find(o => o.value === this.sortOption.direction);
+    },
   },
   watch: {
-    groupId () {
-      // @TODO: We might not need this since groupId is computed now
-      this.getMembers();
-    },
-    challengeId () {
-      this.getMembers();
-    },
-    group () {
-      this.getMembers();
-    },
     // Watches `searchTerm` and if present, performs a `searchMembers` action
     // and usual `getMembers` otherwise
     searchTerm () {
@@ -537,7 +548,7 @@ export default {
       this.getMembers();
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica:show-member-modal');
   },
   methods: {
@@ -558,8 +569,9 @@ export default {
       });
     },
     async getMembers () {
-      const { groupId } = this;
+      this.members = this.$store.state.memberModalOptions.viewingMembers;
 
+      const { groupId } = this;
       if (groupId && groupId !== 'challenge') {
         const invites = await this.$store.dispatch('members:getGroupInvites', {
           groupId,
@@ -567,8 +579,6 @@ export default {
         });
         this.invites = invites;
       }
-
-      this.members = this.$store.state.memberModalOptions.viewingMembers;
     },
     async clickMember (uid, forceShow) {
       const user = this.$store.state.user.data;
@@ -611,24 +621,24 @@ export default {
         groupId: this.groupId,
         memberId,
       });
-      window.alert(this.$t('managerAdded'));
+      window.alert(this.$t('managerAdded')); // eslint-disable-line no-alert
     },
     async removeManager (memberId) {
       await this.$store.dispatch('guilds:removeManager', {
         groupId: this.groupId,
         memberId,
       });
-      window.alert(this.$t('managerRemoved'));
+      window.alert(this.$t('managerRemoved')); // eslint-disable-line no-alert
     },
     close () {
       this.$root.$emit('bv::hide::modal', 'members-modal');
     },
     changeSortOption (e) {
-      this.sortOption.value = e.target.value;
+      this.sortOption.value = e.value;
       this.sort();
     },
     changeSortDirection (e) {
-      this.sortOption.direction = e.target.value;
+      this.sortOption.direction = e.value;
       this.sort();
     },
     sort () {
@@ -676,7 +686,7 @@ export default {
       groupData.leader = member._id;
       await this.$store.dispatch('guilds:update', { group: groupData });
 
-      window.alert(this.$t('leaderChanged'));
+      window.alert(this.$t('leaderChanged')); // eslint-disable-line no-alert
 
       groupData.leader = member;
       this.$root.$emit('updatedGroup', groupData);

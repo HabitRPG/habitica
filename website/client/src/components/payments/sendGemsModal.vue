@@ -15,45 +15,47 @@
         <h3 class="panel-heading clearfix">
           <div class="float-right">
             <span
-              v-if="gift.gems.fromBalance"
+              v-if="fromBal"
             >{{ $t('sendGiftGemsBalance', {number: userLoggedIn.balance * 4}) }}</span>
             <span
-              v-if="!gift.gems.fromBalance"
+              v-else
             >{{ $t('sendGiftCost', {cost: gift.gems.amount / 4}) }}</span>
           </div>
           {{ $t('gemsPopoverTitle') }}
         </h3>
         <div class="panel-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  v-model="gift.gems.amount"
-                  class="form-control"
-                  type="number"
-                  placeholder="Number of Gems"
-                  min="0"
-                  :max="gift.gems.fromBalance ? userLoggedIn.balance * 4 : 9999"
-                >
-              </div>
+          <div class="d-flex mb-3">
+            <div class="form-group mb-0">
+              <input
+                v-model="gift.gems.amount"
+                class="form-control"
+                type="number"
+                placeholder="Number of Gems"
+                min="0"
+                :max="fromBal ? userLoggedIn.balance * 4 : 9999"
+              >
             </div>
-            <div class="col-md-6">
-              <div class="btn-group">
-                <button
-                  class="btn btn-secondary"
-                  :class="{active: gift.gems.fromBalance}"
-                  @click="gift.gems.fromBalance = true"
-                >
-                  {{ $t('sendGiftFromBalance') }}
-                </button>
-                <button
-                  class="btn btn-secondary"
-                  :class="{active: !gift.gems.fromBalance}"
-                  @click="gift.gems.fromBalance = false"
-                >
-                  {{ $t('sendGiftPurchase') }}
-                </button>
-              </div>
+            <div class="btn-group ml-auto">
+              <button
+                class="btn"
+                :class="{
+                  'btn-primary': fromBal,
+                  'btn-secondary': !fromBal,
+                }"
+                @click="gift.gems.fromBalance = true"
+              >
+                {{ $t('sendGiftFromBalance') }}
+              </button>
+              <button
+                class="btn"
+                :class="{
+                  'btn-primary': !fromBal,
+                  'btn-secondary': fromBal,
+                }"
+                @click="gift.gems.fromBalance = false"
+              >
+                {{ $t('sendGiftPurchase') }}
+              </button>
             </div>
           </div>
           <div class="row">
@@ -77,7 +79,7 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-md-12">
-              <div class="form-group">
+              <div class="form-group mb-0">
                 <!-- eslint-disable vue/no-use-v-if-with-v-for -->
                 <div
                   v-for="block in subscriptionBlocks"
@@ -106,7 +108,9 @@
         class="form-control"
         rows="3"
         :placeholder="$t('sendGiftMessagePlaceholder')"
+        :maxlength="MAX_GIFT_MESSAGE_LENGTH"
       ></textarea>
+      <span>{{ gift.message.length || 0 }} / {{ MAX_GIFT_MESSAGE_LENGTH }}</span>
       <!--include ../formatting-help-->
     </div>
     <div class="modal-footer">
@@ -118,39 +122,15 @@
       >
         {{ $t("send") }}
       </button>
-      <div
+      <payments-buttons
         v-else
-        class="payments-column mx-auto"
-        :class="{'payments-disabled': !gift.subscription.key && gift.gems.amount < 1}"
-      >
-        <button
-          class="purchase btn btn-primary payment-button payment-item"
-          :disabled="!gift.subscription.key && gift.gems.amount < 1"
-          @click="showStripe({gift, uuid: userReceivingGems._id, receiverName})"
-        >
-          <div
-            class="svg-icon credit-card-icon"
-            v-html="icons.creditCardIcon"
-          ></div>
-          {{ $t('card') }}
-        </button>
-        <button
-          class="btn payment-item paypal-checkout payment-button"
-          :disabled="!gift.subscription.key && gift.gems.amount < 1"
-          @click="openPaypalGift({gift: gift, giftedTo: userReceivingGems._id, receiverName})"
-        >
-          &nbsp;
-          <img
-            src="~@/assets/images/paypal-checkout.png"
-            :alt="$t('paypal')"
-          >&nbsp;
-        </button>
-        <amazon-button
-          class="payment-item mb-0"
-          :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}"
-          :amazon-disabled="!gift.subscription.key && gift.gems.amount < 1"
-        />
-      </div>
+        :disabled="!gift.subscription.key && gift.gems.amount < 1"
+        :stripe-fn="() => redirectToStripe({gift, uuid: userReceivingGems._id, receiverName})"
+        :paypal-fn="() => openPaypalGift({
+          gift: gift, giftedTo: userReceivingGems._id, receiverName,
+        })"
+        :amazon-data="{type: 'single', gift, giftedTo: userReceivingGems._id, receiverName}"
+      />
     </div>
   </b-modal>
 </template>
@@ -192,15 +172,15 @@ import { mapState } from '@/libs/store';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import paymentsMixin from '@/mixins/payments';
 import notificationsMixin from '@/mixins/notifications';
-import amazonButton from '@/components/payments/amazonButton';
-import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+import paymentsButtons from '@/components/payments/buttons/list';
+import { MAX_GIFT_MESSAGE_LENGTH } from '@/../../common/script/constants';
 
 // @TODO: EMAILS.TECH_ASSISTANCE_EMAIL, load from config
 const TECH_ASSISTANCE_EMAIL = 'admin@habitica.com';
 
 export default {
   components: {
-    amazonButton,
+    paymentsButtons,
   },
   mixins: [paymentsMixin, notificationsMixin],
   data () {
@@ -221,9 +201,7 @@ export default {
       },
       sendingInProgress: false,
       userReceivingGems: null,
-      icons: Object.freeze({
-        creditCardIcon,
-      }),
+      MAX_GIFT_MESSAGE_LENGTH: MAX_GIFT_MESSAGE_LENGTH.toString(),
     };
   },
   computed: {
@@ -294,7 +272,7 @@ export default {
       this.sendingInProgress = false;
     },
     close () {
-      this.$root.$emit('habitica::dismiss-modal', 'send-gems');
+      this.$root.$emit('bv::hide::modal', 'send-gems');
     },
   },
 };

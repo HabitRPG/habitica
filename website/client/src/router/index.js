@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import getStore from '@/store';
-import * as Analytics from '@/libs/analytics';
 import handleRedirect from './handleRedirect';
 
 import ParentPage from '@/components/parentPage';
+
+// NOTE: when adding a page make sure to implement setTitle
 
 // Static Pages
 const StaticWrapper = () => import(/* webpackChunkName: "entry" */'@/components/static/staticWrapper');
@@ -107,6 +108,8 @@ const router = new VueRouter({
     return { x: 0, y: 0 };
   },
   // requiresLogin is true by default, isStatic false
+  // NOTE: when adding a new route entry make sure to implement the `common:setTitle` action
+  // in the route component to set a specific subtitle for the page.
   routes: [
     {
       name: 'register', path: '/register', component: RegisterLoginReset, meta: { requiresLogin: false },
@@ -408,13 +411,6 @@ router.beforeEach((to, from, next) => {
     });
   }
 
-  Analytics.track({
-    hitType: 'pageview',
-    eventCategory: 'navigation',
-    eventAction: 'navigate',
-    page: to.name || to.path,
-  });
-
   if ((to.name === 'userProfile' || to.name === 'userProfilePage') && from.name !== null) {
     let startingPage = 'profile';
     if (to.params.startingPage !== undefined) {
@@ -427,6 +423,11 @@ router.beforeEach((to, from, next) => {
     });
 
     return null;
+  }
+
+  if (to.name === 'tasks' && to.query.openGemsModal === 'true') {
+    setTimeout(() => router.app.$emit('bv::show::modal', 'buy-gems'), 500);
+    return next({ name: 'tasks' });
   }
 
   if ((to.name === 'stats' || to.name === 'achievements' || to.name === 'profile') && from.name !== null) {

@@ -91,7 +91,7 @@ async function addSubToGroupUser (member, group) {
     extraMonths: 0,
     dateTerminated: null,
     lastBillingDate: null,
-    dateCreated: new Date(),
+    dateCreated: member.purchased.plan.dateCreated || new Date(),
     mysteryItems: [],
     consecutive: {
       trinkets: 0,

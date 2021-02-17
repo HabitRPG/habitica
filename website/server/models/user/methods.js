@@ -22,6 +22,7 @@ import * as inboxLib from '../../libs/inbox'; // eslint-disable-line import/no-c
 import amazonPayments from '../../libs/payments/amazon'; // eslint-disable-line import/no-cycle
 import stripePayments from '../../libs/payments/stripe'; // eslint-disable-line import/no-cycle
 import paypalPayments from '../../libs/payments/paypal'; // eslint-disable-line import/no-cycle
+import { model as NewsPost } from '../newsPost';
 
 const { daysSince } = common;
 
@@ -107,7 +108,6 @@ schema.methods.getObjectionsToInteraction = function getObjectionsToInteraction 
     uniq,
   )(checks);
 };
-
 
 /**
  * Sends a message to a user. Archives a copy in sender's inbox.
@@ -251,7 +251,6 @@ schema.methods.addAchievement = function addAchievement (achievement) {
   });
 };
 
-
 /**
  * Adds an achievement and a related notification to the user, saving it directly to the database
  * To be used when the user object is not loaded or we don't want to use `user.save`
@@ -295,6 +294,12 @@ schema.statics.transformJSONUser = function transformJSONUser (jsonUser, addComp
   if (!jsonUser.flags.verifiedUsername) jsonUser.auth.local.username = null;
 
   if (addComputedStats) this.addComputedStatsToJSONObj(jsonUser.stats, jsonUser);
+};
+
+// Returns true if the user has read the last news post
+schema.methods.checkNewStuff = function checkNewStuff () {
+  const lastNewsPost = NewsPost.lastNewsPost();
+  return Boolean(lastNewsPost && this.flags && this.flags.lastNewStuffRead !== lastNewsPost._id);
 };
 
 // Add stats.toNextLevel, stats.maxMP and stats.maxHealth
@@ -349,35 +354,40 @@ schema.methods.cancelSubscription = async function cancelSubscription (options =
   return payments.cancelSubscription(options);
 };
 
+schema.methods.getUtcOffset = function getUtcOffset () {
+  return common.fns.getUtcOffset(this);
+};
+
 schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
   // If the user's timezone has changed (due to travel or daylight savings),
   // cron can be triggered twice in one day, so we check for that and use
   // both timezones to work out if cron should run.
   // CDS = Custom Day Start time.
-  let timezoneOffsetFromUserPrefs = this.preferences.timezoneOffset;
-  const timezoneOffsetAtLastCron = Number.isFinite(this.preferences.timezoneOffsetAtLastCron)
-    ? this.preferences.timezoneOffsetAtLastCron
-    : timezoneOffsetFromUserPrefs;
-  let timezoneOffsetFromBrowser = typeof req.header === 'function' && Number(req.header('x-user-timezoneoffset'));
-  timezoneOffsetFromBrowser = Number.isFinite(timezoneOffsetFromBrowser)
-    ? timezoneOffsetFromBrowser
-    : timezoneOffsetFromUserPrefs;
+  let timezoneUtcOffsetFromUserPrefs = this.getUtcOffset();
+  const timezoneUtcOffsetAtLastCron = Number.isFinite(this.preferences.timezoneOffsetAtLastCron)
+    ? -this.preferences.timezoneOffsetAtLastCron
+    : timezoneUtcOffsetFromUserPrefs;
+
+  let timezoneUtcOffsetFromBrowser = typeof req.header === 'function' && -Number(req.header('x-user-timezoneoffset'));
+  timezoneUtcOffsetFromBrowser = Number.isFinite(timezoneUtcOffsetFromBrowser)
+    ? timezoneUtcOffsetFromBrowser
+    : timezoneUtcOffsetFromUserPrefs;
   // NB: All timezone offsets can be 0, so can't use `... || ...` to apply non-zero defaults
 
-  if (timezoneOffsetFromBrowser !== timezoneOffsetFromUserPrefs) {
+  if (timezoneUtcOffsetFromBrowser !== timezoneUtcOffsetFromUserPrefs) {
     // The user's browser has just told Habitica that the user's timezone has
     // changed so store and use the new zone.
-    this.preferences.timezoneOffset = timezoneOffsetFromBrowser;
-    timezoneOffsetFromUserPrefs = timezoneOffsetFromBrowser;
+    this.preferences.timezoneOffset = -timezoneUtcOffsetFromBrowser;
+    timezoneUtcOffsetFromUserPrefs = timezoneUtcOffsetFromBrowser;
   }
 
   // How many days have we missed using the user's current timezone:
   let daysMissed = daysSince(this.lastCron, defaults({ now }, this.preferences));
 
-  if (timezoneOffsetAtLastCron !== timezoneOffsetFromUserPrefs) {
+  if (timezoneUtcOffsetAtLastCron !== timezoneUtcOffsetFromUserPrefs) {
     // Give the user extra time based on the difference in timezones
-    if (timezoneOffsetAtLastCron < timezoneOffsetFromUserPrefs) {
-      const differenceBetweenTimezonesInMinutes = timezoneOffsetFromUserPrefs - timezoneOffsetAtLastCron; // eslint-disable-line max-len
+    if (timezoneUtcOffsetAtLastCron > timezoneUtcOffsetFromUserPrefs) {
+      const differenceBetweenTimezonesInMinutes = timezoneUtcOffsetAtLastCron - timezoneUtcOffsetFromUserPrefs; // eslint-disable-line max-len
       now = moment(now).subtract(differenceBetweenTimezonesInMinutes, 'minutes'); // eslint-disable-line no-param-reassign, max-len
     }
 
@@ -386,13 +396,13 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     const daysMissedNewZone = daysMissed;
     const daysMissedOldZone = daysSince(this.lastCron, defaults({
       now,
-      timezoneOffsetOverride: timezoneOffsetAtLastCron,
+      timezoneUtcOffsetOverride: timezoneUtcOffsetAtLastCron,
     }, this.preferences));
 
-    if (timezoneOffsetAtLastCron < timezoneOffsetFromUserPrefs) {
+    if (timezoneUtcOffsetAtLastCron > timezoneUtcOffsetFromUserPrefs) {
       // The timezone change was in the unsafe direction.
-      // E.g., timezone changes from UTC+1 (offset -60) to UTC+0 (offset 0).
-      //    or timezone changes from UTC-4 (offset 240) to UTC-5 (offset 300).
+      // E.g., timezone changes from UTC+1 (utcOffset 60) to UTC+0 (offset 0).
+      //    or timezone changes from UTC-4 (utcOffset -240) to UTC-5 (utcOffset -300).
       // Local time changed from, for example, 03:00 to 02:00.
 
       if (daysMissedOldZone > 0 && daysMissedNewZone > 0) {
@@ -421,20 +431,21 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
         // timezone interprets as being in today.
 
         daysMissed = 0; // prevent cron running now
-        const timezoneOffsetDiff = timezoneOffsetAtLastCron - timezoneOffsetFromUserPrefs;
-        // e.g., for dangerous zone change: 240 - 300 = -60 or  -660 - -600 = -60
+        const timezoneOffsetDiff = timezoneUtcOffsetFromUserPrefs - timezoneUtcOffsetAtLastCron;
+        // e.g., for dangerous zone change: -300 - -240 = -60 or 600 - 660= -60
 
         this.lastCron = moment(this.lastCron).subtract(timezoneOffsetDiff, 'minutes');
         // NB: We don't change this.auth.timestamps.loggedin so that will still record
         // the time that the previous cron actually ran.
         // From now on we can ignore the old timezone:
-        this.preferences.timezoneOffsetAtLastCron = timezoneOffsetFromUserPrefs;
+        // This is still timezoneOffset for backwards compatibility reasons.
+        this.preferences.timezoneOffsetAtLastCron = -timezoneUtcOffsetAtLastCron;
       } else {
         // Both old and new timezones indicate that cron should
         // NOT run.
         daysMissed = 0; // prevent cron running now
       }
-    } else if (timezoneOffsetAtLastCron > timezoneOffsetFromUserPrefs) {
+    } else if (timezoneUtcOffsetAtLastCron < timezoneUtcOffsetFromUserPrefs) {
       daysMissed = daysMissedNewZone;
       // TODO: Either confirm that there is nothing that could possibly go wrong
       // here and remove the need for this else branch, or fix stuff.
@@ -447,7 +458,7 @@ schema.methods.daysUserHasMissed = function daysUserHasMissed (now, req = {}) {
     }
   }
 
-  return { daysMissed, timezoneOffsetFromUserPrefs };
+  return { daysMissed, timezoneUtcOffsetFromUserPrefs };
 };
 
 async function getUserGroupData (user) {
@@ -487,7 +498,11 @@ schema.methods.isMemberOfGroupPlan = async function isMemberOfGroupPlan () {
 };
 
 schema.methods.isAdmin = function isAdmin () {
-  return this.contributor && this.contributor.admin;
+  return Boolean(this.contributor && this.contributor.admin);
+};
+
+schema.methods.isNewsPoster = function isNewsPoster () {
+  return Boolean(this.contributor && this.contributor.newsPoster);
 };
 
 // When converting to json add inbox messages from the Inbox collection
@@ -509,4 +524,22 @@ schema.methods.getSecretData = function getSecretData () {
   const user = this;
 
   return user.secret;
+};
+
+// Enroll users in the Drop Cap A/B Test
+schema.methods.enrollInDropCapABTest = function enrollInDropCapABTest (xClientHeader) {
+  // Only target users that use web for cron and aren't subscribed.
+  // Those using mobile aren't excluded as they may use it later
+  const isWeb = xClientHeader === 'habitica-web';
+
+  if (isWeb && !this._ABtests.dropCapNotif && !this.isSubscribed()) {
+    const testGroup = Math.random();
+    // Enroll 100% of users, splitting them 50/50
+    if (testGroup <= 0.50) {
+      this._ABtests.dropCapNotif = 'drop-cap-notif-enabled';
+    } else {
+      this._ABtests.dropCapNotif = 'drop-cap-notif-disabled';
+    }
+    this.markModified('_ABtests');
+  }
 };

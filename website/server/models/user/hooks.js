@@ -12,6 +12,9 @@ import {
 import {
   model as Tag,
 } from '../tag';
+import {
+  model as NewsPost,
+} from '../newsPost';
 import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
@@ -31,6 +34,10 @@ schema.plugin(baseModel, {
 
     delete plainObj.filters;
 
+    if (plainObj.flags && originalDoc.isSelected('flags.lastNewStuffRead')) {
+      plainObj.flags.newStuff = originalDoc.checkNewStuff();
+    }
+
     return plainObj;
   },
 });
@@ -44,7 +51,6 @@ function _populateDefaultTasks (user, taskTypes) {
   let defaultsData;
   if (user.registeredThrough === 'habitica-android' || user.registeredThrough === 'habitica-ios') {
     defaultsData = common.content.userDefaultsMobile;
-    user.flags.welcomed = true;
   } else {
     defaultsData = common.content.userDefaults;
   }
@@ -126,31 +132,27 @@ function pinBaseItems (user) {
 }
 
 function _setUpNewUser (user) {
+  // Mark the last news post as read
+  const lastNewsPost = NewsPost.lastNewsPost();
+  if (lastNewsPost) {
+    user.flags.lastNewStuffRead = lastNewsPost._id;
+  }
+
   let taskTypes;
   const iterableFlags = user.flags.toObject();
 
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2020-02-02')) {
+  if (moment().isBefore('2021-02-02')) {
+    user.items.gear.owned.armor_special_birthday2021 = true;
+    user.items.gear.equipped.armor = 'armor_special_birthday2021';
     user.achievements.habitBirthdays = 1;
-    user.items.gear.owned.armor_special_birthday = true;
-    user.items.gear.equipped.armor = 'armor_special_birthday';
-    user.items.food = {
-      Cake_Skeleton: 1,
-      Cake_Base: 1,
-      Cake_CottonCandyBlue: 1,
-      Cake_CottonCandyPink: 1,
-      Cake_Shade: 1,
-      Cake_White: 1,
-      Cake_Golden: 1,
-      Cake_Zombie: 1,
-      Cake_Desert: 1,
-      Cake_Red: 1,
-    };
   }
 
   user.markModified('items achievements');
+
+  user.enrollInDropCapABTest(user.registeredThrough);
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];

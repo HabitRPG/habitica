@@ -7,7 +7,7 @@ import shared from '../../../common';
 
 export const requiredGroupFields = '_id leader tasksOrder name';
 
-export async function validateTaskAlias (tasks, res) {
+export async function _validateTaskAlias (tasks, res) {
   const tasksWithAliases = tasks.filter(task => task.alias);
   const aliases = tasksWithAliases.map(task => task.alias);
 
@@ -81,7 +81,6 @@ export function setNextDue (task, user, dueDateOption) {
 
     now = dateTaskIsDue;
   }
-
 
   const optionsForShouldDo = user.preferences.toObject();
   optionsForShouldDo.now = now;

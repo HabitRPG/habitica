@@ -196,7 +196,7 @@
     "hatchingPotionSpooky": "Зловещий",
     "hatchingPotionPeppermint": "Мятный",
     "hatchingPotionFloral": "Цветочный",
-    "hatchingPotionAquatic": "Водный",
+    "hatchingPotionAquatic": "Акватический",
     "hatchingPotionEmber": "Тлеющий",
     "hatchingPotionThunderstorm": "Грозовой",
     "hatchingPotionGhost": "Призрачный",
@@ -356,5 +356,13 @@
     "hatchingPotionAurora": "Полярно-сияющий",
     "hatchingPotionRuby": "Рубиновый",
     "hatchingPotionDessert": "Конфетный",
-    "hatchingPotionBirchBark": "Березовый"
+    "hatchingPotionBirchBark": "Березовый",
+    "hatchingPotionFluorite": "Флюоритовый",
+    "hatchingPotionWindup": "Заводной",
+    "hatchingPotionTurquoise": "Бирюзовый",
+    "hatchingPotionVampire": "Вампирный",
+    "hatchingPotionSandSculpture": "Песчаная скульптура",
+    "hatchingPotionBlackPearl": "Черно-жемчужный",
+    "hatchingPotionStainedGlass": "Витражный",
+    "hatchingPotionAutumnLeaf": "Осенний лист"
 }

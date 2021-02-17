@@ -22,10 +22,7 @@
             <br>
             {{ $t('reportCommunityIssues') }}
             &colon;&nbsp;
-            <a
-              href
-              @click.prevent="modForm()"
-            >{{ $t('contactForm') }}</a>
+            <a href="mailto:admin@habitica.com">admin&commat;habitica&period;com</a>
           </span>
           <br>
           {{ $t('subscriptionPaymentIssues') }}
@@ -61,6 +58,11 @@ export default {
     ...mapState({
       user: 'user.data',
     }),
+  },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('contactUs'),
+    });
   },
   methods: {
     modForm () {

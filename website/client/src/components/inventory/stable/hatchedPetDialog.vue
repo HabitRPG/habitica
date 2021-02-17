@@ -46,8 +46,8 @@
 </template>
 
 <style lang="scss">
+  @import '~@/assets/scss/mixins.scss';
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/modal.scss';
 
   #hatchedPet-modal {
     @include centeredModal();
@@ -124,7 +124,7 @@ export default {
   mounted () {
     this.$root.$on('hatchedPet::open', this.openDialog);
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('hatchedPet::open', this.openDialog);
   },
   methods: {

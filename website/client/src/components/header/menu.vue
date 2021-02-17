@@ -6,10 +6,10 @@
     <send-gems-modal />
     <select-user-modal />
     <b-navbar
+      id="habitica-menu"
       class="topbar navbar-inverse static-top"
       toggleable="lg"
       type="dark"
-      :class="navbarZIndexClass"
     >
       <b-navbar-brand
         class="brand"
@@ -212,7 +212,7 @@
               'active': $route.path.startsWith('/group-plans')}"
           >
             <div
-              v-if="groupPlans.length > 0"
+              v-if="groupPlans && groupPlans.length > 0"
               class="chevron rotate"
               @click="dropdownMobile($event)"
             >
@@ -323,7 +323,7 @@
               </router-link>
               <a
                 class="topbar-dropdown-item dropdown-item"
-                href="https://trello.com/c/odmhIqyW/440-read-first-table-of-contents"
+                href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestAF') }}</a>
               <a
@@ -336,10 +336,6 @@
                 href="http://habitica.fandom.com/wiki/Habitica_Wiki"
                 target="_blank"
               >{{ $t('wiki') }}</a>
-              <a
-                class="topbar-dropdown-item dropdown-item"
-                @click="modForm()"
-              >{{ $t('contactForm') }}</a>
             </div>
           </li>
         </b-navbar-nav>
@@ -398,6 +394,12 @@
     </b-navbar>
   </div>
 </template>
+
+<style lang="scss">
+body.modal-open #habitica-menu {
+  z-index: 1035;
+}
+</style>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
@@ -546,22 +548,13 @@
   }
 
   .topbar {
+    z-index: 1080;
     background: $purple-100 url(~@/assets/svg/for-css/bits.svg) right top no-repeat;
     min-height: 56px;
     box-shadow: 0 1px 2px 0 rgba($black, 0.24);
 
     a {
       color: white !important;
-    }
-  }
-
-  .navbar-z-index {
-    &-normal {
-      z-index: 1080;
-    }
-
-    &-modal {
-      z-index: 1035;
     }
   }
 
@@ -674,12 +667,39 @@
     }
   }
 
+  a.item-with-icon:focus {
+    outline: none;
+  }
+
   .menu-icon {
     margin-left: 24px;
   }
 
+  @keyframes rotateGemColors {
+    /* Gems are green by default, so we rotate through ROYGBIV starting with green. */
+    20% {
+      fill: #46A7D9; /* Blue */
+    }
+    40% {
+      fill: #925CF3; /* Purple */
+    }
+    60% {
+      fill: #DE3F3F; /* Red */
+    }
+    80% {
+      fill: #FA8537; /* Orange */
+    }
+    100% {
+      fill: #FFB445; /* Yellow */
+    }
+  }
+
   .gem:hover {
     cursor: pointer;
+
+    & ::v-deep path:nth-child(1) {
+      animation: rotateGemColors 3s linear infinite alternate;
+    }
   }
 
   .message-count {
@@ -757,15 +777,9 @@ export default {
     ...mapState({
       user: 'user.data',
       userHourglasses: 'user.data.purchased.plan.consecutive.trinkets',
-      groupPlans: 'groupPlans',
+      groupPlans: 'groupPlans.data',
       modalStack: 'modalStack',
     }),
-    navbarZIndexClass () {
-      if (this.modalStack.length > 0) {
-        return 'navbar-z-index-modal';
-      }
-      return 'navbar-z-index-normal';
-    },
   },
   mounted () {
     this.getUserGroupPlans();
@@ -785,7 +799,7 @@ export default {
       this.isUserDropdownOpen = !this.isUserDropdownOpen;
     },
     async getUserGroupPlans () {
-      this.$store.state.groupPlans = await this.$store.dispatch('guilds:getGroupPlans');
+      await this.$store.dispatch('guilds:getGroupPlans');
     },
     openPartyModal () {
       this.$root.$emit('bv::show::modal', 'create-party-modal');

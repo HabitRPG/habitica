@@ -20,7 +20,8 @@
       <span v-if="msg.client && user.contributor.level >= 4"> ({{ msg.client }})</span>
     </p>
     <div
-      class="text"
+      class="text markdown"
+      dir="auto"
       v-html="parseMarkdown(msg.text)"
     ></div>
     <div
@@ -118,9 +119,8 @@
     .text {
       font-size: 14px;
       color: $gray-50;
-      text-align: left !important;
+      text-align: initial;
       min-height: 0rem;
-      margin-bottom: -0.5rem;
     }
   }
 
@@ -196,7 +196,7 @@ export default {
       });
     },
     async remove () {
-      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return;
+      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return; // eslint-disable-line no-alert
 
       const message = this.msg;
       this.$emit('message-removed', message);

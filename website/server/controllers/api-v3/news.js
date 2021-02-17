@@ -1,10 +1,9 @@
+import md from 'habitica-markdown';
 import { authWithHeaders } from '../../middlewares/auth';
+import { model as NewsPost } from '../../models/newsPost';
 
 const api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from
-// controllers
-const LAST_ANNOUNCEMENT_TITLE = 'BLOG POST: RESTING IN THE INN';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -24,30 +23,42 @@ api.getNews = {
   async handler (req, res) {
     const baileyClass = worldDmg.bailey ? 'npc_bailey_broken' : 'npc_bailey';
 
-    res.status(200).send({
-      html: `
-      <div class="bailey">
-        <div class="media align-items-center">
-          <div class="mr-3 ${baileyClass}"></div>
-          <div class="media-body">
-            <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>5/14/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+    const lastNewsPost = NewsPost.lastNewsPost();
+    if (lastNewsPost) {
+      res.status(200).send({
+        html: `
+        <div class="bailey">
+          <div class="media align-items-center">
+            <div class="mr-3 ${baileyClass}"></div>
+            <div class="media-body">
+              <h1 class="align-self-center">${res.t('newStuff')}</h1>
+              <h2>${lastNewsPost.title.toUpperCase()}</h2>
+            </div>
+          </div>
+          <hr/>
+          <p>
+            ${md.unsafeHTMLRender(lastNewsPost.text)}
+          </p>
+          <div class="small">
+            by ${lastNewsPost.credits}
           </div>
         </div>
-        <hr/>
-        <div class="scene_pets_resting center-block"></div>
-        <p>
-          This month's <a href='https://habitica.wordpress.com/2020/05/13/rest-in-the-inn/'
-          target='_blank'>featured Wiki article</a> is about Resting in the Inn! We hope that it
-          will help you when you need a break from your Dailies. Be sure to check it out, and let
-          us know what you think by reaching out on <a href='https://twitter.com/habitica'
-          target='_blank'>Twitter</a>, <a href='http://blog.habitrpg.com' target='_blank'>
-          Tumblr</a>, and <a href='https://facebook.com/habitica' target='_blank'>Facebook</a>.
-        </p>
-        <div class="small mb-3">by shanaqui and the Wiki Wizards</div>
-      </div>
-      `,
-    });
+        `,
+      });
+    } else {
+      res.status(200).send({
+        html: `
+        <div class="bailey">
+          <div class="media align-items-center">
+            <div class="mr-3 ${baileyClass}"></div>
+            <div class="media-body">
+              <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            </div>
+          </div>
+        </div>
+        `,
+      });
+    }
   },
 };
 
@@ -57,7 +68,6 @@ api.getNews = {
  * @apiDescription Add a notification to allow viewing of the latest "New Stuff by Bailey" message.
  * Prevent this specific Bailey message from appearing automatically.
  * @apiGroup News
- *
  *
  * @apiSuccess {Object} data An empty Object
  *
@@ -69,13 +79,17 @@ api.tellMeLaterNews = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.flags.newStuff = false;
+    const lastNewsPost = NewsPost.lastNewsPost();
+    if (lastNewsPost) {
+      user.flags.lastNewStuffRead = lastNewsPost._id;
 
-    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
-    if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
-    user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
+      const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
+      if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
+      user.addNotification('NEW_STUFF', { title: lastNewsPost.title.toUpperCase() }, true); // seen by default
 
-    await user.save();
+      await user.save();
+    }
+
     res.respond(200, {});
   },
 };

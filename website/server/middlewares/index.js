@@ -9,6 +9,7 @@ import methodOverride from 'method-override';
 import passport from 'passport';
 import basicAuth from 'express-basic-auth';
 import helmet from 'helmet';
+import setupExpress from '../libs/setupExpress';
 import errorHandler from './errorHandler';
 import notFoundHandler from './notFound';
 import cors from './cors';
@@ -39,15 +40,20 @@ const SESSION_SECRET = nconf.get('SESSION_SECRET');
 const TEN_YEARS = 1000 * 60 * 60 * 24 * 365 * 10;
 
 export default function attachMiddlewares (app, server) {
-  app.set('view engine', 'pug');
-  app.set('views', `${__dirname}/../../views`);
+  setupExpress(app);
 
   app.use(domainMiddleware(server, mongoose));
 
   if (!IS_PROD && !DISABLE_LOGGING) app.use(morgan('dev'));
 
   // See https://helmetjs.github.io/ for the list of headers enabled by default
-  app.use(helmet());
+  app.use(helmet({
+    // New middlewares added by default in Helmet 4 are disabled
+    contentSecurityPolicy: false, // @TODO implement
+    expectCt: false,
+    permittedCrossDomainPolicies: false,
+    referrerPolicy: false,
+  }));
 
   // add res.respond and res.t
   app.use(responseHandler);
@@ -67,7 +73,16 @@ export default function attachMiddlewares (app, server) {
   app.use(bodyParser.urlencoded({
     extended: true, // Uses 'qs' library as old connect middleware
   }));
-  app.use(bodyParser.json());
+  app.use(function bodyMiddleware (req, res, next) { // eslint-disable-line prefer-arrow-callback
+    if (req.path === '/stripe/webhooks') {
+      // Do not parse the body for `/stripe/webhooks`
+      // See https://stripe.com/docs/webhooks/signatures#verify-official-libraries
+      bodyParser.raw({ type: 'application/json' })(req, res, next);
+    } else {
+      bodyParser.json()(req, res, next);
+    }
+  });
+
   app.use(methodOverride());
 
   app.use(cookieSession({

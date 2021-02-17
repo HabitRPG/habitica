@@ -1,5 +1,6 @@
-import each from 'lodash/each';
 import defaults from 'lodash/defaults';
+import each from 'lodash/each';
+import find from 'lodash/find';
 import moment from 'moment';
 import sortBy from 'lodash/sortBy';
 import t from './translation';
@@ -8,6 +9,7 @@ import {
   USER_CAN_OWN_QUEST_CATEGORIES,
 } from './constants';
 
+const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end));
 const userCanOwnQuestCategories = USER_CAN_OWN_QUEST_CATEGORIES;
 
 const quests = {
@@ -259,8 +261,9 @@ const quests = {
   },
   evilsanta: {
     canBuy () {
-      return moment().isBetween('2019-12-19', '2020-02-02');
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'winter';
     },
+    event: EVENTS.winter2021,
     text: t('questEvilSantaText'),
     notes: t('questEvilSantaNotes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -286,8 +289,9 @@ const quests = {
   },
   evilsanta2: {
     canBuy () {
-      return moment().isBetween('2019-12-19', '2020-02-02');
+      return CURRENT_EVENT && CURRENT_EVENT.season === 'winter';
     },
+    event: EVENTS.winter2021,
     text: t('questEvilSanta2Text'),
     notes: t('questEvilSanta2Notes'),
     addlNotes: t('evilSantaAddlNotes'),
@@ -3613,6 +3617,146 @@ const quests = {
       gp: 40,
       exp: 500,
       unlock: t('questWaffleUnlockText'),
+    },
+  },
+  fluorite: {
+    text: t('questFluoriteText'),
+    notes: t('questFluoriteNotes'),
+    completion: t('questFluoriteCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questFluoriteBoss'),
+      hp: 1200,
+      str: 2,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Fluorite',
+          text: t('questFluoriteDropFluoritePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fluorite',
+          text: t('questFluoriteDropFluoritePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Fluorite',
+          text: t('questFluoriteDropFluoritePotion'),
+        },
+      ],
+      gp: 70,
+      exp: 750,
+      unlock: t('questFluoriteUnlockText'),
+    },
+  },
+  windup: {
+    text: t('questWindupText'),
+    notes: t('questWindupNotes'),
+    completion: t('questWindupCompletion'),
+    value: 1,
+    category: 'timeTravelers',
+    canBuy () {
+      return false;
+    },
+    boss: {
+      name: t('questWindupBoss'),
+      hp: 1000,
+      str: 1,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Windup',
+          text: t('questWindupDropWindupPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Windup',
+          text: t('questWindupDropWindupPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Windup',
+          text: t('questWindupDropWindupPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 425,
+      unlock: t('questWindupUnlockText'),
+    },
+  },
+  turquoise: {
+    text: t('questTurquoiseText'),
+    notes: t('questTurquoiseNotes'),
+    completion: t('questTurquoiseCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      turquoiseGem: {
+        text: t('questTurquoiseCollectTurquoiseGems'),
+        count: 25,
+      },
+      sagittariusRune: {
+        text: t('questTurquoiseCollectSagittariusRunes'),
+        count: 10,
+      },
+      neptuneRune: {
+        text: t('questTurquoiseCollectNeptuneRunes'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'Turquoise',
+          text: t('questTurquoiseDropTurquoisePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Turquoise',
+          text: t('questTurquoiseDropTurquoisePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'Turquoise',
+          text: t('questTurquoiseDropTurquoisePotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questTurquoiseUnlockText'),
+    },
+  },
+  blackPearl: {
+    text: t('questBlackPearlText'),
+    notes: t('questBlackPearlNotes'),
+    completion: t('questBlackPearlCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    boss: {
+      name: t('questBlackPearlBoss'),
+      hp: 725,
+      str: 1.75,
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'BlackPearl',
+          text: t('questBlackPearlDropBlackPearlPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'BlackPearl',
+          text: t('questBlackPearlDropBlackPearlPotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'BlackPearl',
+          text: t('questBlackPearlDropBlackPearlPotion'),
+        },
+      ],
+      gp: 50,
+      exp: 450,
+      unlock: t('questBlackPearlUnlockText'),
     },
   },
 };

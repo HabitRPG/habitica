@@ -5,6 +5,7 @@ import reduce from 'lodash/reduce';
 import filter from 'lodash/filter';
 import pickBy from 'lodash/pickBy';
 import size from 'lodash/size';
+import moment from 'moment';
 import content from '../content/index';
 import i18n from '../i18n';
 import { daysSince } from '../cron';
@@ -36,6 +37,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
     size(user.items.eggs) < 1
     && size(user.items.hatchingPotions) < 1
   ) {
+    // @TODO why are we using both _tmp.firstDrops and the FIRST_DROPS notification?
     user._tmp.firstDrops = firstDrops(user);
     return;
   }
@@ -45,6 +47,8 @@ export default function randomDrop (user, options, req = {}, analytics) {
 
   let chance = min([Math.abs(task.value - 21.27), 37.5]) / 150 + 0.02;
   chance *= task.priority // Task priority: +50% for Medium, +100% for Hard
+    // start users with +75% drops, diminishing by 5% per level gained
+    * (1 + Math.max(0, 80 - (5 * user.stats.lvl)) / 100)
     * (1 + (task.streak / 100 || 0)) // Streak bonus: +1% per streak
     * (1 + statsComputed(user).per / 100) // PERception: +1% per point
     * (1 + (user.contributor.level / 40 || 0)) // Contrib levels: +2.5% per level
@@ -81,10 +85,12 @@ export default function randomDrop (user, options, req = {}, analytics) {
     return;
   }
 
-  if (predictableRandom() < chance) {
+  const firstFoodDrop = size(user.items.food) < 1;
+
+  if (firstFoodDrop || predictableRandom() < chance) {
     rarity = predictableRandom();
 
-    if (rarity > 0.6) { // food 40% chance
+    if (firstFoodDrop || rarity > 0.6) { // food 40% chance
       drop = cloneDropItem(randomVal(filter(content.food, {
         canDrop: true,
       })));
@@ -145,11 +151,44 @@ export default function randomDrop (user, options, req = {}, analytics) {
       }, req.language);
     }
 
+    // @TODO use notifications
     user._tmp.drop = drop;
     user.items.lastDrop.date = Number(new Date());
     user.items.lastDrop.count += 1;
 
-    if (analytics) {
+    const dropN = user.items.lastDrop.count;
+    const dropCapReached = dropN === maxDropCount;
+    const isEnrolledInDropCapTest = user._ABtests.dropCapNotif
+      && user._ABtests.dropCapNotif !== 'drop-cap-notif-not-enrolled';
+    const hasActiveDropCapNotif = isEnrolledInDropCapTest
+      && user._ABtests.dropCapNotif === 'drop-cap-notif-enabled';
+
+    // Unsubscribed users get a notification when they reach the drop cap
+    // One per day
+    if (
+      hasActiveDropCapNotif && dropCapReached
+      && user.addNotification
+      && user.isSubscribed && !user.isSubscribed()
+    ) {
+      const prevNotifIndex = user.notifications.findIndex(n => n.type === 'DROP_CAP_REACHED');
+      if (prevNotifIndex !== -1) user.notifications.splice(prevNotifIndex, 1);
+
+      user.addNotification('DROP_CAP_REACHED', {
+        message: i18n.t('dropCapReached', req.language),
+        items: dropN,
+      });
+    }
+
+    if (isEnrolledInDropCapTest) {
+      analytics.track('drop cap reached', {
+        uuid: user._id,
+        dropCap: maxDropCount,
+        category: 'behavior',
+        headers: req.headers,
+      });
+    }
+
+    if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
       analytics.track('dropped item', {
         uuid: user._id,
         itemKey: drop.key,
@@ -157,15 +196,6 @@ export default function randomDrop (user, options, req = {}, analytics) {
         category: 'behavior',
         headers: req.headers,
       });
-
-      if (user.items.lastDrop.count === maxDropCount) {
-        analytics.track('drop cap reached', {
-          uuid: user._id,
-          dropCap: maxDropCount,
-          category: 'behavior',
-          headers: req.headers,
-        });
-      }
     }
   }
 }

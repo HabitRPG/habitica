@@ -5,10 +5,6 @@
   margin-right: 24px;
 }
 
-.items > div:last-of-type {
-  margin-right: 0px;
-}
-
 .item-wrapper {
   position: relative;
   display: inline-block;
@@ -45,14 +41,13 @@
   position: relative;
   width: 94px;
   height: 92px;
-  border-radius: 2px;
+  border-radius: 4px;
   background: $white;
   box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   border: 1px solid transparent;
   cursor: pointer;
 
   &-empty {
-    background: $gray-10;
     box-shadow: none;
     cursor: auto;
   }
@@ -85,7 +80,7 @@
   margin: 0 auto;
 }
 
-.drawer-content .item:hover {
+.drawer-content .item.item-empty:hover {
   border-color: transparent;
   box-shadow: none;
 }

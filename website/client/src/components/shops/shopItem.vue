@@ -3,7 +3,9 @@
     <div
       :id="itemId"
       class="item-wrapper"
+      tabindex="0"
       @click="click()"
+      @keypress.enter="click()"
     >
       <div
         class="item"
@@ -63,7 +65,7 @@
     <b-popover
       v-if="showPopover"
       :target="itemId"
-      triggers="hover"
+      triggers="hover focus"
       :placement="popoverPosition"
     >
       <slot
@@ -235,7 +237,7 @@
 </style>
 
 <script>
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import moment from 'moment';
 import svgGem from '@/assets/svg/gem.svg';
@@ -290,7 +292,7 @@ export default {
   },
   data () {
     return Object.freeze({
-      itemId: uuid.v4(),
+      itemId: uuid(),
       icons: {
         gems: svgGem,
         gold: svgGold,

@@ -4,6 +4,7 @@
     size="lg"
     :hide-footer="true"
     :hide-header="true"
+    @hide="beforeHide"
     @hidden="onHidden"
     @shown="onShown()"
   >
@@ -45,12 +46,17 @@ export default {
       this.$root.$emit('bv::show::modal', 'profile');
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica:show-profile');
   },
   methods: {
     onShown () {
       window.history.pushState('', null, this.path);
+    },
+    beforeHide () {
+      if (this.$route.path !== window.location.pathname) {
+        this.$root.$emit('habitica:restoreTitle');
+      }
     },
     onHidden () {
       if (this.$route.path !== window.location.pathname) {

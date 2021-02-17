@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Edisi Terbatas",
-    "seasonalEdition": "Edisi Musiman",
-    "winterColors": "Warna Musim Dingin",
     "annoyingFriends": "Teman yang Menyebalkan",
     "annoyingFriendsText": "Dilempari bola salju <%= count %> kali oleh anggota party.",
     "alarmingFriends": "Teman yang Berbahaya",
@@ -61,7 +58,6 @@
     "nye2": "Selamat Tahun Baru! Semoga banyak Hari Sempurna kamu dapatkan.",
     "nye3": "Selamat Tahun Baru! Semoga tetap pendek dan manislah daftar To-Do-mu.",
     "nye4": "Selamat Tahun Baru! Semoga kamu tidak diserang oleh Hippogriff yang sedang marah.",
-    "holidayCard": "Mendapat Kartu Ucapan!",
     "mightyBunnySet": "Kelinci Perkasa (Prajurit)",
     "magicMouseSet": "Tikus Ajaib (Penyihir)",
     "lovingPupSet": "Anak Anjing Penuh Kasih (Penyembuh)",
@@ -150,6 +146,6 @@
     "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Ingat saja kalau kamu atau penerima hadiah itu sudah mempunyai paket langganan yang berulang, hadiah langganan itu baru akan mulai setelah yang sekarang telah dibatalkan atau telah habis. Terima kasih untuk semua dukungan kalian! <3",
     "discountBundle": "bundel",
-    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Announcement": "<strong>Gift a subscription and get a subscription free</strong> event going on now!",
     "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

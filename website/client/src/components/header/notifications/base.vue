@@ -118,11 +118,11 @@
 }
 
 .notification-remove {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  padding: 4px;
-  right: 24px;
+  position: relative;
+  width: 10px;
+  height: 10px;
+  right: 0px;
+  top: 10.5px;
 
   .svg-icon {
     width: 10px;
@@ -182,10 +182,10 @@ export default {
     remove () {
       if (this.notification.type === 'NEW_CHAT_MESSAGE') {
         const groupId = this.notification.data.group.id;
-        this.$store.dispatch('chat:markChatSeen', { groupId });
-        if (this.user.newMessages[groupId]) {
-          this.$delete(this.user.newMessages, groupId);
-        }
+        this.$store.dispatch('chat:markChatSeen', {
+          groupId,
+          notificationId: this.notification.id,
+        });
       } else {
         this.readNotification({ notificationId: this.notification.id });
       }

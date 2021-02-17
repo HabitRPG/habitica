@@ -17,13 +17,11 @@
         {{ noItemsLabel }}
       </p>
     </div>
-    <div
+    <show-more-button
       v-if="items.length > itemsPerRow"
-      class="btn btn-flat btn-show-more"
+      :show-all="showAll"
       @click="toggleItemsToShow()"
-    >
-      {{ showAll ? $t('showLess') : $t('showMore') }}
-    </div>
+    />
     <div
       v-else
       class="fill-height"
@@ -32,12 +30,14 @@
 </template>
 
 <style lang="scss" scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .fill-height {
     height: 38px; // button + margin + padding
   }
 
   .item-rows {
-    margin-right: -24px;
+    margin-right: -1.5rem;
   }
 </style>
 
@@ -45,9 +45,11 @@
 import _take from 'lodash/take';
 import ResizeDirective from '@/directives/resize.directive';
 import openedItemRowsMixin from '@/mixins/openedItemRows';
+import ShowMoreButton from '@/components/ui/showMoreButton';
 
 
 export default {
+  components: { ShowMoreButton },
   directives: {
     resize: ResizeDirective,
   },

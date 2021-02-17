@@ -1,6 +1,5 @@
 {
     "achievement": "Prestation",
-    "share": "Dela",
     "onwards": "Vidare!",
     "levelup": "Genom att nå dina livsmål så har du nått en ny nivå och har återfått all din hälsa!",
     "reachedLevel": "Du har nått nivå <%= level %>",
@@ -41,11 +40,11 @@
     "achievementPrimedForPaintingModalText": "Du har samlat alla Vita Husdjur!",
     "achievementPrimedForPaintingText": "Har samlat alla Vita Husdjur.",
     "achievementPrimedForPainting": "Grundmålad för Måleri",
-    "gettingStartedDesc": "Låt oss skapa en uppgift, slutföra den, och sen spana in dina belöningar. Du kommer tjäna <strong>5 prestationer</strong> och <strong class=\"gold-amount\">100 guld</strong> när du är klar!",
-    "achievementPurchasedEquipmentModalText": "Utrustning är ett sätt att skräddarsy din avatar och förbättra dina egenskaper",
+    "gettingStartedDesc": "Låt oss skapa en uppgift, slutföra den, och sen spana in dina belöningar. Du kommer tjäna <strong>5 Prestationer</strong> och <strong class=\"gold-amount\">100 Guld</strong> när du är klar!",
+    "achievementPurchasedEquipmentModalText": "Utrustning är ett sätt att skräddarsy din avatar och förbättra dina Egenskaper",
     "achievementPurchasedEquipmentText": "Köpte sin första utrustningsdel.",
-    "achievementPurchasedEquipment": "Köp Utrustning",
-    "achievementFedPetModalText": "Det finns många olika typer av mat, men husdjur kan vara kräsna",
+    "achievementPurchasedEquipment": "Köp en Utrustningsdel",
+    "achievementFedPetModalText": "Det finns många olika typer av mat, men Husdjur kan vara kräsna",
     "achievementFedPetText": "Matade sitt första husdjur.",
     "achievementFedPet": "Mata ett Hudjur",
     "achievementHatchedPetModalText": "Gå till ditt förråd och testa att kombinera en Kläckningsdryck och ett Ägg",
@@ -68,5 +67,10 @@
     "foundNewItemsCTA": "Gå till ditt Förråd och prova att kombinera ditt nya kläckningsbrygd och ägg!",
     "foundNewItemsExplanation": "Genom att utföra uppgifter får du en chans att hitta objekt, som Ägg, Kläckningsbrygder och Mat.",
     "yourProgress": "Dina Framsteg",
-    "onboardingCompleteDescSmall": "Om du vill ha ännu mer, kolla på Prestationer och börja samla!"
+    "onboardingCompleteDescSmall": "Om du vill ha ännu mer, kolla på Prestationer och börja samla!",
+    "achievementGoodAsGold": "Bra som Guld",
+    "yourRewards": "Dina Belöningar",
+    "achievementTickledPinkModalText": "Du har samlat alla Rosa Sockervaddsdjur!",
+    "achievementTickledPinkText": "Har samlat alla Rosa Sockervaddsdjur.",
+    "onboardingComplete": "Du har slutfört dina förberedande uppgifter!"
 }

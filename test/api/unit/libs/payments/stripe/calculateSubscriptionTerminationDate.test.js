@@ -4,7 +4,7 @@ import api from '../../../../../../website/server/libs/payments/payments';
 
 const groupPlanId = api.constants.GROUP_PLAN_CUSTOMER_ID;
 
-describe('#calculateSubscriptionTerminationDate', () => {
+describe('stripe - #calculateSubscriptionTerminationDate', () => {
   let plan;
   let nextBill;
 

@@ -1,7 +1,7 @@
 {
-    "lostAllHealth": "T'estas quedant sense vida",
+    "lostAllHealth": "T'estas quedant sense vida!",
     "dontDespair": "No et desesperis!",
-    "deathPenaltyDetails": "Has perdut un nivell, el teu or, i una peca del teu equip, però les pots recuperar amb treballant dur! Molta sort--Ho faràs bé",
+    "deathPenaltyDetails": "Has perdut un nivell, el teu or, i una peca del teu equip, però les pots recuperar amb treballant dur! Molta sort--Ho faràs bé.",
     "refillHealthTryAgain": "Recarrega salut & Torna-ho a provar",
     "dyingOftenTips": "Passa massa sobint?  <a href='http://habitica.wikia.com/wiki/Death_Mechanics#Strategies_for_Staying_Alive' target='_blank'> Aquí tens alguns consells! </a>",
     "losingHealthWarning": "Vigila - Estàs perdent vida!",

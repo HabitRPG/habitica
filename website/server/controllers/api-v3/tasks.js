@@ -3,24 +3,23 @@ import moment from 'moment';
 import { authWithHeaders } from '../../middlewares/auth';
 import {
   taskActivityWebhook,
-  taskScoredWebhook,
 } from '../../libs/webhook';
 import { removeFromArray } from '../../libs/collectionManipulators';
 import * as Tasks from '../../models/task';
-import { handleSharedCompletion } from '../../libs/groupTasks';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
-import { model as User } from '../../models/user';
 import {
   NotFound,
   NotAuthorized,
   BadRequest,
 } from '../../libs/errors';
 import {
+  canNotEditTasks,
   createTasks,
   getTasks,
   getGroupFromTaskAndUser,
   getChallengeFromTask,
+  scoreTasks,
   verifyTaskModification,
 } from '../../libs/tasks';
 import {
@@ -29,7 +28,6 @@ import {
   requiredGroupFields,
 } from '../../libs/tasks/utils';
 import common from '../../../common';
-import logger from '../../libs/logger';
 import apiError from '../../libs/apiError';
 
 
@@ -67,7 +65,7 @@ const api = {};
  *                                                               "per", "con"
  * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {String} [notes] Extra notes
- * @apiParam (Body) {String} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
  *                                                            1.5, 2; eqivalent of Trivial,
  *                                                            Easy, Medium, Hard.
@@ -234,13 +232,12 @@ api.createUserTasks = {
  * @apiParam (Body) {String} text The text to be displayed for the task
  * @apiParam (Body) {String="habit","daily","todo","reward"} type Task type, options are: "habit",
  *                                                                "daily", "todo", "reward".
- * @apiParam (Body) {String} [alias] Alias to assign to task
  * @apiParam (Body) {String="str","int","per","con"} [attribute] User's attribute to use,
  *                                                               options are: "str",
  *                                                               "int", "per", "con".
  * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {String} [notes] Extra notes
- * @apiParam (Body) {String} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
  *                                                            1.5, 2; eqivalent of Trivial,
  *                                                            Easy, Medium, Hard.
@@ -515,18 +512,20 @@ api.getTask = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id && !task.userId) {
+      // @TODO: Abstract this access snippet
+      const fields = requiredGroupFields.concat(' managers');
+      const group = await Group.getGroup({ user, groupId: task.group.id, fields });
+      if (!group) throw new NotFound(res.t('taskNotFound'));
 
-    // If the task belongs to a challenge make sure the user has rights
+      const isNotGroupLeader = group.leader !== user._id;
+      if (!group.isMember(user) && isNotGroupLeader) throw new NotFound(res.t('taskNotFound'));
+    // If the task belongs to a challenge make sure the user has rights (leader, admin or members)
     } else if (task.challenge.id && !task.userId) {
-      const challenge = await Challenge.find({ _id: task.challenge.id }).select('leader').exec();
-      if (
-        !challenge
-        || (
-          user.challenges.indexOf(task.challenge.id) === -1
-          && challenge.leader !== user._id
-          && !user.contributor.admin
-        )
-      ) { // eslint-disable-line no-extra-parens
+      const challenge = await Challenge.findOne({ _id: task.challenge.id }).select('leader').exec();
+      // @TODO: Abstract this access snippet
+      if (!challenge) throw new NotFound(res.t('taskNotFound'));
+      if (!challenge.canModify(user) && !challenge.isMember(user)) {
         throw new NotFound(res.t('taskNotFound'));
       }
 
@@ -552,7 +551,7 @@ api.getTask = {
  *                                                               "per", "con".
  * @apiParam (Body) {Boolean} [collapseChecklist=false] Determines if a checklist will be displayed
  * @apiParam (Body) {String} [notes] Extra notes
- * @apiParam (Body) {String} [date] Due date to be shown in task list. Only valid for type "todo."
+ * @apiParam (Body) {Date} [date] Due date to be shown in task list. Only valid for type "todo."
  * @apiParam (Body) {Number="0.1","1","1.5","2"} [priority=1] Difficulty, options are 0.1, 1,
  *                                                            1.5, 2; eqivalent of Trivial,
  *                                                            Easy, Medium, Hard.
@@ -625,7 +624,7 @@ api.updateTask = {
     if (!challenge && task.userId && task.challenge && task.challenge.id) {
       sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
     } else if (!group && task.userId && task.group && task.group.id) {
-      sanitizedObj = Tasks.Task.sanitizeUserChallengeTask(updatedTaskObj);
+      sanitizedObj = Tasks.Task.sanitizeUserGroupTask(updatedTaskObj);
     } else {
       sanitizedObj = Tasks.Task.sanitize(updatedTaskObj);
     }
@@ -643,6 +642,34 @@ api.updateTask = {
     }
     if (sanitizedObj.sharedCompletion) {
       task.group.sharedCompletion = sanitizedObj.sharedCompletion;
+    }
+    if (sanitizedObj.managerNotes) {
+      task.group.managerNotes = sanitizedObj.managerNotes;
+    }
+
+    // For daily tasks, update start date based on timezone to maintain consistency
+    if (task.type === 'daily'
+        && task.startDate
+    ) {
+      task.startDate = moment(task.startDate).utcOffset(
+        -user.preferences.timezoneOffset,
+      ).startOf('day').toDate();
+
+      // If the daily task was set to repeat monthly on a day of the month, and the start date was
+      // updated, the task will then need to be updated to repeat on the same day of the month as
+      // the new start date. For example, if the start date is updated to 7/2/2020, the daily
+      // should repeat on the 2nd day of the month. It's possible that a task can repeat monthly
+      // on a week of the month, in which case we won't update the repetition at all.
+      if (
+        task.frequency === 'monthly'
+        && task.daysOfMonth.length
+      ) {
+        // We also need to aware of the user's timezone. Start date is represented as UTC, so the
+        // start date and day of month might be different
+        task.daysOfMonth = [moment(task.startDate).utcOffset(
+          -user.preferences.timezoneOffset,
+        ).date()];
+      }
     }
 
     setNextDue(task, user);
@@ -688,6 +715,9 @@ api.updateTask = {
  * @apiSuccess {Object} data._tmp If an item was dropped it'll be returned in te _tmp object
  * @apiSuccess {Number} data.delta The delta
  *
+ * @apiSuccess (202) {Boolean} data.requiresApproval Approval was requested for team task
+ * @apiSuccess (202) {String} message Acknowledgment of team task approval request
+ *
  * @apiSuccessExample {json} Example result:
  * {"success":true,"data":{"delta":0.9746999906450404,"_tmp":{},"hp":49.06645205596985,
  * "mp":37.2008917491047,"exp":101.93810026267543,"gp":77.09694176716997,
@@ -714,188 +744,39 @@ api.scoreTask = {
   url: '/tasks/:taskId/score/:direction',
   middlewares: [authWithHeaders()],
   async handler (req, res) {
-    req.checkParams('direction', res.t('directionUpDown')).notEmpty().isIn(['up', 'down']);
-
-    const validationErrors = req.validationErrors();
-    if (validationErrors) throw validationErrors;
+    // Parameters are validated in scoreTasks
 
     const { user } = res.locals;
-    const { taskId } = req.params;
+    const { taskId, direction } = req.params;
+    const [taskResponse] = await scoreTasks(user, [{ id: taskId, direction }], req, res);
 
-    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
-    const { direction } = req.params;
+    const userStats = user.stats.toJSON();
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    // group tasks that require a manager's approval
+    if (taskResponse.requiresApproval === true) {
+      res.respond(202, { requiresApproval: true }, taskResponse.message);
+    } else {
+      const resJsonData = _.assign({
+        delta: taskResponse.delta,
+        _tmp: user._tmp,
+      }, userStats);
 
-    if (task.type === 'daily' || task.type === 'todo') {
-      if (task.completed && direction === 'up') {
-        throw new NotAuthorized(res.t('sessionOutdated'));
-      } else if (!task.completed && direction === 'down') {
-        throw new NotAuthorized(res.t('sessionOutdated'));
-      }
-    }
-
-    if (task.group.approval.required && !task.group.approval.approved) {
-      const fields = requiredGroupFields.concat(' managers');
-      const group = await Group.getGroup({ user, groupId: task.group.id, fields });
-
-      const managerIds = Object.keys(group.managers);
-      managerIds.push(group.leader);
-
-      if (managerIds.indexOf(user._id) !== -1) {
-        task.group.approval.approved = true;
-        task.group.approval.requested = true;
-        task.group.approval.requestedDate = new Date();
-      } else {
-        if (task.group.approval.requested) {
-          throw new NotAuthorized(res.t('taskRequiresApproval'));
-        }
-
-        task.group.approval.requested = true;
-        task.group.approval.requestedDate = new Date();
-
-        const managers = await User.find({ _id: managerIds }, 'notifications preferences').exec(); // Use this method so we can get access to notifications
-
-        // @TODO: we can use the User.pushNotification function because
-        // we need to ensure notifications are translated
-        const managerPromises = [];
-        managers.forEach(manager => {
-          manager.addNotification('GROUP_TASK_APPROVAL', {
-            message: res.t('userHasRequestedTaskApproval', {
-              user: user.profile.name,
-              taskName: task.text,
-            }, manager.preferences.language),
-            groupId: group._id,
-            // user task id, used to match the notification when the task is approved
-            taskId: task._id,
-            userId: user._id,
-            groupTaskId: task.group.taskId, // the original task id
-            direction,
-          });
-          managerPromises.push(manager.save());
-        });
-
-        managerPromises.push(task.save());
-        await Promise.all(managerPromises);
-
-        throw new NotAuthorized(res.t('taskApprovalHasBeenRequested'));
-      }
-    }
-
-    const wasCompleted = task.completed;
-
-    const firstTask = !user.achievements.completedTask;
-    const [delta] = common.ops.scoreTask({ task, user, direction }, req, res.analytics);
-    // Drop system (don't run on the client,
-    // as it would only be discarded since ops are sent to the API, not the results)
-    if (direction === 'up' && !firstTask) common.fns.randomDrop(user, { task, delta }, req, res.analytics);
-
-    // If a todo was completed or uncompleted move it in or out of the user.tasksOrder.todos list
-    // TODO move to common code?
-    let taskOrderPromise;
-    if (task.type === 'todo') {
-      if (!wasCompleted && task.completed) {
-        // @TODO: mongoose's push and pull should be atomic and help with
-        // our concurrency issues. If not, we need to use this update $pull and $push
-        taskOrderPromise = user.update({
-          $pull: { 'tasksOrder.todos': task._id },
-        }).exec();
-        // user.tasksOrder.todos.pull(task._id);
-      } else if (
-        wasCompleted
-        && !task.completed
-        && user.tasksOrder.todos.indexOf(task._id) === -1
-      ) {
-        taskOrderPromise = user.update({
-          $push: { 'tasksOrder.todos': task._id },
-        }).exec();
-        // user.tasksOrder.todos.push(task._id);
-      }
-    }
-
-    setNextDue(task, user);
-
-    const promises = [
-      user.save(),
-      task.save(),
-    ];
-
-    if (task.group && task.group.taskId) {
-      await handleSharedCompletion(task);
-      try {
-        const groupTask = await Tasks.Task.findOne({
-          _id: task.group.taskId,
-        }).exec();
-
-        if (groupTask) {
-          const groupDelta = groupTask.group.assignedUsers
-            ? delta / groupTask.group.assignedUsers.length
-            : delta;
-          await groupTask.scoreChallengeTask(groupDelta, direction);
-        }
-      } catch (e) {
-        logger.error(e);
-      }
-    }
-
-    // Save results and handle request
-    if (taskOrderPromise) promises.push(taskOrderPromise);
-    const results = await Promise.all(promises);
-
-    const savedUser = results[0];
-
-    const userStats = savedUser.stats.toJSON();
-    const resJsonData = _.assign({ delta, _tmp: user._tmp }, userStats);
-    res.respond(200, resJsonData);
-
-    taskScoredWebhook.send(user, {
-      task,
-      direction,
-      delta,
-      user,
-    });
-
-    if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
-      // Wrapping everything in a try/catch block because if an error occurs
-      // using `await` it MUST NOT bubble up because the request has already been handled
-      try {
-        const chalTask = await Tasks.Task.findOne({
-          _id: task.challenge.taskId,
-        }).exec();
-
-        if (!chalTask) return;
-
-        await chalTask.scoreChallengeTask(delta, direction);
-      } catch (e) {
-        logger.error(e);
-      }
-    }
-
-    // Track when new users (first 7 days) score tasks
-    if (moment().diff(user.auth.timestamps.created, 'days') < 7) {
-      res.analytics.track('task score', {
-        uuid: user._id,
-        hitType: 'event',
-        category: 'behavior',
-        taskType: task.type,
-        direction,
-        headers: req.headers,
-      });
+      res.respond(200, resJsonData);
     }
   },
 };
 
 /**
  * @api {post} /api/v3/tasks/:taskId/move/to/:position Move a task to a new position
- * @apiDescription Note: completed To-Dos are not sortable,
+ * @apiDescription Note: completed To Do's are not sortable,
  * do not appear in user.tasksOrder.todos, and are ordered by date of completion.
  * @apiName MoveTask
  * @apiGroup Task
  *
  * @apiParam (Path) {String} taskId The task _id or alias
- * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list.
- é                           -1 = bottom of the list.
- é                           (-1 means push to bottom). First position is 0
+ * @apiParam (Path) {Number} position Where to move the task.
+ *                                    0 = top of the list ("push to top").
+ *                                   -1 = bottom of the list ("push to bottom").
  *
  * @apiSuccess {Array} data The new tasks order for the specific type that the taskID belongs to.
  *
@@ -945,9 +826,8 @@ api.moveTask = {
     pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
     await owner.update(pullQuery).exec();
 
-    // Handle push to bottom
     let position = to;
-    if (to === -1) position = [`tasksOrder.${task.type}s`].length - 1;
+    if (to === -1) position = order.length - 1; // push to bottom
 
     const updateQuery = { $push: {} };
     updateQuery.$push[`tasksOrder.${task.type}s`] = {
@@ -1441,7 +1321,7 @@ api.unlinkOneTask = {
 /**
  * @api {post} /api/v3/tasks/clearCompletedTodos Delete user's completed todos
  * @apiName ClearCompletedTodos
- * @apiDescription Deletes all of a user's completed To-Dos except
+ * @apiDescription Deletes all of a user's completed To Do's except
  * those belonging to active Challenges and Group Plans.
  * @apiGroup Task
  *

@@ -35,6 +35,33 @@ describe('Challenge Model', () => {
       notes: 'test notes',
     },
   };
+  const tasks2ToTest = {
+    habit: {
+      text: 'test habit 2',
+      type: 'habit',
+      up: false,
+      down: true,
+      notes: 'test notes',
+    },
+    todo: {
+      text: 'test todo 2',
+      type: 'todo',
+      notes: 'test notes',
+    },
+    daily: {
+      text: 'test daily 2',
+      type: 'daily',
+      frequency: 'daily',
+      everyX: 5,
+      startDate: new Date(),
+      notes: 'test notes',
+    },
+    reward: {
+      text: 'test reward 2',
+      type: 'reward',
+      notes: 'test notes',
+    },
+  };
 
   beforeEach(async () => {
     guild = new Group({
@@ -144,6 +171,60 @@ describe('Challenge Model', () => {
         expect(updatedNewMember.tags[7].name).to.equal(challenge.shortName);
         expect(syncedTask).to.exist;
         expect(syncedTask.attribute).to.eql('str');
+      });
+
+      it('should add challenge tag back to user upon syncing challenge tasks to a user with challenge tag removed', async () => {
+        await challenge.addTasks([task]);
+
+        const newMember = new User({
+          guilds: [guild._id],
+        });
+        await newMember.save();
+        await challenge.syncTasksToUser(newMember);
+
+        let updatedNewMember = await User.findById(newMember._id).exec();
+        const updatedNewMemberId = updatedNewMember._id;
+
+        updatedNewMember.tags = [];
+        await updatedNewMember.save();
+
+        const taskValue2 = tasks2ToTest[taskType];
+        const task2 = new Tasks[`${taskType}`](Tasks.Task.sanitize(taskValue2));
+        task2.challenge.id = challenge._id;
+        await challenge.addTasks([task2]);
+        await challenge.syncTasksToUser(updatedNewMember);
+
+        updatedNewMember = await User.findById(updatedNewMemberId).exec();
+
+        expect(updatedNewMember.tags.length).to.equal(1);
+        expect(updatedNewMember.tags[0].id).to.equal(challenge._id);
+        expect(updatedNewMember.tags[0].name).to.equal(challenge.shortName);
+      });
+
+      it('should not add a duplicate challenge tag to user upon syncing challenge tasks to a user with existing challenge tag', async () => {
+        await challenge.addTasks([task]);
+
+        const newMember = new User({
+          guilds: [guild._id],
+        });
+        await newMember.save();
+        await challenge.syncTasksToUser(newMember);
+
+        let updatedNewMember = await User.findById(newMember._id).exec();
+        const updatedNewMemberId = updatedNewMember._id;
+
+        const taskValue2 = tasks2ToTest[taskType];
+        const task2 = new Tasks[`${taskType}`](Tasks.Task.sanitize(taskValue2));
+        task2.challenge.id = challenge._id;
+        await challenge.addTasks([task2]);
+        await challenge.syncTasksToUser(updatedNewMember);
+
+        updatedNewMember = await User.findById(updatedNewMemberId);
+
+        expect(updatedNewMember.tags.length).to.equal(8);
+        expect(updatedNewMember.tags[7].id).to.equal(challenge._id);
+        expect(updatedNewMember.tags[7].name).to.equal(challenge.shortName);
+        expect(updatedNewMember.tags.filter(tag => tag.id === challenge._id).length).to.equal(1);
       });
 
       it('syncs challenge tasks to a user with the existing task', async () => {

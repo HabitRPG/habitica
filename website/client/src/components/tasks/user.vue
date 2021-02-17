@@ -40,7 +40,7 @@
               v-for="tagsType in tagsByType"
               v-if="tagsType.tags.length > 0 || tagsType.key === 'tags'"
               :key="tagsType.key"
-              class="tags-category d-flex"
+              class="tags-category d-flex flex-column"
             >
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <div class="tags-header">
@@ -251,10 +251,6 @@
     padding-top: 16px;
   }
 
-  .input-search, .search-button {
-    height: 40px;
-  }
-
   .tasks-navigation {
     margin-bottom: 20px;
   }
@@ -268,7 +264,8 @@
     position: absolute;
     padding-left: 24px;
     padding-right: 24px;
-    max-width: 40vw;
+    max-width: 50vw;
+    min-width: 300px;
     width: 100%;
     z-index: 9999;
     background: $white;
@@ -287,8 +284,9 @@
     }
 
     .tags-header {
-       flex-basis: 96px;
+       flex-basis: 60px;
        flex-shrink: 0;
+       margin-left: 10px;
 
       a {
         font-size: 12px;
@@ -398,7 +396,7 @@
 </style>
 
 <script>
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import Vue from 'vue';
 import throttle from 'lodash/throttle';
 import cloneDeep from 'lodash/cloneDeep';
@@ -498,6 +496,11 @@ export default {
       this.searchTextThrottled = this.searchText.toLowerCase();
     }, 250),
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('tasks'),
+    });
+  },
   methods: {
     ...mapActions({ setUser: 'user:set' }),
     checkMouseOver: throttle(function throttleSearch () {
@@ -511,13 +514,19 @@ export default {
       this.editingTags = true;
     },
     addTag (eventObj, key) {
-      this.tagsSnap[key].push({ id: uuid.v4(), name: this.newTag });
+      this.tagsSnap[key].push({ id: uuid(), name: this.newTag });
       this.newTag = null;
     },
     removeTag (index, key) {
       const tagId = this.tagsSnap[key][index].id;
       const indexInSelected = this.selectedTags.indexOf(tagId);
-      if (indexInSelected !== -1) this.$delete(this.selectedTags, indexInSelected);
+      const indexInTempSelected = this.temporarilySelectedTags.indexOf(tagId);
+      if (indexInSelected !== -1) {
+        this.$delete(this.selectedTags, indexInSelected);
+      }
+      if (indexInTempSelected !== -1) {
+        this.$delete(this.temporarilySelectedTags, indexInTempSelected);
+      }
       this.$delete(this.tagsSnap[key], index);
     },
     saveTags () {
@@ -547,7 +556,7 @@ export default {
     createTask (type) {
       this.openCreateBtn = false;
       this.creatingTask = taskDefaults({ type, text: '' }, this.user);
-      this.creatingTask.tags = this.selectedTags;
+      this.creatingTask.tags = this.selectedTags.slice();
 
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {

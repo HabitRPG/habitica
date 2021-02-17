@@ -39,12 +39,6 @@
   "dropEggCactusMountText": "Cactus",
   "dropEggCactusAdjective": "a prickly",
 
-  "dropEggFlyingPigText": "Flying Pig",
-  "dropEggFlyingPigAdjective": "a whimsical",
-
-  "dropEggDragonText": "Dragon",
-  "dropEggDragonAdjective": "a mighty",
-
   "dropEggBearCubText": "Bear Cub",
   "dropEggBearCubMountText": "Bear",
   "dropEggBearCubAdjective": "a brave",
@@ -300,6 +294,14 @@
   "hatchingPotionRuby": "Ruby",
   "hatchingPotionBirchBark": "Birch Bark",
   "hatchingPotionDessert": "Confection",
+  "hatchingPotionFluorite": "Fluorite",
+  "hatchingPotionSandSculpture": "Sand Sculpture",
+  "hatchingPotionWindup": "Wind-Up",
+  "hatchingPotionTurquoise": "Turquoise",
+  "hatchingPotionVampire": "Vampire",
+  "hatchingPotionAutumnLeaf": "Autumn Leaf",
+  "hatchingPotionBlackPearl": "Black Pearl",
+  "hatchingPotionStainedGlass": "Stained Glass",
 
   "hatchingPotionNotes": "Pour this on an egg, and it will hatch as a <%= potText(locale) %> pet.",
   "premiumPotionAddlNotes": "Not usable on quest pet eggs. Available for purchase until <%= date(locale) %>.",

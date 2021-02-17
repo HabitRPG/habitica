@@ -1,21 +1,12 @@
 {
     "defaultHabit1Text": "Produktivan rad (kliknite na olovku da izmenite zadatak)",
-    "defaultHabit1Notes": "Primeri dobrih navika: +Jedi povrće +15 minuta produktivnog rada",
     "defaultHabit2Text": "Brza Hrana (kliknite na olovku da izmenite zadatak)",
-    "defaultHabit2Notes": "Primeri Loših navika: -Pušenje -Odugovlačenje",
     "defaultHabit3Text": "Penjati se stepenicama/ići liftom(kliknite na olovku da izmenite zadatak)",
-    "defaultHabit3Notes": "Primeri Dobrih ili loših navika: +/- Popeti se stepenicama/Voziti se liftom ; +/- Piti vodu/kolu",
-    "defaultHabit4Text": "Add a task to Habitica",
+    "defaultHabit4Text": "Dodaj zadatak u Habitica",
     "defaultHabit4Notes": "Either a Habit, a Daily, or a To-Do",
-    "defaultHabit5Text": "Tap here to edit this into a bad habit you'd like to quit",
-    "defaultHabit5Notes": "Or delete from the edit screen",
-    "defaultDaily1Text": "Use Habitica to keep track of your tasks",
     "defaultTodo1Text": "Pridružiti se Habitica-u (Urađeno, klikni me!)",
     "defaultTodoNotes": "Možete da uradite ovaj zadatak, da ga izmenite, ili da ga uklonite.",
-    "defaultTodo2Text": "Finish Justin's task walkthrough",
-    "defaultTodo2Notes": "Visit all the sections of the bottom bar",
     "defaultReward1Text": "Pauza 15 minuta",
-    "defaultReward1Notes": "Možete sami napraviti nagrade kakve Vam odgovaraju. Neki odlučuju da odlože gledanje omiljene serije dok ne prikupe dovoljno zlata da je plate.",
     "defaultReward2Text": "Reward yourself",
     "defaultReward2Notes": "Watch TV, play a game, eat a treat, it's up to you!",
     "defaultTag1": "Work",
@@ -24,5 +15,9 @@
     "defaultTag4": "School",
     "defaultTag5": "Teams",
     "defaultTag6": "Chores",
-    "defaultTag7": "Creativity"
+    "defaultTag7": "Creativity",
+    "choresDailyText": "Operi sudove",
+    "choresHabit": "10 minuta čišćenja",
+    "schoolDailyText": "Završi domaći",
+    "selfCareHabit": "Napravi kratku pauzu"
 }

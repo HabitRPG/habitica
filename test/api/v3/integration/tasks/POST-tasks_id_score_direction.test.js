@@ -1,4 +1,5 @@
 import { v4 as generateUUID } from 'uuid';
+import apiError from '../../../../../website/server/libs/apiError';
 import {
   generateUser,
   sleep,
@@ -44,7 +45,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       await expect(user.post(`/tasks/${generateUUID()}/score/tt`)).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: t('invalidReqParams'),
+        message: apiError('directionUpDown'),
       });
     });
 
@@ -261,6 +262,7 @@ describe('POST /tasks/:id/score/:direction', () => {
       const task = await user.get(`/tasks/${daily._id}`);
 
       expect(task.completed).to.equal(true);
+      expect(task.value).to.be.greaterThan(daily.value);
     });
 
     it('uncompletes daily when direction is down', async () => {

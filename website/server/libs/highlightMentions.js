@@ -2,6 +2,7 @@ import escapeRegExp from 'lodash/escapeRegExp';
 import habiticaMarkdown from 'habitica-markdown';
 
 import { model as User } from '../models/user';
+import logger from './logger';
 
 const mentionRegex = /\B@[-\w]+/g;
 const ignoreTokenTypes = ['code_block', 'code_inline', 'fence', 'link_open'];
@@ -70,8 +71,17 @@ function withOptionalIndentation (content) {
   return content.split('\n').map(line => `\\s*${line}`).join('\n');
 }
 
-// This is essentially a workaround around the fact that markdown-it doesn't
-// provide sourcemap functionality and is the most brittle part of this code.
+/* This is essentially a workaround around the fact that markdown-it doesn't
+ * provide sourcemap functionality and is the most brittle part of this code.
+ *
+ * Known errors (Not supported markdown link variants):
+ * - [a](<b)c>) https://spec.commonmark.org/0.29/#example-489
+ * - [link](\(foo\)) https://spec.commonmark.org/0.29/#example-492
+ * - [link](foo(and(bar))) https://spec.commonmark.org/0.29/#example-493
+ * - [link](foo\(and\(bar\)) https://spec.commonmark.org/0.29/#example-494
+ * - [link](<foo(and(bar)>) https://spec.commonmark.org/0.29/#example-495
+ * - [link](foo\)\:) https://spec.commonmark.org/0.29/#example-496
+ */
 function toSourceMapRegex (token) {
   const { type, content, markup } = token;
   const contentRegex = escapeRegExp(content);
@@ -84,9 +94,9 @@ function toSourceMapRegex (token) {
   } else if (type === 'code_inline') {
     regexStr = `${markup} ?${contentRegex} ?${markup}`;
   } else if (type === 'link_open') {
-    const texts = token.textContents.map(escapeRegExp);
+    const texts = token.textContents ? token.textContents.map(escapeRegExp) : [''];
     regexStr = markup === 'linkify' || markup === 'autolink' ? texts[0]
-      : `\\[.*${texts.join('.*')}.*\\]\\(${escapeRegExp(token.attrs[0][1])}\\)`;
+      : `\\[[^\\]]*${texts.join('[^\\]]*')}[^\\]]*\\]\\([^)]*\\)`;
   } else {
     throw new Error(`No source mapping regex defined for ignore blocks of type ${type}`);
   }
@@ -110,6 +120,14 @@ function findTextBlocks (text) {
   ignoreBlockRegexes.forEach(regex => {
     const targetText = text.substr(index);
     const match = targetText.match(regex);
+
+    if (!match) {
+      logger.error(
+        new Error('Failed to match source-mapping regex to find ignore block'),
+        { text, targetText, regex: String(regex) },
+      );
+      return;
+    }
 
     if (match.index) {
       blocks.push({ text: targetText.substr(0, match.index), ignore: false });

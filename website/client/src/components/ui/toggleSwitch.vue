@@ -1,16 +1,23 @@
 <template>
   <div class="popover-box">
     <div
-      :id="containerId"
       class="clearfix toggle-switch-outer"
     >
       <div
         v-if="label"
         class="float-left toggle-switch-description"
-        :class="hoverText ? 'hasPopOver' : ''"
+        :class="{'bold': boldLabel}"
       >
         <span>{{ label }}</span>
       </div>
+      <span
+        v-if="hoverText"
+        :id="containerId"
+        class="svg-icon inline icon-16  float-left"
+        v-html="icons.information"
+      >
+
+      </span>
       <div class="toggle-switch float-left">
         <input
           :id="toggleId"
@@ -25,7 +32,13 @@
           :for="toggleId"
         >
           <span class="toggle-switch-inner"></span>
-          <span class="toggle-switch-switch"></span>
+          <span
+            class="toggle-switch-switch"
+            tabindex="0"
+            @focus="handleFocus"
+            @blur="handleBlur"
+            @keyup.space="handleSpace"
+          ></span>
         </label>
       </div>
     </div>
@@ -45,17 +58,26 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+  .toggle-switch-outer {
+    display: flex;
+    align-items: center;
+  }
+
   .toggle-switch {
     position: relative;
     width: 40px;
     user-select: none;
-    margin-left: 9px;
+    margin-left: 0.5rem;
   }
 
   .toggle-switch-description {
     &.hasPopOver span {
       border-bottom: 1px dashed $gray-200;
     }
+  }
+
+  .svg-icon {
+    margin: 2px 0.5rem 2px 0.5rem;
   }
 
   .toggle-switch-checkbox {
@@ -68,7 +90,7 @@
     cursor: pointer;
     border-radius: 100px;
     margin-bottom: 0px;
-    margin-top: 3px;
+    margin-top: 2px;
   }
 
   .toggle-switch-inner {
@@ -89,22 +111,22 @@
   .toggle-switch-inner:before {
     content: "";
     padding-left: 10px;
-    background-color: $purple-400;
+    background-color: $green-50;
   }
 
   .toggle-switch-inner:after {
     content: "";
     padding-right: 10px;
-    background-color: $gray-200;
+    background-color: $gray-300;
     text-align: right;
   }
 
   .toggle-switch-switch {
-    box-shadow: 0 1px 2px 0 rgba($black, 0.32);
+    box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
     display: block;
     width: 20px;
     margin: -2px;
-    margin-top: 1px;
+    margin-top: 0;
     height: 20px;
     background: $white;
     position: absolute;
@@ -113,6 +135,11 @@
     right: 22px;
     border-radius: 100px;
     transition: all 0.3s ease-in 0s;
+
+    &:focus {
+      border: 1px solid $purple-400;
+      outline: none;
+    }
   }
 
   .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-inner {
@@ -122,9 +149,15 @@
   .toggle-switch-checkbox:checked + .toggle-switch-label .toggle-switch-switch {
     right: 0px;
   }
+
+  .bold {
+    font-weight: bold;
+  }
 </style>
 
 <script>
+import svgInformation from '@/assets/svg/information.svg';
+
 export default {
   model: {
     prop: 'checked',
@@ -136,6 +169,10 @@ export default {
     },
     label: {
       type: String,
+    },
+    boldLabel: {
+      type: Boolean,
+      default: false,
     },
     checked: {
       type: Boolean,
@@ -151,6 +188,11 @@ export default {
       toggleId: this.generateId(),
       // The container requires a unique id to link it to the pop-over
       containerId: this.generateId(),
+      focused: false,
+
+      icons: Object.freeze({
+        information: svgInformation,
+      }),
     };
   },
   computed: {
@@ -159,8 +201,19 @@ export default {
     },
   },
   methods: {
+    handleBlur () {
+      this.focused = false;
+    },
     handleChange ({ target: { checked } }) {
       this.$emit('change', checked);
+    },
+    handleFocus () {
+      this.focused = true;
+    },
+    handleSpace () {
+      if (this.focused) {
+        document.getElementById(this.toggleId).click();
+      }
     },
     generateId () {
       return `id-${Math.random().toString(36).substr(2, 16)}`;

@@ -33,7 +33,7 @@
 export default {
   methods: {
     clearTodos () {
-      if (!window.confirm(this.$t('clearCompletedConfirm'))) return;
+      if (!window.confirm(this.$t('clearCompletedConfirm'))) return; // eslint-disable-line no-alert
       this.$store.dispatch('tasks:clearCompletedTodos');
     },
   },
