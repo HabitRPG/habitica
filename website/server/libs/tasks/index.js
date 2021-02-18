@@ -1,8 +1,14 @@
+import moment from 'moment';
 import _ from 'lodash';
 import validator from 'validator';
+import {
+  setNextDue,
+  validateTaskAlias,
+  requiredGroupFields,
+} from './utils';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
-import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
+import { model as User } from '../../models/user';
 import * as Tasks from '../../models/task';
 import apiError from '../apiError';
 import {
@@ -12,13 +18,12 @@ import {
 } from '../errors';
 import {
   SHARED_COMPLETION,
-  handleSharedCompletion
+  handleSharedCompletion,
 } from '../groupTasks';
 import shared from '../../../common';
-import { taskScoredWebhook } from '../webhook'; // eslint-disable-line import/no-cycle
+import { taskScoredWebhook } from '../webhook';
 
-import logger from './logger';
-
+import logger from '../logger';
 
 /**
  * Creates tasks for a user, challenge or group.
@@ -233,14 +238,12 @@ async function getTasks (req, res, options = {}) {
   return orderedTasks;
 }
 
-
 function canNotEditTasks (group, user, assignedUserId) {
   const isNotGroupLeader = group.leader !== user._id;
   const isManager = Boolean(group.managers[user._id]);
   const userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
   return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
 }
-
 
 async function getGroupFromTaskAndUser (task, user) {
   if (task.group.id && !task.userId) {
@@ -250,14 +253,12 @@ async function getGroupFromTaskAndUser (task, user) {
   return null;
 }
 
-
 async function getChallengeFromTask (task) {
   if (task.challenge.id && !task.userId) {
     return Challenge.findOne({ _id: task.challenge.id }).exec();
   }
   return null;
 }
-
 
 function verifyTaskModification (task, user, group, challenge, res) {
   if (!task) {
@@ -276,7 +277,6 @@ function verifyTaskModification (task, user, group, challenge, res) {
     throw new NotFound(res.t('taskNotFound'));
   }
 }
-
 
 async function handleChallengeTask (task, delta, direction) {
   if (task.challenge && task.challenge.id && task.challenge.taskId && !task.challenge.broken && task.type !== 'reward') {
