@@ -610,7 +610,25 @@ api.updateTask = {
 
     const group = await getGroupFromTaskAndUser(task, user);
     const challenge = await getChallengeFromTask(task);
-    verifyTaskModification(task, user, group, challenge, res);
+    // Verify that the user can modify the task.
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    } else if (task.group.id && !task.userId) {
+      // If the task is in a group and only modifying `collapseChecklist`,
+      // the modification should be allowed.
+      if (!group) throw new NotFound(res.t('groupNotFound'));
+      const taskPayloadProps = Object.keys(req.body);
+
+      const allowedByTaskPayload = taskPayloadProps.length === 1
+        && taskPayloadProps.includes('collapseChecklist');
+
+      if (!allowedByTaskPayload) {
+        // Otherwise, verify the task modification normally.
+        verifyTaskModification(task, user, group, challenge, res);
+      }
+    } else {
+      verifyTaskModification(task, user, group, challenge, res);
+    }
 
     const oldCheckList = task.checklist;
     // we have to convert task to an object because otherwise things
