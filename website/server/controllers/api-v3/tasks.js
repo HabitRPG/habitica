@@ -14,7 +14,6 @@ import {
   BadRequest,
 } from '../../libs/errors';
 import {
-  canNotEditTasks,
   createTasks,
   getTasks,
   getGroupFromTaskAndUser,
@@ -29,7 +28,6 @@ import {
 } from '../../libs/tasks/utils';
 import common from '../../../common';
 import apiError from '../../libs/apiError';
-
 
 /**
  * @apiDefine TaskNotFound
