@@ -27,5 +27,17 @@
     "mobileIOS": "iOS",
     "mobileAndroid": "Android",
     "marketing1Lead3Title": "Βρες Τυχαίες Ανταμοιβές",
-    "marketing3Header": "Εφαρμογές και Επεκτάσεις"
+    "marketing3Header": "Εφαρμογές και Επεκτάσεις",
+    "forgotPasswordSteps": "Εισάγετε τη διεύθυνση email που χρησιμοποιήσατε για να εγγραφείτε στο Habitica.",
+    "emailNewPass": "Αποστολή Συνδέσμου Ανάκτησης Κωδικού",
+    "marketing1Lead1Title": "Η Ζωή σου, το Παιχνίδι Ρόλων",
+    "marketing1Lead2Title": "Μάζεψε Απίστευτο Εξοπλισμό",
+    "invalidEmail": "Για να εκτελεστεί επαναφορά κωδικού απαιτείται μια έγκυρη διεύθυνση email.",
+    "guidanceForBlacksmiths": "Οδηγίες για Σιδηρουργούς",
+    "marketing4Header": "Χρήση σε Οργανισμούς",
+    "marketing3Lead2Title": "Ενσωματώσεις",
+    "marketing2Header": "Συναγωνίσου Με Φίλους, Γίνε Μέλος Ενδιαφέροντων Ομάδων",
+    "marketing4Lead2Title": "Gamification στην Υγεία και Ευεξία",
+    "marketing4Lead1Title": "Gamification στην Εκπαίδευση",
+    "marketing1Header": "Βελτίωσε τις Συνήθειές σου Παίζοντας ένα Παιχνίδι"
 }

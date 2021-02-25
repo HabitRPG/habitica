@@ -2065,5 +2065,15 @@
     "weaponMystery202102Notes": "¡La brillante gema rosa en esta varita tiene el poder de propagar la felicidad y la amistad por todas partes! No otorga ningún beneficio. Artículo de suscriptor de Febrero 2021.",
     "headSpecialSpring2019MageNotes": "Una resplandeciente gema ámbar otorga a este sombrero el poder de fuerzas naturales arcanas. Aumenta la Percepción en <%= per %>. Equipamiento de edición limitada Primavera 2019.",
     "armorArmoireBoxArmorNotes": "Armadura de cajas: Si te encaja, te sientas dentro... ehm, la vistes para la batalla, ¡Cómo el valiente caballero que eres! Aumenta la Percepción y la Constitución en <%= attrs %>. Armario Encantado: Conjunto de caballero de papel (artículo 3 de 3).",
-    "armorMystery202102Notes": "Navega a través del universo con estilo en este alegremente brillante vestido. No otorga ningún beneficio. Artículo de suscriptor de Febrero 2021."
+    "armorMystery202102Notes": "Navega a través del universo con estilo en este alegremente brillante vestido. No otorga ningún beneficio. Artículo de suscriptor de Febrero 2021.",
+    "shieldArmoireBirthdayBannerText": "Banner de cumpleaños",
+    "shieldArmoireMasteredShadowText": "Sombra dominada",
+    "shieldMystery202011Text": "Bastón foliado",
+    "shieldSpecialWinter2021HealerText": "Guardabrazos árticos",
+    "shieldSpecialKS2019Notes": "Brillando como la cáscara de un huevo de grifo, este magnífico escudo te muestra cómo estar listo para ayudar cuando tus propias cargas son ligeras. Aumenta la percepción en un <% = per%>.",
+    "shieldSpecialKS2019Text": "Escudo de grifo mítico",
+    "shieldSpecialPiDayNotes": "¡Te desafiamos a que calcules la relación entre la circunferencia de este escudo y su delicia! No otorga ningún beneficio.",
+    "headSpecialSummer2019RogueNotes": "Este yelmo le ofrece una vista de 360 grados de las aguas circundantes, lo que es perfecto para acercarse sigilosamente a los Dailies rojos desprevenidos. Aumenta la percepción en un <% = per%>. Equipo de verano de edición limitada 2019.",
+    "headSpecialSpring2019HealerNotes": "Prepárate para el primer día de primavera con este lindo yelmo con pico. Aumenta la inteligencia en <% = int%>. Spring Gear de edición limitada 2019.",
+    "armorArmoireMatchMakersApronNotes": "Este delantal es por seguridad, pero por el bien del humor podemos tomarlo a la ligera. Aumenta la Constitución, la Fuerza y la Inteligencia en un <% = attrs%> cada uno. Armario encantado: Conjunto de Cerillero (artículo 1 de 4)."
 }
