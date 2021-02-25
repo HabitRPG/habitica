@@ -85,7 +85,7 @@
     "allocatePerPop": "Add a Point to Perception",
     "allocateInt": "分配給智慧的點數：",
     "allocateIntPop": "Add a Point to Intelligence",
-    "noMoreAllocate": "Now that you've hit level 100, you won't gain any more Stat Points. You can continue leveling up, or start a new adventure at level 1 by using the <a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>, now available for free in the Market.",
+    "noMoreAllocate": "您已經到達等級100，你不會再獲得任何等級點了。你可以繼續升級，或者用<a href='http://habitica.wikia.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a>以等級一開啓一個新的旅程！",
     "stats": "能力統計",
     "achievs": "成就",
     "strength": "力量",
@@ -132,7 +132,7 @@
     "healerText": "醫者們堅定地對抗突如其來的傷害，並且保護其他的人。錯過的日常任務和一些壞習慣並不能影響他們太多，他們總是有些方法幫助你來回血。如果你熱衷於輔助其他的隊友或者是享受那種從死神手裡奪取生命的快感，為什麼不去做一個醫者呢？",
     "optOutOfClasses": "放棄選擇",
     "chooseClass": "Choose your Class",
-    "chooseClassLearnMarkdown": "[Learn more about Habitica's class system](http://habitica.wikia.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[了解更多關於Habitica等級資訊](http://habitica.wikia.com/wiki/Class_System)",
     "optOutOfClassesText": "Can't be bothered with classes? Want to choose later? Opt out - you'll be a warrior with no special abilities. You can read about the class system later on the wiki and enable classes at any time under User Icon > Settings.",
     "selectClass": "Select <%= heroClass %>",
     "select": "選擇",
@@ -181,5 +181,9 @@
     "mainHand": "Main-Hand",
     "offHand": "Off-Hand",
     "statPoints": "Stat Points",
-    "pts": "pts"
+    "pts": "pts",
+    "chatCastSpellUser": "<%= username %> 對<%= target %>施了<%= spell %> 。",
+    "chatCastSpellParty": "<%= username %>對您的隊伍下了<%= spell %>。",
+    "purchasePetItemConfirm": "此次交易將超過您能孵化的<%= itemText %>隻寵物總數。您確定要繼續此次交易嗎？",
+    "purchaseForGold": "以<%= cost %>金幣購買？"
 }

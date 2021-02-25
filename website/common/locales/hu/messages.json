@@ -42,7 +42,7 @@
     "messageGroupChatAdminClearFlagCount": "Csak egy adminisztrátor törölheti a megjelölt üzeneteket!",
     "messageCannotFlagSystemMessages": "Egy rendszerüzenetet nem jelenthetsz be. Ha szeretnéd bejelenteni ehhez az üzenethez tartozó közösségi irányelvek megszegését, küldj egy képet és egy magyarázatot a közösségi managernek a <%= communityManagerEmail %> e-mail címre.",
     "messageGroupChatSpam": "Upsz, úgy néz ki túl sok üzenetet küldtél! Kérlek, várj egy kicsit és próbáld újra. A fogadó üzenőfala csak 200 üzenet tárolására képes, ezért a Habitica hosszabb és tartalmasabb üzenetek küldésére, illetve a válaszok összevonására bátorít. Alig várjuk, hogy ismét halljunk felőled. :)",
-    "messageCannotLeaveWhileQuesting": "Nem fogadhatsz el meghívást egy csapatba miközben küldetésen veszel részt. Ha szeretnél ehhez a csapathoz csatlakozni, félbe kell hagynod a jelenlegi küldetést, amit megtehetsz a csapat menüben. A küldetéshez tartozó takercset visszakapod.",
+    "messageCannotLeaveWhileQuesting": "Nem fogadhatsz el meghívást egy csapatba miközben küldetésen veszel részt. Ha szeretnél ehhez a csapathoz csatlakozni, félbe kell hagynod a jelenlegi küldetést, amit megtehetsz a csapat menüben. A küldetéshez tartozó tekercset visszakapod.",
     "messageUserOperationProtected": "'<%= operation %>' elérési út nem menthető, mivel ez védett.",
     "messageNotificationNotFound": "Az értesítés nem található.",
     "messageNotAbleToBuyInBulk": "Ez a tárgy nem vásárolható meg 1-nél többször.",

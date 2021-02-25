@@ -5,10 +5,16 @@
     "reachedLevel": "Kamu Mencapai Level <%= level %>",
     "achievementLostMasterclasser": "Penakluk Misi: Seri Masterclasser",
     "achievementLostMasterclasserText": "Menyelesaikan seluruh enam belas misi di Seri Misi Masterclasser dan memecahkan misteri dari Sang Masterclasser!",
-    "onboardingCompleteDesc": "Kamu mendapatkan <strong>5 penghargaan</strong> dan <strong class=\"gold-amount\">100</strong> emas karena telah melengkapi daftar.",
+    "onboardingCompleteDesc": "Anda mendapatkan <strong>5 penghargaan</strong> dan <strong class=\"gold-amount\">100</strong> emas karena telah menyelesaikan daftar.",
     "earnedAchievement": "Kamu mendapatkan sebuah penghargaan!",
     "viewAchievements": "Lihat Penghargaan",
     "letsGetStarted": "Mari kita mulai!",
     "onboardingProgress": "<%= percentage %>% kemajuan",
-    "gettingStartedDesc": "Mari buat sebuah tugas, selesaikan, lalu periksa hadiahmu. Kamu akan mendapatkan <strong>5 penghargaan</strong> dan <strong class=\"gold-amount\">100 Emas</strong> ketika kamu selesai!"
+    "gettingStartedDesc": "Ayo buat sebuah tugas, menyelesaikannya, lalu lihat hadiahmu. Kamu akan mendapatkan <strong>5 prestasi</strong> dan <strong class=\"gold-amount\">100 emas</strong> segera setelah kamu selesai",
+    "yourProgress": "Perkembangan Anda",
+    "yourRewards": "Hadiah Anda",
+    "foundNewItems": "Anda menemukan barang baru!",
+    "showAllAchievements": "Lihat Semua",
+    "foundNewItemsExplanation": "Menyelesaikan tugas memungkinkan Anda untuk menemukan barang, seperti Telur, Ramuan Penetas, dan Makanan Peliharaan.",
+    "hideAchievements": "Sembunyikan <%= categoty%>"
 }
