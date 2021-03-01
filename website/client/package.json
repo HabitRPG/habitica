@@ -13,7 +13,7 @@
     "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook"
   },
   "dependencies": {
-    "@storybook/addon-actions": "^6.1.15",
+    "@storybook/addon-actions": "^6.1.20",
     "@storybook/addon-knobs": "^6.1.15",
     "@storybook/addon-links": "^6.1.15",
     "@storybook/addon-notes": "^5.3.21",
