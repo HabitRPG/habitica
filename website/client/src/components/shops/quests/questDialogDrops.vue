@@ -106,11 +106,12 @@
 <script>
 import svgGold from '@/assets/svg/gold.svg';
 import svgExperience from '@/assets/svg/experience.svg';
+import { QuestHelperMixin } from './quest-helper.mixin';
 
 export default {
   components: {
   },
-  mixins: [],
+  mixins: [QuestHelperMixin],
   props: {
     item: {
       type: Object,
@@ -123,37 +124,6 @@ export default {
         experience: svgExperience,
       }),
     };
-  },
-  methods: {
-    getDropIcon (drop) {
-      switch (drop.type) {
-        case 'gear':
-          return `shop_${drop.key}`;
-        case 'hatchingPotions':
-          return `Pet_HatchingPotion_${drop.key}`;
-        case 'food':
-          return `Pet_Food_${drop.key}`;
-        case 'eggs':
-          return `Pet_Egg_${drop.key}`;
-        case 'quests':
-          return `inventory_quest_scroll_${drop.key}`;
-        default:
-          return '';
-      }
-    },
-    getDropName (drop) {
-      return drop.text();
-    },
-    getDropsList (drops, ownerOnly) {
-      if (!drops) return [];
-
-      return drops.filter(drop => {
-        if (ownerOnly) {
-          return drop.onlyOwner;
-        }
-        return !drop.onlyOwner;
-      });
-    },
   },
 };
 </script>

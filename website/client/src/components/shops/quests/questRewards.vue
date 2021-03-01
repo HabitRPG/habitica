@@ -1,0 +1,174 @@
+<template>
+  <div class="quest-rewards">
+    <div @click="toggle"
+         class="header d-flex align-items-center">
+      <span class="d-flex justify-content-center">
+        <div
+          v-once
+          class="your-rewards d-flex align-items-center"
+        >
+          <span
+            class="sparkles"
+            v-html="icons.sparkles"
+          ></span>
+          <span class="text">{{ $t('rewards') }}</span>
+          <span
+            class="sparkles mirror"
+            v-html="icons.sparkles"
+          ></span>
+        </div>
+      </span>
+      <SectionButton
+        :visible="opened"
+        @click="toggle"
+      />
+    </div>
+    <div v-if="opened"
+         class="content">
+
+      <item-with-label
+          v-for="drop in getDropsList(quest.drop.items, true)"
+          :key="drop.key"
+          :item="{}"
+          label-class="purple">
+        <div slot="itemImage">
+          <div :class="getDropIcon(drop)"></div>
+        </div>
+        <div slot="popoverContent">
+          <quest-popover :item="drop" />
+        </div>
+        <div slot="label">Owner only</div>
+      </item-with-label>
+
+      <item-with-label :item="{}"
+                       label-class="yellow">
+        <div slot="itemImage">
+          <div
+              class="icon-48"
+              v-html="icons.expIcon"
+            ></div>
+        </div>
+        <div slot="label">
+          {{ $t('amountExperience', { amount: quest.drop.exp }) }}
+        </div>
+      </item-with-label>
+
+      <item-with-label :item="{}"
+                       label-class="yellow">
+        <div slot="itemImage">
+          <div
+            class="icon-48"
+            v-html="icons.goldIcon"
+          ></div>
+        </div>
+        <div slot="label">
+          {{ $t('amountGold', { amount: quest.drop.gp }) }}
+        </div>
+      </item-with-label>
+
+      <item-with-label
+        v-for="drop in getDropsList(quest.drop.items, false)"
+        :key="drop.key"
+        :item="{}"
+      >
+        <div slot="itemImage">
+          <div :class="getDropIcon(drop)"></div>
+        </div>
+        <div slot="popoverContent">
+          <equipmentAttributesPopover
+            :item="drop"
+          />
+        </div>
+        <div slot="label">New Item</div>
+      </item-with-label>
+    </div>
+  </div>
+</template>
+
+<script>
+import sparkles from '@/assets/svg/sparkles-left.svg';
+import expIcon from '@/assets/svg/experience.svg';
+import goldIcon from '@/assets/svg/gold.svg';
+import SectionButton from '../../sectionButton';
+import ItemWithLabel from '../itemWithLabel';
+import { QuestHelperMixin } from './quest-helper.mixin';
+import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
+import QuestPopover from './questPopover';
+
+export default {
+  mixins: [QuestHelperMixin],
+  props: ['quest'],
+  components: {
+    QuestPopover,
+    ItemWithLabel,
+    SectionButton,
+    EquipmentAttributesPopover,
+  },
+  data () {
+    return {
+      opened: false,
+      icons: Object.freeze({
+        sparkles,
+        expIcon,
+        goldIcon,
+      }),
+    };
+  },
+  computed: {
+    droppedItem () {
+      const item = this.quest.drop.items[0];
+
+      if (item) {
+        return item;
+      }
+
+      return null;
+    },
+  },
+  methods: {
+    toggle () {
+      this.opened = !this.opened;
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
+  .header {
+    height: 3.5rem;
+
+    background-color: $gray-700;
+
+    span {
+      flex: 1;
+    }
+
+
+    .mirror {
+      transform: scaleX(-1);
+    }
+
+    .your-rewards {
+      margin: 0 auto;
+      width: fit-content;
+
+      .sparkles {
+        width: 2rem;
+      }
+
+      .text {
+        font-weight: bold;
+        margin: 1rem;
+        color: $gray-50;
+      }
+    }
+  }
+
+  .content{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+</style>

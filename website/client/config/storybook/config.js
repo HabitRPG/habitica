@@ -34,6 +34,8 @@ import '../../src/assets/css/sprites/spritesmith-main-26.css';
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import StoreModule from '@/libs/store';
+import getStore from '@/store';
+
 
 // couldn't inject the languages easily,
 // so just a "$t()" string to show that this will be translated
@@ -43,6 +45,15 @@ Vue.prototype.$t = function translateString (...args) {
 
 Vue.use(BootstrapVue);
 Vue.use(StoreModule);
+
+const store = getStore();
+store.state.user.data = {
+  stats: {},
+  tags: [],
+};
+
+Vue.prototype.$store = store;
+
 
 const req = require.context('../../src', true, /.stories.js$/);
 
