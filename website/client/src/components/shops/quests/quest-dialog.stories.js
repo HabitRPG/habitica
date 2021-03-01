@@ -66,11 +66,13 @@ stories
     data () {
       return {
         quest: quests.goldenknight2,
+        quest2: quests.moon1,
       };
     },
     template: `      
       <div>
         <quest-popover :item="quest"></quest-popover>
+        <quest-popover :item="quest2"></quest-popover>
       </div>
     `,
   }));
