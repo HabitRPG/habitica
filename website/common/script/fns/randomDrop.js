@@ -177,15 +177,15 @@ export default function randomDrop (user, options, req = {}, analytics) {
         message: i18n.t('dropCapReached', req.language),
         items: dropN,
       });
+    }
 
-      if (isEnrolledInDropCapTest) {
-        analytics.track('drop cap reached', {
-          uuid: user._id,
-          dropCap: maxDropCount,
-          category: 'behavior',
-          headers: req.headers,
-        });
-      }
+    if (isEnrolledInDropCapTest && dropCapReached) {
+      analytics.track('drop cap reached', {
+        uuid: user._id,
+        dropCap: maxDropCount,
+        category: 'behavior',
+        headers: req.headers,
+      });
     }
 
     if (analytics && moment().diff(user.auth.timestamps.created, 'days') < 7) {
