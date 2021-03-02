@@ -102,5 +102,8 @@
     "achievementRedLetterDay": "Red Letter Day",
     "achievementSeeingRedModalText": "You collected all the Red Pets!",
     "achievementSeeingRedText": "Has collected all Red Pets.",
-    "achievementSeeingRed": "Seeing Red"
+    "achievementSeeingRed": "Seeing Red",
+    "achievementLegendaryBestiaryModalText": "You collected all the mythical pets!",
+    "achievementLegendaryBestiaryText": "Has hatched all the mythical pets: Dragon, Flying Pig, Gryphon, Sea Serpent, and Unicorn!",
+    "achievementLegendaryBestiary": "Legendary Bestiary"
 }

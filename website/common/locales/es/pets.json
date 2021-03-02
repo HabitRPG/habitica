@@ -63,7 +63,7 @@
     "triadBingoAchievement": "¡Has obtenido el logro «Bingo Tríada» por haber encontrado a todas las mascotas, domado a todas las monturas y encontrado a todas las mascotas otra vez!",
     "dropsEnabled": "¡Botín Activado!",
     "firstDrop": "¡Has desbloqueado el sistema de botines! Ahora, al completar tareas, es posible que encuentres algún articulo, como huevos, pociones y alimentos. ¡Acabas de encontrar un <strong><%= eggText %>huevo</strong>! <%= eggNotes %>",
-    "hatchedPet": "¡Echaste un nuevo <%= potion %> <%= egg %>!",
+    "hatchedPet": "¡Has eclosionado un nuevo <%= potion %> <%= egg %>!",
     "hatchedPetGeneric": "¡Has eclosionado una nueva mascota!",
     "hatchedPetHowToUse": "¡Visita el [Establo](<%= stableUrl %>) para alimentar y equipar tu última mascota!",
     "petNotOwned": "No tienes esta mascota.",

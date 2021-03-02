@@ -2075,5 +2075,15 @@
     "shieldSpecialPiDayNotes": "¡Te desafiamos a que calcules la relación entre la circunferencia de este escudo y su delicia! No otorga ningún beneficio.",
     "headSpecialSummer2019RogueNotes": "Este yelmo le ofrece una vista de 360 grados de las aguas circundantes, lo que es perfecto para acercarse sigilosamente a los Dailies rojos desprevenidos. Aumenta la percepción en un <% = per%>. Equipo de verano de edición limitada 2019.",
     "headSpecialSpring2019HealerNotes": "Prepárate para el primer día de primavera con este lindo yelmo con pico. Aumenta la inteligencia en <% = int%>. Spring Gear de edición limitada 2019.",
-    "armorArmoireMatchMakersApronNotes": "Este delantal es por seguridad, pero por el bien del humor podemos tomarlo a la ligera. Aumenta la Constitución, la Fuerza y la Inteligencia en un <% = attrs%> cada uno. Armario encantado: Conjunto de Cerillero (artículo 1 de 4)."
+    "armorArmoireMatchMakersApronNotes": "Este delantal es por seguridad, pero por el bien del humor podemos tomarlo a la ligera. Aumenta la Constitución, la Fuerza y la Inteligencia en un <% = attrs%> cada uno. Armario encantado: Conjunto de Cerillero (artículo 1 de 4).",
+    "headSpecialWinter2020RogueText": "Gorra de calcetín mullido",
+    "headSpecialNye2019Notes": "¡Has recibido un gorro de fiesta escandaloso! ¡Llévalo con orgullo mientras das la bienvenida al año nuevo! No otorga ningún beneficio.",
+    "headSpecialNye2019Text": "Gorro de fiesta escandaloso",
+    "headSpecialFall2019HealerNotes": "Ponte esta oscura mitra para usar los poderes del temible Liche. Aumenta la Inteligencia en <%= int %>. Equipamiento de edición limitada Otoño 2019.",
+    "headSpecialFall2019WarriorNotes": "Las oscuras cuencas de este casco de calavera desalentarán al más bravo de tus enemigos. Aumenta la Fuerza en <%= str %>. Equipamiento de edición limitada Otoño 2019.",
+    "headSpecialFall2019MageNotes": "Su único y funesto ojo inhibe la percepción de la profundidad, pero ese es un pequeño precio a pagar por la forma en la que afila tu atención, concentrandola inténsamente en un único punto. Aumenta la Percepción en <%= per %>. Equipamiento de edición limitada Otoño 2019.",
+    "headSpecialFall2019RogueNotes": "¿Encontraste este tocado en una subasta de prendas posiblemente malditas o en el ático de un abuelo excéntrico? Cualquiera que sea su origen, su edad y desgaste te aportan un aire de misterio. Aumenta la Percepción en <%= per %>. Equipamiento de edición limitada Otoño 2019.",
+    "headSpecialSummer2019HealerNotes": "La estructura en espiral de esta concha te ayudará a escuchar cualquier llamada de auxilio a lo ancho de los siete mares. Aumenta la Inteligencia en <%= int %>. Equipamiento de edición limitada Verano 2019.",
+    "headSpecialSummer2019MageNotes": "En contra de la creencia popular, tu cabeza no es un lugar apropiado para que se posen las ranas. Aumenta la Percepción en <%= per %>. Equipamiento de edición limitada Verano 2019.",
+    "headSpecialSummer2019WarriorNotes": "No te permitirá esconder la cabeza entre los hombros, pero te protegerá si te chocas contra el casco de un barco. Aumenta la Fuerza en <%= str %>. Equipamiento de edición limitada Verano 2019."
 }

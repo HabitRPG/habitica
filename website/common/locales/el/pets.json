@@ -7,5 +7,8 @@
     "questPets": "Κατοικίδια Αποστολών",
     "magicPets": "Κατοικίδια Μαγικών Φίλτρων",
     "activeMount": "Ενεργό Θηρίο",
-    "mounts": "Θηρία"
+    "mounts": "Θηρία",
+    "questMounts": "Θηρία Αποστολών",
+    "mountsTamed": "Δαμασμένα Θηρία",
+    "noActiveMount": "Κανένα Ενεργό Θηρίο"
 }

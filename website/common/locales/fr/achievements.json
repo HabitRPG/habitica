@@ -102,5 +102,8 @@
     "achievementRedLetterDay": "Lanterne rouge",
     "achievementSeeingRed": "Dans le rouge",
     "achievementSeeingRedModalText": "Vous avez collecté tous les familiers rouges !",
-    "achievementSeeingRedText": "A collecté tous les familiers rouges."
+    "achievementSeeingRedText": "A collecté tous les familiers rouges.",
+    "achievementLegendaryBestiaryModalText": "Vous avez fait éclore tous les familiers mythiques !",
+    "achievementLegendaryBestiaryText": "A fait éclore tous les familiers mythiques : dragon, cochon volant, griffon, serpent de mer et licorne !",
+    "achievementLegendaryBestiary": "Bestiaire légendaire"
 }
