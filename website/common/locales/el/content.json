@@ -312,5 +312,8 @@
     "hatchingPotionWatery": "Νερουλό",
     "hatchingPotionBronze": "Χαλκός",
     "hatchingPotionSunshine": "Ηλιαχτίδα",
-    "hatchingPotionVeggie": "Κήπος"
+    "hatchingPotionVeggie": "Κήπος",
+    "questEggRobotAdjective": "ένα φουτουριστικό",
+    "questEggRobotMountText": "Ρομπότ",
+    "questEggRobotText": "Ρομπότ"
 }

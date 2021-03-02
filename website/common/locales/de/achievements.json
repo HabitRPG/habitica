@@ -102,5 +102,8 @@
     "achievementSeeingRedModalText": "Du hast alle rote Haustiere gesammelt!",
     "achievementSeeingRedText": "Hat alle rote Haustiere gesammelt.",
     "achievementSeeingRed": "Rot Sehen",
-    "achievementRedLetterDay": "Roter Faden"
+    "achievementRedLetterDay": "Roter Faden",
+    "achievementLegendaryBestiaryModalText": "Du hast alle mystischen Haustiere gesammelt!",
+    "achievementLegendaryBestiaryText": "Hat alle mystischen Haustiere schlüpfen lassen: Drachen-Jungtier, Fliegendes Ferkel, Greifen-Jungtier, Seeschlangen-Haustier und Einhorn-Junges!",
+    "achievementLegendaryBestiary": "Legendäres Bestiarium"
 }

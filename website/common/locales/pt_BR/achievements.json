@@ -102,5 +102,8 @@
     "achievementRedLetterDayModalText": "Você domou todas as Montarias vermelhas!",
     "achievementRedLetterDayText": "Domou todas as Montarias vermelhas.",
     "achievementSeeingRedModalText": "Você coletou todos os Mascotes vermelhos!",
-    "achievementSeeingRedText": "Coletou todos os Mascotes vermelhos."
+    "achievementSeeingRedText": "Coletou todos os Mascotes vermelhos.",
+    "achievementLegendaryBestiaryText": "Eclodiu todos os Mascotes místicos: Dragão, Porco Voador, Grifo, Serpente Marinha e Unicórnio!",
+    "achievementLegendaryBestiary": "Bestas Lendárias",
+    "achievementLegendaryBestiaryModalText": "Você coletou todos os Mascotes místicos!"
 }
