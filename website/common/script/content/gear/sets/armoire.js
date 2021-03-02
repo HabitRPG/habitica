@@ -346,6 +346,10 @@ const armor = {
     per: 12,
     set: 'pinkLoungewear',
   },
+  jadeArmor: {
+    per: 8,
+    set: 'jadeWarrior',
+  },
 };
 
 const body = {
@@ -691,6 +695,10 @@ const head = {
   pinkFloppyHat: {
     int: 12,
     set: 'pinkLoungewear',
+  },
+  jadeHelm: {
+    con: 8,
+    set: 'jadeWarrior',
   },
 };
 
@@ -1183,6 +1191,10 @@ const weapon = {
   blueMoonSai: {
     str: 8,
     set: 'blueMoon',
+  },
+  jadeGlaive: {
+    str: 10,
+    set: 'jadeWarrior',
   },
 };
 
