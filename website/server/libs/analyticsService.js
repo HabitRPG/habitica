@@ -251,6 +251,11 @@ function _sendDataToGoogle (eventType, data) {
 function _sendPurchaseDataToAmplitude (data) {
   const amplitudeData = _formatDataForAmplitude(data);
 
+  // Stripe transactions come via webhook. We can log these as Web events
+  if (data.paymentMethod === 'Stripe' && amplitudeData.platform === 'Unknown') {
+    amplitudeData.platform = 'Web';
+  }
+
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
 
