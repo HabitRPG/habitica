@@ -1,5 +1,6 @@
 import nconf from 'nconf';
 import { getUserInfo, sendTxn, getGroupUrl } from '../email';
+import { NotFound } from '../errors';
 import * as slack from '../slack';
 
 const FLAG_REPORT_EMAILS = nconf.get('FLAG_REPORT_EMAIL').split(',').map(email => ({ email, canSend: true }));
@@ -30,8 +31,28 @@ export async function notifyOfFlaggedChallenge (challenge, user, userComment) {
   });
 }
 
+export async function flagChallenge (challenge, user, res) {
+  if (challenge.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageChallengeFlagAlreadyReported'));
+
+  challenge.flags[user._id] = true;
+  challenge.markModified('flags');
+
+  if (user.contributor.admin) {
+    // Arbitrary amount, higher than 2
+    challenge.flagCount = 5;
+  } else {
+    challenge.flagCount += 1;
+  }
+
+  await challenge.save();
+}
+
 export async function clearFlags (challenge, user) {
   challenge.flagCount = 0;
+  if (challenge.flags[user._id]) {
+    challenge.flags[user._id] = false;
+    challenge.markModified('flags');
+  }
   await challenge.save();
 
   const adminEmailContent = getUserInfo(user, ['email']).email;

@@ -6,9 +6,9 @@
     :hide-footer="true"
   >
     <div class="modal-body">
-      <strong v-html="$t('abuseFlagModalHeading', reportData)"></strong>
+      <strong v-html="$t('abuseFlagModalHeading')"></strong>
       <blockquote>
-        <div v-markdown="abuseObject.name"></div>
+        <div v-html="abuseObject.name"></div>
       </blockquote>
       <div>
         <strong>{{ $t('whyReportingChallenge') }}</strong>
@@ -117,12 +117,6 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-    reportData () {
-      const reportMessage = this.abuseObject.user;
-      return {
-        name: `<span class='text-danger'>${reportMessage}</span>`,
-      };
-    },
   },
   created () {
     this.$root.$on('habitica::report-challenge', this.handleReport);
@@ -135,16 +129,13 @@ export default {
       this.$root.$emit('bv::hide::modal', 'report-challenge');
     },
     async reportAbuse () {
-      this.text(this.$t('abuseReported'));
-
-      const result = await this.$store.dispatch('challenges:flag', {
+      this.$store.dispatch('challenges:flag', {
         challengeId: this.abuseObject.id,
         comment: this.reportComment,
-      });
-
-      this.$root.$emit('habitica:report-result', result);
-
-      this.close();
+      }).then(() => {
+        this.text(this.$t('abuseReported'));
+        this.close();
+      }).catch(() => {});
     },
     async clearFlagCount () {
       await this.$store.dispatch('challenges:clearFlagCount', {
@@ -153,7 +144,6 @@ export default {
       this.close();
     },
     handleReport (data) {
-      console.log(data);
       if (!data.challenge) return;
       this.abuseObject = data.challenge;
       this.reportComment = '';

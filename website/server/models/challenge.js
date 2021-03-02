@@ -46,7 +46,7 @@ const schema = new Schema({
     slug: { $type: String },
     name: { $type: String },
   }],
-  flags: { $type: Object, default: {} },
+  flags: { $type: mongoose.Schema.Types.Mixed, default: {} },
   flagCount: { $type: Number, default: 0, min: 0 },
 }, {
   strict: true,

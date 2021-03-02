@@ -6,7 +6,7 @@ import {
 } from '../../../../helpers/api-integration/v3';
 
 describe('POST /challenges/:challengeId/clearflags', () => {
-  let user;
+  let admin;
   let nonAdmin;
   let challenge;
 
@@ -20,13 +20,13 @@ describe('POST /challenges/:challengeId/clearflags', () => {
       members: 1,
     });
 
-    user = groupLeader;
+    admin = groupLeader;
     [nonAdmin] = members;
 
-    await user.update({ 'contributor.admin': true });
+    await admin.update({ 'contributor.admin': true });
 
-    challenge = await generateChallenge(user, group);
-    await user.post(`/challenges/${challenge._id}/flag`);
+    challenge = await generateChallenge(admin, group);
+    await admin.post(`/challenges/${challenge._id}/flag`);
   });
 
   it('returns error when non-admin attempts to clear flags', async () => {
@@ -39,7 +39,7 @@ describe('POST /challenges/:challengeId/clearflags', () => {
   });
 
   it('returns an error when challenge is not found', async () => {
-    await expect(user.post(`/challenges/${generateUUID()}/clearflags`))
+    await expect(admin.post(`/challenges/${generateUUID()}/clearflags`))
       .to.eventually.be.rejected.and.eql({
         code: 404,
         error: 'NotFound',
@@ -47,10 +47,12 @@ describe('POST /challenges/:challengeId/clearflags', () => {
       });
   });
 
-  it('clears flags and leaves old flags on the flag object', async () => {
-    const flagResult = await user.post(`/challenges/${challenge._id}/clearflags`);
+  it('clears flags and sets mod flag to false', async () => {
+    await nonAdmin.post(`/challenges/${challenge._id}/flag`);
+    const flagResult = await admin.post(`/challenges/${challenge._id}/clearflags`);
 
     expect(flagResult.challenge.flagCount).to.eql(0);
-    expect(flagResult.challenge.flags).to.have.property(user._id, true);
+    expect(flagResult.challenge.flags).to.have.property(admin._id, false);
+    expect(flagResult.challenge.flags).to.have.property(nonAdmin._id, true);
   });
 });

@@ -32,6 +32,7 @@ import apiError from '../../libs/apiError';
 
 import {
   clearFlags,
+  flagChallenge,
   notifyOfFlaggedChallenge,
 } from '../../libs/challenges/reporting';
 
@@ -413,7 +414,12 @@ api.getUserChallenges = {
     };
 
     if (!user.contributor.admin) {
-      query.$and.push({ flagCount: { $lt: 2 } });
+      query.$and.push({
+        $or: [
+          { flagCount: { $lt: 2 } },
+          { flagCount: { $exists: false } }, // TODO: Remove after flagCount migration
+        ],
+      });
     }
 
     const { owned } = req.query;
@@ -432,7 +438,8 @@ api.getUserChallenges = {
       const searchWords = _.escapeRegExp(req.query.search).split(' ').join('|');
       const searchQuery = { $regex: new RegExp(`${searchWords}`, 'i') };
       searchOr.$or.push({ name: searchQuery });
-      searchOr.$or.push({ description: searchQuery }); query.$and.push(searchOr);
+      searchOr.$or.push({ description: searchQuery });
+      query.$and.push(searchOr);
     }
 
     if (req.query.categories) {
@@ -512,8 +519,7 @@ api.getGroupChallenges = {
     const group = await Group.getGroup({ user, groupId });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    const query = { group: groupId };
-    const challenges = await createChallengeQuery(query)
+    const challenges = await createChallengeQuery({ group: groupId })
       // Only populate the leader as the group is implicit // see below why we're not using populate
       // .populate('leader', nameFields)
       .exec();
@@ -889,22 +895,6 @@ api.cloneChallenge = {
     res.respond(200, { clonedTasks, clonedChallenge: savedChal });
   },
 };
-
-async function flagChallenge (challenge, user, res) {
-  if (challenge.flags[user._id] && !user.contributor.admin) throw new NotFound(res.t('messageChallengeFlagAlreadyReported'));
-
-  challenge.flags[user._id] = true;
-  challenge.markModified('flags');
-
-  if (user.contributor.admin) {
-    // Arbitrary amount, higher than 2
-    challenge.flagCount = 5;
-  } else {
-    challenge.flagCount += 1;
-  }
-
-  await challenge.save();
-}
 
 /**
  * @api {post} /api/v3/challenges/:challengeId/flag Flag a challenge
