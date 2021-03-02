@@ -47,7 +47,7 @@ const api = {};
  * Challenges memberships (Challenge IDs);
  * Flags (including armoire, tutorial, tour etc...);
  * Guilds memberships (Guild IDs);
- * History (including timestamps and values, only for Experience and summed To-Do values);
+ * History (including timestamps and values, only for Experience and summed To Do values);
  * Inbox;
  * Invitations (to parties/guilds);
  * Items (character's full inventory);
@@ -60,7 +60,7 @@ const api = {};
  * PushDevices (identifiers for mobile devices authorized);
  * Stats (standard RPG stats, class, buffs, xp, etc..);
  * Tags;
- * TasksOrder (list of all IDs for Dailys, Habits, Rewards and To-Dos).
+ * TasksOrder (list of all IDs for Dailys, Habits, Rewards and To Do's).
  *
  * @apiParam (Query) {String} [userFields] A list of comma-separated user fields to
  *                                         be returned instead of the entire document.
@@ -280,7 +280,10 @@ api.deleteUser = {
     if (user.auth.local.hashed_password && user.auth.local.email) {
       const isValidPassword = await passwordUtils.compare(user, password);
       if (!isValidPassword) throw new NotAuthorized(res.t('wrongPassword'));
-    } else if ((user.auth.facebook.id || user.auth.google.id) && password !== DELETE_CONFIRMATION) {
+    } else if (
+      (user.auth.facebook.id || user.auth.google.id || user.auth.apple.id)
+      && password !== DELETE_CONFIRMATION
+    ) {
       throw new NotAuthorized(res.t('incorrectDeletePhrase', { magicWord: 'DELETE' }));
     }
 
@@ -366,6 +369,7 @@ api.getUserAnonymized = {
       delete user.auth.local;
       delete user.auth.facebook;
       delete user.auth.google;
+      delete user.auth.apple;
     }
     delete user.newMessages;
     delete user.profile;
@@ -377,6 +381,7 @@ api.getUserAnonymized = {
     delete user.webhooks;
     delete user.achievements.challenges;
     delete user.notifications;
+    delete user.secret;
 
     _.forEach(user.inbox.messages, msg => {
       msg.text = 'inbox message text';
@@ -790,7 +795,7 @@ api.hatch = {
   url: '/user/hatch/:egg/:hatchingPotion',
   async handler (req, res) {
     const { user } = res.locals;
-    const hatchRes = common.ops.hatch(user, req);
+    const hatchRes = common.ops.hatch(user, req, res.analytics);
 
     await user.save();
 
@@ -857,9 +862,14 @@ api.equip = {
  *
  * @apiParam (Path) {String} pet
  * @apiParam (Path) {String} food
+ * @apiParam (Query) {Number} [amount] The amount of food to feed.
+ *                                     Note: Pet can eat 50 units.
+ *                                     Preferred food offers 5 units per food,
+ *                                     other food 2 units.
  *
  * @apiParamExample {url} Example-URL
  * https://habitica.com/api/v3/user/feed/Armadillo-Shade/Chocolate
+ * https://habitica.com/api/v3/user/feed/Armadillo-Shade/Chocolate?amount=9
  *
  * @apiSuccess {Number} data The pet value
  * @apiSuccess {String} message Success message
@@ -872,6 +882,8 @@ api.equip = {
  * @apiError {BadRequest} InvalidPet Invalid pet name supplied.
  * @apiError {NotFound} FoodNotOwned :food not found in user.items.food
  *                                   Note: also sent if food name is invalid.
+ * @apiError {NotAuthorized} notEnoughFood :Not enough food to feed the pet as requested.
+ * @apiError {NotAuthorized} tooMuchFood :You try to feed too much food. Action ancelled.
  *
  *
  */
@@ -881,7 +893,7 @@ api.feed = {
   url: '/user/feed/:pet/:food',
   async handler (req, res) {
     const { user } = res.locals;
-    const feedRes = common.ops.feed(user, req);
+    const feedRes = common.ops.feed(user, req, res.analytics);
 
     await user.save();
 
@@ -1679,9 +1691,9 @@ api.togglePinnedItem = {
  * @apiGroup User
  *
  * @apiParam (Path) {String} path The unique item path used for pinning
- * @apiParam (Path) {Number} position Where to move the task. 0 = top of the list.
- *                                    -1 = bottom of the list.
- *                                    (-1 means push to bottom). First position is 0.
+ * @apiParam (Path) {Number} position Where to move the task.
+ *                                    0 = top of the list ("push to top").
+ *                                   -1 = bottom of the list ("push to bottom").
  *
  * @apiSuccess {Array} data The new pinned items order.
  *
@@ -1704,7 +1716,7 @@ api.movePinnedItem = {
 
     const { user } = res.locals;
     const { path } = req.params;
-    const position = Number(req.params.position);
+    let position = Number(req.params.position);
 
     // If something has been added or removed from the inAppRewards, we need
     // to reset pinnedItemsOrder to have the correct length. Since inAppRewards
@@ -1715,16 +1727,27 @@ api.movePinnedItem = {
       user.pinnedItemsOrder = currentPinnedItems.map(item => item.path);
     }
 
+    const officialItems = common.getOfficialPinnedItems(user);
+
+    const itemExistInPinnedArray = user.pinnedItems.findIndex(item => item.path === path);
+    const itemExistInOfficialItems = officialItems.findIndex(item => item.path === path);
+
+    if (itemExistInPinnedArray === -1 && itemExistInOfficialItems === -1) {
+      throw new BadRequest(res.t('wrongItemPath', { path }, req.language));
+    }
+
     // Adjust the order
     const currentIndex = user.pinnedItemsOrder.findIndex(item => item === path);
     const currentPinnedItemPath = user.pinnedItemsOrder[currentIndex];
 
-    if (currentIndex === -1) {
-      throw new BadRequest(res.t('wrongItemPath', { path }, req.language));
+    if (currentIndex !== -1) {
+      // Remove the one we will move
+      user.pinnedItemsOrder.splice(currentIndex, 1);
+    } else {
+      // usually the array would be already fixed by the inAppRewards call
+      // but it seems something didn't work out
+      position = Math.min(position, user.pinnedItemsOrder.length - 1);
     }
-
-    // Remove the one we will move
-    user.pinnedItemsOrder.splice(currentIndex, 1);
 
     // reinsert the item in position (or just at the end)
     if (position === -1) {

@@ -3,7 +3,7 @@ import {
   generateUser,
   translate as t,
 } from '../../../../helpers/api-integration/v3';
-
+import { model as NewsPost } from '../../../../../website/server/models/newsPost';
 
 describe('PUT /user', () => {
   let user;
@@ -53,7 +53,6 @@ describe('PUT /user', () => {
       expect(user.tags.length).to.be.eql(userTags.length + 1);
     });
 
-
     it('validates profile.name', async () => {
       await expect(user.put('/user', {
         'profile.name': ' ', // string should be trimmed
@@ -94,6 +93,32 @@ describe('PUT /user', () => {
         error: 'BadRequest',
         message: t('displaynameIssueSlur'),
       });
+
+      await expect(user.put('/user', {
+        'profile.name': 'namecontainsnewline\n',
+      })).to.eventually.be.rejected.and.eql({
+        code: 400,
+        error: 'BadRequest',
+        message: t('displaynameIssueNewline'),
+      });
+    });
+
+    it('can set flags.newStuff to false', async () => {
+      NewsPost.updateLastNewsPost({
+        _id: '1234', publishDate: new Date(), title: 'Title', published: true,
+      });
+
+      await user.update({
+        'flags.lastNewStuffRead': '123',
+      });
+
+      await user.put('/user', {
+        'flags.newStuff': false,
+      });
+
+      await user.sync();
+
+      expect(user.flags.lastNewStuffRead).to.eql('1234');
     });
   });
 
@@ -107,6 +132,7 @@ describe('PUT /user', () => {
       'customization gem purchases': { 'purchased.background.tavern': true, 'purchased.skin.bear': true },
       notifications: [{ type: 123 }],
       webhooks: { webhooks: [{ url: 'https://foobar.com' }] },
+      secret: { secret: { text: 'Some new text' } },
     };
 
     each(protectedOperations, (data, testName) => {
@@ -129,6 +155,7 @@ describe('PUT /user', () => {
       webhooks: { 'preferences.webhooks': [1, 2, 3] },
       sleep: { 'preferences.sleep': true },
       'disable classes': { 'preferences.disableClasses': true },
+      secret: { secret: { text: 'Some new text' } },
     };
 
     each(protectedOperations, (data, testName) => {

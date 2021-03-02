@@ -33,8 +33,9 @@
       </p>
       <div
         ref="markdownContainer"
-        class="text"
-        v-html="atHighlight(parseMarkdown(msg.text))"
+        class="text markdown"
+        dir="auto"
+        v-html="parseMarkdown(msg.text)"
       ></div>
       <hr>
       <div
@@ -164,9 +165,8 @@
     .text {
       font-size: 14px;
       color: #4e4a57;
-      text-align: left !important;
+      text-align: initial;
       min-height: 0rem;
-      margin-bottom: -0.5rem;
     }
   }
 
@@ -200,9 +200,8 @@
 import moment from 'moment';
 import cloneDeep from 'lodash/cloneDeep';
 import escapeRegExp from 'lodash/escapeRegExp';
-import max from 'lodash/max';
 
-import habiticaMarkdown from 'habitica-markdown';
+import renderWithMentions from '@/libs/renderWithMentions';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
 
@@ -211,7 +210,6 @@ import copyIcon from '@/assets/svg/copy.svg';
 import likeIcon from '@/assets/svg/like.svg';
 import likedIcon from '@/assets/svg/liked.svg';
 import reportIcon from '@/assets/svg/report.svg';
-import { highlightUsers } from '../../libs/highlightUsers';
 import { CHAT_FLAG_LIMIT_FOR_HIDING, CHAT_FLAG_FROM_SHADOW_MUTE } from '@/../../common/script/constants';
 
 export default {
@@ -245,28 +243,14 @@ export default {
     ...mapState({ user: 'user.data' }),
     isUserMentioned () {
       const message = this.msg;
+
+      if (message.highlight) return true;
+
       const { user } = this;
-
-      if (message.highlight) return message.highlight;
-
-      message.highlight = false;
-      const messageText = message.text.toLowerCase();
       const displayName = user.profile.name;
-      const username = user.auth.local && user.auth.local.username;
-      const mentioned = max([
-        messageText.indexOf(username.toLowerCase()),
-        messageText.indexOf(displayName.toLowerCase()),
-      ]);
-      if (mentioned === -1) return message.highlight;
-
-      const escapedDisplayName = escapeRegExp(displayName);
-      const escapedUsername = escapeRegExp(username);
-      const pattern = `@(${escapedUsername}|${escapedDisplayName})(\\b)`;
-      const precedingChar = messageText.substring(mentioned - 1, mentioned);
-      if (mentioned === 0 || precedingChar.trim() === '' || precedingChar === '@') {
-        const regex = new RegExp(pattern, 'i');
-        message.highlight = regex.test(messageText);
-      }
+      const { username } = user.auth.local;
+      const pattern = `@(${escapeRegExp(displayName)}|${escapeRegExp(username)})(\\b)`;
+      message.highlight = new RegExp(pattern, 'i').test(message.text);
 
       return message.highlight;
     },
@@ -319,11 +303,7 @@ export default {
         chatId: message.id,
       });
 
-      if (!message.likes[this.user._id]) {
-        message.likes[this.user._id] = true;
-      } else {
-        message.likes[this.user._id] = !message.likes[this.user._id];
-      }
+      message.likes[this.user._id] = !message.likes[this.user._id];
 
       this.$emit('message-liked', message);
       this.$root.$emit('bv::hide::tooltip');
@@ -350,7 +330,7 @@ export default {
       });
     },
     async remove () {
-      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return;
+      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return; // eslint-disable-line no-alert
 
       const message = this.msg;
       this.$emit('message-removed', message);
@@ -360,12 +340,8 @@ export default {
         chatId: message.id,
       });
     },
-    atHighlight (text) {
-      return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
-    },
     parseMarkdown (text) {
-      if (!text) return null;
-      return habiticaMarkdown.render(String(text));
+      return renderWithMentions(text, this.user);
     },
   },
 };

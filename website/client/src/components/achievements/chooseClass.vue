@@ -16,7 +16,7 @@
         <div class="row">
           <div
             v-for="heroClass in classes"
-            :key="heroClass"
+            :key="`${heroClass}-avatar`"
             class="col-md-3"
           >
             <div @click="selectedClass = heroClass">
@@ -60,7 +60,7 @@
         </div>
         <div
           v-for="heroClass in classes"
-          :key="heroClass"
+          :key="`${heroClass}-explanation`"
         >
           <div
             v-if="selectedClass === heroClass"
@@ -209,14 +209,22 @@ export default {
     ...mapState({
       user: 'user.data',
       classes: 'content.classes',
+      currentEvent: 'worldState.data.currentEvent',
     }),
+    eventName () {
+      if (
+        !this.currentEvent || !this.currentEvent.event
+        || this.currentEvent.season === 'normal' || this.currentEvent.season === 'valentines'
+      ) return null;
+      return this.currentEvent.event.replace('NoPromo', '');
+    },
   },
   methods: {
     close () {
       this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
-      if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) return;
+      if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) return; // eslint-disable-line no-alert
       this.$store.dispatch('user:changeClass', { query: { class: heroClass } });
     },
     clickDisableClasses () {
@@ -224,6 +232,14 @@ export default {
     },
     classGear (heroClass) {
       if (heroClass === 'rogue') {
+        if (this.eventName) {
+          return {
+            armor: `armor_special_${this.eventName}Rogue`,
+            head: `head_special_${this.eventName}Rogue`,
+            shield: `shield_special_${this.eventName}Rogue`,
+            weapon: `weapon_special_${this.eventName}Rogue`,
+          };
+        }
         return {
           armor: 'armor_rogue_5',
           head: 'head_rogue_5',
@@ -231,17 +247,40 @@ export default {
           weapon: 'weapon_rogue_6',
         };
       } if (heroClass === 'wizard') {
+        if (this.eventName) {
+          return {
+            armor: `armor_special_${this.eventName}Mage`,
+            head: `head_special_${this.eventName}Mage`,
+            weapon: `weapon_special_${this.eventName}Mage`,
+          };
+        }
         return {
           armor: 'armor_wizard_5',
           head: 'head_wizard_5',
           weapon: 'weapon_wizard_6',
         };
       } if (heroClass === 'healer') {
+        if (this.eventName) {
+          return {
+            armor: `armor_special_${this.eventName}Healer`,
+            head: `head_special_${this.eventName}Healer`,
+            shield: `shield_special_${this.eventName}Healer`,
+            weapon: `weapon_special_${this.eventName}Healer`,
+          };
+        }
         return {
           armor: 'armor_healer_5',
           head: 'head_healer_5',
           shield: 'shield_healer_5',
           weapon: 'weapon_healer_6',
+        };
+      }
+      if (this.eventName) {
+        return {
+          armor: `armor_special_${this.eventName}Warrior`,
+          head: `head_special_${this.eventName}Warrior`,
+          shield: `shield_special_${this.eventName}Warrior`,
+          weapon: `weapon_special_${this.eventName}Warrior`,
         };
       }
       return {

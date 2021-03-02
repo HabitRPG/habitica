@@ -6,6 +6,7 @@ import { togglePinnedItem as togglePinnedItemOp } from '@/../../common/script/op
 import changeClassOp from '@/../../common/script/ops/changeClass';
 import disableClassesOp from '@/../../common/script/ops/disableClasses';
 import openMysteryItemOp from '@/../../common/script/ops/openMysteryItem';
+import { unEquipByType } from '../../../../common/script/ops/unequip';
 import markPMSRead from '../../../../common/script/ops/markPMSRead';
 
 export function fetch (store, options = {}) { // eslint-disable-line no-shadow
@@ -131,11 +132,6 @@ export async function openMysteryItem (store) {
   return axios.post('/api/v4/user/open-mystery-item');
 }
 
-export function newStuffLater (store) {
-  store.state.user.data.flags.newStuff = false;
-  return axios.post('/api/v4/news/tell-me-later');
-}
-
 export async function rebirth () {
   const result = await axios.post('/api/v4/user/rebirth');
 
@@ -227,4 +223,20 @@ export function newPrivateMessageTo (store, params) {
     contributor: member.contributor,
     userStyles,
   };
+}
+
+export async function unequip (store, params) {
+  const user = store.state.user.data;
+
+  unEquipByType(user, { params });
+
+  const response = await axios.post(`/api/v4/user/unequip/${params.type}`);
+
+  store.dispatch('snackbars:add', {
+    title: 'Habitica',
+    text: response.data.message,
+    type: 'info',
+  });
+
+  return response.data.data;
 }

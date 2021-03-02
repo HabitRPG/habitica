@@ -29,7 +29,7 @@
             :class="{
               'input-valid': invite.valid, 'is-invalid input-invalid': invite.valid === false}"
             @keyup="expandInviteList"
-            @change="checkInviteList"
+            @input="inviteUpdated(invite)"
           >
         </div>
         <div
@@ -128,8 +128,6 @@
 <script>
 import clone from 'lodash/clone';
 import debounce from 'lodash/debounce';
-import filter from 'lodash/filter';
-import forEach from 'lodash/forEach';
 import isEmail from 'validator/lib/isEmail';
 import isUUID from 'validator/lib/isUUID';
 import { mapState } from '@/libs/store';
@@ -152,25 +150,24 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     cannotSubmit () {
-      const filteredInvites = filter(
-        this.invites,
-        invite => invite.text.length > 0 && !invite.valid,
-      );
-      if (filteredInvites.length > 0) return true;
-      return false;
+      const filledInvites = this.invites.filter(invite => invite.text.length);
+      return !filledInvites.length || filledInvites.some(invite => !invite.valid);
     },
     inviter () {
       return this.user.profile.name;
     },
   },
   methods: {
+    inviteUpdated (invite) {
+      this.clearErrors(invite);
+      this.checkInviteList();
+    },
     checkInviteList: debounce(function checkList () {
-      this.invites = filter(
-        this.invites,
+      this.invites = this.invites.filter(
         (invite, index) => invite.text.length > 0 || index === this.invites.length - 1,
       );
       while (this.invites.length < 2) this.invites.push(clone(INVITE_DEFAULTS));
-      forEach(this.invites, (value, index) => {
+      this.invites.forEach((value, index) => {
         if (value.text.length < 1 || isEmail(value.text)) {
           return this.fillErrors(index);
         }
@@ -185,11 +182,15 @@ export default {
         return this.$store.dispatch('user:userLookup', { username: searchUsername })
           .then(res => this.fillErrors(index, res));
       });
-    }, 250),
+    }, 500),
     expandInviteList () {
       if (this.invites[this.invites.length - 1].text.length > 0) {
         this.invites.push(clone(INVITE_DEFAULTS));
       }
+    },
+    clearErrors (invite) {
+      invite.valid = null;
+      invite.error = null;
     },
     fillErrors (index, res) {
       if (!res || res.status === 200) {
@@ -216,7 +217,7 @@ export default {
         uuids: [],
         usernames: [],
       };
-      forEach(this.invites, invite => {
+      this.invites.forEach(invite => {
         if (invite.text.length < 1) return;
         if (isEmail(invite.text)) {
           invitationDetails.emails.push({ email: invite.text });

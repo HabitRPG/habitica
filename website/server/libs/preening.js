@@ -2,10 +2,10 @@ import _ from 'lodash';
 import moment from 'moment';
 
 // Aggregate entries
-function _aggregate (history, aggregateBy, timezoneOffset, dayStart) {
+function _aggregate (history, aggregateBy, timezoneUtcOffset, dayStart) {
   return _.chain(history)
     .groupBy(entry => { // group entries by aggregateBy
-      const entryDate = moment(entry.date).zone(timezoneOffset);
+      const entryDate = moment(entry.date).utcOffset(timezoneUtcOffset);
       if (entryDate.hour() < dayStart) entryDate.subtract(1, 'day');
       return entryDate.format(aggregateBy);
     })
@@ -35,16 +35,16 @@ Subscribers and challenges:
 - 1 value each month for the previous 12 months
 - 1 value each year for the previous years
  */
-export function preenHistory (history, isSubscribed, timezoneOffset = 0, dayStart = 0) {
+export function preenHistory (history, isSubscribed, timezoneUtcOffset = 0, dayStart = 0) {
   // history = _.filter(history, historyEntry => Boolean(historyEntry)); // Filter missing entries
-  const now = moment().zone(timezoneOffset);
+  const now = moment().utcOffset(timezoneUtcOffset);
   // Date after which to begin compressing data
   const cutOff = now.subtract(isSubscribed ? 365 : 60, 'days').startOf('day');
 
   // Keep uncompressed entries (modifies history and returns removed items)
   const newHistory = _.remove(history, entry => {
     if (!entry) return true; // sometimes entries are `null`
-    const entryDate = moment(entry.date).zone(timezoneOffset);
+    const entryDate = moment(entry.date).utcOffset(timezoneUtcOffset);
     if (entryDate.hour() < dayStart) entryDate.subtract(1, 'day');
     return entryDate.isSame(cutOff) || entryDate.isAfter(cutOff);
   });
@@ -53,13 +53,13 @@ export function preenHistory (history, isSubscribed, timezoneOffset = 0, dayStar
   const monthsCutOff = cutOff.subtract(isSubscribed ? 12 : 10, 'months').startOf('day');
   const aggregateByMonth = _.remove(history, entry => {
     if (!entry) return true; // sometimes entries are `null`
-    const entryDate = moment(entry.date).zone(timezoneOffset);
+    const entryDate = moment(entry.date).utcOffset(timezoneUtcOffset);
     if (entryDate.hour() < dayStart) entryDate.subtract(1, 'day');
     return entryDate.isSame(monthsCutOff) || entryDate.isAfter(monthsCutOff);
   });
   // Aggregate remaining entries by month and year
-  if (aggregateByMonth.length > 0) newHistory.unshift(..._aggregate(aggregateByMonth, 'YYYYMM', timezoneOffset, dayStart));
-  if (history.length > 0) newHistory.unshift(..._aggregate(history, 'YYYY', timezoneOffset, dayStart));
+  if (aggregateByMonth.length > 0) newHistory.unshift(..._aggregate(aggregateByMonth, 'YYYYMM', timezoneUtcOffset, dayStart));
+  if (history.length > 0) newHistory.unshift(..._aggregate(history, 'YYYY', timezoneUtcOffset, dayStart));
 
   return newHistory;
 }
@@ -67,13 +67,13 @@ export function preenHistory (history, isSubscribed, timezoneOffset = 0, dayStar
 // Preen history for users and tasks.
 export function preenUserHistory (user, tasksByType) {
   const isSubscribed = user.isSubscribed();
-  const { timezoneOffset } = user.preferences;
+  const timezoneUtcOffset = user.getUtcOffset();
   const { dayStart } = user.preferences;
   const minHistoryLength = isSubscribed ? 365 : 60;
 
   function _processTask (task) {
     if (task.history && task.history.length > minHistoryLength) {
-      task.history = preenHistory(task.history, isSubscribed, timezoneOffset, dayStart);
+      task.history = preenHistory(task.history, isSubscribed, timezoneUtcOffset, dayStart);
       task.markModified('history');
     }
   }
@@ -82,12 +82,14 @@ export function preenUserHistory (user, tasksByType) {
   tasksByType.dailys.forEach(_processTask);
 
   if (user.history.exp.length > minHistoryLength) {
-    user.history.exp = preenHistory(user.history.exp, isSubscribed, timezoneOffset, dayStart);
+    user.history.exp = preenHistory(user.history.exp, isSubscribed, timezoneUtcOffset, dayStart);
     user.markModified('history.exp');
   }
 
   if (user.history.todos.length > minHistoryLength) {
-    user.history.todos = preenHistory(user.history.todos, isSubscribed, timezoneOffset, dayStart);
+    user.history.todos = preenHistory(
+      user.history.todos, isSubscribed, timezoneUtcOffset, dayStart,
+    );
     user.markModified('history.todos');
   }
 }

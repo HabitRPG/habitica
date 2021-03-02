@@ -52,7 +52,7 @@ b-dropdown(:text="$t('sort')", right=true)
           />
           <mugen-scroll
             v-show="loading"
-            :handler="fetchGuilds"
+            :handler="triggerFetchGuilds"
             :should-handle="!loading && !hasLoadedAllGuilds"
             :handle-on-mount="true"
           >
@@ -90,6 +90,7 @@ b-dropdown(:text="$t('sort')", right=true)
 
 <script>
 import MugenScroll from 'vue-mugen-scroll';
+import debounce from 'lodash/debounce';
 import PublicGuildItem from './publicGuildItem';
 import Sidebar from './sidebar';
 import groupUtilities from '@/mixins/groupsUtilities';
@@ -154,6 +155,12 @@ export default {
       return this.guilds.filter(guild => filterGuild(guild, filters, search, user));
     },
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('guildsDiscovery'),
+      section: this.$t('guilds'),
+    });
+  },
   methods: {
     async updateSearch (eventData) {
       // this.search = eventData.searchTerm; @TODO: Probably don't need this anymore
@@ -217,13 +224,19 @@ export default {
       _mapCategories(guilds);
       this.guilds = guilds;
     },
+    triggerFetchGuilds () {
+      this.loading = true;
+      this.debounceFetchGuilds();
+    },
+    debounceFetchGuilds: debounce(function debounceFetchGuilds () {
+      this.fetchGuilds();
+    }, 1000),
     async fetchGuilds () {
       // We have the data cached
       if (this.lastPageLoaded === 0 && this.guilds.length > 0) {
         this.lastPageLoaded += 1;
       }
 
-      this.loading = true;
       this.queryFilters.page = this.lastPageLoaded;
       const guilds = await this.$store.dispatch('guilds:getPublicGuilds', this.queryFilters);
       if (guilds.length === 0) this.hasLoadedAllGuilds = true;

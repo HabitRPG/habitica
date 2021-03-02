@@ -8,12 +8,18 @@ import {
 describe('POST /tasks/group/:groupid', () => {
   let user; let guild; let
     manager;
+  let tzoffset;
   const groupName = 'Test Public Guild';
   const groupType = 'guild';
 
+  before(async () => {
+    tzoffset = new Date().getTimezoneOffset();
+  });
+
   beforeEach(async () => {
-    user = await generateUser({ balance: 1 });
+    //  user = await generateUser({ balance: 1, 'preferences.timezoneOffset': tzoffset });
     const { group, groupLeader, members } = await createAndPopulateGroup({
+      leaderDetails: { balance: 10, 'preferences.timezoneOffset': tzoffset },
       groupDetails: {
         name: groupName,
         type: groupType,
@@ -128,7 +134,7 @@ describe('POST /tasks/group/:groupid', () => {
     expect(task.type).to.eql('daily');
     expect(task.frequency).to.eql('daily');
     expect(task.everyX).to.eql(5);
-    expect(new Date(task.startDate)).to.eql(now);
+    expect(new Date(task.startDate)).to.eql(new Date(now.setHours(0, 0, 0, 0)));
   });
 
   it('allows a manager to add a group task', async () => {

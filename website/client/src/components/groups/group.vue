@@ -25,43 +25,41 @@
         <div class="col-12 col-md-6">
           <div class="row icon-row">
             <div
-              class="col-4 offset-4"
-              :class="{ 'offset-8': isParty }"
+              class="item-with-icon"
+              tabindex="0"
+              role="button"
+              @keyup.enter="showMemberModal()"
+              @click="showMemberModal()"
             >
               <div
-                class="item-with-icon"
-                @click="showMemberModal()"
+                v-if="group.memberCount > 1000"
+                class="svg-icon shield"
+                v-html="icons.goldGuildBadgeIcon"
+              ></div>
+              <div
+                v-if="group.memberCount > 100 && group.memberCount < 999"
+                class="svg-icon shield"
+                v-html="icons.silverGuildBadgeIcon"
+              ></div>
+              <div
+                v-if="group.memberCount < 100"
+                class="svg-icon shield"
+                v-html="icons.bronzeGuildBadgeIcon"
+              ></div>
+              <span class="number">{{ group.memberCount | abbrNum }}</span>
+              <div
+                v-once
+                class="member-list label"
               >
-                <div
-                  v-if="group.memberCount > 1000"
-                  class="svg-icon shield"
-                  v-html="icons.goldGuildBadgeIcon"
-                ></div>
-                <div
-                  v-if="group.memberCount > 100 && group.memberCount < 999"
-                  class="svg-icon shield"
-                  v-html="icons.silverGuildBadgeIcon"
-                ></div>
-                <div
-                  v-if="group.memberCount < 100"
-                  class="svg-icon shield"
-                  v-html="icons.bronzeGuildBadgeIcon"
-                ></div>
-                <span class="number">{{ group.memberCount | abbrNum }}</span>
-                <div
-                  v-once
-                  class="member-list label"
-                >
-                  {{ $t('memberList') }}
-                </div>
+                {{ $t('memberList') }}
               </div>
             </div>
-            <div
-              v-if="!isParty"
-              class="col-4"
-            >
+            <div v-if="!isParty">
               <div
                 class="item-with-icon"
+                tabindex="0"
+                role="button"
+                @keyup.enter="showGroupGems()"
                 @click="showGroupGems()"
               >
                 <div
@@ -106,7 +104,7 @@
         <div class="col-12 buttons-wrapper">
           <div class="button-container">
             <button
-              v-if="isLeader && !group.purchased.active"
+              v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
               class="btn btn-success btn-success"
               @click="upgradeGroup()"
             >
@@ -225,9 +223,13 @@
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     padding: 1em;
     text-align: center;
-    min-width: 80px;
-    max-width: 120px;
+    min-width: 120px;
     height: 76px;
+    margin-right: 1rem;
+
+    &:last-of-type {
+      margin-left: 0.5rem;
+    }
 
     .svg-icon.shield, .svg-icon.gem {
       width: 28px;
@@ -312,6 +314,7 @@
 
   .icon-row {
     margin-top: 1em;
+    justify-content: flex-end;
 
     .number {
       font-size: 22px;
@@ -385,7 +388,7 @@
 import extend from 'lodash/extend';
 import groupUtilities from '@/mixins/groupsUtilities';
 import styleHelper from '@/mixins/styleHelper';
-import { mapState } from '@/libs/store';
+import { mapState, mapGetters } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 import startQuestModal from './startQuestModal';
 import questDetailsModal from './questDetailsModal';
@@ -447,6 +450,7 @@ export default {
         bronzeGuildBadgeIcon,
       }),
       members: [],
+      membersLoaded: false,
       selectedQuest: {},
       chat: {
         submitDisable: false,
@@ -455,7 +459,12 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({
+      user: 'user.data',
+    }),
+    ...mapGetters({
+      partyMembers: 'party:members',
+    }),
     partyStore () {
       return this.$store.state.party;
     },
@@ -487,32 +496,36 @@ export default {
       }
     },
   },
-  mounted () {
+  async mounted () {
     if (this.isParty) this.searchId = 'party';
     if (!this.searchId) this.searchId = this.groupId;
-    this.load();
+    await this.fetchGuild();
+
+    const type = this.isParty ? 'party' : 'guilds';
+    this.$store.dispatch('common:setTitle', {
+      section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t(type),
+      subSection: this.group.name,
+    });
+    this.$root.$on('updatedGroup', this.onGroupUpdate);
+  },
+  beforeDestroy () {
+    this.$root.$off('updatedGroup', this.onGroupUpdate);
   },
   beforeRouteUpdate (to, from, next) {
     this.$set(this, 'searchId', to.params.groupId);
-
     next();
   },
   methods: {
     acceptCommunityGuidelines () {
       this.$store.dispatch('user:set', { 'flags.communityGuidelinesAccepted': true });
     },
-    async load () {
-      if (this.isParty) {
-        this.searchId = 'party';
-        // @TODO: Set up from old client. Decide what we need and what we don't
-        // Check Desktop notifs
-        // Load invites
-      }
-      await this.fetchGuild();
-
-      this.$root.$on('updatedGroup', group => {
-        const updatedGroup = extend(this.group, group);
-        this.$set(this.group, updatedGroup);
+    onGroupUpdate (group) {
+      const updatedGroup = extend(this.group, group);
+      this.$set(this.group, updatedGroup);
+      const type = this.isParty ? 'party' : 'guilds';
+      this.$store.dispatch('common:setTitle', {
+        section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t(type),
+        subSection: group.name,
       });
     },
 
@@ -531,6 +544,26 @@ export default {
       return this.$store.dispatch('members:getGroupMembers', payload);
     },
     showMemberModal () {
+      this.$store.state.memberModalOptions.loading = true;
+
+      if (this.isParty) {
+        this.membersLoaded = true;
+        this.members = this.partyMembers;
+        this.$store.state.memberModalOptions.loading = false;
+      } else if (!this.membersLoaded) {
+        this.membersLoaded = true;
+
+        this.loadMembers({
+          groupId: this.group._id,
+          includeAllPublicFields: true,
+        }).then(m => {
+          this.members.push(...m);
+          this.$store.state.memberModalOptions.loading = false;
+        });
+      } else {
+        this.$store.state.memberModalOptions.loading = false;
+      }
+
       this.$root.$emit('habitica:show-member-modal', {
         groupId: this.group._id,
         group: this.group,
@@ -554,51 +587,45 @@ export default {
         this.$root.$emit('bv::show::modal', 'create-party-modal');
         return;
       }
-
       if (this.isParty) {
         await this.$store.dispatch('party:getParty', true);
         this.group = this.$store.state.party.data;
+        this.$store.dispatch('common:setTitle', {
+          section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('party'),
+          subSection: this.group.name,
+        });
       } else {
         const group = await this.$store.dispatch('guilds:getGroup', { groupId: this.searchId });
         this.$set(this, 'group', group);
+        this.$store.dispatch('common:setTitle', {
+          section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('guilds'),
+          subSection: group.name,
+        });
       }
 
       const groupId = this.searchId === 'party' ? this.user.party._id : this.searchId;
       if (this.hasUnreadMessages(groupId)) {
-        // Delay by 1sec to make sure it returns after
-        // other requests that don't have the notification marked as read
-        setTimeout(() => {
-          this.$store.dispatch('chat:markChatSeen', { groupId });
-          this.$delete(this.user.newMessages, groupId);
-        }, 1000);
+        const notification = this.user
+          .notifications.find(n => n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId);
+        const notificationId = notification && notification.id;
+        this.$store.dispatch('chat:markChatSeen', { groupId, notificationId });
       }
-
-      this.members = await this.loadMembers({
-        groupId: this.group._id,
-        includeAllPublicFields: true,
-      });
     },
+    // returns the notification id or false
     hasUnreadMessages (groupId) {
       if (this.user.newMessages[groupId]) return true;
 
       return this.user.notifications.some(n => n.type === 'NEW_CHAT_MESSAGE' && n.data.group.id === groupId);
     },
     async join () {
-      if (this.group.cancelledPlan && !window.confirm(this.$t('aboutToJoinCancelledGroupPlan'))) {
+      if (this.group.cancelledPlan && !window.confirm(this.$t('aboutToJoinCancelledGroupPlan'))) { // eslint-disable-line no-alert
         return;
       }
       await this.$store.dispatch('guilds:join', { groupId: this.group._id, type: 'guild' });
     },
     clickLeave () {
-      Analytics.track({
-        hitType: 'event',
-        eventCategory: 'button',
-        eventAction: 'click',
-        eventLabel: 'Leave Party',
-      });
-
       // @TODO: Get challenges and ask to keep or remove
-      if (!window.confirm('Are you sure you want to leave?')) return;
+      if (!window.confirm('Are you sure you want to leave?')) return; // eslint-disable-line no-alert
       const keep = true;
       this.leave(keep);
     },

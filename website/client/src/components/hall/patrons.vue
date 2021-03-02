@@ -54,6 +54,9 @@ export default {
     ...mapState({ user: 'user.data' }),
   },
   async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('hallPatrons'),
+    });
     this.patrons = await this.$store.dispatch('hall:getPatrons', { page: 0 });
   },
   methods: {

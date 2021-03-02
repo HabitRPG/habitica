@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "מהדורה מוגבלת",
-    "seasonalEdition": "מהדורה עונתית",
-    "winterColors": "צבעי חורף",
     "annoyingFriends": "חברים מרגיזים",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "חברים מפחידים",
@@ -61,7 +58,6 @@
     "nye2": "שנה טובה! שתרוויחו הרבה ״יום מושלם״.",
     "nye3": "שנה טובה! שרשימת המשימות שלכם תהיה קצרה ומתוקה.",
     "nye4": "שנה טובה! שלא תותקפו על ידי היפוגריפון זועם.",
-    "holidayCard": "קיבלו כרטיס לחגים!",
     "mightyBunnySet": "ארנב כוחני (לוחם)",
     "magicMouseSet": "עכבר קסום (מכשף)",
     "lovingPupSet": "כלבון אוהב (מרפא)",
@@ -150,6 +146,6 @@
     "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
     "discountBundle": "bundle",
-    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Announcement": "<strong>Gift a subscription and get a subscription free</strong> event going on now!",
     "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

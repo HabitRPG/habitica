@@ -1,9 +1,9 @@
 {
     "backgrounds": "Scaenae",
     "background": "Scaena",
-    "backgroundShop": "Taberna Scaenarum",
-    "backgroundShopText": "Taberna Scaenarum",
-    "noBackground": "Scaena Non Legitur",
+    "backgroundShop": "Emporium Scaenarum",
+    "backgroundShopText": "Emporium Scaenarum",
+    "noBackground": "Scaena Non Electa",
     "backgrounds062014": "THESAVRVS 1: Iunio 2014 editus",
     "backgroundBeachText": "Litus",
     "backgroundBeachNotes": "Desidere in litore calido.",
@@ -180,7 +180,7 @@
     "backgroundWaterfallRockText": "Petra Aquae Cadentis",
     "backgroundWaterfallRockNotes": "Resperge in Petra Aquae Cadentis.",
     "backgrounds072016": "THESAVRVS 26: Iulio 2016 editus",
-    "backgroundAquariumText": "Aquarium",
+    "backgroundAquariumText": "Aquarius",
     "backgroundAquariumNotes": "Nare in Aquario.",
     "backgroundDeepSeaText": "Oceanus Altus",
     "backgroundDeepSeaNotes": "Urinare sub Oceanum Altum.",
@@ -447,5 +447,13 @@
     "backgroundSeasideCliffsNotes": "In litore sta inspiciens pulchritudine scopulorum maritimorum.",
     "backgroundSeasideCliffsText": "Scopulus maritimus",
     "backgroundSchoolOfFishNotes": "In turba piscium nata.",
-    "backgroundSchoolOfFishText": "Turba piscium"
+    "backgroundSchoolOfFishText": "Turba piscium",
+    "backgroundLakeWithFloatingLanternsNotes": "Apud lacum lanternis fluctuantibus plenum festum astra spectandi.",
+    "backgroundLakeWithFloatingLanternsText": "Lacus lanternis fluctuantibus plenus",
+    "backgroundUnderwaterVentsNotes": "Aquam subi ad fumarolia hydrothermalia.",
+    "backgroundAmidAncientRuinsText": "Inter ruinas antiquas",
+    "backgroundAmongGiantAnemonesNotes": "Vitam in scopulo curalii explores, defendaris contra praedatores a coralliis magnis.",
+    "backgroundAmongGiantAnemonesText": "Inter corallia magna",
+    "backgroundFlyingOverTropicalIslandsNotes": "Stuporem te invadere sine volans super insulas tropicas.",
+    "backgroundFlyingOverTropicalIslandsText": "Volans super insulas tropicas"
 }

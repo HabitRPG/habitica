@@ -11,7 +11,9 @@ import apiError from '../../../../../website/server/libs/apiError';
 
 describe('GET /groups', () => {
   let user;
-  const NUMBER_OF_PUBLIC_GUILDS = 3; // 2 + the tavern
+  let userInGuild;
+  const NUMBER_OF_PUBLIC_GUILDS = 2;
+  const NUMBER_OF_PUBLIC_GUILDS_USER_IS_LEADER = 2;
   const NUMBER_OF_PUBLIC_GUILDS_USER_IS_MEMBER = 1;
   const NUMBER_OF_USERS_PRIVATE_GUILDS = 1;
   const NUMBER_OF_GROUPS_USER_CAN_VIEW = 5;
@@ -33,14 +35,20 @@ describe('GET /groups', () => {
       name: 'public guild - is member',
       type: 'guild',
       privacy: 'public',
+      summary: 'ohayou kombonwa',
+      description: 'oyasumi',
     });
     await leader.post(`/groups/${publicGuildUserIsMemberOf._id}/invite`, { uuids: [user._id] });
     await user.post(`/groups/${publicGuildUserIsMemberOf._id}/join`);
+
+    userInGuild = await generateUser({ guilds: [publicGuildUserIsMemberOf._id] });
 
     publicGuildNotMember = await generateGroup(leader, {
       name: 'public guild - is not member',
       type: 'guild',
       privacy: 'public',
+      summary: 'Natsume Soseki',
+      description: 'Kinnosuke no Hondana',
       categories,
     });
 
@@ -150,6 +158,35 @@ describe('GET /groups', () => {
 
       expect(guilds.length).to.equal(0);
     });
+
+    it('filters public guilds by leader role', async () => {
+      const guilds = await user.get('/groups?type=publicGuilds&leader=true');
+      expect(guilds.length).to.equal(NUMBER_OF_PUBLIC_GUILDS_USER_IS_LEADER);
+    });
+
+    it('filters public guilds by member role', async () => {
+      const guilds = await userInGuild.get('/groups?type=publicGuilds&member=true');
+      expect(guilds.length).to.equal(1);
+      expect(guilds[0].name).to.have.string('is member');
+    });
+
+    it('filters public guilds by single-word search term', async () => {
+      const guilds = await user.get('/groups?type=publicGuilds&search=kom');
+      expect(guilds.length).to.equal(1);
+      expect(guilds[0].summary).to.have.string('ohayou kombonwa');
+    });
+
+    it('filters public guilds by single-word search term left and right-padded by spaces', async () => {
+      const guilds = await user.get('/groups?type=publicGuilds&search=++++ohayou+kombonwa+++++');
+      expect(guilds.length).to.equal(1);
+      expect(guilds[0].summary).to.have.string('ohayou kombonwa');
+    });
+
+    it('filters public guilds by two-words search term separated by multiple spaces', async () => {
+      const guilds = await user.get('/groups?type=publicGuilds&search=kinnosuke+++++hon');
+      expect(guilds.length).to.equal(1);
+      expect(guilds[0].description).to.have.string('Kinnosuke');
+    });
   });
 
   describe('public guilds pagination', () => {
@@ -199,9 +236,20 @@ describe('GET /groups', () => {
       await expect(user.get('/groups?type=publicGuilds&paginate=true&page=1'))
         .to.eventually.have.a.lengthOf(GUILD_PER_PAGE);
       const page2 = await expect(user.get('/groups?type=publicGuilds&paginate=true&page=2'))
-        .to.eventually.have.a.lengthOf(1 + 4); // 1 created now, 4 by other tests
-      expect(page2[4].name).to.equal('guild with less members');
+        // 1 created now, 4 by other tests, -1 for no more tavern.
+        .to.eventually.have.a.lengthOf(1 + 4 - 1);
+      expect(page2[3].name).to.equal('guild with less members');
     }).timeout(10000);
+  });
+
+  it('makes sure that the tavern doesn\'t show up when guilds is passed as a query', async () => {
+    const guilds = await user.get('/groups?type=guilds');
+    expect(guilds.find(g => g.id === TAVERN_ID)).to.be.undefined;
+  });
+
+  it('makes sure that the tavern doesn\'t show up when publicGuilds is passed as a query', async () => {
+    const guilds = await user.get('/groups?type=publicGuilds');
+    expect(guilds.find(g => g.id === TAVERN_ID)).to.be.undefined;
   });
 
   it('returns all the user\'s guilds when guilds passed in as query', async () => {
@@ -217,7 +265,7 @@ describe('GET /groups', () => {
 
   it('returns a list of groups user has access to', async () => {
     await expect(user.get('/groups?type=privateGuilds,publicGuilds,party,tavern'))
-      .to.eventually.have.lengthOf(NUMBER_OF_GROUPS_USER_CAN_VIEW);
+      .to.eventually.have.lengthOf(NUMBER_OF_GROUPS_USER_CAN_VIEW - 1); // -1 for no Tavern.
   });
 
   it('returns a list of groups user has access to', async () => {

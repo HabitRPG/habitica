@@ -5,7 +5,7 @@
         {{ `${$t('lockedItem')}` }}
       </h4>
       <div
-        v-if="item.specialClass"
+        v-if="isWrongClass"
         class="popover-content-text"
       >
         {{ `${$t('classLockedItem')}` }}
@@ -70,6 +70,11 @@ export default {
         return this.item.notes();
       }
       return this.item.notes;
+    },
+    isWrongClass () {
+      const wrongKlass = this.item.klass && !['special', 'armoire', this.user.stats.class].includes(this.item.klass);
+      const wrongSpecialClass = this.item.klass === 'special' && this.item.specialClass && this.item.specialClass !== this.user.stats.class;
+      return wrongKlass || wrongSpecialClass;
     },
   },
 };

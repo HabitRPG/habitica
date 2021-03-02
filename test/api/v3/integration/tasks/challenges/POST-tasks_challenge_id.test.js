@@ -11,13 +11,18 @@ describe('POST /tasks/challenge/:challengeId', () => {
   let user;
   let guild;
   let challenge;
+  let tzoffset;
 
   function findUserChallengeTask (memberTask) {
     return memberTask.challenge.id === challenge._id;
   }
 
+  before(async () => {
+    tzoffset = new Date().getTimezoneOffset();
+  });
+
   beforeEach(async () => {
-    user = await generateUser({ balance: 1 });
+    user = await generateUser({ balance: 1, 'preferences.timezoneOffset': tzoffset });
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
     await user.post(`/challenges/${challenge._id}/join`);
@@ -165,7 +170,7 @@ describe('POST /tasks/challenge/:challengeId', () => {
     expect(task.type).to.eql('daily');
     expect(task.frequency).to.eql('daily');
     expect(task.everyX).to.eql(5);
-    expect(new Date(task.startDate)).to.eql(now);
+    expect(new Date(task.startDate)).to.eql(new Date(now.setHours(0, 0, 0, 0)));
 
     expect(userChallengeTask.notes).to.eql(task.notes);
   });

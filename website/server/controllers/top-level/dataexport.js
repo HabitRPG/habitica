@@ -1,25 +1,23 @@
 import _ from 'lodash';
 import moment from 'moment';
-import * as js2xml from 'js2xmlparser';
-import Pageres from 'pageres';
-import nconf from 'nconf';
-import got from 'got';
+// import Pageres from 'pageres';
+// import nconf from 'nconf';
+// import got from 'got';
 import md from 'habitica-markdown';
 import csvStringify from '../../libs/csvStringify';
-import {
-  NotFound,
-} from '../../libs/errors';
+import { marshallUserData } from '../../libs/xmlMarshaller';
+import { NotFound } from '../../libs/errors';
 import * as Tasks from '../../models/task';
 import * as inboxLib from '../../libs/inbox';
-import { model as User } from '../../models/user';
+// import { model as User } from '../../models/user';
 import { authWithSession } from '../../middlewares/auth';
-import {
+/* import {
   S3,
-} from '../../libs/aws';
+} from '../../libs/aws'; */
 
-const S3_BUCKET = nconf.get('S3_BUCKET');
+// const S3_BUCKET = nconf.get('S3_BUCKET');
 
-const BASE_URL = nconf.get('BASE_URL');
+// const BASE_URL = nconf.get('BASE_URL');
 
 const api = {};
 
@@ -85,7 +83,7 @@ api.exportUserHistory = {
 
 // Convert user to json and attach tasks divided by type and inbox messages
 // at user.tasks[`${taskType}s`] (user.tasks.{dailys/habits/...})
-async function _getUserDataForExport (user, xmlMode = false) {
+async function _getUserDataForExport (user) {
   const userData = user.toJSON();
   userData.tasks = {};
 
@@ -107,29 +105,6 @@ async function _getUserDataForExport (user, xmlMode = false) {
     .forEach((tasksPerType, taskType) => {
       userData.tasks[`${taskType}s`] = tasksPerType;
     });
-
-  if (xmlMode) {
-    // object maps cant be parsed
-    userData.inbox.messages = _(userData.inbox.messages)
-      .map(m => {
-        const flags = Object.keys(m.flags);
-        m.flags = flags;
-
-        return m;
-      })
-      .value();
-
-    // _id gets parsed as an bytearray => which gets casted to a chararray => "weird chars"
-    userData.unpinnedItems = userData.unpinnedItems.map(i => ({
-      path: i.path,
-      type: i.type,
-    }));
-
-    userData.pinnedItems = userData.pinnedItems.map(i => ({
-      path: i.path,
-      type: i.type,
-    }));
-  }
 
   return userData;
 }
@@ -171,18 +146,14 @@ api.exportUserDataXml = {
   url: '/export/userdata.xml',
   middlewares: [authWithSession],
   async handler (req, res) {
-    const userData = await _getUserDataForExport(res.locals.user, true);
+    const userData = await _getUserDataForExport(res.locals.user);
+    const xmlData = marshallUserData(userData);
 
     res.set({
       'Content-Type': 'text/xml',
       'Content-disposition': 'attachment; filename=habitica-user-data.xml',
     });
-    res.status(200).send(js2xml.parse('user', userData, {
-      cdataInvalidChars: true,
-      declaration: {
-        include: false,
-      },
-    }));
+    res.status(200).send(xmlData);
   },
 };
 
@@ -202,13 +173,18 @@ api.exportUserAvatarHtml = {
   method: 'GET',
   url: '/export/avatar-:memberId.html',
   // middlewares: [locals],
-  async handler (req, res) {
-    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+  async handler (/* req, res */) {
+    throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
+
+    /* req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
 
     const { memberId } = req.params;
+
+    throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
+
     const member = await User
       .findById(memberId)
       .select('stats profile items achievements preferences backer contributor')
@@ -218,7 +194,7 @@ api.exportUserAvatarHtml = {
     res.render('avatar-static', {
       title: member.profile.name,
       env: _.defaults({ user: member }, res.locals.habitrpg),
-    });
+    }); */
   },
 };
 
@@ -235,8 +211,10 @@ api.exportUserAvatarHtml = {
 api.exportUserAvatarPng = {
   method: 'GET',
   url: '/export/avatar-:memberId.png',
-  async handler (req, res) {
-    req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
+  async handler (/* req, res */) {
+    throw new NotFound('This API route is currently not available. See https://github.com/HabitRPG/habitica/issues/9489.');
+
+    /* req.checkParams('memberId', res.t('memberIdRequired')).notEmpty().isUUID();
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -248,16 +226,18 @@ api.exportUserAvatarPng = {
 
     let response;
     try {
-      response = await got.head(s3url);
+      response = await got.head(s3url); // TODO add timeout and retries
     } catch (gotError) {
       // If the file does not exist AWS S3 can return a 403 error
-      if (gotError.code !== 'ENOTFOUND' && gotError.statusCode !== 404 && gotError.statusCode !== 403) {
+      if (gotError.code !== 'ENOTFOUND' && gotError.statusCode
+      !== 404 && gotError.statusCode !== 403) {
         throw gotError;
       }
     }
 
     // cache images for 30 minutes on aws, else upload a new one
-    if (response && response.statusCode === 200 && moment().diff(response.headers['last-modified'], 'minutes') < 30) {
+    if (response && response.statusCode === 200 && moment()
+    .diff(response.headers['last-modified'], 'minutes') < 30) {
       return res.redirect(s3url);
     }
 
@@ -288,7 +268,7 @@ api.exportUserAvatarPng = {
       });
     });
 
-    return res.redirect(s3res.Location);
+    return res.redirect(s3res.Location); */
   },
 };
 
@@ -307,7 +287,7 @@ api.exportUserPrivateMessages = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    const { timezoneOffset } = user.preferences;
+    const timezoneUtcOffset = user.getUtcOffset();
     const dateFormat = user.preferences.dateFormat.toUpperCase();
     const TO = res.t('to');
     const FROM = res.t('from');
@@ -319,7 +299,7 @@ api.exportUserPrivateMessages = {
     inbox.forEach((message, index) => {
       const recipientLabel = message.sent ? TO : FROM;
       const messageUser = message.user;
-      const timestamp = moment.utc(message.timestamp).zone(timezoneOffset).format(`${dateFormat} HH:mm:ss`);
+      const timestamp = moment.utc(message.timestamp).utcOffset(timezoneUtcOffset).format(`${dateFormat} HH:mm:ss`);
       const text = md.render(message.text);
       const pageIndex = `(${index + 1}/${inbox.length})`;
       messages += `

@@ -1,22 +1,21 @@
-
 @import '~@/assets/scss/colors.scss';
-
-@mixin centeredModal() {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-
-  header, footer {
-    border: 0;
-  }
-}
 
 .modal {
   z-index: 1350;
+  padding-left: 0px !important;
+}
+
+.modal-content {
+  border-radius: 8px;
+}
+
+.modal-footer {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
 .modal-dialog {
-  margin: 5.5rem auto 3rem;
+  margin: 3rem auto 3rem;
   width: auto;
 
   .title {
@@ -205,5 +204,4 @@
       font-style: normal;
     }
   }
-
 }

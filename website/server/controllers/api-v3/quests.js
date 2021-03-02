@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { authWithHeaders } from '../../middlewares/auth';
-import * as analytics from '../../libs/analyticsService';
+import { getAnalyticsServiceByEnvironment } from '../../libs/analyticsService';
 import {
   model as Group,
   basicFields as basicGroupFields,
@@ -19,6 +19,8 @@ import common from '../../../common';
 import { sendNotification as sendPushNotification } from '../../libs/pushNotifications';
 import apiError from '../../libs/apiError';
 import { questActivityWebhook } from '../../libs/webhook';
+
+const analytics = getAnalyticsServiceByEnvironment();
 
 const questScrolls = common.content.quests;
 
@@ -73,14 +75,13 @@ api.inviteToQuest = {
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
     if (!quest) throw new NotFound(apiError('questNotFound', { key: questKey }));
     if (!user.items.quests[questKey]) throw new NotAuthorized(res.t('questNotOwned'));
-    if (user.stats.lvl < quest.lvl) throw new NotAuthorized(res.t('questLevelTooHigh', { level: quest.lvl }));
     if (group.quest.key) throw new NotAuthorized(res.t('questAlreadyUnderway'));
 
     const members = await User.find({
       'party._id': group._id,
       _id: { $ne: user._id },
     })
-      .select('auth.facebook auth.google auth.local preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices webhooks')
+      .select('auth preferences.emailNotifications preferences.pushNotifications preferences.language profile.name pushDevices webhooks')
       .exec();
 
     group.markModified('quest');
@@ -157,7 +158,7 @@ api.inviteToQuest = {
       questName: questKey,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 
@@ -193,11 +194,13 @@ api.acceptQuest = {
     if (group.quest.active) throw new NotAuthorized(res.t('questAlreadyStartedFriendly'));
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
 
+    const acceptedSuccessfully = await group.handleQuestInvitation(user, true);
+    if (!acceptedSuccessfully) {
+      throw new NotAuthorized(res.t('questAlreadyAccepted'));
+    }
+
     user.party.quest.RSVPNeeded = false;
     await user.save();
-
-    group.markModified('quest');
-    group.quest.members[user._id] = true;
 
     if (canStartQuestAutomatically(group)) {
       await group.startQuest(user);
@@ -216,7 +219,7 @@ api.acceptQuest = {
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 
@@ -252,12 +255,14 @@ api.rejectQuest = {
     if (group.quest.members[user._id]) throw new BadRequest(res.t('questAlreadyAccepted'));
     if (group.quest.members[user._id] === false) throw new BadRequest(res.t('questAlreadyRejected'));
 
+    const rejectedSuccessfully = await group.handleQuestInvitation(user, false);
+    if (!rejectedSuccessfully) {
+      throw new NotAuthorized(res.t('questAlreadyRejected'));
+    }
+
     user.party.quest = Group.cleanQuestUser(user.party.quest.progress);
     user.markModified('party.quest');
     await user.save();
-
-    group.quest.members[user._id] = false;
-    group.markModified('quest.members');
 
     if (canStartQuestAutomatically(group)) {
       await group.startQuest(user);
@@ -275,10 +280,9 @@ api.rejectQuest = {
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
-
 
 /**
  * @api {post} /api/v3/groups/:groupId/quests/force-start Force-start a pending quest
@@ -336,7 +340,7 @@ api.forceStart = {
       questName: group.quest.key,
       uuid: user._id,
       headers: req.headers,
-    });
+    }, true);
   },
 };
 

@@ -640,5 +640,8 @@
     "questSilverDropSilverPotion": "Srebrny Eliksir Wyklucia",
     "questSilverUnlockText": "Odblokowuje możliwość zakupu Srebrnych eliksirów wyklucia na Targu",
     "questDolphinText": "Delfin Zwątpienia",
-    "questDolphinBoss": "Delfin Zwątpienia"
+    "questDolphinBoss": "Delfin Zwątpienia",
+    "questFluoriteDropFluoritePotion": "Fluorytowy Eliksir Wzrostu",
+    "questFluoriteBoss": "Fluorytowy Pierwiastek",
+    "questFluoriteText": "Rozjaśniające Fluorytowe Przerażenie"
 }

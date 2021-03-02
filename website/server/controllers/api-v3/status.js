@@ -1,3 +1,7 @@
+import {
+  disableCache,
+} from '../../middlewares/cache';
+
 const api = {};
 
 /**
@@ -15,6 +19,8 @@ const api = {};
 api.getStatus = {
   method: 'GET',
   url: '/status',
+  // explicitly disable caching so that the server is always checked
+  middlewares: [disableCache],
   async handler (req, res) {
     res.respond(200, {
       status: 'up',

@@ -2,7 +2,6 @@ import amazonPayments from 'amazon-payments';
 import nconf from 'nconf';
 import moment from 'moment';
 import cc from 'coupon-code';
-import uuid from 'uuid';
 import util from 'util';
 
 import common from '../../../common';
@@ -18,6 +17,7 @@ import { // eslint-disable-line import/no-cycle
   basicFields as basicGroupFields,
 } from '../../models/group';
 import { model as Coupon } from '../../models/coupon';
+import { getGemsBlock, validateGiftMessage } from './gems'; // eslint-disable-line import/no-cycle
 
 // TODO better handling of errors
 
@@ -110,12 +110,14 @@ api.authorize = function authorize (inputSet) {
  */
 api.checkout = async function checkout (options = {}) {
   const {
-    gift, user, orderReferenceId, headers,
+    gift, user, orderReferenceId, headers, gemsBlock: gemsBlockKey,
   } = options;
-  let amount = 5;
+  let amount;
+  let gemsBlock;
 
   if (gift) {
     gift.member = await User.findById(gift.uuid).exec();
+    validateGiftMessage(gift, user);
 
     if (gift.type === this.constants.GIFT_TYPE_GEMS) {
       if (gift.gems.amount <= 0) {
@@ -125,6 +127,9 @@ api.checkout = async function checkout (options = {}) {
     } else if (gift.type === this.constants.GIFT_TYPE_SUBSCRIPTION) {
       amount = common.content.subscriptionBlocks[gift.subscription.key].price;
     }
+  } else {
+    gemsBlock = getGemsBlock(gemsBlockKey);
+    amount = gemsBlock.price / 100;
   }
 
   if (!gift || gift.type === this.constants.GIFT_TYPE_GEMS) {
@@ -171,6 +176,7 @@ api.checkout = async function checkout (options = {}) {
     user,
     paymentMethod: this.constants.PAYMENT_METHOD,
     headers,
+    gemsBlock,
   };
 
   if (gift) {
@@ -245,7 +251,6 @@ api.cancelSubscription = async function cancelSubscription (options = {}) {
       AmazonBillingAgreementId: billingAgreementId,
     });
   }
-
 
   const subscriptionBlock = common.content.subscriptionBlocks[planId];
   const subscriptionLength = subscriptionBlock.months * 30;
@@ -347,7 +352,6 @@ api.subscribe = async function subscribe (options) {
   });
 };
 
-
 api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMember (group) {
   // @TODO: Can we get this from the content plan?
   const priceForNewMember = 3;
@@ -356,7 +360,7 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
 
   return this.authorizeOnBillingAgreement({
     AmazonBillingAgreementId: group.purchased.plan.customerId,
-    AuthorizationReferenceId: uuid.v4().substring(0, 32),
+    AuthorizationReferenceId: common.uuid().substring(0, 32),
     AuthorizationAmount: {
       CurrencyCode: this.constants.CURRENCY_CODE,
       Amount: priceForNewMember,
@@ -366,7 +370,7 @@ api.chargeForAdditionalGroupMember = async function chargeForAdditionalGroupMemb
     CaptureNow: true,
     SellerNote: this.constants.SELLER_NOTE_GROUP_NEW_MEMBER,
     SellerOrderAttributes: {
-      SellerOrderId: uuid.v4(),
+      SellerOrderId: common.uuid(),
       StoreName: this.constants.STORE_NAME,
     },
   });

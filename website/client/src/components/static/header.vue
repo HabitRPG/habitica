@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-inverse fixed-top navbar-expand-sm">
+  <nav class="navbar navbar-inverse fixed-top navbar-expand-md">
     <div class="navbar-header">
       <router-link
         class="nav-item"
@@ -128,7 +128,7 @@
     </div>
     <router-link
       v-if="$route.name === 'home'"
-      class="btn btn-primary login-button pull-right"
+      class="btn btn-primary btn-front login-button pull-right"
       to="/login"
     >
       {{ $t('login') }}
@@ -286,13 +286,13 @@ export default {
       }
 
       // @TODO duplicate of code in home.vue
+
       Analytics.track({
         hitType: 'event',
         eventCategory: 'button',
         eventAction: 'click',
         eventLabel: 'Play',
       });
-
       this.$router.push('/register');
     },
     scrollToMobileApp () {

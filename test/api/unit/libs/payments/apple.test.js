@@ -5,7 +5,7 @@ import applePayments from '../../../../../website/server/libs/payments/apple';
 import iap from '../../../../../website/server/libs/inAppPurchases';
 import { model as User } from '../../../../../website/server/models/user';
 import common from '../../../../../website/common';
-import { mockFindById, restoreFindById } from '../../../../helpers/mongoose.helper';
+import * as gems from '../../../../../website/server/libs/payments/gems';
 
 const { i18n } = common;
 
@@ -16,7 +16,7 @@ describe('Apple Payments', () => {
     let sku; let user; let token; let receipt; let
       headers;
     let iapSetupStub; let iapValidateStub; let iapIsValidatedStub; let paymentBuyGemsStub; let
-      iapGetPurchaseDataStub;
+      iapGetPurchaseDataStub; let validateGiftMessageStub;
 
     beforeEach(() => {
       token = 'testToken';
@@ -37,6 +37,7 @@ describe('Apple Payments', () => {
           transactionId: token,
         }]);
       paymentBuyGemsStub = sinon.stub(payments, 'buyGems').resolves({});
+      validateGiftMessageStub = sinon.stub(gems, 'validateGiftMessage');
     });
 
     afterEach(() => {
@@ -45,6 +46,7 @@ describe('Apple Payments', () => {
       iap.isValidated.restore();
       iap.getPurchaseData.restore();
       payments.buyGems.restore();
+      gems.validateGiftMessage.restore();
     });
 
     it('should throw an error if receipt is invalid', async () => {
@@ -84,7 +86,7 @@ describe('Apple Payments', () => {
       user.canGetGems.restore();
     });
 
-    it('errors if amount does not exist', async () => {
+    it('errors if gemsBlock does not exist', async () => {
       sinon.stub(user, 'canGetGems').resolves(true);
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
@@ -106,23 +108,23 @@ describe('Apple Payments', () => {
     const gemsCanPurchase = [
       {
         productId: 'com.habitrpg.ios.Habitica.4gems',
-        amount: 1,
+        gemsBlock: '4gems',
       },
       {
         productId: 'com.habitrpg.ios.Habitica.20gems',
-        amount: 5.25,
+        gemsBlock: '21gems',
       },
       {
         productId: 'com.habitrpg.ios.Habitica.21gems',
-        amount: 5.25,
+        gemsBlock: '21gems',
       },
       {
         productId: 'com.habitrpg.ios.Habitica.42gems',
-        amount: 10.5,
+        gemsBlock: '42gems',
       },
       {
         productId: 'com.habitrpg.ios.Habitica.84gems',
-        amount: 21,
+        gemsBlock: '84gems',
       },
     ];
 
@@ -144,13 +146,15 @@ describe('Apple Payments', () => {
         expect(iapIsValidatedStub).to.be.calledOnce;
         expect(iapIsValidatedStub).to.be.calledWith({});
         expect(iapGetPurchaseDataStub).to.be.calledOnce;
+        expect(validateGiftMessageStub).to.not.be.called;
 
         expect(paymentBuyGemsStub).to.be.calledOnce;
         expect(paymentBuyGemsStub).to.be.calledWith({
           user,
           paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-          amount: gemTest.amount,
+          gemsBlock: common.content.gems[gemTest.gemsBlock],
           headers,
+          gift: undefined,
         });
         expect(user.canGetGems).to.be.calledOnce;
         user.canGetGems.restore();
@@ -160,8 +164,6 @@ describe('Apple Payments', () => {
     it('gifts gems', async () => {
       const receivingUser = new User();
       await receivingUser.save();
-
-      mockFindById(receivingUser);
 
       iapGetPurchaseDataStub.restore();
       iapGetPurchaseDataStub = sinon.stub(iap, 'getPurchaseData')
@@ -182,14 +184,22 @@ describe('Apple Payments', () => {
       expect(iapIsValidatedStub).to.be.calledWith({});
       expect(iapGetPurchaseDataStub).to.be.calledOnce;
 
+      expect(validateGiftMessageStub).to.be.calledOnce;
+      expect(validateGiftMessageStub).to.be.calledWith(gift, user);
+
       expect(paymentBuyGemsStub).to.be.calledOnce;
       expect(paymentBuyGemsStub).to.be.calledWith({
-        user: receivingUser,
+        user,
         paymentMethod: applePayments.constants.PAYMENT_METHOD_APPLE,
-        amount: gemsCanPurchase[0].amount,
         headers,
+        gift: {
+          type: 'gems',
+          gems: { amount: 4 },
+          member: sinon.match({ _id: receivingUser._id }),
+          uuid: receivingUser._id,
+        },
+        gemsBlock: common.content.gems['4gems'],
       });
-      restoreFindById();
     });
   });
 

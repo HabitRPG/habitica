@@ -6,20 +6,22 @@
   >
     <span
       v-if="withPin"
-      class="badge badge-pill badge-dialog"
-      :class="{'item-selected-badge': isPinned}"
+      class="badge-dialog"
+      tabindex="0"
       @click.prevent.stop="togglePinned()"
+      @keypress.enter.prevent.stop="togglePinned()"
     >
-      <span
-        class="svg-icon inline color icon-16"
-        v-html="icons.pin"
-      ></span>
+      <pin-badge
+        :pinned="isPinned"
+      />
     </span>
     <div>
       <span
         class="svg-icon icon-12 close-icon"
         aria-hidden="true"
+        tabindex="0"
         @click="hideDialog()"
+        @keypress.enter="hideDialog()"
         v-html="icons.close"
       ></span>
     </div>
@@ -147,9 +149,12 @@
           v-else
           class="btn btn-primary"
           :disabled="item.key === 'gem' && gemsLeft === 0 ||
-            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid"
+            attemptingToPurchaseMoreGemsThanAreLeft || numberInvalid || item.locked ||
+            !preventHealthPotion ||
+            !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)"
           :class="{'notEnough': !preventHealthPotion ||
             !enoughCurrency(getPriceClass(), item.value * selectedAmountToBuy)}"
+          tabindex="0"
           @click="buyItem()"
         >
           {{ $t('buyNow') }}
@@ -194,7 +199,7 @@
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/modal.scss';
+  @import '~@/assets/scss/mixins.scss';
 
   #buy-modal {
     @include centeredModal();
@@ -291,6 +296,10 @@
       margin-top: 24px;
       margin-bottom: 24px;
       min-width: 6rem;
+
+      &:focus {
+        border: 2px solid black;
+      }
     }
 
     .balance {
@@ -308,21 +317,6 @@
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;
-    }
-
-    .badge-dialog {
-      color: $gray-300;
-      position: absolute;
-      left: -14px;
-      padding: 8px 10px;
-      top: -12px;
-      background: white;
-      cursor: pointer;
-
-      &.item-selected-badge {
-        background: $purple-300;
-        color: $white;
-      }
     }
 
     .notEnough {
@@ -380,12 +374,6 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .close-icon {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-  }
-
   .hourglass-nonsub {
     color: $yellow-5;
     font-size: 12px;
@@ -394,9 +382,10 @@
 
 <script>
 import keys from 'lodash/keys';
+import size from 'lodash/size';
 import reduce from 'lodash/reduce';
 import moment from 'moment';
-import * as Analytics from '@/libs/analytics';
+
 import spellsMixin from '@/mixins/spells';
 import planGemLimits from '@/../../common/script/libs/planGemLimits';
 import numberInvalid from '@/mixins/numberInvalid';
@@ -405,11 +394,11 @@ import svgClose from '@/assets/svg/close.svg';
 import svgGold from '@/assets/svg/gold.svg';
 import svgGem from '@/assets/svg/gem.svg';
 import svgHourglasses from '@/assets/svg/hourglass.svg';
-import svgPin from '@/assets/svg/pin.svg';
 import svgClock from '@/assets/svg/clock.svg';
 import svgWhiteClock from '@/assets/svg/clock-white.svg';
 
 import BalanceInfo from './balanceInfo.vue';
+import PinBadge from '@/components/ui/pinBadge';
 import currencyMixin from './_currencyMixin';
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
@@ -423,9 +412,12 @@ import Avatar from '@/components/avatar';
 
 import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 import { drops as dropEggs } from '@/../../common/script/content/eggs';
-
+import { drops as dropPotions } from '@/../../common/script/content/hatching-potions';
 
 const dropEggKeys = keys(dropEggs);
+
+const amountOfDropEggs = size(dropEggs);
+const amountOfDropPotions = size(dropPotions);
 
 const hideAmountSelectionForPurchaseTypes = [
   'gear', 'backgrounds', 'mystery_set', 'card',
@@ -439,6 +431,7 @@ export default {
     EquipmentAttributesGrid,
     Item,
     Avatar,
+    PinBadge,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
   props: {
@@ -463,7 +456,6 @@ export default {
         gold: svgGold,
         gems: svgGem,
         hourglasses: svgHourglasses,
-        pin: svgPin,
         clock: svgClock,
         whiteClock: svgWhiteClock,
       }),
@@ -546,26 +538,54 @@ export default {
 
       if (
         this.item.pinType === 'premiumHatchingPotion'
-        || (this.item.pinType === 'eggs' && dropEggKeys.indexOf(this.item.key) === -1)
+        || (this.item.pinType === 'eggs' && !dropEggKeys.includes(this.item.key))
       ) {
-        let petsRemaining = 20 - this.selectedAmountToBuy;
-        petsRemaining -= reduce(this.user.items.pets, (sum, petValue, petKey) => {
-          if (petKey.indexOf(this.item.key) !== -1 && petValue > 0) return sum + 1;
-          return sum;
-        }, 0);
-        petsRemaining -= reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
-          if (mountKey.indexOf(this.item.key) !== -1 && mountValue === true) return sum + 1;
-          return sum;
-        }, 0);
-        if (this.item.pinType === 'premiumHatchingPotion') {
-          petsRemaining -= this.user.items.hatchingPotions[this.item.key] + 2 || 2;
-        } else {
-          petsRemaining -= this.user.items.eggs[this.item.key] || 0;
+        /* Total amount of pets to hatch with item bought */
+        let totalPetsToHatch;
+
+        if (this.item.pinType === 'premiumHatchingPotion') { // buying potions
+          if (this.item.path.includes('wackyHatchingPotions.')) {
+            // wacky potions don't have mounts
+            totalPetsToHatch = amountOfDropEggs;
+          } else {
+            // Each of the drop eggs, combine into pet twice
+            totalPetsToHatch = amountOfDropEggs * 2;
+          }
+        } else { // buying quest eggs: Each of the drop potions, combine into pet twice
+          totalPetsToHatch = amountOfDropPotions * 2;
         }
+
+        /* Amount of items the user already has */
+        let ownedItems;
+        if (this.item.pinType === 'premiumHatchingPotion') {
+          ownedItems = this.user.items.hatchingPotions[this.item.key] || 0;
+        } else {
+          ownedItems = this.user.items.eggs[this.item.key] || 0;
+        }
+
+        const ownedPets = reduce(this.user.items.pets, (sum, petValue, petKey) => {
+          if (petKey.includes(this.item.key) && petValue > 0
+            && !petKey.includes('JackOLantern') // Jack-O-Lantern has "Ghost" version
+          ) return sum + 1;
+          return sum;
+        }, 0);
+
+        const ownedMounts = reduce(this.user.items.mounts, (sum, mountValue, mountKey) => {
+          if (mountKey.includes(this.item.key) && mountValue === true
+            && !mountKey.includes('JackOLantern')
+          ) return sum + 1;
+          return sum;
+        }, 0);
+
+        const petsRemaining = totalPetsToHatch
+          - this.selectedAmountToBuy
+          - ownedPets
+          - ownedMounts
+          - ownedItems;
 
         if (
           petsRemaining < 0
-          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text }))
+          && !window.confirm(this.$t('purchasePetItemConfirm', { itemText: this.item.text })) // eslint-disable-line no-alert
         ) return;
       }
 
@@ -590,14 +610,6 @@ export default {
       }
     },
     purchaseGems () {
-      if (this.item.key === 'rebirth_orb') {
-        Analytics.track({
-          hitType: 'event',
-          eventCategory: 'button',
-          eventAction: 'click',
-          eventLabel: 'Gems > Rebirth',
-        });
-      }
       this.$root.$emit('bv::show::modal', 'buy-gems');
     },
     togglePinned () {

@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import nconf from 'nconf';
 import Amplitude from 'amplitude';
 import { Visitor } from 'universal-analytics';
 import * as analyticsService from '../../../../website/server/libs/analyticsService';
@@ -13,6 +14,22 @@ describe('analyticsService', () => {
 
   afterEach(() => {
     sandbox.restore();
+  });
+
+  describe('#getServiceByEnvironment', () => {
+    it('returns mock methods when not in production', () => {
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(false);
+      expect(analyticsService.getAnalyticsServiceByEnvironment())
+        .to.equal(analyticsService.mockAnalyticsService);
+    });
+
+    it('returns real methods when in production', () => {
+      sandbox.stub(nconf, 'get').withArgs('IS_PROD').returns(true);
+      expect(analyticsService.getAnalyticsServiceByEnvironment().track)
+        .to.equal(analyticsService.track);
+      expect(analyticsService.getAnalyticsServiceByEnvironment().trackPurchase)
+        .to.equal(analyticsService.trackPurchase);
+    });
   });
 
   describe('#track', () => {

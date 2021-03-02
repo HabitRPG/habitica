@@ -153,40 +153,12 @@ describe('GET /tasks/user', () => {
   });
 
   xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
-    const timezone = 420;
+    const timezoneOffset = 420;
     await user.update({
       'preferences.dayStart': 0,
-      'preferences.timezoneOffset': timezone,
+      'preferences.timezoneOffset': timezoneOffset,
     });
-    const startDate = moment().zone(timezone).subtract('4', 'days').startOf('day')
-      .toISOString();
-    await user.post('/tasks/user', [
-      {
-        text: 'test daily',
-        type: 'daily',
-        startDate,
-        frequency: 'daily',
-        everyX: 2,
-      },
-    ]);
-
-    const today = moment().format('YYYY-MM-DD');
-    const dailys = await user.get(`/tasks/user?type=dailys&dueDate=${today}`);
-    expect(dailys[0].isDue).to.be.true;
-
-    const yesterday = moment().subtract('1', 'days').format('YYYY-MM-DD');
-    const dailys2 = await user.get(`/tasks/user?type=dailys&dueDate=${yesterday}`);
-    expect(dailys2[0].isDue).to.be.false;
-  });
-
-
-  xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
-    const timezone = 240;
-    await user.update({
-      'preferences.dayStart': 0,
-      'preferences.timezoneOffset': timezone,
-    });
-    const startDate = moment().zone(timezone).subtract('4', 'days').startOf('day')
+    const startDate = moment().utcOffset(-timezoneOffset).subtract('4', 'days').startOf('day')
       .toISOString();
     await user.post('/tasks/user', [
       {
@@ -208,12 +180,39 @@ describe('GET /tasks/user', () => {
   });
 
   xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
-    const timezone = 540;
+    const timezoneOffset = 240;
     await user.update({
       'preferences.dayStart': 0,
-      'preferences.timezoneOffset': timezone,
+      'preferences.timezoneOffset': timezoneOffset,
     });
-    const startDate = moment().zone(timezone).subtract('4', 'days').startOf('day')
+    const startDate = moment().utcOffset(-timezoneOffset).subtract('4', 'days').startOf('day')
+      .toISOString();
+    await user.post('/tasks/user', [
+      {
+        text: 'test daily',
+        type: 'daily',
+        startDate,
+        frequency: 'daily',
+        everyX: 2,
+      },
+    ]);
+
+    const today = moment().format('YYYY-MM-DD');
+    const dailys = await user.get(`/tasks/user?type=dailys&dueDate=${today}`);
+    expect(dailys[0].isDue).to.be.true;
+
+    const yesterday = moment().subtract('1', 'days').format('YYYY-MM-DD');
+    const dailys2 = await user.get(`/tasks/user?type=dailys&dueDate=${yesterday}`);
+    expect(dailys2[0].isDue).to.be.false;
+  });
+
+  xit('returns dailies with isDue for the date specified and will add CDS offset if time is not supplied and assumes timezones', async () => {
+    const timezoneOffset = 540;
+    await user.update({
+      'preferences.dayStart': 0,
+      'preferences.timezoneOffset': timezoneOffset,
+    });
+    const startDate = moment().utcOffset(-timezoneOffset).subtract('4', 'days').startOf('day')
       .toISOString();
     await user.post('/tasks/user', [
       {

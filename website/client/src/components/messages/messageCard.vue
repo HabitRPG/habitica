@@ -20,8 +20,9 @@
       <span v-if="msg.client && user.contributor.level >= 4"> ({{ msg.client }})</span>
     </p>
     <div
-      class="text"
-      v-html="atHighlight(parseMarkdown(msg.text))"
+      class="text markdown"
+      dir="auto"
+      v-html="parseMarkdown(msg.text)"
     ></div>
     <div
       v-if="isMessageReported"
@@ -118,9 +119,8 @@
     .text {
       font-size: 14px;
       color: $gray-50;
-      text-align: left !important;
+      text-align: initial;
       min-height: 0rem;
-      margin-bottom: -0.5rem;
     }
   }
 
@@ -139,13 +139,12 @@
 import axios from 'axios';
 import moment from 'moment';
 
-import habiticaMarkdown from 'habitica-markdown';
+import renderWithMentions from '@/libs/renderWithMentions';
 import { mapState } from '@/libs/store';
 import userLink from '../userLink';
 
 import deleteIcon from '@/assets/svg/delete.svg';
 import reportIcon from '@/assets/svg/report.svg';
-import { highlightUsers } from '../../libs/highlightUsers';
 
 export default {
   components: {
@@ -197,19 +196,15 @@ export default {
       });
     },
     async remove () {
-      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return;
+      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return; // eslint-disable-line no-alert
 
       const message = this.msg;
       this.$emit('message-removed', message);
 
       await axios.delete(`/api/v4/inbox/messages/${message.id}`);
     },
-    atHighlight (text) {
-      return highlightUsers(text, this.user.auth.local.username, this.user.profile.name);
-    },
     parseMarkdown (text) {
-      if (!text) return null;
-      return habiticaMarkdown.render(String(text));
+      return renderWithMentions(text, this.user);
     },
   },
 };

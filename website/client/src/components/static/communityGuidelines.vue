@@ -54,12 +54,6 @@
         <p v-html="$t('commGuidePara024')"></p>
       </div>
     </div>
-    <div class="media align-items-center">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara027')"></p>
-      </div>
-      <img src="~@/assets/images/community-guidelines/backCorner.png">
-    </div>
     <h3 id="guilds">
       {{ $t('commGuideHeadingPublicGuilds') }}
     </h3>
@@ -187,19 +181,11 @@
           <li>{{ $t('commGuideAKA', {habitName: 'Beffymaroo', realName: 'Beth'}) }}</li>
           <li>{{ $t('commGuideAKA', {habitName: 'Viirus', realName: 'Phillip'}) }}</li>
           <li>
-            {{ $t('commGuideAKA', {
-              habitName: 'redphoenix', realName: 'Vicky'}) }} ({{ $t('commGuideOnTrello', {
-              trelloName: 'caffeinatedvee'}) }}, {{ $t('commGuideOnGitHub', {
-              gitHubName: 'veeeeeee'}) }})
-          </li>
-          <li>
-            {{ $t('commGuideAKA', {
-              habitName: 'Lemoness', realName: 'Leslie'}) }} ({{ $t('commGuideOnTrello', {
-              trelloName: 'lemonesstree'}) }})
+            {{ $t('commGuideAKA', {habitName: 'redphoenix', realName: 'Vicky'}) }}
+            ({{ $t('commGuideOnGitHub', {gitHubName: 'veeeeeee'}) }})
           </li>
           <li>{{ $t('commGuideAKA', {habitName: 'SabreCat', realName: 'Sabe'}) }}</li>
           <li>{{ $t('commGuideAKA', {habitName: 'paglias', realName: 'Matteo'}) }}</li>
-          <li>{{ $t('commGuideAKA', {habitName: 'TheHollidayInn', realName: 'Keith'}) }}</li>
         </ul>
       </div>
     </div>
@@ -242,7 +228,6 @@
       <li v-html="$t('commGuideLink02')"></li>
       <li v-html="$t('commGuideLink03')"></li>
       <li v-html="$t('commGuideLink04')"></li>
-      <li v-html="$t('commGuideLink05')"></li>
       <li v-html="$t('commGuideLink06')"></li>
       <li v-html="$t('commGuideLink07')"></li>
     </ul>

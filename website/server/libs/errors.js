@@ -41,6 +41,31 @@ export const { BadRequest } = common.errors;
  */
 export const { NotFound } = common.errors;
 
+/**
+ * @apiDefine Forbidden
+ * @apiError Forbidden The requested resource was not found.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 403 Forbidden
+ *     {
+ *       "error": "Forbidden",
+ *       "message": "Access forbidden."
+ *     }
+ */
+export const { Forbidden } = common.errors;
+
+/**
+ * @apiDefine TooManyRequests
+ * @apiError TooManyRequests The client made too many requests to the API and was rate limited.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 429 TooManyRequests
+ *     {
+ *       "error": "TooManyRequests",
+ *       "message": "Access forbidden."
+ *     }
+ */
+export const { TooManyRequests } = common.errors;
 
 /**
  * @apiDefine NotificationNotFound

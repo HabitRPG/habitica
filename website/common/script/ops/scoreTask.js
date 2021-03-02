@@ -8,6 +8,8 @@ import {
 import i18n from '../i18n';
 import updateStats from '../fns/updateStats';
 import crit from '../fns/crit';
+import getUtcOffset from '../fns/getUtcOffset';
+
 import statsComputed from '../libs/statsComputed';
 import { checkOnboardingStatus } from '../libs/onboarding';
 
@@ -42,8 +44,8 @@ function _calculateDelta (task, direction, cron) {
       ) / task.checklist.length;
     }
 
-    // If To-Do, point-match the TD per checklist item completed
-    if (task.type === 'todo') {
+    // If To Do, point-match the TD per checklist item completed
+    if (task.type === 'todo' && !cron) {
       nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
     }
   }
@@ -80,7 +82,7 @@ function _calculateReverseDelta (task, direction) {
   // before the task was checked.
   let nextDelta = testVal - currVal;
 
-  // Checklists - If To-Do, point-match the TD per checklist item completed
+  // Checklists - If To Do, point-match the TD per checklist item completed
   if (task.checklist && task.checklist.length > 0 && task.type === 'todo') {
     nextDelta *= 1 + reduce(task.checklist, (m, i) => m + (i.completed ? 1 : 0), 0);
   }
@@ -189,6 +191,37 @@ function _updateCounter (task, direction, times) {
   }
 }
 
+function _lastHistoryEntryWasToday (lastHistoryEntry, user) {
+  if (!lastHistoryEntry || !lastHistoryEntry.date) {
+    return false;
+  }
+
+  const timezoneUtcOffset = getUtcOffset(user);
+  const { dayStart } = user.preferences;
+
+  // Adjust the last entry date according to the user's timezone and CDS
+  const dateWithTimeZone = moment(lastHistoryEntry.date).utcOffset(timezoneUtcOffset);
+  if (dateWithTimeZone.hour() < dayStart) dateWithTimeZone.subtract(1, 'day');
+
+  return moment().utcOffset(timezoneUtcOffset).isSame(dateWithTimeZone, 'day');
+}
+
+function _updateLastHistoryEntry (lastHistoryEntry, task, direction, times) {
+  lastHistoryEntry.value = task.value;
+  lastHistoryEntry.date = Number(new Date());
+
+  // @TODO remove this extra check after migration
+  // has run to set scoredUp and scoredDown in every task
+  lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
+  lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
+
+  if (direction === 'up') {
+    lastHistoryEntry.scoredUp += times;
+  } else {
+    lastHistoryEntry.scoredDown += times;
+  }
+}
+
 export default function scoreTask (options = {}, req = {}, analytics) {
   const {
     user, task, direction, times = 1, cron = false,
@@ -202,13 +235,18 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (
     task.group && task.group.approval && task.group.approval.required
-    && !task.group.approval.approved
+    && !task.group.approval.approved && !(task.type === 'todo' && cron)
   ) return 0;
 
   // This is for setting one-time temporary flags,
   // such as streakBonus or itemDropped. Useful for notifying
   // the API consumer, then cleared afterwards
+  // Keep user._tmp.leveledUp if it already exists
+  // To make sure infos on level ups don't get lost when bulk scoring multiple tasks
+  const oldLeveledUp = user._tmp && user._tmp.leveledUp;
   user._tmp = {};
+
+  if (oldLeveledUp) user._tmp.leveledUp = oldLeveledUp;
 
   // If they're trying to purchase a too-expensive reward, don't allow them to do that.
   if (task.value > user.stats.gp && task.type === 'reward') throw new NotAuthorized(i18n.t('messageNotEnoughGold', req.language));
@@ -226,38 +264,14 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
     // Save history entry for habit
     task.history = task.history || [];
-    const { timezoneOffset } = user.preferences;
-    const { dayStart } = user.preferences;
     const historyLength = task.history.length;
     const lastHistoryEntry = task.history[historyLength - 1];
 
-    // Adjust the last entry date according to the user's timezone and CDS
-    let lastHistoryEntryDate;
-
-    if (lastHistoryEntry && lastHistoryEntry.date) {
-      lastHistoryEntryDate = moment(lastHistoryEntry.date).zone(timezoneOffset);
-      if (lastHistoryEntryDate.hour() < dayStart) lastHistoryEntryDate.subtract(1, 'day');
-    }
-
-    if (
-      lastHistoryEntryDate
-      && moment().zone(timezoneOffset).isSame(lastHistoryEntryDate, 'day')
-    ) {
-      lastHistoryEntry.value = task.value;
-      lastHistoryEntry.date = Number(new Date());
-
-      // @TODO remove this extra check after migration
-      // has run to set scoredUp and scoredDown in every task
-      lastHistoryEntry.scoredUp = lastHistoryEntry.scoredUp || 0;
-      lastHistoryEntry.scoredDown = lastHistoryEntry.scoredDown || 0;
-
-      if (direction === 'up') {
-        lastHistoryEntry.scoredUp += times;
-      } else {
-        lastHistoryEntry.scoredDown += times;
+    if (_lastHistoryEntryWasToday(lastHistoryEntry, user)) {
+      _updateLastHistoryEntry(lastHistoryEntry, task, direction, times);
+      if (task.markModified) {
+        task.markModified(`history.${historyLength - 1}`);
       }
-
-      if (task.markModified) task.markModified(`history.${historyLength - 1}`);
     } else {
       task.history.push({
         date: Number(new Date()),
@@ -334,12 +348,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
     // Don't adjust values for rewards
     delta += _changeTaskValue(user, task, direction, times, cron);
     // purchase item
-    stats.gp -= Math.abs(task.value);
-    // hp - gp difference
-    if (stats.gp < 0) {
-      stats.hp += stats.gp;
-      stats.gp = 0;
-    }
+    stats.gp -= task.value;
   }
 
   req.yesterDailyScored = task.yesterDailyScored;
@@ -347,7 +356,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
 
   if (!user.achievements.completedTask && cron === false && direction === 'up' && user.addAchievement) {
     user.addAchievement('completedTask');
-    checkOnboardingStatus(user, analytics);
+    checkOnboardingStatus(user, req, analytics);
   }
 
   return [delta];

@@ -2,13 +2,21 @@
   <div class="featuredItems">
     <div
       class="background"
-      :class="{broken: broken}"
     ></div>
     <div
       class="background"
-      :class="{cracked: broken, broken: broken}"
+      :style="{
+        background: bgUrl,
+        'background-repeat': 'repeat-x',
+      }"
     >
-      <div class="npc">
+      <div
+        class="npc"
+        :style="{
+          background: npcUrl,
+          'background-repeat': 'no-repeat',
+        }"
+      >
         <div class="featured-label">
           <span class="rectangle"></span>
           <span class="text">{{ npcName }}</span>
@@ -37,14 +45,12 @@
               slot-scope="ctx"
             >
               <span
-                class="badge badge-pill badge-item badge-svg"
-                :class="{'item-selected-badge': ctx.item.pinned, 'hide': !ctx.item.pinned}"
+                class="badge-top"
                 @click.prevent.stop="togglePinned(ctx.item)"
               >
-                <span
-                  class="svg-icon inline icon-12 color"
-                  v-html="icons.pin"
-                ></span>
+                <pin-badge
+                  :pinned="ctx.item.pinned"
+                />
               </span>
             </template>
           </shopItem>
@@ -55,29 +61,23 @@
 </template>
 
 <script>
+import PinBadge from '@/components/ui/pinBadge';
 import ShopItem from './shopItem';
 
 import pinUtils from '@/mixins/pinUtils';
 
-import svgPin from '@/assets/svg/pin.svg';
-
 export default {
   components: {
+    PinBadge,
     ShopItem,
   },
   mixins: [pinUtils],
   props: {
-    broken: Boolean,
     npcName: String,
+    bgUrl: String,
+    npcUrl: String,
     featuredText: String,
     featuredItems: Array,
-  },
-  data () {
-    return {
-      icons: Object.freeze({
-        pin: svgPin,
-      }),
-    };
   },
   methods: {
     featuredItemSelected (item) {
@@ -105,6 +105,14 @@ export default {
     align-items: center;
   }
 
+  .badge-pin:not(.pinned) {
+      display: none;
+    }
+
+  .item:hover .badge-pin {
+    display: block;
+  }
+
   .content {
     display: flex;
     flex-direction: column;
@@ -117,21 +125,6 @@ export default {
     top: 0;
     width: 100%;
     height: 216px;
-  }
-
-  .background.broken {
-    background: url('~@/assets/images/npc/broken/market_broken_background.png');
-    background-repeat: repeat-x;
-  }
-
-  .background.cracked {
-    background: url('~@/assets/images/npc/broken/market_broken_layer.png');
-    background-repeat: repeat-x;
-  }
-
-  .broken .npc {
-    background: url('~@/assets/images/npc/broken/market_broken_npc.png');
-    background-repeat: no-repeat;
   }
 }
 

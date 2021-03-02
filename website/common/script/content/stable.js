@@ -81,6 +81,75 @@ const [premiumPets, premiumMounts] = constructSet('premium', dropEggs, premiumPo
 const [questPets, questMounts] = constructSet('quest', questEggs, dropPotions);
 const wackyPets = constructPetOnlySet('wacky', dropEggs, wackyPotions);
 
+const canFindSpecial = {
+  pets: {
+    // Veteran Pet Ladder - awarded on major updates
+    // https://habitica.fandom.com/wiki/Event_Item_Sequences#Veteran_Pets
+    'Wolf-Veteran': false,
+    'Tiger-Veteran': false,
+    'Lion-Veteran': false,
+    'Bear-Veteran': false,
+    'Fox-Veteran': false,
+
+    // Thanksgiving pet ladder
+    'Turkey-Base': false,
+    'Turkey-Gilded': false,
+    // Habitoween pet ladder
+    'JackOLantern-Base': false,
+    'JackOLantern-Glow': false,
+    'JackOLantern-Ghost': false,
+    'JackOLantern-RoyalPurple': false,
+    // Naming Day
+    'Gryphon-RoyalPurple': false,
+    // Summer Splash Orca
+    'Orca-Base': false,
+
+    // Quest pets
+    'BearCub-Polar': true, // evilsanta
+    // World Quest Pets - Found in Time Travel Stable
+    'MantisShrimp-Base': true, // dilatory
+    'Mammoth-Base': true, // stressbeast
+    'Phoenix-Base': true, // burnout
+    'MagicalBee-Base': true, // bewilder
+    'Hippogriff-Hopeful': true, // dysheartener
+
+    // Contributor/Backer pets
+    'Dragon-Hydra': true, // Contributor level 6
+    'Jackalope-RoyalPurple': true, // subscription
+    'Wolf-Cerberus': false, // Pet once granted to backers
+    'Gryphon-Gryphatrice': false, // Pet once granted to kickstarter
+  },
+  mounts: {
+    // Thanksgiving pet ladder
+    'Turkey-Base': false,
+    'Turkey-Gilded': false,
+
+    // Habitoween pet ladder
+    'JackOLantern-Base': false,
+    'JackOLantern-Glow': false,
+    'JackOLantern-Ghost': false,
+    // Naming Day
+    'Gryphon-RoyalPurple': false,
+    // Summer Splash Orca
+    'Orca-Base': false,
+
+    // Quest mounts
+    'BearCub-Polar': true, // evilsanta
+    'Aether-Invisible': true, // lostMasterclasser4
+    // World Quest Pets - Found in Time Travel
+    'MantisShrimp-Base': true, // dilatory
+    'Mammoth-Base': true, // stressbeast
+    'Phoenix-Base': true, // burnout
+    'MagicalBee-Base': true,
+    'Hippogriff-Hopeful': true,
+
+    // Contributor/Backer pets
+    'LionCub-Ethereal': false, // Backer tier 90
+    'Jackalope-RoyalPurple': true, // subscription
+    'Gryphon-Gryphatrice': false, // Pet once granted to kickstarter
+  },
+};
+
 const specialPets = {
   'Wolf-Veteran': 'veteranWolf',
   'Wolf-Cerberus': 'cerberusPup',
@@ -104,6 +173,7 @@ const specialPets = {
   'Fox-Veteran': 'veteranFox',
   'JackOLantern-Glow': 'glowJackolantern',
   'Gryphon-Gryphatrice': 'gryphatrice',
+  'JackOLantern-RoyalPurple': 'royalPurpleJackolantern',
 };
 
 const specialMounts = {
@@ -131,6 +201,7 @@ each(specialPets, (translationString, key) => {
     key,
     type: 'special',
     text: t(translationString),
+    canFind: canFindSpecial.pets[key],
   };
 });
 
@@ -139,6 +210,7 @@ each(specialMounts, (translationString, key) => {
     key,
     type: 'special',
     text: t(translationString),
+    canFind: canFindSpecial.mounts[key],
   };
 });
 

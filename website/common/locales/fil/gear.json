@@ -24,7 +24,7 @@
     "weaponBase0Notes": "No Weapon.",
     "weaponWarrior0Text": "Training Sword",
     "weaponWarrior0Notes": "Practice weapon. Confers no benefit.",
-    "weaponWarrior1Text": "Sword",
+    "weaponWarrior1Text": "Espada",
     "weaponWarrior1Notes": "Common soldier's blade. Increases Strength by <%= str %>.",
     "weaponWarrior2Text": "Axe",
     "weaponWarrior2Notes": "Double-bitted chopping weapon. Increases Strength by <%= str %>",

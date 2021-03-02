@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "สินค้าจำนวนจำกัด",
-    "seasonalEdition": "สินค้าเทศกาล",
-    "winterColors": "Winter Colors",
     "annoyingFriends": "Annoying Friends",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "Alarming Friends",
@@ -61,7 +58,6 @@
     "nye2": "สุขสันต์วันปีใหม่! ขอให้คุณมีวันที่สมบูรณ์แบบหลายวัน",
     "nye3": "สุขสันต์วันปีใหม่! ขอให้รายการสิ่งที่คุณต้องทำนั้นสั้นและเรียบง่าย",
     "nye4": "สุขสันต์วันปีใหม่! ขอให้คุณไม่ถูกโจมตีโดยฮิปโปกริฟคลั่ง!",
-    "holidayCard": "คุณได้รับการ์ดวันหยุด!",
     "mightyBunnySet": "Mighty Bunny (Warrior)",
     "magicMouseSet": "Magic Mouse (Mage)",
     "lovingPupSet": "Loving Pup (Healer)",
@@ -150,6 +146,6 @@
     "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
     "discountBundle": "bundle",
-    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Announcement": "<strong>Gift a subscription and get a subscription free</strong> event going on now!",
     "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

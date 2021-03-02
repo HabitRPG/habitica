@@ -29,7 +29,6 @@ describe('shared.ops.reset', () => {
     tasksToRemove = [habit, todo, daily, reward];
   });
 
-
   it('resets a user', () => {
     const [, message] = reset(user);
 
@@ -50,6 +49,22 @@ describe('shared.ops.reset', () => {
     reset(user);
 
     expect(user.stats.lvl).to.equal(1);
+  });
+
+  it('resets user\'s stat points (str, con, int, per, points)', () => {
+    user.stats.str = 2;
+    user.stats.con = 2;
+    user.stats.int = 2;
+    user.stats.per = 2;
+    user.stats.points = 2;
+
+    reset(user);
+
+    expect(user.stats.str).to.equal(0);
+    expect(user.stats.con).to.equal(0);
+    expect(user.stats.int).to.equal(0);
+    expect(user.stats.per).to.equal(0);
+    expect(user.stats.points).to.equal(1);
   });
 
   it('resets user\'s gold', () => {

@@ -4,5 +4,7 @@
   "eggsItemType": "Eggs",
   "hatchingPotionsItemType": "Hatching Potions",
   "specialItemType": "Special items",
-  "lockedItem": "Locked Item"
+  "lockedItem": "Locked Item",
+  "petAndMount": "Pet and Mount",
+  "allItems": "All Items"
 }

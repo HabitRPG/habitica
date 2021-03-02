@@ -1,8 +1,10 @@
 {
-  "noItemsAvailableForType": "Nincsen <%= type %>.",
-  "foodItemType": "Élelem",
-  "eggsItemType": "Tojások",
-  "hatchingPotionsItemType": "Keltetőfőzetek",
-  "specialItemType": "Különleges tárgyak",
-  "lockedItem": "Lezárt tárgyak"
+    "noItemsAvailableForType": "Nincsen <%= type %>.",
+    "foodItemType": "Állateledel",
+    "eggsItemType": "Tojások",
+    "hatchingPotionsItemType": "Keltetőfőzetek",
+    "specialItemType": "Különleges tárgyak",
+    "lockedItem": "Lezárt tárgyak",
+    "allItems": "Minden tárgy",
+    "petAndMount": "Háziállatok és hátasok"
 }

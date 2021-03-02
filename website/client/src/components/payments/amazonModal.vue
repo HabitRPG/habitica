@@ -2,8 +2,9 @@
   <b-modal
     id="amazon-payment"
     title="Amazon"
-    :hide-footer="true"
     size="md"
+    :hide-footer="true"
+    @hide="reset()"
   >
     <h2 class="text-center">
       Continue with Amazon
@@ -58,15 +59,18 @@ import pick from 'lodash/pick';
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import { CONSTANTS, setLocalSetting } from '@/libs/userlocalManager';
+import paymentsMixin from '@/mixins/payments';
 
 const habiticaUrl = `${window.location.protocol}//${window.location.host}`;
 
 export default {
+  mixins: [paymentsMixin],
   data () {
     return {
       amazonPayments: {
         modal: null,
         type: null,
+        gemsBlock: null,
         gift: null,
         loggedIn: false,
         paymentSelected: false,
@@ -119,13 +123,13 @@ export default {
             this.amazonPayments.orderReferenceId = response.data.data.orderReferenceId;
             this.amazonInitWidgets();
           } else {
-            window.alert(response.message);
+            window.alert(response.message); // eslint-disable-line no-alert
           }
         }
       });
     });
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off('habitica::pay-with-amazon');
   },
   methods: {
@@ -198,9 +202,12 @@ export default {
       } else if (paymentType.indexOf('gift-') === 0) {
         appState.gift = this.amazonPayments.gift;
         appState.giftReceiver = this.amazonPayments.giftReceiver;
+      } else if (paymentType === 'gems') {
+        appState.gemsBlock = this.amazonPayments.gemsBlock;
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
+
       if (url) {
         window.location.assign(url);
       } else {
@@ -214,12 +221,17 @@ export default {
       // @TODO: A gift should not read the same as buying gems for yourself.
       if (this.amazonPayments.type === 'single') {
         const url = '/amazon/checkout';
+        const data = {
+          orderReferenceId: this.amazonPayments.orderReferenceId,
+          gift: this.amazonPayments.gift,
+        };
+
+        if (this.amazonPayments.gemsBlock) {
+          data.gemsBlock = this.amazonPayments.gemsBlock.key;
+        }
 
         try {
-          await axios.post(url, {
-            orderReferenceId: this.amazonPayments.orderReferenceId,
-            gift: this.amazonPayments.gift,
-          });
+          await axios.post(url, data);
 
           this.$set(this, 'amazonButtonEnabled', true);
           this.storePaymentStatusAndReload();
@@ -244,8 +256,6 @@ export default {
             groupToCreate: this.amazonPayments.groupToCreate,
             paymentType: 'Amazon',
           });
-
-          this.$root.$emit('bv::hide::modal', 'amazon-payment');
 
           const newGroup = response.data.data;
           if (newGroup && newGroup._id) {
@@ -275,6 +285,7 @@ export default {
           this.storePaymentStatusAndReload();
         } catch (e) {
           this.$set(this, 'amazonButtonEnabled', true);
+          this.$root.$emit('bv::hide::modal', 'amazon-payment');
           // @TODO: do we need this? this.amazonPaymentsreset();
         }
       }

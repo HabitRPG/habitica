@@ -186,7 +186,7 @@ export default {
         return this.overrideTopPadding;
       }
 
-      let val = '27px';
+      let val = '24px';
 
       if (!this.avatarOnly) {
         if (this.member.items.currentPet) val = '24px';
@@ -227,7 +227,7 @@ export default {
       return this.member.preferences.costume ? 'costume' : 'equipped';
     },
     specialMountClass () {
-      if (!this.avatarOnly && this.member.items.currentMount && this.member.items.currentMount.indexOf('Kangaroo') !== -1) {
+      if (!this.avatarOnly && this.member.items.currentMount && this.member.items.currentMount.includes('Kangaroo')) {
         return 'offset-kangaroo';
       }
 

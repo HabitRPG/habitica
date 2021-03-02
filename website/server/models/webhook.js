@@ -58,9 +58,15 @@ export const schema = new Schema({
     required: true,
     validate: [v => validator.isURL(v, {
       require_tld: !!IS_PRODUCTION, // eslint-disable-line camelcase
+      require_protocol: true,
+      protocols: ['http', 'https'],
     }), shared.i18n.t('invalidUrl')],
   },
   enabled: { $type: Boolean, required: true, default: true },
+  // How many times this webhook has failed, disabled after 10
+  failures: { $type: Number, default: 0 },
+  // When the last failure happened, if older than 1 month the number of failures is reset
+  lastFailureAt: { $type: Date },
   options: {
     $type: Schema.Types.Mixed,
     required: true,
@@ -76,7 +82,7 @@ export const schema = new Schema({
 });
 
 schema.plugin(baseModel, {
-  noSet: ['_id'],
+  noSet: ['_id', 'failures', 'lastFailureAt'],
   timestamps: true,
   _id: false,
 });

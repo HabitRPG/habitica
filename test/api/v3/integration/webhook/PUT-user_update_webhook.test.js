@@ -63,6 +63,21 @@ describe('PUT /user/webhook/:id', () => {
     expect(webhook.options).to.eql(options);
   });
 
+  it('ignores protected fields', async () => {
+    const failures = 3;
+    const lastFailureAt = new Date();
+
+    await user.put(`/user/webhook/${webhookToUpdate.id}`, {
+      failures, lastFailureAt,
+    });
+
+    await user.sync();
+    const webhook = user.webhooks.find(hook => webhookToUpdate.id === hook.id);
+
+    expect(webhook.failures).to.eql(0);
+    expect(webhook.lastFailureAt).to.eql(undefined);
+  });
+
   it('updates a webhook with empty label', async () => {
     const url = 'http://a-new-url.com';
     const type = 'groupChatReceived';
@@ -112,19 +127,26 @@ describe('PUT /user/webhook/:id', () => {
   it('can update taskActivity options', async () => {
     const type = 'taskActivity';
     const options = {
+      checklistScored: true,
       updated: false,
-      deleted: true,
+      scored: false,
     };
-
-    const webhook = await user.put(`/user/webhook/${webhookToUpdate.id}`, { type, options });
-
-    expect(webhook.options).to.eql({
-      checklistScored: false, // starting value
+    const expected = {
+      checklistScored: true,
       created: true, // starting value
       updated: false,
-      deleted: true,
-      scored: true, // default value
-    });
+      deleted: false, // starting value
+      scored: false,
+    };
+
+    const returnedWebhook = await user.put(`/user/webhook/${webhookToUpdate.id}`, { type, options });
+
+    await user.sync();
+
+    const savedWebhook = user.webhooks.find(hook => webhookToUpdate.id === hook.id);
+
+    expect(returnedWebhook.options).to.eql(expected);
+    expect(savedWebhook.options).to.eql(expected);
   });
 
   it('errors if taskActivity option is not a boolean', async () => {

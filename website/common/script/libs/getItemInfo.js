@@ -8,7 +8,6 @@ import isPinned from './isPinned';
 import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
-
 function lockQuest (quest, user) {
   if (quest.key === 'lostMasterclasser1') return !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3);
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
@@ -94,6 +93,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'hatchingPotions',
         path: item.wacky ? `wackyHatchingPotions.${item.key}` : `premiumHatchingPotions.${item.key}`,
         pinType: 'premiumHatchingPotion',
+        event: item.event,
       };
       break;
     case 'food':
@@ -133,6 +133,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         notes: item.notes(language),
         addlNotes: item.addlNotes ? item.addlNotes(language) : null,
         group: item.group,
+        event: item.event,
         value: item.goldValue ? item.goldValue : item.value,
         locked,
         previous: content.quests[item.previous]

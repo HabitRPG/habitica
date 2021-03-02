@@ -117,4 +117,24 @@ describe('POST /user/reset', () => {
     expect(userChallengeTask).to.exist;
     expect(syncedGroupTask).to.exist;
   });
+
+  it('does not delete secret', async () => {
+    const admin = await generateUser({
+      contributor: { admin: true },
+    });
+
+    const hero = await generateUser({
+      contributor: { level: 1 },
+      secret: {
+        text: 'Super-Hero',
+      },
+    });
+
+    await hero.post('/user/reset');
+
+    const heroRes = await admin.get(`/hall/heroes/${hero.auth.local.username}`);
+
+    expect(heroRes.secret).to.exist;
+    expect(heroRes.secret.text).to.be.eq('Super-Hero');
+  });
 });

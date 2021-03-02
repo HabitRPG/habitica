@@ -1,4 +1,22 @@
 import intersection from 'lodash/intersection';
+import _ from 'lodash';
+
+const containsAnyCi = (target, patterns) => patterns.some(el => target.match(new RegExp(el, 'i')));
+const isPassedSearch = ({ name, summary, description }, search) => {
+  if (!search) return false;
+
+  const searchWords = _.escapeRegExp(search.trim()).split(/\s+/);
+
+  if (containsAnyCi(name, searchWords)) return true;
+
+  if (!summary) return false;
+  if (containsAnyCi(summary, searchWords)) return true;
+
+  if (!description) return false;
+  if (containsAnyCi(description, searchWords)) return true;
+
+  return false;
+};
 
 export default {
   filters: {
@@ -56,9 +74,7 @@ export default {
 
       if (group._id === this.$store.state.constants.TAVERN_ID || group._id === 'habitrpg') return false;
 
-      if (search) {
-        passedSearch = group.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
-      }
+      if (search) passedSearch = isPassedSearch(group, search);
 
       if (filters.categories && filters.categories.length > 0) {
         const intersectingCats = intersection(filters.categories, group.categorySlugs);
@@ -75,11 +91,11 @@ export default {
       }
 
       if (filters.guildSize && filters.guildSize.indexOf('gold_tier') !== -1) {
-        correctSize = group.memberCount > 1000;
+        correctSize = group.memberCount >= 1000;
       }
 
       if (filters.guildSize && filters.guildSize.indexOf('silver_tier') !== -1) {
-        correctSize = group.memberCount > 100 && group.memberCount < 1000;
+        correctSize = group.memberCount >= 100 && group.memberCount < 1000;
       }
 
       if (filters.guildSize && filters.guildSize.indexOf('bronze_tier') !== -1) {

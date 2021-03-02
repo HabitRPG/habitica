@@ -108,7 +108,7 @@ api.addWebhook = {
   url: '/user/webhook',
   async handler (req, res) {
     const { user } = res.locals;
-    const webhook = new Webhook(req.body);
+    const webhook = new Webhook(Webhook.sanitize(req.body));
 
     const existingWebhook = user.webhooks.find(hook => hook.id === webhook.id);
 
@@ -222,6 +222,10 @@ api.updateWebhook = {
     }
 
     webhook.formatOptions(res);
+
+    // Tell Mongoose that the webhook's options have been modified
+    // so it actually commits the options changes to the database
+    webhook.markModified('options');
 
     await user.save();
     res.respond(200, webhook);

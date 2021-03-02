@@ -13,6 +13,9 @@ import logger from './logger';
 
 const AMPLITUDE_TOKEN = nconf.get('AMPLITUDE_KEY');
 const GA_TOKEN = nconf.get('GA_ID');
+
+const LOG_AMPLITUDE_EVENTS = nconf.get('LOG_AMPLITUDE_EVENTS') === 'true';
+
 const GA_POSSIBLE_LABELS = ['gaLabel', 'itemKey'];
 const GA_POSSIBLE_VALUES = ['gaValue', 'gemCost', 'goldCost'];
 const AMPLITUDE_PROPERTIES_TO_SCRUB = [
@@ -171,10 +174,16 @@ function _formatDataForAmplitude (data) {
   return ampData;
 }
 
-function _sendDataToAmplitude (eventType, data) {
+function _sendDataToAmplitude (eventType, data, loggerOnly) {
   const amplitudeData = _formatDataForAmplitude(data);
 
   amplitudeData.event_type = eventType;
+
+  if (LOG_AMPLITUDE_EVENTS) {
+    logger.info('Amplitude Event', amplitudeData);
+  }
+
+  if (loggerOnly) return Promise.resolve(null);
 
   return amplitude
     .track(amplitudeData)
@@ -245,6 +254,10 @@ function _sendPurchaseDataToAmplitude (data) {
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
 
+  if (LOG_AMPLITUDE_EVENTS) {
+    logger.info('Amplitude Purchase Event', amplitudeData);
+  }
+
   return amplitude
     .track(amplitudeData)
     .catch(err => logger.error(err, 'Error while sending data to Amplitude.'));
@@ -301,9 +314,9 @@ function _setOnce (dataToSetOnce, uuid) {
 }
 
 // There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
-async function track (eventType, data) {
+async function track (eventType, data, loggerOnly = false) {
   const promises = [
-    _sendDataToAmplitude(eventType, data),
+    _sendDataToAmplitude(eventType, data, loggerOnly),
     _sendDataToGoogle(eventType, data),
   ];
   if (data.user && data.user.registeredThrough) {
@@ -330,8 +343,21 @@ const mockAnalyticsService = {
   trackPurchase: () => { },
 };
 
+// Return the production or mock service based on the current environment
+function getServiceByEnvironment () {
+  if (nconf.get('IS_PROD')) {
+    return {
+      track,
+      trackPurchase,
+    };
+  }
+
+  return mockAnalyticsService;
+}
+
 export {
   track,
   trackPurchase,
   mockAnalyticsService,
+  getServiceByEnvironment as getAnalyticsServiceByEnvironment,
 };

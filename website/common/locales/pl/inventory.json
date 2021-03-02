@@ -1,8 +1,10 @@
 {
-  "noItemsAvailableForType": "Nie posiadasz <%= type %>.",
-  "foodItemType": "Pożywienie",
-  "eggsItemType": "Jaja",
-  "hatchingPotionsItemType": "Eliksiry wyklucia",
-  "specialItemType": "Specjalne przedmioty",
-  "lockedItem": "Zablokowane przedmioty"
+    "noItemsAvailableForType": "Nie posiadasz <%= type %>.",
+    "foodItemType": "Pożywienie",
+    "eggsItemType": "Jaja",
+    "hatchingPotionsItemType": "Eliksiry wyklucia",
+    "specialItemType": "Specjalne przedmioty",
+    "lockedItem": "Zablokowane przedmioty",
+    "allItems": "Wszystko",
+    "petAndMount": "Chowańce i wierzchowce"
 }

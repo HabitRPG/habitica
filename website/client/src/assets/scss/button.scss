@@ -1,92 +1,225 @@
-@mixin btn-focus-hover-shadow () {
-  box-shadow: 0 4px 4px 0 rgba($black, 0.16), 0 1px 8px 0 rgba($black, 0.12);
-}
-
 .btn {
   cursor: pointer;
-  font-family: 'Roboto Condensed', sans-serif;
-  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
   font-weight: bold;
-  line-height: 1.5;
-  border: 1px solid transparent !important;
-  padding: 7.5px 15.5px;
+  line-height: 1.71;
+  border: 1px solid transparent;
+  padding: 0.219rem 0.75rem;
   border-radius: 2px;
-  box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+  box-shadow: 0 1px 3px 0 rgba($black, 0.12), 0 1px 2px 0 rgba($black, 0.24);
   color: $white;
 
-  &:focus:not(.btn-flat) {
-    outline: none;
+  &:hover, &:focus {
+    box-shadow: 0 3px 6px 0 rgba($black, 0.16), 0 3px 6px 0 rgba($black, 0.24);
+
+    &:disabled, &.disabled, &.btn-flat {
+      box-shadow: none;
+    }
+  }
+
+  &:focus {
     border-color: $purple-400;
-    @include btn-focus-hover-shadow();
   }
 
-  &:hover:not(.btn-flat):not(.disabled):not(:disabled) {
-    @include btn-focus-hover-shadow();
-    border-color: transparent;
+  &:active, &.active:not(.btn-flat) {
+    box-shadow: none;
   }
 
-  &:active:not(.btn-flat), &.active:not(.btn-flat) {
-    box-shadow: none !important;
-    border: 1px solid transparent;
+  &:disabled, &.disabled {
+    cursor: default;
+    opacity: 0.75;
+  }
+
+  &.with-icon {
+    height: 2rem; // otherwise would something set the height to 33px
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 }
 
-.btn-warning:hover, .btn-warning:focus, .btn-warning:active {
-  color: $white !important;
-}
-
-.btn:disabled, .btn.disabled {
-  box-shadow: none;
-  cursor: default;
-  opacity: 0.64;
-  border-color: transparent;
+.btn-front {
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 7.5px 15.5px;
 }
 
 .btn-primary {
   background: $purple-200;
+  border: 1px solid transparent;
+  --icon-color: #{$purple-500};
 
-  &:disabled {
+  &:focus {
     background: $purple-200;
+    border-color: $purple-400;
+    --icon-color: #{$white};
   }
 
-  &:hover:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled), &:focus:not(:disabled):not(.disabled) {
-    background: #5d3b9c !important;
-    color: $white;
-  }
-}
+  &:not(:disabled):not(.disabled) {
+    &:hover {
+      background: #5d3b9c;
+      border: 1px solid transparent;
 
-.btn-secondary, .dropdown > .btn-secondary {
-  color: $gray-50;
-  background: $white !important;
+      --icon-color: #{$white};
+    }
 
-  &:hover:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled), &:focus:not(:disabled):not(.disabled) {
-    color: $purple-200 !important;
-  }
+    &:active, &.active {
+      background: $purple-200;
+      border: 1px solid transparent;
 
-  &:active, &:focus, &.active {
-    border-color: $purple-500 !important;
+      --icon-color: #{$white};
+    }
+
+    &:active:focus, &.active:focus {
+      box-shadow: none;
+      border-color: $purple-400;
+    }
   }
 
   &:disabled, &.disabled {
-    background: $gray-500 !important;
-    color: $gray-100 !important;
+    background: $gray-700;
+    border: 1px solid transparent;
+    cursor: default;
+    color: $gray-50;
+
+    --icon-color: #{$gray-300};
+  }
+
+
+  &.with-icon {
+    .svg-icon.color {
+      color: var(--icon-color);
+    }
+  }
+}
+
+.btn-secondary,
+.dropdown > .btn-secondary.dropdown-toggle:not(.btn-success),
+.show > .btn-secondary.dropdown-toggle:not(.btn-success)
+{
+  background: $white;
+  border: 1px solid transparent;
+  color: $gray-50;
+
+  --icon-color: #{$gray-200};
+
+  &:focus, &:active {
+    color: $gray-50;
+    background: $white;
+    border-color: $purple-400;
+
+    --icon-color: #{$purple-300};
+  }
+
+  &:not(:disabled):not(.disabled) {
+    &:active, &.active {
+      color: $purple-300;
+      --icon-color: #{$purple-300};
+
+      &:focus {
+        color: $purple-300;
+        box-shadow: none;
+        border-color: $purple-400;
+      }
+
+      background: $white;
+      border: 1px solid transparent;
+    }
+
+    &:hover {
+      color: $purple-300;
+
+      background: $white !important;
+      border: 1px solid transparent;
+
+      --icon-color: #{$purple-300};
+    }
+  }
+
+  &:disabled, &.disabled {
+    color: $gray-50;
+    background: $white;
+    border: 1px solid transparent;
+    cursor: default;
+    opacity: 0.75;
+
+    --icon-color: #{$gray-300};
+  }
+
+  &.with-icon {
+    .svg-icon.color {
+      color: var(--icon-color);
+    }
+  }
+}
+
+.show > .btn-secondary.dropdown-toggle:not(.btn-success):not(:disabled):not(.disabled) {
+  --icon-color: #{$purple-300};
+}
+
+.btn-danger {
+  background: $maroon-100;
+  border: 1px solid transparent;
+
+  &:hover:not(:disabled):not(.disabled) {
+    background: #e14e4e;
+    border: 1px solid transparent;
+  }
+
+  &:focus {
+    background: $maroon-100;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
+    box-shadow: none;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
+    background: $maroon-100;
+    border: 1px solid transparent;
+  }
+
+  &:disabled, &.disabled {
+    background: $maroon-100;
+    border: 1px solid transparent;
+    cursor: default;
+    opacity: 0.75;
   }
 }
 
 .btn-success {
-  background: $green-100;
-
-  &:disabled {
-    background: $green-100;
-  }
-
-  &:hover:not(:disabled):not(.disabled), &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled) {
-    background: $green-50;
-  }
-}
-
-.show > .btn-success.dropdown-toggle {
   background: $green-50;
+  border: 1px solid transparent;
+
+  &:hover:not(:disabled):not(.disabled) {
+    background: #32bd8a;
+    border: 1px solid transparent;
+  }
+
+  &:focus {
+    background: $green-50;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus {
+    box-shadow: none;
+    border-color: $purple-400;
+  }
+
+  &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
+    background: $green-50;
+    border: 1px solid transparent;
+  }
+
+  &:disabled, &.disabled {
+    background: $green-50;
+    border: 1px solid transparent;
+    cursor: default;
+    opacity: 0.75;
+  }
 }
 
 .btn-info {
@@ -102,22 +235,6 @@
 
   &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled) {
     background: $blue-50;
-  }
-}
-
-.btn-danger {
-  background: $red-50;
-
-  &:disabled {
-    background: $red-50;
-  }
-
-  &:hover:not(:disabled):not(.disabled) {
-    background: $red-100;
-  }
-
-  &:active:not(:disabled):not(.disabled), &.active:not(:disabled):not(.disabled) {
-    background: $red-100;
   }
 }
 

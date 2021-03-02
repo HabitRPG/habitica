@@ -14,6 +14,7 @@ import {
 } from '../../../libs/taskManager';
 import { handleSharedCompletion } from '../../../libs/groupTasks';
 import apiError from '../../../libs/apiError';
+import logger from '../../../libs/logger';
 
 const requiredGroupFields = '_id leader tasksOrder name';
 // @TODO: abstract to task lib
@@ -21,6 +22,7 @@ const types = Tasks.tasksTypes.map(type => `${type}s`);
 // _allCompletedTodos is currently in BETA and is likely to be removed in future
 types.push('completedTodos', '_allCompletedTodos');
 
+// @TODO abstract this snipped (also see api-v3/tasks.js)
 function canNotEditTasks (group, user, assignedUserId) {
   const isNotGroupLeader = group.leader !== user._id;
   const isManager = Boolean(group.managers[user._id]);
@@ -120,8 +122,9 @@ api.getGroupTasks = {
  * @apiGroup Task
  *
  * @apiParam (Path) {String} taskId The task _id
- * @apiParam (Path) {Number} position Where to move the task (-1 means push to bottom).
- *                                    First position is 0
+ * @apiParam (Path) {Number} position Where to move the task.
+ *                                    0 = top of the list ("push to top").
+ *                                   -1 = bottom of the list ("push to bottom").
  *
  * @apiSuccess {Array} data The new tasks order (group.tasksOrder.{task.type}s)
  */
@@ -214,7 +217,7 @@ api.assignTask = {
 
     const promises = [];
     const taskText = task.text;
-    const userName = user.profile.name;
+    const userName = `@${user.auth.local.username}`;
 
     if (user._id === assignedUserId) {
       const managerIds = Object.keys(group.managers);
@@ -236,7 +239,7 @@ api.assignTask = {
       });
     }
 
-    promises.push(group.syncTask(task, assignedUser));
+    promises.push(group.syncTask(task, assignedUser, user));
     promises.push(group.save());
     await Promise.all(promises);
 
@@ -361,7 +364,7 @@ api.approveTask = {
     const firstNotificationIndex = firstManagerNotifications.findIndex(notification => notification && notification.data && notification.data.taskId === task._id && notification.type === 'GROUP_TASK_APPROVAL');
     let direction = 'up';
     if (firstManagerNotifications[firstNotificationIndex]) {
-      direction = firstManagerNotifications[firstNotificationIndex].direction;
+      direction = firstManagerNotifications[firstNotificationIndex].direction || direction;
     }
 
     // Remove old notifications
@@ -379,21 +382,29 @@ api.approveTask = {
     assignedUser.addNotification('GROUP_TASK_APPROVED', {
       message: res.t('yourTaskHasBeenApproved', { taskText: task.text }),
       groupId: group._id,
-    });
-
-    assignedUser.addNotification('SCORED_TASK', {
-      message: res.t('yourTaskHasBeenApproved', { taskText: task.text }),
-      scoreTask: task,
+      task,
       direction,
     });
-
-    await handleSharedCompletion(task);
 
     approvalPromises.push(task.save());
     approvalPromises.push(assignedUser.save());
     await Promise.all(approvalPromises);
 
     res.respond(200, task);
+
+    // Wrapping everything in a try/catch block because if an error occurs
+    // using `await` it MUST NOT bubble up because the request has already been handled
+    try {
+      const groupTask = await Tasks.Task.findOne({
+        _id: task.group.taskId,
+      }).exec();
+
+      if (groupTask) {
+        await handleSharedCompletion(groupTask, task);
+      }
+    } catch (e) {
+      logger.error('Error handling group task', e);
+    }
   },
 };
 

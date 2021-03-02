@@ -61,13 +61,9 @@
               <small>
                 1-7 for normal contributors, 8 for moderators, 9 for staff. This determines which items, pets, and mounts are available, and name-tag coloring. Tiers 8 and 9 are automatically given admin status.&nbsp; <!-- eslint-disable-line max-len -->
                 <a
+                  href="https://habitica.fandom.com/wiki/Contributor_Rewards"
                   target="_blank"
-                  href="https://trello.com/c/wkFzONhE/277-contributor-gear"
-                >More details (1-7)</a>,&nbsp;
-                <a
-                  target="_blank"
-                  href="https://github.com/HabitRPG/habitica/issues/3801"
-                >more details (8-9)</a>
+                >More details</a>
               </small>
             </div>
             <div class="form-group">
@@ -318,6 +314,9 @@ export default {
     ...mapState({ user: 'user.data' }),
   },
   async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('hallContributors'),
+    });
     this.heroes = await this.$store.dispatch('hall:getHeroes');
   },
   methods: {

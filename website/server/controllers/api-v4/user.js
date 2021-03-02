@@ -1,6 +1,7 @@
 import { authWithHeaders } from '../../middlewares/auth';
 import * as userLib from '../../libs/user';
 import { verifyDisplayName } from '../../libs/user/validation';
+import common from '../../../common';
 
 const api = {};
 
@@ -13,6 +14,7 @@ const api = {};
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {get} /api/v4/user Get the authenticated user's profile
  * @apiName UserGet
  * @apiGroup User
@@ -70,6 +72,7 @@ api.getUser = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {put} /api/v4/user Update the user
  * @apiName UserUpdate
  * @apiGroup User
@@ -110,6 +113,7 @@ api.updateUser = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/user/rebirth Use Orb of Rebirth on user
  * @apiName UserRebirth
  * @apiGroup User
@@ -149,6 +153,7 @@ api.userRebirth = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/user/reroll Reroll a user using the Fortify Potion
  * @apiName UserReroll
  * @apiGroup User
@@ -182,6 +187,7 @@ api.userReroll = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {post} /api/v4/user/reset Reset user
  * @apiName UserReset
  * @apiGroup User
@@ -236,6 +242,40 @@ api.verifyDisplayName = {
     } else {
       res.respond(200, { isUsable: true });
     }
+  },
+};
+
+/**
+ * @api {post} /api/v4/user/unequip/:type Unequip all items by type
+ * @apiName UserUnEquipByType
+ * @apiGroup User
+ *
+ * @apiParam (Path) {String="pet-mount-background","costume","equipped"} type The type of items
+ *                                                                       to unequip.
+ *
+ * @apiParamExample {URL} Example-URL
+ * https://habitica.com/api/v4/user/unequip/equipped
+ *
+ * @apiSuccess {Object} data user.items
+ * @apiSuccess {String} message Optional success message for unequipping an items
+ *
+ * @apiSuccessExample {json} Example return:
+ *  {
+ *   "success": true,
+ *   "data": {---DATA TRUNCATED---},
+ *   "message": "Battle Gear unequipped.
+ * }
+ *
+ */
+api.unequip = {
+  method: 'POST',
+  middlewares: [authWithHeaders()],
+  url: '/user/unequip/:type',
+  async handler (req, res) {
+    const { user } = res.locals;
+    const equipRes = common.ops.unEquipByType(user, req);
+    await user.save();
+    res.respond(200, ...equipRes);
   },
 };
 

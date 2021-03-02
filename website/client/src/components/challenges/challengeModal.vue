@@ -545,7 +545,7 @@ export default {
       if (this.workingChallenge.prize > this.maxPrize) errors.push(this.$t('cantAfford'));
 
       if (errors.length > 0) {
-        window.alert(errors.join('\n'));
+        window.alert(errors.join('\n')); // eslint-disable-line no-alert
         this.loading = false;
         return;
       }
@@ -607,7 +607,7 @@ export default {
       this.$emit('createChallenge', challenge);
       this.resetWorkingChallenge();
 
-      this.$root.$emit('habitica::dismiss-modal', 'challenge-modal');
+      this.$root.$emit('bv::hide::modal', 'challenge-modal');
       this.$router.push(`/challenges/${challenge._id}`);
     },
     async updateChallenge () {
@@ -628,7 +628,7 @@ export default {
       const challenge = await this.$store.dispatch('challenges:updateChallenge', { challenge: challengeDetails });
       this.$emit('updatedChallenge', { challenge });
       this.resetWorkingChallenge();
-      this.$root.$emit('habitica::dismiss-modal', 'challenge-modal');
+      this.$root.$emit('bv::hide::modal', 'challenge-modal');
     },
     toggleCategorySelect () {
       this.showCategorySelect = !this.showCategorySelect;

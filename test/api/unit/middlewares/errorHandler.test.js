@@ -170,6 +170,7 @@ describe('errorHandler', () => {
       originalUrl: req.originalUrl,
       headers: req.headers,
       body: req.body,
+      query: req.query,
       httpCode: 400,
       isHandledError: true,
     });

@@ -41,6 +41,7 @@ function _requestMaker (user, method, additionalSets = {}) {
       || route.indexOf('/amazon') === 0
       || route.indexOf('/stripe') === 0
       || route.indexOf('/qr-code') === 0
+      || route.indexOf('/analytics') === 0
     ) {
       url += `${route}`;
     } else {

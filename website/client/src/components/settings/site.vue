@@ -559,8 +559,11 @@ import resetModal from './resetModal';
 import deleteModal from './deleteModal';
 import { SUPPORTED_SOCIAL_NETWORKS } from '@/../../common/script/constants';
 import changeClass from '@/../../common/script/ops/changeClass';
+import getUtcOffset from '@/../../common/script/fns/getUtcOffset';
 import notificationsMixin from '../../mixins/notifications';
 import sounds from '../../libs/sounds';
+import { buildAppleAuthUrl } from '../../libs/auth';
+
 // @TODO: this needs our window.env fix
 // import { availableLanguages } from '../../../server/libs/i18n';
 
@@ -614,17 +617,8 @@ export default {
       return ['off', ...this.content.audioThemes];
     },
     timezoneOffsetToUtc () {
-      let offset = this.user.preferences.timezoneOffset;
-      const sign = offset > 0 ? '-' : '+';
-
-      offset = Math.abs(offset) / 60;
-
-      const hour = Math.floor(offset);
-
-      const minutesInt = (offset - hour) * 60;
-      const minutes = minutesInt < 10 ? `0${minutesInt}` : minutesInt;
-
-      return `UTC${sign}${hour}:${minutes}`;
+      const offsetString = moment().utcOffset(getUtcOffset(this.user)).format('Z');
+      return `UTC${offsetString}`;
     },
     dayStart () {
       return this.user.preferences.dayStart;
@@ -684,6 +678,11 @@ export default {
     this.emailUpdates.newEmail = this.user.auth.local.email || null;
     this.localAuth.username = this.user.auth.local.username || null;
     this.soundIndex = 0;
+
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('settings'),
+    });
+
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line no-process-env
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line no-process-env
@@ -787,7 +786,7 @@ export default {
     openDayStartModal () {
       const nextCron = this.calculateNextCron();
       // @TODO: Add generic modal
-      if (!window.confirm(this.$t('sureChangeCustomDayStartTime', { time: nextCron }))) return;
+      if (!window.confirm(this.$t('sureChangeCustomDayStartTime', { time: nextCron }))) return; // eslint-disable-line no-alert
       this.saveDayStart();
       // $rootScope.openModal('change-day-start', { scope: $scope });
     },
@@ -813,12 +812,12 @@ export default {
         this.user.flags.verifiedUsername = true;
       } else if (attribute === 'email') {
         this.user.auth.local.email = updates.newEmail;
-        window.alert(this.$t('emailSuccess'));
+        window.alert(this.$t('emailSuccess')); // eslint-disable-line no-alert
       }
     },
     async changeDisplayName (newName) {
       await axios.put('/api/v4/user/', { 'profile.name': newName });
-      window.alert(this.$t('displayNameSuccess'));
+      window.alert(this.$t('displayNameSuccess')); // eslint-disable-line no-alert
       this.user.profile.name = newName;
       this.temporaryDisplayName = newName;
     },
@@ -833,29 +832,34 @@ export default {
     },
     async deleteSocialAuth (network) {
       await axios.delete(`/api/v4/user/auth/social/${network.key}`);
+      this.user.auth[network.key] = {};
       this.text(this.$t('detachedSocial', { network: network.name }));
     },
     async socialAuth (network) {
-      const auth = await hello(network).login({ scope: 'email' });
+      if (network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
+      } else {
+        const auth = await hello(network).login({ scope: 'email' });
 
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
 
-      window.location.href = '/';
+        window.location.href = '/';
+      }
     },
     async changeClassForUser (confirmationNeeded) {
-      if (confirmationNeeded && !window.confirm(this.$t('changeClassConfirmCost'))) return;
+      if (confirmationNeeded && !window.confirm(this.$t('changeClassConfirmCost'))) return; // eslint-disable-line no-alert
       try {
         changeClass(this.user);
         await axios.post('/api/v4/user/change-class');
       } catch (e) {
-        window.alert(e.message);
+        window.alert(e.message); // eslint-disable-line no-alert
       }
     },
     async addLocalAuth () {
       await axios.post('/api/v4/user/auth/local/register', this.localAuth);
-      window.alert(this.$t('addedLocalAuth'));
+      window.alert(this.$t('addedLocalAuth')); // eslint-disable-line no-alert
     },
     restoreEmptyUsername () {
       if (this.usernameUpdates.username.length < 1) {

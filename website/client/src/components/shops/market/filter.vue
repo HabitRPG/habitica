@@ -1,17 +1,14 @@
 <template>
-  <div class="form">
-    <h2 v-once>
-      {{ $t('filter') }}
-    </h2>
-    <div class="form-group">
+  <filter-sidebar>
+    <filter-group>
       <checkbox
-        v-for="viewOptionKey in Object.keys(viewOptions)"
+        v-for="(viewOptionEntry, viewOptionKey) in viewOptions"
         :id="`category-${viewOptionKey}`"
         :key="viewOptionKey"
-        :checked.sync="viewOptions[viewOptionKey].selected"
-        :text="viewOptions[viewOptionKey].text"
+        :checked.sync="viewOptionEntry.selected"
+        :text="viewOptionEntry.text"
       />
-    </div>
+    </filter-group>
     <div class="form-group clearfix">
       <h3
         v-once
@@ -38,15 +35,19 @@
         @change="$emit('update:hidePinned', $event)"
       />
     </div>
-  </div>
+  </filter-sidebar>
 </template>
 
 <script>
 import Checkbox from '@/components/ui/checkbox';
 import toggleSwitch from '@/components/ui/toggleSwitch';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import FilterGroup from '@/components/ui/filterGroup';
 
 export default {
   components: {
+    FilterGroup,
+    FilterSidebar,
     Checkbox,
     toggleSwitch,
   },

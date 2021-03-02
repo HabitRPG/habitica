@@ -1,4 +1,3 @@
-
 import content from '@/../../common/script/content';
 
 const specialPets = Object.keys(content.specialPets);

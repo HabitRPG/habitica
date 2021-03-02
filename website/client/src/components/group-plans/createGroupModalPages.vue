@@ -83,22 +83,10 @@
       class="col-12"
     >
       <h2>{{ $t('choosePaymentMethod') }}</h2>
-      <div class="payments-column">
-        <button
-          class="purchase btn btn-primary payment-button payment-item"
-          @click="pay(PAYMENTS.STRIPE)"
-        >
-          <div
-            class="svg-icon credit-card-icon"
-            v-html="icons.creditCardIcon"
-          ></div>
-          {{ $t('card') }}
-        </button>
-        <amazon-button
-          class="payment-item"
-          :amazon-data="pay(PAYMENTS.AMAZON)"
-        />
-      </div>
+      <payments-buttons
+        :stripe-fn="() => pay(PAYMENTS.STRIPE)"
+        :amazon-data="pay(PAYMENTS.AMAZON)"
+      />
     </div>
   </div>
 </template>
@@ -148,21 +136,16 @@
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 import paymentsMixin from '../../mixins/payments';
-import amazonButton from '@/components/payments/amazonButton';
-
-import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
+import paymentsButtons from '@/components/payments/buttons/list';
 
 export default {
   components: {
-    amazonButton,
+    paymentsButtons,
   },
   mixins: [paymentsMixin],
   data () {
     return {
       amazonPayments: {},
-      icons: Object.freeze({
-        creditCardIcon,
-      }),
       PAGES: {
         CREATE_GROUP: 'create-group',
         UPGRADE_GROUP: 'upgrade-group',
@@ -219,7 +202,7 @@ export default {
 
       this.paymentMethod = paymentMethod;
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        this.showStripe(paymentData);
+        this.redirectToStripe(paymentData);
       } else if (this.paymentMethod === this.PAYMENTS.AMAZON) {
         paymentData.type = 'subscription';
         return paymentData;

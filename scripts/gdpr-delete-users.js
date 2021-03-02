@@ -31,20 +31,21 @@ async function deleteAmplitudeData (userId, email) {
       console.log(`${userId} (${email}) Amplitude response: ${response.status} ${response.statusText}`);
     }
   }
+  await new Promise(resolve => setTimeout(resolve, 1000));
 }
 
 async function deleteHabiticaData (user, email) {
-  const truncatedEmail = email.slice(0, email.indexOf('@'));
+  const set = {
+    'auth.blocked': false,
+    'auth.local.hashed_password': '$2a$10$QDnNh1j1yMPnTXDEOV38xOePEWFd4X8DSYwAM8XTmqmacG5X0DKjW',
+    'auth.local.passwordHashMethod': 'bcrypt',
+  };
+  if (!user.auth.local.email) set['auth.local.email'] = `${user._id}@example.com`;
   await User.update(
     { _id: user._id },
-    {
-      $set: {
-        'auth.local.email': user.auth.local.email ? email : `${truncatedEmail}@example.com`,
-        'auth.local.hashed_password': '$2a$10$QDnNh1j1yMPnTXDEOV38xOePEWFd4X8DSYwAM8XTmqmacG5X0DKjW',
-        'auth.local.passwordHashMethod': 'bcrypt',
-      },
-    },
+    { $set: set },
   );
+  await new Promise(resolve => setTimeout(resolve, 1000));
   const response = await axios.delete(
     `${BASE_URL}/api/v3/user`,
     {
@@ -78,6 +79,7 @@ async function processEmailAddress (email) {
 
   const socialUsers = await User.find(
     {
+      'auth.local.email': { $not: emailRegex },
       $or: [
         { 'auth.facebook.emails.value': email },
         { 'auth.google.emails.value': email },

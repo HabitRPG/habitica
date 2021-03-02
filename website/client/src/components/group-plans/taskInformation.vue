@@ -214,22 +214,32 @@ export default {
     if (this.$route.query.showGroupOverview) {
       this.$root.$emit('bv::show::modal', 'group-plan-overview');
     }
+
+    this.$root.$on('habitica:team-sync', () => {
+      this.loadTasks();
+    });
   },
   methods: {
     async load () {
+      this.group = await this.$store.dispatch('guilds:getGroup', {
+        groupId: this.searchId,
+      });
+      this.$store.dispatch('common:setTitle', {
+        subSection: this.group.name,
+        section: this.$route.path.startsWith('/group-plans') ? this.$t('groupPlans') : this.$t('group'),
+      });
+      const members = await this.$store.dispatch('members:getGroupMembers', { groupId: this.searchId });
+      this.group.members = members;
+
+      this.loadTasks();
+    },
+    async loadTasks () {
       this.tasksByType = {
         habit: [],
         daily: [],
         todo: [],
         reward: [],
       };
-
-      this.group = await this.$store.dispatch('guilds:getGroup', {
-        groupId: this.searchId,
-      });
-
-      const members = await this.$store.dispatch('members:getGroupMembers', { groupId: this.searchId });
-      this.group.members = members;
 
       const tasks = await this.$store.dispatch('tasks:getGroupTasks', {
         groupId: this.searchId,

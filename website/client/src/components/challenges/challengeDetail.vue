@@ -56,7 +56,7 @@
         </div>
         <div class="col-12 col-md-6 text-right">
           <div
-            class="box"
+            class="box member-count"
             @click="showMemberModal()"
           >
             <div
@@ -94,18 +94,20 @@
             :members="members"
             :challenge-id="challengeId"
             @member-selected="openMemberProgressModal"
+            @opened="initialMembersLoad()"
           />
         </div>
         <div class="col-12 col-md-6 text-right">
           <span v-if="isLeader || isAdmin">
             <b-dropdown
-              class="create-dropdown"
+              class="create-dropdown select-list"
               :text="$t('addTaskToChallenge')"
               :variant="'success'"
             >
               <b-dropdown-item
                 v-for="type in columns"
                 :key="type"
+                class="selectListItem"
                 @click="createTask(type)"
               >{{ $t(type) }}</b-dropdown-item>
             </b-dropdown>
@@ -291,6 +293,10 @@
     font-size: 20px;
     vertical-align: bottom;
 
+    &.member-count:hover {
+      cursor: pointer;
+    }
+
     .svg-icon {
       width: 30px;
       display: inline-block;
@@ -324,7 +330,7 @@ import Vue from 'vue';
 import findIndex from 'lodash/findIndex';
 import cloneDeep from 'lodash/cloneDeep';
 import omit from 'lodash/omit';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import { mapState } from '@/libs/store';
 import memberSearchDropdown from '@/components/members/memberSearchDropdown';
@@ -378,6 +384,7 @@ export default {
       }),
       challenge: {},
       members: [],
+      membersLoaded: false,
       tasksByType: {
         habit: [],
         daily: [],
@@ -406,6 +413,16 @@ export default {
     },
     canJoin () {
       return !this.isMember;
+    },
+  },
+  watch: {
+    'challenge.name': {
+      handler (newVal) {
+        this.$store.dispatch('common:setTitle', {
+          section: this.$t('challenge'),
+          subSection: newVal.name,
+        });
+      },
     },
   },
   mounted () {
@@ -441,8 +458,10 @@ export default {
         this.$router.push('/challenges/findChallenges');
         return;
       }
-      this.members = await this
-        .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
+      this.$store.dispatch('common:setTitle', {
+        subSection: this.challenge.name,
+        section: this.$t('challenges'),
+      });
       const tasks = await this.$store.dispatch('tasks:getChallengeTasks', { challengeId: this.searchId });
       this.tasksByType = {
         habit: [],
@@ -468,7 +487,22 @@ export default {
       }
       return this.$store.dispatch('members:getChallengeMembers', payload);
     },
+    initialMembersLoad () {
+      this.$store.state.memberModalOptions.loading = true;
+      if (!this.membersLoaded) {
+        this.membersLoaded = true;
 
+        this.loadMembers({
+          challengeId: this.searchId,
+          includeAllPublicFields: true,
+        }).then(m => {
+          this.members.push(...m);
+          this.$store.state.memberModalOptions.loading = false;
+        });
+      } else {
+        this.$store.state.memberModalOptions.loading = false;
+      }
+    },
     editTask (task) {
       this.taskFormPurpose = 'edit';
       this.editingTask = cloneDeep(task);
@@ -503,6 +537,8 @@ export default {
       this.tasksByType[task.type].splice(index, 1);
     },
     showMemberModal () {
+      this.initialMembersLoad();
+
       this.$root.$emit('habitica:show-member-modal', {
         challengeId: this.challenge._id,
         groupId: 'challenge', // @TODO: change these terrible settings
@@ -515,20 +551,24 @@ export default {
     async joinChallenge () {
       this.user.challenges.push(this.searchId);
       this.challenge = await this.$store.dispatch('challenges:joinChallenge', { challengeId: this.searchId });
-      this.members = await this
-        .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
+      this.membersLoaded = false;
+      this.members = [];
 
-      await this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true });
+      await Promise.all([
+        this.$store.dispatch('user:fetch', { forceLoad: true }),
+        this.$store.dispatch('tasks:fetchUserTasks', { forceLoad: true }),
+      ]);
     },
     async leaveChallenge () {
       this.$root.$emit('bv::show::modal', 'leave-challenge-modal');
     },
     async updateChallenge () {
       this.challenge = await this.$store.dispatch('challenges:getChallenge', { challengeId: this.searchId });
-      this.members = await this
-        .loadMembers({ challengeId: this.searchId, includeAllPublicFields: true });
+      this.membersLoaded = false;
+      this.members = [];
     },
     closeChallenge () {
+      this.initialMembersLoad();
       this.$root.$emit('bv::show::modal', 'close-challenge-modal');
     },
     edit () {

@@ -6,7 +6,7 @@
       @click="click($event)"
     >
       <div
-        class="item"
+        class="item transition"
         :class="{'item-active': active }"
       >
         <countBadge
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 import DragDropDirective from '@/directives/dragdrop.directive';
 
 import CountBadge from '@/components/ui/countBadge';
@@ -71,7 +71,7 @@ export default {
   },
   data () {
     return Object.freeze({
-      itemId: uuid.v4(),
+      itemId: uuid(),
     });
   },
   methods: {

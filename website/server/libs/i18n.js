@@ -4,6 +4,7 @@ import _ from 'lodash';
 import shared from '../../common';
 
 export const localePath = path.join(__dirname, '../../common/locales/');
+export const BROWSER_SCRIPT_CACHE_PATH = path.join(__dirname, '/../../../i18n_cache/');
 
 // Store translations
 export const translations = {};
@@ -22,34 +23,10 @@ const momentLangsMapping = {
 };
 
 export const approvedLanguages = [
-  'bg',
-  'cs',
-  'da',
-  'de',
-  'en',
-  'en_GB',
-  'en@pirate',
-  'es',
-  'es_419',
-  'fr',
-  'he',
-  'hu',
-  'id',
-  'it',
-  'ja',
-  'nl',
-  'pl',
-  'pt',
-  'pt_BR',
-  'ro',
-  'ru',
-  'sk',
-  'sr',
-  'sv',
-  'tr',
-  'uk',
-  'zh',
-  'zh_TW',
+  'bg', 'cs', 'da', 'de', 'en', 'en_GB', 'en@pirate',
+  'es', 'es_419', 'fr', 'he', 'hu', 'id', 'it',
+  'ja', 'nl', 'pl', 'pt', 'pt_BR', 'ro', 'ru', 'sk',
+  'sr', 'sv', 'tr', 'uk', 'zh', 'zh_TW',
 ];
 
 function _loadTranslations (locale) {
@@ -139,3 +116,17 @@ export const multipleVersionsLanguages = {
     'pt-br': 'pt_BR',
   },
 };
+
+export function geti18nBrowserScript (languageCode) {
+  const language = _.find(availableLanguages, { code: languageCode });
+
+  return `(function () {
+    if (!window) return;
+    window['habitica-i18n'] = ${JSON.stringify({
+    availableLanguages,
+    language,
+    strings: translations[languageCode],
+    momentLang: momentLangs[languageCode],
+  })};
+  })()`;
+}

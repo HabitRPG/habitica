@@ -42,6 +42,24 @@ export class NotFound extends CustomError {
   }
 }
 
+export class Forbidden extends CustomError {
+  constructor (customMessage) {
+    super();
+    this.name = this.constructor.name;
+    this.httpCode = 403;
+    this.message = customMessage || 'Access forbidden.';
+  }
+}
+
+export class TooManyRequests extends CustomError {
+  constructor (customMessage) {
+    super();
+    this.name = this.constructor.name;
+    this.httpCode = 429;
+    this.message = customMessage || 'Too many requests.';
+  }
+}
+
 export class NotImplementedError extends CustomError {
   constructor (str) {
     super();

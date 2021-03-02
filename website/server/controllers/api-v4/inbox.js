@@ -15,6 +15,7 @@ const api = {};
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {delete} /api/v4/inbox/messages/:messageId Delete a message
  * @apiName deleteMessage
  * @apiGroup User
@@ -51,6 +52,7 @@ api.deleteMessage = {
 /* NOTE this route has also an API v3 version */
 
 /**
+ * @apiIgnore
  * @api {delete} /api/v4/inbox/clear Delete all messages
  * @apiName clearMessages
  * @apiGroup User
@@ -74,12 +76,16 @@ api.clearMessages = {
 };
 
 /**
+ * @apiIgnore
  * @api {get} /api/v4/inbox/conversations Get the conversations for a user
  * @apiName conversations
  * @apiGroup Inbox
  * @apiDescription Get the conversations for a user.
  * This is for API v4 which must not be used in third-party tools.
  * For API v3, use "Get inbox messages for a user".
+ *
+ * @apiParam (Query) {Number} page (optional) Load the conversations of the selected Page
+ * - 10 conversations per Page
  *
  * @apiSuccess {Array} data An array of inbox conversations
  *
@@ -104,14 +110,16 @@ api.conversations = {
   url: '/inbox/conversations',
   async handler (req, res) {
     const { user } = res.locals;
+    const { page } = req.query;
 
-    const result = await listConversations(user);
+    const result = await listConversations(user, page);
 
     res.respond(200, result);
   },
 };
 
 /**
+ * @apiIgnore
  * @api {get} /api/v4/inbox/paged-messages Get inbox messages for a user
  * @apiName GetInboxMessages
  * @apiGroup Inbox
@@ -129,8 +137,7 @@ api.getInboxMessages = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    const { page } = req.query;
-    const { conversation } = req.query;
+    const { page, conversation } = req.query;
 
     const userInbox = await getUserInbox(user, {
       page, conversation, mapProps: true,

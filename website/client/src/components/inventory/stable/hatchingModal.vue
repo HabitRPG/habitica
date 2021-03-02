@@ -46,7 +46,8 @@
 </template>
 
 <style lang="scss">
-  @import '~@/assets/scss/modal.scss';
+  @import '~@/assets/scss/mixins.scss';
+  @import '~@/assets/scss/colors.scss';
 
   #hatching-modal {
     @include centeredModal();
@@ -66,7 +67,7 @@
       font-weight: bold;
       line-height: 1.2;
       text-align: center;
-      color: #4e4a57;
+      color: $gray-50;
     }
 
     .text {
@@ -75,7 +76,7 @@
       font-size: 14px;
       line-height: 1.43;
       text-align: center;
-      color: #686274;
+      color: $gray-100;
     }
 
     span.svg-icon.icon-10 {
@@ -86,6 +87,27 @@
 
     .modal-footer {
       justify-content: center;
+    }
+
+    .potionEggGroup {
+      margin: 0 auto;
+    }
+
+    .potionEggBackground {
+      display: inline-flex;
+      align-items: center;
+      width: 112px;
+      height: 112px;
+      border-radius: 4px;
+      background-color: $gray-700;
+
+      &:first-child {
+        margin-right: 24px;
+      }
+
+      div {
+        margin: 0 auto;
+      }
     }
   }
 </style>

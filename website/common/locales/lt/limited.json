@@ -1,7 +1,4 @@
 {
-    "limitedEdition": "Ribotas Tiražas",
-    "seasonalEdition": "Sezoninis Tiražas",
-    "winterColors": "Žiemos Spalvos",
     "annoyingFriends": "Erzinantys Draugai",
     "annoyingFriendsText": "Got snowballed <%= count %> times by party members.",
     "alarmingFriends": "Gąsdinantys Draugai",
@@ -61,7 +58,6 @@
     "nye2": "Su Naujaisiais Metais| Linkiu daug Tobulų Dienų.",
     "nye3": "Su Naujaisiais Metais! Linkiu kuo mažiau neužbaigtų užduočių.",
     "nye4": "Su Naujaisiais Metais! Linkiu tau nebūti užpultam pasiutusio Hipogrifo.",
-    "holidayCard": "Gavai šventinę atvirut!",
     "mightyBunnySet": "Galingasis Triušis (Karys)",
     "magicMouseSet": "Stebuklingoji Pelė (Magas)",
     "lovingPupSet": "Mylintis Šunytis (Gydytojas)",
@@ -150,6 +146,6 @@
     "winterPromoGiftDetails1": "Until January 15th only, when you gift somebody a subscription, you get the same subscription for yourself for free!",
     "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
     "discountBundle": "bundle",
-    "g1g1Announcement": "Gift a Subscription, Get a Subscription Free event going on now!",
+    "g1g1Announcement": "<strong>Gift a subscription and get a subscription free</strong> event going on now!",
     "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
 }

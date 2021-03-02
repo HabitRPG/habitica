@@ -91,7 +91,7 @@ export default {
       brokenChallengeTask: {},
     };
   },
-  created () {
+  mounted () {
     this.$root.$on('handle-broken-task', task => {
       this.brokenChallengeTask = { ...task };
       this.$root.$emit('bv::show::modal', 'broken-task-modal');
@@ -130,7 +130,7 @@ export default {
       this.close();
     },
     removeTask () {
-      if (!window.confirm('Are you sure you want to delete this task?')) return;
+      if (!window.confirm('Are you sure you want to delete this task?')) return; // eslint-disable-line no-alert
       this.destroyTask(this.brokenChallengeTask);
       this.close();
     },

@@ -19,7 +19,10 @@
           <!-- placeholder -->
         </div>
       </div>
-      <div class="d-flex selected-conversion">
+      <div
+        v-if="selectedConversation && selectedConversation.key"
+        class="d-flex selected-conversion"
+      >
         <router-link
           :to="{'name': 'userProfile', 'params': {'userId': selectedConversation.key}}"
         >
@@ -34,7 +37,7 @@
           :contributor="selectedConversation.contributor"
           :name="selectedConversation.name"
           :user="selectedConversation"
-          :userId="selectedConversation.key"
+          :user-id="selectedConversation.key"
           :hide-tooltip="true"
         />
       </div>
@@ -47,13 +50,6 @@
             :checked="this.user.inbox.optOut"
             :hover-text="optTextSet.popoverText"
             @change="toggleOpt()"
-          />
-        </div>
-        <div class="search-section">
-          <b-form-input
-            v-model="search"
-            class="input-search"
-            :placeholder="$t('search')"
           />
         </div>
         <div
@@ -75,6 +71,13 @@
             @click="selectConversation(conversation.key)"
           />
         </div>
+        <button
+          v-if="canLoadMoreConversations"
+          class="btn btn-secondary"
+          @click="loadConversations()"
+        >
+          {{ $t('loadMore') }}
+        </button>
       </div>
       <div class="messages-column d-flex flex-column align-items-center">
         <div
@@ -129,7 +132,7 @@
           ref="chatscroll"
           class="message-scroll"
           :chat="selectedConversationMessages"
-          :conversationOpponentUser="selectedConversation.userStyles"
+          :conversation-opponent-user="selectedConversation.userStyles"
           :can-load-more="canLoadMore"
           :is-loading="messagesLoading"
           @message-removed="messageRemoved"
@@ -142,20 +145,19 @@
           <h4>{{ disabledTexts.title }}</h4>
           <p>{{ disabledTexts.description }}</p>
         </div>
-        <div>
+        <div class="full-width">
           <div
             class="new-message-row d-flex align-items-center"
           >
             <textarea
               ref="textarea"
               v-model="newMessage"
+              dir="auto"
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
               :maxlength="MAX_MESSAGE_LENGTH"
-              :class="{'has-content': newMessage !== '', 'disabled': newMessageDisabled}"
-              :style="{'--textarea-auto-height': textareaAutoHeight}"
+              :class="{'has-content': newMessage.trim() !== '', 'disabled': newMessageDisabled}"
               @keyup.ctrl.enter="sendPrivateMessage()"
-              @input="autoSize()"
             >
             </textarea>
           </div>
@@ -191,14 +193,17 @@
 
   #private-message {
     height: calc(100vh - #{$menuToolbarHeight} -
-      var(--banner-gifting-height, 0px) -
-      var(--banner-resting-height, 0px)); // css variable magic :), must be 0px, 0 alone won't work
+      var(--banner-gift-promo-height, 0px) -
+      var(--banner-damage-paused-height, 0px) -
+      var(--banner-gems-promo-height, 0px)
+    ); // css variable magic :), must be 0px, 0 alone won't work
 
     .content {
       flex: 1;
       height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
-      var(--banner-gifting-height, 0px) -
-      var(--banner-resting-height, 0px)
+        var(--banner-gift-promo-height, 0px) -
+        var(--banner-damage-paused-height, 0px) -
+        var(--banner-gems-promo-height, 0px)
       );
     }
 
@@ -293,20 +298,6 @@
     margin-left: 12px;
   }
 
-  .input-search {
-    background-repeat: no-repeat;
-    background-position: center left 16px;
-    background-size: 16px 16px;
-    background-image: url(~@/assets/svg/for-css/search_gray.svg) !important;
-    padding-left: 40px;
-
-    height: 40px;
-  }
-
-  .input-search::placeholder {
-    color: $gray-200 !important;
-  }
-
   .selected-conversion {
     justify-content: center;
     align-items: center;
@@ -321,6 +312,8 @@
     height: 44px;
     background-color: $gray-600;
     padding: 0.75rem 1.5rem;
+
+    border-bottom: 1px solid $gray-500;
   }
 
 
@@ -417,6 +410,10 @@
     }
   }
 
+  .full-width {
+    width: 100%;
+  }
+
   .new-message-row {
     width: 100%;
     padding-left: 1.5rem;
@@ -435,8 +432,13 @@
         background-color: $gray-500;
       }
 
+      &.has-content {
+        --textarea-auto-height: 80px;
+      }
+
+      height: var(--textarea-auto-height, 40px);
       min-height: var(--textarea-auto-height, 40px);
-      max-height: var(--textarea-auto-height, 40px);
+      max-height: 300px;
     }
   }
 
@@ -502,11 +504,6 @@
     padding: 0;
     border-bottom-left-radius: 8px;
 
-    .search-section {
-      padding: 1rem 1.5rem;
-      border-bottom: 1px solid $gray-500;
-    }
-
     @media only screen and (max-width: 768px) {
       width: 280px;
     }
@@ -555,7 +552,6 @@
 <script>
 import Vue from 'vue';
 import moment from 'moment';
-import filter from 'lodash/filter';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import habiticaMarkdown from 'habitica-markdown';
@@ -574,7 +570,9 @@ import faceAvatar from '@/components/faceAvatar';
 import Avatar from '@/components/avatar';
 import { EVENTS } from '@/libs/events';
 
-const MAX_TEXTAREA_HEIGHT = 80;
+// extract to a shared path
+const CONVERSATIONS_PER_PAGE = 10;
+const PM_PER_PAGE = 10;
 
 export default {
   components: {
@@ -597,58 +595,40 @@ export default {
         messageIcon,
         mail,
       }),
-      displayCreate: true,
-      selectedConversation: {},
-      search: '',
-      newMessage: '',
-      showPopover: false,
-      messages: [],
-      messagesByConversation: {}, // cache {uuid: []}
-      loadedConversations: [],
       loaded: false,
-      messagesLoading: false,
+      showPopover: false,
+
+      /* Conversation-specific data */
       initiatedConversation: null,
       updateConversationsCounter: 0,
-      textareaAutoHeight: undefined,
+      selectedConversation: {},
+      conversationPage: 0,
+      canLoadMoreConversations: false,
+      loadedConversations: [],
+      messagesByConversation: {}, // cache {uuid: []}
+
+      newMessage: '',
+      messages: [],
+      messagesLoading: false,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
   },
-  async mounted () {
-    // notification click to refresh
-    this.$root.$on(EVENTS.PM_REFRESH, async () => {
-      await this.reload();
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      const data = vm.$store.state.privateMessageOptions;
 
-      this.selectFirstConversation();
+      if ((!data || (data && !data.userIdToMessage)) && vm.$route.query && vm.$route.query.uuid) {
+        vm.$store.dispatch('user:userLookup', { uuid: vm.$route.query.uuid }).then(res => {
+          if (res && res.data && res.data.data) {
+            vm.$store.dispatch('user:newPrivateMessageTo', {
+              member: res.data.data,
+            });
+          }
+        });
+      } else {
+        vm.hasPrivateMessageOptionsOnPageLoad = true;
+      }
     });
-
-    // header sync button
-    this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
-      await this.reload();
-
-      this.selectFirstConversation();
-    });
-
-    await this.reload();
-
-    const data = this.$store.state.privateMessageOptions;
-
-    if (data && data.userIdToMessage) {
-      this.initiatedConversation = {
-        uuid: data.userIdToMessage,
-        user: data.displayName,
-        username: data.username,
-        backer: data.backer,
-        contributor: data.contributor,
-        userStyles: data.userStyles,
-      };
-
-      this.$store.state.privateMessageOptions = {};
-
-      this.selectConversation(this.initiatedConversation.uuid);
-    }
-  },
-  destroyed () {
-    this.$root.$off(EVENTS.RESYNC_COMPLETED);
   },
   computed: {
     ...mapState({ user: 'user.data' }),
@@ -724,13 +704,9 @@ export default {
       // Vue-subscribe to changes
       const subscribeToUpdate = this.updateConversationsCounter > -1;
 
-      const filtered = subscribeToUpdate && !this.search
-        ? this.conversations
+      const filtered = subscribeToUpdate && this.conversations;
 
-        /* eslint-disable max-len */
-        : filter(this.conversations, conversation => conversation.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1);
-
-      const ordered = orderBy(filtered, [o => moment(o.date).toDate()], ['desc']);
+      const ordered = orderBy(filtered, [o => o.date], ['desc']);
 
       return ordered;
     },
@@ -805,18 +781,75 @@ export default {
         || this.disabledTexts !== null;
     },
   },
+  async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('messages'),
+    });
+    // notification click to refresh
+    this.$root.$on(EVENTS.PM_REFRESH, async () => {
+      await this.reload();
+
+      this.selectFirstConversation();
+    });
+
+    // header sync button
+    this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
+      await this.reload();
+
+      this.selectFirstConversation();
+    });
+
+    await this.reload();
+
+    // close members modal if the Private Messages page is opened in an existing tab
+    this.$root.$emit('bv::hide::modal', 'profile');
+    this.$root.$emit('bv::hide::modal', 'members-modal');
+
+    const data = this.$store.state.privateMessageOptions;
+    if (data && data.userIdToMessage) {
+      this.initiatedConversation = {
+        uuid: data.userIdToMessage,
+        user: data.displayName,
+        username: data.username,
+        backer: data.backer,
+        contributor: data.contributor,
+        userStyles: data.userStyles,
+        canReceive: true,
+      };
+
+      this.$store.state.privateMessageOptions = {};
+
+      this.selectConversation(this.initiatedConversation.uuid);
+    }
+  },
+  beforeDestroy () {
+    this.$root.$off(EVENTS.RESYNC_COMPLETED);
+    this.$root.$off(EVENTS.PM_REFRESH);
+  },
 
   methods: {
     async reload () {
       this.loaded = false;
+      this.conversationPage = 0;
 
-      const conversationRes = await axios.get('/api/v4/inbox/conversations');
-      this.loadedConversations = conversationRes.data.data;
+      this.loadedConversations = [];
       this.selectedConversation = {};
+
+      await this.loadConversations();
 
       await this.$store.dispatch('user:markPrivMessagesRead');
 
       this.loaded = true;
+    },
+    async loadConversations () {
+      const query = ['/api/v4/inbox/conversations'];
+      query.push(`?page=${this.conversationPage}`);
+      this.conversationPage += 1;
+
+      const conversationRes = await axios.get(query.join(''));
+      const loadedConversations = conversationRes.data.data;
+      this.canLoadMoreConversations = loadedConversations.length === CONVERSATIONS_PER_PAGE;
+      this.loadedConversations.push(...loadedConversations);
     },
     messageRemoved (message) {
       const messages = this.messagesByConversation[this.selectedConversation.key];
@@ -833,9 +866,6 @@ export default {
         };
       }
     },
-    toggleClick () {
-      this.displayCreate = !this.displayCreate;
-    },
     toggleOpt () {
       this.$store.dispatch('user:togglePrivateMessagesOpt');
     },
@@ -848,11 +878,7 @@ export default {
         await this.loadMessages();
       }
 
-      Vue.nextTick(() => {
-        if (!this.$refs.chatscroll) return;
-        const chatscroll = this.$refs.chatscroll.$el;
-        chatscroll.scrollTop = chatscroll.scrollHeight;
-      });
+      this.scrollToBottom();
     },
     sendPrivateMessage () {
       if (!this.newMessage) return;
@@ -878,6 +904,7 @@ export default {
         username: this.user.auth.local.username,
         contributor: this.user.contributor,
         backer: this.user.backer,
+        canReceive: true,
       });
 
       // Remove the placeholder message
@@ -890,11 +917,7 @@ export default {
       this.selectedConversation.lastMessageText = this.newMessage;
       this.selectedConversation.date = new Date();
 
-      Vue.nextTick(() => {
-        if (!this.$refs.chatscroll) return;
-        const chatscroll = this.$refs.chatscroll.$el;
-        chatscroll.scrollTop = chatscroll.scrollHeight;
-      });
+      this.scrollToBottom();
 
       this.$store.dispatch('members:sendPrivateMessage', {
         toUserId: this.selectedConversation.key,
@@ -903,12 +926,19 @@ export default {
         const newMessage = response.data.data.message;
         const messageToReset = messages[messages.length - 1];
         messageToReset.id = newMessage.id; // just set the id, all other infos already set
+        messageToReset.text = newMessage.text; // handle mentions
         Object.assign(messages[messages.length - 1], messageToReset);
         this.updateConversationsCounter += 1;
       });
 
       this.newMessage = '';
-      this.autoSize();
+    },
+    scrollToBottom () {
+      Vue.nextTick(() => {
+        if (!this.$refs.chatscroll) return;
+        const chatscroll = this.$refs.chatscroll.$el;
+        chatscroll.scrollTop = chatscroll.scrollHeight;
+      });
     },
     removeTags (html) {
       const tmp = document.createElement('DIV');
@@ -943,30 +973,16 @@ export default {
       const res = await axios.get(requestUrl);
       const loadedMessages = res.data.data;
 
+      /* eslint-disable max-len */
       this.messagesByConversation[conversationKey] = this.messagesByConversation[conversationKey] || [];
+      /* eslint-disable max-len */
       const loadedMessagesToAdd = loadedMessages
         .filter(m => this.messagesByConversation[conversationKey].findIndex(mI => mI.id === m.id) === -1);
       this.messagesByConversation[conversationKey].push(...loadedMessagesToAdd);
 
       // only show the load more Button if the max count was returned
-      this.selectedConversation.canLoadMore = loadedMessages.length === 10;
+      this.selectedConversation.canLoadMore = loadedMessages.length === PM_PER_PAGE;
       this.messagesLoading = false;
-    },
-    autoSize () {
-      const { textarea } = this.$refs;
-      // weird issue: browser only removing the scrollHeight / clientHeight per key event - 56-54-52
-      let { scrollHeight } = textarea;
-
-      if (this.newMessage === '') {
-        // reset height when the message was removed again
-        scrollHeight = 40;
-      }
-
-      if (scrollHeight > MAX_TEXTAREA_HEIGHT) {
-        scrollHeight = MAX_TEXTAREA_HEIGHT;
-      }
-
-      this.textareaAutoHeight = `${scrollHeight}px`;
     },
     selectFirstConversation () {
       if (this.loadedConversations.length > 0) {

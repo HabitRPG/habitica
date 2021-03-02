@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="form-group row text-center">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-12">
           <div
             class="btn btn-secondary social-button"
             @click="socialAuth('facebook')"
@@ -54,7 +54,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6">
+      </div>
+      <div class="form-group row text-center">
+        <div class="col-12 col-md-12">
           <div
             class="btn btn-secondary social-button"
             @click="socialAuth('google')"
@@ -72,6 +74,29 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="form-group row text-center">
+        <div class="col-12 col-md-12">
+          <div
+            class="btn btn-secondary social-button"
+            @click="socialAuth('apple')"
+          >
+            <div
+              class="svg-icon social-icon"
+              v-html="icons.appleIcon"
+            ></div>
+            <div
+              class="text"
+            >
+              {{ registering
+                ? $t('signUpWithSocial', {social: 'Apple'})
+                : $t('loginWithSocial', {social: 'Apple'}) }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="strike">
+        <span>{{ $t('or') }}</span>
       </div>
       <div
         v-if="registering"
@@ -496,12 +521,13 @@
     }
 
     .social-icon {
+      margin-left: 1em;
       margin-right: 1em;
       width: 18px;
       height: 18px;
       display: inline-block;
       vertical-align: top;
-      margin-top: .2em;
+      margin-top: .1em;
     }
   }
 
@@ -581,6 +607,42 @@
   .exclamation {
     width: 2px;
   }
+
+  .strike {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .strike > span {
+    position: relative;
+    display: inline-block;
+    line-height: 1.14;
+    color: #fff;
+  }
+
+  .strike > span:before,
+  .strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: #fff;
+  }
+
+  .strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+  }
+
+  .strike > span:after {
+    left: 100%;
+    margin-left: 15px;
+  }
 </style>
 
 <script>
@@ -589,6 +651,7 @@ import hello from 'hellojs';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
 import isEmail from 'validator/lib/isEmail';
+import { buildAppleAuthUrl } from '../../libs/auth';
 
 import { MINIMUM_PASSWORD_LENGTH } from '@/../../common/script/constants';
 import exclamation from '@/assets/svg/exclamation.svg';
@@ -596,6 +659,7 @@ import gryphon from '@/assets/svg/gryphon.svg';
 import habiticaIcon from '@/assets/svg/habitica-logo.svg';
 import facebookSquareIcon from '@/assets/svg/facebook-square.svg';
 import googleIcon from '@/assets/svg/google.svg';
+import appleIcon from '@/assets/svg/apple_black.svg';
 
 export default {
   data () {
@@ -618,6 +682,7 @@ export default {
       habiticaIcon,
       facebookIcon: facebookSquareIcon,
       googleIcon,
+      appleIcon,
     });
 
     return data;
@@ -680,22 +745,22 @@ export default {
   watch: {
     $route: {
       handler () {
+        this.setTitle();
         if (this.resetPasswordSetNewOne) {
           const { query } = this.$route;
           const { code } = query;
           const hasError = query.hasError === 'true';
           if (hasError) {
-            window.alert(query.message);
+            window.alert(query.message); // eslint-disable-line no-alert
             this.$router.push({ name: 'login' });
             return;
           }
 
           if (!code) {
-            window.alert(this.$t('invalidPasswordResetCode'));
+            window.alert(this.$t('invalidPasswordResetCode')); // eslint-disable-line no-alert
             this.$router.push({ name: 'login' });
             return;
           }
-
           this.resetPasswordSetNewOneData.code = query.code;
           this.resetPasswordSetNewOneData.hasError = hasError;
         }
@@ -732,12 +797,12 @@ export default {
     async register () {
       // @TODO do not use alert
       if (!this.email) {
-        window.alert(this.$t('missingEmail'));
+        window.alert(this.$t('missingEmail')); // eslint-disable-line no-alert
         return;
       }
 
       if (this.password !== this.passwordConfirm) {
-        window.alert(this.$t('passwordConfirmationMatch'));
+        window.alert(this.$t('passwordConfirmationMatch')); // eslint-disable-line no-alert
         return;
       }
 
@@ -799,35 +864,51 @@ export default {
     },
     // @TODO: Abstract hello in to action or lib
     async socialAuth (network) {
-      try {
-        await hello(network).logout();
-      } catch (e) {} // eslint-disable-line
-
-      const redirectUrl = `${window.location.protocol}//${window.location.host}`;
-      const auth = await hello(network).login({
-        scope: 'email',
-        // explicitly pass the redirect url or it might redirect to /home
-        redirect_uri: redirectUrl, // eslint-disable-line camelcase
-      });
-
-      await this.$store.dispatch('auth:socialAuth', {
-        auth,
-      });
-
-      let redirectTo;
-
-      if (this.$route.query.redirectTo) {
-        redirectTo = this.$route.query.redirectTo;
+      if (network === 'apple') {
+        window.location.href = buildAppleAuthUrl();
       } else {
-        redirectTo = '/';
-      }
+        try {
+          await hello(network).logout();
+        } catch (e) {} // eslint-disable-line
 
-      // @TODO do not reload entire page
-      // problem is that app.vue created hook should be called again
-      // after user is logged in / just signed up
-      // ALSO it's the only way to make sure language data
-      // is reloaded and correct for the logged in user
-      window.location.href = redirectTo;
+        const redirectUrl = `${window.location.protocol}//${window.location.host}`;
+        const auth = await hello(network).login({
+          scope: 'email',
+          // explicitly pass the redirect url or it might redirect to /home
+          redirect_uri: redirectUrl, // eslint-disable-line camelcase
+        });
+
+        await this.$store.dispatch('auth:socialAuth', {
+          auth,
+        });
+
+        let redirectTo;
+
+        if (this.$route.query.redirectTo) {
+          redirectTo = this.$route.query.redirectTo;
+        } else {
+          redirectTo = '/';
+        }
+
+        // @TODO do not reload entire page
+        // problem is that app.vue created hook should be called again
+        // after user is logged in / just signed up
+        // ALSO it's the only way to make sure language data
+        // is reloaded and correct for the logged in user
+        window.location.href = redirectTo;
+      }
+    },
+    setTitle () {
+      if (this.resetPasswordSetNewOne) {
+        return;
+      }
+      let title = 'login';
+      if (this.registering) {
+        title = 'register';
+      }
+      this.$store.dispatch('common:setTitle', {
+        section: this.$t(title),
+      });
     },
     handleSubmit () {
       if (this.registering) {
@@ -849,7 +930,7 @@ export default {
     },
     async forgotPasswordLink () {
       if (!this.username) {
-        window.alert(this.$t('missingEmail'));
+        window.alert(this.$t('missingEmail')); // eslint-disable-line no-alert
         return;
       }
 
@@ -857,17 +938,17 @@ export default {
         email: this.username,
       });
 
-      window.alert(this.$t('newPassSent'));
+      window.alert(this.$t('newPassSent')); // eslint-disable-line no-alert
     },
     async resetPasswordSetNewOneLink () {
       if (!this.password) {
-        window.alert(this.$t('missingNewPassword'));
+        window.alert(this.$t('missingNewPassword')); // eslint-disable-line no-alert
         return;
       }
 
       if (this.password !== this.passwordConfirm) {
         // @TODO i18n and don't use alerts
-        window.alert(this.$t('passwordConfirmationMatch'));
+        window.alert(this.$t('passwordConfirmationMatch')); // eslint-disable-line no-alert
         return;
       }
 
@@ -878,7 +959,7 @@ export default {
       });
 
       if (res.data.message) {
-        window.alert(res.data.message);
+        window.alert(res.data.message); // eslint-disable-line no-alert
       }
 
       this.password = '';

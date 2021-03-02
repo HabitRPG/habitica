@@ -60,7 +60,7 @@
           Are you ready to upgrade?
         </h1>
         <div class="row">
-          <div class="col-12 text-center">
+          <div class="col-12 text-center mb-4 d-flex justify-content-center">
             <div class="purple-box">
               <div class="amount-section">
                 <div class="dollar">
@@ -93,22 +93,10 @@
             </div>
             <div class="box payment-providers">
               <h3>Choose your payment method</h3>
-              <div class="payments-column">
-                <button
-                  class="purchase btn btn-primary payment-button payment-item"
-                  @click="pay(PAYMENTS.STRIPE)"
-                >
-                  <div
-                    class="svg-icon credit-card-icon"
-                    v-html="icons.creditCardIcon"
-                  ></div>
-                  {{ $t('card') }}
-                </button>
-                <amazon-button
-                  class="payment-item"
-                  :amazon-data="pay(PAYMENTS.AMAZON)"
-                />
-              </div>
+              <payments-buttons
+                :stripe-fn="() => pay(PAYMENTS.STRIPE)"
+                :amazon-data="pay(PAYMENTS.AMAZON)"
+              />
             </div>
           </div>
         </div>
@@ -167,7 +155,7 @@
     </div>
     <b-modal
       id="group-plan-modal"
-      title="Select Payment"
+      :title="activePage === PAGES.CREATE_GROUP ? 'Create your Group' : 'Select Payment'"
       size="md"
       hide-footer="hide-footer"
     >
@@ -254,22 +242,10 @@
       >
         <div class="text-center">
           <h3>Choose your payment method</h3>
-          <div class="payments-column mx-auto">
-            <button
-              class="purchase btn btn-primary payment-button payment-item"
-              @click="pay(PAYMENTS.STRIPE)"
-            >
-              <div
-                class="svg-icon credit-card-icon"
-                v-html="icons.creditCardIcon"
-              ></div>
-              {{ $t('card') }}
-            </button>
-            <amazon-button
-              class="payment-item"
-              :amazon-data="pay(PAYMENTS.AMAZON)"
-            />
-          </div>
+          <payments-buttons
+            :stripe-fn="() => pay(PAYMENTS.STRIPE)"
+            :amazon-data="pay(PAYMENTS.AMAZON)"
+          />
         </div>
       </div>
     </b-modal>
@@ -290,7 +266,6 @@
 
     .purple-box {
       color: #bda8ff;
-      margin-bottom: 2em;
     }
 
     .number {
@@ -464,19 +439,17 @@
 import paymentsMixin from '../../mixins/payments';
 import { mapState } from '@/libs/store';
 import positiveIcon from '@/assets/svg/positive.svg';
-import creditCardIcon from '@/assets/svg/credit-card-icon.svg';
-import amazonButton from '@/components/payments/amazonButton';
+import paymentsButtons from '@/components/payments/buttons/list';
 
 export default {
   components: {
-    amazonButton,
+    paymentsButtons,
   },
   mixins: [paymentsMixin],
   data () {
     return {
       amazonPayments: {},
       icons: Object.freeze({
-        creditCardIcon,
         positiveIcon,
       }),
       PAGES: {
@@ -513,6 +486,9 @@ export default {
   },
   mounted () {
     this.activePage = this.PAGES.BENEFITS;
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('groupPlans'),
+    });
   },
   methods: {
     launchModal () {
@@ -548,7 +524,7 @@ export default {
       }
 
       if (this.paymentMethod === this.PAYMENTS.STRIPE) {
-        this.showStripe(paymentData);
+        this.redirectToStripe(paymentData);
       }
 
       return null;

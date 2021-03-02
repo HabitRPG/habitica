@@ -11,6 +11,8 @@ export const MAX_SUMMARY_SIZE_FOR_CHALLENGES = 250;
 export const MIN_SHORTNAME_SIZE_FOR_CHALLENGES = 3;
 export const MAX_MESSAGE_LENGTH = 3000;
 
+export const MAX_GIFT_MESSAGE_LENGTH = 200;
+
 export const CHAT_FLAG_LIMIT_FOR_HIDING = 2; // hide posts that have this many flags
 export const CHAT_FLAG_FROM_MOD = 5; // a flag from a moderator counts as this many flags
 // a shadow-muted user's post starts with this many flags
@@ -20,6 +22,7 @@ export const CHAT_FLAG_FROM_SHADOW_MUTE = 10;
 export const SUPPORTED_SOCIAL_NETWORKS = [
   { key: 'facebook', name: 'Facebook' },
   { key: 'google', name: 'Google' },
+  { key: 'apple', name: 'Apple' },
 ];
 
 export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when using pagination
@@ -27,6 +30,7 @@ export const GUILDS_PER_PAGE = 30; // number of guilds to return per page when u
 export const PARTY_LIMIT_MEMBERS = 30;
 
 export const MINIMUM_PASSWORD_LENGTH = 8;
+
 export const TRANSFORMATION_DEBUFFS_LIST = {
   snowball: 'salt',
   spookySparkles: 'opaquePotion',
