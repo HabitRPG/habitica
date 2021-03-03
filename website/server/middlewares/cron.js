@@ -82,7 +82,7 @@ async function cronAsync (req, res) {
           {
             $or: [
               { userId: user._id },
-              { userId: { $exists: false }, 'group.id': { $in: teamsLed } },
+              { userId: { $exists: false }, 'group.id': { $in: teamsLed }, 'group.assignedUsers': { $size: 0 } },
             ],
           },
           {
@@ -141,20 +141,36 @@ async function cronAsync (req, res) {
 
     // Save user and tasks
     const toSave = [user.save()];
-    tasks.forEach(async task => {
+    const groupTasks = [];
+    const groupTasksByType = {
+      habits: [], dailys: [], todos: [], rewards: [],
+    };
+    for (const task of tasks) {
       if (task.isModified()) toSave.push(task.save());
       if (task.isModified() && task.group && task.group.taskId) {
-        const groupTask = await Tasks.Task.findOne({
+        const groupTask = await Tasks.Task.findOne({ // eslint-disable-line no-await-in-loop
           _id: task.group.taskId,
         }).exec();
-
         if (groupTask) {
-          let delta = (0.9747 ** task.value) * -1;
-          if (groupTask.group.assignedUsers) delta /= groupTask.group.assignedUsers.length;
-          await groupTask.scoreChallengeTask(delta, 'down');
+          groupTasks.push(groupTask);
+          groupTasksByType[`${groupTask.type}s`].push(groupTask);
         }
       }
-    });
+    }
+    if (groupTasks.length > 0) {
+      await cron({
+        user,
+        tasksByType: groupTasksByType,
+        now,
+        daysMissed,
+        analytics,
+        timezoneUtcOffsetFromUserPrefs,
+        headers: req.headers,
+      });
+      groupTasks.forEach(async cronnedGroupTask => {
+        if (cronnedGroupTask.isModified()) toSave.push(cronnedGroupTask.save());
+      });
+    }
     await Promise.all(toSave);
 
     await Group.processQuestProgress(user, progress);
