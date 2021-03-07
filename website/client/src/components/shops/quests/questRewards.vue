@@ -11,7 +11,7 @@
             class="sparkles"
             v-html="icons.sparkles"
           ></span>
-          <span class="text">{{ $t('rewards') }}</span>
+          <span class="rewards-title">{{ $t('rewards') }}</span>
           <span
             class="sparkles mirror"
             v-html="icons.sparkles"
@@ -158,10 +158,11 @@ export default {
         width: 2rem;
       }
 
-      .text {
+      .rewards-title {
         font-weight: bold;
         margin: 1rem;
         color: $gray-50;
+        align-self: baseline; // center would move it to the top?!
       }
     }
   }

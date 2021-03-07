@@ -4,8 +4,8 @@
     class="row"
   >
     <group-form-modal v-if="isParty" />
-    <start-quest-modal :group="group" />
-    <quest-details-modal :group="group" />
+    <select-quest-modal :group="group" />
+    <group-quest-details-modal :group="group" />
     <participant-list-modal :group="group" />
     <group-gems-modal />
     <div class="col-12 col-sm-8 standard-page">
@@ -390,8 +390,8 @@ import groupUtilities from '@/mixins/groupsUtilities';
 import styleHelper from '@/mixins/styleHelper';
 import { mapState, mapGetters } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
-import startQuestModal from './startQuestModal';
-import questDetailsModal from './questDetailsModal';
+import selectQuestModal from './selectQuestModal';
+import groupQuestDetailsModal from './groupQuestDetailsModal';
 import participantListModal from './participantListModal';
 import groupFormModal from './groupFormModal';
 import groupChallenges from '../challenges/groupChallenges';
@@ -416,10 +416,10 @@ import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-small.svg';
 
 export default {
   components: {
-    startQuestModal,
+    selectQuestModal,
     groupFormModal,
     groupChallenges,
-    questDetailsModal,
+    groupQuestDetailsModal,
     participantListModal,
     groupGemsModal,
     questSidebarSection,

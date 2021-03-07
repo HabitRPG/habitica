@@ -13,7 +13,7 @@
             v-for="(collect, key) of quest.collect"
             :key="key"
           >
-            <span>{{ collect.count }} s{{ getCollectText(collect) }}</span>
+            <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
           </div>
         </dd>
       </div>

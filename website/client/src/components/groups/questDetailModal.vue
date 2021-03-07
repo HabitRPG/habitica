@@ -1,57 +1,21 @@
 <template>
   <b-modal
-    id="start-quest-modal"
+    id="quest-detail-modal"
     title="Empty"
     size="md"
     :hide-footer="true"
     :hide-header="true"
   >
-    <div class="left-panel content">
-      <h3 class="text-center">
-        Quests
-      </h3>
-      <div class="row">
-        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-        <div
-          v-for="(value, key) in user.items.quests"
-          v-if="value > 0"
-          :key="key"
-          class="col-4 quest-col"
-          :class="{selected: key === selectedQuest}"
-          @click="selectQuest({key})"
-        >
-          <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-          <div class="quest-wrapper">
-            <b-popover
-              :target="`inventory_quest_scroll_${key}`"
-              placement="top"
-              triggers="hover"
-            >
-              <h4 class="popover-content-title">
-                {{ quests.quests[key].text() }}
-              </h4>
-              <questInfo :quest="quests.quests[key]" />
-            </b-popover>
-            <div
-              :id="`inventory_quest_scroll_${key}`"
-              class="quest"
-              :class="`inventory_quest_scroll_${key}`"
-            ></div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-10 offset-1 text-center">
-          <span
-            v-once
-            class="description"
-          >{{ $t('noQuestToStart') }}</span>
-        </div>
-      </div>
+    <div class="dialog-close">
+      <close-icon @click="hideDialog()" />
     </div>
+    <h2 class="text-center textCondensed">
+      Quest Details
+    </h2>
     <div v-if="questData">
       <questDialogContent :item="questData" />
     </div>
+    <quest-rewards :quest="questData" />
     <div class="text-center">
       <button
         class="btn btn-primary"
@@ -63,12 +27,6 @@
     </div>
     <div class="text-center">
       <p>{{ $t('inviteInformation') }}</p>
-    </div>
-    <div
-      v-if="questData"
-      class="side-panel"
-    >
-      <questDialogDrops :item="questData" />
     </div>
   </b-modal>
 </template>
@@ -85,68 +43,92 @@
     }
   }
 
-  .quest-details {
-    margin: 0 auto;
-    text-align: left;
-    width: 180px;
-  }
-
   .btn-primary {
     margin: 1em 0;
   }
 
-  .left-panel {
-    background: #4e4a57;
-    color: $white;
-    position: absolute;
-    height: 460px;
-    width: 320px;
-    top: 2.5em;
-    left: -23em;
-    z-index: -1;
-    padding: 2em;
-    overflow-y: auto;
+  #quest-detail-modal {
+  @media only screen and (max-width: 1200px) {
+    .modal-dialog {
+      max-width: 33%;
 
-    h3 {
-      color: $white;
-    }
+      .left-panel {
+        left: initial;
+        width: 100%;
+        right: 100%;
 
-    .selected .quest-wrapper {
-      border: solid 1.5px #9a62ff;
-    }
+        .col-4 {
+          width: 100px;
+        }
+      }
 
-    .quest-wrapper:hover {
-      cursor: pointer;
-    }
+      .side-panel, .right-sidebar {
+        left: calc(100% - 10px);
+        max-width: 100%;
+        right: initial;
 
-    .quest-col .quest-wrapper {
-      background: $white;
-      padding: .2em;
-      margin-bottom: 1em;
-      border-radius: 3px;
-    }
+        .questRewards {
+          width: 90%;
 
-    .description {
-      text-align: center;
-      color: #a5a1ac;
-      font-size: 12px;
+          .reward-item {
+            width: 100%;
+          }
+        }
+      }
     }
   }
 
-  .side-panel {
-    position: absolute;
-    right: -350px;
-    top: 25px;
-    border-radius: 8px;
-    background-color: $gray-600;
-    box-shadow: 0 2px 16px 0 rgba(26, 24, 29, 0.32);
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 364px;
-    z-index: -1;
-    height: 93%;
+  @media only screen and (max-width: 1000px) {
+    .modal-dialog {
+      max-width: 80%;
+      width: 80% !important;
+
+      .modal-body {
+        flex-direction: column;
+        display: flex;
+
+        div:nth-child(1) { order: 3; }
+        div:nth-child(2) { order: 1; }
+        div:nth-child(3) { order: 4; }
+        div:nth-child(4) { order: 5; }
+        div:nth-child(5) { order: 2; }
+
+        .left-panel {
+          border-radius: 8px;
+          position: static;
+          right: initial;
+          margin: 20px 0;
+          height: auto;
+          width: 100%;
+          z-index: 0;
+          order: 3;
+
+          .col-4 {
+            max-width: 100px;
+          }
+        }
+
+        .side-panel, .right-sidebar {
+          margin: 20px 0 0 0;
+          position: static;
+          box-shadow: none;
+          height: auto;
+          width: 100%;
+          z-index: 0;
+          order: 2;
+          left: 0;
+
+          .questRewards {
+            padding: 0 2em 2em 2em;
+            width: 100%;
+            z-index: 0;
+          }
+        }
+      }
+    }
   }
+}
+
 </style>
 
 <script>
@@ -163,15 +145,15 @@ import twitterIcon from '@/assets/svg/twitter.svg';
 import starIcon from '@/assets/svg/star.svg';
 import goldIcon from '@/assets/svg/gold.svg';
 import difficultyStarIcon from '@/assets/svg/difficulty-star.svg';
-import questDialogDrops from '../shops/quests/questDialogDrops';
 import questDialogContent from '../shops/quests/questDialogContent';
-import QuestInfo from '../shops/quests/questInfo';
+import closeIcon from '../shared/closeIcon';
+import QuestRewards from '../shops/quests/questRewards';
 
 export default {
   components: {
-    questDialogDrops,
+    QuestRewards,
     questDialogContent,
-    QuestInfo,
+    closeIcon,
   },
   props: ['group'],
   data () {
@@ -235,7 +217,11 @@ export default {
       } finally {
         this.loading = false;
       }
-      this.$root.$emit('bv::hide::modal', 'start-quest-modal');
+
+      this.hideDialog();
+    },
+    hideDialog () {
+      this.$root.$emit('bv::hide::modal', 'quest-detail-modal');
     },
   },
 };

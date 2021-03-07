@@ -50,6 +50,11 @@ const store = getStore();
 store.state.user.data = {
   stats: {},
   tags: [],
+  items: {
+    quests: {
+      moon1: 3
+    },
+  },
 };
 
 Vue.prototype.$store = store;

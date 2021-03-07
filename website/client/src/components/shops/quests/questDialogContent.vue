@@ -4,9 +4,9 @@
       class="quest-image"
       :class="'quest_' + item.key"
     ></div>
-    <h4 class="title">
+    <h3 class="title">
       {{ itemText }}
-    </h4>
+    </h3>
     <div
       class="text"
       v-html="itemNotes"

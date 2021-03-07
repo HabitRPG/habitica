@@ -406,7 +406,7 @@ export default {
       this.$root.$emit('bv::show::modal', 'start-quest-modal');
     },
     openQuestDetails () {
-      this.$root.$emit('bv::show::modal', 'quest-details');
+      this.$root.$emit('bv::show::modal', 'group-quest-details');
     },
     openParticipantList () {
       this.$root.$emit('bv::show::modal', 'participant-list');
