@@ -123,7 +123,7 @@
     "paymentCanceledDisputes": "We hebben een annuleringsbevestiging gestuurd naar je e-mailadres. Als je deze mail niet ziet, neem dan alsjeblieft contact met ons op om geschillen over toekomstige rekeningen te voorkomen.",
     "paymentAutoRenew": "Dit abonnement zal automatisch vernieuwd worden totdat het wordt geannuleerd. Als het nodig is je abonnement op te zeggen, kun je dat doen in je instellingen.",
     "cannotUnpinItem": "Dit voorwerp kan niet losgekoppeld worden.",
-    "invalidUnlockSet": "<%= nMonths %> Maand(en) Abonnement (Cadeau).",
+    "invalidUnlockSet": "Deze set Voorwerpen is ongeldig en kan niet vrijgegeven worden.",
     "nGemsGift": "<%= nGems %> edelstenen (geschenk)",
     "nGems": "<%= nGems %> edelstenen",
     "nMonthsSubscriptionGift": "<%= nMonths %> Maand(en) Abonnement (Cadeau)"

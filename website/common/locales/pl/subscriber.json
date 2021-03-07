@@ -121,7 +121,7 @@
     "choosePaymentMethod": "Wybierz metodę płatności",
     "buyGemsSupportsDevs": "Kupowanie klejnotów wspiera deweloperów i pomaga utrzymywać Habitica w działaniu",
     "support": "WSPARCIE",
-    "gemBenefitLeadin": "Klejnoty pozwalają Ci kupować dodatkowe atrybuty takie jak:",
+    "gemBenefitLeadin": "Co możesz kupić za Klejnoty?",
     "gemBenefit1": "Unikalne i modne kostiumy dla Twojego awatara.",
     "gemBenefit2": "Tła, by zaaklimatyzować Twoją postać w świecie Habitica!",
     "gemBenefit3": "Ekscytujące misje, które pozwalają zdobyć jaja z chowańcami.",
@@ -172,5 +172,17 @@
     "mysterySet202007": "Zestaw Wybitnej Orki",
     "mysterySet202006": "Zestaw Wielobarwnej Syreny",
     "mysterySet202008": "Zestaw Sowiastej Wyroczni",
-    "mysterySet202009": "Zestaw Bajecznej Ćmy"
+    "mysterySet202009": "Zestaw Bajecznej Ćmy",
+    "cancelSubInfoGoogle": "Proszę udaj się do zakładki \"Subskrypcje\" w Sklepie Google Play, aby anulować abonament, bądź zobaczyć datę ważności twojego abonamentu, jeśli już ją anulowałeś. Zakładka ta nie oferuje możliwości sprawdzenia, czy twój abonament został anulowany.",
+    "organization": "Organizacja",
+    "lookingForMoreItems": "Chcesz zdobywać więcej nagród?",
+    "mysterySet202102": "Zestaw Urokliwego Mistrza",
+    "dropCapSubs": "Abonenci Habitica mogą każdego dnia znaleźć podwójną liczbę losowych przedmiotów i otrzymywać co miesiąc niespodzianki!",
+    "dropCapLearnMore": "Dowiedz się więcej o systemie nagród w Habitica",
+    "dropCapExplanation": "Jutro będziesz mógł uzyskać więcej nagród za zadania. Jednak nadal będziesz zdobywać złoto, doświadczenie i postęp w Misjach podczas wykonywania zadań.",
+    "dropCapReached": "Znalazłeś wszystkie przedmioty na ten dzień!",
+    "usuallyGems": "Zazwyczaj <%= originalGems %>",
+    "supportHabitica": "Wesprzyj Habitica",
+    "mysterySet202012": "Zestaw Feniksa Mroźnego Ognia",
+    "cancelSubInfoApple": "Proszę podążaj <a href=\"https://support.apple.com/en-us/HT202039\" target=\"_blank\">zgodnie z instrukcjami Apple</a>, aby anulować Abonament lub sprawdzić jej datę ważności, jeśli już ją anulowałeś. Zakładka ta nie oferuje możliwości sprawdzenia, czy twoja subskrypcja została anulowana."
 }

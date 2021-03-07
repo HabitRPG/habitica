@@ -102,5 +102,8 @@
     "achievementRedLetterDay": "大喜之日",
     "achievementSeeingRedModalText": "你集齐了所有红色宠物！",
     "achievementSeeingRedText": "已集齐所有红色宠物。",
-    "achievementSeeingRed": "火冒三丈"
+    "achievementSeeingRed": "火冒三丈",
+    "achievementLegendaryBestiaryModalText": "你集齐了所有神话宠物！",
+    "achievementLegendaryBestiaryText": "已孵化所有的神话宠物：龙，飞猪，狮鹫，海蛇和独角兽！",
+    "achievementLegendaryBestiary": "传奇神兽"
 }

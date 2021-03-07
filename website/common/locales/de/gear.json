@@ -2283,5 +2283,11 @@
     "armorSpecialBirthday2021Notes": "Herzlichen Glückwunsch zum Geburtstag, Habitica! Trage Extravagante Festtageskleider um diesen wundervollen Tag zu feiern. Gewährt keinen Attributbonus.",
     "armorSpecialBirthday2021Text": "Extravagante Festtageskleider",
     "weaponMystery202102Notes": "Der rosa leuchtende Edelstein in diesem Zauberstab birgt die Gabe weit und breit Frohsinn und Freundschaft zu sähen! Gewährt keinen Attributbonus. Februar 2021 Abonnentengegenstand.",
-    "weaponMystery202102Text": "Charmanter Zauberstab"
+    "weaponMystery202102Text": "Charmanter Zauberstab",
+    "shieldArmoireSoftPinkPillowNotes": "Aufmerksame Kampfkünstler packen für jede Unternehmung ein Kissen ein. Dämpfe des Lebens Schicksalsschläge ... und liege bequemer, wenn du ein Nickerchen hältst. Erhöht Stärke um <%= str %>. Verzauberter Schrank: Weichpinkes Wohlfühl-Set (Gegenstand 3 von 3).",
+    "shieldArmoireSoftPinkPillowText": "Weichpinkes Wurfkissen",
+    "headArmoirePinkFloppyHatNotes": "Viele Zauber wurden in diese einfache Mütze genäht, um diese perfekt-pinke Farbe zu erreichen. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Weichpinkes Wohlfühl-Set (Gegenstand 1 von 3).",
+    "headArmoirePinkFloppyHatText": "Weichpinke Wohlfühlmütze",
+    "armorArmoireSoftPinkSuitText": "Weichpinke Wohlfühlkleidung",
+    "armorArmoireSoftPinkSuitNotes": "Rosa ist eine beruhigende Farbe. Schlüpfe in diesen Schlafanzug, um dem täglichen Schuften einen friedlichen Moment zu entlocken. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Weichpinkes Wohlfühl-Set (Gegenstand 2 von 3)."
 }

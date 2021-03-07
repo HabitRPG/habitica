@@ -21,7 +21,7 @@
     "spellRogueBackStabText": "Hátbaszúrás",
     "spellRogueBackStabNotes": "Elárulsz egy ostoba feladatot és aranyat valamint tapasztalati pontot szerzel! (Alapja: ERŐ)",
     "spellRogueToolsOfTradeText": "Munkaeszközök",
-    "spellRogueToolsOfTradeNotes": "Ravasz képeségeid megerősíti az egész csapatod észlelését! (Alapja: megerősítetlen ÉSZ)",
+    "spellRogueToolsOfTradeNotes": "Ravasz képességed megerősíti az egész csapatod észlelését! (Alapja: megerősítetlen ÉSZ)",
     "spellRogueStealthText": "Lopakodás",
     "spellRogueStealthNotes": "Mindegyik varázslattal napi feladataid közül néhány nem sebez meg. A szériájuk és színük nem fog változni. (Alapja: ÉSZ)",
     "spellRogueStealthDaliesAvoided": "<%= originalText %> Kikerült napi feladatok száma: <%= number %>.",
@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Kihívásokhoz tartozó feladatokon nem használhatsz varázslatokat.",
     "groupTasksNoCast": "Csoporthoz tartozó feladatokon nem használhatsz varázslatokat.",
     "spellNotOwned": "Nem rendelkezel ezzel a varázslattal.",
-    "spellLevelTooHigh": "<%= level %> szintűnek kell lenned ehhez a varázslathoz. "
+    "spellLevelTooHigh": "<%= level %> szintűnek kell lenned ehhez a varázslathoz.",
+    "spellAlreadyCast": "Ennek a varázslatnak nincs más hatása."
 }

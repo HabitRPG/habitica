@@ -140,6 +140,7 @@ export default new Schema({
     skeletonCrew: Boolean,
     seeingRed: Boolean,
     redLetterDay: Boolean,
+    legendaryBestiary: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

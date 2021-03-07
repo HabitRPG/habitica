@@ -208,6 +208,7 @@ function _getBasicAchievements (user, language) {
   _addSimple(result, user, { path: 'skeletonCrew', language });
   _addSimple(result, user, { path: 'seeingRed', language });
   _addSimple(result, user, { path: 'redLetterDay', language });
+  _addSimple(result, user, { path: 'legendaryBestiary', language });
 
   _addSimpleWithMasterCount(result, user, { path: 'beastMaster', language });
   _addSimpleWithMasterCount(result, user, { path: 'mountMaster', language });

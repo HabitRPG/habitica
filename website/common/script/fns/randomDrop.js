@@ -179,7 +179,7 @@ export default function randomDrop (user, options, req = {}, analytics) {
       });
     }
 
-    if (isEnrolledInDropCapTest) {
+    if (isEnrolledInDropCapTest && dropCapReached) {
       analytics.track('drop cap reached', {
         uuid: user._id,
         dropCap: maxDropCount,

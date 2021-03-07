@@ -88,8 +88,19 @@
     "achievementAllThatGlittersText": "Okiełznano wszystkie złote wierzchowce.",
     "achievementAllThatGlitters": "Wszystko co błyszczy",
     "achievementGoodAsGoldModalText": "Zebrałeś(-aś) wszystkie złote chowańce!",
-    "achievementGoodAsGoldText": "Zebrane wszystkie złote chowańce.",
+    "achievementGoodAsGoldText": "Zebrane wszystkie Złote Chowańce.",
     "achievementGoodAsGold": "Na wagę złota",
     "yourRewards": "Twoje Nagrody",
-    "achievementBoneCollector": "Kolekcjoner Kości"
+    "achievementBoneCollector": "Kolekcjoner Kości",
+    "achievementRedLetterDay": "Pamiętny Dzień Czerwieni",
+    "achievementRedLetterDayModalText": "Oswoiłeś wszystkie Czerwone Wierzchowce!",
+    "achievementRedLetterDayText": "Oswoił wszystkie Czerwone Wierzchowce.",
+    "achievementSeeingRedModalText": "Zebrałeś wszystkie Czerwone Chowańce!",
+    "achievementSeeingRedText": "Zebrał wszystkie Czerwone Chowańce.",
+    "achievementSeeingRed": "Czerwono widzę",
+    "achievementSkeletonCrewText": "Oswoił wszystkie Szkieletowe Wierzchowce.",
+    "achievementSkeletonCrew": "Szkieletowa Ekipa",
+    "achievementBoneCollectorModalText": "Zebrałeś wszystkie Szkieletowe Chowańce!",
+    "achievementBoneCollectorText": "Okiełznał wszystkie Szkieletowe Chowańce.",
+    "achievementSkeletonCrewModalText": "Oswoiłeś wszystkie Szkieletowe Wierzchowce!"
 }

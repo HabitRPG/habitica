@@ -169,7 +169,6 @@ describe('shared.ops.hatch', () => {
 
       it('awards Back to Basics achievement', () => {
         user.items.pets = {
-          'Wolf-Base': 5,
           'TigerCub-Base': 5,
           'PandaCub-Base': 10,
           'LionCub-Base': 5,
@@ -180,14 +179,13 @@ describe('shared.ops.hatch', () => {
           'BearCub-Base': 5,
         };
         user.items.eggs = { Wolf: 1 };
-        user.items.hatchingPotions = { Spooky: 1 };
-        hatch(user, { params: { egg: 'Wolf', hatchingPotion: 'Spooky' } });
+        user.items.hatchingPotions = { Base: 1 };
+        hatch(user, { params: { egg: 'Wolf', hatchingPotion: 'Base' } });
         expect(user.achievements.backToBasics).to.eql(true);
       });
 
       it('awards Dust Devil achievement', () => {
         user.items.pets = {
-          'Wolf-Desert': 5,
           'TigerCub-Desert': 5,
           'PandaCub-Desert': 10,
           'LionCub-Desert': 5,
@@ -198,8 +196,8 @@ describe('shared.ops.hatch', () => {
           'BearCub-Desert': 5,
         };
         user.items.eggs = { Wolf: 1 };
-        user.items.hatchingPotions = { Spooky: 1 };
-        hatch(user, { params: { egg: 'Wolf', hatchingPotion: 'Spooky' } });
+        user.items.hatchingPotions = { Desert: 1 };
+        hatch(user, { params: { egg: 'Wolf', hatchingPotion: 'Desert' } });
         expect(user.achievements.dustDevil).to.eql(true);
       });
 
