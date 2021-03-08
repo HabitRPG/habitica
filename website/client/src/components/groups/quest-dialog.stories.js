@@ -25,7 +25,7 @@ stories
       </div>
     `,
     mounted () {
-      this.$root.$emit('bv::show::modal', 'start-quest-modal');
+      this.$root.$emit('bv::show::modal', 'select-quest-modal');
     },
   }))
   .add('questDetailModal', () => ({

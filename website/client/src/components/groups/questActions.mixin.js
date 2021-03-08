@@ -3,6 +3,15 @@ export default {
     onActiveQuest () {
       return this.group.quest.active;
     },
+    groupHasQuest () {
+      return this.group.quest && Boolean(this.group.quest.key);
+    },
+    canEditQuest () {
+      if (!this.group.quest) return false;
+      const isQuestLeader = this.group.quest.leader === this.user._id;
+      const isPartyLeader = this.group.leader._id === this.user._id;
+      return isQuestLeader || isPartyLeader;
+    },
   },
   methods: {
     async questActionsConfirmQuest () {

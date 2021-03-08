@@ -680,10 +680,10 @@ export default {
   },
   methods: {
     openSelectQuestModal () {
-      this.$root.$emit('bv::show::modal', 'start-quest-modal');
+      this.$root.$emit('bv::show::modal', 'select-quest-modal');
     },
     openQuestDetails () {
-      this.$root.$emit('bv::show::modal', 'group-quest-details');
+      this.$root.$emit('bv::show::modal', 'quest-detail-modal');
     },
     openParticipantList () {
       this.$root.$emit('bv::show::modal', 'participant-list');

@@ -7,7 +7,7 @@
     :hide-header="true"
   >
     <div class="dialog-close">
-      <close-icon @click="hideDialog()" />
+      <close-icon @click="close()" />
     </div>
     <h2 class="text-center textCondensed">
       Quest Details
@@ -16,7 +16,10 @@
       <questDialogContent :item="questData" />
       <quest-rewards :quest="questData" />
     </div>
-    <div class="text-center">
+    <div
+      v-if="!groupHasQuest"
+      class="text-center"
+    >
       <button
         class="btn btn-primary"
         :disabled="!Boolean(selectedQuest) || loading"
@@ -28,8 +31,36 @@
     <div class="text-center">
       <p>{{ $t('inviteInformation') }}</p>
     </div>
-    <div v-if="fromSelectionDialog">
-       Back to quest selection
+    <div v-if="fromSelectionDialog"
+         @click="goBackToQuestSelection()">
+      Back to quest selection
+    </div>
+    <div
+      v-if="groupHasQuest && canEditQuest"
+      class="text-center actions"
+    >
+      <div>
+        <button
+          v-if="!onActiveQuest"
+          v-once
+          class="btn btn-secondary"
+          @click="questConfirm()"
+        >
+          {{ $t('begin') }}
+        </button>
+        <!-- @TODO don't allow the party leader to
+         start the quest until the leader has accepted
+        or rejected the invitation (users get confused and think "begin" means "join quest")-->
+      </div>
+      <div>
+        <div
+          v-once
+          class="cancel"
+          @click="questCancel()"
+        >
+          {{ $t('cancel') }}
+        </div>
+      </div>
     </div>
   </b-modal>
 </template>
@@ -130,6 +161,20 @@
       }
     }
   }
+
+  .actions {
+    padding-top: 2em;
+    padding-bottom: 2em;
+
+    .cancel {
+      color: #f74e52;
+      margin-top: 3em;
+    }
+
+    .cancel:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 </style>
@@ -151,6 +196,7 @@ import difficultyStarIcon from '@/assets/svg/difficulty-star.svg';
 import questDialogContent from '../shops/quests/questDialogContent';
 import closeIcon from '../shared/closeIcon';
 import QuestRewards from '../shops/quests/questRewards';
+import questActionsMixin from './questActions.mixin';
 
 export default {
   components: {
@@ -158,6 +204,7 @@ export default {
     questDialogContent,
     closeIcon,
   },
+  mixins: [questActionsMixin],
   props: ['group'],
   data () {
     return {
@@ -223,10 +270,28 @@ export default {
         this.loading = false;
       }
 
-      this.hideDialog();
+      this.close();
     },
-    hideDialog () {
+    close () {
       this.$root.$emit('bv::hide::modal', 'quest-detail-modal');
+    },
+    async questConfirm () {
+      const accepted = await this.questActionsConfirmQuest();
+
+      if (accepted) {
+        this.close();
+      }
+    },
+    async questCancel () {
+      const accepted = await this.questActionsCancelOrAbortQuest();
+
+      if (accepted) {
+        this.close();
+      }
+    },
+    goBackToQuestSelection () {
+      this.close();
+      this.$root.$emit('bv::show::modal', 'select-quest-modal');
     },
   },
 };

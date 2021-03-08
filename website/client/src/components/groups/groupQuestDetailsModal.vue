@@ -248,12 +248,6 @@ export default {
         _id: member._id,
       }));
     },
-    canEditQuest () {
-      if (!this.group.quest) return false;
-      const isQuestLeader = this.group.quest.leader === this.user._id;
-      const isPartyLeader = this.group.leader._id === this.user._id;
-      return isQuestLeader || isPartyLeader;
-    },
   },
   methods: {
     async questConfirm () {

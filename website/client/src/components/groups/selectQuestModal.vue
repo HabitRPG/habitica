@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    id="start-quest-modal"
+    id="select-quest-modal"
     title="Empty"
     size="md"
     :hide-footer="true"
@@ -71,7 +71,7 @@
     color: $purple-300;
   }
 
-  #start-quest-modal {
+  #select-quest-modal {
   @media only screen and (max-width: 1200px) {
     .modal-dialog {
       max-width: 33%;
@@ -262,7 +262,7 @@ export default {
       this.hideDialog();
     },
     hideDialog () {
-      this.$root.$emit('bv::hide::modal', 'start-quest-modal');
+      this.$root.$emit('bv::hide::modal', 'select-quest-modal');
     },
   },
 };
