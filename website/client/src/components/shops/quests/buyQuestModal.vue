@@ -27,6 +27,7 @@
     >
       <div class="inner-content">
         <questDialogContent :item="item" />
+        <quest-rewards :quest="item" />
         <div
           v-if="!item.locked"
           class="purchase-amount"
@@ -288,9 +289,11 @@ import PinBadge from '@/components/ui/pinBadge';
 
 import questDialogDrops from './questDialogDrops';
 import questDialogContent from './questDialogContent';
+import QuestRewards from './questRewards';
 
 export default {
   components: {
+    QuestRewards,
     BalanceInfo,
     PinBadge,
     questDialogDrops,

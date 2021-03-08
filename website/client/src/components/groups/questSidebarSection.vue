@@ -18,7 +18,7 @@
         <button
           v-once
           class="btn btn-secondary"
-          @click="openStartQuestModal()"
+          @click="openSelectQuestModal()"
         >
           {{ $t('startAQuest') }}
         </button>
@@ -402,7 +402,7 @@ export default {
     },
   },
   methods: {
-    openStartQuestModal () {
+    openSelectQuestModal () {
       this.$root.$emit('bv::show::modal', 'start-quest-modal');
     },
     openQuestDetails () {

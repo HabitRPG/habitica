@@ -5,6 +5,7 @@
   >
     <group-form-modal v-if="isParty" />
     <select-quest-modal :group="group" />
+    <quest-detail-modal :group="group" />
     <group-quest-details-modal :group="group" />
     <participant-list-modal :group="group" />
     <group-gems-modal />
@@ -413,9 +414,11 @@ import questBackground from '@/assets/svg/quest-background-border.svg';
 import goldGuildBadgeIcon from '@/assets/svg/gold-guild-badge-small.svg';
 import silverGuildBadgeIcon from '@/assets/svg/silver-guild-badge-small.svg';
 import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-small.svg';
+import QuestDetailModal from './questDetailModal';
 
 export default {
   components: {
+    QuestDetailModal,
     selectQuestModal,
     groupFormModal,
     groupChallenges,

@@ -14,8 +14,8 @@
     </h2>
     <div v-if="questData">
       <questDialogContent :item="questData" />
+      <quest-rewards :quest="questData" />
     </div>
-    <quest-rewards :quest="questData" />
     <div class="text-center">
       <button
         class="btn btn-primary"
@@ -27,6 +27,9 @@
     </div>
     <div class="text-center">
       <p>{{ $t('inviteInformation') }}</p>
+    </div>
+    <div v-if="fromSelectionDialog">
+       Back to quest selection
     </div>
   </b-modal>
 </template>
@@ -160,6 +163,7 @@ export default {
     return {
       loading: false,
       selectedQuest: {},
+      fromSelectionDialog: false,
       icons: Object.freeze({
         copy: copyIcon,
         greyBadge: greyBadgeIcon,
@@ -195,8 +199,9 @@ export default {
     this.$root.$off('selectQuest', this.selectQuest);
   },
   methods: {
-    selectQuest (quest) {
-      this.selectedQuest = quest.key;
+    selectQuest (selectQuestPayload) {
+      this.selectedQuest = selectQuestPayload.key;
+      this.fromSelectionDialog = selectQuestPayload.from === 'quest-selection';
     },
     async questInit () {
       this.loading = true;

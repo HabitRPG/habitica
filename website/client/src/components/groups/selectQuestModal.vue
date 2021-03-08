@@ -26,7 +26,6 @@
               :key="item.key"
               :item="item"
               :item-content-class="item.class"
-              @click="itemClicked(group.key, context.item)"
             >
               <template
                 slot="popoverContent"
@@ -227,14 +226,17 @@ export default {
         break;
       }
     }
-
-    this.$root.$on('selectQuest', this.selectQuest);
-  },
-  beforeDestroy () {
-    this.$root.$off('selectQuest', this.selectQuest);
   },
   methods: {
     selectQuest (quest) {
+      this.hideDialog();
+
+      this.$root.$emit('bv::show::modal', 'quest-detail-modal');
+      this.$root.$emit('selectQuest', {
+        key: quest.key,
+        from: 'quest-selection',
+      });
+
       this.selectedQuest = quest.key;
     },
     async questInit () {
