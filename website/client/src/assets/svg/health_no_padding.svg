@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <path fill="#F74E52" d="M0 2L3.333 0 8 2.533 12.667 0 16 2 16 8 12.667 12.667 8 16 3.333 12.667 0 8z" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                    <path fill="#FF6165" d="M4.267 11.733L1.333 7.6 1.333 2.733 3.333 1.533 8 4.067 12.667 1.533 14.667 2.733 14.667 7.6 11.733 11.733 8 14.333z" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                    <path fill="#FFF" d="M8 9.667L11.733 11.733 8 14.333z" opacity=".5" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                    <path fill="#B52428" d="M8 9.667L4.267 11.733 8 14.333z" opacity=".35" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                    <path fill="#FFF" d="M4.267 11.733L1.333 7.6 8 9.667z" opacity=".25" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                    <path fill="#B52428" d="M11.733 11.733L14.667 7.6 8 9.667z" opacity=".5" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                    <path fill="#B52428" d="M8 9.667L12.667 1.533 14.667 2.733 14.667 7.6z" opacity=".35" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                    <path fill="#B52428" d="M8 9.667L3.333 1.533 1.333 2.733 1.333 7.6z" opacity=".5" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                    <path fill="#FFF" d="M8 9.667L3.333 1.533 8 4.067z" opacity=".5" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                    <path fill="#FFF" d="M8 9.667L12.667 1.533 8 4.067z" opacity=".25" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                    <path fill="#FFF" d="M5.733 10.267L3.333 6.933 3.333 3.867 3.4 3.867 8 6.333 12.6 3.867 12.667 3.867 12.667 6.933 10.267 10.267 8 11.933z" opacity=".5" transform="translate(-40 -2020) translate(0 1632) translate(40 388)"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,5 +1,5 @@
 <template>
-  <div class="section">
+  <div class="section" :class="{'visible':visible}">
     <div class="section-header d-flex align-items-center">
       <h3
         v-once
@@ -39,18 +39,25 @@
 <style lang="scss" scoped>
   .section {
     border-top: 1px solid #e1e0e3;
-    margin-top: 1em;
-    padding-top: 1em;
+    /* To have the divider full width */
+    margin-right: -1.5rem;
+    margin-left: -1.5rem;
+
+    /* change back the content padding*/
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+    padding-top: 0.688em;
+    padding-bottom: 0.75em;
+
+    &.visible {
+      padding-bottom: 1rem;
+    }
   }
 
   .section:last-of-type {
     border-bottom: 1px solid #e1e0e3;
     margin-bottom: 1em;
-    padding-bottom: 1em;
-  }
-
-  .section-body {
-    margin-top: 1em;
   }
 
   .section-info {
@@ -60,6 +67,21 @@
   .section-info .svg-icon {
     width: 16px;
   }
+
+  .section-body ::v-deep {
+    > *:empty {
+      display: none;
+    }
+
+    > :first-child:not(:empty) {
+      margin-top: 0.75rem;
+    }
+
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+
 </style>
 
 <script>

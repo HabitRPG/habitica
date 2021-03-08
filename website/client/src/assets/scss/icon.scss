@@ -16,6 +16,12 @@
       fill: currentColor;
     }
   }
+
+  &.color-stroke {
+    svg path {
+      stroke: currentColor;
+    }
+  }
 }
 
 .icon-16 {

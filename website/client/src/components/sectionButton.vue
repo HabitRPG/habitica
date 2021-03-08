@@ -9,12 +9,12 @@
   >
     <span
       v-if="visible"
-      class="svg-icon"
+      class="svg-icon icon-16"
       v-html="icons.upIcon"
     ></span>
     <span
       v-else
-      class="svg-icon"
+      class="svg-icon icon-16 down-icon color-stroke"
       v-html="icons.downIcon"
     ></span>
   </div>
@@ -28,13 +28,18 @@
     background: transparent;
     cursor: pointer;
     &:focus {
+      // Fix keyboard inaccessible #12656
       outline: none;
       border: $purple-400 solid 1px;
     }
   }
 
   .svg-icon {
-    width: 16px;
+    display: flex;
+  }
+
+  .down-icon {
+    color: $gray-300;
   }
 </style>
 
