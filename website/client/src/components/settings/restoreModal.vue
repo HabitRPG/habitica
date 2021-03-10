@@ -151,6 +151,8 @@ export default {
         return;
       }
 
+      if (this.restoreValues.stats.lvl > 999) this.restoreValues.stats.lvl = 999;
+
       const userChangedLevel = this.restoreValues.stats.lvl !== this.user.stats.lvl;
       const userDidNotChangeExp = this.restoreValues.stats.exp === this.user.stats.exp;
       if (userChangedLevel && userDidNotChangeExp) this.restoreValues.stats.exp = 0;
