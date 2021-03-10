@@ -29,7 +29,7 @@ api.getWorldState = {
     const worldState = {};
 
     worldState.worldBoss = await getWorldBoss();
-    worldState.npcImageSuffix = 'spring';
+    worldState.npcImageSuffix = '';
 
     worldState.currentEvent = getCurrentEvent();
 

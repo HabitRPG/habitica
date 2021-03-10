@@ -592,7 +592,12 @@ export default new Schema({
     mp: { $type: Number, default: 10 },
     exp: { $type: Number, default: 0 },
     gp: { $type: Number, default: 0 },
-    lvl: { $type: Number, default: 1, min: 1 },
+    lvl: {
+      $type: Number,
+      default: 1,
+      min: 1,
+      max: 999,
+    },
 
     // Class System
     class: {
