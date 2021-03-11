@@ -167,7 +167,9 @@ export async function update (req, res, { isV3 = false }) {
       }
     } else if (acceptablePUTPaths[key]) {
       let adjustedVal = val;
-      if (key === 'stats.lvl' && val > 999) adjustedVal = 999;
+      if (key === 'stats.lvl' && val > common.constants.MAX_LEVEL_HARD_CAP) {
+        adjustedVal = common.constants.MAX_LEVEL_HARD_CAP;
+      }
       _.set(user, key, adjustedVal);
     } else {
       throw new NotAuthorized(res.t('messageUserOperationProtected', { operation: key }));

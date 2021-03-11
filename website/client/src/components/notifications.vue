@@ -115,6 +115,7 @@ import { toNextLevel } from '@/../../common/script/statHelpers';
 import { shouldDo } from '@/../../common/script/cron';
 import { onOnboardingComplete } from '@/../../common/script/libs/onboarding';
 import { mapState } from '@/libs/store';
+import { MAX_LEVEL_HARD_CAP } from '@/../../common/script/constants';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 
@@ -651,7 +652,7 @@ export default {
         const lvlUps = afterLvl - beforeLvl;
         let exp = afterExp - beforeExp;
 
-        if (lvlUps > 0) {
+        if (lvlUps > 0 || afterLvl >= MAX_LEVEL_HARD_CAP) {
           let level = Math.trunc(beforeLvl);
           exp += toNextLevel(level);
 
