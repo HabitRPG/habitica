@@ -39,6 +39,7 @@
   "hidePinned": "Hide pinned",
   "hideMissing": "Hide Missing",
   "amountExperience": "<%= amount %> Experience",
+  "amountExp": "<%= amount %> Exp",
   "amountGold": "<%= amount %> Gold",
   "namedHatchingPotion": "<%= type %> Hatching Potion",
   "buyGems": "Buy Gems",

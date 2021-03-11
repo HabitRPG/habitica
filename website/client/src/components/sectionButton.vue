@@ -1,6 +1,6 @@
 <template>
   <div
-    class="toggle ml-auto"
+    class="toggle ml-auto section-button"
     role="button"
     :aria-expanded="visible"
     tabindex="0"
@@ -36,6 +36,10 @@
 
   .svg-icon {
     display: flex;
+
+    ::v-deep svg {
+      height: 100%;
+    }
   }
 
   .down-icon {

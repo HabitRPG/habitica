@@ -5,15 +5,19 @@
     size="md"
     :hide-footer="true"
     :hide-header="true"
+    :modal-class="dialogClass"
   >
     <div class="dialog-close">
       <close-icon @click="close()" />
     </div>
     <h2 class="text-center textCondensed">
-      Quest Details
+      {{ $t('questDetailsTitle') }}
     </h2>
     <div v-if="questData">
-      <questDialogContent :item="questData" />
+      <questDialogContent
+        :item="questData"
+        :group="group"
+      />
       <quest-rewards :quest="questData" />
     </div>
     <div
@@ -27,9 +31,6 @@
       >
         {{ $t('inviteToPartyOrQuest') }}
       </button>
-    </div>
-    <div class="text-center">
-      <p>{{ $t('inviteInformation') }}</p>
     </div>
     <div v-if="fromSelectionDialog"
          @click="goBackToQuestSelection()">
@@ -68,13 +69,8 @@
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
 
-  header {
-    background-color: $white !important;
-    border: none !important;
-
-    h5 {
-      text-indent: -99999px;
-    }
+  h2 {
+    color: $purple-300;
   }
 
   .btn-primary {
@@ -82,100 +78,69 @@
   }
 
   #quest-detail-modal {
-  @media only screen and (max-width: 1200px) {
-    .modal-dialog {
-      max-width: 33%;
-
-      .left-panel {
-        left: initial;
-        width: 100%;
-        right: 100%;
-
-        .col-4 {
-          width: 100px;
-        }
+    ::v-deep &:not(.need-bottom-padding) {
+      .modal-content {
+        // so that the rounded corners still apply
+        overflow: hidden;
       }
-
-      .side-panel, .right-sidebar {
-        left: calc(100% - 10px);
-        max-width: 100%;
-        right: initial;
-
-        .questRewards {
-          width: 90%;
-
-          .reward-item {
-            width: 100%;
-          }
-        }
-      }
-    }
-  }
-
-  @media only screen and (max-width: 1000px) {
-    .modal-dialog {
-      max-width: 80%;
-      width: 80% !important;
 
       .modal-body {
-        flex-direction: column;
-        display: flex;
+        padding-bottom: 0;
+      }
+    }
 
-        div:nth-child(1) { order: 3; }
-        div:nth-child(2) { order: 1; }
-        div:nth-child(3) { order: 4; }
-        div:nth-child(4) { order: 5; }
-        div:nth-child(5) { order: 2; }
+    @media only screen and (max-width: 1200px) {
+      .modal-dialog {
+        max-width: 33%;
+      }
+    }
 
-        .left-panel {
-          border-radius: 8px;
-          position: static;
-          right: initial;
-          margin: 20px 0;
-          height: auto;
-          width: 100%;
-          z-index: 0;
-          order: 3;
+    @media only screen and (max-width: 1000px) {
+      .modal-dialog {
+        max-width: 80%;
+        width: 80% !important;
 
-          .col-4 {
-            max-width: 100px;
-          }
-        }
+        .modal-body {
+          flex-direction: column;
+          display: flex;
 
-        .side-panel, .right-sidebar {
-          margin: 20px 0 0 0;
-          position: static;
-          box-shadow: none;
-          height: auto;
-          width: 100%;
-          z-index: 0;
-          order: 2;
-          left: 0;
+          div:nth-child(1) { order: 3; }
+          div:nth-child(2) { order: 1; }
+          div:nth-child(3) { order: 4; }
+          div:nth-child(4) { order: 5; }
+          div:nth-child(5) { order: 2; }
 
-          .questRewards {
-            padding: 0 2em 2em 2em;
+          .left-panel {
+            border-radius: 8px;
+            position: static;
+            right: initial;
+            margin: 20px 0;
+            height: auto;
             width: 100%;
             z-index: 0;
+            order: 3;
+
+            .col-4 {
+              max-width: 100px;
+            }
           }
         }
       }
     }
-  }
 
-  .actions {
-    padding-top: 2em;
-    padding-bottom: 2em;
+    .actions {
+      padding-top: 1.5em;
+      padding-bottom: .5em;
 
-    .cancel {
-      color: #f74e52;
-      margin-top: 3em;
+      .cancel {
+        color: #f74e52;
+      }
+
+      .cancel:hover {
+        cursor: pointer;
+      }
     }
-
-    .cancel:hover {
-      cursor: pointer;
-    }
   }
-}
 
 </style>
 
@@ -229,6 +194,18 @@ export default {
     ...mapState({ user: 'user.data' }),
     questData () {
       return quests.quests[this.selectedQuest];
+    },
+    dialogClass () {
+      console.info({
+        group: this.groupHasQuest,
+        sel: this.fromSelectionDialog,
+        edit: this.canEditQuest,
+      });
+      if (!this.groupHasQuest || this.fromSelectionDialog || this.canEditQuest) {
+        return 'need-bottom-padding';
+      }
+
+      return '';
     },
   },
   mounted () {

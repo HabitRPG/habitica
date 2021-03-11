@@ -53,7 +53,8 @@
 .table-row {
   display: table-row;
   margin-bottom: 4px;
-  font-size: 12px;
+  font-size: 14px;
+  height: 1.5rem;
 }
 
 dd {
@@ -93,6 +94,8 @@ dt {
 </style>
 
 <style lang="scss">
+@import '~@/assets/scss/colors.scss';
+
 .questPopover {
   dt {
     color: inherit;
@@ -112,7 +115,7 @@ dt {
   fill: #ffb445;
 }
 .star-empty {
-  fill: #686274;
+  fill: $gray-400;
 }
 
 </style>

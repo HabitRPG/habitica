@@ -49,7 +49,7 @@
             ></div>
         </div>
         <div slot="label">
-          {{ $t('amountExperience', { amount: quest.drop.exp }) }}
+          {{ $t('amountExp', { amount: quest.drop.exp }) }}
         </div>
       </item-with-label>
 
@@ -136,15 +136,27 @@ export default {
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
 
-  .header {
-    height: 3.5rem;
+  .quest-rewards {
+    margin-left: -1rem;
+    margin-right: -1rem;
 
     background-color: $gray-700;
+  }
+
+  .header {
+    height: 3.5rem;
+    position: relative;
+
+    ::v-deep {
+      .section-button {
+        position: absolute;
+        right: 1.5rem;
+      }
+    }
 
     span {
       flex: 1;
     }
-
 
     .mirror {
       transform: scaleX(-1);
@@ -171,5 +183,10 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 8px;
+
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+    padding-bottom: 0.25rem;
   }
 </style>

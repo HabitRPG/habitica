@@ -8,6 +8,12 @@
       {{ itemText }}
     </h3>
     <div
+      v-if="group && leader"
+      class="leader-label"
+    >
+      <span>Quest-Owner: </span><user-label :user="leader" />
+    </div>
+    <div
       class="text"
       v-html="itemNotes"
     ></div>
@@ -34,24 +40,64 @@
     text-overflow: ellipsis;
   }
 
+  .leader-label {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.71;
+    color: $gray-50;
+    text-align: center;
+    margin-bottom: 0.5rem;
+
+    ::v-deep .user-label {
+      font-size: 14px;
+    }
+  }
+
   .questInfo {
     width: 70%;
     margin: 0 auto;
     margin-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
   }
 </style>
 
 <script>
 import QuestInfo from './questInfo.vue';
+import UserLabel from '../../userLabel';
 
 export default {
   components: {
+    UserLabel,
     QuestInfo,
+  },
+  data () {
+    return {
+      leader: null,
+    };
   },
   props: {
     item: {
       type: Object,
     },
+    group: {
+      type: Object,
+    },
+  },
+  async created () {
+    if (this.group.quest && this.group.quest.active) {
+      try {
+        const fetchMemberResult = await this.$store.dispatch('members:fetchMember', {
+          memberId: this.group.quest.leader,
+        });
+
+        // this should be handled in fetchMember instead
+        this.leader = fetchMemberResult.data.data;
+      } catch {
+        this.leader = null;
+      }
+    }
   },
   computed: {
     itemText () {
