@@ -68,7 +68,7 @@
     "thirdPartyApps": "Üçüncü Parti Uygulamalar",
     "dataToolDesc": "Habitica hesabındaki işlerinle alakalı istatistiklerin, ekipmanların ve yeteneklerin gibi belirli bilgileri sana gösteren bir web sitesi.",
     "beeminder": "Beeminder",
-    "beeminderDesc": "Beeminder'ın Habitica'daki Yapılacaklarını otomatik olarak izlemesine izin ver. Günlük veya haftalık Yapılacaklarının hedef sayısının korunmasını veya tamamlanmamış Yapılacaklarının sayısını yavaş yavaş azaltmasını işleyebilirsin.. (\"İşlemek\" derken Beeminder gerçek para ödeme riski altında olduğunu kasteder! Hiç olmazsa Beeminder'ın süslü grafiklerini de beğenebilirsin.)",
+    "beeminderDesc": "Beeminder'ın Habitica'daki Yapılacaklarını otomatik olarak izlemesine izin ver. Günlük veya haftalık Yapılacaklarının hedef sayısını koruyacağına veya tamamlanmamış Yapılacaklarının sayısını yavaş yavaş azaltacağına dair söz verebilirsin. (\"Söz vermek\" derken Beeminder gerçek para ödeme riski altında olduğunu kasteder! Hiç olmazsa Beeminder'ın süslü grafiklerini de beğenebilirsin.)",
     "chromeChatExtension": "Chrome Sohbet Uzantısı",
     "chromeChatExtensionDesc": "Habitica için Chrome Sohbet Uzantısı, habitica.com'un tamamı için sezgisel bir sohbet kutusu ekler. Kullanıcıların Tavernada, takımlarında ve dahil oldukları tüm loncalarda sohbet etmelerine olanak tanır.",
     "otherExtensions": "<a target='blank' href='http://tr.habitica.fandom.com/wiki/Uzantılar,_Eklentiler_ve_Kişiselleştirme'>Diğer Uzantılar</a>",
@@ -152,7 +152,7 @@
     "purchasedPlanExtraMonths": "<strong><%= months %></strong> aylık ekstra abonelik kredin bulunuyor.",
     "consecutiveSubscription": "Devamlı Abonelik",
     "consecutiveMonths": "Devamlı Aylar:",
-    "gemCapExtra": "Elmas Limiti Ekstrası:",
+    "gemCapExtra": "Elmas Limit Bonusu",
     "mysticHourglasses": "Mistik Kum Saati:",
     "mysticHourglassesTooltip": "Mistik Kum Saati",
     "paypal": "PayPal",
@@ -175,11 +175,13 @@
     "goToSettings": "Ayarlara Git",
     "usernameVerifiedConfirmation": "Kullanıcı adın, <%= username %>, onaylandı!",
     "usernameNotVerified": "Lütfen kullanıcı adınızı onaylayın.",
-    "changeUsernameDisclaimer": "Yakında giriş adlarını özgün ve aleni kullanıcı adlarına dönüştüreceğiz. Bu kullanıcı adı davetler, sohbetlerdeki @bahisler ve mesajlaşmalar için kullanılacak.",
+    "changeUsernameDisclaimer": "Kullanıcı adınız davetiyeler, sohbette @etiketleme ve mesajlaşma için kullanılır. Yalnızca a'dan z'ye harfleri, 0 ile 9 arasındaki sayıları, kısa çizgileri veya alt çizgileri içeren 1 ila 20 karakter uzunluğunda olmalı ve herhangi bir uygunsuz terim içermemelidir.",
     "verifyUsernameVeteranPet": "Onayladıktan sonra bu Kıdemli Hayvanlardan biri seni bekliyor olacak!",
     "newPMNotificationTitle": "<%= name %> 'den yeni mesaj",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'> Chrome Sohbet Eklentisi</a> ve <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'> Firefox Sohbet Eklentisi </a>",
     "subscriptionReminders": "Abonelik Anımsatıcıları",
     "resetAccount": "Hesabı Sıfırla",
-    "giftedSubscriptionWinterPromo": "Merhaba <%= username %>, özel gün hediyesi verme promosyonumuzun bir parçası olarak <%= monthCount %> aylık abonelik aldın!"
+    "giftedSubscriptionWinterPromo": "Merhaba <%= username %>, özel gün hediyesi verme promosyonumuzun bir parçası olarak <%= monthCount %> aylık abonelik aldın!",
+    "displaynameIssueNewline": "Görünür Adlar, ardından N harfi gelen ters eğik çizgi içeremez.",
+    "chatExtensionDesc": "Habitica için Sohbet Uzantısı, tüm habitica.com'a kullanımı kolay bir sohbet kutusu ekler. Kullanıcıların Taverna'da, parti ve katıldıkları loncalarda sohbet etmelerine olanak tanır."
 }

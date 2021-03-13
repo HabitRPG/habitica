@@ -2283,5 +2283,21 @@
     "headAccessoryMystery202102Notes": "この金色のティアラであなたの思いやりと優しさを新たなる高みへ広げましょう。効果なし。2021年2月の有料会員アイテム。",
     "headAccessoryMystery202102Text": "チャーミングティアラ",
     "weaponMystery202102Notes": "杖についているきらきらしたピンクの宝石はあまねくに喜びと友好を広げる力がそなわっています。効果なし。2021年2月の有料会員アイテム。",
-    "weaponMystery202102Text": "チャーミングな魔法の杖"
+    "weaponMystery202102Text": "チャーミングな魔法の杖",
+    "armorMystery202103Notes": "この柔らかくて風通しの良い着物は、春の花の下での茶会に参加するのにぴったりの衣装です。効果なし。2021年3月の有料会員アイテム。",
+    "armorMystery202103Text": "花見の宴の着物",
+    "weaponArmoireJadeGlaiveNotes": "このグレイブのリーチの長さで敵との距離が充分に取れます！高い棚から物を落とすこともできますよ。力が<%= str %>上がります。ラッキー宝箱：翡翠の戦士セット（3個中3個目のアイテム）。",
+    "weaponArmoireJadeGlaiveText": "翡翠のグレイブ",
+    "headArmoireJadeHelmNotes": "翡翠は恐怖と不安を軽減させると言われています。何かを心配する必要がなくなりましたね！体質が<%= con %>上がります。ラッキー宝箱：翡翠の戦士セット（1個中3個目のアイテム）。",
+    "headArmoireJadeHelmText": "翡翠のかぶと",
+    "armorArmoireJadeArmorNotes": "この翡翠のよろいは美しくて機能的です。あなたを守り――そして、ファビュラスに見せます！知覚が<%= per %>上がります。ラッキー宝箱：翡翠の戦士セット（2個中3個目のアイテム）。",
+    "armorArmoireJadeArmorText": "翡翠のよろい",
+    "shieldArmoireSoftPinkPillowNotes": "賢明な戦士は、冒険のためにまくらを持っていきます。人生の打撃を和らげるために… うたた寝しているときでさえ。力と体質がそれぞれ <%= attrs %>上がります。ラッキー宝箱：ピンクの部屋着セット(3個中3個目のアイテム)。",
+    "shieldArmoireSoftPinkPillowText": "柔らかなピンクのまくら",
+    "armorArmoireSoftPinkSuitNotes": "ピンクは癒やしの色です。日々の嫌な仕事の間のわずかな平和のために、この部屋着のセットを着ましょう。知覚が<%= per %>上がります。ラッキー宝箱：ピンクの部屋着セット(2個中3個目のアイテム)。",
+    "armorArmoireSoftPinkSuitText": "柔らかなピンクのスーツ",
+    "headArmoirePinkFloppyHatNotes": "このシンプルな帽子にはたくさんの呪文が縫い込まれており、それがこの完璧なピンク色をもたらしているのです。知能が<%= int %>上がります。ラッキー宝箱：ピンクの部屋着セット(3個中1個目のアイテム)。",
+    "headArmoirePinkFloppyHatText": "ピンクのチューリップハット",
+    "headMystery202103Notes": "最初に咲いた花の枝で作られたこの冠で春をオシャレにお迎えしましょう。効果なし。2021年3月の有料会員アイテム。",
+    "headMystery202103Text": "花見の宴の冠"
 }
