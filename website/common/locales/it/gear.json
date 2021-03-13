@@ -2283,5 +2283,21 @@
     "armorSpecialBirthday2021Notes": "Buon compleanno, Habitica! Indossa questi stravaganti abiti da festa per celebrare questo giorno meraviglioso. Non conferisce alcun bonus.",
     "armorSpecialBirthday2021Text": "Abiti da festa Stravaganti",
     "weaponMystery202102Notes": "La gemma rosa brillante in questa bacchetta ha il potere di diffondere gioia e amicizia in lungo e in largo! Non conferisce alcun bonus. Oggetto abbonati febbraio 2021.",
-    "weaponMystery202102Text": "Bacchetta ammaliante"
+    "weaponMystery202102Text": "Bacchetta ammaliante",
+    "headMystery202103Text": "Cerchietto da osservazione fioriture",
+    "headMystery202103Notes": "Saluta la primavera con stile con questo cerchietto intessuto dai primi rami fioriti. Non conferisce alcun bonus. Oggetto abbonati marzo 2021.",
+    "headArmoirePinkFloppyHatText": "Cappello rosa floscio",
+    "headArmoireJadeHelmText": "Elmo di Giada",
+    "headArmoirePinkFloppyHatNotes": "Molti incantesimi sono stati cuciti in questo semplice cappello, dandogli un perfetto colore rosa. Aumenta l'intelligenza di <%= int %>. Scrigno incantato: Set abiti morbidi rosa (oggetto 1 di 3).",
+    "shieldArmoireSoftPinkPillowNotes": "Il guerriero assennato prepara un cuscino per qualsiasi spedizione. Ammorbidisci i colpi della vita... anche mentre fai un pisolino. Aumenta la forza e la costituzione di <%= attrs %> ciascuno. Scrigno incantato: Set abiti morbidi rosa (oggetto 3 di 3).",
+    "headArmoireJadeHelmNotes": "Alcuni dicono che la giada diminuisce la paura e l'ansia. Con questo bellissimo elmo, non hai assolutamente motivo di preoccuparti! Aumenta la costituzione di <%= con%>. Scrigno incantato: Set del Guerriero di Giada (oggetto 1 di 3).",
+    "shieldArmoireSoftPinkPillowText": "Cuscino Rosa pallido",
+    "armorArmoireJadeArmorText": "Armatura di Giada",
+    "weaponArmoireJadeGlaiveNotes": "La portata di questo falcione terrà lontano i tuoi nemici! Inoltre, puoi recuperare le cose dagli scaffali in alto. Aumenta la forza di <%= str%>. Scrigno Incantato: Set del Guerriero di Giada (oggetto 3 di 3).",
+    "weaponArmoireJadeGlaiveText": "Falcione di Giada",
+    "armorArmoireJadeArmorNotes": "Questa armatura di giada è sia bella che funzionale. Proteggiti e sappi che hai un aspetto favoloso! Aumenta la percezione di <%= per%>. Scrigno Incantato: Set del Guerriero di Giada (oggetto 2 di 3).",
+    "armorArmoireSoftPinkSuitNotes": "Il rosa è un colore rilassante. Indossa questo set da casa per un po' di pace durante la routine quotidiana! Aumenta la percezione di <%= per %>. Scrigno Incantato: Set abiti comodi rosa (item 2 of 3).",
+    "armorArmoireSoftPinkSuitText": "Abito rosa morbido",
+    "armorMystery202103Notes": "Questi vesti morbide e ventilate sono perfette per un tea party sotto i vistosi alberi primaverili. Non conferisce alcun bonus. Oggetto abbonati marzo 2021.",
+    "armorMystery202103Text": "Tunica da osservazione fioriture"
 }
