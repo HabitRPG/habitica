@@ -2085,5 +2085,13 @@
     "headSpecialFall2019RogueNotes": "¿Encontraste este tocado en una subasta de prendas posiblemente malditas o en el ático de un abuelo excéntrico? Cualquiera que sea su origen, su edad y desgaste te aportan un aire de misterio. Aumenta la Percepción en <%= per %>. Equipamiento de edición limitada Otoño 2019.",
     "headSpecialSummer2019HealerNotes": "La estructura en espiral de esta concha te ayudará a escuchar cualquier llamada de auxilio a lo ancho de los siete mares. Aumenta la Inteligencia en <%= int %>. Equipamiento de edición limitada Verano 2019.",
     "headSpecialSummer2019MageNotes": "En contra de la creencia popular, tu cabeza no es un lugar apropiado para que se posen las ranas. Aumenta la Percepción en <%= per %>. Equipamiento de edición limitada Verano 2019.",
-    "headSpecialSummer2019WarriorNotes": "No te permitirá esconder la cabeza entre los hombros, pero te protegerá si te chocas contra el casco de un barco. Aumenta la Fuerza en <%= str %>. Equipamiento de edición limitada Verano 2019."
+    "headSpecialSummer2019WarriorNotes": "No te permitirá esconder la cabeza entre los hombros, pero te protegerá si te chocas contra el casco de un barco. Aumenta la Fuerza en <%= str %>. Equipamiento de edición limitada Verano 2019.",
+    "headArmoireBlueMoonHelmNotes": "Este yelmo ofrece una asombrosa cantidad de suerte a quien lo lleva, y su uso sigue a eventos excepcionales. Aumenta la inteligencia en <% = int%>. Armario encantado: Conjunto de Pícaro de la luna azul (artículo 3 de 4).",
+    "headArmoireJadeHelmNotes": "Hay quien dice que el jade reduce el miedo y la ansiedad. ¡Con este hermoso yelmo, definitivamente no tendrás motivo para preocuparte! Aumenta la Constitución en <%= con %>.. Armario Encantado: Conjunto de guerrero de jade (artículo 1 de 3).",
+    "weaponArmoireJadeGlaiveNotes": "¡El alcance de esta guja te mantendrá lejos de tus enemigos! Además, puedes alcanzar cosas de estantes altos. Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto de guerrero de jade (artículo 3 de 3).",
+    "armorArmoireJadeArmorNotes": "Esta armadura de jade es tanto hermosa como funcional. ¡Protégete sabiendo que tienes un aspecto fabuloso! Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto de guerrero de jade (artículo 2 de 3).",
+    "weaponArmoireJadeGlaiveText": "Guja de Jade",
+    "shieldSpecialWinter2021WarriorText": "Pez Gordo",
+    "shieldArmoirePolishedPocketwatchText": "Reloj de bolsillo pulido",
+    "shieldSpecialFall2020WarriorText": "Escudo del espíritu"
 }

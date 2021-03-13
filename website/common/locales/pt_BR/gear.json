@@ -2289,5 +2289,15 @@
     "headArmoirePinkFloppyHatNotes": "Muitos feitiços foram costurados neste simples chapéu, dando-lhe uma cor rosa perfeita. Aumenta a inteligência em <%= int %>. Armário Encantado: Conjunto Traje Cor-de-Rosa (item 1 de 3).",
     "headArmoirePinkFloppyHatText": "Chapéu Macio Cor-de-Rosa",
     "armorArmoireSoftPinkSuitNotes": "O rosa é uma cor tranquilizadora. Experimente este conjunto de vestimentas para ter um pouco de paz durante a labuta diária! Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto Traje Cor-de-Rosa (item 2 de 3).",
-    "armorArmoireSoftPinkSuitText": "Traje Rosa Suave"
+    "armorArmoireSoftPinkSuitText": "Traje Rosa Suave",
+    "armorArmoireJadeArmorNotes": "Essa armadura de jade é tanto bonita quanto funcional. Proteja-se e saiba que você está fabuloso(a)! Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto Guerreiro de Jade (Item 2 de 3).",
+    "weaponArmoireJadeGlaiveNotes": "O alcance dessa espada vai te manter longe dos seus inimigos! E também, você pode derrubar coisas de estantes altas. Aumenta a Força em <%= str %>. Armário Encantado: Conjunto Guerreiro de Jade (Item 3 de 3).",
+    "weaponArmoireJadeGlaiveText": "Espada de Jade",
+    "headMystery202103Notes": "Cumprimente a primavera com estilo com esse diadema entrelaçado com os primeiros galhos que floriram. Não fornece benefícios. Item de Assinante de Março de 2021.",
+    "headArmoireJadeHelmNotes": "Alguns dizem que a jade diminui o medo e a ansiedade. Com esse elmo maravilhoso, você não tem motivos para se preocupar! Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto Guerreiro de Jade (Item 1 de 3).",
+    "headArmoireJadeHelmText": "Elmo de Jade",
+    "headMystery202103Text": "Diadema para Observar as Flores",
+    "armorArmoireJadeArmorText": "Armadura de Jade",
+    "armorMystery202103Notes": "Essa túnica leve e fresca é perfeita para uma festa do chá debaixo de árvores chamativas na primavera. Não fornece benefícios. Item de Assinante de Março de 2021.",
+    "armorMystery202103Text": "Túnica para Observar as Flores"
 }
