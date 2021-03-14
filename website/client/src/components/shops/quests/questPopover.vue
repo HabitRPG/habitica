@@ -10,7 +10,7 @@
       v-else
       class="popover-content-title"
     >
-      {{ item.text() }}
+      {{ item.text }}
     </h4>
     <div
       v-if="item.locked && item.key === 'lostMasterclasser1'"

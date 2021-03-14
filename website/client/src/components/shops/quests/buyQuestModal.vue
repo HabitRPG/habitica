@@ -80,12 +80,6 @@
       </div>
     </div>
     <div
-      v-if="item.drop"
-      class="right-sidebar"
-    >
-      <questDialogDrops :item="item" />
-    </div>
-    <div
       v-if="item.event"
       class="limitedTime"
     >
@@ -119,7 +113,7 @@
 
     .modal-dialog {
       margin-top: 8%;
-      width: 448px;
+      width: 448px !important;
     }
 
     .content {
@@ -207,6 +201,12 @@
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+
+      &> * {
+        margin: 0;
+      }
     }
 
     .limitedTime {
@@ -265,6 +265,18 @@
         }
       }
     }
+
+    @media only screen and (max-width: 1000px) {
+      .modal-dialog {
+        max-width: 80%;
+        width: 80% !important;
+
+        .modal-body {
+          flex-direction: column;
+          display: flex;
+        }
+      }
+    }
   }
 </style>
 
@@ -287,7 +299,6 @@ import buyMixin from '@/mixins/buy';
 import numberInvalid from '@/mixins/numberInvalid';
 import PinBadge from '@/components/ui/pinBadge';
 
-import questDialogDrops from './questDialogDrops';
 import questDialogContent from './questDialogContent';
 import QuestRewards from './questRewards';
 
@@ -296,7 +307,6 @@ export default {
     QuestRewards,
     BalanceInfo,
     PinBadge,
-    questDialogDrops,
     questDialogContent,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
