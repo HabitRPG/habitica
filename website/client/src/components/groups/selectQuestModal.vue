@@ -212,8 +212,6 @@ export default {
       return availableQuests.map(key => {
         const questItem = quests.quests[key];
 
-        console.info({ key, questItem });
-
         return getItemInfo(this.user, 'quests', questItem);
       });
     },

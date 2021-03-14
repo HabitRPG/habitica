@@ -33,8 +33,16 @@
       </button>
     </div>
     <div v-if="fromSelectionDialog"
+         class="text-center back-to-selection"
          @click="goBackToQuestSelection()">
-      Back to quest selection
+      <span v-once
+           class="svg-icon color"
+           v-html="icons.navigationBack">
+      </span>
+
+      <span>
+        Back to quest selection
+      </span>
     </div>
     <div
       v-if="groupHasQuest && canEditQuest"
@@ -77,6 +85,28 @@
     margin: 1em 0;
   }
 
+  .back-to-selection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    color: $blue-10;
+    font-size: 14px;
+    line-height: 1.71;
+    text-align: right;
+
+    .svg-icon {
+      color: $blue-50;
+      height: 14px;
+      width: 9px;
+
+      margin-right: 0.5rem;
+    }
+  }
+
   #quest-detail-modal {
     ::v-deep & {
       .modal-dialog {
@@ -95,13 +125,6 @@
       }
     }
 
-
-    @media only screen and (max-width: 1200px) {
-      .modal-dialog {
-        max-width: 33%;
-      }
-    }
-
     @media only screen and (max-width: 1000px) {
       .modal-dialog {
         max-width: 80%;
@@ -110,27 +133,6 @@
         .modal-body {
           flex-direction: column;
           display: flex;
-
-          div:nth-child(1) { order: 3; }
-          div:nth-child(2) { order: 1; }
-          div:nth-child(3) { order: 4; }
-          div:nth-child(4) { order: 5; }
-          div:nth-child(5) { order: 2; }
-
-          .left-panel {
-            border-radius: 8px;
-            position: static;
-            right: initial;
-            margin: 20px 0;
-            height: auto;
-            width: 100%;
-            z-index: 0;
-            order: 3;
-
-            .col-4 {
-              max-width: 100px;
-            }
-          }
         }
       }
     }
@@ -157,14 +159,7 @@ import * as Analytics from '@/libs/analytics';
 
 import * as quests from '@/../../common/script/content/quests';
 
-import copyIcon from '@/assets/svg/copy.svg';
-import greyBadgeIcon from '@/assets/svg/grey-badge.svg';
-import qrCodeIcon from '@/assets/svg/qrCode.svg';
-import facebookIcon from '@/assets/svg/facebook.svg';
-import twitterIcon from '@/assets/svg/twitter.svg';
-import starIcon from '@/assets/svg/star.svg';
-import goldIcon from '@/assets/svg/gold.svg';
-import difficultyStarIcon from '@/assets/svg/difficulty-star.svg';
+import navigationBack from '@/assets/svg/navigation_back.svg';
 import questDialogContent from '../shops/quests/questDialogContent';
 import closeIcon from '../shared/closeIcon';
 import QuestRewards from '../shops/quests/questRewards';
@@ -184,14 +179,7 @@ export default {
       selectedQuest: {},
       fromSelectionDialog: false,
       icons: Object.freeze({
-        copy: copyIcon,
-        greyBadge: greyBadgeIcon,
-        qrCode: qrCodeIcon,
-        facebook: facebookIcon,
-        twitter: twitterIcon,
-        starIcon,
-        goldIcon,
-        difficultyStarIcon,
+        navigationBack,
       }),
       shareUserIdShown: false,
       quests,
@@ -249,7 +237,14 @@ export default {
         const response = await this.$store.dispatch('guilds:inviteToQuest', { groupId, key });
         const quest = response.data.data;
 
-        if (this.$store.state.party.data) this.$store.state.party.data.quest = quest;
+        // TODO move the state updates to the action itself
+        const partyState = this.$store.state.party;
+
+        if (!partyState.data) {
+          partyState.data = {};
+        }
+
+        partyState.data.quest = quest;
       } finally {
         this.loading = false;
       }

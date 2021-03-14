@@ -9,7 +9,7 @@ export default {
     canEditQuest () {
       if (!this.group.quest) return false;
       const isQuestLeader = this.group.quest.leader === this.user._id;
-      const isPartyLeader = this.group.leader._id === this.user._id;
+      const isPartyLeader = this.group.leader && this.group.leader._id === this.user._id;
       return isQuestLeader || isPartyLeader;
     },
   },
@@ -36,6 +36,12 @@ export default {
     // this method combines both if a quest is active or not
     // it'll call the appropriate api endpoint
     async questActionsCancelOrAbortQuest () {
+      const partyState = this.$store.state.party;
+
+      if (!partyState.data) {
+        partyState.data = {};
+      }
+
       if (this.onActiveQuest) {
         if (!window.confirm(this.$t('sureAbort'))) {
           return false;
@@ -46,6 +52,7 @@ export default {
           action: 'quests/abort',
         });
         this.group.quest = quest;
+        partyState.data.quest = quest;
       } else {
         if (!window.confirm(this.$t('sureCancel'))) {
           return false;
@@ -56,6 +63,7 @@ export default {
           action: 'quests/cancel',
         });
         this.group.quest = quest;
+        partyState.data.quest = quest;
       }
 
       return true;
