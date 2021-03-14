@@ -9,8 +9,6 @@ export const QuestHelperMixin = {
   methods: {
     getDropIcon (drop) {
       switch (drop.type) {
-        case 'armor':
-          return `shop_${drop.key}`;
         case 'hatchingPotions':
           return `Pet_HatchingPotion_${drop.key}`;
         case 'food':
@@ -20,7 +18,7 @@ export const QuestHelperMixin = {
         case 'quests':
           return `inventory_quest_scroll_${drop.key}`;
         default:
-          return '';
+          return `shop_${drop.key}`;
       }
     },
     getDropName (drop) {
@@ -36,16 +34,15 @@ export const QuestHelperMixin = {
         return !drop.onlyOwner;
       }).map(item => {
         if (item.type === 'gear') {
-          console.info(this.content.gear.flat);
-
           const contentItem = this.content.gear.flat[item.key];
-
-          console.info({ contentItem, item });
 
           return contentItem;
         }
 
-        return item;
+        return {
+          ...item,
+          text: item.text(),
+        };
       });
     },
   },

@@ -42,7 +42,7 @@
           <quest-popover :item="drop" />
         </div>
         <div slot="label">
-          Owner only
+          {{ $t('ownerOnly') }}
         </div>
       </item-with-label>
 
@@ -85,7 +85,7 @@
           <div :class="getDropIcon(drop)"></div>
         </div>
         <div
-          v-if="drop.type === 'armor'"
+          v-if="drop.klass"
           slot="popoverContent"
         >
           <equipmentAttributesPopover
@@ -93,7 +93,7 @@
           />
         </div>
         <div slot="label">
-          New Item
+          {{ $t('newItem') }}
         </div>
       </item-with-label>
     </div>
