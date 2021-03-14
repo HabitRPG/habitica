@@ -9,7 +9,7 @@ export const QuestHelperMixin = {
   methods: {
     getDropIcon (drop) {
       switch (drop.type) {
-        case 'gear':
+        case 'armor':
           return `shop_${drop.key}`;
         case 'hatchingPotions':
           return `Pet_HatchingPotion_${drop.key}`;

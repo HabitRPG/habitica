@@ -684,6 +684,10 @@ export default {
     },
     openQuestDetails () {
       this.$root.$emit('bv::show::modal', 'quest-detail-modal');
+      this.$root.$emit('selectQuest', {
+        key: this.group.quest.key,
+        from: 'sidebar',
+      });
     },
     openParticipantList () {
       this.$root.$emit('bv::show::modal', 'participant-list');

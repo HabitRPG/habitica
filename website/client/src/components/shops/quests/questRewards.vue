@@ -1,7 +1,9 @@
 <template>
   <div class="quest-rewards">
-    <div @click="toggle"
-         class="header d-flex align-items-center">
+    <div
+      class="header d-flex align-items-center"
+      @click="toggle"
+    >
       <span class="d-flex justify-content-center">
         <div
           v-once
@@ -23,38 +25,46 @@
         @click="toggle"
       />
     </div>
-    <div v-if="opened"
-         class="content">
-
+    <div
+      v-if="opened"
+      class="content"
+    >
       <item-with-label
-          v-for="drop in getDropsList(quest.drop.items, true)"
-          :key="drop.key"
-          :item="{}"
-          label-class="purple">
+        v-for="drop in getDropsList(quest.drop.items, true)"
+        :key="drop.key"
+        :item="{}"
+        label-class="purple"
+      >
         <div slot="itemImage">
           <div :class="getDropIcon(drop)"></div>
         </div>
         <div slot="popoverContent">
           <quest-popover :item="drop" />
         </div>
-        <div slot="label">Owner only</div>
+        <div slot="label">
+          Owner only
+        </div>
       </item-with-label>
 
-      <item-with-label :item="{}"
-                       label-class="yellow">
+      <item-with-label
+        :item="{}"
+        label-class="yellow"
+      >
         <div slot="itemImage">
           <div
-              class="icon-48"
-              v-html="icons.expIcon"
-            ></div>
+            class="icon-48"
+            v-html="icons.expIcon"
+          ></div>
         </div>
         <div slot="label">
           {{ $t('amountExp', { amount: quest.drop.exp }) }}
         </div>
       </item-with-label>
 
-      <item-with-label :item="{}"
-                       label-class="yellow">
+      <item-with-label
+        :item="{}"
+        label-class="yellow"
+      >
         <div slot="itemImage">
           <div
             class="icon-48"
@@ -74,12 +84,17 @@
         <div slot="itemImage">
           <div :class="getDropIcon(drop)"></div>
         </div>
-        <div slot="popoverContent">
+        <div
+          v-if="drop.type === 'armor'"
+          slot="popoverContent"
+        >
           <equipmentAttributesPopover
             :item="drop"
           />
         </div>
-        <div slot="label">New Item</div>
+        <div slot="label">
+          New Item
+        </div>
       </item-with-label>
     </div>
   </div>
@@ -96,14 +111,14 @@ import EquipmentAttributesPopover from '@/components/inventory/equipment/attribu
 import QuestPopover from './questPopover';
 
 export default {
-  mixins: [QuestHelperMixin],
-  props: ['quest'],
   components: {
     QuestPopover,
     ItemWithLabel,
     SectionButton,
     EquipmentAttributesPopover,
   },
+  mixins: [QuestHelperMixin],
+  props: ['quest'],
   data () {
     return {
       opened: false,
@@ -183,9 +198,9 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 8px;
+    flex-wrap: wrap;
 
     padding-left: 1.5rem;
-    padding-right: 1.5rem;
 
     padding-bottom: 0.25rem;
   }

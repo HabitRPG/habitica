@@ -44,7 +44,7 @@
         <button
           v-if="!onActiveQuest"
           v-once
-          class="btn btn-secondary"
+          class="btn btn-secondary mb-2"
           @click="questConfirm()"
         >
           {{ $t('begin') }}
@@ -78,6 +78,12 @@
   }
 
   #quest-detail-modal {
+    ::v-deep & {
+      .modal-dialog {
+        width: 448px !important;
+      }
+    }
+
     ::v-deep &:not(.need-bottom-padding) {
       .modal-content {
         // so that the rounded corners still apply
@@ -88,6 +94,7 @@
         padding-bottom: 0;
       }
     }
+
 
     @media only screen and (max-width: 1200px) {
       .modal-dialog {

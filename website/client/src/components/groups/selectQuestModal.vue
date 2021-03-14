@@ -11,7 +11,7 @@
     </div>
     <div>
       <h2 class="text-center textCondensed">
-        Quests
+        {{ $t('quests') }}
       </h2>
       <div class="quest-panel">
         <div class="row">
