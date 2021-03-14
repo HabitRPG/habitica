@@ -54,7 +54,7 @@ store.state.user.data = {
   tags: [],
   items: {
     quests: {
-      moon1: 3
+      moon1: 3,
     },
   },
 };
