@@ -93,7 +93,7 @@
     "achievementFreshwaterFriends": "Zoetwater Vrienden",
     "achievementBoneCollectorModalText": "Je hebt alle skelet huisdieren verzameld!",
     "achievementBoneCollector": "Bottenverzamelaar",
-    "achievementGoodAsGoldText": "Alle gouden huisdieren zijn verzameld.",
+    "achievementGoodAsGoldText": "Heeft alle gouden huisdieren verzameld.",
     "achievementRedLetterDayModalText": "Je hebt alle Rode rijdieren getemd!",
     "achievementRedLetterDayText": "Heeft alle Rode rijdieren getemd.",
     "achievementRedLetterDay": "Rode Draad",
@@ -102,5 +102,8 @@
     "achievementSeeingRed": "Rood zien",
     "achievementSkeletonCrewModalText": "Je hebt alle Skelet Rijdieren getemd!",
     "achievementSkeletonCrewText": "Heeft alle Skelet Rijdieren getemd.",
-    "achievementSkeletonCrew": "Tot op het bot"
+    "achievementSkeletonCrew": "Tot op het bot",
+    "achievementLegendaryBestiaryModalText": "Je hebt alle mythische huisdieren verzameld!",
+    "achievementLegendaryBestiaryText": "Heeft alle mythische huisdieren uitgebroed: draak, vliegend varken, griffioen, zeeslang en eenhoorn!",
+    "achievementLegendaryBestiary": "Legendarisch bestiarium"
 }

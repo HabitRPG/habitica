@@ -146,7 +146,7 @@
     "invalidTarget": "Ye canna cast a skill on that.",
     "youCast": "Ye cast <%= spell %>.",
     "youCastTarget": "Ye cast <%= spell %> on <%= target %>.",
-    "youCastParty": "Ye cast <%= spell %> f'r th' crew.",
+    "youCastParty": "Ye cast <%= spell %> fer th' crew.",
     "critBonus": "Straight Shot! Bonus: ",
     "gainedGold": "Ye gained some Gold",
     "gainedMana": "Ye gained some Mana",

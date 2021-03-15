@@ -10,5 +10,12 @@
     "mounts": "Θηρία",
     "questMounts": "Θηρία Αποστολών",
     "mountsTamed": "Δαμασμένα Θηρία",
-    "noActiveMount": "Κανένα Ενεργό Θηρίο"
+    "noActiveMount": "Κανένα Ενεργό Θηρίο",
+    "veteranLion": "Βετεράνος Λιοντάρι",
+    "veteranBear": "Βετεράνος Αρκούδα",
+    "veteranTiger": "Βετεράνος Τίγρης",
+    "veteranWolf": "Βετεράνος Λύκος",
+    "hydra": "Ύδρα",
+    "veteranFox": "Βετεράνος Αλεπού",
+    "magicMounts": "Θηρία Μαγικών Φίλτρων"
 }
