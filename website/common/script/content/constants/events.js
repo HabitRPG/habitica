@@ -8,14 +8,10 @@ const gemsPromo = {
   '84gems': 125,
 };
 
-// IMPORTANT: The end date should be one to two days AFTER the actual end of
-// the event, to allow people in different timezones to still buy the
-// event gear up until at least the actual end of the event.
-// Unless we want a precise ending, for example during a Gems sale / promotion.
 export const EVENTS = {
   noCurrentEvent2021: {
     start: '2021-02-16T08:00-05:00',
-    end: '2021-03-07T08:00-05:00',
+    end: '2021-03-23T08:00-05:00',
     season: 'normal',
   },
   valentines2021: {
