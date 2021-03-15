@@ -2289,5 +2289,15 @@
     "armorSpecialBirthday2021Notes": "Happy Birthday, Habitica! Wear these Extrav'gant Party Robes t' celebrate this wonderful day. Confers no benefit.",
     "armorSpecialBirthday2021Text": "Extravag'nt Party Robes",
     "weaponMystery202102Notes": "Th' glowin' pink gem in this wand holds th' power t' spread joy 'n friendship far 'n wide! Confers no benefit. February 2021 Subscriber Item.",
-    "weaponMystery202102Text": "Charmin' Wand"
+    "weaponMystery202102Text": "Charmin' Wand",
+    "headArmoireJadeHelmNotes": "Some say jade decreases fear an' anxiety. Wit' this beautiful helm, ye definitely 'ave no cause t' worry! Increases Constitution by <%= con %>. Enchanted Armoire: Jade Warrior Set (Item 1 o' 3).",
+    "headArmoireJadeHelmText": "Jade Helm",
+    "headMystery202103Notes": "Greet spring in style in this circlet woven from th' first bloomin' branches. It don't benefit ye. March 2021 Subscriber Item.",
+    "headMystery202103Text": "Blossom Viewin' Circlet",
+    "armorArmoireJadeArmorNotes": "This jade armor be both beautiful an' functional. Protect yerself, an' know that ye look fabulous! Increases Perception by <%= per %>. Enchanted Armoire: Jade Warrior Set (Item 2 o' 3).",
+    "armorArmoireJadeArmorText": "Jade Armor",
+    "armorMystery202103Notes": "These soft an' breezy robes be perfect fer a tea party 'neath th' showy spring trees. It don't benefit ye. March 2021 Subscriber Item.",
+    "armorMystery202103Text": "Blossom Viewin' Robes",
+    "weaponArmoireJadeGlaiveNotes": "Th' reach o' this glaive will keep ye far from yer enemies! Also, ye can knock things off high shelves. Increases Strength by <%= str %>. Enchanted Armoire: Jade Warrior Set (Item 3 o' 3).",
+    "weaponArmoireJadeGlaiveText": "Jade Glaive"
 }

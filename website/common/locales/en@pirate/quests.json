@@ -37,7 +37,7 @@
     "unlockByQuesting": "T' unlock this adventure, complete <%= title %>.",
     "questConfirm": "Are ye sure? Only <%= questmembers %> o' yer <%= totalmembers %> crew hands 'ave joined this adventure! Adventures start automatically when all players 'ave joined or rejected th' invitation.",
     "sureCancel": "Be ye sure ye want to cancel 'tis quest? All invitation acceptances gunna be lost. th' quest owner gunna retain possession 'o th' quest scroll.",
-    "sureAbort": "Be ye sure ye want to abort 'tis mission? It gunna abort it fer all ye crew members an' all progress gunna be lost. th' quest scroll gunna be returned to th' quest owner.",
+    "sureAbort": "Be ye sure ye want to abort 'tis mission? It gunna abort it fer all ye crewmates an' all progress gunna be lost. th' quest scroll gunna be returned to th' quest owner.",
     "doubleSureAbort": "Arrr ye double sure? Make sure they won't hate ye forever!",
     "bossRageTitle": "Cannon Fire",
     "bossRageDescription": "When 'tis bar fills, the boss will unleash a special attack!",

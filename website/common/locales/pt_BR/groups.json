@@ -174,7 +174,7 @@
     "userRequestsApproval": "<strong><%- userName %></strong> solicita aprovação",
     "userCountRequestsApproval": "<strong><%= userCount %> membros</strong> solicitam aprovação",
     "youAreRequestingApproval": "Você está solicitando a aprovação",
-    "chatPrivilegesRevoked": "Você não pode fazer isso, pois seus privilégios de bate-papo foram revogados. Para mais detalhes ou perguntar se seus privilégios podem ser devolvidos, por favor, envie um e-mail para a Administração da nossa Comunidade (admin@habitica.com) ou peça aos seus pais ou responsáveis para enviá-los por e-mail. Por gentileza, inclusa sem @NomeDeUsuário no e-mail. Se um moderador já lhe disse que sua proibição de bate-papo é temporária, você não precisa enviar um e-mail.",
+    "chatPrivilegesRevoked": "Você não pode fazer isso, pois seus privilégios de bate-papo foram revogados. Para mais detalhes ou perguntar se seus privilégios podem ser devolvidos, por favor, envie um e-mail para a Administração da nossa Comunidade (admin@habitica.com) ou peça aos seus pais ou responsáveis para enviá-los por e-mail. Por gentileza, inclua seu @NomeDeUsuário no e-mail. Se um moderador já lhe disse que sua proibição de bate-papo é temporária, você não precisa enviar um e-mail.",
     "cannotCreatePublicGuildWhenMuted": "Você não pode criar uma Guilda pública porque seus privilégios de chat foram revogados.",
     "cannotInviteWhenMuted": "você não pode ser convidado para uma guilda ou grupo, pois seus privilégios de chat foram revogados.",
     "to": "Para:",
