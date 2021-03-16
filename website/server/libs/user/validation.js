@@ -7,10 +7,13 @@ import {
 } from '../stringUtils';
 import forbiddenUsernames from '../forbiddenUsernames';
 
+const bannedSlurRegexes = bannedSlurs.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'));
+const bannedWordRegexes = bannedWords.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'));
+
 export function stringContainsProfanity (str, profanityType = 'bannedWord') {
   const bannedRegexes = profanityType === 'slur'
-    ? bannedSlurs.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'))
-    : bannedWords.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'));
+    ? bannedSlurRegexes
+    : bannedWordRegexes;
 
   for (let i = 0; i < bannedRegexes.length; i += 1) {
     const regEx = bannedRegexes[i];
