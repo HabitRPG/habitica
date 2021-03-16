@@ -110,7 +110,7 @@ async function checkNewInputForProfanity (user, res, newValue) {
       await user.save();
       throw new BadRequest(res.t('bannedSlurUsedInProfile'));
     }
-    throw new BadRequest(res.t('displaynameIssueSlur'));
+    throw new BadRequest(res.t('bannedWordUsedInProfile'));
   }
 }
 
