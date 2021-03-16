@@ -12,7 +12,7 @@ describe('PUT /tasks/:id', () => {
   let challenge;
 
   before(async () => {
-    user = await generateUser();
+    user = await generateUser({ 'preferences.timezoneOffset': new Date().getTimezoneOffset() });
     guild = await generateGroup(user);
     challenge = await generateChallenge(user, guild);
     await user.post(`/challenges/${challenge._id}/join`);

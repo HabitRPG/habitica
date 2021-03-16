@@ -14,6 +14,7 @@ import {
 } from '../../../libs/taskManager';
 import { handleSharedCompletion } from '../../../libs/groupTasks';
 import apiError from '../../../libs/apiError';
+import logger from '../../../libs/logger';
 
 const requiredGroupFields = '_id leader tasksOrder name';
 // @TODO: abstract to task lib
@@ -121,8 +122,9 @@ api.getGroupTasks = {
  * @apiGroup Task
  *
  * @apiParam (Path) {String} taskId The task _id
- * @apiParam (Path) {Number} position Where to move the task (-1 means push to bottom).
- *                                    First position is 0
+ * @apiParam (Path) {Number} position Where to move the task.
+ *                                    0 = top of the list ("push to top").
+ *                                   -1 = bottom of the list ("push to bottom").
  *
  * @apiSuccess {Array} data The new tasks order (group.tasksOrder.{task.type}s)
  */
@@ -384,13 +386,25 @@ api.approveTask = {
       direction,
     });
 
-    await handleSharedCompletion(task);
-
     approvalPromises.push(task.save());
     approvalPromises.push(assignedUser.save());
     await Promise.all(approvalPromises);
 
     res.respond(200, task);
+
+    // Wrapping everything in a try/catch block because if an error occurs
+    // using `await` it MUST NOT bubble up because the request has already been handled
+    try {
+      const groupTask = await Tasks.Task.findOne({
+        _id: task.group.taskId,
+      }).exec();
+
+      if (groupTask) {
+        await handleSharedCompletion(groupTask, task);
+      }
+    } catch (e) {
+      logger.error('Error handling group task', e);
+    }
   },
 };
 

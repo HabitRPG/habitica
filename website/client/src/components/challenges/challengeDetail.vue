@@ -99,13 +99,14 @@
         <div class="col-12 col-md-6 text-right">
           <span v-if="isLeader || isAdmin">
             <b-dropdown
-              class="create-dropdown"
+              class="create-dropdown select-list"
               :text="$t('addTaskToChallenge')"
               :variant="'success'"
             >
               <b-dropdown-item
                 v-for="type in columns"
                 :key="type"
+                class="selectListItem"
                 @click="createTask(type)"
               >{{ $t(type) }}</b-dropdown-item>
             </b-dropdown>
@@ -400,6 +401,16 @@ export default {
       return !this.isMember;
     },
   },
+  watch: {
+    'challenge.name': {
+      handler (newVal) {
+        this.$store.dispatch('common:setTitle', {
+          section: this.$t('challenge'),
+          subSection: newVal.name,
+        });
+      },
+    },
+  },
   mounted () {
     if (!this.searchId) this.searchId = this.challengeId;
     if (!this.challenge._id) this.loadChallenge();
@@ -433,6 +444,10 @@ export default {
         this.$router.push('/challenges/findChallenges');
         return;
       }
+      this.$store.dispatch('common:setTitle', {
+        subSection: this.challenge.name,
+        section: this.$t('challenges'),
+      });
       const tasks = await this.$store.dispatch('tasks:getChallengeTasks', { challengeId: this.searchId });
       this.tasksByType = {
         habit: [],

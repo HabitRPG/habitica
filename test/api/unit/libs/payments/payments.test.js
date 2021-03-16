@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 import * as sender from '../../../../../website/server/libs/email';
+import common from '../../../../../website/common';
 import api from '../../../../../website/server/libs/payments/payments';
 import * as analytics from '../../../../../website/server/libs/analyticsService';
 import * as notifications from '../../../../../website/server/libs/pushNotifications';
@@ -9,6 +10,7 @@ import { translate as t } from '../../../../helpers/api-integration/v3';
 import {
   generateGroup,
 } from '../../../../helpers/api-unit.helper';
+import * as worldState from '../../../../../website/server/libs/worldState';
 
 describe('payments/index', () => {
   let user; let group; let data; let
@@ -30,8 +32,8 @@ describe('payments/index', () => {
 
     sandbox.stub(sender, 'sendTxn');
     sandbox.stub(user, 'sendMessage');
-    sandbox.stub(analytics, 'trackPurchase');
-    sandbox.stub(analytics, 'track');
+    sandbox.stub(analytics.mockAnalyticsService, 'trackPurchase');
+    sandbox.stub(analytics.mockAnalyticsService, 'track');
     sandbox.stub(notifications, 'sendNotification');
 
     data = {
@@ -207,17 +209,6 @@ describe('payments/index', () => {
         expect(user.purchased.txnCount).to.eql(1);
       });
 
-      it('sends a private message about the gift', async () => {
-        await api.createSubscription(data);
-        const msg = '`Hello recipient, sender has sent you 3 months of subscription!`';
-
-        expect(user.sendMessage).to.be.calledOnce;
-        expect(user.sendMessage).to.be.calledWith(
-          recipient,
-          { receiverMsg: msg, senderMsg: msg, save: false },
-        );
-      });
-
       it('sends an email about the gift', async () => {
         await api.createSubscription(data);
 
@@ -235,8 +226,8 @@ describe('payments/index', () => {
       it('tracks subscription purchase as gift', async () => {
         await api.createSubscription(data);
 
-        expect(analytics.trackPurchase).to.be.calledOnce;
-        expect(analytics.trackPurchase).to.be.calledWith({
+        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledOnce;
+        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledWith({
           uuid: user._id,
           groupId: undefined,
           itemPurchased: 'Subscription',
@@ -246,10 +237,114 @@ describe('payments/index', () => {
           quantity: 1,
           gift: true,
           purchaseValue: 15,
+          firstPurchase: true,
           headers: {
             'x-client': 'habitica-web',
             'user-agent': '',
           },
+        });
+      });
+
+      context('No Active Promotion', () => {
+        beforeEach(() => {
+          sinon.stub(worldState, 'getCurrentEvent').returns(null);
+        });
+
+        afterEach(() => {
+          worldState.getCurrentEvent.restore();
+        });
+
+        it('sends a private message about the gift', async () => {
+          await api.createSubscription(data);
+          const msg = '`Hello recipient, sender has sent you 3 months of subscription!`';
+
+          expect(user.sendMessage).to.be.calledOnce;
+          expect(user.sendMessage).to.be.calledWith(
+            recipient,
+            { receiverMsg: msg, senderMsg: msg, save: false },
+          );
+        });
+      });
+
+      context('Active Promotion', () => {
+        beforeEach(() => {
+          sinon.stub(worldState, 'getCurrentEvent').returns({
+            ...common.content.events.winter2021Promo,
+            event: 'winter2021',
+          });
+        });
+
+        afterEach(() => {
+          worldState.getCurrentEvent.restore();
+        });
+
+        it('creates a gift subscription for purchaser and recipient if none exist', async () => {
+          await api.createSubscription(data);
+
+          expect(user.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+          expect(user.purchased.plan.customerId).to.eql('Gift');
+          expect(user.purchased.plan.dateTerminated).to.exist;
+          expect(user.purchased.plan.dateUpdated).to.exist;
+          expect(user.purchased.plan.dateCreated).to.exist;
+
+          expect(recipient.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+          expect(recipient.purchased.plan.customerId).to.eql('Gift');
+          expect(recipient.purchased.plan.dateTerminated).to.exist;
+          expect(recipient.purchased.plan.dateUpdated).to.exist;
+          expect(recipient.purchased.plan.dateCreated).to.exist;
+        });
+
+        it('adds extraMonths to existing subscription for purchaser and creates a gift subscription for recipient without sub', async () => {
+          user.purchased.plan = plan;
+
+          expect(user.purchased.plan.extraMonths).to.eql(0);
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.extraMonths).to.eql(3);
+
+          expect(recipient.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+          expect(recipient.purchased.plan.customerId).to.eql('Gift');
+          expect(recipient.purchased.plan.dateTerminated).to.exist;
+          expect(recipient.purchased.plan.dateUpdated).to.exist;
+          expect(recipient.purchased.plan.dateCreated).to.exist;
+        });
+
+        it('adds extraMonths to existing subscription for recipient and creates a gift subscription for purchaser without sub', async () => {
+          recipient.purchased.plan = plan;
+
+          expect(recipient.purchased.plan.extraMonths).to.eql(0);
+
+          await api.createSubscription(data);
+
+          expect(recipient.purchased.plan.extraMonths).to.eql(3);
+
+          expect(user.items.pets['Jackalope-RoyalPurple']).to.eql(5);
+          expect(user.purchased.plan.customerId).to.eql('Gift');
+          expect(user.purchased.plan.dateTerminated).to.exist;
+          expect(user.purchased.plan.dateUpdated).to.exist;
+          expect(user.purchased.plan.dateCreated).to.exist;
+        });
+
+        it('adds extraMonths to existing subscriptions for purchaser and recipient', async () => {
+          user.purchased.plan = plan;
+          recipient.purchased.plan = plan;
+
+          expect(user.purchased.plan.extraMonths).to.eql(0);
+          expect(recipient.purchased.plan.extraMonths).to.eql(0);
+
+          await api.createSubscription(data);
+
+          expect(user.purchased.plan.extraMonths).to.eql(3);
+          expect(recipient.purchased.plan.extraMonths).to.eql(3);
+        });
+
+        it('sends a private message about the promotion', async () => {
+          await api.createSubscription(data);
+          const msg = '`Hello sender, you received 3 months of subscription as part of our holiday gift-giving promotion!`';
+
+          expect(user.sendMessage).to.be.calledTwice;
+          expect(user.sendMessage).to.be.calledWith(user, { receiverMsg: msg, save: false });
         });
       });
     });
@@ -332,8 +427,8 @@ describe('payments/index', () => {
       it('tracks subscription purchase', async () => {
         await api.createSubscription(data);
 
-        expect(analytics.trackPurchase).to.be.calledOnce;
-        expect(analytics.trackPurchase).to.be.calledWith({
+        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledOnce;
+        expect(analytics.mockAnalyticsService.trackPurchase).to.be.calledWith({
           uuid: user._id,
           groupId: undefined,
           itemPurchased: 'Subscription',
@@ -343,6 +438,7 @@ describe('payments/index', () => {
           quantity: 1,
           gift: false,
           purchaseValue: 15,
+          firstPurchase: true,
           headers: {
             'x-client': 'habitica-web',
             'user-agent': '',
@@ -419,10 +515,22 @@ describe('payments/index', () => {
     });
 
     context('Mystery Items', () => {
-      it('awards mystery items when within the timeframe for a mystery item', async () => {
-        const mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
-        const fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
+      let clock;
+      const mayMysteryItem = 'armor_mystery_201605';
 
+      beforeEach(() => {
+        const mayMysteryItemTimeframe = new Date(2016, 4, 31); // May 31st 2016
+        clock = sinon.useFakeTimers({
+          now: mayMysteryItemTimeframe,
+          toFake: ['Date'],
+        });
+      });
+
+      afterEach(() => {
+        if (clock) clock.restore();
+      });
+
+      it('awards mystery items when within the timeframe for a mystery item', async () => {
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
 
         const oldNotificationsCount = user.notifications.length;
@@ -435,14 +543,9 @@ describe('payments/index', () => {
         expect(user.purchased.plan.mysteryItems).to.include('head_mystery_201605');
         expect(user.notifications.length).to.equal(oldNotificationsCount + 1);
         expect(user.notifications[0].type).to.equal('NEW_MYSTERY_ITEMS');
-
-        fakeClock.restore();
       });
 
       it('does not award mystery item when user already owns the item', async () => {
-        const mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
-        const fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
-        const mayMysteryItem = 'armor_mystery_201605';
         user.items.gear.owned[mayMysteryItem] = true;
 
         data = { paymentMethod: 'PaymentMethod', user, sub: { key: 'basic_3mo' } };
@@ -451,14 +554,9 @@ describe('payments/index', () => {
 
         expect(user.purchased.plan.mysteryItems).to.have.a.lengthOf(1);
         expect(user.purchased.plan.mysteryItems).to.include('head_mystery_201605');
-
-        fakeClock.restore();
       });
 
       it('does not award mystery item when user already has the item in the mystery box', async () => {
-        const mayMysteryItemTimeframe = 1464725113000; // May 31st 2016
-        const fakeClock = sinon.useFakeTimers(mayMysteryItemTimeframe);
-        const mayMysteryItem = 'armor_mystery_201605';
         user.purchased.plan.mysteryItems = [mayMysteryItem];
 
         sandbox.spy(user.purchased.plan.mysteryItems, 'push');
@@ -468,8 +566,6 @@ describe('payments/index', () => {
 
         expect(user.purchased.plan.mysteryItems.push).to.be.calledOnce;
         expect(user.purchased.plan.mysteryItems.push).to.be.calledWith('head_mystery_201605');
-
-        fakeClock.restore();
       });
     });
   });
@@ -555,6 +651,7 @@ describe('payments/index', () => {
     beforeEach(() => {
       data = {
         user,
+        gemsBlock: common.content.gems['21gems'],
         paymentMethod: 'payment',
         headers: {
           'x-client': 'habitica-web',
@@ -564,27 +661,56 @@ describe('payments/index', () => {
     });
 
     context('Self Purchase', () => {
-      it('amount property defaults to 5', async () => {
-        expect(user.balance).to.eql(0);
-
-        await api.buyGems(data);
-
-        expect(user.balance).to.eql(5);
-      });
-
-      it('can set amount that is purchased', async () => {
-        data.amount = 13;
-
-        await api.buyGems(data);
-
-        expect(user.balance).to.eql(13);
-      });
-
       it('sends a donation email', async () => {
         await api.buyGems(data);
 
         expect(sender.sendTxn).to.be.calledOnce;
         expect(sender.sendTxn).to.be.calledWith(data.user, 'donation');
+      });
+    });
+
+    context('No Active Promotion', () => {
+      beforeEach(() => {
+        sinon.stub(worldState, 'getCurrentEvent').returns(null);
+      });
+
+      afterEach(() => {
+        worldState.getCurrentEvent.restore();
+      });
+
+      it('does not apply a discount', async () => {
+        const balanceBefore = user.balance;
+
+        await api.buyGems(data);
+
+        const balanceAfter = user.balance;
+        const balanceDiff = balanceAfter - balanceBefore;
+
+        expect(balanceDiff * 4).to.eql(21);
+      });
+    });
+
+    context('Active Promotion', () => {
+      beforeEach(() => {
+        sinon.stub(worldState, 'getCurrentEvent').returns({
+          ...common.content.events.fall2020,
+          event: 'fall2020',
+        });
+      });
+
+      afterEach(() => {
+        worldState.getCurrentEvent.restore();
+      });
+
+      it('applies a discount', async () => {
+        const balanceBefore = user.balance;
+
+        await api.buyGems(data);
+
+        const balanceAfter = user.balance;
+        const balanceDiff = balanceAfter - balanceBefore;
+
+        expect(balanceDiff * 4).to.eql(30);
       });
     });
 

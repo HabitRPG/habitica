@@ -5,11 +5,13 @@ import t from './translation';
 import { tasksByCategory } from './tasks';
 
 import {
+  EVENTS,
   CLASSES,
   GEAR_TYPES,
   ITEM_LIST,
   QUEST_SERIES_ACHIEVEMENTS,
   ANIMAL_COLOR_ACHIEVEMENTS,
+  ANIMAL_SET_ACHIEVEMENTS,
 } from './constants';
 
 import achievements from './achievements';
@@ -29,6 +31,7 @@ import { backgroundsTree, backgroundsFlat } from './appearance/backgrounds';
 import bundles from './bundles';
 import spells from './spells'; // eslint-disable-line import/no-cycle
 import subscriptionBlocks from './subscriptionBlocks';
+import gemsBlock from './gems';
 import faq from './faq';
 import timeTravelers from './time-travelers';
 
@@ -41,6 +44,7 @@ const api = {};
 api.achievements = achievements;
 api.questSeriesAchievements = QUEST_SERIES_ACHIEVEMENTS;
 api.animalColorAchievements = ANIMAL_COLOR_ACHIEVEMENTS;
+api.animalSetAchievements = ANIMAL_SET_ACHIEVEMENTS;
 
 api.quests = quests;
 api.questsByLevel = questsByLevel;
@@ -51,6 +55,7 @@ api.itemList = ITEM_LIST;
 api.gear = gear;
 api.spells = spells;
 api.subscriptionBlocks = subscriptionBlocks;
+api.gems = gemsBlock;
 
 api.audioThemes = ['danielTheBard', 'gokulTheme', 'luneFoxTheme', 'wattsTheme', 'rosstavoTheme', 'dewinTheme', 'airuTheme', 'beatscribeNesTheme', 'arashiTheme', 'maflTheme', 'pizildenTheme', 'farvoidTheme', 'spacePenguinTheme', 'lunasolTheme', 'triumphTheme'];
 
@@ -91,19 +96,9 @@ api.armoire = {
   },
 };
 
-/*
-   ---------------------------------------------------------------
-   Classes
-   ---------------------------------------------------------------
-   */
+api.events = EVENTS;
 
 api.classes = CLASSES;
-
-/*
-   ---------------------------------------------------------------
-   Gear Types
-   ---------------------------------------------------------------
-   */
 
 api.gearTypes = GEAR_TYPES;
 
@@ -116,7 +111,7 @@ api.cardTypes = {
   nye: {
     key: 'nye',
     messageOptions: 5,
-    yearRound: moment().isBefore('2020-01-02'),
+    yearRound: moment().isBefore('2021-01-02'),
   },
   thankyou: {
     key: 'thankyou',
@@ -126,7 +121,7 @@ api.cardTypes = {
   valentine: {
     key: 'valentine',
     messageOptions: 4,
-    yearRound: moment().isBefore('2020-03-02'),
+    yearRound: moment().isBefore('2021-02-28T20:00-05:00'),
   },
   birthday: {
     key: 'birthday',
@@ -192,8 +187,7 @@ api.specialMounts = stable.specialMounts;
 api.mountInfo = stable.mountInfo;
 
 // For seasonal events, change this constant:
-
-const FOOD_SEASON = 'Normal';
+const FOOD_SEASON = moment().isBefore('2021-02-02') ? 'Cake' : 'Normal';
 
 api.food = {
   Meat: {

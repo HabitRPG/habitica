@@ -11,18 +11,22 @@
   background: $gray-600;
   box-shadow: 0 1px 2px 0 rgba($black, 0.2);
   z-index: 9;
+  height: 3rem;
 }
 
 .nav-link {
-  font-size: 16px;
-  line-height: 1.5;
-  padding: 16px 24px;
+  font-size: 14px;
   font-weight: bold;
+  line-height: 1.71;
+  text-align: center;
+
+  padding: 0.75rem;
+
   color: $gray-50;
 
   &.active {
-    color: $purple-200;
-    box-shadow: 0px -4px 0px $purple-300 inset;
+    color: $purple-300;
+    box-shadow: 0px -0.25rem 0px $purple-300 inset;
   }
 
   &:hover {

@@ -27,7 +27,10 @@ api.checkout = {
     const gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
     req.session.gift = req.query.gift;
 
-    const link = await paypalPayments.checkout({ gift, user: res.locals.user });
+    const { gemsBlock } = req.query;
+    req.session.gemsBlock = gemsBlock;
+
+    const link = await paypalPayments.checkout({ gift, gemsBlock, user: res.locals.user });
 
     if (req.query.noRedirect) {
       res.respond(200);
@@ -53,12 +56,14 @@ api.checkoutSuccess = {
     const { user } = res.locals;
     const gift = req.session.gift ? JSON.parse(req.session.gift) : undefined;
     delete req.session.gift;
+    const { gemsBlock } = req.session;
+    delete req.session.gemsBlock;
 
     if (!paymentId) throw new BadRequest(apiError('missingPaymentId'));
     if (!customerId) throw new BadRequest(apiError('missingCustomerId'));
 
     await paypalPayments.checkoutSuccess({
-      user, gift, paymentId, customerId,
+      user, gemsBlock, gift, paymentId, customerId, headers: req.headers,
     });
 
     if (req.query.noRedirect) {

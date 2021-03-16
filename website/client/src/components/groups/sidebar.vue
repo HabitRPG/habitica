@@ -1,19 +1,18 @@
 <template>
   <div class="standard-sidebar d-none d-sm-block">
-    <div class="form-group">
-      <input
-        v-model="searchTerm"
-        class="form-control search"
-        type="text"
-        :placeholder="$t('search')"
+    <filter-sidebar>
+      <div
+        slot="search"
+        class="form-group"
       >
-    </div>
-    <form>
-      <h2 v-once>
-        {{ $t('filter') }}
-      </h2>
-      <div class="form-group">
-        <h3>{{ $t('category') }}</h3>
+        <input
+          v-model="searchTerm"
+          class="form-control input-search"
+          type="text"
+          :placeholder="$t('search')"
+        >
+      </div>
+      <filter-group :title="$t('category')">
         <div
           v-for="group in categoryOptions"
           :key="group.key"
@@ -34,9 +33,8 @@
             >{{ $t(group.label) }}</label>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <h3>{{ $t('role') }}</h3>
+      </filter-group>
+      <filter-group :title="$t('role')">
         <div
           v-for="group in roleOptions"
           :key="group.key"
@@ -57,9 +55,8 @@
             >{{ $t(group.label) }}</label>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <h3>{{ $t('guildSize') }}</h3>
+      </filter-group>
+      <filter-group :title="$t('guildSize')">
         <div
           v-for="group in guildSizeOptions"
           :key="group.key"
@@ -80,15 +77,20 @@
             >{{ $t(group.label) }}</label>
           </div>
         </div>
-      </div>
-    </form>
+      </filter-group>
+    </filter-sidebar>
   </div>
 </template>
 
 <script>
 import throttle from 'lodash/throttle';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import FilterGroup from '@/components/ui/filterGroup';
+
+// TODO use checkbox-component to add/remove entries to *Filters, but without the v-model binding
 
 export default {
+  components: { FilterGroup, FilterSidebar },
   data () {
     return {
       categoryFilters: [],

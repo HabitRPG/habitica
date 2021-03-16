@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Senin el çabuklukların tüm partinin sezgisini artırdı! (Baz alınan: Kutsanmamış Sezgi)",
     "spellRogueStealthText": "Gizlilik",
     "spellRogueStealthNotes": "Her kullanımla yerine getirmediğin bazı Günlük İşlerin bu gece sana zarar vermeyecek ve tamamlama serileri/renkleri değişmeyecek. (Baz alınan: Sezgi)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Kaçınılan günlük iş sayısı: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Kaçınılan günlük iş sayısı: <%= number %>.",
     "spellRogueStealthMaxedOut": "Tüm günlük işlerinden zaten kaçındın; bunu tekrar uygulamana gerek yok.",
     "spellHealerHealText": "İyileştirici Işık",
     "spellHealerHealNotes": "Parlayan ışık sağlığını geri kazandırır! (Baz alınan: Bünye ve Zeka)",
@@ -45,15 +45,15 @@
     "spellSpecialShinySeedText": "Parlak Tohum",
     "spellSpecialShinySeedNotes": "Arkadaşını neşeli bir çiçeğe çevir!",
     "spellSpecialPetalFreePotionText": "Yaprak Dökücü İksir",
-    "spellSpecialPetalFreePotionNotes": "Seni çiçeğe çeviren büyüyü geri al. ",
+    "spellSpecialPetalFreePotionNotes": "Seni çiçeğe çeviren büyüyü geri al.",
     "spellSpecialSeafoamText": "Deniz Köpüğü",
     "spellSpecialSeafoamNotes": "Arkadaşını bir deniz canlısına çevir!",
     "spellSpecialSandText": "Kum",
-    "spellSpecialSandNotes": "Seni deniz yıldızına çeviren büyüyü geri al. ",
-    "partyNotFound": "Takım bulunamadı.",
+    "spellSpecialSandNotes": "Seni deniz yıldızına çeviren büyüyü geri al.",
+    "partyNotFound": "Takım bulunamadı",
     "targetIdUUID": "\"targetId\" geçerli bir Kullanıcı ID'si olmalıdır.",
     "challengeTasksNoCast": "Mücadele işlerine büyü yapamazsın.",
     "groupTasksNoCast": "Grup işlerine büyü yapamazsın.",
     "spellNotOwned": "Bu yeteneğe sahip değilsin.",
-    "spellLevelTooHigh": "Bu yeteneği kullanmak için <%- level %>. seviyeye ulaşmalısın."
+    "spellLevelTooHigh": "Bu yeteneği kullanmak için <%= level %>. seviyeye ulaşmalısın."
 }

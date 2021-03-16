@@ -152,6 +152,7 @@
             <textarea
               ref="textarea"
               v-model="newMessage"
+              dir="auto"
               class="flex-fill"
               :placeholder="$t('needsTextPlaceholder')"
               :maxlength="MAX_MESSAGE_LENGTH"
@@ -192,14 +193,17 @@
 
   #private-message {
     height: calc(100vh - #{$menuToolbarHeight} -
-      var(--banner-gifting-height, 0px) -
-      var(--banner-resting-height, 0px)); // css variable magic :), must be 0px, 0 alone won't work
+      var(--banner-gift-promo-height, 0px) -
+      var(--banner-damage-paused-height, 0px) -
+      var(--banner-gems-promo-height, 0px)
+    ); // css variable magic :), must be 0px, 0 alone won't work
 
     .content {
       flex: 1;
       height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
-      var(--banner-gifting-height, 0px) -
-      var(--banner-resting-height, 0px)
+        var(--banner-gift-promo-height, 0px) -
+        var(--banner-damage-paused-height, 0px) -
+        var(--banner-gems-promo-height, 0px)
       );
     }
 
@@ -626,48 +630,6 @@ export default {
       }
     });
   },
-  async mounted () {
-    // notification click to refresh
-    this.$root.$on(EVENTS.PM_REFRESH, async () => {
-      await this.reload();
-
-      this.selectFirstConversation();
-    });
-
-    // header sync button
-    this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
-      await this.reload();
-
-      this.selectFirstConversation();
-    });
-
-    await this.reload();
-
-    // close members modal if the Private Messages page is opened in an existing tab
-    this.$root.$emit('bv::hide::modal', 'profile');
-    this.$root.$emit('bv::hide::modal', 'members-modal');
-
-    const data = this.$store.state.privateMessageOptions;
-    if (data && data.userIdToMessage) {
-      this.initiatedConversation = {
-        uuid: data.userIdToMessage,
-        user: data.displayName,
-        username: data.username,
-        backer: data.backer,
-        contributor: data.contributor,
-        userStyles: data.userStyles,
-        canReceive: true,
-      };
-
-      this.$store.state.privateMessageOptions = {};
-
-      this.selectConversation(this.initiatedConversation.uuid);
-    }
-  },
-  beforeDestroy () {
-    this.$root.$off(EVENTS.RESYNC_COMPLETED);
-    this.$root.$off(EVENTS.PM_REFRESH);
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     canLoadMore () {
@@ -819,6 +781,51 @@ export default {
         || this.disabledTexts !== null;
     },
   },
+  async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('messages'),
+    });
+    // notification click to refresh
+    this.$root.$on(EVENTS.PM_REFRESH, async () => {
+      await this.reload();
+
+      this.selectFirstConversation();
+    });
+
+    // header sync button
+    this.$root.$on(EVENTS.RESYNC_COMPLETED, async () => {
+      await this.reload();
+
+      this.selectFirstConversation();
+    });
+
+    await this.reload();
+
+    // close members modal if the Private Messages page is opened in an existing tab
+    this.$root.$emit('bv::hide::modal', 'profile');
+    this.$root.$emit('bv::hide::modal', 'members-modal');
+
+    const data = this.$store.state.privateMessageOptions;
+    if (data && data.userIdToMessage) {
+      this.initiatedConversation = {
+        uuid: data.userIdToMessage,
+        user: data.displayName,
+        username: data.username,
+        backer: data.backer,
+        contributor: data.contributor,
+        userStyles: data.userStyles,
+        canReceive: true,
+      };
+
+      this.$store.state.privateMessageOptions = {};
+
+      this.selectConversation(this.initiatedConversation.uuid);
+    }
+  },
+  beforeDestroy () {
+    this.$root.$off(EVENTS.RESYNC_COMPLETED);
+    this.$root.$off(EVENTS.PM_REFRESH);
+  },
 
   methods: {
     async reload () {
@@ -919,6 +926,7 @@ export default {
         const newMessage = response.data.data.message;
         const messageToReset = messages[messages.length - 1];
         messageToReset.id = newMessage.id; // just set the id, all other infos already set
+        messageToReset.text = newMessage.text; // handle mentions
         Object.assign(messages[messages.length - 1], messageToReset);
         this.updateConversationsCounter += 1;
       });

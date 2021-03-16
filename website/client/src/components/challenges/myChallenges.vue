@@ -218,6 +218,10 @@ export default {
     },
   },
   mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('myChallenges'),
+      section: this.$t('challenges'),
+    });
     this.loadChallenges();
   },
   methods: {
@@ -232,8 +236,7 @@ export default {
       this.loadChallenges();
     },
     createChallenge () {
-      this.$store.state.challengeOptions.workingChallenge = {};
-      this.$root.$emit('bv::show::modal', 'challenge-modal');
+      this.$root.$emit('habitica:create-challenge');
     },
     async loadChallenges () {
       this.loading = true;

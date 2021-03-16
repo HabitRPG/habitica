@@ -8,6 +8,7 @@ import {
 } from '../errors';
 import { model as IapPurchaseReceipt } from '../../models/iapPurchaseReceipt';
 import { model as User } from '../../models/user';
+import { getGemsBlock, validateGiftMessage } from './gems';
 
 const api = {};
 
@@ -27,6 +28,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
 
   if (gift) {
     gift.member = await User.findById(gift.uuid).exec();
+    validateGiftMessage(gift, user);
   }
   const receiver = gift ? gift.member : user;
   const receiverCanGetGems = await receiver.canGetGems();
@@ -59,30 +61,39 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
     userId: user._id,
   });
 
-  let amount;
+  let gemsBlockKey;
 
   switch (receiptObj.productId) { // eslint-disable-line default-case
     case 'com.habitrpg.android.habitica.iap.4gems':
-      amount = 1;
+      gemsBlockKey = '4gems';
       break;
-    case 'com.habitrpg.android.habitica.iap.20.gems':
+    case 'com.habitrpg.android.habitica.iap.20gems':
     case 'com.habitrpg.android.habitica.iap.21gems':
-      amount = 5.25;
+      gemsBlockKey = '21gems';
       break;
     case 'com.habitrpg.android.habitica.iap.42gems':
-      amount = 10.5;
+      gemsBlockKey = '42gems';
       break;
     case 'com.habitrpg.android.habitica.iap.84gems':
-      amount = 21;
+      gemsBlockKey = '84gems';
       break;
   }
 
-  if (!amount) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
+  if (!gemsBlockKey) throw new NotAuthorized(this.constants.RESPONSE_INVALID_ITEM);
+
+  const gemsBlock = getGemsBlock(gemsBlockKey);
+
+  if (gift) {
+    gift.type = 'gems';
+    if (!gift.gems) gift.gems = {};
+    gift.gems.amount = shared.content.gems[gemsBlock.key].gems;
+  }
 
   await payments.buyGems({
-    user: receiver,
+    user,
+    gift,
     paymentMethod: this.constants.PAYMENT_METHOD_GOOGLE,
-    amount,
+    gemsBlock,
     headers,
   });
 
@@ -204,6 +215,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   };
 
   if (gift) {
+    validateGiftMessage(gift, user);
     gift.member = await User.findById(gift.uuid).exec();
     gift.subscription = sub;
     data.gift = gift;

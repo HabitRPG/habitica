@@ -71,6 +71,7 @@
   "SLACK_URL": "https://hooks.slack.com/services/some-url",
   "STRIPE_API_KEY": "aaaabbbbccccddddeeeeffff00001111",
   "STRIPE_PUB_KEY": "22223333444455556666777788889999",
+  "STRIPE_WEBHOOKS_ENDPOINT_SECRET": "111111",
   "TRANSIFEX_SLACK_CHANNEL": "transifex",
   "WEB_CONCURRENCY": 1,
   "SKIP_SSL_CHECK_KEY": "key",

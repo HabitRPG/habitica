@@ -12,7 +12,10 @@ import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
-import { syncableAttrs, setNextDue } from '../libs/taskManager';
+import { // eslint-disable-line import/no-cycle
+  syncableAttrs,
+  setNextDue,
+} from '../libs/taskManager';
 
 const { Schema } = mongoose;
 
@@ -376,7 +379,12 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
       winner.balance += challenge.prize / 4;
     }
 
-    winner.addNotification('WON_CHALLENGE');
+    winner.addNotification('WON_CHALLENGE', {
+      id: challenge._id,
+      name: challenge.name,
+      prize: challenge.prize,
+      leader: challenge.leader,
+    });
 
     const savedWinner = await winner.save();
 

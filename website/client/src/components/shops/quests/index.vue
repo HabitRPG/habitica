@@ -1,19 +1,19 @@
 <template>
   <div class="row quests">
     <div class="standard-sidebar d-none d-sm-block">
-      <div class="form-group">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
+      <filter-sidebar>
+        <div
+          slot="search"
+          class="form-group"
         >
-      </div>
-      <div class="form">
-        <h2 v-once>
-          {{ $t('filter') }}
-        </h2>
-        <div class="form-group">
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
+          >
+        </div>
+        <filter-group>
           <div
             v-for="category in categories"
             :key="category.identifier"
@@ -33,7 +33,7 @@
               >{{ category.text }}</label>
             </div>
           </div>
-        </div>
+        </filter-group>
         <div class="form-group clearfix">
           <h3
             v-once
@@ -58,19 +58,21 @@
             class="float-right"
           />
         </div>
-      </div>
+      </filter-sidebar>
     </div>
     <div class="standard-page">
       <div class="featuredItems">
         <div
           class="background"
-          :class="{broken: broken}"
         ></div>
         <div
           class="background"
-          :class="{cracked: broken, broken: broken}"
+          :style="{'background-image': imageURLs.background}"
         >
-          <div class="npc">
+          <div
+            class="npc"
+            :style="{'background-image': imageURLs.npc}"
+          >
             <div class="featured-label">
               <span class="rectangle"></span>
               <span class="text">Ian</span>
@@ -122,19 +124,14 @@
       <div class="clearfix">
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(selectedSortItemsBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              v-for="sort in sortItemsBy"
-              :key="sort"
-              :active="selectedSortItemsBy === sort"
-              @click="selectedSortItemsBy = sort"
-            >
-              {{ $t(sort) }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+            :right="true"
+            :value="selectedSortItemsBy"
+            :items="sortItemsBy"
+            :inline-dropdown="false"
+            class="inline"
+            @select="selectedSortItemsBy = $event"
+          />
         </div>
       </div>
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -346,6 +343,8 @@
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/variables.scss';
 
+  // these styles may be applied to other pages too
+
   .featured-label {
     margin: 24px auto;
   }
@@ -390,8 +389,6 @@
       height: 216px;
 
       .background {
-        background: url('~@/assets/images/npc/#{$npc_quests_flavor}/quest_shop_background.png');
-
         background-repeat: repeat-x;
 
         width: 100%;
@@ -418,7 +415,6 @@
         left: 0;
         top: 0;
         height: 100%;
-        background: url('~@/assets/images/npc/#{$npc_quests_flavor}/quest_shop_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -427,23 +423,6 @@
           margin: 0;
           left: 70px;
         }
-      }
-
-      .background.broken {
-        background: url('~@/assets/images/npc/broken/quest_shop_broken_background.png');
-
-        background-repeat: repeat-x;
-      }
-
-      .background.cracked {
-        background: url('~@/assets/images/npc/broken/quest_shop_broken_layer.png');
-
-        background-repeat: repeat-x;
-      }
-
-      .broken .npc {
-        background: url('~@/assets/images/npc/broken/quest_shop_broken_npc.png');
-        background-repeat: no-repeat;
       }
     }
   }
@@ -456,7 +435,7 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
-import { mapState, mapGetters } from '@/libs/store';
+import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
 import Item from '@/components/inventory/item';
@@ -474,10 +453,16 @@ import QuestInfo from './questInfo.vue';
 import shops from '@/../../common/script/libs/shops';
 
 import isPinned from '@/../../common/script/libs/isPinned';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import FilterGroup from '@/components/ui/filterGroup';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 
 export default {
   components: {
+    SelectTranslatedArray,
+    FilterGroup,
+    FilterSidebar,
     ShopItem,
     Item,
     CountBadge,
@@ -511,9 +496,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
-    }),
-    ...mapGetters({
-      broken: 'worldState.brokenQuests',
+      currentEvent: 'worldState.data.currentEvent',
     }),
     shop () {
       return shops.getQuestShop(this.user);
@@ -533,9 +516,20 @@ export default {
       }
       return [];
     },
-
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
+    },
+    imageURLs () {
+      if (!this.currentEvent || !this.currentEvent.season) {
+        return {
+          background: 'url(/static/npc/normal/quest_shop_background.png)',
+          npc: 'url(/static/npc/normal/quest_shop_npc.png)',
+        };
+      }
+      return {
+        background: `url(/static/npc/${this.currentEvent.season}/quest_shop_background.png)`,
+        npc: `url(/static/npc/${this.currentEvent.season}/quest_shop_npc.png)`,
+      };
     },
   },
   watch: {
@@ -544,6 +538,10 @@ export default {
     }, 250),
   },
   async mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('quests'),
+      section: this.$t('shops'),
+    });
     await this.$store.dispatch('worldState:getWorldState');
   },
   methods: {

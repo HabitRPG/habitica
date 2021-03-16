@@ -29,7 +29,7 @@ import {
 import baseModel from '../libs/baseModel';
 import { sendTxn as sendTxnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
-import {
+import { // eslint-disable-line import/no-cycle
   syncableAttrs,
 } from '../libs/taskManager';
 import {
@@ -301,7 +301,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
       case 'guilds': {
         const query = {
           type: 'guild',
-          _id: { $in: user.guilds },
+          _id: { $in: user.guilds, $ne: TAVERN_ID },
         };
         _.assign(query, filters);
         const userGuildsQuery = this.find(query).select(groupFields);
@@ -330,6 +330,7 @@ schema.statics.getGroups = async function getGroups (options = {}) {
         const query = {
           type: 'guild',
           privacy: 'public',
+          _id: { $ne: TAVERN_ID },
         };
         _.assign(query, filters);
 

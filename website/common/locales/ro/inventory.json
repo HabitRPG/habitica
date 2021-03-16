@@ -1,5 +1,5 @@
 {
-    "noItemsAvailableForType": "Nu ai niciun/nicio <%- type %>.",
+    "noItemsAvailableForType": "Nu ai niciun/nicio <%= type %>.",
     "foodItemType": "Mâncare Companion",
     "eggsItemType": "Ouă",
     "hatchingPotionsItemType": "Poțiuni de Eclozat",

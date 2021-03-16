@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Ang mga tuso mong talento ay nakadagdag sa Persepsiyon ng iyong partido! (Batay sa: Unbuffed PER)",
     "spellRogueStealthText": "Katusuhan",
     "spellRogueStealthNotes": "Sa bawat kast, ang ilan sa mga hindi mo natapos na Dailies ay hindi magdudulot ng pinsala ngayong gabi. Ang kanilang mga istrik at kulat ay hindi magbabago. (Batay sa: PER)",
-    "spellRogueStealthDaliesAvoided": "<%- originalText %> Numero ng mga pang-araw-araw na gawain na iniwasan: <%- number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Numero ng mga pang-araw-araw na gawain na iniwasan: <%= number %>.",
     "spellRogueStealthMaxedOut": "Naiwasan mo na ang lahat ng iyong Dailies; wala nang saysay and pag-kast nito muli.",
     "spellHealerHealText": "Nakakalunas na Liwanag",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,5 @@
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%- level %> to use this skill."
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
 }

@@ -459,9 +459,16 @@ export default {
       };
       this.$root.$emit('bv::show::modal', 'challenge-modal');
     });
+    this.$root.$on('habitica:create-challenge', () => {
+      this.cloning = false;
+      this.$store.state.challengeOptions.workingChallenge = {};
+      this.$root.$emit('bv::show::modal', 'challenge-modal');
+    });
   },
   beforeDestroy () {
     this.$root.$off('habitica:clone-challenge');
+    this.$root.$off('habitica:update-challenge');
+    this.$root.$off('habitica:create-challenge');
   },
   methods: {
     async shown () {
@@ -545,7 +552,7 @@ export default {
       if (this.workingChallenge.prize > this.maxPrize) errors.push(this.$t('cantAfford'));
 
       if (errors.length > 0) {
-        window.alert(errors.join('\n'));
+        window.alert(errors.join('\n')); // eslint-disable-line no-alert
         this.loading = false;
         return;
       }

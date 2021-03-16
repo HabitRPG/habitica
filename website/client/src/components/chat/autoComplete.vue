@@ -134,11 +134,12 @@ export default {
       this.currentSearch = this.atRegex.exec(this.text)[0]; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len, prefer-destructuring
       this.currentSearch = this.currentSearch.substring(1, this.currentSearch.length); // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
 
+      const lowerCaseSearch = this.currentSearch.toLowerCase();
       return this.tmpSelections
         .filter(option => { // eslint-disable-line arrow-body-style
-          return option.displayName.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1
+          return option.displayName.toLowerCase().indexOf(lowerCaseSearch) !== -1
             || (option.username
-              && option.username.toLowerCase().indexOf(this.currentSearch.toLowerCase()) !== -1);
+              && option.username.toLowerCase().indexOf(lowerCaseSearch) !== -1);
         })
         .slice(0, 4);
     },
@@ -181,13 +182,20 @@ export default {
       const usersThatMessage = groupBy(this.chat, 'user');
       for (const userKey of Object.keys(usersThatMessage)) {
         const systemMessage = userKey === 'undefined';
-        if (!systemMessage && this.tmpSelections.indexOf(userKey) === -1) {
+        if (!systemMessage && !this.tmpSelections.find(res => res.displayName === userKey)) {
           this.tmpSelections.push({
             displayName: userKey,
-            username: usersThatMessage[userKey][0].username,
+            username:
+              usersThatMessage[userKey]
+              && usersThatMessage[userKey][0]
+              && usersThatMessage[userKey][0].username,
             msg: {
-              backer: usersThatMessage[userKey][0].backer,
-              contributor: usersThatMessage[userKey][0].contributor,
+              backer: usersThatMessage[userKey]
+                && usersThatMessage[userKey][0]
+                && usersThatMessage[userKey][0].backer,
+              contributor: usersThatMessage[userKey]
+                && usersThatMessage[userKey][0]
+                && usersThatMessage[userKey][0].contributor,
             },
             hover: false,
           });
@@ -205,8 +213,9 @@ export default {
       if (isNPC) {
         return this.icons.tierNPC;
       }
+      const isContributor = Boolean(message.contributor && message.contributor.level);
 
-      return this.icons[`tier${message.contributor.level}`];
+      return isContributor ? this.icons[`tier${message.contributor.level}`] : null;
     },
     select (result) {
       let newText = this.text;

@@ -131,7 +131,7 @@
             <button
               class="btn btn-primary btn-update-card
               d-flex justify-content-center align-items-center"
-              @click="showStripeEdit()"
+              @click="redirectToStripeEdit()"
             >
               <div
                 v-once
@@ -719,6 +719,12 @@ export default {
     subscriptionEndDate () {
       return moment(this.user.purchased.plan.dateTerminated).format('MM/DD/YYYY');
     },
+  },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      section: this.$t('settings'),
+      subSection: this.$t('subscription'),
+    });
   },
   methods: {
     async applyCoupon (coupon) {

@@ -1,7 +1,7 @@
 <template>
   <b-modal
     id="card"
-    :title="$t(cardType + 'Card')"
+    :title="$t(`${cardType}Card`)"
     size="md"
     :hide-footer="true"
   >
@@ -10,7 +10,7 @@
         class="pull-right"
         :class="`inventory_special_${cardType}`"
       ></div>
-      <h4>{{ $t(cardType + 'Card') }}</h4>
+      <h4>{{ $t(`${cardType}Card`) }}</h4>
     </div>
     <div class="modal-body">
       <div style="padding:10px">
@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <small class="pull-left">{{ $t(cardType + 'CardExplanation') }}</small>
+      <small class="pull-left">{{ $t(`${cardType}CardExplanation`) }}</small>
       <button
         class="btn btn-secondary"
         @click="readCard()"

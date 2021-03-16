@@ -26,7 +26,6 @@
       id="app"
       :class="{
         'casting-spell': castingSpell,
-        'resting': showRestingBanner
       }"
     >
       <!-- <banned-account-modal /> -->
@@ -38,31 +37,9 @@
       <router-view v-if="!isUserLoggedIn || isStaticPage" />
       <template v-else>
         <template v-if="isUserLoaded">
-          <div
-            v-show="showRestingBanner"
-            ref="restingBanner"
-            class="resting-banner"
-          >
-            <span class="content">
-              <span class="label d-inline d-sm-none">{{ $t('innCheckOutBannerShort') }}</span>
-              <span class="label d-none d-sm-inline">{{ $t('innCheckOutBanner') }}</span>
-              <span class="separator">|</span>
-              <span
-                class="resume"
-                @click="resumeDamage()"
-              >{{ $t('resumeDamage') }}</span>
-            </span>
-            <div
-              class="closepadding"
-              @click="hideBanner()"
-            >
-              <span
-                class="svg-icon inline icon-10"
-                aria-hidden="true"
-                v-html="icons.close"
-              ></span>
-            </div>
-          </div>
+          <damage-paused-banner />
+          <!-- <gems-promo-banner /> -->
+          <gift-promo-banner />
           <notifications-display />
           <app-menu />
           <div
@@ -99,27 +76,17 @@
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
 
   #app {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-
-    &.resting {
-      --banner-resting-height: #{$restingToolbarHeight};
-    }
-
-    &.giftingBanner {
-      --banner-gifting-height: 2.5rem;
-    }
   }
 
   #loading-screen-inapp {
     #melior {
       margin: 0 auto;
       width: 70.9px;
-      margin-bottom: 1em;
     }
 
     .row {
@@ -144,15 +111,6 @@
     cursor: crosshair;
   }
 
-  .closepadding {
-    margin: 11px 24px;
-    display: inline-block;
-    position: relative;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-  }
-
   .container-fluid {
     flex: 1 0 auto;
   }
@@ -173,50 +131,10 @@
     margin-top: .5em;
     margin-bottom: .5em;
   }
-
-  .resting-banner {
-    width: 100%;
-    height: $restingToolbarHeight;
-    background-color: $blue-10;
-    top: 0;
-    z-index: 1300;
-    display: flex;
-
-    .content {
-      line-height: 1.71;
-      text-align: center;
-      color: $white;
-      padding: 8px 38px 8px 8px;
-      margin: auto;
-    }
-
-    @media only screen and (max-width: 768px) {
-      .content {
-        font-size: 12px;
-        line-height: 1.4;
-      }
-    }
-
-    .separator {
-      color: $blue-100;
-      margin: 0px 15px;
-    }
-
-    .resume {
-      font-weight: bold;
-      cursor: pointer;
-      white-space:nowrap;
-    }
-  }
 </style>
 
 <style lang='scss'>
   @import '~@/assets/scss/colors.scss';
-
-  .closepadding span svg path {
-    stroke: #FFF;
-    opacity: 0.48;
-  }
 
   .modal-backdrop {
     opacity: .9 !important;
@@ -235,6 +153,9 @@ import { loadProgressBar } from 'axios-progress-bar';
 
 import AppMenu from './components/header/menu';
 import AppHeader from './components/header/index';
+import DamagePausedBanner from './components/header/banners/damagePaused';
+// import GemsPromoBanner from './components/header/banners/gemsPromo';
+import GiftPromoBanner from './components/header/banners/giftPromo';
 import AppFooter from './components/appFooter';
 import notificationsDisplay from './components/notifications';
 import snackbars from './components/snackbars/notifications';
@@ -256,8 +177,6 @@ import {
   removeLocalSetting,
 } from '@/libs/userlocalManager';
 
-import svgClose from '@/assets/svg/close.svg';
-
 const COMMUNITY_MANAGER_EMAIL = process.env.EMAILS_COMMUNITY_MANAGER_EMAIL; // eslint-disable-line
 
 export default {
@@ -266,6 +185,9 @@ export default {
     AppMenu,
     AppHeader,
     AppFooter,
+    DamagePausedBanner,
+    // GemsPromoBanner,
+    GiftPromoBanner,
     notificationsDisplay,
     snackbars,
     BuyModal,
@@ -278,9 +200,6 @@ export default {
   mixins: [notifications, spellsMixin],
   data () {
     return {
-      icons: Object.freeze({
-        close: svgClose,
-      }),
       selectedItemToBuy: null,
       selectedSpellToBuy: null,
 
@@ -299,9 +218,6 @@ export default {
     },
     castingSpell () {
       return this.$store.state.spellOptions.castingSpell;
-    },
-    showRestingBanner () {
-      return !this.bannerHidden && this.user && this.user.preferences.sleep;
     },
     noMargin () {
       return ['privateMessages'].includes(this.$route.name);
@@ -590,12 +506,6 @@ export default {
     hideLoadingScreen () {
       this.loading = false;
     },
-    hideBanner () {
-      this.bannerHidden = true;
-    },
-    resumeDamage () {
-      this.$store.dispatch('user:sleep');
-    },
   },
 };
 </script>
@@ -633,5 +543,7 @@ export default {
 <style src="@/assets/css/sprites/spritesmith-main-26.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-27.css"></style>
 <style src="@/assets/css/sprites/spritesmith-main-28.css"></style>
+<style src="@/assets/css/sprites/spritesmith-main-29.css"></style>
+<!-- <style src="@/assets/css/sprites/spritesmith-main-30.css"></style> -->
 <style src="@/assets/css/sprites.css"></style>
 <style src="smartbanner.js/dist/smartbanner.min.css"></style>

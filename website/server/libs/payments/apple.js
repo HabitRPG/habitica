@@ -2,6 +2,7 @@ import moment from 'moment';
 import shared from '../../../common';
 import iap from '../inAppPurchases';
 import payments from './payments';
+import { getGemsBlock, validateGiftMessage } from './gems';
 import {
   NotAuthorized,
   BadRequest,
@@ -27,8 +28,10 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
   } = options;
 
   if (gift) {
+    validateGiftMessage(gift, user);
     gift.member = await User.findById(gift.uuid).exec();
   }
+
   const receiver = gift ? gift.member : user;
   const receiverCanGetGems = await receiver.canGetGems();
   if (!receiverCanGetGems) throw new NotAuthorized(shared.i18n.t('groupPolicyCannotGetGems', user.preferences.language));
@@ -59,28 +62,38 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
         userId: user._id,
       });
 
-      let amount;
+      let gemsBlockKey;
       switch (purchaseData.productId) { // eslint-disable-line default-case
         case 'com.habitrpg.ios.Habitica.4gems':
-          amount = 1;
+          gemsBlockKey = '4gems';
           break;
         case 'com.habitrpg.ios.Habitica.20gems':
         case 'com.habitrpg.ios.Habitica.21gems':
-          amount = 5.25;
+          gemsBlockKey = '21gems';
           break;
         case 'com.habitrpg.ios.Habitica.42gems':
-          amount = 10.5;
+          gemsBlockKey = '42gems';
           break;
         case 'com.habitrpg.ios.Habitica.84gems':
-          amount = 21;
+          gemsBlockKey = '84gems';
           break;
       }
-      if (amount) {
+      if (!gemsBlockKey) throw new NotAuthorized(api.constants.RESPONSE_INVALID_ITEM);
+      const gemsBlock = getGemsBlock(gemsBlockKey);
+
+      if (gift) {
+        gift.type = 'gems';
+        if (!gift.gems) gift.gems = {};
+        gift.gems.amount = shared.content.gems[gemsBlock.key].gems;
+      }
+
+      if (gemsBlock) {
         correctReceipt = true;
         await payments.buyGems({ // eslint-disable-line no-await-in-loop
-          user: receiver,
+          user,
+          gift,
           paymentMethod: api.constants.PAYMENT_METHOD_APPLE,
-          amount,
+          gemsBlock,
           headers,
         });
       }
@@ -220,6 +233,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
       };
 
       if (gift) {
+        validateGiftMessage(gift, user);
         gift.member = await User.findById(gift.uuid).exec();
         gift.subscription = sub;
         data.gift = gift;

@@ -395,6 +395,41 @@ const backgrounds = {
     jungle_canopy: { },
     productivity_plaza: { },
   },
+  backgrounds092020: {
+    flying_over_an_autumn_forest: { },
+    giant_autumn_leaf: { },
+    herding_sheep_in_autumn: { },
+  },
+  backgrounds102020: {
+    crescent_moon: { },
+    haunted_forest: { },
+    spooky_scarecrow_field: { },
+  },
+  backgrounds112020: {
+    mystical_observatory: { },
+    resting_in_the_inn: { },
+    river_of_lava: { },
+  },
+  backgrounds122020: {
+    gingerbread_house: { },
+    holiday_hearth: { },
+    inside_an_ornament: { },
+  },
+  backgrounds012021: {
+    hot_spring: { },
+    icicle_bridge: { },
+    wintry_castle: { },
+  },
+  backgrounds022021: {
+    flying_over_glacier: { },
+    heart_shaped_bubbles: { },
+    throne_room: { },
+  },
+  backgrounds032021: {
+    in_the_armory: { },
+    splash_in_a_puddle: { },
+    spring_thaw: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

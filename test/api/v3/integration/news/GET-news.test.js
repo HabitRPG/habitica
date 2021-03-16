@@ -4,7 +4,6 @@ import {
 
 describe('GET /news', () => {
   let api;
-
   beforeEach(async () => {
     api = requester();
   });

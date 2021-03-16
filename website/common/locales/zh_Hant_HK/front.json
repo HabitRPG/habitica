@@ -1,1 +1,23 @@
-{}
+{
+    "history": "歷史",
+    "guidanceForBlacksmiths": "鐵匠指南",
+    "free": "免費參加",
+    "footerSocial": "社交",
+    "footerMobile": "流動",
+    "footerCompany": "公司",
+    "footerCommunity": "社區",
+    "footerDevs": "開發者",
+    "sendLink": "發送鏈接",
+    "forgotPasswordSteps": "輸入你用於注冊Habitica賬戶的電郵地址。",
+    "emailNewPass": "郵件發送一個重置密碼鏈接",
+    "forgotPassword": "忘記密碼？",
+    "companyDonate": "捐獻",
+    "companyContribute": "貢獻",
+    "companyBlog": "部落格",
+    "companyAbout": "如何運作",
+    "communityInstagram": "Instagram",
+    "communityFacebook": "Facebook臉書",
+    "clearBrowserData": "清空瀏覽器數據",
+    "chores": "家務",
+    "FAQ": "問答"
+}

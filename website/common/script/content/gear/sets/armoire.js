@@ -322,6 +322,34 @@ const armor = {
     int: 7,
     set: 'herbalist',
   },
+  guardiansGown: {
+    int: 7,
+    set: 'grazerGuardian',
+  },
+  autumnEnchantersCloak: {
+    int: 12,
+    set: 'autumnEnchanter',
+  },
+  doubletOfClubs: {
+    con: 10,
+    set: 'jackOfClubs',
+  },
+  dressingGown: {
+    con: 12,
+    set: 'dressingGown',
+  },
+  blueMoonShozoku: {
+    con: 8,
+    set: 'blueMoon',
+  },
+  softPinkSuit: {
+    per: 12,
+    set: 'pinkLoungewear',
+  },
+  jadeArmor: {
+    per: 8,
+    set: 'jadeWarrior',
+  },
 };
 
 const body = {
@@ -644,6 +672,34 @@ const head = {
     int: 9,
     set: 'herbalist',
   },
+  guardiansBonnet: {
+    con: 8,
+    set: 'grazerGuardian',
+  },
+  hornsOfAutumn: {
+    str: 12,
+    set: 'autumnEnchanter',
+  },
+  capOfClubs: {
+    int: 10,
+    set: 'jackOfClubs',
+  },
+  nightcap: {
+    per: 12,
+    set: 'dressingGown',
+  },
+  blueMoonHelm: {
+    int: 8,
+    set: 'blueMoon',
+  },
+  pinkFloppyHat: {
+    int: 12,
+    set: 'pinkLoungewear',
+  },
+  jadeHelm: {
+    con: 8,
+    set: 'jadeWarrior',
+  },
 };
 
 const shield = {
@@ -828,6 +884,19 @@ const shield = {
   mortarAndPestle: {
     con: 9,
     set: 'herbalist',
+  },
+  darkAutumnFlame: {
+    con: 12,
+    set: 'autumnEnchanter',
+  },
+  blueMoonSai: {
+    per: 8,
+    set: 'blueMoon',
+  },
+  softPinkPillow: {
+    str: 6,
+    con: 6,
+    set: 'pinkLoungewear',
   },
 };
 
@@ -1102,6 +1171,30 @@ const weapon = {
   handyHook: {
     str: 8,
     set: 'pirate',
+  },
+  guardiansCrook: {
+    str: 10,
+    set: 'grazerGuardian',
+  },
+  enchantersStaff: {
+    per: 12,
+    set: 'autumnEnchanter',
+  },
+  clubOfClubs: {
+    str: 10,
+    set: 'jackOfClubs',
+  },
+  eveningTea: {
+    int: 12,
+    set: 'dressingGown',
+  },
+  blueMoonSai: {
+    str: 8,
+    set: 'blueMoon',
+  },
+  jadeGlaive: {
+    str: 10,
+    set: 'jadeWarrior',
   },
 };
 

@@ -1,21 +1,12 @@
 {
     "defaultHabit1Text": "Kerja Produktif (Klik pensil untuk edit)",
-    "defaultHabit1Notes": "Contoh Kebiasaan Baik: + Makan sayuran + 15 menit kerja produktif",
     "defaultHabit2Text": "Makan Makanan Cepat Saji (Klik pensil untuk edit)",
-    "defaultHabit2Notes": "Contoh kebiasaan buruk: -Merokok -Menunda Pekerjaan",
     "defaultHabit3Text": "Naik Tangga/Lift (Klik pensil untuk edit)",
-    "defaultHabit3Notes": "Contoh Kebiasaan Baik atau Buruk: +/- Naik Tangga/Lift; +/- Minum Air/Soda",
     "defaultHabit4Text": "Tambahkan tugas ke Habitica",
     "defaultHabit4Notes": "Boleh saja Kebiasaan, Keseharian, atau Tugas",
-    "defaultHabit5Text": "Tekan di sini untuk menyunting ini menjadi kebiasaan buruk yang ingin kamu hentikan",
-    "defaultHabit5Notes": "Atau hapus dari layar suntingan",
-    "defaultDaily1Text": "Gunakan Habitica untuk mencatat tugas-tugasmu",
     "defaultTodo1Text": "Bergabung dengan Habitica (Beri tanda ceklis!)",
     "defaultTodoNotes": "Kamu dapat menyelesaikan To-Do, mengubahnya, atau menghapusnya.",
-    "defaultTodo2Text": "Selesaikan panduan tugas Justin",
-    "defaultTodo2Notes": "Kunjungi semua bagian dari kotak di bawah",
     "defaultReward1Text": "Istirahat 15 menit",
-    "defaultReward1Notes": "Hadiah dapat muncul dengan banyak bentuk. Beberapa orang akan menahan untuk menonton acara favorit mereka hingga mereka memiliki emas untuk membayarnya",
     "defaultReward2Text": "Berikan hadiah kepada dirimu sendiri",
     "defaultReward2Notes": "Nonton TV, main game, makan enak, terserah kamu!",
     "defaultTag1": "Pekerjaan",
@@ -24,5 +15,5 @@
     "defaultTag4": "Sekolah",
     "defaultTag5": "Tim",
     "defaultTag6": "Pekerjaan rumah",
-    "defaultTag7": "Kreativitas "
+    "defaultTag7": "Kreativitas"
 }

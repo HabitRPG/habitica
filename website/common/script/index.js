@@ -10,6 +10,7 @@ import {
   MAX_HEALTH,
   MAX_INCENTIVES,
   MAX_LEVEL,
+  MAX_LEVEL_HARD_CAP,
   MAX_STAT_POINTS,
   MAX_SUMMARY_SIZE_FOR_CHALLENGES,
   MAX_SUMMARY_SIZE_FOR_GUILDS,
@@ -19,6 +20,7 @@ import {
   SUPPORTED_SOCIAL_NETWORKS,
   TAVERN_ID,
   MAX_MESSAGE_LENGTH,
+  MAX_GIFT_MESSAGE_LENGTH,
 } from './constants';
 import content from './content/index';
 import * as count from './count';
@@ -87,6 +89,8 @@ import unlock from './ops/unlock';
 import updateTask from './ops/updateTask';
 // TODO under api.libs.statHelpers?
 import * as statHelpers from './statHelpers';
+import { unEquipByType } from './ops/unequip';
+import getOfficialPinnedItems from './libs/getOfficialPinnedItems';
 
 const api = {};
 api.content = content;
@@ -110,6 +114,8 @@ api.constants = {
   CHAT_FLAG_FROM_SHADOW_MUTE,
   MINIMUM_PASSWORD_LENGTH,
   MAX_MESSAGE_LENGTH,
+  MAX_GIFT_MESSAGE_LENGTH,
+  MAX_LEVEL_HARD_CAP,
 };
 // TODO Move these under api.constants
 api.maxLevel = MAX_LEVEL;
@@ -142,6 +148,7 @@ api.hasClass = hasClass;
 api.onboarding = onboarding;
 api.setDebuffPotionItems = setDebuffPotionItems;
 api.getDebuffPotionItems = getDebuffPotionItems;
+api.getOfficialPinnedItems = getOfficialPinnedItems;
 
 api.fns = {
   autoAllocate,
@@ -182,6 +189,7 @@ api.ops = {
   reset,
   markPmsRead,
   pinnedGearUtils,
+  unEquipByType,
 };
 
 api.errorMessages = {

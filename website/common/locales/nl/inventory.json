@@ -1,8 +1,10 @@
 {
-    "noItemsAvailableForType": "Je hebt geen <%- type %>.",
+    "noItemsAvailableForType": "Je hebt geen <%= type %>.",
     "foodItemType": "Dierenvoeding",
     "eggsItemType": "Eieren",
     "hatchingPotionsItemType": "Uitbroeddrank",
     "specialItemType": "Speciale artikelen",
-    "lockedItem": "Vergrendeld artikel"
+    "lockedItem": "Vergrendeld artikel",
+    "allItems": "Alle Voorwerpen",
+    "petAndMount": "Huisdier en Rijdier"
 }

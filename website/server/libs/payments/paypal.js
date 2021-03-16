@@ -8,6 +8,7 @@ import paypal from 'paypal-rest-sdk';
 import cc from 'coupon-code';
 import shared from '../../../common';
 import payments from './payments'; // eslint-disable-line import/no-cycle
+import { getGemsBlock, validateGiftMessage } from './gems'; // eslint-disable-line import/no-cycle
 import { model as Coupon } from '../../models/coupon';
 import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
@@ -76,14 +77,17 @@ api.paypalBillingAgreementCancel = util
 api.ipnVerifyAsync = util.promisify(paypalIpn.verify.bind(paypalIpn));
 
 api.checkout = async function checkout (options = {}) {
-  const { gift, user } = options;
+  const { gift, user, gemsBlock: gemsBlockKey } = options;
 
-  let amount = 5.00;
+  let amount;
+  let gemsBlock;
   let description = 'Habitica Gems';
 
   if (gift) {
     const member = await User.findById(gift.uuid).exec();
     gift.member = member;
+
+    validateGiftMessage(gift, user);
 
     if (gift.type === 'gems') {
       if (gift.gems.amount <= 0) {
@@ -95,6 +99,9 @@ api.checkout = async function checkout (options = {}) {
       amount = Number(shared.content.subscriptionBlocks[gift.subscription.key].price).toFixed(2);
       description = 'mo. Habitica Subscription (Gift)';
     }
+  } else {
+    gemsBlock = getGemsBlock(gemsBlockKey);
+    amount = gemsBlock.price / 100;
   }
 
   if (!gift || gift.type === 'gems') {
@@ -139,7 +146,7 @@ api.checkout = async function checkout (options = {}) {
 
 api.checkoutSuccess = async function checkoutSuccess (options = {}) {
   const {
-    user, gift, paymentId, customerId,
+    user, gift, gemsBlock: gemsBlockKey, paymentId, customerId,
   } = options;
 
   let method = 'buyGems';
@@ -157,6 +164,8 @@ api.checkoutSuccess = async function checkoutSuccess (options = {}) {
 
     data.paymentMethod = 'PayPal (Gift)';
     data.gift = gift;
+  } else {
+    data.gemsBlock = getGemsBlock(gemsBlockKey);
   }
 
   await this.paypalPaymentExecute(paymentId, { payer_id: customerId });

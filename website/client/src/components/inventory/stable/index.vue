@@ -5,92 +5,92 @@
     @mouseMoved="mouseMoved($event)"
   >
     <div class="standard-sidebar d-none d-sm-block">
-      <div>
+      <filter-sidebar>
+        <div slot="header">
+          <div
+            id="npmMattStable"
+            :class="npcClass('matt')"
+          ></div>
+          <b-popover
+            triggers="hover"
+            placement="right"
+            target="npmMattStable"
+          >
+            <h4
+              v-once
+              class="popover-content-title"
+            >
+              {{ $t('mattBoch') }}
+            </h4>
+            <div
+              v-once
+              class="popover-content-text"
+            >
+              {{ $t('mattBochText1') }}
+            </div>
+          </b-popover>
+        </div>
         <div
-          id="npmMattStable"
-          class="npc_matt"
-        ></div>
-        <b-popover
-          triggers="hover"
-          placement="right"
-          target="npmMattStable"
+          slot="search"
+          class="form-group"
         >
-          <h4
-            v-once
-            class="popover-content-title"
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
           >
-            {{ $t('mattBoch') }}
-          </h4>
-          <div
-            v-once
-            class="popover-content-text"
-          >
-            {{ $t('mattBochText1') }}
-          </div>
-        </b-popover>
-      </div>
-      <div class="form-group">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
-        >
-      </div>
-      <div class="form">
-        <h2 v-once>
-          {{ $t('filter') }}
-        </h2>
-        <h3 v-once>
-          {{ $t('pets') }}
-        </h3>
-        <div class="form-group">
-          <div
-            v-for="petGroup in petGroups"
-            :key="petGroup.key"
-            class="form-check"
-          >
-            <div class="custom-control custom-checkbox">
-              <input
-                :id="petGroup.key"
-                v-model="viewOptions[petGroup.key].selected"
-                class="custom-control-input"
-                type="checkbox"
-                :disabled="viewOptions[petGroup.key].animalCount == 0"
-              >
-              <label
-                v-once
-                class="custom-control-label"
-                :for="petGroup.key"
-              >{{ petGroup.label }}</label>
+        </div>
+
+        <filter-group :title="$t('pets')">
+          <div class="form-group">
+            <div
+              v-for="petGroup in petGroups"
+              :key="petGroup.key"
+              class="form-check"
+            >
+              <div class="custom-control custom-checkbox">
+                <input
+                  :id="petGroup.key"
+                  v-model="viewOptions[petGroup.key].selected"
+                  class="custom-control-input"
+                  type="checkbox"
+                  :disabled="viewOptions[petGroup.key].animalCount == 0"
+                >
+                <label
+                  v-once
+                  class="custom-control-label"
+                  :for="petGroup.key"
+                >{{ petGroup.label }}</label>
+              </div>
             </div>
           </div>
-        </div>
-        <h3 v-once>
-          {{ $t('mounts') }}
-        </h3>
-        <div class="form-group">
-          <div
-            v-for="mountGroup in mountGroups"
-            :key="mountGroup.key"
-            class="form-check"
-          >
-            <div class="custom-control custom-checkbox">
-              <input
-                :id="mountGroup.key"
-                v-model="viewOptions[mountGroup.key].selected"
-                class="custom-control-input"
-                type="checkbox"
-                :disabled="viewOptions[mountGroup.key].animalCount == 0"
-              >
-              <label
-                v-once
-                class="custom-control-label"
-                :for="mountGroup.key"
-              >{{ mountGroup.label }}</label>
+        </filter-group>
+        <filter-group :title="$t('mounts')">
+          <div class="form-group">
+            <div
+              v-for="mountGroup in mountGroups"
+              :key="mountGroup.key"
+              class="form-check"
+            >
+              <div class="custom-control custom-checkbox">
+                <input
+                  :id="mountGroup.key"
+                  v-model="viewOptions[mountGroup.key].selected"
+                  class="custom-control-input"
+                  type="checkbox"
+                  :disabled="viewOptions[mountGroup.key].animalCount == 0"
+                >
+                <label
+                  v-once
+                  class="custom-control-label"
+                  :for="mountGroup.key"
+                >{{ mountGroup.label }}</label>
+              </div>
             </div>
           </div>
-        </div>
+        </filter-group>
+
         <div class="form-group clearfix">
           <h3 class="float-left">
             {{ $t('hideMissing') }}
@@ -101,7 +101,7 @@
             @change="updateHideMissing"
           />
         </div>
-      </div>
+      </filter-sidebar>
     </div>
     <div class="standard-page">
       <div class="clearfix">
@@ -113,19 +113,14 @@
         </h1>
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(selectedSortBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              v-for="sort in sortByItems"
-              :key="sort"
-              :active="selectedSortBy === sort"
-              @click="selectedSortBy = sort"
-            >
-              {{ $t(sort) }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+            :right="true"
+            :items="sortByItems"
+            :value="selectedSortBy"
+            class="inline"
+            :inline-dropdown="false"
+            @select="selectedSortBy = $event"
+          />
         </div>
       </div>
       <h2 class="mb-3">
@@ -174,8 +169,8 @@
                 slot="itemBadge"
                 slot-scope="context"
               >
-                <starBadge
-                  :selected="context.item.key === currentPet"
+                <equip-badge
+                  :equipped="context.item.key === currentPet"
                   :show="isOwned('pet', context.item)"
                   @click="selectPet(context.item)"
                 />
@@ -183,13 +178,12 @@
             </petItem>
           </div>
         </div>
-        <div
+        <show-more-button
           v-if="petGroup.key !== 'specialPets' && !(petGroup.key === 'wackyPets' && selectedSortBy !== 'sortByColor')"
-          class="btn btn-flat btn-show-more"
+          :show-all="$_openedItemRows_isToggled(petGroup.key)"
+          class="show-more-button"
           @click="setShowMore(petGroup.key)"
-        >
-          {{ $_openedItemRows_isToggled(petGroup.key) ? $t('showLess') : $t('showMore') }}
-        </div>
+        />
       </div>
       <h2>
         {{ $t('mounts') }}
@@ -234,8 +228,8 @@
               <template
                 slot="itemBadge"
               >
-                <starBadge
-                  :selected="item.key === currentMount"
+                <equip-badge
+                  :equipped="item.key === currentMount"
                   :show="isOwned('mount', item)"
                   @click="selectMount(item)"
                 />
@@ -243,13 +237,11 @@
             </mountItem>
           </div>
         </div>
-        <div
+        <show-more-button
           v-if="mountGroup.key !== 'specialMounts'"
-          class="btn btn-flat btn-show-more"
+          :show-all="$_openedItemRows_isToggled(mountGroup.key)"
           @click="setShowMore(mountGroup.key)"
-        >
-          {{ $_openedItemRows_isToggled(mountGroup.key) ? $t('showLess') : $t('showMore') }}
-        </div>
+        />
       </div>
       <inventoryDrawer>
         <template
@@ -330,11 +322,7 @@
 
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/modal.scss';
-
-  .standard-page .clearfix .float-right {
-    margin-right: 24px;
-  }
+  @import '~@/assets/scss/mixins.scss';
 
   .inventory-item-container {
     padding: 20px;
@@ -342,40 +330,11 @@
     display: inline-block;
   }
 
-  .hatchablePopover {
-    width: 180px
-  }
-
-  .potionEggGroup {
-    margin: 0 auto;
-  }
-
-  .potionEggBackground {
-    display: inline-flex;
-    align-items: center;
-
-    width: 112px;
-    height: 112px;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-
-    &:first-child {
-      margin-right: 24px;
-    }
-
-    & div {
-      margin: 0 auto;
-    }
-  }
-
   .GreyedOut {
     opacity: 0.3;
   }
 
   .item.item-empty {
-    width: 94px;
-    height: 92px;
-    border-radius: 2px;
     background-color: #edecee;
   }
 
@@ -387,6 +346,10 @@
 
     .standard-page {
       padding-right:0;
+    }
+
+    .standard-page .clearfix .float-right {
+      margin-right: 24px;
     }
 
     .svg-icon.inline.icon-16 {
@@ -439,8 +402,7 @@
     width: 180px;
 
     .potionEggGroup {
-      margin: 0 auto;
-      margin-top: 10px;
+      margin: 10px auto 0;
     }
 
     .potionEggBackground {
@@ -456,7 +418,7 @@
         margin-right: 24px;
       }
 
-      & div {
+      div {
         margin: 0 auto;
       }
     }
@@ -480,7 +442,6 @@ import MountRaisedModal from './mountRaisedModal';
 import WelcomeModal from './welcomeModal';
 import HatchingModal from './hatchingModal';
 import toggleSwitch from '@/components/ui/toggleSwitch';
-import StarBadge from '@/components/ui/starBadge';
 import InventoryDrawer from '@/components/shared/inventoryDrawer';
 
 import ResizeDirective from '@/directives/resize.directive';
@@ -494,9 +455,15 @@ import svgInformation from '@/assets/svg/information.svg';
 import notifications from '@/mixins/notifications';
 import openedItemRowsMixin from '@/mixins/openedItemRows';
 import petMixin from '@/mixins/petMixin';
+import seasonalNPC from '@/mixins/seasonalNPC';
 
 import { CONSTANTS, setLocalSetting, getLocalSetting } from '@/libs/userlocalManager';
 import { isOwned } from '../../../libs/createAnimal';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import FilterGroup from '@/components/ui/filterGroup';
+import ShowMoreButton from '@/components/ui/showMoreButton';
+import EquipBadge from '@/components/ui/equipBadge';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 // TODO Normalize special pets and mounts
 // import Store from '@/store';
@@ -507,11 +474,15 @@ let lastMouseMoveEvent = {};
 
 export default {
   components: {
+    SelectTranslatedArray,
+    EquipBadge,
+    ShowMoreButton,
+    FilterGroup,
+    FilterSidebar,
     PetItem,
     FoodItem,
     MountItem,
     toggleSwitch,
-    StarBadge,
     HatchedPetDialog,
     MountRaisedModal,
     WelcomeModal,
@@ -523,7 +494,7 @@ export default {
     drag: DragDropDirective,
     mousePosition: MouseMoveDirective,
   },
-  mixins: [notifications, openedItemRowsMixin, petMixin],
+  mixins: [notifications, openedItemRowsMixin, petMixin, seasonalNPC],
   data () {
     const stableSortState = getLocalSetting(CONSTANTS.keyConstants.STABLE_SORT_STATE) || 'standard';
 
@@ -686,6 +657,12 @@ export default {
       },
     },
   },
+  mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('stable'),
+      section: this.$t('inventory'),
+    });
+  },
   methods: {
     setShowMore (key) {
       this.$_openedItemRows_toggleByType(key, !this.$_openedItemRows_isToggled(key));
@@ -831,9 +808,6 @@ export default {
       }
 
       return groupBy(mounts, groupKey);
-    },
-    hasDrawerTabItems (index) {
-      return this.drawerTabs && this.drawerTabs[index].items.length !== 0;
     },
     // Actions
     updateHideMissing (newVal) {

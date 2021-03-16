@@ -70,6 +70,7 @@ export default {
       amazonPayments: {
         modal: null,
         type: null,
+        gemsBlock: null,
         gift: null,
         loggedIn: false,
         paymentSelected: false,
@@ -122,7 +123,7 @@ export default {
             this.amazonPayments.orderReferenceId = response.data.data.orderReferenceId;
             this.amazonInitWidgets();
           } else {
-            window.alert(response.message);
+            window.alert(response.message); // eslint-disable-line no-alert
           }
         }
       });
@@ -201,6 +202,8 @@ export default {
       } else if (paymentType.indexOf('gift-') === 0) {
         appState.gift = this.amazonPayments.gift;
         appState.giftReceiver = this.amazonPayments.giftReceiver;
+      } else if (paymentType === 'gems') {
+        appState.gemsBlock = this.amazonPayments.gemsBlock;
       }
 
       setLocalSetting(CONSTANTS.savedAppStateValues.SAVED_APP_STATE, JSON.stringify(appState));
@@ -218,12 +221,17 @@ export default {
       // @TODO: A gift should not read the same as buying gems for yourself.
       if (this.amazonPayments.type === 'single') {
         const url = '/amazon/checkout';
+        const data = {
+          orderReferenceId: this.amazonPayments.orderReferenceId,
+          gift: this.amazonPayments.gift,
+        };
+
+        if (this.amazonPayments.gemsBlock) {
+          data.gemsBlock = this.amazonPayments.gemsBlock.key;
+        }
 
         try {
-          await axios.post(url, {
-            orderReferenceId: this.amazonPayments.orderReferenceId,
-            gift: this.amazonPayments.gift,
-          });
+          await axios.post(url, data);
 
           this.$set(this, 'amazonButtonEnabled', true);
           this.storePaymentStatusAndReload();

@@ -26,6 +26,7 @@ import {
   sanitizeText as sanitizeMessageText,
 } from '../../models/message';
 import highlightMentions from '../../libs/highlightMentions';
+import { handleGetMembersForChallenge } from '../../libs/challenges/handleGetMembersForChallenge';
 
 const { achievements } = common;
 
@@ -278,16 +279,12 @@ api.getMemberAchievements = {
 // We should create factory functions. See Webhooks for a good example
 function _getMembersForItem (type) {
   // check for allowed `type`
-  if (['group-members', 'group-invites', 'challenge-members'].indexOf(type) === -1) {
-    throw new Error('Type must be one of "group-members", "group-invites", "challenge-members"');
+  if (['group-members', 'group-invites'].indexOf(type) === -1) {
+    throw new Error('Type must be one of "group-members", "group-invites"');
   }
 
   return async function handleGetMembersForItem (req, res) {
-    if (type === 'challenge-members') {
-      req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
-    } else {
-      req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
-    }
+    req.checkParams('groupId', res.t('groupIdRequired')).notEmpty();
     req.checkQuery('lastId').optional().notEmpty().isUUID();
     // Allow an arbitrary number of results (up to 60)
     req.checkQuery('limit', res.t('groupIdRequired')).optional().notEmpty().isInt({ min: 1, max: 60 });
@@ -296,49 +293,18 @@ function _getMembersForItem (type) {
     if (validationErrors) throw validationErrors;
 
     const { groupId } = req.params;
-    const { challengeId } = req.params;
     const { lastId } = req.query;
     const { user } = res.locals;
-    let challenge;
-    let group;
 
-    if (type === 'challenge-members') {
-      challenge = await Challenge.findById(challengeId).select('_id type leader group').exec();
-      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-
-      // optionalMembership is set to true because even
-      // if you're not member of the group you may be able to access the challenge
-      // for example if you've been booted from it, are the leader or a site admin
-      group = await Group.getGroup({
-        user,
-        groupId: challenge.group,
-        fields: '_id type privacy',
-        optionalMembership: true,
-      });
-
-      if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
-    } else {
-      group = await Group.getGroup({ user, groupId, fields: '_id type' });
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-    }
+    const group = await Group.getGroup({ user, groupId, fields: '_id type' });
+    if (!group) throw new NotFound(res.t('groupNotFound'));
 
     const query = {};
     let fields = nameFields;
     // add computes stats to the member info when items and stats are available
     let addComputedStats = false;
 
-    if (type === 'challenge-members') {
-      query.challenges = challenge._id;
-
-      if (req.query.includeAllPublicFields === 'true') {
-        fields = memberFields;
-        addComputedStats = true;
-      }
-
-      if (req.query.search) {
-        query['auth.local.username'] = { $regex: req.query.search };
-      }
-    } else if (type === 'group-members') {
+    if (type === 'group-members') {
       if (group.type === 'guild') {
         query.guilds = group._id;
 
@@ -356,9 +322,12 @@ function _getMembersForItem (type) {
       }
 
       if (req.query.search) {
-        // Creates a RegExp expression when querying for profile.name
+        // Creates a RegExp expression when querying for profile.name and auth.local.username
         const escapedSearch = escapeRegExp(req.query.search);
-        query['profile.name'] = { $regex: new RegExp(escapedSearch, 'i') };
+        query.$or = [
+          { 'profile.name': { $regex: new RegExp(escapedSearch, 'i') } },
+          { 'auth.local.username': { $regex: new RegExp(req.query.search, 'i') } },
+        ];
       }
     } else if (type === 'group-invites') {
       if (group.type === 'guild') { // eslint-disable-line no-lonely-if
@@ -381,12 +350,7 @@ function _getMembersForItem (type) {
 
     if (lastId) query._id = { $gt: lastId };
 
-    let limit = req.query.limit ? Number(req.query.limit) : 30;
-
-    // Allow for all challenges members to be returned
-    if (type === 'challenge-members' && req.query.includeAllMembers === 'true') {
-      limit = 0; // no limit
-    }
+    const limit = req.query.limit ? Number(req.query.limit) : 30;
 
     const members = await User
       .find(query)
@@ -410,7 +374,7 @@ function _getMembersForItem (type) {
  * @apiName GetMembersForGroup
  * @apiGroup Member
  *
- * @apiParam (Path) {UUID} groupId The group id
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party is accepted)
  * @apiParam (Query) {UUID} lastId Query parameter to specify the last member
  *                                 returned in a previous request to this route and
  *                                 get the next batch of results.
@@ -420,6 +384,9 @@ function _getMembersForItem (type) {
  *                                                    then all public fields for members
  *                                                    will be returned (similar to when making
  *                                                    a request for a single member).
+ * @apiParam (Query) {Boolean} includeTasks If set to `true`, then
+ *                                response should include all tasks per user
+ *                                related to the challenge
  *
  * @apiSuccess {Array} data An array of members, sorted by _id
  *
@@ -455,7 +422,7 @@ api.getMembersForGroup = {
  * @apiName GetInvitesForGroup
  * @apiGroup Member
  *
- * @apiParam (Path) {UUID} groupId The group id
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party is accepted)
  * @apiParam (Query) {UUID} lastId Query parameter to specify the last invite
  *                                 returned in a previous request to this route and
  *                                 get the next batch of results.
@@ -511,12 +478,12 @@ api.getInvitesForGroup = {
  *                                 get the next batch of results.
  * @apiParam (Query) {Number} limit=30 BETA Query parameter to
  *                                     specify the number of results to return. Max is 60.
+ * @apiParam (Query) {Boolean} includeTasks BETA Query parameter - If 'true'
+ *                                                    then include challenge tasks of each member
  * @apiParam (Query) {Boolean} includeAllPublicFields If set to `true`
  *                                                    then all public fields for members
  *                                                    will be returned (similar to when making
  *                                                    a request for a single member).
- * @apiParam (Query) {String} includeAllMembers BETA Query parameter - If 'true' all
- *                                              challenge members are returned.
 
  * @apiSuccess {Array} data An array of members, sorted by _id
  *
@@ -527,7 +494,7 @@ api.getMembersForChallenge = {
   method: 'GET',
   url: '/challenges/:challengeId/members',
   middlewares: [authWithHeaders()],
-  handler: _getMembersForItem('challenge-members'),
+  handler: handleGetMembersForChallenge,
 };
 
 /**
@@ -603,10 +570,8 @@ api.getChallengeMemberProgress = {
 
     const member = await User.findById(memberId).select(`${nameFields} challenges`).exec();
     if (!member) throw new NotFound(res.t('userWithIDNotFound', { userId: memberId }));
-
     const challenge = await Challenge.findById(challengeId).exec();
     if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-
     // optionalMembership is set to true because even if you're
     // not member of the group you may be able to access the challenge
     // for example if you've been booted from it, are the leader or a site admin
@@ -616,20 +581,18 @@ api.getChallengeMemberProgress = {
     if (!group || !challenge.canView(user, group)) throw new NotFound(res.t('challengeNotFound'));
     if (!challenge.isMember(member)) throw new NotFound(res.t('challengeMemberNotFound'));
 
-    const chalTasks = await Tasks.Task.find({
-      userId: memberId,
-      'challenge.id': challengeId,
+    const challengeTasks = await Tasks.Task.find({
+      userId: member._id,
+      'challenge.id': challenge._id,
     })
-      .select('-tags') // We don't want to return the tags publicly TODO same for other data?
+      .select('-tags -checklist') // We don't want to return tags and checklists publicly
+      .lean()
       .exec();
 
     // manually call toJSON with minimize: true so empty paths aren't returned
     const response = member.toJSON({ minimize: true });
     delete response.challenges;
-    response.tasks = chalTasks.map(chalTask => {
-      chalTask.checklist = []; // Clear checklists as they are private
-      return chalTask.toJSON({ minimize: true });
-    });
+    response.tasks = challengeTasks;
     res.respond(200, response);
   },
 };

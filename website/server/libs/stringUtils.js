@@ -8,7 +8,14 @@ export function removePunctuationFromString (str) {
 
 // NOTE: the wordsToMatch aren't escaped in order to support regular expressions,
 // so this method should not be used if wordsToMatch contains unsanitized user input
+
 export function getMatchesByWordArray (str, wordsToMatch) {
+  // remove accented characters from the string, which would trip up the regEx
+  // later on, by using the built-in Unicode normalisation methods
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize
+  // https://www.unicode.org/reports/tr15/#Canon_Compat_Equivalence
+  // https://unicode-table.com/en/#combining-diacritical-marks
+
   const matchedWords = [];
   const wordRegexs = wordsToMatch.map(word => {
     const normalizedWord = removePunctuationFromString(normalizeUnicodeString(word));

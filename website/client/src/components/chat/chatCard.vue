@@ -34,6 +34,7 @@
       <div
         ref="markdownContainer"
         class="text markdown"
+        dir="auto"
         v-html="parseMarkdown(msg.text)"
       ></div>
       <hr>
@@ -164,7 +165,7 @@
     .text {
       font-size: 14px;
       color: #4e4a57;
-      text-align: left !important;
+      text-align: initial;
       min-height: 0rem;
     }
   }
@@ -329,7 +330,7 @@ export default {
       });
     },
     async remove () {
-      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return;
+      if (!window.confirm(this.$t('areYouSureDeleteMessage'))) return; // eslint-disable-line no-alert
 
       const message = this.msg;
       this.$emit('message-removed', message);

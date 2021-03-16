@@ -36,7 +36,7 @@ import BootstrapVue from 'bootstrap-vue';
 import StoreModule from '@/libs/store';
 
 // couldn't inject the languages easily,
-// so just a "$t()"  string to show that this will be translated
+// so just a "$t()" string to show that this will be translated
 Vue.prototype.$t = function translateString (...args) {
   return `$t(${JSON.stringify(args)})`;
 };
@@ -49,5 +49,6 @@ const req = require.context('../../src', true, /.stories.js$/);
 function loadStories () {
   req.keys().forEach(filename => req(filename));
 }
+
 
 configure(loadStories, module);

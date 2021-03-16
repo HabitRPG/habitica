@@ -198,8 +198,7 @@ api.createGroupPlan = {
     const results = await Promise.all([user.save(), group.save()]);
     const savedGroup = results[1];
 
-    // Analytics
-    const analyticsObject = {
+    res.analytics.track('join group', {
       uuid: user._id,
       hitType: 'event',
       category: 'behavior',
@@ -207,27 +206,31 @@ api.createGroupPlan = {
       groupType: savedGroup.type,
       privacy: savedGroup.privacy,
       headers: req.headers,
+    });
+
+    // do not remove chat flags data as we've just created the group
+    const groupResponse = savedGroup.toJSON();
+    // the leader is the authenticated user
+    groupResponse.leader = {
+      _id: user._id,
+      profile: { name: user.profile.name },
     };
-    res.analytics.track('join group', analyticsObject);
 
     if (req.body.paymentType === 'Stripe') {
-      const token = req.body.id;
-      const gift = req.query.gift ? JSON.parse(req.query.gift) : undefined;
-      const sub = req.query.sub ? common.content.subscriptionBlocks[req.query.sub] : false;
-      const groupId = savedGroup._id;
-      const { email } = req.body;
-      const { headers } = req;
-      const { coupon } = req.query;
+      const {
+        gift, sub: subKey, gemsBlock, coupon,
+      } = req.body;
 
-      await stripePayments.checkout({
-        token,
-        user,
-        gift,
-        sub,
-        groupId,
-        email,
-        headers,
-        coupon,
+      const sub = subKey ? common.content.subscriptionBlocks[subKey] : false;
+      const groupId = savedGroup._id;
+
+      const session = await stripePayments.createCheckoutSession({
+        user, gemsBlock, gift, sub, groupId, coupon, headers: req.headers,
+      });
+
+      res.respond(200, {
+        sessionId: session.id,
+        group: groupResponse,
       });
     } else if (req.body.paymentType === 'Amazon') {
       const { billingAgreementId } = req.body;
@@ -246,19 +249,9 @@ api.createGroupPlan = {
         groupId,
         headers,
       });
+
+      res.respond(201, groupResponse);
     }
-
-    // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    // await Q.ninvoke(savedGroup, 'populate', ['leader', nameFields]);
-    // doc.populate doesn't return a promise
-    const response = savedGroup.toJSON();
-    // the leader is the authenticated user
-    response.leader = {
-      _id: user._id,
-      profile: { name: user.profile.name },
-    };
-
-    res.respond(201, response); // do not remove chat flags data as we've just created the group
   },
 };
 
@@ -471,6 +464,14 @@ api.updateGroup = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
+    if (user.contributor.admin) {
+      if (req.body.bannedWordsAllowed === true) {
+        group.bannedWordsAllowed = true;
+      } else {
+        group.bannedWordsAllowed = false;
+      }
+    }
+
     if (group.leader !== user._id && group.type === 'party') throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
     else if (group.leader !== user._id && !user.contributor.admin) throw new NotAuthorized(res.t('messageGroupOnlyLeaderCanUpdate'));
 
@@ -639,7 +640,6 @@ api.joinGroup = {
         inviter.items.quests.basilist += 1;
         inviter.markModified('items.quests');
       }
-      promises.push(inviter.save());
     }
 
     if (group.type === 'party' && inviter) {
@@ -650,6 +650,7 @@ api.joinGroup = {
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
             'achievements.partyUp': { $ne: true },
+            _id: { $ne: inviter._id },
           },
           {
             $set: { 'achievements.partyUp': true },
@@ -660,8 +661,7 @@ api.joinGroup = {
 
         if (inviter) {
           if (inviter.achievements.partyUp !== true) {
-            // Since the notification list of the inviter is already
-            // updated in this save we need to add the notification here
+            inviter.achievements.partyUp = true;
             inviter.addNotification('ACHIEVEMENT_PARTY_UP');
           }
         }
@@ -674,6 +674,7 @@ api.joinGroup = {
           {
             $or: [{ 'party._id': group._id }, { _id: user._id }],
             'achievements.partyOn': { $ne: true },
+            _id: { $ne: inviter._id },
           },
           {
             $set: { 'achievements.partyOn': true },
@@ -684,14 +685,14 @@ api.joinGroup = {
 
         if (inviter) {
           if (inviter.achievements.partyOn !== true) {
-            // Since the notification list of the inviter is already
-            //  updated in this save we need to add the notification here
+            inviter.achievements.partyOn = true;
             inviter.addNotification('ACHIEVEMENT_PARTY_ON');
           }
         }
       }
     }
 
+    if (inviter) promises.push(inviter.save());
     promises = await Promise.all(promises);
 
     if (group.hasNotCancelled()) {
@@ -900,9 +901,11 @@ function _sendMessageToRemoved (group, removedUser, message, isInGroup) {
  *     /api/v3/groups/party/removeMember/[User's ID]?message=Bye
  *
  * @apiError (400) {BadRequest} userIdrequired "memberId" cannot be empty or not a UUID
- * @apiError (400) {NotAuthorized} onlyLeaderCanRemoveMember Only the group
+ * @apiError (401) {NotAuthorized} onlyLeaderCanRemoveMember Only the group
                                                              leader can remove members.
- * @apiError (400) {NotAuthorized} memberCannotRemoveYourself Group leader cannot remove themselves
+ * @apiError (401) {NotAuthorized} memberCannotRemoveYourself Group leader cannot remove themselves
+ * @apiError (401) {NotAuthorized} cannotRemoveQuestOwner Group leader cannot remove
+                                                          the owner of an active quest
  * @apiError (404) {NotFound} groupMemberNotFound Group member was not found
  *
  * @apiSuccess {Object} data An empty object
@@ -968,8 +971,7 @@ api.removeGroupMember = {
       }
 
       if (group.quest && group.quest.leader === member._id) {
-        group.quest.key = undefined;
-        group.quest.leader = undefined;
+        throw new NotAuthorized(res.t('cannotRemoveQuestOwner'));
       } else if (group.quest && group.quest.members) {
         // remove member from quest
         delete group.quest.members[member._id];
@@ -1198,7 +1200,7 @@ api.inviteToGroup = {
  * @apiParamExample {String} party:
  *     /api/v3/groups/party/add-manager
  *
- * @apiBody (Body) {UUID} managerId The user _id of the member to promote to manager
+ * @apiParam (Body) {UUID} managerId The user _id of the member to promote to manager
  *
  * @apiSuccess {Object} data An empty object
  *
@@ -1248,7 +1250,7 @@ api.addGroupManager = {
  * @apiParamExample {String} party:
  *     /api/v3/groups/party/add-manager
  *
- * @apiBody (Body) {UUID} managerId The user _id of the member to remove
+ * @apiParam (Body) {UUID} managerId The user _id of the member to remove
  *
  * @apiSuccess {Object} group The group
  *

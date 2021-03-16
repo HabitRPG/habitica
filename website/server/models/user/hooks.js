@@ -12,6 +12,9 @@ import {
 import {
   model as Tag,
 } from '../tag';
+import {
+  model as NewsPost,
+} from '../newsPost';
 import { // eslint-disable-line import/no-cycle
   userActivityWebhook,
 } from '../../libs/webhook';
@@ -30,6 +33,10 @@ schema.plugin(baseModel, {
     }
 
     delete plainObj.filters;
+
+    if (plainObj.flags && originalDoc.isSelected('flags.lastNewStuffRead')) {
+      plainObj.flags.newStuff = originalDoc.checkNewStuff();
+    }
 
     return plainObj;
   },
@@ -125,31 +132,38 @@ function pinBaseItems (user) {
 }
 
 function _setUpNewUser (user) {
+  // Mark the last news post as read
+  const lastNewsPost = NewsPost.lastNewsPost();
+  if (lastNewsPost) {
+    user.flags.lastNewStuffRead = lastNewsPost._id;
+  }
+
   let taskTypes;
   const iterableFlags = user.flags.toObject();
 
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2020-08-03')) {
-    user.migration = '20200731_naming_day';
-    user.achievements.habiticaDays = 1;
-    user.items.mounts['Gryphon-RoyalPurple'] = true;
-    user.items.food = {
-      Cake_Skeleton: 1,
-      Cake_Base: 1,
-      Cake_CottonCandyBlue: 1,
-      Cake_CottonCandyPink: 1,
-      Cake_Shade: 1,
-      Cake_White: 1,
-      Cake_Golden: 1,
-      Cake_Zombie: 1,
-      Cake_Desert: 1,
-      Cake_Red: 1,
-    };
+  if (moment().isBefore('2021-03-15T08:00-05:00')) {
+    user.items.gear.owned.head_special_piDay = true;
+    user.items.gear.equipped.head = 'head_special_piDay';
+    user.items.gear.owned.shield_special_piDay = true;
+    user.items.gear.equipped.shield = 'shield_special_piDay';
+    user.items.food.Pie_Skeleton = 1;
+    user.items.food.Pie_Base = 1;
+    user.items.food.Pie_CottonCandyBlue = 1;
+    user.items.food.Pie_CottonCandyPink = 1;
+    user.items.food.Pie_Shade = 1;
+    user.items.food.Pie_White = 1;
+    user.items.food.Pie_Golden = 1;
+    user.items.food.Pie_Zombie = 1;
+    user.items.food.Pie_Desert = 1;
+    user.items.food.Pie_Red = 1;
   }
 
   user.markModified('items achievements');
+
+  user.enrollInDropCapABTest(user.registeredThrough);
 
   if (user.registeredThrough === 'habitica-web') {
     taskTypes = ['habit', 'daily', 'todo', 'reward', 'tag'];

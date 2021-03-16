@@ -38,16 +38,23 @@ envVars
     envObject[key] = nconf.get(key);
   });
 
+const enableDuplicatesPlugin = process.env.npm_lifecycle_event !== 'storybook:serve';
+
+const webpackPlugins = [
+  new webpack.EnvironmentPlugin(envObject),
+  new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
+];
+
+if (enableDuplicatesPlugin) {
+  webpackPlugins.splice(0, 0, new DuplicatesPlugin({
+    verbose: true,
+  }));
+}
+
 module.exports = {
   assetsDir: 'static',
   configureWebpack: {
-    plugins: [
-      new DuplicatesPlugin({
-        verbose: true,
-      }),
-      new webpack.EnvironmentPlugin(envObject),
-      new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(NOT_EXISTING)$/),
-    ],
+    plugins: webpackPlugins,
   },
   chainWebpack: config => {
     // Fix issue with duplicated deps in monorepos
@@ -114,9 +121,15 @@ module.exports = {
         options.quiet = true;
         return options;
       });
+
+    // Fix issue with Safari cache, see https://github.com/vuejs/vue-cli/issues/2509
+    if (process.env.NODE_ENV === 'development') {
+      config.plugins.delete('preload');
+    }
   },
 
   devServer: {
+    headers: { 'Cache-Control': 'no-store' },
     disableHostCheck: true,
     proxy: {
       // proxy all requests to the server at IP:PORT as specified in the top-level config
@@ -145,6 +158,10 @@ module.exports = {
         changeOrigin: true,
       },
       '^/export': {
+        target: DEV_BASE_URL,
+        changeOrigin: true,
+      },
+      '^/analytics': {
         target: DEV_BASE_URL,
         changeOrigin: true,
       },

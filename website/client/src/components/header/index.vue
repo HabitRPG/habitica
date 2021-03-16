@@ -147,15 +147,6 @@ export default {
       inviteModalGroupType: undefined,
     };
   },
-  watch: {
-    hideHeader () {
-      this.$nextTick(() => {
-        if (this.$refs.partyMembersDiv) {
-          this.setPartyMembersWidth({ width: this.$refs.partyMembersDiv.clientWidth });
-        }
-      });
-    },
-  },
   computed: {
     ...mapGetters({
       user: 'user:data',
@@ -200,6 +191,15 @@ export default {
     },
     hideHeader () {
       return ['groupPlan', 'privateMessages'].includes(this.$route.name);
+    },
+  },
+  watch: {
+    hideHeader () {
+      this.$nextTick(() => {
+        if (this.$refs.partyMembersDiv) {
+          this.setPartyMembersWidth({ width: this.$refs.partyMembersDiv.clientWidth });
+        }
+      });
     },
   },
   created () {

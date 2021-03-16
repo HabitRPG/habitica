@@ -114,6 +114,7 @@
 
 <script>
 import clone from 'lodash/clone';
+import { MAX_LEVEL_HARD_CAP } from '@/../../common/script/constants';
 import { mapState } from '@/libs/store';
 
 export default {
@@ -149,6 +150,10 @@ export default {
         // @TODO:
         // Notification.error(env.t('invalidLevel'), true);
         return;
+      }
+
+      if (this.restoreValues.stats.lvl > MAX_LEVEL_HARD_CAP) {
+        this.restoreValues.stats.lvl = MAX_LEVEL_HARD_CAP;
       }
 
       const userChangedLevel = this.restoreValues.stats.lvl !== this.user.stats.lvl;

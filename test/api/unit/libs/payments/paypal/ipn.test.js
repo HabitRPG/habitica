@@ -6,7 +6,7 @@ import {
 } from '../../../../../helpers/api-unit.helper';
 import { model as User } from '../../../../../../website/server/models/user';
 
-describe('ipn', () => {
+describe('paypal - ipn', () => {
   const subKey = 'basic_3mo';
   let user; let group; let txn_type; let userPaymentId; let
     groupPaymentId;

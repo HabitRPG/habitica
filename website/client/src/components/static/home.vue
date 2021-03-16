@@ -897,17 +897,13 @@ export default {
     },
   },
   mounted () {
-    Analytics.track({
-      hitType: 'pageview',
-      eventCategory: 'page',
-      eventAction: 'landing page',
-      page: '/static/home',
-    });
-
     hello.init({
       facebook: process.env.FACEBOOK_KEY, // eslint-disable-line
       // windows: WINDOWS_CLIENT_ID,
       google: process.env.GOOGLE_CLIENT_ID, // eslint-disable-line
+    });
+    this.$store.dispatch('common:setTitle', {
+      fullTitle: 'Habitica - Gamify Your Life',
     });
   },
   methods: {

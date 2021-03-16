@@ -360,12 +360,12 @@ export default {
     },
     async register () {
       if (!this.email) {
-        window.alert(this.$t('missingEmail'));
+        window.alert(this.$t('missingEmail')); // eslint-disable-line no-alert
         return;
       }
 
       if (this.password !== this.passwordConfirm) {
-        window.alert(this.$t('passwordConfirmationMatch'));
+        window.alert(this.$t('passwordConfirmationMatch')); // eslint-disable-line no-alert
         return;
       }
 
@@ -381,7 +381,7 @@ export default {
       } catch (e) {
         if (e.response.data.data && e.response.data.data.errors) {
           const message = e.response.data.data.errors.map(error => `${error.message}\n`);
-          window.alert(message);
+          window.alert(message); // eslint-disable-line no-alert
         }
       }
     },

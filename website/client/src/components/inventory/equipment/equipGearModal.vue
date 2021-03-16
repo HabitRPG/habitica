@@ -4,15 +4,11 @@
     id="equipgear-modal"
     :visible="true"
     :hide-header="true"
+    :hide-footer="true"
     @change="onChange($event)"
   >
-    <div class="close">
-      <span
-        class="svg-icon inline icon-10"
-        aria-hidden="true"
-        @click="hideDialog()"
-        v-html="icons.close"
-      ></span>
+    <div class="dialog-close">
+      <close-icon @click="hideDialog()" />
     </div>
     <div
       v-if="item != null"
@@ -23,11 +19,12 @@
           :member="user"
           :avatar-only="true"
           :with-background="true"
+          :hide-class-badge="true"
           :override-avatar-gear="memberOverrideAvatarGear(item)"
           :sprites-margin="'0px auto auto -1px'"
           :show-visual-buffs="false"
         />
-        <h4 class="title">
+        <h4 class="title mt-3">
           {{ itemText }}
         </h4>
         <div
@@ -36,14 +33,14 @@
         ></div>
         <span
           v-if="showClassTag"
-          class="classTag"
+          class="classTag mt-3"
         >
           <span
-            class="svg-icon inline icon-24"
+            class="svg-icon inline icon-16"
             v-html="icons[itemClass]"
           ></span>
           <span
-            class="className textCondensed"
+            class="className"
             :class="itemClass"
           >{{ getClassName(itemClass) }}</span>
         </span>
@@ -54,10 +51,17 @@
           :item="item"
         />
         <button
-          class="btn btn-primary"
+          class="btn with-icon mt-4"
+          :class="{'btn-primary': !isEquipped, 'btn-secondary': isEquipped }"
           @click="equipItem()"
         >
-          {{ $t(isEquipped ? 'unequip' : 'equip') }}
+          <span
+            class="svg-icon color inline icon-16 mr-2"
+            v-html="isEquipped ? icons.unEquip : icons.equip"
+          ></span>
+          <span class="button-label">
+            {{ $t(isEquipped ? 'unequip' : 'equip') }}
+          </span>
         </button>
       </div>
     </div>
@@ -69,15 +73,38 @@
 </template>
 
 <style lang="scss">
-
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/modal.scss';
+  @import '~@/assets/scss/mixins.scss';
 
   #equipgear-modal {
     @include centeredModal();
 
+    .modal-content {
+      border-radius: 8px;
+      box-shadow: 0 14px 28px 0 #1a181d3d, 0 10px 10px 0 #1a181d47;
+    }
+
+    .modal-body {
+      padding: 2rem 1.5rem;
+    }
+
+    .dialog-close {
+
+    }
+
     .modal-dialog {
       width: 330px;
+
+      .text {
+        min-height: 0;
+      }
+    }
+
+    .text {
+      font-size: 0.875rem;
+      line-height: 1.71;
+      text-align: center;
+      color: $gray-50;
     }
 
     .content {
@@ -89,7 +116,6 @@
     }
 
     .inner-content {
-      margin: 33px auto auto;
       width: 282px;
     }
 
@@ -102,10 +128,11 @@
 
     .className {
       height: 24px;
-      font-size: 16px;
-      line-height: 1.5;
+      font-size: 0.875rem;
+      line-height: 1.71;
       text-align: left;
       margin-left: 8px;
+      font-weight: bold;
     }
 
     .healer {
@@ -124,10 +151,15 @@
       color: $wizard-color;
     }
 
+    .title {
+      color: $gray-10;
+    }
+
     .attributesGrid {
       background-color: $gray-500;
-
-      margin: 10px 0 24px;
+      margin: 1rem 0 0;
+      border-radius: 4px;
+      border: 1px solid #f4f4f4;
     }
 
     .avatar {
@@ -139,9 +171,9 @@
       }
     }
 
-    button.btn.btn-primary {
-      margin-top: 24px;
-      margin-bottom: 24px;
+    button.btn {
+      display: inline-flex;
+      align-items: center;
     }
   }
 </style>
@@ -154,14 +186,18 @@ import svgWarrior from '@/assets/svg/warrior.svg';
 import svgWizard from '@/assets/svg/wizard.svg';
 import svgRogue from '@/assets/svg/rogue.svg';
 import svgHealer from '@/assets/svg/healer.svg';
+import svgEquipIcon from '@/assets/svg/equip.svg';
+import svgUnEquipIcon from '@/assets/svg/unequip.svg';
 
 import Avatar from '@/components/avatar';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';
+import closeIcon from '@/components/shared/closeIcon';
 
 export default {
   components: {
     Avatar,
     attributesGrid,
+    closeIcon,
   },
   props: {
     item: {
@@ -185,6 +221,8 @@ export default {
         wizard: svgWizard,
         rogue: svgRogue,
         healer: svgHealer,
+        equip: svgEquipIcon,
+        unEquip: svgUnEquipIcon,
       }),
     };
   },

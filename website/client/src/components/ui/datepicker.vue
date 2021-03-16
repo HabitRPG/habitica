@@ -1,32 +1,40 @@
 <template>
   <datepicker
     v-model="value"
-    @input="upDate($event)"
-    :calendarButton="true"
-    :calendarButtonIconContent="icons.calendar"
-    :bootstrapStyling="true"
+    :calendar-button="true"
+    :calendar-button-icon-content="icons.calendar"
+    :bootstrap-styling="true"
     :clear-button="false"
     :today-button="false"
     :disabled-picker="disabled"
     :class="{disabled: disabled}"
     :highlighted="highlighted"
     calendar-class="calendar-padding"
+    @input="upDate($event)"
   >
+    <div
+      v-if="clearButton && value"
+      slot="afterDateInput"
+      class="vdp-datepicker__clear-button"
+      @click="upDate(null)"
+      v-html="icons.close"
+    >
+    </div>
     <div slot="beforeCalendarHeader">
       <div class="datetime-buttons">
-       <button
+        <button
           class="btn btn-flat"
-          @click="setToday()"
           type="button"
+          @click="setToday()"
         >
           {{ $t('today') }}
         </button>
         <button
-            class="btn btn-flat"
-            @click="setTomorrow()"
-            type="button"
-          >
-            {{ $t('tomorrow') }}
+          class="btn btn-flat"
+          type="button"
+          @click="setTomorrow()"
+        >
+          {{ $t('tomorrow') }}
         </button>
       </div>
     </div>
@@ -37,17 +45,19 @@
 import moment from 'moment';
 import datepicker from 'vuejs-datepicker';
 import calendarIcon from '@/assets/svg/calendar.svg';
+import closeIcon from '@/assets/svg/close.svg';
 
 export default {
   components: {
     datepicker,
   },
-  props: ['date', 'disabled', 'highlighted'],
+  props: ['date', 'disabled', 'highlighted', 'clearButton'],
   data () {
     return {
       value: this.date,
       icons: Object.freeze({
         calendar: calendarIcon,
+        close: closeIcon,
       }),
     };
   },
@@ -193,6 +203,19 @@ export default {
       font-weight: bold;
       text-align: center;
       color: $gray-50;
+    }
+  }
+
+  .vdp-datepicker__clear-button {
+    background: transparent !important;
+    display: block;
+    height: 30px;
+    cursor: pointer;
+
+    svg {
+      margin: auto 0.75rem;
+      width: 0.563rem;
+      height: 30px;
     }
   }
 </style>

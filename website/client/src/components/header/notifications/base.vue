@@ -118,11 +118,11 @@
 }
 
 .notification-remove {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  padding: 4px;
-  right: 24px;
+  position: relative;
+  width: 10px;
+  height: 10px;
+  right: 0px;
+  top: 10.5px;
 
   .svg-icon {
     width: 10px;

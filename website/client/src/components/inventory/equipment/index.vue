@@ -1,113 +1,116 @@
 <template>
   <div class="row">
     <div class="standard-sidebar d-none d-sm-block">
-      <div class="form-group">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
+      <filter-sidebar>
+        <div
+          slot="search"
+          class="form-group"
         >
-      </div>
-      <div class="form">
-        <h2 v-once>
-          {{ $t('filter') }}
-        </h2>
-        <h3>{{ groupBy === 'type' ? $t('equipmentType') : $t('class') }}</h3>
-        <div class="form-group">
-          <div
-            v-for="group in itemsGroups"
-            :key="group.key"
-            class="form-check"
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
           >
-            <div class="custom-control custom-checkbox">
-              <input
-                :id="groupBy + group.key"
-                v-model="viewOptions[group.key].selected"
-                class="custom-control-input"
-                type="checkbox"
-              >
-              <label
-                v-once
-                class="custom-control-label"
-                :for="groupBy + group.key"
-              >{{ group.label }}</label>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <div class="form">
+          <filter-group :title="groupBy === 'type' ? $t('equipmentType') : $t('class')">
+            <checkbox
+              v-for="group in itemsGroups"
+              :id="groupBy + group.key"
+              :key="group.key"
+              :checked.sync="viewOptions[group.key].selected"
+              :text="group.label"
+            />
+          </filter-group>
+        </div>
+      </filter-sidebar>
     </div>
     <div class="standard-page">
       <div class="clearfix">
-        <h1
-          v-once
-          class="float-left mb-4 page-header"
-        >
-          {{ $t('equipment') }}
-        </h1>
-        <div class="float-right">
+        <div class="mb-4 float-left">
+          <button
+            class="page-header btn-flat equipment-type-button textCondensed"
+            :class="{'active': !costumeMode}"
+            @click="selectDrawerTab('equipment')"
+          >
+            {{ $t('battleGear') }}
+          </button>
+          <button
+            class="page-header btn-flat equipment-type-button textCondensed"
+            :class="{'active': costumeMode}"
+            @click="selectDrawerTab('costume')"
+          >
+            {{ $t('costume') }}
+          </button>
+        </div>
+
+        <div class="float-right top-menu">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
-          <b-dropdown
-            :text="$t(selectedSortGearBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              v-for="sort in sortGearBy"
-              :key="sort"
-              :active="selectedSortGearBy === sort"
-              @click="selectedSortGearBy = sort"
-            >
-              {{ $t(sort) }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <select-translated-array
+            :right="true"
+            :items="sortGearBy"
+            :value="selectedSortGearBy"
+            class="inline"
+            :inline-dropdown="false"
+            @select="selectedSortGearBy = $event"
+          />
+
           <span class="dropdown-label">{{ $t('groupBy2') }}</span>
-          <b-dropdown
-            :text="$t(groupBy === 'type' ? 'equipmentType' : 'class')"
-            right="right"
+
+          <select-list
+            :items="groupByItems"
+            :value="groupBy"
+            class="array-select"
+            :right="true"
+            :hide-icon="false"
+            :inline-dropdown="false"
+            @select="groupBy = $event"
           >
-            <b-dropdown-item
-              :active="groupBy === 'type'"
-              @click="groupBy = 'type'"
-            >
-              {{ $t('equipmentType') }}
-            </b-dropdown-item>
-            <b-dropdown-item
-              :active="groupBy === 'class'"
-              @click="groupBy = 'class'"
-            >
-              {{ $t('class') }}
-            </b-dropdown-item>
-          </b-dropdown>
+            <template v-slot:item="{ item }">
+              <span class="label">{{ groupByLabel(item) }}</span>
+            </template>
+          </select-list>
+
+          <span class="divider"></span>
+          <unequip-dropdown />
         </div>
       </div>
+
       <drawer
-        :title="$t('equipment')"
+        :no-title-bottom-padding="true"
         :error-message="(costumeMode && !user.preferences.costume) ? $t('costumeDisabled') : null"
         :open-status="openStatus"
         @toggled="drawerToggled"
       >
+        <div
+          slot="drawer-title-row"
+          class="title-row-tabs"
+        >
+          <div class="drawer-tab">
+            <a
+              class="drawer-tab-text"
+              :class="{'drawer-tab-text-active': !costumeMode}"
+              @click.prevent.stop="selectDrawerTab('equipment')"
+            >{{ $t('battleGear') }}</a>
+          </div>
+          <div class="drawer-tab">
+            <a
+              class="drawer-tab-text"
+              :class="{'drawer-tab-text-active': costumeMode}"
+              @click.prevent.stop="selectDrawerTab('costume')"
+            >{{ $t('costume') }}</a>
+          </div>
+        </div>
         <div slot="drawer-header">
           <div class="drawer-tab-container">
-            <div class="drawer-tab text-right">
-              <a
-                class="drawer-tab-text"
-                :class="{'drawer-tab-text-active': !costumeMode}"
-                @click="selectDrawerTab('equipment')"
-              >{{ $t('equipment') }}</a>
-            </div>
             <div class="clearfix">
-              <div class="drawer-tab float-left">
-                <a
-                  class="drawer-tab-text"
-                  :class="{'drawer-tab-text-active': costumeMode}"
-                  @click="selectDrawerTab('costume')"
-                >{{ $t('costume') }}</a>
-              </div>
               <toggle-switch
                 class="float-right align-with-tab"
                 :label="$t(costumeMode ? 'useCostume' : 'autoEquipBattleGear')"
                 :checked="user.preferences[drawerPreference]"
-                :hover-text="$t(drawerPreference+'PopoverText')"
+                :hover-text="$t(`${drawerPreference}PopoverText`)"
                 @change="changeDrawerPreference"
               />
             </div>
@@ -115,7 +118,7 @@
         </div>
         <div
           slot="drawer-slider"
-          class="items items-one-line"
+          class="equipment items items-one-line"
         >
           <item
             v-for="(label, group) in gearTypesToStrings"
@@ -130,7 +133,7 @@
             :popover-position="'top'"
             :show-popover="flatGear[activeItems[group]]
               && Boolean(flatGear[activeItems[group]].text)"
-            @click="equipItem(flatGear[activeItems[group]])"
+            @click="openEquipDialog(flatGear[activeItems[group]])"
           >
             <template
               slot="popoverContent"
@@ -142,8 +145,8 @@
               slot="itemBadge"
               slot-scope="context"
             >
-              <starBadge
-                :selected="true"
+              <equip-badge
+                :equipped="true"
                 :show="!costumeMode || user.preferences.costume"
                 @click="equipItem(context.item)"
               />
@@ -187,8 +190,8 @@
                 slot="itemBadge"
                 slot-scope="context"
               >
-                <starBadge
-                  :selected="activeItems[context.item.type] === context.item.key"
+                <equip-badge
+                  :equipped="activeItems[context.item.type] === context.item.key"
                   :show="!costumeMode || user.preferences.costume"
                   @click="equipItem(context.item)"
                 />
@@ -215,16 +218,75 @@
 </template>
 
 <style lang="scss">
+@import '~@/assets/scss/colors.scss';
+
 .pointer {
   cursor: pointer;
 }
 
 .align-with-tab {
   margin-top: 3px;
+  margin-right: 3px;
 }
 
 .drawer-tab-text {
   display: inline-block;
+}
+
+.equipment.items .item-empty {
+  background: $gray-10 !important;
+}
+
+</style>
+
+<style lang="scss" scoped>
+@import '~@/assets/scss/colors.scss';
+
+.page-header.btn-flat {
+  background: transparent;
+}
+
+.title-row-tabs {
+  display: flex;
+  justify-content: center;
+
+  .drawer-tab {
+    background: transparent;
+  }
+}
+
+.equipment-type-button {
+  height: 2rem;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: condensed;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: $gray-10;
+
+  margin-right: 1.125rem;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 2.5rem;
+
+  &.active, &:hover {
+    color: $purple-300;
+    box-shadow: 0px -0.25rem 0px $purple-300 inset;
+    outline: none;
+  }
+}
+
+.divider {
+  width: 0.063rem;
+  height: 2rem;
+  background-color: $gray-500;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.top-menu {
+  display: flex;
+  align-items: center;
 }
 </style>
 
@@ -242,12 +304,19 @@ import toggleSwitch from '@/components/ui/toggleSwitch';
 import Item from '@/components/inventory/item';
 import ItemRows from '@/components/ui/itemRows';
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
-import StarBadge from '@/components/ui/starBadge';
 import Drawer from '@/components/ui/drawer';
 
 import i18n from '@/../../common/script/i18n';
 
 import EquipGearModal from './equipGearModal';
+
+import FilterGroup from '@/components/ui/filterGroup';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import Checkbox from '@/components/ui/checkbox';
+import UnequipDropdown from '@/components/inventory/equipment/unequipDropdown';
+import EquipBadge from '@/components/ui/equipBadge';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
+import SelectList from '@/components/ui/selectList';
 
 const sortGearTypes = ['sortByName', 'sortByCon', 'sortByPer', 'sortByStr', 'sortByInt'];
 
@@ -262,10 +331,16 @@ const sortGearTypeMap = {
 export default {
   name: 'Equipment',
   components: {
+    SelectList,
+    SelectTranslatedArray,
+    EquipBadge,
+    UnequipDropdown,
+    Checkbox,
+    FilterSidebar,
+    FilterGroup,
     Item,
     ItemRows,
     EquipmentAttributesPopover,
-    StarBadge,
     Drawer,
     toggleSwitch,
     EquipGearModal,
@@ -276,6 +351,9 @@ export default {
       searchText: null,
       searchTextThrottled: null,
       costumeMode: false,
+      groupByItems: [
+        'type', 'class',
+      ],
       groupBy: 'type', // or 'class'
       gearTypesToStrings: Object.freeze({ // TODO use content.itemList?
         weapon: i18n.t('weaponCapitalized'),
@@ -440,6 +518,11 @@ export default {
     this.costumeMode = getLocalSetting(
       CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB,
     ) === CONSTANTS.equipmentDrawerTabValues.COSTUME_TAB;
+
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('equipment'),
+      section: this.$t('inventory'),
+    });
   },
   methods: {
     selectDrawerTab (tabName) {
@@ -452,6 +535,7 @@ export default {
         this.costumeMode = false;
       }
       setLocalSetting(CONSTANTS.keyConstants.CURRENT_EQUIPMENT_DRAWER_TAB, tabNameValue);
+      this.$store.state.equipmentDrawerOpen = true;
     },
     openEquipDialog (item) {
       this.gearToEquip = item;
@@ -500,6 +584,13 @@ export default {
         CONSTANTS.keyConstants.EQUIPMENT_DRAWER_STATE,
         CONSTANTS.drawerStateValues.DRAWER_CLOSED,
       );
+    },
+    groupByLabel (type) {
+      switch (type) {
+        case 'type': return i18n.t('equipmentType');
+        case 'class': return i18n.t('class');
+        default: return '';
+      }
     },
   },
 };

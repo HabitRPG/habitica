@@ -274,6 +274,7 @@ describe('POST /groups/:groupId/leave', () => {
 
   each(typesOfGroups, (groupDetails, groupType) => {
     context(`Leaving a group plan when the group is a ${groupType}`, () => {
+      if (groupDetails.privacy === 'public') return; // public guilds cannot be group plans
       let groupWithPlan;
       let leader;
       let member;
@@ -341,6 +342,7 @@ describe('POST /groups/:groupId/leave', () => {
 
   each(typesOfGroups, (groupDetails, groupType) => {
     context(`Leaving a group with extraMonths left plan when the group is a ${groupType}`, () => {
+      if (groupDetails.privacy === 'public') return; // public guilds cannot be group plans
       const extraMonths = 12;
       let groupWithPlan;
       let member;

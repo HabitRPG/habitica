@@ -174,7 +174,7 @@ function _formatDataForAmplitude (data) {
   return ampData;
 }
 
-function _sendDataToAmplitude (eventType, data) {
+function _sendDataToAmplitude (eventType, data, loggerOnly) {
   const amplitudeData = _formatDataForAmplitude(data);
 
   amplitudeData.event_type = eventType;
@@ -182,6 +182,8 @@ function _sendDataToAmplitude (eventType, data) {
   if (LOG_AMPLITUDE_EVENTS) {
     logger.info('Amplitude Event', amplitudeData);
   }
+
+  if (loggerOnly) return Promise.resolve(null);
 
   return amplitude
     .track(amplitudeData)
@@ -249,6 +251,11 @@ function _sendDataToGoogle (eventType, data) {
 function _sendPurchaseDataToAmplitude (data) {
   const amplitudeData = _formatDataForAmplitude(data);
 
+  // Stripe transactions come via webhook. We can log these as Web events
+  if (data.paymentMethod === 'Stripe' && amplitudeData.platform === 'Unknown') {
+    amplitudeData.platform = 'Web';
+  }
+
   amplitudeData.event_type = 'purchase';
   amplitudeData.revenue = data.purchaseValue;
 
@@ -312,9 +319,9 @@ function _setOnce (dataToSetOnce, uuid) {
 }
 
 // There's no error handling directly here because it's handled inside _sendDataTo{Amplitude|Google}
-async function track (eventType, data) {
+async function track (eventType, data, loggerOnly = false) {
   const promises = [
-    _sendDataToAmplitude(eventType, data),
+    _sendDataToAmplitude(eventType, data, loggerOnly),
     _sendDataToGoogle(eventType, data),
   ];
   if (data.user && data.user.registeredThrough) {
@@ -336,15 +343,26 @@ async function trackPurchase (data) {
 }
 
 // Stub for non-prod environments
-// @TODO instead of exporting a different interface why not have track
-// and trackPurchase be no ops when not in production?
 const mockAnalyticsService = {
   track: () => { },
   trackPurchase: () => { },
 };
 
+// Return the production or mock service based on the current environment
+function getServiceByEnvironment () {
+  if (nconf.get('IS_PROD')) {
+    return {
+      track,
+      trackPurchase,
+    };
+  }
+
+  return mockAnalyticsService;
+}
+
 export {
   track,
   trackPurchase,
   mockAnalyticsService,
+  getServiceByEnvironment as getAnalyticsServiceByEnvironment,
 };

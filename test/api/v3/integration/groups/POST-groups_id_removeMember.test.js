@@ -251,6 +251,29 @@ describe('POST /groups/:groupId/removeMember/:memberId', () => {
       expect(party.quest.members[partyMember._id]).to.not.exist;
     });
 
+    it('prevents user from being removed if they are the quest owner', async () => {
+      const petQuest = 'whale';
+      await partyMember.update({
+        [`items.quests.${petQuest}`]: 1,
+      });
+
+      await partyMember.post(`/groups/${party._id}/quests/invite/${petQuest}`);
+      await partyLeader.post(`/groups/${party._id}/quests/accept`);
+
+      await party.sync();
+
+      expect(party.quest.members[partyLeader._id]).to.be.true;
+      expect(party.quest.members[partyMember._id]).to.be.true;
+
+      await party.sync();
+
+      expect(leader.post(`/groups/${party._id}/removeMember/${partyMember._id}`))
+        .to.eventually.be.rejected.and.eql({
+          code: 401,
+          text: t('cannotRemoveQuestOwner'),
+        });
+    });
+
     it('sends email to user with rescinded invite', async () => {
       await partyLeader.post(`/groups/${party._id}/removeMember/${partyInvitedUser._id}`);
 

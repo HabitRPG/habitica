@@ -474,11 +474,11 @@
     "backgroundBlossomingDesertNotes": "드물게 한번에 만개하는 사막의 꽃을 목격하세요",
     "backgroundHalflingsHouseNotes": "매력적인 호빗의 집에 방문하세요",
     "backgroundFlyingOverTropicalIslandsNotes": "열대의 섬들 위를 날아갈때 숨막힐 정도로 멋진 풍경을 볼 거에요",
-    "backgroundSnowglobeNotes": "스노우글로브를 흔들어 겨울 풍경의 소우주로 만드세요",
+    "backgroundSnowglobeNotes": "스노우글로브를 흔들어 겨울 풍경의 소우주로 만드세요.",
     "backgroundSnowglobeText": "스노우글로브",
-    "backgroundDesertWithSnowNotes": "희귀하면서 정적인 아름다움이 있는 눈 내린 사막을 보세요",
-    "backgroundDesertWithSnowText": "눈내린 사막",
-    "backgroundBirthdayPartyNotes": "좋아하는 해비티션들과 생일을 축하하세요",
+    "backgroundDesertWithSnowNotes": "희귀하면서 정적인 아름다움이 있는 눈 내리는 사막을 보세요.",
+    "backgroundDesertWithSnowText": "눈 내리는 사막",
+    "backgroundBirthdayPartyNotes": "좋아하는 해비티카 사용자의 생일을 축하하세요.",
     "backgroundBirthdayPartyText": "생일 파티",
     "backgrounds012020": "68 세트 : 2020년 1월에 발매",
     "backgroundWinterNocturneNotes": "겨울 야상곡의 별빛을 즐기세요",
@@ -501,5 +501,6 @@
     "backgroundStrawberryPatchText": "딸기밭",
     "backgroundHotAirBalloonText": "뜨거운 열기구",
     "backgroundButterflyGardenText": "나비들의 정원",
-    "backgroundAmongGiantFlowersText": "거대한 꽃들 사이에서"
+    "backgroundAmongGiantFlowersText": "거대한 꽃들 사이에서",
+    "backgroundTeaPartyText": "티파티"
 }

@@ -295,7 +295,10 @@
       &-control {
         &-bg { background: $gray-600; }
         &-inner {
-          border: 1px solid $gray-300;
+          &:not(:focus) {
+            border: 1px solid $gray-300 !important;
+          }
+
           opacity: 0.75;
 
           .negative, .positive {
@@ -339,7 +342,7 @@
 
   &-negative {
     &-enabled {
-      padding-top: 13px;
+      padding-top: 12px;
     }
     &-disabled {
       padding-top: 12px;
@@ -348,7 +351,7 @@
 
   &-positive {
     &-enabled {
-      padding-top: 9px;
+      padding-top: 8px;
     }
     &-disabled {
       padding-top: 8px;

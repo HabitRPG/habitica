@@ -133,11 +133,18 @@
       </div>
     </div>
     <div
+      v-if="task && groupAccessRequiredAndOnPersonalPage
+        && (task.type === 'daily' || task.type === 'todo')"
+      class="summary-sentence py-3 px-4"
+      v-html="summarySentence"
+    >
+    </div>
+    <div
+      v-if="task"
       class="task-modal-content px-4"
       :class="cssClass('content')"
     >
       <form
-        v-if="task"
         @submit.stop.prevent="submit()"
       >
         <div
@@ -235,7 +242,9 @@
             </div>
           </button>
         </div>
-        <template v-if="task.type !== 'reward'">
+        <template
+          v-if="task.type !== 'reward' && !groupAccessRequiredAndOnPersonalPage"
+        >
           <div class="d-flex mt-3">
             <lockable-label
               :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
@@ -254,49 +263,50 @@
           />
         </template>
         <div
-          v-if="task.type === 'todo' && (task.date
-            || !(groupAccessRequiredAndOnPersonalPage || challengeAccessRequired))"
+          v-if="task.type === 'todo' && !groupAccessRequiredAndOnPersonalPage
+            && (!challengeAccessRequired || task.date)"
           class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
-              :locked="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+              :locked="challengeAccessRequired"
               :text="$t('dueDate')"
             />
             <datepicker
               :date.sync="task.date"
-              :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :disabled="challengeAccessRequired"
               :highlighted="calendarHighlights"
+              :clear-button="true"
             />
           </div>
         </div>
         <div
-          v-if="task.type === 'daily'"
+          v-if="task.type === 'daily' && !groupAccessRequiredAndOnPersonalPage"
           class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
-              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :locked="challengeAccessRequired"
               :text="$t('startDate')"
             />
             <datepicker
               :date.sync="task.startDate"
-              :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :disabled="challengeAccessRequired"
               :highlighted="calendarHighlights"
             />
           </div>
         </div>
         <div
-          v-if="task.type === 'daily'"
+          v-if="task.type === 'daily' && !groupAccessRequiredAndOnPersonalPage"
           class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
-              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :locked="challengeAccessRequired"
               :text="$t('repeats')"
             />
             <select-translated-array
-              :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :disabled="challengeAccessRequired"
               :items="['daily', 'weekly', 'monthly', 'yearly']"
               :value="task.frequency"
               @select="task.frequency = $event"
@@ -304,19 +314,17 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily'"
+          v-if="task.type === 'daily' && !groupAccessRequiredAndOnPersonalPage"
           class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
-              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :locked="challengeAccessRequired"
               :text="$t('repeatEvery')"
             />
             <div
               class="input-group-outer"
-              :class="{
-                disabled: challengeAccessRequired || groupAccessRequiredAndOnPersonalPage
-              }"
+              :class="{disabled: challengeAccessRequired}"
             >
               <div class="input-group">
                 <input
@@ -326,7 +334,7 @@
                   min="0"
                   max="9999"
                   required="required"
-                  :disabled="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+                  :disabled="challengeAccessRequired"
                 >
               </div>
               <div class="input-group-spaced input-group-text">
@@ -336,12 +344,13 @@
           </div>
         </div>
         <div
-          v-if="task.type === 'daily' && task.frequency === 'weekly'"
+          v-if="task.type === 'daily' && task.frequency === 'weekly'
+            && !groupAccessRequiredAndOnPersonalPage"
           class="option mt-3"
         >
           <div class="form-group">
             <lockable-label
-              :locked="challengeAccessRequired || groupAccessRequiredAndOnPersonalPage"
+              :locked="challengeAccessRequired"
               :text="$t('repeatOn')"
             />
             <div class="toggle-group">
@@ -350,7 +359,7 @@
                 :key="dayNumber"
                 :tab-index="dayNumber"
                 :checked.sync="task.repeat[day]"
-                :disabled="groupAccessRequiredAndOnPersonalPage || challengeAccessRequired"
+                :disabled="challengeAccessRequired"
                 :text="weekdaysMin(dayNumber)"
               />
             </div>
@@ -688,19 +697,9 @@
       box-shadow: 0 14px 28px 0 rgba($black, 0.24), 0 10px 10px 0 rgba($black, 0.28);
     }
 
-    .modal-body {
-      // the body has a margin/padding that can't be found
-      // if found please remove that padding and this style
-      // margin-bottom: -2rem;
-    }
-
     .modal-header, .modal-body, .modal-footer {
       padding: 0px;
       border: none;
-    }
-
-    .cursor-auto {
-      cursor: auto;
     }
 
     .cursor-auto {
@@ -1022,6 +1021,11 @@
     }
   }
 
+  .summary-sentence {
+    background-color: $gray-700;
+    line-height: 1.71;
+  }
+
   .input-group-text {
     font-size: 14px;
     font-weight: bold;
@@ -1043,6 +1047,8 @@
 <script>
 import axios from 'axios';
 import clone from 'lodash/clone';
+import keys from 'lodash/keys';
+import pickBy from 'lodash/pickBy';
 import moment from 'moment';
 import Datepicker from '@/components/ui/datepicker';
 import toggleSwitch from '@/components/ui/toggleSwitch';
@@ -1112,6 +1118,15 @@ export default {
         per: 'perception',
       },
       calendarHighlights: { dates: [new Date()] },
+      expandDayString: {
+        su: 'Sunday',
+        m: 'Monday',
+        t: 'Tuesday',
+        w: 'Wednesday',
+        th: 'Thursday',
+        f: 'Friday',
+        s: 'Saturday',
+      },
     };
   },
   computed: {
@@ -1220,6 +1235,23 @@ export default {
     selectedTags () {
       return this.getTagsFor(this.task);
     },
+    summarySentence () {
+      if (this.task.type === 'daily' && moment().isBefore(this.task.startDate)) {
+        return `This is ${this.formattedDifficulty(this.task.priority)}
+        task that will repeat
+        ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}
+        starting on <strong>${moment(this.task.startDate).format('MM/DD/YYYY')}</strong>.`;
+      }
+      if (this.task.type === 'daily') {
+        return `This is ${this.formattedDifficulty(this.task.priority)}
+        task that repeats
+        ${this.formattedRepeatInterval(this.task.frequency, this.task.everyX)}${this.formattedDays(this.task.frequency, this.task.repeat, this.task.daysOfMonth, this.task.weeksOfMonth, this.task.startDate)}.`;
+      }
+      if (this.task.date) {
+        return `This is ${this.formattedDifficulty(this.task.priority)} task that is due <strong>${moment(this.task.date).format('MM/DD/YYYY')}.`;
+      }
+      return `This is ${this.formattedDifficulty(this.task.priority)} task.`;
+    },
   },
   watch: {
     task () {
@@ -1311,6 +1343,104 @@ export default {
     formattedDate (date) {
       return moment(date).format('MM/DD/YYYY');
     },
+    formattedDays (frequency, repeat, daysOfMonth, weeksOfMonth, startDate) {
+      let activeDays;
+      const dayStringArray = [];
+      switch (frequency) {
+        case 'weekly':
+          activeDays = keys(pickBy(repeat, value => value === true));
+          if (activeDays.length === 0) return ' on <strong>no days</strong>';
+          if (activeDays.length === 7) return ' on <strong>every day of the week</strong>';
+          dayStringArray.push(' on <strong>');
+          activeDays.forEach((value, index) => {
+            if (activeDays.length > 1 && index === activeDays.length - 1) dayStringArray.push(' and');
+            dayStringArray.push(` ${this.expandDayString[value]}`);
+            if (activeDays.length > 2 && index !== activeDays.length - 1) dayStringArray.push(',');
+          });
+          dayStringArray.push('</strong>');
+          break;
+        case 'monthly':
+          dayStringArray.push(' on <strong>the ');
+          if (daysOfMonth.length > 0) {
+            daysOfMonth.forEach((value, index) => {
+              const stringDay = String(value);
+              const stringFinalDigit = stringDay.slice(-1);
+              let ordinalSuffix = 'th';
+              if (stringFinalDigit === '1' && stringDay !== '11') ordinalSuffix = 'st';
+              if (stringFinalDigit === '2' && stringDay !== '12') ordinalSuffix = 'nd';
+              if (stringFinalDigit === '3' && stringDay !== '13') ordinalSuffix = 'rd';
+              if (daysOfMonth.length > 1 && index === daysOfMonth.length - 1) dayStringArray.push(' and');
+              dayStringArray.push(`${stringDay}${ordinalSuffix}`);
+              if (daysOfMonth.length > 2 && index !== daysOfMonth.length - 1) dayStringArray.push(',');
+            });
+            dayStringArray.push('</strong>');
+          } else if (weeksOfMonth.length > 0) {
+            switch (weeksOfMonth[0]) {
+              case 0:
+                dayStringArray.push('first');
+                break;
+              case 1:
+                dayStringArray.push('second');
+                break;
+              case 2:
+                dayStringArray.push('third');
+                break;
+              case 3:
+                dayStringArray.push('fourth');
+                break;
+              case 4:
+                dayStringArray.push('fifth');
+                break;
+              default:
+                break;
+            }
+            activeDays = keys(pickBy(repeat, value => value === true));
+            dayStringArray.push(` ${this.expandDayString[activeDays[0]]} of the month</strong>`);
+          }
+          break;
+        case 'yearly':
+          return ` on <strong>${moment(startDate).format('MMMM Do')}</strong>`;
+        default:
+          return '';
+      }
+      return dayStringArray.join('');
+    },
+    formattedDifficulty (priority) {
+      switch (priority) {
+        case 0.1:
+          return 'a <strong>trivial</strong>';
+        case 1:
+          return 'an <strong>easy</strong>';
+        case 1.5:
+          return 'a <strong>medium</strong>';
+        case 2:
+          return 'a <strong>hard</strong>';
+        default:
+          return null;
+      }
+    },
+    formattedRepeatInterval (frequency, everyX) {
+      const numericX = Number(everyX);
+      switch (frequency) {
+        case 'daily':
+          if (numericX === 1) return '<strong>every day</strong>';
+          if (numericX === 2) return '<strong>every other day</strong>';
+          return `<strong>every ${numericX} days</strong>`;
+        case 'weekly':
+          if (numericX === 1) return '<strong>every week</strong>';
+          if (numericX === 2) return '<strong>every other week</strong>';
+          return `<strong>every ${numericX} weeks</strong>`;
+        case 'monthly':
+          if (numericX === 1) return '<strong>every month</strong>';
+          if (numericX === 2) return '<strong>every other month</strong>';
+          return `<strong>every ${numericX} months</strong>`;
+        case 'yearly':
+          if (numericX === 1) return '<strong>every year</strong>';
+          return `<strong>every ${everyX} years</strong>`;
+        default:
+          return null;
+      }
+    },
     calculateMonthlyRepeatDays (newRepeatsOn) {
       if (!this.task) return;
       const { task } = this;
@@ -1384,7 +1514,7 @@ export default {
     },
     destroy () {
       const type = this.$t(this.task.type);
-      if (!window.confirm(this.$t('sureDeleteType', { type }))) return;
+      if (!window.confirm(this.$t('sureDeleteType', { type }))) return; // eslint-disable-line no-alert
       this.destroyTask(this.task);
       this.$emit('taskDestroyed', this.task);
       this.$root.$emit('bv::hide::modal', 'task-modal');

@@ -1,6 +1,5 @@
 {
     "questPets": "Thú cưng Nhiệm vụ",
-    "rarePets": "Thú cưng Hiếm",
     "noActivePet": "Không có Thú cưng Hiện tại",
     "activePet": "Thú cưng Hiện tại",
     "pets": "Thú cưng",
@@ -10,7 +9,6 @@
     "mounts": "Thú cưỡi",
     "magicPets": "Thú cưng Ma thuật",
     "petsFound": "Thú cưng Đã có",
-    "rareMounts": "Thú cưỡi Hiếm",
     "mountsTamed": "Thú cưỡi đã Thuần hóa",
     "noActiveMount": "Không có Thú cưỡi Hiện tại",
     "activeMount": "Thú cưỡi Hiện tại",
@@ -29,5 +27,6 @@
     "veteranLion": "Sư tử Cựu binh",
     "veteranTiger": "Hổ Cựu binh",
     "veteranWolf": "Sói Cựu binh",
-    "etherealLion": "Sư tử Thanh khiết"
+    "etherealLion": "Sư tử Thanh khiết",
+    "eggSingular": "trứng"
 }

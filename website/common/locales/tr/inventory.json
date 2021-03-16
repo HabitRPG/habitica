@@ -1,5 +1,5 @@
 {
-  "noItemsAvailableForType": "Hiç <%- type %> tip eşyan yok.",
+  "noItemsAvailableForType": "Hiç <%= type %> tip eşyan yok.",
   "foodItemType": "Yiyecek",
   "eggsItemType": "Yumurtalar",
   "hatchingPotionsItemType": "Kuluçka İksirleri",

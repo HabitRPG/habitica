@@ -1,5 +1,5 @@
 {
-    "iAcceptCommunityGuidelines": "Aš sutinku laikytis taisyklėmis.",
+   
     "tavernCommunityGuidelinesPlaceholder": "Friendly reminder: this is an all-ages chat, so please keep content and language appropriate! Consult the Community Guidelines in the sidebar if you have questions.",
     "lastUpdated": "Last updated:",
     "commGuideHeadingWelcome": "Sveiki atvyke į Habitica!",
@@ -101,9 +101,9 @@
     "commGuidePara007": "Personalas turi purpurines žymes su karūnomis. Jų titulas yra \"Didvyris\".",
     "commGuidePara008": "Moderatoriai turi tamsiai mėlynas žymes su žvaigždėmis. Jų titulas yra \"Globėjas\". Išimtis yra Bailė, kuri būdama pagalbine veikėja, turi juodai žalią žymę su žvaigžde.",
     "commGuidePara009": "Dabartiniai Personalo nariai yra (iš kairės į dešinę):",
-    "commGuideAKA": "<%- habitName %> aka <%- realName %>",
-    "commGuideOnTrello": "<%- trelloName %> on Trello",
-    "commGuideOnGitHub": "<%- gitHubName %> on GitHub",
+    "commGuideAKA": "<%= habitName %> aka <%= realName %>",
+    "commGuideOnTrello": "<%= trelloName %> on Trello",
+    "commGuideOnGitHub": "<%= gitHubName %> on GitHub",
     "commGuidePara010": "Taipogi turime kelis Moderatorius, kuriuos išrinko personalas. Jie buvo išrinkti labai atsargiai, taigi gerbkite juos ir klausykite jų patarimų.",
     "commGuidePara011": "Dabartiniai Moderatoriai yra (iš kairės į dešinę):",
     "commGuidePara011a": "Smuklėje",

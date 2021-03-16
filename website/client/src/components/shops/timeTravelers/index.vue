@@ -4,56 +4,52 @@
       v-if="!closed"
       class="standard-sidebar d-none d-sm-block"
     >
-      <div class="form-group">
-        <input
-          v-model="searchText"
-          class="form-control input-search"
-          type="text"
-          :placeholder="$t('search')"
+      <filter-sidebar>
+        <div
+          slot="search"
+          class="form-group"
         >
-      </div><div class="form">
-        <h2 v-once>
-          {{ $t('filter') }}
-        </h2><div class="form-group">
-          <div
-            v-for="category in categories"
-            :key="category.identifier"
-            class="form-check"
+          <input
+            v-model="searchText"
+            class="form-control input-search"
+            type="text"
+            :placeholder="$t('search')"
           >
-            <div class="custom-control custom-checkbox">
-              <input
-                :id="`category-${category.identifier}`"
-                v-model="viewOptions[category.identifier].selected"
-                class="custom-control-input"
-                type="checkbox"
-              ><label
-                v-once
-                class="custom-control-label"
-                :for="`category-${category.identifier}`"
-              >{{ category.text }}</label>
-            </div>
-          </div>
-        </div><div class="form-group clearfix">
+        </div>
+        <filter-group>
+          <checkbox
+            v-for="category in categories"
+            :id="`category-${category.identifier}`"
+            :key="category.identifier"
+            :checked.sync="viewOptions[category.identifier].selected"
+            :text="category.text"
+          />
+        </filter-group>
+        <div class="form-group clearfix">
           <h3
             v-once
             class="float-left"
           >
             {{ $t('hidePinned') }}
-          </h3><toggle-switch
+          </h3>
+          <toggle-switch
             v-model="hidePinned"
             class="float-right"
           />
         </div>
-      </div>
-    </div><div class="standard-page">
+      </filter-sidebar>
+    </div>
+    <div class="standard-page">
       <div class="featuredItems">
         <div
           class="background"
           :class="{'background-closed': closed, 'background-open': !closed }"
+          :style="{'background-image': imageURLs.background}"
         >
           <div
             class="npc"
             :class="{'closed': closed }"
+            :style="{'background-image': imageURLs.npc}"
           >
             <div class="featured-label">
               <span class="rectangle"></span><span
@@ -78,19 +74,15 @@
         class="clearfix"
       >
         <div class="float-right">
-          <span class="dropdown-label">{{ $t('sortBy') }}</span><b-dropdown
-            :text="$t(selectedSortItemsBy)"
-            right="right"
-          >
-            <b-dropdown-item
-              v-for="sort in sortItemsBy"
-              :key="sort"
-              :active="selectedSortItemsBy === sort"
-              @click="selectedSortItemsBy = sort"
-            >
-              {{ $t(sort) }}
-            </b-dropdown-item>
-          </b-dropdown>
+          <span class="dropdown-label">{{ $t('sortBy') }}</span>
+          <select-translated-array
+            :right="true"
+            :value="selectedSortItemsBy"
+            :items="sortItemsBy"
+            :inline-dropdown="false"
+            class="inline"
+            @select="selectedSortItemsBy = $event"
+          />
         </div>
       </div>
       <!-- eslint-disable vue/no-use-v-if-with-v-for -->
@@ -175,7 +167,8 @@
 <!-- eslint-disable max-len -->
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
+
+  // these styles may be applied to other pages too
 
   .featured-label {
     margin: 24px auto;
@@ -238,11 +231,9 @@
         align-items: center;
       }
       .background-open {
-        background: url('~@/assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_background.png');
         height: 188px;
       }
       .background-closed {
-        background: url('~@/assets/images/npc/normal/time_travelers_background.png');
         height: 216px;
       }
 
@@ -257,11 +248,9 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~@/assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_open_banner.png');
         background-repeat: no-repeat;
 
         &.closed {
-          background: url('~@/assets/images/npc/normal/time_travelers_closed_banner.png');
           background-repeat: no-repeat;
         }
 
@@ -301,9 +290,17 @@ import isPinned from '@/../../common/script/libs/isPinned';
 import shops from '@/../../common/script/libs/shops';
 
 import pinUtils from '@/mixins/pinUtils';
+import FilterSidebar from '@/components/ui/filterSidebar';
+import FilterGroup from '@/components/ui/filterGroup';
+import Checkbox from '@/components/ui/checkbox';
+import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 
 export default {
   components: {
+    SelectTranslatedArray,
+    Checkbox,
+    FilterGroup,
+    FilterSidebar,
     ShopItem,
     Item,
     ItemRows,
@@ -342,6 +339,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
+      currentEvent: 'worldState.data.currentEvent',
     }),
 
     closed () {
@@ -392,6 +390,19 @@ export default {
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
     },
+    imageURLs () {
+      if (!this.currentEvent || !this.currentEvent.season) {
+        return {
+          background: 'url(/static/npc/normal/time_travelers_background.png)',
+          npc: this.closed ? 'url(/static/npc/normal/time_travelers_closed_banner.png)'
+            : 'url(/static/npc/normal/time_travelers_open_banner.png)',
+        };
+      }
+      return {
+        background: `url(/static/npc/${this.currentEvent.season}/time_travelers_background.png)`,
+        npc: `url(/static/npc/${this.currentEvent.season}/time_travelers_open_banner.png)`,
+      };
+    },
   },
   watch: {
     searchText: _throttle(function throttleSearch () {
@@ -399,6 +410,10 @@ export default {
     }, 250),
   },
   mounted () {
+    this.$store.dispatch('common:setTitle', {
+      subSection: this.$t('timeTravelers'),
+      section: this.$t('shops'),
+    });
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });

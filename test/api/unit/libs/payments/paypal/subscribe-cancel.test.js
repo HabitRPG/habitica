@@ -10,7 +10,7 @@ import { createNonLeaderGroupMember } from '../paymentHelpers';
 
 const { i18n } = common;
 
-describe('subscribeCancel', () => {
+describe('paypal - subscribeCancel', () => {
   const subKey = 'basic_3mo';
   let user; let group; let groupId; let customerId; let groupCustomerId; let
     nextBillingDate;
