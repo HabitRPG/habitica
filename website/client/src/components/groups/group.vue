@@ -4,7 +4,6 @@
     class="row"
   >
     <group-form-modal v-if="isParty" />
-    <select-quest-modal :group="group" />
     <quest-detail-modal :group="group" />
     <participant-list-modal :group="group" />
     <group-gems-modal />
@@ -290,7 +289,6 @@ import groupUtilities from '@/mixins/groupsUtilities';
 import styleHelper from '@/mixins/styleHelper';
 import { mapState, mapGetters } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
-import selectQuestModal from './selectQuestModal';
 import participantListModal from './participantListModal';
 import groupFormModal from './groupFormModal';
 import groupGemsModal from '@/components/groups/groupGemsModal';
@@ -315,7 +313,6 @@ import RightSidebar from '@/components/groups/rightSidebar';
 export default {
   components: {
     QuestDetailModal,
-    selectQuestModal,
     RightSidebar,
     groupFormModal,
     participantListModal,

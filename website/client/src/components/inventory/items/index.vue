@@ -632,9 +632,9 @@ export default {
           this.$root.$emit('selectMembersModal::showItem', item);
         }
       } else if (groupKey === 'quests') {
-        this.$root.$emit('bv::show::modal', 'quest-detail-modal');
-
-        this.$root.$emit('selectQuest', item);
+        this.$root.$emit('bv::show::modal', 'quest-detail-modal', {
+          key: item.key,
+        });
       }
     },
 

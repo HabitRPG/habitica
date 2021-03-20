@@ -11,63 +11,124 @@
       <close-icon @click="close()" />
     </div>
     <h2 class="text-center textCondensed">
-      {{ $t('questDetailsTitle') }}
+      {{ selectMode ? $t('selectQuest') : $t('questDetailsTitle') }}
     </h2>
-    <div v-if="questData">
-      <questDialogContent
-        :item="questData"
-        :group="group"
-      />
-      <quest-rewards :quest="questData" />
-    </div>
-    <div
-      v-if="!groupHasQuest"
-      class="text-center"
-    >
-      <button
-        class="btn btn-primary"
-        :disabled="!Boolean(selectedQuest) || loading"
-        @click="questInit()"
-      >
-        {{ $t('inviteToPartyOrQuest') }}
-      </button>
-    </div>
-    <div v-if="fromSelectionDialog"
-         class="text-center back-to-selection"
-         @click="goBackToQuestSelection()">
-      <span v-once
-           class="svg-icon color"
-           v-html="icons.navigationBack">
-      </span>
-
-      <span>
-        Back to quest selection
-      </span>
-    </div>
-    <div
-      v-if="groupHasQuest && canEditQuest"
-      class="text-center actions"
-    >
-      <div>
-        <button
-          v-if="!onActiveQuest"
-          v-once
-          class="btn btn-secondary mb-2"
-          @click="questConfirm()"
-        >
-          {{ $t('begin') }}
-        </button>
-        <!-- @TODO don't allow the party leader to
-         start the quest until the leader has accepted
-        or rejected the invitation (users get confused and think "begin" means "join quest")-->
+    <div class="quest-panel" v-if="selectMode">
+      <div class="quest-panel-header">
+        <h3>
+          {{ $t('yourQuests') }}
+        </h3>
+        <div class="sort-by">
+          <span class="dropdown-label">{{ $t('sort') }}</span>
+          <select-translated-array
+            :right="true"
+            :items="['quantity', 'AZ']"
+            :value="sortBy"
+            class="inline"
+            :inline-dropdown="false"
+            @select="sortBy = $event"
+          />
+        </div>
       </div>
-      <div>
+
+      <div class="quest-items">
+        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
         <div
-          v-once
-          class="cancel"
-          @click="questCancel()"
+          v-for="item in questsInfoList"
+          :key="item.key"
+          class="quest-col"
+          @click="selectQuest(item)"
         >
-          {{ $t('cancel') }}
+          <item
+            :key="item.key"
+            :item="item"
+            :item-content-class="item.class"
+          >
+            <template
+              slot="popoverContent"
+              slot-scope="context"
+            >
+              <div
+                class="questPopover"
+              >
+                <h4 class="popover-content-title">
+                  {{ context.item.text }}
+                </h4>
+                <questInfo :quest="context.item" />
+              </div>
+            </template>
+          </item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-10 offset-1 text-center">
+          <span
+            v-once
+            class="description"
+          >
+            <b>{{ $t('noQuestToStartTitle') }}</b> <br>
+            <span v-html="$t('noQuestToStart', { questShop: '/shops/quests' })"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <div v-if="questData">
+        <questDialogContent
+          :item="questData"
+          :group="group"
+        />
+        <quest-rewards :quest="questData" />
+      </div>
+      <div
+        v-if="!groupHasQuest"
+        class="text-center"
+      >
+        <button
+          class="btn btn-primary"
+          :disabled="!Boolean(selectedQuest) || loading"
+          @click="questInit()"
+        >
+          {{ $t('inviteToPartyOrQuest') }}
+        </button>
+      </div>
+      <div v-if="fromSelectionDialog"
+           class="text-center back-to-selection"
+           @click="goBackToQuestSelection()">
+        <span v-once
+             class="svg-icon color"
+             v-html="icons.navigationBack">
+        </span>
+
+        <span>
+          Back to quest selection
+        </span>
+      </div>
+      <div
+        v-if="groupHasQuest && canEditQuest"
+        class="text-center actions"
+      >
+        <div>
+          <button
+            v-if="!onActiveQuest"
+            v-once
+            class="btn btn-secondary mb-2"
+            @click="questConfirm()"
+          >
+            {{ $t('begin') }}
+          </button>
+          <!-- @TODO don't allow the party leader to
+           start the quest until the leader has accepted
+          or rejected the invitation (users get confused and think "begin" means "join quest")-->
+        </div>
+        <div>
+          <div
+            v-once
+            class="cancel"
+            @click="questCancel()"
+          >
+            {{ $t('cancel') }}
+          </div>
         </div>
       </div>
     </div>
@@ -79,6 +140,7 @@
 
   h2 {
     color: $purple-300;
+    margin-top: 1rem;
   }
 
   .btn-primary {
@@ -104,6 +166,52 @@
       width: 9px;
 
       margin-right: 0.5rem;
+    }
+  }
+
+  .quest-panel {
+    background-color: $gray-700;
+
+    // reset margin
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-bottom: -1rem;
+
+    // add padding back
+    padding-top: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 2rem;
+
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+
+  .quest-panel-header {
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .quest-items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    // somehow the browser felt like setting this 398px instead
+    // now its fixed to 400 :)
+    width: 400px;
+
+    margin-bottom: 1.5rem;
+
+    .quest-col {
+      ::v-deep {
+        .item-wrapper {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 
@@ -164,18 +272,26 @@ import questDialogContent from '../shops/quests/questDialogContent';
 import closeIcon from '../shared/closeIcon';
 import QuestRewards from '../shops/quests/questRewards';
 import questActionsMixin from './questActions.mixin';
+import SelectTranslatedArray from '../tasks/modal-controls/selectTranslatedArray';
+import QuestInfo from '../shops/quests/questInfo';
+import Item from '@/components/inventory/item';
+import getItemInfo from '../../../../common/script/libs/getItemInfo';
 
 export default {
   components: {
     QuestRewards,
     questDialogContent,
     closeIcon,
+    SelectTranslatedArray,
+    QuestInfo,
+    Item,
   },
   mixins: [questActionsMixin],
   props: ['group'],
   data () {
     return {
       loading: false,
+      selectMode: true,
       selectedQuest: {},
       fromSelectionDialog: false,
       icons: Object.freeze({
@@ -183,6 +299,7 @@ export default {
       }),
       shareUserIdShown: false,
       quests,
+      sortBy: 'AZ',
     };
   },
   computed: {
@@ -202,6 +319,18 @@ export default {
 
       return '';
     },
+
+    questsInfoList () {
+      const availableQuests = Object.entries(this.user.items.quests)
+        .filter(([, amount]) => amount > 0)
+        .map(([key]) => key);
+
+      return availableQuests.map(key => {
+        const questItem = quests.quests[key];
+
+        return getItemInfo(this.user, 'quests', questItem);
+      });
+    },
   },
   mounted () {
     const userQuests = this.user.items.quests;
@@ -212,15 +341,15 @@ export default {
       }
     }
 
-    this.$root.$on('selectQuest', this.selectQuest);
+    this.$root.$on('bv::show::modal', this.handleOpen);
   },
   beforeDestroy () {
-    this.$root.$off('selectQuest', this.selectQuest);
   },
   methods: {
     selectQuest (selectQuestPayload) {
+      this.selectMode = false;
       this.selectedQuest = selectQuestPayload.key;
-      this.fromSelectionDialog = selectQuestPayload.from === 'quest-selection';
+      this.fromSelectionDialog = true;
     },
     async questInit () {
       this.loading = true;
@@ -269,8 +398,19 @@ export default {
       }
     },
     goBackToQuestSelection () {
-      this.close();
-      this.$root.$emit('bv::show::modal', 'select-quest-modal');
+      this.selectMode = true;
+    },
+    handleOpen (_, selectQuestPayload) {
+      console.info({
+        selectQuestPayload,
+      });
+
+      if (selectQuestPayload) {
+        this.selectMode = false;
+        console.info('handleOpen', selectQuestPayload);
+      } else {
+        this.selectMode = true;
+      }
     },
   },
 };

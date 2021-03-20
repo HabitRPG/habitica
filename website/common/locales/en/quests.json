@@ -69,7 +69,8 @@
   "loginIncentiveQuest": "To unlock this quest, check in to Habitica on <%= count %> different days!",
   "loginReward": "<%= count %> Check-ins",
   "questBundles": "Discounted Quest Bundles",
-  "noQuestToStart": "Can’t find a quest to start? Try checking out the Quest Shop in the Market for new releases!",
+  "noQuestToStartTitle": "Can’t find a Quest to start?",
+  "noQuestToStart": "Try checking out the <a href=\"<%= questShop %>\">Quest Shop</a>  for new releases!",
   "pendingDamage": "<%= damage %> pending damage",
   "pendingDamageLabel": "pending damage",
   "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Health",
@@ -86,5 +87,7 @@
   "chatQuestCancelled": "<%= username %> cancelled the party quest <%= questName %>.",
   "tavernBossTired": "<%= bossName %> tries to unleash <%= rageName %> but is too tired.",
   "ownerOnly": "Owner only",
-  "newItem": "New Item"
+  "newItem": "New Item",
+  "selectQuestModal": "Select a Quest",
+  "yourQuests": "Your Quests"
 }

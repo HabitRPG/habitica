@@ -48,6 +48,7 @@
 .row {
   display: table;
   margin: 0;
+  width: 100%;
 }
 
 .table-row {
