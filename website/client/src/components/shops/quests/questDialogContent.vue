@@ -54,9 +54,8 @@
   }
 
   .questInfo {
-    width: 70%;
+    width: 160px;
     margin: 0 auto;
-    margin-bottom: 10px;
 
     display: flex;
     justify-content: center;

@@ -73,19 +73,20 @@
       </div>
     </div>
     <div v-else>
-      <div v-if="questData">
+      <div v-if="questData" class="quest-combined-content">
         <questDialogContent
           :item="questData"
           :group="group"
+          class="quest-detail"
         />
-        <quest-rewards :quest="questData" />
+        <quest-rewards :quest="questData" class="mt-4" />
       </div>
       <div
         v-if="!groupHasQuest"
         class="text-center"
       >
         <button
-          class="btn btn-primary"
+          class="btn btn-primary mt-0"
           :disabled="!Boolean(selectedQuest) || loading"
           @click="questInit()"
         >
@@ -101,7 +102,7 @@
         </span>
 
         <span>
-          Back to quest selection
+          {{ $t('backToSelection') }}
         </span>
       </div>
       <div
@@ -115,7 +116,7 @@
             class="btn btn-secondary mb-2"
             @click="questConfirm()"
           >
-            {{ $t('begin') }}
+            {{ $t('startQuest') }}
           </button>
           <!-- @TODO don't allow the party leader to
            start the quest until the leader has accepted
@@ -127,7 +128,7 @@
             class="cancel"
             @click="questCancel()"
           >
-            {{ $t('cancel') }}
+            {{ $t('cancelQuest') }}
           </div>
         </div>
       </div>
@@ -159,6 +160,10 @@
     font-size: 14px;
     line-height: 1.71;
     text-align: right;
+
+    &:hover {
+      text-decoration: underline;
+    }
 
     .svg-icon {
       color: $blue-50;
@@ -215,11 +220,20 @@
     }
   }
 
+  .quest-detail {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
   #quest-detail-modal {
     ::v-deep & {
       .modal-dialog {
         width: 448px !important;
       }
+    }
+
+    .quest-combined-content {
+      margin-bottom: 1.5rem;
     }
 
     ::v-deep &:not(.need-bottom-padding) {
@@ -230,6 +244,10 @@
 
       .modal-body {
         padding-bottom: 0;
+      }
+
+      .quest-combined-content {
+        margin-bottom: 0;
       }
     }
 
@@ -246,15 +264,15 @@
     }
 
     .actions {
-      padding-top: 1.5em;
       padding-bottom: .5em;
 
       .cancel {
-        color: #f74e52;
+        color: $maroon-50;
       }
 
       .cancel:hover {
         cursor: pointer;
+        text-decoration: underline;
       }
     }
   }
@@ -401,9 +419,7 @@ export default {
       this.selectMode = true;
     },
     handleOpen (_, selectQuestPayload) {
-      console.info({
-        selectQuestPayload,
-      });
+      this.fromSelectionDialog = false;
 
       if (selectQuestPayload) {
         this.selectMode = false;

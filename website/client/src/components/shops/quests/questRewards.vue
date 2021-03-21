@@ -121,7 +121,7 @@ export default {
   props: ['quest'],
   data () {
     return {
-      opened: false,
+      opened: true,
       icons: Object.freeze({
         sparkles,
         expIcon,
@@ -199,6 +199,7 @@ export default {
     flex-direction: row;
     gap: 8px;
     flex-wrap: wrap;
+    justify-content: center;
 
     padding-left: 1.5rem;
 

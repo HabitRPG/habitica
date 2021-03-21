@@ -89,5 +89,7 @@
   "ownerOnly": "Owner only",
   "newItem": "New Item",
   "selectQuestModal": "Select a Quest",
-  "yourQuests": "Your Quests"
+  "yourQuests": "Your Quests",
+  "backToSelection": "Back to Quest selection",
+  "cancelQuest": "Cancel Quest"
 }
