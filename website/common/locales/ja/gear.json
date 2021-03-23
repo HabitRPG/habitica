@@ -2240,7 +2240,7 @@
     "eyewearMystery201907Text": "すてきなサングラス",
     "headSpecialNye2020Notes": "ぜいたくなパーティハットをもらいました！新年を告げる鐘を聞きながら誇りをもってかぶりましょう！効果なし。",
     "headSpecialNye2020Text": "ぜいたくなパーティーハット",
-    "shieldArmoireBlueMoonSaiNotes": "この釵（さい）は伝統的な武器で、月の光の力で満ちています。力が<%= str %>上がります。ラッキー宝箱：蒼き月の盗賊セット（4個中2個目のアイテム）。",
+    "shieldArmoireBlueMoonSaiNotes": "この釵（さい）は伝統的な武器で、月の光の力で満ちています。知覚が<%= per %>上がります。ラッキー宝箱：蒼き月の盗賊セット（4個中2個目のアイテム）。",
     "shieldArmoireBlueMoonSaiText": "明月の釵",
     "headArmoireBlueMoonHelmNotes": "このかぶとは驚くような量の幸運をかぶる人に与え、使うと特別な出来事がおこります。知能が<%= int %>上がります。ラッキー宝箱：蒼き月の盗賊セット（4個中3個目のアイテム）。",
     "headArmoireBlueMoonHelmText": "蒼き月のかぶと",
