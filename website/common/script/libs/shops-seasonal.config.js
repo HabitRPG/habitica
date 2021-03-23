@@ -6,7 +6,9 @@ import {
   SEASONAL_SETS,
 } from '../content/constants';
 
-const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end));
+const CURRENT_EVENT = find(
+  EVENTS, event => moment().isBetween(event.start, event.end) && Boolean(event.season),
+);
 
 const SHOP_OPEN = CURRENT_EVENT && ['winter', 'spring', 'summer', 'fall'].includes(CURRENT_EVENT.season);
 
@@ -15,35 +17,37 @@ export default {
 
   currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Closed',
 
-  dateRange: { start: '2020-12-17', end: '2021-01-31' },
+  dateRange: {
+    start: moment(CURRENT_EVENT.start).format('YYYY-MM-DD'),
+    end: moment(CURRENT_EVENT.end).format('YYYY-MM-DD'),
+  },
 
   availableSets: SHOP_OPEN
     ? [
-      ...SEASONAL_SETS.winter,
+      ...SEASONAL_SETS[CURRENT_EVENT.season],
     ]
     : [],
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'winter2021ArcticExplorerHealerSet',
-      rogue: 'winter2021HollyIvyRogueSet',
-      warrior: 'winter2021IceFishingWarriorSet',
-      wizard: 'winter2021WinterMoonMageSet',
+      healer: 'spring2021WillowHealerSet',
+      rogue: 'spring2021TwinFlowerRogueSet',
+      warrior: 'spring2021SunstoneWarriorSet',
+      wizard: 'spring2021SwanMageSet',
     }
     : {},
 
-  availableSpells: moment().isBetween('2020-12-29T08:00-04:00', '2021-01-31T20:00-04:00')
+  availableSpells: moment().isBetween('2021-04-06T08:00-05:00', '2021-04-30T20:00-05:00')
     ? [
-      'snowball',
+      'shinySeed',
     ]
     : [],
 
-  availableQuests: SHOP_OPEN
+  availableQuests: SHOP_OPEN && moment().isAfter('2021-03-30T08:00-05:00')
     ? [
-      'evilsanta',
-      'evilsanta2',
+      'egg',
     ]
     : [],
 
-  featuredSet: 'winter2020CarolOfTheMageSet',
+  featuredSet: 'spring2020PuddleMageSet',
 };
