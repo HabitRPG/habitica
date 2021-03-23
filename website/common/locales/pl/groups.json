@@ -369,5 +369,6 @@
     "blockYourself": "Nie możesz zablokować samego siebie",
     "features": "Funkcje",
     "giftMessageTooLong": "Maksymalna długość wiadomości podarunkowej to <%= maxGiftMessageLength %>.",
-    "selectSubscription": "Wybierz Abonament"
+    "selectSubscription": "Wybierz Abonament",
+    "cannotRemoveQuestOwner": "Nie możesz usunąć właściciela aktywnej misji. Najpierw anuluj misję."
 }

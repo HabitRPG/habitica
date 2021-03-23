@@ -71,5 +71,11 @@
     "tumblr": "Tumblr",
     "terms": "Όροι και Προϋποθέσεις",
     "teams": "Ομάδες",
-    "pkLogo": "Λογότυπα"
+    "pkLogo": "Λογότυπα",
+    "missingEmail": "Λείπει το email.",
+    "missingNewPassword": "Λείπει ο νέος κωδικός.",
+    "missingPassword": "Λείπει ο κωδικός.",
+    "missingUsername": "Λείπει το όνομα χρήστη.",
+    "missingUsernameEmail": "Λείπει το όνομα χρήστη ή email.",
+    "tweet": "Tweet"
 }

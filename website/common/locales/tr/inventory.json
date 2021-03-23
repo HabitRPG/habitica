@@ -1,8 +1,10 @@
 {
-  "noItemsAvailableForType": "Hiç <%= type %> tip eşyan yok.",
-  "foodItemType": "Yiyecek",
-  "eggsItemType": "Yumurtalar",
-  "hatchingPotionsItemType": "Kuluçka İksirleri",
-  "specialItemType": "Özel eşyalar",
-  "lockedItem": "Kilitli Eşya"
+    "noItemsAvailableForType": "Hiç <%= type %> tip eşyan yok.",
+    "foodItemType": "Evcil Hayvan Yemi",
+    "eggsItemType": "Yumurtalar",
+    "hatchingPotionsItemType": "Kuluçka İksirleri",
+    "specialItemType": "Özel eşyalar",
+    "lockedItem": "Kilitli Eşya",
+    "allItems": "Tüm eşyalar",
+    "petAndMount": "binek hayvan"
 }
