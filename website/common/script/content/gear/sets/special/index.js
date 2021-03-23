@@ -1,5 +1,5 @@
 import moment from 'moment';
-import cloneDeep from 'lodash/cloneDeep';
+import pickBy from 'lodash/pickBy';
 import defaults from 'lodash/defaults';
 import find from 'lodash/find';
 import upperFirst from 'lodash/upperFirst';
@@ -14,12 +14,11 @@ import * as takeThisGear from './special-takeThis';
 import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
 
-const CURRENT_EVENT = find(EVENTS, event => moment().isBetween(event.start, event.end));
+const CURRENT_EVENT = find(
+  EVENTS, event => moment().isBetween(event.start, event.end) && Boolean(event.season),
+);
 
-const gearEvents = cloneDeep(EVENTS);
-['winter', 'birthday', 'gaymerx', 'noCurrentEvent2020', 'winter2021NoPromo', 'noCurrentEvent2021'].forEach(nonGearEvent => {
-  delete gearEvents[nonGearEvent];
-}); // TODO maybe we can match with regex instead of manually specifying here?
+const gearEvents = pickBy(EVENTS, event => event.gear);
 
 const armor = {
   0: backerGear.armorSpecial0,
@@ -663,6 +662,18 @@ const armor = {
     notes: t('armorSpecialBirthday2021Notes'),
     value: 0,
     canOwn: ownsItem('armor_special_birthday2021'),
+  },
+  spring2021Rogue: {
+    set: 'spring2021TwinFlowerRogueSet',
+  },
+  spring2021Warrior: {
+    set: 'spring2021SunstoneWarriorSet',
+  },
+  spring2021Mage: {
+    set: 'spring2021SwanMageSet',
+  },
+  spring2021Healer: {
+    set: 'spring2021WillowHealerSet',
   },
 };
 
@@ -1671,6 +1682,18 @@ const head = {
     value: 0,
     canOwn: ownsItem('head_special_nye2020'),
   },
+  spring2021Rogue: {
+    set: 'spring2021TwinFlowerRogueSet',
+  },
+  spring2021Warrior: {
+    set: 'spring2021SunstoneWarriorSet',
+  },
+  spring2021Mage: {
+    set: 'spring2021SwanMageSet',
+  },
+  spring2021Healer: {
+    set: 'spring2021WillowHealerSet',
+  },
 };
 
 const headStats = {
@@ -2403,6 +2426,15 @@ const shield = {
   winter2021Healer: {
     set: 'winter2021ArcticExplorerHealerSet',
   },
+  spring2021Rogue: {
+    set: 'spring2021TwinFlowerRogueSet',
+  },
+  spring2021Warrior: {
+    set: 'spring2021SunstoneWarriorSet',
+  },
+  spring2021Healer: {
+    set: 'spring2021WillowHealerSet',
+  },
 };
 
 const shieldStats = {
@@ -3024,6 +3056,18 @@ const weapon = {
   },
   winter2021Healer: {
     set: 'winter2021ArcticExplorerHealerSet',
+  },
+  spring2021Rogue: {
+    set: 'spring2021TwinFlowerRogueSet',
+  },
+  spring2021Warrior: {
+    set: 'spring2021SunstoneWarriorSet',
+  },
+  spring2021Mage: {
+    set: 'spring2021SwanMageSet',
+  },
+  spring2021Healer: {
+    set: 'spring2021WillowHealerSet',
   },
 };
 
