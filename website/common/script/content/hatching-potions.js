@@ -191,6 +191,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionRainbow'),
     limited: true,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2019 }),
+    }),
+    event: EVENTS.spring2021,
+    canBuy () {
+      return moment().isBefore('2021-04-30T20:00-04:00');
+    },
   },
   Glass: {
     value: 2,
@@ -340,12 +348,13 @@ const premium = {
     text: t('hatchingPotionBirchBark'),
     limited: true,
     event: EVENTS.spring2020,
-    canBuy () {
-      return moment().isBefore('2020-05-02');
-    },
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndMarch'),
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMarch'),
+      previousDate: t('marchYYYY', { year: 2020 }),
     }),
+    canBuy () {
+      return moment().isBefore('2021-04-30T20:00-04:00');
+    },
   },
   Fluorite: {
     value: 2,
@@ -420,6 +429,18 @@ const premium = {
     event: EVENTS.winter2021,
     canBuy () {
       return moment().isBetween('2020-12-22T08:00-04:00', '2021-01-31T20:00-04:00');
+    },
+  },
+  PolkaDot: {
+    value: 2,
+    text: t('hatchingPotionPolkaDot'),
+    limited: true,
+    event: EVENTS.spring2021,
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndMarch'),
+    }),
+    canBuy () {
+      return moment().isBefore('2021-04-30T20:00-04:00');
     },
   },
 };
