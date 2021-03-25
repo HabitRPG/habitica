@@ -1,6 +1,5 @@
 import moment from 'moment';
 import {
-  hasActiveOnboarding,
   hasCompletedOnboarding,
   onOnboardingComplete,
   checkOnboardingStatus,
@@ -15,19 +14,6 @@ describe('onboarding', () => {
     user.addNotification = sinon.spy();
     // Make sure the onboarding is active
     user.auth.timestamps.created = moment('2019-12-20').toDate();
-  });
-
-  describe('hasActiveOnboarding', () => {
-    // The value of BEGIN DATE is available in common/script/libs/onboarding
-
-    it('returns true if the account is created after BEGIN_DATE', () => {
-      expect(hasActiveOnboarding(user)).to.eql(true);
-    });
-
-    it('returns false if the account is created before BEGIN_DATE', () => {
-      user.auth.timestamps.created = moment('2019-12-01').toDate();
-      expect(hasActiveOnboarding(user)).to.eql(false);
-    });
   });
 
   describe('hasCompletedOnboarding', () => {
