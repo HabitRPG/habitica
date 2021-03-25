@@ -689,7 +689,11 @@ export default {
       });
     },
     openParticipantList () {
-      this.$root.$emit('bv::show::modal', 'participant-list');
+      if (this.onPendingQuest) {
+        this.$root.$emit('bv::show::modal', 'invitation-list');
+      } else {
+        this.$root.$emit('bv::show::modal', 'participant-list');
+      }
     },
     async questLeave () {
       if (!window.confirm(this.$t(this.group.quest.active ? 'sureLeave' : 'sureLeaveInactive'))) {

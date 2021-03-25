@@ -6,6 +6,7 @@
     <group-form-modal v-if="isParty" />
     <quest-detail-modal :group="group" />
     <participant-list-modal :group="group" />
+    <invitation-list-modal :group="group" />
     <group-gems-modal />
     <div class="col-12 col-sm-8 standard-page">
       <div class="row">
@@ -309,9 +310,11 @@ import silverGuildBadgeIcon from '@/assets/svg/silver-guild-badge-small.svg';
 import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-small.svg';
 import QuestDetailModal from './questDetailModal';
 import RightSidebar from '@/components/groups/rightSidebar';
+import InvitationListModal from './invitationListModal';
 
 export default {
   components: {
+    InvitationListModal,
     QuestDetailModal,
     RightSidebar,
     groupFormModal,

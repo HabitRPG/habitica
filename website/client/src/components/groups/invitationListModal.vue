@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    id="participant-list"
+    id="invitation-list"
     size="md"
     :hide-header="true"
     :hide-footer="true"
@@ -9,44 +9,43 @@
       <close-icon @click="close()" />
     </div>
     <h2 class="text-center textCondensed" v-once>
-      {{ $t('participantsTitle') }}
+      {{ $t('participantsTitle') }} WIP
     </h2>
     <div
-      slot="modal-header"
-      class="header-wrap"
-    >
-      <div class="row">
-        <div class="col-6">
-          <h1 v-once>
-            {{ $t('participantsTitle') }}
-          </h1>
-        </div>
-        <div class="col-6">
-          <button
-            class="close"
-            type="button"
-            aria-label="Close"
-            @click="close()"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
-      v-for="member in participants"
+      v-for="member in members"
       :key="member._id"
       class="member-row"
     >
-      <div class="no-padding-left">
-        <member-details :member="member" />
+      <div class="class-icon"></div>
+      <div class="usernames">
+        <strong :class="{'declined-name': member.accepted === false}">{{ member.name }}</strong>
+      </div>
+      <div class="status">
+        <div
+          v-if="member.accepted === true"
+          class="accepted float-right"
+        >
+          {{ $t('accepted') }}
+        </div>
+        <div
+          v-if="member.accepted === false"
+          class="declined float-right"
+        >
+          {{ $t('declined') }}
+        </div>
+        <div
+          v-if="member.accepted === null"
+          class="pending float-right"
+        >
+          {{ $t('pending') }}
+        </div>
       </div>
     </div>
   </b-modal>
 </template>
 
 <style lang='scss'>
-  #participant-list {
+  #invitation-list {
     .modal-header {
       background-color: #edecee;
       border-radius: 8px 8px 0 0;
@@ -97,16 +96,23 @@
 
   .member-row {
     background-color: $gray-700;
-
-    ::v-deep {
-      .col-4 {
-        padding-left: 0;
-      }
-    }
+    display: flex;
+    flex-direction: row;
   }
 
+  .class-icon {
+    width: 80px;
+  }
 
-  #participant-list_modal_body {
+  .usernames {
+    flex: 3;
+  }
+
+  .status {
+    flex: 1;
+  }
+
+  #invitation-list_modal_body {
     padding: 0;
     max-height: 450px;
 
@@ -119,27 +125,29 @@
 <script>
 import { mapGetters } from '@/libs/store';
 
-import MemberDetails from '../memberDetails';
 import CloseIcon from '../shared/closeIcon';
 
 export default {
   components: {
     CloseIcon,
-    MemberDetails,
   },
   props: ['group'],
   computed: {
     ...mapGetters({
       partyMembers: 'party:members',
     }),
-    participants () {
+    members () {
       const partyMembers = this.partyMembers || [];
-      return partyMembers.filter(member => this.group.quest.members[member._id] === true);
+      return partyMembers.map(member => ({
+        name: member.profile.name,
+        accepted: this.group.quest.members[member._id],
+        _id: member._id,
+      }));
     },
   },
   methods: {
     close () {
-      this.$root.$emit('bv::hide::modal', 'participant-list');
+      this.$root.$emit('bv::hide::modal', 'invitation-list');
     },
   },
 };

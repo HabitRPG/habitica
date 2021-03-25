@@ -4,7 +4,7 @@
       class="quest-image"
       :class="'quest_' + item.key"
     ></div>
-    <h3 class="title">
+    <h3 class="text-center">
       {{ itemText }}
     </h3>
     <div
@@ -28,6 +28,11 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
+  h3 {
+    color: $gray-10;
+    margin-bottom: 0.25rem;
+  }
+
   .quest-image {
     margin: 0 auto;
     margin-bottom: 1em;
@@ -35,7 +40,7 @@
   }
 
   .text {
-    margin-bottom: 8px;
+    margin-bottom: 1rem;
     overflow-y: scroll;
     text-overflow: ellipsis;
   }
