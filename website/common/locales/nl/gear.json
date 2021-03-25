@@ -2279,5 +2279,14 @@
     "headArmoireJadeHelmText": "Jade Helm",
     "headArmoirePinkFloppyHatNotes": "Er zijn veel spreuken in deze eenvoudige hoed genaaid, waardoor deze een perfecte roze kleur heeft. Verhoogt Intelligentie met <%= int %>. Betoverde kast: Roze Loungewear Set (voorwerp 1 van 3).",
     "headArmoirePinkFloppyHatText": "Roze flaphoed",
-    "headArmoireBlueMoonHelmNotes": "Deze helm biedt de drager een verbazingwekkende hoeveelheid geluk en er volgen uitzonderlijke gebeurtenissen op het gebruik ervan. Verhoogt Intelligentie met <%= int %>. Betoverde kast: Blauwe Maan Schurk Set (voorwerp 3 van 4)."
+    "headArmoireBlueMoonHelmNotes": "Deze helm biedt de drager een verbazingwekkende hoeveelheid geluk en er volgen uitzonderlijke gebeurtenissen op het gebruik ervan. Verhoogt Intelligentie met <%= int %>. Betoverde kast: Blauwe Maan Schurk Set (voorwerp 3 van 4).",
+    "weaponSpecialSpring2021MageText": "Zwanenveer",
+    "weaponSpecialSpring2021MageNotes": "Gooi, sla, trap, rust! Laat deze prachtige veer op tijd slingeren om de muziek van je magie te leiden. Verhoogt Intelligentie met <%= int %> en Perceptie met <%= per %>. Beperkte oplage 2021 lenteuitrusting.",
+    "weaponSpecialSpring2021WarriorNotes": "Gebruik de kracht van de zon tegen je vijanden en laat de zonnesteen je geluk brengen! Verhoogt Kracht met <%= str %>. Beperkte oplage 2021 lenteuitrusting.",
+    "weaponSpecialSpring2021WarriorText": "Hamer van de zon",
+    "weaponSpecialSpring2021RogueNotes": "Weet je wat beter is dan een bloem in elke hand? Twee bloemen in elke hand! Verhoogt Kracht met <%= str %>. Beperkte oplage 2021 lenteuitrusting.",
+    "weaponSpecialSpring2021RogueText": "Tweelingbloem bloei",
+    "armorSpecialSpring2021RogueText": "Tweelingbloem stam",
+    "weaponSpecialSpring2021HealerNotes": "De schors en bladeren van deze verse stek staan bekend om hun vermogen om pijn te verlichten. Of je kunt hem planten en hem zien groeien! Verhoogt Intelligentie met <%= int %>. Beperkte oplage 2021 lenteuitrusting.",
+    "weaponSpecialSpring2021HealerText": "Wilgentak"
 }

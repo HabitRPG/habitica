@@ -543,7 +543,7 @@
     "armorSpecialSpring2016RogueText": "Tenue de camouflage canine",
     "armorSpecialSpring2016RogueNotes": "Un chiot malin sait choisir un déguisement plus éclatant afin de se camoufler quand tout est vert et vif. Augmente la perception de <%= per %>. Équipement en édition limitée du printemps 2016.",
     "armorSpecialSpring2016WarriorText": "Cotte de mailles de puissance",
-    "armorSpecialSpring2016WarriorNotes": "Toute petite que vous êtes, vous est féroce ! Augmente la constitution de <%= con %>. Équipement en édition limitée du printemps 2016.",
+    "armorSpecialSpring2016WarriorNotes": "Toute petite que vous êtes, vous êtes féroce ! Augmente la constitution de <%= con %>. Équipement en édition limitée du printemps 2016.",
     "armorSpecialSpring2016MageText": "Robes de grand matou",
     "armorSpecialSpring2016MageNotes": "Hautement colorée, afin que vous ne soyez pas confondu avec un nécromancien. Augmente l'intelligence de <%= int %>. Équipement en édition limitée du printemps 2016.",
     "armorSpecialSpring2016HealerText": "Culotte de lapin touffu",
