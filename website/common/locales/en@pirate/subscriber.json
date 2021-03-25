@@ -15,12 +15,12 @@
     "subscribe": "Subscr'be",
     "nowSubscribed": "Ye are now subscribed t' Habitica!",
     "cancelSub": "Cancel Subscr'ption",
-    "cancelSubInfoGroupPlan": "'Cause ye have a free subscr'ption from a Group Plan, ye cannot cancel it. It will end when ye no longer be a crewmate o' th' Group Plan. If ye be th' Group leader an' want t' cancel th' Group Plan, ye can do that from th' Group Plan’s “Group Billin'” tab.",
+    "cancelSubInfoGroupPlan": "'Cause ye 'ave a free subscr'ption from a Squadron Plan, ye cannot cancel it. It will end when ye no longer be a crewmate o' th' Squadron Plan. If ye be th' Squadron leader an' want t' cancel th' Squadron Plan, ye can do that from th' Squadron Plan’s “Group Billin'” tab.",
     "cancelingSubscription": "Cancelin' th' subscr'ption",
     "contactUs": "Contact Us",
     "checkout": "Checkout",
     "sureCancelSub": "Arrr ye sure ye want t' cancel yer subscription?",
-    "subGemPop": "Because ye subscribe to Habitica, ye can purchase a number o' Sapphires each month using Gold.",
+    "subGemPop": "Because ye subscribe t' Habitica, ye can purchase a number o' Sapphires each month usin' Gold.",
     "subGemName": "Subscriber Sapphires",
     "maxBuyGems": "Ye 'ave bought all th' Sapphires ye can this month. More become available within th' first three days o' each month. Thanks fer subscribin'!",
     "timeTravelers": "Time Travel'rs",
@@ -187,5 +187,6 @@
     "mysterySet202003": "Barb'd Battl'r Set",
     "mysterySet202001": "Fabl'd Fox Set",
     "mysterySet202101": "Snazzy Snow Leopard Set",
-    "mysterySet202102": "Charmin' Champion Set"
+    "mysterySet202102": "Charmin' Champion Set",
+    "mysterySet202103": "Blossom Viewin' Set"
 }

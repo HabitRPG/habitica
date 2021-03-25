@@ -2289,5 +2289,15 @@
     "shieldArmoireSoftPinkPillowText": "柔软的粉红色枕头",
     "headArmoirePinkFloppyHatNotes": "许多咒语被缝进了这个简单的帽子，给它一个完美的粉红色。提高<%= int %>点智力。魔法衣橱：粉色休闲服套装（1/3）。",
     "headArmoirePinkFloppyHatText": "粉色软帽",
-    "armorArmoireSoftPinkSuitText": "柔软的粉色套装"
+    "armorArmoireSoftPinkSuitText": "柔软的粉色套装",
+    "headArmoireJadeHelmNotes": "有人说，玉石可以减少恐惧和焦虑。有了这个美丽的头盔，你绝对没有理由担心! 增加<%= con %>点体质。魔法衣橱：翡翠战士套装（1/3）。",
+    "headArmoireJadeHelmText": "翡翠头盔",
+    "headMystery202103Notes": "用这枚由初绽花朵编织而成的饰环来迎接春天的到来。没有属性加成。2021年3月订阅者物品。",
+    "headMystery202103Text": "赏花饰环",
+    "weaponArmoireJadeGlaiveNotes": "刀剑戟将你与敌人隔开距离！当然，它也方便你将物品从高架上钩下来。增加<%= str %>点力量。魔法衣橱：翡翠战士套装（3/3）。",
+    "armorArmoireJadeArmorNotes": "这套玉甲既美观又实用。保护自己，又让自己看起来很帅! 增加<%= per %>点感知。魔法衣橱：翡翠战士套装（2/3）。",
+    "armorArmoireJadeArmorText": "翡翠铠甲",
+    "armorMystery202103Notes": "这款柔软蓬松的长袍，非常适合在艳丽的春树下开茶会。没有属性加成。2021年3月订阅者物品。",
+    "armorMystery202103Text": "赏花袍",
+    "weaponArmoireJadeGlaiveText": "翠玉剑刃戟"
 }

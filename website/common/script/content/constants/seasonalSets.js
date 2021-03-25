@@ -86,11 +86,16 @@ const SEASONAL_SETS = {
     'spring2019RobinHealerSet',
 
     // spring 2020
-
     'spring2020BeetleWarriorSet',
     'spring2020IrisHealerSet',
     'spring2020LapisLazuliRogueSet',
     'spring2020PuddleMageSet',
+
+    // spring 2021
+    'spring2021SwanMageSet',
+    'spring2021WillowHealerSet',
+    'spring2021SunstoneWarriorSet',
+    'spring2021TwinFlowerRogueSet',
   ],
   summer: [
     // summer 2014

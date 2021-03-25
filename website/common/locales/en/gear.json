@@ -389,6 +389,15 @@
   "headSpecialNye2020Text": "Extravagant Party Hat",
   "headSpecialNye2020Notes": "You've received an Extravagant Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
 
+  "weaponSpecialSpring2021RogueText": "Twin Flower Bloom",
+  "weaponSpecialSpring2021RogueNotes": "You know what's better than dual-wielding flowers? QUADRUPLE wielding flowers! Increases Strength by <%= str %>. Limited Edition 2021 Spring Gear.",
+  "weaponSpecialSpring2021WarriorText": "Hammer of the Sun",
+  "weaponSpecialSpring2021WarriorNotes": "Harness the power of the sun against your enemies, and let the sunstone bring you luck! Increases Strength by <%= str %>. Limited Edition 2021 Spring Gear.",
+  "weaponSpecialSpring2021MageText": "Swan Plume",
+  "weaponSpecialSpring2021MageNotes": "Throw, beat, treadle, rest! Swish this magnificent feather in time to conduct the music of your magic. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2021 Spring Gear.",
+  "weaponSpecialSpring2021HealerText": "Willow Branch",
+  "weaponSpecialSpring2021HealerNotes": "The bark and leaves of this fresh cutting are known for their ability to relieve pain. Or you can plant it and watch it grow! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -907,6 +916,15 @@
   "armorSpecialWinter2021MageNotes": "These warm Winter Robes will keep you cozy during the cold time of the year. A fancy flowing fabric on the outside reflects the silver moonlight and lets you go with the flow, you know? Increases Intelligence by <%= int %>. Limited Edition 2020-2021 Winter Gear.",
   "armorSpecialWinter2021HealerText": "Arctic Parka",
   "armorSpecialWinter2021HealerNotes": "Defy the chill winds with the best protection available north of the Circle! Increases Constitution by <%= con %>. Limited Edition 2020-2021 Winter Gear.",
+
+  "armorSpecialSpring2021RogueText": "Twin Flower Stem",
+  "armorSpecialSpring2021RogueNotes": "No one will see you waiting in amBUSH with this cunning armor; you look like a plant from every angle. Increases Perception by <%= per %>. Limited Edition 2021 Spring Gear.",
+  "armorSpecialSpring2021WarriorText": "Armor of the Sun",
+  "armorSpecialSpring2021WarriorNotes": "Be careful you don't dazzle yourself as this sunstone armor catches the light! Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
+  "armorSpecialSpring2021MageText": "White Swan's Splendor",
+  "armorSpecialSpring2021MageNotes": "Your transformation is complete! Take to the sky, or to the lake, and sing for joy! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
+  "armorSpecialSpring2021HealerText": "Willow Bark Coat",
+  "armorSpecialSpring2021HealerNotes": "This armor helps you bend instead of break when buffeted by wind or weapon. Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1528,6 +1546,15 @@
   "headSpecialWinter2021HealerText": "Arctic Exploration Headgear",
   "headSpecialWinter2021HealerNotes": "A surprising amount of heat escapes through the head! Not if you're wearing this thick hood and goggles, though. There'll be no icicles on YOUR eyelashes! Increases Intelligence by <%= int %>. Limited Edition 2020-2021 Winter Gear.",
 
+  "headSpecialSpring2021RogueText": "Twin Flower Hat",
+  "headSpecialSpring2021RogueNotes": "Let's keep the flowery language to a minimum: this hat will help you blend in with the spring flowers! Increases Perception by <%= per %>. Limited Edition 2021 Spring Gear.",
+  "headSpecialSpring2021WarriorText": "Helm of the Sun",
+  "headSpecialSpring2021WarriorNotes": "Don't fear! The sunstone in this helm will help you bring to light those deepest, darkest red to-dos. Increases Strength by <%= str %>. Limited Edition 2021 Spring Gear.",
+  "headSpecialSpring2021MageText": "Cygnet Circlet",
+  "headSpecialSpring2021MageNotes": "Set this airy crown upon your brow, and the birds of the water will come attend to you. To what quest will you call them? Increases Perception by <%= per %>. Limited Edition 2021 Spring Gear.",
+  "headSpecialSpring2021HealerText": "Salix Wreath",
+  "headSpecialSpring2021HealerNotes": "Weep not, friends! A Healer is here to soothe your suffering! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2004,6 +2031,11 @@
   "shieldSpecialWinter2021WarriorNotes": "Tell all your friends about the REALLY big fish you've caught! But whether you tell them he's made of plastic and sings songs is up to you. Increases Constitution by <%= con %>. Limited Edition 2020-2021 Winter Gear.",
   "shieldSpecialWinter2021HealerText": "Arctic Armguards",
   "shieldSpecialWinter2021HealerNotes": "These mighty mitts stop weapons cold. Increases Constitution by <%= con %>. Limited Edition 2020-2021 Winter Gear.",
+
+  "shieldSpecialSpring2021WarriorText": "Shield of the Sun",
+  "shieldSpecialSpring2021WarriorNotes": "The beauty in this roughly-shaped sunstone will shine even in the deepest caves and darkest dungeons. Hold it high! Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
+  "shieldSpecialSpring2021HealerText": "Salicylic Shield",
+  "shieldSpecialSpring2021HealerNotes": "A leafy green bundle that heralds shelter and compassion. Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",

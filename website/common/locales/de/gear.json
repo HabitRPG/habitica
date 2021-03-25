@@ -2289,5 +2289,15 @@
     "headArmoirePinkFloppyHatNotes": "Viele Zauber wurden in diese einfache Mütze genäht, um diese perfekt-pinke Farbe zu erreichen. Erhöht Intelligenz um <%= int %>. Verzauberter Schrank: Weichpinkes Wohlfühl-Set (Gegenstand 1 von 3).",
     "headArmoirePinkFloppyHatText": "Weichpinke Wohlfühlmütze",
     "armorArmoireSoftPinkSuitText": "Weichpinke Wohlfühlkleidung",
-    "armorArmoireSoftPinkSuitNotes": "Rosa ist eine beruhigende Farbe. Schlüpfe in diesen Schlafanzug, um dem täglichen Schuften einen friedlichen Moment zu entlocken. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Weichpinkes Wohlfühl-Set (Gegenstand 2 von 3)."
+    "armorArmoireSoftPinkSuitNotes": "Rosa ist eine beruhigende Farbe. Schlüpfe in diesen Schlafanzug, um dem täglichen Schuften einen friedlichen Moment zu entlocken. Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Weichpinkes Wohlfühl-Set (Gegenstand 2 von 3).",
+    "armorArmoireJadeArmorNotes": "Diese Jade-Rüstung ist beides: Schön und funktional. Schütze dich und wisse dabei, dass du hervorragend aussiehst! Erhöht Wahrnehmung um <%= per %>. Verzauberter Schrank: Jade Kampfkunst-Set (Item 2 von 3).",
+    "weaponArmoireJadeGlaiveNotes": "Die Reichweite dieser Gleve wird deine Feinde fernhalten! Du kannst sie auch benutzen um Dinge von hohen Regalen zu schubsen. Erhöht Stärke um <%= str %>. Verzauberter Schrank: Jade Kampfkunst-Set (Gegenstand 3 von 3).",
+    "headArmoireJadeHelmNotes": "Manche sagen, dass Jade Sorgen und Ängste vertreibt. Mit diesem wunderschönen Helm, wirst du definitiv keinen Grund zur Sorge haben! Erhöht Ausdauer um <%= con %>. Verzauberter Schrank: Jade Kampfkunst-Set (Item 1 von 3).",
+    "headArmoireJadeHelmText": "Jadehelm",
+    "headMystery202103Notes": "Begrüße den Frühling modisch mit diesem Kronreif aus früh-blühenden Zweigen. Gewährt keinen Attributbonus. März 2021 Abonnentengegenstand.",
+    "headMystery202103Text": "Blütenschau-Kronreif",
+    "armorArmoireJadeArmorText": "Jade-Rüstung",
+    "armorMystery202103Notes": "Diese weichen und luftigen Roben eignen sich perfekt für eine Teeparty unter verschneiten Frühjahsblühern. Gewährt keinen Attributbonus. März 2021 Abonnentengegenstand.",
+    "armorMystery202103Text": "Blütenschau-Roben",
+    "weaponArmoireJadeGlaiveText": "Jade-Gleve"
 }

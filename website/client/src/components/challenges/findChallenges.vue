@@ -193,7 +193,7 @@ export default {
       this.loadChallenges();
     },
     createChallenge () {
-      this.$root.$emit('bv::show::modal', 'challenge-modal');
+      this.$root.$emit('habitica:create-challenge');
     },
     async loadChallenges () {
       this.loading = true;

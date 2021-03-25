@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Λαθροβιότητα",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Αριθμός ημερησίων που αποφεύχθηκαν: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Αριθμός ημερησίων υποχρεώσεων που θα αποφευχθούν: <%= number %>.",
     "spellRogueStealthMaxedOut": "Έχεις ήδη αποφύγει τις ημερήσιές σου, δεν υπάρχει λόγος να ξαναρίξεις το ξόρκι.",
     "spellHealerHealText": "Φως Αναζωογόνησης",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Τα ξόρκια στις υποχρεώσεις προκλήσεων δεν επιτρέπονται.",
     "groupTasksNoCast": "Τα ξόρκια στις ομαδικές υποχρεώσεις δεν επιτρέπονται.",
     "spellNotOwned": "Δεν κατέχεις αυτό το ξόρκι.",
-    "spellLevelTooHigh": "Πρέπει να είσαι επίπεδο <%= level %> για να χρησιμοποιήσεις αυτό το ξόρκι."
+    "spellLevelTooHigh": "Πρέπει να είσαι επίπεδο <%= level %> για να χρησιμοποιήσεις αυτό το ξόρκι.",
+    "spellAlreadyCast": "Η χρήση αυτής της ικανότητας δεν θα έχει καμία επιπλέον επίδραση."
 }

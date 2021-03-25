@@ -3,7 +3,7 @@
     "clearCompletedDescription": "Las tareas Pendientes completadas se eliminan después de 30 días para los no suscriptores y de 90 días para los suscriptores.",
     "clearCompletedConfirm": "¿Estas seguro que quieres borrar tus Pendientes completadas?",
     "addMultipleTip": "<strong>Tip:</strong> Para añadir múltiples <%= taskType %>, separa cada una con un salto de línea (Shift + Enter) y, luego, presiona \"Enter.\"",
-    "addATask": "Agrega una <%= type %>",
+    "addATask": "Agrega un/a <%= type %>",
     "editATask": "Editar <%= type %>",
     "createTask": "Crea una <%= type %>",
     "addTaskToUser": "Añadir tarea",

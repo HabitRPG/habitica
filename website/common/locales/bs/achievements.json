@@ -102,5 +102,8 @@
     "viewAchievements": "Pregled postignuća",
     "yourProgress": "Vaš napredak",
     "onboardingProgress": "<%= percentage %>% napredak",
-    "gettingStartedDesc": "Jednom kada završite pristupne zadatke osvojićete <strong>5 postignuća</strong> i <strong class=\"gold-amount\">100 zlatnika</strong>!"
+    "gettingStartedDesc": "Jednom kada završite pristupne zadatke osvojićete <strong>5 postignuća</strong> i <strong class=\"gold-amount\">100 zlatnika</strong>!",
+    "achievementLegendaryBestiaryModalText": "Skupili ste sve mitske ljubimce!",
+    "achievementLegendaryBestiaryText": "Izlegao je sve mitske ljubimce: Zmaja, Leteću svinju, Grifona, Morsku zmiju i Jednoroga!",
+    "achievementLegendaryBestiary": "Legendarni bestijarij"
 }

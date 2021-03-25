@@ -71,5 +71,11 @@
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Sağlık",
     "rageAttack": "Öfke Saldırısı:",
     "bossRage": "<%= currentRage %> / <%= maxRage %> Öfke",
-    "rageStrikes": "Öfke Saldırır"
+    "rageStrikes": "Öfke Saldırır",
+    "chatQuestStarted": "<%=questName %> göreviniz başladı.",
+    "questAlreadyStartedFriendly": "Görev çoktan başladı, ancak bir sonrakini her zaman yakalayabilirsiniz!",
+    "questAlreadyStarted": "Görev çoktan başladı.",
+    "bossDamage": "Boss'a zarar verdin!",
+    "questInvitationNotificationInfo": "Bir göreve davet edildiniz",
+    "hatchingPotionQuests": "Büyülü Kuluçka İksiri Görevleri"
 }

@@ -51,9 +51,9 @@
     "spellSpecialSandText": "Sand",
     "spellSpecialSandNotes": "Reverse th' spell that made ye a sea starrr.",
     "partyNotFound": "Crew not found",
-    "targetIdUUID": "\"targetId\" must be a valid User ID.",
-    "challengeTasksNoCast": "Castin' a skill on challenge tasks is nah allowed.",
-    "groupTasksNoCast": "Castin' a skill on ship tasks is nah allowed.",
+    "targetIdUUID": "\"targetId\" must be a valid Pirate ID.",
+    "challengeTasksNoCast": "Castin' a skill on challenge tasks be not allow'd.",
+    "groupTasksNoCast": "Castin' a skill on Squadron tasks be not allow'd.",
     "spellNotOwned": "Ye don't own this skill.",
     "spellLevelTooHigh": "Ye must be level <%= level %> t' use this skill.",
     "spellAlreadyCast": "Usin' this skill won't 'ave any additional effect."

@@ -2,7 +2,7 @@
     "settings": "Ρυθμίσεις",
     "language": "Γλώσσα",
     "americanEnglishGovern": "Σε περίπτωση ασυμφωνίας των μεταφράσεων, η έκδοση σε Αμερικάνικα Αγγλικά προτερεί.",
-    "helpWithTranslation": "Θα ήθελες να βοηθήσεις στη μετάφραση του Habitica; Τέλεια! Επισκέψου τότε <a href=\"https://trello.com/c/SvTsLdRF/12-translations\" target=\"_blank\">αυτήν</a> την κάρτα Trello.",
+    "helpWithTranslation": "Θα ήθελες να βοηθήσεις στη μετάφραση του Habitica; Τέλεια! Επισκέψου τη <a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">Συντεχνία των Επίδοξων Γλωσσολόγων</a>!",
     "stickyHeader": "Καρφίτσωμα της Κεφαλίδας",
     "newTaskEdit": "Άνοιγμα νέων Υποχρεώσεων σε κατάσταση επεξεργασίας",
     "dailyDueDefaultView": "Set Dailies default to 'due' tab",
@@ -177,5 +177,6 @@
     "usernameNotVerified": "Please confirm your username.",
     "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
     "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
-    "newPMNotificationTitle": "Νέο Μήνυμα από <%= name %>"
+    "newPMNotificationTitle": "Νέο Μήνυμα από <%= name %>",
+    "resetAccount": "Επαναφορά Λογαριασμού"
 }
