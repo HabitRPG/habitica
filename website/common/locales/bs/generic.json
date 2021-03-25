@@ -190,7 +190,7 @@
     "dismissAll": "Dismiss All",
     "messages": "Messages",
     "emptyMessagesLine1": "You don't have any messages",
-    "emptyMessagesLine2": "Send a message to start a conversation!",
+    "emptyMessagesLine2": "Korisniku možete poslati novu poruku tako što ćete posjetiti njegov profil i kliknuti dugme \"Poruka\".",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
     "letsgo": "Let's Go!",
     "selected": "Selected",
@@ -200,5 +200,6 @@
     "options": "Opcije",
     "finish": "Završeno",
     "demo": "Demo",
-    "congratulations": "Čestitke!"
+    "congratulations": "Čestitke!",
+    "loadEarlierMessages": "Učitaj prethodne poruke"
 }

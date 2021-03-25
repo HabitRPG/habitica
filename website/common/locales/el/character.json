@@ -182,7 +182,7 @@
     "offHand": "Άλλο Χέρι",
     "statPoints": "Πόντοι Στατιστικών",
     "pts": "Πόντοι",
-    "chatCastSpellUser": "<%= username %> ρίχνει το ξόρκι <%= spell %> στον  <%= target %>.",
+    "chatCastSpellUser": "<%= username %> ρίχνει το ξόρκι <%= spell %> στον <%= target %>.",
     "chatCastSpellParty": "<%= username %> ρίχνει το ξόρκι <%= spell %> για την ομάδα.",
     "purchasePetItemConfirm": "Αυτή η αγορά υπερβαίνει τον αριθμό αντικειμένων που χρειάζεσαι για να εκκολάψεις όλα τα δυνατά <%= itemText %> κατοικίδια. Είσαι σίγουρος;",
     "purchaseForGold": "Αγορά για <%= cost %> Χρυσό;"

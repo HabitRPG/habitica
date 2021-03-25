@@ -9,7 +9,7 @@
     "mysteryItem": "Jedinečné předměty každý měsíc",
     "mysteryItemText": "Každý měsíc obdržíš unikátní předmět pro svůj avatar! Navíc za každé tři měsíce nepřerušeného předplatného ti Tajemní cestovatelé časem zaručí přístup k historickým (a futuristickým!) předmětům.",
     "exclusiveJackalopePet": "Jedinečný mazlíček",
-    "giftSubscription": "Chceš někomu darovat předplatné?",
+    "giftSubscription": "Přejete si poskytnout výhody předplatného i někomu jinému?",
     "giftSubscriptionText4": "Děkujeme za podporu programu Habitica!",
     "groupPlans": "Skupinové plány",
     "subscribe": "Předplatit",
@@ -121,8 +121,8 @@
     "choosePaymentMethod": "Vyberte platební metodu",
     "buyGemsSupportsDevs": "Zakoupení drahokamů podporuje vývojáře a pomáhá udržovat Habitica v chodu",
     "support": "SUPPORT",
-    "gemBenefitLeadin": "Drahokamy vám umožní koupit zábavné doplňky pro váš účet, včetně:",
-    "gemBenefit1": "Unikátní a módní kostýmy pro váš avatar.",
+    "gemBenefitLeadin": "Co si lze koupit za drahokamy?",
+    "gemBenefit1": "Unikátní a slušivé kostýmy pro Váš avatar.",
     "gemBenefit2": "Pozadí pro ponoření vašeho avatara do světa Habitica!",
     "gemBenefit3": "Exciting Quest chains that drop pet eggs.",
     "gemBenefit4": "Reset your avatar's Stat Points and change its Class.",
@@ -147,5 +147,7 @@
     "confirmCancelSub": "Opravdu chcete zrušit předplatné? Ztratíte všechny své předplacené benefity.",
     "mysterySet201911": "Sada Křišťálového zaklínače",
     "mysterySet201910": "Sada Záhadného ohně",
-    "doubleDropCap": "Zdvojnásob kořist"
+    "doubleDropCap": "Zdvojnásob kořist",
+    "giftASubscription": "Darovat předplatné",
+    "viewSubscriptions": "Zobrazit předplatné"
 }

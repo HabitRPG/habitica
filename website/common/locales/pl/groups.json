@@ -348,7 +348,7 @@
     "blockedToSendToThisUser": "Nie możesz wysłać wiadomości do gracza, bo został on przez Ciebie zablokowany.",
     "PMDisabled": "Zablokuj Prywatne Wiadomości",
     "userWithUsernameOrUserIdNotFound": "Nazwa lub Numer Identyfikacyjny użytkownika nie znalezione.",
-    "usernameOrUserId": "Nazwa Użytkownika lub Numer Identyfikacyjny Użytkownika",
+    "usernameOrUserId": "Wpisz @nazwę_użytkownika lub ID Użytkownika",
     "sendGiftToWhom": "Do kogo chciałbyś wysłać prezent?",
     "selectGift": "Wybierz Prezent",
     "PMUnblockUserToSendMessages": "Odblokuj tego użytkownika, aby móc wysyłać oraz otrzymywać wiadomości.",
@@ -365,5 +365,10 @@
     "onlyPrivateGuildsCanUpgrade": "Tylko gildie prywatne podlegają aktualizacji do planu grupowego.",
     "bannedWordsAllowedDetail": "Zaznaczenie tej opcji zezwoli w tej gildii na używanie zabronionych słów.",
     "bannedWordsAllowed": "Zezwól na zabronione słowa",
-    "languageSettings": "Ustawienia języka"
+    "languageSettings": "Ustawienia języka",
+    "blockYourself": "Nie możesz zablokować samego siebie",
+    "features": "Funkcje",
+    "giftMessageTooLong": "Maksymalna długość wiadomości podarunkowej to <%= maxGiftMessageLength %>.",
+    "selectSubscription": "Wybierz Abonament",
+    "cannotRemoveQuestOwner": "Nie możesz usunąć właściciela aktywnej misji. Najpierw anuluj misję."
 }

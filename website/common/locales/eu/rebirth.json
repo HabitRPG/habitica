@@ -1,6 +1,6 @@
 {
     "rebirthNew": "Birjaiotzea: abentura berria eskuragai!",
-    "rebirthUnlock": "Birjaiotzea desblokeatu duz! Merkatuko gai berezi honek 1. mailan joko berri bat asteko aukera ematen dizu, zure zeregin, lorpen, maskota eta abar mantenduz. Erabili ezazu dena lortu duzula iruditzen zaizunean, Habitica-ri bizi berri bat emateko, edo eta ezaugarri berriak hasten ari den pertsonaia baten ikuspegi berritik ikusteko.",
+    "rebirthUnlock": "Birjaiotzea desblokeatu duz! Merkatuko gai berezi honek 1. mailan joko berri bat asteko aukera ematen dizu, zure zeregin, lorpen, maskota eta abar mantenduz. Erabili ezazu dena lortu duzula iruditzen zaizunean, Habitica-ri bizi berri bat emateko, edo eta ezaugarri berriak hasten ari den pertsonaia baten ikuspegi berritik ikusteko!",
     "rebirthAchievement": "Abentura berri bat hasi duzu! Hau zure <%= number %>-garren birjaiotzea da, eta iritsi zaren mailarik haundiena <%= level %>. mailara da. Lorpen hau pilatzeko, hasi zure hurrengo abentura berria maila hare eta haundiagora iritsi zarenean!",
     "rebirthAchievement100": "Abentura berri bat hasi duzu! Hau zure <%= number %>-garren birjaiotzea da, eta iritsi zaren mailarik haundiena <%= level %>. mailara da. Lorpen hau pilatzeko, hasi zure hurrengo abentura berria gutxienez 100. mailara iritsi zarenean!",
     "rebirthBegan": "Abentura berri bat hasi du",

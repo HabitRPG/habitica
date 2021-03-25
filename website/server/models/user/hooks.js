@@ -144,9 +144,21 @@ function _setUpNewUser (user) {
   user.items.quests.dustbunnies = 1;
   user.purchased.background.violet = true;
   user.preferences.background = 'violet';
-  if (moment().isBefore('2021-01-02')) {
-    user.items.gear.owned.head_special_nye = true;
-    user.items.gear.equipped.head = 'head_special_nye';
+  if (moment().isBefore('2021-03-15T08:00-05:00')) {
+    user.items.gear.owned.head_special_piDay = true;
+    user.items.gear.equipped.head = 'head_special_piDay';
+    user.items.gear.owned.shield_special_piDay = true;
+    user.items.gear.equipped.shield = 'shield_special_piDay';
+    user.items.food.Pie_Skeleton = 1;
+    user.items.food.Pie_Base = 1;
+    user.items.food.Pie_CottonCandyBlue = 1;
+    user.items.food.Pie_CottonCandyPink = 1;
+    user.items.food.Pie_Shade = 1;
+    user.items.food.Pie_White = 1;
+    user.items.food.Pie_Golden = 1;
+    user.items.food.Pie_Zombie = 1;
+    user.items.food.Pie_Desert = 1;
+    user.items.food.Pie_Red = 1;
   }
 
   user.markModified('items achievements');

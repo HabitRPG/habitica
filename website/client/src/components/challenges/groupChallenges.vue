@@ -118,7 +118,7 @@ export default {
       this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', { groupId: this.groupIdForChallenges });
     },
     createChallenge () {
-      this.$root.$emit('bv::show::modal', 'challenge-modal');
+      this.$root.$emit('habitica:create-challenge');
     },
     challengeCreated (challenge) {
       if (challenge.group._id !== this.groupIdForChallenges) return;

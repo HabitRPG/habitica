@@ -342,6 +342,14 @@ const armor = {
     con: 8,
     set: 'blueMoon',
   },
+  softPinkSuit: {
+    per: 12,
+    set: 'pinkLoungewear',
+  },
+  jadeArmor: {
+    per: 8,
+    set: 'jadeWarrior',
+  },
 };
 
 const body = {
@@ -684,6 +692,14 @@ const head = {
     int: 8,
     set: 'blueMoon',
   },
+  pinkFloppyHat: {
+    int: 12,
+    set: 'pinkLoungewear',
+  },
+  jadeHelm: {
+    con: 8,
+    set: 'jadeWarrior',
+  },
 };
 
 const shield = {
@@ -876,6 +892,11 @@ const shield = {
   blueMoonSai: {
     per: 8,
     set: 'blueMoon',
+  },
+  softPinkPillow: {
+    str: 6,
+    con: 6,
+    set: 'pinkLoungewear',
   },
 };
 
@@ -1170,6 +1191,10 @@ const weapon = {
   blueMoonSai: {
     str: 8,
     set: 'blueMoon',
+  },
+  jadeGlaive: {
+    str: 10,
+    set: 'jadeWarrior',
   },
 };
 

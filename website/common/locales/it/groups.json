@@ -369,5 +369,6 @@
     "cannotRemoveQuestOwner": "Non puoi rimuovere il proprietario della missione attiva. Interrompi prima la missione.",
     "features": "Caratteristiche",
     "giftMessageTooLong": "La lunghezza massima per i messaggi regalo è di <%= maxGiftMessageLength %>.",
-    "selectSubscription": "Seleziona abbonamento"
+    "selectSubscription": "Seleziona abbonamento",
+    "blockYourself": "Non puoi bloccare te stesso"
 }

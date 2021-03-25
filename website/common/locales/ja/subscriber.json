@@ -152,7 +152,7 @@
     "backgroundAlreadyOwned": "この背景はすでにもっています。",
     "mysticHourglassNeededNoSub": "このアイテムには神秘の砂時計が必要です。Habiticaの有料会員になることで神秘の砂時計を手に入れることができます。",
     "viewSubscriptions": "有料プランを見る",
-    "giftASubscription": "有料プランを贈る",
+    "giftASubscription": "有料プランをプレゼントする",
     "doubleDropCap": "落とし物を２倍に",
     "monthlyMysteryItems": "毎月のミステリーアイテム",
     "subscribersReceiveBenefits": "有料会員はこれらの有益な特典を受けられます！",
@@ -186,5 +186,7 @@
     "mysterySet202010": "トンデモこうもりセット",
     "mysterySet202011": "木の葉の魔法使いセット",
     "mysterySet202012": "凍てつく炎の不死鳥セット",
-    "mysterySet202101": "小粋なユキヒョウセット"
+    "mysterySet202101": "小粋なユキヒョウセット",
+    "mysterySet202102": "チャーミングなチャンピオンセット",
+    "mysterySet202103": "花見の宴セット"
 }

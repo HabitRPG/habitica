@@ -90,5 +90,11 @@
     "achievementFreshwaterFriendsModalText": "Investigationes animalium Salimandrae Mexicanae, Ranae, Hippopotami perfecisti!",
     "achievementFreshwaterFriendsText": "Investigationes animalium Salimandrae Mexicanae, Ranae, Hippopotami perfecit.",
     "achievementFreshwaterFriends": "Amici aquae dulcis",
-    "yourRewards": "Praemia tua"
+    "yourRewards": "Praemia tua",
+    "achievementSkeletonCrewModalText": "Omnia iumenta ossea domuisti!",
+    "achievementSkeletonCrewText": "Omnia iumenta ossea domuit.",
+    "achievementSkeletonCrew": "Turma Osseorum",
+    "achievementBoneCollectorModalText": "Omnia animalia ossea collegisti!",
+    "achievementBoneCollectorText": "Omnia animalia ossea collegit.",
+    "achievementBoneCollector": "Ossa colligens"
 }

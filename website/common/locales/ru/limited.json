@@ -81,7 +81,7 @@
     "scarecrowWarriorSet": "Боевое пугало (Воин)",
     "stitchWitchSet": "Лоскутная колдунья (Маг)",
     "potionerSet": "Зельевар (Целитель)",
-    "battleRogueSet": "Разбойник-мышехвост (Разбойник)",
+    "battleRogueSet": "Мышехвост (Разбойник)",
     "springingBunnySet": "Скачущий Зайчик (Целитель)",
     "grandMalkinSet": "Великий Малкин (Маг)",
     "cleverDogSet": "Мудрый Пёс (Вор)",
@@ -194,5 +194,7 @@
     "winter2021HollyIvyRogueSet": "Остролист и плющ (Разбойник)",
     "winter2021ArcticExplorerHealerSet": "Исследователь Арктики (Целитель)",
     "winter2021WinterMoonMageSet": "Зимняя луна (Маг)",
-    "winter2021IceFishingWarriorSet": "Рыбак на льду (Воин)"
+    "winter2021IceFishingWarriorSet": "Рыбак на льду (Воин)",
+    "g1g1Returning": "В честь праздничного сезона мы возвращаем очень специальное преложение. Теперь вы можете подарить подписку другу и получить точно такую же бесплатно!",
+    "septemberYYYY": "Сентябрь <%= year %>"
 }

@@ -374,7 +374,7 @@ function _getMembersForItem (type) {
  * @apiName GetMembersForGroup
  * @apiGroup Member
  *
- * @apiParam (Path) {UUID} groupId The group id
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party is accepted)
  * @apiParam (Query) {UUID} lastId Query parameter to specify the last member
  *                                 returned in a previous request to this route and
  *                                 get the next batch of results.
@@ -422,7 +422,7 @@ api.getMembersForGroup = {
  * @apiName GetInvitesForGroup
  * @apiGroup Member
  *
- * @apiParam (Path) {UUID} groupId The group id
+ * @apiParam (Path) {UUID} groupId The group id ('party' for the user party is accepted)
  * @apiParam (Query) {UUID} lastId Query parameter to specify the last invite
  *                                 returned in a previous request to this route and
  *                                 get the next batch of results.

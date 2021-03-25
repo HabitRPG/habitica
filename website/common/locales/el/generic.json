@@ -195,5 +195,10 @@
     "letsgo": "Let's Go!",
     "selected": "Selected",
     "howManyToBuy": "How many would you like to buy?",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Contact the Moderation Team",
+    "congratulations": "Συγχαρητήρια!",
+    "options": "Επιλογές",
+    "loadEarlierMessages": "Φόρτωση Προηγούμενων Μηνυμάτων",
+    "demo": "Δοκιμή",
+    "finish": "Τερματισμός"
 }

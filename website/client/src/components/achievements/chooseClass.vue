@@ -212,8 +212,10 @@ export default {
       currentEvent: 'worldState.data.currentEvent',
     }),
     eventName () {
-      if (!this.currentEvent || !this.currentEvent.event || this.currentEvent.season === 'normal') return null;
-      return this.currentEvent.event.replace('NoPromo', '');
+      if (
+        !this.currentEvent || !this.currentEvent.event || !this.currentEvent.gear
+      ) return null;
+      return this.currentEvent.event;
     },
   },
   methods: {

@@ -102,5 +102,8 @@
   "achievementSeeingRedModalText": "You collected all the Red Pets!",
   "achievementRedLetterDay": "Red Letter Day",
   "achievementRedLetterDayText": "Has tamed all Red Mounts.",
-  "achievementRedLetterDayModalText": "You tamed all the Red Mounts!"
+  "achievementRedLetterDayModalText": "You tamed all the Red Mounts!",
+  "achievementLegendaryBestiary": "Legendary Bestiary",
+  "achievementLegendaryBestiaryText": "Has hatched all the mythical pets: Dragon, Flying Pig, Gryphon, Sea Serpent, and Unicorn!",
+  "achievementLegendaryBestiaryModalText": "You collected all the mythical pets!"
 }

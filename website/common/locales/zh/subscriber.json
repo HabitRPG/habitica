@@ -151,7 +151,7 @@
     "mysterySet202001": "寓言的狐狸套装",
     "backgroundAlreadyOwned": "你已经拥有这只背景。",
     "mysticHourglassNeededNoSub": "这个物品需要一个神秘沙漏。如果你成为Habitica的订阅者，你可以获得神秘沙漏。",
-    "viewSubscriptions": "看订阅",
+    "viewSubscriptions": "查看订阅",
     "mysterySet202002": "优雅爱人套装",
     "cancelSubAlternatives": "如果您遇到技术问题或Habitica不能满足您的要求，请考虑<a href='mailto:admin@habitica.com'>与我们联系</a>。我们希望帮助您从Habitica获得最大的收益。",
     "cancelYourSubscription": "取消您的订阅？",
@@ -188,5 +188,7 @@
     "dropCapReached": "你的掉落物品已达当日上限！",
     "mysterySet202011": "覆叶魔术师套装",
     "mysterySet202012": "霜焰凤凰套装",
-    "mysterySet202101": "时髦雪豹套装"
+    "mysterySet202101": "时髦雪豹套装",
+    "mysterySet202102": "迷人冠军套装",
+    "mysterySet202103": "赏花套装"
 }

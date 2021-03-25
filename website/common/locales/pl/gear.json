@@ -1771,5 +1771,16 @@
     "bodyMystery202008Notes": "Tymczasem Twoje skrzydła są złożone. Lecz jeśli zakończysz udzielania swojej mądrości lub zobaczysz zdobycz pośród traw, uważaj! Brak dodatkowych korzyści. Przedmiot Subskrybenta, sierpień 2020.",
     "bodyMystery202008Text": "Płaszcz Sowiastej Wyroczni",
     "headMystery202008Notes": "KTO? KTO? KTO zwraca się o poradę? Brak dodatkowych korzyści. Przedmiot Subskrybenta, sierpień 2020.",
-    "headMystery202008Text": "Stroik Sowiastej Wyroczni"
+    "headMystery202008Text": "Stroik Sowiastej Wyroczni",
+    "weaponSpecialSummer2019HealerText": "Bańkowa Laska",
+    "weaponSpecialSummer2019WarriorText": "Czerwony Koral",
+    "weaponSpecialSpring2019RogueText": "Błyskawica",
+    "weaponSpecialWinter2021WarriorNotes": "Dzięki temu możesz złowić dużą sztukę! Zwiększa Siłę o <%= str %>. Edycja Limitowana Zimowe Wyposażenia 2020-2021.",
+    "shieldSpecialWinter2021WarriorNotes": "Opowiedz wszystkim swoim znajomym o NAPRAWDĘ dużej rybie, którą złowiłeś! Ale to, czy powiesz im, że jest zrobiona z plastiku i śpiewa piosenki, zależy od ciebie. Zwiększa Kondycję o <%= con %>. Edycja Limitowana Zimowego Wyposażenia 2020-2021.",
+    "shieldSpecialWinter2021WarriorText": "Duża Ryba",
+    "headSpecialWinter2021WarriorNotes": "Otul się przed chłodem w tym przytulnym kapturze. Zwiększa Siłę o <%= str %>. Edycja Limitowana Zimowego Wyposażenia 2020-2021.",
+    "armorSpecialWinter2021WarriorNotes": "Jeśli zamierzasz wyjść w taką pogodę, lepiej ubierz się ciepło. Zwiększa Kondycję o <%= con %>. Edycja Limitowana Zimowego Wyposażenia 2020-2021.",
+    "armorSpecialWinter2021WarriorText": "Ocieplana Kurtka",
+    "headSpecialWinter2021WarriorText": "Ocieplany Kaptur",
+    "weaponSpecialWinter2021WarriorText": "Potężna Wędka"
 }

@@ -30,10 +30,10 @@
     "achievementFreshwaterFriends": "Freshwater prijatelji",
     "achievementBareNecessitiesModalText": "Prikupili ste majmuna, ljenjivca i treling u potrazi za ljubimcima!",
     "achievementBareNecessitiesText": "Prikupljeni su majmun, ljenjivac i treling u potrazi za ljubimcima.",
-    "achievementBareNecessities": "Bare Necessities",
+    "achievementBareNecessities": "Gole potrebe",
     "achievementBugBonanzaModalText": "Prikupili ste bubu, leptira, puža i pauka u potrazi za ljubimcima!",
     "achievementBugBonanzaText": "Prikupljeni su buba, leptir, puž i pauk u potrazi za ljubimcima.",
-    "achievementBugBonanza": "Bug Bonanza",
+    "achievementBugBonanza": "Buba Bonanza",
     "achievementRosyOutlookModalText": "Ukrotili ste sve pamučne slatke ružičaste jahalice!",
     "achievementRosyOutlookText": "Ukroćene su sve pamučni slatke ružičaste jahalice.",
     "achievementRosyOutlook": "Ružičasti izgled",
@@ -102,5 +102,8 @@
     "viewAchievements": "Pregled postignuća",
     "yourProgress": "Vaš napredak",
     "onboardingProgress": "<%= percentage %>% napredak",
-    "gettingStartedDesc": "Jednom kada završite pristupne zadatke osvojićete <strong>5 postignuća</strong> i <strong class=\"gold-amount\">100 zlatnika</strong>!"
+    "gettingStartedDesc": "Jednom kada završite pristupne zadatke osvojićete <strong>5 postignuća</strong> i <strong class=\"gold-amount\">100 zlatnika</strong>!",
+    "achievementLegendaryBestiaryModalText": "Skupili ste sve mitske ljubimce!",
+    "achievementLegendaryBestiaryText": "Izlegao je sve mitske ljubimce: Zmaja, Leteću svinju, Grifona, Morsku zmiju i Jednoroga!",
+    "achievementLegendaryBestiary": "Legendarni bestijarij"
 }

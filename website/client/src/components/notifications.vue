@@ -115,6 +115,7 @@ import { toNextLevel } from '@/../../common/script/statHelpers';
 import { shouldDo } from '@/../../common/script/cron';
 import { onOnboardingComplete } from '@/../../common/script/libs/onboarding';
 import { mapState } from '@/libs/store';
+import { MAX_LEVEL_HARD_CAP } from '@/../../common/script/constants';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 
@@ -386,6 +387,14 @@ const NOTIFICATIONS = {
       achievement: 'redLetterDay',
     },
   },
+  ACHIEVEMENT_LEGENDARY_BESTIARY: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementLegendaryBestiary')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'legendaryBestiary',
+    },
+  },
 };
 
 export default {
@@ -448,7 +457,7 @@ export default {
       'ONBOARDING_COMPLETE', 'FIRST_DROPS', 'ACHIEVEMENT_BUG_BONANZA', 'ACHIEVEMENT_BARE_NECESSITIES',
       'ACHIEVEMENT_FRESHWATER_FRIENDS', 'ACHIEVEMENT_GOOD_AS_GOLD', 'ACHIEVEMENT_ALL_THAT_GLITTERS',
       'ACHIEVEMENT_BONE_COLLECTOR', 'ACHIEVEMENT_SKELETON_CREW', 'ACHIEVEMENT_SEEING_RED',
-      'ACHIEVEMENT_RED_LETTER_DAY',
+      'ACHIEVEMENT_RED_LETTER_DAY', 'ACHIEVEMENT_LEGENDARY_BESTIARY',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -643,7 +652,7 @@ export default {
         const lvlUps = afterLvl - beforeLvl;
         let exp = afterExp - beforeExp;
 
-        if (lvlUps > 0) {
+        if (lvlUps > 0 || afterLvl >= MAX_LEVEL_HARD_CAP) {
           let level = Math.trunc(beforeLvl);
           exp += toNextLevel(level);
 
@@ -869,6 +878,7 @@ export default {
           case 'ACHIEVEMENT_SKELETON_CREW':
           case 'ACHIEVEMENT_SEEING_RED':
           case 'ACHIEVEMENT_RED_LETTER_DAY':
+          case 'ACHIEVEMENT_LEGENDARY_BESTIARY':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { model as User } from '../../website/server/models/user';
 
-const MIGRATION_NAME = '20200314_pi_day';
+const MIGRATION_NAME = '20210314_pi_day';
 
 const progressCount = 1000;
 let count = 0;
@@ -54,7 +54,7 @@ async function updateUser (user) {
 export default async function processUsers () {
   const query = {
     migration: { $ne: MIGRATION_NAME },
-    'auth.timestamps.loggedin': { $gt: new Date('2020-02-15') },
+    'auth.timestamps.loggedin': { $gt: new Date('2021-02-15') },
   };
 
   const fields = {
