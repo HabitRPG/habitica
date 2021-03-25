@@ -2299,5 +2299,13 @@
     "headArmoirePinkFloppyHatNotes": "このシンプルな帽子にはたくさんの呪文が縫い込まれており、それがこの完璧なピンク色をもたらしているのです。知能が<%= int %>上がります。ラッキー宝箱：ピンクの部屋着セット(3個中1個目のアイテム)。",
     "headArmoirePinkFloppyHatText": "ピンクのチューリップハット",
     "headMystery202103Notes": "最初に咲いた花の枝で作られたこの冠で春をオシャレにお迎えしましょう。効果なし。2021年3月の有料会員アイテム。",
-    "headMystery202103Text": "花見の宴の冠"
+    "headMystery202103Text": "花見の宴の冠",
+    "weaponSpecialSpring2021RogueNotes": "二刀流よりも強い武器を知ってますか？リンネソウなら四刀流です！力が<%= str %>上がります。2021年春の限定装備。",
+    "weaponSpecialSpring2021WarriorNotes": "太陽の力を利用して敵と戦いましょう。サンストーンがあなたに幸運を授けます！力が<%= str %>上がります。2021年春の限定装備。",
+    "weaponSpecialSpring2021WarriorText": "太陽のハンマー",
+    "weaponSpecialSpring2021RogueText": "リンネソウの花",
+    "weaponSpecialSpring2021HealerNotes": "樹皮と葉からなるこの新鮮な切り枝は痛みを消す能力を持つことで知られています。もしくは、植えて成長を観察しましょう！知能が<%= int %>上がります。2021年春の限定装備。",
+    "weaponSpecialSpring2021HealerText": "ヤナギの枝",
+    "weaponSpecialSpring2021MageNotes": "動かし、リズム、足踏み、休む！スグにこの素晴らしい羽根をふるって魔法の音楽の指揮を執りましょう。知能が<%= int %>上がります。2021年春の限定装備。",
+    "weaponSpecialSpring2021MageText": "白鳥の羽根飾り"
 }

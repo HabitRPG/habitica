@@ -2299,5 +2299,8 @@
     "armorArmoireSoftPinkSuitNotes": "Il rosa è un colore rilassante. Indossa questo set da casa per un po' di pace durante la routine quotidiana! Aumenta la percezione di <%= per %>. Scrigno Incantato: Set abiti comodi rosa (item 2 of 3).",
     "armorArmoireSoftPinkSuitText": "Abito rosa morbido",
     "armorMystery202103Notes": "Questi vesti morbide e ventilate sono perfette per un tea party sotto i vistosi alberi primaverili. Non conferisce alcun bonus. Oggetto abbonati marzo 2021.",
-    "armorMystery202103Text": "Tunica da osservazione fioriture"
+    "armorMystery202103Text": "Tunica da osservazione fioriture",
+    "weaponSpecialSpring2021RogueNotes": "Sai cos'è meglio di brandire fiori doppi? Brandire fiori quadrupli! Aumenta la Forza di <%= str %>. Edizione limitata 2021 Attrezzatura di primavera.",
+    "weaponSpecialSpring2021WarriorText": "Martello del Sole",
+    "weaponSpecialSpring2021RogueText": "Gemma di Fiori Gemelli"
 }
