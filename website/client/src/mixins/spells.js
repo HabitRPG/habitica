@@ -35,10 +35,10 @@ export default {
       }
 
       if (this.user.stats.mp < spell.mana) return this.text(this.$t('notEnoughMana'));
-      if (this.user.stats.lvl < spell.lvl) return this.$t('notEnoughLvl');
+      if (this.user.stats.lvl < spell.lvl) return this.text(this.$t('notEnoughLvl'));
 
       if (spell.immediateUse && this.user.stats.gp < spell.value) {
-        return this.$t('notEnoughGold');
+        return this.text(this.$t('notEnoughGold'));
       }
 
       this.potionClickMode = true;
