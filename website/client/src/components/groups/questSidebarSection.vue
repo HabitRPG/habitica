@@ -91,6 +91,12 @@
                 </div>
               </div>
             </div>
+            <div v-if="hasPendingQuestItems"
+                 class="item-progress-pending mb-2">
+              <div class="pending-amount pt-2 pb-2">
+                {{ $t('questItemsPending', { amount: user.party.quest.progress.collectedItems }) }}
+              </div>
+            </div>
           </div>
           <div
             v-if="questData.boss"
@@ -399,7 +405,6 @@
     }
 
     .boss-info {
-      margin: 0 auto;
       text-align: left;
 
       .boss-name {
@@ -586,6 +591,25 @@
     }
   }
 
+  .item-progress-pending {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-bottom: -1rem !important;
+
+    background-color: $gray-200;
+
+    .pending-amount {
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1.33;
+      text-align: center;
+
+      color: $white;
+    }
+  }
+
   .not-participating {
     opacity: 0.5;
   }
@@ -676,6 +700,9 @@ export default {
       }
 
       return count;
+    },
+    hasPendingQuestItems () {
+      return Boolean(this.user.party.quest?.progress?.collectedItems);
     },
   },
   methods: {
