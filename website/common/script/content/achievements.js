@@ -237,6 +237,11 @@ const basicAchievs = {
     titleKey: 'achievementLegendaryBestiary',
     textKey: 'achievementLegendaryBestiaryText',
   },
+  seasonalSpecialist: {
+    icon: 'achievement-seasonalSpecialist',
+    titleKey: 'achievementSeasonalSpecialist',
+    textKey: 'achievementSeasonalSpecialistText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
