@@ -455,7 +455,7 @@ const wacky = {
       previousDate: t('marchYYYY', { year: 2019 }),
     }),
     canBuy () {
-      return moment().isBefore('2020-05-02');
+      return moment().isBetween('2021-04-01T08:00-05:00', '2021-04-30T20:00-05:00');
     },
   },
   Dessert: {
