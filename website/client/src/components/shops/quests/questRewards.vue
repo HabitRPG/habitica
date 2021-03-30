@@ -27,7 +27,7 @@
     </div>
     <div
       v-if="opened"
-      class="content"
+      class="content ml-3"
     >
       <item-with-label
         v-for="drop in getDropsList(quest.drop.items, true)"
@@ -200,8 +200,6 @@ export default {
     gap: 8px;
     flex-wrap: wrap;
     justify-content: center;
-
-    padding-left: 1.5rem;
 
     padding-bottom: 0.25rem;
   }
