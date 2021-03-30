@@ -185,7 +185,7 @@
     "eggNotes": "Ache uma poção de eclosão e use-a neste ovo e ele chocará como <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Básico",
     "hatchingPotionWhite": "Branco",
-    "hatchingPotionDesert": "Deserto",
+    "hatchingPotionDesert": "do Deserto",
     "hatchingPotionRed": "Vermelho",
     "hatchingPotionShade": "Sombrio",
     "hatchingPotionSkeleton": "Esqueleto",
@@ -355,7 +355,7 @@
     "hatchingPotionAmber": "Âmbar",
     "hatchingPotionAurora": "Aurora",
     "hatchingPotionRuby": "Rubi",
-    "hatchingPotionBirchBark": "Casca de bétula",
+    "hatchingPotionBirchBark": "Casca de Bétula",
     "hatchingPotionDessert": "Confecção",
     "hatchingPotionFluorite": "Fluorita",
     "hatchingPotionSandSculpture": "Escultura de Areia",
@@ -364,5 +364,6 @@
     "hatchingPotionVampire": "Vampiro",
     "hatchingPotionBlackPearl": "Pérola Negra",
     "hatchingPotionAutumnLeaf": "Folha de Outono",
-    "hatchingPotionStainedGlass": "Vitral Colorido"
+    "hatchingPotionStainedGlass": "Vitral Colorido",
+    "hatchingPotionPolkaDot": "com Bolinhas"
 }

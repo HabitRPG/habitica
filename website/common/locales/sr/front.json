@@ -29,7 +29,7 @@
     "logout": "Odjava",
     "marketing1Header": "Improve Your Habits by Playing a Game",
     "marketing1Lead1Title": "Your Life, the Role Playing Game",
-    "marketing1Lead1": "Habitica je video igra koja Vam pomaže da steknete bolje navike u stvarnom životu tako što organizuje vaše svakodnevne aktivnosti u stilu igre, a Vaše obaveze pretvara u protivnike koje treba poraziti u borbi. Što se bolje nosite sa svojim obavezama, brže ćete napredovati u igri. Ako postanete nemarni u stvarnom životu, Vaš lik u igri trpeće posledice.",
+    "marketing1Lead1": "Habitica je video igra koja Vam pomaže da steknete bolje navike u stvarnom životu tako što organizuje vaše svakodnevne aktivnosti kao igru, a Vaše obaveze pretvara u protivnike koje treba poraziti u borbi. Što se bolje nosite sa svojim obavezama, brže ćete napredovati u igri. Ako postanete nemarni u stvarnom životu, Vaš lik u igri trpeće posledice.",
     "marketing1Lead2Title": "Nabavite opremu",
     "marketing1Lead2": "Improve your habits to build up your avatar. Show off the sweet gear you've earned!",
     "marketing1Lead3Title": "Nađite nasumične nagrade",
@@ -118,7 +118,7 @@
     "missingNewPassword": "Missing new password.",
     "invalidEmailDomain": "You cannot register with emails with the following domains: <%= domains %>",
     "wrongPassword": "Wrong password.",
-    "incorrectDeletePhrase": "Please type <%= magicWord %> in all caps to delete your account.",
+    "incorrectDeletePhrase": "Molimo ukucajte <%= magicWord %> velikim slovima kako biste obrisali ovaj nalog.",
     "notAnEmail": "Invalid email address.",
     "emailTaken": "Email address is already used in an account.",
     "newEmailRequired": "Missing new email address.",
@@ -183,5 +183,6 @@
     "getStarted": "Get Started!",
     "mobileApps": "Mobile Apps",
     "learnMore": "Learn More",
-    "communityInstagram": "Instagram"
+    "communityInstagram": "Instagram",
+    "minPasswordLength": "Lozinka mora da sadrži osam ili više karaktera."
 }

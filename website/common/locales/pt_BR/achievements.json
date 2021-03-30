@@ -105,5 +105,7 @@
     "achievementSeeingRedText": "Coletou todos os Mascotes vermelhos.",
     "achievementLegendaryBestiaryText": "Eclodiu todos os Mascotes míticos: Dragão, Porco Voador, Grifo, Serpente Marinha e Unicórnio!",
     "achievementLegendaryBestiary": "Bestiário Lendário",
-    "achievementLegendaryBestiaryModalText": "Você coletou todos os Mascotes míticos!"
+    "achievementLegendaryBestiaryModalText": "Você coletou todos os Mascotes míticos!",
+    "achievementSeasonalSpecialist": "Especialista das Missões Sazonais",
+    "achievementSeasonalSpecialistModalText": "Você completou todas as missões sazonais!"
 }
