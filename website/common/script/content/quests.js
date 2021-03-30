@@ -3586,7 +3586,9 @@ const quests = {
     value: 4,
     category: 'hatchingPotion',
     event: EVENTS.spring2021,
-    canBuy: moment().isBetween('2021-04-01T08:00-05:00', '2021-04-30T20:00-05:00'),
+    canBuy () {
+      return moment().isBetween('2021-04-01T08:00-05:00', '2021-04-30T20:00-05:00');
+    },
     boss: {
       name: t('questWaffleBoss'),
       hp: 500,
