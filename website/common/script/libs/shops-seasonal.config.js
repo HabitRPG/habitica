@@ -18,8 +18,8 @@ export default {
   currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Closed',
 
   dateRange: {
-    start: moment(CURRENT_EVENT.start).format('YYYY-MM-DD'),
-    end: moment(CURRENT_EVENT.end).format('YYYY-MM-DD'),
+    start: SHOP_OPEN ? moment(CURRENT_EVENT.start).format('YYYY-MM-DD') : moment().subtract(1, 'days').toDate(),
+    end: SHOP_OPEN ? moment(CURRENT_EVENT.end).format('YYYY-MM-DD') : moment().subtract(1, 'seconds').toDate(),
   },
 
   availableSets: SHOP_OPEN
