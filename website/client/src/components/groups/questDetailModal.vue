@@ -44,6 +44,11 @@
             :item="item"
             :item-content-class="item.class"
           >
+            <countBadge
+              slot="itemBadge"
+              :show="item.amount !== 1"
+              :count="item.amount"
+            />
             <template
               slot="popoverContent"
               slot-scope="context"
@@ -280,6 +285,7 @@
 </style>
 
 <script>
+import orderBy from 'lodash/orderBy';
 import { mapState } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
 
@@ -294,9 +300,11 @@ import SelectTranslatedArray from '../tasks/modal-controls/selectTranslatedArray
 import QuestInfo from '../shops/quests/questInfo';
 import Item from '@/components/inventory/item';
 import getItemInfo from '../../../../common/script/libs/getItemInfo';
+import CountBadge from '../ui/countBadge';
 
 export default {
   components: {
+    CountBadge,
     QuestRewards,
     questDialogContent,
     closeIcon,
@@ -340,14 +348,16 @@ export default {
 
     questsInfoList () {
       const availableQuests = Object.entries(this.user.items.quests)
-        .filter(([, amount]) => amount > 0)
-        .map(([key]) => key);
+        .filter(([, amount]) => amount > 0);
 
-      return availableQuests.map(key => {
+      return orderBy(availableQuests.map(([key, amount]) => {
         const questItem = quests.quests[key];
 
-        return getItemInfo(this.user, 'quests', questItem);
-      });
+        return {
+          ...getItemInfo(this.user, 'quests', questItem),
+          amount,
+        };
+      }), item => (this.sortBy === 'AZ' ? item.text : item.amount));
     },
   },
   mounted () {
