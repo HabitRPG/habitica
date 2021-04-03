@@ -9,18 +9,32 @@
       <close-icon @click="close()" />
     </div>
     <h2 class="text-center textCondensed" v-once>
-      {{ $t('participantsTitle') }} WIP
+      {{ $t('invitations') }}
     </h2>
     <div
       v-for="member in members"
       :key="member._id"
       class="member-row"
     >
-      <div class="class-icon"></div>
-      <div class="usernames">
-        <strong :class="{'declined-name': member.accepted === false}">{{ member.name }}</strong>
+      <div class="class-icon">
+        <class-badge
+          v-if="member.stats"
+          :member-class="member.stats.class"
+          style="--badge-size: 40px"
+        />
       </div>
-      <div class="status">
+      <div class="usernames">
+        <user-label :user="member" class="user-label" /> <br>
+        <span class="username">
+          @{{ member.auth.local.username }}
+        </span>
+      </div>
+      <div :class="{
+        'status': true,
+        'accepted': member.accepted === true,
+        'declined': member.accepted === false,
+        'pending': member.accepted === null
+      }">
         <div
           v-if="member.accepted === true"
           class="accepted float-right"
@@ -38,6 +52,18 @@
           class="pending float-right"
         >
           {{ $t('pending') }}
+        </div>
+        <div class="circle">
+          <div
+            v-if="member.accepted === true"
+            class="svg-icon color"
+            v-html="icons.check"
+          ></div>
+          <div
+            v-if="member.accepted === false"
+            class="svg-icon color"
+            v-html="icons.close"
+          ></div>
         </div>
       </div>
     </div>
@@ -79,6 +105,14 @@
       // so that the rounded corners still apply
       overflow: hidden;
     }
+
+    .user-label {
+      font-size: 14px;
+    }
+
+    .username {
+      font-size: 12px;
+    }
   }
 </style>
 
@@ -95,9 +129,15 @@
   }
 
   .member-row {
+    padding: 0.75rem 1.5rem;
+
     background-color: $gray-700;
     display: flex;
     flex-direction: row;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $gray-500;
+    }
   }
 
   .class-icon {
@@ -110,6 +150,68 @@
 
   .status {
     flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .class-icon {
+    display: flex;
+    align-items: center;
+  }
+
+  .circle {
+    height: 2rem;
+    width: 2rem;
+
+    margin-left: 0.5rem;
+    border: 2px solid $gray-300;
+    border-radius: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .accepted {
+    color: $green-10;
+
+    .circle {
+      border-color: $green-50;
+      background: $green-50;
+
+      color: white;
+
+      .svg-icon {
+        height: 10px;
+        width: 13px;
+      }
+    }
+  }
+
+  .pending {
+    color: $gray-100;
+  }
+
+  .declined {
+    color: $maroon-10;
+
+    .circle {
+      border-color: $maroon-100;
+      background: $maroon-100;
+
+      color: white;
+
+      .svg-icon {
+        height: 12px;
+        width: 12px;
+
+        ::v-deep {
+          path {
+            stroke: white;
+          }
+        }
+      }
+    }
   }
 
   #invitation-list_modal_body {
@@ -126,10 +228,25 @@
 import { mapGetters } from '@/libs/store';
 
 import CloseIcon from '../shared/closeIcon';
+import ClassBadge from '../members/classBadge';
+import UserLabel from '../userLabel';
+
+import svgClose from '@/assets/svg/close.svg';
+import svgCheck from '@/assets/svg/check.svg';
 
 export default {
   components: {
+    UserLabel,
+    ClassBadge,
     CloseIcon,
+  },
+  data () {
+    return {
+      icons: Object.freeze({
+        close: svgClose,
+        check: svgCheck,
+      }),
+    };
   },
   props: ['group'],
   computed: {
@@ -139,9 +256,8 @@ export default {
     members () {
       const partyMembers = this.partyMembers || [];
       return partyMembers.map(member => ({
-        name: member.profile.name,
-        accepted: this.group.quest.members[member._id],
-        _id: member._id,
+        ...member,
+        accepted: this.group.quest.members[member._id] && false,
       }));
     },
   },

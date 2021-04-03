@@ -12,10 +12,10 @@
 @import '~@/assets/scss/colors.scss';
 
 .class-badge {
-  $badge-size: 32px;
+  --badge-size: 32px;
 
-  width: $badge-size;
-  height: $badge-size;
+  width: var(--badge-size);
+  height: var(--badge-size);
   background: $white;
   box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
   border-radius: 100px;
@@ -23,13 +23,13 @@
   &.under-avatar {
     position: absolute;
     left: calc(50% - (16px));
-    bottom: -($badge-size / 2);
+    bottom: -(var(--badge-size) / 2);
     z-index: 1;
   }
 
   .svg-icon {
-    width: 19px;
-    height: 19px;
+    width: 20px;
+    height: 20px;
   }
 }
 </style>
