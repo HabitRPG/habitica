@@ -27,7 +27,7 @@
     </div>
     <div
       v-if="opened"
-      class="content ml-3"
+      class="content ml-3 mr-3"
     >
       <item-with-label
         v-for="drop in getDropsList(quest.drop.items, true)"
@@ -81,6 +81,11 @@
         :key="drop.key"
         :item="{}"
       >
+        <countBadge
+          slot="badges"
+          :show="drop.amount !== 1"
+          :count="drop.amount"
+        />
         <div slot="itemImage">
           <div :class="getDropIcon(drop)"></div>
         </div>
@@ -109,9 +114,11 @@ import ItemWithLabel from '../itemWithLabel';
 import { QuestHelperMixin } from './quest-helper.mixin';
 import EquipmentAttributesPopover from '@/components/inventory/equipment/attributesPopover';
 import QuestPopover from './questPopover';
+import CountBadge from '../../ui/countBadge';
 
 export default {
   components: {
+    CountBadge,
     QuestPopover,
     ItemWithLabel,
     SectionButton,

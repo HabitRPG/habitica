@@ -1,3 +1,4 @@
+import groupBy from 'lodash/groupBy';
 import { mapState } from '../../../libs/store';
 
 export const QuestHelperMixin = {
@@ -27,7 +28,7 @@ export const QuestHelperMixin = {
     getDropsList (drops, ownerOnly) {
       if (!drops) return [];
 
-      return drops.filter(drop => {
+      const dropList = drops.filter(drop => {
         if (ownerOnly) {
           return drop.onlyOwner;
         }
@@ -44,6 +45,12 @@ export const QuestHelperMixin = {
           text: item.text(),
         };
       });
+
+      return Object.entries(groupBy(dropList, e => `${e.type}_${e.key}`))
+        .map(([, entries]) => ({
+          ...entries[0],
+          amount: entries.length,
+        }));
     },
   },
 };
