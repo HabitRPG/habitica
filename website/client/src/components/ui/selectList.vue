@@ -10,6 +10,7 @@
       @hide="isOpened = false"
     >
       <template v-slot:button-content>
+        BLAH BLAH BLAH
         <slot
           name="item"
           :item="selected"
@@ -52,6 +53,12 @@
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
+
+  .select-list .btn.dropdown-toggle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   .select-list ::v-deep .selectListItem {
     position: relative;
