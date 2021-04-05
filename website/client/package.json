@@ -15,7 +15,7 @@
   "dependencies": {
     "@storybook/addon-actions": "^6.1.15",
     "@storybook/addon-knobs": "^6.1.15",
-    "@storybook/addon-links": "^6.1.15",
+    "@storybook/addon-links": "^6.2.2",
     "@storybook/addon-notes": "^5.3.21",
     "@storybook/vue": "^6.1.15",
     "@vue/cli-plugin-babel": "^4.5.11",
