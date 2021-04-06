@@ -190,7 +190,7 @@
     "dismissAll": "Dismiss All",
     "messages": "Messages",
     "emptyMessagesLine1": "You don't have any messages",
-    "emptyMessagesLine2": "Send a message to start a conversation!",
+    "emptyMessagesLine2": "Μπορείς να στείλεις ένα νέο μήνυμα σε κάποιον χρήστη, πηγαίνοντας στο προφίλ του και πατώντας του κουμπί \"Μήνυμα\".",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
     "letsgo": "Let's Go!",
     "selected": "Selected",

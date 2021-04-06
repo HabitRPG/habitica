@@ -1300,7 +1300,7 @@
     "shieldSpecialTakeThisNotes": "この盾は、Take This 提供のチャレンジに参加することで手に入れることができます。おめでとう!　すべての能力値が<%= attrs %>上がります。",
     "shieldSpecialGoldenknightText": "ムステインのマイルストーン・マッシュ・モーニングスター",
     "shieldSpecialGoldenknightNotes": "ミーティング、モンスター、マンネリ : もう終わり!　マッシュしよう!　体質と知覚が<%= attrs %>ずつ上がります。",
-    "shieldSpecialMoonpearlShieldText": "月真珠の盾",
+    "shieldSpecialMoonpearlShieldText": "ムーンパールの盾",
     "shieldSpecialMoonpearlShieldNotes": "速く泳ぎ、多少の防御もできるよう、デザインされています。体質が<%= con %>上がります。",
     "shieldSpecialMammothRiderHornText": "マンモス乗りの角笛",
     "shieldSpecialMammothRiderHornNotes": "ひとたびこのローズクオーツの角笛を吹き鳴らせば、大いなる魔法の力が喚び出されます。力が<%= str %>上がります。",
@@ -2327,5 +2327,9 @@
     "headSpecialSpring2021HealerNotes": "泣かないで、友よ！あなたの苦しみを和らげるために治療師がここにいます！知能が<%= int %>上がります。2021年春の限定装備。",
     "headSpecialSpring2021HealerText": "ヤナギのリース",
     "headSpecialSpring2021MageNotes": "この風通しの良い冠を頭の上に飾りましょう。そうすれば、水鳥たちがあなたに挨拶に来てくれます。知覚が<%= per %>上がります。2021年春の限定装備。",
-    "headSpecialSpring2021MageText": "白鳥の雛のサークレット"
+    "headSpecialSpring2021MageText": "白鳥の雛のサークレット",
+    "armorMystery202104Notes": "内側は柔らかく、外側は尖っていて、どこから見てもオシャレです！効果なし。2021年4月の有料会員アイテム。",
+    "armorMystery202104Text": "綿毛のアザミのよろい",
+    "weaponMystery202104Notes": "敵は用心しなくてはなりません。あなたは力強くとげとげの防御力を手に入れたのですから。効果なし。2021年4月の有料会員アイテム。",
+    "weaponMystery202104Text": "とげとげアザミの杖"
 }

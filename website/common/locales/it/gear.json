@@ -2327,5 +2327,9 @@
     "weaponSpecialSpring2021HealerText": "Ramo di salice",
     "weaponSpecialSpring2021MageNotes": "Lancia, batti, calpesta, riposa! Fai svolazzare questa magnifica piuma a tempo per dirigere la musica della tua magia. Aumenta l'intelligenza di <%= int %> e la percezione di <%= per %>. Attrezzatura primaverile 2021 in edizione limitata.",
     "weaponSpecialSpring2021MageText": "Piuma di cigno",
-    "weaponSpecialSpring2021WarriorNotes": "Sfrutta il potere del sole contro i tuoi nemici e lascia che la pietra del sole ti porti fortuna! Aumenta la forza di <%= str %. Edizione primaverile limitata 2021."
+    "weaponSpecialSpring2021WarriorNotes": "Sfrutta il potere del sole contro i tuoi nemici e lascia che la pietra del sole ti porti fortuna! Aumenta la forza di <%= str %. Edizione primaverile limitata 2021.",
+    "armorMystery202104Notes": "Morbido all'interno, appuntito all'esterno, elegante ovunque! Non conferisce alcun bonus. Oggetto abbonati aprile 2021.",
+    "armorMystery202104Text": "Armatura del Cardo spinoso",
+    "weaponMystery202104Notes": "I tuoi nemici faranno meglio a stare attenti: hai difese potenti e spinose! Non conferisce alcun bonus. Oggetto abbonati aprile 2021.",
+    "weaponMystery202104Text": "Bastone del Cardo spinoso"
 }

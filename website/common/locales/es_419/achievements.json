@@ -102,5 +102,11 @@
     "achievementRedLetterDay": "Día de la Letra Roja",
     "achievementSeeingRedText": "Has coleccionado a todas las Mascotas Escarlata.",
     "achievementSeeingRedModalText": "¡Coleccionaste todas las Mascotas Rojas!",
-    "achievementSeeingRed": "Viendo Rojo"
+    "achievementSeeingRed": "Viendo Rojo",
+    "achievementSeasonalSpecialistModalText": "¡Completaste todas las misiones estacionales!",
+    "achievementSeasonalSpecialistText": "Ha completado todas las misiones estacionales de Primavera e Invierno: ¡Búsqueda de Huevos, Santa Trampero, y Encuentra al Cachorro!",
+    "achievementSeasonalSpecialist": "Especialista Estacional",
+    "achievementLegendaryBestiaryModalText": "¡Coleccionaste a todas las mascotas míticas!",
+    "achievementLegendaryBestiaryText": "Ha eclosionado todas las mascotas míticas: ¡Dragón, Cerdo Volador, Grifo, Serpiente de Mar y Unicornio!",
+    "achievementLegendaryBestiary": "Bestiario Legendario"
 }

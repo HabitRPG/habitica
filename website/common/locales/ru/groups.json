@@ -357,5 +357,9 @@
     "newPartyPlaceholder": "Введите название вашей команды.",
     "languageSettings": "Настройка языка",
     "features": "Функции и возможности",
-    "selectSubscription": "Выбрать подписку"
+    "selectSubscription": "Выбрать подписку",
+    "claimRewards": "Требовать награды",
+    "assignedDateOnly": "Назначено на <strong><%= date %></strong>",
+    "cannotRemoveQuestOwner": "Вы не можете удалить владельца активного задания. Сначала отмените задание.",
+    "blockYourself": "Вы не можете заблокировать себя"
 }
