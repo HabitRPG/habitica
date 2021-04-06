@@ -15,7 +15,7 @@
     "amplitude": "^5.1.4",
     "apidoc": "^0.26.0",
     "apple-auth": "^1.0.7",
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.6.0",
     "compression": "^1.7.4",
