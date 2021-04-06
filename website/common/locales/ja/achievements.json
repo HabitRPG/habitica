@@ -105,5 +105,8 @@
     "achievementRedLetterDay": "赤マル記念日",
     "achievementLegendaryBestiaryModalText": "伝説のペットをすべて集めました！",
     "achievementLegendaryBestiaryText": "伝説のペットを全てたまごからかえしました：ドラゴン、空飛ぶ豚、グリフォン、シーサーペント、そしてユニコーン！",
-    "achievementLegendaryBestiary": "伝説の生物の図鑑"
+    "achievementLegendaryBestiary": "伝説の生物の図鑑",
+    "achievementSeasonalSpecialistModalText": "季節限定のクエストを全て完了しました！",
+    "achievementSeasonalSpecialistText": "春と冬の季節限定クエストを全てクリアしました：たまご狩り、猟師のサンタ、子グマの捜索！",
+    "achievementSeasonalSpecialist": "季節専門家"
 }

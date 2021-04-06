@@ -105,5 +105,8 @@
     "achievementSeeingRed": "火冒三丈",
     "achievementLegendaryBestiaryModalText": "你集齐了所有神话宠物！",
     "achievementLegendaryBestiaryText": "已孵化所有的神话宠物：龙，飞猪，狮鹫，海蛇和独角兽！",
-    "achievementLegendaryBestiary": "传奇神兽"
+    "achievementLegendaryBestiary": "传奇神兽",
+    "achievementSeasonalSpecialistModalText": "你完成了所有季节副本！",
+    "achievementSeasonalSpecialist": "季节专家",
+    "achievementSeasonalSpecialistText": "已完成所有春季和冬季副本：找彩蛋、圣诞偷猎者和找熊崽！"
 }

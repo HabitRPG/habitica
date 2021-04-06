@@ -2327,5 +2327,9 @@
     "weaponSpecialSpring2021WarriorNotes": "Aprovecha el poder del sol contra tus enemigos, ¡Y deja que la piedra solar te traiga suerte! Aumenta la Fuerza en <%= str %>. Equipamiento de Edición Limitada Primavera 2021.",
     "weaponSpecialSpring2021WarriorText": "Martillo del Sol",
     "weaponSpecialSpring2021RogueNotes": "¿Sabes qué es mejor que blandir dos flores? ¡Blandir CUATRO flores! Aumenta la Fuerza en <%= str %>. Equipamiento de Edición Limitada Primavera 2021.",
-    "weaponSpecialSpring2021RogueText": "Brote de Flores Gemelas"
+    "weaponSpecialSpring2021RogueText": "Brote de Flores Gemelas",
+    "armorMystery202104Notes": "¡Suave en el interior, espinoso en el exterior, con estilo en cualquier lugar! No otorga ningún beneficio. Artículo de Suscriptor Abril 2021.",
+    "armorMystery202104Text": "Armadura de Cardo Pálido",
+    "weaponMystery202104Notes": "Más vale que tus enemigos tengan cuidado- ¡Tienes unas defensas poderosas y espinosas! No otorga ningún beneficio. Artículo de Suscriptor Abril 2021.",
+    "weaponMystery202104Text": "Bastón de Cardo Espinoso"
 }
