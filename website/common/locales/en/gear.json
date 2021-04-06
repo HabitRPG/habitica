@@ -1181,6 +1181,8 @@
   "armorArmoireSoftPinkSuitNotes": "Pink is a soothing color. Slip into this loungewear set for a bit of peace during the daily grind! Increases Perception by <%= per %>. Enchanted Armoire: Pink Loungewear Set (item 2 of 3).",
   "armorArmoireJadeArmorText": "Jade Armor",
   "armorArmoireJadeArmorNotes": "This jade armor is both beautiful and functional. Protect yourself, and know that you look fabulous! Increases Perception by <%= per %>. Enchanted Armoire: Jade Warrior Set (Item 2 of 3).",
+  "armorArmoireClownsMotleyText": "Clown's Motley",
+  "armorArmoireClownsMotleyNotes": "The clothes fit beautifully, but filling these shoes is no small feat. Increases Strength by <%= str %>. Enchanted Armoire: Clown Set (Item 1 of 5).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1829,6 +1831,8 @@
   "headArmoirePinkFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a perfect pink color. Increases Intelligence by <%= int %>. Enchanted Armoire: Pink Loungewear Set (item 1 of 3).",
   "headArmoireJadeHelmText": "Jade Helm",
   "headArmoireJadeHelmNotes": "Some say jade decreases fear and anxiety. With this beautiful helm, you definitely have no cause to worry! Increases Constitution by <%= con %>. Enchanted Armoire: Jade Warrior Set (Item 1 of 3).",
+  "headArmoireClownsWigText": "Clown's Wig",
+  "headArmoireClownsWigNotes": "No bad tasks can bite you now! You'll taste funny. Increases Constitution by <%= con %>. Enchanted Armoire: Clown Set (Item 3 of 5).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -2150,6 +2154,8 @@
   "shieldArmoireBlueMoonSaiNotes": "This sai is a traditional weapon, imbued with the powers of the light side of the moon. Increases Perception by <%= per %>. Enchanted Armoire: Blue Moon Rogue Set (item 2 of 4).",
   "shieldArmoireSoftPinkPillowText": "Soft Pink Pillow",
   "shieldArmoireSoftPinkPillowNotes": "The sensible warrior packs a pillow for any expedition. Soften life's blows... even while you nap. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Pink Loungewear Set (item 3 of 3).",
+  "shieldArmoireClownsBalloonsText": "Clown's Balloons",
+  "shieldArmoireClownsBalloonsNotes": "Be careful: replacing these balloons would be a bit expensive... because of the inflation! Increases Perception by <%= per %>. Enchanted Armoire: Clown Set (Item 4 of 5).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
@@ -2293,6 +2299,8 @@
   "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Lamplighter's Set (Item 4 of 4).",
   "bodyArmoireLifeguardWhistleText": "Lifeguard Whistle",
   "bodyArmoireLifeguardWhistleNotes": "Call that misbehaving habit to order! It should know the rules! Increases Intelligence by <%= int %>. Enchanted Armoire: Lifeguard Set (Item 3 of 3).",
+  "bodyArmoireClownsBowtieText": "Clown's Bow-Tie",
+  "bodyArmoireClownsBowtieNotes": "A nice bow-tie is no joking matter, even for a clown. Increases Strength, Intelligence, Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Clown Set (Item 5 of 5).",
 
   "headAccessory": "head accessory",
   "headAccessoryCapitalized": "Head Accessory",
@@ -2485,6 +2493,8 @@
   "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
   "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
   "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
+  "eyewearArmoireClownsNoseText": "Clown's Nose",
+  "eyewearArmoireClownsNoseNotes": "This accessory will make sure everyone 'nose' you're a clown! Increases Intelligence by <%= int %>. Enchanted Armoire: Clown Set (Item 2 of 5).",
 
   "twoHandedItem": "Two-handed item."
 }
