@@ -347,7 +347,7 @@ const premium = {
     value: 2,
     text: t('hatchingPotionBirchBark'),
     limited: true,
-    event: EVENTS.spring2020,
+    event: EVENTS.spring2021,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndMarch'),
       previousDate: t('marchYYYY', { year: 2020 }),
@@ -449,7 +449,7 @@ const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    event: EVENTS.spring2020,
+    event: EVENTS.spring2021,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndMarch'),
       previousDate: t('marchYYYY', { year: 2019 }),
