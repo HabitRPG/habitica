@@ -143,6 +143,8 @@ export default {
         starHalf: svgStarHalf,
         starEmpty: svgStarEmpty,
       }),
+      timer: '',
+      limitedString: '',
     };
   },
   computed: {
@@ -153,9 +155,10 @@ export default {
 
       return 1;
     },
-    limitedString () {
-      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
-    },
+  },
+  mounted () {
+    this.countdownString();
+    this.timer = setInterval(this.countdownString, 30000);
   },
   methods: {
     stars () {
@@ -182,6 +185,28 @@ export default {
       }
       return collect.text;
     },
+    countdownString () {
+      const diffDuration = moment.duration(moment(seasonalShopConfig.dateRange.end).diff(moment()));
+
+      if (diffDuration.days() > 0) {
+        this.limitedString = this.$t('limitedAvailabilityDays', {
+          days: diffDuration.days(),
+          hours: diffDuration.hours(),
+          minutes: diffDuration.minutes(),
+        });
+      } else {
+        this.limitedString = this.$t('limitedAvailabilityHours', {
+          hours: diffDuration.hours(),
+          minutes: diffDuration.minutes(),
+        });
+      }
+    },
+    cancelAutoUpdate () {
+      clearInterval(this.timer);
+    },
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
   },
 };
 </script>
