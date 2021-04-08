@@ -318,27 +318,6 @@
       opacity: 0.55;
     }
 
-    .limitedTime {
-      height: 32px;
-      background-color: $purple-300;
-      width: calc(100% + 30px);
-      margin: 0 -15px; // the modal content has its own padding
-
-      font-size: 12px;
-      line-height: 1.33;
-      text-align: center;
-      color: $white;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .limitedString {
-        height: 16px;
-        margin-left: 8px;
-      }
-    }
-
     .attributesGrid {
       margin-top: 8px;
       border-radius: 2px;
