@@ -5,6 +5,7 @@ import statsComputed from '../libs/statsComputed'; // eslint-disable-line import
 import setDebuffPotionItems from '../libs/setDebuffPotionItems'; // eslint-disable-line import/no-cycle
 import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
 import updateStats from '../fns/updateStats';
+import { EVENTS } from './constants';
 
 /*
   ---------------------------------------------------------------
@@ -352,6 +353,7 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
+    event: EVENTS.spring2021,
     cast (user, target, req) {
       if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;

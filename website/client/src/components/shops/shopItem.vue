@@ -107,7 +107,7 @@
           </div>
         </div>
         <div
-          v-if="item.event"
+          v-if="item.event && item.purchaseType !== 'quests'"
           :class="item.purchaseType === 'gear' ? 'mt-4' : 'mt-2'"
         >
           {{ limitedString }}

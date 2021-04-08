@@ -36,7 +36,7 @@
         </dd>
       </div>
     </div>
-    <div v-if="quest.event && popoverVersion">
+    <div v-if="quest.event">
       {{ limitedString }}
     </div>
   </div>
@@ -130,10 +130,6 @@ export default {
   props: {
     quest: {
       type: Object,
-    },
-    popoverVersion: {
-      type: Boolean,
-      default: false,
     },
   },
   data () {
