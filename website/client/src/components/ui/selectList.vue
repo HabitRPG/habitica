@@ -10,15 +10,15 @@
       @hide="isOpened = false"
     >
       <template v-slot:button-content>
-        BLAH BLAH BLAH
-        <slot
-          name="item"
-          :item="selected"
-          :button="true"
-        >
-          <!-- Fallback content -->
-          {{ value }}
-        </slot>
+        <div class="select-list-button-wrap">
+          <slot
+            name="item"
+            :item="selected"
+            :button="true"
+          >
+            {{ value }}
+          </slot>
+        </div>
       </template>
       <b-dropdown-item
         v-for="item in items"
@@ -32,15 +32,16 @@
         }"
         @click="selectItem(item)"
       >
-        <slot
-          name="item"
-          :item="item"
-          :button="false"
-        >
-          <!-- Fallback content -->
-          {{ item }}
-        </slot>
-
+        <span class="select-list-item-wrap">
+          <slot
+            name="item"
+            :item="item"
+            :button="false"
+          >
+            <!-- Fallback content -->
+            {{ item }}
+          </slot>
+        </span>
         <div
           v-once
           class="svg-icon color check-icon"
@@ -54,7 +55,7 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .select-list .btn.dropdown-toggle {
+  .select-list .select-list-button-wrap {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -62,6 +63,10 @@
 
   .select-list ::v-deep .selectListItem {
     position: relative;
+
+    .select-list-item-wrap {
+      padding-right: 1rem;
+    }
 
     &:not(.showIcon) {
       .svg-icon.check-icon {
