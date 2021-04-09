@@ -82,12 +82,6 @@
                   >
                     {{ group.quest.progress.collect[key] }} / {{ value.count }}
                   </span>
-                  <div
-                    v-if="userIsOnQuest && group.quest.progress.collect[key]"
-                    class="label item-progress-label"
-                  >
-                    {{ parseFloat(group.quest.progress.collect[key]) || 0 }} items found
-                  </div>
                 </div>
               </div>
             </div>
