@@ -70,6 +70,7 @@ describe('POST /user/buy/:key', () => {
   it('buys a special spell', async () => {
     const key = 'spookySparkles';
     const item = content.special[key];
+    const stub = sinon.stub(item, 'canOwn').returns(true);
 
     await user.update({ 'stats.gp': 250 });
     const res = await user.post(`/user/buy/${key}`);
@@ -82,6 +83,8 @@ describe('POST /user/buy/:key', () => {
     expect(res.message).to.equal(t('messageBought', {
       itemText: item.text(),
     }));
+
+    stub.restore();
   });
 
   it('allows for bulk purchases', async () => {
