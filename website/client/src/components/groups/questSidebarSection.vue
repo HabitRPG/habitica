@@ -151,17 +151,11 @@
                 <span class="float-left">
                   {{
                     (Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100)
-                      .toLocaleString(user.preferences.language, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      })
+                      | localizeNumber(user.preferences.language, { toFixed:2 })
                   }} / {{
                     parseFloat(questData.boss.hp)
-                      .toLocaleString(user.preferences.language, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      })
-                  }} <!-- eslint-disable-line max-len -->
+                      | localizeNumber(user.preferences.language, { toFixed:2 })
+                  }}
                   <!-- current boss hp uses ceil so
                     you don't underestimate damage needed to end quest-->
                 </span>
@@ -174,11 +168,9 @@
                   progress on the group doc? Each user could have different progress.-->
                 <span class="float-right">
                   {{
-                    (Math.floor((user.party.quest.progress.up || 0) * 10) / 10)
-                      .toLocaleString(user.preferences.language, {
-                        minimumFractionDigits: 1,
-                        maximumFractionDigits: 1
-                      })
+                    (user.party.quest.progress.up || 0)
+                      | floor(10)
+                      | localizeNumber(user.preferences.language, { toFixed:1 })
                   }} {{ $t('pendingDamageLabel') }}
                 </span>
                 <!-- player's pending damage uses floor so you

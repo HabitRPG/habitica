@@ -10,15 +10,13 @@
       @hide="isOpened = false"
     >
       <template v-slot:button-content>
-        <div class="select-list-button-wrap">
-          <slot
-            name="item"
-            :item="selected"
-            :button="true"
-          >
-            {{ value }}
-          </slot>
-        </div>
+        <slot
+          name="item"
+          :item="selected"
+          :button="true"
+        >
+          {{ value }}
+        </slot>
       </template>
       <b-dropdown-item
         v-for="item in items"
@@ -32,16 +30,14 @@
         }"
         @click="selectItem(item)"
       >
-        <span class="select-list-item-wrap">
-          <slot
-            name="item"
-            :item="item"
-            :button="false"
-          >
-            <!-- Fallback content -->
-            {{ item }}
-          </slot>
-        </span>
+        <slot
+          name="item"
+          :item="item"
+          :button="false"
+        >
+          <!-- Fallback content -->
+          {{ item }}
+        </slot>
         <div
           v-once
           class="svg-icon color check-icon"
@@ -55,33 +51,32 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .select-list .select-list-button-wrap {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .select-list ::v-deep .selectListItem {
-    position: relative;
-
-    .select-list-item-wrap {
-      padding-right: 1rem;
+  .select-list ::v-deep {
+    .dropdown-toggle {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    &:not(.showIcon) {
-      .svg-icon.check-icon {
-        display: none;
+    .selectListItem {
+      position: relative;
+      padding-right: 1.625rem;
+
+      &:not(.showIcon) {
+        .svg-icon.check-icon {
+          display: none;
+        }
       }
-    }
 
-    .svg-icon.check-icon.color {
-      position: absolute;
-      right: 0.855rem;
-      top: 0.688rem;
-      bottom: 0.688rem;
-      width: 0.77rem;
-      height: 0.615rem;
-      color: $purple-300;
+      .svg-icon.check-icon.color {
+        position: absolute;
+        right: 0.855rem;
+        top: 0.688rem;
+        bottom: 0.688rem;
+        width: 0.77rem;
+        height: 0.615rem;
+        color: $purple-300;
+      }
     }
   }
 </style>

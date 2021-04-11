@@ -90,8 +90,6 @@ export default {
   props: ['selections', 'text', 'caretPosition', 'coords', 'chat', 'textbox'],
   data () {
     return {
-      // Old Regex
-      // atRegex: /(?!\b)@([\w-]*)$/,
       atRegex: /@([\w-]*)$/,
       currentSearch: '',
       searchActive: false,
@@ -132,23 +130,21 @@ export default {
     },
   },
   watch: {
-    text (newTextParam, prevTextParam) {
-      const delCharFocusBool = prevTextParam.length > newTextParam.length;
+    text (newText, prevText) {
+      const delCharsBool = prevText.length > newText.length;
       const caretPosition = this.textbox.selectionEnd;
-      const lastFocussedChar = isDeleting ? prevText[caretPosition] : newText[caretPosition - 1];
+      const lastFocusChar = delCharsBool ? prevText[caretPosition] : newText[caretPosition - 1];
       if (
-        newTextParam.length === 0 // Delete all
-        || /\s/.test(lastFocussed) // End Search
-        || (charFocus === '@' && delCharFocusBool) // Cancel Search
+        newText.length === 0 // Delete all
+        || /\s/.test(lastFocusChar) // End Search
+        || (lastFocusChar === '@' && delCharsBool) // Cancel Search
       ) {
         this.searchActive = false;
         this.searchResults = [];
       } else {
-        if (charFocus === '@') {
-          this.searchActive = true;
-        }
+        if (lastFocusChar === '@') this.searchActive = true;
         if (this.searchActive) {
-          this.searchResults = this.solveSearchResults(newTextParam.substring(0, caretPosition));
+          this.searchResults = this.solveSearchResults(newText.substring(0, caretPosition));
         }
       }
     },
@@ -161,9 +157,9 @@ export default {
     this.grabUserNames();
   },
   methods: {
-    solveSearchResults (searchTextWip) {
+    solveSearchResults (textFocus) {
       if (!this.searchActive) return [];
-      const regexRes = this.atRegex.exec(searchTextWip);
+      const regexRes = this.atRegex.exec(textFocus);
       if (!regexRes) return [];
       this.currentSearch = regexRes[1]; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len, prefer-destructuring
 
