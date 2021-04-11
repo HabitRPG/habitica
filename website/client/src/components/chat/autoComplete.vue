@@ -135,12 +135,10 @@ export default {
     text (newTextParam, prevTextParam) {
       const delCharFocusBool = prevTextParam.length > newTextParam.length;
       const caretPosition = this.textbox.selectionEnd;
-      const charFocus = (
-        delCharFocusBool ? prevTextParam : newTextParam
-      )[caretPosition - (delCharFocusBool ? 0 : 1)];
+      const lastFocussedChar = isDeleting ? prevText[caretPosition] : newText[caretPosition - 1];
       if (
         newTextParam.length === 0 // Delete all
-        || (charFocus === ' ' && !delCharFocusBool) // End Search
+        || /\s/.test(lastFocussed) // End Search
         || (charFocus === '@' && delCharFocusBool) // Cancel Search
       ) {
         this.searchActive = false;
@@ -172,11 +170,8 @@ export default {
       const lowerCaseSearch = this.currentSearch.toLowerCase();
 
       return this.tmpSelections
-        .filter(option => { // eslint-disable-line arrow-body-style
-          return option.displayName.toLowerCase().indexOf(lowerCaseSearch) !== -1
-            || (option.username
-              && option.username.toLowerCase().indexOf(lowerCaseSearch) !== -1);
-        })
+        .filter(option => option.displayName.toLowerCase().includes(lowerCaseSearch)
+            || (option.username && option.username.toLowerCase().includes(lowerCaseSearch)))
         .slice(0, 4);
     },
     resetDefaults () {

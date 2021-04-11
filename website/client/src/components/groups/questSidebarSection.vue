@@ -180,7 +180,7 @@
                         maximumFractionDigits: 1
                       })
                   }} {{ $t('pendingDamageLabel') }}
-                </span> <!-- eslint-disable-line max-len -->
+                </span>
                 <!-- player's pending damage uses floor so you
                   don't overestimate damage you've already done-->
               </div>
