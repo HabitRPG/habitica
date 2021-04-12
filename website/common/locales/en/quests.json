@@ -23,6 +23,7 @@
   "rejected": "Rejected",
   "pending": "Pending",
   "questCollection": "+ <%= val %> quest item(s) found",
+  "questItemsPending": "<%= amount %> Items pending",
   "bossDamage": "You damaged the boss!",
   "begin": "Begin",
   "bossHP": "Boss HP",
