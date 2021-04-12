@@ -371,6 +371,7 @@ import shops from '@/../../common/script/libs/shops';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
+import { getClassName } from '../../../../../common/script/libs/getClassName';
 
 export default {
   components: {
@@ -523,10 +524,7 @@ export default {
   },
   methods: {
     getClassName (classType) {
-      if (classType === 'wizard') {
-        return this.$t('mage');
-      }
-      return this.$t(classType);
+      return this.$t(getClassName(classType));
     },
     seasonalItems (category, sortBy, searchBy, viewOptions, hidePinned) {
       let result = _map(category.items, e => ({

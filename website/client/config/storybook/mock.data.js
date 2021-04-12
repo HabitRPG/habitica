@@ -72,4 +72,11 @@ export const userStyles = {
     maxHealth: 50,
     maxMP: 158,
   },
+  profile: {
+    name: 'user',
+  },
+  _id: '1337',
+  flags: {
+    classSelected: true,
+  },
 };

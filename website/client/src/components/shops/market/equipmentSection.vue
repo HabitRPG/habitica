@@ -89,6 +89,7 @@ import svgRogue from '@/assets/svg/rogue.svg';
 import svgHealer from '@/assets/svg/healer.svg';
 
 import pinUtils from '../../../mixins/pinUtils';
+import { getClassName } from '../../../../../common/script/libs/getClassName';
 
 const sortGearTypes = [
   'sortByType', 'sortByPrice', 'sortByCon',
@@ -159,10 +160,7 @@ export default {
   },
   methods: {
     getClassName (classType) {
-      if (classType === 'wizard') {
-        return this.$t('mage');
-      }
-      return this.$t(classType);
+      return this.$t(getClassName(classType));
     },
     gearSelected (item) {
       this.$root.$emit('buyModal::showItem', item);

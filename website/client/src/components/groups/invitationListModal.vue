@@ -257,7 +257,7 @@ export default {
       const partyMembers = this.partyMembers || [];
       return partyMembers.map(member => ({
         ...member,
-        accepted: this.group.quest.members[member._id] && false,
+        accepted: this.group.quest.members[member._id],
       }));
     },
   },

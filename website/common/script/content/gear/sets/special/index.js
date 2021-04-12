@@ -13,6 +13,7 @@ import * as contributorGear from './special-contributor';
 import * as takeThisGear from './special-takeThis';
 import * as wonderconGear from './special-wondercon';
 import t from '../../../translation';
+import { getClassName } from '../../../../libs/getClassName';
 
 const CURRENT_EVENT = find(
   EVENTS, event => moment().isBetween(event.start, event.end) && Boolean(event.season),
@@ -686,7 +687,7 @@ const armorStats = {
 
 Object.keys(gearEvents).forEach(event => {
   CLASSES.forEach(klass => {
-    const classNameString = klass === 'wizard' ? 'mage' : klass;
+    const classNameString = getClassName(klass);
     const eventString = `${event}${upperFirst(classNameString)}`;
     const textString = `armorSpecial${upperFirst(event)}${upperFirst(classNameString)}`;
     defaults(armor[eventString], {
@@ -1705,7 +1706,7 @@ const headStats = {
 
 Object.keys(gearEvents).forEach(event => {
   CLASSES.forEach(klass => {
-    const classNameString = klass === 'wizard' ? 'mage' : klass;
+    const classNameString = getClassName(klass);
     const eventString = `${event}${upperFirst(classNameString)}`;
     const textString = `headSpecial${upperFirst(event)}${upperFirst(classNameString)}`;
     defaults(head[eventString], {
@@ -3087,7 +3088,7 @@ const weaponCosts = {
 
 Object.keys(gearEvents).forEach(event => {
   CLASSES.forEach(klass => {
-    const classNameString = klass === 'wizard' ? 'mage' : klass;
+    const classNameString = getClassName(klass);
     const eventString = `${event}${upperFirst(classNameString)}`;
     const textString = `weaponSpecial${upperFirst(event)}${upperFirst(classNameString)}`;
     defaults(weapon[eventString], {

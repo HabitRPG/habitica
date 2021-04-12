@@ -39,7 +39,7 @@
       class="member-row"
     >
       <div class="no-padding-left">
-        <member-details :member="member" />
+        <member-details-new :member="member" />
       </div>
     </div>
   </b-modal>
@@ -98,6 +98,12 @@
   .member-row {
     background-color: $gray-700;
 
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $gray-500;
+    }
+  }
+
+  .member-row {
     ::v-deep {
       .col-4 {
         padding-left: 0;
@@ -119,13 +125,13 @@
 <script>
 import { mapGetters } from '@/libs/store';
 
-import MemberDetails from '../memberDetails';
+import MemberDetailsNew from '../memberDetailsNew';
 import CloseIcon from '../shared/closeIcon';
 
 export default {
   components: {
     CloseIcon,
-    MemberDetails,
+    MemberDetailsNew,
   },
   props: ['group'],
   computed: {
@@ -134,7 +140,10 @@ export default {
     }),
     participants () {
       const partyMembers = this.partyMembers || [];
-      return partyMembers.filter(member => this.group.quest.members[member._id] === true);
+      const membersAccepted = partyMembers
+        .filter(member => this.group.quest.members[member._id] === true);
+
+      return membersAccepted;
     },
   },
   methods: {
