@@ -13,14 +13,12 @@
         :pinned="isPinned"
       />
     </span>
-    <div class="close">
-      <span
-        class="svg-icon inline icon-10"
-        aria-hidden="true"
-        @click="hideDialog()"
-        v-html="icons.close"
-      ></span>
+    <div class="dialog-close">
+      <close-icon @click="hideDialog()" />
     </div>
+    <h2 class="text-center textCondensed">
+      {{$t('questDetailsTitle') }}
+    </h2>
     <div
       v-if="item != null"
       class="content"
@@ -110,6 +108,11 @@
 
   #buy-quest-modal {
     @include centeredModal();
+
+    h2 {
+      color: $purple-300;
+      margin-top: 1rem;
+    }
 
     .modal-dialog {
       margin-top: 8%;
@@ -301,9 +304,11 @@ import PinBadge from '@/components/ui/pinBadge';
 
 import questDialogContent from './questDialogContent';
 import QuestRewards from './questRewards';
+import CloseIcon from '../../shared/closeIcon';
 
 export default {
   components: {
+    CloseIcon,
     QuestRewards,
     BalanceInfo,
     PinBadge,
