@@ -141,7 +141,7 @@
   }
 
   .class-icon {
-    width: 80px;
+    margin-right: 1rem;
   }
 
   .usernames {
@@ -152,6 +152,7 @@
     flex: 1;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
   }
 
   .class-icon {
