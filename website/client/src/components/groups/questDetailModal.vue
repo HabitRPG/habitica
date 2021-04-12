@@ -428,6 +428,7 @@ export default {
 
       if (selectQuestPayload) {
         this.selectMode = false;
+        this.selectedQuest = selectQuestPayload.key;
       } else {
         this.selectMode = true;
       }
