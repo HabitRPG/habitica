@@ -90,10 +90,7 @@ shops.getMarketCategories = function getMarket (user, language) {
 };
 
 function getClassName (classType, language) {
-  if (classType === 'wizard') {
-    return i18n.t('mage', language);
-  }
-  return i18n.t(classType, language);
+  return i18n.t(getClassName(classType), language);
 }
 
 // TODO Refactor the `.locked` logic
