@@ -91,7 +91,7 @@
         class="text-center"
       >
         <button
-          class="btn btn-primary mt-0"
+          class="btn btn-primary mt-0 invite-btn"
           :disabled="!Boolean(selectedQuest) || loading"
           @click="questInit()"
         >
@@ -118,7 +118,7 @@
           <button
             v-if="!onActiveQuest"
             v-once
-            class="btn btn-secondary mb-2"
+            class="btn btn-success mb-3"
             @click="questConfirm()"
           >
             {{ $t('startQuest') }}
@@ -149,8 +149,8 @@
     margin-top: 1rem;
   }
 
-  .btn-primary {
-    margin: 1em 0;
+  .invite-btn {
+    margin-bottom: 1rem;
   }
 
   .back-to-selection {
