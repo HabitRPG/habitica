@@ -89,7 +89,7 @@ shops.getMarketCategories = function getMarket (user, language) {
   return categories;
 };
 
-function getClassName (classType, language) {
+function getTranslatedClassName (classType, language) {
   return i18n.t(getClassName(classType), language);
 }
 
@@ -140,7 +140,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   for (const classType of content.classes) {
     const category = {
       identifier: classType,
-      text: getClassName(classType, language),
+      text: getTranslatedClassName(classType, language),
     };
 
     const result = filter(content.gear.flat, gearItem => {
