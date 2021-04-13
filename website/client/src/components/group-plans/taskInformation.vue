@@ -301,6 +301,7 @@ export default {
     taskEdited (task) {
       const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);
       this.tasksByType[task.type].splice(index, 1, task);
+      this.loadTasks();
     },
     taskDestroyed (task) {
       const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);

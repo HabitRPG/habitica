@@ -24,6 +24,11 @@
           v-markdown="allItemsMap[selectedItem].name"
           class="label"
         ></div>
+        <div
+          v-else
+        >
+          {{ emptyMessage }}
+        </div>
       </template>
       <div
         v-if="addNew || availableToSelect.length > 0"
@@ -211,21 +216,19 @@ export default {
       return obj;
     },
     selectedItemAsObject () {
-      return this.selected ? this.allItemsMap[this.selected] : null;
+      return this.selectedItem ? this.allItemsMap[this.selectedItem] : null;
     },
     availableToSelect () {
-      const availableItems = this.allItems.filter(t => t.id !== this.selected);
-
       const searchString = this.search.toLowerCase();
 
-      const filteredItems = availableItems.filter(i => i.name.toLowerCase().includes(searchString));
+      const filteredItems = this.allItems.filter(i => i.name.toLowerCase().includes(searchString));
 
       return filteredItems;
     },
   },
   watch: {
     selected () {
-      this.$emit('changed', this.selected);
+      this.$emit('changed', this.selectedItem);
     },
   },
   created () {
@@ -253,14 +256,13 @@ export default {
         $event.preventDefault();
       }
     },
-    closeIfOpen () {
-      this.closeSelectPopup();
-    },
     selectItem (item) {
-      this.$emit('toggle', item.id);
-    },
-    removeItem () {
-      this.$emit('toggle', null);
+      if (item.id === this.selectedItem) {
+        this.$emit('toggle', null);
+      } else {
+        this.$emit('toggle', item.id);
+      }
+      this.closeSelectPopup();
     },
     hideCallback ($event) {
       if (this.preventHide) {
