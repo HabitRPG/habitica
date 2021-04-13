@@ -449,13 +449,13 @@ const wacky = {
   Veggie: {
     text: t('hatchingPotionVeggie'),
     limited: true,
-    event: EVENTS.spring2020,
+    event: EVENTS.spring2021,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndMarch'),
       previousDate: t('marchYYYY', { year: 2019 }),
     }),
     canBuy () {
-      return moment().isBetween('2021-04-01T08:00-05:00', '2021-04-30T20:00-05:00');
+      return moment().isBetween('2021-04-01T08:00-05:00', EVENTS.spring2021.end);
     },
   },
   Dessert: {
