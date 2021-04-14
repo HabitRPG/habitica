@@ -1458,11 +1458,13 @@ export default {
             tasks: [this.task],
           });
           Object.assign(this.task, response);
-          await this.$store.dispatch('tasks:assignTask', {
-            taskId: this.task._id,
-            userId: this.assignedMember,
-          });
-          this.task.group.assignedUsers = [this.assignedMember];
+          if (this.assignedMember) {
+            await this.$store.dispatch('tasks:assignTask', {
+              taskId: this.task._id,
+              userId: this.assignedMember,
+            });
+            this.task.group.assignedUsers = [this.assignedMember];
+          }
           this.$emit('taskCreated', this.task);
         } else {
           this.createTask(this.task);

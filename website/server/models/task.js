@@ -147,6 +147,7 @@ export const TaskSchema = new Schema({
       default: SHARED_COMPLETION.single,
     },
     managerNotes: { $type: String },
+    completedBy: { $type: String, ref: 'User', validate: [v => validator.isUUID(v), 'Invalid uuid for group completing user.'] },
   },
 
   reminders: [reminderSchema],

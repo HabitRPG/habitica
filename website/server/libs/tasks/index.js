@@ -375,6 +375,10 @@ async function scoreTask (user, task, direction, req, res) {
     }
   }
 
+  if (task.completed && task.group.id && !task.userId) {
+    task.group.completedBy = user._id;
+  }
+
   setNextDue(task, user);
 
   if (localTask) {

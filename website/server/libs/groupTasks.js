@@ -20,6 +20,7 @@ async function handleSharedCompletion (masterTask, groupMemberTask) {
   if (masterTask.type === 'reward') return;
   if (masterTask.type === 'todo') await _deleteUnfinishedTasks(groupMemberTask);
   masterTask.completed = groupMemberTask.completed;
+  masterTask.group.completedBy = groupMemberTask.userId;
   await masterTask.save();
 }
 
