@@ -49,7 +49,7 @@
                   v-if="tagsType.key !== 'groups' && !editingTags"
                   class="d-block"
                   @click="editTags(tagsType.key)"
-                >{{ $t(tagsType.key === 'tags' ? 'editTags2' : 'editChallenges') }}</a>
+                >{{ $t('editTags2') }}</a>
               </div>
               <div class="tags-list container">
                 <div
