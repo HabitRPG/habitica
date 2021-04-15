@@ -208,6 +208,6 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
 
-    padding-bottom: 0.25rem;
+    padding-bottom: 1rem;
   }
 </style>

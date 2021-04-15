@@ -9,12 +9,7 @@
       >
         <dt>{{ $t('collect') + ':' }}</dt>
         <dd>
-          <div
-            v-for="(collect, key) of quest.collect"
-            :key="key"
-          >
-            <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
-          </div>
+          {{ getAllCollectText() }}
         </dd>
       </div>
       <div
@@ -185,6 +180,11 @@ export default {
         return collect.text();
       }
       return collect.text;
+    },
+    getAllCollectText () {
+      return Object.values(this.quest.collect)
+        .map(collect => `${collect.count} ${this.getCollectText(collect)}`)
+        .join(', ');
     },
   },
 };

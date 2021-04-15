@@ -90,7 +90,7 @@ export default {
     },
   },
   async created () {
-    if (this.group.quest && this.group.quest.active) {
+    if (this.group?.quest?.active) {
       try {
         const fetchMemberResult = await this.$store.dispatch('members:fetchMember', {
           memberId: this.group.quest.leader,
