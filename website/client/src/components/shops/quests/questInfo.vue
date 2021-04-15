@@ -48,19 +48,26 @@
 
 .table-row {
   display: table-row;
-  margin-bottom: 4px;
   font-size: 14px;
   height: 1.5rem;
+
+  &:last-of-type {
+    dd {
+      padding-bottom: 0;
+    }
+  }
 }
 
 dd {
   padding-left: 1em;
   text-align: right;
+
+  padding-bottom: 0.5rem;
 }
 
 dt, dd {
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: top;
   height: 16px;
   max-height: 16px;
 }
