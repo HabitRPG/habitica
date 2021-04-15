@@ -204,8 +204,7 @@
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      padding: 1rem 1.5rem;
 
       &> * {
         margin: 0;
