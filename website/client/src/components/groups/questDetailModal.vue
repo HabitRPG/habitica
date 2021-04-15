@@ -352,7 +352,7 @@ export default {
           ...getItemInfo(this.user, 'quests', questItem),
           amount,
         };
-      }), item => (this.sortBy === 'AZ' ? item.text : item.amount));
+      }), item => (this.sortBy === 'AZ' ? item.text : -item.amount));
     },
   },
   mounted () {
