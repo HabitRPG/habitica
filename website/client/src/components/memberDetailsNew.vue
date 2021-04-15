@@ -1,10 +1,10 @@
 <template>
   <div
     class="member-details-new"
-    :class="{ condensed, expanded, 'd-flex': isHeader, row: !isHeader, }"
+    :class="{ condensed, expanded }"
     @click="showMemberModal(member)"
   >
-    <div :class="{ 'col-4': !isHeader }">
+    <div>
       <avatar
         :member="member"
         :hide-class-badge="true"
@@ -15,7 +15,6 @@
     </div>
     <div
       class="member-stats"
-      :class="{'col-8': !expanded && !isHeader}"
     >
       <div class="d-flex align-items-center profile-first-row">
         <class-badge
@@ -29,7 +28,7 @@
               :name="member.profile.name"
               :backer="member.backer"
               :contributor="member.contributor"
-              :smaller="true"
+              :smallerStyle="true"
             />
             <inline-class-badge
               class="inline-class-badge"
@@ -92,7 +91,7 @@
   @import '~@/assets/scss/colors.scss';
 
   .stats-bar {
-    margin-left: 0.75rem !important;
+    margin-left: 0 !important;
     height: 12px;
     border-radius: 2px;
 
@@ -129,11 +128,13 @@
     white-space: nowrap;
     transition: all 0.15s ease-out;
 
-    width: 448px;
+    display: flex;
+    flex-direction: row;
   }
 
   .member-stats {
-    padding-left: 12px;
+    flex: 1;
+    padding-left: 1rem;
     padding-right: 24px;
     opacity: 1;
     transition: width 0.15s ease-out;
@@ -149,7 +150,7 @@
   }
 
   .profile-name-character {
-    margin-left: 12px;
+
   }
 
   .character-name {

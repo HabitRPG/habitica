@@ -41,6 +41,10 @@
       width: 10px;
       display: inline-block;
       margin-left: .5em;
+
+      &:empty {
+        display: none;
+      }
     }
   }
 </style>
