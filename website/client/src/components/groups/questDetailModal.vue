@@ -69,7 +69,7 @@
         <div class="col-10 offset-1 text-center">
           <span
             v-once
-            class="description"
+            class="no-quest-to-start"
           >
             <b>{{ $t('noQuestToStartTitle') }}</b> <br>
             <span v-html="$t('noQuestToStart', { questShop: '/shops/quests' })"></span>
@@ -228,6 +228,18 @@
   .quest-detail {
     margin-left: 1rem;
     margin-right: 1rem;
+  }
+
+  .no-quest-to-start {
+    font-size: 12px;
+    line-height: 1.33;
+    text-align: center;
+
+    color: $gray-100;
+
+    a {
+      color: $blue-10;
+    }
   }
 
   #quest-detail-modal {
