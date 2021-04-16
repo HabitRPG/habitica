@@ -18,8 +18,8 @@ export default {
   currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Closed',
 
   dateRange: {
-    start: SHOP_OPEN ? moment(CURRENT_EVENT.start).format('YYYY-MM-DD') : moment().subtract(1, 'days').toDate(),
-    end: SHOP_OPEN ? moment(CURRENT_EVENT.end).format('YYYY-MM-DD') : moment().subtract(1, 'seconds').toDate(),
+    start: SHOP_OPEN ? moment(CURRENT_EVENT.start) : moment().subtract(1, 'days').toDate(),
+    end: SHOP_OPEN ? moment(CURRENT_EVENT.end) : moment().subtract(1, 'seconds').toDate(),
   },
 
   availableSets: SHOP_OPEN
@@ -37,7 +37,7 @@ export default {
     }
     : {},
 
-  availableSpells: moment().isBetween('2021-04-06T08:00-05:00', '2021-04-30T20:00-05:00')
+  availableSpells: SHOP_OPEN && moment().isAfter('2021-04-06T08:00-05:00')
     ? [
       'shinySeed',
     ]

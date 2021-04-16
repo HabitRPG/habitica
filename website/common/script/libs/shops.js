@@ -157,6 +157,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
       if (
         gearItem.specialClass === classType
         && user.items.gear.owned[gearItem.key] !== false
+        && gearItem.set === seasonalShopConfig.pinnedSets[gearItem.specialClass]
       ) return gearItem.canOwn(classShift);
       return false;
     });

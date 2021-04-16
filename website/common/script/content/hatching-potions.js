@@ -197,7 +197,7 @@ const premium = {
     }),
     event: EVENTS.spring2021,
     canBuy () {
-      return moment().isBefore('2021-04-30T20:00-04:00');
+      return moment().isBefore(EVENTS.spring2021.end);
     },
   },
   Glass: {
@@ -353,7 +353,7 @@ const premium = {
       previousDate: t('marchYYYY', { year: 2020 }),
     }),
     canBuy () {
-      return moment().isBefore('2021-04-30T20:00-04:00');
+      return moment().isBefore(EVENTS.spring2021.end);
     },
   },
   Fluorite: {
@@ -440,7 +440,7 @@ const premium = {
       date: t('dateEndMarch'),
     }),
     canBuy () {
-      return moment().isBefore('2021-04-30T20:00-04:00');
+      return moment().isBefore(EVENTS.spring2021.end);
     },
   },
 };
@@ -455,7 +455,7 @@ const wacky = {
       previousDate: t('marchYYYY', { year: 2019 }),
     }),
     canBuy () {
-      return moment().isBetween('2021-04-01T08:00-05:00', '2021-04-30T20:00-05:00');
+      return moment().isBetween('2021-04-01T08:00-05:00', EVENTS.spring2021.end);
     },
   },
   Dessert: {
