@@ -39,6 +39,7 @@
           <!-- Fallback content -->
           {{ item }}
         </slot>
+
         <div
           v-once
           class="svg-icon color check-icon"
