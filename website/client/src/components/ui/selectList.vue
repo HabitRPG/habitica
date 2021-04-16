@@ -15,6 +15,7 @@
           :item="selected"
           :button="true"
         >
+          <!-- Fallback content -->
           {{ value }}
         </slot>
       </template>
