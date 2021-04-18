@@ -204,12 +204,12 @@ export default {
       return this.challenges.filter(challenge => {
         let isMember = true;
 
-        const filteringRole = filters.roles && filters.roles.length > 0;
-        if (filteringRole && filters.roles.indexOf('participating') !== -1) {
+        const filteringRole = filters.membership && filters.membership.length > 0;
+        if (filteringRole && filters.membership.indexOf('participating') !== -1) {
           isMember = this.isMemberOfChallenge(user, challenge);
         }
 
-        if (filteringRole && filters.roles.indexOf('not_participating') !== -1) {
+        if (filteringRole && filters.membership.indexOf('not_participating') !== -1) {
           isMember = !this.isMemberOfChallenge(user, challenge);
         }
 
