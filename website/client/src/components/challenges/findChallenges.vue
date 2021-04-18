@@ -147,7 +147,7 @@ export default {
           value: 'none',
         },
         {
-          text: this.$t('participants'),
+          text: this.$t(' ipants'),
           value: 'participants',
         },
         {
@@ -171,7 +171,23 @@ export default {
   computed: {
     ...mapState({ user: 'user.data' }),
     filteredChallenges () {
-      return this.challenges;
+      const { filters } = this;
+      const { user } = this;
+
+      return this.challenges.filter(challenge => {
+        let isMember = true;
+
+        const filteringRole = filters.membership && filters.membership.length > 0;
+        if (filteringRole && filters.membership.indexOf('participating') !== -1) {
+          isMember = this.isMemberOfChallenge(user, challenge);
+        }
+
+        if (filteringRole && filters.membership.indexOf('not_participating') !== -1) {
+          isMember = !this.isMemberOfChallenge(user, challenge);
+        }
+
+        return isMember;
+      });
     },
   },
   mounted () {
