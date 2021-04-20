@@ -57,6 +57,11 @@ store.state.user.data = {
       moon1: 3,
     },
   },
+  party: {
+    quest: {
+
+    },
+  },
 };
 
 Vue.prototype.$store = store;

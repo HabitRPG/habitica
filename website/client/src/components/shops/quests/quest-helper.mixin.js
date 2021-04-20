@@ -23,7 +23,7 @@ export const QuestHelperMixin = {
       }
     },
     getDropName (drop) {
-      return drop.text();
+      return typeof drop.text === 'function' ? drop.text() : drop.text;
     },
     getDropsList (drops, ownerOnly) {
       if (!drops) return [];
