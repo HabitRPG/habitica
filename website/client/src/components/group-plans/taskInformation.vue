@@ -13,7 +13,7 @@
     />
     <div class="row tasks-navigation">
       <div class="col-12 col-md-4">
-        <h1>{{ $t('groupTasksTitle') }}</h1>
+        <h1>{{ group.name }}</h1>
       </div>
       <!-- @TODO: Abstract to component!-->
       <div class="col-12 col-md-4">
@@ -89,6 +89,10 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
   @import '~@/assets/scss/create-task.scss';
+
+  h1 {
+    color: $purple-300;
+  }
 
   .tasks-navigation {
     margin-bottom: 40px;
