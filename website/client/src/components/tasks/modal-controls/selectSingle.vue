@@ -4,6 +4,7 @@
       ref="dropdown"
       class="inline-dropdown select-multi"
       :toggle-class="isOpened ? 'active' : null"
+      :class="{'margin-adjust': selectedItem}"
       @show="wasOpened()"
       @hide="hideCallback($event)"
       @toggle="openOrClose($event)"
@@ -21,9 +22,18 @@
       <template v-slot:button-content>
         <div
           v-if="selectedItem !== null"
-          v-markdown="allItemsMap[selectedItem].name"
-          class="label"
-        ></div>
+          class="selected-item mr-1 d-inline-flex align-items-center"
+          @click.stop="selectItem({id: selectedItem})"
+        >
+          <div
+            v-markdown="allItemsMap[selectedItem].name"
+            class="multi-label my-auto ml-75 mr-2"
+          ></div>
+          <div
+            class="remove ml-auto mr-75"
+            v-html="icons.remove"
+          ></div>
+        </div>
         <div
           v-else
         >
@@ -50,25 +60,12 @@
             class="label"
           ></div>
           <div
-            v-if="item.challenge"
-            class="addl-text"
-          >
-            {{ $t('challenge') }}
-          </div>
-          <div
-            v-else-if="item.addlText"
+            v-if="item.addlText"
             class="addl-text"
           >
             {{ item.addlText }}
           </div>
         </b-dropdown-item-button>
-
-        <div
-          v-if="addNew"
-          class="hint"
-        >
-          {{ $t('pressEnterToAddTag', { tagName: search }) }}
-        </div>
       </div>
     </b-dropdown>
   </div>
@@ -78,6 +75,45 @@
   @import '~@/assets/scss/colors.scss';
 
   $itemHeight: 2rem;
+
+  .selected-item {
+    display: inline-block;
+    height: 1.5rem;
+    border-radius: 100px;
+    background-color: $white;
+    border: solid 1px $gray-400;
+    position: relative;
+    top: -1px;
+
+    .multi-label {
+      height: 1rem;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: normal;
+      color: $gray-100;
+    }
+
+    &:hover {
+      .remove svg path {
+        stroke: $maroon-50;
+      }
+    }
+
+    .remove {
+      display: inline-block;
+      object-fit: contain;
+      margin-top: -0.125rem;
+
+      svg {
+        width: 0.5rem;
+        height: 0.5rem;
+
+        path {
+          stroke: $gray-200;
+        }
+      }
+    }
+  }
 
   .select-multi {
     .dropdown-toggle {
@@ -170,6 +206,7 @@
 <script>
 import Vue from 'vue';
 import markdownDirective from '@/directives/markdown';
+import removeIcon from '@/assets/svg/remove.svg';
 
 export default {
   directives: {
@@ -188,10 +225,6 @@ export default {
     emptyMessage: {
       type: String,
     },
-    pillInvert: {
-      type: Boolean,
-      default: false,
-    },
     searchPlaceholder: {
       type: String,
     },
@@ -205,6 +238,9 @@ export default {
       isOpened: false,
       selected: this.selectedItem,
       search: '',
+      icons: Object.freeze({
+        remove: removeIcon,
+      }),
     };
   },
   computed: {

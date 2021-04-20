@@ -1491,25 +1491,20 @@ export default {
       this.$emit('cancel');
     },
     async toggleAssignment (memberId) {
-      if (this.purpose !== 'create') {
-        if (this.assignedMember === null) {
-          await this.$store.dispatch('tasks:unassignTask', {
-            taskId: this.task._id,
-            userId: memberId,
-          });
-        } else {
+      if (this.purpose === 'edit') {
+        if (this.assignedMember && this.assignedMember !== memberId) {
           await this.$store.dispatch('tasks:unassignTask', {
             taskId: this.task._id,
             userId: this.assignedMember,
           });
-
+        }
+        if (memberId) {
           await this.$store.dispatch('tasks:assignTask', {
             taskId: this.task._id,
             userId: memberId,
           });
         }
       }
-
       this.assignedMember = memberId;
     },
     focusInput () {
