@@ -34,7 +34,7 @@
           </div>
         </div>
       </filter-group>
-      <!-- <filter-group :title="$t('role')">
+      <filter-group :title="$t('role')">
         <div
           v-for="group in roleOptions"
           :key="group.key"
@@ -55,20 +55,21 @@
             >{{ $t(group.label) }}</label>
           </div>
         </div>
-      </filter-group> -->
+      </filter-group>
       <filter-group
+        v-if="$route.name !== 'findChallenges'"
         :title="$t('membership')"
         class="form-group"
       >
         <div
-          v-for="group in membershipOptions"
+          v-for="group in roleOptions"
           :key="group.key"
           class="form-check"
         >
           <div class="custom-control custom-checkbox">
             <input
               :id="group.key"
-              v-model="membershipFilters"
+              v-model="roleFilters"
               class="custom-control-input"
               type="checkbox"
               :value="group.key"
@@ -175,23 +176,8 @@ export default {
           key: 'time_management',
         },
       ],
-      // roleFilters: [],
-      // roleOptions: [
-      //   {
-      //     label: 'participating',
-      //     key: 'participating',
-      //   },
-      //   {
-      //     label: 'not_participating',
-      //     key: 'not_participating',
-      //   },
-      //   // {
-      //   //   label: 'either',
-      //   //   key: 'either',
-      //   // },
-      // ],
-      membershipFilters: [],
-      membershipOptions: [
+      roleFilters: [],
+      roleOptions: [
         {
           label: 'participating',
           key: 'participating',
@@ -200,6 +186,10 @@ export default {
           label: 'not_participating',
           key: 'not_participating',
         },
+        // {
+        //   label: 'either',
+        //   key: 'either',
+        // },
       ],
       ownershipFilters: [],
       ownershipOptions: [
@@ -229,9 +219,6 @@ export default {
     ownershipFilters: function ownershipFilters () {
       this.emitFilters();
     },
-    membershipFilters: function membershipFilters () {
-      this.emitFilters();
-    },
     searchTerm: throttle(function searchTerm (newSearch) {
       this.$emit('search', {
         searchTerm: newSearch,
@@ -244,7 +231,6 @@ export default {
         categories: this.categoryFilters,
         roles: this.roleFilters,
         ownership: this.ownershipFilters,
-        membership: this.membershipFilters,
       });
     },
   },
