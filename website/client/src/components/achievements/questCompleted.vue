@@ -18,7 +18,7 @@
         v-if="questData.completion && typeof questData.completion === 'function'"
         v-html="questData.completion()"
       ></p>
-      <div class="quest-rewards text-center">
+      <div class="text-center">
         <h3 v-once>
           {{ $t('paymentYouReceived') }}
         </h3>
@@ -36,20 +36,19 @@
   </b-modal>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   .quest {
     margin: 0 auto;
   }
+</style>
 
-  #quest-completed {
-    ::v-deep {
-      .quest-rewards {
-        margin-left: -2rem;
-        margin-right: -2rem;
-      }
-    }
-  }
-
+<style lang="scss">
+ #quest-completed {
+   .quest-rewards {
+     margin-left: -2rem;
+     margin-right: -2rem;
+   }
+ }
 </style>
 
 <script>

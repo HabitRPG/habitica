@@ -43,7 +43,10 @@ stories
       </div>
     `,
     mounted () {
-      this.$root.$emit('bv::show::modal', 'quest-detail-modal');
+      this.$root.$emit('bv::show::modal', 'quest-detail-modal', {
+        key: 'moon1',
+        from: 'sidebar',
+      });
     },
   }))
   .add('quest-completed', () => ({
