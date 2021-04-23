@@ -222,6 +222,7 @@ export default {
 
     this.$root.$on('habitica:team-sync', () => {
       this.loadTasks();
+      this.loadGroupCompletedTodos();
     });
   },
   methods: {

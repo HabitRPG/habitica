@@ -8,6 +8,7 @@ import {
 } from './utils';
 import { model as Challenge } from '../../models/challenge';
 import { model as Group } from '../../models/group';
+import { model as User } from '../../models/user';
 import * as Tasks from '../../models/task';
 import apiError from '../apiError';
 import {
@@ -350,9 +351,34 @@ async function scoreTask (user, task, direction, req, res) {
   }
 
   const wasCompleted = task.completed;
-
   const firstTask = !user.achievements.completedTask;
-  const [delta] = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
+  let delta;
+  let rollbackUser;
+
+  if (
+    task.group.id && !task.userId
+    && direction === 'down'
+    && ['todo', 'daily'].includes(task.type)
+    && task.completed
+    && task.group.completedBy !== user._id
+  ) {
+    const group = await Group.getGroup({
+      user,
+      groupId: task.group.id,
+      fields: 'leader managers',
+    });
+    if (group.leader !== user._id && !group.managers[user._id]) {
+      throw new BadRequest('Cannot uncheck task you did not complete if not a manager.');
+    }
+    rollbackUser = await User.findOne({ _id: task.group.completedBy });
+  }
+
+  if (rollbackUser) {
+    delta = shared.ops.scoreTask({ task, user: rollbackUser, direction }, req, res.analytics);
+    await rollbackUser.save();
+  } else {
+    delta = shared.ops.scoreTask({ task, user, direction }, req, res.analytics);
+  }
   // Drop system (don't run on the client,
   // as it would only be discarded since ops are sent to the API, not the results)
   if (direction === 'up' && !firstTask) shared.fns.randomDrop(user, { task, delta }, req, res.analytics);
