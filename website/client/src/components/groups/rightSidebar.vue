@@ -32,9 +32,8 @@
             </template>
             <b-dropdown-item
               v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
-              class="selectListItem"
+              class="selectListItem custom-hover--upgrade"
               @click="$emit('upgradeGroup')"
-              :style="{'--hover-color': '#1ca372', '--hover-background': '#77f4c73F'}"
             >
               <span class="with-icon">
                 <span
@@ -96,9 +95,8 @@
             </b-dropdown-item>
             <b-dropdown-item
               v-if="isMember"
-              class="selectListItem"
+              class="selectListItem custom-hover--leave"
               @click="$emit('leave')"
-              :style="{'--hover-color': '#c92b2b', '--hover-background': '#ffb6b83F'}"
             >
               <span class="with-icon">
                 <span
@@ -227,5 +225,15 @@ export default {
     margin-left: -1.5rem;
     margin-bottom: 0.688rem;
     background-color: $gray-500;
+  }
+
+  .custom-hover--leave {
+    --hover-color: $maroon-50;
+    --hover-background: #ffb6b83F;
+  }
+
+  .custom-hover--upgrade {
+    --hover-color: $green-10;
+    --hover-background: #77f4c73F;
   }
 </style>

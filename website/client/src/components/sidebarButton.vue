@@ -28,7 +28,7 @@
     background: transparent;
     cursor: pointer;
     &:focus {
-      // Fix keyboard inaccessible #12656
+      // Fix keyboard inaccessible https://github.com/HabitRPG/habitica/pull/12656
       outline: none;
       border: $purple-400 solid 1px;
     }
