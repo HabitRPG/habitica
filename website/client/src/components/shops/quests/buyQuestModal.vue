@@ -84,16 +84,10 @@
     >
       <questDialogDrops :item="item" />
     </div>
-    <div
+    <countdown-banner
       v-if="item.event"
-      class="limitedTime"
-    >
-      <span
-        class="svg-icon inline icon-16 clock-icon"
-        v-html="icons.clock"
-      ></span>
-      <span class="limitedString">{{ limitedString }}</span>
-    </div>
+      :endDate="endDate"
+    />
     <div
       slot="modal-footer"
       class="clearfix"
@@ -208,27 +202,6 @@
       display: block;
     }
 
-    .limitedTime {
-      height: 32px;
-      background-color: $purple-300;
-      width: calc(100% + 30px);
-      margin: 0 -15px; // the modal content has its own padding
-
-      font-size: 12px;
-      line-height: 1.33;
-      text-align: center;
-      color: $white;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .limitedString {
-        height: 16px;
-        margin-left: 8px;
-      }
-    }
-
     .notEnough {
       pointer-events: none;
       opacity: 0.55;
@@ -268,7 +241,6 @@
 </style>
 
 <script>
-import moment from 'moment';
 import { mapState } from '@/libs/store';
 import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
@@ -285,6 +257,7 @@ import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
 import numberInvalid from '@/mixins/numberInvalid';
 import PinBadge from '@/components/ui/pinBadge';
+import CountdownBanner from '../countdownBanner';
 
 import questDialogDrops from './questDialogDrops';
 import questDialogContent from './questDialogContent';
@@ -295,6 +268,7 @@ export default {
     PinBadge,
     questDialogDrops,
     questDialogContent,
+    CountdownBanner,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
   props: {
@@ -321,6 +295,7 @@ export default {
 
       isPinned: false,
       selectedAmountToBuy: 1,
+      endDate: seasonalShopConfig.dateRange.end,
     };
   },
   computed: {
@@ -343,9 +318,6 @@ export default {
       if (this.priceType === 'gold') return this.icons.gold;
       if (this.priceType === 'hourglasses') return this.icons.hourglass;
       return this.icons.gem;
-    },
-    limitedString () {
-      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
     },
   },
   watch: {

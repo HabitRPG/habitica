@@ -48,6 +48,12 @@ export default {
   },
   mixins: [pinUtils],
   props: ['hideLocked', 'hidePinned', 'searchBy', 'sortBy', 'category'],
+  data () {
+    return {
+      timer: '',
+      limitedString: '',
+    };
+  },
   computed: {
     ...mapState({
       content: 'content',
@@ -59,9 +65,6 @@ export default {
       if (!this.user.purchased.plan) return 0;
       return planGemLimits.convCap
         + this.user.purchased.plan.consecutive.gemCapExtra - this.user.purchased.plan.gemsBought;
-    },
-    limitedString () {
-      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
     },
     sortedMarketItems () {
       let result = _map(this.category.items, e => ({
@@ -103,10 +106,43 @@ export default {
       return result;
     },
   },
+  mounted () {
+    this.countdownString();
+    this.timer = setInterval(this.countdownString, 1000);
+  },
   methods: {
     itemSelected (item) {
       this.$root.$emit('buyModal::showItem', item);
     },
+    countdownString () {
+      const diffDuration = moment.duration(moment(seasonalShopConfig.dateRange.end).diff(moment()));
+
+      if (diffDuration.asSeconds() <= 0) {
+        this.limitedString = this.$t('noLongerAvailable');
+      } else if (diffDuration.days() > 0) {
+        this.limitedString = this.$t('limitedAvailabilityDays', {
+          days: diffDuration.days(),
+          hours: diffDuration.hours(),
+          minutes: diffDuration.minutes(),
+        });
+      } else if (diffDuration.asMinutes() > 2) {
+        this.limitedString = this.$t('limitedAvailabilityHours', {
+          hours: diffDuration.hours(),
+          minutes: diffDuration.minutes(),
+        });
+      } else {
+        this.limitedString = this.$t('limitedAvailabilityMinutes', {
+          minutes: diffDuration.minutes(),
+          seconds: diffDuration.seconds(),
+        });
+      }
+    },
+    cancelAutoUpdate () {
+      clearInterval(this.timer);
+    },
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
   },
 };
 </script>

@@ -29,6 +29,7 @@ function _findMysteryItems (user, dateMoment) {
   _.each(shared.content.gear.flat, item => {
     if (
       item.klass === 'mystery'
+        && shared.content.mystery[item.mystery]
         && dateMoment.isSameOrAfter(shared.content.mystery[item.mystery].start)
         && dateMoment.isSameOrBefore(moment(shared.content.mystery[item.mystery].end).endOf('day'))
         && !user.items.gear.owned[item.key]

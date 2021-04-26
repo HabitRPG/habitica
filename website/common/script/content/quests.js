@@ -518,8 +518,9 @@ const quests = {
     completion: t('questEggHuntCompletion'),
     value: 1,
     category: 'pet',
+    event: EVENTS.spring2021,
     canBuy () {
-      return false;
+      return moment().isBefore(EVENTS.spring2021.end);
     },
     collect: {
       plainEgg: {
@@ -3585,7 +3586,10 @@ const quests = {
     completion: t('questWaffleCompletion'),
     value: 4,
     category: 'hatchingPotion',
-    event: EVENTS.spring2020,
+    event: EVENTS.spring2021,
+    canBuy () {
+      return moment().isBefore(EVENTS.spring2021.end);
+    },
     boss: {
       name: t('questWaffleBoss'),
       hp: 500,

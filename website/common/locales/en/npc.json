@@ -125,5 +125,8 @@
   "welcome3": "Progress in life and the game!",
   "welcome3notes": "As you improve your life, your avatar will level up and unlock pets, quests, equipment, and more!",
   "imReady": "Enter Habitica",
-  "limitedOffer": "Available until <%= date %>"
+  "limitedOffer": "Available until <%= date %>",
+  "limitedAvailabilityDays": "Available for <%= days %>d <%= hours %>h <%= minutes %>m",
+  "limitedAvailabilityHours": "Available for <%= hours %>h <%= minutes %>m",
+  "limitedAvailabilityMinutes": "Available for <%= minutes %>m <%= seconds %>s"
 }
