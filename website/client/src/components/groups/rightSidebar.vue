@@ -27,6 +27,7 @@
               <span
                 class="svg-icon inline menuIcon"
                 v-html="icons.menuIcon"
+                v-once
               >
               </span>
             </template>
