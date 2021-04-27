@@ -430,6 +430,11 @@ const backgrounds = {
     splash_in_a_puddle: { },
     spring_thaw: { },
   },
+  backgrounds042021: {
+    among_cattails: { },
+    cottage_construction: { },
+    elegant_garden: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

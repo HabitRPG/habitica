@@ -403,7 +403,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     }
   }
 
-  // Run some operations in the background withouth blocking the thread
+  // Run some operations in the background without blocking the thread
   const backgroundTasks = [
     // And it's tasks
     Tasks.Task.remove({ 'challenge.id': challenge._id, userId: { $exists: false } }).exec(),

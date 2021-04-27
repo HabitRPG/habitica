@@ -8,6 +8,7 @@
         <div
           class="svg-icon quest-icon color"
           v-html="icons.questIcon"
+          v-once
         ></div>
         <h4 v-once>
           {{ $t('yourPartyIsNotOnQuest') }}
@@ -127,6 +128,7 @@
                   <div
                     class="svg-icon health-icon"
                     v-html="icons.healthNoPaddingIcon"
+                    v-once
                   ></div>
                   {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }}
                   / {{ parseFloat(questData.boss.hp) }}
@@ -146,10 +148,11 @@
                   <div
                     class="svg-icon sword-icon"
                     v-html="icons.swordIcon"
+                    v-once
                   ></div>
                   {{ (user.party.quest.progress.up || 0) | floor(10) }}
                   {{ $t('pendingDamageLabel') }}
-                </span> <!-- eslint-disable-line max-len -->
+                </span>
                 <!-- player's pending damage uses floor so you
                   don't overestimate damage you've already done-->
               </div>
@@ -177,6 +180,7 @@
                   <div
                     class="svg-icon rage-icon icon-16"
                     v-html="icons.rageIcon"
+                    v-once
                   >
                   </div>
                   <span>{{ Math.ceil(parseFloat(group.quest.progress.rage)) }}
@@ -212,7 +216,7 @@
     <div v-if="onPendingQuest || onActiveQuest"
          class="quest-buttons">
       <button
-        class="btn btn-secondary full-width"
+        class="btn btn-secondary w-100"
         @click="openQuestDetails()"
       >
         {{ $t('viewDetails') }}
@@ -221,7 +225,7 @@
     <div v-if="userIsQuestLeader && !onActiveQuest"
          class="quest-buttons">
       <button
-        class="btn btn-success full-width"
+        class="btn btn-success w-100"
         @click="startQuest()"
       >
         {{ $t('startQuest') }}
@@ -361,10 +365,6 @@
       width: 4.25rem;
       height: 4.25rem;
     }
-  }
-
-  .full-width {
-    width: 100%;
   }
 
   .quest-active-section {

@@ -161,16 +161,10 @@
         </button>
       </div>
     </div>
-    <div
+    <countdown-banner
       v-if="item.event && item.owned == null"
-      class="limitedTime"
-    >
-      <span
-        class="svg-icon inline icon-16 clock-icon"
-        v-html="icons.clock"
-      ></span>
-      <span class="limitedString">{{ limitedString }}</span>
-    </div>
+      :endDate = "endDate"
+    />
     <div
       v-if="item.key === 'rebirth_orb' && item.value > 0 && user.stats.lvl >= 100"
       class="free-rebirth d-flex align-items-center"
@@ -324,27 +318,6 @@
       opacity: 0.55;
     }
 
-    .limitedTime {
-      height: 32px;
-      background-color: $purple-300;
-      width: calc(100% + 30px);
-      margin: 0 -15px; // the modal content has its own padding
-
-      font-size: 12px;
-      line-height: 1.33;
-      text-align: center;
-      color: $white;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .limitedString {
-        height: 16px;
-        margin-left: 8px;
-      }
-    }
-
     .attributesGrid {
       margin-top: 8px;
       border-radius: 2px;
@@ -399,6 +372,7 @@ import svgWhiteClock from '@/assets/svg/clock-white.svg';
 
 import BalanceInfo from './balanceInfo.vue';
 import PinBadge from '@/components/ui/pinBadge';
+import CountdownBanner from './countdownBanner';
 import currencyMixin from './_currencyMixin';
 import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
@@ -432,6 +406,7 @@ export default {
     Item,
     Avatar,
     PinBadge,
+    CountdownBanner,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid, spellsMixin],
   props: {
@@ -462,6 +437,7 @@ export default {
 
       selectedAmountToBuy: 1,
       isPinned: false,
+      endDate: seasonalShopConfig.dateRange.end,
     };
   },
   computed: {
@@ -493,9 +469,6 @@ export default {
         return this.item.notes();
       }
       return this.item.notes;
-    },
-    limitedString () {
-      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
     },
     gemsLeft () {
       if (!this.user.purchased.plan) return 0;

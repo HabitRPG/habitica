@@ -152,7 +152,7 @@
     "purchasedPlanExtraMonths": "Você tem <strong><%= months %> meses</strong> de créditos de assinaturas extras.",
     "consecutiveSubscription": "Assinatura Consecutiva",
     "consecutiveMonths": "Meses Consecutivos:",
-    "gemCapExtra": "Capacidade de Gemas extras",
+    "gemCapExtra": "Bônus de Capacidade de Gemas",
     "mysticHourglasses": "Ampulhetas Místicas:",
     "mysticHourglassesTooltip": "Ampulheta Mística",
     "paypal": "PayPal",

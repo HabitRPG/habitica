@@ -165,18 +165,22 @@ const armor = {
   },
   springRogue: {
     set: 'stealthyKittySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springMage: {
     set: 'magicMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summerRogue: {
@@ -235,18 +239,22 @@ const armor = {
   },
   spring2015Rogue: {
     set: 'sneakySqueakerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Warrior: {
     set: 'bewareDogSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Mage: {
     set: 'magicianBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Healer: {
     set: 'comfortingKittySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2015Rogue: {
@@ -311,18 +319,22 @@ const armor = {
   },
   spring2016Rogue: {
     set: 'cleverDogSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Warrior: {
     set: 'braveMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Mage: {
     set: 'grandMalkinSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Healer: {
     set: 'springingBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2016Rogue: {
@@ -381,18 +393,22 @@ const armor = {
   },
   spring2017Rogue: {
     set: 'spring2017SneakyBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Warrior: {
     set: 'spring2017FelineWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Mage: {
     set: 'spring2017CanineConjurorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Healer: {
     set: 'spring2017FloralMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2017Rogue: {
@@ -451,18 +467,22 @@ const armor = {
   },
   spring2018Rogue: {
     set: 'spring2018DucklingRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Warrior: {
     set: 'spring2018SunriseWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Mage: {
     set: 'spring2018TulipMageSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Healer: {
     set: 'spring2018GarnetHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2018Rogue: {
@@ -527,18 +547,22 @@ const armor = {
   },
   spring2019Rogue: {
     set: 'spring2019CloudRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Warrior: {
     set: 'spring2019OrchidWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Mage: {
     set: 'spring2019AmberMageSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Healer: {
     set: 'spring2019RobinHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2019Rogue: {
@@ -604,18 +628,22 @@ const armor = {
   },
   spring2020Rogue: {
     set: 'spring2020LapisLazuliRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Warrior: {
     set: 'spring2020BeetleWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Mage: {
     set: 'spring2020PuddleMageSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Healer: {
     set: 'spring2020IrisHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2020Rogue: {
@@ -1172,18 +1200,22 @@ const head = {
   },
   springRogue: {
     set: 'stealthyKittySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springMage: {
     set: 'magicMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summerRogue: {
@@ -1242,18 +1274,22 @@ const head = {
   },
   spring2015Rogue: {
     set: 'sneakySqueakerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Warrior: {
     set: 'bewareDogSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Mage: {
     set: 'magicianBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Healer: {
     set: 'comfortingKittySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2015Rogue: {
@@ -1318,18 +1354,22 @@ const head = {
   },
   spring2016Rogue: {
     set: 'cleverDogSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Warrior: {
     set: 'braveMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Mage: {
     set: 'grandMalkinSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Healer: {
     set: 'springingBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2016Rogue: {
@@ -1388,18 +1428,22 @@ const head = {
   },
   spring2017Rogue: {
     set: 'spring2017SneakyBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Warrior: {
     set: 'spring2017FelineWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Mage: {
     set: 'spring2017CanineConjurorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Healer: {
     set: 'spring2017FloralMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2017Rogue: {
@@ -1464,18 +1508,22 @@ const head = {
   },
   spring2018Rogue: {
     set: 'spring2018DucklingRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Warrior: {
     set: 'spring2018SunriseWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Mage: {
     set: 'spring2018TulipMageSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Healer: {
     set: 'spring2018GarnetHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2018Rogue: {
@@ -1546,18 +1594,22 @@ const head = {
   },
   spring2019Rogue: {
     set: 'spring2019CloudRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Warrior: {
     set: 'spring2019OrchidWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Mage: {
     set: 'spring2019AmberMageSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Healer: {
     set: 'spring2019RobinHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2019Rogue: {
@@ -1623,18 +1675,22 @@ const head = {
   },
   spring2020Rogue: {
     set: 'spring2020LapisLazuliRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Warrior: {
     set: 'spring2020BeetleWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Mage: {
     set: 'spring2020PuddleMageSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Healer: {
     set: 'spring2020IrisHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2020Rogue: {
@@ -1721,75 +1777,75 @@ Object.keys(gearEvents).forEach(event => {
 
 const headAccessory = {
   springRogue: {
-    event: EVENTS.spring,
     specialClass: 'rogue',
     set: 'stealthyKittySet',
     text: t('headAccessorySpecialSpringRogueText'),
     notes: t('headAccessorySpecialSpringRogueNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springWarrior: {
-    event: EVENTS.spring,
     specialClass: 'warrior',
     set: 'mightyBunnySet',
     text: t('headAccessorySpecialSpringWarriorText'),
     notes: t('headAccessorySpecialSpringWarriorNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springMage: {
-    event: EVENTS.spring,
     specialClass: 'wizard',
     set: 'magicMouseSet',
     text: t('headAccessorySpecialSpringMageText'),
     notes: t('headAccessorySpecialSpringMageNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springHealer: {
-    event: EVENTS.spring,
     specialClass: 'healer',
     set: 'lovingPupSet',
     text: t('headAccessorySpecialSpringHealerText'),
     notes: t('headAccessorySpecialSpringHealerNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Rogue: {
-    event: EVENTS.spring2015,
     specialClass: 'rogue',
     set: 'sneakySqueakerSet',
     text: t('headAccessorySpecialSpring2015RogueText'),
     notes: t('headAccessorySpecialSpring2015RogueNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Warrior: {
-    event: EVENTS.spring2015,
     specialClass: 'warrior',
     set: 'bewareDogSet',
     text: t('headAccessorySpecialSpring2015WarriorText'),
     notes: t('headAccessorySpecialSpring2015WarriorNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Mage: {
-    event: EVENTS.spring2015,
     specialClass: 'wizard',
     set: 'magicianBunnySet',
     text: t('headAccessorySpecialSpring2015MageText'),
     notes: t('headAccessorySpecialSpring2015MageNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Healer: {
-    event: EVENTS.spring2015,
     specialClass: 'healer',
     set: 'comfortingKittySet',
     text: t('headAccessorySpecialSpring2015HealerText'),
     notes: t('headAccessorySpecialSpring2015HealerNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   bearEars: {
@@ -1857,75 +1913,75 @@ const headAccessory = {
     canBuy: () => true,
   },
   spring2016Rogue: {
-    event: EVENTS.spring2016,
     specialClass: 'rogue',
     set: 'cleverDogSet',
     text: t('headAccessorySpecialSpring2016RogueText'),
     notes: t('headAccessorySpecialSpring2016RogueNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Warrior: {
-    event: EVENTS.spring2016,
     specialClass: 'warrior',
     set: 'braveMouseSet',
     text: t('headAccessorySpecialSpring2016WarriorText'),
     notes: t('headAccessorySpecialSpring2016WarriorNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Mage: {
-    event: EVENTS.spring2016,
     specialClass: 'wizard',
     set: 'grandMalkinSet',
     text: t('headAccessorySpecialSpring2016MageText'),
     notes: t('headAccessorySpecialSpring2016MageNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Healer: {
-    event: EVENTS.spring2016,
     specialClass: 'healer',
     set: 'springingBunnySet',
     text: t('headAccessorySpecialSpring2016HealerText'),
     notes: t('headAccessorySpecialSpring2016HealerNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Rogue: {
-    event: EVENTS.spring2017,
     specialClass: 'rogue',
     set: 'spring2017SneakyBunnySet',
     text: t('headAccessorySpecialSpring2017RogueText'),
     notes: t('headAccessorySpecialSpring2017RogueNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Warrior: {
-    event: EVENTS.spring2017,
     specialClass: 'warrior',
     set: 'spring2017FelineWarriorSet',
     text: t('headAccessorySpecialSpring2017WarriorText'),
     notes: t('headAccessorySpecialSpring2017WarriorNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Mage: {
-    event: EVENTS.spring2017,
     specialClass: 'wizard',
     set: 'spring2017CanineConjurorSet',
     text: t('headAccessorySpecialSpring2017MageText'),
     notes: t('headAccessorySpecialSpring2017MageNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Healer: {
-    event: EVENTS.spring2017,
     specialClass: 'healer',
     set: 'spring2017FloralMouseSet',
     text: t('headAccessorySpecialSpring2017HealerText'),
     notes: t('headAccessorySpecialSpring2017HealerNotes'),
     value: 20,
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   blackHeadband: {
@@ -2072,14 +2128,17 @@ const shield = {
   },
   springRogue: {
     set: 'stealthyKittySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summerRogue: {
@@ -2120,14 +2179,17 @@ const shield = {
   },
   spring2015Rogue: {
     set: 'sneakySqueakerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Warrior: {
     set: 'bewareDogSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Healer: {
     set: 'comfortingKittySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2015Rogue: {
@@ -2168,14 +2230,17 @@ const shield = {
   },
   spring2016Rogue: {
     set: 'cleverDogSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Warrior: {
     set: 'braveMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Healer: {
     set: 'springingBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2016Rogue: {
@@ -2216,14 +2281,17 @@ const shield = {
   },
   spring2017Rogue: {
     set: 'spring2017SneakyBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Warrior: {
     set: 'spring2017FelineWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Healer: {
     set: 'spring2017FloralMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2017Rogue: {
@@ -2264,14 +2332,17 @@ const shield = {
   },
   spring2018Rogue: {
     set: 'spring2018DucklingRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Warrior: {
     set: 'spring2018SunriseWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Healer: {
     set: 'spring2018GarnetHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2018Rogue: {
@@ -2320,14 +2391,17 @@ const shield = {
   },
   spring2019Rogue: {
     set: 'spring2019CloudRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Warrior: {
     set: 'spring2019OrchidWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Healer: {
     set: 'spring2019RobinHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2019Rogue: {
@@ -2385,14 +2459,17 @@ const shield = {
   },
   spring2020Rogue: {
     set: 'spring2020LapisLazuliRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Warrior: {
     set: 'spring2020BeetleWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Healer: {
     set: 'spring2020IrisHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2020Warrior: {
@@ -2605,18 +2682,22 @@ const weapon = {
   },
   springRogue: {
     set: 'stealthyKittySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springWarrior: {
     set: 'mightyBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springMage: {
     set: 'magicMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   springHealer: {
     set: 'lovingPupSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summerRogue: {
@@ -2669,18 +2750,22 @@ const weapon = {
   },
   spring2015Rogue: {
     set: 'sneakySqueakerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Warrior: {
     set: 'bewareDogSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Mage: {
     set: 'magicianBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2015Healer: {
     set: 'comfortingKittySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2015Rogue: {
@@ -2733,18 +2818,22 @@ const weapon = {
   },
   spring2016Rogue: {
     set: 'cleverDogSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Warrior: {
     set: 'braveMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Mage: {
     set: 'grandMalkinSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2016Healer: {
     set: 'springingBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2016Rogue: {
@@ -2797,18 +2886,22 @@ const weapon = {
   },
   spring2017Rogue: {
     set: 'spring2017SneakyBunnySet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Warrior: {
     set: 'spring2017FelineWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Mage: {
     set: 'spring2017CanineConjurorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2017Healer: {
     set: 'spring2017FloralMouseSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2017Rogue: {
@@ -2861,18 +2954,22 @@ const weapon = {
   },
   spring2018Rogue: {
     set: 'spring2018DucklingRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Warrior: {
     set: 'spring2018SunriseWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Mage: {
     set: 'spring2018TulipMageSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2018Healer: {
     set: 'spring2018GarnetHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2018Rogue: {
@@ -2925,18 +3022,22 @@ const weapon = {
   },
   spring2019Rogue: {
     set: 'spring2019CloudRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Warrior: {
     set: 'spring2019OrchidWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Mage: {
     set: 'spring2019AmberMageSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2019Healer: {
     set: 'spring2019RobinHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2019Rogue: {
@@ -3004,18 +3105,22 @@ const weapon = {
   },
   spring2020Rogue: {
     set: 'spring2020LapisLazuliRogueSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Warrior: {
     set: 'spring2020BeetleWarriorSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Mage: {
     set: 'spring2020PuddleMageSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   spring2020Healer: {
     set: 'spring2020IrisHealerSet',
+    event: EVENTS.spring2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'spring',
   },
   summer2020Rogue: {

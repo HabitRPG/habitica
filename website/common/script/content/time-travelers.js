@@ -3,6 +3,7 @@ import filter from 'lodash/filter';
 import keys from 'lodash/keys';
 import union from 'lodash/union';
 import reduce from 'lodash/reduce';
+import moment from 'moment';
 
 import mysterySets from './mystery-sets';
 import gear from './gear';
@@ -24,7 +25,11 @@ const timeTravelerStore = user => {
   ownedKeys = keys(typeof owned.toObject === 'function' ? owned.toObject() : owned);
   ownedKeys = union(ownedKeys, unopenedGifts);
   return reduce(mystery, (m, v, k) => {
-    if (k === 'wondercon' || ownedKeys.indexOf(v.items[0].key) !== -1) {
+    if (
+      k === 'wondercon'
+      || ownedKeys.indexOf(v.items[0].key) !== -1
+      || (moment(k).isAfter() && moment(k).isBefore('3000-01-01'))
+    ) {
       return m;
     }
     m[k] = v;
