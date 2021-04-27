@@ -111,7 +111,7 @@
   },
   "devDependencies": {
     "axios": "^0.21.1",
-    "chai": "^4.1.2",
+    "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-moment": "^0.1.0",
     "chalk": "^4.1.0",
