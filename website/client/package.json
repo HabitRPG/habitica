@@ -20,7 +20,7 @@
     "@storybook/vue": "^6.2.9",
     "@vue/cli-plugin-babel": "^4.5.11",
     "@vue/cli-plugin-eslint": "^4.5.11",
-    "@vue/cli-plugin-router": "^4.5.11",
+    "@vue/cli-plugin-router": "^4.5.12",
     "@vue/cli-plugin-unit-mocha": "^4.5.11",
     "@vue/cli-service": "^4.5.11",
     "@vue/test-utils": "1.0.0-beta.29",
