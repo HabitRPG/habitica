@@ -145,7 +145,6 @@
   "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
   "purchasePetItemConfirm": "This purchase would exceed the number of items you need to hatch all possible <%= itemText %> pets. Are you sure?",
   "notEnoughMana": "Not enough mana.",
-  "notEnoughLvl": "Level is not high enough.",
   "notEnoughGold": "Not enough gold.",
   "invalidTarget": "You can't cast a skill on that.",
   "youCast": "You cast <%= spell %>.",
