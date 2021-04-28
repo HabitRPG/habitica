@@ -105,13 +105,13 @@
     "clickOnEggToHatch": "Click on an Egg t' use yer <%= potionName %> hatchin' potion an' hatch a new pet!",
     "hatchDialogText": "Pour yer <%= potionName %> hatchin' potion on yer <%= eggName %> egg, an' it'll hatch into a <%= petName %>.",
     "clickOnPotionToHatch": "Click on a hatchin' potion t' use it on yer <%= eggName %> an' hatch a new pet!",
-    "notEnoughPets": "Ye haven't collected enough pets",
-    "notEnoughMounts": "Ye haven't collected enough mounts",
-    "notEnoughPetsMounts": "Ye haven't collected enough pets an' mounts",
+    "notEnoughPets": "Ye haven't collect'd enough critters",
+    "notEnoughMounts": "Ye haven't collect'd enough steeds",
+    "notEnoughPetsMounts": "Ye haven't collect'd enough crtitters an' steeds",
     "wackyPets": "Pirate's Wacky Pets",
     "filterByWacky": "Wacky",
     "gryphatrice": "Griffytrice",
-    "invalidAmount": "Invalid amount of Vittles, must be a positive integer",
-    "tooMuchFood": "Ye be wantin to feed too many vittles to yer critter, action cancelled",
-    "notEnoughFood": "Ye don't ave enough Vittles"
+    "invalidAmount": "Invalid amount o' vittles, must be a positive integer",
+    "tooMuchFood": "Ye be wantin' t' feed too many vittles t' yer critter, action cancell'd",
+    "notEnoughFood": "Ye don't 'ave enough Vittles"
 }

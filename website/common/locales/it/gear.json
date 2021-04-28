@@ -2331,5 +2331,15 @@
     "armorMystery202104Notes": "Morbido all'interno, appuntito all'esterno, elegante ovunque! Non conferisce alcun bonus. Oggetto abbonati aprile 2021.",
     "armorMystery202104Text": "Armatura del Cardo spinoso",
     "weaponMystery202104Notes": "I tuoi nemici faranno meglio a stare attenti: hai difese potenti e spinose! Non conferisce alcun bonus. Oggetto abbonati aprile 2021.",
-    "weaponMystery202104Text": "Bastone del Cardo spinoso"
+    "weaponMystery202104Text": "Bastone del Cardo spinoso",
+    "eyewearArmoireClownsNoseNotes": "Questo accessorio farà sì che tutti \"fiutino\" il fatto che tu sia un clown! Aumenta l'intelligenza di <%= int %>. Scrigno Incantato: Set del Pagliaccio (oggetto 2 di 5).",
+    "eyewearArmoireClownsNoseText": "Naso da Pagliaccio",
+    "bodyArmoireClownsBowtieNotes": "Un bel papillon non è uno scherzo, nemmeno per un clown. Aumenta Forza, Intelligenza, Costituzione e Percezione di <%= attrs %> ciascuno. Scrigno Incantato: Set da pagliaccio (oggetto 5 di 5).",
+    "bodyArmoireClownsBowtieText": "Papillon da Pagliaccio",
+    "shieldArmoireClownsBalloonsNotes": "Attenzione: sostituire questi palloncini potrebbe essere un po' costoso perché i prezzi si... gonfieranno! Aumenta la percezione di <%= per %>. Scrigno Incantato: Set del Pagliaccio (oggetto 4 di 5).",
+    "shieldArmoireClownsBalloonsText": "Palloncini da Pagliaccio",
+    "headArmoireClownsWigNotes": "Ora nessun compito ti potrà angosciare! Avrai un che di divertente. Aumenta la costituzione di <%= con %>. Scrigno Incantato: Set del Pagliaccio (oggetto 3 di 5).",
+    "headArmoireClownsWigText": "Parrucca da clown",
+    "armorArmoireClownsMotleyNotes": "I vestiti stanno benissimo, ma è un'impresa riempire le scarpe. Aumenta la forza di <%= str %>. Scrigno Incantato: Set del Pagliaccio (oggetto 1 di 5).",
+    "armorArmoireClownsMotleyText": "Pagliaccio Arlecchino"
 }

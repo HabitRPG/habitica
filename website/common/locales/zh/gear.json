@@ -2327,5 +2327,19 @@
     "weaponSpecialSpring2021WarriorNotes": "利用太阳的力量来对付你的敌人，让太阳石给你带来好运! 增加<%= str %>力量。2021年春季限定版装备。",
     "weaponSpecialSpring2021WarriorText": "太阳神之锤",
     "weaponSpecialSpring2021RogueNotes": "你知道什么比双持花更好吗？四重挥花! 增加<%= str %>点力量。2021年春季限定版装备。",
-    "weaponSpecialSpring2021RogueText": "林奈花开"
+    "weaponSpecialSpring2021RogueText": "林奈花开",
+    "eyewearArmoireClownsNoseNotes": "这款配饰可以让大家 \"嗅 \"到你是个小丑！增加<%= int %>点智力。魔法衣橱：小丑套装（2/5）。",
+    "eyewearArmoireClownsNoseText": "小丑鼻子",
+    "bodyArmoireClownsBowtieNotes": "一个漂亮的领结可是很必要的，即使是小丑也不例外。增加力量、智力、体质和感知各<%= attrs %>。魔法衣橱：小丑套装（5/5）。",
+    "bodyArmoireClownsBowtieText": "小丑领结",
+    "shieldArmoireClownsBalloonsNotes": "小心：更换这些气球会有点贵......因为通货膨胀！增加<%= per %>点感知。魔法衣橱：小丑套装（4/5）。",
+    "shieldArmoireClownsBalloonsText": "小丑气球",
+    "headArmoireClownsWigNotes": "现在没有坏任务可以咬你了! 你会感觉好极了。增加<%= con %>点体质。魔法衣橱：小丑套装（3/5）。",
+    "headArmoireClownsWigText": "小丑假发",
+    "armorArmoireClownsMotleyNotes": "衣服很合身，但想要填满这双鞋可不不容易。增加 <%= str %>点力量。魔法衣橱：小丑套装（1/5）。",
+    "armorArmoireClownsMotleyText": "杂色小丑",
+    "armorMystery202104Notes": "内软外尖，处处时尚！没有属性加成。2021年4月订阅者物品。",
+    "armorMystery202104Text": "荆芥甲",
+    "weaponMystery202104Notes": "你的敌人最好小心点——你的防御力很强，拥有利刺防御！没有属性加成。2021年4月订阅者物品。",
+    "weaponMystery202104Text": "荆棘杖"
 }
