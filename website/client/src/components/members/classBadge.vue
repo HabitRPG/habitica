@@ -1,5 +1,6 @@
 <template>
-  <div class="class-badge d-flex justify-content-center">
+  <div class="class-badge d-flex justify-content-center"
+       :style="{'--badge-size': badgeSize}">
     <div
       class="align-self-center svg-icon"
       :aria-label="$t(memberClass)"
@@ -45,6 +46,10 @@ export default {
     memberClass: {
       type: String,
       required: true,
+    },
+    badgeSize: {
+      type: Number,
+      default: 32,
     },
   },
   data () {

@@ -20,7 +20,7 @@
         <class-badge
           v-if="member.stats"
           :member-class="member.stats.class"
-          style="--badge-size: 40px"
+          :badge-size="40"
         />
       </div>
       <div class="usernames">
@@ -71,9 +71,11 @@
 </template>
 
 <style lang='scss'>
+  @import '~@/assets/scss/colors.scss';
+
   #invitation-list {
     .modal-header {
-      background-color: #edecee;
+      background-color: $gray-600;
       border-radius: 8px 8px 0 0;
       box-shadow: 0 1px 2px 0 rgba(26, 24, 29, 0.24);
     }

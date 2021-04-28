@@ -1,3 +1,5 @@
+import { v4 as generateUUID } from 'uuid';
+
 export const userStyles = {
   contributor: {
     admin: true,
@@ -75,7 +77,7 @@ export const userStyles = {
   profile: {
     name: 'user',
   },
-  _id: '1337',
+  _id: generateUUID(),
   flags: {
     classSelected: true,
   },

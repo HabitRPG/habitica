@@ -32,7 +32,6 @@
       </div>
 
       <div class="quest-items">
-        <!-- eslint-disable vue/no-use-v-if-with-v-for -->
         <div
           v-for="item in questsInfoList"
           :key="item.key"
@@ -98,12 +97,16 @@
           {{ $t('inviteToPartyOrQuest') }}
         </button>
       </div>
-      <div v-if="fromSelectionDialog"
-           class="text-center back-to-selection"
-           @click="goBackToQuestSelection()">
-        <span v-once
-             class="svg-icon color"
-             v-html="icons.navigationBack">
+      <div
+        v-if="fromSelectionDialog"
+        class="text-center back-to-selection"
+        @click="goBackToQuestSelection()"
+      >
+        <span
+          v-once
+          class="svg-icon color"
+          v-html="icons.navigationBack"
+        >
         </span>
 
         <span>

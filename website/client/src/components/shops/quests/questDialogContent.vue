@@ -11,7 +11,10 @@
       v-if="group && leader"
       class="leader-label"
     >
-      <span>Quest-Owner: </span><user-label :user="leader" />
+      <span v-once>
+        {{ $t('questOwner') }}:
+      </span>
+      <user-label :user="leader" />
     </div>
     <div
       class="text"

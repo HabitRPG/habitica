@@ -91,7 +91,7 @@
   @import '~@/assets/scss/colors.scss';
 
   .stats-bar {
-    margin-left: 0 !important;
+    margin-left: 0;
     height: 12px;
     border-radius: 2px;
 

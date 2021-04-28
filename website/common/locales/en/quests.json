@@ -92,5 +92,6 @@
   "selectQuestModal": "Select a Quest",
   "yourQuests": "Your Quests",
   "backToSelection": "Back to Quest selection",
-  "cancelQuest": "Cancel Quest"
+  "cancelQuest": "Cancel Quest",
+  "questOwner": "Quest Owner"
 }
