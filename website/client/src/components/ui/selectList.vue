@@ -53,23 +53,32 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .select-list ::v-deep .selectListItem {
-    position: relative;
-
-    &:not(.showIcon) {
-      .svg-icon.check-icon {
-        display: none;
-      }
+  .select-list ::v-deep {
+    .dropdown-toggle {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .svg-icon.check-icon.color {
-      position: absolute;
-      right: 0.855rem;
-      top: 0.688rem;
-      bottom: 0.688rem;
-      width: 0.77rem;
-      height: 0.615rem;
-      color: $purple-300;
+    .selectListItem {
+      position: relative;
+      padding-right: 1.625rem;
+
+      &:not(.showIcon) {
+        .svg-icon.check-icon {
+          display: none;
+        }
+      }
+
+      .svg-icon.check-icon.color {
+        position: absolute;
+        right: 0.855rem;
+        top: 0.688rem;
+        bottom: 0.688rem;
+        width: 0.77rem;
+        height: 0.615rem;
+        color: $purple-300;
+      }
     }
   }
 </style>

@@ -42,7 +42,7 @@
               :placeholder="$t('search')"
             >
           </div>
-          <div class="col">
+          <div class="col-5">
             <select-list
               :items="sortOptions"
               :value="optionEntryBySelectedValue"
