@@ -44,7 +44,7 @@
     "js2xmlparser": "^4.0.1",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^2.0.3",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "merge-stream": "^2.0.0",
     "method-override": "^3.0.0",
     "moment": "^2.29.1",
