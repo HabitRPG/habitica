@@ -2327,5 +2327,19 @@
     "headSpecialSpring2021HealerNotes": "Ne pleurez pas les amis ! Un guérisseur est là pour soigner vos blessures ! Augmente l'intelligence de <%= int %>. Équipement en édition limitée du printemps 2021.",
     "headSpecialSpring2021HealerText": "Couronne de Salix",
     "headSpecialSpring2021MageNotes": "Posez cette couronne légère sur votre tête, et les oiseaux du lac viendront à vous. Que leur demanderez-vous ? Augmente la perception de <%= per %>. Équipement en édition limité du printemps 2021.",
-    "headSpecialSpring2021MageText": "Diadème de cygne"
+    "headSpecialSpring2021MageText": "Diadème de cygne",
+    "eyewearArmoireClownsNoseNotes": "Vous avez la certitude qu'avec cet accessoire, tout le monde vous recon-'nez' en tant que clown ! Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble de clown ((objet 2 de 5).",
+    "eyewearArmoireClownsNoseText": "Nez de clown",
+    "bodyArmoireClownsBowtieNotes": "Un joli nœud papillon n'est matière à rigoler, même pour un clown. Augmente la force, l'intelligence, la constitution et la perception de <%= attrs %> chacune. Armoire enchantée : (objet 5 de 5).",
+    "bodyArmoireClownsBowtieText": "Nœud papillon",
+    "shieldArmoireClownsBalloonsNotes": "Faites attention : remplacer ces ballons pourrait s'avérer cher... à cause de l'inflation ! Augmente la perception de <%= per %>. Armoire enchantée : ensemble de clown (objet 4 de 5).",
+    "shieldArmoireClownsBalloonsText": "Ballons de clown",
+    "headArmoireClownsWigNotes": "Vos tâches ne mordront pas, maintenant ! Vous auriez un goût bizarre. Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de clown (objet 3 de 5).",
+    "headArmoireClownsWigText": "Perruque de clown",
+    "armorArmoireClownsMotleyNotes": "Les vêtements vous vont à merveille, mais remplir ces chaussures est un exploit. Augmente la force de <%= str %>. Armoire enchantée : ensemble de clown (objet 1 de 5).",
+    "armorArmoireClownsMotleyText": "Panoplie de clown",
+    "armorMystery202104Notes": "Douce à l'intérieur, piquante à l'extérieur, stylée partout ! Ne confère aucun bonus. Équipement d'abonnement d'avril 2021.",
+    "armorMystery202104Text": "Armure de chardon duveteux",
+    "weaponMystery202104Notes": "Vos ennemis feraient mieux de faire attention - vous avez des défenses puissantes et piquantes ! Ne confère aucun bonus. Équipement d'abonnement d'avril 2021.",
+    "weaponMystery202104Text": "Bâton de chardon épineux"
 }
