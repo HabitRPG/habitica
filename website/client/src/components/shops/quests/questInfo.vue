@@ -36,7 +36,7 @@
         </dd>
       </div>
     </div>
-    <div v-if="quest.event && popoverVersion">
+    <div v-if="quest.event">
       {{ limitedString }}
     </div>
   </div>
@@ -131,10 +131,6 @@ export default {
     quest: {
       type: Object,
     },
-    popoverVersion: {
-      type: Boolean,
-      default: false,
-    },
   },
   data () {
     return {
@@ -143,6 +139,8 @@ export default {
         starHalf: svgStarHalf,
         starEmpty: svgStarEmpty,
       }),
+      timer: '',
+      limitedString: '',
     };
   },
   computed: {
@@ -153,9 +151,10 @@ export default {
 
       return 1;
     },
-    limitedString () {
-      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
-    },
+  },
+  mounted () {
+    this.countdownString();
+    this.timer = setInterval(this.countdownString, 1000);
   },
   methods: {
     stars () {
@@ -182,6 +181,35 @@ export default {
       }
       return collect.text;
     },
+    countdownString () {
+      const diffDuration = moment.duration(moment(seasonalShopConfig.dateRange.end).diff(moment()));
+
+      if (diffDuration.asSeconds() <= 0) {
+        this.limitedString = this.$t('noLongerAvailable');
+      } else if (diffDuration.days() > 0) {
+        this.limitedString = this.$t('limitedAvailabilityDays', {
+          days: diffDuration.days(),
+          hours: diffDuration.hours(),
+          minutes: diffDuration.minutes(),
+        });
+      } else if (diffDuration.asMinutes() > 2) {
+        this.limitedString = this.$t('limitedAvailabilityHours', {
+          hours: diffDuration.hours(),
+          minutes: diffDuration.minutes(),
+        });
+      } else {
+        this.limitedString = this.$t('limitedAvailabilityMinutes', {
+          minutes: diffDuration.minutes(),
+          seconds: diffDuration.seconds(),
+        });
+      }
+    },
+    cancelAutoUpdate () {
+      clearInterval(this.timer);
+    },
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
   },
 };
 </script>

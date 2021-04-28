@@ -535,24 +535,12 @@ describe('PUT /tasks/:id', () => {
       });
 
       expect(savedMonthly.nextDue.length).to.eql(6);
-      expect(moment(savedMonthly.nextDue[0]).toDate()).to.eql(
-        moment(date2).add(1, 'months').startOf('day').toDate(),
-      );
-      expect(moment(savedMonthly.nextDue[1]).toDate()).to.eql(
-        moment(date2).add(2, 'months').startOf('day').toDate(),
-      );
-      expect(moment(savedMonthly.nextDue[2]).toDate()).to.eql(
-        moment(date2).add(3, 'months').startOf('day').toDate(),
-      );
-      expect(moment(savedMonthly.nextDue[3]).toDate()).to.eql(
-        moment(date2).add(4, 'months').startOf('day').toDate(),
-      );
-      expect(moment(savedMonthly.nextDue[4]).toDate()).to.eql(
-        moment(date2).add(5, 'months').startOf('day').toDate(),
-      );
-      expect(moment(savedMonthly.nextDue[5]).toDate()).to.eql(
-        moment(date2).add(6, 'months').startOf('day').toDate(),
-      );
+      expect(moment(savedMonthly.nextDue[0]).isSame(moment(date2).add(1, 'months').startOf('day')));
+      expect(moment(savedMonthly.nextDue[1]).isSame(moment(date2).add(2, 'months').startOf('day')));
+      expect(moment(savedMonthly.nextDue[2]).isSame(moment(date2).add(3, 'months').startOf('day')));
+      expect(moment(savedMonthly.nextDue[3]).isSame(moment(date2).add(4, 'months').startOf('day')));
+      expect(moment(savedMonthly.nextDue[4]).isSame(moment(date2).add(5, 'months').startOf('day')));
+      expect(moment(savedMonthly.nextDue[5]).isSame(moment(date2).add(6, 'months').startOf('day')));
     });
   });
 

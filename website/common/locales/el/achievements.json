@@ -86,11 +86,11 @@
     "achievementRedLetterDayText": "Έχει εξημερώσει όλα τα Κόκκινα Θηρία.",
     "achievementRedLetterDay": "Ημέρα Κόκκινου Γράμματος",
     "achievementSeeingRedModalText": "Έχεις συλλέξει όλα τα Κόκκινα κατοικίδια!",
-    "achievementSeeingRedText": "Έχει συλλέξει όλα τα Κόκκινα κατοικίδια.",
+    "achievementSeeingRedText": "Έχει συλλέξει όλα τα Κόκκινα Κατοικίδια.",
     "achievementSeeingRed": "Βλέποντάς τα Κόκκινα",
     "achievementSkeletonCrew": "Πλήρωμα Σκελετών",
     "achievementBoneCollectorModalText": "Έχεις συλλέξει όλα τα κατοικίδια Σκελετούς!",
-    "achievementBoneCollectorText": "Έχει συλλέξει όλα τα κατοικίδια Σκελετούς.",
+    "achievementBoneCollectorText": "Έχει συλλέξει όλα τα Κατοικίδια Σκελετούς.",
     "achievementGoodAsGold": "Καλό σαν Χρυσό",
     "achievementTickledPinkModalText": "Έχεις συλλέξει όλα τα Ροζ Μαλλιού της Γριάς Κατοικίδια!",
     "achievementBugBonanzaModalText": "Ολοκλήρωσες όλες τις περιπέτειες κατοικιδίων Σκαθάρι, Πεταλούδα, Σαλιγκάρι και Αράχνη!",
@@ -102,5 +102,11 @@
     "achievementFreshwaterFriendsModalText": "Ολοκλήρωσες τις αποστολές κατοικιδίων Μεξικανική Σαλαμάνδρα, Βατράχι και Ιπποπόταμος!",
     "achievementFreshwaterFriendsText": "Έχει ολοκληρώσει τις αποστολές κατοικιδίων Μεξικανική Σαλαμάνδρα, Βατράχι και Ιπποπόταμος.",
     "achievementSkeletonCrewModalText": "Έχεις δαμάσει όλα τα Θηρία Σκελετούς!",
-    "achievementSkeletonCrewText": "Έχει δαμάσει όλα τα Θηρία Σκελετούς."
+    "achievementSkeletonCrewText": "Έχει δαμάσει όλα τα Θηρία Σκελετούς.",
+    "achievementLegendaryBestiaryText": "Έχει εκκολάψει όλα τα μυθικά κατοικίδια: Δράκος, Ιπτάμενο Γουρούνι, Γρύφονας, Θαλάσσιο Ερπετό και Μονόκαιρος!",
+    "achievementLegendaryBestiary": "Θρυλικό Bιβλίο Zώων",
+    "achievementLegendaryBestiaryModalText": "Έχεις συλλέξει όλα τα μυθικά κατοικίδια!",
+    "achievementSeasonalSpecialistModalText": "Έχεις ολοκληρώσει όλες τις εποχικές αποστολές!",
+    "achievementSeasonalSpecialistText": "Έχει ολοκληρώσει όλες τις Εποχικές Αποστολές της Άνοιξης και του Χειμώνα: Κυνήγι Αυγών, Κυνηγός Άη Βασίλης, και Βρες το Κουτάβι!",
+    "achievementSeasonalSpecialist": "Έμπειρος ειδικός"
 }

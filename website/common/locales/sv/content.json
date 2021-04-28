@@ -350,5 +350,8 @@
     "questEggRobotMountText": "Robot",
     "questEggRobotText": "Robot",
     "questEggDolphinMountText": "Delfin",
-    "questEggDolphinText": "Delfin"
+    "questEggDolphinText": "Delfin",
+    "hatchingPotionDessert": "Sötsaker",
+    "hatchingPotionBirchBark": "Björkbark",
+    "hatchingPotionPolkaDot": "Storprickig"
 }

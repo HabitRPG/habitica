@@ -395,6 +395,14 @@ const NOTIFICATIONS = {
       achievement: 'legendaryBestiary',
     },
   },
+  ACHIEVEMENT_SEASONAL_SPECIALIST: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementSeasonalSpecialist')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'seasonalSpecialist',
+    },
+  },
 };
 
 export default {
@@ -457,7 +465,7 @@ export default {
       'ONBOARDING_COMPLETE', 'FIRST_DROPS', 'ACHIEVEMENT_BUG_BONANZA', 'ACHIEVEMENT_BARE_NECESSITIES',
       'ACHIEVEMENT_FRESHWATER_FRIENDS', 'ACHIEVEMENT_GOOD_AS_GOLD', 'ACHIEVEMENT_ALL_THAT_GLITTERS',
       'ACHIEVEMENT_BONE_COLLECTOR', 'ACHIEVEMENT_SKELETON_CREW', 'ACHIEVEMENT_SEEING_RED',
-      'ACHIEVEMENT_RED_LETTER_DAY', 'ACHIEVEMENT_LEGENDARY_BESTIARY',
+      'ACHIEVEMENT_RED_LETTER_DAY', 'ACHIEVEMENT_LEGENDARY_BESTIARY', 'ACHIEVEMENT_SEASONAL_SPECIALIST',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -879,6 +887,7 @@ export default {
           case 'ACHIEVEMENT_SEEING_RED':
           case 'ACHIEVEMENT_RED_LETTER_DAY':
           case 'ACHIEVEMENT_LEGENDARY_BESTIARY':
+          case 'ACHIEVEMENT_SEASONAL_SPECIALIST':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

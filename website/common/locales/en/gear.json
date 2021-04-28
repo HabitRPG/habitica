@@ -389,6 +389,15 @@
   "headSpecialNye2020Text": "Extravagant Party Hat",
   "headSpecialNye2020Notes": "You've received an Extravagant Party Hat! Wear it with pride while ringing in the New Year! Confers no benefit.",
 
+  "weaponSpecialSpring2021RogueText": "Twin Flower Bloom",
+  "weaponSpecialSpring2021RogueNotes": "You know what's better than dual-wielding flowers? QUADRUPLE wielding flowers! Increases Strength by <%= str %>. Limited Edition 2021 Spring Gear.",
+  "weaponSpecialSpring2021WarriorText": "Hammer of the Sun",
+  "weaponSpecialSpring2021WarriorNotes": "Harness the power of the sun against your enemies, and let the sunstone bring you luck! Increases Strength by <%= str %>. Limited Edition 2021 Spring Gear.",
+  "weaponSpecialSpring2021MageText": "Swan Plume",
+  "weaponSpecialSpring2021MageNotes": "Throw, beat, treadle, rest! Swish this magnificent feather in time to conduct the music of your magic. Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2021 Spring Gear.",
+  "weaponSpecialSpring2021HealerText": "Willow Branch",
+  "weaponSpecialSpring2021HealerNotes": "The bark and leaves of this fresh cutting are known for their ability to relieve pain. Or you can plant it and watch it grow! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -407,6 +416,8 @@
   "weaponMystery202002Notes": "An accessory that lends you an air of mystery and romance. Sun protection is a bonus! Confers no benefit. February 2020 Subscriber Item.",
   "weaponMystery202102Text": "Charming Wand",
   "weaponMystery202102Notes": "The glowing pink gem in this wand holds the power to spread joy and friendship far and wide! Confers no benefit. February 2021 Subscriber Item.",
+  "weaponMystery202104Text": "Thorny Thistle Staff",
+  "weaponMystery202104Notes": "Your enemies had better look out- you've got powerful and prickly defenses! Confers no benefit. April 2021 Subscriber Item.",
   "weaponMystery301404Text": "Steampunk Cane",
   "weaponMystery301404Notes": "Excellent for taking a turn about town. March 3015 Subscriber Item. Confers no benefit.",
 
@@ -908,6 +919,15 @@
   "armorSpecialWinter2021HealerText": "Arctic Parka",
   "armorSpecialWinter2021HealerNotes": "Defy the chill winds with the best protection available north of the Circle! Increases Constitution by <%= con %>. Limited Edition 2020-2021 Winter Gear.",
 
+  "armorSpecialSpring2021RogueText": "Twin Flower Stem",
+  "armorSpecialSpring2021RogueNotes": "No one will see you waiting in amBUSH with this cunning armor; you look like a plant from every angle. Increases Perception by <%= per %>. Limited Edition 2021 Spring Gear.",
+  "armorSpecialSpring2021WarriorText": "Armor of the Sun",
+  "armorSpecialSpring2021WarriorNotes": "Be careful you don't dazzle yourself as this sunstone armor catches the light! Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
+  "armorSpecialSpring2021MageText": "White Swan's Splendor",
+  "armorSpecialSpring2021MageNotes": "Your transformation is complete! Take to the sky, or to the lake, and sing for joy! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
+  "armorSpecialSpring2021HealerText": "Willow Bark Coat",
+  "armorSpecialSpring2021HealerNotes": "This armor helps you bend instead of break when buffeted by wind or weapon. Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1006,6 +1026,8 @@
   "armorMystery202102Notes": "Sail across the universe in fine style in this buoyantly bright dress. Confers no benefit. February 2021 Subscriber Item.",
   "armorMystery202103Text": "Blossom Viewing Robes",
   "armorMystery202103Notes": "These soft and breezy robes are perfect for a tea party beneath the showy spring trees. Confers no benefit. March 2021 Subscriber Item.",
+  "armorMystery202104Text": "Downy Thistle Armor",
+  "armorMystery202104Notes": "Soft on the inside, spiky on the outside, stylish everywhere! Confers no benefit. April 2021 Subscriber Item.",
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -1159,6 +1181,8 @@
   "armorArmoireSoftPinkSuitNotes": "Pink is a soothing color. Slip into this loungewear set for a bit of peace during the daily grind! Increases Perception by <%= per %>. Enchanted Armoire: Pink Loungewear Set (item 2 of 3).",
   "armorArmoireJadeArmorText": "Jade Armor",
   "armorArmoireJadeArmorNotes": "This jade armor is both beautiful and functional. Protect yourself, and know that you look fabulous! Increases Perception by <%= per %>. Enchanted Armoire: Jade Warrior Set (Item 2 of 3).",
+  "armorArmoireClownsMotleyText": "Clown's Motley",
+  "armorArmoireClownsMotleyNotes": "The clothes fit beautifully, but filling these shoes is no small feat. Increases Strength by <%= str %>. Enchanted Armoire: Clown Set (Item 1 of 5).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1528,6 +1552,15 @@
   "headSpecialWinter2021HealerText": "Arctic Exploration Headgear",
   "headSpecialWinter2021HealerNotes": "A surprising amount of heat escapes through the head! Not if you're wearing this thick hood and goggles, though. There'll be no icicles on YOUR eyelashes! Increases Intelligence by <%= int %>. Limited Edition 2020-2021 Winter Gear.",
 
+  "headSpecialSpring2021RogueText": "Twin Flower Hat",
+  "headSpecialSpring2021RogueNotes": "Let's keep the flowery language to a minimum: this hat will help you blend in with the spring flowers! Increases Perception by <%= per %>. Limited Edition 2021 Spring Gear.",
+  "headSpecialSpring2021WarriorText": "Helm of the Sun",
+  "headSpecialSpring2021WarriorNotes": "Don't fear! The sunstone in this helm will help you bring to light those deepest, darkest red to-dos. Increases Strength by <%= str %>. Limited Edition 2021 Spring Gear.",
+  "headSpecialSpring2021MageText": "Cygnet Circlet",
+  "headSpecialSpring2021MageNotes": "Set this airy crown upon your brow, and the birds of the water will come attend to you. To what quest will you call them? Increases Perception by <%= per %>. Limited Edition 2021 Spring Gear.",
+  "headSpecialSpring2021HealerText": "Salix Wreath",
+  "headSpecialSpring2021HealerNotes": "Weep not, friends! A Healer is here to soothe your suffering! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1798,6 +1831,8 @@
   "headArmoirePinkFloppyHatNotes": "Many spells have been sewn into this simple hat, giving it a perfect pink color. Increases Intelligence by <%= int %>. Enchanted Armoire: Pink Loungewear Set (item 1 of 3).",
   "headArmoireJadeHelmText": "Jade Helm",
   "headArmoireJadeHelmNotes": "Some say jade decreases fear and anxiety. With this beautiful helm, you definitely have no cause to worry! Increases Constitution by <%= con %>. Enchanted Armoire: Jade Warrior Set (Item 1 of 3).",
+  "headArmoireClownsWigText": "Clown's Wig",
+  "headArmoireClownsWigNotes": "No bad tasks can bite you now! You'll taste funny. Increases Constitution by <%= con %>. Enchanted Armoire: Clown Set (Item 3 of 5).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -2005,6 +2040,11 @@
   "shieldSpecialWinter2021HealerText": "Arctic Armguards",
   "shieldSpecialWinter2021HealerNotes": "These mighty mitts stop weapons cold. Increases Constitution by <%= con %>. Limited Edition 2020-2021 Winter Gear.",
 
+  "shieldSpecialSpring2021WarriorText": "Shield of the Sun",
+  "shieldSpecialSpring2021WarriorNotes": "The beauty in this roughly-shaped sunstone will shine even in the deepest caves and darkest dungeons. Hold it high! Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
+  "shieldSpecialSpring2021HealerText": "Salicylic Shield",
+  "shieldSpecialSpring2021HealerNotes": "A leafy green bundle that heralds shelter and compassion. Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
@@ -2114,6 +2154,8 @@
   "shieldArmoireBlueMoonSaiNotes": "This sai is a traditional weapon, imbued with the powers of the light side of the moon. Increases Perception by <%= per %>. Enchanted Armoire: Blue Moon Rogue Set (item 2 of 4).",
   "shieldArmoireSoftPinkPillowText": "Soft Pink Pillow",
   "shieldArmoireSoftPinkPillowNotes": "The sensible warrior packs a pillow for any expedition. Soften life's blows... even while you nap. Increases Strength and Constitution by <%= attrs %> each. Enchanted Armoire: Pink Loungewear Set (item 3 of 3).",
+  "shieldArmoireClownsBalloonsText": "Clown's Balloons",
+  "shieldArmoireClownsBalloonsNotes": "Be careful: replacing these balloons would be a bit expensive... because of the inflation! Increases Perception by <%= per %>. Enchanted Armoire: Clown Set (Item 4 of 5).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
@@ -2171,6 +2213,8 @@
   "backMystery202010Notes": "You are the night! So fly as silently as a midnight cloud with these swift purple wings. Confers no benefit. October 2020 Subscriber Item.",
   "backMystery202012Text": "Frostfire Wings",
   "backMystery202012Notes": "The snowy feathers of these wings will grant you the speed of a wintry gale. Confers no benefit. December 2020 Subscriber Item.",
+  "backMystery202105Text": "Nebula Dragon Wings",
+  "backMystery202105Notes": "Glide through the starry sky and place yourself among the constellations! Confers no benefit. May 2021 Subscriber Item.",
 
   "backSpecialWonderconRedText": "Mighty Cape",
   "backSpecialWonderconRedNotes": "Swishes with strength and beauty. Confers no benefit. Special Edition Convention Item.",
@@ -2257,6 +2301,8 @@
   "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Lamplighter's Set (Item 4 of 4).",
   "bodyArmoireLifeguardWhistleText": "Lifeguard Whistle",
   "bodyArmoireLifeguardWhistleNotes": "Call that misbehaving habit to order! It should know the rules! Increases Intelligence by <%= int %>. Enchanted Armoire: Lifeguard Set (Item 3 of 3).",
+  "bodyArmoireClownsBowtieText": "Clown's Bow-Tie",
+  "bodyArmoireClownsBowtieNotes": "A nice bow-tie is no joking matter, even for a clown. Increases Strength, Intelligence, Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Clown Set (Item 5 of 5).",
 
   "headAccessory": "head accessory",
   "headAccessoryCapitalized": "Head Accessory",
@@ -2363,6 +2409,8 @@
   "headAccessoryMystery202009Notes": "These feathery appendages will help you find your way even in the dark of night. Confers no benefit. September 2020 Subscriber Item.",
   "headAccessoryMystery202102Text": "Charming Tiara",
   "headAccessoryMystery202102Notes": "Magnify your empathy and caring to new heights with this ornate golden tiara. Confers no benefit. February 2021 Subscriber Item.",
+  "headAccessoryMystery202105Text": "Nebula Dragon Horns",
+  "headAccessoryMystery202105Notes": "Don these iridescent horns and summon the magic of starlight. Confers no benefit. May 2021 Subscriber Item.",
   "headAccessoryMystery301405Text": "Headwear Goggles",
   "headAccessoryMystery301405Notes": "\"Goggles are for your eyes,\" they said. \"Nobody wants goggles that you can only wear on your head,\" they said. Hah! You sure showed them! Confers no benefit. August 3015 Subscriber Item.",
 
@@ -2449,6 +2497,8 @@
   "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
   "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
   "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
+  "eyewearArmoireClownsNoseText": "Clown's Nose",
+  "eyewearArmoireClownsNoseNotes": "This accessory will make sure everyone 'nose' you're a clown! Increases Intelligence by <%= int %>. Enchanted Armoire: Clown Set (Item 2 of 5).",
 
   "twoHandedItem": "Two-handed item."
 }

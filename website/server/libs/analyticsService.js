@@ -100,6 +100,8 @@ function _formatUserData (user) {
 
   if (user.purchased && user.purchased.plan.planId) {
     properties.subscription = user.purchased.plan.planId;
+  } else {
+    properties.subscription = null;
   }
 
   if (user._ABtests) {

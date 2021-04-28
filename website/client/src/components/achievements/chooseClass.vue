@@ -213,10 +213,9 @@ export default {
     }),
     eventName () {
       if (
-        !this.currentEvent || !this.currentEvent.event
-        || this.currentEvent.season === 'normal' || this.currentEvent.season === 'valentines'
+        !this.currentEvent || !this.currentEvent.event || !this.currentEvent.gear
       ) return null;
-      return this.currentEvent.event.replace('NoPromo', '');
+      return this.currentEvent.event;
     },
   },
   methods: {
