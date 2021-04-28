@@ -34,7 +34,8 @@ export default {
         return null;
       }
 
-      if (this.user.stats.lvl < spell.lvl) return; // swallow error: visually distinct btn already
+      // swallow lvl error: visually distinct btn already
+      if (this.user.stats.lvl < spell.lvl) return null;
       if (this.user.stats.mp < spell.mana) return this.text(this.$t('notEnoughMana'));
 
       if (spell.immediateUse && this.user.stats.gp < spell.value) {
