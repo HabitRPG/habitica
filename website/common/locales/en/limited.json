@@ -28,10 +28,10 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
     "seasonalShopClosedText": "The Seasonal Shop is currently closed!! It’s only open during Habitica’s four Grand Galas.",
-    "seasonalShopSummerText": "Happy Summer Splash!! Would you like to buy some rare items? They’ll only be available until July 31st!",
-    "seasonalShopFallText": "Happy Fall Festival!! Would you like to buy some rare items? They’ll only be available until October 31st!",
-    "seasonalShopWinterText": "Happy Winter Wonderland!! Would you like to buy some rare items? They’ll only be available until January 31st!",
-    "seasonalShopSpringText": "Happy Spring Fling!! Would you like to buy some rare items? They’ll only be available until April 30th!",
+    "seasonalShopSummerText": "Happy Summer Splash!! Would you like to buy some rare items? Be sure to get them before the Gala ends!",
+    "seasonalShopFallText": "Happy Fall Festival!! Would you like to buy some rare items? Be sure to get them before the Gala ends!",
+    "seasonalShopWinterText": "Happy Winter Wonderland!! Would you like to buy some rare items? Be sure to get them before the Gala ends!",
+    "seasonalShopSpringText": "Happy Spring Fling!! Would you like to buy some rare items? Be sure to get them before the Gala ends!",
     "seasonalShopFallTextBroken": "Oh.... Welcome to the Seasonal Shop... We're stocking autumn Seasonal Edition goodies, or something... Everything here will be available to purchase during the Fall Festival event each year, but we're only open until October 31... I guess you should to stock up now, or you'll have to wait... and wait... and wait... <strong>*sigh*</strong>",
     "seasonalShopBrokenText": "My pavilion!!!!!!! My decorations!!!! Oh, the Dysheartener's destroyed everything :( Please help defeat it in the Tavern so I can rebuild!",
     "seasonalShopRebirth": "If you bought any of this equipment in the past but don't currently own it, you can repurchase it in the Rewards Column. Initially, you'll only be able to purchase the items for your current class (Warrior by default), but fear not, the other class-specific items will become available if you switch to that class.",
@@ -199,5 +199,6 @@
     "howItWorks": "How it Works",
     "g1g1HowItWorks": "Type in the username of the account you’d like to gift to. From there, pick the sub length you’d like to gift and check out. Your account will automatically be rewarded with the same level of subscription you just gifted.",
     "limitations": "Limitations",
-    "g1g1Limitations": "This is a limited time event that starts on December 17th at 8:00 AM ET (13:00 UTC) and will end January 7th at 8:00 PM ET (1:00 UTC). This promotion only applies when you gift to another Habitican. If you or your gift recipient already have a subscription, the gifted subscription will add months of credit that will only be used after the current subscription is canceled or expires."
+    "g1g1Limitations": "This is a limited time event that starts on December 17th at 8:00 AM ET (13:00 UTC) and will end January 7th at 8:00 PM ET (1:00 UTC). This promotion only applies when you gift to another Habitican. If you or your gift recipient already have a subscription, the gifted subscription will add months of credit that will only be used after the current subscription is canceled or expires.",
+    "noLongerAvailable": "This item is no longer available."
 }
