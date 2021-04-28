@@ -105,5 +105,8 @@
     "achievementSeeingRed": "Seeing Red",
     "achievementLegendaryBestiaryModalText": "You collected all the mythical pets!",
     "achievementLegendaryBestiaryText": "Has hatched all the mythical pets: Dragon, Flying Pig, Gryphon, Sea Serpent, and Unicorn!",
-    "achievementLegendaryBestiary": "Legendary Bestiary"
+    "achievementLegendaryBestiary": "Legendary Bestiary",
+    "achievementSeasonalSpecialistModalText": "You completed all the seasonal quests!",
+    "achievementSeasonalSpecialistText": "Has completed all the Spring and Winter seasonal quests: Egg Hunt, Trapper Santa, and Find the Cub!",
+    "achievementSeasonalSpecialist": "Seasonal Specialist"
 }

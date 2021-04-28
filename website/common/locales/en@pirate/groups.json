@@ -100,7 +100,7 @@
     "report": "Report",
     "abuseFlagModalHeading": "Report a Violation",
     "abuseFlagModalBody": "Are ye sure ye wants t' report this post? Ye should <strong>only</strong> report a post tha' violates th' <%= firstLinkStart %>Community Guidelines<%= linkEnd %> an'/or <%= secondLinkStart %>Terms o' Service<%= linkEnd %>. Inappropriately reportin' a post be a violation o' th' Code o' Conduct an' may give ye an infraction.",
-    "abuseReported": "Thank ye fer reportin' this violation. Th' moderators have been notified.",
+    "abuseReported": "Thank ye fer reportin' this violation. Th' moderators 'ave been notified.",
     "whyReportingPost": "Why are ye reportin' this post?",
     "whyReportingPostPlaceholder": "Help our moderators by lettin' us know why ye be reportin' this post fer a violation, e.g., spam, swearin', religious oaths, bigotry, slurs, adult topics, violence.",
     "optional": "Optional",

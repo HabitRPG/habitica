@@ -2331,5 +2331,13 @@
     "armorMystery202104Notes": "Zacht van binnen, stekelig van buiten, stijlvol overal! Geeft geen voordelen. Abonnee uitrusting uit april 2021.",
     "armorMystery202104Text": "Donsachtig distel harnas",
     "weaponMystery202104Notes": "Je vijanden kunnen maar beter uitkijken- je hebt een krachtige en stekelige verdediging! Geeft geen voordelen. Abonnee uitrusting uit april 2021.",
-    "weaponMystery202104Text": "Doornige distel staf"
+    "weaponMystery202104Text": "Doornige distel staf",
+    "headArmoireClownsWigText": "Clown's pruik",
+    "armorArmoireClownsMotleyNotes": "De kleding zit prachtig, maar het vullen van deze schoenen is geen sinecure. Verhoogt Kracht met <%= str %>. Betoverde kast: Clown Set (voorwerp 1 van 5).",
+    "armorArmoireClownsMotleyText": "Narrenpak",
+    "bodyArmoireClownsBowtieNotes": "Een mooie vlinderdas is geen grap, ook niet voor een clown. Verhoogt Kracht, Intelligentie, Weerbaarheid en Perceptie met <%= attrs %>. Betoverde kast: Clown Set (voorwerp 5 van 5).",
+    "bodyArmoireClownsBowtieText": "De vlinderdas van de clown",
+    "shieldArmoireClownsBalloonsNotes": "Let op: het vervangen van deze ballonnen zou een beetje duur zijn... vanwege de inflatie! Verhoogt Perceptie met <%= per %>. Betoverde kast: Clown Set (voorwerp 4 van 5).",
+    "shieldArmoireClownsBalloonsText": "Clowns ballonnen",
+    "headArmoireClownsWigNotes": "Geen enkele slechte taak kan je nu bijten! Je proeft raar. Verhoogt Weerbaarheid met <%= con %>. Betoverde kast: Clown Set (voorwerp 3 van 5)."
 }

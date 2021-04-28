@@ -58,7 +58,7 @@
     "mysterySet201604": "Leaf Warrior Set",
     "mysterySet201605": "Marchin' Bard Set",
     "mysterySet201606": "Selk'e Robes Set",
-    "mysterySet201607": "Seafloor Scallywag Set",
+    "mysterySet201607": "Seafloor Scalawag Set",
     "mysterySet201608": "Thund'rstorm'r Set",
     "mysterySet201609": "Cow Costume Set",
     "mysterySet201610": "Spectr'l Flame Set",
@@ -107,7 +107,7 @@
     "missingSubscription": "Pirate does nah 'ave a plan subscr'ption",
     "missingSubscriptionCode": "Missin' subscr'ption code. Possible values: basic_earned, basic_3mo, basic_6mo, google_6mo, basic_12mo.",
     "missingReceipt": "Missin' Receipt.",
-    "cannotDeleteActiveAccount": "Ye have an active subscr'ption, cancel yer plan before deletin' yer account.",
+    "cannotDeleteActiveAccount": "Ye 'ave an active subscr'ption, cancel yer plan before deletin' yer account.",
     "paymentNotSuccessful": "Th' payment was nah successful",
     "planNotActive": "Th' plan hasn't activated yet (due t' a PayPal bug). It'll begin <%= nextBillingDate %>, after which ye can cancel t' retain yer full benefits",
     "notAllowedHourglass": "Pet/Mount nah available fer purchase wit' Mystic Hourglass.",
@@ -188,5 +188,6 @@
     "mysterySet202001": "Fabl'd Fox Set",
     "mysterySet202101": "Snazzy Snow Leopard Set",
     "mysterySet202102": "Charmin' Champion Set",
-    "mysterySet202103": "Blossom Viewin' Set"
+    "mysterySet202103": "Blossom Viewin' Set",
+    "mysterySet202104": "Thistle Guardian Set"
 }
