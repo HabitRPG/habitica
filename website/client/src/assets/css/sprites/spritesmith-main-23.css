@@ -58,15 +58,33 @@
   width: 105px;
   height: 105px;
 }
+.Mount_Head_Seahorse-Golden {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
+  background-position: -257px -680px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Seahorse-Red {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
+  background-position: -363px -680px;
+  width: 105px;
+  height: 105px;
+}
+.Mount_Head_Seahorse-Shade {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
+  background-position: -469px -680px;
+  width: 105px;
+  height: 105px;
+}
 .Mount_Head_Seahorse-Skeleton {
   background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
-  background-position: -529px -680px;
+  background-position: -575px -680px;
   width: 105px;
   height: 105px;
 }
 .Mount_Head_Seahorse-White {
   background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
-  background-position: -635px -680px;
+  background-position: -681px -680px;
   width: 105px;
   height: 105px;
 }
@@ -792,7 +810,7 @@
 }
 .Mount_Head_TigerCub-StarryNight {
   background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
-  background-position: -408px -680px;
+  background-position: -136px -680px;
   width: 120px;
   height: 120px;
 }
@@ -1339,18 +1357,6 @@
 .Mount_Head_Wolf-Glow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
   background-position: 0px -680px;
-  width: 135px;
-  height: 135px;
-}
-.Mount_Head_Wolf-Golden {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
-  background-position: -136px -680px;
-  width: 135px;
-  height: 135px;
-}
-.Mount_Head_Wolf-Holly {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-23.png');
-  background-position: -272px -680px;
   width: 135px;
   height: 135px;
 }
