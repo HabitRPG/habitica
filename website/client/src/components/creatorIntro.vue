@@ -883,8 +883,9 @@
       }
 
       .backgroundFilterToggle {
-        margin-left: auto;
-        margin-right: auto;
+        display: flex;
+        flex: 1;
+        justify-content: center;
       }
 
       .set-title {
