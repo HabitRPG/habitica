@@ -90,7 +90,7 @@ export default {
   props: ['selections', 'text', 'caretPosition', 'coords', 'chat', 'textbox'],
   data () {
     return {
-      atRegex: /@([\w-]*)$/,
+      atRegex: /(?!\b)@([\w-]*)$/,
       currentSearch: '',
       searchActive: false,
       currentSearchPosition: 0,
@@ -219,7 +219,6 @@ export default {
     select (result) {
       const { text } = this;
       const targetName = `${result.username || result.displayName} `;
-      // newText = newText.replace(new RegExp(`${this.currentSearch}$`), targetName);
       const oldCaret = this.caretPosition;
       let newText = text.substring(0, this.caretPosition)
         .replace(new RegExp(`${this.currentSearch}$`), targetName);
@@ -227,6 +226,9 @@ export default {
       newText += text.substring(oldCaret, text.length);
       this.$emit('select', newText, newCaret);
       this.resetSelection();
+
+      // Made selection, shut off searching
+      this.searchActive = false;
     },
     setHover (result) {
       this.resetSelection();
