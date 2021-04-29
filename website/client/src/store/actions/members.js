@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 // import omit from 'lodash/omit';
 // import findIndex from 'lodash/findIndex';
 
@@ -25,16 +26,22 @@ export async function getGroupMembers (store, payload) {
   return response.data.data;
 }
 
+function unpackResponse (response) {
+  return response?.data?.data;
+}
+
 export async function fetchMember (store, payload) {
   const url = `${apiv4Prefix}/members/${payload.memberId}`;
   const response = await axios.get(url);
-  return response;
+  return payload.unpack === false
+    ? response
+    : unpackResponse(response);
 }
 
 export async function fetchMemberByUsername (store, payload) {
   const url = `${apiv4Prefix}/members/username/${payload.username}`;
   const response = await axios.get(url);
-  return response;
+  return unpackResponse(response);
 }
 
 export async function getGroupInvites (store, payload) {

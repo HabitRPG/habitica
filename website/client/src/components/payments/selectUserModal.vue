@@ -269,12 +269,12 @@ export default {
           result = null;
         }
       }
-      if (!result || !result.data || !result.data.data) {
+      if (!result) {
         this.userNotFound = true;
         return;
       }
       this.userNotFound = false;
-      this.foundUser = result.data.data;
+      this.foundUser = result;
     }, 500),
     selectUser () {
       this.$root.$emit('habitica::send-gems', this.foundUser);

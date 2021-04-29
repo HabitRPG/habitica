@@ -126,9 +126,6 @@
           >
             {{ $t('startQuest') }}
           </button>
-          <!-- @TODO don't allow the party leader to
-           start the quest until the leader has accepted
-          or rejected the invitation (users get confused and think "begin" means "join quest")-->
         </div>
         <div>
           <div

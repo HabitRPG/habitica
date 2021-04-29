@@ -99,8 +99,7 @@ export default {
           memberId: this.group.quest.leader,
         });
 
-        // this should be handled in fetchMember instead
-        this.leader = fetchMemberResult.data.data;
+        this.leader = fetchMemberResult;
       } catch {
         this.leader = null;
       }
