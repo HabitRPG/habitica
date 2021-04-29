@@ -27,7 +27,9 @@ export async function getGroupMembers (store, payload) {
 }
 
 function unpackResponse (response) {
-  return response?.data?.data;
+  return response && response.data
+    ? response.data.data
+    : undefined;
 }
 
 export async function fetchMember (store, payload) {
