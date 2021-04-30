@@ -765,10 +765,12 @@ export default {
         hours: this.user.preferences.dayStart,
       });
 
+      const yesterUtcOffset = yesterDay.utcOffset();
+
       dailys.forEach(task => {
         if (task && task.group.approval && task.group.approval.requested) return;
         if (task.completed) return;
-        const due = shouldDo(yesterDay, task);
+        const due = shouldDo(yesterDay, task, { timezoneUtcOffset: yesterUtcOffset });
         if (task.yesterDaily && due) this.yesterDailies.push(task);
       });
 
