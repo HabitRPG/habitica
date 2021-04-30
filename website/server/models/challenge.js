@@ -38,7 +38,9 @@ const schema = new Schema({
     $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for challenge group.'], required: true,
   },
   memberCount: { $type: Number, default: 0 },
-  prize: { $type: Number, default: 0, min: 0 },
+  prize: {
+    $type: Number, default: 0, min: 0, required: true,
+  },
   categories: [{
     slug: { $type: String },
     name: { $type: String },
