@@ -13,20 +13,19 @@
         :pinned="isPinned"
       />
     </span>
-    <div class="close">
-      <span
-        class="svg-icon inline icon-10"
-        aria-hidden="true"
-        @click="hideDialog()"
-        v-html="icons.close"
-      ></span>
+    <div class="dialog-close">
+      <close-icon @click="hideDialog()" />
     </div>
+    <h2 class="text-center textCondensed">
+      {{$t('questDetailsTitle') }}
+    </h2>
     <div
       v-if="item != null"
       class="content"
     >
       <div class="inner-content">
         <questDialogContent :item="item" />
+        <quest-rewards :quest="item" />
         <div
           v-if="!item.locked"
           class="purchase-amount"
@@ -78,12 +77,6 @@
         </button>
       </div>
     </div>
-    <div
-      v-if="item.drop"
-      class="right-sidebar"
-    >
-      <questDialogDrops :item="item" />
-    </div>
     <countdown-banner
       v-if="item.event"
       :endDate="endDate"
@@ -110,9 +103,14 @@
   #buy-quest-modal {
     @include centeredModal();
 
+    h2 {
+      color: $purple-300;
+      margin-top: 1rem;
+    }
+
     .modal-dialog {
       margin-top: 8%;
-      width: 448px;
+      width: 448px !important;
     }
 
     .content {
@@ -200,6 +198,11 @@
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;
+      padding: 1rem 1.5rem;
+
+      &> * {
+        margin: 0;
+      }
     }
 
     .notEnough {
@@ -237,6 +240,18 @@
         }
       }
     }
+
+    @media only screen and (max-width: 1000px) {
+      .modal-dialog {
+        max-width: 80%;
+        width: 80% !important;
+
+        .modal-body {
+          flex-direction: column;
+          display: flex;
+        }
+      }
+    }
   }
 </style>
 
@@ -259,14 +274,16 @@ import numberInvalid from '@/mixins/numberInvalid';
 import PinBadge from '@/components/ui/pinBadge';
 import CountdownBanner from '../countdownBanner';
 
-import questDialogDrops from './questDialogDrops';
 import questDialogContent from './questDialogContent';
+import QuestRewards from './questRewards';
+import CloseIcon from '../../shared/closeIcon';
 
 export default {
   components: {
+    CloseIcon,
+    QuestRewards,
     BalanceInfo,
     PinBadge,
-    questDialogDrops,
     questDialogContent,
     CountdownBanner,
   },

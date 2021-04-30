@@ -18,11 +18,11 @@
         v-if="questData.completion && typeof questData.completion === 'function'"
         v-html="questData.completion()"
       ></p>
-      <div class="quest-rewards text-center">
+      <div class="text-center">
         <h3 v-once>
           {{ $t('paymentYouReceived') }}
         </h3>
-        <questDialogDrops :item="questData" />
+        <quest-rewards :quest="questData" />
       </div>
     </div>
     <div class="modal-footer">
@@ -36,27 +36,32 @@
   </b-modal>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   .quest {
-    margin: 0 auto;
-  }
-
-  .quest-rewards .questRewards {
     margin: 0 auto;
   }
 </style>
 
+<style lang="scss">
+ #quest-completed {
+   .quest-rewards {
+     margin-left: -2rem;
+     margin-right: -2rem;
+   }
+ }
+</style>
+
 <script>
 import * as quests from '@/../../common/script/content/quests';
-import questDialogDrops from '@/components/shops/quests/questDialogDrops';
 
 import { mapState } from '@/libs/store';
 import percent from '@/../../common/script/libs/percent';
 import { MAX_HEALTH as maxHealth } from '@/../../common/script/constants';
+import QuestRewards from '../shops/quests/questRewards';
 
 export default {
   components: {
-    questDialogDrops,
+    QuestRewards,
   },
   data () {
     return {

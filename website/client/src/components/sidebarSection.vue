@@ -22,7 +22,7 @@
           :target="tooltipId"
         />
       </div>
-      <SidebarButton
+      <SectionButton
         :visible="visible"
         @click="toggle"
       />
@@ -86,11 +86,11 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
-import SidebarButton from './sidebarButton';
+import SectionButton from './sectionButton';
 import informationIcon from '@/assets/svg/information.svg';
 
 export default {
-  components: { SidebarButton },
+  components: { SectionButton },
   props: {
     title: {
       required: true,

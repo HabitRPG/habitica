@@ -1,3 +1,5 @@
+import { v4 as generateUUID } from 'uuid';
+
 export const userStyles = {
   contributor: {
     admin: true,
@@ -71,5 +73,12 @@ export const userStyles = {
     toNextLevel: 380,
     maxHealth: 50,
     maxMP: 158,
+  },
+  profile: {
+    name: 'user',
+  },
+  _id: generateUUID(),
+  flags: {
+    classSelected: true,
   },
 };

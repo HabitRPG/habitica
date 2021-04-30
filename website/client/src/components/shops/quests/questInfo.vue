@@ -9,12 +9,7 @@
       >
         <dt>{{ $t('collect') + ':' }}</dt>
         <dd>
-          <div
-            v-for="(collect, key) of quest.collect"
-            :key="key"
-          >
-            <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
-          </div>
+          {{ getAllCollectText() }}
         </dd>
       </div>
       <div
@@ -48,37 +43,47 @@
 .row {
   display: table;
   margin: 0;
+  width: 100%;
 }
 
 .table-row {
   display: table-row;
-  margin-bottom: 4px;
+  font-size: 14px;
+  height: 1.5rem;
+
+  &:last-of-type {
+    dd {
+      padding-bottom: 0;
+    }
+  }
 }
 
 dd {
-  height: 24px;
   padding-left: 1em;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  text-align: right;
+
+  padding-bottom: 0.5rem;
 }
 
 dt, dd {
   display: table-cell;
-  vertical-align: middle;
-}
-
-dt, dd, dd > * {
-  text-align: left;
+  vertical-align: top;
+  height: 16px;
+  max-height: 16px;
 }
 
 dt {
-  font-size: 1.3em;
-  line-height: 1.2;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: left;
   color: $gray-50;
 }
 
 .svg-icon {
-  margin-right: 4px;
+  margin-left: 4px;
 }
 
 .small-version {
@@ -92,10 +97,11 @@ dt {
 </style>
 
 <style lang="scss">
+@import '~@/assets/scss/colors.scss';
+
 .questPopover {
   dt {
     color: inherit;
-    font-size: 1em;
     white-space: nowrap;
   }
 }
@@ -112,7 +118,7 @@ dt {
   fill: #ffb445;
 }
 .star-empty {
-  fill: #686274;
+  fill: $gray-400;
 }
 
 </style>
@@ -180,6 +186,11 @@ export default {
         return collect.text();
       }
       return collect.text;
+    },
+    getAllCollectText () {
+      return Object.values(this.quest.collect)
+        .map(collect => `${collect.count} ${this.getCollectText(collect)}`)
+        .join(', ');
     },
     countdownString () {
       const diffDuration = moment.duration(moment(seasonalShopConfig.dateRange.end).diff(moment()));

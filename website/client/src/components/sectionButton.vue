@@ -1,11 +1,11 @@
 <template>
   <div
-    class="toggle ml-auto"
+    class="toggle ml-auto section-button"
     role="button"
     :aria-expanded="visible"
     tabindex="0"
-    @keyup.enter="$emit('click')"
-    @click="$emit('click')"
+    @keyup.enter="emitClick"
+    @click="emitClick"
   >
     <span
       v-if="visible"
@@ -21,7 +21,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .toggle {
     border: 0;
@@ -36,6 +36,10 @@
 
   .svg-icon {
     display: flex;
+
+    ::v-deep svg {
+      height: 100%;
+    }
   }
 
   .down-icon {
@@ -60,6 +64,15 @@ export default {
         downIcon,
       },
     };
+  },
+  methods: {
+    emitClick ($event) {
+      if ($event.stopPropagation) {
+        $event.stopPropagation();
+      }
+
+      this.$emit('click');
+    },
   },
 };
 </script>
