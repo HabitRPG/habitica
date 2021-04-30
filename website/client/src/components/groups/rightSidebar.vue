@@ -131,7 +131,7 @@
       <sidebar-section
         :title="$t('challenges')"
       >
-        <group-challenges :group-id="searchId" />
+        <group-challenges :group="group" />
       </sidebar-section>
     </div>
   </div>

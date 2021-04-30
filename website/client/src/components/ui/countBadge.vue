@@ -12,7 +12,7 @@
   right: -9px;
   top: -12px;
   border-radius: 100px;
-  color: $white;
+  color: $white !important; // I saw the default gray-100 color
   background: $gray-200;
   padding: 4.5px 8.5px;
   min-width: 1.5rem;
