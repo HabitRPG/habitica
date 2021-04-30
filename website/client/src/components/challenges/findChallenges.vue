@@ -147,7 +147,7 @@ export default {
           value: 'none',
         },
         {
-          text: this.$t(' ipants'),
+          text: this.$t('participants'),
           value: 'participants',
         },
         {
