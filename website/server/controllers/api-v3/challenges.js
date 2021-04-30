@@ -29,8 +29,10 @@ import {
   createChallengeQuery,
 } from '../../libs/challenges';
 import apiError from '../../libs/apiError';
+import shared from '../../../common';
 
 const api = {};
+const { MAX_SUMMARY_SIZE_FOR_CHALLENGES } = shared.constants;
 
 /**
  * @apiDefine ChallengeLeader Challenge Leader
@@ -200,6 +202,7 @@ api.createChallenge = {
     const { user } = res.locals;
 
     req.checkBody('group', apiError('groupIdRequired')).notEmpty();
+    req.checkBody('summary', 'THIS IS A STRING THAT NEEDS TO BE PROPERLY DEFINED: Summary is too long.').isLength({max: MAX_SUMMARY_SIZE_FOR_CHALLENGES});
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
@@ -707,6 +710,7 @@ api.updateChallenge = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     req.checkParams('challengeId', res.t('challengeIdRequired')).notEmpty().isUUID();
+    req.checkBody('summary', 'THIS IS A STRING THAT NEEDS TO BE PROPERLY DEFINED: Summary is too long.').isLength({max: MAX_SUMMARY_SIZE_FOR_CHALLENGES});
 
     const validationErrors = req.validationErrors();
     if (validationErrors) throw validationErrors;
