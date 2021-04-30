@@ -34,28 +34,6 @@
           </div>
         </div>
       </filter-group>
-      <!-- <filter-group :title="$t('role')">
-        <div
-          v-for="group in roleOptions"
-          :key="group.key"
-          class="form-check"
-        >
-          <div class="custom-control custom-checkbox">
-            <input
-              :id="group.key"
-              v-model="roleFilters"
-              class="custom-control-input"
-              type="checkbox"
-              :value="group.key"
-            >
-            <label
-              v-once
-              class="custom-control-label"
-              :for="group.key"
-            >{{ $t(group.label) }}</label>
-          </div>
-        </div>
-      </filter-group> -->
       <filter-group
         :title="$t('membership')"
         class="form-group"
@@ -175,21 +153,6 @@ export default {
           key: 'time_management',
         },
       ],
-      // roleFilters: [],
-      // roleOptions: [
-      //   {
-      //     label: 'participating',
-      //     key: 'participating',
-      //   },
-      //   {
-      //     label: 'not_participating',
-      //     key: 'not_participating',
-      //   },
-      //   // {
-      //   //   label: 'either',
-      //   //   key: 'either',
-      //   // },
-      // ],
       membershipFilters: [],
       membershipOptions: [
         {
@@ -223,9 +186,6 @@ export default {
     categoryFilters: function categoryFilters () {
       this.emitFilters();
     },
-    roleFilters: function roleFilters () {
-      this.emitFilters();
-    },
     ownershipFilters: function ownershipFilters () {
       this.emitFilters();
     },
@@ -242,7 +202,6 @@ export default {
     emitFilters () {
       this.$emit('filter', {
         categories: this.categoryFilters,
-        roles: this.roleFilters,
         ownership: this.ownershipFilters,
         membership: this.membershipFilters,
       });
