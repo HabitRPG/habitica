@@ -425,6 +425,16 @@ const backgrounds = {
     heart_shaped_bubbles: { },
     throne_room: { },
   },
+  backgrounds032021: {
+    in_the_armory: { },
+    splash_in_a_puddle: { },
+    spring_thaw: { },
+  },
+  backgrounds042021: {
+    among_cattails: { },
+    cottage_construction: { },
+    elegant_garden: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

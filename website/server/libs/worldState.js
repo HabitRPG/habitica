@@ -1,3 +1,4 @@
+import filter from 'lodash/filter';
 import moment from 'moment';
 import { // eslint-disable-line import/no-cycle
   model as Group,
@@ -22,7 +23,7 @@ export function getCurrentEvent () {
 
     const now = moment();
 
-    return now.isBetween(event.start, event.end);
+    return now.isBetween(event.start, event.end) && Boolean(event.npcImageSuffix);
   });
 
   if (!currEvtKey) return null;
@@ -30,4 +31,23 @@ export function getCurrentEvent () {
     event: currEvtKey,
     ...common.content.events[currEvtKey],
   };
+}
+
+export function getCurrentEventList () {
+  const currentEventKeys = filter(Object.keys(common.content.events), eventKey => {
+    const eventData = common.content.events[eventKey];
+
+    return moment().isBetween(eventData.start, eventData.end);
+  });
+
+  const currentEventList = [];
+
+  currentEventKeys.forEach(key => {
+    currentEventList.push({
+      event: key,
+      ...common.content.events[key],
+    });
+  });
+
+  return currentEventList;
 }

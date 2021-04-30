@@ -102,5 +102,11 @@
     "achievementSeeingRed": "Vedere rosso",
     "achievementRedLetterDayModalText": "Hai collezionato tutte le cavalcature rosse!",
     "achievementRedLetterDayText": "Ha collezionato tutte le cavalcature rosse.",
-    "achievementRedLetterDay": "Tappeto Rosso"
+    "achievementRedLetterDay": "Tappeto Rosso",
+    "achievementLegendaryBestiary": "Creature leggendarie",
+    "achievementLegendaryBestiaryModalText": "Hai collezionato tutti gli animali mitici!",
+    "achievementLegendaryBestiaryText": "Ha schiuso tutti gli animali mitici: drago, maiale volante, grifone, serpente marino e unicorno!",
+    "achievementSeasonalSpecialistModalText": "Hai completato tutte le missioni stagionali!",
+    "achievementSeasonalSpecialistText": "Ha completato tutte le missioni stagionali primaverili e invernali: Caccia alle uova, Babbo Bracconiere e Trova il cucciolo!",
+    "achievementSeasonalSpecialist": "Specialista delle Stagioni"
 }

@@ -115,6 +115,7 @@ import { toNextLevel } from '@/../../common/script/statHelpers';
 import { shouldDo } from '@/../../common/script/cron';
 import { onOnboardingComplete } from '@/../../common/script/libs/onboarding';
 import { mapState } from '@/libs/store';
+import { MAX_LEVEL_HARD_CAP } from '@/../../common/script/constants';
 import notifications from '@/mixins/notifications';
 import guide from '@/mixins/guide';
 
@@ -394,6 +395,14 @@ const NOTIFICATIONS = {
       achievement: 'legendaryBestiary',
     },
   },
+  ACHIEVEMENT_SEASONAL_SPECIALIST: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementSeasonalSpecialist')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'seasonalSpecialist',
+    },
+  },
 };
 
 export default {
@@ -456,7 +465,7 @@ export default {
       'ONBOARDING_COMPLETE', 'FIRST_DROPS', 'ACHIEVEMENT_BUG_BONANZA', 'ACHIEVEMENT_BARE_NECESSITIES',
       'ACHIEVEMENT_FRESHWATER_FRIENDS', 'ACHIEVEMENT_GOOD_AS_GOLD', 'ACHIEVEMENT_ALL_THAT_GLITTERS',
       'ACHIEVEMENT_BONE_COLLECTOR', 'ACHIEVEMENT_SKELETON_CREW', 'ACHIEVEMENT_SEEING_RED',
-      'ACHIEVEMENT_RED_LETTER_DAY', 'ACHIEVEMENT_LEGENDARY_BESTIARY',
+      'ACHIEVEMENT_RED_LETTER_DAY', 'ACHIEVEMENT_LEGENDARY_BESTIARY', 'ACHIEVEMENT_SEASONAL_SPECIALIST',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -651,7 +660,7 @@ export default {
         const lvlUps = afterLvl - beforeLvl;
         let exp = afterExp - beforeExp;
 
-        if (lvlUps > 0) {
+        if (lvlUps > 0 || afterLvl >= MAX_LEVEL_HARD_CAP) {
           let level = Math.trunc(beforeLvl);
           exp += toNextLevel(level);
 
@@ -756,10 +765,12 @@ export default {
         hours: this.user.preferences.dayStart,
       });
 
+      const yesterUtcOffset = yesterDay.utcOffset();
+
       dailys.forEach(task => {
         if (task && task.group.approval && task.group.approval.requested) return;
         if (task.completed) return;
-        const due = shouldDo(yesterDay, task);
+        const due = shouldDo(yesterDay, task, { timezoneUtcOffset: yesterUtcOffset });
         if (task.yesterDaily && due) this.yesterDailies.push(task);
       });
 
@@ -878,6 +889,7 @@ export default {
           case 'ACHIEVEMENT_SEEING_RED':
           case 'ACHIEVEMENT_RED_LETTER_DAY':
           case 'ACHIEVEMENT_LEGENDARY_BESTIARY':
+          case 'ACHIEVEMENT_SEASONAL_SPECIALIST':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;

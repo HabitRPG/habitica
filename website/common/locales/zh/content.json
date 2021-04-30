@@ -56,8 +56,8 @@
     "questEggParrotText": "鹦鹉",
     "questEggParrotMountText": "鹦鹉",
     "questEggParrotAdjective": "一只充满活力的",
-    "questEggRoosterText": "公雞",
-    "questEggRoosterMountText": "公雞",
+    "questEggRoosterText": "公鸡",
+    "questEggRoosterMountText": "公鸡",
     "questEggRoosterAdjective": "一只大摇大摆的",
     "questEggSpiderText": "蜘蛛",
     "questEggSpiderMountText": "蜘蛛",
@@ -364,5 +364,6 @@
     "hatchingPotionVampire": "吸血鬼",
     "hatchingPotionBlackPearl": "黑珍珠",
     "hatchingPotionAutumnLeaf": "秋叶",
-    "hatchingPotionStainedGlass": "彩绘玻璃"
+    "hatchingPotionStainedGlass": "彩绘玻璃",
+    "hatchingPotionPolkaDot": "波尔卡圆点"
 }

@@ -346,6 +346,14 @@ const armor = {
     per: 12,
     set: 'pinkLoungewear',
   },
+  jadeArmor: {
+    per: 8,
+    set: 'jadeWarrior',
+  },
+  clownsMotley: {
+    str: 7,
+    set: 'clown',
+  },
 };
 
 const body = {
@@ -358,6 +366,13 @@ const body = {
     int: 12,
     set: 'lifeguard',
   },
+  clownsBowtie: {
+    str: 2,
+    int: 2,
+    con: 2,
+    per: 2,
+    set: 'clown',
+  },
 };
 
 const eyewear = {
@@ -368,6 +383,9 @@ const eyewear = {
   },
   goofyGlasses: {
     per: 10,
+  },
+  clownsNose: {
+    int: 5,
   },
 };
 
@@ -692,6 +710,14 @@ const head = {
     int: 12,
     set: 'pinkLoungewear',
   },
+  jadeHelm: {
+    con: 8,
+    set: 'jadeWarrior',
+  },
+  clownsWig: {
+    con: 5,
+    set: 'clown',
+  },
 };
 
 const shield = {
@@ -889,6 +915,10 @@ const shield = {
     str: 6,
     con: 6,
     set: 'pinkLoungewear',
+  },
+  clownsBalloons: {
+    per: 5,
+    set: 'clown',
   },
 };
 
@@ -1183,6 +1213,10 @@ const weapon = {
   blueMoonSai: {
     str: 8,
     set: 'blueMoon',
+  },
+  jadeGlaive: {
+    str: 10,
+    set: 'jadeWarrior',
   },
 };
 

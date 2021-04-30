@@ -15,5 +15,7 @@
     "footerCompany": "회사",
     "footerDevs": "개발자들",
     "communityExtensions": "<a href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>애드온 & 확장 프로그램</a>",
-    "clearBrowserData": "브라우저 데이터 없애기"
+    "clearBrowserData": "브라우저 데이터 없애기",
+    "footerMobile": "모바일",
+    "footerCommunity": "커뮤니티"
 }

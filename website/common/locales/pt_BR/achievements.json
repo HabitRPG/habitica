@@ -12,7 +12,7 @@
     "achievementJustAddWater": "Apenas Adicione Água",
     "achievementJustAddWaterText": "Completou as missões de mascotes Polvo, Cavalo-marinho, Lula, Baleia, Tartaruga, Lesma Marinha, Serpente Marinha e Golfinho.",
     "achievementJustAddWaterModalText": "Você completou as missões de mascotes Polvo, Cavalo-marinho, Lula, Baleia, Tartaruga, Lesma Marinha, Serpente Marinha e Golfinho!",
-    "achievementBackToBasics": "Voltar ao Básico",
+    "achievementBackToBasics": "De Volta ao Básico",
     "achievementBackToBasicsText": "Coletou todos os Mascotes Básicos.",
     "achievementBackToBasicsModalText": "Você coletou todos os Mascotes Básicos!",
     "achievementAllYourBase": "Todo Seu Básico",
@@ -102,5 +102,11 @@
     "achievementRedLetterDayModalText": "Você domou todas as Montarias vermelhas!",
     "achievementRedLetterDayText": "Domou todas as Montarias vermelhas.",
     "achievementSeeingRedModalText": "Você coletou todos os Mascotes vermelhos!",
-    "achievementSeeingRedText": "Coletou todos os Mascotes vermelhos."
+    "achievementSeeingRedText": "Coletou todos os Mascotes vermelhos.",
+    "achievementLegendaryBestiaryText": "Eclodiu todos os Mascotes míticos: Dragão, Porco Voador, Grifo, Serpente Marinha e Unicórnio!",
+    "achievementLegendaryBestiary": "Bestiário Lendário",
+    "achievementLegendaryBestiaryModalText": "Você coletou todos os Mascotes míticos!",
+    "achievementSeasonalSpecialist": "Especialista em Missões Sazonais",
+    "achievementSeasonalSpecialistModalText": "Você completou todas as missões sazonais!",
+    "achievementSeasonalSpecialistText": "Completou todas as missões sazonais da primavera e do inverno: Caça ao Ovo, Noel Caçador e Encontre o Filhote!"
 }

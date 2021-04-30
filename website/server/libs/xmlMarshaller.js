@@ -25,6 +25,7 @@ export function marshallUserData (userData) {
 
   return js2xml.parse('user', userData, {
     cdataInvalidChars: true,
+    replaceInvalidChars: true,
     declaration: {
       include: false,
     },

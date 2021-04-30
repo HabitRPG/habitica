@@ -103,9 +103,15 @@
       transform: scale(1.2);
     }
   }
+
+  .invert {
+    filter: invert(100%);
+  }
 </style>
 
 <script>
+import some from 'lodash/some';
+import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import { mapState } from '@/libs/store';
 import {
@@ -141,6 +147,7 @@ export default {
   computed: {
     ...mapState({
       userItems: 'user.data.items',
+      currentEventList: 'worldState.data.currentEventList',
     }),
     potionClass () {
       return `Pet_HatchingPotion_${this.item.potionKey}`;
@@ -160,6 +167,13 @@ export default {
       return isAllowedToFeed(this.item, this.userItems);
     },
     getPetItemClass () {
+      if (this.isOwned() && some(
+        this.currentEventList,
+        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'invert',
+      )) {
+        return `Pet Pet-${this.item.key} ${this.item.eggKey} invert`;
+      }
+
       if (this.isOwned() || (this.mountOwned() && this.isHatchable())) {
         return `Pet Pet-${this.item.key} ${this.item.eggKey}`;
       }

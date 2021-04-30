@@ -160,7 +160,7 @@ const bundles = {
       'yarn',
     ],
     canBuy () {
-      return moment().isBetween('2019-06-10', '2019-07-03');
+      return moment().isBetween('2021-03-16T08:00-05:00', '2021-03-31T20:00-05:00');
     },
     type: 'quests',
     value: 7,

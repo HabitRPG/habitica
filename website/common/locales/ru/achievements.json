@@ -102,5 +102,11 @@
     "achievementRedLetterDayText": "Собраны все красные скакуны.",
     "achievementSeeingRedModalText": "Вы собрали всех красных питомцев!",
     "achievementSeeingRedText": "Собраны все красные питомцы.",
-    "achievementSeeingRed": "Действует, как красная тряпка на быка"
+    "achievementSeeingRed": "Действует, как красная тряпка на быка",
+    "achievementLegendaryBestiaryModalText": "Вы собрали всех мифических питомцев!",
+    "achievementLegendaryBestiaryText": "Собраны все мифические питомцы: дракон, летающий кабан, грифон, морской змей и единорог!",
+    "achievementLegendaryBestiary": "Легендарный бестиарий",
+    "achievementSeasonalSpecialistModalText": "Вы завершили все сезонные квесты!",
+    "achievementSeasonalSpecialistText": "Завершил(а) весенние и зимние квесты: «Поиски яиц», «Санта-зверолов» и «Найти детеныша»!",
+    "achievementSeasonalSpecialist": "Специалист по временам года"
 }

@@ -2,7 +2,7 @@
     "subscription": "Suscripción",
     "subscriptions": "Suscripciones",
     "sendGems": "Enviar Gemas",
-    "buyGemsGold": "Compra Gemas con oro",
+    "buyGemsGold": "Compra Gemas con Oro",
     "mustSubscribeToPurchaseGems": "Debes subscribirte para poder comprar gemas con Oro",
     "reachedGoldToGemCap": "Has alcanzado el tope de conversión oro a gema <%= convCap %> por este mes. Hacemos esto para prevenir abuso/cultivo. El tope se reinicia dentro de los primeros tres días de cada mes.",
     "reachedGoldToGemCapQuantity": "La cantidad solicitada <%= quantity %> es mayor a la cantidad que puedes comprar este mes (<%= convCap %>). La cantidad completa queda disponible durante los primeros tres días de cada mes. ¡Gracias por suscribirte!",
@@ -187,5 +187,7 @@
     "mysterySet202010": "Conjunto de Murciélago Cautivador",
     "mysterySet202012": "Conjunto de Fénix de Fuego Congelado",
     "mysterySet202101": "Conjunto Elegante de Leopardo de las Nieves",
-    "mysterySet202102": "Conjunto de Campeón Encantador"
+    "mysterySet202102": "Conjunto de Campeón Encantador",
+    "mysterySet202103": "Conjunto de Visualización de Flores",
+    "mysterySet202104": "Cojunto de Guardián del Cardo"
 }

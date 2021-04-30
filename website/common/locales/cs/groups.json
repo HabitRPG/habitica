@@ -347,7 +347,7 @@
     "pmReported": "Děkujeme za nahlášení této zprávy.",
     "newPartyPlaceholder": "Zadej jméno tvé družiny.",
     "userWithUsernameOrUserIdNotFound": "Uživatelské jméno nebo uživatelské ID nebylo nalezeno.",
-    "usernameOrUserId": "Uživatelské jméno nebo uživatelské ID",
+    "usernameOrUserId": "Vlož uživatelské jméno nebo uživatelské ID",
     "sendGiftToWhom": "Komu chceš poslat dárek?",
     "selectGift": "Vybrat dárek",
     "blockedToSendToThisUser": "Této osobě nemůžeš psát, protože jsi ji zablokoval.",
@@ -365,5 +365,10 @@
     "bannedWordsAllowedDetail": "Skrze tuto volbu bude povoleno používání zakázaných slov v této gildě.",
     "bannedWordsAllowed": "Povolit zakázaná slova",
     "languageSettings": "Jazyková nastavení",
-    "onlyPrivateGuildsCanUpgrade": "Pouze soukromé gildy mohou mít upgrade a tvořit skupinové plány."
+    "onlyPrivateGuildsCanUpgrade": "Pouze soukromé gildy mohou mít upgrade a tvořit skupinové plány.",
+    "features": "Funkce",
+    "cannotRemoveQuestOwner": "Nemůžeš odebrat vlastníka běžící výpravy. Nejprve musíš výpravu přerušit.",
+    "giftMessageTooLong": "Maximální délka zprávy k dárku je <%= maxGiftMessageLength %>.",
+    "selectSubscription": "Vyber předplatné",
+    "blockYourself": "Nemůžeš blokovat sám/sama sebe"
 }

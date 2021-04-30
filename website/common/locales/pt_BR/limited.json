@@ -166,10 +166,10 @@
     "september2017": "Setembro de 2017",
     "augustYYYY": "Agosto <%= year %>",
     "decemberYYYY": "Dezembro <%= year %>",
-    "winter2020LanternSet": "Lanterna (Ladino)",
+    "winter2020LanternSet": "Lanterna (Gatuno)",
     "winter2020WinterSpiceSet": "Tempero de inverno (Curandeiro)",
     "winter2020CarolOfTheMageSet": "Cântico do Mago (Mago)",
-    "winter2020EvergreenSet": "Sempre-viva (Guerreiro)",
+    "winter2020EvergreenSet": "Folha Perene (Guerreiro)",
     "marchYYYY": "Março <%= year %>",
     "spring2020LapisLazuliRogueSet": "Lazulita (Gatuno)",
     "spring2020IrisHealerSet": "Íris (Curandeiro)",
@@ -198,5 +198,9 @@
     "winter2021HollyIvyRogueSet": "Azevinho e Hera (Gatuno(a))",
     "g1g1HowItWorks": "Digite o nome de usuário que você gostaria de presentear. Depois disso, escolha a duração da assinatura e finalize a compra. Sua conta será automaticamente recompensada com a mesma assinatura que você acabou de presentear.",
     "howItWorks": "Como funciona",
-    "g1g1Limitations": "Esse é um evento de tempo limitado que começa no dia 17 de Dezembro (13:00 UTC, Horário de Brasília: 10:00) e terminará no dia 7 de Janeiro (01:00 UTC, Horário de Brasília: 22:00 do dia anterior). Essa promoção só se aplica quando você presenteia um(a) outro(a) Habiticano(a). Se você ou seu destinatário do presente já tiver uma assinatura, a assinatura presenteada adicionará meses de crédito que só serão usados após a assinatura atual ser cancelada ou expirar."
+    "g1g1Limitations": "Esse é um evento de tempo limitado que começa no dia 17 de Dezembro (13:00 UTC, Horário de Brasília: 10:00) e terminará no dia 7 de Janeiro (01:00 UTC, Horário de Brasília: 22:00 do dia anterior). Essa promoção só se aplica quando você presenteia um(a) outro(a) Habiticano(a). Se você ou seu destinatário do presente já tiver uma assinatura, a assinatura presenteada adicionará meses de crédito que só serão usados após a assinatura atual ser cancelada ou expirar.",
+    "spring2021TwinFlowerRogueSet": "Flores Gêmeas (Gatuno(a))",
+    "spring2021SwanMageSet": "Cisne (Mago(a))",
+    "spring2021SunstoneWarriorSet": "Pedra Solar (Guerreiro(a))",
+    "spring2021WillowHealerSet": "Salgueiro (Curandeiro(a))"
 }

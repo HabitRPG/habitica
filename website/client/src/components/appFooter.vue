@@ -364,6 +364,10 @@ footer {
     .logo {
       color: #c3c0c7;
     }
+    @media screen and (max-width: 770px) {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
   }
 }
 </style>
