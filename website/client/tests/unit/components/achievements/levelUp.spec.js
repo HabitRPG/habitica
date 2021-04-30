@@ -1,78 +1,61 @@
-import LevelUp from '@/components/achievements/levelUp.vue';
-
-/*
-// I couldn't get rendering to work for the modal, this is what I tried.
-// Now the testing is done by overriding `this` for the exported computed
-// functions directly.  I intend to come back to this later to test it
-// properly in a rendered component.
-
-import { mount, createLocalVue } from '@vue/test-utils';
-import BootstrapVue from 'bootstrap-vue';
+import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Store from '@/libs/store';
+
+import LevelUp from '@/components/achievements/levelUp';
 
 const localVue = createLocalVue();
 localVue.use(Store);
-localVue.use(BootstrapVue);
-
-function createContainer () {
-  const container = document.createElement('div');
-  document.body.appendChild(container);
-  return container;
-}
-*/
 
 describe('LevelUp', () => {
-  function testFunction (name, level = 10) {
-    return LevelUp.computed[name].bind({
-      user: { stats: { lvl: level } },
-      $t: (...args) => args.map(JSON.stringify).join(' '),
-    });
-  }
-
-  /*
-  // More potential rendering code
-  let wrapper;
-  beforeEach(async () => {
-    wrapper = mount(LevelUp, {
+  function createWrapper (level = 10) {
+    const wrapper = shallowMount(LevelUp, {
       store: new Store({
-        state: { user: { data: createUser() } },
-        getters: {},
+        state: {
+          user: {
+            data: {
+              stats: {
+                lvl: level,
+                buffs: {},
+              },
+              preferences: { hair: {} },
+              items: { gear: { equipped: {} } },
+            },
+          },
+        },
+        getters: { 'members:hasClass': () => () => false },
         actions: {},
       }),
-      propsData: {
-        static: true,
-        visible: true,
-      },
       localVue,
-      mocks: { $t: string => string },
-      attachTo: createContainer(),
+      mocks: { $t: (...args) => args.map(JSON.stringify).join(' ') },
+      stubs: ['b-modal'],
     });
-  });
-  */
+
+    return wrapper;
+  }
 
   it('displays the right level in the title', () => {
-    const title = testFunction('title', 12);
+    const wrapper = createWrapper(12);
 
-    expect(title()).to.equal('"reachedLevel" {"level":12}');
+    expect(wrapper.vm.title).to.equal('"reachedLevel" {"level":12}');
   });
 
   it('does not display rewards for level 10', () => {
-    const displayRewardQuest = testFunction('displayRewardQuest', 10);
+    const wrapper = createWrapper();
 
-    expect(displayRewardQuest()).to.be.false;
+    expect(wrapper.vm.displayRewardQuest).to.be.false;
   });
 
   [15, 30, 40, 60].forEach(level => {
     it(`does display rewards for level ${level}`, () => {
-      const displayRewardQuest = testFunction('displayRewardQuest', level);
+      const wrapper = createWrapper(level);
 
-      expect(displayRewardQuest()).to.be.true;
+      expect(wrapper.vm.displayRewardQuest).to.be.true;
     });
   });
 
   it('generates the right test class for level 15', () => {
-    const questClass = testFunction('questClass', 15);
+    const wrapper = createWrapper(15);
 
-    expect(questClass()).to.equal('scroll inventory_quest_scroll_atom1');
+    expect(wrapper.vm.questClass).to.equal('scroll inventory_quest_scroll_atom1');
   });
 });

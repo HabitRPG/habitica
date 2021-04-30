@@ -539,7 +539,7 @@
     "backgroundRelaxationRiverNotes": "Desciende a la deriva lánguidamente por el Río Relajación.",
     "backgroundSteamworksNotes": "Construye artilugios poderosos de vapor y acero en un taller de vapor.",
     "backgroundSteamworksText": "Taller de vapor",
-    "timeTravelBackgrounds": "Fondos steampunk",
+    "timeTravelBackgrounds": "Fondos Steampunk",
     "backgroundSpookyScarecrowFieldText": "Campo de espantapájaros espeluznantes",
     "backgroundHauntedForestNotes": "Intenta no perderte en el Bosque embrujado.",
     "backgroundHauntedForestText": "Bosque Embrujado",
@@ -597,5 +597,12 @@
     "backgroundSplashInAPuddleText": "Chapoteando en un charco",
     "backgroundInTheArmoryNotes": "Equípate en la armería.",
     "backgroundInTheArmoryText": "En la armería",
-    "backgrounds032021": "82.ª serie: publicada en marzo de 2021"
+    "backgrounds032021": "82.ª serie: publicada en marzo de 2021",
+    "backgroundElegantGardenText": "Jardín Elegante",
+    "backgroundElegantGardenNotes": "Camina por los cuidados senderos de un Jardín Elegante.",
+    "backgroundCottageConstructionNotes": "Ayuda o, al menos, supervisa una cabaña en construcción.",
+    "backgroundCottageConstructionText": "Cabaña en construcción",
+    "backgroundAmongCattailsNotes": "Admira la vida salvaje del humedal entre espadañas.",
+    "backgroundAmongCattailsText": "Entre espadañas",
+    "backgrounds042021": "83.ª serie: publicada en abril de 2021"
 }

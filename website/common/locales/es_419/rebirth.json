@@ -1,15 +1,15 @@
 {
-    "rebirthNew": "Renacimiento: ¡Una nueva aventura disponible!",
+    "rebirthNew": "Renacimiento: ¡Nueva Aventura Disponible!",
     "rebirthUnlock": "¡Has desbloqueado el Renacimiento! Este objeto especial del Mercado te permite empezar un nuevo juego desde el nivel 1 manteniendo tus tareas, logros, mascotas, y más. ¡Úsalo para darle nueva vida a Habitica si sientes que ya lo lograste todo, o para tener la experiencia de nuevas funciones con la perspectiva de un personaje nuevo!",
     "rebirthAchievement": "¡Has comenzado una nueva aventura! Éste es tu Renacimiento número <%= number %>, y el Nivel más alto que has alcanzado es <%= level %>. Para acumular este Logro, ¡empieza tu aventura siguiente después de haber conseguido un nivel aún más alto!",
     "rebirthAchievement100": "¡Has comenzado una nueva aventura! Éste es tu Renacimiento número <%= number %>, y el Nivel más alto que has alcanzado es 100 o más. Para acumular este Logro, ¡empieza tu aventura siguiente cuando hayas alcanzado como mínimo el nivel 100!",
-    "rebirthBegan": "Comenzó una nueva aventura",
-    "rebirthText": "Comenzó <%= rebirths %> nuevas aventuras",
-    "rebirthOrb": "Ha utilizado una esfera de renacimiento para empezar de nuevo luego de alcanzar el nivel <%= level %>.",
-    "rebirthOrb100": "Ha usado una Esfera de renacimiento para volver a empezar al alcanzar el nivel 100 o más.",
-    "rebirthOrbNoLevel": "Ha utilizado una esfera de renacimiento para comenzar de nuevo.",
+    "rebirthBegan": "Comenzó una Nueva Aventura",
+    "rebirthText": "Comenzó <%= rebirths %> Nuevas Aventuras",
+    "rebirthOrb": "Usó una Esfera de Renacimiento para empezar de nuevo después de llegar a Nivel <%= level %>.",
+    "rebirthOrb100": "Usó una Esfera de Renacimiento para volver a empezar después de alcanzar Nivel 100 o superior.",
+    "rebirthOrbNoLevel": "Usó una Esfera de Renacimiento para comenzar de nuevo.",
     "rebirthPop": "Reinicia instantáneamente tu personaje a Guerrero nivel 1, manteniendo tus logros, coleccionables y equipamiento. Tus tareas y su historial se mantendrán pero se volverán amarillas. Tus rachas serán removidas exceptuando aquellas que pertenezcan a Desafíos activos y Planes Grupales. Tu Oro, Experiencia, Maná, y los efectos de todas las Habilidades serán removidas. Todo esto tomará efecto inmediatamente. Para mas información, ve la página <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Orb of Rebirth</a> en la Wiki.",
     "rebirthName": "Esfera de Renacimiento",
-    "rebirthComplete": "¡Haz sido revivido!",
+    "rebirthComplete": "¡Volviste a Nacer!",
     "nextFreeRebirth": "<strong><%= days %> días</strong> hasta un Orbe de Renacimiento <strong>GRATIS</strong>"
 }

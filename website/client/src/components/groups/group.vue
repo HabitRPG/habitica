@@ -176,7 +176,7 @@
           :title="$t('challenges')"
           :tooltip="$t('challengeDetails')"
         >
-          <group-challenges :group-id="searchId" />
+          <group-challenges :group="group" />
         </sidebar-section>
       </div>
       <div class="text-center">
