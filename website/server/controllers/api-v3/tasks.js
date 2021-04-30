@@ -16,34 +16,18 @@ import {
 import {
   createTasks,
   getTasks,
+  getGroupFromTaskAndUser,
+  getChallengeFromTask,
+  scoreTasks,
+  verifyTaskModification,
+} from '../../libs/tasks';
+import {
   moveTask,
   setNextDue,
-  scoreTasks,
-} from '../../libs/taskManager';
+  requiredGroupFields,
+} from '../../libs/tasks/utils';
 import common from '../../../common';
 import apiError from '../../libs/apiError';
-
-// @TODO abstract, see api-v3/tasks/groups.js
-function canNotEditTasks (group, user, assignedUserId, taskPayload = null) {
-  const isNotGroupLeader = group.leader !== user._id;
-  const isManager = Boolean(group.managers[user._id]);
-  const userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
-
-  const taskPayloadProps = taskPayload
-    ? Object.keys(taskPayload)
-    : [];
-
-  // only allow collapseChecklist to be changed by everyone
-  const allowedByTaskPayload = taskPayloadProps.length === 1
-    && taskPayloadProps.includes('collapseChecklist');
-
-  if (allowedByTaskPayload) {
-    return false;
-  }
-
-  return isNotGroupLeader && !isManager
-    && !userIsAssigningToSelf;
-}
 
 /**
  * @apiDefine TaskNotFound
@@ -61,7 +45,6 @@ function canNotEditTasks (group, user, assignedUserId, taskPayload = null) {
  */
 
 const api = {};
-const requiredGroupFields = '_id leader tasksOrder name';
 
 /**
  * @api {post} /api/v3/tasks/user Create a new task belonging to the user
@@ -613,7 +596,6 @@ api.updateTask = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    let challenge;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
 
@@ -622,26 +604,30 @@ api.updateTask = {
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
-    let group;
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    }
 
+    const group = await getGroupFromTaskAndUser(task, user);
+    const challenge = await getChallengeFromTask(task);
+    // Verify that the user can modify the task.
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
     } else if (task.group.id && !task.userId) {
-      // @TODO: Abstract this access snippet
-      const fields = requiredGroupFields.concat(' managers');
-      group = await Group.getGroup({ user, groupId: task.group.id, fields });
+      // If the task is in a group and only modifying `collapseChecklist`,
+      // the modification should be allowed.
       if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (canNotEditTasks(group, user, null, req.body)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+      const taskPayloadProps = Object.keys(req.body);
 
-    // If the task belongs to a challenge make sure the user has rights
-    } else if (task.challenge.id && !task.userId) {
-      challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
-      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+      const allowedByTaskPayload = taskPayloadProps.length === 1
+        && taskPayloadProps.includes('collapseChecklist');
 
-    // If the task is owned by a user make it's the current one
-    } else if (task.userId !== user._id) {
-      throw new NotFound(res.t('taskNotFound'));
+      if (!allowedByTaskPayload) {
+        // Otherwise, verify the task modification normally.
+        verifyTaskModification(task, user, group, challenge, res);
+      }
+    } else {
+      verifyTaskModification(task, user, group, challenge, res);
     }
 
     const oldCheckList = task.checklist;
@@ -832,20 +818,29 @@ api.moveTask = {
     const { taskId } = req.params;
     const to = Number(req.params.position);
 
-    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
-    if (!task) throw new NotFound(res.t('taskNotFound'));
+    if (!task) {
+      throw new NotFound(res.t('taskNotFound'));
+    }
+
+    const group = await getGroupFromTaskAndUser(task, user);
+    const challenge = await getChallengeFromTask(task);
+    verifyTaskModification(task, user, group, challenge, res);
+
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
 
+    const owner = group || challenge || user;
+
     // In memory updates
-    const order = user.tasksOrder[`${task.type}s`];
+    const order = owner.tasksOrder[`${task.type}s`];
     moveTask(order, task._id, to);
 
     // Server updates
     // Cannot send $pull and $push on same field in one single op
     const pullQuery = { $pull: {} };
     pullQuery.$pull[`tasksOrder.${task.type}s`] = task.id;
-    await user.update(pullQuery).exec();
+    await owner.update(pullQuery).exec();
 
     let position = to;
     if (to === -1) position = order.length - 1; // push to bottom
@@ -855,12 +850,15 @@ api.moveTask = {
       $each: [task._id],
       $position: position,
     };
-    await user.update(updateQuery).exec();
+    await owner.update(updateQuery).exec();
 
     // Update the user version field manually,
     // it cannot be updated in the pre update hook
     // See https://github.com/HabitRPG/habitica/pull/9321#issuecomment-354187666 for more info
-    user._v += 1;
+    // Only users have a version.
+    if (!group && !challenge) {
+      owner._v += 1;
+    }
 
     res.respond(200, order);
   },
@@ -900,8 +898,6 @@ api.addChecklistItem = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    let challenge;
-    let group;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
 
@@ -913,21 +909,11 @@ api.addChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (task.group.id && !task.userId) {
-      const fields = requiredGroupFields.concat(' managers');
-      group = await Group.getGroup({ user, groupId: task.group.id, fields });
-      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-
-    // If the task belongs to a challenge make sure the user has rights
-    } else if (task.challenge.id && !task.userId) {
-      challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
-      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-
-    // If the task is owned by a user make it's the current one
-    } else if (task.userId !== user._id) {
-      throw new NotFound(res.t('taskNotFound'));
     }
+
+    const group = await getGroupFromTaskAndUser(task, user);
+    const challenge = await getChallengeFromTask(task);
+    verifyTaskModification(task, user, group, challenge, res);
 
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
@@ -1018,8 +1004,6 @@ api.updateChecklistItem = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    let challenge;
-    let group;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
@@ -1032,22 +1016,11 @@ api.updateChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (task.group.id && !task.userId) {
-      const fields = requiredGroupFields.concat(' managers');
-      group = await Group.getGroup({ user, groupId: task.group.id, fields });
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-
-    // If the task belongs to a challenge make sure the user has rights
-    } else if (task.challenge.id && !task.userId) {
-      challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
-      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-
-    // If the task is owned by a user make it's the current one
-    } else if (task.userId !== user._id) {
-      throw new NotFound(res.t('taskNotFound'));
     }
+
+    const group = await getGroupFromTaskAndUser(task, user);
+    const challenge = await getChallengeFromTask(task);
+    verifyTaskModification(task, user, group, challenge, res);
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
     const item = _.find(task.checklist, { id: req.params.itemId });
@@ -1095,8 +1068,6 @@ api.removeChecklistItem = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    let challenge;
-    let group;
 
     req.checkParams('taskId', apiError('taskIdRequired')).notEmpty();
     req.checkParams('itemId', res.t('itemIdRequired')).notEmpty().isUUID();
@@ -1109,22 +1080,11 @@ api.removeChecklistItem = {
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (task.group.id && !task.userId) {
-      const fields = requiredGroupFields.concat(' managers');
-      group = await Group.getGroup({ user, groupId: task.group.id, fields });
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
-
-    // If the task belongs to a challenge make sure the user has rights
-    } else if (task.challenge.id && !task.userId) {
-      challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
-      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-
-    // If the task is owned by a user make it's the current one
-    } else if (task.userId !== user._id) {
-      throw new NotFound(res.t('taskNotFound'));
     }
+
+    const group = await getGroupFromTaskAndUser(task, user);
+    const challenge = await getChallengeFromTask(task);
+    verifyTaskModification(task, user, group, challenge, res);
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
     const hasItem = removeFromArray(task.checklist, { id: req.params.itemId });
@@ -1447,30 +1407,19 @@ api.deleteTask = {
   middlewares: [authWithHeaders()],
   async handler (req, res) {
     const { user } = res.locals;
-    let challenge;
 
     const { taskId } = req.params;
     const task = await Tasks.Task.findByIdOrAlias(taskId, user._id);
 
     if (!task) {
       throw new NotFound(res.t('taskNotFound'));
-    } else if (task.group.id && !task.userId) {
-      //  @TODO: Abstract this access snippet
-      const fields = requiredGroupFields.concat(' managers');
-      const group = await Group.getGroup({ user, groupId: task.group.id, fields });
-      if (!group) throw new NotFound(res.t('groupNotFound'));
-      if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    }
+    const group = await getGroupFromTaskAndUser(task, user);
+    const challenge = await getChallengeFromTask(task);
+    verifyTaskModification(task, user, group, challenge, res);
+
+    if (task.group.id && !task.userId) {
       await group.removeTask(task);
-
-    // If the task belongs to a challenge make sure the user has rights
-    } else if (task.challenge.id && !task.userId) {
-      challenge = await Challenge.findOne({ _id: task.challenge.id }).exec();
-      if (!challenge) throw new NotFound(res.t('challengeNotFound'));
-      if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
-
-    // If the task is owned by a user make it's the current one
-    } else if (task.userId !== user._id) {
-      throw new NotFound(res.t('taskNotFound'));
     } else if (task.userId && task.challenge.id && !task.challenge.broken) {
       throw new NotAuthorized(res.t('cantDeleteChallengeTasks'));
     } else if (

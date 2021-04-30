@@ -19,7 +19,7 @@ import * as Tasks from '../../models/task';
 import csvStringify from '../../libs/csvStringify';
 import {
   createTasks,
-} from '../../libs/taskManager';
+} from '../../libs/tasks';
 
 import {
   addUserJoinChallengeNotification,

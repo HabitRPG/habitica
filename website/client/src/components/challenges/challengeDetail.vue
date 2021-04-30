@@ -133,6 +133,7 @@
           :type="column"
           :task-list-override="tasksByType[column]"
           :challenge="challenge"
+          :draggable-override="isLeader || isAdmin"
           @editTask="editTask"
           @taskDestroyed="taskDestroyed"
         />
@@ -512,7 +513,7 @@ export default {
       this.creatingTask = null;
     },
     taskCreated (task) {
-      this.tasksByType[task.type].push(task);
+      this.tasksByType[task.type].unshift(task);
     },
     taskEdited (task) {
       const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);

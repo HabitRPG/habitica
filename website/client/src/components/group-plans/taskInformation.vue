@@ -77,6 +77,7 @@
         :task-list-override="tasksByType[column]"
         :group="group"
         :search-text="searchText"
+        :draggable-override="canCreateTasks"
         @editTask="editTask"
         @loadGroupCompletedTodos="loadGroupCompletedTodos"
         @taskDestroyed="taskDestroyed"
@@ -295,7 +296,7 @@ export default {
     },
     taskCreated (task) {
       task.group.id = this.group._id;
-      this.tasksByType[task.type].push(task);
+      this.tasksByType[task.type].unshift(task);
     },
     taskEdited (task) {
       const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);

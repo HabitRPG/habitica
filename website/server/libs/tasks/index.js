@@ -1,73 +1,29 @@
 import moment from 'moment';
 import _ from 'lodash';
 import validator from 'validator';
-import * as Tasks from '../models/task';
-import apiError from './apiError';
+import {
+  setNextDue,
+  validateTaskAlias,
+  requiredGroupFields,
+} from './utils';
+import { model as Challenge } from '../../models/challenge';
+import { model as Group } from '../../models/group';
+import { model as User } from '../../models/user';
+import * as Tasks from '../../models/task';
+import apiError from '../apiError';
 import {
   BadRequest,
-  NotAuthorized,
   NotFound,
-} from './errors';
+  NotAuthorized,
+} from '../errors';
 import {
   SHARED_COMPLETION,
   handleSharedCompletion,
-} from './groupTasks';
-import shared from '../../common';
-import { model as Group } from '../models/group'; // eslint-disable-line import/no-cycle
-import { model as User } from '../models/user'; // eslint-disable-line import/no-cycle
-import { taskScoredWebhook } from './webhook'; // eslint-disable-line import/no-cycle
+} from '../groupTasks';
+import shared from '../../../common';
+import { taskScoredWebhook } from '../webhook';
 
-import logger from './logger';
-
-const requiredGroupFields = '_id leader tasksOrder name';
-
-async function _validateTaskAlias (tasks, res) {
-  const tasksWithAliases = tasks.filter(task => task.alias);
-  const aliases = tasksWithAliases.map(task => task.alias);
-
-  // Compares the short names in tasks against
-  // a Set, where values cannot repeat. If the
-  // lengths are different, some name was duplicated
-  if (aliases.length !== [...new Set(aliases)].length) {
-    throw new BadRequest(res.t('taskAliasAlreadyUsed'));
-  }
-
-  await Promise.all(tasksWithAliases.map(task => task.validate()));
-}
-
-export function setNextDue (task, user, dueDateOption) {
-  if (task.type !== 'daily') return;
-
-  let now = moment().toDate();
-  let dateTaskIsDue = Date.now();
-  if (dueDateOption) {
-    // @TODO Add required ISO format
-    dateTaskIsDue = moment(dueDateOption);
-
-    // If not time is supplied. Let's assume we want start of Custom Day Start day.
-    if (
-      dateTaskIsDue.hour() === 0
-      && dateTaskIsDue.minute() === 0
-      && dateTaskIsDue.second() === 0
-      && dateTaskIsDue.millisecond() === 0
-    ) {
-      dateTaskIsDue.add(user.preferences.timezoneOffset, 'minutes');
-      dateTaskIsDue.add(user.preferences.dayStart, 'hours');
-    }
-
-    now = dateTaskIsDue;
-  }
-
-  const optionsForShouldDo = user.preferences.toObject();
-  optionsForShouldDo.now = now;
-  task.isDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
-
-  optionsForShouldDo.nextDue = true;
-  const nextDue = shared.shouldDo(dateTaskIsDue, task, optionsForShouldDo);
-  if (nextDue && nextDue.length > 0) {
-    task.nextDue = nextDue.map(dueDate => dueDate.toISOString());
-  }
-}
+import logger from '../logger';
 
 /**
  * Creates tasks for a user, challenge or group.
@@ -81,7 +37,7 @@ export function setNextDue (task, user, dueDateOption) {
  * @param  options.requiresApproval  A boolean stating if the task will require approval
  * @return The created tasks
  */
-export async function createTasks (req, res, options = {}) {
+async function createTasks (req, res, options = {}) {
   const {
     user,
     challenge,
@@ -161,7 +117,7 @@ export async function createTasks (req, res, options = {}) {
   await owner.update(taskOrderUpdateQuery).exec();
 
   // tasks with aliases need to be validated asynchronously
-  await _validateTaskAlias(toSave, res);
+  await validateTaskAlias(toSave, res);
 
   // If all tasks are valid (this is why it's not in the previous .map()),
   // save everything, withough running validation again
@@ -188,7 +144,7 @@ export async function createTasks (req, res, options = {}) {
  * @param  options.dueDate The date to use for computing the nextDue field for each returned task
  * @return The tasks found
  */
-export async function getTasks (req, res, options = {}) {
+async function getTasks (req, res, options = {}) {
   const {
     user,
     challenge,
@@ -253,63 +209,72 @@ export async function getTasks (req, res, options = {}) {
   }
 
   // Order tasks based on tasksOrder
+  let order = [];
   if (type && type !== 'completedTodos' && type !== '_allCompletedTodos') {
-    const order = owner.tasksOrder[type];
-    let orderedTasks = new Array(tasks.length);
-    const unorderedTasks = []; // what we want to add later
-
-    tasks.forEach((task, index) => {
-      const taskId = task._id;
-      const i = order[index] === taskId ? index : order.indexOf(taskId);
-      if (i === -1) {
-        unorderedTasks.push(task);
-      } else {
-        orderedTasks[i] = task;
-      }
+    order = owner.tasksOrder[type];
+  } else if (!type) {
+    Object.values(owner.tasksOrder).forEach(taskOrder => {
+      order = order.concat(taskOrder);
     });
-
-    // Remove empty values from the array and add any unordered task
-    orderedTasks = _.compact(orderedTasks).concat(unorderedTasks);
-    return orderedTasks;
-  }
-  return tasks;
-}
-
-// Takes a Task document and return a plain object of attributes that can be synced to the user
-export function syncableAttrs (task) {
-  const t = task.toObject(); // lodash doesn't seem to like _.omit on Document
-  // only sync/compare important attrs
-  const omitAttrs = ['_id', 'userId', 'challenge', 'history', 'tags', 'completed', 'streak', 'notes', 'updatedAt', 'createdAt', 'group', 'checklist', 'attribute'];
-  if (t.type !== 'reward') omitAttrs.push('value');
-  return _.omit(t, omitAttrs);
-}
-
-/**
- * Moves a task to a specified position.
- *
- * @param  order  The list of ordered tasks
- * @param  taskId  The Task._id of the task to move
- * @param  to A integer specifying the index to move the task to
- *
- * @return Empty
- */
-export function moveTask (order, taskId, to) {
-  const currentIndex = order.indexOf(taskId);
-
-  // If for some reason the task isn't ordered (should never happen), push it in the new position
-  // if the task is moved to a non existing position
-  // or if the task is moved to position -1 (push to bottom)
-  // -> push task at end of list
-  if (!order[to] && to !== -1) {
-    order.push(taskId);
-    return;
-  }
-
-  if (currentIndex !== -1) order.splice(currentIndex, 1);
-  if (to === -1) {
-    order.push(taskId);
   } else {
-    order.splice(to, 0, taskId);
+    return tasks;
+  }
+
+  let orderedTasks = new Array(tasks.length);
+  const unorderedTasks = []; // what we want to add later
+
+  tasks.forEach((task, index) => {
+    const taskId = task._id;
+    const i = order[index] === taskId ? index : order.indexOf(taskId);
+    if (i === -1) {
+      unorderedTasks.push(task);
+    } else {
+      orderedTasks[i] = task;
+    }
+  });
+
+  // Remove empty values from the array and add any unordered task
+  orderedTasks = _.compact(orderedTasks).concat(unorderedTasks);
+  return orderedTasks;
+}
+
+function canNotEditTasks (group, user, assignedUserId) {
+  const isNotGroupLeader = group.leader !== user._id;
+  const isManager = Boolean(group.managers[user._id]);
+  const userIsAssigningToSelf = Boolean(assignedUserId && user._id === assignedUserId);
+  return isNotGroupLeader && !isManager && !userIsAssigningToSelf;
+}
+
+async function getGroupFromTaskAndUser (task, user) {
+  if (task.group.id && !task.userId) {
+    const fields = requiredGroupFields.concat(' managers');
+    return Group.getGroup({ user, groupId: task.group.id, fields });
+  }
+  return null;
+}
+
+async function getChallengeFromTask (task) {
+  if (task.challenge.id && !task.userId) {
+    return Challenge.findOne({ _id: task.challenge.id }).exec();
+  }
+  return null;
+}
+
+function verifyTaskModification (task, user, group, challenge, res) {
+  if (!task) {
+    throw new NotFound(res.t('taskNotFound'));
+  } else if (task.group.id && !task.userId) {
+    if (!group) throw new NotFound(res.t('groupNotFound'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+
+  // If the task belongs to a challenge make sure the user has rights
+  } else if (task.challenge.id && !task.userId) {
+    if (!challenge) throw new NotFound(res.t('challengeNotFound'));
+    if (!challenge.canModify(user)) throw new NotAuthorized(res.t('onlyChalLeaderEditTasks'));
+
+  // If the task is owned by a user make it's the current one
+  } else if (task.userId !== user._id) {
+    throw new NotFound(res.t('taskNotFound'));
   }
 }
 
@@ -589,3 +554,13 @@ export async function scoreTasks (user, taskScorings, req, res) {
     return { id: data.task._id, delta: data.delta, _tmp: data._tmp };
   });
 }
+
+export {
+  createTasks,
+  getTasks,
+  scoreTask,
+  canNotEditTasks,
+  getGroupFromTaskAndUser,
+  getChallengeFromTask,
+  verifyTaskModification,
+};
