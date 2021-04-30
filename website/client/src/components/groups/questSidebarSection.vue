@@ -130,8 +130,13 @@
                     v-html="icons.healthNoPaddingIcon"
                     v-once
                   ></div>
-                  {{ Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100 }}
-                  / {{ parseFloat(questData.boss.hp) }}
+                  {{
+                    (Math.ceil(parseFloat(group.quest.progress.hp) * 100) / 100)
+                      | localizeNumber(user.preferences.language, { toFixed:2 })
+                  }} / {{
+                    parseFloat(questData.boss.hp)
+                      | localizeNumber(user.preferences.language, { toFixed:2 })
+                  }}
                   <strong>HP</strong>
 
                   <!-- current boss hp uses ceil so
@@ -150,7 +155,11 @@
                     v-html="icons.swordIcon"
                     v-once
                   ></div>
-                  {{ (user.party.quest.progress.up || 0) | floor(10) }}
+                  {{
+                    (user.party.quest.progress.up || 0)
+                      | floor(10)
+                      | localizeNumber(user.preferences.language, { toFixed:1 })
+                  }}
                   {{ $t('pendingDamageLabel') }}
                 </span>
                 <!-- player's pending damage uses floor so you

@@ -56,9 +56,8 @@
                   class="row"
                   :class="{'no-gutters': !editingTags}"
                 >
-                  <template v-if="editingTags && tagsType.key === 'tags'">
+                  <template v-if="editingTags && tagsType.key !== 'groups'">
                     <draggable
-                      v-if="tagsType.key === 'tags'"
                       v-model="tagsSnap[tagsType.key]"
                       class="row"
                     >
@@ -88,7 +87,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-6 dragSpace">
+                      <div v-if="tagsType.key === 'tags'" class="col-6 dragSpace">
                         <input
                           v-model="newTag"
                           class="new-tag-item edit-tag-item inline-edit-input form-control"
@@ -98,30 +97,6 @@
                         >
                       </div>
                     </draggable>
-                  </template>
-                  <template v-if="editingTags && tagsType.key === 'challenges'">
-                    <div
-                      v-for="(tag, tagIndex) in tagsSnap[tagsType.key]"
-                      :key="tag.id"
-                      class="col-6"
-                    >
-                      <div class="inline-edit-input-group tag-edit-item input-group">
-                        <input
-                          v-model="tag.name"
-                          class="tag-edit-input inline-edit-input form-control"
-                          type="text"
-                        >
-                        <div
-                          class="input-group-append"
-                          @click="removeTag(tagIndex, tagsType.key)"
-                        >
-                          <div
-                            class="svg-icon destroy-icon"
-                            v-html="icons.destroy"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
                   </template>
                   <template v-if="!editingTags || tagsType.key === 'groups'">
                     <div

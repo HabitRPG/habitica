@@ -90,12 +90,12 @@ export default {
   props: ['selections', 'text', 'caretPosition', 'coords', 'chat', 'textbox'],
   data () {
     return {
-      atRegex: /(?!\b)@[\w-]*$/,
+      atRegex: /(?!\b)@([\w-]*)$/,
       currentSearch: '',
       searchActive: false,
-      searchEscaped: false,
       currentSearchPosition: 0,
       tmpSelections: [],
+      searchResults: [],
       icons: Object.freeze({
         tier1,
         tier2,
@@ -114,7 +114,7 @@ export default {
   computed: {
     autocompleteStyle () {
       function heightToUse (textBox, topCoords) {
-        const textBoxHeight = textBox['user-entry'].clientHeight;
+        const textBoxHeight = textBox.clientHeight;
         return topCoords < textBoxHeight ? topCoords + 30 : textBoxHeight + 10;
       }
       return {
@@ -128,38 +128,25 @@ export default {
         backgroundColor: 'white',
       };
     },
-    searchResults () {
-      if (!this.searchActive) return [];
-      if (!this.atRegex.exec(this.text)) return [];
-      this.currentSearch = this.atRegex.exec(this.text)[0]; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len, prefer-destructuring
-      this.currentSearch = this.currentSearch.substring(1, this.currentSearch.length); // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len
-
-      const lowerCaseSearch = this.currentSearch.toLowerCase();
-      return this.tmpSelections
-        .filter(option => { // eslint-disable-line arrow-body-style
-          return option.displayName.toLowerCase().indexOf(lowerCaseSearch) !== -1
-            || (option.username
-              && option.username.toLowerCase().indexOf(lowerCaseSearch) !== -1);
-        })
-        .slice(0, 4);
-    },
-
   },
   watch: {
-    text (newText) {
-      if (!newText[newText.length - 1] || newText[newText.length - 1] === ' ') {
+    text (newText, prevText) {
+      const delCharsBool = prevText.length > newText.length;
+      const caretPosition = this.textbox.selectionEnd;
+      const lastFocusChar = delCharsBool ? prevText[caretPosition] : newText[caretPosition - 1];
+      if (
+        newText.length === 0 // Delete all
+        || /\s/.test(lastFocusChar) // End Search
+        || (lastFocusChar === '@' && delCharsBool) // Cancel Search
+      ) {
         this.searchActive = false;
-        this.searchEscaped = false;
-        return;
+        this.searchResults = [];
+      } else {
+        if (lastFocusChar === '@') this.searchActive = true;
+        if (this.searchActive) {
+          this.searchResults = this.solveSearchResults(newText.substring(0, caretPosition));
+        }
       }
-      if (newText[newText.length - 1] === '@') {
-        this.searchEscaped = false;
-      }
-      if (this.searchEscaped) return;
-
-      if (!this.atRegex.test(newText)) return;
-
-      this.searchActive = true;
     },
     chat () {
       this.resetDefaults();
@@ -170,11 +157,23 @@ export default {
     this.grabUserNames();
   },
   methods: {
+    solveSearchResults (textFocus) {
+      if (!this.searchActive) return [];
+      const regexRes = this.atRegex.exec(textFocus);
+      if (!regexRes) return [];
+      this.currentSearch = regexRes[1]; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len, prefer-destructuring
+
+      const lowerCaseSearch = this.currentSearch.toLowerCase();
+
+      return this.tmpSelections
+        .filter(option => option.displayName.toLowerCase().includes(lowerCaseSearch)
+            || (option.username && option.username.toLowerCase().includes(lowerCaseSearch)))
+        .slice(0, 4);
+    },
     resetDefaults () {
       // Mounted is not called when switching between group pages because they have the
       // the same parent component. So, reset the data
       this.searchActive = false;
-      this.searchEscaped = false;
       this.tmpSelections = [];
       this.resetSelection();
     },
@@ -218,11 +217,18 @@ export default {
       return isContributor ? this.icons[`tier${message.contributor.level}`] : null;
     },
     select (result) {
-      let newText = this.text;
+      const { text } = this;
       const targetName = `${result.username || result.displayName} `;
-      newText = newText.replace(new RegExp(`${this.currentSearch}$`), targetName);
-      this.$emit('select', newText);
+      const oldCaret = this.caretPosition;
+      let newText = text.substring(0, this.caretPosition)
+        .replace(new RegExp(`${this.currentSearch}$`), targetName);
+      const newCaret = newText.length;
+      newText += text.substring(oldCaret, text.length);
+      this.$emit('select', newText, newCaret);
       this.resetSelection();
+
+      // Made selection, shut off searching
+      this.searchActive = false;
     },
     setHover (result) {
       this.resetSelection();
@@ -263,7 +269,6 @@ export default {
     },
     cancel () {
       this.searchActive = false;
-      this.searchEscaped = true;
       this.resetSelection();
     },
   },

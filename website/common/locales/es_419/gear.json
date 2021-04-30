@@ -217,7 +217,7 @@
     "weaponSpecialWinter2017MageText": "Báculo de cristal del Lobo Invernal",
     "weaponSpecialWinter2017MageNotes": "!El cristal azul encendido que está al final de este báculo se llama el Ojo del Lobo Invernal! Canaliza la magia de la nieve y el hielo. Incrementa la Inteligencia por <%= int %> y la Percepción por <%= per %>. Equipamiento de Edición Limitada de Invierno 2016-2017.",
     "weaponSpecialWinter2017HealerText": "Varita de algodón hilado",
-    "weaponSpecialWinter2017HealerNotes": "Esta vara puede buscar en tus sueños y traerte visiones de confites de ciruela bailando.  Incrementa la Inteligencia por <%= int %>. Equipamiento de Edición Limitada de Invierno 2016-2017.",
+    "weaponSpecialWinter2017HealerNotes": "Esta vara puede buscar en tus sueños y traerte visiones de caramelos bailando. Aumenta la Inteligencia en <%= int %>. Equipamiento de Edición Limitada de Invierno, 2016-2017.",
     "weaponSpecialSpring2017RogueText": "Katanahoria",
     "weaponSpecialSpring2017RogueNotes": "¡Estas cuchillas harán rápido el trabajo de las tareas, pero también son útiles para cortar verduras! ¡Qué rico! Aumenta la Fuerza en <%= str %>. Equipamiento de Edición Limitada de primavera de 2017.",
     "weaponSpecialSpring2017WarriorText": "Látigo Plumoso",
@@ -2331,5 +2331,15 @@
     "armorMystery202104Notes": "¡Suave en el interior, espinoso en el exterior, con estilo en cualquier lugar! No otorga ningún beneficio. Artículo de Suscriptor Abril 2021.",
     "armorMystery202104Text": "Armadura de Cardo Pálido",
     "weaponMystery202104Notes": "Más vale que tus enemigos tengan cuidado- ¡Tienes unas defensas poderosas y espinosas! No otorga ningún beneficio. Artículo de Suscriptor Abril 2021.",
-    "weaponMystery202104Text": "Bastón de Cardo Espinoso"
+    "weaponMystery202104Text": "Bastón de Cardo Espinoso",
+    "eyewearArmoireClownsNoseNotes": "¡Este accesorio hará que todos noten de que eres un payaso! Aumenta la Inteligencia en <%= int %>. Armario Encantado: Conjunto de Payaso (Artículo 2 de 5).",
+    "eyewearArmoireClownsNoseText": "Naríz de Payaso",
+    "bodyArmoireClownsBowtieNotes": "Una bonita corbata de moño no es tema de broma, incluso para un payaso. Aumenta la Fuerza, la Inteligencia, la Constitución y la Percepción en <%= attrs %> cada uno. Armario Encantado: Conjunto de Payaso (Artículo 5 de 5).",
+    "bodyArmoireClownsBowtieText": "Corbata de Moño de Payaso",
+    "shieldArmoireClownsBalloonsNotes": "Ten cuidado: ¡Reemplazar estos globos sería un poco caro... por la inflación! Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto de Payaso (Artículo 4 de 5).",
+    "shieldArmoireClownsBalloonsText": "Globos de Payaso",
+    "headArmoireClownsWigNotes": "¡Las tareas malas ahora no pueden morderte! Tendrás un sabor divertido. Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto de Payaso (Artículo 3 de 5).",
+    "headArmoireClownsWigText": "Peluca de Payaso",
+    "armorArmoireClownsMotleyNotes": "Las ropas te quedan muy bien, pero llenar estos zapatos no es tarea fácil. Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto de Payaso (Artículo 1 de 5).",
+    "armorArmoireClownsMotleyText": "Monos de Payaso"
 }

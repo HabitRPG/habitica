@@ -189,7 +189,7 @@
     "recovery_support_groups": "Recovery + Support Groups",
     "dismissAll": "Dismiss All",
     "messages": "Messages",
-    "emptyMessagesLine1": "Ye don't have no messages",
+    "emptyMessagesLine1": "Ye don't 'ave no messages",
     "emptyMessagesLine2": "Ye can send a new message t' a user by visitin' their profile an' clickin' th' \"Message\" button.",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent ye a message",
     "letsgo": "Let's Go!",

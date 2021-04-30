@@ -20,6 +20,7 @@
           {{ $t('challengeDetails') }}
         </p>
         <button
+          v-if="canCreateChallenges"
           class="btn btn-secondary"
           @click="createChallenge()"
         >
@@ -36,6 +37,7 @@
       />
       <div class="col-12 text-center">
         <button
+          v-if="canCreateChallenges"
           class="btn btn-secondary"
           @click="createChallenge()"
         >
@@ -90,7 +92,7 @@ export default {
   directives: {
     markdown: markdownDirective,
   },
-  props: ['groupId'],
+  props: ['group'],
   data () {
     return {
       challenges: [],
@@ -102,6 +104,12 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
+    canCreateChallenges () {
+      if (this.group.leaderOnly.challenges) {
+        return this.group.leader._id === this.user._id;
+      }
+      return true;
+    },
   },
   watch: {
     async groupId () {
@@ -113,8 +121,8 @@ export default {
   },
   methods: {
     async loadChallenges () {
-      this.groupIdForChallenges = this.groupId;
-      if (this.groupId === 'party' && this.user.party._id) this.groupIdForChallenges = this.user.party._id;
+      this.groupIdForChallenges = this.group._id;
+      if (this.group._id === 'party' && this.user.party._id) this.groupIdForChallenges = this.user.party._id;
       this.challenges = await this.$store.dispatch('challenges:getGroupChallenges', { groupId: this.groupIdForChallenges });
     },
     createChallenge () {

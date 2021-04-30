@@ -51,9 +51,6 @@ describe('POST /user/auth/verify-username', async () => {
       await expect(user.post(ENDPOINT, {
         username: 'something_TESTPLACEHOLDERSLURWORDHERE',
       })).to.eventually.eql({ isUsable: false, issues: [t('usernameIssueLength'), t('usernameIssueSlur')] });
-      await expect(user.post(ENDPOINT, {
-        username: 'somethingTESTPLACEHOLDERSLURWORDHEREotherword',
-      })).to.eventually.eql({ isUsable: false, issues: [t('usernameIssueLength'), t('usernameIssueSlur')] });
     });
 
     it('errors if username is not allowed', async () => {

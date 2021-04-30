@@ -167,7 +167,7 @@
     "backgroundRainbowsEndNotes": "Descubra o ouro no Fim do Arco-íris.",
     "backgrounds052016": "Conjunto 24: Lançado em Maio de 2016",
     "backgroundBeehiveText": "Colmeia",
-    "backgroundBeehiveNotes": "Faça zumbidos e dance em uma colmeia.",
+    "backgroundBeehiveNotes": "Faça zumbidos e dance em uma Colmeia.",
     "backgroundGazeboText": "Gazebo",
     "backgroundGazeboNotes": "Batalhe contra um Gazebo.",
     "backgroundTreeRootsText": "Raízes da Árvore",
@@ -197,7 +197,7 @@
     "backgroundCornfieldsText": "Milharais",
     "backgroundCornfieldsNotes": "Desfrute de um belo dia nos Milharais.",
     "backgroundFarmhouseText": "Casa da Fazenda",
-    "backgroundFarmhouseNotes": "Diga olá para os animais em seu caminho para a casa da fazenda.",
+    "backgroundFarmhouseNotes": "Diga olá para os animais em seu caminho para a Casa da Fazenda.",
     "backgroundOrchardText": "Pomar",
     "backgroundOrchardNotes": "Colha frutos maduros de um Pomar.",
     "backgrounds102016": "Conjunto 29: Lançado em Outubro de 2016",
@@ -597,5 +597,12 @@
     "backgroundInTheArmoryText": "No Arsenal",
     "backgrounds032021": "CONJUNTO 82: Lançado em Março de 2021",
     "backgroundSpringThawNotes": "Assista a transição do inverno para o Degelo da Primavera.",
-    "backgroundSpringThawText": "Degelo da Primavera"
+    "backgroundSpringThawText": "Degelo da Primavera",
+    "backgroundElegantGardenText": "Jardim Elegante",
+    "backgrounds042021": "Conjunto 28: Lançado em Abril de 2021",
+    "backgroundAmongCattailsText": "Entre Taboas",
+    "backgroundAmongCattailsNotes": "Admire a vida selvagem do pântano Entre Taboas.",
+    "backgroundCottageConstructionText": "Chalé em Construção",
+    "backgroundCottageConstructionNotes": "Ajude ou ao menos supervisione um Chalé em Construção.",
+    "backgroundElegantGardenNotes": "Ande nesse Jardim Elegante bem cuidado."
 }

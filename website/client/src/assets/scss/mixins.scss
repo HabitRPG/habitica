@@ -1,3 +1,5 @@
+@import '~@/assets/scss/colors.scss';
+
 @mixin centeredModal() {
   display: flex;
   justify-content: center;
@@ -5,5 +7,59 @@
 
   header, footer {
     border: 0;
+  }
+}
+
+@mixin smallModal() {
+  .modal-content {
+    border-radius: 8px;
+    box-shadow: 0 14px 28px 0 rgba($black, 0.24), 0 10px 10px 0 rgba($black, 0.28);
+  }
+
+  @media (min-width: 576px) {
+    max-width: 20.625rem;
+  }
+
+  header {
+    padding: 0;
+    border: none;
+
+    h5 {
+      margin: 2rem auto 1rem;
+      color: $purple-200;
+    }
+
+    button {
+      position: absolute;
+      right: 18px;
+      top: 12px;
+      font-weight: 100;
+    }
+  }
+
+  footer {
+    padding: 0;
+    border: none;
+
+    button {
+      margin: 0 auto 2rem;
+    }
+  }
+
+  .greyed {
+    background-color: $gray-700;
+  }
+
+  .modal-body {
+    padding: 0;
+  }
+
+  .modal-text {
+    margin: 1.5rem;
+    min-height: auto !important;
+  }
+
+  footer.greyed {
+    padding: 0 1.5rem 1rem;
   }
 }
