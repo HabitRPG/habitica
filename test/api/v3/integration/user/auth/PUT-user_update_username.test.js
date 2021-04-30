@@ -139,7 +139,7 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
+        message: [t('usernameIssueLength'), t('bannedSlurUsedInProfile')].join(' '),
       });
     });
 
@@ -149,21 +149,14 @@ describe('PUT /user/auth/update-username', async () => {
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
+        message: [t('usernameIssueLength'), t('bannedSlurUsedInProfile')].join(' '),
       });
       await expect(user.put(ENDPOINT, {
         username: 'something_TESTPLACEHOLDERSLURWORDHERE',
       })).to.eventually.be.rejected.and.eql({
         code: 400,
         error: 'BadRequest',
-        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
-      });
-      await expect(user.put(ENDPOINT, {
-        username: 'somethingTESTPLACEHOLDERSLURWORDHEREotherword',
-      })).to.eventually.be.rejected.and.eql({
-        code: 400,
-        error: 'BadRequest',
-        message: [t('usernameIssueLength'), t('usernameIssueSlur')].join(' '),
+        message: [t('usernameIssueLength'), t('bannedSlurUsedInProfile')].join(' '),
       });
     });
 

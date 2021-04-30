@@ -1,3 +1,7 @@
+export function normalizeUnicodeString (str) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
 export function removePunctuationFromString (str) {
   return str.replace(/[.,/#!@$%^&;:{}=\-_`~()]/g, ' ');
 }
@@ -12,15 +16,16 @@ export function getMatchesByWordArray (str, wordsToMatch) {
   // https://www.unicode.org/reports/tr15/#Canon_Compat_Equivalence
   // https://unicode-table.com/en/#combining-diacritical-marks
 
-  const normalizedStr = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
   const matchedWords = [];
-  const wordRegexs = wordsToMatch.map(word => new RegExp(`\\b([^a-z]+)?${word}([^a-z]+)?\\b`, 'i'));
+  const wordRegexs = wordsToMatch.map(word => {
+    const normalizedWord = removePunctuationFromString(normalizeUnicodeString(word));
+    return new RegExp(`\\b([^a-z]+)?${normalizedWord}([^a-z]+)?\\b`, 'i');
+  });
   for (let i = 0; i < wordRegexs.length; i += 1) {
     const regEx = wordRegexs[i];
-    const match = normalizedStr.match(regEx);
+    const match = removePunctuationFromString(normalizeUnicodeString(str)).match(regEx);
     if (match !== null && match[0] !== null) {
-      const trimmedMatch = removePunctuationFromString(match[0]).trim();
+      const trimmedMatch = match[0].trim();
       matchedWords.push(trimmedMatch);
     }
   }
