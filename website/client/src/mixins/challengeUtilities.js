@@ -10,18 +10,21 @@ export default {
       const { user } = this;
 
       return this.challenges.filter(challenge => {
-        let isMember = true;
+        const filteringMembership = filters.membership && filters.membership.length > 0;
 
-        const filteringRole = filters.membership && filters.membership.length > 0;
-        if (filteringRole && filters.membership.indexOf('participating') !== -1) {
-          isMember = this.isMemberOfChallenge(user, challenge);
+        // if both filters are selected, display all challenges
+        if (filteringMembership && filters.membership.indexOf('participating') !== -1
+        && filteringMembership && filters.membership.indexOf('not_participating') !== -1) {
+          return true;
         }
 
-        if (filteringRole && filters.membership.indexOf('not_participating') !== -1) {
-          isMember = !this.isMemberOfChallenge(user, challenge);
+        if (filteringMembership && filters.membership.indexOf('participating') !== -1) {
+          return this.isMemberOfChallenge(user, challenge);
         }
-
-        return isMember;
+        if (filteringMembership && filters.membership.indexOf('not_participating') !== -1) {
+          return !this.isMemberOfChallenge(user, challenge);
+        }
+        return true;
       });
     },
   },
