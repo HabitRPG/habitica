@@ -31,7 +31,8 @@
       </div>
       <div class="row">
         <div
-          v-if="!loading && filteredChallenges.length === 0"
+          v-if="!loading &&
+          this.filteredChallenges.length === 0"
           class="no-challenges text-center col-md-6 offset-3"
         >
           <h2 v-once>
@@ -41,7 +42,7 @@
       </div>
       <div class="row">
         <div
-          v-for="challenge in filteredChallenges"
+          v-for="challenge in this.filteredChallenges"
           :key="challenge._id"
           class="col-12 col-md-6"
         >
@@ -170,25 +171,6 @@ export default {
   },
   computed: {
     ...mapState({ user: 'user.data' }),
-    filteredChallenges () {
-      const { filters } = this;
-      const { user } = this;
-
-      return this.challenges.filter(challenge => {
-        let isMember = true;
-
-        const filteringRole = filters.membership && filters.membership.length > 0;
-        if (filteringRole && filters.membership.indexOf('participating') !== -1) {
-          isMember = this.isMemberOfChallenge(user, challenge);
-        }
-
-        if (filteringRole && filters.membership.indexOf('not_participating') !== -1) {
-          isMember = !this.isMemberOfChallenge(user, challenge);
-        }
-
-        return isMember;
-      });
-    },
   },
   mounted () {
     this.$store.dispatch('common:setTitle', {
