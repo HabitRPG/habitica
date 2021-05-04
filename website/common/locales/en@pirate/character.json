@@ -1,5 +1,5 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that yer Sea Name, profile photo, n' blurb must comply wit' th' <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If ye 'ave any questions about whether or nah somethin' be appropriate, feel free t' email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Please keep in mind that yer Sea Name, profile photo, an' blurb must comply wit' th' <a href='https://habitica.com/static/community-guidelines' target='_blank'>Code o' Conduct</a> (e.g. no profanity, no adult topics, no insults, etc). If ye 'ave any questions about whether or nah somethin' be appropriate, feel free t' email <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Wanted Poster",
     "avatar": "Personalize Yer Look",
     "editAvatar": "Edit Pirate",
@@ -141,9 +141,9 @@
     "streaksFrozen": "Streaks Frozen",
     "streaksFrozenText": "Streaks on missed Dailies will not reset at th' end o' th' day.",
     "purchaseFor": "Purchase fer <%= cost %> Sapphires?",
-    "purchaseForHourglasses": "Purchase for <%= cost %> Hourglasses?",
-    "notEnoughMana": "Y'ain't got enough mana.",
-    "invalidTarget": "Ye canna cast a skill on that.",
+    "purchaseForHourglasses": "Purchase fer <%= cost %> Hourglasses?",
+    "notEnoughMana": "Ye ain't got enough mana.",
+    "invalidTarget": "Ye can't cast a skill on that.",
     "youCast": "Ye cast <%= spell %>.",
     "youCastTarget": "Ye cast <%= spell %> on <%= target %>.",
     "youCastParty": "Ye cast <%= spell %> fer th' crew.",
@@ -184,6 +184,6 @@
     "pts": "pts",
     "chatCastSpellUser": "<%= username %> casts <%= spell %> on yon  <%= target %>.",
     "chatCastSpellParty": "<%= username %> casts <%= spell %> fer yer crew.",
-    "purchasePetItemConfirm": "This'll be more'n ye need t' hatch all possible <%= itemText %> pets.  Be ye sure?",
-    "purchaseForGold": "This'll cost ye <%= cost %>  Doubloons.  Aye or Nay?"
+    "purchasePetItemConfirm": "This'll be more'n ye need t' hatch all possible <%= itemText %> pets. Ye be sure?",
+    "purchaseForGold": "This'll cost ye <%= cost %> Gold. Aye or Nay?"
 }

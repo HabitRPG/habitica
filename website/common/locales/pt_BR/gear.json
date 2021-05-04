@@ -2341,5 +2341,9 @@
     "weaponMystery202104Notes": "É melhor seus inimigos ficarem atentos - você tem uma defesa poderosa e espinhosa! Não confere benefícios. Item de Assinante de Abril de 2021.",
     "weaponMystery202104Text": "Cajado de Alcachofra Espinhosa",
     "eyewearArmoireClownsNoseNotes": "Este acessório fará com que todos saibam que você é um palhaço! Aumenta a Inteligência em <%= int %>. Armário Encantado: Conjunto de Palhaço (Item 2 de 5).",
-    "armorArmoireClownsMotleyText": "Roupa Colorida de Palhaço"
+    "armorArmoireClownsMotleyText": "Roupa Colorida de Palhaço",
+    "headAccessoryMystery202105Notes": "Vista esses chifres iridescentes e invoque a mágica da luz das estrelas. Não confere benefícios. Item de Assinante de Maio de 2021.",
+    "headAccessoryMystery202105Text": "Chifres do Dragão de Nebulosa",
+    "backMystery202105Notes": "Voe pelo céu estrelado e fique no meio das constelações! Não confere benefícios. Item de Assinante de Maio de 2021.",
+    "backMystery202105Text": "Asas do Dragão de Nebulosa"
 }

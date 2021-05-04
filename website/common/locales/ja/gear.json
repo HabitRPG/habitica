@@ -2341,5 +2341,9 @@
     "bodyArmoireClownsBowtieNotes": "素敵な蝶ネクタイに関するジョークはありません。ピエロでも。力・知能・体質・知覚がそれぞれ<%= attrs %>上がります。ラッキー宝箱：ピエロセット（5個中5個目のアイテム）。",
     "bodyArmoireClownsBowtieText": "ピエロの蝶ネクタイ",
     "shieldArmoireClownsBalloonsNotes": "注意：この風船を取り替えるのはちょっと値段が高いかも。費用が膨らみます……風船だけに！知覚が<%= per %>上がります。ラッキー宝箱：ピエロセット（5個中4個目のアイテム）。",
-    "shieldArmoireClownsBalloonsText": "ピエロの風船"
+    "shieldArmoireClownsBalloonsText": "ピエロの風船",
+    "headAccessoryMystery202105Notes": "この玉虫色の角をかぶって、魔法の星明かりを召喚しましょう。効果なし。2021年5月の有料会員アイテム。",
+    "headAccessoryMystery202105Text": "ネビュラドラゴンの角",
+    "backMystery202105Notes": "星空を滑空し、星座の一翼を担いましょう。効果なし。2021年5月の有料会員アイテム。",
+    "backMystery202105Text": "ネビュラドラゴンの翼"
 }

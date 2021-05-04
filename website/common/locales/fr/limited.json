@@ -27,10 +27,10 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Sorcière saisonnière<%= linkEnd %>",
     "seasonalShopClosedText": "La boutique saisonnière est actuellement fermée ! Elle n'est ouverte que lors des quatre grands galas d'Habitica.",
-    "seasonalShopSummerText": "Joyeuse fête de l'été ! Voulez-vous acheter quelques objets rares ? Ils ne seront disponibles que jusqu'au 31 juillet !",
-    "seasonalShopFallText": "Joyeux festival d'automne ! Voulez-vous acheter quelques objets rares ? Ils ne seront disponibles que jusqu'au 31 octobre !",
-    "seasonalShopWinterText": "Joyeuse fantaisie hivernale ! Voulez-vous acheter quelques objets rares ? Ils ne seront disponibles que jusqu'au 31 janvier !",
-    "seasonalShopSpringText": "Joyeuse fête du printemps ! Voulez-vous acheter quelques objets rares ? Ils ne seront disponibles que jusqu'au 30 avril !",
+    "seasonalShopSummerText": "Joyeuse fête de l'été ! Voulez-vous acheter quelques objets rares ? Vous avez jusqu'à la fin du gala pour les obtenir !",
+    "seasonalShopFallText": "Joyeux festival d'automne ! Voulez-vous acheter quelques objets rares ? Vous avez jusqu'à la fin du gala pour les obtenir !",
+    "seasonalShopWinterText": "Joyeuse fantaisie hivernale ! Voulez-vous acheter quelques objets rares ? Vous avez jusqu'à la fin du gala pour les obtenir !",
+    "seasonalShopSpringText": "Joyeuse fête du printemps ! Voulez-vous acheter quelques objets rares ?  Vous avez jusqu'à la fin du gala pour les obtenir !",
     "seasonalShopFallTextBroken": "Oh... Bienvenue à la boutique saisonnière... Nous avons actuellement reçu les nouveautés en édition saisonnière d'automne, ou quelque chose du genre... Tout l'équipement est disponible à l'achat pendant le festival d'automne chaque année, mais nous ne sommes ouverts que jusqu'au 31 octobre... alors je suppose que vous devriez faire le stock dès maintenant, ou vous devrez attendre... et attendre... et attendre... <strong>*soupir*</strong>",
     "seasonalShopBrokenText": "Mon pavillon !!!!!!! Mes décorations !!!! Oh, La Décœurageante a tout détruit ! :( S'il vous plait, aidez la communauté à la vaincre dans la taverne, pour que je puisse tout reconstruire !",
     "seasonalShopRebirth": "Si vous avez acheté de l'équipement par le passé mais ne le possédez plus, vous pouvez le racheter dans la colonne des récompenses. Initialement, vous ne pourrez acheter que les objets de votre classe actuelle (Guerrier par défaut), mais ne craignez rien, les autres objets spécifiques à une classe deviendront disponibles si vous changez pour cette classe.",
@@ -202,5 +202,6 @@
     "spring2021TwinFlowerRogueSet": "Fleurs jumelles (Voleur)",
     "spring2021WillowHealerSet": "Saule (Guérisseur)",
     "spring2021SwanMageSet": "Cygne (Mage)",
-    "spring2021SunstoneWarriorSet": "Pierre de soleil (Guerrier)"
+    "spring2021SunstoneWarriorSet": "Pierre de soleil (Guerrier)",
+    "noLongerAvailable": "Ce objet n'est plus disponible."
 }

@@ -126,5 +126,8 @@
     "invalidUnlockSet": "This set o' items be invalid an' cannot be unlocked.",
     "nMonthsSubscriptionGift": "<%= nMonths %> Month(s) Subscr'ption (Gift)",
     "nGemsGift": "<%= nGems %> Sapphires (Gift)",
-    "nGems": "<%= nGems %> Sapphires"
+    "nGems": "<%= nGems %> Sapphires",
+    "limitedAvailabilityMinutes": "Available fer <%= minutes %>m <%= seconds %>s",
+    "limitedAvailabilityHours": "Available fer <%= hours %>h <%= minutes %>m",
+    "limitedAvailabilityDays": "Available fer <%= days %>d <%= hours %>h <%= minutes %>m"
 }

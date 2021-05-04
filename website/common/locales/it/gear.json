@@ -2341,5 +2341,9 @@
     "headArmoireClownsWigNotes": "Ora nessun compito ti potrà angosciare! Avrai un che di divertente. Aumenta la costituzione di <%= con %>. Scrigno Incantato: Set del Pagliaccio (oggetto 3 di 5).",
     "headArmoireClownsWigText": "Parrucca da clown",
     "armorArmoireClownsMotleyNotes": "I vestiti stanno benissimo, ma è un'impresa riempire le scarpe. Aumenta la forza di <%= str %>. Scrigno Incantato: Set del Pagliaccio (oggetto 1 di 5).",
-    "armorArmoireClownsMotleyText": "Pagliaccio Arlecchino"
+    "armorArmoireClownsMotleyText": "Pagliaccio Arlecchino",
+    "headAccessoryMystery202105Notes": "Indossa queste corna iridescenti ed evoca la magia della luce delle stelle. Non conferisce alcun bonus. Oggetto abbonati maggio 2021.",
+    "headAccessoryMystery202105Text": "Corna del Drago Nebulosa",
+    "backMystery202105Notes": "Plana nel cielo stellato e posizionati tra le costellazioni! Non conferisce alcun bonus. Oggetto abbonati maggio 2021.",
+    "backMystery202105Text": "Ali di drago nebulosa"
 }

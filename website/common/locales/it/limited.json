@@ -27,10 +27,10 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Maga Stagionale<%= linkEnd %>",
     "seasonalShopClosedText": "Il Negozio Stagionale al momento è chiuso!! È aperto solo durante i quattro Gran Galà di Habitica.",
-    "seasonalShopSummerText": "Buon Summer Splash!! Vuoi comprare degli oggetti rari? Saranno disponibili solo fino al 31 luglio!",
-    "seasonalShopFallText": "Buon Fall Festival!! Vuoi comprare degli oggetti rari? Saranno disponibili solo fino al 31 ottobre!",
-    "seasonalShopWinterText": "Buon Winter Wonderland!! Vuoi comprare degli oggetti rari? Saranno disponibili solo fino al 31 gennaio!",
-    "seasonalShopSpringText": "Buon Spring Fling!! Vuoi comprare degli oggetti rari? Saranno disponibili solo fino al 30 aprile!",
+    "seasonalShopSummerText": "Buon Summer Splash!! Vuoi comprare degli oggetti rari? Assicurati di prenderli prima della fine del Gala!",
+    "seasonalShopFallText": "Buon Fall Festival!! Vuoi comprare degli oggetti rari? Assicurati di prenderli prima della fine del Gala!",
+    "seasonalShopWinterText": "Buon Winter Wonderland!! Vuoi comprare degli oggetti rari? Assicurati di prenderli prima della fine del Gala!",
+    "seasonalShopSpringText": "Buon Spring Fling!! Vuoi comprare degli oggetti rari? Assicurati di prenderli prima della fine del Gala!",
     "seasonalShopFallTextBroken": "Oh... Benvenuto nel Negozio Stagionale... Abbiamo in vendita oggetti dell'Edizione Stagionale autunnale, o qualcosa del genere... Tutto quello che vedi qui sarà disponibile per l'acquisto durante l'evento \"Fall Festival\" di ogni anno, ma siamo aperti sono fino al 31 ottobre... Penso che dovresti rifornirti ora altrimenti dovrai aspettare... e aspettare... e aspettare... <strong>*sigh*</strong>",
     "seasonalShopBrokenText": "Il mio padiglione!!!!!!! Le mie decorazioni!!!! Oh, il Dysheartener ha distrutto tutto :( Ti prego, aiutami a sconfiggerlo nella Taverna perché io possa ricostruire!",
     "seasonalShopRebirth": "Se hai comprato questo equipaggiamento in passato ma attualmente non lo possiedi, potrai riacquistarlo dalla colonna delle Ricompense. All'inizio potrai comprare solo gli oggetti per la tua classe attuale (Guerriero, se non l'hai ancora scelta/cambiata), ma niente paura, gli altri oggetti specifici per le varie classi diventeranno disponibili se ti converti a quella classe.",
@@ -201,5 +201,6 @@
     "spring2021SwanMageSet": "Cigno (Mago)",
     "spring2021WillowHealerSet": "Salice (Guaritore)",
     "spring2021TwinFlowerRogueSet": "Fiori Gemelli (Ladro)",
-    "spring2021SunstoneWarriorSet": "Pietra Solare (Guerriero)"
+    "spring2021SunstoneWarriorSet": "Pietra Solare (Guerriero)",
+    "noLongerAvailable": "Questo oggetto non è più disponibile."
 }

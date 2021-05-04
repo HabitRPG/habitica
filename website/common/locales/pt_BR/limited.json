@@ -27,10 +27,10 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Feiticeira Sazonal<%= linkEnd %>",
     "seasonalShopClosedText": "A Loja Sazonal está fechada!! Ela apenas abre durante as quatro Grandes Galas do Habitica.",
-    "seasonalShopSummerText": "Feliz Banho de Verão!! Gostaria de comprar alguns itens raros? Eles estarão disponíveis apenas até 31 de Julho!",
-    "seasonalShopFallText": "Feliz Festival de Outono!! Gostaria de comprar alguns itens raros? Eles estarão disponíveis apenas até 31 de Outubro!",
-    "seasonalShopWinterText": "Feliz Maravilhas de Inverno!! Gostaria de comprar alguns itens raros? Eles estarão disponíveis apenas até 31 de Janeiro!",
-    "seasonalShopSpringText": "Feliz Festival de Primavera! Gostaria de comprar alguns itens raros? Eles estarão disponíveis apenas até 30 de Abril!",
+    "seasonalShopSummerText": "Feliz Banho de Verão!! Gostaria de comprar alguns itens raros? Certifique-se de consegui-los antes que a Gala acabe!",
+    "seasonalShopFallText": "Feliz Festival de Outono!! Gostaria de comprar alguns itens raros? Certifique-se de consegui-los antes que a Gala acabe!",
+    "seasonalShopWinterText": "Feliz Maravilhas de Inverno!! Gostaria de comprar alguns itens raros? Certifique-se de consegui-los antes que a Gala acabe!",
+    "seasonalShopSpringText": "Feliz Festival de Primavera! Gostaria de comprar alguns itens raros? Certifique-se de consegui-los antes que a Gala acabe!",
     "seasonalShopFallTextBroken": "Ah... Boas vindas à Loja Sazonal... Estamos estocando itens da Edição Sazonal de outono ou algo assim... Tudo aqui ficará disponível para compra durante o Festival de Outono anual, mas ficaremos abertos apenas até o dia 31 de Outubro... Acho que você deveria fazer seu próprio estoque agora ou terá que esperar... e esperar... e esperar... <strong>*argh*</strong>",
     "seasonalShopBrokenText": "Meu pavilhão!!!!!!! Minhas decorações!!!! Oh, o Descoraçador destruiu tudo :( Por favor ajude a derrotá-lo na Taverna para que eu possa reconstruir!",
     "seasonalShopRebirth": "Se você comprou algum equipamento antes mas não o possui, ele pode ser recomprado na Coluna de Recompensas. Inicialmente, poderá comprar itens para sua classe atual (Guerreiro, por padrão), mas não tema, os itens específicos das outras classes ficarão disponíveis se você trocar para aquela classe.",
@@ -202,5 +202,6 @@
     "spring2021TwinFlowerRogueSet": "Flores Gêmeas (Gatuno(a))",
     "spring2021SwanMageSet": "Cisne (Mago(a))",
     "spring2021SunstoneWarriorSet": "Pedra Solar (Guerreiro(a))",
-    "spring2021WillowHealerSet": "Salgueiro (Curandeiro(a))"
+    "spring2021WillowHealerSet": "Salgueiro (Curandeiro(a))",
+    "noLongerAvailable": "Esse item não está mais disponível."
 }
