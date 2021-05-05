@@ -118,7 +118,7 @@ function _nonInteractive (task, userId) {
   if (task.userId) return false;
   if (task.challenge && task.challenge.id) return true;
   if (
-    task.group
+    task.group && task.group.assignedUsers
     && task.group.assignedUsers.length > 0
     && task.group.assignedUsers.indexOf(userId) === -1
   ) return true;

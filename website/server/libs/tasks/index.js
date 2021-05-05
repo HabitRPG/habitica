@@ -371,6 +371,7 @@ async function scoreTask (user, task, direction, req, res) {
       throw new BadRequest('Cannot uncheck task you did not complete if not a manager.');
     }
     rollbackUser = await User.findOne({ _id: task.group.completedBy });
+    task.group.completedBy = undefined;
   }
 
   if (rollbackUser) {

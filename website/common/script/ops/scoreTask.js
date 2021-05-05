@@ -303,6 +303,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
           user.achievements.streak = user.achievements.streak ? user.achievements.streak + 1 : 1;
           if (user.addNotification) user.addNotification('STREAK_ACHIEVEMENT');
         }
+        if (task.group) task.group.completedBy = user._id;
         task.completed = true;
 
         // Save history entry for daily
@@ -320,6 +321,7 @@ export default function scoreTask (options = {}, req = {}, analytics) {
           user.achievements.streak = user.achievements.streak ? user.achievements.streak - 1 : 0;
         }
         task.streak -= 1;
+        if (task.group && task.group.completedBy) task.group.completedBy = undefined;
         task.completed = false;
 
         // Delete history entry when daily unchecked
@@ -335,9 +337,11 @@ export default function scoreTask (options = {}, req = {}, analytics) {
       if (direction === 'up') {
         task.dateCompleted = new Date();
         task.completed = true;
+        if (task.group) task.group.completedBy = user._id;
       } else if (direction === 'down') {
         task.completed = false;
         task.dateCompleted = undefined;
+        if (task.group && task.group.completedBy) task.group.completedBy = undefined;
       }
 
       delta += _changeTaskValue(user, task, direction, times, cron);
