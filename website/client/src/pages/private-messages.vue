@@ -740,7 +740,7 @@ export default {
         };
       }
 
-      if (this.selectedConversation && this.selectedConversation.key) {
+      if (this.selectedConversation?.key) {
         if (this.user.inbox.blocks.includes(this.selectedConversation.key)) {
           return {
             title: this.$t('PMDisabledCaptionTitle'),
@@ -771,7 +771,7 @@ export default {
       };
     },
     selectedConversationFaceAvatarClass () {
-      if (this.selectedConversation && this.selectedConversation.contributor) {
+      if (this.selectedConversation?.contributor) {
         return `tier${this.selectedConversation.contributor.level}`;
       }
       return '';

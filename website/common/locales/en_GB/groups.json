@@ -369,5 +369,6 @@
     "cannotRemoveQuestOwner": "You cannot remove the owner of the active quest. Abort the quest first.",
     "features": "Features",
     "giftMessageTooLong": "The maximum length for gift messages is <%= maxGiftMessageLength %>.",
-    "selectSubscription": "Select Subscription"
+    "selectSubscription": "Select Subscription",
+    "blockYourself": "You cannot block yourself"
 }

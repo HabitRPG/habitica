@@ -77,7 +77,7 @@
     "keyToMounts": "Llave de las Casetas de Monturas",
     "keyToMountsDesc": "Libera todas las monturas estándar para poder volver a coleccionarlas. (Las Monturas de misión y las Monturas raras no son afectadas.)",
     "keyToBoth": "Llave Maestra de las Casetas",
-    "keyToBothDesc": "Libera todas las monturas estándar para poder volver a coleccionarlas. (Las Monturas de misión y las Monturas raras no son afectadas.)",
+    "keyToBothDesc": "Libera todas las Mascotas y Monturas estándar para poder coleccionarlas de nuevo. (Las Mascotas/Monturas de misión y las Mascotas/Monturas raras no son afectadas.)",
     "releasePetsConfirm": "¿Estás seguro de que quieres liberar tus Mascotas estándar?",
     "releasePetsSuccess": "¡Tus Mascotas estándar han sido liberadas!",
     "releaseMountsConfirm": "¿Estás seguro de querer liberar tus Monturas estándar?",

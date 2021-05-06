@@ -81,7 +81,7 @@
     "questAlreadyStartedFriendly": "De queeste is al begonnen, maar je kunt altijd de volgende pakken!",
     "questAlreadyStarted": "De queeste is al begonnen.",
     "questInvitationNotificationInfo": "Je bent uitgenodigd om deel te nemen aan een queeste",
-    "hatchingPotionQuests": "Magische Uitbroed Toverdrank Queeste",
+    "hatchingPotionQuests": "Magische uitbroeddrank queestes",
     "tavernBossTired": "<%= bossName %> probeert <%= rageName %> los te laten, maar is te moe.",
     "chatQuestCancelled": "<%= gebruikersnaam %> heeft de gezelschapszoektocht geannuleerd <%= questName %>.",
     "chatQuestAborted": "<%= gebruikersnaam %> heeft de gezelschapszoektocht afgebroken <%= questName %>.",

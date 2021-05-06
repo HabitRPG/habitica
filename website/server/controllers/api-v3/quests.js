@@ -149,6 +149,13 @@ api.inviteToQuest = {
       { name: 'PARTY_URL', content: '/party' },
     ]);
 
+    // Send webhook to the inviter too
+    questActivityWebhook.send(user, {
+      type: 'questInvited',
+      group,
+      quest,
+    });
+
     // track that the inviting user has accepted the quest
     analytics.track('quest', {
       category: 'behavior',

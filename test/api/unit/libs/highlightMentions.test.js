@@ -11,14 +11,14 @@ describe('highlightMentions', () => {
       lean () {
         return this;
       },
-      exec () {
-        return Promise.resolve([
+      async exec () {
+        return [
           { auth: { local: { username: 'user' } }, _id: '111' },
           { auth: { local: { username: 'user2' } }, _id: '222' },
           { auth: { local: { username: 'user3' } }, _id: '333' },
           { auth: { local: { username: 'user-dash' } }, _id: '444' },
           { auth: { local: { username: 'user_underscore' } }, _id: '555' },
-        ]);
+        ];
       },
     };
 
@@ -168,35 +168,50 @@ describe('highlightMentions', () => {
     });
   });
 
-  it('github issue 12118, method crashes when square brackets are used', async () => {
-    const text = '[test]';
+  describe('issues', () => {
+    it('github issue 12118, method crashes when square brackets are used', async () => {
+      const text = '[test]';
 
-    const result = await highlightMentions(text);
+      const result = await highlightMentions(text);
 
-    expect(result[0]).to.equal(text);
+      expect(result[0]).to.equal(text);
+    });
+
+    it('github issue 12138, method crashes when regex chars are used in code block', async () => {
+      const text = '`[test]`';
+
+      const result = await highlightMentions(text);
+
+      expect(result[0]).to.equal(text);
+    });
+
+    it('github issue 12586, method crashes when empty link is used', async () => {
+      const text = '[]()';
+
+      const result = await highlightMentions(text);
+
+      expect(result[0]).to.equal(text);
+    });
+
+    it('github issue 12586, method crashes when link without title is used', async () => {
+      const text = '[](www.google.com)';
+
+      const result = await highlightMentions(text);
+
+      expect(result[0]).to.equal(text);
+    });
   });
 
-  it('github issue 12138, method crashes when regex chars are used in code block', async () => {
-    const text = '`[test]`';
+  describe('base url', () => {
+    it('should prefix habitica.com if it is production', async () => {
+      const OLD_NODE_ENV = process.env.NODE_ENV;
+      process.env.NODE_ENV = 'production';
+      const text = '@user';
 
-    const result = await highlightMentions(text);
+      const result = await highlightMentions(text);
 
-    expect(result[0]).to.equal(text);
-  });
-
-  it('github issue 12586, method crashes when empty link is used', async () => {
-    const text = '[]()';
-
-    const result = await highlightMentions(text);
-
-    expect(result[0]).to.equal(text);
-  });
-
-  it('github issue 12586, method crashes when link without title is used', async () => {
-    const text = '[](www.google.com)';
-
-    const result = await highlightMentions(text);
-
-    expect(result[0]).to.equal(text);
+      expect(result[0]).to.equal('[@user](https://habitica.com/profile/111)');
+      process.env.NODE_ENV = OLD_NODE_ENV;
+    });
   });
 });

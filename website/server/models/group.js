@@ -31,7 +31,7 @@ import { sendTxn as sendTxnEmail } from '../libs/email'; // eslint-disable-line 
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
   syncableAttrs,
-} from '../libs/taskManager';
+} from '../libs/tasks/utils';
 import {
   schema as SubscriptionPlanSchema,
 } from './subscriptionPlan';

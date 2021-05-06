@@ -126,5 +126,8 @@
     "invalidUnlockSet": "Cet ensemble d'objets est invalide et ne peux être débloqué.",
     "nMonthsSubscriptionGift": "<%= nMonths %> mois d'abonnement (cadeau)",
     "nGemsGift": "<%= nGems %> gemmes (cadeau)",
-    "nGems": "<%= nGems %> gemmes"
+    "nGems": "<%= nGems %> gemmes",
+    "limitedAvailabilityMinutes": "Disponible pendant <%= minutes %>m <%= seconds %>s",
+    "limitedAvailabilityHours": "Disponible pendant <%= hours %>h <%= minutes %>m",
+    "limitedAvailabilityDays": "Disponible pendant <%= days %>j <%= hours %>h <%= minutes %>m"
 }

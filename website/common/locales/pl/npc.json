@@ -94,7 +94,7 @@
     "classGearText": "Gratuluję wyboru klasy! Dodałem nową podstawową broń do twojego ekwipunku. Zerknij poniżej, aby ją założyć!",
     "autoAllocate": "Automatyczne rozlokowanie",
     "spells": "Umiejętności",
-    "skillsTitle": "Umiejętności",
+    "skillsTitle": "<%= classStr %> Umiejętności",
     "toDo": "Do Zrobienia",
     "tourStatsPage": "To jest strona z twoimi Statystykami! Zdobywaj osiągnięcia wykonując wymienione zadania.",
     "tourTavernPage": "Witamy w Karczmie, czacie dla wszystkich niezależnie od ich wieku! Możesz powstrzymać swoje Codziennie od zranienia ciebie w przypadku choroby albo podróży naciskając \"Zatrzymaj otrzymywanie obrażeń\". Przywitaj się!",
@@ -123,5 +123,8 @@
     "paymentCanceledDisputes": "Potwierdzenie anulowania zostało przesłane na Twój e-mail. Jeśli nie możesz go znaleźć, skontaktuj się z nami, aby zapobiec ewentualnym sporom w sprawie rozliczeń.",
     "cannotUnpinItem": "Ten przedmiot nie może być odpięty.",
     "paymentSubBillingWithMethod": "Twój Abonament będzie opłacany kwotą <strong>$<%= amount %></strong> co <strong><%= months %> miesięcy</strong> przy użyciu <strong><%= paymentMethod %></strong>.",
-    "invalidUnlockSet": "Ten zestaw przedmiotów jest nieważny i nie może być odblokowany."
+    "invalidUnlockSet": "Ten zestaw przedmiotów jest nieważny i nie może być odblokowany.",
+    "nGems": "<%= nGems %> Klejnotów",
+    "nMonthsSubscriptionGift": "<%= nMonths %> Miesięcy Abonamentu (Podarunek)",
+    "nGemsGift": "<%= nGems %> Klejnoty (Podarunek)"
 }

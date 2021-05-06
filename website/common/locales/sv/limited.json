@@ -156,5 +156,9 @@
     "juneYYYY": "Juni <%= year %>",
     "mayYYYY": "Maj <%= year %>",
     "augustYYYY": "Augusti <%= year %>",
-    "summer2020SeaGlassHealerSet": "Hav Glas (Helare)"
+    "summer2020SeaGlassHealerSet": "Hav Glas (Helare)",
+    "spring2021TwinFlowerRogueSet": "Linnea (Skurk)",
+    "spring2021WillowHealerSet": "Vide (Helare)",
+    "spring2021SwanMageSet": "Svan (Magiker)",
+    "spring2021SunstoneWarriorSet": "Solsten (Krigare)"
 }

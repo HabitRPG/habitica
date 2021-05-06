@@ -100,5 +100,8 @@
     "viewProgress": "Widok Postępu",
     "selectMember": "Wybierz Członka",
     "confirmKeepChallengeTasks": "Czy chcesz zachować zadania z wyzwania?",
-    "selectParticipant": "Wybierz Uczestnika"
+    "selectParticipant": "Wybierz Uczestnika",
+    "yourReward": "Twoja Nagroda",
+    "filters": "Filtry",
+    "wonChallengeDesc": "<%= challengeName %> wybrał cię jako zwycięzca! Twoja wygrana została zapisana w Osiągnięciach."
 }

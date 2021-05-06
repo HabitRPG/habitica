@@ -172,7 +172,7 @@
     "fall2019RavenSet": "レイブン（戦士）",
     "fall2019LichSet": "不死の魔術師（治療師）",
     "fall2019CyclopsSet": "サイクロプス（魔道士）",
-    "fall2019OperaticSpecterSet": "オペラの亡霊（盗賊）",
+    "fall2019OperaticSpecterSet": "オペラ座の怪人（盗賊）",
     "summer2019HammerheadRogueSet": "シュモクザメ（盗賊）",
     "summer2019ConchHealerSet": "巻貝（治療師）",
     "summer2019WaterLilyMageSet": "スイレン（魔道士）",
@@ -186,7 +186,7 @@
     "fall2020ThirdEyeMageSet": "第三の目（魔道士）",
     "fall2020DeathsHeadMothHealerSet": "ドクロメンガタスズメ（治療師）",
     "fall2020WraithWarriorSet": "レイス（戦士）",
-    "royalPurpleJackolantern": "高貴な紫のジャック･オ･ランタン",
+    "royalPurpleJackolantern": "ロイヤルパープルのジャック･オ･ランタン",
     "novemberYYYY": "<%= year %>年11月",
     "g1g1Limitations": "このイベントは日本時間で12月17日の22:00時から1月7日10:00時までの期間限定です。プロモーションは他のプレイヤーにギフトを贈った際にのみ適用されます。もしギフトを受け取った人がすでに有料会員の場合、有料会員期間が延長されます。この延長は、現在の有料会員期間を満了もしくはキャンセルした後にのみ適用されます。",
     "limitations": "制限事項",
@@ -198,5 +198,9 @@
     "winter2021HollyIvyRogueSet": "ヒイラギとツタ（盗賊）",
     "winter2021ArcticExplorerHealerSet": "北極探検家（治療師）",
     "winter2021WinterMoonMageSet": "冬の月（魔道士）",
-    "winter2021IceFishingWarriorSet": "氷上釣り（戦士）"
+    "winter2021IceFishingWarriorSet": "氷上釣り（戦士）",
+    "spring2021TwinFlowerRogueSet": "リンネソウ（盗賊）",
+    "spring2021WillowHealerSet": "ヤナギ（治療師）",
+    "spring2021SwanMageSet": "白鳥（魔道士）",
+    "spring2021SunstoneWarriorSet": "サンストーン（戦士）"
 }

@@ -213,7 +213,7 @@ api.updateUsername = {
 
     const newUsername = req.body.username;
 
-    const issues = verifyUsername(newUsername, res);
+    const issues = verifyUsername(newUsername, res, false);
     if (issues.length > 0) throw new BadRequest(issues.join(' '));
 
     const { password } = req.body;

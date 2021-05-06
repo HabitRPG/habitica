@@ -156,8 +156,6 @@ const bannedWords = [
   'sluts',
   'nigga',
   'niggas',
-  'retard',
-  'retards',
   'bastard',
   'bastards',
 

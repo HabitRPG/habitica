@@ -352,9 +352,9 @@
     "foodPieCottonCandyBlueA": "una Fetta di Torta di Mirtilli",
     "foodPieCottonCandyBlueThe": "la Torta di Mirtilli",
     "foodPieCottonCandyBlue": "Torta di Mirtilli",
-    "foodPieBaseA": "una Fetta di Torta di Miele",
-    "foodPieBaseThe": "la Torta di Miele Normale",
-    "foodPieBase": "Torta di Miele Normale",
+    "foodPieBaseA": "una Fetta di Torta di Mele Classica",
+    "foodPieBaseThe": "la Torta di Mele Classica",
+    "foodPieBase": "Torta di Mele Classica",
     "premiumPotionUnlimitedNotes": "Non utilizzabile su uova di animali ottenute dalle missioni.",
     "hatchingPotionDessert": "Dolcetto",
     "hatchingPotionBirchBark": "Corteccia di Betulla",
@@ -364,5 +364,6 @@
     "hatchingPotionVampire": "Vampiro",
     "hatchingPotionBlackPearl": "Perla Nera",
     "hatchingPotionAutumnLeaf": "Foglia autunnale",
-    "hatchingPotionStainedGlass": "Vetrata colorata"
+    "hatchingPotionStainedGlass": "Vetrata colorata",
+    "hatchingPotionPolkaDot": "A Pois"
 }

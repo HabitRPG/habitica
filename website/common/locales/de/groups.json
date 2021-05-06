@@ -369,5 +369,6 @@
     "cannotRemoveQuestOwner": "Du kannst die Person, welche die aktive Quest besitzt nicht entfernen. Breche erst die Quest ab.",
     "features": "Funktionen",
     "giftMessageTooLong": "Die maximale Länge für Geschenk-Nachrichten ist <%= maxGiftMessageLength %>.",
-    "selectSubscription": "Wähle ein Abonnement"
+    "selectSubscription": "Wähle ein Abonnement",
+    "blockYourself": "Du kannst Dich nicht selbst blockieren"
 }

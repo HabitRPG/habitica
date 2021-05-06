@@ -53,5 +53,11 @@
     "messageMissingDisplayName": "Brakuje wyświetlanej nazwy.",
     "reportedMessage": "Zaraportowałeś tę wiadomość do moderatorów.",
     "canDeleteNow": "Jeśli chcesz, możesz teraz usunąć tą wiadomość.",
-    "beginningOfConversationReminder": "Pamiętaj, aby być miłym, odnosić się z szacunkiem i przestrzegać Regulamin Społeczności!"
+    "beginningOfConversationReminder": "Pamiętaj, aby być miłym, odnosić się z szacunkiem i przestrzegać Regulamin Społeczności!",
+    "newsPostNotFound": "Nowe Posty nieodnalezione lub nie masz dostępu.",
+    "messageAllUnEquipped": "Wszystko zdjęte.",
+    "messageBackgroundUnEquipped": "Tło zdjęte.",
+    "messagePetMountUnEquipped": "Chować i Wierzchowiec zdjęty.",
+    "messageCostumeUnEquipped": "Kostium zdjęty.",
+    "messageBattleGearUnEquipped": "Wyposażenie Bojowe zdjęte."
 }

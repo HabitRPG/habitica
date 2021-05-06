@@ -102,5 +102,11 @@
     "achievementSeeingRedModalText": "¡Has reunido todas las mascotas rojas!",
     "achievementRedLetterDayModalText": "¡Has domado todas las monturas rojas!",
     "achievementRedLetterDayText": "Ha domado todas las monturas rojas.",
-    "achievementRedLetterDay": "Día señalado"
+    "achievementRedLetterDay": "Día señalado",
+    "achievementLegendaryBestiaryModalText": "¡Has coleccionado todas las mascotas míticas!",
+    "achievementLegendaryBestiaryText": "¡Ha eclosionado todas las mascotas míticas: Dragón, cerdo volador, grifo, serpiente marina y unicornio!",
+    "achievementLegendaryBestiary": "Bestiario legendario",
+    "achievementSeasonalSpecialistModalText": "¡Completaste todas las misiones estacionales!",
+    "achievementSeasonalSpecialistText": "Ha completado todas las misiones estacionales de Primavera e Invierno: ¡Búsqueda de Huevos, Santa Trampero, y Encuentra al Cachorro!",
+    "achievementSeasonalSpecialist": "Especialista Estacional"
 }

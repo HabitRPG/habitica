@@ -102,5 +102,6 @@
     "confirmKeepChallengeTasks": "Mücadele görevlerini saklamak istiyor musun?",
     "selectParticipant": "Katılımcı Seç",
     "yourReward": "Ödülün",
-    "filters": "Filtreler"
+    "filters": "Filtreler",
+    "wonChallengeDesc": "<%= challengeName %> seni kazanan olarak belirledi! Kazanımın, Başarılarına kaydedildi."
 }

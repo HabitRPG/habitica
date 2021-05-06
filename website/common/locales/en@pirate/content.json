@@ -195,7 +195,7 @@
     "hatchingPotionGolden": "Gold'n",
     "hatchingPotionSpooky": "Frightful",
     "hatchingPotionPeppermint": "Peppermint",
-    "hatchingPotionFloral": "Flow'ry",
+    "hatchingPotionFloral": "Floral",
     "hatchingPotionAquatic": "Seaworthy",
     "hatchingPotionEmber": "Flam'n",
     "hatchingPotionThunderstorm": "Squall",
@@ -364,5 +364,6 @@
     "hatchingPotionWindup": "Wind-Up",
     "hatchingPotionSandSculpture": "Sand Sculpture",
     "hatchingPotionFluorite": "Fluorite",
-    "hatchingPotionStainedGlass": "Stain'd Glass"
+    "hatchingPotionStainedGlass": "Stain'd Glass",
+    "hatchingPotionPolkaDot": "Polka Dot"
 }

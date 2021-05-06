@@ -25,7 +25,7 @@
     "user": "Korisnik",
     "market": "Pijaca",
     "newSubscriberItem": "You have new <span class=\"notification-bold-blue\">Mystery Items</span>",
-    "subscriberItemText": "Each month, subscribers will receive a mystery item. This is usually released about one week before the end of the month. See the wiki's 'Mystery Item' page for more information.",
+    "subscriberItemText": "Svakog meseca, pretplatnici će dobiti tajanstveni predmet. On stiže početkom svakog meseca. Za više informacija, pogledajte stranicu 'Tajanstveni predmeti'.",
     "all": "Sve",
     "none": "Ništa",
     "more": "<%= count %> more",
@@ -41,7 +41,7 @@
     "continue": "Nastaviti",
     "accept": "Prihvatiti",
     "reject": "Odbaciti",
-    "neverMind": "Zaboravi",
+    "neverMind": "Nema veze",
     "notEnoughGems": "Nemate dovoljno dragulja",
     "alreadyHave": "Već imate ovaj predmet. Nema potrebe da ga ponovo kupujete!",
     "delete": "Obrisati",
@@ -190,7 +190,7 @@
     "dismissAll": "Dismiss All",
     "messages": "Poruke",
     "emptyMessagesLine1": "Nemate novih poruka",
-    "emptyMessagesLine2": "Send a message to start a conversation!",
+    "emptyMessagesLine2": "Kako biste poslali poruku drugom korisniku, uđite na njihov profil i kliknite dugme \"Poruka\".",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> sent you a message",
     "letsgo": "Let's Go!",
     "selected": "Selektovano",
@@ -199,5 +199,7 @@
     "congratulations": "Čestitke!",
     "options": "Opcije",
     "finish": "Završi",
-    "loadEarlierMessages": "Učitaj pređašnje poruke"
+    "loadEarlierMessages": "Učitaj pređašnje poruke",
+    "onboardingAchievs": "Dostignuća za novajlije",
+    "demo": "Demo"
 }

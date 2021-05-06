@@ -369,5 +369,6 @@
     "cannotRemoveQuestOwner": "无法移除当前任务的参与者。请先中止该任务。",
     "features": "特性",
     "giftMessageTooLong": "礼品留言的最大长度为<%= maxGiftMessageLength %>。",
-    "selectSubscription": "选择订阅"
+    "selectSubscription": "选择订阅",
+    "blockYourself": "你不能屏蔽你自己"
 }
