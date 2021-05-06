@@ -86,7 +86,8 @@
         v-if="taskList.length > 0"
         ref="tasksList"
         class="sortable-tasks"
-        :options="{disabled: activeFilter.label === 'scheduled' || !isUser, scrollSensitivity: 64}"
+        :options="{disabled: activeFilter.label === 'scheduled' || !canBeDragged(),
+          scrollSensitivity: 64}"
         :delay-on-touch-only="true"
         :delay="100"
         @update="taskSorted"
@@ -388,6 +389,10 @@ export default {
   props: {
     type: {},
     isUser: {
+      type: Boolean,
+      default: false,
+    },
+    draggableOverride: {
       type: Boolean,
       default: false,
     },
@@ -766,6 +771,10 @@ export default {
     },
     taskDestroyed (task) {
       this.$emit('taskDestroyed', task);
+    },
+    canBeDragged () {
+      return this.isUser
+        || this.draggableOverride;
     },
   },
 };

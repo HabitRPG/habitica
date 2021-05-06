@@ -126,5 +126,8 @@
     "cannotUnpinItem": "Questo oggetto non può essere rimosso.",
     "nMonthsSubscriptionGift": "<%= nMonths %> mese(i) di abbonamento (Regalo)",
     "nGemsGift": "<%= nGems %> Gemme (Regalo)",
-    "nGems": "<%= nGems %> Gemme"
+    "nGems": "<%= nGems %> Gemme",
+    "limitedAvailabilityMinutes": "Disponibile per <% = minutes %> minuti e <%= seconds %> secondi",
+    "limitedAvailabilityDays": "Disponibile per <%= days %> giorni, <%= hours %> ore e <% = minuti%> minuti",
+    "limitedAvailabilityHours": "Disponibile per <%= hours %> ore e <% = minuti%> minuti"
 }

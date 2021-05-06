@@ -435,6 +435,11 @@ const backgrounds = {
     cottage_construction: { },
     elegant_garden: { },
   },
+  backgrounds052021: {
+    afternoon_picnic: { },
+    dragons_lair: { },
+    windmills: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

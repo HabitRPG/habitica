@@ -126,5 +126,8 @@
     "invalidUnlockSet": "这套装是无效的，无法解锁。",
     "nGemsGift": "<%= nGems %> 颗宝石（赠品）",
     "nMonthsSubscriptionGift": "<%= nMonths %>个月订阅（赠品）",
-    "nGems": "<%= nGems %> 颗宝石"
+    "nGems": "<%= nGems %> 颗宝石",
+    "limitedAvailabilityMinutes": "购买时间剩余<%= minutes %>分钟<%= seconds %>秒",
+    "limitedAvailabilityHours": "购买时间剩余<%= hours %>小时 <%= minutes %>分钟",
+    "limitedAvailabilityDays": "购买时间剩余<%= days %>天 <%= hours %>小时 <%= minutes %>分钟"
 }

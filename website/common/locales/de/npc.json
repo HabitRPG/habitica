@@ -126,5 +126,8 @@
     "invalidUnlockSet": "Dieses Set an Gegenständen ist abgelaufen und kann nicht freigeschaltet werden.",
     "nGems": "<%= nGems %> Edelsteine",
     "nMonthsSubscriptionGift": "<%= nMonths %> Monat(e) Abonnement (Geschenk)",
-    "nGemsGift": "<%= nGems %> Edelsteine (Geschenk)"
+    "nGemsGift": "<%= nGems %> Edelsteine (Geschenk)",
+    "limitedAvailabilityMinutes": "Für <%= minutes %>min <%= seconds %>sek verfügbar",
+    "limitedAvailabilityHours": "Für <%= days %>t <%= hours %>std und <%= minutes %>min verfügbar",
+    "limitedAvailabilityDays": "Für <%= days %>t <%= hours %>std und <%= minutes %>min verfügbar"
 }

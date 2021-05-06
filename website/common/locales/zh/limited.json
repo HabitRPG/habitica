@@ -27,10 +27,10 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>季节魔女<%= linkEnd %>",
     "seasonalShopClosedText": "季度商店现在关门了！！只有在Habitica四大盛典期间才会开张。",
-    "seasonalShopSummerText": "夏季嬉水节快乐！你想买些稀罕东西吗？7月31日前购买！",
-    "seasonalShopFallText": "秋季庆典节快乐！你想买些稀罕东西吗？10月31日前购买！",
-    "seasonalShopWinterText": "冬季仙境节快乐！你想买些稀罕东西吗？1月31日前购买！",
-    "seasonalShopSpringText": "春季狂欢节快乐！你想买些稀罕东西吗？4月30日前购买！",
+    "seasonalShopSummerText": "夏季嬉水节快乐！！你想买些稀罕东西吗？记得在盛典结束前买它！",
+    "seasonalShopFallText": "秋季庆典节快乐！！你想买些稀罕东西吗？记得在盛典结束前买它！",
+    "seasonalShopWinterText": "冬季仙境节快乐！！你想买些稀罕东西吗？记得在盛典结束前买它！",
+    "seasonalShopSpringText": "春季狂欢节快乐！！你想买些稀罕东西吗？记得在盛典结束前买它！",
     "seasonalShopFallTextBroken": "啊……欢迎来到季度商店……我们正在准备秋季特供产品，还有其他一些什么的…… 这里所有的东西都会在每年秋季节日期间开放购买，但我们只开门到10月31日……你可能现在可以开始囤货了，或者只能继续等，等，等…… <strong>*叹气*</strong>",
     "seasonalShopBrokenText": "我的亭子！！！我的装饰品！！！哦，Dysheartener毁了一切 : ( 请在酒馆中帮助我击败它，所以我可以重建！",
     "seasonalShopRebirth": "如果你曾经购买过这件装备，但是现在失去了它，那么你可以从奖励栏中重新购买它。最初，你只能购买你当前职业的装备（默认职业是战士），但是不用担心，当你转换职业时，其他职业的装备你就可以购买了。",
@@ -202,5 +202,6 @@
     "spring2021TwinFlowerRogueSet": "林奈花（盗贼）",
     "spring2021WillowHealerSet": "垂柳（医者）",
     "spring2021SwanMageSet": "天鹅（法师）",
-    "spring2021SunstoneWarriorSet": "太阳石（战士）"
+    "spring2021SunstoneWarriorSet": "太阳石（战士）",
+    "noLongerAvailable": "该物品已不再供应。"
 }

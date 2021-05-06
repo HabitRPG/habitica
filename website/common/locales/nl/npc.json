@@ -126,5 +126,8 @@
     "invalidUnlockSet": "Deze set Voorwerpen is ongeldig en kan niet vrijgegeven worden.",
     "nGemsGift": "<%= nGems %> edelstenen (geschenk)",
     "nGems": "<%= nGems %> edelstenen",
-    "nMonthsSubscriptionGift": "<%= nMonths %> Maand(en) Abonnement (Cadeau)"
+    "nMonthsSubscriptionGift": "<%= nMonths %> Maand(en) Abonnement (Cadeau)",
+    "limitedAvailabilityMinutes": "Beschikbaar voor <%= minutes %>m <%= seconds %>s",
+    "limitedAvailabilityHours": "Beschikbaar voor <%= hours %>h <%= minutes %>m",
+    "limitedAvailabilityDays": "Beschikbaar voor <%= days %>d <%= hours %>h <%= minutes %>m"
 }

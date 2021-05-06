@@ -1856,5 +1856,9 @@
     "weaponArmoireJadeGlaiveText": "Jade galv",
     "headArmoireJadeHelmNotes": "Vissa säger att jade minskar rädsla och ångest. Med den här vackra hjälmen har du definitivt ingen anledning till att oroa dig! Ökar Tålighet med <%= con %>. Förtrollat vapenskåp: Jadekrigare-set (Föremål 1 av 3).",
     "weaponArmoireJadeGlaiveNotes": "Räckhållet för denna galv kommer att hålla dig långt ifrån dina fiender! Dessutom kan du slå ner saker från höga hyllor. Ökar Styrka med <%= str %>. Förtrollat vapenskåp: Jadekrigare-set (Föremål 3 av 3).",
-    "armorArmoireJadeArmorNotes": "Denna rustning av jade är både vacker och praktisk. Försvara dig själv i kännedom om att du ser fantastisk ut! Ökar Uppmärksamhet med <%= per %>. Förtrollat vapenskåp: Jadekrigare-set (Föremål 2 av 3)."
+    "armorArmoireJadeArmorNotes": "Denna rustning av jade är både vacker och praktisk. Försvara dig själv i kännedom om att du ser fantastisk ut! Ökar Uppmärksamhet med <%= per %>. Förtrollat vapenskåp: Jadekrigare-set (Föremål 2 av 3).",
+    "headAccessoryMystery202105Notes": "Ta på dig de här skimrande hornen och framkalla stjärnljusets magi. Medför inga ökningar. Maj 2021 Abonnentföremål.",
+    "headAccessoryMystery202105Text": "Nebulosadrakens horn",
+    "backMystery202105Notes": "Glid genom stjärnhimlen och placera dig själv bland stjärnbilderna! Medför inga ökningar. Maj 2021 Abonnentföremål.",
+    "backMystery202105Text": "Nebulosadrakens vingar"
 }

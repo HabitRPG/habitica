@@ -1,62 +1,134 @@
 <template>
-  <small-modal
+  <b-modal
     id="drop-cap-reached"
-    :title="$t('dropCapReached')"
-    button-text-key="learnMore"
-    @buttonClicked="toLearnMore"
+    size="md"
+    :hide-header="true"
     :hide-footer="hasSubscription"
   >
-    <starred>
-      <div class="max-items-module d-flex align-items-center justify-content-center flex-column">
-        <h1 class="max-items">
-          {{ maxItems }}
-        </h1>
-        <span
+    <div class="text-center">
+      <div
+        class="modal-close"
+        @click="close()"
+      >
+        <div
           v-once
-          class="items-text"
-        >{{ $t('items') }}</span>
+          class="svg-icon"
+          v-html="icons.close"
+        ></div>
       </div>
-    </starred>
-    <p v-once class="text-center m-3">
-      {{ $t('dropCapExplanation') }}
-    </p>
-    <a
-      v-once
-      class="standard-link d-block mb-3 text-center"
-      @click="toWiki"
+      <h1
+        v-once
+        class="header purple"
+      >
+        {{ $t('dropCapReached') }}
+      </h1>
+      <div class="max-items-wrapper d-flex align-items-center justify-content-center">
+        <div
+          class="svg-icon sparkles sparkles-rotate"
+          v-html="icons.sparkles"
+        ></div>
+        <div class="max-items-module d-flex align-items-center justify-content-center flex-column">
+          <h1 class="max-items">
+            {{ maxItems }}
+          </h1>
+          <span
+            v-once
+            class="items-text"
+          >{{ $t('items') }}</span>
+        </div>
+        <div
+          class="svg-icon sparkles"
+          v-html="icons.sparkles"
+        ></div>
+      </div>
+      <p
+        v-once
+        class="mb-4"
+      >
+        {{ $t('dropCapExplanation') }}
+      </p>
+      <a
+        v-once
+        class="standard-link d-block mb-3"
+        @click="toWiki()"
+      >
+        {{ $t('dropCapLearnMore') }}
+      </a>
+    </div>
+    <div
+      slot="modal-footer"
+      class="footer"
     >
-      {{ $t('dropCapLearnMore') }}
-    </a>
-
-    <template #greyed>
-      <div class="text-center">
-        <span
-          v-once
-          class="purple d-block font-weight-bold mb-3 mt-3"
-        >
-          {{ $t('lookingForMoreItems') }}
-        </span>
-        <img
-          class="swords mb-3"
-          srcset="
-        ~@/assets/images/swords.png,
-        ~@/assets/images/swords@2x.png 2x,
-        ~@/assets/images/swords@3x.png 3x"
-          src="~@/assets/images/swords.png"
-        >
-        <p
-          v-once
-          class="subs-benefits mb-0"
-        >
-          {{ $t('dropCapSubs') }}
-        </p>
-      </div>
-    </template>
-  </small-modal>
+      <span
+        v-once
+        class="purple d-block font-weight-bold mb-3 mt-3"
+      >
+        {{ $t('lookingForMoreItems') }}
+      </span>
+      <img
+        class="swords mb-3"
+        srcset="
+      ~@/assets/images/swords.png,
+      ~@/assets/images/swords@2x.png 2x,
+      ~@/assets/images/swords@3x.png 3x"
+        src="~@/assets/images/swords.png"
+      >
+      <p
+        v-once
+        class="subs-benefits mb-3"
+      >
+        {{ $t('dropCapSubs') }}
+      </p>
+      <button
+        v-once
+        class="btn btn-primary"
+        @click="toLearnMore()"
+      >
+        {{ $t('learnMore') }}
+      </button>
+    </div>
+  </b-modal>
 </template>
+
+<style lang="scss">
+  @import '~@/assets/scss/colors.scss';
+
+  #drop-cap-reached {
+    .modal-body {
+      padding: 0 1.5rem;
+    }
+
+    .modal-footer {
+      background: $gray-700;
+      border-top: none;
+      padding: 0 1.5rem 2rem 1.5rem;
+    }
+
+    .modal-dialog {
+      width: 20.625rem;
+      font-size: 0.875rem;
+      line-height: 1.71;
+      text-align: center;
+    }
+  }
+</style>
 
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
+
+  .modal-close {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    padding: 4px;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+    .svg-icon {
+      width: 12px;
+      height: 12px;
+    }
+  }
 
   .subs-benefits {
     font-size: 0.75rem;
@@ -66,6 +138,22 @@
 
   .purple {
     color: $purple-300;
+  }
+
+  .header {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .sparkles {
+    width: 2.5rem;
+    height: 4rem;
+
+    &.sparkles-rotate {
+      transform: rotate(180deg);
+    }
   }
 
   .max-items-wrapper {
@@ -102,19 +190,20 @@
 </style>
 
 <script>
-import smallModal from '@/components/ui/modal/smallModal';
-import starred from '@/components/ui/modal/starred.vue';
-
+import closeIcon from '@/assets/svg/close.svg';
+import sparkles from '@/assets/svg/star-group.svg';
 import * as Analytics from '@/libs/analytics';
 import { mapState } from '@/libs/store';
 
 export default {
-  components: {
-    smallModal,
-    starred,
-  },
   data () {
-    return { maxItems: null };
+    return {
+      icons: Object.freeze({
+        close: closeIcon,
+        sparkles,
+      }),
+      maxItems: null,
+    };
   },
   computed: {
     ...mapState({ user: 'user.data' }),
@@ -132,6 +221,9 @@ export default {
     this.$root.$off('habitica:drop-cap-reached');
   },
   methods: {
+    close () {
+      this.$root.$emit('bv::hide::modal', 'drop-cap-reached');
+    },
     toWiki () {
       window.open('https://habitica.fandom.com/wiki/Drops', '_blank');
 
@@ -150,7 +242,7 @@ export default {
         eventLabel: 'Drop Cap Reached > Modal > Subscriptions',
       });
 
-      this.$root.$emit('bv::hide::modal', 'drop-cap-reached');
+      this.close();
       this.$router.push('/user/settings/subscription');
     },
   },

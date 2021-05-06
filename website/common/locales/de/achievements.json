@@ -104,6 +104,9 @@
     "achievementSeeingRed": "Rot Sehen",
     "achievementRedLetterDay": "Roter Faden",
     "achievementLegendaryBestiaryModalText": "Du hast alle mystischen Haustiere gesammelt!",
-    "achievementLegendaryBestiaryText": "Hat alle mystischen Haustiere schlüpfen lassen: Drachen-Jungtier, Fliegendes Ferkel, Greifen-Jungtier, Seeschlangen-Haustier und Einhorn-Junges!",
-    "achievementLegendaryBestiary": "Legendäres Bestiarium"
+    "achievementLegendaryBestiaryText": "Hat alle gängigen Arten der mystischen Haustiere schlüpfen lassen: Drachen-Jungtier, Fliegendes Ferkel, Greifen-Jungtier, Seeschlangen-Haustier und Einhorn-Junges!",
+    "achievementLegendaryBestiary": "Legendäres Bestiarium",
+    "achievementSeasonalSpecialistModalText": "Du hast alle saisonalen Quests abgeschlossen!",
+    "achievementSeasonalSpecialistText": "Hat alle Quests der Frühlings- und Winter-Saison abgeschlossen: Eierjagt, Wilndernder Weihnachtswichtel, und Finde das Jungtier!",
+    "achievementSeasonalSpecialist": "Saisonal Spezial"
 }

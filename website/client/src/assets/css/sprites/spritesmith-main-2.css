@@ -1,36 +1,120 @@
+.icon_background_among_giant_anemones {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1092px -1092px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_among_giant_flowers {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px 0px;
+  width: 68px;
+  height: 68px;
+}
+.customize-option.icon_background_among_giant_flowers {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1208px -15px;
+  width: 60px;
+  height: 60px;
+}
+.icon_background_animal_clouds {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px -69px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_apple_picking {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px -138px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_aquarium {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px -207px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_archaeological_dig {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px -276px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_archery_range {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px -345px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_at_the_docks {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px -414px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_aurora {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px -483px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_autumn_flower_garden {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px -552px;
+  width: 68px;
+  height: 68px;
+}
+.customize-option.icon_background_autumn_flower_garden {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1208px -567px;
+  width: 60px;
+  height: 60px;
+}
+.icon_background_autumn_forest {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px -621px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_avalanche {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1183px -690px;
+  width: 68px;
+  height: 68px;
+}
 .icon_background_back_alley {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -728px;
+  background-position: -1183px -759px;
   width: 68px;
   height: 68px;
 }
 .icon_background_back_of_giant_beast {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -797px;
+  background-position: -1183px -828px;
   width: 68px;
   height: 68px;
 }
 .icon_background_bamboo_forest {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -866px;
+  background-position: -1183px -897px;
   width: 68px;
   height: 68px;
 }
 .icon_background_bayou {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -935px;
+  background-position: -1183px -966px;
   width: 68px;
   height: 68px;
 }
 .icon_background_beach {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -1073px;
+  background-position: -1183px -1104px;
   width: 68px;
   height: 68px;
 }
 .icon_background_beach_cabana {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -1004px;
+  background-position: -1183px -1035px;
   width: 68px;
   height: 68px;
 }
@@ -144,115 +228,115 @@
 }
 .icon_background_clouds {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px 0px;
+  background-position: -1252px 0px;
   width: 68px;
   height: 68px;
 }
 .icon_background_coral_reef {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -69px;
+  background-position: -1252px -69px;
   width: 68px;
   height: 68px;
 }
 .icon_background_cornfields {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -138px;
+  background-position: -1252px -138px;
   width: 68px;
   height: 68px;
 }
 .icon_background_cottage_construction {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -207px;
+  background-position: -1252px -207px;
   width: 68px;
   height: 68px;
 }
 .icon_background_cozy_barn {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -276px;
+  background-position: -1252px -276px;
   width: 68px;
   height: 68px;
 }
 .icon_background_cozy_bedroom {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -345px;
+  background-position: -1252px -345px;
   width: 68px;
   height: 68px;
 }
 .icon_background_cozy_library {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -414px;
+  background-position: -1252px -414px;
   width: 68px;
   height: 68px;
 }
 .icon_background_creepy_castle {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -1173px;
+  background-position: -1597px -1311px;
   width: 60px;
   height: 60px;
 }
 .icon_background_crescent_moon {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -483px;
+  background-position: -1252px -483px;
   width: 68px;
   height: 68px;
 }
 .icon_background_crosscountry_ski_trail {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -552px;
+  background-position: -1252px -552px;
   width: 68px;
   height: 68px;
 }
 .icon_background_crystal_cave {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -621px;
+  background-position: -1252px -621px;
   width: 68px;
   height: 68px;
 }
 .icon_background_dark_deep {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -690px;
+  background-position: -1252px -690px;
   width: 68px;
   height: 68px;
 }
 .icon_background_deep_mine {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -759px;
+  background-position: -1252px -759px;
   width: 68px;
   height: 68px;
 }
 .icon_background_deep_sea {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -828px;
+  background-position: -1252px -828px;
   width: 68px;
   height: 68px;
 }
 .icon_background_desert_dunes {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -897px;
+  background-position: -1252px -897px;
   width: 68px;
   height: 68px;
 }
 .icon_background_desert_with_snow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -966px;
+  background-position: -1252px -966px;
   width: 68px;
   height: 68px;
 }
 .icon_background_dilatory_castle {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -1035px;
+  background-position: -1252px -1035px;
   width: 68px;
   height: 68px;
 }
 .icon_background_dilatory_city {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -1104px;
+  background-position: -1252px -1104px;
   width: 68px;
   height: 68px;
 }
 .icon_background_dilatory_ruins {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1274px -1173px;
+  background-position: -1252px -1173px;
   width: 68px;
   height: 68px;
 }
@@ -268,1197 +352,1209 @@
   width: 68px;
   height: 68px;
 }
-.icon_background_drifting_raft {
+.icon_background_dragons_lair {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -138px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_driving_a_coach {
+.icon_background_drifting_raft {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -207px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_driving_a_sleigh {
+.icon_background_driving_a_coach {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -276px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_duck_pond {
+.icon_background_driving_a_sleigh {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -345px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_dungeon {
+.icon_background_duck_pond {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -414px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_dusty_canyons {
+.icon_background_dungeon {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -483px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_elegant_balcony {
+.icon_background_dusty_canyons {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -552px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_elegant_ballroom {
+.icon_background_elegant_balcony {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -621px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_elegant_garden {
+.icon_background_elegant_ballroom {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -690px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_fairy_ring {
+.icon_background_elegant_garden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -759px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_fantastical_shoe_store {
+.icon_background_fairy_ring {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -828px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_farmers_market {
+.icon_background_fantastical_shoe_store {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -897px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_farmhouse {
+.icon_background_farmers_market {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -966px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_fiber_arts_room {
+.icon_background_farmhouse {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -1035px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_field_with_colored_eggs {
+.icon_background_fiber_arts_room {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -1104px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_floating_islands {
+.icon_background_field_with_colored_eggs {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -1173px -1252px;
   width: 68px;
   height: 68px;
 }
-.icon_background_floral_meadow {
+.icon_background_floating_islands {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -1242px -1252px;
   width: 68px;
   height: 68px;
 }
+.icon_background_floral_meadow {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1321px 0px;
+  width: 68px;
+  height: 68px;
+}
 .icon_background_flower_market {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px 0px;
+  background-position: -1321px -69px;
   width: 68px;
   height: 68px;
 }
 .customize-option.icon_background_flower_market {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1368px -15px;
+  background-position: -1346px -84px;
   width: 60px;
   height: 60px;
 }
 .icon_background_flying_in_a_thunderstorm {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -69px;
+  background-position: -1321px -138px;
   width: 68px;
   height: 68px;
 }
 .icon_background_flying_over_a_field_of_wildflowers {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -138px;
+  background-position: -1321px -207px;
   width: 68px;
   height: 68px;
 }
 .customize-option.icon_background_flying_over_a_field_of_wildflowers {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1368px -153px;
+  background-position: -1346px -222px;
   width: 60px;
   height: 60px;
 }
 .icon_background_flying_over_an_ancient_forest {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -207px;
+  background-position: -1321px -276px;
   width: 68px;
   height: 68px;
 }
 .icon_background_flying_over_an_autumn_forest {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -276px;
+  background-position: -1321px -345px;
   width: 68px;
   height: 68px;
 }
 .icon_background_flying_over_glacier {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -345px;
+  background-position: -1321px -414px;
   width: 68px;
   height: 68px;
 }
 .icon_background_flying_over_icy_steppes {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -414px;
+  background-position: -1321px -483px;
   width: 68px;
   height: 68px;
 }
 .icon_background_flying_over_rocky_canyon {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -483px;
+  background-position: -1321px -552px;
   width: 68px;
   height: 68px;
 }
 .icon_background_flying_over_snowy_mountains {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -552px;
+  background-position: -1321px -621px;
   width: 68px;
   height: 68px;
 }
 .icon_background_flying_over_the_ocean {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -621px;
+  background-position: -1321px -690px;
   width: 68px;
   height: 68px;
 }
 .icon_background_foggy_moor {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -690px;
+  background-position: -1321px -759px;
   width: 68px;
   height: 68px;
 }
 .icon_background_forest {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -759px;
+  background-position: -1321px -828px;
   width: 68px;
   height: 68px;
 }
 .icon_background_frigid_peak {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -828px;
+  background-position: -1321px -897px;
   width: 68px;
   height: 68px;
 }
 .icon_background_frosty_forest {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -897px;
+  background-position: -1321px -966px;
   width: 68px;
   height: 68px;
 }
 .icon_background_frozen_lake {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -966px;
+  background-position: -1321px -1035px;
   width: 68px;
   height: 68px;
 }
 .icon_background_garden_shed {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -1035px;
+  background-position: -1321px -1104px;
   width: 68px;
   height: 68px;
 }
 .icon_background_gazebo {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -1104px;
+  background-position: -1321px -1173px;
   width: 68px;
   height: 68px;
 }
 .icon_background_giant_autumn_leaf {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -1173px;
+  background-position: -1321px -1242px;
   width: 68px;
   height: 68px;
 }
 .icon_background_giant_birdhouse {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1343px -1242px;
+  background-position: 0px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_giant_book {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: 0px -1321px;
+  background-position: -69px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_giant_dandelions {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -69px -1321px;
+  background-position: -138px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_giant_florals {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -138px -1321px;
+  background-position: -207px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_giant_seashell {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -207px -1321px;
+  background-position: -276px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_giant_wave {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -276px -1321px;
+  background-position: -345px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_gingerbread_house {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -345px -1321px;
+  background-position: -414px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_glowing_mushroom_cave {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -414px -1321px;
+  background-position: -483px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_gorgeous_greenhouse {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -483px -1321px;
+  background-position: -552px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_grand_staircase {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -552px -1321px;
+  background-position: -621px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_graveyard {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -621px -1321px;
+  background-position: -690px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_green {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -690px -1321px;
+  background-position: -759px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_guardian_statues {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -759px -1321px;
+  background-position: -828px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_gumdrop_land {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -828px -1321px;
+  background-position: -897px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_habit_city_rooftops {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -897px -1321px;
+  background-position: -966px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_habit_city_streets {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -966px -1321px;
+  background-position: -1035px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_halflings_house {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1035px -1321px;
+  background-position: -1104px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_hall_of_heroes {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1104px -1321px;
+  background-position: -1173px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_harvest_feast {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1173px -1321px;
+  background-position: -1242px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_harvest_fields {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1242px -1321px;
+  background-position: -1311px -1321px;
   width: 68px;
   height: 68px;
 }
 .icon_background_harvest_moon {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1311px -1321px;
+  background-position: -1390px 0px;
   width: 68px;
   height: 68px;
 }
 .icon_background_haunted_forest {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px 0px;
+  background-position: -1390px -69px;
   width: 68px;
   height: 68px;
 }
 .icon_background_haunted_house {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -69px;
+  background-position: -1390px -138px;
   width: 68px;
   height: 68px;
 }
 .icon_background_heart_shaped_bubbles {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -138px;
+  background-position: -1390px -207px;
   width: 68px;
   height: 68px;
 }
 .icon_background_heather_field {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -207px;
+  background-position: -1390px -276px;
   width: 68px;
   height: 68px;
 }
 .icon_background_herding_sheep_in_autumn {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -276px;
+  background-position: -1390px -345px;
   width: 68px;
   height: 68px;
 }
 .icon_background_holiday_hearth {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -345px;
+  background-position: -1390px -414px;
   width: 68px;
   height: 68px;
 }
 .icon_background_holiday_market {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -414px;
+  background-position: -1390px -483px;
   width: 68px;
   height: 68px;
 }
 .icon_background_holiday_wreath {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -483px;
+  background-position: -1390px -552px;
   width: 68px;
   height: 68px;
 }
 .icon_background_hot_air_balloon {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -552px;
+  background-position: -1390px -621px;
   width: 68px;
   height: 68px;
 }
 .icon_background_hot_spring {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -621px;
+  background-position: -1390px -690px;
   width: 68px;
   height: 68px;
 }
 .icon_background_ice_cave {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -690px;
+  background-position: -1390px -759px;
   width: 68px;
   height: 68px;
 }
 .icon_background_iceberg {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -759px;
+  background-position: -1390px -828px;
   width: 68px;
   height: 68px;
 }
 .icon_background_icicle_bridge {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -828px;
+  background-position: -1390px -897px;
   width: 68px;
   height: 68px;
 }
 .icon_background_idyllic_cabin {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -897px;
+  background-position: -1390px -966px;
   width: 68px;
   height: 68px;
 }
 .icon_background_in_a_classroom {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -966px;
+  background-position: -1390px -1035px;
   width: 68px;
   height: 68px;
 }
 .icon_background_in_an_ancient_tomb {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -1035px;
+  background-position: -1390px -1104px;
   width: 68px;
   height: 68px;
 }
 .icon_background_in_the_armory {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -1104px;
+  background-position: -1390px -1173px;
   width: 68px;
   height: 68px;
 }
 .icon_background_inside_an_ornament {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -1539px;
+  background-position: -1597px -1555px;
   width: 29px;
   height: 29px;
 }
 .icon_background_island_waterfalls {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -1173px;
+  background-position: -1390px -1242px;
   width: 68px;
   height: 68px;
 }
 .icon_background_jungle_canopy {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -1242px;
+  background-position: -1390px -1311px;
   width: 68px;
   height: 68px;
 }
 .icon_background_kelp_forest {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1412px -1311px;
+  background-position: 0px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_lake_with_floating_lanterns {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: 0px -1390px;
+  background-position: -69px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_lighthouse_shore {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -69px -1390px;
+  background-position: -138px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_lilypad {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -138px -1390px;
+  background-position: -207px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_magic_beanstalk {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -207px -1390px;
+  background-position: -276px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_magical_candles {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -276px -1390px;
+  background-position: -345px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_magical_museum {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -345px -1390px;
+  background-position: -414px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_marble_temple {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -414px -1390px;
+  background-position: -483px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_market {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -483px -1390px;
+  background-position: -552px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_meandering_cave {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -552px -1390px;
+  background-position: -621px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_medieval_kitchen {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -621px -1390px;
+  background-position: -690px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_midnight_castle {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -690px -1390px;
+  background-position: -759px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_midnight_clouds {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -759px -1390px;
+  background-position: -828px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_midnight_lake {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -828px -1390px;
+  background-position: -897px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_mist_shrouded_mountain {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -897px -1390px;
+  background-position: -966px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_mistiflying_circus {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -966px -1390px;
+  background-position: -1035px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_monster_makers_workshop {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1035px -1390px;
+  background-position: -1104px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_mountain_lake {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1104px -1390px;
+  background-position: -1173px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_mountain_pyramid {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1173px -1390px;
+  background-position: -1242px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_mystical_observatory {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1242px -1390px;
+  background-position: -1311px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_night_dunes {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1311px -1390px;
+  background-position: -1380px -1390px;
   width: 68px;
   height: 68px;
 }
 .icon_background_ocean_sunrise {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1380px -1390px;
+  background-position: -1459px 0px;
   width: 68px;
   height: 68px;
 }
 .icon_background_old_fashioned_bakery {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px 0px;
+  background-position: -1459px -69px;
   width: 68px;
   height: 68px;
 }
 .icon_background_on_tree_branch {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -69px;
+  background-position: -1459px -138px;
   width: 68px;
   height: 68px;
 }
 .icon_background_open_waters {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -138px;
+  background-position: -1459px -207px;
   width: 68px;
   height: 68px;
 }
 .icon_background_orchard {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -207px;
+  background-position: -1459px -276px;
   width: 68px;
   height: 68px;
 }
 .icon_background_pagodas {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -276px;
+  background-position: -1459px -345px;
   width: 68px;
   height: 68px;
 }
 .icon_background_park_with_statue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -345px;
+  background-position: -1459px -414px;
   width: 68px;
   height: 68px;
 }
 .icon_background_pirate_flag {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -414px;
+  background-position: -1459px -483px;
   width: 68px;
   height: 68px;
 }
 .icon_background_pixelists_workshop {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -483px;
+  background-position: -1459px -552px;
   width: 68px;
   height: 68px;
 }
 .icon_background_potion_shop {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -552px;
+  background-position: -1459px -621px;
   width: 68px;
   height: 68px;
 }
 .icon_background_productivity_plaza {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -621px;
+  background-position: -1459px -690px;
   width: 68px;
   height: 68px;
 }
 .icon_background_pumpkin_carriage {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -690px;
+  background-position: -1459px -759px;
   width: 68px;
   height: 68px;
 }
 .icon_background_pumpkin_patch {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -759px;
+  background-position: -1459px -828px;
   width: 68px;
   height: 68px;
 }
 .icon_background_purple {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -828px;
+  background-position: -1459px -897px;
   width: 68px;
   height: 68px;
 }
 .icon_background_pyramids {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -897px;
+  background-position: -1459px -966px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rainbow_meadow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -966px;
+  background-position: -1459px -1035px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rainbows_end {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -1035px;
+  background-position: -1459px -1104px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rainforest {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -1104px;
+  background-position: -1459px -1173px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rainy_barnyard {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -1173px;
+  background-position: -1459px -1242px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rainy_city {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -1242px;
+  background-position: -1459px -1311px;
   width: 68px;
   height: 68px;
 }
 .icon_background_red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -1311px;
+  background-position: -1459px -1380px;
   width: 68px;
   height: 68px;
 }
 .icon_background_relaxation_river {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1481px -1380px;
+  background-position: 0px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_resting_in_the_inn {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: 0px -1459px;
+  background-position: -69px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_river_of_lava {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -69px -1459px;
+  background-position: -138px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rolling_hills {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -138px -1459px;
+  background-position: -207px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rose_garden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -207px -1459px;
+  background-position: -276px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_rowboat {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -276px -1459px;
+  background-position: -345px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_salt_lake {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -345px -1459px;
+  background-position: -414px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_sandcastle {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -414px -1459px;
+  background-position: -483px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_school_of_fish {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -483px -1459px;
+  background-position: -552px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_scribes_workshop {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -552px -1459px;
+  background-position: -621px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_seafarer_ship {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -621px -1459px;
+  background-position: -690px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_seaside_cliffs {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -690px -1459px;
+  background-position: -759px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_shimmering_ice_prism {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -759px -1459px;
+  background-position: -828px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_shimmery_bubbles {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -828px -1459px;
+  background-position: -897px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_slimy_swamp {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -897px -1459px;
+  background-position: -966px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_snowglobe {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -966px -1459px;
+  background-position: -1035px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_snowman_army {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1035px -1459px;
+  background-position: -1104px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_snowy_day_fireplace {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1104px -1459px;
+  background-position: -1173px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_snowy_pines {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1173px -1459px;
+  background-position: -1242px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_snowy_sunrise {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1242px -1459px;
+  background-position: -1311px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_south_pole {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1311px -1459px;
+  background-position: -1380px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_sparkling_snowflake {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1380px -1459px;
+  background-position: -1449px -1459px;
   width: 68px;
   height: 68px;
 }
 .icon_background_spider_web {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1449px -1459px;
+  background-position: -1528px 0px;
   width: 68px;
   height: 68px;
 }
 .icon_background_splash_in_a_puddle {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px 0px;
+  background-position: -1528px -69px;
   width: 68px;
   height: 68px;
 }
 .icon_background_spooky_hotel {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -69px;
+  background-position: -1528px -138px;
   width: 68px;
   height: 68px;
 }
 .icon_background_spooky_scarecrow_field {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -138px;
+  background-position: -1528px -207px;
   width: 68px;
   height: 68px;
 }
 .icon_background_spring_rain {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -207px;
+  background-position: -1528px -276px;
   width: 68px;
   height: 68px;
 }
 .icon_background_spring_thaw {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -276px;
+  background-position: -1528px -345px;
   width: 68px;
   height: 68px;
 }
 .icon_background_stable {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -345px;
+  background-position: -1528px -414px;
   width: 68px;
   height: 68px;
 }
 .icon_background_stained_glass {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -414px;
+  background-position: -1528px -483px;
   width: 68px;
   height: 68px;
 }
 .icon_background_starry_skies {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -483px;
+  background-position: -1528px -552px;
   width: 68px;
   height: 68px;
 }
 .icon_background_starry_winter_night {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -552px;
+  background-position: -1528px -621px;
   width: 68px;
   height: 68px;
 }
 .icon_background_steamworks {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -621px;
+  background-position: -1528px -690px;
   width: 68px;
   height: 68px;
 }
 .icon_background_stoikalm_volcanoes {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -690px;
+  background-position: -1528px -759px;
   width: 68px;
   height: 68px;
 }
 .icon_background_stone_circle {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -759px;
+  background-position: -1528px -828px;
   width: 68px;
   height: 68px;
 }
 .icon_background_stormy_rooftops {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -828px;
+  background-position: -1528px -897px;
   width: 68px;
   height: 68px;
 }
 .icon_background_stormy_ship {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -897px;
+  background-position: -1528px -966px;
   width: 68px;
   height: 68px;
 }
 .icon_background_strange_sewers {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -966px;
+  background-position: -1528px -1035px;
   width: 68px;
   height: 68px;
 }
 .icon_background_strawberry_patch {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -1035px;
+  background-position: -1528px -1104px;
   width: 68px;
   height: 68px;
 }
 .icon_background_succulent_garden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -1104px;
+  background-position: -1528px -1173px;
   width: 68px;
   height: 68px;
 }
 .icon_background_summer_fireworks {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -1173px;
+  background-position: -1528px -1242px;
   width: 68px;
   height: 68px;
 }
 .icon_background_sunken_ship {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -1242px;
+  background-position: -1528px -1311px;
   width: 68px;
   height: 68px;
 }
 .icon_background_sunset_meadow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -1311px;
+  background-position: -1528px -1380px;
   width: 68px;
   height: 68px;
 }
 .icon_background_sunset_oasis {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -1380px;
+  background-position: -1528px -1449px;
   width: 68px;
   height: 68px;
 }
 .icon_background_sunset_savannah {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1550px -1449px;
+  background-position: 0px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_swarming_darkness {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: 0px -1528px;
+  background-position: -69px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_swimming_among_jellyfish {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -69px -1528px;
+  background-position: -138px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_tar_pits {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -138px -1528px;
+  background-position: -207px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_tavern {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -207px -1528px;
+  background-position: -276px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_tea_party {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -276px -1528px;
+  background-position: -345px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_terraced_rice_field {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -345px -1528px;
+  background-position: -414px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_throne_room {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -414px -1528px;
+  background-position: -483px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_thunderstorm {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -483px -1528px;
+  background-position: -552px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_tide_pool {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -552px -1528px;
+  background-position: -621px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_tornado {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -621px -1528px;
+  background-position: -690px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_toymakers_workshop {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -690px -1528px;
+  background-position: -759px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_training_grounds {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -759px -1528px;
+  background-position: -828px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_treasure_room {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -828px -1528px;
+  background-position: -897px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_tree_roots {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -897px -1528px;
+  background-position: -966px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_treehouse {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -966px -1528px;
+  background-position: -1035px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_tulip_garden {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1035px -1528px;
+  background-position: -1104px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_twinkly_lights {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1104px -1528px;
+  background-position: -1173px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_twinkly_party_lights {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1173px -1528px;
+  background-position: -1242px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_underwater_ruins {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1242px -1528px;
+  background-position: -1311px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_underwater_vents {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1311px -1528px;
+  background-position: -1380px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_valentines_day_feasting_hall {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1380px -1528px;
+  background-position: -1449px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_viking_ship {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1449px -1528px;
+  background-position: -1518px -1528px;
   width: 68px;
   height: 68px;
 }
 .icon_background_violet {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1518px -1528px;
+  background-position: -1597px 0px;
   width: 68px;
   height: 68px;
 }
 .icon_background_volcano {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px 0px;
+  background-position: -1597px -69px;
   width: 68px;
   height: 68px;
 }
 .icon_background_waterfall_rock {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -69px;
+  background-position: -1597px -138px;
   width: 68px;
   height: 68px;
 }
 .icon_background_wedding_arch {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -138px;
+  background-position: -1597px -207px;
+  width: 68px;
+  height: 68px;
+}
+.icon_background_windmills {
+  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
+  background-position: -1597px -276px;
   width: 68px;
   height: 68px;
 }
 .icon_background_windy_autumn {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -207px;
+  background-position: -1597px -345px;
   width: 68px;
   height: 68px;
 }
 .icon_background_winter_fireworks {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -276px;
+  background-position: -1597px -414px;
   width: 68px;
   height: 68px;
 }
 .icon_background_winter_night {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -345px;
+  background-position: -1597px -483px;
   width: 68px;
   height: 68px;
 }
 .icon_background_winter_nocturne {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -414px;
+  background-position: -1597px -552px;
   width: 68px;
   height: 68px;
 }
 .icon_background_winter_storefront {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -483px;
+  background-position: -1597px -621px;
   width: 68px;
   height: 68px;
 }
 .icon_background_winter_town {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -552px;
+  background-position: -1597px -690px;
   width: 68px;
   height: 68px;
 }
 .icon_background_wintry_castle {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -621px;
+  background-position: -1597px -759px;
   width: 68px;
   height: 68px;
 }
 .icon_background_yellow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -690px;
+  background-position: -1597px -828px;
   width: 68px;
   height: 68px;
 }
@@ -3444,73 +3540,73 @@
 }
 .button_chair_black {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -1234px;
+  background-position: -1597px -1372px;
   width: 60px;
   height: 60px;
 }
 .button_chair_blue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -1295px;
+  background-position: -1597px -1433px;
   width: 60px;
   height: 60px;
 }
 .button_chair_green {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -1356px;
+  background-position: -1597px -1494px;
   width: 60px;
   height: 60px;
 }
 .button_chair_handleless_black {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -759px;
+  background-position: -1597px -897px;
   width: 68px;
   height: 68px;
 }
 .button_chair_handleless_blue {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -828px;
+  background-position: -1597px -966px;
   width: 68px;
   height: 68px;
 }
 .button_chair_handleless_green {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -897px;
+  background-position: -1597px -1035px;
   width: 68px;
   height: 68px;
 }
 .button_chair_handleless_pink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -966px;
+  background-position: -1597px -1104px;
   width: 68px;
   height: 68px;
 }
 .button_chair_handleless_red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -1035px;
+  background-position: -1597px -1173px;
   width: 68px;
   height: 68px;
 }
 .button_chair_handleless_yellow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -1104px;
+  background-position: -1597px -1242px;
   width: 68px;
   height: 68px;
 }
 .button_chair_pink {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -1417px;
+  background-position: 0px -1597px;
   width: 60px;
   height: 60px;
 }
 .button_chair_red {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1619px -1478px;
+  background-position: -61px -1597px;
   width: 60px;
   height: 60px;
 }
 .button_chair_yellow {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: 0px -1597px;
+  background-position: -122px -1597px;
   width: 60px;
   height: 60px;
 }
@@ -3529,60 +3625,6 @@
 .chair_green {
   background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
   background-position: -1001px -1092px;
-  width: 90px;
-  height: 90px;
-}
-.chair_handleless_black {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1092px -1092px;
-  width: 90px;
-  height: 90px;
-}
-.chair_handleless_blue {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px 0px;
-  width: 90px;
-  height: 90px;
-}
-.chair_handleless_green {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -91px;
-  width: 90px;
-  height: 90px;
-}
-.chair_handleless_pink {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -182px;
-  width: 90px;
-  height: 90px;
-}
-.chair_handleless_red {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -273px;
-  width: 90px;
-  height: 90px;
-}
-.chair_handleless_yellow {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -364px;
-  width: 90px;
-  height: 90px;
-}
-.chair_pink {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -455px;
-  width: 90px;
-  height: 90px;
-}
-.chair_red {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -546px;
-  width: 90px;
-  height: 90px;
-}
-.chair_yellow {
-  background-image: url('~@/assets/images/sprites/spritesmith-main-2.png');
-  background-position: -1183px -637px;
   width: 90px;
   height: 90px;
 }

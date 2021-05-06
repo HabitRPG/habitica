@@ -15,7 +15,17 @@
     "footerCompany": "회사",
     "footerDevs": "개발자들",
     "communityExtensions": "<a href='http://habitica.fandom.com/wiki/Extensions,_Add-Ons,_and_Customizations' target='_blank'>애드온 & 확장 프로그램</a>",
-    "clearBrowserData": "브라우저 데이터 없애기",
+    "clearBrowserData": "브라우저 데이터 삭제하기",
     "footerMobile": "모바일",
-    "footerCommunity": "커뮤니티"
+    "footerCommunity": "커뮤니티",
+    "marketing3Header": "앱 및 확장",
+    "marketing2Header": "친구와 경쟁하고, 관심 그룹에 참여하세요",
+    "marketing1Lead1Title": "당신의 삶, 롤플레잉 게임",
+    "logout": "로그아웃",
+    "login": "로그인",
+    "history": "역사학",
+    "free": "무료로 가입하세요",
+    "footerSocial": "사회적인",
+    "minPasswordLength": "암호는 8자 이상이어야 합니다.",
+    "schoolAndWork": "학교와 직장"
 }
