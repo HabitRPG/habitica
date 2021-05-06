@@ -185,5 +185,6 @@
     "purchaseForGold": "<%= cost %> ゴールドで購入しますか？",
     "chatCastSpellParty": "<%= username %> がパーティーに <%= spell %> をかけました。",
     "chatCastSpellUser": "<%= username %> が <%= target %>に <%= spell %>をかけました。",
-    "purchasePetItemConfirm": "この購入は、<%= itemText %>ペットを全てかえすために必要なアイテム数より多いようです。よろしいですか？"
+    "purchasePetItemConfirm": "この購入は、<%= itemText %>ペットを全てかえすために必要なアイテム数より多いようです。よろしいですか？",
+    "notEnoughGold": "ゴールドが足りません。"
 }

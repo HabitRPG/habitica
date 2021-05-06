@@ -183,5 +183,11 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Extensão de Bate-papo para o Chrome</a> e <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Extensão de bate-papo para o Firefox</a>",
     "displaynameIssueNewline": "Os nomes de exibição não podem conter barras invertidas seguidas pela letra N.",
     "resetAccount": "Resetar Conta",
-    "giftedSubscriptionWinterPromo": "Olá <%= username %>, você recebeu <%= monthCount %> meses de assinatura como parte de nossa promoção de presentes de férias!"
+    "giftedSubscriptionWinterPromo": "Olá <%= username %>, você recebeu <%= monthCount %> meses de assinatura como parte de nossa promoção de presentes de férias!",
+    "everywhere": "Em todos os lugares",
+    "suggestMyUsername": "Sugerir meu nome de usuário",
+    "mentioning": "Mencionando",
+    "bannedWordUsedInProfile": "O seu Nome de Exibição ou texto na seção Sobre continha linguagem inapropriada.",
+    "onlyPrivateSpaces": "Somente em espaços privados",
+    "bannedSlurUsedInProfile": "Seu Nome de Exibição ou texto na seção Sobre continha ofensa. Seus privilégios de bate-papo foram revogados."
 }

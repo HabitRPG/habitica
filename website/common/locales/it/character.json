@@ -185,5 +185,6 @@
     "purchasePetItemConfirm": "Questo acquisto supererebbe il numero degli oggetti necessari per far schiudere tutti i possibili animali domestici. Sei sicuro?",
     "purchaseForGold": "Acquistare per <%= cost %> oro?",
     "chatCastSpellUser": "<%= username %> lancia <%= spell %> su <%= target %>.",
-    "chatCastSpellParty": "<%= username %> lancia <%= spell %> per la squadra."
+    "chatCastSpellParty": "<%= username %> lancia <%= spell %> per la squadra.",
+    "notEnoughGold": "Non hai abbastanza oro."
 }

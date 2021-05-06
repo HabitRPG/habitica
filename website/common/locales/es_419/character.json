@@ -185,5 +185,6 @@
     "purchaseForGold": "¿Comprar por  <%= cost %> monedas de oro?",
     "chatCastSpellUser": "<%= username %> lanza <%= spell %> sobre <%= target %>.",
     "chatCastSpellParty": "<%= username %> lanza <%= spell %> para el grupo.",
-    "purchasePetItemConfirm": "Este pago va a exceder el numero de artículos que necesitas para incubar todas las <%= itemText %> mascotas. ¿Estas seguro?"
+    "purchasePetItemConfirm": "Este pago va a exceder el numero de artículos que necesitas para incubar todas las <%= itemText %> mascotas. ¿Estas seguro?",
+    "notEnoughGold": "Oro insuficiente."
 }

@@ -6,7 +6,7 @@
     "spellWizardEarthText": "地震",
     "spellWizardEarthNotes": "你的精神力量撼动了大地。所有队员获得智力上的增益！（法术强度与未增益的智力值有关）",
     "spellWizardFrostText": "极寒霜冻",
-    "spellWizardFrostNotes": "冰霜冻结了你的任务。你所有任务的连击数不会在今天之后归零！ ",
+    "spellWizardFrostNotes": "冰霜冻结了你的任务。你所有任务的连击数不会在今天之后归零！",
     "spellWizardFrostAlreadyCast": "你已经在今天施放过这个法术。你的连击数被冻结，没必要再次施放。",
     "spellWarriorSmashText": "致命一击",
     "spellWarriorSmashNotes": "你全力击中了一项任务，该任务蓝色更深/红色更浅，并对怪物们造成额外伤害！点击一项任务来释放法术。（法术强度与力量值有关）",
