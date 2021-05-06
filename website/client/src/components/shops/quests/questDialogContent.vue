@@ -44,7 +44,7 @@
 
   .text {
     margin-bottom: 1rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     text-overflow: ellipsis;
   }
 
