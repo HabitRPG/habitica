@@ -229,12 +229,12 @@ export default {
   }
 
   .custom-hover--leave {
-    --hover-color: $maroon-50;
+    --hover-color: #{$maroon-50};
     --hover-background: #ffb6b83F;
   }
 
   .custom-hover--upgrade {
-    --hover-color: $green-10;
+    --hover-color: #{$green-10};
     --hover-background: #77f4c73F;
   }
 </style>
