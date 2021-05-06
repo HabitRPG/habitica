@@ -13,7 +13,7 @@
     "accepts": "^1.3.5",
     "amazon-payments": "^0.2.8",
     "amplitude": "^5.1.5",
-    "apidoc": "^0.26.0",
+    "apidoc": "^0.27.1",
     "apple-auth": "^1.0.7",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.18.3",
