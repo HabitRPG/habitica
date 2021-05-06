@@ -183,5 +183,10 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>чат расширение для Chrome</a> и <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>чат расширение для Firefox</a>",
     "displaynameIssueNewline": "Отображаемые имена не могут содержать обратную косую черту, за которой следует буква N.",
     "resetAccount": "Сброс учетной записи",
-    "giftedSubscriptionWinterPromo": "Здравствуйте, <%= username %>, вы получили <%= monthCount %> мес. подписки как часть нашей праздничной промо-акции!"
+    "giftedSubscriptionWinterPromo": "Здравствуйте, <%= username %>, вы получили <%= monthCount %> мес. подписки как часть нашей праздничной промо-акции!",
+    "mentioning": "Упоминание",
+    "bannedWordUsedInProfile": "Ваше отображаемое имя или информация о себе содержит неприемлемый язык.",
+    "bannedSlurUsedInProfile": "Ваше отображаемое имя или информация о себе содержат оскорбление, так что вы лишены права на использование чата.",
+    "everywhere": "Везде",
+    "suggestMyUsername": "Предложить мое имя пользователя"
 }

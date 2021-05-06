@@ -185,5 +185,6 @@
     "chatCastSpellUser": "<%= username %> spreekt <%= spell %> uit op <%= target %>.",
     "chatCastSpellParty": "<%= username %> spreekt <%= spell %> uit voor het gezelschap.",
     "purchasePetItemConfirm": "Deze aankoop zou het aantal voorwerpen dat je nodig hebt om alle mogelijke <%= itemText %> huisdieren uit te broeden, overschrijden. Weet je het zeker?",
-    "purchaseForGold": "Kopen voor <%= cost %> Goud?"
+    "purchaseForGold": "Kopen voor <%= cost %> Goud?",
+    "notEnoughGold": "Niet genoeg goud."
 }

@@ -2345,5 +2345,18 @@
     "headAccessoryMystery202105Notes": "Vista esses chifres iridescentes e invoque a mágica da luz das estrelas. Não confere benefícios. Item de Assinante de Maio de 2021.",
     "headAccessoryMystery202105Text": "Chifres do Dragão de Nebulosa",
     "backMystery202105Notes": "Voe pelo céu estrelado e fique no meio das constelações! Não confere benefícios. Item de Assinante de Maio de 2021.",
-    "backMystery202105Text": "Asas do Dragão de Nebulosa"
+    "backMystery202105Text": "Asas do Dragão de Nebulosa",
+    "shieldArmoireChocolateFoodText": "Chocolate",
+    "shieldArmoireFishFoodText": "Peixe",
+    "shieldArmoireHoneyFoodText": "Mel",
+    "shieldArmoireMeatFoodText": "Carne",
+    "shieldArmoireMilkFoodText": "Leite",
+    "shieldArmoirePotatoFoodText": "Batata",
+    "shieldArmoireStrawberryFoodText": "Morango",
+    "shieldArmoirePotatoFoodNotes": "Batatas são um elemento básico de muitas dietas, mas alguns Mascotes gostariam de viver só delas... Aumenta a Percepção em <%= per %>. Armário Encantado: Conjunto de Alimentos para Mascotes (Item 3 de 10).",
+    "shieldArmoireRottenMeatFoodNotes": "Segure seu nariz! Esta carne estragada pode ser repugnante para você, mas é perfeita para alguns de seus Mascotes! Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto de Alimentos para Mascotes (Item 2 de 10).",
+    "shieldArmoireStrawberryFoodNotes": "Um delicioso morango fresco para alimentar os seus Mascotes! Você sabe quais Mascotes gostam mais de morangos? Aumenta a Força em <%= str %>. Armário Encantado: Conjunto de Alimentos para Mascotes (Item 1 de 10).",
+    "shieldArmoireRottenMeatFoodText": "Carne Estragada",
+    "shieldArmoireBlueCottonCandyFoodText": "Algodão-Doce Azul",
+    "shieldArmoirePinkCottonCandyFoodText": "Algodão-Doce Rosa"
 }

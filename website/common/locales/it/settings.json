@@ -183,5 +183,11 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Estensione Chat per Chrome</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Estensione Chat per Firefox</a>",
     "displaynameIssueNewline": "I nomi pubblici non possono contenere barre rovesciate seguite dalla lettera N.",
     "resetAccount": "Reimposta account",
-    "giftedSubscriptionWinterPromo": "Ciao <%= username %>, hai ricevuto <%= monthCount %> mesi di abbonamento come parte della nostra promozione di regali per le feste!"
+    "giftedSubscriptionWinterPromo": "Ciao <%= username %>, hai ricevuto <%= monthCount %> mesi di abbonamento come parte della nostra promozione di regali per le feste!",
+    "onlyPrivateSpaces": "Solo in spazi privati",
+    "everywhere": "Ovunque",
+    "suggestMyUsername": "Suggerisci il mio nome utente",
+    "bannedWordUsedInProfile": "Il tuo nome visualizzato o il testo Informazioni conteneva un linguaggio inappropriato.",
+    "bannedSlurUsedInProfile": "Il tuo nome pubblico o le tue informazioni contenevano un insulto e i tuoi privilegi di chat sono stati revocati.",
+    "mentioning": "Citazioni"
 }

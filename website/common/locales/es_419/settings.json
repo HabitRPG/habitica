@@ -184,5 +184,11 @@
     "onlyPrivateSpaces": "Solo en espacios privados",
     "displaynameIssueNewline": "Los nombres de usuario no deben contener barras invertidas seguidas de la letra N.",
     "buyGemsGoldCapBase": "Límite de gemas en <%= amount %>",
-    "resetAccount": "Restablecer Cuenta"
+    "resetAccount": "Restablecer Cuenta",
+    "bannedSlurUsedInProfile": "Tu Nombre a Mostrar o el texto Acerca de contenía una ofensa, y tus privilegios de chat han sido revocados.",
+    "everywhere": "En todas partes",
+    "suggestMyUsername": "Sugerir mi nombre de usuario",
+    "mentioning": "Menciones",
+    "bannedWordUsedInProfile": "Tu Nombre para Mostrar o el texto Acerca de contenía lenguaje inapropiado.",
+    "giftedSubscriptionWinterPromo": "¡Hola <%= username %>, recibiste <%= monthCount %> meses de suscripción como parte de nuestra promoción de entrega de regalos!"
 }
