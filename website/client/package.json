@@ -40,7 +40,7 @@
     "hellojs": "^1.19.3",
     "inspectpack": "^4.6.1",
     "intro.js": "^3.4.0",
-    "jquery": "^3.5.1",
+    "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "nconf": "^0.11.2",
