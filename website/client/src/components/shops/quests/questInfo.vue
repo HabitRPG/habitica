@@ -63,6 +63,7 @@ dd {
   text-align: right;
 
   padding-bottom: 0.5rem;
+  white-space: nowrap;
 }
 
 dt, dd {
