@@ -139,8 +139,7 @@ export default {
         || /\s/.test(lastFocusChar) // End Search
         || (lastFocusChar === '@' && delCharsBool) // Cancel Search
       ) {
-        this.searchActive = false;
-        this.searchResults = [];
+        this.cancel();
       } else {
         if (lastFocusChar === '@') this.searchActive = true;
         if (this.searchActive) {
