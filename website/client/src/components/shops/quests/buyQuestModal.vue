@@ -130,7 +130,6 @@
     }
 
     .questInfo {
-      width: 70%;
       margin: 0 auto 10px auto;
     }
 
