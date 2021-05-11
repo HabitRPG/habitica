@@ -7,7 +7,7 @@ import {
 } from '../content/constants';
 
 const CURRENT_EVENT = find(
-  EVENTS, event => moment().isBetween(event.start, event.end) && Boolean(event.season),
+  EVENTS, event => moment().isBetween(event.start, event.end),
 );
 
 const SHOP_OPEN = CURRENT_EVENT && ['winter', 'spring', 'summer', 'fall'].includes(CURRENT_EVENT.season);
@@ -18,8 +18,8 @@ export default {
   currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Closed',
 
   dateRange: {
-    start: SHOP_OPEN ? moment(CURRENT_EVENT.start) : moment().subtract(1, 'days').toDate(),
-    end: SHOP_OPEN ? moment(CURRENT_EVENT.end) : moment().subtract(1, 'seconds').toDate(),
+    start: CURRENT_EVENT ? moment(CURRENT_EVENT.start) : moment().subtract(1, 'days').toDate(),
+    end: CURRENT_EVENT ? moment(CURRENT_EVENT.end) : moment().subtract(1, 'seconds').toDate(),
   },
 
   availableSets: SHOP_OPEN
