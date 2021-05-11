@@ -190,7 +190,7 @@
     "dismissAll": "Avfärda Alla",
     "messages": "Meddelanden",
     "emptyMessagesLine1": "Du har inga meddelanden",
-    "emptyMessagesLine2": "Skicka ett meddelande för att starta en konversation!",
+    "emptyMessagesLine2": "Du kan skicka ett nytt meddelande till en användare genom att besöka deras profil och klicka på \"Meddelande\" knappen.",
     "userSentMessage": "<span class=\"notification-bold\"><%- user %></span> skickade ett meddelande till dig",
     "letsgo": "Låt Oss Gå!",
     "selected": "Valda",

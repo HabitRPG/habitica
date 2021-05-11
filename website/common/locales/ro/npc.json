@@ -74,7 +74,7 @@
     "pathRequired": "Path string is required",
     "unlocked": "Items have been unlocked",
     "alreadyUnlocked": "Full set already unlocked.",
-    "alreadyUnlockedPart": "Full set already partially unlocked.",
+    "alreadyUnlockedPart": "Full set already partially unlocked. It is cheaper to buy the remaining items individually.",
     "invalidQuantity": "Quantity to purchase must be a positive whole number.",
     "USD": "(USD)",
     "newStuff": "New Stuff by Bailey",
@@ -94,7 +94,7 @@
     "classGearText": "Congratulations on choosing a class! I've added your new basic weapon to your inventory. Take a look below to equip it!",
     "autoAllocate": "Alocare automată",
     "spells": "Skills",
-    "skillsTitle": "Skills",
+    "skillsTitle": "<%= classStr %> Aptitudini",
     "toDo": "Sarcină",
     "tourStatsPage": "This is your Stats page! Earn achievements by completing the listed tasks.",
     "tourTavernPage": "Welcome to the Tavern, an all-ages chat room! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Pause Damage\". Come say hi!",
@@ -122,5 +122,12 @@
     "paymentCanceledDisputes": "We’ve sent a cancelation confirmation to your email. If you don’t see the email, please contact us to prevent future billing disputes.",
     "paymentAutoRenew": "This subscription will auto-renew until it is canceled. If you need to cancel this subscription, you can do so from your settings.",
     "paymentSubBillingWithMethod": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong> via <strong><%= paymentMethod %></strong>.",
-    "cannotUnpinItem": "This item cannot be unpinned."
+    "cannotUnpinItem": "This item cannot be unpinned.",
+    "limitedAvailabilityMinutes": "Disponibil pentru <%= minutes %>m <%= seconds %>s",
+    "limitedAvailabilityHours": "Disponibil pentru <%= hours %>h <%= minutes %>m",
+    "limitedAvailabilityDays": "Disponibil pentru <%= days %>d <%= hours %>h <%= minutes %>m",
+    "invalidUnlockSet": "Acest set de obiecte este nevalid și nu poate fi deblocat.",
+    "nMonthsSubscriptionGift": "<%= nMonths %> Abonament(e) Lunar (Cadou)",
+    "nGemsGift": "<%= nGems %> Nestemate (Cadou)",
+    "nGems": "<%= nGems %> Nestemate"
 }

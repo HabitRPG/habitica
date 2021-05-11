@@ -2,7 +2,7 @@
     "settings": "設定",
     "language": "言語",
     "americanEnglishGovern": "翻訳の不一致が発生した場合、アメリカ英語版に統一します。",
-    "helpWithTranslation": "Habiticaの翻訳にご協力いただけますか？ すばらしい！ それなら<a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists</a>ギルドにアクセスしてください！ 日本語の翻訳については[Habitica 日本語訳 Team](https://habitica.com/groups/guild/79db718e-69fd-4e6c-a075-43ef0b26de67)ギルドへどうぞ！",
+    "helpWithTranslation": "Habiticaの翻訳にご協力いただけますか？ すばらしい！ それなら<a href=\"/groups/guild/7732f64c-33ee-4cce-873c-fc28f147a6f7\">the Aspiring Linguists</a>ギルドにアクセスしてください！ 日本語の翻訳については<a href=\"/groups/guild/79db718e-69fd-4e6c-a075-43ef0b26de67\">Habitica 日本語訳 Team</a>ギルドへどうぞ！",
     "stickyHeader": "スティッキーヘッダー",
     "newTaskEdit": "新しいタスクを編集モードで開く",
     "dailyDueDefaultView": "日課を標準で「期限」タブに入れる",
@@ -175,7 +175,7 @@
     "goToSettings": "設定を行う",
     "usernameVerifiedConfirmation": "あなたのユーザー名、<%= username %>、は承認されました！",
     "usernameNotVerified": "あなたのユーザー名を承認してください。",
-    "changeUsernameDisclaimer": "あなたのユーザー名は、招待、チャットでの＠返信、メッセージのやりとりなどで使用されます。ユーザー名は1～20文字以内にする必要があり、a～zの英字、0～9の数字、ハイフン、アンダーバーのみが使えます。不適切な言葉は使用できません。",
+    "changeUsernameDisclaimer": "あなたのユーザー名は、招待・チャットでの返信・メッセージのやりとりなどで使用されます。ユーザー名は1～20文字以内にする必要があり、a～zの英字・0～9の数字・ハイフン・アンダーバーのみが使えます。不適切な言葉は使用できません。",
     "verifyUsernameVeteranPet": "あなたが承認を終えたあとには、百戦練磨のペットのうち１匹があなたを待っていることでしょう！",
     "subscriptionReminders": "有料プランについてのリマインダー",
     "newPMNotificationTitle": "<%= name %>からの新しいメッセージ",
@@ -185,5 +185,9 @@
     "resetAccount": "アカウントのリセット",
     "giftedSubscriptionWinterPromo": "こんにちは<%= username %>。祭日のプレゼントキャンペーンの一環として、あなたは<%= monthCount %> カ月分の有料プランを受け取りました！",
     "mentioning": "返信",
-    "bannedWordUsedInProfile": "表示名かプロフィールの文章に不適切な言葉が含まれていました。"
+    "bannedWordUsedInProfile": "表示名かプロフィールの文章に不適切な言葉が含まれていました。",
+    "bannedSlurUsedInProfile": "あなたのディスプレイ名か自己紹介文に中傷が含まれるため、チャットの機能は無効になっています。",
+    "onlyPrivateSpaces": "プライベートスペースのみ",
+    "suggestMyUsername": "ユーザー名を提案してもらう",
+    "everywhere": "どこでも"
 }
