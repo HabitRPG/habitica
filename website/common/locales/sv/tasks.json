@@ -80,7 +80,7 @@
     "perfectText": "Avslutade alla Dagliga Uppgifter på <%= count %> dagar. Med denna prestation får du en +level/2 buff på alla Egenskaper under nästa dag. Nivåer över 100 har ingen ytterligare effekt på buffertar.",
     "perfectSingular": "Perfekt Dag",
     "perfectSingularText": "Avslutade alla aktiva Dagliga uppgifter under en dag. Med denna prestation får du en +level/2 buff på alla Egenskaper under nästa dag. Nivåer över 100 har ingen ytterligare effekt på buffertar.",
-    "fortifyName": "Stärkande Dryck",
+    "fortifyName": "Stärkande brygd",
     "fortifyPop": "Återställ alla uppgifter till neutralt värde (gul färg) och återställ all förlorad Hälsa.",
     "fortify": "Stärk",
     "fortifyComplete": "Stärkning är fullständig!",

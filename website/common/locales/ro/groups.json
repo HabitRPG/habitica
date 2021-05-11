@@ -345,7 +345,7 @@
     "taskClaimed": "<%- userName %> has claimed the task <span class=\"notification-bold\"><%- taskText %></span>.",
     "youHaveBeenAssignedTask": "<%- managerName %> has assigned you the task <span class=\"notification-bold\"><%- taskText %></span>.",
     "userWithUsernameOrUserIdNotFound": "Username or User ID not found.",
-    "usernameOrUserId": "Username or User ID",
+    "usernameOrUserId": "Introduceți @NumeleDeUtilizator sau ID-ul Utilizatorului",
     "sendGiftToWhom": "Who would you like to send a gift to?",
     "selectGift": "Select Gift",
     "pmReported": "Thank you for reporting this message.",

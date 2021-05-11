@@ -1,5 +1,5 @@
 {
-    "potionText": "Hälsodryck",
+    "potionText": "Hälsobrygd",
     "potionNotes": "Återställ 15 hälsopoäng omedelbart",
     "armoireText": "Förtrollat vapenskåp",
     "armoireNotesFull": "Öppna vapenskåpet för att få en slumpmässig specialutrustning, erfarenhet eller mat! Utrustningsdelar kvar:",
@@ -182,7 +182,7 @@
     "questEggVelociraptorText": "Velociraptor-husdjur",
     "questEggVelociraptorMountText": "Ridbar Velociraptor",
     "questEggVelociraptorAdjective": "en listig",
-    "eggNotes": "Hitta en kläckningsdryck och häll på det här ägget så kommer det kläckas till <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
+    "eggNotes": "Hitta en kläckningsbrygd och häll på det här ägget så kommer det kläckas till <%= eggAdjective(locale) %> <%= eggText(locale) %>.",
     "hatchingPotionBase": "Standard",
     "hatchingPotionWhite": "Vit",
     "hatchingPotionDesert": "Öken",

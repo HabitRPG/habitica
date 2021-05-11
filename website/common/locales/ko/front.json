@@ -27,5 +27,12 @@
     "free": "무료로 가입하세요",
     "footerSocial": "사회적인",
     "minPasswordLength": "암호는 8자 이상이어야 합니다.",
-    "schoolAndWork": "학교와 직장"
+    "schoolAndWork": "학교와 직장",
+    "localStorageClear": "데이터 삭제",
+    "tumblr": "",
+    "teams": "팀들",
+    "school": "학교",
+    "joinToday": "오늘 habitica에 가입하세요",
+    "pkQuestion8": "Habitica는 사람들의 실제 삶에 어떤 영향을 끼쳤는가?",
+    "pkMoreQuestions": "이 목록에 없는 질문이 있습니까? admin@habitica.com으로 이메일을 보내세요!"
 }

@@ -53,5 +53,11 @@
     "messageMissingDisplayName": "Numele afișat lipsește.",
     "canDeleteNow": "Acum puteți șterge mesajul dacă doriți.",
     "reportedMessage": "Ați raportat acest mesaj moderatorilor.",
-    "beginningOfConversationReminder": "Nu uitați să fiți amabili, respectuosi și urmați Regulile Comunității!"
+    "beginningOfConversationReminder": "Nu uitați să fiți amabili, respectuosi și urmați Regulile Comunității!",
+    "newsPostNotFound": "Postarea de știri nu a fost găsită sau nu aveți acces.",
+    "messageAllUnEquipped": "Totul dezechipat.",
+    "messageBackgroundUnEquipped": "Fundalul dezechipat.",
+    "messagePetMountUnEquipped": "Companion și animalul de călărit dezechipat.",
+    "messageCostumeUnEquipped": "Costum neechipat.",
+    "messageBattleGearUnEquipped": "Echipament de luptă neechipat."
 }

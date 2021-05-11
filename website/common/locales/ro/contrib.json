@@ -28,7 +28,7 @@
     "helped": "A ajutat Habitica să crească",
     "hall": "Sala Eroilor",
     "contribTitle": "Titlu de Contribuitor (ex. „Fierar”)",
-    "contribLevel": "Nivelul Contrib",
+    "contribLevel": "Nivelul Contribuției",
     "contribHallText": "1-7 for normal contributors, 8 for moderators, 9 for staff. This determines which items, pets, and mounts are available. Also determines name-tag coloring. Tiers 8 and 9 are automatically given admin status.",
     "hallContributors": "Sala Contribuitorilor",
     "hallPatrons": "Sala Patronilor",
