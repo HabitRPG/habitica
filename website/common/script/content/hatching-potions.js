@@ -86,18 +86,27 @@ const premium = {
     value: 2,
     text: t('hatchingPotionFairy'),
     limited: true,
+    event: EVENTS.potions202105,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndMay'),
-      previousDate: t('mayYYYY', { year: 2017 }),
+      previousDate: t('mayYYYY', { year: 2020 }),
     }),
     canBuy () {
-      return moment().isBefore('2020-06-02');
+      return moment().isBefore(EVENTS.potions202105.end);
     },
   },
   Floral: {
     value: 2,
     text: t('hatchingPotionFloral'),
     limited: true,
+    event: EVENTS.potions202105,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndMay'),
+      previousDate: t('mayYYYY', { year: 2016 }),
+    }),
+    canBuy () {
+      return moment().isBefore(EVENTS.potions202105.end);
+    },
   },
   Aquatic: {
     value: 2,

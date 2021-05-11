@@ -2175,7 +2175,7 @@
   "shieldArmoireChocolateFoodText": "Chocolate",
   "shieldArmoireChocolateFoodNotes": "Everybody likes a little chocolate, but some of your pets are keener than others... Increases Intelligence by <%= int %>. Enchanted Armoire: Pet Food Set (Item 8 of 10).",
   "shieldArmoireBlueCottonCandyFoodText": "Blue Cotton Candy",
-  "shieldArmoireBlueCottonCandyFoodNotes": "A sweet treat for the pets with a sweet tooth. But who will like it best? Increases Constitution by <%= con %>. Enchanted Armoire: Pet Food Set (Item 9 of 9).",
+  "shieldArmoireBlueCottonCandyFoodNotes": "A sweet treat for the pets with a sweet tooth. But who will like it best? Increases Constitution by <%= con %>. Enchanted Armoire: Pet Food Set (Item 9 of 10).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
