@@ -102,7 +102,7 @@ const premium = {
     event: EVENTS.potions202105,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndMay'),
-      previousDate: t('mayYYYY', { year: 2016 }),
+      previousDate: t('mayYYYY', { year: 2019 }),
     }),
     canBuy () {
       return moment().isBefore(EVENTS.potions202105.end);
