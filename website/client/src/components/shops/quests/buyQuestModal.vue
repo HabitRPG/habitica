@@ -26,7 +26,10 @@
       class="content"
     >
       <div class="inner-content">
-        <questDialogContent :item="item" />
+        <questDialogContent
+          :item="item"
+          :abbreviated="true"
+        />
         <div
           v-if="!item.locked"
           class="purchase-amount"
@@ -129,11 +132,6 @@
 
     .modal-body {
       padding-bottom: 0px;
-    }
-
-    .questInfo {
-      width: 70%;
-      margin: 0 auto 10px auto;
     }
 
     .right-sidebar {
