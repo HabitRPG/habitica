@@ -2,7 +2,7 @@
     "communityGuidelinesWarning": "Tänk på att ditt användarnamn, profilbild och presentation måste följa <a href='https://habitica.com/static/community-guidelines' target='_blank'>gemenskapens riktlinjer</a> (t.ex. inga svordomar, inget opassande material, inga förolämpningar, etc.). Om du har frågor om huruvida något är passande, maila gärna <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Skräddarsy Avatar",
-    "editAvatar": "Redigera Karaktär",
+    "editAvatar": "Redigera karaktär",
     "noDescription": "Denna Habitican har inte lagt till en beskrivning.",
     "noPhoto": "Denna Habitican har inte lagt till ett foto.",
     "other": "Annat",
