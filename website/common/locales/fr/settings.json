@@ -183,5 +183,11 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Extension de discussion Chrome</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Extension de discussion Firefox</a>",
     "displaynameIssueNewline": "Les pseudo ne peuvent pas contenir d'antislashes suivis de la lettre N.",
     "resetAccount": "Réinitialiser le compte",
-    "giftedSubscriptionWinterPromo": "Bonjour <%= username %>, vous avez reçu <%= monthCount %> mois de d'abonnement en cadeau dans le cadre de notre promotion de vacances !"
+    "giftedSubscriptionWinterPromo": "Bonjour <%= username %>, vous avez reçu <%= monthCount %> mois de d'abonnement en cadeau dans le cadre de notre promotion de vacances !",
+    "bannedSlurUsedInProfile": "Votre pseudo ou votre message de description contenait une insulte, et vos droits de discussion ont été révoqués.",
+    "onlyPrivateSpaces": "Seulement dans les espaces privés",
+    "everywhere": "Partout",
+    "suggestMyUsername": "Suggérer mon identifiant",
+    "mentioning": "Mentions",
+    "bannedWordUsedInProfile": "Votre pseudo ou votre texte de présentation contenait un langage inapproprié."
 }

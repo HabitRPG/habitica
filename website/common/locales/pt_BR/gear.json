@@ -2360,5 +2360,6 @@
     "shieldArmoireBlueCottonCandyFoodText": "Algodão-Doce Azul",
     "shieldArmoirePinkCottonCandyFoodText": "Algodão-Doce Rosa",
     "shieldArmoireMilkFoodNotes": "Existem muitos relatos sobre os benefícios do leite para a saúde, mas os Mascotes que o preferem apenas adoram seu sabor cremoso. Aumenta a Constituição e a Força em <%= attrs %> cada. Armário Encantado: Conjunto de Alimentos para Mascotes (Item 10 de 10)",
-    "shieldArmoireBlueCottonCandyFoodNotes": "Uma guloseima para Mascotes com dente doce. Mas qual deles vai gostar mais? Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto de Alimentos para Mascotes (Item 9 de 10)."
+    "shieldArmoireBlueCottonCandyFoodNotes": "Uma guloseima para Mascotes com dente doce. Mas qual deles vai gostar mais? Aumenta a Constituição em <%= con %>. Armário Encantado: Conjunto de Alimentos para Mascotes (Item 9 de 10).",
+    "shieldArmoirePinkCottonCandyFoodNotes": "Uma guloseima para Mascotes com dente doce. Mas qual deles vai gostar mais? Aumenta a Inteligência em <%= int %>. Armário Encantado: Conjunto de Alimentos para Mascotes (Item 4 de 10)."
 }
