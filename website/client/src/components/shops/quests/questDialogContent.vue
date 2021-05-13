@@ -14,6 +14,7 @@
     <questInfo
       class="questInfo"
       :quest="item"
+      :abbreviated="true"
     />
   </div>
 </template>

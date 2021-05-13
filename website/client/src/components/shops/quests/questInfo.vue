@@ -1,42 +1,43 @@
 <template>
-  <div>
+  <div
+    class="d-flex flex-column justify-content-center"
+  >
     <div
-      class="row"
+      v-if="quest.collect"
+      class="table-row m-auto"
     >
-      <div
-        v-if="quest.collect"
-        class="table-row"
-      >
-        <dt>{{ $t('collect') + ':' }}</dt>
-        <dd>
-          <div
-            v-for="(collect, key) of quest.collect"
-            :key="key"
-          >
-            <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
-          </div>
-        </dd>
-      </div>
-      <div
-        v-if="quest.boss"
-        class="table-row"
-      >
-        <dt>{{ $t('bossHP') + ':' }}</dt>
-        <dd>{{ quest.boss.hp }}</dd>
-      </div>
-      <div class="table-row">
-        <dt>{{ $t('difficulty') + ':' }}</dt>
-        <dd>
-          <div
-            v-for="(star, index) of stars()"
-            :key="index"
-            class="svg-icon inline icon-16"
-            v-html="icons[star]"
-          ></div>
-        </dd>
-      </div>
+      <dt>{{ $t('collect') + ':' }}</dt>
+      <dd>
+        <div
+          v-for="(collect, key) of quest.collect"
+          :key="key"
+        >
+          <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
+        </div>
+      </dd>
     </div>
-    <div v-if="quest.event">
+    <div
+      v-if="quest.boss"
+      class="table-row m-auto"
+    >
+      <dt>{{ $t('bossHP') + ':' }}</dt>
+      <dd>{{ quest.boss.hp }}</dd>
+    </div>
+    <div class="table-row m-auto">
+      <dt>{{ $t('difficulty') + ':' }}</dt>
+      <dd>
+        <div
+          v-for="(star, index) of stars()"
+          :key="index"
+          class="svg-icon inline icon-16"
+          v-html="icons[star]"
+        ></div>
+      </dd>
+    </div>
+    <div
+      v-if="quest.event && !abbreviated"
+      class="m-auto"
+    >
       {{ limitedString }}
     </div>
   </div>
@@ -130,6 +131,10 @@ export default {
   props: {
     quest: {
       type: Object,
+    },
+    abbreviated: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {
