@@ -10,5 +10,13 @@ export default function localizeNumber (valIn, lang, optIn) {
     optOut.minimumFractionDigits = toFixed;
   }
 
-  return val.toLocaleString(lang, optOut);
+  return val.toLocaleString(
+    // Catch null just incase
+    (lang || [])
+      // Strip beyond @ symbol to allow custom languages
+      .replace(/@(?:.+)$/, '')
+      // We use underscore, this mthd uses dash
+      .replace('_', '-'),
+    optOut,
+  );
 }
