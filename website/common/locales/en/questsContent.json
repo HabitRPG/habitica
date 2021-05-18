@@ -842,5 +842,14 @@
   "questBlackPearlCompletion": "As you batter and blast the beastie, it sheds black pearls across the sands. Their glistening surfaces catch your eye as you dodge another smashing tentacle.<br><br>You may be in mortal peril, but you can’t help thinking of how beautifully they glimmer. Then you can’t help thinking that this is a terrible time for a new potion idea.<br><br>Suddenly the monster freezes. @jjgame83 and @PixelStormArt exchange baffled looks and lower their weapons.<br><br>“YOU HAVE YOUR WISH, MORTAL. MY WORK IS DONE.”<br><br>Asteroidea vanishes, and the sky and waters clear. @QuartzFox stares at you. “Care to explain?”<br><br>You try your best, and together you fill the picnic basket with black pearls. An afternoon of alchemy later, you have to admit it was a pretty good idea.",
   "questBlackPearlBoss": "Asteroidea",
   "questBlackPearlDropBlackPearlPotion": "Black Pearl Hatching Potion",
-  "questBlackPearlUnlockText": "Unlocks Black Pearl Hatching Potions for purchase in the Market"
+  "questBlackPearlUnlockText": "Unlocks Black Pearl Hatching Potions for purchase in the Market",
+
+  "questStoneText": "A Maze of Moss",
+  "questStoneNotes": "You open the gates to the Fortress of Neglect only to be surprised by the moss that has grown all over the statues, rocks and surfaces in the garden. “Oh no, the garden has been neglected for too long!” says @jjgame83.<br><br>“Well, it's never too late to start tending to the garden,” @PixelStormArt says enthusiastically, “but where shall we start tackling the maze of moss?”<br><br>“We can make and follow a plan so we don't get lost,” says @QuartzFox.<br><br>While clearing away the mossy rocks, @starsystemic spots Mars and Capricorn runes hidden underneath. “What are these for? Let's take them back to the Habit City Library to look them up when we're finished.”<br><br>That's assuming you find your way back out of here at all, you think, but don't say aloud.",
+  "questStoneCompletion": "The work clearing overgrowth and moving loose stones taxes you to the limits of your strength. But you divide the work among the team, and place stones in the paths behind you to help you find your way back to the others. The runes you find bolster your strength and determination, too, and in the end the garden doesn't look so neglected at all!<br><br>You convene at the Library as @starsystemic suggested, and find a Magic Potion formula that uses the runes you collected. “This is an unexpected reward for attending to our neglected tasks,” says @jjgame83.<br><br>@QuartzFox agrees, “And that is on top of having a beautiful garden to enjoy with our pets.”<br><br>“Let's start making some a-mazing Mossy Stone Hatching Potions!” says @starsystemic, and everyone joins in happily.",
+  "questStoneCollectMarsRunes": "Mars Runes",
+  "questStoneCollectCapricornRunes": "Capricorn Runes",
+  "questStoneCollectMossyStones": "Mossy Stones",
+  "questStoneDropMossyStonePotion": "Mossy Stone Hatching Potion",
+  "questStoneUnlockText": "Unlocks Mossy Stone Hatching Potions for purchase in the Market"
 }

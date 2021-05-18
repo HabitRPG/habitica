@@ -452,6 +452,13 @@ const premium = {
       return moment().isBefore(EVENTS.spring2021.end);
     },
   },
+  MossyStone: {
+    value: 2,
+    text: t('hatchingPotionMossyStone'),
+    limited: true,
+    canBuy: hasQuestAchievementFunction('stone'),
+    _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
 };
 
 const wacky = {
