@@ -3763,6 +3763,47 @@ const quests = {
       unlock: t('questBlackPearlUnlockText'),
     },
   },
+  stone: {
+    text: t('questStoneText'),
+    notes: t('questStoneNotes'),
+    completion: t('questStoneCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      mossyStone: {
+        text: t('questStoneCollectMossyStones'),
+        count: 25,
+      },
+      marsRune: {
+        text: t('questStoneCollectMarsRunes'),
+        count: 10,
+      },
+      capricornRune: {
+        text: t('questStoneCollectCapricornRunes'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'MossyStone',
+          text: t('questStoneDropMossyStonePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'MossyStone',
+          text: t('questStoneDropMossyStonePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'MossyStone',
+          text: t('questStoneDropMossyStonePotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questStoneUnlockText'),
+    },
+  },
 };
 
 each(quests, (v, key) => {
