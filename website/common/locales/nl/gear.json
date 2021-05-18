@@ -2345,5 +2345,18 @@
     "backMystery202105Text": "Nevel drakenvleugels",
     "eyewearArmoireClownsNoseNotes": "Dit accessoire zorgt ervoor dat iedereen weet dat je een clown bent! Verhoogt Intelligentie met <%= int %>. Betoverde kast: Clown Set (voorwerp 2 van 5).",
     "eyewearArmoireClownsNoseText": "Clown's neus",
-    "headAccessoryMystery202105Notes": "Trek deze iriserende hoorns aan en roep de magie van sterrenlicht op. Geeft geen voordelen. Abonnee uitrusting uit mei 2021."
+    "headAccessoryMystery202105Notes": "Trek deze iriserende hoorns aan en roep de magie van sterrenlicht op. Geeft geen voordelen. Abonnee uitrusting uit mei 2021.",
+    "shieldArmoirePotatoFoodText": "Decoratieve Aardappel",
+    "shieldArmoireRottenMeatFoodText": "Decoratief Bedorven Vlees",
+    "shieldArmoireStrawberryFoodNotes": "Een heerlijk verse aardbei om aan je huisdieren te voeden! Weet jij welk huisdieren aardbeien het liefste hebben? Verhoogt Kracht met <%= str %>. Betoverde Kast: Huisdier Eten Set (Voorwerp 1 van 10).",
+    "shieldArmoireStrawberryFoodText": "Decoratieve Aardbei",
+    "shieldArmoireChocolateFoodText": "Decoratieve chocolade",
+    "shieldArmoireFishFoodText": "Decoratieve vis",
+    "shieldArmoireHoneyFoodText": "Decoratieve honing",
+    "shieldArmoireMeatFoodText": "Decoratief vlees",
+    "shieldArmoireMilkFoodText": "Decoratieve melk",
+    "shieldArmoirePinkCottonCandyFoodText": "Decoratieve roze suikerspin",
+    "shieldArmoirePinkCottonCandyFoodNotes": "Een zoete traktatie voor de huisdieren met een zoetekauw. Maar wie vindt het het leukst? Verhoogt Intelligentie met <%= int %>. Betoverde kast: dierenvoeding set (voorwerp 4 van 10).",
+    "shieldArmoirePotatoFoodNotes": "Aardappelen zijn een hoofdbestanddeel van veel diëten, maar sommige huisdieren zouden graag alleen van aardappelen willen leven... Verhoogt Perceptie met <%= per %>. Betoverde kast: dierenvoeding set (voorwerp 3 van 10).",
+    "shieldArmoireRottenMeatFoodNotes": "Houd je neus vast! Dit rotte vlees is misschien walgelijk voor je, maar het is perfect voor sommige van je huisdieren! Verhoogt Weerbaarheid met <%= con %>. Betoverde kast: dierenvoeding set (voorwerp 2 van 10)."
 }

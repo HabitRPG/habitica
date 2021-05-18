@@ -4,5 +4,6 @@
     "eggsItemType": "蛋",
     "hatchingPotionsItemType": "孵化藥水",
     "specialItemType": "特殊物品",
-    "lockedItem": "未解鎖物品"
+    "lockedItem": "未解鎖物品",
+    "allItems": "所有項目"
 }

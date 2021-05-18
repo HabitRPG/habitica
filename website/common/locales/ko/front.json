@@ -36,5 +36,8 @@
     "pkQuestion8": "Habitica는 사람들의 실제 삶에 어떤 영향을 끼쳤는가?",
     "pkMoreQuestions": "이 목록에 없는 질문이 있습니까? admin@habitica.com으로 이메일을 보내세요!",
     "pkWebsite": "웹사이트",
-    "generalQuestionsSite": "사이트에 대한 일반 질문"
+    "generalQuestionsSite": "사이트에 대한 일반 질문",
+    "learnMore": "더 배우기",
+    "wrongPassword": "잘못된 암호.",
+    "muchmuchMore": "그리고 훨씬 더!"
 }
