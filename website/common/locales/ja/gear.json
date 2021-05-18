@@ -2345,5 +2345,12 @@
     "headAccessoryMystery202105Notes": "この玉虫色の角をかぶって、魔法の星明かりを召喚しましょう。効果なし。2021年5月の有料会員アイテム。",
     "headAccessoryMystery202105Text": "ネビュラドラゴンの角",
     "backMystery202105Notes": "星空を滑空し、星座の一翼を担いましょう。効果なし。2021年5月の有料会員アイテム。",
-    "backMystery202105Text": "ネビュラドラゴンの翼"
+    "backMystery202105Text": "ネビュラドラゴンの翼",
+    "shieldArmoirePinkCottonCandyFoodText": "ピンクのわたあめ",
+    "shieldArmoirePotatoFoodNotes": "ジャガイモは人間の食事でも主食である事が多いですが、じゃがいもだけ食べていたいペットもいるようです……知覚が<%= per %>上がります。ラッキー宝箱：ペットのえさセット（10個中3個目のアイテム）。",
+    "shieldArmoirePotatoFoodText": "じゃがいも",
+    "shieldArmoireRottenMeatFoodNotes": "鼻を塞いで！この腐った肉はあなたには最悪ですが、このえさがうってつけのペットもいるようです！体質が<%= con %>上がります。ラッキー宝箱：ペットのえさセット（10個中2個目のアイテム）。",
+    "shieldArmoireRottenMeatFoodText": "腐った肉",
+    "shieldArmoireStrawberryFoodNotes": "ペット用の新鮮なおいしいいちごです！どんなペットが一番いちごが好きか知っていますか？力が<%= str %>上がります。ラッキー宝箱：ペットのえさセット（10個中1個目のアイテム）。",
+    "shieldArmoireStrawberryFoodText": "いちご"
 }

@@ -183,5 +183,7 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chromeのチャット拡張機能</a>と<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefoxのチャット拡張機能</a>",
     "displaynameIssueNewline": "表示名はバックスラッシュとNの文字を連続して使うことができません。",
     "resetAccount": "アカウントのリセット",
-    "giftedSubscriptionWinterPromo": "こんにちは<%= username %>。祭日のプレゼントキャンペーンの一環として、あなたは<%= monthCount %> カ月分の有料プランを受け取りました！"
+    "giftedSubscriptionWinterPromo": "こんにちは<%= username %>。祭日のプレゼントキャンペーンの一環として、あなたは<%= monthCount %> カ月分の有料プランを受け取りました！",
+    "mentioning": "返信",
+    "bannedWordUsedInProfile": "表示名かプロフィールの文章に不適切な言葉が含まれていました。"
 }

@@ -94,7 +94,7 @@
     "classGearText": "¡Felicitaciones por haber escogido una clase! He añadido tu nueva arma básica a tu inventario. ¡Écha una mirada abajo para equiparla!",
     "autoAllocate": "Asignación automática",
     "spells": "Habilidades",
-    "skillsTitle": "<%= classStr %> Habilidades",
+    "skillsTitle": "Habilidades de <%= classStr %>",
     "toDo": "Pendiente",
     "tourStatsPage": "¡Esta es la página de Estadísticas! Gana logros completando las tareas en la lista.",
     "tourTavernPage": "Bienvenido a la Taverna, ¡un salón de chat para todas las edades! Puedes evitar el daño de tus Diarias en caso de enfermedad o viajes haciendo clic en \"Suspender Daño\". ¡Entra, y di hola!",
@@ -126,5 +126,8 @@
     "cannotUnpinItem": "Este artículo no puede desclavarse.",
     "nMonthsSubscriptionGift": "<%= nMonths %> Mes(es) de Suscripción (Regalo)",
     "nGemsGift": "<%= nGems %> Gemas (Regalo)",
-    "nGems": "<%= nGems %> Gemas"
+    "nGems": "<%= nGems %> Gemas",
+    "limitedAvailabilityMinutes": "Disponible por <%= minutos %>m <%= segundos %>s",
+    "limitedAvailabilityHours": "Disponible por <%= horas %>h <%= minutos %>m",
+    "limitedAvailabilityDays": "Disponible por <%= días %>d <%= horas %>h <%= minutos %>m"
 }

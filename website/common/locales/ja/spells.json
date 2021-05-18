@@ -6,7 +6,7 @@
     "spellWizardEarthText": "地震",
     "spellWizardEarthNotes": "精神の力で大地を揺らします。パーティー全員の知能に勢いボーナスがつきます!　( 基準 : 勢いなしの知能 )",
     "spellWizardFrostText": "酷寒の霜",
-    "spellWizardFrostNotes": "これを一度唱えると、あなたのタスクはすべて凍りつき、唱えた次の日はタスクの連続実行が0にリセットされなくなります！ ",
+    "spellWizardFrostNotes": "一度唱えると、あなたのタスクはすべて凍りつき、唱えた次の日はタスクの連続実行が0にリセットされなくなります！",
     "spellWizardFrostAlreadyCast": "今日はすでにこのスキルを唱えました。連続実行は凍結されているので、再度唱える必要はありません。",
     "spellWarriorSmashText": "強烈なスマッシュ",
     "spellWarriorSmashNotes": "任意のタスクの色を青に近づけて、ボスに追加ダメージを与えます!(基準 : 力)",

@@ -198,7 +198,13 @@
               <div class="col-6">
                 <span
                   class="float-left"
-                >{{ $t('rage') }} {{ parseFloat(group.quest.progress.rage).toFixed(2) }} / {{ questData.boss.rage.value }}</span> <!-- eslint-disable-line max-len -->
+                >{{ $t('rage') }} {{
+                  parseFloat(group.quest.progress.rage)
+                    | localizeNumber(user.preferences.language, { toFixed:2 })
+                }} / {{
+                  questData.boss.rage.value
+                    | localizeNumber(user.preferences.language)
+                }}</span>
               </div>
             </div>
           </div>
