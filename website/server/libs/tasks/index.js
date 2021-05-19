@@ -410,7 +410,7 @@ async function scoreTask (user, task, direction, req, res) {
 
   if (localTask) {
     localTask.completed = task.completed;
-    localTask.value = task.value + delta;
+    localTask.value = Number(task.value) + Number(delta);
     await localTask.save();
   }
 
