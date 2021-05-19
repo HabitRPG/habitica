@@ -21,23 +21,13 @@
       </b-dropdown-header>
       <template v-slot:button-content>
         <div
-          v-if="selectedItem !== null"
-          class="selected-item mr-1 d-inline-flex align-items-center"
+          class="mr-1 d-inline-flex align-items-center"
           @click.stop="selectItem({id: selectedItem})"
+          v-markdown="
+            allItemsMap[selectedItem] ? `@${allItemsMap[selectedItem].name}`
+            : emptyMessage
+          "
         >
-          <div
-            v-markdown="allItemsMap[selectedItem].name"
-            class="multi-label my-auto ml-75 mr-2"
-          ></div>
-          <div
-            class="remove ml-auto mr-75"
-            v-html="icons.remove"
-          ></div>
-        </div>
-        <div
-          v-else
-        >
-          {{ emptyMessage }}
         </div>
       </template>
       <div
@@ -91,27 +81,6 @@
       line-height: 16px;
       letter-spacing: normal;
       color: $gray-100;
-    }
-
-    &:hover {
-      .remove svg path {
-        stroke: $maroon-50;
-      }
-    }
-
-    .remove {
-      display: inline-block;
-      object-fit: contain;
-      margin-top: -0.125rem;
-
-      svg {
-        width: 0.5rem;
-        height: 0.5rem;
-
-        path {
-          stroke: $gray-200;
-        }
-      }
     }
   }
 
@@ -206,7 +175,6 @@
 <script>
 import Vue from 'vue';
 import markdownDirective from '@/directives/markdown';
-import removeIcon from '@/assets/svg/remove.svg';
 
 export default {
   directives: {
@@ -238,9 +206,6 @@ export default {
       isOpened: false,
       selected: this.selectedItem,
       search: '',
-      icons: Object.freeze({
-        remove: removeIcon,
-      }),
     };
   },
   computed: {

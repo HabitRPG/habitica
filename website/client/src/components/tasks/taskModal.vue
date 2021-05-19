@@ -451,10 +451,18 @@
           <div class="form-group row mt-3 mb-3">
             <label
               v-once
-              class="col-12 mb-1"
+              class="col-10 mb-1"
             >{{ $t('assignedTo') }}</label>
+            <a
+              v-if="assignedMember"
+              class="col-2 text-right mt-1"
+              @click="toggleAssignment(assignedMember._id)"
+            >
+              {{ $t('clear') }}
+            </a>
             <div class="col-12">
               <select-single
+                :key="assignedMember"
                 :all-items="membersNameAndId"
                 :empty-message="$t('unassigned')"
                 :search-placeholder="$t('chooseTeamMember')"
@@ -627,6 +635,12 @@
   @import '~@/assets/scss/colors.scss';
 
   #task-modal {
+    a {
+      font-size: 12px;
+      line-height: 1.33;
+      color: $blue-10;
+    }
+
     .modal-dialog.modal-sm {
       max-width: 448px;
     }
