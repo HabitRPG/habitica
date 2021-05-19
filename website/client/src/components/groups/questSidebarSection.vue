@@ -200,7 +200,7 @@
                   class="float-left"
                 >{{ $t('rage') }} {{
                   parseFloat(group.quest.progress.rage)
-                    | localizeNumber(user.preferences.language, { toFixed:2 })
+                    | localizeNumber(user.preferences.language, { toFixed: 2 })
                 }} / {{
                   questData.boss.rage.value
                     | localizeNumber(user.preferences.language)
