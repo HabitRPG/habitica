@@ -1046,17 +1046,17 @@ export default {
     showTaskLockIcon () {
       if (this.isUser) return false;
       if (this.isGroupTask) {
-        if (this.isOpenTask) {
-          if (!this.task.completed) return false;
+        if (this.task.completed) {
           if (this.task.group.completedBy === this.user._id) return false;
+          if (this.teamManagerAccess) return false;
           return true;
         }
+        if (this.isOpenTask) return false;
         if (this.task.group.assignedUsers.indexOf(this.user._id) !== -1) return false;
         if (
           this.task.group.assignedUsers.length > 0
           && this.task.group.assignedUsers.indexOf(this.user._id) === -1
         ) return true;
-        if (this.teamManagerAccess) return false;
       }
       return true;
     },

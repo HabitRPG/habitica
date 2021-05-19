@@ -337,22 +337,6 @@ async function scoreTask (user, task, direction, req, res) {
   }
 
   let localTask;
-
-  if (task.group.id && !task.userId && task.group.assignedUsers.length > 0) {
-    // Task is being scored from team board, and a user copy should exist
-    if (!task.group.assignedUsers.includes(user._id)) {
-      throw new BadRequest('Task has not been assigned to this user.');
-    }
-
-    localTask = await Tasks.Task.findOne(
-      { userId: user._id, 'group.taskId': task._id },
-    ).exec();
-    if (!localTask) throw new NotFound('Task not found.');
-  }
-
-  const wasCompleted = task.completed;
-  const firstTask = !user.achievements.completedTask;
-  let delta;
   let rollbackUser;
 
   if (
@@ -372,7 +356,21 @@ async function scoreTask (user, task, direction, req, res) {
     }
     rollbackUser = await User.findOne({ _id: task.group.completedBy });
     task.group.completedBy = undefined;
+  } else if (task.group.id && !task.userId && task.group.assignedUsers.length > 0) {
+    // Task is being scored from team board, and a user copy should exist
+    if (!task.group.assignedUsers.includes(user._id)) {
+      throw new BadRequest('Task has not been assigned to this user.');
+    }
+
+    localTask = await Tasks.Task.findOne(
+      { userId: user._id, 'group.taskId': task._id },
+    ).exec();
+    if (!localTask) throw new NotFound('Task not found.');
   }
+
+  const wasCompleted = task.completed;
+  const firstTask = !user.achievements.completedTask;
+  let delta;
 
   if (rollbackUser) {
     delta = shared.ops.scoreTask({ task, user: rollbackUser, direction }, req, res.analytics);
