@@ -163,17 +163,13 @@ export default new Schema({
       min: 0,
       max: 9,
     },
-    admin: Boolean, // @TODO replace with priv object
-    newsPoster: Boolean, // @TODO replace with priv.newsPoster
+    admin: Boolean,
+    newsPoster: Boolean,
     priv: {
-      // @TODO add support for new privileges
-      // flagControl: Boolean, // clear flags and hide posts with one flag
-      // guildChallengeEdit: Boolean, // edit any Guild or Challenge you can view
-      // newsPoster: Boolean, // access CMS for "New Stuff by Bailey"
       userSupport: Boolean, // access User Support feature in Admin Panel
       userSupportPlus: Boolean, // see extra data in User Support feature
     },
-    sudo: Boolean, // @TODO replace with priv object
+    sudo: Boolean,
     // Artisan, Friend, Blacksmith, etc
     text: String,
     // a markdown textarea to list their contributions + links
