@@ -2,7 +2,7 @@
     "communityGuidelinesWarning": "Tänk på att ditt användarnamn, profilbild och presentation måste följa <a href='https://habitica.com/static/community-guidelines' target='_blank'>gemenskapens riktlinjer</a> (t.ex. inga svordomar, inget opassande material, inga förolämpningar, etc.). Om du har frågor om huruvida något är passande, maila gärna <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profil",
     "avatar": "Skräddarsy Avatar",
-    "editAvatar": "Redigera Karaktär",
+    "editAvatar": "Redigera karaktär",
     "noDescription": "Denna Habitican har inte lagt till en beskrivning.",
     "noPhoto": "Denna Habitican har inte lagt till ett foto.",
     "other": "Annat",
@@ -112,7 +112,7 @@
     "changeClass": "Byt klass, amortera egenskapspoäng",
     "lvl10ChangeClass": "För att byta klass måste du vara minst nivå 10.",
     "changeClassConfirmCost": "Är du säker att du vill ändra din klass för 3 Diamanter?",
-    "invalidClass": "Ogiltig klass. Var vänlig specificera 'krigare', 'tjuv', 'magiker' eller 'helare'.",
+    "invalidClass": "Ogiltig klass. Var vänlig specificera 'krigare', 'smygare', 'magiker' eller 'helare'.",
     "levelPopover": "Varje nivå ger dig en poäng att dela ut till valfri egenskap. Du kan antingen göra det manuellt eller låta spelet bestämma åt dig genom att använda ett av alternativen under automatisk utdelning.",
     "unallocated": "Outdelade Egenskapspoäng",
     "autoAllocation": "Automatisk Utdelning",
@@ -185,5 +185,6 @@
     "chatCastSpellUser": "<%= username %> kastar <%= spell %> på <%= target %>.",
     "chatCastSpellParty": "<%= username %> kastar <%= spell %> för sällskapet.",
     "purchasePetItemConfirm": "Detta köp kommer överstiga antalet föremål som du behvöer för att kläcka alla möjliga <%= itemText %> djur. Är du säker?",
-    "purchaseForGold": "Köp för <%= cost %> Guld?"
+    "purchaseForGold": "Köp för <%= cost %> Guld?",
+    "notEnoughGold": "Inte tillräckligt med guld."
 }

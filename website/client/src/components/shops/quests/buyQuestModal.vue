@@ -24,7 +24,10 @@
       class="content"
     >
       <div class="inner-content">
-        <questDialogContent :item="item" />
+        <questDialogContent
+          :item="item"
+          :abbreviated="true"
+        />
         <quest-rewards :quest="item" />
         <div
           v-if="!item.locked"

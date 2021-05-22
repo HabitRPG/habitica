@@ -100,5 +100,8 @@
     "viewProgress": "Vezi Progresul",
     "selectMember": "Selectează Participant",
     "confirmKeepChallengeTasks": "Dorești să păstrezi sarcinile provocării?",
-    "selectParticipant": "Alege un Participant"
+    "selectParticipant": "Alege un Participant",
+    "wonChallengeDesc": "<%= challengeName %> te-a ales câștigător! Victoria ta a fost înregistrată în realizările tale.",
+    "yourReward": "Recompensa ta",
+    "filters": "Filtre"
 }

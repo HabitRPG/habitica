@@ -350,7 +350,7 @@
     "backgroundTerracedRiceFieldText": "Terrasserade risfält",
     "backgroundTerracedRiceFieldNotes": "Njut av ett Terrasserat risfält under växtsäsongen.",
     "backgroundFantasticalShoeStoreText": "Storartad Skoaffär",
-    "backgroundFantasticalShoeStoreNotes": "Leta efter skojiga skodon i den Storartade Skoaffären.",
+    "backgroundFantasticalShoeStoreNotes": "Leta efter skojiga skodon i den Storartade skoaffären.",
     "backgroundChampionsColosseumText": "Segrarnas Kolosseum",
     "backgroundChampionsColosseumNotes": "Sola dig i glansen av Segrarnas Kolosseum.",
     "backgrounds062018": "Set 49: Utgiven Juni 2018",
@@ -528,5 +528,15 @@
     "backgroundSplashInAPuddleNotes": "Njut av stormens följder genom att Plaska i en pöl.",
     "backgroundSplashInAPuddleText": "Plaska i en pöl",
     "backgroundSpringThawNotes": "Se på när vinter blir till vår genom tövädret.",
-    "backgroundSpringThawText": "Vårens töväder"
+    "backgroundSpringThawText": "Vårens töväder",
+    "backgroundDragonsLairText": "Drakens lya",
+    "backgroundAfternoonPicnicNotes": "Njut av en Eftermiddagspicknick ensam eller med ditt husdjur.",
+    "backgroundAfternoonPicnicText": "Eftermiddagspicknick",
+    "backgroundWindmillsText": "Väderkvarnar",
+    "backgroundFlyingOverGlacierText": "Flyga över en glaciär",
+    "backgroundFlyingOverGlacierNotes": "Bevittna den frusna storslagenheten genom att Flyga över en glaciär.",
+    "backgroundThroneRoomNotes": "Bevilja en audiens i din lyxiga Tronsal.",
+    "backgroundThroneRoomText": "Tronsal",
+    "backgroundHeartShapedBubblesNotes": "Flyt glatt omkring bland Hjärtformade bubblor.",
+    "backgroundHeartShapedBubblesText": "Hjärtformade bubblor"
 }

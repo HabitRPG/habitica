@@ -192,8 +192,15 @@
                     v-once
                   >
                   </div>
-                  <span>{{ Math.ceil(parseFloat(group.quest.progress.rage)) }}
-                    / {{ questData.boss.rage.value }}</span>
+                  <span
+                    class="float-left"
+                  >{{ $t('rage') }} {{
+                    parseFloat(group.quest.progress.rage)
+                      | localizeNumber(user.preferences.language, { toFixed: 2 })
+                  }} / {{
+                    questData.boss.rage.value
+                      | localizeNumber(user.preferences.language)
+                  }}</span>
                   <strong v-once>{{ $t('rage') }}</strong>
                 </span>
               </div>

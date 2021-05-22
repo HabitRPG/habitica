@@ -8,7 +8,7 @@
     "other": "Altele",
     "fullName": "Numele complet",
     "displayName": "Nume Afișat",
-    "changeDisplayName": "Schimbă Numele Afișat",
+    "changeDisplayName": "Schimbă numele afișat",
     "newDisplayName": "Nume Afișat Nou",
     "displayBlurbPlaceholder": "Te rugăm să te prezinți",
     "photoUrl": "URL poză",
@@ -185,5 +185,6 @@
     "purchasePetItemConfirm": "Această achiziție ar depăși numărul de articole de care aveți nevoie pentru a ecloza toate animalele de companie <%= itemText %> posibile. Esti sigur?",
     "chatCastSpellUser": "<%= username %> a folosit<%= spell %> pe <%= target %>.",
     "chatCastSpellParty": "<%= username %> a folosit <%= spell %> pentru echipă.",
-    "purchaseForGold": "Cumpără pentru <%= cost %> Aur?"
+    "purchaseForGold": "Cumpără pentru <%= cost %> Aur?",
+    "notEnoughGold": "Nu ai suficient aur."
 }

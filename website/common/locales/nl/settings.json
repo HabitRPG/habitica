@@ -183,5 +183,11 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chat Extentie</a> en <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox Chat Extentie</a>",
     "resetAccount": "Account Terugstellen",
     "displaynameIssueNewline": "Weergavenamen mogen geen backslash bevatten gevolgd door de letter N.",
-    "giftedSubscriptionWinterPromo": "Hallo <%= username %>, je hebt <%= monthCount %> maanden abonnement ontvangen dankzij onze Gift One Get One-promotie!"
+    "giftedSubscriptionWinterPromo": "Hallo <%= username %>, je hebt <%= monthCount %> maanden abonnement ontvangen dankzij onze Gift One Get One-promotie!",
+    "bannedSlurUsedInProfile": "Jouw gebruikersnaam of over-jou-tekst bevatte een scheldwoord en uw chatrechten zijn ingetrokken.",
+    "onlyPrivateSpaces": "Alleen op privé plekken",
+    "everywhere": "Overal",
+    "suggestMyUsername": "Stel me een gebruikersnaam voor",
+    "mentioning": "Vermelding",
+    "bannedWordUsedInProfile": "Jouw gebruikersnaam of over-tekst bevatte ongepast taalgebruik."
 }

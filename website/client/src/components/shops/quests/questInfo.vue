@@ -37,7 +37,10 @@
         </dd>
       </div>
     </div>
-    <div v-if="quest.event">
+    <div
+      v-if="quest.event && !abbreviated"
+      class="m-auto"
+    >
       {{ limitedString }}
     </div>
   </div>
@@ -146,6 +149,10 @@ export default {
   props: {
     quest: {
       type: Object,
+    },
+    abbreviated: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {
