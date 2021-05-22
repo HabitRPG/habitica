@@ -164,7 +164,7 @@
     "spring2019RobinHealerSet": "Červenka (Léčitel)",
     "spring2019AmberMageSet": "Jantar (Mág)",
     "spring2019OrchidWarriorSet": "Orchidej (válečník)",
-    "augustYYYY": "Srpen <%=rok %>",
+    "augustYYYY": "Srpen <%= year %>",
     "winter2020LanternSet": "Lucerna (Zloděj)",
     "winter2020WinterSpiceSet": "Zimní koření (Léčitel)",
     "winter2020CarolOfTheMageSet": "Mágova koleda (Mág)",

@@ -134,5 +134,6 @@
     "enterTag": "Voer een label in",
     "addTags": "Voeg labels toe...",
     "sureDeleteType": "Weet je zeker dat je deze <%= type %> wilt verwijderen?",
-    "deleteTaskType": "Verwijder dit <%= type %>"
+    "deleteTaskType": "Verwijder dit <%= type %>",
+    "tomorrow": "Morgen"
 }

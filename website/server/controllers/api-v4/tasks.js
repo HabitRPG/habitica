@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { authWithHeaders } from '../../middlewares/auth';
-import { scoreTasks } from '../../libs/taskManager';
+import { scoreTasks } from '../../libs/tasks';
 
 const api = {};
 

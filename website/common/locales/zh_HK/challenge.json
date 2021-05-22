@@ -100,5 +100,8 @@
     "viewProgress": "View Progress",
     "selectMember": "Select Member",
     "confirmKeepChallengeTasks": "Do you want to keep challenge tasks?",
-    "selectParticipant": "Select a Participant"
+    "selectParticipant": "Select a Participant",
+    "wonChallengeDesc": "<%= challengeName %> 將你選中為贏家！你的獲勝記錄已被儲存在成就欄",
+    "yourReward": "你的獎勵",
+    "filters": "篩選器"
 }

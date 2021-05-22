@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="bailey-header d-flex align-items-center mb-3">
-      <div class="npc_bailey mr-3"></div>
+      <div
+        class="mr-3"
+        :class="npcClass('bailey')"
+      ></div>
       <h1 v-once>
         {{ $t('newStuff') }}
       </h1>
@@ -65,15 +68,19 @@ h1 {
 import moment from 'moment';
 import habiticaMarkdown from 'habitica-markdown';
 import { mapState } from '@/libs/store';
+import seasonalNPC from '@/mixins/seasonalNPC';
 
 export default {
+  mixins: [seasonalNPC],
   data () {
     return {
       posts: [],
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({
+      user: 'user.data',
+    }),
   },
   methods: {
     async getPosts () {

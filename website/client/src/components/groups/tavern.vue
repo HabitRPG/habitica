@@ -19,8 +19,14 @@
     </div>
     <div class="col-12 col-sm-4 sidebar">
       <div class="section">
-        <div class="grassy-meadow-backdrop">
-          <div class="daniel_front"></div>
+        <div
+          class="grassy-meadow-backdrop"
+          :style="{'background-image': imageURLs.background}"
+        >
+          <div
+            class="daniel_front"
+            :style="{'background-image': imageURLs.npc}"
+          ></div>
         </div>
         <div class="boss-section">
           <div
@@ -307,10 +313,9 @@
         <sidebar-section :title="$t('helpfulLinks')">
           <ul>
             <li>
-              <a
-                href
-                @click.prevent="modForm()"
-              >{{ $t('contactForm') }}</a>
+              <a href="mailto:admin@habitica.com">
+                {{ $t('reportCommunityIssues') }}
+              </a>
             </li>
             <li>
               <router-link
@@ -368,12 +373,6 @@
                 href="https://docs.google.com/forms/d/e/1FAIpQLScPhrwq_7P1C6PTrI3lbvTsvqGyTNnGzp1ugi1Ml0PFee_p5g/viewform?usp=sf_link"
                 target="_blank"
               >{{ $t('requestFeature') }}</a>
-            </li>
-            <li>
-              <a
-                href
-                v-html="$t('communityForum')"
-              ></a>
             </li>
             <li>
               <router-link
@@ -502,7 +501,6 @@
 
 <style lang='scss' scoped>
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
 
   h1 {
     color: $purple-200;
@@ -520,14 +518,12 @@
   }
 
   .grassy-meadow-backdrop {
-    background-image: url('~@/assets/images/npc/#{$npc_tavern_flavor}/tavern_background.png');
     background-repeat: repeat-x;
     width: 100%;
     height: 246px;
   }
 
   .daniel_front {
-    background-image: url('~@/assets/images/npc/#{$npc_tavern_flavor}/tavern_npc.png');
     height: 246px;
     width: 471px;
     background-repeat: no-repeat;
@@ -772,7 +768,6 @@ import worldBossRageModal from '../world-boss/worldBossRageModal';
 import sidebarSection from '../sidebarSection';
 import chat from './chat';
 
-
 import challengeIcon from '@/assets/svg/challenge.svg';
 import chevronIcon from '@/assets/svg/chevron-red.svg';
 import gemIcon from '@/assets/svg/gem.svg';
@@ -836,10 +831,25 @@ export default {
     };
   },
   computed: {
-    ...mapState({ user: 'user.data' }),
+    ...mapState({
+      user: 'user.data',
+      currentEvent: 'worldState.data.currentEvent',
+    }),
     questData () {
       if (!this.group.quest) return {};
       return quests.quests[this.group.quest.key];
+    },
+    imageURLs () {
+      if (!this.currentEvent || !this.currentEvent.season) {
+        return {
+          background: 'url(/static/npc/normal/tavern_background.png)',
+          npc: 'url(/static/npc/normal/tavern_npc.png)',
+        };
+      }
+      return {
+        background: `url(/static/npc/${this.currentEvent.season}/tavern_background.png)`,
+        npc: `url(/static/npc/${this.currentEvent.season}/tavern_npc.png)`,
+      };
     },
   },
   async mounted () {

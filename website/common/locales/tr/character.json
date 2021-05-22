@@ -175,7 +175,7 @@
     "editProfile": "Profili Düzenle",
     "challengesWon": "Kazanılan Mücadeleler",
     "questsCompleted": "Tamamlanan Görevler",
-    "headAccess": "",
+    "headAccess": "Ana Erişim.",
     "backAccess": "Sırt Akses.",
     "bodyAccess": "Vücut Akses.",
     "mainHand": "Birincil El",
@@ -184,5 +184,6 @@
     "pts": "puan",
     "purchaseForGold": "Satın almanın tutarı <%= cost %> altındır, onaylıyor musunuz?",
     "chatCastSpellParty": "<%= username %> takım için <%= spell %> büyüsü atar.",
-    "chatCastSpellUser": "<%= username %>, <%= target %>'a doğru <%= spell %> büyüsü atar."
+    "chatCastSpellUser": "<%= username %>, <%= target %>'a doğru <%= spell %> büyüsü atar.",
+    "purchasePetItemConfirm": "Bu satın alma, tüm olası <%= itemText %> evcil hayvanlarını yumurtadan çıkarmak için ihtiyacınız olan eşya sayısını aşacaktır. Emin misiniz?"
 }

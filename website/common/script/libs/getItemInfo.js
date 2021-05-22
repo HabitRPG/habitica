@@ -122,6 +122,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'bundles',
         path: `bundles.${item.key}`,
         pinType: 'bundles',
+        event: item.event,
       };
       break;
     case 'quests': // eslint-disable-line no-case-declarations
@@ -178,6 +179,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         class: `inventory_special_${item.key}`,
         path: `spells.special.${item.key}`,
         pinType: 'seasonalSpell',
+        event: item.event,
       };
       break;
     case 'debuffPotion':
@@ -215,6 +217,7 @@ export default function getItemInfo (user, type, item, officialPinnedItems, lang
         purchaseType: 'quests',
         path: `quests.${item.key}`,
         pinType: 'seasonalQuest',
+        event: item.event,
       };
       break;
     case 'gear':

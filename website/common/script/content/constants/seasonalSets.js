@@ -41,6 +41,12 @@ const SEASONAL_SETS = {
     'winter2020LanternSet',
     'winter2020EvergreenSet',
     'winter2020WinterSpiceSet',
+
+    // winter 2021
+    'winter2021WinterMoonMageSet',
+    'winter2021HollyIvyRogueSet',
+    'winter2021IceFishingWarriorSet',
+    'winter2021ArcticExplorerHealerSet',
   ],
   spring: [
     // spring 2014
@@ -80,11 +86,16 @@ const SEASONAL_SETS = {
     'spring2019RobinHealerSet',
 
     // spring 2020
-
     'spring2020BeetleWarriorSet',
     'spring2020IrisHealerSet',
     'spring2020LapisLazuliRogueSet',
     'spring2020PuddleMageSet',
+
+    // spring 2021
+    'spring2021SwanMageSet',
+    'spring2021WillowHealerSet',
+    'spring2021SunstoneWarriorSet',
+    'spring2021TwinFlowerRogueSet',
   ],
   summer: [
     // summer 2014

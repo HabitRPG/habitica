@@ -82,9 +82,9 @@
 // See the comments in bannedWords.js for details.
 
 // 'spic' should not be banned because it's often used in the phrase "spic and span"
-// 'tards' is currently not in this list because it's causing a problem for French speakers
-// - it's commonly used within French words after an accented 'e' which
-// the word blocker's regular expression treats as a word boundary
+// 'retard', 'retards', and 'tards' are not treated as slurs or swear words because
+// they mean "delay" in French and have no easy synoyms ('tards' is commonly used within
+// words after an accented 'e' which the blocker's regular expression treats as a word boundary)
 
 
 // DO NOT EDIT! See the comments at the top of this file.
@@ -103,6 +103,8 @@ const bannedSlurs = [
   'fags',
   'faggot',
   'faggots',
+  'a retard',
+  'retarded',
   'sodomite',
   'sodomites',
   'whore',

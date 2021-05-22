@@ -114,13 +114,13 @@
     "weaponSpecialTachiNotes": "This light and curved sword will shred your tasks to ribbons! Increases Strength by <%= str %>.",
     "weaponSpecialAetherCrystalsText": "Aether Crystals",
     "weaponSpecialAetherCrystalsNotes": "These bracers and crystals once belonged to the Lost Masterclasser herself. Increases all Stats by <%= attrs %>.",
-    "weaponSpecialYetiText": "رمح مروض اليتي ",
+    "weaponSpecialYetiText": "رمح مروض اليتي",
     "weaponSpecialYetiNotes": "هذا الرمح يسمح لمستخدمه الصيطرة على أي يتي. يزيد القوة بقدر  <%= str %>. معدات الطبعة المحدودة  لشتاء 2013-2014.",
     "weaponSpecialSkiText": "عمود المتزلج القاتل",
     "weaponSpecialSkiNotes": "سلاح قادر على تدمير المجموعات الكبيرة من الأعداء. وأيضاً يساعد مستخدمه على الانعطافات المتوازية. يزيد القوة بقدر <%= str %>. معدات الطبعة المحدودة  لشتاء 2013-2014.",
     "weaponSpecialCandycaneText": "قضيب حلوى القصب",
     "weaponSpecialCandycaneNotes": "A powerful mage's staff. Powerfully DELICIOUS, we mean! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2013-2014 Winter Gear.",
-    "weaponSpecialSnowflakeText": "العصا السحرية ذات ندفة الثلج ",
+    "weaponSpecialSnowflakeText": "العصا السحرية ذات ندفة الثلج",
     "weaponSpecialSnowflakeNotes": "هذه العصا السحرية تتألق بطاقات الشفاء الهائلة. تزيد الذكاء بقدر <%= int %>. معدات الطبعة المحدودة  لشتاء 2013-2014.",
     "weaponSpecialSpringRogueText": "مخالب عقافية",
     "weaponSpecialSpringRogueNotes": "ممتازة لتسلق المباني الطويلة، ولمزق السجادات كذلك. تزيد القوة بقدر  <%= str %>. معدات الطبعة المحدودة  لربيع 2014.",
@@ -1741,5 +1741,7 @@
     "eyewearArmoirePlagueDoctorMaskNotes": "An authentic mask worn by the doctors who battle the Plague of Procrastination. Increases Constitution and Intelligence by <%= attrs %> each. Enchanted Armoire: Plague Doctor Set (Item 2 of 3).",
     "eyewearArmoireGoofyGlassesText": "Goofy Glasses",
     "eyewearArmoireGoofyGlassesNotes": "Perfect for going incognito or just making your partymates giggle. Increases Perception by <%= per %>. Enchanted Armoire: Independent Item.",
-    "twoHandedItem": "Two-handed item."
+    "twoHandedItem": "Two-handed item.",
+    "weaponSpecialKS2019Notes": "",
+    "weaponSpecialKS2019Text": "سيف جريفون الأسطوري"
 }

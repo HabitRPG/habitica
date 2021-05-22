@@ -44,10 +44,12 @@
         <div
           class="background"
           :class="{'background-closed': closed, 'background-open': !closed }"
+          :style="{'background-image': imageURLs.background}"
         >
           <div
             class="npc"
             :class="{'closed': closed }"
+            :style="{'background-image': imageURLs.npc}"
           >
             <div class="featured-label">
               <span class="rectangle"></span><span
@@ -74,12 +76,12 @@
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
           <select-translated-array
-              :right="true"
-              :value="selectedSortItemsBy"
-              :items="sortItemsBy"
-              :inline-dropdown="false"
-              class="inline"
-              @select="selectedSortItemsBy = $event"
+            :right="true"
+            :value="selectedSortItemsBy"
+            :items="sortItemsBy"
+            :inline-dropdown="false"
+            class="inline"
+            @select="selectedSortItemsBy = $event"
           />
         </div>
       </div>
@@ -165,7 +167,6 @@
 <!-- eslint-disable max-len -->
 <style lang="scss">
   @import '~@/assets/scss/colors.scss';
-  @import '~@/assets/scss/variables.scss';
 
   // these styles may be applied to other pages too
 
@@ -230,11 +231,9 @@
         align-items: center;
       }
       .background-open {
-        background: url('~@/assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_background.png');
         height: 188px;
       }
       .background-closed {
-        background: url('~@/assets/images/npc/normal/time_travelers_background.png');
         height: 216px;
       }
 
@@ -249,11 +248,9 @@
         top: 0;
         width: 100%;
         height: 216px;
-        background: url('~@/assets/images/npc/#{$npc_timetravelers_flavor}/time_travelers_open_banner.png');
         background-repeat: no-repeat;
 
         &.closed {
-          background: url('~@/assets/images/npc/normal/time_travelers_closed_banner.png');
           background-repeat: no-repeat;
         }
 
@@ -342,6 +339,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
+      currentEvent: 'worldState.data.currentEvent',
     }),
 
     closed () {
@@ -391,6 +389,19 @@ export default {
     },
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
+    },
+    imageURLs () {
+      if (!this.currentEvent || !this.currentEvent.season) {
+        return {
+          background: 'url(/static/npc/normal/time_travelers_background.png)',
+          npc: this.closed ? 'url(/static/npc/normal/time_travelers_closed_banner.png)'
+            : 'url(/static/npc/normal/time_travelers_open_banner.png)',
+        };
+      }
+      return {
+        background: `url(/static/npc/${this.currentEvent.season}/time_travelers_background.png)`,
+        npc: `url(/static/npc/${this.currentEvent.season}/time_travelers_open_banner.png)`,
+      };
     },
   },
   watch: {

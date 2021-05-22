@@ -31,7 +31,7 @@ export default class InboxChatReporter extends ChatReporter {
     if (validationErrors) throw validationErrors;
 
     if (this.user.contributor.admin && this.req.query.userId) {
-      this.inboxUser = await User.findOne({ _id: this.req.query.userId });
+      this.inboxUser = await User.findOne({ _id: this.req.query.userId }).exec();
     }
 
     const message = await inboxLib.getUserInboxMessage(this.inboxUser, this.req.params.messageId);
@@ -57,7 +57,7 @@ export default class InboxChatReporter extends ChatReporter {
     sendTxn(FLAG_REPORT_EMAILS, 'flag-report-to-mods-with-comments', emailVariables);
 
     slack.sendInboxFlagNotification({
-      authorEmail: this.authorEmail,
+      messageUserEmail: this.messageUserEmail,
       flagger: this.user,
       message,
       userComment,
@@ -83,7 +83,7 @@ export default class InboxChatReporter extends ChatReporter {
     const sendingUser = message.sent ? reporter : messageUser;
     const recipient = message.sent ? messageUser : reporter;
 
-    this.authorEmail = sendingUser.email;
+    this.messageUserEmail = message.sent ? recipient.email : sendingUser.email;
 
     return [
       ...this.createGenericAuthorVariables('AUTHOR', sendingUser),

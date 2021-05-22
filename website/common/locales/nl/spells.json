@@ -6,7 +6,7 @@
     "spellWizardEarthText": "Aardbeving",
     "spellWizardEarthNotes": "Je mentale macht doet de grond trillen en verhoogt de Intelligentie van je Gezelschap! (Gebaseerd op: oorspronkelijke INT)",
     "spellWizardFrostText": "IJskoude Vorst",
-    "spellWizardFrostNotes": "Met één spreuk worden al je series bevroren, zodat deze morgen niet naar nul teruggezet worden! ",
+    "spellWizardFrostNotes": "Met één spreuk worden al je series bevroren, zodat deze morgen niet naar nul worden teruggezet !",
     "spellWizardFrostAlreadyCast": "Je hebt deze spreuk vandaag al gebruikt. Je series zijn bevroren, het is niet nodig om hem nog eens te gebruiken.",
     "spellWarriorSmashText": "Wrede Slag",
     "spellWarriorSmashNotes": "Je maakt een taak blauwer/minder rood en deelt extra schade toe aan Eindbazen! (Gebaseerd op KRA.)",
@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Je listige talenten versterken de Perceptie van je gehele Gezelschap! (Gebaseerd op: oorspronkelijke PER)",
     "spellRogueStealthText": "Heimelijkheid",
     "spellRogueStealthNotes": "Met elke spreuk zullen een aantel van je onafgemaakte Dagtaken je deze nacht niet kunnen vinden. Hun series en kleur zullen niet veranderen. (Gebaseerd op: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Aantal Dagtaken vermeden: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Aantal Dagtaken dat vermeden zal worden: <%= number %>.",
     "spellRogueStealthMaxedOut": "Je hebt al je Dagtaken al vermeden; het is niet nodig deze spreuk nogmaals te gebruiken.",
     "spellHealerHealText": "Helend Licht",
     "spellHealerHealNotes": "Glanzend licht herstelt je wonden! (Gebaseerd op LIC en INT)",
@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Het uitspreken van een vaardigheid op uitdagingstaken is niet toegestaan.",
     "groupTasksNoCast": "Je mag geen vaardigheden gebruiken op groepstaken.",
     "spellNotOwned": "Je bezit deze vaardigheid niet.",
-    "spellLevelTooHigh": "Je moet Niveau <%= level %> zijn om deze vaardigheid te gebruiken."
+    "spellLevelTooHigh": "Je moet Niveau <%= level %> zijn om deze vaardigheid te gebruiken.",
+    "spellAlreadyCast": "Deze vaardigheid heeft geen overige effecten."
 }

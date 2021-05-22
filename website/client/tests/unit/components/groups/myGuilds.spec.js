@@ -49,6 +49,7 @@ describe('myGuilds component', () => {
     getters: {},
     actions: {
       'guilds:getMyGuilds': () => guilds,
+      'common:setTitle': () => {},
     },
   });
 

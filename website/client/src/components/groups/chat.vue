@@ -117,7 +117,7 @@ export default {
         TOP: 0,
         LEFT: 0,
       },
-      textbox: this.$refs,
+      textbox: null,
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
   },
@@ -129,6 +129,9 @@ export default {
     communityGuidelinesAccepted () {
       return this.user.flags.communityGuidelinesAccepted;
     },
+  },
+  mounted () {
+    this.textbox = this.$refs['user-entry'];
   },
   methods: {
     // https://medium.com/@_jh3y/how-to-where-s-the-caret-getting-the-xy-position-of-the-caret-a24ba372990a
@@ -249,8 +252,13 @@ export default {
       }
     },
 
-    selectedAutocomplete (newText) {
+    selectedAutocomplete (newText, newCaret) {
       this.newMessage = newText;
+      // Wait for v-modal to update
+      this.$nextTick(() => {
+        this.textbox.setSelectionRange(newCaret, newCaret);
+        this.textbox.focus();
+      });
     },
 
     fetchRecentMessages () {

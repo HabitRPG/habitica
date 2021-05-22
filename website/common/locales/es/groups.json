@@ -349,7 +349,7 @@
     "PMDisabled": "Desactivar mensajes privados",
     "newPartyPlaceholder": "Ingresa el nombre de tu equipo.",
     "userWithUsernameOrUserIdNotFound": "Nombre de usuario o ID de usuario no encontrado.",
-    "usernameOrUserId": "Nombre de usuario o ID de usuario",
+    "usernameOrUserId": "Introduce @usuario o ID de usuario",
     "sendGiftToWhom": "¿A quién te gustaría enviarle un regalo?",
     "selectGift": "Seleccionar regalo",
     "PMUnblockUserToSendMessages": "Desbloquea a este usuario para seguir enviando y recibiendo mensajes.",
@@ -367,5 +367,8 @@
     "onlyPrivateGuildsCanUpgrade": "Sólo los Gremios privados pueden actualizarse a un plan de grupo.",
     "chooseTeamMember": "Elije a un miembro del equipo",
     "cannotRemoveQuestOwner": "No puedes eliminar el dueño delmisión activo. Abandonar el misión primero.",
-    "features": "Características"
+    "features": "Características",
+    "giftMessageTooLong": "La longitud máxima para los mensajes de regalo es <%= maxGiftMessageLength %>.",
+    "selectSubscription": "Selecciona suscripción",
+    "blockYourself": "No puedes bloquearte a ti mismo"
 }

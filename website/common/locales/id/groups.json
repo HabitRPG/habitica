@@ -151,7 +151,7 @@
     "cannotInviteSelfToGroup": "Kamu tidak bisa mengundang dirimu sendiri ke dalam grup.",
     "userAlreadyInvitedToGroup": "UserID: <%= userId %>, User \"<%= username %>\" sudah diundang ke grup tersebut.",
     "userAlreadyPendingInvitation": "UserID: <%= userId %>, User \"<%= username %>\" sudah diundang.",
-    "userAlreadyInAParty": "UserID: <%= userId %>, User \"<%= username %>\"  sudah didalam kelompok. ",
+    "userAlreadyInAParty": "UserID: <%= userId %>, User \"<%= username %>\" sudah didalam kelompok.",
     "userWithIDNotFound": "Pengguna dengan id \"<%= userId %>\" tidak ditemukan.",
     "userWithUsernameNotFound": "User with username \"<%= username %>\" not found.",
     "userHasNoLocalRegistration": "Pengguna tidak memiliki registrasi lokal (nama pengguna, email, kata sandi).",

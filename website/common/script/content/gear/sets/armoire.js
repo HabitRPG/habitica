@@ -334,6 +334,26 @@ const armor = {
     con: 10,
     set: 'jackOfClubs',
   },
+  dressingGown: {
+    con: 12,
+    set: 'dressingGown',
+  },
+  blueMoonShozoku: {
+    con: 8,
+    set: 'blueMoon',
+  },
+  softPinkSuit: {
+    per: 12,
+    set: 'pinkLoungewear',
+  },
+  jadeArmor: {
+    per: 8,
+    set: 'jadeWarrior',
+  },
+  clownsMotley: {
+    str: 7,
+    set: 'clown',
+  },
 };
 
 const body = {
@@ -346,6 +366,13 @@ const body = {
     int: 12,
     set: 'lifeguard',
   },
+  clownsBowtie: {
+    str: 2,
+    int: 2,
+    con: 2,
+    per: 2,
+    set: 'clown',
+  },
 };
 
 const eyewear = {
@@ -356,6 +383,9 @@ const eyewear = {
   },
   goofyGlasses: {
     per: 10,
+  },
+  clownsNose: {
+    int: 5,
   },
 };
 
@@ -668,6 +698,26 @@ const head = {
     int: 10,
     set: 'jackOfClubs',
   },
+  nightcap: {
+    per: 12,
+    set: 'dressingGown',
+  },
+  blueMoonHelm: {
+    int: 8,
+    set: 'blueMoon',
+  },
+  pinkFloppyHat: {
+    int: 12,
+    set: 'pinkLoungewear',
+  },
+  jadeHelm: {
+    con: 8,
+    set: 'jadeWarrior',
+  },
+  clownsWig: {
+    con: 5,
+    set: 'clown',
+  },
 };
 
 const shield = {
@@ -856,6 +906,61 @@ const shield = {
   darkAutumnFlame: {
     con: 12,
     set: 'autumnEnchanter',
+  },
+  blueMoonSai: {
+    per: 8,
+    set: 'blueMoon',
+  },
+  softPinkPillow: {
+    str: 6,
+    con: 6,
+    set: 'pinkLoungewear',
+  },
+  clownsBalloons: {
+    per: 5,
+    set: 'clown',
+  },
+  strawberryFood: {
+    str: 5,
+    set: 'petFood',
+  },
+  rottenMeatFood: {
+    con: 5,
+    set: 'petFood',
+  },
+  potatoFood: {
+    per: 5,
+    set: 'petFood',
+  },
+  pinkCottonCandyFood: {
+    int: 5,
+    set: 'petFood',
+  },
+  meatFood: {
+    str: 5,
+    set: 'petFood',
+  },
+  honeyFood: {
+    int: 3,
+    per: 3,
+    set: 'petFood',
+  },
+  fishFood: {
+    per: 5,
+    set: 'petFood',
+  },
+  chocolateFood: {
+    int: 5,
+    set: 'petFood',
+  },
+  blueCottonCandyFood: {
+    con: 5,
+    set: 'petFood',
+  },
+  milkFood: {
+    con: 3,
+    str: 3,
+    set: 'petFood',
   },
 };
 
@@ -1142,6 +1247,18 @@ const weapon = {
   clubOfClubs: {
     str: 10,
     set: 'jackOfClubs',
+  },
+  eveningTea: {
+    int: 12,
+    set: 'dressingGown',
+  },
+  blueMoonSai: {
+    str: 8,
+    set: 'blueMoon',
+  },
+  jadeGlaive: {
+    str: 10,
+    set: 'jadeWarrior',
   },
 };
 

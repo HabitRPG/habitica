@@ -101,5 +101,7 @@
     "selectMember": "Выбрать учасника",
     "confirmKeepChallengeTasks": "Вы хотите оставить задания испытания?",
     "selectParticipant": "Выбрать участника",
-    "filters": "Фильтры"
+    "filters": "Фильтры",
+    "yourReward": "Ваша награда",
+    "wonChallengeDesc": "Вы выиграли в испытании <%= challengeName %>! Ваша победа записана в Достижения."
 }

@@ -1,7 +1,7 @@
 {
     "clearCompleted": "Borrado completado",
     "clearCompletedDescription": "Las Tareas Pendientes completadas se borran transcurridos 30 días para los no suscritos y 90 días para los suscritos.",
-    "clearCompletedConfirm": "¿Estás seguro de que quieres eliminar todas tus tareas pendientes completadas?",
+    "clearCompletedConfirm": "¿Estás seguro de que quieres eliminar todas tus Tareas Pendientes completadas?",
     "addMultipleTip": "<strong>Consejo:</strong> Para añadir varias <%= taskType %>, sepáralas una a una utilizando un salto de línea (Shift + Enter) y, después, presiona \"Enter.\"",
     "addATask": "Añadir una <%= type %>",
     "editATask": "Editar <%= type %>",

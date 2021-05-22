@@ -348,7 +348,7 @@
     "blockedToSendToThisUser": "您无法向这名玩家发送消息因为您阻止了这名玩家。",
     "PMDisabled": "禁用私信",
     "userWithUsernameOrUserIdNotFound": "找不到使用者名称或者UUID。",
-    "usernameOrUserId": "使用者名称或者UUID",
+    "usernameOrUserId": "请输入 @用户登录名 或者 用户ID",
     "sendGiftToWhom": "你想送礼物给谁？",
     "selectGift": "选择礼物",
     "PMUnblockUserToSendMessages": "取消阻止该用户以继续发送和接收消息。",
@@ -367,5 +367,8 @@
     "bannedWordsAllowed": "允许屏蔽字符",
     "languageSettings": "语言设置",
     "cannotRemoveQuestOwner": "无法移除当前任务的参与者。请先中止该任务。",
-    "features": "特性"
+    "features": "特性",
+    "giftMessageTooLong": "礼品留言的最大长度为<%= maxGiftMessageLength %>。",
+    "selectSubscription": "选择订阅",
+    "blockYourself": "你不能屏蔽你自己"
 }

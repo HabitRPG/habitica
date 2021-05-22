@@ -8,7 +8,7 @@ import paypal from 'paypal-rest-sdk';
 import cc from 'coupon-code';
 import shared from '../../../common';
 import payments from './payments'; // eslint-disable-line import/no-cycle
-import { getGemsBlock } from './gems'; // eslint-disable-line import/no-cycle
+import { getGemsBlock, validateGiftMessage } from './gems'; // eslint-disable-line import/no-cycle
 import { model as Coupon } from '../../models/coupon';
 import { model as User } from '../../models/user'; // eslint-disable-line import/no-cycle
 import { // eslint-disable-line import/no-cycle
@@ -86,6 +86,8 @@ api.checkout = async function checkout (options = {}) {
   if (gift) {
     const member = await User.findById(gift.uuid).exec();
     gift.member = member;
+
+    validateGiftMessage(gift, user);
 
     if (gift.type === 'gems') {
       if (gift.gems.amount <= 0) {

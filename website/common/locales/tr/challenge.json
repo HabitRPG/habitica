@@ -100,5 +100,8 @@
     "viewProgress": "Süreci Gör",
     "selectMember": "Katılımcı Seç",
     "confirmKeepChallengeTasks": "Mücadele görevlerini saklamak istiyor musun?",
-    "selectParticipant": "Katılımcı Seç"
+    "selectParticipant": "Katılımcı Seç",
+    "yourReward": "Ödülün",
+    "filters": "Filtreler",
+    "wonChallengeDesc": "<%= challengeName %> seni kazanan olarak belirledi! Kazanımın, Başarılarına kaydedildi."
 }

@@ -1,42 +1,43 @@
 <template>
-  <div>
+  <div
+    class="d-flex flex-column justify-content-center"
+  >
     <div
-      class="row"
+      v-if="quest.collect"
+      class="table-row m-auto"
     >
-      <div
-        v-if="quest.collect"
-        class="table-row"
-      >
-        <dt>{{ $t('collect') + ':' }}</dt>
-        <dd>
-          <div
-            v-for="(collect, key) of quest.collect"
-            :key="key"
-          >
-            <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
-          </div>
-        </dd>
-      </div>
-      <div
-        v-if="quest.boss"
-        class="table-row"
-      >
-        <dt>{{ $t('bossHP') + ':' }}</dt>
-        <dd>{{ quest.boss.hp }}</dd>
-      </div>
-      <div class="table-row">
-        <dt>{{ $t('difficulty') + ':' }}</dt>
-        <dd>
-          <div
-            v-for="(star, index) of stars()"
-            :key="index"
-            class="svg-icon inline icon-16"
-            v-html="icons[star]"
-          ></div>
-        </dd>
-      </div>
+      <dt>{{ $t('collect') + ':' }}</dt>
+      <dd>
+        <div
+          v-for="(collect, key) of quest.collect"
+          :key="key"
+        >
+          <span>{{ collect.count }} {{ getCollectText(collect) }}</span>
+        </div>
+      </dd>
     </div>
-    <div v-if="quest.event && popoverVersion">
+    <div
+      v-if="quest.boss"
+      class="table-row m-auto"
+    >
+      <dt>{{ $t('bossHP') + ':' }}</dt>
+      <dd>{{ quest.boss.hp }}</dd>
+    </div>
+    <div class="table-row m-auto">
+      <dt>{{ $t('difficulty') + ':' }}</dt>
+      <dd>
+        <div
+          v-for="(star, index) of stars()"
+          :key="index"
+          class="svg-icon inline icon-16"
+          v-html="icons[star]"
+        ></div>
+      </dd>
+    </div>
+    <div
+      v-if="quest.event && !abbreviated"
+      class="m-auto"
+    >
       {{ limitedString }}
     </div>
   </div>
@@ -131,7 +132,7 @@ export default {
     quest: {
       type: Object,
     },
-    popoverVersion: {
+    abbreviated: {
       type: Boolean,
       default: false,
     },
@@ -143,6 +144,8 @@ export default {
         starHalf: svgStarHalf,
         starEmpty: svgStarEmpty,
       }),
+      timer: '',
+      limitedString: '',
     };
   },
   computed: {
@@ -153,9 +156,10 @@ export default {
 
       return 1;
     },
-    limitedString () {
-      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
-    },
+  },
+  mounted () {
+    this.countdownString();
+    this.timer = setInterval(this.countdownString, 1000);
   },
   methods: {
     stars () {
@@ -182,6 +186,35 @@ export default {
       }
       return collect.text;
     },
+    countdownString () {
+      const diffDuration = moment.duration(moment(seasonalShopConfig.dateRange.end).diff(moment()));
+
+      if (diffDuration.asSeconds() <= 0) {
+        this.limitedString = this.$t('noLongerAvailable');
+      } else if (diffDuration.days() > 0) {
+        this.limitedString = this.$t('limitedAvailabilityDays', {
+          days: diffDuration.days(),
+          hours: diffDuration.hours(),
+          minutes: diffDuration.minutes(),
+        });
+      } else if (diffDuration.asMinutes() > 2) {
+        this.limitedString = this.$t('limitedAvailabilityHours', {
+          hours: diffDuration.hours(),
+          minutes: diffDuration.minutes(),
+        });
+      } else {
+        this.limitedString = this.$t('limitedAvailabilityMinutes', {
+          minutes: diffDuration.minutes(),
+          seconds: diffDuration.seconds(),
+        });
+      }
+    },
+    cancelAutoUpdate () {
+      clearInterval(this.timer);
+    },
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate();
   },
 };
 </script>

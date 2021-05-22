@@ -184,5 +184,8 @@
     "dropCapReached": "You found all items for the day!",
     "usuallyGems": "Usually <%= originalGems %>",
     "supportHabitica": "Support Habitica",
-    "mysterySet202011": "Foliated Magus Set"
+    "mysterySet202011": "Foliated Magus Set",
+    "mysterySet202012": "Frostfire Phoenix Set",
+    "mysterySet202101": "Snazzy Snow Leopard Set",
+    "mysterySet202102": "Charming Champion Set"
 }

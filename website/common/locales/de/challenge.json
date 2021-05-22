@@ -5,7 +5,7 @@
     "brokenTask": "Toter Herausforderungs-Link: Diese Aufgabe war Teil einer Herausforderung, aber ist mittlerweile entfernt worden. Was möchtest Du tun?",
     "keepIt": "Behalten",
     "removeIt": "Entfernen",
-    "brokenChallenge": "Toter Herausforderungs-Link: Diese Aufgabe war Teil einer Herausforderung, aber der Herausforderung (oder die Gruppe) wurde gelöscht. Was möchtest Du mit den verwaisten Aufgaben tun?",
+    "brokenChallenge": "Toter Herausforderungs-Link: Diese Aufgabe war Teil einer Herausforderung, aber die Herausforderung (oder Gruppe) wurde gelöscht. Was möchtest Du mit den verwaisten Aufgaben tun?",
     "keepThem": "Aufgaben behalten",
     "removeThem": "Aufgaben entfernen",
     "challengeCompleted": "Diese Herausforderung ist beendet, und gewonnen hat <span class=\"badge\"><%- user %></span>! Was soll mit den verwaisten Aufgaben geschehen?",
@@ -101,5 +101,7 @@
     "selectMember": "Ein Mitglied auswählen",
     "confirmKeepChallengeTasks": "Möchtest Du die Herausforderungsaufgaben behalten?",
     "selectParticipant": "Wähle einen Teilnehmer aus",
-    "filters": "Filter"
+    "filters": "Filter",
+    "wonChallengeDesc": "Du hast die Herausforderung <%= challengeName %> gewonnen! Dein Erfolg wird unter den Errungenschaften in Deinem Profil aufgezeichnet.",
+    "yourReward": "Deine Belohnung"
 }

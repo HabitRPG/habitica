@@ -131,7 +131,7 @@
             <button
               class="btn btn-primary btn-update-card
               d-flex justify-content-center align-items-center"
-              @click="showStripeEdit()"
+              @click="redirectToStripeEdit()"
             >
               <div
                 v-once

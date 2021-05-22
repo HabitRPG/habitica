@@ -193,7 +193,7 @@
 
   #private-message {
     height: calc(100vh - #{$menuToolbarHeight} -
-      var(--banner-gifting-height, 0px) -
+      var(--banner-gift-promo-height, 0px) -
       var(--banner-damage-paused-height, 0px) -
       var(--banner-gems-promo-height, 0px)
     ); // css variable magic :), must be 0px, 0 alone won't work
@@ -201,7 +201,7 @@
     .content {
       flex: 1;
       height: calc(100vh - #{$menuToolbarHeight} - #{$pmHeaderHeight} -
-        var(--banner-gifting-height, 0px) -
+        var(--banner-gift-promo-height, 0px) -
         var(--banner-damage-paused-height, 0px) -
         var(--banner-gems-promo-height, 0px)
       );
@@ -740,7 +740,7 @@ export default {
         };
       }
 
-      if (this.selectedConversation && this.selectedConversation.key) {
+      if (this.selectedConversation?.key) {
         if (this.user.inbox.blocks.includes(this.selectedConversation.key)) {
           return {
             title: this.$t('PMDisabledCaptionTitle'),
@@ -771,7 +771,7 @@ export default {
       };
     },
     selectedConversationFaceAvatarClass () {
-      if (this.selectedConversation && this.selectedConversation.contributor) {
+      if (this.selectedConversation?.contributor) {
         return `tier${this.selectedConversation.contributor.level}`;
       }
       return '';
@@ -926,6 +926,7 @@ export default {
         const newMessage = response.data.data.message;
         const messageToReset = messages[messages.length - 1];
         messageToReset.id = newMessage.id; // just set the id, all other infos already set
+        messageToReset.text = newMessage.text; // handle mentions
         Object.assign(messages[messages.length - 1], messageToReset);
         this.updateConversationsCounter += 1;
       });

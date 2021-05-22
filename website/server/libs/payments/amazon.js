@@ -17,7 +17,7 @@ import { // eslint-disable-line import/no-cycle
   basicFields as basicGroupFields,
 } from '../../models/group';
 import { model as Coupon } from '../../models/coupon';
-import { getGemsBlock } from './gems'; // eslint-disable-line import/no-cycle
+import { getGemsBlock, validateGiftMessage } from './gems'; // eslint-disable-line import/no-cycle
 
 // TODO better handling of errors
 
@@ -117,6 +117,7 @@ api.checkout = async function checkout (options = {}) {
 
   if (gift) {
     gift.member = await User.findById(gift.uuid).exec();
+    validateGiftMessage(gift, user);
 
     if (gift.type === this.constants.GIFT_TYPE_GEMS) {
       if (gift.gems.amount <= 0) {

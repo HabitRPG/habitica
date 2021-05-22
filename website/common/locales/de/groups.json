@@ -348,7 +348,7 @@
     "blockedToSendToThisUser": "Du kannst dieser Person nicht schreiben, weil Du diese Person blockiert hast.",
     "PMDisabled": "Private Nachrichten deaktivieren",
     "userWithUsernameOrUserIdNotFound": "Benutzername bzw. Benutzer ID nicht gefunden.",
-    "usernameOrUserId": "Benutzername oder Benutzer ID",
+    "usernameOrUserId": "Gib @benutzername oder Benutzer ID an",
     "sendGiftToWhom": "Wem würdest Du gerne ein Geschenk schicken?",
     "selectGift": "Geschenk auswählen",
     "PMCanNotReply": "Du kannst auf diese Nachricht nicht antworten",
@@ -367,5 +367,8 @@
     "bannedWordsAllowed": "Verbotene Wörter zulassen",
     "languageSettings": "Spracheinstellungen",
     "cannotRemoveQuestOwner": "Du kannst die Person, welche die aktive Quest besitzt nicht entfernen. Breche erst die Quest ab.",
-    "features": "Funktionen"
+    "features": "Funktionen",
+    "giftMessageTooLong": "Die maximale Länge für Geschenk-Nachrichten ist <%= maxGiftMessageLength %>.",
+    "selectSubscription": "Wähle ein Abonnement",
+    "blockYourself": "Du kannst Dich nicht selbst blockieren"
 }

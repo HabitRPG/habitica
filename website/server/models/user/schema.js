@@ -138,6 +138,10 @@ export default new Schema({
     allThatGlitters: Boolean,
     boneCollector: Boolean,
     skeletonCrew: Boolean,
+    seeingRed: Boolean,
+    redLetterDay: Boolean,
+    legendaryBestiary: Boolean,
+    seasonalSpecialist: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,
@@ -597,7 +601,12 @@ export default new Schema({
     mp: { $type: Number, default: 10 },
     exp: { $type: Number, default: 0 },
     gp: { $type: Number, default: 0 },
-    lvl: { $type: Number, default: 1, min: 1 },
+    lvl: {
+      $type: Number,
+      default: 1,
+      min: 1,
+      max: shared.constants.MAX_LEVEL_HARD_CAP,
+    },
 
     // Class System
     class: {

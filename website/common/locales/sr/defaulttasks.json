@@ -2,7 +2,7 @@
     "defaultHabit1Text": "Produktivan rad (kliknite na olovku da izmenite zadatak)",
     "defaultHabit2Text": "Brza Hrana (kliknite na olovku da izmenite zadatak)",
     "defaultHabit3Text": "Penjati se stepenicama/ići liftom(kliknite na olovku da izmenite zadatak)",
-    "defaultHabit4Text": "Add a task to Habitica",
+    "defaultHabit4Text": "Dodaj zadatak u Habitica",
     "defaultHabit4Notes": "Either a Habit, a Daily, or a To-Do",
     "defaultTodo1Text": "Pridružiti se Habitica-u (Urađeno, klikni me!)",
     "defaultTodoNotes": "Možete da uradite ovaj zadatak, da ga izmenite, ili da ga uklonite.",
@@ -15,5 +15,9 @@
     "defaultTag4": "School",
     "defaultTag5": "Teams",
     "defaultTag6": "Chores",
-    "defaultTag7": "Creativity"
+    "defaultTag7": "Creativity",
+    "choresDailyText": "Operi sudove",
+    "choresHabit": "10 minuta čišćenja",
+    "schoolDailyText": "Završi domaći",
+    "selfCareHabit": "Napravi kratku pauzu"
 }

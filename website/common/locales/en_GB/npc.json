@@ -94,7 +94,7 @@
     "classGearText": "Congratulations on choosing a class! I've added your new basic weapon to your inventory. Take a look below to equip it!",
     "autoAllocate": "Auto Allocate",
     "spells": "Skills",
-    "skillsTitle": "Skills",
+    "skillsTitle": "<%= classStr %> Skills",
     "toDo": "To Do",
     "tourStatsPage": "This is your Stats page! Earn achievements by completing the listed tasks.",
     "tourTavernPage": "Welcome to the Tavern, an all-ages chat room! You can keep your Dailies from hurting you in case of illness or travel by clicking \"Pause Damage\". Come say hi!",
@@ -123,5 +123,8 @@
     "paymentCanceledDisputes": "We’ve sent a cancellation confirmation to your email. If you don’t see the email, please contact us to prevent future billing disputes.",
     "cannotUnpinItem": "This item cannot be unpinned.",
     "paymentSubBillingWithMethod": "Your subscription will be billed <strong>$<%= amount %></strong> every <strong><%= months %> months</strong> via <strong><%= paymentMethod %></strong>.",
-    "invalidUnlockSet": "This set of items is invalid and cannot be unlocked."
+    "invalidUnlockSet": "This set of items is invalid and cannot be unlocked.",
+    "nMonthsSubscriptionGift": "<%= nMonths %> Month(s) Subscription (Gift)",
+    "nGemsGift": "<%= nGems %> Gems (Gift)",
+    "nGems": "<%= nGems %> Gems"
 }

@@ -99,13 +99,14 @@
         <div class="col-12 col-md-6 text-right">
           <span v-if="isLeader || isAdmin">
             <b-dropdown
-              class="create-dropdown"
+              class="create-dropdown select-list"
               :text="$t('addTaskToChallenge')"
               :variant="'success'"
             >
               <b-dropdown-item
                 v-for="type in columns"
                 :key="type"
+                class="selectListItem"
                 @click="createTask(type)"
               >{{ $t(type) }}</b-dropdown-item>
             </b-dropdown>
@@ -132,6 +133,7 @@
           :type="column"
           :task-list-override="tasksByType[column]"
           :challenge="challenge"
+          :draggable-override="isLeader || isAdmin"
           @editTask="editTask"
           @taskDestroyed="taskDestroyed"
         />
@@ -384,16 +386,6 @@ export default {
       memberResults: [],
     };
   },
-  watch: {
-    'challenge.name': {
-      handler (newVal) {
-        this.$store.dispatch('common:setTitle', {
-          section: this.$t('challenge'),
-          subSection: newVal.name,
-        });
-      },
-    },
-  },
   computed: {
     ...mapState({ user: 'user.data' }),
     isMember () {
@@ -408,6 +400,16 @@ export default {
     },
     canJoin () {
       return !this.isMember;
+    },
+  },
+  watch: {
+    'challenge.name': {
+      handler (newVal) {
+        this.$store.dispatch('common:setTitle', {
+          section: this.$t('challenge'),
+          subSection: newVal.name,
+        });
+      },
     },
   },
   mounted () {
@@ -511,7 +513,7 @@ export default {
       this.creatingTask = null;
     },
     taskCreated (task) {
-      this.tasksByType[task.type].push(task);
+      this.tasksByType[task.type].unshift(task);
     },
     taskEdited (task) {
       const index = findIndex(this.tasksByType[task.type], taskItem => taskItem._id === task._id);

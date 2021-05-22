@@ -48,7 +48,16 @@
     "messageNotAbleToBuyInBulk": "This item cannot be purchased in quantities above 1.",
     "notificationsRequired": "Notification ids are required.",
     "unallocatedStatsPoints": "You have <span class=\"notification-bold-blue\"><%= points %> unallocated Stat Points</span>",
-    "beginningOfConversation": "This is the beginning of your conversation with <%= userName %>. Remember to be kind, respectful, and follow the Community Guidelines!",
+    "beginningOfConversation": "Αυτή είναι η αρχή της συζήτησής σου με τον <%= userName %>.",
     "messageDeletedUser": "Sorry, this user has deleted their account.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Missing display name.",
+    "newsPostNotFound": "Η Δημοσίευση Νέων δεν βρέθηκε, ή δεν έχεις πρόσβαση.",
+    "beginningOfConversationReminder": "Να θυμάσαι να είσαι ευγενικός, να δείχνεις σεβασμό, και να ακολουθείς τις Οδηγίες της Κοινότητας!",
+    "messageBackgroundUnEquipped": "Το Υπόβαθρο αφαιρέθηκε.",
+    "canDeleteNow": "Αν θέλεις, μπορείς τώρα να σβήσεις αυτό το μήνυμα.",
+    "reportedMessage": "Το μήνυμα αναφέρθηκε στους υπεύθυνους.",
+    "messageAllUnEquipped": "Αφαιρέθηκαν τα Πάντα.",
+    "messageCostumeUnEquipped": "Το Κοστούμι αφαιρέθηκε.",
+    "messageBattleGearUnEquipped": "Ο Εξοπλισμός Μάχης αφαιρέθηκε.",
+    "messagePetMountUnEquipped": "Κατοικίδιο και Θηρίο αφαιρέθηκαν."
 }

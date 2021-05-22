@@ -48,6 +48,11 @@ const QUEST_SERIES_ACHIEVEMENTS = {
     'frog',
     'hippo',
   ],
+  seasonalSpecialist: [
+    'egg',
+    'evilsanta',
+    'evilsanta2',
+  ],
 };
 
 export default QUEST_SERIES_ACHIEVEMENTS;

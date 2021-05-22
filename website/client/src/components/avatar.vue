@@ -81,7 +81,7 @@
         <span
           v-if="member.items.currentPet"
           class="current-pet"
-          :class="'Pet-' + member.items.currentPet"
+          :class="petClass"
         ></span>
       </template>
     </div>
@@ -121,9 +121,15 @@
   .offset-kangaroo {
     margin-top: 24px;
   }
+
+  .invert {
+    filter: invert(100%);
+  }
 </style>
 
 <script>
+import some from 'lodash/some';
+import moment from 'moment';
 import { mapState } from '@/libs/store';
 
 import ClassBadge from '@/components/members/classBadge';
@@ -174,6 +180,7 @@ export default {
   computed: {
     ...mapState({
       flatGear: 'content.gear.flat',
+      currentEventList: 'worldState.data.currentEventList',
     }),
     hasClass () {
       return this.$store.getters['members:hasClass'](this.member);
@@ -232,6 +239,15 @@ export default {
       }
 
       return null;
+    },
+    petClass () {
+      if (some(
+        this.currentEventList,
+        event => moment().isBetween(event.start, event.end) && event.aprilFools && event.aprilFools === 'invert',
+      )) {
+        return `Pet-${this.member.items.currentPet} invert`;
+      }
+      return `Pet-${this.member.items.currentPet}`;
     },
   },
   methods: {

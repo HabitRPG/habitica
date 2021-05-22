@@ -34,10 +34,12 @@ export default {
         return null;
       }
 
+      // swallow lvl error: visually distinct btn already
+      if (this.user.stats.lvl < spell.lvl) return null;
       if (this.user.stats.mp < spell.mana) return this.text(this.$t('notEnoughMana'));
 
       if (spell.immediateUse && this.user.stats.gp < spell.value) {
-        return this.text('Not enough gold.');
+        return this.text(this.$t('notEnoughGold'));
       }
 
       this.potionClickMode = true;
@@ -114,7 +116,7 @@ export default {
       // the selected member doesn't have the flags property which sets `cardReceived`
       if (spell.pinType !== 'card') {
         try {
-          spell.cast(this.user, target);
+          spell.cast(this.user, target, {});
         } catch (e) {
           if (!e.request) {
             this.$store.dispatch('snackbars:add', {

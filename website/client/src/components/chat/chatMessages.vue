@@ -30,47 +30,22 @@
         {{ $t('loading') }}
       </h2>
     </div>
-    <!-- eslint-disable vue/no-use-v-if-with-v-for -->
     <div
-      v-for="msg in messages"
-      v-if="chat && canViewFlag(msg)"
+      v-for="msg in messages.filter(m => chat && canViewFlag(m))"
       :key="msg.id"
     >
-      <!-- eslint-enable vue/no-use-v-if-with-v-for -->
-      <div
-        v-if="user._id !== msg.uuid"
-        class="d-flex"
-      >
+      <div class="d-flex">
         <avatar
-          v-if="msg.userStyles
-            || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
+          v-if="user._id !== msg.uuid && msg.uuid !== 'system'"
           class="avatar-left"
+          :class="{ invisible: avatarUnavailable(msg) }"
           :member="msg.userStyles || cachedProfileData[msg.uuid]"
           :avatar-only="true"
-          :override-top-padding="'14px'"
           :hide-class-badge="true"
+          :override-top-padding="'14px'"
           @click.native="showMemberModal(msg.uuid)"
         />
-        <div
-          class="card"
-        >
-          <chat-card
-            :msg="msg"
-            :group-id="groupId"
-            @message-liked="messageLiked"
-            @message-removed="messageRemoved"
-            @show-member-modal="showMemberModal"
-            @chat-card-mounted="itemWasMounted"
-          />
-        </div>
-      </div>
-      <div
-        v-if="user._id === msg.uuid"
-        class="d-flex"
-      >
-        <div
-          class="card"
-        >
+        <div class="card">
           <chat-card
             :msg="msg"
             :group-id="groupId"
@@ -81,8 +56,8 @@
           />
         </div>
         <avatar
-          v-if="msg.userStyles
-            || (cachedProfileData[msg.uuid] && !cachedProfileData[msg.uuid].rejected)"
+          v-if="user._id === msg.uuid"
+          :class="{ invisible: avatarUnavailable(msg) }"
           :member="msg.userStyles || cachedProfileData[msg.uuid]"
           :avatar-only="true"
           :hide-class-badge="true"
@@ -167,8 +142,6 @@
   .message-scroll .d-flex {
     min-width: 1px;
   }
-
-
 </style>
 
 <script>
@@ -300,6 +273,10 @@ export default {
       }
 
       this.loading = false;
+    },
+    avatarUnavailable ({ userStyles, uuid }) {
+      const { cachedProfileData } = this;
+      return (!userStyles && (!cachedProfileData[uuid] || cachedProfileData[uuid].rejected));
     },
     displayDivider (message) {
       if (this.currentDayDividerDisplay !== moment(message.timestamp).day()) {

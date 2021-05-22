@@ -173,7 +173,7 @@
     "totalLogins": "Всего",
     "latestCheckin": "Последнее посещение",
     "editProfile": "Изменить профиль",
-    "challengesWon": "Выиграно испытаний",
+    "challengesWon": "Выигранные испытания",
     "questsCompleted": "Завершено квестов",
     "headAccess": "Аксессуар на голову.",
     "backAccess": "Аксессуар на спину.",
@@ -185,5 +185,6 @@
     "purchaseForGold": "Купить за <%= cost %> золотых монет?",
     "chatCastSpellParty": "<%= username %> накладывает заклинание «<%= spell %>» на команду.",
     "chatCastSpellUser": "<%= username %> накладывает заклинание «<%= spell %>» на <%= target %>.",
-    "purchasePetItemConfirm": "Эта покупка превышает необходимое количество предметов для выведения всех возможных <%= itemText %> питомцев. Вы уверены?"
+    "purchasePetItemConfirm": "Эта покупка превышает необходимое количество предметов для выведения всех возможных <%= itemText %> питомцев. Вы уверены?",
+    "notEnoughGold": "Недостаточно золота."
 }

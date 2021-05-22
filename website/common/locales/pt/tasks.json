@@ -1,6 +1,6 @@
 {
     "clearCompleted": "Eliminar Concluídos",
-    "clearCompletedDescription": "Os Afazeres concluídos  são apagados após 30 dias para não-subscritores e 90 dias para subscritores.",
+    "clearCompletedDescription": "Os Afazeres concluídos são apagados após 30 dias para não-subscritores e 90 dias para subscritores.",
     "clearCompletedConfirm": "Tens a certeza de que queres apagar os teus Afazeres concluídos?",
     "addMultipleTip": "<strong>Dica:</strong> Para adicionar <%= taskType %> em simultâneo, separa cada um usando um parágrafo (Shift + Enter) e no fim pressiona \"Enter.\"",
     "addATask": "Adicionar <%= type %>",

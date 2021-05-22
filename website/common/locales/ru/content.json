@@ -1,6 +1,6 @@
 {
     "potionText": "Эликсир здоровья",
-    "potionNotes": "Восстанавливает 15 здоровья (Мгновенно)",
+    "potionNotes": "Восстанавливает 15 здоровья (мгновенно)",
     "armoireText": "Зачарованный сундук",
     "armoireNotesFull": "Откройте сундук, чтобы случайным образом получить особое снаряжение, опыт или корм! Осталось предметов снаряжения:",
     "armoireLastItem": "Вы получили последний редкий предмет из зачарованного сундука.",
@@ -196,7 +196,7 @@
     "hatchingPotionSpooky": "Зловещий",
     "hatchingPotionPeppermint": "Мятный",
     "hatchingPotionFloral": "Цветочный",
-    "hatchingPotionAquatic": "Водный",
+    "hatchingPotionAquatic": "Акватический",
     "hatchingPotionEmber": "Тлеющий",
     "hatchingPotionThunderstorm": "Грозовой",
     "hatchingPotionGhost": "Призрачный",
@@ -361,5 +361,9 @@
     "hatchingPotionWindup": "Заводной",
     "hatchingPotionTurquoise": "Бирюзовый",
     "hatchingPotionVampire": "Вампирный",
-    "hatchingPotionSandSculpture": "Песчаная скульптура"
+    "hatchingPotionSandSculpture": "Песчаная скульптура",
+    "hatchingPotionBlackPearl": "Черно-жемчужный",
+    "hatchingPotionStainedGlass": "Витражный",
+    "hatchingPotionAutumnLeaf": "Осенний лист",
+    "hatchingPotionPolkaDot": "Пятнистый"
 }

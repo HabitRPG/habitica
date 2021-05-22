@@ -240,6 +240,30 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
         expect(body.group.name).to.eql(questingGroup.name);
         expect(body.quest.key).to.eql(PET_QUEST);
       });
+
+      it('sends quest invited webhook to the inviter too', async () => {
+        const uuid = generateUUID();
+
+        await leader.post('/user/webhook', {
+          url: `http://localhost:${server.port}/webhooks/${uuid}`,
+          type: 'questActivity',
+          enabled: true,
+          options: {
+            questInvited: true,
+          },
+        });
+
+        await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+
+        await sleep();
+
+        const body = server.getWebhookData(uuid);
+
+        expect(body.type).to.eql('questInvited');
+        expect(body.group.id).to.eql(questingGroup.id);
+        expect(body.group.name).to.eql(questingGroup.name);
+        expect(body.quest.key).to.eql(PET_QUEST);
+      });
     });
   });
 });

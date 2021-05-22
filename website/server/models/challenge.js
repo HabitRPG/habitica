@@ -12,10 +12,7 @@ import { removeFromArray } from '../libs/collectionManipulators';
 import shared from '../../common';
 import { sendTxn as txnEmail } from '../libs/email'; // eslint-disable-line import/no-cycle
 import { sendNotification as sendPushNotification } from '../libs/pushNotifications'; // eslint-disable-line import/no-cycle
-import { // eslint-disable-line import/no-cycle
-  syncableAttrs,
-  setNextDue,
-} from '../libs/taskManager';
+import { syncableAttrs, setNextDue } from '../libs/tasks/utils';
 
 const { Schema } = mongoose;
 
@@ -41,7 +38,9 @@ const schema = new Schema({
     $type: String, ref: 'Group', validate: [v => validator.isUUID(v), 'Invalid uuid for challenge group.'], required: true,
   },
   memberCount: { $type: Number, default: 0 },
-  prize: { $type: Number, default: 0, min: 0 },
+  prize: {
+    $type: Number, default: 0, min: 0, required: true,
+  },
   categories: [{
     slug: { $type: String },
     name: { $type: String },
@@ -403,7 +402,7 @@ schema.methods.closeChal = async function closeChal (broken = {}) {
     }
   }
 
-  // Run some operations in the background withouth blocking the thread
+  // Run some operations in the background without blocking the thread
   const backgroundTasks = [
     // And it's tasks
     Tasks.Task.remove({ 'challenge.id': challenge._id, userId: { $exists: false } }).exec(),

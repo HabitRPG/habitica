@@ -1,14 +1,15 @@
 {
     "rebirthNew": "Újjászületés: új kaland érhető el!",
-    "rebirthUnlock": "Feloldottad az újjászületést! Ez a különleges bolti tárgy lehetővé teszi, hogy új játékot kezdj az 1. szinttől, megtartva a feladataidat, kitüntetéseidet, háziállataidat és még többet. Használd arra, hogy új életet lehelj a Habitica-ba, ha úgy érzed, hogy már mindent elértél, vagy hogy új funkciókat tapasztalj meg egy kezdő karakter friss szemeivel!",
-    "rebirthAchievement": "Új kalandot kezdtél! Ez a <%= number %>. újjászületésed és a legmagasabb szint, amit elértél: <%= level %>. Hogy halmozd ezt a kitüntetést kezdj új kalandot, amikor elértél egy még magasabb szintet!",
+    "rebirthUnlock": "Feloldottad az újjászületést! Ez a különleges bolti tárgy lehetővé teszi, hogy új játékot kezdj az 1. szinttől, megtartva a feladataidat, kitüntetéseidet, háziállataidat és még sok mást. Használd arra, hogy új életet lehelj a Habitica-ba, ha úgy érzed, hogy már mindent elértél, vagy hogy új funkciókat tapasztalj meg egy kezdő karakter friss szemeivel!",
+    "rebirthAchievement": "Új kalandot kezdtél! Ez a <%= number %>. újjászületésed és a <%= level %>. szint a legmagasabb, amit elértél. Hogy halmozd ezt a kitüntetést kezdj új kalandot amikor elértél egy még magasabb szintet!",
     "rebirthAchievement100": "Új kalandot kezdtél! Ez a <%= number %>. újjászületésed, és a legmagasabb szint amit elértél 100, vagy annál több. Hogy halmozd ezt a kitüntetést kezdj új kalandot, amikor 100. vagy magasabb szinten vagy!",
     "rebirthBegan": "Új kalandot kezdtél",
     "rebirthText": "Eddig <%= rebirths %> új kalandot kezdtél",
-    "rebirthOrb": "Használtad az újjászületés gömbjét hogy új kalandot kezdj miután elérted a <%= level %> szintet.",
-    "rebirthOrb100": "Használtad az újjászületés gömbjét hogy új kalandot kezdj miután elérted a 100. szintet vagy magasabbat.",
+    "rebirthOrb": "Használtad az újjászületés gömbjét hogy új kalandot kezdj miután elérted a <%= level %>. szintet.",
+    "rebirthOrb100": "Használtad az újjászületés gömbjét hogy új kalandot kezdj miután elérted a 100. vagy magasabb szintet.",
     "rebirthOrbNoLevel": "Használtad az újjászületés gömbjét hogy új kalandot kezdj.",
-    "rebirthPop": "Kezd újra a karaktered 1. szintű harcosként, megtartva a kitüntetéseket, gyűjteményeket és felszereléseket. A feladataid valamint azok előzményei megmaradnak, de besárgulnak. A szériáid eltűnnek, kivéve a kihívásokhoz tartozó feladatoknál. Aranyad, tapasztalati pontjaid, manád és a varázslatok hatásai eltűnnek. Ez azonnal érvénybe lép. További információért látogasd meg a wiki-n az <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>újjászületés gömbje</a> oldalt.",
+    "rebirthPop": "Kezd újra a karaktered 1. szintű harcosként, megtartva a kitüntetéseket, gyűjteményeket és felszereléseket. A feladataid valamint azok előzményei megmaradnak, de besárgulnak. A szériáid eltűnnek, kivéve a kihívásokhoz és csoporttervekhez tartozó feladatoknál. Aranyad, tapasztalati pontjaid, manád és a varázslatok hatásai eltűnnek. Ez azonnal érvénybe lép. További információért látogasd meg a wiki-n az <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>újjászületés gömbje</a> oldalt.",
     "rebirthName": "Újjászületés gömbje",
-    "rebirthComplete": "Újjászülettél!"
+    "rebirthComplete": "Újjászülettél!",
+    "nextFreeRebirth": "<strong><%= days %> nap </strong> amíg <strong> INGYENES </strong> újjászületés gömbjét szerzel"
 }

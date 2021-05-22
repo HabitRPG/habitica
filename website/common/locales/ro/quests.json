@@ -84,5 +84,6 @@
     "questAlreadyStartedFriendly": "The quest has already started, but you can always catch the next one!",
     "questAlreadyStarted": "The quest has already started.",
     "questInvitationNotificationInfo": "You were invited to join a quest",
-    "hatchingPotionQuests": "Magic Hatching Potion Quests"
+    "hatchingPotionQuests": "Magic Hatching Potion Quests",
+    "bossDamage": "L-ai deteriorat pe Căpcăun!"
 }

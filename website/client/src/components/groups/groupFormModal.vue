@@ -608,22 +608,21 @@ export default {
       };
 
       const categoryKeys = this.workingGroup.categories;
-      const serverCategories = [];
+      const categories = [];
       categoryKeys.forEach(key => {
         const catName = this.categoriesHashByKey[key];
-        serverCategories.push({
+        categories.push({
           slug: key,
           name: catName,
         });
       });
-      this.workingGroup.categories = serverCategories;
 
-      const groupData = { ...this.workingGroup };
+      const groupData = { ...this.workingGroup, categories };
 
       let newgroup;
       if (groupData.id) {
         await this.$store.dispatch('guilds:update', { group: groupData });
-        this.$root.$emit('updatedGroup', this.workingGroup);
+        this.$root.$emit('updatedGroup', groupData);
         // @TODO: this doesn't work because of the async resource
         // if (updatedGroup.type === 'party') this.$store.state.party = {data: updatedGroup};
       } else {

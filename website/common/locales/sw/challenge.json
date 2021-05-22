@@ -8,7 +8,7 @@
     "brokenChallenge": "Kiungo ya Changamoto Inavunja: kazi hii ilikuwa sehemu ya chagmamoto, lakini changamoto (au kundi) imeondolewa.  Unataka kufanya nini na kazi inaachwa?",
     "keepThem": "Keep Tasks",
     "removeThem": "Remove Tasks",
-    "challengeCompleted": "Changamoto hii imezimwa, na mshindi ni <span class=\"badge\"><%- user %></span>!  Unataka kufanya nini na kazi inaachwa?",
+    "challengeCompleted": "Changamoto hii imezimwa, na mshindi ni <span class=\"badge\"><%- user %></span>! Unataka kufanya nini na kazi inaachwa?",
     "unsubChallenge": "Kiungo ya Changamoto Inavunja: kazi hii ilikuwa sehemu ya changamoto, lakini umejiengua changamoto.  Unataka kufanya nini na kazi inaachwa?",
     "challenges": "Changamoto",
     "endDate": "Ends",

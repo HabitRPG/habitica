@@ -348,7 +348,7 @@
     "blockedToSendToThisUser": "You can't send to this player because you have blocked this player.",
     "PMDisabled": "Disable Private Messages",
     "userWithUsernameOrUserIdNotFound": "Username or User ID not found.",
-    "usernameOrUserId": "Username or User ID",
+    "usernameOrUserId": "Enter @username or User ID",
     "sendGiftToWhom": "Who would you like to send a gift to?",
     "selectGift": "Select Gift",
     "PMUnblockUserToSendMessages": "Unblock this user to continue sending and receiving messages.",
@@ -367,5 +367,8 @@
     "languageSettings": "Language Settings",
     "onlyPrivateGuildsCanUpgrade": "Only private guilds can be upgraded to a group plan.",
     "cannotRemoveQuestOwner": "You cannot remove the owner of the active quest. Abort the quest first.",
-    "features": "Features"
+    "features": "Features",
+    "giftMessageTooLong": "The maximum length for gift messages is <%= maxGiftMessageLength %>.",
+    "selectSubscription": "Select Subscription",
+    "blockYourself": "You cannot block yourself"
 }

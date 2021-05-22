@@ -99,7 +99,7 @@
     "notEnoughHourglasses": "Non tes suficentes Reloxos de Area Místicos.",
     "petsAlreadyOwned": "Xa tes esa mascota.",
     "mountsAlreadyOwned": "Xa tes esa montura.",
-    "typeNotAllowedHourglass": "Non se soporta ese tipo de obxecto para adquisición co Reloxo de Area Místico. Tipos permitidos: ",
+    "typeNotAllowedHourglass": "Non se soporta ese tipo de obxecto para adquisición co Reloxo de Area Místico. Tipos permitidos: <%= allowedTypes %>",
     "hourglassPurchase": "Adquiriuse un obxecto usando un Reloxo de Area Místico!",
     "hourglassPurchaseSet": "Adquiriuse un lote de obxectos usando un Reloxo de Area Místico!",
     "missingUnsubscriptionCode": "Falta o código de cancelación de subscrición.",

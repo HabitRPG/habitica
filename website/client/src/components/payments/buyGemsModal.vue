@@ -50,6 +50,33 @@
           </div>
         </div>
       </div>
+      <div
+        v-if="currentEvent && currentEvent.promo && currentEvent.promo === 'g1g1'"
+        class="gift-promo-banner d-flex justify-content-around align-items-center px-4"
+      >
+        <div
+          v-once
+          class="svg-icon svg-gifts left-gift"
+          v-html="icons.gifts"
+        >
+        </div>
+        <div
+          class="d-flex flex-column announce-text text-center"
+        >
+          <strong> {{ $t('g1g1') }} </strong>
+          <small
+            class="px-1 mt-1"
+          >
+            {{ $t('g1g1Details') }}
+          </small>
+        </div>
+        <div
+          v-once
+          class="svg-icon svg-gifts right-gift"
+          v-html="icons.gifts"
+        >
+        </div>
+      </div>
       <div class="container">
         <div class="row text-center">
           <h2
@@ -135,7 +162,7 @@
         </div>
         <payments-buttons
           :disabled="!selectedGemsBlock"
-          :stripe-fn="() => showStripe({ gemsBlock: selectedGemsBlock })"
+          :stripe-fn="() => redirectToStripe({ gemsBlock: selectedGemsBlock })"
           :paypal-fn="() => openPaypal({
             url: paypalCheckoutLink, type: 'gems', gemsBlock: selectedGemsBlock
           })"
@@ -282,6 +309,30 @@
     line-height: 1.71;
   }
 
+  .gift-promo-banner {
+    width: 100%;
+    height: 5rem;
+    background-image: linear-gradient(90deg, $teal-50 0%, $purple-400 100%);
+
+    .announce-text {
+      color: $white;
+    }
+
+    .left-gift {
+      margin: auto 1rem auto auto;
+    }
+
+    .right-gift {
+      margin: auto auto auto 1rem;
+      filter: flipH;
+      transform: scaleX(-1);
+    }
+
+    .svg-gifts {
+      width: 4.6rem;
+    }
+  }
+
   .header-wrap {
     background-image: linear-gradient(75deg, $purple-300, $purple-200 100%);
     width: 100%;
@@ -324,6 +375,7 @@ import twentyOneGems from '@/assets/svg/21-gems.svg';
 import fortyTwoGems from '@/assets/svg/42-gems.svg';
 import eightyFourGems from '@/assets/svg/84-gems.svg';
 import svgClose from '@/assets/svg/close.svg';
+import gifts from '@/assets/svg/gifts.svg';
 
 import paymentsButtons from '@/components/payments/buttons/list';
 
@@ -344,6 +396,7 @@ export default {
         '21gems': twentyOneGems,
         '42gems': fortyTwoGems,
         '84gems': eightyFourGems,
+        gifts,
       }),
       selectedGemsBlock: null,
       alreadyTracked: false,

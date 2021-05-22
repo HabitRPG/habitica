@@ -1,6 +1,7 @@
 import each from 'lodash/each';
 import {
   MAX_HEALTH,
+  MAX_LEVEL_HARD_CAP,
   MAX_STAT_POINTS,
 } from '../constants';
 import { toNextLevel } from '../statHelpers';
@@ -24,7 +25,11 @@ export default function updateStats (user, stats, req = {}, analytics) {
 
     while (stats.exp >= experienceToNextLevel) {
       stats.exp -= experienceToNextLevel;
-      user.stats.lvl += 1;
+      if (user.stats.lvl >= MAX_LEVEL_HARD_CAP) {
+        user.stats.lvl = MAX_LEVEL_HARD_CAP;
+      } else {
+        user.stats.lvl += 1;
+      }
 
       experienceToNextLevel = toNextLevel(user.stats.lvl);
       user.stats.hp = MAX_HEALTH;

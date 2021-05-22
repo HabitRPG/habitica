@@ -77,5 +77,6 @@
     "gettingStartedDesc": "Complete these onboarding tasks and you’ll earn <strong>5 Achievements</strong> and <strong class=\"gold-amount\">100 Gold</strong> once you’re done!",
     "onboardingCompleteDescSmall": "If you want even more, check out Achievements and start collecting!",
     "onboardingComplete": "You completed your onboarding tasks!",
-    "yourProgress": "Your Progress"
+    "yourProgress": "Your Progress",
+    "yourRewards": "Your Rewards"
 }

@@ -8,7 +8,7 @@ import {
 } from '../errors';
 import { model as IapPurchaseReceipt } from '../../models/iapPurchaseReceipt';
 import { model as User } from '../../models/user';
-import { getGemsBlock } from './gems';
+import { getGemsBlock, validateGiftMessage } from './gems';
 
 const api = {};
 
@@ -28,6 +28,7 @@ api.verifyGemPurchase = async function verifyGemPurchase (options) {
 
   if (gift) {
     gift.member = await User.findById(gift.uuid).exec();
+    validateGiftMessage(gift, user);
   }
   const receiver = gift ? gift.member : user;
   const receiverCanGetGems = await receiver.canGetGems();
@@ -214,6 +215,7 @@ api.noRenewSubscribe = async function noRenewSubscribe (options) {
   };
 
   if (gift) {
+    validateGiftMessage(gift, user);
     gift.member = await User.findById(gift.uuid).exec();
     gift.subscription = sub;
     data.gift = gift;

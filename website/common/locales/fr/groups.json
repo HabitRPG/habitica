@@ -348,7 +348,7 @@
     "blockedToSendToThisUser": "Vous ne pouvez pas envoyer de message à ce membre, car vous l'avez bloqué.",
     "PMDisabled": "Désactiver les messages privés",
     "userWithUsernameOrUserIdNotFound": "Pseudo ou identifiant non trouvé.",
-    "usernameOrUserId": "Pseudo ou identifiant",
+    "usernameOrUserId": "Entrez un pseudo ou un identifiant",
     "sendGiftToWhom": "A qui voulez-vous envoyer un cadeau ?",
     "selectGift": "Choisir le cadeau",
     "PMUnblockUserToSendMessages": "Débloquez cette personne pour continuer à envoyer et recevoir des messages.",
@@ -367,5 +367,8 @@
     "languageSettings": "Paramètres de langue",
     "onlyPrivateGuildsCanUpgrade": "Seules les guildes privées peuvent être améliorée en offre de groupe.",
     "features": "Fonctionnalités",
-    "cannotRemoveQuestOwner": "Vous ne pouvez pas retirer le propriétaire de la quête active. Annulez d'abord la quête."
+    "cannotRemoveQuestOwner": "Vous ne pouvez pas retirer le propriétaire de la quête active. Annulez d'abord la quête.",
+    "giftMessageTooLong": "La longueur maximum des messages pour les cadeaux est <%= maxGiftMessageLength %>.",
+    "selectSubscription": "Choisir l'abonnement",
+    "blockYourself": "Vous ne pouvez pas vous bloquer"
 }

@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "चुपके",
     "spellRogueStealthNotes": "प्रत्येक कास्ट के साथ, आपके कुछ अनजाने Dailies आज रात नुकसान का कारण नहीं होगा। उनकी लकीरें और रंग नहीं बदलेंगे। (आधार पर: प्रति)",
-    "spellRogueStealthDaliesAvoided": "<मूल% = पाठ%> दैनिक समाचार पत्रों की संख्या से बचा गया: <% = संख्या%>।",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> दैनिक समाचार पत्रों की संख्या से बचा गया: <%= number %>.",
     "spellRogueStealthMaxedOut": "You have already avoided all your dailies; there's no need to cast this again.",
     "spellHealerHealText": "चिकित्सा की किरण",
     "spellHealerHealNotes": "चमकदार रोशनी आपके स्वास्थ्य को बहाल करती है! (के आधार पर: कांग्रेस और INT)",

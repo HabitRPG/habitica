@@ -49,9 +49,15 @@
     "notificationsRequired": "Notificatie-id's zijn vereist.",
     "unallocatedStatsPoints": "Je hebt <span class=\"notification-bold-blue\"><%= points %> niet toegekende statuspunten</span>",
     "beginningOfConversation": "Dit is het begin van je gesprek met <%= userName %>.",
-    "messageDeletedUser": "Soory, deze gebruiker heeft zijn account verwijderd.",
+    "messageDeletedUser": "Sorry, deze gebruiker heeft zijn account verwijderd.",
     "messageMissingDisplayName": "Er mist een gebruikersnaam.",
     "canDeleteNow": "Je kunt dit bericht nu verwijderen als je dat wilt.",
     "reportedMessage": "Je hebt dit bericht gerapporteerd aan de moderators.",
-    "beginningOfConversationReminder": "Denk eraan om aardig en respectvol te zijn, en om de Gemeenschapsrichtlijnen te volgen!"
+    "beginningOfConversationReminder": "Denk eraan om aardig en respectvol te zijn, en om de Gemeenschapsrichtlijnen te volgen!",
+    "newsPostNotFound": "Er zijn geen nieuwe Posts gevonden of je hebt geen toegang.",
+    "messageAllUnEquipped": "Alles is uitgetrokken.",
+    "messageBackgroundUnEquipped": "Achtergrond is uitgetrokken.",
+    "messagePetMountUnEquipped": "Huisdier en Rijdier zijn uitgetrokken.",
+    "messageCostumeUnEquipped": "Kostuum is uitgetrokken.",
+    "messageBattleGearUnEquipped": "Gevechtsuitrusting is uitgetrokken."
 }

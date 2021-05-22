@@ -346,7 +346,7 @@
     "youHaveBeenAssignedTask": "<%- managerName %> ti ha assegnato l'attività <span class=\"notification-bold\"><%- taskText %></span>.",
     "taskClaimed": "<%- userName %> ha rivendicato l'attività <span class=\"notification-bold\"><%- taskText %></span>.",
     "userWithUsernameOrUserIdNotFound": "Nome utente o ID Utente non trovati.",
-    "usernameOrUserId": "Nome utente o ID Utente",
+    "usernameOrUserId": "@username o ID Utente",
     "sendGiftToWhom": "A chi vorresti inviare un regalo?",
     "selectGift": "Seleziona Regalo",
     "pmReported": "Grazie per aver segnalato questo messaggio.",
@@ -367,5 +367,8 @@
     "bannedWordsAllowed": "Consenti parole vietate",
     "languageSettings": "Impostazioni della lingua",
     "cannotRemoveQuestOwner": "Non puoi rimuovere il proprietario della missione attiva. Interrompi prima la missione.",
-    "features": "Caratteristiche"
+    "features": "Caratteristiche",
+    "giftMessageTooLong": "La lunghezza massima per i messaggi regalo è di <%= maxGiftMessageLength %>.",
+    "selectSubscription": "Seleziona abbonamento",
+    "blockYourself": "Non puoi bloccare te stesso"
 }

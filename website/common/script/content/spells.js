@@ -1,10 +1,12 @@
 import each from 'lodash/each';
+import moment from 'moment';
 import t from './translation';
 import { NotAuthorized, BadRequest } from '../libs/errors';
 import statsComputed from '../libs/statsComputed'; // eslint-disable-line import/no-cycle
 import setDebuffPotionItems from '../libs/setDebuffPotionItems'; // eslint-disable-line import/no-cycle
 import crit from '../fns/crit'; // eslint-disable-line import/no-cycle
 import updateStats from '../fns/updateStats';
+import { EVENTS } from './constants';
 
 /*
   ---------------------------------------------------------------
@@ -286,6 +288,9 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSnowballAuraNotes'),
+    canOwn () {
+      return false;
+    },
     cast (user, target, req) {
       if (!user.items.special.snowball) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = true;
@@ -319,6 +324,9 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSpookySparklesNotes'),
+    canOwn () {
+      return false;
+    },
     cast (user, target, req) {
       if (!user.items.special.spookySparkles) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -352,6 +360,10 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialShinySeedNotes'),
+    event: EVENTS.spring2021,
+    canOwn () {
+      return moment().isBetween('2021-04-06T08:00-05:00', EVENTS.spring2021.end);
+    },
     cast (user, target, req) {
       if (!user.items.special.shinySeed) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -385,6 +397,9 @@ spells.special = {
     previousPurchase: true,
     target: 'user',
     notes: t('spellSpecialSeafoamNotes'),
+    canOwn () {
+      return false;
+    },
     cast (user, target, req) {
       if (!user.items.special.seafoam) throw new NotAuthorized(t('spellNotOwned')(req.language));
       target.stats.buffs.snowball = false;
@@ -419,6 +434,9 @@ spells.special = {
     silent: true,
     target: 'user',
     notes: t('nyeCardNotes'),
+    canOwn () {
+      return false;
+    },
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.nye) user.achievements.nye = 0;
@@ -456,6 +474,9 @@ spells.special = {
     silent: true,
     target: 'user',
     notes: t('valentineCardNotes'),
+    canOwn () {
+      return false;
+    },
     cast (user, target) {
       if (user === target) {
         if (!user.achievements.valentine) user.achievements.valentine = 0;

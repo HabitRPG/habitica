@@ -1,5 +1,5 @@
 {
-    "messageLostItem": "<%= itemText %>‌ات شکسته. ",
+    "messageLostItem": "<%= itemText %>‌ات شکسته.",
     "messageTaskNotFound": "کار موردنظر پیدا نشد.",
     "messageTagNotFound": "برچسب موردنظر پیدا نشد.",
     "messagePetNotFound": ":حیوان خانگی موردنظر در user.items.pets پیدا نشد.",

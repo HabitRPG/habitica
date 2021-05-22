@@ -7,7 +7,7 @@
     "tier5": "5. támogatói szint (bajnok)",
     "tier6": "6. támogatói szint (bajnok)",
     "tier7": "7. támogatói szint (legendás)",
-    "tierModerator": "Moderátor (örző)",
+    "tierModerator": "Moderátor (védelmező)",
     "tierStaff": "Munkatársak (hősies)",
     "tierNPC": "NJK",
     "friend": "Barát",
@@ -23,7 +23,7 @@
     "contribLink": "Nézd meg milyen díjakat szereztél a közreműködésedért!",
     "contribName": "Közreműködő",
     "contribText": "Hozzájárult a Habiticához kóddal, grafikával, zenével, szöveggel, vagy más dologgal. Hogy többet megtudj erről, csatlakozz az \"Aspiring Legends Guild\" nevű céhhez!",
-    "kickstartName": "Kickstarter Támogató - $<%= key %> Szint",
+    "kickstartName": "Kickstarter támogató - $<%= key %> szint",
     "kickstartText": "Támogatta a Kickstarter projektet!",
     "helped": "Segített a Habitica fejlődésében",
     "hall": "Hősök csarnoka",
@@ -50,8 +50,8 @@
     "playerTiers": "Játékos szintek",
     "tier": "Szint",
     "conRewardsURL": "http://habitica.fandom.com/wiki/Contributor_Rewards",
-    "surveysSingle": "Segítette a Habitica fejlődését, egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
+    "surveysSingle": "Segítette a Habitica fejlődését egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
     "surveysMultiple": "Segítette Habitica fejlődését <%= count %> alkalommal, egy kérdőív kitöltésével vagy nagyobb tesztben való részvétellel. Köszönjük!",
     "blurbHallPatrons": "Ez a Mecénások csarnoka, ahol megemlékezünk azokról a nemes kalandorokról, akik támogatták az eredeti Kickstarter projektet. Hálásak vagyunk, hogy a Habitica valósággá válhatott!",
-    "blurbHallContributors": "Ez a Közreműködők csarnoka, ahol Habitica-t segítő nyílt forrású támogatókról emlékezünk meg. Akár programozással, grafikával, zenével, szöveggel vagy csak egyszerűen segítőkészséggel, ők azok akik kiérdemeltek <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'>drágaköveket, exkluzív felszereléseket</a>, és <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>dicsőséges titulusokat</a>.  Te is támogathatod Habitica-t! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>Tudj meg erről többet itt.</a>"
+    "blurbHallContributors": "Ez a Közreműködők csarnoka, ahol Habitica-t segítő nyílt forrású támogatókról emlékezünk meg. Akár programozással, grafikával, zenével, szöveggel vagy csak egyszerűen segítőkészséggel, ők azok akik kiérdemeltek <a href='http://habitica.fandom.com/wiki/Contributor_Rewards' target='_blank'> drágaköveket, exkluzív felszereléseket</a>, és <a href='http://habitica.fandom.com/wiki/Contributor_Titles' target='_blank'>dicsőséges titulusokat</a>. Te is támogathatod Habitica-t! <a href='http://habitica.fandom.com/wiki/Contributing_to_Habitica' target='_blank'>Tudj meg erről többet itt.</a>"
 }

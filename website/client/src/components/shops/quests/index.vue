@@ -64,13 +64,15 @@
       <div class="featuredItems">
         <div
           class="background"
-          :class="{broken: broken}"
         ></div>
         <div
           class="background"
-          :class="{cracked: broken, broken: broken}"
+          :style="{'background-image': imageURLs.background}"
         >
-          <div class="npc">
+          <div
+            class="npc"
+            :style="{'background-image': imageURLs.npc}"
+          >
             <div class="featured-label">
               <span class="rectangle"></span>
               <span class="text">Ian</span>
@@ -123,12 +125,12 @@
         <div class="float-right">
           <span class="dropdown-label">{{ $t('sortBy') }}</span>
           <select-translated-array
-              :right="true"
-              :value="selectedSortItemsBy"
-              :items="sortItemsBy"
-              :inline-dropdown="false"
-              class="inline"
-              @select="selectedSortItemsBy = $event"
+            :right="true"
+            :value="selectedSortItemsBy"
+            :items="sortItemsBy"
+            :inline-dropdown="false"
+            class="inline"
+            @select="selectedSortItemsBy = $event"
           />
         </div>
       </div>
@@ -387,8 +389,6 @@
       height: 216px;
 
       .background {
-        background: url('~@/assets/images/npc/#{$npc_quests_flavor}/quest_shop_background.png');
-
         background-repeat: repeat-x;
 
         width: 100%;
@@ -415,7 +415,6 @@
         left: 0;
         top: 0;
         height: 100%;
-        background: url('~@/assets/images/npc/#{$npc_quests_flavor}/quest_shop_npc.png');
         background-repeat: no-repeat;
 
         .featured-label {
@@ -424,23 +423,6 @@
           margin: 0;
           left: 70px;
         }
-      }
-
-      .background.broken {
-        background: url('~@/assets/images/npc/broken/quest_shop_broken_background.png');
-
-        background-repeat: repeat-x;
-      }
-
-      .background.cracked {
-        background: url('~@/assets/images/npc/broken/quest_shop_broken_layer.png');
-
-        background-repeat: repeat-x;
-      }
-
-      .broken .npc {
-        background: url('~@/assets/images/npc/broken/quest_shop_broken_npc.png');
-        background-repeat: no-repeat;
       }
     }
   }
@@ -453,7 +435,7 @@ import _sortBy from 'lodash/sortBy';
 import _throttle from 'lodash/throttle';
 import _groupBy from 'lodash/groupBy';
 import _map from 'lodash/map';
-import { mapState, mapGetters } from '@/libs/store';
+import { mapState } from '@/libs/store';
 
 import ShopItem from '../shopItem';
 import Item from '@/components/inventory/item';
@@ -514,9 +496,7 @@ export default {
       user: 'user.data',
       userStats: 'user.data.stats',
       userItems: 'user.data.items',
-    }),
-    ...mapGetters({
-      broken: 'worldState.brokenQuests',
+      currentEvent: 'worldState.data.currentEvent',
     }),
     shop () {
       return shops.getQuestShop(this.user);
@@ -536,9 +516,20 @@ export default {
       }
       return [];
     },
-
     anyFilterSelected () {
       return Object.values(this.viewOptions).some(g => g.selected);
+    },
+    imageURLs () {
+      if (!this.currentEvent || !this.currentEvent.season) {
+        return {
+          background: 'url(/static/npc/normal/quest_shop_background.png)',
+          npc: 'url(/static/npc/normal/quest_shop_npc.png)',
+        };
+      }
+      return {
+        background: `url(/static/npc/${this.currentEvent.season}/quest_shop_background.png)`,
+        npc: `url(/static/npc/${this.currentEvent.season}/quest_shop_npc.png)`,
+      };
     },
   },
   watch: {

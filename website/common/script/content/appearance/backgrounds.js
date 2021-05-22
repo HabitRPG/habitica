@@ -410,6 +410,36 @@ const backgrounds = {
     resting_in_the_inn: { },
     river_of_lava: { },
   },
+  backgrounds122020: {
+    gingerbread_house: { },
+    holiday_hearth: { },
+    inside_an_ornament: { },
+  },
+  backgrounds012021: {
+    hot_spring: { },
+    icicle_bridge: { },
+    wintry_castle: { },
+  },
+  backgrounds022021: {
+    flying_over_glacier: { },
+    heart_shaped_bubbles: { },
+    throne_room: { },
+  },
+  backgrounds032021: {
+    in_the_armory: { },
+    splash_in_a_puddle: { },
+    spring_thaw: { },
+  },
+  backgrounds042021: {
+    among_cattails: { },
+    cottage_construction: { },
+    elegant_garden: { },
+  },
+  backgrounds052021: {
+    afternoon_picnic: { },
+    dragons_lair: { },
+    windmills: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,
