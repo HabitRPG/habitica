@@ -1,7 +1,6 @@
 <template>
   <transition name="fade">
     <div
-      v-if="show"
       class="notification callout animated pt-0"
       :class="classes"
       @click="handleOnClick()"
@@ -195,7 +194,7 @@ import mana from '@/assets/svg/mana.svg';
 import sword from '@/assets/svg/sword.svg';
 
 export default {
-  props: ['notification'],
+  props: ['notification', 'visibleAmount'],
   data () {
     return {
       timer: null,
@@ -206,7 +205,6 @@ export default {
         mana,
         sword,
       }),
-      show: true,
     };
   },
   computed: {
@@ -233,27 +231,30 @@ export default {
       return `${this.notification.type} ${this.negative}`;
     },
   },
-  watch: {
-    show () {
-      this.$store.dispatch('snackbars:remove', this.notification);
-    },
-  },
-  created () {
+  mounted () {
     const timeout = (
       this.notification
       && this.notification.timeout !== undefined
       && this.notification.timeout !== null
     ) ? this.notification.timeout : true;
 
+    const { uuid } = this.notification;
+
+    console.info({ timeout, uuid });
+
     if (timeout) {
       let delay = this.notification.delay || 1500;
-      delay += this.$store.state.notificationStore.length * 1000;
+      delay += this.visibleAmount * 1000;
+
+      console.info('timeout created!!!', delay, uuid);
+
       this.timer = setTimeout(() => {
-        this.show = false;
+        this.$emit('hidden', this.notification);
       }, delay);
     }
   },
   beforeDestroy () {
+    console.warn('before destroy');
     clearTimeout(this.timer);
   },
   methods: {
