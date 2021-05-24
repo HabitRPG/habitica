@@ -24,7 +24,7 @@
     "@vue/cli-plugin-unit-mocha": "^4.5.12",
     "@vue/cli-service": "^4.5.12",
     "@vue/test-utils": "1.0.0-beta.29",
-    "amplitude-js": "^8.2.1",
+    "amplitude-js": "^8.2.3",
     "axios": "^0.21.1",
     "axios-progress-bar": "^1.2.0",
     "babel-eslint": "^10.1.0",
