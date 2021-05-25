@@ -55,6 +55,13 @@ const ANIMAL_COLOR_ACHIEVEMENTS = [
     mountAchievement: 'redLetterDay',
     mountNotificationType: 'ACHIEVEMENT_RED_LETTER_DAY',
   },
+  {
+    color: 'CottonCandyBlue',
+    petAchievement: 'violetsAreBlue',
+    petNotificationType: 'ACHIEVEMENT_VIOLETS_ARE_BLUE',
+    mountAchievement: 'wildBlueYonder',
+    mountNotificationType: 'ACHIEVEMENT_WILD_BLUE_YONDER',
+  },
 ];
 
 export default ANIMAL_COLOR_ACHIEVEMENTS;

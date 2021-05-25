@@ -403,6 +403,22 @@ const NOTIFICATIONS = {
       achievement: 'seasonalSpecialist',
     },
   },
+  ACHIEVEMENT_VIOLETS_ARE_BLUE: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementVioletsAreBlue')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'violetsAreBlue',
+    },
+  },
+  ACHIEVEMENT_WILD_BLUE_YONDER: {
+    achievement: true,
+    label: $t => `${$t('achievement')}: ${$t('achievementWildBlueYonder')}`,
+    modalId: 'generic-achievement',
+    data: {
+      achievement: 'wildBlueYonder',
+    },
+  },
 };
 
 export default {
@@ -466,6 +482,7 @@ export default {
       'ACHIEVEMENT_FRESHWATER_FRIENDS', 'ACHIEVEMENT_GOOD_AS_GOLD', 'ACHIEVEMENT_ALL_THAT_GLITTERS',
       'ACHIEVEMENT_BONE_COLLECTOR', 'ACHIEVEMENT_SKELETON_CREW', 'ACHIEVEMENT_SEEING_RED',
       'ACHIEVEMENT_RED_LETTER_DAY', 'ACHIEVEMENT_LEGENDARY_BESTIARY', 'ACHIEVEMENT_SEASONAL_SPECIALIST',
+      'ACHIEVEMENT_VIOLETS_ARE_BLUE', 'ACHIEVEMENT_WILD_BLUE_YONDER',
     ].forEach(type => {
       handledNotifications[type] = true;
     });
@@ -890,6 +907,8 @@ export default {
           case 'ACHIEVEMENT_RED_LETTER_DAY':
           case 'ACHIEVEMENT_LEGENDARY_BESTIARY':
           case 'ACHIEVEMENT_SEASONAL_SPECIALIST':
+          case 'ACHIEVEMENT_VIOLETS_ARE_BLUE':
+          case 'ACHIEVEMENT_WILD_BLUE_YONDER':
           case 'GENERIC_ACHIEVEMENT':
             this.showNotificationWithModal(notification);
             break;
