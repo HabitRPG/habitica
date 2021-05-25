@@ -242,6 +242,16 @@ const basicAchievs = {
     titleKey: 'achievementSeasonalSpecialist',
     textKey: 'achievementSeasonalSpecialistText',
   },
+  violetsAreBlue: {
+    icon: 'achievement-violetsAreBlue',
+    titleKey: 'achievementVioletsAreBlue',
+    textKey: 'achievementVioletsAreBlueText',
+  },
+  wildBlueYonder: {
+    icon: 'achievement-wildBlueYonder',
+    titleKey: 'achievementWildBlueYonder',
+    textKey: 'achievementWildBlueYonderText',
+  },
 };
 Object.assign(achievementsData, basicAchievs);
 
