@@ -2093,5 +2093,11 @@
     "weaponArmoireJadeGlaiveText": "Guja de Jade",
     "shieldSpecialWinter2021WarriorText": "Pez Gordo",
     "shieldArmoirePolishedPocketwatchText": "Reloj de bolsillo pulido",
-    "shieldSpecialFall2020WarriorText": "Escudo del espíritu"
+    "shieldSpecialFall2020WarriorText": "Escudo del espíritu",
+    "weaponSpecialSpring2021RogueNotes": "¿Sabes que es mejor que dos flores? ¡CUATRO flores! Aumenta tu Fuerza en <%= str %>. Edición limitada 2021 armadura de primavera.",
+    "weaponSpecialSpring2021RogueText": "Flores Gemelas floreciendo",
+    "weaponSpecialSpring2021WarriorNotes": "Aprovecha el poder del sol hacia tus enemigos, ¡Y que la piedra solar te de suerte! Incremena Fuerza Por <%= str %>. Edicion Limitada 2021 Armadura De Primavera.",
+    "armorArmoireJadeArmorText": "Armadura de Jade",
+    "armorSpecialSpring2021WarriorText": "Armadura del Sol",
+    "weaponSpecialSpring2021HealerText": "Rama de Sauce"
 }

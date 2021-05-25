@@ -48,7 +48,14 @@
     "messageNotAbleToBuyInBulk": "Denne genstand kan ikke købes i antal større end 1.",
     "notificationsRequired": "Notafikation ID'er er krævet.",
     "unallocatedStatsPoints": "Du har <span class=\"notification-bold-blue\"><%= points %> ufordelte Egenskabspoint</span>",
-    "beginningOfConversation": "Dette er begyndelsen på din samtale med <%= userName %>. Husk at være venlig, respektfuld og at følge Retningslinjerne for Fællesskabet!",
+    "beginningOfConversation": "Dette er begyndelsen på din samtale med <%= userName %>.",
     "messageDeletedUser": "Sorry, this user has deleted their account.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Missing display name.",
+    "newsPostNotFound": "News Post er ikke fundet eller du har ikke adgang.",
+    "canDeleteNow": "Du kan nu slette beskeden, hvis du ønsker det.",
+    "reportedMessage": "Du har indrapporteret denne besked til moderatorerne.",
+    "beginningOfConversationReminder": "Husk at være venlig, respektful og følge Retningslinjerne for Fællesskabet!",
+    "messageAllUnEquipped": "Alt fjernet.",
+    "messageBackgroundUnEquipped": "Baggrund fjernet.",
+    "messageCostumeUnEquipped": "Kostume fjernet."
 }

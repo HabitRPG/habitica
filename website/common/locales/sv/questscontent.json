@@ -636,5 +636,10 @@
     "questVelociraptorDropVelociraptorEgg": "Velociraptor (Egg)",
     "questVelociraptorUnlockText": "Låser upp Velociraptorägg att köpa på Marknaden",
     "questAmberText": "Bärnstens Alliansen",
-    "questWaffleBoss": "Hemsk våffla"
+    "questWaffleBoss": "Hemsk våffla",
+    "questStoneCollectMarsRunes": "Marsrunor",
+    "questStoneText": "En labyrint av mossa",
+    "questStoneDropMossyStonePotion": "Kläckningsbrygden Mossig sten",
+    "questStoneCollectMossyStones": "Mossiga stenar",
+    "mythicalMarvelsText": "Djuruppdragsbunten Mystiska underverk"
 }

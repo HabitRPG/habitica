@@ -185,5 +185,6 @@
     "purchaseForGold": "Für <%= cost %> Gold erwerben?",
     "chatCastSpellParty": "<%= username %> wendet <%= spell %> auf Deine Party an.",
     "chatCastSpellUser": "<%= username %> wendet <%= spell %> auf <%= target %> an.",
-    "purchasePetItemConfirm": "Dieser Einkauf würde die Anzahl der Gegenstände überschreiten, die Du zum Schlüpfen aller möglichen <%= itemText %>-Tiere benötigst. Bist du sicher?"
+    "purchasePetItemConfirm": "Dieser Einkauf würde die Anzahl der Gegenstände überschreiten, die Du zum Schlüpfen aller möglichen <%= itemText %>-Tiere benötigst. Bist du sicher?",
+    "notEnoughGold": "Nicht genügend Gold."
 }

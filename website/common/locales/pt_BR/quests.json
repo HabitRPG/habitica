@@ -64,7 +64,7 @@
     "questOrGroupLeaderOnlyStartQuest": "Somente os líderes da missão ou do grupo podem forçar o início da missão.",
     "loginIncentiveQuest": "Para desbloquear esta missão, faça seu check-in <%= count %> vezes no Habitica, em dias diferentes!",
     "loginReward": "<%= count %> Check-ins",
-    "questBundles": "Pacotes de Missões com desconto",
+    "questBundles": "Pacotes de Missões com Desconto",
     "noQuestToStart": "Não consegue encontrar uma missão? Experimente visitar a Loja de Missões, no Mercado, e confira se não há algo de novo por lá!",
     "pendingDamage": "<%= damage %> de dano acumulado",
     "pendingDamageLabel": "dano acumulado",

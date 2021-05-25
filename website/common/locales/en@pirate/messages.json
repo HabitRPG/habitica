@@ -13,7 +13,7 @@
     "messageBought": "Bought <%= itemText %>",
     "messageUnEquipped": "<%= itemText %> un-equip'd.",
     "messageMissingEggPotion": "Yer missin' either that egg or that potion",
-    "messageInvalidEggPotionCombo": "Ye can't hatch Adventure Pet Eggs wit' Magic Hatching Potions! Try a diff'rent egg.",
+    "messageInvalidEggPotionCombo": "Ye can't hatch Adventure Critter Eggs wit' Magic Hatchin' Potions! Try a diff'rent egg.",
     "messageAlreadyPet": "Ye already 'ave that critter. Try yer hand in hatchin' a diff'rent combination!",
     "messageHatched": "Yer egg hatch'd! Visit yer stable t' equip yer critter.",
     "messageNotEnoughGold": "Not Enough Gold",
