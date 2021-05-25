@@ -45,7 +45,7 @@
     "startQuest": "Start Adventure",
     "questInvitationDoesNotExist": "No adventure invitation has been sent out yet.",
     "questInviteNotFound": "No adventure invitation found.",
-    "guildQuestsNotSupported": "Ships cannot sail to adventures without a crew.",
+    "guildQuestsNotSupported": "Ships cannot be invited on adventures.",
     "questNotOwned": "Ye don't own that adventure scroll.",
     "questNotGoldPurchasable": "Adventure \"<%= key %>\" ain't be a Gold-purchasable adventure.",
     "questNotGemPurchasable": "Adventure \"<%= key %>\" ain't a Sapphire-purchasable adventure.",

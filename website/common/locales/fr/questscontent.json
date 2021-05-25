@@ -722,5 +722,11 @@
     "questBlackPearlCompletion": "Alors que vous frappez et cognez la bête, elle répand des perles noires sur le sable. Leurs surfaces brillantes attirent votre attention alors que vous esquivez une autre fracassante tentacule. Vous êtes peut-être en danger de mort, mais vous ne pouvez pas vous empêcher de penser à la beauté de leur éclat. Vous ne pouvez pas vous empêcher de penser que c'est un moment terrible pour une nouvelle idée de potion.<br><br>Soudainement, le monstre se fige. @jjgame83 et @PixelStormArt échangent des regards perplexes et baissent leurs armes.<br><br>\"VOTRE SOUHAIT EST RÉALISÉ, MORTEL. MON TRAVAIL EST FAIT.\"<br><br>Astéroidée disparaît, et le ciel et les eaux s'éclaircissent. @QuartzFox vous regarde. \"Tu nous expliques ?\"<br><br>Vous faites de votre mieux, et ensemble vous remplissez le panier de pique-nique de perles noires. Un après-midi d'alchimie plus tard, vous devez admettre que c'était plutôt une bonne idée.",
     "questBlackPearlNotes": "Ces derniers temps, vous n'avez pas eu beaucoup d'inspiration, alors quand @jjgame83 vous propose un voyage au lac Vif, vous sautez sur l'occasion de changer de décor. Alors que @QuartzFox prépare un pique-nique sur la rive, vous voyez quelque chose qui scintille dans les profondeurs. Une étrange perle noire.<br><br> \"J'aimerais avoir une nouvelle idée\", soupirez-vous.<br><br>Un frisson vous envahit sur cette rive. Le lac se transforme en encre noire. Les étoiles se lèvent alors que midi devient minuit en un battement de cœur.<br><br> \"Ce n'est pas bon signe\", dit @PixelStormArt.<br><br>Une masse imposante de bras surgit du lac en un jet d'écume, et de son bec, elle explose : \"ME VOILA, ASTÉROIDÉE, l'IDÉE D'AU-DELÀ LES ÉTOILES !\"<br><br>Une tentacule se pose sur le panier de pique-nique. Bonne idée ou pas, vous passez à l'action.",
     "questBlackPearlBoss": "Astéroidée",
-    "questBlackPearlText": "La tête dans les étoiles"
+    "questBlackPearlText": "La tête dans les étoiles",
+    "questStoneUnlockText": "Débloque des Potions d'éclosion de Pierre Moussue à Acheter sur le Marché",
+    "questStoneDropMossyStonePotion": "Potion d'éclosion de Pierre Moussue",
+    "questStoneCollectMossyStones": "Pierres Moussues",
+    "questStoneCollectCapricornRunes": "Runes du Capricorne",
+    "questStoneCollectMarsRunes": "Runes de Mars",
+    "questStoneText": "Un Labyrinthe de Mousse"
 }

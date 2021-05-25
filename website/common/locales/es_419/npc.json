@@ -71,7 +71,7 @@
     "typeNotSellable": "El tipo no se puede vender. Debe ser uno de los siguientes: <%= acceptedTypes %>",
     "userItemsKeyNotFound": "no se encontró una llave para los objetos del usuario <%= type %>",
     "userItemsNotEnough": "No tienes suficientes <%= type %>",
-    "pathRequired": "Una cadena de camino es  requerida",
+    "pathRequired": "Una cadena de texto es requerida",
     "unlocked": "Se han desbloqueado objetos",
     "alreadyUnlocked": "El conjunto ya se ha desbloqueado por completo.",
     "alreadyUnlockedPart": "Conjunto completo parcialmente desbloqueado. Es más barato comprar las partes restantes individualmente.",
@@ -127,7 +127,7 @@
     "nMonthsSubscriptionGift": "<%= nMonths %> Mes(es) de Suscripción (Regalo)",
     "nGemsGift": "<%= nGems %> Gemas (Regalo)",
     "nGems": "<%= nGems %> Gemas",
-    "limitedAvailabilityMinutes": "Disponible por <%= minutos %>m <%= segundos %>s",
-    "limitedAvailabilityHours": "Disponible por <%= horas %>h <%= minutos %>m",
-    "limitedAvailabilityDays": "Disponible por <%= días %>d <%= horas %>h <%= minutos %>m"
+    "limitedAvailabilityMinutes": "Disponible por <%= minutes %>m <%= seconds %>s",
+    "limitedAvailabilityHours": "Disponible por <%= hours %>h <%= minutes %>m",
+    "limitedAvailabilityDays": "Disponible por <%= days %>d <%= hours %>h <%= minutes %>m"
 }

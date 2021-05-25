@@ -713,5 +713,10 @@
     "questFluoriteUnlockText": "Desbloquea Pociones de Eclosión de Fluorita para comprar en el Mercado",
     "questFluoriteDropFluoritePotion": "Poción de Eclosión de Fluorita",
     "questFluoriteBoss": "Fluorita Elemental",
-    "questWaffleNotes": "\"¡Santo Inocente!\" brava una nerviosa Lady Glacial. \"¡Dijiste que tu broma de los postres había terminado y que era completamente limpia!”<br><br>\"Pues sí, lo era y lo es, mi querida,\" responde el Inocente, desconcertado. \"Y soy el más honesto de los Inocentes. ¿Qué ocurre?\"<br><br>\"¡Hay un monstruo gigante azucarado aproximándose a Ciudad Hábito!<br><br>“Mmm,” medita el Inocente. \"Asalté algunas guaridas en busca de reactivos místicos para mi último evento. Tal vez atraje alguna atención no deseada. ¿Es la Serpiente Sacarina? ¿La Tortu-oisa? ¿Tiramisu Rex?\"<br><br>“¡No! Es una especie de... ¡Un Waffle Horrible!\"<br><br>“Ahh. ¡Eso es nuevo! Podría ser que haya surgido de toda esa energía shenanigan del ambiente.\" Se gira hacia ti y a @beffymaroo con una sonrisa torcida. \"¿Supongo que no estarías disponible para algunas heroicidades?\""
+    "questWaffleNotes": "\"¡Santo Inocente!\" brava una nerviosa Lady Glacial. \"¡Dijiste que tu broma de los postres había terminado y que era completamente limpia!”<br><br>\"Pues sí, lo era y lo es, mi querida,\" responde el Inocente, desconcertado. \"Y soy el más honesto de los Inocentes. ¿Qué ocurre?\"<br><br>\"¡Hay un monstruo gigante azucarado aproximándose a Ciudad Hábito!<br><br>“Mmm,” medita el Inocente. \"Asalté algunas guaridas en busca de reactivos místicos para mi último evento. Tal vez atraje alguna atención no deseada. ¿Es la Serpiente Sacarina? ¿La Tortu-oisa? ¿Tiramisu Rex?\"<br><br>“¡No! Es una especie de... ¡Un Waffle Horrible!\"<br><br>“Ahh. ¡Eso es nuevo! Podría ser que haya surgido de toda esa energía shenanigan del ambiente.\" Se gira hacia ti y a @beffymaroo con una sonrisa torcida. \"¿Supongo que no estarías disponible para algunas heroicidades?\"",
+    "questStoneDropMossyStonePotion": "Poción de Eclosión Piedra Musgosa",
+    "questStoneCollectMossyStones": "Piedras Musgosas",
+    "questStoneCollectCapricornRunes": "Runas de Capricornio",
+    "questStoneCollectMarsRunes": "Runas de Marte",
+    "questStoneText": "Un Laberinto de Musgo"
 }

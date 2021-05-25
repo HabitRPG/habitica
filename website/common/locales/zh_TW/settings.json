@@ -122,7 +122,7 @@
     "subscriptionRateText": "每<strong><<%= months %>月</strong>充值<strong><%= price %>美元</strong>",
     "benefits": "好處",
     "coupon": "優惠券",
-    "couponText": "我們有時會舉辦送優惠碼或特別裝備的活動（例如那些來我們的Wondercon攤位的朋友）",
+    "couponText": "我們有時會舉辦送促銷碼或特別裝備的活動（例如那些來我們的Wondercon攤位的朋友）",
     "apply": "套用",
     "promoCode": "優惠代碼",
     "promoCodeApplied": "優惠代碼已使用！請檢查您的背包",
@@ -182,5 +182,12 @@
     "chatExtensionDesc": "Habitica的聊天室擴充功能會在habitica.com的網頁附加聊天視窗。讓用戶在酒館、加入的隊伍或公會聊天。",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome聊天室擴充功能</a>與<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox聊天室附加元件</a>",
     "displaynameIssueNewline": "角色名不能不得包含反斜杠（/），後跟字母N。",
-    "resetAccount": "重設帳號"
+    "resetAccount": "重設帳號",
+    "bannedWordUsedInProfile": "您的角色名與介紹文字含有不適當的語言。",
+    "bannedSlurUsedInProfile": "您的角色名與介紹文字含有毀謗內容，故已取消您的發言權限。",
+    "onlyPrivateSpaces": "僅限於私人場所",
+    "everywhere": "所有地方",
+    "suggestMyUsername": "使用者名稱建議",
+    "mentioning": "提及",
+    "giftedSubscriptionWinterPromo": "嗨，<%= username %>您收到 <%= monthCount %> 個月的訂閱資格，作為假期促銷禮品！"
 }

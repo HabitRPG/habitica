@@ -1807,5 +1807,7 @@
     "shieldArmoireMightyPizzaText": "Mægtig pizza",
     "shieldArmoireMightyPizzaNotes": "Ja, okay, det er et ret godt skjold, men vi foreslår at du i stedet spiser denne lækre, lækre pizza. Forøger Opfattelse med <%= per %>. Fortryllet Klædeskab: Kokke-sæt (Genstand 4 af 4). ",
     "eyewearMystery201902Text": "Kryptisk kærlighedsmaske",
-    "eyewearMystery201902Notes": "Denne mystiske maske skjuler din identitet, men ikke dit vindende smil. Giver ingen bonusser. Abonnent-ting fra februar 2019."
+    "eyewearMystery201902Notes": "Denne mystiske maske skjuler din identitet, men ikke dit vindende smil. Giver ingen bonusser. Abonnent-ting fra februar 2019.",
+    "weaponSpecialKS2019Notes": "Denne ornamenterede hellebard, der er kurvet som næbbet og kløerne på en grif, minder dig om at blive ved, når udfordringerne forude er skræmmende. Øger Styrke med <%=str %>.",
+    "weaponSpecialKS2019Text": "Mytisk Grif-hellebard"
 }
