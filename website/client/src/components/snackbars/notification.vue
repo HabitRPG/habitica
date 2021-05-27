@@ -238,15 +238,9 @@ export default {
       && this.notification.timeout !== null
     ) ? this.notification.timeout : true;
 
-    const { uuid } = this.notification;
-
-    console.info({ timeout, uuid });
-
     if (timeout) {
       let delay = this.notification.delay || 1500;
       delay += this.visibleAmount * 1000;
-
-      console.info('timeout created!!!', delay, uuid);
 
       this.timer = setTimeout(() => {
         this.$emit('hidden', this.notification);
@@ -254,7 +248,6 @@ export default {
     }
   },
   beforeDestroy () {
-    console.warn('before destroy');
     clearTimeout(this.timer);
   },
   methods: {
