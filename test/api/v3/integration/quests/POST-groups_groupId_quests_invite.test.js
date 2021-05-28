@@ -263,6 +263,7 @@ describe('POST /groups/:groupId/quests/invite/:questKey', () => {
         expect(body.group.id).to.eql(questingGroup.id);
         expect(body.group.name).to.eql(questingGroup.name);
         expect(body.quest.key).to.eql(PET_QUEST);
+        expect(body.quest.questOwner).to.eql(questingGroup.leader._id);
       });
     });
   });

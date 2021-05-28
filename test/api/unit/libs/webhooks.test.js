@@ -656,9 +656,11 @@ describe('webhooks', () => {
           id: 'group-id',
           name: 'some group',
           otherData: 'foo',
+          quest: {},
         },
         quest: {
           key: 'some-key',
+          questOwner: 'user-id',
         },
       };
     });
