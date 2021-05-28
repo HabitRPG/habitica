@@ -192,6 +192,8 @@ import svgUnEquipIcon from '@/assets/svg/unequip.svg';
 import Avatar from '@/components/avatar';
 import attributesGrid from '@/components/inventory/equipment/attributesGrid.vue';
 import closeIcon from '@/components/shared/closeIcon';
+// TODO @common/ path alias
+import { getClassName } from '../../../../../common/script/libs/getClassName';
 
 export default {
   components: {
@@ -274,10 +276,7 @@ export default {
       };
     },
     getClassName (classType) {
-      if (classType === 'wizard') {
-        return this.$t('mage');
-      }
-      return this.$t(classType);
+      return this.$t(getClassName(classType));
     },
   },
 };

@@ -7,6 +7,7 @@
   >
     {{ displayName }}
     <div
+      v-if="hasTier"
       class="svg-icon"
       v-html="tierIcon()"
     ></div>
@@ -96,6 +97,9 @@ export default {
       }
 
       return false;
+    },
+    hasTier () {
+      return this.isNPC || this.level !== 0;
     },
   },
   methods: {

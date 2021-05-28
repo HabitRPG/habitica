@@ -16,6 +16,7 @@ import seasonalShopConfig from './shops-seasonal.config';
 import featuredItems from '../content/shop-featuredItems';
 
 import getOfficialPinnedItems from './getOfficialPinnedItems';
+import { getClassName } from './getClassName';
 
 const shops = {};
 
@@ -89,11 +90,8 @@ shops.getMarketCategories = function getMarket (user, language) {
   return categories;
 };
 
-function getClassName (classType, language) {
-  if (classType === 'wizard') {
-    return i18n.t('mage', language);
-  }
-  return i18n.t(classType, language);
+function getTranslatedClassName (classType, language) {
+  return i18n.t(getClassName(classType), language);
 }
 
 // TODO Refactor the `.locked` logic
@@ -143,7 +141,7 @@ shops.getMarketGearCategories = function getMarketGear (user, language) {
   for (const classType of content.classes) {
     const category = {
       identifier: classType,
-      text: getClassName(classType, language),
+      text: getTranslatedClassName(classType, language),
     };
 
     const result = filter(content.gear.flat, gearItem => {
