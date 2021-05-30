@@ -417,6 +417,11 @@ export default {
     this.$root.$on('buyModal::boughtItem', () => {
       this.backgroundUpdate = new Date();
     });
+    this.$root.$on('bv::modal::hidden', event => {
+      if (event.componentId === 'buy-quest-modal') {
+        this.$root.$emit('buyModal::hidden', this.selectedItemToBuy.key);
+      }
+    });
   },
   beforeDestroy () {
     this.$root.$off('buyModal::boughtItem');

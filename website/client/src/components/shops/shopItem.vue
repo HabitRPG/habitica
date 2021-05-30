@@ -5,7 +5,8 @@
       class="item-wrapper"
       tabindex="0"
       @click="click()"
-      @keypress.enter="click($event)"
+      @keypress.enter="click()"
+      @blur="blur"
     >
       <div
         class="item"
@@ -64,6 +65,7 @@
     </div>
     <b-popover
       v-if="showPopover"
+      ref="popover"
       :target="itemId"
       triggers="hover focus"
       :placement="popoverPosition"
@@ -319,9 +321,20 @@ export default {
         : this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
     },
   },
+  mounted () {
+    this.$root.$on('buyModal::hidden', itemKey => {
+      if (this.$refs && this.$refs.popover && itemKey === this.item.key) {
+        this.$refs.popover.$emit('close');
+        this.$refs.popover.$emit('disable');
+      }
+    });
+  },
   methods: {
-    click (event) {
-      this.$emit('click', { refocusTarget: (event && event.target) || '#app' });
+    click () {
+      this.$emit('click', {});
+    },
+    blur () {
+      this.$refs.popover.$emit('enable');
     },
     getPrice () {
       if (this.item.unlockCondition && this.item.unlockCondition.condition === 'party invite' && !this.owned) return this.item.unlockCondition.text();
