@@ -111,7 +111,7 @@
               :price="ctx.item.value"
               :price-type="ctx.item.currency"
               :empty-item="false"
-              @click="selectItemToBuy(ctx.item, $event.refocusTarget)"
+              @click="selectItemToBuy(ctx.item)"
             >
               <span
                 v-if="category !== 'quests'"
@@ -459,13 +459,13 @@ export default {
     getGrouped (entries) {
       return _groupBy(entries, 'group');
     },
-    selectItemToBuy (item, refocusTarget) {
+    selectItemToBuy (item) {
       if (item.purchaseType === 'quests') {
         this.selectedItemToBuy = item;
 
-        this.$root.$emit('bv::show::modal', 'buy-quest-modal', refocusTarget);
+        this.$root.$emit('bv::show::modal', 'buy-quest-modal');
       } else {
-        this.$root.$emit('buyModal::showItem', item, refocusTarget);
+        this.$root.$emit('buyModal::showItem', item);
       }
     },
     resetItemToBuy ($event) {

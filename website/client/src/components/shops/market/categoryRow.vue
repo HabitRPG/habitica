@@ -6,7 +6,7 @@
       :item="item"
       :empty-item="false"
       :popover-position="'top'"
-      @click="itemSelected(item, $event.refocusTarget)"
+      @click="itemSelected(item)"
     >
       <span slot="popoverContent">
         <strong v-if="item.key === 'gem' && gemsLeft === 0">{{ $t('maxBuyGems') }}</strong>
@@ -104,8 +104,8 @@ export default {
     },
   },
   methods: {
-    itemSelected (item, refocusTarget) {
-      this.$root.$emit('buyModal::showItem', item, refocusTarget);
+    itemSelected (item) {
+      this.$root.$emit('buyModal::showItem', item);
     },
   },
 };

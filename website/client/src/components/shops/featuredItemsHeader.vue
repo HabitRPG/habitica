@@ -38,7 +38,7 @@
             :item-content-class="'shop_'+item.key"
             :empty-item="false"
             :popover-position="'top'"
-            @click="featuredItemSelected(item, $event.refocusTarget)"
+            @click="featuredItemSelected(item)"
           >
             <template
               slot="itemBadge"
@@ -80,8 +80,8 @@ export default {
     featuredItems: Array,
   },
   methods: {
-    featuredItemSelected (item, refocusTarget) {
-      this.$emit('featuredItemSelected', { item, refocusTarget });
+    featuredItemSelected (item) {
+      this.$emit('featuredItemSelected', item);
     },
   },
 };

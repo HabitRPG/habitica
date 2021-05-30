@@ -101,7 +101,7 @@
                 :empty-item="false"
                 :popover-position="'top'"
                 :show-event-badge="false"
-                @click="itemSelected(item, $event.refocusTarget)"
+                @click="itemSelected(item)"
               >
                 <template
                   slot="itemBadge"
@@ -181,7 +181,7 @@
                 :empty-item="false"
                 :popover-position="'top'"
                 :show-event-badge="false"
-                @click="itemSelected(item, $event.refocusTarget)"
+                @click="itemSelected(item)"
               >
                 <!-- eslint-enable max-len -->
                 <template
@@ -586,8 +586,8 @@ export default {
 
       return false;
     },
-    itemSelected (item, refocusTarget) {
-      this.$root.$emit('buyModal::showItem', item, refocusTarget);
+    itemSelected (item) {
+      this.$root.$emit('buyModal::showItem', item);
     },
   },
 };

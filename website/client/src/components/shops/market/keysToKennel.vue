@@ -6,7 +6,7 @@
       :item="keysToPets"
       :empty-item="false"
       popover-position="'top'"
-      @click="releasePets($event.refocusTarget)"
+      @click="releasePets()"
     />
     <shopItem
       v-if="userHasAllMounts"
@@ -14,7 +14,7 @@
       :item="keysToMounts"
       :empty-item="false"
       popover-position="'top'"
-      @click="releaseMounts($event.refocusTarget)"
+      @click="releaseMounts()"
     />
     <shopItem
       v-if="userHasAllPets && userHasAllMounts"
@@ -22,7 +22,7 @@
       :item="keysToBoth"
       :empty-item="false"
       popover-position="'top'"
-      @click="releaseBoth($event.refocusTarget)"
+      @click="releaseBoth()"
     />
   </div>
 </template>
@@ -155,14 +155,14 @@ export default {
     },
   },
   methods: {
-    releasePets (refocusTarget) {
-      this.$root.$emit('buyModal::showItem', this.keysToPets, refocusTarget);
+    releasePets () {
+      this.$root.$emit('buyModal::showItem', this.keysToPets);
     },
-    releaseMounts (refocusTarget) {
-      this.$root.$emit('buyModal::showItem', this.keysToMounts, refocusTarget);
+    releaseMounts () {
+      this.$root.$emit('buyModal::showItem', this.keysToMounts);
     },
-    releaseBoth (refocusTarget) {
-      this.$root.$emit('buyModal::showItem', this.keysToBoth, refocusTarget);
+    releaseBoth () {
+      this.$root.$emit('buyModal::showItem', this.keysToBoth);
     },
   },
 };

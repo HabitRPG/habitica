@@ -256,9 +256,9 @@ export default {
 
     // @TODO: I'm not sure these should be at the app level.
     // Can we move these back into shop/inventory or maybe they need a lateral move?
-    this.$root.$on('buyModal::showItem', (item, refocusTarget) => {
+    this.$root.$on('buyModal::showItem', item => {
       this.selectedItemToBuy = item;
-      this.$root.$emit('bv::show::modal', 'buy-modal', refocusTarget);
+      this.$root.$emit('bv::show::modal', 'buy-modal');
     });
 
     this.$root.$on('bv::modal::hidden', event => {
