@@ -226,6 +226,14 @@ api.assignTask = {
     await Promise.all(promises);
 
     res.respond(200, task);
+
+    res.analytics.track('task assign', {
+      uuid: user._id,
+      hitType: 'event',
+      category: 'behavior',
+      taskType: task.type,
+      groupID: group._id,
+    });
   },
 };
 

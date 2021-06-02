@@ -338,19 +338,22 @@ async function scoreTask (user, task, direction, req, res) {
 
   let localTask;
   let rollbackUser;
+  let group;
 
+  if (task.group.id) {
+    group = await Group.getGroup({
+      user,
+      groupId: task.group.id,
+      fields: 'leader managers',
+    });
+  }
   if (
-    task.group.id && !task.userId
+    group && task.group.id && !task.userId
     && direction === 'down'
     && ['todo', 'daily'].includes(task.type)
     && task.completed
     && task.group.completedBy !== user._id
   ) {
-    const group = await Group.getGroup({
-      user,
-      groupId: task.group.id,
-      fields: 'leader managers',
-    });
     if (group.leader !== user._id && !group.managers[user._id]) {
       throw new BadRequest('Cannot uncheck task you did not complete if not a manager.');
     }

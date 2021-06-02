@@ -710,6 +710,16 @@ api.updateTask = {
         task: savedTask,
       });
     }
+
+    if (group) {
+      res.analytics.track('task edit', {
+        uuid: user._id,
+        hitType: 'event',
+        category: 'behavior',
+        taskType: task.type,
+        groupID: group._id,
+      });
+    }
   },
 };
 
