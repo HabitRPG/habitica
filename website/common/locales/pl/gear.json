@@ -171,7 +171,7 @@
     "weaponSpecialSummer2015HealerText": "Falująca różdżka",
     "weaponSpecialSummer2015HealerNotes": "Leczy chorobę morską i chorobę na morzu! Zwiększa Inteligencję o <%= int %>. Edycja Limitowana Lato 2015.",
     "weaponSpecialFall2015RogueText": "Nietoperzy topór",
-    "weaponSpecialFall2015RogueNotes": "Bojaźliwe Do-Zrobienia chowają się przed machnięciami tego topora. Zwiększa Siłę o <%= str $>. Edycja Limitowana Jesień 2015.",
+    "weaponSpecialFall2015RogueNotes": "Strachliwe zadania Do-Zrobienia chowają się przed machnięciami tego topora. Zwiększa Siłę o <%= str $>. Edycja Limitowana Jesień 2015.",
     "weaponSpecialFall2015WarriorText": "Drewniana deska",
     "weaponSpecialFall2015WarriorNotes": "Świetna do podnoszenia przedmiotów na polu kukurydzy i/lub miażdżenia zadań. Zwiększa Siłę o <%= str %> Edycja Limitowana Jesień 2015.",
     "weaponSpecialFall2015MageText": "Zaczarowana Nić",
@@ -1782,5 +1782,6 @@
     "armorSpecialWinter2021WarriorNotes": "Jeśli zamierzasz wyjść w taką pogodę, lepiej ubierz się ciepło. Zwiększa Kondycję o <%= con %>. Edycja Limitowana Zimowego Wyposażenia 2020-2021.",
     "armorSpecialWinter2021WarriorText": "Ocieplana Kurtka",
     "headSpecialWinter2021WarriorText": "Ocieplany Kaptur",
-    "weaponSpecialWinter2021WarriorText": "Potężna Wędka"
+    "weaponSpecialWinter2021WarriorText": "Potężna Wędka",
+    "weaponSpecialKS2019Text": "Mityczna Glewia Gryfa"
 }

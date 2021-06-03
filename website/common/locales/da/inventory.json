@@ -5,5 +5,6 @@
     "hatchingPotionsItemType": "Udrugningseliksirer",
     "specialItemType": "Special items",
     "lockedItem": "Låst genstand",
-    "allItems": "Alle Genstande"
+    "allItems": "Alle Genstande",
+    "petAndMount": "Kæledyr og Ridedyr"
 }

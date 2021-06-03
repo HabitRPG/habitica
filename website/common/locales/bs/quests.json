@@ -62,7 +62,7 @@
     "onlyLeaderCancelQuest": "Samo vođa grupe ili misije može otkazati misiju.",
     "questNotPending": "Ne postoji potraga koja se može početi.",
     "questOrGroupLeaderOnlyStartQuest": "Samo vođa potrage ili vođa grupe može prisilno započeti potragu",
-    "loginIncentiveQuest": "Da biste otključali ovu potragu, prijavite se na Habiticu <%= count%>  dana zaredom!",
+    "loginIncentiveQuest": "Da biste otključali ovu potragu, prijavite se na Habiticu <%= count%> dana zaredom!",
     "loginReward": "<%= count %> prijava",
     "questBundles": "Paketi misija na popustu",
     "noQuestToStart": "Ne možete pronaći potragu koja se može početi? Pokušajte provjeriti prodavnicu misija na pijaci za nove ponude!",

@@ -19,7 +19,7 @@
     "staff": "Osoblje",
     "heroic": "Heroj",
     "modalContribAchievement": "Postignuća doprinosioca",
-    "contribModal": "<%= name %>, vi ste fakat odlična osoba! Postigli ste <%= level %>  nivo doprinosioca za Habiticu.",
+    "contribModal": "<%= name %>, vi ste fakat odlična osoba! Postigli ste <%= level %> nivo doprinosioca za Habiticu.",
     "contribLink": "Pogledajte koje ste nagrade zaslužili za svoj doprinos!",
     "contribName": "Doprinosioc",
     "contribText": "Doprininijelo je Habitici, bilo kodiranjem, dizajnom (umjetnošću), muzikom, pisanja ili na neke druge načine. Da biste saznali više, pridružite se esnafu ambicioznih legendi (Aspiring Legends)!",

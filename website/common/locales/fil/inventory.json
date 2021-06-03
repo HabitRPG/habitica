@@ -2,7 +2,9 @@
     "noItemsAvailableForType": "Wala kang <%= type %>.",
     "foodItemType": "Pagkaing Pang-alaga",
     "eggsItemType": "Mga Itlog",
-    "hatchingPotionsItemType": "Kabal ng Pagpipisa",
-    "specialItemType": "Mga mahiwagang bagay",
-    "lockedItem": "Nakatagong bagay"
+    "hatchingPotionsItemType": "Hatching Potions",
+    "specialItemType": "Special items",
+    "lockedItem": "Nakakandadong bagay",
+    "allItems": "Lahat ng Item",
+    "petAndMount": "Pet at Mount"
 }

@@ -108,5 +108,11 @@
     "achievementSeasonalSpecialist": "Especialista Estacional",
     "achievementLegendaryBestiaryModalText": "¡Coleccionaste a todas las mascotas míticas!",
     "achievementLegendaryBestiaryText": "¡Ha eclosionado todos los colores estándar de la mascotas míticas: Dragón, Cerdo Volador, Grifo, Serpiente Marina y Unicornio!",
-    "achievementLegendaryBestiary": "Bestiario Legendario"
+    "achievementLegendaryBestiary": "Bestiario Legendario",
+    "achievementVioletsAreBlue": "Las violetas son azules",
+    "achievementWildBlueYonderModalText": "¡Has domesticado todas las monturas de algodón de azúcar azul!",
+    "achievementWildBlueYonderText": "Ha domesticado todas las monturas de algodón de azúcar azul.",
+    "achievementWildBlueYonder": "Salvaje y azul lejanía",
+    "achievementVioletsAreBlueModalText": "¡Lograste obtener todas las mascotas de algodón de azúcar azul!",
+    "achievementVioletsAreBlueText": "Ha obtenido todas las mascotas de algodón de azúcar azul."
 }

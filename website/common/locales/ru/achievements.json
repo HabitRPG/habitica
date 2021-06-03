@@ -108,5 +108,11 @@
     "achievementLegendaryBestiary": "Легендарный бестиарий",
     "achievementSeasonalSpecialistModalText": "Вы завершили все сезонные квесты!",
     "achievementSeasonalSpecialistText": "Завершил(а) весенние и зимние квесты: «Поиски яиц», «Санта-зверолов» и «Найти детеныша»!",
-    "achievementSeasonalSpecialist": "Специалист по временам года"
+    "achievementSeasonalSpecialist": "Специалист по временам года",
+    "achievementVioletsAreBlueModalText": "Вы собрали всех синих сахарных питомцев!",
+    "achievementVioletsAreBlueText": "Собраны все синие сахарные питомцы.",
+    "achievementWildBlueYonder": "Дикая синева впереди",
+    "achievementWildBlueYonderText": "Собраны все синие сахарные скакуны.",
+    "achievementWildBlueYonderModalText": "Вы собрали всех синих сахарных скакунов!",
+    "achievementVioletsAreBlue": "Фиалки синие"
 }
