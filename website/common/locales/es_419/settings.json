@@ -76,7 +76,7 @@
     "resetDo": "¡Adelante, reinicia mi cuenta!",
     "resetComplete": "Reseteo completo!",
     "fixValues": "Ajustar valores",
-    "fixValuesText1": "Si has encontrado o cometido un error que injustamente cambió a tu personaje (daño que no merecías, oro que no ganaste, etc.), puedes corregir tus números aquí. Sí, esto permite que puedas hacer trampa: usa esta función con discreción, ¡o arruinarás la creación de tus hábitos!",
+    "fixValuesText1": "Si has encontrado un error de software o cometido una equivocación que afectó tu personaje injustamente (daño que no merecías, Oro que no ganaste, etc.), puedes corregir tus números aquí. Sí, esto permite hacer trampa: ¡usa esta función sabiamente, o arruinarás tu propia creación de hábitos!",
     "fixValuesText2": "Ten en cuenta que aquí no puedes restaurar Rachas de tareas individuales. Para hacer eso, edita la tarea Diaria y ve a Ajustes Avanzados, allí encontraras un campo para Restaurar Rachas.",
     "fix21Streaks": "Rachas de 21 días",
     "discardChanges": "Cancelar cambios",

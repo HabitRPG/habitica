@@ -110,5 +110,8 @@
     "notEnoughPetsMounts": "You have not collected enough pets and mounts",
     "filterByWacky": "Wacky",
     "gryphatrice": "Gryphatrice",
-    "wackyPets": "Wacky Pets"
+    "wackyPets": "Wacky Pets",
+    "invalidAmount": "Cantitatea nevalidă de mâncare, trebuie să fie un număr întreg pozitiv",
+    "tooMuchFood": "Încercați să hrăniți prea multă mâncare animalului dvs. de companie, acțiune anulată",
+    "notEnoughFood": "Nu ai suficientă mâncare"
 }

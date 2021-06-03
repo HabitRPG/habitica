@@ -18,20 +18,20 @@
     "@storybook/addon-links": "^6.2.9",
     "@storybook/addon-notes": "^5.3.21",
     "@storybook/vue": "^6.2.9",
-    "@vue/cli-plugin-babel": "^4.5.12",
-    "@vue/cli-plugin-eslint": "^4.5.12",
-    "@vue/cli-plugin-router": "^4.5.12",
-    "@vue/cli-plugin-unit-mocha": "^4.5.12",
-    "@vue/cli-service": "^4.5.12",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/cli-plugin-router": "^4.5.13",
+    "@vue/cli-plugin-unit-mocha": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
     "@vue/test-utils": "1.0.0-beta.29",
-    "amplitude-js": "^8.2.1",
+    "amplitude-js": "^8.3.0",
     "axios": "^0.21.1",
     "axios-progress-bar": "^1.2.0",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "chai": "^4.3.4",
-    "core-js": "^3.11.1",
+    "core-js": "^3.12.1",
     "eslint": "^6.8.0",
     "eslint-config-habitrpg": "^6.2.0",
     "eslint-plugin-mocha": "^5.3.0",
@@ -44,7 +44,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "nconf": "^0.11.2",
-    "sass": "^1.32.12",
+    "sass": "^1.34.0",
     "sass-loader": "^8.0.2",
     "smartbanner.js": "^1.16.0",
     "svg-inline-loader": "^0.8.2",
@@ -63,6 +63,6 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.13.12"
+    "@babel/plugin-proposal-optional-chaining": "^7.14.2"
   }
 }

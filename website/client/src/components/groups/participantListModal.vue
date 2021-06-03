@@ -2,8 +2,15 @@
   <b-modal
     id="participant-list"
     size="md"
+    :hide-header="true"
     :hide-footer="true"
   >
+    <div class="dialog-close">
+      <close-icon @click="close()" />
+    </div>
+    <h2 class="text-center textCondensed" v-once>
+      {{ $t('participantsTitle') }}
+    </h2>
     <div
       slot="modal-header"
       class="header-wrap"
@@ -29,19 +36,11 @@
     <div
       v-for="member in participants"
       :key="member._id"
-      class="row"
+      class="member-row"
     >
-      <div class="col-12 no-padding-left">
-        <member-details :member="member" />
+      <div class="no-padding-left">
+        <member-details-new :member="member" />
       </div>
-    </div>
-    <div class="modal-footer">
-      <button
-        class="btn btn-primary"
-        @click="close()"
-      >
-        {{ $t('close') }}
-      </button>
     </div>
   </b-modal>
 </template>
@@ -70,22 +69,48 @@
     .modal-body {
       padding-left: 0;
       padding-right: 0;
+      padding-bottom: 0;
     }
 
     .member-details {
       margin: 0;
     }
+
+    .modal-content {
+      // so that the rounded corners still apply
+      overflow: hidden;
+    }
   }
 </style>
 
 <style lang='scss' scoped>
+  @import '~@/assets/scss/colors.scss';
+
   .header-wrap {
     width: 100%;
   }
 
-  h1 {
-    color: #4f2a93;
+  h2 {
+    color: $purple-300;
+    margin-top: 1rem;
   }
+
+  .member-row {
+    background-color: $gray-700;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $gray-500;
+    }
+  }
+
+  .member-row {
+    ::v-deep {
+      .col-4 {
+        padding-left: 0;
+      }
+    }
+  }
+
 
   #participant-list_modal_body {
     padding: 0;
@@ -100,11 +125,13 @@
 <script>
 import { mapGetters } from '@/libs/store';
 
-import MemberDetails from '../memberDetails';
+import MemberDetailsNew from '../memberDetailsNew';
+import CloseIcon from '../shared/closeIcon';
 
 export default {
   components: {
-    MemberDetails,
+    CloseIcon,
+    MemberDetailsNew,
   },
   props: ['group'],
   computed: {
@@ -113,7 +140,10 @@ export default {
     }),
     participants () {
       const partyMembers = this.partyMembers || [];
-      return partyMembers.filter(member => this.group.quest.members[member._id] === true);
+      const membersAccepted = partyMembers
+        .filter(member => this.group.quest.members[member._id] === true);
+
+      return membersAccepted;
     },
   },
   methods: {

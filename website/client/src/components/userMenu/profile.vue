@@ -858,7 +858,10 @@ export default {
       const profileUserId = this.userId;
 
       if (profileUserId && profileUserId !== this.userLoggedIn._id) {
-        const response = await this.$store.dispatch('members:fetchMember', { memberId: profileUserId });
+        const response = await this.$store.dispatch('members:fetchMember', {
+          memberId: profileUserId,
+          unpack: false,
+        });
         if (response.response && response.response.status === 404) {
           user = null;
           this.$store.dispatch('snackbars:add', {

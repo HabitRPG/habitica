@@ -6,11 +6,11 @@
     />
     <div
       v-if="challenges.length === 0"
-      class="row no-quest-section"
+      class="row no-challenge-section"
     >
       <div class="col-12 text-center">
         <div
-          class="svg-icon challenge-icon"
+          class="svg-icon challenge-icon color"
           v-html="icons.challengeIcon"
         ></div>
         <h4 v-once>
@@ -51,23 +51,27 @@
 <style lang="scss" scoped>
   @import '~@/assets/scss/colors.scss';
 
-  .no-quest-section {
+  .no-challenge-section {
     padding: 2em;
-    color: $gray-300;
 
     h4 {
-      color: $gray-300;
+      margin-bottom: 0;
     }
 
     p {
-      margin-bottom: 2em;
+      margin-bottom: 1em;
+      color: $gray-100;
+      font-size: 0.75rem;
+      line-height: 1.33;
     }
 
-    .svg-icon {
-      height: 30px;
-      width: 30px;
-      margin: 0 auto;
-      margin-bottom: 2em;
+    .challenge-icon {
+      width: 1.125rem;
+      height: 1.25rem;
+      margin: 0 auto 0.5em;
+      object-fit: contain;
+      border-radius: 2px;
+      color: $gray-200;
     }
   }
 </style>

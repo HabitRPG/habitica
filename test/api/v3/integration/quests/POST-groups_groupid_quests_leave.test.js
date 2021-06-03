@@ -61,15 +61,6 @@ describe('POST /groups/:groupId/quests/leave', () => {
         });
     });
 
-    it('returns an error when quest is not active', async () => {
-      await expect(partyMembers[0].post(`/groups/${questingGroup._id}/quests/leave`))
-        .to.eventually.be.rejected.and.eql({
-          code: 404,
-          error: 'NotFound',
-          message: t('noActiveQuestToLeave'),
-        });
-    });
-
     it('returns an error when quest leader attempts to leave', async () => {
       await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
       await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
@@ -97,18 +88,14 @@ describe('POST /groups/:groupId/quests/leave', () => {
     });
   });
 
-  it('leaves a quest', async () => {
-    await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
-    await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
-    await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
-
-    const leaveResult = await partyMembers[0].post(`/groups/${questingGroup._id}/quests/leave`);
+  async function letPartyMemberLeaveAndCheckChanges (partyMember) {
+    const leaveResult = await partyMember.post(`/groups/${questingGroup._id}/quests/leave`);
     await Promise.all([
-      partyMembers[0].sync(),
+      partyMember.sync(),
       questingGroup.sync(),
     ]);
 
-    expect(partyMembers[0].party.quest).to.eql({
+    expect(partyMember.party.quest).to.eql({
       key: null,
       progress: {
         up: 0,
@@ -120,6 +107,29 @@ describe('POST /groups/:groupId/quests/leave', () => {
       RSVPNeeded: false,
     });
     expect(questingGroup.quest).to.deep.equal(leaveResult);
-    expect(questingGroup.quest.members[partyMembers[0]._id]).to.be.false;
+    expect(questingGroup.quest.members[partyMember._id]).to.be.false;
+  }
+
+  it('leaves an active quest', async () => {
+    await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+    await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+    await partyMembers[1].post(`/groups/${questingGroup._id}/quests/accept`);
+
+    await questingGroup.sync();
+
+    expect(questingGroup.quest.active).to.eql(true);
+
+    await letPartyMemberLeaveAndCheckChanges(partyMembers[0]);
+  });
+
+  it('leaves an inactive quest ', async () => {
+    await leader.post(`/groups/${questingGroup._id}/quests/invite/${PET_QUEST}`);
+    await partyMembers[0].post(`/groups/${questingGroup._id}/quests/accept`);
+
+    await questingGroup.sync();
+
+    expect(questingGroup.quest.active).to.eql(false);
+
+    await letPartyMemberLeaveAndCheckChanges(partyMembers[0]);
   });
 });

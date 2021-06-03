@@ -34,42 +34,19 @@
           </div>
         </div>
       </filter-group>
-      <filter-group :title="$t('role')">
-        <div
-          v-for="group in roleOptions"
-          :key="group.key"
-          class="form-check"
-        >
-          <div class="custom-control custom-checkbox">
-            <input
-              :id="group.key"
-              v-model="roleFilters"
-              class="custom-control-input"
-              type="checkbox"
-              :value="group.key"
-            >
-            <label
-              v-once
-              class="custom-control-label"
-              :for="group.key"
-            >{{ $t(group.label) }}</label>
-          </div>
-        </div>
-      </filter-group>
       <filter-group
-        v-if="$route.name !== 'findChallenges'"
         :title="$t('membership')"
         class="form-group"
       >
         <div
-          v-for="group in roleOptions"
+          v-for="group in membershipOptions"
           :key="group.key"
           class="form-check"
         >
           <div class="custom-control custom-checkbox">
             <input
               :id="group.key"
-              v-model="roleFilters"
+              v-model="membershipFilters"
               class="custom-control-input"
               type="checkbox"
               :value="group.key"
@@ -176,8 +153,8 @@ export default {
           key: 'time_management',
         },
       ],
-      roleFilters: [],
-      roleOptions: [
+      membershipFilters: [],
+      membershipOptions: [
         {
           label: 'participating',
           key: 'participating',
@@ -186,10 +163,6 @@ export default {
           label: 'not_participating',
           key: 'not_participating',
         },
-        // {
-        //   label: 'either',
-        //   key: 'either',
-        // },
       ],
       ownershipFilters: [],
       ownershipOptions: [
@@ -213,10 +186,10 @@ export default {
     categoryFilters: function categoryFilters () {
       this.emitFilters();
     },
-    roleFilters: function roleFilters () {
+    ownershipFilters: function ownershipFilters () {
       this.emitFilters();
     },
-    ownershipFilters: function ownershipFilters () {
+    membershipFilters: function membershipFilters () {
       this.emitFilters();
     },
     searchTerm: throttle(function searchTerm (newSearch) {
@@ -229,8 +202,8 @@ export default {
     emitFilters () {
       this.$emit('filter', {
         categories: this.categoryFilters,
-        roles: this.roleFilters,
         ownership: this.ownershipFilters,
+        membership: this.membershipFilters,
       });
     },
   },

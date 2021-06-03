@@ -219,39 +219,7 @@
                 @click="selectItem(item)"
               >
                 <span slot="popoverContent">
-                  <div class="questPopover">
-                    <div></div>
-                    <h4
-                      v-if="item.locked"
-                      class="popover-content-title"
-                    >{{ `${$t('lockedItem')}` }}</h4>
-                    <h4
-                      v-else
-                      class="popover-content-title"
-                    >{{ item.text }}</h4>
-                    <div
-                      v-if="item.locked && item.key === 'lostMasterclasser1'"
-                      class="popover-content-text"
-                    >{{ `${$t('questUnlockLostMasterclasser')}` }}</div>
-                    <div
-                      v-if="item.locked && item.unlockCondition
-                        && item.unlockCondition.incentiveThreshold"
-                      class="popover-content-text"
-                    >{{ `${$t('loginIncentiveQuest', {
-                      count: item.unlockCondition.incentiveThreshold})}` }}</div>
-                    <div
-                      v-if="item.locked && item.previous && isBuyingDependentOnPrevious(item)"
-                      class="popover-content-text"
-                    >{{ `${$t('unlockByQuesting', {title: item.previous})}` }}</div>
-                    <div
-                      v-if="item.lvl > user.stats.lvl"
-                      class="popover-content-text"
-                    >{{ `${$t('mustLvlQuest', {level: item.lvl})}` }}</div>
-                    <questInfo
-                      v-if="!item.locked"
-                      :quest="item"
-                    />
-                  </div>
+                  <quest-popover :item="item" />
                 </span>
                 <template
                   slot="itemBadge"
@@ -456,10 +424,12 @@ import isPinned from '@/../../common/script/libs/isPinned';
 import FilterSidebar from '@/components/ui/filterSidebar';
 import FilterGroup from '@/components/ui/filterGroup';
 import SelectTranslatedArray from '@/components/tasks/modal-controls/selectTranslatedArray';
+import QuestPopover from './questPopover';
 
 
 export default {
   components: {
+    QuestPopover,
     SelectTranslatedArray,
     FilterGroup,
     FilterSidebar,
@@ -596,11 +566,6 @@ export default {
       this.selectedItemToBuy = item;
 
       this.$root.$emit('bv::show::modal', 'buy-quest-modal');
-    },
-    isBuyingDependentOnPrevious (item) {
-      const questsNotDependentToPrevious = ['moon2', 'moon3'];
-      if (item.key in questsNotDependentToPrevious) return false;
-      return true;
     },
   },
 };

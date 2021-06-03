@@ -31,18 +31,44 @@ import '../../src/assets/css/sprites/spritesmith-main-23.css';
 import '../../src/assets/css/sprites/spritesmith-main-24.css';
 import '../../src/assets/css/sprites/spritesmith-main-25.css';
 import '../../src/assets/css/sprites/spritesmith-main-26.css';
+import '../../src/assets/css/sprites/spritesmith-main-27.css';
+import '../../src/assets/css/sprites/spritesmith-main-28.css';
+import '../../src/assets/css/sprites/spritesmith-main-29.css';
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import StoreModule from '@/libs/store';
+import getStore from '@/store';
+
+import i18n from '../../../common/script/i18n';
 
 // couldn't inject the languages easily,
 // so just a "$t()" string to show that this will be translated
-Vue.prototype.$t = function translateString (...args) {
+i18n.t = function translateString (...args) {
   return `$t(${JSON.stringify(args)})`;
 };
+Vue.prototype.$t = i18n.t;
 
 Vue.use(BootstrapVue);
 Vue.use(StoreModule);
+
+const store = getStore();
+store.state.user.data = {
+  stats: {},
+  tags: [],
+  items: {
+    quests: {
+      moon1: 3,
+    },
+  },
+  party: {
+    quest: {
+
+    },
+  },
+};
+
+Vue.prototype.$store = store;
+
 
 const req = require.context('../../src', true, /.stories.js$/);
 

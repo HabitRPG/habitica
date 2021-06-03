@@ -1,40 +1,49 @@
 <template>
   <div
-    class="toggle ml-auto"
+    class="toggle ml-auto section-button"
     role="button"
     :aria-expanded="visible"
     tabindex="0"
-    @keyup.enter="$emit('click')"
-    @click="$emit('click')"
+    @keyup.enter="emitClick"
+    @click="emitClick"
   >
     <span
       v-if="visible"
-      class="svg-icon"
+      class="svg-icon icon-16"
       v-html="icons.upIcon"
     ></span>
     <span
       v-else
-      class="svg-icon"
+      class="svg-icon icon-16 down-icon color-stroke"
       v-html="icons.downIcon"
     ></span>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/scss/colors.scss';
+  @import '~@/assets/scss/colors.scss';
 
   .toggle {
     border: 0;
     background: transparent;
     cursor: pointer;
     &:focus {
+      // Fix keyboard inaccessible https://github.com/HabitRPG/habitica/pull/12656
       outline: none;
       border: $purple-400 solid 1px;
     }
   }
 
   .svg-icon {
-    width: 16px;
+    display: flex;
+
+    ::v-deep svg {
+      height: 100%;
+    }
+  }
+
+  .down-icon {
+    color: $gray-300;
   }
 </style>
 
@@ -55,6 +64,15 @@ export default {
         downIcon,
       },
     };
+  },
+  methods: {
+    emitClick ($event) {
+      if ($event.stopPropagation) {
+        $event.stopPropagation();
+      }
+
+      this.$emit('click');
+    },
   },
 };
 </script>

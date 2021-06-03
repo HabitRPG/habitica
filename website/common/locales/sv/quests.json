@@ -65,7 +65,7 @@
     "loginIncentiveQuest": "För att låsa upp detta uppdrag, kolla in till Habitica på <%= count %> olika dagar!",
     "loginReward": "<%= count %> Incheckningar",
     "questBundles": "Rabatt på Uppdragsbuntar",
-    "noQuestToStart": "Kan du inte hitta ett uppdrag att starta? Kolla in Uppdragsaffären i Marknaden för nya utgåvor!",
+    "noQuestToStart": "Kan du inte hitta ett uppdrag att starta? Kolla in Uppdragsbutiken i Marknaden för nya utgåvor!",
     "pendingDamage": "<%= damage %> avvaktande skada",
     "pendingDamageLabel": "avvaktande skada",
     "bossHealth": "<%= currentHealth %> / <%= maxHealth %> Hälsa",

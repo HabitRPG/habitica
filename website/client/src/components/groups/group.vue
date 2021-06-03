@@ -4,9 +4,9 @@
     class="row"
   >
     <group-form-modal v-if="isParty" />
-    <start-quest-modal :group="group" />
-    <quest-details-modal :group="group" />
+    <quest-detail-modal :group="group" />
     <participant-list-modal :group="group" />
+    <invitation-list-modal :group="group" />
     <group-gems-modal />
     <div class="col-12 col-sm-8 standard-page">
       <div class="row">
@@ -96,99 +96,21 @@
         </template>
       </chat>
     </div>
-    <div class="col-12 col-sm-4 sidebar">
-      <div
-        class="row"
-        :class="{'guild-background': !isParty}"
-      >
-        <div class="col-12 buttons-wrapper">
-          <div class="button-container">
-            <button
-              v-if="isLeader && !group.purchased.active && group.privacy === 'private'"
-              class="btn btn-success btn-success"
-              @click="upgradeGroup()"
-            >
-              {{ $t('upgrade') }}
-            </button>
-          </div>
-          <div class="button-container">
-            <button
-              v-if="isLeader || isAdmin"
-              v-once
-              class="btn btn-primary"
-              b-btn="b-btn"
-              @click="updateGuild"
-            >
-              {{ $t('edit') }}
-            </button>
-          </div>
-          <div class="button-container">
-            <button
-              v-if="!isMember"
-              class="btn btn-success btn-success"
-              @click="join()"
-            >
-              {{ $t('join') }}
-            </button>
-          </div>
-          <div class="button-container">
-            <button
-              v-once
-              class="btn btn-primary"
-              @click="showInviteModal()"
-            >
-              {{ $t('invite') }}
-            </button>
-            <!-- @TODO: hide the invitation button
-              if there's an active group plan and the player is not the leader-->
-          </div>
-          <div class="button-container">
-            <!-- @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader')
-             {{$t('messageGuildLeader')}} // Suggest making the button
-              visible to the leader too - useful for them to test how
-               the feature works or to send a note to themself. -- Alys-->
-          </div>
-          <div class="button-container">
-            <!-- @TODO: V2 button.btn.btn-primary(v-once,
-              v-if='isMember && !isParty') {{$t('donateGems')}}
-              // Suggest removing the isMember restriction
-               - it's okay if non-members donate to a public
-               guild. Also probably allow it for parties
-               if parties can buy imagery. -- Alys-->
-          </div>
-        </div>
-      </div>
-      <div class="px-3 py-3">
-        <quest-sidebar-section
-          v-if="isParty"
-          :group="group"
-        />
-        <sidebar-section
-          v-if="!isParty"
-          :title="$t('guildSummary')"
-        >
-          <p v-markdown="group.summary"></p>
-        </sidebar-section>
-        <sidebar-section :title="$t('groupDescription')">
-          <p v-markdown="group.description"></p>
-        </sidebar-section>
-        <sidebar-section
-          :title="$t('challenges')"
-          :tooltip="$t('challengeDetails')"
-        >
-          <group-challenges :group="group" />
-        </sidebar-section>
-      </div>
-      <div class="text-center">
-        <button
-          v-if="isMember"
-          class="btn btn-danger"
-          @click="clickLeave()"
-        >
-          {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
-        </button>
-      </div>
-    </div>
+    <right-sidebar
+      :is-admin="isAdmin"
+      :is-leader="isLeader"
+      :is-member="isMember"
+      :is-party="isParty"
+      :group="group"
+      :search-id="searchId"
+      class="col-12 col-sm-4"
+      @leave="clickLeave()"
+      @join="join()"
+      @messageLeader="messageLeader()"
+      @upgradeGroup="upgradeGroup"
+      @updateGuild="updateGuild"
+      @showInviteModal="showInviteModal()"
+    />
   </div>
 </template>
 
@@ -199,22 +121,10 @@
     .standard-page {
       max-width: calc(100% - 430px);
     }
-
-    .sidebar {
-      max-width: 430px !important;
-    }
   }
 
   h1 {
     color: $purple-200;
-  }
-
-  .button-container {
-    margin-bottom: 1em;
-
-    button {
-      width: 100%;
-    }
   }
 
   .item-with-icon {
@@ -254,11 +164,6 @@
     cursor: pointer;
   }
 
-  .sidebar {
-    background-color: $gray-600;
-    padding-bottom: 2em;
-  }
-
   .buttons-wrapper {
     padding: 2.8em 24px 0em 24px;
   }
@@ -276,11 +181,6 @@
       line-height: 1.43;
       color: $gray-50;
     }
-  }
-
-  .guild-background {
-    background-image: url('~@/assets/images/groups/grassy-meadow-backdrop.png');
-    height: 246px;
   }
 
   textarea {
@@ -390,16 +290,11 @@ import groupUtilities from '@/mixins/groupsUtilities';
 import styleHelper from '@/mixins/styleHelper';
 import { mapState, mapGetters } from '@/libs/store';
 import * as Analytics from '@/libs/analytics';
-import startQuestModal from './startQuestModal';
-import questDetailsModal from './questDetailsModal';
 import participantListModal from './participantListModal';
 import groupFormModal from './groupFormModal';
-import groupChallenges from '../challenges/groupChallenges';
 import groupGemsModal from '@/components/groups/groupGemsModal';
-import questSidebarSection from '@/components/groups/questSidebarSection';
 import markdownDirective from '@/directives/markdown';
 import chat from './chat';
-import sidebarSection from '../sidebarSection';
 import userLink from '../userLink';
 
 import deleteIcon from '@/assets/svg/delete.svg';
@@ -413,17 +308,18 @@ import questBackground from '@/assets/svg/quest-background-border.svg';
 import goldGuildBadgeIcon from '@/assets/svg/gold-guild-badge-small.svg';
 import silverGuildBadgeIcon from '@/assets/svg/silver-guild-badge-small.svg';
 import bronzeGuildBadgeIcon from '@/assets/svg/bronze-guild-badge-small.svg';
+import QuestDetailModal from './questDetailModal';
+import RightSidebar from '@/components/groups/rightSidebar';
+import InvitationListModal from './invitationListModal';
 
 export default {
   components: {
-    startQuestModal,
+    InvitationListModal,
+    QuestDetailModal,
+    RightSidebar,
     groupFormModal,
-    groupChallenges,
-    questDetailsModal,
     participantListModal,
     groupGemsModal,
-    questSidebarSection,
-    sidebarSection,
     userLink,
     chat,
   },
@@ -656,6 +552,9 @@ export default {
     },
     showGroupGems () {
       this.$root.$emit('bv::show::modal', 'group-gems-modal');
+    },
+    messageLeader () {
+      window.open(`/private-messages?uuid=${this.group.leader.id}`);
     },
   },
 };

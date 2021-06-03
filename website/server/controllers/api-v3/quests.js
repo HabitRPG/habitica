@@ -518,7 +518,6 @@ api.leaveQuest = {
 
     if (!group) throw new NotFound(res.t('groupNotFound'));
     if (group.type !== 'party') throw new NotAuthorized(res.t('guildQuestsNotSupported'));
-    if (!group.quest.active) throw new NotFound(res.t('noActiveQuestToLeave'));
     if (group.quest.leader === user._id) throw new NotAuthorized(res.t('questLeaderCannotLeaveQuest'));
     if (!group.quest.members[user._id]) throw new NotAuthorized(res.t('notPartOfQuest'));
 

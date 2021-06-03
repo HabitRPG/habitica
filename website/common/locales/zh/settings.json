@@ -183,5 +183,11 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome聊天扩展</a>和<a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox聊天扩展</a>",
     "displaynameIssueNewline": "角色名不能不得包含反斜杠（/），后跟字母N。",
     "resetAccount": "重置账号",
-    "giftedSubscriptionWinterPromo": "<%= username %>你好，你收到了<%= monthCount %>个月的订阅，这是我们节日送礼的一项促销活动！"
+    "giftedSubscriptionWinterPromo": "<%= username %>你好，你收到了<%= monthCount %>个月的订阅，这是我们节日送礼的一项促销活动！",
+    "bannedSlurUsedInProfile": "你的昵称或文本含有诽谤内容。你的聊天权限已被取消。",
+    "onlyPrivateSpaces": "仅限在私人场所",
+    "everywhere": "所有地方",
+    "suggestMyUsername": "用户名建议",
+    "mentioning": "提及",
+    "bannedWordUsedInProfile": "你的昵称或文本含有不适当的语言。"
 }
