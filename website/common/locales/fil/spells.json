@@ -6,7 +6,7 @@
     "spellWizardEarthText": "Earthquake",
     "spellWizardEarthNotes": "Your mental power shakes the earth and buffs your Party's Intelligence! (Based on: Unbuffed INT)",
     "spellWizardFrostText": "Chilling Frost",
-    "spellWizardFrostNotes": "With one cast, ice freezes all your streaks so they won't reset to zero tomorrow!",
+    "spellWizardFrostNotes": "Isang cast, natitigil ng yelo ang lahat ng iyong streaks kaya hindi sila uulit sa zero bukas!",
     "spellWizardFrostAlreadyCast": "You have already cast this today. Your streaks are frozen, and there's no need to cast this again.",
     "spellWarriorSmashText": "Brutal Smash",
     "spellWarriorSmashNotes": "You make a task more blue/less red and deal extra damage to Bosses! (Based on: STR)",
@@ -24,7 +24,7 @@
     "spellRogueToolsOfTradeNotes": "Your tricky talents buff your whole Party's Perception! (Based on: Unbuffed PER)",
     "spellRogueStealthText": "Stealth",
     "spellRogueStealthNotes": "With each cast, a few of your undone Dailies won't cause damage tonight. Their streaks and colors won't change. (Based on: PER)",
-    "spellRogueStealthDaliesAvoided": "<%= originalText %> Number of dailies avoided: <%= number %>.",
+    "spellRogueStealthDaliesAvoided": "<%= originalText %> Bilang ng dailies na maiiwasan: <%= number %>.",
     "spellRogueStealthMaxedOut": "You have already avoided all your dailies; there's no need to cast this again.",
     "spellHealerHealText": "Healing Light",
     "spellHealerHealNotes": "Shining light restores your health! (Based on: CON and INT)",
@@ -55,5 +55,6 @@
     "challengeTasksNoCast": "Casting a skill on challenge tasks is not allowed.",
     "groupTasksNoCast": "Casting a skill on group tasks is not allowed.",
     "spellNotOwned": "You don't own this skill.",
-    "spellLevelTooHigh": "You must be level <%= level %> to use this skill."
+    "spellLevelTooHigh": "You must be level <%= level %> to use this skill.",
+    "spellAlreadyCast": "Walang karagdagang epekto ang paggamit ng iskil na ito."
 }

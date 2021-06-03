@@ -100,5 +100,8 @@
     "viewProgress": "Se fremskridt",
     "selectMember": "Vælg medlem",
     "confirmKeepChallengeTasks": "Vil du beholde udfordringsopgaverne?",
-    "selectParticipant": "Vælg en deltager"
+    "selectParticipant": "Vælg en deltager",
+    "filters": "Filtre",
+    "wonChallengeDesc": "<%= challengeName %> udvalgte dig som vinder! Din sejr er noteret i dine Præstationer.",
+    "yourReward": "Din Belønning"
 }

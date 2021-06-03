@@ -1,8 +1,8 @@
 {
     "clearCompleted": "Törlés kész",
-    "clearCompletedDescription": "Befejezett tennivalók 30 nap után törlésre kerülnek a nem előfizető felhasználóknál, és 90 nap után az előfizetők esetén.",
-    "clearCompletedConfirm": "Biztosan törlöd az elkészült tennivalóidat?",
-    "addMultipleTip": "<strong>Tipp:</strong> Több <%= taskType %> hozzáadásához, válaszd el őket sortöréssel (Shift + Enter) és utána nyomd meg az \"Enter.\"",
+    "clearCompletedDescription": "Befejezett tennivalók 30 nap után törlésre kerülnek a nem előfizető felhasználóknál, és 90 nap után előfizetők esetén.",
+    "clearCompletedConfirm": "Biztosan törlöd az befejezett tennivalóidat?",
+    "addMultipleTip": "<strong>Tipp:</strong> Több <%= taskType %> hozzáadásához, válaszd el őket sortöréssel (Shift + Enter) és utána nyomd meg az \"Entert.\"",
     "addATask": "<%= type %> hozzáadása",
     "editATask": "<%= type %> szerkesztése",
     "createTask": "Új <%= type %>",
@@ -27,7 +27,7 @@
     "notes": "Jegyzetek",
     "advancedSettings": "Haladó beállítások",
     "difficulty": "Nehézség",
-    "difficultyHelp": "A nehézség megmutatja, hogy mennyire jelent kihívást a szokás, napi feladat, vagy tennivaló elvégzése. A magasabb nehézség nagyobb jutalmat eredményez, amikor elvégzed a feladatot, de nagyobb sebzést is okoz, ha kihagyod a napi feladatot, vagy egy negatív szokásra kattintasz.",
+    "difficultyHelp": "A nehézség megmutatja, hogy mennyire jelent kihívást a szokás, a napi feladat, vagy a tennivaló elvégzése. A magasabb nehézség nagyobb jutalmat eredményez, amikor elvégzed a feladatot, de nagyobb sebzést is okoz, ha kihagyod a napi feladatot, vagy egy negatív szokásra kattintasz.",
     "trivial": "Triviális",
     "easy": "Könnyű",
     "medium": "Közepes",
@@ -127,5 +127,7 @@
     "checkOffYesterDailies": "Pipáld ki az összes napi feladatot, amit tegnap elvégeztél:",
     "yesterDailiesCallToAction": "Kezd el az új napomat!",
     "sessionOutdated": "A munkameneted elavult. Kérlek frissítsd az oldalt, vagy szinkronizálj.",
-    "errorTemporaryItem": "Ez a tárgy ideiglenes, ezért nem rögzíthető."
+    "errorTemporaryItem": "Ez a tárgy ideiglenes, ezért nem rögzíthető.",
+    "addNotes": "Jegyzetek hozzáadása",
+    "addATitle": "Cím hozzáadása"
 }

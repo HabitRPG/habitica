@@ -53,5 +53,11 @@
     "messageMissingDisplayName": "Missing display name.",
     "canDeleteNow": "Maaari mo nang tanggalin ang mensahe kung nais mo.",
     "reportedMessage": "Na-report mo ito sa mga moderators.",
-    "beginningOfConversationReminder": "Alalahaning maging mabait, magalang, at sumunod sa mga Patnubay na Pangkomunidad!"
+    "beginningOfConversationReminder": "Alalahaning maging mabait, magalang, at sumunod sa mga Patnubay na Pangkomunidad!",
+    "newsPostNotFound": "Hindi nahanap ang News Post o wala kang access.",
+    "messageAllUnEquipped": "Lahat hindi ginagamit.",
+    "messageBackgroundUnEquipped": "Background hindi ginagamit.",
+    "messageCostumeUnEquipped": "Costume hindi ginagamit.",
+    "messageBattleGearUnEquipped": "Kagamitang Panggera hindi ginagamit.",
+    "messagePetMountUnEquipped": "Alaga at Mount hindi ginagamit."
 }

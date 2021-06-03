@@ -102,7 +102,7 @@
     "giftedSubscription": "Gifted Subscription",
     "giftedSubscriptionInfo": "<%= name %> gifted you a <%= months %> month subscription",
     "giftedSubscriptionFull": "Hello <%= username %>, <%= sender %> has sent you <%= monthCount %> months of subscription!",
-    "invitedParty": "Invited To Party",
+    "invitedParty": "Ika'y naimbitahan sa Partido",
     "invitedGuild": "Inimbitahan ka sa isang Samahan",
     "importantAnnouncements": "Reminders to check in to complete tasks and receive prizes",
     "weeklyRecaps": "Summaries of your account activity in the past week (Note: this is currently disabled due to performance issues, but we hope to have this back up and sending e-mails again soon!)",

@@ -14,15 +14,15 @@
     "endDate": "Nagtatapos",
     "selectWinner": "Pumili ng nanalo at isara ang hamon:",
     "endChallenge": "Tapusin ang Hamon",
-    "filter": "Pangsala",
+    "filter": "Pansala",
     "groups": "Mga Grupo",
     "category": "Kategorya",
-    "membership": "Pagkakasapi",
+    "membership": "Membership",
     "ownership": "Pagmamay-ari",
     "participating": "Lumalahok",
     "createChallenge": "Gumawa ng Hamon",
     "createChallengeAddTasks": "Magdagdag ng mga Gawain sa Hamon",
-    "createChallengeCloneTasks": "Doblehin ang Gawain ng Hamon",
+    "createChallengeCloneTasks": "Doblehin ang mga Gawain sa Hamon",
     "addTaskToChallenge": "Magdagdag ng Gawain",
     "challengeTag": "Tag Name",
     "prize": "Premyo",
@@ -100,5 +100,8 @@
     "viewProgress": "Tignan ang Progreso",
     "selectMember": "Pumili ng Miyembro",
     "confirmKeepChallengeTasks": "Nais mo bang panatilihin ang mga gawain sa hamon?",
-    "selectParticipant": "Pumili ng Kalahok"
+    "selectParticipant": "Pumili ng Kalahok",
+    "wonChallengeDesc": "Pinili kang panalo ni <%= challengeName %>! Ang iyong panalo ay naitala sa iyong Achievements.",
+    "yourReward": "Iyong Gantimpala",
+    "filters": "Mga Pansala"
 }
