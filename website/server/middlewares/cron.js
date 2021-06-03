@@ -73,37 +73,13 @@ async function cronAsync (req, res) {
       return null;
     }
 
-    const teamsLed = await user.teamsLed();
-    let tasksQuery;
-
-    if (teamsLed.length > 0) {
-      tasksQuery = {
-        $and: [
-          {
-            $or: [
-              { userId: user._id },
-              { userId: { $exists: false }, 'group.id': { $in: teamsLed }, 'group.assignedUsers': { $size: 0 } },
-            ],
-          },
-          {
-            $or: [
-              { type: 'todo', completed: false },
-              { type: { $in: ['habit', 'daily'] } },
-            ],
-          },
-        ],
-      };
-    } else {
-      tasksQuery = {
-        userId: user._id,
-        $or: [
-          { type: 'todo', completed: false },
-          { type: { $in: ['habit', 'daily'] } },
-        ],
-      };
-    }
-
-    const tasks = await Tasks.Task.find(tasksQuery).exec();
+    const tasks = await Tasks.Task.find({
+      userId: user._id,
+      $or: [ // Exclude completed todos
+        { type: 'todo', completed: false },
+        { type: { $in: ['habit', 'daily', 'reward'] } },
+      ],
+    }).exec();
 
     const tasksByType = {
       habits: [], dailys: [], todos: [], rewards: [],
@@ -141,36 +117,20 @@ async function cronAsync (req, res) {
 
     // Save user and tasks
     const toSave = [user.save()];
-    const groupTasks = [];
-    const groupTasksByType = {
-      habits: [], dailys: [], todos: [], rewards: [],
-    };
-    for (const task of tasks) {
+    tasks.forEach(async task => {
       if (task.isModified()) toSave.push(task.save());
       if (task.isModified() && task.group && task.group.taskId) {
-        const groupTask = await Tasks.Task.findOne({ // eslint-disable-line no-await-in-loop
+        const groupTask = await Tasks.Task.findOne({
           _id: task.group.taskId,
         }).exec();
+
         if (groupTask) {
-          groupTasks.push(groupTask);
-          groupTasksByType[`${groupTask.type}s`].push(groupTask);
+          let delta = (0.9747 ** task.value) * -1;
+          if (groupTask.group.assignedUsers) delta /= groupTask.group.assignedUsers.length;
+          await groupTask.scoreChallengeTask(delta, 'down');
         }
       }
-    }
-    if (groupTasks.length > 0) {
-      await cron({
-        user,
-        tasksByType: groupTasksByType,
-        now,
-        daysMissed,
-        analytics,
-        timezoneUtcOffsetFromUserPrefs,
-        headers: req.headers,
-      });
-      groupTasks.forEach(async cronnedGroupTask => {
-        if (cronnedGroupTask.isModified()) toSave.push(cronnedGroupTask.save());
-      });
-    }
+    });
     await Promise.all(toSave);
 
     await Group.processQuestProgress(user, progress);

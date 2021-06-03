@@ -144,6 +144,9 @@ export const schema = new Schema({
     slug: { $type: String },
     name: { $type: String },
   }],
+  cron: {
+    lastProcessed: { $type: Date },
+  },
 }, {
   strict: true,
   minimize: false, // So empty objects are returned
