@@ -17,13 +17,15 @@ stories
     data () {
       return {
         quest: quests.goldenknight2,
-        questWithDrop: quests.moon1,
+        questWithDrop: quests.stressbeast,
+        evilsanta: quests.evilsanta,
       };
     },
     template: `  
       <div>
         <quest-rewards :quest="quest"></quest-rewards>
         <quest-rewards :quest="questWithDrop"></quest-rewards>
+        <quest-rewards :quest="evilsanta"></quest-rewards>
       </div>
     `,
   }))

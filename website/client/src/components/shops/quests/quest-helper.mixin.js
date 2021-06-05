@@ -18,6 +18,10 @@ export const QuestHelperMixin = {
           return `Pet_Egg_${drop.key}`;
         case 'quests':
           return `inventory_quest_scroll_${drop.key}`;
+        case 'mounts':
+          return `Mount_Icon_${drop.key}`;
+        case 'pets':
+          return `Pet-${drop.key}`;
         default:
           return `shop_${drop.key}`;
       }
