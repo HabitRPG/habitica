@@ -62,6 +62,7 @@
       </item-with-label>
 
       <item-with-label
+        v-if="quest.drop.gp > 0"
         :item="{}"
         label-class="yellow"
       >
@@ -78,7 +79,7 @@
 
       <item-with-label
         v-for="drop in getDropsList(quest.drop.items, false)"
-        :key="drop.key"
+        :key="drop.type+'_'+drop.key"
         :item="{}"
       >
         <countBadge
@@ -89,13 +90,25 @@
         <div slot="itemImage">
           <div :class="getDropIcon(drop)"></div>
         </div>
-        <div
-          v-if="drop.klass"
-          slot="popoverContent"
-        >
+        <div slot="popoverContent">
           <equipmentAttributesPopover
+            v-if="drop.klass"
             :item="drop"
           />
+          <div v-else>
+            <h4
+              v-once
+              class="popover-content-title"
+            >
+              {{ drop.text }}
+            </h4>
+            <div
+              v-once
+              class="popover-content-text"
+            >
+              {{ drop.notes }}
+            </div>
+          </div>
         </div>
         <div slot="label">
           {{ $t('newItem') }}
