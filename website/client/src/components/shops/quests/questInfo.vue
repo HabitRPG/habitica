@@ -143,8 +143,6 @@ import svgStar from '@/assets/svg/difficulty-star.svg';
 import svgStarHalf from '@/assets/svg/difficulty-star-half.svg';
 import svgStarEmpty from '@/assets/svg/difficulty-star-empty.svg';
 
-import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
-
 export default {
   props: {
     quest: {
@@ -205,13 +203,14 @@ export default {
       return collect.text;
     },
     countdownString () {
-      const diffDuration = moment.duration(moment(seasonalShopConfig.dateRange.end).diff(moment()));
+      if (!this.quest.event) return;
+      const diffDuration = moment.duration(moment(this.quest.event.end).diff(moment()));
 
       if (diffDuration.asSeconds() <= 0) {
         this.limitedString = this.$t('noLongerAvailable');
       } else if (diffDuration.days() > 0) {
         this.limitedString = this.$t('limitedAvailabilityDays', {
-          days: diffDuration.days(),
+          days: moment(this.quest.event.end).diff(moment(), 'days'),
           hours: diffDuration.hours(),
           minutes: diffDuration.minutes(),
         });

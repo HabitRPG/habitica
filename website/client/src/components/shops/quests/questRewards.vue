@@ -1,5 +1,8 @@
 <template>
-  <div class="quest-rewards">
+  <div
+    class="quest-rewards"
+    v-if="quest.drop"
+  >
     <div
       class="header d-flex align-items-center"
       @click="toggle"
