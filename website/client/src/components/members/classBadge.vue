@@ -1,6 +1,6 @@
 <template>
   <div class="class-badge d-flex justify-content-center"
-       :style="{'--badge-size': badgeSize}">
+       :style="{'--badge-size': badgeSize + 'px'}">
     <div
       class="align-self-center svg-icon"
       :aria-label="$t(memberClass)"
