@@ -250,8 +250,6 @@ import EquipmentAttributesPopover from '@/components/inventory/equipment/attribu
 
 import QuestInfo from './quests/questInfo.vue';
 
-import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
-
 export default {
   components: {
     EquipmentAttributesPopover,
@@ -341,13 +339,14 @@ export default {
       };
     },
     countdownString () {
-      const diffDuration = moment.duration(moment(seasonalShopConfig.dateRange.end).diff(moment()));
+      if (!this.item.event) return;
+      const diffDuration = moment.duration(moment(this.item.event.end).diff(moment()));
 
       if (diffDuration.asSeconds() <= 0) {
         this.limitedString = this.$t('noLongerAvailable');
       } else if (diffDuration.days() > 0) {
         this.limitedString = this.$t('limitedAvailabilityDays', {
-          days: diffDuration.days(),
+          days: moment(this.item.event.end).diff(moment(), 'days'),
           hours: diffDuration.hours(),
           minutes: diffDuration.minutes(),
         });

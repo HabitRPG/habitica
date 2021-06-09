@@ -78,7 +78,7 @@ export default {
         this.cancelAutoUpdate();
       } else if (diffDuration.days() > 0) {
         this.limitedString = this.$t('limitedAvailabilityDays', {
-          days: diffDuration.days(),
+          days: moment(this.endDate).diff(moment(), 'days'),
           hours: diffDuration.hours(),
           minutes: diffDuration.minutes(),
         });
