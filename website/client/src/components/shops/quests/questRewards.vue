@@ -99,6 +99,7 @@
             <h4
               v-once
               class="popover-content-title"
+              :class="{'mb-0': !Boolean(drop.notes)}"
             >
               {{ drop.text }}
             </h4>
