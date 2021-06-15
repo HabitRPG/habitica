@@ -1,13 +1,15 @@
 <template>
-  <div
-    class="notifications"
-    :class="notificationsTopPos"
-  >
-    <notification v-for="notification in visibleNotifications"
-                  :key="notification.uuid"
-                  :notification="notification"
-                  :visibleAmount="visibleNotifications.length"
-                  @hidden="notificationRemoved($event)" />
+  <div class="notifications"
+       :class="notificationsTopPos">
+    <transition-group name="notifications"
+                      class="animations-holder"
+                      appear>
+      <notification v-for="(notification, index) in visibleNotifications"
+                    v-bind:key="notification.uuid"
+                    :notification="notification"
+                    :visibleAmount="index"
+                    @hidden="notificationRemoved($event)" />
+    </transition-group>
   </div>
 </template>
 
@@ -28,6 +30,28 @@
       }
     }
   }
+
+  .animations-holder {
+    position: relative;
+  }
+
+  .notifications-move {
+    transition: transform .5s;
+  }
+
+  .notifications-enter-active {
+    transition: opacity .5s;
+  }
+
+  .notifications-leave-active {
+    position: absolute;
+    top: 13px;
+    transition: opacity 0.5s;
+  }
+  .notifications-enter,
+  .notifications-leave-to {
+    opacity: 0;
+  }
 </style>
 
 <script>
@@ -35,7 +59,8 @@ import { mapState } from '@/libs/store';
 import notification from './notification';
 
 const amountOfVisisbleNotifications = 2;
-const timeoutBetweenVisibleNotifications = 1500;
+const delayBetweenDeletionAndNew = 1000;
+const removalInterval = 2500;
 
 export default {
   data () {
@@ -43,6 +68,7 @@ export default {
       visibleNotifications: [],
       allowedToFillAgain: true,
       allowedToTriggerImmediately: true,
+      removalIntervalId: null,
     };
   },
   components: {
@@ -73,7 +99,7 @@ export default {
 
       this.visibleNotifications.splice(foundNotification, 1);
 
-      this.allowedToFillAgain = this.visibleNotifications.length === 0;
+      this.allowedToFillAgain = this.visibleNotifications.length < amountOfVisisbleNotifications;
       this.$store.dispatch('snackbars:remove', $event);
 
       if (this.allowedToFillAgain) {
@@ -83,7 +109,7 @@ export default {
         } else {
           setTimeout(() => {
             this.fillVisibleNotifications(this.notificationStore);
-          }, timeoutBetweenVisibleNotifications);
+          }, delayBetweenDeletionAndNew);
         }
       }
     },
@@ -118,29 +144,58 @@ export default {
       }
 
       // fill the new items that needs to be visible
-      while (this.visibleNotifications.length < amountOfVisisbleNotifications) {
+      if (this.visibleNotifications.length < amountOfVisisbleNotifications) {
         const visibleIds = this.visibleNotifications.map(n => n.uuid);
 
         const notAddedYet = notifications.filter(n => !visibleIds.includes(n.uuid));
 
         if (notAddedYet.length > 0) {
           this.visibleNotifications.push(notAddedYet[0]);
-        } else {
-          break;
         }
       }
 
-      this.allowedToFillAgain = this.visibleNotifications.length !== amountOfVisisbleNotifications;
+      this.allowedToFillAgain = this.visibleNotifications.length < amountOfVisisbleNotifications;
+    },
+    startNotificationRemovalTimer () {
+      if (this.removalIntervalId != null) {
+        // current interval still running - wait until its done
+        return;
+      }
+
+      this.removalIntervalId = setInterval(() => {
+        if (this.visibleNotifications.length !== 0) {
+          const firstEntry = this.visibleNotifications[0];
+
+          this.notificationRemoved(firstEntry);
+        }
+
+        if (this.visibleNotifications.length === 0) {
+          clearInterval(this.removalIntervalId);
+          this.removalIntervalId = null;
+        }
+      }, removalInterval);
     },
   },
   watch: {
     notificationStore (notifications) {
       // to fill it the first time or once the range of notifications are done
       if (this.allowedToTriggerImmediately) {
+        // first notification
         setTimeout(() => {
           this.fillVisibleNotifications(notifications);
+
+          // 2nd needs to be added at a later time
+          setTimeout(() => {
+            this.fillVisibleNotifications(this.notificationStore);
+          }, 500);
         }, 250); // to wait for additional notifications to fill up
+
+
         this.allowedToTriggerImmediately = false;
+
+        if (this.notificationStore.length !== 0) {
+          this.startNotificationRemovalTimer();
+        }
       }
     },
   },

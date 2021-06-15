@@ -1,102 +1,100 @@
 <template>
-  <transition name="fade">
+  <div
+    class="notification callout pt-0"
+    :class="classes"
+    @click="handleOnClick()"
+  >
     <div
-      class="notification callout animated pt-0"
-      :class="classes"
-      @click="handleOnClick()"
+      v-if="notification.type === 'error'"
+      class="row"
     >
-      <div
-        v-if="notification.type === 'error'"
-        class="row"
-      >
-        <div class="text col-12">
-          <div v-html="notification.text"></div>
-        </div>
-      </div>
-      <div
-        v-if="notification.type === 'streak'"
-        class="row"
-      >
-        <div class="text col-7 offset-1">
-          <div>{{ message }}</div>
-        </div>
-        <div class="icon col-4">
-          <div
-            class="svg-icon"
-            v-html="icons.gold"
-          ></div>
-          <div v-html="notification.text"></div>
-        </div>
-      </div>
-      <div
-        v-if="['hp', 'gp', 'xp', 'mp'].indexOf(notification.type) !== -1"
-        class="row"
-      >
-        <div class="text col-7 offset-1">
-          <div>{{ message }}</div>
-        </div>
-        <div class="icon col-4 d-flex align-items-center">
-          <div
-            v-if="notification.type === 'hp'"
-            class="svg-icon"
-            v-html="icons.health"
-          ></div>
-          <div
-            v-if="notification.type === 'gp'"
-            class="svg-icon"
-            v-html="icons.gold"
-          ></div>
-          <div
-            v-if="notification.type === 'xp'"
-            class="svg-icon"
-            v-html="icons.star"
-          ></div>
-          <div
-            v-if="notification.type === 'mp'"
-            class="svg-icon"
-            v-html="icons.mana"
-          ></div>
-          <div v-html="notification.text"></div>
-        </div>
-      </div>
-      <div
-        v-if="notification.type === 'damage'"
-        class="row"
-      >
-        <div class="text col-7 offset-1">
-          <div>{{ message }}</div>
-        </div>
-        <div class="icon col-4">
-          <div
-            class="svg-icon"
-            v-html="icons.sword"
-          ></div>
-          <div v-html="notification.text"></div>
-        </div>
-      </div>
-      <div
-        v-if="['info', 'success', 'crit', 'lvl'].indexOf(notification.type) !== -1"
-        class="row"
-      >
-        <div class="text col-12">
-          <div v-html="notification.text"></div>
-        </div>
-      </div>
-      <div
-        v-if="notification.type === 'drop'"
-        class="row"
-      >
-        <div class="col-3">
-          <div class="icon-item">
-            <div :class="notification.icon"></div>
-          </div>
-        </div>
-        <div class="text col-8">
-          <div v-html="notification.text"></div>
-        </div>
+      <div class="text col-12">
+        <div v-html="notification.text"></div>
       </div>
     </div>
-  </transition>
+    <div
+      v-if="notification.type === 'streak'"
+      class="row"
+    >
+      <div class="text col-7 offset-1">
+        <div>{{ message }}</div>
+      </div>
+      <div class="icon col-4">
+        <div
+          class="svg-icon"
+          v-html="icons.gold"
+        ></div>
+        <div v-html="notification.text"></div>
+      </div>
+    </div>
+    <div
+      v-if="['hp', 'gp', 'xp', 'mp'].indexOf(notification.type) !== -1"
+      class="row"
+    >
+      <div class="text col-7 offset-1">
+        <div>{{ message }}</div>
+      </div>
+      <div class="icon col-4 d-flex align-items-center">
+        <div
+          v-if="notification.type === 'hp'"
+          class="svg-icon"
+          v-html="icons.health"
+        ></div>
+        <div
+          v-if="notification.type === 'gp'"
+          class="svg-icon"
+          v-html="icons.gold"
+        ></div>
+        <div
+          v-if="notification.type === 'xp'"
+          class="svg-icon"
+          v-html="icons.star"
+        ></div>
+        <div
+          v-if="notification.type === 'mp'"
+          class="svg-icon"
+          v-html="icons.mana"
+        ></div>
+        <div v-html="notification.text"></div>
+      </div>
+    </div>
+    <div
+      v-if="notification.type === 'damage'"
+      class="row"
+    >
+      <div class="text col-7 offset-1">
+        <div>{{ message }}</div>
+      </div>
+      <div class="icon col-4">
+        <div
+          class="svg-icon"
+          v-html="icons.sword"
+        ></div>
+        <div v-html="notification.text"></div>
+      </div>
+    </div>
+    <div
+      v-if="['info', 'success', 'crit', 'lvl'].indexOf(notification.type) !== -1"
+      class="row"
+    >
+      <div class="text col-12">
+        <div v-html="notification.text"></div>
+      </div>
+    </div>
+    <div
+      v-if="notification.type === 'drop'"
+      class="row"
+    >
+      <div class="col-3">
+        <div class="icon-item">
+          <div :class="notification.icon"></div>
+        </div>
+      </div>
+      <div class="text col-8">
+        <div v-html="notification.text"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -110,6 +108,8 @@
     width: 300px;
     margin-left: 1em;
     margin-bottom: 1em;
+
+    transition: opacity .5s, top .5s;
   }
 
   .info {
@@ -176,14 +176,6 @@
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     border-radius: 50%;
   }
-
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s
-  }
-
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0
-  }
 </style>
 
 <script>
@@ -197,7 +189,6 @@ export default {
   props: ['notification', 'visibleAmount'],
   data () {
     return {
-      timer: null,
       icons: Object.freeze({
         health,
         gold,
@@ -230,25 +221,6 @@ export default {
     classes () {
       return `${this.notification.type} ${this.negative}`;
     },
-  },
-  mounted () {
-    const timeout = (
-      this.notification
-      && this.notification.timeout !== undefined
-      && this.notification.timeout !== null
-    ) ? this.notification.timeout : true;
-
-    if (timeout) {
-      let delay = this.notification.delay || 1500;
-      delay += this.visibleAmount * 1000;
-
-      this.timer = setTimeout(() => {
-        this.$emit('hidden', this.notification);
-      }, delay);
-    }
-  },
-  beforeDestroy () {
-    clearTimeout(this.timer);
   },
   methods: {
     handleOnClick () {
