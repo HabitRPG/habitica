@@ -215,8 +215,12 @@ const premium = {
     limited: true,
     _addlNotes: t('eventAvailabilityReturning', {
       availableDate: t('dateEndJuly'),
-      previousDate: t('june2018'),
+      previousDate: t('juneYYYY', { year: 2019 }),
     }),
+    event: EVENTS.summer2021,
+    canBuy () {
+      return moment().isBefore(EVENTS.summer2021.end);
+    },
   },
   Glow: {
     value: 2,
@@ -376,13 +380,14 @@ const premium = {
     value: 2,
     text: t('hatchingPotionSandSculpture'),
     limited: true,
-    event: EVENTS.summer2020,
-    canBuy () {
-      return moment().isBefore('2020-08-02');
-    },
-    _addlNotes: t('premiumPotionAddlNotes', {
-      date: t('dateEndJuly'),
+    event: EVENTS.summer2021,
+    _addlNotes: t('eventAvailabilityReturning', {
+      availableDate: t('dateEndJuly'),
+      previousDate: t('juneYYYY', { year: 2020 }),
     }),
+    canBuy () {
+      return moment().isBefore(EVENTS.summer2021.end);
+    },
   },
   Windup: {
     value: 2,
@@ -458,6 +463,18 @@ const premium = {
     limited: true,
     canBuy: hasQuestAchievementFunction('stone'),
     _addlNotes: t('premiumPotionUnlimitedNotes'),
+  },
+  Sunset: {
+    value: 2,
+    text: t('hatchingPotionSunset'),
+    limited: true,
+    event: EVENTS.summer2021,
+    _addlNotes: t('premiumPotionAddlNotes', {
+      date: t('dateEndJuly'),
+    }),
+    canBuy () {
+      return moment().isBefore(EVENTS.summer2021.end);
+    },
   },
 };
 

@@ -30,24 +30,20 @@ export default {
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'spring2021WillowHealerSet',
-      rogue: 'spring2021TwinFlowerRogueSet',
-      warrior: 'spring2021SunstoneWarriorSet',
-      wizard: 'spring2021SwanMageSet',
+      healer: 'summer2021ParrotHealerSet',
+      rogue: 'summer2021ClownfishRogueSet',
+      warrior: 'summer2021FlyingFishWarriorSet',
+      wizard: 'summer2021NautilusMageSet',
     }
     : {},
 
-  availableSpells: SHOP_OPEN && moment().isAfter('2021-04-06T08:00-05:00')
+  availableSpells: SHOP_OPEN && moment().isAfter('2021-07-06T08:00-04:00')
     ? [
-      'shinySeed',
+      'seafoam',
     ]
     : [],
 
-  availableQuests: SHOP_OPEN && moment().isAfter('2021-03-30T08:00-05:00')
-    ? [
-      'egg',
-    ]
-    : [],
+  availableQuests: [],
 
-  featuredSet: 'spring2020PuddleMageSet',
+  featuredSet: 'summer2020CrocodileRogueSet',
 };

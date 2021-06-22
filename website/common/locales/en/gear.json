@@ -398,6 +398,15 @@
   "weaponSpecialSpring2021HealerText": "Willow Branch",
   "weaponSpecialSpring2021HealerNotes": "The bark and leaves of this fresh cutting are known for their ability to relieve pain. Or you can plant it and watch it grow! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
 
+  "weaponSpecialSummer2021RogueText": "Anemone Tentacles",
+  "weaponSpecialSummer2021RogueNotes": "Any predatory monster that dares approach will feel the sting of your protective friends! Increases Strength by <%= str %>. Limited Edition 2021 Summer Gear.",
+  "weaponSpecialSummer2021WarriorText": "Watery Blade",
+  "weaponSpecialSummer2021WarriorNotes": "This shimmering blade may like flow like water, but it can cut to the heart of the trickiest problems! Increases Strength by <%= str %>. Limited Edition 2021 Summer Gear.",
+  "weaponSpecialSummer2021MageText": "Nautiloid Cane",
+  "weaponSpecialSummer2021MageNotes": "Whether your magical ambitions run twenty thousand leagues deep, or if you intend only to dip in the shallows of the art, this shining implement will serve you well! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2021 Summer Gear.",
+  "weaponSpecialSummer2021HealerText": "Staff of Corn",
+  "weaponSpecialSummer2021HealerNotes": "Not to get corny, but this staff is a lifesaver. Increases Intelligence by <%= int %>. Limited Edition 2021 Summer Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -929,6 +938,15 @@
   "armorSpecialSpring2021MageNotes": "Your transformation is complete! Take to the sky, or to the lake, and sing for joy! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
   "armorSpecialSpring2021HealerText": "Willow Bark Coat",
   "armorSpecialSpring2021HealerNotes": "This armor helps you bend instead of break when buffeted by wind or weapon. Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
+
+  "armorSpecialSummer2021RogueText": "Clownfish Fins",
+  "armorSpecialSummer2021RogueNotes": "Do you want to be found? These draw attention! Rather not? They also help you flit away into the deep! Increases Perception by <%= per %>. Limited Edition 2021 Summer Gear.",
+  "armorSpecialSummer2021WarriorText": "Finny Armor",
+  "armorSpecialSummer2021WarriorNotes": "Sleek and swift, this flying fish costume will help you swim through the most turbulent waters. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
+  "armorSpecialSummer2021MageText": "Spiraled Shell",
+  "armorSpecialSummer2021MageNotes": "Ever-tightening whirls of nacre provide an arcane geometry that focuses protective spellwork. Increases Intelligence by <%= int %>. Limited Edition 2021 Summer Gear.",
+  "armorSpecialSummer2021HealerText": "Parrot Plumage",
+  "armorSpecialSummer2021HealerNotes": "Your enemies might suspect you're a featherweight, but this armor will keep you safe while you help your Party. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
 
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
@@ -1569,6 +1587,15 @@
   "headSpecialSpring2021HealerText": "Salix Wreath",
   "headSpecialSpring2021HealerNotes": "Weep not, friends! A Healer is here to soothe your suffering! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
 
+  "headSpecialSummer2021RogueText": "Clownfish Hood",
+  "headSpecialSummer2021RogueNotes": "It's bold, bright, and funny. Just like you! Increases Perception by <%= per %>. Limited Edition 2021 Summer Gear.",
+  "headSpecialSummer2021WarriorText": "Fishy Helm",
+  "headSpecialSummer2021WarriorNotes": "This helm can keep you safe and its magic will help you breathe underwater as well! Increases Strength by <%= str %>. Limited Edition 2021 Summer Gear.",
+  "headSpecialSummer2021MageText": "Nautilus Crest",
+  "headSpecialSummer2021MageNotes": "The pinhole eyes set upon this speckled cap may not improve your underwater vision all that much, but they sure can unnerve your opponents. Increases Perception by <%= per %>. Limited Edition 2021 Summer Gear.",
+  "headSpecialSummer2021HealerText": "Parrot Mask",
+  "headSpecialSummer2021HealerNotes": "Borrow the plumage of a parrot to help you in your daily battles! Increases Intelligence by <%= int %>. Limited Edition 2021 Summer Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -2058,6 +2085,11 @@
   "shieldSpecialSpring2021WarriorNotes": "The beauty in this roughly-shaped sunstone will shine even in the deepest caves and darkest dungeons. Hold it high! Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
   "shieldSpecialSpring2021HealerText": "Salicylic Shield",
   "shieldSpecialSpring2021HealerNotes": "A leafy green bundle that heralds shelter and compassion. Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
+
+  "shieldSpecialSummer2021WarriorText": "Watery Shield",
+  "shieldSpecialSummer2021WarriorNotes": "This enchanted water droplet soaks up magic and resists the blows of the reddest Dailies. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
+  "shieldSpecialSummer2021HealerText": "Sunflower Seed Shield",
+  "shieldSpecialSummer2021HealerNotes": "So much potential in this shield! But for now you can use it to protect your friends. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
 
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",

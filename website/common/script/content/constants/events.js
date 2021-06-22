@@ -10,14 +10,21 @@ const gemsPromo = {
 
 export const EVENTS = {
   noCurrentEvent2021: {
-    start: '2021-07-31T20:00-05:00',
-    end: '2021-08-23T08:00-05:00',
+    start: '2021-07-31T20:00-04:00',
+    end: '2021-09-23T08:00-04:00',
     season: 'normal',
     npcImageSuffix: '',
   },
+  summer2021: {
+    start: '2021-06-23T08:00-04:00',
+    end: '2021-07-31T20:00-04:00',
+    season: 'summer',
+    npcImageSuffix: 'summer',
+    gear: true,
+  },
   bundle202106: {
-    start: '2021-06-08T08:00-05:00',
-    end: '2021-07-31T20:00-05:00',
+    start: '2021-06-08T08:00-04:00',
+    end: '2021-07-31T20:00-04:00',
     season: 'normal',
     npcImageSuffix: '',
   },
