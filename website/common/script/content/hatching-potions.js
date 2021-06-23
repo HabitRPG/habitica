@@ -219,7 +219,7 @@ const premium = {
     }),
     event: EVENTS.summer2021,
     canBuy () {
-      return moment().isBefore(EVENTS.summer2021.end);
+      return moment().isBetween(EVENTS.summer2021.start, EVENTS.summer2021.end);
     },
   },
   Glow: {
@@ -386,7 +386,7 @@ const premium = {
       previousDate: t('juneYYYY', { year: 2020 }),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.summer2021.end);
+      return moment().isBetween(EVENTS.summer2021.start, EVENTS.summer2021.end);
     },
   },
   Windup: {
@@ -473,7 +473,7 @@ const premium = {
       date: t('dateEndJuly'),
     }),
     canBuy () {
-      return moment().isBefore(EVENTS.summer2021.end);
+      return moment().isBetween(EVENTS.summer2021.start, EVENTS.summer2021.end);
     },
   },
 };
