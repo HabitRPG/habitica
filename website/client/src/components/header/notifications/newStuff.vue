@@ -14,18 +14,20 @@
     </div>
     <div
       slot="icon"
-      class="npc_bailey"
+      :class="npcClass('bailey')"
     ></div>
   </base-notification>
 </template>
 
 <script>
 import BaseNotification from './base';
+import seasonalNPC from '@/mixins/seasonalNPC';
 
 export default {
   components: {
     BaseNotification,
   },
+  mixins: [seasonalNPC],
   props: ['notification', 'canRemove'],
   methods: {
     action () {
