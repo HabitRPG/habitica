@@ -1815,7 +1815,7 @@
     "weaponArmoireNephriteBowNotes": "¡Este arco dispara flechas con punta de jade que derrotan incluso a los malos habitos más obstinados! Aumenta la Inteligencia por <%= int %> y la Fuerza por <%= str %>. Armario Encantado: Conjunto de Arquero de Nefrita (Objeto 1 de 3).",
     "weaponArmoireNephriteBowText": "Arco de Nerfita",
     "armorSpecialKS2019Text": "Armadura Mítica de Grifo",
-    "weaponMystery201911Notes": "La bola de cristal encima del bastón puede revelarte el futuro, ¡Pero cuidado! Usando esa peligrosa sabiduría puede cambiar una persona de maneras inesperadas. No otorga ningún beneficio Artículo de Suscriptor de noviembre de 2019.",
+    "weaponMystery201911Notes": "La bola de cristal encima del bastón puede revelarte el futuro, ¡Pero cuidado! Usando esa peligrosa sabiduría puede cambiar una persona de maneras inesperadas. No otorga ningún beneficio. Artículo de Suscriptor de noviembre de 2019.",
     "weaponMystery201911Text": "Bastón de cristal encantado",
     "weaponArmoireFloridFanNotes": "Te encariñan los pliegues de seda cuando no están en uso. Incrementa la Constitución en <%= con %>. Armario Encantado: Objeto Independiente.",
     "weaponArmoireFloridFanText": "Abanico Florido",
@@ -2093,5 +2093,17 @@
     "weaponArmoireJadeGlaiveText": "Guja de Jade",
     "shieldSpecialWinter2021WarriorText": "Pez Gordo",
     "shieldArmoirePolishedPocketwatchText": "Reloj de bolsillo pulido",
-    "shieldSpecialFall2020WarriorText": "Escudo del espíritu"
+    "shieldSpecialFall2020WarriorText": "Escudo del espíritu",
+    "weaponSpecialSpring2021RogueNotes": "¿Sabes que es mejor que dos flores? ¡CUATRO flores! Aumenta tu Fuerza en <%= str %>. Edición limitada 2021 armadura de primavera.",
+    "weaponSpecialSpring2021RogueText": "Flores Gemelas floreciendo",
+    "weaponSpecialSpring2021WarriorNotes": "Aprovecha el poder del sol hacia tus enemigos, ¡Y que la piedra solar te de suerte! Incremena Fuerza Por <%= str %>. Edicion Limitada 2021 Armadura De Primavera.",
+    "armorArmoireJadeArmorText": "Armadura de Jade",
+    "armorSpecialSpring2021WarriorText": "Armadura del Sol",
+    "weaponSpecialSpring2021HealerText": "Rama de Sauce",
+    "weaponMystery202104Notes": "¡Es mejor que tus enemigos miren hacia fuera, tienes defensas poderosas y espinosas! No confiere ningún beneficio. Artículo del suscriptor de abril de 2021.",
+    "weaponMystery202104Text": "Personal de Cardo Espinoso",
+    "weaponSpecialSpring2021HealerNotes": "La corteza y las hojas de este corte fresco son conocidas por su capacidad para aliviar el dolor. ¡O puedes plantarlo y verlo crecer! Aumenta la inteligencia en <%= int %>. Equipo de primavera de edición limitada 2021.",
+    "weaponSpecialSpring2021MageNotes": "¡Lanza, golpea, pisa, descansa! Swish esta magnífica pluma a tiempo para conducir la música de su magia. Aumenta la inteligencia en un <%= int %> y percepción por <%= per %>. Equipo de primavera de edición limitada 2021.",
+    "weaponSpecialSpring2021MageText": "Pluma de cisne",
+    "weaponSpecialSpring2021WarriorText": "Martillo del Sol"
 }

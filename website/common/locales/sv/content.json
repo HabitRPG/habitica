@@ -12,7 +12,7 @@
     "dropEggTigerCubMountText": "tiger",
     "dropEggTigerCubAdjective": "en vild",
     "dropEggPandaCubText": "Pandaunge",
-    "dropEggPandaCubMountText": "Ridbar Panda",
+    "dropEggPandaCubMountText": "Panda",
     "dropEggPandaCubAdjective": "en lugn",
     "dropEggLionCubText": "Lejonunge",
     "dropEggLionCubMountText": "Lejon",
@@ -353,5 +353,6 @@
     "questEggDolphinText": "Delfin",
     "hatchingPotionDessert": "Sötsaker",
     "hatchingPotionBirchBark": "Björkbark",
-    "hatchingPotionPolkaDot": "Storprickig"
+    "hatchingPotionPolkaDot": "Storprickig",
+    "hatchingPotionMossyStone": "Mossig sten"
 }

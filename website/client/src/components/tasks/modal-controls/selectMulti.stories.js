@@ -4,17 +4,10 @@ import { withKnobs, number } from '@storybook/addon-knobs';
 
 import MultiList from './multiList';
 import SelectMulti from './selectMulti';
-import getStore from '@/store';
 
 const stories = storiesOf('Multiple Select List', module);
 
 stories.addDecorator(withKnobs);
-
-// Needed for SelectTag
-const store = getStore();
-store.state.user.data = {
-  tags: [],
-};
 
 const exampleTagList = [
   1, 2, 3,
@@ -96,7 +89,6 @@ stories
           Added event: {{ added }}
         </div>
     `,
-    store,
     data () {
       return {
         tagList: exampleTagList,
@@ -119,7 +111,6 @@ stories
                          @changed="tagList = $event"></SelectMulti>
         </div>
     `,
-    store,
     data () {
       return {
         tagList: [],

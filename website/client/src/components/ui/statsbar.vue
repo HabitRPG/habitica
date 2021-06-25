@@ -6,6 +6,7 @@
     :class="{condensed}"
   >
     <div
+      v-if="showIcon"
       class="svg-icon"
       v-html="icon"
     ></div>
@@ -16,7 +17,9 @@
         :style="{width: `${percent(value, maxValue)}%`}"
       ></div>
     </div>
-    <span class="small-text">{{ value | statFloor }} / {{ maxValue }}</span>
+    <span class="small-text" v-if="showNumbers">
+      {{ value | statFloor }} / {{ maxValue }}
+    </span>
     <b-tooltip
       class="myClass"
       :target="() => $refs.container"
@@ -55,11 +58,13 @@
   }
 
   .progress-container > .progress {
+    --progress-background: #{$header-dark-background};
+
     min-width: 200px;
     margin: 0px;
     border-radius: 1px;
     height: 12px;
-    background-color: $header-dark-background;
+    background-color: var(--progress-background);
     @media (max-width: 992px) {
       min-width: 160px;
     }
@@ -129,6 +134,14 @@ export default {
     condensed: {
       type: Boolean,
       default: false,
+    },
+    showIcon: {
+      type: Boolean,
+      default: true,
+    },
+    showNumbers: {
+      type: Boolean,
+      default: true,
     },
   },
   data () {

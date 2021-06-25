@@ -17,11 +17,7 @@
 <style scoped lang="scss">
   @import '~@/assets/scss/colors.scss';
 
-  a.no-tier {
-    color: $gray-50;
-  }
-
-  a.leader { // this is the user name
+  .user-link { // this is the user name
     font-family: 'Roboto Condensed', sans-serif;
     font-weight: bold;
     margin-bottom: 0;
@@ -29,10 +25,26 @@
     display: inline-block;
     font-size: 16px;
 
+    // currently used in the member-details-new.vue
+    &.smaller {
+      font-family: Roboto;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.71;
+    }
+
+    &.no-tier {
+      color: $gray-50;
+    }
+
     .svg-icon {
       width: 10px;
       display: inline-block;
       margin-left: .5em;
+
+      &:empty {
+        display: none;
+      }
     }
   }
 </style>
@@ -56,7 +68,15 @@ import tierNPC from '@/assets/svg/tier-npc.svg';
 
 export default {
   mixins: [styleHelper],
-  props: ['user', 'userId', 'name', 'backer', 'contributor', 'hideTooltip'],
+  props: [
+    'user',
+    'userId',
+    'name',
+    'backer',
+    'contributor',
+    'hideTooltip',
+    'smallerStyle',
+  ],
   data () {
     return {
       icons: Object.freeze({
@@ -114,7 +134,7 @@ export default {
       return this.hideTooltip ? '' : achievementsLib.getContribText(this.contributor, this.isNPC) || '';
     },
     levelStyle () {
-      return this.userLevelStyleFromLevel(this.level, this.isNPC);
+      return `${this.userLevelStyleFromLevel(this.level, this.isNPC)} ${this.smallerStyle ? 'smaller' : ''}`;
     },
   },
 };

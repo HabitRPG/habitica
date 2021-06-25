@@ -7,9 +7,9 @@
     "noActiveMount": "Walang Sinasakyang Alaga",
     "activeMount": "Sinasakyang Alaga",
     "mounts": "Mga Sakay Alaga",
-    "questPets": "Mga Lakbay Alaga",
+    "questPets": "Mga Alaga mula sa Quest",
     "magicPets": "Mga Alagang Kinabalan",
     "petsFound": "Mga Alagang Natagpuan",
-    "noActivePet": "Walang Alagang Pinapakita",
-    "activePet": "Alagang Pinapakita"
+    "noActivePet": "Walang Aktibong Alaga",
+    "activePet": "Aktibong Alaga"
 }

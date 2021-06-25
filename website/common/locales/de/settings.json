@@ -183,5 +183,11 @@
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome Chat Erweiterung</a> und <a target='blank' href='https://addons.mozilla.org/de/firefox/addon/habitica-chat-client-2/'>Firefox Chat Erweiterung</a>",
     "displaynameIssueNewline": "Anzeigenamen dürfen keinen Backslash gefolgt von einem Buchstaben N enthalten.",
     "resetAccount": "Konto zurücksetzen",
-    "giftedSubscriptionWinterPromo": "Hallo <%= username %>, Du hast, im Zuge unserer Feiertags-Geschenke-Schenk-Aktion, ein Abonnement für <%= monthCount %> Monate geschenkt bekommen!"
+    "giftedSubscriptionWinterPromo": "Hallo <%= username %>, Du hast, im Zuge unserer Feiertags-Geschenke-Schenk-Aktion, ein Abonnement für <%= monthCount %> Monate geschenkt bekommen!",
+    "bannedWordUsedInProfile": "Dein Anzeigename oder Über-Text beinhaltet unangemessene Sprache.",
+    "mentioning": "Erwähnung",
+    "suggestMyUsername": "Schlage mir einen Benutzernamen vor",
+    "onlyPrivateSpaces": "Nur in privaten Bereichen",
+    "everywhere": "Überall",
+    "bannedSlurUsedInProfile": "Dein Anzeigename oder Über-Text beinhaltete eine Verunglimpfung, daher wurden Dir Deine Chat-Privilegien entzogen."
 }

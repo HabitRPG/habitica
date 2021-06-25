@@ -102,6 +102,6 @@
     "confirmKeepChallengeTasks": "¿Deseas mantener las tareas del desafío?",
     "selectParticipant": "Elige un participante",
     "filters": "Filtros",
-    "wonChallengeDesc": "<%= challengeName %> the ha seleccionado como ganador! Tu victoria ha sido registrada en tus Logros.",
+    "wonChallengeDesc": "¡<%= challengeName %> te ha seleccionado como ganador! Tu victoria ha sido registrada en tus Logros.",
     "yourReward": "Tu recompensa"
 }

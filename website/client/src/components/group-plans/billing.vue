@@ -47,7 +47,7 @@
         class="btn btn-success btn-success"
         @click="upgradeGroup()"
       >
-        {{ $t('upgrade') }}
+        {{ $t('upgradeToGroup') }}
       </button>
       <div
         v-if="!group.purchased.plan.dateTerminated

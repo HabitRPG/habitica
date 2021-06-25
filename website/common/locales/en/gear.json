@@ -398,6 +398,15 @@
   "weaponSpecialSpring2021HealerText": "Willow Branch",
   "weaponSpecialSpring2021HealerNotes": "The bark and leaves of this fresh cutting are known for their ability to relieve pain. Or you can plant it and watch it grow! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
 
+  "weaponSpecialSummer2021RogueText": "Anemone Tentacles",
+  "weaponSpecialSummer2021RogueNotes": "Any predatory monster that dares approach will feel the sting of your protective friends! Increases Strength by <%= str %>. Limited Edition 2021 Summer Gear.",
+  "weaponSpecialSummer2021WarriorText": "Watery Blade",
+  "weaponSpecialSummer2021WarriorNotes": "This shimmering blade may like flow like water, but it can cut to the heart of the trickiest problems! Increases Strength by <%= str %>. Limited Edition 2021 Summer Gear.",
+  "weaponSpecialSummer2021MageText": "Nautiloid Cane",
+  "weaponSpecialSummer2021MageNotes": "Whether your magical ambitions run twenty thousand leagues deep, or if you intend only to dip in the shallows of the art, this shining implement will serve you well! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2021 Summer Gear.",
+  "weaponSpecialSummer2021HealerText": "Staff of Corn",
+  "weaponSpecialSummer2021HealerNotes": "Not to get corny, but this staff is a lifesaver. Increases Intelligence by <%= int %>. Limited Edition 2021 Summer Gear.",
+
   "weaponMystery201411Text": "Pitchfork of Feasting",
   "weaponMystery201411Notes": "Stab your enemies or dig in to your favorite foods - this versatile pitchfork does it all! Confers no benefit. November 2014 Subscriber Item.",
   "weaponMystery201502Text": "Shimmery Winged Staff of Love and Also Truth",
@@ -549,6 +558,8 @@
   "weaponArmoireBlueMoonSaiNotes": "This sai is a traditional weapon, imbued with the powers of the dark side of the moon. Increases Strength by <%= str %>. Enchanted Armoire: Blue Moon Rogue Set (item 1 of 4).",
   "weaponArmoireJadeGlaiveText": "Jade Glaive",
   "weaponArmoireJadeGlaiveNotes": "The reach of this glaive will keep you far from your enemies! Also, you can knock things off high shelves. Increases Strength by <%= str %>. Enchanted Armoire: Jade Warrior Set (Item 3 of 3).",
+  "weaponArmoireMedievalWashboardText": "Washboard",
+  "weaponArmoireMedievalWashboardNotes": "Scrub-a-dub-dub! It's time to apply some elbow grease and get that laundry clean. Increases Strength by <%= str %>. Enchanted Armoire: Medieval Launderers Set (Item 5 of 6).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -928,6 +939,15 @@
   "armorSpecialSpring2021HealerText": "Willow Bark Coat",
   "armorSpecialSpring2021HealerNotes": "This armor helps you bend instead of break when buffeted by wind or weapon. Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
 
+  "armorSpecialSummer2021RogueText": "Clownfish Fins",
+  "armorSpecialSummer2021RogueNotes": "Do you want to be found? These draw attention! Rather not? They also help you flit away into the deep! Increases Perception by <%= per %>. Limited Edition 2021 Summer Gear.",
+  "armorSpecialSummer2021WarriorText": "Finny Armor",
+  "armorSpecialSummer2021WarriorNotes": "Sleek and swift, this flying fish costume will help you swim through the most turbulent waters. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
+  "armorSpecialSummer2021MageText": "Spiraled Shell",
+  "armorSpecialSummer2021MageNotes": "Ever-tightening whirls of nacre provide an arcane geometry that focuses protective spellwork. Increases Intelligence by <%= int %>. Limited Edition 2021 Summer Gear.",
+  "armorSpecialSummer2021HealerText": "Parrot Plumage",
+  "armorSpecialSummer2021HealerNotes": "Your enemies might suspect you're a featherweight, but this armor will keep you safe while you help your Party. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
+
   "armorMystery201402Text": "Messenger Robes",
   "armorMystery201402Notes": "Shimmering and strong, these robes have many pockets to carry letters. Confers no benefit. February 2014 Subscriber Item.",
   "armorMystery201403Text": "Forest Walker Armor",
@@ -1028,6 +1048,8 @@
   "armorMystery202103Notes": "These soft and breezy robes are perfect for a tea party beneath the showy spring trees. Confers no benefit. March 2021 Subscriber Item.",
   "armorMystery202104Text": "Downy Thistle Armor",
   "armorMystery202104Notes": "Soft on the inside, spiky on the outside, stylish everywhere! Confers no benefit. April 2021 Subscriber Item.",
+  "armorMystery202106Text": "Sunset Tail",
+  "armorMystery202106Notes": " With this mighty yet elegant tail you can cruise through warm seas all the way to the horizon. Confers no benefit. June 2021 Subscriber Item.",
   "armorMystery301404Text": "Steampunk Suit",
   "armorMystery301404Notes": "Dapper and dashing, wot! Confers no benefit. February 3015 Subscriber Item.",
   "armorMystery301703Text": "Steampunk Peacock Gown",
@@ -1183,6 +1205,10 @@
   "armorArmoireJadeArmorNotes": "This jade armor is both beautiful and functional. Protect yourself, and know that you look fabulous! Increases Perception by <%= per %>. Enchanted Armoire: Jade Warrior Set (Item 2 of 3).",
   "armorArmoireClownsMotleyText": "Clown's Motley",
   "armorArmoireClownsMotleyNotes": "The clothes fit beautifully, but filling these shoes is no small feat. Increases Strength by <%= str %>. Enchanted Armoire: Clown Set (Item 1 of 5).",
+  "armorArmoireMedievalLaundryOutfitText": "Laundry Outfit",
+  "armorArmoireMedievalLaundryOutfitNotes": "Put on your working clothes and roll up your sleeves: it's time to get the laundry done! Increases Constitution by <%= con %>. Enchanted Armoire: Medieval Launderers Set (Item 1 of 6).",
+  "armorArmoireMedievalLaundryDressText": "Laundry Dress",
+  "armorArmoireMedievalLaundryDressNotes": "Put on your apron roll up your sleeves: it's time to get the laundry done! Increases Constitution by <%= con %>. Enchanted Armoire: Medieval Launderers Set (Item 2 of 6).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1561,6 +1587,15 @@
   "headSpecialSpring2021HealerText": "Salix Wreath",
   "headSpecialSpring2021HealerNotes": "Weep not, friends! A Healer is here to soothe your suffering! Increases Intelligence by <%= int %>. Limited Edition 2021 Spring Gear.",
 
+  "headSpecialSummer2021RogueText": "Clownfish Hood",
+  "headSpecialSummer2021RogueNotes": "It's bold, bright, and funny. Just like you! Increases Perception by <%= per %>. Limited Edition 2021 Summer Gear.",
+  "headSpecialSummer2021WarriorText": "Fishy Helm",
+  "headSpecialSummer2021WarriorNotes": "This helm can keep you safe and its magic will help you breathe underwater as well! Increases Strength by <%= str %>. Limited Edition 2021 Summer Gear.",
+  "headSpecialSummer2021MageText": "Nautilus Crest",
+  "headSpecialSummer2021MageNotes": "The pinhole eyes set upon this speckled cap may not improve your underwater vision all that much, but they sure can unnerve your opponents. Increases Perception by <%= per %>. Limited Edition 2021 Summer Gear.",
+  "headSpecialSummer2021HealerText": "Parrot Mask",
+  "headSpecialSummer2021HealerNotes": "Borrow the plumage of a parrot to help you in your daily battles! Increases Intelligence by <%= int %>. Limited Edition 2021 Summer Gear.",
+
   "headSpecialGaymerxText": "Rainbow Warrior Helm",
   "headSpecialGaymerxNotes": "In celebration of the GaymerX Conference, this special helmet is decorated with a radiant, colorful rainbow pattern! GaymerX is a game convention celebrating LGTBQ and gaming and is open to everyone.",
 
@@ -1680,6 +1715,8 @@
   "headMystery202101Notes": "The icy blue eyes on this feline helm will freeze even the most intimidating task on your list. Confers no benefit. January 2021 Subscriber Item.",
   "headMystery202103Text": "Blossom Viewing Circlet",
   "headMystery202103Notes": "Greet spring in style in this circlet woven from the first blooming branches. Confers no benefit. March 2021 Subscriber Item.",
+  "headMystery202106Text": "Sunset Aureole",
+  "headMystery202106Notes": "This crown captures the beauty of the sun’s last summer light. Confers no benefit. June 2021 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -1833,6 +1870,10 @@
   "headArmoireJadeHelmNotes": "Some say jade decreases fear and anxiety. With this beautiful helm, you definitely have no cause to worry! Increases Constitution by <%= con %>. Enchanted Armoire: Jade Warrior Set (Item 1 of 3).",
   "headArmoireClownsWigText": "Clown's Wig",
   "headArmoireClownsWigNotes": "No bad tasks can bite you now! You'll taste funny. Increases Constitution by <%= con %>. Enchanted Armoire: Clown Set (Item 3 of 5).",
+  "headArmoireMedievalLaundryCapText": "Laundry Cap",
+  "headArmoireMedievalLaundryCapNotes": "It's not quite a thinking cap, but for laundry, it will do... Increases Intelligence by <%= int %>. Enchanted Armoire: Medieval Launderers Set (Item 3 of 6).",
+  "headArmoireMedievalLaundryHatText": "Laundry Hat",
+  "headArmoireMedievalLaundryHatNotes": "It's not quite a thinking cap, but for laundry, it will do... Increases Intelligence by <%= int %>. Enchanted Armoire: Medieval Launderers Set (Item 4 of 6).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -2045,6 +2086,11 @@
   "shieldSpecialSpring2021HealerText": "Salicylic Shield",
   "shieldSpecialSpring2021HealerNotes": "A leafy green bundle that heralds shelter and compassion. Increases Constitution by <%= con %>. Limited Edition 2021 Spring Gear.",
 
+  "shieldSpecialSummer2021WarriorText": "Watery Shield",
+  "shieldSpecialSummer2021WarriorNotes": "This enchanted water droplet soaks up magic and resists the blows of the reddest Dailies. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
+  "shieldSpecialSummer2021HealerText": "Sunflower Seed Shield",
+  "shieldSpecialSummer2021HealerNotes": "So much potential in this shield! But for now you can use it to protect your friends. Increases Constitution by <%= con %>. Limited Edition 2021 Summer Gear.",
+
   "shieldMystery201601Text": "Resolution Slayer",
   "shieldMystery201601Notes": "This blade can be used to parry away all distractions. Confers no benefit. January 2016 Subscriber Item.",
   "shieldMystery201701Text": "Time-Freezer Shield",
@@ -2176,6 +2222,8 @@
   "shieldArmoireChocolateFoodNotes": "Everybody likes a little chocolate, but some of your pets are keener than others... Increases Intelligence by <%= int %>. Enchanted Armoire: Pet Food Set (Item 8 of 10).",
   "shieldArmoireBlueCottonCandyFoodText": "Decorative Blue Cotton Candy",
   "shieldArmoireBlueCottonCandyFoodNotes": "A sweet treat for the pets with a sweet tooth. But who will like it best? Increases Constitution by <%= con %>. Enchanted Armoire: Pet Food Set (Item 9 of 10).",
+  "shieldArmoireMedievalLaundryText": "Dirty Laundry",
+  "shieldArmoireMedievalLaundryNotes": "It's going to be tough to get this clean, but you already know you can do anything. Increases Perception by <%= per %>. Enchanted Armoire: Medieval Launderers Set (Item 6 of 6).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",

@@ -354,6 +354,14 @@ const armor = {
     str: 7,
     set: 'clown',
   },
+  medievalLaundryOutfit: {
+    con: 6,
+    set: 'medievalLaunderers',
+  },
+  medievalLaundryDress: {
+    con: 6,
+    set: 'medievalLaunderers',
+  },
 };
 
 const body = {
@@ -718,6 +726,14 @@ const head = {
     con: 5,
     set: 'clown',
   },
+  medievalLaundryCap: {
+    int: 6,
+    set: 'medievalLaunderers',
+  },
+  medievalLaundryHat: {
+    int: 6,
+    set: 'medievalLaunderers',
+  },
 };
 
 const shield = {
@@ -961,6 +977,10 @@ const shield = {
     con: 3,
     str: 3,
     set: 'petFood',
+  },
+  medievalLaundry: {
+    per: 6,
+    set: 'medievalLaunderers',
   },
 };
 
@@ -1259,6 +1279,10 @@ const weapon = {
   jadeGlaive: {
     str: 10,
     set: 'jadeWarrior',
+  },
+  medievalWashboard: {
+    str: 6,
+    set: 'medievalLaunderers',
   },
 };
 

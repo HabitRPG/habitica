@@ -293,7 +293,7 @@
         </div>
       </div>
     </div>
-    <startQuestModal :group="user.party" />
+    <questDetailModal :group="user.party" />
     <cards-modal :card-options="cardOptions" />
   </div>
 </template>
@@ -343,7 +343,7 @@ import FilterSidebar from '@/components/ui/filterSidebar';
 import cardsModal from './cards-modal';
 
 import HatchedPetDialog from '../stable/hatchedPetDialog';
-import startQuestModal from '../../groups/startQuestModal';
+import questDetailModal from '../../groups/questDetailModal';
 import QuestInfo from '../../shops/quests/questInfo.vue';
 
 import { mapState } from '@/libs/store';
@@ -384,7 +384,7 @@ export default {
     ItemRows,
     HatchedPetDialog,
     CountBadge,
-    startQuestModal,
+    questDetailModal,
     cardsModal,
     QuestInfo,
     FilterSidebar,
@@ -632,9 +632,9 @@ export default {
           this.$root.$emit('selectMembersModal::showItem', item);
         }
       } else if (groupKey === 'quests') {
-        this.$root.$emit('bv::show::modal', 'start-quest-modal');
-
-        this.$root.$emit('selectQuest', item);
+        this.$root.$emit('bv::show::modal', 'quest-detail-modal', {
+          key: item.key,
+        });
       }
     },
 

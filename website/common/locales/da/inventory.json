@@ -1,8 +1,10 @@
 {
     "noItemsAvailableForType": "Du har ingen <%= type %>.",
-    "foodItemType": "Mad",
+    "foodItemType": "Dyrefoder",
     "eggsItemType": "Æg",
     "hatchingPotionsItemType": "Udrugningseliksirer",
     "specialItemType": "Special items",
-    "lockedItem": "Låst genstand"
+    "lockedItem": "Låst genstand",
+    "allItems": "Alle Genstande",
+    "petAndMount": "Kæledyr og Ridedyr"
 }

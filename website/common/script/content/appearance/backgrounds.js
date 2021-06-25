@@ -440,6 +440,11 @@ const backgrounds = {
     dragons_lair: { },
     windmills: { },
   },
+  backgrounds062021: {
+    clothesline: { },
+    forested_lakeshore: { },
+    water_mill: { },
+  },
   timeTravelBackgrounds: {
     airship: {
       price: 1,

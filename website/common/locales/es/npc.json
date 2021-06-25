@@ -126,5 +126,8 @@
     "invalidUnlockSet": "Este conjunto de artículos es inválido y no puede ser desbloqueado.",
     "nMonthsSubscriptionGift": "<%= nMonths %> mes(es) de suscripción (Regalo)",
     "nGemsGift": "<%= nGems %> Gemas (Regalo)",
-    "nGems": "<%= nGems %> Gemas"
+    "nGems": "<%= nGems %> Gemas",
+    "limitedAvailabilityDays": "Disponible por <%= days %>d <%= hours %>h <%= minutes %>m",
+    "limitedAvailabilityMinutes": "Disponible por <%= minutes %>m <%= seconds %>s",
+    "limitedAvailabilityHours": "Disponible por <%= hours %>h <%= minutes %>m"
 }

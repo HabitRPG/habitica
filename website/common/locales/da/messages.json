@@ -40,7 +40,7 @@
     "messageGroupChatFlagAlreadyReported": "Du har allerede anmeldt denne besked",
     "messageGroupChatNotFound": "Besked ikke fundet!",
     "messageGroupChatAdminClearFlagCount": "Kun en administrator kan rydde flagtælleren!",
-    "messageCannotFlagSystemMessages": "Du kan ikke rapportere en systembesked. Hvis du skal rapportere en overtrædelse af Retningslinjerne for fællesskabet relateret til denne besked, så send venligst et screenshot og forklaring til Lemoness via <%= communityManagerEmail %>.",
+    "messageCannotFlagSystemMessages": "Du kan ikke rapportere en systembesked. Hvis du skal rapportere en overtrædelse af Retningslinjerne for Fællesskabet relateret til denne besked, så send venligst et screenshot og beskrivelse til vores Community Manager via <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, det ser ud til at du slår for mange beskeder op! Vent venligst et minut og prøv igen. Værtshuschatten kan kun indeholde 200 beskeder ad gangen, så Habitica opfordrer til at man skriver længere, mere gennemtænkte beskeder og venter på svar. Vi glæder os til at høre hvad du vil sige. :)",
     "messageCannotLeaveWhileQuesting": "Du kan ikke acceptere denne holdinvitation mens du er i gang med en quest. Hvis du gerne vil være med på dette hold, skal du først opgive din quest, hvilket du kan gøre fra din Holdside. Du vil få din questskriftrulle tilbage.",
     "messageUserOperationProtected": "stien `<%= operation %>` blev ikke gemt, da det er en beskyttet sti.",
@@ -48,7 +48,16 @@
     "messageNotAbleToBuyInBulk": "Denne genstand kan ikke købes i antal større end 1.",
     "notificationsRequired": "Notafikation ID'er er krævet.",
     "unallocatedStatsPoints": "Du har <span class=\"notification-bold-blue\"><%= points %> ufordelte Egenskabspoint</span>",
-    "beginningOfConversation": "Dette er begyndelsen på din samtale med <%= userName %>. Husk at være venlig, respektfuld og at følge Retningslinjerne for Fællesskabet!",
+    "beginningOfConversation": "Dette er begyndelsen på din samtale med <%= userName %>.",
     "messageDeletedUser": "Sorry, this user has deleted their account.",
-    "messageMissingDisplayName": "Missing display name."
+    "messageMissingDisplayName": "Missing display name.",
+    "newsPostNotFound": "News Post er ikke fundet eller du har ikke adgang.",
+    "canDeleteNow": "Du kan nu slette beskeden, hvis du ønsker det.",
+    "reportedMessage": "Du har indrapporteret denne besked til moderatorerne.",
+    "beginningOfConversationReminder": "Husk at være venlig, respektful og følge Retningslinjerne for Fællesskabet!",
+    "messageAllUnEquipped": "Alt fjernet.",
+    "messageBackgroundUnEquipped": "Baggrund fjernet.",
+    "messageCostumeUnEquipped": "Kostume fjernet.",
+    "messagePetMountUnEquipped": "Kæle- og ridedyr fjernet.",
+    "messageBattleGearUnEquipped": "Kampudstyr fjernet"
 }

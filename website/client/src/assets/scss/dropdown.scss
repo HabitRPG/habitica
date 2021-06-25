@@ -39,6 +39,7 @@
 // shared dropdown-item styles
 .dropdown-item {
   // header items & not selectList-items
+
   padding-left: 24px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -53,14 +54,13 @@
     background-color: inherit;
   }
 
-
   &:active, &:hover, &:focus, &.active {
     background-color: inherit !important;
-    color: $purple-300 !important;
+    color: var(--hover-color, $purple-300) !important;
   }
 
   &:hover {
-    background-color: rgba($purple-600, 0.25) !important;
+    background-color: var(--hover-background, rgba($purple-600, 0.25)) !important;
   }
 
   &.dropdown-inactive {
@@ -69,6 +69,21 @@
     &:active, &:hover, &.active {
       background-color: inherit !important;
       color: inherit !important;
+    }
+  }
+
+  .with-icon {
+    display: flex;
+    align-items: center;
+
+    .svg-icon {
+      margin: 0 0.5rem 0 0;
+    }
+  }
+
+  &:not(:hover) {
+    .with-icon .svg-icon {
+      color: $gray-200;
     }
   }
 }

@@ -85,7 +85,7 @@
     "allocatePerPop": "Tilføj et point til Opfattelse",
     "allocateInt": "Point tilføjet til Intelligens:",
     "allocateIntPop": "Tilføj et point til Intelligens",
-    "noMoreAllocate": "Nu hvor du har nået niveau 100, vil du ikke optjene flere Egenskabspoint. Du kan fortsætte, eller starte et nyt eventyr fra niveau 1 ved at bruge <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Genfødselskuglen</a>, som nu er gratis på Markedet.",
+    "noMoreAllocate": "Nu hvor du har nået niveau 100, vil du ikke optjene flere Egenskabspoint. Du kan fortsætte, eller starte et nyt eventyr fra niveau 1 ved at bruge <a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>Genfødselskuglen</a>!",
     "stats": "Egenskaber",
     "achievs": "Præstationer",
     "strength": "Styrke",
@@ -132,7 +132,7 @@
     "healerText": "Helbredere er upåvirkede af skade, og giver denne beskyttelse videre til andre. Oversprungne Daglige og dårlige Vaner tager næppe pippet fra dem, og de har metoder for at genvinde Liv fra fiaskoer. Spil som Helbreder, hvis du nyder at hjælpe andre på dit Hold, eller hvis tanken om at snyde Døden med hårdt arbejde inspirerer dig!",
     "optOutOfClasses": "Fravælg",
     "chooseClass": "Vælg din klasse",
-    "chooseClassLearnMarkdown": "[Lær mere om Habitica's klassesystem](http://habitica.fandom.com/wiki/Class_System) (EN)",
+    "chooseClassLearnMarkdown": "[Lær mere om Habitica's klassesystem](https://habitica.fandom.com/wiki/Class_System) (EN)",
     "optOutOfClassesText": "Ligeglad med klasser? Vil du hellere vælge senere? Fravælg det - du vil være en Kriger uden særlige evner. Du kan læse om klassesystemet senere på wiki'en, og aktivere klasser til enhver tid under Indstillinger.",
     "selectClass": "Vælg <%= heroClass %>",
     "select": "Vælg",
@@ -181,5 +181,10 @@
     "mainHand": "Primære hånd",
     "offHand": "Sekundære hånd",
     "statPoints": "Egenskabspoint",
-    "pts": "point"
+    "pts": "point",
+    "chatCastSpellUser": "<%= username %> kaster <%= spell %> på <%= target %>.",
+    "chatCastSpellParty": "<%= username %> kaster <%= spell %> for holdet.",
+    "notEnoughGold": "Ikke nok guld.",
+    "purchasePetItemConfirm": "Dette køb vil overskride det antal genstande du skal bruge for at klække alle mulige <%= itemText %> Kæledyr. Er du sikker?",
+    "purchaseForGold": "Køb for <%= cost %> Guld?"
 }

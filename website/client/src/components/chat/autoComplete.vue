@@ -139,8 +139,7 @@ export default {
         || /\s/.test(lastFocusChar) // End Search
         || (lastFocusChar === '@' && delCharsBool) // Cancel Search
       ) {
-        this.searchActive = false;
-        this.searchResults = [];
+        this.cancel();
       } else {
         if (lastFocusChar === '@') this.searchActive = true;
         if (this.searchActive) {
@@ -158,7 +157,6 @@ export default {
   },
   methods: {
     solveSearchResults (textFocus) {
-      if (!this.searchActive) return [];
       const regexRes = this.atRegex.exec(textFocus);
       if (!regexRes) return [];
       this.currentSearch = regexRes[1]; // eslint-disable-line vue/no-side-effects-in-computed-properties, max-len, prefer-destructuring
@@ -173,9 +171,8 @@ export default {
     resetDefaults () {
       // Mounted is not called when switching between group pages because they have the
       // the same parent component. So, reset the data
-      this.searchActive = false;
+      this.cancel();
       this.tmpSelections = [];
-      this.resetSelection();
     },
     grabUserNames () {
       const usersThatMessage = groupBy(this.chat, 'user');
@@ -225,10 +222,9 @@ export default {
       const newCaret = newText.length;
       newText += text.substring(oldCaret, text.length);
       this.$emit('select', newText, newCaret);
-      this.resetSelection();
 
       // Made selection, shut off searching
-      this.searchActive = false;
+      this.cancel();
     },
     setHover (result) {
       this.resetSelection();
@@ -268,7 +264,9 @@ export default {
       }
     },
     cancel () {
+      // Resets search back to normal (while in the same chat zone)
       this.searchActive = false;
+      this.searchResults = [];
       this.resetSelection();
     },
   },

@@ -142,6 +142,8 @@ export default new Schema({
     redLetterDay: Boolean,
     legendaryBestiary: Boolean,
     seasonalSpecialist: Boolean,
+    violetsAreBlue: Boolean,
+    wildBlueYonder: Boolean,
     // Onboarding Guide
     createdTask: Boolean,
     completedTask: Boolean,

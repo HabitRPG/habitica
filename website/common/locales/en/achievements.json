@@ -108,5 +108,11 @@
   "achievementLegendaryBestiaryModalText": "You collected all the mythical pets!",
   "achievementSeasonalSpecialist": "Seasonal Specialist",
   "achievementSeasonalSpecialistText": "Has completed all the Spring and Winter seasonal quests: Egg Hunt, Trapper Santa, and Find the Cub!",
-  "achievementSeasonalSpecialistModalText": "You completed all the seasonal quests!"
+  "achievementSeasonalSpecialistModalText": "You completed all the seasonal quests!",
+  "achievementVioletsAreBlue": "Violets are Blue",
+  "achievementVioletsAreBlueText": "Has collected all Cotton Candy Blue Pets.",
+  "achievementVioletsAreBlueModalText": "You collected all the Cotton Candy Blue Pets!",
+  "achievementWildBlueYonder": "Wild Blue Yonder",
+  "achievementWildBlueYonderText": "Has tamed all Cotton Candy Blue Mounts.",
+  "achievementWildBlueYonderModalText": "You tamed all the Cotton Candy Blue Mounts!"
 }

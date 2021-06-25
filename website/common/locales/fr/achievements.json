@@ -108,5 +108,11 @@
     "achievementLegendaryBestiary": "Bestiaire légendaire",
     "achievementSeasonalSpecialistModalText": "Vous avez complété toutes les quêtes saisonnières !",
     "achievementSeasonalSpecialistText": "A complété toutes les quêtes saisonnières du printemps et de l'hiver : La chasse aux œufs, Le trappeur-noël et Trouvez l'ourson !",
-    "achievementSeasonalSpecialist": "Spécialiste des saisons"
+    "achievementSeasonalSpecialist": "Spécialiste des saisons",
+    "achievementWildBlueYonderModalText": "Vous avez dompté toutes les montures bleues barbe-à-papa !",
+    "achievementWildBlueYonderText": "A dompté toutes les montures bleues barbe-à-papa.",
+    "achievementWildBlueYonder": "Un grand ciel bleu",
+    "achievementVioletsAreBlueModalText": "Vous avez fait éclore tous les familiers bleu barbe-à-papa !",
+    "achievementVioletsAreBlueText": "A fait éclore tous les familiers bleu barbe-à-papa.",
+    "achievementVioletsAreBlue": "Comme un bleu"
 }

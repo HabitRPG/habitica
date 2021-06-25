@@ -183,5 +183,11 @@
     "newPMNotificationTitle": "Új üzenet <%= name %> felhasználótól",
     "chatExtensionDesc": "A chat bővítmény egy felugró ablakot ad a habitica-com-hoz. Ez elérhetővé teszi a felhasználóknak hogy üzeneteket küldjenek a kocsmában, a csapatjukban és azokban a céhekben amiknek tagjai.",
     "chatExtension": "<a target='blank' href='https://chrome.google.com/webstore/detail/habitrpg-chat-client/hidkdfgonpoaiannijofifhjidbnilbb'>Chrome chat bővítmény</a> and <a target='blank' href='https://addons.mozilla.org/en-US/firefox/addon/habitica-chat-client-2/'>Firefox chat bővítmény</a>",
-    "resetAccount": "Fiók visszaállítása"
+    "resetAccount": "Fiók visszaállítása",
+    "bannedSlurUsedInProfile": "A nyilvános neved és leírásod sértő nyelvezetet tartalmazott, ezért a chatben lévő kiváltságaid vissza lettek vonva.",
+    "mentioning": "Említve",
+    "onlyPrivateSpaces": "Csak privát helyeken",
+    "everywhere": "Mindenhol",
+    "suggestMyUsername": "Javasolj felhasználónevet",
+    "bannedWordUsedInProfile": "A nyilvános neved és leírásod sértő nyelvezetet tartalmazott."
 }
