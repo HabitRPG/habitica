@@ -94,6 +94,10 @@
     color: $purple-300;
   }
 
+  .create-task-area {
+    top: 1rem;
+  }
+
   .tasks-navigation {
     margin-bottom: 40px;
   }

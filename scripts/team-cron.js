@@ -54,7 +54,7 @@ async function updateTeamTasks (team) {
         if (daily.value < MIN_TASK_VALUE) daily.value = MIN_TASK_VALUE;
       }
       daily.isDue = shouldDo(new Date(), daily, teamLeader.preferences);
-      if (daily.isModified()) toSave.push(daily.save());
+      toSave.push(daily.save());
     });
 
     if (!team.cron) team.cron = {};

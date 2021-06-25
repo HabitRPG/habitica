@@ -654,7 +654,7 @@ api.updateTask = {
     // the other of the keys when using .toObject()
     // see https://github.com/Automattic/mongoose/issues/2749
 
-    if (sanitizedObj.managerNotes) {
+    if (Object.prototype.hasOwnProperty.call(sanitizedObj, 'managerNotes')) {
       task.group.managerNotes = sanitizedObj.managerNotes;
     }
 
