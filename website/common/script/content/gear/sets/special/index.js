@@ -3110,10 +3110,12 @@ const weapon = {
   },
   summer2018Mage: {
     set: 'summer2018LionfishMageSet',
+    event: EVENTS.summer2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   summer2018Healer: {
     set: 'summer2018MerfolkMonarchSet',
+    event: EVENTS.summer2021,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },
   fall2018Rogue: {
