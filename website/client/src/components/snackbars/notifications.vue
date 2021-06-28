@@ -7,7 +7,9 @@
       <notification v-for="(notification, index) in visibleNotifications"
                     v-bind:key="notification.uuid"
                     :notification="notification"
+                    class="notification-item"
                     :visibleAmount="index"
+                    @clicked="notificationRemoved(notification)"
                     @hidden="notificationRemoved($event)" />
     </transition-group>
   </div>
@@ -33,24 +35,29 @@
 
   .animations-holder {
     position: relative;
+    display: block;
+  }
+
+  .notification-item {
+    transition: transform 0.5s, opacity 0.5s;
   }
 
   .notifications-move {
-    transition: transform .5s;
+    // transition: transform .5s;
   }
 
   .notifications-enter-active {
-    transition: opacity .5s;
+    // transition: opacity .5s;
   }
 
   .notifications-leave-active {
     position: absolute;
-    top: 13px;
-    transition: opacity 0.5s;
   }
+
   .notifications-enter,
   .notifications-leave-to {
     opacity: 0;
+    transform: translateY(0);
   }
 </style>
 
@@ -63,6 +70,7 @@ const delayBetweenDeletionAndNew = 1000;
 const removalInterval = 2500;
 
 export default {
+  props: ['preventQueue'],
   data () {
     return {
       visibleNotifications: [],
@@ -192,6 +200,11 @@ export default {
 
 
         this.allowedToTriggerImmediately = false;
+
+        // this is only for storybook
+        if (this.preventQueue) {
+          return;
+        }
 
         if (this.notificationStore.length !== 0) {
           this.startNotificationRemovalTimer();

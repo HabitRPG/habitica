@@ -110,6 +110,10 @@
     margin-bottom: 1em;
 
     transition: opacity .5s, top .5s;
+
+    .row {
+      margin: 0 !important;
+    }
   }
 
   .info {
@@ -120,9 +124,7 @@
   .error {
     background-color: #f74e52;
     border-radius: 60px;
-    width: 320px !important;
     padding: 10px 5px;
-    margin-left: 0;
     color: #fff;
   }
 
@@ -227,6 +229,7 @@ export default {
       if (typeof this.notification.onClick === 'function') {
         this.notification.onClick();
       }
+      this.$emit('clicked');
       this.show = false;
     },
   },
