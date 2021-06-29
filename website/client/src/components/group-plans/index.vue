@@ -35,9 +35,9 @@
       <strong
         class="mr-1"
       >
-        Thank you for being a Habitica beta tester.
+        Thank you for being a Habitica beta tester!
       </strong>
-      <a href="mailto:admin@habitica.com">Please submit bugs and feedback here.</a>
+      <a href="mailto:testing@habitica.com">Submit bugs and feedback to testing@habitica.com.</a>
     </div>
     <div class="col-12">
       <router-view />
