@@ -1,6 +1,7 @@
 <template>
   <div class="notifications"
-       :class="notificationsTopPos">
+       :class="notificationsTopPosClass"
+       :style="{'--current-scrollY': notificationTopY}">
     <transition-group name="notifications"
                       class="animations-holder"
                       appear>
@@ -22,15 +23,7 @@
     width: 350px;
     z-index: 1400; // 1400 is above modal backgrounds
 
-    &-top-pos {
-      &-normal {
-        top: 65px;
-      }
-
-      &-sleeping {
-        top: 105px;
-      }
-    }
+    top: var(--current-scrollY);
   }
 
   .animations-holder {
@@ -77,6 +70,7 @@ export default {
       allowedToFillAgain: true,
       allowedToTriggerImmediately: true,
       removalIntervalId: null,
+      notificationTopY: '0px',
     };
   },
   components: {
@@ -87,15 +81,26 @@ export default {
       notificationStore: 'notificationStore',
       userSleeping: 'user.data.preferences.sleep',
     }),
-    notificationsTopPos () {
+    notificationsTopPosClass () {
       const base = 'notifications-top-pos-';
       let modifier = '';
+
       if (this.userSleeping) {
         modifier = 'sleeping';
       } else {
         modifier = 'normal';
       }
-      return `${base}${modifier}`;
+
+      return `${base}${modifier} scroll-${this.scrollY}`;
+    },
+    notificationBannerHeight () {
+      let scrollPosToCheck = 0;
+      if (this.userSleeping) {
+        scrollPosToCheck = 98;
+      } else {
+        scrollPosToCheck = 56;
+      }
+      return scrollPosToCheck;
     },
   },
   methods: {
@@ -183,6 +188,11 @@ export default {
         }
       }, removalInterval);
     },
+    updateScrollY () {
+      const topY = Math.min(window.scrollY, this.notificationBannerHeight) - 10;
+
+      this.notificationTopY = `${this.notificationBannerHeight - topY}px`;
+    },
   },
   watch: {
     notificationStore (notifications) {
@@ -211,6 +221,14 @@ export default {
         }
       }
     },
+  },
+  mounted () {
+    window.addEventListener('scroll', this.updateScrollY, { passive: true });
+    this.updateScrollY();
+  },
+
+  destroyed () {
+    window.removeEventListener('scroll', this.updateScrollY, { passive: true });
   },
 };
 </script>
