@@ -2365,5 +2365,21 @@
     "shieldArmoirePinkCottonCandyFoodNotes": "甘い物好きなペットのための甘いごちそうです。でも、どんなペットがこれを一番好きなんでしょうか？知能が<%= int %>上がります。ラッキー宝箱：ペットのえさセット（10個中4個目のアイテム）。",
     "shieldArmoireBlueCottonCandyFoodNotes": "甘い物好きなペットのための甘いごちそうです。でも、どんなペットがこれを一番好きなんでしょうか？体質が<%= con %>上がります。ラッキー宝箱：ペットのえさセット（10個中9個目のアイテム）。",
     "shieldArmoireBlueCottonCandyFoodText": "飾りのブルーのわたあめ",
-    "shieldArmoireChocolateFoodNotes": "皆少量のチョコレートは大好きです。しかし、チョコを熱望して止まないペットもいるとか……知能が<%= int %>上がります。ラッキー宝箱：ペットのえさセット（10個中8個目のアイテム）。"
+    "shieldArmoireChocolateFoodNotes": "皆少量のチョコレートは大好きです。しかし、チョコを熱望して止まないペットもいるとか……知能が<%= int %>上がります。ラッキー宝箱：ペットのえさセット（10個中8個目のアイテム）。",
+    "weaponArmoireMedievalWashboardNotes": "ごしごし洗いましょう！力仕事の時間ですよ。洗濯物を綺麗しましょう。力が<%= str %>上がります。ラッキー宝箱：中世の洗濯人セット（6個中5個目のアイテム）。",
+    "weaponArmoireMedievalWashboardText": "洗濯板",
+    "armorArmoireMedievalLaundryOutfitNotes": "仕事着を着て袖まくりしましょう。洗濯物を片付けてしまう時間です！体質が<%= con %>上がります。ラッキー宝箱：中世の洗濯人セット（6個中1個目のアイテム）。",
+    "armorArmoireMedievalLaundryOutfitText": "洗濯着",
+    "armorMystery202106Notes": " この巨大でエレガントなしっぽで、暖かい海を遠くの水平線まで回遊できます。効果なし。2021年7月の有料会員アイテム。",
+    "armorMystery202106Text": "夕焼けの尾",
+    "headMystery202106Notes": "この冠には夏の終わりに輝く太陽の美しさが宿っています。効果なし。2021年6月の有料会員アイテム。",
+    "headMystery202106Text": "夕焼けの光輪",
+    "armorArmoireMedievalLaundryDressNotes": "エプロンを着て袖まくりしましょう。洗濯物を片付けてしまう時間です！体質が<%= con %>上がります。ラッキー宝箱：中世の洗濯人セット（6個中2個目のアイテム）。",
+    "armorArmoireMedievalLaundryDressText": "洗濯服",
+    "headArmoireMedievalLaundryCapText": "洗濯キャップ",
+    "shieldArmoireMedievalLaundryNotes": "これを綺麗にするのは骨が折れるでしょうが、あなたはもう自分が何でもできるって知ってますもんね。知覚が<%= per %>上がります。ラッキー宝箱：中世の洗濯人セット（6個中6個目のアイテム）。",
+    "shieldArmoireMedievalLaundryText": "汚い洗濯物",
+    "headArmoireMedievalLaundryHatNotes": "ボーッとするための帽子ではないのです、洗濯のための帽子です。十分ですよね……知能が<%= int %>上がります。ラッキー宝箱：中世の洗濯人セット（6個中3個目のアイテム）。",
+    "headArmoireMedievalLaundryHatText": "洗濯ハット",
+    "headArmoireMedievalLaundryCapNotes": "ボーッとするための帽子ではないのです、洗濯のための帽子です。十分ですよね……知能が<%= int %>上がります。ラッキー宝箱：中世の洗濯人セット（6個中3個目のアイテム）。"
 }

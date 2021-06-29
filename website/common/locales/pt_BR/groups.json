@@ -1,6 +1,6 @@
 {
-    "tavern": "Bate-papo da Taverna",
-    "tavernChat": "Bate-papo da Taverna",
+    "tavern": "Bate-Papo na Taverna",
+    "tavernChat": "Bate-Papo na Taverna",
     "innCheckOutBanner": "Atualmente, você está na Pousada. Enquanto isso, suas Diárias não realizadas não te causarão dano e também não poderá progredir em Missões.",
     "innCheckOutBannerShort": "Você está descansando na Pousada.",
     "resumeDamage": "Reativar dano",
@@ -369,5 +369,15 @@
     "cannotRemoveQuestOwner": "Você não pode remover o(a) proprietário(a) da missão em andamento. Aborte a missão primeiro.",
     "features": "Funcionalidades",
     "giftMessageTooLong": "O tamanho máximo para mensagens de presente é de <%= maxGiftMessageLength %>.",
-    "selectSubscription": "Selecione assinatura"
+    "selectSubscription": "Selecione assinatura",
+    "messagePartyLeader": "Enviar Mensagem ao Líder",
+    "viewDetails": "Ver Detalhes",
+    "joinGuild": "Juntar-se à Guilda",
+    "joinParty": "Juntar-se ao Grupo",
+    "editGuild": "Editar Guilda",
+    "editParty": "Editar Grupo",
+    "leaveGuild": "Deixar a Guilda",
+    "invitedToThisQuest": "Você recebeu um convite para esta Missão!",
+    "upgradeToGroup": "Aprimorar para Plano de Time",
+    "blockYourself": "Você não pode se autobloquear"
 }

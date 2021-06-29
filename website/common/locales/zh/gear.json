@@ -2365,5 +2365,21 @@
     "shieldArmoireRottenMeatFoodNotes": "捏住你的鼻子！这种烂肉对你来说可能很恶心，但对你的一些宠物来说却是完美的！增加<%= con %>点体质。魔法衣橱：宠物食品套装（2/10）。",
     "shieldArmoireRottenMeatFoodText": "腐肉装饰",
     "shieldArmoireStrawberryFoodNotes": "用美味的新鲜草莓喂养你的宠物！你知道哪些宠物最喜欢草莓吗？增加<%= str %>点力量。魔法衣橱：宠物食品套装（1/10）。",
-    "shieldArmoireStrawberryFoodText": "草莓装饰"
+    "shieldArmoireStrawberryFoodText": "草莓装饰",
+    "shieldArmoireMedievalLaundryNotes": "要做到这一点是很困难的，但你已经知道你可以做任何事情。增加<%= per %>点感知。魔法衣橱：中世纪洗衣工套装（6/6）。",
+    "shieldArmoireMedievalLaundryText": "肮脏的衣服",
+    "headArmoireMedievalLaundryHatNotes": "它不完全是一顶思考帽，但对于洗衣服来说，它可以... 增加<%= int %>点智力。魔法衣橱：中世纪洗衣工套装（4/6）。",
+    "headArmoireMedievalLaundryHatText": "洗衣帽",
+    "headArmoireMedievalLaundryCapNotes": "它不完全是一顶思考帽，但对于洗衣服来说，它可以... 增加<%= int %>点智力。魔法衣橱：中世纪洗衣工套装（3/6）。",
+    "headArmoireMedievalLaundryCapText": "洗衣工帽",
+    "armorArmoireMedievalLaundryDressNotes": "穿上围裙，撸起袖子：是时候把衣服洗干净了！增加<%= con %>点体质。魔法衣橱：中世纪洗衣工套装（2/6）。",
+    "armorArmoireMedievalLaundryDressText": "洗衣工裙",
+    "armorArmoireMedievalLaundryOutfitNotes": "穿上工作服，撸起袖子：是时候把衣服洗干净了！增加<%= con %>点体质。魔法衣橱：中世纪洗衣工套装（1/6）。",
+    "armorArmoireMedievalLaundryOutfitText": "洗衣工服",
+    "weaponArmoireMedievalWashboardNotes": "洗刷刷！是时候用点力气了，把衣服洗干净。增加<%= str %>点力量。魔法衣橱：中世纪洗衣工套装（5/6）。",
+    "weaponArmoireMedievalWashboardText": "洗衣板",
+    "armorMystery202106Notes": " 有了这个强大而优雅的尾巴，你能在温暖的海面上一路巡航到地平线。没有属性加成。2021年6月订阅者物品。",
+    "armorMystery202106Text": "夕阳的尾巴",
+    "headMystery202106Notes": "这顶皇冠捕捉到了太阳在夏季最后的光辉之美。没有属性加成。2021年6月订阅者物品。",
+    "headMystery202106Text": "日落光晕"
 }

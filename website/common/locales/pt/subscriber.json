@@ -133,5 +133,17 @@
     "subscriptionBenefit6": "Ganhe uma Ampulheta Mística para usá-la na Loja dos Viajantes do Tempo!",
     "purchaseAll": "Comprar conjunto",
     "gemsRemaining": "gemas restantes",
-    "notEnoughGemsToBuy": "É incapaz de comprar essa quantidade de gemas"
+    "notEnoughGemsToBuy": "É incapaz de comprar essa quantidade de gemas",
+    "viewSubscriptions": "Ver Subscrições",
+    "cancelSubAlternatives": "Se estás a ter algum problema técnico ou o Habitica não te parece estar a funcionar bem, por favor <a href='mailto:admin@habitica.com'>entra em contacto connosco</a>. Nós queremos ajudar-te a tirares partido do Habitica da melhor forma.",
+    "cancelYourSubscription": "Cancelar a tua subscrição?",
+    "readyToResubscribe": "Estás pronto(a) para subscrever novamente?",
+    "needToUpdateCard": "Precisas de atualizar o teu cartão de crédito?",
+    "subMonths": "Meses subscritos",
+    "subscriptionStats": "Estatísticas de subscrição",
+    "subscriptionInactiveDate": "Os teus benefícios de subscrição ficarão inativos a <strong><%= date %></strong>",
+    "subscriptionCanceled": "A tua subscrição foi cancelada",
+    "dropCapSubs": "Os subscritores do Habitica podem encontrar o dobro dos itens aleatórios por dia e receber mensalmente itens misteriosos!",
+    "lookingForMoreItems": "À Procura de Mais Itens?",
+    "usuallyGems": "Normalmente <%= originalGems %>"
 }

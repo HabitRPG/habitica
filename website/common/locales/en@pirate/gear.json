@@ -2365,5 +2365,8 @@
     "shieldArmoirePotatoFoodNotes": "Potatoes be a staple o' many diets, but some critters would like t' live on potatoes alone... Increases Perception by <%= per %>. Enchanted Armoire: Critter Vittles Set (Item 3 o' 10).",
     "shieldArmoirePotatoFoodText": "Decorative Potato",
     "shieldArmoireRottenMeatFoodText": "Decorative Rott'n Meat",
-    "shieldArmoireStrawberryFoodText": "Decorative Strawberry"
+    "shieldArmoireStrawberryFoodText": "Decorative Strawberry",
+    "armorMystery202106Text": "Sunset Tail",
+    "weaponArmoireMedievalWashboardNotes": "Scrub-a-dub-dub! 'Tis time t' apply some elbow grease an' git that laundry clean. Increases Strength by <%= str %>. Enchanted Armoire: Medieval Launderers Set (Item 5 of 6).",
+    "weaponArmoireMedievalWashboardText": "Washboard"
 }

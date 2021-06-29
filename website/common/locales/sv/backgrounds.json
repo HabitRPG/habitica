@@ -448,8 +448,8 @@
     "backgroundDojoText": "Dojo",
     "backgrounds052019": "SET 60: Släpptes i Maj 2019",
     "backgroundTreehouseNotes": "Häng i ditt gömställe bland träden, i ditt enga Trädkoja.",
-    "backgroundPotionShopNotes": "Hitta ett elexir för varje sjukdom i Trolldrycksbutiken.",
-    "backgroundPotionShopText": "Trolldrycksbutik",
+    "backgroundPotionShopNotes": "Hitta ett elexir för varje sjukdom i Trollbrygdsbutiken.",
+    "backgroundPotionShopText": "Trollbrygdsbutik",
     "backgroundFlyingInAThunderstormNotes": "Jaga ett Stormande Åskväder så nära som du vågar.",
     "backgroundFlyingInAThunderstormText": "Stormigt Åskväder",
     "backgroundFarmersMarketNotes": "Handla de färskaste matvarorna på Bondemarknaden.",
@@ -538,5 +538,10 @@
     "backgroundThroneRoomNotes": "Bevilja en audiens i din lyxiga Tronsal.",
     "backgroundThroneRoomText": "Tronsal",
     "backgroundHeartShapedBubblesNotes": "Flyt glatt omkring bland Hjärtformade bubblor.",
-    "backgroundHeartShapedBubblesText": "Hjärtformade bubblor"
+    "backgroundHeartShapedBubblesText": "Hjärtformade bubblor",
+    "backgroundWaterMillText": "Vattenkvarn",
+    "backgroundForestedLakeshoreNotes": "Gör de andra i ditt Sällskap avundsjuka med ditt val av plats vid en Skogig sjöstrand.",
+    "backgroundForestedLakeshoreText": "Skogig sjöstrand",
+    "backgroundClotheslineNotes": "Häng med kläderna som torkar på en Torkställning.",
+    "backgroundClotheslineText": "Torkställning"
 }
