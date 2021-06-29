@@ -2365,5 +2365,21 @@
     "shieldArmoireRottenMeatFoodNotes": "¡Tápate la nariz! ¡Esta carne podrida tal vez sea asquerosa para ti, pero es perfecta para algunas de tus mascotas! Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto de Alimento de Mascota (Artículo 2 de 10).",
     "shieldArmoireRottenMeatFoodText": "Carne Podrida Decorativa",
     "shieldArmoireStrawberryFoodNotes": "¡Una deliciosa y fresca fresa para alimentar a tus mascotas! ¿Sabes a qué mascotas les gusta más las fresas? Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto de Alimento de Mascota (Artículo 1 de 10).",
-    "shieldArmoireStrawberryFoodText": "Fresa Decorativa"
+    "shieldArmoireStrawberryFoodText": "Fresa Decorativa",
+    "armorMystery202106Text": "Cola del Atardecer",
+    "weaponArmoireMedievalWashboardNotes": "¡Friega, friega, friega! Es hora de aplicar un poco de lavandina y ace y conseguir que la ropa sucia esté limpia. Aumenta la Fuerza en <%= str %>. Armario Encantado: Conjunto de Lavanderas Medievales (Artículo 5 de 6).",
+    "weaponArmoireMedievalWashboardText": "Tabla de Lavar",
+    "shieldArmoireMedievalLaundryNotes": "Va a ser dificil conseguir lavarla, pero tú ya sabes que puedes hacer cualquier cosa. Aumenta la Percepción en <%= per %>. Armario Encantado: Conjunto de Lavanderas Medievales (Artículo 6 de 6).",
+    "shieldArmoireMedievalLaundryText": "Ropa Sucia",
+    "headArmoireMedievalLaundryHatNotes": "No es un sombrero para pensar, pero para lavar, servirá... Aumenta la Inteligencia en <%= int %>. Armario Encantado: Conjunto de Lavanderas Medievales (Artículo 4 de 6).",
+    "headArmoireMedievalLaundryHatText": "Sombrero de Lavandería",
+    "headArmoireMedievalLaundryCapNotes": "No es una gorra para pensar, pero para lavar, servirá... Aumenta la Inteligencia en <%= int %>. Armario Encantado: Conjunto de Lavanderas Medievales (Artículo 3 de 6).",
+    "headArmoireMedievalLaundryCapText": "Gorra de Lavandería",
+    "headMystery202106Notes": "Esta corona captura la belleza de la luz del sol del último verano. No otorga beneficios. Artículo de Suscriptor Junio 2021.",
+    "headMystery202106Text": "Aureola del Atardecer",
+    "armorArmoireMedievalLaundryDressNotes": "Ponte el delantal y arremángate: ¡Es hora de lavar la ropa sucia! Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto de Lavanderas Medievales (Artículo 2 de 6).",
+    "armorArmoireMedievalLaundryOutfitNotes": "Ponte tus ropas de trabajo y arremángate: ¡Es hora de lavar la ropa sucia! Aumenta la Constitución en <%= con %>. Armario Encantado: Conjunto de Lavanderas Medievales (Artículo 1 de 6).",
+    "armorArmoireMedievalLaundryDressText": "Vestido de Lavandería",
+    "armorArmoireMedievalLaundryOutfitText": "Traje de Lavandería",
+    "armorMystery202106Notes": " Con esta poderosa y elegante cola puedes navegar a través de mares cálidos hasta el horizonte. No otorga beneficios. Artículo de Suscriptor Junio 2021."
 }

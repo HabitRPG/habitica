@@ -38,9 +38,9 @@
     "hideLocked": "ロックされたアイテムを隠す",
     "hidePinned": "ピン留めされたアイテムを隠す",
     "hideMissing": "未発見のペットを隠す",
-    "amountExperience": "<%= amount %> 経験値",
+    "amountExperience": "<%= amount %>経験値",
     "amountGold": "<%= amount %> ゴールド",
-    "namedHatchingPotion": "<%= type %>  たまごがえしの薬",
+    "namedHatchingPotion": "<%= type %>たまごがえしの薬",
     "buyGems": "ジェムを買う",
     "purchaseGems": "ジェムを購入する",
     "items": "アイテム",
@@ -124,10 +124,11 @@
     "cannotUnpinItem": "このアイテムはピン留めを外せません。",
     "paymentSubBillingWithMethod": "あなたの有料プランは、<strong><%= months %>ヶ月</strong>ごとに<strong><%= paymentMethod %></strong>によって <strong>$<%= amount %></strong> 請求されます。",
     "invalidUnlockSet": "このアイテムセットは無効なので、アンロックできません。",
-    "nGems": "<%= nGems %> ジェム",
+    "nGems": "<%= nGems %>ジェム",
     "nMonthsSubscriptionGift": "<%= nMonths %>ヶ月の有料プラン（ギフト）",
-    "nGemsGift": "<%= nGems %> ジェム（ギフト）",
+    "nGemsGift": "<%= nGems %>ジェム（ギフト）",
     "limitedAvailabilityDays": "購入できる期間は残り<%= days %>日<%= hours %>時間<%= minutes %>分です",
     "limitedAvailabilityHours": "購入できる期間は残り<%= hours %>時間<%= minutes %>分です",
-    "limitedAvailabilityMinutes": "購入できる期間は残り<%= minutes %>分<%= seconds %>秒です"
+    "limitedAvailabilityMinutes": "購入できる期間は残り<%= minutes %>分<%= seconds %>秒です",
+    "amountExp": "<%= amount %>経験値"
 }

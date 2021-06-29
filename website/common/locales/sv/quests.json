@@ -1,9 +1,9 @@
 {
     "quests": "Uppdrag",
     "quest": "uppdrag",
-    "petQuests": "Husdjurs- och Riddjurs Uppdrag",
+    "petQuests": "Husdjur och Riddjurs Uppdrag",
     "unlockableQuests": "Upplåsbara Uppdrag",
-    "goldQuests": "Mästerklassernas Uppdragsserie",
+    "goldQuests": "Uppdragsserien Klassmästaren",
     "questDetails": "Uppdragsdetaljer",
     "questDetailsTitle": "Uppdragsdetaljer",
     "questDescription": "Uppdrag tillåter spelare att fokusera på långsiktiga mål i spelet tillsammans med medlemmar av sällskapet.",
@@ -21,7 +21,7 @@
     "declined": "Avböjde",
     "rejected": "Avslog",
     "pending": "Inte svarat än",
-    "questCollection": "+ <%= val %> uppdragsobjekt hittade",
+    "questCollection": "+ <%= val %> uppdragsföremål hittade",
     "questDamage": "+ <%= val %> skada gjord till Boss",
     "begin": "Starta",
     "bossHP": "Boss HP",
@@ -64,7 +64,7 @@
     "questOrGroupLeaderOnlyStartQuest": "Bara uppdragsledaren eller gruppledaren kan tvinga start av uppdrag",
     "loginIncentiveQuest": "För att låsa upp detta uppdrag, kolla in till Habitica på <%= count %> olika dagar!",
     "loginReward": "<%= count %> Incheckningar",
-    "questBundles": "Rabatt på Uppdragsbuntar",
+    "questBundles": "Rabatterade uppdragsbuntar",
     "noQuestToStart": "Kan du inte hitta ett uppdrag att starta? Kolla in Uppdragsbutiken i Marknaden för nya utgåvor!",
     "pendingDamage": "<%= damage %> avvaktande skada",
     "pendingDamageLabel": "avvaktande skada",
@@ -78,5 +78,5 @@
     "chatQuestStarted": "Ditt uppdrag, <%= questName %>, har börjat.",
     "questAlreadyStarted": "Uppdraget har redan börjat.",
     "questInvitationNotificationInfo": "Du har blivit inbjuden till ett uppdrag",
-    "hatchingPotionQuests": "Magiska Kläckningsbrygd Uppdrag"
+    "hatchingPotionQuests": "Magiska kläckningsbrygdsuppdrag"
 }

@@ -369,5 +369,15 @@
     "cannotRemoveQuestOwner": "Je kunt niet de eigenaar van de actieve queeste verwijderen. Breek eerst de queeste af.",
     "giftMessageTooLong": "De maximum lengte van cadeauberichten is <%= maxGiftMessageLength %>.",
     "selectSubscription": "Selecteer een Abonnement",
-    "features": "Kenmerken"
+    "features": "Kenmerken",
+    "invitedToThisQuest": "Je bent uitgenodigd voor deze queeste!",
+    "viewDetails": "Bekijk details",
+    "upgradeToGroup": "Upgraden naar groep",
+    "messagePartyLeader": "Groepsleider berichten",
+    "blockYourself": "Je kunt jezelf niet blokkeren",
+    "joinParty": "Lid worden van groep",
+    "joinGuild": "Lid worden van gilde",
+    "editGuild": "Gilde aanpassen",
+    "editParty": "Groep aanpassen",
+    "leaveGuild": "Verlaat Gilde"
 }

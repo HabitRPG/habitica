@@ -69,7 +69,7 @@
     "petNotOwned": "Você não possui esse mascote.",
     "mountNotOwned": "Você não possui essa montaria.",
     "feedPet": "Alimentar <%= text %> para seu/sua <%= name %>?",
-    "raisedPet": "Você domou seu <%= pet %>!",
+    "raisedPet": "Você domou <%= pet %>!",
     "petName": "<%= egg(locale) %> <%= potion(locale) %>",
     "mountName": "<%= mount(locale) %> <%= potion(locale) %>",
     "keyToPets": "Chave dos Canis de Mascotes",

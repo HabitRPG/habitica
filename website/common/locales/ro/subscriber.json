@@ -167,5 +167,6 @@
     "subWillBecomeInactive": "Will become inactive",
     "confirmCancelSub": "Are you sure you want to cancel your subscription? You will lose all of your subscription benefits.",
     "giftASubscription": "Gift a Subscription",
-    "viewSubscriptions": "View Subscriptions"
+    "viewSubscriptions": "View Subscriptions",
+    "organization": "Organizație"
 }

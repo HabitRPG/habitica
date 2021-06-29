@@ -370,5 +370,14 @@
     "features": "Funktionen",
     "giftMessageTooLong": "Die maximale Länge für Geschenk-Nachrichten ist <%= maxGiftMessageLength %>.",
     "selectSubscription": "Wähle ein Abonnement",
-    "blockYourself": "Du kannst Dich nicht selbst blockieren"
+    "blockYourself": "Du kannst Dich nicht selbst blockieren",
+    "invitedToThisQuest": "Du wurdest zu dieser Quest eingeladen!",
+    "messagePartyLeader": "Partyleitung benachrichtigen",
+    "joinGuild": "Gilde beitreten",
+    "joinParty": "Party beitreten",
+    "editGuild": "Gilde bearbeiten",
+    "editParty": "Party bearbeiten",
+    "leaveGuild": "Gilde verlassen",
+    "viewDetails": "Details ansehen",
+    "upgradeToGroup": "Auf Gruppenplan upgraden"
 }

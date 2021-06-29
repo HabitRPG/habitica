@@ -602,7 +602,7 @@
     "backgroundElegantGardenText": "Eleganter Garten",
     "backgroundCottageConstructionNotes": "Hilf mit, oder schau: ein Häuschen im Bau.",
     "backgroundCottageConstructionText": "Häuschen im Bau",
-    "backgroundAmongCattailsNotes": "Stauden die Staunen und Hummeln die bummeln,\nDu lauschst nur dem Raunen im Rohrkolben-Rummel.",
+    "backgroundAmongCattailsNotes": "Stauden die Staunen und Hummeln die bummeln, Du lauschst nur dem Raunen im Rohrkolben-Rummel.",
     "backgroundAmongCattailsText": "Im Rohrkolben-Rummel",
     "backgrounds042021": "SET 83: Veröffentlicht im April 2021",
     "backgroundWindmillsText": "Windmühlen",
@@ -611,5 +611,12 @@
     "backgroundAfternoonPicnicNotes": "Genieße ein Nachmittagspicknick - alleine oder mit deinem Haustier.",
     "backgroundAfternoonPicnicText": "Nachmittagspicknick",
     "backgrounds052021": "Set 84: Veröffentlicht im Mai 2021",
-    "backgroundWindmillsNotes": "Sattel auf und kämpfe gegen Windmühlen."
+    "backgroundWindmillsNotes": "Sattel auf und kämpfe gegen Windmühlen.",
+    "backgroundWaterMillText": "Wassermühle",
+    "backgroundClotheslineText": "Wäscheleine",
+    "backgrounds062021": "Set 85: Veröffentlicht im Juni 2021",
+    "backgroundForestedLakeshoreNotes": "Mach deine Gruppe neidisch mit diesem Platz am bewaldeten Seeufer.",
+    "backgroundWaterMillNotes": "Sieh wie das Rad der Wassermühle seine Runden dreht.",
+    "backgroundForestedLakeshoreText": "Bewaldetes Seeufer",
+    "backgroundClotheslineNotes": "Häng mit der Kleidung ab, die an der Wäscheleine hängt."
 }

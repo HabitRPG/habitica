@@ -129,5 +129,6 @@
     "nGems": "<%= nGems %> 颗宝石",
     "limitedAvailabilityMinutes": "购买时间剩余<%= minutes %>分钟<%= seconds %>秒",
     "limitedAvailabilityHours": "购买时间剩余<%= hours %>小时 <%= minutes %>分钟",
-    "limitedAvailabilityDays": "购买时间剩余<%= days %>天 <%= hours %>小时 <%= minutes %>分钟"
+    "limitedAvailabilityDays": "购买时间剩余<%= days %>天 <%= hours %>小时 <%= minutes %>分钟",
+    "amountExp": "<%= amount %>经验值"
 }

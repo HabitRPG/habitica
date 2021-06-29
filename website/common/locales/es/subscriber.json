@@ -9,7 +9,7 @@
     "mysteryItem": "Artículos mensuales exclusivos",
     "mysteryItemText": "Cada mes, recibirás un artículo de adorno exclusivo para tu personaje. Además, por cada tres meses consecutivos de suscripción, los misteriosos viajeros del tiempo te permitirán acceder a artículos de adorno del pasado (¡y del futuro!).",
     "exclusiveJackalopePet": "Mascota Exclusiva",
-    "giftSubscription": "¿Quieres obsequiar los beneficios de una suscripción a alguien más?",
+    "giftSubscription": "¿Quieres regalar los beneficios de una suscripción a alguien más?",
     "giftSubscriptionText4": "¡Gracias por ayudar a Habitica!",
     "groupPlans": "Planes de Grupo",
     "subscribe": "Suscribirse",
@@ -150,7 +150,7 @@
     "mysterySet201911": "Conjunto de Encantador de Cristal",
     "mysterySet202001": "Conjunto de Zorro Legendario",
     "mysticHourglassNeededNoSub": "Este artículo requiere un Reloj de arena místico. Los Relojes de arena místicos se obtienen estando suscrito a Habitica.",
-    "giftASubscription": "Obsequia una Suscripción",
+    "giftASubscription": "Regala una Suscripción",
     "viewSubscriptions": "Ver Suscripciones",
     "mysterySet202004": "Conjunto de Monarca Poderoso",
     "mysterySet202002": "Conjunto de Novia Elegante",
@@ -190,5 +190,6 @@
     "mysterySet202102": "Conjunto de campeon cautivador",
     "mysterySet202103": "Conjunto de observar el florecimiento",
     "mysterySet202104": "Conjunto de Guardián del Cardo",
-    "mysterySet202105": "Conjunto de Dragón Nebular"
+    "mysterySet202105": "Conjunto del Dragón Nebuloso",
+    "mysterySet202106": "Conjunto de Sirena Atardecer"
 }

@@ -2365,5 +2365,21 @@
     "shieldArmoireStrawberryFoodNotes": "Une fraise, délicieuse et fraîche, pour nourrir vos familiers ! Savez-vous quels familiers préfèrent les fraises ? Augmente la force de <%= str %>. Armoire enchantée : ensemble de nourriture de familier (objet 1 de 10).",
     "shieldArmoireRottenMeatFoodNotes": "Bouchez-vous le nez ! Cette côtelette avariée vous semble peut-être dégoûtante, mais elle est parfaite pour certains de vos familiers ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de nourriture de familier (objet 2 de 10).",
     "shieldArmoireRottenMeatFoodText": "Côtelette avariée décorative",
-    "shieldArmoireStrawberryFoodText": "Fraise décorative"
+    "shieldArmoireStrawberryFoodText": "Fraise décorative",
+    "armorArmoireMedievalLaundryDressNotes": "Enfilez votre tablier et remontez-vous les manches : il est temps de faire la lessive ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de lessivage médiéval (objet 2 de 6).",
+    "armorArmoireMedievalLaundryDressText": "Robe de lessivage",
+    "armorArmoireMedievalLaundryOutfitNotes": "Enfilez votre tenue de travail et remontez-vous les manches : il est temps de faire la lessive ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de lessivage médiéval (objet 1 de 6).",
+    "armorArmoireMedievalLaundryOutfitText": "Tenue de lessivage",
+    "armorMystery202106Notes": " Avec cette queue puissante mais élégante, vous pouvez naviguer dans les mers chaudes jusqu'à l'horizon. Ne confère aucun bonus. Équipement d'abonnement de juin 2021.",
+    "armorMystery202106Text": "Queue du soleil couchant",
+    "weaponArmoireMedievalWashboardNotes": "Frottez, frottez ! Il est temps d'y mettre un peu d'huile de coude et de laver son linge sale ! Augmente la force de <%= str %>. Armoire enchantée : ensemble de lavage médiéval (objet 5 de 6).",
+    "weaponArmoireMedievalWashboardText": "Planche à laver",
+    "shieldArmoireMedievalLaundryNotes": "Ca va être difficile à nettoyer, mais vous savez déjà que vous pouvez tout réaliser. Augmente la perception de <%= per %>. Armoire enchantée : ensemble de lessivage médiéval (objet 6 de 6).",
+    "shieldArmoireMedievalLaundryText": "Linge sale",
+    "headArmoireMedievalLaundryHatNotes": "Ce n'est pas vraiment un chapeau de détente, mais pour la lessive, ça fera l'affaire... Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble de lessivage médiéval (objet 4 de 6).",
+    "headArmoireMedievalLaundryHatText": "Chapeau de lessivage",
+    "headArmoireMedievalLaundryCapNotes": "Ca n'est pas une casquette de sport, mais pour la lessive, ça fera l'affaire... Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble de lessivage médiéval (objet 3 de 6).",
+    "headArmoireMedievalLaundryCapText": "Casquette de lessivage",
+    "headMystery202106Notes": "Cette couronne capture toute la beauté de la dernière lumière du soleil d'été. Ne confère aucun bonus. Équipement d'abonnement de juin 2021.",
+    "headMystery202106Text": "Auréole du soleil couchant"
 }
