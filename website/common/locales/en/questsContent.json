@@ -803,8 +803,8 @@
   "questWaffleCompletion": "Battered and buttered but triumphant, you savor sweet victory as the Awful Waffle collapses into a pool of sticky goo.<br><br>“Wow, you really creamed that monster,” says Lady Glaciate, impressed.<br><br>“A piece of cake!” beams the April Fool.<br><br>“Kind of a shame, though,” says @beffymaroo. “It looked good enough to eat.”<br><br>The Fool takes a set of potion bottles from somewhere in his cape, fills them with the syrupy leavings of the Waffle, and mixes in a pinch of sparkling dust. The liquid swirls with color--new Hatching Potions! He tosses them into your arms. “All that adventure has given me an appetite. Who wants to join me for breakfast?”",
   "questWaffleBoss": "Awful Waffle",
   "questWaffleRageTitle": "Maple Mire",
-  "questWaffleRageDescription": "Maple Mire: This bar fills when you don't complete your Dailies. When it is full, the Awful Waffle will set back the party's attack progress!",
-  "questWaffleRageEffect": "`Awful Waffle uses MAPLE MIRE!` Sticky sappy syrup slows your swings and spells!",
+  "questWaffleRageDescription": "Maple Mire: This bar fills when you don't complete your Dailies. When it is full, the Awful Waffle will subtract from the pending damage that party members have built up!",
+  "questWaffleRageEffect": "`Awful Waffle uses MAPLE MIRE!` Sticky sappy syrup slows your swings and spells! Pending damage reduced.",
   "questWaffleDropDessertPotion": "Confection Hatching Potion",
   "questWaffleUnlockText": "Unlocks Confection Hatching Potions for purchase in the Market",
 
