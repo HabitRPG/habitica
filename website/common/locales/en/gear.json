@@ -1717,6 +1717,8 @@
   "headMystery202103Notes": "Greet spring in style in this circlet woven from the first blooming branches. Confers no benefit. March 2021 Subscriber Item.",
   "headMystery202106Text": "Sunset Aureole",
   "headMystery202106Notes": "This crown captures the beauty of the sun’s last summer light. Confers no benefit. June 2021 Subscriber Item.",
+  "headMystery202107Text": "Sublime Sun Hat",
+  "headMystery202107Notes": "Perfect for enjoying but also protecting yourself from our powerful frenemy, the sun. Confers no benefit. July 2021 Subscriber Item.",
   "headMystery301404Text": "Fancy Top Hat",
   "headMystery301404Notes": "A fancy top hat for the finest of gentlefolk! January 3015 Subscriber Item. Confers no benefit.",
   "headMystery301405Text": "Basic Top Hat",
@@ -2364,6 +2366,8 @@
   "bodyMystery202003Notes": "They're like shoulder pads that are on a whole other level. Confers no benefit. March 2020 Subscriber Item.",
   "bodyMystery202008Text": "Owlish Oracle Mantle",
   "bodyMystery202008Notes": "For now, your wings lie furled. But when you have concluded dispensing your wisdom, or you sight your prey in the grass, watch out! Confers no benefit. August 2020 Subscriber Item.",
+  "bodyMystery202107Text": "Far-Out Floaty Flamingo",
+  "bodyMystery202107Notes": "This trusty companion will never let you down and will always keep your spirits buoyant! Confers no benefit. July 2021 Subscriber Item.",
 
   "bodyArmoireCozyScarfText": "Cozy Scarf",
   "bodyArmoireCozyScarfNotes": "This fine scarf will keep you warm as you go about your wintry business. Increases Constitution and Perception by <%= attrs %> each. Enchanted Armoire: Lamplighter's Set (Item 4 of 4).",
