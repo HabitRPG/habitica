@@ -32,7 +32,7 @@
   }
 
   .notification-item {
-    transition: transform 0.5s, opacity 0.5s;
+    transition: transform 0.25s ease-in, opacity 0.25s ease-in;
   }
 
   .notifications-move {
@@ -59,11 +59,19 @@ import { mapState } from '@/libs/store';
 import notification from './notification';
 
 const amountOfVisisbleNotifications = 2;
-const delayBetweenDeletionAndNew = 1000;
 const removalInterval = 2500;
 
 export default {
-  props: ['preventQueue'],
+  props: {
+    preventQueue: {
+      type: Boolean,
+      default: false,
+    },
+    delayDeleteAndNew: {
+      type: Number,
+      default: 0,
+    },
+  },
   data () {
     return {
       visibleNotifications: [],
@@ -122,7 +130,7 @@ export default {
         } else {
           setTimeout(() => {
             this.fillVisibleNotifications(this.notificationStore);
-          }, delayBetweenDeletionAndNew);
+          }, this.delayDeleteAndNew);
         }
       }
     },
@@ -205,7 +213,7 @@ export default {
           // 2nd needs to be added at a later time
           setTimeout(() => {
             this.fillVisibleNotifications(this.notificationStore);
-          }, 500);
+          }, 250);
         }, 250); // to wait for additional notifications to fill up
 
 

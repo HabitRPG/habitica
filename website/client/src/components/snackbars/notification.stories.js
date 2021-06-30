@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { storiesOf } from '@storybook/vue';
-import { boolean, withKnobs } from '@storybook/addon-knobs';
+import { boolean, number, withKnobs } from '@storybook/addon-knobs';
 
 import Notification from './notification';
 import Notifications from './notifications';
@@ -118,14 +118,21 @@ stories
       <div style="position: absolute; margin: 20px">
         <button @click="addNotification()">Add Notifications</button>
       
-        <Notifications :prevent-queue="true"
-                        :style="{outline: showBounds ? '1px solid green': ''}">
+        <Notifications :prevent-queue="preventQueue"
+                       :delay-delete-and-new="delayBetweenDeleteAndNew"
+                       :style="{outline: showBounds ? '1px solid green': ''}">
         </Notifications>
       </div>
     `,
     props: {
       showBounds: {
         default: boolean('show bounds', false),
+      },
+      preventQueue: {
+        default: boolean('prevent removing', false),
+      },
+      delayBetweenDeleteAndNew: {
+        default: number('delay between delete and new', 0),
       },
     },
     data () {
