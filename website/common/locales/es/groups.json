@@ -364,11 +364,20 @@
     "bannedWordsAllowed": "Permitir palabras vetadas",
     "languageSettings": "Ajustes de idioma",
     "thisTaskApproved": "Esta tarea fue aprobada",
-    "onlyPrivateGuildsCanUpgrade": "Sólo los Gremios privados pueden actualizarse a un plan de grupo.",
+    "onlyPrivateGuildsCanUpgrade": "Sólo los Gremios privados pueden mejorarse a un plan de grupo.",
     "chooseTeamMember": "Elije a un miembro del equipo",
     "cannotRemoveQuestOwner": "No puedes eliminar el dueño delmisión activo. Abandonar el misión primero.",
     "features": "Características",
     "giftMessageTooLong": "La longitud máxima para los mensajes de regalo es <%= maxGiftMessageLength %>.",
     "selectSubscription": "Selecciona suscripción",
-    "blockYourself": "No puedes bloquearte a ti mismo"
+    "blockYourself": "No puedes bloquearte a ti mismo",
+    "invitedToThisQuest": "¡Has sido invitado a esta Misión!",
+    "viewDetails": "Ver detalles",
+    "upgradeToGroup": "Mejorar a Grupo",
+    "messagePartyLeader": "Enviar un mensaje al líder del Equipo",
+    "joinGuild": "Unirse al Gremio",
+    "joinParty": "Unirse al Equipo",
+    "editGuild": "Editar Gremio",
+    "editParty": "Editar Equipo",
+    "leaveGuild": "Dejar el Gremio"
 }

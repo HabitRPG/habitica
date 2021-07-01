@@ -370,5 +370,14 @@
     "cannotRemoveQuestOwner": "Vous ne pouvez pas retirer le propriétaire de la quête active. Annulez d'abord la quête.",
     "giftMessageTooLong": "La longueur maximum des messages pour les cadeaux est <%= maxGiftMessageLength %>.",
     "selectSubscription": "Choisir l'abonnement",
-    "blockYourself": "Vous ne pouvez pas vous bloquer"
+    "blockYourself": "Vous ne pouvez pas vous bloquer",
+    "invitedToThisQuest": "Vous avez reçu une invitation pour cette quête !",
+    "viewDetails": "Voir les détails",
+    "upgradeToGroup": "Améliorer en groupe",
+    "messagePartyLeader": "Envoyer un message au responsable de l'équipe",
+    "joinGuild": "Rejoindre la guilde",
+    "joinParty": "Rejoindre l'équipe",
+    "editGuild": "Modifier la guilde",
+    "editParty": "Modifier l'équipe",
+    "leaveGuild": "Quitter la guilde"
 }

@@ -185,5 +185,6 @@
     "chatCastSpellUser": "<%= username %> <%= spell %> varázslatot használta a(z) <%= target %> célponton.",
     "chatCastSpellParty": "<%= username %> <%= spell %> varázslatot használta a csapat számára.",
     "purchasePetItemConfirm": "Ez a vétel meghaladja az összes lehetséges <%= itemText %> háziállat kikeltéséhez szükséges tárgyak számát. Biztos vagy benne?",
-    "purchaseForGold": "Megveszed <%= cost %> aranyért?"
+    "purchaseForGold": "Megveszed <%= cost %> aranyért?",
+    "notEnoughGold": "Nincs elég aranyad."
 }

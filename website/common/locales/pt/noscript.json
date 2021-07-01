@@ -1,6 +1,4 @@
 {
-   
-    "jsDisabledHeadingFull": "Ai! Seu navegador não está com o JavaScript habilitado e, sem ele, o Habitica não funcionará corretamente",
-   
-    "jsDisabledLink": "Por favor, ative o JavaScript para continuar!"
+    "jsDisabledHeadingFull": "Oops! O teu navegador não está com o JavaScript ativo e, sem ele, o Habitica não funcionará corretamente",
+    "jsDisabledLink": "Por favor, ativa o JavaScript para continuar!"
 }

@@ -126,5 +126,6 @@
     "invalidUnlockSet": "Ten zestaw przedmiotów jest nieważny i nie może być odblokowany.",
     "nGems": "<%= nGems %> Klejnotów",
     "nMonthsSubscriptionGift": "<%= nMonths %> Miesięcy Abonamentu (Podarunek)",
-    "nGemsGift": "<%= nGems %> Klejnoty (Podarunek)"
+    "nGemsGift": "<%= nGems %> Klejnoty (Podarunek)",
+    "limitedAvailabilityHours": "Dostępne przez <%= hours %>h <%= minutes %>m"
 }

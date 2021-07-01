@@ -185,5 +185,6 @@
     "purchaseForGold": "花費<%= cost %>個金幣購買？",
     "chatCastSpellParty": "<%= username %>對整個隊伍施放了<%= spell %>。",
     "chatCastSpellUser": "<%= username %>對整個隊伍施放了<%= spell %>。",
-    "purchasePetItemConfirm": "您將購買物品的數目超過了您所需要用來孵化<%= itemText %>寵物的數目，您確定嗎？"
+    "purchasePetItemConfirm": "您將購買物品的數目超過了您所需要用來孵化<%= itemText %>寵物的數目，您確定嗎？",
+    "notEnoughGold": "不夠金幣。"
 }

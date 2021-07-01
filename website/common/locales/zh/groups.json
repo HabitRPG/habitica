@@ -370,5 +370,14 @@
     "features": "特性",
     "giftMessageTooLong": "礼品留言的最大长度为<%= maxGiftMessageLength %>。",
     "selectSubscription": "选择订阅",
-    "blockYourself": "你不能屏蔽你自己"
+    "blockYourself": "你不能屏蔽你自己",
+    "invitedToThisQuest": "邀请你参加这个副本！",
+    "viewDetails": "查看详情",
+    "upgradeToGroup": "升级为团体",
+    "messagePartyLeader": "私信队长",
+    "joinGuild": "加入公会",
+    "joinParty": "加入队伍",
+    "editGuild": "编辑公会",
+    "editParty": "编辑队伍",
+    "leaveGuild": "离开公会"
 }

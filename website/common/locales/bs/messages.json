@@ -40,7 +40,7 @@
     "messageGroupChatFlagAlreadyReported": "Već ste prijavili ovu poruku",
     "messageGroupChatNotFound": "Poruka nije pronađena!",
     "messageGroupChatAdminClearFlagCount": "Samo administrator može izbrisati broj zastavica!",
-    "messageCannotFlagSystemMessages": "Ne možete prijaviti sistemsku poruku. Ako trebate prijaviti kršenje Smjernica zajednice u vezi s ovom porukom, pošaljite e-poštu i objašnjenje našem Menadžeru zajednice  na <%= communityManagerEmail %>.",
+    "messageCannotFlagSystemMessages": "Ne možete prijaviti sistemsku poruku. Ako trebate prijaviti kršenje Smjernica zajednice u vezi s ovom porukom, pošaljite e-poštu i objašnjenje našem Menadžeru zajednice na <%= communityManagerEmail %>.",
     "messageGroupChatSpam": "Ups, izgleda da objavljujete previše poruka! Pričekajte minutu i pokušajte ponovo. Čat u aščinici istovremeno sadrži samo 200 poruka, pa Habitica potiče objavljivanje dužih, promišljenijih poruka i objedinjavanje odgovora. Jedva čekam da čujem šta imate da kažete. :)",
     "messageCannotLeaveWhileQuesting": "Ne možete prihvatiti ovaj poziv za partiju dok ste u potrazi. Ako se želite pridružiti ovoj partiji, prvo morate prekinuti svoju potragu, što možete učiniti sa zaslona svoje partije. Vratit će vam se svitak potrage.",
     "messageUserOperationProtected": "putanja `<%= operation %>` nije sačuvana, zato što je zaštićena.",

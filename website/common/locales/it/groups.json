@@ -370,5 +370,14 @@
     "features": "Caratteristiche",
     "giftMessageTooLong": "La lunghezza massima per i messaggi regalo è di <%= maxGiftMessageLength %>.",
     "selectSubscription": "Seleziona abbonamento",
-    "blockYourself": "Non puoi bloccare te stesso"
+    "blockYourself": "Non puoi bloccare te stesso",
+    "invitedToThisQuest": "Sei stato invitato a questa missione!",
+    "viewDetails": "Vedi dettagli",
+    "upgradeToGroup": "Promuovi a gruppo",
+    "messagePartyLeader": "Scrivi al caposquadra",
+    "joinGuild": "Unisciti alla gilda",
+    "joinParty": "Unisciti alla squadra",
+    "editGuild": "Modifica gilda",
+    "editParty": "Modifica squadra",
+    "leaveGuild": "Lascia la gilda"
 }

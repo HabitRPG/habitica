@@ -369,5 +369,15 @@
     "features": "機能",
     "cannotRemoveQuestOwner": "実行中のクエストのオーナーは削除できません。先にクエストを中断してください。",
     "giftMessageTooLong": "ギフトメッセージの文字数は最大<%= maxGiftMessageLength %>文字までです。",
-    "selectSubscription": "有料プランを選ぶ"
+    "selectSubscription": "有料プランを選ぶ",
+    "invitedToThisQuest": "クエストに招待されました！",
+    "viewDetails": "詳細を表示",
+    "upgradeToGroup": "グループにアップグレード",
+    "messagePartyLeader": "パーティーリーダーにメッセージを送る",
+    "blockYourself": "自分はブロックできません",
+    "joinGuild": "ギルドに入る",
+    "joinParty": "パーティーに入る",
+    "editGuild": "ギルドを編集",
+    "editParty": "パーティーを編集",
+    "leaveGuild": "ギルドをやめる"
 }

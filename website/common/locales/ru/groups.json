@@ -370,5 +370,14 @@
     "onlyPrivateGuildsCanUpgrade": "Только приватные гильдии могут быть улучшены до группы.",
     "managerNotes": "Заметки менеджера",
     "chooseTeamMember": "Выберете члена команды",
-    "unassigned": "Не назначено"
+    "unassigned": "Не назначено",
+    "viewDetails": "Подробно",
+    "upgradeToGroup": "Улучшить до группы",
+    "messagePartyLeader": "Написать лидеру команды",
+    "joinParty": "Присоединиться к команде",
+    "invitedToThisQuest": "Вас пригласили на квест!",
+    "joinGuild": "Присоединиться к гильдии",
+    "editGuild": "Редактировать гильдию",
+    "editParty": "Редактировать команду",
+    "leaveGuild": "Покинуть гильдию"
 }

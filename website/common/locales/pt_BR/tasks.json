@@ -3,7 +3,7 @@
     "clearCompletedDescription": "Afazeres completados serão deletados após 30 dias para não assinantes e 90 dias para assinantes.",
     "clearCompletedConfirm": "Você tem certeza que quer excluir seus Afazeres concluídos?",
     "addMultipleTip": "<strong>Dica:</strong> Para adicionar múltiplas(os) <%= taskType %>, separe cada um(a) usando quebra de linha (Shift + Enter) e aperte \"Enter.\"",
-    "addATask": "Adicionar um(a) <%= type %>",
+    "addATask": "Adicionar <%= type %>",
     "editATask": "Editar <%= type %>",
     "createTask": "Criar <%= type %>",
     "addTaskToUser": "Adicionar tarefa",

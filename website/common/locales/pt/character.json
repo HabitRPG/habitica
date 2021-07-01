@@ -144,10 +144,10 @@
     "purchaseForHourglasses": "Comprar por <%= cost %> Ampulhetas?",
     "notEnoughMana": "Mana insuficiente.",
     "invalidTarget": "Você não pode lançar uma habilidade nisso.",
-    "youCast": "Você conjurou <%= spell %>.",
-    "youCastTarget": "Você conjurou <%= spell %> em <%= target %>.",
-    "youCastParty": "Você conjurou <%= spell %> para o grupo.",
-    "critBonus": "Golpe Crítico! Bônus: ",
+    "youCast": "Você usou o feitiço <%= spell %>.",
+    "youCastTarget": "Você usou o feitiço <%= spell %> em <%= target %>.",
+    "youCastParty": "Você usou o feitiço <%= spell %> para ajudar a equipa.",
+    "critBonus": "Golpe Crítico! Bónus: ",
     "gainedGold": "Você ganhou Ouro",
     "gainedMana": "Você ganhou Mana",
     "gainedHealth": "Você ganhou Vida",
@@ -184,6 +184,7 @@
     "pts": "pts",
     "purchasePetItemConfirm": "Essa compra excederá o número que você precisa para capturar todos os <%= itemText %> pets disponíveis. Você tem certeza?",
     "purchaseForGold": "Comprar por <%= cost %> de Ouro?",
-    "chatCastSpellUser": "<%= username %> conjurou <%= spell %> em <%= target %>.",
-    "chatCastSpellParty": "<%= username %> conjurou <%= spell %> para o grupo."
+    "chatCastSpellUser": "<%= username %> usou o feitiço <%= spell %> em <%= target %>.",
+    "chatCastSpellParty": "<%= username %> usou o feitiço <%= spell %> para ajudar a equipa.",
+    "notEnoughGold": "Ouro insuficiente."
 }

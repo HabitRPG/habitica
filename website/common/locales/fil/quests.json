@@ -1,11 +1,11 @@
 {
     "quests": "Quests",
     "quest": "quest",
-    "petQuests": "Pet and Mount Quests",
+    "petQuests": "Pang-alaga at Mount Quests",
     "unlockableQuests": "Unlockable Quests",
     "goldQuests": "Masterclasser Quest Lines",
-    "questDetails": "Quest Details",
-    "questDetailsTitle": "Quest Details",
+    "questDetails": "Mga Detalye sa Quest",
+    "questDetailsTitle": "Mga Detalye sa Quest",
     "questDescription": "Quests allow players to focus on long-term, in-game goals with the members of their party.",
     "invitations": "Invitations",
     "completed": "Completed!",
@@ -78,11 +78,12 @@
     "questAlreadyStartedFriendly": "Nagsimula na ang quest, pero pwede mo namang maabutan ang susunod!",
     "questAlreadyStarted": "Nagsimula na ang quest.",
     "questInvitationNotificationInfo": "Inimbitahan kang sumali sa isang quest",
-    "hatchingPotionQuests": "Quests ng Mahikang Kabal sa Pangingitlog",
+    "hatchingPotionQuests": "Quests ng Magic Hatching Potion",
     "tavernBossTired": "Sinubukang pakawalan ng <%= bossName %> ang <%= rageName %> ngunit masyado itong pagod.",
     "chatQuestCancelled": "Kinansela ni <%= username %> ang quest ng partido <%= questName %>.",
     "chatQuestAborted": "Inabandona ni <%= username %> ang quest ng partido <%= questName %>.",
     "chatItemQuestFinish": "Nahanap ang lahat ng gamit! Natanggap ng partido ang kanilang gantimpala.",
     "chatFindItems": "Nakahanap si <%= username %> ng <%= items %>.",
-    "chatBossDefeated": "Natalo mo ang <%= bossName %>! Natanggap ng mga miyembro ng Questing na partido ang mga gantimpala ng tagumpay."
+    "chatBossDefeated": "Natalo mo ang <%= bossName %>! Natanggap ng mga miyembro ng mga kapartidong kasama sa quest ang mga gantimpala ng tagumpay.",
+    "bossDamage": "Nabawasan mo ng buhay ang boss!"
 }

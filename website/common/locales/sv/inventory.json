@@ -3,8 +3,8 @@
     "foodItemType": "Djurfoder",
     "eggsItemType": "Ägg",
     "hatchingPotionsItemType": "Kläckningsbrygder",
-    "specialItemType": "Specialobjekt",
-    "lockedItem": "Låst Objekt",
+    "specialItemType": "Speciella föremål",
+    "lockedItem": "Låst föremål",
     "petAndMount": "Husdjur och Riddjur",
     "allItems": "Alla föremål"
 }

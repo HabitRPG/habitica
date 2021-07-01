@@ -175,7 +175,7 @@
     "editProfile": "Chaeng Profiel",
     "challengesWon": "Chalengez Wun",
     "questsCompleted": "Kwestz Completd",
-    "headAccess": "Head Access.",
+    "headAccess": "Head Aces.",
     "backAccess": "Back Access.",
     "bodyAccess": "Body Access.",
     "mainHand": "Main-Hand",
@@ -185,5 +185,6 @@
     "chatCastSpellUser": "<%= username %> castz <%= spell %> on <%= target %>.",
     "chatCastSpellParty": "<%= username %> castz <%= spell %> 4 teh party.",
     "purchasePetItemConfirm": "Dis perchis wil exseed teh numbr ov items u ned 2 hatch al posibl <%= itemText %> petz. R u sure?",
-    "purchaseForGold": "Perchis 4 <%= cost %> Gold?"
+    "purchaseForGold": "Perchis 4 <%= cost %> Gold?",
+    "notEnoughGold": "U haz not enugh monies."
 }

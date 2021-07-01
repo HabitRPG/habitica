@@ -1,8 +1,16 @@
 {
-  "achievement": "Postignuće",
-  "onwards": "Naprijed!",
-  "levelup": "Postizanjem svojih životnih ciljeva, dostigao/la si viši level i sad si u potpunosti iscijeljen/a!",
-  "reachedLevel": "Dostigao/la si level <%= level %>",
-  "achievementLostMasterclasser": "Izvršitelj Pustolovina: Serija Majstora",
-  "achievementLostMasterclasserText": "Izvršeno je svih šesnaest pustolovina u Seriji Majstorskih Pustolovina i otkriven misterij Nestalog Majstora!"
+    "achievement": "Postignuće",
+    "onwards": "Naprijed!",
+    "levelup": "Postizanjem svojih životnih ciljeva, dostigao/la si viši level i sad si u potpunosti iscijeljen/a!",
+    "reachedLevel": "Dostigao/la si level <%= level %>",
+    "achievementLostMasterclasser": "Izvršitelj Pustolovina: Serija Majstora",
+    "achievementLostMasterclasserText": "Izvršeno je svih šesnaest pustolovina u Seriji Majstorskih Pustolovina i otkriven misterij Nestalog Majstora!",
+    "achievementBackToBasics": "Nazad na osnove",
+    "foundNewItems": "Našao/la si nove predmete!",
+    "hideAchievements": "Sakrij <%= kategorije%>",
+    "showAllAchievements": "Prikaži sve <%= kategorije%>",
+    "viewAchievements": "Pogledaj postignuća",
+    "letsGetStarted": "Krenimo!",
+    "yourProgress": "Tvoj napredak",
+    "yourRewards": "Tvoje nagrade"
 }
