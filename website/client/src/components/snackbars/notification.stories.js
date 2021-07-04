@@ -120,6 +120,7 @@ stories
       
         <Notifications :prevent-queue="preventQueue"
                        :delay-delete-and-new="delayBetweenDeleteAndNew"
+                       :debug-mode="debugMode"
                        :style="{outline: showBounds ? '1px solid green': ''}">
         </Notifications>
       </div>
@@ -132,7 +133,10 @@ stories
         default: boolean('prevent removing', false),
       },
       delayBetweenDeleteAndNew: {
-        default: number('delay between delete and new', 0),
+        default: number('delay between delete and new', 60),
+      },
+      debugMode: {
+        default: boolean('debug mode', true),
       },
     },
     data () {

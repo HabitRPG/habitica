@@ -69,7 +69,11 @@ export default {
     },
     delayDeleteAndNew: {
       type: Number,
-      default: 0,
+      default: 60,
+    },
+    debugMode: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {
@@ -112,6 +116,11 @@ export default {
     },
   },
   methods: {
+    debug (...args) {
+      if (this.debugMode) {
+        console.info(...args);
+      }
+    },
     notificationRemoved ($event) {
       // findIndex+splice is the way to go on removing, instead of .filter
       // due to the way vue handles new arrays / entries even if you use :key="uuid"
@@ -123,24 +132,40 @@ export default {
       this.allowedToFillAgain = this.visibleNotifications.length < amountOfVisisbleNotifications;
       this.$store.dispatch('snackbars:remove', $event);
 
+      this.debug('removed', {
+        allowedToFillAgain: this.allowedToFillAgain,
+        storeLength: this.notificationStore.length,
+      });
+
       if (this.allowedToFillAgain) {
         // reset the flag so that the next call (for a new notification) will be immediately
         if (this.notificationStore.length === 0) {
           this.allowedToTriggerImmediately = true;
         } else {
+          this.debug('start timeout to fill again');
           setTimeout(() => {
-            this.fillVisibleNotifications(this.notificationStore);
+            this.debug('before fill new notifications');
+            this.triggerFillTwice();
+
+            this.triggerRemovalTimerIfAllowed();
           }, this.delayDeleteAndNew);
         }
       }
     },
     fillVisibleNotifications (notifications) {
+      this.debug({
+        fillAgain: this.allowedToFillAgain,
+        visible: this.visibleNotifications.length,
+        notifications: notifications.length,
+      });
+
       // if there are currently no notifications anymore in the store
       // and none visible - re-enable allowedToTriggerImmediately
       if (notifications.length === 0 && this.allowedToFillAgain
           && this.visibleNotifications.length === 0) {
         this.allowedToTriggerImmediately = true;
 
+        this.debug('stop fill - 1');
         return;
       }
 
@@ -148,6 +173,7 @@ export default {
       // is allowed to be filled and don't do anything while the visible items are 2
       if (notifications.length === 0 || !this.allowedToFillAgain
           || this.visibleNotifications.length === amountOfVisisbleNotifications) {
+        this.debug('stop fill - 2');
         return;
       }
 
@@ -160,6 +186,11 @@ export default {
         const allTheSame = notifications.every(n => visibleIds.includes(n.uuid));
 
         if (allTheSame) {
+          this.debug('stop fill - 3', {
+            visibleIds,
+            notifications: notifications.length,
+            notificationsStore: this.notificationStore.length,
+          });
           return;
         }
       }
@@ -170,12 +201,46 @@ export default {
 
         const notAddedYet = notifications.filter(n => !visibleIds.includes(n.uuid));
 
+        this.debug({
+          visibleIds,
+          notAddedYet: notAddedYet.length,
+        });
+
         if (notAddedYet.length > 0) {
           this.visibleNotifications.push(notAddedYet[0]);
         }
       }
 
       this.allowedToFillAgain = this.visibleNotifications.length < amountOfVisisbleNotifications;
+
+      this.debug({
+        allowedToFillAgain: this.allowedToFillAgain,
+      });
+    },
+    triggerFillTwice () {
+      // this method is triggered once the first notifications come in
+
+      // first notification
+      setTimeout(() => {
+        this.debug('fill first');
+        this.fillVisibleNotifications(this.notificationStore);
+
+        // 2nd needs to be added at a later time
+        setTimeout(() => {
+          this.debug('fill 2nd');
+          this.fillVisibleNotifications(this.notificationStore);
+        }, 250);
+      }, 250); // to wait for additional notifications to fill up
+    },
+    triggerRemovalTimerIfAllowed () {
+      // this is only for storybook
+      if (this.preventQueue) {
+        return;
+      }
+
+      if (this.notificationStore.length !== 0) {
+        this.startNotificationRemovalTimer();
+      }
     },
     startNotificationRemovalTimer () {
       if (this.removalIntervalId != null) {
@@ -183,14 +248,17 @@ export default {
         return;
       }
 
+      this.debug('start removal interval');
       this.removalIntervalId = setInterval(() => {
         if (this.visibleNotifications.length !== 0) {
           const firstEntry = this.visibleNotifications[0];
 
+          this.debug('removed entry');
           this.notificationRemoved(firstEntry);
         }
 
         if (this.visibleNotifications.length === 0) {
+          this.debug('clear removal interval');
           clearInterval(this.removalIntervalId);
           this.removalIntervalId = null;
         }
@@ -204,29 +272,18 @@ export default {
   },
   watch: {
     notificationStore (notifications) {
+      this.debug('notifications changed', {
+        notifications: notifications.length,
+        immediately: this.allowedToTriggerImmediately,
+      });
+
       // to fill it the first time or once the range of notifications are done
       if (this.allowedToTriggerImmediately) {
-        // first notification
-        setTimeout(() => {
-          this.fillVisibleNotifications(notifications);
-
-          // 2nd needs to be added at a later time
-          setTimeout(() => {
-            this.fillVisibleNotifications(this.notificationStore);
-          }, 250);
-        }, 250); // to wait for additional notifications to fill up
-
+        this.triggerFillTwice();
 
         this.allowedToTriggerImmediately = false;
 
-        // this is only for storybook
-        if (this.preventQueue) {
-          return;
-        }
-
-        if (this.notificationStore.length !== 0) {
-          this.startNotificationRemovalTimer();
-        }
+        this.triggerRemovalTimerIfAllowed();
       }
     },
   },
