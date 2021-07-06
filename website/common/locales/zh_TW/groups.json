@@ -361,5 +361,7 @@
     "managerNotes": "經理的須知",
     "thisTaskApproved": "這任務已批准",
     "chooseTeamMember": "選擇一個團隊成員",
-    "unassigned": "未分配"
+    "unassigned": "未分配",
+    "features": "功能",
+    "languageSettings": "語言設定"
 }

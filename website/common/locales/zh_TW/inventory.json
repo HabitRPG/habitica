@@ -5,5 +5,6 @@
     "hatchingPotionsItemType": "孵化藥水",
     "specialItemType": "特殊物品",
     "lockedItem": "未解鎖物品",
-    "allItems": "所有項目"
+    "allItems": "所有項目",
+    "petAndMount": "寵物和坐騎"
 }

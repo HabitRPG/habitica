@@ -27,10 +27,10 @@
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>季節の魔女<%= linkEnd %>",
     "seasonalShopClosedText": "季節の店は、現在閉店しています!!　この店が開くのは、Habiticaの4つの大祭の間だけです。",
-    "seasonalShopSummerText": "夏のスプラッシュ、万歳!!　今しか手に入らないレアなアイテムはいかがですか？　7月31日までの限定販売ですよ！",
-    "seasonalShopFallText": "秋の収穫祭、万歳!!　今しか手に入らないレアなアイテムはいかがですか？　10月31日までの限定販売ですよ！",
-    "seasonalShopWinterText": "冬のワンダーランド、万歳!!　今しか手に入らないレアなアイテムはいかがですか？　1月31日までの限定販売ですよ！",
-    "seasonalShopSpringText": "春の元気なダンス、万歳!!　今しか手に入らないレアなアイテムはいかがですか？　4月30日までの限定販売ですよ！",
+    "seasonalShopSummerText": "夏のスプラッシュおめでとう！！今しか手に入らないレアなアイテムはいかがですか？大祭が終わるまでの限定品です！",
+    "seasonalShopFallText": "秋の収穫祭おめでとう！！今しか手に入らないレアなアイテムはいかがですか？大祭が終わるまでの限定品です！",
+    "seasonalShopWinterText": "冬のワンダーランドおめでとう！！今しか手に入らないレアなアイテムはいかがですか？大祭が終わるまでの限定品です！",
+    "seasonalShopSpringText": "春の元気なダンスおめでとう！！今しか手に入らないレアなアイテムはいかがですか？大祭が終わるまでの限定品です！",
     "seasonalShopFallTextBroken": "ああ......季節の店へよくぞお越しを...いまは秋の期間限定版グッズやなんかをとりそろえ...こちらはどれも、毎年の秋まつりイベント期間のみの商品で、当店は10月31日までの限定オープン...今すぐ買っておかないと、ずっと...ずっと...ずっと待つことになる...<strong>（ため息）</strong>",
     "seasonalShopBrokenText": "私の大切なあずまやが！！ 私のすてきな飾りつけが！　ああ、ディスハートナーに何もかも壊されてしまいました……。(T_T)　私が季節の店を建て直せるように、キャンプ場であの怪物を仕留めるのを手伝ってください！",
     "seasonalShopRebirth": "この中の装備で、以前に買ったけれど、現在もっていないものは、「ごほうび」列でもう一度買うことができます。初期状態では、その時点でのクラス ( 標準では戦士 ) のアイテムしか買えませんが、ご心配なく。クラスを変更すれば、そのクラス用のアイテムを買えるようになります。",
@@ -202,5 +202,9 @@
     "spring2021TwinFlowerRogueSet": "リンネソウ（盗賊）",
     "spring2021WillowHealerSet": "ヤナギ（治療師）",
     "spring2021SwanMageSet": "白鳥（魔道士）",
-    "spring2021SunstoneWarriorSet": "サンストーン（戦士）"
+    "spring2021SunstoneWarriorSet": "サンストーン（戦士）",
+    "summer2021ClownfishRogueSet": "クマノミ（盗賊）",
+    "summer2021ParrotHealerSet": "オウム（治療師）",
+    "summer2021NautilusMageSet": "オウムガイ（魔道士）",
+    "summer2021FlyingFishWarriorSet": "トビウオ（戦士）"
 }

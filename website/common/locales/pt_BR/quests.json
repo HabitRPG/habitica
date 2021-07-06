@@ -86,7 +86,7 @@
     "questAlreadyStartedFriendly": "A missão já começou, mas você sempre pode participar da próxima!",
     "questAlreadyStarted": "A missão já começou.",
     "bossDamage": "Você atingiu o Chefão!",
-    "membersParticipating": "Membros na Missão",
+    "membersParticipating": "<%= accepted %> / <%= invited %> Membros na Missão",
     "newItem": "Novo Item",
     "noQuestToStartTitle": "Não está conseguindo encontrar uma Missão para iniciar?",
     "yourPartyIsNotOnQuest": "Seu Grupo não está em uma Missão",
@@ -97,6 +97,6 @@
     "yourQuests": "Suas Missões",
     "selectQuestModal": "Selecionar uma Missão",
     "selectQuest": "Selecionar Missão",
-    "ownerOnly": "Dono da Missão",
+    "ownerOnly": "Só ao dono",
     "questItemsPending": "<%= amount %> itens encontrados"
 }

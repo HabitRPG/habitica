@@ -85,7 +85,7 @@
     "allocatePerPop": "知覚にポイントを加える",
     "allocateInt": "知能のポイント：",
     "allocateIntPop": "知能にポイントを加える",
-    "noMoreAllocate": "レベル100に到達したので、これ以上ステータスポイントは増えません。このままレベルアップを続けることもできますし、もしくは<a href='http://habitica.fandom.com/wiki/Orb_of_Rebirth' target='_blank'>転生のオーブ</a>を使ってレベル１から新しい冒険を始めることもできます！",
+    "noMoreAllocate": "レベル100に到達したため、これ以上ステータスポイントは増えません。このままレベルアップを続けるか、または<a href='https://habitica.fandom.com/ja/wiki/転生のオーブ' target='_blank'>転生のオーブ</a>を使ってレベル１から新しい冒険を始めることができます！",
     "stats": "ステータス",
     "achievs": "実績",
     "strength": "力",

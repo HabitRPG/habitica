@@ -126,5 +126,6 @@
     "invalidUnlockSet": "這套裝是無效的，無法解鎖。",
     "nMonthsSubscriptionGift": "<%= nMonths %> 月度訂閱（禮物）",
     "nGemsGift": "<%= nGems %> 寶石（禮物）",
-    "nGems": "<%= nGems %> 寶石"
+    "nGems": "<%= nGems %> 寶石",
+    "amountExp": "<%= amount %> 經驗"
 }

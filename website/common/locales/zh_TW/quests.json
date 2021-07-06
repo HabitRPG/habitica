@@ -85,5 +85,6 @@
     "questInvitationNotificationInfo": "您受邀參與副本",
     "questAlreadyStartedFriendly": "這個副本已經開始了，但是你可以參加下一個！",
     "questAlreadyStarted": "副本已經開始了。",
-    "bossDamage": "你傷害了Boss！"
+    "bossDamage": "你傷害了Boss！",
+    "newItem": "新項目"
 }

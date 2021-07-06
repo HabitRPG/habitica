@@ -103,7 +103,7 @@
     "clickOnPetToFeed": "Clique em mascote para alimentá-lo com <%= foodName %> e vejo-o crescer!",
     "dragThisPotion": "Arraste a <%= potionName %> até a um Ovo e choque uma nova mascote!",
     "clickOnEggToHatch": "Clique num Ovo para usar a sua Poção de Eclosão <%= potionName %> e chocar uma nova mascote!",
-    "hatchDialogText": "Use sua poção de eclosão <%= potionName %> no seu ovo <%= eggName %> e ele irá eclodir como <%= petName %>.",
+    "hatchDialogText": "Use sua poção de eclosão <%= potionName %> no seu ovo de <%= eggName %> e ele irá eclodir como <%= petName %>.",
     "clickOnPotionToHatch": "Clique em uma poção de eclosão para usar em seu <%= eggName %> e eclodir uma nova mascote!",
     "notEnoughPets": "Você ainda não colecionou mascotes suficientes",
     "notEnoughMounts": "Você ainda não coletou montarias suficientes",

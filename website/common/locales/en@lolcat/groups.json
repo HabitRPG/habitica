@@ -339,5 +339,6 @@
     "sharedCompletion": "Shared Completion",
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned user finishes",
-    "allAssignedCompletion": "All - Completes when all assigned users finish"
+    "allAssignedCompletion": "All - Completes when all assigned users finish",
+    "features": "Cool tings"
 }
