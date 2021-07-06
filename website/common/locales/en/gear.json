@@ -401,7 +401,7 @@
   "weaponSpecialSummer2021RogueText": "Anemone Tentacles",
   "weaponSpecialSummer2021RogueNotes": "Any predatory monster that dares approach will feel the sting of your protective friends! Increases Strength by <%= str %>. Limited Edition 2021 Summer Gear.",
   "weaponSpecialSummer2021WarriorText": "Watery Blade",
-  "weaponSpecialSummer2021WarriorNotes": "This shimmering blade may like flow like water, but it can cut to the heart of the trickiest problems! Increases Strength by <%= str %>. Limited Edition 2021 Summer Gear.",
+  "weaponSpecialSummer2021WarriorNotes": "This shimmering blade may flow like water, but it can cut to the heart of the trickiest problems! Increases Strength by <%= str %>. Limited Edition 2021 Summer Gear.",
   "weaponSpecialSummer2021MageText": "Nautiloid Cane",
   "weaponSpecialSummer2021MageNotes": "Whether your magical ambitions run twenty thousand leagues deep, or if you intend only to dip in the shallows of the art, this shining implement will serve you well! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2021 Summer Gear.",
   "weaponSpecialSummer2021HealerText": "Staff of Corn",
@@ -560,6 +560,8 @@
   "weaponArmoireJadeGlaiveNotes": "The reach of this glaive will keep you far from your enemies! Also, you can knock things off high shelves. Increases Strength by <%= str %>. Enchanted Armoire: Jade Warrior Set (Item 3 of 3).",
   "weaponArmoireMedievalWashboardText": "Washboard",
   "weaponArmoireMedievalWashboardNotes": "Scrub-a-dub-dub! It's time to apply some elbow grease and get that laundry clean. Increases Strength by <%= str %>. Enchanted Armoire: Medieval Launderers Set (Item 5 of 6).",
+  "weaponArmoireBuoyantBubblesText": "Buoyant Bubbles",
+  "weaponArmoireBuoyantBubblesNotes": "These bubbles just keep on floating forever, somehow... Increases Perception by <%= per %>. Enchanted Armoire: Bubble Bath Set (Item 3 of 4).",
 
   "armor": "armor",
   "armorCapitalized": "Armor",
@@ -1208,7 +1210,9 @@
   "armorArmoireMedievalLaundryOutfitText": "Laundry Outfit",
   "armorArmoireMedievalLaundryOutfitNotes": "Put on your working clothes and roll up your sleeves: it's time to get the laundry done! Increases Constitution by <%= con %>. Enchanted Armoire: Medieval Launderers Set (Item 1 of 6).",
   "armorArmoireMedievalLaundryDressText": "Laundry Dress",
-  "armorArmoireMedievalLaundryDressNotes": "Put on your apron roll up your sleeves: it's time to get the laundry done! Increases Constitution by <%= con %>. Enchanted Armoire: Medieval Launderers Set (Item 2 of 6).",
+  "armorArmoireMedievalLaundryDressNotes": "Put on your apron and roll up your sleeves: it's time to get the laundry done! Increases Constitution by <%= con %>. Enchanted Armoire: Medieval Launderers Set (Item 2 of 6).",
+  "armorArmoireBathtubText": "Bathtub",
+  "armorArmoireBathtubNotes": "Time for a little R&R? Here's your own personal bathtub -- and a guarantee that the water is always the right temperature! Increases Constitution by <%= con %>. Enchanted Armoire: Bubble Bath Set (Item 2 of 4).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1876,6 +1880,8 @@
   "headArmoireMedievalLaundryCapNotes": "It's not quite a thinking cap, but for laundry, it will do... Increases Intelligence by <%= int %>. Enchanted Armoire: Medieval Launderers Set (Item 3 of 6).",
   "headArmoireMedievalLaundryHatText": "Laundry Hat",
   "headArmoireMedievalLaundryHatNotes": "It's not quite a thinking cap, but for laundry, it will do... Increases Intelligence by <%= int %>. Enchanted Armoire: Medieval Launderers Set (Item 4 of 6).",
+  "headArmoireRubberDuckyText": "Rubber Ducky",
+  "headArmoireRubberDuckyNotes": "The perfect companion for an indulgent spa day! Also surprisingly knowledgeable about a range of software issues. Increases Intelligence by <%= int %>. Enchanted Armoire: Bubble Bath Set (Item 1 of 4).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -2226,6 +2232,8 @@
   "shieldArmoireBlueCottonCandyFoodNotes": "A sweet treat for the pets with a sweet tooth. But who will like it best? Increases Constitution by <%= con %>. Enchanted Armoire: Pet Food Set (Item 9 of 10).",
   "shieldArmoireMedievalLaundryText": "Dirty Laundry",
   "shieldArmoireMedievalLaundryNotes": "It's going to be tough to get this clean, but you already know you can do anything. Increases Perception by <%= per %>. Enchanted Armoire: Medieval Launderers Set (Item 6 of 6).",
+  "shieldArmoireBouncyBubblesText": "Bouncy Bubbles",
+  "shieldArmoireBouncyBubblesNotes": "Complete your relaxing bath with these exuberant bubbles! Increases Strength by <%= str %>. Enchanted Armoire: Bubble Bath Set (Item 4 of 4).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
