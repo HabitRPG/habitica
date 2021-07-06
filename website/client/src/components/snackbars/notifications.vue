@@ -118,7 +118,7 @@ export default {
   methods: {
     debug (...args) {
       if (this.debugMode) {
-        console.info(...args);
+        console.info(...args); // eslint-disable-line no-console
       }
     },
     notificationRemoved ($event) {
