@@ -13,7 +13,7 @@
       {{ item.text }}
     </h4>
     <div
-      v-if="item.locked && item.key === 'lostMasterclasser1'"
+      v-if="item.locked && item.key.startsWith('lostMasterclasser')"
       class="popover-content-text"
     >
       {{ $t('questUnlockLostMasterclasser') }}

@@ -8,8 +8,18 @@ import isPinned from './isPinned';
 import isFreeRebirth from './isFreeRebirth';
 import getOfficialPinnedItems from './getOfficialPinnedItems';
 
+function userAbleToStartMasterclasser (user) {
+  return user.achievements.quests.dilatoryDistress3
+    && user.achievements.quests.mayhemMistiflying3
+    && user.achievements.quests.stoikalmCalamity3
+    && user.achievements.quests.taskwoodsTerror3;
+}
+
 function lockQuest (quest, user) {
-  if (quest.key === 'lostMasterclasser1') return !(user.achievements.quests.dilatoryDistress3 && user.achievements.quests.mayhemMistiflying3 && user.achievements.quests.stoikalmCalamity3 && user.achievements.quests.taskwoodsTerror3);
+  if (quest.key === 'lostMasterclasser1') return !userAbleToStartMasterclasser(user);
+  if (quest.key === 'lostMasterclasser2' || quest.key === 'lostMasterclasser3' || quest.key === 'lostMasterclasser4') {
+    return !(userAbleToStartMasterclasser(user) && user.achievements.quests[quest.previous]);
+  }
   if (quest.lvl && user.stats.lvl < quest.lvl) return true;
   if (quest.unlockCondition && (quest.key === 'moon1' || quest.key === 'moon2' || quest.key === 'moon3')) {
     return user.loginIncentives < quest.unlockCondition.incentiveThreshold;
