@@ -211,6 +211,7 @@
     "hatchingPotionGlow": "que Brilha-no-Escuro",
     "hatchingPotionFrost": "Geada",
     "hatchingPotionIcySnow": "de Gelo de Nevasca",
+    "hatchingPotionSunset": "do Pôr do Sol",
     "hatchingPotionNotes": "Use-a em um ovo e ele chocará como um mascote <%= potText(locale) %>.",
     "premiumPotionAddlNotes": "Não utilizável em ovos de mascote de missões. Disponível para compra até <%= date(locale) %>.",
     "foodMeat": "Carne",
