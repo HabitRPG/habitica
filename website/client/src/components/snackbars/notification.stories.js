@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { storiesOf } from '@storybook/vue';
-import { boolean, number, withKnobs } from '@storybook/addon-knobs';
+import { boolean, withKnobs } from '@storybook/addon-knobs';
 
 import Notification from './notification';
 import Notifications from './notifications';
@@ -140,7 +140,6 @@ stories
         <button @click="streak('Streak')">Streak</button>
       
         <Notifications :prevent-queue="preventQueue"
-                       :delay-delete-and-new="delayBetweenDeleteAndNew"
                        :debug-mode="debugMode"
                        :style="{outline: showBounds ? '1px solid green': ''}">
         </Notifications>
@@ -152,9 +151,6 @@ stories
       },
       preventQueue: {
         default: boolean('prevent removing', false),
-      },
-      delayBetweenDeleteAndNew: {
-        default: number('delay between delete and new', 60),
       },
       debugMode: {
         default: boolean('debug mode', true),

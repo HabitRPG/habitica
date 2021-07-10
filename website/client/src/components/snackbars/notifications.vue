@@ -60,16 +60,13 @@ import notification from './notification';
 
 const amountOfVisisbleNotifications = 2;
 const removalInterval = 2500;
+const delayDeleteAndNew = 60;
 
 export default {
   props: {
     preventQueue: {
       type: Boolean,
       default: false,
-    },
-    delayDeleteAndNew: {
-      type: Number,
-      default: 60,
     },
     debugMode: {
       type: Boolean,
@@ -148,7 +145,7 @@ export default {
             this.triggerFillTwice();
 
             this.triggerRemovalTimerIfAllowed();
-          }, this.delayDeleteAndNew);
+          }, delayDeleteAndNew);
         }
       }
     },
@@ -219,18 +216,13 @@ export default {
     },
     triggerFillTwice () {
       // this method is triggered once the first notifications come in
+      this.fillVisibleNotifications(this.notificationStore);
 
-      // first notification
+      // 2nd needs to be added at a later time
       setTimeout(() => {
-        this.debug('fill first');
+        this.debug('fill 2nd');
         this.fillVisibleNotifications(this.notificationStore);
-
-        // 2nd needs to be added at a later time
-        setTimeout(() => {
-          this.debug('fill 2nd');
-          this.fillVisibleNotifications(this.notificationStore);
-        }, 250);
-      }, 250); // to wait for additional notifications to fill up
+      }, delayDeleteAndNew);
     },
     triggerRemovalTimerIfAllowed () {
       // this is only for storybook
