@@ -1,7 +1,7 @@
-import { sleepAsync } from '../../common/script/libs/sleepAsync';
+import common from '../../common';
 
 export default async function (seconds = 1) {
   const milliseconds = seconds * 1000;
 
-  return sleepAsync(milliseconds);
+  return common.sleepAsync(milliseconds);
 }
