@@ -1,17 +1,23 @@
 <template>
-  <div class="notifications"
-       :class="notificationsTopPosClass"
-       :style="{'--current-scrollY': notificationTopY}">
-    <transition-group name="notifications"
-                      class="animations-holder"
-                      appear>
-      <notification v-for="(notification, index) in visibleNotifications"
-                    v-bind:key="notification.uuid"
-                    :notification="notification"
-                    class="notification-item"
-                    :visibleAmount="index"
-                    @clicked="notificationRemoved(notification)"
-                    @hidden="notificationRemoved($event)" />
+  <div
+    class="notifications"
+    :class="notificationsTopPosClass"
+    :style="{'--current-scrollY': notificationTopY}"
+  >
+    <transition-group
+      name="notifications"
+      class="animations-holder"
+      appear
+    >
+      <notification
+        v-for="(notification, index) in visibleNotifications"
+        :key="notification.uuid"
+        :notification="notification"
+        class="notification-item"
+        :visible-amount="index"
+        @clicked="notificationRemoved(notification)"
+        @hidden="notificationRemoved($event)"
+      />
     </transition-group>
   </div>
 </template>
@@ -57,12 +63,16 @@
 <script>
 import { mapState } from '@/libs/store';
 import notification from './notification';
+import { sleepAsync } from '../../../../common/script/libs/sleepAsync';
 
-const amountOfVisisbleNotifications = 2;
+const amountOfVisisbleNotifications = 4;
 const removalInterval = 2500;
 const delayDeleteAndNew = 60;
 
 export default {
+  components: {
+    notification,
+  },
   props: {
     preventQueue: {
       type: Boolean,
@@ -81,9 +91,6 @@ export default {
       removalIntervalId: null,
       notificationTopY: '0px',
     };
-  },
-  components: {
-    notification,
   },
   computed: {
     ...mapState({
@@ -111,6 +118,31 @@ export default {
       }
       return scrollPosToCheck;
     },
+  },
+  watch: {
+    notificationStore (notifications) {
+      this.debug('notifications changed', {
+        notifications: notifications.length,
+        immediately: this.allowedToTriggerImmediately,
+      });
+
+      // to fill it the first time or once the range of notifications are done
+      if (this.allowedToTriggerImmediately) {
+        this.triggerFillUntilFull();
+
+        this.allowedToTriggerImmediately = false;
+
+        this.triggerRemovalTimerIfAllowed();
+      }
+    },
+  },
+  mounted () {
+    window.addEventListener('scroll', this.updateScrollY, { passive: true });
+    this.updateScrollY();
+  },
+
+  destroyed () {
+    window.removeEventListener('scroll', this.updateScrollY, { passive: true });
   },
   methods: {
     debug (...args) {
@@ -142,7 +174,7 @@ export default {
           this.debug('start timeout to fill again');
           setTimeout(() => {
             this.debug('before fill new notifications');
-            this.triggerFillTwice();
+            this.triggerFillUntilFull();
 
             this.triggerRemovalTimerIfAllowed();
           }, delayDeleteAndNew);
@@ -214,15 +246,13 @@ export default {
         allowedToFillAgain: this.allowedToFillAgain,
       });
     },
-    triggerFillTwice () {
-      // this method is triggered once the first notifications come in
-      this.fillVisibleNotifications(this.notificationStore);
-
-      // 2nd needs to be added at a later time
-      setTimeout(() => {
-        this.debug('fill 2nd');
+    async triggerFillUntilFull () {
+      for (let i = 0; i < amountOfVisisbleNotifications; i += 1) {
+        this.debug(`fill ${i}`);
         this.fillVisibleNotifications(this.notificationStore);
-      }, delayDeleteAndNew);
+
+        await sleepAsync(delayDeleteAndNew); // eslint-disable-line no-await-in-loop
+      }
     },
     triggerRemovalTimerIfAllowed () {
       // this is only for storybook
@@ -261,31 +291,6 @@ export default {
 
       this.notificationTopY = `${this.notificationBannerHeight - topY}px`;
     },
-  },
-  watch: {
-    notificationStore (notifications) {
-      this.debug('notifications changed', {
-        notifications: notifications.length,
-        immediately: this.allowedToTriggerImmediately,
-      });
-
-      // to fill it the first time or once the range of notifications are done
-      if (this.allowedToTriggerImmediately) {
-        this.triggerFillTwice();
-
-        this.allowedToTriggerImmediately = false;
-
-        this.triggerRemovalTimerIfAllowed();
-      }
-    },
-  },
-  mounted () {
-    window.addEventListener('scroll', this.updateScrollY, { passive: true });
-    this.updateScrollY();
-  },
-
-  destroyed () {
-    window.removeEventListener('scroll', this.updateScrollY, { passive: true });
   },
 };
 </script>

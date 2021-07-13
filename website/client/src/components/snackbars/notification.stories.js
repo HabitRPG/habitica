@@ -165,6 +165,10 @@ stories
         this.text('notification!!');
         this.exp(125);
         this.damage(-2);
+
+        this.text('notification!!');
+        this.exp(125);
+        this.damage(-2);
       },
     },
   }));
