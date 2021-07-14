@@ -83,6 +83,7 @@ async function processEmailAddress (email) {
       $or: [
         { 'auth.facebook.emails.value': email },
         { 'auth.google.emails.value': email },
+        { 'auth.apple.emails.value': email },
       ],
     },
     { _id: 1, apiToken: 1, auth: 1 },
