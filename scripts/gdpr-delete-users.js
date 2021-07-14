@@ -31,7 +31,6 @@ async function deleteAmplitudeData (userId, email) {
       console.log(`${userId} (${email}) Amplitude response: ${response.status} ${response.statusText}`);
     }
   }
-  await new Promise(resolve => setTimeout(resolve, 1000));
 }
 
 async function deleteHabiticaData (user, email) {
@@ -97,6 +96,7 @@ async function processEmailAddress (email) {
     return console.log(`No users found with email address ${email}`);
   }
 
+  await new Promise(resolve => setTimeout(resolve, 1000));
   return Promise.all(users.map(user => (async () => {
     await deleteAmplitudeData(user._id, email); // eslint-disable-line no-await-in-loop
     await deleteHabiticaData(user, email); // eslint-disable-line no-await-in-loop
