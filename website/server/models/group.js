@@ -1141,32 +1141,26 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const group = this;
   const quest = questScrolls[group.quest.key];
   const itemsFound = {};
-
-  const possibleItemKeys = Object.keys(quest.collect)
-    .filter(key => group.quest.progress.collect[key] < quest.collect[key].count);
-
-  const possibleItemsToCollect = possibleItemKeys.reduce((accumulator, current, index) => {
-    accumulator[possibleItemKeys[index]] = quest.collect[current];
-    return accumulator;
-  }, {});
-
-  _.times(progress.collectedItems, () => {
-    const item = shared.randomVal(possibleItemsToCollect, { key: true });
-
-    if (group.quest.progress.collect[item] < quest.collect[item].count) {
-      if (!itemsFound[item]) {
-        itemsFound[item] = 0;
-      }
-      itemsFound[item] += 1;
-      group.quest.progress.collect[item] += 1;
-    }
+  Object.keys(quest.collect).forEach(key => {
+    itemsFound[key] = 0;
   });
 
-  // Add 0 for all items not found
-  Object.keys(this.quest.progress.collect).forEach(item => {
-    if (!itemsFound[item]) {
-      itemsFound[item] = 0;
+  // Create an array of item names, one item name per item that still needs to
+  // be collected so that items are found proportionally to how many are needed.
+  const remainingItems = [].concat(...Object.keys(quest.collect).map(key => {
+    let count = quest.collect[key].count - group.quest.progress.collect[key];
+    if (count < 0) { // This should never happen, but just in case.
+      count = 0;
     }
+    return Array(count).fill(key);
+  }));
+
+  // slice() will only grab what is available if requested slice is larger than
+  // the array, so we don't need to worry about overfilling quest items.
+  const collectedItems = _.shuffle(remainingItems).slice(0, progress.collectedItems);
+  collectedItems.forEach(item => {
+    itemsFound[item] += 1;
+    group.quest.progress.collect[item] += 1;
   });
 
   let foundText = _.reduce(itemsFound, (m, v, k) => {
