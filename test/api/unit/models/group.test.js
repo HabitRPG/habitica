@@ -608,7 +608,7 @@ describe('Group Model', () => {
 
           party = await Group.findOne({ _id: party._id });
 
-          // There is a very small chance (~1 in 500K) that fireCoral will
+          // There is a very small chance (~1 in 500K) that blueFins will
           // be 19 or 20 due to randomness and not any bug. In these cases, this
           // test doesn't actually verify anything, but it's rare enough that it
           // shouldn't be a problem, and to make it deterministic would require

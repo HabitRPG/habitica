@@ -1149,14 +1149,14 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   // be collected so that items are found proportionally to how many are needed.
   const remainingItems = [].concat(...Object.keys(quest.collect).map(item => {
     let count = quest.collect[item].count - (group.quest.progress.collect[item] || 0);
-    if (count < 0) { // This should never happen, but just in case.
+    if (count < 0) { // This could only happen if there's a bug, but just in case.
       count = 0;
     }
     return Array(count).fill(item);
   }));
 
-  // slice() will only grab what is available if requested slice is larger than
-  // the array, so we don't need to worry about overfilling quest items.
+  // slice() will grab only what is available even if requested slice is larger
+  // than the array, so we don't need to worry about overfilling quest items.
   const collectedItems = _.shuffle(remainingItems).slice(0, progress.collectedItems);
   collectedItems.forEach(item => {
     itemsFound[item] += 1;
