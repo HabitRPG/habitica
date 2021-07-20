@@ -1141,18 +1141,18 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   const group = this;
   const quest = questScrolls[group.quest.key];
   const itemsFound = {};
-  Object.keys(quest.collect).forEach(key => {
-    itemsFound[key] = 0;
+  Object.keys(quest.collect).forEach(item => {
+    itemsFound[item] = 0;
   });
 
   // Create an array of item names, one item name per item that still needs to
   // be collected so that items are found proportionally to how many are needed.
-  const remainingItems = [].concat(...Object.keys(quest.collect).map(key => {
-    let count = quest.collect[key].count - group.quest.progress.collect[key];
+  const remainingItems = [].concat(...Object.keys(quest.collect).map(item => {
+    let count = quest.collect[item].count - (group.quest.progress.collect[item] || 0);
     if (count < 0) { // This should never happen, but just in case.
       count = 0;
     }
-    return Array(count).fill(key);
+    return Array(count).fill(item);
   }));
 
   // slice() will only grab what is available if requested slice is larger than
@@ -1180,22 +1180,20 @@ schema.methods._processCollectionQuest = async function processCollectionQuest (
   });
   group.markModified('quest.progress.collect');
 
-  // Still needs completing
-  const needsCompleted = _.find(quest.collect, (v, k) => group.quest.progress.collect[k] < v.count);
+  const promises = [group.save(), foundChat.save()];
 
-  if (needsCompleted) {
-    return Promise.all([group.save(), foundChat.save()]);
+  const questFinished = collectedItems.length === remainingItems.length;
+  if (questFinished) {
+    await group.finishQuest(quest);
+    const allItemsFoundChat = group.sendChat({
+      message: `\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``,
+      info: {
+        type: 'all_items_found',
+      },
+    });
+
+    promises.push(allItemsFoundChat.save());
   }
-
-  await group.finishQuest(quest);
-  const allItemsFoundChat = group.sendChat({
-    message: `\`${shared.i18n.t('chatItemQuestFinish', 'en')}\``,
-    info: {
-      type: 'all_items_found',
-    },
-  });
-
-  const promises = [group.save(), foundChat.save(), allItemsFoundChat.save()];
 
   return Promise.all(promises);
 };
