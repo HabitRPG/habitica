@@ -488,11 +488,12 @@ describe('Group Model', () => {
           expect(party.quest.progress.collect.soapBars).to.eq(5);
         });
 
-        it('does not drop an item if not need when on a collection quest', async () => {
+        it('does not apply excess items to the quest progress', async () => {
           party.quest.key = 'dilatoryDistress1';
           party.quest.active = false;
           await party.startQuest(questLeader);
-          party.quest.progress.collect.fireCoral = 20;
+          party.quest.progress.collect.fireCoral = 19;
+          party.quest.progress.collect.blueFins = 19;
           await party.save();
 
           await Group.processQuestProgress(participatingMember, progress);
@@ -500,6 +501,27 @@ describe('Group Model', () => {
           party = await Group.findOne({ _id: party._id });
 
           expect(party.quest.progress.collect.fireCoral).to.eq(20);
+          expect(party.quest.progress.collect.blueFins).to.eq(20);
+        });
+
+        it('does not drop items when an item type is full', async () => {
+          party.quest.key = 'dilatoryDistress1';
+          party.quest.active = false;
+          await party.startQuest(questLeader);
+          party.quest.progress.collect.fireCoral = 19;
+          await party.save();
+
+          participatingMember.party.quest.progress.collectedItems = 20;
+          await Group.processQuestProgress(participatingMember, progress);
+
+          party = await Group.findOne({ _id: party._id });
+
+          // There is a ~10E-6 chance that fireCoral will be 19 or blueFins
+          // will be 20. In both cases, this test does not verify anything,
+          // but it's rare enough that it makes sense to suppress a failiure.
+          // If deterministic random is added, please update this spec.
+          expect(party.quest.progress.collect.fireCoral).to.be.within(19, 20);
+          expect(party.quest.progress.collect.blueFins).to.be.within(19, 20);
         });
 
         it('sends a chat message about progress', async () => {
