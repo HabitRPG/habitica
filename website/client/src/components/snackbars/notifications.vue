@@ -30,6 +30,9 @@
     z-index: 1400; // 1400 is above modal backgrounds
 
     top: var(--current-scrollY);
+
+    justify-content: flex-end;
+    display: flex;
   }
 
   .animations-holder {
@@ -51,12 +54,13 @@
 
   .notifications-leave-active {
     position: absolute;
+    right: 0;
   }
 
   .notifications-enter,
   .notifications-leave-to {
     opacity: 0;
-    transform: translateY(0);
+    right: 0;
   }
 </style>
 

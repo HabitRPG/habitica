@@ -20,43 +20,63 @@ stories
         <div style="display: flex; flex-wrap: wrap; align-items: flex-start">
           <Notification v-for="notification of notifications"
                         :notification="notification"
-                        :style="{outline: showBounds ? '1px solid green': ''}">
+                        :style="{outline: showBounds ? '1px solid green': ''}"
+                        style="margin-right: 1rem">
             
           </Notification> <br/>
         </div>
       </div>
     `,
+
     data () {
       const notifications = [];
 
       notifications.push({
         type: 'hp',
         sign: '+',
-        text: '2',
+        text: '+2',
       });
 
       notifications.push({
         type: 'hp',
         sign: '-',
-        text: '2',
+        text: '-2',
+      });
+
+      notifications.push({
+        type: 'mp',
+        sign: '+',
+        text: '+2',
       });
 
       notifications.push({
         type: 'mp',
         sign: '-',
-        text: '2',
+        text: '-2',
       });
 
       notifications.push({
         type: 'xp',
         sign: '+',
-        text: '12',
+        text: '+12',
+      });
+
+      notifications.push({
+        type: 'xp',
+        sign: '-',
+        text: '-12',
       });
 
       notifications.push({
         type: 'gp',
         sign: '+',
-        text: '12',
+        text: '+12',
+      });
+
+      notifications.push({
+        type: 'gp',
+        sign: '-',
+        text: '-12',
       });
 
       notifications.push({
@@ -163,10 +183,13 @@ stories
     methods: {
       addNotification () {
         this.text('notification!!');
+        this.text('notification2!!');
+        this.text('notification3!!');
+        this.text('notification4!!');
         this.exp(125);
         this.damage(-2);
 
-        this.text('notification!!');
+        this.text('notification5!!');
         this.exp(125);
         this.damage(-2);
       },

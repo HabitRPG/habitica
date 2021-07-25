@@ -1,98 +1,103 @@
 <template>
-  <div
-    class="notification callout pt-0"
-    :class="classes"
-    @click="handleOnClick()"
-  >
-    <div
-      v-if="notification.type === 'error'"
-      class="row"
-    >
-      <div class="text col-12">
-        <div v-html="notification.text"></div>
+  <div class="notification-animation-holder">
+    <div class="notification-holder"
+         @click="handleOnClick()">
+      <div v-if="notification.type === 'drop'"
+           class="icon-item">
+        <div :class="notification.icon" class="icon-negative-margin"></div>
       </div>
-    </div>
-    <div
-      v-if="notification.type === 'streak'"
-      class="row"
-    >
-      <div class="text col-7 offset-1">
-        <div>{{ message }}</div>
-      </div>
-      <div class="icon col-4">
+
+      <div
+        class="notification callout pt-0"
+        :class="classes"
+      >
         <div
-          class="svg-icon"
-          v-html="icons.gold"
-        ></div>
-        <div v-html="notification.text"></div>
-      </div>
-    </div>
-    <div
-      v-if="['hp', 'gp', 'xp', 'mp'].indexOf(notification.type) !== -1"
-      class="row"
-    >
-      <div class="text col-7 offset-1">
-        <div>{{ message }}</div>
-      </div>
-      <div class="icon col-4 d-flex align-items-center">
+          v-if="notification.type === 'error'"
+          class="row"
+        >
+          <div class="text">
+            <div v-html="notification.text"></div>
+          </div>
+        </div>
         <div
-          v-if="notification.type === 'hp'"
-          class="svg-icon"
-          v-html="icons.health"
-        ></div>
+          v-if="notification.type === 'streak'"
+          class="row"
+        >
+          <div class="text">
+            <div>{{ message }}</div>
+          </div>
+          <div class="icon d-flex align-items-center">
+            <div
+              class="svg-icon"
+              v-html="icons.gold"
+            ></div>
+            <div class="icon-text" v-html="notification.text"></div>
+          </div>
+        </div>
         <div
-          v-if="notification.type === 'gp'"
-          class="svg-icon"
-          v-html="icons.gold"
-        ></div>
+          v-if="['hp', 'gp', 'xp', 'mp'].indexOf(notification.type) !== -1"
+          class="row"
+        >
+          <div class="text">
+            <div>{{ message }}</div>
+          </div>
+          <div class="icon d-flex align-items-center">
+            <div
+              v-if="notification.type === 'hp'"
+              class="svg-icon"
+              v-html="icons.health"
+            ></div>
+            <div
+              v-if="notification.type === 'gp'"
+              class="svg-icon"
+              v-html="icons.gold"
+            ></div>
+            <div
+              v-if="notification.type === 'xp'"
+              class="svg-icon"
+              v-html="icons.star"
+            ></div>
+            <div
+              v-if="notification.type === 'mp'"
+              class="svg-icon"
+              v-html="icons.mana"
+            ></div>
+            <div class="icon-text" v-html="notification.text"></div>
+          </div>
+        </div>
         <div
-          v-if="notification.type === 'xp'"
-          class="svg-icon"
-          v-html="icons.star"
-        ></div>
+          v-if="notification.type === 'damage'"
+          class="row"
+        >
+          <div class="text">
+            <div>{{ message }}</div>
+          </div>
+          <div class="icon d-flex align-items-center">
+            <div
+              class="svg-icon"
+              v-html="icons.sword"
+            ></div>
+            <div class="icon-text" v-html="notification.text"></div>
+          </div>
+        </div>
         <div
-          v-if="notification.type === 'mp'"
-          class="svg-icon"
-          v-html="icons.mana"
-        ></div>
-        <div v-html="notification.text"></div>
-      </div>
-    </div>
-    <div
-      v-if="notification.type === 'damage'"
-      class="row"
-    >
-      <div class="text col-7 offset-1">
-        <div>{{ message }}</div>
-      </div>
-      <div class="icon col-4">
+          v-if="['info', 'success', 'crit', 'lvl'].indexOf(notification.type) !== -1"
+          class="row"
+        >
+          <div class="text">
+            <div v-html="notification.text"></div>
+          </div>
+        </div>
         <div
-          class="svg-icon"
-          v-html="icons.sword"
-        ></div>
-        <div v-html="notification.text"></div>
-      </div>
-    </div>
-    <div
-      v-if="['info', 'success', 'crit', 'lvl'].indexOf(notification.type) !== -1"
-      class="row"
-    >
-      <div class="text col-12">
-        <div v-html="notification.text"></div>
-      </div>
-    </div>
-    <div
-      v-if="notification.type === 'drop'"
-      class="row"
-    >
-      <div class="col-3">
-        <div class="icon-item">
-          <div :class="notification.icon"></div>
+          v-if="notification.type === 'drop'"
+          class="row"
+        >
+          <div class="text">
+            <div v-html="notification.text"></div>
+          </div>
         </div>
       </div>
-      <div class="text col-8">
-        <div v-html="notification.text"></div>
-      </div>
+
     </div>
   </div>
 </template>
@@ -100,14 +105,27 @@
 <style lang="scss" scoped>
 @import '~@/assets/scss/colors.scss';
 
+  .notification-holder {
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 1rem;
+    align-items: center;
+    justify-content: flex-end;
+    width: 330px;
+  }
+
   .notification {
-    border-radius: 30px;
-    background-color: #24cc8f;
+    min-height: 40px;
+    max-width: 330px;
+    border-radius: 4px;
+    background-color: $green-100;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     color: white;
-    width: 300px;
-    margin-left: 1em;
-    margin-bottom: 1em;
+    margin-left: 1rem;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    line-height: 1.71;
 
     transition: opacity .5s, top .5s;
 
@@ -117,38 +135,36 @@
   }
 
   .info {
-    background-color: #46a7d9;
-    padding-top: .5em;
+    background-color: $blue-50;
+    padding-top: .5rem;
   }
 
   .error {
-    background-color: #f74e52;
-    border-radius: 60px;
-    padding: 10px 5px;
-    color: #fff;
+    background-color: $red-50;
+    color: $white;
   }
 
   .negative {
-    background-color: #f74e52;
+    background-color: $red-50;
   }
 
   .text {
     text-align: center;
-    padding: .5em 1.5em;
+    padding: .5rem 0;
   }
 
   .svg-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: .5em;
+    width: 24px;
+    height: 24px;
+    margin: .5rem;
   }
 
   .hp .icon {
-    color: #f74e52;
+    color: $red-50;
   }
 
   .mp .icon {
-    color: #2995cd;
+    color: $blue-10;
   }
 
   .damage .icon {
@@ -156,11 +172,6 @@
   }
 
   .icon {
-    background: #fff;
-    color: #ffa623;
-    border-radius: 0 1000px 1000px 0;
-    padding: .5em;
-
     div {
       display: inline-block;
       vertical-align: bottom;
@@ -168,15 +179,31 @@
   }
 
   .drop {
-    background-color: #4e4a57;
+    background-color: $gray-50;
   }
 
   .icon-item {
-    width: 64px;
-    height: 64px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
-    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    padding: 11px;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+    background-color: $white;
+  }
+
+  .icon-text {
+    color: $white;
+    font-weight: bold;
+  }
+
+  .icon-negative-margin {
+    margin-left: -75%;
+    margin-top: -75%;
+  }
+
+  .notification-animation-holder {
+    justify-content: flex-end;
+    display: flex;
   }
 </style>
 
