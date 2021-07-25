@@ -19,18 +19,16 @@
     </h2>
     <p v-html="$t('commGuidePara015')"></p>
     <p v-html="$t('commGuidePara016')"></p>
+    <p v-html="$t('commGuidePara017')"></p>
+    <ul>
+      <li v-html="$t('commGuideList01A')"></li>
+      <li v-html="$t('commGuideList01B')"></li>
+      <li v-html="$t('commGuideList01C')"></li>
+      <li v-html="$t('commGuideList01D')"></li>
+      <li v-html="$t('commGuideList01E')"></li>
+      <li v-html="$t('commGuideList01F')"></li>
+    </ul>
     <div class="media align-items-center">
-      <div class="media-body">
-        <p v-html="$t('commGuidePara017')"></p>
-        <ul>
-          <li v-html="$t('commGuideList01A')"></li>
-          <li v-html="$t('commGuideList01B')"></li>
-          <li v-html="$t('commGuideList01C')"></li>
-          <li v-html="$t('commGuideList01D')"></li>
-          <li v-html="$t('commGuideList01E')"></li>
-          <li v-html="$t('commGuideList01F')"></li>
-        </ul>
-      </div>
       <img src="~@/assets/images/community-guidelines/publicSpaces.png">
     </div>
     <ul>
