@@ -152,7 +152,6 @@
       </li>
       <li v-html="$t('commGuideList10C')"></li>
       <li v-html="$t('commGuideList10D')"></li>
-      <li v-html="$t('commGuideList10E')"></li>
       <li v-html="$t('commGuideList10F')"></li>
     </ul>
     <h4>{{ $t('commGuideHeadingMinorConsequences') }}</h4>
