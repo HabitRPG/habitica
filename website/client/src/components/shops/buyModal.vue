@@ -82,6 +82,7 @@
             <div class="box">
               <input
                 v-model.number="selectedAmountToBuy"
+                class="form-control"
                 type="number"
                 min="0"
                 step="1"
