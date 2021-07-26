@@ -63,7 +63,7 @@
     "ps-tree": "^1.0.0",
     "rate-limiter-flexible": "^2.2.2",
     "redis": "^3.1.2",
-    "regenerator-runtime": "^0.13.7",
+    "regenerator-runtime": "^0.13.9",
     "remove-markdown": "^0.3.0",
     "rimraf": "^3.0.2",
     "short-uuid": "^4.2.0",
