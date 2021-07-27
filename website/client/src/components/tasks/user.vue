@@ -160,30 +160,10 @@
             </div>
           </div>
         </div>
-        <div class="create-task-area d-flex">
-          <transition name="slide-tasks-btns">
-            <div
-              v-if="openCreateBtn"
-              class="d-flex"
-            >
-              <div
-                v-for="type in columns"
-                :key="type"
-                v-b-tooltip.hover.bottom="$t(type)"
-                class="create-task-btn diamond-btn"
-                @click="createTask(type)"
-              >
-                <div
-                  class="svg-icon"
-                  :class="`icon-${type}`"
-                  v-html="icons[type]"
-                ></div>
-              </div>
-            </div>
-          </transition>
+        <div class="create-task-area">
           <div
             id="create-task-btn"
-            class="create-btn diamond-btn btn btn-success"
+            class="create-btn diamond-btn btn"
             :class="{open: openCreateBtn}"
             @click="openCreateBtn = !openCreateBtn"
           >
@@ -191,14 +171,30 @@
               class="svg-icon"
               v-html="icons.positive"
             ></div>
+            <div class="ml-2"> {{ $t('addTask') }} </div>
           </div>
-          <b-tooltip
-            v-if="!openCreateBtn"
-            target="create-task-btn"
-            placement="bottom"
+          <div
+            v-if="openCreateBtn"
+            class="dropdown"
           >
-            {{ $t('addTask') }}
-          </b-tooltip>
+            <div
+              v-for="type in columns"
+              :key="type"
+              @click="createTask(type)"
+              class="dropdown-item d-flex pl-2 py-1"
+            >
+              <div class="w-25 d-flex align-items-center justify-content-center">
+                <div
+                  class="svg-icon m-auto"
+                  :class="`icon-${type}`"
+                  v-html="icons[type]"
+                ></div>
+              </div>
+              <div class="w-75 ml-1">
+                {{ $t(type) }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row tasks-columns">
@@ -345,7 +341,7 @@
   }
 
   .create-task-area {
-    top: -2.5rem;
+    top: 1px;
   }
 
   .drag {

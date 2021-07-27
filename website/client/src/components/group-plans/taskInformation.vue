@@ -25,32 +25,17 @@
         >
       </div>
       <div
-        v-if="canCreateTasks"
         class="create-task-area d-flex"
       >
-        <transition name="slide-tasks-btns">
-          <div
-            v-if="openCreateBtn"
-            class="d-flex"
-          >
-            <div
-              v-for="type in columns"
-              :key="type"
-              v-b-tooltip.hover.bottom="$t(type)"
-              class="create-task-btn diamond-btn"
-              @click="createTask(type)"
-            >
-              <div
-                class="svg-icon"
-                :class="`icon-${type}`"
-                v-html="icons[type]"
-              ></div>
-            </div>
-          </div>
-        </transition>
+        <div
+          class="day-start d-flex align-items-center"
+          v-html="$t('dayStart', { startTime: groupStartTime } )"
+        >
+        </div>
         <div
           id="create-task-btn"
-          class="create-btn diamond-btn btn btn-success"
+          v-if="canCreateTasks"
+          class="create-btn diamond-btn btn"
           :class="{open: openCreateBtn}"
           @click="openCreateBtn = !openCreateBtn"
         >
@@ -58,14 +43,30 @@
             class="svg-icon"
             v-html="icons.positive"
           ></div>
+          <div class="ml-2"> {{ $t('addTask') }} </div>
         </div>
-        <b-tooltip
-          v-if="!openCreateBtn"
-          target="create-task-btn"
-          placement="bottom"
+        <div
+          v-if="openCreateBtn"
+          class="dropdown"
         >
-          {{ $t('create') }}
-        </b-tooltip>
+          <div
+            v-for="type in columns"
+            :key="type"
+            @click="createTask(type)"
+            class="dropdown-item d-flex pl-2 py-1"
+          >
+            <div class="w-25 d-flex align-items-center justify-content-center">
+              <div
+                class="svg-icon m-auto"
+                :class="`icon-${type}`"
+                v-html="icons[type]"
+              ></div>
+            </div>
+            <div class="w-75 ml-1">
+              {{ $t(type) }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -95,11 +96,20 @@
   }
 
   .create-task-area {
-    top: 1rem;
-  }
+    top: 1.5rem;
+    right: 2.25rem;
 
-  .tasks-navigation {
-    margin-bottom: 40px;
+    .day-start {
+      height: 2rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2px;
+      color: $gray-100;
+      background-color: $gray-600;
+    }
+
+    .dropdown {
+      margin-right: 0.25rem;
+    }
   }
 
   .positive {
@@ -116,6 +126,7 @@ import Vue from 'vue';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import groupBy from 'lodash/groupBy';
+import moment from 'moment';
 import taskDefaults from '@/../../common/script/libs/taskDefaults';
 import TaskColumn from '../tasks/column';
 import TaskModal from '../tasks/taskModal';
@@ -206,6 +217,15 @@ export default {
       if (!this.group) return false;
       return (this.group.leader && this.group.leader._id === this.user._id)
         || (this.group.managers && Boolean(this.group.managers[this.user._id]));
+    },
+    groupStartTime () {
+      if (!this.group || !this.group.cron) return null;
+      const { dayStart, timezoneOffset } = this.group.cron;
+      const meridian = dayStart < 12 ? 'AM' : 'PM';
+      let hour = dayStart % 12;
+      if (!hour) hour = 12;
+      const timezone = moment().utcOffset(-timezoneOffset).format('Z');
+      return `${hour} ${meridian} UTC${timezone}`;
     },
   },
   watch: {

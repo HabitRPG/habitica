@@ -1,9 +1,47 @@
 .create-task-area {
   position: absolute;
-  right: 24px;
+  right: 12px;
   top: -24px;
   z-index: 998;
   align-items: center;
+
+  .dropdown {
+    border-radius: 2px;
+    box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
+    background-color: $white;
+    margin-top: 2px;
+
+    .dropdown-item:hover {
+      .svg-icon {
+        color: $purple-300;
+      }
+    }
+    .svg-icon {
+      width: 20px;
+      height: 20px;
+      color: $gray-200;
+
+      &.icon-habit {
+        width: 24px;
+        height: 16px;
+      }
+
+      &.icon-daily {
+        width: 24px;
+        height: 20px;
+      }
+
+      &.icon-todo {
+        width: 20px;
+        height: 20px;
+      }
+
+      &.icon-reward {
+        width: 24px;
+        height: 18px;
+      }
+    }
+  }
 }
 
 .slide-tasks-btns-leave-active, .slide-tasks-btns-enter-active {
@@ -18,69 +56,33 @@
 }
 
 .diamond-btn {
-  margin-left: 24px;
+  margin-left: 8px;
   background: $white;
   width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
-  box-shadow: 0 2px 2px 0 rgba($black, 0.16), 0 1px 4px 0 rgba($black, 0.12);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px 0 rgba(26, 24, 29, 0.12), 0 1px 2px 0 rgba(26, 24, 29, 0.24);
   cursor: pointer;
   color: $gray-200;
-  transform: rotate(45deg);
 
   &:hover:not(.create-btn) {
     color: $purple-400;
     box-shadow: 0 1px 8px 0 rgba($black, 0.12), 0 4px 4px 0 rgba($black, 0.16);
   }
-
-  .svg-icon {
-    width: 20px;
-    height: 20px;
-    transform: rotate(-45deg);
-
-    &.icon-habit {
-      width: 24px;
-      height: 16px;
-    }
-
-    &.icon-daily {
-      width: 21.6px;
-      height: 18px;
-    }
-
-    &.icon-todo {
-      width: 18px;
-      height: 18px;
-    }
-
-    &.icon-reward {
-      width: 23.4px;
-      height: 18px;
-    }
-  }
 }
 
 .create-btn {
   color: $white;
-  background-color: $green-100;
-  height: 48px;
-  width: 48px;
+  background-color: $purple-200;
+  height: 32px;
+  width: 112px;
 
   .svg-icon {
-    width: 16px;
-    height: 16px;
-    transform: rotate(-45deg);
-    transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
-  }
-
-  &.open {
-    background: $gray-200 !important;
-
-    .svg-icon {
-      transform: rotate(-90deg);
-    }
+    color: $purple-500;
+    width: 10px;
+    height: 10px;
   }
 }

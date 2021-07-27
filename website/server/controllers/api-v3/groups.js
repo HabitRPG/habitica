@@ -415,8 +415,13 @@ api.getGroup = {
     }
 
     // Instead of populate we make a find call manually because of https://github.com/Automattic/mongoose/issues/3833
-    const leader = await User.findById(groupJson.leader).select(nameFields).exec();
+    const leader = await User.findById(groupJson.leader).select(`${nameFields} preferences.timezoneOffset preferences.dayStart`).exec();
     if (leader) groupJson.leader = leader.toJSON({ minimize: true });
+    if (groupJson.purchased.plan.planId) {
+      groupJson.cron.timezoneOffset = leader.preferences.timezoneOffset;
+      groupJson.cron.dayStart = leader.preferences.dayStart;
+    }
+    delete groupJson.leader.preferences;
 
     res.respond(200, groupJson);
   },
