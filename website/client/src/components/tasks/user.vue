@@ -166,7 +166,7 @@
         <div class="create-task-area">
           <div
             id="create-task-btn"
-            class="create-btn diamond-btn btn"
+            class="create-btn ml-auto btn-primary diamond-btn btn"
             :class="{open: openCreateBtn}"
             @click.stop.prevent="openCreateBtn = !openCreateBtn"
             @keypress.enter="openCreateBtn = !openCreateBtn"
@@ -188,14 +188,14 @@
               @click="createTask(type)"
               class="dropdown-item d-flex pl-2 py-1"
             >
-              <div class="w-25 d-flex align-items-center justify-content-center">
+              <div class="d-flex align-items-center justify-content-center task-icon">
                 <div
                   class="svg-icon m-auto"
                   :class="`icon-${type}`"
                   v-html="icons[type]"
                 ></div>
               </div>
-              <div class="w-75 ml-1">
+              <div class="ml-1">
                 {{ $t(type) }}
               </div>
             </div>

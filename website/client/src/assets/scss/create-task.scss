@@ -6,10 +6,17 @@
   align-items: center;
 
   .dropdown {
+    width: 140px;
     border-radius: 2px;
     box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
     background-color: $white;
     margin-top: 2px;
+    position: absolute;
+    right: 0px;
+
+    .task-icon {
+      width: 35%;
+    }
 
     .dropdown-item:hover {
       .svg-icon {
@@ -17,13 +24,11 @@
       }
     }
     .svg-icon {
-      width: 20px;
-      height: 20px;
       color: $gray-200;
 
       &.icon-habit {
-        width: 24px;
-        height: 16px;
+        width: 30px;
+        height: 20px;
       }
 
       &.icon-daily {
@@ -37,8 +42,8 @@
       }
 
       &.icon-reward {
-        width: 24px;
-        height: 18px;
+        width: 26px;
+        height: 20px;
       }
     }
   }
