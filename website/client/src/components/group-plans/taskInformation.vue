@@ -1,5 +1,8 @@
 <template>
-  <div class="standard-page">
+  <div
+    class="standard-page"
+    @click="openCreateBtn ? openCreateBtn = false : null"
+  >
     <group-plan-overview-modal />
     <task-modal
       ref="taskModal"
@@ -25,45 +28,49 @@
         >
       </div>
       <div
-        class="create-task-area d-flex"
+        class="create-task-area d-flex align-items-top"
       >
         <div
-          class="day-start d-flex align-items-center"
+          class="day-start mb-auto d-flex align-items-center"
           v-html="$t('dayStart', { startTime: groupStartTime } )"
         >
         </div>
-        <div
-          id="create-task-btn"
-          v-if="canCreateTasks"
-          class="create-btn diamond-btn btn"
-          :class="{open: openCreateBtn}"
-          @click="openCreateBtn = !openCreateBtn"
-        >
+        <div>
           <div
-            class="svg-icon"
-            v-html="icons.positive"
-          ></div>
-          <div class="ml-2"> {{ $t('addTask') }} </div>
-        </div>
-        <div
-          v-if="openCreateBtn"
-          class="dropdown"
-        >
-          <div
-            v-for="type in columns"
-            :key="type"
-            @click="createTask(type)"
-            class="dropdown-item d-flex pl-2 py-1"
+            id="create-task-btn"
+            v-if="canCreateTasks"
+            class="create-btn btn-primary diamond-btn btn"
+            :class="{open: openCreateBtn}"
+            @click.stop.prevent="openCreateBtn = !openCreateBtn"
+            @keypress.enter="openCreateBtn = !openCreateBtn"
+            tabindex="0"
           >
-            <div class="w-25 d-flex align-items-center justify-content-center">
-              <div
-                class="svg-icon m-auto"
-                :class="`icon-${type}`"
-                v-html="icons[type]"
-              ></div>
-            </div>
-            <div class="w-75 ml-1">
-              {{ $t(type) }}
+            <div
+              class="svg-icon"
+              v-html="icons.positive"
+            ></div>
+            <div class="ml-2"> {{ $t('addTask') }} </div>
+          </div>
+          <div
+            v-if="openCreateBtn"
+            class="dropdown"
+          >
+            <div
+              v-for="type in columns"
+              :key="type"
+              @click="createTask(type)"
+              class="dropdown-item d-flex pl-2 py-1"
+            >
+              <div class="w-25 d-flex align-items-center justify-content-center">
+                <div
+                  class="svg-icon m-auto"
+                  :class="`icon-${type}`"
+                  v-html="icons[type]"
+                ></div>
+              </div>
+              <div class="w-75 ml-1">
+                {{ $t(type) }}
+              </div>
             </div>
           </div>
         </div>
@@ -105,10 +112,6 @@
       border-radius: 2px;
       color: $gray-100;
       background-color: $gray-600;
-    }
-
-    .dropdown {
-      margin-right: 0.25rem;
     }
   }
 
@@ -221,11 +224,12 @@ export default {
     groupStartTime () {
       if (!this.group || !this.group.cron) return null;
       const { dayStart, timezoneOffset } = this.group.cron;
-      const meridian = dayStart < 12 ? 'AM' : 'PM';
-      let hour = dayStart % 12;
-      if (!hour) hour = 12;
-      const timezone = moment().utcOffset(-timezoneOffset).format('Z');
-      return `${hour} ${meridian} UTC${timezone}`;
+      const timezoneDiff = this.user.preferences.timezoneOffset - timezoneOffset;
+      return moment()
+        .hour(dayStart)
+        .minute(0)
+        .subtract(timezoneDiff, 'minutes')
+        .format('h:mm A');
     },
   },
   watch: {

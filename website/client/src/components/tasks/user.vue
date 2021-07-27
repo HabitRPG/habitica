@@ -1,5 +1,8 @@
 <template>
-  <div class="row user-tasks-page">
+  <div
+    class="row user-tasks-page"
+    @click="openCreateBtn ? openCreateBtn = false : null"
+  >
     <broken-task-modal />
     <task-modal
       ref="taskModal"
@@ -165,7 +168,9 @@
             id="create-task-btn"
             class="create-btn diamond-btn btn"
             :class="{open: openCreateBtn}"
-            @click="openCreateBtn = !openCreateBtn"
+            @click.stop.prevent="openCreateBtn = !openCreateBtn"
+            @keypress.enter="openCreateBtn = !openCreateBtn"
+            tabindex="0"
           >
             <div
               class="svg-icon"
