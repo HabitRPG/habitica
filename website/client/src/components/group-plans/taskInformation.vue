@@ -59,7 +59,7 @@
               v-for="type in columns"
               :key="type"
               @click="createTask(type)"
-              class="dropdown-item d-flex pl-2 py-1"
+              class="dropdown-item d-flex px-2 py-1"
             >
               <div class="d-flex align-items-center justify-content-center task-icon">
                 <div
@@ -68,7 +68,7 @@
                   v-html="icons[type]"
                 ></div>
               </div>
-              <div class="ml-1">
+              <div class="task-label ml-2">
                 {{ $t(type) }}
               </div>
             </div>
