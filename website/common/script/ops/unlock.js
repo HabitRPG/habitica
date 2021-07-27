@@ -275,6 +275,15 @@ export default function unlock (user, req = {}, analytics) {
 
   if (isFullSet) {
     paths.forEach(pathPart => purchaseItem(pathPart, setType, user));
+
+    if (isBackground) {
+      paths.forEach(pathPart => {
+        const [key, value] = splitPathItem(pathPart);
+        const backgroundContent = content.backgroundsFlat[value];
+        const itemInfo = getItemInfo(user, key, backgroundContent);
+        removeItemByPath(user, itemInfo.path);
+      });
+    }
   } else {
     const [key, value] = splitPathItem(path);
 
