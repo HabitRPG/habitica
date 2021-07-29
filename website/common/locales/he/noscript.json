@@ -1,6 +1,4 @@
 {
-   
-    "jsDisabledHeadingFull": "אבוי! בדפדפן שלכם לא מאופשר JavaScript, ומבלי לאפשר זאת - האביטיקה לא יכולה לתפקד",
-   
-    "jsDisabledLink": "אנא אפשרו JavaScript כדי להמשיך!"
+    "jsDisabledHeadingFull": "אבוי! JavaScript אינו מאופשר בדפדפן שלך ובלעדיו, הביטיקה לא יכולה לעבוד כראוי",
+    "jsDisabledLink": "נא לאפשר את JavaScript כדי להמשיך!"
 }

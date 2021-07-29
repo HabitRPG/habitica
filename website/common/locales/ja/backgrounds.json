@@ -515,8 +515,8 @@
     "backgroundHeatherFieldText": "ギョリュウモドキの荒野",
     "backgroundRainyBarnyardNotes": "雨の降る納屋の前庭を濡れながら散歩しよう。",
     "backgroundRainyBarnyardText": "雨降る納屋の前庭",
-    "backgroundHabitCityRooftopsNotes": "Habit シティーの屋根と屋根の間を大胆に跳ぼう。",
-    "backgroundHabitCityRooftopsText": "Habit シティーの屋上",
+    "backgroundHabitCityRooftopsNotes": "ハビットシティーの屋根と屋根の間を大胆に跳ぼう。",
+    "backgroundHabitCityRooftopsText": "ハビットシティーの屋上",
     "backgroundHotAirBalloonNotes": "熱気球で景色の上まで舞い上がろう。",
     "backgroundHotAirBalloonText": "熱気球",
     "backgrounds062020": "セット73：2020年6月リリース",
@@ -618,5 +618,12 @@
     "backgroundClotheslineText": "物干し綱",
     "backgrounds062021": "セット85：2021年7月リリース",
     "backgroundWaterMillNotes": "水車の輪がぐるぐる回るのを眺めましょう。",
-    "backgroundWaterMillText": "水車"
+    "backgroundWaterMillText": "水車",
+    "backgroundUnderwaterAmongKoiNotes": "水中でまぶしく輝く鯉にくらくらしたり、くらくらさせたりしましょう。",
+    "backgroundUnderwaterAmongKoiText": "鯉と泳ぐ",
+    "backgrounds072021": "セット86：2021年7月リリース",
+    "backgroundRagingRiverNotes": "この激流の力強い流れの真ん中に立ちましょう。",
+    "backgroundRagingRiverText": "激流",
+    "backgroundGhostShipNotes": "幽霊船に乗り込んで、おとぎ話や伝説が本当であることを証明しましょう。",
+    "backgroundGhostShipText": "幽霊船"
 }

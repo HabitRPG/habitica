@@ -1,9 +1,9 @@
 {
-    "communityGuidelinesWarning": "Please keep in mind that your Display Name, profile photo, and blurb must comply with the <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (e.g. no profanity, no adult topics, no insults, etc). If you have any questions about whether or not something is appropriate, feel free to email <%= hrefBlankCommunityManagerEmail %>!",
+    "communityGuidelinesWarning": "Alalahanin na ang iyong Display Name, profile photo, at blurb ay dapat sumusunod sa <a href='https://habitica.com/static/community-guidelines' target='_blank'>Community Guidelines</a> (hal. walang lapastangang pananalita, walang pangmatandang paksa, walang pag-iinsulto, etc). Kung mayroon pang mga katanungan patungkol man o hindi sa kung ano ang naaangkop, huwag mag-alangang mag-email sa <%= hrefBlankCommunityManagerEmail %>!",
     "profile": "Profile",
-    "avatar": "Customize Avatar",
-    "editAvatar": "Edit Avatar",
-    "noDescription": "This Habitican hasn't added a description.",
+    "avatar": "I-customize ang Avatar",
+    "editAvatar": "I-edit ang Avatar",
+    "noDescription": "Ang Habitican na ito ay hindi nagdagdag ng deskripsyon.",
     "noPhoto": "Ang Habitican na ito ay hindi pa naglalagay ng kanyang litrato.",
     "other": "Other",
     "fullName": "Buong Pangalan",

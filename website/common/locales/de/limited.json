@@ -196,12 +196,16 @@
     "g1g1Event": "\"Schenk' Eins, Bekomm' Eins\"- Aktion läuft jetzt!",
     "g1g1": "Schenk' Eins, Bekomm' Eins",
     "winter2021HollyIvyRogueSet": "Stechpalme und Efeu (Schurke)",
-    "winter2021ArcticExplorerHealerSet": "Arktische Forschung (Heiler)",
+    "winter2021ArcticExplorerHealerSet": "Arktis-Forscher (Heiler)",
     "winter2021WinterMoonMageSet": "Wintermond (Magier)",
     "winter2021IceFishingWarriorSet": "Eisfischer (Krieger)",
     "noLongerAvailable": "Dieser Gegenstand ist nicht mehr verfügbar.",
-    "spring2021TwinFlowerRogueSet": "Moosglöckchen (schurkisch)",
-    "spring2021WillowHealerSet": "Weide (heilend)",
-    "spring2021SwanMageSet": "Schwan (magisch)",
-    "spring2021SunstoneWarriorSet": "Sonnenstein (kriegerisch)"
+    "spring2021TwinFlowerRogueSet": "Moosglöckchen (Schurke)",
+    "spring2021WillowHealerSet": "Weide (Heiler)",
+    "spring2021SwanMageSet": "Schwan (Magier)",
+    "spring2021SunstoneWarriorSet": "Sonnenstein (Krieger)",
+    "summer2021ClownfishRogueSet": "Clownfisch (Schurke)",
+    "summer2021ParrotHealerSet": "Papagei (Heiler)",
+    "summer2021NautilusMageSet": "Nautilus (Magier)",
+    "summer2021FlyingFishWarriorSet": "Fliegender Fisch (Krieger)"
 }

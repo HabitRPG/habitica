@@ -1,5 +1,5 @@
 {
-    "clearCompleted": "Zmaž hotové",
+    "clearCompleted": "Vymaž hotové",
     "clearCompletedDescription": "Dokončené Úlohy sú zmazané po 30 dňoch pre ne-odberateľov a po 90 dňoch pre odberateľov.",
     "clearCompletedConfirm": "Si si istý/a, že chceš zmazať svoje splnené úlohy?",
     "addMultipleTip": "<strong>Tip:</strong> To add multiple <%= taskType %>, separate each one using a line break (Shift + Enter) and then press \"Enter.\"",
@@ -106,7 +106,7 @@
     "alreadyTagged": "Úloha už má tento štítok.",
     "taskRequiresApproval": "This task must be approved before you can complete it. Approval has already been requested",
     "taskApprovalHasBeenRequested": "Approval has been requested",
-    "taskApprovalWasNotRequested": "Iba úloha čakajúca na schválenie môže byť označená, že potrebuje viac práce.",
+    "taskApprovalWasNotRequested": "Nebolo požiadané o schválenie tejto úlohy.",
     "approvals": "Approvals",
     "approvalRequired": "Needs Approval",
     "weekly": "Týždenné",

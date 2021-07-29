@@ -100,7 +100,7 @@
     "report": "Report",
     "abuseFlagModalHeading": "Report a Violation",
     "abuseFlagModalBody": "Are you sure you want to report this post? You should <strong>only</strong> report a post that violates the <%= firstLinkStart %>Community Guidelines<%= linkEnd %> and/or <%= secondLinkStart %>Terms of Service<%= linkEnd %>. Inappropriately reporting a post is a violation of the Community Guidelines and may give you an infraction.",
-    "abuseReported": "תודה שדיווחת על ההפרה הזו, אנו ניידע את העורכים אודות העניין.",
+    "abuseReported": "תודה רבה על שדיווחת על הפרה זו. יידענו את המנהלים על כך.",
     "whyReportingPost": "Why are you reporting this post?",
     "whyReportingPostPlaceholder": "Please help our moderators by letting us know why you are reporting this post for a violation, e.g., spam, swearing, religious oaths, bigotry, slurs, adult topics, violence.",
     "optional": "Optional",
@@ -121,7 +121,7 @@
     "inviteLimitReached": "You have already sent the maximum number of email invitations. We have a limit to prevent spamming, however if you would like more, please contact us at <%= techAssistanceEmail %> and we'll be happy to discuss it!",
     "sendGiftHeading": "שלחו מתנה ל<%= name %>",
     "sendGiftGemsBalance": "החל מ-<%= number %> אבני חן",
-    "sendGiftCost": "סך הכל: <%= cost %>$",
+    "sendGiftCost": "סך הכול: $<%= cost %> USD",
     "sendGiftFromBalance": "מתוך ייתרה",
     "sendGiftPurchase": "רכוש",
     "sendGiftMessagePlaceholder": "הודעה אישית (אופציונילי)",
@@ -339,5 +339,6 @@
     "sharedCompletion": "Shared Completion",
     "recurringCompletion": "None - Group task does not complete",
     "singleCompletion": "Single - Completes when any assigned user finishes",
-    "allAssignedCompletion": "All - Completes when all assigned users finish"
+    "allAssignedCompletion": "All - Completes when all assigned users finish",
+    "pmReported": "תודה רבה על שדיווחת על הודעה זו."
 }

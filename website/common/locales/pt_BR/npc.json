@@ -3,7 +3,7 @@
     "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Apoiou o projeto no Kickstarter no nível máximo!",
     "welcomeTo": "Boas-vindas ao",
-    "welcomeBack": "Bem-vindo(a) de volta!",
+    "welcomeBack": "Boas-vindas de volta!",
     "justin": "Justin",
     "justinIntroMessage1": "Olá! Você deve ser novo(a) por aqui. Meu nome é <strong>Justin</strong> e eu serei seu guia no Habitica.",
     "justinIntroMessage3": "Ótimo! No que você tem interesse em trabalhar durante essa jornada?",
