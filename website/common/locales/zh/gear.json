@@ -2413,5 +2413,13 @@
     "weaponSpecialSummer2021WarriorNotes": "这把闪闪发光的刀可以像水一样流动，它能命中最棘手问题的核心！增加<%= str %>点力量。2021年夏季限定版装备。",
     "weaponSpecialSummer2021WarriorText": "水刃",
     "weaponSpecialSummer2021RogueNotes": "任何敢于掠夺的怪物都会被你的保护朋友所刺痛！增加<%= str %>点力量。2021年夏季限定版装备。",
-    "weaponSpecialSummer2021RogueText": "海葵触角"
+    "weaponSpecialSummer2021RogueText": "海葵触角",
+    "shieldArmoireBouncyBubblesNotes": "用这些精力旺盛的泡泡来帮你完成放松的沐浴！增加<%= str %>点力量。魔法衣橱：泡泡浴套装（4/4）。",
+    "shieldArmoireBouncyBubblesText": "弹跳泡泡",
+    "headArmoireRubberDuckyNotes": "纵情享受水疗的完美伴侣! 也将帮助你对一系列的软件问题有惊人了解。（梗的解释：小黄鸭调试法起源于经典书籍《程序员修炼之道》，传说中程序员大师都会携带一只小黄鸭，在调试代码的时候，就会把小黄鸭放在桌上，然后详细地向小黄鸭解释每行代码。）增加<%= int %>点智力。魔法衣橱：泡泡浴套装（1/4）。",
+    "headArmoireRubberDuckyText": "橡皮鸭子",
+    "armorArmoireBathtubNotes": "是时候休息一下了？这是你自己的私人澡盆，它能保证水的温度始终是合适的！增加<%= con %>点体质。魔法衣橱：泡泡浴套装（2/4）。",
+    "armorArmoireBathtubText": "澡盆",
+    "weaponArmoireBuoyantBubblesNotes": "这些气泡永远漂浮在空中，不知为何... 增加<%= per %>点感知。魔法衣橱：泡泡浴套装（3/4）。",
+    "weaponArmoireBuoyantBubblesText": "漂浮的气泡"
 }

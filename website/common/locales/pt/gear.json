@@ -1777,5 +1777,10 @@
     "weaponSpecialFall2019HealerText": "Filactério Assustador",
     "weaponSpecialFall2019MageNotes": "Seja forjando relâmpagos, edificando fortificações, ou simplesmente tacando terror nos corações dos mortais, esse bastão empresta o poder dos gigantes para fazer maravilhas. Aumenta Inteligência em <%= int %> e Percepção em <%= per %>. Equipamento de Edição Limitada do Outono de 2019.",
     "weaponSpecialFall2019MageText": "Bastão Caolho",
-    "headMystery202106Text": "Coroa do Pôr do Sol"
+    "headMystery202106Text": "Coroa do Pôr do Sol",
+    "armorMystery202106Text": "Cauda do Pôr do Sol",
+    "shieldArmoireBouncyBubblesNotes": "Complete o seu banho relaxante com estas exuberantes bolhas! Aumenta Força em <% = str%>. Armário Encantado: Conjunto Banho de Espuma (Item 4 de 4).",
+    "headArmoireRubberDuckyNotes": "O companheiro perfeito para um deleitante dia de spa! Também é, supreendentemente, um profundo conhecedor de bugs de software. Aumenta Inteligência em <% = int%>. Armário Encantado: Conjunto Banho de Espuma (Item 1 de 4).",
+    "armorArmoireBathtubNotes": "Hora de fazer uma pausa e relaxar um pouco? Aqui esta a sua própria banheira pessoal – e a garantia de que a água estará sempre na temperatura que você gosta! Aumenta Constituição em <% = con%>. Armário Encantado: Conjunto Banho de Espuma (Item 2 de 4).",
+    "weaponArmoireBuoyantBubblesNotes": "Estas bolhas continuam a flutuar eternamente, não se sabe como... Aumenta Percepção em <%= per %>. Armário Encantado: Conjunto Banho de Espuma (Item 3 de 4)."
 }
