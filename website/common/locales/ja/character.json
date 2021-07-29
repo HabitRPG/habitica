@@ -145,9 +145,9 @@
     "notEnoughMana": "マナが足りません。",
     "invalidTarget": "その対象にスキルを唱えることはできません。",
     "youCast": "<%= spell %>をかけました。",
-    "youCastTarget": "<%= target %>に <%= spell %>をかけました。",
-    "youCastParty": "パーティに <%= spell %>をかけました。",
-    "critBonus": "会心の一撃!　ボーナス : ",
+    "youCastTarget": "<%= target %>に<%= spell %>をかけました。",
+    "youCastParty": "パーティに<%= spell %>をかけました。",
+    "critBonus": "会心の一撃！ボーナス： ",
     "gainedGold": "ゴールドを獲得しました",
     "gainedMana": "マナを獲得しました",
     "gainedHealth": "体力が回復しました",
@@ -183,8 +183,8 @@
     "statPoints": "ステータスポイント",
     "pts": "ポイント",
     "purchaseForGold": "<%= cost %> ゴールドで購入しますか？",
-    "chatCastSpellParty": "<%= username %> がパーティーに <%= spell %> をかけました。",
-    "chatCastSpellUser": "<%= username %> が <%= target %>に <%= spell %>をかけました。",
+    "chatCastSpellParty": "<%= username %>がパーティーに<%= spell %>をかけました。",
+    "chatCastSpellUser": "<%= username %>が<%= target %>に<%= spell %>をかけました。",
     "purchasePetItemConfirm": "この購入は、<%= itemText %>ペットを全てかえすために必要なアイテム数より多いようです。よろしいですか？",
     "notEnoughGold": "ゴールドが足りません。"
 }

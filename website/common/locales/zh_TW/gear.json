@@ -2161,5 +2161,6 @@
     "headArmoireHeroicHerbalistCrispinetteNotes": "這款便攜頭飾將幫助你保持頭髮柔順……同時也增加了神秘感，有益無害。增加<%= int %>點智力。魔法衣櫥：英雄草藥師套裝（3/3）。",
     "headArmoireHeroicHerbalistCrispinetteText": "藥師英雄髮箍",
     "armorArmoireHeroicHerbalistRobeNotes": "總是聞起來有各種草藥的芬芳。增加體質、智力各<％= attrs％>點。魔法衣櫥：英雄草藥師套裝（1/3）。",
-    "armorArmoireHeroicHerbalistRobeText": "藥師英雄長袍"
+    "armorArmoireHeroicHerbalistRobeText": "藥師英雄長袍",
+    "weaponSpecialFall2020RogueText": "銳利拳刃"
 }

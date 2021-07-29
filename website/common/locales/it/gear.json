@@ -2374,7 +2374,7 @@
     "headArmoireMedievalLaundryCapText": "Berretto da bucato",
     "headMystery202106Notes": "Questa corona cattura la bellezza dell'ultima luce estiva del sole. Non conferisce alcun bonus. Oggetto abbonati giugno 2021.",
     "headMystery202106Text": "Aureola al tramonto",
-    "armorArmoireMedievalLaundryDressNotes": "Mettiti il grembiule rimboccati le maniche: è ora di fare il bucato! Aumenta la costituzione di <%= con %>. Scrigno incantato: Set dei lavatori medioevali. (Oggetto 2 di 6).",
+    "armorArmoireMedievalLaundryDressNotes": "Mettiti il grembiule e rimboccati le maniche: è ora di fare il bucato! Aumenta la costituzione di <%= con %>. Scrigno incantato: Set dei lavandai medioevali. (Oggetto 2 di 6).",
     "armorArmoireMedievalLaundryDressText": "Vestito da bucato",
     "armorArmoireMedievalLaundryOutfitNotes": "Indossa gli abiti da lavoro e rimboccati le maniche: è ora di fare il bucato! Aumenta la costituzione di <%= con %>. Scrigno incantato: Set dei lavatori medioevali. (Oggetto 1 di 6).",
     "armorArmoireMedievalLaundryOutfitText": "Completo da bucato",
@@ -2384,7 +2384,7 @@
     "weaponArmoireMedievalWashboardText": "Lavatoio",
     "weaponSpecialSummer2021RogueNotes": "Qualsiasi mostro predatore che oserà avvicinarsi sentirà il pungiglione dei tuoi amici protettivi! Aumenta la forza di <%= str %>. Equipaggiamento estivo 2021 in edizione limitata.",
     "weaponSpecialSummer2021RogueText": "Tentacoli di anemone",
-    "weaponSpecialSummer2021WarriorNotes": "Questa lama scintillante può scorrere come l'acqua, ma può trafiggere il cuore dei problemi più difficili! Aumenta la forza di <%= str %>. Edizione limitata estate 2021.",
+    "weaponSpecialSummer2021WarriorNotes": "Questa lama scintillante potrebbe scorrere come l'acqua, ma può trafiggere il cuore dei problemi più difficili! Aumenta la forza di <%= str %>. Edizione limitata estate 2021.",
     "weaponSpecialSummer2021WarriorText": "Lama d'acqua",
     "headMystery202107Notes": "Perfetto per divertirsi ma anche per proteggersi dal nostro potente nemico-amico, il sole. Non conferisce alcun bonus. Oggetto abbonati luglio 2021.",
     "bodyMystery202107Notes": "Questo compagno fidato non ti deluderà mai e manterrà sempre il tuo umore allegro! Non conferisce alcun bonus. Oggetto abbonati luglio 2021.",
@@ -2413,5 +2413,13 @@
     "weaponSpecialSummer2021HealerText": "Bastone di Grano",
     "weaponSpecialSummer2021MageNotes": "Sia che le tue ambizioni magiche siano profonde ventimila leghe, sia che tu abbia intenzione di immergerti solo in acque poco profonde, questo strumento splendente ti servirà ai tuoi scopi! Aumenta l'intelligenza di <%= int %> e la percezione di <%= per %>. Edizione limitata Estate 2021.",
     "weaponSpecialSummer2021MageText": "Canna Nautiloide",
-    "headSpecialSummer2021HealerNotes": "Edizione limitata Estate 2021."
+    "headSpecialSummer2021HealerNotes": "Edizione limitata Estate 2021.",
+    "armorArmoireBathtubText": "Vasca da bagno",
+    "weaponArmoireBuoyantBubblesNotes": "Queste bollicine sembrano che continuano a galleggiare per sempre, in qualche modo... Aumenta la Percezione di <%= per %>. Scrigno incantato: Set di Bolle da Bagno (Articolo 3 di 4).",
+    "shieldArmoireBouncyBubblesNotes": "Completa il tuo bagno rilassante con queste bolle lussuriose! Aumenta la Forza di <%= str %>. Scrigno Incantato: Set delle bolle da bagno (Articolo 4 di 4).",
+    "shieldArmoireBouncyBubblesText": "Bollicine Galleggianti",
+    "headArmoireRubberDuckyNotes": "Il perfetto compagno per una giornata alla spa! È anche sorprendentemente informato su vari problemi software. Aumenta l'Intelligenza di <%= int %>. Scrigno Incantato: Set delle bolle da bagno (Articolo 1 di 4).",
+    "headArmoireRubberDuckyText": "Paperella di gomma",
+    "armorArmoireBathtubNotes": "Tempo per un po' di R&R? Ecco qua la tua vasca da bagno personale -- e una garanzia che l'acqua sia sempre la giusta temperatura! Aumenta la Costituzione di <%=con%>. Scrigno Incantato: Set di Bolle da Bagno (Articolo 2 di 4).",
+    "weaponArmoireBuoyantBubblesText": "Bollicine Gallegianti"
 }

@@ -5,7 +5,7 @@
     "buyGemsGold": "Придбати самоцвіти за золото",
     "mustSubscribeToPurchaseGems": "Must subscribe to purchase gems with GP",
     "reachedGoldToGemCap": "You've reached the Gold=>Gem conversion cap <%= convCap %> for this month. We have this to prevent abuse / farming. The cap resets within the first three days of each month.",
-    "reachedGoldToGemCapQuantity": "Your requested amount <%= quantity %> exceeds the amount you can buy for this month (<%= convCap %>). The full amount becomes available within the first three days of each month. Thanks for subscribing!",
+    "reachedGoldToGemCapQuantity": "Запитана вами сума <% = кількість%> перевищує суму, яку ви можете придбати за цей місяць (<% = convCap%>). Повна сума стає доступною протягом перших трьох днів кожного місяця. Дякуємо за підписку!",
     "mysteryItem": "Екслюзивні місячні проекти",
     "mysteryItemText": "Кожен місяць ви будете отримувати унікальні косметичні деталі для вашого аватара! Крім того, за кожні три місяці безперервної підписки Мандрівники Таємного Часу надаватимуть вам доступ до історичних (і футуристичних!) косметичних товарів.",
     "exclusiveJackalopePet": "Exclusive pet",
@@ -137,7 +137,9 @@
     "organization": "Організація",
     "giftASubscription": "Подаруйте підписку",
     "confirmCancelSub": "Ви впевнені, що хочете скасувати підписку?  Ви втратите всі переваги передплати.",
-    "mysticHourglassNeededNoSub": "Для цього предмета потрібні містичні пісочні годинники.  Ви заробляєте їх, ставши передплатником Habitica.",
+    "mysticHourglassNeededNoSub": "Для цього предмета потрібні містичні пісочні годинники. Ви заробляєте їх, ставши передплатником Habitica.",
     "subWillBecomeInactive": "Стане неактивним",
-    "viewSubscriptions": "Переглянути підписки"
+    "viewSubscriptions": "Переглянути підписки",
+    "cancelSubInfoGoogle": "Перейдіть у розділ \"Обліковий запис\"> \"Підписки\" в додатку Google Play Store, щоб скасувати підписку або переглянути дату припинення підписки, якщо ви вже її скасували. Цей екран не може показати вам, чи скасовано вашу підписку.",
+    "cancelSubInfoApple": "Будь ласка, дотримуйтесь <a href=\"https://support.apple.com/en-us/HT202039\"> офіційних вказівок Apple </a>, щоб скасувати підписку або побачити дату припинення підписки, якщо ви її вже скасували. Цей екран не може показати вам, чи скасовано вашу підписку."
 }

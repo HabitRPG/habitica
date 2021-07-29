@@ -1,7 +1,7 @@
 {
     "achievement": "Conquista",
     "onwards": "Em frente!",
-    "levelup": "Ao concretizar os seus objetivos de vida real, você ganhou um nível e está agora completamente curado!",
+    "levelup": "Ao concretizar os seus objetivos de vida real, você subiu de nível e está agora completamente curado!",
     "reachedLevel": "Alcançou o nível <%= level %>",
     "achievementLostMasterclasser": "Completista de Missões: Série de Mestre de Classes",
     "achievementLostMasterclasserText": "Completou as dezesseis missões na série de Missões de Mestre de Classes e resolveu o mistério do Mestre de Classes Perdido!",
@@ -107,5 +107,6 @@
     "achievementBugBonanza": "Prosperidade de Inseto",
     "achievementRosyOutlook": "Aspecto Rosado",
     "achievementVioletsAreBlue": "Violetas são Azuis",
-    "achievementSeasonalSpecialist": "Especialista Sazonal"
+    "achievementSeasonalSpecialist": "Especialista Sazonal",
+    "achievementWildBlueYonderModalText": "Tu domesticaste todas as Montarias de Algodão Doce Azul!"
 }

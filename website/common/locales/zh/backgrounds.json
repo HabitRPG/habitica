@@ -129,7 +129,7 @@
     "backgroundNightDunesText": "夜幕沙丘",
     "backgroundNightDunesNotes": "在夜幕沙丘中静静穿行。",
     "backgroundSunsetOasisText": "日落绿洲",
-    "backgroundSunsetOasisNotes": "在日落绿洲曬一下。",
+    "backgroundSunsetOasisNotes": "沐浴在日落绿洲中。",
     "backgrounds122015": "第19组：2015年12月推出",
     "backgroundAlpineSlopesText": "滑雪山坡",
     "backgroundAlpineSlopesNotes": "在山坡上滑雪。",
@@ -565,8 +565,8 @@
     "backgrounds102020": "第77组：2020年10月推出",
     "backgroundRiverOfLavaNotes": "藐视熔浆，在河畔散步。",
     "backgroundRiverOfLavaText": "熔浆河",
-    "backgroundRestingInTheInnNotes": "入住客栈，你可以在舒适安全的房间里工作。",
-    "backgroundRestingInTheInnText": "在客栈休息",
+    "backgroundRestingInTheInnNotes": "入住酒馆，你可以在舒适安全的房间里工作。",
+    "backgroundRestingInTheInnText": "在酒馆休息",
     "backgroundMysticalObservatoryNotes": "从神秘天文台的星空中解读你的命运。",
     "backgroundMysticalObservatoryText": "神秘天文台",
     "backgrounds112020": "第78组：2020年11月推出",
@@ -618,5 +618,12 @@
     "backgroundClotheslineNotes": "将衣服挂在晾衣绳上晾晒。",
     "backgroundForestedLakeshoreText": "森林湖畔",
     "backgroundClotheslineText": "晾衣绳",
-    "backgrounds062021": "第85组：2021年6月推出"
+    "backgrounds062021": "第85组：2021年6月推出",
+    "backgroundUnderwaterAmongKoiText": "混入锦鲤群",
+    "backgrounds072021": "第86组：2021年7月推出",
+    "backgroundRagingRiverNotes": "站在汹涌澎湃的河水中。",
+    "backgroundRagingRiverText": "汹涌的河流",
+    "backgroundGhostShipNotes": "你尝试登上幽灵船，证明传说是真实的。",
+    "backgroundGhostShipText": "幽灵船",
+    "backgroundUnderwaterAmongKoiNotes": "混入水下的锦鲤群中，锦鲤金光闪闪，让人眼花缭乱。"
 }
