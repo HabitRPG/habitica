@@ -135,10 +135,10 @@
     "gemsRemaining": "Gemas restantes",
     "notEnoughGemsToBuy": "Você não pode comprar essa quantidade de Gemas",
     "mysterySet201902": "Conjunto Crush Enigmático",
-    "mysterySet201903": "Conjunto Primor-ovo",
+    "mysterySet201903": "Conjunto Primor-Ovo",
     "confirmCancelSub": "Tem certeza que quer cancelar sua assinatura? Você irá perder todos os seus benefícios de assinante.",
     "subWillBecomeInactive": "Se tornará inativa",
-    "mysterySet201904": "Conjunto do Opala Abundante",
+    "mysterySet201904": "Conjunto Opulento de Opala",
     "mysterySet201905": "Conjunto do Dragão Deslumbrante",
     "mysterySet201906": "Conjunto do Koi Adorável",
     "mysterySet201907": "Conjunto Companheiro de Praia",
@@ -192,5 +192,6 @@
     "mysterySet202102": "Conjunto Campeã Encantadora",
     "mysterySet202103": "Conjunto Contemplar as Flores",
     "mysterySet202104": "Conjunto Guardião da Alcachofra",
-    "mysterySet202105": "Conjunto Dragão de Nebulosa"
+    "mysterySet202105": "Conjunto Dragão de Nebulosa",
+    "mysterySet202106": "Conjunto de Invadir a Praia"
 }

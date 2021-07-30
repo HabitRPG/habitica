@@ -29,7 +29,7 @@ export default prefill({
     setPrice: 5, availableFrom: '2020-09-25', availableUntil: '2020-11-02', text: t('supernaturalSkins'),
   },
   splashySkins: {
-    setPrice: 5, availableFrom: '2020-06-23', availableUntil: '2020-08-02', text: t('splashySkins'),
+    setPrice: 5, availableFrom: '2021-07-13T08:00-04:00', availableUntil: '2021-07-31T20:00-04:00', text: t('splashySkins'),
   },
   winterySkins: {
     setPrice: 5, availableFrom: '2021-01-05', availableUntil: '2021-02-01', text: t('winterySkins'),

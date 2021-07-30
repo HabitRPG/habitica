@@ -3,7 +3,7 @@
     "npcAchievementName": "<%= key %> NPC",
     "npcAchievementText": "Apoiou o projeto no Kickstarter no nível máximo!",
     "welcomeTo": "Boas-vindas ao",
-    "welcomeBack": "Bem-vindo(a) de volta!",
+    "welcomeBack": "Boas-vindas de volta!",
     "justin": "Justin",
     "justinIntroMessage1": "Olá! Você deve ser novo(a) por aqui. Meu nome é <strong>Justin</strong> e eu serei seu guia no Habitica.",
     "justinIntroMessage3": "Ótimo! No que você tem interesse em trabalhar durante essa jornada?",
@@ -15,9 +15,9 @@
     "randomize": "Aleatorizar",
     "mattBoch": "Matt Boch",
     "mattBochText1": "Bem-vindo(a) ao Estábulo! Sou Matt, o mestre das bestas. Sempre que você completar uma tarefa, poderá obter, aleatoriamente, um Ovo ou uma Poção de Eclosão para chocar Mascotes. Quando você chocar um Mascote ele aparecerá aqui! Clique na imagem de um Mascote para adicioná-lo ao seu Avatar. Alimente-os usando a comida que você encontrar e eles se transformarão em poderosas Montarias.",
-    "welcomeToTavern": "Boas-vindas à Taverna!",
-    "sleepDescription": "Precisa de um descanso? Faça uma visita à Pousada do Daniel e pare algumas das mecânicas de jogo mais difíceis do Habitica:",
-    "sleepBullet1": "Diárias não feitas não lhe causarão dano",
+    "welcomeToTavern": "Boas-Vindas à Taverna!",
+    "sleepDescription": "Precisa de um descanso? Fique um tempo na Hospedaria do Daniel e dê uma pausa nas mecânicas de jogo mais difíceis do Habitica:",
+    "sleepBullet1": "Diárias que você não fez, não causarão dano",
     "sleepBullet2": "Tarefas não perderão combos",
     "sleepBullet3": "Os Chefões não causam danos pelas suas Diárias não concluídas",
     "sleepBullet4": "Seu dano no Chefão ou itens de Missão de coleta ficarão acumulados até o fim do dia",
@@ -52,7 +52,7 @@
     "quantity": "Quantidade",
     "cost": "Custo",
     "shops": "Lojas",
-    "custom": "Personalizado",
+    "custom": "Personalizadas",
     "wishlist": "Lista de desejos",
     "wrongItemType": "O tipo de item \"<%= type %>\" não é válido.",
     "wrongItemPath": "O caminho de item \"<%= path %>\" não é válido.",
@@ -129,5 +129,6 @@
     "nGems": "<%= nGems %> Gemas",
     "limitedAvailabilityDays": "Disponível por <%= days %>d <%= hours %>h <%= minutes %>m",
     "limitedAvailabilityHours": "Disponível por <%= hours %>h <%= minutes %>m",
-    "limitedAvailabilityMinutes": "Disponível por <%= minutes %>m <%= seconds %>s"
+    "limitedAvailabilityMinutes": "Disponível por <%= minutes %>m <%= seconds %>s",
+    "amountExp": "<%= amount %> de EXP"
 }

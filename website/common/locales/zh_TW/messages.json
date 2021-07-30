@@ -53,5 +53,11 @@
     "messageMissingDisplayName": "尚未填寫暱稱。",
     "reportedMessage": "您已將此則訊息回報給管理員。",
     "canDeleteNow": "如果您想要，您現在就可以刪除此則訊息。",
-    "beginningOfConversationReminder": "記得要和善、尊重，並遵守社群守則！"
+    "beginningOfConversationReminder": "記得要和善、尊重，並遵守社群守則！",
+    "newsPostNotFound": "找不到新聞報導或你沒有使用權限。",
+    "messagePetMountUnEquipped": "寵物和坐騎已卸下。",
+    "messageCostumeUnEquipped": "服飾已卸下。",
+    "messageBattleGearUnEquipped": "戰鬥裝備已卸下。",
+    "messageAllUnEquipped": "所有項目已卸下。",
+    "messageBackgroundUnEquipped": "背景已卸下。"
 }

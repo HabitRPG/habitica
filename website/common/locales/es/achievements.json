@@ -108,5 +108,11 @@
     "achievementLegendaryBestiary": "Bestiario legendario",
     "achievementSeasonalSpecialistModalText": "¡Completaste todas las misiones estacionales!",
     "achievementSeasonalSpecialistText": "Ha completado todas las misiones estacionales de Primavera e Invierno: ¡Búsqueda de Huevos, Santa Trampero, y Encuentra al Cachorro!",
-    "achievementSeasonalSpecialist": "Especialista Estacional"
+    "achievementSeasonalSpecialist": "Especialista Estacional",
+    "achievementVioletsAreBlue": "Las violetas son azules",
+    "achievementWildBlueYonderModalText": "¡Has domesticado todas las monturas de Algodon de Azúcar Azul!",
+    "achievementWildBlueYonderText": "Ha domesticado todas las monturas de Algodon de Azúcar Azul.",
+    "achievementWildBlueYonder": "La salvaje y azul lejanía",
+    "achievementVioletsAreBlueModalText": "¡Has conseguido todas las mascotas de Algodon de Azúcar Azul!",
+    "achievementVioletsAreBlueText": "Ha conseguido todas las mascotas de Algodon de Azúcar Azul."
 }

@@ -110,35 +110,35 @@ const SEASONAL_SETS = {
     'strappingSailorSet',
     'reefRenegadeSet',
 
-    // summer 2016
     'summer2016SharkWarriorSet',
     'summer2016DolphinMageSet',
     'summer2016SeahorseHealerSet',
     'summer2016EelSet',
 
-    // summer 2017
     'summer2017SandcastleWarriorSet',
     'summer2017WhirlpoolMageSet',
     'summer2017SeashellSeahealerSet',
     'summer2017SeaDragonSet',
 
-    // summer 2018
     'summer2018BettaFishWarriorSet',
     'summer2018LionfishMageSet',
     'summer2018MerfolkMonarchSet',
     'summer2018FisherRogueSet',
 
-    // summer 2019
     'summer2019SeaTurtleWarriorSet',
     'summer2019WaterLilyMageSet',
     'summer2019ConchHealerSet',
     'summer2019HammerheadRogueSet',
 
-    // summer 2020
     'summer2020SeaGlassHealerSet',
     'summer2020OarfishMageSet',
     'summer2020CrocodileRogueSet',
     'summer2020RainbowTroutWarriorSet',
+
+    'summer2021ParrotHealerSet',
+    'summer2021ClownfishRogueSet',
+    'summer2021FlyingFishWarriorSet',
+    'summer2021NautilusMageSet',
   ],
   fall: [
     // fall 2014

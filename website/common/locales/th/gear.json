@@ -133,7 +133,7 @@
     "weaponSpecialSummerRogueText": "Pirate Cutlass",
     "weaponSpecialSummerRogueNotes": "Avast! You'll make those Dailies walk the plank! Increases Strength by <%= str %>. Limited Edition 2014 Summer Gear.",
     "weaponSpecialSummerWarriorText": "Seafaring Slicer",
-    "weaponSpecialSummerWarriorNotes": "There isn't a task in any To-Do list willing to tangle with this gnarly knife! Increases Strength by <%= str %>. Limited Edition 2014 Summer Gear.",
+    "weaponSpecialSummerWarriorNotes": "ไม่มีรายการที่ต้องทำที่สามารถใช้กับมีดกนาร์ลี่เล่มนี้! เพิ่มค่าความแข็งแกร่งขึ้นเป็นจำนวน <%= str %> แต้ม ลิมิเต็ดอิดิชั่น 2014 เสื้อเกราะภาคฤดูร้อน",
     "weaponSpecialSummerMageText": "Kelp Catcher",
     "weaponSpecialSummerMageNotes": "This trident is used to spear seaweed effectively, for extra-productive kelp harvesting! Increases Intelligence by <%= int %> and Perception by <%= per %>. Limited Edition 2014 Summer Gear.",
     "weaponSpecialSummerHealerText": "Wand of the Shallows",

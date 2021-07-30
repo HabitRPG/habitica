@@ -106,7 +106,13 @@
     "achievementSeasonalSpecialistText": "已經完成所有春季與冬季的任務：彩蛋追蹤，聖誕陷阱，與尋找幼崽！",
     "achievementSeasonalSpecialist": "季節專家",
     "achievementLegendaryBestiaryModalText": "您已集齊所有神奇寵物！",
-    "achievementLegendaryBestiaryText": "已經孵化所有神奇寵物：龍，飛豬，獅鷲，海蛇，與獨角獸！",
+    "achievementLegendaryBestiaryText": "已經孵化所有基礎顏色的神奇寵物：龍，飛豬，獅鷲，海蛇，與獨角獸！",
     "achievementLegendaryBestiary": "野獸傳說",
-    "achievementSeeingRedModalText": "您已集齊所有的紅色寵物！"
+    "achievementSeeingRedModalText": "您已集齊所有的紅色寵物！",
+    "achievementWildBlueYonderModalText": "你馴服了所有的藍色棉花糖座騎！",
+    "achievementWildBlueYonderText": "已馴服所有的藍色棉花糖座騎。",
+    "achievementWildBlueYonder": "曠遠的藍色彼岸",
+    "achievementVioletsAreBlueModalText": "你已經集齊了所有藍色棉花糖寵物！",
+    "achievementVioletsAreBlueText": "已集齊所有藍色棉花糖寵物。",
+    "achievementVioletsAreBlue": "藍色紫羅蘭"
 }

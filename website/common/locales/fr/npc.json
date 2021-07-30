@@ -129,5 +129,6 @@
     "nGems": "<%= nGems %> gemmes",
     "limitedAvailabilityMinutes": "Disponible pendant <%= minutes %>m <%= seconds %>s",
     "limitedAvailabilityHours": "Disponible pendant <%= hours %>h <%= minutes %>m",
-    "limitedAvailabilityDays": "Disponible pendant <%= days %>j <%= hours %>h <%= minutes %>m"
+    "limitedAvailabilityDays": "Disponible pendant <%= days %>j <%= hours %>h <%= minutes %>m",
+    "amountExp": "<%= amount %> expérience"
 }

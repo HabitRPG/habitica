@@ -44,16 +44,16 @@
     "spellSpecialOpaquePotionNotes": "Inverta o feitiço que o tornou transparente.",
     "spellSpecialShinySeedText": "Semente Cintilante",
     "spellSpecialShinySeedNotes": "Transforme um amigo numa alegre flor!",
-    "spellSpecialPetalFreePotionText": "Poção Livre-de-pétalas",
+    "spellSpecialPetalFreePotionText": "Poção do Despetalar",
     "spellSpecialPetalFreePotionNotes": "Inverta o feitiço que o transformou nua flor.",
-    "spellSpecialSeafoamText": "Espuma do mar",
+    "spellSpecialSeafoamText": "Espuma do Mar",
     "spellSpecialSeafoamNotes": "Transforma um amigo em uma criatura marinha!",
     "spellSpecialSandText": "Areia",
-    "spellSpecialSandNotes": "Inverta o feitiço que o tornou uma estrela do mar.",
+    "spellSpecialSandNotes": "Reverta o feitiço que te transformou em uma estrela do mar.",
     "partyNotFound": "Equipa não encontrada",
     "targetIdUUID": "\"targetId\" precisa ser um ID de usuário válido.",
     "challengeTasksNoCast": "O uso de habilidade em tarefas de desafio não é permitido.",
     "groupTasksNoCast": "Não é permitido lançar uma habilidade sobre uma tarefa de grupo.",
     "spellNotOwned": "Você não possui essa habilidade.",
-    "spellLevelTooHigh": "Você precisa ter nível <%= level %> para usar essa habilidade."
+    "spellLevelTooHigh": "Precisas de ser nível <%= level %> para usares esta habilidade."
 }

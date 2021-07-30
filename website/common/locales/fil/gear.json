@@ -10,7 +10,7 @@
     "gearNotOwned": "You do not own this item.",
     "noGearItemsOfType": "You don't own any of these.",
     "noGearItemsOfClass": "You already have all your class equipment! More will be released during the Grand Galas, near the solstices and equinoxes.",
-    "classLockedItem": "This item is only available to a specific class. Change your class under the User icon > Settings > Character Build!",
+    "classLockedItem": "Bukas lamang ang gamit na ito sa ispesipikong klase. Sa level 10 pataas, maaari mong baguhin ang iyong klase sa User icon > Settings > Character Build!",
     "tierLockedItem": "This item is only available once you've purchased the previous items in sequence. Keep working your way up!",
     "sortByType": "Type",
     "sortByPrice": "Price",

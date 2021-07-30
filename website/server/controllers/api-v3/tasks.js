@@ -199,8 +199,7 @@ api.createUserTasks = {
     res.respond(201, tasks.length === 1 ? tasks[0] : tasks);
 
     tasks.forEach(task => {
-      // Track when new users (first 7 days) create tasks
-      if (moment().diff(user.auth.timestamps.created, 'days') < 7 && user.flags.welcomed) {
+      if (user.flags.welcomed) { // Don't send Habitica default tasks to analytics
         res.analytics.track('task create', {
           uuid: user._id,
           hitType: 'event',
