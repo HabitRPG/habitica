@@ -278,8 +278,7 @@
               class="col-4 staff"
               :class="{
                 staff: user.type === 'Staff',
-                moderator: user.type === 'Moderator',
-                bailey: user.name === 'It\'s Bailey'}"
+                moderator: user.type === 'Moderator'}"
             >
               <div>
                 <router-link
