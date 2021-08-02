@@ -108,7 +108,7 @@ export function getActiveFilter (type, filterType, isChallenge) {
 export function sortAndFilterTasks (tasks, selectedFilter, group = false) {
   let sortedTasks = tasks.filter(selectedFilter.filterFn);
   if (!group) {
-    sortedTasks = tasks.filter(task => !task.group.id);
+    sortedTasks = sortedTasks.filter(task => !task.group.id);
   }
   if (selectedFilter.sort) {
     sortedTasks = sortBy(sortedTasks, selectedFilter.sort);
