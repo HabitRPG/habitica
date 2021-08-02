@@ -149,14 +149,15 @@ api.groupMoveTask = {
 
     if (task.type === 'todo' && task.completed) throw new BadRequest(res.t('cantMoveCompletedTodo'));
 
+    const groupFields = requiredGroupFields.concat(' managers');
     const group = await Group.getGroup({
       user,
       groupId: task.group.id,
-      fields: requiredGroupFields,
+      fields: groupFields,
     });
     if (!group) throw new NotFound(res.t('groupNotFound'));
 
-    if (group.leader !== user._id) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
+    if (canNotEditTasks(group, user)) throw new NotAuthorized(res.t('onlyGroupLeaderCanEditTasks'));
 
     const order = group.tasksOrder[`${task.type}s`];
 
