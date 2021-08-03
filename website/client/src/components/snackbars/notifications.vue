@@ -69,7 +69,7 @@ import { mapState } from '@/libs/store';
 import notification from './notification';
 import { sleepAsync } from '../../../../common/script/libs/sleepAsync';
 
-const amountOfVisisbleNotifications = 4;
+const notificationsVisibleAtOnce = 4;
 const removalInterval = 2500;
 const delayDeleteAndNew = 60;
 
@@ -91,7 +91,6 @@ export default {
     return {
       visibleNotifications: [],
       allowedToFillAgain: true,
-      allowedToTriggerImmediately: true,
       removalIntervalId: null,
       notificationTopY: '0px',
     };
@@ -122,22 +121,20 @@ export default {
       }
       return scrollPosToCheck;
     },
+    visibleNotificationsWithoutErrors () {
+      return this.visibleNotifications.filter(n => n.type !== 'error');
+    },
   },
   watch: {
     notificationStore (notifications) {
       this.debug('notifications changed', {
         notifications: notifications.length,
-        immediately: this.allowedToTriggerImmediately,
       });
 
       // to fill it the first time or once the range of notifications are done
-      if (this.allowedToTriggerImmediately) {
-        this.triggerFillUntilFull();
+      this.triggerFillUntilFull();
 
-        this.allowedToTriggerImmediately = false;
-
-        this.triggerRemovalTimerIfAllowed();
-      }
+      this.triggerRemovalTimerIfAllowed();
     },
   },
   mounted () {
@@ -162,7 +159,7 @@ export default {
 
       this.visibleNotifications.splice(foundNotification, 1);
 
-      this.allowedToFillAgain = this.visibleNotifications.length < amountOfVisisbleNotifications;
+      this.updateAllowedToFillAgain();
       this.$store.dispatch('snackbars:remove', $event);
 
       this.debug('removed', {
@@ -172,9 +169,7 @@ export default {
 
       if (this.allowedToFillAgain) {
         // reset the flag so that the next call (for a new notification) will be immediately
-        if (this.notificationStore.length === 0) {
-          this.allowedToTriggerImmediately = true;
-        } else {
+        if (this.visibleNotificationsWithoutErrors.length !== 0) {
           this.debug('start timeout to fill again');
           setTimeout(() => {
             this.debug('before fill new notifications');
@@ -192,21 +187,11 @@ export default {
         notifications: notifications.length,
       });
 
-      // if there are currently no notifications anymore in the store
-      // and none visible - re-enable allowedToTriggerImmediately
-      if (notifications.length === 0 && this.allowedToFillAgain
-          && this.visibleNotifications.length === 0) {
-        this.allowedToTriggerImmediately = true;
-
-        this.debug('stop fill - 1');
-        return;
-      }
-
       // the generic checks - new notification array has enough items
       // is allowed to be filled and don't do anything while the visible items are 2
       if (notifications.length === 0 || !this.allowedToFillAgain
-          || this.visibleNotifications.length === amountOfVisisbleNotifications) {
-        this.debug('stop fill - 2');
+          || this.visibleNotifications.length === notificationsVisibleAtOnce) {
+        this.debug('stop fill - 1');
         return;
       }
 
@@ -219,7 +204,7 @@ export default {
         const allTheSame = notifications.every(n => visibleIds.includes(n.uuid));
 
         if (allTheSame) {
-          this.debug('stop fill - 3', {
+          this.debug('stop fill - 2', {
             visibleIds,
             notifications: notifications.length,
             notificationsStore: this.notificationStore.length,
@@ -229,7 +214,7 @@ export default {
       }
 
       // fill the new items that needs to be visible
-      if (this.visibleNotifications.length < amountOfVisisbleNotifications) {
+      if (this.visibleNotifications.length < notificationsVisibleAtOnce) {
         const visibleIds = this.visibleNotifications.map(n => n.uuid);
 
         const notAddedYet = notifications.filter(n => !visibleIds.includes(n.uuid));
@@ -244,14 +229,10 @@ export default {
         }
       }
 
-      this.allowedToFillAgain = this.visibleNotifications.length < amountOfVisisbleNotifications;
-
-      this.debug({
-        allowedToFillAgain: this.allowedToFillAgain,
-      });
+      this.updateAllowedToFillAgain();
     },
     async triggerFillUntilFull () {
-      for (let i = 0; i < amountOfVisisbleNotifications; i += 1) {
+      for (let i = 0; i < notificationsVisibleAtOnce; i += 1) {
         this.debug(`fill ${i}`);
         this.fillVisibleNotifications(this.notificationStore);
 
@@ -276,20 +257,37 @@ export default {
 
       this.debug('start removal interval');
       this.removalIntervalId = setInterval(() => {
-        if (this.visibleNotifications.length !== 0) {
-          const firstEntry = this.visibleNotifications[0];
+        const nonErrorNotifications = this.visibleNotifications.filter(n => n.type !== 'error');
 
-          this.debug('removed entry');
+        if (nonErrorNotifications.length !== 0) {
+          const firstEntry = nonErrorNotifications[0];
+
+          this.debug('removed entry', firstEntry);
           this.notificationRemoved(firstEntry);
         }
 
-        if (this.visibleNotifications.length === 0) {
+        if (nonErrorNotifications.length === 0) {
           this.debug('clear removal interval');
           clearInterval(this.removalIntervalId);
           this.removalIntervalId = null;
+          this.updateAllowedToFillAgain();
         }
       }, removalInterval);
     },
+
+    updateAllowedToFillAgain () {
+      const notificationsAmount = this.visibleNotificationsWithoutErrors.length;
+      this.allowedToFillAgain = notificationsAmount < notificationsVisibleAtOnce;
+
+      this.debug({
+        allowedToFillAgain: this.allowedToFillAgain,
+      });
+    },
+
+    /**
+     * This updates the position of all notifications so that its always at the top,
+     * unless the header is visible then its under the header
+     */
     updateScrollY () {
       const topY = Math.min(window.scrollY, this.notificationBannerHeight) - 10;
 

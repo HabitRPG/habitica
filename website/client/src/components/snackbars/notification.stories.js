@@ -94,7 +94,19 @@ stories
       notifications.push({
         type: 'drop',
         icon: 'shop_weapon_wizard_2',
-        text: 'Dropped',
+        text: 'Dropped something with a longer text to try',
+      });
+
+      notifications.push({
+        type: 'drop',
+        icon: 'Pet_Egg_FlyingPig',
+        text: 'Dropped flying pig egg',
+      });
+
+      notifications.push({
+        type: 'drop',
+        icon: 'Pet_Food_Strawberry',
+        text: 'You’ve found a Strawberry!',
       });
 
       notifications.push({
@@ -117,7 +129,7 @@ stories
 
       notifications.push({
         type: 'error',
-        text: 'ERR',
+        text: 'This is an error message. If it is too long, we can wrap to show the rest of the message',
       });
 
       return {
@@ -159,6 +171,10 @@ stories
         
         <button @click="streak('Streak')">Streak</button>
       
+        <br/>
+        <button @click="markdown('You cast a skill')">Markdown</button>
+        
+        
         <Notifications :prevent-queue="preventQueue"
                        :debug-mode="debugMode"
                        :style="{outline: showBounds ? '1px solid green': ''}">
@@ -185,10 +201,12 @@ stories
         this.text('notification!!');
         this.text('notification2!!');
         this.text('notification3!!');
+        this.error('This should stay visible');
         this.text('notification4!!');
         this.exp(125);
         this.damage(-2);
 
+        this.error('This should stay visible too');
         this.text('notification5!!');
         this.exp(125);
         this.damage(-2);

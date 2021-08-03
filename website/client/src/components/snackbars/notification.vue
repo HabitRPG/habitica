@@ -18,6 +18,7 @@
           <div class="text">
             <div v-html="notification.text"></div>
           </div>
+          <close-icon />
         </div>
         <div
           v-if="notification.type === 'streak'"
@@ -119,7 +120,7 @@
     min-height: 40px;
     max-width: 330px;
     border-radius: 4px;
-    background-color: $green-100;
+    background-color: $green-50;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     color: white;
     margin-left: 1rem;
@@ -140,17 +141,43 @@
   }
 
   .error {
-    background-color: $red-50;
+    background-color: $maroon-100;
     color: $white;
+    position: relative;
+    padding-right: 1.5rem !important;
+    cursor: pointer;
+
+    ::v-deep button {
+      height: 9px;
+      width: 9px;
+      top: 0.525rem;
+      right: 0.525rem;
+      padding: 0;
+
+      opacity: 0.5;
+
+      svg path {
+        stroke: white;
+      }
+    }
+
+    &:hover {
+      ::v-deep button {
+        opacity: 1;
+      }
+    }
   }
 
   .negative {
-    background-color: $red-50;
+    background-color: $maroon-100;
   }
 
   .text {
-    text-align: center;
     padding: .5rem 0;
+
+    ::v-deep p:last-of-type {
+      margin-bottom: 0; // remove last markdown padding
+    }
   }
 
   .svg-icon {
@@ -159,33 +186,11 @@
     margin: .5rem;
   }
 
-  .hp .icon {
-    color: $red-50;
-  }
-
-  .mp .icon {
-    color: $blue-10;
-  }
-
-  .damage .icon {
-    color: $gray-100;
-  }
-
-  .icon {
-    div {
-      display: inline-block;
-      vertical-align: bottom;
-    }
-  }
-
   .drop {
     background-color: $gray-50;
   }
 
   .icon-item {
-    width: 3rem;
-    height: 3rem;
-    padding: 11px;
     border-radius: 4px;
     box-shadow: 0 3px 6px 0 rgba(26, 24, 29, 0.16), 0 3px 6px 0 rgba(26, 24, 29, 0.24);
     background-color: $white;
@@ -197,8 +202,7 @@
   }
 
   .icon-negative-margin {
-    margin-left: -75%;
-    margin-top: -75%;
+    margin: -0.5rem;
   }
 
   .notification-animation-holder {
@@ -213,8 +217,10 @@ import gold from '@/assets/svg/gold.svg';
 import star from '@/assets/svg/star.svg';
 import mana from '@/assets/svg/mana.svg';
 import sword from '@/assets/svg/sword.svg';
+import CloseIcon from '../shared/closeIcon';
 
 export default {
+  components: { CloseIcon },
   props: ['notification', 'visibleAmount'],
   data () {
     return {
