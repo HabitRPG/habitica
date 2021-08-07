@@ -72,6 +72,7 @@ import { sleepAsync } from '../../../../common/script/libs/sleepAsync';
 const notificationsVisibleAtOnce = 4;
 const removalInterval = 2500;
 const delayDeleteAndNew = 60;
+const delayFilling = 240;
 
 export default {
   components: {
@@ -93,6 +94,7 @@ export default {
       allowedToFillAgain: true,
       removalIntervalId: null,
       notificationTopY: '0px',
+      preventMultipleWatchExecution: false,
     };
   },
   computed: {
@@ -126,15 +128,24 @@ export default {
     },
   },
   watch: {
-    notificationStore (notifications) {
+    notificationStore: async function notificationStore (notifications) {
+      if (this.preventMultipleWatchExecution) {
+        return;
+      }
+
+      this.preventMultipleWatchExecution = true;
+
       this.debug('notifications changed', {
         notifications: notifications.length,
       });
 
-      // to fill it the first time or once the range of notifications are done
-      this.triggerFillUntilFull();
+      const fillingPromise = this.triggerFillUntilFull();
 
       this.triggerRemovalTimerIfAllowed();
+
+      await fillingPromise;
+
+      this.preventMultipleWatchExecution = false;
     },
   },
   mounted () {
@@ -236,7 +247,7 @@ export default {
         this.debug(`fill ${i}`);
         this.fillVisibleNotifications(this.notificationStore);
 
-        await sleepAsync(delayDeleteAndNew); // eslint-disable-line no-await-in-loop
+        await sleepAsync(delayFilling); // eslint-disable-line no-await-in-loop
       }
     },
     triggerRemovalTimerIfAllowed () {
