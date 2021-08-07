@@ -110,7 +110,7 @@
     display: flex;
     flex-direction: row;
 
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     align-items: center;
     justify-content: flex-end;
     width: 330px;
@@ -123,7 +123,7 @@
     background-color: $green-50;
     box-shadow: 0 2px 2px 0 rgba(26, 24, 29, 0.16), 0 1px 4px 0 rgba(26, 24, 29, 0.12);
     color: white;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
     line-height: 1.71;
