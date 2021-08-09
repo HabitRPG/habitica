@@ -275,7 +275,7 @@
             <div
               v-for="user in staff"
               :key="user.uuid"
-              class="col-4 staff"
+              class="col-6 staff"
               :class="{
                 staff: user.type === 'Staff',
                 moderator: user.type === 'Moderator'}"

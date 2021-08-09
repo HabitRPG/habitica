@@ -50,6 +50,11 @@ export default [
     uuid: 'a05f0152-d66b-4ef1-93ac-4adb195d0031',
   },
   {
+    name: 'MaybeSteveRogers',
+    type: 'Moderator',
+    uuid: '767e5d92-0e13-4e30-acb1-d8bba62824fc',
+  },
+  {
     name: 'Nakonana',
     type: 'Moderator',
     uuid: '33bb14bd-814d-40cb-98a4-7b76a752761c',
@@ -58,10 +63,5 @@ export default [
     name: 'shanaqui',
     type: 'Moderator',
     uuid: 'bb089388-28ae-4e42-a8fa-f0c2bfb6f779',
-  },
-  {
-    name: 'MaybeSteveRogers',
-    type: 'Moderator',
-    uuid: '767e5d92-0e13-4e30-acb1-d8bba62824fc',
   },
 ];
