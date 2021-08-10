@@ -342,7 +342,7 @@
     "allAssignedCompletion": "全体成员 - 所有成员都完成时才能完成",
     "pmReported": "感谢您的举报。",
     "taskClaimed": "<%- userName %>已经领取了任务<span class=\"notification-bold\"><%- taskText %></span>。",
-    "youHaveBeenAssignedTask": "<％- managerName％>为您分配了任务<％- taskText％> 。",
+    "youHaveBeenAssignedTask": "<%- managerName %>为您分配了任务<span class=\"notification-bold\"><%- taskText %></span> 。",
     "suggestedGroup": "由于你仍新到Habitica。",
     "groupActivityNotificationTitle": "<%= user %>发布在<%= group %>",
     "blockedToSendToThisUser": "您无法向这名玩家发送消息因为您阻止了这名玩家。",

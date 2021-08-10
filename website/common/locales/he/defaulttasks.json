@@ -1,6 +1,6 @@
 {
     "defaultHabit1Text": "עבודה פורייה (יש ללחוץ על העיפרון כדי לערוך)",
-    "defaultHabit2Text": "אכילת אוכל זבל (יש ללחוץ על העיפרון כדי לערוך)",
+    "defaultHabit2Text": "אכילת זלולת (יש ללחוץ על העיפרון כדי לערוך)",
     "defaultHabit3Text": "שימוש במדרגות/מעלית (יש ללחוץ על העיפרון כדי לערוך)",
     "defaultHabit4Text": "הוספת משימה להביטיקה",
     "defaultHabit4Notes": "היא יכולה להיות הרגל, משימה יומית, או מטלה",
@@ -28,6 +28,14 @@
     "choresHabit": "10 דקות של ניקיון",
     "selfCareTodoText": "השתתפות בפעילות מהנה",
     "schoolDailyText": "סיום שיעורי הבית",
-    "healthHabit": "אכילת אוכל בריא/זבל",
-    "selfCareHabit": "לקיחת הפסקה קצרה"
+    "healthHabit": "אכילת אוכל בריא/זלולת",
+    "selfCareHabit": "לקיחת הפסקה קצרה",
+    "defaultHabitNotes": "או למחוק ממסך העריכה",
+    "selfCareDailyText": "5 דקות של נשימה שקטה",
+    "schoolTodoText": "סיום מטלה לימודית",
+    "schoolHabit": "לימודים/דחיינות",
+    "healthTodoNotes": "יש ללחוץ כדי להוסיף רשימות!",
+    "healthDailyNotes": "יש ללחוץ כדי לעשות שינויים כלשהם!",
+    "exerciseTodoNotes": "יש ללחוץ כדי להוסיף רשימה!",
+    "exerciseTodoText": "קביעת זמני אימון"
 }

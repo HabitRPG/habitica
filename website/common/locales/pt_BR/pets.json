@@ -31,7 +31,7 @@
     "royalPurpleJackalope": "Lebrílope Roxo Real",
     "invisibleAether": "Éter invisível",
     "potion": "Poção <%= potionType %>",
-    "egg": "Ovo <%= eggType %>",
+    "egg": "Ovo de <%= eggType %>",
     "eggs": "Ovos",
     "eggSingular": "ovo",
     "hatchingPotions": "Poções de Eclosão",

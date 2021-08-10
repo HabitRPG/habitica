@@ -132,7 +132,7 @@
     "healerText": "Los Sanadores son inmunes al daño y extienden esa protección a otros. El no cumplir Diarias y los malos Hábitos no les afectan demasiado y tienen maneras de recuperar la Salud tras un fallo. ¡Juega como un Sanador si disfrutas de ayudar a otros en tu grupo o si la idea de engañar a la muerte a través del trabajo duro te inspira!",
     "optOutOfClasses": "No usar",
     "chooseClass": "Elige tu clase",
-    "chooseClassLearnMarkdown": "[Aprende mas sobre el sistema de clases de Habitica](http://habitica.fandom.com/wiki/Class_System)",
+    "chooseClassLearnMarkdown": "[Aprende más sobre el sistema de clases de Habitica](https://habitica.fandom.com/es/wiki/Sistema_de_Clases)",
     "optOutOfClassesText": "No quieres tomarte la molestia de las clases? Quieres elegir luego? No tienes que hacerlo en este momento - serás un guerrero sin habilidades especiales. Puedes leer acerca del sistema de clases más tarde en la wiki y habilitar las clases en cualquier momento en Icono del Usuario > Configuraciones.",
     "selectClass": "Seleccionar <%= heroClass %>",
     "select": "Seleccionar",

@@ -1,7 +1,7 @@
 {
-    "clearCompleted": "ניקוי מטלות שבוצעו",
-    "clearCompletedDescription": "משימות שסיימת ימחקו לאחר 30 ימים ללא מנויים ולאחר 90 ימים למנויים.",
-    "clearCompletedConfirm": "האם אכן ברצונך למחוק את המשימות שסיימת?",
+    "clearCompleted": "מחיקת המשימות שהושלמו",
+    "clearCompletedDescription": "משימות שהושלמו יימחקו לאחר 30 ימים למשתמשים שאינם מנויים ולאחר 90 ימים למשתמשים מנויים.",
+    "clearCompletedConfirm": "למחוק את המשימות שהשלמת?",
     "addMultipleTip": "<strong>עצה:</strong> כדי להוסיף <%= taskType %> מרובות, הפרד אותן בשורות חדשות (Shift + Enter) ולסיום לחץ \"Enter.\"",
     "addATask": "הוספת <%= type %>",
     "editATask": "עריכת <%= type %>",
@@ -52,8 +52,8 @@
     "dueDate": "תאריך לביצוע",
     "remaining": "פעיל",
     "complete": "הושלם",
-    "complete2": "Complete",
-    "today": "Today",
+    "complete2": "הושלמו",
+    "today": "היום",
     "dueIn": "תאריך יעד <%= dueIn %>",
     "due": "פעיל",
     "notDue": "לא פעיל",
@@ -128,5 +128,6 @@
     "yesterDailiesCallToAction": "התחל את היום החדש שלי!",
     "sessionOutdated": "Your session is outdated. Please refresh or sync.",
     "errorTemporaryItem": "This item is temporary and cannot be pinned.",
-    "addATitle": "הוספת כותרת"
+    "addATitle": "הוספת כותרת",
+    "tomorrow": "מחר"
 }

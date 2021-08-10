@@ -2421,5 +2421,9 @@
     "headArmoireRubberDuckyNotes": "Il perfetto compagno per una giornata alla spa! È anche sorprendentemente informato su vari problemi software. Aumenta l'Intelligenza di <%= int %>. Scrigno Incantato: Set delle bolle da bagno (Articolo 1 di 4).",
     "headArmoireRubberDuckyText": "Paperella di gomma",
     "armorArmoireBathtubNotes": "Tempo per un po' di R&R? Ecco qua la tua vasca da bagno personale -- e una garanzia che l'acqua sia sempre la giusta temperatura! Aumenta la Costituzione di <%=con%>. Scrigno Incantato: Set di Bolle da Bagno (Articolo 2 di 4).",
-    "weaponArmoireBuoyantBubblesText": "Bollicine Gallegianti"
+    "weaponArmoireBuoyantBubblesText": "Bollicine Gallegianti",
+    "eyewearMystery202108Text": "Occhi Ardenti",
+    "headMystery202108Text": "Capelli Shounen Ardenti",
+    "eyewearMystery202108Notes": "Fissa i tuoi nemici (o le tue attività più grandi!) e non avranno alcuna possibilità. Non da alcun benefictio. Oggetto per Abbonati Agosto 2021. ",
+    "headMystery202108Notes": "Stai proprio bene! Non da alcun beneficio. Oggetto per Abbonati Agosto 2021. "
 }

@@ -22,5 +22,9 @@
     "healthHabit": "Sağlıklı yiyecek/abur cubur ye",
     "exerciseTodoText": "Egzersiz planını oluştur",
     "exerciseDailyText": "Esneme >> Günlük egzersiz rutini",
-    "exerciseHabit": "10 dakika kardiyo >> + 10 dakika kardiyo"
+    "exerciseHabit": "10 dakika kardiyo >> + 10 dakika kardiyo",
+    "workTodoProject": "İş projesi >> İş projeni tamamla",
+    "workDailyImportantTaskNotes": "Senin için en önemli işi seçmek için dokun",
+    "workDailyImportantTask": "En önemli iş >> Bugünün en önemli işinde çalıştım",
+    "workHabitMail": "E-postayı işle"
 }
