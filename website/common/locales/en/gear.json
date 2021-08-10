@@ -1213,6 +1213,8 @@
   "armorArmoireMedievalLaundryDressNotes": "Put on your apron and roll up your sleeves: it's time to get the laundry done! Increases Constitution by <%= con %>. Enchanted Armoire: Medieval Launderers Set (Item 2 of 6).",
   "armorArmoireBathtubText": "Bathtub",
   "armorArmoireBathtubNotes": "Time for a little R&R? Here's your own personal bathtub -- and a guarantee that the water is always the right temperature! Increases Constitution by <%= con %>. Enchanted Armoire: Bubble Bath Set (Item 2 of 4).",
+  "armorArmoireBagpipersKiltText": "Bagpiper's Kilt",
+  "armorArmoireBagpipersKiltNotes": "A good sturdy kilt will serve you well. Increases Constitution by <%= con %>. Enchanted Armoire: Bagpiper Set (Item 2 of 3).",
 
   "headgear": "helm",
   "headgearCapitalized": "Headgear",
@@ -1884,6 +1886,8 @@
   "headArmoireMedievalLaundryHatNotes": "It's not quite a thinking cap, but for laundry, it will do... Increases Intelligence by <%= int %>. Enchanted Armoire: Medieval Launderers Set (Item 4 of 6).",
   "headArmoireRubberDuckyText": "Rubber Ducky",
   "headArmoireRubberDuckyNotes": "The perfect companion for an indulgent spa day! Also surprisingly knowledgeable about a range of software issues. Increases Intelligence by <%= int %>. Enchanted Armoire: Bubble Bath Set (Item 1 of 4).",
+  "headArmoireGlengarryText": "Glengarry",
+  "headArmoireGlengarryNotes": "A traditional cap full of pride and history. Increases Intelligence by <%= int %>. Enchanted Armoire: Bagpiper Set (Item 1 of 3).",
 
   "offhand": "off-hand item",
   "offhandCapitalized": "Off-Hand Item",
@@ -2236,6 +2240,8 @@
   "shieldArmoireMedievalLaundryNotes": "It's going to be tough to get this clean, but you already know you can do anything. Increases Perception by <%= per %>. Enchanted Armoire: Medieval Launderers Set (Item 6 of 6).",
   "shieldArmoireBouncyBubblesText": "Bouncy Bubbles",
   "shieldArmoireBouncyBubblesNotes": "Complete your relaxing bath with these exuberant bubbles! Increases Strength by <%= str %>. Enchanted Armoire: Bubble Bath Set (Item 4 of 4).",
+  "shieldArmoireBagpipesText": "Bagpipes",
+  "shieldArmoireBagpipesNotes": "The uncharitable might say you're planning to wake the dead with these bagpipes -- but you know you're just motivating your Party to success! Increases Strength by <%= str %>. Enchanted Armoire: Bagpiper Set (Item 3 of 3).",
 
   "back": "Back Accessory",
   "backCapitalized": "Back Accessory",
