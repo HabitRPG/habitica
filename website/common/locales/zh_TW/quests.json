@@ -65,7 +65,7 @@
     "loginIncentiveQuest": "要解鎖這個副本，請持續登入Habitica並簽到<%= count %>天！",
     "loginReward": "登入簽到<%= count %>天",
     "questBundles": "優惠副本套組",
-    "noQuestToStart": "請試著查詢此<a href=\"<%= 副本商店 %>\">副本商店</a> 中的新推出副本！",
+    "noQuestToStart": "請試著查詢此<a href=\"<%= questShop %>\">副本商店</a> 中的新推出副本！",
     "pendingDamage": "<%= damage %>預期傷害",
     "pendingDamageLabel": "預期傷害",
     "bossHealth": "<%= currentHealth %>/<%= maxHealth %>生命值",
@@ -95,7 +95,7 @@
     "questOwner": "副本擁有者",
     "ownerOnly": "擁有者僅有",
     "noQuestToStartTitle": "找不到一個副本去開始？",
-    "membersParticipating": "<%= 已接受 %> / <%= 已邀請 %> 成員們加入中",
+    "membersParticipating": "<%= accepted %> / <%= invited %> 成員們加入中",
     "yourPartyIsNotOnQuest": "您的隊伍尚未加入任何副本",
     "selectQuest": "選取副本",
     "questItemsPending": "<%= amount %>個項目處理中"

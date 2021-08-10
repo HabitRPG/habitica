@@ -189,7 +189,7 @@
     "supportHabitica": "支持Habitica",
     "dropCapLearnMore": "瞭解更多有關Habitica的掉落系統",
     "dropCapExplanation": "您的掉落將會於明日與您的任務一同被重設。然而，當任務完成時您將得持續去賺取黃金，經驗，和副本進展。",
-    "usuallyGems": "通常<%等於原寶石%>",
+    "usuallyGems": "通常<%= originalGems %>",
     "dropCapSubs": "Habitica 訂閱者們可以於每日找到雙倍的隨機項目並且獲得每月的神秘項目！",
     "lookingForMoreItems": "尋找更多的項目嗎？"
 }

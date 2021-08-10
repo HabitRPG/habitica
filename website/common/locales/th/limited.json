@@ -21,8 +21,8 @@
     "gildedTurkey": "Gilded Turkey",
     "polarBearPup": "ลูกหมีขั้วโลก",
     "jackolantern": "Jack-O-Lantern",
-    "ghostJackolantern": "Ghost Jack-O-Lantern",
-    "glowJackolantern": "Glow-in-the-Dark Jack-O-Lantern",
+    "ghostJackolantern": "ฟักทองฮาโลวีนผี",
+    "glowJackolantern": "ฟักทองฮาโลวีนเรืองแสง",
     "seasonalShop": "ร้านค้าตามฤดูกาล",
     "seasonalShopClosedTitle": "<%= linkStart %>Leslie<%= linkEnd %>",
     "seasonalShopTitle": "<%= linkStart %>Seasonal Sorceress<%= linkEnd %>",
@@ -147,5 +147,11 @@
     "winterPromoGiftDetails2": "Please note that if you or your gift recipient already have a recurring subscription, the gifted subscription will only start after that subscription is cancelled or has expired. Thanks so much for your support! <3",
     "discountBundle": "bundle",
     "g1g1Announcement": "<strong>Gift a subscription and get a subscription free</strong> event going on now!",
-    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!"
+    "g1g1Details": "Gift a sub to a friend from their profile and you’ll receive the same sub for free!",
+    "limitations": "ข้อจำกัด",
+    "mayYYYY": "พฤษภาคม <%= year %>",
+    "marchYYYY": "มีนาคม <%= year %>",
+    "decemberYYYY": "ธันวาคม <%= year %>",
+    "septemberYYYY": "กันยายน<%= year %>",
+    "royalPurpleJackolantern": "ฟักทองฮาโลวีนราชวงศ์สีม่วง"
 }

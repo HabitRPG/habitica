@@ -2421,5 +2421,9 @@
     "armorArmoireBathtubNotes": "C'est l'heure pour un peu de relaxation ? Voici votre baignoire personnelle - et la garantie que l'eau est toujours à la bonne température ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de bulles du bain (objet 2 de 4).",
     "armorArmoireBathtubText": "Baignoire",
     "weaponArmoireBuoyantBubblesNotes": "Ces bulles continuent à flotter pour toujours, en quelque sorte... Augmente la perception de <%= per %>. Armoire enchantée : ensemble de bulles du bain (objet 3 de 4).",
-    "weaponArmoireBuoyantBubblesText": "Bulles flottantes"
+    "weaponArmoireBuoyantBubblesText": "Bulles flottantes",
+    "eyewearMystery202108Notes": "Fixez du regard vos ennemis (ou vos plus grosses tâches !) avec ce regard, et ils n'auront aucune chance. Ne confère aucun bonus. Équipement d'abonnement d'août 2021. ",
+    "eyewearMystery202108Text": "Yeux flamboyants",
+    "headMystery202108Notes": "Vous avez l'air en forme, juste pour dire. Ne confère aucun bonus. Équipement d'abonnement d'août 2021. ",
+    "headMystery202108Text": "Chevelure shonen flamboyante"
 }

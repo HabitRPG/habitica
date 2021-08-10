@@ -88,9 +88,9 @@
     "detachSocial": "De-register <%= network %>",
     "detachedSocial": "Successfully removed <%= network %> authentication from your account",
     "addedLocalAuth": "אימות מקומי נוסף בהצלחה",
-    "data": "מידע",
-    "email": "דוא\"ל",
-    "registerWithSocial": "Register with <%= network %>",
+    "data": "נתונים",
+    "email": "דוא״ל",
+    "registerWithSocial": "הרשמה באמצעות <%= network %>",
     "registeredWithSocial": "Registered with <%= network %>",
     "emailNotifications": "הודעות",
     "wonChallenge": "זכית באתגר!",
@@ -177,5 +177,6 @@
     "usernameNotVerified": "Please confirm your username.",
     "changeUsernameDisclaimer": "We will be transitioning login names to unique, public usernames soon. This username will be used for invitations, @mentions in chat, and messaging.",
     "verifyUsernameVeteranPet": "One of these Veteran Pets will be waiting for you after you've finished confirming!",
-    "resetAccount": "איפוס החשבון"
+    "resetAccount": "איפוס החשבון",
+    "newPMNotificationTitle": "הודעה חדשה מאת <%= name %>"
 }
