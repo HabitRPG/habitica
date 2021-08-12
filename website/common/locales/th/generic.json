@@ -2,8 +2,8 @@
     "languageName": "อังกฤษ",
     "stringNotFound": "ไม่พบสตริง '<%= string %>'",
     "habitica": "Habitica",
-    "onward": "Onward!",
-    "done": "Done",
+    "onward": "ไปต่อ!",
+    "done": "เสร็จ",
     "gotIt": "Got it!",
     "titleTimeTravelers": "นักเดินทางข้ามเวลา",
     "titleSeasonalShop": "ร้านค้าตามฤดูกาล",
@@ -51,7 +51,7 @@
     "needMoreGemsInfo": "Purchase Gems now, or become a subscriber to buy Gems with Gold, get monthly mystery items, enjoy increased drop caps and more!",
     "veteran": "Veteran",
     "veteranText": "ได้ผ่านการผจญ Habit (เว็บของเราก่อนจะเปลี่ยนมาใช้ Angular) และมีรอยแผลเป็นมากมายจากการต่อสู้กับบัคทั้งหลายของมัน",
-    "originalUser": "Original User!",
+    "originalUser": "ผู้ใช้เดิม!",
     "originalUserText": "One of the <em>very</em> original early adopters. Talk about alpha tester!",
     "habitBirthday": "Habitica Birthday Bash",
     "habitBirthdayText": "Celebrated the Habitica Birthday Bash!",
@@ -195,5 +195,7 @@
     "letsgo": "Let's Go!",
     "selected": "Selected",
     "howManyToBuy": "How many would you like to buy?",
-    "contactForm": "Contact the Moderation Team"
+    "contactForm": "Contact the Moderation Team",
+    "options": "ตัวเลือก",
+    "finish": "เสร็จสิ้น"
 }

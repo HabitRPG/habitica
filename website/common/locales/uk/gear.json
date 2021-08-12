@@ -1775,5 +1775,6 @@
     "weaponSpecialFall2019MageText": "Одноокий посох",
     "weaponSpecialFall2019WarriorText": "Колючий тризуб",
     "weaponSpecialFall2019RogueNotes": "Незалежно від того, диригуєте ви оркестром або співаєте арію, цей корисний пристрій не дає вам вільних рук для драматичних жестів!  Збільшує силу на <%= str  %>. Обмежена серія 2019 Осіння Шестерня.",
-    "weaponSpecialFall2019RogueText": "Музичний стенд"
+    "weaponSpecialFall2019RogueText": "Музичний стенд",
+    "weaponSpecialWinter2021RogueText": "Холлі ягідний мельник"
 }

@@ -27,5 +27,6 @@
     "hideAchievements": "ซ่อน <%= category %>",
     "showAllAchievements": "แสดงทั้งหมด <%= category %>",
     "onboardingCompleteDescSmall": "ถ้าคุณอยากได้มากกว่านี้ ลองดูรายการความสำเร็จ และเริ่มสะสมได้เลย!",
-    "onboardingComplete": "คุณทำภารกิจปฐมนิเทศสำเร็จแล้ว!"
+    "onboardingComplete": "คุณทำภารกิจปฐมนิเทศสำเร็จแล้ว!",
+    "achievementMonsterMagusModalText": "คุณได้สะสมสัตว์เลี้ยงซอมบี้ทั้งหมด!"
 }
