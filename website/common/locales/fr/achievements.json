@@ -59,7 +59,7 @@
     "showAllAchievements": "Voir tout <%= category %>",
     "onboardingCompleteDesc": "Vous avec mérité <strong>5 accomplissements</strong> et <strong class=\"gold-amount\">100 pièces d'or</strong> pour avoir complété la liste.",
     "earnedAchievement": "Vous avez mérité un accomplissement!",
-    "viewAchievements": "Voir vos accomplissements",
+    "viewAchievements": "Voir vos succès",
     "letsGetStarted": "Commençons !",
     "onboardingProgress": "<%= percentage %>% de progression",
     "gettingStartedDesc": "Complétez ces tâches de démarrage et vous gagnerez <strong>5 succès</strong> et <strong class=\"gold-amount\">100 pièces d'or</strong> quand vous aurez fini !",

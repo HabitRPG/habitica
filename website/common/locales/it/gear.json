@@ -2425,5 +2425,11 @@
     "eyewearMystery202108Text": "Occhi Ardenti",
     "headMystery202108Text": "Capelli Shounen Ardenti",
     "eyewearMystery202108Notes": "Fissa i tuoi nemici (o le tue attività più grandi!) e non avranno alcuna possibilità. Non da alcun benefictio. Oggetto per Abbonati Agosto 2021. ",
-    "headMystery202108Notes": "Stai proprio bene! Non da alcun beneficio. Oggetto per Abbonati Agosto 2021. "
+    "headMystery202108Notes": "Stai proprio bene! Non da alcun beneficio. Oggetto per Abbonati Agosto 2021. ",
+    "shieldArmoireBagpipesNotes": "I rudi potrebbero dire che vuoi risvegliare i morti con questa cornamusa, ma tu lo sai che stai solo motivando la tua squadra al successo! Aumenta la Forza di <%= str %>. Scrigno Incantato: Set del Suonatore di Cornamusa (Oggetto 3 di 3).",
+    "shieldArmoireBagpipesText": "Cornamusa",
+    "headArmoireGlengarryNotes": "Un copricapo tradizionale colpo di orgoglio e storia. Aumenta l'Intelligenza di <%= int %>. Scrigno Incantato: Set del Suonatore di Cornamusa (Oggetto 1 di 3).",
+    "headArmoireGlengarryText": "Berretto scozzese",
+    "armorArmoireBagpipersKiltNotes": "Un buon kilt resistente che ti servirà bene. Aumenta la Costituzione di <%= con %>. Scrigo Incantato: Set del Suonatore di Cornamusa (Oggetto 2 di 3).",
+    "armorArmoireBagpipersKiltText": "Kilt del Suonatore di Cornamusa"
 }
