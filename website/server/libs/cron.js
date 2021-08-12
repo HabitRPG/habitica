@@ -432,6 +432,8 @@ export function cron (options = {}) {
       task.history.push({
         date: Number(new Date()),
         value: task.value,
+        isDue: task.isDue,
+        completed: false,
       });
     }
 
