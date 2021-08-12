@@ -2425,5 +2425,11 @@
     "eyewearMystery202108Notes": "Fixez du regard vos ennemis (ou vos plus grosses tâches !) avec ce regard, et ils n'auront aucune chance. Ne confère aucun bonus. Équipement d'abonnement d'août 2021. ",
     "eyewearMystery202108Text": "Yeux flamboyants",
     "headMystery202108Notes": "Vous avez l'air en forme, juste pour dire. Ne confère aucun bonus. Équipement d'abonnement d'août 2021. ",
-    "headMystery202108Text": "Chevelure shonen flamboyante"
+    "headMystery202108Text": "Chevelure shonen flamboyante",
+    "shieldArmoireBagpipesNotes": "Les personnes peu charitables pourraient dire que vous avez l'intention de réveiller les morts avec cette cornemuse - mais vous savez que vous ne faites que motiver votre équipe vers le succès ! Augmente la force de <%= str %>. Armoire enchantée : ensemble de cornemuse (objet 3 de 3).",
+    "shieldArmoireBagpipesText": "Cornemuse",
+    "armorArmoireBagpipersKiltNotes": "Un bon kilt solide vous servira bien. Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de cornemuse (objet 2 de 3).",
+    "headArmoireGlengarryNotes": "Un calot traditionnel plein de fierté et d'histoire. Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble de cornemuse (objet 1 de 3).",
+    "headArmoireGlengarryText": "Glengarry",
+    "armorArmoireBagpipersKiltText": "Kilt de cornemuse"
 }
