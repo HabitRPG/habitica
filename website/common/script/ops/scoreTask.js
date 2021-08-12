@@ -308,6 +308,8 @@ export default function scoreTask (options = {}, req = {}, analytics) {
         const historyEntry = {
           date: Number(new Date()),
           value: task.value,
+          isDue: task.isDue,
+          completed: true,
         };
         task.history.push(historyEntry);
       } else if (direction === 'down') {

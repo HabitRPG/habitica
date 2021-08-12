@@ -98,5 +98,5 @@
     "yourPartyIsNotOnQuest": "你的队伍尚未加入副本",
     "selectQuest": "选择副本",
     "sureLeaveInactive": "你确定要离开副本吗？你将不能再次加入该副本。",
-    "questItemsPending": "<%= amount %> 个待处理项目"
+    "questItemsPending": "<%= amount %> 个待收集物品"
 }

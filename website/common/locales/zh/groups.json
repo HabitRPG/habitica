@@ -1,7 +1,7 @@
 {
     "tavern": "在酒馆里闲谈",
     "tavernChat": "酒馆",
-    "innCheckOutBanner": "您目前已入住客栈。你的每日任务不会对你造成伤害，你也不会在副本中取得进度。",
+    "innCheckOutBanner": "你已入住酒馆。未完成的每日任务不会对你造成伤害，但已完成的任务也不会帮你在副本中取得进展。",
     "innCheckOutBannerShort": "你现在入住了酒馆。",
     "resumeDamage": "继续伤害",
     "helpfulLinks": "有帮助的链接",
@@ -342,7 +342,7 @@
     "allAssignedCompletion": "全体成员 - 所有成员都完成时才能完成",
     "pmReported": "感谢您的举报。",
     "taskClaimed": "<%- userName %>已经领取了任务<span class=\"notification-bold\"><%- taskText %></span>。",
-    "youHaveBeenAssignedTask": "<％- managerName％>为您分配了任务<％- taskText％> 。",
+    "youHaveBeenAssignedTask": "<%- managerName %>为您分配了任务<span class=\"notification-bold\"><%- taskText %></span> 。",
     "suggestedGroup": "由于你仍新到Habitica。",
     "groupActivityNotificationTitle": "<%= user %>发布在<%= group %>",
     "blockedToSendToThisUser": "您无法向这名玩家发送消息因为您阻止了这名玩家。",

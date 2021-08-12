@@ -87,7 +87,7 @@
     "questEggCuttlefishMountText": "דיונון",
     "questEggCuttlefishAdjective": "מתחבק",
     "questEggWhaleText": "לוויתן",
-    "questEggWhaleMountText": "לווייתן",
+    "questEggWhaleMountText": "לוויתן",
     "questEggWhaleAdjective": "משפריץ",
     "questEggCheetahText": "צ׳יטה",
     "questEggCheetahMountText": "צ׳יטה",
@@ -317,5 +317,11 @@
     "foodPieBaseA": "",
     "foodPieCottonCandyBlue": "",
     "foodPieCottonCandyBlueThe": "",
-    "foodPieCottonCandyBlueA": ""
+    "foodPieCottonCandyBlueA": "",
+    "foodPieShade": "פאי שוקולד מריר",
+    "foodPieShadeThe": "פאי השוקולד המריר",
+    "foodPieWhiteThe": "פאי פודינג הווניל",
+    "foodPieWhite": "פאי פודינג וניל",
+    "foodPieZombieThe": "הפאי הרקוב",
+    "foodPieZombie": "פאי רקוב"
 }

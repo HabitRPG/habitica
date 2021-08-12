@@ -2411,5 +2411,19 @@
     "weaponSpecialSummer2021RogueNotes": "近づいてくる捕食型のモンスターはあなたを守る友達に痛い目にあわされるでしょう。力が<%= str %>上がります。2021年夏の限定装備。",
     "weaponSpecialSummer2021RogueText": "イソギンチャクの触手",
     "headMystery202107Notes": "夏をエンジョイするのにパーフェクト。だけでなく、力強い敵でも友でもある太陽から守ってくれます。効果なし。2021年7月の有料会員アイテム。",
-    "headMystery202107Text": "大いなるサンハット"
+    "headMystery202107Text": "大いなるサンハット",
+    "bodyMystery202107Notes": "この仲間は信用できるヤツで、あなたを決して沈ませず、ウキウキさせます。効果なし。2021年7月の有料会員アイテム。",
+    "bodyMystery202107Text": "ぷかぷかフラミンゴ",
+    "armorArmoireBathtubNotes": "ちょっと気分転換しましょうか？あなた専用で、お湯の温度が変わらない魔法のバスタブです！体質が<%= con %>上がります。ラッキー宝箱：バブルバスセット（4個中2個目のアイテム）。",
+    "armorArmoireBathtubText": "バスタブ",
+    "weaponArmoireBuoyantBubblesNotes": "これらの泡はずっと浮かんでいます。どういうわけか……知覚が<%= per %>上がります。ラッキー宝箱：バブルバスセット（4個中3個目のアイテム）。",
+    "weaponArmoireBuoyantBubblesText": "ふわふわ泡",
+    "headArmoireRubberDuckyNotes": "ごほうびスパにぴったりの相棒です。驚くことに、ソフトウェア開発の知識もあるみたいです。（訳注：プログラマが生み出した「ラバーダッキング法」という問題解決方法がある）知能が<%= int %>上がります。ラッキー宝箱：バブルバスセット（4個中1個目のアイテム）。",
+    "headArmoireRubberDuckyText": "アヒルちゃん",
+    "shieldArmoireBouncyBubblesText": "ぷかぷか泡",
+    "shieldArmoireBouncyBubblesNotes": "このあふれんばかりの泡であなたのリラックスバスタイムを完成させましょう！力が<%= str %>上がります。ラッキー宝箱：バブルバスセット（4個中4個目のアイテム）。",
+    "eyewearMystery202108Notes": "この目で敵を真っ直ぐ見つけましょう（もしくはやっかいなタスクを！）。とても向かっては来られません。効果なし。2021年8月の有料会員アイテム。 ",
+    "eyewearMystery202108Text": "燃える瞳",
+    "headMystery202108Notes": "少年漫画の主人公のよう！見た目だけ。効果なし。2021年8月の有料会員アイテム。 ",
+    "headMystery202108Text": "燃える少年漫画ヘアー"
 }

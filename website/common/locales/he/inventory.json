@@ -1,8 +1,10 @@
 {
-  "noItemsAvailableForType": "אין לך <%= type %>",
-  "foodItemType": "אוכל",
-  "eggsItemType": "ביצים",
-  "hatchingPotionsItemType": "שיקויי בקיעה",
-  "specialItemType": "Special items",
-  "lockedItem": "Locked Item"
+    "noItemsAvailableForType": "אין לך <%= type %>",
+    "foodItemType": "אוכל",
+    "eggsItemType": "ביצים",
+    "hatchingPotionsItemType": "שיקוי בקיעה",
+    "specialItemType": "פריטים מיוחדים",
+    "lockedItem": "פריט נעול",
+    "allItems": "כל הפריטים",
+    "petAndMount": "חיית מחמד וחיית רכיבה"
 }

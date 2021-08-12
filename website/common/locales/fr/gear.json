@@ -2413,5 +2413,17 @@
     "weaponSpecialSummer2021WarriorNotes": "Cette lame chatoyante peut couler comme de l'eau, mais elle peut couper au cœur des problèmes les plus délicats ! Augmente la force de <%= str %>. Équipement en édition limitée de l'été 2021.",
     "weaponSpecialSummer2021WarriorText": "Lame aqueuse",
     "weaponSpecialSummer2021RogueNotes": "Tout monstre prédateur qui ose s'approcher sentira la piqûre de vos compagnons protecteurs ! augmente la force de <%= str %>. Équipement en édition limitée de l'été 2021.",
-    "weaponSpecialSummer2021RogueText": "Tentacules d'anémone"
+    "weaponSpecialSummer2021RogueText": "Tentacules d'anémone",
+    "shieldArmoireBouncyBubblesNotes": "Terminez votre bain relaxant avec ces bulles exubérantes ! Augmente la force de <%= str %>. Armoire enchantée : ensemble de bulles du bain (objet 4 de 4).",
+    "shieldArmoireBouncyBubblesText": "Bulles rebondissantes",
+    "headArmoireRubberDuckyNotes": "Le compagnon parfait pour une journée de repos au spa ! Également très calé sur tout un tas de problèmes informatiques. Augmente l'intelligence de <%= int %>. Armoire enchantée : ensemble de bulles du bain (objet 1 de 4).",
+    "headArmoireRubberDuckyText": "Canard en plastique",
+    "armorArmoireBathtubNotes": "C'est l'heure pour un peu de relaxation ? Voici votre baignoire personnelle - et la garantie que l'eau est toujours à la bonne température ! Augmente la constitution de <%= con %>. Armoire enchantée : ensemble de bulles du bain (objet 2 de 4).",
+    "armorArmoireBathtubText": "Baignoire",
+    "weaponArmoireBuoyantBubblesNotes": "Ces bulles continuent à flotter pour toujours, en quelque sorte... Augmente la perception de <%= per %>. Armoire enchantée : ensemble de bulles du bain (objet 3 de 4).",
+    "weaponArmoireBuoyantBubblesText": "Bulles flottantes",
+    "eyewearMystery202108Notes": "Fixez du regard vos ennemis (ou vos plus grosses tâches !) avec ce regard, et ils n'auront aucune chance. Ne confère aucun bonus. Équipement d'abonnement d'août 2021. ",
+    "eyewearMystery202108Text": "Yeux flamboyants",
+    "headMystery202108Notes": "Vous avez l'air en forme, juste pour dire. Ne confère aucun bonus. Équipement d'abonnement d'août 2021. ",
+    "headMystery202108Text": "Chevelure shonen flamboyante"
 }
