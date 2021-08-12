@@ -1,18 +1,8 @@
 export default [
   {
-    name: 'Lemoness',
-    type: 'Staff',
-    uuid: '7bde7864-ebc5-4ee2-a4b7-1070d464cdb0',
-  },
-  {
     name: 'redphoenix',
     type: 'Staff',
     uuid: 'cb46ad54-8c78-4dbc-a8ed-4e3185b2b3ff',
-  },
-  {
-    name: 'paglias',
-    type: 'Staff',
-    uuid: 'ed4c688c-6652-4a92-9d03-a5a79844174a',
   },
   {
     name: 'SabreCat',
@@ -40,34 +30,14 @@ export default [
     uuid: '61b2c855-0a30-444c-bcc6-1cac876460b0',
   },
   {
-    name: 'It\'s Bailey',
-    type: 'Moderator',
-    uuid: '9da65443-ed43-4c21-804f-d260c1361596',
-  },
-  {
     name: 'Alys',
     type: 'Moderator',
     uuid: 'd904bd62-da08-416b-a816-ba797c9ee265',
   },
   {
-    name: 'Blade',
-    type: 'Moderator',
-    uuid: '75f270e8-c5db-4722-a5e6-a83f1b23f76b',
-  },
-  {
-    name: 'Breadstrings',
-    type: 'Moderator',
-    uuid: '3b675c0e-d7a6-440c-8687-bc67cd0bf4e9',
-  },
-  {
     name: 'Cantras',
     type: 'Moderator',
     uuid: '28771972-ca6d-4c03-8261-e1734aa7d21d',
-  },
-  {
-    name: 'deilann 5.0.5b',
-    type: 'Moderator',
-    uuid: 'e7b5d1e2-3b6e-4192-b867-8bafdb03eeec',
   },
   {
     name: 'Dewines',
@@ -80,9 +50,14 @@ export default [
     uuid: 'a05f0152-d66b-4ef1-93ac-4adb195d0031',
   },
   {
-    name: 'Megan',
+    name: 'MaybeSteveRogers',
     type: 'Moderator',
-    uuid: '73e5125c-2c87-4004-8ccd-972aeac4f17a',
+    uuid: '767e5d92-0e13-4e30-acb1-d8bba62824fc',
+  },
+  {
+    name: 'Nakonana',
+    type: 'Moderator',
+    uuid: '33bb14bd-814d-40cb-98a4-7b76a752761c',
   },
   {
     name: 'shanaqui',
