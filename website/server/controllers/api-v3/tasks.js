@@ -966,9 +966,9 @@ api.scoreCheckListItem = {
     if (validationErrors) throw validationErrors;
 
     const { taskId } = req.params;
-    const task = await Tasks.Task.findByIdOrAlias(taskId, user._id, { userId: user._id });
+    const task = await Tasks.Task.findById(taskId);
 
-    if (!task) throw new NotFound(res.t('messageTaskNotFound'));
+    if (!task || (!task.id && !task.group.id)) throw new NotFound(res.t('taskNotFound'));
     if (task.type !== 'daily' && task.type !== 'todo') throw new BadRequest(res.t('checklistOnlyDailyTodo'));
 
     const item = _.find(task.checklist, { id: req.params.itemId });

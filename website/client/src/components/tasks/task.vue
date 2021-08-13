@@ -209,7 +209,7 @@
               v-if="!task.collapseChecklist"
               :key="item.id"
               class="custom-control custom-checkbox checklist-item"
-              :class="{'checklist-item-done': item.completed, 'cursor-auto': !isUser}"
+              :class="{'checklist-item-done': item.completed, 'cursor-auto': showTaskLockIcon}"
             >
               <!-- eslint-enable vue/no-use-v-if-with-v-for -->
               <input
@@ -218,7 +218,7 @@
                 tabindex="0"
                 type="checkbox"
                 :checked="item.completed"
-                :disabled="castingSpell || !isUser"
+                :disabled="castingSpell || showTaskLockIcon"
                 @change="toggleChecklistItem(item)"
                 @keypress.enter="toggleChecklistItem(item)"
               >
