@@ -139,6 +139,10 @@ export default {
         notifications: notifications.length,
       });
 
+      // if the timer is already running, stop it
+      // otherwise a newly added notification might just disappear faster
+      this.stopNotificationsRemovalTimer();
+
       const fillingPromise = this.triggerFillUntilFull();
 
       this.triggerRemovalTimerIfAllowed();
@@ -278,12 +282,22 @@ export default {
         }
 
         if (nonErrorNotifications.length === 0) {
-          this.debug('clear removal interval');
-          clearInterval(this.removalIntervalId);
-          this.removalIntervalId = null;
+          this.stopNotificationsRemovalTimer();
+
           this.updateAllowedToFillAgain();
         }
       }, removalInterval);
+    },
+
+    stopNotificationsRemovalTimer () {
+      if (this.removalIntervalId == null) {
+        // current interval still running - wait until its done
+        return;
+      }
+
+      this.debug('clear removal interval');
+      clearInterval(this.removalIntervalId);
+      this.removalIntervalId = null;
     },
 
     updateAllowedToFillAgain () {
