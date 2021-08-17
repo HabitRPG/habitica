@@ -1,11 +1,11 @@
 {
     "questEvilSantaText": "Санта-Звіролов",
-    "questEvilSantaNotes": "You hear agonized roars deep in the icefields. You follow the growls - punctuated by the sound of cackling - to a clearing in the woods, where you see a fully-grown polar bear. She's caged and shackled, fighting for her life. Dancing atop the cage is a malicious little imp wearing a castaway costume. Vanquish Trapper Santa, and save the beast!",
+    "questEvilSantaNotes": "Ви чуєте агонізований рев глибоко в крижаних полях. Ви слідуєте за гарчанням, перерваним гудінням, - до галявини в лісі, де ви бачите повністю дорослого білого ведмедя. Він перебуває в клітках і в кайданах, бореться за своє життя. Танцює на верхній частині клітини злісний маленький чорт, одягнений у порваний костюм. Переможіть Санта-звіролова та рятуйте звіра! <br> <br> <strong> Примітка </strong>: „Санта-звіролов” нагороджує досягнення, яке можна скласти, але дає рідкісне кріплення, яке можна додати до вашої стайні лише один раз.",
     "questEvilSantaCompletion": "Trapper Santa squeals in anger, and bounces off into the night. The grateful she-bear, through roars and growls, tries to tell you something. You take her back to the stables, where Matt Boch the Beast Master listens to her tale with a gasp of horror. She has a cub! He ran off into the icefields when mama bear was captured.",
     "questEvilSantaBoss": "Санта Звіролов",
     "questEvilSantaDropBearCubPolarMount": "Білий ведмідь (скакун)",
     "questEvilSanta2Text": "Знайти дитинча",
-    "questEvilSanta2Notes": "When Trapper Santa captured the polar bear mount, her cub ran off into the icefields. You hear twig-snaps and snow crunch through the crystalline sound of the forest. Paw prints! You start racing to follow the trail. Find all the prints and broken twigs, and retrieve the cub!",
+    "questEvilSanta2Notes": "Коли Санта-звіролов захопив гори білого ведмедя, її дитинча втекло на крижані поля.  Ви чуєте, як клацають гілочки та хрустить сніг крізь кристалічний звук лісу.  Відбитки лап!  Ви починаєте мчати, щоб слідувати стежкою.  Знайдіть усі відбитки та зламані гілочки та дістаньте дитинча! <br> <br> <strong> Примітка </strong>: \"Знайти дитинча\" нагороджує досягнення, яке можна скласти, але дає рідкісного вихованця, якого можна додати лише до  стабільно один раз.",
     "questEvilSanta2Completion": "You've found the cub! It will keep you company forever.",
     "questEvilSanta2CollectTracks": "Сліди",
     "questEvilSanta2CollectBranches": "Зламані гілочки",

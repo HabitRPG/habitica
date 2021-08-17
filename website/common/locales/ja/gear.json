@@ -2425,5 +2425,11 @@
     "eyewearMystery202108Notes": "この目で敵を真っ直ぐ見つけましょう（もしくはやっかいなタスクを！）。とても向かっては来られません。効果なし。2021年8月の有料会員アイテム。 ",
     "eyewearMystery202108Text": "燃える瞳",
     "headMystery202108Notes": "少年漫画の主人公のよう！見た目だけ。効果なし。2021年8月の有料会員アイテム。 ",
-    "headMystery202108Text": "燃える少年漫画ヘアー"
+    "headMystery202108Text": "燃える少年漫画ヘアー",
+    "shieldArmoireBagpipesNotes": "皮肉屋はこのバグパイプで騒音を出すつもりかと聞いてくるでしょう――でも、あなたはパーティーを成功に導くために吹くつもりですものね？力が<%= str %>上がります。ラッキー宝箱：バグパイプ吹きセット（3個中1個目のアイテム）。",
+    "shieldArmoireBagpipesText": "バグパイプ",
+    "headArmoireGlengarryNotes": "歴史と誇りが詰まった伝統的な帽子です。知能が<%= int %>上がります。ラッキー宝箱：バグパイプ吹きセット（3個中1個目のアイテム）。",
+    "headArmoireGlengarryText": "グレンガリー帽",
+    "armorArmoireBagpipersKiltNotes": "頑丈で良いキルトで、喜びに包まれるでしょう。体質が<%= con %>上がります。ラッキー宝箱：バグパイプ吹きセット（3個中2個目のアイテム）。",
+    "armorArmoireBagpipersKiltText": "バグパイプ吹きのキルト"
 }
